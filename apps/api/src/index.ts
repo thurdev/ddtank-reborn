@@ -1,3 +1,4 @@
+import "./tz.js";
 import { buildApp } from "./app.js";
 
 const { app, ctx } = await buildApp();

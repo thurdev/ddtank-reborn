@@ -5,7 +5,7 @@ import { spawn, execSync } from "node:child_process";
 import net from "node:net";
 
 const DATABASE_URL = process.env.DATABASE_URL ?? "postgres://postgres:postgres@127.0.0.1:5432/ddtank";
-const env = { ...process.env, DATABASE_URL };
+const env = { ...process.env, DATABASE_URL, TZ: "UTC" };
 const children = [];
 const colors = { db: 90, api: 36, game: 33, web: 35, admin: 32 };
 

@@ -61,6 +61,8 @@ async function createPostgres(url: string, opts: CreateDbOptions): Promise<DbHan
     // Neon's pooler (PgBouncer, transaction mode) — named prepared statements are not portable across backends.
     prepare: !host.includes("-pooler"),
     onnotice: () => {},
+    // Session time zone UTC (timestamp WITHOUT time zone columns; servers also run with TZ=UTC).
+    connection: { TimeZone: "UTC" },
   });
   const db = drizzle(client, { logger: opts.logger }) as unknown as Database;
   // drizzle's postgres-js driver replaces the date/time serializers with pass-through functions, so a JS Date bound
