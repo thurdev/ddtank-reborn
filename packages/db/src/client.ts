@@ -63,6 +63,13 @@ async function createPostgres(url: string, opts: CreateDbOptions): Promise<DbHan
     onnotice: () => {},
   });
   const db = drizzle(client, { logger: opts.logger }) as unknown as Database;
+  // drizzle's postgres-js driver replaces the date/time serializers with pass-through functions, so a JS Date bound
+  // in a raw sql`` template reaches postgres.js unserialized and throws. PGlite accepts Dates, so restore it here.
+  const serializers = (client as unknown as { options: { serializers: Record<number, (v: unknown) => unknown> } }).options.serializers;
+  for (const oid of [1082, 1083, 1114, 1184]) {
+    const prev = serializers[oid];
+    serializers[oid] = (v: unknown) => (v instanceof Date ? v.toISOString() : prev ? prev(v) : v);
+  }
   return {
     db,
     kind: "postgres",

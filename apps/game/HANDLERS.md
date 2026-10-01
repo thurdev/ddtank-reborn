@@ -29,7 +29,7 @@ Run: `pnpm --filter game dev` (tsx watch, reads `apps/game/.env`, see `.env.exam
 | 70 | GAME_INVITE | implemented | |
 | 71 / 72 | S_BUGLE / B_BUGLE | implemented | item consumed, 2 s cooldown; fixed: no free big bugle without an item. |
 | 74 | ITEM_EQUIP | implemented | online or DB; gem souls list empty; VIP/hidden-account checks dropped. |
-| 91 | GAME_CMD | partial | forwarded to `FightGame.processData`; stub engine ignores (no combat yet). Sub 98 fake reply without game. |
+| 91 | GAME_CMD | implemented (PvP) | `src/fight/ddt.ts` = @ddt/fight adapter: parses subs 2/7/9/12/15/16/17/32/40/54/84/96/143, serializes every engine event; rewards (GP/offer/money/gift, Win/Total) applied at GAME_OVER; VirtualPlayer seats played by `BotRunner`. Sub 98 fake reply without game. `FIGHT_ENGINE=stub` restores the stub. |
 | 94 | GAME_ROOM | partial | subs 0 create, 1 login (password, full, quick-join), 2 setup (no PvE price/labyrinth), 3 kick, 5 leave, 6 team, 7 start (Freedom -> fight; Match -> auto-match queue; PvE -> "noBattleServe"), 9 list, 10 place open/close (host), 11 pickup cancel, 12 pickup style, 15 ready. World-boss/dungeon specifics, captcha, viewer seat switching missing. |
 | 86 | (host start shortcut) | implemented | |
 | 127 | REClAIM_GOODS | implemented | removes whole stack (original), rejects count <= 0. |
@@ -39,9 +39,7 @@ Run: `pnpm --filter game dev` (tsx watch, reads `apps/game/.env`, see `.env.exam
 | 300 | speed heartbeat | implemented | < 5 min − 15 s -> 20 min ban; no heartbeat 90 min -> 1 h ban (autosave watchdog). Thresholds configurable. |
 | 24, 30, 35, 42, 64, 161, 206, 213, 245, 279 | obsolete no-ops | stub | no-ops in the original too. |
 
-Fight boundary: `src/fight/types.ts` (`FightEngine.startPvp` / `FightGame`). Current engine: `StubFightEngine` —
-sends 91/101 GAME_CREATE + 91/103 GAME_LOAD (BaseGame.cs:2037/2916) so a 1v1 reaches battle loading. Swap in
-`@ddt/fight` by passing `fight` to `new GameServer(cfg, { fight })`. Bots: `src/bots/bot.ts` (`VirtualPlayer` takes a
+Fight boundary: `src/fight/types.ts` (`FightEngine.startPvp` / `FightGame`). Default engine: `DdtFightEngine` (`src/fight/ddt.ts`, tests `test/fight.test.ts`: 1v1 PvP and 1v1 vs bot played to GAME_OVER); `StubFightEngine` with `FIGHT_ENGINE=stub`; or pass `fight` to `new GameServer(cfg, { fight })`. Bots: `src/bots/bot.ts` (`VirtualPlayer` takes a
 room seat; `BotProvider` fills auto-match after 30 s when provided).
 
 ## Missing (to be filled by other agents)

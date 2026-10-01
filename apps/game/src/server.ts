@@ -18,6 +18,7 @@ import { World, type ServerContext, type TicketValidator } from "./session/conte
 import { dbTicketValidator, quitPlayer } from "./session/login.js";
 import { RoomMgr } from "./rooms/room-mgr.js";
 import { StubFightEngine } from "./fight/stub.js";
+import { DdtFightEngine } from "./fight/ddt.js";
 import type { FightEngine } from "./fight/types.js";
 import type { BotProvider } from "./bots/bot.js";
 import { startPolicy, startTcp, startWs, type ConnectionGate } from "./net/transports.js";
@@ -73,7 +74,12 @@ export class GameServer {
     const templates = await new Templates().load(db.db, cfg.SERVER_ID);
     log.info(`templates: ${templates.items.size} items, ${templates.shop.size} shop goods, ${templates.maps.size} maps`);
     const lang = LanguageMgr.fromFile(cfg.LANGUAGE_FILE);
-    const fight = this.opts.fight ?? new StubFightEngine((m) => templates.pickMap(m, cfg.SERVER_ID), (m) => log.debug(m));
+    const pickMap = (m: number) => templates.pickMap(m, cfg.SERVER_ID);
+    const fight =
+      this.opts.fight ??
+      (process.env.FIGHT_ENGINE === "stub"
+        ? new StubFightEngine(pickMap, (m) => log.debug(m))
+        : new DdtFightEngine({ pickMap, log: (m) => log.warn(m) }));
     const zoneId = templates.server?.ZoneId ?? 1;
     const zoneName = templates.server?.ZoneName ?? cfg.SERVER_NAME ?? "DDTank";
     const rooms = new RoomMgr({ maxRooms: templates.server?.Room ?? cfg.MAX_ROOMS, fight, lang: (k, ...a) => lang.t(k, ...a), bots: this.opts.bots });

@@ -8,3 +8,4 @@ vendor/
 .turbo/
 coverage/
 packages/protocol/csharp-oracle/original/
+.playwright-mcp/
