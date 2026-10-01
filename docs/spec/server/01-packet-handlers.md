@@ -56,7 +56,7 @@ Machine-generated companions (re-run the scripts in `tools/`, see `tools/README`
 | 8 | CLIENT_LOG | ClientErrorLog | str text | Logged to FlashErrorLogger only. | — | — |
 | 172 | SAVE_DB | SaveToDB | — | `Player.SaveIntoDatabase()` (client-triggerable full save; throttle in port). | all inventories | — |
 | 200 | CHECK_CODE | CheckCodeHandler | str code | Captcha answer. Only if a code was issued. `"cheat"` → disconnect. Correct → CheckCount=0, CheckCode="baodeptrai" (sentinel), `resetPassCode`; wrong → CheckError++ and re-show (≥9 → disconnect). | — | 200 {byte 1, bool false} (reuses packet) |
-| 300 | BAOLTFUNCTION (custom) | baoltfunction | int sub | Anti speed-hack heartbeat sent every 5 min by this client's `CheckSpeedManager.as`. sub 0: if `< 5min−15s` since last → ban 20 min (`ManageBussiness.ForbidPlayerByUserID`), world notice, disconnect; else store time, reply. **Also enforced in `SaveIntoDatabase`: no heartbeat for 90 min → 1 h ban** (GamePlayer.cs:4491). | `SP_Admin_Forbid…` (ForbidPlayerByUserID) | 300 {int 0} |
+| 300 | BAOLTFUNCTION (custom) | baoltfunction | int sub | Anti speed-hack heartbeat sent every 5 min by this client's `CheckSpeedManager.as`. sub 0: if `< 5min−15s` since last → ban 20 min (`ManageBussiness.ForbidPlayerByUserID`), world notice, disconnect; else store time, reply. **Also enforced in `SaveIntoDatabase`: no heartbeat for 90 min → 1 h ban** (GamePlayer.cs:4491). | ManageBussiness.ForbidPlayerByUserID | 300 {int 0} |
 | 225 | ENTHRALL_SWITCH / REQUEST_UPDATE | ForSwitchHandler | — | Echo. | — | 225 {} |
 | 141 *(no attribute)* | — | AASInfoSetHandle | bool cancel, [str name, str idNumber] | **Not registered (no attribute) → dead.** Chinese anti-addiction ID check; would `PlayerBussiness.AddAASInfo` and award item 11019. | SP_ASSInfo_Add | — |
 | 35 | AC_ACTION | ACActionHandler | — | Obsolete no-op. | | |
@@ -92,7 +92,7 @@ Machine-generated companions (re-run the scripts in `tools/`, see `tools/README`
 | 85 | MATE_ONLINE_TIME | MateTimeHandler | int userId | Spouse last online time. | GetUserSingleByUserID | 85 {date LastDate or now} |
 | 203 | LOOKUP_EFFORT | LookupEffortHandler | int userId | Achievements of a player (from DB). Bug: not-found path never sends. | GetUserAchievement, GetUserSingleByUserID | 203 (clientId=userId) {int achievementPoint, int n, n×int achId} |
 | 218 | USER_GET_GIFTS | UserGetGiftHandler | int userId | Charm gifts received. | GetAllUserReceivedGifts, GetUserSingleByUserID | `SendGetUserGift(info, gifts)` |
-| 221 | USER_SEND_GIFTS | UserSendGiftHandler | str nick, int shopId, int count (1..9999), int | Send charm gift: cost shop `AValue1×count` Money; `AddUserGift`, receiver `charmGP += Property2×count` (`UpdateUserCharmGP`), mail type 55; online receiver gets public-info update. | SP_Users_Gift_Add, SP_UpdateUserCharmGP, SP_Mail_Send | 221 {bool true} |
+| 221 | USER_SEND_GIFTS | UserSendGiftHandler | str nick, int shopId, int count (1..9999), int | Send charm gift: cost shop `AValue1×count` Money; `AddUserGift`, receiver `charmGP += Property2×count` (`UpdateUserCharmGP`), mail type 55; online receiver gets public-info update. | SP_Users_Gift_Add, SP_Users_UpdateCharmGP, SP_Mail_Send | 221 {bool true} |
 | 57 | GOODS_PRESENT | UserPresentGoodsHandler | str, str, int | Disabled ("feature locked" msg). | | msg |
 | 189 | USER_CHANGE_RANK | ReworkRankHandler | str honor | `UpdateHonor(text)` — sets displayed title string, **no ownership check**. | | public info |
 | 34 | USER_RANK | ChangeDesignationHandler | bool showConsortia | `IsShowConsortia` flag. | | |
@@ -124,7 +124,7 @@ Bag ids (`eBageType`, SqlDataProvider/eBageType.cs): 0 EquipBag (slots 0–30 eq
 | 171 | USE_REWORK_NAME | UseReworkNameHandler | byte bag, int place, str newNick | Rename card (`EquipType.CHANGE_NAME_CARD`); rejects `%!@#$^&*()?/>.<,:;'\|}]{[_~\`+=-"`. `RenameNick(user, old, new)` queues rename (applied by daily `Sp_Renames_Batch`). NRE if slot empty. | msg |
 | 188 | USE_CONSORTIA_REWORK_NAME | UseConsortiaReworkNameHandler | int cid, byte bag, int place, str newName | Guild rename card (`CONSORTIA_CHANGE_NAME_CARD`), chairman only, no name validation. `RenameConsortia`. | msg |
 | 66 | PROP_USE | PropUseHandler | int bag, int place, int n, n×int templateId, int payType, bool | Special props: 201316 chick-activation key (activates `UserChickActiveInfo`), 11963 random 1..999 GiftToken. | msg |
-| 183 | CARD_USE | CardUseHandler | int bag, int place (−1 = quick-buy from shop), int n, n×int shopIds, int, bool ignoreBagLock | Use buff/VIP cards. Property1 23 = VIP card → `SetTypeVIP`, `VIPRenewal`, `OpenVIP/ContinuousVIP`, `SendOpenVIP`; Property1 21 = GP pill → `AddGP(P2×count)` (max level → Offer/100); else `BufferList.CreateBuffer(template, validDate).Start()`. Quick-buy only for money-priced entries (`APrice1==−1`). | SP_Users_VIPRenewal (VIPRenewal) | msg, buff list |
+| 183 | CARD_USE | CardUseHandler | int bag, int place (−1 = quick-buy from shop), int n, n×int shopIds, int, bool ignoreBagLock | Use buff/VIP cards. Property1 23 = VIP card → `SetTypeVIP`, `VIPRenewal`, `OpenVIP/ContinuousVIP`, `SendOpenVIP`; Property1 21 = GP pill → `AddGP(P2×count)` (max level → Offer/100); else `BufferList.CreateBuffer(template, validDate).Start()`. Quick-buy only for money-priced entries (`APrice1==−1`). | SP_VIPRenewal_Single | msg, buff list |
 | 165 | — | LuckStoneEnableHandler | — | `UpdateProperties`. | |
 | 225 | — | (see §1) | | | |
 
@@ -149,7 +149,7 @@ Bag ids (`eBageType`, SqlDataProvider/eBageType.cs): 0 EquipBag (slots 0–30 eq
 | 87 | NEWCHICKENBOX_SYS | ChickenBoxHandler | int cmd, … | "New chicken box" card flip + Lucky Star. 13 TAKEOVERCARD (int pos): cost `openCardPrice[n]` Money → award; 11 USEEAGLEEYE (int pos): `eagleEyePrice[n]`; 14 FLUSHCHICKENVIEW: `flushPrice` (logic inverted: pays when free time); 12 ALLITEMSHOW; 15 CLICKSTARTBNT → {5 CANCLICKCARD, true}; 10 ENTERCHICKENVIEW; 31 ENTER_GAME (Lucky Star) 2500 Money; 33 START_TURN 7 s cooldown, consumes LUCKYSTAR item; 34 TURN_COMPLETE gives award. Prices: GameProperties NewChicken*. | Actives (Sys_User_Active?), WorldEventMgr | 87 subs |
 | 128 | LEFT_GUN_ROULETTE_SOCKET | LeftGunHandler | int cmd (1) | Daily roulette: rand(55) buckets over `LeftRouterRateData` → `LeftRoutteRate`, `LeftRoutteCount--`. | | `SendLeftRouleteResult` |
 | 130 | LEFT_GUN_ROULETTE_COMPLETTE | LeftGunCompleteHandler | — | World tip notice of won rate. | | |
-| 92 | VIP_RENEWAL | OpenVipHandler | str nick, int days | Buy/renew VIP for self or another online player. Price from VIP card shop entry (A/B/C units or prorated). `MoneyDirect`; `VIPRenewal(nick, days, type, ref expire)`; self: max level 9 check (after charging!); `OpenVIP/ContinuousVIP`, `AddExpVip(money)`. Offline target: charged, DB renewed, "not exist" message. | SP_Users_VIPRenewal | `SendOpenVIP`, msg |
+| 92 | VIP_RENEWAL | OpenVipHandler | str nick, int days | Buy/renew VIP for self or another online player. Price from VIP card shop entry (A/B/C units or prorated). `MoneyDirect`; `VIPRenewal(nick, days, type, ref expire)`; self: max level 9 check (after charging!); `OpenVIP/ContinuousVIP`, `AddExpVip(money)`. Offline target: charged, DB renewed, "not exist" message. | SP_VIPRenewal_Single | `SendOpenVIP`, msg |
 | 96 | HONOR_UP_COUNT | HonorUpHandler | byte type, bool | type 2: buy honor tier `TotemHonorMgr.FindTotemHonorTemplateInfo(MaxBuyHonor+1)` (NeedMoney → AddHonor, MaxBuyHonor+1). | TotemHonorTemplate | `SendUpdateUpCount` |
 | 136 | TOTEM | OpenOneTotemHandler | — | Grade ≥ 20; next totem (min 10001) ≤ `TotemMgr.MaxTotem`; needs `myHonor ≥ ConsumeHonor`; `MoneyDirect(ConsumeExp)` **result ignored (stray `;`)** → totem granted without money. | Totem | `SendPlayerRefreshTotem` |
 
@@ -172,7 +172,7 @@ All use the **Store bag** (workbench) slots. See 02 §4 for formulas and tables.
 | 133 | LATENT_ENERGY | LatentEnergyHandler | byte type, int bag, int place, [int itemBag, int itemPlace if type 1] | Potential: type 1 reroll with stone (P1 101): 4×rand(P2,P3) + 3×rand(P6,P7) → `latentEnergyNewStr` (7 days); type 2 accept. NRE if no item. | 133 {int place, str cur, str new, date end} |
 | 95 | NECKLACE_STRENGTH | NecklaceStrengthHandler | byte type (2 = feed), int stonePlace, int count | Necklace exp with `NECKLACE_PTETROCHEM_STONE` (P2 exp each) capped at max exp; `necklaceExpAdd` from StrengthenMgr table. | `SendNecklaceStrength` |
 | 209 | FIGHT_SPIRIT | FigSpiritUpGradeHandler | byte, int autoBuy, int goodsId, int type, int gemTemplate, int fightSpiritId, int equipPlace, int place, int count | Grade ≥ 30. Gem slots per equip place, `FigSpiritIdValue = "lvl,exp,place|×3"`; feed gem items (P2 exp; autoBuy==1 feeds as many as needed); levels from `FightSpiritTemplateMgr.Exps`, cap `FightSpiritMaxLevel`. | Sys_User_Gemstone (UpdateGemStoneInfo) | `SendPlayerFigSpiritUp` |
-| 99 | TEXP | TexpHandler | int stat (0 hp,1 att,2 def,3 spd,4 luk), int templateId, int storePlace | Training exp items; daily limit grade×2 (VIP ≤ 2) or ×3, + `Train_Good` buff. | SP_Users_Texp_Update | properties |
+| 99 | TEXP | TexpHandler | int stat (0 hp,1 att,2 def,3 spd,4 luk), int templateId, int storePlace | Training exp items; daily limit grade×2 (VIP ≤ 2) or ×3, + `Train_Good` buff. | SP_UserTexp_Update | properties |
 | 222 | EQUIP_RECYCLE_ITEM | EquipRetrieveHandler | — | Recycle 4 items in Store[1..4]: quality sum ∈ {8,12,15,20} → `DropInventory.RetrieveDrop`; result bound into Store[0]. NRE on empty slots. | |
 | 402 | AVATAR_COLLECTION | AvatarCollectionHandler | byte sub; 3: int groupId, int templateId, int sex; 4: int avatarId, int days | Wardrobe collection: activate clothing (needs item equipped/owned, costs `ClothGroup.Cost` gold), half set → active 10 days; renew = stub. | ClothGroupTemplate, ClothPropertyTemplate | 402 {3,…} / {4, int id, int sex, date end} |
 
@@ -232,34 +232,34 @@ server (and the players of that guild).
 
 | Sub | Name | Handler | Reads | Behaviour | Procs | Reply / broadcast |
 |---|---|---|---|---|---|---|
-| 0 | CONSORTIA_TRYIN | ConsortiaTryin | int cid (0 = cancel) | Apply to guild (must have none). | SP_ConsortiaApplyUsers_Add | {0, int, bool, str} |
+| 0 | CONSORTIA_TRYIN | ConsortiaTryin | int cid (0 = cancel) | Apply to guild (must have none). | SP_ConsortiaApplyUser_Add | {0, int, bool, str} |
 | 1 | CONSORTIA_CREATE | ConsortiaCreate | str name (≤ 12 bytes, Encoding.Default) | Needs Gold ≥ `Consortia_Level[1].NeedGold`, Grade ≥ 5, Money ≥ 500; takes both. | SP_Consortia_Add | {1, str, bool, int cid, str, str msg, int dutyLevel, str dutyName, int right}; → center 130 |
 | 2 | CONSORTIA_DISBAND | ConsortiaDisband | — | Captcha required. Chairman deletes. | SP_Consortia_Delete | {2, [bool], int uid, str}; → center 128.2 |
-| 3 | CONSORTIA_RENEGADE | ConsortiaRenegade | int userId (self = leave) | Leave or kick. | SP_Consortia_User_Delete | {3, int, bool, str}; → center 128.3 |
-| 4 | CONSORTIA_TRYIN_PASS | ConsortiaTryinPass | int applyId | Accept applicant. | SP_ConsortiaApplyUsers_Pass | {4, int, bool, str}; → center 128.1 |
-| 5 | CONSORTIA_TRYIN_DEL | ConsortiaTryinDel | int applyId | Reject/cancel application. | SP_ConsortiaApplyUsers_Delete | {5, int, bool, str} |
+| 3 | CONSORTIA_RENEGADE | ConsortiaRenegade | int userId (self = leave) | Leave or kick. | SP_ConsortiaUser_Delete | {3, int, bool, str}; → center 128.3 |
+| 4 | CONSORTIA_TRYIN_PASS | ConsortiaTryinPass | int applyId | Accept applicant. | SP_ConsortiaApplyUser_Pass | {4, int, bool, str}; → center 128.1 |
+| 5 | CONSORTIA_TRYIN_DEL | ConsortiaTryinDel | int applyId | Reject/cancel application. | SP_ConsortiaApplyUser_Delete | {5, int, bool, str} |
 | 6 | CONSORTIA_RICHES_OFFER | ConsortiaRichesOffer | int money | Donate Money: riches = money/2 (`ConsortiaRichAdd(cid, ref riches, 5, nick)`); player `RichesOffer`/`RichesRob` += riches. | SP_Consortia_Riches_Add | {6, int, bool, str}; → center 128.9 |
 | 7 | CONSORTIA_APPLY_STATE | ConsotiaApplyState | bool open | Open/close applications. | SP_Consortia_Apply_State | {7, bool, bool, str} |
 | 9 | CONSORTIA_DUTY_DELETE | ConsortiaDutyDelete | int dutyId | | SP_ConsortiaDuty_Delete | {9, int, bool, str} |
 | 10 | CONSORTIA_DUTY_UPDATE | ConsortiaDutyUpdate | int dutyId, byte op (2 = rename: str name ≤ 10 bytes, int right; 1/3/4 = move) | | SP_ConsortiaDuty_Update | → center 128.8 only (no direct reply) |
-| 11 | CONSORTIA_INVITE | ConsortiaInviteAdd | str nick | | SP_ConsortiaInviteUsers_Add | {11, str, bool, str}; → center 128.4 |
-| 12 | CONSORTIA_INVITE_PASS | ConsortiaInvitePass | int inviteId | Accept invite. **Bug:** result fields are written into the incoming packet; reply only {12, int id}. | SP_ConsortiaInviteUsers_Pass | → center 128.1 |
-| 13 | CONSORTIA_INVITE_DELETE | ConsortiaInviteDelete | int inviteId | | SP_ConsortiaInviteUsers_Delete | {13, int, bool, str} |
-| 14 | CONSORTIA_DESCRIPTION_UPDATE | ConsortiaDescriptionUpdate | str (≤ 300 bytes) | | SP_Consortia_Description_Update | {14, str, bool, str} |
-| 15 | CONSORTIA_PLACARD_UPDATE | ConsortiaPlacardUpdate | str (≤ 300 bytes) | | SP_Consortia_Placard_Update | {15, str, bool, str} |
-| 16 | CONSORTIA_BANCHAT_UPDATE | ConsortiaIsBanChat | int userId, bool ban | | SP_Consortia_BanChat_Update | {16, int, bool, bool, str}; → center 128.5 |
-| 17 | CONSORTIA_USER_REMARK_UPDATE | ConsortiaUserRemark | int userId, str (≤ 100) | | SP_ConsortiaUser_Remark_Update | {17, int, str, bool, str} |
-| 18 | CONSORTIA_USER_GRADE_UPDATE | ConsortiaUserGradeUpdate | int userId, bool promote | | SP_ConsortiaUser_Grade_Update | {18, int, bool, bool, str}; → center 128.8 (6/7) |
-| 19 | CONSORTIA_CHAIRMAN_CHAHGE | ConsortiaChangeChairman | str nick | | SP_Consortia_Chairman_Update | {19, str, bool, str}; → center 128.8 (9 and 8) |
+| 11 | CONSORTIA_INVITE | ConsortiaInviteAdd | str nick | | SP_ConsortiaInviteUser_Add | {11, str, bool, str}; → center 128.4 |
+| 12 | CONSORTIA_INVITE_PASS | ConsortiaInvitePass | int inviteId | Accept invite. **Bug:** result fields are written into the incoming packet; reply only {12, int id}. | SP_ConsortiaInviteUser_Pass | → center 128.1 |
+| 13 | CONSORTIA_INVITE_DELETE | ConsortiaInviteDelete | int inviteId | | SP_ConsortiaInviteUser_Delete | {13, int, bool, str} |
+| 14 | CONSORTIA_DESCRIPTION_UPDATE | ConsortiaDescriptionUpdate | str (≤ 300 bytes) | | SP_ConsortiaDescription_Update | {14, str, bool, str} |
+| 15 | CONSORTIA_PLACARD_UPDATE | ConsortiaPlacardUpdate | str (≤ 300 bytes) | | SP_ConsortiaPlacard_Update | {15, str, bool, str} |
+| 16 | CONSORTIA_BANCHAT_UPDATE | ConsortiaIsBanChat | int userId, bool ban | | SP_ConsortiaIsBanChat_Update | {16, int, bool, bool, str}; → center 128.5 |
+| 17 | CONSORTIA_USER_REMARK_UPDATE | ConsortiaUserRemark | int userId, str (≤ 100) | | SP_ConsortiaUserRemark_Update | {17, int, str, bool, str} |
+| 18 | CONSORTIA_USER_GRADE_UPDATE | ConsortiaUserGradeUpdate | int userId, bool promote | | SP_ConsortiaUserGrade_Update | {18, int, bool, bool, str}; → center 128.8 (6/7) |
+| 19 | CONSORTIA_CHAIRMAN_CHAHGE | ConsortiaChangeChairman | str nick | | SP_ConsortiaChangeChairman | {19, str, bool, str}; → center 128.8 (9 and 8) |
 | 20 | CONSORTIA_CHAT | ConsortiaChat | byte, str, str (+ server appends int cid) | Guild chat (ban-chat check), local members + center. | | 129 echo |
-| 21 | CONSORTIA_LEVEL_UP | ConsortiaLevelUp | byte what (1 guild, 2 store/bank, 3 shop, 4 smith, 5 skill/buff) | Level 1 costs player gold `Consortia_Level.NeedGold`; others riches inside procs. Thresholds broadcast SYS_NOTICE 10 {int 2, str}. | SP_Consortia_UpGrade / UpGradeStore / UpGradeShop / UpGradeSmith / UpGradeSkill | {21, byte what, byte level, bool, str}; → center 128.6/12/10/11/13 |
+| 21 | CONSORTIA_LEVEL_UP | ConsortiaLevelUp | byte what (1 guild, 2 store/bank, 3 shop, 4 smith, 5 skill/buff) | Level 1 costs player gold `Consortia_Level.NeedGold`; others riches inside procs. Thresholds broadcast SYS_NOTICE 10 {int 2, str}. | SP_Consortia_UpGrade / _Store_UpGrade / _Shop_UpGrade / _Smith_UpGrade / _Skill_UpGrade | {21, byte what, byte level, bool, str}; → center 128.6/12/10/11/13 |
 | 22 | CONSORTIA_TASK_RELEASE | CConsortiaTask | (int sub → §9b) | Guild mission sub-protocol. | | |
 | 23 | DONATE | Donate | int itemType, int amount | Unimplemented (logs). | | |
 | 24 | CONSORTIA_EQUIP_CONTROL | ConsortiaEquipControl | 5×int riches (shop levels 1–5), int (smith), int (store) | Personal-riches thresholds to use guild shop/smith. | SP_Consortia_Equip_Control_Add ×7 | {24, bool, 7×int} |
 | 25 | POLL_CANDIDATE | — | int | Client sends; no server handler. | | |
 | 26 | SKILL_SOCKET | SkillSocket | bool, int buffId, int days, int payType (1 = riches, else medal) | Guild buff (`Consortia_Buff_Temp`): buff.level ≤ guild level; type-1 buffs paid from guild riches, others from player RichesOffer; medal alternative. `ConsortiaMgr.AddBuffConsortia` gives the buff (1440×days min) to all members. 2 s throttle; no guild → disconnect. | SP_Consortia_Riches_Remove, SP_User_Consortia_Buff_Add | msg |
-| 28 | BUY_BADGE | BuyBadge | int badgeId | `Consortia_Badge_Config` cost from riches, 30 days; members' badge updated. | SP_Consortia_BuyBadge, SP_Consortia_Riches_Update | `sendBuyBadge` |
-| 29 | CONSORTION_MAIL | ConsortiaMail | str title, str content | Needs riches ≥ 1000; mail all members (type 59); −1000 riches. | SP_Mail_Send, SP_Consortia_Riches_Update | {29, bool} |
+| 28 | BUY_BADGE | BuyBadge | int badgeId | `Consortia_Badge_Config` cost from riches, 30 days; members' badge updated. | SP_ConsortiaBadge_Update, SP_ConsortiaRiches_Update | `sendBuyBadge` |
+| 29 | CONSORTION_MAIL | ConsortiaMail | str title, str content | Needs riches ≥ 1000; mail all members (type 59); −1000 riches. | SP_Mail_Send, SP_ConsortiaRiches_Update | {29, bool} |
 | 30/31 | CONSORTIA_BOSS_INFO / BOSS_OPEN_CLOSE | — | | No client→server handler in this build (boss state comes from center 180–188). | | |
 
 ### 9b. Consortia task (guild mission) — 129 sub 22, then **int** `ConsortiaTaskType`
