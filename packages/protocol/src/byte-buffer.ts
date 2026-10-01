@@ -35,10 +35,6 @@ const TWO_POW_32 = 4294967296;
 const TWO_POW_63 = 9223372036854775808; // exactly representable
 const LONG_MIN = -9223372036854775808n;
 
-function daysInMonth(year: number, month: number): number {
-  return new Date(Date.UTC(year, month, 0)).getUTCDate() || [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month - 1]!;
-}
-
 function isLeap(y: number): boolean {
   return (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0;
 }
@@ -407,4 +403,6 @@ export class ByteBuffer {
 
   /** PacketIn.Fill(val, num). */
   fill(val: number, num: number): void {
-    for (let i = 0; i < num; i++) this.write
+    for (let i = 0; i < num; i++) this.writeByte(val);
+  }
+}

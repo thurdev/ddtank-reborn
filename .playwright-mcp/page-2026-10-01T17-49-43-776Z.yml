@@ -1,9 +1,0 @@
-- generic [active] [ref=e1]:
-  - textbox [aria-hidden] [ref=e5]
-  - generic [ref=e6]:
-    - text: swf
-    - code [ref=e7]: Loading.swf
-    - text: · flashvars
-    - code [ref=e8]: user=harness&key=HARNESS-KEY&config=http%3A%2F%2Flocalhost%3A9380%2Fflash%2Fconfig.xml&site=&editby=
-    - text: · requests are logged to
-    - code [ref=e9]: apps/client-harness/logs/requests.jsonl

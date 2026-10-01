@@ -119,8 +119,13 @@ export function loadConfig(opts: { resourcesDir: string; exeDir: string; userDat
     path.join(opts.userDataDir, "launcher.config.json"),
   ];
   for (const f of [...new Set(files)]) {
-    const patch = readJson(f);
-    if (patch) cfg = mergeConfig(cfg, patch, f);
+    try {
+      const patch = readJson(f);
+      if (patch) cfg = mergeConfig(cfg, patch, f);
+    } catch (e) {
+      // A broken override must not discard the other files: skip it and report in `sources`.
+      cfg = { ...cfg, sources: [...cfg.sources, `IGNORADO ${(e as Error).message}`] };
+    }
   }
   const env = envConfig(opts.env);
   if (Object.keys(env).length) cfg = mergeConfig(cfg, env, "env");

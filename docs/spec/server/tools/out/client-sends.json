@@ -1,0 +1,4100 @@
+[
+ {
+  "code": 1,
+  "expr": "ePackageType.LOGIN",
+  "func": "sendLogin",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:AccountInfo",
+  "writes": [
+   "Int(Version.Build=5498628)",
+   "Int(DesktopManager.Instance.desktopType)",
+   "Bytes(_loc3_)"
+  ]
+ },
+ {
+  "code": 4,
+  "expr": "ePackageType.PING",
+  "func": "sendPint",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 8,
+  "expr": "ePackageType.CLIENT_LOG",
+  "func": "sendErrorMsg",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String",
+  "writes": [
+   "UTF(param1)"
+  ]
+ },
+ {
+  "code": 11,
+  "expr": "ePackageType.ACTIVE_PULLDOWN",
+  "func": "sendActivePullDown",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:String",
+  "writes": [
+   "Int(param1)",
+   "UTF(param2)"
+  ]
+ },
+ {
+  "code": 12,
+  "expr": "ePackageType.HOTSPRING_CMD_B",
+  "func": "sendHotAddTime",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(HotSpringPackageType.CONTINU_BY_MONEY=11)"
+  ]
+ },
+ {
+  "code": 13,
+  "expr": "ePackageType.DAILY_AWARD",
+  "func": "sendDailyAward",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 15,
+  "expr": "ePackageType.USER_ANSWER",
+  "func": "syncStep",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:Boolean = true",
+  "writes": [
+   "Byte(1)",
+   "Int(param1)",
+   "Boolean(param2)"
+  ]
+ },
+ {
+  "code": 15,
+  "expr": "ePackageType.USER_ANSWER",
+  "func": "syncWeakStep",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(2)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 16,
+  "expr": "ePackageType.SCENE_LOGIN",
+  "func": "sendSceneLogin",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 18,
+  "expr": "ePackageType.GET_PLAYER_CARD",
+  "func": "getPlayerCardInfo",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 19,
+  "expr": "ePackageType.SCENE_CHAT",
+  "func": "sendMessage",
+  "file": "ddt/manager/ChatManager.as",
+  "params": "param1:int, param2:String, param3:String, param4:Boolean",
+  "writes": [
+   "Byte(param1)",
+   "Boolean(param4)",
+   "UTF(param2)",
+   "UTF(param3)"
+  ]
+ },
+ {
+  "code": 20,
+  "expr": "ePackageType.SCENE_FACE",
+  "func": "sendFace",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)",
+   "Int(0)"
+  ]
+ },
+ {
+  "code": 21,
+  "expr": "ePackageType.SCENE_REMOVE_USER",
+  "func": "sendExitMarryRoom",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 21,
+  "expr": "ePackageType.SCENE_REMOVE_USER",
+  "func": "sendExitScene",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 25,
+  "expr": "ePackageType.BAG_LOCKED",
+  "func": "sendBagLocked",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String, param2:int, param3:String = \"\", param4:String = \"\", param5:String = \"\", param6:String",
+  "writes": [
+   "UTF(param1)",
+   "UTF(param3)",
+   "Int(param2)",
+   "UTF(param4)",
+   "UTF(param5)",
+   "UTF(param6)",
+   "UTF(param7)"
+  ]
+ },
+ {
+  "code": 26,
+  "expr": "ePackageType.LOTTERY_OPEN_BOX",
+  "func": "sendOpenDead",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int",
+  "writes": [
+   "Byte(param1)",
+   "Int(param2)",
+   "Int(param3)"
+  ]
+ },
+ {
+  "code": 26,
+  "expr": "ePackageType.LOTTERY_OPEN_BOX",
+  "func": "sendRouletteBox",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int = -1",
+  "writes": [
+   "Byte(param1)",
+   "Int(param2)",
+   "Int(param3)"
+  ]
+ },
+ {
+  "code": 27,
+  "expr": "ePackageType.LOTTERY_RANDOM_SELECT",
+  "func": "sendStartTurn",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 28,
+  "expr": "ePackageType.LOTTERY_FINISH",
+  "func": "sendFinishRoulette",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 30,
+  "expr": "ePackageType.PICC",
+  "func": "sendPicc",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 31,
+  "expr": "ePackageType.GOODS_EXCHANGE",
+  "func": "sendGoodsExchange",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Vector.<SendGoodsExchangeInfo>, param2:int",
+  "writes": [
+   "Int(param2)",
+   "Int(param1.length)",
+   "Int(param1[_loc4_].id)",
+   "Int(param1[_loc4_].place)",
+   "Int(param1[_loc4_].bagType)"
+  ]
+ },
+ {
+  "code": 32,
+  "expr": "ePackageType.COLLECTINFO",
+  "func": "sendCollectInfoValidate",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:String",
+  "writes": [
+   "Byte(param1)",
+   "UTF(param2)"
+  ]
+ },
+ {
+  "code": 34,
+  "expr": "ePackageType.USER_RANK",
+  "func": "sendChangeDesignation",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Boolean",
+  "writes": [
+   "Boolean(param1)"
+  ]
+ },
+ {
+  "code": 37,
+  "expr": "ePackageType.CHAT_PERSONAL",
+  "func": "sendPrivateMessage",
+  "file": "ddt/manager/ChatManager.as",
+  "params": "param1:String, param2:String, param3:Number = 0, param4:Boolean = false",
+  "writes": [
+   "Int(param3)",
+   "UTF(param1)",
+   "UTF(PlayerManager.Instance.Self.NickName)",
+   "UTF(param2)",
+   "Boolean(param4)"
+  ]
+ },
+ {
+  "code": 40,
+  "expr": "ePackageType.SNS_MSG_RECEIVE",
+  "func": "sendSnsMsg",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 44,
+  "expr": "ePackageType.BUY_GOODS",
+  "func": "sendBuyGoods",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Array, param2:Array, param3:Array, param4:Array, param5:Array, param6:Array = null, param7:in",
+  "writes": [
+   "Int(_loc11_)",
+   "Int(param1[_loc12_])",
+   "Int(param2[_loc12_])",
+   "UTF(param3[_loc12_])",
+   "Boolean(param5[_loc12_])",
+   "UTF(\"\")",
+   "UTF(param6[_loc12_])",
+   "Int(param4[_loc12_])",
+   "Int(param7)"
+  ]
+ },
+ {
+  "code": 45,
+  "expr": "ePackageType.CADDY_GET_BADLUCK",
+  "func": "sendQequestBadLuck",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 46,
+  "expr": "ePackageType.BUY_GIFTBAG",
+  "func": "sendBuyGiftBag",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 48,
+  "expr": "ePackageType.SEll_GOODS",
+  "func": "sendSellGoods",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 49,
+  "expr": "ePackageType.CHANGE_PLACE_GOODS",
+  "func": "sendMoveGoods",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int, param4:int, param5:int = 1, param6:Boolean = false",
+  "writes": [
+   "Byte(param1)",
+   "Int(param2)",
+   "Byte(param3)",
+   "Int(param4)",
+   "Int(param5)",
+   "Boolean(param6)"
+  ]
+ },
+ {
+  "code": 50,
+  "expr": "ePackageType.FIGHT_NPC",
+  "func": "sendBeginFightNpc",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 53,
+  "expr": "ePackageType.GET_TIME_BOX",
+  "func": "sendGetTimeBox",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int = -1, param4:int = -1",
+  "writes": [
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param3)",
+   "Int(param4)"
+  ]
+ },
+ {
+  "code": 54,
+  "expr": "ePackageType.PROP_BUY",
+  "func": "sendBuyProp",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 54,
+  "expr": "ePackageType.PROP_BUY",
+  "func": "sendBuyProp",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 55,
+  "expr": "ePackageType.PROP_SELL",
+  "func": "sendSellProp",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 55,
+  "expr": "ePackageType.PROP_SELL",
+  "func": "sendSellProp",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 57,
+  "expr": "ePackageType.GOODS_PRESENT",
+  "func": "sendPresentGoods",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Array, param2:Array, param3:Array, param4:String, param5:String, param6:Array = null",
+  "writes": [
+   "UTF(param4)",
+   "UTF(param5)",
+   "Int(_loc8_)",
+   "Int(param1[_loc9_])",
+   "Int(param2[_loc9_])",
+   "UTF(param3[_loc9_])",
+   "UTF(\"\")",
+   "UTF(param6[_loc9_])"
+  ]
+ },
+ {
+  "code": 58,
+  "expr": "ePackageType.ITEM_COMPOSE",
+  "func": "sendItemCompose",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Boolean",
+  "writes": [
+   "Boolean(param1)"
+  ]
+ },
+ {
+  "code": 59,
+  "expr": "ePackageType.ITEM_STRENGTHEN",
+  "func": "sendItemStrength",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Boolean",
+  "writes": [
+   "Boolean(param1)"
+  ]
+ },
+ {
+  "code": 60,
+  "expr": "ePackageType.ITEM_HIDE",
+  "func": "sendHideLayer",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:Boolean",
+  "writes": [
+   "Boolean(param2)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 61,
+  "expr": "ePackageType.ITEM_TRANSFER",
+  "func": "sendItemTransfer",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Boolean = true, param2:Boolean = true",
+  "writes": [
+   "Boolean(param1)",
+   "Boolean(param2)"
+  ]
+ },
+ {
+  "code": 62,
+  "expr": "ePackageType.ITEM_CONTINUE",
+  "func": "sendGoodsContinue",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Array",
+  "writes": [
+   "Int(_loc2_)",
+   "Byte(param1[_loc4_][0])",
+   "Int(param1[_loc4_][1])",
+   "Int(param1[_loc4_][2])",
+   "Byte(param1[_loc4_][3])",
+   "Boolean(param1[_loc4_][4])"
+  ]
+ },
+ {
+  "code": 63,
+  "expr": "ePackageType.ITEM_OPENUP",
+  "func": "sendItemOpenUp",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int = 1",
+  "writes": [
+   "Byte(param1)",
+   "Int(param2)",
+   "Int(param3)"
+  ]
+ },
+ {
+  "code": 64,
+  "expr": "ePackageType.OPTION_UPDATE",
+  "func": "sendOpition",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 66,
+  "expr": "ePackageType.PROP_USE",
+  "func": "sendUseProp",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:Array, param4:int, param5:Boolean = false",
+  "writes": [
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param3.length)",
+   "Int(param3[_loc8_])",
+   "Int(param4)",
+   "Boolean(param5)"
+  ]
+ },
+ {
+  "code": 68,
+  "expr": "ePackageType.PET",
+  "func": "addPetEquip",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.ADD_PET_EQUIP=20)",
+   "Int(param3)",
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 68,
+  "expr": "ePackageType.PET",
+  "func": "delPetEquip",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.DEL_PET_EQUIP=21)",
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 68,
+  "expr": "ePackageType.PET",
+  "func": "eatPetsHandler",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int, param4:Array",
+  "writes": [
+   "Byte(CrazyTankPackageType.EAT_PETS=33)",
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param4.length)",
+   "Int(param4[_loc6_][0])",
+   "Int(param4[_loc6_][1].TemplateID)",
+   "Int(param3)"
+  ]
+ },
+ {
+  "code": 68,
+  "expr": "ePackageType.PET",
+  "func": "sendAddPet",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.ADD_PET=2)",
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 68,
+  "expr": "ePackageType.PET",
+  "func": "sendAdoptPet",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.ADOPT_PET=6)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 68,
+  "expr": "ePackageType.PET",
+  "func": "sendBuyPetExpItem",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Boolean",
+  "writes": [
+   "Byte(FarmPackageType.BUY_PET_EXP_ITEM=19)",
+   "Boolean(param1)"
+  ]
+ },
+ {
+  "code": 68,
+  "expr": "ePackageType.PET",
+  "func": "sendEquipPetSkill",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.EQUIP_PET_SKILL=7)",
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param3)"
+  ]
+ },
+ {
+  "code": 68,
+  "expr": "ePackageType.PET",
+  "func": "sendPaySkill",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.PAY_SKILL=16)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 68,
+  "expr": "ePackageType.PET",
+  "func": "sendPetEvolution",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.PET_EVOLUTION=23)",
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 68,
+  "expr": "ePackageType.PET",
+  "func": "sendPetFeed",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.FEED_PET=4)",
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param3)"
+  ]
+ },
+ {
+  "code": 68,
+  "expr": "ePackageType.PET",
+  "func": "sendPetFightUnFight",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:Boolean = true",
+  "writes": [
+   "Byte(CrazyTankPackageType.FIGHT_PET=17)",
+   "Int(param1)",
+   "Boolean(param2)"
+  ]
+ },
+ {
+  "code": 68,
+  "expr": "ePackageType.PET",
+  "func": "sendPetFollowOrCall",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Boolean, param2:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.PET_FOLLOW=25)",
+   "Boolean(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 68,
+  "expr": "ePackageType.PET",
+  "func": "sendPetFormInfo",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(CrazyTankPackageType.PET_FORMINFO=24)"
+  ]
+ },
+ {
+  "code": 68,
+  "expr": "ePackageType.PET",
+  "func": "sendPetRename",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:String, param3:Boolean",
+  "writes": [
+   "Byte(CrazyTankPackageType.RENAME_PET=9)",
+   "Int(param1)",
+   "UTF(param2)",
+   "Boolean(param3)"
+  ]
+ },
+ {
+  "code": 68,
+  "expr": "ePackageType.PET",
+  "func": "sendPetRisingStar",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.PET_RISINGSTAR=22)",
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param3)"
+  ]
+ },
+ {
+  "code": 68,
+  "expr": "ePackageType.PET",
+  "func": "sendPetWake",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.PET_WAKE=32)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 68,
+  "expr": "ePackageType.PET",
+  "func": "sendRefreshPet",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Boolean = false, param2:Boolean = false",
+  "writes": [
+   "Byte(CrazyTankPackageType.REFRESH_PET=5)",
+   "Boolean(param1)",
+   "Boolean(param2)"
+  ]
+ },
+ {
+  "code": 68,
+  "expr": "ePackageType.PET",
+  "func": "sendReleasePet",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:Boolean = false, param3:Boolean = false",
+  "writes": [
+   "Byte(CrazyTankPackageType.RELEASE_PET=8)",
+   "Int(param1)",
+   "Boolean(param2)",
+   "Boolean(param3)"
+  ]
+ },
+ {
+  "code": 68,
+  "expr": "ePackageType.PET",
+  "func": "sendRevertPet",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:Boolean",
+  "writes": [
+   "Byte(CrazyTankPackageType.REVER_PET=18)",
+   "Int(param1)",
+   "Boolean(param2)"
+  ]
+ },
+ {
+  "code": 69,
+  "expr": "ePackageType.SCENE_USERS_LIST",
+  "func": "sendGetScenePlayer",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(param1)",
+   "Byte(6)"
+  ]
+ },
+ {
+  "code": 70,
+  "expr": "ePackageType.GAME_INVITE",
+  "func": "sendInviteGame",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 71,
+  "expr": "ePackageType.S_BUGLE",
+  "func": "sendSBugle",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String",
+  "writes": [
+   "Int(PlayerManager.Instance.Self.ID)",
+   "UTF(PlayerManager.Instance.Self.NickName)",
+   "UTF(param1)"
+  ]
+ },
+ {
+  "code": 72,
+  "expr": "ePackageType.B_BUGLE",
+  "func": "sendBBugle",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String, param2:int",
+  "writes": [
+   "Int(param2)",
+   "Int(PlayerManager.Instance.Self.ID)",
+   "UTF(PlayerManager.Instance.Self.NickName)",
+   "UTF(param1)"
+  ]
+ },
+ {
+  "code": 73,
+  "expr": "ePackageType.C_BUGLE",
+  "func": "sendCBugle",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String",
+  "writes": [
+   "Int(PlayerManager.Instance.Self.ID)",
+   "UTF(PlayerManager.Instance.Self.NickName)",
+   "UTF(param1)"
+  ]
+ },
+ {
+  "code": 74,
+  "expr": "ePackageType.ITEM_EQUIP",
+  "func": "sendItemEquip",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:*, param2:Boolean = false",
+  "writes": [
+   "Boolean(true)",
+   "Int(param1)",
+   "Boolean(false)",
+   "UTF(param1)"
+  ]
+ },
+ {
+  "code": 75,
+  "expr": "CrazyTankPackageType.PROP_DELETE",
+  "func": "sendThrowProp",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 77,
+  "expr": "ePackageType.ITEM_OVERDUE",
+  "func": "sendItemOverDue",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Byte(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 78,
+  "expr": "ePackageType.ITEM_FUSION",
+  "func": "sendItemFusion",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(param1)"
+  ]
+ },
+ {
+  "code": 81,
+  "expr": "ePackageType.FARM",
+  "func": "doMature",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int",
+  "writes": [
+   "Byte(FarmPackageType.ACCELERATE_FIELD=3)",
+   "Byte(13)",
+   "Int(param1)",
+   "Int(param3)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 81,
+  "expr": "ePackageType.FARM",
+  "func": "enterFarm",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(FarmPackageType.ENTER_FARM=1)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 81,
+  "expr": "ePackageType.FARM",
+  "func": "exitFarm",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(FarmPackageType.EXIT_FARM=16)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 81,
+  "expr": "ePackageType.FARM",
+  "func": "fastForwardGrop",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Boolean, param2:Boolean, param3:int",
+  "writes": [
+   "Byte(FarmPackageType.FRAM_GROP_FASTFORWARD=18)",
+   "Boolean(param1)",
+   "Boolean(param2)",
+   "Int(param3)"
+  ]
+ },
+ {
+  "code": 81,
+  "expr": "ePackageType.FARM",
+  "func": "giftPacks",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(FarmPackageType.FARM_GIFTPACKS=20)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 81,
+  "expr": "ePackageType.FARM",
+  "func": "seeding",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Byte(FarmPackageType.GROW_FIELD=2)",
+   "Byte(13)",
+   "Int(param2)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 81,
+  "expr": "ePackageType.FARM",
+  "func": "sendBeginHelper",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Array",
+  "writes": [
+   "Byte(FarmPackageType.HELPER_SWITCH_FIELD=9)",
+   "Boolean(param1[0])",
+   "Int(param1[1])",
+   "Int(param1[2])",
+   "Int(param1[3])",
+   "Int(param1[4])",
+   "Int(param1[5])",
+   "Int(param1[6])",
+   "Boolean(param1[7])"
+  ]
+ },
+ {
+  "code": 81,
+  "expr": "ePackageType.FARM",
+  "func": "sendCompose",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int = 1",
+  "writes": [
+   "Byte(FarmPackageType.COMPOSE_FOOD=5)",
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 81,
+  "expr": "ePackageType.FARM",
+  "func": "toFarmHelper",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Array, param2:Boolean",
+  "writes": [
+   "Byte(FarmPackageType.HELPER_SWITCH_FIELD=9)",
+   "Int(param1.length)",
+   "Int(_loc5_.currentfindIndex)",
+   "Int(_loc5_.currentSeedText)",
+   "Int(_loc5_.currentSeedNum)",
+   "Int(_loc5_.currentFertilizerText)",
+   "Int(_loc5_.autoFertilizerNum)",
+   "Boolean(param2)"
+  ]
+ },
+ {
+  "code": 81,
+  "expr": "ePackageType.FARM",
+  "func": "toGather",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Byte(FarmPackageType.GAIN_FIELD=4)",
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 81,
+  "expr": "ePackageType.FARM",
+  "func": "toHelperRenewMoney",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:Boolean",
+  "writes": [
+   "Byte(FarmPackageType.HELPER_PAY_FIELD=8)",
+   "Int(param1)",
+   "Boolean(param2)"
+  ]
+ },
+ {
+  "code": 81,
+  "expr": "ePackageType.FARM",
+  "func": "toKillCrop",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(FarmPackageType.KILLCROP_FIELD=7)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 81,
+  "expr": "ePackageType.FARM",
+  "func": "toSpread",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Array, param2:int, param3:Boolean",
+  "writes": [
+   "Byte(FarmPackageType.PAY_FIELD=6)",
+   "Int(param1.length)",
+   "Int(_loc5_)",
+   "Int(param2)",
+   "Boolean(param3)"
+  ]
+ },
+ {
+  "code": 82,
+  "expr": "CrazyTankPackageType.GAME_MISSION_START",
+  "func": "sendGameMissionStart",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:Boolean",
+  "writes": [
+   "Boolean(param1)"
+  ]
+ },
+ {
+  "code": 84,
+  "expr": "ePackageType.ACTIVITY_PACKAGE",
+  "func": "sendChickActivationGetAward",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Int(ChickActivationType.CHICKACTIVATION=2)",
+   "Int(ChickActivationType.CHICKACTIVATION_GETAWARD=2)",
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 84,
+  "expr": "ePackageType.ACTIVITY_PACKAGE",
+  "func": "sendChickActivationOpenKey",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String",
+  "writes": [
+   "Int(ChickActivationType.CHICKACTIVATION=2)",
+   "Int(ChickActivationType.CHICKACTIVATION_OPENKEY=1)",
+   "UTF(param1)"
+  ]
+ },
+ {
+  "code": 84,
+  "expr": "ePackageType.ACTIVITY_PACKAGE",
+  "func": "sendChickActivationQuery",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(ChickActivationType.CHICKACTIVATION=2)",
+   "Int(ChickActivationType.CHICKACTIVATION_QUERY=3)"
+  ]
+ },
+ {
+  "code": 85,
+  "expr": "ePackageType.MATE_ONLINE_TIME",
+  "func": "sendMateTime",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 87,
+  "expr": "ePackageType.NEWCHICKENBOX_SYS",
+  "func": "sendChickenBoxTakeOverCard",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:NewChickenBoxItem",
+  "writes": [
+   "Int(NewChickenBoxPackageType.TAKEOVERCARD=13)",
+   "Int(param1.info.Position)"
+  ]
+ },
+ {
+  "code": 87,
+  "expr": "ePackageType.NEWCHICKENBOX_SYS",
+  "func": "sendChickenBoxUseEagleEye",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:NewChickenBoxItem",
+  "writes": [
+   "Int(NewChickenBoxPackageType.USEEAGLEEYE=11)",
+   "Int(param1.position)"
+  ]
+ },
+ {
+  "code": 87,
+  "expr": "ePackageType.NEWCHICKENBOX_SYS",
+  "func": "sendClickStartBntNewChickenBox",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(NewChickenBoxPackageType.CLICKSTARTBNT=15)"
+  ]
+ },
+ {
+  "code": 87,
+  "expr": "ePackageType.NEWCHICKENBOX_SYS",
+  "func": "sendFlushNewChickenBox",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(NewChickenBoxPackageType.FLUSHCHICKENVIEW=14)"
+  ]
+ },
+ {
+  "code": 87,
+  "expr": "ePackageType.NEWCHICKENBOX_SYS",
+  "func": "sendLuckyStarClose",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(NewChickenBoxPackageType.CLOSE_GAME=32)"
+  ]
+ },
+ {
+  "code": 87,
+  "expr": "ePackageType.NEWCHICKENBOX_SYS",
+  "func": "sendLuckyStarEnter",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(NewChickenBoxPackageType.ENTER_GAME=31)"
+  ]
+ },
+ {
+  "code": 87,
+  "expr": "ePackageType.NEWCHICKENBOX_SYS",
+  "func": "sendLuckyStarTurn",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(NewChickenBoxPackageType.START_TURN=33)"
+  ]
+ },
+ {
+  "code": 87,
+  "expr": "ePackageType.NEWCHICKENBOX_SYS",
+  "func": "sendLuckyStarTurnComplete",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(NewChickenBoxPackageType.TURN_COMPLETE=34)"
+  ]
+ },
+ {
+  "code": 87,
+  "expr": "ePackageType.NEWCHICKENBOX_SYS",
+  "func": "sendNewChickenBox",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(NewChickenBoxPackageType.ENTERCHICKENVIEW=10)"
+  ]
+ },
+ {
+  "code": 87,
+  "expr": "ePackageType.NEWCHICKENBOX_SYS",
+  "func": "sendOverShowItems",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(NewChickenBoxPackageType.AllITEMSHOW=12)"
+  ]
+ },
+ {
+  "code": 89,
+  "expr": "ePackageType.QUESTION_REPLY",
+  "func": "sendQuestionReply",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 90,
+  "expr": "ePackageType.GET_SIGNAWARD",
+  "func": "sendSignAward",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "createMonster",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(CrazyTankPackageType.GENERAL_COMMAND=23)",
+   "Int(0)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "deleteMonster",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(CrazyTankPackageType.GENERAL_COMMAND=23)",
+   "Int(1)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendAirPlane",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(CrazyTankPackageType.AIRPLANE=40)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendBeat",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:Number, param2:Number, param3:Number",
+  "writes": [
+   "Byte(CrazyTankPackageType.BEAT=22)",
+   "Short(param1)",
+   "Short(param2)",
+   "Short(param3)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendBossTakeOut",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.BOSS_TAKE_CARD=130)",
+   "Byte(param1)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendClientScriptEnd",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(CrazyTankPackageType.GENERAL_COMMAND=23)",
+   "Int(2)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendClientScriptStart",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(CrazyTankPackageType.GENERAL_COMMAND=23)",
+   "Int(3)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendFightLibAnswer",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.GENERAL_COMMAND=23)",
+   "Int(4)",
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendFightLibInfoChange",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int, param2:int = -1",
+  "writes": [
+   "Byte(CrazyTankPackageType.FIGHT_LIB_INFO_CHANGE=-1)",
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendFightLibReanswer",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(CrazyTankPackageType.GENERAL_COMMAND=23)",
+   "Int(5)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendFlagMode",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:Boolean",
+  "writes": [
+   "Byte(CrazyTankPackageType.WANNA_LEADER=97)",
+   "Boolean(param1)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendGameCMDBlast",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int, param2:int, param3:int, param4:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.BLAST=3)",
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param3)",
+   "Int(param4)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendGameCMDChange",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int, param2:int, param3:int, param4:int, param5:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.CHANGEBALL=19)",
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param3)",
+   "Int(param4)",
+   "Int(param5)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendGameCMDDirection",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.DIRECTION=7)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendGameCMDShoot",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int, param2:int, param3:int, param4:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.FIRE=2)",
+   "Int(int(param1))",
+   "Int(int(param2))",
+   "Int(int(param3))",
+   "Int(int(param4))"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendGameCMDStunt",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int = 0",
+  "writes": [
+   "Byte(CrazyTankPackageType.STUNT=15)",
+   "Byte(param1)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendGameMissionPrepare",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int, param2:Boolean",
+  "writes": [
+   "Byte(CrazyTankPackageType.GAME_MISSION_PREPARE=116)",
+   "Boolean(param2)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendGamePick",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.PICK=49)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendGameSkipNext",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.SKIPNEXT=12)",
+   "Byte(param1)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendGameStartMove",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:Number, param2:int, param3:int, param4:Number, param5:Boolean, param6:Number",
+  "writes": [
+   "Byte(CrazyTankPackageType.MOVESTART=9)",
+   "Boolean(true)",
+   "Byte(param1)",
+   "Int(param2)",
+   "Int(param3)",
+   "Byte(param4)",
+   "Boolean(param5)",
+   "Short(param6)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendGameStopMove",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int, param2:int, param3:Boolean",
+  "writes": [
+   "Byte(CrazyTankPackageType.MOVESTOP=10)",
+   "Int(param1)",
+   "Int(param2)",
+   "Boolean(param3)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendGameTakeOut",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.TAKE_CARD=98)",
+   "Byte(param1)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendGhostTarget",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:Point",
+  "writes": [
+   "Byte(CrazyTankPackageType.GHOST_TARGET=54)",
+   "Int(param1.x)",
+   "Int(param1.y)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendKillSelf",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.KILLSELF=21)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendLoadingProgress",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:Number",
+  "writes": [
+   "Byte(CrazyTankPackageType.LOAD=16)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "91",
+  "func": "sendMissionTryAgain",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int, param2:Boolean, param3:Boolean = true",
+  "writes": [
+   "Byte(119)",
+   "Int(param1)",
+   "Boolean(param2)",
+   "Boolean(param3)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendPassStory",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(CrazyTankPackageType.PASS_STORY=133)",
+   "Boolean(true)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendPaymentTakeCard",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.PAYMENT_TAKE_CARD=114)",
+   "Byte(param1)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendPetSkill",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int = 1",
+  "writes": [
+   "Byte(CrazyTankPackageType.PET_SKILL=144)",
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendShootTag",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:Boolean, param2:int = 0",
+  "writes": [
+   "Byte(CrazyTankPackageType.FIRE_TAG=96)",
+   "Boolean(param1)",
+   "Byte(param2)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendSuicide",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.SUICIDE=17)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendTransmissionGate",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:Boolean",
+  "writes": [
+   "Byte(CrazyTankPackageType.DELIVER=137)",
+   "Boolean(param1)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendUpdatePlayStep",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:String",
+  "writes": [
+   "Byte(CrazyTankPackageType.MISSION_CMD=25)",
+   "Int(6)",
+   "UTF(param1)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "sendUseProp",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int, param2:int, param3:int",
+  "writes": [
+   "Byte(CrazyTankPackageType.PROP=32)",
+   "Byte(param1)",
+   "Int(param2)",
+   "Int(param3)"
+  ]
+ },
+ {
+  "code": 91,
+  "expr": "ePackageType.GAME_CMD",
+  "func": "useDeputyWeapon",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(CrazyTankPackageType.USE_DEPUTY_WEAPON=84)"
+  ]
+ },
+ {
+  "code": 92,
+  "expr": "ePackageType.VIP_RENEWAL",
+  "func": "sendOpenVip",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String, param2:int",
+  "writes": [
+   "UTF(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 94,
+  "expr": "ePackageType.GAME_ROOM",
+  "func": "createUserGuide",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int = 10",
+  "writes": [
+   "Int(GameRoomPackageType.GAME_ROOM_CREATE=0)",
+   "Byte(param1)",
+   "Byte(3)",
+   "UTF(\"\")",
+   "UTF(_loc2_)"
+  ]
+ },
+ {
+  "code": 94,
+  "expr": "ePackageType.GAME_ROOM",
+  "func": "enterUserGuide",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int = 10",
+  "writes": [
+   "Int(GameRoomPackageType.GAME_ROOM_SETUP_CHANGE=2)",
+   "Int(param1)",
+   "Byte(param2)",
+   "UTF(_loc3_)",
+   "UTF(\"\")",
+   "Byte(_loc4_)",
+   "Byte(0)",
+   "Int(0)",
+   "Boolean(false)"
+  ]
+ },
+ {
+  "code": 94,
+  "expr": "ePackageType.GAME_ROOM",
+  "func": "sendCancelWait",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(GameRoomPackageType.GAME_PICKUP_CANCEL=11)"
+  ]
+ },
+ {
+  "code": 94,
+  "expr": "ePackageType.GAME_ROOM",
+  "func": "sendCreateRoom",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:String, param2:int, param3:int = 2, param4:String = \"\"",
+  "writes": [
+   "Int(GameRoomPackageType.GAME_ROOM_CREATE=0)",
+   "Byte(param2)",
+   "Byte(_loc5_)",
+   "UTF(param1)",
+   "UTF(param4)"
+  ]
+ },
+ {
+  "code": 94,
+  "expr": "ePackageType.GAME_ROOM",
+  "func": "sendGameLogin",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int = -1, param4:String = \"\", param5:Boolean = false",
+  "writes": [
+   "Int(GameRoomPackageType.GAME_ROOM_LOGIN=1)",
+   "Boolean(param5)",
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param3)",
+   "UTF(param4)"
+  ]
+ },
+ {
+  "code": 94,
+  "expr": "ePackageType.GAME_ROOM",
+  "func": "sendGameMode",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(GameRoomPackageType.GAME_PICKUP_STYLE=12)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 94,
+  "expr": "ePackageType.GAME_ROOM",
+  "func": "sendGamePlayerExit",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(GameRoomPackageType.GAME_ROOM_REMOVEPLAYER=5)"
+  ]
+ },
+ {
+  "code": 94,
+  "expr": "ePackageType.GAME_ROOM",
+  "func": "sendGameRoomKick",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(GameRoomPackageType.GAME_ROOM_KICK=3)",
+   "Byte(param1)"
+  ]
+ },
+ {
+  "code": 94,
+  "expr": "ePackageType.GAME_ROOM",
+  "func": "sendGameRoomPlaceState",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int, param2:int, param3:Boolean = false, param4:int = -100",
+  "writes": [
+   "Int(GameRoomPackageType.GAME_ROOM_UPDATE_PLACE=10)",
+   "Byte(param1)",
+   "Int(param2)",
+   "Boolean(param3)",
+   "Int(param4)"
+  ]
+ },
+ {
+  "code": 94,
+  "expr": "ePackageType.GAME_ROOM",
+  "func": "sendGameRoomSetUp",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int, param2:int, param3:Boolean = false, param4:String = \"\", param5:String = \"\", param6:int =",
+  "writes": [
+   "Int(GameRoomPackageType.GAME_ROOM_SETUP_CHANGE=2)",
+   "Int(param1)",
+   "Byte(param2)",
+   "Boolean(param3)",
+   "UTF(param4)",
+   "UTF(param5)",
+   "Byte(_loc11_)",
+   "Byte(param7)",
+   "Int(param8)",
+   "Boolean(param9)",
+   "Int(param10)"
+  ]
+ },
+ {
+  "code": 94,
+  "expr": "ePackageType.GAME_ROOM",
+  "func": "sendGameStart",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(GameRoomPackageType.GAME_START=7)"
+  ]
+ },
+ {
+  "code": 94,
+  "expr": "ePackageType.GAME_ROOM",
+  "func": "sendGameStyle",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(GameRoomPackageType.GAME_PICKUP_STYLE=12)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 94,
+  "expr": "ePackageType.GAME_ROOM",
+  "func": "sendGameStyle",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(GameRoomPackageType.GAME_PICKUP_STYLE=12)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 94,
+  "expr": "ePackageType.GAME_ROOM",
+  "func": "sendGameTeam",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(GameRoomPackageType.GAME_TEAM=6)",
+   "Byte(param1)"
+  ]
+ },
+ {
+  "code": 94,
+  "expr": "ePackageType.GAME_ROOM",
+  "func": "sendPlayerState",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(GameRoomPackageType.GAME_PLAYER_STATE_CHANGE=15)",
+   "Byte(param1)"
+  ]
+ },
+ {
+  "code": 94,
+  "expr": "ePackageType.GAME_ROOM",
+  "func": "sendUpdateRoomList",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int = 10000, param4:int = 1011",
+  "writes": [
+   "Int(GameRoomPackageType.ROOMLIST_UPDATE=9)",
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param3)",
+   "Int(param4)"
+  ]
+ },
+ {
+  "code": 94,
+  "expr": "ePackageType.GAME_ROOM",
+  "func": "userGuideStart",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(GameRoomPackageType.GAME_START=7)"
+  ]
+ },
+ {
+  "code": 95,
+  "expr": "ePackageType.NECKLACE_STRENGTH",
+  "func": "necklaceStrength",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int = 2",
+  "writes": [
+   "Byte(param3)",
+   "Int(param2)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 96,
+  "expr": "ePackageType.HONOR_UP_COUNT",
+  "func": "sendHonorUp",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:Boolean",
+  "writes": [
+   "Byte(param1)",
+   "Boolean(param2)"
+  ]
+ },
+ {
+  "code": 99,
+  "expr": "ePackageType.TEXP",
+  "func": "sendTexp",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int",
+  "writes": [
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param3)"
+  ]
+ },
+ {
+  "code": 102,
+  "expr": "ePackageType.WORLDBOSS_CMD",
+  "func": "enterWorldBossRoom",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(WorldBossGamePackageType.ENTER_WORLDBOSSROOM=32)"
+  ]
+ },
+ {
+  "code": 102,
+  "expr": "ePackageType.WORLDBOSS_CMD",
+  "func": "requestRevive",
+  "file": "worldboss/view/WorldBossResurrectView.as",
+  "params": "",
+  "writes": [
+   "Byte(WorldBossGamePackageType.REQUEST_REVIVE=37)"
+  ]
+ },
+ {
+  "code": 102,
+  "expr": "ePackageType.WORLDBOSS_CMD",
+  "func": "sendAddPlayer",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Point",
+  "writes": [
+   "Byte(WorldBossGamePackageType.ADDPLAYERS=34)",
+   "Int(param1.x)",
+   "Int(param1.y)"
+  ]
+ },
+ {
+  "code": 102,
+  "expr": "ePackageType.WORLDBOSS_CMD",
+  "func": "sendBuyWorldBossBuff",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Array",
+  "writes": [
+   "Byte(WorldBossGamePackageType.BUFF_BUY=38)",
+   "Int(param1.length)",
+   "Int(param1[_loc3_])"
+  ]
+ },
+ {
+  "code": 102,
+  "expr": "ePackageType.WORLDBOSS_CMD",
+  "func": "sendLeaveBossRoom",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(WorldBossGamePackageType.LEAVE_ROOM=33)"
+  ]
+ },
+ {
+  "code": 102,
+  "expr": "ePackageType.WORLDBOSS_CMD",
+  "func": "sendWorldBossRoomMove",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:String",
+  "writes": [
+   "Byte(WorldBossGamePackageType.MOVE=35)",
+   "Int(param1)",
+   "Int(param2)",
+   "UTF(param3)"
+  ]
+ },
+ {
+  "code": 102,
+  "expr": "ePackageType.WORLDBOSS_CMD",
+  "func": "sendWorldBossRoomStauts",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(WorldBossGamePackageType.STAUTS=36)",
+   "Byte(param1)"
+  ]
+ },
+ {
+  "code": 103,
+  "expr": "ePackageType.DAILYRECORD",
+  "func": "sendDailyRecord",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 104,
+  "expr": "ePackageType.CARD_LOTTERY",
+  "func": "sendCardLotteryIds",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Array",
+  "writes": [
+   "Int(param1.length)",
+   "Int(param1[_loc3_])"
+  ]
+ },
+ {
+  "code": 105,
+  "expr": "ePackageType.LUCK_LOTTERY",
+  "func": "sendLuckLottery",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 106,
+  "expr": "ePackageType.WISHBEADEQUIP",
+  "func": "sendWishBeadEquip",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int, param4:int, param5:int, param6:int",
+  "writes": [
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param3)",
+   "Int(param4)",
+   "Int(param5)",
+   "Int(param6)"
+  ]
+ },
+ {
+  "code": 107,
+  "expr": "ePackageType.INVITE_FRIEND",
+  "func": "enterInviteFriendView",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(InviteFriendPackageType.INVITE_FRIEND_OPENVIEW=2)"
+  ]
+ },
+ {
+  "code": 107,
+  "expr": "ePackageType.INVITE_FRIEND",
+  "func": "inviteFriendFBBntClick",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(InviteFriendPackageType.INVITE_FRIEND_FBCLICK=6)"
+  ]
+ },
+ {
+  "code": 107,
+  "expr": "ePackageType.INVITE_FRIEND",
+  "func": "inviteFriendOkClick",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String",
+  "writes": [
+   "Int(InviteFriendPackageType.INVITE_FRIEND_FRIENDREWARD)",
+   "UTF(param1)"
+  ]
+ },
+ {
+  "code": 107,
+  "expr": "ePackageType.INVITE_FRIEND",
+  "func": "inviteFriendRewardBntClick",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(InviteFriendPackageType.INVITE_FRIEND_GETREWARD=4)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 108,
+  "expr": "ePackageType.GAME_TAKE_TEMP",
+  "func": "sendGetTropToBag",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 108,
+  "expr": "ePackageType.GAME_TAKE_TEMP",
+  "func": "sendGetTropToBag",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 110,
+  "expr": "ePackageType.ITEM_REFINERY",
+  "func": "sendItemLianhua",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:Array, param4:int, param5:int, param6:int, param7:int",
+  "writes": [
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param3[_loc9_])",
+   "Int(param4)",
+   "Int(param5)",
+   "Int(param6)",
+   "Int(param7)"
+  ]
+ },
+ {
+  "code": 112,
+  "expr": "ePackageType.DELETE_MAIL",
+  "func": "sendDeleteMail",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 113,
+  "expr": "ePackageType.GET_MAIL_ATTACHMENT",
+  "func": "sendGetMail",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Int(param1)",
+   "Byte(param2)"
+  ]
+ },
+ {
+  "code": 114,
+  "expr": "ePackageType.UPDATE_MAIL",
+  "func": "sendUpdateMail",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 116,
+  "expr": "ePackageType.SEND_MAIL",
+  "func": "sendEmail",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Object",
+  "writes": [
+   "UTF(param1.NickName)",
+   "UTF(param1.Title)",
+   "UTF(param1.Content)",
+   "Boolean(param1.isPay)",
+   "Int(param1.hours)",
+   "Int(param1.SendedMoney)",
+   "Byte(param1[\"Annex\" + _loc3_].split(\",\")[0])",
+   "Int(param1[\"Annex\" + _loc3_].split(\",\")[1])",
+   "Byte(0)",
+   "Int(-1)"
+  ]
+ },
+ {
+  "code": 118,
+  "expr": "ePackageType.MAIL_CANCEL",
+  "func": "untreadEmail",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 119,
+  "expr": "ePackageType.LINKREQUEST_GOODS",
+  "func": "sendGetLinkGoodsInfo",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:String",
+  "writes": [
+   "Int(param1)",
+   "UTF(param2)"
+  ]
+ },
+ {
+  "code": 120,
+  "expr": "ePackageType.ITEM_TREND",
+  "func": "sendItemTrend",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int, param4:int, param5:int",
+  "writes": [
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param3)",
+   "Int(param4)",
+   "Int(param5)"
+  ]
+ },
+ {
+  "code": 121,
+  "expr": "ePackageType.ITEM_INLAY",
+  "func": "sendItemEmbed",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int, param4:int, param5:int",
+  "writes": [
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param3)",
+   "Int(param4)",
+   "Int(param5)"
+  ]
+ },
+ {
+  "code": 122,
+  "expr": "ePackageType.CLEAR_STORE_BAG",
+  "func": "sendClearStoreBag",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 123,
+  "expr": "ePackageType.DEFY_AFFICHE",
+  "func": "sendDefyAffiche",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String",
+  "writes": [
+   "UTF(param1)"
+  ]
+ },
+ {
+  "code": 124,
+  "expr": "ePackageType.CHANGE_PLACE_GOODS_ALL",
+  "func": "sendMoveGoodsAll",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:Array, param3:int, param4:Boolean = false",
+  "writes": [
+   "Boolean(param4)",
+   "Int(_loc5_)",
+   "Int(param1)",
+   "Int(param2[_loc7_].Place)",
+   "Int(_loc7_ + param3)"
+  ]
+ },
+ {
+  "code": 125,
+  "expr": "ePackageType.ITEM_EMBED_BACKOUT",
+  "func": "sendItemEmbedBackout",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 126,
+  "expr": "ePackageType.BUY_QUICK_GOLDBOX",
+  "func": "sendQuickBuyGoldBox",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 127,
+  "expr": "ePackageType.REClAIM_GOODS",
+  "func": "reclaimGoods",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int = 1",
+  "writes": [
+   "Byte(param1)",
+   "Int(param2)",
+   "Int(param3)"
+  ]
+ },
+ {
+  "code": 128,
+  "expr": "ePackageType.LEFT_GUN_ROULETTE_SOCKET",
+  "func": "sendStartTurn_LeftGun",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(1)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendBuyBadge",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(ConsortiaPackageType.BUY_BADGE=28)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsoritaApplyStatusOut",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Boolean",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_APPLY_STATE=7)",
+   "Boolean(param1)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortiaCancelTryIn",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_TRYIN=0)",
+   "Int(0)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortiaChangeChairman",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String = \"\"",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_CHAIRMAN_CHAHGE=19)",
+   "UTF(param1)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortiaDismiss",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_DISBAND=2)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortiaDutyDelete",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_DUTY_DELETE=9)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortiaEquipConstrol",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Array",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_EQUIP_CONTROL=24)",
+   "Int(param1[_loc3_])"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortiaInvate",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_INVITE=11)",
+   "UTF(param1)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortiaInvateDelete",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_INVITE_DELETE=13)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortiaInvatePass",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_INVITE_PASS=12)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortiaLevelUp",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_LEVEL_UP=21)",
+   "Byte(param1)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortiaMemberGrade",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:Boolean",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_USER_GRADE_UPDATE=1)",
+   "Int(param1)",
+   "Boolean(param2)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortiaOut",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_RENEGADE=3)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortiaRichOffer",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_RICHES_OFFER=6)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortiaTryIn",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_TRYIN=0)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortiaTryinDelete",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_TRYIN_DEL=5)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortiaTryinPass",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_TRYIN_PASS=4)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortiaUpdateDescription",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_DESCRIPTION_UPDATE=)",
+   "UTF(param1)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortiaUpdateDuty",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:String, param3:int",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_DUTY_UPDATE=10)",
+   "Int(param1)",
+   "Byte(param1 == -1 ? int(int(1)) : int(int(2)))",
+   "UTF(param2)",
+   "Int(param3)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortiaUpdatePlacard",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_PLACARD_UPDATE=15)",
+   "UTF(param1)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortiaUpgradeDuty",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_DUTY_UPDATE=10)",
+   "Int(param1)",
+   "Byte(param2)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortiaUserRemarkUpdate",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:String",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_USER_REMARK_UPDATE=)",
+   "Int(param1)",
+   "UTF(param2)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortionMail",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String, param2:String",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTION_MAIL=29)",
+   "UTF(param1)",
+   "UTF(param2)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortionPoll",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(ConsortiaPackageType.POLL_CANDIDATE=25)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendConsortionSkill",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Boolean, param2:int, param3:int, param4:int = 1",
+  "writes": [
+   "Int(ConsortiaPackageType.SKILL_SOCKET=26)",
+   "Boolean(param1)",
+   "Int(param2)",
+   "Int(param3)",
+   "Int(param4)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendCreateConsortia",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_CREATE=1)",
+   "UTF(param1)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendDonate",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Int(ConsortiaPackageType.DONATE=23)",
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendForbidSpeak",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:Boolean",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_BANCHAT_UPDATE=16)",
+   "Int(param1)",
+   "Boolean(param2)"
+  ]
+ },
+ {
+  "code": 129,
+  "expr": "ePackageType.CONSORTIA_CMD",
+  "func": "sendReleaseConsortiaTask",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(ConsortiaPackageType.CONSORTIA_TASK_RELEASE=22)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 130,
+  "expr": "ePackageType.LEFT_GUN_ROULETTE_COMPLETTE",
+  "func": "sendEndTurn_LeftGun",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(1)"
+  ]
+ },
+ {
+  "code": 131,
+  "expr": "ePackageType.LABYRINTH",
+  "func": "labyrinthCleanOut",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(LabyrinthPackageType.CLEAN_OUT=3)"
+  ]
+ },
+ {
+  "code": 131,
+  "expr": "ePackageType.LABYRINTH",
+  "func": "labyrinthCleanOutTimerComplete",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(LabyrinthPackageType.CLEAN_OUT_COMPLETE=8)"
+  ]
+ },
+ {
+  "code": 131,
+  "expr": "ePackageType.LABYRINTH",
+  "func": "labyrinthDouble",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Boolean",
+  "writes": [
+   "Int(LabyrinthPackageType.DOUBLE_REWARD=1)",
+   "Boolean(param1)"
+  ]
+ },
+ {
+  "code": 131,
+  "expr": "ePackageType.LABYRINTH",
+  "func": "labyrinthRequestUpdate",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(LabyrinthPackageType.REQUEST_UPDATE=2)"
+  ]
+ },
+ {
+  "code": 131,
+  "expr": "ePackageType.LABYRINTH",
+  "func": "labyrinthReset",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(LabyrinthPackageType.RESET_LABYRINTH=6)"
+  ]
+ },
+ {
+  "code": 131,
+  "expr": "ePackageType.LABYRINTH",
+  "func": "labyrinthSpeededUpCleanOut",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Boolean",
+  "writes": [
+   "Int(LabyrinthPackageType.SPEEDED_UP_CLEAN_OUT=4)",
+   "Boolean(param1)"
+  ]
+ },
+ {
+  "code": 131,
+  "expr": "ePackageType.LABYRINTH",
+  "func": "labyrinthStopCleanOut",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(LabyrinthPackageType.STOP_CLEAN_OUT=5)"
+  ]
+ },
+ {
+  "code": 131,
+  "expr": "ePackageType.LABYRINTH",
+  "func": "labyrinthTryAgain",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Boolean, param2:Boolean",
+  "writes": [
+   "Int(LabyrinthPackageType.TRY_AGAIN=9)",
+   "Boolean(param1)",
+   "Boolean(param2)"
+  ]
+ },
+ {
+  "code": 133,
+  "expr": "ePackageType.LATENT_ENERGY",
+  "func": "sendLatentEnergy",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int, param4:int = -1, param5:int = -1",
+  "writes": [
+   "Byte(param1)",
+   "Int(param2)",
+   "Int(param3)",
+   "Int(param4)",
+   "Int(param5)"
+  ]
+ },
+ {
+  "code": 135,
+  "expr": "135",
+  "func": "arrange",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(1)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 136,
+  "expr": "ePackageType.TOTEM",
+  "func": "sendOpenOneTotem",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Boolean, param2:Boolean",
+  "writes": [
+   "Boolean(param1)",
+   "Boolean(param2)"
+  ]
+ },
+ {
+  "code": 138,
+  "expr": "ePackageType.ITEM_ADVANCE",
+  "func": "sendItemExalt",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 141,
+  "expr": "AcademyPackageType.ACADEMY_FATHER",
+  "func": "sendAcademyApprentice",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:String",
+  "writes": [
+   "Byte(AcademyPackageType.ACADEMY_FOR_APPRENTICE=4)",
+   "Int(param1)",
+   "UTF(param2)"
+  ]
+ },
+ {
+  "code": 141,
+  "expr": "AcademyPackageType.ACADEMY_FATHER",
+  "func": "sendAcademyApprenticeConfirm",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Boolean, param2:int",
+  "writes": [
+   "Byte(AcademyPackageType.APPRENTICE_CONFIRM=7)",
+   "Byte(AcademyPackageType.APPRENTICE_REFUSE=9)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 141,
+  "expr": "AcademyPackageType.ACADEMY_FATHER",
+  "func": "sendAcademyFireApprentice",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(AcademyPackageType.FIRE_APPRENTICE=13)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 141,
+  "expr": "AcademyPackageType.ACADEMY_FATHER",
+  "func": "sendAcademyFireMaster",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(AcademyPackageType.FIRE_MASTER=12)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 141,
+  "expr": "AcademyPackageType.ACADEMY_FATHER",
+  "func": "sendAcademyMaster",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:String",
+  "writes": [
+   "Byte(AcademyPackageType.ACADEMY_FOR_MASTER=5)",
+   "Int(param1)",
+   "UTF(param2)"
+  ]
+ },
+ {
+  "code": 141,
+  "expr": "AcademyPackageType.ACADEMY_FATHER",
+  "func": "sendAcademyMasterConfirm",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Boolean, param2:int",
+  "writes": [
+   "Byte(AcademyPackageType.MASTER_CONFIRM=6)",
+   "Byte(AcademyPackageType.MASTER_REFUSE=8)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 141,
+  "expr": "AcademyPackageType.ACADEMY_FATHER",
+  "func": "sendAcademyRegister",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:Boolean, param3:String = null, param4:Boolean = false",
+  "writes": [
+   "Byte(AcademyPackageType.ACADEMY_REGISTER=1)",
+   "Int(param1)",
+   "Boolean(param2)",
+   "UTF(param3)",
+   "Boolean(param4)"
+  ]
+ },
+ {
+  "code": 141,
+  "expr": "AcademyPackageType.ACADEMY_FATHER",
+  "func": "sendAcademyRemoveRegister",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(AcademyPackageType.ACADEMY_REMOVE=3)"
+  ]
+ },
+ {
+  "code": 145,
+  "expr": "ePackageType.LIGHTROAD_SYSTEM",
+  "func": "lightRoadPointWork",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(LightRoadPackageType.BECHOOSE_POINT=66)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 145,
+  "expr": "ePackageType.GUILDMEMBERWEEK_SYSTEM",
+  "func": "sendGuildMemberWeekAddRanking",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Array",
+  "writes": [
+   "Byte(GuildMemberWeekPackageType.SEND_ADDRUNKING=10)",
+   "Int(_loc2_)",
+   "Int(param1[_loc4_])"
+  ]
+ },
+ {
+  "code": 145,
+  "expr": "ePackageType.GUILDMEMBERWEEK_SYSTEM",
+  "func": "sendGuildMemberWeekStarClose",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(GuildMemberWeekPackageType.CLOSE=9)"
+  ]
+ },
+ {
+  "code": 145,
+  "expr": "ePackageType.GUILDMEMBERWEEK_SYSTEM",
+  "func": "sendGuildMemberWeekStarEnter",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(GuildMemberWeekPackageType.ENTER_GAME=8)"
+  ]
+ },
+ {
+  "code": 145,
+  "expr": "ePackageType.ACTIVITY_SYSTEM",
+  "func": "sendLanternRiddlesAnswer",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int",
+  "writes": [
+   "Byte(LanternriddlesPackageType.LANTERNRIDDLES_ANSWER=40)",
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param3)"
+  ]
+ },
+ {
+  "code": 145,
+  "expr": "ePackageType.ACTIVITY_SYSTEM",
+  "func": "sendLanternRiddlesQuestion",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(LanternriddlesPackageType.LANTERNRIDDLES_QUESTION=)"
+  ]
+ },
+ {
+  "code": 145,
+  "expr": "ePackageType.ACTIVITY_SYSTEM",
+  "func": "sendLanternRiddlesRankInfo",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(LanternriddlesPackageType.LANTERNRIDDLES_RANKINFO=)"
+  ]
+ },
+ {
+  "code": 145,
+  "expr": "ePackageType.ACTIVITY_SYSTEM",
+  "func": "sendLanternRiddlesUseSkill",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int, param4:Boolean = true",
+  "writes": [
+   "Byte(LanternriddlesPackageType.LANTERNRIDDLES_SKILL=41)",
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param3)",
+   "Boolean(false)"
+  ]
+ },
+ {
+  "code": 145,
+  "expr": "ePackageType.LIGHTROAD_SYSTEM",
+  "func": "sendLightRoadStarEnter",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(LightRoadPackageType.ENTER_GAME=64)"
+  ]
+ },
+ {
+  "code": 160,
+  "expr": "ePackageType.IM_CMD",
+  "func": "sendAddFriend",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String, param2:int, param3:Boolean = false, param4:Boolean = false",
+  "writes": [
+   "Byte(IMPackageType.FRIEND_ADD=160)",
+   "UTF(param1)",
+   "Int(param2)",
+   "Boolean(param3)",
+   "Boolean(param4)"
+  ]
+ },
+ {
+  "code": 160,
+  "expr": "ePackageType.IM_CMD",
+  "func": "sendCustomFriends",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:String",
+  "writes": [
+   "Byte(IMPackageType.ADD_CUSTOM_FRIENDS=208)",
+   "Byte(param1)",
+   "Int(param2)",
+   "UTF(param3)"
+  ]
+ },
+ {
+  "code": 160,
+  "expr": "ePackageType.IM_CMD",
+  "func": "sendDelFriend",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(IMPackageType.FRIEND_REMOVE=161)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 160,
+  "expr": "ePackageType.IM_CMD",
+  "func": "sendFriendState",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(IMPackageType.FRIEND_STATE=165)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 160,
+  "expr": "ePackageType.IM_CMD",
+  "func": "sendOneOnOneTalk",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:String, param3:Boolean = false",
+  "writes": [
+   "Byte(IMPackageType.ONE_ON_ONE_TALK=51)",
+   "Int(param1)",
+   "UTF(param2)",
+   "Boolean(param3)"
+  ]
+ },
+ {
+  "code": 160,
+  "expr": "ePackageType.IM_CMD",
+  "func": "sendOns",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(IMPackageType.ONS_EQUIP=45)"
+  ]
+ },
+ {
+  "code": 161,
+  "expr": "ePackageType.USER_LUCKYNUM",
+  "func": "sendUserLuckyNum",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:Boolean",
+  "writes": [
+   "Boolean(param2)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 162,
+  "expr": "ePackageType.ELITEGAME",
+  "func": "sendEliteGameStart",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(EliteGamePackageType.ELITE_MATCH_RANK_START=2)"
+  ]
+ },
+ {
+  "code": 162,
+  "expr": "ePackageType.ELITEGAME",
+  "func": "sendGetEliteGameState",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(EliteGamePackageType.ELITE_MATCH_TYPE=1)"
+  ]
+ },
+ {
+  "code": 162,
+  "expr": "ePackageType.ELITEGAME",
+  "func": "sendGetPaarungDetail",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(EliteGamePackageType.ELITE_MATCH_RANK_DETAIL=4)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 162,
+  "expr": "ePackageType.ELITEGAME",
+  "func": "sendGetSelfRankSroce",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(EliteGamePackageType.ELITE_MATCH_PLAYER_RANK=3)"
+  ]
+ },
+ {
+  "code": 166,
+  "expr": "ePackageType.LITTLEGAME_COMMAND",
+  "func": "createPackageOut",
+  "file": "littleGame/LittleGameManager.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 167,
+  "expr": "ePackageType.CHURCH_MOVIE_OVER",
+  "func": "sendChurchMovieOver",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:String",
+  "writes": [
+   "Int(param1)",
+   "UTF(param2)"
+  ]
+ },
+ {
+  "code": 168,
+  "expr": "ePackageType.GOODS_COUNT",
+  "func": "sendUpdateGoodsCount",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 169,
+  "expr": "ePackageType.HOTSPRING_ROOM_PLAYER_REMOVE",
+  "func": "sendHotSpringRoomPlayerRemove",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 171,
+  "expr": "ePackageType.USE_REWORK_NAME",
+  "func": "sendUseReworkName",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:String",
+  "writes": [
+   "Byte(param1)",
+   "Int(param2)",
+   "UTF(param3)"
+  ]
+ },
+ {
+  "code": 172,
+  "expr": "ePackageType.SAVE_DB",
+  "func": "sendSaveDB",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 175,
+  "expr": "ePackageType.HOTSPRING_ROOM_CREATE",
+  "func": "sendHotSpringRoomCreate",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:*",
+  "writes": [
+   "UTF(param1.roomName)",
+   "UTF(param1.roomPassword)",
+   "UTF(param1.roomIntroduction)",
+   "Int(param1.maxCount)"
+  ]
+ },
+ {
+  "code": 176,
+  "expr": "ePackageType.QUEST_ADD",
+  "func": "sendQuestAdd",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Array",
+  "writes": [
+   "Int(param1.length)",
+   "Int(param1[_loc3_])"
+  ]
+ },
+ {
+  "code": 177,
+  "expr": "ePackageType.QUEST_REMOVE",
+  "func": "sendQuestRemove",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 179,
+  "expr": "ePackageType.QUEST_FINISH",
+  "func": "sendQuestFinish",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 181,
+  "expr": "ePackageType.QUEST_CHECK",
+  "func": "sendQuestCheck",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int = 1",
+  "writes": [
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param3)"
+  ]
+ },
+ {
+  "code": 182,
+  "expr": "ePackageType.USE_COLOR_CARD",
+  "func": "sendChangeColor",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int, param4:int, param5:String, param6:String, param7:int",
+  "writes": [
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param3)",
+   "Int(param4)",
+   "UTF(param5)",
+   "UTF(param6)",
+   "Int(param7)"
+  ]
+ },
+ {
+  "code": 183,
+  "expr": "ePackageType.CARD_USE",
+  "func": "sendUseCard",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:Array, param4:int, param5:Boolean = false",
+  "writes": [
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param3.length)",
+   "Int(param3[_loc8_])",
+   "Int(param4)",
+   "Boolean(param5)"
+  ]
+ },
+ {
+  "code": 187,
+  "expr": "ePackageType.HOTSPRING_ENTER",
+  "func": "sendHotSpringEnter",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 188,
+  "expr": "ePackageType.USE_CONSORTIA_REWORK_NAME",
+  "func": "sendUseConsortiaReworkName",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int, param4:String",
+  "writes": [
+   "Int(param1)",
+   "Byte(param2)",
+   "Int(param3)",
+   "UTF(param4)"
+  ]
+ },
+ {
+  "code": 189,
+  "expr": "ePackageType.USER_CHANGE_RANK",
+  "func": "sendReworkRank",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String",
+  "writes": [
+   "UTF(param1)"
+  ]
+ },
+ {
+  "code": 190,
+  "expr": "ePackageType.HOTSPRING_ROOM_QUICK_ENTER",
+  "func": "sendHotSpringRoomQuickEnter",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 191,
+  "expr": "ePackageType.HOTSPRING_CMD",
+  "func": "sendHotSpringRoomAdminRemovePlayer",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(HotSpringPackageType.HOTSPRING_ROOM_ADMIN_REMOVE_P)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 191,
+  "expr": "ePackageType.HOTSPRING_CMD",
+  "func": "sendHotSpringRoomEdit",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:*",
+  "writes": [
+   "Byte(HotSpringPackageType.HOTSPRING_ROOM_EDIT=6)",
+   "UTF(param1.roomName)",
+   "UTF(param1.roomPassword)",
+   "UTF(param1.roomIntroduction)"
+  ]
+ },
+ {
+  "code": 191,
+  "expr": "ePackageType.HOTSPRING_CMD",
+  "func": "sendHotSpringRoomInvite",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(HotSpringPackageType.HOTSPRING_ROOM_INVITE=4)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 191,
+  "expr": "ePackageType.HOTSPRING_CMD",
+  "func": "sendHotSpringRoomPlayerContinue",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Boolean",
+  "writes": [
+   "Byte(HotSpringPackageType.HOTSPRING_ROOM_PLAYER_CONTINU)",
+   "Boolean(param1)"
+  ]
+ },
+ {
+  "code": 191,
+  "expr": "ePackageType.HOTSPRING_CMD",
+  "func": "sendHotSpringRoomPlayerTargetPoint",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:*",
+  "writes": [
+   "Byte(HotSpringPackageType.TARGET_POINT=1)",
+   "UTF(_loc6_)",
+   "Int(param1.playerInfo.ID)",
+   "Int(param1.currentWalkStartPoint.x)",
+   "Int(param1.currentWalkStartPoint.y)",
+   "Int(1)",
+   "Int(param1.playerDirection)"
+  ]
+ },
+ {
+  "code": 191,
+  "expr": "ePackageType.HOTSPRING_CMD",
+  "func": "sendHotSpringRoomRenewalFee",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(HotSpringPackageType.HOTSPRING_ROOM_RENEWAL_FEE=3)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 192,
+  "expr": "ePackageType.AUCTION_ADD",
+  "func": "auctionGood",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int, param4:int, param5:int, param6:int, param7:int",
+  "writes": [
+   "Byte(param1)",
+   "Int(param2)",
+   "Byte(param3)",
+   "Int(param4)",
+   "Int(param5)",
+   "Int(param6)",
+   "Int(param7)"
+  ]
+ },
+ {
+  "code": 193,
+  "expr": "ePackageType.AUCTION_UPDATE",
+  "func": "auctionBid",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 194,
+  "expr": "ePackageType.AUCTION_DELETE",
+  "func": "auctionCancelSell",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 196,
+  "expr": "ePackageType.CARD_RESET",
+  "func": "sendCardReset",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(0)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 196,
+  "expr": "ePackageType.CARD_RESET",
+  "func": "sendReplaceCardProp",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(1)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 200,
+  "expr": "ePackageType.CHECK_CODE",
+  "func": "sendCheckCode",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String",
+  "writes": [
+   "UTF(param1)"
+  ]
+ },
+ {
+  "code": 201,
+  "expr": "ePackageType.HOTSPRING_ROOM_ENTER_VIEW",
+  "func": "sendHotSpringRoomEnterView",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 202,
+  "expr": "ePackageType.HOTSPRING_ROOM_ENTER",
+  "func": "sendHotSpringRoomEnter",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:String",
+  "writes": [
+   "Int(param1)",
+   "UTF(param2)"
+  ]
+ },
+ {
+  "code": 203,
+  "expr": "ePackageType.LOOKUP_EFFORT",
+  "func": "sendLookupEffort",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 204,
+  "expr": "ePackageType.OPEN_ALL_CARDBOX",
+  "func": "sendOpenAll",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 205,
+  "expr": "ePackageType.USE_CHANGE_COLOR_SHELL",
+  "func": "sendUseChangeColorShell",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Byte(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 206,
+  "expr": "ePackageType.CHANGE_COLOR_OVER_DUE",
+  "func": "sendChangeColorShellTimeOver",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Byte(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 209,
+  "expr": "ePackageType.FIGHT_SPIRIT",
+  "func": "figSpiritUpGrade",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:GemstnoeSendInfo",
+  "writes": [
+   "Byte(FightSpiritPackageType.FIGHT_SPIRIT_LEVELUP=3)",
+   "Int(param1.autoBuyId)",
+   "Int(param1.goodsId)",
+   "Int(param1.type)",
+   "Int(param1.templeteId)",
+   "Int(param1.fightSpiritId)",
+   "Int(param1.equipPlayce)",
+   "Int(param1.place)",
+   "Int(param1.pointXY)"
+  ]
+ },
+ {
+  "code": 209,
+  "expr": "ePackageType.FIGHT_SPIRIT",
+  "func": "fightSpiritRequest",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(FightSpiritPackageType.FIGHT_SPIRIT_INIT=1)"
+  ]
+ },
+ {
+  "code": 212,
+  "expr": "ePackageType.HOTSPRING_ROOM_ENTER_CONFIRM",
+  "func": "sendHotSpringRoomEnterConfirm",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 213,
+  "expr": "ePackageType.USE_LOG",
+  "func": "sendUseLog",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 214,
+  "expr": "ePackageType.USER_RELOAD_GIFT",
+  "func": "sendReloadGift",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 216,
+  "expr": "ePackageType.CARDS_DATA",
+  "func": "sendFirstGetCards",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(5)"
+  ]
+ },
+ {
+  "code": 216,
+  "expr": "ePackageType.CARDS_DATA",
+  "func": "sendMoveCards",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Int(0)",
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 216,
+  "expr": "ePackageType.CARDS_DATA",
+  "func": "sendOpenCardBox",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Int(2)",
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 216,
+  "expr": "ePackageType.CARDS_DATA",
+  "func": "sendOpenViceCard",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(1)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 216,
+  "expr": "ePackageType.CARDS_DATA",
+  "func": "sendSortCards",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Vector.<int>",
+  "writes": [
+   "Int(4)",
+   "Int(_loc3_)",
+   "Int(_loc5_)",
+   "Int(_loc6_)"
+  ]
+ },
+ {
+  "code": 216,
+  "expr": "ePackageType.CARDS_DATA",
+  "func": "sendUpGradeCard",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(3)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 217,
+  "expr": "ePackageType.OPEN_FIVE_SIX_HOLE",
+  "func": "sendItemOpenFiveSixHole",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int",
+  "writes": [
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param3)"
+  ]
+ },
+ {
+  "code": 218,
+  "expr": "ePackageType.USER_GET_GIFTS",
+  "func": "sendPlayerGift",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 219,
+  "expr": "ePackageType.WEEKLY_CLICK_CNT",
+  "func": "sendWeeklyClick",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 221,
+  "expr": "ePackageType.USER_SEND_GIFTS",
+  "func": "sendBuyGift",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String, param2:int, param3:int, param4:int",
+  "writes": [
+   "UTF(param1)",
+   "Int(param2)",
+   "Int(param3)",
+   "Int(param4)"
+  ]
+ },
+ {
+  "code": 222,
+  "expr": "ePackageType.EQUIP_RECYCLE_ITEM",
+  "func": "sendEquipRetrieve",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 223,
+  "expr": "ePackageType.FRIEND_BRITHDAY",
+  "func": "sendWithBrithday",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Vector.<FriendListPlayer>",
+  "writes": [
+   "Int(param1.length)",
+   "Int(param1[_loc3_].ID)",
+   "UTF(param1[_loc3_].NickName)",
+   "Date(param1[_loc3_].BirthdayDate)"
+  ]
+ },
+ {
+  "code": 224,
+  "expr": "ePackageType.CID_CHECK",
+  "func": "sendCIDCheck",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 224,
+  "expr": "ePackageType.CID_CHECK",
+  "func": "sendCIDInfo",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String, param2:String",
+  "writes": [
+   "Boolean(false)",
+   "UTF(param1)",
+   "UTF(param2)"
+  ]
+ },
+ {
+  "code": 225,
+  "expr": "ePackageType.ENTHRALL_SWITCH",
+  "func": "sendForSwitch",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 225,
+  "expr": "ePackageType.REQUEST_UPDATE",
+  "func": "sendRequestUpdate",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 230,
+  "expr": "ePackageType.ACHIEVEMENT_FINISH",
+  "func": "sendAchievementFinish",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 232,
+  "expr": "ePackageType.CADDY_SELL_ALL_GOODS",
+  "func": "sendSellAll",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 233,
+  "expr": "ePackageType.MARRY_SCENE_CHANGE",
+  "func": "sendSceneChange",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 235,
+  "expr": "ePackageType.MARRYINFO_GET",
+  "func": "sendForMarryInfo",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 236,
+  "expr": "ePackageType.MARRYINFO_ADD",
+  "func": "sendRegisterInfo",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:Boolean, param3:String = null",
+  "writes": [
+   "Boolean(param2)",
+   "UTF(param3)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 237,
+  "expr": "ePackageType.MARRYINFO_UPDATE",
+  "func": "sendModifyInfo",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Boolean, param2:String = null",
+  "writes": [
+   "Boolean(param1)",
+   "UTF(param2)"
+  ]
+ },
+ {
+  "code": 239,
+  "expr": "ePackageType.GOTO_CARD_LOTTERY",
+  "func": "gotoCardLottery",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 240,
+  "expr": "ePackageType.MARRY_SCENE_LOGIN",
+  "func": "sendMarryRoomLogin",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 241,
+  "expr": "ePackageType.MARRY_ROOM_CREATE",
+  "func": "sendCreateRoom",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String, param2:String, param3:int, param4:int, param5:Boolean, param6:String",
+  "writes": [
+   "UTF(param1)",
+   "UTF(param2)",
+   "Int(param3)",
+   "Int(param4)",
+   "Int(100)",
+   "Boolean(param5)",
+   "UTF(param6)"
+  ]
+ },
+ {
+  "code": 242,
+  "expr": "ePackageType.MARRY_ROOM_LOGIN",
+  "func": "sendEnterRoom",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:String, param3:int = 1",
+  "writes": [
+   "Int(param1)",
+   "UTF(param2)",
+   "Int(param3)"
+  ]
+ },
+ {
+  "code": 244,
+  "expr": "ePackageType.PLAYER_EXIT_MARRY_ROOM",
+  "func": "sendExitRoom",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 245,
+  "expr": "ePackageType.CADDY_GET_AWARDS",
+  "func": "sendRequestAwards",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 246,
+  "expr": "ePackageType.MARRY_STATUS",
+  "func": "sendValidateMarry",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 247,
+  "expr": "ePackageType.MARRY_APPLY",
+  "func": "sendPropose",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:String, param3:Boolean",
+  "writes": [
+   "Int(param1)",
+   "UTF(param2)",
+   "Boolean(param3)"
+  ]
+ },
+ {
+  "code": 248,
+  "expr": "ePackageType.DIVORCE_APPLY",
+  "func": "sendUnmarry",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Boolean = false",
+  "writes": [
+   "Boolean(param1)"
+  ]
+ },
+ {
+  "code": 249,
+  "expr": "ePackageType.MARRY_CMD",
+  "func": "refund",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(ChurchPackageType.MARRYROOMSENDGIFT=12)",
+   "Byte(ChurchPackageType.CLIENTCONFIRM=4)"
+  ]
+ },
+ {
+  "code": 249,
+  "expr": "ePackageType.MARRY_CMD",
+  "func": "requestRefund",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(ChurchPackageType.MARRYROOMSENDGIFT=12)",
+   "Byte(ChurchPackageType.BEGINSENDGIFT=1)"
+  ]
+ },
+ {
+  "code": 249,
+  "expr": "ePackageType.MARRY_CMD",
+  "func": "sendChurchContinuation",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(ChurchPackageType.CONTINUATION=3)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 249,
+  "expr": "ePackageType.MARRY_CMD",
+  "func": "sendChurchForbid",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(ChurchPackageType.FORBID=8)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 249,
+  "expr": "ePackageType.MARRY_CMD",
+  "func": "sendChurchInvite",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(ChurchPackageType.INVITE=4)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 249,
+  "expr": "ePackageType.MARRY_CMD",
+  "func": "sendChurchKick",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(ChurchPackageType.KICK=7)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 249,
+  "expr": "ePackageType.MARRY_CMD",
+  "func": "sendChurchLargess",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:uint",
+  "writes": [
+   "Byte(ChurchPackageType.LARGESS=5)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 249,
+  "expr": "ePackageType.MARRY_CMD",
+  "func": "sendChurchMove",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:String",
+  "writes": [
+   "Byte(ChurchPackageType.MOVE=1)",
+   "Int(param1)",
+   "Int(param2)",
+   "UTF(param3)"
+  ]
+ },
+ {
+  "code": 249,
+  "expr": "ePackageType.MARRY_CMD",
+  "func": "sendGunSalute",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Byte(ChurchPackageType.GUNSALUTE=11)",
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 249,
+  "expr": "ePackageType.MARRY_CMD",
+  "func": "sendPosition",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Number, param2:Number",
+  "writes": [
+   "Byte(ChurchPackageType.POSITION=10)",
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 249,
+  "expr": "ePackageType.MARRY_CMD",
+  "func": "sendStartWedding",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Byte(ChurchPackageType.HYMENEAL=2)"
+  ]
+ },
+ {
+  "code": 249,
+  "expr": "ePackageType.MARRY_CMD",
+  "func": "sendUseFire",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Byte(ChurchPackageType.USEFIRECRACKERS=6)",
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 250,
+  "expr": "ePackageType.MARRY_APPLY_REPLY",
+  "func": "sendProposeRespose",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:Boolean, param2:int, param3:int",
+  "writes": [
+   "Boolean(param1)",
+   "Int(param2)",
+   "Int(param3)"
+  ]
+ },
+ {
+  "code": 251,
+  "expr": "ePackageType.SCENE_STATE",
+  "func": "sendCurrentState",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:uint",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 252,
+  "expr": "ePackageType.USE_CHANGE_SEX",
+  "func": "sendChangeSex",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Byte(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 253,
+  "expr": "ePackageType.MARRY_ROOM_INFO_UPDATE",
+  "func": "sendModifyChurchDiscription",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:String, param2:Boolean, param3:String, param4:String",
+  "writes": [
+   "UTF(param1)",
+   "Boolean(param2)",
+   "UTF(param3)",
+   "UTF(param4)"
+  ]
+ },
+ {
+  "code": 258,
+  "expr": "ePackageType.NOVICEACTIVITY",
+  "func": "sendNoviceActivityGetAward",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ },
+ {
+  "code": 259,
+  "expr": "ePackageType.FIRSTRECHARGE",
+  "func": "sendFirstRechargeGetAward",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 265,
+  "expr": "ePackageType.NEWTITLE_CARD",
+  "func": "sendNewTitleCard",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Byte(param2)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 279,
+  "expr": "279",
+  "func": "showHideTitleState",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "flag:Boolean",
+  "writes": [
+   "Boolean(flag)"
+  ]
+ },
+ {
+  "code": 295,
+  "expr": "ePackageType.STORE_FINE_SUIT",
+  "func": "sendForgeSuit",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Byte(FineStorePackageType.FORGE_SUIT=1)",
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 300,
+  "expr": "300",
+  "func": "sendpkgCheckHack",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": [
+   "Int(0)"
+  ]
+ },
+ {
+  "code": 308,
+  "expr": "ePackageType.EQUIP_BRING_UP",
+  "func": "sendBringUpEat",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int, ... rest",
+  "writes": [
+   "Int(param1)",
+   "Int(rest.shift())",
+   "Int(rest.shift())",
+   "Int(rest.shift())",
+   "Int(rest.shift())"
+  ]
+ },
+ {
+  "code": 313,
+  "expr": "ePackageType.ITEM_CELL_IS_LOCKED",
+  "func": "sendBringUpLockStatusUpdate",
+  "file": "ddt/manager/GameInSocketOut.as",
+  "params": "param1:int, param2:int, param3:Boolean",
+  "writes": [
+   "Int(param1)",
+   "Int(param2)",
+   "Boolean(param3)"
+  ]
+ },
+ {
+  "code": 338,
+  "expr": "ePackageType.ACCUMULATIVELOGIN_AWARD",
+  "func": "sendAccumulativeLoginAward",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int",
+  "writes": [
+   "Int(param1)"
+  ]
+ },
+ {
+  "code": 391,
+  "expr": "ePackageType.EQUIP_GHOST",
+  "func": "sendEquipGhost",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "",
+  "writes": []
+ },
+ {
+  "code": 402,
+  "expr": "ePackageType.AVATAR_COLLECTION",
+  "func": "sendAvatarCollectionActive",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int, param3:int",
+  "writes": [
+   "Byte(AvatarCollectionPackageType.ACTIVE=3)",
+   "Int(param1)",
+   "Int(param2)",
+   "Int(param3)"
+  ]
+ },
+ {
+  "code": 402,
+  "expr": "ePackageType.AVATAR_COLLECTION",
+  "func": "sendAvatarCollectionDelayTime",
+  "file": "ddt/manager/GameSocketOut.as",
+  "params": "param1:int, param2:int",
+  "writes": [
+   "Byte(AvatarCollectionPackageType.DELAY_TIME=4)",
+   "Int(param1)",
+   "Int(param2)"
+  ]
+ }
+]

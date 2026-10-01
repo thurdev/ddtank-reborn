@@ -1,0 +1,1 @@
+<Result value="true" message="Success!"><Item ID="1" UserName="harness" NickName="Harness" Sex="true" Grade="10" GP="1000" Gold="1000" Money="1000" Hide="1111111111" Style="" Colors="" Skin="" Nimbus="0" IsCreatedMarryRoom="false" /></Result>

@@ -1,0 +1,7 @@
+@import "tailwindcss";
+@import "@ddtank/ui/styles.css";
+@source "../../../../packages/ui/src";
+
+html, body, #root { height: 100%; }
+body { overflow: hidden; user-select: none; }
+.selectable { user-select: text; }

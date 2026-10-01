@@ -1,0 +1,4244 @@
+{
+ "SP_Insert_Update_Server_Config": {
+  "db": "Player34",
+  "tables": [
+   "Server_Config",
+   "Db_Tank"
+  ],
+  "params": [
+   "ID",
+   "Name",
+   "Value",
+   "setUpdate",
+   "count2"
+  ]
+ },
+ "SP_Users_Password_Add": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Password"
+  ],
+  "params": [
+   "UserID",
+   "PasswordQuestion1",
+   "PasswordAnswer1",
+   "PasswordQuestion2",
+   "PasswordAnswer2",
+   "FailedPasswordAttemptCount",
+   "Counts"
+  ]
+ },
+ "SP_Users_PasswordInfo": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Password"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_PayState": {
+  "db": "Player34",
+  "tables": [
+   "charge_money"
+  ],
+  "params": [
+   "chargeId"
+  ]
+ },
+ "SP_Users_UpdateCharmGP": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail"
+  ],
+  "params": [
+   "UserID",
+   "CharmGP"
+  ]
+ },
+ "SP_UsersState_SingleByNickName": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail"
+  ],
+  "params": [
+   "NickName"
+  ]
+ },
+ "SP_Sys_Update_Users_Rank_Date": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail",
+   "Sys_Users_Rank_Date",
+   "Consortia"
+  ],
+  "params": []
+ },
+ "SP_GetSingleGemStone": {
+  "db": "Player34",
+  "tables": [
+   "Sys_User_Gemstone",
+   "Consortia_Equip_Control"
+  ],
+  "params": [
+   "ID",
+   "ConsortiaID",
+   "Level",
+   "Type"
+  ]
+ },
+ "SP_Mail_Single": {
+  "db": "Player34",
+  "tables": [
+   "User_Messages"
+  ],
+  "params": [
+   "ID",
+   "UserID"
+  ]
+ },
+ "SP_Users_RenameNick2": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail",
+   "Rename_Nick",
+   "Consortia",
+   "Consortia_Users"
+  ],
+  "params": [
+   "UserName",
+   "NickName",
+   "NewNickName",
+   "UserID",
+   "count",
+   "Rename"
+  ]
+ },
+ "SP_Get_AvatarCollect": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_AvatarCollection"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_Admin_Redeem": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Goods",
+   "Sys_Users_Detail"
+  ],
+  "params": []
+ },
+ "SP_Consortia_All": {
+  "db": "Player34",
+  "tables": [
+   "Consortia"
+  ],
+  "params": []
+ },
+ "SP_Sys_Clear_Items": {
+  "db": "Player34",
+  "tables": [],
+  "params": []
+ },
+ "SP_ConsortiaDuty_Update": {
+  "db": "Player34",
+  "tables": [
+   "V_Consortia_Users",
+   "Consortia_Duty"
+  ],
+  "params": [
+   "DutyID",
+   "ConsortiaID",
+   "DutyName",
+   "Level",
+   "UserID",
+   "UpdateType",
+   "Right",
+   "tempRight"
+  ]
+ },
+ "SP_Admin_SendAllItem_UserName_MultiSupport": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail"
+  ],
+  "params": [
+   "Title",
+   "Content",
+   "UserName",
+   "Gold",
+   "Money",
+   "GiftToken",
+   "ParamHole",
+   "Param",
+   "Hole1",
+   "Hole2",
+   "Hole3",
+   "Hole4",
+   "Hole5",
+   "Hole6",
+   "NickName",
+   "UserID",
+   "temp",
+   "maxCount",
+   "ItemID",
+   "TemplateID",
+   "Place",
+   "Count",
+   "IsJudge",
+   "Color",
+   "IsExist",
+   "StrengthenLevel",
+   "AttackCompose",
+   "DefendCompose",
+   "LuckCompose",
+   "AgilityCompose",
+   "IsBinds",
+   "BeginDate",
+   "ValidDate",
+   "BagType",
+   "SenderID",
+   "Sender",
+   "ReceiverID",
+   "Receiver",
+   "SendTime",
+   "IsRead",
+   "IsDelR",
+   "IfDelS",
+   "IsDelete",
+   "Annex1"
+  ]
+ },
+ "SP_Admin_SendUserItem": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail",
+   "Shop_Goods",
+   "Sys_Users_Goods",
+   "User_Messages"
+  ],
+  "params": [
+   "ItemID",
+   "UserID",
+   "TemplateID",
+   "Place",
+   "Count",
+   "IsJudge",
+   "Color",
+   "IsExist",
+   "StrengthenLevel",
+   "AttackCompose",
+   "DefendCompose",
+   "LuckCompose",
+   "AgilityCompose",
+   "IsBinds",
+   "BeginDate",
+   "ValidDate",
+   "BagType",
+   "ID",
+   "SenderID",
+   "Sender",
+   "ReceiverID",
+   "Receiver",
+   "Title",
+   "Content",
+   "SendTime",
+   "IsRead",
+   "IsDelR",
+   "IfDelS",
+   "IsDelete",
+   "Annex1",
+   "Annex2",
+   "Gold",
+   "Money",
+   "temp",
+   "maxCount",
+   "NickName",
+   "Remark",
+   "getCount"
+  ]
+ },
+ "SP_Auction_Update": {
+  "db": "Player34",
+  "tables": [
+   "Server_Config",
+   "Auction",
+   "User_Messages"
+  ],
+  "params": [
+   "AuctionID",
+   "AuctioneerID",
+   "AuctioneerName",
+   "BeginDate",
+   "BuyerID",
+   "BuyerName",
+   "IsExist",
+   "ItemID",
+   "Mouthful",
+   "PayType",
+   "Price",
+   "Rise",
+   "ValidDate",
+   "Name",
+   "Category",
+   "Cess",
+   "OldBuyerID",
+   "OldBuyerName",
+   "OldPrice",
+   "flat",
+   "NewPrice",
+   "SenderID",
+   "Sender",
+   "ReceiverID",
+   "Receiver",
+   "Title",
+   "Content",
+   "SendTime",
+   "IsRead",
+   "IsDelR",
+   "IfDelS",
+   "IsDelete",
+   "Annex1",
+   "Annex2",
+   "Gold",
+   "Money",
+   "Remark"
+  ]
+ },
+ "SP_CustomPage": {
+  "db": "Player34",
+  "tables": [
+   "syscolumns",
+   "sysobjects",
+   "sysindexkeys",
+   "sysindexes"
+  ],
+  "params": [
+   "QueryStr",
+   "QueryWhere",
+   "PageSize",
+   "PageCurrent",
+   "FdShow",
+   "FdOrder",
+   "FdKey",
+   "TotalRow",
+   "FdName",
+   "Id1",
+   "Id2",
+   "Id3",
+   "Obj_ID",
+   "TotalPage",
+   "FdOrder_desc",
+   "FdOrder_desc1",
+   "FdOrder_desc2",
+   "strfd",
+   "strjoin",
+   "strwhere"
+  ]
+ },
+ "SP_CustomPage_Test": {
+  "db": "Player34",
+  "tables": [
+   "syscolumns",
+   "sysobjects",
+   "sysindexkeys",
+   "sysindexes"
+  ],
+  "params": [
+   "QueryStr",
+   "QueryWhere",
+   "PageSize",
+   "PageCurrent",
+   "FdShow",
+   "FdOrder",
+   "FdKey",
+   "TotalRow",
+   "FdName",
+   "Id1",
+   "Id2",
+   "Id3",
+   "Obj_ID",
+   "TotalPage",
+   "FdOrder_desc",
+   "FdOrder_desc1",
+   "FdOrder_desc2",
+   "strfd",
+   "strjoin",
+   "strwhere"
+  ]
+ },
+ "SP_Insert_Marry_Notice": {
+  "db": "Player34",
+  "tables": [
+   "Marry_Apply",
+   "sys_users_detail",
+   "Sys_Users_Detail"
+  ],
+  "params": [
+   "UserID",
+   "ApplyUserID",
+   "ApplyUserName",
+   "ApplyType",
+   "ApplyResult",
+   "LoveProclamation",
+   "AnswerId",
+   "ouototal",
+   "Counts",
+   "tempUserName"
+  ]
+ },
+ "SP_Users_Register": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail",
+   "Project_Game34",
+   "Sys_Users_Goods"
+  ],
+  "params": [
+   "UserName",
+   "PassWord",
+   "NickName",
+   "BArmID",
+   "BHairID",
+   "BFaceID",
+   "BClothID",
+   "GArmID",
+   "GHairID",
+   "GFaceID",
+   "GClothID",
+   "ArmColor",
+   "HairColor",
+   "FaceColor",
+   "ClothColor",
+   "Sex",
+   "ArmID",
+   "HairID",
+   "FaceID",
+   "ClothID",
+   "isFirst",
+   "UserID",
+   "CategoryID",
+   "Attack",
+   "Defence",
+   "Agility",
+   "Luck",
+   "style",
+   "color",
+   "count"
+  ]
+ },
+ "SP_Users_RegisterNotValidate": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail",
+   "Project_Game34"
+  ],
+  "params": [
+   "UserName",
+   "PassWord",
+   "NickName",
+   "BArmID",
+   "BHairID",
+   "BFaceID",
+   "BClothID",
+   "BHatID",
+   "GArmID",
+   "GHairID",
+   "GFaceID",
+   "GClothID",
+   "GHatID",
+   "ArmColor",
+   "HairColor",
+   "FaceColor",
+   "ClothColor",
+   "HatColor",
+   "Sex",
+   "StyleDate",
+   "ArmID",
+   "HairID",
+   "FaceID",
+   "ClothID",
+   "HatID",
+   "isFirst",
+   "UserID",
+   "CategoryID",
+   "Attack",
+   "Defence",
+   "Agility",
+   "Luck",
+   "tempSex",
+   "style",
+   "color",
+   "nickIsExist",
+   "ArmPic",
+   "HairPic",
+   "FacePic",
+   "ClothPic",
+   "HatPic"
+  ]
+ },
+ "SP_Mail_Scan": {
+  "db": "Player34",
+  "tables": [
+   "User_Messages"
+  ],
+  "params": [
+   "NoticeUserID",
+   "AuctionID",
+   "AuctioneerID",
+   "AuctioneerName",
+   "BuyerID",
+   "BuyerName",
+   "ItemID",
+   "PayType",
+   "Price",
+   "Name",
+   "MailID",
+   "SenderID",
+   "Sender",
+   "ReceiverID",
+   "Receiver",
+   "Title",
+   "Content",
+   "SendTime",
+   "IsRead",
+   "IsDelR",
+   "IfDelS",
+   "IsDelete",
+   "Annex1",
+   "Annex2",
+   "Gold",
+   "Money",
+   "Remark",
+   "Annex3",
+   "Annex4",
+   "Annex5"
+  ]
+ },
+ "SP_Mail_Send": {
+  "db": "Player34",
+  "tables": [
+   "User_Messages"
+  ],
+  "params": [
+   "ID",
+   "SenderID",
+   "Sender",
+   "ReceiverID",
+   "Receiver",
+   "Title",
+   "Content",
+   "SendTime",
+   "IsRead",
+   "IsDelR",
+   "IfDelS",
+   "IsDelete",
+   "Annex1",
+   "Annex2",
+   "Gold",
+   "Money",
+   "IsExist",
+   "Type",
+   "Annex1Name",
+   "Annex2Name",
+   "Annex3",
+   "Annex4",
+   "Annex5",
+   "Annex3Name",
+   "Annex4Name",
+   "Annex5Name",
+   "ValidDate",
+   "AnnexRemark",
+   "GiftToken",
+   "Remark"
+  ]
+ },
+ "SP_Mail_ScanTwo": {
+  "db": "Player34",
+  "tables": [
+   "User_Messages"
+  ],
+  "params": [
+   "NoticeUserID",
+   "AuctionID",
+   "AuctioneerID",
+   "AuctioneerName",
+   "BuyerID",
+   "BuyerName",
+   "ItemID",
+   "PayType",
+   "Price",
+   "Name",
+   "MailID",
+   "SenderID",
+   "Sender",
+   "ReceiverID",
+   "Receiver",
+   "Title",
+   "Content",
+   "SendTime",
+   "IsRead",
+   "IsDelR",
+   "IfDelS",
+   "IsDelete",
+   "Annex1",
+   "Annex2",
+   "Gold",
+   "Money",
+   "Remark",
+   "Annex3",
+   "Annex4",
+   "Annex5"
+  ]
+ },
+ "SP_Charge_Record": {
+  "db": "Player34",
+  "tables": [
+   "V_Charge_Money"
+  ],
+  "params": [
+   "Date",
+   "Second"
+  ]
+ },
+ "SP_Clear_AdoptPet": {
+  "db": "Player34",
+  "tables": [
+   "AdoptPetList"
+  ],
+  "params": [
+   "ID"
+  ]
+ },
+ "SP_Consortia_Add": {
+  "db": "Player34",
+  "tables": [
+   "Consortia",
+   "Consortia_Users",
+   "Consortia_Duty",
+   "Consortia_Ally",
+   "Sys_Users_Detail"
+  ],
+  "params": [
+   "ConsortiaID",
+   "BuildDate",
+   "CelebCount",
+   "ChairmanID",
+   "ChairmanName",
+   "ConsortiaName",
+   "CreatorID",
+   "CreatorName",
+   "Description",
+   "Honor",
+   "IP",
+   "IsExist",
+   "Level",
+   "MaxCount",
+   "Placard",
+   "Port",
+   "Repute",
+   "Count",
+   "Riches",
+   "tempDutyLevel",
+   "tempDutyName",
+   "tempRight",
+   "Same",
+   "ID",
+   "temp",
+   "DutyID"
+  ]
+ },
+ "SP_ConsortiaAlly_Add": {
+  "db": "Player34",
+  "tables": [
+   "V_Consortia_Users",
+   "Consortia_Ally",
+   "Consortia",
+   "Consortia_Apply_Ally",
+   "Consortia_Event"
+  ],
+  "params": [
+   "ID",
+   "Consortia1ID",
+   "Consortia2ID",
+   "State",
+   "Date",
+   "ValidDate",
+   "IsExist",
+   "UserID",
+   "Right",
+   "AllyID",
+   "OldState",
+   "Consortia1Name",
+   "Consortia2Name"
+  ]
+ },
+ "SP_ConsortiaApplyAlly_Pass": {
+  "db": "Player34",
+  "tables": [
+   "V_Consortia_Users",
+   "Consortia_Apply_Ally",
+   "Consortia_Ally",
+   "Consortia",
+   "Consortia_Event"
+  ],
+  "params": [
+   "ID",
+   "UserID",
+   "ConsortiaID",
+   "tempID",
+   "State",
+   "tempRight",
+   "AllyID",
+   "Consortia1Name",
+   "Consortia2Name"
+  ]
+ },
+ "SP_ConsortiaApplyUser_Pass": {
+  "db": "Player34",
+  "tables": [
+   "V_Consortia_Users",
+   "Consortia_Apply_Users",
+   "Consortia",
+   "Consortia_Duty",
+   "Consortia_Users",
+   "Consortia_Invite_Users",
+   "Sys_Users_Detail",
+   "Consortia_Event"
+  ],
+  "params": [
+   "ID",
+   "UserID",
+   "UserName",
+   "ConsortiaID",
+   "tempID",
+   "tempName",
+   "tempDutyID",
+   "tempDutyName",
+   "tempOffer",
+   "tempRichesOffer",
+   "tempRichesRob",
+   "tempLastDate",
+   "tempWin",
+   "tempTotal",
+   "tempEscape",
+   "tempGrade",
+   "tempLevel",
+   "tempCUID",
+   "tempState",
+   "tempSex",
+   "tempDutyRight",
+   "tempConsortiaRepute",
+   "tempLoginName",
+   "tempRight",
+   "DutyID",
+   "Count",
+   "MaxCount"
+  ]
+ },
+ "SP_ConsortiaChangeChairman": {
+  "db": "Player34",
+  "tables": [
+   "Consortia",
+   "Sys_Users_Detail",
+   "V_Consortia_Users",
+   "Consortia_Duty",
+   "Consortia_Users"
+  ],
+  "params": [
+   "NickName",
+   "ConsortiaID",
+   "UserID",
+   "tempUserID",
+   "tempUserName",
+   "tempDutyLevel",
+   "tempDutyName",
+   "tempRight",
+   "Count",
+   "ID",
+   "IsExist",
+   "Grade",
+   "CurrentLevel",
+   "CurrentID",
+   "CurrentName",
+   "Duty",
+   "MaxDuty"
+  ]
+ },
+ "SP_UpdateUserMatch": {
+  "db": "Player34",
+  "tables": [
+   "Sys_User_Match_Info",
+   "Sys_Users_Detail"
+  ],
+  "params": [
+   "ID",
+   "UserID",
+   "dailyScore",
+   "dailyWinCount",
+   "dailyGameCount",
+   "DailyLeagueFirst",
+   "DailyLeagueLastScore",
+   "weeklyScore",
+   "weeklyGameCount",
+   "weeklyRanking",
+   "addDayPrestge",
+   "totalPrestige",
+   "restCount",
+   "leagueGrade",
+   "leagueItemsGet",
+   "WeeklyWinCount"
+  ]
+ },
+ "SP_ConsortiaInviteUser_Delete": {
+  "db": "Player34",
+  "tables": [
+   "Consortia_Invite_Users"
+  ],
+  "params": [
+   "ID",
+   "UserID"
+  ]
+ },
+ "SP_ConsortiaInviteUser_Add": {
+  "db": "Player34",
+  "tables": [
+   "V_Consortia_Users",
+   "Sys_Users_Detail",
+   "Consortia",
+   "Consortia_Invite_Users",
+   "Sys_Users_Rank_Date"
+  ],
+  "params": [
+   "ID",
+   "ConsortiaID",
+   "ConsortiaName",
+   "InviteDate",
+   "InviteID",
+   "InviteName",
+   "IsExist",
+   "Remark",
+   "UserID",
+   "UserName",
+   "tempID",
+   "tempRight",
+   "tempConsortiaID",
+   "Count",
+   "MaxCount"
+  ]
+ },
+ "SP_User_AdoptPet": {
+  "db": "Player34",
+  "tables": [
+   "AdoptPetList"
+  ],
+  "params": [
+   "TemplateID",
+   "Name",
+   "UserID",
+   "Attack",
+   "Defence",
+   "Luck",
+   "Agility",
+   "Blood",
+   "Damage",
+   "Guard",
+   "AttackGrow",
+   "DefenceGrow",
+   "LuckGrow",
+   "AgilityGrow",
+   "BloodGrow",
+   "DamageGrow",
+   "GuardGrow",
+   "Skill",
+   "SkillEquip",
+   "Place",
+   "IsExit",
+   "IsUse",
+   "ID"
+  ]
+ },
+ "SP_ConsortiaInviteUser_Pass": {
+  "db": "Player34",
+  "tables": [
+   "Consortia_Invite_Users",
+   "Consortia",
+   "Consortia_Duty",
+   "Consortia_Users",
+   "Consortia_Apply_Users",
+   "Sys_Users_Detail"
+  ],
+  "params": [
+   "ID",
+   "UserID",
+   "UserName",
+   "ConsortiaID",
+   "ConsortiaName",
+   "tempName",
+   "tempDutyID",
+   "tempDutyName",
+   "tempOffer",
+   "tempRichesOffer",
+   "tempRichesRob",
+   "tempLastDate",
+   "tempWin",
+   "tempTotal",
+   "tempEscape",
+   "tempID",
+   "tempGrade",
+   "tempLevel",
+   "tempCUID",
+   "tempState",
+   "tempSex",
+   "tempRight",
+   "tempConsortiaRepute",
+   "DutyID",
+   "Count",
+   "MaxCount"
+  ]
+ },
+ "SP_ConsortiaUser_Delete": {
+  "db": "Player34",
+  "tables": [
+   "V_Consortia_Users",
+   "Consortia",
+   "Consortia_Level",
+   "Consortia_Users",
+   "Sys_Users_Detail",
+   "Consortia_Event"
+  ],
+  "params": [
+   "UserID",
+   "KickUserID",
+   "ConsortiaID",
+   "NickName",
+   "Level",
+   "tempRight",
+   "KickDate",
+   "KickCount",
+   "KickMax",
+   "count"
+  ]
+ },
+ "Sp_Fetch_List": {
+  "db": "Player34",
+  "tables": [],
+  "params": [
+   "page_num",
+   "row_in_page",
+   "order_column",
+   "row_total",
+   "comb_condition",
+   "tablename",
+   "jcc_status",
+   "sql",
+   "row_ahead"
+  ]
+ },
+ "SP_Users_Farm_Update": {
+  "db": "Player34",
+  "tables": [
+   "Sys_User_Farm"
+  ],
+  "params": [
+   "ID",
+   "FarmID",
+   "PayFieldMoney",
+   "PayAutoMoney",
+   "AutoPayTime",
+   "AutoValidDate",
+   "VipLimitLevel",
+   "FarmerName",
+   "GainFieldId",
+   "MatureId",
+   "KillCropId",
+   "isAutoId",
+   "isFarmHelper",
+   "buyExpRemainNum",
+   "isArrange",
+   "TreeLevel",
+   "TreeExp",
+   "LoveScore",
+   "MonsterExp",
+   "PoultryState",
+   "CountDownTime",
+   "TreeCostExp"
+  ]
+ },
+ "SP_GetSingleNewChickenBox": {
+  "db": "Player34",
+  "tables": [
+   "New_ChickenBox_Data"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_Get_Marry_Apply": {
+  "db": "Player34",
+  "tables": [
+   "Marry_Apply"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_GetAllCommands": {
+  "db": "Player34",
+  "tables": [
+   "Game_Commands"
+  ],
+  "params": []
+ },
+ "SP_GetPayState": {
+  "db": "Player34",
+  "tables": [
+   "charge_money"
+  ],
+  "params": [
+   "chargeId"
+  ]
+ },
+ "SP_Users_Items_Update": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Goods"
+  ],
+  "params": [
+   "ItemID",
+   "UserID",
+   "TemplateID",
+   "Place",
+   "Count",
+   "IsJudge",
+   "Color",
+   "IsExist",
+   "StrengthenLevel",
+   "AttackCompose",
+   "DefendCompose",
+   "LuckCompose",
+   "AgilityCompose",
+   "IsBinds",
+   "BeginDate",
+   "ValidDate",
+   "BagType",
+   "Skin",
+   "IsUsed",
+   "RemoveDate",
+   "RemoveType",
+   "Hole1",
+   "Hole2",
+   "Hole3",
+   "Hole4",
+   "Hole5",
+   "Hole6",
+   "StrengthenTimes",
+   "Hole5Level",
+   "Hole5Exp",
+   "Hole6Level",
+   "Hole6Exp",
+   "IsGold",
+   "goldBeginTime",
+   "goldValidDate",
+   "StrengthenExp",
+   "Blood",
+   "latentEnergyCurStr",
+   "latentEnergyNewStr",
+   "latentEnergyEndTime",
+   "curExp",
+   "cellLocked"
+  ]
+ },
+ "SP_Insert_Marry_Apply": {
+  "db": "Player34",
+  "tables": [
+   "Marry_Apply"
+  ],
+  "params": [
+   "UserID",
+   "ApplyUserID",
+   "ApplyUserName",
+   "ApplyType",
+   "ApplyResult",
+   "LoveProclamation"
+  ]
+ },
+ "SP_Users_RegisterNotValidate2": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail",
+   "Sys_Users_Goods"
+  ],
+  "params": [
+   "UserName",
+   "PassWord",
+   "NickName",
+   "BArmID",
+   "BHairID",
+   "BFaceID",
+   "BClothID",
+   "BHatID",
+   "ArmPic",
+   "HairPic",
+   "FacePic",
+   "ClothPic",
+   "HatPic",
+   "GArmID",
+   "GHairID",
+   "GFaceID",
+   "GClothID",
+   "GHatID",
+   "ArmColor",
+   "HairColor",
+   "FaceColor",
+   "ClothColor",
+   "HatColor",
+   "Sex",
+   "StyleDate",
+   "CategoryID",
+   "Attack",
+   "Defence",
+   "Agility",
+   "Luck",
+   "ArmID",
+   "HairID",
+   "FaceID",
+   "ClothID",
+   "HatID",
+   "isFirst",
+   "UserID",
+   "tempSex",
+   "style",
+   "color",
+   "nickIsExist"
+  ]
+ },
+ "SP_Mail_PaymentCancel": {
+  "db": "Player34",
+  "tables": [
+   "User_Messages"
+  ],
+  "params": [
+   "userID",
+   "mailID",
+   "SenderID",
+   "Sender",
+   "ReceiverID",
+   "Receiver",
+   "Title",
+   "Annex1",
+   "Annex2",
+   "Type",
+   "Remark",
+   "money",
+   "Annex3",
+   "Annex4",
+   "Annex5",
+   "NewTitle",
+   "NewContent"
+  ]
+ },
+ "SP_Users_SingleAllUserID": {
+  "db": "Player34",
+  "tables": [
+   "V_Sys_Users_Detail"
+  ],
+  "params": [
+   "userID"
+  ]
+ },
+ "SP_Admin_SendUserMoney": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail",
+   "User_Messages"
+  ],
+  "params": [
+   "ID",
+   "SenderID",
+   "Sender",
+   "ReceiverID",
+   "Receiver",
+   "Title",
+   "Content",
+   "SendTime",
+   "IsRead",
+   "IsDelR",
+   "IfDelS",
+   "IsDelete",
+   "Annex1",
+   "Annex2",
+   "Gold",
+   "Money",
+   "IsExist",
+   "NickName",
+   "Remark"
+  ]
+ },
+ "SP_Select_Marry_Prop": {
+  "db": "Player34",
+  "tables": [
+   "sys_users_detail"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_AdoptPet_By_Id": {
+  "db": "Player34",
+  "tables": [
+   "AdoptPetList"
+  ],
+  "params": [
+   "ID"
+  ]
+ },
+ "SP_Insert_Count_Server": {
+  "db": "Player34",
+  "tables": [
+   "Db_Count"
+  ],
+  "params": [
+   "ApplicationId",
+   "SubId",
+   "ServerId",
+   "UserCount",
+   "GameCount",
+   "DateTime"
+  ]
+ },
+ "SP_Insert_Count_Shop": {
+  "db": "Player34",
+  "tables": [
+   "Db_Count"
+  ],
+  "params": [
+   "ApplicatonId",
+   "SubId",
+   "UserId",
+   "Money",
+   "Gold",
+   "DateTime",
+   "Goods",
+   "GoodsType"
+  ]
+ },
+ "SP_Items_All": {
+  "db": "Player34",
+  "tables": [
+   "Shop_Goods"
+  ],
+  "params": []
+ },
+ "SP_Users_Record_Add": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Record"
+  ],
+  "params": [
+   "UserID",
+   "RecordID",
+   "Total",
+   "count"
+  ]
+ },
+ "SP_Rate": {
+  "db": "Player34",
+  "tables": [
+   "Rate"
+  ],
+  "params": [
+   "serverId"
+  ]
+ },
+ "SP_Rate_WithType": {
+  "db": "Player34",
+  "tables": [
+   "Rate"
+  ],
+  "params": [
+   "serverId",
+   "type"
+  ]
+ },
+ "SP_UsersState_SingleByUserName": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail"
+  ],
+  "params": [
+   "UserName"
+  ]
+ },
+ "SP_UserTexp_Add": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Texp"
+  ],
+  "params": [
+   "UserID",
+   "spdTexpExp",
+   "attTexpExp",
+   "defTexpExp",
+   "hpTexpExp",
+   "lukTexpExp",
+   "texpTaskCount",
+   "texpCount",
+   "texpTaskDate",
+   "count"
+  ]
+ },
+ "SP_Get_User_AdoptPetList": {
+  "db": "Player34",
+  "tables": [
+   "AdoptPetList"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_ConsortiaApplyUser_Delete": {
+  "db": "Player34",
+  "tables": [
+   "V_Consortia_Users",
+   "Consortia_Apply_Users"
+  ],
+  "params": [
+   "ID",
+   "UserID",
+   "ConsortiaID",
+   "tempRight",
+   "tempID"
+  ]
+ },
+ "SP_Update_User_Extra": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Extra"
+  ],
+  "params": [
+   "UserID",
+   "LastTimeHotSpring",
+   "MinHotSpring",
+   "coupleBossEnterNum",
+   "coupleBossHurt",
+   "coupleBossBoxNum",
+   "LastFreeTimeHotSpring",
+   "isGetAwardMarry",
+   "isFirstAwardMarry",
+   "LeftRoutteCount",
+   "LeftRoutteRate",
+   "FreeSendMailCount",
+   "count"
+  ]
+ },
+ "SP_MarryInfo_Delete": {
+  "db": "Player34",
+  "tables": [
+   "Marry_Info"
+  ],
+  "params": [
+   "ID",
+   "UserID"
+  ]
+ },
+ "SP_Get_SingleFarm": {
+  "db": "Player34",
+  "tables": [
+   "Sys_User_Farm"
+  ],
+  "params": [
+   "ID"
+  ]
+ },
+ "SP_ReturnItem": {
+  "db": "Player34",
+  "tables": [
+   "User_Messages",
+   "Sys_users_Goods"
+  ],
+  "params": []
+ },
+ "SP_Auction_Delete": {
+  "db": "Player34",
+  "tables": [
+   "Auction",
+   "User_Messages",
+   "Consortia_Event"
+  ],
+  "params": [
+   "AuctionID",
+   "UserID",
+   "AuctioneerID",
+   "AuctioneerName",
+   "BuyerID",
+   "BuyerName",
+   "ItemID",
+   "PayType",
+   "Price",
+   "SenderID",
+   "Sender",
+   "ReceiverID",
+   "Receiver",
+   "Title",
+   "Content",
+   "SendTime",
+   "IsRead",
+   "IsDelR",
+   "IfDelS",
+   "IsDelete",
+   "Annex1",
+   "Annex2",
+   "Gold",
+   "Money",
+   "Remark"
+  ]
+ },
+ "SP_Service_List": {
+  "db": "Player34",
+  "tables": [
+   "Server_List",
+   "Server_Config"
+  ],
+  "params": []
+ },
+ "SP_Charge_To_User": {
+  "db": "Player34",
+  "tables": [
+   "Charge_Money",
+   "Sys_Users_Detail"
+  ],
+  "params": [
+   "UserName",
+   "money",
+   "NickName"
+  ]
+ },
+ "SP_ClearAllMarryInfo": {
+  "db": "Player34",
+  "tables": [
+   "sys_users_detail"
+  ],
+  "params": []
+ },
+ "SP_ClearMarryInfo": {
+  "db": "Player34",
+  "tables": [
+   "sys_users_detail"
+  ],
+  "params": [
+   "name"
+  ]
+ },
+ "SP_Sys_Clear_Auction": {
+  "db": "Player34",
+  "tables": [],
+  "params": []
+ },
+ "SP_Sys_Clear_Consortia": {
+  "db": "Player34",
+  "tables": [],
+  "params": []
+ },
+ "SP_Admin_SendAllItem_UserID": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail"
+  ],
+  "params": [
+   "Title",
+   "Content",
+   "UserID",
+   "Gold",
+   "Money",
+   "GiftToken",
+   "ParamHole",
+   "Param",
+   "Hole1",
+   "Hole2",
+   "Hole3",
+   "Hole4",
+   "Hole5",
+   "Hole6",
+   "NickName",
+   "temp",
+   "maxCount",
+   "ItemID",
+   "TemplateID",
+   "Place",
+   "Count",
+   "IsJudge",
+   "Color",
+   "IsExist",
+   "StrengthenLevel",
+   "AttackCompose",
+   "DefendCompose",
+   "LuckCompose",
+   "AgilityCompose",
+   "IsBinds",
+   "BeginDate",
+   "ValidDate",
+   "BagType",
+   "SenderID",
+   "Sender",
+   "ReceiverID",
+   "Receiver",
+   "SendTime",
+   "IsRead",
+   "IsDelR",
+   "IfDelS",
+   "IsDelete",
+   "Annex1",
+   "Annex2",
+   "Remark"
+  ]
+ },
+ "SP_Admin_SendAllItem_UserName": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail"
+  ],
+  "params": [
+   "Title",
+   "Content",
+   "UserName",
+   "Gold",
+   "Money",
+   "GiftToken",
+   "ParamHole",
+   "Param",
+   "Hole1",
+   "Hole2",
+   "Hole3",
+   "Hole4",
+   "Hole5",
+   "Hole6",
+   "NickName",
+   "UserID",
+   "temp",
+   "maxCount",
+   "ItemID",
+   "TemplateID",
+   "Place",
+   "Count",
+   "IsJudge",
+   "Color",
+   "IsExist",
+   "StrengthenLevel",
+   "AttackCompose",
+   "DefendCompose",
+   "LuckCompose",
+   "AgilityCompose",
+   "IsBinds",
+   "BeginDate",
+   "ValidDate",
+   "BagType",
+   "SenderID",
+   "Sender",
+   "ReceiverID",
+   "Receiver",
+   "SendTime",
+   "IsRead",
+   "IsDelR",
+   "IfDelS",
+   "IsDelete",
+   "Annex1"
+  ]
+ },
+ "SP_Consortia_Ally_Neutral": {
+  "db": "Player34",
+  "tables": [
+   "Consortia_Ally"
+  ],
+  "params": [
+   "ConsortiaID"
+  ]
+ },
+ "SP_Consortia_AllyByState": {
+  "db": "Player34",
+  "tables": [
+   "Consortia_Apply_Ally"
+  ],
+  "params": [
+   "ConsortiaID",
+   "State"
+  ]
+ },
+ "SP_Sys_Clear_Messages": {
+  "db": "Player34",
+  "tables": [
+   "User_Messages"
+  ],
+  "params": [
+   "date"
+  ]
+ },
+ "SP_Sys_Clear_State": {
+  "db": "Player34",
+  "tables": [
+   "Server_List",
+   "Sys_Users_Detail"
+  ],
+  "params": []
+ },
+ "Sp_Sys_DataBaseSet": {
+  "db": "Player34",
+  "tables": [],
+  "params": []
+ },
+ "SP_Sys_Insert_TestID": {
+  "db": "Player34",
+  "tables": [],
+  "params": [
+   "startID",
+   "endID",
+   "temp"
+  ]
+ },
+ "SP_Consortia_Boss_Config_All": {
+  "db": "Player34",
+  "tables": [
+   "Consortia_Boss_Config"
+  ],
+  "params": []
+ },
+ "SP_Consortia_Buff_Temp_All": {
+  "db": "Player34",
+  "tables": [
+   "Consortia_Buff_Temp"
+  ],
+  "params": []
+ },
+ "SP_Consortia_Single": {
+  "db": "Player34",
+  "tables": [
+   "V_Consortia",
+   "Consortia",
+   "Consortia_Level"
+  ],
+  "params": [
+   "ID",
+   "Level",
+   "Riches",
+   "SkillLevel",
+   "SkillRiches"
+  ]
+ },
+ "SP_Consortia_Smith_UpGrade": {
+  "db": "Player34",
+  "tables": [
+   "Consortia",
+   "Consortia_Level"
+  ],
+  "params": [
+   "ConsortiaID",
+   "UserID",
+   "Level",
+   "Riches",
+   "SmithLevel",
+   "SmithRiches"
+  ]
+ },
+ "SP_Consortia_Store_UpGrade": {
+  "db": "Player34",
+  "tables": [
+   "Consortia",
+   "Consortia_Level"
+  ],
+  "params": [
+   "ConsortiaID",
+   "UserID",
+   "Level",
+   "Riches",
+   "StoreLevel",
+   "StoreRiches"
+  ]
+ },
+ "SP_Consortia_Update_FightPower": {
+  "db": "Player34",
+  "tables": [
+   "Consortia",
+   "Employee_Cursor",
+   "Sys_Users_Detail"
+  ],
+  "params": [
+   "FightPower",
+   "ConsortiaID"
+  ]
+ },
+ "SP_Sys_Update_Users_WeekList": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail"
+  ],
+  "params": []
+ },
+ "SP_Update_Repute_FightPower": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail",
+   "Employee_Cursor",
+   "Sys_User_Rank"
+  ],
+  "params": [
+   "Repute",
+   "UserID"
+  ]
+ },
+ "SP_Update_User_AdoptPet": {
+  "db": "Player34",
+  "tables": [
+   "AdoptPetList"
+  ],
+  "params": [
+   "ID"
+  ]
+ },
+ "SP_ConsortiaDuty_Delete": {
+  "db": "Player34",
+  "tables": [
+   "Consortia_Duty",
+   "V_Consortia_Users",
+   "Consortia_Users"
+  ],
+  "params": [
+   "UserID",
+   "ConsortiaID",
+   "DutyID",
+   "CurrentLevel",
+   "MaxLevel",
+   "MaxDuty",
+   "tempIsManageDuty"
+  ]
+ },
+ "SP_UpdateUsersEventProcess": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_EventProcess"
+  ],
+  "params": [
+   "UserID",
+   "ActiveType",
+   "Conditions",
+   "AwardGot",
+   "count"
+  ]
+ },
+ "SP_ConsortiaPlacard_Update": {
+  "db": "Player34",
+  "tables": [
+   "V_Consortia_Users",
+   "Consortia"
+  ],
+  "params": [
+   "ConsortiaID",
+   "UserID",
+   "Placard",
+   "tempRight"
+  ]
+ },
+ "SP_ConsortiaUserGrade_Update": {
+  "db": "Player34",
+  "tables": [
+   "V_Consortia_Users",
+   "Consortia_Duty",
+   "Consortia_Users"
+  ],
+  "params": [
+   "ID",
+   "ConsortiaID",
+   "UserID",
+   "UpGrade",
+   "tempUserName",
+   "tempDutyLevel",
+   "tempDutyName",
+   "tempRight",
+   "tempRight1",
+   "CurrentLevel",
+   "MaxLevel",
+   "Duty"
+  ]
+ },
+ "SP_ConsortiaUserRemark_Update": {
+  "db": "Player34",
+  "tables": [
+   "V_Consortia_Users",
+   "Consortia_Users"
+  ],
+  "params": [
+   "ID",
+   "ConsortiaID",
+   "UserID",
+   "Remark",
+   "tempRight"
+  ]
+ },
+ "SP_User_Update_BoxProgression": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail"
+  ],
+  "params": [
+   "UserID",
+   "BoxProgression",
+   "GetBoxLevel",
+   "AddGPLastDate",
+   "BoxGetDate",
+   "AlreadyGetBox"
+  ]
+ },
+ "SP_Get_SingleFields": {
+  "db": "Player34",
+  "tables": [
+   "Sys_User_Field"
+  ],
+  "params": [
+   "ID"
+  ]
+ },
+ "SP_DailyLogList_Add": {
+  "db": "Player34",
+  "tables": [
+   "DailyLogList"
+  ],
+  "params": [
+   "UserID",
+   "UserAwardLog",
+   "DayLog",
+   "Count"
+  ]
+ },
+ "SP_Drop_Item_NewRegister": {
+  "db": "Player34",
+  "tables": [
+   "Project_Game34",
+   "Drop_Condiction",
+   "Drop_Item"
+  ],
+  "params": []
+ },
+ "SP_Users_Cards_Add": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Card"
+  ],
+  "params": [
+   "CardID",
+   "Count",
+   "UserID",
+   "Place",
+   "TemplateID",
+   "isFirstGet",
+   "Attack",
+   "Defence",
+   "Luck",
+   "Agility",
+   "Damage",
+   "Guard",
+   "Level",
+   "CardGP",
+   "temp"
+  ]
+ },
+ "SP_Users_ChangSexByCard": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail"
+  ],
+  "params": [
+   "UserId",
+   "Sex"
+  ]
+ },
+ "SP_Fight_Record_Add": {
+  "db": "Player34",
+  "tables": [
+   "Fight_Record"
+  ],
+  "params": [
+   "PlayBegin",
+   "PlayEnd",
+   "ChangeTeam",
+   "TeamA",
+   "TeamB",
+   "MapID",
+   "RoomType",
+   "FightName",
+   "WinTeam"
+  ]
+ },
+ "SP_GetSingleUserLeague": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_League"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_Users_Gift_Add": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Gift"
+  ],
+  "params": [
+   "SenderID",
+   "ReceiverID",
+   "TemplateID",
+   "Count"
+  ]
+ },
+ "SP_Users_Gift_Single": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Gift",
+   "Sys_Users_Goods"
+  ],
+  "params": [
+   "UserID",
+   "IsReceive",
+   "TemplateID",
+   "Place",
+   "Count",
+   "IsJudge",
+   "Color",
+   "IsExist",
+   "StrengthenLevel",
+   "AttackCompose",
+   "DefendCompose",
+   "LuckCompose",
+   "AgilityCompose",
+   "IsBinds",
+   "BeginDate",
+   "ValidDate",
+   "BagType",
+   "Skin",
+   "IsUsed",
+   "RemoveType",
+   "Hole1",
+   "Hole2",
+   "Hole3",
+   "Hole4",
+   "Hole5",
+   "Hole6",
+   "StrengthenTimes",
+   "Hole5Level",
+   "Hole5Exp",
+   "Hole6Level",
+   "Hole6Exp",
+   "IsGold",
+   "goldValidDate",
+   "StrengthenExp",
+   "goldBeginTime",
+   "Blood",
+   "temp"
+  ]
+ },
+ "SP_GetSingleUserCard": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Card"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_Insert_Count_SystemPay": {
+  "db": "Player34",
+  "tables": [
+   "Db_Count"
+  ],
+  "params": [
+   "ApplicatonId",
+   "SubId",
+   "ConsumerId",
+   "Money",
+   "Gold",
+   "ConsumerType",
+   "SubConsumerType",
+   "DateTime"
+  ]
+ },
+ "SP_Users_Reload": {
+  "db": "Player34",
+  "tables": [
+   "V_Sys_Users_Detail",
+   "User_Messages"
+  ],
+  "params": [
+   "ID"
+  ]
+ },
+ "SP_Users_RenameByCard": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail",
+   "Rename_Nick",
+   "Consortia_Users"
+  ],
+  "params": [
+   "UserName",
+   "NickName",
+   "NewNickName",
+   "UserID",
+   "count",
+   "Rename"
+  ]
+ },
+ "SP_Items_Category_Single": {
+  "db": "Player34",
+  "tables": [
+   "Shop_Goods"
+  ],
+  "params": [
+   "CategoryID"
+  ]
+ },
+ "SP_Items_Single": {
+  "db": "Player34",
+  "tables": [
+   "Shop_Goods"
+  ],
+  "params": [
+   "ID"
+  ]
+ },
+ "SP_Mail_Delete": {
+  "db": "Player34",
+  "tables": [
+   "User_Messages",
+   "Sys_Users_Goods"
+  ],
+  "params": [
+   "ID",
+   "UserID",
+   "SenderID",
+   "Annex1",
+   "Annex2",
+   "Type",
+   "Sender",
+   "ReceiverID",
+   "Receiver",
+   "Title",
+   "Money",
+   "Annex3",
+   "Annex4",
+   "Annex5",
+   "NewTitle",
+   "NewContent",
+   "Remark"
+  ]
+ },
+ "SP_Achievement_Data_All": {
+  "db": "Player34",
+  "tables": [
+   "AchievementData"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_UsersAcademy_Update": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail"
+  ],
+  "params": [
+   "UserID",
+   "apprenticeshipState",
+   "masterID",
+   "masterOrApprentices",
+   "graduatesCount",
+   "honourOfMaster",
+   "freezesDate"
+  ]
+ },
+ "SP_Consortia_Task_Info_Create_Or_Update": {
+  "db": "Player34",
+  "tables": [
+   "Consortia_Task_Info",
+   "User_Messages"
+  ],
+  "params": [
+   "ConsortiaID",
+   "BeginTime",
+   "Contribution",
+   "Expirience",
+   "Offer",
+   "BuffID",
+   "Level",
+   "Riches",
+   "Time",
+   "ConditionData",
+   "RankTable",
+   "Count"
+  ]
+ },
+ "SP_QuestData_All": {
+  "db": "Player34",
+  "tables": [
+   "QuestData"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_ASSInfo_All": {
+  "db": "Player34",
+  "tables": [
+   "AASInfo"
+  ],
+  "params": []
+ },
+ "SP_ASSInfo_Single": {
+  "db": "Player34",
+  "tables": [
+   "AASInfo"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_Server_Config_Single": {
+  "db": "Player34",
+  "tables": [
+   "Server_Config"
+  ],
+  "params": [
+   "Key"
+  ]
+ },
+ "SP_Server_Config_Update": {
+  "db": "Player34",
+  "tables": [
+   "Server_Config"
+  ],
+  "params": [
+   "Key",
+   "Value",
+   "Counts",
+   "Maxs"
+  ]
+ },
+ "SP_Consortia_Scan": {
+  "db": "Player34",
+  "tables": [
+   "Consortia",
+   "Consortia_Equip_Control",
+   "Consortia_Apply_Users",
+   "Consortia_Invite_Users",
+   "Consortia_Apply_Ally",
+   "Consortia_Duty",
+   "Consortia_Users",
+   "Consortia_Ally",
+   "Consortia_Event",
+   "Sys_Users_Detail",
+   "Consortia_Level"
+  ],
+  "params": [
+   "NoticeID",
+   "ConsortiaIDs",
+   "s"
+  ]
+ },
+ "SP_Consortia_Apply_State": {
+  "db": "Player34",
+  "tables": [
+   "Consortia"
+  ],
+  "params": [
+   "ConsortiaID",
+   "UserID",
+   "State"
+  ]
+ },
+ "Sp_Sys_QuestData": {
+  "db": "Player34",
+  "tables": [
+   "QuestData"
+  ],
+  "params": []
+ },
+ "SP_Consortia_Equip_Control_Add": {
+  "db": "Player34",
+  "tables": [
+   "Consortia",
+   "Consortia_Equip_Control"
+  ],
+  "params": [
+   "ConsortiaID",
+   "Level",
+   "Type",
+   "Riches",
+   "UserID",
+   "count",
+   "temp"
+  ]
+ },
+ "SP_Sys_Truncate_UserAllInfo": {
+  "db": "Player34",
+  "tables": [],
+  "params": []
+ },
+ "SP_Sys_Update_BestEquip": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Goods",
+   "Sys_Users_Detail",
+   "Project_Game34"
+  ],
+  "params": []
+ },
+ "SP_Suit_Manager_GET": {
+  "db": "Player34",
+  "tables": [
+   "Suit_Manager"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_UpdateGemStoneInfo": {
+  "db": "Player34",
+  "tables": [
+   "Sys_User_Gemstone"
+  ],
+  "params": [
+   "ID",
+   "UserID",
+   "FigSpiritId",
+   "FigSpiritIdValue",
+   "EquipPlace"
+  ]
+ },
+ "SP_Consortia_Skill_UpGrade": {
+  "db": "Player34",
+  "tables": [
+   "Consortia",
+   "Consortia_Level"
+  ],
+  "params": [
+   "ConsortiaID",
+   "UserID",
+   "Level",
+   "Riches",
+   "SkillLevel",
+   "SkillRiches"
+  ]
+ },
+ "SP_Sys_Update_Users_List": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail",
+   "Sys_Users_Order"
+  ],
+  "params": []
+ },
+ "SP_Tank_Count_Login": {
+  "db": "Player34",
+  "tables": [
+   "Db_Count",
+   "Db_Tank"
+  ],
+  "params": [
+   "AppID",
+   "SubID",
+   "MaxDate"
+  ]
+ },
+ "SP_UpdateLabyrinthInfo": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Labyrinth",
+   "Consortia_Duty",
+   "Consortia_Users",
+   "Consortia_Apply_Users",
+   "Consortia_Invite_Users",
+   "Consortia",
+   "Sys_Users_Detail",
+   "Consortia_Event"
+  ],
+  "params": [
+   "UserID",
+   "myProgress",
+   "myRanking",
+   "completeChallenge",
+   "isDoubleAward",
+   "currentFloor",
+   "accumulateExp",
+   "remainTime",
+   "currentRemainTime",
+   "cleanOutAllTime",
+   "cleanOutGold",
+   "tryAgainComplete",
+   "isInGame",
+   "isCleanOut",
+   "serverMultiplyingPower",
+   "LastDate",
+   "ProcessAward"
+  ]
+ },
+ "SP_UpdateUserRank": {
+  "db": "Player34",
+  "tables": [
+   "Sys_User_Rank"
+  ],
+  "params": [
+   "ID",
+   "UserID",
+   "UserRank",
+   "Attack",
+   "Defence",
+   "Luck",
+   "Agility",
+   "HP",
+   "Damage",
+   "Guard",
+   "BeginDate",
+   "Validate",
+   "IsExit",
+   "NewTitleID",
+   "EndDate"
+  ]
+ },
+ "SP_DailyLogList_Single": {
+  "db": "Player34",
+  "tables": [
+   "DailyLogList"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_UserMatch_All_DESC": {
+  "db": "Player34",
+  "tables": [
+   "Sys_User_Match_Info"
+  ],
+  "params": []
+ },
+ "SP_FairBattleReward_All": {
+  "db": "Player34",
+  "tables": [
+   "Project_Game34"
+  ],
+  "params": []
+ },
+ "SP_Users_CheckByNickName": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail",
+   "Rename_Nick"
+  ],
+  "params": [
+   "NickName"
+  ]
+ },
+ "SP_Users_Friends_Good": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail",
+   "Sys_Users_Friends"
+  ],
+  "params": [
+   "UserName",
+   "UserId"
+  ]
+ },
+ "SP_Users_FriendsBbs": {
+  "db": "Player34",
+  "tables": [
+   "split",
+   "Sys_Users_Detail"
+  ],
+  "params": [
+   "SearchUserName"
+  ]
+ },
+ "SP_Users_Items_Equip": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Goods"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_Get_UserPet_By_ID": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Pet"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_Get_UserTexp_By_ID": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Texp"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_Users_Items_Equip_By_Nick": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail",
+   "Sys_Users_Goods"
+  ],
+  "params": [
+   "NickName",
+   "UserID",
+   "count"
+  ]
+ },
+ "SP_Users_Items_Single": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Goods"
+  ],
+  "params": [
+   "ID"
+  ]
+ },
+ "SP_GetSingleUserMatchInfo": {
+  "db": "Player34",
+  "tables": [
+   "Sys_User_Match_Info"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_GetSingleUserRank": {
+  "db": "Player34",
+  "tables": [
+   "Sys_User_Rank"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_GetSingle_RandomName": {
+  "db": "Player34",
+  "tables": [
+   "RandomName"
+  ],
+  "params": [
+   "Sex"
+  ]
+ },
+ "SP_Users_LoginWeb": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail",
+   "V_Sys_Users_Detail"
+  ],
+  "params": [
+   "UserName",
+   "PassWord",
+   "FirstValidate",
+   "NickName",
+   "forbidDate",
+   "isExist",
+   "lastDate",
+   "lastDateSecond",
+   "lastDateThird",
+   "loginCount",
+   "isFirst",
+   "DayLoginCount"
+  ]
+ },
+ "SP_Mail_BySenderID": {
+  "db": "Player34",
+  "tables": [
+   "User_Messages"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_Mail_ByUserID": {
+  "db": "Player34",
+  "tables": [
+   "User_Messages"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_Users_RenameConsortiaName": {
+  "db": "Player34",
+  "tables": [
+   "Consortia",
+   "Rename_Consortia"
+  ],
+  "params": [
+   "UserName",
+   "NickName",
+   "ConsortiaName",
+   "ConsortiaID",
+   "count",
+   "Rename"
+  ]
+ },
+ "SP_Insert_Marry_Room_Info": {
+  "db": "Player34",
+  "tables": [
+   "Marry_Room_Info",
+   "sys_users_detail"
+  ],
+  "params": [
+   "ID",
+   "Name",
+   "PlayerID",
+   "PlayerName",
+   "GroomID",
+   "GroomName",
+   "BrideID",
+   "BrideName",
+   "Pwd",
+   "AvailTime",
+   "MaxCount",
+   "GuestInvite",
+   "MapIndex",
+   "BeginTime",
+   "BreakTime",
+   "RoomIntroduction",
+   "ServerID",
+   "IsHymeneal",
+   "IsGunsaluteUsed",
+   "count"
+  ]
+ },
+ "SP_Auction_Single": {
+  "db": "Player34",
+  "tables": [
+   "Auction"
+  ],
+  "params": [
+   "AuctionID"
+  ]
+ },
+ "SP_Service_Update": {
+  "db": "Player34",
+  "tables": [
+   "Server_List"
+  ],
+  "params": [
+   "ID",
+   "State",
+   "Online"
+  ]
+ },
+ "SP_ST_GetInfoRank": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_DanhHieu"
+  ],
+  "params": [
+   "TemplateID"
+  ]
+ },
+ "SP_User_Buff_Add": {
+  "db": "Player34",
+  "tables": [
+   "User_Buff"
+  ],
+  "params": [
+   "UserId",
+   "Type",
+   "BeginDate",
+   "Data",
+   "IsExist",
+   "ValidDate",
+   "ValidCount",
+   "Value",
+   "TemplateID",
+   "temp"
+  ]
+ },
+ "SP_ASSInfo_Add": {
+  "db": "Player34",
+  "tables": [
+   "AASInfo"
+  ],
+  "params": [
+   "UserID",
+   "Name",
+   "IDNumber",
+   "State",
+   "Count"
+  ]
+ },
+ "SP_Server_Config": {
+  "db": "Player34",
+  "tables": [
+   "Server_Config"
+  ],
+  "params": []
+ },
+ "SP_Auction_Add": {
+  "db": "Player34",
+  "tables": [
+   "Auction"
+  ],
+  "params": [
+   "AuctionID",
+   "AuctioneerID",
+   "AuctioneerName",
+   "BeginDate",
+   "BuyerID",
+   "BuyerName",
+   "IsExist",
+   "ItemID",
+   "Mouthful",
+   "PayType",
+   "Price",
+   "Rise",
+   "ValidDate",
+   "TemplateID",
+   "Name",
+   "Category",
+   "Random",
+   "goodsCount"
+  ]
+ },
+ "SP_Consortia_Task_Info_All": {
+  "db": "Player34",
+  "tables": [
+   "Consortia_Task_Info"
+  ],
+  "params": []
+ },
+ "SP_Update_Marry_Room_Info": {
+  "db": "Player34",
+  "tables": [
+   "Marry_Room_Info"
+  ],
+  "params": [
+   "ID",
+   "AvailTime",
+   "BreakTime",
+   "roomIntroduction",
+   "isHymeneal",
+   "Name",
+   "Pwd",
+   "IsGunsaluteUsed"
+  ]
+ },
+ "SP_ConsortiaAlly_All": {
+  "db": "Player34",
+  "tables": [
+   "Consortia_Ally"
+  ],
+  "params": []
+ },
+ "SP_Users_Active": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail",
+   "Sys_Users_Fight",
+   "Sys_VIP_Info",
+   "Sys_Users_Texp",
+   "DailyLogList"
+  ],
+  "params": [
+   "UserID",
+   "Attack",
+   "Colors",
+   "ConsortiaID",
+   "Defence",
+   "Gold",
+   "GP",
+   "Grade",
+   "Luck",
+   "Money",
+   "Style",
+   "Agility",
+   "State",
+   "UserName",
+   "PassWord",
+   "Sex",
+   "Hide",
+   "ActiveIP",
+   "Skin",
+   "Site",
+   "count"
+  ]
+ },
+ "SP_UserLeague_Update": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_League"
+  ],
+  "params": [
+   "ID",
+   "UserID",
+   "RankID",
+   "Point",
+   "Win",
+   "Lose",
+   "IsBanned",
+   "ForbidDate",
+   "ForbidReason"
+  ]
+ },
+ "SP_Charge_Money_Add": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail",
+   "Rename_Nick",
+   "Charge_Money"
+  ],
+  "params": [
+   "ChargeID",
+   "UserName",
+   "Money",
+   "Date",
+   "PayWay",
+   "NeedMoney",
+   "UserID",
+   "IP",
+   "NickName",
+   "count"
+  ]
+ },
+ "SP_Suit_Manager_ADD": {
+  "db": "Player34",
+  "tables": [
+   "Suit_Manager"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_Active_PullDown": {
+  "db": "Player34",
+  "tables": [
+   "Project_Game34",
+   "Active_Number",
+   "Sys_Users_Detail"
+  ],
+  "params": [
+   "ActiveID",
+   "AwardID",
+   "UserID",
+   "StartDate",
+   "EndDate",
+   "HasKey",
+   "PullDown",
+   "Mark",
+   "CanGet"
+  ]
+ },
+ "SP_Admin_SendAllItem": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail"
+  ],
+  "params": [
+   "Title",
+   "Content",
+   "UserID",
+   "Gold",
+   "Money",
+   "GiftToken",
+   "Param",
+   "NickName",
+   "temp",
+   "maxCount",
+   "ItemID",
+   "TemplateID",
+   "Place",
+   "Count",
+   "IsJudge",
+   "Color",
+   "IsExist",
+   "StrengthenLevel",
+   "AttackCompose",
+   "DefendCompose",
+   "LuckCompose",
+   "AgilityCompose",
+   "IsBinds",
+   "BeginDate",
+   "ValidDate",
+   "BagType",
+   "SenderID",
+   "Sender",
+   "ReceiverID",
+   "Receiver",
+   "SendTime",
+   "IsRead",
+   "IsDelR",
+   "IfDelS",
+   "IsDelete",
+   "Annex1",
+   "Annex2",
+   "Remark",
+   "Annex3",
+   "Annex4",
+   "Annex5",
+   "AnnexIndex"
+  ]
+ },
+ "SP_Auction_Scan": {
+  "db": "Player34",
+  "tables": [
+   "Server_Config",
+   "Auction",
+   "User_Messages"
+  ],
+  "params": [
+   "NoticeUserID",
+   "Cess",
+   "AuctionID",
+   "AuctioneerID",
+   "AuctioneerName",
+   "BuyerID",
+   "BuyerName",
+   "ItemID",
+   "PayType",
+   "Price",
+   "Name",
+   "SenderID",
+   "Sender",
+   "ReceiverID",
+   "Receiver",
+   "Title",
+   "Content",
+   "SendTime",
+   "IsRead",
+   "IsDelR",
+   "IfDelS",
+   "IsDelete",
+   "Annex1",
+   "Annex2",
+   "Gold",
+   "Money",
+   "Remark",
+   "Type",
+   "flat",
+   "NewPrice"
+  ]
+ },
+ "SP_Users_Update": {
+  "db": "Player34",
+  "tables": [
+   "Sys_Users_Detail"
+  ],
+  "params": [
+   "UserID",
+   "Attack",
+   "Defence",
+   "Luck",
+   "Agility",
+   "Gold",
+   "Money",
+   "Style",
+   "Colors",
+   "Hide",
+   "Grade",
+   "GP",
+   "State",
+   "ConsortiaID",
+   "ExpendDate",
+   "Win",
+   "Total",
+   "Escape",
+   "Skin",
+   "Offer",
+   "AntiAddiction",
+   "RichesOffer",
+   "RichesRob",
+   "CheckCount",
+   "MarryInfoID",
+   "DayLoginCount",
+   "Nimbus",
+   "LastAward",
+   "GiftToken",
+   "PvePermission",
+   "FightPower",
+   "AnswerSite",
+   "LastAuncherAward",
+   "hp",
+   "ChatCount",
+   "SpaPubGoldRoomLimit",
+   "LastSpaDate",
+   "FightLabPermission",
+   "SpaPubMoneyRoomLimit",
+   "IsInSpaPubGoldToday",
+   "IsInSpaPubMoneyToday",
+   "AchievementPoint",
+   "LastWeekly",
+   "LastWeeklyVersion",
+   "WeaklessGuildProgressStr",
+   "IsOldPlayer",
+   "VIPLevel",
+   "VIPExp",
+   "Score",
+   "OptionOnOff",
+   "isOldPlayerHasValidEquitAtLogin",
+   "badLuckNumber",
+   "luckyNum",
+   "lastLuckyNumDate",
+   "lastLuckNum",
+   "IsShowConsortia",
+   "NewDay",
+   "Medal",
+   "Honor",
+   "VIPNextLevelDaysNeeded",
+   "IsRecharged",
+   "IsGetAward",
+   "typeVIP",
+   "evolutionGrade",
+   "evolutionExp",
+   "hardCurrency"
+  ]
+ },
+ "Sp_Renames_Batch": {
+  "db": "Player34",
+  "tables": [
+   "A"
+  ],
+  "params": [
+   "Db_A"
+  ]
+ },
+ "SP_Insert_Update_Shop_Goods_Box": {
+  "db": "Game34",
+  "tables": [
+   "Shop_Goods_Box",
+   "Db_Tank"
+  ],
+  "params": [
+   "ID",
+   "TemplateId",
+   "IsSelect",
+   "IsBind",
+   "ItemValid",
+   "ItemCount",
+   "StrengthenLevel",
+   "AttackCompose",
+   "DefendCompose",
+   "AgilityCompose",
+   "LuckCompose",
+   "Random",
+   "IsTips",
+   "IsLogs",
+   "setUpdate",
+   "count"
+  ]
+ },
+ "SP_Insert_Update_Quest": {
+  "db": "Game34",
+  "tables": [
+   "Quest"
+  ],
+  "params": [
+   "ID",
+   "QuestID",
+   "Title",
+   "Detail",
+   "Objective",
+   "NeedMinLevel",
+   "NeedMaxLevel",
+   "PreQuestID",
+   "NextQuestID",
+   "IsOther",
+   "CanRepeat",
+   "RepeatInterval",
+   "RepeatMax",
+   "RewardGP",
+   "RewardGold",
+   "RewardGiftToken",
+   "RewardOffer",
+   "RewardRiches",
+   "RewardBuffID",
+   "RewardBuffDate",
+   "RewardMoney",
+   "RandDouble",
+   "TimeMode",
+   "StartDate",
+   "EndDate",
+   "MapID",
+   "AutoEquip",
+   "RewardMedal",
+   "Rank",
+   "StarLev",
+   "NotMustCount",
+   "setUpdate",
+   "count2"
+  ]
+ },
+ "SP_Insert_Update_ShopItemList": {
+  "db": "Game34",
+  "tables": [
+   "Shop"
+  ],
+  "params": [
+   "ID",
+   "ShopID",
+   "GroupID",
+   "TemplateID",
+   "BuyType",
+   "IsContinue",
+   "IsBind",
+   "IsVouch",
+   "Label",
+   "Beat",
+   "AUnit",
+   "APrice1",
+   "AValue1",
+   "APrice2",
+   "AValue2",
+   "APrice3",
+   "AValue3",
+   "BUnit",
+   "BPrice1",
+   "BValue1",
+   "BPrice2",
+   "BValue2",
+   "BPrice3",
+   "BValue3",
+   "CUnit",
+   "CPrice1",
+   "CValue1",
+   "CPrice2",
+   "CValue2",
+   "CPrice3",
+   "Sort",
+   "CValue3",
+   "IsCheap",
+   "LimitCount",
+   "StartDate",
+   "EndDate",
+   "setUpdate",
+   "count"
+  ]
+ },
+ "SP_Daily_Award_Single": {
+  "db": "Game34",
+  "tables": [
+   "Daily_Award",
+   "Consortia_Level",
+   "Db_Tank"
+  ],
+  "params": [
+   "awardDays",
+   "StoreRiches",
+   "SmithRiches",
+   "ShopRiches",
+   "KickMax",
+   "BufferRiches",
+   "setUpdate",
+   "count2"
+  ]
+ },
+ "SP_Active_Single": {
+  "db": "Game34",
+  "tables": [
+   "Active"
+  ],
+  "params": [
+   "ID"
+  ]
+ },
+ "SP_Item_StrengthenGoodsInfo_All": {
+  "db": "Game34",
+  "tables": [
+   "Item_Strengthen_Goods"
+  ],
+  "params": []
+ },
+ "SP_Items_All_ASC": {
+  "db": "Game34",
+  "tables": [
+   "Shop_Goods"
+  ],
+  "params": []
+ },
+ "SP_Insert_Update_TemplateAlllist": {
+  "db": "Game34",
+  "tables": [
+   "Shop_Goods"
+  ],
+  "params": [
+   "TemplateID",
+   "Name",
+   "Remark",
+   "CategoryID",
+   "Description",
+   "Attack",
+   "Defence",
+   "Agility",
+   "Luck",
+   "Level",
+   "Quality",
+   "Pic",
+   "MaxCount",
+   "NeedSex",
+   "NeedLevel",
+   "CanStrengthen",
+   "CanCompose",
+   "CanDrop",
+   "CanEquip",
+   "CanUse",
+   "CanDelete",
+   "Script",
+   "Data",
+   "Colors",
+   "Property1",
+   "Property2",
+   "Property3",
+   "Property4",
+   "Property5",
+   "Property6",
+   "Property7",
+   "Property8",
+   "Valid",
+   "Count",
+   "AddTime",
+   "BindType",
+   "FusionType",
+   "FusionRate",
+   "FusionNeedRate",
+   "Hole",
+   "RefineryLevel",
+   "ReclaimValue",
+   "ReclaimType",
+   "CanRecycle",
+   "SuitId",
+   "FloorPrice",
+   "CanTransfer",
+   "setUpdate",
+   "countItems"
+  ]
+ },
+ "SP_Insert_Update_Achievement": {
+  "db": "Game34",
+  "tables": [
+   "Achievement"
+  ],
+  "params": [
+   "ID",
+   "PlaceID",
+   "Title",
+   "Detail",
+   "NeedMinLevel",
+   "NeedMaxLevel",
+   "PreAchievementID",
+   "IsOther",
+   "AchievementType",
+   "CanHide",
+   "StartDate",
+   "EndDate",
+   "AchievementPoint",
+   "IsActive",
+   "PicID",
+   "IsShare",
+   "setUpdate",
+   "count2"
+  ]
+ },
+ "SP_Insert_Update_Achievement_Goods": {
+  "db": "Game34",
+  "tables": [
+   "Achievement_Goods",
+   "Db_Tank"
+  ],
+  "params": [
+   "AchievementID",
+   "RewardType",
+   "RewardPara",
+   "RewardValueId",
+   "RewardCount",
+   "setUpdate",
+   "count2"
+  ]
+ },
+ "SP_Insert_Update_AchievementCondition": {
+  "db": "Game34",
+  "tables": [
+   "AchievementCondition",
+   "Db_Tank34"
+  ],
+  "params": [
+   "AchievementID",
+   "CondictionID",
+   "CondictionType",
+   "Condiction_Para1",
+   "Condiction_Para2",
+   "setUpdate",
+   "count2"
+  ]
+ },
+ "SP_Insert_Update_BallList": {
+  "db": "Game34",
+  "tables": [
+   "Ball",
+   "Db_Tank"
+  ],
+  "params": [
+   "ID",
+   "Name",
+   "Power",
+   "Radii",
+   "FlyingPartical",
+   "BombPartical",
+   "Crater",
+   "AttackResponse",
+   "IsSpin",
+   "Mass",
+   "SpinVA",
+   "SpinV",
+   "Amount",
+   "Wind",
+   "DragIndex",
+   "Weight",
+   "Shake",
+   "ShootSound",
+   "BombSound",
+   "Delay",
+   "ActionType",
+   "HasTunnel",
+   "setUpdate",
+   "count"
+  ]
+ },
+ "SP_Insert_Update_CardGrooveUpdate": {
+  "db": "Game34",
+  "tables": [
+   "Card_Groove_Update",
+   "Db_Tank"
+  ],
+  "params": [
+   "Level",
+   "Type",
+   "Exp",
+   "Attack",
+   "Defend",
+   "Agility",
+   "Lucky",
+   "Damage",
+   "Guard",
+   "setUpdate",
+   "count2"
+  ]
+ },
+ "SP_Insert_Update_CardTemplateInfo": {
+  "db": "Game34",
+  "tables": [
+   "Card_Template_Info",
+   "Db_Tank"
+  ],
+  "params": [
+   "CardID",
+   "CardType",
+   "probability",
+   "AttackRate",
+   "AddAttack",
+   "DefendRate",
+   "AddDefend",
+   "AgilityRate",
+   "AddAgility",
+   "LuckyRate",
+   "AddLucky",
+   "DamageRate",
+   "AddDamage",
+   "GuardRate",
+   "AddGuard",
+   "setUpdate",
+   "count2"
+  ]
+ },
+ "SP_Insert_Update_DailyAwardList": {
+  "db": "Game34",
+  "tables": [
+   "Daily_Award",
+   "Db_Tank"
+  ],
+  "params": [
+   "ID",
+   "Type",
+   "TemplateID",
+   "Count",
+   "ValidDate",
+   "IsBinds",
+   "Sex",
+   "Remark",
+   "CountRemark",
+   "GetWay",
+   "AwardDays",
+   "setUpdate",
+   "count2"
+  ]
+ },
+ "SP_Insert_Update_Exercise": {
+  "db": "Game34",
+  "tables": [
+   "ExerciseInfo",
+   "Db_Tank"
+  ],
+  "params": [
+   "Grage",
+   "GP",
+   "ExerciseA",
+   "ExerciseAG",
+   "ExerciseD",
+   "ExerciseH",
+   "ExerciseL",
+   "setUpdate",
+   "count2"
+  ]
+ },
+ "SP_Insert_Update_Game_Map": {
+  "db": "Game34",
+  "tables": [
+   "Game_Map"
+  ],
+  "params": [
+   "ID",
+   "Name",
+   "Description",
+   "ForegroundWidth",
+   "ForegroundHeight",
+   "BackroundWidht",
+   "BackroundHeight",
+   "DeadWidth",
+   "DeadHeight",
+   "Weight",
+   "DragIndex",
+   "ForePic",
+   "BackPic",
+   "DeadPic",
+   "Pic",
+   "Remark",
+   "BackMusic",
+   "PosX",
+   "Type",
+   "PosX1",
+   "setUpdate",
+   "count"
+  ]
+ },
+ "SP_Insert_Update_Quest_Condiction": {
+  "db": "Game34",
+  "tables": [
+   "Quest_Condiction",
+   "Db_Tank"
+  ],
+  "params": [
+   "QuestID",
+   "CondictionID",
+   "CondictionType",
+   "CondictionTitle",
+   "Para1",
+   "Para2",
+   "isOpitional",
+   "setUpdate",
+   "count2"
+  ]
+ },
+ "SP_ActivitySystemItem_All": {
+  "db": "Game34",
+  "tables": [
+   "Activity_System_Item",
+   "Quest_Goods"
+  ],
+  "params": [
+   "LuckCompose",
+   "IsCount",
+   "IsBind",
+   "setUpdate",
+   "count2"
+  ]
+ },
+ "SP_Insert_Update_NPC_Info": {
+  "db": "Game34",
+  "tables": [
+   "NPC_Info"
+  ],
+  "params": [
+   "ID",
+   "Name",
+   "Level",
+   "Camp",
+   "Type",
+   "X",
+   "Y",
+   "Width",
+   "Height",
+   "Blood",
+   "MoveMin",
+   "MoveMax",
+   "BaseDamage",
+   "BaseGuard",
+   "Defence",
+   "Agility",
+   "Lucky",
+   "Attack",
+   "ModelID",
+   "ResourcesPath",
+   "DropRate",
+   "Experience",
+   "Delay",
+   "Immunity",
+   "Alert",
+   "Range",
+   "Preserve",
+   "Script",
+   "FireX",
+   "FireY",
+   "DropId",
+   "setUpdate",
+   "count"
+  ]
+ },
+ "SP_Insert_Update_Quest_Rate": {
+  "db": "Game34",
+  "tables": [
+   "Quest_Rate"
+  ],
+  "params": [
+   "BindMoneyRate",
+   "ExpRate",
+   "GoldRate",
+   "ExploitRate",
+   "CanOneKeyFinishTime",
+   "count2"
+  ]
+ },
+ "SP_Category_Name_Single": {
+  "db": "Game34",
+  "tables": [
+   "Shop_Goods_Categorys"
+  ],
+  "params": [
+   "ID"
+  ]
+ },
+ "SP_Insert_Update_RuneTemplate": {
+  "db": "Game34",
+  "tables": [
+   "Rune_Template"
+  ],
+  "params": [
+   "TemplateID",
+   "NextTemplateID",
+   "Name",
+   "BaseLevel",
+   "MaxLevel",
+   "Type1",
+   "Attribute1",
+   "Turn1",
+   "Rate1",
+   "Type2",
+   "Attribute2",
+   "Turn2",
+   "Rate2",
+   "Type3",
+   "Attribute3",
+   "Turn3",
+   "Rate3",
+   "setUpdate",
+   "count2"
+  ]
+ },
+ "SP_PetSkillTemplateInfo_All": {
+  "db": "Game34",
+  "tables": [
+   "Pet_Skill_Template_Info"
+  ],
+  "params": []
+ },
+ "SP_PetStarExp_All": {
+  "db": "Game34",
+  "tables": [
+   "Pet_Star_Exp"
+  ],
+  "params": []
+ },
+ "SP_PetTemplateInfo_All": {
+  "db": "Game34",
+  "tables": [
+   "Pet_Template_Info"
+  ],
+  "params": []
+ },
+ "SP_PveInfos_All": {
+  "db": "Game34",
+  "tables": [
+   "Pve_Info"
+  ],
+  "params": []
+ },
+ "SP_QQtipsMessages_All": {
+  "db": "Game34",
+  "tables": [
+   "QQtips_Messages"
+  ],
+  "params": []
+ },
+ "SP_Achievement_Reward_All": {
+  "db": "Game34",
+  "tables": [
+   "Achievement_Goods"
+  ],
+  "params": []
+ },
+ "SP_Active_All": {
+  "db": "Game34",
+  "tables": [
+   "Active"
+  ],
+  "params": []
+ },
+ "SP_RuneTemplate_All": {
+  "db": "Game34",
+  "tables": [
+   "Rune_Template"
+  ],
+  "params": [
+   "Grade"
+  ]
+ },
+ "SP_SearchGoodsTemp_All": {
+  "db": "Game34",
+  "tables": [
+   "Search_Goods_Temp",
+   "Server_Config"
+  ],
+  "params": [
+   "Key"
+  ]
+ },
+ "SP_Items_Category_All": {
+  "db": "Game34",
+  "tables": [
+   "Shop_Goods_Categorys"
+  ],
+  "params": []
+ },
+ "SP_Items_FusionType": {
+  "db": "Game34",
+  "tables": [
+   "Shop_Goods"
+  ],
+  "params": []
+ },
+ "SP_Items_Name_Single": {
+  "db": "Game34",
+  "tables": [
+   "Shop_Goods"
+  ],
+  "params": [
+   "name"
+  ]
+ },
+ "SP_NPC_Info_All": {
+  "db": "Game34",
+  "tables": [
+   "NPC_Info"
+  ],
+  "params": []
+ },
+ "SP_Totem_All": {
+  "db": "Game34",
+  "tables": [
+   "Totem_Info"
+  ],
+  "params": [
+   "Grade"
+  ]
+ },
+ "SP_TotemHonorTemplate_All": {
+  "db": "Game34",
+  "tables": [
+   "Totem_Honor_Template"
+  ],
+  "params": [
+   "Grade"
+  ]
+ },
+ "SP_Quest_Goods_All": {
+  "db": "Game34",
+  "tables": [
+   "Quest_Goods"
+  ],
+  "params": []
+ },
+ "SP_Quest_Rate_All": {
+  "db": "Game34",
+  "tables": [
+   "Quest_Rate"
+  ],
+  "params": []
+ },
+ "SP_Quest_Single": {
+  "db": "Game34",
+  "tables": [
+   "Quest"
+  ],
+  "params": [
+   "QuestId"
+  ]
+ },
+ "SP_SubActive_All": {
+  "db": "Game34",
+  "tables": [
+   "Sub_Active_List"
+  ],
+  "params": []
+ },
+ "SP_Achievement_All": {
+  "db": "Game34",
+  "tables": [
+   "Achievement"
+  ],
+  "params": []
+ },
+ "SP_Achievement_Condition_All": {
+  "db": "Game34",
+  "tables": [
+   "AchievementCondition"
+  ],
+  "params": []
+ },
+ "SP_Active_Convert_Item_Info_Single": {
+  "db": "Game34",
+  "tables": [
+   "Active_Convert_Item"
+  ],
+  "params": [
+   "ID"
+  ]
+ },
+ "SP_Shop_All": {
+  "db": "Game34",
+  "tables": [
+   "Shop"
+  ],
+  "params": []
+ },
+ "SP_ShopGoodsShowList_All": {
+  "db": "Game34",
+  "tables": [
+   "ShopGoodsShowList"
+  ],
+  "params": []
+ },
+ "SP_StrengThenExp_All": {
+  "db": "Game34",
+  "tables": [
+   "StrengThenExp"
+  ],
+  "params": [
+   "Grade"
+  ]
+ },
+ "SP_SubActiveCondition_All": {
+  "db": "Game34",
+  "tables": [
+   "Sub_Active_Condition"
+  ],
+  "params": [
+   "ActiveID"
+  ]
+ },
+ "SP_Ball_All": {
+  "db": "Game34",
+  "tables": [
+   "Ball"
+  ],
+  "params": []
+ },
+ "SP_Ball_Config_All": {
+  "db": "Game34",
+  "tables": [
+   "BallConfig"
+  ],
+  "params": []
+ },
+ "SP_CommunalActiveAward_All": {
+  "db": "Game34",
+  "tables": [
+   "Communal_Active_Award"
+  ],
+  "params": []
+ },
+ "SP_CommunalActiveExp_All": {
+  "db": "Game34",
+  "tables": [
+   "Communal_Active_Exp"
+  ],
+  "params": []
+ },
+ "SP_Consortia_Badge_Config_All": {
+  "db": "Game34",
+  "tables": [
+   "Consortia_Badge",
+   "sys_users_detail"
+  ],
+  "params": []
+ },
+ "SP_Insert_Update_Active": {
+  "db": "Game34",
+  "tables": [
+   "Active",
+   "Db_Tank"
+  ],
+  "params": [
+   "ActiveID",
+   "Title",
+   "Description",
+   "Content",
+   "AwardContent",
+   "HasKey",
+   "StartDate",
+   "EndDate",
+   "IsOnly",
+   "Type",
+   "ActionTimeContent",
+   "IsAdvance",
+   "GoodsExchangeTypes",
+   "GoodsExchangeNum",
+   "limitType",
+   "limitValue",
+   "IsShow",
+   "setUpdate",
+   "count"
+  ]
+ },
+ "SP_Consortia_Level_All": {
+  "db": "Game34",
+  "tables": [
+   "Consortia_Level"
+  ],
+  "params": []
+ },
+ "SP_Consortia_Task_All": {
+  "db": "Game34",
+  "tables": [
+   "Consortia_TaskConfig"
+  ],
+  "params": []
+ },
+ "SP_Insert_Update_bombconfig": {
+  "db": "Game34",
+  "tables": [
+   "BallConfig",
+   "Db_Tank"
+  ],
+  "params": [
+   "TemplateID",
+   "Common",
+   "CommonAddWound",
+   "CommonMultiBall",
+   "Special",
+   "setUpdate",
+   "count"
+  ]
+ },
+ "SP_Consortia_TaskAward": {
+  "db": "Game34",
+  "tables": [
+   "Consortia_TaskAward"
+  ],
+  "params": [
+   "lv"
+  ]
+ },
+ "SP_AccumulAtiveLoginAward_All": {
+  "db": "Game34",
+  "tables": [
+   "Login_Award_Item_Template"
+  ],
+  "params": []
+ },
+ "SP_Daily_Award_All": {
+  "db": "Game34",
+  "tables": [
+   "Daily_Award",
+   "Consortia_Level",
+   "Db_Tank"
+  ],
+  "params": [
+   "Deduct",
+   "NeedGold",
+   "NeedItem",
+   "Reward",
+   "Count",
+   "StoreRiches",
+   "SmithRiches",
+   "ShopRiches",
+   "KickMax",
+   "BufferRiches",
+   "setUpdate",
+   "count2"
+  ]
+ },
+ "SP_delete_Item_Fusion": {
+  "db": "Game34",
+  "tables": [
+   "Item_Fusion"
+  ],
+  "params": [
+   "FusionID"
+  ]
+ },
+ "SP_Drop_Condiction_All": {
+  "db": "Game34",
+  "tables": [
+   "Drop_Condiction"
+  ],
+  "params": []
+ },
+ "SP_Drop_Item_All": {
+  "db": "Game34",
+  "tables": [
+   "Drop_Item",
+   "Db_Tank"
+  ],
+  "params": []
+ },
+ "SP_Insert_Update_ItemStrengthen": {
+  "db": "Game34",
+  "tables": [
+   "Item_Strengthen",
+   "Db_Tank"
+  ],
+  "params": [
+   "StrengthenLevel",
+   "Rock",
+   "Random",
+   "Rock1",
+   "Rock2",
+   "Rock3",
+   "StoneLevelMin",
+   "setUpdate",
+   "count2"
+  ]
+ },
+ "SP_Insert_Update_Map_Server": {
+  "db": "Game34",
+  "tables": [
+   "Map_Server",
+   "Db_Tank"
+  ],
+  "params": [
+   "ServerID",
+   "OpenMap",
+   "IsSpecial",
+   "setUpdate",
+   "count2"
+  ]
+ },
+ "SP_Suit_Manager_Reset": {
+  "db": "Game34",
+  "tables": [
+   "Suit_Manager"
+  ],
+  "params": [
+   "UserID"
+  ]
+ },
+ "SP_Edictum_All": {
+  "db": "Game34",
+  "tables": [
+   "Edictum_List"
+  ],
+  "params": []
+ },
+ "SP_Suit_Manager_Update": {
+  "db": "Game34",
+  "tables": [
+   "Suit_Manager"
+  ],
+  "params": [
+   "kill",
+   "UserID"
+  ]
+ },
+ "SP_Fight_Rate": {
+  "db": "Game34",
+  "tables": [
+   "Fight_Rate"
+  ],
+  "params": [
+   "serverId"
+  ]
+ },
+ "SP_Suit_TemplateID": {
+  "db": "Game34",
+  "tables": [
+   "Suit_TemplateID"
+  ],
+  "params": []
+ },
+ "SP_Fusion_All": {
+  "db": "Game34",
+  "tables": [
+   "Item_Fusion"
+  ],
+  "params": []
+ },
+ "SP_Fusion_All_Desc": {
+  "db": "Game34",
+  "tables": [
+   "Item_Fusion"
+  ],
+  "params": []
+ },
+ "SP_Item_Refinery_All": {
+  "db": "Game34",
+  "tables": [
+   "Item_Refinery"
+  ],
+  "params": []
+ },
+ "SP_Item_Strengthen_All": {
+  "db": "Game34",
+  "tables": [
+   "Item_Strengthen"
+  ],
+  "params": []
+ },
+ "SP_Maps_Award_All": {
+  "db": "Game34",
+  "tables": [
+   "Map_Award"
+  ],
+  "params": []
+ },
+ "SP_GoldEquipTemplateLoad_All": {
+  "db": "Game34",
+  "tables": [
+   "GoldEquipTemplateLoad"
+  ],
+  "params": [
+   "Grade"
+  ]
+ },
+ "SP_Insert_Update_Quest_Goods": {
+  "db": "Game34",
+  "tables": [
+   "Quest_Goods"
+  ],
+  "params": [
+   "QuestID",
+   "RewardItemID",
+   "IsSelect",
+   "RewardItemValid",
+   "RewardItemCount",
+   "StrengthenLevel",
+   "AttackCompose",
+   "DefendCompose",
+   "AgilityCompose",
+   "LuckCompose",
+   "IsCount",
+   "IsBind",
+   "setUpdate",
+   "count2"
+  ]
+ },
+ "Mem_Code_Order_Sto": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_Code",
+   "Mem_Co\u0164e"
+  ],
+  "params": [
+   "Code",
+   "ouototal",
+   "orderidcard",
+   "temp"
+  ]
+ },
+ "Pay_Card_Lost": {
+  "db": "Db_Membership",
+  "tables": [
+   "Pay_Card"
+  ],
+  "params": [
+   "OrderId",
+   "CardId",
+   "CardPassword",
+   "ApplicationId",
+   "ouototal"
+  ]
+ },
+ "Mem_Users_CreateUser": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_Application_User",
+   "Mem_Applic\u0161tion"
+  ],
+  "params": [
+   "ApplicationName",
+   "UserName",
+   "password",
+   "email",
+   "PasswordFormat",
+   "PasswordSalt",
+   "UserSex",
+   "UserId",
+   "LastActivityDate",
+   "Count",
+   "ApplicationId"
+  ]
+ },
+ "Mem_Code_Sto": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_Code"
+  ],
+  "params": [
+   "code",
+   "ouototal",
+   "oldid"
+  ]
+ },
+ "Mem_UserInfo_SearchMail": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_UserInfo"
+  ],
+  "params": [
+   "USERID",
+   "MAILCOUNT"
+  ]
+ },
+ "Mem_UserInfo_SearchName\u010d": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_Users",
+   "Mem_Application",
+   "Mem_UserInfo"
+  ],
+  "params": [
+   "UserName",
+   "UserCOUNT",
+   "EMAIL",
+   "ApplicationName",
+   "Total",
+   "ApplicationId",
+   "UserId"
+  ]
+ },
+ "Mem_ResetPwd_SendMail": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_Application",
+   "Mem_ResetPwd"
+  ],
+  "params": [
+   "ApplicationName",
+   "UserName",
+   "ApplicationId",
+   "UserID"
+  ]
+ },
+ "Mem_ResetPwd_Chang": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_ResetPwd",
+   "Mem_Users"
+  ],
+  "params": [
+   "Result",
+   "UserName",
+   "TEMPCOUNT"
+  ]
+ },
+ "Mem_NotUserRight\u025fList": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_Application",
+   "Mem_Right",
+   "Mem_UserRight"
+  ],
+  "params": [
+   "ApplicationName",
+   "UserId",
+   "ApplicationId"
+  ]
+ },
+ "\u025bdbo": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_Application",
+   "Mem_Users",
+   "Mem_UserInfo"
+  ],
+  "params": [
+   "ApplicationName",
+   "UserName",
+   "Password",
+   "UserId",
+   "ApplicationId"
+  ]
+ },
+ "Mem_Right_List": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_Application",
+   "Mem_Right"
+  ],
+  "params": [
+   "ApplicationName",
+   "ModuleId",
+   "ApplicationId"
+  ]
+ },
+ "Mem_UserInfo_AddPasswordWay": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_Application",
+   "Mem_UserInfo",
+   "Mem_Users"
+  ],
+  "params": [
+   "ApplicationName",
+   "UserName",
+   "PasswordFormat",
+   "PasswordSalt",
+   "ApplicationId"
+  ]
+ },
+ "Mem_UserRight_Save": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_Application",
+   "Mem_UserRight"
+  ],
+  "params": [
+   "ApplicationName",
+   "User\u0149D",
+   "RightsId",
+   "op",
+   "ouototal",
+   "ApplicationId"
+  ]
+ },
+ "Mem_UserI\u016efo_UserSex": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_Application",
+   "Mem_Users",
+   "Mem_UserInfo"
+  ],
+  "params": [
+   "ApplicationName",
+   "UserName",
+   "UserSex",
+   "Application\u0149d",
+   "UserId"
+  ]
+ },
+ "Mem_Roles_List": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_Application",
+   "Mem_Roles"
+  ],
+  "params": [
+   "ApplicationName",
+   "ApplicationId"
+  ]
+ },
+ "Mem_UserRight_Check": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_Application",
+   "Mem_UserRight"
+  ],
+  "params": [
+   "Application\u014eame",
+   "UserId",
+   "RightsId",
+   "ouototal",
+   "ApplicationId"
+  ]
+ },
+ "Mem_Users_Delete": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_Application",
+   "Mem_UserInfo",
+   "Mem_Users",
+   "Mem_UserRight"
+  ],
+  "params": [
+   "ApplicationName",
+   "UserId",
+   "ApplicationId"
+  ]
+ },
+ "Mem_UserOne": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_Application",
+   "Mem_Users",
+   "Mem_UsersInRoles",
+   "Mem_Roles"
+  ],
+  "params": [
+   "ApplicationName",
+   "UserId",
+   "Applicat\u0269onId"
+  ]
+ },
+ "Mem_Application_Sub_Search": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_Application_Sub"
+  ],
+  "params": [
+   "Application\u0249d"
+  ]
+ },
+ "Mem_Application_Search": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_Application"
+  ],
+  "params": []
+ },
+ "Mem_ActiveCode_Get": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_Application",
+   "Mem_ActiveCode"
+  ],
+  "params": [
+   "ApplicationName",
+   "ActiveCode",
+   "ApplicationId"
+  ]
+ },
+ "Mem_ActiveCode_Check": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_Active\u0143ode"
+  ],
+  "params": [
+   "ActiveCode",
+   "Ouototal"
+  ]
+ },
+ "Mem_ActiveCode_Lost": {
+  "db": "Db_Membership",
+  "tables": [
+   "Mem_ActiveCode"
+  ],
+  "params": [
+   "ActiveCode"
+  ]
+ }
+}

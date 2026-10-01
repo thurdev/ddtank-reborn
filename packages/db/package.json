@@ -1,0 +1,45 @@
+{
+  "name": "@ddt/db",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Drizzle ORM schema (Postgres/Neon/PGlite), migrations and seed data for DDTank Reborn, mirroring the original SQL Server databases 1:1.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./schema": {
+      "types": "./src/schema/index.ts",
+      "default": "./src/schema/index.ts"
+    }
+  },
+  "files": [
+    "src",
+    "drizzle",
+    "seed",
+    "scripts",
+    "README.md"
+  ],
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "db:gen-schema": "tsx scripts/gen-schema.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx scripts/migrate.ts",
+    "db:seed": "tsx scripts/seed.ts",
+    "db:seed:export": "tsx scripts/export-seed.ts",
+    "db:dev-account": "tsx scripts/create-dev-account.ts",
+    "db:serve": "tsx scripts/serve-pglite.ts",
+    "db:studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "drizzle-orm": "^0.45.3",
+    "postgres": "^3.4.9"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite-socket": "^0.2.11",
+    "drizzle-kit": "^0.31.11"
+  }
+}

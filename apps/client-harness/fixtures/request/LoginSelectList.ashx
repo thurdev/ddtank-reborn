@@ -1,1 +1,1 @@
-<Result value="true" message="Success!" />
+<Result value="true" message="Success!"><Item ID="1" UserName="harness" NickName="Harness" Grade="10" Repute="0" Sex="true" WinCount="0" TotalCount="0" ConsortiaName="" Rename="false" IsVIP="false" VIPLevel="0" ConsortiaRename="false" EscapeCount="0" IsFirst="2" LastDate="2026-09-30T12:00:00" /></Result>

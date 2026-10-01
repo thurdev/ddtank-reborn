@@ -58,9 +58,8 @@ export class Logger {
 /** Never write login keys / passwords to disk. */
 export function redact(msg: string): string {
   return msg
-    .replace(/([?&](?:key|password|pass|pwd|token|ticket)=)[^&\s"]+/gi, "$1***")
-    .replace(/("(?:key|password|pass|pwd|token|ticket)"\s*:\s*")[^"]*"/gi, '$1***"')
-    .replace(/(-P(?:key|password|token|ticket)=)\S+/gi, "$1***");
+    .replace(/(\b(?:key|password|pass|pwd|token|ticket)=)[^&\s"]+/gi, "$1***")
+    .replace(/("(?:key|password|pass|pwd|token|ticket)"\s*:\s*")[^"]*"/gi, '$1***"');
 }
 
 export type ScopedLogger = ReturnType<Logger["scope"]>;

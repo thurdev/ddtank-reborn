@@ -1,0 +1,317 @@
+{
+  "bussiness.ts": [
+    {
+      "file": "eEventPacket",
+      "source": "Bussiness/Protocol/eEventPacket.cs:8",
+      "members": 5
+    }
+  ],
+  "center-server.ts": [
+    {
+      "file": "ePackageType",
+      "source": "Center.Server/ePackageType.cs:3",
+      "members": 68
+    }
+  ],
+  "game-logic.ts": [
+    {
+      "file": "eFightPackageType",
+      "source": "Game.Logic/Protocol/eFightPackageType.cs:3",
+      "members": 50
+    },
+    {
+      "file": "ePackageTypeLogic",
+      "source": "Game.Logic/ePackageTypeLogic.cs:3",
+      "members": 6
+    },
+    {
+      "file": "eTankCmdType",
+      "source": "Game.Logic/eTankCmdType.cs:3",
+      "members": 123
+    }
+  ],
+  "game-server.ts": [
+    {
+      "file": "eChatServerPacket",
+      "source": "Game.Server/ChatServer/eChatServerPacket.cs:1",
+      "members": 68
+    },
+    {
+      "file": "HotSpringCmdType",
+      "source": "Game.Server/HotSpringRooms/HotSpringCmdType.cs:3",
+      "members": 9
+    },
+    {
+      "file": "BaglockedPackageType",
+      "source": "Game.Server/Packets/BaglockedPackageType.cs:3",
+      "members": 5
+    },
+    {
+      "file": "ChargePackageType",
+      "source": "Game.Server/Packets/ChargePackageType.cs:3",
+      "members": 7
+    },
+    {
+      "file": "ChickActivationType",
+      "source": "Game.Server/Packets/ChickActivationType.cs:3",
+      "members": 6
+    },
+    {
+      "file": "ConsBatPackageType",
+      "source": "Game.Server/Packets/ConsBatPackageType.cs:3",
+      "members": 13
+    },
+    {
+      "file": "ConsortiaPackageType",
+      "source": "Game.Server/Packets/ConsortiaPackageType.cs:1",
+      "members": 30
+    },
+    {
+      "file": "EquipType",
+      "source": "Game.Server/Packets/EquipType.cs:3",
+      "members": 129
+    },
+    {
+      "file": "FarmPackageType",
+      "source": "Game.Server/Packets/FarmPackageType.cs:3",
+      "members": 22
+    },
+    {
+      "file": "FightSpiritPackageType",
+      "source": "Game.Server/Packets/FightSpiritPackageType.cs:3",
+      "members": 4
+    },
+    {
+      "file": "GameRoomPackageType",
+      "source": "Game.Server/Packets/GameRoomPackageType.cs:3",
+      "members": 22
+    },
+    {
+      "file": "GuildMemberWeekPackageType",
+      "source": "Game.Server/Packets/GuildMemberWeekPackageType.cs:1",
+      "members": 12
+    },
+    {
+      "file": "IMPackageType",
+      "source": "Game.Server/Packets/IMPackageType.cs:3",
+      "members": 9
+    },
+    {
+      "file": "LabyrinthPackageType",
+      "source": "Game.Server/Packets/LabyrinthPackageType.cs:3",
+      "members": 9
+    },
+    {
+      "file": "LightRoadPackageType",
+      "source": "Game.Server/Packets/LightRoadPackageType.cs:3",
+      "members": 8
+    },
+    {
+      "file": "NewChickenBoxPackageType",
+      "source": "Game.Server/Packets/NewChickenBoxPackageType.cs:3",
+      "members": 24
+    },
+    {
+      "file": "NoviceActiveType",
+      "source": "Game.Server/Packets/NoviceActiveType.cs:3",
+      "members": 8
+    },
+    {
+      "file": "PetPackageType",
+      "source": "Game.Server/Packets/PetPackageType.cs:1",
+      "members": 31
+    },
+    {
+      "file": "RuneType",
+      "source": "Game.Server/Packets/RuneType.cs:3",
+      "members": 6
+    },
+    {
+      "file": "WorldBossGamePackageType",
+      "source": "Game.Server/Packets/WorldBossGamePackageType.cs:6",
+      "members": 7
+    },
+    {
+      "file": "WorldBossPackageType",
+      "source": "Game.Server/Packets/WorldBossPackageType.cs:1",
+      "members": 14
+    },
+    {
+      "file": "eDutyRightType",
+      "source": "Game.Server/Packets/eDutyRightType.cs:3",
+      "members": 13
+    },
+    {
+      "file": "eLittleGamePackageInType",
+      "source": "Game.Server/Packets/eLittleGamePackageInType.cs:3",
+      "members": 18
+    },
+    {
+      "file": "eMailRespose",
+      "source": "Game.Server/Packets/eMailRespose.cs:3",
+      "members": 4
+    },
+    {
+      "file": "eMailType",
+      "source": "Game.Server/Packets/eMailType.cs:3",
+      "members": 25
+    },
+    {
+      "file": "eMarryApplyType",
+      "source": "Game.Server/Packets/eMarryApplyType.cs:3",
+      "members": 4
+    },
+    {
+      "file": "eMessageType",
+      "source": "Game.Server/Packets/eMessageType.cs:1",
+      "members": 13
+    },
+    {
+      "file": "ePackageType",
+      "source": "Game.Server/Packets/ePackageType.cs:3",
+      "members": 251
+    },
+    {
+      "file": "ePlayerState",
+      "source": "Game.Server/Packets/ePlayerState.cs:3",
+      "members": 11
+    },
+    {
+      "file": "eRoomPackageType",
+      "source": "Game.Server/Packets/eRoomPackageType.cs:3",
+      "members": 15
+    },
+    {
+      "file": "eSocketType",
+      "source": "Game.Server/Packets/eSocketType.cs:3",
+      "members": 3
+    },
+    {
+      "file": "RingStationPackageType",
+      "source": "Game.Server/RingStation/RingStationPackageType.cs:3",
+      "members": 11
+    },
+    {
+      "file": "GameCmdType",
+      "source": "Game.Server/RingStation/RoomGamePkg/GameCmdType.cs:3",
+      "members": 8
+    },
+    {
+      "file": "MarryCmdType",
+      "source": "Game.Server/SceneMarryRooms/MarryCmdType.cs:3",
+      "members": 14
+    }
+  ],
+  "client.ts": [
+    {
+      "file": "AvatarCollectionPackageType",
+      "source": "Source Flash/src/AvatarCollection/AvatarCollectionPackageType.as",
+      "members": 3
+    },
+    {
+      "file": "AcademyPackageType",
+      "source": "Source Flash/src/ddt/data/socket/AcademyPackageType.as",
+      "members": 15
+    },
+    {
+      "file": "ChurchPackageType",
+      "source": "Source Flash/src/ddt/data/socket/ChurchPackageType.as",
+      "members": 14
+    },
+    {
+      "file": "ConsortiaPackageType",
+      "source": "Source Flash/src/ddt/data/socket/ConsortiaPackageType.as",
+      "members": 28
+    },
+    {
+      "file": "CrazyTankPackageType",
+      "source": "Source Flash/src/ddt/data/socket/CrazyTankPackageType.as",
+      "members": 131
+    },
+    {
+      "file": "EliteGamePackageType",
+      "source": "Source Flash/src/ddt/data/socket/EliteGamePackageType.as",
+      "members": 4
+    },
+    {
+      "file": "FarmPackageType",
+      "source": "Source Flash/src/ddt/data/socket/FarmPackageType.as",
+      "members": 15
+    },
+    {
+      "file": "FightSpiritPackageType",
+      "source": "Source Flash/src/ddt/data/socket/FightSpiritPackageType.as",
+      "members": 4
+    },
+    {
+      "file": "GameRoomPackageType",
+      "source": "Source Flash/src/ddt/data/socket/GameRoomPackageType.as",
+      "members": 18
+    },
+    {
+      "file": "HotSpringPackageType",
+      "source": "Source Flash/src/ddt/data/socket/HotSpringPackageType.as",
+      "members": 9
+    },
+    {
+      "file": "IMPackageType",
+      "source": "Source Flash/src/ddt/data/socket/IMPackageType.as",
+      "members": 9
+    },
+    {
+      "file": "ePackageType",
+      "source": "Source Flash/src/ddt/data/socket/ePackageType.as",
+      "members": 255
+    },
+    {
+      "file": "GuildMemberWeekPackageType",
+      "source": "Source Flash/src/guildMemberWeek/data/GuildMemberWeekPackageType.as",
+      "members": 12
+    },
+    {
+      "file": "InviteFriendPackageType",
+      "source": "Source Flash/src/inviteFriends/data/InviteFriendPackageType.as",
+      "members": 6
+    },
+    {
+      "file": "LabyrinthPackageType",
+      "source": "Source Flash/src/labyrinth/data/LabyrinthPackageType.as",
+      "members": 9
+    },
+    {
+      "file": "LanternriddlesPackageType",
+      "source": "Source Flash/src/lanternriddles/data/LanternriddlesPackageType.as",
+      "members": 7
+    },
+    {
+      "file": "LightRoadPackageType",
+      "source": "Source Flash/src/lightRoad/data/LightRoadPackageType.as",
+      "members": 8
+    },
+    {
+      "file": "LittleGamePackageInType",
+      "source": "Source Flash/src/littleGame/data/LittleGamePackageInType.as",
+      "members": 18
+    },
+    {
+      "file": "NewChickenBoxPackageType",
+      "source": "Source Flash/src/newChickenBox/model/NewChickenBoxPackageType.as",
+      "members": 24
+    },
+    {
+      "file": "FineStorePackageType",
+      "source": "Source Flash/src/store/fineStore/data/FineStorePackageType.as",
+      "members": 2
+    },
+    {
+      "file": "WorldBossGamePackageType",
+      "source": "Source Flash/src/worldboss/model/WorldBossGamePackageType.as",
+      "members": 7
+    },
+    {
+      "file": "WorldBossPackageType",
+      "source": "Source Flash/src/worldboss/model/WorldBossPackageType.as",
+      "members": 13
+    }
+  ]
+}

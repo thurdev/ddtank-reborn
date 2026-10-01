@@ -7,6 +7,7 @@
   "scripts": {
     "copy-client": "node scripts/copy-client.ts",
     "start": "node server.ts",
+    "ws-probe": "node scripts/ws-probe.ts",
     "requests": "node scripts/summarize-requests.ts"
   }
 }

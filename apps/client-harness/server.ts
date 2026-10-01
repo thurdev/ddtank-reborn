@@ -20,6 +20,7 @@ const FIXTURES = join(here, "fixtures");
 const FLASH_DIR = process.env.FLASH_DIR ?? join(PUBLIC, "game/flash");
 const REQUEST_DIR = process.env.REQUEST_DIR ?? resolve(here, "../../vendor/DDTank41/Tank.Request");
 const RESOURCE_DIR = process.env.RESOURCE_DIR ?? "";
+const VARIANT = process.env.FIXTURE_VARIANT ?? "";
 const LOG_DIR = join(here, "logs");
 const LOG_FILE = join(LOG_DIR, process.env.HARNESS_LOG ?? "requests.jsonl");
 mkdirSync(LOG_DIR, { recursive: true });
@@ -76,7 +77,13 @@ function resolveCI(base: string, rel: string): string | null {
 }
 
 function lookup(pathname: string): { file: string; source: string } | null {
-  const tries: Array<[string, string, string]> = [[FIXTURES, pathname, "fixture"]];
+  const tries: Array<[string, string, string]> = [];
+  if (VARIANT) {
+    // FIXTURE_VARIANT=register -> prefer fixtures/request/LoginSelectList.register.ashx
+    const ext = extname(pathname);
+    tries.push([FIXTURES, `${pathname.slice(0, pathname.length - ext.length)}.${VARIANT}${ext}`, `fixture:${VARIANT}`]);
+  }
+  tries.push([FIXTURES, pathname, "fixture"]);
   const lower = pathname.toLowerCase();
   if (lower.startsWith("/flash/")) tries.push([FLASH_DIR, pathname.slice(7), "flash"]);
   else if (lower.startsWith("/request/")) {
