@@ -199,6 +199,8 @@ export class SimpleBomb extends BombObject {
   radius: number;
   power: number;
   petRadius = 80;
+  /** when set, every post-step position is appended (not in C#; for drawing/aiming) */
+  trace?: { x: number; y: number }[];
   private bombed = false;
 
   constructor(id: number, type: BombType, owner: LivingBody, host: BombHost, info: BallInfo, shape: Tile | null, controlled: boolean, angle: number) {
@@ -254,6 +256,7 @@ export class SimpleBomb extends BombObject {
       this.lifeTime = f32(this.lifeTime + f32(0.04));
       const point = this.completeNextMovePoint(f32(0.04));
       this.moveTo(point.x, point.y);
+      this.trace?.push({ x: this._x, y: this._y });
       if (this.isLiving) {
         if (roundEven(f32(this.lifeTime * 100)) % 40 === 0 && point.y > 0) this.host.addTempPoint?.(point.x, point.y);
         if (this.controlled && this.vY > 0) {

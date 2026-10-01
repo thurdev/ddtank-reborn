@@ -24,19 +24,19 @@ export class DotNetRandom implements Rng {
 
   constructor(seed: number) {
     const subtraction = seed === -2147483648 ? MBIG : Math.abs(seed | 0);
-    let mj = MSEED - subtraction;
+    let mj = (MSEED - subtraction) | 0;
     this.seedArray[55] = mj;
     let mk = 1;
     for (let i = 1; i < 55; i++) {
       const ii = (21 * i) % 55;
       this.seedArray[ii] = mk;
-      mk = mj - mk;
+      mk = (mj - mk) | 0;
       if (mk < 0) mk += MBIG;
       mj = this.seedArray[ii];
     }
     for (let k = 1; k < 5; k++) {
       for (let i = 1; i < 56; i++) {
-        let v = this.seedArray[i] - this.seedArray[1 + ((i + 30) % 55)];
+        let v = (this.seedArray[i] - this.seedArray[1 + ((i + 30) % 55)]) | 0;
         if (v < 0) v += MBIG;
         this.seedArray[i] = v;
       }
@@ -48,7 +48,7 @@ export class DotNetRandom implements Rng {
     if (locINext >= 56) locINext = 1;
     let locINextp = this.inextp + 1;
     if (locINextp >= 56) locINextp = 1;
-    let ret = this.seedArray[locINext] - this.seedArray[locINextp];
+    let ret = (this.seedArray[locINext] - this.seedArray[locINextp]) | 0;
     if (ret === MBIG) ret--;
     if (ret < 0) ret += MBIG;
     this.seedArray[locINext] = ret;
