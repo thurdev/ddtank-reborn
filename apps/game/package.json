@@ -12,6 +12,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@ddt/auth": "workspace:*",
     "@ddt/db": "workspace:*",
     "@ddt/protocol": "workspace:*",
     "drizzle-orm": "^0.45.3",
