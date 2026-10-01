@@ -51,6 +51,8 @@ for f in glob.glob(os.path.join(ROOT, 'Bussiness', '**', '*.cs'), recursive=True
         key = f'{cls}.{h.group(1)}'
         for p in re.findall(r'(?:GetReader|RunProcedure|GetDataTable|GetDataSet|ExecuteNonQuery|RunProcedureReader)\s*\([^"]*"([^"]+)"', body):
             proc_of[key].add(p)
+        for tbl in re.findall(r'GetPage\s*\(\s*"([^"]+)"', body):
+            proc_of[key].add(f'SP_CustomPage({tbl})')
         for m in re.findall(r'\b(\w+)\s*\(', body):
             calls_of[key].add(m)
 methods_by_name = collections.defaultdict(list)
@@ -84,6 +86,11 @@ for f in glob.glob(os.path.join(CLIENT, '**', '*.as'), recursive=True):
     t = rd(f)
     for m in re.finditer(r'"([A-Za-z_/]+\.(?:ashx|xml))', t):
         client_lits[m.group(1).split('/')[-1].lower()].add(rel(f, CLIENT))
+loader_type = collections.defaultdict(set)   # url literal (lower) -> BaseLoader.* type used by the client
+for f in glob.glob(os.path.join(CLIENT, '**', '*.as'), recursive=True):
+    t = rd(f)
+    for m in re.finditer(r'"([A-Za-z_]+\.(?:ashx|xml))[^;]{0,200}?BaseLoader\.(\w+_LOADER)', t, re.S):
+        loader_type[m.group(1).lower()].add(m.group(2))
 boot = set()
 sl = rd(os.path.join(CLIENT, 'ddt', 'loader', 'StartupResourceLoader.as'))
 fn_bodies = {}
@@ -181,6 +188,8 @@ for ashx in sorted(glob.glob(os.path.join(REQ, '**', '*.ashx'), recursive=True),
     name = os.path.basename(ashx).lower()
     users = set(client_lits.get(name, set()))
     for f in files: users |= client_lits.get((f + '.xml').lower(), set())
+    ltypes = set(loader_type.get(name, set()))
+    for f in files: ltypes |= loader_type.get((f + '.xml').lower(), set())
     is_boot = name in boot or any((f + '.xml').lower() in boot for f in files)
     smp = None
     for f in files or [os.path.splitext(os.path.basename(ashx))[0]]:
@@ -190,7 +199,7 @@ for ashx in sorted(glob.glob(os.path.join(REQ, '**', '*.ashx'), recursive=True),
                      params=params, auth=auth, appsettings=appset, db=sorted(f'{c}.{m}' for c, m in dbcalls), mgr=[f'{a}.{b}' for a, b in mgr],
                      procs=sorted(procs), output=out or ['?'], content_type=ctype, cache=cache,
                      elements=list(dict.fromkeys(els)), attributes=list(dict.fromkeys(attrs)), builders=used_builders,
-                     files=files, client=sorted(users), boot=is_boot, sample=smp))
+                     files=files, client=sorted(users), loader=sorted(ltypes), boot=is_boot, sample=smp))
 
 if '--json' in sys.argv:
     json.dump(rows, open(sys.argv[sys.argv.index('--json') + 1], 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
@@ -216,6 +225,7 @@ for i, r in enumerate(rows, 1):
     if r['cache']: print(f"- Caching: {'; '.join(r['cache'])}")
     if r['elements'] or r['attributes']:
         print(f"- XML: elements {', '.join('`'+e+'`' for e in r['elements'])}; attributes {', '.join(r['attributes'])}" + (f" (builders: {', '.join(r['builders'])})" if r['builders'] else ''))
+    if r['loader']: print(f"- Client loader type: {', '.join(r['loader'])} (COMPRESS_* = client inflates zlib)")
     print(f"- Client: {', '.join('`'+c+'`' for c in r['client'][:5]) or 'not referenced'}{' …' if len(r['client']) > 5 else ''}{' — **boot**' if r['boot'] else ''}")
     if r['sample']:
         p, comp, txt = r['sample']

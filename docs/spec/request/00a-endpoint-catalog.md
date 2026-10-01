@@ -15,47 +15,47 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 | 7 | `/AdvanceQuestTime.ashx` | zlib | none | useid |  | yes |  |
 | 8 | `/API/Login.ashx` | other | key | username, password |  | yes |  |
 | 9 | `/API/Register.ashx` | other | key | username, password, email, phone |  | — |  |
-| 10 | `/ApprenticeshipClubList.ashx` | xml | none | page, selfid, isReturnSelf, name, appshipStateType, requestType | SP_Users_SingleByNickName | yes |  |
+| 10 | `/ApprenticeshipClubList.ashx` | xml | none | page, selfid, isReturnSelf, name, appshipStateType, requestType | SP_CustomPage(V_Sys_Users_Detail), SP_Users_SingleByNickName | yes |  |
 | 11 | `/AuctionPageList.ashx` | zlib | none | page, name, type, pay, userID, buyID, order, sort … | Auction, SP_Users_Items_Single | yes |  |
 | 12 | `/BallList.ashx` | build→BallList.xml | admin-IP |  | SP_Ball_All | yes | **boot** |
 | 13 | `/bombconfig.ashx` | build→bombconfig.xml | admin-IP |  | [SP_Ball_Config_All] | yes | **boot** |
 | 14 | `/CardUpdateCondition.ashx` | build→CardUpdateCondition.xml | none |  | SP_Get_CardUpdateCondiction | yes | **boot** |
 | 15 | `/CardUpdateInfo.ashx` | build→CardUpdateInfo.xml | none |  | SP_Get_CardUpdateInfo | yes | **boot** |
-| 16 | `/CelebList/CelebByConsortiaDayHonor.ashx` | build→CelebByConsortiaDayHonor.xml | admin-IP |  |  | — |  |
-| 17 | `/CelebList/CelebByConsortiaDayRiches.ashx` | build→CelebByConsortiaDayRiches.xml | admin-IP |  |  | yes |  |
-| 18 | `/CelebList/celebbyconsortiafightpower.ashx` | build→celebbyconsortiafightpower.xml | admin-IP |  |  | yes |  |
-| 19 | `/CelebList/CelebByConsortiaHonor.ashx` | build→CelebByConsortiaHonor.xml | admin-IP |  |  | — |  |
-| 20 | `/CelebList/CelebByConsortiaLevel.ashx` | build→CelebByConsortiaLevel.xml | admin-IP |  |  | yes |  |
-| 21 | `/CelebList/CelebByConsortiaRiches.ashx` | build→CelebByConsortiaRiches.xml | admin-IP |  |  | yes |  |
-| 22 | `/CelebList/CelebByConsortiaWeekHonor.ashx` | build→CelebByConsortiaWeekHonor.xml | admin-IP |  |  | — |  |
-| 23 | `/CelebList/CelebByConsortiaWeekRiches.ashx` | build→CelebByConsortiaWeekRiches.xml | admin-IP |  |  | yes |  |
+| 16 | `/CelebList/CelebByConsortiaDayHonor.ashx` | build→CelebByConsortiaDayHonor.xml | admin-IP |  | SP_CustomPage(V_Consortia) | — |  |
+| 17 | `/CelebList/CelebByConsortiaDayRiches.ashx` | build→CelebByConsortiaDayRiches.xml | admin-IP |  | SP_CustomPage(V_Consortia) | yes |  |
+| 18 | `/CelebList/celebbyconsortiafightpower.ashx` | build→celebbyconsortiafightpower.xml | admin-IP |  | SP_CustomPage(V_Consortia) | yes |  |
+| 19 | `/CelebList/CelebByConsortiaHonor.ashx` | build→CelebByConsortiaHonor.xml | admin-IP |  | SP_CustomPage(V_Consortia) | — |  |
+| 20 | `/CelebList/CelebByConsortiaLevel.ashx` | build→CelebByConsortiaLevel.xml | admin-IP |  | SP_CustomPage(V_Consortia) | yes |  |
+| 21 | `/CelebList/CelebByConsortiaRiches.ashx` | build→CelebByConsortiaRiches.xml | admin-IP |  | SP_CustomPage(V_Consortia) | yes |  |
+| 22 | `/CelebList/CelebByConsortiaWeekHonor.ashx` | build→CelebByConsortiaWeekHonor.xml | admin-IP |  | SP_CustomPage(V_Consortia) | — |  |
+| 23 | `/CelebList/CelebByConsortiaWeekRiches.ashx` | build→CelebByConsortiaWeekRiches.xml | admin-IP |  | SP_CustomPage(V_Consortia) | yes |  |
 | 24 | `/CelebList/CelebByDayBestEquip.ashx` | build→CelebForBestEquip.xml | admin-IP |  | SP_Users_BestEquip | — |  |
-| 25 | `/CelebList/CelebByDayFightPowerList.ashx` | build→CelebByDayFightPowerList.xml | admin-IP |  |  | yes |  |
-| 26 | `/CelebList/CelebByDayGPList.ashx` | build→CelebByDayGPList.xml | admin-IP |  |  | yes |  |
-| 27 | `/CelebList/CelebByDayOfferList.ashx` | build→CelebByDayOfferList.xml,CelebByDayOfferList.xml | admin-IP |  |  | — |  |
-| 28 | `/CelebList/CelebByGpList.ashx` | build→CelebByGPList.xml,CelebByGpList.xml | admin-IP |  |  | yes |  |
-| 29 | `/CelebList/CelebByOfferList.ashx` | build→CelebByOfferList.xml,CelebByOfferList.xml | admin-IP |  |  | — |  |
-| 30 | `/CelebList/CelebByWeekGPList.ashx` | build→CelebByWeekGPList.xml,CelebByWeekGPList.xml | admin-IP |  |  | yes |  |
+| 25 | `/CelebList/CelebByDayFightPowerList.ashx` | build→CelebByDayFightPowerList.xml | admin-IP |  | SP_CustomPage(V_Sys_Users_Detail) | yes |  |
+| 26 | `/CelebList/CelebByDayGPList.ashx` | build→CelebByDayGPList.xml | admin-IP |  | SP_CustomPage(V_Sys_Users_Detail) | yes |  |
+| 27 | `/CelebList/CelebByDayOfferList.ashx` | build→CelebByDayOfferList.xml,CelebByDayOfferList.xml | admin-IP |  | SP_CustomPage(V_Sys_Users_Detail) | — |  |
+| 28 | `/CelebList/CelebByGpList.ashx` | build→CelebByGPList.xml,CelebByGpList.xml | admin-IP |  | SP_CustomPage(V_Sys_Users_Detail) | yes |  |
+| 29 | `/CelebList/CelebByOfferList.ashx` | build→CelebByOfferList.xml,CelebByOfferList.xml | admin-IP |  | SP_CustomPage(V_Sys_Users_Detail) | — |  |
+| 30 | `/CelebList/CelebByWeekGPList.ashx` | build→CelebByWeekGPList.xml,CelebByWeekGPList.xml | admin-IP |  | SP_CustomPage(V_Sys_Users_Detail) | yes |  |
 | 31 | `/CelebList/celebbyweekleaguescore.ashx` | other | none |  |  | — |  |
-| 32 | `/CelebList/CelebByWeekOfferList.ashx` | build→CelebByWeekOfferList.xml,CelebByWeekOfferList.xml | admin-IP |  |  | — |  |
+| 32 | `/CelebList/CelebByWeekOfferList.ashx` | build→CelebByWeekOfferList.xml,CelebByWeekOfferList.xml | admin-IP |  | SP_CustomPage(V_Sys_Users_Detail) | — |  |
 | 33 | `/CelebList/CreateAllCeleb.ashx` | other | admin-IP |  |  | — |  |
 | 34 | `/CelebList/UserRankDate.ashx` | xml | none | userID, ConsortiaID | SP_Sys_Users_Rank_Date | yes |  |
 | 35 | `/ChargeTest.ashx` | other | key | chargeID, userName, money, payWay, needMoney, nickname, chargekey | SP_Charge_Money_Add, SP_Charge_Money_UserId_Add | — |  |
 | 36 | `/CheckRegistration.ashx` | zlib | none |  |  | — |  |
-| 37 | `/ConsortiaAllyList.ashx` | xml | none | page, size, order, consortiaID, state, name | SP_Consortia_AllyByState, SP_Consortia_Ally_Neutral | — |  |
-| 38 | `/ConsortiaApplyAllyList.ashx` | xml | none | page, size, order, consortiaID, applyID, state |  | — |  |
-| 39 | `/ConsortiaApplyUsersList.ashx` | xml | none | page, size, order, consortiaID, applyID, userID |  | yes |  |
+| 37 | `/ConsortiaAllyList.ashx` | xml | none | page, size, order, consortiaID, state, name | SP_Consortia_AllyByState, SP_Consortia_Ally_Neutral, SP_CustomPage(Consortia) | — |  |
+| 38 | `/ConsortiaApplyAllyList.ashx` | xml | none | page, size, order, consortiaID, applyID, state | SP_CustomPage(V_Consortia_Apply_Ally) | — |  |
+| 39 | `/ConsortiaApplyUsersList.ashx` | xml | none | page, size, order, consortiaID, applyID, userID | SP_CustomPage(V_Consortia_Apply_Users) | yes |  |
 | 40 | `/consortiabuffertemp.ashx` | build→consortiabuffertemp_out.xml,consortiabuffertemp.xml | admin-IP |  | SP_Consortia_Buff_Temp_All | yes |  |
-| 41 | `/ConsortiaDutyList.ashx` | xml | none | page, size, order, consortiaID, dutyID |  | yes |  |
+| 41 | `/ConsortiaDutyList.ashx` | xml | none | page, size, order, consortiaID, dutyID | SP_CustomPage(Consortia_Duty) | yes |  |
 | 42 | `/ConsortiaEquipControl.ashx` | xml | none | consortiaID | SP_Consortia_Equip_Control_Single | — |  |
-| 43 | `/ConsortiaEquipControlList.ashx` | xml | none | page, size, order, consortiaID, level, type |  | yes |  |
-| 44 | `/ConsortiaEventList.ashx` | xml | none | page, size, order, consortiaID |  | yes |  |
-| 45 | `/ConsortiaIMList.ashx` | xml | none | id | SP_Consortia_Single | — |  |
-| 46 | `/ConsortiaInviteUsersList.ashx` | xml | none | page, size, order, userID, inviteID |  | yes |  |
+| 43 | `/ConsortiaEquipControlList.ashx` | xml | none | page, size, order, consortiaID, level, type | SP_CustomPage(Consortia_Equip_Control) | yes |  |
+| 44 | `/ConsortiaEventList.ashx` | xml | none | page, size, order, consortiaID | SP_CustomPage(Consortia_Event) | yes |  |
+| 45 | `/ConsortiaIMList.ashx` | xml | none | id | SP_Consortia_Single, SP_CustomPage(V_Consortia_Users) | — |  |
+| 46 | `/ConsortiaInviteUsersList.ashx` | xml | none | page, size, order, userID, inviteID | SP_CustomPage(V_Consortia_Invite) | yes |  |
 | 47 | `/ConsortiaLevelList.ashx` | build→ConsortiaLevelList.xml | none |  | SP_Consortia_Level_All | yes |  |
-| 48 | `/ConsortiaList.ashx` | zlib | none | page, size, order, consortiaID, name, level, openApply |  | yes | **boot** |
+| 48 | `/ConsortiaList.ashx` | zlib | none | page, size, order, consortiaID, name, level, openApply | SP_CustomPage(V_Consortia) | yes | **boot** |
 | 49 | `/ConsortiaNameCheck.ashx` | xml | none | NickName | SP_Consortia_CheckByName | yes |  |
-| 50 | `/ConsortiaUsersList.ashx` | xml | none | page, size, order, consortiaID, userID, state |  | yes | **boot** |
+| 50 | `/ConsortiaUsersList.ashx` | xml | none | page, size, order, consortiaID, userID, state | SP_CustomPage(V_Consortia_Users) | yes | **boot** |
 | 51 | `/CreateAllXml.ashx` | other | admin-IP |  |  | — |  |
 | 52 | `/CreatShortCut.ashx` | other | none | gameurl |  | yes |  |
 | 53 | `/DailyAwardList.ashx` | build→DailyAwardList.xml | none |  | SP_Daily_Award_All | yes | **boot** |
@@ -90,11 +90,11 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 | 82 | `/LoadUserEquip.ashx` | xml | none | ID | SP_Users_Items_Equip, SP_Users_SingleByUserID | — |  |
 | 83 | `/LoadUserItems.ashx` | xml | none | ID | SP_Users_Items_All | — |  |
 | 84 | `/LoadUserMail.ashx` | zlib | none | selfid | SP_Mail_BySenderID, SP_Mail_ByUserID, SP_Users_Items_Single | yes |  |
-| 85 | `/LoadUsersSort.ashx` | xml | none | page, size, order, state |  | — |  |
+| 85 | `/LoadUsersSort.ashx` | xml | none | page, size, order, state | SP_CustomPage(V_Sys_Users_Detail) | — |  |
 | 86 | `/Login.ashx` | xml | RSA | p, site |  | yes |  |
 | 87 | `/LoginAwardItemTemplate.ashx` | build→loginawarditemtemplate.xml | admin-IP |  | SP_AccumulAtiveLoginAward_All | yes | **boot** |
 | 88 | `/LoginSelectList.ashx` | xml | user/password | username, password | SP_Users_LoginList | yes | **boot** |
-| 89 | `/LogTime.ashx` | other | none | page, size, order, consortiaID, state, name | SP_Consortia_AllyByState, SP_Consortia_Ally_Neutral | yes |  |
+| 89 | `/LogTime.ashx` | other | none | page, size, order, consortiaID, state, name | SP_Consortia_AllyByState, SP_Consortia_Ally_Neutral, SP_CustomPage(Consortia) | yes |  |
 | 90 | `/luckstaractivityrank.ashx` | xml | key | selfid, key | SP_Luckstar_Activity_Rank_All | yes |  |
 | 91 | `/MailSenderList.ashx` | zlib | none | selfID | SP_Mail_BySenderID | yes |  |
 | 92 | `/MapServerList.ashx` | build→MapServerList.xml | none |  | SP_Maps_Server_All | yes | **boot** |
@@ -151,6 +151,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/achievementlist_out.xml` (plain UTF-8); build static `/achievementlist.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`, `Item_Condiction`, `Item_Reward`; attributes value, message, ID, AchievementPoint, AchievementType, CanHide, Detail, EndDate, IsActive, IsOther, IsShare, NeedMaxLevel, NeedMinLevel, PicID, PlaceID, PreAchievementID, StartDate, Title, AchievementID, CondictionID, CondictionType, Condiction_Para1, Condiction_Para2, RewardValueId, RewardCount, RewardType, RewardPara (builders: CreateAchievement, CreateAchievementCondition, CreateAchievementReward)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/data/analyze/EffortItemTemplateInfoAnalyzer.as`, `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/achievementlist_out.xml`, plain):
 
@@ -171,6 +172,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/ActiveList.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, ID, Count, CountRemark, IsBinds, Remark, Sex, TemplateID, Type, ValidDate, GetWay, AwardDays (builders: CreateActiveInfo)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `activeEvents/ActiveEventsManager.as`, `calendar/CalendarManager.as`
 - Sample (`Tank.Request/ActiveList.xml`, zlib):
 
@@ -190,6 +192,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Procs: `SP_Active_PullDown`
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`; attributes value, message
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `activeEvents/view/ActiveSubContent.as`, `calendar/CalendarManager.as`
 
 ## 5. `/activitysystemitems.ashx`
@@ -202,6 +205,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/activitysystemitems_out.xml` (plain UTF-8); build static `/activitysystemitems.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, ActivityType, Quality, TemplateID, ValidDate, Count, IsBind, StrengthLevel, AttackCompose, DefendCompose, AgilityCompose, LuckCompose (builders: CreateActivitySystemItems)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/activitysystemitems_out.xml`, plain):
 
@@ -220,6 +224,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Procs: —
 - Output: direct zlib body (BinaryWrite(StaticFunction.Compress(xml))); plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`; attributes value, message
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 
 ## 7. `/AdvanceQuestTime.ashx`
@@ -230,6 +235,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Procs: —
 - Output: direct zlib body (BinaryWrite(StaticFunction.Compress(xml))); Content-Type text/plain
 - XML: elements `Result`; attributes value, message
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `feedback/FeedbackManager.as`
 
 ## 8. `/API/Login.ashx`
@@ -239,6 +245,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Auth: key / MD5 signature; user/password or login key
 - Procs: —
 - Output: ?; Content-Type text/plain
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `login/LoginStateView.as`
 
 ## 9. `/API/Register.ashx`
@@ -256,9 +263,10 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Params: `page`, `selfid`, `isReturnSelf`, `name`, `appshipStateType`, `requestType`
 - Auth: none (trusts userId/selfid param)
 - Data: PlayerBussiness.GetPlayerPage, PlayerBussiness.GetUserSingleByNickName
-- Procs: `SP_Users_SingleByNickName`
+- Procs: `SP_CustomPage(V_Sys_Users_Detail)`, `SP_Users_SingleByNickName`
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Info`; attributes total, value, message, isPlayerRegeisted, isSelfPublishEquip, UserID, ApplyFor, IsPublishEquip, NickName, typeVIP, VIPLevel, IsConsortia, ConsortiaID, Sex, Win, Total, Escape, GP, Honor, Style, Colors, Hide, Grade, State, Repute, Skin, Offer, IsMarried, ConsortiaName, DutyName, Nimbus, FightPower, AchievementPoint, Rank, ApprenticeshipState, GraduatesCount, HonourOfMaster, SpouseID, SpouseName, BadgeID, BadgeBuyTime, ValidDate (builders: CreateApprenticeShipInfo)
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/manager/AcademyManager.as`
 
 ## 11. `/AuctionPageList.ashx`
@@ -270,6 +278,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Procs: `Auction`, `SP_Users_Items_Single`
 - Output: direct zlib body (BinaryWrite(StaticFunction.Compress(xml))); plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes total, value, message, AuctionID, AuctioneerID, AuctioneerName, BeginDate, BuyerID, BuyerName, ItemID, Mouthful, PayType, Price, Rise, ValidDate, AgilityCompose, AttackCompose, Color, Skin, Count, DefendCompose, IsBinds, IsUsed, IsJudge, LuckCompose, Place, StrengthenLevel, TemplateID, UserID, BagType, Hole1, Hole2, Hole3, Hole4, Hole5, Hole6 (builders: CreateAuctionInfo, CreateGoodsInfo)
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `auctionHouse/controller/AuctionHouseController.as`
 
 ## 12. `/BallList.ashx`
@@ -282,6 +291,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/BallList.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, ID, Power, Radii, FlyingPartical, BombPartical, Crater, AttackResponse, IsSpin, SpinV, SpinVA, Amount, Wind, DragIndex, Weight, Shake, ShootSound, BombSound, ActionType, Mass (builders: CreateBallInfo)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/BallList.xml`, zlib):
 
@@ -302,6 +312,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/bombconfig.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, TemplateID, Common, CommonAddWound, CommonMultiBall, Special (builders: CreateBallConfigInfo)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/bombconfig.xml`, zlib):
 
@@ -322,6 +333,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/CardUpdateCondition.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, Level, Exp, MinExp, MaxExp, UpdateCardCount, ResetCardCount, ResetMoney (builders: CreateCardUpdateCondition)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/CardUpdateCondition.xml`, zlib):
 
@@ -342,6 +354,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/CardUpdateInfo.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, Id, Level, Attack, Defend, Agility, Lucky, Guard, Damage (builders: CreateCardUpdateInfo)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/CardUpdateInfo.xml`, zlib):
 
@@ -357,7 +370,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Handler: `Tank.Request.CelebList.CelebByConsortiaDayHonor` — `Tank.Request/CelebList/CelebByConsortiaDayHonor.ashx.cs`
 - Params: none
 - Auth: admin IP (AppSettings AdminIP, `|`-separated; empty = allow all)
-- Procs: —
+- Procs: `SP_CustomPage(V_Consortia)`
 - Output: build static `/CelebByConsortiaDayHonor.xml` (zlib) via csFunction.BuildCelebConsortia order=14 + plain `/CelebByConsortiaDayHonor_Out.xml`; response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - Client: not referenced
@@ -375,7 +388,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Handler: `Tank.Request.CelebList.CelebByConsortiaDayRiches` — `Tank.Request/CelebList/CelebByConsortiaDayRiches.ashx.cs`
 - Params: none
 - Auth: admin IP (AppSettings AdminIP, `|`-separated; empty = allow all)
-- Procs: —
+- Procs: `SP_CustomPage(V_Consortia)`
 - Output: build static `/CelebByConsortiaDayRiches.xml` (zlib) via csFunction.BuildCelebConsortia order=11 + plain `/CelebByConsortiaDayRiches_Out.xml`; response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - Client: `tofflist/view/TofflistRightView.as`
@@ -393,7 +406,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Handler: `Tank.Request.CelebList.celebbyconsortiafightpower` — `Tank.Request/CelebList/celebbyconsortiafightpower.ashx.cs`
 - Params: none
 - Auth: admin IP (AppSettings AdminIP, `|`-separated; empty = allow all)
-- Procs: —
+- Procs: `SP_CustomPage(V_Consortia)`
 - Output: build static `/celebbyconsortiafightpower.xml` (zlib) via csFunction.BuildCelebConsortiaFightPower + plain `/celebbyconsortiafightpower_Out.xml`; response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - Client: `tofflist/view/TofflistRightView.as`
@@ -411,7 +424,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Handler: `Tank.Request.CelebList.CelebByConsortiaHonor` — `Tank.Request/CelebList/CelebByConsortiaHonor.ashx.cs`
 - Params: none
 - Auth: admin IP (AppSettings AdminIP, `|`-separated; empty = allow all)
-- Procs: —
+- Procs: `SP_CustomPage(V_Consortia)`
 - Output: build static `/CelebByConsortiaHonor.xml` (zlib) via csFunction.BuildCelebConsortia order=13 + plain `/CelebByConsortiaHonor_Out.xml`; response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - Client: not referenced
@@ -429,7 +442,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Handler: `Tank.Request.CelebList.CelebByConsortiaLevel` — `Tank.Request/CelebList/CelebByConsortiaLevel.ashx.cs`
 - Params: none
 - Auth: admin IP (AppSettings AdminIP, `|`-separated; empty = allow all)
-- Procs: —
+- Procs: `SP_CustomPage(V_Consortia)`
 - Output: build static `/CelebByConsortiaLevel.xml` (zlib) via csFunction.BuildCelebConsortia order=16 + plain `/CelebForConsortia.xml`; response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - Client: `tofflist/view/TofflistRightView.as`
@@ -447,7 +460,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Handler: `Tank.Request.CelebList.CelebByConsortiaRiches` — `Tank.Request/CelebList/CelebByConsortiaRiches.ashx.cs`
 - Params: none
 - Auth: admin IP (AppSettings AdminIP, `|`-separated; empty = allow all)
-- Procs: —
+- Procs: `SP_CustomPage(V_Consortia)`
 - Output: build static `/CelebByConsortiaRiches.xml` (zlib) via csFunction.BuildCelebConsortia order=10 + plain `/CelebByConsortiaRiches_Out.xml`; response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - Client: `tofflist/view/TofflistRightView.as`
@@ -465,7 +478,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Handler: `Tank.Request.CelebList.CelebByConsortiaWeekHonor` — `Tank.Request/CelebList/CelebByConsortiaWeekHonor.ashx.cs`
 - Params: none
 - Auth: admin IP (AppSettings AdminIP, `|`-separated; empty = allow all)
-- Procs: —
+- Procs: `SP_CustomPage(V_Consortia)`
 - Output: build static `/CelebByConsortiaWeekHonor.xml` (zlib) via csFunction.BuildCelebConsortia order=15 + plain `/CelebByConsortiaWeekHonor_Out.xml`; response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - Client: not referenced
@@ -483,7 +496,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Handler: `Tank.Request.CelebList.CelebByConsortiaWeekRiches` — `Tank.Request/CelebList/CelebByConsortiaWeekRiches.ashx.cs`
 - Params: none
 - Auth: admin IP (AppSettings AdminIP, `|`-separated; empty = allow all)
-- Procs: —
+- Procs: `SP_CustomPage(V_Consortia)`
 - Output: build static `/CelebByConsortiaWeekRiches.xml` (zlib) via csFunction.BuildCelebConsortia order=12 + plain `/CelebByConsortiaWeekRiches_Out.xml`; response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - Client: `tofflist/view/TofflistRightView.as`
@@ -521,7 +534,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Handler: `Tank.Request.CelebList.CelebByDayFightPowerList` — `Tank.Request/CelebList/CelebByDayFightPowerList.ashx.cs`
 - Params: none
 - Auth: admin IP (AppSettings AdminIP, `|`-separated; empty = allow all)
-- Procs: —
+- Procs: `SP_CustomPage(V_Sys_Users_Detail)`
 - Output: build static `/CelebByDayFightPowerList.xml` (zlib) via csFunction.BuildCelebUsers order=6 + plain `/CelebByDayFightPowerList_Out.xml`; response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - Client: `tofflist/TofflistController.as`, `tofflist/view/TofflistRightView.as`
@@ -539,7 +552,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Handler: `Tank.Request.CelebList.CelebByDayGPList` — `Tank.Request/CelebList/CelebByDayGPList.ashx.cs`
 - Params: none
 - Auth: admin IP (AppSettings AdminIP, `|`-separated; empty = allow all)
-- Procs: —
+- Procs: `SP_CustomPage(V_Sys_Users_Detail)`
 - Output: build static `/CelebByDayGPList.xml` (zlib) via csFunction.BuildCelebUsers order=2 + plain `/CelebForUsersByDay.xml`; response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - Client: `tofflist/view/TofflistRightView.as`
@@ -558,7 +571,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Params: none
 - Auth: admin IP (AppSettings AdminIP, `|`-separated; empty = allow all)
 - Data: PlayerBussiness.GetPlayerPage
-- Procs: —
+- Procs: `SP_CustomPage(V_Sys_Users_Detail)`
 - Output: build static `/CelebByDayOfferList.xml` (zlib); build static `/CelebByDayOfferList.xml` (zlib) via csFunction.BuildCelebUsers order=4 + plain `/CelebByDayOfferList_Out.xml`; response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, ID, UserName, NickName, typeVIP, VIPLevel, Grade, Colors, Skin, Sex, Style, ConsortiaName, Hide, Offer, ReputeOffer, ConsortiaHonor, ConsortiaLevel, StoreLevel, ShopLevel, SmithLevel, ConsortiaRepute, WinCount, TotalCount, EscapeCount, Repute, AddDayGP, AddDayOffer, AddWeekGP, AddWeekOffer, ConsortiaRiches, Nimbus, GP, FightPower, AchievementPoint, Rank, AddDayAchievementPoint, AddWeekAchievementPoint, GiftGp, GiftLevel, AddDayGiftGp, AddWeekGiftGp, ApprenticeshipState, AddWeekLeagueScore (builders: CreateCelebInfo)
@@ -578,7 +591,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Params: none
 - Auth: admin IP (AppSettings AdminIP, `|`-separated; empty = allow all)
 - Data: PlayerBussiness.GetPlayerPage
-- Procs: —
+- Procs: `SP_CustomPage(V_Sys_Users_Detail)`
 - Output: build static `/CelebByGPList.xml` (zlib); build static `/CelebByGpList.xml` (zlib) via csFunction.BuildCelebUsers order=0 + plain `/CelebForUsers.xml`; response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, ID, UserName, NickName, typeVIP, VIPLevel, Grade, Colors, Skin, Sex, Style, ConsortiaName, Hide, Offer, ReputeOffer, ConsortiaHonor, ConsortiaLevel, StoreLevel, ShopLevel, SmithLevel, ConsortiaRepute, WinCount, TotalCount, EscapeCount, Repute, AddDayGP, AddDayOffer, AddWeekGP, AddWeekOffer, ConsortiaRiches, Nimbus, GP, FightPower, AchievementPoint, Rank, AddDayAchievementPoint, AddWeekAchievementPoint, GiftGp, GiftLevel, AddDayGiftGp, AddWeekGiftGp, ApprenticeshipState, AddWeekLeagueScore (builders: CreateCelebInfo)
@@ -598,7 +611,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Params: none
 - Auth: admin IP (AppSettings AdminIP, `|`-separated; empty = allow all)
 - Data: PlayerBussiness.GetPlayerPage
-- Procs: —
+- Procs: `SP_CustomPage(V_Sys_Users_Detail)`
 - Output: build static `/CelebByOfferList.xml` (zlib); build static `/CelebByOfferList.xml` (zlib) via csFunction.BuildCelebUsers order=1 + plain `/CelebByOfferList_Out.xml`; response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, ID, UserName, NickName, typeVIP, VIPLevel, Grade, Colors, Skin, Sex, Style, ConsortiaName, Hide, Offer, ReputeOffer, ConsortiaHonor, ConsortiaLevel, StoreLevel, ShopLevel, SmithLevel, ConsortiaRepute, WinCount, TotalCount, EscapeCount, Repute, AddDayGP, AddDayOffer, AddWeekGP, AddWeekOffer, ConsortiaRiches, Nimbus, GP, FightPower, AchievementPoint, Rank, AddDayAchievementPoint, AddWeekAchievementPoint, GiftGp, GiftLevel, AddDayGiftGp, AddWeekGiftGp, ApprenticeshipState, AddWeekLeagueScore (builders: CreateCelebInfo)
@@ -618,7 +631,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Params: none
 - Auth: admin IP (AppSettings AdminIP, `|`-separated; empty = allow all)
 - Data: PlayerBussiness.GetPlayerPage
-- Procs: —
+- Procs: `SP_CustomPage(V_Sys_Users_Detail)`
 - Output: build static `/CelebByWeekGPList.xml` (zlib); build static `/CelebByWeekGPList.xml` (zlib) via csFunction.BuildCelebUsers order=3 + plain `/CelebByWeekGPList_Out.xml`; response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, ID, UserName, NickName, typeVIP, VIPLevel, Grade, Colors, Skin, Sex, Style, ConsortiaName, Hide, Offer, ReputeOffer, ConsortiaHonor, ConsortiaLevel, StoreLevel, ShopLevel, SmithLevel, ConsortiaRepute, WinCount, TotalCount, EscapeCount, Repute, AddDayGP, AddDayOffer, AddWeekGP, AddWeekOffer, ConsortiaRiches, Nimbus, GP, FightPower, AchievementPoint, Rank, AddDayAchievementPoint, AddWeekAchievementPoint, GiftGp, GiftLevel, AddDayGiftGp, AddWeekGiftGp, ApprenticeshipState, AddWeekLeagueScore (builders: CreateCelebInfo)
@@ -655,7 +668,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Params: none
 - Auth: admin IP (AppSettings AdminIP, `|`-separated; empty = allow all)
 - Data: PlayerBussiness.GetPlayerPage
-- Procs: —
+- Procs: `SP_CustomPage(V_Sys_Users_Detail)`
 - Output: build static `/CelebByWeekOfferList.xml` (zlib); build static `/CelebByWeekOfferList.xml` (zlib) via csFunction.BuildCelebUsers order=5 + plain `/CelebByWeekOfferList_Out.xml`; response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, ID, UserName, NickName, typeVIP, VIPLevel, Grade, Colors, Skin, Sex, Style, ConsortiaName, Hide, Offer, ReputeOffer, ConsortiaHonor, ConsortiaLevel, StoreLevel, ShopLevel, SmithLevel, ConsortiaRepute, WinCount, TotalCount, EscapeCount, Repute, AddDayGP, AddDayOffer, AddWeekGP, AddWeekOffer, ConsortiaRiches, Nimbus, GP, FightPower, AchievementPoint, Rank, AddDayAchievementPoint, AddWeekAchievementPoint, GiftGp, GiftLevel, AddDayGiftGp, AddWeekGiftGp, ApprenticeshipState, AddWeekLeagueScore (builders: CreateCelebInfo)
@@ -687,6 +700,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Procs: `SP_Sys_Users_Rank_Date`
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Item`; attributes UserID, ConsortiaID, FightPower, PrevFightPower, GP, PrevGP, AchievementPoint, PrevAchievementPoint, charmGP, PrecharmGP, LeagueAddWeek, PrevLeagueAddWeek, ConsortiaFightPower, ConsortiaPrevFightPower, ConsortiaLevel, ConsortiaPrevLevel, ConsortiaRiches, ConsortiaPrevRiches, ConsortiacharmGP, ConsortiaPrevcharmGP (builders: CreateUserRankDateItems)
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `tofflist/TofflistModel.as`
 
 ## 35. `/ChargeTest.ashx`
@@ -715,7 +729,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Params: `page`, `size`, `order`, `consortiaID`, `state`, `name`
 - Auth: none
 - Data: ConsortiaBussiness.GetConsortiaAllyPage, ConsortiaBussiness.GetConsortiaByAllyByState
-- Procs: `SP_Consortia_AllyByState`, `SP_Consortia_Ally_Neutral`
+- Procs: `SP_Consortia_AllyByState`, `SP_Consortia_Ally_Neutral`, `SP_CustomPage(Consortia)`
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes total, value, message, ID, ChairmanName, ConsortiaID, ConsortiaName, Count, Honor, State, Date, Level, IsApply, Description, Riches, Repute (builders: CreateConsortiaAllyInfo)
 - Client: not referenced
@@ -726,7 +740,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Params: `page`, `size`, `order`, `consortiaID`, `applyID`, `state`
 - Auth: none
 - Data: ConsortiaBussiness.GetConsortiaApplyAllyPage
-- Procs: —
+- Procs: `SP_CustomPage(V_Consortia_Apply_Ally)`
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes total, value, message, ID, CelebCount, ChairmanName, ConsortiaID, ConsortiaName, Count, Date, Honor, Remark, Level, Description, Repute (builders: CreateConsortiaApplyAllyInfo)
 - Client: not referenced
@@ -737,9 +751,10 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Params: `page`, `size`, `order`, `consortiaID`, `applyID`, `userID`
 - Auth: none (trusts userId/selfid param)
 - Data: ConsortiaBussiness.GetConsortiaApplyUserPage
-- Procs: —
+- Procs: `SP_CustomPage(V_Consortia_Apply_Users)`
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes total, value, message, ID, ApplyDate, ConsortiaID, ConsortiaName, Remark, UserID, UserName, UserLevel, Win, Total, Repute (builders: CreateConsortiaApplyUserInfo)
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `consortion/ConsortionModelControl.as`
 
 ## 40. `/consortiabuffertemp.ashx`
@@ -752,6 +767,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/consortiabuffertemp_out.xml` (plain UTF-8); build static `/consortiabuffertemp.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, id, name, descript, type, level, riches, metal, pic, group (builders: CreateConsortiaBuffer)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `consortion/ConsortionModelControl.as`
 - Sample (`Tank.Request/consortiabuffertemp_out.xml`, plain):
 
@@ -768,9 +784,10 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Params: `page`, `size`, `order`, `consortiaID`, `dutyID`
 - Auth: none
 - Data: ConsortiaBussiness.GetConsortiaDutyPage
-- Procs: —
+- Procs: `SP_CustomPage(Consortia_Duty)`
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes total, value, message, DutyID, ConsortiaID, DutyName, Right, Level (builders: CreateConsortiaDutyInfo)
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `consortion/ConsortionModelControl.as`
 
 ## 42. `/ConsortiaEquipControl.ashx`
@@ -790,9 +807,10 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Params: `page`, `size`, `order`, `consortiaID`, `level`, `type`
 - Auth: none
 - Data: ConsortiaBussiness.GetConsortiaEquipControlPage
-- Procs: —
+- Procs: `SP_CustomPage(Consortia_Equip_Control)`
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes total, value, message, ConsortiaID, Level, Riches, Type (builders: CreateConsortiaEquipControlInfo)
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `consortion/ConsortionModelControl.as`
 
 ## 44. `/ConsortiaEventList.ashx`
@@ -801,9 +819,10 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Params: `page`, `size`, `order`, `consortiaID`
 - Auth: none
 - Data: ConsortiaBussiness.GetConsortiaEventPage
-- Procs: —
+- Procs: `SP_CustomPage(Consortia_Event)`
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes total, value, message, ID, ConsortiaID, Date, Type, Remark, NickName, EventValue, ManagerName (builders: CreateConsortiaEventInfo)
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `consortion/ConsortionModelControl.as`
 
 ## 45. `/ConsortiaIMList.ashx`
@@ -812,7 +831,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Params: `id`
 - Auth: none
 - Data: ConsortiaBussiness.GetConsortiaSingle, ConsortiaBussiness.GetConsortiaUsersPage
-- Procs: `SP_Consortia_Single`
+- Procs: `SP_Consortia_Single`, `SP_CustomPage(V_Consortia_Users)`
 - Output: plain XML text (Response.Write, no declaration, indented)
 - XML: elements `Result`, `Item`; attributes Level, Repute, value, message, ID, ConsortiaID, DutyID, DutyName, GP, Grade, Offer, Remark, State, UserID, Hide, Colors, Skin, Style, LastDate, Sex, LoginName, NickName (builders: CreateConsortiaIMInfo)
 - Client: not referenced
@@ -823,9 +842,10 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Params: `page`, `size`, `order`, `userID`, `inviteID`
 - Auth: none (trusts userId/selfid param)
 - Data: ConsortiaBussiness.GetConsortiaInviteUserPage
-- Procs: —
+- Procs: `SP_CustomPage(V_Consortia_Invite)`
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes total, value, message, ID, CelebCount, ChairmanName, ConsortiaID, ConsortiaName, Count, Honor, InviteDate, InviteID, InviteName, Remark, Repute, UserID, UserName (builders: CreateConsortiaInviteUserInfo)
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `consortion/ConsortionModelControl.as`
 
 ## 47. `/ConsortiaLevelList.ashx`
@@ -838,6 +858,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/ConsortiaLevelList.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; Content-Type text/plain
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, Level, Count, Deduct, NeedGold, NeedItem, Reward, ShopRiches, SmithRiches, StoreRiches, BufferRiches, Riches (builders: CreateConsortiLevelInfo)
+- Client loader type: COMPRESS_REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `consortion/ConsortionModelControl.as`
 - Sample (`Tank.Request/ConsortiaLevelList.xml`, zlib):
 
@@ -854,9 +875,10 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Params: `page`, `size`, `order`, `consortiaID`, `name`, `level`, `openApply`
 - Auth: none
 - Data: ConsortiaBussiness.GetConsortiaPage
-- Procs: —
+- Procs: `SP_CustomPage(V_Consortia)`
 - Output: direct zlib body (BinaryWrite(StaticFunction.Compress(xml))); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes total, value, message, ConsortiaID, BuildDate, CelebCount, ChairmanID, ChairmanName, ChairmanTypeVIP, ChairmanVIPLevel, ConsortiaName, CreatorID, CreatorName, Description, Honor, IP, Level, MaxCount, Placard, Repute, Count, Riches, FightPower, DeductDate, AddDayHonor, AddDayRiches, AddWeekHonor, AddWeekRiches, LastDayRiches, OpenApply, StoreLevel, SmithLevel, ShopLevel, BufferLevel, ConsortiaGiftGp, ConsortiaAddDayGiftGp, ConsortiaAddWeekGiftGp, Port, IsVoting, VoteRemainDay, CharmGP, BadgeBuyTime, BadgeID, ValidDate (builders: CreateConsortiaInfo)
+- Client loader type: COMPRESS_REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `consortion/ConsortionModelControl.as`, `ddt/loader/StartupResourceLoader.as` — **boot**
 
 ## 49. `/ConsortiaNameCheck.ashx`
@@ -876,9 +898,10 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Params: `page`, `size`, `order`, `consortiaID`, `userID`, `state`
 - Auth: none (trusts userId/selfid param)
 - Data: ConsortiaBussiness.GetConsortiaUsersPage
-- Procs: —
+- Procs: `SP_CustomPage(V_Consortia_Users)`
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes total, value, message, currentDate, ID, ConsortiaID, DutyID, DutyName, GP, Level, Grade, Right, DutyLevel, Offer, RatifierID, RatifierName, Remark, Repute, State, UserID, Hide, Colors, Skin, Style, LastDate, Sex, IsBanChat, WinCount, TotalCount, EscapeCount, RichesOffer, RichesRob, Nimbus, LoginName, UserName, FightPower, Rank, AchievementPoint, IsDiplomatism, IsDownGrade, IsEditorPlacard, IsEditorDescription, IsExpel, IsEditorUser, IsInvite, IsManageDuty, IsUpGrade, typeVIP, VIPLevel, IsRatify, IsChat, TotalRichesOffer (builders: CreateConsortiaUserInfo)
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `consortion/ConsortionModelControl.as`, `ddt/loader/StartupResourceLoader.as` — **boot**
 
 ## 51. `/CreateAllXml.ashx`
@@ -909,6 +932,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/DailyAwardList.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, ID, Count, CountRemark, IsBinds, Remark, Sex, TemplateID, Type, ValidDate, GetWay, AwardDays (builders: CreateActiveInfo)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/DailyAwardList.xml`, zlib):
 
@@ -929,6 +953,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/dailyleagueaward_out.xml` (plain UTF-8); build static `/dailyleagueaward.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `item`; attributes value, message, Level, Class, Count, TemplateID, RewardID, StrengthenLevel, ItemValid, IsBind, AgilityCompose, AttackCompose, DefendCompose, LuckCompose, Hole1, Hole2, Hole3, Hole4, Hole5, Hole5Exp, Hole5Level, Hole6, Hole6Exp, Hole6Level (builders: CreateDailyLeagueAward)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/dailyleagueaward_out.xml`, plain):
 
@@ -949,6 +974,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/dailyleaguelevel_out.xml` (plain UTF-8); build static `/dailyleaguelevel.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `item`; attributes value, message, Score, Name, Level (builders: CreateFairBattleReward)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/dailyleaguelevel_out.xml`, plain):
 
@@ -968,6 +994,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Procs: `SP_DailyLogList_Single`, `SP_DailyLogList_Update`
 - Output: direct zlib body (BinaryWrite(StaticFunction.Compress(xml))); Content-Type text/plain
 - XML: elements `Result`, `DailyLogList`; attributes UserAwardLog, DayLog, luckyNum, myLuckyNum, value, message, nowDate
+- Client loader type: COMPRESS_REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `calendar/CalendarManager.as`
 
 ## 57. `/elitematchplayerlist.ashx`
@@ -978,6 +1005,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Procs: —
 - Output: build static `/elitematchplayerlist.xml` (zlib) via csFunction.BuildEliteMatchPlayerList; response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `eliteGame/EliteGameController.as`
 - Sample (`Tank.Request/elitematchplayerlist.xml`, zlib):
 
@@ -998,6 +1026,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/eventrewarditemlist_out.xml` (plain UTF-8); build static `/eventrewarditemlist.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `ActivityType`, `Items`, `Item`; attributes value, SubActivityType, Condition, TemplateId, StrengthLevel, AttackCompose, DefendCompose, LuckCompose, AgilityCompose, IsBind, ValidDate, Count, message, Type, ShopId (builders: CreateShopShowInfo)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/eventrewarditemlist_out.xml`, plain):
 
@@ -1025,6 +1054,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Data: PlayerBussiness.GetFriendsAll, PlayerBussiness.GetSingleFields
 - Procs: `SP_Get_SingleFields`, `SP_Users_Friends`
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `farm/FarmModelController.as`
 
 ## 61. `/FarmGetUserFieldInfosSingle.ashx`
@@ -1034,6 +1064,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Auth: none
 - Procs: —
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `farm/FarmModelController.as`
 
 ## 62. `/FavoriteTransit.ashx`
@@ -1150,6 +1181,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Procs: `SP_Users_Friends`
 - Output: direct zlib body (BinaryWrite(StaticFunction.Compress(xml))); plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `customList`, `Item`; attributes ID, Name, NickName, Birthday, ApprenticeshipState, LoginName, Style, Sex, Colors, Grade, Hide, ConsortiaName, TotalCount, EscapeCount, WinCount, Offer, Relation, Repute, State, Nimbus, DutyName, value, message
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 
 ## 72. `/IMRecentContactsList.ashx`
@@ -1160,6 +1192,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Procs: —
 - Output: direct zlib body (BinaryWrite(StaticFunction.Compress(xml))); plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`; attributes value, message
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `im/IMController.as`
 
 ## 73. `/ItemStrengthenList.ashx`
@@ -1172,6 +1205,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/ItemStrengthenList.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, StrengthenLevel, Rock, Rock1, Rock2, Rock3, StoneLevelMin (builders: CreateStrengthenInfo)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `store/view/strength/StoreIIStrengthBG.as`
 - Sample (`Tank.Request/ItemStrengthenList.xml`, zlib):
 
@@ -1202,6 +1236,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/LoadBoxTemp.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, ID, TemplateId, StrengthenLevel, IsBind, ItemCount, LuckCompose, DefendCompose, AttackCompose, AgilityCompose, ItemValid, IsTips (builders: CreateItemBoxInfo)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/LoadBoxTemp.xml`, zlib):
 
@@ -1222,6 +1257,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/LoadItemsCategory.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, ID, Name, Place, Remark (builders: CreateCategoryInfo)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/LoadItemsCategory.xml`, zlib):
 
@@ -1242,6 +1278,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/LoadMapsItems.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, ID, Name, Description, ForegroundWidth, ForegroundHeight, BackroundWidht, BackroundHeight, DeadWidth, DeadHeight, Weight, DragIndex, ForePic, BackPic, DeadPic, Pic, BackMusic, Remark, Type (builders: CreateMapInfo)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/LoadMapsItems.xml`, zlib):
 
@@ -1262,6 +1299,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/loadpetfightproperty_out.xml` (plain UTF-8); build static `/loadpetfightproperty.xml` (zlib); literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Item`; attributes ID, Exp, Attack, Agility, Defence, Lucky, Blood (builders: CreatePetFightProterpy)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/loadpetfightproperty_out.xml`, plain):
 
@@ -1282,6 +1320,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/loadpetmoeproperty_out.xml` (plain UTF-8); build static `/loadpetmoeproperty.xml` (zlib); literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Item`; attributes Level, Attack, Lucky, Agility, Blood, Defence, Guard, Exp (builders: CreatePetMoePropertyItems)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/loadpetmoeproperty_out.xml`, plain):
 
@@ -1302,6 +1341,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/LoadPVEItems.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, ID, Name, Type, LevelLimits, SimpleTemplateIds, NormalTemplateIds, HardTemplateIds, TerrorTemplateIds, Pic, Description, Ordering, AdviceTips, BossFightNeedMoney (builders: CreatePveInfo)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/data/analyze/DungeonAnalyzer.as`, `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/LoadPVEItems.xml`, zlib):
 
@@ -1322,6 +1362,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/LoadUserBox.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, ID, Type, Level, Condition, TemplateID (builders: CreateUserBoxInfo)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/LoadUserBox.xml`, zlib):
 
@@ -1363,6 +1404,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Procs: `SP_Mail_BySenderID`, `SP_Mail_ByUserID`, `SP_Users_Items_Single`
 - Output: direct zlib body (BinaryWrite(StaticFunction.Compress(xml))); plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes ID, Title, Content, Sender, SendTime, Days, Gold, Money, Annex1ID, Annex2ID, Annex3ID, Annex4ID, Annex5ID, Type, ValidDate, IsRead, value, message, AgilityCompose, AttackCompose, BeginDate, Color, Skin, Count, DefendCompose, IsBinds, IsUsed, IsJudge, ItemID, LuckCompose, Place, StrengthenLevel, TemplateID, UserID, BagType, Hole1, Hole2, Hole3, Hole4, Hole5, Hole6, Receiver, Annex1Name, Annex2Name, Annex3Name, Annex4Name, Annex5Name, AnnexRemark (builders: CreateGoodsInfo, CreateMailInfo)
+- Client loader type: COMPRESS_REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `email/manager/MailManager.as`
 
 ## 85. `/LoadUsersSort.ashx`
@@ -1371,7 +1413,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Params: `page`, `size`, `order`, `state`
 - Auth: none
 - Data: PlayerBussiness.GetPlayerPage
-- Procs: —
+- Procs: `SP_CustomPage(V_Sys_Users_Detail)`
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes ID, NickName, Grade, Colors, Skin, Sex, Style, ConsortiaName, Hide, Offer, ReputeOffer, ConsortiaHonor, ConsortiaLevel, ConsortiaRepute, WinCount, TotalCount, EscapeCount, Repute, GP, total, value, message
 - Client: not referenced
@@ -1385,6 +1427,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Procs: —
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes ID, IsFirst, NickName, Date, IsConsortia, ConsortiaID, Sex, WinCount, TotalCount, EscapeCount, DutyName, GP, Honor, Style, Gold, Colors, Attack, Defence, Agility, Luck, Grade, Hide, Repute, ConsortiaName, Offer, Skin, ReputeOffer, ConsortiaHonor, ConsortiaLevel, ConsortiaRepute, Money, AntiAddiction, IsMarried, SpouseID, SpouseName, MarryInfoID, IsCreatedMarryRoom, IsGotRing, LoginName, Nimbus, FightPower, AnswerSite, WeaklessGuildProgressStr, IsOldPlayer, value, message
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `login/LoginStateView.as`
 
 ## 87. `/LoginAwardItemTemplate.ashx`
@@ -1397,6 +1440,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/loginawarditemtemplate.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, ID, Count, RewardItemID, IsSelect, IsBind, RewardItemValid, RewardItemCount, StrengthenLevel, DefendCompose, AgilityCompose, LuckCompose (builders: CreateAccumulAtiveLoginAwards)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/loginawarditemtemplate.xml`, zlib):
 
@@ -1416,6 +1460,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Procs: `SP_Users_LoginList`
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes value, message, ID, UserName, NickName, Grade, Repute, Sex, WinCount, TotalCount, ConsortiaName, Rename, IsVIP, VIPLevel, ConsortiaRename, EscapeCount, IsFirst, LastDate (builders: CreateUserLoginList)
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 
 ## 89. `/LogTime.ashx`
@@ -1424,7 +1469,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Params: `page`, `size`, `order`, `consortiaID`, `state`, `name`
 - Auth: none
 - Data: ConsortiaBussiness.GetConsortiaAllyPage, ConsortiaBussiness.GetConsortiaByAllyByState
-- Procs: `SP_Consortia_AllyByState`, `SP_Consortia_Ally_Neutral`
+- Procs: `SP_Consortia_AllyByState`, `SP_Consortia_Ally_Neutral`, `SP_CustomPage(Consortia)`
 - Output: ?
 - XML: elements `Result`, `Item`; attributes ID, ChairmanName, ConsortiaID, ConsortiaName, Count, Honor, State, Date, Level, IsApply, Description, Riches, Repute (builders: CreateConsortiaAllyInfo)
 - Client: `trainer/controller/WeakGuildManager.as`
@@ -1438,6 +1483,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Procs: `SP_Luckstar_Activity_Rank_All`
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Ranks`, `myRank`, `rankInfo`; attributes rank, useStarNum, nickName, lastUpdateTime, value, message, isVip (builders: LuckstarActivityRank)
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `luckStar/LoadingLuckStarUI.as`
 
 ## 91. `/MailSenderList.ashx`
@@ -1449,6 +1495,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Procs: `SP_Mail_BySenderID`
 - Output: direct zlib body (BinaryWrite(StaticFunction.Compress(xml))); plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`; attributes value, message, ID, Title, Content, Sender, Receiver, SendTime, ValidDate, Gold, Money, Annex1ID, Annex2ID, Annex3ID, Annex4ID, Annex5ID, Annex1Name, Annex2Name, Annex3Name, Annex4Name, Annex5Name, AnnexRemark, Type, IsRead (builders: CreateMailInfo)
+- Client loader type: COMPRESS_REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `email/manager/MailManager.as`
 
 ## 92. `/MapServerList.ashx`
@@ -1461,6 +1508,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/MapServerList.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, ServerID, OpenMap, IsSpecial (builders: CreateMapServer)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/data/analyze/WeekOpenMapAnalyze.as`, `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/MapServerList.xml`, zlib):
 
@@ -1490,6 +1538,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Procs: `V_Sys_Marry_Info`
 - Output: direct zlib body (BinaryWrite(StaticFunction.Compress(xml))); plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Info`; attributes total, value, message, ID, UserID, IsPublishEquip, Introduction, NickName, IsConsortia, ConsortiaID, Sex, Win, Total, Escape, GP, Honor, Style, Colors, Hide, Grade, State, Repute, Skin, Offer, IsMarried, ConsortiaName, DutyName, Nimbus, FightPower (builders: CreateMarryInfo)
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `civil/CivilController.as`, `ddt/data/analyze/CivilMemberListAnalyze.as`
 
 ## 95. `/newtitle.ashx`
@@ -1502,6 +1551,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/newtitleinfo.xml` (plain UTF-8); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes total, value, message, ID, Order, Show, Name, Pic, Att, Def, Agi, Luck, Desc (builders: CreateNewTitleInfo)
+- Client loader type: TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/newtitleinfo.xml`, plain):
 
@@ -1562,6 +1612,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/petskillelementinfo.xml` (plain UTF-8); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `item`; attributes value, message, ID, Name, EffectPic, Description, Pic (builders: CreatePetSkillElement)
+- Client loader type: TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/manager/BuffManager.as`
 - Sample (`Tank.Request/petskillelementinfo.xml`, plain):
 
@@ -1582,6 +1633,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/petskillinfo.xml` (plain UTF-8); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `item`; attributes value, message, ID, Name, ElementIDs, Description, BallType, NewBallID, CostMP, Pic, Action, EffectPic, Delay, ColdDown, GameType, Probability (builders: CreatePetSkillInfo)
+- Client loader type: TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/petskillinfo.xml`, plain):
 
@@ -1622,6 +1674,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/pettemplateinfo.xml` (plain UTF-8); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `item`; attributes value, message, TemplateID, Name, KindID, Description, Pic, RareLevel, MP, StarLevel, GameAssetUrl, HighAgility, HighAgilityGrow, HighAttack, HighAttackGrow, HighBlood, HighBloodGrow, HighDamage, HighDamageGrow, HighDefence, HighDefenceGrow, HighGuard, HighGuardGrow, HighLuck, HighLuckGrow (builders: CreatePetTemplate)
+- Client loader type: TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/pettemplateinfo.xml`, plain):
 
@@ -1642,6 +1695,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/QuestList.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`, `Item_Condiction`, `Item_Good`; attributes value, message, ID, QuestID, Title, Detail, Objective, NeedMinLevel, NeedMaxLevel, PreQuestID, NextQuestID, IsOther, CanRepeat, RepeatInterval, RepeatMax, RewardGP, RewardGold, RewardGiftToken, RewardOffer, RewardRiches, RewardBuffID, RewardBuffDate, RewardMoney, Rands, RandDouble, TimeMode, StartDate, EndDate, MapID, AutoEquip, RewardMedal, Rank, StarLev, NotMustCount, CondictionID, CondictionTitle, CondictionType, Para1, Para2, isOpitional, RewardItemID, IsSelect, RewardItemValid, RewardItemCount, StrengthenLevel, AttackCompose, DefendCompose, AgilityCompose, LuckCompose, IsCount, IsBind (builders: CreateQuestInfo, CreateQuestCondiction, CreateQuestGoods)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as`, `ddt/manager/TaskManager.as` — **boot**
 - Sample (`Tank.Request/QuestList.xml`, zlib):
 
@@ -1712,6 +1766,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/ServerConfig.xml` (plain UTF-8); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, Name, Value (builders: CreateServerConfig)
+- Client loader type: TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/ServerConfig.xml`, plain):
 
@@ -1730,6 +1785,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Procs: —
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes value, message, total, ID, Name, IP, Port, State, MustLevel, LowestLevel, Online, Remark (builders: CreateServerInfo)
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 
 ## 110. `/shopcheapitemlist.ashx`
@@ -1741,6 +1797,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Procs: `SP_Shop_All`
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes value, message, ID, TemplateID, AUnit, APrice, AValue, BUnit, BPrice, BValue, CUnit, CPrice, CValue, StartDate, EndDate, BuyType (builders: CreateShopCheapItems)
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as`, `ddt/manager/ShopManager.as` — **boot**
 
 ## 111. `/shopcheapitemlist2.ashx`
@@ -1764,6 +1821,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/ShopGoodsShowList.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Store`, `Item`; attributes value, message, Type, ShopId (builders: CreateShopShowInfo)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/ShopGoodsShowList.xml`, zlib):
 
@@ -1784,6 +1842,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/ShopItemList.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Store`, `Item`; attributes value, message, ID, ShopID, GroupID, TemplateID, BuyType, IsContinue, IsBind, IsVouch, Label, Beat, AUnit, APrice1, AValue1, APrice2, AValue2, APrice3, AValue3, BUnit, BPrice1, BValue1, BPrice2, BValue2, BPrice3, BValue3, CUnit, CPrice1, CValue1, CPrice2, CValue2, CPrice3, CValue3, IsCheap, LimitCount, StartDate, EndDate (builders: CreateShopInfo)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as`, `email/manager/MailManager.as` — **boot**
 - Sample (`Tank.Request/ShopItemList.xml`, zlib):
 
@@ -1804,6 +1863,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/suitpartequipinfolist.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, ID, ContainEquip, PartName (builders: CreateSuit_TemplateID)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/suitpartequipinfolist.xml`, zlib):
 
@@ -1824,6 +1884,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/suittemplateinfolist.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `Item`; attributes value, message, SuitId, SuitName, EqipCount1, SkillDescribe1, Skill1, EqipCount2, SkillDescribe2, Skill2, EqipCount3, SkillDescribe3, Skill3, EqipCount4, SkillDescribe4, Skill4, EqipCount5, SkillDescribe5, Skill5 (builders: CreateSuit_TemplateInfo)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/suittemplateinfolist.xml`, zlib):
 
@@ -1844,6 +1905,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/TemplateAlllist1.xml` (plain UTF-8); build static `/TemplateAlllist.xml` (zlib); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `ItemTemplate`, `Item`; attributes value, message, AddTime, Agility, Attack, CanCompose, CanDelete, CanDrop, CanEquip, CanStrengthen, CanUse, CategoryID, Colors, Defence, Description, Level, Luck, MaxCount, Name, NeedLevel, NeedSex, Pic, Data, Property1, Property2, Property3, Property4, Property5, Property6, Property7, Property8, Quality, Script, BindType, FusionType, FusionRate, FusionNeedRate, TemplateID, RefineryLevel, Hole, ReclaimValue, ReclaimType, CanRecycle, SuitId (builders: CreateItemInfo)
+- Client loader type: COMPRESS_TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/TemplateAlllist.xml`, zlib):
 
@@ -1864,6 +1926,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: build static `/totemhonortemplate.xml` (plain UTF-8); response body = text "Build:<file>.xml,Success!" / "IP is not valid!"; literal writes: `IP is not valid!`
 - Caching: static file regenerated on each call (client reads the file)
 - XML: elements `Result`, `item`; attributes value, message, ID, Type, NeedMoney, AddHonor (builders: CreateTotemHonorTemplate)
+- Client loader type: TEXT_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 - Sample (`Tank.Request/totemhonortemplate.xml`, plain):
 
@@ -1883,6 +1946,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Procs: `SP_Users_SingleByUserID`
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes total, value, message, UserID, NickName, typeVIP, VIPLevel, Skin, Sex, Grade, Hide, ConsortiaName, WinCount, TotalCount, EscapeCount, Offer, State, Repute, DutyName, AchievementPoint, Rank, FightPower, ApprenticeshipState, GraduatesCount, IsMarried, HonourOfMaster, Style, Colors, LastDate (builders: CreateUserApprenticeshipInfo)
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as`, `ddt/manager/AcademyManager.as` — **boot**
 
 ## 119. `/UserGoodsInfo.ashx`
@@ -1916,6 +1980,7 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Procs: `SP_Sys_Users_Rank_Date`
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Item`; attributes UserID, ConsortiaID, FightPower, PrevFightPower, GP, PrevGP, AchievementPoint, PrevAchievementPoint, charmGP, PrecharmGP, LeagueAddWeek, PrevLeagueAddWeek, ConsortiaFightPower, ConsortiaPrevFightPower, ConsortiaLevel, ConsortiaPrevLevel, ConsortiaRiches, ConsortiaPrevRiches, ConsortiacharmGP, ConsortiaPrevcharmGP (builders: CreateUserRankDateItems)
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `tofflist/TofflistModel.as`
 
 ## 122. `/VisualizeItemLoad.ashx`
@@ -1937,5 +2002,6 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Procs: `SP_Users_RegisterNotValidate`
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`; attributes value, message
+- Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
 
