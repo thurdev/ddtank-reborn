@@ -33,7 +33,7 @@ older session kick itself (`LoginServerConnector.HandleUserOnline`).
 ### 1.3 `GamePlayer.LoadFromDatabase` (GamePlayer.cs:2937)
 * `SP_Users_SingleByUserID` → `PlayerInfo` (137 columns of `Sys_Users_Detail`; null → kick "Forbid").
 * `PlayerBattle` (`SP_GetSingleUserMatchInfo` → `Sys_User_Match_Info`, league/prestige), `UpdateLeagueGrade`.
-* Training exp `SP_UserTexp_Single` (`Sys_Users_Texp`), daily count reset.
+* Training exp `SP_Get_UserTexp_By_ID` (`Sys_Users_Texp`), daily count reset.
 * Inventories (constructed in the `GamePlayer` ctor, each `LoadFromDatabase` → `SP_Users_BagByType(userId, bagType)`):
   EquipBag(0), PropBag(1), Consortia bank(11), Store(12), FarmBag(13), BankBag(51), Caddy(5), Bead…;
   CardInventory (`SP_GetSingleUserCard`), PetInventory (`SP_Get_UserPet_By_ID`, adopt list, eat-pets),
@@ -42,8 +42,8 @@ older session kick itself (`LoginServerConnector.HandleUserOnline`).
   `SP_Get_User_EventProcess`), PlayerActives (`SP_GetSingleActiveSystem`, `SP_GetSingleNewChickenBox`),
   PlayerFarm (`SP_Get_SingleFarm`, `SP_Get_SingleFields`), PlayerRank (`SP_GetSingleUserRank`),
   AvatarCollection (`SP_Get_AvatarCollect`), suit kill (`SP_Suit_Manager_GET`).
-* Friends `GetFriendsIDAll` (`Sys_Users_Friends`: id → relation 0 friend / 1 blacklist).
-* Gems (grade > 19) `SP_GetSingleGemStones` (`Sys_User_Gemstone`), medals (count of item 11408), repute.
+* Friends `SP_Users_Friends_All` (FriendID → Relation 0 friend / 1 blacklist).
+* Gems (grade > 19) `SP_GetSingleGemStone` (`Sys_User_Gemstone`: FigSpiritId, FigSpiritIdValue, EquipPlace), medals (count of item 11408), repute.
 * **New day** (`PlayerInfo.CheckNewDay`): quests restart & reload, `OnPlayerLogin`, reset Score, battle counters,
   hot-spring minutes = 60, free mail count, roulette count = `LeftRouterMaxDay`, novice daily events (Monday: weekly),
   `MaxBuyHonor`, farm props, accumulative login, daily VIP exp.
@@ -93,9 +93,11 @@ fields, PvE permissions, `State` (online flag). In-memory only: current room/sce
   IsJudge, RefineryLevel, goldBeginTime/goldValidDate (gold plating), latentEnergy cur/new/end, IsExist.
 * Templates: `Shop_Goods` (Game DB, `SP_Items_All`) → `ItemTemplateInfo` (CategoryID, NeedSex, NeedLevel,
   Property1..8, MaxCount, CanStrengthen/Compose/Equip/Delete, Quality, Level, ReclaimType/Value, BagType, Hole,
-  FusionType, …). Category ids used by handlers: 1 hat, 5 clothes?, 7 weapon, 8–9 rings/jewels, 10 fight props,
-  11 materials (Property1 = 2/35 strengthen stone, 3 luck, 7 god stone, 4 bugle, 6 openable box, 31 gem, 101 potential
-  stone), 14/16/17 off-hand/armlets, 26 cards, 35 pets.
+  FusionType, …). Category ids that handlers branch on: 7 = main weapon (strengthen re-templating, gold plating,
+  transfer), 1 and 5 (hole 5/6 drilling, wish beads 11562/11561), 10 = in-battle props, 11 = materials/consumables
+  (Property1: 2/35 strengthen stone, 3 luck stone, 4 bugle, 6 openable box, 7 god stone), gems have Property1 31,
+  potential stones Property1 101, 26 = card template, 7/17 fusion results get 7-day validity. Full category list is
+  data (`Shop_Goods.CategoryID`); see the combat/request specs for the rest.
 * Equip → `EquipBag.UpdatePlayerProperties` recomputes Attack/Defence/Agility/Luck/HP/FightPower from items,
   strengthen, compose, gems, cards, totem, necklace, pets, titles, avatar collection, buffs; result pushed with
   `SendUpdatePublicPlayer` / properties packet.
@@ -125,21 +127,24 @@ Workbench = Store bag. Shared rules: bound if any input bound; bag lock; results
 ## 5. Shop & economy
 * Shop listing `Shop` (`SP_Shop_All`): `ShopItemInfo` ID (goods id the client sends), ShopID (2 forbidden, 20
   limited free daily, guild shops need `ShopLevel`), TemplateID, BuyType (0 = timed, else stack count),
-  A/B/C Unit + per tier up to N (price type, value) pairs `APrice1..3/AValue1..3` where **price type −1 = Money,
-  −2 = Gold, −3 = Offer, −4 = GiftToken, −5 medal?, −6..−8 pet/score/damage score, positive = required item
-  template** (`ItemInfo.SetItemType` / `ShopMgr.SetItemType` decode these; port them exactly), IsBind, LimitCount,
-  start/end dates (`IsOnShop`). `ShopGoodsShowList` (`SP_ShopGoodsShowList_All`) = which goods appear per tab.
+  GroupID, Label, IsVouch, IsCheap, IsContinue, **Beat** (price multiplier), and per tier A/B/C: `xUnit`
+  (days or count) + three (price type, value) pairs `xPrice1..3/xValue1..3`. Price types
+  (`SqlDataProvider/Data/ItemInfo.cs:1023 GetItemPrice`): **−1 Money, −2 Gold, −3 Offer, −4 GiftToken,
+  −6 Score (little-game), −8 petScore, −9 damageScore, > 0 = required item template (value = count)**; each value
+  is multiplied by `Beat`. (`ShopMgr.SetItemType` is a second decoder used by props that also handles
+  medal/hardCurrency/leagueMoney/honor.) IsBind, LimitCount, StartDate/EndDate (`IsOnShop`). `ShopGoodsShowList` (`SP_ShopGoodsShowList_All`) = which goods appear per tab.
 * Limited stock: `WorldMgr` shop free count (`ShopFreeCountInfo`) per goods id, decremented on buy, reset by
   `ScanShopFreeVaildDate` on the save timer; pushed with `SendShopGoodsCountUpdate` (168).
 * Purchases: always bound in this build (`item.IsBinds = true`). Overflow to mail (type 8).
 * Money top-up: website writes `Charge_Money` rows and calls `CenterService.ChargeMoney` → center 9 → game
   `ChargeToUser` (`SP_Charge_Money…` via `PlayerBussiness.ChargeToUser`) credits Money + mail + `OnMoneyCharge`
   (first-recharge / novice events). Also run on login.
-* Sell-back: `ReclaimType/ReclaimValue` (127, 232). Boxes: `Items_Box` (`SP_ItemsBox_All`, `ItemBoxInfo`:
-  DataId=box template, TemplateId, ItemCount, ItemValid, IsBind, Random weight, IsSelect, IsTips, StrengthenLevel,
-  composes; special templates for gold/money/exp/honor…) — `ItemBoxMgr.CreateItemBox`.
-* Rates: `Rate` table (`RateMgr`): `eRateType` Experience_Rate, Offer_Rate, Riches_Rate, … with BeginDay/EndDay/
-  BeginTime/EndTime windows; queried by GP/offer/riches gain.
+* Sell-back: `ReclaimType/ReclaimValue` (127, 232). Boxes: `SP_ItemsBox_All` (`ItemBoxInfo` columns: ID = box
+  template, TemplateId, IsSelect, IsBind, ItemValid, ItemCount, StrengthenLevel, Attack/Defend/Agility/LuckCompose,
+  Random (weight), IsTips (world notice), IsLogs; special TemplateIds stand for gold/money/giftToken/medal/exp/honor
+  — see `ItemBoxMgr.CreateItemBox`).
+* Rates: `Rate` table (`SP_Rate`: ServerID, Type (`eRateType`), Rate, BeginDay, EndDay, BeginTime, EndTime) —
+  `RateMgr.GetRate(type)` returns the active multiplier (Experience, Offer, Riches, …) used by GP/offer/riches gain.
 
 ## 6. Mail
 Table `User_Messages` (ID, SenderID, Sender, ReceiverID, Receiver, Title, Content, SendTime, IsRead, IsDelR,
@@ -151,7 +156,7 @@ the user is on another server. System mails (rewards) are created with `SenderID
 with `UserID=0` first (`AddGoods`), then `SendMail` with Annex = ItemID.
 
 ## 7. Friends, chat & announcements
-* Friends: `Sys_Users_Friends` (UserID, FriendID, Relation 0/1, Remark, IsExist) — `SP_Users_Friends_Add/_Delete`,
+* Friends: friends table (FriendID, Relation 0/1, Remark, IsExist) — `SP_Users_Friends_All/_Add/_Delete`,
   ids cached in `GamePlayer.Friends`; blacklist filters chat/whisper/guild chat. Online state propagation:
   160/165 via center → `WorldMgr.ChangePlayerState`; friend list & profiles via HTTP.
 * Chat channels (`SceneChatHandler`): 0..2 lobby/room (room/team), 3 guild, 5 (lobby, extra 1 s limit), 9 chapel,
@@ -167,8 +172,10 @@ with `UserID=0` first (`AddGoods`), then `SendMail` with Annex = ItemID.
   `Consortia_Users` (+ view `V_Consortia_Users`: DutyID, Offer, RichesOffer, RichesRob, Remark, IsBanChat, …),
   `Consortia_Duty` (DutyID, Level 1–5…, DutyName, Right bitmask), `Consortia_Apply_Users`, `Consortia_Invite_Users`,
   `Consortia_Ally` / `Consortia_Apply_Ally` (alliance state), `Consortia_Equip_Control` (riches thresholds),
-  `Consortia_Event` (history log), `Consortia_Task_Info`, user guild buffs. Game DB: `Consortia_Level` (Level,
-  Count, NeedGold, Riches, StoreRiches, SmithRiches, ShopRiches, BufferRiches, KickMax, Deduct…),
+  `Consortia_Event` (history log), `Consortia_Task_Info`, user guild buffs. Cached columns of `Consortia`
+  (`SP_Consortia_All`): ConsortiaID, ConsortiaName, Honor, Level, Riches, MaxCount, BuildDate, IsExist, DeductDate,
+  StoreLevel, SmithLevel, ShopLevel, SkillLevel. Game DB: `Consortia_Level` (Level, Count, NeedGold, NeedItem,
+  Reward, Riches, StoreRiches, SmithRiches, ShopRiches, BufferRiches, Deduct),
   `Consortia_Buff_Temp`, `Consortia_Badge_Config`, `Consortia_Boss_Config`, `Consortia_Task` templates.
 * All mutations go through procs that enforce rights and return `@Result` codes mapped to
   `ConsortiaBussiness.*.MsgN` texts — port the checks (see `ConsortiaBussiness.cs` per method). Changes are
@@ -190,13 +197,14 @@ with `UserID=0` first (`AddGoods`), then `SendMail` with Annex = ItemID.
 * Guild missions: `ConsortiaTaskMgr` (9b), conditions in `ConsortiaTask/Conditions`.
 
 ## 9. Quests & achievements
-* Templates (Game DB): `Quest` (QuestID, Title, QuestType: 0 main? / daily / …, NeedMinLevel/MaxLevel, PreQuestID,
-  IsOther, CanRepeat, RepeatInterval, RepeatMax, RewardGold/GP/Money/Offer/Riches/GiftToken/Medal, StartDate/
-  EndDate, TimeMode, AutoEquip, RandDouble…), `Quest_Condiction` (QuestID, CondictionID, CondictionTitle,
+* Templates (Game DB): `Quest` (columns read: ID, QuestID, Title, Detail, Objective, NeedMinLevel, NeedMaxLevel,
+  PreQuestID, NextQuestID, IsOther, CanRepeat, RepeatInterval, RepeatMax, RewardGP, RewardGold, RewardGiftToken,
+  RewardOffer, RewardRiches, RewardBuffID, RewardBuffDate, RewardMoney, Rands, RandDouble, TimeMode, StartDate,
+  EndDate, MapID, AutoEquip, RewardMedal, Rank, StarLev, NotMustCount), `Quest_Condiction` (QuestID, CondictionID, CondictionTitle,
   CondictionType, Para1, Para2, isOpitional), `Quest_Goods` (QuestID, RewardItemID, IsSelect, RewardItemValid,
   RewardItemCount, IsCount (×RandDouble), StrengthenLevel, composes, IsBind).
-* Player data: `QuestData` (`SP_QuestData_All/_Add`: UserID, QuestID, Condition1..4 values, IsComplete,
-  CompletedDate, IsExist, RepeatFinish, RandDobule).
+* Player data: `QuestData` (`SP_QuestData_All/_Add`: UserId, QuestID, Condition1..4, IsComplete, CompletedDate,
+  IsExist, RepeatFinish, RandDobule).
 * Condition types (`Quests/BaseCondition.cs:55`, `CondictionType` → class): 1 OwnGrade, 2 ItemMounting (equip),
   3 UsingItem, 4 GameKillByRoom, 5 GameFightByRoom, 6 GameOverByRoom, 7 GameCopyOver (dungeon), 8 GameCopyPass,
   9 ItemStrengthen, 10 Shop (buy), 11 ItemFusion, 12 ItemMelt, 13 GameMonster, 14 OwnProperty, 15 TurnProperty,
@@ -217,7 +225,7 @@ with `UserID=0` first (`AddGoods`), then `SendMail` with Annex = ItemID.
 ## 10. Daily, activity & event systems
 | System | Where configured | Server pieces |
 |---|---|---|
-| Daily login award | Game DB `Daily_Award` (`SP_Daily_Award_All`; type/count rows) | 13 type 0, `AwardMgr.AddDailyAward`; center `DailyAwardState` toggles |
+| Daily login award | Game DB `Daily_Award` (`SP_Daily_Award_All`: ID, Type, TemplateID, Count, ValidDate, IsBinds, Sex, Remark, CountRemark, GetWay, AwardDays) | 13 type 0, `AwardMgr.AddDailyAward`; center `DailyAwardState` toggles |
 | Sign-in (calendar) | `Daily_Award` by sign count; `DailyLogList` (Player DB) | 13 type 5, 90 |
 | VIP daily box | `Items_Box` type 2 by VIP level | 13 type 3 |
 | Time/level boxes | `TimeBox_Award` | 53 |
@@ -289,9 +297,11 @@ Marriage gives couple bonuses in battle (`GPSpouseTeam`) and quest conditions.
 Table `Auction` (AuctionID, AuctioneerID/Name, BuyerID/Name, ItemID, TemplateID, Name, Category, goodsCount,
 Price, Rise, Mouthful (buyout), PayType, BeginDate, ValidDate (hours), Random (extra minutes), IsExist).
 Procs `SP_Auction_Add/_Update/_Delete/_Single/_Scan`. Listing/search is HTTP (`AuctionPageList.ashx`).
-Flow: list (192, fee 3/9/18 % of price in gold) → bids (193; previous bidder refunded by mail inside the proc;
-buyout closes) → seller cancel (194) → center `ScanAuction` every `ScanAuctionInterval` closes expired auctions,
-pays seller `price × (1 − Cess)` and mails item to buyer (or back to seller), notifies via 117.
+Flow: list (192, fee 3/9/18 % of price in gold) → bids (193; refunds/notices handled inside `SP_Auction_Update`,
+buyout closes) → seller cancel (194) → center `ScanAuction(ref ids, Cess)` every `ScanAuctionInterval` settles
+expired auctions inside `SP_Auction_Scan` (tax `Cess` = 0.1 passed in; mails to seller/buyer) and the center sends
+117 to each returned user id. The settlement arithmetic is in the proc body (not recovered from the .bak) —
+restore `Player34.bak` to port it exactly.
 
 ## 14. Ranking / celebrities / VIP
 * Rankings are **precomputed tables** refreshed hourly by `RankMgr` (`PlayerBussiness.UpdateRank` → 
