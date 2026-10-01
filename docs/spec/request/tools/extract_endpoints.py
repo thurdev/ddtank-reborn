@@ -230,4 +230,12 @@ for i, r in enumerate(rows, 1):
     if r['sample']:
         p, comp, txt = r['sample']
         print(f"- Sample (`Tank.Request/{rel(p, 'Tank.Request') if not p.startswith('Tank.Request') else p[len('Tank.Request/'):]}`, {'zlib' if comp else 'plain'}):\n\n```xml\n{txt}\n```")
+    elif r['attributes']:
+        root_attrs = [a for a in r['attributes'] if a in ('value', 'message', 'total', 'date', 'lastUpdateTime')]
+        child_attrs = [a for a in r['attributes'] if a not in root_attrs]
+        child = next((e for e in r['elements'] if e != 'Result'), 'Item')
+        ra = ' '.join(f'{a}="{"true" if a == "value" else "Success!" if a == "message" else "…"}"' for a in (root_attrs or ['value', 'message']))
+        ca = ' '.join(f'{a}="…"' for a in child_attrs[:40]) + (' …' if len(child_attrs) > 40 else '')
+        NL = chr(10)
+        print(f"- Derived skeleton (no shipped snapshot; attribute order as in source):{NL}{NL}```xml{NL}<Result {ra}>{(NL + '  <' + child + ' ' + ca + ' />') if child_attrs else ''}{NL}</Result>{NL}```")
     print()

@@ -91,7 +91,10 @@ export interface ResourceDef {
   group: NavGroup;
   /** Hide from sidebar (e.g. rendered inside a custom page). */
   hidden?: boolean;
-  idField: string;
+  /** Source table in packages/db (e.g. 'game."Shop_Goods"'), for the API to expose it directly. */
+  table?: string;
+  /** Primary key column(s). Composite keys are joined with "~" in URLs. */
+  idField: string | string[];
   /** Field used in dialog titles ("Edit <title>"). */
   titleField?: string;
   fields: FieldDef[];
@@ -115,6 +118,16 @@ export interface ListResult<T = Row> {
   page: number;
   pageSize: number;
 }
+
+export const ID_SEP = "~";
+
+/** URL-safe id of a row (composite keys joined with "~"). */
+export function rowId(def: ResourceDef, row: Row): string {
+  const keys = Array.isArray(def.idField) ? def.idField : [def.idField];
+  return keys.map((k) => String(row[k] ?? "")).join(ID_SEP);
+}
+
+export const idFields = (def: ResourceDef): string[] => (Array.isArray(def.idField) ? def.idField : [def.idField]);
 
 export function defineResource(def: ResourceDef): ResourceDef {
   return def;

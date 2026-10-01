@@ -25,7 +25,7 @@ import { useI18n, useText } from "@/i18n";
 import { getQuery, listQuery, useResourceMutations } from "./api";
 import { Cell } from "./Cell";
 import { SchemaForm } from "./SchemaForm";
-import { caps, type ResourceDef, type Row, type RowAction } from "./types";
+import { caps, rowId, type ResourceDef, type Row, type RowAction } from "./types";
 
 function useDebounced<T>(value: T, ms = 300): T {
   const [v, setV] = useState(value);
@@ -47,7 +47,7 @@ type DialogState =
 
 function EditDialogBody({ def, row, onDone }: { def: ResourceDef; row: Row; onDone: () => void }) {
   const { t } = useI18n();
-  const id = row[def.idField];
+  const id = rowId(def, row);
   const { data, isLoading } = useQuery({ ...getQuery(def, id), placeholderData: row });
   const { update } = useResourceMutations(def);
   if (isLoading && !data) return <Skeleton className="h-64" />;
@@ -105,7 +105,7 @@ export function ResourcePage({ def, embedded, headerActions }: ResourcePageProps
 
   const columns = useMemo(() => def.fields.filter((f) => f.list), [def]);
   const singular = text(def.singular);
-  const rowTitle = (row: Row) => String(row[def.titleField ?? def.idField] ?? "");
+  const rowTitle = (row: Row) => (def.titleField ? String(row[def.titleField] ?? "") : rowId(def, row));
   const hasRowButtons = can.update || can.delete || (def.rowActions?.length ?? 0) > 0;
 
   const toggleSort = (name: string) => {
@@ -195,9 +195,9 @@ export function ResourcePage({ def, embedded, headerActions }: ResourcePageProps
             </THead>
             <TBody>
               {data.items.map((row) => {
-                const id = row[def.idField];
+                const id = rowId(def, row);
                 return (
-                  <Tr key={String(id)}>
+                  <Tr key={id}>
                     {columns.map((f) => (
                       <Td key={f.name}>
                         {f.type === "boolean" && f.inlineToggle && can.update ? (
@@ -310,7 +310,7 @@ export function ResourcePage({ def, embedded, headerActions }: ResourcePageProps
                 disabled={m.remove.isPending}
                 onClick={async () => {
                   try {
-                    await m.remove.mutateAsync(dialog.row[def.idField]);
+                    await m.remove.mutateAsync(rowId(def, dialog.row));
                     toast.success(t("crud.deleted"));
                     setDialog(null);
                   } catch (e) {
@@ -333,7 +333,7 @@ export function ResourcePage({ def, embedded, headerActions }: ResourcePageProps
               const { row, action } = dialog;
               const run = async (body?: Row) => {
                 try {
-                  await m.action.mutateAsync({ id: row[def.idField], path: action.path, body });
+                  await m.action.mutateAsync({ id: rowId(def, row), path: action.path, body });
                   toast.success(text(action.success) || t("crud.done"));
                   setDialog(null);
                 } catch (e) {

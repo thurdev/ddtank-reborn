@@ -140,6 +140,12 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`; attributes value, message
 - Client: not referenced
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+</Result>
+```
 
 ## 2. `/achievementlist.ashx`
 
@@ -194,6 +200,12 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`; attributes value, message
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `activeEvents/view/ActiveSubContent.as`, `calendar/CalendarManager.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+</Result>
+```
 
 ## 5. `/activitysystemitems.ashx`
 
@@ -226,6 +238,12 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`; attributes value, message
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+</Result>
+```
 
 ## 7. `/AdvanceQuestTime.ashx`
 
@@ -237,6 +255,12 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`; attributes value, message
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `feedback/FeedbackManager.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+</Result>
+```
 
 ## 8. `/API/Login.ashx`
 
@@ -268,6 +292,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`, `Info`; attributes total, value, message, isPlayerRegeisted, isSelfPublishEquip, UserID, ApplyFor, IsPublishEquip, NickName, typeVIP, VIPLevel, IsConsortia, ConsortiaID, Sex, Win, Total, Escape, GP, Honor, Style, Colors, Hide, Grade, State, Repute, Skin, Offer, IsMarried, ConsortiaName, DutyName, Nimbus, FightPower, AchievementPoint, Rank, ApprenticeshipState, GraduatesCount, HonourOfMaster, SpouseID, SpouseName, BadgeID, BadgeBuyTime, ValidDate (builders: CreateApprenticeShipInfo)
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/manager/AcademyManager.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result total="…" value="true" message="Success!">
+  <Info isPlayerRegeisted="…" isSelfPublishEquip="…" UserID="…" ApplyFor="…" IsPublishEquip="…" NickName="…" typeVIP="…" VIPLevel="…" IsConsortia="…" ConsortiaID="…" Sex="…" Win="…" Total="…" Escape="…" GP="…" Honor="…" Style="…" Colors="…" Hide="…" Grade="…" State="…" Repute="…" Skin="…" Offer="…" IsMarried="…" ConsortiaName="…" DutyName="…" Nimbus="…" FightPower="…" AchievementPoint="…" Rank="…" ApprenticeshipState="…" GraduatesCount="…" HonourOfMaster="…" SpouseID="…" SpouseName="…" BadgeID="…" BadgeBuyTime="…" ValidDate="…" />
+</Result>
+```
 
 ## 11. `/AuctionPageList.ashx`
 
@@ -280,6 +311,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`, `Item`; attributes total, value, message, AuctionID, AuctioneerID, AuctioneerName, BeginDate, BuyerID, BuyerName, ItemID, Mouthful, PayType, Price, Rise, ValidDate, AgilityCompose, AttackCompose, Color, Skin, Count, DefendCompose, IsBinds, IsUsed, IsJudge, LuckCompose, Place, StrengthenLevel, TemplateID, UserID, BagType, Hole1, Hole2, Hole3, Hole4, Hole5, Hole6 (builders: CreateAuctionInfo, CreateGoodsInfo)
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `auctionHouse/controller/AuctionHouseController.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result total="…" value="true" message="Success!">
+  <Item AuctionID="…" AuctioneerID="…" AuctioneerName="…" BeginDate="…" BuyerID="…" BuyerName="…" ItemID="…" Mouthful="…" PayType="…" Price="…" Rise="…" ValidDate="…" AgilityCompose="…" AttackCompose="…" Color="…" Skin="…" Count="…" DefendCompose="…" IsBinds="…" IsUsed="…" IsJudge="…" LuckCompose="…" Place="…" StrengthenLevel="…" TemplateID="…" UserID="…" BagType="…" Hole1="…" Hole2="…" Hole3="…" Hole4="…" Hole5="…" Hole6="…" />
+</Result>
+```
 
 ## 12. `/BallList.ashx`
 
@@ -702,6 +740,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Item`; attributes UserID, ConsortiaID, FightPower, PrevFightPower, GP, PrevGP, AchievementPoint, PrevAchievementPoint, charmGP, PrecharmGP, LeagueAddWeek, PrevLeagueAddWeek, ConsortiaFightPower, ConsortiaPrevFightPower, ConsortiaLevel, ConsortiaPrevLevel, ConsortiaRiches, ConsortiaPrevRiches, ConsortiacharmGP, ConsortiaPrevcharmGP (builders: CreateUserRankDateItems)
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `tofflist/TofflistModel.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item UserID="…" ConsortiaID="…" FightPower="…" PrevFightPower="…" GP="…" PrevGP="…" AchievementPoint="…" PrevAchievementPoint="…" charmGP="…" PrecharmGP="…" LeagueAddWeek="…" PrevLeagueAddWeek="…" ConsortiaFightPower="…" ConsortiaPrevFightPower="…" ConsortiaLevel="…" ConsortiaPrevLevel="…" ConsortiaRiches="…" ConsortiaPrevRiches="…" ConsortiacharmGP="…" ConsortiaPrevcharmGP="…" />
+</Result>
+```
 
 ## 35. `/ChargeTest.ashx`
 
@@ -722,6 +767,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: direct zlib body (BinaryWrite(StaticFunction.Compress(xml))); Content-Type text/plain
 - XML: elements `Result`; attributes value, message, status, style
 - Client: not referenced
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item status="…" style="…" />
+</Result>
+```
 
 ## 37. `/ConsortiaAllyList.ashx`
 
@@ -733,6 +785,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes total, value, message, ID, ChairmanName, ConsortiaID, ConsortiaName, Count, Honor, State, Date, Level, IsApply, Description, Riches, Repute (builders: CreateConsortiaAllyInfo)
 - Client: not referenced
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result total="…" value="true" message="Success!">
+  <Item ID="…" ChairmanName="…" ConsortiaID="…" ConsortiaName="…" Count="…" Honor="…" State="…" Date="…" Level="…" IsApply="…" Description="…" Riches="…" Repute="…" />
+</Result>
+```
 
 ## 38. `/ConsortiaApplyAllyList.ashx`
 
@@ -744,6 +803,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes total, value, message, ID, CelebCount, ChairmanName, ConsortiaID, ConsortiaName, Count, Date, Honor, Remark, Level, Description, Repute (builders: CreateConsortiaApplyAllyInfo)
 - Client: not referenced
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result total="…" value="true" message="Success!">
+  <Item ID="…" CelebCount="…" ChairmanName="…" ConsortiaID="…" ConsortiaName="…" Count="…" Date="…" Honor="…" Remark="…" Level="…" Description="…" Repute="…" />
+</Result>
+```
 
 ## 39. `/ConsortiaApplyUsersList.ashx`
 
@@ -756,6 +822,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`, `Item`; attributes total, value, message, ID, ApplyDate, ConsortiaID, ConsortiaName, Remark, UserID, UserName, UserLevel, Win, Total, Repute (builders: CreateConsortiaApplyUserInfo)
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `consortion/ConsortionModelControl.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result total="…" value="true" message="Success!">
+  <Item ID="…" ApplyDate="…" ConsortiaID="…" ConsortiaName="…" Remark="…" UserID="…" UserName="…" UserLevel="…" Win="…" Total="…" Repute="…" />
+</Result>
+```
 
 ## 40. `/consortiabuffertemp.ashx`
 
@@ -789,6 +862,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`, `Item`; attributes total, value, message, DutyID, ConsortiaID, DutyName, Right, Level (builders: CreateConsortiaDutyInfo)
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `consortion/ConsortionModelControl.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result total="…" value="true" message="Success!">
+  <Item DutyID="…" ConsortiaID="…" DutyName="…" Right="…" Level="…" />
+</Result>
+```
 
 ## 42. `/ConsortiaEquipControl.ashx`
 
@@ -800,6 +880,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: plain XML text (Response.Write, no declaration, indented); literal writes: `Hello World`; Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes type, level, riches, total, value, message
 - Client: not referenced
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result total="…" value="true" message="Success!">
+  <Item type="…" level="…" riches="…" />
+</Result>
+```
 
 ## 43. `/ConsortiaEquipControlList.ashx`
 
@@ -812,6 +899,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`, `Item`; attributes total, value, message, ConsortiaID, Level, Riches, Type (builders: CreateConsortiaEquipControlInfo)
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `consortion/ConsortionModelControl.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result total="…" value="true" message="Success!">
+  <Item ConsortiaID="…" Level="…" Riches="…" Type="…" />
+</Result>
+```
 
 ## 44. `/ConsortiaEventList.ashx`
 
@@ -824,6 +918,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`, `Item`; attributes total, value, message, ID, ConsortiaID, Date, Type, Remark, NickName, EventValue, ManagerName (builders: CreateConsortiaEventInfo)
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `consortion/ConsortionModelControl.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result total="…" value="true" message="Success!">
+  <Item ID="…" ConsortiaID="…" Date="…" Type="…" Remark="…" NickName="…" EventValue="…" ManagerName="…" />
+</Result>
+```
 
 ## 45. `/ConsortiaIMList.ashx`
 
@@ -835,6 +936,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: plain XML text (Response.Write, no declaration, indented)
 - XML: elements `Result`, `Item`; attributes Level, Repute, value, message, ID, ConsortiaID, DutyID, DutyName, GP, Grade, Offer, Remark, State, UserID, Hide, Colors, Skin, Style, LastDate, Sex, LoginName, NickName (builders: CreateConsortiaIMInfo)
 - Client: not referenced
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item Level="…" Repute="…" ID="…" ConsortiaID="…" DutyID="…" DutyName="…" GP="…" Grade="…" Offer="…" Remark="…" State="…" UserID="…" Hide="…" Colors="…" Skin="…" Style="…" LastDate="…" Sex="…" LoginName="…" NickName="…" />
+</Result>
+```
 
 ## 46. `/ConsortiaInviteUsersList.ashx`
 
@@ -847,6 +955,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`, `Item`; attributes total, value, message, ID, CelebCount, ChairmanName, ConsortiaID, ConsortiaName, Count, Honor, InviteDate, InviteID, InviteName, Remark, Repute, UserID, UserName (builders: CreateConsortiaInviteUserInfo)
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `consortion/ConsortionModelControl.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result total="…" value="true" message="Success!">
+  <Item ID="…" CelebCount="…" ChairmanName="…" ConsortiaID="…" ConsortiaName="…" Count="…" Honor="…" InviteDate="…" InviteID="…" InviteName="…" Remark="…" Repute="…" UserID="…" UserName="…" />
+</Result>
+```
 
 ## 47. `/ConsortiaLevelList.ashx`
 
@@ -880,6 +995,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`, `Item`; attributes total, value, message, ConsortiaID, BuildDate, CelebCount, ChairmanID, ChairmanName, ChairmanTypeVIP, ChairmanVIPLevel, ConsortiaName, CreatorID, CreatorName, Description, Honor, IP, Level, MaxCount, Placard, Repute, Count, Riches, FightPower, DeductDate, AddDayHonor, AddDayRiches, AddWeekHonor, AddWeekRiches, LastDayRiches, OpenApply, StoreLevel, SmithLevel, ShopLevel, BufferLevel, ConsortiaGiftGp, ConsortiaAddDayGiftGp, ConsortiaAddWeekGiftGp, Port, IsVoting, VoteRemainDay, CharmGP, BadgeBuyTime, BadgeID, ValidDate (builders: CreateConsortiaInfo)
 - Client loader type: COMPRESS_REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `consortion/ConsortionModelControl.as`, `ddt/loader/StartupResourceLoader.as` — **boot**
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result total="…" value="true" message="Success!">
+  <Item ConsortiaID="…" BuildDate="…" CelebCount="…" ChairmanID="…" ChairmanName="…" ChairmanTypeVIP="…" ChairmanVIPLevel="…" ConsortiaName="…" CreatorID="…" CreatorName="…" Description="…" Honor="…" IP="…" Level="…" MaxCount="…" Placard="…" Repute="…" Count="…" Riches="…" FightPower="…" DeductDate="…" AddDayHonor="…" AddDayRiches="…" AddWeekHonor="…" AddWeekRiches="…" LastDayRiches="…" OpenApply="…" StoreLevel="…" SmithLevel="…" ShopLevel="…" BufferLevel="…" ConsortiaGiftGp="…" ConsortiaAddDayGiftGp="…" ConsortiaAddWeekGiftGp="…" Port="…" IsVoting="…" VoteRemainDay="…" CharmGP="…" BadgeBuyTime="…" BadgeID="…" … />
+</Result>
+```
 
 ## 49. `/ConsortiaNameCheck.ashx`
 
@@ -891,6 +1013,12 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`; attributes value, message
 - Client: `bagAndInfo/ReworkName/ReworkNameConsortia.as`, `login/view/ConsortiaRenameFrame.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+</Result>
+```
 
 ## 50. `/ConsortiaUsersList.ashx`
 
@@ -903,6 +1031,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`, `Item`; attributes total, value, message, currentDate, ID, ConsortiaID, DutyID, DutyName, GP, Level, Grade, Right, DutyLevel, Offer, RatifierID, RatifierName, Remark, Repute, State, UserID, Hide, Colors, Skin, Style, LastDate, Sex, IsBanChat, WinCount, TotalCount, EscapeCount, RichesOffer, RichesRob, Nimbus, LoginName, UserName, FightPower, Rank, AchievementPoint, IsDiplomatism, IsDownGrade, IsEditorPlacard, IsEditorDescription, IsExpel, IsEditorUser, IsInvite, IsManageDuty, IsUpGrade, typeVIP, VIPLevel, IsRatify, IsChat, TotalRichesOffer (builders: CreateConsortiaUserInfo)
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `consortion/ConsortionModelControl.as`, `ddt/loader/StartupResourceLoader.as` — **boot**
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result total="…" value="true" message="Success!">
+  <Item currentDate="…" ID="…" ConsortiaID="…" DutyID="…" DutyName="…" GP="…" Level="…" Grade="…" Right="…" DutyLevel="…" Offer="…" RatifierID="…" RatifierName="…" Remark="…" Repute="…" State="…" UserID="…" Hide="…" Colors="…" Skin="…" Style="…" LastDate="…" Sex="…" IsBanChat="…" WinCount="…" TotalCount="…" EscapeCount="…" RichesOffer="…" RichesRob="…" Nimbus="…" LoginName="…" UserName="…" FightPower="…" Rank="…" AchievementPoint="…" IsDiplomatism="…" IsDownGrade="…" IsEditorPlacard="…" IsEditorDescription="…" IsExpel="…" … />
+</Result>
+```
 
 ## 51. `/CreateAllXml.ashx`
 
@@ -996,6 +1131,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`, `DailyLogList`; attributes UserAwardLog, DayLog, luckyNum, myLuckyNum, value, message, nowDate
 - Client loader type: COMPRESS_REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `calendar/CalendarManager.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <DailyLogList UserAwardLog="…" DayLog="…" luckyNum="…" myLuckyNum="…" nowDate="…" />
+</Result>
+```
 
 ## 57. `/elitematchplayerlist.ashx`
 
@@ -1105,6 +1247,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: ?; Content-Type text/plain
 - XML: elements `result`; attributes m1, m2
 - Client: not referenced
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <result m1="…" m2="…" />
+</Result>
+```
 
 ## 65. `/GiftRecieveLog.ashx`
 
@@ -1116,6 +1265,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: direct zlib body (BinaryWrite(StaticFunction.Compress(xml))); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes playerID, TemplateID, count, value, message
 - Client: `giftSystem/GiftController.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item playerID="…" TemplateID="…" count="…" />
+</Result>
+```
 
 ## 66. `/giftsendlog.ashx`
 
@@ -1127,6 +1283,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: direct zlib body (BinaryWrite(StaticFunction.Compress(xml))); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes playerID, TemplateID, count, value, message
 - Client: `giftSystem/GiftController.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item playerID="…" TemplateID="…" count="…" />
+</Result>
+```
 
 ## 67. `/giftsendlog1.ashx`
 
@@ -1138,6 +1301,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: direct zlib body (BinaryWrite(StaticFunction.Compress(xml))); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes playerID, TemplateID, count, value, message
 - Client: not referenced
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item playerID="…" TemplateID="…" count="…" />
+</Result>
+```
 
 ## 68. `/gmtipallbyids.ashx`
 
@@ -1149,6 +1319,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes value, message, ID, Title, BeginDate, BeginTime, EndDate, EndTime, Text, IsExist (builders: CreateEdictum)
 - Client: `ddt/manager/EdictumManager.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item ID="…" Title="…" BeginDate="…" BeginTime="…" EndDate="…" EndTime="…" Text="…" IsExist="…" />
+</Result>
+```
 
 ## 69. `/IMFriendsBbs.ashx`
 
@@ -1160,6 +1337,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes value, message, NickName, UserName, UserId, Photo, PersonWeb, IsExist, OtherName
 - Client: not referenced
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item NickName="…" UserName="…" UserId="…" Photo="…" PersonWeb="…" IsExist="…" OtherName="…" />
+</Result>
+```
 
 ## 70. `/IMFriendsGood.ashx`
 
@@ -1171,6 +1355,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes UserName, value, message
 - Client: not referenced
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item UserName="…" />
+</Result>
+```
 
 ## 71. `/IMListLoad.ashx`
 
@@ -1183,6 +1374,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`, `customList`, `Item`; attributes ID, Name, NickName, Birthday, ApprenticeshipState, LoginName, Style, Sex, Colors, Grade, Hide, ConsortiaName, TotalCount, EscapeCount, WinCount, Offer, Relation, Repute, State, Nimbus, DutyName, value, message
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <customList ID="…" Name="…" NickName="…" Birthday="…" ApprenticeshipState="…" LoginName="…" Style="…" Sex="…" Colors="…" Grade="…" Hide="…" ConsortiaName="…" TotalCount="…" EscapeCount="…" WinCount="…" Offer="…" Relation="…" Repute="…" State="…" Nimbus="…" DutyName="…" />
+</Result>
+```
 
 ## 72. `/IMRecentContactsList.ashx`
 
@@ -1194,6 +1392,12 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`; attributes value, message
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `im/IMController.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+</Result>
+```
 
 ## 73. `/ItemStrengthenList.ashx`
 
@@ -1225,6 +1429,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: ?; Content-Type text/plain
 - XML: elements `list`, `private`, `public`; attributes key, model, exponent
 - Client: not referenced
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <list key="…" model="…" exponent="…" />
+</Result>
+```
 
 ## 75. `/LoadBoxTemp.ashx`
 
@@ -1383,6 +1594,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`, `Buff`; attributes Agility, Attack, Colors, Skin, Defence, GP, Grade, Luck, Hide, Repute, Offer, NickName, ConsortiaName, ConsortiaID, ReputeOffer, ConsortiaHonor, ConsortiaLevel, ConsortiaRepute, WinCount, TotalCount, EscapeCount, Sex, Style, FightPower, value, message, AgilityCompose, AttackCompose, BeginDate, Color, Count, DefendCompose, IsBinds, IsUsed, IsJudge, ItemID, LuckCompose, Place, StrengthenLevel, TemplateID, UserID, BagType, ValidDate, Hole1, Hole2, Hole3, Hole4, Hole5, Hole6, Data, IsExist, Type, Value (builders: CreateGoodsInfo, CreateBuffInfo)
 - Client: not referenced
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item Agility="…" Attack="…" Colors="…" Skin="…" Defence="…" GP="…" Grade="…" Luck="…" Hide="…" Repute="…" Offer="…" NickName="…" ConsortiaName="…" ConsortiaID="…" ReputeOffer="…" ConsortiaHonor="…" ConsortiaLevel="…" ConsortiaRepute="…" WinCount="…" TotalCount="…" EscapeCount="…" Sex="…" Style="…" FightPower="…" AgilityCompose="…" AttackCompose="…" BeginDate="…" Color="…" Count="…" DefendCompose="…" IsBinds="…" IsUsed="…" IsJudge="…" ItemID="…" LuckCompose="…" Place="…" StrengthenLevel="…" TemplateID="…" UserID="…" BagType="…" … />
+</Result>
+```
 
 ## 83. `/LoadUserItems.ashx`
 
@@ -1394,6 +1612,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes value, message, AgilityCompose, AttackCompose, BeginDate, Color, Skin, Count, DefendCompose, IsBinds, IsUsed, IsJudge, ItemID, LuckCompose, Place, StrengthenLevel, TemplateID, UserID, BagType, ValidDate, Hole1, Hole2, Hole3, Hole4, Hole5, Hole6 (builders: CreateGoodsInfo)
 - Client: not referenced
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item AgilityCompose="…" AttackCompose="…" BeginDate="…" Color="…" Skin="…" Count="…" DefendCompose="…" IsBinds="…" IsUsed="…" IsJudge="…" ItemID="…" LuckCompose="…" Place="…" StrengthenLevel="…" TemplateID="…" UserID="…" BagType="…" ValidDate="…" Hole1="…" Hole2="…" Hole3="…" Hole4="…" Hole5="…" Hole6="…" />
+</Result>
+```
 
 ## 84. `/LoadUserMail.ashx`
 
@@ -1406,6 +1631,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`, `Item`; attributes ID, Title, Content, Sender, SendTime, Days, Gold, Money, Annex1ID, Annex2ID, Annex3ID, Annex4ID, Annex5ID, Type, ValidDate, IsRead, value, message, AgilityCompose, AttackCompose, BeginDate, Color, Skin, Count, DefendCompose, IsBinds, IsUsed, IsJudge, ItemID, LuckCompose, Place, StrengthenLevel, TemplateID, UserID, BagType, Hole1, Hole2, Hole3, Hole4, Hole5, Hole6, Receiver, Annex1Name, Annex2Name, Annex3Name, Annex4Name, Annex5Name, AnnexRemark (builders: CreateGoodsInfo, CreateMailInfo)
 - Client loader type: COMPRESS_REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `email/manager/MailManager.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item ID="…" Title="…" Content="…" Sender="…" SendTime="…" Days="…" Gold="…" Money="…" Annex1ID="…" Annex2ID="…" Annex3ID="…" Annex4ID="…" Annex5ID="…" Type="…" ValidDate="…" IsRead="…" AgilityCompose="…" AttackCompose="…" BeginDate="…" Color="…" Skin="…" Count="…" DefendCompose="…" IsBinds="…" IsUsed="…" IsJudge="…" ItemID="…" LuckCompose="…" Place="…" StrengthenLevel="…" TemplateID="…" UserID="…" BagType="…" Hole1="…" Hole2="…" Hole3="…" Hole4="…" Hole5="…" Hole6="…" Receiver="…" … />
+</Result>
+```
 
 ## 85. `/LoadUsersSort.ashx`
 
@@ -1417,6 +1649,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes ID, NickName, Grade, Colors, Skin, Sex, Style, ConsortiaName, Hide, Offer, ReputeOffer, ConsortiaHonor, ConsortiaLevel, ConsortiaRepute, WinCount, TotalCount, EscapeCount, Repute, GP, total, value, message
 - Client: not referenced
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result total="…" value="true" message="Success!">
+  <Item ID="…" NickName="…" Grade="…" Colors="…" Skin="…" Sex="…" Style="…" ConsortiaName="…" Hide="…" Offer="…" ReputeOffer="…" ConsortiaHonor="…" ConsortiaLevel="…" ConsortiaRepute="…" WinCount="…" TotalCount="…" EscapeCount="…" Repute="…" GP="…" />
+</Result>
+```
 
 ## 86. `/Login.ashx`
 
@@ -1429,6 +1668,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`, `Item`; attributes ID, IsFirst, NickName, Date, IsConsortia, ConsortiaID, Sex, WinCount, TotalCount, EscapeCount, DutyName, GP, Honor, Style, Gold, Colors, Attack, Defence, Agility, Luck, Grade, Hide, Repute, ConsortiaName, Offer, Skin, ReputeOffer, ConsortiaHonor, ConsortiaLevel, ConsortiaRepute, Money, AntiAddiction, IsMarried, SpouseID, SpouseName, MarryInfoID, IsCreatedMarryRoom, IsGotRing, LoginName, Nimbus, FightPower, AnswerSite, WeaklessGuildProgressStr, IsOldPlayer, value, message
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `login/LoginStateView.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item ID="…" IsFirst="…" NickName="…" Date="…" IsConsortia="…" ConsortiaID="…" Sex="…" WinCount="…" TotalCount="…" EscapeCount="…" DutyName="…" GP="…" Honor="…" Style="…" Gold="…" Colors="…" Attack="…" Defence="…" Agility="…" Luck="…" Grade="…" Hide="…" Repute="…" ConsortiaName="…" Offer="…" Skin="…" ReputeOffer="…" ConsortiaHonor="…" ConsortiaLevel="…" ConsortiaRepute="…" Money="…" AntiAddiction="…" IsMarried="…" SpouseID="…" SpouseName="…" MarryInfoID="…" IsCreatedMarryRoom="…" IsGotRing="…" LoginName="…" Nimbus="…" … />
+</Result>
+```
 
 ## 87. `/LoginAwardItemTemplate.ashx`
 
@@ -1462,6 +1708,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`, `Item`; attributes value, message, ID, UserName, NickName, Grade, Repute, Sex, WinCount, TotalCount, ConsortiaName, Rename, IsVIP, VIPLevel, ConsortiaRename, EscapeCount, IsFirst, LastDate (builders: CreateUserLoginList)
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item ID="…" UserName="…" NickName="…" Grade="…" Repute="…" Sex="…" WinCount="…" TotalCount="…" ConsortiaName="…" Rename="…" IsVIP="…" VIPLevel="…" ConsortiaRename="…" EscapeCount="…" IsFirst="…" LastDate="…" />
+</Result>
+```
 
 ## 89. `/LogTime.ashx`
 
@@ -1473,6 +1726,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: ?
 - XML: elements `Result`, `Item`; attributes ID, ChairmanName, ConsortiaID, ConsortiaName, Count, Honor, State, Date, Level, IsApply, Description, Riches, Repute (builders: CreateConsortiaAllyInfo)
 - Client: `trainer/controller/WeakGuildManager.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item ID="…" ChairmanName="…" ConsortiaID="…" ConsortiaName="…" Count="…" Honor="…" State="…" Date="…" Level="…" IsApply="…" Description="…" Riches="…" Repute="…" />
+</Result>
+```
 
 ## 90. `/luckstaractivityrank.ashx`
 
@@ -1485,6 +1745,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Ranks`, `myRank`, `rankInfo`; attributes rank, useStarNum, nickName, lastUpdateTime, value, message, isVip (builders: LuckstarActivityRank)
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `luckStar/LoadingLuckStarUI.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result lastUpdateTime="…" value="true" message="Success!">
+  <Ranks rank="…" useStarNum="…" nickName="…" isVip="…" />
+</Result>
+```
 
 ## 91. `/MailSenderList.ashx`
 
@@ -1497,6 +1764,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`; attributes value, message, ID, Title, Content, Sender, Receiver, SendTime, ValidDate, Gold, Money, Annex1ID, Annex2ID, Annex3ID, Annex4ID, Annex5ID, Annex1Name, Annex2Name, Annex3Name, Annex4Name, Annex5Name, AnnexRemark, Type, IsRead (builders: CreateMailInfo)
 - Client loader type: COMPRESS_REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `email/manager/MailManager.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item ID="…" Title="…" Content="…" Sender="…" Receiver="…" SendTime="…" ValidDate="…" Gold="…" Money="…" Annex1ID="…" Annex2ID="…" Annex3ID="…" Annex4ID="…" Annex5ID="…" Annex1Name="…" Annex2Name="…" Annex3Name="…" Annex4Name="…" Annex5Name="…" AnnexRemark="…" Type="…" IsRead="…" />
+</Result>
+```
 
 ## 92. `/MapServerList.ashx`
 
@@ -1528,6 +1802,12 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`; attributes value, message
 - Client: not referenced
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+</Result>
+```
 
 ## 94. `/MarryInfoPageList.ashx`
 
@@ -1540,6 +1820,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`, `Info`; attributes total, value, message, ID, UserID, IsPublishEquip, Introduction, NickName, IsConsortia, ConsortiaID, Sex, Win, Total, Escape, GP, Honor, Style, Colors, Hide, Grade, State, Repute, Skin, Offer, IsMarried, ConsortiaName, DutyName, Nimbus, FightPower (builders: CreateMarryInfo)
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `civil/CivilController.as`, `ddt/data/analyze/CivilMemberListAnalyze.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result total="…" value="true" message="Success!">
+  <Info ID="…" UserID="…" IsPublishEquip="…" Introduction="…" NickName="…" IsConsortia="…" ConsortiaID="…" Sex="…" Win="…" Total="…" Escape="…" GP="…" Honor="…" Style="…" Colors="…" Hide="…" Grade="…" State="…" Repute="…" Skin="…" Offer="…" IsMarried="…" ConsortiaName="…" DutyName="…" Nimbus="…" FightPower="…" />
+</Result>
+```
 
 ## 95. `/newtitle.ashx`
 
@@ -1572,6 +1859,12 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`; attributes value, message
 - Client: `bagAndInfo/ReworkName/ReworkNameFrame.as`, `login/view/RoleRenameFrame.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+</Result>
+```
 
 ## 97. `/NPCInfoList.ashx`
 
@@ -1716,6 +2009,12 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`; attributes value, message
 - Client: `login/view/ConsortiaRenameFrame.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+</Result>
+```
 
 ## 105. `/RenameNick.ashx`
 
@@ -1727,6 +2026,12 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`; attributes value, message
 - Client: `login/view/RoleRenameFrame.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+</Result>
+```
 
 ## 106. `/runetemplatelist.ashx`
 
@@ -1787,6 +2092,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`, `Item`; attributes value, message, total, ID, Name, IP, Port, State, MustLevel, LowestLevel, Online, Remark (builders: CreateServerInfo)
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!" total="…">
+  <Item ID="…" Name="…" IP="…" Port="…" State="…" MustLevel="…" LowestLevel="…" Online="…" Remark="…" />
+</Result>
+```
 
 ## 110. `/shopcheapitemlist.ashx`
 
@@ -1799,6 +2111,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`, `Item`; attributes value, message, ID, TemplateID, AUnit, APrice, AValue, BUnit, BPrice, BValue, CUnit, CPrice, CValue, StartDate, EndDate, BuyType (builders: CreateShopCheapItems)
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as`, `ddt/manager/ShopManager.as` — **boot**
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item ID="…" TemplateID="…" AUnit="…" APrice="…" AValue="…" BUnit="…" BPrice="…" BValue="…" CUnit="…" CPrice="…" CValue="…" StartDate="…" EndDate="…" BuyType="…" />
+</Result>
+```
 
 ## 111. `/shopcheapitemlist2.ashx`
 
@@ -1810,6 +2129,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes value, message, ID, TemplateID, AUnit, APrice, AValue, BUnit, BPrice, BValue, CUnit, CPrice, CValue, StartDate, EndDate, BuyType (builders: CreateShopCheapItems)
 - Client: not referenced
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item ID="…" TemplateID="…" AUnit="…" APrice="…" AValue="…" BUnit="…" BPrice="…" BValue="…" CUnit="…" CPrice="…" CValue="…" StartDate="…" EndDate="…" BuyType="…" />
+</Result>
+```
 
 ## 112. `/ShopGoodsShowList.ashx`
 
@@ -1948,6 +2274,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`, `Item`; attributes total, value, message, UserID, NickName, typeVIP, VIPLevel, Skin, Sex, Grade, Hide, ConsortiaName, WinCount, TotalCount, EscapeCount, Offer, State, Repute, DutyName, AchievementPoint, Rank, FightPower, ApprenticeshipState, GraduatesCount, IsMarried, HonourOfMaster, Style, Colors, LastDate (builders: CreateUserApprenticeshipInfo)
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as`, `ddt/manager/AcademyManager.as` — **boot**
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result total="…" value="true" message="Success!">
+  <Item UserID="…" NickName="…" typeVIP="…" VIPLevel="…" Skin="…" Sex="…" Grade="…" Hide="…" ConsortiaName="…" WinCount="…" TotalCount="…" EscapeCount="…" Offer="…" State="…" Repute="…" DutyName="…" AchievementPoint="…" Rank="…" FightPower="…" ApprenticeshipState="…" GraduatesCount="…" IsMarried="…" HonourOfMaster="…" Style="…" Colors="…" LastDate="…" />
+</Result>
+```
 
 ## 119. `/UserGoodsInfo.ashx`
 
@@ -1959,6 +2292,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes value, message, AgilityCompose, AttackCompose, BeginDate, Color, Skin, Count, DefendCompose, IsBinds, IsUsed, IsJudge, ItemID, LuckCompose, Place, StrengthenLevel, TemplateID, UserID, BagType, ValidDate, Hole1, Hole2, Hole3, Hole4, Hole5, Hole6 (builders: CreateGoodsInfo)
 - Client: not referenced
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item AgilityCompose="…" AttackCompose="…" BeginDate="…" Color="…" Skin="…" Count="…" DefendCompose="…" IsBinds="…" IsUsed="…" IsJudge="…" ItemID="…" LuckCompose="…" Place="…" StrengthenLevel="…" TemplateID="…" UserID="…" BagType="…" ValidDate="…" Hole1="…" Hole2="…" Hole3="…" Hole4="…" Hole5="…" Hole6="…" />
+</Result>
+```
 
 ## 120. `/UserQuestList.ashx`
 
@@ -1970,6 +2310,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: direct zlib body (BinaryWrite(StaticFunction.Compress(xml))); plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`, `Item`; attributes value, message, CompletedDate, IsComplete, Condition1, Condition2, Condition3, Condition4, QuestID, UserID, RepeatFinish (builders: CreateQuestDataInfo)
 - Client: not referenced
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item CompletedDate="…" IsComplete="…" Condition1="…" Condition2="…" Condition3="…" Condition4="…" QuestID="…" UserID="…" RepeatFinish="…" />
+</Result>
+```
 
 ## 121. `/UserRankDate.ashx`
 
@@ -1982,6 +2329,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Item`; attributes UserID, ConsortiaID, FightPower, PrevFightPower, GP, PrevGP, AchievementPoint, PrevAchievementPoint, charmGP, PrecharmGP, LeagueAddWeek, PrevLeagueAddWeek, ConsortiaFightPower, ConsortiaPrevFightPower, ConsortiaLevel, ConsortiaPrevLevel, ConsortiaRiches, ConsortiaPrevRiches, ConsortiacharmGP, ConsortiaPrevcharmGP (builders: CreateUserRankDateItems)
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `tofflist/TofflistModel.as`
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item UserID="…" ConsortiaID="…" FightPower="…" PrevFightPower="…" GP="…" PrevGP="…" AchievementPoint="…" PrevAchievementPoint="…" charmGP="…" PrecharmGP="…" LeagueAddWeek="…" PrevLeagueAddWeek="…" ConsortiaFightPower="…" ConsortiaPrevFightPower="…" ConsortiaLevel="…" ConsortiaPrevLevel="…" ConsortiaRiches="…" ConsortiaPrevRiches="…" ConsortiacharmGP="…" ConsortiaPrevcharmGP="…" />
+</Result>
+```
 
 ## 122. `/VisualizeItemLoad.ashx`
 
@@ -1992,6 +2346,13 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - Output: plain XML text (Response.Write, no declaration, indented); Content-Type text/plain
 - XML: elements `Result`; attributes content, value, message
 - Client: not referenced
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+  <Item content="…" />
+</Result>
+```
 
 ## 123. `/VisualizeRegister.ashx`
 
@@ -2004,4 +2365,10 @@ Endpoints: 123; static-build: 55; referenced by client: 84; boot: 39
 - XML: elements `Result`; attributes value, message
 - Client loader type: REQUEST_LOADER (COMPRESS_* = client inflates zlib)
 - Client: `ddt/loader/StartupResourceLoader.as` — **boot**
+- Derived skeleton (no shipped snapshot; attribute order as in source):
+
+```xml
+<Result value="true" message="Success!">
+</Result>
+```
 
