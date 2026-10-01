@@ -25,6 +25,7 @@ export interface ProjectorWindowOptions {
 
 const SCRIPT = String.raw`
 $ErrorActionPreference = 'Stop'
+$ProgressPreference = 'SilentlyContinue'
 Add-Type -TypeDefinition @"
 using System;
 using System.Text;

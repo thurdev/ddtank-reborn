@@ -1,0 +1,6 @@
+dist/
+release/
+runtime/
+*.part
+launcher.config.json
+.env

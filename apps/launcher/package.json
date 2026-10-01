@@ -16,7 +16,9 @@
     "start": "electron .",
     "fetch-runtime": "node scripts/fetch-runtime.mjs",
     "dist:win": "pnpm run build && electron-builder --win portable nsis --x64 --publish never",
-    "dist:win:portable": "pnpm run build && electron-builder --win portable --x64 --publish never"
+    "dist:win:portable": "pnpm run build && electron-builder --win portable --x64 --publish never",
+    "dev:mock": "node scripts/dev.mjs --mock",
+    "mock-api": "node scripts/mock-api.mjs"
   },
   "dependencies": {
     "electron-updater": "^6.8.9",

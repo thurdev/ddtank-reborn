@@ -1,0 +1,2 @@
+{"t":"2026-10-01T18:03:06.625Z","ev":"upgrade","url":"/ws","origin":"http://localhost:9380"}
+{"t":"2026-10-01T18:03:06.650Z","ev":"frame","opcode":2,"len":156,"hex":"df137ee790efc785c016a13e1679d8702bbb0fce80259abb29c9d064d961e38e309d091d60b355527147eb2f0a3354d5075fe398db5190ca653bd35683d9859b"}

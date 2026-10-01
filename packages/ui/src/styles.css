@@ -25,6 +25,10 @@
   --color-sky-deep: #1f7fd0;
   --color-grape: #a77bff;
 
+  /* Chart series (validated vs panel #19214a: OKLCH L 0.48–0.67, CVD ΔE ≥ 17). */
+  --color-chart-1: #2f8ee0;
+  --color-chart-2: #24a882;
+
   --font-display: "Lilita One", "Rubik Variable", system-ui, sans-serif;
   --font-sans: "Rubik Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;

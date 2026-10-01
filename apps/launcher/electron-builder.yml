@@ -1,0 +1,42 @@
+# Windows build of the DDTank launcher. Never publishes (scripts pass --publish never).
+# Usage: pnpm --filter launcher dist:win            (NSIS installer + portable .exe)
+#        pnpm --filter launcher dist:win:portable   (portable only)
+appId: com.ddtankreborn.launcher
+productName: DDTank Launcher
+copyright: DDTank Reborn (fan project)
+directories:
+  output: release
+  buildResources: build
+files:
+  - dist/**/*
+  - "!dist/**/*.map"
+  - package.json
+extraResources:
+  # Operator config baked into the installer (copy launcher.config.example.json -> launcher.config.json).
+  - from: launcher.config.json
+    to: launcher.config.json
+    filter: ["**/*"]
+  # Optional bundled runtimes, filled by `pnpm --filter launcher fetch-runtime` (gitignored).
+  # If absent, the launcher downloads them on first Play from the URLs in the manifest/config.
+  - from: runtime
+    to: runtime
+    filter: ["**/*", "!**/*.part"]
+asar: true
+electronLanguages: [pt-BR, en-US]
+win:
+  target: [nsis, portable]
+  # icon: build/icon.ico   (add a 256x256 .ico here; default Electron icon is used otherwise)
+  requestedExecutionLevel: asInvoker
+  artifactName: DDTank-Launcher-${version}-${arch}.${ext}
+nsis:
+  oneClick: true
+  perMachine: false
+  allowElevation: false
+  deleteAppDataOnUninstall: false
+  artifactName: DDTank-Launcher-Setup-${version}.${ext}
+portable:
+  artifactName: DDTank-Launcher-Portable-${version}.${ext}
+# electron-updater feed (generic). The URL is also overridable at runtime via config/manifest.
+publish:
+  provider: generic
+  url: http://localhost:8080/launcher/updates/
