@@ -90,7 +90,7 @@ const S = {
   cardUpdateInfo: "Id Level Attack Defend Agility Lucky Guard Damage",
   consortiaBuff: "id name descript type level value riches metal pic group",
   consortiaLevel: "Level Count Deduct NeedGold NeedItem Reward ShopRiches SmithRiches StoreRiches BufferRiches Riches",
-  dailyAward: "ID Count CountRemark IsBinds=IsBind Remark Sex TemplateID Type ValidDate GetWay AwardDays",
+  dailyAward: "ID Count CountRemark IsBinds Remark Sex TemplateID Type ValidDate GetWay AwardDays",
   fairBattle: "Score=Prestige Name Level",
   strengthen: "StrengthenLevel Rock Rock1 Rock2 Rock3 StoneLevelMin",
   itemBox: "ID TemplateId StrengthenLevel IsBind ItemCount LuckCompose DefendCompose AttackCompose AgilityCompose ItemValid IsTips",
@@ -103,7 +103,7 @@ const S = {
   loginAward: "ID Count=Type RewardItemID IsSelect IsBind RewardItemValid RewardItemCount StrengthenLevel DefendCompose AgilityCompose LuckCompose",
   mapServer: "ServerID OpenMap IsSpecial",
   newTitle: "ID Order Show Name Pic Att Def Agi Luck Desc",
-  npc: "ID Name Level Camp Type Blood MoveMin MoveMax BaseDamage BaseGuard Defence Agility Lucky ModelID ResourcesPath DropRate Experience Delay Immunity Alert Range Preserve Script FireX FireY DropId=DropID MagicAttack='0' MagicDefence='0'",
+  npc: "ID Name Level Camp Type Blood MoveMin MoveMax BaseDamage BaseGuard Defence Agility Lucky ModelID ResourcesPath DropRate Experience Delay Immunity Alert Range Preserve Script FireX FireY DropId MagicAttack='0' MagicDefence='0'",
   petSkillElement: "ID Name EffectPic Description Pic",
   petSkill: "ID Name ElementIDs Description BallType NewBallID CostMP Pic Action EffectPic Delay ColdDown GameType Probability",
   petSkillTemplate: "PetTemplateID KindID GetType='1' SkillID SkillBookID MinLevel DeleteSkillIDs",
@@ -120,7 +120,7 @@ const S = {
   suitInfo:
     "SuitId SuitName EqipCount1 SkillDescribe1 Skill1 EqipCount2 SkillDescribe2 Skill2 EqipCount3 SkillDescribe3 Skill3 EqipCount4 SkillDescribe4 Skill4 EqipCount5 SkillDescribe5 Skill5",
   itemTemplate:
-    "AddTime:D Agility Attack CanCompose CanDelete CanDrop CanEquip CanStrengthen CanUse CategoryID Colors Defence Description Level Luck MaxCount Name NeedLevel NeedSex Pic Data Property1 Property2 Property3 Property4 Property5 Property6 Property7 Property8 Quality Script BindType FusionType FusionRate FusionNeedRate TemplateID RefineryLevel Hole ReclaimValue ReclaimType CanRecycle SuitId=SuitID",
+    "AddTime:D Agility Attack CanCompose CanDelete CanDrop CanEquip CanStrengthen CanUse CategoryID Colors Defence Description Level Luck MaxCount Name NeedLevel NeedSex Pic Data Property1 Property2 Property3 Property4 Property5 Property6 Property7 Property8 Quality Script BindType FusionType FusionRate FusionNeedRate TemplateID RefineryLevel Hole ReclaimValue ReclaimType CanRecycle SuitId",
   totemHonor: "ID Type NeedMoney AddHonor",
   strengthExp: "Level Exp NecklaceStrengthExp NecklaceStrengthPlus",
   rune: "TemplateID NextTemplateID Name BaseLevel MaxLevel Type1 Attribute1 Turn1 Rate1 Type2 Attribute2 Turn2 Rate2 Type3 Attribute3 Turn3 Rate3",
