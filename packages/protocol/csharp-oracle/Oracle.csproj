@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Golden-vector oracle for @ddt/protocol.
+    Compiles the ORIGINAL DDTank 4.1 Game.Base packet/crypto sources (copied verbatim into ./original,
+    see original/README.txt) together with tiny stubs for log4net/protobuf-net, and dumps golden vectors
+    as JSON to ../test/golden/vectors.json.  Run:  dotnet run -c Release
+  -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoWarn>$(NoWarn);CS0168;CS0219;CS0414;CS0649;CS0169;CS8981;SYSLIB0021;SYSLIB0011;CA1416;CS0618</NoWarn>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <RootNamespace>Oracle</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="zlib.net">
+      <HintPath>lib\zlib.net.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

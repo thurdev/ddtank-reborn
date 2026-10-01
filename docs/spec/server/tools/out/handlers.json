@@ -1,0 +1,8697 @@
+[
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 1,
+  "symbol": "ePackageType.LOGIN",
+  "names": [
+   "LOGIN"
+  ],
+  "desc": "User Login handler",
+  "class": "UserLoginHandler",
+  "file": "Game.Server/Packets/Client/UserLoginHandler.cs",
+  "reads": [
+   "Int version",
+   "Int clientType",
+   "Bytes src"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "LoginMgr.ContainsUser",
+   "LoginMgr.Add"
+  ],
+  "center": [
+   "SendAllowUserLogin"
+  ],
+  "out": [
+   "SendKitoff"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [
+   "UserLoginHandler.RsaCryptorError",
+   "UserLoginHandler.Forbid",
+   "UserLoginHandler.Register",
+   "UserLoginHandler.OverTime",
+   "UserLoginHandler.LoginError",
+   "UserLoginHandler.ServerError"
+  ],
+  "lines": 100
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 4,
+  "symbol": null,
+  "names": [
+   "PING"
+  ],
+  "desc": "测试网络",
+  "class": "PingTimeCallBackHandler",
+  "file": "Game.Server/Packets/Client/PingTimeCallBackHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 6
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 5,
+  "symbol": null,
+  "names": [
+   "SYS_DATE"
+  ],
+  "desc": "同步系统数据",
+  "class": "SyncSystemDateHandler",
+  "file": "Game.Server/Packets/Client/SyncSystemDateHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 8
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 8,
+  "symbol": null,
+  "names": [
+   "VIP_LEVELUP_AWARDS",
+   "CLIENT_LOG"
+  ],
+  "desc": "客户端日记",
+  "class": "ClientErrorLog",
+  "file": "Game.Server/Packets/Client/ClientErrorLog.cs",
+  "reads": [
+   "String"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LogManager.GetLogger"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 9
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 12,
+  "symbol": null,
+  "names": [
+   "EDITION_ERROR",
+   "HOTSPRING_CMD_B"
+  ],
+  "desc": "礼堂数据",
+  "class": "HotSpringRoomTimeAdded",
+  "file": "Game.Server/Packets/Client/HotSpringRoomTimeAdded.cs",
+  "reads": [
+   "Byte b"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [
+   "191"
+  ],
+  "player": [
+   "SendMessage",
+   "RemoveMoney",
+   "SendTCP"
+  ],
+  "lang": [],
+  "lines": 24
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 13,
+  "symbol": null,
+  "names": [
+   "DAILY_AWARD"
+  ],
+  "desc": "场景用户离开",
+  "class": "DailyAwardHandler",
+  "file": "Game.Server/Packets/Client/DailyAwardHandler.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [
+   "PlayerBussiness.UpdatePlayerLastAward",
+   "PlayerBussiness.UpdateLastVIPPackTime",
+   "PlayerBussiness.GetDailyLogListSingle",
+   "PlayerBussiness.UpdateDailyLogList",
+   "PlayerBussiness.AddGoods",
+   "PlayerBussiness.SendMail"
+  ],
+  "mgr": [
+   "AwardMgr.AddDailyAward",
+   "LanguageMgr.GetTranslation",
+   "AwardMgr.AddEggAward",
+   "ItemMgr.FindItemTemplate",
+   "ItemBoxMgr.CreateItemBox",
+   "ItemMgr.FindItemBoxTypeAndLv"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendMailResponse"
+  ],
+  "packets": [],
+  "player": [
+   "SendMessage",
+   "AddMoney",
+   "AddGold",
+   "AddGiftToken",
+   "AddMedal",
+   "AddTemplate"
+  ],
+  "lang": [
+   "GameUserDailyAward.Success",
+   "GameUserDailyAward.Fail",
+   "GameUserDailyAward.Fail1",
+   "GameServer.DailyEggReceive.Success",
+   "GameServer.DailyEgg.Notice.Msg",
+   "Error.ChangeChannel",
+   "OpenUpArkHandler.Money",
+   "OpenUpArkHandler.Gold",
+   "OpenUpArkHandler.GiftToken",
+   "OpenUpArkHandler.Medal",
+   "OpenUpArkHandler.Content1",
+   "OpenUpArkHandler.Content2",
+   "OpenUpArkHandler.Title",
+   "OpenUpArkHandler.Mail"
+  ],
+  "lines": 188
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 15,
+  "symbol": null,
+  "names": [
+   "USER_ANSWER"
+  ],
+  "desc": "New User Answer Question",
+  "class": "UserAnswerHandler",
+  "file": "Game.Server/Packets/Client/UserAnswerHandler.cs",
+  "reads": [
+   "Byte b",
+   "Int num",
+   "Boolean flag"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "ShopMgr.FindSpecialItemInfo"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "AddTemplate",
+   "AddGold",
+   "AddMoney",
+   "AddGiftToken",
+   "UpdateAnswerSite"
+  ],
+  "lang": [],
+  "lines": 48
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 16,
+  "symbol": null,
+  "names": [
+   "SCENE_LOGIN"
+  ],
+  "desc": "Player enter scene.",
+  "class": "UserEnterSceneHandler",
+  "file": "Game.Server/Packets/Client/UserEnterSceneHandler.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "RoomMgr.EnterWaitingRoom"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 25
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 18,
+  "symbol": null,
+  "names": [
+   "GET_PLAYER_CARD",
+   "SCENE_ADD_USER"
+  ],
+  "desc": "场景用户离开",
+  "class": "GetPlayerCardHandler",
+  "file": "Game.Server/Packets/Client/GetPlayerCardHandler.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetUserSingleByUserID",
+   "PlayerBussiness.GetUserCardEuqip"
+  ],
+  "mgr": [
+   "WorldMgr.GetPlayerById"
+  ],
+  "center": [],
+  "out": [
+   "SendUpdateCardData"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 25
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 19,
+  "symbol": null,
+  "names": [
+   "SCENE_CHAT"
+  ],
+  "desc": "用户场景聊天",
+  "class": "SceneChatHandler",
+  "file": "Game.Server/Packets/Client/SceneChatHandler.cs",
+  "reads": [
+   "Byte b",
+   "Boolean flag",
+   "String",
+   "String text"
+  ],
+  "bussiness": [
+   "ManageBussiness.ForbidPlayerByNickName",
+   "ManageBussiness.KitoffUserByNickName"
+  ],
+  "mgr": [
+   "WorldMgr.GetAllPlayers",
+   "WorldMgr.GetClientByPlayerNickName",
+   "LanguageMgr.GetTranslation",
+   "CommandsMgr.CheckAdmin"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendTCP"
+  ],
+  "packets": [
+   "19"
+  ],
+  "player": [
+   "SendMessage",
+   "RemoveItem"
+  ],
+  "lang": [
+   "ConsortiaChatHandler.IsBanChat",
+   "SceneChatHandler.Fast"
+  ],
+  "lines": 270
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 20,
+  "symbol": null,
+  "names": [
+   "SCENE_FACE"
+  ],
+  "desc": "用户场景表情",
+  "class": "SceneSmileHandler",
+  "file": "Game.Server/Packets/Client/SceneSmileHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 22
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 21,
+  "symbol": null,
+  "names": [
+   "SCENE_REMOVE_USER"
+  ],
+  "desc": "场景用户离开",
+  "class": "UserLeaveSceneHandler",
+  "file": "Game.Server/Packets/Client/UserLeaveSceneHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "RoomMgr.ExitWaitingRoom"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 7
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 24,
+  "symbol": null,
+  "names": [
+   "SCENE_CHANNEL_CHANGE"
+  ],
+  "desc": "用户改变频道",
+  "class": "SceneChangeChannel",
+  "file": "Game.Server/Packets/Client/SceneChangeChannel.cs",
+  "reads": [
+   "Byte"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 6
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 25,
+  "symbol": "ePackageType.BAG_LOCKED",
+  "names": [
+   "BAG_LOCKED"
+  ],
+  "desc": "二级密码",
+  "class": "PassWordTwoHandle",
+  "file": "Game.Server/Packets/Client/PassWordTwoHandle.cs",
+  "reads": [
+   "String passwordTwo",
+   "String passwordTwoNew",
+   "Int type",
+   "String passwordQuestion1",
+   "String passwordAnswer1",
+   "String passwordQuestion2",
+   "String passwordAnswer2"
+  ],
+  "bussiness": [
+   "PlayerBussiness.UpdatePasswordTwo",
+   "PlayerBussiness.UpdatePasswordInfo",
+   "PlayerBussiness.GetPasswordInfo"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "25=ePackageType.BAG_LOCKED"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 226
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 26,
+  "symbol": null,
+  "names": [
+   "LOTTERY_OPEN_BOX"
+  ],
+  "desc": "打开物品",
+  "class": "LotteryOpenBoxHandler",
+  "file": "Game.Server/Packets/Client/LotteryOpenBoxHandler.cs",
+  "reads": [
+   "Byte bageType",
+   "Int slot",
+   "Int num"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "ItemBoxMgr.CreateItemBox",
+   "LanguageMgr.GetTranslation",
+   "ItemBoxMgr.FindLotteryItemBoxByRand"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendTCP"
+  ],
+  "packets": [
+   "245",
+   "29"
+  ],
+  "player": [
+   "GetInventory",
+   "GetItemByTemplateID",
+   "AddGold",
+   "AddGiftToken",
+   "UsePayBuff",
+   "RemoveTemplate",
+   "AddBadLuckCaddy",
+   "OnUsingItem"
+  ],
+  "lang": [
+   "OpenUpArkHandler.Gold",
+   "OpenUpArkHandler.GiftToken"
+  ],
+  "lines": 136
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 27,
+  "symbol": null,
+  "names": [
+   "LOTTERY_RANDOM_SELECT"
+  ],
+  "desc": "打开物品",
+  "class": "LotteryRandomSelectHandler",
+  "file": "Game.Server/Packets/Client/LotteryRandomSelectHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "ItemBoxMgr.CreateItemBox"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [
+   "30"
+  ],
+  "player": [
+   "SendMessage",
+   "SendTCP",
+   "RemoveLotteryItems",
+   "RemoveTemplate",
+   "AddLog"
+  ],
+  "lang": [],
+  "lines": 65
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 28,
+  "symbol": null,
+  "names": [
+   "LOTTERY_FINISH"
+  ],
+  "desc": "打开物品",
+  "class": "LotteryFinishBoxHandler",
+  "file": "Game.Server/Packets/Client/LotteryFinishBoxHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "AddItem",
+   "SendItemsToMail",
+   "SendMessage",
+   "ResetLottery"
+  ],
+  "lang": [],
+  "lines": 44
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 30,
+  "symbol": null,
+  "names": [
+   "PICC",
+   "LOTTERY_GET_ITEM"
+  ],
+  "desc": "打开物品",
+  "class": "LotteryGetItem",
+  "file": "Game.Server/Packets/Client/LotteryGetItem.cs",
+  "reads": [
+   "Byte num",
+   "Int"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 13
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 34,
+  "symbol": null,
+  "names": [
+   "USER_RANK"
+  ],
+  "desc": "场景用户离开",
+  "class": "ChangeDesignationHandler",
+  "file": "Game.Server/Packets/Client/ChangeDesignationHandler.cs",
+  "reads": [
+   "Boolean isShowConsortia"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 7
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 35,
+  "symbol": "ePackageType.AC_ACTION",
+  "names": [
+   "AC_ACTION"
+  ],
+  "desc": "user ac action",
+  "class": "ACActionHandler",
+  "file": "Game.Server/Packets/Client/ACActionHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 5
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 36,
+  "symbol": null,
+  "names": [
+   "SYNCH_ACTION"
+  ],
+  "desc": "用户同步动作",
+  "class": "UserSynchActionHandler",
+  "file": "Game.Server/Packets/Client/UserSynchActionHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "WorldMgr.GetPlayerById"
+  ],
+  "center": [],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 12
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 37,
+  "symbol": null,
+  "names": [
+   "CHAT_PERSONAL"
+  ],
+  "desc": "用户与用户之间的聊天",
+  "class": "UserPrivateChatHandler",
+  "file": "Game.Server/Packets/Client/UserPrivateChatHandler.cs",
+  "reads": [
+   "Int num",
+   "String text",
+   "String",
+   "String str",
+   "Boolean val"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetUserSingleByNickName"
+  ],
+  "mgr": [
+   "WorldMgr.GetPlayerById",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [
+   "SendPacket"
+  ],
+  "out": [
+   "SendTCP",
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [
+   "UserPrivateChatHandler.NoUser"
+  ],
+  "lines": 48
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 42,
+  "symbol": null,
+  "names": [
+   "LEAGUE_START_NOTICE",
+   "DELETE_GOODS"
+  ],
+  "desc": "删除物品",
+  "class": "UserDeleteItemHandler",
+  "file": "Game.Server/Packets/Client/UserDeleteItemHandler.cs",
+  "reads": [
+   "Byte",
+   "Int"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [
+   "Bag.Locked"
+  ],
+  "lines": 12
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 44,
+  "symbol": "ePackageType.BUY_GOODS",
+  "names": [
+   "BUY_GOODS"
+  ],
+  "desc": "购买物品",
+  "class": "UserBuyItemHandler",
+  "file": "Game.Server/Packets/Client/UserBuyItemHandler.cs",
+  "reads": [
+   "Int count",
+   "Int GoodsID",
+   "Int type",
+   "String color",
+   "Boolean dress",
+   "String skin",
+   "Int place"
+  ],
+  "bussiness": [
+   "PlayerBussiness.AddGoods",
+   "PlayerBussiness.SendMail"
+  ],
+  "mgr": [
+   "LogManager.GetLogger",
+   "ConsortiaMgr.FindConsortiaInfo",
+   "ShopMgr.GetShopItemInfoById",
+   "ShopMgr.IsOnShop",
+   "ShopMgr.CanBuy",
+   "WorldMgr.UpdateShopFreeCount",
+   "LanguageMgr.GetTranslation",
+   "WorldMgr.GetAllShopFreeCount",
+   "ItemMgr.FindItemTemplate"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendShopGoodsCountUpdate",
+   "SendMailResponse"
+  ],
+  "packets": [
+   "44=ePackageType.BUY_GOODS"
+  ],
+  "player": [
+   "GetTemplateCount",
+   "RemoveMoney",
+   "RemoveGold",
+   "RemoveOffer",
+   "RemoveGiftToken",
+   "RemovePetScore",
+   "RemoveScore",
+   "RemoveDamageScores",
+   "RemoveTemplateInShop",
+   "UpdateProperties",
+   "AddTemplate",
+   "OnPaid",
+   "AddLog",
+   "SendTCP",
+   "SendMessage"
+  ],
+  "lang": [
+   "UserBuyItemHandler.FailByPermission2",
+   "UserBuyItemHandler.FailByPermission",
+   "Bag.Locked",
+   "GoodsPresentHandler.AnnexRemark",
+   "UserBuyItemHandler.Title"
+  ],
+  "lines": 362
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 45,
+  "symbol": null,
+  "names": [
+   "CADDY_GET_BADLUCK"
+  ],
+  "desc": "打开物品",
+  "class": "RequestBadLuckHandler",
+  "file": "Game.Server/Packets/Client/RequestBadLuckHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [
+   "45"
+  ],
+  "player": [
+   "SendTCP"
+  ],
+  "lang": [],
+  "lines": 20
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 46,
+  "symbol": null,
+  "names": [
+   "UPDATE_COUPONS",
+   "BUY_GIFTBAG"
+  ],
+  "desc": "物品强化",
+  "class": "BuyGiftBagHandler",
+  "file": "Game.Server/Packets/Client/BuyGiftBagHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "ItemMgr.FindItemTemplate"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "SendMessage",
+   "RemoveMoney",
+   "ClearStoreBagWithOutPlace"
+  ],
+  "lang": [],
+  "lines": 41
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 47,
+  "symbol": null,
+  "names": [
+   "SYSTEM_LUCKYNUM",
+   "UNCHAIN_EQUIP"
+  ],
+  "desc": "解除物品",
+  "class": "UserUnchainItemHandler",
+  "file": "Game.Server/Packets/Client/UserUnchainItemHandler.cs",
+  "reads": [
+   "Int fromSlot"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 11
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 49,
+  "symbol": "ePackageType.CHANGE_PLACE_GOODS",
+  "names": [
+   "CHANGE_PLACE_GOODS"
+  ],
+  "desc": "改变物品位置",
+  "class": "UserChangeItemPlaceHandler",
+  "file": "Game.Server/Packets/Client/UserChangeItemPlaceHandler.cs",
+  "reads": [
+   "Byte(eBageType) bagType",
+   "Int place",
+   "Byte(eBageType) toBagType",
+   "Int toPlace",
+   "Int count",
+   "Boolean allMove"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LogManager.GetLogger",
+   "ConsortiaMgr.FindConsortiaInfo",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendMailResponse"
+  ],
+  "packets": [],
+  "player": [
+   "GetInventory",
+   "OnNewGearEvent",
+   "SendItemToMail",
+   "GetItemInventory"
+  ],
+  "lang": [
+   "UserChangeItemPlaceHandler.full"
+  ],
+  "lines": 383
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 53,
+  "symbol": null,
+  "names": [
+   "REPAIR_GOODS",
+   "GET_TIME_BOX"
+  ],
+  "desc": "获取箱子",
+  "class": "UserGetBoxHandler",
+  "file": "Game.Server/Packets/Client/UserGetBoxHandler.cs",
+  "reads": [
+   "Int num",
+   "Int num2",
+   "Int num4"
+  ],
+  "bussiness": [
+   "PlayerBussiness.UpdateBoxProgression"
+  ],
+  "mgr": [
+   "UserBoxMgr.FindTemplateByCondition",
+   "ItemBoxMgr.CreateItemBox",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendMailResponse"
+  ],
+  "packets": [],
+  "player": [
+   "AddGold",
+   "AddMoney",
+   "AddGiftToken",
+   "AddGP",
+   "AddHonor",
+   "AddItem",
+   "SendItemsToMail",
+   "SendTCP"
+  ],
+  "lang": [
+   "UserGetTimeBoxHandler.level",
+   "UserGetTimeBoxHandler.over",
+   "UserGetTimeBoxHandler.mail",
+   "UserGetTimeBoxHandler.title",
+   "UserGetTimeBixHandler.full",
+   "UserGetTimeBoxHandler.fail"
+  ],
+  "lines": 143
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 54,
+  "symbol": null,
+  "names": [
+   "PROP_BUY"
+  ],
+  "desc": "购买道具",
+  "class": "PropBuyHandler",
+  "file": "Game.Server/Packets/Client/PropBuyHandler.cs",
+  "reads": [
+   "Int iD"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "ShopMgr.GetShopItemInfoById",
+   "ItemMgr.FindItemTemplate",
+   "ShopMgr.SetItemType",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [
+   "RemoveGold",
+   "RemoveMoney",
+   "RemoveOffer",
+   "RemoveGiftToken",
+   "RemoveMedal",
+   "RemovemyHonor"
+  ],
+  "lang": [
+   "Bag.Locked",
+   "PropBuyHandler.NoMoney"
+  ],
+  "lines": 85
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 55,
+  "symbol": null,
+  "names": [
+   "PROP_SELL"
+  ],
+  "desc": "出售道具",
+  "class": "PropSellHandler",
+  "file": "Game.Server/Packets/Client/PropSellHandler.cs",
+  "reads": [
+   "Int slot",
+   "Int iD"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "ShopMgr.SetItemType",
+   "ShopMgr.GetShopItemInfoById"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "AddGold"
+  ],
+  "lang": [],
+  "lines": 27
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 57,
+  "symbol": null,
+  "names": [
+   "GOODS_PRESENT"
+  ],
+  "desc": "购买物品",
+  "class": "UserPresentGoodsHandler",
+  "file": "Game.Server/Packets/Client/UserPresentGoodsHandler.cs",
+  "reads": [
+   "String",
+   "String",
+   "Int"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "SendMessage"
+  ],
+  "lang": [],
+  "lines": 10
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 58,
+  "symbol": "ePackageType.ITEM_COMPOSE",
+  "names": [
+   "ITEM_COMPOSE"
+  ],
+  "desc": "物品合成",
+  "class": "ItemComposeHandler",
+  "file": "Game.Server/Packets/Client/ItemComposeHandler.cs",
+  "reads": [
+   "Boolean consortia"
+  ],
+  "bussiness": [
+   "ItemRecordBussiness.PropertyString",
+   "ConsortiaBussiness.GetConsortiaEuqipRiches"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "ConsortiaMgr.FindConsortiaInfo"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendTCP"
+  ],
+  "packets": [
+   "58=ePackageType.ITEM_COMPOSE"
+  ],
+  "player": [
+   "OnItemCompose",
+   "RemoveItem",
+   "RemoveGold"
+  ],
+  "lang": [
+   "Bag.Locked",
+   "ItemComposeHandler.NoMoney",
+   "ItemComposeHandler.Msg",
+   "ItemStrengthenHandler.Fail",
+   "ItemStrengthenHandler.FailbyPermission",
+   "ItemComposeHandler.NoLevel",
+   "ItemComposeHandler.Fail"
+  ],
+  "lines": 221
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 59,
+  "symbol": "ePackageType.ITEM_STRENGTHEN",
+  "names": [
+   "ITEM_STRENGTHEN"
+  ],
+  "desc": "物品强化",
+  "class": "ItemStrengthenHandler",
+  "file": "Game.Server/Packets/Client/ItemStrengthenHandler.cs",
+  "reads": [
+   "Boolean isconsortia"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.GetConsortiaEuqipRiches"
+  ],
+  "mgr": [
+   "StrengthenMgr.GetNeedRate",
+   "ConsortiaMgr.FindConsortiaInfo",
+   "LanguageMgr.GetTranslation",
+   "StrengthenMgr.FindStrengthenGoodsInfo",
+   "ItemMgr.FindItemTemplate",
+   "WorldMgr.SendSysNotice",
+   "StrengthenMgr.FindRealStrengthenGoodInfo"
+  ],
+  "center": [
+   "SendPacket"
+  ],
+  "out": [
+   "SendMessage",
+   "SendTCP"
+  ],
+  "packets": [],
+  "player": [
+   "OnItemStrengthen",
+   "SaveIntoDatabase"
+  ],
+  "lang": [
+   "ItemStrengthenHandler.Fail",
+   "ItemStrengthenHandler.FailbyPermission",
+   "ItemStrengthenHandler.congratulation",
+   "ItemStrengthenHandler.Content1",
+   "ItemStrengthenHandler.Content2",
+   "ItemStrengthenHandler.Success"
+  ],
+  "lines": 189
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 60,
+  "symbol": null,
+  "names": [
+   "ITEM_HIDE"
+  ],
+  "desc": "隐藏装备",
+  "class": "UserHideItemHandler",
+  "file": "Game.Server/Packets/Client/UserHideItemHandler.cs",
+  "reads": [
+   "Boolean hide",
+   "Int num"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 17
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 61,
+  "symbol": "ePackageType.ITEM_TRANSFER",
+  "names": [
+   "ITEM_TRANSFER"
+  ],
+  "desc": "物品转移",
+  "class": "ItemTransferHandler",
+  "file": "Game.Server/Packets/Client/ItemTransferHandler.cs",
+  "reads": [
+   "Boolean _moveHole",
+   "Boolean _moveFivSixHole"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "StrengthenMgr.InheritTransferProperty",
+   "ItemMgr.FindItemTemplate",
+   "GoldEquipMgr.FindGoldEquipByTemplate",
+   "StrengthenMgr.FindTransferInfo",
+   "GoldEquipMgr.FindGoldEquipOldTemplate"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [
+   "61=ePackageType.ITEM_TRANSFER"
+  ],
+  "player": [
+   "RemoveGold"
+  ],
+  "lang": [
+   "ItemTransferHandler.NoGold",
+   "itemtransferhandler.nocondition"
+  ],
+  "lines": 191
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 62,
+  "symbol": null,
+  "names": [
+   "ITEM_CONTINUE"
+  ],
+  "desc": "续费",
+  "class": "UserItemContineueHandler",
+  "file": "Game.Server/Packets/Client/UserItemContineueHandler.cs",
+  "reads": [
+   "Int num",
+   "Byte(eBageType) eBageType",
+   "Int num3",
+   "Int iD",
+   "Byte num4",
+   "Boolean"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "ShopMgr.GetShopItemInfoById"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [
+   "SendMessage",
+   "GetItemAt",
+   "GetItemCount",
+   "RemoveMoney",
+   "RemoveGold",
+   "RemoveOffer",
+   "RemoveGiftToken",
+   "RemovePetScore",
+   "RemoveScore",
+   "RemoveTemplate",
+   "AddLog"
+  ],
+  "lang": [
+   "Bag.Locked",
+   "UserItemContineueHandler.Success",
+   "UserItemContineueHandler.NoMoney"
+  ],
+  "lines": 138
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 63,
+  "symbol": null,
+  "names": [
+   "ITEM_OPENUP"
+  ],
+  "desc": "打开物品",
+  "class": "OpenUpArkHandler",
+  "file": "Game.Server/Packets/Client/OpenUpArkHandler.cs",
+  "reads": [
+   "Byte bageType",
+   "Int slot",
+   "Int num"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LogManager.GetLogger",
+   "LanguageMgr.GetTranslation",
+   "ItemBoxMgr.CreateItemBox",
+   "WorldMgr.SendSysNotice"
+  ],
+  "center": [
+   "SendPacket"
+  ],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [
+   "63"
+  ],
+  "player": [
+   "GetInventory",
+   "AddMoney",
+   "AddGold",
+   "AddGiftToken",
+   "AddMedal",
+   "AddHonor",
+   "AddOffer",
+   "AddGP",
+   "AddHardCurrency",
+   "AddLeagueMoney",
+   "AddTemplate",
+   "SendTCP"
+  ],
+  "lang": [
+   "OpenUpArkHandler.Start",
+   "OpenUpArkHandler.Money",
+   "OpenUpArkHandler.Gold",
+   "OpenUpArkHandler.GiftToken",
+   "OpenUpArkHandler.Medal",
+   "OpenUpArkHandler.honor",
+   "OpenUpArkHandler.Exp",
+   "OpenUpArkHandler.hardCurrency",
+   "OpenUpArkHandler.leagueMoney",
+   "OpenUpArkHandler.useableScore",
+   "OpenUpArkHandler.prestge"
+  ],
+  "lines": 224
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 64,
+  "symbol": null,
+  "names": [
+   "OPTION_UPDATE",
+   "GRID_GOODS"
+  ],
+  "desc": "场景用户离开",
+  "class": "OptionHandler",
+  "file": "Game.Server/Packets/Client/OptionHandler.cs",
+  "reads": [
+   "Int"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 6
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 66,
+  "symbol": "ePackageType.PROP_USE",
+  "names": [
+   "PROP_USE",
+   "EQUIP_CHANGE"
+  ],
+  "desc": "场景用户离开",
+  "class": "PropUseHandler",
+  "file": "Game.Server/Packets/Client/PropUseHandler.cs",
+  "reads": [
+   "Int(eBageType) bagType",
+   "Int place",
+   "Int count",
+   "Int templateid",
+   "Int payType",
+   "Boolean unk"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "GetInventory",
+   "SendMessage",
+   "AddGiftToken"
+  ],
+  "lang": [
+   "PropUseHandler.ChickActivation.Success",
+   "PropUseHandler.ChickActivation.Fail",
+   "PropUseHandler.GiftToken"
+  ],
+  "lines": 46
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 68,
+  "symbol": null,
+  "names": [
+   "PET"
+  ],
+  "desc": "添加好友",
+  "class": "PetHandler",
+  "file": "Game.Server/Packets/Client/PetHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "SendMessage"
+  ],
+  "lang": [
+   "PetHandler.Msg23"
+  ],
+  "lines": 22
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 69,
+  "symbol": null,
+  "names": [
+   "SCENE_USERS_LIST"
+  ],
+  "desc": "用户列表",
+  "class": "SceneUsersListHandler",
+  "file": "Game.Server/Packets/Client/SceneUsersListHandler.cs",
+  "reads": [
+   "Byte b",
+   "Byte b2"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "WorldMgr.GetAllPlayersNoGame"
+  ],
+  "center": [],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 32
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 70,
+  "symbol": null,
+  "names": [
+   "GAME_INVITE"
+  ],
+  "desc": "邀请",
+  "class": "GameInviteHandler",
+  "file": "Game.Server/Packets/Client/GameInviteHandler.cs",
+  "reads": [
+   "Int"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "WorldMgr.GetPlayerById",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendTCP"
+  ],
+  "packets": [
+   "70"
+  ],
+  "player": [],
+  "lang": [
+   "friendnotinthesameserver.Sameroom",
+   "friendnotinthesameserver.Room",
+   "friendnotinthesameserver.Fail"
+  ],
+  "lines": 62
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 71,
+  "symbol": null,
+  "names": [
+   "S_BUGLE"
+  ],
+  "desc": "小喇叭",
+  "class": "SmallBugleHandler",
+  "file": "Game.Server/Packets/Client/SmallBugleHandler.cs",
+  "reads": [
+   "Int",
+   "String",
+   "String str"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "WorldMgr.GetAllPlayers"
+  ],
+  "center": [
+   "SendPacket"
+  ],
+  "out": [
+   "SendMessage",
+   "SendTCP"
+  ],
+  "packets": [
+   "71"
+  ],
+  "player": [
+   "OnUsingItem"
+  ],
+  "lang": [
+   "SmallBugleHandler.Msg"
+  ],
+  "lines": 32
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 72,
+  "symbol": null,
+  "names": [
+   "B_BUGLE"
+  ],
+  "desc": "大喇叭",
+  "class": "BigBugleHandler",
+  "file": "Game.Server/Packets/Client/BigBugleHandler.cs",
+  "reads": [
+   "Int num",
+   "Int",
+   "String",
+   "String str",
+   "String",
+   "String str2"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "WorldMgr.GetAllPlayers"
+  ],
+  "center": [
+   "SendPacket"
+  ],
+  "out": [
+   "SendMessage",
+   "SendTCP"
+  ],
+  "packets": [
+   "72"
+  ],
+  "player": [
+   "OnUsingItem"
+  ],
+  "lang": [
+   "BigBugleHandler.Msg"
+  ],
+  "lines": 55
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 73,
+  "symbol": null,
+  "names": [
+   "C_BUGLE",
+   "ITEM_OBTAIN"
+  ],
+  "desc": "大喇叭",
+  "class": "CBugleHandler",
+  "file": "Game.Server/Packets/Client/CBugleHandler.cs",
+  "reads": [
+   "Int clientId",
+   "String",
+   "String str"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "WorldMgr.GetAllPlayers"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendTCP"
+  ],
+  "packets": [
+   "73"
+  ],
+  "player": [],
+  "lang": [
+   "GoSlow"
+  ],
+  "lines": 48
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 74,
+  "symbol": null,
+  "names": [
+   "ITEM_EQUIP"
+  ],
+  "desc": "获取用户装备",
+  "class": "UserEquipListHandler",
+  "file": "Game.Server/Packets/Client/UserEquipListHandler.cs",
+  "reads": [
+   "Boolean flag",
+   "String nickName",
+   "Int num"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetUserSingleByUserID",
+   "PlayerBussiness.GetUserSingleByNickName",
+   "PlayerBussiness.GetUserTexpInfoSingle",
+   "PlayerBussiness.GetUserEuqip",
+   "PlayerBussiness.GetSingleGemStones"
+  ],
+  "mgr": [
+   "WorldMgr.GetClientByPlayerNickName",
+   "WorldMgr.GetPlayerById"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendUserEquip"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 60
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 75,
+  "symbol": null,
+  "names": [
+   "EDICTUM_GET_SERVION"
+  ],
+  "desc": "删除道具",
+  "class": "PropDeleteHandler",
+  "file": "Game.Server/Packets/Client/PropDeleteHandler.cs",
+  "reads": [
+   "Int place"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 7
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 77,
+  "symbol": "ePackageType.ITEM_OVERDUE",
+  "names": [
+   "ITEM_OVERDUE"
+  ],
+  "desc": "物品过期",
+  "class": "ItemOverdueHandler",
+  "file": "Game.Server/Packets/Client/ItemOverdueHandler.cs",
+  "reads": [
+   "Byte bagType",
+   "Int place"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMailResponse"
+  ],
+  "packets": [],
+  "player": [
+   "GetInventory",
+   "SendItemToMail"
+  ],
+  "lang": [
+   "ItemOverdueHandler.Content",
+   "ItemOverdueHandler.Title"
+  ],
+  "lines": 40
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 78,
+  "symbol": "ePackageType.ITEM_FUSION",
+  "names": [
+   "ITEM_FUSION"
+  ],
+  "desc": "熔化",
+  "class": "ItemFusionHandler",
+  "file": "Game.Server/Packets/Client/ItemFusionHandler.cs",
+  "reads": [
+   "Byte opertionType"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "FusionMgr.Fusion",
+   "FusionMgr.FusionPreview",
+   "WorldMgr.SendSysNotice"
+  ],
+  "center": [
+   "SendPacket"
+  ],
+  "out": [
+   "SendMessage",
+   "SendFusionPreview",
+   "SendFusionResult"
+  ],
+  "packets": [],
+  "player": [
+   "AddItem",
+   "SendItemsToMail",
+   "RemoveGold",
+   "UpdateItem",
+   "OnItemFusion",
+   "SaveNewItems",
+   "AddLog",
+   "SaveIntoDatabase"
+  ],
+  "lang": [
+   "Bag.Locked",
+   "Tồn tại vật phẩm không cùng loại!",
+   "ItemFusionHandler.ItemNotEnough",
+   "ItemFusionHandler.NoMoney",
+   "ItemFusionHandler.Succeed1",
+   "ItemFusionHandler.Notice",
+   "ItemFusionHandler.NoPlace",
+   "GameServer.Fustion.msg2",
+   "GameServer.Fustion.Msg3",
+   "ItemFusionHandler.Failed",
+   "ItemFusionHandler.NoCondition"
+  ],
+  "lines": 160
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 79,
+  "symbol": "ePackageType.ITEM_STORE",
+  "names": [
+   "ITEM_STORE"
+  ],
+  "desc": "储存物品",
+  "class": "StoreItemHandler",
+  "file": "Game.Server/Packets/Client/StoreItemHandler.cs",
+  "reads": [
+   "Byte bagType",
+   "Int bagPlace"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "ConsortiaMgr.FindConsortiaInfo"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "GetInventory"
+  ],
+  "lang": [],
+  "lines": 21
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 81,
+  "symbol": null,
+  "names": [
+   "FARM"
+  ],
+  "desc": "游戏创建",
+  "class": "FarmHandler",
+  "file": "Game.Server/Packets/Client/FarmHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 9
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 82,
+  "symbol": null,
+  "names": [],
+  "desc": "游戏开始",
+  "class": "GameUserStartHandler",
+  "file": "Game.Server/Packets/Client/GameUserStartHandler.cs",
+  "reads": [
+   "Boolean flag"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "RoomMgr.StartGameMission"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 11
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 84,
+  "symbol": "ePackageType.ACTIVITY_PACKAGE",
+  "names": [
+   "ACTIVITY_PACKAGE"
+  ],
+  "desc": "场景用户离开",
+  "class": "ActivityPackageHandler",
+  "file": "Game.Server/Packets/Client/ActivityPackageHandler.cs",
+  "reads": [
+   "Int cmd",
+   "Int type",
+   "String codeEnter",
+   "Int AwardType",
+   "Int AwardIndex"
+  ],
+  "bussiness": [
+   "PlayerBussiness.ActiveChickCode"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "ActiveMgr.FindChickActivePakage",
+   "ItemMgr.FindItemTemplate",
+   "WorldEventMgr.SendItemsToMails"
+  ],
+  "center": [],
+  "out": [
+   "SendMailResponse",
+   "SendMessage"
+  ],
+  "packets": [
+   "84=ePackageType.ACTIVITY_PACKAGE"
+  ],
+  "player": [
+   "SendTCP",
+   "SendMessage"
+  ],
+  "lang": [
+   "ActivityPackageHandler.ChickActivation.Success",
+   "ActivityPackageHandler.ChickActivation.NotExit",
+   "ActivityPackageHandler.ChickActivation.IsUsed",
+   "ActivityPackageHandler.ChickActivation.DaylyAward.Title",
+   "ActivityPackageHandler.ChickActivation.DaylyAward.Msg",
+   "ActivityPackageHandler.ChickActivation.WeekenAward.Title",
+   "ActivityPackageHandler.ChickActivation.WeekenAward.Msg",
+   "ActivityPackageHandler.ChickActivation.WeeklyAward.Title",
+   "ActivityPackageHandler.ChickActivation.WeeklyAward.Msg",
+   "ActivityPackageHandler.ChickActivation.LevelAward.Title",
+   "ActivityPackageHandler.ChickActivation.LevelAward.Msg",
+   "ActivityPackageHandler.ChickActivation.NotFoundAward",
+   "ActivityPackageHandler.ChickActivation.NotActive"
+  ],
+  "lines": 571
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 85,
+  "symbol": null,
+  "names": [
+   "MATE_ONLINE_TIME"
+  ],
+  "desc": "场景用户离开",
+  "class": "MateTimeHandler",
+  "file": "Game.Server/Packets/Client/MateTimeHandler.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetUserSingleByUserID"
+  ],
+  "mgr": [
+   "WorldMgr.GetPlayerById"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [
+   "85"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 27
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 86,
+  "symbol": null,
+  "names": [],
+  "desc": "任务完成",
+  "class": "QuestOneKeyFinishHandler",
+  "file": "Game.Server/Packets/Client/QuestOneKeyFinishHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "RoomMgr.StartGame"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "SendMessage"
+  ],
+  "lang": [
+   "Game.Server.SceneGames.NoEquip"
+  ],
+  "lines": 17
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 87,
+  "symbol": "ePackageType.NEWCHICKENBOX_SYS",
+  "names": [
+   "NEWCHICKENBOX_SYS"
+  ],
+  "desc": "客户端日记",
+  "class": "ChickenBoxHandler",
+  "file": "Game.Server/Packets/Client/ChickenBoxHandler.cs",
+  "reads": [
+   "Int cmd",
+   "Int position",
+   "Int position"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "ItemMgr.FindItemTemplate"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendTCP",
+   "SendAcademySystemNotice"
+  ],
+  "packets": [
+   "87=ePackageType.NEWCHICKENBOX_SYS"
+  ],
+  "player": [
+   "AddTemplate",
+   "SendMessage",
+   "SendTCP",
+   "RemoveMoney",
+   "SavePlayerInfo",
+   "GetInventory"
+  ],
+  "lang": [
+   "Bag.Locked",
+   "ChickenBoxHandler.Msg7",
+   "ChickenBoxHandler.Msg8",
+   "ChickenBoxHandler.Msg1",
+   "ChickenBoxHandler.Msg9",
+   "ChickenBoxHandler.Msg2",
+   "ChickenBoxHandler.Msg3",
+   "ChickenBoxHandler.Msg4",
+   "ChickenBoxHandler.Msg5",
+   "ChickenBoxHandler.Msg6",
+   "ChickenBoxHandler.Msg10"
+  ],
+  "lines": 238
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 90,
+  "symbol": null,
+  "names": [
+   "GET_SIGNAWARD"
+  ],
+  "desc": "场景用户离开",
+  "class": "SignAwardHandler",
+  "file": "Game.Server/Packets/Client/SignAwardHandler.cs",
+  "reads": [
+   "Int dailyLog"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "AwardMgr.AddSignAwards"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 11
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 91,
+  "symbol": "ePackageType.GAME_CMD",
+  "names": [
+   "GAME_CMD"
+  ],
+  "desc": "游戏数据",
+  "class": "GameDataHandler",
+  "file": "Game.Server/Packets/Client/GameDataHandler.cs",
+  "reads": [
+   "Byte pkg",
+   "Byte num"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [
+   "91"
+  ],
+  "player": [
+   "SendTCP"
+  ],
+  "lang": [],
+  "lines": 50
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 92,
+  "symbol": null,
+  "names": [
+   "VIP_RENEWAL"
+  ],
+  "desc": "场景用户离开",
+  "class": "OpenVipHandler",
+  "file": "Game.Server/Packets/Client/OpenVipHandler.cs",
+  "reads": [
+   "String nickname",
+   "Int renewval_days"
+  ],
+  "bussiness": [
+   "PlayerBussiness.VIPRenewal"
+  ],
+  "mgr": [
+   "ShopMgr.FindShopbyTemplateID",
+   "WorldMgr.GetClientByPlayerNickName"
+  ],
+  "center": [],
+  "out": [
+   "SendOpenVIP",
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [
+   "SetTypeVIP",
+   "SendMessage",
+   "AddExpVip",
+   "GetVIPNextLevelDaysNeeded"
+  ],
+  "lang": [],
+  "lines": 106
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 94,
+  "symbol": null,
+  "names": [
+   "GAME_ROOM"
+  ],
+  "desc": "游戏创建",
+  "class": "GameRoomHandler",
+  "file": "Game.Server/Packets/Client/GameRoomHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 9
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 95,
+  "symbol": "ePackageType.NECKLACE_STRENGTH",
+  "names": [
+   "NECKLACE_STRENGTH"
+  ],
+  "desc": "客户端日记",
+  "class": "NecklaceStrengthHandler",
+  "file": "Game.Server/Packets/Client/NecklaceStrengthHandler.cs",
+  "reads": [
+   "Byte type",
+   "Int stonePlace",
+   "Int count"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "StrengthenMgr.GetNecklaceLevelByGP",
+   "StrengthenMgr.GetNecklaceMaxExp",
+   "StrengthenMgr.GetNecklaceExpAdd"
+  ],
+  "center": [],
+  "out": [
+   "SendNecklaceStrength"
+  ],
+  "packets": [],
+  "player": [
+   "RemoveTemplate"
+  ],
+  "lang": [],
+  "lines": 57
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 96,
+  "symbol": "ePackageType.HONOR_UP_COUNT",
+  "names": [
+   "HONOR_UP_COUNT"
+  ],
+  "desc": "场景用户离开",
+  "class": "HonorUpHandler",
+  "file": "Game.Server/Packets/Client/HonorUpHandler.cs",
+  "reads": [
+   "Byte type",
+   "Boolean isBland"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "TotemHonorMgr.FindTotemHonorTemplateInfo"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendUpdateUpCount"
+  ],
+  "packets": [],
+  "player": [
+   "AddHonor",
+   "AddMaxHonor"
+  ],
+  "lang": [
+   "Bag.Locked"
+  ],
+  "lines": 43
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 99,
+  "symbol": null,
+  "names": [
+   "TEXP",
+   "QQTIPS_GET_INFO"
+  ],
+  "desc": "场景用户离开",
+  "class": "TexpHandler",
+  "file": "Game.Server/Packets/Client/TexpHandler.cs",
+  "reads": [
+   "Int selectIndex",
+   "Int templateID",
+   "Int m_place"
+  ],
+  "bussiness": [
+   "PlayerBussiness.UpdateUserTexpInfo"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [
+   "UsePayBuff",
+   "OnUsingItem"
+  ],
+  "lang": [
+   "texpSystem.texpCountToplimit"
+  ],
+  "lines": 89
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 102,
+  "symbol": "ePackageType.WORLDBOSS_CMD",
+  "names": [
+   "WORLDBOSS_CMD"
+  ],
+  "desc": "场景用户离开",
+  "class": "WorldBossHandler",
+  "file": "Game.Server/Packets/Client/WorldBossHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 6
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 103,
+  "symbol": null,
+  "names": [
+   "DAILYRECORD"
+  ],
+  "desc": "DailyRecord",
+  "class": "DailyRecordHandler",
+  "file": "Game.Server/Packets/Client/DailyRecordHandler.cs",
+  "reads": [],
+  "bussiness": [
+   "PlayerBussiness.GetDailyRecord",
+   "PlayerBussiness.DeleteDailyRecord"
+  ],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "103"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 27
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 106,
+  "symbol": "ePackageType.WISHBEADEQUIP",
+  "names": [
+   "WISHBEADEQUIP",
+   "GAME_TAKE_OUT"
+  ],
+  "desc": "场景用户离开",
+  "class": "WishBeadEquipHandler",
+  "file": "Game.Server/Packets/Client/WishBeadEquipHandler.cs",
+  "reads": [
+   "Int Place",
+   "Int BagType",
+   "Int templateID",
+   "Int PlaceBead",
+   "Int BagTypeBead",
+   "Int BeadId"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "GoldEquipMgr.FindGoldEquipByTemplate",
+   "ItemMgr.FindItemTemplate",
+   "WorldMgr.SendSysNotice"
+  ],
+  "center": [
+   "SendPacket"
+  ],
+  "out": [
+   "SendMessage",
+   "SendTCP"
+  ],
+  "packets": [
+   "106=ePackageType.WISHBEADEQUIP"
+  ],
+  "player": [
+   "GetInventory",
+   "UpdateItem",
+   "SaveIntoDatabase"
+  ],
+  "lang": [
+   "WishBeadEquipHandler.Msg1",
+   "WishBeadEquipHandler.Msg2"
+  ],
+  "lines": 108
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 108,
+  "symbol": null,
+  "names": [
+   "GAME_TAKE_TEMP"
+  ],
+  "desc": "选取",
+  "class": "GameTakeTempItemsHandler",
+  "file": "Game.Server/Packets/Client/GameTakeTempItemsHandler.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [
+   "GetItemInventory",
+   "SendItemsToMail"
+  ],
+  "lang": [
+   "GameTakeTempItemsHandler.Msg"
+  ],
+  "lines": 59
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 112,
+  "symbol": "ePackageType.DELETE_MAIL",
+  "names": [
+   "DELETE_MAIL"
+  ],
+  "desc": "删除邮件",
+  "class": "UserDeleteMailHandler",
+  "file": "Game.Server/Packets/Client/UserDeleteMailHandler.cs",
+  "reads": [
+   "Int id"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetUserItemSingle",
+   "PlayerBussiness.GetMailSingle",
+   "PlayerBussiness.DeleteMail"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendMailResponse",
+   "SendTCP"
+  ],
+  "packets": [
+   "112=ePackageType.DELETE_MAIL"
+  ],
+  "player": [],
+  "lang": [
+   "Bag.Locked"
+  ],
+  "lines": 59
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 113,
+  "symbol": "ePackageType.GET_MAIL_ATTACHMENT",
+  "names": [
+   "GET_MAIL_ATTACHMENT"
+  ],
+  "desc": "获取邮件到背包",
+  "class": "MailGetAttachHandler",
+  "file": "Game.Server/Packets/Client/MailGetAttachHandler.cs",
+  "reads": [
+   "Int id",
+   "Byte type"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetUserItemSingle",
+   "PlayerBussiness.GetMailSingle",
+   "PlayerBussiness.UpdateMail"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "WorldMgr.GetPlayerById"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendMailResponse",
+   "SendTCP"
+  ],
+  "packets": [
+   "113=ePackageType.GET_MAIL_ATTACHMENT"
+  ],
+  "player": [
+   "AddTemplate",
+   "AddMoney",
+   "AddGold",
+   "AddGiftToken"
+  ],
+  "lang": [
+   "Bag.Locked",
+   "MailGetAttachHandler.Deduct",
+   "MailGetAttachHandler.Success",
+   "MailGetAttachHandler.Falied"
+  ],
+  "lines": 146
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 114,
+  "symbol": null,
+  "names": [
+   "UPDATE_MAIL"
+  ],
+  "desc": "修改邮件的已读未读标志",
+  "class": "UserUpdateMailHandler",
+  "file": "Game.Server/Packets/Client/UserUpdateMailHandler.cs",
+  "reads": [
+   "Int mailID"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetMailSingle",
+   "PlayerBussiness.UpdateMail"
+  ],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "114"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 27
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 116,
+  "symbol": "ePackageType.SEND_MAIL",
+  "names": [
+   "SEND_MAIL"
+  ],
+  "desc": "发送邮件",
+  "class": "UserSendMailHandler",
+  "file": "Game.Server/Packets/Client/UserSendMailHandler.cs",
+  "reads": [
+   "String nickName",
+   "String title",
+   "String content",
+   "Boolean isPay",
+   "Int validDate",
+   "Int money",
+   "Byte(eBageType) eBageType",
+   "Int place",
+   "Byte(eBageType) eBageType2",
+   "Int num4",
+   "Byte(eBageType) eBageType3",
+   "Int num5",
+   "Byte(eBageType) eBageType4",
+   "Int num6"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetUserSingleByNickName",
+   "PlayerBussiness.SendMail"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "WorldMgr.GetClientByPlayerNickName"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendTCP",
+   "SendMailResponse"
+  ],
+  "packets": [],
+  "player": [
+   "SaveIntoDatabase",
+   "GetItemAt",
+   "RemoveMoneyNoviceActive",
+   "RemoveGold",
+   "RemoveItem"
+  ],
+  "lang": [
+   "UserSendMailHandler.GoldNotEnought",
+   "UserSendMailHandler.IsLimitMail",
+   "Bag.Locked",
+   "UserSendMailHandler.AnnexRemark",
+   "UserSendMailHandler.PayMoney",
+   "UserSendMailHandler.Money"
+  ],
+  "lines": 228
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 118,
+  "symbol": null,
+  "names": [
+   "MAIL_CANCEL"
+  ],
+  "desc": "取消付款邮件",
+  "class": "MailPaymentCancelHandler",
+  "file": "Game.Server/Packets/Client/MailPaymentCancelHandler.cs",
+  "reads": [
+   "Int mailID"
+  ],
+  "bussiness": [
+   "PlayerBussiness.CancelPaymentMail"
+  ],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendMailResponse",
+   "SendTCP"
+  ],
+  "packets": [
+   "118"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 21
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 119,
+  "symbol": null,
+  "names": [
+   "LINKREQUEST_GOODS"
+  ],
+  "desc": "物品比较",
+  "class": "GetLinkGoodsHandler",
+  "file": "Game.Server/Packets/Client/GetLinkGoodsHandler.cs",
+  "reads": [
+   "Int num",
+   "String",
+   "Int itemID",
+   "String"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetUserItemSingle"
+  ],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "119"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 75
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 119,
+  "symbol": null,
+  "names": [
+   "LINKREQUEST_GOODS"
+  ],
+  "desc": "物品比较",
+  "class": "ItemCompareHandler",
+  "file": "Game.Server/Packets/Client/ItemCompareHandler.cs",
+  "reads": [
+   "Int",
+   "Int itemID"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetUserItemSingle"
+  ],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "119"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 39
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 120,
+  "symbol": null,
+  "names": [
+   "ITEM_TREND"
+  ],
+  "desc": "物品倾向转移",
+  "class": "ItemTrendHandle",
+  "file": "Game.Server/Packets/Client/ItemTrendHandle.cs",
+  "reads": [
+   "Int(eBageType) bagType",
+   "Int place",
+   "Int(eBageType) bagType2",
+   "Int num",
+   "Int operation",
+   "Int",
+   "Int"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "ItemMgr.FindItemTemplate",
+   "ShopMgr.FindShopbyTemplatID",
+   "RefineryMgr.RefineryTrend",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [
+   "RemoveMoney",
+   "RemoveGold",
+   "GetItemAt",
+   "GetItemInventory",
+   "UpdateItem",
+   "RemoveItem"
+  ],
+  "lang": [
+   "ItemTrendHandle.Success",
+   "ItemFusionHandler.NoPlace",
+   "ItemTrendHandle.Fail"
+  ],
+  "lines": 72
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 121,
+  "symbol": "ePackageType.ITEM_INLAY",
+  "names": [
+   "ITEM_INLAY"
+  ],
+  "desc": "物品镶嵌",
+  "class": "ItemInlayHandle",
+  "file": "Game.Server/Packets/Client/ItemInlayHandle.cs",
+  "reads": [
+   "Int ItemBagType",
+   "Int ItemPlace",
+   "Int HoleNum",
+   "Int GemBagType",
+   "Int GemPlace"
+  ],
+  "bussiness": [
+   "ItemRecordBussiness.PropertyString"
+  ],
+  "mgr": [
+   "ItemMgr.FindItemTemplate",
+   "LanguageMgr.GetTranslation",
+   "LogMgr.LogItemAdd"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [
+   "GetItemAt",
+   "RemoveGold",
+   "AddItem",
+   "SendItemsToMail",
+   "UpdateItem",
+   "SendMessage",
+   "SendTCP",
+   "SaveIntoDatabase"
+  ],
+  "lang": [
+   "GameServer.InlayItem.Msg1",
+   "ItemInlayHandle.NoPlace",
+   "UserBuyItemHandler.NoMoney"
+  ],
+  "lines": 151
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 122,
+  "symbol": null,
+  "names": [
+   "CLEAR_STORE_BAG"
+  ],
+  "desc": "物品强化",
+  "class": "StoreClearItemHandler",
+  "file": "Game.Server/Packets/Client/StoreClearItemHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "ClearStoreBag"
+  ],
+  "lang": [],
+  "lines": 6
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 123,
+  "symbol": null,
+  "names": [
+   "DEFY_AFFICHE"
+  ],
+  "desc": "场景用户离开",
+  "class": "DefyAfficheHandler",
+  "file": "Game.Server/Packets/Client/DefyAfficheHandler.cs",
+  "reads": [
+   "String str"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "WorldMgr.GetAllPlayers",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [
+   "SendPacket"
+  ],
+  "out": [
+   "SendTCP",
+   "SendMessage"
+  ],
+  "packets": [
+   "123"
+  ],
+  "player": [
+   "RemoveMoney",
+   "OnPlayerDispatches"
+  ],
+  "lang": [
+   "UserBuyItemHandler.Money"
+  ],
+  "lines": 27
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 124,
+  "symbol": null,
+  "names": [
+   "CHANGE_PLACE_GOODS_ALL"
+  ],
+  "desc": "Arrange Bag",
+  "class": "ArrangeBagHandler",
+  "file": "Game.Server/Packets/Client/ArrangeBagHandler.cs",
+  "reads": [
+   "Boolean flag",
+   "Int num",
+   "Int bageType"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LogManager.GetLogger"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "GetInventory"
+  ],
+  "lang": [],
+  "lines": 69
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 125,
+  "symbol": "ePackageType.ITEM_EMBED_BACKOUT",
+  "names": [
+   "ITEM_EMBED_BACKOUT"
+  ],
+  "desc": "物品比较",
+  "class": "ItemEmbedBackOutHandler",
+  "file": "Game.Server/Packets/Client/ItemEmbedBackOutHandler.cs",
+  "reads": [
+   "Int holeNum",
+   "Int templateId"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "ItemMgr.FindItemTemplate"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [
+   "GetInventory",
+   "AddItem",
+   "SendItemsToMail",
+   "ClearStoreBag",
+   "UpdateItem",
+   "RemoveMoney",
+   "SendTCP",
+   "SaveIntoDatabase"
+  ],
+  "lang": [
+   "Bag.Locked",
+   "ItemComposeHandler.NoMoney",
+   "UserChangeItemPlaceHandler.full",
+   "OK"
+  ],
+  "lines": 113
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 126,
+  "symbol": null,
+  "names": [
+   "BUY_QUICK_GOLDBOX"
+  ],
+  "desc": "场景用户离开",
+  "class": "QuickBuyGoldBoxHandler",
+  "file": "Game.Server/Packets/Client/QuickBuyGoldBoxHandler.cs",
+  "reads": [
+   "Int num",
+   "Boolean"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "ShopMgr.GetShopItemInfoById",
+   "ItemMgr.FindItemTemplate",
+   "ItemBoxMgr.CreateItemBox"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [
+   "AddGold"
+  ],
+  "lang": [
+   "Bag.Locked",
+   "Bạn nhận được "
+  ],
+  "lines": 28
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 127,
+  "symbol": "ePackageType.REClAIM_GOODS",
+  "names": [
+   "REClAIM_GOODS"
+  ],
+  "desc": "物品比较",
+  "class": "ItemReclaimHandler",
+  "file": "Game.Server/Packets/Client/ItemReclaimHandler.cs",
+  "reads": [
+   "Byte(eBageType) bagType",
+   "Int place",
+   "Int count"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [
+   "GetInventory",
+   "AddGiftToken",
+   "AddGold",
+   "RemoveMedal"
+  ],
+  "lang": [
+   "ItemReclaimHandler.Success1",
+   "ItemReclaimHandler.Success2",
+   "ItemReclaimHandler.NoSuccess"
+  ],
+  "lines": 45
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 128,
+  "symbol": "ePackageType.LEFT_GUN_ROULETTE_SOCKET",
+  "names": [
+   "LEFT_GUN_ROULETTE_SOCKET",
+   "ROOM_SAVE_OBJECT",
+   "CONSORTIA_RESPONSE"
+  ],
+  "desc": "物品炼化",
+  "class": "LeftGunHandler",
+  "file": "Game.Server/Packets/Client/LeftGunHandler.cs",
+  "reads": [
+   "Int cmd"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendLeftRouleteResult"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 82
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 129,
+  "symbol": null,
+  "names": [
+   "CONSORTIA_CMD"
+  ],
+  "desc": "公会聊天",
+  "class": "ConsortiaHandler",
+  "file": "Game.Server/Packets/Client/ConsortiaHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 9
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 130,
+  "symbol": null,
+  "names": [
+   "LEFT_GUN_ROULETTE_COMPLETTE"
+  ],
+  "desc": "物品炼化",
+  "class": "LeftGunCompleteHandler",
+  "file": "Game.Server/Packets/Client/LeftGunCompleteHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "WorldMgr.SendSysTipNotice",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [
+   "GameServer.LeftRotter.Notice.Msg"
+  ],
+  "lines": 10
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 131,
+  "symbol": null,
+  "names": [
+   "LABYRINTH"
+  ],
+  "desc": "场景用户离开",
+  "class": "LabyrinthHandler",
+  "file": "Game.Server/Packets/Client/LabyrinthHandler.cs",
+  "reads": [
+   "Int(LabyrinthPackageType) labyrinthPackageType",
+   "Boolean flag",
+   "Boolean",
+   "Boolean"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendLabyrinthUpdataInfo"
+  ],
+  "packets": [],
+  "player": [
+   "LoadLabyrinth",
+   "RemoveTemplate",
+   "SendMessage",
+   "RemoveGiftToken",
+   "RemoveMoney"
+  ],
+  "lang": [
+   "Labyrinth.Msg1",
+   "Labyrinth.Msg2",
+   "Labyrinth.Msg4",
+   "Labyrinth.Msg5",
+   "Labyrinth.Msg6"
+  ],
+  "lines": 112
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 132,
+  "symbol": null,
+  "names": [],
+  "desc": "场景用户离开",
+  "class": "BattleGroundHandler",
+  "file": "Game.Server/Packets/Client/BattleGroundHandler.cs",
+  "reads": [
+   "Byte b",
+   "Byte b2"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "132"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 52
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 133,
+  "symbol": "ePackageType.LATENT_ENERGY",
+  "names": [
+   "LATENT_ENERGY"
+  ],
+  "desc": "场景用户离开",
+  "class": "LatentEnergyHandler",
+  "file": "Game.Server/Packets/Client/LatentEnergyHandler.cs",
+  "reads": [
+   "Byte type",
+   "Int BagType",
+   "Int Place",
+   "Int temBagType",
+   "Int temPlace"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendTCP"
+  ],
+  "packets": [
+   "133=ePackageType.LATENT_ENERGY"
+  ],
+  "player": [
+   "GetItemAt",
+   "GetInventory",
+   "SendMessage"
+  ],
+  "lang": [
+   "LatentEnergyHandler.Msg1"
+  ],
+  "lines": 66
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 136,
+  "symbol": "ePackageType.TOTEM",
+  "names": [
+   "TOTEM"
+  ],
+  "desc": "场景用户离开",
+  "class": "OpenOneTotemHandler",
+  "file": "Game.Server/Packets/Client/OpenOneTotemHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "TotemMgr.MaxTotem",
+   "TotemMgr.FindTotemInfo"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendPlayerRefreshTotem"
+  ],
+  "packets": [],
+  "player": [
+   "AddTotem",
+   "RemovemyHonor"
+  ],
+  "lang": [
+   "OpenOneTotemHandler.Msg1",
+   "Bag.Locked",
+   "OpenOneTotemHandler.Maxlevel",
+   "OpenOneTotemHandler.ErrorData",
+   "OpenOneTotemHandler.Msg2"
+  ],
+  "lines": 56
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 138,
+  "symbol": "ePackageType.ITEM_ADVANCE",
+  "names": [
+   "ITEM_ADVANCE"
+  ],
+  "desc": "物品强化",
+  "class": "ItemAdvanceHandler",
+  "file": "Game.Server/Packets/Client/ItemAdvanceHandler.cs",
+  "reads": [
+   "Boolean consortia",
+   "Boolean MultiSelected"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "StrengthenMgr.FindStrengthenGoodsInfo",
+   "ItemMgr.FindItemTemplate",
+   "WorldMgr.SendSysNotice"
+  ],
+  "center": [
+   "SendPacket"
+  ],
+  "out": [
+   "SendMessage",
+   "SendTCP"
+  ],
+  "packets": [
+   "138=ePackageType.ITEM_ADVANCE"
+  ],
+  "player": [],
+  "lang": [
+   "ItemAdvanceHandler.Msg1",
+   "ItemAdvanceHandler.Msg2",
+   "ItemAdvanceHandler.Msg3",
+   "ItemStrengthenHandler.congratulation2",
+   "ItemStrengthenHandler.Content1",
+   "ItemStrengthenHandler.Content2"
+  ],
+  "lines": 107
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 141,
+  "symbol": null,
+  "names": [],
+  "desc": "防沉迷系统开关",
+  "class": "AcademyHandler",
+  "file": "Game.Server/Packets/Client/AcademyHandler.cs",
+  "reads": [
+   "Byte",
+   "Int num5",
+   "String str2",
+   "Int num4",
+   "String str",
+   "Int num7",
+   "Int num3",
+   "Int num8",
+   "Int num6",
+   "Int num2",
+   "Int num"
+  ],
+  "bussiness": [
+   "PlayerBussiness.UpdateAcademyPlayer"
+  ],
+  "mgr": [
+   "AcademyMgr.GetRequest",
+   "WorldMgr.GetPlayerById",
+   "AcademyMgr.CheckCanMaster",
+   "AcademyMgr.AddRequest",
+   "AcademyMgr.CheckCanApp",
+   "AcademyMgr.RemoveRequest",
+   "AcademyMgr.AddApprentice",
+   "LanguageMgr.GetTranslation",
+   "AcademyMgr.FireMaster",
+   "AcademyMgr.FireApprentice"
+  ],
+  "center": [],
+  "out": [
+   "SendAcademySystemNotice",
+   "SendAcademyAppState"
+  ],
+  "packets": [
+   "141"
+  ],
+  "player": [
+   "SendMessage",
+   "SendMailToUser",
+   "RemoveGold"
+  ],
+  "lang": [
+   "Thâ\\u0323t tiê\\u0301c, đô\\u0301i phương đa\\u0303 la\\u0300 bâ\\u0323c thâ\\u0300y ha\\u0303y thư\\u0309 la\\u0323i va\\u0300o lâ\\u0300n sau!",
+   "Game.Server.AppSystem.ApprenticeConfirm",
+   "Game.Server.AppSystem.TakeApprenticeMail.Content",
+   "Game.Server.AppSystem.TakeApprenticeMail.Title",
+   "Game.Server.AppSystem.MasterConfirm",
+   "Game.Server.AppSystem.AlreadlyHasRelationship.Apprentice",
+   "LoginServerConnector.HandleSysMess.Msg2",
+   "Game.Server.AppSystem.BeApprentice.Failed",
+   "Game.Server.AppSystem.BeApprentice.Frozen",
+   "Game.Server.AppSystem.AppClub.RemoveInfo.RecordNotFound",
+   "Game.Server.AppSystem.MasterRefuse",
+   "Game.Server.AppSystem.ApprenticeRefuse",
+   "Game.Server.AppSystem.BreakApprentice.FireApprenticeCD",
+   "Game.Server.AppSystem.BreakApprentice.NotEnoughGold"
+  ],
+  "lines": 257
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 145,
+  "symbol": "ePackageType.ACTIVITY_SYSTEM",
+  "names": [
+   "LIGHTROAD_SYSTEM",
+   "ACTIVITY_SYSTEM"
+  ],
+  "desc": "场景用户离开",
+  "class": "ActiveSystemHandler",
+  "file": "Game.Server/Packets/Client/ActiveSystemHandler.cs",
+  "reads": [
+   "Byte num"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [
+   "145=ePackageType.ACTIVITY_SYSTEM"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 13
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 160,
+  "symbol": null,
+  "names": [
+   "IM_CMD"
+  ],
+  "desc": "添加好友",
+  "class": "IMHandler",
+  "file": "Game.Server/Packets/Client/IMHandler.cs",
+  "reads": [
+   "Byte b",
+   "String text",
+   "Int num3",
+   "Int num2",
+   "Int num4",
+   "Int num",
+   "String msg",
+   "Boolean"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetUserSingleByNickName",
+   "PlayerBussiness.AddFriends",
+   "PlayerBussiness.DeleteFriends"
+  ],
+  "mgr": [
+   "WorldMgr.GetClientByPlayerNickName",
+   "LanguageMgr.GetTranslation",
+   "WorldMgr.ChangePlayerState",
+   "WorldMgr.GetPlayerById"
+  ],
+  "center": [
+   "SendPacket"
+  ],
+  "out": [
+   "SendAddFriend",
+   "SendMessage",
+   "SendFriendRemove"
+  ],
+  "packets": [
+   "160"
+  ],
+  "player": [],
+  "lang": [
+   "FriendAddHandler.Success2",
+   "FriendAddHandler.Falied",
+   "FriendAddHandler.Success",
+   "FriendAddHandler.Ofline"
+  ],
+  "lines": 115
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 161,
+  "symbol": null,
+  "names": [
+   "USER_LUCKYNUM"
+  ],
+  "desc": "场景用户离开",
+  "class": "UserLuckyNumHandler",
+  "file": "Game.Server/Packets/Client/UserLuckyNumHandler.cs",
+  "reads": [
+   "Boolean",
+   "Int"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 7
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 162,
+  "symbol": null,
+  "names": [
+   "ELITEGAME"
+  ],
+  "desc": "添加拍卖",
+  "class": "EliteGameHandler",
+  "file": "Game.Server/Packets/Client/EliteGameHandler.cs",
+  "reads": [
+   "Byte",
+   "Int param"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendTCP",
+   "SendEliteGameStartRoom"
+  ],
+  "packets": [
+   "162"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 58
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 165,
+  "symbol": null,
+  "names": [],
+  "desc": "场景用户离开",
+  "class": "LuckStoneEnableHandler",
+  "file": "Game.Server/Packets/Client/LuckStoneEnableHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "UpdateProperties"
+  ],
+  "lang": [],
+  "lines": 6
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 166,
+  "symbol": "ePackageType.LITTLEGAME_COMMAND",
+  "names": [
+   "LITTLEGAME_COMMAND"
+  ],
+  "desc": "温泉小游戏",
+  "class": "LittleGameHandler",
+  "file": "Game.Server/Packets/Client/LittleGameHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 6
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 168,
+  "symbol": null,
+  "names": [
+   "GOODS_COUNT"
+  ],
+  "desc": "物品强化",
+  "class": "GoodsCountHandler",
+  "file": "Game.Server/Packets/Client/GoodsCountHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "WorldMgr.GetAllShopFreeCount"
+  ],
+  "center": [],
+  "out": [
+   "SendShopGoodsCountUpdate"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 7
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 169,
+  "symbol": null,
+  "names": [
+   "HOTSPRING_ROOM_PLAYER_REMOVE"
+  ],
+  "desc": "礼堂数据",
+  "class": "HotSpringRoomPlayerRemoveHandler",
+  "file": "Game.Server/Packets/Client/HotSpringRoomPlayerRemoveHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [
+   "169"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 12
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 171,
+  "symbol": "ePackageType.USE_REWORK_NAME",
+  "names": [
+   "USE_REWORK_NAME"
+  ],
+  "desc": "场景用户离开",
+  "class": "UseReworkNameHandler",
+  "file": "Game.Server/Packets/Client/UseReworkNameHandler.cs",
+  "reads": [
+   "Byte bag",
+   "Int place",
+   "String newNickname"
+  ],
+  "bussiness": [
+   "PlayerBussiness.RenameNick"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "GetInventory",
+   "SendMessage"
+  ],
+  "lang": [
+   "UseReworkNameHandler.Msg",
+   "UseReworkNameHandler.HasSpecialCharacters"
+  ],
+  "lines": 33
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 172,
+  "symbol": "ePackageType.SAVE_DB",
+  "names": [
+   "SAVE_DB"
+  ],
+  "desc": "场景用户离开",
+  "class": "SaveToDB",
+  "file": "Game.Server/Packets/Client/SaveToDB.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "SaveIntoDatabase"
+  ],
+  "lang": [],
+  "lines": 6
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 176,
+  "symbol": null,
+  "names": [
+   "QUEST_ADD"
+  ],
+  "desc": "添加任务",
+  "class": "QuestAddHandler",
+  "file": "Game.Server/Packets/Client/QuestAddHandler.cs",
+  "reads": [
+   "Int num",
+   "Int"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "QuestMgr.GetSingleQuest"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 12
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 177,
+  "symbol": null,
+  "names": [
+   "QUEST_REMOVE"
+  ],
+  "desc": "删除任务",
+  "class": "QuestRemoveHandler",
+  "file": "Game.Server/Packets/Client/QuestRemoveHandler.cs",
+  "reads": [
+   "Int id"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 11
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 179,
+  "symbol": "ePackageType.QUEST_FINISH",
+  "names": [
+   "QUEST_FINISH"
+  ],
+  "desc": "任务完成",
+  "class": "QuestFinishHandler",
+  "file": "Game.Server/Packets/Client/QuestFinishHandler.cs",
+  "reads": [
+   "Int id",
+   "Int rewardItemID"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "179=ePackageType.QUEST_FINISH"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 25
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 181,
+  "symbol": null,
+  "names": [
+   "QUEST_CHECK"
+  ],
+  "desc": "客服端任务检查",
+  "class": "QuestCheckHandler",
+  "file": "Game.Server/Packets/Client/QuestCheckHandler.cs",
+  "reads": [
+   "Int id",
+   "Int id2",
+   "Int value"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 17
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 182,
+  "symbol": null,
+  "names": [
+   "USE_COLOR_CARD"
+  ],
+  "desc": "改变物品颜色",
+  "class": "UserChangeItemColorHandler",
+  "file": "Game.Server/Packets/Client/UserChangeItemColorHandler.cs",
+  "reads": [
+   "Int",
+   "Int slot",
+   "Int",
+   "Int slot2",
+   "String text",
+   "String text2",
+   "Int num"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "ItemMgr.FindItemTemplate",
+   "ShopMgr.FindShopbyTemplatID",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [
+   "RemoveMoney"
+  ],
+  "lang": [],
+  "lines": 58
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 183,
+  "symbol": null,
+  "names": [
+   "CARD_USE"
+  ],
+  "desc": "卡片使用",
+  "class": "CardUseHandler",
+  "file": "Game.Server/Packets/Client/CardUseHandler.cs",
+  "reads": [
+   "Int bageType",
+   "Int num",
+   "Int num2",
+   "Int item",
+   "Int",
+   "Boolean flag"
+  ],
+  "bussiness": [
+   "PlayerBussiness.VIPRenewal"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "ShopMgr.GetShopItemInfoById",
+   "ShopMgr.IsOnShop",
+   "ItemMgr.FindItemTemplate"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendOpenVIP"
+  ],
+  "packets": [],
+  "player": [
+   "RemoveMoney",
+   "RemoveGold",
+   "GetInventory",
+   "SetTypeVIP",
+   "OnVIPUpgrade",
+   "AddOffer",
+   "UpdateProperties",
+   "AddGP",
+   "RemoveCountFromStack"
+  ],
+  "lang": [
+   "Bag.Locked"
+  ],
+  "lines": 145
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 187,
+  "symbol": null,
+  "names": [
+   "HOTSPRING_ENTER"
+  ],
+  "desc": "礼堂数据",
+  "class": "HotSpringEnterHandler",
+  "file": "Game.Server/Packets/Client/HotSpringEnterHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "HotSpringMgr.GetAllHotSpringRoom",
+   "HotSpringMgr.SendUpdateAllRoom"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 11
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 188,
+  "symbol": "ePackageType.USE_CONSORTIA_REWORK_NAME",
+  "names": [
+   "USE_CONSORTIA_REWORK_NAME"
+  ],
+  "desc": "场景用户离开",
+  "class": "UseConsortiaReworkNameHandler",
+  "file": "Game.Server/Packets/Client/UseConsortiaReworkNameHandler.cs",
+  "reads": [
+   "Int consortiaID",
+   "Byte bag",
+   "Int place",
+   "String newNickname"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.GetConsortiaSingle",
+   "ConsortiaBussiness.RenameConsortia"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "GetInventory",
+   "SendMessage"
+  ],
+  "lang": [
+   "UseConsortiaReworkNameHandler.Msg1",
+   "UseConsortiaReworkNameHandler.Msg2",
+   "UseConsortiaReworkNameHandler.Msg3"
+  ],
+  "lines": 48
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 189,
+  "symbol": null,
+  "names": [
+   "USER_CHANGE_RANK"
+  ],
+  "desc": "场景用户离开",
+  "class": "ReworkRankHandler",
+  "file": "Game.Server/Packets/Client/ReworkRankHandler.cs",
+  "reads": [
+   "String text"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "UpdateHonor"
+  ],
+  "lang": [],
+  "lines": 10
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 190,
+  "symbol": null,
+  "names": [
+   "HOTSPRING_ROOM_QUICK_ENTER"
+  ],
+  "desc": "礼堂数据",
+  "class": "HotSpringRoomQuickEnterHandler",
+  "file": "Game.Server/Packets/Client/HotSpringRoomQuickEnterHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "HotSpringMgr.GetRandomRoom",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendEnterHotSpringRoom"
+  ],
+  "packets": [],
+  "player": [
+   "SendMessage"
+  ],
+  "lang": [
+   "SpaRoomLoginHandler.Failed4",
+   "SpaRoomLoginHandler.Failed"
+  ],
+  "lines": 24
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 191,
+  "symbol": null,
+  "names": [
+   "HOTSPRING_CMD"
+  ],
+  "desc": "礼堂数据",
+  "class": "HotSpringCmdDataHandler",
+  "file": "Game.Server/Packets/Client/HotSpringCmdDataHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 9
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 192,
+  "symbol": "ePackageType.AUCTION_ADD",
+  "names": [
+   "AUCTION_ADD"
+  ],
+  "desc": "添加拍卖",
+  "class": "AuctionAddHandler",
+  "file": "Game.Server/Packets/Client/AuctionAddHandler.cs",
+  "reads": [
+   "Byte(eBageType) bagType",
+   "Int place",
+   "Byte payType",
+   "Int price",
+   "Int mouthful",
+   "Int validDate",
+   "Int goodsCount"
+  ],
+  "bussiness": [
+   "PlayerBussiness.AddGoods",
+   "PlayerBussiness.AddAuction"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendAuctionRefresh"
+  ],
+  "packets": [],
+  "player": [
+   "GetItemAt",
+   "SendMessage",
+   "RemoveAt",
+   "AddTemplate",
+   "SaveIntoDatabase",
+   "RemoveGold"
+  ],
+  "lang": [
+   "Bag.Locked",
+   "AuctionAddHandler.Msg13",
+   "AuctionAddHandler.Msg11",
+   "AuctionAddHandler.Msg12"
+  ],
+  "lines": 132
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 193,
+  "symbol": "ePackageType.AUCTION_UPDATE",
+  "names": [
+   "AUCTION_UPDATE"
+  ],
+  "desc": "更新拍卖",
+  "class": "AuctionUpdateHandler",
+  "file": "Game.Server/Packets/Client/AuctionUpdateHandler.cs",
+  "reads": [
+   "Int auctionID",
+   "Int money"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetAuctionSingle",
+   "PlayerBussiness.UpdateAuction"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendMailResponse",
+   "SendAuctionRefresh",
+   "SendTCP"
+  ],
+  "packets": [
+   "193"
+  ],
+  "player": [
+   "RemoveGold"
+  ],
+  "lang": [
+   "Bag.Locked"
+  ],
+  "lines": 94
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 194,
+  "symbol": "ePackageType.AUCTION_DELETE",
+  "names": [
+   "AUCTION_DELETE"
+  ],
+  "desc": "撤消拍卖",
+  "class": "AuctionDeleteHandler",
+  "file": "Game.Server/Packets/Client/AuctionDeleteHandler.cs",
+  "reads": [
+   "Int auctionID"
+  ],
+  "bussiness": [
+   "PlayerBussiness.DeleteAuction",
+   "PlayerBussiness.GetAuctionSingle"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMailResponse",
+   "SendAuctionRefresh",
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [
+   "AuctionDeleteHandler.Fail"
+  ],
+  "lines": 21
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 196,
+  "symbol": null,
+  "names": [
+   "CARD_RESET"
+  ],
+  "desc": "卡牌洗点",
+  "class": "CardResetHandler",
+  "file": "Game.Server/Packets/Client/CardResetHandler.cs",
+  "reads": [
+   "Int num",
+   "Int num2"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetUserCardEuqip"
+  ],
+  "mgr": [
+   "CardMgr.GetCardUpdateCondition",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [
+   "196"
+  ],
+  "player": [
+   "RemoveMoney",
+   "SendMessage"
+  ],
+  "lang": [
+   "GameServer.CardReset.Msg2",
+   "GameServer.CardReset.Msg3",
+   "GameServer.CardReset.Msg1"
+  ],
+  "lines": 95
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 200,
+  "symbol": null,
+  "names": [
+   "CHECK_CODE"
+  ],
+  "desc": "验证码",
+  "class": "CheckCodeHandler",
+  "file": "Game.Server/Packets/Client/CheckCodeHandler.cs",
+  "reads": [
+   "String check"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendTCP"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [
+   "CheckCodeHandler.Msg3"
+  ],
+  "lines": 43
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 201,
+  "symbol": null,
+  "names": [
+   "HOTSPRING_ROOM_ENTER_VIEW"
+  ],
+  "desc": "礼堂数据",
+  "class": "HotSpringRoomEnterViewHandler",
+  "file": "Game.Server/Packets/Client/HotSpringRoomEnterViewHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [
+   "198"
+  ],
+  "player": [
+   "SendTCP"
+  ],
+  "lang": [],
+  "lines": 32
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 202,
+  "symbol": "ePackageType.HOTSPRING_ROOM_ENTER",
+  "names": [
+   "HOTSPRING_ROOM_ENTER"
+  ],
+  "desc": "礼堂数据",
+  "class": "HotSpringRoomEnterHandler",
+  "file": "Game.Server/Packets/Client/HotSpringRoomEnterHandler.cs",
+  "reads": [
+   "Int roomId",
+   "String pass"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "HotSpringMgr.GetHotSpringRoombyID",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendEnterHotSpringRoom"
+  ],
+  "packets": [],
+  "player": [
+   "SendMessage",
+   "RemoveGold"
+  ],
+  "lang": [
+   "HotSpringRoomEnterDataHandler.NotEmoughtGold",
+   "SpaRoomLoginHandler.Failed4"
+  ],
+  "lines": 63
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 203,
+  "symbol": null,
+  "names": [
+   "LOOKUP_EFFORT"
+  ],
+  "desc": "场景用户离开",
+  "class": "LookupEffortHandler",
+  "file": "Game.Server/Packets/Client/LookupEffortHandler.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetUserAchievement",
+   "PlayerBussiness.GetUserSingleByUserID"
+  ],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [
+   "203"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 27
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 204,
+  "symbol": null,
+  "names": [
+   "OPEN_ALL_CARDBOX"
+  ],
+  "desc": "打开物品",
+  "class": "OpenAllCardBoxHandler",
+  "file": "Game.Server/Packets/Client/OpenAllCardBoxHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "SendMessage"
+  ],
+  "lang": [],
+  "lines": 21
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 206,
+  "symbol": null,
+  "names": [
+   "CHANGE_COLOR_OVER_DUE"
+  ],
+  "desc": "场景用户离开",
+  "class": "ChangeColorShellTimeOverHandler",
+  "file": "Game.Server/Packets/Client/ChangeColorShellTimeOverHandler.cs",
+  "reads": [
+   "Byte",
+   "Int"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 7
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 209,
+  "symbol": "ePackageType.FIGHT_SPIRIT",
+  "names": [
+   "FIGHT_SPIRIT"
+  ],
+  "desc": "场景用户离开",
+  "class": "FigSpiritUpGradeHandler",
+  "file": "Game.Server/Packets/Client/FigSpiritUpGradeHandler.cs",
+  "reads": [
+   "Byte",
+   "Int autoBuyId",
+   "Int goodsId",
+   "Int type",
+   "Int templeteId",
+   "Int fightSpiritId",
+   "Int equipPlace",
+   "Int place",
+   "Int count"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "FightSpiritTemplateMgr.Exps",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendPlayerFigSpiritUp",
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [
+   "GetGemStone",
+   "UpdateGemStone"
+  ],
+  "lang": [
+   "FigSpiritUpGradeHandler.Msg",
+   "FigSpiritUpGradeHandler.WrongPlace"
+  ],
+  "lines": 184
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 212,
+  "symbol": null,
+  "names": [
+   "HOTSPRING_ROOM_ENTER_CONFIRM"
+  ],
+  "desc": "礼堂数据",
+  "class": "HotSpringEnterConfirmHandler",
+  "file": "Game.Server/Packets/Client/HotSpringEnterConfirmHandler.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "HotSpringMgr.GetHotSpringRoombyID",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "212"
+  ],
+  "player": [
+   "SendMessage"
+  ],
+  "lang": [
+   "SpaRoomLoginHandler.Failed4"
+  ],
+  "lines": 19
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 213,
+  "symbol": null,
+  "names": [
+   "FEEDBACK_REPLY",
+   "USE_LOG"
+  ],
+  "desc": "更新征婚信息",
+  "class": "MarryInfoUpdateHandler",
+  "file": "Game.Server/Packets/Client/MarryInfoUpdateHandler.cs",
+  "reads": [
+   "Boolean isPublishEquip",
+   "String introduction"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetMarryInfoSingle",
+   "PlayerBussiness.UpdateMarryInfo"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMarryInfoRefresh",
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 33
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 213,
+  "symbol": null,
+  "names": [
+   "FEEDBACK_REPLY",
+   "USE_LOG"
+  ],
+  "desc": "场景用户离开",
+  "class": "UseLogHandler",
+  "file": "Game.Server/Packets/Client/UseLogHandler.cs",
+  "reads": [
+   "Int code"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 6
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 215,
+  "symbol": null,
+  "names": [],
+  "desc": "Envia mensagem para todos de sua associação",
+  "class": "CaddyConvertedHandler",
+  "file": "Game.Server/Packets/Client/CaddyConvertedHandler.cs",
+  "reads": [
+   "String title",
+   "String content"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetAllMemberByConsortia",
+   "PlayerBussiness.SendMail",
+   "ConsortiaBussiness.ConsortiaRichRemove"
+  ],
+  "mgr": [
+   "ConsortiaMgr.FindConsortiaInfo",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMailResponse",
+   "SendConsortiaMail"
+  ],
+  "packets": [],
+  "player": [
+   "SendMessage"
+  ],
+  "lang": [],
+  "lines": 56
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 216,
+  "symbol": null,
+  "names": [
+   "CARDS_DATA"
+  ],
+  "desc": "卡牌系统",
+  "class": "CardDataHandler",
+  "file": "Game.Server/Packets/Client/CardDataHandler.cs",
+  "reads": [
+   "Int cmdCard",
+   "Int slot",
+   "Int place",
+   "Int place",
+   "Int slot",
+   "Int count",
+   "Int slot",
+   "Int",
+   "Int"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetUserCardEuqip"
+  ],
+  "mgr": [
+   "ItemMgr.FindItemTemplate",
+   "CardMgr.MaxLevel",
+   "CardMgr.GetCardUpdateCondition",
+   "CardMgr.GetCardUpdateInfo"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "OnEquipCardEvent",
+   "SendMessage"
+  ],
+  "lang": [],
+  "lines": 175
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 217,
+  "symbol": null,
+  "names": [
+   "OPEN_FIVE_SIX_HOLE"
+  ],
+  "desc": "开孔",
+  "class": "OpenFiveSixHoleHandler",
+  "file": "Game.Server/Packets/Client/OpenFiveSixHoleHandler.cs",
+  "reads": [
+   "Int slot",
+   "Int num",
+   "Int templateId"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [
+   "217"
+  ],
+  "player": [
+   "SendMessage",
+   "SendTCP"
+  ],
+  "lang": [
+   "GameServer.OpenHole.TooQuickly"
+  ],
+  "lines": 214
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 218,
+  "symbol": null,
+  "names": [
+   "USER_GET_GIFTS"
+  ],
+  "desc": "场景用户离开",
+  "class": "PlayerGiftHandler",
+  "file": "Game.Server/Packets/Client/PlayerGiftHandler.cs",
+  "reads": [
+   "Int"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 6
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 218,
+  "symbol": null,
+  "names": [
+   "USER_GET_GIFTS"
+  ],
+  "desc": "场景用户离开",
+  "class": "UserGetGiftHandler",
+  "file": "Game.Server/Packets/Client/UserGetGiftHandler.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetAllUserReceivedGifts",
+   "PlayerBussiness.GetUserSingleByUserID"
+  ],
+  "mgr": [
+   "WorldMgr.GetPlayerById"
+  ],
+  "center": [],
+  "out": [
+   "SendGetUserGift"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 21
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 219,
+  "symbol": null,
+  "names": [
+   "WEEKLY_CLICK_CNT"
+  ],
+  "desc": "场景用户离开",
+  "class": "UserWeeklyClickHandler",
+  "file": "Game.Server/Packets/Client/UserWeeklyClickHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [
+   "219"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 16
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 221,
+  "symbol": null,
+  "names": [
+   "USER_SEND_GIFTS"
+  ],
+  "desc": "领取奖品",
+  "class": "UserSendGiftHandler",
+  "file": "Game.Server/Packets/Client/UserSendGiftHandler.cs",
+  "reads": [
+   "String text",
+   "Int iD",
+   "Int num",
+   "Int"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetUserSingleByNickName",
+   "PlayerBussiness.AddUserGift",
+   "PlayerBussiness.UpdateUserCharmGP",
+   "PlayerBussiness.SendMail"
+  ],
+  "mgr": [
+   "ShopMgr.GetShopItemInfoById",
+   "WorldMgr.GetClientByPlayerNickName",
+   "ItemMgr.FindItemTemplate",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMailResponse"
+  ],
+  "packets": [
+   "221"
+  ],
+  "player": [
+   "RemoveMoney",
+   "SendMessage"
+  ],
+  "lang": [
+   "UserGiftSystem.MailTitle",
+   "GoodsPresentHandler.Content",
+   "GoodsPresentHandler.Success",
+   "GoodsPresentHandler.NoMoney",
+   "GoodsPresentHandler.NoUser"
+  ],
+  "lines": 67
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 222,
+  "symbol": "ePackageType.EQUIP_RECYCLE_ITEM",
+  "names": [
+   "EQUIP_RECYCLE_ITEM"
+  ],
+  "desc": "场景用户离开",
+  "class": "EquipRetrieveHandler",
+  "file": "Game.Server/Packets/Client/EquipRetrieveHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "ItemMgr.FindItemTemplate"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "GetInventory"
+  ],
+  "lang": [],
+  "lines": 51
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 225,
+  "symbol": null,
+  "names": [
+   "ENTHRALL_SWITCH",
+   "REQUEST_UPDATE"
+  ],
+  "desc": "场景用户离开",
+  "class": "ForSwitchHandler",
+  "file": "Game.Server/Packets/Client/ForSwitchHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [
+   "225"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 7
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 230,
+  "symbol": null,
+  "names": [
+   "ACHIEVEMENT_FINISH"
+  ],
+  "desc": "Send achievement finish",
+  "class": "AchievementFinishHandler",
+  "file": "Game.Server/Packets/Client/AchievementFinishHandler.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetUserAchievementData"
+  ],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [
+   "230"
+  ],
+  "player": [
+   "OnAchievementQuest"
+  ],
+  "lang": [],
+  "lines": 21
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 232,
+  "symbol": null,
+  "names": [
+   "CADDY_SELL_ALL_GOODS"
+  ],
+  "desc": "打开物品",
+  "class": "CaddyClearAllHandler",
+  "file": "Game.Server/Packets/Client/CaddyClearAllHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [
+   "AddGold",
+   "AddGiftToken"
+  ],
+  "lang": [
+   "Bạn nhận được {0} vàng",
+   "Bạn nhận được {0} lễ kim"
+  ],
+  "lines": 40
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 233,
+  "symbol": null,
+  "names": [
+   "MARRY_SCENE_CHANGE"
+  ],
+  "desc": "结婚场景切换",
+  "class": "MarrySceneChangeHandler",
+  "file": "Game.Server/Packets/Client/MarrySceneChangeHandler.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendPlayerEnterMarryRoom"
+  ],
+  "packets": [
+   "244"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 38
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 234,
+  "symbol": null,
+  "names": [
+   "MARRYPROP_GET"
+  ],
+  "desc": "撤消征婚信息",
+  "class": "MarryInfoDeleteHandler",
+  "file": "Game.Server/Packets/Client/MarryInfoDeleteHandler.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [
+   "PlayerBussiness.DeleteMarryInfo"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendAuctionRefresh",
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [
+   "MarryInfoDeleteHandler.Fail"
+  ],
+  "lines": 15
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 235,
+  "symbol": null,
+  "names": [
+   "MARRYINFO_GET"
+  ],
+  "desc": "获取征婚信息",
+  "class": "MarryInfoGetHandler",
+  "file": "Game.Server/Packets/Client/MarryInfoGetHandler.cs",
+  "reads": [
+   "Int iD"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetMarryInfoSingle"
+  ],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendMarryInfo"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 16
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 236,
+  "symbol": null,
+  "names": [
+   "MARRYINFO_ADD"
+  ],
+  "desc": "添加征婚信息",
+  "class": "MarryInfoAddHandler",
+  "file": "Game.Server/Packets/Client/MarryInfoAddHandler.cs",
+  "reads": [
+   "Boolean isPublishEquip",
+   "String introduction"
+  ],
+  "bussiness": [
+   "PlayerBussiness.AddMarryInfo"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMarryInfoRefresh",
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [
+   "RemoveGold"
+  ],
+  "lang": [],
+  "lines": 39
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 237,
+  "symbol": null,
+  "names": [
+   "MARRYINFO_UPDATE"
+  ],
+  "desc": "更新礼堂信息",
+  "class": "MarryRoomInfoUpdateHandler",
+  "file": "Game.Server/Packets/Client/MarryRoomInfoUpdateHandler.cs",
+  "reads": [
+   "String name",
+   "Boolean flag",
+   "String pwd",
+   "String roomIntroduction"
+  ],
+  "bussiness": [
+   "PlayerBussiness.UpdateMarryRoomInfo"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [
+   "MarryRoomInfoUpdateHandler.Successed"
+  ],
+  "lines": 26
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 240,
+  "symbol": null,
+  "names": [
+   "MARRY_SCENE_LOGIN"
+  ],
+  "desc": "Player enter marry scene.",
+  "class": "UserEnterMarrySceneHandler",
+  "file": "Game.Server/Packets/Client/UserEnterMarrySceneHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "MarryRoomMgr.GetAllMarryRoom"
+  ],
+  "center": [],
+  "out": [
+   "SendTCP",
+   "SendMarryRoomInfo"
+  ],
+  "packets": [
+   "240"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 24
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 241,
+  "symbol": null,
+  "names": [
+   "MARRY_ROOM_CREATE"
+  ],
+  "desc": "礼堂创建",
+  "class": "MarryRoomCreateHandler",
+  "file": "Game.Server/Packets/Client/MarryRoomCreateHandler.cs",
+  "reads": [
+   "String Name",
+   "String Pwd",
+   "Int MapIndex",
+   "Int AvailTime",
+   "Int MaxCount",
+   "Boolean GuestInvite",
+   "String RoomIntroduction"
+  ],
+  "bussiness": [
+   "PlayerBussiness.AddDailyRecord"
+  ],
+  "mgr": [
+   "LogManager.GetLogger",
+   "LanguageMgr.GetTranslation",
+   "MarryRoomMgr.CreateMarryRoom"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendMarryRoomInfo",
+   "SendMarryRoomLogin"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [
+   "Bag.Locked"
+  ],
+  "lines": 76
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 242,
+  "symbol": null,
+  "names": [
+   "MARRY_ROOM_LOGIN"
+  ],
+  "desc": "进入礼堂",
+  "class": "MarryRoomLoginHandler",
+  "file": "Game.Server/Packets/Client/MarryRoomLoginHandler.cs",
+  "reads": [
+   "Int num",
+   "String text",
+   "Int marryMap"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetMarryRoomInfoSingle"
+  ],
+  "mgr": [
+   "MarryRoomMgr.GetMarryRoombyID",
+   "MarryRoomMgr.GetAllMarryRoom",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMarryRoomLogin",
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [
+   "MarryRoomLoginHandler.RoomExist",
+   "MarryRoomLoginHandler.Forbid",
+   "MarryRoomLoginHandler.AlreadyBegin"
+  ],
+  "lines": 73
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 244,
+  "symbol": null,
+  "names": [
+   "PLAYER_EXIT_MARRY_ROOM"
+  ],
+  "desc": "玩家退出礼堂",
+  "class": "UserLeaveMarryRoom",
+  "file": "Game.Server/Packets/Client/UserLeaveMarryRoom.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 9
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 245,
+  "symbol": null,
+  "names": [
+   "CADDY_GET_AWARDS"
+  ],
+  "desc": "场景用户离开",
+  "class": "RequestAwardsHandler",
+  "file": "Game.Server/Packets/Client/RequestAwardsHandler.cs",
+  "reads": [
+   "Int",
+   "Int"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 7
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 246,
+  "symbol": null,
+  "names": [
+   "MARRY_STATUS"
+  ],
+  "desc": "请求结婚状态",
+  "class": "MarryStatusHandler",
+  "file": "Game.Server/Packets/Client/MarryStatusHandler.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetUserSingleByUserID"
+  ],
+  "mgr": [
+   "WorldMgr.GetPlayerById"
+  ],
+  "center": [],
+  "out": [
+   "SendPlayerMarryStatus"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 17
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 247,
+  "symbol": null,
+  "names": [
+   "MARRY_APPLY"
+  ],
+  "desc": "求婚",
+  "class": "MarryApplyHandler",
+  "file": "Game.Server/Packets/Client/MarryApplyHandler.cs",
+  "reads": [
+   "Int num",
+   "String loveProclamation",
+   "Boolean"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetUserSingleByUserID",
+   "PlayerBussiness.SavePlayerMarryNotice"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "ShopMgr.FindShopbyTemplatID"
+  ],
+  "center": [
+   "SendUpdatePlayerMarriedStates"
+  ],
+  "out": [
+   "SendMessage",
+   "SendPlayerMarryApply"
+  ],
+  "packets": [],
+  "player": [
+   "RemoveItem"
+  ],
+  "lang": [
+   "Bag.Locked",
+   "MarryApplyHandler.Msg2",
+   "MarryApplyHandler.Msg6",
+   "MarryApplyHandler.Msg3"
+  ],
+  "lines": 71
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 248,
+  "symbol": null,
+  "names": [
+   "DIVORCE_APPLY"
+  ],
+  "desc": "离婚",
+  "class": "DivorceApplyHandler",
+  "file": "Game.Server/Packets/Client/DivorceApplyHandler.cs",
+  "reads": [
+   "Boolean flag"
+  ],
+  "bussiness": [
+   "PlayerBussiness.SavePlayerMarryNotice",
+   "PlayerBussiness.GetUserSingleByUserID"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [
+   "SendUpdatePlayerMarriedStates"
+  ],
+  "out": [
+   "SendMessage",
+   "SendPlayerDivorceApply"
+  ],
+  "packets": [],
+  "player": [
+   "RemoveMoney",
+   "LoadMarryProp",
+   "SendMessage"
+  ],
+  "lang": [
+   "Bag.Locked",
+   "DivorceApplyHandler.Msg2",
+   "DivorceApplyHandler.Msg1",
+   "DivorceApplyHandler.Msg3"
+  ],
+  "lines": 55
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 249,
+  "symbol": null,
+  "names": [
+   "MARRY_CMD"
+  ],
+  "desc": "礼堂数据",
+  "class": "MarryDataHandler",
+  "file": "Game.Server/Packets/Client/MarryDataHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 9
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 250,
+  "symbol": null,
+  "names": [
+   "MARRY_APPLY_REPLY"
+  ],
+  "desc": "求婚答复",
+  "class": "MarryApplyReplyHandler",
+  "file": "Game.Server/Packets/Client/MarryApplyReplyHandler.cs",
+  "reads": [
+   "Boolean flag",
+   "Int userID",
+   "Int answerId"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetUserSingleByUserID",
+   "PlayerBussiness.SavePlayerMarryNotice",
+   "PlayerBussiness.AddDailyRecord"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "ItemMgr.FindItemTemplate",
+   "WorldMgr.GetAllPlayers"
+  ],
+  "center": [
+   "SendUpdatePlayerMarriedStates",
+   "SendPacket"
+  ],
+  "out": [
+   "SendMessage",
+   "SendMarryApplyReply",
+   "SendTCP"
+  ],
+  "packets": [
+   "10"
+  ],
+  "player": [
+   "LoadMarryProp",
+   "OnPlayerMarry"
+  ],
+  "lang": [
+   "MarryApplyReplyHandler.Msg2",
+   "MarryApplyReplyHandler.Msg3",
+   "MarryApplyReplyHandler.Content",
+   "MarryApplyReplyHandler.Title",
+   "MarryApplyReplyHandler.Msg1"
+  ],
+  "lines": 96
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 251,
+  "symbol": null,
+  "names": [
+   "LOTTERY_AWARD",
+   "SCENE_STATE"
+  ],
+  "desc": "当前场景状态",
+  "class": "MarryStateHandler",
+  "file": "Game.Server/Packets/Client/MarryStateHandler.cs",
+  "reads": [
+   "Int"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "RoomMgr.EnterWaitingRoom"
+  ],
+  "center": [],
+  "out": [
+   "SendPlayerEnterMarryRoom"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 42
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 252,
+  "symbol": null,
+  "names": [
+   "USE_CHANGE_SEX",
+   "MARRY_ROOM_STATE"
+  ],
+  "desc": "场景用户离开",
+  "class": "ChangeSexHandler",
+  "file": "Game.Server/Packets/Client/ChangeSexHandler.cs",
+  "reads": [
+   "Byte bageType",
+   "Int slot"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetUserSingleByUserID",
+   "PlayerBussiness.SavePlayerMarryNotice",
+   "PlayerBussiness.ChangeSex"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [
+   "SendUpdatePlayerMarriedStates"
+  ],
+  "out": [],
+  "packets": [],
+  "player": [
+   "GetInventory",
+   "LoadMarryProp",
+   "SendMessage"
+  ],
+  "lang": [
+   "ChangeSexHandlerHandler.Success",
+   "ChangeSexHandlerHandler.Fail"
+  ],
+  "lines": 45
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 258,
+  "symbol": null,
+  "names": [
+   "NOVICEACTIVITY"
+  ],
+  "desc": "Novice Activity",
+  "class": "NoviceActivityGetAward",
+  "file": "Game.Server/Packets/Client/NoviceActivityGetAward.cs",
+  "reads": [
+   "Int ActivityType",
+   "Int SubActivityType"
+  ],
+  "bussiness": [
+   "ProduceBussiness.GetEventRewardInfoByType",
+   "ProduceBussiness.GetEventRewardGoodsByType"
+  ],
+  "mgr": [
+   "ItemMgr.FindItemTemplate",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [
+   "SendItemsToMail",
+   "SendMessage"
+  ],
+  "lang": [
+   "Quà Mở Máy Chủ"
+  ],
+  "lines": 81
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 259,
+  "symbol": null,
+  "names": [
+   "FIRSTRECHARGE"
+  ],
+  "desc": "FIRSTRECHARGE",
+  "class": "FirstRechargeGetAwardHandler",
+  "file": "Game.Server/Packets/Client/FirstRechargeGetAwardHandler.cs",
+  "reads": [
+   "Int"
+  ],
+  "bussiness": [
+   "ProduceBussiness.GetEventRewardInfoByType",
+   "ProduceBussiness.GetEventRewardGoodsByType"
+  ],
+  "mgr": [
+   "ItemMgr.FindItemTemplate",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendUpdateFirstRecharge",
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [
+   "SendItemsToMail"
+  ],
+  "lang": [
+   "FirstRechargeGetAward.Content",
+   "FirstRechargeGetAward.Title"
+  ],
+  "lines": 57
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 265,
+  "symbol": "ePackageType.NEWTITLE_CARD",
+  "names": [
+   "NEWTITLE_CARD"
+  ],
+  "desc": "客户端日记",
+  "class": "NewTitleCardHandler",
+  "file": "Game.Server/Packets/Client/NewTitleCardHandler.cs",
+  "reads": [
+   "Byte(eBageType) bag",
+   "Int place"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "NewTitleMgr.FindNewTitle",
+   "WorldMgr.SendSysNotice"
+  ],
+  "center": [
+   "SendPacket"
+  ],
+  "out": [],
+  "packets": [],
+  "player": [
+   "GetItemAt",
+   "SendMessage",
+   "RemoveCountFromStack"
+  ],
+  "lang": [
+   "NewTitleCardHandler.ItemNotFound",
+   "NewTitleCardHandler.TitleNotFound",
+   "NewTitleCardHandler.RemoveItemError"
+  ],
+  "lines": 33
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 279,
+  "symbol": null,
+  "names": [],
+  "desc": "场景用户离开",
+  "class": "ShowHideTitleStateHandler",
+  "file": "Game.Server/Packets/Client/ShowHideTitleStateHandler.cs",
+  "reads": [
+   "Boolean"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 13
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 300,
+  "symbol": null,
+  "names": [],
+  "desc": "baolt function",
+  "class": "baoltfunction",
+  "file": "Game.Server/Packets/Client/baoltfunction.cs",
+  "reads": [
+   "Int code"
+  ],
+  "bussiness": [
+   "ManageBussiness.ForbidPlayerByUserID"
+  ],
+  "mgr": [
+   "WorldMgr.SendSysNotice"
+  ],
+  "center": [],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "300"
+  ],
+  "player": [
+   "SendMessage",
+   "AddLog",
+   "SaveIntoDatabase",
+   "SavePlayerInfo"
+  ],
+  "lang": [],
+  "lines": 44
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 338,
+  "symbol": "ePackageType.ACCUMULATIVELOGIN_AWARD",
+  "names": [
+   "ACCUMULATIVELOGIN_AWARD"
+  ],
+  "desc": "撤消征婚信息",
+  "class": "AccumulAtiveLoginAwardHandler",
+  "file": "Game.Server/Packets/Client/AccumulAtiveLoginAwardHandler.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "AccumulActiveLoginMgr.GetAllAccumulAtiveLoginAward",
+   "AccumulActiveLoginMgr.GetSelecedAccumulAtiveLoginAward",
+   "WorldEventMgr.SendItemsToMails"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [
+   "338=ePackageType.ACCUMULATIVELOGIN_AWARD"
+  ],
+  "player": [
+   "SendMessage",
+   "SendTCP"
+  ],
+  "lang": [],
+  "lines": 31
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 402,
+  "symbol": "ePackageType.AVATAR_COLLECTION",
+  "names": [
+   "AVATAR_COLLECTION"
+  ],
+  "desc": "场景用户离开",
+  "class": "AvatarCollectionHandler",
+  "file": "Game.Server/Packets/Client/AvatarCollectionHandler.cs",
+  "reads": [
+   "Byte b",
+   "Int num",
+   "Int num2",
+   "Int num3",
+   "Int num5",
+   "Int num6"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "ClothGroupTemplateInfoMgr.GetClothGroup",
+   "ClothPropertyTemplateInfoMgr.GetClothPropertyWithID",
+   "ClothGroupTemplateInfoMgr.CountClothGroupWithID"
+  ],
+  "center": [],
+  "out": [
+   "SendAvatarCollect"
+  ],
+  "packets": [
+   "402"
+  ],
+  "player": [
+   "SendMessage",
+   "RemoveGold",
+   "AddGold",
+   "SendTCP"
+  ],
+  "lang": [],
+  "lines": 190
+ },
+ {
+  "group": "client",
+  "attr": "PacketHandler",
+  "code": 403,
+  "symbol": "ePackageType.BAGLOCK_PWD",
+  "names": [
+   "BAGLOCK_PWD"
+  ],
+  "desc": "二级密码",
+  "class": "BaglockedHandle",
+  "file": "Game.Server/Packets/Client/BaglockedHandle.cs",
+  "reads": [
+   "Byte cmd"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "403=ePackageType.BAGLOCK_PWD"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 22
+ },
+ {
+  "group": "chat-command",
+  "attr": "ChatCommand",
+  "code": null,
+  "symbol": "Close",
+  "names": [],
+  "desc": "Close",
+  "class": "CloseLittleGame",
+  "file": "Game.Server/Commands/Handlers/CloseLittleGame.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "LittleGameWorldMgr.CloseLittleGame"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 7
+ },
+ {
+  "group": "chat-command",
+  "attr": "ChatCommand",
+  "code": null,
+  "symbol": "CompleteTask",
+  "names": [],
+  "desc": "CompleteTask",
+  "class": "FinishConsortiaTask",
+  "file": "Game.Server/Commands/Handlers/FinishConsortiaTask.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendTaskUpdate"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 13
+ },
+ {
+  "group": "chat-command",
+  "attr": "ChatCommand",
+  "code": null,
+  "symbol": "Open",
+  "names": [],
+  "desc": "Open",
+  "class": "StartLittleGame",
+  "file": "Game.Server/Commands/Handlers/StartLittleGame.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "LittleGameWorldMgr.OpenLittleGame"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 7
+ },
+ {
+  "group": "chat-command",
+  "attr": "ChatCommand",
+  "code": null,
+  "symbol": "InfoHutGa",
+  "names": [],
+  "desc": "InfoHutGa",
+  "class": "StateLittleGame",
+  "file": "Game.Server/Commands/Handlers/StateLittleGame.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 6
+ },
+ {
+  "group": "chat-command",
+  "attr": "ChatCommand",
+  "code": null,
+  "symbol": "Таймеры",
+  "names": [],
+  "desc": "Таймеры",
+  "class": "Timers",
+  "file": "Game.Server/Commands/Handlers/Timers.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 15
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 0,
+  "symbol": "ConsortiaPackageType.CONSORTIA_TRYIN",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaTryin",
+  "file": "Game.Server/Consortia/Handle/ConsortiaTryin.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.AddConsortiaApplyUsers"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "129"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 35
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 1,
+  "symbol": "ConsortiaPackageType.CONSORTIA_CREATE",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaCreate",
+  "file": "Game.Server/Consortia/Handle/ConsortiaCreate.cs",
+  "reads": [
+   "String text"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.AddConsortia"
+  ],
+  "mgr": [
+   "ConsortiaExtraMgr.FindConsortiaLevelInfo",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [
+   "SendConsortiaCreate"
+  ],
+  "out": [
+   "SendTCP",
+   "SendMessage"
+  ],
+  "packets": [
+   "129"
+  ],
+  "player": [
+   "RemoveGold",
+   "RemoveMoney"
+  ],
+  "lang": [
+   "ConsortiaCreateHandler.Long"
+  ],
+  "lines": 72
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 2,
+  "symbol": "ConsortiaPackageType.CONSORTIA_DISBAND",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaDisband",
+  "file": "Game.Server/Consortia/Handle/ConsortiaDisband.cs",
+  "reads": [],
+  "bussiness": [
+   "ConsortiaBussiness.DeleteConsortia"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [
+   "SendConsortiaDelete"
+  ],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "129=ePackageType.CONSORTIA_CMD"
+  ],
+  "player": [
+   "ClearConsortia"
+  ],
+  "lang": [
+   "ConsortiaDisbandHandler.Success2"
+  ],
+  "lines": 48
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 3,
+  "symbol": "ConsortiaPackageType.CONSORTIA_RENEGADE",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaRenegade",
+  "file": "Game.Server/Consortia/Handle/ConsortiaRenegade.cs",
+  "reads": [
+   "Int id"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.DeleteConsortiaUser"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [
+   "SendConsortiaUserDelete"
+  ],
+  "out": [
+   "SendMailResponse",
+   "SendTCP"
+  ],
+  "packets": [
+   "129=ePackageType.CONSORTIA_CMD"
+  ],
+  "player": [
+   "ClearConsortia"
+  ],
+  "lang": [],
+  "lines": 34
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 4,
+  "symbol": "ConsortiaPackageType.CONSORTIA_TRYIN_PASS",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaTryinPass",
+  "file": "Game.Server/Consortia/Handle/ConsortiaTryinPass.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.PassConsortiaApplyUsers"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [
+   "SendConsortiaUserPass"
+  ],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "129"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 34
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 5,
+  "symbol": "ConsortiaPackageType.CONSORTIA_TRYIN_DEL",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaTryinDel",
+  "file": "Game.Server/Consortia/Handle/ConsortiaTryinDel.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.DeleteConsortiaApplyUsers"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "129"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 22
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 6,
+  "symbol": "ConsortiaPackageType.CONSORTIA_RICHES_OFFER",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaRichesOffer",
+  "file": "Game.Server/Consortia/Handle/ConsortiaRichesOffer.cs",
+  "reads": [
+   "Int money"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.ConsortiaRichAdd"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [
+   "SendConsortiaRichesOffer"
+  ],
+  "out": [
+   "SendMessage",
+   "SendTCP"
+  ],
+  "packets": [
+   "129=ePackageType.CONSORTIA_CMD"
+  ],
+  "player": [
+   "RemoveMoney"
+  ],
+  "lang": [
+   "Bag.Locked",
+   "ConsortiaRichesOfferHandler.NoMoney",
+   "ConsortiaRichesOfferHandler.RichIsNotFound"
+  ],
+  "lines": 51
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 7,
+  "symbol": "ConsortiaPackageType.CONSORTIA_APPLY_STATE",
+  "names": [],
+  "desc": "",
+  "class": "ConsotiaApplyState",
+  "file": "Game.Server/Consortia/Handle/ConsotiaApplyState.cs",
+  "reads": [
+   "Boolean flag"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.UpdateConsotiaApplyState"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "129"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 26
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 9,
+  "symbol": "ConsortiaPackageType.CONSORTIA_DUTY_DELETE",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaDutyDelete",
+  "file": "Game.Server/Consortia/Handle/ConsortiaDutyDelete.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.DeleteConsortiaDuty"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "129"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 26
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 10,
+  "symbol": "ConsortiaPackageType.CONSORTIA_DUTY_UPDATE",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaDutyUpdate",
+  "file": "Game.Server/Consortia/Handle/ConsortiaDutyUpdate.cs",
+  "reads": [
+   "Int dutyID",
+   "Byte num",
+   "String consortiaDutyInfo.DutyName",
+   "Int consortiaDutyInfo.Right"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.UpdateConsortiaDuty"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [
+   "SendConsortiaDuty"
+  ],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [
+   "ConsortiaDutyUpdateHandler.Long"
+  ],
+  "lines": 39
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 11,
+  "symbol": "ConsortiaPackageType.CONSORTIA_INVITE",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaInviteAdd",
+  "file": "Game.Server/Consortia/Handle/ConsortiaInviteAdd.cs",
+  "reads": [
+   "String name"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.AddConsortiaInviteUsers"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [
+   "SendConsortiaInvite"
+  ],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "129=ePackageType.CONSORTIA_CMD"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 40
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 12,
+  "symbol": "ConsortiaPackageType.CONSORTIA_INVITE_PASS",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaInvitePass",
+  "file": "Game.Server/Consortia/Handle/ConsortiaInvitePass.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.PassConsortiaInviteUsers"
+  ],
+  "mgr": [
+   "ConsortiaMgr.FindConsortiaInfo",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [
+   "SendConsortiaUserPass"
+  ],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "129"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 61
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 13,
+  "symbol": "ConsortiaPackageType.CONSORTIA_INVITE_DELETE",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaInviteDelete",
+  "file": "Game.Server/Consortia/Handle/ConsortiaInviteDelete.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.DeleteConsortiaInviteUsers"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "129"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 22
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 14,
+  "symbol": "ConsortiaPackageType.CONSORTIA_DESCRIPTION_UPDATE",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaDescriptionUpdate",
+  "file": "Game.Server/Consortia/Handle/ConsortiaDescriptionUpdate.cs",
+  "reads": [
+   "String text"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.UpdateConsortiaDescription"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendTCP"
+  ],
+  "packets": [
+   "129"
+  ],
+  "player": [],
+  "lang": [
+   "ConsortiaDescriptionUpdateHandler.Long"
+  ],
+  "lines": 27
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 15,
+  "symbol": "ConsortiaPackageType.CONSORTIA_PLACARD_UPDATE",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaPlacardUpdate",
+  "file": "Game.Server/Consortia/Handle/ConsortiaPlacardUpdate.cs",
+  "reads": [
+   "String text"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.UpdateConsortiaPlacard"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendTCP"
+  ],
+  "packets": [
+   "129"
+  ],
+  "player": [],
+  "lang": [
+   "ConsortiaPlacardUpdateHandler.Long"
+  ],
+  "lines": 27
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 16,
+  "symbol": "ConsortiaPackageType.CONSORTIA_BANCHAT_UPDATE",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaIsBanChat",
+  "file": "Game.Server/Consortia/Handle/ConsortiaIsBanChat.cs",
+  "reads": [
+   "Int num",
+   "Boolean flag"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.UpdateConsortiaIsBanChat"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [
+   "SendConsortiaBanChat"
+  ],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "129"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 31
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 17,
+  "symbol": "ConsortiaPackageType.CONSORTIA_USER_REMARK_UPDATE",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaUserRemark",
+  "file": "Game.Server/Consortia/Handle/ConsortiaUserRemark.cs",
+  "reads": [
+   "Int num",
+   "String text"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.UpdateConsortiaUserRemark"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendTCP",
+   "SendMessage"
+  ],
+  "packets": [
+   "129"
+  ],
+  "player": [],
+  "lang": [
+   "ConsortiaUserRemarkHandler.Long"
+  ],
+  "lines": 33
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 18,
+  "symbol": "ConsortiaPackageType.CONSORTIA_USER_GRADE_UPDATE",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaUserGradeUpdate",
+  "file": "Game.Server/Consortia/Handle/ConsortiaUserGradeUpdate.cs",
+  "reads": [
+   "Int num",
+   "Boolean flag"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.UpdateConsortiaUserGrade"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [
+   "SendConsortiaDuty"
+  ],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "129"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 31
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 19,
+  "symbol": "ConsortiaPackageType.CONSORTIA_CHAIRMAN_CHAHGE",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaChangeChairman",
+  "file": "Game.Server/Consortia/Handle/ConsortiaChangeChairman.cs",
+  "reads": [
+   "String text"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.UpdateConsortiaChairman"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [
+   "SendConsortiaDuty"
+  ],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "129"
+  ],
+  "player": [],
+  "lang": [
+   "ConsortiaChangeChairmanHandler.Success2"
+  ],
+  "lines": 49
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 20,
+  "symbol": "ConsortiaPackageType.CONSORTIA_CHAT",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaChat",
+  "file": "Game.Server/Consortia/Handle/ConsortiaChat.cs",
+  "reads": [
+   "Byte",
+   "String",
+   "String"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "WorldMgr.GetAllPlayers"
+  ],
+  "center": [
+   "SendPacket"
+  ],
+  "out": [
+   "SendMessage",
+   "SendTCP"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [
+   "ConsortiaChatHandler.IsBanChat"
+  ],
+  "lines": 29
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 21,
+  "symbol": "ConsortiaPackageType.CONSORTIA_LEVEL_UP",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaLevelUp",
+  "file": "Game.Server/Consortia/Handle/ConsortiaLevelUp.cs",
+  "reads": [
+   "Byte type"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.GetConsortiaSingle",
+   "ConsortiaBussiness.UpGradeConsortia",
+   "ConsortiaBussiness.UpGradeStoreConsortia",
+   "ConsortiaBussiness.UpGradeShopConsortia",
+   "ConsortiaBussiness.UpGradeSmithConsortia",
+   "ConsortiaBussiness.UpGradeSkillConsortia"
+  ],
+  "mgr": [
+   "ConsortiaMgr.FindConsortiaInfo",
+   "ConsortiaExtraMgr.FindConsortiaLevelInfo",
+   "LanguageMgr.GetTranslation",
+   "WorldMgr.GetAllPlayers"
+  ],
+  "center": [
+   "SendConsortiaUpGrade",
+   "SendConsortiaStoreUpGrade",
+   "SendConsortiaShopUpGrade",
+   "SendConsortiaSmithUpGrade",
+   "SendConsortiaKillUpGrade",
+   "SendPacket"
+  ],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "129=ePackageType.CONSORTIA_CMD",
+   "10=ePackageType.SYS_NOTICE"
+  ],
+  "player": [
+   "RemoveGold"
+  ],
+  "lang": [
+   "ConsortiaUpGradeHandler.Notice",
+   "ConsortiaShopUpGradeHandler.Notice",
+   "ConsortiaSmithUpGradeHandler.Notice",
+   "ConsortiaBufferUpGradeHandler.Notice"
+  ],
+  "lines": 183
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 22,
+  "symbol": "ConsortiaPackageType.CONSORTIA_TASK_RELEASE",
+  "names": [],
+  "desc": "",
+  "class": "CConsortiaTask",
+  "file": "Game.Server/Consortia/Handle/CConsortiaTask.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 7
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 23,
+  "symbol": "ConsortiaPackageType.DONATE",
+  "names": [],
+  "desc": "",
+  "class": "Donate",
+  "file": "Game.Server/Consortia/Handle/Donate.cs",
+  "reads": [
+   "Int itemType",
+   "Int amount"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 27
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 24,
+  "symbol": "ConsortiaPackageType.CONSORTIA_EQUIP_CONTROL",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaEquipControl",
+  "file": "Game.Server/Consortia/Handle/ConsortiaEquipControl.cs",
+  "reads": [
+   "Int consortiaEquipControlInfo.Riches",
+   "Int consortiaEquipControlInfo.Riches",
+   "Int consortiaEquipControlInfo.Riches"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.AddAndUpdateConsortiaEuqipControl"
+  ],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "129"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 44
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 26,
+  "symbol": "ConsortiaPackageType.SKILL_SOCKET",
+  "names": [],
+  "desc": "",
+  "class": "SkillSocket",
+  "file": "Game.Server/Consortia/Handle/SkillSocket.cs",
+  "reads": [
+   "Boolean",
+   "Int id",
+   "Int count",
+   "Int isMetal"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.ConsortiaRichRemove"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "ConsortiaExtraMgr.FindConsortiaBuffInfo",
+   "ConsortiaMgr.FindConsortiaInfo",
+   "ConsortiaMgr.AddBuffConsortia"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [
+   "SendMessage",
+   "GetMedalNum",
+   "RemoveRichesOffer",
+   "RemoveMedal"
+  ],
+  "lang": [
+   "GoSlow",
+   "Consortia.Msg1",
+   "Consortia.Msg4",
+   "Consortia.Msg5",
+   "Consortia.Msg6"
+  ],
+  "lines": 86
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 28,
+  "symbol": "ConsortiaPackageType.BUY_BADGE",
+  "names": [],
+  "desc": "",
+  "class": "BuyBadge",
+  "file": "Game.Server/Consortia/Handle/BuyBadge.cs",
+  "reads": [
+   "Int badgeID"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.GetConsortiaSingle",
+   "ConsortiaBussiness.BuyBadge",
+   "ConsortiaBussiness.GetAllMemberByConsortia",
+   "ConsortiaBussiness.UpdateConsortiaRiches"
+  ],
+  "mgr": [
+   "ConsortiaExtraMgr.FindConsortiaBadgeConfig",
+   "LanguageMgr.GetTranslation",
+   "WorldMgr.GetPlayerById"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "SendMessage",
+   "RemoveConsortiaRiches",
+   "UpdateBadgeId",
+   "UpdateProperties"
+  ],
+  "lang": [
+   "BuyBadge.BadgeNotFound",
+   "ConsortiaBussiness.Riches.Msg3",
+   "Consortia.Msg7"
+  ],
+  "lines": 73
+ },
+ {
+  "group": "consortia(129)",
+  "attr": "ConsortiaHandleAttbute",
+  "code": 29,
+  "symbol": "ConsortiaPackageType.CONSORTION_MAIL",
+  "names": [],
+  "desc": "",
+  "class": "ConsortiaMail",
+  "file": "Game.Server/Consortia/Handle/ConsortiaMail.cs",
+  "reads": [
+   "String title",
+   "String content"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetAllMemberByConsortia",
+   "PlayerBussiness.SendMail",
+   "ConsortiaBussiness.UpdateConsortiaRiches"
+  ],
+  "mgr": [
+   "ConsortiaMgr.FindConsortiaInfo",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMailResponse",
+   "SendTCP"
+  ],
+  "packets": [
+   "129"
+  ],
+  "player": [
+   "SendMessage"
+  ],
+  "lang": [
+   "ConsortiaBussiness.Riches.Msg3"
+  ],
+  "lines": 59
+ },
+ {
+  "group": "consortia-task",
+  "attr": "ConsortiaTask",
+  "code": 0,
+  "symbol": "ConsortiaTaskType.RELEASE_TASK",
+  "names": [],
+  "desc": "",
+  "class": "ReleaseTask",
+  "file": "Game.Server/ConsortiaTask/Handle/ReleaseTask.cs",
+  "reads": [
+   "Int level"
+  ],
+  "bussiness": [
+   "ConsortiaBussiness.GetConsortiaSingle",
+   "ConsortiaBussiness.UpdateConsortiaRiches"
+  ],
+  "mgr": [
+   "ConsortiaTaskMgr.GetMissionRichesWithLevel",
+   "LanguageMgr.GetTranslation",
+   "ConsortiaTaskMgr.CreateTask"
+  ],
+  "center": [],
+  "out": [
+   "SendTaskInfo"
+  ],
+  "packets": [],
+  "player": [
+   "SendMessage"
+  ],
+  "lang": [
+   "ConsortiaBussiness.Riches.Msg3"
+  ],
+  "lines": 31
+ },
+ {
+  "group": "consortia-task",
+  "attr": "ConsortiaTask",
+  "code": 1,
+  "symbol": "ConsortiaTaskType.RESET_TASK",
+  "names": [],
+  "desc": "",
+  "class": "ResetTask",
+  "file": "Game.Server/ConsortiaTask/Handle/ResetTask.cs",
+  "reads": [
+   "Boolean isBand"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "ConsortiaTaskMgr.ResetTask"
+  ],
+  "center": [],
+  "out": [
+   "SendTaskInfo"
+  ],
+  "packets": [],
+  "player": [
+   "RemoveMoney",
+   "SendMessage"
+  ],
+  "lang": [],
+  "lines": 27
+ },
+ {
+  "group": "consortia-task",
+  "attr": "ConsortiaTask",
+  "code": 2,
+  "symbol": "ConsortiaTaskType.SUMBIT_TASK",
+  "names": [],
+  "desc": "",
+  "class": "SumbitTask",
+  "file": "Game.Server/ConsortiaTask/Handle/SumbitTask.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendSumbitTask"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 6
+ },
+ {
+  "group": "consortia-task",
+  "attr": "ConsortiaTask",
+  "code": 3,
+  "symbol": "ConsortiaTaskType.GET_TASKINFO",
+  "names": [],
+  "desc": "",
+  "class": "GetTaskInfo",
+  "file": "Game.Server/ConsortiaTask/Handle/GetTaskInfo.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendTaskInfo"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 11
+ },
+ {
+  "group": "farm(81)",
+  "attr": "FarmHandleAttbute",
+  "code": 1,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "EnterFarm",
+  "file": "Game.Server/Farm/Handle/EnterFarm.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "PetMgr.CreateFirstAdoptList"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "SendMessage",
+   "RemoveFistGetPet",
+   "RemoveLastRefreshPet"
+  ],
+  "lang": [
+   "Bạn chưa đạt cấp độ 25 không thể vào Nông Trại!"
+  ],
+  "lines": 39
+ },
+ {
+  "group": "farm(81)",
+  "attr": "FarmHandleAttbute",
+  "code": 2,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "GrowFields",
+  "file": "Game.Server/Farm/Handle/GrowFields.cs",
+  "reads": [
+   "Byte num",
+   "Int num2",
+   "Int fieldId"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "OnSeedFoodPetEvent"
+  ],
+  "lang": [],
+  "lines": 13
+ },
+ {
+  "group": "farm(81)",
+  "attr": "FarmHandleAttbute",
+  "code": 4,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "GainFields",
+  "file": "Game.Server/Farm/Handle/GainFields.cs",
+  "reads": [
+   "Int num",
+   "Int fieldId"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "SendMessage"
+  ],
+  "lang": [
+   "Thu hoạch thất bại!",
+   "Thu hoạch thành công!",
+   "Không thể chộm nữa.",
+   "Thao tác thành công."
+  ],
+  "lines": 17
+ },
+ {
+  "group": "farm(81)",
+  "attr": "FarmHandleAttbute",
+  "code": 6,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "PayField",
+  "file": "Game.Server/Farm/Handle/PayField.cs",
+  "reads": [
+   "Int num",
+   "Int item",
+   "Int num2"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "SendMessage"
+  ],
+  "lang": [
+   "Mở rộng thành công!"
+  ],
+  "lines": 22
+ },
+ {
+  "group": "farm(81)",
+  "attr": "FarmHandleAttbute",
+  "code": 7,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "KillCropField",
+  "file": "Game.Server/Farm/Handle/KillCropField.cs",
+  "reads": [
+   "Int fieldId"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 7
+ },
+ {
+  "group": "farm(81)",
+  "attr": "FarmHandleAttbute",
+  "code": 8,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "HelperPayField",
+  "file": "Game.Server/Farm/Handle/HelperPayField.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendHelperSwitchField"
+  ],
+  "packets": [],
+  "player": [
+   "SendMessage"
+  ],
+  "lang": [
+   "Gia hạn trợ thủ thành công!"
+  ],
+  "lines": 17
+ },
+ {
+  "group": "farm(81)",
+  "attr": "FarmHandleAttbute",
+  "code": 9,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "HelperSwitchField",
+  "file": "Game.Server/Farm/Handle/HelperSwitchField.cs",
+  "reads": [
+   "Boolean flag",
+   "Int num",
+   "Int seedTime",
+   "Int num2",
+   "Int getCount",
+   "Int num3",
+   "Int num4"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "RemoveGiftToken",
+   "SendMessage"
+  ],
+  "lang": [
+   "Kích hoạt trợ thủ thất bại!",
+   "Xu khóa không đủ!",
+   "Xu không đủ!",
+   "Hủy trợ thủ thành công!",
+   "Kích hoạt trợ thủ thành công!"
+  ],
+  "lines": 42
+ },
+ {
+  "group": "farm(81)",
+  "attr": "FarmHandleAttbute",
+  "code": 16,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "ExitFarm",
+  "file": "Game.Server/Farm/Handle/ExitFarm.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 6
+ },
+ {
+  "group": "farm(81)",
+  "attr": "FarmHandleAttbute",
+  "code": 18,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "FarmGropFastforward",
+  "file": "Game.Server/Farm/Handle/FarmGropFastforward.cs",
+  "reads": [
+   "Boolean flag",
+   "Boolean isAllField",
+   "Int fieldId"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "RemoveGiftToken",
+   "SendMessage",
+   "RemoveMoney"
+  ],
+  "lang": [],
+  "lines": 33
+ },
+ {
+  "group": "gameroom(94)",
+  "attr": "GameRoomHandleAttbute",
+  "code": 0,
+  "symbol": "GameRoomPackageType.GAME_ROOM_CREATE",
+  "names": [],
+  "desc": "",
+  "class": "Create",
+  "file": "Game.Server/GameRoom/Handle/Create.cs",
+  "reads": [
+   "Byte roomType",
+   "Byte timeType",
+   "String name",
+   "String password"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "RoomMgr.CreateRoom"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [
+   "GameRoomCreate.Msg2"
+  ],
+  "lines": 58
+ },
+ {
+  "group": "gameroom(94)",
+  "attr": "GameRoomHandleAttbute",
+  "code": 1,
+  "symbol": "GameRoomPackageType.GAME_ROOM_LOGIN",
+  "names": [],
+  "desc": "",
+  "class": "Login",
+  "file": "Game.Server/GameRoom/Handle/Login.cs",
+  "reads": [
+   "Boolean isInvite",
+   "Int type",
+   "Int num",
+   "Int roomId",
+   "String pwd"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendRoomLoginResult",
+   "SendMessage",
+   "SendRoomCreate",
+   "SendGameRoomSetupChange"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [
+   "EnterRoomAction.noroom",
+   "EnterRoomAction.noexist",
+   "EnterRoomAction.start",
+   "Phòng đã đầy!",
+   "EnterRoomAction.level",
+   "EnterRoomAction.passworderror",
+   "EnterRoomAction.EnterPassword"
+  ],
+  "lines": 170
+ },
+ {
+  "group": "gameroom(94)",
+  "attr": "GameRoomHandleAttbute",
+  "code": 2,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "SetupChange",
+  "file": "Game.Server/GameRoom/Handle/SetupChange.cs",
+  "reads": [
+   "Int mapId",
+   "Byte(eRoomType) roomType",
+   "Boolean isOpenBoss",
+   "String password",
+   "String roomname",
+   "Byte timeMode",
+   "Byte hardLevel",
+   "Int levelLimits",
+   "Boolean isCrosszone"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "PveInfoMgr.GetPveInfoById",
+   "RoomMgr.UpdateRoomGameType"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "SendMessage"
+  ],
+  "lang": [],
+  "lines": 75
+ },
+ {
+  "group": "gameroom(94)",
+  "attr": "GameRoomHandleAttbute",
+  "code": 3,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "Kick",
+  "file": "Game.Server/GameRoom/Handle/Kick.cs",
+  "reads": [
+   "Byte"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "RoomMgr.KickPlayer"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 9
+ },
+ {
+  "group": "gameroom(94)",
+  "attr": "GameRoomHandleAttbute",
+  "code": 5,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "RemovePlayer",
+  "file": "Game.Server/GameRoom/Handle/RemovePlayer.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "RoomMgr.ExitRoom"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 9
+ },
+ {
+  "group": "gameroom(94)",
+  "attr": "GameRoomHandleAttbute",
+  "code": 6,
+  "symbol": "GameRoomPackageType.GAME_TEAM",
+  "names": [],
+  "desc": "",
+  "class": "GameChangeTeam",
+  "file": "Game.Server/GameRoom/Handle/GameChangeTeam.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "RoomMgr.SwitchTeam"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 9
+ },
+ {
+  "group": "gameroom(94)",
+  "attr": "GameRoomHandleAttbute",
+  "code": 7,
+  "symbol": "GameRoomPackageType.GAME_START",
+  "names": [],
+  "desc": "",
+  "class": "GameStart",
+  "file": "Game.Server/GameRoom/Handle/GameStart.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "RoomMgr.StartGame"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "SendMessage",
+   "GetItemByTemplateID",
+   "RemoveTemplate"
+  ],
+  "lang": [
+   "GameStart.Msg1"
+  ],
+  "lines": 88
+ },
+ {
+  "group": "gameroom(94)",
+  "attr": "GameRoomHandleAttbute",
+  "code": 9,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "RoomListUpdate",
+  "file": "Game.Server/GameRoom/Handle/RoomListUpdate.cs",
+  "reads": [
+   "Int num",
+   "Int num2",
+   "Int num3",
+   "Int num4"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "RoomMgr.GetAllMatchRooms",
+   "RoomMgr.GetAllPveRooms"
+  ],
+  "center": [],
+  "out": [
+   "SendUpdateRoomList"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 25
+ },
+ {
+  "group": "gameroom(94)",
+  "attr": "GameRoomHandleAttbute",
+  "code": 10,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "UpdatePlaces",
+  "file": "Game.Server/GameRoom/Handle/UpdatePlaces.cs",
+  "reads": [
+   "Byte pos",
+   "Int place",
+   "Boolean isOpened",
+   "Int placeView"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "RoomMgr.UpdateRoomPos"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 29
+ },
+ {
+  "group": "gameroom(94)",
+  "attr": "GameRoomHandleAttbute",
+  "code": 11,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "GamePickupCancel",
+  "file": "Game.Server/GameRoom/Handle/GamePickupCancel.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "RoomMgr.UpdatePlayerState"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [
+   "Game.Server.SceneGames.PairUp.Failed"
+  ],
+  "lines": 25
+ },
+ {
+  "group": "gameroom(94)",
+  "attr": "GameRoomHandleAttbute",
+  "code": 12,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "GamePickupStyle",
+  "file": "Game.Server/GameRoom/Handle/GamePickupStyle.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendRoomType"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 21
+ },
+ {
+  "group": "gameroom(94)",
+  "attr": "GameRoomHandleAttbute",
+  "code": 15,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "GamePlayerStateChange",
+  "file": "Game.Server/GameRoom/Handle/GamePlayerStateChange.cs",
+  "reads": [
+   "Byte state"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LogManager.GetLogger",
+   "LanguageMgr.GetTranslation",
+   "RoomMgr.UpdatePlayerState"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "SendMessage"
+  ],
+  "lang": [
+   "Game.Server.SceneGames.NoEquip"
+  ],
+  "lines": 17
+ },
+ {
+  "group": "hotspring(191)",
+  "attr": "HotSpringCommandAttbute",
+  "code": 1,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "TargetPointCmd",
+  "file": "Game.Server/HotSpringRooms/TankHandle/TargetPointCmd.cs",
+  "reads": [
+   "String pathStr",
+   "Int id",
+   "Int X",
+   "Int Y",
+   "Int",
+   "Int hot_Direction"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [
+   "191=ePackageType.HOTSPRING_CMD"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 28
+ },
+ {
+  "group": "hotspring(191)",
+  "attr": "HotSpringCommandAttbute",
+  "code": 3,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "RenewalFeeCmd",
+  "file": "Game.Server/HotSpringRooms/TankHandle/RenewalFeeCmd.cs",
+  "reads": [
+   "Int"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 9
+ },
+ {
+  "group": "littlegame(166)",
+  "attr": "LittleGame",
+  "code": 2,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "EnterWorld",
+  "file": "Game.Server/LittleGame/Handle/EnterWorld.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "LittleGameWorldMgr.AddPlayer"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "SendMessage"
+  ],
+  "lang": [],
+  "lines": 16
+ },
+ {
+  "group": "littlegame(166)",
+  "attr": "LittleGame",
+  "code": 3,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "LoadCompleted",
+  "file": "Game.Server/LittleGame/Handle/LoadCompleted.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendLoadComplete"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 6
+ },
+ {
+  "group": "littlegame(166)",
+  "attr": "LittleGame",
+  "code": 4,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "LeaveWorld",
+  "file": "Game.Server/LittleGame/Handle/LeaveWorld.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "LittleGameWorldMgr.RemovePlayer"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 6
+ },
+ {
+  "group": "littlegame(166)",
+  "attr": "LittleGame",
+  "code": 32,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "Move",
+  "file": "Game.Server/LittleGame/Handle/Move.cs",
+  "reads": [
+   "Int num",
+   "Int num2",
+   "Int x",
+   "Int y",
+   "Int num3"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendMoveToAll"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 13
+ },
+ {
+  "group": "littlegame(166)",
+  "attr": "LittleGame",
+  "code": 33,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "PosSync",
+  "file": "Game.Server/LittleGame/Handle/PosSync.cs",
+  "reads": [
+   "Int num",
+   "Int num2"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 7
+ },
+ {
+  "group": "littlegame(166)",
+  "attr": "LittleGame",
+  "code": 64,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "ReportScore",
+  "file": "Game.Server/LittleGame/Handle/ReportScore.cs",
+  "reads": [
+   "Int value",
+   "Int key"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LittleGameWorldMgr.RemoveBogu"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "AddScore"
+  ],
+  "lang": [],
+  "lines": 44
+ },
+ {
+  "group": "littlegame(166)",
+  "attr": "LittleGame",
+  "code": 65,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "Click",
+  "file": "Game.Server/LittleGame/Handle/Click.cs",
+  "reads": [
+   "Int key",
+   "Int num",
+   "Int num2",
+   "Int num3",
+   "Int num4"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendAddObject"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 77
+ },
+ {
+  "group": "littlegame(166)",
+  "attr": "LittleGame",
+  "code": 66,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "CancelClick",
+  "file": "Game.Server/LittleGame/Handle/CancelClick.cs",
+  "reads": [
+   "Int key"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 42
+ },
+ {
+  "group": "marry(249)",
+  "attr": "MarryCommandAttbute",
+  "code": 1,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "MoveCommand",
+  "file": "Game.Server/SceneMarryRooms/TankHandle/MoveCommand.cs",
+  "reads": [
+   "Int player.X",
+   "Int player.Y"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 12
+ },
+ {
+  "group": "marry(249)",
+  "attr": "MarryCommandAttbute",
+  "code": 2,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "HymenealCommand",
+  "file": "Game.Server/SceneMarryRooms/TankHandle/HymenealCommand.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [
+   "PlayerBussiness.AddGoods",
+   "PlayerBussiness.SendMail",
+   "PlayerBussiness.UpdateMarryRoomInfo",
+   "PlayerBussiness.UpdatePlayerGotRingProp"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "ItemMgr.FindItemTemplate"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendMailResponse"
+  ],
+  "packets": [],
+  "player": [
+   "RemoveMoney"
+  ],
+  "lang": [
+   "UserFirecrackersCommand.MoneyNotEnough",
+   "HymenealCommand.NoGroom",
+   "HymenealCommand.NoBride",
+   "HymenealCommand.Content",
+   "HymenealCommand.Sender",
+   "HymenealCommand.Title",
+   "HymenealCommand.Succeed"
+  ],
+  "lines": 128
+ },
+ {
+  "group": "marry(249)",
+  "attr": "MarryCommandAttbute",
+  "code": 3,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "ContinuationCommand",
+  "file": "Game.Server/SceneMarryRooms/TankHandle/ContinuationCommand.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LogManager.GetLogger",
+   "LanguageMgr.GetTranslation",
+   "WorldMgr.GetPlayerById"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendContinuation",
+   "SendTCP"
+  ],
+  "packets": [],
+  "player": [
+   "RemoveMoney"
+  ],
+  "lang": [
+   "MarryApplyHandler.Msg1",
+   "ContinuationCommand.Successed"
+  ],
+  "lines": 54
+ },
+ {
+  "group": "marry(249)",
+  "attr": "MarryCommandAttbute",
+  "code": 4,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "InviteCommand",
+  "file": "Game.Server/SceneMarryRooms/TankHandle/InviteCommand.cs",
+  "reads": [
+   "Int"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "WorldMgr.GetPlayerById"
+  ],
+  "center": [],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 27
+ },
+ {
+  "group": "marry(249)",
+  "attr": "MarryCommandAttbute",
+  "code": 5,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "LargessCommand",
+  "file": "Game.Server/SceneMarryRooms/TankHandle/LargessCommand.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [
+   "PlayerBussiness.SendMail"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage",
+   "SendMailResponse"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [
+   "LargessCommand.Content",
+   "LargessCommand.Title",
+   "LargessCommand.Sender",
+   "LargessCommand.Succeed",
+   "LargessCommand.Notice"
+  ],
+  "lines": 68
+ },
+ {
+  "group": "marry(249)",
+  "attr": "MarryCommandAttbute",
+  "code": 6,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "UserFirecrackersCommand",
+  "file": "Game.Server/SceneMarryRooms/TankHandle/UserFirecrackersCommand.cs",
+  "reads": [
+   "Int",
+   "Int"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "ShopMgr.FindShopbyTemplatID",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [
+   "RemoveGold",
+   "OnUsingItem",
+   "RemoveMoney"
+  ],
+  "lang": [
+   "UserFirecrackersCommand.Successed1",
+   "UserFirecrackersCommand.GoldNotEnough",
+   "UserFirecrackersCommand.Successed2",
+   "UserFirecrackersCommand.MoneyNotEnough"
+  ],
+  "lines": 37
+ },
+ {
+  "group": "marry(249)",
+  "attr": "MarryCommandAttbute",
+  "code": 7,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "KickCommand",
+  "file": "Game.Server/SceneMarryRooms/TankHandle/KickCommand.cs",
+  "reads": [
+   "Int userID"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 11
+ },
+ {
+  "group": "marry(249)",
+  "attr": "MarryCommandAttbute",
+  "code": 8,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "ForbidCommand",
+  "file": "Game.Server/SceneMarryRooms/TankHandle/ForbidCommand.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 15
+ },
+ {
+  "group": "marry(249)",
+  "attr": "MarryCommandAttbute",
+  "code": 10,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "Position",
+  "file": "Game.Server/SceneMarryRooms/TankHandle/Position.cs",
+  "reads": [
+   "Int player.X",
+   "Int player.Y"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 11
+ },
+ {
+  "group": "marry(249)",
+  "attr": "MarryCommandAttbute",
+  "code": 11,
+  "symbol": null,
+  "names": [],
+  "desc": "",
+  "class": "GunsaluteCommand",
+  "file": "Game.Server/SceneMarryRooms/TankHandle/GunsaluteCommand.cs",
+  "reads": [
+   "Int",
+   "Int"
+  ],
+  "bussiness": [
+   "PlayerBussiness.UpdateMarryRoomInfo"
+  ],
+  "mgr": [
+   "ItemMgr.FindItemTemplate",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [
+   "SendMarryRoomInfoToPlayer"
+  ],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [
+   "GunsaluteCommand.Successed1"
+  ],
+  "lines": 23
+ },
+ {
+  "group": "pet(68)",
+  "attr": "PetHandleAttbute",
+  "code": 1,
+  "symbol": "PetPackageType.UPDATE_PET",
+  "names": [],
+  "desc": "",
+  "class": "UpdatePet",
+  "file": "Game.Server/Pet/Handle/UpdatePet.cs",
+  "reads": [
+   "Int playerID"
+  ],
+  "bussiness": [
+   "PlayerBussiness.GetUserPetSingles",
+   "PlayerBussiness.GetAllEatPetsByID"
+  ],
+  "mgr": [
+   "WorldMgr.GetPlayerById"
+  ],
+  "center": [],
+  "out": [
+   "SendPetInfo"
+  ],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 41
+ },
+ {
+  "group": "pet(68)",
+  "attr": "PetHandleAttbute",
+  "code": 2,
+  "symbol": "PetPackageType.ADD_PET",
+  "names": [],
+  "desc": "",
+  "class": "AddPet",
+  "file": "Game.Server/Pet/Handle/AddPet.cs",
+  "reads": [
+   "Int place",
+   "Int bagType"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "PetMgr.FindPetTemplate",
+   "PetMgr.CreatePet",
+   "WorldMgr.SendSysNotice"
+  ],
+  "center": [
+   "SendPacket"
+  ],
+  "out": [],
+  "packets": [
+   "68"
+  ],
+  "player": [
+   "SendMessage",
+   "GetItemAt",
+   "RemoveCountFromStack",
+   "SendTCP"
+  ],
+  "lang": [
+   "PetHandler.Msg2",
+   "PetHandler.Msg3",
+   "PetHandler.Msg4",
+   "PetHandler.Msg5",
+   "PetHandler.Msg6"
+  ],
+  "lines": 52
+ },
+ {
+  "group": "pet(68)",
+  "attr": "PetHandleAttbute",
+  "code": 4,
+  "symbol": "PetPackageType.FEED_PET",
+  "names": [],
+  "desc": "",
+  "class": "FeedPet",
+  "file": "Game.Server/Pet/Handle/FeedPet.cs",
+  "reads": [
+   "Int itemPlace",
+   "Int(eBageType) BagType",
+   "Int place"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "PetMgr.FindConfig",
+   "PetMgr.GetLevel",
+   "PetMgr.GetGP"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [],
+  "player": [
+   "GetItemAt",
+   "OnUsingItem",
+   "SendMessage"
+  ],
+  "lang": [
+   "PetHandler.Msg9",
+   "FeedPet.Success",
+   "PetHandler.Msg10",
+   "PetHandler.Msg11"
+  ],
+  "lines": 115
+ },
+ {
+  "group": "pet(68)",
+  "attr": "PetHandleAttbute",
+  "code": 5,
+  "symbol": "PetPackageType.REFRESH_PET",
+  "names": [],
+  "desc": "",
+  "class": "RefereshPet",
+  "file": "Game.Server/Pet/Handle/RefereshPet.cs",
+  "reads": [
+   "Boolean refreshBtn"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "PetMgr.FindConfig",
+   "PetMgr.CreateAdoptList"
+  ],
+  "center": [],
+  "out": [
+   "SendRefreshPet"
+  ],
+  "packets": [],
+  "player": [
+   "RemoveTemplate",
+   "AddPetScore"
+  ],
+  "lang": [],
+  "lines": 35
+ },
+ {
+  "group": "pet(68)",
+  "attr": "PetHandleAttbute",
+  "code": 6,
+  "symbol": "PetPackageType.ADOPT_PET",
+  "names": [],
+  "desc": "",
+  "class": "AdoptPet",
+  "file": "Game.Server/Pet/Handle/AdoptPet.cs",
+  "reads": [
+   "Int num"
+  ],
+  "bussiness": [
+   "PlayerBussiness.RemoveUserAdoptPet"
+  ],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "PetMgr.FindPetTemplate",
+   "WorldMgr.SendSysNotice"
+  ],
+  "center": [
+   "SendPacket"
+  ],
+  "out": [
+   "SendRefreshPet"
+  ],
+  "packets": [],
+  "player": [
+   "SendMessage",
+   "OnAdoptPetEvent"
+  ],
+  "lang": [
+   "Số lượng pet đã đạt giới hạn!",
+   "Không tìm thấy pet này!"
+  ],
+  "lines": 50
+ },
+ {
+  "group": "pet(68)",
+  "attr": "PetHandleAttbute",
+  "code": 7,
+  "symbol": "PetPackageType.EQUIP_PET_SKILL",
+  "names": [],
+  "desc": "",
+  "class": "EquipSkillPet",
+  "file": "Game.Server/Pet/Handle/EquipSkillPet.cs",
+  "reads": [
+   "Int place",
+   "Int killId",
+   "Int killindex"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "SendMessage"
+  ],
+  "lang": [
+   "PetHandler.Msg181"
+  ],
+  "lines": 20
+ },
+ {
+  "group": "pet(68)",
+  "attr": "PetHandleAttbute",
+  "code": 8,
+  "symbol": "PetPackageType.RELEASE_PET",
+  "names": [],
+  "desc": "",
+  "class": "ReleasePet",
+  "file": "Game.Server/Pet/Handle/ReleasePet.cs",
+  "reads": [
+   "Int place"
+  ],
+  "bussiness": [
+   "PlayerBussiness.UpdateUserAdoptPet"
+  ],
+  "mgr": [
+   "PetMgr.FindPetTemplate",
+   "ItemMgr.FindItemTemplate",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "SendItemToMail",
+   "SendMessage"
+  ],
+  "lang": [
+   "PetHandler.Msg19"
+  ],
+  "lines": 25
+ },
+ {
+  "group": "pet(68)",
+  "attr": "PetHandleAttbute",
+  "code": 9,
+  "symbol": "PetPackageType.RENAME_PET",
+  "names": [],
+  "desc": "",
+  "class": "RenamePet",
+  "file": "Game.Server/Pet/Handle/RenamePet.cs",
+  "reads": [
+   "Int place",
+   "String name"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "PetMgr.FindConfig",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "SendMessage"
+  ],
+  "lang": [
+   "PetHandler.Msg20"
+  ],
+  "lines": 12
+ },
+ {
+  "group": "pet(68)",
+  "attr": "PetHandleAttbute",
+  "code": 17,
+  "symbol": "PetPackageType.FIGHT_PET",
+  "names": [],
+  "desc": "",
+  "class": "FightPet",
+  "file": "Game.Server/Pet/Handle/FightPet.cs",
+  "reads": [
+   "Int place",
+   "Boolean isEquip"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "SendMessage"
+  ],
+  "lang": [
+   "PetHandler.Msg21",
+   "PetHandler.Msg22"
+  ],
+  "lines": 26
+ },
+ {
+  "group": "pet(68)",
+  "attr": "PetHandleAttbute",
+  "code": 18,
+  "symbol": "PetPackageType.REVER_PET",
+  "names": [],
+  "desc": "",
+  "class": "RevertPet",
+  "file": "Game.Server/Pet/Handle/RevertPet.cs",
+  "reads": [
+   "Int place"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "PetMgr.FindConfig",
+   "LanguageMgr.GetTranslation",
+   "ItemMgr.FindItemTemplate"
+  ],
+  "center": [],
+  "out": [
+   "SendMailResponse"
+  ],
+  "packets": [],
+  "player": [
+   "SendMessage",
+   "SendItemToMail"
+  ],
+  "lang": [
+   "PetHandler.Msg7",
+   "UserChangeItemPlaceHandler.full",
+   "PetHandler.Msg8"
+  ],
+  "lines": 69
+ },
+ {
+  "group": "pet(68)",
+  "attr": "PetHandleAttbute",
+  "code": 19,
+  "symbol": "FarmPackageType.BUY_PET_EXP_ITEM",
+  "names": [],
+  "desc": "",
+  "class": "BuyPetExpItem",
+  "file": "Game.Server/Pet/Handle/BuyPetExpItem.cs",
+  "reads": [
+   "Boolean isBand"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "PetMgr.FindPetExpItemPrice",
+   "ItemMgr.FindItemTemplate"
+  ],
+  "center": [],
+  "out": [
+   "SendMessage"
+  ],
+  "packets": [
+   "68=ePackageType.PET"
+  ],
+  "player": [
+   "RemoveGiftToken",
+   "RemoveMoney",
+   "SendMessage",
+   "AddTemplate",
+   "SendTCP"
+  ],
+  "lang": [
+   "Bag.Locked",
+   "PetHandler.Msg14"
+  ],
+  "lines": 103
+ },
+ {
+  "group": "pet(68)",
+  "attr": "PetHandleAttbute",
+  "code": 20,
+  "symbol": "PetPackageType.ADD_PET_EQUIP",
+  "names": [],
+  "desc": "",
+  "class": "AddPetEquip",
+  "file": "Game.Server/Pet/Handle/AddPetEquip.cs",
+  "reads": [
+   "Int bageType",
+   "Int slot",
+   "Int place"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "GetInventory",
+   "SendMessage"
+  ],
+  "lang": [
+   "AddPetEquip.WrongLevel",
+   "Trang bị vật phẩm PET thành công!",
+   "Đã có lỗi sảy ra vui lòng liên hệ BQT!",
+   "AddPetEquip.WrongItem"
+  ],
+  "lines": 41
+ },
+ {
+  "group": "pet(68)",
+  "attr": "PetHandleAttbute",
+  "code": 21,
+  "symbol": "PetPackageType.DEL_PET_EQUIP",
+  "names": [],
+  "desc": "",
+  "class": "DelPetEquip",
+  "file": "Game.Server/Pet/Handle/DelPetEquip.cs",
+  "reads": [
+   "Int num",
+   "Int eqPlace"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "AddLog"
+  ],
+  "lang": [],
+  "lines": 13
+ },
+ {
+  "group": "pet(68)",
+  "attr": "PetHandleAttbute",
+  "code": 22,
+  "symbol": "PetPackageType.PET_RISINGSTAR",
+  "names": [],
+  "desc": "",
+  "class": "PetRisingStar",
+  "file": "Game.Server/Pet/Handle/PetRisingStar.cs",
+  "reads": [
+   "Int templeteId",
+   "Int count",
+   "Int petPlace"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "LanguageMgr.GetTranslation",
+   "PetMgr.FindPetStarExp",
+   "PetMgr.FindPetTemplate",
+   "PetMgr.CreatePet"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [
+   "68=ePackageType.PET"
+  ],
+  "player": [
+   "SendMessage",
+   "GetItemByTemplateID",
+   "RemoveCountFromStack",
+   "SendTCP"
+  ],
+  "lang": [
+   "PetRisingStar.PetNotFound",
+   "PetRisingStar.ItemNotFound",
+   "PetRisingStar.UnSupport"
+  ],
+  "lines": 102
+ },
+ {
+  "group": "pet(68)",
+  "attr": "PetHandleAttbute",
+  "code": 23,
+  "symbol": "PetPackageType.PET_EVOLUTION",
+  "names": [],
+  "desc": "",
+  "class": "PetEvolution",
+  "file": "Game.Server/Pet/Handle/PetEvolution.cs",
+  "reads": [
+   "Int tempalteId",
+   "Int count"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "PetMgr.GetEvolutionMax",
+   "PetMgr.FindFightProperty"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [
+   "68=ePackageType.PET"
+  ],
+  "player": [
+   "GetItemByTemplateID",
+   "RemoveTemplate",
+   "AddLog",
+   "SendUpdatePublicPlayer",
+   "SendTCP"
+  ],
+  "lang": [],
+  "lines": 47
+ },
+ {
+  "group": "pet(68)",
+  "attr": "PetHandleAttbute",
+  "code": 33,
+  "symbol": "PetPackageType.EAT_PETS",
+  "names": [],
+  "desc": "",
+  "class": "EatPet",
+  "file": "Game.Server/Pet/Handle/EatPet.cs",
+  "reads": [
+   "Int amor",
+   "Int type",
+   "Int count",
+   "Int slot",
+   "Int templateID",
+   "Int count"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "PetMgr.FindPetTemplate",
+   "PetMoePropertyMgr.getNeedExp",
+   "PetMoePropertyMgr.FindMaxLevel",
+   "PetMoePropertyMgr.FindPetMoeProperty"
+  ],
+  "center": [],
+  "out": [
+   "SendEatPetsInfo"
+  ],
+  "packets": [],
+  "player": [
+   "SendMessage",
+   "GetItemByTemplateID",
+   "RemoveTemplate"
+  ],
+  "lang": [],
+  "lines": 229
+ },
+ {
+  "group": "ringstation(404)",
+  "attr": "RingStationHandleAttbute",
+  "code": 1,
+  "symbol": "RingStationPackageType.RINGSTATION_VIEWINFO",
+  "names": [],
+  "desc": "",
+  "class": "RingStationViewInfo",
+  "file": "Game.Server/RingStation/Handle/RingStationViewInfo.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "RingStationMgr.LoadRingStationInfo",
+   "RingStationMgr.GetSingleRingStationInfos",
+   "RingStationMgr.UpdateRingStationInfo",
+   "RingStationMgr.GetRingStationInfos"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [
+   "404=ePackageType.RING_STATION"
+  ],
+  "player": [
+   "GetBaseAttack",
+   "GetBaseDefence",
+   "SendTCP"
+  ],
+  "lang": [],
+  "lines": 66
+ },
+ {
+  "group": "ringstation(404)",
+  "attr": "RingStationHandleAttbute",
+  "code": 2,
+  "symbol": "RingStationPackageType.RINGSTATION_BUYCOUNTORTIME",
+  "names": [],
+  "desc": "",
+  "class": "RingStationBuyBattleCountOrTime",
+  "file": "Game.Server/RingStation/Handle/RingStationBuyBattleCountOrTime.cs",
+  "reads": [
+   "Boolean timeFlag",
+   "Boolean isBand"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "RingStationMgr.GetSingleRingStationInfos",
+   "RingStationMgr.UpdateRingStationInfo",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [
+   "404=ePackageType.RING_STATION"
+  ],
+  "player": [
+   "SendMessage",
+   "SendTCP"
+  ],
+  "lang": [
+   "RingStationBuyBattleCountOrTime.ClearTime",
+   "RingStationBuyBattleCountOrTime.BuyChallenge",
+   "RingStationBuyBattleCountOrTime.Limit"
+  ],
+  "lines": 51
+ },
+ {
+  "group": "ringstation(404)",
+  "attr": "RingStationHandleAttbute",
+  "code": 3,
+  "symbol": "RingStationPackageType.RINGSTATION_ARMORY",
+  "names": [],
+  "desc": "",
+  "class": "RingStationArmory",
+  "file": "Game.Server/RingStation/Handle/RingStationArmory.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "RingStationMgr.GetRingStationRanks"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [
+   "404=ePackageType.RING_STATION"
+  ],
+  "player": [
+   "SendTCP"
+  ],
+  "lang": [],
+  "lines": 19
+ },
+ {
+  "group": "ringstation(404)",
+  "attr": "RingStationHandleAttbute",
+  "code": 4,
+  "symbol": "RingStationPackageType.RINGSTATION_NEWBATTLEFIELD",
+  "names": [],
+  "desc": "",
+  "class": "RingStationBattleField",
+  "file": "Game.Server/RingStation/Handle/RingStationBattleField.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "RingStationMgr.GetRingBattleFields"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [
+   "404=ePackageType.RING_STATION"
+  ],
+  "player": [
+   "SendTCP"
+  ],
+  "lang": [],
+  "lines": 19
+ },
+ {
+  "group": "ringstation(404)",
+  "attr": "RingStationHandleAttbute",
+  "code": 5,
+  "symbol": "RingStationPackageType.RINGSTATION_CHALLENGE",
+  "names": [],
+  "desc": "",
+  "class": "RingStationChallenge",
+  "file": "Game.Server/RingStation/Handle/RingStationChallenge.cs",
+  "reads": [
+   "Int playerid",
+   "Int rank"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "RingStationMgr.GetSingleRingStationInfos",
+   "RingStationMgr.GetRingStationChallenge",
+   "LanguageMgr.GetTranslation"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "SendMessage"
+  ],
+  "lang": [
+   "RingStationChallenge.OnFight",
+   "RingStationChallenge.Fail",
+   "RingStationFightFlag.CdFail"
+  ],
+  "lines": 53
+ },
+ {
+  "group": "ringstation(404)",
+  "attr": "RingStationHandleAttbute",
+  "code": 6,
+  "symbol": "RingStationPackageType.RINGSTATION_FIGHTFLAG",
+  "names": [],
+  "desc": "",
+  "class": "RingStationFightFlag",
+  "file": "Game.Server/RingStation/Handle/RingStationFightFlag.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [
+   "404=ePackageType.RING_STATION"
+  ],
+  "player": [
+   "SendTCP"
+  ],
+  "lang": [],
+  "lines": 10
+ },
+ {
+  "group": "ringstation(404)",
+  "attr": "RingStationHandleAttbute",
+  "code": 7,
+  "symbol": "RingStationPackageType.RINGSTATION_SENDSIGNMSG",
+  "names": [],
+  "desc": "",
+  "class": "RingStationSignMsg",
+  "file": "Game.Server/RingStation/Handle/RingStationSignMsg.cs",
+  "reads": [
+   "String signMsg"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "RingStationMgr.GetSingleRingStationInfos",
+   "RingStationMgr.UpdateRingStationInfo"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 9
+ },
+ {
+  "group": "ringstation(404)",
+  "attr": "RingStationHandleAttbute",
+  "code": 8,
+  "symbol": "RingStationPackageType.RINGSTATION_GETREWARD",
+  "names": [],
+  "desc": "",
+  "class": "RingStationGetReward",
+  "file": "Game.Server/RingStation/Handle/RingStationGetReward .cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [
+   "RingStationMgr.GetSingleRingStationInfos",
+   "RingStationMgr.UpdateRingStationInfo"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [
+   "404=ePackageType.RING_STATION"
+  ],
+  "player": [
+   "AddLeagueMoney",
+   "SendTCP"
+  ],
+  "lang": [],
+  "lines": 24
+ },
+ {
+  "group": "ringstation-game",
+  "attr": "GameCommandAttbute",
+  "code": 3,
+  "symbol": "GameCmdType.SYS_MESSAGE",
+  "names": [],
+  "desc": "",
+  "class": "SysMessage",
+  "file": "Game.Server/RingStation/RoomGamePkg/TankHandle/SysMessage.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 5
+ },
+ {
+  "group": "ringstation-game",
+  "attr": "GameCommandAttbute",
+  "code": 19,
+  "symbol": "GameCmdType.CHAT_MSG",
+  "names": [],
+  "desc": "",
+  "class": "PlayerChatHandler",
+  "file": "Game.Server/RingStation/RoomGamePkg/TankHandle/PlayerChatHandler.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 5
+ },
+ {
+  "group": "ringstation-game",
+  "attr": "GameCommandAttbute",
+  "code": 83,
+  "symbol": "GameCmdType.DISCONNECT",
+  "names": [],
+  "desc": "",
+  "class": "Disconnect",
+  "file": "Game.Server/RingStation/RoomGamePkg/TankHandle/Disconnect.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 7
+ },
+ {
+  "group": "ringstation-game",
+  "attr": "GameCommandAttbute",
+  "code": 91,
+  "symbol": "GameCmdType.GAME_CMD",
+  "names": [],
+  "desc": "",
+  "class": "GamePacket",
+  "file": "Game.Server/RingStation/RoomGamePkg/TankHandle/GamePacket.cs",
+  "reads": [
+   "Byte b"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "SendLoadingComplete"
+  ],
+  "lang": [],
+  "lines": 32
+ },
+ {
+  "group": "ringstation-game",
+  "attr": "GameCommandAttbute",
+  "code": 94,
+  "symbol": "GameCmdType.GAME_ROOM",
+  "names": [],
+  "desc": "",
+  "class": "GameRoom",
+  "file": "Game.Server/RingStation/RoomGamePkg/TankHandle/GameRoom.cs",
+  "reads": [
+   "Byte code"
+  ],
+  "bussiness": [],
+  "mgr": [
+   "RingStationMgr.RemovePlayer"
+  ],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 16
+ },
+ {
+  "group": "ringstation-game",
+  "attr": "GameCommandAttbute",
+  "code": 186,
+  "symbol": "GameCmdType.BUFF_OBTAIN",
+  "names": [],
+  "desc": "",
+  "class": "BuffObtain",
+  "file": "Game.Server/RingStation/RoomGamePkg/TankHandle/BuffObtain.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 5
+ },
+ {
+  "group": "worldboss(102)",
+  "attr": "WorldBossHandle",
+  "code": 32,
+  "symbol": "WorldBossGamePackageType.ENTER_WORLDBOSSROOM",
+  "names": [],
+  "desc": "",
+  "class": "EnterRoom",
+  "file": "Game.Server/WorldBoss/Handle/EnterRoom.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [
+   "SendTCP"
+  ],
+  "packets": [
+   "102=ePackageType.WORLDBOSS_CMD"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 12
+ },
+ {
+  "group": "worldboss(102)",
+  "attr": "WorldBossHandle",
+  "code": 33,
+  "symbol": "WorldBossGamePackageType.LEAVE_ROOM",
+  "names": [],
+  "desc": "",
+  "class": "LeaveRoom",
+  "file": "Game.Server/WorldBoss/Handle/LeaveRoom.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "ClearFightBuffOneMatch"
+  ],
+  "lang": [],
+  "lines": 7
+ },
+ {
+  "group": "worldboss(102)",
+  "attr": "WorldBossHandle",
+  "code": 34,
+  "symbol": "WorldBossGamePackageType.ADDPLAYERS",
+  "names": [],
+  "desc": "",
+  "class": "AddPlayer",
+  "file": "Game.Server/WorldBoss/Handle/AddPlayer.cs",
+  "reads": [
+   "Int vx",
+   "Int vy"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [],
+  "lang": [],
+  "lines": 17
+ },
+ {
+  "group": "worldboss(102)",
+  "attr": "WorldBossHandle",
+  "code": 35,
+  "symbol": "WorldBossGamePackageType.MOVE",
+  "names": [],
+  "desc": "",
+  "class": "Move",
+  "file": "Game.Server/WorldBoss/Handle/Move.cs",
+  "reads": [
+   "Int vx",
+   "Int vy",
+   "String str"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [
+   "102=ePackageType.WORLDBOSS_CMD"
+  ],
+  "player": [
+   "SendTCP"
+  ],
+  "lang": [],
+  "lines": 20
+ },
+ {
+  "group": "worldboss(102)",
+  "attr": "WorldBossHandle",
+  "code": 36,
+  "symbol": "WorldBossGamePackageType.STAUTS",
+  "names": [],
+  "desc": "",
+  "class": "Status",
+  "file": "Game.Server/WorldBoss/Handle/Status.cs",
+  "reads": [
+   "Byte state"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [
+   "102=ePackageType.WORLDBOSS_CMD"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 26
+ },
+ {
+  "group": "worldboss(102)",
+  "attr": "WorldBossHandle",
+  "code": 37,
+  "symbol": "WorldBossGamePackageType.REQUEST_REVIVE",
+  "names": [],
+  "desc": "",
+  "class": "RequestRevive",
+  "file": "Game.Server/WorldBoss/Handle/RequestRevive.cs",
+  "reads": [
+   "Int type",
+   "Boolean isBand"
+  ],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [
+   "102=ePackageType.WORLDBOSS_CMD"
+  ],
+  "player": [],
+  "lang": [],
+  "lines": 36
+ },
+ {
+  "group": "worldboss(102)",
+  "attr": "WorldBossHandle",
+  "code": 38,
+  "symbol": "WorldBossGamePackageType.BUFF_BUY",
+  "names": [],
+  "desc": "",
+  "class": "BuyBuff",
+  "file": "Game.Server/WorldBoss/Handle/BuyBuff.cs",
+  "reads": [],
+  "bussiness": [],
+  "mgr": [],
+  "center": [],
+  "out": [],
+  "packets": [],
+  "player": [
+   "RemoveMoney"
+  ],
+  "lang": [],
+  "lines": 19
+ }
+]

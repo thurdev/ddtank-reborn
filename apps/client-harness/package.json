@@ -1,0 +1,12 @@
+{
+  "name": "@ddtank/client-harness",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Static harness that boots the original DDTank Flash client under self-hosted Ruffle and logs every HTTP request it makes.",
+  "scripts": {
+    "copy-client": "node scripts/copy-client.ts",
+    "start": "node server.ts",
+    "requests": "node scripts/summarize-requests.ts"
+  }
+}

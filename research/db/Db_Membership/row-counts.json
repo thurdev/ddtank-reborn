@@ -1,0 +1,82 @@
+[
+ {
+  "table": "Mem_ActiveCode",
+  "rows": 20200
+ },
+ {
+  "table": "Mem_Application",
+  "rows": 6
+ },
+ {
+  "table": "Mem_Application_Sub",
+  "rows": 6
+ },
+ {
+  "table": "Mem_Code",
+  "rows": 3
+ },
+ {
+  "table": "Mem_Module",
+  "rows": 117
+ },
+ {
+  "table": "Mem_Paths",
+  "rows": 0
+ },
+ {
+  "table": "Mem_ResetPwd",
+  "rows": 0
+ },
+ {
+  "table": "Mem_Right",
+  "rows": 153
+ },
+ {
+  "table": "Mem_Roles",
+  "rows": 12
+ },
+ {
+  "table": "Mem_UserInfo",
+  "rows": 6
+ },
+ {
+  "table": "Mem_UserRight",
+  "rows": 0
+ },
+ {
+  "table": "Mem_Users",
+  "rows": 6
+ },
+ {
+  "table": "Mem_Users_Save",
+  "rows": 3
+ },
+ {
+  "table": "Mem_UsersInRoles",
+  "rows": 0
+ },
+ {
+  "table": "Pay_Card",
+  "rows": 2694
+ },
+ {
+  "table": "Pay_Exchange",
+  "rows": 0
+ },
+ {
+  "table": "Pay_History",
+  "rows": 0
+ },
+ {
+  "table": "Pay_Info",
+  "rows": 45
+ },
+ {
+  "table": "Pay_Select",
+  "rows": 0
+ },
+ {
+  "table": "Pay_Way",
+  "rows": 4
+ }
+]

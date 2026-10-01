@@ -1,0 +1,2702 @@
+{
+ "database": "Db_Membership",
+ "tables": [
+  {
+   "schema": "dbo",
+   "name": "Mem_ActiveCode",
+   "rows": 20200,
+   "columns": [
+    {
+     "name": "ApplicationId",
+     "type": "nvarchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "ActiveCode",
+     "type": "varchar(50)",
+     "nullable": false,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "BeginActivityDate",
+     "type": "datetime",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "EndActivityDate",
+     "type": "datetime",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "IsOpen",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "Company",
+     "type": "varchar(50)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    }
+   ],
+   "primaryKey": [
+    "ActiveCode"
+   ],
+   "indexes": [],
+   "foreignKeys": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Application",
+   "rows": 6,
+   "columns": [
+    {
+     "name": "ApplicationName",
+     "type": "nvarchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "LowerApplicationName",
+     "type": "nvarchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "ApplicationId",
+     "type": "nvarchar(20)",
+     "nullable": false,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "Description",
+     "type": "nvarchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "IsOpen",
+     "type": "bit",
+     "nullable": true,
+     "identity": false,
+     "default": "(0)",
+     "computed": null
+    }
+   ],
+   "primaryKey": [
+    "ApplicationId"
+   ],
+   "indexes": [],
+   "foreignKeys": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Application_Sub",
+   "rows": 6,
+   "columns": [
+    {
+     "name": "id",
+     "type": "int",
+     "nullable": false,
+     "identity": true,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "ApplicationId",
+     "type": "nvarchar(50)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "SubName",
+     "type": "nvarchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "SubId",
+     "type": "nvarchar(50)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "IsOpen",
+     "type": "bit",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "Description",
+     "type": "nvarchar(50)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    }
+   ],
+   "primaryKey": [],
+   "indexes": [],
+   "foreignKeys": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Code",
+   "rows": 3,
+   "columns": [
+    {
+     "name": "id",
+     "type": "int",
+     "nullable": false,
+     "identity": true,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "code",
+     "type": "varchar(50)",
+     "nullable": false,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "codenumber",
+     "type": "bigint",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "info",
+     "type": "varchar(50)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    }
+   ],
+   "primaryKey": [],
+   "indexes": [],
+   "foreignKeys": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Module",
+   "rows": 117,
+   "columns": [
+    {
+     "name": "Id",
+     "type": "int",
+     "nullable": false,
+     "identity": true,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "ApplicationId",
+     "type": "nvarchar(20)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "ModuleId",
+     "type": "int",
+     "nullable": false,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "ModuleName",
+     "type": "varchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "ParModuleId",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "AddTime",
+     "type": "datetime",
+     "nullable": true,
+     "identity": false,
+     "default": "(getdate())",
+     "computed": null
+    },
+    {
+     "name": "Description",
+     "type": "nvarchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    }
+   ],
+   "primaryKey": [
+    "ModuleId"
+   ],
+   "indexes": [],
+   "foreignKeys": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Paths",
+   "rows": 0,
+   "columns": [
+    {
+     "name": "ApplicationId",
+     "type": "nvarchar(20)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "PathId",
+     "type": "nvarchar(256)",
+     "nullable": false,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "Path",
+     "type": "nvarchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "LoweredPath",
+     "type": "nvarchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    }
+   ],
+   "primaryKey": [
+    "PathId"
+   ],
+   "indexes": [],
+   "foreignKeys": [
+    {
+     "name": "FK_MEM_PATH_主从表_MEM_APPL",
+     "cols": [
+      "ApplicationId"
+     ],
+     "ref": "dbo.Mem_Application",
+     "refCols": [
+      "ApplicationId"
+     ]
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_ResetPwd",
+   "rows": 0,
+   "columns": [
+    {
+     "name": "UserId",
+     "type": "int",
+     "nullable": false,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "SaleEntry",
+     "type": "uniqueidentifier",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "GetTime",
+     "type": "datetime",
+     "nullable": true,
+     "identity": false,
+     "default": "(getdate())",
+     "computed": null
+    },
+    {
+     "name": "IsActived",
+     "type": "bit",
+     "nullable": true,
+     "identity": false,
+     "default": "((0))",
+     "computed": null
+    },
+    {
+     "name": "ApplicationId",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    }
+   ],
+   "primaryKey": [],
+   "indexes": [],
+   "foreignKeys": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Right",
+   "rows": 153,
+   "columns": [
+    {
+     "name": "Id",
+     "type": "int",
+     "nullable": false,
+     "identity": true,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "ApplicationId",
+     "type": "nvarchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "ModuleId",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "RightsName",
+     "type": "varchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "RightsId",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "RightsDes",
+     "type": "varchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "AddTime",
+     "type": "datetime",
+     "nullable": true,
+     "identity": false,
+     "default": "(getdate())",
+     "computed": null
+    }
+   ],
+   "primaryKey": [],
+   "indexes": [],
+   "foreignKeys": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Roles",
+   "rows": 12,
+   "columns": [
+    {
+     "name": "ApplicationId",
+     "type": "nvarchar(50)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "RoleId",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "RoleName",
+     "type": "nvarchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "LowerRoleName",
+     "type": "nvarchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "Description",
+     "type": "nvarchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    }
+   ],
+   "primaryKey": [],
+   "indexes": [],
+   "foreignKeys": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_UserInfo",
+   "rows": 6,
+   "columns": [
+    {
+     "name": "ApplicationId",
+     "type": "nvarchar(20)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "UserId",
+     "type": "nvarchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "Password",
+     "type": "nvarchar(128)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "PasswordFormat",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "PasswordSalt",
+     "type": "nvarchar(128)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "MobilePIN",
+     "type": "nvarchar(16)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "Email",
+     "type": "nvarchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "LowerEmail",
+     "type": "nvarchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "PasswordQuestion",
+     "type": "nvarchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "PasswordAnswer",
+     "type": "nvarchar(128)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "IsApproved",
+     "type": "bit",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "IsLockedOut",
+     "type": "bit",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "CreateDate",
+     "type": "datetime",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "LastLoginDate",
+     "type": "datetime",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "LastPasswordChangeDate",
+     "type": "datetime",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "LastLockoutDate",
+     "type": "datetime",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "FailedPasswordAttemptCount",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "FailedPasswordAttemptWindowStart",
+     "type": "datetime",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "FailedPasswordAnswerAttemptCount",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "FailedPasswordAnswerAttemptWindowstart",
+     "type": "datetime",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "Comment",
+     "type": "ntext",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "UserSex",
+     "type": "bit",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    }
+   ],
+   "primaryKey": [],
+   "indexes": [],
+   "foreignKeys": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_UserRight",
+   "rows": 0,
+   "columns": [
+    {
+     "name": "Id",
+     "type": "int",
+     "nullable": false,
+     "identity": true,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "ApplicationId",
+     "type": "nvarchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "UserID",
+     "type": "varchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "RightsId",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "AddTime",
+     "type": "datetime",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    }
+   ],
+   "primaryKey": [],
+   "indexes": [],
+   "foreignKeys": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Users",
+   "rows": 6,
+   "columns": [
+    {
+     "name": "ApplicationId",
+     "type": "nvarchar(20)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "UserId",
+     "type": "nvarchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "UserName",
+     "type": "nvarchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "LowerName",
+     "type": "nvarchar(256)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "MobileAlias",
+     "type": "nvarchar(200)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "IsAnonymous",
+     "type": "bit",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "LastActivityDate",
+     "type": "datetime",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "LoginTime",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    }
+   ],
+   "primaryKey": [],
+   "indexes": [],
+   "foreignKeys": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Users_Save",
+   "rows": 3,
+   "columns": [
+    {
+     "name": "id",
+     "type": "int",
+     "nullable": false,
+     "identity": true,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "User_Type",
+     "type": "varchar(50)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    }
+   ],
+   "primaryKey": [],
+   "indexes": [],
+   "foreignKeys": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_UsersInRoles",
+   "rows": 0,
+   "columns": [
+    {
+     "name": "UserID",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "RoleID",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    }
+   ],
+   "primaryKey": [],
+   "indexes": [],
+   "foreignKeys": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Pay_Card",
+   "rows": 2694,
+   "columns": [
+    {
+     "name": "id",
+     "type": "int",
+     "nullable": false,
+     "identity": true,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "CardId",
+     "type": "varchar(20)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "IsValues",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "IsOpen",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "MustMoney",
+     "type": "numeric(18,0)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "GamePoint",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "ApplicationId",
+     "type": "varchar(10)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "CardPassword",
+     "type": "varchar(20)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "BeginDay",
+     "type": "datetime",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "EndDay",
+     "type": "datetime",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "OrderId",
+     "type": "varchar(20)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "PayId",
+     "type": "varchar(50)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "PayDateTime",
+     "type": "datetime",
+     "nullable": false,
+     "identity": false,
+     "default": "(getdate())",
+     "computed": null
+    }
+   ],
+   "primaryKey": [],
+   "indexes": [
+    {
+     "name": "IX_Pay_Card",
+     "unique": true,
+     "type": "NONCLUSTERED",
+     "cols": [
+      "CardId"
+     ]
+    }
+   ],
+   "foreignKeys": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Pay_Exchange",
+   "rows": 0,
+   "columns": [
+    {
+     "name": "Id",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "OrderId",
+     "type": "varchar(100)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "UserId",
+     "type": "varchar(50)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "LastMoney",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "OutPoint",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "ResultPoint",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "EnterIp",
+     "type": "varchar(50)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "EnterTime",
+     "type": "datetime",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "EnterServer",
+     "type": "varchar(50)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "EnterUserId",
+     "type": "varchar(50)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "Remark",
+     "type": "varchar(200)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    }
+   ],
+   "primaryKey": [],
+   "indexes": [],
+   "foreignKeys": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Pay_History",
+   "rows": 0,
+   "columns": [
+    {
+     "name": "Id",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "Order_Id",
+     "type": "varchar(20)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "Money",
+     "type": "numeric(18,2)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "User_Id",
+     "type": "varchar(50)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "Enter_Ip",
+     "type": "varchar(20)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "Enter_Time",
+     "type": "datetime",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "Pay_Info",
+     "type": "varchar(100)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    }
+   ],
+   "primaryKey": [],
+   "indexes": [],
+   "foreignKeys": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Pay_Info",
+   "rows": 45,
+   "columns": [
+    {
+     "name": "id",
+     "type": "int",
+     "nullable": false,
+     "identity": true,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "OrderId",
+     "type": "varchar(20)",
+     "nullable": false,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "OrderNumbers",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "OrderMoney",
+     "type": "numeric(18,0)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "PayUserId",
+     "type": "varchar(50)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "EnterIp",
+     "type": "varchar(50)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "EnterDate",
+     "type": "datetime",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "BuyInfo",
+     "type": "varchar(200)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "IsPass",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "UserId",
+     "type": "varchar(50)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "LastDateTime",
+     "type": "datetime",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "PayWay",
+     "type": "varchar(20)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    }
+   ],
+   "primaryKey": [
+    "OrderId"
+   ],
+   "indexes": [],
+   "foreignKeys": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Pay_Select",
+   "rows": 0,
+   "columns": [
+    {
+     "name": "id",
+     "type": "int",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "PaywayId",
+     "type": "varchar(20)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "PayName",
+     "type": "varchar(200)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "IsOpen",
+     "type": "bit",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    }
+   ],
+   "primaryKey": [],
+   "indexes": [],
+   "foreignKeys": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Pay_Way",
+   "rows": 4,
+   "columns": [
+    {
+     "name": "Id",
+     "type": "int",
+     "nullable": false,
+     "identity": true,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "WayId",
+     "type": "varchar(10)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "WayName",
+     "type": "varchar(20)",
+     "nullable": true,
+     "identity": false,
+     "default": null,
+     "computed": null
+    },
+    {
+     "name": "IsOpen",
+     "type": "bit",
+     "nullable": true,
+     "identity": false,
+     "default": "(1)",
+     "computed": null
+    }
+   ],
+   "primaryKey": [],
+   "indexes": [],
+   "foreignKeys": []
+  }
+ ],
+ "modules": [
+  {
+   "schema": "dbo",
+   "name": "Mem_ActiveCode_Check",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ActiveCode",
+     "type": "varchar",
+     "maxLength": 50,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@Ouototal",
+     "type": "varchar",
+     "maxLength": 50,
+     "output": true,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_ActiveCode_Create",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationName",
+     "type": "varchar",
+     "maxLength": 256,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@Company",
+     "type": "varchar",
+     "maxLength": 256,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@LoneDay",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@Counts",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_ActiveCode_Get",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationName",
+     "type": "varchar",
+     "maxLength": 256,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@ActiveCode",
+     "type": "varchar",
+     "maxLength": 50,
+     "output": true,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_ActiveCode_Lost",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ActiveCode",
+     "type": "varchar",
+     "maxLength": 50,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Application_One",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationId",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@Description",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": true,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Application_Search",
+   "type": "P",
+   "parent": null,
+   "params": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Application_Sub_One",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationId",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@SubId",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@Description",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": true,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Application_Sub_Search",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationId",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Code_Order_Sto",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@Code",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@ouototal",
+     "type": "varchar",
+     "maxLength": 50,
+     "output": true,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Code_Sto",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@code",
+     "type": "varchar",
+     "maxLength": 50,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@ouototal",
+     "type": "varchar",
+     "maxLength": 50,
+     "output": true,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Module_List",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationName",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_NotUserRight_List",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationName",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserId",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_ResetPwd_Chang",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@SaleEntry",
+     "type": "uniqueidentifier",
+     "maxLength": 16,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@Result",
+     "type": "int",
+     "maxLength": 4,
+     "output": true,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserName",
+     "type": "varchar",
+     "maxLength": 256,
+     "output": true,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_ResetPwd_SendMail",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationName",
+     "type": "varchar",
+     "maxLength": 256,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserName",
+     "type": "varchar",
+     "maxLength": 256,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@SaleEntry",
+     "type": "uniqueidentifier",
+     "maxLength": 16,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Right_List",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationName",
+     "type": "varchar",
+     "maxLength": 256,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@ModuleId",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Roles_List",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationName",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_UserInfo_AddPasswordWay",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationName",
+     "type": "varchar",
+     "maxLength": 256,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserName",
+     "type": "varchar",
+     "maxLength": 256,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@PasswordFormat",
+     "type": "int",
+     "maxLength": 4,
+     "output": true,
+     "hasDefault": false
+    },
+    {
+     "name": "@PasswordSalt",
+     "type": "varchar",
+     "maxLength": 128,
+     "output": true,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_UserInfo_List",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationName",
+     "type": "varchar",
+     "maxLength": 200,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserId",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_UserInfo_MailToUserName",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@EMAIL",
+     "type": "nvarchar",
+     "maxLength": 512,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@ApplicationName",
+     "type": "nvarchar",
+     "maxLength": 512,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserName",
+     "type": "nvarchar",
+     "maxLength": 512,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@Total",
+     "type": "int",
+     "maxLength": 4,
+     "output": true,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_UserInfo_SearchMail",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@USERID",
+     "type": "nvarchar",
+     "maxLength": 512,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@EMAIL",
+     "type": "nvarchar",
+     "maxLength": 512,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@MAILCOUNT",
+     "type": "int",
+     "maxLength": 4,
+     "output": true,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_UserInfo_SearchName",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@UserName",
+     "type": "nvarchar",
+     "maxLength": 512,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserCOUNT",
+     "type": "int",
+     "maxLength": 4,
+     "output": true,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_UserInfo_SetPassword",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationName",
+     "type": "nvarchar",
+     "maxLength": 512,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserName",
+     "type": "nvarchar",
+     "maxLength": 512,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@NewPassword",
+     "type": "nvarchar",
+     "maxLength": 256,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@PasswordSalt",
+     "type": "nvarchar",
+     "maxLength": 256,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@CurrentTimeUtc",
+     "type": "datetime",
+     "maxLength": 8,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@PasswordFormat",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_UserInfo_UserSex",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationName",
+     "type": "nvarchar",
+     "maxLength": 512,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserName",
+     "type": "nvarchar",
+     "maxLength": 512,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserSex",
+     "type": "bit",
+     "maxLength": 1,
+     "output": true,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_UserList",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationName",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_UserOne",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationName",
+     "type": "varchar",
+     "maxLength": 200,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserId",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_UserRight_Check",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationName",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserId",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@RightsId",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@ouototal",
+     "type": "varchar",
+     "maxLength": 50,
+     "output": true,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_UserRight_Del",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationName",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserId",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_UserRight_List",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationName",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserId",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_UserRight_Save",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationName",
+     "type": "nvarchar",
+     "maxLength": 1024,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserID",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@RightsId",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@op",
+     "type": "varchar",
+     "maxLength": 50,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@ouototal",
+     "type": "varchar",
+     "maxLength": 50,
+     "output": true,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Users_Accede",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationName",
+     "type": "varchar",
+     "maxLength": 256,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserName",
+     "type": "varchar",
+     "maxLength": 256,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@Password",
+     "type": "varchar",
+     "maxLength": 256,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserId",
+     "type": "int",
+     "maxLength": 4,
+     "output": true,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Users_CreateUser",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationName",
+     "type": "varchar",
+     "maxLength": 200,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserName",
+     "type": "nvarchar",
+     "maxLength": 512,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@password",
+     "type": "nvarchar",
+     "maxLength": 512,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@email",
+     "type": "nvarchar",
+     "maxLength": 512,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@PasswordFormat",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@PasswordSalt",
+     "type": "nvarchar",
+     "maxLength": 256,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserSex",
+     "type": "bit",
+     "maxLength": 1,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserId",
+     "type": "int",
+     "maxLength": 4,
+     "output": true,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Users_Delete",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@ApplicationName",
+     "type": "varchar",
+     "maxLength": 200,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserId",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_UsersInRoles_Save",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@UserID",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@RoleID",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@op",
+     "type": "varchar",
+     "maxLength": 50,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@ouototal",
+     "type": "varchar",
+     "maxLength": 50,
+     "output": true,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Pay_Card_Create",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@row",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@IsValues",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@IsOpen",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@MustMoney",
+     "type": "numeric",
+     "maxLength": 9,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@GamePoint",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@ApplicationId",
+     "type": "varchar",
+     "maxLength": 1,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@BeginDay",
+     "type": "datetime",
+     "maxLength": 8,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@EndDay",
+     "type": "datetime",
+     "maxLength": 8,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@PayId",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Pay_Card_Info",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@OrderId",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Pay_Card_Lost",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@OrderId",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@CardId",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@CardPassword",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@ApplicationId",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@ouototal",
+     "type": "varchar",
+     "maxLength": 50,
+     "output": true,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Pay_Info_Create",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@OrderId",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@OrderNumbers",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@OrderMoney",
+     "type": "numeric",
+     "maxLength": 9,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@PayUserId",
+     "type": "varchar",
+     "maxLength": 50,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@EnterIp",
+     "type": "varchar",
+     "maxLength": 50,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@BuyInfo",
+     "type": "varchar",
+     "maxLength": 200,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@IsPass",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserId",
+     "type": "varchar",
+     "maxLength": 50,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@PayWay",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@op",
+     "type": "varchar",
+     "maxLength": 50,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@ouototal",
+     "type": "varchar",
+     "maxLength": 50,
+     "output": true,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Pay_Info_Post",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@OrderId",
+     "type": "varchar",
+     "maxLength": 20,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "st_add_Account",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@Username",
+     "type": "varchar",
+     "maxLength": 32,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@Password",
+     "type": "varchar",
+     "maxLength": 200,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@Email",
+     "type": "varchar",
+     "maxLength": 200,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "st_Changepassword",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@id",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@password",
+     "type": "nvarchar",
+     "maxLength": 400,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@new_password",
+     "type": "nvarchar",
+     "maxLength": 400,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "st_Forgotpassword",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@email",
+     "type": "nvarchar",
+     "maxLength": 400,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@UserName",
+     "type": "nvarchar",
+     "maxLength": 64,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@new_password",
+     "type": "nvarchar",
+     "maxLength": 400,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "st_GetUserInfo",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@id",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "st_GetUserName",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@Username",
+     "type": "varchar",
+     "maxLength": 32,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "st_Login",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@username",
+     "type": "nvarchar",
+     "maxLength": 64,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@password",
+     "type": "nvarchar",
+     "maxLength": 400,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "tp_Fetch_List",
+   "type": "P",
+   "parent": null,
+   "params": [
+    {
+     "name": "@page_num",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@row_in_page",
+     "type": "int",
+     "maxLength": 4,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@order_column",
+     "type": "varchar",
+     "maxLength": 50,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@row_total",
+     "type": "int",
+     "maxLength": 4,
+     "output": true,
+     "hasDefault": false
+    },
+    {
+     "name": "@comb_condition",
+     "type": "varchar",
+     "maxLength": 1000,
+     "output": false,
+     "hasDefault": false
+    },
+    {
+     "name": "@tablename",
+     "type": "nvarchar",
+     "maxLength": 400,
+     "output": false,
+     "hasDefault": false
+    }
+   ]
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Application_User",
+   "type": "V",
+   "parent": null,
+   "params": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Module_View",
+   "type": "V",
+   "parent": null,
+   "params": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Right_View",
+   "type": "V",
+   "parent": null,
+   "params": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_Roles_View",
+   "type": "V",
+   "parent": null,
+   "params": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_UserOne_View",
+   "type": "V",
+   "parent": null,
+   "params": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_UserRight_View",
+   "type": "V",
+   "parent": null,
+   "params": []
+  },
+  {
+   "schema": "dbo",
+   "name": "Mem_UserRole_View",
+   "type": "V",
+   "parent": null,
+   "params": []
+  }
+ ]
+}

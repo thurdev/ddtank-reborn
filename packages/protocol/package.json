@@ -1,0 +1,32 @@
+{
+  "name": "@ddt/protocol",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Byte-exact TypeScript port of the DDTank 4.1 network layer (GSPacketIn, checksum, rolling-key cipher, RSA login, stream framing, packet codes).",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./codes": {
+      "types": "./src/codes/index.ts",
+      "default": "./src/codes/index.ts"
+    }
+  },
+  "publishConfig": {
+    "exports": {
+      ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+      "./codes": { "types": "./dist/codes/index.d.ts", "default": "./dist/codes/index.js" }
+    }
+  },
+  "files": ["src", "dist", "README.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "extract-codes": "tsx scripts/extract-codes.ts",
+    "oracle": "dotnet run -c Release --project csharp-oracle/Oracle.csproj",
+    "sync-oracle-sources": "node scripts/sync-oracle-sources.mjs"
+  }
+}

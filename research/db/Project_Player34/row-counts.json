@@ -1,0 +1,294 @@
+[
+ {
+  "table": "AASInfo",
+  "rows": 0
+ },
+ {
+  "table": "AchievementData",
+  "rows": 0
+ },
+ {
+  "table": "Active_Number",
+  "rows": 0
+ },
+ {
+  "table": "AdoptPetList",
+  "rows": 0
+ },
+ {
+  "table": "Auction",
+  "rows": 0
+ },
+ {
+  "table": "Bag_Init",
+  "rows": 0
+ },
+ {
+  "table": "Charge_Money",
+  "rows": 0
+ },
+ {
+  "table": "ChickActive_Number",
+  "rows": 0
+ },
+ {
+  "table": "Consortia",
+  "rows": 0
+ },
+ {
+  "table": "Consortia_Ally",
+  "rows": 0
+ },
+ {
+  "table": "Consortia_Apply_Ally",
+  "rows": 0
+ },
+ {
+  "table": "Consortia_Apply_Users",
+  "rows": 0
+ },
+ {
+  "table": "Consortia_Boss",
+  "rows": 0
+ },
+ {
+  "table": "Consortia_Boss_Config",
+  "rows": 0
+ },
+ {
+  "table": "Consortia_Buff_Temp",
+  "rows": 34
+ },
+ {
+  "table": "Consortia_Buffer",
+  "rows": 0
+ },
+ {
+  "table": "Consortia_Duty",
+  "rows": 0
+ },
+ {
+  "table": "Consortia_Equip_Control",
+  "rows": 0
+ },
+ {
+  "table": "Consortia_Event",
+  "rows": 0
+ },
+ {
+  "table": "Consortia_Invite_Users",
+  "rows": 0
+ },
+ {
+  "table": "Consortia_Level",
+  "rows": 10
+ },
+ {
+  "table": "Consortia_Task_Info",
+  "rows": 0
+ },
+ {
+  "table": "Consortia_Users",
+  "rows": 0
+ },
+ {
+  "table": "DailyLogList",
+  "rows": 0
+ },
+ {
+  "table": "DailyRecordInfo",
+  "rows": 0
+ },
+ {
+  "table": "Fight_Rate",
+  "rows": 4
+ },
+ {
+  "table": "Fight_Record",
+  "rows": 0
+ },
+ {
+  "table": "Game_Commands",
+  "rows": 0
+ },
+ {
+  "table": "Item_Fusion",
+  "rows": 157
+ },
+ {
+  "table": "Items_Fusion_List",
+  "rows": 30
+ },
+ {
+  "table": "LuckStarRankInfo",
+  "rows": 0
+ },
+ {
+  "table": "Marry_Apply",
+  "rows": 0
+ },
+ {
+  "table": "Marry_Info",
+  "rows": 0
+ },
+ {
+  "table": "Marry_Room_Info",
+  "rows": 0
+ },
+ {
+  "table": "New_ChickenBox_Data",
+  "rows": 0
+ },
+ {
+  "table": "QuestData",
+  "rows": 0
+ },
+ {
+  "table": "Rate",
+  "rows": 0
+ },
+ {
+  "table": "Rename_Consortia",
+  "rows": 0
+ },
+ {
+  "table": "Rename_Nick",
+  "rows": 0
+ },
+ {
+  "table": "Server_Config",
+  "rows": 514
+ },
+ {
+  "table": "Server_Event",
+  "rows": 3
+ },
+ {
+  "table": "Server_List",
+  "rows": 1
+ },
+ {
+  "table": "Suit_Manager",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Active_System_Data",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Eat_Pets",
+  "rows": 0
+ },
+ {
+  "table": "Sys_User_Farm",
+  "rows": 0
+ },
+ {
+  "table": "Sys_User_Field",
+  "rows": 0
+ },
+ {
+  "table": "Sys_User_Gemstone",
+  "rows": 0
+ },
+ {
+  "table": "Sys_User_Info",
+  "rows": 0
+ },
+ {
+  "table": "Sys_User_Match_Info",
+  "rows": 0
+ },
+ {
+  "table": "Sys_User_Rank",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Users_AvatarCollection",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Users_Card",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Users_DanhHieu",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Users_Detail",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Users_EventProcess",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Users_Extra",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Users_Fight",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Users_Friends",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Users_Gift",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Users_Goods",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Users_Labyrinth",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Users_League",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Users_Log",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Users_Order",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Users_Password",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Users_Pet",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Users_Rank_Date",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Users_Record",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Users_Texp",
+  "rows": 0
+ },
+ {
+  "table": "Sys_VIP_Info",
+  "rows": 0
+ },
+ {
+  "table": "User_Buff",
+  "rows": 0
+ },
+ {
+  "table": "User_Messages",
+  "rows": 0
+ }
+]

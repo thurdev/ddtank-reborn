@@ -1,0 +1,42 @@
+{
+  "name": "launcher",
+  "version": "0.1.0",
+  "private": true,
+  "description": "DDTank Reborn desktop launcher (Electron UI + Flash Player projector / Ruffle desktop game runtime)",
+  "author": "DDTank Reborn",
+  "type": "module",
+  "main": "dist/main/main.js",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "pnpm run build:node && pnpm run build:renderer",
+    "build:node": "tsc -p tsconfig.node.json",
+    "build:renderer": "tsc -p tsconfig.json --noEmit && vite build",
+    "typecheck": "tsc -p tsconfig.node.json --noEmit && tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "start": "electron .",
+    "fetch-runtime": "node scripts/fetch-runtime.mjs",
+    "dist:win": "pnpm run build && electron-builder --win portable nsis --x64 --publish never",
+    "dist:win:portable": "pnpm run build && electron-builder --win portable --x64 --publish never"
+  },
+  "dependencies": {
+    "electron-updater": "^6.8.9",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@ddtank/ui": "workspace:*",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.6.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "electron": "44.5.1",
+    "electron-builder": "^26.15.3",
+    "lucide-react": "^1.49.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.1",
+    "vitest": "^5.0.3"
+  }
+}

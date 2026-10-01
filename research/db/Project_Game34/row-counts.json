@@ -1,0 +1,418 @@
+[
+ {
+  "table": "Achievement",
+  "rows": 281
+ },
+ {
+  "table": "Achievement_Goods",
+  "rows": 60
+ },
+ {
+  "table": "AchievementCondition",
+  "rows": 341
+ },
+ {
+  "table": "Active",
+  "rows": 33
+ },
+ {
+  "table": "Active_Award",
+  "rows": 310
+ },
+ {
+  "table": "Active_Convert_Item",
+  "rows": 0
+ },
+ {
+  "table": "Activity_System_Item",
+  "rows": 242
+ },
+ {
+  "table": "AreaConfig",
+  "rows": 2
+ },
+ {
+  "table": "Ball",
+  "rows": 1586
+ },
+ {
+  "table": "BallConfig",
+  "rows": 781
+ },
+ {
+  "table": "Card_Buff",
+  "rows": 60
+ },
+ {
+  "table": "Card_Groove_Update",
+  "rows": 92
+ },
+ {
+  "table": "Card_Group",
+  "rows": 73
+ },
+ {
+  "table": "Card_Info",
+  "rows": 15
+ },
+ {
+  "table": "Card_Template_Info",
+  "rows": 250
+ },
+ {
+  "table": "CardUpdateCondition",
+  "rows": 31
+ },
+ {
+  "table": "CardUpdateInfo",
+  "rows": 1470
+ },
+ {
+  "table": "ClothGroupTemplateInfo",
+  "rows": 270
+ },
+ {
+  "table": "ClothPropertyTemplateInfo",
+  "rows": 23
+ },
+ {
+  "table": "Communal_Active",
+  "rows": 4
+ },
+ {
+  "table": "Communal_Active_Award",
+  "rows": 25
+ },
+ {
+  "table": "Communal_Active_Exp",
+  "rows": 6
+ },
+ {
+  "table": "Consortia_Badge",
+  "rows": 10
+ },
+ {
+  "table": "Consortia_BuffTemp",
+  "rows": 40
+ },
+ {
+  "table": "Consortia_Level",
+  "rows": 10
+ },
+ {
+  "table": "Consortia_TaskAward",
+  "rows": 4
+ },
+ {
+  "table": "Consortia_TaskConfig",
+  "rows": 70
+ },
+ {
+  "table": "Daily_Award",
+  "rows": 20
+ },
+ {
+  "table": "DailyLeagueAwardItems",
+  "rows": 93
+ },
+ {
+  "table": "DailyLeagueAwardList",
+  "rows": 30
+ },
+ {
+  "table": "DailyLeagueLevel",
+  "rows": 14
+ },
+ {
+  "table": "Drop_Condiction",
+  "rows": 112
+ },
+ {
+  "table": "Drop_Item",
+  "rows": 3023
+ },
+ {
+  "table": "Edictum_List",
+  "rows": 1
+ },
+ {
+  "table": "Event_Award_Item",
+  "rows": 432
+ },
+ {
+  "table": "Event_Live",
+  "rows": 141
+ },
+ {
+  "table": "Event_LiveGoods",
+  "rows": 386
+ },
+ {
+  "table": "Event_Reward_Goods",
+  "rows": 75
+ },
+ {
+  "table": "Event_Reward_Info",
+  "rows": 15
+ },
+ {
+  "table": "ExerciseInfo",
+  "rows": 70
+ },
+ {
+  "table": "Fair_Battle_Reward_Temp",
+  "rows": 16
+ },
+ {
+  "table": "Fight_Rate",
+  "rows": 4
+ },
+ {
+  "table": "Fight_Record",
+  "rows": 0
+ },
+ {
+  "table": "Fight_Spirit_Templatelist",
+  "rows": 30
+ },
+ {
+  "table": "Fusion",
+  "rows": 96
+ },
+ {
+  "table": "Game_Map",
+  "rows": 454
+ },
+ {
+  "table": "GoldEquipTemplateLoad",
+  "rows": 277
+ },
+ {
+  "table": "HotSpringRoom",
+  "rows": 13
+ },
+ {
+  "table": "Item_Fusion",
+  "rows": 326
+ },
+ {
+  "table": "Item_Record",
+  "rows": 0
+ },
+ {
+  "table": "Item_Refinery",
+  "rows": 0
+ },
+ {
+  "table": "Item_Refinery_Strengthen",
+  "rows": 15
+ },
+ {
+  "table": "Item_Strengthen",
+  "rows": 15
+ },
+ {
+  "table": "Item_Strengthen_Goods",
+  "rows": 1634
+ },
+ {
+  "table": "ItemRecordType",
+  "rows": 0
+ },
+ {
+  "table": "Items_Fusion_List",
+  "rows": 230
+ },
+ {
+  "table": "League_Info",
+  "rows": 26
+ },
+ {
+  "table": "LevelInfo",
+  "rows": 60
+ },
+ {
+  "table": "LoadUserBox",
+  "rows": 29
+ },
+ {
+  "table": "Login_Award_Item_Template",
+  "rows": 23
+ },
+ {
+  "table": "LuckyStart_Topten_Award",
+  "rows": 34
+ },
+ {
+  "table": "Map_Server",
+  "rows": 20
+ },
+ {
+  "table": "Map_Week",
+  "rows": 7
+ },
+ {
+  "table": "Mission_Info",
+  "rows": 170
+ },
+ {
+  "table": "Mission_Info_Backup",
+  "rows": 128
+ },
+ {
+  "table": "New_Title",
+  "rows": 325
+ },
+ {
+  "table": "NPC_Info",
+  "rows": 1005
+ },
+ {
+  "table": "Old_Player_Award_Info",
+  "rows": 27
+ },
+ {
+  "table": "Pet_Config",
+  "rows": 56
+ },
+ {
+  "table": "Pet_Exp_Item_Price",
+  "rows": 20
+ },
+ {
+  "table": "Pet_Fight_Property",
+  "rows": 70
+ },
+ {
+  "table": "Pet_Level",
+  "rows": 70
+ },
+ {
+  "table": "Pet_Moe_Property",
+  "rows": 50
+ },
+ {
+  "table": "Pet_Skill_Element_Info",
+  "rows": 2084
+ },
+ {
+  "table": "Pet_Skill_Info",
+  "rows": 1653
+ },
+ {
+  "table": "Pet_Skill_Template_Info",
+  "rows": 380
+ },
+ {
+  "table": "Pet_Star_Exp",
+  "rows": 67
+ },
+ {
+  "table": "Pet_Template_Info",
+  "rows": 199
+ },
+ {
+  "table": "Pve_Info",
+  "rows": 33
+ },
+ {
+  "table": "QQtips_Messages",
+  "rows": 1
+ },
+ {
+  "table": "Quest",
+  "rows": 728
+ },
+ {
+  "table": "Quest_Condiction",
+  "rows": 853
+ },
+ {
+  "table": "Quest_Goods",
+  "rows": 1006
+ },
+ {
+  "table": "Quest_Rate",
+  "rows": 0
+ },
+ {
+  "table": "Rate",
+  "rows": 19
+ },
+ {
+  "table": "Rune_Template",
+  "rows": 456
+ },
+ {
+  "table": "Search_Goods_Temp",
+  "rows": 5
+ },
+ {
+  "table": "Server_Config",
+  "rows": 489
+ },
+ {
+  "table": "Sets_Build_Temp",
+  "rows": 70
+ },
+ {
+  "table": "Shop",
+  "rows": 5025
+ },
+ {
+  "table": "Shop_Goods",
+  "rows": 7640
+ },
+ {
+  "table": "Shop_Goods_Box",
+  "rows": 4043
+ },
+ {
+  "table": "Shop_Goods_Categorys",
+  "rows": 34
+ },
+ {
+  "table": "ShopGoodsShowList",
+  "rows": 5093
+ },
+ {
+  "table": "ShopGoodsShowList_BK",
+  "rows": 4090
+ },
+ {
+  "table": "StrengThenExp",
+  "rows": 16
+ },
+ {
+  "table": "Sub_Active_Condition",
+  "rows": 11
+ },
+ {
+  "table": "Sub_Active_List",
+  "rows": 1
+ },
+ {
+  "table": "Suit_TemplateID",
+  "rows": 111
+ },
+ {
+  "table": "SuitTemplateInfo",
+  "rows": 46
+ },
+ {
+  "table": "TempTable",
+  "rows": 34
+ },
+ {
+  "table": "Totem_Honor_Template",
+  "rows": 20
+ },
+ {
+  "table": "Totem_Info",
+  "rows": 350
+ },
+ {
+  "table": "User_Box",
+  "rows": 29
+ }
+]

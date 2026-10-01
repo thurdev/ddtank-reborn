@@ -1,0 +1,110 @@
+/*
+ * DDTank design tokens — "night sky artillery".
+ * Palette: night/panel blues are the sky behind the battlefield; sun, coral,
+ * mint come straight from the in-game power gauge (weak → strong → overheat).
+ * Consumed by apps via: @import "tailwindcss"; @import "@ddtank/ui/styles.css";
+ */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-night: #0f1530;
+  --color-night-deep: #0a0e22;
+  --color-panel: #19214a;
+  --color-panel-2: #222c5e;
+  --color-line: #303c78;
+  --color-ink: #eef0ff;
+  --color-muted: #98a1d6;
+
+  --color-sun: #ffc531;
+  --color-sun-deep: #d99a00;
+  --color-coral: #ff5d6c;
+  --color-coral-deep: #c9334a;
+  --color-mint: #33e0b0;
+  --color-mint-deep: #13a47c;
+  --color-sky: #4fb3ff;
+  --color-sky-deep: #1f7fd0;
+  --color-grape: #a77bff;
+
+  --font-display: "Lilita One", "Rubik Variable", system-ui, sans-serif;
+  --font-sans: "Rubik Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+
+  --radius-xl: 0.9rem;
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.75rem;
+
+  /* chunky "toy" press shadow used by buttons and cards */
+  --shadow-toy: 0 4px 0 0 rgb(0 0 0 / 0.35);
+  --shadow-toy-sm: 0 2px 0 0 rgb(0 0 0 / 0.35);
+  --shadow-panel: 0 1px 0 0 rgb(255 255 255 / 0.06) inset, 0 18px 40px -18px rgb(0 0 0 / 0.7);
+
+  --animate-drift: drift 60s linear infinite;
+  --animate-pop: pop 180ms cubic-bezier(0.2, 0.9, 0.3, 1.4);
+
+  @keyframes drift {
+    from { background-position: 0 0; }
+    to { background-position: 600px 0; }
+  }
+  @keyframes pop {
+    from { transform: scale(0.96); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  html,
+  body {
+    background-color: var(--color-night);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-sun);
+    color: var(--color-night-deep);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-sun);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+  font-weight: 400;
+}
+
+/* Cartoon heading: solid offset shadow, like the in-game title plates. */
+@utility title-plate {
+  font-family: var(--font-display);
+  letter-spacing: 0.015em;
+  text-shadow: 0 3px 0 var(--color-night-deep), 0 0 24px rgb(255 197 49 / 0.15);
+}
+
+/* Faint star field for full-page backgrounds. */
+@utility bg-starfield {
+  background-image:
+    radial-gradient(1px 1px at 20px 30px, rgb(255 255 255 / 0.35), transparent),
+    radial-gradient(1px 1px at 140px 80px, rgb(255 255 255 / 0.25), transparent),
+    radial-gradient(1.5px 1.5px at 260px 160px, rgb(255 255 255 / 0.3), transparent),
+    radial-gradient(1px 1px at 400px 40px, rgb(255 255 255 / 0.2), transparent),
+    radial-gradient(1px 1px at 520px 210px, rgb(255 255 255 / 0.25), transparent);
+  background-size: 600px 260px;
+}
+
+/* The power gauge gradient: weak (mint) → ideal (sun) → overheat (coral). */
+@utility bg-power {
+  background-image: linear-gradient(90deg, var(--color-mint) 0%, var(--color-sun) 60%, var(--color-coral) 100%);
+}

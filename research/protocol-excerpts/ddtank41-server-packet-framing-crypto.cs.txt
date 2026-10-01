@@ -1,0 +1,1351 @@
+# DDTank 4.1 C# server packet framing + rolling-XOR crypto - RAW
+# Repo: https://github.com/pnkl1999/DDTank41 (no license). Fetched 2026-10-01.
+
+==================================================================
+== Game.Base/Packets/GSPacketIn.cs
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Game.Base/Packets/GSPacketIn.cs
+==================================================================
+using log4net;
+using System.Reflection;
+
+namespace Game.Base.Packets
+{
+    public class GSPacketIn : PacketIn
+    {
+        public const ushort HDR_SIZE = 20;
+
+        public const short HEADER = 29099;
+
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+        protected int m_cliendId;
+
+        protected short m_code;
+
+        protected int m_parameter1;
+
+        protected int m_parameter2;
+
+        public int ClientID
+        {
+			get
+			{
+				return m_cliendId;
+			}
+			set
+			{
+				m_cliendId = value;
+			}
+        }
+
+        public short Code
+        {
+			get
+			{
+				return m_code;
+			}
+			set
+			{
+				m_code = value;
+			}
+        }
+
+        public int Parameter1
+        {
+			get
+			{
+				return m_parameter1;
+			}
+			set
+			{
+				m_parameter1 = value;
+			}
+        }
+
+        public int Parameter2
+        {
+			get
+			{
+				return m_parameter2;
+			}
+			set
+			{
+				m_parameter2 = value;
+			}
+        }
+
+        public GSPacketIn(short code)
+			: this(code, 0, 8192)
+        {
+        }
+
+        public GSPacketIn(byte[] buf, int size)
+			: base(buf, size)
+        {
+        }
+
+        public GSPacketIn(short code, int clientId)
+			: this(code, clientId, 8192)
+        {
+        }
+
+        public GSPacketIn(short code, int clientId, int size)
+			: base(new byte[size], 20)
+        {
+			m_code = code;
+			m_cliendId = clientId;
+			m_offset = 20;
+        }
+
+        public void ClearContext()
+        {
+			m_offset = 20;
+			m_length = 20;
+        }
+
+        public void ClearOffset()
+        {
+			m_offset = 20;
+        }
+
+        public GSPacketIn Clone()
+        {
+			GSPacketIn gSPacketIn = new GSPacketIn(m_buffer, m_length);
+			gSPacketIn.ReadHeader();
+			gSPacketIn.Offset = m_length;
+			return gSPacketIn;
+        }
+
+        public void Compress()
+        {
+			byte[] src = Marshal.Compress(m_buffer, 20, base.Length - 20);
+			m_offset = 20;
+			Write(src);
+			m_length = src.Length + 20;
+        }
+
+        public short checkSum()
+        {
+			short num = 119;
+			int num2 = 6;
+			while (num2 < m_length)
+			{
+				try
+				{
+					num = (short)(num + m_buffer[num2++]);
+				}
+				catch
+				{
+				}
+			}
+			return (short)(num & 0x7F7F);
+        }
+
+        public void ReadHeader()
+        {
+			ReadShort();
+			m_length = ReadShort();
+			ReadShort();
+			m_code = ReadShort();
+			m_cliendId = ReadInt();
+			m_parameter1 = ReadInt();
+			m_parameter2 = ReadInt();
+        }
+
+        public GSPacketIn ReadPacket()
+        {
+			byte[] array = ReadBytes();
+			GSPacketIn gSPacketIn = new GSPacketIn(array, array.Length);
+			gSPacketIn.ReadHeader();
+			return gSPacketIn;
+        }
+
+        public void UnCompress()
+        {
+        }
+
+        public void WriteHeader()
+        {
+			lock (this)
+			{
+				int offset = m_offset;
+				m_offset = 0;
+				base.WriteShort(29099);
+				base.WriteShort((short)m_length);
+				base.WriteShort(checkSum());
+				base.WriteShort(m_code);
+				base.WriteInt(m_cliendId);
+				base.WriteInt(m_parameter1);
+				base.WriteInt(m_parameter2);
+				m_offset = offset;
+			}
+			lock (this)
+			{
+				int num2 = m_offset;
+				m_offset = 0;
+				base.WriteShort(29099);
+				base.WriteShort((short)m_length);
+				base.WriteShort(checkSum());
+				base.WriteShort(m_code);
+				base.WriteInt(m_cliendId);
+				base.WriteInt(m_parameter1);
+				base.WriteInt(m_parameter2);
+				m_offset = num2;
+			}
+        }
+
+        public void WriteHeader3()
+        {
+			lock (this)
+			{
+				int offset = m_offset;
+				m_offset = 0;
+				WriteShort(29099);
+				WriteShort((short)m_length);
+				m_offset = 6;
+				WriteShort(m_code);
+				WriteInt(m_cliendId);
+				WriteInt(m_parameter1);
+				WriteInt(m_parameter2);
+				m_offset = 4;
+				WriteShort(checkSum());
+				m_offset = offset;
+			}
+        }
+
+        public void WritePacket(GSPacketIn pkg)
+        {
+			pkg.WriteHeader();
+			Write(pkg.Buffer, 0, pkg.Length);
+        }
+    }
+}
+
+==================================================================
+== Game.Base/PacketIn.cs (primitives, CopyFrom3/CopyTo3 crypto)
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Game.Base/PacketIn.cs
+==================================================================
+using System;
+using System.Text;
+using System.Threading;
+
+namespace Game.Base
+{
+    public class PacketIn
+    {
+        public volatile bool isSended = true;
+
+        private byte lastbits;
+
+        protected byte[] m_buffer;
+
+        protected byte[] m_buffer2;
+
+        protected int m_length;
+
+        public volatile int m_loop;
+
+        protected int m_offset;
+
+        public volatile int m_sended;
+
+        public volatile int packetNum;
+
+        public byte[] Buffer=> m_buffer;
+
+        public int DataLeft=> m_length - m_offset;
+
+        public int Length=> m_length;
+
+        public int Offset
+        {
+			get
+			{
+				return m_offset;
+			}
+			set
+			{
+				m_offset = value;
+			}
+        }
+
+        public PacketIn(byte[] buf, int len)
+        {
+			m_buffer = buf;
+			m_length = len;
+			m_offset = 0;
+        }
+
+        public virtual int CopyFrom(byte[] src, int srcOffset, int offset, int count)
+        {
+			if (count < m_buffer.Length && count - srcOffset < src.Length)
+			{
+				System.Buffer.BlockCopy(src, srcOffset, m_buffer, offset, count);
+				return count;
+			}
+			return -1;
+        }
+
+        public virtual int CopyFrom(byte[] src, int srcOffset, int offset, int count, int key)
+        {
+			if (count >= m_buffer.Length || count - srcOffset >= src.Length)
+			{
+				return -1;
+			}
+			key = (key & 0xFF0000) >> 16;
+			for (int i = 0; i < count; i++)
+			{
+				m_buffer[offset + i] = (byte)(src[srcOffset + i] ^ key);
+			}
+			return count;
+        }
+
+        public virtual int[] CopyFrom3(byte[] src, int srcOffset, int offset, int count, byte[] key)
+        {
+			int[] numArray = new int[count];
+			for (int i = 0; i < count; i++)
+			{
+				m_buffer[i] = src[i];
+			}
+			if (count < m_buffer.Length && count - srcOffset < src.Length)
+			{
+				m_buffer[0] = (byte)(src[srcOffset] ^ key[0]);
+				for (int j = 1; j < count; j++)
+				{
+					key[j % 8] = (byte)((key[j % 8] + src[srcOffset + j - 1]) ^ j);
+					m_buffer[j] = (byte)((src[srcOffset + j] - src[srcOffset + j - 1]) ^ key[j % 8]);
+				}
+			}
+			return numArray;
+        }
+
+        public virtual int CopyTo(byte[] dst, int dstOffset, int offset)
+        {
+			int count = ((m_length - offset < dst.Length - dstOffset) ? (m_length - offset) : (dst.Length - dstOffset));
+			if (count > 0)
+			{
+				System.Buffer.BlockCopy(m_buffer, offset, dst, dstOffset, count);
+			}
+			return count;
+        }
+
+        public virtual int CopyTo(byte[] dst, int dstOffset, int offset, byte[] key)
+        {
+			int num = ((m_length - offset < dst.Length - dstOffset) ? (m_length - offset) : (dst.Length - dstOffset));
+			if (num > 0)
+			{
+				for (int i = 0; i < num; i++)
+				{
+					if (offset + i == 0)
+					{
+						dst[dstOffset] = (byte)(m_buffer[offset + i] ^ key[(offset + i) % 8]);
+						continue;
+					}
+					if (i == 0 && dstOffset == 0)
+					{
+						key[(offset + i) % 8] = (byte)((key[(offset + i) % 8] + lastbits) ^ (offset + i));
+						dst[dstOffset + i] = (byte)((m_buffer[offset + i] ^ key[(offset + i) % 8]) + lastbits);
+						continue;
+					}
+					key[(offset + i) % 8] = (byte)((key[(offset + i) % 8] + dst[dstOffset + i - 1]) ^ (offset + i));
+					dst[dstOffset + i] = (byte)((m_buffer[offset + i] ^ key[(offset + i) % 8]) + dst[dstOffset + i - 1]);
+					if (i == num - 1)
+					{
+						lastbits = dst[dstOffset + i];
+					}
+				}
+			}
+			return num;
+        }
+
+        public virtual int CopyTo3(byte[] dst, int dstOffset, int offset, byte[] key, ref int packetArrangeSend)
+        {
+			int num = ((m_length - offset < dst.Length - dstOffset) ? (m_length - offset) : (dst.Length - dstOffset));
+			lock (this)
+			{
+				if (num > 0)
+				{
+					int num2;
+					if (isSended)
+					{
+						packetNum = Interlocked.Increment(ref packetArrangeSend);
+						packetArrangeSend = packetNum;
+						m_sended = 0;
+						isSended = false;
+						num2 = m_sended + dstOffset;
+					}
+					else
+					{
+						num2 = 8192;
+					}
+					if (packetNum != packetArrangeSend)
+					{
+						return 0;
+					}
+					for (int i = 0; i < num; i++)
+					{
+						int index = offset + i;
+						while (num2 > 8192)
+						{
+							num2 -= 8192;
+						}
+						if (m_sended == 0)
+						{
+							dst[dstOffset] = (byte)(m_buffer[index] ^ key[m_sended % 8]);
+						}
+						else
+						{
+							if (num2 == 0)
+							{
+								return 0;
+							}
+							key[m_sended % 8] = (byte)((key[m_sended % 8] + dst[num2 - 1]) ^ m_sended);
+							dst[dstOffset + i] = (byte)((m_buffer[index] ^ key[m_sended % 8]) + dst[num2 - 1]);
+						}
+						m_sended++;
+						num2++;
+					}
+				}
+				return num;
+			}
+        }
+
+        public virtual void Fill(byte val, int num)
+        {
+			for (int i = 0; i < num; i++)
+			{
+				WriteByte(val);
+			}
+        }
+
+        public virtual bool ReadBoolean()
+        {
+			return m_buffer[m_offset++] != 0;
+        }
+
+        public virtual byte ReadByte()
+        {
+			return m_buffer[m_offset++];
+        }
+
+        public virtual byte[] ReadBytes()
+        {
+			return ReadBytes(m_length - m_offset);
+        }
+
+        public virtual byte[] ReadBytes(int maxLen)
+        {
+			byte[] destinationArray = new byte[maxLen];
+			Array.Copy(m_buffer, m_offset, destinationArray, 0, maxLen);
+			m_offset += maxLen;
+			return destinationArray;
+        }
+
+        public DateTime ReadDateTime()
+        {
+			return new DateTime(ReadShort(), ReadByte(), ReadByte(), ReadByte(), ReadByte(), ReadByte());
+        }
+
+        public virtual double ReadDouble()
+        {
+			byte[] buffer = new byte[8];
+			for (int i = 0; i < buffer.Length; i++)
+			{
+				buffer[i] = ReadByte();
+			}
+			return BitConverter.ToDouble(buffer, 0);
+        }
+
+        public virtual float ReadFloat()
+        {
+			byte[] buffer = new byte[4];
+			for (int i = 0; i < buffer.Length; i++)
+			{
+				buffer[i] = ReadByte();
+			}
+			return BitConverter.ToSingle(buffer, 0);
+        }
+
+        public virtual int ReadInt()
+        {
+			byte v = ReadByte();
+			byte num2 = ReadByte();
+			byte num3 = ReadByte();
+			byte num4 = ReadByte();
+			return Marshal.ConvertToInt32(v, num2, num3, num4);
+        }
+
+        public virtual long ReadLong()
+        {
+			int num = ReadInt();
+			long num2 = readUnsignedInt();
+			int num3 = 1;
+			if (num < 0)
+			{
+				num3 = -1;
+			}
+			return (long)((double)num3 * (Math.Abs((double)num * Math.Pow(2.0, 32.0)) + (double)num2));
+        }
+
+        public virtual short ReadShort()
+        {
+			byte v = ReadByte();
+			byte num2 = ReadByte();
+			return Marshal.ConvertToInt16(v, num2);
+        }
+
+        public virtual short ReadShortLowEndian()
+        {
+			byte num = ReadByte();
+			return Marshal.ConvertToInt16(ReadByte(), num);
+        }
+
+        public virtual string ReadString()
+        {
+			short count = ReadShort();
+			string @string = Encoding.UTF8.GetString(m_buffer, m_offset, count);
+			m_offset += count;
+			return @string.Replace("\0", "");
+        }
+
+        public virtual uint ReadUInt()
+        {
+			byte v = ReadByte();
+			byte num2 = ReadByte();
+			byte num3 = ReadByte();
+			byte num4 = ReadByte();
+			return Marshal.ConvertToUInt32(v, num2, num3, num4);
+        }
+
+        public virtual long readUnsignedInt()
+        {
+			return ReadInt() & 0xFFFFFFFFu;
+        }
+
+        public void Skip(int num)
+        {
+			m_offset += num;
+        }
+
+        public virtual void vmethod_0(uint val)
+        {
+			WriteByte((byte)(val >> 24));
+			WriteByte((byte)((val >> 16) & 0xFFu));
+			WriteByte((byte)((val & 0xFFFF) >> 8));
+			WriteByte((byte)(val & 0xFFFFu & 0xFFu));
+        }
+
+        public virtual void Write(byte[] src)
+        {
+			Write(src, 0, src.Length);
+        }
+
+        public virtual void Write(byte[] src, int offset, int len)
+        {
+			if (m_offset + len >= m_buffer.Length)
+			{
+				byte[] sourceArray = m_buffer;
+				m_buffer = new byte[m_buffer.Length * 2];
+				Array.Copy(sourceArray, m_buffer, sourceArray.Length);
+				Write(src, offset, len);
+			}
+			else
+			{
+				Array.Copy(src, offset, m_buffer, m_offset, len);
+				m_offset += len;
+				m_length = ((m_offset > m_length) ? m_offset : m_length);
+			}
+        }
+
+        public virtual void Write3(byte[] src, int offset, int len)
+        {
+			Array.Copy(src, offset, m_buffer, m_offset, len);
+			m_offset += len;
+			m_length = ((m_offset > m_length) ? m_offset : m_length);
+        }
+
+        public virtual void WriteBoolean(bool val)
+        {
+			if (m_offset == m_buffer.Length)
+			{
+				byte[] sourceArray = m_buffer;
+				m_buffer = new byte[m_buffer.Length * 2];
+				Array.Copy(sourceArray, m_buffer, sourceArray.Length);
+			}
+			m_buffer[m_offset++] = (byte)(val ? 1u : 0u);
+			m_length = ((m_offset > m_length) ? m_offset : m_length);
+        }
+
+        public virtual void WriteByte(byte val)
+        {
+			if (m_offset == m_buffer.Length)
+			{
+				byte[] sourceArray = m_buffer;
+				m_buffer = new byte[m_buffer.Length * 2];
+				Array.Copy(sourceArray, m_buffer, sourceArray.Length);
+			}
+			m_buffer[m_offset++] = val;
+			m_length = ((m_offset > m_length) ? m_offset : m_length);
+        }
+
+        public void WriteDateTime(DateTime date)
+        {
+			WriteShort((short)date.Year);
+			WriteByte((byte)date.Month);
+			WriteByte((byte)date.Day);
+			WriteByte((byte)date.Hour);
+			WriteByte((byte)date.Minute);
+			WriteByte((byte)date.Second);
+        }
+
+        public virtual void WriteDouble(double val)
+        {
+			byte[] bytes = BitConverter.GetBytes(val);
+			Write(bytes);
+        }
+
+        public virtual void WriteFloat(float val)
+        {
+			byte[] bytes = BitConverter.GetBytes(val);
+			Write(bytes);
+        }
+
+        public virtual void WriteInt(int val)
+        {
+			WriteByte((byte)(val >> 24));
+			WriteByte((byte)((uint)(val >> 16) & 0xFFu));
+			WriteByte((byte)((val & 0xFFFF) >> 8));
+			WriteByte((byte)((uint)val & 0xFFFFu & 0xFFu));
+        }
+
+        public virtual void WriteLong(long val)
+        {
+			int num2 = (int)val;
+			string str = Convert.ToString(val, 2);
+			string str2 = ((str.Length <= 32) ? "" : str.Substring(0, str.Length - 32));
+			int num3 = 0;
+			for (int i = 0; i < str2.Length; i++)
+			{
+				string str3 = str2.Substring(str2.Length - (i + 1));
+				if (str3 != "0")
+				{
+					if (!(str3 == "1"))
+					{
+						break;
+					}
+					num3 += 1 << i;
+				}
+			}
+			WriteInt(num3);
+			WriteInt(num2);
+        }
+
+        public virtual void WriteShort(short val)
+        {
+			WriteByte((byte)(val >> 8));
+			WriteByte((byte)((uint)val & 0xFFu));
+        }
+
+        public virtual void WriteShortLowEndian(short val)
+        {
+			WriteByte((byte)((uint)val & 0xFFu));
+			WriteByte((byte)(val >> 8));
+        }
+
+        public virtual void WriteString(string str)
+        {
+			if (!string.IsNullOrEmpty(str))
+			{
+				byte[] bytes = Encoding.UTF8.GetBytes(str);
+				WriteShort((short)(bytes.Length + 1));
+				Write(bytes, 0, bytes.Length);
+				WriteByte(0);
+			}
+			else
+			{
+				WriteShort(1);
+				WriteByte(0);
+			}
+        }
+
+        public virtual void WriteString(string str, int maxlen)
+        {
+			byte[] bytes = Encoding.UTF8.GetBytes(str);
+			int len = ((bytes.Length < maxlen) ? bytes.Length : maxlen);
+			WriteShort((short)len);
+			Write(bytes, 0, len);
+        }
+    }
+}
+
+==================================================================
+== Game.Base/Packets/StreamProcessor.cs
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Game.Base/Packets/StreamProcessor.cs
+==================================================================
+using log4net;
+using Road.Base.Packets;
+using System;
+using System.Collections;
+using System.Net.Sockets;
+using System.Reflection;
+using System.Text;
+using System.Threading;
+
+namespace Game.Base.Packets
+{
+    public class StreamProcessor
+    {
+        public static byte[] KEY = new byte[8] { 174, 191, 86, 120, 171, 205, 239, 241 }; //174,191,86,120,171,205,239,241
+
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+        protected readonly BaseClient m_client;
+
+        protected int m_firstPkgOffset;
+
+        protected int m_sendBufferLength;
+
+        protected bool m_sendingTcp;
+
+        protected Queue m_tcpQueue;
+
+        protected byte[] m_tcpSendBuffer;
+
+        private FSM receive_fsm;
+
+        private SocketAsyncEventArgs send_event;
+
+        private FSM send_fsm;
+
+        public StreamProcessor(BaseClient client)
+        {
+            m_client = client;
+            m_client.resetKey();
+            m_tcpSendBuffer = client.SendBuffer;
+            m_tcpQueue = new Queue(256);
+            send_event = new SocketAsyncEventArgs();
+            send_event.UserToken = this;
+            send_event.Completed += AsyncTcpSendCallback;
+            send_event.SetBuffer(m_tcpSendBuffer, 0, 0);
+            send_fsm = new FSM(2059198199, 1501, "send_fsm");
+            receive_fsm = new FSM(2059198199, 1501, "receive_fsm");
+        }
+
+        private static void AsyncSendTcpImp(object state)
+        {
+            StreamProcessor sender = state as StreamProcessor;
+            BaseClient client = sender.m_client;
+            try
+            {
+                AsyncTcpSendCallback(sender, sender.send_event);
+            }
+            catch (Exception exception)
+            {
+                log.Error("AsyncSendTcpImp", exception);
+                client.Disconnect();
+            }
+        }
+
+        private static void AsyncTcpSendCallback(object sender, SocketAsyncEventArgs e)
+        {
+            StreamProcessor userToken = (StreamProcessor)e.UserToken;
+            BaseClient client = userToken.m_client;
+            try
+            {
+                Queue tcpQueue = userToken.m_tcpQueue;
+                if (tcpQueue == null || !client.Socket.Connected)
+                {
+                    return;
+                }
+                int bytesTransferred = e.BytesTransferred;
+                byte[] tcpSendBuffer = userToken.m_tcpSendBuffer;
+                int length = 0;
+                if (bytesTransferred != e.Count && userToken.m_sendBufferLength > bytesTransferred)
+                {
+                    length = userToken.m_sendBufferLength - bytesTransferred;
+                    Array.Copy(tcpSendBuffer, bytesTransferred, tcpSendBuffer, 0, length);
+                }
+                e.SetBuffer(0, 0);
+                int firstPkgOffset = userToken.m_firstPkgOffset;
+                lock (tcpQueue.SyncRoot)
+                {
+                    int num4 = 0;
+                    if (tcpQueue.Count > 0)
+                    {
+                        do
+                        {
+                            PacketIn @in = (PacketIn)tcpQueue.Peek();
+                            int num5 = ((!client.Encryted) ? @in.CopyTo(tcpSendBuffer, length, firstPkgOffset) : @in.CopyTo3(tcpSendBuffer, length, firstPkgOffset, client.SEND_KEY, ref client.numPacketProcces));
+                            num4 = ((num5 == 0) ? (num4 + 1) : 0);
+                            firstPkgOffset += num5;
+                            length += num5;
+                            if (@in.Length <= firstPkgOffset)
+                            {
+                                tcpQueue.Dequeue();
+                                firstPkgOffset = 0;
+                                if (client.Encryted)
+                                {
+                                    userToken.send_fsm.UpdateState();
+                                    @in.isSended = true;
+                                }
+                            }
+                            if (tcpSendBuffer.Length == length)
+                            {
+                                break;
+                            }
+                            if (num4 > 5)
+                            {
+                                @in.isSended = true;
+                                break;
+                            }
+                        }
+                        while (tcpQueue.Count > 0);
+                    }
+                    userToken.m_firstPkgOffset = firstPkgOffset;
+                    if (length <= 0)
+                    {
+                        userToken.m_sendingTcp = false;
+                        return;
+                    }
+                }
+                userToken.m_sendBufferLength = length;
+                e.SetBuffer(0, length);
+                if (!client.SendAsync(e))
+                {
+                    AsyncTcpSendCallback(sender, e);
+                }
+            }
+            catch (Exception exception)
+            {
+                log.Error("AsyncTcpSendCallback", exception);
+                log.WarnFormat("It seems <{0}> went linkdead. Closing connection. (SendTCP, {1}: {2})", client, exception.GetType(), exception.Message);
+                client.Disconnect();
+            }
+        }
+
+        public static byte[] cloneArrary(byte[] arr, int length = 8)
+        {
+            byte[] buffer = new byte[length];
+            for (int i = 0; i < length; i++)
+            {
+                buffer[i] = arr[i];
+            }
+            return buffer;
+        }
+
+        public static byte[] decryptBytes(byte[] param1, int curOffset, int param2, byte[] param3)
+        {
+            byte[] buffer = new byte[param2];
+            for (int i = 0; i < param2; i++)
+            {
+                buffer[i] = param1[i];
+            }
+            for (int j = 0; j < param2; j++)
+            {
+                if (j > 0)
+                {
+                    param3[j % 8] = (byte)((param3[j % 8] + param1[curOffset + j - 1]) ^ j);
+                    buffer[j] = (byte)((param1[curOffset + j] - param1[curOffset + j - 1]) ^ param3[j % 8]);
+                }
+                else
+                {
+                    buffer[0] = (byte)(param1[curOffset] ^ param3[0]);
+                }
+            }
+            return buffer;
+        }
+
+        public void Dispose()
+        {
+            send_event.Dispose();
+            m_tcpQueue.Clear();
+        }
+
+        public static string PrintArray(byte[] arr, int length = 8)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append("[");
+            for (int i = 0; i < length; i++)
+            {
+                builder.AppendFormat("{0} ", arr[i]);
+            }
+            builder.Append("]");
+            return builder.ToString();
+        }
+
+        public static string PrintArray(byte[] arr, int first, int length)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append("[");
+            for (int i = first; i < first + length; i++)
+            {
+                builder.AppendFormat("{0} ", arr[i]);
+            }
+            builder.Append("]");
+            return builder.ToString();
+        }
+
+        public void ReceiveBytes(int numBytes)
+        {
+            lock (this)
+            {
+                byte[] packetBuf = m_client.PacketBuf;
+                int num = m_client.PacketBufSize + numBytes;
+                if (num < 20)
+                {
+                    m_client.PacketBufSize = num;
+                    return;
+                }
+                m_client.PacketBufSize = 0;
+                int curOffset = 0;
+                do
+                {
+                    int num2 = 0;
+                    if (m_client.Encryted)
+                    {
+                        _ = receive_fsm.count;
+                        byte[] buffer2 = cloneArrary(m_client.RECEIVE_KEY);
+                        for (; curOffset + 4 < num; curOffset++)
+                        {
+                            byte[] buffer3 = decryptBytes(packetBuf, curOffset, 8, buffer2);
+                            if ((buffer3[0] << 8) + buffer3[1] == 29099)
+                            {
+                                num2 = (buffer3[2] << 8) + buffer3[3];
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (; curOffset + 4 < num; curOffset++)
+                        {
+                            if ((packetBuf[curOffset] << 8) + packetBuf[curOffset + 1] == 29099)
+                            {
+                                num2 = (packetBuf[curOffset + 2] << 8) + packetBuf[curOffset + 3];
+                                break;
+                            }
+                        }
+                    }
+                    if ((num2 == 0 || num2 >= 20) && num2 <= 8192)
+                    {
+                        int length = num - curOffset;
+                        if (length >= num2 && num2 != 0)
+                        {
+                            GSPacketIn pkg = new GSPacketIn(new byte[8192], 8192);
+                            if (m_client.Encryted)
+                            {
+                                pkg.CopyFrom3(packetBuf, curOffset, 0, num2, m_client.RECEIVE_KEY);
+                            }
+                            else
+                            {
+                                pkg.CopyFrom(packetBuf, curOffset, 0, num2);
+                            }
+                            pkg.ReadHeader();
+                            try
+                            {
+                                m_client.OnRecvPacket(pkg);
+                            }
+                            catch (Exception exception)
+                            {
+                                if (log.IsErrorEnabled)
+                                {
+                                    log.Error("HandlePacket(pak)", exception);
+                                }
+                            }
+                            curOffset += num2;
+                            continue;
+                        }
+                        Array.Copy(packetBuf, curOffset, packetBuf, 0, length);
+                        m_client.PacketBufSize = length;
+                        break;
+                    }
+                    m_client.PacketBufSize = 0;
+                    if (m_client.Strict)
+                    {
+                        m_client.Disconnect();
+                    }
+                    return;
+                }
+                while (num - 1 > curOffset);
+                if (num - 1 == curOffset)
+                {
+                    packetBuf[0] = packetBuf[curOffset];
+                    m_client.PacketBufSize = 1;
+                }
+            }
+        }
+
+        public void SendTCP(GSPacketIn packet)
+        {
+            if (packet != null)
+            {
+                packet.WriteHeader();
+                packet.Offset = 0;
+                if (!m_client.Socket.Connected)
+                {
+                    return;
+                }
+                try
+                {
+                    Statistics.BytesOut += packet.Length;
+                    Statistics.PacketsOut++;
+                    lock (m_tcpQueue.SyncRoot)
+                    {
+                        m_tcpQueue.Enqueue(packet);
+                        if (m_sendingTcp)
+                        {
+                            return;
+                        }
+                        m_sendingTcp = true;
+                    }
+                    if (m_client.AsyncPostSend)
+                    {
+                        ThreadPool.QueueUserWorkItem(AsyncSendTcpImp, this);
+                    }
+                    else
+                    {
+                        AsyncTcpSendCallback(this, send_event);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    log.Error("SendTCP", exception);
+                    log.WarnFormat("It seems <{0}> went linkdead. Closing connection. (SendTCP, {1}: {2})", m_client, exception.GetType(), exception.Message);
+                    m_client.Disconnect();
+                }
+            }
+        }
+
+        public void SetFsm(int adder, int muliter)
+        {
+            send_fsm.Setup(adder, muliter);
+            receive_fsm.Setup(adder, muliter);
+        }
+    }
+}
+
+==================================================================
+== Game.Base/BaseClient.cs
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Game.Base/BaseClient.cs
+==================================================================
+using Game.Base.Packets;
+using log4net;
+using System;
+using System.Net.Sockets;
+using System.Reflection;
+using System.Threading;
+
+namespace Game.Base
+{
+    public class BaseClient
+    {
+        public bool IsClientPacketSended = true;
+
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+        private bool m_asyncPostSend;
+
+        private bool m_encryted;
+
+        private int m_isConnected;
+
+        public StreamProcessor m_processor;
+
+        protected int m_readBufEnd;
+
+        protected byte[] m_readBuffer;
+
+        protected byte[] m_sendBuffer;
+
+        protected Socket m_sock;
+
+        private bool m_strict;
+
+        public int numPacketProcces;
+
+        private SocketAsyncEventArgs rc_event;
+
+        public byte[] RECEIVE_KEY;
+
+        public byte[] SEND_KEY;
+
+        public bool AsyncPostSend
+        {
+			get
+			{
+				return m_asyncPostSend;
+			}
+			set
+			{
+				m_asyncPostSend = value;
+			}
+        }
+
+        public bool Encryted
+        {
+			get
+			{
+				return m_encryted;
+			}
+			set
+			{
+				m_encryted = value;
+			}
+        }
+
+        public bool IsConnected=> m_isConnected == 1;
+
+        public byte[] PacketBuf=> m_readBuffer;
+
+        public int PacketBufSize
+        {
+			get
+			{
+				return m_readBufEnd;
+			}
+			set
+			{
+				m_readBufEnd = value;
+			}
+        }
+
+        public byte[] SendBuffer=> m_sendBuffer;
+
+        public Socket Socket
+        {
+			get
+			{
+				return m_sock;
+			}
+			set
+			{
+				m_sock = value;
+			}
+        }
+
+        public bool Strict
+        {
+			get
+			{
+				return m_strict;
+			}
+			set
+			{
+				m_strict = value;
+			}
+        }
+
+        public string TcpEndpoint
+        {
+			get
+			{
+				Socket sock = m_sock;
+				if (sock != null && sock.Connected && sock.RemoteEndPoint != null)
+				{
+					return sock.RemoteEndPoint.ToString();
+				}
+				return "not connected";
+			}
+        }
+
+        public event ClientEventHandle Connected;
+
+        public event ClientEventHandle Disconnected;
+
+        public BaseClient(byte[] readBuffer, byte[] sendBuffer)
+        {
+			m_readBuffer = readBuffer;
+			m_sendBuffer = sendBuffer;
+			m_readBufEnd = 0;
+			rc_event = new SocketAsyncEventArgs();
+			rc_event.Completed += RecvEventCallback;
+			m_processor = new StreamProcessor(this);
+			m_encryted = false;
+			m_strict = true;
+        }
+
+        protected void CloseConnections()
+        {
+			if (m_sock != null)
+			{
+				try
+				{
+					m_sock.Shutdown(SocketShutdown.Both);
+				}
+				catch
+				{
+				}
+				try
+				{
+					m_sock.Close();
+				}
+				catch
+				{
+				}
+			}
+        }
+
+        public virtual bool Connect(Socket connectedSocket)
+        {
+			m_sock = connectedSocket;
+			if (m_sock.Connected)
+			{
+				if (Interlocked.Exchange(ref m_isConnected, 1) == 0)
+				{
+					OnConnect();
+				}
+				return true;
+			}
+			return false;
+        }
+
+        public virtual void Disconnect()
+        {
+			try
+			{
+				if (Interlocked.Exchange(ref m_isConnected, 0) == 1)
+				{
+					CloseConnections();
+					OnDisconnect();
+					rc_event.Dispose();
+					m_processor.Dispose();
+				}
+			}
+			catch (Exception exception)
+			{
+				if (log.IsErrorEnabled)
+				{
+					log.Error("Exception", exception);
+				}
+			}
+        }
+
+        public virtual void DisplayMessage(string msg)
+        {
+        }
+
+        protected virtual void OnConnect()
+        {
+			if (Interlocked.Exchange(ref m_isConnected, 1) == 0 && this.Connected != null)
+			{
+				this.Connected(this);
+			}
+        }
+
+        protected virtual void OnDisconnect()
+        {
+			if (this.Disconnected != null)
+			{
+				this.Disconnected(this);
+			}
+        }
+
+        public virtual void OnRecv(int num_bytes)
+        {
+			m_processor.ReceiveBytes(num_bytes);
+        }
+
+        public virtual void OnRecvPacket(GSPacketIn pkg)
+        {
+        }
+
+        public void ReceiveAsync()
+        {
+			ReceiveAsyncImp(rc_event);
+        }
+
+        private void ReceiveAsyncImp(SocketAsyncEventArgs e)
+        {
+			if (m_sock != null && m_sock.Connected)
+			{
+				int length = m_readBuffer.Length;
+				if (m_readBufEnd >= length)
+				{
+					if (log.IsErrorEnabled)
+					{
+						log.Error(TcpEndpoint + " disconnected because of buffer overflow!");
+						log.Error("m_pBufEnd=" + m_readBufEnd + "; buf size=" + length);
+						log.Error(m_readBuffer);
+					}
+					Disconnect();
+				}
+				else
+				{
+					e.SetBuffer(m_readBuffer, m_readBufEnd, length - m_readBufEnd);
+					if (!m_sock.ReceiveAsync(e))
+					{
+						RecvEventCallback(m_sock, e);
+					}
+				}
+			}
+			else
+			{
+				Disconnect();
+			}
+        }
+
+        private void RecvEventCallback(object sender, SocketAsyncEventArgs e)
+        {
+			try
+			{
+				int bytesTransferred = e.BytesTransferred;
+				if (bytesTransferred > 0)
+				{
+					OnRecv(bytesTransferred);
+					ReceiveAsyncImp(e);
+				}
+				else
+				{
+					log.InfoFormat("Disconnecting client ({0}), received bytes={1}", TcpEndpoint, bytesTransferred);
+					Disconnect();
+				}
+			}
+			catch (Exception exception)
+			{
+				log.ErrorFormat("{0} RecvCallback:{1}", TcpEndpoint, exception);
+				Disconnect();
+			}
+        }
+
+        public virtual void resetKey()
+        {
+			RECEIVE_KEY = StreamProcessor.cloneArrary(StreamProcessor.KEY);
+			SEND_KEY = StreamProcessor.cloneArrary(StreamProcessor.KEY);
+        }
+
+        public bool SendAsync(SocketAsyncEventArgs e)
+        {
+			int tickCount = Environment.TickCount;
+			bool flag = true;
+			if (m_sock.Connected)
+			{
+				flag = m_sock.SendAsync(e);
+			}
+			int num2 = Environment.TickCount - tickCount;
+			if (num2 > 1500)
+			{
+				log.WarnFormat("AsyncTcpSendCallback.BeginSend took {0}ms! (TCP to client: {1})", num2, TcpEndpoint);
+			}
+			return flag;
+        }
+
+        public virtual void SendTCP(GSPacketIn pkg)
+        {
+			m_processor.SendTCP(pkg);
+        }
+
+        public void SetFsm(int adder, int muliter)
+        {
+			m_processor.SetFsm(adder, muliter);
+        }
+
+        public virtual void setKey(byte[] data)
+        {
+			for (int i = 0; i < 8; i++)
+			{
+				RECEIVE_KEY[i] = data[i];
+				SEND_KEY[i] = data[i];
+			}
+        }
+    }
+}
