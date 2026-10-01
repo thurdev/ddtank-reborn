@@ -1,0 +1,97 @@
+{
+  "packs": [
+    "C:\\Users\\T\\Documents\\Projects\\DDTank\\vendor\\_assets\\merged"
+  ],
+  "stats": {
+    "boot [core]": {
+      "need": 33,
+      "have": 33,
+      "caseOnly": 0
+    },
+    "item:prop [core]": {
+      "need": 2765,
+      "have": 1692,
+      "caseOnly": 222
+    },
+    "item:equip [core]": {
+      "need": 6495,
+      "have": 5594,
+      "caseOnly": 159
+    },
+    "item:equip [extra]": {
+      "need": 3254,
+      "have": 1772,
+      "caseOnly": 43
+    },
+    "item:arm [core]": {
+      "need": 984,
+      "have": 526,
+      "caseOnly": 118
+    },
+    "item:arm [extra]": {
+      "need": 984,
+      "have": 645,
+      "caseOnly": 187
+    },
+    "item:jewel [core]": {
+      "need": 187,
+      "have": 178,
+      "caseOnly": 2
+    },
+    "item:wing [core]": {
+      "need": 249,
+      "have": 188,
+      "caseOnly": 0
+    },
+    "map [core]": {
+      "need": 453,
+      "have": 444,
+      "caseOnly": 0
+    },
+    "map [extra]": {
+      "need": 426,
+      "have": 339,
+      "caseOnly": 0
+    },
+    "sound [core]": {
+      "need": 116,
+      "have": 108,
+      "caseOnly": 0
+    },
+    "npc [core]": {
+      "need": 141,
+      "have": 120,
+      "caseOnly": 93
+    },
+    "bomb [extra]": {
+      "need": 1905,
+      "have": 1770,
+      "caseOnly": 1604
+    },
+    "bomb [core]": {
+      "need": 326,
+      "have": 190,
+      "caseOnly": 89
+    },
+    "pet [core]": {
+      "need": 80,
+      "have": 36,
+      "caseOnly": 7
+    },
+    "server-load [core]": {
+      "need": 76,
+      "have": 41,
+      "caseOnly": 3
+    }
+  },
+  "core": [
+    9150,
+    11905
+  ],
+  "all": [
+    13676,
+    18474
+  ],
+  "caseOnly": 2527,
+  "obf": 0
+}

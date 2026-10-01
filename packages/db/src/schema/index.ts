@@ -7,3 +7,5 @@ export * as player from "./player.js";
 export const member = { ...memberGenerated, Accounts };
 export { Accounts, type Account, type NewAccount } from "./accounts.js";
 export { game as gameSchema, player as playerSchema, member as memberSchema, bytea } from "./schemas.js";
+
+export * as app from "./app.js";
