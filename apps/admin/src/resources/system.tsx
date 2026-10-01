@@ -1,4 +1,4 @@
-import { Languages, Mail, Newspaper, ScrollText, UserCog } from "lucide-react";
+import { Languages, Mail, Megaphone, Newspaper, ScrollText, UserCog } from "lucide-react";
 import { defineResource } from "@/crud/types";
 
 export const texts = defineResource({
@@ -52,6 +52,29 @@ export const news = defineResource({
     { name: "summary", label: "Resumo", type: "textarea", required: true, maxLength: 280 },
     { name: "body", label: "Conteúdo (Markdown)", type: "textarea" },
     { name: "published", label: "Publicada", type: "boolean", default: true, list: true, inlineToggle: true },
+  ],
+});
+
+export const edicts = defineResource({
+  name: "edicts",
+  table: 'game."Edictum_List"',
+  label: { "pt-BR": "Avisos do jogo", en: "In-game notices" },
+  singular: { "pt-BR": "aviso", en: "notice" },
+  description: "Comunicados exibidos dentro do cliente (Edictum_List).",
+  icon: Megaphone,
+  group: "site",
+  idField: "ID",
+  titleField: "Title",
+  defaultSort: "-BeginDate",
+  fields: [
+    { name: "ID", label: "ID", type: "number", list: true, sortable: true, required: true, form: "create" },
+    { name: "Title", label: "Título", type: "text", required: true, list: true, sortable: true, span: 2 },
+    { name: "BeginDate", label: "Data início", type: "datetime", required: true, list: true, sortable: true },
+    { name: "BeginTime", label: "Hora início", type: "datetime", required: true },
+    { name: "EndDate", label: "Data fim", type: "datetime", required: true, list: true },
+    { name: "EndTime", label: "Hora fim", type: "datetime", required: true },
+    { name: "Text", label: "Texto", type: "textarea", required: true },
+    { name: "IsExist", label: "Ativo", type: "boolean", default: true, list: true, inlineToggle: true },
   ],
 });
 

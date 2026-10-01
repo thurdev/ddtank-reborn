@@ -1,30 +1,37 @@
 import { Ban, Bot, Gift, ShieldCheck, Users } from "lucide-react";
-import { defineResource } from "@/crud/types";
+import { defineResource, type Row } from "@/crud/types";
+
+const isBanned = (r: Row) => !!r.ForbidDate && new Date(String(r.ForbidDate)).getTime() > Date.now();
 
 export const players = defineResource({
   name: "players",
+  table: 'player."Sys_Users_Detail"',
   label: { "pt-BR": "Jogadores", en: "Players" },
   singular: { "pt-BR": "jogador", en: "player" },
-  description: "Busque personagens, ajuste moedas e nível, bana ou envie itens.",
+  description: "Personagens (Sys_Users_Detail): ajuste moedas e nível, bana ou envie itens.",
   icon: Users,
   group: "players",
-  idField: "id",
-  titleField: "nickname",
-  defaultSort: "-level",
-  searchPlaceholder: "Apelido, usuário ou ID…",
+  idField: "UserID",
+  titleField: "NickName",
+  defaultSort: "-Grade",
+  searchPlaceholder: "Apelido, conta ou UserID…",
   capabilities: { create: false, delete: false },
   fields: [
-    { name: "id", label: "ID", type: "number", list: true, sortable: true, readOnly: true },
-    { name: "nickname", label: "Apelido", type: "text", list: true, sortable: true, readOnly: true },
-    { name: "username", label: "Conta", type: "text", list: true, readOnly: true },
-    { name: "online", label: "Online", type: "boolean", list: true, readOnly: true },
-    { name: "level", label: "Nível", type: "number", min: 1, max: 100, list: true, sortable: true, required: true },
-    { name: "gp", label: "EXP (GP)", type: "number", min: 0 },
-    { name: "gold", label: "Ouro", type: "number", min: 0, list: true, sortable: true, required: true },
-    { name: "money", label: "Cupons", type: "number", min: 0, list: true, sortable: true, required: true },
-    { name: "giftToken", label: "Medalhas", type: "number", min: 0 },
-    { name: "banned", label: "Banido", type: "boolean", list: true, readOnly: true },
-    { name: "lastLoginAt", label: "Último acesso", type: "datetime", list: true, sortable: true, readOnly: true },
+    { name: "UserID", label: "UserID", type: "number", list: true, sortable: true, readOnly: true },
+    { name: "NickName", label: "Apelido", type: "text", list: true, sortable: true, readOnly: true },
+    { name: "UserName", label: "Conta", type: "text", list: true, readOnly: true },
+    { name: "State", label: "Online", type: "select", list: true, readOnly: true, options: [{ value: 0, label: "Offline", tone: "neutral" }, { value: 1, label: "Online", tone: "mint" }] },
+    { name: "Grade", label: "Nível", type: "number", min: 1, max: 100, list: true, sortable: true, required: true },
+    { name: "GP", label: "EXP (GP)", type: "number", min: 0 },
+    { name: "Gold", label: "Ouro", type: "number", min: 0, list: true, sortable: true, required: true },
+    { name: "Money", label: "Cupons", type: "number", min: 0, list: true, sortable: true, required: true },
+    { name: "GiftToken", label: "Medalhas (GiftToken)", type: "number", min: 0 },
+    { name: "Medal", label: "Medal", type: "number", min: 0 },
+    { name: "Offer", label: "Mérito (Offer)", type: "number", min: 0 },
+    { name: "FightPower", label: "Poder", type: "number", list: true, sortable: true, readOnly: true },
+    { name: "ForbidDate", label: "Banido até", type: "datetime", list: true, readOnly: true },
+    { name: "ForbidReason", label: "Motivo do ban", type: "text", readOnly: true },
+    { name: "LastDate", label: "Último acesso", type: "datetime", list: true, sortable: true, readOnly: true },
   ],
   rowActions: [
     {
@@ -47,7 +54,7 @@ export const players = defineResource({
       tone: "danger",
       path: "ban",
       success: "Jogador banido",
-      visible: (r) => !r.banned,
+      visible: (r) => !isBanned(r),
       fields: [
         { name: "reason", label: "Motivo", type: "textarea", required: true },
         { name: "hours", label: "Duração (horas)", type: "number", min: 0, default: 24, hint: "0 = permanente" },
@@ -60,13 +67,15 @@ export const players = defineResource({
       path: "unban",
       confirm: "Remover o banimento deste jogador?",
       success: "Banimento removido",
-      visible: (r) => !!r.banned,
+      visible: (r) => isBanned(r),
     },
   ],
 });
 
+/** New table (no equivalent in the original server): AI opponents for PvP rooms. */
 export const bots = defineResource({
   name: "bots",
+  table: "bots (novo)",
   label: { "pt-BR": "Bots", en: "Bots" },
   singular: { "pt-BR": "bot", en: "bot" },
   description: "Adversários controlados pela IA nas salas: nome, nível, dificuldade e equipamentos.",

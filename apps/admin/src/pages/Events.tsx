@@ -1,35 +1,37 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Badge, Button, Card, PageHeader, Switch, Tabs, TabsContent, TabsList, TabsTrigger, cn } from "@ddtank/ui";
+import { Button, Card, PageHeader, Switch, Tabs, TabsContent, TabsList, TabsTrigger, cn } from "@ddtank/ui";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { listQuery, useResourceMutations } from "@/crud/api";
 import { ResourcePage } from "@/crud/ResourcePage";
-import { EVENT_TYPES, events } from "@/resources/content";
-import { useI18n, useText } from "@/i18n";
+import { events } from "@/resources/content";
+import { useI18n } from "@/i18n";
 
+/** Row of game."Active". */
 interface EventRow {
-  id: number;
-  name: string;
-  type: string;
-  startAt: string;
-  endAt: string;
-  color?: string;
-  active: boolean;
-  multiplier?: number;
+  ActiveID: number;
+  Title: string;
+  Type: number;
+  StartDate: string;
+  EndDate: string;
+  IsShow: boolean;
 }
+
+// Calendar chip color per Active.Type (identity only; the title is always shown).
+const TYPE_COLORS = ["var(--color-sun)", "var(--color-mint)", "var(--color-sky)", "var(--color-grape)", "var(--color-coral)"];
+const colorOf = (e: EventRow) => TYPE_COLORS[Math.abs(Number(e.Type) || 0) % TYPE_COLORS.length];
 
 const dayKey = (d: Date) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
 const startOfDay = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
 
 function Calendar() {
   const { t, locale } = useI18n();
-  const text = useText();
   const [cursor, setCursor] = useState(() => {
     const n = new Date();
     return new Date(n.getFullYear(), n.getMonth(), 1);
   });
-  const { data } = useQuery(listQuery(events, { page: 1, pageSize: 500, sort: "startAt" }));
+  const { data } = useQuery(listQuery(events, { page: 1, pageSize: 500, sort: "StartDate" }));
   const { update } = useResourceMutations(events);
   const rows = (data?.items ?? []) as unknown as EventRow[];
 
@@ -44,12 +46,12 @@ function Calendar() {
     return d;
   });
 
-  const inMonth = rows.filter((e) => new Date(e.startAt) <= monthEnd && new Date(e.endAt) >= monthStart);
+  const inMonth = rows.filter((e) => new Date(e.StartDate) <= monthEnd && new Date(e.EndDate) >= monthStart);
   const byDay = useMemo(() => {
     const m = new Map<string, EventRow[]>();
     for (const e of rows) {
-      const s = startOfDay(new Date(e.startAt));
-      const end = startOfDay(new Date(e.endAt));
+      const s = startOfDay(new Date(e.StartDate));
+      const end = startOfDay(new Date(e.EndDate));
       for (let d = new Date(s); d <= end; d.setDate(d.getDate() + 1)) {
         const k = dayKey(d);
         m.set(k, [...(m.get(k) ?? []), e]);
@@ -59,7 +61,8 @@ function Calendar() {
   }, [rows]);
 
   const weekday = new Intl.DateTimeFormat(locale, { weekday: "short" });
-  const monthFmt = new Intl.DateTimeFormat(locale, { month: "long", year: "numeric" });
+  const monthFmtRaw = new Intl.DateTimeFormat(locale, { month: "long", year: "numeric" });
+  const monthFmt = { format: (d: Date) => { const s = monthFmtRaw.format(d); return s.charAt(0).toUpperCase() + s.slice(1); } };
   const rangeFmt = new Intl.DateTimeFormat(locale, { day: "2-digit", month: "short" });
   const todayKey = dayKey(new Date());
   const shift = (n: number) => setCursor((c) => new Date(c.getFullYear(), c.getMonth() + n, 1));
@@ -68,7 +71,7 @@ function Calendar() {
     <div className="grid gap-4 xl:grid-cols-[1fr_320px]">
       <Card className="p-4">
         <div className="mb-3 flex items-center gap-2">
-          <h2 className="font-display text-2xl capitalize">{monthFmt.format(cursor)}</h2>
+          <h2 className="font-display text-2xl">{monthFmt.format(cursor)}</h2>
           <div className="ml-auto flex gap-1">
             <Button size="icon" variant="secondary" aria-label="Mês anterior" onClick={() => shift(-1)}>
               <ChevronLeft />
@@ -104,12 +107,12 @@ function Calendar() {
                 <div className="flex flex-col gap-0.5">
                   {list.slice(0, 3).map((e) => (
                     <span
-                      key={e.id}
-                      title={e.name}
-                      className={cn("truncate rounded-md px-1.5 py-0.5 font-semibold text-night-deep", !e.active && "line-through opacity-50")}
-                      style={{ background: e.color || "var(--color-sun)" }}
+                      key={e.ActiveID}
+                      title={e.Title}
+                      className={cn("truncate rounded-md px-1.5 py-0.5 font-semibold text-night-deep", !e.IsShow && "line-through opacity-50")}
+                      style={{ background: colorOf(e) }}
                     >
-                      {e.name}
+                      {e.Title}
                     </span>
                   ))}
                   {list.length > 3 && <span className="px-1 text-muted">+{list.length - 3}</span>}
@@ -125,26 +128,20 @@ function Calendar() {
         <ul className="flex flex-col gap-2">
           {inMonth.length === 0 && <li className="text-sm text-muted">{t("crud.empty")}</li>}
           {inMonth.map((e) => {
-            const type = EVENT_TYPES.find((o) => o.value === e.type);
             return (
-              <li key={e.id} className="flex items-center gap-3 rounded-xl border border-line/60 p-3">
-                <span className="size-3 shrink-0 rounded-full" style={{ background: e.color || "var(--color-sun)" }} aria-hidden />
+              <li key={e.ActiveID} className="flex items-center gap-3 rounded-xl border border-line/60 p-3">
+                <span className="size-3 shrink-0 rounded-full" style={{ background: colorOf(e) }} aria-hidden />
                 <div className="min-w-0 flex-1">
-                  <p className="truncate font-semibold">{e.name}</p>
+                  <p className="truncate font-semibold">{e.Title}</p>
                   <p className="text-xs text-muted">
-                    {rangeFmt.format(new Date(e.startAt))} – {rangeFmt.format(new Date(e.endAt))}
-                    {type && (
-                      <Badge tone={type.tone} className="ml-2">
-                        {text(type.label)}
-                      </Badge>
-                    )}
+                    {rangeFmt.format(new Date(e.StartDate))} – {rangeFmt.format(new Date(e.EndDate))}
                   </p>
                 </div>
                 <Switch
-                  checked={e.active}
-                  aria-label={e.name}
-                  onCheckedChange={(active) =>
-                    update.mutate({ id: e.id, body: { active } }, { onError: () => toast.error(t("common.error")) })
+                  checked={e.IsShow}
+                  aria-label={e.Title}
+                  onCheckedChange={(IsShow) =>
+                    update.mutate({ id: e.ActiveID, body: { IsShow } }, { onError: () => toast.error(t("common.error")) })
                   }
                 />
               </li>

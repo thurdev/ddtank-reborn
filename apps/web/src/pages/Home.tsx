@@ -48,6 +48,7 @@ function NewsList() {
   const { t, locale } = useI18n();
   const { data, isLoading } = useQuery(newsQuery);
   const fmt = new Intl.DateTimeFormat(locale, { day: "2-digit", month: "short" });
+  const part = (d: Date, type: "day" | "month") => fmt.formatToParts(d).find((p) => p.type === type)?.value.replace(".", "") ?? "";
 
   if (isLoading) {
     return (
@@ -63,12 +64,14 @@ function NewsList() {
   return (
     <ul className="divide-y divide-line/60 overflow-hidden rounded-2xl border border-line bg-panel">
       {data.map((n) => {
-        const [day, month] = fmt.format(new Date(n.publishedAt)).split(/\s+/);
+        const date = new Date(n.publishedAt);
+        const day = part(date, "day");
+        const month = part(date, "month");
         return (
           <li key={n.id} className="flex gap-5 p-5 transition-colors hover:bg-panel-2/40">
             <time dateTime={n.publishedAt} className="flex w-14 shrink-0 flex-col items-center rounded-xl bg-night-deep/70 py-2">
               <span className="font-display text-2xl leading-none text-sun">{day}</span>
-              <span className="text-xs uppercase text-muted">{month?.replace(".", "")}</span>
+              <span className="text-xs uppercase text-muted">{month}</span>
             </time>
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
@@ -91,7 +94,7 @@ export function HomePage() {
   return (
     <>
       <section className="relative overflow-hidden border-b border-line/60 bg-starfield animate-drift">
-        <TrajectoryArc className="absolute -left-10 top-10 hidden w-[70%] text-sun/25 lg:block" />
+        <TrajectoryArc className="absolute -left-10 top-10 hidden w-[70%] text-sun/15 lg:block" />
         <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 lg:grid-cols-[1.4fr_1fr] lg:py-24">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-mint">{t("home.eyebrow")}</p>

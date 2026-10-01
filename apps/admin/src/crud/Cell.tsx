@@ -18,7 +18,10 @@ export function Cell({ field: f, row }: { field: FieldDef; row: Row }) {
       return <Badge tone={o?.tone ?? "neutral"}>{o ? text(o.label) : String(v)}</Badge>;
     }
     case "number":
-      return <span className="font-mono tabular-nums">{Number(v).toLocaleString(locale)}</span>;
+      // Identifiers (TemplateID, UserID, QuestID...) are shown raw, without thousands separators.
+      return (
+        <span className="font-mono tabular-nums">{/(ID|Id)$/.test(f.name) ? String(v) : Number(v).toLocaleString(locale)}</span>
+      );
     case "date":
     case "datetime": {
       const d = new Date(String(v));
