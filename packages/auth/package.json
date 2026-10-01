@@ -1,0 +1,26 @@
+{
+  "name": "@ddt/auth",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Shared login-ticket logic (CreateLogin md5 content, web key -> Login.ashx -> socket LOGIN) for apps/api and apps/game.",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@ddt/db": "workspace:*",
+    "drizzle-orm": "^0.45.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.3"
+  }
+}
