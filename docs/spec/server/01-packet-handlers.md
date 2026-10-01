@@ -456,3 +456,19 @@ str msg, int attemptsLeft, str q1, str q2}. (Bug: stores answer1 in `PasswordQue
   features worth implementing.
 * Many handlers `NullReferenceException` on missing items/slots — the C# server just logs; the TS port must
   validate and reply with the same "failed" message instead of crashing the connection.
+
+## Appendix — regenerating the tools output
+```
+cd docs/spec/server/tools
+python extract_bussiness.py      # Bussiness methods -> procs/params/columns (out/bussiness-procs.*, procs-index.md)
+python extract_bak_procs.py      # proc bodies/tables scraped from Database/*.bak (out/proc-tables.*)
+python gen_03.py                 # regenerates ../03-bussiness-procs.md
+python extract_handlers.py       # handlers + enums (out/handlers*.md/json, enums.json)
+python extract_client_sends.py   # AS3 client PackageOut writes (out/client-sends.*)
+python compare_formats.py        # client vs server format check (out/format-check.md)
+python extract_packetlib.py      # server->client builders (out/packetlib.md)
+python extract_managers.py       # managers -> procs (out/managers.md)
+python extract_config.py         # config keys (out/config.md)
+python scan_load_save.py         # player component persistence (out/player-persistence.md)
+python compact_sources.py <dir> <src...>   # reading bundles (scratch use)
+```

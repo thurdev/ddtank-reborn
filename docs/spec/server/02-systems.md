@@ -9,6 +9,8 @@ Per-system detail for the TS port. Packet formats are in `01-packet-handlers.md`
 
 Generated helper: `tools/out/player-persistence.md` (each player component's load/save procs).
 
+> **Table-name confidence:** names confirmed from proc bodies scraped out of the .bak are listed in `tools/out/proc-tables.md`. Template-table names not found there (e.g. `Items_Box`, `TimeBox_Award`, `Item_StrengthenGoodsInfo`, `Card_*`, `Event_Live*`, `Achievement_*`, `Maps*`, `Pet_Moe_Property`, `Consortia_Task`, `New_Title`, `Totem`) are **inferred from the `SP_<Table>_All` proc names** — confirm by restoring `Database/Game34.bak` before writing migrations.
+
 ---
 
 ## 1. Login, authentication & player load
