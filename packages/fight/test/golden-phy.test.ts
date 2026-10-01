@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
@@ -21,7 +22,7 @@ class Body extends LivingBody {
 }
 
 describe("System.Random port", () => {
-  it.each(V.random)("seed $seed", (c: { seed: number; next: number[]; max100: number[]; range: number[]; dbl: number[] }) => {
+  it.each(V.random as object[])("seed $seed", (c: any) => {
     const r = new DotNetRandom(c.seed);
     expect(c.next.map(() => r.next())).toEqual(c.next);
     expect(c.max100.map(() => r.nextMax(100))).toEqual(c.max100);
@@ -31,7 +32,7 @@ describe("System.Random port", () => {
 });
 
 describe("EulerVector (float32)", () => {
-  it.each(V.euler)("init $init", (c: { init: [number, number]; f: number; steps: number[][] }) => {
+  it.each(V.euler as object[])("init $init", (c: any) => {
     const v = new EulerVector(c.init[0], c.init[1], 0);
     for (const s of c.steps) {
       v.step(10, 2, f32(c.f), f32(0.04));
@@ -41,7 +42,7 @@ describe("EulerVector (float32)", () => {
 });
 
 describe("Tile.Dig (crater shapes)", () => {
-  it.each(V.digs)("map $mapId", (c: { mapId: number; initial: string; ops: { ball: number; cx: number; cy: number; fore: string }[] }) => {
+  it.each(V.digs as object[])("map $mapId", (c: any) => {
     const map = assets.createMap(c.mapId);
     expect(sha(map.ground!.data)).toBe(c.initial);
     for (const op of c.ops) {
@@ -72,7 +73,7 @@ describe("Map walking / ground search", () => {
 
 describe("projectile trajectories (SimpleBomb.StartMoving)", () => {
   it(`has ≥ 20 cases`, () => expect(V.trajectories.length).toBeGreaterThanOrEqual(20));
-  it.each(V.trajectories.map((t: object, i: number) => ({ i, ...t })))(
+  it.each(V.trajectories.map((t: object, i: number) => ({ i, ...t })) as object[])(
     "#$i map $mapId ball $ballId wind $wind10 angle $angle force $force x$bombCount",
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (c: any) => {

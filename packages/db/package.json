@@ -31,7 +31,8 @@
     "db:seed:export": "tsx scripts/export-seed.ts",
     "db:dev-account": "tsx scripts/create-dev-account.ts",
     "db:serve": "tsx scripts/serve-pglite.ts",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "db:pg": "tsx scripts/serve-pg.ts"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.8",
@@ -40,6 +41,7 @@
   },
   "devDependencies": {
     "@electric-sql/pglite-socket": "^0.2.11",
-    "drizzle-kit": "^0.31.11"
+    "drizzle-kit": "^0.31.11",
+    "embedded-postgres": "18.4.0-beta.17"
   }
 }

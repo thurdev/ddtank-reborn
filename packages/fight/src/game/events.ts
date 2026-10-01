@@ -1,4 +1,7 @@
-import { eTankCmdType } from "@ddt/protocol/codes";
+import { GameLogic } from "@ddt/protocol/codes";
+
+const eTankCmdType = GameLogic.eTankCmdType;
+type eTankCmdType = typeof GameLogic.eTankCmdType;
 import type { BombAction } from "../phy/bomb.js";
 
 /**
@@ -6,9 +9,9 @@ import type { BombAction } from "../phy/bomb.js";
  * header Parameter1, fields named/ordered after the C# writer cited on each type. `except` = living id that must
  * NOT receive it (SendToAll(pkg, except)); `to` = only these living ids (SendTCP to one player).
  */
-interface Ev<C extends keyof typeof eTankCmdType> {
+interface Ev<C extends keyof eTankCmdType> {
   cmd: C;
-  code: (typeof eTankCmdType)[C];
+  code: eTankCmdType[C];
   livingId: number;
   except?: number;
   to?: number[];
