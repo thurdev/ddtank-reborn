@@ -121,3 +121,16 @@ export const MailBroadcasts = appSchema.table("MailBroadcasts", {
   sentBy: varchar("sentBy", { length: 200 }),
   payload: jsonb("payload"),
 });
+
+/** app."Servers" — live game-server registry: apps/game upserts on boot + heartbeats online count; apps/api/admin read it. */
+export const Servers = appSchema.table("Servers", {
+  id: integer("id").primaryKey(),
+  name: text("name").notNull(),
+  host: text("host").notNull(),
+  /** REAL TCP port (ServerList.ashx advertises port - 69). */
+  port: integer("port").notNull(),
+  wsUrl: text("wsUrl"),
+  state: integer("state").notNull().default(1),
+  online: integer("online").notNull().default(0),
+  lastSeenAt: ts("lastSeenAt").notNull().defaultNow(),
+});
