@@ -213,7 +213,7 @@ Game (`GameServer.Start`, Game.Server/GameServer.cs:1149) — order matters (lat
    edition check `"2612558"`.
 2. Listen `IP:Port`; allocate packet buffers (`MaxClientCount×3` × 8 KiB); `LogMgr.Setup`.
 3. `WorldMgr.Init` (RSA private key from config `PrivateKey`, marry & hot-spring scenes from `SP_Service_Single`,
-   edicts `SP_Edictum_All`, caddy rank).
+   edicts `SP_Edictum_All` (`Edictum_List`), caddy rank).
 4. Template caches: MapMgr, ItemMgr, ItemBoxMgr, BallMgr, ExerciseMgr, LevelMgr, BallConfigMgr, FusionMgr,
    UserBoxMgr, AwardMgr, AchievementMgr, NPCInfoMgr, MissionInfoMgr, PveInfoMgr, DropMgr, FightRateMgr,
    RefineryMgr, StrengthenMgr, PropItemMgr, ShopMgr, QuestMgr (see §8 for tables).
@@ -280,7 +280,7 @@ Generated table with every manager → Bussiness method → proc: `tools/out/man
 
 | Manager (file) | Responsibility | Loaded from (proc → table) |
 |---|---|---|
-| WorldMgr (Game.Server/Managers/WorldMgr.cs) | online player registry `m_players`, nick lookup, scenes (marry, hot spring), RSA decryptor, edicts (`SP_Edictum_All`), caddy rank (`SP_Get_Rank_Caddy`), shop free-count stock, system notices (`SendSysNotice` builds 10) | Server_List, Edictum |
+| WorldMgr (Game.Server/Managers/WorldMgr.cs) | online player registry `m_players`, nick lookup, scenes (marry, hot spring), RSA decryptor, edicts (`SP_Edictum_All`), caddy rank (`SP_Get_Rank_Caddy`), shop free-count stock, system notices (`SendSysNotice` builds 10) | Server_List, Edictum_List |
 | LoginMgr (Game) | pending logins (`userName → client`), `ContainsUser`, `LoginClient(id)` | — |
 | RoomMgr (Rooms/RoomMgr.cs) | fixed array of `BaseRoom[MaxRoomCount]`, waiting room, world-boss room; single thread executing queued `IAction`s every 40 ms, clears empty rooms every 400 ms | — |
 | GameMgr (Games/GameMgr.cs) | in-process `BaseGame`s (PvE, Freedom PvP) on its own thread; `SynDate<0` → restart (checked every minute) | (Game.Logic caches) |
@@ -309,12 +309,12 @@ Generated table with every manager → Bussiness method → proc: `tools/out/man
 | EventAwardMgr / EventLiveMgr / SubActiveMgr / CommunalActiveMgr / AccumulActiveLoginMgr / WorldEventMgr / DailyLeagueAwardMgr | event systems (02 §10) | EventAwardItem, Event_Live, Event_LiveGoods, SubActive, SubActiveCondition, CommunalActive*, Login_Award_Item_Template, LuckyStart_Topten_Award, Daily_League_Award |
 | NewTitleMgr, TotemMgr, TotemHonorMgr, FightSpiritTemplateMgr, ClothGroup/ClothPropertyTemplateInfoMgr, QQTipsMgr, FairBattleRewardMgr | titles, totems, honor shop, fight spirit, wardrobe, tips, fair-battle rewards | New_Title, Totem, TotemHonorTemplate, FightSpiritTemplate, ClothGroup, ClothProperty, QQtipsMessages, FairBattleReward |
 | MarryRoomMgr | chapels (`SP_Get_Marry_Room_Info`, dispose expired) | Marry_Room_Info |
-| HotSpringMgr | spa rooms (`SP_Get_HotSpring_Room`) | HotSpring_Room |
+| HotSpringMgr | spa rooms (`SP_Get_HotSpring_Room`) | (table not recovered; columns roomID…maxCount) |
 | RankMgr | hourly `UpdateRank` (10 `SP_Sys_Update_*` procs) + league/rank-date caches | Sys_User_Match_Info, Sys_Users_Rank_Date |
 | AcademyMgr | master/apprentice requests (memory), awards (`AcademyMasterAward` etc.) | Sys_Users_Detail columns |
 | LittleGameWorldMgr | "Hút Gà" event world (map file, bogus, scan/spawn 60 s) | GameProperties LittleGame* |
 | RingStationMgr / RobotManager | arena ranking & bot opponents | RingStation tables, Sys_Users_Detail |
-| CommandsMgr | GM rights (`SP_GetAllCommands`) | Commands |
+| CommandsMgr | GM rights (`SP_GetAllCommands`) | Game_Commands |
 | AntiAddictionMgr | AAS (Chinese anti-addiction) on/off, `SP_ASSInfo_Single` | AASInfo |
 | LanguageMgr | `Languages/Language-*.txt` key=value strings | file |
 | LogMgr (Game & Center) | buffered statistics / item logs → `ItemRecordBussiness.LogServerDb` | Db_Count tables |
