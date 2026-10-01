@@ -129,6 +129,9 @@ importers:
 
   apps/game:
     dependencies:
+      '@ddt/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@ddt/db':
         specifier: workspace:*
         version: link:../../packages/db

@@ -2,7 +2,7 @@
  * Environment configuration (zod). Mirrors the relevant keys of Road.Service App.config / GameServerConfig
  * (docs/spec/server/00-architecture.md §7) plus the new transports (WS, policy 843, admin channel).
  */
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { z } from "zod";
@@ -45,9 +45,11 @@ export const ConfigSchema = z.object({
   POLICY_PORT: int(843),
 
   /** RSA private key: path to a .NET <RSAKeyValue> XML file (any file containing one, e.g. Web.config) or a PEM. */
-  RSA_PRIVATE_KEY_PATH: z.string().optional(),
-  /** Inline alternative to RSA_PRIVATE_KEY_PATH (XML or PEM). */
+  RSA_PRIVATE_KEY_FILE: z.string().optional(),
+  /** Inline alternative to RSA_PRIVATE_KEY_FILE (XML or PEM). */
   RSA_PRIVATE_KEY: z.string().optional(),
+  /** Dev only (same as apps/api): fall back to the public pair in vendor/DDTank41/Tank.Request/Web.config. */
+  RSA_USE_VENDOR_KEY: bool(true),
 
   ADMIN_ENABLED: bool(true),
   ADMIN_HOST: z.string().default("127.0.0.1"),
@@ -109,8 +111,18 @@ export function testConfig(over: Partial<Record<keyof Config, string>> = {}): Co
 }
 
 /** Reads the RSA key material (XML or PEM text) from config. */
+export const REPO_ROOT = resolve(APP_ROOT, "..", "..");
+
+/** RSA key text: env > file > (dev) vendor Web.config "privateKey" (identical to apps/api/src/config.ts). */
 export function readRsaKeyText(cfg: Config): string | null {
   if (cfg.RSA_PRIVATE_KEY && cfg.RSA_PRIVATE_KEY.trim()) return cfg.RSA_PRIVATE_KEY;
-  if (cfg.RSA_PRIVATE_KEY_PATH) return readFileSync(resolve(cfg.RSA_PRIVATE_KEY_PATH), "utf8");
+  if (cfg.RSA_PRIVATE_KEY_FILE) return readFileSync(resolve(cfg.RSA_PRIVATE_KEY_FILE), "utf8");
+  if (cfg.RSA_USE_VENDOR_KEY && cfg.NODE_ENV !== "production") {
+    const wc = resolve(REPO_ROOT, "vendor", "DDTank41", "Tank.Request", "Web.config");
+    if (existsSync(wc)) {
+      const m = /key="privateKey"\s+value="([^"]+)"/.exec(readFileSync(wc, "utf8"));
+      if (m) return m[1]!.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+    }
+  }
   return null;
 }
