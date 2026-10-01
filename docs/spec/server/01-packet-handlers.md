@@ -343,7 +343,7 @@ Chapel commands (249, byte sub):
 
 | Code | ePackageType | Handler | Reads | Behaviour | Replies |
 |---|---|---|---|---|---|
-| 187 | HOTSPRING_ENTER | HotSpringEnterHandler | — | Enter spa scene, list rooms (Hotspring_Room table, `HotSpringMgr`). | `SendUpdateAllRoom` |
+| 187 | HOTSPRING_ENTER | HotSpringEnterHandler | — | Enter spa scene, list rooms (`HotSpringMgr`, `SP_Get_HotSpring_Room`). | `SendUpdateAllRoom` |
 | 202 | HOTSPRING_ROOM_ENTER | HotSpringRoomEnterHandler | int roomId, str pwd (ignored) | 10000 gold entry fee. | `SendEnterHotSpringRoom` |
 | 190 | HOTSPRING_ROOM_QUICK_ENTER | HotSpringRoomQuickEnterHandler | — | Random room, free. | `SendEnterHotSpringRoom` |
 | 212 | HOTSPRING_ROOM_ENTER_CONFIRM | HotSpringEnterConfirmHandler | int roomId | Confirms room exists. | 212 {int roomId} |

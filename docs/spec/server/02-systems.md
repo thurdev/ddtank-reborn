@@ -121,7 +121,7 @@ Workbench = Store bag. Shared rules: bound if any input bound; bag lock; results
 | Necklace | 95 | `StrengThenExp`? (`StrengthenMgr` necklace table) | exp feeding. |
 | Fight spirit (gem souls) | 209 | `FightSpiritTemplate`, `Sys_User_Gemstone` | 3 soul slots per equip place. |
 | Recycle | 222 | drop tables (`DropInventory.RetrieveDrop`) | quality-sum lottery. |
-| Wardrobe | 402 | `ClothGroup`, `ClothProperty`, `Sys_User_AvatarCollect` | collection bonuses. |
+| Wardrobe | 402 | `ClothGroup`, `ClothProperty`, `Sys_Users_AvatarCollection` | collection bonuses. |
 | Cards | 216/196/183/204 | `Card_Info`, `Card_Group`, `Card_Buff`, `CardUpdateCondition`, `CardUpdateInfo`, `Sys_Users_Card` | 5 equip slots (0–4), card book ≥5; upgrade by duplicate count + random exp; reset rerolls 4 stats. |
 
 ## 5. Shop & economy
@@ -137,7 +137,7 @@ Workbench = Store bag. Shared rules: bound if any input bound; bag lock; results
   `ScanShopFreeVaildDate` on the save timer; pushed with `SendShopGoodsCountUpdate` (168).
 * Purchases: always bound in this build (`item.IsBinds = true`). Overflow to mail (type 8).
 * Money top-up: website writes `Charge_Money` rows and calls `CenterService.ChargeMoney` → center 9 → game
-  `ChargeToUser` (`SP_Charge_Money…` via `PlayerBussiness.ChargeToUser`) credits Money + mail + `OnMoneyCharge`
+  `ChargeToUser` (`SP_Charge_To_User` on `Charge_Money` + `Sys_Users_Detail`) credits Money + mail + `OnMoneyCharge`
   (first-recharge / novice events). Also run on login.
 * Sell-back: `ReclaimType/ReclaimValue` (127, 232). Boxes: `SP_ItemsBox_All` (`ItemBoxInfo` columns: ID = box
   template, TemplateId, IsSelect, IsBind, ItemValid, ItemCount, StrengthenLevel, Attack/Defend/Agility/LuckCompose,
@@ -156,7 +156,7 @@ the user is on another server. System mails (rewards) are created with `SenderID
 with `UserID=0` first (`AddGoods`), then `SendMail` with Annex = ItemID.
 
 ## 7. Friends, chat & announcements
-* Friends: friends table (FriendID, Relation 0/1, Remark, IsExist) — `SP_Users_Friends_All/_Add/_Delete`,
+* Friends: `Sys_Users_Friends` (UserID, FriendID, Relation 0/1, Remark, IsExist) — `SP_Users_Friends_All/_Add/_Delete`,
   ids cached in `GamePlayer.Friends`; blacklist filters chat/whisper/guild chat. Online state propagation:
   160/165 via center → `WorldMgr.ChangePlayerState`; friend list & profiles via HTTP.
 * Chat channels (`SceneChatHandler`): 0..2 lobby/room (room/team), 3 guild, 5 (lobby, extra 1 s limit), 9 chapel,
@@ -164,7 +164,7 @@ with `UserID=0` first (`AddGoods`), then `SendMail` with Annex = ItemID.
   cross-zone 73 (other centers), challenge board 123 (500 Money). Cooldowns: lobby 30 s, bugles 2 s.
   `IsBanChat` only for guild chat. No word filter server-side (client filters).
 * System notices: center random `SystemNotice.xml` every `SystemNoticeInterval`; `WorldMgr.SendSysNotice` builds 10
-  {int type, str msg, …} for strengthen/fusion/box/pet broadcasts; edicts (`Edictum` table) via `SendEdictumVersion`.
+  {int type, str msg, …} for strengthen/fusion/box/pet broadcasts; edicts (`Edictum_List` table) via `SendEdictumVersion`.
 
 ## 8. Consortia (guilds)
 * Tables (Player DB): `Consortia` (ID, name, chairman, Level, Riches, Honor, Repute, MaxCount, Count, Store/Shop/
@@ -218,8 +218,8 @@ with `UserID=0` first (`AddGoods`), then `SendMail` with Annex = ItemID.
   its counter; `QuestInventory` pushes progress (QUEST_UPDATE 178).
 * Finish (179): bag space in Equip/Prop/Farm bags; rewards bound; daily quests reset per `RepeatInterval` on new day.
 * Achievements: Game DB `Achievement`, `Achievement_Condition`, `Achievement_Reward` (`AchievementMgr`);
-  player `Sys_Users_Record` (counters per record type — see `Game.Server/Achievement/*Condition.cs`, ~80 kinds)
-  and `Achievement_Data`. Completion is **requested by the client** (230) without server verification — port should
+  player record counters via `SP_Users_Record_All` (one row per record type — see `Game.Server/Achievement/*Condition.cs`, ~80 kinds)
+  and `AchievementData` (`SP_Achievement_Data_All`). Completion is **requested by the client** (230) without server verification — port should
   verify counters.
 
 ## 10. Daily, activity & event systems
@@ -239,10 +239,10 @@ with `UserID=0` first (`AddGoods`), then `SendMail` with Annex = ItemID.
 | Communal activity | `CommunalActive`, `CommunalActiveAward`, `CommunalActiveExp` | `CommunalActiveMgr` |
 | Event awards | `EventAwardItem` | `EventAwardMgr` (dice/lucky star/search goods/bogu by `eEventType`) |
 | Lucky Star | `LuckyStart_Topten_Award`, `LuckStar*` properties | 87 subs 31–34, center 90/4 record |
-| New chicken box | `NewChicken*` properties, `Sys_User_NewChickenBox` | 87 |
+| New chicken box | `NewChicken*` properties, `New_ChickenBox_Data` | 87 |
 | Treasure/caddy lottery | `Items_Box` (lottery ids 112019, 190000), keys 11444/190001/11456 | 26, 27, 28, 45 |
-| Left roulette | `LeftRouter*` properties, `UsersExtra` | 128, 130 |
-| Labyrinth (warrior family raid) | `WarriorFamRaid*`, `Sys_User_Labyrinth` | 131, room type 15 |
+| Left roulette | `LeftRouter*` properties, `Sys_Users_Extra` | 128, 130 |
+| Labyrinth (warrior family raid) | `WarriorFamRaid*`, `Sys_Users_Labyrinth` | 131, room type 15 |
 | Little game "Hút Gà" | `LittleGame*` properties, map file | 166, timer |
 | World boss | `WorldBossStart/End/ID1/ID2`, NPC templates 30004/1243 | 102, room type 14 — **scheduler commented out** (`GameServer.cs:316`) |
 | League (Chiến thần) | `TimeForLeague`, `Daily_League_Award` (mgr disabled) | 132, fight server; open flag `ActiveSystemMgr.IsLeagueOpen` (scan commented out) |
@@ -282,7 +282,7 @@ with `UserID=0` first (`AddGoods`), then `SendMail` with Annex = ItemID.
 
 ## 12. Marriage & church
 Tables: `Marry_Apply` (notices/proposals: UserID, ApplyUserID, ApplyUserName, ApplyType 1 propose, 2 answer,
-3 divorce, ApplyResult, LoveProclamation), `Marry_Info` (matchmaking board), `Marry_Room_Info` (chapels: ID, Name,
+3 divorce, ApplyResult, LoveProclamation), `Marry_Info` (matchmaking board, view `V_Sys_Marry_Info` for paging), `Marry_Room_Info` (chapels: ID, Name,
 Pwd, MapIndex, AvailTime, MaxCount, GuestInvite, PlayerID, GroomID/Name, BrideID/Name, BeginTime, BreakTime,
 IsHymeneal, IsGunsaluteUsed, RoomIntroduction, ServerID). Procs: `SP_Insert_Marry_Notice` (does the actual
 marry/divorce on the user rows), `SP_MarryInfo_*`, `SP_Insert_Marry_Room_Info`, `SP_Get_Marry_Room_Info`,
@@ -319,9 +319,9 @@ restore `Player34.bak` to port it exactly.
   ChangeNameCost, RecycleCost…), `PetSkill*`, `PetExpItemPrice`, `PetFightProperty` (evolution), `PetStarExp`,
   `Pet_Moe_Property`; Player DB `Sys_Users_Pet` (`SP_UserPet_Update`, `SP_User_Add_Pet`), `AdoptPetList`,
   `Sys_Eat_Pets`. Battle use via the equipped pet snapshot (combat spec).
-* Farm: `Sys_User_Farm`, `Sys_User_Fields` (seed, plant time, ripe), farm helper (auto plant/harvest), stealing
+* Farm: `Sys_User_Farm`, `Sys_User_Field` (seed, plant time, ripe), farm helper (auto plant/harvest), stealing
   from friends, pet food from harvest.
-* Hot spring: rooms from `HotSpring_Room` (public rooms only), daily free minutes 60 (`MinHotSpring`), exp ticks
+* Hot spring: rooms from `SP_Get_HotSpring_Room` (roomID, roomNumber, roomName, roomPassword, effectiveTime, curCount, playerID, playerName, start/endTime, roomIntroduction, roomType, maxCount; public rooms only), daily free minutes 60 (`MinHotSpring`), exp ticks
   (`HotSpringExp`) by `PlayerExtra` hot-spring timer, entry 10000 gold.
 * Academy: in-memory requests (`AcademyMgr`), persisted on `Sys_Users_Detail` (`SP_UsersAcademy_Update`);
   apprentice level rewards `AcademyApprenticeAward` / `AcademyMasterAward` (level|template boxes), completion awards.
@@ -333,7 +333,7 @@ restore `Player34.bak` to port it exactly.
 | Captcha ("CheckCode") after random thresholds of money/GP/function counters | `isPassCheckCode` (GamePlayer.cs:1198), shown for Store-bag moves, guild disband, Match start (avg lvl > 14); 20-min check in save | keep (client UI exists) |
 | Speed-hack heartbeat 300 every 5 min (< 4m45s → 20 min ban) and missing heartbeat for 90 min → 1 h ban | baoltfunction, `SaveIntoDatabase` | required by this client build; make thresholds configurable |
 | Accounts per HWID/IP (`CountHWIDLimit`, `CountIPLimit`) → `BlockReceiveMoney` | `WorldMgr.IsAccountLimit` | HWID set by the desktop launcher |
-| "Warrior" accounts (`UsersExtra.coupleBossBoxNum == 9`): no trading/auction/mail, only Freedom rooms, free gem removal, guaranteed strengthen | many handlers | tournament accounts — keep as a flag |
+| "Warrior" accounts (`Sys_Users_Extra.coupleBossBoxNum == 9`): no trading/auction/mail, only Freedom rooms, free gem removal, guaranteed strengthen | many handlers | tournament accounts — keep as a flag |
 | Action throttles (`LastChatTime`, `LastOpenCard`, `LastRequestTime`, `LastDrillUpTime`, `LastOpenHole`, `WaitingProcessor`) | various | keep |
 | Bag lock (second password) | 25 + most economy handlers | keep |
 | Stream framing strict, ≥512 code drop, RSA login | Game.Base | keep |
