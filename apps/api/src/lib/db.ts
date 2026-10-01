@@ -13,11 +13,15 @@ export async function q1<T = Row>(h: DbHandle, query: SQL): Promise<T | undefine
   return (await q<T>(h, query))[0];
 }
 
+const TS_RE = /^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}(\.\d{1,6})?$/;
+
 function normalize(r: unknown): Row {
   const o = r as Row;
   for (const k in o) {
     const v = o[k];
     if (typeof v === "bigint") o[k] = Number(v);
+    // raw PGlite results keep timestamp-without-tz as text: map to wall-clock UTC Date like drizzle does
+    else if (typeof v === "string" && TS_RE.test(v)) o[k] = new Date(v.replace(" ", "T") + "Z");
   }
   return o;
 }
