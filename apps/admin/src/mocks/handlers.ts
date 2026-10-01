@@ -1,6 +1,6 @@
 import { delay, http, HttpResponse } from "msw";
 import { resourceByName } from "@/resources";
-import type { Row } from "@/crud/types";
+import { idFields, rowId, type Row } from "@/crud/types";
 import type { AdminStats, AdminUser } from "@/lib/api";
 import type { Asset } from "@/pages/Assets";
 import { nextId, tables } from "./db";
@@ -165,11 +165,11 @@ export const handlers = [
     const players = tables.get("players")!;
     const recipients =
       body.target === "online"
-        ? players.filter((p) => p.online).length
+        ? players.filter((p) => p.State === 1).length
         : body.target === "list"
           ? ((body.nicknames as string[]) ?? []).length
           : body.target === "level"
-            ? players.filter((p) => Number(p.level) >= Number(body.levelMin ?? 1) && Number(p.level) <= Number(body.levelMax ?? 100)).length
+            ? players.filter((p) => Number(p.Grade) >= Number(body.levelMin ?? 1) && Number(p.Grade) <= Number(body.levelMax ?? 100)).length
             : players.length;
     const hist = tables.get("mail-broadcasts")!;
     hist.unshift({ id: nextId(hist, "id"), sentAt: new Date().toISOString(), subject: body.subject, target: body.target, recipients, sentBy: u.username });
@@ -178,10 +178,16 @@ export const handlers = [
 
   http.post("/api/admin/players/:id/:action", async ({ request, params }) => {
     if (!authed(request)) return unauthorized();
-    const p = tables.get("players")!.find((r) => String(r.id) === params.id);
+    const p = tables.get("players")!.find((r) => String(r.UserID) === params.id);
     if (!p) return HttpResponse.json({ message: "Jogador não encontrado" }, { status: 404 });
-    if (params.action === "ban") p.banned = true;
-    else if (params.action === "unban") p.banned = false;
+    if (params.action === "ban") {
+      const { reason, hours } = (await request.json()) as { reason: string; hours: number | null };
+      p.ForbidDate = new Date(Date.now() + (hours ? hours * 3600_000 : 100 * 365 * 86400_000)).toISOString();
+      p.ForbidReason = reason;
+    } else if (params.action === "unban") {
+      p.ForbidDate = null;
+      p.ForbidReason = "";
+    }
     else if (params.action !== "give-item") return HttpResponse.json({ message: "Ação desconhecida" }, { status: 404 });
     return HttpResponse.json({ ok: true });
   }),
@@ -215,7 +221,7 @@ export const handlers = [
   http.get("/api/admin/:resource/:id", ({ request, params }) => {
     if (!authed(request)) return unauthorized();
     const def = resourceByName.get(String(params.resource));
-    const row = def && tables.get(def.name)?.find((r) => String(r[def.idField]) === params.id);
+    const row = def && tables.get(def.name)?.find((r) => rowId(def, r) === params.id);
     if (!row) return HttpResponse.json({ message: "Não encontrado" }, { status: 404 });
     return HttpResponse.json(row);
   }),
@@ -226,9 +232,10 @@ export const handlers = [
     if (!def) return HttpResponse.json({ message: "Recurso desconhecido" }, { status: 404 });
     const rows = tables.get(def.name)!;
     const body = (await request.json()) as Row;
-    if (body[def.idField] === undefined || body[def.idField] === null) body[def.idField] = nextId(rows, def.idField);
-    if (rows.some((r) => String(r[def.idField]) === String(body[def.idField])))
-      return HttpResponse.json({ message: `${def.idField} já existe` }, { status: 409 });
+    const keys = idFields(def);
+    if (keys.length === 1 && (body[keys[0]!] === undefined || body[keys[0]!] === null)) body[keys[0]!] = nextId(rows, def.idField);
+    if (rows.some((r) => rowId(def, r) === rowId(def, body)))
+      return HttpResponse.json({ message: `${keys.join(" + ")} já existe` }, { status: 409 });
     rows.unshift(body);
     return HttpResponse.json(body, { status: 201 });
   }),
@@ -236,7 +243,7 @@ export const handlers = [
   http.patch("/api/admin/:resource/:id", async ({ request, params }) => {
     if (!authed(request)) return unauthorized();
     const def = resourceByName.get(String(params.resource));
-    const row = def && tables.get(def.name)?.find((r) => String(r[def.idField]) === params.id);
+    const row = def && tables.get(def.name)?.find((r) => rowId(def, r) === params.id);
     if (!row) return HttpResponse.json({ message: "Não encontrado" }, { status: 404 });
     Object.assign(row, (await request.json()) as Row);
     return HttpResponse.json(row);
@@ -247,7 +254,7 @@ export const handlers = [
     const def = resourceByName.get(String(params.resource));
     const rows = def && tables.get(def.name);
     if (!rows) return HttpResponse.json({ message: "Não encontrado" }, { status: 404 });
-    const i = rows.findIndex((r) => String(r[def!.idField]) === params.id);
+    const i = rows.findIndex((r) => rowId(def!, r) === params.id);
     if (i >= 0) rows.splice(i, 1);
     return new HttpResponse(null, { status: 204 });
   }),
