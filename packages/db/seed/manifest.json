@@ -1,0 +1,641 @@
+{
+ "generatedAt": "2026-10-01T18:11:05.376Z",
+ "tables": [
+  {
+   "schema": "game",
+   "table": "Achievement",
+   "rows": 281,
+   "file": "game/Achievement.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "AchievementCondition",
+   "rows": 341,
+   "file": "game/AchievementCondition.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Achievement_Goods",
+   "rows": 60,
+   "file": "game/Achievement_Goods.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Active",
+   "rows": 33,
+   "file": "game/Active.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Active_Award",
+   "rows": 310,
+   "file": "game/Active_Award.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Activity_System_Item",
+   "rows": 242,
+   "file": "game/Activity_System_Item.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "AreaConfig",
+   "rows": 2,
+   "file": "game/AreaConfig.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Ball",
+   "rows": 1586,
+   "file": "game/Ball.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "BallConfig",
+   "rows": 781,
+   "file": "game/BallConfig.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "CardUpdateCondition",
+   "rows": 31,
+   "file": "game/CardUpdateCondition.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "CardUpdateInfo",
+   "rows": 1470,
+   "file": "game/CardUpdateInfo.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Card_Buff",
+   "rows": 60,
+   "file": "game/Card_Buff.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Card_Groove_Update",
+   "rows": 92,
+   "file": "game/Card_Groove_Update.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Card_Group",
+   "rows": 73,
+   "file": "game/Card_Group.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Card_Info",
+   "rows": 15,
+   "file": "game/Card_Info.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Card_Template_Info",
+   "rows": 250,
+   "file": "game/Card_Template_Info.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "ClothGroupTemplateInfo",
+   "rows": 270,
+   "file": "game/ClothGroupTemplateInfo.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "ClothPropertyTemplateInfo",
+   "rows": 23,
+   "file": "game/ClothPropertyTemplateInfo.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Communal_Active",
+   "rows": 4,
+   "file": "game/Communal_Active.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Communal_Active_Award",
+   "rows": 25,
+   "file": "game/Communal_Active_Award.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Communal_Active_Exp",
+   "rows": 6,
+   "file": "game/Communal_Active_Exp.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Consortia_Badge",
+   "rows": 10,
+   "file": "game/Consortia_Badge.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Consortia_BuffTemp",
+   "rows": 40,
+   "file": "game/Consortia_BuffTemp.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Consortia_Level",
+   "rows": 10,
+   "file": "game/Consortia_Level.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Consortia_TaskAward",
+   "rows": 4,
+   "file": "game/Consortia_TaskAward.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Consortia_TaskConfig",
+   "rows": 70,
+   "file": "game/Consortia_TaskConfig.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "DailyLeagueAwardItems",
+   "rows": 93,
+   "file": "game/DailyLeagueAwardItems.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "DailyLeagueAwardList",
+   "rows": 30,
+   "file": "game/DailyLeagueAwardList.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "DailyLeagueLevel",
+   "rows": 14,
+   "file": "game/DailyLeagueLevel.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Daily_Award",
+   "rows": 20,
+   "file": "game/Daily_Award.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Drop_Condiction",
+   "rows": 112,
+   "file": "game/Drop_Condiction.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Drop_Item",
+   "rows": 3023,
+   "file": "game/Drop_Item.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Edictum_List",
+   "rows": 1,
+   "file": "game/Edictum_List.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Event_Award_Item",
+   "rows": 432,
+   "file": "game/Event_Award_Item.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Event_Live",
+   "rows": 141,
+   "file": "game/Event_Live.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Event_LiveGoods",
+   "rows": 386,
+   "file": "game/Event_LiveGoods.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Event_Reward_Goods",
+   "rows": 75,
+   "file": "game/Event_Reward_Goods.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Event_Reward_Info",
+   "rows": 15,
+   "file": "game/Event_Reward_Info.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "ExerciseInfo",
+   "rows": 70,
+   "file": "game/ExerciseInfo.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Fair_Battle_Reward_Temp",
+   "rows": 16,
+   "file": "game/Fair_Battle_Reward_Temp.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Fight_Rate",
+   "rows": 4,
+   "file": "game/Fight_Rate.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Fight_Spirit_Templatelist",
+   "rows": 30,
+   "file": "game/Fight_Spirit_Templatelist.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Fusion",
+   "rows": 96,
+   "file": "game/Fusion.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Game_Map",
+   "rows": 454,
+   "file": "game/Game_Map.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "GoldEquipTemplateLoad",
+   "rows": 277,
+   "file": "game/GoldEquipTemplateLoad.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "HotSpringRoom",
+   "rows": 13,
+   "file": "game/HotSpringRoom.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Item_Fusion",
+   "rows": 326,
+   "file": "game/Item_Fusion.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Item_Refinery_Strengthen",
+   "rows": 15,
+   "file": "game/Item_Refinery_Strengthen.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Item_Strengthen",
+   "rows": 15,
+   "file": "game/Item_Strengthen.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Item_Strengthen_Goods",
+   "rows": 1634,
+   "file": "game/Item_Strengthen_Goods.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Items_Fusion_List",
+   "rows": 230,
+   "file": "game/Items_Fusion_List.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "League_Info",
+   "rows": 26,
+   "file": "game/League_Info.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "LevelInfo",
+   "rows": 60,
+   "file": "game/LevelInfo.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "LoadUserBox",
+   "rows": 29,
+   "file": "game/LoadUserBox.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Login_Award_Item_Template",
+   "rows": 23,
+   "file": "game/Login_Award_Item_Template.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "LuckyStart_Topten_Award",
+   "rows": 34,
+   "file": "game/LuckyStart_Topten_Award.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Map_Server",
+   "rows": 20,
+   "file": "game/Map_Server.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Map_Week",
+   "rows": 7,
+   "file": "game/Map_Week.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Mission_Info",
+   "rows": 170,
+   "file": "game/Mission_Info.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Mission_Info_Backup",
+   "rows": 128,
+   "file": "game/Mission_Info_Backup.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "NPC_Info",
+   "rows": 1005,
+   "file": "game/NPC_Info.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "New_Title",
+   "rows": 325,
+   "file": "game/New_Title.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Old_Player_Award_Info",
+   "rows": 27,
+   "file": "game/Old_Player_Award_Info.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Pet_Config",
+   "rows": 56,
+   "file": "game/Pet_Config.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Pet_Exp_Item_Price",
+   "rows": 20,
+   "file": "game/Pet_Exp_Item_Price.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Pet_Fight_Property",
+   "rows": 70,
+   "file": "game/Pet_Fight_Property.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Pet_Level",
+   "rows": 70,
+   "file": "game/Pet_Level.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Pet_Moe_Property",
+   "rows": 50,
+   "file": "game/Pet_Moe_Property.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Pet_Skill_Element_Info",
+   "rows": 2084,
+   "file": "game/Pet_Skill_Element_Info.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Pet_Skill_Info",
+   "rows": 1653,
+   "file": "game/Pet_Skill_Info.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Pet_Skill_Template_Info",
+   "rows": 380,
+   "file": "game/Pet_Skill_Template_Info.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Pet_Star_Exp",
+   "rows": 67,
+   "file": "game/Pet_Star_Exp.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Pet_Template_Info",
+   "rows": 199,
+   "file": "game/Pet_Template_Info.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Pve_Info",
+   "rows": 33,
+   "file": "game/Pve_Info.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "QQtips_Messages",
+   "rows": 1,
+   "file": "game/QQtips_Messages.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Quest",
+   "rows": 728,
+   "file": "game/Quest.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Quest_Condiction",
+   "rows": 853,
+   "file": "game/Quest_Condiction.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Quest_Goods",
+   "rows": 1006,
+   "file": "game/Quest_Goods.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Rate",
+   "rows": 19,
+   "file": "game/Rate.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Rune_Template",
+   "rows": 456,
+   "file": "game/Rune_Template.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Search_Goods_Temp",
+   "rows": 5,
+   "file": "game/Search_Goods_Temp.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Server_Config",
+   "rows": 489,
+   "file": "game/Server_Config.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Sets_Build_Temp",
+   "rows": 70,
+   "file": "game/Sets_Build_Temp.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Shop",
+   "rows": 5025,
+   "file": "game/Shop.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "ShopGoodsShowList",
+   "rows": 5093,
+   "file": "game/ShopGoodsShowList.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "ShopGoodsShowList_BK",
+   "rows": 4090,
+   "file": "game/ShopGoodsShowList_BK.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Shop_Goods",
+   "rows": 7640,
+   "file": "game/Shop_Goods.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Shop_Goods_Box",
+   "rows": 4043,
+   "file": "game/Shop_Goods_Box.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Shop_Goods_Categorys",
+   "rows": 34,
+   "file": "game/Shop_Goods_Categorys.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "StrengThenExp",
+   "rows": 16,
+   "file": "game/StrengThenExp.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Sub_Active_Condition",
+   "rows": 11,
+   "file": "game/Sub_Active_Condition.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Sub_Active_List",
+   "rows": 1,
+   "file": "game/Sub_Active_List.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "SuitTemplateInfo",
+   "rows": 46,
+   "file": "game/SuitTemplateInfo.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Suit_TemplateID",
+   "rows": 111,
+   "file": "game/Suit_TemplateID.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "TempTable",
+   "rows": 34,
+   "file": "game/TempTable.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Totem_Honor_Template",
+   "rows": 20,
+   "file": "game/Totem_Honor_Template.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Totem_Info",
+   "rows": 350,
+   "file": "game/Totem_Info.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "User_Box",
+   "rows": 29,
+   "file": "game/User_Box.json.gz"
+  },
+  {
+   "schema": "player",
+   "table": "Consortia_Buff_Temp",
+   "rows": 34,
+   "file": "player/Consortia_Buff_Temp.json.gz"
+  },
+  {
+   "schema": "player",
+   "table": "Consortia_Level",
+   "rows": 10,
+   "file": "player/Consortia_Level.json.gz"
+  },
+  {
+   "schema": "player",
+   "table": "Fight_Rate",
+   "rows": 4,
+   "file": "player/Fight_Rate.json.gz"
+  },
+  {
+   "schema": "player",
+   "table": "Item_Fusion",
+   "rows": 157,
+   "file": "player/Item_Fusion.json.gz"
+  },
+  {
+   "schema": "player",
+   "table": "Items_Fusion_List",
+   "rows": 30,
+   "file": "player/Items_Fusion_List.json.gz"
+  },
+  {
+   "schema": "player",
+   "table": "Server_Config",
+   "rows": 514,
+   "file": "player/Server_Config.json.gz"
+  },
+  {
+   "schema": "player",
+   "table": "Server_Event",
+   "rows": 3,
+   "file": "player/Server_Event.json.gz"
+  },
+  {
+   "schema": "player",
+   "table": "Server_List",
+   "rows": 1,
+   "file": "player/Server_List.json.gz"
+  }
+ ]
+}

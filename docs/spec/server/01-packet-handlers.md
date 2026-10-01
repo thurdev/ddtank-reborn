@@ -102,7 +102,9 @@ Machine-generated companions (re-run the scripts in `tools/`, see `tools/README`
 ## 3. Inventory, bags & equipment
 
 Bag ids (`eBageType`, SqlDataProvider/eBageType.cs): 0 EquipBag (slots 0–30 equipped, 31+ bag, avatars from 81),
-1 PropBag, 11 Store (enhancement workbench), 12 Card?, 13 FarmBag, … (see 02 §3). All moves persist via
+1 PropBag, 2 TaskBag, 3 FightBag (in-battle props), 4 TempBag (battle loot), 5 CaddyBag (lottery), 11 Consortia (guild bank),
+12 Store (enhancement workbench), 13 FarmBag, 14 Vegetable, 15 Card, 21 BeadBag, 32 FoodOld, 34 Food, 35 PetEgg,
+41 MagicStone, 51 BankBag (see 02 §3). All moves persist via
 `PlayerInventory.SaveToDatabase` → `SP_Users_Items_Add/Update`.
 
 | Code | ePackageType | Handler | Reads | Behaviour | Replies |
@@ -132,7 +134,7 @@ Bag ids (`eBageType`, SqlDataProvider/eBageType.cs): 0 EquipBag (slots 0–30 eq
 
 | Code | ePackageType | Handler | Reads | Behaviour | DB | Replies |
 |---|---|---|---|---|---|---|
-| 44 | BUY_GOODS | UserBuyItemHandler | int n (1..99), n×{int shopGoodsId, int tier (1/2/3 = A/B/C price), str color, bool dress, str skin, int place} [client appends int, ignored] | Main shop. `ShopMgr.GetShopItemInfoById` + `IsOnShop`; `ShopID 2` rejected; `ShopMgr.CanBuy(shopId, guildShopLevel, …, Riches)` (guild shop needs ShopLevel & personal Riches ≥ `Consortia_Equip_Control`); `ShopID 20` = limited free daily items (`WorldMgr.UpdateShopFreeCount`, 1/day). BuyType 0 → ValidDate = unit, else Count = unit. Price: `ItemInfo.SetItemType` → gold/money/offer/giftToken/petScore/score/damageScore + required-item list. Bag lock; all currencies checked then deducted; required items removed (`RemoveTemplateInShop`). **All bought items are forced IsBinds=true.** Equip-on-buy honours ring slots 9/10 and 7/8. Overflow → `AddGoods` + mail type 8 (5 annexes per mail). `OnPaid`, `AddLog`. | ShopMgr cache (Shop_Goods), SP_Users_Items_Add, SP_Mail_Send | 44 {int 1, int 3} (always), msg, `SendShopGoodsCountUpdate` |
+| 44 | BUY_GOODS | UserBuyItemHandler | int n (1..99), n×{int shopGoodsId, int tier (1/2/3 = A/B/C price), str color, bool dress, str skin, int place} [client appends int, ignored] | Main shop. `ShopMgr.GetShopItemInfoById` + `IsOnShop`; `ShopID 2` rejected; `ShopMgr.CanBuy(shopId, guildShopLevel, …, Riches)` (guild shop needs ShopLevel & personal Riches ≥ `Consortia_Equip_Control`); `ShopID 20` = limited free daily items (`WorldMgr.UpdateShopFreeCount`, 1/day). BuyType 0 → ValidDate = unit, else Count = unit. Price: `ItemInfo.SetItemType` → gold/money/offer/giftToken/petScore/score/damageScore + required-item list. Bag lock; all currencies checked then deducted; required items removed (`RemoveTemplateInShop`). **All bought items are forced IsBinds=true.** Equip-on-buy honours ring slots 9/10 and 7/8. Overflow → `AddGoods` + mail type 8 (5 annexes per mail). `OnPaid`, `AddLog`. | ShopMgr cache (table `Shop`), SP_Users_Items_Add, SP_Mail_Send | 44 {int 1, int 3} (always), msg, `SendShopGoodsCountUpdate` |
 | 168 | GOODS_COUNT | GoodsCountHandler | — | Remaining stock of limited items. | WorldMgr cache | `SendShopGoodsCountUpdate(list)` |
 | 54 | PROP_BUY | PropBuyHandler | int shopGoodsId | Buy in-battle prop into FightBag (3 slots) — template must be in `PropItemMgr.PropFightBag`, category 10. NRE if id unknown. | | inventory |
 | 55 | PROP_SELL | PropSellHandler | int slot, int shopGoodsId | Remove FightBag item, refund **shop gold price** (client chooses shopGoodsId!). | | |
