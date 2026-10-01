@@ -1,0 +1,17 @@
+{
+  "name": "@ddt/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "DDTank Reborn HTTP API: byte-compatible Tank.Request (.ashx/.xml) endpoints + REST for site, launcher and admin.",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "start": "tsx src/index.ts",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "verify-templates": "tsx scripts/verify-templates.ts",
+    "gen-rsa-key": "tsx scripts/gen-rsa-key.ts",
+    "patch-client-key": "tsx scripts/patch-client-key.ts"
+  }
+}
