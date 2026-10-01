@@ -67,8 +67,15 @@ export class RuntimeManager {
 
   async ensure(kind: RuntimeKind, progress: Progress): Promise<string> {
     const st = this.status(kind);
-    if (st.installed && st.path) return st.path;
     const src = this.source(kind);
+    if (st.installed && st.path) {
+      // Operator rotated the runtime (new sha256 in manifest/config): replace our downloaded copy.
+      if (st.origin === "downloaded" && src && recordedSha(path.dirname(st.path)) !== src.sha256.toLowerCase()) {
+        this.log.info(`${kind}: sha256 changed in manifest, re-downloading`);
+        return this.install(kind, src, progress);
+      }
+      return st.path;
+    }
     if (!src) {
       throw new Error(
         kind === "projector"
@@ -113,6 +120,15 @@ export class RuntimeManager {
     fs.writeFileSync(path.join(dir, "runtime.json"), JSON.stringify({ ...src, installedAt: new Date().toISOString() }, null, 2));
     this.log.info(`${kind} installed at ${target} (sha256 ok)`);
     return target;
+  }
+}
+
+function recordedSha(dir: string): string | undefined {
+  try {
+    const j = JSON.parse(fs.readFileSync(path.join(dir, "runtime.json"), "utf8")) as { sha256?: string };
+    return j.sha256?.toLowerCase();
+  } catch {
+    return undefined;
   }
 }
 
