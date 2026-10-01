@@ -1,0 +1,1099 @@
+# DDTank 4.1 login flow - RAW excerpts (web ticket -> Login.ashx -> socket LOGIN)
+# Repo: https://github.com/pnkl1999/DDTank41 (no license). Fetched 2026-10-01.
+
+==================================================================
+== Client: ddt/manager/GameSocketOut.as sendLogin (lines 49-77)
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Source%20Flash/src/ddt/manager/GameSocketOut.as
+==================================================================
+      public function sendLogin(param1:AccountInfo) : void
+      {
+         this._socket.resetKey();
+         var _loc2_:Date = new Date();
+         var _loc3_:ByteArray = new ByteArray();
+         var _loc4_:int = randRange(100,10000);
+         _loc3_.writeShort(_loc2_.fullYearUTC);
+         _loc3_.writeByte(_loc2_.monthUTC + 1);
+         _loc3_.writeByte(_loc2_.dateUTC);
+         _loc3_.writeByte(_loc2_.hoursUTC);
+         _loc3_.writeByte(_loc2_.minutesUTC);
+         _loc3_.writeByte(_loc2_.secondsUTC);
+         var _loc5_:Array = [Math.ceil(Math.random() * 255),Math.ceil(Math.random() * 255),Math.ceil(Math.random() * 255),Math.ceil(Math.random() * 255),Math.ceil(Math.random() * 255),Math.ceil(Math.random() * 255),Math.ceil(Math.random() * 255),Math.ceil(Math.random() * 255)];
+         var _loc6_:int = 0;
+         while(_loc6_ < _loc5_.length)
+         {
+            _loc3_.writeByte(_loc5_[_loc6_]);
+            _loc6_++;
+         }
+         _loc3_.writeUTFBytes(param1.Account + "," + param1.Password);
+         _loc3_ = CrytoUtils.rsaEncry5(param1.Key,_loc3_);
+         _loc3_.position = 0;
+         var _loc7_:PackageOut = new PackageOut(ePackageType.LOGIN);
+         _loc7_.writeInt(Version.Build);
+         _loc7_.writeInt(DesktopManager.Instance.desktopType);
+         _loc7_.writeBytes(_loc3_);
+         this.sendPackage(_loc7_);
+         this._socket.setKey(_loc5_);
+      }
+
+==================================================================
+== Client: ddt/DDT.as setup - hardcoded RSA public key (lines 210-235)
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Source%20Flash/src/ddt/DDT.as
+==================================================================
+      }
+      
+      private function setup() : void
+      {
+         var _loc1_:String = null;
+         var _loc2_:String = null;
+         var _loc3_:AccountInfo = null;
+         if(StringUtils.isEmpty(this._user))
+         {
+            LeavePageManager.leaveToLoginPath();
+         }
+         else
+         {
+            this.setupComponent();
+            _loc1_ = "zRSdzFcnZjOCxDMkWUbuRgiOZIQlk7frZMhElQ0a7VqZI9VgU3+lwo0ghZLU3Gg63kOY2UyJ5vFpQdwJUQydsF337ZAUJz4rwGRt/MNL70wm71nGfmdPv4ING+DyJ3ZxFawwE1zSMjMOqQtY4IV8his/HlgXuUfIHVDK87nMNLc=";
+            _loc2_ = "AQAB";
+            _loc3_ = new AccountInfo();
+            _loc3_.Account = this._user;
+            _loc3_.Password = this._pass;
+            _loc3_.Key = CrytoUtils.generateRsaKey(_loc1_,_loc2_);
+            PlayerManager.Instance.setup(_loc3_);
+            ShowTipManager.Instance.setup();
+            QueueManager.setup(StageReferance.stage);
+            TimeManager.Instance.setup();
+            SoundManager.instance.setup(PathInfo.MUSIC_LIST,PathManager.SITE_MAIN);
+            IMController.Instance.setup();
+
+==================================================================
+== Client: ddt/utils/CrytoUtils.as
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Source%20Flash/src/ddt/utils/CrytoUtils.as
+==================================================================
+package ddt.utils
+{
+   import com.hurlant.crypto.rsa.RSAKey;
+   import com.hurlant.math.BigInteger;
+   import com.hurlant.util.Base64;
+   import flash.utils.ByteArray;
+   
+   public class CrytoUtils
+   {
+       
+      
+      public function CrytoUtils()
+      {
+         super();
+      }
+      
+      public static function rsaEncry(param1:String, param2:String, param3:String) : String
+      {
+         return rsaEncry2(Base64.decodeToByteArray(param1),Base64.decodeToByteArray(param2),param3);
+      }
+      
+      public static function rsaEncry2(param1:ByteArray, param2:ByteArray, param3:String) : String
+      {
+         var _loc4_:BigInteger = new BigInteger(param1);
+         var _loc5_:BigInteger = new BigInteger(param2);
+         var _loc6_:RSAKey = new RSAKey(_loc4_,_loc5_.intValue());
+         return rsaEncry3(_loc6_,param3);
+      }
+      
+      public static function generateRsaKey(param1:String, param2:String) : RSAKey
+      {
+         return generateRsaKey2(Base64.decodeToByteArray(param1),Base64.decodeToByteArray(param2));
+      }
+      
+      public static function generateRsaKey2(param1:ByteArray, param2:ByteArray) : RSAKey
+      {
+         var _loc3_:BigInteger = new BigInteger(param1);
+         var _loc4_:BigInteger = new BigInteger(param2);
+         return new RSAKey(_loc3_,_loc4_.intValue());
+      }
+      
+      public static function rsaEncry3(param1:RSAKey, param2:String) : String
+      {
+         var _loc3_:ByteArray = new ByteArray();
+         _loc3_.writeUTF(param2);
+         var _loc4_:ByteArray = new ByteArray();
+         param1.encrypt(_loc3_,_loc4_,_loc3_.length);
+         return Base64.encodeByteArray(_loc4_);
+      }
+      
+      public static function rsaEncry4(param1:RSAKey, param2:ByteArray) : String
+      {
+         var _loc3_:ByteArray = new ByteArray();
+         param1.encrypt(param2,_loc3_,param2.length);
+         return Base64.encodeByteArray(_loc3_);
+      }
+      
+      public static function rsaEncry5(param1:RSAKey, param2:ByteArray) : ByteArray
+      {
+         var _loc3_:ByteArray = new ByteArray();
+         param1.encrypt(param2,_loc3_,param2.length);
+         return _loc3_;
+      }
+   }
+}
+
+==================================================================
+== Client: ddt/manager/SocketManager.as connect -> sendLogin (lines 100-112)
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Source%20Flash/src/ddt/manager/SocketManager.as
+==================================================================
+      
+      public function connect(param1:String, param2:Number) : void
+      {
+         this._socket.connect(param1,param2);
+      }
+      
+      private function __socketConnected(param1:Event) : void
+      {
+         dispatchEvent(new CrazyTankSocketEvent(CrazyTankSocketEvent.CONNECT_SUCCESS));
+         this.out.sendLogin(PlayerManager.Instance.Account);
+      }
+      
+      private function __socketClose(param1:Event) : void
+
+==================================================================
+== Server: Game.Server/Packets/Client/UserLoginHandler.cs
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Game.Server/Packets/Client/UserLoginHandler.cs
+==================================================================
+using Bussiness;
+using Bussiness.Interface;
+using Game.Base.Packets;
+using Game.Server.Managers;
+using SqlDataProvider.Data;
+using System;
+using System.Text;
+
+namespace Game.Server.Packets.Client
+{
+    [PacketHandler((int)ePackageType.LOGIN, "User Login handler")]
+    public class UserLoginHandler : IPacketHandler
+    {
+        public int HandlePacket(GameClient client, GSPacketIn packet)
+        {
+            try
+            {
+                if (client.Player == null)
+                {
+                    int version = packet.ReadInt();
+                    int clientType = packet.ReadInt();
+                    if (clientType != 69)
+                    {
+                        byte[] tempKey = new byte[8];
+                        byte[] src = packet.ReadBytes();
+                        try
+                        {
+                            src = WorldMgr.RsaCryptor.Decrypt(src, fOAEP: false);
+                        }
+                        catch (Exception ex)
+                        {
+                            client.Out.SendKitoff(LanguageMgr.GetTranslation("UserLoginHandler.RsaCryptorError"));
+                            client.Disconnect();
+                            GameServer.log.Error("RsaCryptor", ex);
+                            return 0;
+                        }
+                        for (int i = 0; i < 8; i++)
+                        {
+                            tempKey[i] = src[i + 7];
+                        }
+                        client.setKey(tempKey);
+                        string[] temp = Encoding.UTF8.GetString(src, 15, src.Length - 15).Split(',');
+                        if (temp.Length == 2)
+                        {
+                            string user = temp[0];
+                            string pass = temp[1];
+                            if (!LoginMgr.ContainsUser(user))
+                            {
+                                bool isFirst = false;
+                                BaseInterface inter = BaseInterface.CreateInterface();
+                                PlayerInfo cha = inter.LoginGame(user, pass, GameServer.Instance.Configuration.AreaID, ref isFirst);
+                                if (cha != null && cha.ID != 0)
+                                {
+                                    //if (cha.UserName == "khanhlam")
+                                    //{
+                                    if (cha.ID == -2)
+                                    {
+                                        client.Out.SendKitoff(LanguageMgr.GetTranslation("UserLoginHandler.Forbid"));
+                                        client.Disconnect();
+                                        Console.WriteLine("{0} Forbid!", user);
+                                        return 0;
+                                    }
+                                    if (!isFirst)
+                                    {
+                                        client.Player = new GamePlayer(cha.ID, user, client, cha);
+                                        LoginMgr.Add(cha.ID, client);
+                                        client.Server.LoginServer.SendAllowUserLogin(cha.ID);
+                                        client.Version = version;
+                                        Console.WriteLine("Tai Khoan {0} login Game ....", user); // Khai báo server
+                                    }
+                                    else
+                                    {
+                                        client.Out.SendKitoff(LanguageMgr.GetTranslation("UserLoginHandler.Register"));
+                                        client.Disconnect();
+                                    }
+                                    //}
+                                    //else
+                                    //{
+                                    //    client.Out.SendKitoff(LanguageMgr.GetTranslation("UserLoginHandler.LoginError"));
+                                    //    client.Disconnect();
+                                    //}
+
+                                }
+                                else
+                                {
+                                    Console.WriteLine("{0} Login with {1} OverTime....", user, pass);
+                                    client.Out.SendKitoff(LanguageMgr.GetTranslation("UserLoginHandler.OverTime"));
+                                    client.Disconnect();
+                                }
+                            }
+                            else
+                            {
+                                client.Out.SendKitoff(LanguageMgr.GetTranslation("UserLoginHandler.LoginError"));
+                                client.Disconnect();
+                            }
+                        }
+                        else
+                        {
+                            client.Out.SendKitoff(LanguageMgr.GetTranslation("UserLoginHandler.LoginError"));
+                            client.Disconnect();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                client.Out.SendKitoff(LanguageMgr.GetTranslation("UserLoginHandler.ServerError"));
+                client.Disconnect();
+                GameServer.log.Error(LanguageMgr.GetTranslation("UserLoginHandler.ServerError"), ex);
+            }
+            return 1;
+        }
+    }
+}
+
+==================================================================
+== Web: Tank.Request/CreateLogin.aspx.cs (site -> request server ticket)
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Tank.Request/CreateLogin.aspx.cs
+==================================================================
+﻿using System;
+using System.Collections;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+using Bussiness.Interface;
+using Bussiness;
+using log4net;
+using System.Reflection;
+using Bussiness.CenterService;
+
+namespace Tank.Request
+{
+    public partial class CreateLogin : System.Web.UI.Page
+    {
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+        public static string GetLoginIP
+        {
+            get
+            {
+                return ConfigurationSettings.AppSettings["LoginIP"];
+            }
+        }
+
+        public static bool ValidLoginIP(string ip)
+        {
+            string ips = GetLoginIP;
+            if (string.IsNullOrEmpty(ips) || ips.Split('|').Contains(ip))
+                return true;
+            return false;
+        } 
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            int result = 1;
+            try
+            {
+                //if (ValidLoginIP(Context.Request.UserHostAddress))
+                //{
+                    string content = HttpUtility.UrlDecode(Request["content"]);
+                    string site = Request["site"] == null ? "" : HttpUtility.UrlDecode(Request["site"]).ToLower();
+                    BaseInterface inter = BaseInterface.CreateInterface();
+                    string[] str = inter.UnEncryptLogin(content, ref result, site);
+                    if (str.Length > 3)
+                    {
+                        string name = str[0].Trim().ToLower();
+                        string password = str[1].Trim().ToLower();
+                        if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(password))
+                        {
+                            name = BaseInterface.GetNameBySite(name, site);
+                            PlayerManager.Add(name, password);
+                           
+                            result = 0;
+                        }
+                        else
+                        {
+                            result = -91010;
+                        }
+                    }
+                    else
+                    {
+                        //result = -1900;
+                    }
+                //}
+                //else
+                //{
+                    //result = 3;
+                //}
+
+            }
+            catch (Exception ex)
+            {
+                log.Error("CreateLogin:", ex);
+            }
+            Response.Write(result);
+        }
+    }
+}
+
+==================================================================
+== Web: Bussiness/Interface/BaseInterface.cs LoginGame + UnEncryptLogin (lines 198-260)
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Bussiness/Interface/BaseInterface.cs
+==================================================================
+        public virtual PlayerInfo LoginGame(string name, string pass, int zoneId, ref bool isFirst)
+        {
+			try
+			{
+				using CenterServiceClient centerServiceClient = new CenterServiceClient();
+				int userID = 0;
+				if (centerServiceClient.ValidateLoginAndGetID(name, pass, zoneId, ref userID, ref isFirst))
+				{
+					return new PlayerInfo
+					{
+						ID = userID,
+						UserName = name
+					};
+				}
+			}
+			catch (Exception ex)
+			{
+				log.Error("LoginGame", ex);
+			}
+			return null;
+        }
+
+        [Obsolete]
+        public virtual string[] UnEncryptLogin(string content, ref int result, string site)
+        {
+			try
+			{
+				string str = string.Empty;
+				if (!string.IsNullOrEmpty(site))
+				{
+					str = ConfigurationManager.AppSettings["LoginKey_" + site];
+				}
+				if (string.IsNullOrEmpty(str))
+				{
+					str = GetLoginKey;
+				}
+				if (!string.IsNullOrEmpty(str))
+				{
+					string[] strArray = content.Split('|');
+					if (strArray.Length > 3)
+					{
+						if (md5(strArray[0] + strArray[1] + strArray[2] + str) == strArray[3].ToLower())
+						{
+							return strArray;
+						}
+						result = 5;
+					}
+					else
+					{
+						result = 2;
+					}
+				}
+				else
+				{
+					result = 4;
+				}
+			}
+			catch (Exception ex)
+			{
+				log.Error("UnEncryptLogin", ex);
+			}
+			return new string[0];
+        }
+
+==================================================================
+== Web: Tank.Request/Login.ashx.cs (flash RSA p= -> XML Result)
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Tank.Request/Login.ashx.cs
+==================================================================
+﻿using System;
+using System.Configuration;
+using System.Reflection;
+using System.Text;
+using System.Web;
+using System.Web.Services;
+using System.Web.SessionState;
+using System.Xml.Linq;
+using Bussiness;
+using Bussiness.Interface;
+using Game.Base;
+using log4net;
+using Road.Flash;
+using SqlDataProvider.Data;
+
+namespace Tank.Request
+{
+    [WebService(Namespace = "http://tempuri.org/")]
+    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+    public class Login : IHttpHandler, IRequiresSessionState
+    {
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        public static string ValidDate
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["ValidDate"];
+            }
+        }
+
+        public bool IsReusable => false;
+
+        public void ProcessRequest(HttpContext context)
+        {
+            bool value = false;
+            string message = LanguageMgr.GetTranslation("Tank.Request.Login.Fail1");
+            bool isError = false;
+            XElement result = new XElement("Result");
+            string p = context.Request["p"];
+            try
+            {
+                BaseInterface inter = BaseInterface.CreateInterface();
+                string site = ((context.Request["site"] == null) ? "" : HttpUtility.UrlDecode(context.Request["site"]));
+                string IP = context.Request.UserHostAddress;
+                if (string.IsNullOrEmpty(p))
+                {
+                    return;
+                }
+                byte[] src = CryptoHelper.RsaDecryt2(StaticFunction.RsaCryptor, p);
+                string[] strList = Encoding.UTF8.GetString(src, 7, src.Length - 7).Split(',');
+                if (strList.Length != 4)
+                {
+                    return;
+                }
+                string name = strList[0];
+                string pwd = strList[1];
+                string newPwd = strList[2];
+                string nickname = strList[3];
+                //if (PlayerManager.Login(name, pwd))
+                //if (PlayerManager.Login(name, pwd/*.ToUpper()*/)/* || ValidDate == "1"*/)
+                if(true)
+                {
+                    //if (true)
+                    //{
+                    int isFirst = 0;
+                    bool isActive = false;
+                    bool firstValidate = PlayerManager.GetByUserIsFirst(name);
+                    PlayerInfo player = inter.CreateLogin(name, newPwd, int.Parse(ConfigurationManager.AppSettings["ServerID"]), ref message, ref isFirst, IP, ref isError, firstValidate, ref isActive, site, nickname);
+                    //log.Error("login != null" + (player != null ? "true" : "false"));
+                    //log.Error("flag2" + (isError ? "true" : "false!"));
+                    if (isActive)
+                    {
+                        StaticsMgr.RegCountAdd();
+                    }
+                    if (player != null && !isError)
+                    {
+                        //if (player.State == 1)
+                        //{
+                        //    string msg = "Tài khoản đang online! Đăng nhập thất bại!";
+                        //    message = LanguageMgr.GetTranslation(msg);
+                        //    log.ErrorFormat("Hack detected =>player.ID: {0}, player.UserName: {1}, player.NickName: {2}. Msg: {3}", player.ID, player.UserName, player.NickName, msg);
+                        //}
+                        //else
+                        //{
+                        if (isFirst == 0)
+                        {
+                            PlayerManager.Update(name, newPwd);
+                        }
+                        else
+                        {
+                            PlayerManager.Remove(name);
+                        }
+                        string str3 = (string.IsNullOrEmpty(player.Style) ? ",,,,,,,," : player.Style);
+                        player.Colors = (string.IsNullOrEmpty(player.Colors) ? ",,,,,,,," : player.Colors);
+                        XElement xelement2 = new XElement("Item", new XAttribute("ID", player.ID), new XAttribute("IsFirst", isFirst), new XAttribute("NickName", player.NickName), new XAttribute("Date", ""), new XAttribute("IsConsortia", 0), new XAttribute("ConsortiaID", player.ConsortiaID), new XAttribute("Sex", player.Sex), new XAttribute("WinCount", player.Win), new XAttribute("TotalCount", player.Total), new XAttribute("EscapeCount", player.Escape), new XAttribute("DutyName", (player.DutyName == null) ? "" : player.DutyName), new XAttribute("GP", player.GP), new XAttribute("Honor", ""), new XAttribute("Style", str3), new XAttribute("Gold", player.Gold), new XAttribute("Colors", (player.Colors == null) ? "" : player.Colors), new XAttribute("Attack", player.Attack), new XAttribute("Defence", player.Defence), new XAttribute("Agility", player.Agility), new XAttribute("Luck", player.Luck), new XAttribute("Grade", player.Grade), new XAttribute("Hide", player.Hide), new XAttribute("Repute", player.Repute), new XAttribute("ConsortiaName", (player.ConsortiaName == null) ? "" : player.ConsortiaName), new XAttribute("Offer", player.Offer), new XAttribute("Skin", (player.Skin == null) ? "" : player.Skin), new XAttribute("ReputeOffer", player.ReputeOffer), new XAttribute("ConsortiaHonor", player.ConsortiaHonor), new XAttribute("ConsortiaLevel", player.ConsortiaLevel), new XAttribute("ConsortiaRepute", player.ConsortiaRepute), new XAttribute("Money", player.Money + player.MoneyLock), new XAttribute("AntiAddiction", player.AntiAddiction), new XAttribute("IsMarried", player.IsMarried), new XAttribute("SpouseID", player.SpouseID), new XAttribute("SpouseName", (player.SpouseName == null) ? "" : player.SpouseName), new XAttribute("MarryInfoID", player.MarryInfoID), new XAttribute("IsCreatedMarryRoom", player.IsCreatedMarryRoom), new XAttribute("IsGotRing", player.IsGotRing), new XAttribute("LoginName", (player.UserName == null) ? "" : player.UserName), new XAttribute("Nimbus", player.Nimbus), new XAttribute("FightPower", player.FightPower), new XAttribute("AnswerSite", player.AnswerSite), new XAttribute("WeaklessGuildProgressStr", (player.WeaklessGuildProgressStr == null) ? "" : player.WeaklessGuildProgressStr), new XAttribute("IsOldPlayer", false));
+                        result.Add(xelement2);
+                        value = true;
+                        message = LanguageMgr.GetTranslation("Tank.Request.Login.Success");
+                        // }
+                    }
+                    else
+                    {
+                        log.Error("PlayerManager.Remove(name)");
+                        PlayerManager.Remove(name);
+                    }
+                    //}
+                }
+
+                else
+                {
+                    log.Error("name:" + name + "-pwd:" + pwd);
+                    message = LanguageMgr.GetTranslation("BaseInterface.LoginAndUpdate.Try");
+                }
+            }
+            catch (Exception ex)
+            {
+                byte[] numArray = Convert.FromBase64String(p);
+                log.Error("User Login error: (--" + StaticFunction.RsaCryptor.KeySize + "--)" + ex.ToString());
+                log.Error("--dataarray: " + Marshal.ToHexDump("fuckingbitch " + numArray.Length, numArray));
+                value = false;
+                message = LanguageMgr.GetTranslation("Tank.Request.Login.Fail2");
+            }
+            finally
+            {
+                result.Add(new XAttribute("value", value));
+                result.Add(new XAttribute("message", message));
+                context.Response.ContentType = "text/plain";
+                context.Response.Write(result.ToString(check: false));
+            }
+        }
+    }
+}
+
+==================================================================
+== Web: Tank.Request/LoginSelectList.ashx.cs
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Tank.Request/LoginSelectList.ashx.cs
+==================================================================
+﻿using System;
+using System.Reflection;
+using System.Web;
+using System.Web.Services;
+using System.Xml.Linq;
+using Bussiness;
+using log4net;
+using Road.Flash;
+using SqlDataProvider.Data;
+
+namespace Tank.Request
+{
+	[WebService(Namespace = "http://tempuri.org/")]
+	[WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+	public class LoginSelectList : IHttpHandler
+	{
+		private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+		public bool IsReusable => false;
+
+		public void ProcessRequest(HttpContext context)
+		{
+			bool flag = false;
+			string str1 = "Fail!";
+			XElement xelement = new XElement("Result");
+			try
+			{
+				string str2 = HttpUtility.UrlDecode(context.Request["username"]);
+				HttpUtility.UrlDecode(context.Request["password"]);
+				using (PlayerBussiness playerBussiness = new PlayerBussiness())
+				{
+					PlayerInfo[] userLoginList = playerBussiness.GetUserLoginList(str2);
+					if (userLoginList.Length == 0)
+					{
+						return;
+					}
+					PlayerInfo[] array = userLoginList;
+					foreach (PlayerInfo playerInfo in array)
+					{
+						if (!string.IsNullOrEmpty(playerInfo.NickName))
+						{
+							xelement.Add(FlashUtils.CreateUserLoginList(playerInfo));
+						}
+					}
+					flag = true;
+					str1 = "Success!";
+				}
+			}
+			catch (Exception ex)
+			{
+				log.Error("LoginSelectList", ex);
+			}
+			finally
+			{
+				xelement.Add(new XAttribute("value", flag));
+				xelement.Add(new XAttribute("message", str1));
+				context.Response.ContentType = "text/plain";
+				context.Response.Write(xelement.ToString(check: false));
+			}
+		}
+	}
+}
+
+==================================================================
+== Web: Tank.Request/StaticFunction.cs (RSA from appSettings privateKey, zlib Compress)
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Tank.Request/StaticFunction.cs
+==================================================================
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Security.Cryptography;
+using System.Configuration;
+using Road.Flash;
+using System.IO;
+using zlib;
+
+namespace Tank.Request
+{
+    public class StaticFunction
+    {
+        public static RSACryptoServiceProvider RsaCryptor
+        {
+            get
+            {
+                string rsa = ConfigurationSettings.AppSettings["privateKey"];
+                 RSACryptoServiceProvider _rsa = CryptoHelper.GetRSACrypto(rsa);
+                return _rsa;
+            }
+        }
+
+        #region 压缩字符串
+
+        public static byte[] Compress(string str)
+        {
+            byte[] src = Encoding.UTF8.GetBytes(str);
+            return Compress(src);
+        }
+
+        /// <summary>
+        /// Zip compress data
+        /// </summary>
+        /// <param name="src"></param>
+        /// <returns></returns>
+        public static byte[] Compress(byte[] src)
+        {
+            return Compress(src, 0, src.Length);
+        }
+
+        /// <summary>
+        /// Zip compress data with offset and length.
+        /// </summary>
+        /// <param name="src"></param>
+        /// <returns></returns>
+        public static byte[] Compress(byte[] src, int offset, int length)
+        {
+            MemoryStream ms = new MemoryStream();
+            Stream s = new ZOutputStream(ms, 9);
+            s.Write(src, offset, length);
+            s.Close();
+            return (byte[])ms.ToArray();
+        }
+
+        public static string Uncompress(string str)
+        {
+            byte[] src = Encoding.UTF8.GetBytes(str);
+            return Encoding.UTF8.GetString(Uncompress(src));
+        }
+
+        /// <summary>
+        /// Zip uncompress data.
+        /// </summary>
+        /// <param name="src"></param>
+        /// <returns></returns>
+        public static byte[] Uncompress(byte[] src)
+        {
+            MemoryStream md = new MemoryStream();
+            Stream d = new ZOutputStream(md);
+            d.Write(src, 0, src.Length);
+            d.Close();
+            return (byte[])md.ToArray();
+        }
+
+        #endregion
+    }
+}
+
+==================================================================
+== Web: Tank.Request/csFunction.cs CreateCompressXml (lines 84-128)
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Tank.Request/csFunction.cs
+==================================================================
+        public static string CreateCompressXml(HttpContext context, XElement result, string file, bool isCompress)
+        {        
+            string path = context.Server.MapPath("~"); ;
+            return CreateCompressXml(path, result, file, isCompress);
+        }
+
+        public static string CreateCompressXml(XElement result, string file, bool isCompress)
+        {
+            //string path = HttpContext.Current.Server.MapPath("~");
+            string path = StaticsMgr.CurrentPath;
+            return CreateCompressXml(path, result, file, isCompress);
+        }
+
+        public static string CreateCompressXml(string path, XElement result, string file, bool isCompress)
+        {
+            try
+            {
+                file = file + ".xml";
+                path = Path.Combine(path , file);
+                using (FileStream fs = new FileStream(path, FileMode.Create))
+                {
+                    if (isCompress)
+                    {
+                        using (BinaryWriter writer = new BinaryWriter(fs))
+                        {
+                            writer.Write(StaticFunction.Compress(result.ToString(false)));
+                        }
+                    }
+                    else
+                    {
+                        using (StreamWriter wirter = new StreamWriter(fs))
+                        {
+                            wirter.Write(result.ToString(false));
+                        }
+                    }
+                }
+
+                return "Build:" + file + ",Success!";
+            }
+            catch (Exception ex)
+            {
+                log.Error("CreateCompressXml " + file + " is fail!", ex);
+                return "Build:" + file + ",Fail!";
+            }
+        }
+
+==================================================================
+== Web: Tank.Request/TemplateAllList.ashx.cs
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Tank.Request/TemplateAllList.ashx.cs
+==================================================================
+﻿using System;
+using System.Collections;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Services;
+using System.Web.Services.Protocols;
+using System.Xml.Linq;
+using System.Collections.Specialized;
+using System.Collections.Generic;
+using SqlDataProvider.Data;
+using Bussiness;
+using Road.Flash;
+using System.IO;
+
+namespace Tank.Request
+{
+    //http://192.168.0.4:828/TemplateAlllist.ashx
+    /// <summary>
+    /// Summary description for $codebehindclassname$
+    /// </summary>
+    [WebService(Namespace = "http://tempuri.org/")]
+    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+    public class TemplateAllList : IHttpHandler
+    {
+        public void ProcessRequest(HttpContext context)
+        {
+            if (csFunction.ValidAdminIP(context.Request.UserHostAddress))
+            {
+                context.Response.Write(Bulid(context));
+            }
+            else
+            {
+                context.Response.Write("IP is not valid!");
+            }
+        }
+
+        public static string Bulid(HttpContext context)
+        {
+            bool value = false;
+            string message = "Fail!";
+
+            XElement result = new XElement("Result");
+            try
+            {
+                using (ProduceBussiness db = new ProduceBussiness())
+                {
+                    XElement template = new XElement("ItemTemplate");
+                    ItemTemplateInfo[] items = db.GetAllGoods();
+                    foreach (ItemTemplateInfo g in items)
+                    {
+                        template.Add(FlashUtils.CreateItemInfo(g));
+                    }
+                    result.Add(template);                    
+                    value = true;
+                    message = "Success!";
+                }
+            }
+            catch
+            { }
+
+            result.Add(new XAttribute("value", value));
+            result.Add(new XAttribute("message", message));
+
+            //csFunction.CreateCompressXml(context, result, "TemplateAlllist1", false);
+            return csFunction.CreateCompressXml(context, result, "TemplateAlllist", true);
+
+        }
+
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}
+
+==================================================================
+== Web: Road.Flash/CryptoHelper.cs
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Road.Flash/Road.Flash/CryptoHelper.cs
+==================================================================
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Security.Cryptography;
+
+namespace Road.Flash
+{
+    public class CryptoHelper
+    {
+        public static RSACryptoServiceProvider GetRSACrypto(string privateKey)
+        {
+            CspParameters csp = new CspParameters();
+            csp.Flags = CspProviderFlags.UseMachineKeyStore;
+            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(csp);
+            rsa.FromXmlString(privateKey);
+            return rsa;
+        }
+
+        /// <summary>
+        ///  用RSA解密基于Base64编码的字符串，返回UTF-8编码的字符串
+        /// </summary>
+        /// <param name="privateKey"></param>
+        /// <param name="src"></param>
+        /// <returns></returns>
+        public static string RsaDecrypt(string privateKey, string src)
+        {
+            CspParameters csp = new CspParameters();
+            csp.Flags = CspProviderFlags.UseMachineKeyStore;
+            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(csp);
+            rsa.FromXmlString(privateKey);
+            return RsaDecrypt(rsa, src);
+        }
+        public static string RsaDecrypt(RSACryptoServiceProvider rsa, string src)
+        {
+            byte[] srcData = Convert.FromBase64String(src);
+            byte[] destData = rsa.Decrypt(srcData, false);
+            return Encoding.UTF8.GetString(destData);
+        }
+
+        public static byte[] StringToByteArray(string hex)
+        {
+            int NumberChars = hex.Length;
+            byte[] bytes = new byte[NumberChars / 2];
+            for (int i = 0; i < NumberChars; i += 2)
+            {
+                bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 0x10);
+            }
+            return bytes;
+        }
+        public static string ByteArrayToString(byte[] ba)
+        {
+            StringBuilder hex = new StringBuilder(ba.Length * 2);
+            for (int i = 0; i < ba.Length; i++)
+            {
+                hex.Append(ba[i].ToString("X2"));
+            }
+            return hex.ToString();
+        }
+        public static byte[] RsaDecryt2(RSACryptoServiceProvider rsa, string src)
+        {
+            byte[] srcData = Convert.FromBase64String(src);
+            return rsa.Decrypt(srcData, false);
+        }
+        public static byte[] RsaDecryt3(RSACryptoServiceProvider rsa, string src)
+        {
+            byte[] srcData = Convert.FromBase64String(src);
+            return rsa.Decrypt(srcData, false);
+        }
+        public static string TripleDesDecrypt(string privateKey, string iv, string cypherText)
+        {
+            byte[] keyArray = StringToByteArray(privateKey);
+            byte[] toDecryptArray = StringToByteArray(cypherText);
+            TripleDESCryptoServiceProvider initLocal0 = new TripleDESCryptoServiceProvider
+            {
+                Key = keyArray,
+                Mode = CipherMode.CBC,
+                Padding = PaddingMode.Zeros,
+                IV = StringToByteArray(iv)
+            };
+            TripleDESCryptoServiceProvider tdes = initLocal0;
+            byte[] resultArray = tdes.CreateDecryptor().TransformFinalBlock(toDecryptArray, 0, toDecryptArray.Length);
+            return Encoding.UTF8.GetString(resultArray).Replace('\0', ' ').Trim();
+        }
+
+        public static string TripleDesEncrypt(string privateKey, string plainText, ref string iv)
+        {
+            byte[] keyArray = StringToByteArray(privateKey);
+            byte[] toEncryptArray = Encoding.UTF8.GetBytes(plainText);
+            TripleDESCryptoServiceProvider initLocal1 = new TripleDESCryptoServiceProvider
+            {
+                Key = keyArray,
+                Mode = CipherMode.CBC,
+                Padding = PaddingMode.Zeros
+            };
+            TripleDESCryptoServiceProvider tdes = initLocal1;
+            if ((iv != null) && (iv.Length == 0x10))
+            {
+                tdes.IV = StringToByteArray(iv);
+            }
+            string cypherText = ByteArrayToString(tdes.CreateEncryptor().TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length));
+            if (iv != null)
+            {
+                iv = ByteArrayToString(tdes.IV);
+            }
+            return cypherText;
+        }
+    }
+}
+
+==================================================================
+== Flash config.xml (Tank.Flash/config.xml)
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Tank.Flash/config.xml
+==================================================================
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <config>
+    <FLASHSITE value="http://127.0.0.1/flash/" />
+    <BACKUP_FLASHSITE value="http://127.0.0.1/flash/" />
+    <USE_MD5 value="false" />
+    <SITE value="http://127.0.0.1/resource/" />
+    <FIRSTPAGE value="http://127.0.0.1" />
+    <REGISTER value="http://127.0.0.1" />
+    <REQUEST_PATH value="http://127.0.0.1/Request/" />
+    <LOGIN_PATH value="http://127.0.0.1" siteName="Gunny" />
+    <FILL_PATH value="http://127.0.0.1/launcher/topup.htm?pid=49&amp;acc={user}&amp;serid=1" />
+    <POLICY_FILES>
+      <file value="http://127.0.0.1/resource/crossdomain.xml" />
+    </POLICY_FILES>
+    <GAME_BOXPIC value="7" />
+    <FIGHTLIB value="true" />
+    <ALLOW_MULTI value="true" />
+    <TRAINER_PATH value="tutorial.swf" />
+    <MUSIC_LIST value="1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,1011,1012,1013,1014,1023,1024,1025,1026,1027,1028,1029,1030,1031,1032,1034,1035,1036,1037,1038,1039,1040,1059,1060,1061,1062,1063,1065,1067,1068,1069,1077" />
+    <LANGUAGE value="vietnam" />
+    <PARTER_ID value="303" />
+    <STATISTIC value="true" />
+    <SUCIDE_TIME value="120" />
+    <ISTOPDERIICT value="true" />
+    <COUNT_PATH value="http://gamebihandler.7road.com/ddt_game/List_BI_Click.ashx" />
+    <PHP isShow="false" link="false" site="http://me.zing.vn/{id}/home" infoPath="http://assist6.gn.zing.vn/GetUserImg.aspx?uid={uid}" />
+    <OFFICIAL_SITE value="http:/.zing.vn/" />
+    <GAME_FORUM value="http://diendan.zing.vn/" />
+    <COMMUNITY_FRIEND_PATH isUser="false" value="http://ddt.the9.com/addfriend.php" />
+    <COMMUNITY_INVITE_PATH value="http://ddt.the9.com/invite.php" />
+    <COMMUNITY_FRIEND_LIST_PATH value="http://assist6.gn.zing.vn/Other/GetSnsFriendList" snsPath="http://s19.ddt.kaixin001.com.cn/assist/SnsServer/NotifySnsUserUpgrade" isexist="true" isexistBtnVisble="true" cmBtnVisble="false" />
+    <COMMUNITY_INTERFACE enable="true" path="http://assist6.gn.zing.vn/Other/" shareBtnVisble="false" />
+    <COMMUNITY_FRIEND_INVITED_SWITCH value="true" invitedOnline="true" />
+    <EXTERNAL_INTERFACE path="http://fb.egame.hk/GameAccess/facebook/ddt/postAction.jsp" enable="false" />
+    <!--海外社区开关-->
+    <COMMUNITY_MICROBLOG value="true" />
+    <COMMUNITY_SINA_SECOND_MICROBLOG value="true" />
+    <ALLOW_POPUP_FAVORITE value="false" />
+    <FILL_JS_COMMAND value="user_ZingPay" enable="true" />
+    <SHIELD_NOTICE value="false" />
+    <!-- 客服系统开关 -->
+    <!--单机版新手引导的开关-->
+    <TRAINER_STANDALONE value="true" />
+    <!--3.3之前的新版新手引导开关-->
+    <USER_GUILD_ENABLE value="true" />
+    <!--远征码头等级限制-->
+    <MINLEVELDUPLICATE value="8" />
+    <!-- DISABLE_TASK_ID 为禁用的任务的ID，如有多个，请用逗号隔开 for example : 1002,1003,1004,新浪需要屏蔽的任务有378,379,38080,381,604 -->
+    <DISABLE_TASK_ID value="545,382,383,384,385" />
+    <STATISTICS enable="false" />
+    <!--小游戏等级限制开关-->
+    <LITTLEGAMEMINLV value="20" />
+    <!-- 交友中心和结婚的开关-->
+    <SHOW_BACKGROUND value="true" />
+    <!--下载登录开关-->
+    <DOWNLOAD value="false" />
+    <!-- 开启温泉房间续费功能-->
+    <HOTSPRING value="true" />
+    <!--- 幸运数字的开关-->
+    <LUCKY_NUMBER enable="false" />
+    <!--- 占卜的开关-->
+    <LOTTERY enable="false" />
+    <!-- 随机选频 -->
+    <RANDOM_CHANNEL value="true" />
+    <!-- 同城好友开关 -->
+    <LIKEPERSON_SELECTED value="false" />
+    <!-- 游戏边框背景开关 -->
+    <MODULE>
+      <CIVIL enable="true" />
+      <CHURCH enable="true" />
+    </MODULE>
+    <CHAT_FACE>
+      <DISABLED_LIST list="38" />
+    </CHAT_FACE>
+    <GAME_FRAME_CONFIG>
+      <!-- 每帧执行的毫秒数,正常值应为40毫秒,并允许在35至45毫秒之间波动  (游戏内正常帧速为 25帧/秒)-->
+      <FRAME_TIME_OVER_TAG value="67" />
+      <!-- 连续低于上述毫秒的帧数 (游戏内正常帧速为 25帧/秒) -->
+      <FRAME_OVER_COUNT_TAG value="25" />
+    </GAME_FRAME_CONFIG>
+    <OVERSEAS>
+      <OVERSEAS_COMMUNITY_TYPE value="0" callPath="" callJS="" shareBtnVisble="true" />
+    </OVERSEAS>    
+    <Gunny_DOWNLOAD value="./" />
+    <FEEDBACK enable="false" telNumber="" />
+    <SUIT enable="true" />
+    <DUNGEON_OPENLIST value="1,2,3,4,5,6,7,8,9,10,11,12,70001,71000,12016" advancedEnable="true" epicLevelEnable="true" />
+    <!--弹王盟约开关-->
+    <KINGBLESS enable="true" />
+    <!--任务托管 -->
+    <QUEST_TRUSTEESHIP enable="false" />
+    <!--勇士秘境开关-->
+    <WARRIORS_FAM enable="true" />
+    <!--战魂开关-->
+    <GEMSTONE enable="true" />
+	 <!--跨区私聊开关-->
+    <CROSS_CHAT_SERVER enable="true" />
+    <EXALTBTN enable="true" />
+    <!--跨区大喇叭-->
+    <CROSSBUGGLE enable="true" />
+    <!--10分钟后检查到用登录器登录，对玩家进行踢出游戏操作-->
+    <CHECKDESK_KILL enable="false" />
+  </config>
+  <update>
+    <version from="372" to="373">
+      <file value="*" />
+      <file value="flash/*" />
+    </version>
+    <version from="373" to="374">
+      <file value="flash/2.png" />
+      <file value="2.png" />
+    </version>
+    <version from="374" to="375">
+      <file value="flash/2.png" />
+      <file value="flash/ui/vietnam/xml/xml.png" />
+      <file value="flash/ui/vietnam/swf/consortiabattle.swf" />
+      <file value="flash/ui/vietnam/swf/gameover.swf" />
+      <file value="2.png" />
+      <file value="ui/vietnam/xml/xml.png" />
+      <file value="ui/vietnam/swf/consortiabattle.swf" />
+      <file value="ui/vietnam/swf/gameover.swf" />
+    </version>
+  </update>
+</root>

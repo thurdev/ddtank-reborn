@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DDTank Client Harness</title>
+<style>
+  :root { --bg: #111; --fg: #ddd; --muted: #888; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg); font: 13px/1.4 system-ui, sans-serif; }
+  #game { width: 1000px; height: 600px; margin: 12px auto 0; background: #000; }
+  #bar { width: 1000px; margin: 6px auto; color: var(--muted); }
+  #bar code { color: var(--fg); }
+</style>
+<script>
+  // ---------------------------------------------------------------------------
+  // Harness parameters (override with query string: ?swf=DDT_Loading.swf&user=foo&key=bar)
+  // ---------------------------------------------------------------------------
+  const q = new URLSearchParams(location.search);
+  const ORIGIN = location.origin;                       // http://localhost:9380
+  const SWF = q.get("swf") || "Loading.swf";            // Loading.swf (full boot) or DDT_Loading.swf (skip select list)
+  const FLASHVARS = {
+    user: q.get("user") || "harness",                   // account name (Loading.swf: parameters.user)
+    key: q.get("key") || "HARNESS-KEY",                 // one-time login key (parameters.key), sent inside RSA blob to Login.ashx
+    config: `${ORIGIN}/flash/config.xml`,               // parameters.config (absolute; default is relative "config.xml")
+    site: q.get("site") || "",                          // parameters.site -> PathInfo.SITEII, sent to Login.ashx as "site"
+    editby: "",
+  };
+
+  // ---------------------------------------------------------------------------
+  // ExternalInterface targets the client calls (found by grepping Source Flash + decompiled loaders).
+  // All are logged so we can see what the client expects from the page.
+  // ---------------------------------------------------------------------------
+  window.__eiCalls = [];
+  const ei = (name, ret) => (...args) => { window.__eiCalls.push([name, args]); console.info("[EI]", name, ...args); return ret; };
+  Object.assign(window, {
+    isSafeFlash: ei("isSafeFlash", 0), setFlashCall: ei("setFlashCall"), IsDesktop: ei("IsDesktop", false),
+    flashloaded: ei("flashloaded", true), pageload: ei("pageload", true), beforeloadflash: ei("beforeloadflash", true),
+    toLocation: ei("toLocation"), getLocationUrl: ei("getLocationUrl", location.href), WindowReturn: ei("WindowReturn"),
+    ExternalLoadStart: ei("ExternalLoadStart"), ExitGameToLogin: ei("ExitGameToLogin"), closeWindow: ei("closeWindow"),
+    game_pay: ei("game_pay"), game_interruption: ei("game_interruption"), sandaFillHandler: ei("sandaFillHandler"),
+    setFavorite: ei("setFavorite"), addToFavorite: ei("addToFavorite"), AddFavorite: ei("AddFavorite"),
+    showInviteBox: ei("showInviteBox"), setDailyTask: ei("setDailyTask"), setDailyActivity: ei("setDailyActivity"),
+    sendWeiboFeed: ei("sendWeiboFeed"), facebookSend: ei("facebookSend"),
+    title_effect: { tickerBegin: ei("title_effect.tickerBegin"), tickerStop: ei("title_effect.tickerStop") },
+  });
+  window.alert = (msg) => { window.__eiCalls.push(["alert", [msg]]); console.warn("[EI] alert", msg); };
+
+  // ---------------------------------------------------------------------------
+  // Ruffle config (pinned self-hosted nightly in /ruffle, see README).
+  // ---------------------------------------------------------------------------
+  window.RufflePlayer = window.RufflePlayer || {};
+  window.RufflePlayer.config = {
+    publicPath: "/ruffle/",
+    polyfills: false,
+    autoplay: "on",
+    unmuteOverlay: "hidden",
+    splashScreen: false,
+    letterbox: "on",
+    scale: "exactFit",                 // Loading.swf sets StageScaleMode.EXACT_FIT
+    quality: "high",
+    allowScriptAccess: true,           // ExternalInterface is used by the loaders
+    allowNetworking: "all",
+    upgradeToHttps: false,
+    openUrlMode: "allow",
+    maxExecutionDuration: 30,
+    logLevel: q.get("log") || "warn",
+    contextMenu: "on",
+    // The game socket host:port comes from ServerList.ashx (<Item IP=".." Port="p-69">, client adds 69).
+    // Ruffle matches host+port EXACTLY as passed to Socket.connect().
+    socketProxy: [
+      { host: "127.0.0.1", port: 9200, proxyUrl: "ws://localhost:9300/ws" },
+      { host: "localhost", port: 9200, proxyUrl: "ws://localhost:9300/ws" },
+    ],
+    // Client UI asks for device fonts Arial / Arial Unicode MS / Verdana / 宋体; text is Vietnamese.
+    fontSources: ["/fonts/NotoSans-Regular.ttf", "/fonts/NotoSans-Bold.ttf"],
+    defaultFonts: { sans: ["Noto Sans"], serif: ["Noto Sans"], typewriter: ["Noto Sans"] },
+  };
+</script>
+<script src="/ruffle/ruffle.js"></script>
+</head>
+<body>
+<div id="game"></div>
+<div id="bar">swf <code id="swf"></code> · flashvars <code id="fv"></code> · requests are logged to <code>apps/client-harness/logs/requests.jsonl</code></div>
+<script>
+  document.getElementById("swf").textContent = SWF;
+  document.getElementById("fv").textContent = new URLSearchParams(FLASHVARS).toString();
+  window.addEventListener("load", () => {
+    const ruffle = window.RufflePlayer.newest();
+    const player = ruffle.createPlayer();
+    player.style.width = "1000px";
+    player.style.height = "600px";
+    player.id = "player";
+    document.getElementById("game").appendChild(player);
+    window.__player = player;
+    const api = typeof player.ruffle === "function" ? player.ruffle() : player;
+    api.load({
+      url: `${ORIGIN}/flash/${SWF}`,
+      base: `${ORIGIN}/flash/`,
+      parameters: FLASHVARS,
+    }).catch((e) => console.error("[harness] load failed", e));
+  });
+</script>
+</body>
+</html>

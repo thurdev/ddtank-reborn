@@ -1,0 +1,1369 @@
+# DDTank combat physics - RAW excerpts (server Game.Logic + client phy.*)
+# Repos: https://github.com/pnkl1999/DDTank41 and https://github.com/zsj0613/DDTServer (no licenses). Fetched 2026-10-01.
+
+==================================================================
+== Server: BombObject.cs (zsj0613 copy; same algorithm in 4.1)
+== Source: https://github.com/zsj0613/DDTServer/blob/master/Common/Game.Logic/Game.Logic.Phy.Object/BombObject.cs
+==================================================================
+using Game.Logic.Phy.Maps;
+using Game.Logic.Phy.Maths;
+using System;
+using System.Drawing;
+namespace Game.Logic.Phy.Object
+{
+	public class BombObject : Physics
+	{
+		private float m_mass;
+		private float m_gravityFactor;
+		private float m_windFactor;
+		private float m_airResitFactor;
+		private EulerVector m_vx;
+		private EulerVector m_vy;
+		private float m_arf;
+		private float m_gf;
+		private float m_wf;
+		public float vX
+		{
+			get
+			{
+				return this.m_vx.x1;
+			}
+		}
+		public float vY
+		{
+			get
+			{
+				return this.m_vy.x1;
+			}
+		}
+		public float Arf
+		{
+			get
+			{
+				return this.m_arf;
+			}
+		}
+		public float Gf
+		{
+			get
+			{
+				return this.m_gf;
+			}
+		}
+		public float Wf
+		{
+			get
+			{
+				return this.m_wf;
+			}
+		}
+		public BombObject(int id, float mass, float gravityFactor, float windFactor, float airResitFactor) : base(id)
+		{
+			this.m_mass = mass;
+			this.m_gravityFactor = gravityFactor;
+			this.m_windFactor = windFactor;
+			this.m_airResitFactor = airResitFactor;
+			this.m_vx = new EulerVector(0, 0, 0f);
+			this.m_vy = new EulerVector(0, 0, 0f);
+			this.m_rect = new Rectangle(-3, -3, 6, 6);
+		}
+		public void setSpeedXY(int vx, int vy)
+		{
+			this.m_vx.x1 = (float)vx;
+			this.m_vy.x1 = (float)vy;
+		}
+		public override void SetXY(int x, int y)
+		{
+			base.SetXY(x, y);
+			this.m_vx.x0 = (float)x;
+			this.m_vy.x0 = (float)y;
+		}
+		public override void SetMap(Map map)
+		{
+			base.SetMap(map);
+			this.UpdateAGW();
+		}
+		protected void UpdateForceFactor(float air, float gravity, float wind)
+		{
+			this.m_airResitFactor = air;
+			this.m_gravityFactor = gravity;
+			this.m_windFactor = wind;
+			this.UpdateAGW();
+		}
+		private void UpdateAGW()
+		{
+			if (this.m_map != null)
+			{
+				this.m_arf = this.m_map.airResistance * this.m_airResitFactor;
+				this.m_gf = this.m_map.gravity * this.m_gravityFactor * this.m_mass;
+				this.m_wf = this.m_map.wind * this.m_windFactor;
+			}
+		}
+		protected Point CompleteNextMovePoint(float dt)
+		{
+			this.m_vx.ComputeOneEulerStep(this.m_mass, this.m_arf, this.m_wf, dt);
+			this.m_vy.ComputeOneEulerStep(this.m_mass, this.m_arf, this.m_gf, dt);
+			return new Point((int)this.m_vx.x0, (int)this.m_vy.x0);
+		}
+		public void MoveTo(int px, int py)
+		{
+			if (px != this.m_x || py != this.m_y)
+			{
+				int dx = px - this.m_x;
+				int dy = py - this.m_y;
+				bool useX;
+				int count;
+				int dt;
+				if (Math.Abs(dx) > Math.Abs(dy))
+				{
+					useX = true;
+					count = Math.Abs(dx);
+					dt = dx / count;
+				}
+				else
+				{
+					useX = false;
+					count = Math.Abs(dy);
+					dt = dy / count;
+				}
+				Point dest = new Point(this.m_x, this.m_y);
+				for (int i = 1; i <= count; i += 3)
+				{
+					if (useX)
+					{
+						dest = this.GetNextPointByX(this.m_x, px, this.m_y, py, this.m_x + i * dt);
+					}
+					else
+					{
+						dest = this.GetNextPointByY(this.m_x, px, this.m_y, py, this.m_y + i * dt);
+					}
+					Rectangle rect = this.m_rect;
+					rect.Offset(dest.X, dest.Y);
+					Physics[] list = this.m_map.FindPhysicalObjects(rect, this);
+					if (list.Length > 0)
+					{
+						base.SetXY(dest.X, dest.Y);
+						this.CollideObjects(list);
+					}
+					else
+					{
+						if (!this.m_map.IsRectangleEmpty(rect))
+						{
+							base.SetXY(dest.X, dest.Y);
+							this.CollideGround();
+						}
+						else
+						{
+							if (this.m_map.IsOutMap(dest.X, dest.Y))
+							{
+								base.SetXY(dest.X, dest.Y);
+								this.FlyoutMap();
+							}
+						}
+					}
+					if (!this.m_isLiving || !this.m_isMoving)
+					{
+						return;
+					}
+				}
+				base.SetXY(px, py);
+			}
+		}
+		protected virtual void CollideObjects(Physics[] list)
+		{
+		}
+		protected virtual void CollideGround()
+		{
+			this.StopMoving();
+		}
+		protected virtual void FlyoutMap()
+		{
+			this.StopMoving();
+			if (this.m_isLiving)
+			{
+				this.Die();
+			}
+		}
+		private Point GetNextPointByX(int x1, int x2, int y1, int y2, int x)
+		{
+			Point result;
+			if (x2 == x1)
+			{
+				result = new Point(x, y1);
+			}
+			else
+			{
+				result = new Point(x, (x - x1) * (y2 - y1) / (x2 - x1) + y1);
+			}
+			return result;
+		}
+		private Point GetNextPointByY(int x1, int x2, int y1, int y2, int y)
+		{
+			Point result;
+			if (y2 == y1)
+			{
+				result = new Point(x1, y);
+			}
+			else
+			{
+				result = new Point((y - y1) * (x2 - x1) / (y2 - y1) + x1, y);
+			}
+			return result;
+		}
+	}
+}
+
+==================================================================
+== Server: Physics.cs
+== Source: https://github.com/zsj0613/DDTServer/blob/master/Common/Game.Logic/Game.Logic.Phy.Object/Physics.cs
+==================================================================
+using Game.Logic.Phy.Maps;
+using System;
+using System.Drawing;
+namespace Game.Logic.Phy.Object
+{
+	public class Physics
+	{
+		protected int m_id;
+		protected Map m_map;
+		protected int m_x;
+		protected int m_y;
+		protected Rectangle m_rect;
+		protected bool m_isLiving;
+		protected bool m_isMoving;
+		public int Id
+		{
+			get
+			{
+				return this.m_id;
+			}
+		}
+		public Rectangle Bound
+		{
+			get
+			{
+				return this.m_rect;
+			}
+		}
+		public bool IsMoving
+		{
+			get
+			{
+				return this.m_isMoving;
+			}
+		}
+		public bool IsLiving
+		{
+			get
+			{
+				return this.m_isLiving;
+			}
+			set
+			{
+				this.m_isLiving = value;
+			}
+		}
+		public virtual int X
+		{
+			get
+			{
+				return this.m_x;
+			}
+		}
+		public virtual int Y
+		{
+			get
+			{
+				return this.m_y;
+			}
+		}
+		public Physics(int id)
+		{
+			this.m_id = id;
+			this.m_rect = new Rectangle(-5, -5, 10, 10);
+			this.m_isLiving = true;
+		}
+		public virtual Point GetCollidePoint()
+		{
+			return new Point(this.X, this.Y);
+		}
+		public void SetRect(int x, int y, int width, int height)
+		{
+			this.m_rect.X = x;
+			this.m_rect.Y = y;
+			this.m_rect.Width = width;
+			this.m_rect.Height = height;
+		}
+		public virtual void SetXY(int x, int y)
+		{
+			this.m_x = x;
+			this.m_y = y;
+		}
+		public void SetXY(Point p)
+		{
+			this.SetXY(p.X, p.Y);
+		}
+		public virtual void SetMap(Map map)
+		{
+			this.m_map = map;
+		}
+		public virtual void StartMoving()
+		{
+			if (this.m_map != null)
+			{
+				this.m_isMoving = true;
+			}
+		}
+		public virtual void StopMoving()
+		{
+			this.m_isMoving = false;
+		}
+		public virtual void CollidedByObject(Physics phy, int delay)
+		{
+		}
+		public virtual void Die()
+		{
+			this.StopMoving();
+			this.m_isLiving = false;
+		}
+		public double Distance(int x, int y)
+		{
+			return Math.Sqrt((double)((this.m_x - x) * (this.m_x - x) + (this.m_y - y) * (this.m_y - y)));
+		}
+		public static int PointToLine(int x1, int y1, int x2, int y2, int px, int py)
+		{
+			int a = y1 - y2;
+			int b = x2 - x1;
+			int c = x1 * y2 - x2 * y1;
+			return (int)((double)Math.Abs(a * px + b * py + c) / Math.Sqrt((double)(a * a + b * b)));
+		}
+		public virtual void PrepareNewTurn()
+		{
+		}
+		public virtual void Dispose()
+		{
+			if (this.m_map != null)
+			{
+				this.m_map.RemovePhysical(this);
+			}
+		}
+	}
+}
+
+==================================================================
+== Client: phy/math/EulerVector.as
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Source%20Flash/src/phy/math/EulerVector.as
+==================================================================
+package phy.math
+{
+   public class EulerVector
+   {
+       
+      
+      public var x0:Number;
+      
+      public var x1:Number;
+      
+      public var x2:Number;
+      
+      public function EulerVector(param1:Number, param2:Number, param3:Number)
+      {
+         super();
+         this.x0 = param1;
+         this.x1 = param2;
+         this.x2 = param3;
+      }
+      
+      public function clear() : void
+      {
+         this.x0 = 0;
+         this.x1 = 0;
+         this.x2 = 0;
+      }
+      
+      public function clearMotion() : void
+      {
+         this.x1 = 0;
+         this.x2 = 0;
+      }
+      
+      public function ComputeOneEulerStep(param1:Number, param2:Number, param3:Number, param4:Number) : void
+      {
+         this.x2 = (param3 - param2 * this.x1) / param1;
+         this.x1 += this.x2 * param4;
+         this.x0 += this.x1 * param4;
+      }
+      
+      public function toString() : String
+      {
+         return "x:" + this.x0 + ",v:" + this.x1 + ",a" + this.x2;
+      }
+   }
+}
+
+==================================================================
+== Server: Game.Logic/Living.cs shoot loop (lines 1760-1835)
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Game.Logic/Living.cs
+==================================================================
+
+    public bool ShootImp(int bombId, int x, int y, int force, int angle, int bombCount, int shootCount)
+    {
+        BallInfo ballInfo = BallMgr.FindBall(bombId);
+        Tile shape = BallMgr.FindTile(bombId);
+        BombType ballType = BallMgr.GetBallType(bombId);
+        int num = (int)((double)m_map.wind * 10.0);
+        if (ballInfo == null)
+        {
+            return false;
+        }
+        GSPacketIn gSPacketIn = new GSPacketIn(91, base.Id);
+        gSPacketIn.Parameter1 = base.Id;
+        gSPacketIn.WriteByte(2);
+        gSPacketIn.WriteInt(num);
+        gSPacketIn.WriteBoolean(num > 0);
+        gSPacketIn.WriteByte(m_game.GetVane(num, 1));
+        gSPacketIn.WriteByte(m_game.GetVane(num, 2));
+        gSPacketIn.WriteByte(m_game.GetVane(num, 3));
+        gSPacketIn.WriteInt(bombCount);
+        float num2 = 0f;
+        SimpleBomb simpleBomb = null;
+        for (int i = 0; i < bombCount; i++)
+        {
+            double num3 = 1.0;
+            int num4 = 0;
+            switch (i)
+            {
+                case 2:
+                    num3 = 1.1;
+                    num4 = 5;
+                    break;
+                case 1:
+                    num3 = 0.9;
+                    num4 = -5;
+                    break;
+            }
+            int num5 = (int)((double)force * num3 * Math.Cos((double)(angle + num4) / 180.0 * Math.PI));
+            int num6 = (int)((double)force * num3 * Math.Sin((double)(angle + num4) / 180.0 * Math.PI));
+            BaseGame game = m_game;
+            SimpleBomb simpleBomb2 = new SimpleBomb(game.PhysicalId++, ballType, this, m_game, ballInfo, shape, ControlBall, angle);
+            simpleBomb2.SetXY(x, y);
+            simpleBomb2.setSpeedXY(num5, num6);
+            totalShotTurn = ((totalShotTurn == 0) ? (bombCount * shootCount) : totalShotTurn);
+            m_map.AddPhysical(simpleBomb2);
+            simpleBomb2.StartMoving();
+            if (i == 0)
+            {
+                simpleBomb = simpleBomb2;
+            }
+            gSPacketIn.WriteInt(bombCount);
+            gSPacketIn.WriteInt(shootCount);
+            gSPacketIn.WriteBoolean(simpleBomb2.DigMap);
+            gSPacketIn.WriteInt(simpleBomb2.Id);
+            gSPacketIn.WriteInt(x);
+            gSPacketIn.WriteInt(y);
+            gSPacketIn.WriteInt(num5);
+            gSPacketIn.WriteInt(num6);
+            gSPacketIn.WriteInt(simpleBomb2.BallInfo.ID);
+            if (FlyingPartical != 0)
+            {
+                gSPacketIn.WriteString(FlyingPartical.ToString());
+            }
+            else
+            {
+                gSPacketIn.WriteString(ballInfo.FlyingPartical);
+            }
+            gSPacketIn.WriteInt(simpleBomb2.BallInfo.Radii * 1000 / 4);
+            gSPacketIn.WriteInt((int)simpleBomb2.BallInfo.Power * 1000);
+            gSPacketIn.WriteInt(simpleBomb2.Actions.Count);
+            foreach (BombAction action in simpleBomb2.Actions)
+            {
+                gSPacketIn.WriteInt(action.TimeInt);
+                gSPacketIn.WriteInt(action.Type);
+                gSPacketIn.WriteInt(action.Param1);
+                gSPacketIn.WriteInt(action.Param2);
+
+==================================================================
+== Server: SimpleBomb.cs ctor (1-80) + StartMoving (540-597)
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Game.Logic/Phy/Object/SimpleBomb.cs
+==================================================================
+using Game.Logic.Actions;
+using Game.Logic.Effects;
+using Game.Logic.Phy.Actions;
+using Game.Logic.Phy.Maps;
+using Game.Logic.Phy.Maths;
+using SqlDataProvider.Data;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+
+namespace Game.Logic.Phy.Object
+{
+	public class SimpleBomb : BombObject
+	{
+		private bool digMap;
+
+		protected List<BombAction> m_actions;
+
+		private bool m_bombed;
+
+		protected bool m_controled;
+
+		private BaseGame m_game;
+
+		private BallInfo m_info;
+
+		private float m_lifeTime;
+
+		private Living m_owner;
+
+		protected List<BombAction> m_petActions;
+
+		protected int m_petRadius;
+
+		protected double m_power;
+
+		protected int m_radius;
+
+		protected Tile m_shape;
+
+		protected BombType m_type;
+
+		protected int m_angle;
+
+		public List<BombAction> Actions => m_actions;
+
+		public BallInfo BallInfo => m_info;
+
+		public bool DigMap => digMap;
+
+		public float LifeTime => m_lifeTime;
+
+		public Living Owner => m_owner;
+
+		public List<BombAction> PetActions => m_petActions;
+
+		public SimpleBomb(int id, BombType type, Living owner, BaseGame game, BallInfo info, Tile shape, bool controled, int angle)
+			: base(id, info.Mass, info.Weight, info.Wind, info.DragIndex)
+		{
+			m_owner = owner;
+			m_game = game;
+			m_info = info;
+			m_shape = shape;
+			m_type = type;
+			m_power = info.Power;
+			m_radius = info.Radii;
+			m_controled = controled;
+			m_bombed = false;
+			m_lifeTime = 0f;
+			m_angle = Math.Abs(angle);
+			m_petRadius = 80;
+			if (m_info.IsSpecial())
+			{
+				digMap = false;
+			}
+			else
+			{
+				digMap = true;
+			}
+		}
+...
+				}
+				if (damage < 0.0)
+				{
+					return 1;
+				}
+				return (int)damage;
+			}
+			return 0;
+		}
+
+		public override void StartMoving()
+		{
+			base.StartMoving();
+			m_actions = new List<BombAction>();
+			m_petActions = new List<BombAction>();
+			_ = m_game.LifeTime;
+			while (m_isMoving && m_isLiving)
+			{
+				m_lifeTime += 0.04f;
+				Point point = CompleteNextMovePoint(0.04f);
+				MoveTo(point.X, point.Y);
+				if (m_isLiving)
+				{
+					if (Math.Round(m_lifeTime * 100f) % 40.0 == 0.0 && point.Y > 0)
+					{
+						m_game.AddTempPoint(point.X, point.Y);
+					}
+					if (m_controled && base.vY > 0f)
+					{
+						Living living = m_map.FindNearestEnemy(m_x, m_y, 150.0, m_owner);
+						if (living != null)
+						{
+							Point point2;
+							if (!(living is SimpleBoss))
+							{
+								point2 = new Point(living.X - m_x, living.Y - m_y);
+							}
+							else
+							{
+								Rectangle dis = living.GetDirectDemageRect();
+								point2 = new Point(dis.X - m_x + 20, dis.Y + dis.Height - m_y);
+							}
+							point2 = point2.Normalize(1000);
+							setSpeedXY(point2.X, point2.Y);
+							UpdateForceFactor(0f, 0f, 0f);
+							m_controled = false;
+							m_actions.Add(new BombAction(m_lifeTime, ActionType.CHANGE_SPEED, point2.X, point2.Y, 0, 0));
+						}
+					}
+				}
+				if (m_bombed)
+				{
+					m_bombed = false;
+					BombImp();
+				}
+			}
+		}
+	}
+
+==================================================================
+== Server: Game.Logic/Phy/Maps/Tile.cs (1-bpp collision bitmap, .map file format)
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Game.Logic/Phy/Maps/Tile.cs
+==================================================================
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Drawing;
+using System.IO;
+
+namespace Game.Logic.Phy.Maps
+{
+    public class Tile
+    {
+        private byte[] _data;
+
+        private int _width;
+
+        private int _height;
+
+        private Rectangle _rect;
+
+
+        public Rectangle Bound
+        {
+            get
+            {
+                return _rect;
+            }
+        }
+
+        public byte[] Data
+        {
+            get { return _data; }
+        }
+
+        public int Width
+        {
+            get { return _width; }
+        }
+
+        public int Height
+        {
+            get { return _height; }
+        }
+
+        private int _bw = 0;
+
+        private int _bh = 0;
+
+        private bool _digable;
+
+        public Tile(byte[] data, int width, int height, bool digable)
+        {
+            _data = data;
+
+            _width = width;
+            _height = height;
+            _digable = digable;
+
+            _bw = _width / 8 + 1;
+            _bh = _height;
+
+            _rect = new Rectangle(0, 0, _width, _height);
+            GC.AddMemoryPressure(data.Length);
+        }
+
+
+        public Tile(Bitmap bitmap, bool digable)
+        {
+            _width = bitmap.Width;
+            _height = bitmap.Height;
+            _bw = _width / 8 + 1;
+            _bh = _height;
+            _data = new byte[_bw * _bh];
+            _digable = digable;
+
+            for (int j = 0; j < bitmap.Height; j++)
+            {
+                for (int i = 0; i < bitmap.Width; i++)
+                {
+                    byte flag = (byte)(bitmap.GetPixel(i, j).A <= 100 ? 0 : 1);
+
+                    _data[j * _bw + i / 8] |= (byte)(flag << (7 - i % 8));
+                }
+            }
+
+            _rect = new Rectangle(0, 0, _width, _height);
+            GC.AddMemoryPressure(_data.Length);
+        }
+
+        public Tile(string file, bool digable)
+        {
+            FileStream fs = File.Open(file, FileMode.Open);
+            BinaryReader reader = new BinaryReader(fs);
+
+            _width = reader.ReadInt32();
+            _height = reader.ReadInt32();
+            _bw = _width / 8 + 1;
+            _bh = _height;
+            _data = reader.ReadBytes(_bw * _bh);
+            _digable = digable;
+            _rect = new Rectangle(0, 0, _width, _height);
+
+            reader.Close();
+            GC.AddMemoryPressure(_data.Length);
+        }
+
+
+
+        public void Dig(int cx, int cy, Tile surface, Tile border)
+        {
+            if (_digable && surface != null)
+            {
+                int x1 = (int)(cx - surface.Width / 2);
+                int y1 = (int)(cy - surface.Height / 2);
+
+                Remove(x1, y1, surface);
+
+                if (border != null)
+                {
+                    x1 = (int)(cx - border.Width / 2);
+                    y1 = (int)(cy - border.Height / 2);
+
+                    Add(x1, y1, surface);
+                }
+            }
+        }
+
+        protected void Add(int x, int y, Tile tile)
+        {
+            //需要重写，原来的逻辑不对，参照Remove
+
+            //
+            //byte[] addData = tile._data;
+
+            //Rectangle rect = tile.Bound;
+
+            //rect.Offset(x, y);
+            //rect.Intersect(_rect);
+            //if (rect.Width != 0 && rect.Height != 0)
+            //{
+            //    rect.Offset(-x, -y);
+
+            //    int cx = rect.X / 8;
+            //    int cx2 = (rect.X + x) / 8;
+
+            //    int cy = rect.Y;
+            //    int cw = (int)Math.Floor((double)rect.Width / 8);
+            //    int ch = rect.Height;
+
+            //    int b_offset = rect.X % 8;
+
+            //    int self_offset = 0;
+            //    int tile_offset = 0;
+
+            //    Int32 r_bits = 0;
+            //    Int32 l_bits = 0;
+
+            //    int src = 0;
+            //    int target = 0;
+            //    for (int j = 0; j < ch; j++)
+            //    {
+            //        r_bits = 0;
+            //        l_bits = 0;
+            //        for (int i = 0; i < cw; i++)
+            //        {
+            //            self_offset = (j + y + cy) * _bw + i + cx2;
+            //            tile_offset = (j + cy) * tile._bw + i + cx;
+
+            //            src = addData[tile_offset];
+
+            //            r_bits = src >> b_offset;
+
+            //            _data[self_offset] |= (byte)r_bits;
+            //            _data[self_offset] |= (byte)l_bits;
+
+            //            l_bits = src << 8 - b_offset;
+            //        }
+            //    }
+            //}
+        }
+
+        protected void Remove(int x, int y, Tile tile)
+        {
+            byte[] addData = tile._data;
+
+            Rectangle rect = tile.Bound;
+
+            rect.Offset(x, y);
+            rect.Intersect(_rect);
+            if (rect.Width != 0 && rect.Height != 0)
+            {
+                rect.Offset(-x, -y);
+
+                int cx = rect.X / 8;
+                int cx2 = (rect.X + x) / 8;
+
+                int cy = rect.Y;
+
+                //Tile中n列可以对src中n+1列产生影响,所以cw+1,防止溢出,过滤一下.
+                int cw = rect.Width / 8 + 1;
+                int ch = rect.Height;
+
+                if (rect.X == 0)
+                {
+                    if (cw + cx2 < _bw)
+                    {
+                        cw++;
+                        cw = cw > tile._bw ? tile._bw : cw;
+                    }
+                    int b_offset = (rect.X + x) % 8;
+
+                    int self_offset = 0;
+                    int tile_offset = 0;
+
+                    Int32 r_bits = 0;
+                    Int32 l_bits = 0;
+
+                    int src = 0;
+                    int target = 0;
+                    for (int j = 0; j < ch; j++)
+                    {
+                        r_bits = 0;
+                        l_bits = 0;
+                        for (int i = 0; i < cw; i++)
+                        {
+                            self_offset = (j + y + cy) * _bw + i + cx2;
+                            tile_offset = (j + cy) * tile._bw + i + cx;
+
+                            src = addData[tile_offset];
+
+                            r_bits = src >> b_offset;
+
+                            target = _data[self_offset];
+                            //把target中src为1的位设置位0.
+                            target &= ~(target & r_bits);
+                            if (l_bits != 0)
+                            {
+                                target &= ~(target & l_bits);
+                            }
+                            _data[self_offset] = (byte)target;
+                            l_bits = src << 8 - b_offset;
+                        }
+                    }
+                }
+                else
+                {
+                    int b_offset = rect.X % 8;
+
+                    int self_offset = 0;
+                    int tile_offset = 0;
+
+                    Int32 r_bits = 0;
+                    Int32 l_bits = 0;
+
+                    int src = 0;
+                    int target = 0;
+                    for (int j = 0; j < ch; j++)
+                    {
+                        r_bits = 0;
+                        l_bits = 0;
+                        for (int i = 0; i < cw; i++)
+                        {
+                            self_offset = (j + y + cy) * _bw + i + cx2;
+                            tile_offset = (j + cy) * tile._bw + i + cx;
+
+                            src = addData[tile_offset];
+                            l_bits = src << b_offset;
+                            if (i < cw - 1)
+                            {
+                                src = addData[tile_offset + 1];
+                                r_bits = src >> (8 - b_offset);
+                            }
+                            else
+                            {
+                                r_bits = 0;
+                            }
+                            target = _data[self_offset];
+                            target &= ~(target & l_bits);
+                            if (r_bits != 0)
+                            {
+                                target &= ~(target & r_bits);
+                            }
+                            _data[self_offset] = (byte)target;
+                        }
+                    }
+                }
+            }
+        }
+
+        public bool IsEmpty(int x, int y)
+        {
+            if (x >= 0 && x < _width && y >= 0 && y < _height)
+            {
+                byte flag = (byte)(0x01 << (7 - x % 8));
+
+                return (_data[y * _bw + x / 8] & flag) == 0;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool IsYLineEmtpy(int x, int y, int h)
+        {
+            if (x >= 0 && x < _width)
+            {
+                y = y < 0 ? 0 : y;
+                h = y + h > _height ? _height - y : h;
+
+                for (int i = 0; i < h; i++)
+                {
+                    if (!IsEmpty(x, y + i)) return false;
+                }
+                return true;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool IsRectangleEmptyQuick(Rectangle rect)
+        {
+            rect.Intersect(_rect);
+            if (IsEmpty(rect.Right, rect.Bottom) && IsEmpty(rect.Left, rect.Bottom) && IsEmpty(rect.Right, rect.Top) && IsEmpty(rect.Left, rect.Top)) return true;
+            return false;
+        }
+
+        public Point FindNotEmptyPoint(int x, int y, int h)
+        {
+            if (x >= 0 && x < _width)
+            {
+                y = y < 0 ? 0 : y;
+                h = y + h > _height ? _height - y : h;
+
+                for (int i = 0; i < h; i++)
+                {
+                    if (!IsEmpty(x, y + i)) return new Point(x, y + i);
+                }
+                return new Point(-1, -1);
+            }
+            else
+            {
+                return new Point(-1, -1);
+            }
+        }
+
+        public Bitmap ToBitmap()
+        {
+            Bitmap bitmap = new Bitmap(_width, _height);
+
+            for (int j = 0; j < _height; j++)
+            {
+                for (int i = 0; i < _width; i++)
+                {
+                    if (IsEmpty(i, j))
+                    {
+                        bitmap.SetPixel(i, j, Color.FromArgb(0, 0, 0, 0));
+                    }
+                    else
+                    {
+                        bitmap.SetPixel(i, j, Color.FromArgb(255, 0, 0, 0));
+                    }
+                }
+            }
+            return bitmap;
+        }
+
+        public Tile Clone()
+        {
+            return new Tile(_data.Clone() as byte[], _width, _height, _digable);
+        }
+    }
+}
+==================================================================
+== Server: Game.Logic/Phy/Maps/Map.cs (lines 1-120)
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Game.Logic/Phy/Maps/Map.cs
+==================================================================
+using Game.Logic.Phy.Object;
+using SqlDataProvider.Data;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+
+namespace Game.Logic.Phy.Maps
+{
+	public class Map
+	{
+		private MapInfo mapInfo_0;
+
+		private float float_0;
+
+		private HashSet<Physics> hashSet_0;
+
+		protected Tile _layer1;
+
+		protected Tile _layer2;
+
+		protected Rectangle _bound;
+
+		private Random random_0;
+
+		public float wind
+		{
+			get
+			{
+				return float_0;
+			}
+			set
+			{
+				float_0 = value;
+			}
+		}
+
+		public float gravity => mapInfo_0.Weight;
+
+		public float airResistance => mapInfo_0.DragIndex;
+
+		public Tile Ground => _layer1;
+
+		public Tile DeadTile => _layer2;
+
+		public MapInfo Info => mapInfo_0;
+
+		public Rectangle Bound => _bound;
+
+		public Map(MapInfo info, Tile layer1, Tile layer2)
+		{
+			mapInfo_0 = info;
+			hashSet_0 = new HashSet<Physics>();
+			random_0 = new Random();
+			_layer1 = layer1;
+			_layer2 = layer2;
+			if (_layer1 != null)
+			{
+				_bound = new Rectangle(0, 0, _layer1.Width, _layer1.Height);
+			}
+			else
+			{
+				_bound = new Rectangle(0, 0, _layer2.Width, _layer2.Height);
+			}
+		}
+
+		public void Dig(int cx, int cy, Tile surface, Tile border)
+		{
+			if (_layer1 != null)
+			{
+				_layer1.Dig(cx, cy, surface, border);
+			}
+			if (_layer2 != null)
+			{
+				_layer2.Dig(cx, cy, surface, border);
+			}
+		}
+
+		public bool IsEmpty(int x, int y)
+		{
+			if (_layer1 != null && !_layer1.IsEmpty(x, y))
+			{
+				return false;
+			}
+			if (_layer2 != null)
+			{
+				return _layer2.IsEmpty(x, y);
+			}
+			return true;
+		}
+
+		public bool IsRectangleEmpty(Rectangle rect)
+		{
+			if (_layer1 != null && !_layer1.IsRectangleEmptyQuick(rect))
+			{
+				return false;
+			}
+			if (_layer2 != null)
+			{
+				return _layer2.IsRectangleEmptyQuick(rect);
+			}
+			return true;
+		}
+
+		public Point FindYLineNotEmptyPointDown(int x, int y, int h)
+		{
+			x = ((x >= 0) ? ((x >= _bound.Width) ? (_bound.Width - 1) : x) : 0);
+			y = ((y >= 0) ? y : 0);
+			h = ((y + h >= _bound.Height) ? (_bound.Height - y - 1) : h);
+			int num = 0;
+			while (true)
+			{
+				if (num < h)
+				{
+					if (!IsEmpty(x - 1, y) || !IsEmpty(x + 1, y))
+					{
+						break;
+					}
+					y++;
+					num++;
+					continue;
+
+==================================================================
+== Server: MapMgr.cs LoadMap (lines 200-285)
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Game.Logic/MapMgr.cs
+==================================================================
+        }
+
+        public static bool LoadMap(Dictionary<int, MapPoint> maps, Dictionary<int, Map> mapInfos)
+        {
+			try
+			{
+				MapInfo[] allMap = new MapBussiness().GetAllMap();
+				MapInfo[] array2 = allMap;
+				foreach (MapInfo info in array2)
+				{
+					if (string.IsNullOrEmpty(info.PosX))
+					{
+						continue;
+					}
+					if (!maps.Keys.Contains(info.ID))
+					{
+						string[] strArray = info.PosX.Split('|');
+						string[] strArray2 = info.PosX1.Split('|');
+						MapPoint point = new MapPoint();
+						string[] array = strArray;
+						string[] array3 = array;
+						foreach (string str in array3)
+						{
+							if (!string.IsNullOrEmpty(str.Trim()))
+							{
+								string[] strArray3 = str.Split(',');
+								point.PosX.Add(new Point(int.Parse(strArray3[0]), int.Parse(strArray3[1])));
+							}
+						}
+						array = strArray2;
+						string[] array4 = array;
+						foreach (string str2 in array4)
+						{
+							if (!string.IsNullOrEmpty(str2.Trim()))
+							{
+								string[] strArray4 = str2.Split(',');
+								point.PosX1.Add(new Point(int.Parse(strArray4[0]), int.Parse(strArray4[1])));
+							}
+						}
+						maps.Add(info.ID, point);
+					}
+					if (!mapInfos.ContainsKey(info.ID))
+					{
+						Tile tile = null;
+						string path = $"map\\{info.ID}\\fore.map";
+						if (File.Exists(path))
+						{
+							tile = new Tile(path, digable: true);
+						}
+						Tile tile2 = null;
+						path = $"map\\{info.ID}\\dead.map";
+						if (File.Exists(path))
+						{
+							tile2 = new Tile(path, digable: false);
+						}
+						if (tile != null || tile2 != null)
+						{
+							mapInfos.Add(info.ID, new Map(info, tile, tile2));
+						}
+						else if (log.IsErrorEnabled)
+						{
+							log.Error("Map's file" + info.ID + " is not exist!");
+						}
+					}
+				}
+				if (maps.Count == 0 || mapInfos.Count == 0)
+				{
+					if (log.IsErrorEnabled)
+					{
+						log.Error("maps:" + maps.Count + ",mapInfos:" + mapInfos.Count);
+					}
+					return false;
+				}
+			}
+			catch (Exception exception)
+			{
+				if (log.IsErrorEnabled)
+				{
+					log.Error("MapMgr", exception);
+				}
+				return false;
+			}
+			return true;
+        }
+
+        public static bool ReLoadMap()
+
+==================================================================
+== Server: BaseGame.GetNextWind (lines 1460-1490)
+== Source: https://github.com/pnkl1999/DDTank41/blob/main/Game.Logic/BaseGame.cs
+==================================================================
+			return num;
+		}
+
+		public float GetNextWind()
+		{
+			if (FrozenWind)
+			{
+				return 0f;
+			}
+			int num = (int)(Wind * 10f);
+			int num2;
+			if (num > m_nextWind)
+			{
+				num2 = num - m_random.Next(11);
+				if (num <= m_nextWind)
+				{
+					m_nextWind = m_random.Next(-40, 40);
+				}
+			}
+			else
+			{
+				num2 = num + m_random.Next(11);
+				if (num >= m_nextWind)
+				{
+					m_nextWind = m_random.Next(-40, 40);
+				}
+			}
+			return (float)num2 / 10f;
+		}
+
+		public Player GetNoHolePlayerRandom()
+
+==================================================================
+== Server: SqlDataProvider BallInfo.cs
+== Source: https://github.com/zsj0613/DDTServer/blob/master/Common/SqlDataProvider/SqlDataProvider.Data/BallInfo.cs
+==================================================================
+using System;
+namespace SqlDataProvider.Data
+{
+	public class BallInfo
+	{
+		public int ID
+		{
+			get;
+			set;
+		}
+		public string Name
+		{
+			get;
+			set;
+		}
+		public double Power
+		{
+			get;
+			set;
+		}
+		public int Radii
+		{
+			get;
+			set;
+		}
+		public int Amount
+		{
+			get;
+			set;
+		}
+		public string FlyingPartical
+		{
+			get;
+			set;
+		}
+		public string BombPartical
+		{
+			get;
+			set;
+		}
+		public bool IsSpin
+		{
+			get;
+			set;
+		}
+		public int Mass
+		{
+			get;
+			set;
+		}
+		public double SpinVA
+		{
+			get;
+			set;
+		}
+		public int SpinV
+		{
+			get;
+			set;
+		}
+		public int Wind
+		{
+			get;
+			set;
+		}
+		public int DragIndex
+		{
+			get;
+			set;
+		}
+		public int Weight
+		{
+			get;
+			set;
+		}
+		public bool Shake
+		{
+			get;
+			set;
+		}
+		public int Delay
+		{
+			get;
+			set;
+		}
+		public string ShootSound
+		{
+			get;
+			set;
+		}
+		public string BombSound
+		{
+			get;
+			set;
+		}
+		public int ActionType
+		{
+			get;
+			set;
+		}
+		public bool HasTunnel
+		{
+			get;
+			set;
+		}
+	}
+}

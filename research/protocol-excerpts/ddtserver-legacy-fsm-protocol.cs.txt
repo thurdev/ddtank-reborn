@@ -1,0 +1,1387 @@
+# DDTank 2.x-era (older) protocol variant: FSM-keystream XOR - RAW excerpts
+# Repo: https://github.com/zsj0613/DDTServer (no license, last push 2020-05). Fetched 2026-10-01.
+
+==================================================================
+== FSM.cs
+== Source: https://github.com/zsj0613/DDTServer/blob/master/Common/Game.Base/Game.Base.Packets/FSM.cs
+==================================================================
+using System;
+namespace Game.Base.Packets
+{
+	public class FSM
+	{
+		private int _adder;
+		private int _mulitper;
+		private int _state;
+		public int count;
+		public string name;
+		public int getState()
+		{
+			return this._state;
+		}
+		public int getAdder()
+		{
+			return this._adder;
+		}
+		public int getMulitper()
+		{
+			return this._mulitper;
+		}
+		public FSM(int adder, int mulitper, string objname)
+		{
+			this.name = objname;
+			this.count = 0;
+			this._adder = adder;
+			this._mulitper = mulitper;
+			this.UpdateState();
+		}
+		public void Setup(int adder, int mulitper)
+		{
+			this._adder = adder;
+			this._mulitper = mulitper;
+			this.UpdateState();
+		}
+		public int UpdateState()
+		{
+			this._state = (~this._state + this._adder) * this._mulitper;
+			this._state ^= this._state >> 16;
+			this.count++;
+			return this._state;
+		}
+	}
+}
+
+==================================================================
+== StreamProcessor.cs
+== Source: https://github.com/zsj0613/DDTServer/blob/master/Common/Game.Base/Game.Base.Packets/StreamProcessor.cs
+==================================================================
+
+using Lsj.Util.Logs;
+using System;
+using System.Collections;
+using System.Net.Sockets;
+using System.Reflection;
+using System.Threading;
+namespace Game.Base.Packets
+{
+	public class StreamProcessor : IStreamProcessor
+	{
+        static LogProvider log => LogProvider.Default;
+		protected readonly BaseClient m_client;
+		private FSM send_fsm;
+		private FSM receive_fsm;
+		private SocketAsyncEventArgs send_event;
+		protected byte[] m_tcpSendBuffer;
+		protected Queue m_tcpQueue;
+		protected bool m_sendingTcp;
+		protected int m_firstPkgOffset = 0;
+		private int m_lastSent = 0;
+		public StreamProcessor(BaseClient client)
+		{
+			this.m_client = client;
+			this.m_tcpSendBuffer = client.SendBuffer;
+			this.m_tcpQueue = new Queue(256);
+			this.send_event = new SocketAsyncEventArgs();
+			this.send_event.UserToken = this;
+			this.send_event.Completed += new EventHandler<SocketAsyncEventArgs>(StreamProcessor.AsyncTcpSendCallback);
+			this.send_event.SetBuffer(this.m_tcpSendBuffer, 0, 0);
+			this.send_fsm = new FSM(2059198199, 1501, "send_fsm");
+			this.receive_fsm = new FSM(2059198199, 1501, "receive_fsm");
+		}
+		public void SetFsm(int adder, int muliter)
+		{
+			this.send_fsm.Setup(adder, muliter);
+			this.receive_fsm.Setup(adder, muliter);
+		}
+		public void SendTCP(GSPacketIn packet)
+		{
+			if (packet.Length > packet.Buffer.Length)
+			{
+				throw new Exception(Marshal.ToHexDump(string.Format("Error package:  buffer:{0}     length:{1}", packet.Buffer.Length, packet.Length), packet.Buffer, 0, (packet.Buffer.Length > 128) ? 128 : packet.Buffer.Length));
+			}
+			packet.WriteHeader();
+			packet.Offset = 0;
+			if (this.m_client.Socket.Connected)
+			{
+				try
+				{
+					Statistics.BytesOut += (long)packet.Length;
+					Statistics.PacketsOut += 1L;
+					
+					object syncRoot;
+					Monitor.Enter(syncRoot = this.m_tcpQueue.SyncRoot);
+					try
+					{
+						this.m_tcpQueue.Enqueue(packet);
+						if (this.m_sendingTcp)
+						{
+							return;
+						}
+						this.m_sendingTcp = true;
+					}
+					finally
+					{
+						Monitor.Exit(syncRoot);
+					}
+					this.m_firstPkgOffset = 0;
+					if (this.m_client.AsyncPostSend)
+					{
+						ThreadPool.QueueUserWorkItem(new WaitCallback(StreamProcessor.AsyncSendTcpImp), this);
+					}
+					else
+					{
+						StreamProcessor.AsyncTcpSendCallback(this, this.send_event);
+					}
+				}
+				catch (Exception e)
+				{
+					StreamProcessor.log.Error("SendTCP", e);
+					StreamProcessor.log.WarnFormat("It seems <{0}> went linkdead. Closing connection. (SendTCP, {1}: {2})", this.m_client, e.GetType(), e.Message);
+					this.m_client.Disconnect();
+				}
+			}
+		}
+		private static void AsyncSendTcpImp(object state)
+		{
+			StreamProcessor proc = state as StreamProcessor;
+			BaseClient client = proc.m_client;
+			try
+			{
+				StreamProcessor.AsyncTcpSendCallback(proc, proc.send_event);
+			}
+			catch (Exception ex)
+			{
+				StreamProcessor.log.Error("AsyncSendTcpImp", ex);
+				client.Disconnect();
+			}
+		}
+		private static void AsyncTcpSendCallback(object sender, SocketAsyncEventArgs e)
+		{
+			StreamProcessor proc = (StreamProcessor)e.UserToken;
+			BaseClient client = proc.m_client;
+			Queue q = proc.m_tcpQueue;
+			if (q != null && client.Socket.Connected)
+			{
+				int plen = 0;
+				int blen = 0;
+				int count = 0;
+				int firstOffset = 0;
+				int sent = e.BytesTransferred;
+				byte[] data = proc.m_tcpSendBuffer;
+				try
+				{
+					if (e.Count != 0 && e.Count != sent && e.SocketError == SocketError.Success)
+					{
+						if (e.Count > sent)
+						{
+							count = e.Count - sent;
+							Array.Copy(data, sent, data, 0, count);
+						}
+					}
+					proc.m_lastSent = e.BytesTransferred;
+					e.SetBuffer(0, 0);
+					object syncRoot;
+					Monitor.Enter(syncRoot = q.SyncRoot);
+					try
+					{
+						firstOffset = proc.m_firstPkgOffset;
+						if (q.Count > 0)
+						{
+							do
+							{
+								PacketIn pak = (PacketIn)q.Peek();
+								plen = pak.Length;
+								blen = pak.Buffer.Length;
+								int len;
+								if (client.Encryted)
+								{
+									int key = proc.send_fsm.getState();
+									len = pak.CopyTo(data, count, firstOffset, key + firstOffset);
+								}
+								else
+								{
+									len = pak.CopyTo(data, count, firstOffset);
+								}
+								firstOffset += len;
+								count += len;
+								if (pak.Length <= firstOffset)
+								{
+									q.Dequeue();
+									firstOffset = 0;
+									if (client.Encryted)
+									{
+										proc.send_fsm.UpdateState();
+									}
+								}
+								if (data.Length == count)
+								{
+									break;
+								}
+							}
+							while (q.Count > 0);
+						}
+						proc.m_firstPkgOffset = firstOffset;
+						if (count <= 0)
+						{
+							proc.m_sendingTcp = false;
+							return;
+						}
+					}
+					finally
+					{
+						Monitor.Exit(syncRoot);
+					}
+					e.SetBuffer(0, count);
+					e.SocketError = SocketError.SocketError;
+					int start = Environment.TickCount;
+					//if (StreamProcessor.log.IsDebugEnabled)
+					//{
+						//StreamProcessor.log.Debug(string.Format("Send To ({0}) {1} bytes", client.TcpEndpoint, e.Count));
+					//}
+					if (!client.Socket.SendAsync(e))
+					{
+						e.SetBuffer(0, 0);
+						StreamProcessor.AsyncTcpSendCallback(sender, e);
+					}
+					int took = Environment.TickCount - start;
+					if (took > 100)
+					{
+						StreamProcessor.log.WarnFormat("AsyncTcpSendCallback.BeginSend took {0}ms! (TCP to client: {1})", took, client.TcpEndpoint);
+					}
+				}
+				catch (Exception ex)
+				{
+					StreamProcessor.log.Error("AsyncTcpSendCallback", ex);
+					StreamProcessor.log.ErrorFormat("First_offset:{0},Count:{1},data:{2},package len:{3} buffer len:{4}", new object[]
+					{
+						firstOffset,
+						count,
+						data.Length,
+						plen,
+						blen
+					});
+					StreamProcessor.log.WarnFormat("It seems <{0}> went linkdead. Closing connection. (SendTCP, {1}: {2})", client, ex.GetType(), ex.Message);
+					client.Disconnect();
+				}
+			}
+		}
+		public void ReceiveBytes(int numBytes)
+		{
+			Monitor.Enter(this);
+			try
+			{
+				int bufferSize = this.m_client.PacketBufSize + numBytes;
+				if (bufferSize < (int)GSPacketIn.HDR_SIZE)
+				{
+					this.m_client.PacketBufSize = bufferSize;
+				}
+				else
+				{
+					byte[] buffer = this.m_client.PacketBuf;
+					if (bufferSize > buffer.Length)
+					{
+						StreamProcessor.log.ErrorFormat("Error Buffersize: num {0}   buffersize:{1}  old buffer size:{2} buffer length:{3}", new object[]
+						{
+							numBytes,
+							bufferSize,
+							this.m_client.PacketBufSize,
+							buffer.Length
+						});
+						bufferSize = buffer.Length;
+					}
+					this.m_client.PacketBufSize = 0;
+					int curOffset = 0;
+					int dataleft = bufferSize;
+					while (dataleft >= (int)GSPacketIn.HDR_SIZE && curOffset >= 0)
+					{
+						int packetLength = 0;
+						if (this.m_client.Encryted)
+						{
+							int key = this.receive_fsm.getState();
+							int i = this.receive_fsm.count;
+							while (curOffset + 4 <= bufferSize)
+							{
+								int header = ((int)((byte)((int)buffer[curOffset] ^ (key++ & 16711680) >> 16)) << 8) + (int)((byte)((int)buffer[curOffset + 1] ^ (key++ & 16711680) >> 16));
+								if (header == (int)GSPacketIn.HEADER)
+								{
+									packetLength = ((int)((byte)((int)buffer[curOffset + 2] ^ (key++ & 16711680) >> 16)) << 8) + (int)((byte)((int)buffer[curOffset + 3] ^ (key++ & 16711680) >> 16));
+									break;
+								}
+								curOffset++;
+							}
+						}
+						else
+						{
+							while (curOffset + 4 <= bufferSize)
+							{
+								int header = ((int)buffer[curOffset] << 8) + (int)buffer[curOffset + 1];
+								if (header == (int)GSPacketIn.HEADER)
+								{
+									packetLength = ((int)buffer[curOffset + 2] << 8) + (int)buffer[curOffset + 3];
+									break;
+								}
+								curOffset++;
+							}
+						}
+						dataleft = bufferSize - curOffset;
+						if (packetLength < (int)GSPacketIn.HDR_SIZE || packetLength > buffer.Length)
+						{
+							StreamProcessor.log.Error(string.Concat(new object[]
+							{
+								"packetLength:",
+								packetLength,
+								",GSPacketIn.HDR_SIZE:",
+								GSPacketIn.HDR_SIZE,
+								",offset:",
+								curOffset,
+								",bufferSize:",
+								bufferSize,
+								",numBytes:",
+								numBytes
+							}));
+							StreamProcessor.log.ErrorFormat("Err pkg from {0}:", this.m_client.TcpEndpoint);
+							StreamProcessor.log.Error(Marshal.ToHexDump("===> error buffer", buffer, curOffset, (dataleft > 48) ? 48 : dataleft));
+							if (this.m_client.Strict && packetLength != 0)
+							{
+								StreamProcessor.log.Error("Disconnect the client in [Strict] mode.");
+								this.m_client.PacketBufSize = 0;
+								this.m_client.Disconnect();
+								return;
+							}
+							curOffset += 2;
+							dataleft = bufferSize - curOffset;
+						}
+						else
+						{
+							if (dataleft < packetLength)
+							{
+								break;
+							}
+							int size = (packetLength <= 1024) ? 1024 : packetLength;
+							GSPacketIn pkg = new GSPacketIn(new byte[size], size);
+							if (this.m_client.Encryted)
+							{
+								pkg.CopyFrom(buffer, curOffset, 0, packetLength, this.receive_fsm.getState());
+								this.receive_fsm.UpdateState();
+							}
+							else
+							{
+								pkg.CopyFrom(buffer, curOffset, 0, packetLength);
+							}
+							pkg.ReadHeader();
+							if (pkg.CheckSum == pkg.CalculateChecksum())
+							{
+								pkg.ClearChecksum();
+								//if (StreamProcessor.log.IsDebugEnabled)
+								//{
+									//StreamProcessor.log.Debug(Marshal.ToHexDump("Recieve Packet:", pkg.Buffer, 0, packetLength));
+								//}
+								try
+								{
+                                    //StreamProcessor.log.Debug("Receive Packet!");
+									this.m_client.OnRecvPacket(pkg);
+								}
+								catch (Exception e)
+								{
+									StreamProcessor.log.Error("HandlePacket(pak)", e);
+									
+								}
+								curOffset += packetLength;
+								dataleft = bufferSize - curOffset;
+							}
+							else
+							{
+								curOffset += 2;
+								dataleft = bufferSize - curOffset;
+							}
+						}
+					}
+					if (dataleft > 0)
+					{
+						Array.Copy(buffer, curOffset, buffer, 0, dataleft);
+						this.m_client.PacketBufSize = dataleft;
+					}
+				}
+			}
+			finally
+			{
+				Monitor.Exit(this);
+			}
+		}
+		public void Dispose()
+		{
+			this.send_event.Dispose();
+			this.m_tcpQueue.Clear();
+		}
+	}
+}
+==================================================================
+== GSPacketIn.cs
+== Source: https://github.com/zsj0613/DDTServer/blob/master/Common/Game.Base/Game.Base.Packets/GSPacketIn.cs
+==================================================================
+
+using System;
+using System.Reflection;
+using System.Threading;
+namespace Game.Base.Packets
+{
+	public class GSPacketIn : PacketIn
+	{
+
+		public static readonly ushort HDR_SIZE = 20;
+		public static readonly short HEADER = 29099;
+		protected short m_checksum;
+		protected short m_code;
+		protected int m_cliendId;
+		protected int m_parameter1;
+		protected int m_parameter2;
+		public short CheckSum
+		{
+			get
+			{
+				return this.m_checksum;
+			}
+		}
+		public short Code
+		{
+			get
+			{
+				return this.m_code;
+			}
+			set
+			{
+				this.m_code = value;
+			}
+		}
+		public int ClientID
+		{
+			get
+			{
+				return this.m_cliendId;
+			}
+			set
+			{
+				if (value != this.m_cliendId)
+				{
+					this.m_cliendId = value;
+					this.ClearChecksum();
+				}
+			}
+		}
+		public int Parameter1
+		{
+			get
+			{
+				return this.m_parameter1;
+			}
+			set
+			{
+				if (value != this.m_parameter1)
+				{
+					this.m_parameter1 = value;
+					this.ClearChecksum();
+				}
+			}
+		}
+		public int Parameter2
+		{
+			get
+			{
+				return this.m_parameter2;
+			}
+			set
+			{
+				if (value != this.m_parameter2)
+				{
+					this.m_parameter2 = value;
+					this.ClearChecksum();
+				}
+			}
+		}
+		public GSPacketIn(byte[] buf, int len) : base(buf, len)
+		{
+		}
+		public GSPacketIn(short code, int clientId, int size) : base(new byte[size], (int)GSPacketIn.HDR_SIZE)
+		{
+			this.m_code = code;
+			this.m_cliendId = clientId;
+			this.m_offset = (int)GSPacketIn.HDR_SIZE;
+		}
+		public GSPacketIn(short code) : this(code, 0, 2048)
+		{
+		}
+		public GSPacketIn(short code, int clientId) : this(code, clientId, 2048)
+		{
+		}
+		public void ReadHeader()
+		{
+			Monitor.Enter(this);
+			try
+			{
+				this.m_offset = 0;
+				this.ReadShort();
+				this.m_length = (int)this.ReadShort();
+				this.m_checksum = this.ReadShort();
+				this.m_code = this.ReadShort();
+				this.m_cliendId = this.ReadInt();
+				this.m_parameter1 = this.ReadInt();
+				this.m_parameter2 = this.ReadInt();
+			}
+			finally
+			{
+				Monitor.Exit(this);
+			}
+		}
+		public void WriteHeader()
+		{
+			Monitor.Enter(this);
+			try
+			{
+				int old = this.m_offset;
+				this.m_offset = 0;
+				base.WriteShort(GSPacketIn.HEADER);
+				base.WriteShort((short)this.m_length);
+				this.m_offset = 6;
+				base.WriteShort(this.m_code);
+				base.WriteInt(this.m_cliendId);
+				base.WriteInt(this.m_parameter1);
+				base.WriteInt(this.m_parameter2);
+				if (this.m_checksum == 0)
+				{
+					this.m_checksum = this.CalculateChecksum();
+				}
+				this.m_offset = 4;
+				base.WriteShort(this.m_checksum);
+				this.m_offset = old;
+			}
+			finally
+			{
+				Monitor.Exit(this);
+			}
+		}
+		public void ClearChecksum()
+		{
+			this.m_checksum = 0;
+		}
+		public short CalculateChecksum()
+		{
+			byte[] pak = this.m_buffer;
+			int val = 119;
+			int i = 6;
+			int len = this.m_length;
+			while (i < len)
+			{
+				val += (int)pak[i++];
+			}
+			return (short)(val & 32639);
+		}
+		public void WritePacket(GSPacketIn content)
+		{
+			content.WriteHeader();
+			this.WriteShort((short)content.Length);
+			this.WriteShort(0);
+			this.Write(content.Buffer, 2, content.Length - 2);
+		}
+		public GSPacketIn ReadPacket()
+		{
+			int length = (int)this.ReadShort();
+			byte[] data = this.ReadBytes(length);
+			data[0] = 113;
+			data[1] = 171;
+			GSPacketIn content = new GSPacketIn(data, length);
+			content.ReadHeader();
+			if (content.Length != length)
+			{
+				throw new Exception(string.Format("Error packet in ReadPacket,data length didn't equal packet length, data:{0}, packet:{1}", length, content.Length));
+			}
+			return content;
+		}
+		public void Compress()
+		{
+			byte[] temp = Marshal.Compress(this.m_buffer, (int)GSPacketIn.HDR_SIZE, base.Length - (int)GSPacketIn.HDR_SIZE);
+			this.m_offset = (int)GSPacketIn.HDR_SIZE;
+			this.Write(temp);
+			this.m_length = temp.Length + (int)GSPacketIn.HDR_SIZE;
+		}
+		public void UnCompress()
+		{
+		}
+		public void ClearContext()
+		{
+			this.m_offset = (int)GSPacketIn.HDR_SIZE;
+			this.m_length = (int)GSPacketIn.HDR_SIZE;
+			this.m_checksum = 0;
+		}
+		public GSPacketIn Clone()
+		{
+			GSPacketIn pkg = new GSPacketIn(this.m_buffer, this.m_length);
+			pkg.ReadHeader();
+			pkg.Offset = this.m_length;
+			pkg.ClearChecksum();
+			return pkg;
+		}
+	}
+}
+
+==================================================================
+== PacketIn.cs
+== Source: https://github.com/zsj0613/DDTServer/blob/master/Common/Game.Base/Game.Base/PacketIn.cs
+==================================================================
+using System;
+using System.Text;
+namespace Game.Base
+{
+	public class PacketIn
+	{
+		protected byte[] m_buffer;
+		protected int m_length;
+		protected int m_offset;
+		public byte[] Buffer
+		{
+			get
+			{
+				return this.m_buffer;
+			}
+		}
+		public int Length
+		{
+			get
+			{
+				return this.m_length;
+			}
+		}
+		public int Offset
+		{
+			get
+			{
+				return this.m_offset;
+			}
+			set
+			{
+				this.m_offset = value;
+			}
+		}
+		public int DataLeft
+		{
+			get
+			{
+				return this.m_length - this.m_offset;
+			}
+		}
+		public PacketIn(byte[] buf, int len)
+		{
+			this.m_buffer = buf;
+			this.m_length = ((len > this.m_buffer.Length) ? this.m_buffer.Length : len);
+			this.m_offset = 0;
+		}
+		public void Skip(int num)
+		{
+			this.m_offset += num;
+		}
+		public virtual bool ReadBoolean()
+		{
+			return this.m_buffer[this.m_offset++] != 0;
+		}
+		public virtual byte ReadByte()
+		{
+			return this.m_buffer[this.m_offset++];
+		}
+		public virtual short ReadShort()
+		{
+			byte v = this.ReadByte();
+			byte v2 = this.ReadByte();
+			return Marshal.ConvertToInt16(v, v2);
+		}
+		public virtual short ReadShortLowEndian()
+		{
+			byte v = this.ReadByte();
+			byte v2 = this.ReadByte();
+			return Marshal.ConvertToInt16(v2, v);
+		}
+		public virtual int ReadInt()
+		{
+			byte v = this.ReadByte();
+			byte v2 = this.ReadByte();
+			byte v3 = this.ReadByte();
+			byte v4 = this.ReadByte();
+			return Marshal.ConvertToInt32(v, v2, v3, v4);
+		}
+
+        public virtual uint ReadUInt()
+        {
+            byte v = this.ReadByte();
+            byte v2 = this.ReadByte();
+            byte v3 = this.ReadByte();
+            byte v4 = this.ReadByte();
+            return Marshal.ConvertToUInt32(v, v2, v3, v4);
+        }
+
+        public virtual long ReadLong()
+        {
+            int v = this.ReadInt();
+            uint v2 = this.ReadUInt();
+            return Marshal.ConvertToInt64(v, v2);
+        }
+
+        public virtual float ReadFloat()
+		{
+			byte[] v = new byte[4];
+			for (int i = 0; i < v.Length; i++)
+			{
+				v[i] = this.ReadByte();
+			}
+			return BitConverter.ToSingle(v, 0);
+		}
+		public virtual double ReadDouble()
+		{
+			byte[] v = new byte[8];
+			for (int i = 0; i < v.Length; i++)
+			{
+				v[i] = this.ReadByte();
+			}
+			return BitConverter.ToDouble(v, 0);
+		}
+		public virtual string ReadString()
+		{
+			short len = this.ReadShort();
+			string temp = Encoding.UTF8.GetString(this.m_buffer, this.m_offset, (int)len);
+			this.m_offset += (int)len;
+			return temp.Replace("\0", "");
+		}
+		public virtual byte[] ReadBytes(int maxLen)
+		{
+			byte[] data = new byte[maxLen];
+			Array.Copy(this.m_buffer, this.m_offset, data, 0, maxLen);
+			this.m_offset += maxLen;
+			return data;
+		}
+		public virtual byte[] ReadBytes()
+		{
+			return this.ReadBytes(this.m_length - this.m_offset);
+		}
+
+		public DateTime ReadDateTime()
+		{
+			return new DateTime((int)this.ReadShort(), (int)this.ReadByte(), (int)this.ReadByte(), (int)this.ReadByte(), (int)this.ReadByte(), (int)this.ReadByte());
+		}
+		public virtual int CopyTo(byte[] dst, int dstOffset, int offset)
+		{
+			int len = (this.m_length - offset < dst.Length - dstOffset) ? (this.m_length - offset) : (dst.Length - dstOffset);
+			if (len > 0)
+			{
+				System.Buffer.BlockCopy(this.m_buffer, offset, dst, dstOffset, len);
+			}
+			return len;
+		}
+		public virtual int CopyTo(byte[] dst, int dstOffset, int offset, int key)
+		{
+			int len = (this.m_length - offset < dst.Length - dstOffset) ? (this.m_length - offset) : (dst.Length - dstOffset);
+			if (len > 0)
+			{
+				for (int i = 0; i < len; i++)
+				{
+					dst[dstOffset + i] = (byte)((int)this.m_buffer[offset + i] ^ (key++ & 16711680) >> 16);
+				}
+			}
+			return len;
+		}
+		public virtual int CopyFrom(byte[] src, int srcOffset, int offset, int count)
+		{
+			int result;
+			if (count <= this.m_buffer.Length && count - srcOffset <= src.Length)
+			{
+				System.Buffer.BlockCopy(src, srcOffset, this.m_buffer, offset, count);
+				result = count;
+			}
+			else
+			{
+				result = -1;
+			}
+			return result;
+		}
+		public virtual int CopyFrom(byte[] src, int srcOffset, int offset, int count, int key)
+		{
+			int result;
+			if (count < this.m_buffer.Length && count - srcOffset < src.Length)
+			{
+				for (int i = 0; i < count; i++)
+				{
+					this.m_buffer[offset + i] = (byte)((int)src[srcOffset + i] ^ (key++ & 16711680) >> 16);
+				}
+				result = count;
+			}
+			else
+			{
+				result = -1;
+			}
+			return result;
+		}
+		public virtual void WriteBoolean(bool val)
+		{
+			if (this.m_offset == this.m_buffer.Length)
+			{
+				byte[] temp = this.m_buffer;
+				this.m_buffer = new byte[this.m_buffer.Length * 2];
+				Array.Copy(temp, this.m_buffer, temp.Length);
+			}
+			this.m_buffer[this.m_offset++] = (val ? (byte)1 : (byte)0);
+			this.m_length = ((this.m_offset > this.m_length) ? this.m_offset : this.m_length);
+		}
+		public virtual void WriteByte(byte val)
+		{
+			if (this.m_offset == this.m_buffer.Length)
+			{
+				byte[] temp = this.m_buffer;
+				this.m_buffer = new byte[this.m_buffer.Length * 2];
+				Array.Copy(temp, this.m_buffer, temp.Length);
+			}
+			this.m_buffer[this.m_offset++] = val;
+			this.m_length = ((this.m_offset > this.m_length) ? this.m_offset : this.m_length);
+		}
+		public virtual void Write(byte[] src)
+		{
+			this.Write(src, 0, src.Length);
+		}
+		public virtual void Write(byte[] src, int offset, int len)
+		{
+			if (this.m_offset + len >= this.m_buffer.Length)
+			{
+				byte[] temp = this.m_buffer;
+				this.m_buffer = new byte[this.m_buffer.Length * 2];
+				Array.Copy(temp, this.m_buffer, temp.Length);
+				this.Write(src, offset, len);
+			}
+			else
+			{
+				Array.Copy(src, offset, this.m_buffer, this.m_offset, len);
+				this.m_offset += len;
+				this.m_length = ((this.m_offset > this.m_length) ? this.m_offset : this.m_length);
+			}
+		}
+		public virtual void WriteShort(short val)
+		{
+			this.WriteByte((byte)(val >> 8));
+			this.WriteByte((byte)(val & 255));
+		}
+		public virtual void WriteShortLowEndian(short val)
+		{
+			this.WriteByte((byte)(val & 255));
+			this.WriteByte((byte)(val >> 8));
+		}
+		public virtual void WriteInt(int val)
+		{
+			this.WriteByte((byte)(val >> 24));
+			this.WriteByte((byte)(val >> 16 & 255));
+			this.WriteByte((byte)((val & 65535) >> 8));
+			this.WriteByte((byte)(val & 65535 & 255));
+		}
+
+        public virtual void WriteUInt(uint val)
+        {
+            this.WriteByte((byte)(val >> 24));
+            this.WriteByte((byte)(val >> 16 & 255u));
+            this.WriteByte((byte)((val & 65535u) >> 8));
+            this.WriteByte((byte)(val & 65535u & 255u));
+        }
+
+        public virtual void WriteLong(long val)
+        {
+            this.WriteInt((int)(((ulong)(val >> 0x20)) & 0xffffffffL));
+            this.WriteUInt((uint)(((ulong)val) & 0xffffffffL));
+        }
+
+
+        public virtual void WriteFloat(float val)
+		{
+			byte[] src = BitConverter.GetBytes(val);
+			this.Write(src);
+		}
+		public virtual void WriteDouble(double val)
+		{
+			byte[] src = BitConverter.GetBytes(val);
+			this.Write(src);
+		}
+		public virtual void Fill(byte val, int num)
+		{
+			for (int i = 0; i < num; i++)
+			{
+				this.WriteByte(val);
+			}
+		}
+		public virtual void WriteString(string str)
+		{
+			if (!string.IsNullOrEmpty(str))
+			{
+				byte[] bytes = Encoding.UTF8.GetBytes(str);
+				this.WriteShort((short)(bytes.Length + 1));
+				this.Write(bytes, 0, bytes.Length);
+				this.WriteByte(0);
+			}
+			else
+			{
+				this.WriteShort(1);
+				this.WriteByte(0);
+			}
+		}
+		public virtual void WriteString(string str, int maxlen)
+		{
+			byte[] bytes = Encoding.UTF8.GetBytes(str);
+			int len = (bytes.Length < maxlen) ? bytes.Length : maxlen;
+			this.WriteShort((short)len);
+			this.Write(bytes, 0, len);
+		}
+		public void WriteDateTime(DateTime date)
+		{
+			this.WriteShort((short)date.Year);
+			this.WriteByte((byte)date.Month);
+			this.WriteByte((byte)date.Day);
+			this.WriteByte((byte)date.Hour);
+			this.WriteByte((byte)date.Minute);
+			this.WriteByte((byte)date.Second);
+		}
+	}
+}
+
+==================================================================
+== UserLoginHandler.cs (RSA -> FSM seed)
+== Source: https://github.com/zsj0613/DDTServer/blob/master/Game.Server/Game.Server.Packets.Client/UserLoginHandler.cs
+==================================================================
+using Bussiness;
+using Bussiness.Interface;
+using Game.Base.Packets;
+using Game.Server.GameObjects;
+using Game.Server.Managers;
+using SqlDataProvider.Data;
+using System;
+using System.Text;
+using Center.Server;
+
+namespace Game.Server.Packets.Client
+{
+    [PacketHandler(1, "User Login handler")]
+    public class UserLoginHandler : IPacketHandler
+    {
+        public int HandlePacket(GameClient client, GSPacketIn packet)
+        {
+            int result;
+            try
+            {
+                GSPacketIn pkg = packet.Clone();
+                pkg.ClearContext();
+                if (client.Player == null)
+                {
+                    int version = packet.ReadInt();
+                    int clientType = packet.ReadInt();
+                    byte[] src = packet.ReadBytes();
+                    try
+                    {
+                        src = WorldMgr.RsaCryptor.Decrypt(src, false);
+                    }
+                    //catch (ExecutionEngineException e)
+                    //{
+                    //	client.Out.SendKitoff(LanguageMgr.GetTranslation("UserLoginHandler.RsaCryptorError", new object[0]));
+                    ///	client.Disconnect();
+                    //	GameServer.log.Error("ExecutionEngineException", e);
+                    //	result = 0;
+                    //	return result;
+                    //}
+                    catch (Exception ex)
+                    {
+                        client.Out.SendKitoff(LanguageMgr.GetTranslation("UserLoginHandler.RsaCryptorError", new object[0]));
+                        client.Disconnect();
+                        GameServer.log.Error("RsaCryptor", ex);
+                        result = 0;
+                        return result;
+                    }
+                    int fms_key = ((int)src[7] << 8) + (int)src[8];
+                    client.SetFsm(fms_key, version);
+                    string edition = GameServer.Edition;
+                    if (version < int.Parse(GameServer.Edition) || version >= int.Parse(GameServer.Edition) + 1000)
+                    {
+                        client.Out.SendKitoff(LanguageMgr.GetTranslation("UserLoginHandler.EditionError", new object[0]));
+                        GameServer.log.Error("Edition Error");
+                        client.Disconnect();
+                        result = 0;
+                        return result;
+                    }
+                    string[] temp = Encoding.UTF8.GetString(src, 9, src.Length - 9).Split(new char[]
+                    {
+                        ','
+                    });
+ 
+                    if (temp.Length == 2)
+                    {
+                        string user = temp[0];
+                        string pass = temp[1];
+
+                        if (!LoginMgr.ContainsUser(user))
+                        {
+               
+                            bool isFirst = false;
+                            LSJInterface inter = LSJInterface.CreateInterface();
+                            PlayerInfo cha = null;
+
+                            int userID = 0;
+                            if (OpenAPIs.ValidateLoginAndGetID(user, pass, ref userID, ref isFirst))
+                            {
+                                cha = new PlayerInfo
+                                {
+                                    ID = userID,
+                                    UserName = user
+                                };
+                            }
+
+
+
+
+
+                            if (cha != null && cha.ID != 0)
+                            {
+                 
+                                if (cha.ID == -2)
+                                {
+                                    client.Out.SendKitoff(LanguageMgr.GetTranslation("UserLoginHandler.Forbid", new object[0]));
+                                    client.Disconnect();
+                                    result = 0;
+                                    return result;
+                                }
+                                if (!isFirst)
+                                {
+                                    client.Player = new GamePlayer(cha.ID, user, client, cha, this.GetClientType(clientType));
+                                    LoginMgr.Add(cha.ID, client);
+                                    client.Server.LoginServer.SendAllowUserLogin(cha.ID);
+                                    client.Version = version;
+                           
+                                }
+                                else
+                                {
+              
+                                    client.Out.SendKitoff(LanguageMgr.GetTranslation("UserLoginHandler.Register", new object[0]));
+                                    client.Disconnect();
+                                }
+                            }
+                            else
+                            {
+                
+                                client.Out.SendKitoff(LanguageMgr.GetTranslation("UserLoginHandler.OverTime", new object[0]));
+                                client.Disconnect();
+                            }
+                        }
+                        else
+                        {
+                       
+                            client.Out.SendKitoff(LanguageMgr.GetTranslation("UserLoginHandler.LoginError", new object[0]));
+                            client.Disconnect();
+                        }
+                    }
+                    else
+                    {
+             
+                        client.Out.SendKitoff(LanguageMgr.GetTranslation("UserLoginHandler.LengthError", new object[0]));
+                        client.Disconnect();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+       
+                client.Out.SendKitoff(LanguageMgr.GetTranslation("UserLoginHandler.ServerError", new object[0]));
+                client.Disconnect();
+                GameServer.log.Error(LanguageMgr.GetTranslation("UserLoginHandler.ServerError", new object[0]), ex);
+            }
+            result = 1;
+            return result;
+        }
+        private eClientType GetClientType(int clientType)
+        {
+            eClientType result;
+            switch (clientType)
+            {
+                case 0:
+                    result = eClientType.WEB;
+                    break;
+                case 1:
+                    result = eClientType.Auncher;
+                    break;
+                default:
+                    result = eClientType.WEB;
+                    break;
+            }
+            return result;
+        }
+    }
+}
+
+==================================================================
+== Game.Server ePackageType.cs (older numbering)
+== Source: https://github.com/zsj0613/DDTServer/blob/master/Game.Server/Game.Server.Packets/ePackageType.cs
+==================================================================
+using System;
+namespace Game.Server.Packets
+{
+	public enum ePackageType : byte
+	{
+		SERVER_READY,
+		LOGIN,
+		KIT_USER,
+		SYS_MESS,
+		PING,
+		SYS_DATE,
+		NETWORK,
+		RSAKEY,
+		CLIENT_LOG,
+		CHARGE_MONEY,
+		SYS_NOTICE,
+		ACTIVE_PULLDOWN,
+		EDITION_ERROR,
+		DAILY_AWARD,
+		GET_ITEM_MESS,
+		USER_ANSWER,
+		SCENE_LOGIN,
+		SCENE_READY,
+		SCENE_ADD_USER,
+		SCENE_CHAT,
+		SCENE_SMILE,
+		SCENE_REMOVE_USER,
+		SCENE_GAME_START,
+		SCENE_GAME_STOP,
+		SCENE_CHANNEL_CHANGE,
+        //AREA_BIG_BUGLE,重复
+        PASSWORD_TWO,
+        VIP_UPDATE, //ADD BY LSJ
+        WORLDBOSS_JOIN,//ADD BY LSJ
+
+        //27
+
+        CHANGE_STATE = 32,
+		CHANGE_NICKNAME,
+        //33
+
+		AC_ACTION = 35,
+		SYNCH_ACTION,
+		CHAT_PERSONAL,
+		UPDATE_PRIVATE_INFO,
+        //38
+
+		SAVE_STYLE = 41,
+		DELETE_ITEM,
+		CONSORTIA_MAIL_MESSAGE,
+		BUY_ITEM,
+
+        //44
+
+		BUY_SALEITEM = 46,
+		UNCHAIN_ITEM,
+		SEll_ITEM,
+		CHANGE_PLACE_ITEM,
+		FIGHT_NPC,
+		UPDATE_ITEM,
+		CHAIN_ITEM,
+		GET_BOX,
+		PROP_BUY,
+		PROP_SELL,
+		PROP_CHAIN,
+		GOODS_PRESENT,
+		ITEM_COMPOSE,
+		ITEM_STRENGTHEN,
+		ITEM_HIDE,
+		ITEM_TRANSFER,
+		ITEM_CONTINUE,
+		ITEM_OPENUP,
+		GRID_GOODS,
+		GRID_PROP,
+		EQUIP_CHANGE,
+		UPDATE_PlAYER_INFO,
+        //67
+
+		SCENE_USERS_LIST = 69,
+		GAME_INVITE,
+		S_BUGLE,
+		B_BUGLE,
+		A_BIG_BUGLE,
+		ITEM_EQUIP,
+		PROP_DELETE,
+		ITEM_FUSION_PREVIEW,
+        ITEM_OVERDUE,
+        ITEM_FUSION,
+		ITEM_STORE,
+        CHAT_GROUP,
+        GAME_ROOM_LOGIN,
+        GAME_PLAYER_ENTER,
+        GAME_PLAYER_EXIT,
+        //83
+
+        GAME_START = 86,
+        PLAYER_STATE,
+        INSUFFICIENT_MONEY,
+        //88
+
+        GAME_VISITOR_DATA = 93,
+        GAME_ROOM_CREATE,
+        GAME_ROOMLIST_UPDATE,
+        GAME_ROOM_CLEAR,
+        GAME_ROOM_HOST,
+        GAME_ROOM_KICK,
+        //98
+
+        GAME_ROOM_UPDATE_PLACE = 100,
+        
+        GAME_TEAM = 102,
+
+        GAME_CHANGE_MAP = 104,
+        GAME_TEAM_TYPE,
+        //105
+
+        GAME_ROOM_SETUP_CHANGE = 107,
+        GAME_TAKE_TEMP,
+        UPDATE_ROOM_LIST,
+        ITEM_REFINERY,
+		ITEM_REFINERY_PREVIEW,
+        DELETE_MAIL,
+        GET_MAIL_ATTACHMENT,
+        UPDATE_MAIL,
+        UPDATE_NEW_MAIL,
+        SEND_MAIL,
+        MAIL_RESPONSE,
+        MAIL_CANCEL,
+        LINKREQUEST_GOODS,
+		ITEM_TREND,
+		ITEM_INLAY,
+		CLEAR_HIDE_BAG,
+		DISPATCHES,
+        ARRANGE_BAG,
+        DISMOUNT_GEM,
+        EXCHANGE_MONEY_TO_GOLD,
+        REClAIM_ITEM = 127,
+        //127
+
+        CONSORTIA_TRYIN = 129,
+        CONSORTIA_CREATE,
+        CONSORTIA_DELETE,
+        CONSORTIA_USERS_DELETE,
+        CONSORTIA_TRYIN_PASS,
+        CONSORTIA_TRYIN_DEL,
+        CONSORTIA_RICHES_OFFER,
+        CONSORTIA_APPLY_STATE,
+        CONSORTIA_DUTY_ADD,
+        CONSORTIA_DUTY_DELETE,
+        CONSORTIA_DUTY_UPDATE,
+        CONSORTIA_INVITE,
+        //140
+
+        CONSORTIA_INVITE_PASS = 142,
+        CONSORTIA_INVITE_DELETE,
+        CONSORTIA_ALLY_APPLY_ADD,
+        CONSORTIA_ALLY_APPLY_UPDATE,
+        CONSORTIA_ALLY_APPLY_DELETE,
+        CONSORTIA_ALLY_ADD,
+        CONSORTIA_ALLY_DELETE,
+        CONSORTIA_DESCRIPTION_UPDATE,
+        CONSORTIA_PLACARD_UPDATE,
+        CONSORTIA_BANCHAT_UPDATE,
+        CONSORTIA_USER_REMARK_UPDATE,
+        CONSORTIA_USER_GRADE_UPDATE,
+        CONSORTIA_CHAIRMAN_CHAHGE,
+        CONSORTIA_CHAT,
+        CONSORTIA_STORE_UPGRADE,
+        CONSORTIA_SMITH_UPGRADE,
+        CONSORTIA_SHOP_UPGRADE,
+        CONSORTIA_UPGRADE,
+        FRIEND_ADD,
+        FRIEND_REMOVE,
+        FRIEND_UPDATE,
+        FRIEND_LOGIN,
+        FRIEND_LOGOUT,
+        FRIEND_STATE,
+        FRIEND_RESPONSE,
+        CHURCH_MOVIE_OVER,
+        UPDATE_SHOPLIMIT,
+        PLAYER_EXIT_SPA_ROOM,
+        CONSORTIA_EQUIP_CONTROL,
+        NickName_Card,
+		USER_ITEMS_SAVE,
+        SPA_ROOM_UPDATE,
+        SPA_ROOM_DISPOSE,
+        SPA_ROOM_CREATE,
+        QUEST_ADD,
+        QUEST_REMOVE,
+        QUEST_UPDATE,
+        QUEST_FINISH,
+        QUSET_OBTAIN,
+        QUEST_CHECK,
+        ITEM_CHANGE_COLOR,
+        CARD_USE,
+        BUFF_ADD,
+        BUFF_UPDATE,
+        BUFF_OBTAIN,
+        SPA_SCENE_LOGIN = 187,
+        USE_CONSORTIA_REWORK_NAME = 188,
+
+        SPA_ROOM_QUICK_LOGIN = 190,
+        SPA_CMD,
+        AUCTION_ADD,
+        AUCTION_UPDATE,
+        AUCTION_DELETE,
+        AUCTION_REFRESH,
+        PLAYER_SPA_ROOM_TIMEOUT,
+        SPA_ROOM_LIST,
+        SPA_ROOM_ADD_GUEST,
+        SPA_ROOM_REMOVE_GUEST,
+        CHECK_CODE,
+        SPAROOM_SCENE_STATE,
+        SPA_ROOM_LOGIN,
+        //202
+
+        UPDATE_SHOPNOTICE = 204,
+
+        GAME_PAIRUP_START = 208,
+        GAME_PAIRUP_FAILED,
+        GAME_PAIRUP_CANCEL,
+        GAME_PAIRUP_ROOM_SETUP,
+        SPA_ROOM_LOGIN_REMIND,
+        //212
+
+        AAS_STATE_GET = 224,//重复
+        AAS_INFO_SET = 224,//重复
+
+        AAS_IDNUM_CHECK = 226,
+        AAS_CTRL,
+        ACHIEVEMENT_INIT,
+		ACHIEVEMENT_UPDATE,
+		ACHIEVEMENT_FINISH,
+		ACHIEVEMENTDATA_INIT,
+        //231
+
+		MARRY_SCENE_CHANGE = 233,
+		MARRYPROP_GET,
+		MARRYINFO_GET,
+		MARRYINFO_ADD,
+		MARRYINFO_UPDATE,
+		MARRYINFO_DELETE,
+		MARRYINFO_REFRESH,
+		MARRY_SCENE_LOGIN,
+		MARRY_ROOM_CREATE,
+		MARRY_ROOM_LOGIN,
+		PLAYER_ENTER_MARRY_ROOM,
+		PLAYER_EXIT_MARRY_ROOM,
+        //244
+
+		MARRY_STATUS = 246,
+		MARRY_APPLY,
+		DIVORCE_APPLY,
+		MARRY_CMD,
+		MARRY_APPLY_REPLY,
+		SCENE_STATE,
+		MARRY_ROOM_STATE,
+		MARRY_ROOM_INFO_UPDATE,
+		MARRY_ROOM_DISPOSE,
+		MARRY_ROOM_UPDATE,
+        //255
+
+
+
+		MANAGER_LOGIN = 255,//重复
+        MANAGER_CMD = 254,//重复
+        MANAGER_MSG = 253//重复
+    }
+}
