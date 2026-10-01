@@ -208,7 +208,7 @@ The vectors cover:
 * `ReadLong` and `ReadString` decoding;
 * 61 checksums;
 * encrypted and plain send streams, including ones that straddle the 8192-byte send buffer;
-* 25 receive scenarios: random splits, byte-by-byte delivery, junk, bad lengths, partial tails, the 8191 and 8192 frames, and encrypted junk;
+* 20 receive scenarios: random splits, byte-by-byte delivery, junk, bad lengths, partial tails, the 8191 and 8192 frames, and encrypted junk;
 * FSM;
 * RSA login: decrypting .NET ciphertexts, plus full sessions where the key switches mid-stream;
 * the inter-server RSAKey packet;
