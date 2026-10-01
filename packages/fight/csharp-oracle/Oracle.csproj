@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Golden-vector oracle for @ddt/fight.
+    Compiles ORIGINAL DDTank 4.1 Game.Logic sources (verbatim files + verbatim extracted methods in ./original, recreated
+    by `pnpm sync-oracle-sources`) with small data stubs (Stubs.cs) and dumps ../test/golden/vectors.json.
+    Run:  dotnet run -c Release  [assetsDir with map/ and bomb/]
+  -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <NoWarn>$(NoWarn);CS0168;CS0219;CS0414;CS0649;CS0169;CS0108;CS0114;CS8981;CS0162;CS0618;CA1416</NoWarn>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <RootNamespace>Oracle</RootNamespace>
+  </PropertyGroup>
+</Project>

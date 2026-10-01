@@ -5,16 +5,33 @@
   "description": "Pure TypeScript, I/O-free, deterministic port of the DDTank 4.1 fight engine (Game.Logic physics, PvP turn loop, damage, bots).",
   "type": "module",
   "exports": {
-    ".": { "types": "./src/index.ts", "default": "./src/index.ts" },
-    "./node": { "types": "./src/node.ts", "default": "./src/node.ts" }
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./node": {
+      "types": "./src/node.ts",
+      "default": "./src/node.ts"
+    }
   },
   "publishConfig": {
     "exports": {
-      ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
-      "./node": { "types": "./dist/node.d.ts", "default": "./dist/node.js" }
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "./node": {
+        "types": "./dist/node.d.ts",
+        "default": "./dist/node.js"
+      }
     }
   },
-  "files": ["src", "dist", "data", "README.md"],
+  "files": [
+    "src",
+    "dist",
+    "data",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
@@ -22,5 +39,8 @@
     "pack-assets": "tsx scripts/pack-assets.ts",
     "sync-oracle-sources": "node scripts/sync-oracle-sources.mjs",
     "oracle": "dotnet run -c Release --project csharp-oracle/Oracle.csproj"
+  },
+  "dependencies": {
+    "@ddt/protocol": "workspace:*"
   }
 }

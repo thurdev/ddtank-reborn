@@ -74,7 +74,8 @@ export function simulateShot(o: SimulateOptions): SimulateResult {
   let vx = o.vx ?? 0;
   let vy = o.vy ?? 0;
   if (o.force !== undefined && o.angle !== undefined) ({ vx, vy } = initialVelocity(o.force, o.angle, o.bombIndex ?? 0));
-  const bomb = new TracingBomb(o.id ?? -1000, getBallType(o.ball.id), owner, host, o.ball, o.shape ?? null, !!o.controlled, o.angle ?? 0, path);
+  const bomb = new SimpleBomb(o.id ?? -1000, getBallType(o.ball.id), owner, host, o.ball, o.shape ?? null, !!o.controlled, o.angle ?? 0);
+  bomb.trace = path;
   bomb.setXY(o.x, o.y);
   bomb.setSpeedXY(vx, vy);
   o.map.addPhysical(bomb);
@@ -84,17 +85,4 @@ export function simulateShot(o: SimulateOptions): SimulateResult {
     o.map.removePhysical(bomb);
   }
   return { x: bomb.x, y: bomb.y, lifeTime: bomb.lifeTime, outcome, actions: bomb.actions, tempPoints, hits, path, vx, vy, digMap: bomb.digMap };
-}
-
-class TracingBomb extends SimpleBomb {
-  constructor(...args: [...ConstructorParameters<typeof SimpleBomb>, { x: number; y: number }[] | undefined]) {
-    const path = args.pop() as { x: number; y: number }[] | undefined;
-    super(...(args as unknown as ConstructorParameters<typeof SimpleBomb>));
-    this.path = path;
-  }
-  private path?: { x: number; y: number }[];
-  override moveTo(px: number, py: number): void {
-    super.moveTo(px, py);
-    this.path?.push({ x: this.x, y: this.y });
-  }
 }

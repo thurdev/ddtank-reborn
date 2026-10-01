@@ -1,0 +1,28 @@
+{
+  "name": "@ddt/game",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "DDTank Reborn game server: replaces Center + Game(Road) + Fighting servers. Raw TCP + WebSocket (Ruffle socketProxy) on the 4.1 protocol, policy server, admin control channel.",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@ddt/db": "workspace:*",
+    "@ddt/protocol": "workspace:*",
+    "drizzle-orm": "^0.45.3",
+    "ws": "^8.22.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "@types/ws": "^8.18.2",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.3"
+  }
+}
