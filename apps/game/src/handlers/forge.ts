@@ -11,6 +11,8 @@ import type { Templates } from "../db/templates.js";
 import type { ServerContext } from "../session/context.js";
 import type { HandlerRegistry } from "./registry.js";
 import { mailItems } from "./items.js";
+import { getEquipControl } from "../db/consortia.js";
+import { personalRiches, smithBonusLevel } from "../game/consortia.js";
 
 /** StrengthenMgr.RateItems (StrengthenMgr.cs:29): rate per strengthen stone level 1..6. */
 export const STRENGTHEN_RATE_ITEMS = [0.75, 3.0, 12.0, 48.0, 240.0, 768.0];
@@ -152,8 +154,17 @@ export async function clearStoreBag(ctx: ServerContext, p: GamePlayer): Promise<
   }
 }
 
+/** Guild smith level for strengthen (0 when not used / not allowed — the C# then only showed a message). */
+async function guildSmith(ctx: ServerContext, p: GamePlayer, useGuild: boolean): Promise<number> {
+  if (!useGuild) return 0;
+  const th = p.info.ConsortiaID ? await getEquipControl(ctx.db.db, p.info.ConsortiaID, 0, 2) : undefined;
+  const sb = smithBonusLevel(true, p.info.ConsortiaID !== 0, p.info.SmithLevel, personalRiches(p.info), th);
+  if (sb.denied) p.sendMessage(p.info.ConsortiaID ? 1 : 0, ctx.lang.t(p.info.ConsortiaID ? "ItemStrengthenHandler.FailbyPermission" : "ItemStrengthenHandler.Fail"));
+  return sb.level;
+}
+
 /** ItemStrengthenHandler.cs (59). */
-export function strengthen(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd = Math.random): void {
+export async function strengthen(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd = Math.random): Promise<void> {
   const useGuild = pkt.readBoolean();
   const store = p.storeBag;
   let item = store.getItemAt(5);
@@ -170,9 +181,9 @@ export function strengthen(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd
   if (stones.length < 1) return p.sendMessage(0, `${ctx.lang.t("ItemStrengthenHandler.Content1")}1${ctx.lang.t("ItemStrengthenHandler.Content2")}`);
   const needRate = ctx.templates.strengthenNeedRate(item.StrengthenLevel, item.template.CategoryID);
   if (!ctx.templates.strengthen.has(item.StrengthenLevel + 1)) return p.sendMessage(0, ctx.lang.t("ItemStrengthenHandler.Success"));
-  // Guild smith (consortia) not ported: consortia equip control missing -> smith bonus 0 (useGuild ignored).
-  void useGuild;
-  const chance = strengthenChance({ stoneLevels: stones.map((s) => s.template.Level), luckP2: luck ? luck.template.Property2 : null, needRate, smithLevel: 0, vip: p.info.typeVIP > 0 });
+  // ItemStrengthenHandler.cs:88-103: guild smith +10 %/level of the stone rate when personal riches >= Equip_Control Type 2
+  const smith = await guildSmith(ctx, p, useGuild);
+  const chance = strengthenChance({ stoneLevels: stones.map((s) => s.template.Level), luckP2: luck ? luck.template.Property2 : null, needRate, smithLevel: smith, vip: p.info.typeVIP > 0 });
   const original = item;
   const isBinds = item.IsBinds || stones.some((s) => s.IsBinds) || !!luck?.IsBinds || !!god?.IsBinds;
   item.StrengthenTimes++;
@@ -227,11 +238,11 @@ export function strengthen(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd
 }
 
 /** ItemComposeHandler.cs (58). */
-export function compose(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd = Math.random): void {
+export async function compose(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd = Math.random): Promise<void> {
   const mustGold = ctx.templates.cfgInt("PRICE_COMPOSE_GOLD", 1600);
   if (bagLocked(ctx, p)) return;
   if (p.info.Gold < mustGold) return p.sendMessage(1, ctx.lang.t("ItemComposeHandler.NoMoney"));
-  pkt.readBoolean(); // consortia smith: not ported
+  const useGuild = pkt.readBoolean();
   const store = p.storeBag;
   const item = store.getItemAt(1);
   const stone = store.getItemAt(2);
@@ -243,7 +254,15 @@ export function compose(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd = 
   const luckIt = store.getItemAt(0);
   const luck = luckIt && luckIt.template.CategoryID === 11 && luckIt.template.Property1 === 3 ? luckIt : null;
   const isBinds = item.IsBinds || stone.IsBinds || !!luck?.IsBinds;
-  const prob = composeChance(stone.template.Quality, luck ? luck.template.Property2 : null);
+  // ItemComposeHandler.cs:105-130: guild smith multiplies the rate by (1 + 0.1 × SmithLevel); refused without riches
+  let smith = 0;
+  if (useGuild) {
+    const th = p.info.ConsortiaID ? await getEquipControl(ctx.db.db, p.info.ConsortiaID, 0, 2) : undefined;
+    const sb = smithBonusLevel(true, p.info.ConsortiaID !== 0, p.info.SmithLevel, personalRiches(p.info), th);
+    if (sb.denied) return p.sendMessage(1, ctx.lang.t("ItemStrengthenHandler.FailbyPermission"));
+    smith = sb.level;
+  }
+  const prob = composeChance(stone.template.Quality, luck ? luck.template.Property2 : null, smith);
   const rand = Math.floor(rnd() * 100);
   const key = ({ 1: "AttackCompose", 2: "DefendCompose", 3: "AgilityCompose", 4: "LuckCompose" } as const)[stone.template.Property3 as 1 | 2 | 3 | 4];
   if (!key || !(stone.template.Property4 > item[key])) return p.sendMessage(0, ctx.lang.t("ItemComposeHandler.NoLevel"));

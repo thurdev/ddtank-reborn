@@ -244,7 +244,7 @@
   "sub": "",
   "server": "partial",
   "verified": "yes",
-  "notes": "Mover para o ferreiro/equipar.",
+  "notes": "Mover para o ferreiro/equipar. Banco da guilda (bolsa 11): StoreLevel × 10 espaços, depósito/retirada ok (research/e2e/guild/g40-bank-deposit.png).",
   "evidence": ""
  },
  {
@@ -2017,7 +2017,7 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTION_MAIL=29",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3365,8 +3365,8 @@
   "sub": "",
   "server": "ok",
   "verified": "yes",
-  "notes": "Xu (money) e Lễ kim (giftToken) debitados e saldo atualiza na loja (corrigido pacote 38 sem petScore). Ouro/medalha/itens exigidos pelo mesmo caminho (GetItemPrice).",
-  "evidence": "research/e2e/qa/c6-shop-balance.png"
+  "notes": "Xu (money) e Lễ kim (giftToken) debitados e saldo atualiza na loja (corrigido pacote 38 sem petScore). Ouro/medalha/itens exigidos pelo mesmo caminho (GetItemPrice). Loja da guilda (ShopID 11-15): nível da loja + contribuição ≥ Consortia_Equip_Control verificados (compra ok).",
+  "evidence": "research/e2e/qa/c6-shop-balance.png, research/e2e/guild/g43-shop-buy.png"
  },
  {
   "key": "46:sendBuyGiftBag",
@@ -4785,9 +4785,9 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "BUY_BADGE=28",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "Implementado (Consortia_Badge, custo dos fundos, direito 16); o cliente 4.1 não tem loja de emblemas acessível.",
   "evidence": ""
  },
  {
@@ -4800,7 +4800,7 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_APPLY_STATE=7",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4813,7 +4813,7 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_TRYIN=0",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4828,9 +4828,9 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_CHAIRMAN_CHAHGE=19",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "Implementado (SP_ConsortiaChangeChairman, alvo nível ≥ 5). O cliente só envia se o alvo tiver nível ≥ 12 — não verificado (Bob nível 10).",
   "evidence": ""
  },
  {
@@ -4843,9 +4843,9 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_DISBAND=2",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "Implementado (líder, nível < 4; membros limpos, 128.2). O botão não está ligado no SelfConsortiaView desta versão do cliente; coberto pelo teste apps/game/test/consortia.test.ts. Correção: a resposta de falha não tinha o bool.",
   "evidence": ""
  },
  {
@@ -4856,7 +4856,7 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_DUTY_DELETE=9",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4871,10 +4871,10 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_EQUIP_CONTROL=24",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Limites de contribuição (Consortia_Equip_Control) salvos; correção da ordem da resposta (7 ints, bool, msg).",
+  "evidence": "research/e2e/guild/g13-thur-manage.png, g14-equip-control.png"
  },
  {
   "key": "129:sendConsortiaInvate",
@@ -4887,10 +4887,10 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_INVITE=11",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Convite por apelido (direito 2); alerta 128.4 no convidado.",
+  "evidence": "research/e2e/guild/g32-invite-sent.png, g33-bob-invite.png"
  },
  {
   "key": "129:sendConsortiaInvateDelete",
@@ -4902,7 +4902,7 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_INVITE_DELETE=13",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4918,10 +4918,10 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_INVITE_PASS=12",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Aceitar convite. Correção: o C# escrevia o resultado no pacote recebido (resposta vazia).",
+  "evidence": "research/e2e/guild/g34-bob-invite-accepted.png"
  },
  {
   "key": "129:sendConsortiaLevelUp",
@@ -4933,10 +4933,10 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_LEVEL_UP=21",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Nível da guilda (fundos + 100000 ouro), banco, ferreiro, loja (≤ nível/2), habilidade; anúncios 128.6/10/11/12/13. Correção: código 5 = fundos insuficientes.",
+  "evidence": "research/e2e/guild/g20-levelup.png, g21-bank-up.png, g22-smith-up.png, g42-shop-up.png"
  },
  {
   "key": "129:sendConsortiaMemberGrade",
@@ -4948,10 +4948,10 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_USER_GRADE_UPDATE=1",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Promover/rebaixar (direito 2048), 128.8 tipo 6/7.",
+  "evidence": "research/e2e/guild/g29-bob-promoted.png"
  },
  {
   "key": "129:sendConsortiaOut",
@@ -4964,10 +4964,10 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_RENEGADE=3",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Expulsar (direito 32, limite diário KickMax) e sair; líder não sai; itens do banco voltam por correio.",
+  "evidence": "research/e2e/guild/g30-kick.png, g31-bob-kicked.png, g36-bob-left.png, g37-thur-sees-leave.png"
  },
  {
   "key": "129:sendConsortiaRichOffer",
@@ -4980,10 +4980,10 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_RICHES_OFFER=6",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Doação: tesouro += Xu/2, RichesOffer/RichesRob, evento tipo 5; pagamento salvo na hora. Melhoria: 128.16 atualiza o tesouro na tela dos outros membros.",
+  "evidence": "research/e2e/guild/g11-bob-donated.png, g12-thur-sees-donation.png, g19-thur-riches-refreshed.png"
  },
  {
   "key": "129:sendConsortiaTryIn",
@@ -4996,10 +4996,10 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_TRYIN=0",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Pedido de entrada; lista ConsortiaApplyUsersList. Correção: guilda com pedidos fechados (OpenApply) recusa (Msg7).",
+  "evidence": "research/e2e/guild/g5-bob-list.png, g6-bob-applied.png"
  },
  {
   "key": "129:sendConsortiaTryinDelete",
@@ -5013,7 +5013,7 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_TRYIN_DEL=5",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -5029,10 +5029,10 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_TRYIN_PASS=4",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Aceite pelo líder (direito 1): Bob entra, 128.1 para todos os membros online.",
+  "evidence": "research/e2e/guild/g7-thur-takein.png, g8-thur-members.png, g9-bob-joined.png"
  },
  {
   "key": "129:sendConsortiaUpdateDescription",
@@ -5044,10 +5044,10 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Declaração (direito 16), ≤ 300 bytes.",
+  "evidence": "research/e2e/guild/g38-description.png"
  },
  {
   "key": "129:sendConsortiaUpdateDuty",
@@ -5059,7 +5059,7 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_DUTY_UPDATE=10",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -5074,7 +5074,7 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_PLACARD_UPDATE=15",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -5087,7 +5087,7 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_DUTY_UPDATE=10",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -5100,7 +5100,7 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -5115,9 +5115,9 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "POLL_CANDIDATE=25",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "Sem handler no servidor original.",
   "evidence": ""
  },
  {
@@ -5131,9 +5131,9 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "SKILL_SOCKET=26",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "Compra de habilidade (fundos/contribuição/medalhas), buff 101-112 salvo e 129/26; efeitos dos buffs no combate ainda não aplicados. Correção: buff tipo 1 era dado sem a guilda pagar.",
   "evidence": ""
  },
  {
@@ -5146,10 +5146,10 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_CREATE=1",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Criação: nível ≥ 5 no servidor (cliente exige 12), 500 Xu + NeedGold do nível 1 (100000) debitados; 5 cargos padrão.",
+  "evidence": "research/e2e/guild/g3-create-typed.png, g4-created.png"
  },
  {
   "key": "129:sendDonate",
@@ -5161,9 +5161,9 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "DONATE=23",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "Sem implementação no original (só loga o tipo de item).",
   "evidence": ""
  },
  {
@@ -5176,7 +5176,7 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_BANCHAT_UPDATE=16",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -5193,10 +5193,10 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "CONSORTIA_TASK_RELEASE=22",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Missão: custo MissionRiches por nível, 3 condições aleatórias (Consortia_TaskConfig), progresso ao vivo (doação/PvP/guerra/item/masmorra), recompensa por participação. Correção: layout da resposta do cliente 4.1.",
+  "evidence": "research/e2e/guild/g24-task-release.png, g26-task-released.png, g27-task-progress.png"
  },
  {
   "key": "12:sendHotAddTime",

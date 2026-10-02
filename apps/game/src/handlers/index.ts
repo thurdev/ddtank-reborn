@@ -8,6 +8,7 @@ import { registerQuests } from "./quests.js";
 import { registerMail } from "./mail.js";
 import { registerForge } from "./forge.js";
 import { registerUse } from "./use.js";
+import { registerConsortia } from "./consortia.js";
 
 export function createRegistry(): HandlerRegistry {
   const r = new HandlerRegistry();
@@ -20,5 +21,6 @@ export function createRegistry(): HandlerRegistry {
   registerMail(r);
   registerForge(r);
   registerUse(r);
+  registerConsortia(r);
   return r;
 }

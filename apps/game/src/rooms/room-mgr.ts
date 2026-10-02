@@ -327,7 +327,8 @@ export class RoomMgr {
     this.matchQueue = this.matchQueue.filter((q) => q.room.matching && q.room.IsUsing && q.room.PlayerCount > 0);
     for (let i = 0; i < this.matchQueue.length; i++) {
       const a = this.matchQueue[i]!;
-      const j = this.matchQueue.findIndex((b, k) => k > i && b.room.PlayerCount === a.room.PlayerCount && b.room.GameType === a.room.GameType);
+      // guild rooms (GameStyle 1) only meet another guild (Fighting.Server ProxyRoomMgr: same GuildId never matched)
+      const j = this.matchQueue.findIndex((b, k) => k > i && b.room.PlayerCount === a.room.PlayerCount && b.room.GameType === a.room.GameType && (a.room.GameStyle !== 1 || a.room.host?.info.ConsortiaID !== b.room.host?.info.ConsortiaID));
       if (j !== -1) {
         const b = this.matchQueue[j]!;
         this.matchQueue.splice(j, 1);

@@ -4,6 +4,7 @@
  */
 import { loadUserCards, loadEquippedPet } from "../db/stats.js";
 import { validateGameLogin } from "@ddt/auth";
+import { consortiaOnLogin } from "../handlers/consortia.js";
 import { findCharacterByUserName, loadMatchInfo, loadPlayerInfo, setOnlineState } from "../db/characters.js";
 import { loadUserItems } from "../db/items.js";
 import { loadFriends, loadProgress } from "../db/social.js";
@@ -142,6 +143,7 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   p.send(Out.enthrallLight());
   p.send(Out.avatarCollect());
   p.playerState = 1; // ePlayerState.Manual
+  await consortiaOnLogin(ctx, p).catch((e) => ctx.log.warn(`consortia login: ${e}`)); // guild buffers + 129/26
   p.send(Out.bufferList(p.id, p.buffs));
   p.send(Out.achievementData(p.id, p.achievements));
   p.send(Out.firstRecharge(!!info.IsRecharged, !!info.IsGetAward));
@@ -150,7 +152,8 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   p.send(Out.guildMemberWeek(p.id));
   p.send(Out.necklace(info));
   // WorldMgr.OnPlayerOnline: friends see the online state (160/165).
-  for (const f of ctx.world.all()) if (f !== p && f.friends.has(p.id)) f.send(Out.friendState(p.id, 1, info.typeVIP, info.VIPLevel));
+  // ChangePlayerState also notifies the members of the same guild (online list of the guild screen)
+  for (const f of ctx.world.all()) if (f !== p && (f.friends.has(p.id) || (info.ConsortiaID !== 0 && f.info.ConsortiaID === info.ConsortiaID))) f.send(Out.friendState(p.id, 1, info.typeVIP, info.VIPLevel));
   return p;
 }
 
@@ -179,5 +182,5 @@ async function doQuit(ctx: ServerContext, p: GamePlayer): Promise<void> {
   } finally {
     ctx.world.remove(p);
   }
-  for (const f of ctx.world.all()) if (f.friends.has(p.id)) f.send(Out.friendState(p.id, 0, p.info.typeVIP, p.info.VIPLevel));
+  for (const f of ctx.world.all()) if (f.friends.has(p.id) || (p.info.ConsortiaID !== 0 && f.info.ConsortiaID === p.info.ConsortiaID)) f.send(Out.friendState(p.id, 0, p.info.typeVIP, p.info.VIPLevel));
 }

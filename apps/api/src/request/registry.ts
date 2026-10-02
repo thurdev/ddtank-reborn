@@ -13,6 +13,7 @@ import ServerList from "./endpoints/ServerList.js";
 import VisualizeRegister from "./endpoints/VisualizeRegister.js";
 import CreateLogin from "./endpoints/CreateLogin.js";
 import * as social from "./endpoints/social.js";
+import * as consortia from "./endpoints/consortia.js";
 import { stub, type Endpoint } from "./types.js";
 
 /** Client calls these with COMPRESS_REQUEST_LOADER (inflate). Everything else is plain. */
@@ -22,9 +23,8 @@ const ZLIB_STUBS = ["/UserQuestList.ashx", "/CheckRegistration.ashx"];
 const STUBS = [
   "/AccountRegister.ashx", "/ActivePullDown.ashx", "/AdvanceQuestTime.ashx", "/API/Login.ashx", "/API/Register.ashx",
   "/ApprenticeshipClubList.ashx", "/AuctionPageList.ashx", "/CelebList/UserRankDate.ashx", "/UserRankDate.ashx",
-  "/ChargeTest.ashx", "/CheckRegistration.ashx", "/ConsortiaAllyList.ashx", "/ConsortiaApplyAllyList.ashx",
-  "/ConsortiaApplyUsersList.ashx", "/ConsortiaDutyList.ashx", "/ConsortiaEquipControl.ashx", "/ConsortiaEquipControlList.ashx",
-  "/ConsortiaEventList.ashx", "/ConsortiaIMList.ashx", "/ConsortiaInviteUsersList.ashx", "/CreatShortCut.ashx",
+  "/ChargeTest.ashx", "/CheckRegistration.ashx",
+  "/CreatShortCut.ashx",
   "/ExitGameTransit.ashx", "/FarmGetUserFieldInfos.ashx", "/FarmGetUserFieldInfosSingle.ashx",
   "/FavoriteTransit.ashx", "/GetSID.ashx", "/GiftRecieveLog.ashx", "/giftsendlog.ashx", "/giftsendlog1.ashx",
   "/gmtipallbyids.ashx", "/IMFriendsBbs.ashx", "/IMFriendsGood.ashx", "/IMRecentContactsList.ashx", "/KeyGenerator.ashx",
@@ -51,6 +51,7 @@ const PORTED: Endpoint[] = [
   social.ConsortiaList,
   social.ConsortiaUsersList,
   social.ConsortiaNameCheck,
+  ...Object.values(consortia),
   social.AdvanceQuestionRead,
   social.shopcheapitemlist,
   social.LoadUserMail,

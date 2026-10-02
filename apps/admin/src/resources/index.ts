@@ -2,6 +2,7 @@ import type { ResourceDef } from "@/crud/types";
 import { items } from "./items";
 import { dungeons, events, maps, missions, npcs, questConditions, questGoods, quests, shop } from "./content";
 import { bots, players } from "./players";
+import { guildApplications, guildDuties, guildEvents, guildLevels, guildMembers, guilds, guildTasks } from "./guilds";
 import { adminUsers, edicts, logs, mailBroadcasts, news, texts } from "./system";
 
 /**
@@ -11,6 +12,13 @@ import { adminUsers, edicts, logs, mailBroadcasts, news, texts } from "./system"
  */
 export const resources: ResourceDef[] = [
   players,
+  guilds,
+  guildMembers,
+  guildDuties,
+  guildApplications,
+  guildEvents,
+  guildTasks,
+  guildLevels,
   bots,
   items,
   shop,
@@ -31,4 +39,5 @@ export const resources: ResourceDef[] = [
 ];
 
 export const resourceByName = new Map(resources.map((r) => [r.name, r]));
+export { guildApplications, guildDuties, guildEvents, guildLevels, guildMembers, guilds, guildTasks };
 export { adminUsers, bots, dungeons, edicts, events, items, logs, mailBroadcasts, maps, missions, news, npcs, players, questConditions, questGoods, quests, shop, texts };

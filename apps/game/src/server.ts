@@ -16,6 +16,8 @@ import { checkMissingHeartbeat } from "./handlers/basic.js";
 import { GameClient, type Transport } from "./session/client.js";
 import { World, type ServerContext, type TicketValidator } from "./session/context.js";
 import { dbTicketValidator, quitPlayer } from "./session/login.js";
+import { consortiaGameOver } from "./handlers/consortia.js";
+import { consortiaMgr } from "./game/consortia-mgr.js";
 import { RoomMgr } from "./rooms/room-mgr.js";
 import { StubFightEngine } from "./fight/stub.js";
 import { DdtFightEngine } from "./fight/ddt.js";
@@ -125,7 +127,11 @@ export class GameServer {
             gradeForGp: (gp) => templates.gradeForGp(gp),
             takeCard: (m, roomType) => takeCardDrop(templates, m, roomType),
             onPlayerGameOver: (m, g) => (m as GamePlayer).questInv?.onGameOver(g),
-            onMissionOver: (m, g) => (m as GamePlayer).questInv?.onMissionOver(g.missionId, g.isWin, g.turnNum),
+            onGameOver: (g) => void consortiaGameOver(this.ctx!, g).catch((e) => log.warn(`consortia game over: ${e}`)),
+            onMissionOver: (m, g) => {
+              (m as GamePlayer).questInv?.onMissionOver(g.missionId, g.isWin, g.turnNum);
+              if (this.ctx) void consortiaMgr(this.ctx).then((c) => c.onMission(m as GamePlayer, g.missionId, g.isWin));
+            },
             giveItems: (m, items) => giveDropItems(templates, m, items),
             pve: {
               data: { npc: (id) => templates.npcs.get(id) as never, mission: (id) => templates.missions.get(id) as never },
