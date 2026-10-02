@@ -26,7 +26,7 @@ export async function petCommand(ctx: ServerContext, p: GamePlayer, pkt: GSPacke
   const t = ctx.lang.t.bind(ctx.lang);
   const T = ctx.templates.pets;
   const sub = pkt.readByte();
-  ctx.log.info(`pet ${p.id} sub ${sub}`);
+  ctx.log.debug(`pet ${p.id} sub ${sub}`);
   // PetHandler.HandlePacket: grade < 25 (Pet_Config LimitGrade) → "not open"
   if (p.info.Grade < cfgNum(T, "LimitGrade", 25)) return p.sendMessage(0, t("PetHandler.Msg23"));
   const bag = p.petBag;

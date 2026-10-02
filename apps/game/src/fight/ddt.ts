@@ -254,13 +254,7 @@ class DdtGame implements FightGame {
     this.dispatch(this.game.update(now));
     this.dispatch(this.bots.update(now));
     if (this.game.state === GameState.Stopped) this.stop();
-    if (this.pve && this.game.state >= GameState.GameOver && now - this.diagAt > 5000) {
-      this.diagAt = now;
-      const g = this.game as unknown as { actions: { tag?: string; at: number; finishAt?: number }[]; getWaitTimer(): number };
-      this.engine.o.log?.(`pve ${this.id} diag: state ${this.game.state} wait ${g.getWaitTimer() - now} actions ${g.actions.map((a) => `${a.tag}@${a.at - now}/${a.finishAt ?? "-"}`).join(",")}`);
-    }
   }
-  private diagAt = 0;
 
   processData(from: RoomMember, pkt: GSPacket): void {
     // TakeCardCommand (98) / BossTakeCardCommand (130): after GAME_OVER; index out of range (client sends 100 when
@@ -358,9 +352,8 @@ class DdtGame implements FightGame {
         if (m && !m.isBot) this.engine.o.giveItems?.(m, e.items, e.bag);
         continue;
       }
-      if (e.cmd === "RAW" && (e.code === 89 || e.code === 98)) this.engine.o.log?.(`pve ${this.id}: raw ${e.code}`);
       if (e.cmd === "PVE_STOPPED") {
-        this.engine.o.log?.(`pve ${this.id}: stopped win=${e.isWin}`);
+        this.engine.o.log?.(`pve ${this.id}: stopped, win=${e.isWin}`);
         this.pve?.onFinished?.(e.isWin);
         continue;
       }

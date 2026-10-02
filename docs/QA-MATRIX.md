@@ -14,17 +14,17 @@
 | Área | Linhas | ok | partial | stub | missing | broken | verificado no cliente |
 |---|---|---|---|---|---|---|---|
 | Amigos | 12 | 6 | 0 | 0 | 6 | 0 | 0 |
-| Bolsa/Inventário | 27 | 7 | 3 | 0 | 17 | 0 | 3 |
+| Bolsa/Inventário | 27 | 10 | 3 | 0 | 14 | 0 | 6 |
 | Boss mundial/Minigames | 7 | 0 | 6 | 0 | 1 | 0 | 4 |
-| Cartas | 8 | 0 | 0 | 0 | 8 | 0 | 0 |
+| Cartas | 8 | 4 | 0 | 0 | 4 | 0 | 2 |
 | Casamento | 24 | 2 | 0 | 0 | 22 | 0 | 0 |
-| Combate (GAME_CMD) | 39 | 0 | 35 | 0 | 4 | 0 | 3 |
+| Combate (GAME_CMD) | 39 | 0 | 35 | 0 | 4 | 0 | 4 |
 | Configurações | 2 | 1 | 0 | 0 | 1 | 0 | 0 |
 | Conta/Login | 6 | 3 | 0 | 0 | 3 | 0 | 0 |
 | Correio | 7 | 6 | 0 | 0 | 1 | 0 | 0 |
 | Escola/Aprendiz | 4 | 4 | 0 | 0 | 0 | 0 | 0 |
-| Eventos/Atividades | 37 | 3 | 0 | 0 | 34 | 0 | 0 |
-| Fazenda | 14 | 0 | 0 | 0 | 14 | 0 | 0 |
+| Eventos/Atividades | 37 | 4 | 0 | 0 | 33 | 0 | 1 |
+| Fazenda | 14 | 0 | 1 | 0 | 13 | 0 | 0 |
 | Ferreiro | 16 | 4 | 2 | 0 | 10 | 0 | 1 |
 | GvG/Liga | 4 | 0 | 4 | 0 | 0 | 0 | 0 |
 | Leilão | 3 | 0 | 0 | 0 | 3 | 0 | 0 |
@@ -33,14 +33,14 @@
 | Missões | 23 | 15 | 0 | 0 | 8 | 0 | 4 |
 | Outros | 16 | 4 | 0 | 0 | 12 | 0 | 1 |
 | Personagem/FC | 3 | 1 | 0 | 0 | 2 | 0 | 0 |
-| Pets | 17 | 0 | 0 | 0 | 17 | 0 | 0 |
+| Pets | 17 | 0 | 17 | 0 | 0 | 0 | 2 |
 | PvE/Masmorras | 9 | 0 | 0 | 0 | 9 | 0 | 0 |
 | Salas PvP | 21 | 17 | 0 | 0 | 4 | 0 | 0 |
 | Sociedade/Guilda | 28 | 25 | 1 | 2 | 0 | 0 | 12 |
 | Spa/Fonte termal | 14 | 13 | 0 | 1 | 0 | 0 | 5 |
 | Totem/Honra | 2 | 0 | 0 | 0 | 2 | 0 | 0 |
-| VIP | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
-| **Total** | 361 | 122 | 51 | 3 | 185 | 0 | 34 |
+| VIP | 1 | 1 | 0 | 0 | 0 | 0 | 1 |
+| **Total** | 361 | 131 | 69 | 3 | 158 | 0 | 44 |
 
 ## Amigos
 
@@ -69,23 +69,23 @@
 | `sendGoodsContinue` | `ddt/view/goods/AddPricePanel.as`<br>`equipDebt/view/EquipAddMoneyFrame.as`<br>`shop/view/ShopRechargeEquipView.as` | 62 ITEM_CONTINUE |  | missing | no |  |
 | `sendItemOpenUp` | `bagAndInfo/bag/BagView.as`<br>`bagAndInfo/bag/OpenBatchView.as` | 63 ITEM_OPENUP |  | ok | yes | Caixa (Túi quà mũi khoan) aberta: itens chegam e empilham na bolsa, caixa consumida antes de dar (sem dupe). — evidência: research/e2e/qa/b14-box-opened.png, b15-after-box.png |
 | `sendUseProp` | `bagAndInfo/bag/BagView.as` | 66 PROP_USE |  | missing | no |  |
-| `sendAddPet` | `bagAndInfo/bag/BagView.as` | 68 PET | ADD_PET=2 | missing | no |  |
+| `sendAddPet` | `bagAndInfo/bag/BagView.as` | 68 PET | ADD_PET=2 | partial | yes | Ovo de pet (cat. 35) chocado: CreatePet + 68/2 (janela de pet recebido), pet aparece na aba Thú cưng. — evidência: research/e2e/batch4/07-hatch.png, research/e2e/batch4/08-pet-bag.png |
 | `sendItemEquip` | `bagAndInfo/info/PlayerInfoViewControl.as`<br>`eliteGame/view/EliteGamePaarungFrame.as`<br>`email/view/ReadingView.as` (+2) | 74 ITEM_EQUIP |  | ok | no | FC (Lực chiến) calculado pela fórmula original (apps/game/src/game/stats.ts) e enviado em 67/login/ranking: 2091 no Thur conferido à mão. — evidência: research/e2e/qa/b2-bag.png |
 | `sendItemOverDue` | `ddt/data/goods/InventoryItemInfo.as`<br>`ddt/data/player/SelfInfo.as` | 77 ITEM_OVERDUE |  | missing | no |  |
-| `sendUseProp` | `bagAndInfo/bag/BagView.as` | 91 GAME_CMD | PROP=32 | partial | no |  |
-| `sendTexp` | `bagAndInfo/bag/BagView.as`<br>`texpSystem/view/TexpView.as` | 99 TEXP |  | missing | no |  |
+| `sendUseProp` | `bagAndInfo/bag/BagView.as` | 91 GAME_CMD | PROP=32 | partial | yes | Props 1/2/3 (+1 tiro / x3 / +2) usados na luta e aplicados ao tiro. — evidência: research/e2e/batch4/20-props.png, research/e2e/batch4/22-shot2.png |
+| `sendTexp` | `bagAndInfo/bag/BagView.as`<br>`texpSystem/view/TexpView.as` | 99 TEXP |  | ok | yes | Tu luyện: poção na StoreBag[0] → exp Tấn công 100/250, nível 4, stats atualizados. — evidência: research/e2e/batch4/17-texp-a.png, research/e2e/batch4/17-texp-done.png |
 | `sendClearStoreBag` | `bagAndInfo/BagAndGiftFrame.as`<br>`bagAndInfo/BagAndInfoManager.as`<br>`ddt/bagStore/BagStoreFrame.as` (+6) | 122 CLEAR_STORE_BAG |  | ok | no |  |
 | `sendMoveGoodsAll` | `ddt/data/BagInfo.as` | 124 CHANGE_PLACE_GOODS_ALL |  | ok | no |  |
 | `reclaimGoods` | — | 127 REClAIM_GOODS |  | ok | no |  |
 | `sendUpdateGoodsCount` | `bagAndInfo/BagAndGiftFrame.as`<br>`shop/ShopController.as` | 168 GOODS_COUNT |  | missing | no |  |
 | `sendUseReworkName` | `bagAndInfo/ReworkName/ReworkNameFrame.as` | 171 USE_REWORK_NAME |  | missing | no |  |
 | `sendChangeColor` | `changeColor/view/ChangeColorRightView.as` | 182 USE_COLOR_CARD |  | missing | no |  |
-| `sendUseCard` | `bagAndInfo/bag/BagView.as`<br>`ddt/view/buff/buffButton/BuffButton.as`<br>`game/view/propContainer/RightPropView.as` (+1) | 183 CARD_USE |  | partial | yes | Cartão EXP x2 (Property1 13) vira buff (ícone no painel) e multiplica GP; GP pill (21) ok; cartão VIP (23) ainda não. — evidência: research/e2e/qa/b17-expcard-used.png |
+| `sendUseCard` | `bagAndInfo/bag/BagView.as`<br>`ddt/view/buff/buffButton/BuffButton.as`<br>`game/view/propContainer/RightPropView.as` (+1) | 183 CARD_USE |  | ok | yes | Cartão VIP (P1 23) agora ativa VIP (ícone VIP 1 no perfil); EXP x2 (13) e GP pill (21) como antes. — evidência: research/e2e/batch4/15-vipcard.png |
 | `sendUseConsortiaReworkName` | `bagAndInfo/ReworkName/ReworkNameConsortia.as` | 188 USE_CONSORTIA_REWORK_NAME |  | missing | no |  |
 | `sendReworkRank` | `bagAndInfo/info/PlayerInfoEffortHonorView.as` | 189 USER_CHANGE_RANK |  | missing | no |  |
 | `sendUseChangeColorShell` | `bagAndInfo/bag/BagView.as` | 205 USE_CHANGE_COLOR_SHELL |  | missing | no |  |
 | `sendChangeColorShellTimeOver` | `ddt/data/goods/InventoryItemInfo.as` | 206 CHANGE_COLOR_OVER_DUE |  | ok | no |  |
-| `sendFirstGetCards` | `bagAndInfo/bag/BagView.as` | 216 CARDS_DATA |  | missing | no |  |
+| `sendFirstGetCards` | `bagAndInfo/bag/BagView.as` | 216 CARDS_DATA |  | ok | no |  |
 | `sendPlayerGift` | `bagAndInfo/info/PlayerInfoFrame.as`<br>`ddt/manager/PlayerManager.as`<br>`ddt/manager/ServerManager.as` | 218 USER_GET_GIFTS |  | missing | no |  |
 | `sendEquipRetrieve` | `equipretrieve/view/RetrieveBgView.as` | 222 EQUIP_RECYCLE_ITEM |  | missing | no |  |
 | `sendChangeSex` | `bagAndInfo/bag/BagView.as` | 252 USE_CHANGE_SEX |  | missing | no |  |
@@ -111,10 +111,10 @@
 | `getPlayerCardInfo` | — | 18 GET_PLAYER_CARD |  | missing | no |  |
 | `sendCardReset` | `cardSystem/view/PropResetFrame.as` | 196 CARD_RESET |  | missing | no |  |
 | `sendReplaceCardProp` | `cardSystem/view/PropResetFrame.as` | 196 CARD_RESET |  | missing | no |  |
-| `sendMoveCards` | `cardSystem/elements/CardCell.as`<br>`cardSystem/view/CardSelect.as`<br>`cardSystem/view/cardBag/CardBagListItem.as` (+2) | 216 CARDS_DATA |  | missing | no |  |
-| `sendOpenViceCard` | `cardSystem/view/cardEquip/CardEquipView.as` | 216 CARDS_DATA |  | missing | no |  |
-| `sendSortCards` | `cardSystem/view/cardBag/CardBagView.as`<br>`ddt/data/BagInfo.as` | 216 CARDS_DATA |  | missing | no |  |
-| `sendUpGradeCard` | `cardSystem/view/UpGradeFrame.as` | 216 CARDS_DATA |  | missing | no |  |
+| `sendMoveCards` | `cardSystem/elements/CardCell.as`<br>`cardSystem/view/CardSelect.as`<br>`cardSystem/view/cardBag/CardBagListItem.as` (+2) | 216 CARDS_DATA |  | ok | yes | Equipar carta (cópia no slot 0..4), FC sobe; desequipar remove a cópia. — evidência: research/e2e/batch4/13-card-equip.png |
+| `sendOpenViceCard` | `cardSystem/view/cardEquip/CardEquipView.as` | 216 CARDS_DATA |  | ok | no |  |
+| `sendSortCards` | `cardSystem/view/cardBag/CardBagView.as`<br>`ddt/data/BagInfo.as` | 216 CARDS_DATA |  | ok | no |  |
+| `sendUpGradeCard` | `cardSystem/view/UpGradeFrame.as` | 216 CARDS_DATA |  | ok | yes | Upgrade: gasta 3 cópias, +exp (4/50) e sobe nível com CardUpdateInfo. — evidência: research/e2e/batch4/14-card-upgrade.png |
 
 ## Casamento
 
@@ -164,7 +164,7 @@
 | `sendGameCMDBlast` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | BLAST=3 | partial | no |  |
 | `sendGameCMDChange` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | CHANGEBALL=19 | partial | no |  |
 | `sendGameCMDDirection` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | DIRECTION=7 | partial | no |  |
-| `sendGameCMDShoot` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | FIRE=2 | partial | no |  |
+| `sendGameCMDShoot` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | FIRE=2 | partial | yes | Tiro com base attack real (stats.ts), dano 1192, vitória e retorno à sala. — evidência: research/e2e/batch4/21-shot.png, research/e2e/batch4/23-after.png, research/e2e/batch4/25-pvp-end.png |
 | `sendGameCMDStunt` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | STUNT=15 | partial | no |  |
 | `sendGameMissionPrepare` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GAME_MISSION_PREPARE=116 | partial | no |  |
 | `sendGamePick` | `game/model/LocalPlayer.as` | 91 GAME_CMD | PICK=49 | partial | no |  |
@@ -263,7 +263,7 @@
 | `sendLanternRiddlesUseSkill` | `lanternriddles/view/LanternRiddlesView.as` | 145 ACTIVITY_SYSTEM | LANTERNRIDDLES_SKILL=41 | missing | no |  |
 | `sendLightRoadStarEnter` | `lightRoad/manager/LightRoadManager.as` | 145 LIGHTROAD_SYSTEM | ENTER_GAME=64 | missing | no |  |
 | `sendOpenAll` | `ddt/view/caddyII/CaddyBagView.as` | 204 OPEN_ALL_CARDBOX |  | missing | no |  |
-| `sendOpenCardBox` | `ddt/view/caddyII/card/CardViewII.as` | 216 CARDS_DATA |  | missing | no |  |
+| `sendOpenCardBox` | `ddt/view/caddyII/card/CardViewII.as` | 216 CARDS_DATA |  | ok | yes | Caixa de cartas aberta → carta na bolsa de cartas (216). — evidência: research/e2e/batch4/11-cardbox-open.png, research/e2e/batch4/12-cardbag.png |
 | `sendWeeklyClick` | `times/TimesManager.as` | 219 WEEKLY_CLICK_CNT |  | ok | no | Como o original (LastGetEgg). |
 | `sendBuyGift` | `giftSystem/view/ClearingInterface.as` | 221 USER_SEND_GIFTS |  | missing | no |  |
 | `sendSellAll` | `ddt/view/caddyII/CaddyBagView.as`<br>`ddt/view/caddyII/CaddyFrame.as`<br>`ddt/view/caddyII/CardBoxFrame.as` | 232 CADDY_SELL_ALL_GOODS |  | missing | no |  |
@@ -274,7 +274,7 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `sendBuyPetExpItem` | `farm/viewx/FarmBuyExpFrame.as` | 68 PET | BUY_PET_EXP_ITEM=19 | missing | no |  |
+| `sendBuyPetExpItem` | `farm/viewx/FarmBuyExpFrame.as` | 68 PET | BUY_PET_EXP_ITEM=19 | partial | no |  |
 | `doMature` | — | 81 FARM | ACCELERATE_FIELD=3 | missing | no |  |
 | `enterFarm` | — | 81 FARM | ENTER_FARM=1 | missing | no |  |
 | `exitFarm` | — | 81 FARM | EXIT_FARM=16 | missing | no |  |
@@ -415,23 +415,23 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `addPetEquip` | — | 68 PET | ADD_PET_EQUIP=20 | missing | no |  |
-| `delPetEquip` | — | 68 PET | DEL_PET_EQUIP=21 | missing | no |  |
-| `eatPetsHandler` | — | 68 PET | EAT_PETS=33 | missing | no |  |
-| `sendAdoptPet` | `petsBag/view/AdoptPetsGuideView.as`<br>`petsBag/view/AdoptPetsView.as` | 68 PET | ADOPT_PET=6 | missing | no |  |
-| `sendEquipPetSkill` | `petsBag/view/PetGameSkillPnl.as`<br>`petsBag/view/PetSkillPnl.as`<br>`petsBag/view/item/SkillItem.as` | 68 PET | EQUIP_PET_SKILL=7 | missing | no |  |
-| `sendPaySkill` | `petsBag/view/PetGameSkillPnl.as` | 68 PET | PAY_SKILL=16 | missing | no |  |
-| `sendPetEvolution` | `petsBag/petsAdvanced/PetsAdvancedView.as` | 68 PET | PET_EVOLUTION=23 | missing | no |  |
-| `sendPetFeed` | `petsBag/view/PetsBagOutView.as` | 68 PET | FEED_PET=4 | missing | no |  |
-| `sendPetFightUnFight` | `pet/sprite/PetSpriteController.as`<br>`petsBag/view/PetsBagOutView.as` | 68 PET | FIGHT_PET=17 | missing | no |  |
-| `sendPetFollowOrCall` | `petsBag/petsAdvanced/PetsFormPetsItem.as` | 68 PET | PET_FOLLOW=25 | missing | no |  |
-| `sendPetFormInfo` | `petsBag/petsAdvanced/PetsFormView.as` | 68 PET | PET_FORMINFO=24 | missing | no |  |
-| `sendPetRename` | `petsBag/view/PetsBagOutView.as` | 68 PET | RENAME_PET=9 | missing | no |  |
-| `sendPetRisingStar` | `petsBag/petsAdvanced/PetsAdvancedView.as` | 68 PET | PET_RISINGSTAR=22 | missing | no |  |
-| `sendPetWake` | `petsBag/petsAdvanced/PetsFormPetsItem.as` | 68 PET | PET_WAKE=32 | missing | no |  |
-| `sendRefreshPet` | `petsBag/view/AdoptPetsGuideView.as`<br>`petsBag/view/AdoptPetsView.as` | 68 PET | REFRESH_PET=5 | missing | no |  |
-| `sendReleasePet` | `petsBag/view/PetsBagOutView.as` | 68 PET | RELEASE_PET=8 | missing | no |  |
-| `sendRevertPet` | `petsBag/view/PetsBagOutView.as` | 68 PET | REVER_PET=18 | missing | no |  |
+| `addPetEquip` | — | 68 PET | ADD_PET_EQUIP=20 | partial | no |  |
+| `delPetEquip` | — | 68 PET | DEL_PET_EQUIP=21 | partial | no |  |
+| `eatPetsHandler` | — | 68 PET | EAT_PETS=33 | partial | no |  |
+| `sendAdoptPet` | `petsBag/view/AdoptPetsGuideView.as`<br>`petsBag/view/AdoptPetsView.as` | 68 PET | ADOPT_PET=6 | partial | no |  |
+| `sendEquipPetSkill` | `petsBag/view/PetGameSkillPnl.as`<br>`petsBag/view/PetSkillPnl.as`<br>`petsBag/view/item/SkillItem.as` | 68 PET | EQUIP_PET_SKILL=7 | partial | no | EquipSkillPet (slot 4 VIP 7) — servidor, não clicado no cliente. |
+| `sendPaySkill` | `petsBag/view/PetGameSkillPnl.as` | 68 PET | PAY_SKILL=16 | partial | no |  |
+| `sendPetEvolution` | `petsBag/petsAdvanced/PetsAdvancedView.as` | 68 PET | PET_EVOLUTION=23 | partial | no |  |
+| `sendPetFeed` | `petsBag/view/PetsBagOutView.as` | 68 PET | FEED_PET=4 | partial | yes | Comida via StoreBag (split 49 corrigido) → FeedPet: nível/fome, mensagem. — evidência: research/e2e/batch4/10-feed.png |
+| `sendPetFightUnFight` | `pet/sprite/PetSpriteController.as`<br>`petsBag/view/PetsBagOutView.as` | 68 PET | FIGHT_PET=17 | partial | yes | Pet de batalha (FightPet): stats somam no FC, pet segue o personagem no salão. — evidência: research/e2e/batch4/09-pet-fight-skill.png, research/e2e/batch4/34-reload.png |
+| `sendPetFollowOrCall` | `petsBag/petsAdvanced/PetsFormPetsItem.as` | 68 PET | PET_FOLLOW=25 | partial | no |  |
+| `sendPetFormInfo` | `petsBag/petsAdvanced/PetsFormView.as` | 68 PET | PET_FORMINFO=24 | partial | no |  |
+| `sendPetRename` | `petsBag/view/PetsBagOutView.as` | 68 PET | RENAME_PET=9 | partial | no | RenamePet (ChangeNameCost Xu) — servidor, não clicado no cliente. |
+| `sendPetRisingStar` | `petsBag/petsAdvanced/PetsAdvancedView.as` | 68 PET | PET_RISINGSTAR=22 | partial | no |  |
+| `sendPetWake` | `petsBag/petsAdvanced/PetsFormPetsItem.as` | 68 PET | PET_WAKE=32 | partial | no |  |
+| `sendRefreshPet` | `petsBag/view/AdoptPetsGuideView.as`<br>`petsBag/view/AdoptPetsView.as` | 68 PET | REFRESH_PET=5 | partial | no |  |
+| `sendReleasePet` | `petsBag/view/PetsBagOutView.as` | 68 PET | RELEASE_PET=8 | partial | no | ReleasePet (IsExit=0, 12656×WashGetCount) — servidor, não clicado no cliente. |
+| `sendRevertPet` | `petsBag/view/PetsBagOutView.as` | 68 PET | REVER_PET=18 | partial | no |  |
 
 ## PvE/Masmorras
 
@@ -536,5 +536,5 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `sendOpenVip` | `vip/VipController.as` | 92 VIP_RENEWAL |  | missing | no |  |
+| `sendOpenVip` | `vip/VipController.as` | 92 VIP_RENEWAL |  | ok | yes | Tiếp phí VIP 3 meses: 2790 Xu debitado, VIP 1→5, expira 2027-01-04, 92 atualiza a janela. — evidência: research/e2e/batch4/16-vip-buy2.png, research/e2e/batch4/16-vip-bought.png |
 
