@@ -6,7 +6,7 @@
 import * as Out from "../packets/out.js";
 import { PlayerState, type RoomMember } from "../game/player.js";
 import type { FightEngine } from "../fight/types.js";
-import type { BotProvider } from "../bots/bot.js";
+import type { BotProvider, VirtualPlayer } from "../bots/bot.js";
 import { BaseRoom, RoomType } from "./room.js";
 
 export interface RoomMgrOptions {
@@ -362,7 +362,10 @@ export class RoomMgr {
       mapId,
       red,
       blue,
-      onStopped: () => rooms.forEach((r) => r.onGameStopped()),
+      onStopped: () => {
+        rooms.forEach((r) => r.onGameStopped());
+        for (const m of [...red, ...blue]) if (m.isBot) this.o.bots?.release(m as VirtualPlayer);
+      },
     });
     if (!game) {
       for (const r of rooms) {

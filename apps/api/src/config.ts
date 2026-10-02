@@ -64,6 +64,8 @@ const schema = z.object({
 
   SERVER_NAME: z.string().default("DDTank Reborn"),
   SITE_URL: z.string().default("http://localhost:5173"),
+  /** config.xml USER_GUILD_ENABLE: the 4.1 newbie guide locks hall buildings behind weakless steps and needs trainer assets this pack lacks (roomlist.jpg 404 -> stuck). Off = everything open, no arrows. */
+  USER_GUIDE_ENABLE: bool.default(false),
   LAUNCHER_DOWNLOAD_URL: z.string().default(""),
   LAUNCHER_UPDATE_URL: z.string().default(""),
   LAUNCHER_LATEST_VERSION: z.string().default("0.1.0"),

@@ -19,6 +19,10 @@ export interface DdtFightOptions {
   botProfile?: (bot: RoomMember) => BotProfile;
   /** level from total GP (LevelInfo); when omitted the grade is not recomputed */
   gradeForGp?: (gp: number) => number | undefined;
+  /** PVPGame.TakeCard drop (DropInventory.CardDrop + AddTemplate TempBag); returns the card face shown to everyone */
+  takeCard?: (member: RoomMember, roomType: number) => { templateId: number; count: number };
+  /** GamePlayer.OnGameOver (quest conditions) for every human seat */
+  onPlayerGameOver?: (member: RoomMember, g: { roomType: number; gameType: number; isWin: boolean; kills: number; playerCount: number }) => void;
   /** test hook: manual clock instead of setInterval */
   manualClock?: boolean;
   seed?: () => number;
@@ -108,6 +112,9 @@ class DdtGame implements FightGame {
   private readonly members = new Map<number, LobbyLike>();
   private readonly teamOf = new Map<number, number>();
   private stopped = false;
+  /** PVPGame.Cards (9 for PvP) and Player.CanTakeOut per userId, filled at GAME_OVER */
+  private readonly cards: number[] = new Array(9).fill(0);
+  private readonly canTakeOut = new Map<number, number>();
 
   constructor(readonly id: number, readonly mapId: number, private readonly s: StartGameOptions, private readonly engine: DdtFightEngine) {
     const specs: PlayerSpec[] = [];
@@ -131,6 +138,15 @@ class DdtGame implements FightGame {
   }
 
   processData(from: RoomMember, pkt: GSPacket): void {
+    // TakeCardCommand (98) / BossTakeCardCommand (130): after GAME_OVER; index out of range (client sends 100 when
+    // its countdown ends) = auto pick. Without an answer the client's card board never closes (stuck at "00").
+    const at = pkt.offset;
+    const sub = pkt.readByte();
+    if (sub === 98 || sub === 130) {
+      this.takeCard(from.id, pkt.readByte(), false);
+      return;
+    }
+    pkt.offset = at;
     const cmd = parseCommand(pkt);
     if (!cmd) {
       this.engine.o.log?.(`fight ${this.id}: GAME_CMD from ${from.id} ignored`);
@@ -149,9 +165,33 @@ class DdtGame implements FightGame {
     }
   }
 
+  /** PVPGame.TakeCard(player, index, isAuto) (PVPGame.cs:143-200). */
+  takeCard(userId: number, index: number, isAuto: boolean): boolean {
+    const left = this.canTakeOut.get(userId) ?? 0;
+    if (left <= 0) return false;
+    if (index < 0 || index >= this.cards.length || this.cards[index]! > 0) {
+      const free = this.cards.findIndex((c) => c === 0);
+      if (free < 0) return false;
+      index = free;
+      isAuto = true;
+    }
+    const m = this.members.get(userId);
+    const living = this.game.players.find((p) => p.spec.userId === userId);
+    if (!m || !living) return false;
+    this.canTakeOut.set(userId, left - 1);
+    this.cards[index] = 1;
+    const face = m.isBot ? { templateId: 0, count: 0 } : (this.engine.o.takeCard?.(m, this.s.roomType) ?? { templateId: 0, count: 0 });
+    const p = new PacketOut(91, living.id, living.id);
+    p.writeByte(98); p.writeBoolean(isAuto); p.writeByte(index); p.writeInt(face.templateId); p.writeInt(face.count); p.writeBoolean(false);
+    for (const o of this.members.values()) o.send(p);
+    return true;
+  }
+
   stop(): void {
     if (this.stopped) return;
     this.stopped = true;
+    // PVPGame.Stop: players that did not pick get an automatic card.
+    for (const [uid, left] of this.canTakeOut) if (left > 0) this.takeCard(uid, -1, true);
     this.game.stop();
     this.engine.games.delete(this.id);
     this.s.onStopped();
@@ -178,10 +218,15 @@ class DdtGame implements FightGame {
     for (const r of e.players) {
       const m = this.members.get(r.userId);
       if (!m || m.isBot) continue;
+      if (r.canTakeOut > 0) this.canTakeOut.set(r.userId, r.canTakeOut);
       const c = m.info as unknown as Record<string, number>;
       c.GP = (c.GP ?? 0) + r.gpGained;
       const g = this.engine.o.gradeForGp?.(c.GP);
-      if (g && g > (c.Grade ?? 0)) c.Grade = g;
+      if (g && g > (c.Grade ?? 0)) {
+        c.Grade = g; // level up: HP and grade quests (GamePlayer.AddGP -> UpdateLevel)
+        (m as LobbyLike & { updatePlayerProperties?(): void }).updatePlayerProperties?.();
+        (m as LobbyLike & { questInv?: { refresh(): void } | null }).questInv?.refresh();
+      }
       c.Offer = (c.Offer ?? 0) + r.offer;
       if (r.money > 0) c.Money = (c.Money ?? 0) + r.money;
       if (this.s.roomType === 0) {
@@ -192,6 +237,11 @@ class DdtGame implements FightGame {
       else m.updateProperties?.();
       r.gp = c.GP;
       r.grade = c.Grade ?? r.grade;
+      try {
+        this.engine.o.onPlayerGameOver?.(m, { roomType: this.s.roomType, gameType: this.s.gameType, isWin: r.win, kills: r.totalKill, playerCount: e.players.length });
+      } catch (err) {
+        this.engine.o.log?.(`fight ${this.id}: onPlayerGameOver failed: ${(err as Error).message}`);
+      }
     }
   }
 

@@ -7,6 +7,7 @@ import { findCharacterByUserName, loadMatchInfo, loadPlayerInfo, setOnlineState 
 import { loadUserItems } from "../db/items.js";
 import { loadFriends, loadProgress } from "../db/social.js";
 import { GamePlayer } from "../game/player.js";
+import { QuestInventory } from "../game/quests.js";
 import { BagType } from "../game/item.js";
 import * as Out from "../packets/out.js";
 import { unixSeconds } from "../util/time.js";
@@ -47,12 +48,15 @@ export async function handleLogin(ctx: ServerContext, client: GameClient): Promi
     if (!ch.IsExist || ch.ForbidDate.getTime() > ctx.now().getTime()) return kick(client, t("UserLoginHandler.Forbid"));
     if (client.closed) return;
     // Single session (LoginMgr.Add / center TryLoginPlayer): the older connection is kicked with "LoginNext".
+    // The new session only loads after the old one stopped handling packets and saved (no stale-DB item dupe).
     const old = ctx.world.get(ch.UserID);
     if (old) {
       old.sink.send(Out.kitoff(t("Game.Server.LoginNext")));
       old.sink.disconnect("logged in elsewhere");
+      await Promise.race([old.sink.idle?.(), new Promise((r) => setTimeout(r, 5000))]);
       await quitPlayer(ctx, old);
     }
+    if (client.closed) return;
     const player = await loadPlayer(ctx, client, ch.UserID);
     if (!player) return kick(client, t("UserLoginHandler.Forbid"));
     if (client.closed) {
@@ -85,6 +89,10 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   await setOnlineState(db, userId, 1);
   p.friends = friends;
   p.quests = progress.quests.filter((q) => ctx.templates.quests.has(q.QuestID));
+  p.gradeForGp = (gp) => ctx.templates.gradeForGp(gp);
+  p.lang = (k, ...a) => ctx.lang.t(k, ...(a as never[]));
+  p.questInv = new QuestInventory(p, ctx.templates, info.QuestSite ?? new Uint8Array(0));
+  p.questInv.load(progress.quests);
   p.achievements = progress.achievements;
   p.records = progress.records;
   p.buffs = progress.buffs;
@@ -104,7 +112,9 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
     [p.storeBag, BagType.Store],
   ] as const) bag.loadItems(items.get(type) ?? []);
   // CardBag / pets / farm / avatar collection: TODO (HANDLERS.md).
-  if (p.quests.length) p.send(Out.updateQuests(p.id, info.QuestSite.length ? info.QuestSite : new Uint8Array(200), p.quests));
+  // QuestInventory.LoadFromDatabase -> 178. Sent even when empty: the client's TaskManager only answers with
+  // QUEST_ADD (176) for the quests it can accept once its quest data is initialised.
+  p.questInv.sendAll();
   if (p.records.length) {
     p.send(Out.achievementRecords(228, p.id, p.records));
     p.send(Out.achievementRecords(229, p.id, p.records));
@@ -140,9 +150,12 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   return p;
 }
 
-/** GamePlayer.Quit: leave room/lobby, State = 0, save, WorldMgr.RemovePlayer. Idempotent. */
-export async function quitPlayer(ctx: ServerContext, p: GamePlayer): Promise<void> {
-  if (!p.isActive) return;
+/** GamePlayer.Quit: leave room/lobby, State = 0, save, WorldMgr.RemovePlayer. Idempotent: concurrent callers share one quit. */
+export function quitPlayer(ctx: ServerContext, p: GamePlayer): Promise<void> {
+  return (p.quitting ??= doQuit(ctx, p));
+}
+
+async function doQuit(ctx: ServerContext, p: GamePlayer): Promise<void> {
   p.isActive = false;
   try {
     if (p.currentRoom) {

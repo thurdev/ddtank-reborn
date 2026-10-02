@@ -86,7 +86,9 @@ export const ConfigSchema = z.object({
   /** Close connections that have not logged in after this many seconds. */
   LOGIN_TIMEOUT_SEC: num(60),
   /** Lobby chat cooldown (SceneChatHandler.cs:240, 30 s). */
-  CHAT_COOLDOWN_SEC: num(30),
+  /** Seconds a lone Match room waits in the auto-match queue before it is paired with bots (app."Bots"); 0 = never. */
+  BOT_FALLBACK_SEC: num(25),
+  CHAT_COOLDOWN_SEC: num(3), // original SceneChatHandler: 30 s (felt like "chat is broken")
 
   LANGUAGE_FILE: z.string().default(resolve(APP_ROOT, "data", "Language-vn.txt")),
   /** Dev only: accept any socket LOGIN password (the ticket is not checked). Refused when NODE_ENV=production. */

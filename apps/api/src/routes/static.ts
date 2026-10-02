@@ -33,6 +33,7 @@ export function buildConfigXml(ctx: AppCtx, template: string): string {
     COUNT_PATH: "",
     STATISTIC: "false",
     OFFICIAL_SITE: `${ctx.cfg.SITE_URL}/`,
+    USER_GUILD_ENABLE: String(ctx.cfg.USER_GUIDE_ENABLE),
   };
   let x = template;
   for (const [k, v] of Object.entries(set)) x = x.replace(new RegExp(`(<${k}\\s+value=")[^"]*(")`, "i"), `$1${v}$2`);

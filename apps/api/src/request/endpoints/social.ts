@@ -198,3 +198,45 @@ export const MailSenderList = define("/MailSenderList.ashx", async ({ app, int }
     return xml(result(false, "Fail!"), true);
   }
 });
+
+/**
+ * dailyloglist.ashx (Tank.Request/dailyloglist.ashx.cs): sign-in calendar of the month. Was a "Not supported" stub:
+ * the client's startup QueueLoader (StartupResourceLoader.startLoadRelatedInfo) stops at a failed analyzer, so
+ * LoadUserMail.ashx / MailSenderList.ashx were never requested and the mail window stayed empty.
+ */
+export const DailyLogList = define("/dailyloglist.ashx", async ({ app, int }) => {
+  let ok = false;
+  const kids: XEl[] = [];
+  const now = wallNow();
+  try {
+    const userId = int("selfid");
+    const row = await q1<{ ID: number; UserAwardLog: number; DayLog: string | null; LastDate: Date }>(
+      app.h,
+      sql`SELECT "ID","UserAwardLog","DayLog","LastDate" FROM player."DailyLogList" WHERE "UserID" = ${userId} LIMIT 1`,
+    );
+    let dayLog = row?.DayLog ?? "";
+    let award = row?.UserAwardLog ?? 0;
+    let last = row?.LastDate ?? now;
+    const y = now.getUTCFullYear();
+    const m = now.getUTCMonth();
+    const d = now.getUTCDate();
+    if (m !== last.getUTCMonth() || y !== last.getUTCFullYear()) {
+      dayLog = "";
+      award = 0;
+      last = now;
+    }
+    const len = dayLog.split(",").length;
+    const days = new Date(Date.UTC(y, m + 1, 0)).getUTCDate();
+    if (len < days) {
+      if (!dayLog && len > 1) dayLog = "False";
+      for (let i = len; i < d - 1; i++) dayLog += ",False";
+    }
+    if (row) await q(app.h, sql`UPDATE player."DailyLogList" SET "DayLog" = ${dayLog}, "UserAwardLog" = ${award}, "LastDate" = ${last} WHERE "ID" = ${row.ID}`);
+    else await q(app.h, sql`INSERT INTO player."DailyLogList" ("UserID","UserAwardLog","DayLog","LastDate") VALUES (${userId}, ${award}, ${dayLog}, ${last})`);
+    kids.push(el("DailyLogList", [["UserAwardLog", award], ["DayLog", dayLog], ["luckyNum", 0], ["myLuckyNum", 0]]));
+    ok = true;
+  } catch {
+    /* Fail! like the original catch */
+  }
+  return xml(result(ok, ok ? "Success!" : "Fail!", kids, [["nowDate", fmtDate(now)]]), true);
+}, "Tank.Request/dailyloglist.ashx.cs");

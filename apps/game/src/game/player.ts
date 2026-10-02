@@ -12,6 +12,8 @@ import { BagType, ItemInfo, templateBagType, isSpecialTemplate, type ItemTemplat
 import { PlayerEquipInventory, PlayerInventory, type InventoryHooks } from "./inventory.js";
 import type { MatchRow, PlayerInfo } from "./player-info.js";
 import type { BaseRoom } from "../rooms/room.js";
+import type { QuestInventory } from "./quests.js";
+import { saveQuests } from "../db/social.js";
 
 /** ePlayerState. */
 export const PlayerState = { Offline: 0, Manual: 1, Online: 1, Away: 2 } as const;
@@ -20,6 +22,8 @@ export interface PacketSink {
   send(pkt: GSPacket): void;
   disconnect(reason: string): void;
   readonly remoteAddress: string;
+  /** Resolves when every packet already queued for this connection was handled (GameClient.idle). */
+  idle?(): Promise<void>;
 }
 
 export interface RoomMember {
@@ -53,6 +57,12 @@ export class GamePlayer implements RoomMember {
   readonly petEggBag: PlayerInventory;
   friends = new Map<number, number>();
   quests: QuestDataRow[] = [];
+  /** QuestInventory (set at login). */
+  questInv: QuestInventory | null = null;
+  /** LevelMgr.GetLevel(GP) (set at login). */
+  gradeForGp: (gp: number) => number | undefined = () => undefined;
+  /** LanguageMgr.GetTranslation (set at login) for messages built inside the player (quests). */
+  lang: (key: string, ...args: unknown[]) => string = (k) => k;
   achievements: AchievementDataRow[] = [];
   records: RecordRow[] = [];
   buffs: BuffRow[] = [];
@@ -71,6 +81,8 @@ export class GamePlayer implements RoomMember {
   showPP = false;
   readonly tempProperties = new Map<string, number>();
   isActive = true;
+  /** Set by quitPlayer: every caller awaits the same quit (and its final save). */
+  quitting: Promise<void> | null = null;
   private changeDepth = 0;
   private propsPending = false;
 
@@ -86,6 +98,7 @@ export class GamePlayer implements RoomMember {
       onSlotsChanged: (bag, slots) => this.send(Out.inventorySlots(this.id, bag, slots)),
       onEquipChanged: () => this.updatePlayerProperties(),
       canEquip: (t) => this.canEquip(t),
+      onNewGear: (it) => this.questInv?.onNewGear(it.template.CategoryID),
     };
     this.equipBag = new PlayerEquipInventory(hooks);
     this.propBag = new PlayerInventory(BagType.PropBag, 96, 0, true, true, hooks);
@@ -237,6 +250,17 @@ export class GamePlayer implements RoomMember {
   }
 
   // -------------------------------------------------------------------- currencies (GamePlayer Add*/Remove*)
+  /** GamePlayer.AddGP: level-up recomputes HP, refreshes grade quests; the client re-requests quests on Grade change. */
+  addGP(v: number): void {
+    if (v <= 0) return;
+    this.info.GP += v;
+    const g = this.gradeForGp(this.info.GP);
+    if (g && g > this.info.Grade) {
+      this.info.Grade = g;
+      this.updatePlayerProperties();
+      this.questInv?.refresh();
+    } else this.updateProperties();
+  }
   addGold(v: number): void { if (v > 0) { this.info.Gold += v; this.updateProperties(); } }
   removeGold(v: number): void { if (v > 0) { this.info.Gold -= v; this.updateProperties(); } }
   addGiftToken(v: number): void { if (v > 0) { this.info.GiftToken += v; this.updateProperties(); } }
@@ -294,5 +318,6 @@ export class GamePlayer implements RoomMember {
       }
       bag.removed.length = 0;
     }
+    if (this.questInv) await saveQuests(db, this.questInv.takeDirty());
   }
 }

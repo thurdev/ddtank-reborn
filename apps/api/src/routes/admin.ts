@@ -215,6 +215,8 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
   });
 
   // ---- mail ----
+  // drizzle expands a JS array param to a tuple ($1, $2), which `= ANY(...)` rejects: build IN (...) instead
+  const nickIn = (names: string[]) => (names.length ? sql`"NickName" IN (${sql.join(names.map((n) => sql`${n}`), sql`, `)})` : sql`false`);
   f.post("/api/admin/mail/broadcast", { preHandler: guard }, async (req, reply) => {
     const b = (req.body ?? {}) as Row;
     if (!b.subject || !b.body) return reply.code(400).send({ message: "Assunto e mensagem são obrigatórios" });
@@ -225,7 +227,7 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
         : target === "level"
           ? sql`"Grade" BETWEEN ${Number(b.levelMin ?? 1)} AND ${Number(b.levelMax ?? 100)}`
           : target === "list"
-            ? sql`"NickName" = ANY(${(Array.isArray(b.nicknames) ? b.nicknames : []).map(String)})`
+            ? nickIn((Array.isArray(b.nicknames) ? b.nicknames : []).map(String))
             : sql`true`;
     const users = await q(ctx.h, sql`SELECT "UserID","NickName" FROM player."Sys_Users_Detail" WHERE "IsExist" = true AND "NickName" <> '' AND ${where}`);
     const items = (Array.isArray(b.items) ? b.items : []).slice(0, 5) as Row[];

@@ -4,6 +4,8 @@ import { registerChat } from "./chat.js";
 import { registerItems } from "./items.js";
 import { registerSocial } from "./social.js";
 import { registerRooms } from "./rooms.js";
+import { registerQuests } from "./quests.js";
+import { registerMail } from "./mail.js";
 
 export function createRegistry(): HandlerRegistry {
   const r = new HandlerRegistry();
@@ -12,5 +14,7 @@ export function createRegistry(): HandlerRegistry {
   registerItems(r);
   registerSocial(r);
   registerRooms(r);
+  registerQuests(r);
+  registerMail(r);
   return r;
 }

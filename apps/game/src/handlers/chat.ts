@@ -112,6 +112,23 @@ export function registerChat(r: HandlerRegistry): void {
     for (const o of ctx.world.all()) o.send(build(o.id));
   });
 
+  /** CBugleHandler.cs:12 — cross-zone ("world") bugle, template 11100; single process = every online player. */
+  r.player(73, "C_BUGLE", (ctx, p, pkt) => {
+    pkt.readInt();
+    const item = p.propBag.getItemByTemplateID(0, 11100);
+    if (p.lastChatTime + 2000 > Date.now()) return p.sendMessage(3, ctx.lang.t("GoSlow"));
+    if (!item) return;
+    pkt.readString();
+    const msg = pkt.readString();
+    p.propBag.removeCountFromStack(item, 1);
+    p.lastChatTime = Date.now();
+    for (const o of ctx.world.all()) {
+      const out = new GSPacket(73, o.id);
+      out.writeInt(p.zoneId); out.writeInt(p.id); out.writeString(p.info.NickName ?? ""); out.writeString(msg); out.writeString(p.zoneName);
+      o.send(out);
+    }
+  });
+
   /** SceneSmileHandler: forwards the packet as-is (ClientID = sender) to the room or the lobby. */
   r.player(20, "SCENE_FACE", (ctx, p, pkt) => {
     const out = GSPacket.parse(pkt.toBytes());
