@@ -96,7 +96,7 @@ export function registerBasic(r: HandlerRegistry): void {
     p.send(out);
   });
   // Obsolete no-ops in the original (01 §1).
-  for (const [code, name] of [[35, "AC_ACTION"], [64, "OPTION_UPDATE"], [24, "SCENE_CHANNEL_CHANGE"], [161, "USER_LUCKYNUM"], [206, "CHANGE_COLOR_OVER_DUE"], [245, "CADDY_GET_AWARDS"], [279, "SHOW_HIDE_TITLE"], [30, "LOTTERY_GET_ITEM"], [213, "USE_LOG"], [42, "DELETE_GOODS"]] as const) {
+  for (const [code, name] of [[35, "AC_ACTION"], [64, "OPTION_UPDATE"], [24, "SCENE_CHANNEL_CHANGE"], [161, "USER_LUCKYNUM"], [206, "CHANGE_COLOR_OVER_DUE"], [245, "CADDY_GET_AWARDS"], [279, "SHOW_HIDE_TITLE"], [30, "LOTTERY_GET_ITEM"], [213, "USE_LOG"]] as const) {
     r.player(code, name, () => {});
   }
 }

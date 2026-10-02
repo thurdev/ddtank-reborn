@@ -53,3 +53,10 @@ export async function saveQuests(db: Database, rows: QuestDataRow[]): Promise<vo
     await db.insert(player.QuestData).values(r).onConflictDoUpdate({ target: [player.QuestData.UserID, player.QuestData.QuestID], set: rest });
   }
 }
+
+/** BufferList.SaveToDatabase (SP_User_Buff_Add): upsert by (UserID, Type). */
+export async function saveBuffs(db: Database, rows: BuffRow[]): Promise<void> {
+  for (const r of rows) {
+    await db.insert(player.User_Buff).values(r).onConflictDoUpdate({ target: [player.User_Buff.UserID, player.User_Buff.Type], set: { ...r } });
+  }
+}

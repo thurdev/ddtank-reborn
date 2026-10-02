@@ -1,0 +1,12 @@
+{
+  "59:sendItemStrength": { "verified": "yes", "notes": "Pedras nv 4/5 em arma: sucesso, +1 por clique, 1 pedra consumida por slot (desvio: C# consumia a pilha inteira), furo 1 abre no +3.", "evidence": "research/e2e/qa/b7-strengthen-tip.png, b8-weapon-tip.png, b11-inlay2.png" },
+  "63:sendItemOpenUp": { "verified": "yes", "notes": "Caixa (Túi quà mũi khoan) aberta: itens chegam e empilham na bolsa, caixa consumida antes de dar (sem dupe).", "evidence": "research/e2e/qa/b14-box-opened.png, b15-after-box.png" },
+  "183:sendUseCard": { "verified": "yes", "notes": "Cartão EXP x2 (Property1 13) vira buff (ícone no painel) e multiplica GP; GP pill (21) ok; cartão VIP (23) ainda não.", "evidence": "research/e2e/qa/b17-expcard-used.png" },
+  "44:sendBuyGoods": { "verified": "yes", "notes": "Xu (money) e Lễ kim (giftToken) debitados e saldo atualiza na loja (corrigido pacote 38 sem petScore). Ouro/medalha/itens exigidos pelo mesmo caminho (GetItemPrice).", "evidence": "research/e2e/qa/c6-shop-balance.png" },
+  "74:sendItemEquip": { "notes": "FC (Lực chiến) calculado pela fórmula original (apps/game/src/game/stats.ts) e enviado em 67/login/ranking: 2091 no Thur conferido à mão.", "evidence": "research/e2e/qa/b2-bag.png" },
+  "49:sendMoveGoods": { "verified": "yes", "notes": "Mover para o ferreiro/equipar." },
+  "121:sendItemEmbed": { "notes": "Implementado (furo precisa estar aberto e tipo igual ao Property2 da gema); sem gema no personagem de teste para verificar no cliente." },
+  "125:sendItemEmbedBackout": { "notes": "Implementado: 500 Xu, gema volta vinculada, devolve itens do ferreiro." },
+  "58:sendItemCompose": { "notes": "Implementado: taxa {80,50,30,10,5}% por qualidade (+1% sem amuleto), PRICE_COMPOSE_GOLD (1600)." },
+  "78:sendItemFusion": { "notes": "Implementado: prévia 76 + fusão 400 ouro (FusionMgr)." }
+}
