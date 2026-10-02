@@ -3,6 +3,8 @@
  * 49 CHANGE_PLACE_GOODS, 47 UNCHAIN_EQUIP, 127 REClAIM_GOODS, 44 BUY_GOODS, 74 ITEM_EQUIP (01 §3, §4, §2).
  */
 import { ItemInfo, isAvatar, BagType, templateBagType } from "../game/item.js";
+import { getEquipControl } from "../db/consortia.js";
+import { bankCapacity, canBuyGuildShop, personalRiches } from "../game/consortia.js";
 import type { GamePlayer } from "../game/player.js";
 import type { PlayerInventory } from "../game/inventory.js";
 import { loadEquippedItems } from "../db/items.js";
@@ -50,11 +52,11 @@ export function setItemType(s: ShopItemInfo, type: number, t: PriceTotals): numb
   return out;
 }
 
-/** ShopMgr.CanBuy (Bussiness/Managers/ShopMgr.cs:23) — guild shops 11..15 need Consortia_Equip_Control (not ported: refused). */
-export function canBuyShop(shopId: number): { ok: boolean; isBinds: boolean } {
+/** ShopMgr.CanBuy (Bussiness/Managers/ShopMgr.cs:23) — guild shops 11..15: `guild` = canBuyGuildShop() result (src/game/consortia.ts). */
+export function canBuyShop(shopId: number, guild = false): { ok: boolean; isBinds: boolean } {
   if (shopId >= 1 && shopId <= 4) return { ok: true, isBinds: false };
   if (shopId === 20 || shopId === 72 || shopId === 91) return { ok: true, isBinds: true };
-  if (shopId >= 11 && shopId <= 15) return { ok: false, isBinds: true };
+  if (shopId >= 11 && shopId <= 15) return { ok: guild, isBinds: true };
   return { ok: false, isBinds: true };
 }
 
@@ -78,6 +80,12 @@ export function changeItemPlace(ctx: ServerContext, p: GamePlayer, bagType: numb
     return;
   }
   if (toPlace !== -1 && (toPlace < 0 || toPlace >= toBag.capacity)) return; // port: validate slot range
+  if (toBagType === BagType.Consortia) {
+    // guild bank: only for members, StoreLevel × 10 slots (ConsortiaBag capacity follows the bank level)
+    const cap = p.info.ConsortiaID ? bankCapacity(p.info.StoreLevel) : 0;
+    if (toPlace === -1 && bagType !== toBagType) toPlace = toBag.findFirstEmptySlotIn(0, cap);
+    if (toPlace < 0 || toPlace >= cap) return p.sendMessage(1, ctx.lang.t("UserChangeItemPlaceHandler.full"));
+  }
   bag.beginChanges();
   if (toBag !== bag) toBag.beginChanges();
   try {
@@ -164,7 +172,12 @@ export async function buyGoods(ctx: ServerContext, p: GamePlayer, pkt: GSPacket)
     const place = pkt.readInt();
     const shop = tpl.shop.get(goodsId);
     if (!shop || !tpl.isOnShop(shop.ID)) continue;
-    const can = canBuyShop(shop.ShopID);
+    let guildOk = false;
+    if (shop.ShopID >= 11 && shop.ShopID <= 15 && p.info.ConsortiaID) {
+      const th = await getEquipControl(ctx.db.db, p.info.ConsortiaID, shop.ShopID - 10, 1);
+      guildOk = canBuyGuildShop(shop.ShopID, p.info.ConsortiaID, p.info.ShopLevel, personalRiches(p.info), th);
+    }
+    const can = canBuyShop(shop.ShopID, guildOk);
     if (shop.ShopID === 2 || !can.ok) return p.sendMessage(1, ctx.lang.t("UserBuyItemHandler.FailByPermission"));
     const t = tpl.findItem(shop.TemplateID);
     if (!t) continue;

@@ -33,6 +33,8 @@ export interface DdtFightOptions {
   };
   /** GamePlayer.OnMissionOver (quest condition 21) */
   onMissionOver?: (member: RoomMember, m: { missionId: number; isWin: boolean; turnNum: number }) => void;
+  /** Whole-game PvP result after the per-player rewards (PVPGame.CalculateGuildMatchResult: guild riches / offer). */
+  onGameOver?: (g: { roomType: number; gameType: number; winTeam: number; players: { member: RoomMember; team: number; win: boolean; totalHurt: number }[] }) => void;
   /** PVE_AWARD: give items (temp/fight bag, special gold/money templates) */
   giveItems?: (member: RoomMember, items: DropItem[], bag: "temp" | "fight") => void;
   /** test hook: manual clock instead of setInterval */
@@ -337,6 +339,15 @@ class DdtGame implements FightGame {
       } catch (err) {
         this.engine.o.log?.(`fight ${this.id}: onPlayerGameOver failed: ${(err as Error).message}`);
       }
+    }
+    try {
+      const players = e.players.flatMap((r) => {
+        const m = this.members.get(r.userId);
+        return m && !m.isBot ? [{ member: m as RoomMember, team: this.teamOf.get(r.userId) ?? 0, win: r.win, totalHurt: r.totalHurt }] : [];
+      });
+      this.engine.o.onGameOver?.({ roomType: this.s.roomType, gameType: this.s.gameType, winTeam: e.winTeam, players });
+    } catch (err) {
+      this.engine.o.log?.(`fight ${this.id}: onGameOver failed: ${(err as Error).message}`);
     }
   }
 

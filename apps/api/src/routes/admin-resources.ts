@@ -22,6 +22,14 @@ export const RESOURCES: Record<string, ResourceDef> = {
   "player-mail": { table: player.User_Messages, pk: ["ID"] },
   accounts: { table: Accounts, pk: ["ID"], hidden: ["PasswordHash"] },
   bots: { table: app.Bots, pk: ["id"] },
+  // guilds (Sociedade)
+  guilds: { table: player.Consortia, pk: ["ConsortiaID"], noCreate: true, noDelete: true },
+  "guild-members": { table: player.Consortia_Users, pk: ["ID"], noCreate: true },
+  "guild-duties": { table: player.Consortia_Duty, pk: ["DutyID"], noCreate: true, noDelete: true },
+  "guild-applications": { table: player.Consortia_Apply_Users, pk: ["ID"], noCreate: true },
+  "guild-events": { table: player.Consortia_Event, pk: ["ID"], noCreate: true, readOnly: true },
+  "guild-tasks": { table: player.Consortia_Task_Info, pk: ["ID"], noCreate: true },
+  "guild-levels": { table: player.Consortia_Level, pk: ["Level"] },
   // content
   items: { table: game.Shop_Goods, pk: ["TemplateID"] },
   shop: { table: game.Shop, pk: ["ID"] },

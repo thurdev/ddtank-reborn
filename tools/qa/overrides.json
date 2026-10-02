@@ -1,12 +1,123 @@
 {
-  "59:sendItemStrength": { "verified": "yes", "notes": "Pedras nv 4/5 em arma: sucesso, +1 por clique, 1 pedra consumida por slot (desvio: C# consumia a pilha inteira), furo 1 abre no +3.", "evidence": "research/e2e/qa/b7-strengthen-tip.png, b8-weapon-tip.png, b11-inlay2.png" },
-  "63:sendItemOpenUp": { "verified": "yes", "notes": "Caixa (Túi quà mũi khoan) aberta: itens chegam e empilham na bolsa, caixa consumida antes de dar (sem dupe).", "evidence": "research/e2e/qa/b14-box-opened.png, b15-after-box.png" },
-  "183:sendUseCard": { "verified": "yes", "notes": "Cartão EXP x2 (Property1 13) vira buff (ícone no painel) e multiplica GP; GP pill (21) ok; cartão VIP (23) ainda não.", "evidence": "research/e2e/qa/b17-expcard-used.png" },
-  "44:sendBuyGoods": { "verified": "yes", "notes": "Xu (money) e Lễ kim (giftToken) debitados e saldo atualiza na loja (corrigido pacote 38 sem petScore). Ouro/medalha/itens exigidos pelo mesmo caminho (GetItemPrice).", "evidence": "research/e2e/qa/c6-shop-balance.png" },
-  "74:sendItemEquip": { "notes": "FC (Lực chiến) calculado pela fórmula original (apps/game/src/game/stats.ts) e enviado em 67/login/ranking: 2091 no Thur conferido à mão.", "evidence": "research/e2e/qa/b2-bag.png" },
-  "49:sendMoveGoods": { "verified": "yes", "notes": "Mover para o ferreiro/equipar." },
-  "121:sendItemEmbed": { "notes": "Implementado (furo precisa estar aberto e tipo igual ao Property2 da gema); sem gema no personagem de teste para verificar no cliente." },
-  "125:sendItemEmbedBackout": { "notes": "Implementado: 500 Xu, gema volta vinculada, devolve itens do ferreiro." },
-  "58:sendItemCompose": { "notes": "Implementado: taxa {80,50,30,10,5}% por qualidade (+1% sem amuleto), PRICE_COMPOSE_GOLD (1600)." },
-  "78:sendItemFusion": { "notes": "Implementado: prévia 76 + fusão 400 ouro (FusionMgr)." }
+  "59:sendItemStrength": {
+    "verified": "yes",
+    "notes": "Pedras nv 4/5 em arma: sucesso, +1 por clique, 1 pedra consumida por slot (desvio: C# consumia a pilha inteira), furo 1 abre no +3.",
+    "evidence": "research/e2e/qa/b7-strengthen-tip.png, b8-weapon-tip.png, b11-inlay2.png"
+  },
+  "63:sendItemOpenUp": {
+    "verified": "yes",
+    "notes": "Caixa (Túi quà mũi khoan) aberta: itens chegam e empilham na bolsa, caixa consumida antes de dar (sem dupe).",
+    "evidence": "research/e2e/qa/b14-box-opened.png, b15-after-box.png"
+  },
+  "183:sendUseCard": {
+    "verified": "yes",
+    "notes": "Cartão EXP x2 (Property1 13) vira buff (ícone no painel) e multiplica GP; GP pill (21) ok; cartão VIP (23) ainda não.",
+    "evidence": "research/e2e/qa/b17-expcard-used.png"
+  },
+  "44:sendBuyGoods": {
+    "verified": "yes",
+    "notes": "Xu (money) e Lễ kim (giftToken) debitados e saldo atualiza na loja (corrigido pacote 38 sem petScore). Ouro/medalha/itens exigidos pelo mesmo caminho (GetItemPrice). Loja da guilda (ShopID 11-15): nível da loja + contribuição ≥ Consortia_Equip_Control verificados (compra ok).",
+    "evidence": "research/e2e/qa/c6-shop-balance.png, research/e2e/guild/g43-shop-buy.png"
+  },
+  "74:sendItemEquip": {
+    "notes": "FC (Lực chiến) calculado pela fórmula original (apps/game/src/game/stats.ts) e enviado em 67/login/ranking: 2091 no Thur conferido à mão.",
+    "evidence": "research/e2e/qa/b2-bag.png"
+  },
+  "49:sendMoveGoods": {
+    "verified": "yes",
+    "notes": "Mover para o ferreiro/equipar. Banco da guilda (bolsa 11): StoreLevel × 10 espaços, depósito/retirada ok (research/e2e/guild/g40-bank-deposit.png)."
+  },
+  "121:sendItemEmbed": {
+    "notes": "Implementado (furo precisa estar aberto e tipo igual ao Property2 da gema); sem gema no personagem de teste para verificar no cliente."
+  },
+  "125:sendItemEmbedBackout": {
+    "notes": "Implementado: 500 Xu, gema volta vinculada, devolve itens do ferreiro."
+  },
+  "58:sendItemCompose": {
+    "notes": "Implementado: taxa {80,50,30,10,5}% por qualidade (+1% sem amuleto), PRICE_COMPOSE_GOLD (1600)."
+  },
+  "78:sendItemFusion": {
+    "notes": "Implementado: prévia 76 + fusão 400 ouro (FusionMgr)."
+  },
+  "129:sendCreateConsortia": {
+    "verified": "yes",
+    "notes": "Criação: nível ≥ 5 no servidor (cliente exige 12), 500 Xu + NeedGold do nível 1 (100000) debitados; 5 cargos padrão.",
+    "evidence": "research/e2e/guild/g3-create-typed.png, g4-created.png"
+  },
+  "129:sendConsortiaTryIn": {
+    "verified": "yes",
+    "notes": "Pedido de entrada; lista ConsortiaApplyUsersList. Correção: guilda com pedidos fechados (OpenApply) recusa (Msg7).",
+    "evidence": "research/e2e/guild/g5-bob-list.png, g6-bob-applied.png"
+  },
+  "129:sendConsortiaTryinPass": {
+    "verified": "yes",
+    "notes": "Aceite pelo líder (direito 1): Bob entra, 128.1 para todos os membros online.",
+    "evidence": "research/e2e/guild/g7-thur-takein.png, g8-thur-members.png, g9-bob-joined.png"
+  },
+  "129:sendConsortiaRichOffer": {
+    "verified": "yes",
+    "notes": "Doação: tesouro += Xu/2, RichesOffer/RichesRob, evento tipo 5; pagamento salvo na hora. Melhoria: 128.16 atualiza o tesouro na tela dos outros membros.",
+    "evidence": "research/e2e/guild/g11-bob-donated.png, g12-thur-sees-donation.png, g19-thur-riches-refreshed.png"
+  },
+  "129:sendConsortiaLevelUp": {
+    "verified": "yes",
+    "notes": "Nível da guilda (fundos + 100000 ouro), banco, ferreiro, loja (≤ nível/2), habilidade; anúncios 128.6/10/11/12/13. Correção: código 5 = fundos insuficientes.",
+    "evidence": "research/e2e/guild/g20-levelup.png, g21-bank-up.png, g22-smith-up.png, g42-shop-up.png"
+  },
+  "129:sendConsortiaEquipConstrol": {
+    "verified": "yes",
+    "notes": "Limites de contribuição (Consortia_Equip_Control) salvos; correção da ordem da resposta (7 ints, bool, msg).",
+    "evidence": "research/e2e/guild/g13-thur-manage.png, g14-equip-control.png"
+  },
+  "129:sendReleaseConsortiaTask": {
+    "verified": "yes",
+    "notes": "Missão: custo MissionRiches por nível, 3 condições aleatórias (Consortia_TaskConfig), progresso ao vivo (doação/PvP/guerra/item/masmorra), recompensa por participação. Correção: layout da resposta do cliente 4.1.",
+    "evidence": "research/e2e/guild/g24-task-release.png, g26-task-released.png, g27-task-progress.png"
+  },
+  "129:sendConsortiaMemberGrade": {
+    "verified": "yes",
+    "notes": "Promover/rebaixar (direito 2048), 128.8 tipo 6/7.",
+    "evidence": "research/e2e/guild/g29-bob-promoted.png"
+  },
+  "129:sendConsortiaOut": {
+    "verified": "yes",
+    "notes": "Expulsar (direito 32, limite diário KickMax) e sair; líder não sai; itens do banco voltam por correio.",
+    "evidence": "research/e2e/guild/g30-kick.png, g31-bob-kicked.png, g36-bob-left.png, g37-thur-sees-leave.png"
+  },
+  "129:sendConsortiaInvate": {
+    "verified": "yes",
+    "notes": "Convite por apelido (direito 2); alerta 128.4 no convidado.",
+    "evidence": "research/e2e/guild/g32-invite-sent.png, g33-bob-invite.png"
+  },
+  "129:sendConsortiaInvatePass": {
+    "verified": "yes",
+    "notes": "Aceitar convite. Correção: o C# escrevia o resultado no pacote recebido (resposta vazia).",
+    "evidence": "research/e2e/guild/g34-bob-invite-accepted.png"
+  },
+  "129:sendConsortiaUpdateDescription": {
+    "verified": "yes",
+    "notes": "Declaração (direito 16), ≤ 300 bytes.",
+    "evidence": "research/e2e/guild/g38-description.png"
+  },
+  "129:sendConsortiaChangeChairman": {
+    "notes": "Implementado (SP_ConsortiaChangeChairman, alvo nível ≥ 5). O cliente só envia se o alvo tiver nível ≥ 12 — não verificado (Bob nível 10)."
+  },
+  "129:sendConsortiaDismiss": {
+    "notes": "Implementado (líder, nível < 4; membros limpos, 128.2). O botão não está ligado no SelfConsortiaView desta versão do cliente; coberto pelo teste apps/game/test/consortia.test.ts. Correção: a resposta de falha não tinha o bool."
+  },
+  "129:sendDonate": {
+    "status": "stub",
+    "notes": "Sem implementação no original (só loga o tipo de item)."
+  },
+  "129:sendConsortionPoll": {
+    "status": "stub",
+    "notes": "Sem handler no servidor original."
+  },
+  "129:sendConsortionSkill": {
+    "status": "partial",
+    "notes": "Compra de habilidade (fundos/contribuição/medalhas), buff 101-112 salvo e 129/26; efeitos dos buffs no combate ainda não aplicados. Correção: buff tipo 1 era dado sem a guilda pagar."
+  },
+  "129:sendBuyBadge": {
+    "notes": "Implementado (Consortia_Badge, custo dos fundos, direito 16); o cliente 4.1 não tem loja de emblemas acessível."
+  }
 }

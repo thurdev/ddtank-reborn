@@ -4,6 +4,7 @@
  * Idempotency: every handler consumes the item it reads before granting anything, and a repeated packet finds the
  * slot empty (or the stack smaller), so it cannot duplicate.
  */
+import { consortiaMgr } from "../game/consortia-mgr.js";
 import { GSPacket } from "@ddt/protocol";
 import { ItemInfo, templateBagType } from "../game/item.js";
 import type { GamePlayer } from "../game/player.js";
@@ -107,7 +108,7 @@ export function openBox(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd = 
     }
     p.send(out);
   }
-  p.questInv?.onUsingItem(it.TemplateID);
+  p.questInv?.onUsingItem(it.TemplateID); void consortiaMgr(ctx).then((c) => c.onUseItem(p, it.TemplateID, 1));
 }
 
 /** BufferList.CreateBuffer(template, validDate) + the per-type Start (GPMultipleBuffer etc.: same type extends time). */
@@ -157,7 +158,7 @@ export function cardUse(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): void 
       if (bag && t.CanDelete && !bag.removeCountFromStack(item, item.Count)) continue;
       p.addGP(gp, false);
       p.sendMessage(0, ctx.lang.t("GPDanUser.Success", gp));
-      p.questInv?.onUsingItem(item.TemplateID);
+      p.questInv?.onUsingItem(item.TemplateID); void consortiaMgr(ctx).then((c) => c.onUseItem(p, item.TemplateID, 1));
       continue;
     }
     if (t.Property1 === 23) {
@@ -168,7 +169,7 @@ export function cardUse(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): void 
     addItemBuff(p, t, item.ValidDate, ctx.now());
     p.send(Out.bufferList(p.id, p.buffs));
     p.sendMessage(0, ctx.lang.t("CardUseHandler.Success"));
-    p.questInv?.onUsingItem(item.TemplateID);
+    p.questInv?.onUsingItem(item.TemplateID); void consortiaMgr(ctx).then((c) => c.onUseItem(p, item.TemplateID, 1));
   }
 }
 

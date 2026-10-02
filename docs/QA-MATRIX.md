@@ -21,7 +21,7 @@
 | Combate (GAME_CMD) | 39 | 0 | 34 | 0 | 5 | 0 | 0 |
 | Configurações | 2 | 1 | 0 | 0 | 1 | 0 | 0 |
 | Conta/Login | 6 | 3 | 0 | 0 | 3 | 0 | 0 |
-| Correio | 7 | 5 | 0 | 0 | 2 | 0 | 0 |
+| Correio | 7 | 6 | 0 | 0 | 1 | 0 | 0 |
 | Escola/Aprendiz | 4 | 0 | 0 | 0 | 4 | 0 | 0 |
 | Eventos/Atividades | 37 | 1 | 0 | 0 | 36 | 0 | 0 |
 | Fazenda | 14 | 0 | 0 | 0 | 14 | 0 | 0 |
@@ -36,11 +36,11 @@
 | Pets | 17 | 0 | 0 | 0 | 17 | 0 | 0 |
 | PvE/Masmorras | 9 | 0 | 0 | 0 | 9 | 0 | 0 |
 | Salas PvP | 21 | 17 | 0 | 0 | 4 | 0 | 0 |
-| Sociedade/Guilda | 28 | 0 | 0 | 0 | 28 | 0 | 0 |
+| Sociedade/Guilda | 28 | 25 | 1 | 2 | 0 | 0 | 12 |
 | Spa/Fonte termal | 14 | 0 | 0 | 0 | 14 | 0 | 0 |
 | Totem/Honra | 2 | 0 | 0 | 0 | 2 | 0 | 0 |
 | VIP | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
-| **Total** | 361 | 67 | 39 | 0 | 255 | 0 | 5 |
+| **Total** | 361 | 93 | 40 | 2 | 226 | 0 | 17 |
 
 ## Amigos
 
@@ -64,7 +64,7 @@
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
 | `sendChangeDesignation` | `bagAndInfo/info/PlayerInfoView.as` | 34 USER_RANK |  | missing | no |  |
-| `sendMoveGoods` | `bagAndInfo/bag/BagView.as`<br>`bagAndInfo/bag/BankBagView.as`<br>`bagAndInfo/cell/BagCell.as` (+33) | 49 CHANGE_PLACE_GOODS |  | partial | yes | Mover para o ferreiro/equipar. |
+| `sendMoveGoods` | `bagAndInfo/bag/BagView.as`<br>`bagAndInfo/bag/BankBagView.as`<br>`bagAndInfo/cell/BagCell.as` (+33) | 49 CHANGE_PLACE_GOODS |  | partial | yes | Mover para o ferreiro/equipar. Banco da guilda (bolsa 11): StoreLevel × 10 espaços, depósito/retirada ok (research/e2e/guild/g40-bank-deposit.png). |
 | `sendHideLayer` | `bagAndInfo/info/PlayerInfoView.as` | 60 ITEM_HIDE |  | ok | no |  |
 | `sendGoodsContinue` | `ddt/view/goods/AddPricePanel.as`<br>`equipDebt/view/EquipAddMoneyFrame.as`<br>`shop/view/ShopRechargeEquipView.as` | 62 ITEM_CONTINUE |  | missing | no |  |
 | `sendItemOpenUp` | `bagAndInfo/bag/BagView.as`<br>`bagAndInfo/bag/OpenBatchView.as` | 63 ITEM_OPENUP |  | ok | yes | Caixa (Túi quà mũi khoan) aberta: itens chegam e empilham na bolsa, caixa consumida antes de dar (sem dupe). — evidência: research/e2e/qa/b14-box-opened.png, b15-after-box.png |
@@ -216,7 +216,7 @@
 | `sendUpdateMail` | `email/manager/MailManager.as` | 114 UPDATE_MAIL |  | ok | no |  |
 | `sendEmail` | `email/manager/MailManager.as` | 116 SEND_MAIL |  | ok | no |  |
 | `untreadEmail` | — | 118 MAIL_CANCEL |  | ok | no |  |
-| `sendConsortionMail` | `consortion/view/selfConsortia/ConsortionMailFrame.as` | 129 CONSORTIA_CMD | CONSORTION_MAIL=29 | missing | no |  |
+| `sendConsortionMail` | `consortion/view/selfConsortia/ConsortionMailFrame.as` | 129 CONSORTIA_CMD | CONSORTION_MAIL=29 | ok | no |  |
 | `sendReloadGift` | `email/manager/MailManager.as` | 214 USER_RELOAD_GIFT |  | missing | no |  |
 
 ## Escola/Aprendiz
@@ -346,7 +346,7 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `sendBuyGoods` | `AvatarCollection/view/AvatarCollectionItemCell.as`<br>`chickActivation/view/ChickActivationViewFrame.as`<br>`consortion/view/selfConsortia/ConsortionShopItem.as` (+16) | 44 BUY_GOODS |  | ok | yes | Xu (money) e Lễ kim (giftToken) debitados e saldo atualiza na loja (corrigido pacote 38 sem petScore). Ouro/medalha/itens exigidos pelo mesmo caminho (GetItemPrice). — evidência: research/e2e/qa/c6-shop-balance.png |
+| `sendBuyGoods` | `AvatarCollection/view/AvatarCollectionItemCell.as`<br>`chickActivation/view/ChickActivationViewFrame.as`<br>`consortion/view/selfConsortia/ConsortionShopItem.as` (+16) | 44 BUY_GOODS |  | ok | yes | Xu (money) e Lễ kim (giftToken) debitados e saldo atualiza na loja (corrigido pacote 38 sem petScore). Ouro/medalha/itens exigidos pelo mesmo caminho (GetItemPrice). Loja da guilda (ShopID 11-15): nível da loja + contribuição ≥ Consortia_Equip_Control verificados (compra ok). — evidência: research/e2e/qa/c6-shop-balance.png, research/e2e/guild/g43-shop-buy.png |
 | `sendBuyGiftBag` | `store/view/strength/BuyGiftBagButton.as` | 46 BUY_GIFTBAG |  | missing | no |  |
 | `sendSellGoods` | — | 48 SEll_GOODS |  | missing | no |  |
 | `sendPresentGoods` | `shop/ShopController.as`<br>`shop/manager/ShopGiftsManager.as` | 57 GOODS_PRESENT |  | missing | no |  |
@@ -477,34 +477,34 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `sendBuyBadge` | `consortion/view/selfConsortia/BadgeShopItem.as` | 129 CONSORTIA_CMD | BUY_BADGE=28 | missing | no |  |
-| `sendConsoritaApplyStatusOut` | `consortion/view/selfConsortia/TakeInMemberFrame.as` | 129 CONSORTIA_CMD | CONSORTIA_APPLY_STATE=7 | missing | no |  |
-| `sendConsortiaCancelTryIn` | — | 129 CONSORTIA_CMD | CONSORTIA_TRYIN=0 | missing | no |  |
-| `sendConsortiaChangeChairman` | `consortion/view/selfConsortia/ConsortionTrasferFrame.as` | 129 CONSORTIA_CMD | CONSORTIA_CHAIRMAN_CHAHGE=19 | missing | no |  |
-| `sendConsortiaDismiss` | `consortion/view/selfConsortia/SelfConsortiaView.as` | 129 CONSORTIA_CMD | CONSORTIA_DISBAND=2 | missing | no |  |
-| `sendConsortiaDutyDelete` | — | 129 CONSORTIA_CMD | CONSORTIA_DUTY_DELETE=9 | missing | no |  |
-| `sendConsortiaEquipConstrol` | `consortion/view/selfConsortia/ManagerFrame.as` | 129 CONSORTIA_CMD | CONSORTIA_EQUIP_CONTROL=24 | missing | no |  |
-| `sendConsortiaInvate` | `consortion/view/selfConsortia/WantTakeInFrame.as`<br>`ddt/view/tips/PlayerTip.as` | 129 CONSORTIA_CMD | CONSORTIA_INVITE=11 | missing | no |  |
-| `sendConsortiaInvateDelete` | `consortion/ConsortionModelControl.as` | 129 CONSORTIA_CMD | CONSORTIA_INVITE_DELETE=13 | missing | no |  |
-| `sendConsortiaInvatePass` | `consortion/ConsortionModelControl.as`<br>`consortion/view/club/ClubRecordItem.as` | 129 CONSORTIA_CMD | CONSORTIA_INVITE_PASS=12 | missing | no |  |
-| `sendConsortiaLevelUp` | `consortion/view/selfConsortia/ConsortionUpGradeFrame.as` | 129 CONSORTIA_CMD | CONSORTIA_LEVEL_UP=21 | missing | no |  |
-| `sendConsortiaMemberGrade` | `ddt/view/tips/PlayerTip.as` | 129 CONSORTIA_CMD | CONSORTIA_USER_GRADE_UPDATE=1 | missing | no |  |
-| `sendConsortiaOut` | `consortion/view/selfConsortia/ConsortionQuitFrame.as`<br>`ddt/view/tips/PlayerTip.as` | 129 CONSORTIA_CMD | CONSORTIA_RENEGADE=3 | missing | no |  |
-| `sendConsortiaRichOffer` | `consortion/view/selfConsortia/TaxFrame.as`<br>`ddt/view/consortia/MyConsortiaTax.as` | 129 CONSORTIA_CMD | CONSORTIA_RICHES_OFFER=6 | missing | no |  |
-| `sendConsortiaTryIn` | `consortion/view/club/ClubView.as`<br>`tofflist/view/TofflistLeftCurrentCharcter.as` | 129 CONSORTIA_CMD | CONSORTIA_TRYIN=0 | missing | no |  |
-| `sendConsortiaTryinDelete` | `consortion/view/club/ClubRecordItem.as`<br>`consortion/view/selfConsortia/TakeInMemberFrame.as`<br>`consortion/view/selfConsortia/TakeInMemberItem.as` | 129 CONSORTIA_CMD | CONSORTIA_TRYIN_DEL=5 | missing | no |  |
-| `sendConsortiaTryinPass` | `consortion/view/selfConsortia/TakeInMemberFrame.as`<br>`consortion/view/selfConsortia/TakeInMemberItem.as` | 129 CONSORTIA_CMD | CONSORTIA_TRYIN_PASS=4 | missing | no |  |
-| `sendConsortiaUpdateDescription` | `consortion/view/selfConsortia/ConsortionDeclareFrame.as` | 129 CONSORTIA_CMD |  | missing | no |  |
-| `sendConsortiaUpdateDuty` | `consortion/view/selfConsortia/JobManageItem.as` | 129 CONSORTIA_CMD | CONSORTIA_DUTY_UPDATE=10 | missing | no |  |
-| `sendConsortiaUpdatePlacard` | `consortion/view/selfConsortia/PlacardAndEvent.as` | 129 CONSORTIA_CMD | CONSORTIA_PLACARD_UPDATE=15 | missing | no |  |
-| `sendConsortiaUpgradeDuty` | — | 129 CONSORTIA_CMD | CONSORTIA_DUTY_UPDATE=10 | missing | no |  |
-| `sendConsortiaUserRemarkUpdate` | — | 129 CONSORTIA_CMD |  | missing | no |  |
-| `sendConsortionPoll` | `consortion/view/selfConsortia/ConsortionPollFrame.as` | 129 CONSORTIA_CMD | POLL_CANDIDATE=25 | missing | no |  |
-| `sendConsortionSkill` | `consortion/view/selfConsortia/ConsortionOpenSkillFrame.as`<br>`consortion/view/selfConsortia/ConsortionSkillItem.as` | 129 CONSORTIA_CMD | SKILL_SOCKET=26 | missing | no |  |
-| `sendCreateConsortia` | `consortion/view/club/CreateConsortionFrame.as` | 129 CONSORTIA_CMD | CONSORTIA_CREATE=1 | missing | no |  |
-| `sendDonate` | `consortion/view/selfConsortia/consortiaTask/DonateFrame.as` | 129 CONSORTIA_CMD | DONATE=23 | missing | no |  |
-| `sendForbidSpeak` | `ddt/view/tips/PlayerTip.as` | 129 CONSORTIA_CMD | CONSORTIA_BANCHAT_UPDATE=16 | missing | no |  |
-| `sendReleaseConsortiaTask` | `consortion/view/selfConsortia/consortiaTask/ConsortiaReleaseTaskFrame.as`<br>`consortion/view/selfConsortia/consortiaTask/ConsortiaSubmitTaskFrame.as`<br>`consortion/view/selfConsortia/consortiaTask/ConsortiaTaskView.as` | 129 CONSORTIA_CMD | CONSORTIA_TASK_RELEASE=22 | missing | no |  |
+| `sendBuyBadge` | `consortion/view/selfConsortia/BadgeShopItem.as` | 129 CONSORTIA_CMD | BUY_BADGE=28 | ok | no | Implementado (Consortia_Badge, custo dos fundos, direito 16); o cliente 4.1 não tem loja de emblemas acessível. |
+| `sendConsoritaApplyStatusOut` | `consortion/view/selfConsortia/TakeInMemberFrame.as` | 129 CONSORTIA_CMD | CONSORTIA_APPLY_STATE=7 | ok | no |  |
+| `sendConsortiaCancelTryIn` | — | 129 CONSORTIA_CMD | CONSORTIA_TRYIN=0 | ok | no |  |
+| `sendConsortiaChangeChairman` | `consortion/view/selfConsortia/ConsortionTrasferFrame.as` | 129 CONSORTIA_CMD | CONSORTIA_CHAIRMAN_CHAHGE=19 | ok | no | Implementado (SP_ConsortiaChangeChairman, alvo nível ≥ 5). O cliente só envia se o alvo tiver nível ≥ 12 — não verificado (Bob nível 10). |
+| `sendConsortiaDismiss` | `consortion/view/selfConsortia/SelfConsortiaView.as` | 129 CONSORTIA_CMD | CONSORTIA_DISBAND=2 | ok | no | Implementado (líder, nível < 4; membros limpos, 128.2). O botão não está ligado no SelfConsortiaView desta versão do cliente; coberto pelo teste apps/game/test/consortia.test.ts. Correção: a resposta de falha não tinha o bool. |
+| `sendConsortiaDutyDelete` | — | 129 CONSORTIA_CMD | CONSORTIA_DUTY_DELETE=9 | ok | no |  |
+| `sendConsortiaEquipConstrol` | `consortion/view/selfConsortia/ManagerFrame.as` | 129 CONSORTIA_CMD | CONSORTIA_EQUIP_CONTROL=24 | ok | yes | Limites de contribuição (Consortia_Equip_Control) salvos; correção da ordem da resposta (7 ints, bool, msg). — evidência: research/e2e/guild/g13-thur-manage.png, g14-equip-control.png |
+| `sendConsortiaInvate` | `consortion/view/selfConsortia/WantTakeInFrame.as`<br>`ddt/view/tips/PlayerTip.as` | 129 CONSORTIA_CMD | CONSORTIA_INVITE=11 | ok | yes | Convite por apelido (direito 2); alerta 128.4 no convidado. — evidência: research/e2e/guild/g32-invite-sent.png, g33-bob-invite.png |
+| `sendConsortiaInvateDelete` | `consortion/ConsortionModelControl.as` | 129 CONSORTIA_CMD | CONSORTIA_INVITE_DELETE=13 | ok | no |  |
+| `sendConsortiaInvatePass` | `consortion/ConsortionModelControl.as`<br>`consortion/view/club/ClubRecordItem.as` | 129 CONSORTIA_CMD | CONSORTIA_INVITE_PASS=12 | ok | yes | Aceitar convite. Correção: o C# escrevia o resultado no pacote recebido (resposta vazia). — evidência: research/e2e/guild/g34-bob-invite-accepted.png |
+| `sendConsortiaLevelUp` | `consortion/view/selfConsortia/ConsortionUpGradeFrame.as` | 129 CONSORTIA_CMD | CONSORTIA_LEVEL_UP=21 | ok | yes | Nível da guilda (fundos + 100000 ouro), banco, ferreiro, loja (≤ nível/2), habilidade; anúncios 128.6/10/11/12/13. Correção: código 5 = fundos insuficientes. — evidência: research/e2e/guild/g20-levelup.png, g21-bank-up.png, g22-smith-up.png, g42-shop-up.png |
+| `sendConsortiaMemberGrade` | `ddt/view/tips/PlayerTip.as` | 129 CONSORTIA_CMD | CONSORTIA_USER_GRADE_UPDATE=1 | ok | yes | Promover/rebaixar (direito 2048), 128.8 tipo 6/7. — evidência: research/e2e/guild/g29-bob-promoted.png |
+| `sendConsortiaOut` | `consortion/view/selfConsortia/ConsortionQuitFrame.as`<br>`ddt/view/tips/PlayerTip.as` | 129 CONSORTIA_CMD | CONSORTIA_RENEGADE=3 | ok | yes | Expulsar (direito 32, limite diário KickMax) e sair; líder não sai; itens do banco voltam por correio. — evidência: research/e2e/guild/g30-kick.png, g31-bob-kicked.png, g36-bob-left.png, g37-thur-sees-leave.png |
+| `sendConsortiaRichOffer` | `consortion/view/selfConsortia/TaxFrame.as`<br>`ddt/view/consortia/MyConsortiaTax.as` | 129 CONSORTIA_CMD | CONSORTIA_RICHES_OFFER=6 | ok | yes | Doação: tesouro += Xu/2, RichesOffer/RichesRob, evento tipo 5; pagamento salvo na hora. Melhoria: 128.16 atualiza o tesouro na tela dos outros membros. — evidência: research/e2e/guild/g11-bob-donated.png, g12-thur-sees-donation.png, g19-thur-riches-refreshed.png |
+| `sendConsortiaTryIn` | `consortion/view/club/ClubView.as`<br>`tofflist/view/TofflistLeftCurrentCharcter.as` | 129 CONSORTIA_CMD | CONSORTIA_TRYIN=0 | ok | yes | Pedido de entrada; lista ConsortiaApplyUsersList. Correção: guilda com pedidos fechados (OpenApply) recusa (Msg7). — evidência: research/e2e/guild/g5-bob-list.png, g6-bob-applied.png |
+| `sendConsortiaTryinDelete` | `consortion/view/club/ClubRecordItem.as`<br>`consortion/view/selfConsortia/TakeInMemberFrame.as`<br>`consortion/view/selfConsortia/TakeInMemberItem.as` | 129 CONSORTIA_CMD | CONSORTIA_TRYIN_DEL=5 | ok | no |  |
+| `sendConsortiaTryinPass` | `consortion/view/selfConsortia/TakeInMemberFrame.as`<br>`consortion/view/selfConsortia/TakeInMemberItem.as` | 129 CONSORTIA_CMD | CONSORTIA_TRYIN_PASS=4 | ok | yes | Aceite pelo líder (direito 1): Bob entra, 128.1 para todos os membros online. — evidência: research/e2e/guild/g7-thur-takein.png, g8-thur-members.png, g9-bob-joined.png |
+| `sendConsortiaUpdateDescription` | `consortion/view/selfConsortia/ConsortionDeclareFrame.as` | 129 CONSORTIA_CMD |  | ok | yes | Declaração (direito 16), ≤ 300 bytes. — evidência: research/e2e/guild/g38-description.png |
+| `sendConsortiaUpdateDuty` | `consortion/view/selfConsortia/JobManageItem.as` | 129 CONSORTIA_CMD | CONSORTIA_DUTY_UPDATE=10 | ok | no |  |
+| `sendConsortiaUpdatePlacard` | `consortion/view/selfConsortia/PlacardAndEvent.as` | 129 CONSORTIA_CMD | CONSORTIA_PLACARD_UPDATE=15 | ok | no |  |
+| `sendConsortiaUpgradeDuty` | — | 129 CONSORTIA_CMD | CONSORTIA_DUTY_UPDATE=10 | ok | no |  |
+| `sendConsortiaUserRemarkUpdate` | — | 129 CONSORTIA_CMD |  | ok | no |  |
+| `sendConsortionPoll` | `consortion/view/selfConsortia/ConsortionPollFrame.as` | 129 CONSORTIA_CMD | POLL_CANDIDATE=25 | stub | no | Sem handler no servidor original. |
+| `sendConsortionSkill` | `consortion/view/selfConsortia/ConsortionOpenSkillFrame.as`<br>`consortion/view/selfConsortia/ConsortionSkillItem.as` | 129 CONSORTIA_CMD | SKILL_SOCKET=26 | partial | no | Compra de habilidade (fundos/contribuição/medalhas), buff 101-112 salvo e 129/26; efeitos dos buffs no combate ainda não aplicados. Correção: buff tipo 1 era dado sem a guilda pagar. |
+| `sendCreateConsortia` | `consortion/view/club/CreateConsortionFrame.as` | 129 CONSORTIA_CMD | CONSORTIA_CREATE=1 | ok | yes | Criação: nível ≥ 5 no servidor (cliente exige 12), 500 Xu + NeedGold do nível 1 (100000) debitados; 5 cargos padrão. — evidência: research/e2e/guild/g3-create-typed.png, g4-created.png |
+| `sendDonate` | `consortion/view/selfConsortia/consortiaTask/DonateFrame.as` | 129 CONSORTIA_CMD | DONATE=23 | stub | no | Sem implementação no original (só loga o tipo de item). |
+| `sendForbidSpeak` | `ddt/view/tips/PlayerTip.as` | 129 CONSORTIA_CMD | CONSORTIA_BANCHAT_UPDATE=16 | ok | no |  |
+| `sendReleaseConsortiaTask` | `consortion/view/selfConsortia/consortiaTask/ConsortiaReleaseTaskFrame.as`<br>`consortion/view/selfConsortia/consortiaTask/ConsortiaSubmitTaskFrame.as`<br>`consortion/view/selfConsortia/consortiaTask/ConsortiaTaskView.as` | 129 CONSORTIA_CMD | CONSORTIA_TASK_RELEASE=22 | ok | yes | Missão: custo MissionRiches por nível, 3 condições aleatórias (Consortia_TaskConfig), progresso ao vivo (doação/PvP/guerra/item/masmorra), recompensa por participação. Correção: layout da resposta do cliente 4.1. — evidência: research/e2e/guild/g24-task-release.png, g26-task-released.png, g27-task-progress.png |
 
 ## Spa/Fonte termal
 
