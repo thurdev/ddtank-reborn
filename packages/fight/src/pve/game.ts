@@ -7,6 +7,7 @@
 import { BaseGame, GameState, type GameOptions, type QueuedAction } from "../game/game.js";
 import type { DropItem, FightCommand, FightEvent, RawField } from "../game/events.js";
 import { Living, LivingConfig, Player, TurnedLiving } from "../game/living.js";
+import type { Box } from "../game/box.js";
 import { f32, int } from "../math/num.js";
 import type { Point } from "../phy/rect.js";
 import { isEmptyPoint } from "../phy/rect.js";
@@ -495,11 +496,13 @@ export class PveGame extends BaseGame {
     this.IsPassDrama = false;
     this.clearWaitTimer();
     this.clearDiedPve();
+    this.checkBox();
     this.configLivingSayRule();
     for (const ph of [...this.map.physics]) {
       ph.prepareNewTurn();
       if (ph instanceof Living && !(ph instanceof Player) && ph.config.isShowBlood && ph.blood > 0) ph.addBlood(0, 1);
     }
+    const newBoxes = this.createBox(); // PVEGame.cs:1403
     this.runScript("mission.OnNewTurnStarted", () => this.missionAI.OnNewTurnStarted());
     const cur = this.findNextTurnedLivingPve();
     this.currentLiving = cur;
@@ -514,7 +517,7 @@ export class PveGame extends BaseGame {
           l.prepareSelfTurn();
           if (!l.isFrost) l.startAttacking();
         }
-        this.sendNextTurn(npcs[0] as unknown as TurnedLiving);
+        this.sendNextTurn(npcs[0] as unknown as TurnedLiving, newBoxes);
         for (const l of this.livings) if (l.isAttacking) l.stopAttacking();
         this.PveGameDelay += this.missionInfo?.IncrementDelay ?? 0;
         this.checkState(0);
@@ -525,7 +528,7 @@ export class PveGame extends BaseGame {
         if (!cur.isFrost && !cur.blockTurn && cur.isLiving) {
           cur.startAttacking();
           this.emit({ cmd: "SYNC_LIFETIME", livingId: 0, lifeTime: this.lifeTime });
-          this.sendNextTurn(cur);
+          this.sendNextTurn(cur, newBoxes);
           if (cur.isAttacking) {
             const ti = this.turnIndex;
             this.attackWait = this.addAction((this.timeType + 20) * 1000, () => {
@@ -542,8 +545,8 @@ export class PveGame extends BaseGame {
   }
 
   /** BaseGame.SendGameNextTurn with the NPC/boss as current living */
-  protected override sendNextTurn(l: TurnedLiving): void {
-    super.sendNextTurn(l);
+  protected override sendNextTurn(l: TurnedLiving, newBoxes: Box[] = []): void {
+    super.sendNextTurn(l, newBoxes);
   }
 
   override enemiesOf(_bot: Living): Living[] {
@@ -777,12 +780,13 @@ export class PveGame extends BaseGame {
   }
 
   /** PVEGame.RemovePlayer: the player leaves the turn queue (−grade·12 GP applied by the server) */
-  override removePlayer(userId: number): void {
+  override removePlayer(userId: number): boolean {
     const p = this.findByUser(userId);
-    if (!p || !p.isActive) return;
-    super.removePlayer(userId);
+    if (!p || !p.isActive) return false;
+    const fled = super.removePlayer(userId);
     const i = this.turnQueue.indexOf(p);
     if (i >= 0) this.turnQueue.splice(i, 1);
+    return fled;
   }
 
   // ===========================================================================================================

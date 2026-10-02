@@ -13,6 +13,7 @@ import type { BuffRow } from "../db/social.js";
 import type { ServerContext } from "../session/context.js";
 import * as Out from "../packets/out.js";
 import type { HandlerRegistry } from "./registry.js";
+import { addExpVip, applyVipDays, vipExpTable, vipNextLevelDays, vipPrice } from "../game/vip.js";
 
 export interface BoxResult {
   gold: number; money: number; giftToken: number; medal: number; exp: number; honor: number; hardCurrency: number;
@@ -162,7 +163,13 @@ export function cardUse(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): void 
       continue;
     }
     if (t.Property1 === 23) {
-      p.sendMessage(0, "VIP ainda não disponível neste servidor."); // VIP renewal (SP_VIPRenewal_Single) not ported
+      // CardUseHandler case 23: VIPRenewal(ValidDate days) + OpenVIP / ContinuousVIP, 92 SendOpenVIP, consume when CanDelete
+      const days = item.ValidDate || 1;
+      const { opened } = applyVipDays(p.info, days, ctx.now());
+      if (bag && t.CanDelete) bag.removeCountFromStack(item, 1);
+      p.send(Out.openVip(p.info));
+      p.updateProperties();
+      p.sendMessage(0, opened ? `Chúc mừng bạn nhận được ${days} ngày sử dụng đặc quyền VIP!` : `Bạn nhận được thêm ${days} ngày sử dụng đặc quyền VIP!`);
       continue;
     }
     if (bag && !bag.removeCountFromStack(item, 1)) continue;
@@ -171,6 +178,53 @@ export function cardUse(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): void 
     p.sendMessage(0, ctx.lang.t("CardUseHandler.Success"));
     p.questInv?.onUsingItem(item.TemplateID); void consortiaMgr(ctx).then((c) => c.onUseItem(p, item.TemplateID, 1));
   }
+}
+
+/**
+ * TexpHandler.cs (99): int selectIndex (0 hp, 1 att, 2 def, 3 spd, 4 luk), int templateId, int place. The potion
+ * (category 20) sits in StoreBag[0] (TexpView's cell); Property2 = exp. Daily cap = grade × 2 (VIP ≤ 2) or × 3.
+ */
+export function texp(ctx: ServerContext, p: GamePlayer, selectIndex: number, templateId: number, place: number): void {
+  const it = p.storeBag.getItemAt(place);
+  const info = p.info.Texp;
+  if (!it || !info || it.TemplateID !== templateId || it.template.CategoryID !== 20) return;
+  const limit = p.info.Grade * (p.info.VIPLevel <= 2 ? 2 : 3);
+  const now = ctx.now();
+  const day = (d: Date) => Math.floor(d.getTime() / 86_400_000);
+  if (day(info.texpTaskDate) + 1 <= day(now) && info.texpCount >= limit) {
+    info.texpCount = 0;
+    info.texpTaskDate = now;
+  }
+  if (info.texpCount >= limit) return p.sendMessage(0, ctx.lang.t("texpSystem.texpCountToplimit"));
+  const key = (["hpTexpExp", "attTexpExp", "defTexpExp", "spdTexpExp", "lukTexpExp"] as const)[selectIndex];
+  if (!key) return; // -1 (BagView quest refresh) changes nothing in the original either, besides eating the potion
+  if (!p.storeBag.removeTemplate(templateId, 1)) return;
+  info[key] += it.template.Property2;
+  info.texpCount++;
+  info.texpTaskCount++;
+  p.questInv?.onUsingItem(templateId);
+  p.questInv?.onUsingItem(45001 + ((selectIndex + 4) % 5)); // OnUsingItem(45005 hp / 45001 att / 45002 def / 45003 spd / 45004 luk)
+  p.updatePlayerProperties();
+}
+
+/** OpenVipHandler.cs (92): str nick, int days. Price from the VIP card (11992) shop entry, charged first (MoneyDirect). */
+export function openVip(ctx: ServerContext, p: GamePlayer, nick: string, days: number): void {
+  const card = [...ctx.templates.shop.values()].find((s) => s.TemplateID === 11992);
+  const money = vipPrice(card, days);
+  if (days <= 0 || money < 0) return;
+  const target = nick === p.info.NickName ? p : ctx.world.all().find((o) => o.info.NickName === nick);
+  if (!target) return p.sendMessage(0, `Người chơi ${nick} không tồn tại hoặc tạm vắng!`);
+  if (target === p && p.info.VIPLevel === 9) return p.sendMessage(0, "Bạn đã đạt cấp VIP tối đa!"); // checked before charging (original charged first)
+  if (p.info.Money + p.info.MoneyLock < money) return p.sendMessage(0, ctx.lang.t("UserBuyItemHandler.Money"));
+  p.removeMoney(money);
+  const table = vipExpTable(ctx.templates.serverConfig.get("VIPExpForEachLv"));
+  const { opened } = applyVipDays(target.info, days, ctx.now());
+  addExpVip(target.info, money, table);
+  if (target.info.typeVIP > 0) target.info.VIPNextLevelDaysNeeded = vipNextLevelDays(target.info, table, card);
+  target.send(Out.openVip(target.info));
+  target.updateProperties();
+  if (target !== p) target.sendMessage(0, `${p.info.NickName}, ${opened ? "tiếp phí" : "gia hạn"} VIP cho bạn thành công!`);
+  p.sendMessage(0, target === p ? (opened ? "Kích hoạt VIP thành công!" : "Gia hạn VIP thành công!") : `${opened ? "Kích hoạt" : "Gia hạn"} VIP cho ${nick} thành công!`);
 }
 
 /** ArrangeBagHandler.cs (124): compact the bag (and stack when `merge`). Only if `count` matches the item count. */
@@ -213,7 +267,9 @@ export function arrangeBag(p: GamePlayer, merge: boolean, count: number, bagType
 
 export function registerUse(r: HandlerRegistry): void {
   r.player(63, "ITEM_OPENUP", (ctx, p, pkt) => openBox(ctx, p, pkt));
-  r.player(183, "CARD_USE", (ctx, p, pkt) => cardUse(ctx, p, pkt), "partial");
+  r.player(183, "CARD_USE", (ctx, p, pkt) => cardUse(ctx, p, pkt));
+  r.player(92, "VIP_RENEWAL", (ctx, p, pkt) => openVip(ctx, p, pkt.readString(), pkt.readInt()));
+  r.player(99, "TEXP", (ctx, p, pkt) => texp(ctx, p, pkt.readInt(), pkt.readInt(), pkt.readInt()));
   r.player(124, "CHANGE_PLACE_GOODS_ALL", (_ctx, p, pkt) => {
     const merge = pkt.readBoolean();
     const count = pkt.readInt();

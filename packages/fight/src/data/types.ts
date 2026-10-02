@@ -29,6 +29,7 @@ export interface BallConfigInfo {
 export interface ItemTemplate {
   templateId: number;
   name?: string;
+  categoryId?: number;
   property1: number;
   property2: number;
   property3: number;

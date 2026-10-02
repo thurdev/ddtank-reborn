@@ -7,6 +7,7 @@ import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import type { AppCtx } from "../context.js";
 import { CiTree, EMPTY_SWF, mimeOf, placeholder } from "../lib/resources.js";
 import { crc32, inflateSync } from "node:zlib";
+import { fileURLToPath } from "node:url";
 import { aliasBombSwf } from "../lib/bomb-alias.js";
 
 export const CROSSDOMAIN = `<?xml version="1.0"?>
@@ -119,6 +120,8 @@ const relOf = (req: FastifyRequest, prefix: RegExp) => {
 
 export async function staticRoutes(f: FastifyInstance, ctx: AppCtx) {
   const flash = new CiTree(ctx.cfg.FLASH_DIR);
+  // apps/api/assets/flash: patched copies of client files (vendor stays read-only), e.g. ui/vietnam/xml/coreI.xml
+  const flashFix = new CiTree(fileURLToPath(new URL("../../assets/flash", import.meta.url)));
   const ruffle = new CiTree(ctx.cfg.RUFFLE_DIR);
   ctx.log.info(`static: flash ${flash.size} files (${ctx.cfg.FLASH_DIR}), resource ${ctx.resources.trees.map((t) => t.size).join("+")} files`);
 
@@ -137,7 +140,7 @@ export async function staticRoutes(f: FastifyInstance, ctx: AppCtx) {
       const low = rel.toLowerCase();
       if (low === "config.xml") return reply.type("text/xml; charset=utf-8").header("Cache-Control", "no-cache").send(buildConfigXml(ctx, cfgTemplate()));
       if (low === "crossdomain.xml") return reply.type("text/xml").send(CROSSDOMAIN);
-      const file = flash.resolve(rel);
+      const file = flashFix.resolve(rel) ?? flash.resolve(rel);
       if (!file) return reply.code(404).send("not found");
       return sendFile(req, reply, file);
     },

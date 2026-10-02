@@ -514,6 +514,8 @@ export interface FightPlayerView extends PlayerView {
   maxBlood: number;
   weaponRefineryLevel: number;
   weaponName: string;
+  /** battle pet (BaseGame.SendCreateGame :2120): place, template, id, name, owner, level, [slot, skillId] */
+  pet?: { place: number; templateId: number; id: number; name: string; userId: number; level: number; skillEquip: [number, number][] } | null;
 }
 
 /** 91/101 GAME_CREATE (Game.Logic/BaseGame.cs:2037 SendCreateGame). */
@@ -541,7 +543,13 @@ export function gameCreate(roomType: number, gameType: number, timeType: number,
     }
     for (let i = 0; i < 6; i++) p.writeInt(0);
     p.writeInt(f.team); p.writeInt(f.livingId); p.writeInt(f.maxBlood);
-    p.writeInt(0); // no pet
+    if (!f.pet) p.writeInt(0);
+    else {
+      const pt = f.pet;
+      p.writeInt(1); p.writeInt(pt.place); p.writeInt(pt.templateId); p.writeInt(pt.id); p.writeString(pt.name); p.writeInt(pt.userId); p.writeInt(pt.level);
+      p.writeInt(pt.skillEquip.length);
+      for (const [slot, id] of pt.skillEquip) { p.writeInt(slot); p.writeInt(id); }
+    }
   }
   return p;
 }
@@ -559,6 +567,70 @@ export function gameLoad(maxTime: number, mapId: number, files: { type: number; 
   for (const s of petSkills) {
     p.writeString(s.pic);
     p.writeString(s.effect);
+  }
+  return p;
+}
+
+// ---------------------------------------------------------------------------------------------- pets / cards
+
+/** Pet block of 68/1 (AbstractPacketLib.SendUpdateUserPet :203; client PlayerManager.__updatePet). */
+export interface PetView {
+  ID: number; TemplateID: number; Name: string; UserID: number; Attack: number; Defence: number; Luck: number; Agility: number; Blood: number;
+  Damage: number; Guard: number; AttackGrow: number; DefenceGrow: number; LuckGrow: number; AgilityGrow: number; BloodGrow: number; DamageGrow: number;
+  GuardGrow: number; Level: number; GP: number; MaxGP: number; Hunger: number; PetHappyStar: number; MP: number; Skill: string; SkillEquip: string;
+  IsEquip: boolean; currentStarExp: number; PetHappyStarReduce?: (v: number) => number;
+}
+const pairs = (s: string) => (s || "").split("|").map((x) => x.split(",").map(Number)).filter((a) => a.length >= 2 && a.every(Number.isFinite));
+
+/** 68/1 UPDATE_PET: slots of `userId`'s pet bag (null = slot emptied); attributes minus the happiness reduction. */
+export function updateUserPet(userId: number, zoneId: number, slots: { place: number; pet: PetView | null }[], eat: { weaponLevel: number; clothesLevel: number; hatLevel: number }): PacketOut {
+  const p = new PacketOut(68, userId);
+  p.writeByte(1); p.writeInt(userId); p.writeInt(zoneId); p.writeInt(slots.length);
+  for (const { place, pet } of slots) {
+    p.writeInt(place);
+    if (!pet) { p.writeBoolean(false); continue; }
+    const r = pet.PetHappyStarReduce ?? (() => 0);
+    p.writeBoolean(true); p.writeInt(pet.ID); p.writeInt(pet.TemplateID); p.writeString(pet.Name); p.writeInt(pet.UserID);
+    p.writeInt(pet.Attack - r(pet.Attack)); p.writeInt(pet.Defence - r(pet.Defence)); p.writeInt(pet.Luck - r(pet.Luck));
+    p.writeInt(pet.Agility - r(pet.Agility)); p.writeInt(pet.Blood - r(pet.Blood)); p.writeInt(pet.Damage); p.writeInt(pet.Guard);
+    p.writeInt(pet.AttackGrow); p.writeInt(pet.DefenceGrow); p.writeInt(pet.LuckGrow); p.writeInt(pet.AgilityGrow); p.writeInt(pet.BloodGrow);
+    p.writeInt(pet.DamageGrow); p.writeInt(pet.GuardGrow); p.writeInt(pet.Level); p.writeInt(pet.GP); p.writeInt(pet.MaxGP); p.writeInt(pet.Hunger);
+    p.writeInt(pet.PetHappyStar); p.writeInt(pet.MP);
+    const sk = pairs(pet.Skill);
+    p.writeInt(sk.length);
+    for (const [id, slot] of sk) { p.writeInt(id!); p.writeInt(slot!); }
+    const eq = pairs(pet.SkillEquip);
+    p.writeInt(eq.length);
+    for (const [id, slot] of eq) { p.writeInt(slot!); p.writeInt(id!); }
+    p.writeBoolean(pet.IsEquip);
+    p.writeInt(0); // PetEquips (pet gear not ported)
+    p.writeInt(pet.currentStarExp);
+  }
+  p.writeInt(eat.weaponLevel); p.writeInt(eat.clothesLevel); p.writeInt(eat.hatLevel);
+  return p;
+}
+
+/** 68/2 ADD_PET reply (AddPet.cs:58): hatched template, shows the "got a pet" frame. */
+export function petAdded(templateId: number): PacketOut {
+  const p = new PacketOut(68);
+  p.writeByte(2); p.writeInt(templateId); p.writeBoolean(true);
+  return p;
+}
+
+export interface CardView {
+  CardID: number; UserID: number; Count: number; Place: number; TemplateID: number; Attack: number; Defence: number; Agility: number; Luck: number;
+  AttackReset: number; DefenceReset: number; AgilityReset: number; LuckReset: number; Damage: number; Guard: number; Level: number; CardGP: number; isFirstGet: boolean;
+}
+/** 216 CARDS_DATA (SendUpdateCardData(bag, slots) :1602): Total* = rolled + reset values. */
+export function cardData(userId: number, slots: { place: number; card: CardView | null }[]): PacketOut {
+  const p = new PacketOut(216, userId);
+  p.writeInt(userId); p.writeInt(slots.length);
+  for (const { place, card: c } of slots) {
+    p.writeInt(place);
+    if (!c || c.TemplateID === 0) { p.writeBoolean(false); continue; }
+    p.writeBoolean(true); p.writeInt(c.CardID); p.writeInt(c.UserID); p.writeInt(c.Count); p.writeInt(c.Place); p.writeInt(c.TemplateID);
+    p.writeInt(c.Attack + c.AttackReset); p.writeInt(c.Defence + c.DefenceReset); p.writeInt(c.Agility + c.AgilityReset); p.writeInt(c.Luck + c.LuckReset);
+    p.writeInt(c.Damage); p.writeInt(c.Guard); p.writeInt(c.Level); p.writeInt(c.CardGP); p.writeBoolean(c.isFirstGet);
   }
   return p;
 }

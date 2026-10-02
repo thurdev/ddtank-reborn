@@ -72,7 +72,7 @@ function takeCardDrop(templates: Templates, m: RoomMember, roomType: number): { 
 
 /** PVEGame.TakeCard / SimpleNpc.GetDropItemInfo: special templates are currencies (ShopMgr.FindSpecialItemInfo), the rest
  *  goes to its bag (temp bag when full). */
-function giveDropItems(templates: Templates, m: RoomMember, items: { templateId: number; count: number; isBind?: boolean; validDate?: number }[], goldRate = 1): void {
+function giveDropItems(templates: Templates, m: RoomMember, items: { templateId: number; count: number; isBind?: boolean; validDate?: number }[], goldRate = 1, bag: "temp" | "fight" = "temp"): void {
   if (m.isBot) return;
   const p = m as GamePlayer;
   for (const d of items) {
@@ -84,6 +84,8 @@ function giveDropItems(templates: Templates, m: RoomMember, items: { templateId:
     const item = ItemInfo.createFromTemplate(t, d.count, 101);
     item.IsBinds = d.isBind ?? true;
     item.ValidDate = d.validDate ?? 0;
+    // Player.OpenBox: fight props (category 10) from a battle box go to the FightBag (usable at once, bag 2)
+    if (bag === "fight" && t.CategoryID === 10 && p.fightBag?.addTemplate(item, d.count)) continue;
     const inv = p.getItemInventory?.(t);
     if (!inv?.addTemplate(item, d.count)) p.tempBag?.addTemplate(item, d.count);
   }
@@ -158,7 +160,24 @@ export class GameServer {
               if (this.ctx) void consortiaMgr(this.ctx).then((c) => c.onMission(m as GamePlayer, g.missionId, g.isWin));
             },
             worldBossBlood: () => (this.ctx ? eventsRuntime(this.ctx).boss.blood : 0),
-            giveItems: (m, items) => giveDropItems(templates, m, items, this.ctx ? eventsRuntime(this.ctx).scheduler.rate("double_gold") : 1),
+            giveItems: (m, items, bag) => giveDropItems(templates, m, items, this.ctx ? eventsRuntime(this.ctx).scheduler.rate("double_gold") : 1, bag),
+            // DropInventory.BoxDrop: eDropType.Box = 2, Para1 = room type
+            boxDrop: (roomType) => {
+              const id = templates.findDropCondition(2, String(roomType), "0");
+              const d = id ? templates.dropOne(id) : null;
+              return d ? [d] : null;
+            },
+            petSkill: (id) => templates.pets.skills.get(id),
+            onPlayerFlee: (m, g) => {
+              // PVPGame.RemovePlayer (PVPGame.cs:647): −grade×12 GP; Match: −5 offer (−15 guild war)
+              const p = m as GamePlayer;
+              const gp = p.info.Grade * 12;
+              p.info.GP = Math.max(0, p.info.GP - gp);
+              const offer = g.roomType === 0 ? (g.gameType === 1 ? 15 : g.gameType === 0 ? 5 : 0) : 0;
+              if (offer) p.info.Offer = Math.max(0, p.info.Offer - offer);
+              p.updateProperties?.();
+              p.sendMessage?.(3, offer ? lang.t("AbstractPacketLib.SendGamePlayerLeave.Msg6", gp, offer) : lang.t("AbstractPacketLib.SendGamePlayerLeave.Msg4", gp));
+            },
             pve: {
               data: { npc: (id) => templates.npcs.get(id) as never, mission: (id) => templates.missions.get(id) as never },
               pveInfo: (id, roomType, levelLimits) => (id !== 0 && id !== 100000 ? templates.pveInfos.get(id) : templates.pveByType(roomType, levelLimits)) as never,

@@ -163,6 +163,12 @@ export async function savePlayerInfo(db: Database, info: PlayerInfo, match?: Mat
     .insert(player.Sys_Users_Texp)
     .values({ ...t, UserID: info.ID })
     .onConflictDoUpdate({ target: player.Sys_Users_Texp.UserID, set: { ...t, UserID: info.ID } });
+  // Sys_VIP_Info (SP_VIPRenewal_Single / UpdateVIPInfo): upsert, the original only UPDATEd an existing row
+  const vip = {
+    UserID: info.ID, typeVIP: info.typeVIP, VIPLevel: info.VIPLevel, VIPExp: info.VIPExp, VIPExpireDay: info.VIPExpireDay, VIPLastdate: info.VIPLastDate,
+    VIPNextLevelDaysNeeded: info.VIPNextLevelDaysNeeded, CanTakeVipReward: info.CanTakeVipReward, LastVIPPackTime: info.LastVIPPackTime,
+  };
+  await db.insert(player.Sys_VIP_Info).values(vip).onConflictDoUpdate({ target: player.Sys_VIP_Info.UserID, set: vip });
   if (match) {
     const { ID: _id, ...m } = match;
     await db

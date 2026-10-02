@@ -5,6 +5,8 @@
 import { eq, sql } from "drizzle-orm";
 import { game, player, type Database } from "@ddt/db";
 import type { ItemTemplate } from "../game/item.js";
+import { emptyPetTables, type PetTables } from "../game/pets.js";
+import type { CardUpdateCond, CardUpdateRowFull } from "../game/cards.js";
 import type { StatTables, ExerciseRow, TotemRow, GoldEquipRow, CardUpdateRow, PetFightRow, SuitInfoRow } from "../game/stats.js";
 
 export type StrengthenRow = typeof game.Item_Strengthen.$inferSelect;
@@ -98,6 +100,7 @@ export class Templates {
     ]);
     const [pveI, missI, npcI] = await Promise.all([db.select().from(game.Pve_Info), db.select().from(game.Mission_Info), db.select().from(game.NPC_Info)]);
     await this.loadForge(db);
+    await this.loadPetsCards(db);
     this.pveInfos = new Map(pveI.map((r) => [r.ID, r]));
     this.missions = new Map(missI.map((r) => [r.Id, r]));
     this.npcs = new Map(npcI.map((r) => [r.ID, r]));
@@ -163,6 +166,32 @@ export class Templates {
       suitParts: parts,
       suits: new Map((suitI as SuitInfoRow[]).map((s) => [s.SuitId, s])),
     };
+  }
+
+  /** PetMgr caches (Pet_Template_Info, Pet_Level, Pet_Config, Pet_Skill_Info, Pet_Skill_Template_Info). */
+  pets: PetTables = emptyPetTables();
+  /** CardMgr: CardUpdateCondition by level, CardUpdateInfo (full row) by template:level. */
+  cardConditions = new Map<number, CardUpdateCond>();
+  cardUpdates = new Map<string, CardUpdateRowFull>();
+  get cardMaxLevel(): number {
+    return Math.max(0, ...this.cardConditions.keys());
+  }
+
+  async loadPetsCards(db: Database): Promise<void> {
+    const [tpl, lv, cfg, sk, skt, cc, cu] = await Promise.all([
+      db.select().from(game.Pet_Template_Info), db.select().from(game.Pet_Level), db.select().from(game.Pet_Config),
+      db.select().from(game.Pet_Skill_Info), db.select().from(game.Pet_Skill_Template_Info),
+      db.select().from(game.CardUpdateCondition), db.select().from(game.CardUpdateInfo),
+    ]);
+    this.pets = {
+      templates: new Map(tpl.map((t) => [t.TemplateID, t])),
+      levelGp: new Map(lv.map((l) => [l.Level, l.GP])),
+      config: new Map(cfg.map((c) => [String(c.Name), String(c.Value ?? "")])),
+      skills: new Map(sk.map((s) => [s.ID, s])),
+      skillTemplates: skt,
+    };
+    this.cardConditions = new Map((cc as unknown as CardUpdateCond[]).map((c) => [c.Level, c]));
+    this.cardUpdates = new Map((cu as unknown as CardUpdateRowFull[]).map((c) => [`${c.Id}:${c.Level}`, c]));
   }
 
   /** StrengthenMgr.GetNeedRate (StrengthenMgr.cs:360): rock column by category of the NEXT level. */

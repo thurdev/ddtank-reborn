@@ -6,7 +6,7 @@ import { updateAwardApp } from "../handlers/academy.js";
 import { hotSpringOnQuit } from "../handlers/hotspring.js";
 import { initFightLabPermission } from "../game/fightlab.js";
 import { eventsOnLogin, eventsOnQuit, eventsRuntime, worldBossOpen } from "../handlers/events.js";
-import { loadUserCards, loadEquippedPet } from "../db/stats.js";
+import { loadUserCardBag, loadUserPets } from "../db/pets-cards.js";
 import { validateGameLogin } from "@ddt/auth";
 import { consortiaOnLogin } from "../handlers/consortia.js";
 import { findCharacterByUserName, loadMatchInfo, loadPlayerInfo, setOnlineState } from "../db/characters.js";
@@ -15,6 +15,7 @@ import { loadFriends, loadProgress } from "../db/social.js";
 import { GamePlayer } from "../game/player.js";
 import { QuestInventory } from "../game/quests.js";
 import { BagType } from "../game/item.js";
+import { checkVipExpire } from "../game/vip.js";
 import * as Out from "../packets/out.js";
 import { unixSeconds } from "../util/time.js";
 import type { GameClient } from "./client.js";
@@ -122,7 +123,12 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   ] as const) bag.loadItems(items.get(type) ?? []);
   // CardBag (equipped cards) and the equipped pet only feed the stats (no card/pet modules yet); farm/avatar: TODO.
   p.statTables = ctx.templates.stats;
-  [p.cards, p.pet] = await Promise.all([loadUserCards(db, userId), loadEquippedPet(db, userId)]);
+  // CardInventory / PetInventory.LoadFromDatabase (GamePlayer.LoadFromDatabase); their CommitChanges sends 216 / 68 below
+  const [cardRows, petRows] = await Promise.all([loadUserCardBag(db, userId), loadUserPets(db, userId)]);
+  p.cardBag.load(cardRows);
+  p.petBag.load(petRows);
+  p.cards = p.cardBag.equipped();
+  p.pet = p.petBag.equipped();
   p.recalcStats(); // FightPower/attributes are part of the login packet
   // QuestInventory.LoadFromDatabase -> 178. Sent even when empty: the client's TaskManager only answers with
   // QUEST_ADD (176) for the quests it can accept once its quest data is initialised.
@@ -143,7 +149,11 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   p.send(Out.dailyAward(info.LastAward, now));
   p.showPP = true; // m_playerProp.ViewCurrent() is a no-op the first time, then m_showPP = true
   p.send(Out.userRanks(p.id));
+  checkVipExpire(info, now); // GamePlayer.ChecVipkExpireDay
   p.send(Out.openVip(info));
+  // after SendOpenVIP the original refreshes the pet bag (PetBag.UpdateEatPets); card bag 216 from CardInventory.LoadFromDatabase
+  p.flushCards(true);
+  p.flushPets(true);
   p.updatePlayerProperties();
   p.send(Out.enthrallLight());
   p.send(Out.avatarCollect());

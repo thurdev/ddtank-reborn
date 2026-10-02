@@ -273,3 +273,25 @@ export function computeStats(inp: StatInput, t: StatTables): StatResult {
 export function emptyStatTables(findItem: (id: number) => ItemTemplate | undefined = () => undefined): StatTables {
   return { findItem, exercise: [], totems: new Map(), goldEquip: () => undefined, cardUpdate: () => undefined, petFight: () => undefined, suitParts: new Map(), suits: new Map() };
 }
+
+/**
+ * PlayerEquipInventory.GetUserNimbus (PlayerEquipInventory.cs:823): aura tiers of the character — hundreds = clothes/hat
+ * (category 1/5), units = weapon (category 7/27). +5..8 → 1, +9..11 → 2, +12..14 → 3, +15 → 4, gilded (isGold) → 5. The
+ * client (PlayerInfo.Nimbus) draws the strengthen glow/halo from it.
+ */
+export function userNimbus(equip: (ItemInfo | null)[]): number {
+  let a = 0, w = 0;
+  for (let i = 0; i < 31; i++) {
+    const it = equip[i];
+    if (!it) continue;
+    const s = it.StrengthenLevel;
+    const cat = it.template.CategoryID;
+    const armour = cat === 1 || cat === 5, weapon = cat === 7 || cat === 27;
+    if (s >= 5 && s <= 8) { if (armour) a = a <= 1 ? 1 : a; if (weapon) w = w <= 1 ? 1 : w; }
+    if (s >= 9 && s <= 11) { if (armour) a = a > 1 ? a : 2; if (weapon) w = w > 1 ? w : 2; }
+    if (s >= 12 && s <= 14) { if (armour) a = a > 1 ? a : 3; if (weapon) w = w > 1 ? w : 3; }
+    if (s === 15) { if (armour) a = a > 1 ? a : 4; if (weapon) w = w > 1 ? w : 4; }
+    if (it.isGold) { if (armour) a = 5; if (weapon) w = 5; }
+  }
+  return a * 100 + w;
+}

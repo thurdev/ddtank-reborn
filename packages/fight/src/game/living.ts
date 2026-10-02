@@ -2,7 +2,8 @@ import type { BallInfo, ItemTemplate } from "../data/types.js";
 import { getBallType, BombType, isSpecialBall } from "../data/types.js";
 import { f32, int } from "../math/num.js";
 import { LivingBody, type Physics } from "../phy/physics.js";
-import { type Point, isEmptyPoint } from "../phy/rect.js";
+import { type Point, isEmptyPoint, offset } from "../phy/rect.js";
+import { Box } from "./box.js";
 import { SimpleBomb } from "../phy/bomb.js";
 import { hertAddition, turnDelay, turnEnergy } from "./formulas.js";
 import type { BaseGame } from "./game.js";
@@ -206,6 +207,7 @@ export class Living extends LivingBody {
       this.totalHurt += damage + critical;
       if (!target.isLiving) this.totalKill++;
       this.game.totalHurt += damage + critical;
+      this.game.currentTurnTotalDamage = damage + critical; // Living.cs:1293
     }
   }
 
@@ -330,6 +332,18 @@ export interface PlayerSpec {
   /** fight bag / prop templates allowed for this player (default: all known props) */
   props?: number[];
   inGuild?: boolean;
+  /** EquipBag slot 18 healstone: Property2 HP healed at the start of each turn while hurt (Player.StartAttacking) */
+  healstone?: { heal: number } | null;
+  /** Battle pet (Player.Pet / PetSkillCD, Player.cs:780): equipped skills with their Pet_Skill_Info data */
+  pet?: PetSpec | null;
+}
+
+export interface PetSkillSpec { id: number; costMP: number; coldDown: number; newBallId: number; ballType: number; delay: number; pic?: string; effectPic?: string }
+export interface PetSpec {
+  id: number; place: number; templateId: number; name: string; userId: number; level: number;
+  /** [slot, skillId] in SkillEquip order (BaseGame.SendCreateGame writes slot then id) */
+  skillEquip: [number, number][];
+  skills: PetSkillSpec[];
 }
 
 const ALLOWED_SPECIAL_ITEMS = [10009, 10010, 10011, 10012, 10018, 10021];
@@ -386,6 +400,99 @@ export class Player extends TurnedLiving {
     this.setDanderQuiet(0);
     this.setCurrentWeapon(s.weapon.templateId, false);
     this.energy = turnEnergy(this.agility);
+    this.psychic = 0; // Player.cs:2220
+    this.petSkillTurn.clear();
+  }
+
+  // ---------------------------------------------------------------- boxes / ghost (Player.cs:2052-2140, 2380-2410, 2665)
+  /** Player.m_tempBoxes */
+  readonly tempBoxes: Box[] = [];
+  /** Living.PickBox + Player.PickBox: ghost box → psychic, item box → 49 PICK + OpenBox while alive. */
+  pickBox(box: Box): void {
+    if (!box.isLiving) return;
+    if (box.isGhost) {
+      box.die();
+      if (this.psychic < 999) this.psychic += box.type === 2 ? 10 : 20;
+      return;
+    }
+    this.tempBoxes.push(box);
+    box.userId = this.id;
+    box.die();
+    if (this.syncAtTime) this.game.emit({ cmd: "RAW", code: 49, livingId: this.id, body: [["u8", box.id & 0xff], ["u8", 0], ["str", ""]] });
+    if (this.isLiving) this.openBox(box.id);
+  }
+  /** Player.OpenBox: the item goes to the FightBag (category 10 props) or the TempBag — the server decides (PVE_AWARD "fight"). */
+  openBox(boxId: number): void {
+    const box = this.tempBoxes.find((b) => b.id === boxId);
+    if (!box || !box.item) return;
+    this.tempBoxes.splice(this.tempBoxes.indexOf(box), 1);
+    if (!this.spec.isBot) this.game.emit({ cmd: "PVE_AWARD", livingId: this.id, userId: this.spec.userId, items: [box.item], bag: "fight" });
+  }
+  /** Player.StartGhostMoving + GhostMoveAction: 160 px max per turn towards GHOST_TARGET, 2 px per tick. */
+  startGhostMoving(): void {
+    const t = this.targetPoint;
+    if (t.x === 0 && t.y === 0) return;
+    let dx = t.x - this.x, dy = t.y - this.y;
+    const len = Math.sqrt(dx * dx + dy * dy);
+    if (len > 160) { dx = Math.trunc((dx * 160) / len); dy = Math.trunc((dy * 160) / len); }
+    const target = { x: this.x + dx, y: this.y + dy };
+    const l2 = Math.sqrt(dx * dx + dy * dy) || 1;
+    const v = { x: Math.trunc((dx * 2) / l2), y: Math.trunc((dy * 2) / l2) };
+    let sent = false;
+    this.game.addStepAction(0, 1000, () => {
+      if (!sent) {
+        sent = true;
+        const boxes = this.game.tempBoxes.map((b) => ({ x: b.x, y: b.y }));
+        this.game.emit({ cmd: "MOVESTART", livingId: this.id, type: 2, x: target.x, y: target.y, dir: v.x > 0 ? 1 : 255, isLiving: this.isLiving, boxes });
+      }
+      const dist = Math.sqrt((target.x - this.x) ** 2 + (target.y - this.y) ** 2);
+      if (dist > 2 && (v.x !== 0 || v.y !== 0)) {
+        this.setXY(this.x + v.x, this.y + v.y);
+        return false;
+      }
+      this.game.checkBox();
+      this.setXY(target.x, target.y);
+      return true;
+    }, "ghostMove");
+  }
+
+  // ---------------------------------------------------------------- pet skills (Player.PetUseKill, Player.cs:2560)
+  /** PetSkillCD[skillId].Turn (cooldown turns left) */
+  readonly petSkillTurn = new Map<number, number>();
+  petUseKill(skillId: number, type: number): boolean {
+    const pet = this.spec.pet;
+    if (!pet || this.useItemCount >= 999 || this.isSeal) return false;
+    if (!pet.skillEquip.some(([, id]) => id === skillId)) return false;
+    const sk = pet.skills.find((s) => s.id === skillId);
+    if (!sk) return false;
+    if (sk.newBallId !== -1 && this.useItemCount > 0) return false;
+    if (this.petMP <= 0 || this.petMP < sk.costMP) return false;
+    if ((this.petSkillTurn.get(skillId) ?? 0) > 0) return false;
+    this.useItemCount = 9999;
+    if (sk.newBallId !== -1) {
+      this.delay += sk.delay;
+      this.setBall(sk.newBallId);
+    }
+    this.petMP -= sk.costMP;
+    this.game.emit({ cmd: "RAW", code: 144, livingId: this.id, body: [["i32", skillId], ["bool", true], ["i32", type]] });
+    this.petSkillTurn.set(skillId, sk.coldDown + 1);
+    return true;
+  }
+
+  /** Player.UseItem(item, place) — dead player (ghost) helping the current teammate: psychic cost Property7, delay to the current living. */
+  useItemDead(item: ItemTemplate, place: number): boolean {
+    const cur = this.game.currentLiving;
+    if (!cur || isSpecialBall(this.currentBall.id) && !ALLOWED_SPECIAL_ITEMS.includes(item.templateId)) return false;
+    if (this.isLiving || cur.team !== this.team || !this.isActive) return false;
+    if (place === -1) {
+      if (this.psychic < item.property7) return false;
+      this.psychic -= item.property7;
+      cur.addDelay(item.property5);
+    }
+    this.game.emit({ cmd: "PROP", livingId: this.id, type: -2 & 0xff, place: -2, templateId: item.templateId, userLivingId: this.id });
+    if (cur instanceof Player) this.game.executeSpell(cur, item);
+    this.useItemCount++;
+    return true;
   }
   private setDanderQuiet(v: number): void {
     this.dander = v;
@@ -427,6 +534,10 @@ export class Player extends TurnedLiving {
     this.ballCount = 1;
     this.isSpecialSkill = false;
     this.mainWeaponReset();
+    if (!this.isLiving) {
+      this.startGhostMoving();
+      this.targetPoint = { x: 0, y: 0 };
+    }
     this.canFly = true;
     super.prepareNewTurn();
   }
@@ -440,11 +551,15 @@ export class Player extends TurnedLiving {
     super.prepareSelfTurn();
     this.useItemCount = 0;
     this.defaultDelay = this.delay;
+    // Player.PrepareSelfTurn: pet skill cooldowns tick down
+    for (const [id, t] of this.petSkillTurn) if (t > 0) this.petSkillTurn.set(id, t - 1);
   }
 
-  /** Player.StartAttacking (Player.cs:2624): healstone not modelled. */
+  /** Player.StartAttacking (Player.cs:2624): healstone (EquipBag 18) heals Property2 while hurt, one consumed per turn. */
   override startAttacking(): void {
     if (this.isAttacking) return;
+    const hs = this.spec.healstone;
+    if (hs && hs.heal > 0 && this.blood < this.maxBlood && this.game.roomType !== 14 && (this.game.opts.removeHealstone?.(this.spec.userId) ?? false)) this.addBlood(hs.heal);
     this.addDelay(this.getTurnDelay());
     super.startAttacking();
   }
@@ -464,7 +579,17 @@ export class Player extends TurnedLiving {
     if (this._x === x && this._y === y) return;
     const dx = Math.abs(this._x - x);
     super.setXY(x, y);
-    if (this.isLiving) this.energy -= dx;
+    if (this.isLiving) {
+      this.energy -= dx;
+      return;
+    }
+    // a ghost collects the boxes it flies through
+    if (!this.map) return;
+    for (const p of this.map.findPhysicalObjects(offset(this.bound, this._x, this._y), this))
+      if (p instanceof Box) {
+        this.pickBox(p);
+        this.game.checkBox();
+      }
   }
   /** position change that never costs energy (spawn, falls, teleport) */
   place(x: number, y: number): void {
@@ -579,7 +704,9 @@ export class Player extends TurnedLiving {
     this.energy -= item.property4;
     this.delay += item.property5;
     this.game.emit({ cmd: "PROP", livingId: this.id, type: -2 & 0xff, place: -2, templateId: item.templateId, userLivingId: this.id });
-    this.game.executeSpell(this, item);
+    // SpellMgr.ExecuteSpell(game, game.CurrentLiving as Player, item)
+    const cur = this.game.currentLiving;
+    this.game.executeSpell(cur instanceof Player ? cur : this, item);
     return true;
   }
 

@@ -8,6 +8,8 @@ import type { Point } from "../phy/rect.js";
 import { type FightCommand, type FightEvent, type FightEventInit, type FireBomb, withCode } from "./events.js";
 import { calculateExperience, calculateOffer, criticalDamage, nextWind, playerKillOffer, shellDamage, turnTime, vane, type WindState } from "./formulas.js";
 import { Living, Player, type PlayerSpec, TurnedLiving } from "./living.js";
+import { Box } from "./box.js";
+import type { DropItem } from "./events.js";
 
 /** eGameState (Game.Logic/eGameState.cs) */
 export const GameState = { Inited: 0, Prepared: 1, Loading: 2, GameStartMovie: 3, GameStart: 4, Playing: 5, GameOverMovie: 6, PrepareGameOver: 7, GameOver: 8, TryAgain: 9, Stopped: 10, SessionPrepared: 11, ALLSessionStopped: 12, Waiting: 13 } as const;
@@ -42,6 +44,15 @@ export interface GameOptions {
   rewards?: Partial<RewardConfig>;
   /** BaseGame.FrozenWind (PvP: any player grade ≤ 9, PVPGame.cs:102) — computed when omitted */
   frozenWind?: boolean;
+  /** DropInventory.BoxDrop(roomType) — items for the in-battle drop boxes (eDropType.Box); none when omitted */
+  boxDrop?: () => DropItem[] | null;
+  /**
+   * GamePlayer.UsePropItem(game, bag, place, templateId, isLiving): consume the prop from the player's bags (bag 1 = PropBag
+   * 10001-10008, place −1 = free; bag 2 = FightBag). Returns false when the player does not have it. Default: always true.
+   */
+  usePropItem?: (userId: number, bag: number, place: number, templateId: number, isLiving: boolean) => boolean;
+  /** GamePlayer.RemoveHealstone (EquipBag slot 18) — true when one healstone was consumed */
+  removeHealstone?: (userId: number) => boolean;
 }
 
 export interface QueuedAction {
@@ -78,6 +89,11 @@ export class BaseGame implements BombHost {
   winTeam = -1;
   physicalId = 0;
   readonly tempPoints: Point[] = [];
+  /** BaseGame.m_tempBox / m_tempGhostPoints / CurrentTurnTotalDamage */
+  readonly tempBoxes: Box[] = [];
+  private tempGhostPoints: Point[] = [];
+  currentTurnTotalDamage = 0;
+  readonly opts: GameOptions;
   private outbox: FightEvent[] = [];
   protected actions: QueuedAction[] = [];
   /** BaseGame.CurrentActionCount (actions alive at the start of the last update) */
@@ -89,6 +105,7 @@ export class BaseGame implements BombHost {
   protected readonly windState: WindState;
 
   constructor(o: GameOptions) {
+    this.opts = o;
     this.id = o.id;
     this.roomType = o.roomType;
     this.gameType = o.gameType;
@@ -324,13 +341,15 @@ export class BaseGame implements BombHost {
     return t;
   }
 
-  /** PVPGame.NextTurn (PVPGame.cs:590-635). Drop boxes (CreateBox) are not generated. */
+  /** PVPGame.NextTurn (PVPGame.cs:590-635) */
   private pvpNextTurn(): void {
     if (this.state !== GameState.Playing) return;
     this.waitTimer = 0;
     this.clearDiedPhysicals();
+    this.checkBox();
     this.turnIndex++;
-    for (const p of this.map.physics) p.prepareNewTurn();
+    const newBoxes = this.createBox();
+    for (const p of [...this.map.physics]) p.prepareNewTurn();
     const cur = this.pvpFindNextTurnedLiving();
     this.currentLiving = cur;
     if (!cur) return;
@@ -339,7 +358,7 @@ export class BaseGame implements BombHost {
     cur.prepareSelfTurn();
     if (!cur.isFrost && cur.isLiving) {
       cur.startAttacking();
-      this.sendNextTurn(cur);
+      this.sendNextTurn(cur, newBoxes);
       if (cur.isAttacking) {
         const ti = this.turnIndex;
         this.attackWait = this.addAction(
@@ -357,7 +376,78 @@ export class BaseGame implements BombHost {
   }
 
   protected clearDiedPhysicals(): void {
-    for (const p of [...this.map.physics]) if (!p.isLiving && !(p instanceof Living)) this.map.removePhysical(p);
+    for (const p of [...this.map.physics]) if (!p.isLiving && !(p instanceof Living) && !(p instanceof Box)) this.map.removePhysical(p);
+  }
+
+  // ---------------------------------------------------------------- drop boxes (BaseGame.cs:604-764)
+  /** BaseGame.AddBox / AddGhostBox: boxes are announced in the next TURN packet (sendToClient false). */
+  addBox(item: DropItem | null, pos: Point, type: number): Box {
+    const box = new Box(this.physicalId++, type, item, (b, phy) => {
+      // only real shots of this game (bot aim simulations use another BombHost)
+      if (phy instanceof SimpleBomb && phy.host === this && phy.owner instanceof Player) phy.owner.pickBox(b);
+    });
+    box.place(pos.x, pos.y);
+    this.map.addPhysical(box); // AddPhysicalObj / AddGhostBoxObj
+    this.tempBoxes.push(box);
+    return box;
+  }
+  /** BaseGame.CheckBox: dead (picked) boxes leave the map → 53 DISAPPEAR. */
+  checkBox(): void {
+    for (const b of [...this.tempBoxes]) {
+      if (b.isLiving) continue;
+      this.tempBoxes.splice(this.tempBoxes.indexOf(b), 1);
+      this.map.removePhysical(b);
+      this.emit({ cmd: "RAW", code: 53, livingId: 0, body: [["i32", b.id]] });
+    }
+  }
+  /** BaseGame.CreateGhostPoints / DrawCirclePoints (background size ≈ the foreground size here). */
+  private createGhostPoints(): void {
+    const h = this.map.info.foregroundHeight ?? 600, w = this.map.info.foregroundWidth ?? 1000;
+    const cx = w / 2, cy = h / 2, step = (Math.PI * 2) / h;
+    const pts: Point[] = [];
+    for (let r = h - 180; r > 30; r -= 30) for (let i = 0; i < h; i++) pts.push({ x: Math.trunc(cx + r * Math.cos(step * i)), y: Math.trunc(cy + r * Math.sin(step * i)) });
+    this.tempGhostPoints = pts;
+  }
+  /** BaseGame.CreateBox (BaseGame.cs:692): 1-2 item boxes on last turn's trajectory points when damage was dealt, ghost boxes when someone is dead. */
+  createBox(): Box[] {
+    const max = this.players.length + 2;
+    let n = 0;
+    let info: DropItem[] | null = null;
+    if (this.currentTurnTotalDamage > 0) {
+      n = this.rng.nextRange(1, 3);
+      if (this.tempBoxes.length + n > max) n = max - this.tempBoxes.length;
+      if (n > 0) info = this.opts.boxDrop?.() ?? null;
+    }
+    this.currentTurnTotalDamage = 0;
+    const dead = this.players.filter((p) => !p.isLiving && p.isActive).length;
+    const out: Box[] = [];
+    if (dead > 0) {
+      this.rng.nextMax(dead);
+      if (this.tempGhostPoints.length < max) this.createGhostPoints();
+      const g = this.tempGhostPoints;
+      for (let i = 0; i < g.length; i++) {
+        const j = this.rng.nextMax(g.length);
+        [g[i], g[j]] = [g[j]!, g[i]!];
+      }
+      const want = dead + max - this.tempBoxes.filter((b) => b.isGhost).length;
+      if (g.length > want)
+        for (let i = 0; i < want; i++) {
+          const type = [2, 3][this.rng.nextMax(2)]!;
+          out.push(this.addBox(null, g[this.rng.nextMax(g.length)]!, type));
+        }
+    }
+    if (info) {
+      const t = this.tempPoints;
+      for (let i = 0; i < t.length; i++) {
+        const j = this.rng.nextMax(t.length);
+        [t[i], t[j]] = [t[j]!, t[i]!];
+      }
+      const k = Math.min(info.length, t.length);
+      for (let i = 0; i < k; i++) out.push(this.addBox(info[i]!, t[i]!, 1));
+    }
+    this.tempPoints.length = 0;
+    this.tempGhostPoints = [];
+    return out;
   }
 
   getNextWind(): number {
@@ -376,14 +466,14 @@ export class BaseGame implements BombHost {
   }
 
   /** BaseGame.SendGameNextTurn (BaseGame.cs:2190) — vanes from wind×10 like FIRE/VANE. */
-  protected sendNextTurn(l: TurnedLiving): void {
+  protected sendNextTurn(l: TurnedLiving, newBoxes: Box[] = []): void {
     const w = int(f32(this.map.wind * 10));
     this.emit({
       cmd: "TURN", livingId: l.id, windPositive: this.map.wind > 0, vane1: vane(w, 1), vane2: vane(w, 2), vane3: vane(w, 3),
-      isHide: l.isHide, turnTime: turnTime(this.timeType), boxes: [],
+      isHide: l.isHide, turnTime: turnTime(this.timeType), boxes: newBoxes.map((b) => ({ id: b.id, x: b.x, y: b.y, type: b.type })),
       players: this.players.map((p) => ({
         id: p.id, isLiving: p.isLiving, x: p.x, y: p.y, blood: p.blood, isNoHole: p.isNoHole, energy: p.energy, psychic: p.psychic,
-        dander: p.dander, petMaxMP: 100, petMP: p.petMP, shootCount: p.shootCount, flyCount: p.canFly ? 1 : 0,
+        dander: p.dander, petMaxMP: p.spec.pet ? 100 : 0, petMP: p.spec.pet ? p.petMP : 0, shootCount: p.shootCount, flyCount: p.canFly ? 1 : 0,
       })),
       turnIndex: this.turnIndex,
     });
@@ -450,14 +540,19 @@ export class BaseGame implements BombHost {
   }
 
   /** BaseGame.RemovePlayer: a leaver dies (PVPGame leaving punishment is applied by the server). */
-  removePlayer(userId: number): void {
+  /** Returns true when the leaver fled alive from a started game (PVPGame.RemovePlayer: GP / offer penalty by the server). */
+  removePlayer(userId: number): boolean {
     const p = this.findByUser(userId);
-    if (!p || !p.isActive) return;
+    if (!p || !p.isActive) return false;
     p.isActive = false;
+    const fled = p.isLiving && this.state !== GameState.Loading && this.state !== GameState.Inited && this.state !== GameState.Prepared && this.state < GameState.GameOver;
     if (this.state === GameState.Playing && p.isLiving) {
       p.die();
     }
+    // PVPGame.RemovePlayer: only one team left → end the current turn
+    if (this.state === GameState.Playing && this.canGameOver() && this.currentLiving?.isAttacking) this.currentLiving.stopAttacking();
     this.checkState(0);
+    return fled;
   }
 
   // ---------------------------------------------------------------- commands
@@ -496,7 +591,15 @@ export class BaseGame implements BombHost {
         this.pvpMoveStart(p, c);
         break;
       case "PROP":
-        this.propUse(p, c.bag, c.templateId);
+        this.propUse(p, c.bag, c.templateId, c.place);
+        break;
+      case "PICK":
+        // PickCommand → Player.OpenBox (boxes picked by a shot are opened at once; this re-tries a pending one)
+        p.openBox(c.boxId);
+        break;
+      case "PET_SKILL":
+        // PetKillCommand (144)
+        if (this.state === GameState.Playing && p.isAttacking) p.petUseKill(c.skillId, c.type);
         break;
       case "STUNT":
         if (p.isAttacking) p.useSpecialSkill();
@@ -535,15 +638,35 @@ export class BaseGame implements BombHost {
   }
 
   /** PropUseCommand (Cmd/PropUseCommand.cs) */
-  propUse(p: Player, bag: number, templateId: number): boolean {
+  propUse(p: Player, bag: number, templateId: number, place = -1): boolean {
     const item = this.assets.items.get(templateId);
     if (!item || this.state !== GameState.Playing || p.isSeal) return false;
     if (bag === 2 && (templateId < 10001 || templateId > 10022)) return false;
     if (bag === 1 && (templateId < 10001 || templateId > 10008)) return false;
     if (p.spec.props && !p.spec.props.includes(templateId)) return false;
-    if (!p.checkCanUseItem(templateId) || !p.canUseItem(item)) return false;
-    if (templateId === 10001 || templateId === 10002 || templateId === 10003) p.canFly = false;
-    return p.useItem(item);
+    const usePropItem = (): boolean => this.opts.usePropItem?.(p.spec.userId, bag, place, templateId, p.isLiving) ?? true;
+    if (p.isLiving) {
+      if (!p.checkCanUseItem(templateId) || !p.canUseItem(item)) return false;
+      if (templateId === 10001 || templateId === 10002 || templateId === 10003) p.canFly = false;
+      if (!usePropItem() || !p.useItem(item)) return false;
+    } else {
+      // a dead teammate (ghost) uses a prop for the current living: bag 2 = FightBag item, place −1 = paid with psychic
+      if (bag === 2 && !usePropItem()) return false;
+      if (!p.useItemDead(item, place)) return false;
+    }
+    // PropUseCommand.cs:126-138 — post effects on the current shooter
+    const cur = this.currentLiving instanceof Player ? this.currentLiving : p;
+    if (templateId === 10015 || templateId === 10016) {
+      cur.shootCount = 1;
+      cur.ballCount = 1;
+    } else if (templateId === 10020 || templateId === 10022) cur.isBombOrIgnoreArmor = templateId === 10020 ? 1 : 2;
+    else if (item.categoryId === 17) cur.shootCount = 1;
+    // Player.UseItem(item, place): Property6 == 1 ends the turn
+    if (item.property6 === 1 && cur.isAttacking) {
+      cur.stopAttacking();
+      this.checkState(0);
+    }
+    return true;
   }
 
   /** SpellMgr.ExecuteSpell by ItemTemplate.Property1 (Spells/**) */
