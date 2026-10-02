@@ -2,6 +2,7 @@
  * LOGIN (code 1): UserLoginHandler.cs + center ALLOW_USER_LOGIN round trip + GamePlayer.Login/LoadFromDatabase,
  * and logout (GamePlayer.Quit, GamePlayer.cs:3780).
  */
+import { loadUserCards, loadEquippedPet } from "../db/stats.js";
 import { validateGameLogin } from "@ddt/auth";
 import { findCharacterByUserName, loadMatchInfo, loadPlayerInfo, setOnlineState } from "../db/characters.js";
 import { loadUserItems } from "../db/items.js";
@@ -111,7 +112,10 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
     [p.bankBag, BagType.BankBag],
     [p.storeBag, BagType.Store],
   ] as const) bag.loadItems(items.get(type) ?? []);
-  // CardBag / pets / farm / avatar collection: TODO (HANDLERS.md).
+  // CardBag (equipped cards) and the equipped pet only feed the stats (no card/pet modules yet); farm/avatar: TODO.
+  p.statTables = ctx.templates.stats;
+  [p.cards, p.pet] = await Promise.all([loadUserCards(db, userId), loadEquippedPet(db, userId)]);
+  p.recalcStats(); // FightPower/attributes are part of the login packet
   // QuestInventory.LoadFromDatabase -> 178. Sent even when empty: the client's TaskManager only answers with
   // QUEST_ADD (176) for the quests it can accept once its quest data is initialised.
   p.questInv.sendAll();

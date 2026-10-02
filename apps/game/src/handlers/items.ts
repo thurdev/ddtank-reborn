@@ -123,8 +123,8 @@ export function changeItemPlace(ctx: ServerContext, p: GamePlayer, bagType: numb
   }
 }
 
-/** Sends overflow items by mail (5 annexes per mail, type 8 BuyItem) — UserBuyItemHandler.cs:239-325. */
-async function mailItems(ctx: ServerContext, p: GamePlayer, items: ItemInfo[]): Promise<void> {
+/** Sends overflow items by mail (5 annexes per mail, default type 8 BuyItem) — UserBuyItemHandler.cs:239-325. */
+export async function mailItems(ctx: ServerContext, p: GamePlayer, items: ItemInfo[], title?: string, type = 8): Promise<void> {
   for (let i = 0; i < items.length; i += 5) {
     const chunk = items.slice(i, i + 5);
     const mail: Record<string, unknown> = {};
@@ -138,12 +138,13 @@ async function mailItems(ctx: ServerContext, p: GamePlayer, items: ItemInfo[]): 
       mail[`Annex${k + 1}Name`] = it.template.Name ?? "";
       remark += `${k + 1}、${it.template.Name}x${it.Count};`;
     }
-    const content = `${ctx.lang.t("UserBuyItemHandler.Title")}${chunk[0]!.template.Name ?? ""}]`;
+    const content = title ?? `${ctx.lang.t("UserBuyItemHandler.Title")}${chunk[0]!.template.Name ?? ""}]`;
     await sendMail(ctx.db.db, {
-      ...mail, AnnexRemark: remark, Content: content, Title: content, Gold: 0, Money: 0, Type: 8,
+      ...mail, AnnexRemark: remark, Content: content, Title: content, Gold: 0, Money: 0, Type: type,
       Receiver: p.info.NickName, ReceiverID: p.id, Sender: p.info.NickName, SenderID: p.id,
     });
   }
+  if (items.length) p.send(Out.mailResponse(p.id, 1)); // 117: the client reloads LoadUserMail.ashx
 }
 
 /** UserBuyItemHandler.cs:22. */
@@ -223,7 +224,6 @@ export async function buyGoods(ctx: ServerContext, p: GamePlayer, pkt: GSPacket)
       await mailItems(ctx, p, overflow);
       eMsg = 1;
       msg = "UserBuyItemHandler.Mail";
-      p.send(Out.mailResponse(p.id, 1));
     }
   } else {
     if (money > c.Money && money > 0) msg = "UserBuyItemHandler.NoMoney";

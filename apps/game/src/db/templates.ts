@@ -5,6 +5,12 @@
 import { eq, sql } from "drizzle-orm";
 import { game, player, type Database } from "@ddt/db";
 import type { ItemTemplate } from "../game/item.js";
+import type { StatTables, ExerciseRow, TotemRow, GoldEquipRow, CardUpdateRow, PetFightRow, SuitInfoRow } from "../game/stats.js";
+
+export type StrengthenRow = typeof game.Item_Strengthen.$inferSelect;
+export type StrengthenGoodsRow = typeof game.Item_Strengthen_Goods.$inferSelect;
+export type FusionRow = typeof game.Item_Fusion.$inferSelect;
+export type ItemBoxRow = typeof game.Shop_Goods_Box.$inferSelect;
 
 export type ShopRow = typeof game.Shop.$inferSelect;
 
@@ -53,6 +59,26 @@ export class Templates {
   missions = new Map<number, typeof game.Mission_Info.$inferSelect>();
   npcs = new Map<number, typeof game.NPC_Info.$inferSelect>();
 
+  /** StrengthenMgr (Item_Strengthen by level, Item_Strengthen_Goods), FusionMgr (Item_Fusion by sorted item key), ItemBoxMgr. */
+  strengthen = new Map<number, StrengthenRow>();
+  strengthenGoods: StrengthenGoodsRow[] = [];
+  fusions = new Map<string, FusionRow>();
+  itemBoxes = new Map<number, ItemBoxRow[]>();
+  /** Attribute tables used by UpdatePlayerProperties / FightPower (game/stats.ts). */
+  stats: StatTables = {
+    findItem: (id) => this.items.get(id),
+    exercise: [], totems: new Map(), goldEquip: () => undefined, cardUpdate: () => undefined, petFight: () => undefined,
+    suitParts: new Map(), suits: new Map(),
+  };
+
+  /** game."Server_Config" (GameProperties overrides). */
+  serverConfig = new Map<string, string>();
+  /** GameProperties int value with the C# default when the row is missing. */
+  cfgInt(name: string, def: number): number {
+    const v = Number(this.serverConfig.get(name));
+    return Number.isFinite(v) && this.serverConfig.has(name) ? v : def;
+  }
+
   findItem = (id: number): ItemTemplate | undefined => this.items.get(id);
 
   async load(db: Database, serverId: number): Promise<this> {
@@ -71,6 +97,7 @@ export class Templates {
       db.select().from(game.Quest_Goods),
     ]);
     const [pveI, missI, npcI] = await Promise.all([db.select().from(game.Pve_Info), db.select().from(game.Mission_Info), db.select().from(game.NPC_Info)]);
+    await this.loadForge(db);
     this.pveInfos = new Map(pveI.map((r) => [r.ID, r]));
     this.missions = new Map(missI.map((r) => [r.Id, r]));
     this.npcs = new Map(npcI.map((r) => [r.ID, r]));
@@ -99,6 +126,71 @@ export class Templates {
     const s = srv[0];
     this.server = s ? { ID: s.ID, Name: s.Name ?? "", Room: s.Room, Total: s.Total, ZoneId: s.ZoneId, ZoneName: s.ZoneName } : null;
     return this;
+  }
+
+  /** StrengthenMgr / FusionMgr / ItemBoxMgr / ExerciseMgr / TotemMgr / GoldEquipMgr / CardMgr / PetMgr / suit caches. */
+  async loadForge(db: Database): Promise<void> {
+    const [str, strG, fus, box, ex, tot, gold, cardU, petF, suitI, suitT, cfg] = await Promise.all([
+      db.select().from(game.Item_Strengthen), db.select().from(game.Item_Strengthen_Goods), db.select().from(game.Item_Fusion),
+      db.select().from(game.Shop_Goods_Box), db.select().from(game.ExerciseInfo), db.select().from(game.Totem_Info),
+      db.select().from(game.GoldEquipTemplateLoad), db.select().from(game.CardUpdateInfo), db.select().from(game.Pet_Fight_Property),
+      db.select().from(game.SuitTemplateInfo), db.select().from(game.Suit_TemplateID), db.select().from(game.Server_Config),
+    ]);
+    this.serverConfig = new Map(cfg.map((c) => [String(c.Name), String(c.Value ?? "")]));
+    this.strengthen = new Map(str.map((r) => [r.StrengthenLevel, r]));
+    this.strengthenGoods = strG;
+    this.fusions = new Map();
+    for (const f of fus) {
+      // FusionMgr.LoadFusion: key = the four item fusion types sorted, zeros skipped, concatenated.
+      const key = [f.Item1, f.Item2, f.Item3, f.Item4].sort((a, b) => a - b).filter((x) => x !== 0).join("");
+      if (!this.fusions.has(key)) this.fusions.set(key, f);
+    }
+    this.itemBoxes = new Map();
+    for (const b of box) this.itemBoxes.set(b.ID, [...(this.itemBoxes.get(b.ID) ?? []), b]);
+    const golds = gold as GoldEquipRow[];
+    const cardMap = new Map((cardU as CardUpdateRow[]).map((c) => [`${c.Id}:${c.Level}`, c]));
+    const pets = new Map((petF as PetFightRow[]).map((p) => [p.ID, p]));
+    const parts = new Map<number, string[]>();
+    for (const p of suitT) if (p.ID != null) parts.set(p.ID, [...(parts.get(p.ID!) ?? []), p.ContainEquip ?? ""]);
+    this.stats = {
+      findItem: (id) => this.items.get(id),
+      exercise: (ex as ExerciseRow[]).slice().sort((a, b) => a.Grage - b.Grage),
+      totems: new Map((tot as TotemRow[]).map((t) => [t.ID, t])),
+      // GoldEquipMgr.FindGoldEquipByTemplate(templateId, categoryId): OldTemplateId match first, then by category.
+      goldEquip: (tpl, cat) => golds.find((g) => g.OldTemplateId === tpl) ?? golds.find((g) => g.CategoryID === cat && g.OldTemplateId === -1),
+      cardUpdate: (tpl, lv) => cardMap.get(`${tpl}:${lv}`),
+      petFight: (g) => pets.get(g),
+      suitParts: parts,
+      suits: new Map((suitI as SuitInfoRow[]).map((s) => [s.SuitId, s])),
+    };
+  }
+
+  /** StrengthenMgr.GetNeedRate (StrengthenMgr.cs:360): rock column by category of the NEXT level. */
+  strengthenNeedRate(level: number, categoryId: number): number {
+    const s = this.strengthen.get(level + 1);
+    if (!s) return 0;
+    switch (categoryId) {
+      case 5: return s.Rock2;
+      case 1: return s.Rock1;
+      case 17: return s.Rock3;
+      case 7: return s.Rock;
+      default: return 0;
+    }
+  }
+
+  /** StrengthenMgr.FindStrengthenGoodsInfo(level, templateId). */
+  findStrengthenGoods(level: number, templateId: number): StrengthenGoodsRow | undefined {
+    return this.strengthenGoods.find((g) => g.Level === level && g.CurrentEquip === templateId);
+  }
+  /** StrengthenMgr.FindRealStrengthenGoodInfo(level, templateId): via the transfer row's OrginEquip. */
+  findRealStrengthenGoods(level: number, templateId: number): StrengthenGoodsRow | undefined {
+    const t = this.strengthenGoods.find((g) => g.GainEquip === templateId || g.CurrentEquip === templateId);
+    return t ? this.findStrengthenGoods(level, t.OrginEquip) : undefined;
+  }
+  /** ItemMgr.GetGoodsbyFusionTypeandLevel. */
+  goodsByFusionTypeAndLevel(fusionType: number, level: number): ItemTemplate | undefined {
+    for (const t of this.items.values()) if (t.FusionType === fusionType && t.Level === level) return t;
+    return undefined;
   }
 
   /** LevelMgr.GetLevel(GP): highest grade whose GP threshold is reached. */

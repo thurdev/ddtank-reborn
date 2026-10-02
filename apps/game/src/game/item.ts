@@ -246,6 +246,35 @@ export class ItemInfo {
     return this.ItemID > 0 ? { ...r, ItemID: this.ItemID } : r;
   }
 
+  /** ItemInfo.CloneFromTemplate (ItemInfo.cs:812): same properties on another template (new ItemID). */
+  static cloneFromTemplate(t: ItemTemplate, from: ItemInfo): ItemInfo {
+    const c = new ItemInfo(t);
+    for (const [k, v] of Object.entries(from)) {
+      if (k === "tempId" || k === "template" || k === "TemplateID") continue;
+      (c as unknown as Record<string, unknown>)[k] = v instanceof Date ? new Date(v.getTime()) : v;
+    }
+    c.ItemID = 0;
+    c.isDirty = true;
+    return c;
+  }
+
+  /** ItemInfo.OpenHole (ItemInfo.cs:1199): template Hole = "needLevel,type|..."; holes reached by StrengthenLevel open (-1 -> 0). */
+  openHole(): void {
+    const parts = (this.template.Hole ?? "").split("|");
+    for (let i = 0; i < parts.length && i < 6; i++) {
+      const [lv, type] = parts[i]!.split(",").map(Number);
+      if (lv === undefined || type === undefined || Number.isNaN(lv) || this.StrengthenLevel < lv || type === -1) continue;
+      const key = `Hole${i + 1}` as "Hole1";
+      if (this[key] < 0) this[key] = 0;
+    }
+  }
+
+  /** Hole type for gem inlay (template Hole "lvl,type|..."). */
+  holeType(hole: number): number {
+    const part = (this.template.Hole ?? "").split("|")[hole - 1];
+    return part ? Number(part.split(",")[1]) : NaN;
+  }
+
   /** ItemInfo.Clone: new instance (ItemID 0), same properties. */
   clone(): ItemInfo {
     const c = new ItemInfo(this.template);

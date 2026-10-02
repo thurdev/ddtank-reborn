@@ -14,6 +14,7 @@ import type { MatchRow, PlayerInfo } from "./player-info.js";
 import type { BaseRoom } from "../rooms/room.js";
 import type { QuestInventory } from "./quests.js";
 import { saveQuests } from "../db/social.js";
+import { computeStats, emptyStatTables, type StatTables, type UserCard, type UserPet } from "./stats.js";
 
 /** ePlayerState. */
 export const PlayerState = { Offline: 0, Manual: 1, Online: 1, Away: 2 } as const;
@@ -83,6 +84,11 @@ export class GamePlayer implements RoomMember {
   isActive = true;
   /** Set by quitPlayer: every caller awaits the same quit (and its final save). */
   quitting: Promise<void> | null = null;
+  /** Attribute tables (Templates.stats); set at login. */
+  statTables: StatTables = emptyStatTables();
+  /** Sys_Users_Card rows (equipped = Place 0..4) and the equipped Sys_Users_Pet (loaded at login). */
+  cards: UserCard[] = [];
+  pet: UserPet | null = null;
   private changeDepth = 0;
   private propsPending = false;
 
@@ -214,18 +220,19 @@ export class GamePlayer implements RoomMember {
   }
 
   /**
-   * PlayerEquipInventory.UpdatePlayerProperties (PlayerEquipInventory.cs:200), partial port: base item stats of
-   * slots 0..30, style/colors/skin string, hp = (hpItems + LevelPlusBlood + Defence/10) * GetBaseBlood.
-   * Gems, gold plating, cards, pets, suits, totems, titles and training exp are TODO (see HANDLERS.md).
+   * PlayerEquipInventory.UpdatePlayerProperties (PlayerEquipInventory.cs:200): attributes, hp and FightPower via
+   * game/stats.ts (items, compose, strengthen, gems, potential, gold plating, training, cards, pet, suits, totem),
+   * style/colors/skin string, then 38/67 property packets.
    */
   updatePlayerProperties(): void {
+    this.recalcStats();
+    if (this.showPP) this.send(Out.playerProperty(this.id));
+    this.updateProperties();
+  }
+
+  /** The computation half of UpdatePlayerProperties (no packets): used before the login burst too. */
+  recalcStats(): void {
     const styleIndex = [1, 2, 3, 4, 5, 6, 11, 13, 14, 15, 16, 17, 18, 19, 20];
-    let atk = 0, def = 0, agi = 0, luck = 0;
-    for (let i = 0; i < 31; i++) {
-      const it = this.equipBag.getItemAt(i);
-      if (!it) continue;
-      atk += it.Attack; def += it.Defence; agi += it.Agility; luck += it.Luck;
-    }
     const s0 = this.equipBag.getItemAt(0);
     let style = s0 ? `${s0.TemplateID}|${s0.Pic}` : "";
     let color = s0 ? s0.Color : "";
@@ -240,19 +247,24 @@ export class GamePlayer implements RoomMember {
       }
     }
     const c = this.info;
-    c.Attack = atk; c.Defence = def; c.Agility = agi; c.Luck = luck;
-    const necklace = this.equipBag.getItemAt(12);
-    const baseBlood = necklace ? (100 + necklace.template.Property1 + c.necklaceExpAdd) / 100 : 1;
-    c.hp = Math.trunc((this.levelBlood(c.Grade) + Math.trunc(def / 10)) * baseBlood);
+    const equip: (ItemInfo | null)[] = [];
+    for (let i = 0; i < 31; i++) equip.push(this.equipBag.getItemAt(i));
+    const r = computeStats({
+      equip, grade: c.Grade, levelBlood: this.levelBlood(c.Grade), necklaceExpAdd: c.necklaceExpAdd ?? 0, totemId: c.totemId ?? 0,
+      texp: c.Texp ?? { attTexpExp: 0, defTexpExp: 0, spdTexpExp: 0, lukTexpExp: 0, hpTexpExp: 0 },
+      cards: this.cards, pet: this.pet, evolutionGrade: c.evolutionGrade ?? 0,
+    }, this.statTables);
+    c.Attack = r.attack; c.Defence = r.defence; c.Agility = r.agility; c.Luck = r.luck; c.hp = r.hp;
+    c.FightPower = r.fightPower;
     c.Style = style; c.Colors = color; c.Skin = skin;
-    if (this.showPP) this.send(Out.playerProperty(this.id));
-    this.updateProperties();
   }
 
   // -------------------------------------------------------------------- currencies (GamePlayer Add*/Remove*)
   /** GamePlayer.AddGP: level-up recomputes HP, refreshes grade quests; the client re-requests quests on Grade change. */
-  addGP(v: number): void {
+  addGP(v: number, useMultiple = true): void {
     if (v <= 0) return;
+    // GamePlayer.AddGP (GamePlayer.cs:1357): GPAddPlus (type 13 GP buff, e.g. x2 exp card) multiplies; AddGP(gp, false) does not.
+    if (useMultiple && this.gpAddPlus > 0) v = Math.trunc(v * this.gpAddPlus);
     this.info.GP += v;
     const g = this.gradeForGp(this.info.GP);
     if (g && g > this.info.Grade) {
@@ -260,6 +272,26 @@ export class GamePlayer implements RoomMember {
       this.updatePlayerProperties();
       this.questInv?.refresh();
     } else this.updateProperties();
+  }
+  /** GamePlayer.GPAddPlus: product of the active GP-multiplier buffs (type 13). */
+  get gpAddPlus(): number {
+    let m = 1;
+    const now = Date.now();
+    for (const b of this.buffs) if (b.Type === 13 && b.IsExist && b.BeginDate.getTime() + b.ValidDate * 60_000 > now) m *= b.Value || 1;
+    return m;
+  }
+  addMoney(v: number): void { if (v > 0) { this.info.Money += v; this.updateProperties(); } }
+  addOffer(v: number): void { if (v > 0) { this.info.Offer += v; this.updateProperties(); } }
+  addHonor(v: number): void { if (v > 0) { this.info.myHonor += v; this.updateProperties(); } }
+  addHardCurrency(v: number): void { if (v > 0) { this.info.hardCurrency += v; this.updateProperties(); } }
+  /** GamePlayer.AddMedal (GamePlayer.cs:3961): medals are item 11408 in the PropBag. */
+  addMedal(v: number, find: (id: number) => ItemTemplate | undefined): void {
+    if (v <= 0) return;
+    const it = this.propBag.getItemByTemplateID(0, 11408);
+    if (it && this.propBag.addCountToStack(it, v)) { this.updateProperties(); return; }
+    const t = find(11408);
+    if (t) this.propBag.addTemplate(ItemInfo.createFromTemplate(t, v, 104), v);
+    this.updateProperties();
   }
   addGold(v: number): void { if (v > 0) { this.info.Gold += v; this.updateProperties(); } }
   removeGold(v: number): void { if (v > 0) { this.info.Gold -= v; this.updateProperties(); } }
