@@ -331,9 +331,53 @@
     "evidence": "research/e2e/batch4/21-shot.png, research/e2e/batch4/23-after.png, research/e2e/batch4/25-pvp-end.png"
   },
   "252:sendChangeSex": {
-    "notes": "Varredura básico pt.1 (2026-10-02): handler 252 USE_CHANGE_SEX não existia (não registrado em handlers/index.ts). Portado de ChangeSexHandler.cs (apps/game/src/handlers/items.ts): consome item 11569, troca Sex, desequipa equips agora com NeedSex incompatível, divórcio best-effort se casado. Verificado por typecheck + leitura do fluxo AS3 (BagView.as: não há listener de resposta pra CrazyTankSocketEvent.CHANGE_SEX nesta build, então só precisa da mensagem de chat + sync normal da bolsa). Não clicado no cliente real ainda."
+    "verified": "no",
+    "notes": "Varredura do básico pt.2 (2026-10-02): handler portado e registrado (ChangeSexHandler.cs). Clicado no cliente real (item 11569 dado via qa-setup, Thur relogado): single/double-click no item na aba Đạo cụ só mostra o tooltip (GoodTip) — o `ChangeSexAlertFrame` de confirmação (BagView.as:2021 startupChangeSex, só ligado a `_equiplist` via DOUBLE_CLICK) não abriu a partir da `_proplist` (que só escuta ITEM_CLICK → CellMenu/dragStart conforme EquipType.canBeUsed). Sex não mudou no banco (FAIL: não dá pra disparar o fluxo a partir da bolsa de itens no cliente atual). Precisa achar o gatilho real (CellMenu com opção 'Dùng'?) e confirmar com screenshot.",
+    "evidence": ""
   },
   "179:sendQuestFinish": {
-    "notes": "Varredura básico pt.1 (2026-10-02): QuestInventory.finish derrubava RewardRiches (missões de guild) e RewardBuffID/RewardBuffDate (buff) silenciosamente — ambas portadas (apps/game/src/game/quests.ts, QuestInventory.cs:402-451). Testado com a missão real 640 (guild+repetível) em test/quests.test.ts; condições básicas (grade/kills/jogos/compra/item/direct/PvE) já funcionavam. Não clicado no cliente real ainda."
+    "verified": "no",
+    "notes": "Varredura do básico pt.2 (2026-10-02): clicado 'Nhận thưởng' no painel de missões (cliente real) em duas missões com badge OK!! — missão principal 'Hiệu lệnh guild' (condição: entrar em 1 guild, Thur já está em 'Reborn') e missão secundária 'Thử nghiệm tu luyện' (condição: usar 1 poção). Nenhuma das duas completou no servidor (QuestData sem CompletedDate novo, sem msg de chat, sem erro no log). Clique em 'Nhận đính kèm' de correio (mesmo estilo de botão) funcionou normalmente no mesmo teste, então não parece ser um problema geral de clique/hit-area — mais provável: a condição de guild (tipo não portado, rastreado no BACKLOG) nunca fica IsComplete=true server-side mesmo a UI mostrando '(Hoàn thành)'; a de treino pode ser o mesmo tipo de lacuna ou exigir Sys_Users_Texp/ExerciseInfo específico. Não corrigido nesta batch (precisa investigar qual tipo de condição cada uma usa).",
+    "evidence": ""
+  },
+  "221:sendBuyGift": {
+    "verified": "yes",
+    "notes": "Varredura do básico pt.2 (2026-10-02): 221 USER_SEND_GIFTS implementado (apps/game/src/handlers/items.ts sendGift, UserSendGiftHandler.cs). Verificado no cliente real: Thur (grade temporariamente 20 via qa-setup para liberar a aba Hộp quà, nível mínimo 16) comprou 'Hoa Mẫu đơn' (100 Xu) e enviou pra Bob pelo fluxo giftSystem (ClearingInterface, campo Tặng cho + autocomplete). Confirmado: Xu de Thur caiu exatamente 100 (99900), Bob.charmGP 0→10, linha em Sys_Users_Gift (SenderID 1, ReceiverID 34, TemplateID 325203, Count 1), mail tipo 55 'Bạn gửi tặng...' entregue pra Bob. Teste automatizado também em test/handlers.test.ts \"shop\" > \"221 USER_SEND_GIFTS\".",
+    "evidence": ""
+  },
+  "44:sendBuyGoods (Xu tab)": {
+    "verified": "yes",
+    "notes": "Varredura do básico pt.2: comprado 'Loa Ấn' (30 Xu, loja Shop > Ưu đãi) no cliente real — diálogo de confirmação, 'Mua thành công.', Xu caiu exatamente 30 (99900→99870). Moedas Gold/outras não encontradas na loja atual do Thur nesta sessão (só Xu nas abas visitadas); cobertura de gold/offer/giftToken/petScore/score/dmgScore já é automatizada em test/handlers.test.ts \"shop\".",
+    "evidence": ""
+  },
+  "49:sendMoveGoods (equip/unequip/move)": {
+    "verified": "yes",
+    "notes": "Varredura do básico pt.2: na bolsa (Trang bị), duplo-clique num item equipado ('Áo bà ba +7') desequipou (Hộ giáp 223→166, Lực chiến 6263→5595) e duplo-clique de novo reequipou (stats voltaram). Arrastar uma pilha (Đạo cụ, qtd 13) de um slot vazio pra outro moveu a pilha inteira corretamente. SPLIT (arrastar após clicar 'Tách', ou vice-versa) não funcionou nas duas ordens tentadas — não confirmado neste batch (lógica de split já teste automatizado existe no handler, só o gatilho de UI/drag no Ruffle que não foi encontrado).",
+    "evidence": ""
+  },
+  "127:reclaimGoods": {
+    "verified": "yes",
+    "notes": "Varredura do básico pt.2: clicado item (Mũi khoan cấp 1 x5) então 'Bán' → confirmação 'Bạn muốn bán 5 cái, giá 200 Vàng' → OK → 'Bạn nhận được 200 vàng', Gold +200, item removido da bolsa.",
+    "evidence": ""
+  },
+  "114:sendUpdateMail (take attachment)": {
+    "verified": "yes",
+    "notes": "Varredura do básico pt.2: inserido mail de teste via SQL com 500 Gold anexado + POST /mail-notice (canal admin) pra forçar o cliente recarregar a lista; aberto no cliente (ícone de moeda + tag 'Mới'), clicado 'Nhận đính kèm' → ícone de anexo sumiu, chat mostrou 'Nhận thư thành công.'. Mails reais do servidor (GM 'Đền bù bảo trì' etc.) não tinham anexo (Gold/Money/Annex1 todos nulos/zero), por isso não serviam pra esse teste.",
+    "evidence": ""
+  },
+  "160:sendAddFriend": {
+    "verified": "partial",
+    "notes": "Varredura do básico pt.2: painel Bạn bè(F) abriu, diálogo 'Thêm bạn' aceitou o nickname 'Bob' com autocomplete e fechou sem erro. Não deu pra confirmar um ADD novo no banco porque Bob já era amigo do Thur antes desta sessão (Sys_Users_Friends AddDate antigo, não mudou) — fluxo de UI ok, mas não isola o caso de amigo novo.",
+    "evidence": ""
+  },
+  "19:sendMessage (lobby chat)": {
+    "verified": "yes",
+    "notes": "Varredura do básico pt.2: digitado 'qa hello lobby' na caixa de chat do saguão e Enter — apareceu no log como '[Hiện tại][Thur]: qa hello lobby'.",
+    "evidence": ""
+  },
+  "94:sendCreateRoom / sendGameStart (room + bot)": {
+    "verified": "yes",
+    "notes": "Varredura do básico pt.2: criada sala 'Thi đấu' (Phòng game > Bắt đầu > Tạo phòng), Thur como chủ phòng, clicado 'Bắt đầu' sozinho — contador 'Xin chờ...' subiu e, depois do fallback (~25s), a partida carregou de verdade contra um bot (tela de luta real: avatar vs bot, HP, turno, mira). Confirma BOT_FALLBACK_SEC funcionando no cliente real.",
+    "evidence": ""
   }
 }

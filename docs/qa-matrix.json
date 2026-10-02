@@ -101,8 +101,8 @@
   "name": "IM_CMD",
   "sub": "FRIEND_ADD=160",
   "server": "ok",
-  "verified": "no",
-  "notes": "",
+  "verified": "partial",
+  "notes": "Varredura do básico pt.2: painel Bạn bè(F) abriu, diálogo 'Thêm bạn' aceitou o nickname 'Bob' com autocomplete e fechou sem erro. Não deu pra confirmar um ADD novo no banco porque Bob já era amigo do Thur antes desta sessão (Sys_Users_Friends AddDate antigo, não mudou) — fluxo de UI ok, mas não isola o caso de amigo novo.",
   "evidence": ""
  },
  {
@@ -438,8 +438,8 @@
   "name": "REClAIM_GOODS",
   "sub": "",
   "server": "ok",
-  "verified": "no",
-  "notes": "",
+  "verified": "yes",
+  "notes": "Varredura do básico pt.2: clicado item (Mũi khoan cấp 1 x5) então 'Bán' → confirmação 'Bạn muốn bán 5 cái, giá 200 Vàng' → OK → 'Bạn nhận được 200 vàng', Gold +200, item removido da bolsa.",
   "evidence": ""
  },
  {
@@ -625,7 +625,7 @@
   "sub": "",
   "server": "ok",
   "verified": "no",
-  "notes": "Varredura básico pt.1 (2026-10-02): handler 252 USE_CHANGE_SEX não existia (não registrado em handlers/index.ts). Portado de ChangeSexHandler.cs (apps/game/src/handlers/items.ts): consome item 11569, troca Sex, desequipa equips agora com NeedSex incompatível, divórcio best-effort se casado. Verificado por typecheck + leitura do fluxo AS3 (BagView.as: não há listener de resposta pra CrazyTankSocketEvent.CHANGE_SEX nesta build, então só precisa da mensagem de chat + sync normal da bolsa). Não clicado no cliente real ainda.",
+  "notes": "Varredura do básico pt.2 (2026-10-02): handler portado e registrado (ChangeSexHandler.cs). Clicado no cliente real (item 11569 dado via qa-setup, Thur relogado): single/double-click no item na aba Đạo cụ só mostra o tooltip (GoodTip) — o `ChangeSexAlertFrame` de confirmação (BagView.as:2021 startupChangeSex, só ligado a `_equiplist` via DOUBLE_CLICK) não abriu a partir da `_proplist` (que só escuta ITEM_CLICK → CellMenu/dragStart conforme EquipType.canBeUsed). Sex não mudou no banco (FAIL: não dá pra disparar o fluxo a partir da bolsa de itens no cliente atual). Precisa achar o gatilho real (CellMenu com opção 'Dùng'?) e confirmar com screenshot.",
   "evidence": ""
  },
  {
@@ -2607,9 +2607,9 @@
   "code": 221,
   "name": "USER_SEND_GIFTS",
   "sub": "",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Varredura do básico pt.2 (2026-10-02): 221 USER_SEND_GIFTS implementado (apps/game/src/handlers/items.ts sendGift, UserSendGiftHandler.cs). Verificado no cliente real: Thur (grade temporariamente 20 via qa-setup para liberar a aba Hộp quà, nível mínimo 16) comprou 'Hoa Mẫu đơn' (100 Xu) e enviou pra Bob pelo fluxo giftSystem (ClearingInterface, campo Tặng cho + autocomplete). Confirmado: Xu de Thur caiu exatamente 100 (99900), Bob.charmGP 0→10, linha em Sys_Users_Gift (SenderID 1, ReceiverID 34, TemplateID 325203, Count 1), mail tipo 55 'Bạn gửi tặng...' entregue pra Bob. Teste automatizado também em test/handlers.test.ts \"shop\" > \"221 USER_SEND_GIFTS\".",
   "evidence": ""
  },
  {
@@ -3759,7 +3759,7 @@
   "sub": "",
   "server": "ok",
   "verified": "no",
-  "notes": "Varredura básico pt.1 (2026-10-02): QuestInventory.finish derrubava RewardRiches (missões de guild) e RewardBuffID/RewardBuffDate (buff) silenciosamente — ambas portadas (apps/game/src/game/quests.ts, QuestInventory.cs:402-451). Testado com a missão real 640 (guild+repetível) em test/quests.test.ts; condições básicas (grade/kills/jogos/compra/item/direct/PvE) já funcionavam. Não clicado no cliente real ainda.",
+  "notes": "Varredura do básico pt.2 (2026-10-02): clicado 'Nhận thưởng' no painel de missões (cliente real) em duas missões com badge OK!! — missão principal 'Hiệu lệnh guild' (condição: entrar em 1 guild, Thur já está em 'Reborn') e missão secundária 'Thử nghiệm tu luyện' (condição: usar 1 poção). Nenhuma das duas completou no servidor (QuestData sem CompletedDate novo, sem msg de chat, sem erro no log). Clique em 'Nhận đính kèm' de correio (mesmo estilo de botão) funcionou normalmente no mesmo teste, então não parece ser um problema geral de clique/hit-area — mais provável: a condição de guild (tipo não portado, rastreado no BACKLOG) nunca fica IsComplete=true server-side mesmo a UI mostrando '(Hoàn thành)'; a de treino pode ser o mesmo tipo de lacuna ou exigir Sys_Users_Texp/ExerciseInfo específico. Não corrigido nesta batch (precisa investigar qual tipo de condição cada uma usa).",
   "evidence": ""
  },
  {

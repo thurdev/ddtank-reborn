@@ -28,6 +28,11 @@ export async function sendMail(db: Database, mail: MailRow): Promise<number> {
   return (await db.insert(player.User_Messages).values(mail).returning({ ID: player.User_Messages.ID }))[0]!.ID;
 }
 
+/** SP_Users_Gift_Add (PlayerBussiness.AddUserGift) — log row for a shop charm-gift (221 USER_SEND_GIFTS). */
+export async function addUserGift(db: Database, senderId: number, receiverId: number, templateId: number, count: number): Promise<void> {
+  await db.insert(player.Sys_Users_Gift).values({ SenderID: senderId, ReceiverID: receiverId, TemplateID: templateId, Count: count });
+}
+
 export type QuestDataRow = typeof player.QuestData.$inferSelect;
 export type BuffRow = typeof player.User_Buff.$inferSelect;
 export type AchievementDataRow = typeof player.AchievementData.$inferSelect;

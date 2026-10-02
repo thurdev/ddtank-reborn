@@ -8,9 +8,9 @@ import { bankCapacity, canBuyGuildShop, personalRiches } from "../game/consortia
 import type { GamePlayer } from "../game/player.js";
 import type { PlayerInventory } from "../game/inventory.js";
 import { loadEquippedItems } from "../db/items.js";
-import { loadPlayerInfo, loadPlayerInfoByNick } from "../db/characters.js";
+import { loadPlayerInfo, loadPlayerInfoByNick, addCharmGP } from "../db/characters.js";
 import { saveItem } from "../db/items.js";
-import { sendMail } from "../db/social.js";
+import { sendMail, addUserGift } from "../db/social.js";
 import type { ShopItemInfo } from "../db/templates.js";
 import * as Out from "../packets/out.js";
 import { GSPacket } from "@ddt/protocol";
@@ -260,6 +260,48 @@ export async function buyGoods(ctx: ServerContext, p: GamePlayer, pkt: GSPacket)
   p.send(reply);
 }
 
+/**
+ * UserSendGiftHandler.cs:12 (221 USER_SEND_GIFTS) — shop "charm gift" to a friend: nick, shop-item id, count
+ * (1..9999), one unused trailing int. Cost = ShopItemInfo.AValue1 × count Money; receiver gets
+ * ItemTemplate.Property2 × count charmGP (SP_Users_UpdateCharmGP) + a log row (SP_Users_Gift_Add) + mail type 55
+ * (UserGiftSystem.MailTitle). An online receiver's charmGP/public-info is bumped live and told via 117 (Gift).
+ */
+export async function sendGift(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): Promise<void> {
+  const nick = pkt.readString();
+  const shopItemId = pkt.readInt();
+  const count = pkt.readInt();
+  pkt.readInt(); // unused — the original reads and discards it too
+  if (nick === p.info.NickName || count <= 0 || count > 9999) return;
+  const shop = ctx.templates.shop.get(shopItemId);
+  if (!shop || shop.AValue1 <= 0) return;
+  const t = ctx.templates.findItem(shop.TemplateID);
+  if (!t) return;
+  const online = ctx.world.getByNick(nick);
+  const info = online?.info ?? (await loadPlayerInfoByNick(ctx.db.db, nick));
+  if (!info) return p.sendMessage(0, ctx.lang.t("GoodsPresentHandler.NoUser"));
+  const cost = shop.AValue1 * count;
+  if (cost > p.info.Money + p.info.MoneyLock) return p.sendMessage(0, ctx.lang.t("GoodsPresentHandler.NoMoney"));
+  p.removeMoney(cost);
+  const charm = (t.Property2 ?? 0) * count;
+  await addUserGift(ctx.db.db, p.id, info.ID, t.TemplateID, count);
+  await addCharmGP(ctx.db.db, info.ID, charm);
+  await sendMail(ctx.db.db, {
+    SenderID: p.id, Sender: p.info.NickName ?? "", ReceiverID: info.ID, Receiver: info.NickName ?? "",
+    Title: ctx.lang.t("UserGiftSystem.MailTitle"),
+    Content: `${p.info.NickName ?? ""}${ctx.lang.t("GoodsPresentHandler.Content")}${t.Name ?? ""}]`,
+    Type: 55, Gold: 0, Money: 0,
+  });
+  if (online) {
+    online.info.charmGP += charm;
+    online.updateProperties();
+    online.send(Out.mailResponse(online.id, 4)); // eMailRespose.Gift
+  }
+  const reply = new GSPacket(221, p.id);
+  reply.writeBoolean(true);
+  p.send(reply);
+  p.sendMessage(0, ctx.lang.t("GoodsPresentHandler.Success"));
+}
+
 export function registerItems(r: HandlerRegistry): void {
   r.player(49, "CHANGE_PLACE_GOODS", (ctx, p, pkt) => {
     const bagType = pkt.readByte();
@@ -303,6 +345,8 @@ export function registerItems(r: HandlerRegistry): void {
   });
 
   r.player(44, "BUY_GOODS", (ctx, p, pkt) => buyGoods(ctx, p, pkt));
+
+  r.player(221, "USER_SEND_GIFTS", (ctx, p, pkt) => sendGift(ctx, p, pkt));
 
   /**
    * ChangeSexHandler.cs:12 — item 11569 ("Thẻ đổi giới tính"/sex-change card). Same packet code as
