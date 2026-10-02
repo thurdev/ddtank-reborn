@@ -7,7 +7,7 @@
  * Other condition types (PvE missions 21, pets, farm, marriage...) are kept and shown but never progress
  * (UnknowQuestCondition behaviour for types whose module is not ported).
  */
-import type { QuestDataRow } from "../db/social.js";
+import type { BuffRow, QuestDataRow } from "../db/social.js";
 import type { QuestCondRow, QuestTemplate, Templates } from "../db/templates.js";
 import { ItemInfo, BagType, templateBagType } from "./item.js";
 import type { GamePlayer } from "./player.js";
@@ -284,11 +284,28 @@ export class QuestInventory {
     try {
       for (const it of main) if (!p.equipBag.stackItemToAnother(it)) p.equipBag.addItem(it);
       for (const it of prop) if (!p.propBag.stackItemToAnother(it)) p.propBag.addItem(it);
+      // QuestInventory.Finish:402 — buff reward (BufferList.CreateBufferHour(temp, RewardBuffDate*rand).Start).
+      if (info.RewardBuffID > 0 && info.RewardBuffDate > 0) {
+        const bt = this.t.findItem(info.RewardBuffID);
+        if (bt) {
+          const minutes = info.RewardBuffDate * rand * 60;
+          const ex = p.buffs.find((b) => b.Type === bt.Property1 && b.IsExist && b.BeginDate.getTime() + b.ValidDate * 60_000 > Date.now());
+          if (ex) ex.ValidDate += minutes;
+          else {
+            p.buffs = p.buffs.filter((b) => b.Type !== bt.Property1);
+            const b: BuffRow = { UserID: p.id, Type: bt.Property1, Value: bt.Property2, BeginDate: new Date(), ValidDate: minutes, TemplateID: bt.TemplateID, ValidCount: bt.Property3, Data: null, IsExist: true };
+            p.buffs.push(b);
+          }
+          p.send(Out.bufferList(p.id, p.buffs));
+        }
+      }
       if (info.RewardGold) p.addGold(info.RewardGold * rand);
       if (info.RewardMoney) { p.info.Money += info.RewardMoney * rand; p.updateProperties(); }
       if (info.RewardGiftToken) p.addGiftToken(info.RewardGiftToken * rand);
       if (info.RewardOffer) { p.info.Offer += info.RewardOffer * rand; p.updateProperties(); }
       if (info.RewardGP) p.addGP(info.RewardGP * rand);
+      // QuestInventory.Finish:430 — guild riches (personal share only; guild-total ConsortiaRichAdd not mirrored here).
+      if (info.RewardRiches && p.info.ConsortiaID) { p.info.RichesOffer += info.RewardRiches * rand; p.updateProperties(); }
     } finally {
       p.commitChanges();
     }

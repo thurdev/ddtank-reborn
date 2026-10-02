@@ -14,7 +14,7 @@
 | Área | Linhas | ok | partial | stub | missing | broken | verificado no cliente |
 |---|---|---|---|---|---|---|---|
 | Amigos | 12 | 6 | 0 | 0 | 6 | 0 | 0 |
-| Bolsa/Inventário | 27 | 10 | 3 | 0 | 14 | 0 | 6 |
+| Bolsa/Inventário | 27 | 11 | 3 | 0 | 13 | 0 | 6 |
 | Boss mundial/Minigames | 7 | 0 | 6 | 0 | 1 | 0 | 4 |
 | Cartas | 8 | 4 | 0 | 0 | 4 | 0 | 2 |
 | Casamento | 24 | 2 | 0 | 0 | 22 | 0 | 0 |
@@ -40,7 +40,7 @@
 | Spa/Fonte termal | 14 | 13 | 0 | 1 | 0 | 0 | 5 |
 | Totem/Honra | 2 | 0 | 0 | 0 | 2 | 0 | 0 |
 | VIP | 1 | 1 | 0 | 0 | 0 | 0 | 1 |
-| **Total** | 361 | 131 | 69 | 3 | 158 | 0 | 44 |
+| **Total** | 361 | 132 | 69 | 3 | 157 | 0 | 44 |
 
 ## Amigos
 
@@ -88,7 +88,7 @@
 | `sendFirstGetCards` | `bagAndInfo/bag/BagView.as` | 216 CARDS_DATA |  | ok | no |  |
 | `sendPlayerGift` | `bagAndInfo/info/PlayerInfoFrame.as`<br>`ddt/manager/PlayerManager.as`<br>`ddt/manager/ServerManager.as` | 218 USER_GET_GIFTS |  | missing | no |  |
 | `sendEquipRetrieve` | `equipretrieve/view/RetrieveBgView.as` | 222 EQUIP_RECYCLE_ITEM |  | missing | no |  |
-| `sendChangeSex` | `bagAndInfo/bag/BagView.as` | 252 USE_CHANGE_SEX |  | missing | no |  |
+| `sendChangeSex` | `bagAndInfo/bag/BagView.as` | 252 USE_CHANGE_SEX |  | ok | no | Varredura básico pt.1 (2026-10-02): handler 252 USE_CHANGE_SEX não existia (não registrado em handlers/index.ts). Portado de ChangeSexHandler.cs (apps/game/src/handlers/items.ts): consome item 11569, troca Sex, desequipa equips agora com NeedSex incompatível, divórcio best-effort se casado. Verificado por typecheck + leitura do fluxo AS3 (BagView.as: não há listener de resposta pra CrazyTankSocketEvent.CHANGE_SEX nesta build, então só precisa da mensagem de chat + sync normal da bolsa). Não clicado no cliente real ainda. |
 | `sendNewTitleCard` | `bagAndInfo/bag/BagView.as` | 265 NEWTITLE_CARD |  | missing | no |  |
 
 ## Boss mundial/Minigames
@@ -346,7 +346,7 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `sendBuyGoods` | `AvatarCollection/view/AvatarCollectionItemCell.as`<br>`chickActivation/view/ChickActivationViewFrame.as`<br>`consortion/view/selfConsortia/ConsortionShopItem.as` (+16) | 44 BUY_GOODS |  | ok | yes | Xu (money) e Lễ kim (giftToken) debitados e saldo atualiza na loja (corrigido pacote 38 sem petScore). Ouro/medalha/itens exigidos pelo mesmo caminho (GetItemPrice). Loja da guilda (ShopID 11-15): nível da loja + contribuição ≥ Consortia_Equip_Control verificados (compra ok). — evidência: research/e2e/qa/c6-shop-balance.png, research/e2e/guild/g43-shop-buy.png |
+| `sendBuyGoods` | `AvatarCollection/view/AvatarCollectionItemCell.as`<br>`chickActivation/view/ChickActivationViewFrame.as`<br>`consortion/view/selfConsortia/ConsortionShopItem.as` (+16) | 44 BUY_GOODS |  | ok | yes | Xu (money) e Lễ kim (giftToken) debitados e saldo atualiza na loja (corrigido pacote 38 sem petScore). Ouro/medalha/itens exigidos pelo mesmo caminho (GetItemPrice). Loja da guilda (ShopID 11-15): nível da loja + contribuição ≥ Consortia_Equip_Control verificados (compra ok). Varredura básico pt.1 (2026-10-02, só testes automatizados contra packets reais, não clicado no Ruffle): tiers A/B/C, duração (ValidDate dias) vs quantidade (Count) por BuyType, carrinho multi-linha sem falha parcial — `test/handlers.test.ts` "shop". Achado não corrigido: presente pra amigo (221 USER_SEND_GIFTS) não está registrado em handler nenhum. — evidência: research/e2e/qa/c6-shop-balance.png, research/e2e/guild/g43-shop-buy.png |
 | `sendBuyGiftBag` | `store/view/strength/BuyGiftBagButton.as` | 46 BUY_GIFTBAG |  | missing | no |  |
 | `sendSellGoods` | — | 48 SEll_GOODS |  | missing | no |  |
 | `sendPresentGoods` | `shop/ShopController.as`<br>`shop/manager/ShopGiftsManager.as` | 57 GOODS_PRESENT |  | missing | no |  |
@@ -376,7 +376,7 @@
 | `sendUserLuckyNum` | `calendar/CalendarManager.as`<br>`calendar/view/LuckyNumBar.as` | 161 USER_LUCKYNUM |  | ok | no |  |
 | `sendQuestAdd` | `ddt/manager/TaskManager.as` | 176 QUEST_ADD |  | ok | no |  |
 | `sendQuestRemove` | — | 177 QUEST_REMOVE |  | ok | no |  |
-| `sendQuestFinish` | `ddt/manager/TaskManager.as`<br>`quest/TaskMainFrame.as` | 179 QUEST_FINISH |  | ok | no |  |
+| `sendQuestFinish` | `ddt/manager/TaskManager.as`<br>`quest/TaskMainFrame.as` | 179 QUEST_FINISH |  | ok | no | Varredura básico pt.1 (2026-10-02): QuestInventory.finish derrubava RewardRiches (missões de guild) e RewardBuffID/RewardBuffDate (buff) silenciosamente — ambas portadas (apps/game/src/game/quests.ts, QuestInventory.cs:402-451). Testado com a missão real 640 (guild+repetível) em test/quests.test.ts; condições básicas (grade/kills/jogos/compra/item/direct/PvE) já funcionavam. Não clicado no cliente real ainda. |
 | `sendRequestUpdate` | `effortView/EffortMainFrame.as` | 225 REQUEST_UPDATE |  | ok | no |  |
 | `sendAchievementFinish` | `ddt/manager/EffortManager.as` | 230 ACHIEVEMENT_FINISH |  | ok | yes | O cliente envia ao completar; o servidor confere AchievementCondition × registros (Sys_Users_Record, tipos de snapshot: ataque/defesa/agilidade/sorte/FC/nível/partidas/vitórias/tempo online/dias de login) e grava AchievementData uma vez; pontos de conquista somados. Correção: o 228 precisa trazer todos os tipos de registro (o EffortManager quebrava com null e nada completava). Título (RewardType 1) só anunciado. — evidência: research/e2e/events/e25-achievement.png |
 | `requestRefund` | — | 249 MARRY_CMD | MARRYROOMSENDGIFT=12 | missing | no |  |

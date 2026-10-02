@@ -71,4 +71,55 @@ describe("quests (176/177/179/181)", () => {
     expect(rows.map((r) => [r.QuestID, r.IsComplete]).sort()).toEqual([[341, true], [6, true]]);
     c.close();
   });
+
+  /**
+   * Regression: QuestInventory.Finish dropped RewardRiches and RewardBuffID entirely (quests.ts previously only
+   * granted Gold/Money/GiftToken/Offer/GP). Quest 640 ("Kèn triệu tập 1", real seed data) is a repeatable guild
+   * quest: 23 GamesByGame(gameType 1, ×3) + riches/GP/gold/offer/medal(11408) rewards — exactly the "guild +
+   * repeatable + money types" combination from the basics-sweep feedback.
+   */
+  it("guild quest 640 (repeatable, condition 23) pays riches + gold + offer + GP + item reward", async () => {
+    const { c, player: p } = await loggedIn(server, { grade: 12 });
+    p().info.ConsortiaID = 1; // join a guild (RewardRiches only applies to guild members)
+    expect(p().questInv!.add(640)).toBe("");
+    p().questInv!.list.get(640)!.data.RandDobule = 1; // make the reward math deterministic (Rands is a 7% double-roll)
+    for (let i = 0; i < 3; i++) p().questInv!.onGameOver({ roomType: 0, gameType: 1, isWin: false, kills: 0, playerCount: 2 });
+    expect(p().questInv!.canCompleted(p().questInv!.list.get(640)!)).toBe(true);
+    const before = { gold: p().info.Gold, offer: p().info.Offer, giftToken: p().info.GiftToken, riches: p().info.RichesOffer, gp: p().info.GP, medal: p().medal };
+    expect(p().questInv!.finish(640, 0)).toBe(true);
+    expect(p().info.Gold).toBe(before.gold + 500);
+    expect(p().info.GiftToken).toBe(before.giftToken + 15);
+    expect(p().info.Offer).toBe(before.offer + 20);
+    expect(p().info.RichesOffer).toBe(before.riches + 20); // previously silently dropped
+    expect(p().info.GP).toBeGreaterThan(before.gp);
+    expect(p().medal).toBe(before.medal + 2);
+    // repeatable: RepeatMax 1 -> exhausted after one claim this cycle
+    expect(p().questInv!.list.get(640)!.data.IsComplete).toBe(true);
+    c.close();
+  });
+
+  it("buff reward (RewardBuffID/RewardBuffDate) grants a timed buff — no real quest uses it, so inject a template", async () => {
+    const { c, player: p } = await loggedIn(server, { grade: 12 });
+    const t = server.ctx.templates;
+    const buffItemId = 900201;
+    t.items.set(buffItemId, { TemplateID: buffItemId, CategoryID: 60, Property1: 777, Property2: 42, Property3: 1, MaxCount: 1 } as never);
+    const questId = 900202;
+    t.quests.set(questId, {
+      info: {
+        ID: questId, QuestID: questId, Title: "test", Detail: "", Objective: "", NeedMinLevel: 0, NeedMaxLevel: 99,
+        PreQuestID: "0,", NextQuestID: "0,", IsOther: 0, CanRepeat: false, RepeatInterval: 0, RepeatMax: 0,
+        RewardGP: 0, RewardGold: 0, RewardGiftToken: 0, RewardOffer: 0, RewardRiches: 0, RewardBuffID: buffItemId,
+        RewardBuffDate: 2, RewardMoney: 0, RewardMedal: 0, Rands: "0", StartDate: new Date(0), EndDate: new Date(Date.UTC(2050, 0, 1)),
+        RandDouble: 1, TimeMode: false, MapID: 0, AutoEquip: false, Rank: null, StarLev: 0, NotMustCount: 0,
+      } as never,
+      conds: [], goods: [],
+    });
+    expect(p().questInv!.add(questId)).toBe("");
+    expect(p().questInv!.finish(questId, 0)).toBe(true);
+    const buff = p().buffs.find((b) => b.Type === 777);
+    expect(buff).toBeDefined();
+    expect(buff!.Value).toBe(42);
+    expect(buff!.ValidDate).toBe(2 * 60); // RewardBuffDate is in hours
+    c.close();
+  });
 });
