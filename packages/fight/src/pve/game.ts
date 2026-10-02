@@ -620,6 +620,7 @@ export class PveGame extends BaseGame {
     if (!this.IsWin || !isEndSession) cards = 0;
     if (this.IsWin && !isEndSession && !this.isTrainer()) cards = 2; // PVEGame.cs:798 (isEndSession = HasNextSession)
     this.BossCardCountValue = cards;
+    this.showCardsSent = false;
     if (cards > 0) this.bossCards = new Array(9).fill(0);
     const showLarge = isEndSession || this.isShowLargeCards();
     const players = this.fightPlayers.map((p) => {
@@ -646,6 +647,7 @@ export class PveGame extends BaseGame {
     });
   }
   bossCards: number[] | null = null;
+  private showCardsSent = false;
 
   /** PVEGame.GameOverAllSession (PVEGame.cs:944-1011) */
   private gameOverAllSession(): void {
@@ -660,6 +662,7 @@ export class PveGame extends BaseGame {
       return { userId: p.spec.userId, totalKill: x.totalAllKill, totalHurt: x.totalAllHurt, totalScore: x.totalAllScore, totalCure: x.totalAllCure, totalExp: x.totalAllExperience, isWin: this.IsWin, canTakeOut: n, turnNum: p.turnNum };
     });
     this.cards.fill(0);
+    this.showCardsSent = false;
     this.emit({ cmd: "GAME_ALL_MISSION_OVER", livingId: 0, isWin: this.IsWin, roomType: this.roomType, gameType: this.gameType, players, resources: [...this.gameOverResources] });
     this.waitTime(this.isShowLargeCards() ? 16000 : 23000);
     // CanStopGame
@@ -753,6 +756,12 @@ export class PveGame extends BaseGame {
       case "TAKE_CARD":
         this.now = Math.max(this.now, now);
         if (this.pp.get(p)!.canTakeOut > 0) this.takeCard(p, c.index, false);
+        else if ((c.index < 0 || c.index >= this.cards.length) && !this.showCardsSent) {
+          // The card board's countdown sends TAKE_CARD(100) even when every pick is spent; the board only closes on an
+          // auto pick or on SHOW_CARDS, so reveal the rest now (deviation: the C# stayed silent → board frozen at "00").
+          this.showCardsSent = true;
+          this.sendShowCards();
+        }
         return this.drain();
       case "PASS_DRAMA":
         if (s !== GameState.Playing) {
