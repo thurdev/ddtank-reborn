@@ -132,7 +132,15 @@ Counts = uses in donor scripts. Full table: `script_api_usage.py`.
 | State | `Blood`/`MaxBlood`, `AddBlood(v)` 29, `Die([delay])` 38, `IsLiving` 99, `Config` (`LivingConfig`: CanTakeDamage, HaveShield, IsTurn, IsFly, IsHelper, KeepLife, isShowBlood, IsShowBloodBar, CanFrost, DamageForzen, CancelGuard, BallCanDamage, FriendlyBoss … `Game.Logic/LivingConfig.cs`), `State`, `DoAction`, `SyncAtTime`, `Properties1/2`, `Degree`, `BlockTurn`, `EffectList`, `Seal(target,type,delay)`, `AddEffect(effect, delay)`, `NpcInfo` |
 | Boss only | `CreateChild(id, x, y, disToSecond, maxCount[, dir])`, `CreateBoss(...)`, `FindChildLivings()`, `RemoveAllChild()`, `RandomSay(msgs,type,delay,finish)`, `FindMostHatefulPlayer()` (`SimpleBoss.cs:121-285`) |
 
-## 4. Proposed TypeScript scripting interface
+## 4. TypeScript scripting interface
+
+> **Implemented (2026-10)** in `packages/fight/src/pve/` with one deliberate change: scripts keep the **C# PascalCase
+> member names** (`this.Game.CreateNpc`, `this.Body.MoveTo`) instead of the camelCase API sketched below, so the donor
+> classes transpile mechanically (`scripts/transpile-pve.ts`). Built-in scripts live in
+> `packages/fight/src/pve/scripts/{generated,manual}` (not apps/game). Overloads are resolved by argument type at
+> runtime; `ref` parameters become `{ v }` objects. Guide: `docs/guides/pve.md`.
+
+### 4.0 Original proposal
 
 Goals: (a) 1:1 mechanical port of the C# donor scripts (keep method names, argument order, ms delays), (b) later
 admin-authored scripts stored in DB and hot-reloaded, (c) deterministic & sandboxed.

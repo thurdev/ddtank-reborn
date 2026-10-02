@@ -1,0 +1,2027 @@
+{
+ "minutes": 20,
+ "missions": 170,
+ "finished": 138,
+ "wins": 100,
+ "clean": 68,
+ "withErrors": 0,
+ "withMissing": 73,
+ "rows": [
+  {
+   "mission": 101,
+   "script": "GameServerScript.AI.Messions.FLSS101",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 2128,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 102,
+   "script": "GameServerScript.AI.Messions.FLSS102",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 2128,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 103,
+   "script": "GameServerScript.AI.Messions.FLSS103",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 2128,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 104,
+   "script": "GameServerScript.AI.Messions.FLSS104",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 2128,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 105,
+   "script": "GameServerScript.AI.Messions.FLSS105",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 2128,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 111,
+   "script": "GameServerScript.AI.Messions.FLNS111",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 2128,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 112,
+   "script": "GameServerScript.AI.Messions.FLNS112",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 2128,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 113,
+   "script": "GameServerScript.AI.Messions.FLNS113",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 2128,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 114,
+   "script": "GameServerScript.AI.Messions.FLNS114",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 2128,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 115,
+   "script": "GameServerScript.AI.Messions.FLNS115",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 2128,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 121,
+   "script": "GameServerScript.AI.Messions.FLHS121",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 2128,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 122,
+   "script": "GameServerScript.AI.Messions.FLHS122",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 2128,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 123,
+   "script": "GameServerScript.AI.Messions.FLHS123",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 2128,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 124,
+   "script": "GameServerScript.AI.Messions.FLHS124",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 2128,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 125,
+   "script": "GameServerScript.AI.Messions.FLHS125",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 2128,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 600,
+   "script": "GameServerScript.AI.Messions.CBS600",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.CBS600"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 601,
+   "script": "GameServerScript.AI.Messions.CBS601",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.CBS601"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 700,
+   "script": "GameServerScript.AI.Messions.DTS700",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.DTS700"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 701,
+   "script": "GameServerScript.AI.Messions.DTS701",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.DTS701"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 800,
+   "script": "GameServerScript.AI.Messions.GZS800",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.GZS800"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 801,
+   "script": "GameServerScript.AI.Messions.GZS801",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.GZS801"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 900,
+   "script": "GameServerScript.AI.Messions.XDS900",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.XDS900"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 901,
+   "script": "GameServerScript.AI.Messions.XDS901",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.XDS901"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 1071,
+   "script": "GameServerScript.AI.Messions.GD1071",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.GD1071"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 1072,
+   "script": "GameServerScript.AI.Messions.GD1072",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 14,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 1085,
+   "script": "GameServerScript.AI.Messions.NTM1085",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 4,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 1086,
+   "script": "GameServerScript.AI.Messions.NTM1086",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 2,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 1087,
+   "script": "GameServerScript.AI.Messions.NTM1087",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 6,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 1088,
+   "script": "GameServerScript.AI.Messions.NTM1088",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 2,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 1089,
+   "script": "GameServerScript.AI.Messions.NTM1089",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 10,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 1171,
+   "script": "GameServerScript.AI.Messions.GT1171",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.GT1171"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 1172,
+   "script": "GameServerScript.AI.Messions.GT1172",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.GT1172"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 1173,
+   "script": "GameServerScript.AI.Messions.GT1173",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.GT1173"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 1243,
+   "script": "GameServerScript.AI.Messions.AC1243",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.AC1243"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 1271,
+   "script": "GameServerScript.AI.Messions.GK1271",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.GK1271"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 1272,
+   "script": "GameServerScript.AI.Messions.GK1272",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.GK1272"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 1273,
+   "script": "GameServerScript.AI.Messions.GK1273",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.GK1273"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 1274,
+   "script": "GameServerScript.AI.Messions.GK1274",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.GK1274"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 1371,
+   "script": "GameServerScript.AI.Messions.GAH1371",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.GAH1371"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 1372,
+   "script": "GameServerScript.AI.Messions.GAH1372",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.GAH1372"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 1373,
+   "script": "GameServerScript.AI.Messions.GAH1373",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.GAH1373"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 1374,
+   "script": "GameServerScript.AI.Messions.GAH1374",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.GAH1374"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 1375,
+   "script": "GameServerScript.AI.Messions.GAH1375",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.GAH1375"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 2001,
+   "script": "GameServerScript.AI.Messions.KD1120",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 15,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 2002,
+   "script": "GameServerScript.AI.Messions.KD1121",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 20,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 2101,
+   "script": "GameServerScript.AI.Messions.KT1120",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 14,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 2102,
+   "script": "GameServerScript.AI.Messions.KT1121",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 17,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 2401,
+   "script": "GameServerScript.AI.Messions.DCNM2401",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.DCNM2401"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 2402,
+   "script": "GameServerScript.AI.Messions.DCNM2402",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.DCNM2402"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 2501,
+   "script": "GameServerScript.AI.Messions.DCNM2501",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.DCNM2501"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 2502,
+   "script": "GameServerScript.AI.Messions.DCNM2502",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.DCNM2502"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 2601,
+   "script": "GameServerScript.AI.Messions.DCNM2601",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.DCNM2601"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 2602,
+   "script": "GameServerScript.AI.Messions.DCNM2602",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.DCNM2602"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 2701,
+   "script": "GameServerScript.AI.Messions.DCNM2701",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.DCNM2701"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 2702,
+   "script": "GameServerScript.AI.Messions.DCNM2702",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.DCNM2702"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 3001,
+   "script": "GameServerScript.AI.Messions.CSM3001",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 100,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 3101,
+   "script": "GameServerScript.AI.Messions.BLTTT1122",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 34,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 3102,
+   "script": "GameServerScript.AI.Messions.BLTTT1123",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 109,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 3103,
+   "script": "GameServerScript.AI.Messions.BLTTT1124",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 33,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 3106,
+   "script": "GameServerScript.AI.Messions.BLTTT1126",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 85,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 3201,
+   "script": "GameServerScript.AI.Messions.BLTTK1122",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 54,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 3202,
+   "script": "GameServerScript.AI.Messions.BLTTK1123",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 114,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 3203,
+   "script": "GameServerScript.AI.Messions.BLTTK1124",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 78,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 3206,
+   "script": "GameServerScript.AI.Messions.BLTTK1126",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 24,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 3301,
+   "script": "GameServerScript.AI.Messions.BLTTAH1122",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 17,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 3302,
+   "script": "GameServerScript.AI.Messions.BLTTAH1123",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 35,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 3303,
+   "script": "GameServerScript.AI.Messions.BLTTAH1124",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 94,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 3306,
+   "script": "GameServerScript.AI.Messions.BLTTAH1126",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 17,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 4001,
+   "script": "GameServerScript.AI.Messions.DCSM4001",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.DCSM4001"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 4002,
+   "script": "GameServerScript.AI.Messions.Aiga4002",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.Aiga4002"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 4003,
+   "script": "GameServerScript.AI.Messions.Aiga4003",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.Aiga4003"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 4101,
+   "script": "GameServerScript.AI.Messions.PDHAT1142",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 22,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 4102,
+   "script": "GameServerScript.AI.Messions.PDHAT1143",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 95,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 4103,
+   "script": "GameServerScript.AI.Messions.PDHAT1144",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 40,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 4201,
+   "script": "GameServerScript.AI.Messions.PDHAK1142",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 38,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 4202,
+   "script": "GameServerScript.AI.Messions.PDHAK1143",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 100,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 4203,
+   "script": "GameServerScript.AI.Messions.PDHAK1144",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 17,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 4301,
+   "script": "GameServerScript.AI.Messions.PDHAAH1142",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 38,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 4302,
+   "script": "GameServerScript.AI.Messions.PDHAAH1143",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 41,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 4303,
+   "script": "GameServerScript.AI.Messions.PDHAAH1144",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 9,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 5101,
+   "script": "GameServerScript.AI.Messions.DCR5101",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 39,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 5102,
+   "script": "GameServerScript.AI.Messions.DCR5102",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 100,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 5103,
+   "script": "GameServerScript.AI.Messions.DCR5103",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 78,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 5104,
+   "script": "GameServerScript.AI.Messions.DCR5104",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 103,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 5201,
+   "script": "GameServerScript.AI.Messions.DCR5201",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 51,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 5202,
+   "script": "GameServerScript.AI.Messions.DCR5202",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 128,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 5203,
+   "script": "GameServerScript.AI.Messions.DCR5203",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 42,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 5204,
+   "script": "GameServerScript.AI.Messions.DCR5204",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 17,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 5301,
+   "script": "GameServerScript.AI.Messions.DCR5301",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 30,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 5302,
+   "script": "GameServerScript.AI.Messions.DCR5302",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 120,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 5303,
+   "script": "GameServerScript.AI.Messions.DCR5303",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 15,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 5304,
+   "script": "GameServerScript.AI.Messions.DCR5304",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 7,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 6101,
+   "script": "GameServerScript.AI.Messions.DTGT1165",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 1633,
+   "errors": 0,
+   "missing": [
+    "brain:GameServerScript.AI.NPC.SixTerrorSecondNpc"
+   ],
+   "mapPacked": true
+  },
+  {
+   "mission": 6102,
+   "script": "GameServerScript.AI.Messions.DTGT1166",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.DTGT1166"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 6103,
+   "script": "GameServerScript.AI.Messions.DTGT1167",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 14,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 6104,
+   "script": "GameServerScript.AI.Messions.DTGT1168",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 49,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 6201,
+   "script": "GameServerScript.AI.Messions.DTGK1165",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 1793,
+   "errors": 0,
+   "missing": [
+    "brain:GameServerScript.AI.NPC.SixTerrorSecondNpc"
+   ],
+   "mapPacked": true
+  },
+  {
+   "mission": 6202,
+   "script": "GameServerScript.AI.Messions.DTGK1166",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.DTGK1166"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 6203,
+   "script": "GameServerScript.AI.Messions.DTGK1167",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 30,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 6204,
+   "script": "GameServerScript.AI.Messions.DTGK1168",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 50,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 6301,
+   "script": "GameServerScript.AI.Messions.DTGAH1165",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 1633,
+   "errors": 0,
+   "missing": [
+    "brain:GameServerScript.AI.NPC.SixTerrorSecondNpc"
+   ],
+   "mapPacked": true
+  },
+  {
+   "mission": 6302,
+   "script": "GameServerScript.AI.Messions.DTGAH1166",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 3,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 6303,
+   "script": "GameServerScript.AI.Messions.DTGAH1167",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 3,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 6304,
+   "script": "GameServerScript.AI.Messions.DTGAH1168",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 11,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 7001,
+   "script": "GameServerScript.AI.Messions.GCGCD1161",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 15,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 7002,
+   "script": "GameServerScript.AI.Messions.GCGCD1162",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 74,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 7004,
+   "script": "GameServerScript.AI.Messions.GCGCD1164",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 15,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 7101,
+   "script": "GameServerScript.AI.Messions.GCGCT1161",
+   "origin": "manual",
+   "finished": true,
+   "win": true,
+   "turns": 18,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 7102,
+   "script": "GameServerScript.AI.Messions.GCGCT1162",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 74,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 7103,
+   "script": "GameServerScript.AI.Messions.GCGCT1163",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 82,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 7104,
+   "script": "GameServerScript.AI.Messions.GCGCT1164",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 21,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 7201,
+   "script": "GameServerScript.AI.Messions.GCGCK1161",
+   "origin": "manual",
+   "finished": true,
+   "win": true,
+   "turns": 29,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 7202,
+   "script": "GameServerScript.AI.Messions.GCGCK1162",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 102,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 7203,
+   "script": "GameServerScript.AI.Messions.GCGCK1163",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 55,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 7204,
+   "script": "GameServerScript.AI.Messions.GCGCK1164",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 34,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 7401,
+   "script": "GameServerScript.AI.Messions.RRCNM7401",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.RRCNM7401"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 7402,
+   "script": "GameServerScript.AI.Messions.RRCNM7402",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.RRCNM7402"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 7403,
+   "script": "GameServerScript.AI.Messions.RRCNM7403",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.RRCNM7403"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 7404,
+   "script": "GameServerScript.AI.Messions.RRCNM7404",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.RRCNM7404"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 7501,
+   "script": "GameServerScript.AI.Messions.RRCNM7501",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.RRCNM7501"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 7502,
+   "script": "GameServerScript.AI.Messions.RRCNM7502",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.RRCNM7502"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 7503,
+   "script": "GameServerScript.AI.Messions.RRCNM7503",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.RRCNM7503"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 7504,
+   "script": "GameServerScript.AI.Messions.RRCNM7504",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.RRCNM7504"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 7601,
+   "script": "GameServerScript.AI.Messions.RRCNM7601",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.RRCNM7601"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 7602,
+   "script": "GameServerScript.AI.Messions.RRCNM7602",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.RRCNM7602"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 7603,
+   "script": "GameServerScript.AI.Messions.RRCNM7603",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.RRCNM7603"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 7604,
+   "script": "GameServerScript.AI.Messions.RRCNM7604",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.RRCNM7604"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 7701,
+   "script": "GameServerScript.AI.Messions.RRCNM7701",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.RRCNM7701"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 7702,
+   "script": "GameServerScript.AI.Messions.RRCNM7702",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.RRCNM7702"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 7703,
+   "script": "GameServerScript.AI.Messions.RRCNM7703",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.RRCNM7703"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 7704,
+   "script": "GameServerScript.AI.Messions.RRCNM7704",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.RRCNM7704"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 12001,
+   "script": "GameServerScript.AI.Messions.TVS12001",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 15,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 12002,
+   "script": "GameServerScript.AI.Messions.TVS12002",
+   "origin": "generated",
+   "finished": true,
+   "win": true,
+   "turns": 69,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 12003,
+   "script": "GameServerScript.AI.Messions.TVS12003",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 29,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 12004,
+   "script": "GameServerScript.AI.Messions.TVS12004",
+   "origin": "manual",
+   "finished": true,
+   "win": false,
+   "turns": 15,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 12016,
+   "script": "GameServerScript.AI.Messions.CrosairBoss",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.CrosairBoss"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 12101,
+   "script": "GameServerScript.AI.Messions.TVN12001",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.TVN12001"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 12102,
+   "script": "GameServerScript.AI.Messions.TVN12002",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.TVN12002"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 12103,
+   "script": "GameServerScript.AI.Messions.TVN12003",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.TVN12003"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 12104,
+   "script": "GameServerScript.AI.Messions.TVN12004",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.TVN12004"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 12201,
+   "script": "GameServerScript.AI.Messions.TVH12001",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.TVH12001"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 12202,
+   "script": "GameServerScript.AI.Messions.TVH12002",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.TVH12002"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 12203,
+   "script": "GameServerScript.AI.Messions.TVH12003",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.TVH12003"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 12204,
+   "script": "GameServerScript.AI.Messions.TVH12004",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.TVH12004"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 12301,
+   "script": "GameServerScript.AI.Messions.TVT12001",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.TVT12001"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 12302,
+   "script": "GameServerScript.AI.Messions.TVT12002",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.TVT12002"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 12303,
+   "script": "GameServerScript.AI.Messions.TVT12003",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.TVT12003"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 12304,
+   "script": "GameServerScript.AI.Messions.TVT12004",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.TVT12004"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 13001,
+   "script": "GameServerScript.AI.Messions.WAS13001",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 97,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 13002,
+   "script": "GameServerScript.AI.Messions.WAS13002",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 4,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 13003,
+   "script": "GameServerScript.AI.Messions.WAS13003",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 21,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 13004,
+   "script": "GameServerScript.AI.Messions.WAS13004",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 12,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 13101,
+   "script": "GameServerScript.AI.Messions.WAN13101",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 43,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 13102,
+   "script": "GameServerScript.AI.Messions.WAN13102",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 10,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 13103,
+   "script": "GameServerScript.AI.Messions.WAN13103",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 9,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 13104,
+   "script": "GameServerScript.AI.Messions.WAN13104",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 6,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 13201,
+   "script": "GameServerScript.AI.Messions.WAH13201",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 18,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 13202,
+   "script": "GameServerScript.AI.Messions.WAH13202",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 4,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 13203,
+   "script": "GameServerScript.AI.Messions.WAH13203",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 8,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 13204,
+   "script": "GameServerScript.AI.Messions.WAH13204",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 5,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 13301,
+   "script": "GameServerScript.AI.Messions.WAT13301",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 8,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 13302,
+   "script": "GameServerScript.AI.Messions.WAT13302",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 3,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 13303,
+   "script": "GameServerScript.AI.Messions.WAT13303",
+   "origin": "generated",
+   "finished": false,
+   "win": false,
+   "turns": 9,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 13304,
+   "script": "GameServerScript.AI.Messions.WAT13304",
+   "origin": "generated",
+   "finished": true,
+   "win": false,
+   "turns": 5,
+   "errors": 0,
+   "missing": [],
+   "mapPacked": true
+  },
+  {
+   "mission": 15002,
+   "script": "GameServerScript.AI.Messions.CoupleBoss15002",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.CoupleBoss15002"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 30001,
+   "script": "GameServerScript.AI.Messions.AC30001",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.AC30001"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 30002,
+   "script": "GameServerScript.AI.Messions.AC30002",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.AC30002"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 30004,
+   "script": "GameServerScript.AI.Messions.AC30004",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.AC30004"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 71059,
+   "script": "GameServerScript.AI.Messions.LauDaiPhepThuatH71059",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.LauDaiPhepThuatH71059"
+   ],
+   "mapPacked": false
+  },
+  {
+   "mission": 71060,
+   "script": "GameServerScript.AI.Messions.LauDaiPhepThuatH71060",
+   "origin": "missing",
+   "finished": true,
+   "win": true,
+   "turns": 1,
+   "errors": 0,
+   "missing": [
+    "mission:GameServerScript.AI.Messions.LauDaiPhepThuatH71060"
+   ],
+   "mapPacked": false
+  }
+ ]
+}

@@ -12,6 +12,10 @@
     "./node": {
       "types": "./src/node.ts",
       "default": "./src/node.ts"
+    },
+    "./pve-scripts": {
+      "types": "./src/pve/scripts/index.ts",
+      "default": "./src/pve/scripts/index.ts"
     }
   },
   "publishConfig": {
@@ -23,6 +27,10 @@
       "./node": {
         "types": "./dist/node.d.ts",
         "default": "./dist/node.js"
+      },
+      "./pve-scripts": {
+        "types": "./dist/pve/scripts/index.d.ts",
+        "default": "./dist/pve/scripts/index.js"
       }
     }
   },
@@ -37,6 +45,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "pack-assets": "tsx scripts/pack-assets.ts",
+    "transpile-pve": "tsx scripts/transpile-pve.ts",
+    "pve-smoke": "tsx scripts/pve-smoke.ts",
     "sync-oracle-sources": "node scripts/sync-oracle-sources.mjs",
     "oracle": "dotnet run -c Release --project csharp-oracle/Oracle.csproj"
   },

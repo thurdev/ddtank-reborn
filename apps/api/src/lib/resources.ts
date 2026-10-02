@@ -73,8 +73,9 @@ export class ResourceIndex {
 }
 
 const PNG_1x1 = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==", "base64");
-/** Minimal valid SWF (FWS v10, empty stage, 1 frame). */
-const EMPTY_SWF = Buffer.from([0x46, 0x57, 0x53, 0x0a, 0x11, 0, 0, 0, 0x00, 0x00, 0x18, 0x01, 0x00, 0x40, 0x00, 0x00, 0x00]);
+/** Minimal valid SWF (empty stage, 1 frame), zlib-compressed (CWS): the client's ModuleLoader runs its `decry` on
+ *  anything that does not start with "CWS", so an FWS placeholder made module loads fail with EOF. */
+export const EMPTY_SWF = Buffer.from("Q1dTChEAAAB4nGNgkGBkcGBgYAAAAbcAWg==", "base64");
 
 export function placeholder(path: string): { body: Buffer; type: string } | undefined {
   const ext = path.toLowerCase().split(".").pop();

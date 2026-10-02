@@ -5,7 +5,9 @@
 import { createReadStream, existsSync, readFileSync, statSync } from "node:fs";
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import type { AppCtx } from "../context.js";
-import { CiTree, mimeOf, placeholder } from "../lib/resources.js";
+import { CiTree, EMPTY_SWF, mimeOf, placeholder } from "../lib/resources.js";
+import { crc32, inflateSync } from "node:zlib";
+import { aliasBombSwf } from "../lib/bomb-alias.js";
 
 export const CROSSDOMAIN = `<?xml version="1.0"?>
 <!DOCTYPE cross-domain-policy SYSTEM "http://www.adobe.com/xml/dtds/cross-domain-policy.dtd">
@@ -42,8 +44,61 @@ export function buildConfigXml(ctx: AppCtx, template: string): string {
   return x;
 }
 
+/** 60 files of the mobile resource pack carry a 5-byte `writeUTF("^_^")` prefix (00 03 5E 5F 5E) before the real
+ *  CWS/PNG bytes; the Flash client's loaders choke on it (ModuleLoader.decry EOF → room loading stuck at 91 %). */
+const MOBILE_PREFIX = Buffer.from([0x00, 0x03, 0x5e, 0x5f, 0x5e]);
+const prefixCache = new Map<string, { mtime: number; body: Buffer | null }>();
+function strippedBody(file: string, mtime: number): Buffer | null {
+  const c = prefixCache.get(file);
+  if (c && c.mtime === mtime) return c.body;
+  let body: Buffer | null = null;
+  if (/\.(swf|png|jpe?g)$/i.test(file)) {
+    const b = readFileSync(file);
+    if (b.length > 5 && b.subarray(0, 5).equals(MOBILE_PREFIX)) {
+      // the bytes after the prefix are still scrambled (mobile client cipher): serve them only when they really are a
+      // valid SWF/PNG, else an empty CWS movie so the loader completes instead of stalling the room loading.
+      const rest = b.subarray(5);
+      let ok = false;
+      try {
+        if (rest.subarray(0, 3).toString("latin1") === "CWS") ok = inflateSync(rest.subarray(8)).length + 8 === rest.readUInt32LE(4);
+      } catch {
+        ok = false;
+      }
+      body = ok ? rest : /\.swf$/i.test(file) ? EMPTY_SWF : rest;
+    }
+    const png = body ?? b;
+    // a PNG with wrong chunk CRCs is a scrambled mobile-pack file (its IHDR is garbage too): Ruffle rejects it and the
+    // ball/crater never completes → serve a 1x1 PNG instead (the server owns the physics; only the hole graphic is lost)
+    if (/\.png$/i.test(file) && png[0] === 0x89 && png[1] === 0x50 && badPngCrc(png)) body = placeholder(file)?.body ?? body;
+  }
+  if (prefixCache.size > 5000) prefixCache.clear();
+  prefixCache.set(file, { mtime, body });
+  return body;
+}
+
+/** Some PNGs of the pack (e.g. image/bomb/crater/870/*.png) have wrong chunk CRCs: Flash accepted them, Ruffle's decoder
+ *  rejects them (InvalidPng CrcMismatch) → the ball never completes and the room loading stalls. Detected here. */
+function badPngCrc(b: Buffer): boolean {
+  let o = 8;
+  while (o + 12 <= b.length) {
+    const len = b.readUInt32BE(o);
+    if (o + 12 + len > b.length) return true;
+    if ((crc32(b.subarray(o + 4, o + 8 + len)) >>> 0) !== b.readUInt32BE(o + 8 + len)) return true;
+    o += 12 + len;
+  }
+  return false;
+}
+
 function sendFile(req: FastifyRequest, reply: FastifyReply, file: string) {
   const st = statSync(file);
+  const stripped = strippedBody(file, st.mtimeMs);
+  if (stripped) {
+    const etag = `"${stripped.length.toString(16)}-${st.mtimeMs.toString(16)}-s"`;
+    reply.header("ETag", etag).header("Cache-Control", "public, max-age=300").header("Access-Control-Allow-Origin", "*");
+    if (req.headers["if-none-match"] === etag) return reply.code(304).send();
+    reply.type(mimeOf(file)).header("Content-Length", stripped.length);
+    return req.method === "HEAD" ? reply.send() : reply.send(stripped);
+  }
   const etag = `"${st.size.toString(16)}-${st.mtimeMs.toString(16)}"`;
   reply.header("ETag", etag).header("Cache-Control", "public, max-age=300").header("Access-Control-Allow-Origin", "*");
   if (req.headers["if-none-match"] === etag) return reply.code(304).send();
@@ -95,7 +150,9 @@ export async function staticRoutes(f: FastifyInstance, ctx: AppCtx) {
       const rel = relOf(req, /^\/resource\//i);
       if (rel.toLowerCase() === "crossdomain.xml") return reply.type("text/xml").send(CROSSDOMAIN);
       const file = ctx.resources.resolve(rel);
-      if (file) return sendFile(req, reply, file);
+      if (file && !(/\.swf$/i.test(rel) && strippedBody(file, statSync(file).mtimeMs) === EMPTY_SWF && aliasBombSwf(ctx.resources, rel))) return sendFile(req, reply, file);
+      const alias = aliasBombSwf(ctx.resources, rel);
+      if (alias) return reply.type("application/x-shockwave-flash").header("X-Alias", "1").header("Cache-Control", "public, max-age=300").header("Access-Control-Allow-Origin", "*").send(alias);
       ctx.resources.miss(rel);
       const ph = placeholder(rel);
       if (!ph) return reply.code(404).send("not found");

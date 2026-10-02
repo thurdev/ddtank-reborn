@@ -18,6 +18,22 @@ export interface StartGameOptions {
   onStopped(): void;
 }
 
+export interface StartPveOptions {
+  roomId: number;
+  roomType: number;
+  gameType: number;
+  timeType: number;
+  /** room MapId = Pve_Info.ID (0/100000 → by type + level band) */
+  pveId: number;
+  hardLevel: number;
+  levelLimits: number;
+  currentFloor: number;
+  players: RoomMember[];
+  onStopped(): void;
+  /** PVEGame.Stop → PlayerDetail.ResetRoom(isWin, hasNextMission) */
+  onFinished?(isWin: boolean): void;
+}
+
 export interface FightGame {
   readonly id: number;
   readonly mapId: number;
@@ -32,4 +48,6 @@ export interface FightEngine {
   readonly name: string;
   /** GameMgr.StartPVPGame (Games/GameMgr.cs:167). Returns null when the game can't be created (no map). */
   startPvp(o: StartGameOptions): FightGame | null;
+  /** GameMgr.StartPVEGame (Games/GameMgr.cs:140). Optional: engines without PvE return null. */
+  startPve?(o: StartPveOptions): FightGame | null;
 }

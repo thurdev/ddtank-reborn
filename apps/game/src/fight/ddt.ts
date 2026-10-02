@@ -3,12 +3,13 @@
  * (GameMgr.THREAD_INTERVAL); engine events are serialized to 91 GAME_CMD packets exactly as the C# writers cited in
  * packages/fight/src/game/events.ts. Bots (VirtualPlayer seats) are played server-side by @ddt/fight's BotRunner.
  */
-import { type FightAssets, type FightCommand, type FightEvent, GameState, type PlayerSpec, PvpGame, BotRunner, type BotProfile, hertAddition } from "@ddt/fight";
+import { type BaseGame, type FightAssets, type FightCommand, type FightEvent, GameState, type PlayerSpec, PvpGame, PveGame, type PveData, type PveInfo, type DropItem, BotRunner, type BotProfile, hertAddition, setTranslator } from "@ddt/fight";
+import "@ddt/fight/pve-scripts";
 import { loadPackedAssets } from "@ddt/fight/node";
 import { type GSPacket, PacketOut } from "@ddt/protocol";
 import * as Out from "../packets/out.js";
 import type { RoomMember } from "../game/player.js";
-import type { FightEngine, FightGame, StartGameOptions } from "./types.js";
+import type { FightEngine, FightGame, StartGameOptions, StartPveOptions } from "./types.js";
 
 export interface DdtFightOptions {
   assets?: FightAssets;
@@ -23,6 +24,17 @@ export interface DdtFightOptions {
   takeCard?: (member: RoomMember, roomType: number) => { templateId: number; count: number };
   /** GamePlayer.OnGameOver (quest conditions) for every human seat */
   onPlayerGameOver?: (member: RoomMember, g: { roomType: number; gameType: number; isWin: boolean; kills: number; playerCount: number }) => void;
+  /** PvE tables + drops (Templates); without it startPve returns null */
+  pve?: {
+    data: PveData;
+    pveInfo(pveId: number, roomType: number, levelLimits: number): PveInfo | undefined;
+    drop(kind: "copy" | "npc", id: number, user?: number): DropItem[] | null;
+    translate?(key: string, args: unknown[]): string;
+  };
+  /** GamePlayer.OnMissionOver (quest condition 21) */
+  onMissionOver?: (member: RoomMember, m: { missionId: number; isWin: boolean; turnNum: number }) => void;
+  /** PVE_AWARD: give items (temp/fight bag, special gold/money templates) */
+  giveItems?: (member: RoomMember, items: DropItem[], bag: "temp" | "fight") => void;
   /** test hook: manual clock instead of setInterval */
   manualClock?: boolean;
   seed?: () => number;
@@ -47,6 +59,36 @@ export class DdtFightEngine implements FightEngine {
 
   constructor(readonly o: DdtFightOptions = {}) {
     this.assets = o.assets ?? loadPackedAssets();
+    if (o.pve?.translate) setTranslator(o.pve.translate);
+  }
+
+  /** GameMgr.StartPVEGame (Games/GameMgr.cs:140-165) */
+  startPve(s: StartPveOptions): FightGame | null {
+    const pv = this.o.pve;
+    if (!pv) return null;
+    const info = pv.pveInfo(s.pveId, s.roomType, s.levelLimits);
+    if (!info) {
+      this.o.log?.(`pve: no Pve_Info for map ${s.pveId} / type ${s.roomType}`);
+      return null;
+    }
+    try {
+      const id = gameIdSeq++;
+      const specs = s.players.map((m) => specOf(m as LobbyLike, 1, this.assets));
+      const game = new PveGame({
+        id, roomType: s.roomType, gameType: s.gameType, timeType: s.timeType, assets: this.assets, players: specs, seed: this.o.seed?.() ?? (Date.now() ^ (id * 7919)) | 0, now: Date.now(),
+        pveInfo: info, hardLevel: s.hardLevel, currentFloor: s.currentFloor, data: pv.data,
+        drops: { copyDrop: (mid, user) => pv.drop("copy", mid, user), npcDrop: (did) => pv.drop("npc", did) },
+        log: (m) => this.o.log?.(m),
+      });
+      const g = new DdtGame(id, game.map.info.id, { roomId: s.roomId, roomType: s.roomType, gameType: s.gameType, timeType: s.timeType, mapId: s.pveId, red: s.players, blue: [], onStopped: s.onStopped }, this, game, s);
+      this.games.set(g.id, g);
+      this.ensureLoop();
+      g.tick(Date.now());
+      return g;
+    } catch (e) {
+      this.o.log?.(`pve: cannot start game: ${(e as Error).stack}`);
+      return null;
+    }
   }
 
   startPvp(s: StartGameOptions): FightGame | null {
@@ -107,7 +149,7 @@ function specOf(m: LobbyLike, team: number, assets: FightAssets): PlayerSpec {
 }
 
 class DdtGame implements FightGame {
-  readonly game: PvpGame;
+  readonly game: BaseGame;
   readonly bots: BotRunner;
   private readonly members = new Map<number, LobbyLike>();
   private readonly teamOf = new Map<number, number>();
@@ -116,7 +158,9 @@ class DdtGame implements FightGame {
   private readonly cards: number[] = new Array(9).fill(0);
   private readonly canTakeOut = new Map<number, number>();
 
-  constructor(readonly id: number, readonly mapId: number, private readonly s: StartGameOptions, private readonly engine: DdtFightEngine) {
+  private readonly pve: StartPveOptions | null;
+  constructor(readonly id: number, readonly mapId: number, private readonly s: StartGameOptions, private readonly engine: DdtFightEngine, pveGame?: PveGame, pve?: StartPveOptions) {
+    this.pve = pve ?? null;
     const specs: PlayerSpec[] = [];
     for (const [team, list] of [[1, s.red], [2, s.blue]] as const)
       for (const m of list) {
@@ -124,7 +168,7 @@ class DdtGame implements FightGame {
         this.teamOf.set(m.id, team);
         specs.push(specOf(m as LobbyLike, team, engine.assets));
       }
-    this.game = new PvpGame({ id, roomType: s.roomType, gameType: s.gameType, timeType: s.timeType, mapId, assets: engine.assets, players: specs, seed: engine.o.seed?.() ?? (Date.now() ^ (id * 7919)) | 0, now: Date.now() });
+    this.game = pveGame ?? new PvpGame({ id, roomType: s.roomType, gameType: s.gameType, timeType: s.timeType, mapId, assets: engine.assets, players: specs, seed: engine.o.seed?.() ?? (Date.now() ^ (id * 7919)) | 0, now: Date.now() });
     const profiles = new Map<number, BotProfile>();
     for (const m of this.members.values()) if (m.isBot) profiles.set(m.id, engine.o.botProfile?.(m) ?? { difficulty: 50 });
     this.bots = new BotRunner(this.game, profiles, id);
@@ -142,6 +186,14 @@ class DdtGame implements FightGame {
     // its countdown ends) = auto pick. Without an answer the client's card board never closes (stuck at "00").
     const at = pkt.offset;
     const sub = pkt.readByte();
+    if (this.pve) {
+      if (sub === 25 || sub === 99) return; // UpdatePlayStep / GeneralCommand: read and dropped (Cmd/UpdatePlayStep.cs)
+      const c = parsePveCommand(sub, pkt);
+      if (c) {
+        this.dispatch(this.game.handle(from.id, c, Date.now()));
+        return;
+      }
+    }
     if (sub === 98 || sub === 130) {
       this.takeCard(from.id, pkt.readByte(), false);
       return;
@@ -149,7 +201,7 @@ class DdtGame implements FightGame {
     pkt.offset = at;
     const cmd = parseCommand(pkt);
     if (!cmd) {
-      this.engine.o.log?.(`fight ${this.id}: GAME_CMD from ${from.id} ignored`);
+      this.engine.o.log?.(`fight ${this.id}: GAME_CMD sub ${sub} from ${from.id} ignored`);
       return;
     }
     this.dispatch(this.game.handle(from.id, cmd, Date.now()));
@@ -208,8 +260,51 @@ class DdtGame implements FightGame {
   private dispatch(events: FightEvent[] | void): void {
     for (const e of events ?? []) {
       if (e.cmd === "GAME_OVER") this.applyRewards(e);
+      if (e.cmd === "GAME_MISSION_OVER") {
+        this.applyMissionOver(e);
+        this.engine.o.log?.(`pve ${this.id}: mission ${e.missionId} over, win=${e.isWin}`);
+      }
+      if (e.cmd === "GAME_ALL_MISSION_OVER") this.applyAllMissionOver(e);
+      if (e.cmd === "PVE_AWARD") {
+        const m = this.members.get(e.userId);
+        if (m && !m.isBot) this.engine.o.giveItems?.(m, e.items, e.bag);
+        continue;
+      }
+      if (e.cmd === "PVE_STOPPED") {
+        this.pve?.onFinished?.(e.isWin);
+        continue;
+      }
       const pkt = this.serialize(e);
       if (pkt) this.send(e, pkt);
+    }
+  }
+
+  /** PVEGame.GameOver: PlayerDetail.AddGP(exp) (grade is written after), OnMissionOver (quests) */
+  private applyMissionOver(e: Extract<FightEvent, { cmd: "GAME_MISSION_OVER" }>): void {
+    for (const r of e.players) {
+      const m = this.members.get(r.userId);
+      if (!m || m.isBot) continue;
+      const lp = m as LobbyLike & { addGP?(v: number): void };
+      if (lp.addGP) lp.addGP(r.gainGP);
+      else (m.info as unknown as Record<string, number>).GP += r.gainGP;
+      r.grade = (m.info as unknown as Record<string, number>).Grade ?? r.grade;
+      try {
+        this.engine.o.onMissionOver?.(m, { missionId: e.missionId, isWin: r.isWin, turnNum: r.turnNum });
+      } catch (err) {
+        this.engine.o.log?.(`pve ${this.id}: onMissionOver failed: ${(err as Error).message}`);
+      }
+    }
+  }
+  /** PVEGame.GameOverAllSession: PlayerDetail.OnGameOver (quest game conditions) */
+  private applyAllMissionOver(e: Extract<FightEvent, { cmd: "GAME_ALL_MISSION_OVER" }>): void {
+    for (const r of e.players) {
+      const m = this.members.get(r.userId);
+      if (!m || m.isBot) continue;
+      try {
+        this.engine.o.onPlayerGameOver?.(m, { roomType: e.roomType, gameType: e.gameType, isWin: r.isWin, kills: r.totalKill, playerCount: e.players.length });
+      } catch (err) {
+        this.engine.o.log?.(`pve ${this.id}: onPlayerGameOver failed: ${(err as Error).message}`);
+      }
     }
   }
 
@@ -255,16 +350,52 @@ class DdtGame implements FightGame {
       }).filter(Boolean);
       return Out.gameCreate(e.roomType, e.gameType, e.timeType, views);
     }
-    if (e.cmd === "GAME_LOAD") return Out.gameLoad(e.maxTime, e.mapId, []);
+    if (e.cmd === "GAME_LOAD") return Out.gameLoad(e.maxTime, e.mapId, e.files ?? []);
     return serializeEvent(e);
   }
 }
 
 /** 91 GAME_CMD body writers for every engine event (C# file:line in packages/fight/src/game/events.ts). */
 export function serializeEvent(e: FightEvent): PacketOut | null {
+  if (e.cmd === "PVE_AWARD" || e.cmd === "PVE_STOPPED") return null;
   const p = new PacketOut(91, e.livingId, e.livingId);
   p.writeByte(e.code);
   switch (e.cmd) {
+    case "RAW":
+      for (const [t, v] of e.body) {
+        if (t === "u8") p.writeByte((v as number) & 0xff);
+        else if (t === "i32") p.writeInt(v as number);
+        else if (t === "bool") p.writeBoolean(v as boolean);
+        else if (t === "str") p.writeString(String(v ?? ""));
+        else p.writeDateTime(new Date(v as number));
+      }
+      break;
+    case "GAME_MISSION_OVER":
+      // PVEGame.cs:809-877
+      p.writeInt(e.bossCardCount);
+      if (!e.showLarge) { p.writeBoolean(false); p.writeBoolean(false); }
+      else { p.writeBoolean(true); p.writeString(e.pic); p.writeBoolean(true); }
+      p.writeInt(e.players.length);
+      for (const r of e.players) {
+        p.writeInt(r.userId); p.writeInt(r.grade); p.writeInt(0); p.writeInt(Math.min(r.gainGP, 10000)); p.writeBoolean(r.isWin);
+        p.writeInt(e.bossCardCount); p.writeInt(r.bossCardCount); p.writeBoolean(false); p.writeBoolean(false);
+      }
+      if (e.bossCardCount > 0) {
+        p.writeInt(e.resources?.length ?? 0);
+        for (const s of e.resources ?? []) p.writeString(s);
+      }
+      break;
+    case "GAME_ALL_MISSION_OVER":
+      // PVEGame.cs:960-1001
+      p.writeInt(e.players.length);
+      for (const r of e.players) {
+        p.writeInt(r.userId); p.writeInt(r.totalKill); p.writeInt(r.totalHurt); p.writeInt(r.totalScore); p.writeInt(r.totalCure);
+        for (let i = 0; i < 8; i++) p.writeInt(0);
+        p.writeInt(r.totalExp); p.writeBoolean(r.isWin);
+      }
+      p.writeInt(e.resources.length);
+      for (const s of e.resources) p.writeString(s);
+      break;
     case "LOAD":
       p.writeInt(e.progress); p.writeInt(0); p.writeInt(e.userId);
       break;
@@ -363,6 +494,18 @@ export function serializeEvent(e: FightEvent): PacketOut | null {
       return null;
   }
   return p;
+}
+
+/** PvE-only C→S GAME_CMD subs (MissionPrepare 116, TakeCard 98 / BossTakeCard 130, PassDrama 133, TryAgain 119, MissionEvent 23). */
+export function parsePveCommand(sub: number, pkt: GSPacket): FightCommand | null {
+  switch (sub) {
+    case 116: return { cmd: "MISSION_PREPARE", ready: pkt.readBoolean() };
+    case 98: case 130: return { cmd: "TAKE_CARD", index: pkt.readByte() };
+    case 133: return { cmd: "PASS_DRAMA", pass: pkt.readBoolean() };
+    case 119: return { cmd: "TRY_AGAIN", tryAgain: pkt.readInt(), isHost: pkt.readBoolean() };
+    case 23: return { cmd: "MISSION_EVENT", data: [] };
+    default: return null;
+  }
 }
 
 /** C→S GAME_CMD readers (Game.Logic/Cmd/*.cs). `pkt` is positioned at the body start. */

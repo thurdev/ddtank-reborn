@@ -299,11 +299,7 @@ export class RoomMgr {
         room.sendStartPickUp();
         this.matchQueue.push({ room, since: Date.now() });
         this.processMatchQueue(Date.now());
-      } else {
-        // PvE (Dungeon/FightLab/Freshman/...) belongs to the PvE module (not ported yet).
-        room.sendMessage(3, this.o.lang("StartGameAction.noBattleServe"));
-        room.sendCancelPickUp();
-      }
+      } else this.launchPve(room, players);
       this.sendUpdateCurrentRoom(room);
     });
   }
@@ -350,6 +346,33 @@ export class RoomMgr {
         } else bots.forEach((b) => this.o.bots!.release(b));
       }
     }
+  }
+
+  /** StartGameAction PvE branch → GameMgr.StartPVEGame (Rooms/StartGameAction.cs:55-75). */
+  private launchPve(room: BaseRoom, players: RoomMember[]): void {
+    const game = this.o.fight.startPve?.({
+      roomId: room.RoomId, roomType: room.RoomType, gameType: room.GameType, timeType: room.TimeMode, pveId: room.MapId,
+      hardLevel: room.HardLevel, levelLimits: room.LevelLimits, currentFloor: room.currentFloor, players,
+      onStopped: () => room.onGameStopped(),
+      // PlayerDetail.ResetRoom (GamePlayer.cs): a dungeon room goes back to "choose a dungeon"
+      onFinished: () => {
+        if (room.RoomType === RoomType.Dungeon) {
+          room.Pic = "";
+          room.MapId = 10000;
+          room.currentFloor = 0;
+          room.isOpenBoss = false;
+          room.sendRoomSetupChange();
+        }
+      },
+    }) ?? null;
+    if (!game) {
+      room.IsPlaying = false;
+      room.sendPlayerState();
+      room.sendMessage(3, this.o.lang("StartGameAction.noBattleServe"));
+      room.sendCancelPickUp();
+      return;
+    }
+    room.startGame(game);
   }
 
   private launch(rooms: BaseRoom[], red: RoomMember[], blue: RoomMember[], roomType: number, gameType: number, timeType: number, mapId: number): void {

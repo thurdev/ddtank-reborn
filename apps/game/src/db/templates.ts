@@ -48,6 +48,10 @@ export class Templates {
   dropConditions: (typeof game.Drop_Condiction.$inferSelect)[] = [];
   dropItems = new Map<number, (typeof game.Drop_Item.$inferSelect)[]>();
   server: ServerRow | null = null;
+  /** PvE (PveInfoMgr / MissionInfoMgr / NPCInfoMgr) */
+  pveInfos = new Map<number, typeof game.Pve_Info.$inferSelect>();
+  missions = new Map<number, typeof game.Mission_Info.$inferSelect>();
+  npcs = new Map<number, typeof game.NPC_Info.$inferSelect>();
 
   findItem = (id: number): ItemTemplate | undefined => this.items.get(id);
 
@@ -66,6 +70,10 @@ export class Templates {
       db.select().from(game.Quest_Condiction),
       db.select().from(game.Quest_Goods),
     ]);
+    const [pveI, missI, npcI] = await Promise.all([db.select().from(game.Pve_Info), db.select().from(game.Mission_Info), db.select().from(game.NPC_Info)]);
+    this.pveInfos = new Map(pveI.map((r) => [r.ID, r]));
+    this.missions = new Map(missI.map((r) => [r.Id, r]));
+    this.npcs = new Map(npcI.map((r) => [r.ID, r]));
     this.dropConditions = dropC;
     this.dropItems = new Map();
     for (const d of dropI) {
@@ -120,6 +128,19 @@ export class Templates {
     const lo = Math.min(d.BeginData, d.EndData);
     const hi = Math.max(d.BeginData, d.EndData);
     return { templateId: d.ItemId, count: Math.max(1, lo + Math.floor(rnd() * (hi - lo))), isBind: d.IsBind, validDate: d.ValueDate };
+  }
+
+  /** PveInfoMgr.GetPveInfoByType(roomType, levelLimits) (PveInfoMgr.cs:79) */
+  pveByType(roomType: number, levelLimits: number): (typeof game.Pve_Info.$inferSelect) | undefined {
+    const l = [...this.pveInfos.values()].filter((p) => p.Type === roomType);
+    return l.find((p) => p.LevelLimits === levelLimits) ?? l[0];
+  }
+  /** DropInventory.CopyDrop(copyId, user) / NPCDrop(dropId): eDropType.Copy = 5, NPC = 3 */
+  pveDrop(kind: "copy" | "npc", id: number, user = 1): { templateId: number; count: number; isBind: boolean; validDate: number }[] | null {
+    const dropId = kind === "copy" ? this.findDropCondition(5, String(id), String(user)) : id;
+    if (!dropId) return null;
+    const d = this.dropOne(dropId);
+    return d ? [d] : null;
   }
 
   /** ShopMgr.IsOnShop (ShopMgr.cs:294) incl. IsSpecialItem ids. */

@@ -14,3 +14,4 @@ export * from "./game/living.js";
 export * from "./game/game.js";
 export * from "./bot/aim.js";
 export * from "./bot/brain.js";
+export * from "./pve/index.js";

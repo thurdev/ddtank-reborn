@@ -36,7 +36,8 @@ export function roomRouter(): SubRouter {
       if (!room || room.host !== p || room.IsPlaying) return;
       const mapId = pkt.readInt();
       const roomType = pkt.readByte();
-      const isOpenBoss = pkt.readBoolean();
+      // GameSocketOut.enterUserGuide (freshman / quest "go" button) writes no isOpenBoss bool (GameSocketOut.as:1400)
+      const isOpenBoss = roomType === RoomType.Freshman ? false : pkt.readBoolean();
       const password = pkt.readString();
       const name = pkt.readString();
       const timeMode = pkt.readByte();
