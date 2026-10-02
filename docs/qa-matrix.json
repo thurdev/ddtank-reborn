@@ -320,10 +320,10 @@
   "code": 68,
   "name": "PET",
   "sub": "ADD_PET=2",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "partial",
+  "verified": "yes",
+  "notes": "Ovo de pet (cat. 35) chocado: CreatePet + 68/2 (janela de pet recebido), pet aparece na aba Thú cưng.",
+  "evidence": "research/e2e/batch4/07-hatch.png, research/e2e/batch4/08-pet-bag.png"
  },
  {
   "key": "74:sendItemEquip",
@@ -371,9 +371,9 @@
   "name": "GAME_CMD",
   "sub": "PROP=32",
   "server": "partial",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "verified": "yes",
+  "notes": "Props 1/2/3 (+1 tiro / x3 / +2) usados na luta e aplicados ao tiro.",
+  "evidence": "research/e2e/batch4/20-props.png, research/e2e/batch4/22-shot2.png"
  },
  {
   "key": "99:sendTexp",
@@ -386,10 +386,10 @@
   "code": 99,
   "name": "TEXP",
   "sub": "",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Tu luyện: poção na StoreBag[0] → exp Tấn công 100/250, nível 4, stats atualizados.",
+  "evidence": "research/e2e/batch4/17-texp-a.png, research/e2e/batch4/17-texp-done.png"
  },
  {
   "key": "122:sendClearStoreBag",
@@ -501,10 +501,10 @@
   "code": 183,
   "name": "CARD_USE",
   "sub": "",
-  "server": "partial",
+  "server": "ok",
   "verified": "yes",
-  "notes": "Cartão EXP x2 (Property1 13) vira buff (ícone no painel) e multiplica GP; GP pill (21) ok; cartão VIP (23) ainda não.",
-  "evidence": "research/e2e/qa/b17-expcard-used.png"
+  "notes": "Cartão VIP (P1 23) agora ativa VIP (ícone VIP 1 no perfil); EXP x2 (13) e GP pill (21) como antes.",
+  "evidence": "research/e2e/batch4/15-vipcard.png"
  },
  {
   "key": "188:sendUseConsortiaReworkName",
@@ -576,7 +576,7 @@
   "code": 216,
   "name": "CARDS_DATA",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -819,10 +819,10 @@
   "code": 216,
   "name": "CARDS_DATA",
   "sub": "",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Equipar carta (cópia no slot 0..4), FC sobe; desequipar remove a cópia.",
+  "evidence": "research/e2e/batch4/13-card-equip.png"
  },
  {
   "key": "216:sendOpenViceCard",
@@ -834,7 +834,7 @@
   "code": 216,
   "name": "CARDS_DATA",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -850,7 +850,7 @@
   "code": 216,
   "name": "CARDS_DATA",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -865,10 +865,10 @@
   "code": 216,
   "name": "CARDS_DATA",
   "sub": "",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Upgrade: gasta 3 cópias, +exp (4/50) e sobe nível com CardUpdateInfo.",
+  "evidence": "research/e2e/batch4/14-card-upgrade.png"
  },
  {
   "key": "21:sendExitMarryRoom",
@@ -1463,9 +1463,9 @@
   "name": "GAME_CMD",
   "sub": "FIRE=2",
   "server": "partial",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "verified": "yes",
+  "notes": "Tiro com base attack real (stats.ts), dano 1192, vitória e retorno à sala.",
+  "evidence": "research/e2e/batch4/21-shot.png, research/e2e/batch4/23-after.png, research/e2e/batch4/25-pvp-end.png"
  },
  {
   "key": "91:sendGameCMDStunt",
@@ -2577,10 +2577,10 @@
   "code": 216,
   "name": "CARDS_DATA",
   "sub": "",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Caixa de cartas aberta → carta na bolsa de cartas (216).",
+  "evidence": "research/e2e/batch4/11-cardbox-open.png, research/e2e/batch4/12-cardbag.png"
  },
  {
   "key": "219:sendWeeklyClick",
@@ -2667,7 +2667,7 @@
   "code": 68,
   "name": "PET",
   "sub": "BUY_PET_EXP_ITEM=19",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4096,7 +4096,7 @@
   "code": 68,
   "name": "PET",
   "sub": "ADD_PET_EQUIP=20",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4109,7 +4109,7 @@
   "code": 68,
   "name": "PET",
   "sub": "DEL_PET_EQUIP=21",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4122,7 +4122,7 @@
   "code": 68,
   "name": "PET",
   "sub": "EAT_PETS=33",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4138,7 +4138,7 @@
   "code": 68,
   "name": "PET",
   "sub": "ADOPT_PET=6",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4155,9 +4155,9 @@
   "code": 68,
   "name": "PET",
   "sub": "EQUIP_PET_SKILL=7",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "EquipSkillPet (slot 4 VIP 7) — servidor, não clicado no cliente.",
   "evidence": ""
  },
  {
@@ -4170,7 +4170,7 @@
   "code": 68,
   "name": "PET",
   "sub": "PAY_SKILL=16",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4185,7 +4185,7 @@
   "code": 68,
   "name": "PET",
   "sub": "PET_EVOLUTION=23",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4200,10 +4200,10 @@
   "code": 68,
   "name": "PET",
   "sub": "FEED_PET=4",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "partial",
+  "verified": "yes",
+  "notes": "Comida via StoreBag (split 49 corrigido) → FeedPet: nível/fome, mensagem.",
+  "evidence": "research/e2e/batch4/10-feed.png"
  },
  {
   "key": "68:sendPetFightUnFight",
@@ -4216,10 +4216,10 @@
   "code": 68,
   "name": "PET",
   "sub": "FIGHT_PET=17",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "partial",
+  "verified": "yes",
+  "notes": "Pet de batalha (FightPet): stats somam no FC, pet segue o personagem no salão.",
+  "evidence": "research/e2e/batch4/09-pet-fight-skill.png, research/e2e/batch4/34-reload.png"
  },
  {
   "key": "68:sendPetFollowOrCall",
@@ -4231,7 +4231,7 @@
   "code": 68,
   "name": "PET",
   "sub": "PET_FOLLOW=25",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4246,7 +4246,7 @@
   "code": 68,
   "name": "PET",
   "sub": "PET_FORMINFO=24",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4261,9 +4261,9 @@
   "code": 68,
   "name": "PET",
   "sub": "RENAME_PET=9",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "RenamePet (ChangeNameCost Xu) — servidor, não clicado no cliente.",
   "evidence": ""
  },
  {
@@ -4276,7 +4276,7 @@
   "code": 68,
   "name": "PET",
   "sub": "PET_RISINGSTAR=22",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4291,7 +4291,7 @@
   "code": 68,
   "name": "PET",
   "sub": "PET_WAKE=32",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4307,7 +4307,7 @@
   "code": 68,
   "name": "PET",
   "sub": "REFRESH_PET=5",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4322,9 +4322,9 @@
   "code": 68,
   "name": "PET",
   "sub": "RELEASE_PET=8",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "ReleasePet (IsExit=0, 12656×WashGetCount) — servidor, não clicado no cliente.",
   "evidence": ""
  },
  {
@@ -4337,7 +4337,7 @@
   "code": 68,
   "name": "PET",
   "sub": "REVER_PET=18",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -5447,9 +5447,9 @@
   "code": 92,
   "name": "VIP_RENEWAL",
   "sub": "",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Tiếp phí VIP 3 meses: 2790 Xu debitado, VIP 1→5, expira 2027-01-04, 92 atualiza a janela.",
+  "evidence": "research/e2e/batch4/16-vip-buy2.png, research/e2e/batch4/16-vip-bought.png"
  }
 ]
