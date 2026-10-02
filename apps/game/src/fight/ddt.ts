@@ -254,7 +254,13 @@ class DdtGame implements FightGame {
     this.dispatch(this.game.update(now));
     this.dispatch(this.bots.update(now));
     if (this.game.state === GameState.Stopped) this.stop();
+    if (this.pve && this.game.state >= GameState.GameOver && now - this.diagAt > 5000) {
+      this.diagAt = now;
+      const g = this.game as unknown as { actions: { tag?: string; at: number; finishAt?: number }[]; getWaitTimer(): number };
+      this.engine.o.log?.(`pve ${this.id} diag: state ${this.game.state} wait ${g.getWaitTimer() - now} actions ${g.actions.map((a) => `${a.tag}@${a.at - now}/${a.finishAt ?? "-"}`).join(",")}`);
+    }
   }
+  private diagAt = 0;
 
   processData(from: RoomMember, pkt: GSPacket): void {
     // TakeCardCommand (98) / BossTakeCardCommand (130): after GAME_OVER; index out of range (client sends 100 when
