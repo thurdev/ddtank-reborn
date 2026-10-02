@@ -12,6 +12,7 @@ import { registerConsortia } from "./consortia.js";
 import { registerEvents } from "./events.js";
 import { registerAcademy } from "./academy.js";
 import { registerHotSpring } from "./hotspring.js";
+import { registerPets } from "./pets.js";
 
 export function createRegistry(): HandlerRegistry {
   const r = new HandlerRegistry();
@@ -28,5 +29,6 @@ export function createRegistry(): HandlerRegistry {
   registerEvents(r);
   registerAcademy(r);
   registerHotSpring(r);
+  registerPets(r);
   return r;
 }

@@ -15,7 +15,10 @@ import type { MatchRow, PlayerInfo } from "./player-info.js";
 import type { BaseRoom } from "../rooms/room.js";
 import type { QuestInventory } from "./quests.js";
 import { saveBuffs, saveQuests } from "../db/social.js";
-import { computeStats, emptyStatTables, type StatTables, type UserCard, type UserPet } from "./stats.js";
+import { computeStats, emptyStatTables, userNimbus, type StatTables, type UserCard, type UserPet } from "./stats.js";
+import { PetInventory, reduceProp } from "./pets.js";
+import { CardInventory } from "./cards.js";
+import { savePets, saveCards } from "../db/pets-cards.js";
 
 /** ePlayerState. */
 export const PlayerState = { Offline: 0, Manual: 1, Online: 1, Away: 2 } as const;
@@ -90,6 +93,12 @@ export class GamePlayer implements RoomMember {
   /** Sys_Users_Card rows (equipped = Place 0..4) and the equipped Sys_Users_Pet (loaded at login). */
   cards: UserCard[] = [];
   pet: UserPet | null = null;
+  /** PetInventory (20 slots) and CardInventory (100 slots, 0..4 equipped): loaded at login (session/login.ts). */
+  petBag = new PetInventory(20);
+  cardBag: CardInventory;
+  /** GamePlayer.GetBaseAttack / GetBaseDefence from the last recalcStats (fight specs). */
+  baseAttack = 0;
+  baseDefence = 0;
   private changeDepth = 0;
   private propsPending = false;
 
@@ -108,6 +117,7 @@ export class GamePlayer implements RoomMember {
       onNewGear: (it) => this.questInv?.onNewGear(it.template.CategoryID),
     };
     this.equipBag = new PlayerEquipInventory(hooks);
+    this.cardBag = new CardInventory(info.ID);
     this.propBag = new PlayerInventory(BagType.PropBag, 96, 0, true, true, hooks);
     this.consortiaBag = new PlayerInventory(BagType.Consortia, 100, 0, true, true, hooks);
     this.bankBag = new PlayerInventory(BagType.BankBag, 198, 0, true, true, hooks);
@@ -253,10 +263,13 @@ export class GamePlayer implements RoomMember {
     const r = computeStats({
       equip, grade: c.Grade, levelBlood: this.levelBlood(c.Grade), necklaceExpAdd: c.necklaceExpAdd ?? 0, totemId: c.totemId ?? 0,
       texp: c.Texp ?? { attTexpExp: 0, defTexpExp: 0, spdTexpExp: 0, lukTexpExp: 0, hpTexpExp: 0 },
-      cards: this.cards, pet: this.pet, evolutionGrade: c.evolutionGrade ?? 0,
+      cards: this.cardBag.equipped().length ? this.cardBag.equipped() : this.cards, pet: this.petBag.equipped() ?? this.pet, evolutionGrade: c.evolutionGrade ?? 0,
     }, this.statTables);
     c.Attack = r.attack; c.Defence = r.defence; c.Agility = r.agility; c.Luck = r.luck; c.hp = r.hp;
     c.FightPower = r.fightPower;
+    this.baseAttack = r.baseAttack;
+    this.baseDefence = r.baseDefence;
+    c.Nimbus = userNimbus(equip); // GetUserNimbus (strengthen / gilded aura tiers)
     c.Style = style; c.Colors = color; c.Skin = skin;
   }
 
@@ -339,6 +352,25 @@ export class GamePlayer implements RoomMember {
     return inv.addTemplate(item, count);
   }
 
+  /** PetInventory.UpdateChangedPlaces → 68/1 with the changed slots (`all` = every slot, login). */
+  flushPets(all = false): void {
+    const places = all ? this.petBag.pets.map((_, i) => i) : this.petBag.takeChanged();
+    if (all) this.petBag.changed.clear();
+    if (!places.length) return;
+    const slots = places.map((place) => {
+      const pet = this.petBag.getPetAt(place);
+      return { place, pet: pet ? { ...pet, PetHappyStarReduce: (v: number) => reduceProp(pet, v) } : null };
+    });
+    this.send(Out.updateUserPet(this.id, this.zoneId, slots, this.petBag.eat));
+  }
+  /** CardInventory.UpdateChangedPlaces → 216 with the changed slots (every occupied slot at login). */
+  flushCards(all = false): void {
+    const places = all ? this.cardBag.cards.map((_, i) => i).filter((i) => this.cardBag.cards[i]) : this.cardBag.takeChanged();
+    if (all) this.cardBag.changed.clear();
+    if (!places.length) return;
+    this.send(Out.cardData(this.id, places.map((place) => ({ place, card: this.cardBag.getItemAt(place) }))));
+  }
+
   isBlackFriend(id: number): boolean {
     return this.friends.get(id) === 1;
   }
@@ -356,6 +388,9 @@ export class GamePlayer implements RoomMember {
       bag.removed.length = 0;
     }
     if (this.questInv) await saveQuests(db, this.questInv.takeDirty());
+    await savePets(db, [...this.petBag.getPets(), ...this.petBag.removed]);
+    this.petBag.removed.length = 0;
+    await saveCards(db, this.cardBag.all(), this.cardBag.removed);
     if (this.buffs.length) await saveBuffs(db, this.buffs);
     await saveRecords(db, this);
   }

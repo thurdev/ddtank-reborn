@@ -135,6 +135,8 @@ export interface MoveStartEvent extends Ev<"MOVESTART"> {
   y: number;
   dir: number;
   isLiving: boolean;
+  /** type 2 (ghost move, BaseGame.SendPlayerMove:2729): positions of every box on the map */
+  boxes?: { x: number; y: number }[];
 }
 export interface SkipNextEvent extends Ev<"SKIPNEXT"> {}
 /** BaseGame.cs:2865: u8 type, i32 place, i32 templateId, i32 userLivingId, bool templateId==10017 */
@@ -295,6 +297,8 @@ export type FightCommand =
   | { cmd: "USE_DEPUTY_WEAPON" }
   | { cmd: "GHOST_TARGET"; x: number; y: number }
   | { cmd: "BOT_COMMAND" }
+  | { cmd: "PICK"; boxId: number }
+  | { cmd: "PET_SKILL"; skillId: number; type: number }
   | { cmd: "MISSION_PREPARE"; ready: boolean }
   | { cmd: "TAKE_CARD"; index: number }
   | { cmd: "PASS_DRAMA"; pass: boolean }

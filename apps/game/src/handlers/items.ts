@@ -114,7 +114,13 @@ export function changeItemPlace(ctx: ServerContext, p: GamePlayer, bagType: numb
     } else {
       // Cross-bag (prop <-> bank/consortia/store): move or swap like MoveToBank/MoveFromBank.
       const to = toBag.getItemAt(toPlace);
-      if (!to) {
+      if (!to && count > 0 && count < item.Count) {
+        // split part of a stack into the other bag (pet food / texp potion → StoreBag[0]); before, the whole stack moved
+        const part = item.clone();
+        part.ItemID = 0;
+        part.Count = count;
+        if (toBag.addItemTo(part, toPlace)) bag.removeCountFromStack(item, count);
+      } else if (!to) {
         if (toBag.addItemTo(item, toPlace)) bag.takeOutItem(item);
       } else if (item.canStackedTo(to) && item.Count + to.Count <= item.template.MaxCount) {
         if (toBag.addCountToStack(to, item.Count)) bag.removeCountFromStack(item, item.Count);

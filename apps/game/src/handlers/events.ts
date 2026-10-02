@@ -336,8 +336,16 @@ export async function dailyAward(ctx: ServerContext, p: GamePlayer, type: number
       // VIP daily box: ItemMgr.FindItemBoxTypeAndLv(2, VIPLevel) = LoadUserBox Type 2, Level = VIP level
       const box = rt.data.userBox.find((b) => b.Type === 2 && b.Level === p.info.VIPLevel);
       if (!p.info.VIPLevel || !box) return p.sendMessage(0, "Apenas para VIP.");
-      if (!(await claimOnce(db, p.id, "vip", day))) return p.sendMessage(0, "Bạn đã nhận được phần thưởng hôm nay!");
+      if (!(await claimOnce(db, p.id, "vip", day))) {
+        p.info.CanTakeVipReward = false;
+        p.send(Out.openVip(p.info));
+        return p.sendMessage(0, "Bạn đã nhận được phần thưởng hôm nay!");
+      }
       const s = await openBoxRewards(ctx, p, box.TemplateID, "Caixa VIP");
+      // the client pops the VIP gift frame while CanTakeVipReward is set (ChecVipkExpireDay re-opens it the next day)
+      p.info.CanTakeVipReward = false;
+      p.info.LastVIPPackTime = ctx.now();
+      p.send(Out.openVip(p.info));
       return p.sendMessage(0, `Caixa VIP: ${s}`);
     }
     case 5:

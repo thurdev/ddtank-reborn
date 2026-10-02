@@ -43,6 +43,12 @@ export interface DdtFightOptions {
   onGameOver?: (g: { roomType: number; gameType: number; winTeam: number; players: { member: RoomMember; team: number; win: boolean; totalHurt: number }[] }) => void;
   /** PVE_AWARD: give items (temp/fight bag, special gold/money templates) */
   giveItems?: (member: RoomMember, items: DropItem[], bag: "temp" | "fight") => void;
+  /** DropInventory.BoxDrop(roomType) (eDropType.Box = 2): item of an in-battle drop box */
+  boxDrop?: (roomType: number) => DropItem[] | null;
+  /** PVPGame.RemovePlayer: a living player left a started game (GP −grade×12, offer −5/−15 in Match) */
+  onPlayerFlee?: (member: RoomMember, g: { roomType: number; gameType: number }) => void;
+  /** Pet_Skill_Info row (battle pet skills) */
+  petSkill?: (id: number) => { CostMP: number; ColdDown: number; NewBallID: number; BallType: number; Delay: number; Pic: number; EffectPic: string | null } | undefined;
   /** test hook: manual clock instead of setInterval */
   manualClock?: boolean;
   seed?: () => number;
@@ -52,12 +58,26 @@ let gameIdSeq = 1;
 
 /** Item-like shapes we read from the lobby player without importing GamePlayer (bots don't have bags). */
 type ItemLike = { TemplateID: number; StrengthenLevel?: number; RefineryLevel?: number; template: { Property7?: number | null; Property8?: number | null; Name?: string | null } };
+type PetLike = { ID: number; Place: number; TemplateID: number; Name: string; UserID: number; Level: number; SkillEquip: string };
+type BagLike = { getItemAt(i: number): (ItemLike & { Count: number }) | null; removeCountFromStack(it: unknown, n: number): boolean; removeItem(it: unknown): boolean };
 type LobbyLike = RoomMember & {
   mainWeapon?: ItemLike | null;
-  equipBag?: { getItemAt(i: number): ItemLike | null };
+  equipBag?: BagLike;
+  propBag?: BagLike;
+  fightBag?: BagLike;
   addGiftToken?(v: number): void;
   updateProperties?(): void;
+  /** GamePlayer.GetBaseAttack / GetBaseDefence (game/stats.ts) */
+  baseAttack?: number;
+  baseDefence?: number;
+  petBag?: { equipped(): PetLike | null; reduceHunger(): void };
+  flushPets?(): void;
 };
+
+/** "id,slot|…" of UsersPetInfo.SkillEquip → [slot, id] with an id > 0 */
+function petSkillEquip(s: string): [number, number][] {
+  return (s || "").split("|").map((x) => x.split(",").map(Number)).filter((a) => a.length >= 2 && a[0]! > 0).map((a) => [a[1]!, a[0]!]);
+}
 
 export class DdtFightEngine implements FightEngine {
   readonly name = "ddt-fight";
@@ -81,13 +101,15 @@ export class DdtFightEngine implements FightEngine {
     }
     try {
       const id = gameIdSeq++;
-      const specs = s.players.map((m) => specOf(m as LobbyLike, 1, this.assets));
+      const specs = s.players.map((m) => specOf(m as LobbyLike, 1, this.assets, this.o.petSkill));
+      const members = new Map(s.players.map((m) => [m.id, m as LobbyLike]));
       const game = new PveGame({
         id, roomType: s.roomType, gameType: s.gameType, timeType: s.timeType, assets: this.assets, players: specs, seed: this.o.seed?.() ?? (Date.now() ^ (id * 7919)) | 0, now: Date.now(),
         pveInfo: info, hardLevel: s.hardLevel, currentFloor: s.currentFloor, data: pv.data,
         worldBossBlood: s.roomType === 14 ? this.o.worldBossBlood?.() : undefined,
         drops: { copyDrop: (mid, user) => pv.drop("copy", mid, user), npcDrop: (did) => pv.drop("npc", did) },
         log: (m) => this.o.log?.(m),
+        ...gameHooks(this, s.roomType, members),
       });
       const g = new DdtGame(id, game.map.info.id, { roomId: s.roomId, roomType: s.roomType, gameType: s.gameType, timeType: s.timeType, mapId: s.pveId, red: s.players, blue: [], onStopped: s.onStopped }, this, game, s);
       this.games.set(g.id, g);
@@ -137,23 +159,65 @@ export class DdtFightEngine implements FightEngine {
   }
 }
 
-/** Player.Reset stat inputs from the lobby character (GamePlayer.GetBaseAttack / GetBaseDefence approximations). */
-function specOf(m: LobbyLike, team: number, assets: FightAssets): PlayerSpec {
+/**
+ * Player.Reset stat inputs from the lobby character: Attack/Defence/Agility/Luck/hp and GetBaseAttack/GetBaseDefence come
+ * from game/stats.ts (items, strengthen, gems, cards, pet, suits, totem — GamePlayer.UpdateProperties); bots (no bags) fall
+ * back to the weapon/armour approximation.
+ */
+function specOf(m: LobbyLike, team: number, assets: FightAssets, petSkill?: DdtFightOptions["petSkill"]): PlayerSpec {
   const c = m.info;
   const w = m.mainWeapon ?? null;
   const wTpl = w ? assets.items.get(w.TemplateID) : undefined;
   const weaponTemplateId = w?.TemplateID ?? (m.view().weaponTemplateId > 0 ? m.view().weaponTemplateId : 7001);
   const p7 = (it: ItemLike | null | undefined) => (it ? hertAddition(it.template.Property7 ?? 0, it.StrengthenLevel ?? 0) : 0);
-  const baseAttack = w ? p7(w) : (assets.items.get(weaponTemplateId)?.property7 ?? 100);
-  const baseDefence = m.equipBag ? p7(m.equipBag.getItemAt(0)) + p7(m.equipBag.getItemAt(4)) : 0;
+  const real = (m.baseAttack ?? 0) > 0;
+  const baseAttack = real ? m.baseAttack! : w ? p7(w) : (assets.items.get(weaponTemplateId)?.property7 ?? 100);
+  const baseDefence = real ? (m.baseDefence ?? 0) : m.equipBag ? p7(m.equipBag.getItemAt(0)) + p7(m.equipBag.getItemAt(4)) : 0;
   const dep = m.equipBag?.getItemAt(15) ?? null;
   const depTpl = dep ? assets.items.get(dep.TemplateID) : undefined;
+  const hs = m.equipBag?.getItemAt(18) ?? null; // healstone slot (Player.m_Healstone = GamePlayer.Healstone)
+  const pet = m.petBag?.equipped() ?? null;
+  const equip = pet ? petSkillEquip(pet.SkillEquip) : [];
   return {
     userId: m.id, nickname: c.NickName ?? `p${m.id}`, team, grade: c.Grade, attack: c.Attack, defence: c.Defence, agility: c.Agility, lucky: c.Luck,
     baseAttack: Math.max(1, baseAttack), baseDefence, hp: Math.max(1, c.hp),
     weapon: { templateId: weaponTemplateId, property8: wTpl?.property8 ?? w?.template.Property8 ?? 0, refineryLevel: w?.RefineryLevel ?? 0 },
     deputyWeapon: dep && depTpl ? { template: depTpl, strengthenLevel: dep.StrengthenLevel ?? 0 } : null,
     isBot: m.isBot, isVip: (c.typeVIP ?? 0) > 0, inGuild: (c.ConsortiaID ?? 0) > 0,
+    healstone: hs && hs.Count > 0 ? { heal: (hs.template as { Property2?: number | null }).Property2 ?? 0 } : null,
+    pet: pet
+      ? {
+          id: pet.ID, place: pet.Place, templateId: pet.TemplateID, name: pet.Name, userId: pet.UserID, level: pet.Level, skillEquip: equip,
+          skills: equip.flatMap(([, id]) => {
+            const s = petSkill?.(id);
+            return s ? [{ id, costMP: s.CostMP, coldDown: s.ColdDown, newBallId: s.NewBallID, ballType: s.BallType, delay: s.Delay, pic: String(s.Pic), effectPic: s.EffectPic ?? "" }] : [];
+          }),
+        }
+      : null,
+  };
+}
+
+/** BaseGame hooks backed by the lobby player (GamePlayer.UsePropItem / RemoveHealstone, DropInventory.BoxDrop). */
+function gameHooks(engine: DdtFightEngine, roomType: number, members: Map<number, LobbyLike>) {
+  return {
+    boxDrop: () => engine.o.boxDrop?.(roomType) ?? null,
+    usePropItem: (uid: number, bag: number, place: number, templateId: number, isLiving: boolean): boolean => {
+      const m = members.get(uid);
+      if (!m || m.isBot) return true;
+      if (bag === 1 && templateId >= 10001 && templateId <= 10008) {
+        if (!isLiving) return false;
+        if (place === -1) return true; // CanUseProp: the basic props cost energy only
+        const it = m.propBag?.getItemAt(place);
+        return !!it && it.Count > 0 && m.propBag!.removeCountFromStack(it, 1);
+      }
+      const it = m.fightBag?.getItemAt(place);
+      return !!it && it.TemplateID === templateId && m.fightBag!.removeItem(it);
+    },
+    removeHealstone: (uid: number): boolean => {
+      const m = members.get(uid);
+      const it = m?.equipBag?.getItemAt(18);
+      return !!it && it.Count > 0 && m!.equipBag!.removeCountFromStack(it, 1);
+    },
   };
 }
 
@@ -175,9 +239,11 @@ class DdtGame implements FightGame {
       for (const m of list) {
         this.members.set(m.id, m as LobbyLike);
         this.teamOf.set(m.id, team);
-        specs.push(specOf(m as LobbyLike, team, engine.assets));
+        specs.push(specOf(m as LobbyLike, team, engine.assets, engine.o.petSkill));
       }
-    this.game = pveGame ?? new PvpGame({ id, roomType: s.roomType, gameType: s.gameType, timeType: s.timeType, mapId, assets: engine.assets, players: specs, seed: engine.o.seed?.() ?? (Date.now() ^ (id * 7919)) | 0, now: Date.now() });
+    this.game = pveGame ?? new PvpGame({ id, roomType: s.roomType, gameType: s.gameType, timeType: s.timeType, mapId, assets: engine.assets, players: specs, seed: engine.o.seed?.() ?? (Date.now() ^ (id * 7919)) | 0, now: Date.now(), ...gameHooks(engine, s.roomType, this.members) });
+    // GameStart.cs:88 — every battle pet gets hungrier
+    for (const m of this.members.values()) if (!m.isBot && m.petBag?.equipped()) { m.petBag.reduceHunger(); m.flushPets?.(); }
     const profiles = new Map<number, BotProfile>();
     for (const m of this.members.values()) if (m.isBot) profiles.set(m.id, engine.o.botProfile?.(m) ?? { difficulty: 50 });
     this.bots = new BotRunner(this.game, profiles, id);
@@ -217,7 +283,14 @@ class DdtGame implements FightGame {
   }
 
   removePlayer(p: RoomMember): void {
-    this.game.removePlayer(p.id);
+    const fled = this.game.removePlayer(p.id);
+    if (fled && !p.isBot && !this.pve) {
+      try {
+        this.engine.o.onPlayerFlee?.(p, { roomType: this.s.roomType, gameType: this.s.gameType });
+      } catch (err) {
+        this.engine.o.log?.(`fight ${this.id}: flee penalty failed: ${(err as Error).message}`);
+      }
+    }
     this.dispatch(this.game.drain());
     this.members.delete(p.id);
     if ([...this.members.values()].every((m) => m.isBot)) {
@@ -369,11 +442,17 @@ class DdtGame implements FightGame {
         const m = this.members.get(pl.userId)!;
         const v = m.view();
         const w = m.mainWeapon ?? null;
-        return { ...v, team: pl.team, livingId: pl.livingId, maxBlood: pl.maxBlood, weaponRefineryLevel: w?.RefineryLevel ?? 0, weaponName: w?.template.Name ?? "" };
+        const pet = this.game.players.find((x) => x.spec.userId === pl.userId)?.spec.pet ?? null;
+        return { ...v, team: pl.team, livingId: pl.livingId, maxBlood: pl.maxBlood, weaponRefineryLevel: w?.RefineryLevel ?? 0, weaponName: w?.template.Name ?? "", pet };
       }).filter(Boolean);
       return Out.gameCreate(e.roomType, e.gameType, e.timeType, views);
     }
-    if (e.cmd === "GAME_LOAD") return Out.gameLoad(e.maxTime, e.mapId, e.files ?? []);
+    if (e.cmd === "GAME_LOAD") {
+      // GameNeedPetSkill: skill effect assets (only those of the battle pets in this game; the original sent every one)
+      const seen = new Set<string>();
+      const pets = this.game.players.flatMap((x) => x.spec.pet?.skills ?? []).filter((k) => k.effectPic && !seen.has(k.effectPic) && seen.add(k.effectPic)).map((k) => ({ pic: k.pic ?? "", effect: k.effectPic! }));
+      return Out.gameLoad(e.maxTime, e.mapId, e.files ?? [], pets);
+    }
     return serializeEvent(e);
   }
 }
@@ -472,7 +551,10 @@ export function serializeEvent(e: FightEvent): PacketOut | null {
       break;
     case "MOVESTART":
       p.writeBoolean(false); p.writeByte(e.type); p.writeInt(e.x); p.writeInt(e.y); p.writeByte(e.dir & 0xff); p.writeBoolean(e.isLiving);
-      if (e.type === 2) p.writeInt(0);
+      if (e.type === 2) {
+        p.writeInt(e.boxes?.length ?? 0);
+        for (const b of e.boxes ?? []) { p.writeInt(b.x); p.writeInt(b.y); }
+      }
       break;
     case "SKIPNEXT":
     case "BOT_COMMAND":
@@ -560,6 +642,8 @@ export function parseCommand(pkt: GSPacket): FightCommand | null {
     case 84: return { cmd: "USE_DEPUTY_WEAPON" };
     case 54: return { cmd: "GHOST_TARGET", x: pkt.readInt(), y: pkt.readInt() };
     case 143: return { cmd: "BOT_COMMAND" };
+    case 49: return { cmd: "PICK", boxId: pkt.readInt() }; // PickCommand
+    case 144: return { cmd: "PET_SKILL", skillId: pkt.readInt(), type: pkt.readInt() }; // PetKillCommand
     default: return null;
   }
 }
