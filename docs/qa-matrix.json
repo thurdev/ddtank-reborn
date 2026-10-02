@@ -623,9 +623,9 @@
   "code": 252,
   "name": "USE_CHANGE_SEX",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "Varredura básico pt.1 (2026-10-02): handler 252 USE_CHANGE_SEX não existia (não registrado em handlers/index.ts). Portado de ChangeSexHandler.cs (apps/game/src/handlers/items.ts): consome item 11569, troca Sex, desequipa equips agora com NeedSex incompatível, divórcio best-effort se casado. Verificado por typecheck + leitura do fluxo AS3 (BagView.as: não há listener de resposta pra CrazyTankSocketEvent.CHANGE_SEX nesta build, então só precisa da mensagem de chat + sync normal da bolsa). Não clicado no cliente real ainda.",
   "evidence": ""
  },
  {
@@ -3365,7 +3365,7 @@
   "sub": "",
   "server": "ok",
   "verified": "yes",
-  "notes": "Xu (money) e Lễ kim (giftToken) debitados e saldo atualiza na loja (corrigido pacote 38 sem petScore). Ouro/medalha/itens exigidos pelo mesmo caminho (GetItemPrice). Loja da guilda (ShopID 11-15): nível da loja + contribuição ≥ Consortia_Equip_Control verificados (compra ok).",
+  "notes": "Xu (money) e Lễ kim (giftToken) debitados e saldo atualiza na loja (corrigido pacote 38 sem petScore). Ouro/medalha/itens exigidos pelo mesmo caminho (GetItemPrice). Loja da guilda (ShopID 11-15): nível da loja + contribuição ≥ Consortia_Equip_Control verificados (compra ok). Varredura básico pt.1 (2026-10-02, só testes automatizados contra packets reais, não clicado no Ruffle): tiers A/B/C, duração (ValidDate dias) vs quantidade (Count) por BuyType, carrinho multi-linha sem falha parcial — `test/handlers.test.ts` \"shop\". Achado não corrigido: presente pra amigo (221 USER_SEND_GIFTS) não está registrado em handler nenhum.",
   "evidence": "research/e2e/qa/c6-shop-balance.png, research/e2e/guild/g43-shop-buy.png"
  },
  {
@@ -3759,7 +3759,7 @@
   "sub": "",
   "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "Varredura básico pt.1 (2026-10-02): QuestInventory.finish derrubava RewardRiches (missões de guild) e RewardBuffID/RewardBuffDate (buff) silenciosamente — ambas portadas (apps/game/src/game/quests.ts, QuestInventory.cs:402-451). Testado com a missão real 640 (guild+repetível) em test/quests.test.ts; condições básicas (grade/kills/jogos/compra/item/direct/PvE) já funcionavam. Não clicado no cliente real ainda.",
   "evidence": ""
  },
  {

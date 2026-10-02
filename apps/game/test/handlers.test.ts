@@ -222,6 +222,75 @@ describe("shop", () => {
     expect(it?.IsBinds).toBe(true);
     c.close();
   });
+
+  it("tier B/C price triples select BUnit/CUnit and their own currency columns (ItemInfo.SetItemType)", () => {
+    const shop = toShopItem({
+      ID: 1, ShopID: 1, TemplateID: 7001, BuyType: 0, Beat: 1,
+      AUnit: 1, APrice1: -1, AValue1: 10,
+      BUnit: 7, BPrice1: -1, BValue1: 30, BPrice2: 11408, BValue2: 2, BPrice3: -2, BValue3: 5,
+      CUnit: 30, CPrice1: -2, CValue1: 100,
+    } as never);
+    const tb = { gold: 0, money: 0, offer: 0, gifttoken: 0, petScore: 0, score: 0, dmgScore: 0 };
+    expect(setItemType(shop, 2, tb)).toEqual([11408, 2]);
+    expect(tb).toMatchObject({ money: 30, gold: 5 });
+    const tc = { gold: 0, money: 0, offer: 0, gifttoken: 0, petScore: 0, score: 0, dmgScore: 0 };
+    expect(setItemType(shop, 3, tc)).toEqual([]);
+    expect(tc).toMatchObject({ gold: 100, money: 0 });
+    // type outside 1..3 (e.g. a free/limited-shop entry) prices nothing
+    expect(setItemType(shop, 0, { gold: 0, money: 0, offer: 0, gifttoken: 0, petScore: 0, score: 0, dmgScore: 0 })).toEqual([]);
+  });
+
+  it("44 BUY_GOODS: BuyType 0 sets ValidDate (timed, e.g. 7 days) instead of Count", async () => {
+    const tpl = server.ctx.templates;
+    const goods = [...tpl.shop.values()].find((s) => s.ShopID === 1 && tpl.isOnShop(s.ID) && s.BuyType === 0 && s.AUnit > 1 && s.APrice1 === -1 && s.AValue1 > 0 && s.APrice2 === -1 && s.APrice3 === -1 && tpl.findItem(s.TemplateID));
+    expect(goods).toBeDefined();
+    const { c, player: p } = await loggedIn(server, { money: 1_000_000 });
+    const m = c.mark();
+    c.out(44, (x) => { x.writeInt(1); x.writeInt(goods!.ID); x.writeInt(1); x.writeUTF(""); x.writeBoolean(false); x.writeUTF(""); x.writeInt(0); });
+    await c.code(44, undefined, m);
+    const bag = p().getItemInventory(tpl.findItem(goods!.TemplateID)!)!;
+    const it = bag.getItems().find((i) => i.TemplateID === goods!.TemplateID);
+    expect(it?.ValidDate).toBe(goods!.AUnit);
+    expect(it?.Count).toBe(1);
+    c.close();
+  });
+
+  it("44 BUY_GOODS: BuyType != 0 sets Count (stack quantity) instead of ValidDate", async () => {
+    const tpl = server.ctx.templates;
+    const goods = [...tpl.shop.values()].find((s) => s.ShopID === 1 && tpl.isOnShop(s.ID) && s.BuyType !== 0 && s.AUnit > 1 && s.APrice1 === -1 && s.AValue1 > 0 && s.APrice2 === -1 && s.APrice3 === -1 && tpl.findItem(s.TemplateID));
+    expect(goods).toBeDefined();
+    const { c, player: p } = await loggedIn(server, { money: 1_000_000 });
+    const m = c.mark();
+    c.out(44, (x) => { x.writeInt(1); x.writeInt(goods!.ID); x.writeInt(1); x.writeUTF(""); x.writeBoolean(false); x.writeUTF(""); x.writeInt(0); });
+    await c.code(44, undefined, m);
+    const bag = p().getItemInventory(tpl.findItem(goods!.TemplateID)!)!;
+    const it = bag.getItems().find((i) => i.TemplateID === goods!.TemplateID);
+    expect(it?.Count).toBe(goods!.AUnit);
+    expect(it?.ValidDate).toBe(0);
+    c.close();
+  });
+
+  it("44 BUY_GOODS: buying two different lines in one cart charges both and delivers both (no partial failure)", async () => {
+    const tpl = server.ctx.templates;
+    const candidates = [...tpl.shop.values()].filter((s) => s.ShopID === 1 && tpl.isOnShop(s.ID) && s.APrice1 === -1 && s.AValue1 > 0 && s.APrice2 === -1 && s.APrice3 === -1 && tpl.findItem(s.TemplateID));
+    const a = candidates[0]!;
+    const b = candidates.find((s) => s.TemplateID !== a.TemplateID)!;
+    expect(b).toBeDefined();
+    const { c, player: p } = await loggedIn(server, { money: 1_000_000 });
+    const money0 = p().info.Money;
+    const m = c.mark();
+    c.out(44, (x) => {
+      x.writeInt(2);
+      for (const g of [a, b]) { x.writeInt(g.ID); x.writeInt(1); x.writeUTF(""); x.writeBoolean(false); x.writeUTF(""); x.writeInt(0); }
+    });
+    await c.code(44, undefined, m);
+    expect(p().info.Money).toBe(money0 - Math.trunc(a.AValue1 * a.Beat) - Math.trunc(b.AValue1 * b.Beat));
+    for (const g of [a, b]) {
+      const bag = p().getItemInventory(tpl.findItem(g.TemplateID)!)!;
+      expect(bag.getItems().some((i) => i.TemplateID === g.TemplateID)).toBe(true);
+    }
+    c.close();
+  });
 });
 
 describe("friends", () => {

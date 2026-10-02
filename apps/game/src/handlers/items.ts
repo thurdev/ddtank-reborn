@@ -304,6 +304,34 @@ export function registerItems(r: HandlerRegistry): void {
 
   r.player(44, "BUY_GOODS", (ctx, p, pkt) => buyGoods(ctx, p, pkt));
 
+  /**
+   * ChangeSexHandler.cs:12 — item 11569 ("Thẻ đổi giới tính"/sex-change card). Same packet code as
+   * MARRY_ROOM_STATE (252); ChangeSexHandler wins in the original (spec 01-packet-handlers.md:125).
+   */
+  r.player(252, "USE_CHANGE_SEX", (ctx, p, pkt) => {
+    const bagType = pkt.readByte();
+    const slot = pkt.readInt();
+    const inv = p.getInventory(bagType);
+    const item = inv?.getItemAt(slot);
+    if (!inv || !item || item.TemplateID !== 11569) return;
+    // Best-effort divorce: a same-sex marriage becomes invalid once Sex flips (ChangeSexHandler.cs:22-42).
+    if (p.info.SpouseID > 0) {
+      p.info.IsMarried = false;
+      p.info.SpouseID = 0;
+      p.info.MarryInfoID = 0;
+    }
+    const newSex = !p.info.Sex;
+    p.info.Sex = newSex;
+    // Unequip now-invalid gender-locked gear (NeedSex) instead of leaving it illegally equipped.
+    for (let s = 0; s < 31; s++) {
+      const eq = p.equipBag.getItemAt(s);
+      if (eq && !p.canEquip(eq.template)) p.equipBag.moveItem(s, p.equipBag.findFirstEmptySlot(31), 0);
+    }
+    inv.removeCountFromStack(item, 1);
+    p.updatePlayerProperties();
+    p.sendMessage(0, ctx.lang.t("ChangeSexHandlerHandler.Success"));
+  });
+
   /** UserEquipListHandler.cs: view another player's equipment (online or from DB). */
   r.player(74, "ITEM_EQUIP", async (ctx, p, pkt) => {
     const byId = pkt.readBoolean();

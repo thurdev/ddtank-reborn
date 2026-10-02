@@ -1,0 +1,24 @@
+{
+ "UserID": 1,
+ "Grade": 12,
+ "GP": 58117,
+ "Money": 41860,
+ "vip": {
+  "UserID": 1,
+  "typeVIP": 0,
+  "VIPLevel": 0,
+  "VIPExp": 0,
+  "VIPOnlineDays": 0,
+  "VIPOfflineDays": 0,
+  "VIPExpireDay": "2026-10-01 23:20:27.821",
+  "LastVIPPackTime": "2026-10-02 17:44:31.694",
+  "VIPLastdate": "2026-10-02 17:44:31.694",
+  "VIPNextLevelDaysNeeded": 0,
+  "CanTakeVipReward": false
+ },
+ "items": [
+  134
+ ],
+ "pets": [],
+ "cards": []
+}
