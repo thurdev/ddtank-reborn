@@ -82,7 +82,7 @@ export function loginSuccess(v: PlayerView, extra: ExtraRow | null, now = new Da
 export function privateInfo(c: PlayerInfo, medal: number): PacketOut {
   const p = new PacketOut(38, c.ID);
   p.writeInt(c.Money + c.MoneyLock); p.writeInt(medal); p.writeInt(c.Score); p.writeInt(c.Gold); p.writeInt(c.GiftToken);
-  p.writeInt(c.damageScores); p.writeInt(c.hardCurrency); p.writeInt(c.myHonor);
+  p.writeInt(c.damageScores); p.writeInt(c.petScore); p.writeInt(c.hardCurrency); p.writeInt(c.myHonor); // AbstractPacketLib.SendUpdatePrivateInfo order
   return p;
 }
 

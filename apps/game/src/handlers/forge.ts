@@ -173,6 +173,7 @@ export function strengthen(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd
   // Guild smith (consortia) not ported: consortia equip control missing -> smith bonus 0 (useGuild ignored).
   void useGuild;
   const chance = strengthenChance({ stoneLevels: stones.map((s) => s.template.Level), luckP2: luck ? luck.template.Property2 : null, needRate, smithLevel: 0, vip: p.info.typeVIP > 0 });
+  const original = item;
   const isBinds = item.IsBinds || stones.some((s) => s.IsBinds) || !!luck?.IsBinds || !!god?.IsBinds;
   item.StrengthenTimes++;
   item.IsBinds = isBinds;
@@ -180,7 +181,10 @@ export function strengthen(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd
   store.beginChanges();
   const out = new GSPacket(59, p.id);
   try {
-    store.clearBag();
+    // C# StoreBag.ClearBag() destroys the whole workbench (every stacked stone). Port: one unit per used slot
+    // (stones 0..2, luck 4, god 3) — the success rate never depended on the stack size; the item leaves slot 5.
+    for (const s of [...stones, luck, god]) if (s) store.removeCountFromStack(s, 1);
+    store.takeOutItem(item);
     item.IsExist = true;
     const roll = isWarrior(p) ? 0 : Math.floor(rnd() * 10000);
     if (chance > roll) {
@@ -209,10 +213,12 @@ export function strengthen(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd
           // C#: Count-- and puts the 0-count item back; port: the item is destroyed (removed from the bag).
           item.Count--;
           if (item.Count > 0) store.addItemTo(item, 5);
+          else { item.IsExist = false; item.RemoveType = 14; item.isDirty = true; }
         }
       } else store.addItemTo(item, 5);
       item.openHole();
     }
+    if (item !== original) { original.IsExist = false; original.isDirty = true; } // re-templated weapon: old row deleted
   } finally {
     store.commitChanges();
   }

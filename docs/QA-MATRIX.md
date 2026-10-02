@@ -1,0 +1,540 @@
+# Matriz de QA — cliente Flash × servidor
+
+> **Gerado** por `npx tsx tools/qa/gen-matrix.ts` — não edite as tabelas à mão. Colunas manuais (verificado no cliente,
+> notas, evidência, status "broken") ficam em `tools/qa/overrides.json` (chave `<código>:<função>`). Fontes: pacotes que o
+> cliente envia (`docs/spec/server/tools/out/client-sends.json`), quem chama cada função (varredura de
+> `vendor/DDTank41/Source Flash/src`), status do handler lido do registro vivo `apps/game/src/handlers` (ver `apps/game/HANDLERS.md`).
+>
+> Status do servidor: **ok** = portado; **partial** = fluxo principal ok, partes faltando; **stub** = no-op registrado;
+> **missing** = código não registrado (pacote descartado); **broken** = testado no cliente e com defeito (override).
+> Códigos com sub-comando (94, 91, 129, 160, ...) mostram o status do código; o sub está na coluna *Sub*.
+
+## Resumo por área
+
+| Área | Linhas | ok | partial | stub | missing | broken | verificado no cliente |
+|---|---|---|---|---|---|---|---|
+| Amigos | 12 | 6 | 0 | 0 | 6 | 0 | 0 |
+| Bolsa/Inventário | 27 | 7 | 3 | 0 | 17 | 0 | 3 |
+| Boss mundial/Minigames | 7 | 0 | 0 | 0 | 7 | 0 | 0 |
+| Cartas | 8 | 0 | 0 | 0 | 8 | 0 | 0 |
+| Casamento | 24 | 2 | 0 | 0 | 22 | 0 | 0 |
+| Combate (GAME_CMD) | 39 | 0 | 34 | 0 | 5 | 0 | 0 |
+| Configurações | 2 | 1 | 0 | 0 | 1 | 0 | 0 |
+| Conta/Login | 6 | 3 | 0 | 0 | 3 | 0 | 0 |
+| Correio | 7 | 5 | 0 | 0 | 2 | 0 | 0 |
+| Escola/Aprendiz | 4 | 0 | 0 | 0 | 4 | 0 | 0 |
+| Eventos/Atividades | 37 | 1 | 0 | 0 | 36 | 0 | 0 |
+| Fazenda | 14 | 0 | 0 | 0 | 14 | 0 | 0 |
+| Ferreiro | 16 | 4 | 2 | 0 | 10 | 0 | 1 |
+| GvG/Liga | 4 | 0 | 0 | 0 | 4 | 0 | 0 |
+| Leilão | 3 | 0 | 0 | 0 | 3 | 0 | 0 |
+| Lobby/Chat/Bugle | 10 | 9 | 0 | 0 | 1 | 0 | 0 |
+| Loja | 7 | 2 | 0 | 0 | 5 | 0 | 1 |
+| Missões | 23 | 7 | 0 | 0 | 16 | 0 | 0 |
+| Outros | 16 | 2 | 0 | 0 | 14 | 0 | 0 |
+| Personagem/FC | 3 | 1 | 0 | 0 | 2 | 0 | 0 |
+| Pets | 17 | 0 | 0 | 0 | 17 | 0 | 0 |
+| PvE/Masmorras | 9 | 0 | 0 | 0 | 9 | 0 | 0 |
+| Salas PvP | 21 | 17 | 0 | 0 | 4 | 0 | 0 |
+| Sociedade/Guilda | 28 | 0 | 0 | 0 | 28 | 0 | 0 |
+| Spa/Fonte termal | 14 | 0 | 0 | 0 | 14 | 0 | 0 |
+| Totem/Honra | 2 | 0 | 0 | 0 | 2 | 0 | 0 |
+| VIP | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
+| **Total** | 361 | 67 | 39 | 0 | 255 | 0 | 5 |
+
+## Amigos
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendSnsMsg` | `ddt/manager/DynamicManager.as`<br>`ddt/view/SNSFrame.as` | 40 SNS_MSG_RECEIVE |  | missing | no |  |
+| `sendGameLogin` | `invite/ResponseInviteFrame.as`<br>`roomList/LookupRoomFrame.as`<br>`roomList/PassInputFrame.as` (+2) | 94 GAME_ROOM | GAME_ROOM_LOGIN=1 | ok | no |  |
+| `enterInviteFriendView` | — | 107 INVITE_FRIEND | INVITE_FRIEND_OPENVIEW=2 | missing | no |  |
+| `inviteFriendFBBntClick` | — | 107 INVITE_FRIEND | INVITE_FRIEND_FBCLICK=6 | missing | no |  |
+| `inviteFriendOkClick` | — | 107 INVITE_FRIEND |  | missing | no |  |
+| `inviteFriendRewardBntClick` | — | 107 INVITE_FRIEND | INVITE_FRIEND_GETREWARD=4 | missing | no |  |
+| `sendAddFriend` | `cityWide/CityWideManager.as`<br>`ddt/view/tips/FriendGroupTItem.as`<br>`im/FriendGroupFrame.as` (+2) | 160 IM_CMD | FRIEND_ADD=160 | ok | no |  |
+| `sendCustomFriends` | `im/IMController.as`<br>`im/IMListItemView.as` | 160 IM_CMD | ADD_CUSTOM_FRIENDS=208 | ok | no |  |
+| `sendDelFriend` | `im/IMController.as` | 160 IM_CMD | FRIEND_REMOVE=161 | ok | no |  |
+| `sendOneOnOneTalk` | `im/IMController.as`<br>`im/chatFrame/PrivateChatFrame.as` | 160 IM_CMD | ONE_ON_ONE_TALK=51 | ok | no |  |
+| `sendOns` | `cityWide/CityWideManager.as` | 160 IM_CMD | ONS_EQUIP=45 | ok | no |  |
+| `sendWithBrithday` | `socialContact/friendBirthday/FriendBirthdayManager.as` | 223 FRIEND_BRITHDAY |  | missing | no |  |
+
+## Bolsa/Inventário
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendChangeDesignation` | `bagAndInfo/info/PlayerInfoView.as` | 34 USER_RANK |  | missing | no |  |
+| `sendMoveGoods` | `bagAndInfo/bag/BagView.as`<br>`bagAndInfo/bag/BankBagView.as`<br>`bagAndInfo/cell/BagCell.as` (+33) | 49 CHANGE_PLACE_GOODS |  | partial | yes | Mover para o ferreiro/equipar. |
+| `sendHideLayer` | `bagAndInfo/info/PlayerInfoView.as` | 60 ITEM_HIDE |  | ok | no |  |
+| `sendGoodsContinue` | `ddt/view/goods/AddPricePanel.as`<br>`equipDebt/view/EquipAddMoneyFrame.as`<br>`shop/view/ShopRechargeEquipView.as` | 62 ITEM_CONTINUE |  | missing | no |  |
+| `sendItemOpenUp` | `bagAndInfo/bag/BagView.as`<br>`bagAndInfo/bag/OpenBatchView.as` | 63 ITEM_OPENUP |  | ok | yes | Caixa (Túi quà mũi khoan) aberta: itens chegam e empilham na bolsa, caixa consumida antes de dar (sem dupe). — evidência: research/e2e/qa/b14-box-opened.png, b15-after-box.png |
+| `sendUseProp` | `bagAndInfo/bag/BagView.as` | 66 PROP_USE |  | missing | no |  |
+| `sendAddPet` | `bagAndInfo/bag/BagView.as` | 68 PET | ADD_PET=2 | missing | no |  |
+| `sendItemEquip` | `bagAndInfo/info/PlayerInfoViewControl.as`<br>`eliteGame/view/EliteGamePaarungFrame.as`<br>`email/view/ReadingView.as` (+2) | 74 ITEM_EQUIP |  | ok | no | FC (Lực chiến) calculado pela fórmula original (apps/game/src/game/stats.ts) e enviado em 67/login/ranking: 2091 no Thur conferido à mão. — evidência: research/e2e/qa/b2-bag.png |
+| `sendItemOverDue` | `ddt/data/goods/InventoryItemInfo.as`<br>`ddt/data/player/SelfInfo.as` | 77 ITEM_OVERDUE |  | missing | no |  |
+| `sendUseProp` | `bagAndInfo/bag/BagView.as` | 91 GAME_CMD | PROP=32 | partial | no |  |
+| `sendTexp` | `bagAndInfo/bag/BagView.as`<br>`texpSystem/view/TexpView.as` | 99 TEXP |  | missing | no |  |
+| `sendClearStoreBag` | `bagAndInfo/BagAndGiftFrame.as`<br>`bagAndInfo/BagAndInfoManager.as`<br>`ddt/bagStore/BagStoreFrame.as` (+6) | 122 CLEAR_STORE_BAG |  | ok | no |  |
+| `sendMoveGoodsAll` | `ddt/data/BagInfo.as` | 124 CHANGE_PLACE_GOODS_ALL |  | ok | no |  |
+| `reclaimGoods` | — | 127 REClAIM_GOODS |  | ok | no |  |
+| `sendUpdateGoodsCount` | `bagAndInfo/BagAndGiftFrame.as`<br>`shop/ShopController.as` | 168 GOODS_COUNT |  | missing | no |  |
+| `sendUseReworkName` | `bagAndInfo/ReworkName/ReworkNameFrame.as` | 171 USE_REWORK_NAME |  | missing | no |  |
+| `sendChangeColor` | `changeColor/view/ChangeColorRightView.as` | 182 USE_COLOR_CARD |  | missing | no |  |
+| `sendUseCard` | `bagAndInfo/bag/BagView.as`<br>`ddt/view/buff/buffButton/BuffButton.as`<br>`game/view/propContainer/RightPropView.as` (+1) | 183 CARD_USE |  | partial | yes | Cartão EXP x2 (Property1 13) vira buff (ícone no painel) e multiplica GP; GP pill (21) ok; cartão VIP (23) ainda não. — evidência: research/e2e/qa/b17-expcard-used.png |
+| `sendUseConsortiaReworkName` | `bagAndInfo/ReworkName/ReworkNameConsortia.as` | 188 USE_CONSORTIA_REWORK_NAME |  | missing | no |  |
+| `sendReworkRank` | `bagAndInfo/info/PlayerInfoEffortHonorView.as` | 189 USER_CHANGE_RANK |  | missing | no |  |
+| `sendUseChangeColorShell` | `bagAndInfo/bag/BagView.as` | 205 USE_CHANGE_COLOR_SHELL |  | missing | no |  |
+| `sendChangeColorShellTimeOver` | `ddt/data/goods/InventoryItemInfo.as` | 206 CHANGE_COLOR_OVER_DUE |  | ok | no |  |
+| `sendFirstGetCards` | `bagAndInfo/bag/BagView.as` | 216 CARDS_DATA |  | missing | no |  |
+| `sendPlayerGift` | `bagAndInfo/info/PlayerInfoFrame.as`<br>`ddt/manager/PlayerManager.as`<br>`ddt/manager/ServerManager.as` | 218 USER_GET_GIFTS |  | missing | no |  |
+| `sendEquipRetrieve` | `equipretrieve/view/RetrieveBgView.as` | 222 EQUIP_RECYCLE_ITEM |  | missing | no |  |
+| `sendChangeSex` | `bagAndInfo/bag/BagView.as` | 252 USE_CHANGE_SEX |  | missing | no |  |
+| `sendNewTitleCard` | `bagAndInfo/bag/BagView.as` | 265 NEWTITLE_CARD |  | missing | no |  |
+
+## Boss mundial/Minigames
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `enterWorldBossRoom` | — | 102 WORLDBOSS_CMD | ENTER_WORLDBOSSROOM=32 | missing | no |  |
+| `requestRevive` | `worldboss/view/WorldBossResurrectView.as` | 102 WORLDBOSS_CMD | REQUEST_REVIVE=37 | missing | no |  |
+| `sendAddPlayer` | `worldboss/view/WorldBossRoomView.as` | 102 WORLDBOSS_CMD | ADDPLAYERS=34 | missing | no |  |
+| `sendBuyWorldBossBuff` | `worldboss/WorldBossManager.as`<br>`worldboss/view/BuffCartItem.as` | 102 WORLDBOSS_CMD | BUFF_BUY=38 | missing | no |  |
+| `sendLeaveBossRoom` | `worldboss/view/RoomMenuView.as` | 102 WORLDBOSS_CMD | LEAVE_ROOM=33 | missing | no |  |
+| `sendWorldBossRoomMove` | `worldboss/view/WorldBossScneneMap.as` | 102 WORLDBOSS_CMD | MOVE=35 | missing | no |  |
+| `createPackageOut` | `littleGame/LittleGameManager.as` | 166 LITTLEGAME_COMMAND |  | missing | no |  |
+
+## Cartas
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendActivePullDown` | `ddt/view/NovicePlatinumCard.as` | 11 ACTIVE_PULLDOWN |  | missing | no |  |
+| `getPlayerCardInfo` | — | 18 GET_PLAYER_CARD |  | missing | no |  |
+| `sendCardReset` | `cardSystem/view/PropResetFrame.as` | 196 CARD_RESET |  | missing | no |  |
+| `sendReplaceCardProp` | `cardSystem/view/PropResetFrame.as` | 196 CARD_RESET |  | missing | no |  |
+| `sendMoveCards` | `cardSystem/elements/CardCell.as`<br>`cardSystem/view/CardSelect.as`<br>`cardSystem/view/cardBag/CardBagListItem.as` (+2) | 216 CARDS_DATA |  | missing | no |  |
+| `sendOpenViceCard` | `cardSystem/view/cardEquip/CardEquipView.as` | 216 CARDS_DATA |  | missing | no |  |
+| `sendSortCards` | `cardSystem/view/cardBag/CardBagView.as`<br>`ddt/data/BagInfo.as` | 216 CARDS_DATA |  | missing | no |  |
+| `sendUpGradeCard` | `cardSystem/view/UpGradeFrame.as` | 216 CARDS_DATA |  | missing | no |  |
+
+## Casamento
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendExitMarryRoom` | `church/controller/ChurchRoomListController.as` | 21 SCENE_REMOVE_USER |  | ok | no |  |
+| `sendMateTime` | `church/view/weddingRoomList/DivorcePromptFrame.as`<br>`church/view/weddingRoomList/WeddingRoomListNavView.as` | 85 MATE_ONLINE_TIME |  | missing | no |  |
+| `sendCreateRoom` | `church/controller/ChurchRoomListController.as` | 94 GAME_ROOM | GAME_ROOM_CREATE=0 | ok | no |  |
+| `sendChurchMovieOver` | — | 167 CHURCH_MOVIE_OVER |  | missing | no |  |
+| `sendSceneChange` | `church/controller/ChurchRoomController.as` | 233 MARRY_SCENE_CHANGE |  | missing | no |  |
+| `sendForMarryInfo` | `civil/view/CivilRegisterFrame.as` | 235 MARRYINFO_GET |  | missing | no |  |
+| `sendMarryRoomLogin` | `church/view/ChurchMainView.as` | 240 MARRY_SCENE_LOGIN |  | missing | no |  |
+| `sendCreateRoom` | `church/controller/ChurchRoomListController.as` | 241 MARRY_ROOM_CREATE |  | missing | no |  |
+| `sendExitRoom` | `church/controller/ChurchRoomController.as`<br>`ddt/manager/ChurchManager.as` | 244 PLAYER_EXIT_MARRY_ROOM |  | missing | no |  |
+| `sendValidateMarry` | `ddt/manager/ChurchManager.as` | 246 MARRY_STATUS |  | missing | no |  |
+| `sendPropose` | `ddt/view/common/church/ChurchBuyRingFrame.as`<br>`ddt/view/common/church/ChurchProposeFrame.as` | 247 MARRY_APPLY |  | missing | no |  |
+| `sendUnmarry` | `church/controller/ChurchRoomListController.as` | 248 DIVORCE_APPLY |  | missing | no |  |
+| `sendChurchContinuation` | `church/controller/ChurchRoomController.as` | 249 MARRY_CMD | CONTINUATION=3 | missing | no |  |
+| `sendChurchForbid` | `church/view/menu/MenuPanel.as` | 249 MARRY_CMD | FORBID=8 | missing | no |  |
+| `sendChurchInvite` | `church/view/invite/ChurchInvitePlayerItem.as` | 249 MARRY_CMD | INVITE=4 | missing | no |  |
+| `sendChurchKick` | `church/view/menu/MenuPanel.as` | 249 MARRY_CMD | KICK=7 | missing | no |  |
+| `sendChurchLargess` | `church/controller/ChurchRoomController.as` | 249 MARRY_CMD | LARGESS=5 | missing | no |  |
+| `sendChurchMove` | `church/view/churchScene/SceneMap.as` | 249 MARRY_CMD | MOVE=1 | missing | no |  |
+| `sendGunSalute` | `church/view/churchScene/MoonSceneMap.as` | 249 MARRY_CMD | GUNSALUTE=11 | missing | no |  |
+| `sendPosition` | `church/view/churchScene/WeddingSceneMap.as` | 249 MARRY_CMD | POSITION=10 | missing | no |  |
+| `sendStartWedding` | `church/controller/ChurchRoomController.as` | 249 MARRY_CMD | HYMENEAL=2 | missing | no |  |
+| `sendUseFire` | `church/view/churchFire/ChurchFireView.as` | 249 MARRY_CMD | USEFIRECRACKERS=6 | missing | no |  |
+| `sendProposeRespose` | `ddt/view/common/church/ChurchProposeResponseFrame.as` | 250 MARRY_APPLY_REPLY |  | missing | no |  |
+| `sendModifyChurchDiscription` | `church/controller/ChurchRoomController.as` | 253 MARRY_ROOM_INFO_UPDATE |  | missing | no |  |
+
+## Combate (GAME_CMD)
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendThrowProp` | `ddt/manager/GameInSocketOut.as` | 75 CrazyTankPackageType.PROP_DELETE |  | missing | no |  |
+| `createMonster` | — | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | no |  |
+| `deleteMonster` | — | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | no |  |
+| `sendAirPlane` | `game/model/LocalPlayer.as` | 91 GAME_CMD | AIRPLANE=40 | partial | no |  |
+| `sendBeat` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | BEAT=22 | partial | no |  |
+| `sendBossTakeOut` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | BOSS_TAKE_CARD=130 | partial | no |  |
+| `sendClientScriptEnd` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | no |  |
+| `sendClientScriptStart` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | no |  |
+| `sendFightLibAnswer` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | no |  |
+| `sendFightLibInfoChange` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD |  | partial | no |  |
+| `sendFightLibReanswer` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | no |  |
+| `sendFlagMode` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | WANNA_LEADER=97 | partial | no |  |
+| `sendGameCMDBlast` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | BLAST=3 | partial | no |  |
+| `sendGameCMDChange` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | CHANGEBALL=19 | partial | no |  |
+| `sendGameCMDDirection` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | DIRECTION=7 | partial | no |  |
+| `sendGameCMDShoot` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | FIRE=2 | partial | no |  |
+| `sendGameCMDStunt` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | STUNT=15 | partial | no |  |
+| `sendGameMissionPrepare` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GAME_MISSION_PREPARE=116 | partial | no |  |
+| `sendGamePick` | `game/model/LocalPlayer.as` | 91 GAME_CMD | PICK=49 | partial | no |  |
+| `sendGameSkipNext` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | SKIPNEXT=12 | partial | no |  |
+| `sendGameStartMove` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | MOVESTART=9 | partial | no |  |
+| `sendGameStopMove` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | MOVESTOP=10 | partial | no |  |
+| `sendGameTakeOut` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | TAKE_CARD=98 | partial | no |  |
+| `sendGhostTarget` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GHOST_TARGET=54 | partial | no |  |
+| `sendKillSelf` | — | 91 GAME_CMD | KILLSELF=21 | partial | no |  |
+| `sendLoadingProgress` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | LOAD=16 | partial | no |  |
+| `sendMissionTryAgain` | `ddt/manager/GameInSocketOut.as` | 91 91 |  | partial | no |  |
+| `sendPassStory` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | PASS_STORY=133 | partial | no |  |
+| `sendPaymentTakeCard` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | PAYMENT_TAKE_CARD=114 | partial | no |  |
+| `sendPetSkill` | `game/view/prop/PetSkillBar.as` | 91 GAME_CMD | PET_SKILL=144 | partial | no |  |
+| `sendShootTag` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | FIRE_TAG=96 | partial | no |  |
+| `sendSuicide` | — | 91 GAME_CMD | SUICIDE=17 | partial | no |  |
+| `sendTransmissionGate` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | DELIVER=137 | partial | no |  |
+| `sendUpdatePlayStep` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | MISSION_CMD=25 | partial | no |  |
+| `useDeputyWeapon` | — | 91 GAME_CMD | USE_DEPUTY_WEAPON=84 | partial | no |  |
+| `sendWorldBossRoomStauts` | `game/actions/MissionOverAction.as`<br>`worldboss/WorldBossManager.as`<br>`worldboss/view/WorldBossFightRoomState.as` (+1) | 102 WORLDBOSS_CMD | STAUTS=36 | missing | no |  |
+| `sendGetTropToBag` | `game/view/card/TakeOutCardController.as` | 108 GAME_TAKE_TEMP |  | missing | no |  |
+| `sendGetTropToBag` | `game/view/card/TakeOutCardController.as` | 108 GAME_TAKE_TEMP |  | missing | no |  |
+| `sendDefyAffiche` | `game/view/DefyAfficheViewFrame.as` | 123 DEFY_AFFICHE |  | missing | no |  |
+
+## Configurações
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendOpition` | `setting/view/SettingView.as` | 64 OPTION_UPDATE |  | ok | no |  |
+| `sendCIDInfo` | `ddt/view/enthrall/ValidateFrame.as` | 224 CID_CHECK |  | missing | no |  |
+
+## Conta/Login
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendLogin` | `ddt/manager/SocketManager.as` | 1 LOGIN | Version.Build=5498628 | ok | no |  |
+| `sendPint` | `ddt/manager/SocketManager.as` | 4 PING |  | ok | no |  |
+| `sendBagLocked` | `baglocked/BagLockedController.as`<br>`ddt/manager/ServerManager.as` | 25 BAG_LOCKED |  | missing | no |  |
+| `sendCheckCode` | `ddt/view/CheckCodeFrame.as` | 200 CHECK_CODE |  | missing | no |  |
+| `sendEnterRoom` | `church/controller/ChurchRoomListController.as`<br>`church/view/weddingRoomList/WeddingRoomListNavView.as`<br>`church/view/weddingRoomList/frame/WeddingRoomEnterConfirmView.as` (+2) | 242 MARRY_ROOM_LOGIN |  | missing | no |  |
+| `sendpkgCheckHack` | `ddt/manager/CheckSpeedManager.as` | 300 300 |  | ok | no |  |
+
+## Correio
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendDeleteMail` | `email/manager/MailManager.as` | 112 DELETE_MAIL |  | ok | no |  |
+| `sendGetMail` | `email/manager/MailManager.as` | 113 GET_MAIL_ATTACHMENT |  | ok | no |  |
+| `sendUpdateMail` | `email/manager/MailManager.as` | 114 UPDATE_MAIL |  | ok | no |  |
+| `sendEmail` | `email/manager/MailManager.as` | 116 SEND_MAIL |  | ok | no |  |
+| `untreadEmail` | — | 118 MAIL_CANCEL |  | ok | no |  |
+| `sendConsortionMail` | `consortion/view/selfConsortia/ConsortionMailFrame.as` | 129 CONSORTIA_CMD | CONSORTION_MAIL=29 | missing | no |  |
+| `sendReloadGift` | `email/manager/MailManager.as` | 214 USER_RELOAD_GIFT |  | missing | no |  |
+
+## Escola/Aprendiz
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendAcademyFireApprentice` | `ddt/view/academyCommon/myAcademy/myAcademyItem/MyAcademyApprenticeItem.as` | 141 AcademyPackageType.ACADEMY_FATHER | FIRE_APPRENTICE=13 | missing | no |  |
+| `sendAcademyFireMaster` | `ddt/view/academyCommon/myAcademy/myAcademyItem/MyAcademyMasterItem.as` | 141 AcademyPackageType.ACADEMY_FATHER | FIRE_MASTER=12 | missing | no |  |
+| `sendAcademyRegister` | `ddt/view/academyCommon/register/AcademyRegisterFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | ACADEMY_REGISTER=1 | missing | no |  |
+| `sendAcademyRemoveRegister` | — | 141 AcademyPackageType.ACADEMY_FATHER | ACADEMY_REMOVE=3 | missing | no |  |
+
+## Eventos/Atividades
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendOpenDead` | `ddt/view/caddyII/bead/BeadViewII.as`<br>`ddt/view/caddyII/offerPack/OfferPackViewII.as` | 26 LOTTERY_OPEN_BOX |  | missing | no |  |
+| `sendRouletteBox` | `ddt/manager/RouletteManager.as`<br>`ddt/view/caddyII/CaddyViewII.as` | 26 LOTTERY_OPEN_BOX |  | missing | no |  |
+| `sendStartTurn` | `ddt/view/roulette/RouletteView.as`<br>`surpriseRoulette/view/SurpriseRouletteView.as` | 27 LOTTERY_RANDOM_SELECT |  | missing | no |  |
+| `sendFinishRoulette` | `ddt/view/caddyII/CaddyFrame.as`<br>`ddt/view/caddyII/CardBoxFrame.as`<br>`ddt/view/roulette/RouletteView.as` (+1) | 28 LOTTERY_FINISH |  | missing | no |  |
+| `sendQequestBadLuck` | `ddt/view/caddyII/badLuck/CaddyBadLuckView.as` | 45 CADDY_GET_BADLUCK |  | missing | no |  |
+| `sendGetTimeBox` | `ddt/manager/BossBoxManager.as`<br>`ddt/view/bossbox/BossBoxView.as` | 53 GET_TIME_BOX |  | missing | no |  |
+| `sendChickActivationGetAward` | `chickActivation/view/ChickActivationViewFrame.as` | 84 ACTIVITY_PACKAGE | ChickActivationType.CHICKACTIVATION=2 | missing | no |  |
+| `sendChickActivationOpenKey` | `chickActivation/view/ChickActivationViewFrame.as` | 84 ACTIVITY_PACKAGE | ChickActivationType.CHICKACTIVATION=2 | missing | no |  |
+| `sendChickActivationQuery` | `chickActivation/ChickActivationManager.as` | 84 ACTIVITY_PACKAGE | ChickActivationType.CHICKACTIVATION=2 | missing | no |  |
+| `sendChickenBoxTakeOverCard` | `newChickenBox/view/NewChickenBoxView.as` | 87 NEWCHICKENBOX_SYS | TAKEOVERCARD=13 | missing | no |  |
+| `sendChickenBoxUseEagleEye` | `newChickenBox/view/NewChickenBoxView.as` | 87 NEWCHICKENBOX_SYS | USEEAGLEEYE=11 | missing | no |  |
+| `sendClickStartBntNewChickenBox` | `newChickenBox/view/NewChickenBoxFrame.as` | 87 NEWCHICKENBOX_SYS | CLICKSTARTBNT=15 | missing | no |  |
+| `sendFlushNewChickenBox` | `newChickenBox/view/NewChickenBoxFrame.as` | 87 NEWCHICKENBOX_SYS | FLUSHCHICKENVIEW=14 | missing | no |  |
+| `sendLuckyStarClose` | `luckStar/manager/LuckStarManager.as` | 87 NEWCHICKENBOX_SYS | CLOSE_GAME=32 | missing | no |  |
+| `sendLuckyStarEnter` | `luckStar/manager/LuckStarManager.as` | 87 NEWCHICKENBOX_SYS | ENTER_GAME=31 | missing | no |  |
+| `sendLuckyStarTurn` | `luckStar/view/LuckStarFrame.as` | 87 NEWCHICKENBOX_SYS | START_TURN=33 | missing | no |  |
+| `sendLuckyStarTurnComplete` | `luckStar/view/LuckStarFrame.as` | 87 NEWCHICKENBOX_SYS | TURN_COMPLETE=34 | missing | no |  |
+| `sendNewChickenBox` | `newChickenBox/controller/NewChickenBoxManager.as` | 87 NEWCHICKENBOX_SYS | ENTERCHICKENVIEW=10 | missing | no |  |
+| `sendOverShowItems` | `newChickenBox/controller/NewChickenBoxManager.as` | 87 NEWCHICKENBOX_SYS | AllITEMSHOW=12 | missing | no |  |
+| `sendCardLotteryIds` | `lottery/view/CardChooseRightView.as` | 104 CARD_LOTTERY |  | missing | no |  |
+| `sendLuckLottery` | `lottery/LotteryContorller.as` | 105 LUCK_LOTTERY |  | missing | no |  |
+| `sendStartTurn_LeftGun` | `roulette/RouletteFrame.as` | 128 LEFT_GUN_ROULETTE_SOCKET |  | missing | no |  |
+| `sendEndTurn_LeftGun` | `roulette/RouletteFrame.as` | 130 LEFT_GUN_ROULETTE_COMPLETTE |  | missing | no |  |
+| `sendGuildMemberWeekAddRanking` | `guildMemberWeek/controller/GuildMemberWeekController.as` | 145 GUILDMEMBERWEEK_SYSTEM | SEND_ADDRUNKING=10 | missing | no |  |
+| `sendGuildMemberWeekStarClose` | `guildMemberWeek/manager/GuildMemberWeekManager.as` | 145 GUILDMEMBERWEEK_SYSTEM | CLOSE=9 | missing | no |  |
+| `sendGuildMemberWeekStarEnter` | `guildMemberWeek/manager/GuildMemberWeekManager.as` | 145 GUILDMEMBERWEEK_SYSTEM | ENTER_GAME=8 | missing | no |  |
+| `sendLanternRiddlesQuestion` | `lanternriddles/view/LanternRiddlesView.as` | 145 ACTIVITY_SYSTEM |  | missing | no |  |
+| `sendLanternRiddlesRankInfo` | `lanternriddles/view/LanternRiddlesView.as` | 145 ACTIVITY_SYSTEM |  | missing | no |  |
+| `sendLanternRiddlesUseSkill` | `lanternriddles/view/LanternRiddlesView.as` | 145 ACTIVITY_SYSTEM | LANTERNRIDDLES_SKILL=41 | missing | no |  |
+| `sendLightRoadStarEnter` | `lightRoad/manager/LightRoadManager.as` | 145 LIGHTROAD_SYSTEM | ENTER_GAME=64 | missing | no |  |
+| `sendOpenAll` | `ddt/view/caddyII/CaddyBagView.as` | 204 OPEN_ALL_CARDBOX |  | missing | no |  |
+| `sendOpenCardBox` | `ddt/view/caddyII/card/CardViewII.as` | 216 CARDS_DATA |  | missing | no |  |
+| `sendWeeklyClick` | `times/TimesManager.as` | 219 WEEKLY_CLICK_CNT |  | missing | no |  |
+| `sendBuyGift` | `giftSystem/view/ClearingInterface.as` | 221 USER_SEND_GIFTS |  | missing | no |  |
+| `sendSellAll` | `ddt/view/caddyII/CaddyBagView.as`<br>`ddt/view/caddyII/CaddyFrame.as`<br>`ddt/view/caddyII/CardBoxFrame.as` | 232 CADDY_SELL_ALL_GOODS |  | missing | no |  |
+| `gotoCardLottery` | — | 239 GOTO_CARD_LOTTERY |  | missing | no |  |
+| `sendRequestAwards` | `ddt/view/caddyII/reader/ReadAwardsView.as` | 245 CADDY_GET_AWARDS |  | ok | no |  |
+
+## Fazenda
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendBuyPetExpItem` | `farm/viewx/FarmBuyExpFrame.as` | 68 PET | BUY_PET_EXP_ITEM=19 | missing | no |  |
+| `doMature` | — | 81 FARM | ACCELERATE_FIELD=3 | missing | no |  |
+| `enterFarm` | — | 81 FARM | ENTER_FARM=1 | missing | no |  |
+| `exitFarm` | — | 81 FARM | EXIT_FARM=16 | missing | no |  |
+| `fastForwardGrop` | — | 81 FARM | FRAM_GROP_FASTFORWARD=18 | missing | no |  |
+| `giftPacks` | — | 81 FARM | FARM_GIFTPACKS=20 | missing | no |  |
+| `seeding` | — | 81 FARM | GROW_FIELD=2 | missing | no |  |
+| `sendBeginHelper` | `farm/viewx/helper/FarmHelperView.as`<br>`farm/viewx/helper/HelperBeginFrame.as` | 81 FARM | HELPER_SWITCH_FIELD=9 | missing | no |  |
+| `sendCompose` | `farm/view/compose/FarmComposePnl.as` | 81 FARM | COMPOSE_FOOD=5 | missing | no |  |
+| `toFarmHelper` | — | 81 FARM | HELPER_SWITCH_FIELD=9 | missing | no |  |
+| `toGather` | — | 81 FARM | GAIN_FIELD=4 | missing | no |  |
+| `toHelperRenewMoney` | — | 81 FARM | HELPER_PAY_FIELD=8 | missing | no |  |
+| `toKillCrop` | — | 81 FARM | KILLCROP_FIELD=7 | missing | no |  |
+| `toSpread` | — | 81 FARM | PAY_FIELD=6 | missing | no |  |
+
+## Ferreiro
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendItemCompose` | `store/view/Compose/StoreIIComposeBG.as` | 58 ITEM_COMPOSE |  | partial | no | Implementado: taxa {80,50,30,10,5}% por qualidade (+1% sem amuleto), PRICE_COMPOSE_GOLD (1600). |
+| `sendItemStrength` | `store/view/strength/StoreIIStrengthBG.as` | 59 ITEM_STRENGTHEN |  | partial | yes | Pedras nv 4/5 em arma: sucesso, +1 por clique, 1 pedra consumida por slot (desvio: C# consumia a pilha inteira), furo 1 abre no +3. — evidência: research/e2e/qa/b7-strengthen-tip.png, b8-weapon-tip.png, b11-inlay2.png |
+| `sendItemTransfer` | `store/view/transfer/StoreIITransferBG.as` | 61 ITEM_TRANSFER |  | missing | no |  |
+| `sendItemFusion` | `store/view/fusion/StoreIIFusionBG.as` | 78 ITEM_FUSION |  | ok | no | Implementado: prévia 76 + fusão 400 ouro (FusionMgr). |
+| `necklaceStrength` | — | 95 NECKLACE_STRENGTH |  | missing | no |  |
+| `sendWishBeadEquip` | `store/forge/wishBead/WishBeadMainView.as` | 106 WISHBEADEQUIP |  | missing | no |  |
+| `sendItemTrend` | — | 120 ITEM_TREND |  | missing | no |  |
+| `sendItemEmbed` | `store/view/embed/StoreEmbedBG.as` | 121 ITEM_INLAY |  | ok | no | Implementado (furo precisa estar aberto e tipo igual ao Property2 da gema); sem gema no personagem de teste para verificar no cliente. |
+| `sendItemEmbedBackout` | `store/view/embed/StoreEmbedBG.as` | 125 ITEM_EMBED_BACKOUT |  | ok | no | Implementado: 500 Xu, gema volta vinculada, devolve itens do ferreiro. |
+| `sendLatentEnergy` | `latentEnergy/LatentEnergyMainView.as` | 133 LATENT_ENERGY |  | missing | no |  |
+| `sendItemExalt` | `store/view/exalt/StoreExaltBG.as` | 138 ITEM_ADVANCE |  | missing | no |  |
+| `sendSaveDB` | `store/StoreMainView.as` | 172 SAVE_DB |  | ok | no |  |
+| `fightSpiritRequest` | — | 209 FIGHT_SPIRIT | FIGHT_SPIRIT_INIT=1 | missing | no |  |
+| `sendItemOpenFiveSixHole` | `store/view/embed/StoreEmbedBG.as` | 217 OPEN_FIVE_SIX_HOLE |  | missing | no |  |
+| `sendForgeSuit` | `store/fineStore/view/FineForgeView.as` | 295 STORE_FINE_SUIT | FORGE_SUIT=1 | missing | no |  |
+| `sendEquipGhost` | `store/equipGhost/EquipGhostManager.as` | 391 EQUIP_GHOST |  | missing | no |  |
+
+## GvG/Liga
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendEliteGameStart` | `eliteGame/EliteGameController.as` | 162 ELITEGAME | ELITE_MATCH_RANK_START=2 | missing | no |  |
+| `sendGetEliteGameState` | `eliteGame/EliteGameController.as` | 162 ELITEGAME | ELITE_MATCH_TYPE=1 | missing | no |  |
+| `sendGetPaarungDetail` | `eliteGame/view/EliteGamePaarungFrame.as` | 162 ELITEGAME | ELITE_MATCH_RANK_DETAIL=4 | missing | no |  |
+| `sendGetSelfRankSroce` | `eliteGame/EliteGameController.as` | 162 ELITEGAME | ELITE_MATCH_PLAYER_RANK=3 | missing | no |  |
+
+## Leilão
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `auctionGood` | — | 192 AUCTION_ADD |  | missing | no |  |
+| `auctionBid` | — | 193 AUCTION_UPDATE |  | missing | no |  |
+| `auctionCancelSell` | — | 194 AUCTION_DELETE |  | missing | no |  |
+
+## Lobby/Chat/Bugle
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendMessage` | `ddt/manager/ChatManager.as` | 19 SCENE_CHAT |  | ok | no |  |
+| `sendFace` | `ddt/manager/ChatManager.as` | 20 SCENE_FACE |  | ok | no |  |
+| `sendExitScene` | `ddt/manager/GameInSocketOut.as` | 21 SCENE_REMOVE_USER |  | ok | no |  |
+| `sendPrivateMessage` | `ddt/manager/ChatManager.as` | 37 CHAT_PERSONAL |  | ok | no |  |
+| `sendGetScenePlayer` | `ddt/manager/GameInSocketOut.as` | 69 SCENE_USERS_LIST |  | ok | no |  |
+| `sendSBugle` | `ddt/manager/ChatManager.as` | 71 S_BUGLE |  | ok | no |  |
+| `sendBBugle` | `ddt/manager/ChatManager.as`<br>`ddt/view/chat/ChatBugleInputFrame.as` | 72 B_BUGLE |  | ok | no |  |
+| `sendCBugle` | `ddt/manager/ChatManager.as` | 73 C_BUGLE |  | ok | no |  |
+| `sendGetLinkGoodsInfo` | `ddt/view/chat/ChatOutputField.as` | 119 LINKREQUEST_GOODS |  | missing | no |  |
+| `sendQuestCheck` | `auctionHouse/controller/AuctionHouseController.as`<br>`ddt/manager/ChatManager.as`<br>`ddt/manager/TaskManager.as` (+3) | 181 QUEST_CHECK |  | ok | no |  |
+
+## Loja
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendBuyGoods` | `AvatarCollection/view/AvatarCollectionItemCell.as`<br>`chickActivation/view/ChickActivationViewFrame.as`<br>`consortion/view/selfConsortia/ConsortionShopItem.as` (+16) | 44 BUY_GOODS |  | ok | yes | Xu (money) e Lễ kim (giftToken) debitados e saldo atualiza na loja (corrigido pacote 38 sem petScore). Ouro/medalha/itens exigidos pelo mesmo caminho (GetItemPrice). — evidência: research/e2e/qa/c6-shop-balance.png |
+| `sendBuyGiftBag` | `store/view/strength/BuyGiftBagButton.as` | 46 BUY_GIFTBAG |  | missing | no |  |
+| `sendSellGoods` | — | 48 SEll_GOODS |  | missing | no |  |
+| `sendPresentGoods` | `shop/ShopController.as`<br>`shop/manager/ShopGiftsManager.as` | 57 GOODS_PRESENT |  | missing | no |  |
+| `sendQuickBuyGoldBox` | `ddt/command/QuickBuyFrame.as` | 126 BUY_QUICK_GOLDBOX |  | missing | no |  |
+| `sendFriendState` | `ddt/manager/PlayerStateManager.as`<br>`im/StateIconButton.as`<br>`labyrinth/view/CleanOutFrame.as` (+1) | 160 IM_CMD | FRIEND_STATE=165 | ok | no |  |
+| `sendCurrentState` | `church/controller/ChurchRoomController.as`<br>`civil/CivilController.as`<br>`consortion/ConsortionControl.as` (+3) | 251 SCENE_STATE |  | missing | no |  |
+
+## Missões
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendErrorMsg` | `calendar/CalendarManager.as`<br>`calendar/view/goodsExchange/GoodsExchangeView.as`<br>`ddt/bagStore/BagStoreFrame.as` (+13) | 8 CLIENT_LOG |  | ok | no |  |
+| `sendDailyAward` | `calendar/CalendarManager.as`<br>`hall/HallStateView.as`<br>`times/TimesManager.as` (+1) | 13 DAILY_AWARD |  | missing | no |  |
+| `syncStep` | — | 15 USER_ANSWER |  | missing | no |  |
+| `syncWeakStep` | — | 15 USER_ANSWER |  | missing | no |  |
+| `sendPicc` | `calendar/view/ActivityState.as` | 30 PICC |  | ok | no |  |
+| `sendGoodsExchange` | `calendar/view/goodsExchange/GoodsExchangeView.as` | 31 GOODS_EXCHANGE |  | missing | no |  |
+| `sendCollectInfoValidate` | `quest/InfoCollectView.as` | 32 COLLECTINFO |  | missing | no |  |
+| `sendQuestionReply` | `ddt/manager/QuestionInfoMannager.as` | 89 QUESTION_REPLY |  | missing | no |  |
+| `sendSignAward` | `calendar/CalendarManager.as` | 90 GET_SIGNAWARD |  | missing | no |  |
+| `labyrinthRequestUpdate` | — | 131 LABYRINTH | REQUEST_UPDATE=2 | missing | no |  |
+| `sendAcademyApprentice` | `ddt/view/academyCommon/academyRequest/AcademyRequestMasterFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | ACADEMY_FOR_APPRENTICE=4 | missing | no |  |
+| `sendAcademyApprenticeConfirm` | `ddt/view/academyCommon/academyRequest/AcademyAnswerApprenticeFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | APPRENTICE_CONFIRM=7 | missing | no |  |
+| `sendAcademyMaster` | `ddt/view/academyCommon/academyRequest/AcademyRequestApprenticeFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | ACADEMY_FOR_MASTER=5 | missing | no |  |
+| `sendAcademyMasterConfirm` | `ddt/view/academyCommon/academyRequest/AcademyAnswerMasterFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | MASTER_CONFIRM=6 | missing | no |  |
+| `sendLanternRiddlesAnswer` | `lanternriddles/view/QuestionView.as` | 145 ACTIVITY_SYSTEM | LANTERNRIDDLES_ANSWER=40 | missing | no |  |
+| `sendUserLuckyNum` | `calendar/CalendarManager.as`<br>`calendar/view/LuckyNumBar.as` | 161 USER_LUCKYNUM |  | ok | no |  |
+| `sendQuestAdd` | `ddt/manager/TaskManager.as` | 176 QUEST_ADD |  | ok | no |  |
+| `sendQuestRemove` | — | 177 QUEST_REMOVE |  | ok | no |  |
+| `sendQuestFinish` | `ddt/manager/TaskManager.as`<br>`quest/TaskMainFrame.as` | 179 QUEST_FINISH |  | ok | no |  |
+| `sendRequestUpdate` | `effortView/EffortMainFrame.as` | 225 REQUEST_UPDATE |  | ok | no |  |
+| `sendAchievementFinish` | `ddt/manager/EffortManager.as` | 230 ACHIEVEMENT_FINISH |  | missing | no |  |
+| `requestRefund` | — | 249 MARRY_CMD | MARRYROOMSENDGIFT=12 | missing | no |  |
+| `sendAccumulativeLoginAward` | `accumulativeLogin/view/AccumulativeLoginView.as` | 338 ACCUMULATIVELOGIN_AWARD |  | missing | no |  |
+
+## Outros
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendDailyRecord` | `ddt/dailyRecord/DailyRecordControl.as` | 103 DAILYRECORD |  | missing | no |  |
+| `sendItemLianhua` | — | 110 ITEM_REFINERY |  | missing | no |  |
+| `arrange` | — | 135 135 |  | missing | no |  |
+| `lightRoadPointWork` | — | 145 LIGHTROAD_SYSTEM | BECHOOSE_POINT=66 | missing | no |  |
+| `sendLookupEffort` | `ddt/manager/EffortManager.as` | 203 LOOKUP_EFFORT |  | missing | no |  |
+| `figSpiritUpGrade` | — | 209 FIGHT_SPIRIT | FIGHT_SPIRIT_LEVELUP=3 | missing | no |  |
+| `sendUseLog` | — | 213 USE_LOG |  | ok | no |  |
+| `sendCIDCheck` | — | 224 CID_CHECK |  | missing | no |  |
+| `sendForSwitch` | — | 225 ENTHRALL_SWITCH |  | ok | no |  |
+| `sendRegisterInfo` | `civil/view/CivilRegisterFrame.as`<br>`civil/view/CivilRightView.as` | 236 MARRYINFO_ADD |  | missing | no |  |
+| `sendModifyInfo` | `civil/view/CivilRegisterFrame.as` | 237 MARRYINFO_UPDATE |  | missing | no |  |
+| `refund` | — | 249 MARRY_CMD | MARRYROOMSENDGIFT=12 | missing | no |  |
+| `sendNoviceActivityGetAward` | `ddt/manager/GameInSocketOut.as` | 258 NOVICEACTIVITY |  | missing | no |  |
+| `sendFirstRechargeGetAward` | `ddt/manager/GameInSocketOut.as` | 259 FIRSTRECHARGE |  | missing | no |  |
+| `sendBringUpEat` | `ddt/manager/GameInSocketOut.as` | 308 EQUIP_BRING_UP |  | missing | no |  |
+| `sendBringUpLockStatusUpdate` | `ddt/manager/GameInSocketOut.as` | 313 ITEM_CELL_IS_LOCKED |  | missing | no |  |
+
+## Personagem/FC
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `showHideTitleState` | — | 279 279 |  | ok | no |  |
+| `sendAvatarCollectionActive` | `AvatarCollection/view/AvatarCollectionItemCell.as` | 402 AVATAR_COLLECTION | ACTIVE=3 | missing | no |  |
+| `sendAvatarCollectionDelayTime` | `AvatarCollection/view/AvatarCollectionTimeView.as` | 402 AVATAR_COLLECTION | DELAY_TIME=4 | missing | no |  |
+
+## Pets
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `addPetEquip` | — | 68 PET | ADD_PET_EQUIP=20 | missing | no |  |
+| `delPetEquip` | — | 68 PET | DEL_PET_EQUIP=21 | missing | no |  |
+| `eatPetsHandler` | — | 68 PET | EAT_PETS=33 | missing | no |  |
+| `sendAdoptPet` | `petsBag/view/AdoptPetsGuideView.as`<br>`petsBag/view/AdoptPetsView.as` | 68 PET | ADOPT_PET=6 | missing | no |  |
+| `sendEquipPetSkill` | `petsBag/view/PetGameSkillPnl.as`<br>`petsBag/view/PetSkillPnl.as`<br>`petsBag/view/item/SkillItem.as` | 68 PET | EQUIP_PET_SKILL=7 | missing | no |  |
+| `sendPaySkill` | `petsBag/view/PetGameSkillPnl.as` | 68 PET | PAY_SKILL=16 | missing | no |  |
+| `sendPetEvolution` | `petsBag/petsAdvanced/PetsAdvancedView.as` | 68 PET | PET_EVOLUTION=23 | missing | no |  |
+| `sendPetFeed` | `petsBag/view/PetsBagOutView.as` | 68 PET | FEED_PET=4 | missing | no |  |
+| `sendPetFightUnFight` | `pet/sprite/PetSpriteController.as`<br>`petsBag/view/PetsBagOutView.as` | 68 PET | FIGHT_PET=17 | missing | no |  |
+| `sendPetFollowOrCall` | `petsBag/petsAdvanced/PetsFormPetsItem.as` | 68 PET | PET_FOLLOW=25 | missing | no |  |
+| `sendPetFormInfo` | `petsBag/petsAdvanced/PetsFormView.as` | 68 PET | PET_FORMINFO=24 | missing | no |  |
+| `sendPetRename` | `petsBag/view/PetsBagOutView.as` | 68 PET | RENAME_PET=9 | missing | no |  |
+| `sendPetRisingStar` | `petsBag/petsAdvanced/PetsAdvancedView.as` | 68 PET | PET_RISINGSTAR=22 | missing | no |  |
+| `sendPetWake` | `petsBag/petsAdvanced/PetsFormPetsItem.as` | 68 PET | PET_WAKE=32 | missing | no |  |
+| `sendRefreshPet` | `petsBag/view/AdoptPetsGuideView.as`<br>`petsBag/view/AdoptPetsView.as` | 68 PET | REFRESH_PET=5 | missing | no |  |
+| `sendReleasePet` | `petsBag/view/PetsBagOutView.as` | 68 PET | RELEASE_PET=8 | missing | no |  |
+| `sendRevertPet` | `petsBag/view/PetsBagOutView.as` | 68 PET | REVER_PET=18 | missing | no |  |
+
+## PvE/Masmorras
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendBeginFightNpc` | — | 50 FIGHT_NPC |  | missing | no |  |
+| `sendGameMissionStart` | `ddt/manager/GameInSocketOut.as` | 82 CrazyTankPackageType.GAME_MISSION_START |  | missing | no |  |
+| `labyrinthCleanOut` | — | 131 LABYRINTH | CLEAN_OUT=3 | missing | no |  |
+| `labyrinthCleanOutTimerComplete` | — | 131 LABYRINTH | CLEAN_OUT_COMPLETE=8 | missing | no |  |
+| `labyrinthDouble` | — | 131 LABYRINTH | DOUBLE_REWARD=1 | missing | no |  |
+| `labyrinthReset` | — | 131 LABYRINTH | RESET_LABYRINTH=6 | missing | no |  |
+| `labyrinthSpeededUpCleanOut` | — | 131 LABYRINTH | SPEEDED_UP_CLEAN_OUT=4 | missing | no |  |
+| `labyrinthStopCleanOut` | — | 131 LABYRINTH | STOP_CLEAN_OUT=5 | missing | no |  |
+| `labyrinthTryAgain` | — | 131 LABYRINTH | TRY_AGAIN=9 | missing | no |  |
+
+## Salas PvP
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendSceneLogin` | `hall/HallStateView.as`<br>`roomList/pveRoomList/DungeonListController.as`<br>`roomList/pvpRoomList/RoomListController.as` | 16 SCENE_LOGIN |  | ok | no |  |
+| `sendBuyProp` | `room/view/RoomPropCell.as`<br>`room/view/states/FreshmanRoomState.as` | 54 PROP_BUY |  | missing | no |  |
+| `sendBuyProp` | `room/view/RoomPropCell.as`<br>`room/view/states/FreshmanRoomState.as` | 54 PROP_BUY |  | missing | no |  |
+| `sendSellProp` | `room/view/RoomPropCell.as` | 55 PROP_SELL |  | missing | no |  |
+| `sendSellProp` | `room/view/RoomPropCell.as` | 55 PROP_SELL |  | missing | no |  |
+| `sendInviteGame` | `ddt/manager/GameInSocketOut.as` | 70 GAME_INVITE |  | ok | no |  |
+| `createUserGuide` | — | 94 GAME_ROOM | GAME_ROOM_CREATE=0 | ok | no |  |
+| `enterUserGuide` | — | 94 GAME_ROOM | GAME_ROOM_SETUP_CHANGE=2 | ok | no |  |
+| `sendCancelWait` | `ddt/manager/GameInSocketOut.as` | 94 GAME_ROOM | GAME_PICKUP_CANCEL=11 | ok | no |  |
+| `sendGameMode` | — | 94 GAME_ROOM | GAME_PICKUP_STYLE=12 | ok | no |  |
+| `sendGamePlayerExit` | `ddt/manager/GameInSocketOut.as` | 94 GAME_ROOM | GAME_ROOM_REMOVEPLAYER=5 | ok | no |  |
+| `sendGameRoomKick` | `ddt/manager/GameInSocketOut.as` | 94 GAME_ROOM | GAME_ROOM_KICK=3 | ok | no |  |
+| `sendGameRoomPlaceState` | `ddt/manager/GameInSocketOut.as` | 94 GAME_ROOM | GAME_ROOM_UPDATE_PLACE=10 | ok | no |  |
+| `sendGameRoomSetUp` | `ddt/manager/GameInSocketOut.as` | 94 GAME_ROOM | GAME_ROOM_SETUP_CHANGE=2 | ok | no |  |
+| `sendGameStart` | `ddt/manager/GameInSocketOut.as` | 94 GAME_ROOM | GAME_START=7 | ok | no |  |
+| `sendGameStyle` | `room/view/bigMapInfoPanel/MatchRoomBigMapInfoPanel.as` | 94 GAME_ROOM | GAME_PICKUP_STYLE=12 | ok | no |  |
+| `sendGameStyle` | `room/view/bigMapInfoPanel/MatchRoomBigMapInfoPanel.as` | 94 GAME_ROOM | GAME_PICKUP_STYLE=12 | ok | no |  |
+| `sendGameTeam` | `ddt/manager/GameInSocketOut.as` | 94 GAME_ROOM | GAME_TEAM=6 | ok | no |  |
+| `sendPlayerState` | `ddt/manager/GameInSocketOut.as` | 94 GAME_ROOM | GAME_PLAYER_STATE_CHANGE=15 | ok | no |  |
+| `sendUpdateRoomList` | `roomList/RoomListMapTipPanel.as`<br>`roomList/RoomListTipPanel.as`<br>`roomList/pveRoomList/DungeonListBGView.as` (+1) | 94 GAME_ROOM | ROOMLIST_UPDATE=9 | ok | no |  |
+| `userGuideStart` | — | 94 GAME_ROOM | GAME_START=7 | ok | no |  |
+
+## Sociedade/Guilda
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendBuyBadge` | `consortion/view/selfConsortia/BadgeShopItem.as` | 129 CONSORTIA_CMD | BUY_BADGE=28 | missing | no |  |
+| `sendConsoritaApplyStatusOut` | `consortion/view/selfConsortia/TakeInMemberFrame.as` | 129 CONSORTIA_CMD | CONSORTIA_APPLY_STATE=7 | missing | no |  |
+| `sendConsortiaCancelTryIn` | — | 129 CONSORTIA_CMD | CONSORTIA_TRYIN=0 | missing | no |  |
+| `sendConsortiaChangeChairman` | `consortion/view/selfConsortia/ConsortionTrasferFrame.as` | 129 CONSORTIA_CMD | CONSORTIA_CHAIRMAN_CHAHGE=19 | missing | no |  |
+| `sendConsortiaDismiss` | `consortion/view/selfConsortia/SelfConsortiaView.as` | 129 CONSORTIA_CMD | CONSORTIA_DISBAND=2 | missing | no |  |
+| `sendConsortiaDutyDelete` | — | 129 CONSORTIA_CMD | CONSORTIA_DUTY_DELETE=9 | missing | no |  |
+| `sendConsortiaEquipConstrol` | `consortion/view/selfConsortia/ManagerFrame.as` | 129 CONSORTIA_CMD | CONSORTIA_EQUIP_CONTROL=24 | missing | no |  |
+| `sendConsortiaInvate` | `consortion/view/selfConsortia/WantTakeInFrame.as`<br>`ddt/view/tips/PlayerTip.as` | 129 CONSORTIA_CMD | CONSORTIA_INVITE=11 | missing | no |  |
+| `sendConsortiaInvateDelete` | `consortion/ConsortionModelControl.as` | 129 CONSORTIA_CMD | CONSORTIA_INVITE_DELETE=13 | missing | no |  |
+| `sendConsortiaInvatePass` | `consortion/ConsortionModelControl.as`<br>`consortion/view/club/ClubRecordItem.as` | 129 CONSORTIA_CMD | CONSORTIA_INVITE_PASS=12 | missing | no |  |
+| `sendConsortiaLevelUp` | `consortion/view/selfConsortia/ConsortionUpGradeFrame.as` | 129 CONSORTIA_CMD | CONSORTIA_LEVEL_UP=21 | missing | no |  |
+| `sendConsortiaMemberGrade` | `ddt/view/tips/PlayerTip.as` | 129 CONSORTIA_CMD | CONSORTIA_USER_GRADE_UPDATE=1 | missing | no |  |
+| `sendConsortiaOut` | `consortion/view/selfConsortia/ConsortionQuitFrame.as`<br>`ddt/view/tips/PlayerTip.as` | 129 CONSORTIA_CMD | CONSORTIA_RENEGADE=3 | missing | no |  |
+| `sendConsortiaRichOffer` | `consortion/view/selfConsortia/TaxFrame.as`<br>`ddt/view/consortia/MyConsortiaTax.as` | 129 CONSORTIA_CMD | CONSORTIA_RICHES_OFFER=6 | missing | no |  |
+| `sendConsortiaTryIn` | `consortion/view/club/ClubView.as`<br>`tofflist/view/TofflistLeftCurrentCharcter.as` | 129 CONSORTIA_CMD | CONSORTIA_TRYIN=0 | missing | no |  |
+| `sendConsortiaTryinDelete` | `consortion/view/club/ClubRecordItem.as`<br>`consortion/view/selfConsortia/TakeInMemberFrame.as`<br>`consortion/view/selfConsortia/TakeInMemberItem.as` | 129 CONSORTIA_CMD | CONSORTIA_TRYIN_DEL=5 | missing | no |  |
+| `sendConsortiaTryinPass` | `consortion/view/selfConsortia/TakeInMemberFrame.as`<br>`consortion/view/selfConsortia/TakeInMemberItem.as` | 129 CONSORTIA_CMD | CONSORTIA_TRYIN_PASS=4 | missing | no |  |
+| `sendConsortiaUpdateDescription` | `consortion/view/selfConsortia/ConsortionDeclareFrame.as` | 129 CONSORTIA_CMD |  | missing | no |  |
+| `sendConsortiaUpdateDuty` | `consortion/view/selfConsortia/JobManageItem.as` | 129 CONSORTIA_CMD | CONSORTIA_DUTY_UPDATE=10 | missing | no |  |
+| `sendConsortiaUpdatePlacard` | `consortion/view/selfConsortia/PlacardAndEvent.as` | 129 CONSORTIA_CMD | CONSORTIA_PLACARD_UPDATE=15 | missing | no |  |
+| `sendConsortiaUpgradeDuty` | — | 129 CONSORTIA_CMD | CONSORTIA_DUTY_UPDATE=10 | missing | no |  |
+| `sendConsortiaUserRemarkUpdate` | — | 129 CONSORTIA_CMD |  | missing | no |  |
+| `sendConsortionPoll` | `consortion/view/selfConsortia/ConsortionPollFrame.as` | 129 CONSORTIA_CMD | POLL_CANDIDATE=25 | missing | no |  |
+| `sendConsortionSkill` | `consortion/view/selfConsortia/ConsortionOpenSkillFrame.as`<br>`consortion/view/selfConsortia/ConsortionSkillItem.as` | 129 CONSORTIA_CMD | SKILL_SOCKET=26 | missing | no |  |
+| `sendCreateConsortia` | `consortion/view/club/CreateConsortionFrame.as` | 129 CONSORTIA_CMD | CONSORTIA_CREATE=1 | missing | no |  |
+| `sendDonate` | `consortion/view/selfConsortia/consortiaTask/DonateFrame.as` | 129 CONSORTIA_CMD | DONATE=23 | missing | no |  |
+| `sendForbidSpeak` | `ddt/view/tips/PlayerTip.as` | 129 CONSORTIA_CMD | CONSORTIA_BANCHAT_UPDATE=16 | missing | no |  |
+| `sendReleaseConsortiaTask` | `consortion/view/selfConsortia/consortiaTask/ConsortiaReleaseTaskFrame.as`<br>`consortion/view/selfConsortia/consortiaTask/ConsortiaSubmitTaskFrame.as`<br>`consortion/view/selfConsortia/consortiaTask/ConsortiaTaskView.as` | 129 CONSORTIA_CMD | CONSORTIA_TASK_RELEASE=22 | missing | no |  |
+
+## Spa/Fonte termal
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendHotAddTime` | `hotSpring/controller/HotSpringRoomController.as`<br>`hotSpring/controller/HotSpringRoomListController.as` | 12 HOTSPRING_CMD_B | CONTINU_BY_MONEY=11 | missing | no |  |
+| `sendHotSpringRoomPlayerRemove` | `ddt/manager/HotSpringManager.as`<br>`hotSpring/controller/HotSpringRoomController.as` | 169 HOTSPRING_ROOM_PLAYER_REMOVE |  | missing | no |  |
+| `sendHotSpringRoomCreate` | `hotSpring/controller/HotSpringRoomListController.as` | 175 HOTSPRING_ROOM_CREATE |  | missing | no |  |
+| `sendHotSpringEnter` | `hotSpring/controller/HotSpringRoomListController.as` | 187 HOTSPRING_ENTER |  | missing | no |  |
+| `sendHotSpringRoomQuickEnter` | `hotSpring/controller/HotSpringRoomListController.as` | 190 HOTSPRING_ROOM_QUICK_ENTER |  | missing | no |  |
+| `sendHotSpringRoomAdminRemovePlayer` | — | 191 HOTSPRING_CMD |  | missing | no |  |
+| `sendHotSpringRoomEdit` | `hotSpring/controller/HotSpringRoomController.as` | 191 HOTSPRING_CMD | HOTSPRING_ROOM_EDIT=6 | missing | no |  |
+| `sendHotSpringRoomInvite` | — | 191 HOTSPRING_CMD | HOTSPRING_ROOM_INVITE=4 | missing | no |  |
+| `sendHotSpringRoomPlayerContinue` | `hotSpring/controller/HotSpringRoomController.as` | 191 HOTSPRING_CMD |  | missing | no |  |
+| `sendHotSpringRoomPlayerTargetPoint` | `hotSpring/controller/HotSpringRoomController.as` | 191 HOTSPRING_CMD | TARGET_POINT=1 | missing | no |  |
+| `sendHotSpringRoomRenewalFee` | `hotSpring/controller/HotSpringRoomController.as` | 191 HOTSPRING_CMD | HOTSPRING_ROOM_RENEWAL_FEE=3 | missing | no |  |
+| `sendHotSpringRoomEnterView` | `hotSpring/view/HotSpringRoomView.as` | 201 HOTSPRING_ROOM_ENTER_VIEW |  | missing | no |  |
+| `sendHotSpringRoomEnter` | `hotSpring/controller/HotSpringRoomListController.as` | 202 HOTSPRING_ROOM_ENTER |  | missing | no |  |
+| `sendHotSpringRoomEnterConfirm` | `hotSpring/controller/HotSpringRoomListController.as` | 212 HOTSPRING_ROOM_ENTER_CONFIRM |  | missing | no |  |
+
+## Totem/Honra
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendHonorUp` | `totem/view/HonorUpFrame.as`<br>`totem/view/HonorUpIcon.as` | 96 HONOR_UP_COUNT |  | missing | no |  |
+| `sendOpenOneTotem` | `totem/view/TotemLeftWindowView.as` | 136 TOTEM |  | missing | no |  |
+
+## VIP
+
+| Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
+|---|---|---|---|---|---|---|
+| `sendOpenVip` | `vip/VipController.as` | 92 VIP_RENEWAL |  | missing | no |  |
+

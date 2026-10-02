@@ -13,7 +13,7 @@ import { PlayerEquipInventory, PlayerInventory, type InventoryHooks } from "./in
 import type { MatchRow, PlayerInfo } from "./player-info.js";
 import type { BaseRoom } from "../rooms/room.js";
 import type { QuestInventory } from "./quests.js";
-import { saveQuests } from "../db/social.js";
+import { saveBuffs, saveQuests } from "../db/social.js";
 import { computeStats, emptyStatTables, type StatTables, type UserCard, type UserPet } from "./stats.js";
 
 /** ePlayerState. */
@@ -351,5 +351,6 @@ export class GamePlayer implements RoomMember {
       bag.removed.length = 0;
     }
     if (this.questInv) await saveQuests(db, this.questInv.takeDirty());
+    if (this.buffs.length) await saveBuffs(db, this.buffs);
   }
 }

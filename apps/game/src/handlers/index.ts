@@ -6,6 +6,8 @@ import { registerSocial } from "./social.js";
 import { registerRooms } from "./rooms.js";
 import { registerQuests } from "./quests.js";
 import { registerMail } from "./mail.js";
+import { registerForge } from "./forge.js";
+import { registerUse } from "./use.js";
 
 export function createRegistry(): HandlerRegistry {
   const r = new HandlerRegistry();
@@ -16,5 +18,7 @@ export function createRegistry(): HandlerRegistry {
   registerRooms(r);
   registerQuests(r);
   registerMail(r);
+  registerForge(r);
+  registerUse(r);
   return r;
 }

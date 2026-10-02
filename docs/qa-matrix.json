@@ -1,0 +1,5455 @@
+[
+ {
+  "key": "40:sendSnsMsg",
+  "area": "Amigos",
+  "func": "sendSnsMsg",
+  "files": [
+   "ddt/manager/DynamicManager.as",
+   "ddt/view/SNSFrame.as"
+  ],
+  "code": 40,
+  "name": "SNS_MSG_RECEIVE",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "94:sendGameLogin",
+  "area": "Amigos",
+  "func": "sendGameLogin",
+  "files": [
+   "invite/ResponseInviteFrame.as",
+   "roomList/LookupRoomFrame.as",
+   "roomList/PassInputFrame.as",
+   "roomList/pveRoomList/DungeonListBGView.as",
+   "roomList/pvpRoomList/RoomListBGView.as"
+  ],
+  "code": 94,
+  "name": "GAME_ROOM",
+  "sub": "GAME_ROOM_LOGIN=1",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "107:enterInviteFriendView",
+  "area": "Amigos",
+  "func": "enterInviteFriendView",
+  "files": [],
+  "code": 107,
+  "name": "INVITE_FRIEND",
+  "sub": "INVITE_FRIEND_OPENVIEW=2",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "107:inviteFriendFBBntClick",
+  "area": "Amigos",
+  "func": "inviteFriendFBBntClick",
+  "files": [],
+  "code": 107,
+  "name": "INVITE_FRIEND",
+  "sub": "INVITE_FRIEND_FBCLICK=6",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "107:inviteFriendOkClick",
+  "area": "Amigos",
+  "func": "inviteFriendOkClick",
+  "files": [],
+  "code": 107,
+  "name": "INVITE_FRIEND",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "107:inviteFriendRewardBntClick",
+  "area": "Amigos",
+  "func": "inviteFriendRewardBntClick",
+  "files": [],
+  "code": 107,
+  "name": "INVITE_FRIEND",
+  "sub": "INVITE_FRIEND_GETREWARD=4",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "160:sendAddFriend",
+  "area": "Amigos",
+  "func": "sendAddFriend",
+  "files": [
+   "cityWide/CityWideManager.as",
+   "ddt/view/tips/FriendGroupTItem.as",
+   "im/FriendGroupFrame.as",
+   "im/IMController.as",
+   "im/IMListItemView.as"
+  ],
+  "code": 160,
+  "name": "IM_CMD",
+  "sub": "FRIEND_ADD=160",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "160:sendCustomFriends",
+  "area": "Amigos",
+  "func": "sendCustomFriends",
+  "files": [
+   "im/IMController.as",
+   "im/IMListItemView.as"
+  ],
+  "code": 160,
+  "name": "IM_CMD",
+  "sub": "ADD_CUSTOM_FRIENDS=208",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "160:sendDelFriend",
+  "area": "Amigos",
+  "func": "sendDelFriend",
+  "files": [
+   "im/IMController.as"
+  ],
+  "code": 160,
+  "name": "IM_CMD",
+  "sub": "FRIEND_REMOVE=161",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "160:sendOneOnOneTalk",
+  "area": "Amigos",
+  "func": "sendOneOnOneTalk",
+  "files": [
+   "im/IMController.as",
+   "im/chatFrame/PrivateChatFrame.as"
+  ],
+  "code": 160,
+  "name": "IM_CMD",
+  "sub": "ONE_ON_ONE_TALK=51",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "160:sendOns",
+  "area": "Amigos",
+  "func": "sendOns",
+  "files": [
+   "cityWide/CityWideManager.as"
+  ],
+  "code": 160,
+  "name": "IM_CMD",
+  "sub": "ONS_EQUIP=45",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "223:sendWithBrithday",
+  "area": "Amigos",
+  "func": "sendWithBrithday",
+  "files": [
+   "socialContact/friendBirthday/FriendBirthdayManager.as"
+  ],
+  "code": 223,
+  "name": "FRIEND_BRITHDAY",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "34:sendChangeDesignation",
+  "area": "Bolsa/Inventário",
+  "func": "sendChangeDesignation",
+  "files": [
+   "bagAndInfo/info/PlayerInfoView.as"
+  ],
+  "code": 34,
+  "name": "USER_RANK",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "49:sendMoveGoods",
+  "area": "Bolsa/Inventário",
+  "func": "sendMoveGoods",
+  "files": [
+   "bagAndInfo/bag/BagView.as",
+   "bagAndInfo/bag/BankBagView.as",
+   "bagAndInfo/cell/BagCell.as",
+   "bagAndInfo/cell/PersonalInfoCell.as",
+   "bagAndInfo/info/PersonalInfoDragInArea.as",
+   "bagAndInfo/info/PlayerInfoView.as",
+   "consortion/view/selfConsortia/ConsortionBankBagView.as",
+   "ddt/view/caddyII/CaddyBagView.as",
+   "equipretrieve/view/RetrieveBagcell.as",
+   "equipretrieve/view/RetrieveBgView.as",
+   "equipretrieve/view/RetrieveCell.as",
+   "petsBag/view/item/FeedItem.as",
+   "store/StoneCell.as",
+   "store/StoreCell.as",
+   "store/fineStore/view/FineGhostView.as",
+   "store/fineStore/view/GhostItemCell.as",
+   "store/fineStore/view/GhostStoneCell.as",
+   "store/fineStore/view/pageBringUp/FineBringUpBagListView.as",
+   "store/fineStore/view/pageBringUp/FineBringUpCell.as",
+   "store/view/Compose/ComposeItemCell.as",
+   "store/view/Compose/ComposeStoneCell.as",
+   "store/view/Compose/StoreIIComposeBG.as",
+   "store/view/embed/EmbedItemCell.as",
+   "store/view/embed/StoreEmbedBG.as",
+   "store/view/exalt/ExaltItemCell.as",
+   "store/view/exalt/StoreExaltBG.as",
+   "store/view/fusion/AccessoryItemCell.as",
+   "store/view/fusion/FusionItemCell.as",
+   "store/view/fusion/StoreIIFusionBG.as",
+   "store/view/storeBag/StoreBagCell.as",
+   "store/view/strength/StoreIIStrengthBG.as",
+   "store/view/strength/StreangthItemCell.as",
+   "store/view/strength/StrengthStone.as",
+   "store/view/transfer/StoreIITransferBG.as",
+   "store/view/transfer/TransferItemCell.as",
+   "texpSystem/view/TexpCell.as"
+  ],
+  "code": 49,
+  "name": "CHANGE_PLACE_GOODS",
+  "sub": "",
+  "server": "partial",
+  "verified": "yes",
+  "notes": "Mover para o ferreiro/equipar.",
+  "evidence": ""
+ },
+ {
+  "key": "60:sendHideLayer",
+  "area": "Bolsa/Inventário",
+  "func": "sendHideLayer",
+  "files": [
+   "bagAndInfo/info/PlayerInfoView.as"
+  ],
+  "code": 60,
+  "name": "ITEM_HIDE",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "62:sendGoodsContinue",
+  "area": "Bolsa/Inventário",
+  "func": "sendGoodsContinue",
+  "files": [
+   "ddt/view/goods/AddPricePanel.as",
+   "equipDebt/view/EquipAddMoneyFrame.as",
+   "shop/view/ShopRechargeEquipView.as"
+  ],
+  "code": 62,
+  "name": "ITEM_CONTINUE",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "63:sendItemOpenUp",
+  "area": "Bolsa/Inventário",
+  "func": "sendItemOpenUp",
+  "files": [
+   "bagAndInfo/bag/BagView.as",
+   "bagAndInfo/bag/OpenBatchView.as"
+  ],
+  "code": 63,
+  "name": "ITEM_OPENUP",
+  "sub": "",
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Caixa (Túi quà mũi khoan) aberta: itens chegam e empilham na bolsa, caixa consumida antes de dar (sem dupe).",
+  "evidence": "research/e2e/qa/b14-box-opened.png, b15-after-box.png"
+ },
+ {
+  "key": "66:sendUseProp",
+  "area": "Bolsa/Inventário",
+  "func": "sendUseProp",
+  "files": [
+   "bagAndInfo/bag/BagView.as"
+  ],
+  "code": 66,
+  "name": "PROP_USE",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "68:sendAddPet",
+  "area": "Bolsa/Inventário",
+  "func": "sendAddPet",
+  "files": [
+   "bagAndInfo/bag/BagView.as"
+  ],
+  "code": 68,
+  "name": "PET",
+  "sub": "ADD_PET=2",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "74:sendItemEquip",
+  "area": "Bolsa/Inventário",
+  "func": "sendItemEquip",
+  "files": [
+   "bagAndInfo/info/PlayerInfoViewControl.as",
+   "eliteGame/view/EliteGamePaarungFrame.as",
+   "email/view/ReadingView.as",
+   "im/IMController.as",
+   "im/messagebox/MessageBoxItem.as"
+  ],
+  "code": 74,
+  "name": "ITEM_EQUIP",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "FC (Lực chiến) calculado pela fórmula original (apps/game/src/game/stats.ts) e enviado em 67/login/ranking: 2091 no Thur conferido à mão.",
+  "evidence": "research/e2e/qa/b2-bag.png"
+ },
+ {
+  "key": "77:sendItemOverDue",
+  "area": "Bolsa/Inventário",
+  "func": "sendItemOverDue",
+  "files": [
+   "ddt/data/goods/InventoryItemInfo.as",
+   "ddt/data/player/SelfInfo.as"
+  ],
+  "code": 77,
+  "name": "ITEM_OVERDUE",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendUseProp",
+  "area": "Bolsa/Inventário",
+  "func": "sendUseProp",
+  "files": [
+   "bagAndInfo/bag/BagView.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "PROP=32",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "99:sendTexp",
+  "area": "Bolsa/Inventário",
+  "func": "sendTexp",
+  "files": [
+   "bagAndInfo/bag/BagView.as",
+   "texpSystem/view/TexpView.as"
+  ],
+  "code": 99,
+  "name": "TEXP",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "122:sendClearStoreBag",
+  "area": "Bolsa/Inventário",
+  "func": "sendClearStoreBag",
+  "files": [
+   "bagAndInfo/BagAndGiftFrame.as",
+   "bagAndInfo/BagAndInfoManager.as",
+   "ddt/bagStore/BagStoreFrame.as",
+   "petsBag/view/PetsBagOutView.as",
+   "petsBag/view/item/FeedItem.as",
+   "store/StoreMainView.as",
+   "store/fineStore/view/FineStoreView.as",
+   "store/forge/ForgeMainView.as",
+   "texpSystem/view/TexpView.as"
+  ],
+  "code": 122,
+  "name": "CLEAR_STORE_BAG",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "124:sendMoveGoodsAll",
+  "area": "Bolsa/Inventário",
+  "func": "sendMoveGoodsAll",
+  "files": [
+   "ddt/data/BagInfo.as"
+  ],
+  "code": 124,
+  "name": "CHANGE_PLACE_GOODS_ALL",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "127:reclaimGoods",
+  "area": "Bolsa/Inventário",
+  "func": "reclaimGoods",
+  "files": [],
+  "code": 127,
+  "name": "REClAIM_GOODS",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "168:sendUpdateGoodsCount",
+  "area": "Bolsa/Inventário",
+  "func": "sendUpdateGoodsCount",
+  "files": [
+   "bagAndInfo/BagAndGiftFrame.as",
+   "shop/ShopController.as"
+  ],
+  "code": 168,
+  "name": "GOODS_COUNT",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "171:sendUseReworkName",
+  "area": "Bolsa/Inventário",
+  "func": "sendUseReworkName",
+  "files": [
+   "bagAndInfo/ReworkName/ReworkNameFrame.as"
+  ],
+  "code": 171,
+  "name": "USE_REWORK_NAME",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "182:sendChangeColor",
+  "area": "Bolsa/Inventário",
+  "func": "sendChangeColor",
+  "files": [
+   "changeColor/view/ChangeColorRightView.as"
+  ],
+  "code": 182,
+  "name": "USE_COLOR_CARD",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "183:sendUseCard",
+  "area": "Bolsa/Inventário",
+  "func": "sendUseCard",
+  "files": [
+   "bagAndInfo/bag/BagView.as",
+   "ddt/view/buff/buffButton/BuffButton.as",
+   "game/view/propContainer/RightPropView.as",
+   "shop/view/SetsShopView.as"
+  ],
+  "code": 183,
+  "name": "CARD_USE",
+  "sub": "",
+  "server": "partial",
+  "verified": "yes",
+  "notes": "Cartão EXP x2 (Property1 13) vira buff (ícone no painel) e multiplica GP; GP pill (21) ok; cartão VIP (23) ainda não.",
+  "evidence": "research/e2e/qa/b17-expcard-used.png"
+ },
+ {
+  "key": "188:sendUseConsortiaReworkName",
+  "area": "Bolsa/Inventário",
+  "func": "sendUseConsortiaReworkName",
+  "files": [
+   "bagAndInfo/ReworkName/ReworkNameConsortia.as"
+  ],
+  "code": 188,
+  "name": "USE_CONSORTIA_REWORK_NAME",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "189:sendReworkRank",
+  "area": "Bolsa/Inventário",
+  "func": "sendReworkRank",
+  "files": [
+   "bagAndInfo/info/PlayerInfoEffortHonorView.as"
+  ],
+  "code": 189,
+  "name": "USER_CHANGE_RANK",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "205:sendUseChangeColorShell",
+  "area": "Bolsa/Inventário",
+  "func": "sendUseChangeColorShell",
+  "files": [
+   "bagAndInfo/bag/BagView.as"
+  ],
+  "code": 205,
+  "name": "USE_CHANGE_COLOR_SHELL",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "206:sendChangeColorShellTimeOver",
+  "area": "Bolsa/Inventário",
+  "func": "sendChangeColorShellTimeOver",
+  "files": [
+   "ddt/data/goods/InventoryItemInfo.as"
+  ],
+  "code": 206,
+  "name": "CHANGE_COLOR_OVER_DUE",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "216:sendFirstGetCards",
+  "area": "Bolsa/Inventário",
+  "func": "sendFirstGetCards",
+  "files": [
+   "bagAndInfo/bag/BagView.as"
+  ],
+  "code": 216,
+  "name": "CARDS_DATA",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "218:sendPlayerGift",
+  "area": "Bolsa/Inventário",
+  "func": "sendPlayerGift",
+  "files": [
+   "bagAndInfo/info/PlayerInfoFrame.as",
+   "ddt/manager/PlayerManager.as",
+   "ddt/manager/ServerManager.as"
+  ],
+  "code": 218,
+  "name": "USER_GET_GIFTS",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "222:sendEquipRetrieve",
+  "area": "Bolsa/Inventário",
+  "func": "sendEquipRetrieve",
+  "files": [
+   "equipretrieve/view/RetrieveBgView.as"
+  ],
+  "code": 222,
+  "name": "EQUIP_RECYCLE_ITEM",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "252:sendChangeSex",
+  "area": "Bolsa/Inventário",
+  "func": "sendChangeSex",
+  "files": [
+   "bagAndInfo/bag/BagView.as"
+  ],
+  "code": 252,
+  "name": "USE_CHANGE_SEX",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "265:sendNewTitleCard",
+  "area": "Bolsa/Inventário",
+  "func": "sendNewTitleCard",
+  "files": [
+   "bagAndInfo/bag/BagView.as"
+  ],
+  "code": 265,
+  "name": "NEWTITLE_CARD",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "102:enterWorldBossRoom",
+  "area": "Boss mundial/Minigames",
+  "func": "enterWorldBossRoom",
+  "files": [],
+  "code": 102,
+  "name": "WORLDBOSS_CMD",
+  "sub": "ENTER_WORLDBOSSROOM=32",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "102:requestRevive",
+  "area": "Boss mundial/Minigames",
+  "func": "requestRevive",
+  "files": [
+   "worldboss/view/WorldBossResurrectView.as"
+  ],
+  "code": 102,
+  "name": "WORLDBOSS_CMD",
+  "sub": "REQUEST_REVIVE=37",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "102:sendAddPlayer",
+  "area": "Boss mundial/Minigames",
+  "func": "sendAddPlayer",
+  "files": [
+   "worldboss/view/WorldBossRoomView.as"
+  ],
+  "code": 102,
+  "name": "WORLDBOSS_CMD",
+  "sub": "ADDPLAYERS=34",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "102:sendBuyWorldBossBuff",
+  "area": "Boss mundial/Minigames",
+  "func": "sendBuyWorldBossBuff",
+  "files": [
+   "worldboss/WorldBossManager.as",
+   "worldboss/view/BuffCartItem.as"
+  ],
+  "code": 102,
+  "name": "WORLDBOSS_CMD",
+  "sub": "BUFF_BUY=38",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "102:sendLeaveBossRoom",
+  "area": "Boss mundial/Minigames",
+  "func": "sendLeaveBossRoom",
+  "files": [
+   "worldboss/view/RoomMenuView.as"
+  ],
+  "code": 102,
+  "name": "WORLDBOSS_CMD",
+  "sub": "LEAVE_ROOM=33",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "102:sendWorldBossRoomMove",
+  "area": "Boss mundial/Minigames",
+  "func": "sendWorldBossRoomMove",
+  "files": [
+   "worldboss/view/WorldBossScneneMap.as"
+  ],
+  "code": 102,
+  "name": "WORLDBOSS_CMD",
+  "sub": "MOVE=35",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "166:createPackageOut",
+  "area": "Boss mundial/Minigames",
+  "func": "createPackageOut",
+  "files": [
+   "littleGame/LittleGameManager.as"
+  ],
+  "code": 166,
+  "name": "LITTLEGAME_COMMAND",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "11:sendActivePullDown",
+  "area": "Cartas",
+  "func": "sendActivePullDown",
+  "files": [
+   "ddt/view/NovicePlatinumCard.as"
+  ],
+  "code": 11,
+  "name": "ACTIVE_PULLDOWN",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "18:getPlayerCardInfo",
+  "area": "Cartas",
+  "func": "getPlayerCardInfo",
+  "files": [],
+  "code": 18,
+  "name": "GET_PLAYER_CARD",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "196:sendCardReset",
+  "area": "Cartas",
+  "func": "sendCardReset",
+  "files": [
+   "cardSystem/view/PropResetFrame.as"
+  ],
+  "code": 196,
+  "name": "CARD_RESET",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "196:sendReplaceCardProp",
+  "area": "Cartas",
+  "func": "sendReplaceCardProp",
+  "files": [
+   "cardSystem/view/PropResetFrame.as"
+  ],
+  "code": 196,
+  "name": "CARD_RESET",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "216:sendMoveCards",
+  "area": "Cartas",
+  "func": "sendMoveCards",
+  "files": [
+   "cardSystem/elements/CardCell.as",
+   "cardSystem/view/CardSelect.as",
+   "cardSystem/view/cardBag/CardBagListItem.as",
+   "cardSystem/view/cardEquip/CardEquipDragArea.as",
+   "cardSystem/view/cardEquip/CardEquipView.as"
+  ],
+  "code": 216,
+  "name": "CARDS_DATA",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "216:sendOpenViceCard",
+  "area": "Cartas",
+  "func": "sendOpenViceCard",
+  "files": [
+   "cardSystem/view/cardEquip/CardEquipView.as"
+  ],
+  "code": 216,
+  "name": "CARDS_DATA",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "216:sendSortCards",
+  "area": "Cartas",
+  "func": "sendSortCards",
+  "files": [
+   "cardSystem/view/cardBag/CardBagView.as",
+   "ddt/data/BagInfo.as"
+  ],
+  "code": 216,
+  "name": "CARDS_DATA",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "216:sendUpGradeCard",
+  "area": "Cartas",
+  "func": "sendUpGradeCard",
+  "files": [
+   "cardSystem/view/UpGradeFrame.as"
+  ],
+  "code": 216,
+  "name": "CARDS_DATA",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "21:sendExitMarryRoom",
+  "area": "Casamento",
+  "func": "sendExitMarryRoom",
+  "files": [
+   "church/controller/ChurchRoomListController.as"
+  ],
+  "code": 21,
+  "name": "SCENE_REMOVE_USER",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "85:sendMateTime",
+  "area": "Casamento",
+  "func": "sendMateTime",
+  "files": [
+   "church/view/weddingRoomList/DivorcePromptFrame.as",
+   "church/view/weddingRoomList/WeddingRoomListNavView.as"
+  ],
+  "code": 85,
+  "name": "MATE_ONLINE_TIME",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "94:sendCreateRoom",
+  "area": "Casamento",
+  "func": "sendCreateRoom",
+  "files": [
+   "church/controller/ChurchRoomListController.as"
+  ],
+  "code": 94,
+  "name": "GAME_ROOM",
+  "sub": "GAME_ROOM_CREATE=0",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "167:sendChurchMovieOver",
+  "area": "Casamento",
+  "func": "sendChurchMovieOver",
+  "files": [],
+  "code": 167,
+  "name": "CHURCH_MOVIE_OVER",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "233:sendSceneChange",
+  "area": "Casamento",
+  "func": "sendSceneChange",
+  "files": [
+   "church/controller/ChurchRoomController.as"
+  ],
+  "code": 233,
+  "name": "MARRY_SCENE_CHANGE",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "235:sendForMarryInfo",
+  "area": "Casamento",
+  "func": "sendForMarryInfo",
+  "files": [
+   "civil/view/CivilRegisterFrame.as"
+  ],
+  "code": 235,
+  "name": "MARRYINFO_GET",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "240:sendMarryRoomLogin",
+  "area": "Casamento",
+  "func": "sendMarryRoomLogin",
+  "files": [
+   "church/view/ChurchMainView.as"
+  ],
+  "code": 240,
+  "name": "MARRY_SCENE_LOGIN",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "241:sendCreateRoom",
+  "area": "Casamento",
+  "func": "sendCreateRoom",
+  "files": [
+   "church/controller/ChurchRoomListController.as"
+  ],
+  "code": 241,
+  "name": "MARRY_ROOM_CREATE",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "244:sendExitRoom",
+  "area": "Casamento",
+  "func": "sendExitRoom",
+  "files": [
+   "church/controller/ChurchRoomController.as",
+   "ddt/manager/ChurchManager.as"
+  ],
+  "code": 244,
+  "name": "PLAYER_EXIT_MARRY_ROOM",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "246:sendValidateMarry",
+  "area": "Casamento",
+  "func": "sendValidateMarry",
+  "files": [
+   "ddt/manager/ChurchManager.as"
+  ],
+  "code": 246,
+  "name": "MARRY_STATUS",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "247:sendPropose",
+  "area": "Casamento",
+  "func": "sendPropose",
+  "files": [
+   "ddt/view/common/church/ChurchBuyRingFrame.as",
+   "ddt/view/common/church/ChurchProposeFrame.as"
+  ],
+  "code": 247,
+  "name": "MARRY_APPLY",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "248:sendUnmarry",
+  "area": "Casamento",
+  "func": "sendUnmarry",
+  "files": [
+   "church/controller/ChurchRoomListController.as"
+  ],
+  "code": 248,
+  "name": "DIVORCE_APPLY",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "249:sendChurchContinuation",
+  "area": "Casamento",
+  "func": "sendChurchContinuation",
+  "files": [
+   "church/controller/ChurchRoomController.as"
+  ],
+  "code": 249,
+  "name": "MARRY_CMD",
+  "sub": "CONTINUATION=3",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "249:sendChurchForbid",
+  "area": "Casamento",
+  "func": "sendChurchForbid",
+  "files": [
+   "church/view/menu/MenuPanel.as"
+  ],
+  "code": 249,
+  "name": "MARRY_CMD",
+  "sub": "FORBID=8",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "249:sendChurchInvite",
+  "area": "Casamento",
+  "func": "sendChurchInvite",
+  "files": [
+   "church/view/invite/ChurchInvitePlayerItem.as"
+  ],
+  "code": 249,
+  "name": "MARRY_CMD",
+  "sub": "INVITE=4",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "249:sendChurchKick",
+  "area": "Casamento",
+  "func": "sendChurchKick",
+  "files": [
+   "church/view/menu/MenuPanel.as"
+  ],
+  "code": 249,
+  "name": "MARRY_CMD",
+  "sub": "KICK=7",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "249:sendChurchLargess",
+  "area": "Casamento",
+  "func": "sendChurchLargess",
+  "files": [
+   "church/controller/ChurchRoomController.as"
+  ],
+  "code": 249,
+  "name": "MARRY_CMD",
+  "sub": "LARGESS=5",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "249:sendChurchMove",
+  "area": "Casamento",
+  "func": "sendChurchMove",
+  "files": [
+   "church/view/churchScene/SceneMap.as"
+  ],
+  "code": 249,
+  "name": "MARRY_CMD",
+  "sub": "MOVE=1",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "249:sendGunSalute",
+  "area": "Casamento",
+  "func": "sendGunSalute",
+  "files": [
+   "church/view/churchScene/MoonSceneMap.as"
+  ],
+  "code": 249,
+  "name": "MARRY_CMD",
+  "sub": "GUNSALUTE=11",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "249:sendPosition",
+  "area": "Casamento",
+  "func": "sendPosition",
+  "files": [
+   "church/view/churchScene/WeddingSceneMap.as"
+  ],
+  "code": 249,
+  "name": "MARRY_CMD",
+  "sub": "POSITION=10",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "249:sendStartWedding",
+  "area": "Casamento",
+  "func": "sendStartWedding",
+  "files": [
+   "church/controller/ChurchRoomController.as"
+  ],
+  "code": 249,
+  "name": "MARRY_CMD",
+  "sub": "HYMENEAL=2",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "249:sendUseFire",
+  "area": "Casamento",
+  "func": "sendUseFire",
+  "files": [
+   "church/view/churchFire/ChurchFireView.as"
+  ],
+  "code": 249,
+  "name": "MARRY_CMD",
+  "sub": "USEFIRECRACKERS=6",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "250:sendProposeRespose",
+  "area": "Casamento",
+  "func": "sendProposeRespose",
+  "files": [
+   "ddt/view/common/church/ChurchProposeResponseFrame.as"
+  ],
+  "code": 250,
+  "name": "MARRY_APPLY_REPLY",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "253:sendModifyChurchDiscription",
+  "area": "Casamento",
+  "func": "sendModifyChurchDiscription",
+  "files": [
+   "church/controller/ChurchRoomController.as"
+  ],
+  "code": 253,
+  "name": "MARRY_ROOM_INFO_UPDATE",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "75:sendThrowProp",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendThrowProp",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 75,
+  "name": "CrazyTankPackageType.PROP_DELETE",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:createMonster",
+  "area": "Combate (GAME_CMD)",
+  "func": "createMonster",
+  "files": [],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "GENERAL_COMMAND=23",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:deleteMonster",
+  "area": "Combate (GAME_CMD)",
+  "func": "deleteMonster",
+  "files": [],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "GENERAL_COMMAND=23",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendAirPlane",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendAirPlane",
+  "files": [
+   "game/model/LocalPlayer.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "AIRPLANE=40",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendBeat",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendBeat",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "BEAT=22",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendBossTakeOut",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendBossTakeOut",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "BOSS_TAKE_CARD=130",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendClientScriptEnd",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendClientScriptEnd",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "GENERAL_COMMAND=23",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendClientScriptStart",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendClientScriptStart",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "GENERAL_COMMAND=23",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendFightLibAnswer",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendFightLibAnswer",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "GENERAL_COMMAND=23",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendFightLibInfoChange",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendFightLibInfoChange",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendFightLibReanswer",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendFightLibReanswer",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "GENERAL_COMMAND=23",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendFlagMode",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendFlagMode",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "WANNA_LEADER=97",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendGameCMDBlast",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendGameCMDBlast",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "BLAST=3",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendGameCMDChange",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendGameCMDChange",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "CHANGEBALL=19",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendGameCMDDirection",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendGameCMDDirection",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "DIRECTION=7",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendGameCMDShoot",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendGameCMDShoot",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "FIRE=2",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendGameCMDStunt",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendGameCMDStunt",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "STUNT=15",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendGameMissionPrepare",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendGameMissionPrepare",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "GAME_MISSION_PREPARE=116",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendGamePick",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendGamePick",
+  "files": [
+   "game/model/LocalPlayer.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "PICK=49",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendGameSkipNext",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendGameSkipNext",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "SKIPNEXT=12",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendGameStartMove",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendGameStartMove",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "MOVESTART=9",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendGameStopMove",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendGameStopMove",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "MOVESTOP=10",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendGameTakeOut",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendGameTakeOut",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "TAKE_CARD=98",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendGhostTarget",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendGhostTarget",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "GHOST_TARGET=54",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendKillSelf",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendKillSelf",
+  "files": [],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "KILLSELF=21",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendLoadingProgress",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendLoadingProgress",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "LOAD=16",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendMissionTryAgain",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendMissionTryAgain",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "91",
+  "sub": "",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendPassStory",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendPassStory",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "PASS_STORY=133",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendPaymentTakeCard",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendPaymentTakeCard",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "PAYMENT_TAKE_CARD=114",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendPetSkill",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendPetSkill",
+  "files": [
+   "game/view/prop/PetSkillBar.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "PET_SKILL=144",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendShootTag",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendShootTag",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "FIRE_TAG=96",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendSuicide",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendSuicide",
+  "files": [],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "SUICIDE=17",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendTransmissionGate",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendTransmissionGate",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "DELIVER=137",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:sendUpdatePlayStep",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendUpdatePlayStep",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "MISSION_CMD=25",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "91:useDeputyWeapon",
+  "area": "Combate (GAME_CMD)",
+  "func": "useDeputyWeapon",
+  "files": [],
+  "code": 91,
+  "name": "GAME_CMD",
+  "sub": "USE_DEPUTY_WEAPON=84",
+  "server": "partial",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "102:sendWorldBossRoomStauts",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendWorldBossRoomStauts",
+  "files": [
+   "game/actions/MissionOverAction.as",
+   "worldboss/WorldBossManager.as",
+   "worldboss/view/WorldBossFightRoomState.as",
+   "worldboss/view/WorldBossScneneMap.as"
+  ],
+  "code": 102,
+  "name": "WORLDBOSS_CMD",
+  "sub": "STAUTS=36",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "108:sendGetTropToBag",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendGetTropToBag",
+  "files": [
+   "game/view/card/TakeOutCardController.as"
+  ],
+  "code": 108,
+  "name": "GAME_TAKE_TEMP",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "108:sendGetTropToBag",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendGetTropToBag",
+  "files": [
+   "game/view/card/TakeOutCardController.as"
+  ],
+  "code": 108,
+  "name": "GAME_TAKE_TEMP",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "123:sendDefyAffiche",
+  "area": "Combate (GAME_CMD)",
+  "func": "sendDefyAffiche",
+  "files": [
+   "game/view/DefyAfficheViewFrame.as"
+  ],
+  "code": 123,
+  "name": "DEFY_AFFICHE",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "64:sendOpition",
+  "area": "Configurações",
+  "func": "sendOpition",
+  "files": [
+   "setting/view/SettingView.as"
+  ],
+  "code": 64,
+  "name": "OPTION_UPDATE",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "224:sendCIDInfo",
+  "area": "Configurações",
+  "func": "sendCIDInfo",
+  "files": [
+   "ddt/view/enthrall/ValidateFrame.as"
+  ],
+  "code": 224,
+  "name": "CID_CHECK",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "1:sendLogin",
+  "area": "Conta/Login",
+  "func": "sendLogin",
+  "files": [
+   "ddt/manager/SocketManager.as"
+  ],
+  "code": 1,
+  "name": "LOGIN",
+  "sub": "Version.Build=5498628",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "4:sendPint",
+  "area": "Conta/Login",
+  "func": "sendPint",
+  "files": [
+   "ddt/manager/SocketManager.as"
+  ],
+  "code": 4,
+  "name": "PING",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "25:sendBagLocked",
+  "area": "Conta/Login",
+  "func": "sendBagLocked",
+  "files": [
+   "baglocked/BagLockedController.as",
+   "ddt/manager/ServerManager.as"
+  ],
+  "code": 25,
+  "name": "BAG_LOCKED",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "200:sendCheckCode",
+  "area": "Conta/Login",
+  "func": "sendCheckCode",
+  "files": [
+   "ddt/view/CheckCodeFrame.as"
+  ],
+  "code": 200,
+  "name": "CHECK_CODE",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "242:sendEnterRoom",
+  "area": "Conta/Login",
+  "func": "sendEnterRoom",
+  "files": [
+   "church/controller/ChurchRoomListController.as",
+   "church/view/weddingRoomList/WeddingRoomListNavView.as",
+   "church/view/weddingRoomList/frame/WeddingRoomEnterConfirmView.as",
+   "church/view/weddingRoomList/frame/WeddingRoomEnterInputPasswordView.as",
+   "ddt/view/common/church/ChurchInviteFrame.as"
+  ],
+  "code": 242,
+  "name": "MARRY_ROOM_LOGIN",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "300:sendpkgCheckHack",
+  "area": "Conta/Login",
+  "func": "sendpkgCheckHack",
+  "files": [
+   "ddt/manager/CheckSpeedManager.as"
+  ],
+  "code": 300,
+  "name": "300",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "112:sendDeleteMail",
+  "area": "Correio",
+  "func": "sendDeleteMail",
+  "files": [
+   "email/manager/MailManager.as"
+  ],
+  "code": 112,
+  "name": "DELETE_MAIL",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "113:sendGetMail",
+  "area": "Correio",
+  "func": "sendGetMail",
+  "files": [
+   "email/manager/MailManager.as"
+  ],
+  "code": 113,
+  "name": "GET_MAIL_ATTACHMENT",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "114:sendUpdateMail",
+  "area": "Correio",
+  "func": "sendUpdateMail",
+  "files": [
+   "email/manager/MailManager.as"
+  ],
+  "code": 114,
+  "name": "UPDATE_MAIL",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "116:sendEmail",
+  "area": "Correio",
+  "func": "sendEmail",
+  "files": [
+   "email/manager/MailManager.as"
+  ],
+  "code": 116,
+  "name": "SEND_MAIL",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "118:untreadEmail",
+  "area": "Correio",
+  "func": "untreadEmail",
+  "files": [],
+  "code": 118,
+  "name": "MAIL_CANCEL",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortionMail",
+  "area": "Correio",
+  "func": "sendConsortionMail",
+  "files": [
+   "consortion/view/selfConsortia/ConsortionMailFrame.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTION_MAIL=29",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "214:sendReloadGift",
+  "area": "Correio",
+  "func": "sendReloadGift",
+  "files": [
+   "email/manager/MailManager.as"
+  ],
+  "code": 214,
+  "name": "USER_RELOAD_GIFT",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "141:sendAcademyFireApprentice",
+  "area": "Escola/Aprendiz",
+  "func": "sendAcademyFireApprentice",
+  "files": [
+   "ddt/view/academyCommon/myAcademy/myAcademyItem/MyAcademyApprenticeItem.as"
+  ],
+  "code": 141,
+  "name": "AcademyPackageType.ACADEMY_FATHER",
+  "sub": "FIRE_APPRENTICE=13",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "141:sendAcademyFireMaster",
+  "area": "Escola/Aprendiz",
+  "func": "sendAcademyFireMaster",
+  "files": [
+   "ddt/view/academyCommon/myAcademy/myAcademyItem/MyAcademyMasterItem.as"
+  ],
+  "code": 141,
+  "name": "AcademyPackageType.ACADEMY_FATHER",
+  "sub": "FIRE_MASTER=12",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "141:sendAcademyRegister",
+  "area": "Escola/Aprendiz",
+  "func": "sendAcademyRegister",
+  "files": [
+   "ddt/view/academyCommon/register/AcademyRegisterFrame.as"
+  ],
+  "code": 141,
+  "name": "AcademyPackageType.ACADEMY_FATHER",
+  "sub": "ACADEMY_REGISTER=1",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "141:sendAcademyRemoveRegister",
+  "area": "Escola/Aprendiz",
+  "func": "sendAcademyRemoveRegister",
+  "files": [],
+  "code": 141,
+  "name": "AcademyPackageType.ACADEMY_FATHER",
+  "sub": "ACADEMY_REMOVE=3",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "26:sendOpenDead",
+  "area": "Eventos/Atividades",
+  "func": "sendOpenDead",
+  "files": [
+   "ddt/view/caddyII/bead/BeadViewII.as",
+   "ddt/view/caddyII/offerPack/OfferPackViewII.as"
+  ],
+  "code": 26,
+  "name": "LOTTERY_OPEN_BOX",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "26:sendRouletteBox",
+  "area": "Eventos/Atividades",
+  "func": "sendRouletteBox",
+  "files": [
+   "ddt/manager/RouletteManager.as",
+   "ddt/view/caddyII/CaddyViewII.as"
+  ],
+  "code": 26,
+  "name": "LOTTERY_OPEN_BOX",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "27:sendStartTurn",
+  "area": "Eventos/Atividades",
+  "func": "sendStartTurn",
+  "files": [
+   "ddt/view/roulette/RouletteView.as",
+   "surpriseRoulette/view/SurpriseRouletteView.as"
+  ],
+  "code": 27,
+  "name": "LOTTERY_RANDOM_SELECT",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "28:sendFinishRoulette",
+  "area": "Eventos/Atividades",
+  "func": "sendFinishRoulette",
+  "files": [
+   "ddt/view/caddyII/CaddyFrame.as",
+   "ddt/view/caddyII/CardBoxFrame.as",
+   "ddt/view/roulette/RouletteView.as",
+   "surpriseRoulette/view/SurpriseRouletteView.as"
+  ],
+  "code": 28,
+  "name": "LOTTERY_FINISH",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "45:sendQequestBadLuck",
+  "area": "Eventos/Atividades",
+  "func": "sendQequestBadLuck",
+  "files": [
+   "ddt/view/caddyII/badLuck/CaddyBadLuckView.as"
+  ],
+  "code": 45,
+  "name": "CADDY_GET_BADLUCK",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "53:sendGetTimeBox",
+  "area": "Eventos/Atividades",
+  "func": "sendGetTimeBox",
+  "files": [
+   "ddt/manager/BossBoxManager.as",
+   "ddt/view/bossbox/BossBoxView.as"
+  ],
+  "code": 53,
+  "name": "GET_TIME_BOX",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "84:sendChickActivationGetAward",
+  "area": "Eventos/Atividades",
+  "func": "sendChickActivationGetAward",
+  "files": [
+   "chickActivation/view/ChickActivationViewFrame.as"
+  ],
+  "code": 84,
+  "name": "ACTIVITY_PACKAGE",
+  "sub": "ChickActivationType.CHICKACTIVATION=2",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "84:sendChickActivationOpenKey",
+  "area": "Eventos/Atividades",
+  "func": "sendChickActivationOpenKey",
+  "files": [
+   "chickActivation/view/ChickActivationViewFrame.as"
+  ],
+  "code": 84,
+  "name": "ACTIVITY_PACKAGE",
+  "sub": "ChickActivationType.CHICKACTIVATION=2",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "84:sendChickActivationQuery",
+  "area": "Eventos/Atividades",
+  "func": "sendChickActivationQuery",
+  "files": [
+   "chickActivation/ChickActivationManager.as"
+  ],
+  "code": 84,
+  "name": "ACTIVITY_PACKAGE",
+  "sub": "ChickActivationType.CHICKACTIVATION=2",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "87:sendChickenBoxTakeOverCard",
+  "area": "Eventos/Atividades",
+  "func": "sendChickenBoxTakeOverCard",
+  "files": [
+   "newChickenBox/view/NewChickenBoxView.as"
+  ],
+  "code": 87,
+  "name": "NEWCHICKENBOX_SYS",
+  "sub": "TAKEOVERCARD=13",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "87:sendChickenBoxUseEagleEye",
+  "area": "Eventos/Atividades",
+  "func": "sendChickenBoxUseEagleEye",
+  "files": [
+   "newChickenBox/view/NewChickenBoxView.as"
+  ],
+  "code": 87,
+  "name": "NEWCHICKENBOX_SYS",
+  "sub": "USEEAGLEEYE=11",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "87:sendClickStartBntNewChickenBox",
+  "area": "Eventos/Atividades",
+  "func": "sendClickStartBntNewChickenBox",
+  "files": [
+   "newChickenBox/view/NewChickenBoxFrame.as"
+  ],
+  "code": 87,
+  "name": "NEWCHICKENBOX_SYS",
+  "sub": "CLICKSTARTBNT=15",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "87:sendFlushNewChickenBox",
+  "area": "Eventos/Atividades",
+  "func": "sendFlushNewChickenBox",
+  "files": [
+   "newChickenBox/view/NewChickenBoxFrame.as"
+  ],
+  "code": 87,
+  "name": "NEWCHICKENBOX_SYS",
+  "sub": "FLUSHCHICKENVIEW=14",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "87:sendLuckyStarClose",
+  "area": "Eventos/Atividades",
+  "func": "sendLuckyStarClose",
+  "files": [
+   "luckStar/manager/LuckStarManager.as"
+  ],
+  "code": 87,
+  "name": "NEWCHICKENBOX_SYS",
+  "sub": "CLOSE_GAME=32",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "87:sendLuckyStarEnter",
+  "area": "Eventos/Atividades",
+  "func": "sendLuckyStarEnter",
+  "files": [
+   "luckStar/manager/LuckStarManager.as"
+  ],
+  "code": 87,
+  "name": "NEWCHICKENBOX_SYS",
+  "sub": "ENTER_GAME=31",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "87:sendLuckyStarTurn",
+  "area": "Eventos/Atividades",
+  "func": "sendLuckyStarTurn",
+  "files": [
+   "luckStar/view/LuckStarFrame.as"
+  ],
+  "code": 87,
+  "name": "NEWCHICKENBOX_SYS",
+  "sub": "START_TURN=33",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "87:sendLuckyStarTurnComplete",
+  "area": "Eventos/Atividades",
+  "func": "sendLuckyStarTurnComplete",
+  "files": [
+   "luckStar/view/LuckStarFrame.as"
+  ],
+  "code": 87,
+  "name": "NEWCHICKENBOX_SYS",
+  "sub": "TURN_COMPLETE=34",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "87:sendNewChickenBox",
+  "area": "Eventos/Atividades",
+  "func": "sendNewChickenBox",
+  "files": [
+   "newChickenBox/controller/NewChickenBoxManager.as"
+  ],
+  "code": 87,
+  "name": "NEWCHICKENBOX_SYS",
+  "sub": "ENTERCHICKENVIEW=10",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "87:sendOverShowItems",
+  "area": "Eventos/Atividades",
+  "func": "sendOverShowItems",
+  "files": [
+   "newChickenBox/controller/NewChickenBoxManager.as"
+  ],
+  "code": 87,
+  "name": "NEWCHICKENBOX_SYS",
+  "sub": "AllITEMSHOW=12",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "104:sendCardLotteryIds",
+  "area": "Eventos/Atividades",
+  "func": "sendCardLotteryIds",
+  "files": [
+   "lottery/view/CardChooseRightView.as"
+  ],
+  "code": 104,
+  "name": "CARD_LOTTERY",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "105:sendLuckLottery",
+  "area": "Eventos/Atividades",
+  "func": "sendLuckLottery",
+  "files": [
+   "lottery/LotteryContorller.as"
+  ],
+  "code": 105,
+  "name": "LUCK_LOTTERY",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "128:sendStartTurn_LeftGun",
+  "area": "Eventos/Atividades",
+  "func": "sendStartTurn_LeftGun",
+  "files": [
+   "roulette/RouletteFrame.as"
+  ],
+  "code": 128,
+  "name": "LEFT_GUN_ROULETTE_SOCKET",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "130:sendEndTurn_LeftGun",
+  "area": "Eventos/Atividades",
+  "func": "sendEndTurn_LeftGun",
+  "files": [
+   "roulette/RouletteFrame.as"
+  ],
+  "code": 130,
+  "name": "LEFT_GUN_ROULETTE_COMPLETTE",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "145:sendGuildMemberWeekAddRanking",
+  "area": "Eventos/Atividades",
+  "func": "sendGuildMemberWeekAddRanking",
+  "files": [
+   "guildMemberWeek/controller/GuildMemberWeekController.as"
+  ],
+  "code": 145,
+  "name": "GUILDMEMBERWEEK_SYSTEM",
+  "sub": "SEND_ADDRUNKING=10",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "145:sendGuildMemberWeekStarClose",
+  "area": "Eventos/Atividades",
+  "func": "sendGuildMemberWeekStarClose",
+  "files": [
+   "guildMemberWeek/manager/GuildMemberWeekManager.as"
+  ],
+  "code": 145,
+  "name": "GUILDMEMBERWEEK_SYSTEM",
+  "sub": "CLOSE=9",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "145:sendGuildMemberWeekStarEnter",
+  "area": "Eventos/Atividades",
+  "func": "sendGuildMemberWeekStarEnter",
+  "files": [
+   "guildMemberWeek/manager/GuildMemberWeekManager.as"
+  ],
+  "code": 145,
+  "name": "GUILDMEMBERWEEK_SYSTEM",
+  "sub": "ENTER_GAME=8",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "145:sendLanternRiddlesQuestion",
+  "area": "Eventos/Atividades",
+  "func": "sendLanternRiddlesQuestion",
+  "files": [
+   "lanternriddles/view/LanternRiddlesView.as"
+  ],
+  "code": 145,
+  "name": "ACTIVITY_SYSTEM",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "145:sendLanternRiddlesRankInfo",
+  "area": "Eventos/Atividades",
+  "func": "sendLanternRiddlesRankInfo",
+  "files": [
+   "lanternriddles/view/LanternRiddlesView.as"
+  ],
+  "code": 145,
+  "name": "ACTIVITY_SYSTEM",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "145:sendLanternRiddlesUseSkill",
+  "area": "Eventos/Atividades",
+  "func": "sendLanternRiddlesUseSkill",
+  "files": [
+   "lanternriddles/view/LanternRiddlesView.as"
+  ],
+  "code": 145,
+  "name": "ACTIVITY_SYSTEM",
+  "sub": "LANTERNRIDDLES_SKILL=41",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "145:sendLightRoadStarEnter",
+  "area": "Eventos/Atividades",
+  "func": "sendLightRoadStarEnter",
+  "files": [
+   "lightRoad/manager/LightRoadManager.as"
+  ],
+  "code": 145,
+  "name": "LIGHTROAD_SYSTEM",
+  "sub": "ENTER_GAME=64",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "204:sendOpenAll",
+  "area": "Eventos/Atividades",
+  "func": "sendOpenAll",
+  "files": [
+   "ddt/view/caddyII/CaddyBagView.as"
+  ],
+  "code": 204,
+  "name": "OPEN_ALL_CARDBOX",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "216:sendOpenCardBox",
+  "area": "Eventos/Atividades",
+  "func": "sendOpenCardBox",
+  "files": [
+   "ddt/view/caddyII/card/CardViewII.as"
+  ],
+  "code": 216,
+  "name": "CARDS_DATA",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "219:sendWeeklyClick",
+  "area": "Eventos/Atividades",
+  "func": "sendWeeklyClick",
+  "files": [
+   "times/TimesManager.as"
+  ],
+  "code": 219,
+  "name": "WEEKLY_CLICK_CNT",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "221:sendBuyGift",
+  "area": "Eventos/Atividades",
+  "func": "sendBuyGift",
+  "files": [
+   "giftSystem/view/ClearingInterface.as"
+  ],
+  "code": 221,
+  "name": "USER_SEND_GIFTS",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "232:sendSellAll",
+  "area": "Eventos/Atividades",
+  "func": "sendSellAll",
+  "files": [
+   "ddt/view/caddyII/CaddyBagView.as",
+   "ddt/view/caddyII/CaddyFrame.as",
+   "ddt/view/caddyII/CardBoxFrame.as"
+  ],
+  "code": 232,
+  "name": "CADDY_SELL_ALL_GOODS",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "239:gotoCardLottery",
+  "area": "Eventos/Atividades",
+  "func": "gotoCardLottery",
+  "files": [],
+  "code": 239,
+  "name": "GOTO_CARD_LOTTERY",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "245:sendRequestAwards",
+  "area": "Eventos/Atividades",
+  "func": "sendRequestAwards",
+  "files": [
+   "ddt/view/caddyII/reader/ReadAwardsView.as"
+  ],
+  "code": 245,
+  "name": "CADDY_GET_AWARDS",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "68:sendBuyPetExpItem",
+  "area": "Fazenda",
+  "func": "sendBuyPetExpItem",
+  "files": [
+   "farm/viewx/FarmBuyExpFrame.as"
+  ],
+  "code": 68,
+  "name": "PET",
+  "sub": "BUY_PET_EXP_ITEM=19",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "81:doMature",
+  "area": "Fazenda",
+  "func": "doMature",
+  "files": [],
+  "code": 81,
+  "name": "FARM",
+  "sub": "ACCELERATE_FIELD=3",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "81:enterFarm",
+  "area": "Fazenda",
+  "func": "enterFarm",
+  "files": [],
+  "code": 81,
+  "name": "FARM",
+  "sub": "ENTER_FARM=1",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "81:exitFarm",
+  "area": "Fazenda",
+  "func": "exitFarm",
+  "files": [],
+  "code": 81,
+  "name": "FARM",
+  "sub": "EXIT_FARM=16",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "81:fastForwardGrop",
+  "area": "Fazenda",
+  "func": "fastForwardGrop",
+  "files": [],
+  "code": 81,
+  "name": "FARM",
+  "sub": "FRAM_GROP_FASTFORWARD=18",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "81:giftPacks",
+  "area": "Fazenda",
+  "func": "giftPacks",
+  "files": [],
+  "code": 81,
+  "name": "FARM",
+  "sub": "FARM_GIFTPACKS=20",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "81:seeding",
+  "area": "Fazenda",
+  "func": "seeding",
+  "files": [],
+  "code": 81,
+  "name": "FARM",
+  "sub": "GROW_FIELD=2",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "81:sendBeginHelper",
+  "area": "Fazenda",
+  "func": "sendBeginHelper",
+  "files": [
+   "farm/viewx/helper/FarmHelperView.as",
+   "farm/viewx/helper/HelperBeginFrame.as"
+  ],
+  "code": 81,
+  "name": "FARM",
+  "sub": "HELPER_SWITCH_FIELD=9",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "81:sendCompose",
+  "area": "Fazenda",
+  "func": "sendCompose",
+  "files": [
+   "farm/view/compose/FarmComposePnl.as"
+  ],
+  "code": 81,
+  "name": "FARM",
+  "sub": "COMPOSE_FOOD=5",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "81:toFarmHelper",
+  "area": "Fazenda",
+  "func": "toFarmHelper",
+  "files": [],
+  "code": 81,
+  "name": "FARM",
+  "sub": "HELPER_SWITCH_FIELD=9",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "81:toGather",
+  "area": "Fazenda",
+  "func": "toGather",
+  "files": [],
+  "code": 81,
+  "name": "FARM",
+  "sub": "GAIN_FIELD=4",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "81:toHelperRenewMoney",
+  "area": "Fazenda",
+  "func": "toHelperRenewMoney",
+  "files": [],
+  "code": 81,
+  "name": "FARM",
+  "sub": "HELPER_PAY_FIELD=8",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "81:toKillCrop",
+  "area": "Fazenda",
+  "func": "toKillCrop",
+  "files": [],
+  "code": 81,
+  "name": "FARM",
+  "sub": "KILLCROP_FIELD=7",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "81:toSpread",
+  "area": "Fazenda",
+  "func": "toSpread",
+  "files": [],
+  "code": 81,
+  "name": "FARM",
+  "sub": "PAY_FIELD=6",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "58:sendItemCompose",
+  "area": "Ferreiro",
+  "func": "sendItemCompose",
+  "files": [
+   "store/view/Compose/StoreIIComposeBG.as"
+  ],
+  "code": 58,
+  "name": "ITEM_COMPOSE",
+  "sub": "",
+  "server": "partial",
+  "verified": "no",
+  "notes": "Implementado: taxa {80,50,30,10,5}% por qualidade (+1% sem amuleto), PRICE_COMPOSE_GOLD (1600).",
+  "evidence": ""
+ },
+ {
+  "key": "59:sendItemStrength",
+  "area": "Ferreiro",
+  "func": "sendItemStrength",
+  "files": [
+   "store/view/strength/StoreIIStrengthBG.as"
+  ],
+  "code": 59,
+  "name": "ITEM_STRENGTHEN",
+  "sub": "",
+  "server": "partial",
+  "verified": "yes",
+  "notes": "Pedras nv 4/5 em arma: sucesso, +1 por clique, 1 pedra consumida por slot (desvio: C# consumia a pilha inteira), furo 1 abre no +3.",
+  "evidence": "research/e2e/qa/b7-strengthen-tip.png, b8-weapon-tip.png, b11-inlay2.png"
+ },
+ {
+  "key": "61:sendItemTransfer",
+  "area": "Ferreiro",
+  "func": "sendItemTransfer",
+  "files": [
+   "store/view/transfer/StoreIITransferBG.as"
+  ],
+  "code": 61,
+  "name": "ITEM_TRANSFER",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "78:sendItemFusion",
+  "area": "Ferreiro",
+  "func": "sendItemFusion",
+  "files": [
+   "store/view/fusion/StoreIIFusionBG.as"
+  ],
+  "code": 78,
+  "name": "ITEM_FUSION",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "Implementado: prévia 76 + fusão 400 ouro (FusionMgr).",
+  "evidence": ""
+ },
+ {
+  "key": "95:necklaceStrength",
+  "area": "Ferreiro",
+  "func": "necklaceStrength",
+  "files": [],
+  "code": 95,
+  "name": "NECKLACE_STRENGTH",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "106:sendWishBeadEquip",
+  "area": "Ferreiro",
+  "func": "sendWishBeadEquip",
+  "files": [
+   "store/forge/wishBead/WishBeadMainView.as"
+  ],
+  "code": 106,
+  "name": "WISHBEADEQUIP",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "120:sendItemTrend",
+  "area": "Ferreiro",
+  "func": "sendItemTrend",
+  "files": [],
+  "code": 120,
+  "name": "ITEM_TREND",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "121:sendItemEmbed",
+  "area": "Ferreiro",
+  "func": "sendItemEmbed",
+  "files": [
+   "store/view/embed/StoreEmbedBG.as"
+  ],
+  "code": 121,
+  "name": "ITEM_INLAY",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "Implementado (furo precisa estar aberto e tipo igual ao Property2 da gema); sem gema no personagem de teste para verificar no cliente.",
+  "evidence": ""
+ },
+ {
+  "key": "125:sendItemEmbedBackout",
+  "area": "Ferreiro",
+  "func": "sendItemEmbedBackout",
+  "files": [
+   "store/view/embed/StoreEmbedBG.as"
+  ],
+  "code": 125,
+  "name": "ITEM_EMBED_BACKOUT",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "Implementado: 500 Xu, gema volta vinculada, devolve itens do ferreiro.",
+  "evidence": ""
+ },
+ {
+  "key": "133:sendLatentEnergy",
+  "area": "Ferreiro",
+  "func": "sendLatentEnergy",
+  "files": [
+   "latentEnergy/LatentEnergyMainView.as"
+  ],
+  "code": 133,
+  "name": "LATENT_ENERGY",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "138:sendItemExalt",
+  "area": "Ferreiro",
+  "func": "sendItemExalt",
+  "files": [
+   "store/view/exalt/StoreExaltBG.as"
+  ],
+  "code": 138,
+  "name": "ITEM_ADVANCE",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "172:sendSaveDB",
+  "area": "Ferreiro",
+  "func": "sendSaveDB",
+  "files": [
+   "store/StoreMainView.as"
+  ],
+  "code": 172,
+  "name": "SAVE_DB",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "209:fightSpiritRequest",
+  "area": "Ferreiro",
+  "func": "fightSpiritRequest",
+  "files": [],
+  "code": 209,
+  "name": "FIGHT_SPIRIT",
+  "sub": "FIGHT_SPIRIT_INIT=1",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "217:sendItemOpenFiveSixHole",
+  "area": "Ferreiro",
+  "func": "sendItemOpenFiveSixHole",
+  "files": [
+   "store/view/embed/StoreEmbedBG.as"
+  ],
+  "code": 217,
+  "name": "OPEN_FIVE_SIX_HOLE",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "295:sendForgeSuit",
+  "area": "Ferreiro",
+  "func": "sendForgeSuit",
+  "files": [
+   "store/fineStore/view/FineForgeView.as"
+  ],
+  "code": 295,
+  "name": "STORE_FINE_SUIT",
+  "sub": "FORGE_SUIT=1",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "391:sendEquipGhost",
+  "area": "Ferreiro",
+  "func": "sendEquipGhost",
+  "files": [
+   "store/equipGhost/EquipGhostManager.as"
+  ],
+  "code": 391,
+  "name": "EQUIP_GHOST",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "162:sendEliteGameStart",
+  "area": "GvG/Liga",
+  "func": "sendEliteGameStart",
+  "files": [
+   "eliteGame/EliteGameController.as"
+  ],
+  "code": 162,
+  "name": "ELITEGAME",
+  "sub": "ELITE_MATCH_RANK_START=2",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "162:sendGetEliteGameState",
+  "area": "GvG/Liga",
+  "func": "sendGetEliteGameState",
+  "files": [
+   "eliteGame/EliteGameController.as"
+  ],
+  "code": 162,
+  "name": "ELITEGAME",
+  "sub": "ELITE_MATCH_TYPE=1",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "162:sendGetPaarungDetail",
+  "area": "GvG/Liga",
+  "func": "sendGetPaarungDetail",
+  "files": [
+   "eliteGame/view/EliteGamePaarungFrame.as"
+  ],
+  "code": 162,
+  "name": "ELITEGAME",
+  "sub": "ELITE_MATCH_RANK_DETAIL=4",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "162:sendGetSelfRankSroce",
+  "area": "GvG/Liga",
+  "func": "sendGetSelfRankSroce",
+  "files": [
+   "eliteGame/EliteGameController.as"
+  ],
+  "code": 162,
+  "name": "ELITEGAME",
+  "sub": "ELITE_MATCH_PLAYER_RANK=3",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "192:auctionGood",
+  "area": "Leilão",
+  "func": "auctionGood",
+  "files": [],
+  "code": 192,
+  "name": "AUCTION_ADD",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "193:auctionBid",
+  "area": "Leilão",
+  "func": "auctionBid",
+  "files": [],
+  "code": 193,
+  "name": "AUCTION_UPDATE",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "194:auctionCancelSell",
+  "area": "Leilão",
+  "func": "auctionCancelSell",
+  "files": [],
+  "code": 194,
+  "name": "AUCTION_DELETE",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "19:sendMessage",
+  "area": "Lobby/Chat/Bugle",
+  "func": "sendMessage",
+  "files": [
+   "ddt/manager/ChatManager.as"
+  ],
+  "code": 19,
+  "name": "SCENE_CHAT",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "20:sendFace",
+  "area": "Lobby/Chat/Bugle",
+  "func": "sendFace",
+  "files": [
+   "ddt/manager/ChatManager.as"
+  ],
+  "code": 20,
+  "name": "SCENE_FACE",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "21:sendExitScene",
+  "area": "Lobby/Chat/Bugle",
+  "func": "sendExitScene",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 21,
+  "name": "SCENE_REMOVE_USER",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "37:sendPrivateMessage",
+  "area": "Lobby/Chat/Bugle",
+  "func": "sendPrivateMessage",
+  "files": [
+   "ddt/manager/ChatManager.as"
+  ],
+  "code": 37,
+  "name": "CHAT_PERSONAL",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "69:sendGetScenePlayer",
+  "area": "Lobby/Chat/Bugle",
+  "func": "sendGetScenePlayer",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 69,
+  "name": "SCENE_USERS_LIST",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "71:sendSBugle",
+  "area": "Lobby/Chat/Bugle",
+  "func": "sendSBugle",
+  "files": [
+   "ddt/manager/ChatManager.as"
+  ],
+  "code": 71,
+  "name": "S_BUGLE",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "72:sendBBugle",
+  "area": "Lobby/Chat/Bugle",
+  "func": "sendBBugle",
+  "files": [
+   "ddt/manager/ChatManager.as",
+   "ddt/view/chat/ChatBugleInputFrame.as"
+  ],
+  "code": 72,
+  "name": "B_BUGLE",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "73:sendCBugle",
+  "area": "Lobby/Chat/Bugle",
+  "func": "sendCBugle",
+  "files": [
+   "ddt/manager/ChatManager.as"
+  ],
+  "code": 73,
+  "name": "C_BUGLE",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "119:sendGetLinkGoodsInfo",
+  "area": "Lobby/Chat/Bugle",
+  "func": "sendGetLinkGoodsInfo",
+  "files": [
+   "ddt/view/chat/ChatOutputField.as"
+  ],
+  "code": 119,
+  "name": "LINKREQUEST_GOODS",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "181:sendQuestCheck",
+  "area": "Lobby/Chat/Bugle",
+  "func": "sendQuestCheck",
+  "files": [
+   "auctionHouse/controller/AuctionHouseController.as",
+   "ddt/manager/ChatManager.as",
+   "ddt/manager/TaskManager.as",
+   "fightLib/FightLibState.as",
+   "overSeasCommunity/OverSeasCommunController.as",
+   "tofflist/TofflistController.as"
+  ],
+  "code": 181,
+  "name": "QUEST_CHECK",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "44:sendBuyGoods",
+  "area": "Loja",
+  "func": "sendBuyGoods",
+  "files": [
+   "AvatarCollection/view/AvatarCollectionItemCell.as",
+   "chickActivation/view/ChickActivationViewFrame.as",
+   "consortion/view/selfConsortia/ConsortionShopItem.as",
+   "ddt/command/QuickBuyFrame.as",
+   "ddt/view/caddyII/QuickBuyCaddy.as",
+   "ddt/view/caddyII/bead/CardBoxQuickBuy.as",
+   "ddt/view/caddyII/bead/QuickBuyBead.as",
+   "ddt/view/caddyII/offerPack/OfferQuickBuyFrame.as",
+   "farm/viewx/shop/FarmShopPayPnl.as",
+   "gemstone/views/GemstoneObtainView.as",
+   "labyrinth/view/LabyrinthShopItem.as",
+   "littleGame/view/AwardGoodItem.as",
+   "shop/ShopController.as",
+   "shop/view/BuyMultiGoodsView.as",
+   "shop/view/BuySingleGoodsView.as",
+   "shop/view/ShopBugleView.as",
+   "shop/view/ShopGoodItem.as",
+   "store/view/shortcutBuy/ShortcutBuyFrame.as",
+   "worldboss/view/AwardGoodItem.as"
+  ],
+  "code": 44,
+  "name": "BUY_GOODS",
+  "sub": "",
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Xu (money) e Lễ kim (giftToken) debitados e saldo atualiza na loja (corrigido pacote 38 sem petScore). Ouro/medalha/itens exigidos pelo mesmo caminho (GetItemPrice).",
+  "evidence": "research/e2e/qa/c6-shop-balance.png"
+ },
+ {
+  "key": "46:sendBuyGiftBag",
+  "area": "Loja",
+  "func": "sendBuyGiftBag",
+  "files": [
+   "store/view/strength/BuyGiftBagButton.as"
+  ],
+  "code": 46,
+  "name": "BUY_GIFTBAG",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "48:sendSellGoods",
+  "area": "Loja",
+  "func": "sendSellGoods",
+  "files": [],
+  "code": 48,
+  "name": "SEll_GOODS",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "57:sendPresentGoods",
+  "area": "Loja",
+  "func": "sendPresentGoods",
+  "files": [
+   "shop/ShopController.as",
+   "shop/manager/ShopGiftsManager.as"
+  ],
+  "code": 57,
+  "name": "GOODS_PRESENT",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "126:sendQuickBuyGoldBox",
+  "area": "Loja",
+  "func": "sendQuickBuyGoldBox",
+  "files": [
+   "ddt/command/QuickBuyFrame.as"
+  ],
+  "code": 126,
+  "name": "BUY_QUICK_GOLDBOX",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "160:sendFriendState",
+  "area": "Loja",
+  "func": "sendFriendState",
+  "files": [
+   "ddt/manager/PlayerStateManager.as",
+   "im/StateIconButton.as",
+   "labyrinth/view/CleanOutFrame.as",
+   "shop/ShopController.as"
+  ],
+  "code": 160,
+  "name": "IM_CMD",
+  "sub": "FRIEND_STATE=165",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "251:sendCurrentState",
+  "area": "Loja",
+  "func": "sendCurrentState",
+  "files": [
+   "church/controller/ChurchRoomController.as",
+   "civil/CivilController.as",
+   "consortion/ConsortionControl.as",
+   "roomList/pveRoomList/DungeonListController.as",
+   "roomList/pvpRoomList/RoomListController.as",
+   "shop/ShopController.as"
+  ],
+  "code": 251,
+  "name": "SCENE_STATE",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "8:sendErrorMsg",
+  "area": "Missões",
+  "func": "sendErrorMsg",
+  "files": [
+   "calendar/CalendarManager.as",
+   "calendar/view/goodsExchange/GoodsExchangeView.as",
+   "ddt/bagStore/BagStoreFrame.as",
+   "ddt/data/BagInfo.as",
+   "ddt/data/goods/InventoryItemInfo.as",
+   "ddt/data/player/SelfInfo.as",
+   "ddt/manager/QueueManager.as",
+   "ddt/manager/SocketManager.as",
+   "ddt/manager/StateManager.as",
+   "game/actions/ActionManager.as",
+   "game/objects/BombAction.as",
+   "game/objects/SkillBomb.as",
+   "littleGame/LittleGamePacketQueue.as",
+   "noviceactivity/NoviceActivityManager.as",
+   "noviceactivity/NoviceActivityRightAwardItem.as",
+   "totem/view/HonorUpIcon.as"
+  ],
+  "code": 8,
+  "name": "CLIENT_LOG",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "13:sendDailyAward",
+  "area": "Missões",
+  "func": "sendDailyAward",
+  "files": [
+   "calendar/CalendarManager.as",
+   "hall/HallStateView.as",
+   "times/TimesManager.as",
+   "vip/view/GiveYourselfOpenView.as"
+  ],
+  "code": 13,
+  "name": "DAILY_AWARD",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "15:syncStep",
+  "area": "Missões",
+  "func": "syncStep",
+  "files": [],
+  "code": 15,
+  "name": "USER_ANSWER",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "15:syncWeakStep",
+  "area": "Missões",
+  "func": "syncWeakStep",
+  "files": [],
+  "code": 15,
+  "name": "USER_ANSWER",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "30:sendPicc",
+  "area": "Missões",
+  "func": "sendPicc",
+  "files": [
+   "calendar/view/ActivityState.as"
+  ],
+  "code": 30,
+  "name": "PICC",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "31:sendGoodsExchange",
+  "area": "Missões",
+  "func": "sendGoodsExchange",
+  "files": [
+   "calendar/view/goodsExchange/GoodsExchangeView.as"
+  ],
+  "code": 31,
+  "name": "GOODS_EXCHANGE",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "32:sendCollectInfoValidate",
+  "area": "Missões",
+  "func": "sendCollectInfoValidate",
+  "files": [
+   "quest/InfoCollectView.as"
+  ],
+  "code": 32,
+  "name": "COLLECTINFO",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "89:sendQuestionReply",
+  "area": "Missões",
+  "func": "sendQuestionReply",
+  "files": [
+   "ddt/manager/QuestionInfoMannager.as"
+  ],
+  "code": 89,
+  "name": "QUESTION_REPLY",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "90:sendSignAward",
+  "area": "Missões",
+  "func": "sendSignAward",
+  "files": [
+   "calendar/CalendarManager.as"
+  ],
+  "code": 90,
+  "name": "GET_SIGNAWARD",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "131:labyrinthRequestUpdate",
+  "area": "Missões",
+  "func": "labyrinthRequestUpdate",
+  "files": [],
+  "code": 131,
+  "name": "LABYRINTH",
+  "sub": "REQUEST_UPDATE=2",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "141:sendAcademyApprentice",
+  "area": "Missões",
+  "func": "sendAcademyApprentice",
+  "files": [
+   "ddt/view/academyCommon/academyRequest/AcademyRequestMasterFrame.as"
+  ],
+  "code": 141,
+  "name": "AcademyPackageType.ACADEMY_FATHER",
+  "sub": "ACADEMY_FOR_APPRENTICE=4",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "141:sendAcademyApprenticeConfirm",
+  "area": "Missões",
+  "func": "sendAcademyApprenticeConfirm",
+  "files": [
+   "ddt/view/academyCommon/academyRequest/AcademyAnswerApprenticeFrame.as"
+  ],
+  "code": 141,
+  "name": "AcademyPackageType.ACADEMY_FATHER",
+  "sub": "APPRENTICE_CONFIRM=7",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "141:sendAcademyMaster",
+  "area": "Missões",
+  "func": "sendAcademyMaster",
+  "files": [
+   "ddt/view/academyCommon/academyRequest/AcademyRequestApprenticeFrame.as"
+  ],
+  "code": 141,
+  "name": "AcademyPackageType.ACADEMY_FATHER",
+  "sub": "ACADEMY_FOR_MASTER=5",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "141:sendAcademyMasterConfirm",
+  "area": "Missões",
+  "func": "sendAcademyMasterConfirm",
+  "files": [
+   "ddt/view/academyCommon/academyRequest/AcademyAnswerMasterFrame.as"
+  ],
+  "code": 141,
+  "name": "AcademyPackageType.ACADEMY_FATHER",
+  "sub": "MASTER_CONFIRM=6",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "145:sendLanternRiddlesAnswer",
+  "area": "Missões",
+  "func": "sendLanternRiddlesAnswer",
+  "files": [
+   "lanternriddles/view/QuestionView.as"
+  ],
+  "code": 145,
+  "name": "ACTIVITY_SYSTEM",
+  "sub": "LANTERNRIDDLES_ANSWER=40",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "161:sendUserLuckyNum",
+  "area": "Missões",
+  "func": "sendUserLuckyNum",
+  "files": [
+   "calendar/CalendarManager.as",
+   "calendar/view/LuckyNumBar.as"
+  ],
+  "code": 161,
+  "name": "USER_LUCKYNUM",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "176:sendQuestAdd",
+  "area": "Missões",
+  "func": "sendQuestAdd",
+  "files": [
+   "ddt/manager/TaskManager.as"
+  ],
+  "code": 176,
+  "name": "QUEST_ADD",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "177:sendQuestRemove",
+  "area": "Missões",
+  "func": "sendQuestRemove",
+  "files": [],
+  "code": 177,
+  "name": "QUEST_REMOVE",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "179:sendQuestFinish",
+  "area": "Missões",
+  "func": "sendQuestFinish",
+  "files": [
+   "ddt/manager/TaskManager.as",
+   "quest/TaskMainFrame.as"
+  ],
+  "code": 179,
+  "name": "QUEST_FINISH",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "225:sendRequestUpdate",
+  "area": "Missões",
+  "func": "sendRequestUpdate",
+  "files": [
+   "effortView/EffortMainFrame.as"
+  ],
+  "code": 225,
+  "name": "REQUEST_UPDATE",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "230:sendAchievementFinish",
+  "area": "Missões",
+  "func": "sendAchievementFinish",
+  "files": [
+   "ddt/manager/EffortManager.as"
+  ],
+  "code": 230,
+  "name": "ACHIEVEMENT_FINISH",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "249:requestRefund",
+  "area": "Missões",
+  "func": "requestRefund",
+  "files": [],
+  "code": 249,
+  "name": "MARRY_CMD",
+  "sub": "MARRYROOMSENDGIFT=12",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "338:sendAccumulativeLoginAward",
+  "area": "Missões",
+  "func": "sendAccumulativeLoginAward",
+  "files": [
+   "accumulativeLogin/view/AccumulativeLoginView.as"
+  ],
+  "code": 338,
+  "name": "ACCUMULATIVELOGIN_AWARD",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "103:sendDailyRecord",
+  "area": "Outros",
+  "func": "sendDailyRecord",
+  "files": [
+   "ddt/dailyRecord/DailyRecordControl.as"
+  ],
+  "code": 103,
+  "name": "DAILYRECORD",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "110:sendItemLianhua",
+  "area": "Outros",
+  "func": "sendItemLianhua",
+  "files": [],
+  "code": 110,
+  "name": "ITEM_REFINERY",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "135:arrange",
+  "area": "Outros",
+  "func": "arrange",
+  "files": [],
+  "code": 135,
+  "name": "135",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "145:lightRoadPointWork",
+  "area": "Outros",
+  "func": "lightRoadPointWork",
+  "files": [],
+  "code": 145,
+  "name": "LIGHTROAD_SYSTEM",
+  "sub": "BECHOOSE_POINT=66",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "203:sendLookupEffort",
+  "area": "Outros",
+  "func": "sendLookupEffort",
+  "files": [
+   "ddt/manager/EffortManager.as"
+  ],
+  "code": 203,
+  "name": "LOOKUP_EFFORT",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "209:figSpiritUpGrade",
+  "area": "Outros",
+  "func": "figSpiritUpGrade",
+  "files": [],
+  "code": 209,
+  "name": "FIGHT_SPIRIT",
+  "sub": "FIGHT_SPIRIT_LEVELUP=3",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "213:sendUseLog",
+  "area": "Outros",
+  "func": "sendUseLog",
+  "files": [],
+  "code": 213,
+  "name": "USE_LOG",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "224:sendCIDCheck",
+  "area": "Outros",
+  "func": "sendCIDCheck",
+  "files": [],
+  "code": 224,
+  "name": "CID_CHECK",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "225:sendForSwitch",
+  "area": "Outros",
+  "func": "sendForSwitch",
+  "files": [],
+  "code": 225,
+  "name": "ENTHRALL_SWITCH",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "236:sendRegisterInfo",
+  "area": "Outros",
+  "func": "sendRegisterInfo",
+  "files": [
+   "civil/view/CivilRegisterFrame.as",
+   "civil/view/CivilRightView.as"
+  ],
+  "code": 236,
+  "name": "MARRYINFO_ADD",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "237:sendModifyInfo",
+  "area": "Outros",
+  "func": "sendModifyInfo",
+  "files": [
+   "civil/view/CivilRegisterFrame.as"
+  ],
+  "code": 237,
+  "name": "MARRYINFO_UPDATE",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "249:refund",
+  "area": "Outros",
+  "func": "refund",
+  "files": [],
+  "code": 249,
+  "name": "MARRY_CMD",
+  "sub": "MARRYROOMSENDGIFT=12",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "258:sendNoviceActivityGetAward",
+  "area": "Outros",
+  "func": "sendNoviceActivityGetAward",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 258,
+  "name": "NOVICEACTIVITY",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "259:sendFirstRechargeGetAward",
+  "area": "Outros",
+  "func": "sendFirstRechargeGetAward",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 259,
+  "name": "FIRSTRECHARGE",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "308:sendBringUpEat",
+  "area": "Outros",
+  "func": "sendBringUpEat",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 308,
+  "name": "EQUIP_BRING_UP",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "313:sendBringUpLockStatusUpdate",
+  "area": "Outros",
+  "func": "sendBringUpLockStatusUpdate",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 313,
+  "name": "ITEM_CELL_IS_LOCKED",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "279:showHideTitleState",
+  "area": "Personagem/FC",
+  "func": "showHideTitleState",
+  "files": [],
+  "code": 279,
+  "name": "279",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "402:sendAvatarCollectionActive",
+  "area": "Personagem/FC",
+  "func": "sendAvatarCollectionActive",
+  "files": [
+   "AvatarCollection/view/AvatarCollectionItemCell.as"
+  ],
+  "code": 402,
+  "name": "AVATAR_COLLECTION",
+  "sub": "ACTIVE=3",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "402:sendAvatarCollectionDelayTime",
+  "area": "Personagem/FC",
+  "func": "sendAvatarCollectionDelayTime",
+  "files": [
+   "AvatarCollection/view/AvatarCollectionTimeView.as"
+  ],
+  "code": 402,
+  "name": "AVATAR_COLLECTION",
+  "sub": "DELAY_TIME=4",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "68:addPetEquip",
+  "area": "Pets",
+  "func": "addPetEquip",
+  "files": [],
+  "code": 68,
+  "name": "PET",
+  "sub": "ADD_PET_EQUIP=20",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "68:delPetEquip",
+  "area": "Pets",
+  "func": "delPetEquip",
+  "files": [],
+  "code": 68,
+  "name": "PET",
+  "sub": "DEL_PET_EQUIP=21",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "68:eatPetsHandler",
+  "area": "Pets",
+  "func": "eatPetsHandler",
+  "files": [],
+  "code": 68,
+  "name": "PET",
+  "sub": "EAT_PETS=33",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "68:sendAdoptPet",
+  "area": "Pets",
+  "func": "sendAdoptPet",
+  "files": [
+   "petsBag/view/AdoptPetsGuideView.as",
+   "petsBag/view/AdoptPetsView.as"
+  ],
+  "code": 68,
+  "name": "PET",
+  "sub": "ADOPT_PET=6",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "68:sendEquipPetSkill",
+  "area": "Pets",
+  "func": "sendEquipPetSkill",
+  "files": [
+   "petsBag/view/PetGameSkillPnl.as",
+   "petsBag/view/PetSkillPnl.as",
+   "petsBag/view/item/SkillItem.as"
+  ],
+  "code": 68,
+  "name": "PET",
+  "sub": "EQUIP_PET_SKILL=7",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "68:sendPaySkill",
+  "area": "Pets",
+  "func": "sendPaySkill",
+  "files": [
+   "petsBag/view/PetGameSkillPnl.as"
+  ],
+  "code": 68,
+  "name": "PET",
+  "sub": "PAY_SKILL=16",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "68:sendPetEvolution",
+  "area": "Pets",
+  "func": "sendPetEvolution",
+  "files": [
+   "petsBag/petsAdvanced/PetsAdvancedView.as"
+  ],
+  "code": 68,
+  "name": "PET",
+  "sub": "PET_EVOLUTION=23",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "68:sendPetFeed",
+  "area": "Pets",
+  "func": "sendPetFeed",
+  "files": [
+   "petsBag/view/PetsBagOutView.as"
+  ],
+  "code": 68,
+  "name": "PET",
+  "sub": "FEED_PET=4",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "68:sendPetFightUnFight",
+  "area": "Pets",
+  "func": "sendPetFightUnFight",
+  "files": [
+   "pet/sprite/PetSpriteController.as",
+   "petsBag/view/PetsBagOutView.as"
+  ],
+  "code": 68,
+  "name": "PET",
+  "sub": "FIGHT_PET=17",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "68:sendPetFollowOrCall",
+  "area": "Pets",
+  "func": "sendPetFollowOrCall",
+  "files": [
+   "petsBag/petsAdvanced/PetsFormPetsItem.as"
+  ],
+  "code": 68,
+  "name": "PET",
+  "sub": "PET_FOLLOW=25",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "68:sendPetFormInfo",
+  "area": "Pets",
+  "func": "sendPetFormInfo",
+  "files": [
+   "petsBag/petsAdvanced/PetsFormView.as"
+  ],
+  "code": 68,
+  "name": "PET",
+  "sub": "PET_FORMINFO=24",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "68:sendPetRename",
+  "area": "Pets",
+  "func": "sendPetRename",
+  "files": [
+   "petsBag/view/PetsBagOutView.as"
+  ],
+  "code": 68,
+  "name": "PET",
+  "sub": "RENAME_PET=9",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "68:sendPetRisingStar",
+  "area": "Pets",
+  "func": "sendPetRisingStar",
+  "files": [
+   "petsBag/petsAdvanced/PetsAdvancedView.as"
+  ],
+  "code": 68,
+  "name": "PET",
+  "sub": "PET_RISINGSTAR=22",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "68:sendPetWake",
+  "area": "Pets",
+  "func": "sendPetWake",
+  "files": [
+   "petsBag/petsAdvanced/PetsFormPetsItem.as"
+  ],
+  "code": 68,
+  "name": "PET",
+  "sub": "PET_WAKE=32",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "68:sendRefreshPet",
+  "area": "Pets",
+  "func": "sendRefreshPet",
+  "files": [
+   "petsBag/view/AdoptPetsGuideView.as",
+   "petsBag/view/AdoptPetsView.as"
+  ],
+  "code": 68,
+  "name": "PET",
+  "sub": "REFRESH_PET=5",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "68:sendReleasePet",
+  "area": "Pets",
+  "func": "sendReleasePet",
+  "files": [
+   "petsBag/view/PetsBagOutView.as"
+  ],
+  "code": 68,
+  "name": "PET",
+  "sub": "RELEASE_PET=8",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "68:sendRevertPet",
+  "area": "Pets",
+  "func": "sendRevertPet",
+  "files": [
+   "petsBag/view/PetsBagOutView.as"
+  ],
+  "code": 68,
+  "name": "PET",
+  "sub": "REVER_PET=18",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "50:sendBeginFightNpc",
+  "area": "PvE/Masmorras",
+  "func": "sendBeginFightNpc",
+  "files": [],
+  "code": 50,
+  "name": "FIGHT_NPC",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "82:sendGameMissionStart",
+  "area": "PvE/Masmorras",
+  "func": "sendGameMissionStart",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 82,
+  "name": "CrazyTankPackageType.GAME_MISSION_START",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "131:labyrinthCleanOut",
+  "area": "PvE/Masmorras",
+  "func": "labyrinthCleanOut",
+  "files": [],
+  "code": 131,
+  "name": "LABYRINTH",
+  "sub": "CLEAN_OUT=3",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "131:labyrinthCleanOutTimerComplete",
+  "area": "PvE/Masmorras",
+  "func": "labyrinthCleanOutTimerComplete",
+  "files": [],
+  "code": 131,
+  "name": "LABYRINTH",
+  "sub": "CLEAN_OUT_COMPLETE=8",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "131:labyrinthDouble",
+  "area": "PvE/Masmorras",
+  "func": "labyrinthDouble",
+  "files": [],
+  "code": 131,
+  "name": "LABYRINTH",
+  "sub": "DOUBLE_REWARD=1",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "131:labyrinthReset",
+  "area": "PvE/Masmorras",
+  "func": "labyrinthReset",
+  "files": [],
+  "code": 131,
+  "name": "LABYRINTH",
+  "sub": "RESET_LABYRINTH=6",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "131:labyrinthSpeededUpCleanOut",
+  "area": "PvE/Masmorras",
+  "func": "labyrinthSpeededUpCleanOut",
+  "files": [],
+  "code": 131,
+  "name": "LABYRINTH",
+  "sub": "SPEEDED_UP_CLEAN_OUT=4",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "131:labyrinthStopCleanOut",
+  "area": "PvE/Masmorras",
+  "func": "labyrinthStopCleanOut",
+  "files": [],
+  "code": 131,
+  "name": "LABYRINTH",
+  "sub": "STOP_CLEAN_OUT=5",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "131:labyrinthTryAgain",
+  "area": "PvE/Masmorras",
+  "func": "labyrinthTryAgain",
+  "files": [],
+  "code": 131,
+  "name": "LABYRINTH",
+  "sub": "TRY_AGAIN=9",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "16:sendSceneLogin",
+  "area": "Salas PvP",
+  "func": "sendSceneLogin",
+  "files": [
+   "hall/HallStateView.as",
+   "roomList/pveRoomList/DungeonListController.as",
+   "roomList/pvpRoomList/RoomListController.as"
+  ],
+  "code": 16,
+  "name": "SCENE_LOGIN",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "54:sendBuyProp",
+  "area": "Salas PvP",
+  "func": "sendBuyProp",
+  "files": [
+   "room/view/RoomPropCell.as",
+   "room/view/states/FreshmanRoomState.as"
+  ],
+  "code": 54,
+  "name": "PROP_BUY",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "54:sendBuyProp",
+  "area": "Salas PvP",
+  "func": "sendBuyProp",
+  "files": [
+   "room/view/RoomPropCell.as",
+   "room/view/states/FreshmanRoomState.as"
+  ],
+  "code": 54,
+  "name": "PROP_BUY",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "55:sendSellProp",
+  "area": "Salas PvP",
+  "func": "sendSellProp",
+  "files": [
+   "room/view/RoomPropCell.as"
+  ],
+  "code": 55,
+  "name": "PROP_SELL",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "55:sendSellProp",
+  "area": "Salas PvP",
+  "func": "sendSellProp",
+  "files": [
+   "room/view/RoomPropCell.as"
+  ],
+  "code": 55,
+  "name": "PROP_SELL",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "70:sendInviteGame",
+  "area": "Salas PvP",
+  "func": "sendInviteGame",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 70,
+  "name": "GAME_INVITE",
+  "sub": "",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "94:createUserGuide",
+  "area": "Salas PvP",
+  "func": "createUserGuide",
+  "files": [],
+  "code": 94,
+  "name": "GAME_ROOM",
+  "sub": "GAME_ROOM_CREATE=0",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "94:enterUserGuide",
+  "area": "Salas PvP",
+  "func": "enterUserGuide",
+  "files": [],
+  "code": 94,
+  "name": "GAME_ROOM",
+  "sub": "GAME_ROOM_SETUP_CHANGE=2",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "94:sendCancelWait",
+  "area": "Salas PvP",
+  "func": "sendCancelWait",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 94,
+  "name": "GAME_ROOM",
+  "sub": "GAME_PICKUP_CANCEL=11",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "94:sendGameMode",
+  "area": "Salas PvP",
+  "func": "sendGameMode",
+  "files": [],
+  "code": 94,
+  "name": "GAME_ROOM",
+  "sub": "GAME_PICKUP_STYLE=12",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "94:sendGamePlayerExit",
+  "area": "Salas PvP",
+  "func": "sendGamePlayerExit",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 94,
+  "name": "GAME_ROOM",
+  "sub": "GAME_ROOM_REMOVEPLAYER=5",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "94:sendGameRoomKick",
+  "area": "Salas PvP",
+  "func": "sendGameRoomKick",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 94,
+  "name": "GAME_ROOM",
+  "sub": "GAME_ROOM_KICK=3",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "94:sendGameRoomPlaceState",
+  "area": "Salas PvP",
+  "func": "sendGameRoomPlaceState",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 94,
+  "name": "GAME_ROOM",
+  "sub": "GAME_ROOM_UPDATE_PLACE=10",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "94:sendGameRoomSetUp",
+  "area": "Salas PvP",
+  "func": "sendGameRoomSetUp",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 94,
+  "name": "GAME_ROOM",
+  "sub": "GAME_ROOM_SETUP_CHANGE=2",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "94:sendGameStart",
+  "area": "Salas PvP",
+  "func": "sendGameStart",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 94,
+  "name": "GAME_ROOM",
+  "sub": "GAME_START=7",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "94:sendGameStyle",
+  "area": "Salas PvP",
+  "func": "sendGameStyle",
+  "files": [
+   "room/view/bigMapInfoPanel/MatchRoomBigMapInfoPanel.as"
+  ],
+  "code": 94,
+  "name": "GAME_ROOM",
+  "sub": "GAME_PICKUP_STYLE=12",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "94:sendGameStyle",
+  "area": "Salas PvP",
+  "func": "sendGameStyle",
+  "files": [
+   "room/view/bigMapInfoPanel/MatchRoomBigMapInfoPanel.as"
+  ],
+  "code": 94,
+  "name": "GAME_ROOM",
+  "sub": "GAME_PICKUP_STYLE=12",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "94:sendGameTeam",
+  "area": "Salas PvP",
+  "func": "sendGameTeam",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 94,
+  "name": "GAME_ROOM",
+  "sub": "GAME_TEAM=6",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "94:sendPlayerState",
+  "area": "Salas PvP",
+  "func": "sendPlayerState",
+  "files": [
+   "ddt/manager/GameInSocketOut.as"
+  ],
+  "code": 94,
+  "name": "GAME_ROOM",
+  "sub": "GAME_PLAYER_STATE_CHANGE=15",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "94:sendUpdateRoomList",
+  "area": "Salas PvP",
+  "func": "sendUpdateRoomList",
+  "files": [
+   "roomList/RoomListMapTipPanel.as",
+   "roomList/RoomListTipPanel.as",
+   "roomList/pveRoomList/DungeonListBGView.as",
+   "roomList/pvpRoomList/RoomListBGView.as"
+  ],
+  "code": 94,
+  "name": "GAME_ROOM",
+  "sub": "ROOMLIST_UPDATE=9",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "94:userGuideStart",
+  "area": "Salas PvP",
+  "func": "userGuideStart",
+  "files": [],
+  "code": 94,
+  "name": "GAME_ROOM",
+  "sub": "GAME_START=7",
+  "server": "ok",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendBuyBadge",
+  "area": "Sociedade/Guilda",
+  "func": "sendBuyBadge",
+  "files": [
+   "consortion/view/selfConsortia/BadgeShopItem.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "BUY_BADGE=28",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsoritaApplyStatusOut",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsoritaApplyStatusOut",
+  "files": [
+   "consortion/view/selfConsortia/TakeInMemberFrame.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_APPLY_STATE=7",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortiaCancelTryIn",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortiaCancelTryIn",
+  "files": [],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_TRYIN=0",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortiaChangeChairman",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortiaChangeChairman",
+  "files": [
+   "consortion/view/selfConsortia/ConsortionTrasferFrame.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_CHAIRMAN_CHAHGE=19",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortiaDismiss",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortiaDismiss",
+  "files": [
+   "consortion/view/selfConsortia/SelfConsortiaView.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_DISBAND=2",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortiaDutyDelete",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortiaDutyDelete",
+  "files": [],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_DUTY_DELETE=9",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortiaEquipConstrol",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortiaEquipConstrol",
+  "files": [
+   "consortion/view/selfConsortia/ManagerFrame.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_EQUIP_CONTROL=24",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortiaInvate",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortiaInvate",
+  "files": [
+   "consortion/view/selfConsortia/WantTakeInFrame.as",
+   "ddt/view/tips/PlayerTip.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_INVITE=11",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortiaInvateDelete",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortiaInvateDelete",
+  "files": [
+   "consortion/ConsortionModelControl.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_INVITE_DELETE=13",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortiaInvatePass",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortiaInvatePass",
+  "files": [
+   "consortion/ConsortionModelControl.as",
+   "consortion/view/club/ClubRecordItem.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_INVITE_PASS=12",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortiaLevelUp",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortiaLevelUp",
+  "files": [
+   "consortion/view/selfConsortia/ConsortionUpGradeFrame.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_LEVEL_UP=21",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortiaMemberGrade",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortiaMemberGrade",
+  "files": [
+   "ddt/view/tips/PlayerTip.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_USER_GRADE_UPDATE=1",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortiaOut",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortiaOut",
+  "files": [
+   "consortion/view/selfConsortia/ConsortionQuitFrame.as",
+   "ddt/view/tips/PlayerTip.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_RENEGADE=3",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortiaRichOffer",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortiaRichOffer",
+  "files": [
+   "consortion/view/selfConsortia/TaxFrame.as",
+   "ddt/view/consortia/MyConsortiaTax.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_RICHES_OFFER=6",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortiaTryIn",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortiaTryIn",
+  "files": [
+   "consortion/view/club/ClubView.as",
+   "tofflist/view/TofflistLeftCurrentCharcter.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_TRYIN=0",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortiaTryinDelete",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortiaTryinDelete",
+  "files": [
+   "consortion/view/club/ClubRecordItem.as",
+   "consortion/view/selfConsortia/TakeInMemberFrame.as",
+   "consortion/view/selfConsortia/TakeInMemberItem.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_TRYIN_DEL=5",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortiaTryinPass",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortiaTryinPass",
+  "files": [
+   "consortion/view/selfConsortia/TakeInMemberFrame.as",
+   "consortion/view/selfConsortia/TakeInMemberItem.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_TRYIN_PASS=4",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortiaUpdateDescription",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortiaUpdateDescription",
+  "files": [
+   "consortion/view/selfConsortia/ConsortionDeclareFrame.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortiaUpdateDuty",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortiaUpdateDuty",
+  "files": [
+   "consortion/view/selfConsortia/JobManageItem.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_DUTY_UPDATE=10",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortiaUpdatePlacard",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortiaUpdatePlacard",
+  "files": [
+   "consortion/view/selfConsortia/PlacardAndEvent.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_PLACARD_UPDATE=15",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortiaUpgradeDuty",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortiaUpgradeDuty",
+  "files": [],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_DUTY_UPDATE=10",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortiaUserRemarkUpdate",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortiaUserRemarkUpdate",
+  "files": [],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortionPoll",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortionPoll",
+  "files": [
+   "consortion/view/selfConsortia/ConsortionPollFrame.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "POLL_CANDIDATE=25",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendConsortionSkill",
+  "area": "Sociedade/Guilda",
+  "func": "sendConsortionSkill",
+  "files": [
+   "consortion/view/selfConsortia/ConsortionOpenSkillFrame.as",
+   "consortion/view/selfConsortia/ConsortionSkillItem.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "SKILL_SOCKET=26",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendCreateConsortia",
+  "area": "Sociedade/Guilda",
+  "func": "sendCreateConsortia",
+  "files": [
+   "consortion/view/club/CreateConsortionFrame.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_CREATE=1",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendDonate",
+  "area": "Sociedade/Guilda",
+  "func": "sendDonate",
+  "files": [
+   "consortion/view/selfConsortia/consortiaTask/DonateFrame.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "DONATE=23",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendForbidSpeak",
+  "area": "Sociedade/Guilda",
+  "func": "sendForbidSpeak",
+  "files": [
+   "ddt/view/tips/PlayerTip.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_BANCHAT_UPDATE=16",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "129:sendReleaseConsortiaTask",
+  "area": "Sociedade/Guilda",
+  "func": "sendReleaseConsortiaTask",
+  "files": [
+   "consortion/view/selfConsortia/consortiaTask/ConsortiaReleaseTaskFrame.as",
+   "consortion/view/selfConsortia/consortiaTask/ConsortiaSubmitTaskFrame.as",
+   "consortion/view/selfConsortia/consortiaTask/ConsortiaTaskView.as"
+  ],
+  "code": 129,
+  "name": "CONSORTIA_CMD",
+  "sub": "CONSORTIA_TASK_RELEASE=22",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "12:sendHotAddTime",
+  "area": "Spa/Fonte termal",
+  "func": "sendHotAddTime",
+  "files": [
+   "hotSpring/controller/HotSpringRoomController.as",
+   "hotSpring/controller/HotSpringRoomListController.as"
+  ],
+  "code": 12,
+  "name": "HOTSPRING_CMD_B",
+  "sub": "CONTINU_BY_MONEY=11",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "169:sendHotSpringRoomPlayerRemove",
+  "area": "Spa/Fonte termal",
+  "func": "sendHotSpringRoomPlayerRemove",
+  "files": [
+   "ddt/manager/HotSpringManager.as",
+   "hotSpring/controller/HotSpringRoomController.as"
+  ],
+  "code": 169,
+  "name": "HOTSPRING_ROOM_PLAYER_REMOVE",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "175:sendHotSpringRoomCreate",
+  "area": "Spa/Fonte termal",
+  "func": "sendHotSpringRoomCreate",
+  "files": [
+   "hotSpring/controller/HotSpringRoomListController.as"
+  ],
+  "code": 175,
+  "name": "HOTSPRING_ROOM_CREATE",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "187:sendHotSpringEnter",
+  "area": "Spa/Fonte termal",
+  "func": "sendHotSpringEnter",
+  "files": [
+   "hotSpring/controller/HotSpringRoomListController.as"
+  ],
+  "code": 187,
+  "name": "HOTSPRING_ENTER",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "190:sendHotSpringRoomQuickEnter",
+  "area": "Spa/Fonte termal",
+  "func": "sendHotSpringRoomQuickEnter",
+  "files": [
+   "hotSpring/controller/HotSpringRoomListController.as"
+  ],
+  "code": 190,
+  "name": "HOTSPRING_ROOM_QUICK_ENTER",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "191:sendHotSpringRoomAdminRemovePlayer",
+  "area": "Spa/Fonte termal",
+  "func": "sendHotSpringRoomAdminRemovePlayer",
+  "files": [],
+  "code": 191,
+  "name": "HOTSPRING_CMD",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "191:sendHotSpringRoomEdit",
+  "area": "Spa/Fonte termal",
+  "func": "sendHotSpringRoomEdit",
+  "files": [
+   "hotSpring/controller/HotSpringRoomController.as"
+  ],
+  "code": 191,
+  "name": "HOTSPRING_CMD",
+  "sub": "HOTSPRING_ROOM_EDIT=6",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "191:sendHotSpringRoomInvite",
+  "area": "Spa/Fonte termal",
+  "func": "sendHotSpringRoomInvite",
+  "files": [],
+  "code": 191,
+  "name": "HOTSPRING_CMD",
+  "sub": "HOTSPRING_ROOM_INVITE=4",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "191:sendHotSpringRoomPlayerContinue",
+  "area": "Spa/Fonte termal",
+  "func": "sendHotSpringRoomPlayerContinue",
+  "files": [
+   "hotSpring/controller/HotSpringRoomController.as"
+  ],
+  "code": 191,
+  "name": "HOTSPRING_CMD",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "191:sendHotSpringRoomPlayerTargetPoint",
+  "area": "Spa/Fonte termal",
+  "func": "sendHotSpringRoomPlayerTargetPoint",
+  "files": [
+   "hotSpring/controller/HotSpringRoomController.as"
+  ],
+  "code": 191,
+  "name": "HOTSPRING_CMD",
+  "sub": "TARGET_POINT=1",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "191:sendHotSpringRoomRenewalFee",
+  "area": "Spa/Fonte termal",
+  "func": "sendHotSpringRoomRenewalFee",
+  "files": [
+   "hotSpring/controller/HotSpringRoomController.as"
+  ],
+  "code": 191,
+  "name": "HOTSPRING_CMD",
+  "sub": "HOTSPRING_ROOM_RENEWAL_FEE=3",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "201:sendHotSpringRoomEnterView",
+  "area": "Spa/Fonte termal",
+  "func": "sendHotSpringRoomEnterView",
+  "files": [
+   "hotSpring/view/HotSpringRoomView.as"
+  ],
+  "code": 201,
+  "name": "HOTSPRING_ROOM_ENTER_VIEW",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "202:sendHotSpringRoomEnter",
+  "area": "Spa/Fonte termal",
+  "func": "sendHotSpringRoomEnter",
+  "files": [
+   "hotSpring/controller/HotSpringRoomListController.as"
+  ],
+  "code": 202,
+  "name": "HOTSPRING_ROOM_ENTER",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "212:sendHotSpringRoomEnterConfirm",
+  "area": "Spa/Fonte termal",
+  "func": "sendHotSpringRoomEnterConfirm",
+  "files": [
+   "hotSpring/controller/HotSpringRoomListController.as"
+  ],
+  "code": 212,
+  "name": "HOTSPRING_ROOM_ENTER_CONFIRM",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "96:sendHonorUp",
+  "area": "Totem/Honra",
+  "func": "sendHonorUp",
+  "files": [
+   "totem/view/HonorUpFrame.as",
+   "totem/view/HonorUpIcon.as"
+  ],
+  "code": 96,
+  "name": "HONOR_UP_COUNT",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "136:sendOpenOneTotem",
+  "area": "Totem/Honra",
+  "func": "sendOpenOneTotem",
+  "files": [
+   "totem/view/TotemLeftWindowView.as"
+  ],
+  "code": 136,
+  "name": "TOTEM",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ },
+ {
+  "key": "92:sendOpenVip",
+  "area": "VIP",
+  "func": "sendOpenVip",
+  "files": [
+   "vip/VipController.as"
+  ],
+  "code": 92,
+  "name": "VIP_RENEWAL",
+  "sub": "",
+  "server": "missing",
+  "verified": "no",
+  "notes": "",
+  "evidence": ""
+ }
+]
