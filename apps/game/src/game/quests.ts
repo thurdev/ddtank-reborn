@@ -191,7 +191,7 @@ export class QuestInventory {
         return false;
       case 16: // DirectFinishCondition
         return true;
-      case 4: case 5: case 6: case 10: case 20: case 22: case 23: case 24: case 30: case 31: case 34: case 39:
+      case 4: case 5: case 6: case 10: case 20: case 21: case 22: case 23: case 24: case 30: case 31: case 34: case 39:
         return this.value(q, i) <= 0;
       default:
         return false; // UnknowQuestCondition / module not ported
@@ -349,6 +349,15 @@ export class QuestInventory {
         case 22: if (g.kills > 0 && byGame(c.Para1)) this.dec(q, i, g.kills); break;
         case 30: case 34: if (g.playerCount >= 4) this.dec(q, i); break;
       }
+    });
+  }
+
+  /** GamePlayer.OnMissionOver → MissionTurnOver (wins only) → GameMissionOverCondition (type 21): mission Para1 (-1 any)
+   *  finished in ≤ Para2 turns (Quests/GameMissionOverCondition.cs). */
+  onMissionOver(missionId: number, isWin: boolean, turnNum: number): void {
+    if (!isWin) return;
+    this.each((q, c, i) => {
+      if (c.CondictionType === 21 && (c.Para1 === missionId || c.Para1 === -1) && turnNum <= c.Para2 && this.value(q, i) > 0) this.setValue(q, i, 0);
     });
   }
 

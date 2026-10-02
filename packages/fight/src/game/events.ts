@@ -28,6 +28,8 @@ export interface GameCreateEvent extends Ev<"GAME_CREATE"> {
 export interface GameLoadEvent extends Ev<"GAME_LOAD"> {
   maxTime: number;
   mapId: number;
+  /** PvE: BaseGame.m_loadingFiles (type, path, className) */
+  files?: { type: number; path: string; className: string }[];
 }
 /** LoadCommand.cs:13 rebroadcast: i32 progress, i32 zoneId, i32 userId */
 export interface LoadEvent extends Ev<"LOAD"> {
@@ -201,7 +203,48 @@ export interface GameOverEvent extends Ev<"GAME_OVER"> {
   riches: number;
 }
 
+/** Pre-encoded GAME_CMD body (PvE packets with a fixed layout; C# writer cited where emitted). */
+export type RawField = ["u8", number] | ["i32", number] | ["bool", boolean] | ["str", string] | ["date", number];
+export interface RawEvent {
+  cmd: "RAW";
+  code: number;
+  livingId: number;
+  body: RawField[];
+  except?: number;
+  to?: number[];
+}
+export interface MissionOverPlayer { userId: number; livingId: number; grade: number; gainGP: number; isWin: boolean; bossCardCount: number; turnNum: number }
+/** PVEGame.GameOver (PVEGame.cs:809-877): the server applies AddGP (grade written after) then serializes */
+export interface MissionOverEvent extends Ev<"GAME_MISSION_OVER"> {
+  bossCardCount: number;
+  showLarge: boolean;
+  pic: string;
+  missionId: number;
+  isWin: boolean;
+  players: MissionOverPlayer[];
+  resources: string[] | null;
+}
+export interface AllMissionOverPlayer { userId: number; totalKill: number; totalHurt: number; totalScore: number; totalCure: number; totalExp: number; isWin: boolean; canTakeOut: number; turnNum: number }
+/** PVEGame.GameOverAllSession (PVEGame.cs:944-1011) */
+export interface AllMissionOverEvent extends Ev<"GAME_ALL_MISSION_OVER"> {
+  isWin: boolean;
+  roomType: number;
+  gameType: number;
+  players: AllMissionOverPlayer[];
+  resources: string[];
+}
+export interface DropItem { templateId: number; count: number; isBind?: boolean; validDate?: number }
+/** not a packet: items/money the server must give (TakeCard TempBag, NPC drop FightBag/TempBag) */
+export interface PveAwardEvent { cmd: "PVE_AWARD"; code: 0; livingId: number; userId: number; items: DropItem[]; bag: "temp" | "fight"; except?: number; to?: number[] }
+/** not a packet: PVEGame.Stop → PlayerDetail.ResetRoom / SetPvePermission */
+export interface PveStoppedEvent { cmd: "PVE_STOPPED"; code: 0; livingId: number; isWin: boolean; hasNextMission: boolean; except?: number; to?: number[] }
+
 export type FightEvent =
+  | RawEvent
+  | MissionOverEvent
+  | AllMissionOverEvent
+  | PveAwardEvent
+  | PveStoppedEvent
   | GameCreateEvent
   | GameLoadEvent
   | LoadEvent
@@ -228,10 +271,12 @@ export type FightEvent =
   | GameOverEvent;
 
 type DistOmit<T, K extends keyof never> = T extends unknown ? Omit<T, K> : never;
-/** event without `code` (filled from `cmd`) */
-export type FightEventInit = DistOmit<FightEvent, "code">;
+/** event without `code` (filled from `cmd`; RAW keeps its own) */
+export type FightEventInit = DistOmit<Exclude<FightEvent, RawEvent>, "code"> | RawEvent;
 
 export function withCode(e: FightEventInit): FightEvent {
+  if (e.cmd === "RAW") return e as FightEvent;
+  if (e.cmd === "PVE_AWARD" || e.cmd === "PVE_STOPPED") return { ...e, code: 0 } as FightEvent;
   return { ...e, code: eTankCmdType[e.cmd] } as FightEvent;
 }
 
@@ -249,4 +294,9 @@ export type FightCommand =
   | { cmd: "SUICIDE" }
   | { cmd: "USE_DEPUTY_WEAPON" }
   | { cmd: "GHOST_TARGET"; x: number; y: number }
-  | { cmd: "BOT_COMMAND" };
+  | { cmd: "BOT_COMMAND" }
+  | { cmd: "MISSION_PREPARE"; ready: boolean }
+  | { cmd: "TAKE_CARD"; index: number }
+  | { cmd: "PASS_DRAMA"; pass: boolean }
+  | { cmd: "TRY_AGAIN"; tryAgain: number; isHost: boolean }
+  | { cmd: "MISSION_EVENT"; data: number[] };

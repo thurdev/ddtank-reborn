@@ -39,6 +39,30 @@ onClientGameCmd((userId, cmd) => game.handle(userId, cmd).forEach(send));   // {
 Determinism: all randomness goes through `DotNetRandom(seed)`; same seed + same commands + same clock ⇒ same event
 stream (tested).
 
+## PvE
+
+`PveGame` (`src/pve/game.ts`) ports `PVEGame.cs` + `CheckPVEGameStateAction.cs` + the `Living*Action` timeline
+(step actions with finish delays, so `Say`/`PlayMovie` block the turn like in C#). Scripts use the **C# member names**
+(`Game.CreateNpc`, `Body.MoveTo`, `Game.Random.Next`, PascalCase on purpose; `src/pve/compat.ts` installs them on the
+engine bodies) so the 611 donor classes are transpiled mechanically:
+
+```
+pnpm --filter @ddt/fight transpile-pve   # vendor/DDTank4.1 .../AI/*.cs → src/pve/scripts/generated (+ report.json)
+pnpm --filter @ddt/fight pve-smoke       # every Mission_Info row with 2 bots → generated/smoke.json
+```
+
+```ts
+import { PveGame } from "@ddt/fight";
+import "@ddt/fight/pve-scripts";          // registers generated + manual scripts
+const g = new PveGame({ id, roomType: 4, gameType: 7, timeType: 3, assets, players, pveInfo, hardLevel: 0,
+  data: { npc: (id) => npcRows.get(id), mission: (id) => missionRows.get(id) },
+  drops: { copyDrop: (missionId, user) => [...], npcDrop: (dropId) => [...] } });
+```
+
+Extra events: `RAW` (pre-encoded PvE packets: 64 add living, 55-61 NPC actions, 104, 113…), `GAME_MISSION_OVER`,
+`GAME_ALL_MISSION_OVER`, `PVE_AWARD` (items to give), `PVE_STOPPED`. Missing / broken scripts fall back to
+`GenericNpcBrain` / `GenericMission` / `GenericGameControl` — never a frozen mission. Guide (PT-BR): `docs/guides/pve.md`.
+
 ## Assets
 
 `pnpm --filter @ddt/fight pack-assets` converts the original files into `data/` (≈3 MB, committed):
@@ -76,7 +100,7 @@ turn time/delay. All match bit-for-bit.
 - `Player.SetXY` energy: the original subtracts `|m_x − x|` after assigning `m_x` (always 0); we charge the real
   distance, and `MOVESTART` is clamped to the remaining energy (the original trusts the client, spec §3.4).
 - Not modelled yet: drop boxes (`CreateBox`/fire drops — need drop tables), pets/pet skills, card/equipment/gem effects
-  (only Ice/Hide/NoHole/Seal and the 10001–10022 props), healstone, guild/paid fight buffers, PvE (`PVEGame`, NPC AI),
+  (only Ice/Hide/NoHole/Seal and the 10001–10022 props), healstone, guild/paid fight buffers, PvE extras (Labyrinth gates, world boss, effects with real stat changes),
   achievements, ghost movement and dead-teammate props. `GAME_CREATE` carries only the fight fields (the server adds
   the lobby fields). Level-up from GP is delegated to the server (`gradeForGp`).
 - `BaseGame.SendGameNextTurn` passes the float wind to `GetVane(int)` (decompiled code); we use `wind×10` like FIRE/VANE.

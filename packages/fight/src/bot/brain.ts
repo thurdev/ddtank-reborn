@@ -2,7 +2,7 @@ import { f32 } from "../math/num.js";
 import { DotNetRandom, type Rng, gaussian } from "../math/random.js";
 import type { FightCommand, FightEvent } from "../game/events.js";
 import { type BaseGame, GameState } from "../game/game.js";
-import type { Player } from "../game/living.js";
+import { Player } from "../game/living.js";
 import { solveAim } from "./aim.js";
 
 /** Bot tuning (02-bots.md §2.3/2.4 `bot_profile` subset). */
@@ -48,7 +48,7 @@ export interface PlannedAction {
 /** Plans a whole bot turn (think → props → stunt → aim → FIRE_TAG → FIRE), using only public player commands. */
 export function planBotTurn(game: BaseGame, bot: Player, profile: BotProfile, rng: Rng): PlannedAction[] {
   const P = difficultyParams(profile);
-  const enemies = game.players.filter((p) => p.isLiving && p.team !== bot.team);
+  const enemies = game.enemiesOf(bot);
   if (!enemies.length) return [{ at: 500, cmd: { cmd: "SKIPNEXT", spendTime: 1 } }];
   let target = enemies[rng.nextMax(enemies.length)];
   if (P.target === "nearest") target = enemies.reduce((a, b) => (Math.abs(a.x - bot.x) <= Math.abs(b.x - bot.x) ? a : b));
@@ -86,7 +86,7 @@ export function planBotTurn(game: BaseGame, bot: Player, profile: BotProfile, rn
   const sol = solveAim({
     map: game.map, ball, from: { x: bot.x, y: bot.y, team: bot.team, bound: bot.bound }, target: { x: target.x, y: target.y - 10 },
     wind: f32(game.map.wind * (1 - P.windMisread)),
-    bodies: game.players.filter((p) => p.isLiving && p !== bot).map((p) => ({ id: p.id, x: p.x, y: p.y, team: p.team, bound: p.bound })),
+    bodies: game.bodiesFor(bot).map((p) => ({ id: p.id, x: p.x, y: p.y, team: p.team, bound: p.bound })),
   });
   const at = Math.max(t + 300, fireAt);
   if (!sol) {
@@ -124,7 +124,7 @@ export class BotRunner {
       return out;
     }
     if (g.state !== GameState.Playing) return out;
-    const cur = g.currentLiving as Player | null;
+    const cur = g.currentLiving instanceof Player ? g.currentLiving : null;
     if (!cur || !cur.isAttacking || !this.bots.has(cur.spec.userId)) return out;
     if (!this.plan || this.plan.turn !== g.turnIndex) {
       this.plan = { turn: g.turnIndex, start: now, actions: planBotTurn(g, cur, this.bots.get(cur.spec.userId)!, this.rng) };

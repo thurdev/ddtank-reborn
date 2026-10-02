@@ -10,7 +10,7 @@ import { calculateExperience, calculateOffer, criticalDamage, nextWind, playerKi
 import { Living, Player, type PlayerSpec, TurnedLiving } from "./living.js";
 
 /** eGameState (Game.Logic/eGameState.cs) */
-export const GameState = { Inited: 0, Prepared: 1, Loading: 2, Playing: 5, GameOver: 8, Stopped: 10 } as const;
+export const GameState = { Inited: 0, Prepared: 1, Loading: 2, GameStartMovie: 3, GameStart: 4, Playing: 5, GameOverMovie: 6, PrepareGameOver: 7, GameOver: 8, TryAgain: 9, Stopped: 10, SessionPrepared: 11, ALLSessionStopped: 12, Waiting: 13 } as const;
 export type GameState = (typeof GameState)[keyof typeof GameState];
 export const RoomType = { Match: 0, Freedom: 1 } as const;
 export const GameType = { Free: 0, Guild: 1 } as const;
@@ -44,11 +44,15 @@ export interface GameOptions {
   frozenWind?: boolean;
 }
 
-interface QueuedAction {
+export interface QueuedAction {
   at: number;
   run: (now: number) => void;
   done: boolean;
   tag?: string;
+  /** BaseAction with ExecuteImp called every tick until it returns true (then `finishDelay` keeps it pending) */
+  step?: (now: number) => boolean;
+  finishDelay?: number;
+  finishAt?: number;
 }
 
 /**
@@ -62,7 +66,7 @@ export class BaseGame implements BombHost {
   readonly gameType: number;
   readonly timeType: number;
   readonly assets: FightAssets;
-  readonly map: GameMap;
+  map: GameMap;
   readonly rng: Rng;
   readonly players: Player[] = [];
   readonly rewards: RewardConfig;
@@ -75,12 +79,14 @@ export class BaseGame implements BombHost {
   physicalId = 0;
   readonly tempPoints: Point[] = [];
   private outbox: FightEvent[] = [];
-  private actions: QueuedAction[] = [];
-  private waitTimer = 0;
-  private loadingWait: QueuedAction | null = null;
-  private attackWait: QueuedAction | null = null;
-  private now: number;
-  private readonly windState: WindState;
+  protected actions: QueuedAction[] = [];
+  /** BaseGame.CurrentActionCount (actions alive at the start of the last update) */
+  currentActionCount = 0;
+  protected waitTimer = 0;
+  protected loadingWait: QueuedAction | null = null;
+  protected attackWait: QueuedAction | null = null;
+  protected now: number;
+  protected readonly windState: WindState;
 
   constructor(o: GameOptions) {
     this.id = o.id;
@@ -126,6 +132,18 @@ export class BaseGame implements BombHost {
     this.actions.push(a);
     return a;
   }
+  /** BaseAction(delay, finishDelay): `step` runs every tick from `delay` on until it returns true. */
+  addStepAction(delay: number, finishDelay: number, step: (now: number) => boolean, tag?: string): QueuedAction {
+    const a: QueuedAction = { at: this.now + delay, run: () => {}, done: false, tag, step, finishDelay };
+    this.actions.push(a);
+    return a;
+  }
+  getWaitTimer(): number {
+    return this.waitTimer;
+  }
+  clearWaitTimer(): void {
+    this.waitTimer = 0;
+  }
   /** BaseGame.WaitTime */
   waitTime(ms: number): void {
     this.waitTimer = Math.max(this.waitTimer, this.now + ms);
@@ -137,6 +155,20 @@ export class BaseGame implements BombHost {
   onEndAttacking(_l: Living): void {
     if (this.attackWait) this.attackWait.done = true;
   }
+  /** bot targets (PvP: living players of the other team; PvE: NPCs/bosses) */
+  enemiesOf(bot: Living): Living[] {
+    return this.players.filter((p) => p.isLiving && p.team !== bot.team);
+  }
+  /** bodies that can block / receive a bot shot */
+  bodiesFor(bot: Living): Living[] {
+    return this.players.filter((p) => p.isLiving && p !== bot);
+  }
+  /** PvE: MissionInfo.IncrementDelay (TurnedLiving.AddDelay); null in PvP */
+  pveIncrementDelay(): number | null {
+    return null;
+  }
+  /** PVEGame.living_Died hook */
+  onLivingDied(_l: Living): void {}
   findPlayer(livingId: number): Player | undefined {
     return this.players.find((p) => p.id === livingId);
   }
@@ -151,12 +183,25 @@ export class BaseGame implements BombHost {
     this.lifeTime++;
     const list = this.actions.filter((a) => !a.done);
     this.actions = [];
+    this.currentActionCount = list.length;
     if (list.length > 0) {
       const left: QueuedAction[] = [];
       for (const a of list) {
         if (!a.done && a.at <= now) {
-          a.done = true;
-          a.run(now);
+          if (a.step) {
+            if (a.finishAt === undefined) {
+              try {
+                if (a.step(now)) a.finishAt = now + (a.finishDelay ?? 0);
+              } catch (e) {
+                a.finishAt = now;
+                this.onActionError(e);
+              }
+            }
+            if (a.finishAt !== undefined && a.finishAt <= now) a.done = true;
+          } else {
+            a.done = true;
+            a.run(now);
+          }
         }
         if (!a.done) left.push(a);
       }
@@ -167,23 +212,29 @@ export class BaseGame implements BombHost {
     return this.drain();
   }
 
+  /** script/action errors never kill the loop (BaseGame.Update catches per action) */
+  onActionError(e: unknown): void {
+    this.emitLog?.(`action error: ${(e as Error)?.stack ?? e}`);
+  }
+  emitLog?: (m: string) => void;
+
   // ---------------------------------------------------------------- state machine (CheckPVPGameStateAction)
-  private checkStateNow(): void {
+  protected checkStateNow(): void {
     switch (this.state) {
       case GameState.Inited:
-        this.prepare();
+        this.pvpPrepare();
         break;
       case GameState.Prepared:
-        this.startLoading();
+        this.pvpStartLoading();
         break;
       case GameState.Loading:
-        if (this.players.every((p) => p.loadingProcess >= 100 || !p.isActive)) this.startGame();
+        if (this.players.every((p) => p.loadingProcess >= 100 || !p.isActive)) this.pvpStartGame();
         break;
       case GameState.Playing:
         if (!this.currentLiving || !this.currentLiving.isAttacking) {
-          if (this.turnIndex >= 100 && this.roomType === RoomType.Match) this.gameOver();
-          if (this.canGameOver()) this.gameOver();
-          else this.nextTurn();
+          if (this.turnIndex >= 100 && this.roomType === RoomType.Match) this.pvpGameOver();
+          if (this.canGameOver()) this.pvpGameOver();
+          else this.pvpNextTurn();
         }
         break;
       case GameState.GameOver:
@@ -193,7 +244,7 @@ export class BaseGame implements BombHost {
   }
 
   /** PVPGame.Prepare (PVPGame.cs:637) */
-  private prepare(): void {
+  private pvpPrepare(): void {
     this.emit({
       cmd: "GAME_CREATE", livingId: 0, roomType: this.roomType, gameType: this.gameType, timeType: this.timeType,
       players: this.players.map((p) => ({ userId: p.spec.userId, team: p.team, livingId: p.id, maxBlood: p.spec.hp })),
@@ -203,7 +254,7 @@ export class BaseGame implements BombHost {
   }
 
   /** PVPGame.StartLoading (PVPGame.cs:842) + WaitPlayerLoadingAction(61000) */
-  private startLoading(): void {
+  private pvpStartLoading(): void {
     this.waitTimer = 0;
     this.emit({ cmd: "GAME_LOAD", livingId: 0, maxTime: 60, mapId: this.map.info.id });
     this.loadingWait = this.addAction(61000, () => {
@@ -215,13 +266,13 @@ export class BaseGame implements BombHost {
   }
 
   /** PVPGame.StartGame (PVPGame.cs:771) */
-  private startGame(): void {
+  private pvpStartGame(): void {
     this.state = GameState.Playing;
     this.waitTimer = 0;
     // WaitPlayerLoadingAction.IsFinished once the game left Loading
     if (this.loadingWait) this.loadingWait.done = true;
     this.emit({ cmd: "SYNC_LIFETIME", livingId: 0, lifeTime: this.lifeTime });
-    const pos = this.spawnPoints();
+    const pos = this.pvpSpawnPoints();
     for (const p of this.players) {
       p.reset();
       const list = p.team === 1 ? pos[0] : pos[1];
@@ -244,7 +295,7 @@ export class BaseGame implements BombHost {
   }
 
   /** MapMgr.GetMapRandomPos (MapMgr.cs:88-114): parse `x,y|x,y`, randomly swap the team lists. */
-  private spawnPoints(): [Point[], Point[]] {
+  private pvpSpawnPoints(): [Point[], Point[]] {
     const parse = (s?: string) =>
       (s ?? "").split("|").map((t) => t.split(",").map(Number)).filter((a) => a.length === 2 && a.every(Number.isFinite)).map(([x, y]) => ({ x, y }));
     const a = parse(this.map.info.posX);
@@ -259,7 +310,7 @@ export class BaseGame implements BombHost {
   }
 
   /** BaseGame.FindNextTurnedLiving (BaseGame.cs:491) */
-  private findNextTurnedLiving(): TurnedLiving | null {
+  private pvpFindNextTurnedLiving(): TurnedLiving | null {
     const list = this.players.filter((p) => p.isLiving && p.isActive);
     if (list.length === 0) return null;
     let t: TurnedLiving = list[this.rng.nextMax(list.length)];
@@ -274,13 +325,13 @@ export class BaseGame implements BombHost {
   }
 
   /** PVPGame.NextTurn (PVPGame.cs:590-635). Drop boxes (CreateBox) are not generated. */
-  private nextTurn(): void {
+  private pvpNextTurn(): void {
     if (this.state !== GameState.Playing) return;
     this.waitTimer = 0;
     this.clearDiedPhysicals();
     this.turnIndex++;
     for (const p of this.map.physics) p.prepareNewTurn();
-    const cur = this.findNextTurnedLiving();
+    const cur = this.pvpFindNextTurnedLiving();
     this.currentLiving = cur;
     if (!cur) return;
     if ((cur as Player).vaneOpen) this.updateWind(this.getNextWind(), false);
@@ -305,7 +356,7 @@ export class BaseGame implements BombHost {
     }
   }
 
-  private clearDiedPhysicals(): void {
+  protected clearDiedPhysicals(): void {
     for (const p of [...this.map.physics]) if (!p.isLiving && !(p instanceof Living)) this.map.removePhysical(p);
   }
 
@@ -325,7 +376,7 @@ export class BaseGame implements BombHost {
   }
 
   /** BaseGame.SendGameNextTurn (BaseGame.cs:2190) — vanes from wind×10 like FIRE/VANE. */
-  private sendNextTurn(l: TurnedLiving): void {
+  protected sendNextTurn(l: TurnedLiving): void {
     const w = int(f32(this.map.wind * 10));
     this.emit({
       cmd: "TURN", livingId: l.id, windPositive: this.map.wind > 0, vane1: vane(w, 1), vane2: vane(w, 2), vane3: vane(w, 3),
@@ -339,7 +390,7 @@ export class BaseGame implements BombHost {
   }
 
   /** PVPGame.GameOver (PVPGame.cs:329-561) */
-  private gameOver(): void {
+  private pvpGameOver(): void {
     if (this.state !== GameState.Playing) return;
     this.state = GameState.GameOver;
     this.waitTimer = 0;
@@ -442,7 +493,7 @@ export class BaseGame implements BombHost {
         this.emit({ cmd: "DIRECTION", livingId: p.id, direction: p.direction, except: p.id });
         break;
       case "MOVESTART":
-        this.moveStart(p, c);
+        this.pvpMoveStart(p, c);
         break;
       case "PROP":
         this.propUse(p, c.bag, c.templateId);
@@ -470,7 +521,7 @@ export class BaseGame implements BombHost {
   }
 
   /** MoveStartCommand + sanity check (the original trusts the client, see 00-fight-engine §3.4). */
-  private moveStart(p: Player, c: { type: number; x: number; y: number; dir: number; isLiving: boolean }): void {
+  private pvpMoveStart(p: Player, c: { type: number; x: number; y: number; dir: number; isLiving: boolean }): void {
     if (!p.isAttacking || !p.isLiving) return;
     const dx = Math.abs(c.x - p.x);
     let x = c.x;
@@ -644,7 +695,7 @@ export class BaseGame implements BombHost {
         }
         default:
           for (const p of around) {
-            if (owner.isFriendly(p)) continue;
+            if (owner.isFriendly(p) || (owner.kind === "player" && p.config.IsHelper) || (p.kind !== "player" && (!p.config.CanTakeDamage || p.config.HaveShield))) continue;
             const d = { damage: this.makeDamage(bomb, owner, p), critical: 0 };
             if (d.damage !== 0) {
               d.critical = criticalDamage(this.rng, owner.lucky, d.damage, { critRate: owner.critRate, targetReduce: p.reduceCrit, guildAddCritical: owner.guildAddCritical });
@@ -664,6 +715,7 @@ export class BaseGame implements BombHost {
               act(ActionType.START_MOVE, p.id, p.x, p.y, p.isLiving ? 1 : 0);
             }
           }
+          this.onBombShooted();
       }
       bomb.die();
     } finally {
@@ -672,10 +724,13 @@ export class BaseGame implements BombHost {
     }
   }
 
+  /** PVEGame.OnShooted (mission hook) */
+  onBombShooted(): void {}
+
   /** SimpleBomb.MakeDamage (SimpleBomb.cs:478) */
   makeDamage(bomb: SimpleBomb, owner: Living, target: Living): number {
     return shellDamage(
-      { baseDamage: owner.baseDamage, attack: owner.attack, grade: owner.grade, lucky: owner.lucky, currentDamagePlus: owner.currentDamagePlus, currentShootMinus: owner.currentShootMinus, ignoreArmor: owner.ignoreArmor },
+      { baseDamage: owner.baseDamage, attack: owner.attack, grade: owner.grade, lucky: owner.lucky, currentDamagePlus: owner.currentDamagePlus, currentShootMinus: owner.currentShootMinus, ignoreArmor: owner.ignoreArmor || target.config.CancelGuard },
       { baseGuard: target.baseGuard, defence: target.defence, armorBonus: target instanceof Player ? target.armorBonus() : 0 },
       target.damageDistance({ x: bomb.x, y: bomb.y }),
       bomb.radius,

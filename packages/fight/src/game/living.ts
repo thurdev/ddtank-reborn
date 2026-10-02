@@ -7,6 +7,36 @@ import { SimpleBomb } from "../phy/bomb.js";
 import { hertAddition, turnDelay, turnEnergy } from "./formulas.js";
 import type { BaseGame } from "./game.js";
 
+/** Game.Logic/LivingConfig.cs — PascalCase on purpose: donor scripts set these fields directly. */
+export class LivingConfig {
+  HaveShield = false;
+  IsShowBloodBar = false;
+  IsWorldBoss = false;
+  BallCanDamage = 0;
+  MinBlood = 0;
+  KeepLife = false;
+  FirstStepMove = 0;
+  MaxStepMove = 0;
+  CompleteStep = false;
+  CanHeal = false;
+  CanTakeDamage = true;
+  DamageForzen = false;
+  isBotom = 1;
+  isConsortiaBoss = false;
+  IsFly = false;
+  IsHelper = false;
+  isShowBlood = true;
+  isShowSmallMapPoint = true;
+  IsTurn = true;
+  ReduceBloodStart = 1;
+  CanFrost = false;
+  CanCountKill = true;
+  CanCollied = true;
+  CancelGuard = false;
+  IsGoal = false;
+  FriendlyBoss = { ID: 0, CanShareDamage: false, ActionStr: "" };
+}
+
 /** Turn-counted effects (Effects/IceFronzeEffect.cs, HideEffect.cs, NoHoleEffect.cs, SealEffect.cs). */
 export type EffectKind = "ice" | "hide" | "nohole" | "seal";
 
@@ -43,6 +73,19 @@ export class Living extends LivingBody {
   critRate = 0;
   guildAddCritical = 0;
   turnNum = 0;
+  /** PvE fields (Living.cs): config, NPC fire offset, melee range, say flag, exp given when killed */
+  config = new LivingConfig();
+  fireX = 0;
+  fireY = 0;
+  maxBeatDis = 100;
+  isSay = false;
+  experience = 0;
+  /** eLivingType byte sent in ADD_LIVING (64) */
+  livingType = 0;
+  modelId = "";
+  actionStr = "";
+  /** Living.LastLifeTimeShoot: ms the last shot flies (ShootPoint callbacks) */
+  lastLifeTimeShoot = 0;
   readonly effects = new Map<EffectKind, number>();
   private _frost = false;
   private _hide = false;
@@ -137,12 +180,15 @@ export class Living extends LivingBody {
   /** Living.TakeDamage (Living.cs:2117-2188). `d` is mutated like the C# `ref` params. */
   takeDamage(source: Living, d: { damage: number; critical: number }): boolean {
     let result = false;
+    if (this.config.IsHelper && this.kind !== "player" && source.kind === "player") return false;
     if (!this.isFrost && this.blood > 0) {
+      if (source !== this || source.team === this.team) this.onBeforeTakedDamage(source, d);
       let total = d.damage + d.critical >= 0 ? d.damage + d.critical : 0;
       if (this instanceof Player && total !== 0) total -= int((total * this.reduceDamePlus) / 100);
       this.blood -= total >= 0 ? total : 0;
       if (this.syncAtTime) this.game.emit({ cmd: "HEALTH", livingId: this.id, type: 1, blood: this.blood, value: total });
-      if (this.blood <= 0 && this.keepLife) this.blood = 1;
+      this.onAfterTakedDamage(source);
+      if (this.blood <= 0 && (this.keepLife || this.config.KeepLife)) this.blood = 1;
       if (this.blood <= 0) this.die();
       source.onAfterKillingLiving(this, d.damage, d.critical);
       result = true;
@@ -173,17 +219,29 @@ export class Living extends LivingBody {
       if (this.isAttacking) this.stopAttacking();
       super.die();
       this.onDied();
+      this.game.onLivingDied(this);
       this.game.checkState(0);
     }
   }
   protected onDied(): void {}
+  /** brain hooks (SimpleNpc/SimpleBoss override) */
+  onBeforeTakedDamage(_source: Living, _d: { damage: number; critical: number }): void {}
+  onAfterTakedDamage(_source: Living): void {}
+  onStartAttacking(): void {}
+  onStopAttacking(): void {}
+  onBeginSelfTurn(): void {}
+  onBeginNewTurn(): void {}
 
   startAttacking(): void {
-    if (!this.isAttacking) this.isAttacking = true;
+    if (!this.isAttacking) {
+      this.isAttacking = true;
+      this.onStartAttacking();
+    }
   }
   stopAttacking(): void {
     if (this.isAttacking) {
       this.isAttacking = false;
+      this.onStopAttacking();
       this.game.onEndAttacking(this);
     }
   }
@@ -196,9 +254,11 @@ export class Living extends LivingBody {
     this.controlBall = false;
     this.noHoleTurn = false;
     this.currentIsHitTarget = false;
+    this.onBeginNewTurn();
   }
   prepareSelfTurn(): void {
     this.tickEffects();
+    this.onBeginSelfTurn();
   }
 
   /** Living.GetShootPoint (Living.cs:1062) — player variant */
@@ -208,7 +268,7 @@ export class Living extends LivingBody {
 
   /** Living.IsFriendly */
   isFriendly(l: Living): boolean {
-    return !l.isHelper && !(l instanceof Player) && l.team === this.team;
+    return !l.isHelper && !l.config.IsHelper && !(l instanceof Player) && l.team === this.team;
   }
 }
 
@@ -223,8 +283,11 @@ export class TurnedLiving extends Living {
   getTurnDelay(): number {
     return turnDelay(this.agility, this.attack);
   }
+  /** TurnedLiving.AddDelay (TurnedLiving.cs:132): in PvE the delay becomes MissionInfo.IncrementDelay */
   addDelay(v: number): void {
-    this.delay += v;
+    const inc = this.game.pveIncrementDelay();
+    if (inc !== null) this.delay = inc;
+    else this.delay += v;
   }
   addDander(v: number): void {
     if (v > 0 && this.isLiving) this.setDander(this.dander + v);

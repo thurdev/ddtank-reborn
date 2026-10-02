@@ -66,6 +66,25 @@ function takeCardDrop(templates: Templates, m: RoomMember, roomType: number): { 
   return { templateId: d.templateId, count: d.count };
 }
 
+/** PVEGame.TakeCard / SimpleNpc.GetDropItemInfo: special templates are currencies (ShopMgr.FindSpecialItemInfo), the rest
+ *  goes to its bag (temp bag when full). */
+function giveDropItems(templates: Templates, m: RoomMember, items: { templateId: number; count: number; isBind?: boolean; validDate?: number }[]): void {
+  if (m.isBot) return;
+  const p = m as GamePlayer;
+  for (const d of items) {
+    if (d.templateId === -100) { p.addGold?.(d.count); continue; }
+    if (d.templateId === -200) { p.info.Money += d.count; p.updateProperties?.(); continue; }
+    if (d.templateId === -300) { p.addGiftToken?.(d.count); continue; }
+    const t = templates.findItem(d.templateId);
+    if (!t) continue;
+    const item = ItemInfo.createFromTemplate(t, d.count, 101);
+    item.IsBinds = d.isBind ?? true;
+    item.ValidDate = d.validDate ?? 0;
+    const inv = p.getItemInventory?.(t);
+    if (!inv?.addTemplate(item, d.count)) p.tempBag?.addTemplate(item, d.count);
+  }
+}
+
 export class GameServer {
   ctx!: ServerContext;
   handlers!: HandlerRegistry;
@@ -106,6 +125,14 @@ export class GameServer {
             gradeForGp: (gp) => templates.gradeForGp(gp),
             takeCard: (m, roomType) => takeCardDrop(templates, m, roomType),
             onPlayerGameOver: (m, g) => (m as GamePlayer).questInv?.onGameOver(g),
+            onMissionOver: (m, g) => (m as GamePlayer).questInv?.onMissionOver(g.missionId, g.isWin, g.turnNum),
+            giveItems: (m, items) => giveDropItems(templates, m, items),
+            pve: {
+              data: { npc: (id) => templates.npcs.get(id) as never, mission: (id) => templates.missions.get(id) as never },
+              pveInfo: (id, roomType, levelLimits) => (id !== 0 && id !== 100000 ? templates.pveInfos.get(id) : templates.pveByType(roomType, levelLimits)) as never,
+              drop: (kind, id, user) => templates.pveDrop(kind, id, user),
+              translate: (key, args) => lang.t(key, ...args),
+            },
             botProfile: (b) => ({ difficulty: (b as VirtualPlayer & { difficulty?: number }).difficulty ?? 50 }),
           }));
     let bots = this.opts.bots;

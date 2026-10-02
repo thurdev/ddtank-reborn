@@ -107,6 +107,16 @@ export class GameMap {
     return p;
   }
 
+  /** Map.cs:203 FindNextWalkPointDown (Living.MoveTo walking) */
+  findNextWalkPointDown(x: number, y: number, direction: number, stepX: number, stepY: number): Point {
+    if (direction !== 1 && direction !== -1) return { ...EMPTY_POINT };
+    const x2 = x + direction * stepX;
+    if (x2 < 0 || x2 > this.bound.width) return { ...EMPTY_POINT };
+    const p = this.findYLineNotEmptyPointDown(x2, y - stepY - 1);
+    if (!(p.x === 0 && p.y === 0) && Math.abs(p.y - y) > stepY) return { ...EMPTY_POINT };
+    return p;
+  }
+
   canMove(x: number, y: number): boolean {
     return this.isEmpty(x, y) && !this.isOutMap(x, y);
   }

@@ -39,3 +39,7 @@ Motivo: Flash/Ruffle laga muito; objetivo é FPS alto e estável (60 fps), rodar
 - Ferramentas: Higgsfield / Recraft (o que tiver crédito) + scripts de pós-processo.
 - Método: cada peça nova é feita A PARTIR da original, layer por layer (image-to-image / redesenho sobre o original), nunca do zero — garante mesma silhueta, pivô e frames.
 - Ferramenta: Recraft primeiro (tem crédito); Higgsfield só após virar o mês (sem crédito em out/2026).
+
+## Decisão de versão (2026-10-02)
+Ficamos na 4.1: única versão com código-fonte completo (servidor + cliente AS3 + banco + mapas) e já roda no Ruffle.
+5.5 só existe como binários (`Servidor5.5.rar`, fóruns) — possível no futuro via decompilação ILSpy/FFDec reaproveitando protocolo/gerador de schema/fight engine/launcher/site/admin; reavaliar se o pacote 5.5 aparecer.
