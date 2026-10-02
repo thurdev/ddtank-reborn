@@ -16,7 +16,7 @@ import * as social from "./endpoints/social.js";
 import { stub, type Endpoint } from "./types.js";
 
 /** Client calls these with COMPRESS_REQUEST_LOADER (inflate). Everything else is plain. */
-const ZLIB_STUBS = ["/dailyloglist.ashx", "/UserQuestList.ashx", "/CheckRegistration.ashx"];
+const ZLIB_STUBS = ["/UserQuestList.ashx", "/CheckRegistration.ashx"];
 
 /** Known endpoints not ported yet (or broken in DDTank41, spec §3.2). */
 const STUBS = [
@@ -25,7 +25,7 @@ const STUBS = [
   "/ChargeTest.ashx", "/CheckRegistration.ashx", "/ConsortiaAllyList.ashx", "/ConsortiaApplyAllyList.ashx",
   "/ConsortiaApplyUsersList.ashx", "/ConsortiaDutyList.ashx", "/ConsortiaEquipControl.ashx", "/ConsortiaEquipControlList.ashx",
   "/ConsortiaEventList.ashx", "/ConsortiaIMList.ashx", "/ConsortiaInviteUsersList.ashx", "/CreatShortCut.ashx",
-  "/dailyloglist.ashx", "/ExitGameTransit.ashx", "/FarmGetUserFieldInfos.ashx", "/FarmGetUserFieldInfosSingle.ashx",
+  "/ExitGameTransit.ashx", "/FarmGetUserFieldInfos.ashx", "/FarmGetUserFieldInfosSingle.ashx",
   "/FavoriteTransit.ashx", "/GetSID.ashx", "/GiftRecieveLog.ashx", "/giftsendlog.ashx", "/giftsendlog1.ashx",
   "/gmtipallbyids.ashx", "/IMFriendsBbs.ashx", "/IMFriendsGood.ashx", "/IMRecentContactsList.ashx", "/KeyGenerator.ashx",
   "/LoadUserEquip.ashx", "/LoadUserItems.ashx", "/LoadUsersSort.ashx", "/LogTime.ashx", "/luckstaractivityrank.ashx",
@@ -55,6 +55,7 @@ const PORTED: Endpoint[] = [
   social.shopcheapitemlist,
   social.LoadUserMail,
   social.MailSenderList,
+  social.DailyLogList,
 ];
 
 export const ENDPOINTS = new Map<string, Endpoint>();

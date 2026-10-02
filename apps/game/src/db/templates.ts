@@ -27,6 +27,12 @@ export function toShopItem(r: ShopRow): ShopItemInfo {
   };
 }
 
+export type QuestRow = typeof game.Quest.$inferSelect;
+export type QuestCondRow = typeof game.Quest_Condiction.$inferSelect;
+export type QuestGoodsRow = typeof game.Quest_Goods.$inferSelect;
+/** QuestMgr: QuestInfo + its conditions (ordered by CondictionID, like GetQuestCondiction) + rewards. */
+export interface QuestTemplate { info: QuestRow; conds: QuestCondRow[]; goods: QuestGoodsRow[] }
+
 export interface ServerRow { ID: number; Name: string; Room: number; Total: number; ZoneId: number; ZoneName: string }
 
 export class Templates {
@@ -35,23 +41,39 @@ export class Templates {
   showList = new Set<number>();
   maps = new Set<number>();
   serverMaps = new Map<number, number[]>();
-  quests = new Set<number>();
+  quests = new Map<number, QuestTemplate>();
   levels = new Map<number, number>();
+  /** LevelInfo GP thresholds, ascending by grade (LevelMgr.GetLevel). */
+  levelGp: { grade: number; gp: number }[] = [];
+  dropConditions: (typeof game.Drop_Condiction.$inferSelect)[] = [];
+  dropItems = new Map<number, (typeof game.Drop_Item.$inferSelect)[]>();
   server: ServerRow | null = null;
 
   findItem = (id: number): ItemTemplate | undefined => this.items.get(id);
 
   async load(db: Database, serverId: number): Promise<this> {
-    const [items, shop, show, maps, mapServer, quests, levels, srv] = await Promise.all([
+    const [items, shop, show, maps, mapServer, quests, levels, srv, dropC, dropI, qConds, qGoods] = await Promise.all([
       db.select().from(game.Shop_Goods),
       db.select().from(game.Shop),
       db.select({ ShopId: game.ShopGoodsShowList.ShopId }).from(game.ShopGoodsShowList),
       db.select({ ID: game.Game_Map.ID }).from(game.Game_Map),
       db.select().from(game.Map_Server),
-      db.select({ ID: game.Quest.ID }).from(game.Quest),
+      db.select().from(game.Quest),
       db.select().from(game.LevelInfo),
       db.select().from(player.Server_List).where(eq(player.Server_List.ID, serverId)).limit(1),
+      db.select().from(game.Drop_Condiction),
+      db.select().from(game.Drop_Item),
+      db.select().from(game.Quest_Condiction),
+      db.select().from(game.Quest_Goods),
     ]);
+    this.dropConditions = dropC;
+    this.dropItems = new Map();
+    for (const d of dropI) {
+      const l = this.dropItems.get(d.DropId) ?? [];
+      l.push(d);
+      this.dropItems.set(d.DropId, l);
+    }
+    this.levelGp = levels.map((l) => ({ grade: l.Grade, gp: l.GP })).sort((a, b) => a.grade - b.grade);
     this.items = new Map(items.map((t) => [t.TemplateID, t]));
     this.shop = new Map();
     for (const r of shop) {
@@ -61,11 +83,43 @@ export class Templates {
     this.showList = new Set(show.map((s) => s.ShopId));
     this.maps = new Set(maps.map((m) => m.ID));
     this.serverMaps = new Map(mapServer.map((m) => [m.ServerID, m.OpenMap.split(/[|,]/).map(Number).filter((x) => x > 0)]));
-    this.quests = new Set(quests.map((q) => q.ID));
+    this.quests = new Map(quests.map((q) => [q.ID, { info: q, conds: [], goods: [] } as QuestTemplate]));
+    for (const c of qConds) this.quests.get(c.QuestID)?.conds.push(c);
+    for (const g of qGoods) this.quests.get(g.QuestID)?.goods.push(g);
+    for (const q of this.quests.values()) q.conds.sort((a, b) => a.CondictionID - b.CondictionID);
     this.levels = new Map(levels.map((l) => [l.Grade, l.Blood]));
     const s = srv[0];
     this.server = s ? { ID: s.ID, Name: s.Name ?? "", Room: s.Room, Total: s.Total, ZoneId: s.ZoneId, ZoneName: s.ZoneName } : null;
     return this;
+  }
+
+  /** LevelMgr.GetLevel(GP): highest grade whose GP threshold is reached. */
+  gradeForGp(gp: number): number | undefined {
+    let g: number | undefined;
+    for (const l of this.levelGp) if (gp >= l.gp) g = l.grade;
+    return g;
+  }
+
+  /** DropMgr.FindCondiction (Bussiness/Managers/DropMgr.cs:22). */
+  findDropCondition(type: number, para1: string, para2: string): number {
+    const a = `,${para1},`;
+    const b = `,${para2},`;
+    return this.dropConditions.find((c) => c.CondictionType === type && c.Para1.includes(a) && c.Para2.includes(b))?.DropID ?? 0;
+  }
+
+  /** DropInventory.GetDropItems (Game.Logic/DropInventory.cs:271): one item among those with Random >= rnd(max Random). */
+  dropOne(dropId: number, rnd = Math.random): { templateId: number; count: number; isBind: boolean; validDate: number } | null {
+    const list = this.dropItems.get(dropId);
+    if (!list?.length) return null;
+    const max = Math.max(...list.map((d) => d.Random));
+    const round = Math.floor(rnd() * max);
+    const src = list.filter((d) => d.Random >= round);
+    if (!src.length) return null;
+    const d = src[Math.floor(rnd() * src.length)]!;
+    if (!this.items.has(d.ItemId)) return null;
+    const lo = Math.min(d.BeginData, d.EndData);
+    const hi = Math.max(d.BeginData, d.EndData);
+    return { templateId: d.ItemId, count: Math.max(1, lo + Math.floor(rnd() * (hi - lo))), isBind: d.IsBind, validDate: d.ValueDate };
   }
 
   /** ShopMgr.IsOnShop (ShopMgr.cs:294) incl. IsSpecialItem ids. */

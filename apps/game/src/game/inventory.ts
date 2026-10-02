@@ -10,6 +10,8 @@ export interface InventoryHooks {
   onSlotsChanged(bag: PlayerInventory, slots: number[]): void;
   /** PlayerEquipInventory.UpdateChangedPlaces when an equip slot (< 31) changed. */
   onEquipChanged?(bag: PlayerInventory): void;
+  /** GamePlayer.OnNewGearEvent: an unused item was equipped for the first time (NewGearCondition). */
+  onNewGear?(item: ItemInfo): void;
   /** Player.CanEquip (level/sex). */
   canEquip?(t: ItemTemplate): boolean;
 }
@@ -514,6 +516,7 @@ export class PlayerEquipInventory extends PlayerInventory {
         if (!it.IsUsed) {
           it.IsUsed = true;
           it.BeginDate = new Date();
+          this.hooks.onNewGear?.(it);
         }
         it.isDirty = true;
       }

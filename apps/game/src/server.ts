@@ -20,7 +20,10 @@ import { RoomMgr } from "./rooms/room-mgr.js";
 import { StubFightEngine } from "./fight/stub.js";
 import { DdtFightEngine } from "./fight/ddt.js";
 import type { FightEngine } from "./fight/types.js";
-import type { BotProvider } from "./bots/bot.js";
+import type { BotProvider, VirtualPlayer } from "./bots/bot.js";
+import { DbBotProvider } from "./bots/provider.js";
+import { ItemInfo } from "./game/item.js";
+import type { GamePlayer, RoomMember } from "./game/player.js";
 import { startPolicy, startTcp, startWs, type ConnectionGate } from "./net/transports.js";
 import { startAdmin } from "./admin/http.js";
 import * as Out from "./packets/out.js";
@@ -43,6 +46,24 @@ export function parseRsaKey(text: string): RsaPrivateKey {
   const key = parseDotNetRsaXml(m ? m[0] : text) as RsaPrivateKey;
   if (!("d" in key)) throw new Error("RSA key has no private part");
   return key;
+}
+
+/**
+ * PVPGame.TakeCard drop: DropInventory.CardDrop(roomType) (eDropType.Cards = 1, Para1 = room type, Para2 = "0").
+ * The original adds it to the TempBag and moves it to the bags after the game; here it goes straight to its bag.
+ */
+function takeCardDrop(templates: Templates, m: RoomMember, roomType: number): { templateId: number; count: number } {
+  const dropId = templates.findDropCondition(1, String(roomType), "0");
+  const d = dropId ? templates.dropOne(dropId) : null;
+  const t = d ? templates.findItem(d.templateId) : undefined;
+  if (!d || !t || m.isBot) return { templateId: 0, count: 0 };
+  const p = m as GamePlayer;
+  const item = ItemInfo.createFromTemplate(t, d.count, 101);
+  item.IsBinds = d.isBind;
+  item.ValidDate = d.validDate;
+  const inv = p.getItemInventory?.(t);
+  if (!inv?.addTemplate(item, d.count)) p.tempBag?.addTemplate(item, d.count);
+  return { templateId: d.templateId, count: d.count };
 }
 
 export class GameServer {
@@ -79,10 +100,19 @@ export class GameServer {
       this.opts.fight ??
       (process.env.FIGHT_ENGINE === "stub"
         ? new StubFightEngine(pickMap, (m) => log.debug(m))
-        : new DdtFightEngine({ pickMap, log: (m) => log.warn(m) }));
+        : new DdtFightEngine({
+            pickMap,
+            log: (m) => log.warn(m),
+            gradeForGp: (gp) => templates.gradeForGp(gp),
+            takeCard: (m, roomType) => takeCardDrop(templates, m, roomType),
+            onPlayerGameOver: (m, g) => (m as GamePlayer).questInv?.onGameOver(g),
+            botProfile: (b) => ({ difficulty: (b as VirtualPlayer & { difficulty?: number }).difficulty ?? 50 }),
+          }));
+    let bots = this.opts.bots;
+    if (!bots && cfg.BOT_FALLBACK_SEC > 0) bots = await new DbBotProvider().load(db.db).catch((e) => (log.warn(`bots: ${e}`), new DbBotProvider()));
     const zoneId = templates.server?.ZoneId ?? 1;
     const zoneName = templates.server?.ZoneName ?? cfg.SERVER_NAME ?? "DDTank";
-    const rooms = new RoomMgr({ maxRooms: templates.server?.Room ?? cfg.MAX_ROOMS, fight, lang: (k, ...a) => lang.t(k, ...a), bots: this.opts.bots });
+    const rooms = new RoomMgr({ maxRooms: templates.server?.Room ?? cfg.MAX_ROOMS, fight, lang: (k, ...a) => lang.t(k, ...a), bots, botFallbackSec: cfg.BOT_FALLBACK_SEC });
     this.ctx = {
       cfg, db, templates, lang, log, rooms, fight, rsaKey, zoneId, zoneName,
       world: new World(),

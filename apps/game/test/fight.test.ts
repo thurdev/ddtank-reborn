@@ -126,6 +126,13 @@ describe("@ddt/fight adapter", () => {
     const fires = a.c.received.filter((r) => r.code === 91 && r.sub === 2);
     expect(new Set(fires.map((f) => f.p1)).size).toBe(2); // both the human and the bot fired
     expect(a.player().info.GP).toBeGreaterThan(gp0);
+    // Card board: the client's countdown ends with BOSS_TAKE_CARD(100) -> the server answers TAKE_CARD (98) auto.
+    const mark = a.c.mark();
+    gameCmd(a.c, 130, (p) => p.writeByte(100));
+    const card = await a.c.code(91, 98, mark);
+    card.pkt.readByte();
+    expect(card.pkt.readBoolean()).toBe(true); // isAuto
+    expect(card.pkt.readByte()).toBe(0); // first free card
     a.c.close();
   }, 60000);
 });

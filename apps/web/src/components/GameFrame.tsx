@@ -25,6 +25,8 @@ interface RuffleGlobal {
 declare global {
   interface Window {
     RufflePlayer?: RuffleGlobal;
+    /** ExternalInterface hook the client calls on kick / socket close (LeavePageManager.forcedToLoginPath). */
+    game_interruption?: (loginUrl: string, msg: string) => void;
   }
 }
 
@@ -54,7 +56,7 @@ function dirname(url: string): string {
   return i >= 0 ? url.slice(0, i + 1) : "./";
 }
 
-type Phase = "ruffle" | "swf" | "ready" | "error";
+type Phase = "ruffle" | "swf" | "ready" | "error" | "kicked";
 
 export interface GameFrameProps extends GameConfig {
   className?: string;
@@ -101,6 +103,15 @@ export function GameFrame({ rufflePath, swfUrl, flashvars, socketProxy, base, cl
           openUrlMode: "allow",
           socketProxy,
         };
+        // Kick (KIT_USER "logged in elsewhere", ban...) or lost socket: the client calls game_interruption.
+        // Without this hook the old window stayed on screen looking connected (two "sessions" for one account).
+        window.game_interruption = (_loginUrl, msg) => {
+          if (cancelled) return;
+          setError(String(msg ?? ""));
+          setPhase("kicked");
+          player?.remove();
+          player = null;
+        };
         await loadScript(rufflePath);
         if (cancelled) return;
         const ruffle = window.RufflePlayer?.newest?.();
@@ -145,6 +156,7 @@ export function GameFrame({ rufflePath, swfUrl, flashvars, socketProxy, base, cl
     return () => {
       cancelled = true;
       player?.remove();
+      delete window.game_interruption;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [configKey, attempt]);
@@ -162,7 +174,13 @@ export function GameFrame({ rufflePath, swfUrl, flashvars, socketProxy, base, cl
 
       {phase !== "ready" && (
         <div className="absolute inset-0 grid place-items-center bg-night-deep bg-starfield animate-drift p-6">
-          {phase === "error" ? (
+          {phase === "kicked" ? (
+            <div className="flex max-w-md flex-col items-center gap-4 text-center">
+              <p className="title-plate text-3xl text-coral">{t("play.disconnected")}</p>
+              <p className="text-sm text-muted">{error}</p>
+              <Button onClick={() => window.location.reload()}>{t("play.reconnect")}</Button>
+            </div>
+          ) : phase === "error" ? (
             <div className="flex max-w-md flex-col items-center gap-4 text-center">
               <p className="title-plate text-3xl text-coral">{t("play.error")}</p>
               <p className="font-mono text-sm text-muted">{error}</p>

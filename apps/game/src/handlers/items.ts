@@ -204,6 +204,7 @@ export async function buyGoods(ctx: ServerContext, p: GamePlayer, pkt: GSPacket)
     p.removePetScore(petScore); p.removeScore(score); p.removeDamageScores(dmgScore);
     for (const [k, v] of need) if (k !== -9999) p.removeTemplateInShop(k, v, tpl.findItem);
     p.commitChanges();
+    p.questInv?.onPaid(money, gold, offer, gifttoken, buy.map((b) => b.item.TemplateID)); // GamePlayer.OnPaid -> ShopCondition
     const overflow: ItemInfo[] = [];
     for (const b of buy) {
       const bagType = templateBagType(b.item.template);

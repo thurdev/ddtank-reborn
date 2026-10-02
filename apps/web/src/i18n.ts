@@ -58,6 +58,8 @@ const ptBR = {
   "play.loadingRuffle": "Carregando o emulador Flash (Ruffle)…",
   "play.error": "Não foi possível iniciar o jogo",
   "play.retry": "Tentar de novo",
+  "play.disconnected": "Você foi desconectado do jogo",
+  "play.reconnect": "Entrar de novo",
   "play.needLogin": "Entre na sua conta para jogar.",
 
   "ranking.title": "Ranking",
@@ -145,6 +147,8 @@ const en: Partial<Record<Key, string>> = {
   "play.loadingRuffle": "Loading the Flash emulator (Ruffle)…",
   "play.error": "Couldn't start the game",
   "play.retry": "Try again",
+  "play.disconnected": "You were disconnected from the game",
+  "play.reconnect": "Play again",
   "play.needLogin": "Log in to play.",
   "ranking.title": "Ranking",
   "ranking.lead": "The server's best shooters, updated hourly.",

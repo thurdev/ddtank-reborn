@@ -224,11 +224,23 @@ describe("static + public", () => {
   it("serves a rewritten config.xml and case-insensitive resources with placeholders", async () => {
     const cfg = (await app.inject({ url: "/flash/CONFIG.xml" })).body;
     expect(cfg).toContain('<REQUEST_PATH value="http://api.test/request/"/>');
+    const { buildConfigXml } = await import("../src/routes/static.js");
+    const guide = (on: boolean) =>
+      buildConfigXml({ cfg: { PUBLIC_URL: "http://x", SITE_URL: "http://s", USER_GUIDE_ENABLE: on } } as never, '<USER_GUILD_ENABLE value="true" />');
+    expect(guide(false)).toBe('<USER_GUILD_ENABLE value="false" />'); // newbie guide off by default (stuck arrows / locked hall)
+    expect(guide(true)).toBe('<USER_GUILD_ENABLE value="true" />');
     expect((await app.inject({ url: "/resource/image/arm/show.png" })).body).toBe("png");
     const miss = await app.inject({ url: "/resource/image/equip/m/cloth/default/1/show.png" });
     expect(miss.headers["content-type"]).toContain("image/png");
     const m = await app.inject({ url: "/api/admin/assets/misses", headers: { authorization: `Bearer ${adminToken}` } });
     expect(m.json()[0].path).toContain("cloth");
+  });
+
+  it("dailyloglist.ashx answers value=true (else the client's startup queue never loads the mail list)", async () => {
+    const r = await app.inject({ url: "/request/dailyloglist.ashx?selfid=1&key=x" });
+    const x = inflate(r.rawPayload);
+    expect(x).toContain('value="true"');
+    expect(x).toContain("<DailyLogList ");
   });
 
   it("launcher manifest + public config", async () => {

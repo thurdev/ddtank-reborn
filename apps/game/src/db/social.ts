@@ -45,3 +45,11 @@ export async function loadProgress(db: Database, userId: number) {
   ]);
   return { quests, achievements, records, buffs, extra: (extra[0] ?? null) as ExtraRow | null };
 }
+
+/** PlayerBussiness.UpdateDbQuestDataInfo (SP_QuestData_Add): upsert by (UserID, QuestID). */
+export async function saveQuests(db: Database, rows: QuestDataRow[]): Promise<void> {
+  for (const r of rows) {
+    const { UserID, QuestID, ...rest } = r;
+    await db.insert(player.QuestData).values(r).onConflictDoUpdate({ target: [player.QuestData.UserID, player.QuestData.QuestID], set: rest });
+  }
+}

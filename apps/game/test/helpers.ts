@@ -12,7 +12,7 @@ import { testConfig } from "../src/config.js";
 import { GameServer } from "../src/server.js";
 import type { Transport } from "../src/session/client.js";
 
-const SEED_TABLES = ["Shop_Goods", "Shop", "ShopGoodsShowList", "Game_Map", "Map_Server", "Quest", "LevelInfo", "Server_List"];
+const SEED_TABLES = ["Shop_Goods", "Shop", "ShopGoodsShowList", "Game_Map", "Map_Server", "Quest", "Quest_Condiction", "Quest_Goods", "LevelInfo", "Server_List"];
 
 let shared: Promise<DbHandle> | null = null;
 export function sharedDb(): Promise<DbHandle> {
