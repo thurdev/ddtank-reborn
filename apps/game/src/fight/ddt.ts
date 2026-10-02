@@ -352,7 +352,9 @@ class DdtGame implements FightGame {
         if (m && !m.isBot) this.engine.o.giveItems?.(m, e.items, e.bag);
         continue;
       }
+      if (e.cmd === "RAW" && (e.code === 89 || e.code === 98)) this.engine.o.log?.(`pve ${this.id}: raw ${e.code}`);
       if (e.cmd === "PVE_STOPPED") {
+        this.engine.o.log?.(`pve ${this.id}: stopped win=${e.isWin}`);
         this.pve?.onFinished?.(e.isWin);
         continue;
       }

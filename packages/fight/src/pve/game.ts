@@ -618,7 +618,7 @@ export class PveGame extends BaseGame {
     this.TakeCardId = mi.Id;
     const isEndSession = this.hasNextSession();
     if (!this.IsWin || !isEndSession) cards = 0;
-    if (this.IsWin && isEndSession && !this.isTrainer()) cards = 2;
+    if (this.IsWin && !isEndSession && !this.isTrainer()) cards = 2; // PVEGame.cs:798 (isEndSession = HasNextSession)
     this.BossCardCountValue = cards;
     if (cards > 0) this.bossCards = new Array(9).fill(0);
     const showLarge = isEndSession || this.isShowLargeCards();
