@@ -197,6 +197,12 @@ export class QuestInventory {
         return false;
       case 16: // DirectFinishCondition
         return true;
+      case 17: // OwnMarryCondition (marriage.ts): on-demand, like OwnGradeCondition.
+        if (p.info.IsMarried) {
+          this.setValue(q, i, 0);
+          return true;
+        }
+        return false;
       case 18: { // OwnConsortiaCondition (QuestInventory/OwnConsortiaCondition.cs:18): Para1 0 member count,
         // 1 riches (Offer+Rob), 2 smith level, 3 shop level, 4 store level — all vs Para2. Member count isn't
         // cached on PlayerInfo; every real row with Para1=0 has Para2<=1, so "in a guild at all" is exact.
@@ -217,7 +223,7 @@ export class QuestInventory {
       // 3 UsingItemCondition, 9 ItemStrengthenCondition, 11 ItemFusionCondition, 19 ItemComposeCondition,
       // 25 ItemInsertCondition: decremented by onUsingItem/onItemStrengthen/onItemFusion/onItemCompose/onItemInsert
       // below; were missing from this "done when counted down to 0" bucket (dec happened but canCompleted never saw it).
-      case 3: case 4: case 5: case 6: case 9: case 10: case 11: case 19: case 20: case 21: case 22: case 23: case 24: case 25: case 30: case 31: case 34: case 39:
+      case 3: case 4: case 5: case 6: case 9: case 10: case 11: case 19: case 20: case 21: case 22: case 23: case 24: case 25: case 26: case 30: case 31: case 34: case 39:
         return this.value(q, i) <= 0;
       default:
         return false; // UnknowQuestCondition / module not ported
@@ -448,6 +454,13 @@ export class QuestInventory {
     });
   }
 
+  /** MarryCondition (type 26): a wedding (247/250 accept) just happened — marriage.ts "couple benefit" hook. */
+  onMarried(): void {
+    this.each((q, c, i) => {
+      if (c.CondictionType === 26) this.dec(q, i);
+    });
+  }
+
   /** NewGearCondition: a new item of category Para1/Para2 was equipped. */
   onNewGear(categoryId: number): void {
     this.each((q, c, i) => {
@@ -462,7 +475,7 @@ export class QuestInventory {
 
   private refreshOwned(q: ActiveQuest): void {
     q.tpl.conds.forEach((c, i) => {
-      if (c.CondictionType === 1 || c.CondictionType === 14 || c.CondictionType === 15) this.condCompleted(q, c, i);
+      if (c.CondictionType === 1 || c.CondictionType === 14 || c.CondictionType === 15 || c.CondictionType === 17) this.condCompleted(q, c, i);
     });
   }
 

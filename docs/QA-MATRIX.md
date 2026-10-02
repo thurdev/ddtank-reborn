@@ -17,17 +17,17 @@
 | Bolsa/Inventário | 27 | 11 | 3 | 0 | 13 | 0 | 8 |
 | Boss mundial/Minigames | 7 | 0 | 6 | 0 | 1 | 0 | 4 |
 | Cartas | 8 | 4 | 0 | 0 | 4 | 0 | 2 |
-| Casamento | 24 | 2 | 0 | 0 | 22 | 0 | 0 |
+| Casamento | 24 | 2 | 20 | 0 | 2 | 0 | 0 |
 | Combate (GAME_CMD) | 39 | 0 | 35 | 0 | 4 | 0 | 4 |
 | Configurações | 2 | 1 | 0 | 0 | 1 | 0 | 0 |
 | Conta/Login | 6 | 3 | 0 | 0 | 3 | 0 | 0 |
 | Correio | 7 | 6 | 0 | 0 | 1 | 0 | 0 |
 | Escola/Aprendiz | 4 | 4 | 0 | 0 | 0 | 0 | 0 |
 | Eventos/Atividades | 37 | 5 | 0 | 0 | 32 | 0 | 2 |
-| Fazenda | 14 | 0 | 1 | 0 | 13 | 0 | 0 |
+| Fazenda | 14 | 0 | 11 | 0 | 3 | 0 | 0 |
 | Ferreiro | 16 | 4 | 2 | 0 | 10 | 0 | 1 |
 | GvG/Liga | 4 | 0 | 4 | 0 | 0 | 0 | 0 |
-| Leilão | 3 | 0 | 0 | 0 | 3 | 0 | 0 |
+| Leilão | 3 | 0 | 3 | 0 | 0 | 0 | 0 |
 | Lobby/Chat/Bugle | 10 | 9 | 0 | 0 | 1 | 0 | 0 |
 | Loja | 7 | 2 | 0 | 0 | 5 | 0 | 1 |
 | Missões | 23 | 15 | 0 | 0 | 8 | 0 | 5 |
@@ -124,26 +124,26 @@
 | `sendMateTime` | `church/view/weddingRoomList/DivorcePromptFrame.as`<br>`church/view/weddingRoomList/WeddingRoomListNavView.as` | 85 MATE_ONLINE_TIME |  | missing | no |  |
 | `sendCreateRoom` | `church/controller/ChurchRoomListController.as` | 94 GAME_ROOM | GAME_ROOM_CREATE=0 | ok | no |  |
 | `sendChurchMovieOver` | — | 167 CHURCH_MOVIE_OVER |  | missing | no |  |
-| `sendSceneChange` | `church/controller/ChurchRoomController.as` | 233 MARRY_SCENE_CHANGE |  | missing | no |  |
-| `sendForMarryInfo` | `civil/view/CivilRegisterFrame.as` | 235 MARRYINFO_GET |  | missing | no |  |
-| `sendMarryRoomLogin` | `church/view/ChurchMainView.as` | 240 MARRY_SCENE_LOGIN |  | missing | no |  |
-| `sendCreateRoom` | `church/controller/ChurchRoomListController.as` | 241 MARRY_ROOM_CREATE |  | missing | no |  |
-| `sendExitRoom` | `church/controller/ChurchRoomController.as`<br>`ddt/manager/ChurchManager.as` | 244 PLAYER_EXIT_MARRY_ROOM |  | missing | no |  |
-| `sendValidateMarry` | `ddt/manager/ChurchManager.as` | 246 MARRY_STATUS |  | missing | no |  |
-| `sendPropose` | `ddt/view/common/church/ChurchBuyRingFrame.as`<br>`ddt/view/common/church/ChurchProposeFrame.as` | 247 MARRY_APPLY |  | missing | no |  |
-| `sendUnmarry` | `church/controller/ChurchRoomListController.as` | 248 DIVORCE_APPLY |  | missing | no |  |
-| `sendChurchContinuation` | `church/controller/ChurchRoomController.as` | 249 MARRY_CMD | CONTINUATION=3 | missing | no |  |
-| `sendChurchForbid` | `church/view/menu/MenuPanel.as` | 249 MARRY_CMD | FORBID=8 | missing | no |  |
-| `sendChurchInvite` | `church/view/invite/ChurchInvitePlayerItem.as` | 249 MARRY_CMD | INVITE=4 | missing | no |  |
-| `sendChurchKick` | `church/view/menu/MenuPanel.as` | 249 MARRY_CMD | KICK=7 | missing | no |  |
-| `sendChurchLargess` | `church/controller/ChurchRoomController.as` | 249 MARRY_CMD | LARGESS=5 | missing | no |  |
-| `sendChurchMove` | `church/view/churchScene/SceneMap.as` | 249 MARRY_CMD | MOVE=1 | missing | no |  |
-| `sendGunSalute` | `church/view/churchScene/MoonSceneMap.as` | 249 MARRY_CMD | GUNSALUTE=11 | missing | no |  |
-| `sendPosition` | `church/view/churchScene/WeddingSceneMap.as` | 249 MARRY_CMD | POSITION=10 | missing | no |  |
-| `sendStartWedding` | `church/controller/ChurchRoomController.as` | 249 MARRY_CMD | HYMENEAL=2 | missing | no |  |
-| `sendUseFire` | `church/view/churchFire/ChurchFireView.as` | 249 MARRY_CMD | USEFIRECRACKERS=6 | missing | no |  |
-| `sendProposeRespose` | `ddt/view/common/church/ChurchProposeResponseFrame.as` | 250 MARRY_APPLY_REPLY |  | missing | no |  |
-| `sendModifyChurchDiscription` | `church/controller/ChurchRoomController.as` | 253 MARRY_ROOM_INFO_UPDATE |  | missing | no |  |
+| `sendSceneChange` | `church/controller/ChurchRoomController.as` | 233 MARRY_SCENE_CHANGE |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendForMarryInfo` | `civil/view/CivilRegisterFrame.as` | 235 MARRYINFO_GET |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendMarryRoomLogin` | `church/view/ChurchMainView.as` | 240 MARRY_SCENE_LOGIN |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendCreateRoom` | `church/controller/ChurchRoomListController.as` | 241 MARRY_ROOM_CREATE |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendExitRoom` | `church/controller/ChurchRoomController.as`<br>`ddt/manager/ChurchManager.as` | 244 PLAYER_EXIT_MARRY_ROOM |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendValidateMarry` | `ddt/manager/ChurchManager.as` | 246 MARRY_STATUS |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendPropose` | `ddt/view/common/church/ChurchBuyRingFrame.as`<br>`ddt/view/common/church/ChurchProposeFrame.as` | 247 MARRY_APPLY |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendUnmarry` | `church/controller/ChurchRoomListController.as` | 248 DIVORCE_APPLY |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendChurchContinuation` | `church/controller/ChurchRoomController.as` | 249 MARRY_CMD | CONTINUATION=3 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendChurchForbid` | `church/view/menu/MenuPanel.as` | 249 MARRY_CMD | FORBID=8 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendChurchInvite` | `church/view/invite/ChurchInvitePlayerItem.as` | 249 MARRY_CMD | INVITE=4 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendChurchKick` | `church/view/menu/MenuPanel.as` | 249 MARRY_CMD | KICK=7 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendChurchLargess` | `church/controller/ChurchRoomController.as` | 249 MARRY_CMD | LARGESS=5 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendChurchMove` | `church/view/churchScene/SceneMap.as` | 249 MARRY_CMD | MOVE=1 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendGunSalute` | `church/view/churchScene/MoonSceneMap.as` | 249 MARRY_CMD | GUNSALUTE=11 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendPosition` | `church/view/churchScene/WeddingSceneMap.as` | 249 MARRY_CMD | POSITION=10 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendStartWedding` | `church/controller/ChurchRoomController.as` | 249 MARRY_CMD | HYMENEAL=2 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendUseFire` | `church/view/churchFire/ChurchFireView.as` | 249 MARRY_CMD | USEFIRECRACKERS=6 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendProposeRespose` | `ddt/view/common/church/ChurchProposeResponseFrame.as` | 250 MARRY_APPLY_REPLY |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendModifyChurchDiscription` | `church/controller/ChurchRoomController.as` | 253 MARRY_ROOM_INFO_UPDATE |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
 
 ## Combate (GAME_CMD)
 
@@ -276,18 +276,18 @@
 |---|---|---|---|---|---|---|
 | `sendBuyPetExpItem` | `farm/viewx/FarmBuyExpFrame.as` | 68 PET | BUY_PET_EXP_ITEM=19 | partial | no |  |
 | `doMature` | — | 81 FARM | ACCELERATE_FIELD=3 | missing | no |  |
-| `enterFarm` | — | 81 FARM | ENTER_FARM=1 | missing | no |  |
-| `exitFarm` | — | 81 FARM | EXIT_FARM=16 | missing | no |  |
-| `fastForwardGrop` | — | 81 FARM | FRAM_GROP_FASTFORWARD=18 | missing | no |  |
+| `enterFarm` | — | 81 FARM | ENTER_FARM=1 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `exitFarm` | — | 81 FARM | EXIT_FARM=16 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `fastForwardGrop` | — | 81 FARM | FRAM_GROP_FASTFORWARD=18 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
 | `giftPacks` | — | 81 FARM | FARM_GIFTPACKS=20 | missing | no |  |
-| `seeding` | — | 81 FARM | GROW_FIELD=2 | missing | no |  |
-| `sendBeginHelper` | `farm/viewx/helper/FarmHelperView.as`<br>`farm/viewx/helper/HelperBeginFrame.as` | 81 FARM | HELPER_SWITCH_FIELD=9 | missing | no |  |
+| `seeding` | — | 81 FARM | GROW_FIELD=2 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendBeginHelper` | `farm/viewx/helper/FarmHelperView.as`<br>`farm/viewx/helper/HelperBeginFrame.as` | 81 FARM | HELPER_SWITCH_FIELD=9 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
 | `sendCompose` | `farm/view/compose/FarmComposePnl.as` | 81 FARM | COMPOSE_FOOD=5 | missing | no |  |
-| `toFarmHelper` | — | 81 FARM | HELPER_SWITCH_FIELD=9 | missing | no |  |
-| `toGather` | — | 81 FARM | GAIN_FIELD=4 | missing | no |  |
-| `toHelperRenewMoney` | — | 81 FARM | HELPER_PAY_FIELD=8 | missing | no |  |
-| `toKillCrop` | — | 81 FARM | KILLCROP_FIELD=7 | missing | no |  |
-| `toSpread` | — | 81 FARM | PAY_FIELD=6 | missing | no |  |
+| `toFarmHelper` | — | 81 FARM | HELPER_SWITCH_FIELD=9 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `toGather` | — | 81 FARM | GAIN_FIELD=4 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `toHelperRenewMoney` | — | 81 FARM | HELPER_PAY_FIELD=8 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `toKillCrop` | — | 81 FARM | KILLCROP_FIELD=7 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `toSpread` | — | 81 FARM | PAY_FIELD=6 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
 
 ## Ferreiro
 
@@ -323,9 +323,9 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `auctionGood` | — | 192 AUCTION_ADD |  | missing | no |  |
-| `auctionBid` | — | 193 AUCTION_UPDATE |  | missing | no |  |
-| `auctionCancelSell` | — | 194 AUCTION_DELETE |  | missing | no |  |
+| `auctionGood` | — | 192 AUCTION_ADD |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `auctionBid` | — | 193 AUCTION_UPDATE |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `auctionCancelSell` | — | 194 AUCTION_DELETE |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
 
 ## Lobby/Chat/Bugle
 

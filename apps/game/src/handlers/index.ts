@@ -13,6 +13,9 @@ import { registerEvents } from "./events.js";
 import { registerAcademy } from "./academy.js";
 import { registerHotSpring } from "./hotspring.js";
 import { registerPets } from "./pets.js";
+import { registerMarriage } from "./marriage.js";
+import { registerFarm } from "./farm.js";
+import { registerAuction } from "./auction.js";
 
 export function createRegistry(): HandlerRegistry {
   const r = new HandlerRegistry();
@@ -30,5 +33,8 @@ export function createRegistry(): HandlerRegistry {
   registerAcademy(r);
   registerHotSpring(r);
   registerPets(r);
+  registerMarriage(r);
+  registerFarm(r);
+  registerAuction(r);
   return r;
 }

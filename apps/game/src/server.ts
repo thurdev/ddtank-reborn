@@ -30,6 +30,7 @@ import type { GamePlayer, RoomMember } from "./game/player.js";
 import { startPolicy, startTcp, startWs, type ConnectionGate } from "./net/transports.js";
 import { startAdmin } from "./admin/http.js";
 import { eventsRuntime, pushRecords, worldBossDamage } from "./handlers/events.js";
+import { scanExpiredAuctions } from "./handlers/auction.js";
 import * as Out from "./packets/out.js";
 import { LanguageMgr } from "./util/lang.js";
 import { createLogger, type Logger } from "./util/log.js";
@@ -236,6 +237,9 @@ export class GameServer {
     }
     // m_saveDbTimer (DBAutosaveInterval) + speed heartbeat watchdog (GamePlayer.SaveIntoDatabase).
     this.every(cfg.SAVE_INTERVAL_MIN * 60_000, () => this.saveAll(true));
+    // SP_Auction_Scan equivalent: settle expired listings (buyer win or unsold return) on a timer.
+    const auctionScanSec = Number(process.env.AUCTION_SCAN_SEC ?? 300);
+    if (auctionScanSec > 0) this.every(auctionScanSec * 1000, () => scanExpiredAuctions(this.ctx));
     // m_pingCheckTimer: SendPingTime to every player.
     this.every(cfg.PING_INTERVAL_MIN * 60_000, () => {
       for (const p of this.ctx.world.all()) {
