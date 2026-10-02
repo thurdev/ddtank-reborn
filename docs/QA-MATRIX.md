@@ -14,7 +14,7 @@
 | Área | Linhas | ok | partial | stub | missing | broken | verificado no cliente |
 |---|---|---|---|---|---|---|---|
 | Amigos | 12 | 6 | 0 | 0 | 6 | 0 | 0 |
-| Bolsa/Inventário | 27 | 11 | 3 | 0 | 13 | 0 | 6 |
+| Bolsa/Inventário | 27 | 11 | 3 | 0 | 13 | 0 | 7 |
 | Boss mundial/Minigames | 7 | 0 | 6 | 0 | 1 | 0 | 4 |
 | Cartas | 8 | 4 | 0 | 0 | 4 | 0 | 2 |
 | Casamento | 24 | 2 | 0 | 0 | 22 | 0 | 0 |
@@ -23,7 +23,7 @@
 | Conta/Login | 6 | 3 | 0 | 0 | 3 | 0 | 0 |
 | Correio | 7 | 6 | 0 | 0 | 1 | 0 | 0 |
 | Escola/Aprendiz | 4 | 4 | 0 | 0 | 0 | 0 | 0 |
-| Eventos/Atividades | 37 | 4 | 0 | 0 | 33 | 0 | 1 |
+| Eventos/Atividades | 37 | 5 | 0 | 0 | 32 | 0 | 2 |
 | Fazenda | 14 | 0 | 1 | 0 | 13 | 0 | 0 |
 | Ferreiro | 16 | 4 | 2 | 0 | 10 | 0 | 1 |
 | GvG/Liga | 4 | 0 | 4 | 0 | 0 | 0 | 0 |
@@ -40,7 +40,7 @@
 | Spa/Fonte termal | 14 | 13 | 0 | 1 | 0 | 0 | 5 |
 | Totem/Honra | 2 | 0 | 0 | 0 | 2 | 0 | 0 |
 | VIP | 1 | 1 | 0 | 0 | 0 | 0 | 1 |
-| **Total** | 361 | 132 | 69 | 3 | 157 | 0 | 44 |
+| **Total** | 361 | 133 | 69 | 3 | 156 | 0 | 46 |
 
 ## Amigos
 
@@ -52,7 +52,7 @@
 | `inviteFriendFBBntClick` | — | 107 INVITE_FRIEND | INVITE_FRIEND_FBCLICK=6 | missing | no |  |
 | `inviteFriendOkClick` | — | 107 INVITE_FRIEND |  | missing | no |  |
 | `inviteFriendRewardBntClick` | — | 107 INVITE_FRIEND | INVITE_FRIEND_GETREWARD=4 | missing | no |  |
-| `sendAddFriend` | `cityWide/CityWideManager.as`<br>`ddt/view/tips/FriendGroupTItem.as`<br>`im/FriendGroupFrame.as` (+2) | 160 IM_CMD | FRIEND_ADD=160 | ok | no |  |
+| `sendAddFriend` | `cityWide/CityWideManager.as`<br>`ddt/view/tips/FriendGroupTItem.as`<br>`im/FriendGroupFrame.as` (+2) | 160 IM_CMD | FRIEND_ADD=160 | ok | partial | Varredura do básico pt.2: painel Bạn bè(F) abriu, diálogo 'Thêm bạn' aceitou o nickname 'Bob' com autocomplete e fechou sem erro. Não deu pra confirmar um ADD novo no banco porque Bob já era amigo do Thur antes desta sessão (Sys_Users_Friends AddDate antigo, não mudou) — fluxo de UI ok, mas não isola o caso de amigo novo. |
 | `sendCustomFriends` | `im/IMController.as`<br>`im/IMListItemView.as` | 160 IM_CMD | ADD_CUSTOM_FRIENDS=208 | ok | no |  |
 | `sendDelFriend` | `im/IMController.as` | 160 IM_CMD | FRIEND_REMOVE=161 | ok | no |  |
 | `sendOneOnOneTalk` | `im/IMController.as`<br>`im/chatFrame/PrivateChatFrame.as` | 160 IM_CMD | ONE_ON_ONE_TALK=51 | ok | no |  |
@@ -76,7 +76,7 @@
 | `sendTexp` | `bagAndInfo/bag/BagView.as`<br>`texpSystem/view/TexpView.as` | 99 TEXP |  | ok | yes | Tu luyện: poção na StoreBag[0] → exp Tấn công 100/250, nível 4, stats atualizados. — evidência: research/e2e/batch4/17-texp-a.png, research/e2e/batch4/17-texp-done.png |
 | `sendClearStoreBag` | `bagAndInfo/BagAndGiftFrame.as`<br>`bagAndInfo/BagAndInfoManager.as`<br>`ddt/bagStore/BagStoreFrame.as` (+6) | 122 CLEAR_STORE_BAG |  | ok | no |  |
 | `sendMoveGoodsAll` | `ddt/data/BagInfo.as` | 124 CHANGE_PLACE_GOODS_ALL |  | ok | no |  |
-| `reclaimGoods` | — | 127 REClAIM_GOODS |  | ok | no |  |
+| `reclaimGoods` | — | 127 REClAIM_GOODS |  | ok | yes | Varredura do básico pt.2: clicado item (Mũi khoan cấp 1 x5) então 'Bán' → confirmação 'Bạn muốn bán 5 cái, giá 200 Vàng' → OK → 'Bạn nhận được 200 vàng', Gold +200, item removido da bolsa. |
 | `sendUpdateGoodsCount` | `bagAndInfo/BagAndGiftFrame.as`<br>`shop/ShopController.as` | 168 GOODS_COUNT |  | missing | no |  |
 | `sendUseReworkName` | `bagAndInfo/ReworkName/ReworkNameFrame.as` | 171 USE_REWORK_NAME |  | missing | no |  |
 | `sendChangeColor` | `changeColor/view/ChangeColorRightView.as` | 182 USE_COLOR_CARD |  | missing | no |  |
@@ -88,7 +88,7 @@
 | `sendFirstGetCards` | `bagAndInfo/bag/BagView.as` | 216 CARDS_DATA |  | ok | no |  |
 | `sendPlayerGift` | `bagAndInfo/info/PlayerInfoFrame.as`<br>`ddt/manager/PlayerManager.as`<br>`ddt/manager/ServerManager.as` | 218 USER_GET_GIFTS |  | missing | no |  |
 | `sendEquipRetrieve` | `equipretrieve/view/RetrieveBgView.as` | 222 EQUIP_RECYCLE_ITEM |  | missing | no |  |
-| `sendChangeSex` | `bagAndInfo/bag/BagView.as` | 252 USE_CHANGE_SEX |  | ok | no | Varredura básico pt.1 (2026-10-02): handler 252 USE_CHANGE_SEX não existia (não registrado em handlers/index.ts). Portado de ChangeSexHandler.cs (apps/game/src/handlers/items.ts): consome item 11569, troca Sex, desequipa equips agora com NeedSex incompatível, divórcio best-effort se casado. Verificado por typecheck + leitura do fluxo AS3 (BagView.as: não há listener de resposta pra CrazyTankSocketEvent.CHANGE_SEX nesta build, então só precisa da mensagem de chat + sync normal da bolsa). Não clicado no cliente real ainda. |
+| `sendChangeSex` | `bagAndInfo/bag/BagView.as` | 252 USE_CHANGE_SEX |  | ok | no | Varredura do básico pt.2 (2026-10-02): handler portado e registrado (ChangeSexHandler.cs). Clicado no cliente real (item 11569 dado via qa-setup, Thur relogado): single/double-click no item na aba Đạo cụ só mostra o tooltip (GoodTip) — o `ChangeSexAlertFrame` de confirmação (BagView.as:2021 startupChangeSex, só ligado a `_equiplist` via DOUBLE_CLICK) não abriu a partir da `_proplist` (que só escuta ITEM_CLICK → CellMenu/dragStart conforme EquipType.canBeUsed). Sex não mudou no banco (FAIL: não dá pra disparar o fluxo a partir da bolsa de itens no cliente atual). Precisa achar o gatilho real (CellMenu com opção 'Dùng'?) e confirmar com screenshot. |
 | `sendNewTitleCard` | `bagAndInfo/bag/BagView.as` | 265 NEWTITLE_CARD |  | missing | no |  |
 
 ## Boss mundial/Minigames
@@ -265,7 +265,7 @@
 | `sendOpenAll` | `ddt/view/caddyII/CaddyBagView.as` | 204 OPEN_ALL_CARDBOX |  | missing | no |  |
 | `sendOpenCardBox` | `ddt/view/caddyII/card/CardViewII.as` | 216 CARDS_DATA |  | ok | yes | Caixa de cartas aberta → carta na bolsa de cartas (216). — evidência: research/e2e/batch4/11-cardbox-open.png, research/e2e/batch4/12-cardbag.png |
 | `sendWeeklyClick` | `times/TimesManager.as` | 219 WEEKLY_CLICK_CNT |  | ok | no | Como o original (LastGetEgg). |
-| `sendBuyGift` | `giftSystem/view/ClearingInterface.as` | 221 USER_SEND_GIFTS |  | missing | no |  |
+| `sendBuyGift` | `giftSystem/view/ClearingInterface.as` | 221 USER_SEND_GIFTS |  | ok | yes | Varredura do básico pt.2 (2026-10-02): 221 USER_SEND_GIFTS implementado (apps/game/src/handlers/items.ts sendGift, UserSendGiftHandler.cs). Verificado no cliente real: Thur (grade temporariamente 20 via qa-setup para liberar a aba Hộp quà, nível mínimo 16) comprou 'Hoa Mẫu đơn' (100 Xu) e enviou pra Bob pelo fluxo giftSystem (ClearingInterface, campo Tặng cho + autocomplete). Confirmado: Xu de Thur caiu exatamente 100 (99900), Bob.charmGP 0→10, linha em Sys_Users_Gift (SenderID 1, ReceiverID 34, TemplateID 325203, Count 1), mail tipo 55 'Bạn gửi tặng...' entregue pra Bob. Teste automatizado também em test/handlers.test.ts "shop" > "221 USER_SEND_GIFTS". |
 | `sendSellAll` | `ddt/view/caddyII/CaddyBagView.as`<br>`ddt/view/caddyII/CaddyFrame.as`<br>`ddt/view/caddyII/CardBoxFrame.as` | 232 CADDY_SELL_ALL_GOODS |  | missing | no |  |
 | `gotoCardLottery` | — | 239 GOTO_CARD_LOTTERY |  | missing | no |  |
 | `sendRequestAwards` | `ddt/view/caddyII/reader/ReadAwardsView.as` | 245 CADDY_GET_AWARDS |  | ok | no |  |
@@ -376,7 +376,7 @@
 | `sendUserLuckyNum` | `calendar/CalendarManager.as`<br>`calendar/view/LuckyNumBar.as` | 161 USER_LUCKYNUM |  | ok | no |  |
 | `sendQuestAdd` | `ddt/manager/TaskManager.as` | 176 QUEST_ADD |  | ok | no |  |
 | `sendQuestRemove` | — | 177 QUEST_REMOVE |  | ok | no |  |
-| `sendQuestFinish` | `ddt/manager/TaskManager.as`<br>`quest/TaskMainFrame.as` | 179 QUEST_FINISH |  | ok | no | Varredura básico pt.1 (2026-10-02): QuestInventory.finish derrubava RewardRiches (missões de guild) e RewardBuffID/RewardBuffDate (buff) silenciosamente — ambas portadas (apps/game/src/game/quests.ts, QuestInventory.cs:402-451). Testado com a missão real 640 (guild+repetível) em test/quests.test.ts; condições básicas (grade/kills/jogos/compra/item/direct/PvE) já funcionavam. Não clicado no cliente real ainda. |
+| `sendQuestFinish` | `ddt/manager/TaskManager.as`<br>`quest/TaskMainFrame.as` | 179 QUEST_FINISH |  | ok | no | Varredura do básico pt.2 (2026-10-02): clicado 'Nhận thưởng' no painel de missões (cliente real) em duas missões com badge OK!! — missão principal 'Hiệu lệnh guild' (condição: entrar em 1 guild, Thur já está em 'Reborn') e missão secundária 'Thử nghiệm tu luyện' (condição: usar 1 poção). Nenhuma das duas completou no servidor (QuestData sem CompletedDate novo, sem msg de chat, sem erro no log). Clique em 'Nhận đính kèm' de correio (mesmo estilo de botão) funcionou normalmente no mesmo teste, então não parece ser um problema geral de clique/hit-area — mais provável: a condição de guild (tipo não portado, rastreado no BACKLOG) nunca fica IsComplete=true server-side mesmo a UI mostrando '(Hoàn thành)'; a de treino pode ser o mesmo tipo de lacuna ou exigir Sys_Users_Texp/ExerciseInfo específico. Não corrigido nesta batch (precisa investigar qual tipo de condição cada uma usa). |
 | `sendRequestUpdate` | `effortView/EffortMainFrame.as` | 225 REQUEST_UPDATE |  | ok | no |  |
 | `sendAchievementFinish` | `ddt/manager/EffortManager.as` | 230 ACHIEVEMENT_FINISH |  | ok | yes | O cliente envia ao completar; o servidor confere AchievementCondition × registros (Sys_Users_Record, tipos de snapshot: ataque/defesa/agilidade/sorte/FC/nível/partidas/vitórias/tempo online/dias de login) e grava AchievementData uma vez; pontos de conquista somados. Correção: o 228 precisa trazer todos os tipos de registro (o EffortManager quebrava com null e nada completava). Título (RewardType 1) só anunciado. — evidência: research/e2e/events/e25-achievement.png |
 | `requestRefund` | — | 249 MARRY_CMD | MARRYROOMSENDGIFT=12 | missing | no |  |

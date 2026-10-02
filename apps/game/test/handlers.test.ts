@@ -223,6 +223,29 @@ describe("shop", () => {
     c.close();
   });
 
+  it("221 USER_SEND_GIFTS: charges Money, credits the friend's charmGP, mails them, bumps an online friend live", async () => {
+    const tpl = server.ctx.templates;
+    const shop = [...tpl.shop.values()].find((s) => s.AValue1 > 0 && tpl.findItem(s.TemplateID) && (tpl.findItem(s.TemplateID)!.Property2 ?? 0) > 0);
+    expect(shop).toBeDefined();
+    const t = tpl.findItem(shop!.TemplateID)!;
+    const { c: sender, player: a } = await loggedIn(server, { money: 1_000_000 });
+    const { c: friendC, ch: b, player: bp } = await loggedIn(server, { money: 0 });
+    const money = a().info.Money;
+    const charmBefore = bp().info.charmGP;
+    const m = sender.mark();
+    sender.out(221, (x) => { x.writeUTF(b.nick); x.writeInt(shop!.ID); x.writeInt(3); x.writeInt(0); });
+    const r = await sender.code(221, undefined, m);
+    expect(r.pkt.readBoolean()).toBe(true);
+    expect(a().info.Money).toBe(money - shop!.AValue1 * 3);
+    expect(bp().info.charmGP).toBe(charmBefore + t.Property2! * 3);
+    const gift = await sharedDb().then((h) => h.db.select().from(player.Sys_Users_Gift).where(eq(player.Sys_Users_Gift.ReceiverID, b.userId)));
+    expect(gift.find((g) => g.SenderID === a().id && g.TemplateID === shop!.TemplateID && g.Count === 3)).toBeDefined();
+    const mail = await sharedDb().then((h) => h.db.select().from(player.User_Messages).where(eq(player.User_Messages.ReceiverID, b.userId)));
+    expect(mail.find((mm) => mm.Type === 55)).toBeDefined();
+    sender.close();
+    friendC.close();
+  });
+
   it("tier B/C price triples select BUnit/CUnit and their own currency columns (ItemInfo.SetItemType)", () => {
     const shop = toShopItem({
       ID: 1, ShopID: 1, TemplateID: 7001, BuyType: 0, Beat: 1,

@@ -178,6 +178,12 @@ export async function savePlayerInfo(db: Database, info: PlayerInfo, match?: Mat
   }
 }
 
+/** SP_Users_UpdateCharmGP — atomic increment, offline-safe (gift receiver may not be logged in). */
+export async function addCharmGP(db: Database, userId: number, delta: number): Promise<void> {
+  if (delta === 0) return;
+  await db.update(D).set({ charmGP: sql`${D.charmGP} + ${delta}` }).where(eq(D.UserID, userId));
+}
+
 /** Only the online flag (PlayerInfo.State) — used on login/logout without a full save. */
 export async function setOnlineState(db: Database, userId: number, state: number): Promise<void> {
   await db.update(D).set({ State: state }).where(eq(D.UserID, userId));
