@@ -1,0 +1,130 @@
+import { CalendarClock, Gift, KeyRound, Ticket, Timer } from "lucide-react";
+import { defineResource } from "@/crud/types";
+
+// Tables behind the event systems driven by apps/game (handlers/events.ts). Every write here makes apps/api POST
+// /reload-templates on the game internal channel, so the game picks the change up without a restart.
+
+const KINDS = [
+  { value: "worldboss", label: "Boss mundial", tone: "coral" as const },
+  { value: "league", label: "Liga (Chiến thần)", tone: "grape" as const },
+  { value: "elite", label: "Campeonato de elite", tone: "sky" as const },
+  { value: "weekly_reset", label: "Reset semanal", tone: "neutral" as const },
+  { value: "double_exp", label: "EXP em dobro", tone: "mint" as const },
+  { value: "double_gold", label: "Ouro em dobro", tone: "sun" as const },
+];
+
+export const scheduledEvents = defineResource({
+  name: "scheduled-events",
+  table: 'app."ScheduledEvents"',
+  label: { "pt-BR": "Eventos agendados", en: "Scheduled events" },
+  singular: { "pt-BR": "agendamento", en: "schedule" },
+  icon: CalendarClock,
+  group: "content",
+  hidden: true,
+  idField: "id",
+  titleField: "title",
+  defaultSort: "id",
+  fields: [
+    { name: "id", label: "ID", type: "number", list: true, form: false },
+    { name: "kind", label: "Tipo", type: "select", required: true, options: KINDS, list: true },
+    { name: "title", label: "Título", type: "text", list: true, span: 2 },
+    { name: "enabled", label: "Ativo", type: "boolean", default: true, list: true, inlineToggle: true },
+    { name: "weekdays", label: "Dias (0=dom … 6=sáb)", type: "text", default: "0,1,2,3,4,5,6", list: true, pattern: /^[0-6](,[0-6])*$/, patternMessage: "Ex.: 0,6" },
+    { name: "startTime", label: "Início (UTC, HH:MM)", type: "text", default: "20:00", list: true, pattern: /^\d{2}:\d{2}$/, patternMessage: "HH:MM" },
+    { name: "durationMin", label: "Duração (min)", type: "number", min: 1, max: 10080, default: 60, list: true },
+    { name: "startDate", label: "Válido a partir de", type: "datetime" },
+    { name: "endDate", label: "Válido até", type: "datetime" },
+    { name: "params", label: "Parâmetros (JSON)", type: "json", span: 2, hint: 'worldboss: {"bossHp":20000000,"name":"Rồng","rankAwards":[{"rank":1,"giftToken":500}]} · double_*: {"rate":2} · league: {"maxCount":10}' },
+  ],
+});
+
+export const eventAwards = defineResource({
+  name: "event-awards",
+  table: 'game."Active_Award"',
+  label: { "pt-BR": "Prêmios de evento", en: "Event rewards" },
+  singular: { "pt-BR": "prêmio", en: "reward" },
+  icon: Gift,
+  group: "content",
+  hidden: true,
+  idField: "ID",
+  defaultSort: "ActiveID",
+  fields: [
+    { name: "ID", label: "ID", type: "number", list: true, form: false },
+    { name: "ActiveID", label: "ActiveID", type: "number", required: true, list: true, sortable: true },
+    { name: "ItemID", label: "Item (TemplateID)", type: "number", required: true, list: true },
+    { name: "Count", label: "Quantidade", type: "number", min: 1, default: 1, list: true },
+    { name: "ValidDate", label: "Validade (dias, 0 = permanente)", type: "number", min: 0, default: 0, list: true },
+    { name: "Gold", label: "Ouro", type: "number", min: 0, default: 0 },
+    { name: "Money", label: "Xu", type: "number", min: 0, default: 0 },
+    { name: "Sex", label: "Sexo", type: "select", default: 0, options: [{ value: 0, label: "Todos" }, { value: 1, label: "Masculino" }, { value: 2, label: "Feminino" }], list: true },
+    { name: "Mark", label: "Mark (lote de código)", type: "number", default: 0 },
+    { name: "StrengthenLevel", label: "Fortalecimento", type: "number", default: 0 },
+    { name: "AttackCompose", label: "Comp. ataque", type: "number", default: 0 },
+    { name: "DefendCompose", label: "Comp. defesa", type: "number", default: 0 },
+    { name: "LuckCompose", label: "Comp. sorte", type: "number", default: 0 },
+    { name: "AgilityCompose", label: "Comp. agilidade", type: "number", default: 0 },
+  ],
+});
+
+export const dailyAward = defineResource({
+  name: "daily-award",
+  table: 'game."Daily_Award"',
+  label: { "pt-BR": "Presença diária", en: "Daily sign-in" },
+  singular: { "pt-BR": "prêmio", en: "reward" },
+  icon: Ticket,
+  group: "content",
+  hidden: true,
+  idField: "ID",
+  defaultSort: "AwardDays",
+  fields: [
+    { name: "ID", label: "ID", type: "number", required: true, list: true, form: "create" },
+    { name: "Type", label: "Tipo", type: "select", required: true, list: true, options: [{ value: 0, label: "Login diário (buff)" }, { value: 1, label: "Presença: item" }, { value: 7, label: "Presença: lễ kim" }, { value: 6, label: "Outro (6)" }, { value: 2, label: "Outro (2)" }] },
+    { name: "AwardDays", label: "Dias de presença (tier)", type: "number", min: 0, default: 0, list: true, sortable: true },
+    { name: "TemplateID", label: "Item (TemplateID; -1100 = lễ kim)", type: "number", required: true, list: true },
+    { name: "Count", label: "Quantidade", type: "number", min: 0, default: 1, list: true },
+    { name: "ValidDate", label: "Validade (dias; tipo 0: minutos do buff)", type: "number", min: 0, default: 0 },
+    { name: "IsBinds", label: "Vinculado", type: "boolean", default: true },
+    { name: "Sex", label: "Sexo (0 todos)", type: "number", default: 0 },
+    { name: "GetWay", label: "GetWay", type: "number", default: 0 },
+    { name: "CountRemark", label: "Texto", type: "text" },
+  ],
+});
+
+export const eventCodes = defineResource({
+  name: "event-codes",
+  table: 'player."Active_Number"',
+  label: { "pt-BR": "Códigos de evento", en: "Event codes" },
+  singular: { "pt-BR": "código", en: "code" },
+  icon: KeyRound,
+  group: "content",
+  hidden: true,
+  idField: "AwardID",
+  defaultSort: "ActiveID",
+  fields: [
+    { name: "AwardID", label: "Código", type: "text", required: true, list: true, form: "create" },
+    { name: "ActiveID", label: "ActiveID", type: "number", required: true, list: true, sortable: true },
+    { name: "PullDown", label: "Usado", type: "boolean", list: true },
+    { name: "UserID", label: "UserID", type: "number", default: 0, list: true },
+    { name: "Mark", label: "Mark", type: "number", default: 0 },
+    { name: "GetDate", label: "Data", type: "datetime", list: true, form: false },
+  ],
+});
+
+export const timeBoxes = defineResource({
+  name: "time-box",
+  table: 'game."LoadUserBox"',
+  label: { "pt-BR": "Caixas de tempo/nível", en: "Time / level boxes" },
+  singular: { "pt-BR": "caixa", en: "box" },
+  icon: Timer,
+  group: "content",
+  hidden: true,
+  idField: "ID",
+  defaultSort: "ID",
+  fields: [
+    { name: "ID", label: "ID", type: "number", required: true, list: true, form: "create" },
+    { name: "Type", label: "Tipo", type: "select", list: true, options: [{ value: 0, label: "Tempo online" }, { value: 1, label: "Nível" }, { value: 2, label: "VIP diário" }] },
+    { name: "Level", label: "Nível (máx. / alvo / VIP)", type: "number", list: true },
+    { name: "Condition", label: "Condição (min online / sexo)", type: "number", list: true },
+    { name: "TemplateID", label: "Caixa (TemplateID)", type: "number", list: true },
+  ],
+});

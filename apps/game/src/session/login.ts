@@ -2,6 +2,7 @@
  * LOGIN (code 1): UserLoginHandler.cs + center ALLOW_USER_LOGIN round trip + GamePlayer.Login/LoadFromDatabase,
  * and logout (GamePlayer.Quit, GamePlayer.cs:3780).
  */
+import { eventsOnLogin, eventsOnQuit, eventsRuntime, worldBossOpen } from "../handlers/events.js";
 import { loadUserCards, loadEquippedPet } from "../db/stats.js";
 import { validateGameLogin } from "@ddt/auth";
 import { consortiaOnLogin } from "../handlers/consortia.js";
@@ -120,10 +121,8 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   // QuestInventory.LoadFromDatabase -> 178. Sent even when empty: the client's TaskManager only answers with
   // QUEST_ADD (176) for the quests it can accept once its quest data is initialised.
   p.questInv.sendAll();
-  if (p.records.length) {
-    p.send(Out.achievementRecords(228, p.id, p.records));
-    p.send(Out.achievementRecords(229, p.id, p.records));
-  }
+  // achievement records (228, snapshot types merged in), daily counters, world boss / league / elite state
+  await eventsOnLogin(ctx, p).catch((e) => ctx.log.warn(`events login: ${e}`));
   if (p.achievements.length) p.send(Out.achievementData(p.id, p.achievements));
 
   // --- Login (GamePlayer.cs:3330-3406)
@@ -146,9 +145,11 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   await consortiaOnLogin(ctx, p).catch((e) => ctx.log.warn(`consortia login: ${e}`)); // guild buffers + 129/26
   p.send(Out.bufferList(p.id, p.buffs));
   p.send(Out.achievementData(p.id, p.achievements));
-  p.send(Out.firstRecharge(!!info.IsRecharged, !!info.IsGetAward));
-  p.send(Out.openWorldBoss());
-  p.send(Out.leagueNotice(p.id, match.restCount, 0, 2));
+  // first-recharge gift is a free claim here (no real payments): FIRST_RECHARGE_FREE=false restores the original check
+  p.send(Out.firstRecharge(!!info.IsRecharged || process.env.FIRST_RECHARGE_FREE !== "false", !!info.IsGetAward));
+  const ev = eventsRuntime(ctx);
+  p.send(ev.boss.window ? worldBossOpen(ev, p) : Out.openWorldBoss());
+  if (!ev.leagueOpen) p.send(Out.leagueNotice(p.id, match.restCount, 0, 2));
   p.send(Out.guildMemberWeek(p.id));
   p.send(Out.necklace(info));
   // WorldMgr.OnPlayerOnline: friends see the online state (160/165).
@@ -175,6 +176,7 @@ async function doQuit(ctx: ServerContext, p: GamePlayer): Promise<void> {
     ctx.log.error("quit: room cleanup failed", err);
   }
   p.info.State = 0;
+  eventsOnQuit(ctx, p);
   try {
     await p.saveIntoDatabase(ctx.db.db);
   } catch (err) {

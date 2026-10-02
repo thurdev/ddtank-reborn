@@ -64,7 +64,7 @@ Player views used by the paging procedures (`V_Sys_Users_Detail`, `V_Consortia`,
 
 Ported (`src/request/endpoints/`): `Login`, `LoginSelectList`, `ServerList` (advertises `GAME_PORT-69` on `GAME_HOST`), `VisualizeRegister`, `NickNameCheck`, `ConsortiaNameCheck`, `IMListLoad`, `UserApprenticeshipInfoList`, `ConsortiaList` (zlib), `ConsortiaUsersList`, `LoadUserMail` (zlib), `MailSenderList` (zlib), `AdvanceQuestionRead`, `shopcheapitemlist`, `CreateLogin.aspx`, plus all template builders. Every query is parameterized; order and where clauses come from fixed whitelists.
 
-Stubs (`src/request/registry.ts`, `STUBS`): every other `.ashx` in `docs/spec/request/00-endpoints.md`, plus the client-requested ones with no handler in DDTank41. They answer `<Result value="false" message="Not supported" />`, compressed only where the client loader inflates (`dailyloglist`, `UserQuestList`, `CheckRegistration`). The next ones to port are `AuctionPageList`, `MarryInfoPageList`, `Consortia{Duty,Event,EquipControl,ApplyUsers,InviteUsers}List`, `RenameNick`/`RenameConsortiaName` (RSA `p`, same decrypt as Login), `ActivePullDown`, `dailyloglist`, `UserRankDate`, `gmtipallbyids` and the `IMRecentContactsList`/`Farm*`/`Gift*` logs. For the 6 handlers where the server zlibs but the client reads plain text (spec §3.3), the response must be plain.
+Stubs (`src/request/registry.ts`, `STUBS`): every other `.ashx` in `docs/spec/request/00-endpoints.md`, plus the client-requested ones with no handler in DDTank41. They answer `<Result value="false" message="Not supported" />`, compressed only where the client loader inflates (`dailyloglist`, `UserQuestList`, `CheckRegistration`). The next ones to port are `AuctionPageList`, `MarryInfoPageList`, `Consortia{Duty,Event,EquipControl,ApplyUsers,InviteUsers}List`, `RenameNick`/`RenameConsortiaName` (RSA `p`, same decrypt as Login), `UserRankDate`, `gmtipallbyids` and the `IMRecentContactsList`/`Farm*`/`Gift*` logs. For the 6 handlers where the server zlibs but the client reads plain text (spec §3.3), the response must be plain.
 
 ## REST contract
 
@@ -93,3 +93,13 @@ Admin (Bearer, role `admin`):
 - `src/schema/app.ts`, migration `drizzle/0001_app.sql`: `app.LoginSessions`, `Settings`, `News`, `Bots`, `Texts`, `Logs`, `AccountRoles`, `MailBroadcasts`.
 - `drizzle/0002_app_views.sql`: the views listed above.
 - `drizzle.config.ts` now includes `app.ts` and the `app` schema, and `schema/index.ts` exports `app`.
+
+### ActivePullDown.ashx (activity rewards)
+
+`src/request/endpoints/events.ts` — SP_Active_PullDown ported: `activeKey` (RSA with the login key) = activation code;
+HasKey 1/4 codes in `player."Active_Number"` (taken with a conditional UPDATE, IsOnly = one per account), 2 per-user
+grant `<id>-2-<uid>`, 3 every account once (`app."EventClaims"`). `game."Active_Award"` rows (Sex, Mark) are mailed
+(5 per mail) and apps/game gets `POST /mail-notice`. `value` is true only on success (the original always answered true,
+so the client marked the activity done even on "code does not exist"). Admin: `/api/admin/events/status|start|stop|reload`
+proxy the game internal channel; `POST /api/admin/events/:id/codes {count, mark}` generates codes; every admin write to a
+`game.*` table or `app.ScheduledEvents` POSTs `/reload-templates` to the game (`GAME_INTERNAL_TOKEN` = game `ADMIN_TOKEN`).

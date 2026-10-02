@@ -28,6 +28,7 @@ import { ItemInfo } from "./game/item.js";
 import type { GamePlayer, RoomMember } from "./game/player.js";
 import { startPolicy, startTcp, startWs, type ConnectionGate } from "./net/transports.js";
 import { startAdmin } from "./admin/http.js";
+import { eventsRuntime, pushRecords, worldBossDamage } from "./handlers/events.js";
 import * as Out from "./packets/out.js";
 import { LanguageMgr } from "./util/lang.js";
 import { createLogger, type Logger } from "./util/log.js";
@@ -70,11 +71,11 @@ function takeCardDrop(templates: Templates, m: RoomMember, roomType: number): { 
 
 /** PVEGame.TakeCard / SimpleNpc.GetDropItemInfo: special templates are currencies (ShopMgr.FindSpecialItemInfo), the rest
  *  goes to its bag (temp bag when full). */
-function giveDropItems(templates: Templates, m: RoomMember, items: { templateId: number; count: number; isBind?: boolean; validDate?: number }[]): void {
+function giveDropItems(templates: Templates, m: RoomMember, items: { templateId: number; count: number; isBind?: boolean; validDate?: number }[], goldRate = 1): void {
   if (m.isBot) return;
   const p = m as GamePlayer;
   for (const d of items) {
-    if (d.templateId === -100) { p.addGold?.(d.count); continue; }
+    if (d.templateId === -100) { p.addGold?.(d.count * goldRate); continue; }
     if (d.templateId === -200) { p.info.Money += d.count; p.updateProperties?.(); continue; }
     if (d.templateId === -300) { p.addGiftToken?.(d.count); continue; }
     const t = templates.findItem(d.templateId);
@@ -125,14 +126,19 @@ export class GameServer {
             pickMap,
             log: (m) => log.warn(m),
             gradeForGp: (gp) => templates.gradeForGp(gp),
+            onWorldBossHurt: (m, hurt) => { if (this.ctx) worldBossDamage(this.ctx, m as GamePlayer, hurt); },
+            expRate: () => (this.ctx ? eventsRuntime(this.ctx).scheduler.rate("double_exp") : 1),
             takeCard: (m, roomType) => takeCardDrop(templates, m, roomType),
-            onPlayerGameOver: (m, g) => (m as GamePlayer).questInv?.onGameOver(g),
+            onPlayerGameOver: (m, g) => {
+              (m as GamePlayer).questInv?.onGameOver(g);
+              pushRecords(m as GamePlayer); // ChangeWin/ChangeTotal/ChangeGrade achievement records (229)
+            },
             onGameOver: (g) => void consortiaGameOver(this.ctx!, g).catch((e) => log.warn(`consortia game over: ${e}`)),
             onMissionOver: (m, g) => {
               (m as GamePlayer).questInv?.onMissionOver(g.missionId, g.isWin, g.turnNum);
               if (this.ctx) void consortiaMgr(this.ctx).then((c) => c.onMission(m as GamePlayer, g.missionId, g.isWin));
             },
-            giveItems: (m, items) => giveDropItems(templates, m, items),
+            giveItems: (m, items) => giveDropItems(templates, m, items, this.ctx ? eventsRuntime(this.ctx).scheduler.rate("double_gold") : 1),
             pve: {
               data: { npc: (id) => templates.npcs.get(id) as never, mission: (id) => templates.missions.get(id) as never },
               pveInfo: (id, roomType, levelLimits) => (id !== 0 && id !== 100000 ? templates.pveInfos.get(id) : templates.pveByType(roomType, levelLimits)) as never,
@@ -155,6 +161,11 @@ export class GameServer {
     this.handlers = createRegistry();
     await resetAllOnline(db.db).catch(() => {});
     rooms.start();
+    // events / activities: template caches + EventScheduler (app."ScheduledEvents"; world boss, league, elite, weekly reset, x2 windows)
+    const events = eventsRuntime(this.ctx);
+    await events.reload().catch((e) => log.warn(`events: ${(e as Error).message.split(String.fromCharCode(10))[0]}`));
+    const tick = Number(process.env.EVENT_TICK_SEC ?? 30);
+    if (tick > 0) events.scheduler.start(tick * 1000);
 
     const gate: ConnectionGate = {
       accept: (ip) => {
@@ -271,13 +282,34 @@ export class GameServer {
       },
       reloadTemplates: async () => {
         await this.ctx.templates.load(this.ctx.db.db, this.cfg.SERVER_ID);
-        return { items: this.ctx.templates.items.size, shop: this.ctx.templates.shop.size, maps: this.ctx.templates.maps.size };
+        const ev = eventsRuntime(this.ctx);
+        await ev.reload();
+        return { items: this.ctx.templates.items.size, shop: this.ctx.templates.shop.size, maps: this.ctx.templates.maps.size, scheduledEvents: ev.scheduler.events.length, achievements: ev.data.achievements.size };
+      },
+      events: () => eventsRuntime(this.ctx).status(),
+      eventsForce: async (kind: string, minutes: number) => {
+        const ev = eventsRuntime(this.ctx);
+        ev.scheduler.force(kind, minutes);
+        await ev.scheduler.tick();
+        return ev.status();
+      },
+      eventsStop: async (kind: string) => {
+        const ev = eventsRuntime(this.ctx);
+        ev.scheduler.stop(kind);
+        await ev.scheduler.tick();
+        return ev.status();
+      },
+      mailNotice: (userId: number) => {
+        const p = this.ctx.world.get(userId);
+        if (p) p.send(Out.mailResponse(p.id, 1));
+        return !!p;
       },
     };
   }
 
   async stop(): Promise<void> {
     for (const t of this.timers) clearInterval(t);
+    if (this.ctx) eventsRuntime(this.ctx).scheduler.stopTimer();
     this.ctx?.rooms.stop();
     await this.saveAll().catch(() => {});
     for (const c of [...this.clients]) c.disconnect("server stop");

@@ -9,6 +9,7 @@ import { registerMail } from "./mail.js";
 import { registerForge } from "./forge.js";
 import { registerUse } from "./use.js";
 import { registerConsortia } from "./consortia.js";
+import { registerEvents } from "./events.js";
 
 export function createRegistry(): HandlerRegistry {
   const r = new HandlerRegistry();
@@ -22,5 +23,6 @@ export function createRegistry(): HandlerRegistry {
   registerForge(r);
   registerUse(r);
   registerConsortia(r);
+  registerEvents(r);
   return r;
 }

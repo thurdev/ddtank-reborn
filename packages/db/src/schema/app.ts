@@ -134,3 +134,39 @@ export const Servers = appSchema.table("Servers", {
   online: integer("online").notNull().default(0),
   lastSeenAt: ts("lastSeenAt").notNull().defaultNow(),
 });
+
+/**
+ * app."EventClaims" — one row per reward already claimed (idempotency for every event/activity claim in apps/game and
+ * apps/api: daily award per day, sign-in reward per month+count, time box, activity codes, accumulative login, ...).
+ * INSERT ... ON CONFLICT DO NOTHING RETURNING decides who wins a repeated/concurrent claim.
+ */
+export const EventClaims = appSchema.table(
+  "EventClaims",
+  {
+    UserID: integer("UserID").notNull(),
+    Kind: varchar("Kind", { length: 32 }).notNull(),
+    Key: varchar("Key", { length: 64 }).notNull(),
+    ClaimedAt: ts("ClaimedAt").notNull().defaultNow(),
+  },
+  (t) => [primaryKey({ name: "EventClaims_pkey", columns: [t.UserID, t.Kind, t.Key] })],
+);
+
+/**
+ * app."ScheduledEvents" — weekly schedule of the timed systems run by apps/game `EventScheduler` (world boss, league,
+ * elite championship, weekly reset, double exp/gold windows). The original had these timers commented out
+ * (GameServer.cs:316, ActiveSystemMgr). Times are UTC "HH:MM"; weekdays "0..6" (0 = Sunday). Edited in the admin
+ * Events page; apps/api POSTs /reload-templates on the game internal channel after each write.
+ */
+export const ScheduledEvents = appSchema.table("ScheduledEvents", {
+  id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
+  kind: varchar("kind", { length: 32 }).notNull(),
+  title: text("title").notNull().default(""),
+  enabled: boolean("enabled").notNull().default(true),
+  weekdays: varchar("weekdays", { length: 20 }).notNull().default("0,1,2,3,4,5,6"),
+  startTime: varchar("startTime", { length: 5 }).notNull().default("00:00"),
+  durationMin: integer("durationMin").notNull().default(60),
+  startDate: ts("startDate"),
+  endDate: ts("endDate"),
+  params: jsonb("params").$type<Record<string, unknown>>().notNull().default(sql`'{}'::jsonb`),
+  updatedAt: ts("updatedAt").notNull().defaultNow(),
+});

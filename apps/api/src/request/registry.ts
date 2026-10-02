@@ -6,6 +6,7 @@
  * - stubs: valid `<Result value="false" message="Not supported"/>` with the compression the client loader expects,
  *   so screens degrade gracefully (see README "Endpoint status").
  */
+import * as events from "./endpoints/events.js";
 import Login from "./endpoints/Login.js";
 import LoginSelectList from "./endpoints/LoginSelectList.js";
 import NickNameCheck from "./endpoints/NickNameCheck.js";
@@ -21,7 +22,7 @@ const ZLIB_STUBS = ["/UserQuestList.ashx", "/CheckRegistration.ashx"];
 
 /** Known endpoints not ported yet (or broken in DDTank41, spec §3.2). */
 const STUBS = [
-  "/AccountRegister.ashx", "/ActivePullDown.ashx", "/AdvanceQuestTime.ashx", "/API/Login.ashx", "/API/Register.ashx",
+  "/AccountRegister.ashx", "/AdvanceQuestTime.ashx", "/API/Login.ashx", "/API/Register.ashx",
   "/ApprenticeshipClubList.ashx", "/AuctionPageList.ashx", "/CelebList/UserRankDate.ashx", "/UserRankDate.ashx",
   "/ChargeTest.ashx", "/CheckRegistration.ashx",
   "/CreatShortCut.ashx",
@@ -57,6 +58,7 @@ const PORTED: Endpoint[] = [
   social.LoadUserMail,
   social.MailSenderList,
   social.DailyLogList,
+  events.ActivePullDown,
 ];
 
 export const ENDPOINTS = new Map<string, Endpoint>();

@@ -10,7 +10,7 @@ import { wallNow } from "../lib/flash-xml.js";
 import { safeKey } from "../lib/storage.js";
 import { RESOURCES, type ResourceDef } from "./admin-resources.js";
 import { requireAdmin, userOf } from "./auth.js";
-import { gameInternal, setting } from "./public.js";
+import { gameInternal, gameInternalPost, setting } from "./public.js";
 
 type Row = Record<string, unknown>;
 const ID_SEP = "~";
@@ -203,6 +203,41 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
     return reply.code(204).send();
   });
 
+  // ---- events / scheduler (apps/game internal channel) ----
+  f.get("/api/admin/events/status", { preHandler: guard }, async (_req, reply) => (await gameInternal(ctx, "/events")) ?? reply.code(503).send({ message: "Servidor de jogo indisponível" }));
+  f.post("/api/admin/events/start", { preHandler: guard }, async (req, reply) => {
+    const b = (req.body ?? {}) as Row;
+    const r = await gameInternalPost(ctx, "/events/start", { kind: String(b.kind ?? ""), minutes: Number(b.minutes ?? 30) });
+    await audit(ctx, actor(req), "events", `start ${b.kind} ${b.minutes ?? 30} min`);
+    return r ?? reply.code(503).send({ message: "Servidor de jogo indisponível" });
+  });
+  f.post("/api/admin/events/stop", { preHandler: guard }, async (req, reply) => {
+    const b = (req.body ?? {}) as Row;
+    const r = await gameInternalPost(ctx, "/events/stop", { kind: String(b.kind ?? "") });
+    await audit(ctx, actor(req), "events", `stop ${b.kind}`);
+    return r ?? reply.code(503).send({ message: "Servidor de jogo indisponível" });
+  });
+  f.post("/api/admin/events/reload", { preHandler: guard }, async (req, reply) => {
+    const r = await gameInternalPost(ctx, "/reload-templates");
+    await audit(ctx, actor(req), "events", "reload");
+    return r ?? reply.code(503).send({ message: "Servidor de jogo indisponível" });
+  });
+  /** Activation codes for an Active with HasKey 1/4 (player."Active_Number"), like the GameAdmin code generator. */
+  f.post<{ Params: { id: string } }>("/api/admin/events/:id/codes", { preHandler: guard }, async (req) => {
+    const b = (req.body ?? {}) as Row;
+    const n = Math.max(1, Math.min(1000, Number(b.count ?? 10)));
+    const mark = Number(b.mark ?? 0);
+    const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    const codes: string[] = [];
+    for (let i = 0; i < n; i++) {
+      const bytes = crypto.getRandomValues(new Uint8Array(14));
+      codes.push(Array.from(bytes, (x) => alphabet[x % alphabet.length]).join(""));
+    }
+    for (const c of codes) await ctx.h.db.execute(sql`INSERT INTO player."Active_Number" ("AwardID","ActiveID","PullDown","UserID","Mark") VALUES (${c}, ${Number(req.params.id)}, false, 0, ${mark}) ON CONFLICT DO NOTHING`);
+    await audit(ctx, actor(req), "events", `codes ${req.params.id} x${n}`);
+    return { codes };
+  });
+
   // ---- templates (XML cache) ----
   f.get("/api/admin/templates", { preHandler: guard }, async () =>
     ctx.cache.list().map((x) => ({ name: x.name, compressed: x.compressed, size: x.body.length, builtAt: x.builtAt, source: x.source })),
@@ -358,6 +393,9 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
 
   const afterWrite = async (req: FastifyRequest, def: ResourceDef, what: string, data?: unknown) => {
     const files = await ctx.cache.invalidate([tableKey(def.table)]);
+    // game-side caches (items/shop/maps + event templates + app."ScheduledEvents"): reload on the internal channel
+    const key = tableKey(def.table);
+    if (key.startsWith("game.") || key === "app.ScheduledEvents") void gameInternalPost(ctx, "/reload-templates");
     await audit(ctx, actor(req), "crud", `${what} ${tableKey(def.table)}${files.length ? ` (rebuilt ${files.join(", ")})` : ""}`, data);
   };
 

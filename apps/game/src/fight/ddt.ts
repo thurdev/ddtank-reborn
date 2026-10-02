@@ -20,6 +20,10 @@ export interface DdtFightOptions {
   botProfile?: (bot: RoomMember) => BotProfile;
   /** level from total GP (LevelInfo); when omitted the grade is not recomputed */
   gradeForGp?: (gp: number) => number | undefined;
+  /** Double-exp window multiplier (EventScheduler "double_exp"); applied to the GP of PvP/PvE rewards. */
+  expRate?: () => number;
+  /** World boss (room type 14, BaseWorldBossRoom.ReduceBlood/UpdateRank): damage a player dealt in the fight. */
+  onWorldBossHurt?: (member: RoomMember, hurt: number) => void;
   /** PVPGame.TakeCard drop (DropInventory.CardDrop + AddTemplate TempBag); returns the card face shown to everyone */
   takeCard?: (member: RoomMember, roomType: number) => { templateId: number; count: number };
   /** GamePlayer.OnGameOver (quest conditions) for every human seat */
@@ -286,6 +290,8 @@ class DdtGame implements FightGame {
     for (const r of e.players) {
       const m = this.members.get(r.userId);
       if (!m || m.isBot) continue;
+      const xr = this.engine.o.expRate?.() ?? 1;
+      if (xr > 1) r.gainGP = Math.trunc(r.gainGP * xr);
       const lp = m as LobbyLike & { addGP?(v: number): void };
       if (lp.addGP) lp.addGP(r.gainGP);
       else (m.info as unknown as Record<string, number>).GP += r.gainGP;
@@ -302,6 +308,7 @@ class DdtGame implements FightGame {
     for (const r of e.players) {
       const m = this.members.get(r.userId);
       if (!m || m.isBot) continue;
+      if (e.roomType === 14 && r.totalHurt > 0) this.engine.o.onWorldBossHurt?.(m, r.totalHurt);
       try {
         this.engine.o.onPlayerGameOver?.(m, { roomType: e.roomType, gameType: e.gameType, isWin: r.isWin, kills: r.totalKill, playerCount: e.players.length });
       } catch (err) {
@@ -316,6 +323,8 @@ class DdtGame implements FightGame {
       const m = this.members.get(r.userId);
       if (!m || m.isBot) continue;
       if (r.canTakeOut > 0) this.canTakeOut.set(r.userId, r.canTakeOut);
+      const xr = this.engine.o.expRate?.() ?? 1;
+      if (xr > 1) r.gpGained = Math.trunc(r.gpGained * xr);
       const c = m.info as unknown as Record<string, number>;
       c.GP = (c.GP ?? 0) + r.gpGained;
       const g = this.engine.o.gradeForGp?.(c.GP);

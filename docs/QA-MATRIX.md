@@ -15,23 +15,23 @@
 |---|---|---|---|---|---|---|---|
 | Amigos | 12 | 6 | 0 | 0 | 6 | 0 | 0 |
 | Bolsa/Inventário | 27 | 7 | 3 | 0 | 17 | 0 | 3 |
-| Boss mundial/Minigames | 7 | 0 | 0 | 0 | 7 | 0 | 0 |
+| Boss mundial/Minigames | 7 | 0 | 6 | 0 | 1 | 0 | 4 |
 | Cartas | 8 | 0 | 0 | 0 | 8 | 0 | 0 |
 | Casamento | 24 | 2 | 0 | 0 | 22 | 0 | 0 |
-| Combate (GAME_CMD) | 39 | 0 | 34 | 0 | 5 | 0 | 0 |
+| Combate (GAME_CMD) | 39 | 0 | 35 | 0 | 4 | 0 | 0 |
 | Configurações | 2 | 1 | 0 | 0 | 1 | 0 | 0 |
 | Conta/Login | 6 | 3 | 0 | 0 | 3 | 0 | 0 |
 | Correio | 7 | 6 | 0 | 0 | 1 | 0 | 0 |
 | Escola/Aprendiz | 4 | 0 | 0 | 0 | 4 | 0 | 0 |
-| Eventos/Atividades | 37 | 1 | 0 | 0 | 36 | 0 | 0 |
+| Eventos/Atividades | 37 | 3 | 0 | 0 | 34 | 0 | 0 |
 | Fazenda | 14 | 0 | 0 | 0 | 14 | 0 | 0 |
 | Ferreiro | 16 | 4 | 2 | 0 | 10 | 0 | 1 |
-| GvG/Liga | 4 | 0 | 0 | 0 | 4 | 0 | 0 |
+| GvG/Liga | 4 | 0 | 4 | 0 | 0 | 0 | 0 |
 | Leilão | 3 | 0 | 0 | 0 | 3 | 0 | 0 |
 | Lobby/Chat/Bugle | 10 | 9 | 0 | 0 | 1 | 0 | 0 |
 | Loja | 7 | 2 | 0 | 0 | 5 | 0 | 1 |
-| Missões | 23 | 7 | 0 | 0 | 16 | 0 | 0 |
-| Outros | 16 | 2 | 0 | 0 | 14 | 0 | 0 |
+| Missões | 23 | 11 | 0 | 0 | 12 | 0 | 2 |
+| Outros | 16 | 4 | 0 | 0 | 12 | 0 | 1 |
 | Personagem/FC | 3 | 1 | 0 | 0 | 2 | 0 | 0 |
 | Pets | 17 | 0 | 0 | 0 | 17 | 0 | 0 |
 | PvE/Masmorras | 9 | 0 | 0 | 0 | 9 | 0 | 0 |
@@ -40,7 +40,7 @@
 | Spa/Fonte termal | 14 | 0 | 0 | 0 | 14 | 0 | 0 |
 | Totem/Honra | 2 | 0 | 0 | 0 | 2 | 0 | 0 |
 | VIP | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
-| **Total** | 361 | 93 | 40 | 2 | 226 | 0 | 17 |
+| **Total** | 361 | 101 | 51 | 2 | 207 | 0 | 24 |
 
 ## Amigos
 
@@ -95,12 +95,12 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `enterWorldBossRoom` | — | 102 WORLDBOSS_CMD | ENTER_WORLDBOSSROOM=32 | missing | no |  |
-| `requestRevive` | `worldboss/view/WorldBossResurrectView.as` | 102 WORLDBOSS_CMD | REQUEST_REVIVE=37 | missing | no |  |
-| `sendAddPlayer` | `worldboss/view/WorldBossRoomView.as` | 102 WORLDBOSS_CMD | ADDPLAYERS=34 | missing | no |  |
-| `sendBuyWorldBossBuff` | `worldboss/WorldBossManager.as`<br>`worldboss/view/BuffCartItem.as` | 102 WORLDBOSS_CMD | BUFF_BUY=38 | missing | no |  |
-| `sendLeaveBossRoom` | `worldboss/view/RoomMenuView.as` | 102 WORLDBOSS_CMD | LEAVE_ROOM=33 | missing | no |  |
-| `sendWorldBossRoomMove` | `worldboss/view/WorldBossScneneMap.as` | 102 WORLDBOSS_CMD | MOVE=35 | missing | no |  |
+| `enterWorldBossRoom` | — | 102 WORLDBOSS_CMD | ENTER_WORLDBOSSROOM=32 | partial | yes | Boss mundial agendado (12:00/20:00 UTC, admin "Iniciar agora"): 102/0 OPEN com horários reais, ícone Thần thú no hall, sala com HP e ranking; fim = prêmio por posição (params.rankAwards, 1x por janela) + 102/1 OVER. — evidência: research/e2e/events/e14-dacsac.png, e15-worldboss-room.png, e16-worldboss-scene.png |
+| `requestRevive` | `worldboss/view/WorldBossResurrectView.as` | 102 WORLDBOSS_CMD | REQUEST_REVIVE=37 | partial | no | Reviver 1000 / relutar 1200 Xu (BaseWorldBossRoom). |
+| `sendAddPlayer` | `worldboss/view/WorldBossRoomView.as` | 102 WORLDBOSS_CMD | ADDPLAYERS=34 | partial | yes | Entra na sala do boss (102/3 para todos + ranking). — evidência: research/e2e/events/e16-worldboss-scene.png |
+| `sendBuyWorldBossBuff` | `worldboss/WorldBossManager.as`<br>`worldboss/view/BuffCartItem.as` | 102 WORLDBOSS_CMD | BUFF_BUY=38 | partial | yes | 30 Xu cobrados uma vez (o original cobrava duas). — evidência: research/e2e/events/e20-buff.png |
+| `sendLeaveBossRoom` | `worldboss/view/RoomMenuView.as` | 102 WORLDBOSS_CMD | LEAVE_ROOM=33 | partial | no | Sai da sala (102/4). |
+| `sendWorldBossRoomMove` | `worldboss/view/WorldBossScneneMap.as` | 102 WORLDBOSS_CMD | MOVE=35 | partial | yes | Movimento repassado a todos na sala (102/6). — evidência: research/e2e/events/e17-worldboss-move.png |
 | `createPackageOut` | `littleGame/LittleGameManager.as` | 166 LITTLEGAME_COMMAND |  | missing | no |  |
 
 ## Cartas
@@ -184,7 +184,7 @@
 | `sendTransmissionGate` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | DELIVER=137 | partial | no |  |
 | `sendUpdatePlayStep` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | MISSION_CMD=25 | partial | no |  |
 | `useDeputyWeapon` | — | 91 GAME_CMD | USE_DEPUTY_WEAPON=84 | partial | no |  |
-| `sendWorldBossRoomStauts` | `game/actions/MissionOverAction.as`<br>`worldboss/WorldBossManager.as`<br>`worldboss/view/WorldBossFightRoomState.as` (+1) | 102 WORLDBOSS_CMD | STAUTS=36 | missing | no |  |
+| `sendWorldBossRoomStauts` | `game/actions/MissionOverAction.as`<br>`worldboss/WorldBossManager.as`<br>`worldboss/view/WorldBossFightRoomState.as` (+1) | 102 WORLDBOSS_CMD | STAUTS=36 | partial | no | 102/7 para a sala; estado 3 sai da sala. A luta abre o PvE tipo 14 (Pve_Info 1243), mas o script ACDragon não existe no @ddt/fight: o mapa abre sem o dragão (e22-fight.png). Dano vai ao ranking via GAME_ALL_MISSION_OVER.totalHurt. — evidência: research/e2e/events/e22-fight.png |
 | `sendGetTropToBag` | `game/view/card/TakeOutCardController.as` | 108 GAME_TAKE_TEMP |  | missing | no |  |
 | `sendGetTropToBag` | `game/view/card/TakeOutCardController.as` | 108 GAME_TAKE_TEMP |  | missing | no |  |
 | `sendDefyAffiche` | `game/view/DefyAfficheViewFrame.as` | 123 DEFY_AFFICHE |  | missing | no |  |
@@ -237,7 +237,7 @@
 | `sendStartTurn` | `ddt/view/roulette/RouletteView.as`<br>`surpriseRoulette/view/SurpriseRouletteView.as` | 27 LOTTERY_RANDOM_SELECT |  | missing | no |  |
 | `sendFinishRoulette` | `ddt/view/caddyII/CaddyFrame.as`<br>`ddt/view/caddyII/CardBoxFrame.as`<br>`ddt/view/roulette/RouletteView.as` (+1) | 28 LOTTERY_FINISH |  | missing | no |  |
 | `sendQequestBadLuck` | `ddt/view/caddyII/badLuck/CaddyBadLuckView.as` | 45 CADDY_GET_BADLUCK |  | missing | no |  |
-| `sendGetTimeBox` | `ddt/manager/BossBoxManager.as`<br>`ddt/view/bossbox/BossBoxView.as` | 53 GET_TIME_BOX |  | missing | no |  |
+| `sendGetTimeBox` | `ddt/manager/BossBoxManager.as`<br>`ddt/view/bossbox/BossBoxView.as` | 53 GET_TIME_BOX |  | ok | no | Caixa de tempo online: minutos contados no servidor desde o login/última caixa (o original confiava no relatório do cliente), 1x por caixa/dia; caixa de nível 1x por nível. Coberto por events.test.ts. No cliente o contador do hall (00:15:00) aparece; prêmio vem de Shop_Goods_Box. |
 | `sendChickActivationGetAward` | `chickActivation/view/ChickActivationViewFrame.as` | 84 ACTIVITY_PACKAGE | ChickActivationType.CHICKACTIVATION=2 | missing | no |  |
 | `sendChickActivationOpenKey` | `chickActivation/view/ChickActivationViewFrame.as` | 84 ACTIVITY_PACKAGE | ChickActivationType.CHICKACTIVATION=2 | missing | no |  |
 | `sendChickActivationQuery` | `chickActivation/ChickActivationManager.as` | 84 ACTIVITY_PACKAGE | ChickActivationType.CHICKACTIVATION=2 | missing | no |  |
@@ -264,7 +264,7 @@
 | `sendLightRoadStarEnter` | `lightRoad/manager/LightRoadManager.as` | 145 LIGHTROAD_SYSTEM | ENTER_GAME=64 | missing | no |  |
 | `sendOpenAll` | `ddt/view/caddyII/CaddyBagView.as` | 204 OPEN_ALL_CARDBOX |  | missing | no |  |
 | `sendOpenCardBox` | `ddt/view/caddyII/card/CardViewII.as` | 216 CARDS_DATA |  | missing | no |  |
-| `sendWeeklyClick` | `times/TimesManager.as` | 219 WEEKLY_CLICK_CNT |  | missing | no |  |
+| `sendWeeklyClick` | `times/TimesManager.as` | 219 WEEKLY_CLICK_CNT |  | ok | no | Como o original (LastGetEgg). |
 | `sendBuyGift` | `giftSystem/view/ClearingInterface.as` | 221 USER_SEND_GIFTS |  | missing | no |  |
 | `sendSellAll` | `ddt/view/caddyII/CaddyBagView.as`<br>`ddt/view/caddyII/CaddyFrame.as`<br>`ddt/view/caddyII/CardBoxFrame.as` | 232 CADDY_SELL_ALL_GOODS |  | missing | no |  |
 | `gotoCardLottery` | — | 239 GOTO_CARD_LOTTERY |  | missing | no |  |
@@ -314,10 +314,10 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `sendEliteGameStart` | `eliteGame/EliteGameController.as` | 162 ELITEGAME | ELITE_MATCH_RANK_START=2 | missing | no |  |
-| `sendGetEliteGameState` | `eliteGame/EliteGameController.as` | 162 ELITEGAME | ELITE_MATCH_TYPE=1 | missing | no |  |
-| `sendGetPaarungDetail` | `eliteGame/view/EliteGamePaarungFrame.as` | 162 ELITEGAME | ELITE_MATCH_RANK_DETAIL=4 | missing | no |  |
-| `sendGetSelfRankSroce` | `eliteGame/EliteGameController.as` | 162 ELITEGAME | ELITE_MATCH_PLAYER_RANK=3 | missing | no |  |
+| `sendEliteGameStart` | `eliteGame/EliteGameController.as` | 162 ELITEGAME | ELITE_MATCH_RANK_START=2 | partial | no | Só com status 5 e nível ≥ 30 (EliteGameHandler); a partida de elite em si (salas 12/13, pontuação) não foi portada. |
+| `sendGetEliteGameState` | `eliteGame/EliteGameController.as` | 162 ELITEGAME | ELITE_MATCH_TYPE=1 | partial | no | Estado do campeonato vem do agendador (app."ScheduledEvents" kind elite, status 5 quando aberto) e é empurrado (162/1) a todos ao abrir/fechar. |
+| `sendGetPaarungDetail` | `eliteGame/view/EliteGamePaarungFrame.as` | 162 ELITEGAME | ELITE_MATCH_RANK_DETAIL=4 | partial | no | Lista de campeões vazia (sem chaveamento de elite). |
+| `sendGetSelfRankSroce` | `eliteGame/EliteGameController.as` | 162 ELITEGAME | ELITE_MATCH_PLAYER_RANK=3 | partial | no | eliteRank/eliteScore de Sys_User_Match_Info. |
 
 ## Leilão
 
@@ -359,14 +359,14 @@
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
 | `sendErrorMsg` | `calendar/CalendarManager.as`<br>`calendar/view/goodsExchange/GoodsExchangeView.as`<br>`ddt/bagStore/BagStoreFrame.as` (+13) | 8 CLIENT_LOG |  | ok | no |  |
-| `sendDailyAward` | `calendar/CalendarManager.as`<br>`hall/HallStateView.as`<br>`times/TimesManager.as` (+1) | 13 DAILY_AWARD |  | missing | no |  |
+| `sendDailyAward` | `calendar/CalendarManager.as`<br>`hall/HallStateView.as`<br>`times/TimesManager.as` (+1) | 13 DAILY_AWARD |  | ok | yes | Tipo 5 (presença no calendário) marca o dia em DailyLogList uma vez por dia (o original aceitava várias); tipo 0 "Nhận mỗi ngày" dá o buff Daily_Award tipo 0 uma vez por dia; 2 ovo e 3 caixa VIP também com claim diário (app."EventClaims"). — evidência: research/e2e/events/e3-signed.png, e5-daily-claimed.png |
 | `syncStep` | — | 15 USER_ANSWER |  | missing | no |  |
 | `syncWeakStep` | — | 15 USER_ANSWER |  | missing | no |  |
 | `sendPicc` | `calendar/view/ActivityState.as` | 30 PICC |  | ok | no |  |
 | `sendGoodsExchange` | `calendar/view/goodsExchange/GoodsExchangeView.as` | 31 GOODS_EXCHANGE |  | missing | no |  |
 | `sendCollectInfoValidate` | `quest/InfoCollectView.as` | 32 COLLECTINFO |  | missing | no |  |
 | `sendQuestionReply` | `ddt/manager/QuestionInfoMannager.as` | 89 QUESTION_REPLY |  | missing | no |  |
-| `sendSignAward` | `calendar/CalendarManager.as` | 90 GET_SIGNAWARD |  | missing | no |  |
+| `sendSignAward` | `calendar/CalendarManager.as` | 90 GET_SIGNAWARD |  | ok | no | Prêmio por N presenças no mês (Daily_Award tipos 1/7 com AwardDays=N): exige N dias marcados e paga uma vez por mês+tier (o C# duplicava itens no loop). Coberto por apps/game/test/events.test.ts; no cliente só dispara ao atingir 3/6/12/18 presenças. |
 | `labyrinthRequestUpdate` | — | 131 LABYRINTH | REQUEST_UPDATE=2 | missing | no |  |
 | `sendAcademyApprentice` | `ddt/view/academyCommon/academyRequest/AcademyRequestMasterFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | ACADEMY_FOR_APPRENTICE=4 | missing | no |  |
 | `sendAcademyApprenticeConfirm` | `ddt/view/academyCommon/academyRequest/AcademyAnswerApprenticeFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | APPRENTICE_CONFIRM=7 | missing | no |  |
@@ -378,15 +378,15 @@
 | `sendQuestRemove` | — | 177 QUEST_REMOVE |  | ok | no |  |
 | `sendQuestFinish` | `ddt/manager/TaskManager.as`<br>`quest/TaskMainFrame.as` | 179 QUEST_FINISH |  | ok | no |  |
 | `sendRequestUpdate` | `effortView/EffortMainFrame.as` | 225 REQUEST_UPDATE |  | ok | no |  |
-| `sendAchievementFinish` | `ddt/manager/EffortManager.as` | 230 ACHIEVEMENT_FINISH |  | missing | no |  |
+| `sendAchievementFinish` | `ddt/manager/EffortManager.as` | 230 ACHIEVEMENT_FINISH |  | ok | yes | O cliente envia ao completar; o servidor confere AchievementCondition × registros (Sys_Users_Record, tipos de snapshot: ataque/defesa/agilidade/sorte/FC/nível/partidas/vitórias/tempo online/dias de login) e grava AchievementData uma vez; pontos de conquista somados. Correção: o 228 precisa trazer todos os tipos de registro (o EffortManager quebrava com null e nada completava). Título (RewardType 1) só anunciado. — evidência: research/e2e/events/e25-achievement.png |
 | `requestRefund` | — | 249 MARRY_CMD | MARRYROOMSENDGIFT=12 | missing | no |  |
-| `sendAccumulativeLoginAward` | `accumulativeLogin/view/AccumulativeLoginView.as` | 338 ACCUMULATIVELOGIN_AWARD |  | missing | no |  |
+| `sendAccumulativeLoginAward` | `accumulativeLogin/view/AccumulativeLoginView.as` | 338 ACCUMULATIVELOGIN_AWARD |  | ok | no | Login_Award_Item_Template (Type = dia, dia 7 = item escolhido); dias contados 1x/dia no login (máx. 7), prêmio 1x por dia (EventClaims). |
 
 ## Outros
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `sendDailyRecord` | `ddt/dailyRecord/DailyRecordControl.as` | 103 DAILYRECORD |  | missing | no |  |
+| `sendDailyRecord` | `ddt/dailyRecord/DailyRecordControl.as` | 103 DAILYRECORD |  | ok | no | Devolve e apaga as linhas de DailyRecordInfo (como o original). |
 | `sendItemLianhua` | — | 110 ITEM_REFINERY |  | missing | no |  |
 | `arrange` | — | 135 135 |  | missing | no |  |
 | `lightRoadPointWork` | — | 145 LIGHTROAD_SYSTEM | BECHOOSE_POINT=66 | missing | no |  |
@@ -399,7 +399,7 @@
 | `sendModifyInfo` | `civil/view/CivilRegisterFrame.as` | 237 MARRYINFO_UPDATE |  | missing | no |  |
 | `refund` | — | 249 MARRY_CMD | MARRYROOMSENDGIFT=12 | missing | no |  |
 | `sendNoviceActivityGetAward` | `ddt/manager/GameInSocketOut.as` | 258 NOVICEACTIVITY |  | missing | no |  |
-| `sendFirstRechargeGetAward` | `ddt/manager/GameInSocketOut.as` | 259 FIRSTRECHARGE |  | missing | no |  |
+| `sendFirstRechargeGetAward` | `ddt/manager/GameInSocketOut.as` | 259 FIRSTRECHARGE |  | ok | yes | Sem pagamentos reais: o presente de primeira recarga é grátis e único (FIRST_RECHARGE_FREE=false volta ao original). Itens em Event_Reward_Goods tipo 7/1 (editáveis no admin); o ícone some após resgatar. — evidência: research/e2e/events/e11-firstrecharge.png, e12-firstrecharge-claimed.png |
 | `sendBringUpEat` | `ddt/manager/GameInSocketOut.as` | 308 EQUIP_BRING_UP |  | missing | no |  |
 | `sendBringUpLockStatusUpdate` | `ddt/manager/GameInSocketOut.as` | 313 ITEM_CELL_IS_LOCKED |  | missing | no |  |
 

@@ -2,6 +2,7 @@
  * GamePlayer (Game.Server/GamePlayer.cs) — online character state, bags, currencies and persistence.
  * Bags constructed as in the GamePlayer ctor (GamePlayer.cs:1126-1137).
  */
+import { saveRecords } from "./events.js";
 import type { GSPacket } from "@ddt/protocol";
 import type { Database } from "@ddt/db";
 import { savePlayerInfo } from "../db/characters.js";
@@ -352,5 +353,6 @@ export class GamePlayer implements RoomMember {
     }
     if (this.questInv) await saveQuests(db, this.questInv.takeDirty());
     if (this.buffs.length) await saveBuffs(db, this.buffs);
+    await saveRecords(db, this);
   }
 }

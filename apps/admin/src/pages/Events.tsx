@@ -1,11 +1,13 @@
 import { useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Button, Card, PageHeader, Switch, Tabs, TabsContent, TabsList, TabsTrigger, cn } from "@ddtank/ui";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { listQuery, useResourceMutations } from "@/crud/api";
 import { ResourcePage } from "@/crud/ResourcePage";
 import { events } from "@/resources/content";
+import { dailyAward, eventAwards, eventCodes, scheduledEvents, timeBoxes } from "@/resources/event-systems";
+import { api } from "@/lib/api";
 import { useI18n } from "@/i18n";
 
 /** Row of game."Active". */
@@ -153,6 +155,143 @@ function Calendar() {
   );
 }
 
+interface SchedStatus {
+  now: string;
+  open: { id: number; kind: string; title: string; start: string; end: string }[];
+  next: { id: number; kind: string; title: string; next: string | null }[];
+  rates: { exp: number; gold: number };
+  worldBoss: { name: string; blood: number; maxBlood: number; players: number; ranking: { nick: string; damage: number }[] } | null;
+  eliteStatus: number;
+  leagueOpen: boolean;
+  log: string[];
+}
+
+const KIND_LABEL: Record<string, string> = {
+  worldboss: "Boss mundial",
+  league: "Liga",
+  elite: "Elite",
+  weekly_reset: "Reset semanal",
+  double_exp: "EXP x2",
+  double_gold: "Ouro x2",
+};
+
+const fmtUtc = (s: string | null) => (s ? new Date(s).toISOString().replace("T", " ").slice(0, 16) + " UTC" : "—");
+
+/** Live scheduler state from apps/game (GET /events on the internal channel) + start/stop now. */
+function SchedulerPanel() {
+  const qc = useQueryClient();
+  const { data, error } = useQuery({
+    queryKey: ["events", "status"],
+    queryFn: () => api.get<SchedStatus>("/api/admin/events/status"),
+    refetchInterval: 10_000,
+  });
+  const [minutes, setMinutes] = useState(30);
+  const act = async (path: string, body: Record<string, unknown>) => {
+    try {
+      await api.post(path, body);
+      toast.success("OK");
+      await qc.invalidateQueries({ queryKey: ["events", "status"] });
+    } catch {
+      toast.error("Servidor de jogo indisponível");
+    }
+  };
+  return (
+    <Card className="mb-4 p-4">
+      <div className="mb-3 flex flex-wrap items-center gap-3">
+        <h2 className="font-display text-lg">Agendador do servidor</h2>
+        {data && (
+          <span className="text-sm text-muted">
+            EXP x{data.rates.exp} · Ouro x{data.rates.gold} · Elite {data.eliteStatus || "fechado"} · Liga {data.leagueOpen ? "aberta" : "fechada"}
+          </span>
+        )}
+        {error && <span className="text-sm text-coral">Servidor de jogo indisponível</span>}
+        <Button size="sm" variant="outline" className="ml-auto" onClick={() => act("/api/admin/events/reload", {})}>
+          Recarregar no jogo
+        </Button>
+      </div>
+      <div className="grid gap-3 md:grid-cols-2">
+        <div>
+          <p className="mb-1 text-sm font-semibold">Abertos agora</p>
+          <ul className="flex flex-col gap-1 text-sm">
+            {(data?.open ?? []).length === 0 && <li className="text-muted">Nenhum</li>}
+            {data?.open.map((w) => (
+              <li key={`${w.kind}${w.start}`} className="flex items-center gap-2">
+                <span className="font-semibold">{KIND_LABEL[w.kind] ?? w.kind}</span>
+                <span className="text-muted">até {fmtUtc(w.end)}</span>
+                <Button size="sm" variant="ghost" onClick={() => act("/api/admin/events/stop", { kind: w.kind })}>
+                  Encerrar
+                </Button>
+              </li>
+            ))}
+          </ul>
+          {data?.worldBoss && (
+            <p className="mt-2 text-sm">
+              {data.worldBoss.name}: {data.worldBoss.blood.toLocaleString()} / {data.worldBoss.maxBlood.toLocaleString()} HP · {data.worldBoss.players} na sala
+              {data.worldBoss.ranking.length > 0 && ` · 1º ${data.worldBoss.ranking[0]!.nick} (${data.worldBoss.ranking[0]!.damage})`}
+            </p>
+          )}
+        </div>
+        <div>
+          <p className="mb-1 text-sm font-semibold">Próximos</p>
+          <ul className="flex flex-col gap-1 text-sm">
+            {data?.next.map((n) => (
+              <li key={n.id}>
+                <span className="font-semibold">{n.title || KIND_LABEL[n.kind] || n.kind}</span> <span className="text-muted">{fmtUtc(n.next)}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div className="mt-3 flex flex-wrap items-center gap-2">
+        <span className="text-sm">Iniciar agora por</span>
+        <input
+          type="number"
+          min={1}
+          max={1440}
+          value={minutes}
+          onChange={(e) => setMinutes(Number(e.target.value) || 30)}
+          className="w-20 rounded-lg border border-line bg-transparent px-2 py-1 text-sm"
+          aria-label="minutos"
+        />
+        <span className="text-sm">min:</span>
+        {Object.entries(KIND_LABEL).map(([k, l]) => (
+          <Button key={k} size="sm" variant="outline" onClick={() => act("/api/admin/events/start", { kind: k, minutes })}>
+            {l}
+          </Button>
+        ))}
+      </div>
+      {data && data.log.length > 0 && <pre className="mt-3 max-h-32 overflow-auto rounded-lg bg-black/20 p-2 text-xs">{data.log.join("\n")}</pre>}
+    </Card>
+  );
+}
+
+/** Activation codes (player."Active_Number") for an Active with HasKey 1/4. */
+function CodesPanel() {
+  const [activeId, setActiveId] = useState(0);
+  const [count, setCount] = useState(10);
+  const [codes, setCodes] = useState<string[]>([]);
+  const gen = async () => {
+    try {
+      const r = await api.post<{ codes: string[] }>(`/api/admin/events/${activeId}/codes`, { count });
+      setCodes(r.codes);
+      toast.success(`${r.codes.length} códigos`);
+    } catch {
+      toast.error("Erro");
+    }
+  };
+  return (
+    <Card className="mb-4 flex flex-wrap items-center gap-2 p-4">
+      <span className="text-sm">Gerar códigos para ActiveID (HasKey 1/4)</span>
+      <input type="number" value={activeId} onChange={(e) => setActiveId(Number(e.target.value))} className="w-24 rounded-lg border border-line bg-transparent px-2 py-1 text-sm" aria-label="ActiveID" />
+      <input type="number" value={count} min={1} max={1000} onChange={(e) => setCount(Number(e.target.value))} className="w-20 rounded-lg border border-line bg-transparent px-2 py-1 text-sm" aria-label="quantidade" />
+      <Button size="sm" onClick={gen} disabled={!activeId}>
+        Gerar
+      </Button>
+      {codes.length > 0 && <textarea readOnly className="mt-2 h-24 w-full rounded-lg border border-line bg-transparent p-2 font-mono text-xs" value={codes.join("\n")} />}
+    </Card>
+  );
+}
+
 export function EventsPage() {
   const { t } = useI18n();
   return (
@@ -162,12 +301,34 @@ export function EventsPage() {
         <TabsList>
           <TabsTrigger value="calendar">{t("events.calendar")}</TabsTrigger>
           <TabsTrigger value="table">{t("events.table")}</TabsTrigger>
+          <TabsTrigger value="scheduled">Agendados</TabsTrigger>
+          <TabsTrigger value="awards">Prêmios</TabsTrigger>
+          <TabsTrigger value="codes">Códigos</TabsTrigger>
+          <TabsTrigger value="daily">Presença</TabsTrigger>
+          <TabsTrigger value="boxes">Caixas</TabsTrigger>
         </TabsList>
         <TabsContent value="calendar">
           <Calendar />
         </TabsContent>
         <TabsContent value="table">
           <ResourcePage def={events} embedded />
+        </TabsContent>
+        <TabsContent value="scheduled">
+          <SchedulerPanel />
+          <ResourcePage def={scheduledEvents} embedded />
+        </TabsContent>
+        <TabsContent value="awards">
+          <ResourcePage def={eventAwards} embedded />
+        </TabsContent>
+        <TabsContent value="codes">
+          <CodesPanel />
+          <ResourcePage def={eventCodes} embedded />
+        </TabsContent>
+        <TabsContent value="daily">
+          <ResourcePage def={dailyAward} embedded />
+        </TabsContent>
+        <TabsContent value="boxes">
+          <ResourcePage def={timeBoxes} embedded />
         </TabsContent>
       </Tabs>
     </div>
