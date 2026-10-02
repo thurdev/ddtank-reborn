@@ -1,3 +1,4 @@
+import { updateRank } from "./rank.js";
 import cors from "@fastify/cors";
 import formbody from "@fastify/formbody";
 import multipart from "@fastify/multipart";
@@ -89,11 +90,14 @@ export async function buildApp(o: BuildOptions = {}): Promise<{ app: FastifyInst
   await requestRoutes(f, ctx);
   await staticRoutes(f, ctx);
 
-  if (!o.skipTemplates) await cache.buildAll();
+  if (!o.skipTemplates) {
+    await updateRank(h).catch((e) => log.error(e as object, "updateRank"));
+    await cache.buildAll();
+  }
 
   const timers: NodeJS.Timeout[] = [];
   if (cfg.CELEB_REBUILD_MIN > 0 && !o.skipTemplates)
-    timers.push(setInterval(() => void cache.buildAll((d) => !!d.periodic).catch((e) => log.error(e as object)), cfg.CELEB_REBUILD_MIN * 60_000));
+    timers.push(setInterval(() => void updateRank(h).then(() => cache.buildAll((d) => !!d.periodic)).catch((e) => log.error(e as object)), cfg.CELEB_REBUILD_MIN * 60_000));
   timers.push(setInterval(sampleProcess, 60_000));
   for (const t of timers) t.unref();
   f.addHook("onClose", async () => {

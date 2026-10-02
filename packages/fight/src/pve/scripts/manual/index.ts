@@ -38,4 +38,6 @@ function wrapSpawns<T extends new () => object>(Base: T): T {
 registerScript("GameServerScript.AI.Messions.GCGCT1161", wrapSpawns(GCGCT1161), "mission", "manual");
 registerScript("GameServerScript.AI.Messions.GCGCK1161", wrapSpawns(GCGCK1161), "mission", "manual");
 
-export const MANUAL_SCRIPTS = ["TVS12004", "GCGCT1161", "GCGCK1161"];
+import "./worldboss.js";
+
+export const MANUAL_SCRIPTS = ["TVS12004", "GCGCT1161", "GCGCK1161", "ACDragon", "AC1243", "WorldAcientDragon"];

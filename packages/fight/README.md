@@ -100,7 +100,7 @@ turn time/delay. All match bit-for-bit.
 - `Player.SetXY` energy: the original subtracts `|m_x − x|` after assigning `m_x` (always 0); we charge the real
   distance, and `MOVESTART` is clamped to the remaining energy (the original trusts the client, spec §3.4).
 - Not modelled yet: drop boxes (`CreateBox`/fire drops — need drop tables), pets/pet skills, card/equipment/gem effects
-  (only Ice/Hide/NoHole/Seal and the 10001–10022 props), healstone, guild/paid fight buffers, PvE extras (Labyrinth gates, world boss, effects with real stat changes),
+  (only Ice/Hide/NoHole/Seal and the 10001–10022 props), healstone, guild/paid fight buffers, PvE extras (Labyrinth gates, effects with real stat changes); world boss dragon scripts are hand-ported from DDT-6600 (`src/pve/scripts/manual/worldboss.ts`, players act first),
   achievements, ghost movement and dead-teammate props. `GAME_CREATE` carries only the fight fields (the server adds
   the lobby fields). Level-up from GP is delegated to the server (`gradeForGp`).
 - `BaseGame.SendGameNextTurn` passes the float wind to `GetVane(int)` (decompiled code); we use `wind×10` like FIRE/VANE.

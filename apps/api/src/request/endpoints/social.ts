@@ -66,8 +66,9 @@ export const UserApprenticeshipInfoList = define("/UserApprenticeshipInfoList.as
     const rel = int("RelationshipID") || self;
     const master = await userById(app.h, rel);
     const me = await userById(app.h, self);
-    if (master && me && Number(me.masterID) === Number(master.UserID)) {
-      kids.push(item("Item", APPRENTICE, master));
+    if (master && me) {
+      // the master itself only when selfid is its apprentice; then every relation of RelationshipID except selfid
+      if (Number(me.masterID) === Number(master.UserID)) kids.push(item("Item", APPRENTICE, master));
       for (const part of String(master.masterOrApprentices ?? "").split(",")) {
         const id = Number(part.split("|")[0]);
         if (!id || id === self) continue;
@@ -240,3 +241,58 @@ export const DailyLogList = define("/dailyloglist.ashx", async ({ app, int }) =>
   }
   return xml(result(ok, ok ? "Success!" : "Fail!", kids, [["nowDate", fmtDate(now)]]), true);
 }, "Tank.Request/dailyloglist.ashx.cs");
+
+const RANK_DATE =
+  "UserID ConsortiaID FightPower PrevFightPower GP PrevGP AchievementPoint PrevAchievementPoint charmGP PrecharmGP LeagueAddWeek PrevLeagueAddWeek ConsortiaFightPower ConsortiaPrevFightPower ConsortiaLevel ConsortiaPrevLevel ConsortiaRiches ConsortiaPrevRiches ConsortiacharmGP ConsortiaPrevcharmGP";
+
+/** CelebList/UserRankDate.ashx (UserRankDate.ashx.cs + FlashUtils.CreateUserRankDateItems): own positions, rebuilt by apps/api rank.ts. */
+export const UserRankDate = define("/UserRankDate.ashx", async ({ app, int }) => {
+  const row = await q1(app.h, sql`SELECT * FROM player."Sys_Users_Rank_Date" WHERE "UserID" = ${int("userID")} LIMIT 1`);
+  // the original writes nothing when the row is missing; an empty value=false keeps the client analyzer quiet
+  if (!row) return xml(result(false, "Fail!"));
+  return xml(result(true, "Success!", [item("Item", RANK_DATE, row)]));
+});
+
+const APPSHIP_INFO =
+  "UserID ApplyFor='false' IsPublishEquip='true' NickName typeVIP:0 VIPLevel:0 IsConsortia ConsortiaID Sex Win Total Escape GP Honor Style Colors Hide Grade State Repute Skin Offer IsMarried ConsortiaName DutyName Nimbus FightPower AchievementPoint Rank=Honor ApprenticeshipState=apprenticeshipState GraduatesCount=graduatesCount HonourOfMaster=honourOfMaster SpouseID SpouseName BadgeID ValidDate='0'";
+
+/**
+ * ApprenticeshipClubList.ashx (ApprenticeshipClubList.ashx.cs): requestType true = 9/page else 3; appshipStateType
+ * picks masters (GetPlayerPage where 1/3, order 8) or apprentices (where 2/4, order 10). Root attrs total, value, message.
+ */
+export const ApprenticeshipClubList = define("/ApprenticeshipClubList.ashx", async ({ app, int, p }) => {
+  const kids: XEl[] = [];
+  let total = 0;
+  const bool = (n: string) => String(p(n) ?? "").toLowerCase() === "true";
+  try {
+    const page = Math.max(1, int("page", 1));
+    const requestType = bool("requestType");
+    const appship = bool("appshipStateType");
+    const size = requestType ? 9 : 3;
+    let where = appship ? 2 : 1;
+    let order = appship ? 10 : 8;
+    if (!requestType && !appship) { where = 3; order = 9; }
+    else if (!requestType && appship) { where = 4; order = 9; }
+    const W: Record<number, SQL> = {
+      1: sql`"Grade" >= 20`,
+      2: sql`"Grade" > 5 AND "Grade" < 17`,
+      3: sql`"Grade" >= 20 AND "apprenticeshipState" <> 3 AND "State" = 1`,
+      4: sql`"Grade" > 5 AND "Grade" < 17 AND "masterID" = 0 AND "State" = 1`,
+    };
+    const name = p("name") ?? "";
+    let byId: SQL | undefined;
+    if (name) {
+      const u = await q1(app.h, sql`SELECT "UserID" FROM player."Sys_Users_Detail" WHERE "NickName" = ${name} LIMIT 1`);
+      byId = sql`"UserID" = ${Number(u?.UserID ?? 0)}`;
+    }
+    const cond = and([sql`"IsExist" = true AND "IsFirst" <> 0`, W[where], byId]);
+    const ord = order === 8 ? `"State" DESC, "graduatesCount" DESC, "FightPower" DESC` : order === 10 ? `"State" DESC, "GP" ASC, "FightPower" DESC` : `random()`;
+    total = Number((await q1<{ n: number }>(app.h, sql`SELECT count(*)::int AS n FROM app."V_Sys_Users_Detail" WHERE ${cond}`))?.n ?? 0);
+    const rows = await q(app.h, sql`SELECT * FROM app."V_Sys_Users_Detail" WHERE ${cond} ORDER BY ${sql.raw(ord)}, "UserID" LIMIT ${size} OFFSET ${(page - 1) * size}`);
+    for (const r of rows) kids.push(item("Info", APPSHIP_INFO, r));
+  } catch {
+    /* original: value stays true */
+  }
+  const r = result(true, "Success!", kids, [["isPlayerRegeisted", false], ["isSelfPublishEquip", false]]);
+  return xml(totalFirst(r, total));
+});

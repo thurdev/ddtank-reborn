@@ -101,4 +101,47 @@ describe("transpiled donor missions (smoke)", () => {
       expect(all.filter((e) => e.cmd === "RAW" && e.code === 64).length).toBeGreaterThan(0); // NPCs spawned
     });
   }
+
+  it("world boss dragon (Pve 1243, ACDragon/AC1243/WorldAcientDragon): the boss spawns, attacks and takes damage", () => {
+    expect(scriptInfo("GameServerScript.AI.Game.ACDragon")?.origin).toBe("manual");
+    const players = [spec(1, { grade: 30, hp: 200000, attack: 2000, defence: 3000 })];
+    const game = new PveGame({ id: 3, roomType: 14, gameType: 7, timeType: 3, assets, players, seed: 5, pveInfo: pves.get(1243)!, hardLevel: 0, data, worldBossBlood: 5_000_000 });
+    const bots = new BotRunner(game, new Map([[1, { difficulty: 100 }]]), 5);
+    let bossTurns = 0;
+    const { all } = play(game, bots, (e) => {
+      bossTurns = e.filter((x) => x.cmd === "RAW" && (x as { code: number }).code === 61).length;
+      return e.some((x) => x.cmd === "GAME_ALL_MISSION_OVER") || game.turnIndex > 12;
+    }, 3_600_000);
+    expect(game.missingScripts).toEqual([]);
+    expect(game.scriptErrors).toEqual([]);
+    const load = all.find((e) => e.cmd === "GAME_LOAD");
+    expect(load?.cmd === "GAME_LOAD" && load.mapId).toBe(1243);
+    const boss = [...(game as unknown as { turnQueue: unknown[] }).turnQueue].find((l) => (l as { npcInfo?: { ID: number } }).npcInfo?.ID === 1243) as { blood: number; maxBlood: number } | undefined;
+    expect(boss).toBeDefined();
+    expect(boss!.blood).toBeLessThan(5_000_000); // started from the shared pool, and the player's shots hurt it
+    // the players fire before the dragon's first (one-shot) attack
+    const cmds = all.map((e) => (e.cmd === "RAW" ? `RAW${(e as { code: number }).code}` : e.cmd));
+    expect(cmds.indexOf("FIRE")).toBeGreaterThan(-1);
+    expect(cmds.indexOf("FIRE")).toBeLessThan(cmds.indexOf("RAW61"));
+    const p = game.players[0]!;
+    expect(p.blood < p.maxBlood || !p.isLiving).toBe(true); // and the dragon hit back (RangeAttacking)
+    void bossTurns;
+  });
+
+  it("fight lab (Pve 1000, mission 101): client GENERAL_COMMAND events reach the mission (create NPC, quiz window)", () => {
+    const game = new PveGame({ id: 4, roomType: 5, gameType: 8, timeType: 3, assets, players: [spec(1, { isBot: false })], seed: 2, pveInfo: pves.get(1000)!, hardLevel: 0, data });
+    const all: FightEvent[] = [];
+    let now = 0;
+    for (; now < 120_000 && game.state !== GameState.Playing; now += 40) {
+      all.push(...game.update(now));
+      if (game.state === GameState.Loading) all.push(...game.handle(1, { cmd: "LOAD", progress: 100 }, now));
+    }
+    expect(game.state).toBe(GameState.Playing);
+    const before = all.length;
+    all.push(...game.handle(1, { cmd: "MISSION_EVENT", data: [0] }, now));
+    for (let t = 0; t < 200; t++) all.push(...game.update((now += 40)));
+    const after = all.slice(before).map((e) => (e.cmd === "RAW" ? `RAW${(e as { code: number }).code}` : e.cmd));
+    expect(game.scriptErrors).toEqual([]);
+    expect(after).toContain("RAW64"); // CreateNpc → ADD_LIVING
+  });
 });

@@ -23,7 +23,7 @@ const ZLIB_STUBS = ["/UserQuestList.ashx", "/CheckRegistration.ashx"];
 /** Known endpoints not ported yet (or broken in DDTank41, spec §3.2). */
 const STUBS = [
   "/AccountRegister.ashx", "/AdvanceQuestTime.ashx", "/API/Login.ashx", "/API/Register.ashx",
-  "/ApprenticeshipClubList.ashx", "/AuctionPageList.ashx", "/CelebList/UserRankDate.ashx", "/UserRankDate.ashx",
+  "/AuctionPageList.ashx", 
   "/ChargeTest.ashx", "/CheckRegistration.ashx",
   "/CreatShortCut.ashx",
   "/ExitGameTransit.ashx", "/FarmGetUserFieldInfos.ashx", "/FarmGetUserFieldInfosSingle.ashx",
@@ -49,6 +49,8 @@ const PORTED: Endpoint[] = [
   CreateLogin,
   social.IMListLoad,
   social.UserApprenticeshipInfoList,
+  social.UserRankDate,
+  social.ApprenticeshipClubList,
   social.ConsortiaList,
   social.ConsortiaUsersList,
   social.ConsortiaNameCheck,

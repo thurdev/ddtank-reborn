@@ -178,8 +178,9 @@
     "evidence": "research/e2e/events/e17-worldboss-move.png"
   },
   "102:sendWorldBossRoomStauts": {
-    "notes": "102/7 para a sala; estado 3 sai da sala. A luta abre o PvE tipo 14 (Pve_Info 1243), mas o script ACDragon não existe no @ddt/fight: o mapa abre sem o dragão (e22-fight.png). Dano vai ao ranking via GAME_ALL_MISSION_OVER.totalHurt.",
-    "evidence": "research/e2e/events/e22-fight.png"
+    "notes": "Luta PvE tipo 14 com o script do dragão portado (ACDragon/AC1243/WorldAcientDragon do DDT-6600 em packages/fight/src/pve/scripts/manual/worldboss.ts): o dragão aparece, fala e ataca (71087 de dano), HP inicial = HP global restante. Desvio: o jogador age antes do dragão (no 6600 o dragão one-shotava antes). Estado 3 não tira mais o jogador da sala do boss (corrigido: reviver dava 'Xu insuficiente').",
+    "evidence": "research/e2e/batch3/39-wb1.png, research/e2e/batch3/40-wb-myturn.png, research/e2e/batch3/45-wb-shot2.png",
+    "verified": "yes"
   },
   "102:sendBuyWorldBossBuff": {
     "verified": "yes",
@@ -187,9 +188,84 @@
     "evidence": "research/e2e/events/e20-buff.png"
   },
   "102:requestRevive": {
-    "notes": "Reviver 1000 / relutar 1200 Xu (BaseWorldBossRoom)."
+    "notes": "Reviver 1000 / relutar 1200 Xu; não exige mais estar na lista (estado 3 removia)."
   },
   "102:sendLeaveBossRoom": {
     "notes": "Sai da sala (102/4)."
+  },
+  "187:sendHotSpringEnter": {
+    "verified": "yes",
+    "notes": "Lista de salas 197 a partir de game.HotSpringRoom (contagem ao vivo).",
+    "evidence": "research/e2e/batch3/05-spa-list.png"
+  },
+  "202:sendHotSpringRoomEnter": {
+    "verified": "yes",
+    "notes": "10000 de ouro checado e cobrado ANTES de entrar (o C# cobrava depois, sem rollback); 202 com minutos restantes (60/dia, Sys_Users_Extra).",
+    "evidence": "research/e2e/batch3/06-spa-enter.png, research/e2e/batch3/07-spa-room.png"
+  },
+  "201:sendHotSpringRoomEnterView": {
+    "verified": "yes",
+    "notes": "198 por jogador da sala; o novo jogador também vai a todos (Bob aparece para Thur).",
+    "evidence": "research/e2e/batch3/12-thur-sees-bob.png"
+  },
+  "191:sendHotSpringRoomPlayerTargetPoint": {
+    "verified": "yes",
+    "notes": "Servidor autoritativo: só move quem enviou (o C# movia qualquer id informado), caminho re-serializado de inteiros validados e preso à cena; repassado aos outros da sala. Ganho de EXP por minuto (HotSpringExp/10 × VIP, +50 honra/10 Xu bloq./50 ouro, 191/7).",
+    "evidence": "research/e2e/batch3/12-thur-sees-bob.png"
+  },
+  "169:sendHotSpringRoomPlayerRemove": {
+    "verified": "yes",
+    "notes": "Sai da sala (199 aos outros, 169 'Đã thoát…'), lista atualizada.",
+    "evidence": "research/e2e/batch3/13-spa-leave.png"
+  },
+  "191:sendHotSpringRoomInvite": {
+    "notes": "Sem receptor no cliente 4.1: o convidado recebe aviso com o número da sala."
+  },
+  "12:sendHotAddTime": {
+    "notes": "SpaAddictionMoneyNeeded (1299) Xu → +SpaPriRoomContinueTime (30) min, 191/12."
+  },
+  "141:sendAcademyApprentice": {
+    "verified": "yes",
+    "notes": "Pedido de aprendiz → mestre recebe 141/4 (AcademyMgr em memória, 1 h).",
+    "evidence": "research/e2e/batch3/23-bob-academy.png, research/e2e/batch3/24-bob-ask.png, research/e2e/batch3/25-thur-request.png"
+  },
+  "141:sendAcademyMasterConfirm": {
+    "verified": "yes",
+    "notes": "Mestre aceita: 141/10 para os dois, Sys_Users_Detail atualizado (masterID/masterOrApprentices/estado), aviso 141/17 + correio. Formatura no nível 20: caixas por nível (AcademyApprenticeAward/MasterAward), prêmios de conclusão, graduatesCount+1 (test/academy.test.ts).",
+    "evidence": "research/e2e/batch3/26-thur-accept.png, research/e2e/batch3/27-bob-accepted.png"
+  },
+  "141:sendAcademyFireApprentice": {
+    "notes": "20000 ouro (checado antes; o C# cobrava mesmo se falhasse), congela AcademyMasterFreezeHours."
+  },
+  "141:sendAcademyFireMaster": {
+    "notes": "10000 ouro, congela AcademyApprenticeFreezeHours."
+  },
+  "141:sendAcademyRegister": {
+    "notes": "No-op como no original: a lista (ApprenticeshipClubList.ashx, agora portada) mostra todos os elegíveis."
+  },
+  "91:createMonster": {
+    "verified": "yes",
+    "notes": "Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14).",
+    "evidence": "research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png"
+  },
+  "91:deleteMonster": {
+    "verified": "no",
+    "notes": "Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14).",
+    "evidence": "research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png"
+  },
+  "91:sendClientScriptEnd": {
+    "verified": "yes",
+    "notes": "Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14).",
+    "evidence": "research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png"
+  },
+  "91:sendFightLibAnswer": {
+    "verified": "no",
+    "notes": "Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14).",
+    "evidence": "research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png"
+  },
+  "91:sendFightLibReanswer": {
+    "verified": "no",
+    "notes": "Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14).",
+    "evidence": "research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png"
   }
 }
