@@ -2,10 +2,16 @@
  * QuestInventory (Game.Server/Quests/QuestInventory.cs + BaseQuest.cs + BaseCondition.cs).
  * Condition values live in QuestData.Condition1..4 (index = position in the quest's condition list).
  * Counter conditions start at Para2 (BaseCondition.Reset) and count down to 0; see `isCompleted` for the others.
- * Ported triggers: grade (1), equipped item (2), kills (4/22), games played (5/23/31), games won (6/24), shop
- * spending (10), item owned (14/15), direct (16), client modify (20, QUEST_CHECK), 2v2 (30/34), new gear (39).
- * Other condition types (PvE missions 21, pets, farm, marriage...) are kept and shown but never progress
- * (UnknowQuestCondition behaviour for types whose module is not ported).
+ * Ported triggers: grade (1), equipped item (2), used item (3), kills (4/22), games played (5/23/31), games won
+ * (6/24), strengthen (9), shop spending (10), fusion (11), item owned (14/15), direct (16), guild/riches/smith/
+ * shop/store (18), compose (19), client modify (20, QUEST_CHECK), PvE mission (21), gem inlay (25), 2v2 (30/34),
+ * new gear (39). Varredura pt.2 (2026-10-02): types 3/9/11/19 had dec() logic (onUsingItem/onItemStrengthen/
+ * onItemFusion/onItemCompose) but were missing from the "done at value<=0" bucket in `condCompleted`, so the
+ * counter reached 0 but claim never saw it complete; 18 (OwnConsortiaCondition, e.g. "join 1 guild") wasn't
+ * ported at all. All fixed below; 25 newly wired to the forge inlay handler.
+ * Other condition types (monster kill 13, pets, farm, marriage, achievements...) are kept and shown but never
+ * progress (UnknowQuestCondition behaviour for types whose module is not ported or whose trigger event — like
+ * GameMonsterCondition's per-NPC kill hook — isn't plumbed through the fight engine yet).
  */
 import type { BuffRow, QuestDataRow } from "../db/social.js";
 import type { QuestCondRow, QuestTemplate, Templates } from "../db/templates.js";
@@ -191,7 +197,27 @@ export class QuestInventory {
         return false;
       case 16: // DirectFinishCondition
         return true;
-      case 4: case 5: case 6: case 10: case 20: case 21: case 22: case 23: case 24: case 30: case 31: case 34: case 39:
+      case 18: { // OwnConsortiaCondition (QuestInventory/OwnConsortiaCondition.cs:18): Para1 0 member count,
+        // 1 riches (Offer+Rob), 2 smith level, 3 shop level, 4 store level — all vs Para2. Member count isn't
+        // cached on PlayerInfo; every real row with Para1=0 has Para2<=1, so "in a guild at all" is exact.
+        let num = 0;
+        switch (c.Para1) {
+          case 0: num = p.info.ConsortiaID ? 1 : 0; break;
+          case 1: num = p.info.RichesOffer + p.info.RichesRob; break;
+          case 2: num = p.info.SmithLevel; break;
+          case 3: num = p.info.ShopLevel; break;
+          case 4: num = p.info.StoreLevel; break;
+        }
+        if (num >= c.Para2) {
+          this.setValue(q, i, 0);
+          return true;
+        }
+        return false;
+      }
+      // 3 UsingItemCondition, 9 ItemStrengthenCondition, 11 ItemFusionCondition, 19 ItemComposeCondition,
+      // 25 ItemInsertCondition: decremented by onUsingItem/onItemStrengthen/onItemFusion/onItemCompose/onItemInsert
+      // below; were missing from this "done when counted down to 0" bucket (dec happened but canCompleted never saw it).
+      case 3: case 4: case 5: case 6: case 9: case 10: case 11: case 19: case 20: case 21: case 22: case 23: case 24: case 25: case 30: case 31: case 34: case 39:
         return this.value(q, i) <= 0;
       default:
         return false; // UnknowQuestCondition / module not ported
@@ -412,6 +438,13 @@ export class QuestInventory {
   onUsingItem(templateId: number): void {
     this.each((q, c, i) => {
       if (c.CondictionType === 3 && c.Para1 === templateId) this.dec(q, i);
+    });
+  }
+
+  /** ItemInsertCondition (type 25): a gem was inlaid into any item (player.ItemInsert, no Para match in C#). */
+  onItemInsert(): void {
+    this.each((q, c, i) => {
+      if (c.CondictionType === 25) this.dec(q, i);
     });
   }
 

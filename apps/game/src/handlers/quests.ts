@@ -19,8 +19,10 @@ export function registerQuests(r: HandlerRegistry): void {
     p.questInv?.remove(pkt.readInt());
   });
 
-  /** QuestFinishHandler.cs: 1 s throttle (LastDrillUpTime), reply 179 {int id} on success. */
-  r.player(179, "QUEST_FINISH", (_ctx, p, pkt) => {
+  /** QuestFinishHandler.cs: 1 s throttle (LastDrillUpTime), reply 179 {int id} on success. Saved immediately
+   *  (like mail attachment claim / consortia payment) instead of waiting for the autosave tick: rewards move
+   *  gold/items/GP, same dupe-on-crash risk class as those. */
+  r.player(179, "QUEST_FINISH", async (ctx, p, pkt) => {
     const id = pkt.readInt();
     const selected = pkt.readInt();
     const now = Date.now();
@@ -30,6 +32,7 @@ export function registerQuests(r: HandlerRegistry): void {
       const out = new GSPacket(179, p.id);
       out.writeInt(id);
       p.send(out);
+      await p.saveIntoDatabase(ctx.db.db);
     }
   });
 

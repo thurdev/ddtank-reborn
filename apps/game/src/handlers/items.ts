@@ -352,7 +352,7 @@ export function registerItems(r: HandlerRegistry): void {
    * ChangeSexHandler.cs:12 — item 11569 ("Thẻ đổi giới tính"/sex-change card). Same packet code as
    * MARRY_ROOM_STATE (252); ChangeSexHandler wins in the original (spec 01-packet-handlers.md:125).
    */
-  r.player(252, "USE_CHANGE_SEX", (ctx, p, pkt) => {
+  r.player(252, "USE_CHANGE_SEX", async (ctx, p, pkt) => {
     const bagType = pkt.readByte();
     const slot = pkt.readInt();
     const inv = p.getInventory(bagType);
@@ -374,6 +374,9 @@ export function registerItems(r: HandlerRegistry): void {
     inv.removeCountFromStack(item, 1);
     p.updatePlayerProperties();
     p.sendMessage(0, ctx.lang.t("ChangeSexHandlerHandler.Success"));
+    // Varredura pt.2: save immediately (like quest claim / mail attachment) — Sex, divorce and the item
+    // consumption otherwise sit unpersisted until the 10-minute autosave tick.
+    await p.saveIntoDatabase(ctx.db.db);
   });
 
   /** UserEquipListHandler.cs: view another player's equipment (online or from DB). */
