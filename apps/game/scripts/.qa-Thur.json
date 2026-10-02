@@ -1,8 +1,8 @@
 {
  "UserID": 1,
- "Grade": 12,
- "GP": 58117,
- "Money": 41860,
+ "Grade": 20,
+ "GP": 538314,
+ "Money": 99870,
  "vip": {
   "UserID": 1,
   "typeVIP": 0,
@@ -17,7 +17,7 @@
   "CanTakeVipReward": false
  },
  "items": [
-  135
+  138
  ],
  "pets": [],
  "cards": []

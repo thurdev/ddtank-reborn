@@ -387,6 +387,7 @@ export async function inlay(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): P
     gb.removeCountFromStack(gem, 1);
     ib.updateItem(item);
     if (back.length) await mailItems(ctx, p, back);
+    p.questInv?.onItemInsert(); // player.ItemInsert (ItemInsertCondition, type 25)
     out.writeInt(0);
   } else {
     p.sendMessage(0, ctx.lang.t("GameServer.InlayItem.Msg1"));

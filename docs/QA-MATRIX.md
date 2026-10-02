@@ -14,7 +14,7 @@
 | Área | Linhas | ok | partial | stub | missing | broken | verificado no cliente |
 |---|---|---|---|---|---|---|---|
 | Amigos | 12 | 6 | 0 | 0 | 6 | 0 | 0 |
-| Bolsa/Inventário | 27 | 11 | 3 | 0 | 13 | 0 | 7 |
+| Bolsa/Inventário | 27 | 11 | 3 | 0 | 13 | 0 | 8 |
 | Boss mundial/Minigames | 7 | 0 | 6 | 0 | 1 | 0 | 4 |
 | Cartas | 8 | 4 | 0 | 0 | 4 | 0 | 2 |
 | Casamento | 24 | 2 | 0 | 0 | 22 | 0 | 0 |
@@ -30,7 +30,7 @@
 | Leilão | 3 | 0 | 0 | 0 | 3 | 0 | 0 |
 | Lobby/Chat/Bugle | 10 | 9 | 0 | 0 | 1 | 0 | 0 |
 | Loja | 7 | 2 | 0 | 0 | 5 | 0 | 1 |
-| Missões | 23 | 15 | 0 | 0 | 8 | 0 | 4 |
+| Missões | 23 | 15 | 0 | 0 | 8 | 0 | 5 |
 | Outros | 16 | 4 | 0 | 0 | 12 | 0 | 1 |
 | Personagem/FC | 3 | 1 | 0 | 0 | 2 | 0 | 0 |
 | Pets | 17 | 0 | 17 | 0 | 0 | 0 | 2 |
@@ -40,7 +40,7 @@
 | Spa/Fonte termal | 14 | 13 | 0 | 1 | 0 | 0 | 5 |
 | Totem/Honra | 2 | 0 | 0 | 0 | 2 | 0 | 0 |
 | VIP | 1 | 1 | 0 | 0 | 0 | 0 | 1 |
-| **Total** | 361 | 133 | 69 | 3 | 156 | 0 | 46 |
+| **Total** | 361 | 133 | 69 | 3 | 156 | 0 | 48 |
 
 ## Amigos
 
@@ -88,7 +88,7 @@
 | `sendFirstGetCards` | `bagAndInfo/bag/BagView.as` | 216 CARDS_DATA |  | ok | no |  |
 | `sendPlayerGift` | `bagAndInfo/info/PlayerInfoFrame.as`<br>`ddt/manager/PlayerManager.as`<br>`ddt/manager/ServerManager.as` | 218 USER_GET_GIFTS |  | missing | no |  |
 | `sendEquipRetrieve` | `equipretrieve/view/RetrieveBgView.as` | 222 EQUIP_RECYCLE_ITEM |  | missing | no |  |
-| `sendChangeSex` | `bagAndInfo/bag/BagView.as` | 252 USE_CHANGE_SEX |  | ok | no | Varredura do básico pt.2 (2026-10-02): handler portado e registrado (ChangeSexHandler.cs). Clicado no cliente real (item 11569 dado via qa-setup, Thur relogado): single/double-click no item na aba Đạo cụ só mostra o tooltip (GoodTip) — o `ChangeSexAlertFrame` de confirmação (BagView.as:2021 startupChangeSex, só ligado a `_equiplist` via DOUBLE_CLICK) não abriu a partir da `_proplist` (que só escuta ITEM_CLICK → CellMenu/dragStart conforme EquipType.canBeUsed). Sex não mudou no banco (FAIL: não dá pra disparar o fluxo a partir da bolsa de itens no cliente atual). Precisa achar o gatilho real (CellMenu com opção 'Dùng'?) e confirmar com screenshot. |
+| `sendChangeSex` | `bagAndInfo/bag/BagView.as` | 252 USE_CHANGE_SEX |  | ok | yes | Varredura pt.3 (2026-10-02): a pista da pt.2 (double-click só em `_equiplist`) era incompleta — o gatilho real é `__cellUse` (BagView.as:1385-1451), ligado ao evento `CellMenu.USE`, que `_proplist` alcança via single-click → `__cellClick` (BagView.as:1102) → `CellMenu.instance.show()` quando `EquipType.canBeUsed()` é true (é, para CategoryID==CHANGE_SEX). Confirmado no cliente real: item 11569 (Đạo cụ) → clique único abre CellMenu com 'Sử dụng'/'Di chuyển' → 'Sử dụng' abre o `ChangeSexAlertFrame` ('Bạn muốn chuyển giới?...') → 'Đồng ý' → `Sex` false→true no banco, item consumido (`IsExist=false`). Nenhum patch de cliente foi necessário — é um gesto normal de jogo (como qualquer item 'usável' da Đạo cụ), só não documentado antes. Também corrigido: o handler só salvava no autosave de 10 min (`SAVE_INTERVAL_MIN`); agora chama `saveIntoDatabase` direto após o uso (`apps/game/src/handlers/items.ts` 252), como 179/mail/consortia. |
 | `sendNewTitleCard` | `bagAndInfo/bag/BagView.as` | 265 NEWTITLE_CARD |  | missing | no |  |
 
 ## Boss mundial/Minigames
@@ -300,7 +300,7 @@
 | `necklaceStrength` | — | 95 NECKLACE_STRENGTH |  | missing | no |  |
 | `sendWishBeadEquip` | `store/forge/wishBead/WishBeadMainView.as` | 106 WISHBEADEQUIP |  | missing | no |  |
 | `sendItemTrend` | — | 120 ITEM_TREND |  | missing | no |  |
-| `sendItemEmbed` | `store/view/embed/StoreEmbedBG.as` | 121 ITEM_INLAY |  | ok | no | Implementado (furo precisa estar aberto e tipo igual ao Property2 da gema); sem gema no personagem de teste para verificar no cliente. |
+| `sendItemEmbed` | `store/view/embed/StoreEmbedBG.as` | 121 ITEM_INLAY |  | ok | no | Implementado (furo precisa estar aberto e tipo igual ao Property2 da gema); sem gema no personagem de teste para verificar no cliente. Varredura pt.3 (2026-10-02): agora chama `p.questInv?.onItemInsert()` em sucesso (`forge.ts` `inlay`), ligando a missão tipo 25 ItemInsertCondition (antes não portada) — testado por código/typecheck, não clicado (sem gema compatível com furo aberto no personagem de teste nesta sessão; furo tipo 0 na arma do Thur, única gema na bolsa era tipo 3). |
 | `sendItemEmbedBackout` | `store/view/embed/StoreEmbedBG.as` | 125 ITEM_EMBED_BACKOUT |  | ok | no | Implementado: 500 Xu, gema volta vinculada, devolve itens do ferreiro. |
 | `sendLatentEnergy` | `latentEnergy/LatentEnergyMainView.as` | 133 LATENT_ENERGY |  | missing | no |  |
 | `sendItemExalt` | `store/view/exalt/StoreExaltBG.as` | 138 ITEM_ADVANCE |  | missing | no |  |
@@ -376,7 +376,7 @@
 | `sendUserLuckyNum` | `calendar/CalendarManager.as`<br>`calendar/view/LuckyNumBar.as` | 161 USER_LUCKYNUM |  | ok | no |  |
 | `sendQuestAdd` | `ddt/manager/TaskManager.as` | 176 QUEST_ADD |  | ok | no |  |
 | `sendQuestRemove` | — | 177 QUEST_REMOVE |  | ok | no |  |
-| `sendQuestFinish` | `ddt/manager/TaskManager.as`<br>`quest/TaskMainFrame.as` | 179 QUEST_FINISH |  | ok | no | Varredura do básico pt.2 (2026-10-02): clicado 'Nhận thưởng' no painel de missões (cliente real) em duas missões com badge OK!! — missão principal 'Hiệu lệnh guild' (condição: entrar em 1 guild, Thur já está em 'Reborn') e missão secundária 'Thử nghiệm tu luyện' (condição: usar 1 poção). Nenhuma das duas completou no servidor (QuestData sem CompletedDate novo, sem msg de chat, sem erro no log). Clique em 'Nhận đính kèm' de correio (mesmo estilo de botão) funcionou normalmente no mesmo teste, então não parece ser um problema geral de clique/hit-area — mais provável: a condição de guild (tipo não portado, rastreado no BACKLOG) nunca fica IsComplete=true server-side mesmo a UI mostrando '(Hoàn thành)'; a de treino pode ser o mesmo tipo de lacuna ou exigir Sys_Users_Texp/ExerciseInfo específico. Não corrigido nesta batch (precisa investigar qual tipo de condição cada uma usa). |
+| `sendQuestFinish` | `ddt/manager/TaskManager.as`<br>`quest/TaskMainFrame.as` | 179 QUEST_FINISH |  | ok | yes | Varredura pt.3 (2026-10-02): root cause achado em `apps/game/src/game/quests.ts` `condCompleted` — tipo 18 (OwnConsortiaCondition, 'Hiệu lệnh guild'/'Gia nhập 1 guild', Quest_Condiction QuestID 339 Para1=0 Para2=1) nunca tinha sido portado; e tipos 3/9/11/19 (UsingItemCondition 'Thử nghiệm tu luyện' QuestID 8, ItemStrengthenCondition, ItemFusionCondition, ItemComposeCondition) já decrementavam via onUsingItem/onItemStrengthen/onItemFusion/onItemCompose mas estavam faltando no bucket 'completo quando valor<=0' do switch — o contador zerava e o claim nunca via como pronto. Todos corrigidos (18 avaliado on-demand como grade/owned-item: Para1 0 member count [ConsortiaID!=0, único Para2 real é 1], 1 riches, 2/3/4 smith/shop/store level; 3/9/11/19 adicionados ao bucket). Também adicionado tipo 25 (ItemInsertCondition) ligado ao handler de engaste (forge.ts inlay). Confirmado no cliente real: 'Nhận thưởng' nas duas missões OK!! (339 guild, 8 poção de treino) agora completa — `QuestData.IsComplete=true`, `CompletedDate` novo — e persiste na hora (179 agora chama `saveIntoDatabase` após o claim, não esperava mais o autosave de 10 min). |
 | `sendRequestUpdate` | `effortView/EffortMainFrame.as` | 225 REQUEST_UPDATE |  | ok | no |  |
 | `sendAchievementFinish` | `ddt/manager/EffortManager.as` | 230 ACHIEVEMENT_FINISH |  | ok | yes | O cliente envia ao completar; o servidor confere AchievementCondition × registros (Sys_Users_Record, tipos de snapshot: ataque/defesa/agilidade/sorte/FC/nível/partidas/vitórias/tempo online/dias de login) e grava AchievementData uma vez; pontos de conquista somados. Correção: o 228 precisa trazer todos os tipos de registro (o EffortManager quebrava com null e nada completava). Título (RewardType 1) só anunciado. — evidência: research/e2e/events/e25-achievement.png |
 | `requestRefund` | — | 249 MARRY_CMD | MARRYROOMSENDGIFT=12 | missing | no |  |
