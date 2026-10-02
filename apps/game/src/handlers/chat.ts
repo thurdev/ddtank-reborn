@@ -2,10 +2,11 @@
 import { GSPacket } from "@ddt/protocol";
 import { findUserIdByNickName } from "../db/characters.js";
 import type { HandlerRegistry } from "./registry.js";
+import { hotSpringMgr } from "./hotspring.js";
 
 export function registerChat(r: HandlerRegistry): void {
   /** SceneChatHandler.cs:14 (GM $ban/$mute block is behind if(false) in the original — not ported). */
-  r.player(19, "SCENE_CHAT", (ctx, p, pkt) => {
+  r.player(19, "SCENE_CHAT", async (ctx, p, pkt) => {
     const channel = pkt.readByte();
     const team = pkt.readBoolean();
     pkt.readString();
@@ -23,7 +24,13 @@ export function registerChat(r: HandlerRegistry): void {
       for (const o of ctx.world.all()) if (o.info.ConsortiaID === p.info.ConsortiaID && !o.isBlackFriend(p.id)) o.send(out);
       return;
     }
-    if (channel === 9 || channel === 13) return; // chapel / hot spring scenes not ported
+    if (channel === 13) {
+      // HotSpringRoom.SendToAll(packet, self, isChat: true) — black-listers skip
+      const room = (await hotSpringMgr(ctx)).st(p).room;
+      if (room) for (const o of room.players) if (!o.isBlackFriend(p.id)) o.send(out);
+      return;
+    }
+    if (channel === 9) return; // chapel scene not ported
     const room = p.currentRoom;
     if (room) {
       if (team) room.sendToTeam(out, p.roomTeam);

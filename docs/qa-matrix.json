@@ -668,7 +668,7 @@
   "sub": "REQUEST_REVIVE=37",
   "server": "partial",
   "verified": "no",
-  "notes": "Reviver 1000 / relutar 1200 Xu (BaseWorldBossRoom).",
+  "notes": "Reviver 1000 / relutar 1200 Xu; não exige mais estar na lista (estado 3 removia).",
   "evidence": ""
  },
  {
@@ -1255,9 +1255,9 @@
   "name": "GAME_CMD",
   "sub": "GENERAL_COMMAND=23",
   "server": "partial",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "verified": "yes",
+  "notes": "Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14).",
+  "evidence": "research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png"
  },
  {
   "key": "91:deleteMonster",
@@ -1269,8 +1269,8 @@
   "sub": "GENERAL_COMMAND=23",
   "server": "partial",
   "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "notes": "Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14).",
+  "evidence": "research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png"
  },
  {
   "key": "91:sendAirPlane",
@@ -1328,9 +1328,9 @@
   "name": "GAME_CMD",
   "sub": "GENERAL_COMMAND=23",
   "server": "partial",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "verified": "yes",
+  "notes": "Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14).",
+  "evidence": "research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png"
  },
  {
   "key": "91:sendClientScriptStart",
@@ -1359,8 +1359,8 @@
   "sub": "GENERAL_COMMAND=23",
   "server": "partial",
   "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "notes": "Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14).",
+  "evidence": "research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png"
  },
  {
   "key": "91:sendFightLibInfoChange",
@@ -1389,8 +1389,8 @@
   "sub": "GENERAL_COMMAND=23",
   "server": "partial",
   "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "notes": "Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14).",
+  "evidence": "research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png"
  },
  {
   "key": "91:sendFlagMode",
@@ -1760,9 +1760,9 @@
   "name": "WORLDBOSS_CMD",
   "sub": "STAUTS=36",
   "server": "partial",
-  "verified": "no",
-  "notes": "102/7 para a sala; estado 3 sai da sala. A luta abre o PvE tipo 14 (Pve_Info 1243), mas o script ACDragon não existe no @ddt/fight: o mapa abre sem o dragão (e22-fight.png). Dano vai ao ranking via GAME_ALL_MISSION_OVER.totalHurt.",
-  "evidence": "research/e2e/events/e22-fight.png"
+  "verified": "yes",
+  "notes": "Luta PvE tipo 14 com o script do dragão portado (ACDragon/AC1243/WorldAcientDragon do DDT-6600 em packages/fight/src/pve/scripts/manual/worldboss.ts): o dragão aparece, fala e ataca (71087 de dano), HP inicial = HP global restante. Desvio: o jogador age antes do dragão (no 6600 o dragão one-shotava antes). Estado 3 não tira mais o jogador da sala do boss (corrigido: reviver dava 'Xu insuficiente').",
+  "evidence": "research/e2e/batch3/39-wb1.png, research/e2e/batch3/40-wb-myturn.png, research/e2e/batch3/45-wb-shot2.png"
  },
  {
   "key": "108:sendGetTropToBag",
@@ -2047,9 +2047,9 @@
   "code": 141,
   "name": "AcademyPackageType.ACADEMY_FATHER",
   "sub": "FIRE_APPRENTICE=13",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "20000 ouro (checado antes; o C# cobrava mesmo se falhasse), congela AcademyMasterFreezeHours.",
   "evidence": ""
  },
  {
@@ -2062,9 +2062,9 @@
   "code": 141,
   "name": "AcademyPackageType.ACADEMY_FATHER",
   "sub": "FIRE_MASTER=12",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "10000 ouro, congela AcademyApprenticeFreezeHours.",
   "evidence": ""
  },
  {
@@ -2077,9 +2077,9 @@
   "code": 141,
   "name": "AcademyPackageType.ACADEMY_FATHER",
   "sub": "ACADEMY_REGISTER=1",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "No-op como no original: a lista (ApprenticeshipClubList.ashx, agora portada) mostra todos os elegíveis.",
   "evidence": ""
  },
  {
@@ -2090,7 +2090,7 @@
   "code": 141,
   "name": "AcademyPackageType.ACADEMY_FATHER",
   "sub": "ACADEMY_REMOVE=3",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3637,10 +3637,10 @@
   "code": 141,
   "name": "AcademyPackageType.ACADEMY_FATHER",
   "sub": "ACADEMY_FOR_APPRENTICE=4",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Pedido de aprendiz → mestre recebe 141/4 (AcademyMgr em memória, 1 h).",
+  "evidence": "research/e2e/batch3/23-bob-academy.png, research/e2e/batch3/24-bob-ask.png, research/e2e/batch3/25-thur-request.png"
  },
  {
   "key": "141:sendAcademyApprenticeConfirm",
@@ -3652,7 +3652,7 @@
   "code": 141,
   "name": "AcademyPackageType.ACADEMY_FATHER",
   "sub": "APPRENTICE_CONFIRM=7",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3667,7 +3667,7 @@
   "code": 141,
   "name": "AcademyPackageType.ACADEMY_FATHER",
   "sub": "ACADEMY_FOR_MASTER=5",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3682,10 +3682,10 @@
   "code": 141,
   "name": "AcademyPackageType.ACADEMY_FATHER",
   "sub": "MASTER_CONFIRM=6",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Mestre aceita: 141/10 para os dois, Sys_Users_Detail atualizado (masterID/masterOrApprentices/estado), aviso 141/17 + correio. Formatura no nível 20: caixas por nível (AcademyApprenticeAward/MasterAward), prêmios de conclusão, graduatesCount+1 (test/academy.test.ts).",
+  "evidence": "research/e2e/batch3/26-thur-accept.png, research/e2e/batch3/27-bob-accepted.png"
  },
  {
   "key": "145:sendLanternRiddlesAnswer",
@@ -5209,9 +5209,9 @@
   "code": 12,
   "name": "HOTSPRING_CMD_B",
   "sub": "CONTINU_BY_MONEY=11",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "SpaAddictionMoneyNeeded (1299) Xu → +SpaPriRoomContinueTime (30) min, 191/12.",
   "evidence": ""
  },
  {
@@ -5225,10 +5225,10 @@
   "code": 169,
   "name": "HOTSPRING_ROOM_PLAYER_REMOVE",
   "sub": "",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Sai da sala (199 aos outros, 169 'Đã thoát…'), lista atualizada.",
+  "evidence": "research/e2e/batch3/13-spa-leave.png"
  },
  {
   "key": "175:sendHotSpringRoomCreate",
@@ -5240,7 +5240,7 @@
   "code": 175,
   "name": "HOTSPRING_ROOM_CREATE",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -5255,10 +5255,10 @@
   "code": 187,
   "name": "HOTSPRING_ENTER",
   "sub": "",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Lista de salas 197 a partir de game.HotSpringRoom (contagem ao vivo).",
+  "evidence": "research/e2e/batch3/05-spa-list.png"
  },
  {
   "key": "190:sendHotSpringRoomQuickEnter",
@@ -5270,7 +5270,7 @@
   "code": 190,
   "name": "HOTSPRING_ROOM_QUICK_ENTER",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -5283,7 +5283,7 @@
   "code": 191,
   "name": "HOTSPRING_CMD",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -5298,7 +5298,7 @@
   "code": 191,
   "name": "HOTSPRING_CMD",
   "sub": "HOTSPRING_ROOM_EDIT=6",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -5311,9 +5311,9 @@
   "code": 191,
   "name": "HOTSPRING_CMD",
   "sub": "HOTSPRING_ROOM_INVITE=4",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "Sem receptor no cliente 4.1: o convidado recebe aviso com o número da sala.",
   "evidence": ""
  },
  {
@@ -5326,7 +5326,7 @@
   "code": 191,
   "name": "HOTSPRING_CMD",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -5341,10 +5341,10 @@
   "code": 191,
   "name": "HOTSPRING_CMD",
   "sub": "TARGET_POINT=1",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Servidor autoritativo: só move quem enviou (o C# movia qualquer id informado), caminho re-serializado de inteiros validados e preso à cena; repassado aos outros da sala. Ganho de EXP por minuto (HotSpringExp/10 × VIP, +50 honra/10 Xu bloq./50 ouro, 191/7).",
+  "evidence": "research/e2e/batch3/12-thur-sees-bob.png"
  },
  {
   "key": "191:sendHotSpringRoomRenewalFee",
@@ -5356,7 +5356,7 @@
   "code": 191,
   "name": "HOTSPRING_CMD",
   "sub": "HOTSPRING_ROOM_RENEWAL_FEE=3",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -5371,10 +5371,10 @@
   "code": 201,
   "name": "HOTSPRING_ROOM_ENTER_VIEW",
   "sub": "",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "198 por jogador da sala; o novo jogador também vai a todos (Bob aparece para Thur).",
+  "evidence": "research/e2e/batch3/12-thur-sees-bob.png"
  },
  {
   "key": "202:sendHotSpringRoomEnter",
@@ -5386,10 +5386,10 @@
   "code": 202,
   "name": "HOTSPRING_ROOM_ENTER",
   "sub": "",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "10000 de ouro checado e cobrado ANTES de entrar (o C# cobrava depois, sem rollback); 202 com minutos restantes (60/dia, Sys_Users_Extra).",
+  "evidence": "research/e2e/batch3/06-spa-enter.png, research/e2e/batch3/07-spa-room.png"
  },
  {
   "key": "212:sendHotSpringRoomEnterConfirm",
@@ -5401,7 +5401,7 @@
   "code": 212,
   "name": "HOTSPRING_ROOM_ENTER_CONFIRM",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""

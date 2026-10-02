@@ -25,6 +25,7 @@ import type { FightEngine } from "./fight/types.js";
 import type { BotProvider, VirtualPlayer } from "./bots/bot.js";
 import { DbBotProvider } from "./bots/provider.js";
 import { ItemInfo } from "./game/item.js";
+import { fightLabDrop, setFightLabPermission } from "./game/fightlab.js";
 import type { GamePlayer, RoomMember } from "./game/player.js";
 import { startPolicy, startTcp, startWs, type ConnectionGate } from "./net/transports.js";
 import { startAdmin } from "./admin/http.js";
@@ -88,6 +89,22 @@ function giveDropItems(templates: Templates, m: RoomMember, items: { templateId:
   }
 }
 
+/** GamePlayer.SetFightLabPermission side effects (GamePlayer.cs:3140-3185): items to bag (mail-less: temp bag), GM notice, 67. */
+export function applyFightLabWin(templates: Templates, p: GamePlayer, pveId: number, hardLevel: number, missionId: number, t: (k: string, ...a: unknown[]) => string): void {
+  if (!p.info) return;
+  const r = setFightLabPermission(p.info.FightLabPermission ?? "", pveId, hardLevel);
+  p.info.FightLabPermission = r.perm;
+  if (r.reward) {
+    const items = fightLabDrop(templates, missionId);
+    if (items.length) {
+      giveDropItems(templates, p, items);
+      const names = items.map((d) => t("Game.Server.Quests.FinishQuest.RewardProp", templates.findItem(d.templateId)?.Name ?? String(d.templateId), d.count)).join(" ");
+      p.sendMessage?.(0, `${t("Phần thưởng từ phòng tập")}: ${names}`);
+    }
+  }
+  p.updateProperties?.();
+}
+
 export class GameServer {
   ctx!: ServerContext;
   handlers!: HandlerRegistry;
@@ -136,8 +153,11 @@ export class GameServer {
             onGameOver: (g) => void consortiaGameOver(this.ctx!, g).catch((e) => log.warn(`consortia game over: ${e}`)),
             onMissionOver: (m, g) => {
               (m as GamePlayer).questInv?.onMissionOver(g.missionId, g.isWin, g.turnNum);
+              // PVEGame.cs:802: a won fight-lab mission unlocks the next level; first clear pays FightLabUserDrop
+              if (g.gameType === 8 && g.isWin && g.pveId !== undefined) applyFightLabWin(templates, m as GamePlayer, g.pveId, g.hardLevel ?? 0, g.missionId, (k, ...a) => lang.t(k, ...a));
               if (this.ctx) void consortiaMgr(this.ctx).then((c) => c.onMission(m as GamePlayer, g.missionId, g.isWin));
             },
+            worldBossBlood: () => (this.ctx ? eventsRuntime(this.ctx).boss.blood : 0),
             giveItems: (m, items) => giveDropItems(templates, m, items, this.ctx ? eventsRuntime(this.ctx).scheduler.rate("double_gold") : 1),
             pve: {
               data: { npc: (id) => templates.npcs.get(id) as never, mission: (id) => templates.missions.get(id) as never },

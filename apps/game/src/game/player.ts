@@ -261,6 +261,8 @@ export class GamePlayer implements RoomMember {
   }
 
   // -------------------------------------------------------------------- currencies (GamePlayer Add*/Remove*)
+  /** Level-up hook (GamePlayer.AddGP → AcademyMgr.UpdateAwardApp when masterID != 0). */
+  onGradeUp?: (oldGrade: number) => void;
   /** GamePlayer.AddGP: level-up recomputes HP, refreshes grade quests; the client re-requests quests on Grade change. */
   addGP(v: number, useMultiple = true): void {
     if (v <= 0) return;
@@ -269,9 +271,11 @@ export class GamePlayer implements RoomMember {
     this.info.GP += v;
     const g = this.gradeForGp(this.info.GP);
     if (g && g > this.info.Grade) {
+      const old = this.info.Grade;
       this.info.Grade = g;
       this.updatePlayerProperties();
       this.questInv?.refresh();
+      this.onGradeUp?.(old);
     } else this.updateProperties();
   }
   /** GamePlayer.GPAddPlus: product of the active GP-multiplier buffs (type 13). */

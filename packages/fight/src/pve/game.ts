@@ -37,6 +37,8 @@ export interface PveGameOptions extends Omit<GameOptions, "mapId"> {
   log?: (m: string) => void;
   /** map used before the mission script calls SetMap (default: first packed map) */
   placeholderMapId?: number;
+  /** World boss remaining HP (server-wide pool): a boss created with config.IsWorldBoss starts at min(NPC blood, this) — 6600 PVEGame.CreateBoss WorldbossBood. */
+  worldBossBlood?: number;
 }
 
 interface PlayerPve {
@@ -80,6 +82,7 @@ export class PveGame extends BaseGame {
 
   // ---- C# public fields used by scripts (PascalCase on purpose)
   SessionId = 0;
+  worldBossBlood: number | undefined;
   TotalMissionCount = 0;
   TotalCount = 0;
   TotalTurn = 0;
@@ -113,6 +116,7 @@ export class PveGame extends BaseGame {
     super({ ...o, mapId: placeholder, frozenWind: o.frozenWind ?? false });
     this.info = o.pveInfo;
     this.data = o.data;
+    this.worldBossBlood = o.worldBossBlood;
     this.drops = o.drops ?? {};
     this.logFn = o.log ?? (() => {});
     this.emitLog = this.logFn;
@@ -761,7 +765,12 @@ export class PveGame extends BaseGame {
         if (s === GameState.ALLSessionStopped) this.stopPve();
         return this.drain();
       case "MISSION_EVENT":
-        if (s === GameState.Playing) this.runScript("mission.OnGeneralCommand", () => this.missionAI.OnGeneralCommand(c.data));
+        if (s === GameState.Playing) {
+          // GSPacketIn-like reader over the ints that followed the sub (scripts call packet.ReadInt())
+          let i = 0;
+          const pkt = { ReadInt: () => c.data[i++] ?? 0, ReadBoolean: () => (c.data[i++] ?? 0) !== 0, ReadByte: () => c.data[i++] ?? 0 };
+          this.runScript("mission.OnGeneralCommand", () => this.missionAI.OnGeneralCommand(pkt));
+        }
         return this.drain();
     }
     return super.handle(userId, c, now);
@@ -1208,6 +1217,7 @@ export class PveGame extends BaseGame {
     b.config = config ?? this.BaseLivingConfig();
     b.reset();
     if (b.config.ReduceBloodStart > 1) b.blood = Math.trunc(b.npcInfo.Blood / b.config.ReduceBloodStart);
+    else if (b.config.IsWorldBoss && this.worldBossBlood && this.worldBossBlood > 0) b.blood = Math.min(b.blood, Math.trunc(this.worldBossBlood));
     b.setXY(int(x), int(y));
     this.AddLiving(b);
     b.startMoving();

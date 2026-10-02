@@ -150,6 +150,10 @@ export const USER_ORDER: Record<number, string> = {
   8: `"State" DESC, "graduatesCount" DESC, "FightPower" DESC`,
   9: `random()`,
   10: `"State" DESC, "GP" ASC, "FightPower" DESC`,
+  // not in GetPlayerPage: Tofflist menus whose builders were missing from DDTank41
+  20: `"AchievementPoint" DESC`,
+  21: `"AddWeekLeagueScore" DESC`,
+  22: `"charmGP" DESC`,
 };
 
 /** ConsortiaBussiness.GetConsortiaPage order codes (ConsortiaBussiness.cs:1520-1560). */
@@ -454,6 +458,9 @@ export const TEMPLATES: TemplateDef[] = [
   celebUsers("CelebByDayOfferList", 4, "CelebByDayOfferList_Out"),
   celebUsers("CelebByWeekOfferList", 5, "CelebByWeekOfferList_Out"),
   celebUsers("CelebByDayFightPowerList", 6, "CelebByDayFightPowerList_Out"),
+  celebUsers("CelebByAchievementPointList", 20),
+  celebUsers("CelebByWeekLeagueScore", 21),
+  celebUsers("CelebByGiftGpList", 22),
   withRootOrder(celebConsortia("CelebByConsortiaRiches", 10, "CelebByConsortiaRiches_Out"), ["total", "value", "message", "date"]),
   withRootOrder(celebConsortia("CelebByConsortiaDayRiches", 11, "CelebByConsortiaDayRiches_Out"), ["total", "value", "message", "date"]),
   withRootOrder(celebConsortia("CelebByConsortiaWeekRiches", 12, "CelebByConsortiaWeekRiches_Out"), ["total", "value", "message", "date"]),

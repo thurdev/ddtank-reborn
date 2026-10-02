@@ -251,4 +251,25 @@ describe("static + public", () => {
     expect(c.game.flashvars.key).toBe("");
     expect((await app.inject({ url: "/api/public/ranking?type=level" })).statusCode).toBe(200);
   });
+
+  it("rank update: day/week deltas from snapshots, positions, UserRankDate.ashx", async () => {
+    const { updateRank } = await import("../src/rank.js");
+    const { q } = await import("../src/lib/db.js");
+    const { sql } = await import("drizzle-orm");
+    const first = await updateRank(h, new Date("2026-03-04T10:00:00Z"));
+    expect(first.daySnapshot).toBe(true);
+    const id = Number((await q(h, sql`SELECT "UserID" FROM player."Sys_Users_Detail" ORDER BY "UserID" LIMIT 1`))[0]!.UserID);
+    await h.db.execute(sql`UPDATE player."Sys_Users_Detail" SET "GP" = "GP" + 500, "Offer" = "Offer" + 7 WHERE "UserID" = ${id}`);
+    const second = await updateRank(h, new Date("2026-03-04T11:00:00Z"));
+    expect(second).toEqual({ daySnapshot: false, weekSnapshot: false });
+    const row = (await q(h, sql`SELECT "AddDayGP","AddWeekGP","AddDayOffer" FROM player."Sys_Users_Detail" WHERE "UserID" = ${id}`))[0]!;
+    expect([Number(row.AddDayGP), Number(row.AddWeekGP), Number(row.AddDayOffer)]).toEqual([500, 500, 7]);
+    // next day: the day counter restarts, the week one keeps going
+    await updateRank(h, new Date("2026-03-05T01:00:00Z"));
+    const row2 = (await q(h, sql`SELECT "AddDayGP","AddWeekGP" FROM player."Sys_Users_Detail" WHERE "UserID" = ${id}`))[0]!;
+    expect([Number(row2.AddDayGP), Number(row2.AddWeekGP)]).toEqual([0, 500]);
+    const x = await app.inject({ url: `/request/CelebList/UserRankDate.ashx?userID=${id}&ConsortiaID=0` });
+    expect(x.body).toContain('value="true"');
+    expect(x.body).toMatch(/<Item UserID="\d+" ConsortiaID="\d+" FightPower="\d+" PrevFightPower/);
+  });
 });

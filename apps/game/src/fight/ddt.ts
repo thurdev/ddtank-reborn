@@ -35,8 +35,10 @@ export interface DdtFightOptions {
     drop(kind: "copy" | "npc", id: number, user?: number): DropItem[] | null;
     translate?(key: string, args: unknown[]): string;
   };
+  /** Remaining server-wide world-boss HP (room type 14 fights start the dragon at this blood). */
+  worldBossBlood?: () => number;
   /** GamePlayer.OnMissionOver (quest condition 21) */
-  onMissionOver?: (member: RoomMember, m: { missionId: number; isWin: boolean; turnNum: number }) => void;
+  onMissionOver?: (member: RoomMember, m: { missionId: number; isWin: boolean; turnNum: number; roomType?: number; gameType?: number; pveId?: number; hardLevel?: number }) => void;
   /** Whole-game PvP result after the per-player rewards (PVPGame.CalculateGuildMatchResult: guild riches / offer). */
   onGameOver?: (g: { roomType: number; gameType: number; winTeam: number; players: { member: RoomMember; team: number; win: boolean; totalHurt: number }[] }) => void;
   /** PVE_AWARD: give items (temp/fight bag, special gold/money templates) */
@@ -83,6 +85,7 @@ export class DdtFightEngine implements FightEngine {
       const game = new PveGame({
         id, roomType: s.roomType, gameType: s.gameType, timeType: s.timeType, assets: this.assets, players: specs, seed: this.o.seed?.() ?? (Date.now() ^ (id * 7919)) | 0, now: Date.now(),
         pveInfo: info, hardLevel: s.hardLevel, currentFloor: s.currentFloor, data: pv.data,
+        worldBossBlood: s.roomType === 14 ? this.o.worldBossBlood?.() : undefined,
         drops: { copyDrop: (mid, user) => pv.drop("copy", mid, user), npcDrop: (did) => pv.drop("npc", did) },
         log: (m) => this.o.log?.(m),
       });
@@ -297,7 +300,7 @@ class DdtGame implements FightGame {
       else (m.info as unknown as Record<string, number>).GP += r.gainGP;
       r.grade = (m.info as unknown as Record<string, number>).Grade ?? r.grade;
       try {
-        this.engine.o.onMissionOver?.(m, { missionId: e.missionId, isWin: r.isWin, turnNum: r.turnNum });
+        this.engine.o.onMissionOver?.(m, { missionId: e.missionId, isWin: r.isWin, turnNum: r.turnNum, roomType: this.s.roomType, gameType: this.s.gameType, pveId: this.pve?.pveId, hardLevel: this.pve?.hardLevel });
       } catch (err) {
         this.engine.o.log?.(`pve ${this.id}: onMissionOver failed: ${(err as Error).message}`);
       }
@@ -523,7 +526,12 @@ export function parsePveCommand(sub: number, pkt: GSPacket): FightCommand | null
     case 98: case 130: return { cmd: "TAKE_CARD", index: pkt.readByte() };
     case 133: return { cmd: "PASS_DRAMA", pass: pkt.readBoolean() };
     case 119: return { cmd: "TRY_AGAIN", tryAgain: pkt.readInt(), isHost: pkt.readBoolean() };
-    case 23: return { cmd: "MISSION_EVENT", data: [] };
+    case 23: {
+      // MissionEventCommand → PVEGame.GeneralCommand(packet): the script reads ints (fight lab: type, quizId, answer)
+      const data: number[] = [];
+      while (pkt.length - pkt.offset >= 4 && data.length < 16) data.push(pkt.readInt());
+      return { cmd: "MISSION_EVENT", data };
+    }
     default: return null;
   }
 }

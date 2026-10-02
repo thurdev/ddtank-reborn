@@ -56,7 +56,13 @@ export class AMissionControl {
   OnTakeDamage(): void {}
   OnMoving(): void {}
   OnMissionEvent(_pkt: unknown): void {}
-  OnGeneralCommand(_pkt: unknown): void {}
+  /**
+   * PVEGame.GeneralCommand → OnGeneralCommand. The donor fight-lab missions (FLSS/FLNS/FLHS 101-125) implement the
+   * older OnMissionEvent name instead, which nothing called (the lab quiz never started) — forward to it.
+   */
+  OnGeneralCommand(pkt: unknown): void {
+    this.OnMissionEvent(pkt);
+  }
   OnCalculatePoint(_point: number, _isDouble: boolean): void {}
   DoOther(): void {}
   GameOverAllSession(): void {}

@@ -18,11 +18,11 @@
 | Boss mundial/Minigames | 7 | 0 | 6 | 0 | 1 | 0 | 4 |
 | Cartas | 8 | 0 | 0 | 0 | 8 | 0 | 0 |
 | Casamento | 24 | 2 | 0 | 0 | 22 | 0 | 0 |
-| Combate (GAME_CMD) | 39 | 0 | 35 | 0 | 4 | 0 | 0 |
+| Combate (GAME_CMD) | 39 | 0 | 35 | 0 | 4 | 0 | 3 |
 | Configurações | 2 | 1 | 0 | 0 | 1 | 0 | 0 |
 | Conta/Login | 6 | 3 | 0 | 0 | 3 | 0 | 0 |
 | Correio | 7 | 6 | 0 | 0 | 1 | 0 | 0 |
-| Escola/Aprendiz | 4 | 0 | 0 | 0 | 4 | 0 | 0 |
+| Escola/Aprendiz | 4 | 4 | 0 | 0 | 0 | 0 | 0 |
 | Eventos/Atividades | 37 | 3 | 0 | 0 | 34 | 0 | 0 |
 | Fazenda | 14 | 0 | 0 | 0 | 14 | 0 | 0 |
 | Ferreiro | 16 | 4 | 2 | 0 | 10 | 0 | 1 |
@@ -30,17 +30,17 @@
 | Leilão | 3 | 0 | 0 | 0 | 3 | 0 | 0 |
 | Lobby/Chat/Bugle | 10 | 9 | 0 | 0 | 1 | 0 | 0 |
 | Loja | 7 | 2 | 0 | 0 | 5 | 0 | 1 |
-| Missões | 23 | 11 | 0 | 0 | 12 | 0 | 2 |
+| Missões | 23 | 15 | 0 | 0 | 8 | 0 | 4 |
 | Outros | 16 | 4 | 0 | 0 | 12 | 0 | 1 |
 | Personagem/FC | 3 | 1 | 0 | 0 | 2 | 0 | 0 |
 | Pets | 17 | 0 | 0 | 0 | 17 | 0 | 0 |
 | PvE/Masmorras | 9 | 0 | 0 | 0 | 9 | 0 | 0 |
 | Salas PvP | 21 | 17 | 0 | 0 | 4 | 0 | 0 |
 | Sociedade/Guilda | 28 | 25 | 1 | 2 | 0 | 0 | 12 |
-| Spa/Fonte termal | 14 | 0 | 0 | 0 | 14 | 0 | 0 |
+| Spa/Fonte termal | 14 | 13 | 0 | 1 | 0 | 0 | 5 |
 | Totem/Honra | 2 | 0 | 0 | 0 | 2 | 0 | 0 |
 | VIP | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
-| **Total** | 361 | 101 | 51 | 2 | 207 | 0 | 24 |
+| **Total** | 361 | 122 | 51 | 3 | 185 | 0 | 34 |
 
 ## Amigos
 
@@ -96,7 +96,7 @@
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
 | `enterWorldBossRoom` | — | 102 WORLDBOSS_CMD | ENTER_WORLDBOSSROOM=32 | partial | yes | Boss mundial agendado (12:00/20:00 UTC, admin "Iniciar agora"): 102/0 OPEN com horários reais, ícone Thần thú no hall, sala com HP e ranking; fim = prêmio por posição (params.rankAwards, 1x por janela) + 102/1 OVER. — evidência: research/e2e/events/e14-dacsac.png, e15-worldboss-room.png, e16-worldboss-scene.png |
-| `requestRevive` | `worldboss/view/WorldBossResurrectView.as` | 102 WORLDBOSS_CMD | REQUEST_REVIVE=37 | partial | no | Reviver 1000 / relutar 1200 Xu (BaseWorldBossRoom). |
+| `requestRevive` | `worldboss/view/WorldBossResurrectView.as` | 102 WORLDBOSS_CMD | REQUEST_REVIVE=37 | partial | no | Reviver 1000 / relutar 1200 Xu; não exige mais estar na lista (estado 3 removia). |
 | `sendAddPlayer` | `worldboss/view/WorldBossRoomView.as` | 102 WORLDBOSS_CMD | ADDPLAYERS=34 | partial | yes | Entra na sala do boss (102/3 para todos + ranking). — evidência: research/e2e/events/e16-worldboss-scene.png |
 | `sendBuyWorldBossBuff` | `worldboss/WorldBossManager.as`<br>`worldboss/view/BuffCartItem.as` | 102 WORLDBOSS_CMD | BUFF_BUY=38 | partial | yes | 30 Xu cobrados uma vez (o original cobrava duas). — evidência: research/e2e/events/e20-buff.png |
 | `sendLeaveBossRoom` | `worldboss/view/RoomMenuView.as` | 102 WORLDBOSS_CMD | LEAVE_ROOM=33 | partial | no | Sai da sala (102/4). |
@@ -150,16 +150,16 @@
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
 | `sendThrowProp` | `ddt/manager/GameInSocketOut.as` | 75 CrazyTankPackageType.PROP_DELETE |  | missing | no |  |
-| `createMonster` | — | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | no |  |
-| `deleteMonster` | — | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | no |  |
+| `createMonster` | — | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | yes | Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14). — evidência: research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png |
+| `deleteMonster` | — | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | no | Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14). — evidência: research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png |
 | `sendAirPlane` | `game/model/LocalPlayer.as` | 91 GAME_CMD | AIRPLANE=40 | partial | no |  |
 | `sendBeat` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | BEAT=22 | partial | no |  |
 | `sendBossTakeOut` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | BOSS_TAKE_CARD=130 | partial | no |  |
-| `sendClientScriptEnd` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | no |  |
+| `sendClientScriptEnd` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | yes | Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14). — evidência: research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png |
 | `sendClientScriptStart` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | no |  |
-| `sendFightLibAnswer` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | no |  |
+| `sendFightLibAnswer` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | no | Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14). — evidência: research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png |
 | `sendFightLibInfoChange` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD |  | partial | no |  |
-| `sendFightLibReanswer` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | no |  |
+| `sendFightLibReanswer` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | no | Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14). — evidência: research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png |
 | `sendFlagMode` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | WANNA_LEADER=97 | partial | no |  |
 | `sendGameCMDBlast` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | BLAST=3 | partial | no |  |
 | `sendGameCMDChange` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | CHANGEBALL=19 | partial | no |  |
@@ -184,7 +184,7 @@
 | `sendTransmissionGate` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | DELIVER=137 | partial | no |  |
 | `sendUpdatePlayStep` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | MISSION_CMD=25 | partial | no |  |
 | `useDeputyWeapon` | — | 91 GAME_CMD | USE_DEPUTY_WEAPON=84 | partial | no |  |
-| `sendWorldBossRoomStauts` | `game/actions/MissionOverAction.as`<br>`worldboss/WorldBossManager.as`<br>`worldboss/view/WorldBossFightRoomState.as` (+1) | 102 WORLDBOSS_CMD | STAUTS=36 | partial | no | 102/7 para a sala; estado 3 sai da sala. A luta abre o PvE tipo 14 (Pve_Info 1243), mas o script ACDragon não existe no @ddt/fight: o mapa abre sem o dragão (e22-fight.png). Dano vai ao ranking via GAME_ALL_MISSION_OVER.totalHurt. — evidência: research/e2e/events/e22-fight.png |
+| `sendWorldBossRoomStauts` | `game/actions/MissionOverAction.as`<br>`worldboss/WorldBossManager.as`<br>`worldboss/view/WorldBossFightRoomState.as` (+1) | 102 WORLDBOSS_CMD | STAUTS=36 | partial | yes | Luta PvE tipo 14 com o script do dragão portado (ACDragon/AC1243/WorldAcientDragon do DDT-6600 em packages/fight/src/pve/scripts/manual/worldboss.ts): o dragão aparece, fala e ataca (71087 de dano), HP inicial = HP global restante. Desvio: o jogador age antes do dragão (no 6600 o dragão one-shotava antes). Estado 3 não tira mais o jogador da sala do boss (corrigido: reviver dava 'Xu insuficiente'). — evidência: research/e2e/batch3/39-wb1.png, research/e2e/batch3/40-wb-myturn.png, research/e2e/batch3/45-wb-shot2.png |
 | `sendGetTropToBag` | `game/view/card/TakeOutCardController.as` | 108 GAME_TAKE_TEMP |  | missing | no |  |
 | `sendGetTropToBag` | `game/view/card/TakeOutCardController.as` | 108 GAME_TAKE_TEMP |  | missing | no |  |
 | `sendDefyAffiche` | `game/view/DefyAfficheViewFrame.as` | 123 DEFY_AFFICHE |  | missing | no |  |
@@ -223,10 +223,10 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `sendAcademyFireApprentice` | `ddt/view/academyCommon/myAcademy/myAcademyItem/MyAcademyApprenticeItem.as` | 141 AcademyPackageType.ACADEMY_FATHER | FIRE_APPRENTICE=13 | missing | no |  |
-| `sendAcademyFireMaster` | `ddt/view/academyCommon/myAcademy/myAcademyItem/MyAcademyMasterItem.as` | 141 AcademyPackageType.ACADEMY_FATHER | FIRE_MASTER=12 | missing | no |  |
-| `sendAcademyRegister` | `ddt/view/academyCommon/register/AcademyRegisterFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | ACADEMY_REGISTER=1 | missing | no |  |
-| `sendAcademyRemoveRegister` | — | 141 AcademyPackageType.ACADEMY_FATHER | ACADEMY_REMOVE=3 | missing | no |  |
+| `sendAcademyFireApprentice` | `ddt/view/academyCommon/myAcademy/myAcademyItem/MyAcademyApprenticeItem.as` | 141 AcademyPackageType.ACADEMY_FATHER | FIRE_APPRENTICE=13 | ok | no | 20000 ouro (checado antes; o C# cobrava mesmo se falhasse), congela AcademyMasterFreezeHours. |
+| `sendAcademyFireMaster` | `ddt/view/academyCommon/myAcademy/myAcademyItem/MyAcademyMasterItem.as` | 141 AcademyPackageType.ACADEMY_FATHER | FIRE_MASTER=12 | ok | no | 10000 ouro, congela AcademyApprenticeFreezeHours. |
+| `sendAcademyRegister` | `ddt/view/academyCommon/register/AcademyRegisterFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | ACADEMY_REGISTER=1 | ok | no | No-op como no original: a lista (ApprenticeshipClubList.ashx, agora portada) mostra todos os elegíveis. |
+| `sendAcademyRemoveRegister` | — | 141 AcademyPackageType.ACADEMY_FATHER | ACADEMY_REMOVE=3 | ok | no |  |
 
 ## Eventos/Atividades
 
@@ -368,10 +368,10 @@
 | `sendQuestionReply` | `ddt/manager/QuestionInfoMannager.as` | 89 QUESTION_REPLY |  | missing | no |  |
 | `sendSignAward` | `calendar/CalendarManager.as` | 90 GET_SIGNAWARD |  | ok | no | Prêmio por N presenças no mês (Daily_Award tipos 1/7 com AwardDays=N): exige N dias marcados e paga uma vez por mês+tier (o C# duplicava itens no loop). Coberto por apps/game/test/events.test.ts; no cliente só dispara ao atingir 3/6/12/18 presenças. |
 | `labyrinthRequestUpdate` | — | 131 LABYRINTH | REQUEST_UPDATE=2 | missing | no |  |
-| `sendAcademyApprentice` | `ddt/view/academyCommon/academyRequest/AcademyRequestMasterFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | ACADEMY_FOR_APPRENTICE=4 | missing | no |  |
-| `sendAcademyApprenticeConfirm` | `ddt/view/academyCommon/academyRequest/AcademyAnswerApprenticeFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | APPRENTICE_CONFIRM=7 | missing | no |  |
-| `sendAcademyMaster` | `ddt/view/academyCommon/academyRequest/AcademyRequestApprenticeFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | ACADEMY_FOR_MASTER=5 | missing | no |  |
-| `sendAcademyMasterConfirm` | `ddt/view/academyCommon/academyRequest/AcademyAnswerMasterFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | MASTER_CONFIRM=6 | missing | no |  |
+| `sendAcademyApprentice` | `ddt/view/academyCommon/academyRequest/AcademyRequestMasterFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | ACADEMY_FOR_APPRENTICE=4 | ok | yes | Pedido de aprendiz → mestre recebe 141/4 (AcademyMgr em memória, 1 h). — evidência: research/e2e/batch3/23-bob-academy.png, research/e2e/batch3/24-bob-ask.png, research/e2e/batch3/25-thur-request.png |
+| `sendAcademyApprenticeConfirm` | `ddt/view/academyCommon/academyRequest/AcademyAnswerApprenticeFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | APPRENTICE_CONFIRM=7 | ok | no |  |
+| `sendAcademyMaster` | `ddt/view/academyCommon/academyRequest/AcademyRequestApprenticeFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | ACADEMY_FOR_MASTER=5 | ok | no |  |
+| `sendAcademyMasterConfirm` | `ddt/view/academyCommon/academyRequest/AcademyAnswerMasterFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | MASTER_CONFIRM=6 | ok | yes | Mestre aceita: 141/10 para os dois, Sys_Users_Detail atualizado (masterID/masterOrApprentices/estado), aviso 141/17 + correio. Formatura no nível 20: caixas por nível (AcademyApprenticeAward/MasterAward), prêmios de conclusão, graduatesCount+1 (test/academy.test.ts). — evidência: research/e2e/batch3/26-thur-accept.png, research/e2e/batch3/27-bob-accepted.png |
 | `sendLanternRiddlesAnswer` | `lanternriddles/view/QuestionView.as` | 145 ACTIVITY_SYSTEM | LANTERNRIDDLES_ANSWER=40 | missing | no |  |
 | `sendUserLuckyNum` | `calendar/CalendarManager.as`<br>`calendar/view/LuckyNumBar.as` | 161 USER_LUCKYNUM |  | ok | no |  |
 | `sendQuestAdd` | `ddt/manager/TaskManager.as` | 176 QUEST_ADD |  | ok | no |  |
@@ -510,20 +510,20 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `sendHotAddTime` | `hotSpring/controller/HotSpringRoomController.as`<br>`hotSpring/controller/HotSpringRoomListController.as` | 12 HOTSPRING_CMD_B | CONTINU_BY_MONEY=11 | missing | no |  |
-| `sendHotSpringRoomPlayerRemove` | `ddt/manager/HotSpringManager.as`<br>`hotSpring/controller/HotSpringRoomController.as` | 169 HOTSPRING_ROOM_PLAYER_REMOVE |  | missing | no |  |
-| `sendHotSpringRoomCreate` | `hotSpring/controller/HotSpringRoomListController.as` | 175 HOTSPRING_ROOM_CREATE |  | missing | no |  |
-| `sendHotSpringEnter` | `hotSpring/controller/HotSpringRoomListController.as` | 187 HOTSPRING_ENTER |  | missing | no |  |
-| `sendHotSpringRoomQuickEnter` | `hotSpring/controller/HotSpringRoomListController.as` | 190 HOTSPRING_ROOM_QUICK_ENTER |  | missing | no |  |
-| `sendHotSpringRoomAdminRemovePlayer` | — | 191 HOTSPRING_CMD |  | missing | no |  |
-| `sendHotSpringRoomEdit` | `hotSpring/controller/HotSpringRoomController.as` | 191 HOTSPRING_CMD | HOTSPRING_ROOM_EDIT=6 | missing | no |  |
-| `sendHotSpringRoomInvite` | — | 191 HOTSPRING_CMD | HOTSPRING_ROOM_INVITE=4 | missing | no |  |
-| `sendHotSpringRoomPlayerContinue` | `hotSpring/controller/HotSpringRoomController.as` | 191 HOTSPRING_CMD |  | missing | no |  |
-| `sendHotSpringRoomPlayerTargetPoint` | `hotSpring/controller/HotSpringRoomController.as` | 191 HOTSPRING_CMD | TARGET_POINT=1 | missing | no |  |
-| `sendHotSpringRoomRenewalFee` | `hotSpring/controller/HotSpringRoomController.as` | 191 HOTSPRING_CMD | HOTSPRING_ROOM_RENEWAL_FEE=3 | missing | no |  |
-| `sendHotSpringRoomEnterView` | `hotSpring/view/HotSpringRoomView.as` | 201 HOTSPRING_ROOM_ENTER_VIEW |  | missing | no |  |
-| `sendHotSpringRoomEnter` | `hotSpring/controller/HotSpringRoomListController.as` | 202 HOTSPRING_ROOM_ENTER |  | missing | no |  |
-| `sendHotSpringRoomEnterConfirm` | `hotSpring/controller/HotSpringRoomListController.as` | 212 HOTSPRING_ROOM_ENTER_CONFIRM |  | missing | no |  |
+| `sendHotAddTime` | `hotSpring/controller/HotSpringRoomController.as`<br>`hotSpring/controller/HotSpringRoomListController.as` | 12 HOTSPRING_CMD_B | CONTINU_BY_MONEY=11 | ok | no | SpaAddictionMoneyNeeded (1299) Xu → +SpaPriRoomContinueTime (30) min, 191/12. |
+| `sendHotSpringRoomPlayerRemove` | `ddt/manager/HotSpringManager.as`<br>`hotSpring/controller/HotSpringRoomController.as` | 169 HOTSPRING_ROOM_PLAYER_REMOVE |  | ok | yes | Sai da sala (199 aos outros, 169 'Đã thoát…'), lista atualizada. — evidência: research/e2e/batch3/13-spa-leave.png |
+| `sendHotSpringRoomCreate` | `hotSpring/controller/HotSpringRoomListController.as` | 175 HOTSPRING_ROOM_CREATE |  | stub | no |  |
+| `sendHotSpringEnter` | `hotSpring/controller/HotSpringRoomListController.as` | 187 HOTSPRING_ENTER |  | ok | yes | Lista de salas 197 a partir de game.HotSpringRoom (contagem ao vivo). — evidência: research/e2e/batch3/05-spa-list.png |
+| `sendHotSpringRoomQuickEnter` | `hotSpring/controller/HotSpringRoomListController.as` | 190 HOTSPRING_ROOM_QUICK_ENTER |  | ok | no |  |
+| `sendHotSpringRoomAdminRemovePlayer` | — | 191 HOTSPRING_CMD |  | ok | no |  |
+| `sendHotSpringRoomEdit` | `hotSpring/controller/HotSpringRoomController.as` | 191 HOTSPRING_CMD | HOTSPRING_ROOM_EDIT=6 | ok | no |  |
+| `sendHotSpringRoomInvite` | — | 191 HOTSPRING_CMD | HOTSPRING_ROOM_INVITE=4 | ok | no | Sem receptor no cliente 4.1: o convidado recebe aviso com o número da sala. |
+| `sendHotSpringRoomPlayerContinue` | `hotSpring/controller/HotSpringRoomController.as` | 191 HOTSPRING_CMD |  | ok | no |  |
+| `sendHotSpringRoomPlayerTargetPoint` | `hotSpring/controller/HotSpringRoomController.as` | 191 HOTSPRING_CMD | TARGET_POINT=1 | ok | yes | Servidor autoritativo: só move quem enviou (o C# movia qualquer id informado), caminho re-serializado de inteiros validados e preso à cena; repassado aos outros da sala. Ganho de EXP por minuto (HotSpringExp/10 × VIP, +50 honra/10 Xu bloq./50 ouro, 191/7). — evidência: research/e2e/batch3/12-thur-sees-bob.png |
+| `sendHotSpringRoomRenewalFee` | `hotSpring/controller/HotSpringRoomController.as` | 191 HOTSPRING_CMD | HOTSPRING_ROOM_RENEWAL_FEE=3 | ok | no |  |
+| `sendHotSpringRoomEnterView` | `hotSpring/view/HotSpringRoomView.as` | 201 HOTSPRING_ROOM_ENTER_VIEW |  | ok | yes | 198 por jogador da sala; o novo jogador também vai a todos (Bob aparece para Thur). — evidência: research/e2e/batch3/12-thur-sees-bob.png |
+| `sendHotSpringRoomEnter` | `hotSpring/controller/HotSpringRoomListController.as` | 202 HOTSPRING_ROOM_ENTER |  | ok | yes | 10000 de ouro checado e cobrado ANTES de entrar (o C# cobrava depois, sem rollback); 202 com minutos restantes (60/dia, Sys_Users_Extra). — evidência: research/e2e/batch3/06-spa-enter.png, research/e2e/batch3/07-spa-room.png |
+| `sendHotSpringRoomEnterConfirm` | `hotSpring/controller/HotSpringRoomListController.as` | 212 HOTSPRING_ROOM_ENTER_CONFIRM |  | ok | no |  |
 
 ## Totem/Honra
 

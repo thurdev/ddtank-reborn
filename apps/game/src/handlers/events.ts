@@ -241,12 +241,13 @@ async function offlineCurrency(ctx: ServerContext, userId: number, rewards: Rewa
 export async function weeklyReset(ctx: ServerContext, key: string): Promise<boolean> {
   const db = ctx.db.db;
   if (!(await claimOnce(db, 0, "weekly_reset", key.slice(0, 64)))) return false;
-  await db.execute(sql`UPDATE player."Consortia" SET "LastWeekRiches" = "AddWeekRiches", "AddWeekRiches" = 0, "LastWeekHonor" = "AddWeekHonor", "AddWeekHonor" = 0`);
-  await db.execute(sql`UPDATE player."Sys_Users_Detail" SET "LastWeekGP" = "AddWeekGP", "AddWeekGP" = 0, "LastWeekOffer" = "AddWeekOffer", "AddWeekOffer" = 0, "AddWeekLeagueScore" = 0`);
+  // Last* are snapshots (SP_Sys_Update_Users_WeekList / _Consortia_WeekList); apps/api rank.ts computes Add* = now − snapshot.
+  await db.execute(sql`UPDATE player."Consortia" SET "LastWeekRiches" = "LastWeekRiches" + "AddWeekRiches", "AddWeekRiches" = 0, "LastWeekHonor" = "Honor", "AddWeekHonor" = 0`);
+  await db.execute(sql`UPDATE player."Sys_Users_Detail" SET "LastWeekGP" = "GP", "AddWeekGP" = 0, "LastWeekOffer" = "Offer", "AddWeekOffer" = 0, "AddWeekLeagueScore" = 0`);
   await db.execute(sql`UPDATE player."Sys_User_Match_Info" SET "weeklyScore" = 0, "weeklyGameCount" = 0, "WeeklyWinCount" = 0`);
   for (const p of ctx.world.all()) {
     const c = p.info as unknown as Record<string, number>;
-    c.LastWeekGP = c.AddWeekGP ?? 0; c.AddWeekGP = 0; c.LastWeekOffer = c.AddWeekOffer ?? 0; c.AddWeekOffer = 0; c.AddWeekLeagueScore = 0;
+    c.LastWeekGP = c.GP ?? 0; c.AddWeekGP = 0; c.LastWeekOffer = c.Offer ?? 0; c.AddWeekOffer = 0; c.AddWeekLeagueScore = 0;
     const m = p.match as unknown as Record<string, number>;
     m.weeklyScore = 0; m.weeklyGameCount = 0; m.WeeklyWinCount = 0;
   }
@@ -593,17 +594,21 @@ function worldBossCmd(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): void {
       const st = pkt.readByte();
       const bp = b.players.get(p.id);
       if (!bp) return;
+      // WorldBoss/Handle/Status.cs: state 3 (dead/back from the fight) only leaves the fight room; the player stays in
+      // the boss room (fixed: we removed them, so 37 REQUEST_REVIVE was refused with "not enough Xu")
+      if (st !== 3 || bp.state !== 3) {
+        const o = new GSPacket(102);
+        o.writeByte(7); o.writeInt(p.id); o.writeByte(st); o.writeInt(bp.x); o.writeInt(bp.y);
+        toRoom(o);
+      }
       bp.state = st;
-      const o = new GSPacket(102);
-      o.writeByte(7); o.writeInt(p.id); o.writeByte(st); o.writeInt(bp.x); o.writeInt(bp.y);
-      toRoom(o);
-      if (st === 3) b.players.delete(p.id);
       return;
     }
     case 37: { // RequestRevive: int type (1 revive / 2 refight), bool bind — ReviveMoney 1000 / ReFightMoney 1200
       const type = pkt.readInt(); pkt.readBoolean();
       const cost = type === 2 ? 1200 : 1000;
-      if (!b.players.has(p.id) || p.info.Money < cost) return p.sendMessage(0, ctx.lang.t("UserBuyItemHandler.NoMoney"));
+      if (!b.window) return;
+      if (p.info.Money < cost) return p.sendMessage(0, ctx.lang.t("UserBuyItemHandler.NoMoney"));
       p.info.Money -= cost; p.updateProperties();
       const o = new GSPacket(102);
       o.writeByte(11); o.writeInt(p.id);
