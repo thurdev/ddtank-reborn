@@ -373,6 +373,31 @@ export class QuestInventory {
     });
   }
 
+  /** ItemStrengthenCondition (type 9): category Para1 reached level >= Para2 -> done. */
+  onItemStrengthen(categoryId: number, level: number): void {
+    this.each((q, c, i) => {
+      if (c.CondictionType === 9 && c.Para1 === categoryId && c.Para2 <= level) this.setValue(q, i, 0);
+    });
+  }
+  /** ItemComposeCondition (type 19): composed with stone template Para1. */
+  onItemCompose(stoneTemplateId: number): void {
+    this.each((q, c, i) => {
+      if (c.CondictionType === 19 && c.Para1 === stoneTemplateId) this.dec(q, i);
+    });
+  }
+  /** ItemFusionCondition (type 11): fusion of FusionType Para1. */
+  onItemFusion(fusionType: number): void {
+    this.each((q, c, i) => {
+      if (c.CondictionType === 11 && c.Para1 === fusionType) this.dec(q, i);
+    });
+  }
+  /** UsingItemCondition (type 3): used item template Para1. */
+  onUsingItem(templateId: number): void {
+    this.each((q, c, i) => {
+      if (c.CondictionType === 3 && c.Para1 === templateId) this.dec(q, i);
+    });
+  }
+
   /** NewGearCondition: a new item of category Para1/Para2 was equipped. */
   onNewGear(categoryId: number): void {
     this.each((q, c, i) => {
