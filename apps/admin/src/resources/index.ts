@@ -1,6 +1,7 @@
 import type { ResourceDef } from "@/crud/types";
 import { items } from "./items";
 import { dungeons, events, maps, missions, npcs, questConditions, questGoods, quests, shop } from "./content";
+import { dailyAward, eventAwards, eventCodes, scheduledEvents, timeBoxes } from "./event-systems";
 import { bots, players } from "./players";
 import { guildApplications, guildDuties, guildEvents, guildLevels, guildMembers, guilds, guildTasks } from "./guilds";
 import { adminUsers, edicts, logs, mailBroadcasts, news, texts } from "./system";
@@ -26,6 +27,11 @@ export const resources: ResourceDef[] = [
   questConditions,
   questGoods,
   events,
+  scheduledEvents,
+  eventAwards,
+  eventCodes,
+  dailyAward,
+  timeBoxes,
   dungeons,
   missions,
   npcs,

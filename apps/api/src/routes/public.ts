@@ -10,7 +10,20 @@ import { authOf, maintenance, playConfig } from "./auth.js";
 export async function gameInternal<T>(ctx: AppCtx, path: string): Promise<T | null> {
   if (!ctx.cfg.GAME_INTERNAL_URL) return null;
   try {
-    const res = await fetch(`${ctx.cfg.GAME_INTERNAL_URL.replace(/\/+$/, "")}${path}`, { signal: AbortSignal.timeout(1500) });
+    const res = await fetch(`${ctx.cfg.GAME_INTERNAL_URL.replace(/\/+$/, "")}${path}`, { signal: AbortSignal.timeout(1500), headers: ctx.cfg.GAME_INTERNAL_TOKEN ? { authorization: `Bearer ${ctx.cfg.GAME_INTERNAL_TOKEN}` } : {} });
+    return res.ok ? ((await res.json()) as T) : null;
+  } catch {
+    return null;
+  }
+}
+
+/** POST to the apps/game internal channel (reload-templates, mail-notice, events/start|stop). null when unreachable. */
+export async function gameInternalPost<T>(ctx: AppCtx, path: string, body: unknown = {}): Promise<T | null> {
+  if (!ctx.cfg.GAME_INTERNAL_URL) return null;
+  try {
+    const headers: Record<string, string> = { "content-type": "application/json" };
+    if (ctx.cfg.GAME_INTERNAL_TOKEN) headers.authorization = `Bearer ${ctx.cfg.GAME_INTERNAL_TOKEN}`;
+    const res = await fetch(`${ctx.cfg.GAME_INTERNAL_URL.replace(/\/+$/, "")}${path}`, { method: "POST", headers, body: JSON.stringify(body), signal: AbortSignal.timeout(5000) });
     return res.ok ? ((await res.json()) as T) : null;
   } catch {
     return null;

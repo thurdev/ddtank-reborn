@@ -61,6 +61,8 @@ const schema = z.object({
   POLICY_PORT: z.coerce.number().int().default(843),
   /** apps/game internal HTTP (GET /status, GET /stats JSON). Empty disables the proxy. */
   GAME_INTERNAL_URL: z.string().default("http://127.0.0.1:9400"),
+  /** apps/game ADMIN_TOKEN (Bearer) for the internal channel, if set there. */
+  GAME_INTERNAL_TOKEN: z.string().optional(),
 
   SERVER_NAME: z.string().default("DDTank Reborn"),
   SITE_URL: z.string().default("http://localhost:5173"),

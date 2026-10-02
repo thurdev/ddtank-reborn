@@ -651,10 +651,10 @@
   "code": 102,
   "name": "WORLDBOSS_CMD",
   "sub": "ENTER_WORLDBOSSROOM=32",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "partial",
+  "verified": "yes",
+  "notes": "Boss mundial agendado (12:00/20:00 UTC, admin \"Iniciar agora\"): 102/0 OPEN com horários reais, ícone Thần thú no hall, sala com HP e ranking; fim = prêmio por posição (params.rankAwards, 1x por janela) + 102/1 OVER.",
+  "evidence": "research/e2e/events/e14-dacsac.png, e15-worldboss-room.png, e16-worldboss-scene.png"
  },
  {
   "key": "102:requestRevive",
@@ -666,9 +666,9 @@
   "code": 102,
   "name": "WORLDBOSS_CMD",
   "sub": "REQUEST_REVIVE=37",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "Reviver 1000 / relutar 1200 Xu (BaseWorldBossRoom).",
   "evidence": ""
  },
  {
@@ -681,10 +681,10 @@
   "code": 102,
   "name": "WORLDBOSS_CMD",
   "sub": "ADDPLAYERS=34",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "partial",
+  "verified": "yes",
+  "notes": "Entra na sala do boss (102/3 para todos + ranking).",
+  "evidence": "research/e2e/events/e16-worldboss-scene.png"
  },
  {
   "key": "102:sendBuyWorldBossBuff",
@@ -697,10 +697,10 @@
   "code": 102,
   "name": "WORLDBOSS_CMD",
   "sub": "BUFF_BUY=38",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "partial",
+  "verified": "yes",
+  "notes": "30 Xu cobrados uma vez (o original cobrava duas).",
+  "evidence": "research/e2e/events/e20-buff.png"
  },
  {
   "key": "102:sendLeaveBossRoom",
@@ -712,9 +712,9 @@
   "code": 102,
   "name": "WORLDBOSS_CMD",
   "sub": "LEAVE_ROOM=33",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "Sai da sala (102/4).",
   "evidence": ""
  },
  {
@@ -727,10 +727,10 @@
   "code": 102,
   "name": "WORLDBOSS_CMD",
   "sub": "MOVE=35",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "partial",
+  "verified": "yes",
+  "notes": "Movimento repassado a todos na sala (102/6).",
+  "evidence": "research/e2e/events/e17-worldboss-move.png"
  },
  {
   "key": "166:createPackageOut",
@@ -1759,10 +1759,10 @@
   "code": 102,
   "name": "WORLDBOSS_CMD",
   "sub": "STAUTS=36",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "notes": "102/7 para a sala; estado 3 sai da sala. A luta abre o PvE tipo 14 (Pve_Info 1243), mas o script ACDragon não existe no @ddt/fight: o mapa abre sem o dragão (e22-fight.png). Dano vai ao ranking via GAME_ALL_MISSION_OVER.totalHurt.",
+  "evidence": "research/e2e/events/e22-fight.png"
  },
  {
   "key": "108:sendGetTropToBag",
@@ -2187,9 +2187,9 @@
   "code": 53,
   "name": "GET_TIME_BOX",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "Caixa de tempo online: minutos contados no servidor desde o login/última caixa (o original confiava no relatório do cliente), 1x por caixa/dia; caixa de nível 1x por nível. Coberto por events.test.ts. No cliente o contador do hall (00:15:00) aparece; prêmio vem de Shop_Goods_Box.",
   "evidence": ""
  },
  {
@@ -2592,9 +2592,9 @@
   "code": 219,
   "name": "WEEKLY_CLICK_CNT",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "Como o original (LastGetEgg).",
   "evidence": ""
  },
  {
@@ -3090,9 +3090,9 @@
   "code": 162,
   "name": "ELITEGAME",
   "sub": "ELITE_MATCH_RANK_START=2",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "Só com status 5 e nível ≥ 30 (EliteGameHandler); a partida de elite em si (salas 12/13, pontuação) não foi portada.",
   "evidence": ""
  },
  {
@@ -3105,9 +3105,9 @@
   "code": 162,
   "name": "ELITEGAME",
   "sub": "ELITE_MATCH_TYPE=1",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "Estado do campeonato vem do agendador (app.\"ScheduledEvents\" kind elite, status 5 quando aberto) e é empurrado (162/1) a todos ao abrir/fechar.",
   "evidence": ""
  },
  {
@@ -3120,9 +3120,9 @@
   "code": 162,
   "name": "ELITEGAME",
   "sub": "ELITE_MATCH_RANK_DETAIL=4",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "Lista de campeões vazia (sem chaveamento de elite).",
   "evidence": ""
  },
  {
@@ -3135,9 +3135,9 @@
   "code": 162,
   "name": "ELITEGAME",
   "sub": "ELITE_MATCH_PLAYER_RANK=3",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "eliteRank/eliteScore de Sys_User_Match_Info.",
   "evidence": ""
  },
  {
@@ -3508,10 +3508,10 @@
   "code": 13,
   "name": "DAILY_AWARD",
   "sub": "",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Tipo 5 (presença no calendário) marca o dia em DailyLogList uma vez por dia (o original aceitava várias); tipo 0 \"Nhận mỗi ngày\" dá o buff Daily_Award tipo 0 uma vez por dia; 2 ovo e 3 caixa VIP também com claim diário (app.\"EventClaims\").",
+  "evidence": "research/e2e/events/e3-signed.png, e5-daily-claimed.png"
  },
  {
   "key": "15:syncStep",
@@ -3609,9 +3609,9 @@
   "code": 90,
   "name": "GET_SIGNAWARD",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "Prêmio por N presenças no mês (Daily_Award tipos 1/7 com AwardDays=N): exige N dias marcados e paga uma vez por mês+tier (o C# duplicava itens no loop). Coberto por apps/game/test/events.test.ts; no cliente só dispara ao atingir 3/6/12/18 presenças.",
   "evidence": ""
  },
  {
@@ -3787,10 +3787,10 @@
   "code": 230,
   "name": "ACHIEVEMENT_FINISH",
   "sub": "",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "O cliente envia ao completar; o servidor confere AchievementCondition × registros (Sys_Users_Record, tipos de snapshot: ataque/defesa/agilidade/sorte/FC/nível/partidas/vitórias/tempo online/dias de login) e grava AchievementData uma vez; pontos de conquista somados. Correção: o 228 precisa trazer todos os tipos de registro (o EffortManager quebrava com null e nada completava). Título (RewardType 1) só anunciado.",
+  "evidence": "research/e2e/events/e25-achievement.png"
  },
  {
   "key": "249:requestRefund",
@@ -3815,9 +3815,9 @@
   "code": 338,
   "name": "ACCUMULATIVELOGIN_AWARD",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "Login_Award_Item_Template (Type = dia, dia 7 = item escolhido); dias contados 1x/dia no login (máx. 7), prêmio 1x por dia (EventClaims).",
   "evidence": ""
  },
  {
@@ -3830,9 +3830,9 @@
   "code": 103,
   "name": "DAILYRECORD",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "Devolve e apaga as linhas de DailyRecordInfo (como o original).",
   "evidence": ""
  },
  {
@@ -4010,10 +4010,10 @@
   "code": 259,
   "name": "FIRSTRECHARGE",
   "sub": "",
-  "server": "missing",
-  "verified": "no",
-  "notes": "",
-  "evidence": ""
+  "server": "ok",
+  "verified": "yes",
+  "notes": "Sem pagamentos reais: o presente de primeira recarga é grátis e único (FIRST_RECHARGE_FREE=false volta ao original). Itens em Event_Reward_Goods tipo 7/1 (editáveis no admin); o ícone some após resgatar.",
+  "evidence": "research/e2e/events/e11-firstrecharge.png, e12-firstrecharge-claimed.png"
  },
  {
   "key": "308:sendBringUpEat",

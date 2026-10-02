@@ -119,5 +119,77 @@
   },
   "129:sendBuyBadge": {
     "notes": "Implementado (Consortia_Badge, custo dos fundos, direito 16); o cliente 4.1 não tem loja de emblemas acessível."
+  },
+  "13:sendDailyAward": {
+    "verified": "yes",
+    "notes": "Tipo 5 (presença no calendário) marca o dia em DailyLogList uma vez por dia (o original aceitava várias); tipo 0 \"Nhận mỗi ngày\" dá o buff Daily_Award tipo 0 uma vez por dia; 2 ovo e 3 caixa VIP também com claim diário (app.\"EventClaims\").",
+    "evidence": "research/e2e/events/e3-signed.png, e5-daily-claimed.png"
+  },
+  "90:sendSignAward": {
+    "notes": "Prêmio por N presenças no mês (Daily_Award tipos 1/7 com AwardDays=N): exige N dias marcados e paga uma vez por mês+tier (o C# duplicava itens no loop). Coberto por apps/game/test/events.test.ts; no cliente só dispara ao atingir 3/6/12/18 presenças."
+  },
+  "230:sendAchievementFinish": {
+    "verified": "yes",
+    "notes": "O cliente envia ao completar; o servidor confere AchievementCondition × registros (Sys_Users_Record, tipos de snapshot: ataque/defesa/agilidade/sorte/FC/nível/partidas/vitórias/tempo online/dias de login) e grava AchievementData uma vez; pontos de conquista somados. Correção: o 228 precisa trazer todos os tipos de registro (o EffortManager quebrava com null e nada completava). Título (RewardType 1) só anunciado.",
+    "evidence": "research/e2e/events/e25-achievement.png"
+  },
+  "338:sendAccumulativeLoginAward": {
+    "notes": "Login_Award_Item_Template (Type = dia, dia 7 = item escolhido); dias contados 1x/dia no login (máx. 7), prêmio 1x por dia (EventClaims)."
+  },
+  "103:sendDailyRecord": {
+    "notes": "Devolve e apaga as linhas de DailyRecordInfo (como o original)."
+  },
+  "53:sendGetTimeBox": {
+    "notes": "Caixa de tempo online: minutos contados no servidor desde o login/última caixa (o original confiava no relatório do cliente), 1x por caixa/dia; caixa de nível 1x por nível. Coberto por events.test.ts. No cliente o contador do hall (00:15:00) aparece; prêmio vem de Shop_Goods_Box."
+  },
+  "219:sendWeeklyClick": {
+    "notes": "Como o original (LastGetEgg)."
+  },
+  "259:sendFirstRechargeGetAward": {
+    "verified": "yes",
+    "notes": "Sem pagamentos reais: o presente de primeira recarga é grátis e único (FIRST_RECHARGE_FREE=false volta ao original). Itens em Event_Reward_Goods tipo 7/1 (editáveis no admin); o ícone some após resgatar.",
+    "evidence": "research/e2e/events/e11-firstrecharge.png, e12-firstrecharge-claimed.png"
+  },
+  "162:sendGetEliteGameState": {
+    "notes": "Estado do campeonato vem do agendador (app.\"ScheduledEvents\" kind elite, status 5 quando aberto) e é empurrado (162/1) a todos ao abrir/fechar."
+  },
+  "162:sendEliteGameStart": {
+    "notes": "Só com status 5 e nível ≥ 30 (EliteGameHandler); a partida de elite em si (salas 12/13, pontuação) não foi portada."
+  },
+  "162:sendGetSelfRankSroce": {
+    "notes": "eliteRank/eliteScore de Sys_User_Match_Info."
+  },
+  "162:sendGetPaarungDetail": {
+    "notes": "Lista de campeões vazia (sem chaveamento de elite)."
+  },
+  "102:enterWorldBossRoom": {
+    "verified": "yes",
+    "notes": "Boss mundial agendado (12:00/20:00 UTC, admin \"Iniciar agora\"): 102/0 OPEN com horários reais, ícone Thần thú no hall, sala com HP e ranking; fim = prêmio por posição (params.rankAwards, 1x por janela) + 102/1 OVER.",
+    "evidence": "research/e2e/events/e14-dacsac.png, e15-worldboss-room.png, e16-worldboss-scene.png"
+  },
+  "102:sendAddPlayer": {
+    "verified": "yes",
+    "notes": "Entra na sala do boss (102/3 para todos + ranking).",
+    "evidence": "research/e2e/events/e16-worldboss-scene.png"
+  },
+  "102:sendWorldBossRoomMove": {
+    "verified": "yes",
+    "notes": "Movimento repassado a todos na sala (102/6).",
+    "evidence": "research/e2e/events/e17-worldboss-move.png"
+  },
+  "102:sendWorldBossRoomStauts": {
+    "notes": "102/7 para a sala; estado 3 sai da sala. A luta abre o PvE tipo 14 (Pve_Info 1243), mas o script ACDragon não existe no @ddt/fight: o mapa abre sem o dragão (e22-fight.png). Dano vai ao ranking via GAME_ALL_MISSION_OVER.totalHurt.",
+    "evidence": "research/e2e/events/e22-fight.png"
+  },
+  "102:sendBuyWorldBossBuff": {
+    "verified": "yes",
+    "notes": "30 Xu cobrados uma vez (o original cobrava duas).",
+    "evidence": "research/e2e/events/e20-buff.png"
+  },
+  "102:requestRevive": {
+    "notes": "Reviver 1000 / relutar 1200 Xu (BaseWorldBossRoom)."
+  },
+  "102:sendLeaveBossRoom": {
+    "notes": "Sai da sala (102/4)."
   }
 }
