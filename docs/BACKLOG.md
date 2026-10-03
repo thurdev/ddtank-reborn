@@ -219,3 +219,94 @@ lotes recentes sob orçamento estrito.
 Tudo que ficou partial / stub / missing / "morto no original" / ok-mas-não-verificado será revisitado depois do PT-BR e da hospedagem.
 Lista completa e sempre atualizada: `docs/REVISIT.md` (gerar com `npx tsx tools/qa/gen-revisit.ts` após `tools/qa/gen-matrix.ts`).
 Itens "mortos no original": decidir caso a caso — implementar do zero ou esconder o botão no cliente.
+
+## Localização PT-BR — lote 2026-10-03 (texto feito, imagens e resto do DB pendentes)
+Feito nesta rodada (ver `docs/ROADMAP.md` "Localização PT-BR" para o plano completo):
+- Cliente: `vendor/.../ui/vietnam/language.txt` (3515 entradas) → `data/i18n/pt-BR/client-language.txt`, servido
+  via overlay em `apps/api/assets/flash/ui/vietnam/language.txt` (`apps/api/src/routes/static.ts`, `flashFix`
+  tree — resolvido antes do vendor, então nenhum arquivo vendor foi tocado).
+- `movingnotification.txt` (UTF-16LE, 50 linhas) e `levelreward.xml` (76 linhas, títulos/conteúdo zh→pt-BR)
+  traduzidos e colocados no mesmo overlay.
+- Servidor: `apps/game/data/Language-vn.txt` (3777 entradas) → `data/i18n/pt-BR/server-language.txt`; vira
+  default via `apps/game/src/config.ts` `LANGUAGE_FILE`. `apps/api/src/lib/lang.ts` (hardcoded `VN` object de
+  Login/Register/Rename) traduzido in-place.
+- Fontes: `apps/web/src/components/GameFrame.tsx` ganhou `fontSources`/`defaultFonts` (Noto Sans) no config do
+  Ruffle — mesma correção que já existia em `apps/client-harness` para os glyphs vi-VN, agora cobre acentos
+  pt-BR (ç, ã, õ...) também. Fontes copiadas para `apps/web/public/fonts/`.
+- DB: nova tabela `app."Translations"` (pk `table`+`column`+`rowId`+`lang`) — overlay por linha/coluna sobre
+  o schema `game` (`packages/db/src/schema/app.ts`, migração `packages/db/drizzle/0005_needy_kree.sql`).
+  Pipeline: `pnpm --filter @ddt/db db:texts:export [Table.Column...]` lê os seeds gzip direto (sem precisar de
+  DB rodando) e gera `data/i18n/_work/db/<Table>.<Column>.jsonl`; depois de traduzido para
+  `data/i18n/pt-BR/db/<Table>.<Column>.jsonl`, `pnpm --filter @ddt/db db:texts:import` faz upsert. Helper de
+  leitura: `loadTranslations`/`applyTranslations` (`packages/db/src/translations.ts`, exportado por
+  `@ddt/db`). `DEFAULT_LANG=pt-BR` (novo em `apps/game/src/config.ts`) já passado para `Templates.load`, que
+  já aplica o overlay em `Pve_Info` (`apps/game/src/db/templates.ts`). **Traduzido e importado**:
+  `Game_Map.Name` (454), `Pve_Info.Name` (33), `Pve_Info.Description` (24, truncado no texto original mesmo —
+  preservei o corte).
+
+Pendente (próximo lote):
+1. **DB — resto do texto.** Levantamento (ver sub-agent recon): ~16 mil linhas / 25-45 mil strings
+   traduzíveis no total entre `Shop_Goods` (7640 linhas × Name/Description/Remark — o maior de longe),
+   `Pet_Skill_Info`/`Pet_Element_Info` (3737), `NPC_Info` (1005), `Quest` (728), `Achievement` (281),
+   `Mission_Info`+`_Backup` (298), `Game_Map.Description` (431, já exportado em
+   `data/i18n/_work/db/Game_Map.Description.jsonl`, só falta traduzir), `SuitTemplateInfo`, `Rune_Template`,
+   `Card_Info`, `Consortia_BuffTemp`, `New_Title`. Script de export já cobre todas essas (`TARGETS` em
+   `packages/db/scripts/export-texts.ts`) — rodar `db:texts:export`, traduzir em lotes JSONL (mesma técnica
+   usada para `language.txt`: extrai → traduz em chunks → reimporta) e `db:texts:import`. Dado o volume,
+   considerar tradução automática (API de MT) para o Shop_Goods/Pet_* antes de revisão humana.
+   `Pve_Info.Name`/`.Description` já tratados; o único call site já ligado ao overlay é `Pve_Info` em
+   `Templates.load` — `Game_Map`, `Quest`, `NPC_Info`, `Mission_Info`, `Shop_Goods` etc. ainda carregam só a
+   coluna `ID` ou não passam pelo `applyTranslations` (ver `apps/game/src/db/templates.ts`
+   `db.select({ ID: game.Game_Map.ID })...` — precisa selecionar as colunas de texto e aplicar o overlay nos
+   lugares que hoje leem `Name`/`Description` direto, incluindo client-facing responses em `apps/api`
+   também).
+2. **Admin — página "Textos".** `app."Texts"` (strings do `language.txt`) já existe no schema e tem resource
+   no admin (`apps/admin/src/resources/system.tsx`), mas não está sincronizada com
+   `data/i18n/pt-BR/client-language.txt` desta rodada — decidir se o admin edita o arquivo ou se o arquivo vira
+   seed do `app.Texts` na inicialização. `app."Translations"` (novo, DB overlay) ainda **não** tem página no
+   admin — falta criar uma tela "Textos > Dados do jogo" pra listar/editar por tabela+coluna+linha.
+3. **XML do cliente com texto solto.** `ui/vietnam/xml/` tem ~150 arquivos; uma varredura por densidade de
+   caracteres vi/zh achou pelo menos 37 com texto significativo (lista completa foi gerada mas não persistida
+   — refazer com o mesmo método: contar caracteres `[àáạả...]`/`[一-鿿]` por arquivo). Os maiores:
+   `coreI.xml` (755 ocorrências — tela central, provavelmente nomes de botões/menu, maior prioridade),
+   `churchRoom.xml` (431), `gemstone.xml` (325), `feedback.xml` (235), `guildmemberweek.xml` (207),
+   `activeEvents.xml` (194), `changeColor.xml` (174), `chat.xml` (153), `Toffilist.xml` (152),
+   `awardSystem.xml` (143), `bagLocked.xml` (126), `game.xml` (101), `churchRoomList.xml` (100),
+   `times.xml` (93), `gameOver.xml` (90), `store.xml` (84), `labyrinth.xml` (71), `ddtcorescalebitmap.xml`
+   (68), `wonderfulactivity.xml` (51), `shop.xml` (44), `room.xml` (43), `roadComponent.xml` (42),
+   `quest.xml` (38), `farm.xml` (37), e mais ~15 arquivos menores. Nenhum foi traduzido ainda — só
+   `levelreward.xml` e `movingnotification.txt` (fora da pasta `xml/`) foram feitos nesta rodada.
+4. **Imagens com texto cozido no PNG/SWF.** Inventário (não exaustivo) em
+   `research/i18n/images-with-text.md` — 13 imagens confirmadas com texto vi-VN (banners de evento, título da
+   loja, labels de sala, o grande comic tutorial `hall.swf :: battleLABS.png`), transcritas e já com tradução
+   pt-BR sugerida ali. Faltam: varrer os outros ~100 SWFs de `ui/vietnam/swf/` não cobertos nesta rodada +
+   os `.jpg` soltos em `ui/vietnam/img/`. Geração das imagens novas é fase separada (Recraft com créditos
+   disponíveis; Higgsfield sem créditos pagos mas com modelos próprios com cota grátis — checar
+   `models_explore`/`balance`), image-to-image a partir do original para manter tamanho/âncoras, saída no
+   mesmo overlay `apps/api/assets/flash/...`.
+5. **Verificação no cliente real — feita desta vez, achou 2 problemas novos.** Rodei a stack completa
+   (`node scripts/dev.mjs`, Postgres embarcado + api + game + web) e abri `/play` de verdade (Playwright,
+   login automático via sessão do site). Confirmado: `GET /flash/ui/vietnam/language.txt` do `apps/api` já
+   serve o conteúdo pt-BR correto (overlay funcionando), os acentos pt-BR renderizam bem no Ruffle (fonte Noto
+   Sans ok, ver item fontes acima), e boa parte do texto da janela de correio (Correio, Escrever correio,
+   Devolver correio, Remetente, Restam) já aparece em pt-BR. Mas achei:
+   - **Labels do hall (lobby) continuam 100% em vi-VN**: "Phòng cao thủ", "Sân tập luyện", "Suối nước nóng",
+     "Phòng game", "Guild", "Lễ đường kết hôn", "Đấu giá", "Shop", "Phòng sư đồ", "Kết bạn", "Ải Viễn Chinh",
+     "Sự kiện", "Phản hồi", "Nông Trại", "Nạp", "Kênh" — confirmado visualmente que são arte com texto
+     cozido no próprio gráfico do botão (fonte estilizada com contorno dourado, não um TextField simples),
+     reforça a prioridade do item 4 (imagens) — `hall.swf`/`hall_old.swf` precisam ir cedo na fila de
+     regeneração de imagem, são a MAIOR superfície de texto vi-VN que o jogador vê (primeira tela após login).
+   - **Janela de correio traduz só parte dos textos.** "Danh sách thư", "Thư chưa mở", "Thư đã gửi",
+     "Chọn hết", "Xóa", "Nhận đính kèm", "Người gửi", "Chủ đề", "Thêm bạn", "hướng dẫn" continuam em vi-VN
+     **mesmo as chaves correspondentes já estando traduzidas** em `data/i18n/pt-BR/client-language.txt`
+     (confirmei: `worldboss.buyBuff.allBuy` → "Selecionar tudo", `tank.view.im.AddFriendFrame.add` →
+     "Adicionar amigo", ambos corretos no arquivo E servidos corretamente por `GET /flash/...` — não é bug da
+     tradução nem do overlay). Hipótese mais provável: esses `TextField`s específicos nunca chamavam o
+     `LanguageAnalyzer` em runtime no cliente original — o texto vi-VN é o conteúdo "default" do próprio
+     campo no SWF compilado (prática comum: o dev só liga a troca dinâmica pros campos que precisam, o resto
+     fica com o texto de autoria fixo). Se for isso, mudar `language.txt` não resolve — precisa patch direto
+     no SWF (texto do `TextField`, via FFDec `-replace`/`-importText`) ou rebuild a partir do AS3 fonte (se
+     existir em `vendor/DDTank41/Source Flash/src/`). Vale investigar caso a caso nos próximos lotes (começar
+     pelo painel de correio, `ui/vietnam/swf/email.swf`) antes de assumir que "traduzir `language.txt`" é
+     suficiente nessas telas.
+Itens "mortos no original": decidir caso a caso — implementar do zero ou esconder o botão no cliente.

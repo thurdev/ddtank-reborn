@@ -43,3 +43,5 @@ Motivo: Flash/Ruffle laga muito; objetivo é FPS alto e estável (60 fps), rodar
 ## Decisão de versão (2026-10-02)
 Ficamos na 4.1: única versão com código-fonte completo (servidor + cliente AS3 + banco + mapas) e já roda no Ruffle.
 5.5 só existe como binários (`Servidor5.5.rar`, fóruns) — possível no futuro via decompilação ILSpy/FFDec reaproveitando protocolo/gerador de schema/fight engine/launcher/site/admin; reavaliar se o pacote 5.5 aparecer.
+- Higgsfield: mesmo sem crédito, alguns modelos próprios do Higgsfield têm ~2 mil gerações grátis — conferir quais (models_explore/balance) antes de usar; alternativa ao Recraft.
+- Lote de imagens (junto com as imagens com texto PT-BR): lobby/hall em night mode (background escuro/noturno), prédios do lobby no MESMO estilo mas em alta qualidade (upscale/redesenho a partir do original), UI inteira em DARK MODE (janelas, painéis, botões escuros); só o lobby/hall é NIGHT MODE (cena noturna) — mesmo tamanho/âncora dos originais, via overlay.

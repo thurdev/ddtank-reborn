@@ -89,6 +89,32 @@ export const Texts = appSchema.table("Texts", {
   updatedAt: ts("updatedAt").notNull().defaultNow(),
 });
 
+/**
+ * app."Translations" — pt-BR (or other) overlay for game-data text (Shop_Goods, Quest, Game_Map, NPC_Info,
+ * Mission_Info/Pve_Info, Achievement, ...) that lives in the `game` schema (vendor-sourced, still Vietnamese/
+ * Chinese). Looked up by (table, column, rowId) at template-load time in apps/game and apps/api, gated by
+ * config DEFAULT_LANG; falls back to the original `game` schema value when no row matches. Exported/imported
+ * in bulk via packages/db/scripts/export-texts.ts and import-translations.ts (data/i18n/pt-BR/db/*.json).
+ * Admin "Texts > Game data" edits rows here directly (see docs/ROADMAP.md "Localização PT-BR").
+ */
+export const Translations = appSchema.table(
+  "Translations",
+  {
+    /** game-schema table name, e.g. "Game_Map", "Shop_Goods". */
+    table: varchar("table", { length: 100 }).notNull(),
+    /** game-schema column name, e.g. "Name", "Description". */
+    column: varchar("column", { length: 100 }).notNull(),
+    /** stringified primary key of the source row (works for int and composite-less string PKs alike). */
+    rowId: varchar("rowId", { length: 64 }).notNull(),
+    lang: varchar("lang", { length: 8 }).notNull().default("pt-BR"),
+    text: text("text").notNull(),
+    /** original source value at the time of translation, for drift detection when the vendor table is re-seeded. */
+    sourceText: text("sourceText"),
+    updatedAt: ts("updatedAt").notNull().defaultNow(),
+  },
+  (t) => [primaryKey({ name: "Translations_pkey", columns: [t.table, t.column, t.rowId, t.lang] })],
+);
+
 /** app."Logs" — admin actions, transactions and server events. */
 export const Logs = appSchema.table(
   "Logs",

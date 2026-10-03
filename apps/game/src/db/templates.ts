@@ -3,7 +3,7 @@
  * "Shop_Goods" = item templates, "Shop" = listings, "ShopGoodsShowList" = goods on sale (ShopMgr.IsOnShop).
  */
 import { eq, sql } from "drizzle-orm";
-import { game, player, type Database } from "@ddt/db";
+import { applyTranslations, game, loadTranslations, player, type Database } from "@ddt/db";
 import type { ItemTemplate } from "../game/item.js";
 import { emptyPetTables, type PetTables } from "../game/pets.js";
 import type { CardUpdateCond, CardUpdateRowFull } from "../game/cards.js";
@@ -83,7 +83,13 @@ export class Templates {
 
   findItem = (id: number): ItemTemplate | undefined => this.items.get(id);
 
-  async load(db: Database, serverId: number): Promise<this> {
+  /**
+   * `lang`: pt-BR overlay for `game` schema text (see packages/db/src/translations.ts +
+   * data/i18n/pt-BR/db/*.jsonl, built by scripts/export-texts.ts + import-translations.ts). Only tables that
+   * have been translated so far (Game_Map, Pve_Info — see docs/BACKLOG.md for the rest) get an overlay; every
+   * other table just keeps its original `game` schema text (Vietnamese/Chinese) when no row matches.
+   */
+  async load(db: Database, serverId: number, lang = "pt-BR"): Promise<this> {
     const [items, shop, show, maps, mapServer, quests, levels, srv, dropC, dropI, qConds, qGoods] = await Promise.all([
       db.select().from(game.Shop_Goods),
       db.select().from(game.Shop),
@@ -101,7 +107,8 @@ export class Templates {
     const [pveI, missI, npcI] = await Promise.all([db.select().from(game.Pve_Info), db.select().from(game.Mission_Info), db.select().from(game.NPC_Info)]);
     await this.loadForge(db);
     await this.loadPetsCards(db);
-    this.pveInfos = new Map(pveI.map((r) => [r.ID, r]));
+    const pveOverlay = await loadTranslations(db, "Pve_Info", lang);
+    this.pveInfos = new Map(pveI.map((r) => [r.ID, applyTranslations(r, "ID", pveOverlay)]));
     this.missions = new Map(missI.map((r) => [r.Id, r]));
     this.npcs = new Map(npcI.map((r) => [r.ID, r]));
     this.dropConditions = dropC;
