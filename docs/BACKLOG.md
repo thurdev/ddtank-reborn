@@ -245,21 +245,84 @@ Feito nesta rodada (ver `docs/ROADMAP.md` "Localização PT-BR" para o plano com
   preservei o corte).
 
 Pendente (próximo lote):
-1. **DB — resto do texto.** Levantamento (ver sub-agent recon): ~16 mil linhas / 25-45 mil strings
-   traduzíveis no total entre `Shop_Goods` (7640 linhas × Name/Description/Remark — o maior de longe),
-   `Pet_Skill_Info`/`Pet_Element_Info` (3737), `NPC_Info` (1005), `Quest` (728), `Achievement` (281),
-   `Mission_Info`+`_Backup` (298), `Game_Map.Description` (431, já exportado em
-   `data/i18n/_work/db/Game_Map.Description.jsonl`, só falta traduzir), `SuitTemplateInfo`, `Rune_Template`,
-   `Card_Info`, `Consortia_BuffTemp`, `New_Title`. Script de export já cobre todas essas (`TARGETS` em
-   `packages/db/scripts/export-texts.ts`) — rodar `db:texts:export`, traduzir em lotes JSONL (mesma técnica
-   usada para `language.txt`: extrai → traduz em chunks → reimporta) e `db:texts:import`. Dado o volume,
-   considerar tradução automática (API de MT) para o Shop_Goods/Pet_* antes de revisão humana.
-   `Pve_Info.Name`/`.Description` já tratados; o único call site já ligado ao overlay é `Pve_Info` em
-   `Templates.load` — `Game_Map`, `Quest`, `NPC_Info`, `Mission_Info`, `Shop_Goods` etc. ainda carregam só a
-   coluna `ID` ou não passam pelo `applyTranslations` (ver `apps/game/src/db/templates.ts`
-   `db.select({ ID: game.Game_Map.ID })...` — precisa selecionar as colunas de texto e aplicar o overlay nos
-   lugares que hoje leem `Name`/`Description` direto, incluindo client-facing responses em `apps/api`
-   também).
+1. **DB — resto do texto. EM ANDAMENTO (lote 2026-10-03 parte 2) — pipeline de MT em massa construído e rodando,
+   ~10% do volume traduzido até agora, bloqueado por cota/anti-bot dos endpoints grátis (ver abaixo).**
+   - **Export (`packages/db/scripts/export-texts.ts`)**: corrigido bug no `TARGETS` (`Pet_Element_Info` não
+     existe — era `Pet_Skill_Element_Info`, a export inteira quebrava antes de chegar lá) e adicionadas
+     `Mission_Info_Backup`, `Quest.Objective` e `SuitTemplateInfo` (`SuitName`+`SkillDescribe1-5`, pk `SuitId`)
+     que faltavam. `db:texts:export` sem filtro agora gera as 32 colunas/arquivos completos:
+     **24.927 linhas / 15.076 strings distintas** em `data/i18n/_work/db/*.jsonl` (bate com a estimativa de
+     25-45k do levantamento anterior, perto do piso porque muita repetição em `Shop_Goods.Name`).
+   - **Call sites ligados ao overlay (faltava para `Game_Map`, `Quest`, `NPC_Info`, `Mission_Info`,
+     `Shop_Goods`, `Pet_Template_Info`, `Pet_Skill_Info` — só `Pve_Info` estava ligado antes):**
+     `apps/game/src/db/templates.ts` `Templates.load`/`loadPetsCards` agora chama `loadTranslations`+
+     `applyTranslations` para todas essas tabelas (pk de cada uma igual ao `TARGETS` do export-texts).
+     `apps/api/src/templates/defs.ts` ganhou `TRANSLATED_PK` (tabela → coluna pk) + `translateRows()`,
+     chamado de dentro do helper genérico `flat()` (cobre `LoadMapsItems`, `NPCInfoList`, `TemplateAllList`,
+     `pettemplateinfo`, `petskillinfo`, `petskillelementinfo`, `runetemplatelist`, `newtitle`,
+     `suittemplateinfolist`, `Consortia_BuffTemp`) e manualmente nos builders custom de `QuestList.ashx` e
+     `achievementlist.ashx`. `Game_Map` no server do jogo (`apps/game`) continua só com `ID` de propósito —
+     confirmado por grep que o texto do mapa nunca é lido lá, só em `apps/api` (onde agora está ligado).
+   - **`tools/i18n/mt.ts` (novo, script de MT em massa)**: dedupe global das 15.076 strings distintas,
+     ordenado por visibilidade (`Shop_Goods.Name/Description` → `Quest.Title/Detail` → `NPC_Info.Name` →
+     `Mission_Info*` → `Pet_*` → `Achievement` → resto — lista completa em `PRIORITY` no arquivo).
+     Mascara `{0}`/`%s`/`<tag>`/`\n` literal **e também `\r\n` real** (achado tarde: algumas linhas de
+     `Shop_Goods.Description`/`Quest.Detail` têm quebra de linha de verdade embutida, ex. linha
+     `TemplateID=7135`: `"...nhất\r\nKhông thể..."` — sem mascarar isso quebra o empacotamento em lote, ver
+     abaixo) antes de mandar pro MT, restaura depois. Glossário em `data/i18n/glossary.json` (~30 termos:
+     Cường hóa→Fortalecimento, Bang hội→Clã, Phó bản→Instância, Rương→Baú, Xu→Moedas, Vàng→Ouro, etc.) é
+     aplicado via máscara também, então sai consistente em toda string sem precisar de um passo separado.
+     Cache on-disk resumível em `data/i18n/cache/vi-pt-BR.json` (chave = texto fonte, nunca reprocessa).
+     **Depois do v1 (um request por string) apanhar feio — ver histórico abaixo — reescrito para lotes**:
+     várias strings por request HTTP (`"@@0@@ texto\n@@1@@ texto\n..."`, até 80 itens OU 420 caracteres
+     mascarados, o que vier primeiro — o limite de char é o que manda na prática pra colunas longas tipo
+     `Description`), todos os provedores (`google`, `mymemory`, `libretranslate`) disputados em paralelo por
+     lote via `Promise.any` (o primeiro que responder com a contagem de linhas batendo ganha), e em caso de
+     resposta malformada (linha sumida/fora de ordem) o lote é bisseccionado recursivamente até 1 item.
+     `--chunk`/`--char-budget`/--only`/`--limit`/`--dry` documentados no cabeçalho do arquivo.
+   - **Histórico da sessão (documentando os obstáculos reais, não só o que funcionou):**
+     1. v1 (1 request por string, concorrência 4): funcionou nos primeiros ~800 (`google`), depois o endpoint
+        `translate.googleapis.com` começou a devolver a página HTML "Sorry...automated queries" (bloqueio
+        anti-bot por volume sustentado, não por request isolado — confirmado reproduzindo via `curl` solto:
+        bloqueia; via `fetch()` do Node em baixo volume: passa; em alto volume sustentado: bloqueia também).
+        Cada falha do Google custava 2 retries com backoff antes de cair pro MyMemory, deixando a fila
+        **lentíssima** (~250 strings em 482s).
+     2. Reescrito para lotes por contagem fixa (50 itens/request) — aí descobrimos que o MyMemory tem um
+        **limite rígido de 500 caracteres por `q`** (HTTP 200 mas `responseStatus:"403"`,
+        `"QUERY LENGTH LIMIT EXCEEDED. MAX ALLOWED QUERY : 500 CHARS"` no corpo) — e o código antigo
+        classificava **qualquer** `responseStatus===403` como `QuotaExceeded`, o que desligava o MyMemory
+        *permanentemente* pro resto do processo no primeiro lote de `Shop_Goods.Description` (strings mais
+        longas que `Shop_Goods.Name`) que estourasse 500 chars. Corrigido em duas frentes: (a) chunking agora
+        é por orçamento de caracteres (420, medido no texto já mascarado) em vez de contagem fixa de itens;
+        (b) `mtMyMemory` só lança `QuotaExceeded` (desliga o provedor) pra mensagens de cota de verdade
+        (`quotaFinished`/"TRANSLATIONS FOR TODAY"), "QUERY LENGTH LIMIT" agora é um erro comum (falha só
+        aquele lote, a bissecção cuida do resto).
+     3. Com os dois bugs corrigidos, a cota real do MyMemory **anônimo** (sem e-mail — não usamos o e-mail do
+        usuário num serviço de terceiro sem necessidade explícita) estourou de verdade no meio da validação:
+        `"MYMEMORY WARNING: YOU USED ALL AVAILABLE FREE TRANSLATIONS FOR TODAY. NEXT AVAILABLE IN 06 HOURS..."`
+        — ou seja, **todo o volume de teste desta sessão (v1 + v2 + validação) consumiu a cota diária do IP**.
+        Nesse ponto `google` já estava bloqueado e nenhum mirror público do LibreTranslate funcionou sem API
+        key (`libretranslate.de` → 405/redireciona, `libretranslate.com` → pede API key, `translate.
+        argosopentech.com` → inalcançável, `translate.fedilab.app` → 403, `simplytranslate.org`/instâncias
+        do `lingva` → 500 ou devolvendo o texto sem traduzir) — todos documentados no código
+        (`LIBRE_MIRRORS` em `tools/i18n/mt.ts`) pra não reinvestigar do zero.
+   - **Estado final desta rodada**: 1.281 strings distintas traduzidas (807 via `google` antes do bloqueio,
+     474 via `mymemory` antes da cota) → **2.529 de 24.927 linhas (10,1%)** espalhadas, concentradas em
+     `Shop_Goods.Name` (1.744/7.638) por ser o primeiro da fila de prioridade; `Game_Map.Name`/`Pve_Info.*`
+     (lote anterior, 511 linhas) continuam intactos. Importado em `app."Translations"` e **verificado ao
+     vivo**: `GET /request/TemplateAlllist.xml` da API já devolve `Name="Labirinto Ouro"` (era "Vàng mê
+     cung"); no cliente real (Ruffle), a aba "Nón" (chapéus) da loja já mostra 100% em pt-BR ("Sibéria",
+     "Chapéu de lã", "Chapéu do diabo", "Urso Gordo Po", "Gatinho"...) — screenshot em `shop-hats.png` (raiz
+     do repo). Outras categorias da loja (ex. "Vũ khí") ainda aparecem em vi-VN porque aqueles TemplateIDs
+     específicos ainda não foram alcançados pela fila de prioridade.
+   - **Pra continuar (de graça, só rodar de novo)**: `node_modules/.bin/tsx tools/i18n/mt.ts` — o cache é
+     resumível, a cota do MyMemory anônimo parece resetar ~diariamente por IP ("NEXT AVAILABLE IN 06 HOURS"
+     visto por volta de 03h local), então rodar de novo mais tarde hoje ou amanhã continua de graça a partir
+     de onde parou; de uma rede/IP diferente também já funcionaria imediatamente. Depois de uma rodada com
+     cobertura maior, vale o polish LLM nos ~500 nomes mais visíveis (`Shop_Goods.Name`/`Quest.Title` curtos)
+     em lotes compactos, como o pedido original sugeriu — não foi feito nesta rodada porque a cobertura de MT
+     ainda está baixa demais (10%) pra isso valer a pena primeiro.
+   - **`db:texts:import` / `db:texts:export` sem mudança de interface** — só o `TARGETS` ganhou entradas.
 2. **Admin — página "Textos".** `app."Texts"` (strings do `language.txt`) já existe no schema e tem resource
    no admin (`apps/admin/src/resources/system.tsx`), mas não está sincronizada com
    `data/i18n/pt-BR/client-language.txt` desta rodada — decidir se o admin edita o arquivo ou se o arquivo vira
@@ -310,3 +373,10 @@ Pendente (próximo lote):
      pelo painel de correio, `ui/vietnam/swf/email.swf`) antes de assumir que "traduzir `language.txt`" é
      suficiente nessas telas.
 Itens "mortos no original": decidir caso a caso — implementar do zero ou esconder o botão no cliente.
+
+## [PRÓXIMO após tradução do banco] Lote de IMAGENS PT-BR + dark mode (agente novo)
+Metade do jogo é imagem com texto em vietnamita: tela de loading, hall/lobby (menu inteiro), ícones, botões, títulos, banners, assets de jogo — TUDO.
+1. Inventário COMPLETO (o atual `research/i18n/images-with-text.md` tem só 13 + hall — insuficiente): varrer todos os SWFs (FFDec) + PNG/JPG do pack, detectar texto (OCR local ou heurística + revisão), classificar por tela/prioridade (loading, hall, janelas principais, ícones, combate).
+2. Gerar PT-BR a partir do original (mesmo tamanho/âncora): render de texto no estilo + Recraft / modelos grátis do Higgsfield para casos difíceis.
+3. No mesmo pipeline: lobby night mode, UI dark mode, prédios em alta qualidade.
+4. Saída via overlay da API (SWFs re-empacotados com FFDec quando a imagem está dentro do SWF).

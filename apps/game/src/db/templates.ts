@@ -106,11 +106,17 @@ export class Templates {
     ]);
     const [pveI, missI, npcI] = await Promise.all([db.select().from(game.Pve_Info), db.select().from(game.Mission_Info), db.select().from(game.NPC_Info)]);
     await this.loadForge(db);
-    await this.loadPetsCards(db);
-    const pveOverlay = await loadTranslations(db, "Pve_Info", lang);
+    await this.loadPetsCards(db, lang);
+    const [pveOverlay, missionOverlay, npcOverlay, shopGoodsOverlay, questOverlay] = await Promise.all([
+      loadTranslations(db, "Pve_Info", lang),
+      loadTranslations(db, "Mission_Info", lang),
+      loadTranslations(db, "NPC_Info", lang),
+      loadTranslations(db, "Shop_Goods", lang),
+      loadTranslations(db, "Quest", lang),
+    ]);
     this.pveInfos = new Map(pveI.map((r) => [r.ID, applyTranslations(r, "ID", pveOverlay)]));
-    this.missions = new Map(missI.map((r) => [r.Id, r]));
-    this.npcs = new Map(npcI.map((r) => [r.ID, r]));
+    this.missions = new Map(missI.map((r) => [r.Id, applyTranslations(r, "Id", missionOverlay)]));
+    this.npcs = new Map(npcI.map((r) => [r.ID, applyTranslations(r, "ID", npcOverlay)]));
     this.dropConditions = dropC;
     this.dropItems = new Map();
     for (const d of dropI) {
@@ -119,7 +125,7 @@ export class Templates {
       this.dropItems.set(d.DropId, l);
     }
     this.levelGp = levels.map((l) => ({ grade: l.Grade, gp: l.GP })).sort((a, b) => a.grade - b.grade);
-    this.items = new Map(items.map((t) => [t.TemplateID, t]));
+    this.items = new Map(items.map((t) => [t.TemplateID, applyTranslations(t, "TemplateID", shopGoodsOverlay)]));
     this.shop = new Map();
     for (const r of shop) {
       const s = toShopItem(r);
@@ -128,7 +134,7 @@ export class Templates {
     this.showList = new Set(show.map((s) => s.ShopId));
     this.maps = new Set(maps.map((m) => m.ID));
     this.serverMaps = new Map(mapServer.map((m) => [m.ServerID, m.OpenMap.split(/[|,]/).map(Number).filter((x) => x > 0)]));
-    this.quests = new Map(quests.map((q) => [q.ID, { info: q, conds: [], goods: [] } as QuestTemplate]));
+    this.quests = new Map(quests.map((q) => [q.ID, { info: applyTranslations(q, "ID", questOverlay), conds: [], goods: [] } as QuestTemplate]));
     for (const c of qConds) this.quests.get(c.QuestID)?.conds.push(c);
     for (const g of qGoods) this.quests.get(g.QuestID)?.goods.push(g);
     for (const q of this.quests.values()) q.conds.sort((a, b) => a.CondictionID - b.CondictionID);
@@ -184,17 +190,21 @@ export class Templates {
     return Math.max(0, ...this.cardConditions.keys());
   }
 
-  async loadPetsCards(db: Database): Promise<void> {
+  async loadPetsCards(db: Database, lang = "pt-BR"): Promise<void> {
     const [tpl, lv, cfg, sk, skt, cc, cu] = await Promise.all([
       db.select().from(game.Pet_Template_Info), db.select().from(game.Pet_Level), db.select().from(game.Pet_Config),
       db.select().from(game.Pet_Skill_Info), db.select().from(game.Pet_Skill_Template_Info),
       db.select().from(game.CardUpdateCondition), db.select().from(game.CardUpdateInfo),
     ]);
+    const [petTplOverlay, petSkillOverlay] = await Promise.all([
+      loadTranslations(db, "Pet_Template_Info", lang),
+      loadTranslations(db, "Pet_Skill_Info", lang),
+    ]);
     this.pets = {
-      templates: new Map(tpl.map((t) => [t.TemplateID, t])),
+      templates: new Map(tpl.map((t) => [t.TemplateID, applyTranslations(t, "TemplateID", petTplOverlay)])),
       levelGp: new Map(lv.map((l) => [l.Level, l.GP])),
       config: new Map(cfg.map((c) => [String(c.Name), String(c.Value ?? "")])),
-      skills: new Map(sk.map((s) => [s.ID, s])),
+      skills: new Map(sk.map((s) => [s.ID, applyTranslations(s, "ID", petSkillOverlay)])),
       skillTemplates: skt,
     };
     this.cardConditions = new Map((cc as unknown as CardUpdateCond[]).map((c) => [c.Level, c]));

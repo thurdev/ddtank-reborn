@@ -1,0 +1,1005 @@
+{"rowId":"7422","text":"Gà trống"}
+{"rowId":"7423","text":"Chuồng gà"}
+{"rowId":"7431","text":"Gà mái xấu xí"}
+{"rowId":"7432","text":"Lồng gà"}
+{"rowId":"7433","text":"Trứng thối"}
+{"rowId":"8001","text":"lựu đạn búp bê"}
+{"rowId":"8002","text":"Người lựu đạn nóng"}
+{"rowId":"8101","text":"Chiến sĩ tà thần"}
+{"rowId":"8102","text":"Chiến sĩ tà thần"}
+{"rowId":"8103","text":"Carsey"}
+{"rowId":"8104","text":"Nhà thám hiểm"}
+{"rowId":"8105","text":"Vật tổ"}
+{"rowId":"9001","text":"Người lựu đạn nhỏ"}
+{"rowId":"9002","text":"Người lựu đạn dữ"}
+{"rowId":"9101","text":"Muỗi kim to"}
+{"rowId":"9102","text":"Vua bò cạp"}
+{"rowId":"9103","text":"Cơ quan mật đạo"}
+{"rowId":"9104","text":"Núi vũ khí"}
+{"rowId":"10001","text":"Thạch Yêu"}
+{"rowId":"10002","text":"Heo rừng"}
+{"rowId":"10005","text":"Khung thành 1"}
+{"rowId":"10006","text":"Khung thành 2"}
+{"rowId":"10007","text":"Khung thành 3"}
+{"rowId":"10008","text":"Khung thành 4"}
+{"rowId":"10009","text":"Khung thành 5"}
+{"rowId":"10011","text":"Chim mỏ bự"}
+{"rowId":"10012","text":"Người Tuyết Tinh Nghịch"}
+{"rowId":"10013","text":"Hươu Đáng Yêu"}
+{"rowId":"10014","text":"Chiến Hữu Party"}
+{"rowId":"10015","text":"Bướm Quý Hiếm"}
+{"rowId":"10016","text":"Cánh Thám Hiểm"}
+{"rowId":"10101","text":"Franken"}
+{"rowId":"10102","text":"Dơi"}
+{"rowId":"11001","text":"chim xấu xa"}
+{"rowId":"11002","text":"Heo rừng"}
+{"rowId":"11101","text":"Anna"}
+{"rowId":"11102","text":"Bạch tuộc con"}
+{"rowId":"11103","text":"Sứa biển"}
+{"rowId":"11104","text":"Bạch tuộc"}
+{"rowId":"11105","text":"Trâu nước"}
+{"rowId":"12001","text":"Binh sỹ Sói"}
+{"rowId":"12002","text":"Đội trưởng Sói"}
+{"rowId":"12003","text":"Trung uý Sói già"}
+{"rowId":"12004","text":"Tiểu đội Gà con"}
+{"rowId":"12005","text":"NPC Unknown"}
+{"rowId":"12006","text":"Pháo đoàn Gà con"}
+{"rowId":"12007","text":"Nhóc lựu đạn"}
+{"rowId":"12008","text":"Thuyền trưởng Cá Sấu"}
+{"rowId":"12009","text":"Sỹ binh Gà con"}
+{"rowId":"12010","text":"Đại tá Sói"}
+{"rowId":"12011","text":"Sỹ binh Gà con"}
+{"rowId":"12012","text":"Sỹ binh Gà con"}
+{"rowId":"12013","text":"Phi thuyền Gà con"}
+{"rowId":"12014","text":"Phi thuyền Colombia"}
+{"rowId":"12015","text":"Death Star"}
+{"rowId":"12016","text":"Bác học Vẹt"}
+{"rowId":"12017","text":"Đầu đạn hợp kim"}
+{"rowId":"12018","text":"Đầu đạn hợp kim"}
+{"rowId":"12019","text":"Đạn phù du"}
+{"rowId":"12020","text":"Siêu đầu đạn hợp kim"}
+{"rowId":"12101","text":"Binh sỹ Sói"}
+{"rowId":"12102","text":"Đội trưởng Sói"}
+{"rowId":"12103","text":"Trung uý Sói già"}
+{"rowId":"12104","text":"Tiểu đội Gà con"}
+{"rowId":"12105","text":"NPC Unknown"}
+{"rowId":"12106","text":"Pháo đoàn Gà con"}
+{"rowId":"12107","text":"Nhóc lựu đạn"}
+{"rowId":"12108","text":"Thuyền trưởng Cá Sấu"}
+{"rowId":"12109","text":"Sỹ binh Gà con"}
+{"rowId":"12110","text":"Đại tá Sói"}
+{"rowId":"12111","text":"Sỹ binh Gà con"}
+{"rowId":"12112","text":"Sỹ binh Gà con"}
+{"rowId":"12113","text":"Phi thuyền Gà con"}
+{"rowId":"12114","text":"Phi thuyền Colombia"}
+{"rowId":"12115","text":"Death Star"}
+{"rowId":"12116","text":"Bác học Vẹt"}
+{"rowId":"12117","text":"Đầu đạn hợp kim"}
+{"rowId":"12118","text":"Đầu đạn hợp kim"}
+{"rowId":"12119","text":"Đạn phù du"}
+{"rowId":"12303","text":"Trung uý Sói già"}
+{"rowId":"12304","text":"Tiểu đội Gà con"}
+{"rowId":"12305","text":"NPC Unknown"}
+{"rowId":"12306","text":"Pháo đoàn Gà con"}
+{"rowId":"12307","text":"Nhóc lựu đạn"}
+{"rowId":"12308","text":"Thuyền trưởng Cá Sấu"}
+{"rowId":"12309","text":"Sỹ binh Gà con"}
+{"rowId":"12310","text":"Đại tá Sói"}
+{"rowId":"12311","text":"Sỹ binh Gà con"}
+{"rowId":"12312","text":"Sỹ binh Gà con"}
+{"rowId":"12313","text":"Phi thuyền Gà con"}
+{"rowId":"12314","text":"Phi thuyền Colombia"}
+{"rowId":"12315","text":"Death Star"}
+{"rowId":"12316","text":"Bác học Vẹt"}
+{"rowId":"12317","text":"Đầu đạn hợp kim"}
+{"rowId":"12318","text":"Đầu đạn hợp kim"}
+{"rowId":"12319","text":"Đạn phù du"}
+{"rowId":"12320","text":"Siêu đầu đạn hợp kim"}
+{"rowId":"30002","text":"Bá tước hắc ám"}
+{"rowId":"30003","text":"Bá tước hắc ám"}
+{"rowId":"30001","text":"Dơi hút máu"}
+{"rowId":"30004","text":"Đội trưởng"}
+{"rowId":"13001","text":"Daniliz"}
+{"rowId":"13002","text":"Quốc vương"}
+{"rowId":"13003","text":"Bulan em"}
+{"rowId":"13004","text":"Bulan anh"}
+{"rowId":"13005","text":"Sulan"}
+{"rowId":"13006","text":"Quỷ khăn hồng"}
+{"rowId":"13007","text":"Minotaure"}
+{"rowId":"13008","text":"Mathias"}
+{"rowId":"13009","text":"Ảo Ảnh Mathias"}
+{"rowId":"13010","text":"Hộp Hình Cụ"}
+{"rowId":"13012","text":"Kẻ Phục Thù"}
+{"rowId":"13013","text":"Kẻ Đoạt Hồn"}
+{"rowId":"13014","text":"Kẻ Chinh Phục"}
+{"rowId":"13101","text":"Daniliz thường"}
+{"rowId":"13102","text":"Quốc vương"}
+{"rowId":"13103","text":"Bulan em"}
+{"rowId":"13104","text":"Bulan anh"}
+{"rowId":"13105","text":"Sulan"}
+{"rowId":"13106","text":"Quỷ khăn hồng"}
+{"rowId":"13107","text":"Minotaure"}
+{"rowId":"13108","text":"Mathias"}
+{"rowId":"13109","text":"Ảo Ảnh Mathias"}
+{"rowId":"13110","text":"Hộp Hình Cụ"}
+{"rowId":"13112","text":"Kẻ Phục Thù"}
+{"rowId":"13113","text":"Kẻ Đoạt Hồn"}
+{"rowId":"13114","text":"Kẻ Chinh Phục"}
+{"rowId":"13201","text":"Daniliz"}
+{"rowId":"13202","text":"Quốc vương"}
+{"rowId":"13203","text":"Bulan em"}
+{"rowId":"13204","text":"Bulan anh"}
+{"rowId":"13205","text":"Sulan"}
+{"rowId":"13206","text":"Quỷ khăn hồng"}
+{"rowId":"13207","text":"Minotaure"}
+{"rowId":"13208","text":"Mathias"}
+{"rowId":"13209","text":"Ảo Ảnh Mathias"}
+{"rowId":"13210","text":"Hộp Hình Cụ"}
+{"rowId":"13212","text":"Kẻ Phục Thù"}
+{"rowId":"13213","text":"Kẻ Đoạt Hồn"}
+{"rowId":"13214","text":"Kẻ Chinh Phục"}
+{"rowId":"13301","text":"Daniliz"}
+{"rowId":"13302","text":"Quốc vương"}
+{"rowId":"13303","text":"Bulan em"}
+{"rowId":"13304","text":"Bulan anh"}
+{"rowId":"13305","text":"Sulan"}
+{"rowId":"13306","text":"Quỷ khăn hồng"}
+{"rowId":"13307","text":"Minotaure"}
+{"rowId":"13308","text":"Mathias"}
+{"rowId":"13309","text":"Ảo Ảnh Mathias"}
+{"rowId":"13310","text":"Hộp Hình Cụ"}
+{"rowId":"13312","text":"Kẻ Phục Thù"}
+{"rowId":"13313","text":"Kẻ Đoạt Hồn"}
+{"rowId":"13314","text":"Kẻ Chinh Phục"}
+{"rowId":"13401","text":"Daniliz"}
+{"rowId":"13402","text":"Quốc vương"}
+{"rowId":"13403","text":"Bulan em"}
+{"rowId":"13404","text":"Bulan anh"}
+{"rowId":"13405","text":"Sulan"}
+{"rowId":"13406","text":"Quỷ khăn hồng"}
+{"rowId":"13407","text":"Minotaure"}
+{"rowId":"13408","text":"Mathias"}
+{"rowId":"13409","text":"Ảo Ảnh Mathias"}
+{"rowId":"13410","text":"Hộp Hình Cụ"}
+{"rowId":"13412","text":"Kẻ Phục Thù"}
+{"rowId":"13413","text":"Kẻ Đoạt Hồn"}
+{"rowId":"13414","text":"Kẻ Chinh Phục"}
+{"rowId":"14001","text":"Bóng"}
+{"rowId":"14002","text":"Thomas"}
+{"rowId":"14003","text":"Fan Cuồng Nhiệt"}
+{"rowId":"14004","text":"Xạ Thủ Carlos"}
+{"rowId":"14005","text":"Riccardo"}
+{"rowId":"14006","text":"Khung Thành"}
+{"rowId":"14007","text":"Trọng Tài Đen"}
+{"rowId":"14008","text":"Rio Nhí Nhảnh"}
+{"rowId":"14009","text":"Jasin"}
+{"rowId":"14101","text":"Bóng"}
+{"rowId":"14102","text":"Thomas"}
+{"rowId":"14103","text":"Fan Cuồng Nhiệt"}
+{"rowId":"14104","text":"Xạ Thủ Carlos"}
+{"rowId":"14105","text":"Riccardo"}
+{"rowId":"14106","text":"Khung Thành"}
+{"rowId":"14107","text":"Trọng Tài Đen"}
+{"rowId":"14108","text":"Rio Nhí Nhảnh"}
+{"rowId":"14109","text":"Jasin"}
+{"rowId":"14201","text":"Bóng"}
+{"rowId":"14202","text":"Thomas"}
+{"rowId":"14203","text":"Fan Cuồng Nhiệt"}
+{"rowId":"14204","text":"Xạ Thủ Carlos"}
+{"rowId":"14205","text":"Riccardo"}
+{"rowId":"14206","text":"Khung Thành"}
+{"rowId":"14207","text":"Trọng Tài Đen"}
+{"rowId":"14208","text":"Rio Nhí Nhảnh"}
+{"rowId":"14209","text":"Jasin"}
+{"rowId":"15001","text":"Vua gà"}
+{"rowId":"15002","text":"BOSS Vợ Chồng"}
+{"rowId":"16001","text":"Waka"}
+{"rowId":"20001","text":"Gà hồng"}
+{"rowId":"21001","text":"Gà tinh anh"}
+{"rowId":"21002","text":"Đội trưởng gà"}
+{"rowId":"22001","text":"Gà mê hoặc"}
+{"rowId":"23001","text":"Gà hồng"}
+{"rowId":"23002","text":"Gà tinh anh"}
+{"rowId":"23003","text":"Đội trưởng gà"}
+{"rowId":"24001","text":"Gà duoduo"}
+{"rowId":"24002","text":"Đội trưởng sừng nhọn"}
+{"rowId":"25001","text":"Người máy A"}
+{"rowId":"25002","text":"Robert mất trí"}
+{"rowId":"40001","text":"Kiến Mê Cung"}
+{"rowId":"40002","text":"Kiến Chúa"}
+{"rowId":"40003","text":"Gà Mê Cung"}
+{"rowId":"40004","text":"Đội Trưởng Mê Cung"}
+{"rowId":"40005","text":"Gà Mê Cung"}
+{"rowId":"40006","text":"Kẹo Mê Cung"}
+{"rowId":"40007","text":"Kẹo Mê Cung"}
+{"rowId":"40008","text":"Lâu La Mê Cung"}
+{"rowId":"40009","text":"Vua Bom Mê Cung"}
+{"rowId":"40010","text":"Chiến Sĩ Mê Cung"}
+{"rowId":"40011","text":"Dũng Sĩ Mê Cung"}
+{"rowId":"40012","text":"Thủ Lĩnh Mê Cung"}
+{"rowId":"40013","text":"Thủ Lĩnh Mê Cung"}
+{"rowId":"40014","text":"Nô Lệ Mê Cung"}
+{"rowId":"40015","text":"Huyết Ưng Mê Cung"}
+{"rowId":"40016","text":"Huyết Lang Mê Cung"}
+{"rowId":"40017","text":"Nô Lệ Mê Cung"}
+{"rowId":"40018","text":"Chiến Thần Mê Cung"}
+{"rowId":"40019","text":"Chiến Thần Mê Cung"}
+{"rowId":"40020","text":"Ma Trơi Mê Cung"}
+{"rowId":"40021","text":"Rồng Mê Cung"}
+{"rowId":"40022","text":"Ác Ma Mê Cung"}
+{"rowId":"40023","text":"Rồng Mê Cung"}
+{"rowId":"40024","text":"Phi Hành Mê Cung"}
+{"rowId":"40025","text":"Rồng Mê Cung"}
+{"rowId":"40026","text":"Pháo Mê Cung"}
+{"rowId":"40027","text":"Pháo Mê Cung"}
+{"rowId":"40028","text":"Chỉ Huy Mê Cung"}
+{"rowId":"40029","text":"Rồng Mê Cung"}
+{"rowId":"40030","text":"Rồng Ma Mê Cung"}
+{"rowId":"40031","text":"Sói Mê Cung"}
+{"rowId":"40032","text":"Phó Quan Mê Cung"}
+{"rowId":"40033","text":"Sói Dữ Mê Cung"}
+{"rowId":"40034","text":"Thống Soái Mê Cung"}
+{"rowId":"40035","text":"Trung Úy Mê Cung"}
+{"rowId":"40036","text":"Phó Quan Mê Cung"}
+{"rowId":"40037","text":"Trung Úy Mê Cung"}
+{"rowId":"40038","text":"Thống Soái Mê Cung"}
+{"rowId":"40039","text":"Thống Soái Mê Cung"}
+{"rowId":"40040","text":"Thống Soái Mê Cung"}
+{"rowId":"40041","text":"Thống Soái Mê Cung"}
+{"rowId":"40042","text":"Thống Soái Mê Cung"}
+{"rowId":"40043","text":"Đầu đạn hợp kim"}
+{"rowId":"40044","text":"Đầu đạn hợp kim"}
+{"rowId":"40045","text":"Đạn phù du"}
+{"rowId":"40046","text":"Siêu đầu đạn hợp kim"}
+{"rowId":"40047","text":"Đầu đạn hợp kim"}
+{"rowId":"40048","text":"Đầu đạn hợp kim"}
+{"rowId":"40049","text":"Đạn phù du"}
+{"rowId":"40050","text":"Siêu đầu đạn hợp kim"}
+{"rowId":"40051","text":"Sói Tuyết Mê Cung"}
+{"rowId":"40052","text":"Micy Mê Cung"}
+{"rowId":"40053","text":"Yêu Tinh Mê Cung"}
+{"rowId":"40054","text":"Chim Ưng Mê Cung"}
+{"rowId":"40055","text":"Mickey Mê Cung"}
+{"rowId":"40056","text":"Cua Mê Cung"}
+{"rowId":"40057","text":"Ốc Mê Cung"}
+{"rowId":"40058","text":"Cá Kiếm Mê Cung"}
+{"rowId":"40059","text":"Bạch Tuộc Mê Cung"}
+{"rowId":"40060","text":"Cánh Mê Cung"}
+{"rowId":"40061","text":"Hộ Vệ Mê Cung"}
+{"rowId":"40062","text":"Vệ Sĩ Mê Cung"}
+{"rowId":"40063","text":"Nhện Mê Cung"}
+{"rowId":"40064","text":"Bướm Mê Cung"}
+{"rowId":"40065","text":"Vua Mê Cung"}
+{"rowId":"40066","text":"Linh Vương Mê Cung"}
+{"rowId":"40067","text":"Mực Mê Cung"}
+{"rowId":"40068","text":"Chiến Sĩ Tà Thần Mê Cung"}
+{"rowId":"40069","text":"Chiến Sĩ Tà Thần Mê Cung"}
+{"rowId":"40070","text":"Sói Mê Cung"}
+{"rowId":"40071","text":"Kỵ Sĩ Mê Cung"}
+{"rowId":"40072","text":"Muỗi Độc Mê Cung"}
+{"rowId":"40073","text":"Sao Bóng Đá Mê Cung"}
+{"rowId":"40074","text":"Nô Lệ Mê Cung"}
+{"rowId":"40076","text":"Jasin Mê Cung"}
+{"rowId":"40077","text":"Chim Mỏ Bự Mê Cung"}
+{"rowId":"40078","text":"Heo Rừng Mê Cung"}
+{"rowId":"40079","text":"Boss thần tài"}
+{"rowId":"40080","text":"Khỉ Chúa Mê Cung"}
+{"rowId":"40081","text":"Khỉ Chúa Mê Cung"}
+{"rowId":"44401","text":"Lính Huyệt Ma 1"}
+{"rowId":"44402","text":"Lính Huyệt Ma 2"}
+{"rowId":"44403","text":"Chỉ Huy Huyệt Ma"}
+{"rowId":"44404","text":"Lính Huyệt Ma 3"}
+{"rowId":"44405","text":"Lính Huyệt Ma 4"}
+{"rowId":"44406","text":"Chiến Sỹ Huyệt Ma"}
+{"rowId":"44407","text":"Tướng Huyệt Ma"}
+{"rowId":"44408","text":"Lính Huyệt Ma 5"}
+{"rowId":"44409","text":"Đấu Sĩ Huyệt Ma"}
+{"rowId":"44410","text":"Bá Chủ Huyệt Ma"}
+{"rowId":"44411","text":"Kẻ Mai Phục Huyệt Ma"}
+{"rowId":"44412","text":"Người Bảo Vệ Huyệt Ma"}
+{"rowId":"44413","text":"Đội Bảo Vệ Huyệt Ma"}
+{"rowId":"44414","text":"Rikou Huyệt Ma"}
+{"rowId":"44415","text":"Kẻ Hủy Diệt Huyệt Ma 1"}
+{"rowId":"44416","text":"Kẻ Hủy Diệt Huyệt Ma 2"}
+{"rowId":"44417","text":"Kẻ Hủy Diệt Huyệt Ma 3"}
+{"rowId":"44418","text":"Yêu Ma Huyệt Ma"}
+{"rowId":"44419","text":"Kẻ Cuối Cùng Huyệt Ma 1"}
+{"rowId":"44420","text":"Kẻ Cuối Cùng Huyệt Ma 2"}
+{"rowId":"44421","text":"Kẻ Cuối Cùng Huyệt Ma 3"}
+{"rowId":"44422","text":"Chiến Sĩ Cuối Cùng"}
+{"rowId":"50001","text":"Người Bảo Vệ"}
+{"rowId":"50002","text":"Người Bảo Vệ"}
+{"rowId":"50003","text":"Người Bảo Vệ"}
+{"rowId":"50004","text":"Người Bảo Vệ"}
+{"rowId":"50005","text":"Người Bảo Vệ"}
+{"rowId":"50006","text":"Cua Thần"}
+{"rowId":"50007","text":"Cua Thần"}
+{"rowId":"50008","text":"Cua Thần"}
+{"rowId":"50009","text":"Cua Thần"}
+{"rowId":"50010","text":"Cua Thần"}
+{"rowId":"50011","text":"Cua Thần"}
+{"rowId":"50012","text":"Cua Thần"}
+{"rowId":"50101","text":"Bướm Ma Lv1"}
+{"rowId":"50102","text":"Bướm Ma Lv2"}
+{"rowId":"50103","text":"Bướm Ma Lv3"}
+{"rowId":"50104","text":"Bướm Ma Lv4"}
+{"rowId":"50105","text":"Bướm Ma Lv5"}
+{"rowId":"50106","text":"Bướm Ma Lv6"}
+{"rowId":"50201","text":"Thủy Quái"}
+{"rowId":"50202","text":"Thủy Quái"}
+{"rowId":"50203","text":"Thủy Quái"}
+{"rowId":"50204","text":"Thủy Quái"}
+{"rowId":"50205","text":"Thủy Quái"}
+{"rowId":"50206","text":"Quỷ Ranh Mãnh"}
+{"rowId":"50207","text":"Quỷ Ranh Mãnh"}
+{"rowId":"50208","text":"Quỷ Ranh Mãnh"}
+{"rowId":"50209","text":"Quỷ Ranh Mãnh"}
+{"rowId":"50210","text":"Quỷ Ranh Mãnh"}
+{"rowId":"50211","text":"Sâu Gian Ác"}
+{"rowId":"50212","text":"Sâu Gian Ác"}
+{"rowId":"50213","text":"Sâu Gian Ác"}
+{"rowId":"50214","text":"Sâu Gian Ác"}
+{"rowId":"50215","text":"Sâu Gian Ác"}
+{"rowId":"50216","text":"Ngựa Một Sừng"}
+{"rowId":"50217","text":"Ngựa Một Sừng"}
+{"rowId":"50218","text":"Ngựa Một Sừng"}
+{"rowId":"50219","text":"Ngựa Một Sừng"}
+{"rowId":"50220","text":"Ngựa Một Sừng"}
+{"rowId":"50221","text":"Bò Biến Dị"}
+{"rowId":"50222","text":"Bò Biến Dị"}
+{"rowId":"50223","text":"Bò Biến Dị"}
+{"rowId":"50224","text":"Bò Biến Dị"}
+{"rowId":"50225","text":"Bò Biến Dị"}
+{"rowId":"50226","text":"Thủ Lĩnh Hắc Ám"}
+{"rowId":"50227","text":"Thủ Lĩnh Hắc Ám"}
+{"rowId":"50228","text":"Thủ Lĩnh Hắc Ám"}
+{"rowId":"50229","text":"Thủ Lĩnh Hắc Ám"}
+{"rowId":"50230","text":"Thủ Lĩnh Hắc Ám"}
+{"rowId":"50301","text":"Kiến Tham Ăn"}
+{"rowId":"50302","text":"Gà Tham Ăn"}
+{"rowId":"50303","text":"Chiến Sĩ Tham Ăn"}
+{"rowId":"50304","text":"Dơi Tham Ăn"}
+{"rowId":"50305","text":"Rồng Con Tham Ăn"}
+{"rowId":"51000","text":"Tiêu chí"}
+{"rowId":"60001","text":"Taylor Bé"}
+{"rowId":"60002","text":"Taylor Lớn"}
+{"rowId":"60003","text":"Capal U Ám"}
+{"rowId":"60004","text":"Thống Lĩnh U Ám"}
+{"rowId":"60005","text":"Sars U Ám"}
+{"rowId":"60006","text":"Carl Ác Linh"}
+{"rowId":"60007","text":"Thợ Mỏ Goblin"}
+{"rowId":"60008","text":"Vua Cá Nóc"}
+{"rowId":"60009","text":"Taylosie"}
+{"rowId":"60010","text":"Tà Linh Kate"}
+{"rowId":"60011","text":"Người Rừng"}
+{"rowId":"60012","text":"Sơn Tặc"}
+{"rowId":"60013","text":"Cảm Tử Goblin"}
+{"rowId":"60014","text":"Mị Ảnh Cát"}
+{"rowId":"60015","text":"Áo giáp Minotaure"}
+{"rowId":"60016","text":"Đầu Sỏ Ác Ma"}
+{"rowId":"60017","text":"Ong Rừng"}
+{"rowId":"60018","text":"Kỵ Sĩ Rừng"}
+{"rowId":"60019","text":"Tướng Zhao"}
+{"rowId":"60020","text":"Sừng Tử Vong"}
+{"rowId":"70001","text":"Ma Cây Độc Dược"}
+{"rowId":"70002","text":"Ma Cây Ác Mộng"}
+{"rowId":"70003","text":"Ma Cây Mê Hoặc"}
+{"rowId":"70004","text":"Thiên Binh"}
+{"rowId":"70005","text":"Vương Mẫu"}
+{"rowId":"70006","text":"Quỷ Xanh"}
+{"rowId":"70007","text":"Quỷ Đỏ"}
+{"rowId":"70008","text":"Quỷ Kaka"}
+{"rowId":"70009","text":"Mục Sư Ali"}
+{"rowId":"70010","text":"Kẻ Chế Ngự Thời Gian"}
+{"rowId":"70011","text":"Kẻ Chế Ngự Ác Linh"}
+{"rowId":"70012","text":"Vua Bò Cạp"}
+{"rowId":"70099","text":"Nhà Thám Hiểm"}
+{"rowId":"70103","text":"Ma Cây Mini"}
+{"rowId":"70104","text":"Ngưu Lang"}
+{"rowId":"70111","text":"Nón Ác Ma"}
+{"rowId":"70204","text":"Chức Nữ"}
+{"rowId":"71000","text":"Tây Vương Mẫu"}
+{"rowId":"71001","text":"Draven"}
+{"rowId":"71002","text":"Draven"}
+{"rowId":"71003","text":"Chồn"}
+{"rowId":"71004","text":"Gà Con"}
+{"rowId":"71005","text":"Dây Thừng"}
+{"rowId":"71006","text":"Chuồn Chuồn"}
+{"rowId":"71007","text":"Ve"}
+{"rowId":"71008","text":"Bướm"}
+{"rowId":"71009","text":"Bọ Hung"}
+{"rowId":"71010","text":"Máy Bắn"}
+{"rowId":"71011","text":"Đá"}
+{"rowId":"71012","text":"Thùng Gỗ"}
+{"rowId":"71013","text":"Gà Con"}
+{"rowId":"71015","text":"Ma Bệnh"}
+{"rowId":"71016","text":"Gà Con"}
+{"rowId":"71024","text":"Đao Vệ"}
+{"rowId":"71025","text":"Cướp Phỉ"}
+{"rowId":"71026","text":"Kiếm Sĩ"}
+{"rowId":"71027","text":"Thuyền Trưởng Cá Sấu"}
+{"rowId":"71028","text":"Ma linh"}
+{"rowId":"71029","text":"Phù Thủy"}
+{"rowId":"71030","text":"Quái Cá Mập"}
+{"rowId":"71031","text":"Quái Cá Mập"}
+{"rowId":"71032","text":"Thợ Săn"}
+{"rowId":"71033","text":"Bò Cạp Đỏ"}
+{"rowId":"71034","text":"Vua Bò Cạp"}
+{"rowId":"71035","text":"Bò Cạp Xanh"}
+{"rowId":"71036","text":"Búp Bê Lửa"}
+{"rowId":"71039","text":"Tà Thần"}
+{"rowId":"71040","text":"Tà Thần"}
+{"rowId":"71041","text":"Tà Thần"}
+{"rowId":"71042","text":"Tà Thần"}
+{"rowId":"71043","text":"Bạch Tuộc"}
+{"rowId":"71044","text":"Bạch Tuộc"}
+{"rowId":"71045","text":"Bạch Tuộc"}
+{"rowId":"71046","text":"Bạch Tuộc"}
+{"rowId":"71047","text":"Vua Bò Cạp"}
+{"rowId":"71048","text":"Vua Bò Cạp"}
+{"rowId":"71049","text":"Vua Bò Cạp"}
+{"rowId":"71050","text":"Vua Bò Cạp"}
+{"rowId":"71051","text":"Bé Phun Lửa"}
+{"rowId":"71052","text":"Bé Phun Lửa"}
+{"rowId":"71053","text":"Bé Phun Lửa"}
+{"rowId":"71054","text":"Bé Phun Lửa"}
+{"rowId":"71055","text":"Ưng Ma Pháp"}
+{"rowId":"71056","text":"Vệ Sĩ Sói"}
+{"rowId":"71057","text":"Pháp Cầu 3 Màu 1"}
+{"rowId":"71058","text":"Pháp Cầu 3 Màu 2"}
+{"rowId":"71059","text":"Pháp Cầu 3 Màu 3"}
+{"rowId":"71060","text":"Thú Bảo Vệ Ma Pháp"}
+{"rowId":"71061","text":"Ưng Ma Pháp"}
+{"rowId":"71062","text":"Vệ Sĩ Sói"}
+{"rowId":"71063","text":"Pháp Cầu 3 Màu 1"}
+{"rowId":"71064","text":"Pháp Cầu 3 Màu 2"}
+{"rowId":"71065","text":"Pháp Cầu 3 Màu 3"}
+{"rowId":"71066","text":"Thú Bảo Vệ Ma Pháp"}
+{"rowId":"71070","text":"Pháp Cầu 3 Màu 2"}
+{"rowId":"71071","text":"Pháp Cầu 3 Màu 3"}
+{"rowId":"71072","text":"Thú Bảo Vệ Ma Pháp"}
+{"rowId":"71076","text":"Pháp Cầu 3 Màu 2"}
+{"rowId":"71077","text":"Pháp Cầu 3 Màu 3"}
+{"rowId":"2501","text":"Kiến tiên phong"}
+{"rowId":"71073","text":"Ưng Ma Pháp"}
+{"rowId":"71074","text":"Vệ Sĩ Sói"}
+{"rowId":"2502","text":"Kiến trinh sát"}
+{"rowId":"2503","text":"Daniliz"}
+{"rowId":"71075","text":"Pháp Cầu 3 Màu 1"}
+{"rowId":"71078","text":"Thú Bảo Vệ Ma Pháp"}
+{"rowId":"71079","text":"Nhện Cơ Giới"}
+{"rowId":"71080","text":"Bướm Cơ Giới"}
+{"rowId":"71081","text":"Vệ Sĩ Không Gian"}
+{"rowId":"71082","text":"Chúa Tể Không Gian"}
+{"rowId":"71083","text":"Nhện Cơ Giới"}
+{"rowId":"71084","text":"Bướm Cơ Giới"}
+{"rowId":"71085","text":"Vệ Sĩ Không Gian"}
+{"rowId":"71086","text":"Chúa Tể Không Gian"}
+{"rowId":"71087","text":"Nhện Cơ Giới"}
+{"rowId":"71088","text":"Bướm Cơ Giới"}
+{"rowId":"71089","text":"Vệ Sĩ Không Gian"}
+{"rowId":"71090","text":"Chúa Tể Không Gian"}
+{"rowId":"71091","text":"Nhện Cơ Giới"}
+{"rowId":"71092","text":"Bướm Cơ Giới"}
+{"rowId":"71093","text":"Vệ Sĩ Không Gian"}
+{"rowId":"71094","text":"Chúa Tể Không Gian"}
+{"rowId":"71095","text":"Lính Sói Tuyết"}
+{"rowId":"71096","text":"Kyurem Rồng Băng"}
+{"rowId":"71097","text":"Lính Sói Tuyết"}
+{"rowId":"71098","text":"Kyurem Rồng Băng"}
+{"rowId":"71099","text":"Lính Sói Tuyết"}
+{"rowId":"71100","text":"Kyurem Rồng Băng"}
+{"rowId":"71101","text":"Lính Sói Tuyết"}
+{"rowId":"71102","text":"Kyurem Rồng Băng"}
+{"rowId":"71103","text":"Người Máy A"}
+{"rowId":"71104","text":"Người Máy B"}
+{"rowId":"71105","text":"Phi Thuyền Săn"}
+{"rowId":"71107","text":"Người Máy A"}
+{"rowId":"71108","text":"Người Máy B"}
+{"rowId":"71109","text":"Phi Thuyền Săn"}
+{"rowId":"71111","text":"Người Máy A"}
+{"rowId":"71112","text":"Người Máy B"}
+{"rowId":"71113","text":"Phi Thuyền Săn"}
+{"rowId":"71115","text":"Người Máy A"}
+{"rowId":"71116","text":"Người Máy B"}
+{"rowId":"71117","text":"Phi Thuyền Săn"}
+{"rowId":"71118","text":"Tà Thần Vương"}
+{"rowId":"71119","text":"Tà Thần Vương"}
+{"rowId":"71120","text":"Tà Thần Vương"}
+{"rowId":"71121","text":"Tà Thần Vương"}
+{"rowId":"71122","text":"Cá Lâu La"}
+{"rowId":"71123","text":"Cá Lâu La"}
+{"rowId":"71124","text":"Cá Lâu La"}
+{"rowId":"71125","text":"Cá Lâu La"}
+{"rowId":"71126","text":"Phù Thủy Gà"}
+{"rowId":"71127","text":"Phù Thủy Gà"}
+{"rowId":"71128","text":"Phù Thủy Gà"}
+{"rowId":"71129","text":"Phù Thủy Gà"}
+{"rowId":"71130","text":"Đầu Sỏ Ác Ma"}
+{"rowId":"71131","text":"Đầu Sỏ Ác Ma"}
+{"rowId":"71132","text":"Đầu Sỏ Ác Ma"}
+{"rowId":"71133","text":"Đầu Sỏ Ác Ma"}
+{"rowId":"71134","text":"Lực Sĩ Taka"}
+{"rowId":"71135","text":"Vật Tổ Nổ"}
+{"rowId":"71136","text":"Trưởng Lão Hóa Cốt"}
+{"rowId":"71137","text":"Lực Sĩ Taka"}
+{"rowId":"71138","text":"Vật Tổ Nổ"}
+{"rowId":"71139","text":"Trưởng Lão Hóa Cốt"}
+{"rowId":"71140","text":"Lực Sĩ Taka"}
+{"rowId":"71141","text":"Vật Tổ Nổ"}
+{"rowId":"71142","text":"Trưởng Lão Hóa Cốt"}
+{"rowId":"71143","text":"Lực Sĩ Taka"}
+{"rowId":"71144","text":"Vật Tổ Nổ"}
+{"rowId":"71145","text":"Trưởng Lão Hóa Cốt"}
+{"rowId":"71146","text":"Chim Đồi Cát"}
+{"rowId":"71147","text":"Linh Hồn"}
+{"rowId":"71148","text":"Khỉ Chúa Ảo Ảnh"}
+{"rowId":"71149","text":"Khỉ Chúa Giận Dữ"}
+{"rowId":"71150","text":"Chim Đồi Cát"}
+{"rowId":"71151","text":"Linh Hồn"}
+{"rowId":"71152","text":"Khỉ Chúa Ảo Ảnh"}
+{"rowId":"71153","text":"Khỉ Chúa Giận Dữ"}
+{"rowId":"71154","text":"Chim Đồi Cát"}
+{"rowId":"71155","text":"Linh Hồn"}
+{"rowId":"71156","text":"Khỉ Chúa Ảo Ảnh"}
+{"rowId":"71157","text":"Khỉ Chúa Giận Dữ"}
+{"rowId":"71158","text":"Chim Đồi Cát"}
+{"rowId":"71159","text":"Linh Hồn"}
+{"rowId":"71160","text":"Khỉ Chúa Ảo Ảnh"}
+{"rowId":"71161","text":"Khỉ Chúa Giận Dữ"}
+{"rowId":"72000","text":"Hải Tặc Trưởng"}
+{"rowId":"73000","text":"Niên Thú"}
+{"rowId":"80001","text":"Chiến Thần Gà"}
+{"rowId":"80002","text":"Giới Luật"}
+{"rowId":"80003","text":"Tướng Zhao"}
+{"rowId":"80004","text":"Nữ Vương"}
+{"rowId":"80005","text":"Goss Bisi"}
+{"rowId":"80006","text":"Chiến Thần Gà"}
+{"rowId":"80007","text":"Giới Luật"}
+{"rowId":"80008","text":"Tướng Zhao"}
+{"rowId":"80009","text":"Nữ Vương"}
+{"rowId":"80010","text":"Goss Bisi"}
+{"rowId":"80011","text":"Chiến Thần Gà"}
+{"rowId":"80012","text":"Giới Luật"}
+{"rowId":"80013","text":"Tướng Zhao"}
+{"rowId":"80014","text":"Nữ Vương"}
+{"rowId":"80015","text":"Goss Bisi"}
+{"rowId":"80016","text":"Goblin"}
+{"rowId":"80017","text":"Goblin"}
+{"rowId":"80018","text":"Goblin"}
+{"rowId":"80019","text":"Tiểu Đệ"}
+{"rowId":"80020","text":"Tiểu Đệ"}
+{"rowId":"80021","text":"Tiểu Đệ"}
+{"rowId":"91000","text":"Kiến Tiên Phong"}
+{"rowId":"92000","text":"Kiến Trinh Sát"}
+{"rowId":"93000","text":"Gà Hồng"}
+{"rowId":"94000","text":"Gà Tinh Anh"}
+{"rowId":"95000","text":"Dũng Sĩ Bộ Lạc"}
+{"rowId":"96000","text":"Chiến Sĩ Bộ Lạc"}
+{"rowId":"12120","text":"Siêu đầu đạn hợp kim"}
+{"rowId":"12201","text":"Binh sỹ Sói"}
+{"rowId":"12202","text":"Đội trưởng Sói"}
+{"rowId":"12203","text":"Trung uý Sói già"}
+{"rowId":"12204","text":"Tiểu đội Gà con"}
+{"rowId":"12205","text":"NPC Unknown"}
+{"rowId":"12206","text":"Pháo đoàn Gà con"}
+{"rowId":"12207","text":"Nhóc lựu đạn"}
+{"rowId":"12208","text":"Thuyền trưởng Cá Sấu"}
+{"rowId":"12209","text":"Sỹ binh Gà con"}
+{"rowId":"12210","text":"Đại tá Sói"}
+{"rowId":"12211","text":"Sỹ binh Gà con"}
+{"rowId":"12212","text":"Sỹ binh Gà con"}
+{"rowId":"12213","text":"Phi thuyền Gà con"}
+{"rowId":"12214","text":"Phi thuyền Colombia"}
+{"rowId":"12215","text":"Death Star"}
+{"rowId":"12216","text":"Bác học Vẹt"}
+{"rowId":"12217","text":"Đầu đạn hợp kim"}
+{"rowId":"12218","text":"Đầu đạn hợp kim"}
+{"rowId":"12219","text":"Đạn phù du"}
+{"rowId":"12220","text":"Siêu đầu đạn hợp kim"}
+{"rowId":"12301","text":"Binh sỹ Sói"}
+{"rowId":"12302","text":"Đội trưởng Sói"}
+{"rowId":"71067","text":"Ưng Ma Pháp"}
+{"rowId":"71068","text":"Vệ Sĩ Sói"}
+{"rowId":"71069","text":"Pháp Cầu 3 Màu 1"}
+{"rowId":"2504","text":"Kiến vệ sĩ"}
+{"rowId":"2601","text":"Kiến tiên phong"}
+{"rowId":"2602","text":"Kiến trinh sát"}
+{"rowId":"2603","text":"Daniliz"}
+{"rowId":"2604","text":"Kiến vệ sĩ"}
+{"rowId":"2701","text":"Kiến tiên phong"}
+{"rowId":"2702","text":"Kiến trinh sát"}
+{"rowId":"2703","text":"Daniliz"}
+{"rowId":"2704","text":"Kiến vệ sĩ"}
+{"rowId":"7501","text":"Gà tí"}
+{"rowId":"7502","text":"Gà con"}
+{"rowId":"7503","text":"Chuồng gà cứng cáp"}
+{"rowId":"7511","text":"Gà mái"}
+{"rowId":"7521","text":"Gà mái"}
+{"rowId":"7522","text":"Gà trống"}
+{"rowId":"7523","text":"Chuồng gà"}
+{"rowId":"7531","text":"Gà mái xấu xí"}
+{"rowId":"7532","text":"Lồng gà"}
+{"rowId":"7533","text":"Trứng thối"}
+{"rowId":"7601","text":"Gà tí"}
+{"rowId":"7602","text":"Gà con"}
+{"rowId":"7603","text":"Chuồng gà cứng cáp"}
+{"rowId":"7611","text":"Gà mái"}
+{"rowId":"7621","text":"Gà mái"}
+{"rowId":"7622","text":"Gà trống"}
+{"rowId":"7623","text":"Chuồng gà"}
+{"rowId":"7631","text":"Gà mái xấu xí"}
+{"rowId":"7632","text":"Lồng gà"}
+{"rowId":"7633","text":"Trứng thối"}
+{"rowId":"7701","text":"Gà tí"}
+{"rowId":"7702","text":"Gà con"}
+{"rowId":"7703","text":"Chuồng gà cứng cáp"}
+{"rowId":"7711","text":"Gà mái"}
+{"rowId":"7721","text":"Gà mái"}
+{"rowId":"7722","text":"Gà trống"}
+{"rowId":"7723","text":"Chuồng gà"}
+{"rowId":"7731","text":"Gà mái xấu xí"}
+{"rowId":"7732","text":"Lồng gà"}
+{"rowId":"7733","text":"Trứng thối"}
+{"rowId":"1","text":"Tiểu quái huấn luyện 1"}
+{"rowId":"2","text":"Tiểu quái huấn luyện 2"}
+{"rowId":"3","text":"Tiểu quái huấn luyện 2"}
+{"rowId":"4","text":"Bia"}
+{"rowId":"5","text":"Bia"}
+{"rowId":"6","text":"Bia phi hành"}
+{"rowId":"101","text":"Người ma quái 1"}
+{"rowId":"102","text":"Người ma quái 2"}
+{"rowId":"103","text":"Người ma quái 3"}
+{"rowId":"104","text":"Người ma quái 4"}
+{"rowId":"105","text":"Người ma quái 5"}
+{"rowId":"106","text":"Người ma quái 6"}
+{"rowId":"107","text":"Người ma quái 7"}
+{"rowId":"108","text":"Người ma quái 8"}
+{"rowId":"109","text":"Người ma quái 9"}
+{"rowId":"116","text":"Người ma quái 16"}
+{"rowId":"201","text":"Gà"}
+{"rowId":"202","text":"Gà tinh anh"}
+{"rowId":"1001","text":"Gà hồng"}
+{"rowId":"1002","text":"Gà tinh anh"}
+{"rowId":"1003","text":"Baroff"}
+{"rowId":"1004","text":"Nhóc lựu đạn"}
+{"rowId":"1005","text":"Gà"}
+{"rowId":"1006","text":"Gà"}
+{"rowId":"1007","text":"Matthias"}
+{"rowId":"1008","text":"Bóng ma Matthias"}
+{"rowId":"1009","text":"Vệ sĩ Gà"}
+{"rowId":"1010","text":"Gà lâu la"}
+{"rowId":"1011","text":"Lựu đạn lâu la"}
+{"rowId":"1101","text":"Gà hồng"}
+{"rowId":"1102","text":"Gà tinh anh"}
+{"rowId":"1103","text":"Baroff"}
+{"rowId":"1104","text":"Nhóc lựu đạn"}
+{"rowId":"1105","text":"Gà"}
+{"rowId":"1106","text":"Gà"}
+{"rowId":"1107","text":"Matthias"}
+{"rowId":"1108","text":"Bóng ma Matthias"}
+{"rowId":"1109","text":"Vệ sĩ Gà"}
+{"rowId":"1110","text":"Gà lâu la"}
+{"rowId":"1111","text":"Lựu đạn lâu la"}
+{"rowId":"1201","text":"Gà hồng"}
+{"rowId":"1202","text":"Gà tinh anh"}
+{"rowId":"1203","text":"Baroff"}
+{"rowId":"1204","text":"Nhóc lựu đạn"}
+{"rowId":"1205","text":"Gà"}
+{"rowId":"1206","text":"Gà"}
+{"rowId":"1207","text":"Matthias"}
+{"rowId":"1208","text":"Bóng ma Matthias"}
+{"rowId":"1209","text":"Vệ sĩ Gà"}
+{"rowId":"1210","text":"Gà lâu la"}
+{"rowId":"1211","text":"Lựu đạn lâu la"}
+{"rowId":"1243","text":"Boss Rồng"}
+{"rowId":"1301","text":"Gà hồng"}
+{"rowId":"1302","text":"Gà tinh anh"}
+{"rowId":"1303","text":"Baroff"}
+{"rowId":"1304","text":"Nhóc lựu đạn"}
+{"rowId":"1305","text":"Gà"}
+{"rowId":"1306","text":"Gà"}
+{"rowId":"1307","text":"Matthias"}
+{"rowId":"1308","text":"Bóng ma Matthias"}
+{"rowId":"1309","text":"Vệ sĩ Gà"}
+{"rowId":"1310","text":"Gà lâu la"}
+{"rowId":"1311","text":"Lựu đạn lâu la"}
+{"rowId":"2001","text":"Kiến tiên phong"}
+{"rowId":"2002","text":"Kiến trinh sát"}
+{"rowId":"2003","text":"Daniliz"}
+{"rowId":"2004","text":"Kiến vệ sĩ"}
+{"rowId":"2101","text":"Kiến tiên phong"}
+{"rowId":"2102","text":"Kiến trinh sát"}
+{"rowId":"2103","text":"Daniliz"}
+{"rowId":"2104","text":"Kiến vệ sĩ"}
+{"rowId":"2401","text":"Kiến tiên phong"}
+{"rowId":"2402","text":"Kiến trinh sát"}
+{"rowId":"2403","text":"Daniliz"}
+{"rowId":"2404","text":"Kiến vệ sĩ"}
+{"rowId":"3000","text":"Bulanbala anh"}
+{"rowId":"3001","text":"Chiến sĩ bộ lạc"}
+{"rowId":"3002","text":"Chiến sĩ bộ lạc"}
+{"rowId":"3003","text":"Chiến sĩ bộ lạc"}
+{"rowId":"3004","text":"Dũng sĩ  bộ lạc"}
+{"rowId":"3005","text":"Dũng sĩ  bộ lạc"}
+{"rowId":"3006","text":"Dũng sĩ  bộ lạc"}
+{"rowId":"3007","text":"Đậu thần"}
+{"rowId":"3008","text":"Bulanbala anh"}
+{"rowId":"3009","text":"Bulanbala em"}
+{"rowId":"3010","text":"Vật tổ-mệt mỏi"}
+{"rowId":"3011","text":"Vật tổ-xiềng xích"}
+{"rowId":"3012","text":"Vật tổ-nổ"}
+{"rowId":"3013","text":"Vật tổ-bơm máu"}
+{"rowId":"3014","text":"Chiến sĩ Tà Thần"}
+{"rowId":"3015","text":"Cửa phong ấn"}
+{"rowId":"3016","text":"Sulan"}
+{"rowId":"3017","text":"Sulan"}
+{"rowId":"3018","text":"Đậu thần"}
+{"rowId":"3019","text":"Bulanbala anh"}
+{"rowId":"3101","text":"Chiến sĩ bộ lạc"}
+{"rowId":"3102","text":"Chiến sĩ bộ lạc"}
+{"rowId":"3103","text":"Chiến sĩ bộ lạc"}
+{"rowId":"3104","text":"Dũng sĩ  bộ lạc"}
+{"rowId":"3105","text":"Dũng sĩ bộ lạc"}
+{"rowId":"3106","text":"Dũng sĩ  bộ lạc"}
+{"rowId":"3107","text":"Đậu thần"}
+{"rowId":"3108","text":"Bulanbala anh"}
+{"rowId":"3109","text":"Bulanbala em"}
+{"rowId":"3110","text":"Vật tổ-mệt mỏi"}
+{"rowId":"3111","text":"Vật tổ-xiềng xích"}
+{"rowId":"3112","text":"Vật tổ-nổ"}
+{"rowId":"3113","text":"Vật tổ-bơm máu"}
+{"rowId":"3114","text":"Chiến sĩ Tà Thần"}
+{"rowId":"3115","text":"Cửa phong ấn"}
+{"rowId":"3116","text":"Sulan"}
+{"rowId":"3117","text":"Sulan"}
+{"rowId":"3118","text":"Đậu thần"}
+{"rowId":"3119","text":"Bulanbala anh"}
+{"rowId":"3201","text":"Chiến sĩ bộ lạc"}
+{"rowId":"3202","text":"Chiến sĩ bộ lạc"}
+{"rowId":"3203","text":"Chiến sĩ bộ lạc"}
+{"rowId":"3204","text":"Dũng sĩ  bộ lạc"}
+{"rowId":"3205","text":"Dũng sĩ bộ lạc"}
+{"rowId":"3206","text":"Dũng sĩ  bộ lạc"}
+{"rowId":"3207","text":"Đậu thần"}
+{"rowId":"3208","text":"Bulanbala anh"}
+{"rowId":"3209","text":"Bulanbala em"}
+{"rowId":"3210","text":"Vật tổ-mệt mỏi"}
+{"rowId":"3211","text":"Vật tổ-xiềng xích"}
+{"rowId":"3212","text":"Vật tổ-nổ"}
+{"rowId":"3213","text":"Vật tổ-bơm máu"}
+{"rowId":"3214","text":"Chiến sĩ Tà Thần"}
+{"rowId":"3215","text":"Cửa phong ấn"}
+{"rowId":"3216","text":"Sulan"}
+{"rowId":"3217","text":"Sulan"}
+{"rowId":"3218","text":"Đậu thần"}
+{"rowId":"3219","text":"Bulanbala anh"}
+{"rowId":"3301","text":"Chiến sĩ bộ lạc"}
+{"rowId":"3302","text":"Chiến sĩ bộ lạc"}
+{"rowId":"3303","text":"Chiến sĩ bộ lạc"}
+{"rowId":"3304","text":"Dũng sĩ  bộ lạc"}
+{"rowId":"3305","text":"Dũng sĩ bộ lạc"}
+{"rowId":"3306","text":"Dũng sĩ  bộ lạc"}
+{"rowId":"3307","text":"Đậu thần"}
+{"rowId":"3308","text":"Bulanbala anh AH"}
+{"rowId":"3309","text":"Bulanbala em"}
+{"rowId":"3310","text":"Vật tổ-mệt mỏi"}
+{"rowId":"3311","text":"Vật tổ-xiềng xích"}
+{"rowId":"3312","text":"Vật tổ-nổ"}
+{"rowId":"3313","text":"Vật tổ-bơm máu"}
+{"rowId":"3314","text":"Chiến sĩ Tà Thần"}
+{"rowId":"3315","text":"Cửa phong ấn"}
+{"rowId":"3316","text":"Sulan AH"}
+{"rowId":"3317","text":"Sulan AH"}
+{"rowId":"3318","text":"Đậu thần"}
+{"rowId":"3319","text":"Bulanbala anh"}
+{"rowId":"4001","text":"Bom hạt nhân"}
+{"rowId":"4002","text":"Cửa phong ấn"}
+{"rowId":"4003","text":"Cảm tử quân"}
+{"rowId":"4004","text":"Đại pháo"}
+{"rowId":"4005","text":"Thần Ưng"}
+{"rowId":"4006","text":"Sói sa mạc"}
+{"rowId":"4007","text":"Lưa âm phủ"}
+{"rowId":"4008","text":"Minotaur 1"}
+{"rowId":"4009","text":"Minotaur 2"}
+{"rowId":"4101","text":"Bom hạt nhân"}
+{"rowId":"4102","text":"Cửa phong ấn"}
+{"rowId":"4103","text":"Cảm tử quân"}
+{"rowId":"4104","text":"Đại pháo"}
+{"rowId":"4105","text":"Thần Ưng"}
+{"rowId":"4106","text":"Sói sa mạc"}
+{"rowId":"4107","text":"Lưa âm phủ"}
+{"rowId":"4108","text":"Minotaur"}
+{"rowId":"4109","text":"Minotaur"}
+{"rowId":"4110","text":"Lửa địa ngục"}
+{"rowId":"4201","text":"Bom hạt nhân"}
+{"rowId":"4202","text":"Cửa phong ấn"}
+{"rowId":"4203","text":"Cảm tử quân"}
+{"rowId":"4204","text":"Đại pháo"}
+{"rowId":"4205","text":"Thần Ưng"}
+{"rowId":"4206","text":"Sói sa mạc"}
+{"rowId":"4207","text":"Lưa âm phủ"}
+{"rowId":"4208","text":"Minotaur"}
+{"rowId":"4209","text":"Minotaur"}
+{"rowId":"4210","text":"Lửa địa ngục"}
+{"rowId":"4301","text":"Bom hạt nhân"}
+{"rowId":"4302","text":"Cửa phong ấn"}
+{"rowId":"4303","text":"Cảm tử quân"}
+{"rowId":"4304","text":"Đại pháo"}
+{"rowId":"4305","text":"Thần Ưng"}
+{"rowId":"4306","text":"Sói sa mạc"}
+{"rowId":"4307","text":"Lưa âm phủ"}
+{"rowId":"4308","text":"Minotaur"}
+{"rowId":"4309","text":"Minotaur"}
+{"rowId":"4310","text":"Lửa địa ngục"}
+{"rowId":"5001","text":"Gà đánh bốc"}
+{"rowId":"5002","text":"Người máy"}
+{"rowId":"5003","text":"Quỷ dữ"}
+{"rowId":"5004","text":"Thạch Yêu"}
+{"rowId":"5005","text":"Đầu gấu học đường"}
+{"rowId":"5006","text":"Thỏ tai ngắn"}
+{"rowId":"5007","text":"Hoa tươi"}
+{"rowId":"5008","text":"Thuyền rồng"}
+{"rowId":"5009","text":"Bé nấm"}
+{"rowId":"5010","text":"Kẹo mút"}
+{"rowId":"5011","text":"Bé Xinh Tạ Ơn"}
+{"rowId":"5012","text":"Bá Tước"}
+{"rowId":"5013","text":"Cô dâu bỏ chạy"}
+{"rowId":"5014","text":"Ông Già Noel"}
+{"rowId":"5015","text":"Tiểu Niên Thú"}
+{"rowId":"5101","text":"Quỷ Pochi"}
+{"rowId":"5102","text":"Nô lệ"}
+{"rowId":"5103","text":"Bánh răng"}
+{"rowId":"5104","text":"Nhà thám hiểm"}
+{"rowId":"5111","text":"Goblin lính"}
+{"rowId":"5112","text":"Goblin hung hãn"}
+{"rowId":"5113","text":"Goblin xảo trá"}
+{"rowId":"5114","text":"Quỷ Pochi"}
+{"rowId":"5116","text":"Long kích pháo"}
+{"rowId":"5117","text":"Toái liệt pháo"}
+{"rowId":"5121","text":"Quỷ khăn hồng"}
+{"rowId":"5122","text":"Mỏ hàn"}
+{"rowId":"5123","text":"Hộp quái dị"}
+{"rowId":"5124","text":"Đài cao"}
+{"rowId":"5131","text":"Tà Diệm Long"}
+{"rowId":"5132","text":"Rồng tinh quái"}
+{"rowId":"5133","text":"Nhà thám hiểm"}
+{"rowId":"5134","text":"Pha lê"}
+{"rowId":"5135","text":"NPC chướng ngại"}
+{"rowId":"5201","text":"Quỷ Pochi"}
+{"rowId":"5202","text":"Nô lệ"}
+{"rowId":"5203","text":"Bánh răng"}
+{"rowId":"5204","text":"Nhà thám hiểm"}
+{"rowId":"5211","text":"Goblin lính"}
+{"rowId":"5212","text":"Goblin hung hãn"}
+{"rowId":"5213","text":"Goblin xảo trá"}
+{"rowId":"5214","text":"Quỷ Pochi"}
+{"rowId":"5216","text":"Long kích pháo"}
+{"rowId":"5217","text":"Toái liệt pháo"}
+{"rowId":"5221","text":"Quỷ khăn hồng"}
+{"rowId":"5222","text":"Mỏ hàn"}
+{"rowId":"5223","text":"Hộp quái dị"}
+{"rowId":"5224","text":"Đài cao"}
+{"rowId":"5231","text":"Tà Diệm Long"}
+{"rowId":"5232","text":"Rồng tinh quái"}
+{"rowId":"5233","text":"Nhà thám hiểm"}
+{"rowId":"5234","text":"Pha lê"}
+{"rowId":"5235","text":"NPC chướng ngại"}
+{"rowId":"5301","text":"Quỷ Pochi"}
+{"rowId":"5302","text":"Nô lệ"}
+{"rowId":"5303","text":"Bánh răng"}
+{"rowId":"5304","text":"Nhà thám hiểm"}
+{"rowId":"5311","text":"Goblin lính"}
+{"rowId":"5312","text":"Goblin hung hãn"}
+{"rowId":"5313","text":"Goblin xảo trá"}
+{"rowId":"5314","text":"Quỷ Pochi"}
+{"rowId":"5316","text":"Long kích pháo"}
+{"rowId":"5317","text":"Toái liệt pháo"}
+{"rowId":"5321","text":"Quỷ khăn hồng"}
+{"rowId":"5322","text":"Mỏ hàn"}
+{"rowId":"5323","text":"Hộp quái dị"}
+{"rowId":"5324","text":"Đài cao"}
+{"rowId":"5331","text":"Tà Diệm Long"}
+{"rowId":"5332","text":"Rồng tinh quái"}
+{"rowId":"5333","text":"Nhà thám hiểm"}
+{"rowId":"5334","text":"Pha lê"}
+{"rowId":"5335","text":"NPC chướng ngại"}
+{"rowId":"5401","text":"Quỷ Pochi"}
+{"rowId":"5402","text":"Nô Lệ Kỹ Thuật"}
+{"rowId":"5403","text":"Bánh răng"}
+{"rowId":"5404","text":"Nhà thám hiểm"}
+{"rowId":"5411","text":"Goblin Công Binh"}
+{"rowId":"5412","text":"Goblin Hung Hãn"}
+{"rowId":"5413","text":"Goblin Gian Trá"}
+{"rowId":"5414","text":"Quỷ Pochi"}
+{"rowId":"5416","text":"Pháo Long Kích"}
+{"rowId":"5417","text":"Pháo Công Phá"}
+{"rowId":"5421","text":"Quỷ khăn hồng"}
+{"rowId":"5422","text":"Thiết May Mắn"}
+{"rowId":"5423","text":"Hộp Hình Cụ"}
+{"rowId":"5424","text":"Đài Kết Án"}
+{"rowId":"5431","text":"Tà Diệm Long"}
+{"rowId":"5432","text":"Rồng Con"}
+{"rowId":"5433","text":"Nhà thám hiểm"}
+{"rowId":"5434","text":"Băng Tinh"}
+{"rowId":"5435","text":"NPC Vật Cản"}
+{"rowId":"6112","text":"Đế của quả cầu điểm"}
+{"rowId":"6113","text":"Quả cầu điểm"}
+{"rowId":"6114","text":"Đội trưởng đội đỏ"}
+{"rowId":"6121","text":"Đội đỏ"}
+{"rowId":"6122","text":"Đội xanh"}
+{"rowId":"6123","text":"Grace"}
+{"rowId":"6124","text":"Tường"}
+{"rowId":"6131","text":"Oai Tử"}
+{"rowId":"6132","text":"Trọng tài còi đen"}
+{"rowId":"6134","text":"Fans(phải)"}
+{"rowId":"6135","text":"hooligan"}
+{"rowId":"6141","text":"Trọng tài còi đen"}
+{"rowId":"6143","text":"Fans(phải)"}
+{"rowId":"6144","text":"Khiêng của boss"}
+{"rowId":"6145","text":"Bục trọng tài"}
+{"rowId":"6212","text":"Đế của quả cầu điểm"}
+{"rowId":"6213","text":"Quả cầu điểm"}
+{"rowId":"6214","text":"Đội trưởng đội đỏ"}
+{"rowId":"6221","text":"Đội đỏ"}
+{"rowId":"6222","text":"Đội xanh"}
+{"rowId":"6223","text":"Grace"}
+{"rowId":"6224","text":"Tường"}
+{"rowId":"6231","text":"Oai Tử"}
+{"rowId":"6232","text":"Trọng tài còi đen"}
+{"rowId":"6234","text":"Fans(phải)"}
+{"rowId":"6235","text":"hooligan"}
+{"rowId":"6241","text":"Trọng tài còi đen"}
+{"rowId":"6243","text":"Fans(phải)"}
+{"rowId":"6244","text":"Khiêng của boss"}
+{"rowId":"6245","text":"Bục trọng tài"}
+{"rowId":"6312","text":"Đế của quả cầu điểm"}
+{"rowId":"6313","text":"Quả cầu điểm"}
+{"rowId":"6314","text":"Đội trưởng đội đỏ"}
+{"rowId":"6321","text":"Đội đỏ"}
+{"rowId":"6322","text":"Đội xanh"}
+{"rowId":"6323","text":"Grace"}
+{"rowId":"6324","text":"Tường"}
+{"rowId":"6331","text":"Oai Tử"}
+{"rowId":"6332","text":"Trọng tài còi đen"}
+{"rowId":"6334","text":"Fans(phải)"}
+{"rowId":"6335","text":"hooligan"}
+{"rowId":"6341","text":"Trọng tài còi đen"}
+{"rowId":"6343","text":"Fans(phải)"}
+{"rowId":"6344","text":"Khiêng của boss"}
+{"rowId":"6345","text":"Bục trọng tài"}
+{"rowId":"7001","text":"Gà tí"}
+{"rowId":"7002","text":"Gà con"}
+{"rowId":"7003","text":"Chuồng gà cứng cáp"}
+{"rowId":"7011","text":"Gà mái"}
+{"rowId":"7021","text":"Gà mái"}
+{"rowId":"7022","text":"Gà trống"}
+{"rowId":"7023","text":"Chuồng gà"}
+{"rowId":"7031","text":"Gà mái xấu xí"}
+{"rowId":"7032","text":"Lồng gà"}
+{"rowId":"7033","text":"Trứng thối"}
+{"rowId":"7101","text":"Gà tí"}
+{"rowId":"7102","text":"Gà con"}
+{"rowId":"7103","text":"Chuồng gà cứng cáp"}
+{"rowId":"7111","text":"Gà mái"}
+{"rowId":"7121","text":"Gà mái"}
+{"rowId":"7122","text":"Gà trống"}
+{"rowId":"7123","text":"Chuồng gà"}
+{"rowId":"7131","text":"Gà mái xấu xí"}
+{"rowId":"7132","text":"Lồng gà"}
+{"rowId":"7133","text":"Trứng thối"}
+{"rowId":"7201","text":"Gà tí"}
+{"rowId":"7202","text":"Gà con"}
+{"rowId":"7203","text":"Chuồng gà cứng cáp"}
+{"rowId":"7211","text":"Gà mái"}
+{"rowId":"7221","text":"Gà mái"}
+{"rowId":"7222","text":"Gà trống"}
+{"rowId":"7223","text":"Chuồng gà"}
+{"rowId":"7231","text":"Gà mái xấu xí"}
+{"rowId":"7232","text":"Lồng gà"}
+{"rowId":"7233","text":"Trứng thối"}
+{"rowId":"7401","text":"Gà tí"}
+{"rowId":"7402","text":"Gà con"}
+{"rowId":"7403","text":"Chuồng gà cứng cáp"}
+{"rowId":"7411","text":"Gà mái"}
+{"rowId":"7421","text":"Gà mái"}

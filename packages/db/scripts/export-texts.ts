@@ -21,17 +21,19 @@ export const TARGETS: Record<string, { pk: string; cols: string[] }> = {
   Game_Map: { pk: "ID", cols: ["Name", "Description", "Remark"] },
   Pve_Info: { pk: "ID", cols: ["Name", "Description"] },
   Mission_Info: { pk: "Id", cols: ["Name", "Title", "Description"] },
+  Mission_Info_Backup: { pk: "Id", cols: ["Name", "Title", "Description"] },
   Achievement: { pk: "ID", cols: ["Title", "Detail"] },
   NPC_Info: { pk: "ID", cols: ["Name"] },
-  Quest: { pk: "ID", cols: ["Title", "Detail"] },
+  Quest: { pk: "ID", cols: ["Title", "Detail", "Objective"] },
   Shop_Goods: { pk: "TemplateID", cols: ["Name", "Description", "Remark"] },
   Pet_Template_Info: { pk: "TemplateID", cols: ["Name", "Description"] },
   Pet_Skill_Info: { pk: "ID", cols: ["Name", "Description"] },
-  Pet_Element_Info: { pk: "ID", cols: ["Name", "Description"] },
+  Pet_Skill_Element_Info: { pk: "ID", cols: ["Name", "Description"] },
   Rune_Template: { pk: "TemplateID", cols: ["Name"] },
   Card_Info: { pk: "ID", cols: ["Name", "Description"] },
   Consortia_BuffTemp: { pk: "id", cols: ["name", "descript"] },
   New_Title: { pk: "ID", cols: ["Title"] },
+  SuitTemplateInfo: { pk: "SuitId", cols: ["SuitName", "SkillDescribe1", "SkillDescribe2", "SkillDescribe3", "SkillDescribe4", "SkillDescribe5"] },
 };
 
 const OUT_DIR = join(REPO_ROOT, "data", "i18n", "_work", "db");
