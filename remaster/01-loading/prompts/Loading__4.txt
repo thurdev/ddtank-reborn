@@ -1,7 +1,6 @@
-REMASTER of the attached reference image: a full-screen LOADING SCREEN illustration (keep the progress bar frame exactly where it is) from the 2D cartoon game DDTank. Reproduce THE SAME asset, only better rendered — this is not a new design.
-LAYOUT (strict): same framing, same shape and silhouette, same proportions, every element in the same place and size. Do NOT add, remove, move, zoom, crop, rotate or change perspective. No new characters, objects, logos or emblems.
-STYLE: same hand-painted cartoon casual-game art (DDTank/Gunny), same palette family, cleaner lines, sharper details, higher resolution, polished modern game art. NOT photorealistic, NOT 3D render, NOT a diorama.
-DARK MODE: shift light/cream/beige UI surfaces to deep navy/charcoal with the same gold/colored trims and accents; keep icons and characters in their original colors; everything stays readable.
-TEXT: if the original has text, keep it in the same place but write it in Brazilian Portuguese with the same lettering style; never invent new text, numbers or labels.
-BACKGROUND (strict): wherever the original is transparent, use plain flat pure green #00FF00 (chroma key) — no gradient, no shadow, no scenery. Clean sharp edges.
-FORMAT: aspect ratio same as reference (original same as the reference); generate at high resolution, it will be downscaled to the exact size.
+NEW ART (not a remaster): brand-new loading banner for the 2D cartoon game "DDReborn" in the DDTank / Gunny art style, 462x279 final. Use the attached image ONLY as a layout guide — do NOT copy its characters or the "NEWGUN" logo.
+FUNCTIONAL AREA (must keep): the circular ring/window at the center-bottom (same position and size as in the reference), empty inside; the dark rounded frame of the banner; the logo area above the banner.
+Content: night/dark theme, explosive colorful background, NEW original chibi characters (e.g. a boy with spiky blue hair and a big cannon and a girl ninja with a pink scarf) jumping into action, a small yellow chick pet.
+Logo above the banner: "DDReborn" (golden/cyan chunky letters, D-D / R-E-B-O-R-N, spelled exactly once).
+No other text. No other game/server names or logos. Hand-painted cartoon, not photorealistic, not 3D.
+Format: about 5:3 (462x279); background outside the banner and logo plain flat #00FF00 green.

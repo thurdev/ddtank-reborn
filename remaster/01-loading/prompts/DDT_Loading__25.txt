@@ -1,8 +1,5 @@
-REMASTER of the attached reference image: a full-screen LOADING SCREEN illustration (keep the progress bar frame exactly where it is) from the 2D cartoon game DDTank. Reproduce THE SAME asset, only better rendered — this is not a new design.
-LAYOUT (strict): same framing, same shape and silhouette, same proportions, every element in the same place and size. Do NOT add, remove, move, zoom, crop, rotate or change perspective. No new characters, objects, logos or emblems.
-STYLE: same hand-painted cartoon casual-game art (DDTank/Gunny), same palette family, cleaner lines, sharper details, higher resolution, polished modern game art. NOT photorealistic, NOT 3D render, NOT a diorama.
-DARK MODE: shift light/cream/beige UI surfaces to deep navy/charcoal with the same gold/colored trims and accents; keep icons and characters in their original colors; everything stays readable.
-TEXT: if the original has text, keep it in the same place but write it in Brazilian Portuguese with the same lettering style; never invent new text, numbers or labels.
-BACKGROUND (strict): wherever the original is transparent, use plain flat pure green #00FF00 (chroma key) — no gradient, no shadow, no scenery. Clean sharp edges.
-FORMAT: aspect ratio 16:9 (original 461x200px); generate at high resolution, it will be downscaled to the exact size.
-THIN ASSET: the original is a very wide horizontal strip (461x200px). Draw it as a single horizontal strip centered in the canvas, keeping its exact width-to-height proportion (2.3:1), with plain flat #00FF00 green filling the rest of the canvas — it will be cropped.
+NEW ART (not a remaster): brand-new loading-screen panel for the 2D cartoon game "DDReborn" in the DDTank / Gunny art style, 461x200 final (wide). Use the attached image ONLY as a layout guide — do NOT copy its characters or the "GUNNY" logo.
+FUNCTIONAL AREA (must keep): the empty light oval window with an ornate golden frame at the bottom center (same position and size as in the reference) — leave it empty inside. Keep the decorative golden border around the whole panel.
+Content: dark night version, starry sky, a NEW original chibi character on the left (e.g. a girl with a big flower hair clip holding a bomb) and a NEW cute pet/mascot with a treasure chest on the right, a shiny "DDReborn" logo at the top center (golden letters D-D / R-E-B-O-R-N, spelled exactly once).
+No other text. No other game/server names or logos. Hand-painted cartoon, not photorealistic, not 3D.
+Format: wide strip, keep the 461:200 proportion (about 2.3:1) — if not available, generate 16:9 with the panel centered and plain flat #00FF00 green outside it.

@@ -73,6 +73,7 @@ function prompt(r, cat, src) {
     "LAYOUT (strict): same framing, same shape and silhouette, same proportions, every element in the same place and size. Do NOT add, remove, move, zoom, crop, rotate or change perspective. No new characters, objects, logos or emblems.",
     "STYLE: same hand-painted cartoon casual-game art (DDTank/Gunny), same palette family, cleaner lines, sharper details, higher resolution, polished modern game art. NOT photorealistic, NOT 3D render, NOT a diorama.",
     "DARK MODE: shift light/cream/beige UI surfaces to deep navy/charcoal with the same gold/colored trims and accents; keep icons and characters in their original colors; everything stays readable.",
+    'BRAND (strict): our game is "DDReborn". Any game or server logo/name in the original (Gunny, NewGun, DDTank, 7Road, Vietnamese/Chinese server names, watermarks, URLs) must be replaced by the logo text "DDReborn" in the same style and place, or removed if it is just a small watermark. Never write other brand names.',
   ];
   if (pt) {
     lines.push(`TEXT (strict): the ONLY text in the image is exactly "${pt}" (Brazilian Portuguese), written once, in the same place, same font style (chunky cartoon game lettering), same colors, outline, gradient and shadow as the original text. No other letters, numbers or words.`);
@@ -97,7 +98,7 @@ function prompt(r, cat, src) {
 }
 
 // Hand-written prompts that must never be overwritten by the generator.
-const CUSTOM = (p) => existsSync(p) && /^(Remaster of the attached reference image — the town lobby|New loading screen)/.test(readFileSync(p, "utf8"));
+const CUSTOM = (p) => existsSync(p) && /^(Remaster of the attached reference image — the town lobby|New loading screen|NEW ART)/.test(readFileSync(p, "utf8"));
 
 mkdirSync(OUT, { recursive: true });
 const manifest = ["category,file,source_swf,source_file,width,height,pt_br"];

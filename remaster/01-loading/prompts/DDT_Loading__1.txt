@@ -1,7 +1,7 @@
-REMASTER of the attached reference image: a full-screen LOADING SCREEN illustration (keep the progress bar frame exactly where it is) from the 2D cartoon game DDTank. Reproduce THE SAME asset, only better rendered — this is not a new design.
-LAYOUT (strict): same framing, same shape and silhouette, same proportions, every element in the same place and size. Do NOT add, remove, move, zoom, crop, rotate or change perspective. No new characters, objects, logos or emblems.
-STYLE: same hand-painted cartoon casual-game art (DDTank/Gunny), same palette family, cleaner lines, sharper details, higher resolution, polished modern game art. NOT photorealistic, NOT 3D render, NOT a diorama.
-DARK MODE: shift light/cream/beige UI surfaces to deep navy/charcoal with the same gold/colored trims and accents; keep icons and characters in their original colors; everything stays readable.
-TEXT: if the original has text, keep it in the same place but write it in Brazilian Portuguese with the same lettering style; never invent new text, numbers or labels.
-BACKGROUND: same as the original (no new scenery around it).
-FORMAT: aspect ratio 16:9 (original 1000x600px); generate at high resolution, it will be downscaled to the exact size.
+NEW ART (not a remaster): brand-new full-screen loading screen illustration for the 2D cartoon artillery game "DDReborn", in the DDTank / Gunny art style. Use the attached image ONLY as a layout guide for the progress bar position — do NOT copy its characters, gate, lanterns or logo.
+FUNCTIONAL AREA (must keep): the ornate golden progress-bar frame at the bottom center, same position and size as in the reference (from about 23% to 78% of the width, at about 88-96% of the height), empty inside. Keep the area just above it uncluttered.
+Style: premium casual-game key art, hand-painted cartoon, bright saturated colors, clean outlines, chibi characters with big heads and big shiny eyes. NOT photorealistic, NOT 3D.
+Scene: NIGHT — dark starry sky, glowing moon, colorful rim lights. NEW original characters: a chibi pirate captain boy with a skull hat and goggles leaping with a cannon, a chibi girl mage with a glowing staff, a big angry dark-purple cartoon bomb monster with glowing red eyes, a small cute floating pet. Golden sparkles and magic trails.
+Logo: a shiny "DDReborn" logo at the top center (chunky golden letters, red outline: top line D-D, bottom line R-E-B-O-R-N, spelled exactly once).
+No other text. No other game/server names or logos (no Gunny, no NewGun, no DDTank logo).
+Aspect ratio 5:3 (final 1000x600). If 5:3 is not available use 16:9 and keep everything important inside the central 94% of the width.

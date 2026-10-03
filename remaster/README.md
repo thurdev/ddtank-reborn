@@ -40,3 +40,8 @@ Quando tiver algumas prontas, me avise: eu redimensiono para o tamanho exato, re
 - Assets muito largos/finos: desenhados como uma faixa centralizada no verde (eu recorto).
 - Dark mode nas superfícies claras de UI; ícones e personagens mantêm as cores.
 - Se a saída tiver texto duplicado/errado, logo de outro jogo ou coisa inventada: renomeie para `.REFAZER.png` e gere de novo.
+
+## Arte NOVA vs remaster
+- **UI do jogo** (janelas, botões, ícones, saguão): REMASTER — mesmo design e posições, só mais bonito/dark mode/PT-BR.
+- **Fora da UI** (página Jogar do site, telas de loading, banners): ARTE NOVA no estilo DDTank, com personagens novos e logo **DDReborn** — o original serve só de guia para as áreas funcionais (barra de progresso, janelas que o cliente usa).
+- Marca: sempre **DDReborn**. Nunca Gunny/NewGun/DDTank/outros servidores.
