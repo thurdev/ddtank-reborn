@@ -852,3 +852,71 @@ NÃO vêm de `EquipType.PARTNAME`, é outra fonte ainda não localizada, mesmo i
 
 Detalhes completos (incluindo a lista de requisições de rede e os screenshots de verificação) em
 `research/i18n/ui-sweep.md`.
+
+## [PARCIAL] Lote visual dark/night mode (agente 2026-10-03) — chrome compartilhado escurecido; IA bloqueada (sem crédito grátis)
+
+Tentativa do item 7 pendente (dark mode / night mode / prédios em alta qualidade, ver topo do arquivo) +
+`research/i18n/needs-ai.md`/`needs-ai-batch2.md` (imagens que só a IA resolve) + `research/i18n/ui-sweep.md`
+("reverted images" / legendas de slot do boneco de papel ainda VN).
+
+**Higgsfield: checado, sem geração grátis disponível nesta sessão — nada foi gasto.**
+`mcp__higgsfield__balance` → `{"credits":8.2,"subscription_plan_type":"pro"}` (créditos PAGOS da assinatura
+Pro, não um saldo grátis). `show_plans_and_credits` → `"trial_status":{"eligible":false,"status":"pending",...}`
+e `"unlim_trial_in_mcp_active":false` — ou seja, a cota de "~2 mil gerações grátis" dos modelos
+próprios da Higgsfield mencionada no ROADMAP **não está ativa nesta conta agora** (`models_explore
+unlim:true` lista vários modelos com `supports_unlim:true`, mas `unlim.available:false` no retorno). Preflight
+de custo confirmado (sem gastar): `nano_banana` = 1 crédito/imagem, `gpt_image_2` low/1k = 0,5 crédito —
+daria pra fazer ~8-16 gerações com os 8,2 créditos pagos, mas a instrução da tarefa foi explícita (não gastar
+crédito pago, só o que for realmente grátis) — como não há cota grátis ativa, **nenhuma chamada
+`generate_image`/`upscale_image`/etc. foi feita**. Itens 1 (loading screen), 2 (hall em night mode) e 4
+(inpaint PT-BR dos itens do `needs-ai.md`) continuam **bloqueados**, não por falta de ferramenta, e sim por
+falta de geração grátis disponível — re-tentar quando a cota mensal da Higgsfield resetar (`show_credit_reset`)
+ou quando o usuário décidir gastar os créditos pagos/comprar mais.
+
+**Recraft: sem conector neste ambiente (confirmado, nenhum MCP/tool `recraft*` disponível).** Escrito
+`tools/i18n/ai/recraft.mjs` — não executado (sem `RECRAFT_API_KEY`), mas pronto: define os 5 alvos de
+`needs-ai.md` (loading splash, hall battleLABS comic, roomlist dungeon banner, wonderfulactivity banner,
+awardsystem roulette bg) com prompt PT-BR e modo (`imageToImage` vs `inpaint`) por alvo, lê o PNG/JPG já
+exportado pelo pipeline existente (`ffdec_out`), grava a resposta da API em `research/i18n/ai-out/<id>/` pra
+quem tiver a key rodar depois sem reconstruir a integração: `RECRAFT_API_KEY=sk-... node
+tools/i18n/ai/recraft.mjs <id>`.
+
+**O que DEU pra fazer sem IA (item 3, dark-mode da UI — método determinístico, como o ROADMAP pediu
+preferir): recolorido o chrome 9-slice COMPARTILHADO de verdade.** Achado via inspeção do cache de export
+do FFDec (`ffdec_out/*/`. busca por `*scale9*` em todos os 119 SWFs exportados): o jogo usa o framework AS3
+`com.pickgliss.ui` (já identificado em sessões anteriores pelo sweep de ABC strings) e as peças de borda
+9-slice (`Scale9CornerImage`/`ddtScale9CornerImage`/`NewScale9CornerImage`/`scale9Core2`/`BorderScale9Image`,
+cada uma dividida em 9 tiles `§1§`..`§9§`: 4 cantos + 4 bordas + 1 centro) ficam concentradas em dois SWFs que
+funcionam como biblioteca compartilhada: `corescalebitmap.swf` (184 tiles) e `ddtcorescalebitmap.swf` (162
+tiles) — 346 tiles no total, referenciados também por `quest.swf`/`roadcomponent.swf`/`corei.swf`/`task.swf`/
+`firsttainer.swf` (confirmado por nome de asset duplicado entre SWFs). As janelas grandes e ornamentadas
+(bag/personagem, shop, configurações) **não** usam esse chrome — têm arte de moldura própria embutida por
+SWF (`bagAndInfo.*FrameBg`, etc.), confirmado ao vivo (screenshot depois do recolor: moldura da janela de
+bag/settings continuou no tom bege original) — então o escopo real "compartilhado" é mais estreito do que
+"toda janela do jogo", mas é o único chrome genuinamente reusado entre múltiplos componentes.
+
+Script novo `tools/i18n/images/dark-mode-skins.mjs` (sharp, sem IA): converte RGB→HSL por pixel opaco,
+mantém o matiz (H) igual ao original (mesma identidade de material — madeira/pedra — só mais escura, não uma
+paleta nova), aumenta levemente a saturação (×1.15, teto 0,55 — cor escura sem boost fica "suja"), multiplica
+a luminância por 0,40 (escurece preservando a relação de contraste do bisel/realce em vez de inverter ou
+achatar) com piso 0,02 e teto 0,82. Canal alfa e dimensões em pixel copiados byte a byte, sem alteração —
+não mexe em forma/âncora/tamanho, só cor. Rodado sobre as 346 tiles, reempacotado com o mesmo mecanismo do
+`pack.sh` (ffdec `-importImages`) direto em `apps/api/assets/flash/ui/vietnam/swf/{core,ddtcore}scalebitmap.swf`.
+
+**Verificado ao vivo** (`pnpm dev:all`, test/test, Playwright 1400x950): tooltip de item (hover num slot do
+boneco de papel na janela de bag) agora renderiza com fundo marrom-escuro/preto em vez do bege claro
+original — confirma que o chrome compartilhado está mesmo escurecido no cliente servido.
+Screenshots em `research/i18n/darkmode-verify/` (`02-hall.png` = hall ainda em modo dia, não tentado nesta
+sessão; `03-bag.png`/`04-settings.png` = molduras grandes continuam no tom original, confirmando que não usam
+esse chrome; `05-tooltip.png` = prova de que o recolor está live).
+
+**Não feito nesta sessão (ordem de prioridade pro próximo lote, quando houver geração grátis/crédito
+liberado)**:
+1. Loading screen(s) PT-BR + dark/night (precisa IA, `needs-ai.md` já tem o texto).
+2. Hall em night mode (precisa redesenho em camada, `needs-ai.md`/ROADMAP item 2).
+3. Molduras grandes por janela (bag/shop/settings/etc.) — não cobertas pelo recolor determinístico porque não
+   são o chrome compartilhado; precisaria achar e recolorir a arte bespoke de cada uma individualmente
+   (dezenas de texturas `*FrameBg` distintas, risco maior de tocar em arte não-skin na mesma bitmap).
+4. Itens do `needs-ai.md`/`needs-ai-batch2.md` (inpaint de texto VN em arte pintada) — precisa IA.
+5. `research/i18n/ai-out/` e `before-after.html` não atualizados (nada gerado por IA nesta sessão pra
+   adicionar lá — o antes/depois do item 3 está em `darkmode-verify/` em vez disso).
