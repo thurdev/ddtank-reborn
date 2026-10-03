@@ -14,33 +14,33 @@
 | Área | Linhas | ok | partial | stub | missing | broken | verificado no cliente |
 |---|---|---|---|---|---|---|---|
 | Amigos | 12 | 6 | 0 | 0 | 6 | 0 | 0 |
-| Bolsa/Inventário | 27 | 11 | 3 | 0 | 13 | 0 | 8 |
+| Bolsa/Inventário | 27 | 18 | 2 | 7 | 0 | 0 | 8 |
 | Boss mundial/Minigames | 7 | 0 | 6 | 0 | 1 | 0 | 4 |
 | Cartas | 8 | 4 | 0 | 0 | 4 | 0 | 2 |
 | Casamento | 24 | 9 | 13 | 0 | 2 | 0 | 0 |
-| Combate (GAME_CMD) | 39 | 0 | 35 | 0 | 4 | 0 | 4 |
+| Combate (GAME_CMD) | 39 | 31 | 2 | 6 | 0 | 0 | 4 |
 | Configurações | 2 | 1 | 0 | 0 | 1 | 0 | 0 |
 | Conta/Login | 6 | 4 | 0 | 0 | 2 | 0 | 0 |
 | Correio | 7 | 6 | 0 | 0 | 1 | 0 | 0 |
 | Escola/Aprendiz | 4 | 4 | 0 | 0 | 0 | 0 | 0 |
 | Eventos/Atividades | 37 | 12 | 10 | 9 | 6 | 0 | 2 |
-| Fazenda | 14 | 0 | 14 | 0 | 0 | 0 | 0 |
-| Ferreiro | 16 | 4 | 2 | 0 | 10 | 0 | 1 |
+| Fazenda | 14 | 1 | 13 | 0 | 0 | 0 | 0 |
+| Ferreiro | 16 | 6 | 2 | 8 | 0 | 0 | 1 |
 | GvG/Liga | 4 | 0 | 4 | 0 | 0 | 0 | 0 |
 | Leilão | 3 | 1 | 2 | 0 | 0 | 0 | 0 |
 | Lobby/Chat/Bugle | 10 | 9 | 0 | 0 | 1 | 0 | 0 |
 | Loja | 7 | 2 | 1 | 0 | 4 | 0 | 1 |
 | Missões | 23 | 15 | 2 | 1 | 5 | 0 | 5 |
-| Outros | 16 | 6 | 2 | 0 | 8 | 0 | 1 |
+| Outros | 16 | 6 | 2 | 1 | 7 | 0 | 1 |
 | Personagem/FC | 3 | 1 | 0 | 0 | 2 | 0 | 0 |
-| Pets | 17 | 0 | 17 | 0 | 0 | 0 | 2 |
+| Pets | 17 | 13 | 0 | 4 | 0 | 0 | 2 |
 | PvE/Masmorras | 9 | 0 | 7 | 0 | 2 | 0 | 0 |
 | Salas PvP | 21 | 17 | 0 | 0 | 4 | 0 | 0 |
 | Sociedade/Guilda | 28 | 25 | 1 | 2 | 0 | 0 | 12 |
 | Spa/Fonte termal | 14 | 13 | 0 | 1 | 0 | 0 | 5 |
 | Totem/Honra | 2 | 0 | 0 | 0 | 2 | 0 | 0 |
 | VIP | 1 | 1 | 0 | 0 | 0 | 0 | 1 |
-| **Total** | 361 | 151 | 119 | 13 | 78 | 0 | 48 |
+| **Total** | 361 | 205 | 67 | 39 | 50 | 0 | 48 |
 
 ## Amigos
 
@@ -63,33 +63,33 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `sendChangeDesignation` | `bagAndInfo/info/PlayerInfoView.as` | 34 USER_RANK |  | missing | no |  |
+| `sendChangeDesignation` | `bagAndInfo/info/PlayerInfoView.as` | 34 USER_RANK |  | ok | no | USER_RANK implementado (ChangeDesignationHandler.cs): mostra/esconde o selo da guilda sobre o personagem (IsShowConsortia). |
 | `sendMoveGoods` | `bagAndInfo/bag/BagView.as`<br>`bagAndInfo/bag/BankBagView.as`<br>`bagAndInfo/cell/BagCell.as` (+33) | 49 CHANGE_PLACE_GOODS |  | partial | yes | Mover para o ferreiro/equipar. Banco da guilda (bolsa 11): StoreLevel × 10 espaços, depósito/retirada ok (research/e2e/guild/g40-bank-deposit.png). |
 | `sendHideLayer` | `bagAndInfo/info/PlayerInfoView.as` | 60 ITEM_HIDE |  | ok | no |  |
-| `sendGoodsContinue` | `ddt/view/goods/AddPricePanel.as`<br>`equipDebt/view/EquipAddMoneyFrame.as`<br>`shop/view/ShopRechargeEquipView.as` | 62 ITEM_CONTINUE |  | missing | no |  |
+| `sendGoodsContinue` | `ddt/view/goods/AddPricePanel.as`<br>`equipDebt/view/EquipAddMoneyFrame.as`<br>`shop/view/ShopRechargeEquipView.as` | 62 ITEM_CONTINUE |  | ok | no | ITEM_CONTINUE implementado (UserItemContineueHandler.cs): estende o ValidDate do item usando o preço da loja (tiers A/B/C, igual BUY_GOODS via setItemType). Testado por código/typecheck, não clicado. |
 | `sendItemOpenUp` | `bagAndInfo/bag/BagView.as`<br>`bagAndInfo/bag/OpenBatchView.as` | 63 ITEM_OPENUP |  | ok | yes | Caixa (Túi quà mũi khoan) aberta: itens chegam e empilham na bolsa, caixa consumida antes de dar (sem dupe). — evidência: research/e2e/qa/b14-box-opened.png, b15-after-box.png |
-| `sendUseProp` | `bagAndInfo/bag/BagView.as` | 66 PROP_USE |  | missing | no |  |
-| `sendAddPet` | `bagAndInfo/bag/BagView.as` | 68 PET | ADD_PET=2 | partial | yes | Ovo de pet (cat. 35) chocado: CreatePet + 68/2 (janela de pet recebido), pet aparece na aba Thú cưng. — evidência: research/e2e/batch4/07-hatch.png, research/e2e/batch4/08-pet-bag.png |
+| `sendUseProp` | `bagAndInfo/bag/BagView.as` | 66 PROP_USE |  | stub | no | PROP_USE (código 66, fora de luta): morto no próprio original — nenhum [PacketHandler(66,...)] registrado (não confundir com 91/PROP=32, usado em luta, esse sim implementado). |
+| `sendAddPet` | `bagAndInfo/bag/BagView.as` | 68 PET | ADD_PET=2 | ok | yes | Ovo de pet (cat. 35) chocado: CreatePet + 68/2 (janela de pet recebido), pet aparece na aba Thú cưng. — evidência: research/e2e/batch4/07-hatch.png, research/e2e/batch4/08-pet-bag.png |
 | `sendItemEquip` | `bagAndInfo/info/PlayerInfoViewControl.as`<br>`eliteGame/view/EliteGamePaarungFrame.as`<br>`email/view/ReadingView.as` (+2) | 74 ITEM_EQUIP |  | ok | no | FC (Lực chiến) calculado pela fórmula original (apps/game/src/game/stats.ts) e enviado em 67/login/ranking: 2091 no Thur conferido à mão. — evidência: research/e2e/qa/b2-bag.png |
-| `sendItemOverDue` | `ddt/data/goods/InventoryItemInfo.as`<br>`ddt/data/player/SelfInfo.as` | 77 ITEM_OVERDUE |  | missing | no |  |
-| `sendUseProp` | `bagAndInfo/bag/BagView.as` | 91 GAME_CMD | PROP=32 | partial | yes | Props 1/2/3 (+1 tiro / x3 / +2) usados na luta e aplicados ao tiro. — evidência: research/e2e/batch4/20-props.png, research/e2e/batch4/22-shot2.png |
+| `sendItemOverDue` | `ddt/data/goods/InventoryItemInfo.as`<br>`ddt/data/player/SelfInfo.as` | 77 ITEM_OVERDUE |  | stub | no | ITEM_OVERDUE: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(77,...)] registrado. |
+| `sendUseProp` | `bagAndInfo/bag/BagView.as` | 91 GAME_CMD | PROP=32 | ok | yes | Props 1/2/3 (+1 tiro / x3 / +2) usados na luta e aplicados ao tiro. — evidência: research/e2e/batch4/20-props.png, research/e2e/batch4/22-shot2.png |
 | `sendTexp` | `bagAndInfo/bag/BagView.as`<br>`texpSystem/view/TexpView.as` | 99 TEXP |  | ok | yes | Tu luyện: poção na StoreBag[0] → exp Tấn công 100/250, nível 4, stats atualizados. — evidência: research/e2e/batch4/17-texp-a.png, research/e2e/batch4/17-texp-done.png |
 | `sendClearStoreBag` | `bagAndInfo/BagAndGiftFrame.as`<br>`bagAndInfo/BagAndInfoManager.as`<br>`ddt/bagStore/BagStoreFrame.as` (+6) | 122 CLEAR_STORE_BAG |  | ok | no |  |
 | `sendMoveGoodsAll` | `ddt/data/BagInfo.as` | 124 CHANGE_PLACE_GOODS_ALL |  | ok | no |  |
 | `reclaimGoods` | — | 127 REClAIM_GOODS |  | ok | yes | Varredura do básico pt.2: clicado item (Mũi khoan cấp 1 x5) então 'Bán' → confirmação 'Bạn muốn bán 5 cái, giá 200 Vàng' → OK → 'Bạn nhận được 200 vàng', Gold +200, item removido da bolsa. |
-| `sendUpdateGoodsCount` | `bagAndInfo/BagAndGiftFrame.as`<br>`shop/ShopController.as` | 168 GOODS_COUNT |  | missing | no |  |
-| `sendUseReworkName` | `bagAndInfo/ReworkName/ReworkNameFrame.as` | 171 USE_REWORK_NAME |  | missing | no |  |
-| `sendChangeColor` | `changeColor/view/ChangeColorRightView.as` | 182 USE_COLOR_CARD |  | missing | no |  |
+| `sendUpdateGoodsCount` | `bagAndInfo/BagAndGiftFrame.as`<br>`shop/ShopController.as` | 168 GOODS_COUNT |  | partial | no | GOODS_COUNT implementado (GoodsCountHandler.cs) respondendo lista vazia: o estoque diário global (WorldMgr.GetAllShopFreeCount) não é rastreado neste port — o ShopID 20 já é limitado por jogador (ver 44 BUY_GOODS), não por estoque global, então não há nada pra reportar. Mesmo desvio documentado em HANDLERS.md. |
+| `sendUseReworkName` | `bagAndInfo/ReworkName/ReworkNameFrame.as` | 171 USE_REWORK_NAME |  | stub | no | USE_REWORK_NAME: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(171,...)] registrado. |
+| `sendChangeColor` | `changeColor/view/ChangeColorRightView.as` | 182 USE_COLOR_CARD |  | ok | no | USE_COLOR_CARD implementado (UserChangeItemColorHandler.cs): recolore um slot do EquipBag usando um item de cor do PropBag ou Xu (preço do Shop pelo templateId, APrice1=-1). |
 | `sendUseCard` | `bagAndInfo/bag/BagView.as`<br>`ddt/view/buff/buffButton/BuffButton.as`<br>`game/view/propContainer/RightPropView.as` (+1) | 183 CARD_USE |  | ok | yes | Cartão VIP (P1 23) agora ativa VIP (ícone VIP 1 no perfil); EXP x2 (13) e GP pill (21) como antes. — evidência: research/e2e/batch4/15-vipcard.png |
-| `sendUseConsortiaReworkName` | `bagAndInfo/ReworkName/ReworkNameConsortia.as` | 188 USE_CONSORTIA_REWORK_NAME |  | missing | no |  |
-| `sendReworkRank` | `bagAndInfo/info/PlayerInfoEffortHonorView.as` | 189 USER_CHANGE_RANK |  | missing | no |  |
-| `sendUseChangeColorShell` | `bagAndInfo/bag/BagView.as` | 205 USE_CHANGE_COLOR_SHELL |  | missing | no |  |
+| `sendUseConsortiaReworkName` | `bagAndInfo/ReworkName/ReworkNameConsortia.as` | 188 USE_CONSORTIA_REWORK_NAME |  | stub | no | USE_CONSORTIA_REWORK_NAME: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(188,...)] registrado. |
+| `sendReworkRank` | `bagAndInfo/info/PlayerInfoEffortHonorView.as` | 189 USER_CHANGE_RANK |  | ok | no | USER_CHANGE_RANK implementado (ReworkRankHandler.cs): troca o título exibido por um dos títulos que o jogador já possui (player."Sys_User_Rank"); NewTitleID continua 0 (tabela de definição de título nunca migrada, mesma lacuna documentada em HANDLERS.md "Player stats"). |
+| `sendUseChangeColorShell` | `bagAndInfo/bag/BagView.as` | 205 USE_CHANGE_COLOR_SHELL |  | stub | no | USE_CHANGE_COLOR_SHELL: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(205,...)] registrado. |
 | `sendChangeColorShellTimeOver` | `ddt/data/goods/InventoryItemInfo.as` | 206 CHANGE_COLOR_OVER_DUE |  | ok | no |  |
 | `sendFirstGetCards` | `bagAndInfo/bag/BagView.as` | 216 CARDS_DATA |  | ok | no |  |
-| `sendPlayerGift` | `bagAndInfo/info/PlayerInfoFrame.as`<br>`ddt/manager/PlayerManager.as`<br>`ddt/manager/ServerManager.as` | 218 USER_GET_GIFTS |  | missing | no |  |
-| `sendEquipRetrieve` | `equipretrieve/view/RetrieveBgView.as` | 222 EQUIP_RECYCLE_ITEM |  | missing | no |  |
+| `sendPlayerGift` | `bagAndInfo/info/PlayerInfoFrame.as`<br>`ddt/manager/PlayerManager.as`<br>`ddt/manager/ServerManager.as` | 218 USER_GET_GIFTS |  | ok | no | USER_GET_GIFTS implementado (UserGetGiftHandler.cs): lista todos os presentes já recebidos, somados por TemplateID. Achado: o original registra DUAS classes no código 218 (PlayerGiftHandler, um no-op de 1 int, e UserGetGiftHandler, o de verdade) — a reflexão do dicionário do C# favorece uma delas; este port implementa a significativa (UserGetGiftHandler), que bate com o nome do pacote USER_GET_GIFTS. |
+| `sendEquipRetrieve` | `equipretrieve/view/RetrieveBgView.as` | 222 EQUIP_RECYCLE_ITEM |  | stub | no | EQUIP_RECYCLE_ITEM: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(222,...)] registrado. |
 | `sendChangeSex` | `bagAndInfo/bag/BagView.as` | 252 USE_CHANGE_SEX |  | ok | yes | Varredura pt.3 (2026-10-02): a pista da pt.2 (double-click só em `_equiplist`) era incompleta — o gatilho real é `__cellUse` (BagView.as:1385-1451), ligado ao evento `CellMenu.USE`, que `_proplist` alcança via single-click → `__cellClick` (BagView.as:1102) → `CellMenu.instance.show()` quando `EquipType.canBeUsed()` é true (é, para CategoryID==CHANGE_SEX). Confirmado no cliente real: item 11569 (Đạo cụ) → clique único abre CellMenu com 'Sử dụng'/'Di chuyển' → 'Sử dụng' abre o `ChangeSexAlertFrame` ('Bạn muốn chuyển giới?...') → 'Đồng ý' → `Sex` false→true no banco, item consumido (`IsExist=false`). Nenhum patch de cliente foi necessário — é um gesto normal de jogo (como qualquer item 'usável' da Đạo cụ), só não documentado antes. Também corrigido: o handler só salvava no autosave de 10 min (`SAVE_INTERVAL_MIN`); agora chama `saveIntoDatabase` direto após o uso (`apps/game/src/handlers/items.ts` 252), como 179/mail/consortia. |
-| `sendNewTitleCard` | `bagAndInfo/bag/BagView.as` | 265 NEWTITLE_CARD |  | missing | no |  |
+| `sendNewTitleCard` | `bagAndInfo/bag/BagView.as` | 265 NEWTITLE_CARD |  | stub | no | NEWTITLE_CARD: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(265,...)] registrado. |
 
 ## Boss mundial/Minigames
 
@@ -149,45 +149,45 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `sendThrowProp` | `ddt/manager/GameInSocketOut.as` | 75 CrazyTankPackageType.PROP_DELETE |  | missing | no |  |
-| `createMonster` | — | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | yes | Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14). — evidência: research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png |
-| `deleteMonster` | — | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | no | Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14). — evidência: research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png |
-| `sendAirPlane` | `game/model/LocalPlayer.as` | 91 GAME_CMD | AIRPLANE=40 | partial | no |  |
-| `sendBeat` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | BEAT=22 | partial | no |  |
-| `sendBossTakeOut` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | BOSS_TAKE_CARD=130 | partial | no |  |
-| `sendClientScriptEnd` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | yes | Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14). — evidência: research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png |
-| `sendClientScriptStart` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | no |  |
-| `sendFightLibAnswer` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | no | Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14). — evidência: research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png |
-| `sendFightLibInfoChange` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD |  | partial | no |  |
-| `sendFightLibReanswer` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GENERAL_COMMAND=23 | partial | no | Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14). — evidência: research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png |
-| `sendFlagMode` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | WANNA_LEADER=97 | partial | no |  |
-| `sendGameCMDBlast` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | BLAST=3 | partial | no |  |
-| `sendGameCMDChange` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | CHANGEBALL=19 | partial | no |  |
-| `sendGameCMDDirection` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | DIRECTION=7 | partial | no |  |
-| `sendGameCMDShoot` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | FIRE=2 | partial | yes | Tiro com base attack real (stats.ts), dano 1192, vitória e retorno à sala. — evidência: research/e2e/batch4/21-shot.png, research/e2e/batch4/23-after.png, research/e2e/batch4/25-pvp-end.png |
-| `sendGameCMDStunt` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | STUNT=15 | partial | no |  |
-| `sendGameMissionPrepare` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GAME_MISSION_PREPARE=116 | partial | no |  |
-| `sendGamePick` | `game/model/LocalPlayer.as` | 91 GAME_CMD | PICK=49 | partial | no |  |
-| `sendGameSkipNext` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | SKIPNEXT=12 | partial | no |  |
-| `sendGameStartMove` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | MOVESTART=9 | partial | no |  |
-| `sendGameStopMove` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | MOVESTOP=10 | partial | no |  |
-| `sendGameTakeOut` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | TAKE_CARD=98 | partial | no |  |
-| `sendGhostTarget` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GHOST_TARGET=54 | partial | no |  |
-| `sendKillSelf` | — | 91 GAME_CMD | KILLSELF=21 | partial | no |  |
-| `sendLoadingProgress` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | LOAD=16 | partial | no |  |
-| `sendMissionTryAgain` | `ddt/manager/GameInSocketOut.as` | 91 91 |  | partial | no |  |
-| `sendPassStory` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | PASS_STORY=133 | partial | no |  |
-| `sendPaymentTakeCard` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | PAYMENT_TAKE_CARD=114 | partial | no |  |
-| `sendPetSkill` | `game/view/prop/PetSkillBar.as` | 91 GAME_CMD | PET_SKILL=144 | partial | no |  |
-| `sendShootTag` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | FIRE_TAG=96 | partial | no |  |
-| `sendSuicide` | — | 91 GAME_CMD | SUICIDE=17 | partial | no |  |
-| `sendTransmissionGate` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | DELIVER=137 | partial | no |  |
-| `sendUpdatePlayStep` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | MISSION_CMD=25 | partial | no |  |
-| `useDeputyWeapon` | — | 91 GAME_CMD | USE_DEPUTY_WEAPON=84 | partial | no |  |
+| `sendThrowProp` | `ddt/manager/GameInSocketOut.as` | 75 CrazyTankPackageType.PROP_DELETE |  | ok | no | PROP_DELETE implementado (PropDeleteHandler.cs): descarta o item da FightBag (mão de props em luta). Testado por código, não clicado. |
+| `createMonster` | — | 91 GAME_CMD | GENERAL_COMMAND=23 | ok | yes | Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14). — evidência: research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png |
+| `deleteMonster` | — | 91 GAME_CMD | GENERAL_COMMAND=23 | ok | no | Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14). — evidência: research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png |
+| `sendAirPlane` | `game/model/LocalPlayer.as` | 91 GAME_CMD | AIRPLANE=40 | ok | no |  |
+| `sendBeat` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | BEAT=22 | stub | no | BEAT (sub 22): morto no próprio original, mesma varredura de sendGameCMDBlast (nenhum GameCommand(22,...)). |
+| `sendBossTakeOut` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | BOSS_TAKE_CARD=130 | ok | no |  |
+| `sendClientScriptEnd` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GENERAL_COMMAND=23 | ok | yes | Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14). — evidência: research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png |
+| `sendClientScriptStart` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GENERAL_COMMAND=23 | ok | no |  |
+| `sendFightLibAnswer` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GENERAL_COMMAND=23 | ok | no | Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14). — evidência: research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png |
+| `sendFightLibInfoChange` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD |  | ok | no |  |
+| `sendFightLibReanswer` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GENERAL_COMMAND=23 | ok | no | Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14). — evidência: research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png |
+| `sendFlagMode` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | WANNA_LEADER=97 | stub | no | WANNA_LEADER (sub 97, WannaLeadCommand.cs): registrado no original mas com HandleCommand vazio — no-op confirmado lendo o arquivo, não código morto por falta de registro (diferente de BLAST/CHANGEBALL/BEAT/KILLSELF). Mesmo efeito observável: port apenas consome o pacote. |
+| `sendGameCMDBlast` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | BLAST=3 | stub | no | BLAST (sub 3): morto no próprio original — nenhuma classe Game.Logic.Cmd.* carrega GameCommand(3,...) (CommandMgr.cs varre por reflexão; confirmado via grep em vendor/DDTank41/Game.Logic/Cmd/*.cs). Pacote aceito e descartado, sem crash (test/fight.test.ts). |
+| `sendGameCMDChange` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | CHANGEBALL=19 | stub | no | CHANGEBALL (sub 19): morto no próprio original, mesma varredura de sendGameCMDBlast (nenhum GameCommand(19,...)). |
+| `sendGameCMDDirection` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | DIRECTION=7 | ok | no |  |
+| `sendGameCMDShoot` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | FIRE=2 | ok | yes | Tiro com base attack real (stats.ts), dano 1192, vitória e retorno à sala. — evidência: research/e2e/batch4/21-shot.png, research/e2e/batch4/23-after.png, research/e2e/batch4/25-pvp-end.png |
+| `sendGameCMDStunt` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | STUNT=15 | ok | no |  |
+| `sendGameMissionPrepare` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GAME_MISSION_PREPARE=116 | ok | no |  |
+| `sendGamePick` | `game/model/LocalPlayer.as` | 91 GAME_CMD | PICK=49 | ok | no |  |
+| `sendGameSkipNext` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | SKIPNEXT=12 | ok | no |  |
+| `sendGameStartMove` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | MOVESTART=9 | ok | no |  |
+| `sendGameStopMove` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | MOVESTOP=10 | stub | no | MOVESTOP (sub 10, MoveStopCommand.cs): mesmo caso de sendFlagMode — registrado, HandleCommand vazio, no-op confirmado no original. |
+| `sendGameTakeOut` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | TAKE_CARD=98 | ok | no |  |
+| `sendGhostTarget` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GHOST_TARGET=54 | ok | no |  |
+| `sendKillSelf` | — | 91 GAME_CMD | KILLSELF=21 | stub | no | KILLSELF (sub 21): morto no próprio original, mesma varredura de sendGameCMDBlast (nenhum GameCommand(21,...)). |
+| `sendLoadingProgress` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | LOAD=16 | ok | no |  |
+| `sendMissionTryAgain` | `ddt/manager/GameInSocketOut.as` | 91 91 |  | ok | no |  |
+| `sendPassStory` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | PASS_STORY=133 | ok | no |  |
+| `sendPaymentTakeCard` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | PAYMENT_TAKE_CARD=114 | ok | no | PAYMENT_TAKE_CARD (sub 114) implementado (PaymentTakeCardCommand.cs): paga 486 Xu (437 VIP) por um flip de carta extra (CanTakeOut++) e chama TakeCard. Desvio: o fast-path do buff Card_Get (BuffType 73, uso gratuito) não foi portado — sempre cobra Xu. Testado: apps/game/test/fight.test.ts "GAME_CMD 114 PAYMENT_TAKE_CARD charges Money and grants one extra pick" (saldo de Xu debitado e resposta 91/98 isAuto=false confirmados). |
+| `sendPetSkill` | `game/view/prop/PetSkillBar.as` | 91 GAME_CMD | PET_SKILL=144 | ok | no |  |
+| `sendShootTag` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | FIRE_TAG=96 | ok | no |  |
+| `sendSuicide` | — | 91 GAME_CMD | SUICIDE=17 | ok | no |  |
+| `sendTransmissionGate` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | DELIVER=137 | partial | no | DELIVER (sub 137, TransmissionGateCommand.cs) é real no original (marca o jogador Ready entre fases de masmorra multi-andar e chama game.CheckState) mas não foi portado nesta sessão — a funcionalidade de encadeamento de andares de PvE que ele desbloqueia não existe neste motor ainda (mesma lacuna do tipo de sala PvE do Labirinto, ver BACKLOG/HANDLERS.md). O pacote é lido e descartado sem travar a conexão (confirmado em apps/game/test/fight.test.ts). |
+| `sendUpdatePlayStep` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | MISSION_CMD=25 | ok | no |  |
+| `useDeputyWeapon` | — | 91 GAME_CMD | USE_DEPUTY_WEAPON=84 | ok | no |  |
 | `sendWorldBossRoomStauts` | `game/actions/MissionOverAction.as`<br>`worldboss/WorldBossManager.as`<br>`worldboss/view/WorldBossFightRoomState.as` (+1) | 102 WORLDBOSS_CMD | STAUTS=36 | partial | yes | Luta PvE tipo 14 com o script do dragão portado (ACDragon/AC1243/WorldAcientDragon do DDT-6600 em packages/fight/src/pve/scripts/manual/worldboss.ts): o dragão aparece, fala e ataca (71087 de dano), HP inicial = HP global restante. Desvio: o jogador age antes do dragão (no 6600 o dragão one-shotava antes). Estado 3 não tira mais o jogador da sala do boss (corrigido: reviver dava 'Xu insuficiente'). — evidência: research/e2e/batch3/39-wb1.png, research/e2e/batch3/40-wb-myturn.png, research/e2e/batch3/45-wb-shot2.png |
-| `sendGetTropToBag` | `game/view/card/TakeOutCardController.as` | 108 GAME_TAKE_TEMP |  | missing | no |  |
-| `sendGetTropToBag` | `game/view/card/TakeOutCardController.as` | 108 GAME_TAKE_TEMP |  | missing | no |  |
-| `sendDefyAffiche` | `game/view/DefyAfficheViewFrame.as` | 123 DEFY_AFFICHE |  | missing | no |  |
+| `sendGetTropToBag` | `game/view/card/TakeOutCardController.as` | 108 GAME_TAKE_TEMP |  | ok | no | GAME_TAKE_TEMP implementado (GameTakeTempItemsHandler.cs): pega 1 (int place) ou todos (-1) os itens da TempBag pra bolsa real; sobra por correio. Achado: o branch `item.Template.BagType == eBageType.Card` do original é código morto (ItemTemplateInfo.BagType nunca retorna Card pra nenhum CategoryID — ItemTemplateInfo.cs:11-31) — omitido, toda carta/item passa pelo caminho normal. Testado em apps/game/test/handlers.test.ts (existente) + typecheck/test suite completa, não clicado. |
+| `sendGetTropToBag` | `game/view/card/TakeOutCardController.as` | 108 GAME_TAKE_TEMP |  | ok | no | GAME_TAKE_TEMP implementado (GameTakeTempItemsHandler.cs): pega 1 (int place) ou todos (-1) os itens da TempBag pra bolsa real; sobra por correio. Achado: o branch `item.Template.BagType == eBageType.Card` do original é código morto (ItemTemplateInfo.BagType nunca retorna Card pra nenhum CategoryID — ItemTemplateInfo.cs:11-31) — omitido, toda carta/item passa pelo caminho normal. Testado em apps/game/test/handlers.test.ts (existente) + typecheck/test suite completa, não clicado. |
+| `sendDefyAffiche` | `game/view/DefyAfficheViewFrame.as` | 123 DEFY_AFFICHE |  | ok | no | DEFY_AFFICHE implementado (DefyAfficheHandler.cs): cartaz de 500 Xu, repassado a todos os jogadores online (original repassava via Center/login server; processo único aqui = broadcast local equivalente). Testado por código, não clicado. |
 
 ## Configurações
 
@@ -274,7 +274,7 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `sendBuyPetExpItem` | `farm/viewx/FarmBuyExpFrame.as` | 68 PET | BUY_PET_EXP_ITEM=19 | partial | no |  |
+| `sendBuyPetExpItem` | `farm/viewx/FarmBuyExpFrame.as` | 68 PET | BUY_PET_EXP_ITEM=19 | ok | no |  |
 | `doMature` | — | 81 FARM | ACCELERATE_FIELD=3 | partial | no |  |
 | `enterFarm` | — | 81 FARM | ENTER_FARM=1 | partial | no |  |
 | `exitFarm` | — | 81 FARM | EXIT_FARM=16 | partial | no |  |
@@ -295,20 +295,20 @@
 |---|---|---|---|---|---|---|
 | `sendItemCompose` | `store/view/Compose/StoreIIComposeBG.as` | 58 ITEM_COMPOSE |  | partial | no | Implementado: taxa {80,50,30,10,5}% por qualidade (+1% sem amuleto), PRICE_COMPOSE_GOLD (1600). |
 | `sendItemStrength` | `store/view/strength/StoreIIStrengthBG.as` | 59 ITEM_STRENGTHEN |  | partial | yes | Pedras nv 4/5 em arma: sucesso, +1 por clique, 1 pedra consumida por slot (desvio: C# consumia a pilha inteira), furo 1 abre no +3. — evidência: research/e2e/qa/b7-strengthen-tip.png, b8-weapon-tip.png, b11-inlay2.png |
-| `sendItemTransfer` | `store/view/transfer/StoreIITransferBG.as` | 61 ITEM_TRANSFER |  | missing | no |  |
+| `sendItemTransfer` | `store/view/transfer/StoreIITransferBG.as` | 61 ITEM_TRANSFER |  | stub | no | ITEM_TRANSFER: morto no próprio original — nenhum [PacketHandler(61,...)] em todo vendor/DDTank41 (grep completo nos projetos Game.Server/Fighting.Server/Center.Server). |
 | `sendItemFusion` | `store/view/fusion/StoreIIFusionBG.as` | 78 ITEM_FUSION |  | ok | no | Implementado: prévia 76 + fusão 400 ouro (FusionMgr). |
-| `necklaceStrength` | — | 95 NECKLACE_STRENGTH |  | missing | no |  |
-| `sendWishBeadEquip` | `store/forge/wishBead/WishBeadMainView.as` | 106 WISHBEADEQUIP |  | missing | no |  |
-| `sendItemTrend` | — | 120 ITEM_TREND |  | missing | no |  |
+| `necklaceStrength` | — | 95 NECKLACE_STRENGTH |  | stub | no | NECKLACE_STRENGTH: mesma varredura de sendItemTransfer — nenhum [PacketHandler(95,...)] registrado. |
+| `sendWishBeadEquip` | `store/forge/wishBead/WishBeadMainView.as` | 106 WISHBEADEQUIP |  | stub | no | WISHBEADEQUIP: mesma varredura de sendItemTransfer — nenhum [PacketHandler(106,...)] registrado. |
+| `sendItemTrend` | — | 120 ITEM_TREND |  | ok | no | ITEM_TREND implementado (ItemTrendHandle.cs + RefineryMgr.RefineryTrend, Templates.refineryTrend): converte um equip entre variantes de "tendência" listadas no Item_Refinery, ou compra o item 34101 direto (num=-1). A tabela game."Item_Refinery" tem 0 linhas no .bak de origem (nunca configurada neste servidor, no original também) — handler vivo, porém sempre no-op até alguém popular a tabela; mesmo comportamento observável do original com a config vazia. Testado em apps/game/test/forge-advanced.test.ts (lógica de busca na lista achatada), não clicado. |
 | `sendItemEmbed` | `store/view/embed/StoreEmbedBG.as` | 121 ITEM_INLAY |  | ok | no | Implementado (furo precisa estar aberto e tipo igual ao Property2 da gema); sem gema no personagem de teste para verificar no cliente. Varredura pt.3 (2026-10-02): agora chama `p.questInv?.onItemInsert()` em sucesso (`forge.ts` `inlay`), ligando a missão tipo 25 ItemInsertCondition (antes não portada) — testado por código/typecheck, não clicado (sem gema compatível com furo aberto no personagem de teste nesta sessão; furo tipo 0 na arma do Thur, única gema na bolsa era tipo 3). |
 | `sendItemEmbedBackout` | `store/view/embed/StoreEmbedBG.as` | 125 ITEM_EMBED_BACKOUT |  | ok | no | Implementado: 500 Xu, gema volta vinculada, devolve itens do ferreiro. |
-| `sendLatentEnergy` | `latentEnergy/LatentEnergyMainView.as` | 133 LATENT_ENERGY |  | missing | no |  |
-| `sendItemExalt` | `store/view/exalt/StoreExaltBG.as` | 138 ITEM_ADVANCE |  | missing | no |  |
+| `sendLatentEnergy` | `latentEnergy/LatentEnergyMainView.as` | 133 LATENT_ENERGY |  | stub | no | LATENT_ENERGY: mesma varredura de sendItemTransfer — nenhum [PacketHandler(133,...)] registrado. |
+| `sendItemExalt` | `store/view/exalt/StoreExaltBG.as` | 138 ITEM_ADVANCE |  | stub | no | ITEM_ADVANCE: mesma varredura de sendItemTransfer — nenhum [PacketHandler(138,...)] registrado. |
 | `sendSaveDB` | `store/StoreMainView.as` | 172 SAVE_DB |  | ok | no |  |
-| `fightSpiritRequest` | — | 209 FIGHT_SPIRIT | FIGHT_SPIRIT_INIT=1 | missing | no |  |
-| `sendItemOpenFiveSixHole` | `store/view/embed/StoreEmbedBG.as` | 217 OPEN_FIVE_SIX_HOLE |  | missing | no |  |
-| `sendForgeSuit` | `store/fineStore/view/FineForgeView.as` | 295 STORE_FINE_SUIT | FORGE_SUIT=1 | missing | no |  |
-| `sendEquipGhost` | `store/equipGhost/EquipGhostManager.as` | 391 EQUIP_GHOST |  | missing | no |  |
+| `fightSpiritRequest` | — | 209 FIGHT_SPIRIT | FIGHT_SPIRIT_INIT=1 | stub | no | FIGHT_SPIRIT_INIT: mesma varredura de sendItemTransfer — nenhum [PacketHandler(209,...)] registrado. |
+| `sendItemOpenFiveSixHole` | `store/view/embed/StoreEmbedBG.as` | 217 OPEN_FIVE_SIX_HOLE |  | ok | no | OPEN_FIVE_SIX_HOLE implementado (OpenFiveSixHoleHandler.cs): broca (PropBag, ItemInfo.isDrill) gasta no furo 5/6 do equip no StoreBag[slot], exp Property7..8 aleatória, cooldown de 100ms (LastOpenHole). Testado em apps/game/test/forge-advanced.test.ts (isDrill por nível), não clicado. |
+| `sendForgeSuit` | `store/fineStore/view/FineForgeView.as` | 295 STORE_FINE_SUIT | FORGE_SUIT=1 | stub | no | FORGE_SUIT: mesma varredura de sendItemTransfer — nenhum [PacketHandler(295,...)] registrado. |
+| `sendEquipGhost` | `store/equipGhost/EquipGhostManager.as` | 391 EQUIP_GHOST |  | stub | no | EQUIP_GHOST: mesma varredura de sendItemTransfer — nenhum [PacketHandler(391,...)] registrado. |
 
 ## GvG/Liga
 
@@ -391,7 +391,7 @@
 | `arrange` | — | 135 135 |  | missing | no |  |
 | `lightRoadPointWork` | — | 145 LIGHTROAD_SYSTEM | BECHOOSE_POINT=66 | missing | no |  |
 | `sendLookupEffort` | `ddt/manager/EffortManager.as` | 203 LOOKUP_EFFORT |  | missing | no |  |
-| `figSpiritUpGrade` | — | 209 FIGHT_SPIRIT | FIGHT_SPIRIT_LEVELUP=3 | missing | no |  |
+| `figSpiritUpGrade` | — | 209 FIGHT_SPIRIT | FIGHT_SPIRIT_LEVELUP=3 | stub | no |  |
 | `sendUseLog` | — | 213 USE_LOG |  | ok | no |  |
 | `sendCIDCheck` | — | 224 CID_CHECK |  | missing | no |  |
 | `sendForSwitch` | — | 225 ENTHRALL_SWITCH |  | ok | no |  |
@@ -415,23 +415,23 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `addPetEquip` | — | 68 PET | ADD_PET_EQUIP=20 | partial | no |  |
-| `delPetEquip` | — | 68 PET | DEL_PET_EQUIP=21 | partial | no |  |
-| `eatPetsHandler` | — | 68 PET | EAT_PETS=33 | partial | no |  |
-| `sendAdoptPet` | `petsBag/view/AdoptPetsGuideView.as`<br>`petsBag/view/AdoptPetsView.as` | 68 PET | ADOPT_PET=6 | partial | no |  |
-| `sendEquipPetSkill` | `petsBag/view/PetGameSkillPnl.as`<br>`petsBag/view/PetSkillPnl.as`<br>`petsBag/view/item/SkillItem.as` | 68 PET | EQUIP_PET_SKILL=7 | partial | no | EquipSkillPet (slot 4 VIP 7) — servidor, não clicado no cliente. |
-| `sendPaySkill` | `petsBag/view/PetGameSkillPnl.as` | 68 PET | PAY_SKILL=16 | partial | no |  |
-| `sendPetEvolution` | `petsBag/petsAdvanced/PetsAdvancedView.as` | 68 PET | PET_EVOLUTION=23 | partial | no |  |
-| `sendPetFeed` | `petsBag/view/PetsBagOutView.as` | 68 PET | FEED_PET=4 | partial | yes | Comida via StoreBag (split 49 corrigido) → FeedPet: nível/fome, mensagem. — evidência: research/e2e/batch4/10-feed.png |
-| `sendPetFightUnFight` | `pet/sprite/PetSpriteController.as`<br>`petsBag/view/PetsBagOutView.as` | 68 PET | FIGHT_PET=17 | partial | yes | Pet de batalha (FightPet): stats somam no FC, pet segue o personagem no salão. — evidência: research/e2e/batch4/09-pet-fight-skill.png, research/e2e/batch4/34-reload.png |
-| `sendPetFollowOrCall` | `petsBag/petsAdvanced/PetsFormPetsItem.as` | 68 PET | PET_FOLLOW=25 | partial | no |  |
-| `sendPetFormInfo` | `petsBag/petsAdvanced/PetsFormView.as` | 68 PET | PET_FORMINFO=24 | partial | no |  |
-| `sendPetRename` | `petsBag/view/PetsBagOutView.as` | 68 PET | RENAME_PET=9 | partial | no | RenamePet (ChangeNameCost Xu) — servidor, não clicado no cliente. |
-| `sendPetRisingStar` | `petsBag/petsAdvanced/PetsAdvancedView.as` | 68 PET | PET_RISINGSTAR=22 | partial | no |  |
-| `sendPetWake` | `petsBag/petsAdvanced/PetsFormPetsItem.as` | 68 PET | PET_WAKE=32 | partial | no |  |
-| `sendRefreshPet` | `petsBag/view/AdoptPetsGuideView.as`<br>`petsBag/view/AdoptPetsView.as` | 68 PET | REFRESH_PET=5 | partial | no |  |
-| `sendReleasePet` | `petsBag/view/PetsBagOutView.as` | 68 PET | RELEASE_PET=8 | partial | no | ReleasePet (IsExit=0, 12656×WashGetCount) — servidor, não clicado no cliente. |
-| `sendRevertPet` | `petsBag/view/PetsBagOutView.as` | 68 PET | REVER_PET=18 | partial | no |  |
+| `addPetEquip` | — | 68 PET | ADD_PET_EQUIP=20 | ok | no | ADD_PET_EQUIP (sub 20) implementado (AddPetEquip.cs): item de gear de pet (CategoryID 50/51/52) do bagType/slot indicado, nível do pet >= Property2, 1 peça por eqType (máx 3). FightPower: cada peça soma a tempera ("manh hóa"/moe) do slot correspondente (stats.ts). Testado em apps/game/test/pets-advanced.test.ts, não clicado. |
+| `delPetEquip` | — | 68 PET | DEL_PET_EQUIP=21 | ok | no | DEL_PET_EQUIP (sub 21) implementado (DelPetEquip.cs): remove a peça do eqType indicado, devolve o item vinculado. Testado em apps/game/test/pets-advanced.test.ts, não clicado. |
+| `eatPetsHandler` | — | 68 PET | EAT_PETS=33 | ok | no | EAT_PETS (sub 33, "manh hóa"/tempera de gear) implementado (EatPet.cs + PetMoePropertyMgr): HungBuCacCho bloqueia subir o slot já no nível máx único; tipo 1 sacrifica pets (ganho por StarLevel/Level), tipo 2 consome item 201567. Persistido em player."Sys_Eat_Pets" (nunca carregado/salvo antes desta sessão). Testado em apps/game/test/pets-advanced.test.ts (cascata de tiers, cap no nível máx), não clicado. |
+| `sendAdoptPet` | `petsBag/view/AdoptPetsGuideView.as`<br>`petsBag/view/AdoptPetsView.as` | 68 PET | ADOPT_PET=6 | ok | no | ADOPT_PET (sub 6) implementado (AdoptPet.cs): move o pet sorteado (oferta do REFRESH_PET) pro primeiro slot livre da bolsa de pets; aviso mundial se 4+ estrelas ou KindID >= 5. Fonte do sorteio: DropInventory.GetPetDrop(613,1) portado em Templates.petAdoptPick (reusa Drop_Condiction/Drop_Item tipo 13 Trminhpc). Testado em apps/game/test/pets-advanced.test.ts, não clicado. |
+| `sendEquipPetSkill` | `petsBag/view/PetGameSkillPnl.as`<br>`petsBag/view/PetSkillPnl.as`<br>`petsBag/view/item/SkillItem.as` | 68 PET | EQUIP_PET_SKILL=7 | ok | no | EquipSkillPet (slot 4 VIP 7) — servidor, não clicado no cliente. |
+| `sendPaySkill` | `petsBag/view/PetGameSkillPnl.as` | 68 PET | PAY_SKILL=16 | stub | no | PAY_SKILL (sub 16): sem classe Handle no original (grep em vendor/DDTank41/Game.Server/Pet/Handle/*.cs — nenhum arquivo com PetHandleAttbute(PAY_SKILL)); PetHandleMgr.LoadCommandHandler loga erro e descarta. Morto no original. |
+| `sendPetEvolution` | `petsBag/petsAdvanced/PetsAdvancedView.as` | 68 PET | PET_EVOLUTION=23 | ok | no | PET_EVOLUTION (sub 23) implementado (PetEvolution.cs): item 11163 soma exp a player.evolutionGrade/evolutionExp (tiers Pet_Fight_Property, PetMgr.GetEvolutionMax = contagem de linhas, exposto como Templates.petFightMax); já alimentava o FightPower (stats.ts), só faltava o handler que avança o tier. Testado por código/typecheck, não clicado. |
+| `sendPetFeed` | `petsBag/view/PetsBagOutView.as` | 68 PET | FEED_PET=4 | ok | yes | Comida via StoreBag (split 49 corrigido) → FeedPet: nível/fome, mensagem. — evidência: research/e2e/batch4/10-feed.png |
+| `sendPetFightUnFight` | `pet/sprite/PetSpriteController.as`<br>`petsBag/view/PetsBagOutView.as` | 68 PET | FIGHT_PET=17 | ok | yes | Pet de batalha (FightPet): stats somam no FC, pet segue o personagem no salão. — evidência: research/e2e/batch4/09-pet-fight-skill.png, research/e2e/batch4/34-reload.png |
+| `sendPetFollowOrCall` | `petsBag/petsAdvanced/PetsFormPetsItem.as` | 68 PET | PET_FOLLOW=25 | stub | no | PET_FOLLOW (sub 25): mesma varredura de sendPaySkill — sem classe Handle registrada, morto no original. |
+| `sendPetFormInfo` | `petsBag/petsAdvanced/PetsFormView.as` | 68 PET | PET_FORMINFO=24 | stub | no | PET_FORMINFO (sub 24): mesma varredura de sendPaySkill — sem classe Handle registrada, morto no original. |
+| `sendPetRename` | `petsBag/view/PetsBagOutView.as` | 68 PET | RENAME_PET=9 | ok | no | RenamePet (ChangeNameCost Xu) — servidor, não clicado no cliente. |
+| `sendPetRisingStar` | `petsBag/petsAdvanced/PetsAdvancedView.as` | 68 PET | PET_RISINGSTAR=22 | ok | no | PET_RISINGSTAR (sub 22, "tăng sao") implementado (PetRisingStar.cs): item 11162, Pet_Star_Exp[TemplateID].Exp necessário; ao bater a meta, evolui pro NewID no nível atual (grow recalculado). Testado em apps/game/test/pets-advanced.test.ts (abaixo/acima da meta, pet sem suporte), não clicado. |
+| `sendPetWake` | `petsBag/petsAdvanced/PetsFormPetsItem.as` | 68 PET | PET_WAKE=32 | stub | no | PET_WAKE (sub 32): mesma varredura de sendPaySkill — sem classe Handle registrada, morto no original. |
+| `sendRefreshPet` | `petsBag/view/AdoptPetsGuideView.as`<br>`petsBag/view/AdoptPetsView.as` | 68 PET | REFRESH_PET=5 | ok | no | REFRESH_PET (sub 5) implementado (RefereshPet.cs): reroll custa AdoptRefereshCost Xu (ou 1 item FreeRefereshID), senão só reenvia a oferta atual. Lista de adoção em memória (como lottery/chicken-box). Testado em apps/game/test/pets-advanced.test.ts, não clicado. |
+| `sendReleasePet` | `petsBag/view/PetsBagOutView.as` | 68 PET | RELEASE_PET=8 | ok | no | ReleasePet (IsExit=0, 12656×WashGetCount) — servidor, não clicado no cliente. |
+| `sendRevertPet` | `petsBag/view/PetsBagOutView.as` | 68 PET | REVER_PET=18 | ok | no | REVER_PET (sub 18, "lavar"/reverter pet) implementado (RevertPet.cs): RecycleCost Xu; grow/break/skills voltam ao BaseProp salvo na choco; gear devolvida vinculada; dá um item 334100 (essência) carregando o GP/MaxGP/break perdidos. Testado em apps/game/test/pets-advanced.test.ts (plumbing de gear), não clicado no cliente. |
 
 ## PvE/Masmorras
 

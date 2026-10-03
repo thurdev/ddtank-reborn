@@ -5,7 +5,7 @@
 import { eq, sql } from "drizzle-orm";
 import { applyTranslations, game, loadTranslations, player, type Database } from "@ddt/db";
 import type { ItemTemplate } from "../game/item.js";
-import { emptyPetTables, type PetTables } from "../game/pets.js";
+import { emptyPetTables, type PetTables, type PetTemplate } from "../game/pets.js";
 import type { CardUpdateCond, CardUpdateRowFull } from "../game/cards.js";
 import type { StatTables, ExerciseRow, TotemRow, GoldEquipRow, CardUpdateRow, PetFightRow, SuitInfoRow } from "../game/stats.js";
 
@@ -69,7 +69,7 @@ export class Templates {
   /** Attribute tables used by UpdatePlayerProperties / FightPower (game/stats.ts). */
   stats: StatTables = {
     findItem: (id) => this.items.get(id),
-    exercise: [], totems: new Map(), goldEquip: () => undefined, cardUpdate: () => undefined, petFight: () => undefined,
+    exercise: [], totems: new Map(), goldEquip: () => undefined, cardUpdate: () => undefined, petFight: () => undefined, petMoe: () => undefined,
     suitParts: new Map(), suits: new Map(),
   };
 
@@ -145,13 +145,32 @@ export class Templates {
   }
 
   /** StrengthenMgr / FusionMgr / ItemBoxMgr / ExerciseMgr / TotemMgr / GoldEquipMgr / CardMgr / PetMgr / suit caches. */
+  /** RefineryMgr.m_Item_Refinery (Game.Server/Managers/RefineryMgr.cs): 0 rows in the source .bak (never configured
+   * on this server, in the original too) — the handler is live code, just permanently inert without data. */
+  refinery: (typeof game.Item_Refinery.$inferSelect)[] = [];
+  /** PetMgr.GetEvolutionMax: Pet_Fight_Property row count. */
+  petFightMax = 0;
+
+  /** RefineryMgr.RefineryTrend: find a row whose reward list contains `templateId`, then the entry two slots
+   * after `operation` in that same (Material,Operate,Reward) triple list. */
+  refineryTrend(operation: number, templateId: number): number | null {
+    for (const r of this.refinery) {
+      const list = [r.Material1, r.Operate1, r.Reward1, r.Material2, r.Operate2, r.Reward2, r.Material3, r.Operate3, r.Reward3, r.Material4, r.Operate4, r.Reward4];
+      if (!list.includes(templateId)) continue;
+      for (let i = 0; i < list.length; i++) if (list[i] === operation) return list[i + 2] ?? null;
+    }
+    return null;
+  }
+
   async loadForge(db: Database): Promise<void> {
-    const [str, strG, fus, box, ex, tot, gold, cardU, petF, suitI, suitT, cfg] = await Promise.all([
+    const [str, strG, fus, box, ex, tot, gold, cardU, petF, suitI, suitT, cfg, refinery] = await Promise.all([
       db.select().from(game.Item_Strengthen), db.select().from(game.Item_Strengthen_Goods), db.select().from(game.Item_Fusion),
       db.select().from(game.Shop_Goods_Box), db.select().from(game.ExerciseInfo), db.select().from(game.Totem_Info),
       db.select().from(game.GoldEquipTemplateLoad), db.select().from(game.CardUpdateInfo), db.select().from(game.Pet_Fight_Property),
       db.select().from(game.SuitTemplateInfo), db.select().from(game.Suit_TemplateID), db.select().from(game.Server_Config),
+      db.select().from(game.Item_Refinery),
     ]);
+    this.refinery = refinery;
     this.serverConfig = new Map(cfg.map((c) => [String(c.Name), String(c.Value ?? "")]));
     this.strengthen = new Map(str.map((r) => [r.StrengthenLevel, r]));
     this.strengthenGoods = strG;
@@ -166,6 +185,8 @@ export class Templates {
     const golds = gold as GoldEquipRow[];
     const cardMap = new Map((cardU as CardUpdateRow[]).map((c) => [`${c.Id}:${c.Level}`, c]));
     const pets = new Map((petF as PetFightRow[]).map((p) => [p.ID, p]));
+    // PetMgr.GetEvolutionMax = Pet_Fight_Property row count.
+    this.petFightMax = petF.length;
     const parts = new Map<number, string[]>();
     for (const p of suitT) if (p.ID != null) parts.set(p.ID, [...(parts.get(p.ID!) ?? []), p.ContainEquip ?? ""]);
     this.stats = {
@@ -176,6 +197,8 @@ export class Templates {
       goldEquip: (tpl, cat) => golds.find((g) => g.OldTemplateId === tpl) ?? golds.find((g) => g.CategoryID === cat && g.OldTemplateId === -1),
       cardUpdate: (tpl, lv) => cardMap.get(`${tpl}:${lv}`),
       petFight: (g) => pets.get(g),
+      // loadPetsCards() (not yet run when this.stats is built) fills this.pets.moe; read it lazily.
+      petMoe: (level) => this.pets.moe.get(level),
       suitParts: parts,
       suits: new Map((suitI as SuitInfoRow[]).map((s) => [s.SuitId, s])),
     };
@@ -191,10 +214,11 @@ export class Templates {
   }
 
   async loadPetsCards(db: Database, lang = "pt-BR"): Promise<void> {
-    const [tpl, lv, cfg, sk, skt, cc, cu] = await Promise.all([
+    const [tpl, lv, cfg, sk, skt, cc, cu, starExp, moe] = await Promise.all([
       db.select().from(game.Pet_Template_Info), db.select().from(game.Pet_Level), db.select().from(game.Pet_Config),
       db.select().from(game.Pet_Skill_Info), db.select().from(game.Pet_Skill_Template_Info),
       db.select().from(game.CardUpdateCondition), db.select().from(game.CardUpdateInfo),
+      db.select().from(game.Pet_Star_Exp), db.select().from(game.Pet_Moe_Property),
     ]);
     const [petTplOverlay, petSkillOverlay] = await Promise.all([
       loadTranslations(db, "Pet_Template_Info", lang),
@@ -206,6 +230,8 @@ export class Templates {
       config: new Map(cfg.map((c) => [String(c.Name), String(c.Value ?? "")])),
       skills: new Map(sk.map((s) => [s.ID, applyTranslations(s, "ID", petSkillOverlay)])),
       skillTemplates: skt,
+      starExp: new Map(starExp.map((s) => [s.OldID, s])),
+      moe: new Map(moe.map((m) => [m.Level, m])),
     };
     this.cardConditions = new Map((cc as unknown as CardUpdateCond[]).map((c) => [c.Level, c]));
     this.cardUpdates = new Map((cu as unknown as CardUpdateRowFull[]).map((c) => [`${c.Id}:${c.Level}`, c]));
@@ -279,6 +305,25 @@ export class Templates {
     if (!dropId) return null;
     const d = this.dropOne(dropId);
     return d ? [d] : null;
+  }
+
+  /** DropInventory.GetPetDrop(613, 1) (Game.Logic/DropInventory.cs:83): one pet template off the Trminhpc(13) drop
+   * pool, same weighted-pick shape as dropOne() but resolved against pet templates instead of item templates. */
+  petAdoptPick(rnd = Math.random): PetTemplate | undefined {
+    const dropId = this.findDropCondition(13, "613", "1");
+    const list = dropId ? this.dropItems.get(dropId) : undefined;
+    if (!list?.length) return undefined;
+    const max = Math.max(...list.map((d) => d.Random));
+    const round = Math.floor(rnd() * max);
+    const src = list.filter((d) => d.Random >= round);
+    if (!src.length) return undefined;
+    const d = src[Math.floor(rnd() * src.length)]!;
+    return this.pets.templates.get(d.ItemId);
+  }
+
+  /** ShopMgr.FindShopbyTemplatID: every shop listing row selling this item template. */
+  shopByTemplate(templateId: number): ShopItemInfo[] {
+    return [...this.shop.values()].filter((s) => s.TemplateID === templateId);
   }
 
   /** ShopMgr.IsOnShop (ShopMgr.cs:294) incl. IsSpecialItem ids. */

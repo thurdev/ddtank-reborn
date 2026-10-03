@@ -136,6 +136,21 @@ export function registerChat(r: HandlerRegistry): void {
     }
   });
 
+  /** DefyAfficheHandler.cs (123 DEFY_AFFICHE): a 500-Money "challenge poster" broadcast to every online player
+   * (originally relayed through the Center/login server; single-process here, so a local broadcast is equivalent). */
+  r.player(123, "DEFY_AFFICHE", (ctx, p, pkt) => {
+    const str = pkt.readString();
+    const cost = 500;
+    if (p.info.Money + p.info.MoneyLock < cost) return p.sendMessage(3, ctx.lang.t("UserBuyItemHandler.Money"));
+    p.removeMoney(cost);
+    p.lastChatTime = Date.now();
+    for (const o of ctx.world.all()) {
+      const out = new GSPacket(123, o.id);
+      out.writeString(str);
+      o.send(out);
+    }
+  });
+
   /** SceneSmileHandler: forwards the packet as-is (ClientID = sender) to the room or the lobby. */
   r.player(20, "SCENE_FACE", (ctx, p, pkt) => {
     const out = GSPacket.parse(pkt.toBytes());

@@ -2,12 +2,16 @@
  * 68 PET (PetHandler.cs → PetLogicProcessor, byte sub = PetPackageType; Game.Server/Pet/Handle/*.cs) and 216 CARDS_DATA
  * (CardDataHandler.cs). Logic in game/pets.ts and game/cards.ts; 68/1 and 216 replies via GamePlayer.flushPets/flushCards.
  */
-import type { GSPacket } from "@ddt/protocol";
+import { GSPacket } from "@ddt/protocol";
 import type { GamePlayer } from "../game/player.js";
 import type { ServerContext } from "../session/context.js";
-import { cfgNum, createPet, feedPet, reduceProp } from "../game/pets.js";
+import {
+  cfgNum, createPet, feedPet, reduceProp, createAdoptList, petRisingStar, eatPetsUpgrade, hungBuCacCho, moeNeedExp,
+} from "../game/pets.js";
 import { moveOrEquipCard, upgradeCard, type CardUpdateRowFull } from "../game/cards.js";
 import { loadUserPets } from "../db/pets-cards.js";
+import { ItemInfo } from "../game/item.js";
+import { mailItems } from "./items.js";
 import * as Out from "../packets/out.js";
 import type { HandlerRegistry } from "./registry.js";
 
@@ -20,6 +24,13 @@ function petsChanged(p: GamePlayer, stats: boolean): void {
   p.pet = p.petBag.equipped();
   p.flushPets();
   if (stats) p.updatePlayerProperties();
+}
+
+/** MoneyDirect(cost, false, false): bound-first Money check-and-remove; false when unaffordable (nothing removed). */
+function tryRemoveMoney(p: GamePlayer, cost: number): boolean {
+  if (p.info.Money + p.info.MoneyLock < cost) return false;
+  p.removeMoney(cost);
+  return true;
 }
 
 export async function petCommand(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): Promise<void> {
@@ -135,7 +146,209 @@ export async function petCommand(ctx: ServerContext, p: GamePlayer, pkt: GSPacke
       petsChanged(p, true);
       return;
     }
+    case 5: {
+      // RefereshPet.cs: bool refreshBtn (+ an unread 2nd bool from the client). false = just re-show the current
+      // offer; true = reroll (AdoptRefereshCost Money, or 1 FreeRefereshID item instead — no PetScore then).
+      const refreshBtn = pkt.readBoolean();
+      if (refreshBtn) {
+        const cost = cfgNum(T, "AdoptRefereshCost", 190);
+        const freeId = cfgNum(T, "FreeRefereshID", 0);
+        const freeItem = freeId > 0 ? p.propBag.getItemByTemplateID(0, freeId) : null;
+        let addScore = true;
+        if (freeItem) { p.propBag.removeCountFromStack(freeItem, 1); addScore = false; }
+        else if (!tryRemoveMoney(p, cost)) return;
+        if (addScore) p.addPetScore(Math.trunc(cost * 0.1));
+        bag.adopt = createAdoptList(T, () => ctx.templates.petAdoptPick(), p.id, petMaxLevelByGrade(ctx, p), p.info.VIPLevel);
+      }
+      const reply = Out.refreshPet(bag.adopt, refreshBtn);
+      if (reply) p.send(reply);
+      return;
+    }
+    case 6: {
+      // AdoptPet.cs: int place in the current adopt offer -> moved into the first empty pet slot.
+      const place = pkt.readInt();
+      const slot = bag.findFirstEmptySlot();
+      if (slot === -1) { p.sendMessage(0, "Số lượng pet đã đạt giới hạn!"); return; }
+      if (place < 0 || place >= bag.adopt.length) { p.sendMessage(0, "Không tìm thấy pet này!"); return; }
+      const picked = bag.adopt[place];
+      if (!picked) return;
+      if (bag.addPetTo(picked, slot)) {
+        const info = T.templates.get(picked.TemplateID);
+        if (info && (info.StarLevel > 3 || info.KindID >= 5)) {
+          const msg = `[${p.zoneName}] Người chơi [${p.info.NickName}] may mắn bắt được ${info.Name} ${info.StarLevel} sao.`;
+          for (const o of ctx.world.all()) o.sendMessage(0, msg);
+        } else p.sendMessage(0, "Bắt thành công.");
+      }
+      bag.adopt = [];
+      p.flushPets();
+      void p.saveIntoDatabase(ctx.db.db).catch((e) => ctx.log.warn(`pet adopt save: ${e}`));
+      return;
+    }
+    case 18: {
+      // RevertPet.cs ("wash"/revert to the pet's hatched stats): RecycleCost Money; grow/break/skills reset to
+      // BaseProp (the row saved at hatch time), gear removed (returned bound), and the player gets a 334100
+      // "pet essence" item carrying the washed-away GP/MaxGP/break stats (same essence FeedPet consumes).
+      const place = pkt.readInt();
+      const cost = cfgNum(T, "RecycleCost", 10000);
+      if (!tryRemoveMoney(p, cost)) return;
+      const pet = bag.getPetAt(place);
+      if (!pet) return;
+      let base: Partial<typeof pet> | null = null;
+      try { base = JSON.parse(pet.BaseProp || "null"); } catch { base = null; }
+      if (!base) { p.sendMessage(0, t("PetHandler.Msg7")); return; }
+      const essenceTpl = ctx.templates.findItem(334100);
+      if (essenceTpl) {
+        const essence = ItemInfo.createFromTemplate(essenceTpl, 1, 102, ctx.now());
+        essence.IsBinds = true;
+        essence.DefendCompose = pet.GP; essence.AgilityCompose = pet.MaxGP;
+        essence.Hole1 = pet.breakGrade; essence.Hole2 = pet.breakAttack; essence.Hole3 = pet.breakDefence;
+        essence.Hole4 = pet.breakAgility; essence.Hole5 = pet.breakLuck; essence.Blood = pet.breakBlood;
+        if (!p.propBag.addTemplate(essence, 1)) await mailItems(ctx, p, [essence], undefined, 7);
+      }
+      pet.breakGrade = base.breakGrade ?? 0; pet.breakAttack = base.breakAttack ?? 0; pet.breakDefence = base.breakDefence ?? 0;
+      pet.breakAgility = base.breakAgility ?? 0; pet.breakLuck = base.breakLuck ?? 0; pet.breakBlood = base.breakBlood ?? 0;
+      pet.Attack = base.Attack ?? pet.Attack; pet.Defence = base.Defence ?? pet.Defence; pet.Agility = base.Agility ?? pet.Agility;
+      pet.Luck = base.Luck ?? pet.Luck; pet.Blood = base.Blood ?? pet.Blood;
+      pet.AttackGrow = base.AttackGrow ?? pet.AttackGrow; pet.DefenceGrow = base.DefenceGrow ?? pet.DefenceGrow;
+      pet.AgilityGrow = base.AgilityGrow ?? pet.AgilityGrow; pet.LuckGrow = base.LuckGrow ?? pet.LuckGrow; pet.BloodGrow = base.BloodGrow ?? pet.BloodGrow;
+      pet.TemplateID = base.TemplateID ?? pet.TemplateID; pet.Skill = base.Skill ?? pet.Skill; pet.SkillEquip = base.SkillEquip ?? pet.SkillEquip;
+      pet.GP = 0; pet.Level = 1; pet.MaxGP = 55;
+      for (const eq of [0, 1, 2]) {
+        const removed = bag.removeEqPet(place, eq);
+        if (removed) {
+          const gt = ctx.templates.findItem(removed.eqTemplateID);
+          if (gt) {
+            const item = ItemInfo.createFromTemplate(gt, 1, 105, ctx.now());
+            item.IsBinds = true; item.IsUsed = true; item.ValidDate = removed.ValidDate; item.BeginDate = removed.startTime;
+            if (!p.getItemInventory(gt)?.addTemplate(item, 1)) await mailItems(ctx, p, [item]);
+          }
+        }
+      }
+      bag.changed.add(place);
+      p.sendMessage(0, t("PetHandler.Msg8"));
+      petsChanged(p, pet.IsEquip);
+      void p.saveIntoDatabase(ctx.db.db).catch((e) => ctx.log.warn(`pet revert save: ${e}`));
+      return;
+    }
+    case 20: {
+      // AddPetEquip.cs: int bagType, int slot, int place (pet). The item itself must be pet gear (cat. 50/51/52).
+      const bagType = pkt.readInt();
+      const slot = pkt.readInt();
+      const place = pkt.readInt();
+      const inv = p.getInventory(bagType);
+      const item = inv?.getItemAt(slot);
+      const pet = bag.getPetAt(place);
+      if (!item || !pet || ![50, 51, 52].includes(item.template.CategoryID)) return p.sendMessage(0, "AddPetEquip.WrongItem");
+      if (pet.Level < item.template.Property2) return p.sendMessage(0, "AddPetEquip.WrongLevel");
+      const eqType = item.template.CategoryID === 51 ? 1 : item.template.CategoryID === 52 ? 2 : 0;
+      if (!bag.addEqPet(place, eqType, item.TemplateID, item.ValidDate, item.IsUsed ? item.BeginDate : ctx.now())) return;
+      inv!.takeOutItem(item);
+      bag.changed.add(place);
+      petsChanged(p, true);
+      p.sendMessage(0, "Trang bị vật phẩm PET thành công!");
+      return;
+    }
+    case 21: {
+      // DelPetEquip.cs: int petPlace, int eqType.
+      const place = pkt.readInt();
+      const eqType = pkt.readInt();
+      const removed = bag.removeEqPet(place, eqType);
+      if (!removed) return;
+      const gt = ctx.templates.findItem(removed.eqTemplateID);
+      if (gt) {
+        const item = ItemInfo.createFromTemplate(gt, 1, 105, ctx.now());
+        item.IsBinds = true; item.IsUsed = true; item.ValidDate = removed.ValidDate; item.BeginDate = removed.startTime;
+        if (!p.getItemInventory(gt)?.addTemplate(item, 1)) await mailItems(ctx, p, [item]);
+      }
+      bag.changed.add(place);
+      petsChanged(p, true);
+      return;
+    }
+    case 22: {
+      // PetRisingStar.cs: int templateId (rising-star item, 11162), int count, int petPlace.
+      const templateId = pkt.readInt();
+      const count = pkt.readInt();
+      const petPlace = pkt.readInt();
+      const pet = bag.getPetAt(petPlace);
+      if (!pet) return p.sendMessage(0, "PetRisingStar.PetNotFound");
+      const found = p.propBag.getItemByTemplateID(0, templateId);
+      if (!found || found.TemplateID !== 11162) { p.sendMessage(0, "PetRisingStar.ItemNotFound"); p.send(Out.petRisingStarReply(false)); return; }
+      const r = petRisingStar(T, pet, found.template.Property2, Math.min(count, found.Count), petMaxLevelByGrade(ctx, p), p.info.VIPLevel);
+      if (!r) { p.sendMessage(0, "PetRisingStar.UnSupport"); p.send(Out.petRisingStarReply(false)); return; }
+      if (r.consumed > 0) p.propBag.removeCountFromStack(found, r.consumed);
+      bag.changed.add(petPlace);
+      petsChanged(p, pet.IsEquip);
+      p.send(Out.petRisingStarReply(r.success));
+      return;
+    }
+    case 23: {
+      // PetEvolution.cs: item 11163 (templateId), count -> player.evolutionGrade/Exp (Pet_Fight_Property tiers).
+      const templateId = pkt.readInt();
+      let count = pkt.readInt();
+      if (templateId !== 11163) return;
+      const food = p.propBag.getItemByTemplateID(0, templateId);
+      if (!food || count <= 0) return;
+      if (food.Count < count) count = food.Count;
+      const exp = food.template.Property2 * count;
+      if (exp <= 0) return;
+      const total = (p.info.evolutionExp ?? 0) + exp;
+      let leveledUp = false;
+      let grade = p.info.evolutionGrade ?? 0;
+      const maxLv = ctx.templates.petFightMax; // PetMgr.GetEvolutionMax = Pet_Fight_Property row count
+      for (let i = grade; i <= maxLv; i++) {
+        const f = ctx.templates.stats.petFight(i + 1);
+        if (f && f.Exp <= total) { grade = i + 1; leveledUp = true; }
+      }
+      p.info.evolutionGrade = grade;
+      p.info.evolutionExp = total;
+      p.propBag.removeCountFromStack(food, count);
+      p.updatePlayerProperties();
+      p.send(Out.petEvolutionReply(leveledUp));
+      return;
+    }
+    case 33: {
+      // EatPet.cs: int amor (0 weapon/1 clothes/2 hat), int type (1 = sacrifice pets, else item 201567).
+      const amor = pkt.readInt() as 0 | 1 | 2;
+      const type = pkt.readInt();
+      const eat = bag.eat;
+      const blocked = hungBuCacCho(eat.weaponLevel, eat.clothesLevel, eat.hatLevel);
+      const names = ["Áo hoặc Nón", "Vũ khí và Nón", "Vũ khí và Áo"] as const;
+      if (([eat.weaponLevel, eat.clothesLevel, eat.hatLevel][amor]) === blocked) {
+        return p.sendMessage(0, `Vui lòng nâng cấp ${names[amor]} trước!`);
+      }
+      if (type === 1) {
+        const count = pkt.readInt();
+        let totalPoint = 0;
+        for (let i = 0; i < count; i++) {
+          const slot = pkt.readInt();
+          const tplId = pkt.readInt();
+          const petAt = bag.getPetAt(slot);
+          if (petAt) {
+            const info = T.templates.get(tplId);
+            if (info) totalPoint += Math.trunc(10 ** (info.StarLevel - 2) + 5 * Math.max(petAt.Level - 8, petAt.Level * 0.2));
+          }
+          if (petAt && bag.removePet(petAt)) eatPetsUpgrade(T, eat, amor, totalPoint);
+        }
+      } else {
+        const count = pkt.readInt();
+        const eatItemId = 201567;
+        const info2 = p.propBag.getItemByTemplateID(0, eatItemId);
+        if (!info2) return p.sendMessage(0, "Không đủ số lượng đá manh hóa!");
+        let totalPoint = count * info2.template.Property2;
+        const need = moeNeedExp(T, [eat.weaponExp, eat.clothesExp, eat.hatExp][amor]!, [eat.weaponLevel, eat.clothesLevel, eat.hatLevel][amor]!);
+        let realCount = count;
+        if (totalPoint > need && info2.template.Property2 > 0) { realCount = Math.ceil(need / info2.template.Property2); totalPoint = info2.template.Property2; }
+        if (!p.propBag.removeCountFromStack(info2, realCount)) return p.sendMessage(0, "Không đủ số lượng đá manh hóa!");
+        eatPetsUpgrade(T, eat, amor, totalPoint);
+      }
+      bag.eatDirty = true;
+      p.send(Out.eatPetsInfo(eat));
+      p.updatePlayerProperties();
+      return;
+    }
     default:
+      // Confirmed dead in the original (no Handle class carries this PetPackageType, PetHandleMgr logs
+      // "LoadCommandHandler" and drops the packet): 16 PAY_SKILL, 24 PET_FORMINFO, 25 PET_FOLLOW, 32 PET_WAKE.
       ctx.log.debug(`pet sub ${sub} not ported`);
   }
 }
@@ -192,6 +405,10 @@ export function cardCommand(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): v
 }
 
 export function registerPets(r: HandlerRegistry): void {
-  r.player(68, "PET", (ctx, p, pkt) => petCommand(ctx, p, pkt), "partial");
+  // Every PetPackageType sub with a real Handle class in the original is ported (1,2,4,5,6,7,8,9,17,18,20,21,22,
+  // 23,33); 3 MOVE_PETBAG, 16 PAY_SKILL, 24 PET_FORMINFO, 25 PET_FOLLOW, 31 PET_BREAK, 32 PET_WAKE and 34+ (break
+  // info / temporary card / fold equips / awaken / purify / seal — DDT 6600-era) have no Handle class at all in
+  // vendor/DDTank41 (PetHandleMgr.LoadCommandHandler logs an error and drops them) — confirmed dead in the client.
+  r.player(68, "PET", (ctx, p, pkt) => petCommand(ctx, p, pkt));
   r.player(216, "CARDS_DATA", (ctx, p, pkt) => cardCommand(ctx, p, pkt));
 }

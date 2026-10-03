@@ -4,11 +4,25 @@
  */
 import { and, eq, inArray } from "drizzle-orm";
 import { player, type Database } from "@ddt/db";
-import type { UserPetRow } from "../game/pets.js";
+import type { UserPetRow, EatPetsState } from "../game/pets.js";
+import { emptyEatPets } from "../game/pets.js";
 import type { UserCardRow } from "../game/cards.js";
 
 const P = player.Sys_Users_Pet;
 const C = player.Sys_Users_Card;
+const E = player.Sys_Eat_Pets;
+
+/** Sys_Eat_Pets: one row per player (lazily created on first save), "manh hoa" (gear-tempering) progress. */
+export async function loadEatPets(db: Database, userId: number): Promise<EatPetsState> {
+  const [row] = await db.select().from(E).where(eq(E.UserID, userId)).limit(1);
+  return row ? { weaponLevel: row.weaponLevel, weaponExp: row.weaponExp, clothesLevel: row.clothesLevel, clothesExp: row.clothesExp, hatLevel: row.hatLevel, hatExp: row.hatExp } : emptyEatPets();
+}
+
+export async function saveEatPets(db: Database, userId: number, s: EatPetsState): Promise<void> {
+  const [row] = await db.select({ ID: E.ID }).from(E).where(eq(E.UserID, userId)).limit(1);
+  if (row) await db.update(E).set(s).where(eq(E.ID, row.ID));
+  else await db.insert(E).values({ UserID: userId, ...s });
+}
 
 export async function loadUserPets(db: Database, userId: number): Promise<UserPetRow[]> {
   const rows = await db.select().from(P).where(and(eq(P.UserID, userId), eq(P.IsExit, true)));

@@ -125,7 +125,7 @@ export function registerRooms(r: HandlerRegistry): SubRouter {
       p.send(out);
     }
     pkt.offset = off;
-  }, "partial");
+  });
   // 70 GAME_INVITE (GameInviteHandler): target online and not in a room.
   r.player(70, "GAME_INVITE", (ctx, p, pkt) => {
     const room = p.currentRoom;

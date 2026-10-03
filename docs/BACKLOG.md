@@ -545,3 +545,39 @@ SWFs; investigação de "Đấu giá"/"Kênh" concluída (não são TextField ne
    não do formato SWF em si); (c) as 443 frases `needs-ai-batch2.md` restantes (maioria ruído de OCR, mas vale uma
    segunda passada) + 150 `render-failed-vn-residue`; (d) `needs-ai.md` original (arte pintada) + dark mode/night
    mode (ainda não iniciados).
+
+## Varredura 2026-10-03 — Combate/Bolsa/Ferreiro/Pets a 100% (sem navegador, só código + testes)
+
+Orçamento desta sessão não incluiu cliques no Ruffle real — tudo abaixo é implementado + testado por código
+(vitest) e `tsc --noEmit` limpo, não verificado no cliente. Antes/depois em `docs/REVISIT.md`
+(`npx tsx tools/qa/gen-matrix.ts && npx tsx tools/qa/gen-revisit.ts`, overrides em `tools/qa/overrides.json`):
+Combate 39→36 pendências (4 missing→0), Bolsa 22→20 (13 missing→0), Ferreiro 16→16 (10 missing→0), Pets 17→15
+(0 missing já antes, mas 17 "partial" genéricos → 0 partial / 4 stub / 11 ok).
+
+- **Pets**: portados 5 REFRESH_PET, 6 ADOPT_PET, 18 REVER_PET, 20/21 ADD/DEL_PET_EQUIP, 22 PET_RISINGSTAR,
+  23 PET_EVOLUTION, 33 EAT_PETS (gear "manh hóa" com FightPower — `Sys_Eat_Pets` carregado/salvo pela 1ª vez).
+  16/24/25/32 confirmados mortos no original (sem classe `Handle` nenhuma).
+- **Ferreiro**: 217 OPEN_FIVE_SIX_HOLE e 120 ITEM_TREND portados (este último sobre `Item_Refinery`, 0 linhas no
+  .bak de origem — inerte, igual ao original). 61/95/106/133/138/209/295/391 confirmados mortos no original.
+- **Bolsa**: 34 USER_RANK, 62 ITEM_CONTINUE, 168 GOODS_COUNT (parcial — sem estoque global, ver nota), 182
+  USE_COLOR_CARD, 189 USER_CHANGE_RANK, 218 USER_GET_GIFTS portados. 66/77/171/188/205/222/265 confirmados
+  mortos no original.
+- **Combate (GAME_CMD)**: 75 PROP_DELETE, 108 GAME_TAKE_TEMP, 123 DEFY_AFFICHE (eram códigos top-level
+  "missing", não sub-comandos) e o sub 114 PAYMENT_TAKE_CARD portados. Subs 3/10/19/21/22/97 confirmados
+  no-op/mortos no `Game.Logic/Cmd/*.cs` original (grep de todo `[GameCommand(...)]`). Dispatcher 91 GAME_CMD
+  virou `implemented` (era `partial`).
+- **Pendências reais que ficaram** (não são "não verificado", são lacunas de verdade, citadas em HANDLERS.md):
+  - 137 DELIVER (`TransmissionGateCommand.cs`): pronto no original (ready-check entre andares de masmorra PvE),
+    não portado — precisa do encadeamento de andares de PvE, que não existe neste motor (mesma lacuna do tipo de
+    sala do Labirinto).
+  - **Card_Buff (bônus de conjunto de cartas) + efeitos de gema/equipamento/habilidade de guilda durante a
+    luta**: `vendor/DDTank41/Game.Logic/CardEffect/Effects/*.cs` tem ~25 classes de bônus de conjunto
+    (FourArtifacts, FiveGodSoldier, Goblin, GuluKingdom, ShadowDevil, TimeVortex, WarriorsArena, ...) — nenhuma
+    portada. É um motor de efeitos de combate à parte (não FightPower, que já inclui equipamento/gemas/cartas/pet
+    — `stats.ts` — só os efeitos *durante* a luta, tipo "conjunto X dá +dano quando Y", ficaram de fora).
+    Dimensionar como tarefa própria (provavelmente múltiplas sessões): ler cada classe C#, portar pra
+    `packages/fight`, achar onde o motor aplica dano/defesa pra interceptar.
+  - 114 PAYMENT_TAKE_CARD: o fast-path do buff `Card_Get` (BuffType 73, flip grátis) não foi portado — sempre
+    cobra Xu (486/437 VIP), que é o caminho comum.
+  - 120 ITEM_TREND/`Item_Refinery`: útil só se alguém popular a tabela (admin panel) — hoje é inofensivo mas
+    inerte.

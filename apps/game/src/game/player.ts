@@ -16,9 +16,9 @@ import type { BaseRoom } from "../rooms/room.js";
 import type { QuestInventory } from "./quests.js";
 import { saveBuffs, saveQuests } from "../db/social.js";
 import { computeStats, emptyStatTables, userNimbus, type StatTables, type UserCard, type UserPet } from "./stats.js";
-import { PetInventory, reduceProp } from "./pets.js";
+import { PetInventory, reduceProp, getPetEquips } from "./pets.js";
 import { CardInventory } from "./cards.js";
-import { savePets, saveCards } from "../db/pets-cards.js";
+import { savePets, saveCards, saveEatPets } from "../db/pets-cards.js";
 
 /** ePlayerState. */
 export const PlayerState = { Offline: 0, Manual: 1, Online: 1, Away: 2 } as const;
@@ -78,6 +78,8 @@ export class GamePlayer implements RoomMember {
   isViewer = false;
   playerState: number = PlayerState.Manual;
   lastChatTime = 0;
+  /** GamePlayer.LastOpenHole (OpenFiveSixHoleHandler.cs throttle). */
+  lastOpenHole = 0;
   /** GamePlayer.TimeCheckHack (unix seconds of the last 300 heartbeat). */
   timeCheckHack = 0;
   pingStart = 0;
@@ -264,6 +266,7 @@ export class GamePlayer implements RoomMember {
       equip, grade: c.Grade, levelBlood: this.levelBlood(c.Grade), necklaceExpAdd: c.necklaceExpAdd ?? 0, totemId: c.totemId ?? 0,
       texp: c.Texp ?? { attTexpExp: 0, defTexpExp: 0, spdTexpExp: 0, lukTexpExp: 0, hpTexpExp: 0 },
       cards: this.cardBag.equipped().length ? this.cardBag.equipped() : this.cards, pet: this.petBag.equipped() ?? this.pet, evolutionGrade: c.evolutionGrade ?? 0,
+      petEquips: this.petBag.equipped() ? getPetEquips(this.petBag.equipped()!) : [], eat: this.petBag.eat,
     }, this.statTables);
     c.Attack = r.attack; c.Defence = r.defence; c.Agility = r.agility; c.Luck = r.luck; c.hp = r.hp;
     c.FightPower = r.fightPower;
@@ -317,6 +320,8 @@ export class GamePlayer implements RoomMember {
   removeGiftToken(v: number): void { if (v > 0) { this.info.GiftToken -= v; this.updateProperties(); } }
   removeOffer(v: number): void { if (v > 0) { this.info.Offer -= v; this.updateProperties(); } }
   removePetScore(v: number): void { if (v > 0) { this.info.petScore -= v; this.updateProperties(); } }
+  /** GamePlayer.AddPetScore (GamePlayer.cs:1626). */
+  addPetScore(v: number): void { if (v > 0) { this.info.petScore += v; this.updateProperties(); } }
   removeScore(v: number): void { if (v > 0) { this.info.Score -= v; this.updateProperties(); } }
   removeDamageScores(v: number): void { if (v > 0) { this.info.damageScores -= v; this.updateProperties(); } }
   /** GamePlayer.RemoveMoney: bound money (MoneyLock) first, then Money. */
@@ -359,7 +364,7 @@ export class GamePlayer implements RoomMember {
     if (!places.length) return;
     const slots = places.map((place) => {
       const pet = this.petBag.getPetAt(place);
-      return { place, pet: pet ? { ...pet, PetHappyStarReduce: (v: number) => reduceProp(pet, v) } : null };
+      return { place, pet: pet ? { ...pet, petEquips: getPetEquips(pet), PetHappyStarReduce: (v: number) => reduceProp(pet, v) } : null };
     });
     this.send(Out.updateUserPet(this.id, this.zoneId, slots, this.petBag.eat));
   }
@@ -390,6 +395,7 @@ export class GamePlayer implements RoomMember {
     if (this.questInv) await saveQuests(db, this.questInv.takeDirty());
     await savePets(db, [...this.petBag.getPets(), ...this.petBag.removed]);
     this.petBag.removed.length = 0;
+    if (this.petBag.eatDirty) { await saveEatPets(db, this.id, this.petBag.eat); this.petBag.eatDirty = false; }
     await saveCards(db, this.cardBag.all(), this.cardBag.removed);
     if (this.buffs.length) await saveBuffs(db, this.buffs);
     await saveRecords(db, this);

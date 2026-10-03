@@ -581,10 +581,11 @@ export function gameLoad(maxTime: number, mapId: number, files: { type: number; 
 
 /** Pet block of 68/1 (AbstractPacketLib.SendUpdateUserPet :203; client PlayerManager.__updatePet). */
 export interface PetView {
-  ID: number; TemplateID: number; Name: string; UserID: number; Attack: number; Defence: number; Luck: number; Agility: number; Blood: number;
+  ID: number; TemplateID: number; Name: string; UserID: number; Place?: number; Attack: number; Defence: number; Luck: number; Agility: number; Blood: number;
   Damage: number; Guard: number; AttackGrow: number; DefenceGrow: number; LuckGrow: number; AgilityGrow: number; BloodGrow: number; DamageGrow: number;
   GuardGrow: number; Level: number; GP: number; MaxGP: number; Hunger: number; PetHappyStar: number; MP: number; Skill: string; SkillEquip: string;
   IsEquip: boolean; currentStarExp: number; PetHappyStarReduce?: (v: number) => number;
+  petEquips?: { eqType: number; eqTemplateID: number; startTime: Date; ValidDate: number }[];
 }
 const pairs = (s: string) => (s || "").split("|").map((x) => x.split(",").map(Number)).filter((a) => a.length >= 2 && a.every(Number.isFinite));
 
@@ -609,10 +610,53 @@ export function updateUserPet(userId: number, zoneId: number, slots: { place: nu
     p.writeInt(eq.length);
     for (const [id, slot] of eq) { p.writeInt(slot!); p.writeInt(id!); }
     p.writeBoolean(pet.IsEquip);
-    p.writeInt(0); // PetEquips (pet gear not ported)
+    const eqs = pet.petEquips ?? [];
+    p.writeInt(eqs.length);
+    for (const eq of eqs) { p.writeInt(eq.eqType); p.writeInt(eq.eqTemplateID); p.writeDateTime(wireDate(eq.startTime), true); p.writeInt(eq.ValidDate); }
     p.writeInt(pet.currentStarExp);
   }
   p.writeInt(eat.weaponLevel); p.writeInt(eat.clothesLevel); p.writeInt(eat.hatLevel);
+  return p;
+}
+
+/** 68/5 REFRESH_PET (AbstractPacketLib.SendRefreshPet:2226): the rolled adopt-pet offer; sends nothing when empty
+ * (matches the original — an empty array means "no packet", not "empty list"). */
+export function refreshPet(pets: PetView[], refreshBtn: boolean): PacketOut | null {
+  if (!pets.length) return null;
+  const p = new PacketOut(68);
+  p.writeByte(5); p.writeBoolean(refreshBtn); p.writeInt(pets.length);
+  for (const pet of pets) {
+    p.writeInt(pet.Place ?? 0); p.writeInt(pet.TemplateID); p.writeString(pet.Name);
+    p.writeInt(pet.Attack); p.writeInt(pet.Defence); p.writeInt(pet.Luck); p.writeInt(pet.Agility); p.writeInt(pet.Blood);
+    p.writeInt(pet.Damage); p.writeInt(pet.Guard); p.writeInt(pet.AttackGrow); p.writeInt(pet.DefenceGrow); p.writeInt(pet.LuckGrow);
+    p.writeInt(pet.AgilityGrow); p.writeInt(pet.BloodGrow); p.writeInt(pet.DamageGrow); p.writeInt(pet.GuardGrow);
+    p.writeInt(pet.Level); p.writeInt(pet.GP); p.writeInt(pet.MaxGP); p.writeInt(pet.Hunger); p.writeInt(pet.MP);
+    const sk = pairs(pet.Skill);
+    p.writeInt(sk.length);
+    for (const [id, slot] of sk) { p.writeInt(id!); p.writeInt(slot!); }
+    p.writeInt(10); p.writeInt(10); p.writeInt(100); // val/val2/val3 (unused UI constants, hard-coded in the original too)
+  }
+  return p;
+}
+
+/** 68/22 PET_RISINGSTAR reply (PetRisingStar.cs:108). */
+export function petRisingStarReply(success: boolean): PacketOut {
+  const p = new PacketOut(68);
+  p.writeByte(22); p.writeBoolean(success);
+  return p;
+}
+
+/** 68/23 PET_EVOLUTION reply (PetEvolution.cs:52) — player-wide "evolution" tier, not the pet's own template. */
+export function petEvolutionReply(leveledUp: boolean): PacketOut {
+  const p = new PacketOut(68);
+  p.writeByte(23); p.writeBoolean(leveledUp);
+  return p;
+}
+
+/** 68/33 EAT_PETS info (AbstractPacketLib.SendEatPetsInfo). */
+export function eatPetsInfo(info: { weaponExp: number; weaponLevel: number; clothesExp: number; clothesLevel: number; hatExp: number; hatLevel: number }): PacketOut {
+  const p = new PacketOut(68);
+  p.writeByte(33); p.writeInt(info.weaponExp); p.writeInt(info.weaponLevel); p.writeInt(info.clothesExp); p.writeInt(info.clothesLevel); p.writeInt(info.hatExp); p.writeInt(info.hatLevel);
   return p;
 }
 

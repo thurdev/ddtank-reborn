@@ -192,9 +192,9 @@
   "code": 34,
   "name": "USER_RANK",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "USER_RANK implementado (ChangeDesignationHandler.cs): mostra/esconde o selo da guilda sobre o personagem (IsShowConsortia).",
   "evidence": ""
  },
  {
@@ -274,9 +274,9 @@
   "code": 62,
   "name": "ITEM_CONTINUE",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "ITEM_CONTINUE implementado (UserItemContineueHandler.cs): estende o ValidDate do item usando o preço da loja (tiers A/B/C, igual BUY_GOODS via setItemType). Testado por código/typecheck, não clicado.",
   "evidence": ""
  },
  {
@@ -305,9 +305,9 @@
   "code": 66,
   "name": "PROP_USE",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "PROP_USE (código 66, fora de luta): morto no próprio original — nenhum [PacketHandler(66,...)] registrado (não confundir com 91/PROP=32, usado em luta, esse sim implementado).",
   "evidence": ""
  },
  {
@@ -320,7 +320,7 @@
   "code": 68,
   "name": "PET",
   "sub": "ADD_PET=2",
-  "server": "partial",
+  "server": "ok",
   "verified": "yes",
   "notes": "Ovo de pet (cat. 35) chocado: CreatePet + 68/2 (janela de pet recebido), pet aparece na aba Thú cưng.",
   "evidence": "research/e2e/batch4/07-hatch.png, research/e2e/batch4/08-pet-bag.png"
@@ -355,9 +355,9 @@
   "code": 77,
   "name": "ITEM_OVERDUE",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "ITEM_OVERDUE: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(77,...)] registrado.",
   "evidence": ""
  },
  {
@@ -370,7 +370,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "PROP=32",
-  "server": "partial",
+  "server": "ok",
   "verified": "yes",
   "notes": "Props 1/2/3 (+1 tiro / x3 / +2) usados na luta e aplicados ao tiro.",
   "evidence": "research/e2e/batch4/20-props.png, research/e2e/batch4/22-shot2.png"
@@ -453,9 +453,9 @@
   "code": 168,
   "name": "GOODS_COUNT",
   "sub": "",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "GOODS_COUNT implementado (GoodsCountHandler.cs) respondendo lista vazia: o estoque diário global (WorldMgr.GetAllShopFreeCount) não é rastreado neste port — o ShopID 20 já é limitado por jogador (ver 44 BUY_GOODS), não por estoque global, então não há nada pra reportar. Mesmo desvio documentado em HANDLERS.md.",
   "evidence": ""
  },
  {
@@ -468,9 +468,9 @@
   "code": 171,
   "name": "USE_REWORK_NAME",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "USE_REWORK_NAME: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(171,...)] registrado.",
   "evidence": ""
  },
  {
@@ -483,9 +483,9 @@
   "code": 182,
   "name": "USE_COLOR_CARD",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "USE_COLOR_CARD implementado (UserChangeItemColorHandler.cs): recolore um slot do EquipBag usando um item de cor do PropBag ou Xu (preço do Shop pelo templateId, APrice1=-1).",
   "evidence": ""
  },
  {
@@ -516,9 +516,9 @@
   "code": 188,
   "name": "USE_CONSORTIA_REWORK_NAME",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "USE_CONSORTIA_REWORK_NAME: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(188,...)] registrado.",
   "evidence": ""
  },
  {
@@ -531,9 +531,9 @@
   "code": 189,
   "name": "USER_CHANGE_RANK",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "USER_CHANGE_RANK implementado (ReworkRankHandler.cs): troca o título exibido por um dos títulos que o jogador já possui (player.\"Sys_User_Rank\"); NewTitleID continua 0 (tabela de definição de título nunca migrada, mesma lacuna documentada em HANDLERS.md \"Player stats\").",
   "evidence": ""
  },
  {
@@ -546,9 +546,9 @@
   "code": 205,
   "name": "USE_CHANGE_COLOR_SHELL",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "USE_CHANGE_COLOR_SHELL: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(205,...)] registrado.",
   "evidence": ""
  },
  {
@@ -593,9 +593,9 @@
   "code": 218,
   "name": "USER_GET_GIFTS",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "USER_GET_GIFTS implementado (UserGetGiftHandler.cs): lista todos os presentes já recebidos, somados por TemplateID. Achado: o original registra DUAS classes no código 218 (PlayerGiftHandler, um no-op de 1 int, e UserGetGiftHandler, o de verdade) — a reflexão do dicionário do C# favorece uma delas; este port implementa a significativa (UserGetGiftHandler), que bate com o nome do pacote USER_GET_GIFTS.",
   "evidence": ""
  },
  {
@@ -608,9 +608,9 @@
   "code": 222,
   "name": "EQUIP_RECYCLE_ITEM",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "EQUIP_RECYCLE_ITEM: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(222,...)] registrado.",
   "evidence": ""
  },
  {
@@ -638,9 +638,9 @@
   "code": 265,
   "name": "NEWTITLE_CARD",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "NEWTITLE_CARD: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(265,...)] registrado.",
   "evidence": ""
  },
  {
@@ -1241,9 +1241,9 @@
   "code": 75,
   "name": "CrazyTankPackageType.PROP_DELETE",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "PROP_DELETE implementado (PropDeleteHandler.cs): descarta o item da FightBag (mão de props em luta). Testado por código, não clicado.",
   "evidence": ""
  },
  {
@@ -1254,7 +1254,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "GENERAL_COMMAND=23",
-  "server": "partial",
+  "server": "ok",
   "verified": "yes",
   "notes": "Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14).",
   "evidence": "research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png"
@@ -1267,7 +1267,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "GENERAL_COMMAND=23",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14).",
   "evidence": "research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png"
@@ -1282,7 +1282,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "AIRPLANE=40",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1297,9 +1297,9 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "BEAT=22",
-  "server": "partial",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "BEAT (sub 22): morto no próprio original, mesma varredura de sendGameCMDBlast (nenhum GameCommand(22,...)).",
   "evidence": ""
  },
  {
@@ -1312,7 +1312,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "BOSS_TAKE_CARD=130",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1327,7 +1327,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "GENERAL_COMMAND=23",
-  "server": "partial",
+  "server": "ok",
   "verified": "yes",
   "notes": "Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14).",
   "evidence": "research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png"
@@ -1342,7 +1342,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "GENERAL_COMMAND=23",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1357,7 +1357,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "GENERAL_COMMAND=23",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14).",
   "evidence": "research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png"
@@ -1372,7 +1372,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1387,7 +1387,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "GENERAL_COMMAND=23",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "Laboratório (sala tipo 5, Pve 1000-1004, missões 101-125): GENERAL_COMMAND agora leva os ints ao script da missão (OnGeneralCommand → OnMissionEvent; antes ninguém chamava e o quiz nunca começava). Vitória desbloqueia o próximo nível (SetFightLabPermission) e o 1º clear paga FightLabUserDrop (Drop_Condiction tipo 14).",
   "evidence": "research/e2e/batch3/15-lab.png, research/e2e/batch3/17-lab-fight.png, research/e2e/batch3/20-lab-quiz.png"
@@ -1402,9 +1402,9 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "WANNA_LEADER=97",
-  "server": "partial",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "WANNA_LEADER (sub 97, WannaLeadCommand.cs): registrado no original mas com HandleCommand vazio — no-op confirmado lendo o arquivo, não código morto por falta de registro (diferente de BLAST/CHANGEBALL/BEAT/KILLSELF). Mesmo efeito observável: port apenas consome o pacote.",
   "evidence": ""
  },
  {
@@ -1417,9 +1417,9 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "BLAST=3",
-  "server": "partial",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "BLAST (sub 3): morto no próprio original — nenhuma classe Game.Logic.Cmd.* carrega GameCommand(3,...) (CommandMgr.cs varre por reflexão; confirmado via grep em vendor/DDTank41/Game.Logic/Cmd/*.cs). Pacote aceito e descartado, sem crash (test/fight.test.ts).",
   "evidence": ""
  },
  {
@@ -1432,9 +1432,9 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "CHANGEBALL=19",
-  "server": "partial",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "CHANGEBALL (sub 19): morto no próprio original, mesma varredura de sendGameCMDBlast (nenhum GameCommand(19,...)).",
   "evidence": ""
  },
  {
@@ -1447,7 +1447,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "DIRECTION=7",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1462,7 +1462,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "FIRE=2",
-  "server": "partial",
+  "server": "ok",
   "verified": "yes",
   "notes": "Tiro com base attack real (stats.ts), dano 1192, vitória e retorno à sala.",
   "evidence": "research/e2e/batch4/21-shot.png, research/e2e/batch4/23-after.png, research/e2e/batch4/25-pvp-end.png"
@@ -1477,7 +1477,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "STUNT=15",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1492,7 +1492,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "GAME_MISSION_PREPARE=116",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1507,7 +1507,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "PICK=49",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1522,7 +1522,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "SKIPNEXT=12",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1537,7 +1537,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "MOVESTART=9",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1552,9 +1552,9 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "MOVESTOP=10",
-  "server": "partial",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "MOVESTOP (sub 10, MoveStopCommand.cs): mesmo caso de sendFlagMode — registrado, HandleCommand vazio, no-op confirmado no original.",
   "evidence": ""
  },
  {
@@ -1567,7 +1567,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "TAKE_CARD=98",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1582,7 +1582,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "GHOST_TARGET=54",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1595,9 +1595,9 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "KILLSELF=21",
-  "server": "partial",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "KILLSELF (sub 21): morto no próprio original, mesma varredura de sendGameCMDBlast (nenhum GameCommand(21,...)).",
   "evidence": ""
  },
  {
@@ -1610,7 +1610,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "LOAD=16",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1625,7 +1625,7 @@
   "code": 91,
   "name": "91",
   "sub": "",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1640,7 +1640,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "PASS_STORY=133",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1655,9 +1655,9 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "PAYMENT_TAKE_CARD=114",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "PAYMENT_TAKE_CARD (sub 114) implementado (PaymentTakeCardCommand.cs): paga 486 Xu (437 VIP) por um flip de carta extra (CanTakeOut++) e chama TakeCard. Desvio: o fast-path do buff Card_Get (BuffType 73, uso gratuito) não foi portado — sempre cobra Xu. Testado: apps/game/test/fight.test.ts \"GAME_CMD 114 PAYMENT_TAKE_CARD charges Money and grants one extra pick\" (saldo de Xu debitado e resposta 91/98 isAuto=false confirmados).",
   "evidence": ""
  },
  {
@@ -1670,7 +1670,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "PET_SKILL=144",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1685,7 +1685,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "FIRE_TAG=96",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1698,7 +1698,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "SUICIDE=17",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1715,7 +1715,7 @@
   "sub": "DELIVER=137",
   "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "DELIVER (sub 137, TransmissionGateCommand.cs) é real no original (marca o jogador Ready entre fases de masmorra multi-andar e chama game.CheckState) mas não foi portado nesta sessão — a funcionalidade de encadeamento de andares de PvE que ele desbloqueia não existe neste motor ainda (mesma lacuna do tipo de sala PvE do Labirinto, ver BACKLOG/HANDLERS.md). O pacote é lido e descartado sem travar a conexão (confirmado em apps/game/test/fight.test.ts).",
   "evidence": ""
  },
  {
@@ -1728,7 +1728,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "MISSION_CMD=25",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1741,7 +1741,7 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "USE_DEPUTY_WEAPON=84",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1774,9 +1774,9 @@
   "code": 108,
   "name": "GAME_TAKE_TEMP",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "GAME_TAKE_TEMP implementado (GameTakeTempItemsHandler.cs): pega 1 (int place) ou todos (-1) os itens da TempBag pra bolsa real; sobra por correio. Achado: o branch `item.Template.BagType == eBageType.Card` do original é código morto (ItemTemplateInfo.BagType nunca retorna Card pra nenhum CategoryID — ItemTemplateInfo.cs:11-31) — omitido, toda carta/item passa pelo caminho normal. Testado em apps/game/test/handlers.test.ts (existente) + typecheck/test suite completa, não clicado.",
   "evidence": ""
  },
  {
@@ -1789,9 +1789,9 @@
   "code": 108,
   "name": "GAME_TAKE_TEMP",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "GAME_TAKE_TEMP implementado (GameTakeTempItemsHandler.cs): pega 1 (int place) ou todos (-1) os itens da TempBag pra bolsa real; sobra por correio. Achado: o branch `item.Template.BagType == eBageType.Card` do original é código morto (ItemTemplateInfo.BagType nunca retorna Card pra nenhum CategoryID — ItemTemplateInfo.cs:11-31) — omitido, toda carta/item passa pelo caminho normal. Testado em apps/game/test/handlers.test.ts (existente) + typecheck/test suite completa, não clicado.",
   "evidence": ""
  },
  {
@@ -1804,9 +1804,9 @@
   "code": 123,
   "name": "DEFY_AFFICHE",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "DEFY_AFFICHE implementado (DefyAfficheHandler.cs): cartaz de 500 Xu, repassado a todos os jogadores online (original repassava via Center/login server; processo único aqui = broadcast local equivalente). Testado por código, não clicado.",
   "evidence": ""
  },
  {
@@ -2667,7 +2667,7 @@
   "code": 68,
   "name": "PET",
   "sub": "BUY_PET_EXP_ITEM=19",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -2886,9 +2886,9 @@
   "code": 61,
   "name": "ITEM_TRANSFER",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "ITEM_TRANSFER: morto no próprio original — nenhum [PacketHandler(61,...)] em todo vendor/DDTank41 (grep completo nos projetos Game.Server/Fighting.Server/Center.Server).",
   "evidence": ""
  },
  {
@@ -2914,9 +2914,9 @@
   "code": 95,
   "name": "NECKLACE_STRENGTH",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "NECKLACE_STRENGTH: mesma varredura de sendItemTransfer — nenhum [PacketHandler(95,...)] registrado.",
   "evidence": ""
  },
  {
@@ -2929,9 +2929,9 @@
   "code": 106,
   "name": "WISHBEADEQUIP",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "WISHBEADEQUIP: mesma varredura de sendItemTransfer — nenhum [PacketHandler(106,...)] registrado.",
   "evidence": ""
  },
  {
@@ -2942,9 +2942,9 @@
   "code": 120,
   "name": "ITEM_TREND",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "ITEM_TREND implementado (ItemTrendHandle.cs + RefineryMgr.RefineryTrend, Templates.refineryTrend): converte um equip entre variantes de \"tendência\" listadas no Item_Refinery, ou compra o item 34101 direto (num=-1). A tabela game.\"Item_Refinery\" tem 0 linhas no .bak de origem (nunca configurada neste servidor, no original também) — handler vivo, porém sempre no-op até alguém popular a tabela; mesmo comportamento observável do original com a config vazia. Testado em apps/game/test/forge-advanced.test.ts (lógica de busca na lista achatada), não clicado.",
   "evidence": ""
  },
  {
@@ -2987,9 +2987,9 @@
   "code": 133,
   "name": "LATENT_ENERGY",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "LATENT_ENERGY: mesma varredura de sendItemTransfer — nenhum [PacketHandler(133,...)] registrado.",
   "evidence": ""
  },
  {
@@ -3002,9 +3002,9 @@
   "code": 138,
   "name": "ITEM_ADVANCE",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "ITEM_ADVANCE: mesma varredura de sendItemTransfer — nenhum [PacketHandler(138,...)] registrado.",
   "evidence": ""
  },
  {
@@ -3030,9 +3030,9 @@
   "code": 209,
   "name": "FIGHT_SPIRIT",
   "sub": "FIGHT_SPIRIT_INIT=1",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "FIGHT_SPIRIT_INIT: mesma varredura de sendItemTransfer — nenhum [PacketHandler(209,...)] registrado.",
   "evidence": ""
  },
  {
@@ -3045,9 +3045,9 @@
   "code": 217,
   "name": "OPEN_FIVE_SIX_HOLE",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "OPEN_FIVE_SIX_HOLE implementado (OpenFiveSixHoleHandler.cs): broca (PropBag, ItemInfo.isDrill) gasta no furo 5/6 do equip no StoreBag[slot], exp Property7..8 aleatória, cooldown de 100ms (LastOpenHole). Testado em apps/game/test/forge-advanced.test.ts (isDrill por nível), não clicado.",
   "evidence": ""
  },
  {
@@ -3060,9 +3060,9 @@
   "code": 295,
   "name": "STORE_FINE_SUIT",
   "sub": "FORGE_SUIT=1",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "FORGE_SUIT: mesma varredura de sendItemTransfer — nenhum [PacketHandler(295,...)] registrado.",
   "evidence": ""
  },
  {
@@ -3075,9 +3075,9 @@
   "code": 391,
   "name": "EQUIP_GHOST",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "EQUIP_GHOST: mesma varredura de sendItemTransfer — nenhum [PacketHandler(391,...)] registrado.",
   "evidence": ""
  },
  {
@@ -3897,7 +3897,7 @@
   "code": 209,
   "name": "FIGHT_SPIRIT",
   "sub": "FIGHT_SPIRIT_LEVELUP=3",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4096,9 +4096,9 @@
   "code": 68,
   "name": "PET",
   "sub": "ADD_PET_EQUIP=20",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "ADD_PET_EQUIP (sub 20) implementado (AddPetEquip.cs): item de gear de pet (CategoryID 50/51/52) do bagType/slot indicado, nível do pet >= Property2, 1 peça por eqType (máx 3). FightPower: cada peça soma a tempera (\"manh hóa\"/moe) do slot correspondente (stats.ts). Testado em apps/game/test/pets-advanced.test.ts, não clicado.",
   "evidence": ""
  },
  {
@@ -4109,9 +4109,9 @@
   "code": 68,
   "name": "PET",
   "sub": "DEL_PET_EQUIP=21",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "DEL_PET_EQUIP (sub 21) implementado (DelPetEquip.cs): remove a peça do eqType indicado, devolve o item vinculado. Testado em apps/game/test/pets-advanced.test.ts, não clicado.",
   "evidence": ""
  },
  {
@@ -4122,9 +4122,9 @@
   "code": 68,
   "name": "PET",
   "sub": "EAT_PETS=33",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "EAT_PETS (sub 33, \"manh hóa\"/tempera de gear) implementado (EatPet.cs + PetMoePropertyMgr): HungBuCacCho bloqueia subir o slot já no nível máx único; tipo 1 sacrifica pets (ganho por StarLevel/Level), tipo 2 consome item 201567. Persistido em player.\"Sys_Eat_Pets\" (nunca carregado/salvo antes desta sessão). Testado em apps/game/test/pets-advanced.test.ts (cascata de tiers, cap no nível máx), não clicado.",
   "evidence": ""
  },
  {
@@ -4138,9 +4138,9 @@
   "code": 68,
   "name": "PET",
   "sub": "ADOPT_PET=6",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "ADOPT_PET (sub 6) implementado (AdoptPet.cs): move o pet sorteado (oferta do REFRESH_PET) pro primeiro slot livre da bolsa de pets; aviso mundial se 4+ estrelas ou KindID >= 5. Fonte do sorteio: DropInventory.GetPetDrop(613,1) portado em Templates.petAdoptPick (reusa Drop_Condiction/Drop_Item tipo 13 Trminhpc). Testado em apps/game/test/pets-advanced.test.ts, não clicado.",
   "evidence": ""
  },
  {
@@ -4155,7 +4155,7 @@
   "code": 68,
   "name": "PET",
   "sub": "EQUIP_PET_SKILL=7",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "EquipSkillPet (slot 4 VIP 7) — servidor, não clicado no cliente.",
   "evidence": ""
@@ -4170,9 +4170,9 @@
   "code": 68,
   "name": "PET",
   "sub": "PAY_SKILL=16",
-  "server": "partial",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "PAY_SKILL (sub 16): sem classe Handle no original (grep em vendor/DDTank41/Game.Server/Pet/Handle/*.cs — nenhum arquivo com PetHandleAttbute(PAY_SKILL)); PetHandleMgr.LoadCommandHandler loga erro e descarta. Morto no original.",
   "evidence": ""
  },
  {
@@ -4185,9 +4185,9 @@
   "code": 68,
   "name": "PET",
   "sub": "PET_EVOLUTION=23",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "PET_EVOLUTION (sub 23) implementado (PetEvolution.cs): item 11163 soma exp a player.evolutionGrade/evolutionExp (tiers Pet_Fight_Property, PetMgr.GetEvolutionMax = contagem de linhas, exposto como Templates.petFightMax); já alimentava o FightPower (stats.ts), só faltava o handler que avança o tier. Testado por código/typecheck, não clicado.",
   "evidence": ""
  },
  {
@@ -4200,7 +4200,7 @@
   "code": 68,
   "name": "PET",
   "sub": "FEED_PET=4",
-  "server": "partial",
+  "server": "ok",
   "verified": "yes",
   "notes": "Comida via StoreBag (split 49 corrigido) → FeedPet: nível/fome, mensagem.",
   "evidence": "research/e2e/batch4/10-feed.png"
@@ -4216,7 +4216,7 @@
   "code": 68,
   "name": "PET",
   "sub": "FIGHT_PET=17",
-  "server": "partial",
+  "server": "ok",
   "verified": "yes",
   "notes": "Pet de batalha (FightPet): stats somam no FC, pet segue o personagem no salão.",
   "evidence": "research/e2e/batch4/09-pet-fight-skill.png, research/e2e/batch4/34-reload.png"
@@ -4231,9 +4231,9 @@
   "code": 68,
   "name": "PET",
   "sub": "PET_FOLLOW=25",
-  "server": "partial",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "PET_FOLLOW (sub 25): mesma varredura de sendPaySkill — sem classe Handle registrada, morto no original.",
   "evidence": ""
  },
  {
@@ -4246,9 +4246,9 @@
   "code": 68,
   "name": "PET",
   "sub": "PET_FORMINFO=24",
-  "server": "partial",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "PET_FORMINFO (sub 24): mesma varredura de sendPaySkill — sem classe Handle registrada, morto no original.",
   "evidence": ""
  },
  {
@@ -4261,7 +4261,7 @@
   "code": 68,
   "name": "PET",
   "sub": "RENAME_PET=9",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "RenamePet (ChangeNameCost Xu) — servidor, não clicado no cliente.",
   "evidence": ""
@@ -4276,9 +4276,9 @@
   "code": 68,
   "name": "PET",
   "sub": "PET_RISINGSTAR=22",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "PET_RISINGSTAR (sub 22, \"tăng sao\") implementado (PetRisingStar.cs): item 11162, Pet_Star_Exp[TemplateID].Exp necessário; ao bater a meta, evolui pro NewID no nível atual (grow recalculado). Testado em apps/game/test/pets-advanced.test.ts (abaixo/acima da meta, pet sem suporte), não clicado.",
   "evidence": ""
  },
  {
@@ -4291,9 +4291,9 @@
   "code": 68,
   "name": "PET",
   "sub": "PET_WAKE=32",
-  "server": "partial",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "PET_WAKE (sub 32): mesma varredura de sendPaySkill — sem classe Handle registrada, morto no original.",
   "evidence": ""
  },
  {
@@ -4307,9 +4307,9 @@
   "code": 68,
   "name": "PET",
   "sub": "REFRESH_PET=5",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "REFRESH_PET (sub 5) implementado (RefereshPet.cs): reroll custa AdoptRefereshCost Xu (ou 1 item FreeRefereshID), senão só reenvia a oferta atual. Lista de adoção em memória (como lottery/chicken-box). Testado em apps/game/test/pets-advanced.test.ts, não clicado.",
   "evidence": ""
  },
  {
@@ -4322,7 +4322,7 @@
   "code": 68,
   "name": "PET",
   "sub": "RELEASE_PET=8",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "ReleasePet (IsExit=0, 12656×WashGetCount) — servidor, não clicado no cliente.",
   "evidence": ""
@@ -4337,9 +4337,9 @@
   "code": 68,
   "name": "PET",
   "sub": "REVER_PET=18",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "REVER_PET (sub 18, \"lavar\"/reverter pet) implementado (RevertPet.cs): RecycleCost Xu; grow/break/skills voltam ao BaseProp salvo na choco; gear devolvida vinculada; dá um item 334100 (essência) carregando o GP/MaxGP/break perdidos. Testado em apps/game/test/pets-advanced.test.ts (plumbing de gear), não clicado no cliente.",
   "evidence": ""
  },
  {

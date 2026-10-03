@@ -42,7 +42,7 @@ describe("login", () => {
     const c = FakeClient.memory(server);
     c.login(ch.user, "wrong");
     const k = await c.code(2);
-    expect(k.pkt.readString()).toContain("quá hạn");
+    expect(k.pkt.readString()).toContain("expirou");
     await c.waitClosed();
   });
 

@@ -8,6 +8,8 @@ import type { game } from "@ddt/db";
 export type PetTemplate = typeof game.Pet_Template_Info.$inferSelect & { WashGetCount?: number };
 export type PetSkill = typeof game.Pet_Skill_Info.$inferSelect;
 export type PetSkillTemplate = typeof game.Pet_Skill_Template_Info.$inferSelect;
+export type PetStarExpRow = typeof game.Pet_Star_Exp.$inferSelect;
+export type PetMoeRow = typeof game.Pet_Moe_Property.$inferSelect;
 
 export interface PetTables {
   templates: Map<number, PetTemplate>;
@@ -16,10 +18,14 @@ export interface PetTables {
   config: Map<string, string>;
   skills: Map<number, PetSkill>;
   skillTemplates: PetSkillTemplate[];
+  /** Pet_Star_Exp keyed by OldID (PetMgr.FindPetStarExp): star-up Exp needed + the template id it becomes. */
+  starExp: Map<number, PetStarExpRow>;
+  /** Pet_Moe_Property keyed by Level (PetMoePropertyMgr.FindPetMoeProperty): "manh hoa" (gear-tempering) tiers. */
+  moe: Map<number, PetMoeRow>;
 }
 
 export function emptyPetTables(): PetTables {
-  return { templates: new Map(), levelGp: new Map(), config: new Map(), skills: new Map(), skillTemplates: [] };
+  return { templates: new Map(), levelGp: new Map(), config: new Map(), skills: new Map(), skillTemplates: [], starExp: new Map(), moe: new Map() };
 }
 
 /** Sys_Users_Pet row (+ PetEquips decoded from eQPets). */
@@ -251,13 +257,133 @@ export function feedPet(t: PetTables, pet: UserPetRow, food: { TemplateID: numbe
   return { ok: false, consume: 0, levelUp: false, msg: ["PetHandler.Msg11"] };
 }
 
+/** PetEquipInfo (SqlDataProvider/Data/PetEquipInfo.cs): eqType 0 weapon/1 hat/2 clothes (PlayerEquipInventory.cs:368-394). */
+export interface PetEquipInfo { eqType: number; eqTemplateID: number; startTime: Date; ValidDate: number }
+
+/** UsersPetInfo.PetEquips, persisted as JSON in the `eQPets` column (PetInventory.SerializePetEquip). */
+export function getPetEquips(pet: Pick<UserPetRow, "eQPets">): PetEquipInfo[] {
+  try {
+    const v = JSON.parse(pet.eQPets || "[]") as (PetEquipInfo & { startTime: string })[];
+    return Array.isArray(v) ? v.map((e) => ({ ...e, startTime: new Date(e.startTime) })) : [];
+  } catch { return []; }
+}
+export function setPetEquips(pet: UserPetRow, eqs: PetEquipInfo[]): void {
+  pet.eQPets = JSON.stringify(eqs);
+  pet.dirty = true;
+}
+
+/** EatPetsInfo (Sys_Eat_Pets row): per-player "manh hoa" (gear tempering) level/exp for each gear slot. */
+export interface EatPetsState { weaponLevel: number; weaponExp: number; clothesLevel: number; clothesExp: number; hatLevel: number; hatExp: number }
+export function emptyEatPets(): EatPetsState {
+  return { weaponLevel: 0, weaponExp: 0, clothesLevel: 0, clothesExp: 0, hatLevel: 0, hatExp: 0 };
+}
+
+/** PetMoePropertyMgr.FindMaxLevel: row count. */
+export function moeMaxLevel(t: PetTables): number {
+  return t.moe.size;
+}
+/** PetMoePropertyMgr.getNeedExp(exp, level): Exp missing to reach level+1 (0 past the last tier). */
+export function moeNeedExp(t: PetTables, exp: number, level: number): number {
+  const next = t.moe.get(level + 1);
+  return next ? next.Exp - exp : 0;
+}
+
+const EAT_SLOT = ["weapon", "clothes", "hat"] as const;
+
+/** EatPet.HungBuCacCho: the unique max among the three levels, or -1 when all three are tied (then nothing is blocked). */
+export function hungBuCacCho(weaponLevel: number, clothesLevel: number, hatLevel: number): number {
+  if (weaponLevel === clothesLevel && clothesLevel === hatLevel) return -1;
+  return Math.max(weaponLevel, clothesLevel, hatLevel);
+}
+
+/** EatPet.UpGrade: adds `totalPoint` exp to the given slot, climbing Pet_Moe_Property tiers while affordable. */
+export function eatPetsUpgrade(t: PetTables, state: EatPetsState, amor: 0 | 1 | 2, totalPoint: number): void {
+  const key = EAT_SLOT[amor]!;
+  const maxLevel = moeMaxLevel(t);
+  let exp = state[`${key}Exp`] + totalPoint;
+  let lv = state[`${key}Level`];
+  for (let k = lv; k <= maxLevel; k++) {
+    const info = t.moe.get(k + 1);
+    if (info && info.Exp <= exp) { lv = k + 1; exp -= info.Exp; }
+  }
+  state[`${key}Level`] = lv;
+  state[`${key}Exp`] = lv >= maxLevel ? 0 : exp;
+}
+
+/** PlayerEquipInventory.cs:368-394: FightPower contribution of the equipped pet's gear, by the player's moe tier
+ * for that gear's slot (eqType 0 weapon -> Attack/Lucky, 1 hat -> Defence/Guard, 2 clothes -> Agility/Blood). */
+export function petEquipMoeBonus(t: PetTables, equips: PetEquipInfo[], eat: EatPetsState): { attack: number; lucky: number; defence: number; guard: number; agility: number; blood: number } {
+  const out = { attack: 0, lucky: 0, defence: 0, guard: 0, agility: 0, blood: 0 };
+  for (const eq of equips) {
+    if (eq.eqType === 0) { const m = t.moe.get(eat.weaponLevel); if (m) { out.attack += m.Attack; out.lucky += m.Lucky; } }
+    else if (eq.eqType === 1) { const m = t.moe.get(eat.hatLevel); if (m) { out.defence += m.Defence; out.guard += m.Guard; } }
+    else if (eq.eqType === 2) { const m = t.moe.get(eat.clothesLevel); if (m) { out.agility += m.Agility; out.blood += m.Blood; } }
+  }
+  return out;
+}
+
+export interface RisingStarResult { success: boolean; consumed: number }
+
+/**
+ * PetRisingStar.cs: `itemCount` units of the rising-star item (Property2 exp each) toward Pet_Star_Exp[pet.TemplateID]
+ * .Exp; once reached, the pet evolves to Pet_Star_Exp.NewID at its current level (growth re-rolled like a normal
+ * evolution) and currentStarExp resets to 0. Returns how many item units were actually spent.
+ */
+export function petRisingStar(t: PetTables, pet: UserPetRow, itemProperty2: number, itemCount: number, maxLevelByGrade: number, vipLevel: number, rnd: Rnd = Math.random): RisingStarResult | null {
+  const info = t.starExp.get(pet.TemplateID);
+  if (!info || itemProperty2 <= 0) return null;
+  let count = itemCount;
+  const exp = itemProperty2 * count;
+  const total = pet.currentStarExp + exp;
+  if (total < info.Exp) {
+    pet.currentStarExp = total;
+    pet.dirty = true;
+    return { success: false, consumed: count };
+  }
+  const need = info.Exp - pet.currentStarExp;
+  if (need < exp) count = Math.floor((exp - need) / itemProperty2);
+  pet.currentStarExp = 0;
+  const newTpl = t.templates.get(info.NewID);
+  if (!newTpl) { pet.dirty = true; return { success: false, consumed: count }; }
+  const cap = Math.min(maxLevelByGrade, petMaxLevel(pet.breakGrade));
+  // PetMgr.CreatePet(newTpl, ..., currPet.Level, vip) + UpdateEvolutionPet: fresh grow values at the pet's level,
+  // then copied onto the existing row (TemplateID/grow/current stats), like the original's field-by-field copy.
+  const fresh = createPet(t, newTpl, pet.UserID, pet.Place, pet.Level, vipLevel, rnd);
+  updateEvolutionPet(t, fresh, pet.Level, cap, vipLevel, rnd);
+  pet.TemplateID = fresh.TemplateID;
+  pet.AttackGrow = fresh.AttackGrow; pet.DefenceGrow = fresh.DefenceGrow; pet.AgilityGrow = fresh.AgilityGrow;
+  pet.LuckGrow = fresh.LuckGrow; pet.BloodGrow = fresh.BloodGrow; pet.DamageGrow = fresh.DamageGrow; pet.GuardGrow = fresh.GuardGrow;
+  pet.Skill = fresh.Skill; pet.SkillEquip = fresh.SkillEquip;
+  buildProp(pet);
+  pet.dirty = true;
+  return { success: true, consumed: count };
+}
+
+/** PetMgr.CreateAdoptList: `AdoptCount` pets rolled from the Trminhpc(13) drop pool ("613","1"); in-memory per
+ * player, like the lottery/chicken-box boards (never persisted — AdoptPetList had 0 rows in the source .bak). */
+export function createAdoptList(t: PetTables, pickOne: () => PetTemplate | undefined, userId: number, playerLevel: number, vipLevel: number, rnd: Rnd = Math.random): UserPetRow[] {
+  const count = cfgNum(t, "AdoptCount", 4);
+  const out: UserPetRow[] = [];
+  for (let i = 0; i < count; i++) {
+    const tpl = pickOne();
+    if (!tpl) continue;
+    const pet = createPet(t, tpl, userId, i, playerLevel, vipLevel, rnd);
+    pet.IsExit = true;
+    out.push(pet);
+  }
+  return out;
+}
+
 /** PetAbstractInventory / PetInventory (20 slots). Changed places are flushed as one 68/1 by the caller. */
 export class PetInventory {
   readonly pets: (UserPetRow | null)[];
   readonly removed: UserPetRow[] = [];
   readonly changed = new Set<number>();
-  /** Sys_Eat_Pets levels (weapon/clothes/hat "moe"); kept for the 68/1 tail. */
-  eat = { weaponLevel: 0, clothesLevel: 0, hatLevel: 0 };
+  /** Sys_Eat_Pets levels (weapon/clothes/hat "moe"); loaded/saved by db/pets-cards.ts. */
+  eat: EatPetsState = emptyEatPets();
+  eatDirty = false;
+  /** In-memory adopt-pet offer (AdoptPetsView): place -> rolled pet, cleared on refresh/adopt. */
+  adopt: UserPetRow[] = [];
 
   constructor(readonly capacity = 20) {
     this.pets = new Array(capacity).fill(null);
@@ -358,6 +484,31 @@ export class PetInventory {
       p.dirty = true;
       this.changed.add(p.Place);
     }
+  }
+  /** PetInventory.CanAdd: max 3 gear pieces per pet, one per eqType (0 weapon/1 hat/2 clothes). */
+  canAddEqPet(place: number, eqType: number): boolean {
+    const eqs = getPetEquips(this.getPetAt(place) ?? { eQPets: "[]" });
+    return eqs.length < 3 && !eqs.some((e) => e.eqType === eqType);
+  }
+  /** PetInventory.AddEqPet. */
+  addEqPet(place: number, eqType: number, eqTemplateID: number, validDate: number, startTime: Date): boolean {
+    const p = this.getPetAt(place);
+    if (!p || !this.canAddEqPet(place, eqType)) return false;
+    const eqs = getPetEquips(p);
+    eqs.push({ eqType, eqTemplateID, startTime, ValidDate: validDate });
+    setPetEquips(p, eqs);
+    return true;
+  }
+  /** PetInventory.RemoveEqPet: returns the removed slot's eqType (-1 if none), so the caller can hand the gear item back. */
+  removeEqPet(place: number, eqType: number): PetEquipInfo | null {
+    const p = this.getPetAt(place);
+    if (!p) return null;
+    const eqs = getPetEquips(p);
+    const i = eqs.findIndex((e) => e.eqType === eqType);
+    if (i < 0) return null;
+    const [removed] = eqs.splice(i, 1);
+    setPetEquips(p, eqs);
+    return removed ?? null;
   }
   takeChanged(): number[] {
     const c = [...this.changed].sort((a, b) => a - b);

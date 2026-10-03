@@ -8,8 +8,9 @@
  *  - GamePlayer.getHertAddition (GamePlayer.cs:2732), GamePlayer.UpdateFightPower (GamePlayer.cs:5212)
  *  - ExerciseMgr.GetExercise (Game.Logic/ExerciseMgr.cs:54), TotemMgr.GetTotemProp (TotemMgr.cs:104)
  *  - PropertySuit / Congthongso (PlayerEquipInventory.cs:470-690)
- * Not ported (no module in this server yet): titles/rank (Sys_User_Rank), avatar collection, fight-spirit gem souls
- * (Sys_User_Gemstone), pet equipment (eQPets) and pet "moe" properties. Their contribution is 0.
+ * Pet equipment (eQPets) and pet "moe" properties (Pet_Moe_Property) are now wired in (PlayerEquipInventory.cs:
+ * 368-394, see `petEquips`/`eat` below and game/pets.ts `petEquipMoeBonus`). Still not ported (no module in this
+ * server yet): titles/rank (Sys_User_Rank), avatar collection, fight-spirit gem souls (Sys_User_Gemstone).
  */
 import type { ItemInfo, ItemTemplate } from "./item.js";
 
@@ -17,7 +18,7 @@ export interface ExerciseRow { Grage: number; GP: number; ExerciseA: number; Exe
 export interface TotemRow { ID: number; AddAttack: number; AddDefence: number; AddAgility: number; AddLuck: number; AddBlood: number; AddDamage: number; AddGuard: number }
 export interface GoldEquipRow { OldTemplateId: number; NewTemplateId: number; CategoryID: number; Attack: number; Defence: number; Agility: number; Luck: number; Boold: number }
 export interface CardUpdateRow { Id: number; Level: number; Attack: number; Defend: number; Agility: number; Lucky: number }
-export interface PetFightRow { ID: number; Attack: number; Defence: number; Agility: number; Lucky: number; Blood: number }
+export interface PetFightRow { ID: number; Attack: number; Defence: number; Agility: number; Lucky: number; Blood: number; Exp: number }
 export interface SuitInfoRow { SuitId: number; Skill2: string; Skill3: string; Skill4: string; Skill5: string }
 /** Sys_Users_Card row (equipped = Place 0..4). */
 export interface UserCard { TemplateID: number; Place: number; Level: number; Attack: number; Defence: number; Agility: number; Luck: number; AttackReset: number; DefenceReset: number; AgilityReset: number; LuckReset: number; Damage: number; Guard: number }
@@ -35,6 +36,8 @@ export interface StatTables {
   cardUpdate(templateId: number, level: number): CardUpdateRow | undefined;
   /** PetMgr.FindFightProperty(evolutionGrade). */
   petFight(grade: number): PetFightRow | undefined;
+  /** PetMoePropertyMgr.FindPetMoeProperty(level) — pet gear "manh hoa" tiers (PlayerEquipInventory.cs:368-394). */
+  petMoe(level: number): { Attack: number; Lucky: number; Defence: number; Guard: number; Agility: number; Blood: number } | undefined;
   /** Suit_TemplateID rows (ID = suit id) -> ContainEquip strings. */
   suitParts: Map<number, string[]>;
   suits: Map<number, SuitInfoRow>;
@@ -54,6 +57,10 @@ export interface StatInput {
   cards: UserCard[];
   pet: UserPet | null;
   evolutionGrade: number;
+  /** PetEquipInfo.eqType list of the equipped pet's gear (0 weapon/1 hat/2 clothes); [] when nothing is worn. */
+  petEquips?: { eqType: number }[];
+  /** Sys_Eat_Pets levels (per-player, not per-pet). */
+  eat?: { weaponLevel: number; clothesLevel: number; hatLevel: number };
   now?: Date;
 }
 
@@ -252,6 +259,12 @@ export function computeStats(inp: StatInput, t: StatTables): StatResult {
     pH = pt.Blood - red(pt.Blood) + pt.breakBlood;
     const f = t.petFight(inp.evolutionGrade);
     if (f) { pA += f.Attack; pD += f.Defence; pG += f.Agility; pL += f.Lucky; pH += f.Blood; }
+    // PlayerEquipInventory.cs:368-394: each equipped gear piece adds the player's moe tier for that slot.
+    if (inp.eat) for (const eq of inp.petEquips ?? []) {
+      if (eq.eqType === 0) { const m = t.petMoe(inp.eat.weaponLevel); if (m) { pA += m.Attack; pL += m.Lucky; } }
+      else if (eq.eqType === 1) { const m = t.petMoe(inp.eat.hatLevel); if (m) pD += m.Defence; }
+      else if (eq.eqType === 2) { const m = t.petMoe(inp.eat.clothesLevel); if (m) { pG += m.Agility; pH += m.Blood; } }
+    }
   }
   const suit = propertySuit(equipped, t);
   attack += suit[0]!; defence += suit[1]!; agility += suit[2]!; luck += suit[3]!; hp += suit[4]!;
@@ -271,7 +284,7 @@ export function computeStats(inp: StatInput, t: StatTables): StatResult {
 
 /** Empty tables (tests / before templates load). */
 export function emptyStatTables(findItem: (id: number) => ItemTemplate | undefined = () => undefined): StatTables {
-  return { findItem, exercise: [], totems: new Map(), goldEquip: () => undefined, cardUpdate: () => undefined, petFight: () => undefined, suitParts: new Map(), suits: new Map() };
+  return { findItem, exercise: [], totems: new Map(), goldEquip: () => undefined, cardUpdate: () => undefined, petFight: () => undefined, petMoe: () => undefined, suitParts: new Map(), suits: new Map() };
 }
 
 /**

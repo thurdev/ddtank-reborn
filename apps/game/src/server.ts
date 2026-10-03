@@ -71,6 +71,20 @@ function takeCardDrop(templates: Templates, m: RoomMember, roomType: number): { 
   return { templateId: d.templateId, count: d.count };
 }
 
+/**
+ * PaymentTakeCardCommand.cs (GAME_CMD sub 114): pay Money for an extra card flip (437 VIP / 486 non-VIP). The
+ * original's Card_Get buff (BuffType 73) free-use fast path isn't ported — bots never have it and the common case
+ * is Money, so this always charges Money (same net cost to a player without that rare buff).
+ */
+export function payTakeCard(m: RoomMember): boolean {
+  if (m.isBot) return false;
+  const p = m as GamePlayer;
+  const cost = (p.info.typeVIP ?? 0) > 0 ? 437 : 486;
+  if (p.info.Money + p.info.MoneyLock < cost) { p.sendMessage?.(1, "Không đủ Xu."); return false; }
+  p.removeMoney(cost);
+  return true;
+}
+
 /** PVEGame.TakeCard / SimpleNpc.GetDropItemInfo: special templates are currencies (ShopMgr.FindSpecialItemInfo), the rest
  *  goes to its bag (temp bag when full). */
 function giveDropItems(templates: Templates, m: RoomMember, items: { templateId: number; count: number; isBind?: boolean; validDate?: number }[], goldRate = 1, bag: "temp" | "fight" = "temp"): void {
@@ -149,6 +163,7 @@ export class GameServer {
             onWorldBossHurt: (m, hurt) => { if (this.ctx) worldBossDamage(this.ctx, m as GamePlayer, hurt); },
             expRate: () => (this.ctx ? eventsRuntime(this.ctx).scheduler.rate("double_exp") : 1),
             takeCard: (m, roomType) => takeCardDrop(templates, m, roomType),
+            payTakeCard: (m) => payTakeCard(m),
             onPlayerGameOver: (m, g) => {
               (m as GamePlayer).questInv?.onGameOver(g);
               pushRecords(m as GamePlayer); // ChangeWin/ChangeTotal/ChangeGrade achievement records (229)

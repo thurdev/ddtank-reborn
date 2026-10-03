@@ -1,7 +1,7 @@
 /** End-to-end battles over the real protocol with the @ddt/fight engine (manual clock so a game takes ms, not minutes). */
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { solveAim } from "@ddt/fight";
-import { GameServer } from "../src/server.js";
+import { GameServer, payTakeCard } from "../src/server.js";
 import { testConfig } from "../src/config.js";
 import { DdtFightEngine } from "../src/fight/ddt.js";
 import { type BotProvider, VirtualPlayer } from "../src/bots/bot.js";
@@ -18,7 +18,7 @@ const bots: BotProvider = {
 
 beforeAll(async () => {
   const db = await sharedDb();
-  engine = new DdtFightEngine({ manualClock: true, seed: () => 42 });
+  engine = new DdtFightEngine({ manualClock: true, seed: () => 42, payTakeCard: (m) => payTakeCard(m) });
   const cfg = testConfig({ GAME_PORT: "0", WS_PORT: "0", POLICY_PORT: "0", ADMIN_PORT: "0", BIND_HOST: "127.0.0.1", LOG_LEVEL: "silent", PACKET_RATE_BURST: "100000", PACKET_RATE_PER_SEC: "100000" } as never);
   server = await new GameServer(cfg, { db, rsaKey: testKey(), fight: engine, bots }).start();
   (server.ctx.rooms as unknown as { o: { botFallbackSec: number } }).o.botFallbackSec = 0;
@@ -133,6 +133,34 @@ describe("@ddt/fight adapter", () => {
     card.pkt.readByte();
     expect(card.pkt.readBoolean()).toBe(true); // isAuto
     expect(card.pkt.readByte()).toBe(0); // first free card
+    a.c.close();
+  }, 60000);
+
+  it("GAME_CMD 114 PAYMENT_TAKE_CARD charges Money and grants one extra pick", async () => {
+    (server.ctx.rooms as unknown as { o: { botFallbackSec: number } }).o.botFallbackSec = 0;
+    const a = await lobby();
+    roomCmd(a.c, 7);
+    await Promise.all(await playToEnd([a]));
+    const money0 = a.player().info.Money; // after the match's own money/GP rewards, before the paid pick
+    const mark = a.c.mark();
+    gameCmd(a.c, 114, (p) => p.writeByte(1)); // pay to flip card index 1 (non-VIP: 486 Money)
+    const paid = await a.c.code(91, 98, mark);
+    paid.pkt.readByte();
+    expect(paid.pkt.readBoolean()).toBe(false); // isAuto false: a real paid pick, not the countdown fallback
+    expect(paid.pkt.readByte()).toBe(1);
+    expect(a.player().info.Money).toBe(money0 - 486);
+    a.c.close();
+  }, 60000);
+
+  it("GAME_CMD subs confirmed dead in the original (3 BLAST, 10 MOVESTOP, 19 CHANGEBALL, 21 KILLSELF, 22 BEAT, 97 WANNA_LEADER) are accepted without a server reply or crash", async () => {
+    (server.ctx.rooms as unknown as { o: { botFallbackSec: number } }).o.botFallbackSec = 0;
+    const a = await lobby();
+    roomCmd(a.c, 7);
+    for (let i = 0; i < 50 && !a.c.received.some((r) => r.code === 91 && r.sub === 99); i++) { engine.tick((clock += 40)); await new Promise((r) => setTimeout(r, 2)); }
+    for (const sub of [3, 10, 19, 21, 22, 97]) gameCmd(a.c, sub, (p) => p.writeInt(0));
+    engine.tick((clock += 40));
+    await new Promise((r) => setTimeout(r, 5));
+    expect(a.c.closed).toBe(false); // the connection survives every one of them
     a.c.close();
   }, 60000);
 });
