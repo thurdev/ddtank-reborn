@@ -32,3 +32,11 @@ O Soul é um modelo de GERAÇÃO (não editor): ele cria uma imagem nova "inspir
 - Para botões/ícones pequenos: Soul tende a inventar — melhor um modelo de edição (Nano Banana / Seedream) quando houver crédito.
 
 Quando tiver algumas prontas, me avise: eu redimensiono para o tamanho exato, recorto/aplico transparência e reempacoto nos SWFs, e você vê no jogo.
+
+## Regras que todos os prompts já seguem (aprendidas nos testes)
+- Mesmo layout/posições do original; nada novo (sem logos, emblemas, personagens extras).
+- Texto: só o texto PT-BR indicado, escrito UMA vez; nada de números/letras extras (a IA erra números — régua e tabelas são feitas em código).
+- Onde o original é transparente: fundo verde puro #00FF00 (eu recorto automaticamente).
+- Assets muito largos/finos: desenhados como uma faixa centralizada no verde (eu recorto).
+- Dark mode nas superfícies claras de UI; ícones e personagens mantêm as cores.
+- Se a saída tiver texto duplicado/errado, logo de outro jogo ou coisa inventada: renomeie para `.REFAZER.png` e gere de novo.
