@@ -1,0 +1,292 @@
+/*
+ * "DD Clássico" style Play page composition — see remaster/00-site-pagina-jogar/LEIA.md and
+ * inputs/referencia-ddclassico.png for the reference layout this mirrors.
+ *
+ * Every asset reference below is a *second* background layer behind a CSS gradient/color: if the user hasn't
+ * generated that piece yet (tools/remaster/process-site-assets.mjs skips missing files), the <img>/background
+ * simply 404s and the CSS fallback underneath shows through — no JS feature-detection needed. The one exception
+ * is the logo, which must swap between an <img> and styled text, handled in Play.tsx via onError.
+ *
+ * Geometry (play-stage, unscaled "design" pixels — scaled as a whole via CSS transform in Play.tsx so the
+ * 1000x600 game hole itself never stretches/blurs):
+ *   columns: [scroll-end 100] [panel 280] [gutter 44] [frame 1048] [gutter 44] [panel 280] [scroll-end 100]
+ *   rows:    [logo 100] [main 648] [ruler 56]
+ */
+
+.play-page-bg {
+  background-color: #0b0e1a;
+  background-image: url("/play/bg-2560.avif");
+  background-size: cover;
+  background-position: center;
+}
+@media (max-width: 1400px) {
+  .play-page-bg {
+    background-image: url("/play/bg-1280.avif");
+  }
+}
+
+.play-stage-viewport {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.play-stage {
+  --panel-w: 280px;
+  --gutter-w: 44px;
+  --post-w: 100px;
+  --mat: 24px;
+  --game-w: 1000px;
+  --game-h: 600px;
+  --frame-w: calc(var(--game-w) + var(--mat) * 2);
+  --frame-h: calc(var(--game-h) + var(--mat) * 2);
+
+  width: calc(var(--post-w) * 2 + var(--panel-w) * 2 + var(--gutter-w) * 2 + var(--frame-w) + 36px);
+  display: grid;
+  grid-template-columns: var(--post-w) var(--panel-w) var(--gutter-w) var(--frame-w) var(--gutter-w) var(--panel-w) var(--post-w);
+  grid-template-rows: 104px var(--frame-h) 56px;
+  column-gap: 6px;
+  row-gap: 14px;
+  justify-items: center;
+  will-change: transform;
+}
+
+/* ---- logo ---- */
+.play-logo-slot {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.play-logo-slot img {
+  height: 96px;
+  width: auto;
+  filter: drop-shadow(0 6px 10px rgb(0 0 0 / 0.55));
+}
+.play-logo-fallback {
+  font-family: var(--font-display);
+  font-size: 46px;
+  letter-spacing: 0.04em;
+  color: #ffd76a;
+  background: linear-gradient(180deg, #fff3c4 0%, #ffd76a 45%, #e8a216 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 3px 0 #6b3d0a) drop-shadow(0 6px 14px rgb(0 0 0 / 0.5));
+}
+
+/* ---- outer scroll posts (far left/right) ---- */
+.play-scroll-post {
+  grid-row: 2;
+  height: 100%;
+  width: var(--post-w);
+  background-image: url("/play/scroll-end.webp"), linear-gradient(180deg, #caa43a 0%, #2a2350 10%, #2a2350 90%, #caa43a 100%);
+  background-size: contain, 60% 100%;
+  background-repeat: no-repeat, no-repeat;
+  background-position: center;
+  opacity: 0.96;
+}
+.play-scroll-post.left {
+  grid-column: 1;
+}
+.play-scroll-post.right {
+  grid-column: 7;
+  transform: scaleX(-1);
+}
+
+/* ---- gold column gutters, flanking the game frame ---- */
+.play-column-gutter {
+  grid-row: 2;
+  width: var(--gutter-w);
+  height: 100%;
+  background-image: url("/play/column.webp");
+  background-repeat: repeat-y;
+  background-size: 34px auto;
+  background-position: top center;
+}
+.play-column-gutter.left {
+  grid-column: 3;
+}
+.play-column-gutter.right {
+  grid-column: 5;
+}
+
+/* ---- center frame: dark fabric mat + the exact 1000x600 game hole ---- */
+.play-frame {
+  grid-column: 4;
+  grid-row: 2;
+  width: var(--frame-w);
+  height: var(--frame-h);
+  position: relative;
+  box-sizing: border-box;
+  padding: var(--mat);
+  background-color: #141225;
+  background-image: url("/play/fabric-tile.webp");
+  background-repeat: repeat;
+  background-size: 220px auto;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 2px rgb(255 209 110 / 0.35) inset,
+    0 24px 60px -20px rgb(0 0 0 / 0.85);
+}
+.play-frame-hole {
+  width: var(--game-w);
+  height: var(--game-h);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 0 0 3px #000 inset, 0 0 40px 4px rgb(0 0 0 / 0.6) inset;
+  background: #05070f;
+}
+.play-corner {
+  position: absolute;
+  width: 58px;
+  height: 58px;
+  background-image: url("/play/corner.webp");
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+.play-corner.tl {
+  top: -4px;
+  left: -4px;
+  transform: rotate(0deg);
+}
+.play-corner.tr {
+  top: -4px;
+  right: -4px;
+  transform: rotate(90deg);
+}
+.play-corner.br {
+  bottom: -4px;
+  right: -4px;
+  transform: rotate(180deg);
+}
+.play-corner.bl {
+  bottom: -4px;
+  left: -4px;
+  transform: rotate(270deg);
+}
+
+/* ---- ruler: 0..10 ticks, exact 1000px width aligned to the game ---- */
+.play-ruler {
+  grid-column: 4;
+  grid-row: 3;
+  width: var(--game-w);
+  height: 44px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 2px 2px 0;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, #ffe49a 0%, #d9a73a 40%, #8a5c12 100%);
+  border-radius: 6px;
+  box-shadow: 0 3px 0 0 #4a2f08, 0 10px 18px -6px rgb(0 0 0 / 0.6);
+}
+.play-ruler-tick {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  width: 1px;
+}
+.play-ruler-tick::before {
+  content: "";
+  width: 2px;
+  height: 14px;
+  background: #3a2406;
+  border-radius: 1px;
+}
+.play-ruler-tick span {
+  font-family: var(--font-display);
+  font-size: 13px;
+  color: #3a2406;
+  transform: translateX(-50%);
+  position: relative;
+  left: 1px;
+  white-space: nowrap;
+}
+
+/* ---- side panels: cream parchment holding the two angle tables ---- */
+.play-panel {
+  grid-row: 2;
+  width: var(--panel-w);
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  padding: 18px 16px;
+  border-radius: 10px;
+  background-color: #ead9ad;
+  background-image: url("/play/parchment-tile.webp"), linear-gradient(160deg, #f6ecc9 0%, #ead9ad 55%, #d8bf85 100%);
+  background-repeat: repeat, no-repeat;
+  background-size: 260px auto, 100% 100%;
+  box-shadow:
+    0 0 0 3px #a9792c inset,
+    0 0 0 6px #4a3414 inset,
+    0 14px 30px -12px rgb(0 0 0 / 0.65);
+}
+.play-panel.left {
+  grid-column: 2;
+}
+.play-panel.right {
+  grid-column: 6;
+}
+
+/* ---- the angle/force cards themselves ---- */
+.aim-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.aim-card-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: #5a3a12;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+.aim-card-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+.aim-card-table th {
+  font-weight: 600;
+  color: #fbe9c4;
+  background: linear-gradient(180deg, #c99a3b, #8a5c12);
+  padding: 3px 2px;
+  border: 1px solid #5a3a12;
+}
+.aim-card-table td {
+  text-align: center;
+  padding: 2px 2px;
+  border: 1px solid #c7ad77;
+  color: #4a3414;
+}
+.aim-card-table td.d {
+  background: #f3e6c2;
+  font-weight: 600;
+}
+.aim-pill {
+  display: inline-block;
+  min-width: 26px;
+  padding: 1px 4px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #bdf2d8, #6fcf9e);
+  color: #0f3d26;
+  font-weight: 700;
+  box-shadow: 0 1px 0 0 rgb(0 0 0 / 0.15) inset;
+}
+
+/* ---- phone/small-viewport note (the stage is scaled as a whole by Play.tsx; this just prevents a sliver of
+   horizontal scroll from a rounding pixel at very small scales) ---- */
+.play-stage-viewport {
+  touch-action: pan-x pan-y;
+}

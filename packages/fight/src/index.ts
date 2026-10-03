@@ -6,6 +6,7 @@ export * from "./phy/physics.js";
 export * from "./phy/map.js";
 export * from "./phy/bomb.js";
 export * from "./phy/simulate.js";
+export * from "./phy/aimTable.js";
 export * from "./data/types.js";
 export * from "./data/assets.js";
 export * from "./game/events.js";

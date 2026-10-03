@@ -88,6 +88,9 @@ export function serverConfigDefaults(ctx: AppCtx): Row {
     maintenance: false,
     maintenanceMessage: "",
     motd: "",
+    /** Elevation angles (degrees) for the Play page's "Âng. N: Distância | Força" reference tables, computed by
+     *  GET /api/public/aim-tables (`@ddt/fight` `computeAimTable`, same physics as the server). */
+    aimAngles: ["20", "30", "50", "65"],
   };
 }
 

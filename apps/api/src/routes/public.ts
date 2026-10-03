@@ -1,11 +1,35 @@
 /** Public JSON for the site and the launcher: config, status, news, ranking, launcher manifest. */
 import { app as appTables, findAccount } from "@ddt/db";
+import { type AimTableResult, computeAimTable } from "@ddt/fight";
+import { loadPackedAssets } from "@ddt/fight/node";
 import { and, desc, eq, lte, sql } from "drizzle-orm";
 import type { FastifyInstance } from "fastify";
 import type { AppCtx } from "../context.js";
 import { q } from "../lib/db.js";
 import { topUsers } from "../templates/defs.js";
 import { authOf, maintenance, playConfig } from "./auth.js";
+
+/** Ball 20: the `common` ball of weapon 7001 (`ballconfig.json`) — the starter weapon, i.e. the "standard ball". */
+const AIM_STANDARD_BALL_ID = 20;
+const AIM_DEFAULT_ANGLES = [20, 30, 50, 65];
+
+let fightAssets: ReturnType<typeof loadPackedAssets> | null = null;
+let aimCache: { key: string; result: AimTableResult } | null = null;
+
+/** GET /api/public/aim-tables: angles come from admin server-config ("aimAngles"), everything else (ball,
+ *  gravity/drag, distance unit) is `computeAimTable`'s default — same physics the game server runs. Cached in
+ *  memory per distinct angle list (cheap to recompute — ~100ms for 4 angles × 20 distances — but no reason to
+ *  redo it on every request). */
+function aimTablesFor(angles: number[]): AimTableResult {
+  const key = angles.join(",");
+  if (aimCache && aimCache.key === key) return aimCache.result;
+  fightAssets ??= loadPackedAssets();
+  const ball = fightAssets.ball(AIM_STANDARD_BALL_ID);
+  if (!ball) throw new Error(`aim-tables: ball ${AIM_STANDARD_BALL_ID} missing from @ddt/fight data`);
+  const result = computeAimTable({ angles, ball });
+  aimCache = { key, result };
+  return result;
+}
 
 export async function gameInternal<T>(ctx: AppCtx, path: string): Promise<T | null> {
   if (!ctx.cfg.GAME_INTERNAL_URL) return null;
@@ -70,6 +94,13 @@ export async function publicRoutes(f: FastifyInstance, ctx: AppCtx) {
   });
 
   f.get("/api/public/status", async () => serverStatus(ctx));
+
+  f.get("/api/public/aim-tables", async () => {
+    const sc = (await setting<Record<string, unknown>>(ctx, "server-config")) ?? {};
+    const raw = Array.isArray(sc.aimAngles) ? sc.aimAngles : [];
+    const angles = raw.map(Number).filter((n) => Number.isFinite(n) && n > 0 && n < 90);
+    return aimTablesFor(angles.length ? angles : AIM_DEFAULT_ANGLES);
+  });
 
   const news = async (limit = 20) =>
     (

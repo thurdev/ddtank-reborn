@@ -90,6 +90,9 @@ importers:
       '@ddt/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@ddt/fight':
+        specifier: workspace:*
+        version: link:../../packages/fight
       '@ddt/protocol':
         specifier: workspace:*
         version: link:../../packages/protocol
