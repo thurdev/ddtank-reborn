@@ -5,14 +5,25 @@ import { Tile } from "./tile.js";
 
 /**
  * Distance unit used by the "Âng. N: Distância | Força" reference tables (DD Clássico style side panels).
- * The client's battlefield canvas is exactly 1000px wide (`MapView.as`: `param1.x >= 0 && param1.x <= 1000`),
- * displayed under a 0..10 ruler (100px/tick) — the AS3 client has no dedicated "ruler"/"distance" class of its
- * own to read a finer unit from (verified: no `Ruler`/`Distance`-named view exists in `Source Flash/src`). The
- * reference tables go to double that resolution (1..20), so this port defines 1 table unit = half a ruler tick
- * = 50px, making distance 20 land exactly on the right edge of the 1000px canvas (and the ruler ticks the Play
- * page draws under the game line up with even table distances: tick N ⇔ distance 2N).
+ *
+ * `50px` (half a 0..10/100px-per-tick ruler tick) was the original guess — wrong twice over: (1) the "Força"
+ * column is the **player-facing power bar 0..100** (`EnergyView.as`/`Player.as` `_maxForce:int = 2000`, the same
+ * default `bot/aim.ts`'s `solveAim` searches up to), not the raw engine force/velocity `ShootImp`/`simulateShot`
+ * take (0..2000) — `computeAimTable` used to return the latter straight up (174..1145 for the default ball/map),
+ * which is what the play-page panels were actually showing; and (2) 50px was never calibrated against anything,
+ * it just made distance 20 land on the 1000px canvas edge.
+ *
+ * Recalibrated empirically against a reference "Âng. N" table from a sibling DDTank build (same angle set
+ * 20/30/50/65, distances 1..20, "common" ball/standard map, no wind): for each candidate unit, every
+ * `computeAimTable` force was converted to power (`rawForce / maxForce * 100`, `maxForce` = 2000) and compared to
+ * the reference; `95px` minimizes the RMSE over all 80 (angle × distance) cells (≈1.2 power, worst cell ≈4 power —
+ * see `tools/aim/gen-aim-tables.ts` output and `aimTable.test.ts`). The residual isn't fully closed: this engine's
+ * drag/ball/map constants (`DEFAULT_MAP_INFO`, ball 20) are the real server's, and the reference table's source
+ * build may differ slightly in those — a few cells (mostly long shots at angle 50) sit ~3-4 power off. Tightening
+ * further would mean guessing at unknown constants from a different build rather than reading them from this one,
+ * so 95px (not a "clean" ruler fraction) is kept as the best empirical fit and the residual is documented here.
  */
-export const DEFAULT_DISTANCE_UNIT_PX = 50;
+export const DEFAULT_DISTANCE_UNIT_PX = 95;
 
 /** Gravity/drag used when no explicit `map` is given: `weight: 10, dragIndex: 2` — the values 392 of the 393
  *  non-boss (`type & 1`) rows in `data/maps.json` share (the de-facto "standard" server map). */
@@ -28,13 +39,17 @@ export interface AimTableOptions {
   map?: Partial<MapInfo>;
   /** px per distance unit. Default `DEFAULT_DISTANCE_UNIT_PX`. */
   distanceUnitPx?: number;
-  /** Force search ceiling. Default 2000 (same as `solveAim`). */
+  /** Raw engine force/velocity ceiling (search bound) AND the player's power-bar 0..100 basis (`force / maxForce *
+   *  100`, matching `Player.as`/`EnergyView.as` `_maxForce:int = 2000` and `bot/aim.ts` `solveAim`'s default).
+   *  Default 2000. */
   maxForce?: number;
 }
 
 export interface AimTableRow {
   angle: number;
-  /** Force needed to reach each `distances[i]`, same order/length; `null` when unreachable within `maxForce`. */
+  /** Player-facing power (0..100 — the EnergyView power-bar reading, what `sendShootAction`/the FIRE command
+   *  actually need scaled back up by `maxForce / 100`) needed to reach each `distances[i]`, same order/length;
+   *  `null` when unreachable within `maxForce`. */
   forces: (number | null)[];
 }
 
@@ -98,7 +113,9 @@ export function computeAimTable(o: AimTableOptions): AimTableResult {
         if (distanceFor(angleDeg, mid) < targetPx) lo = mid;
         else hi = mid;
       }
-      return Math.round(hi);
+      // hi is the raw engine force/velocity (what `simulateShot`/`ShootImp` take); convert to the player-facing
+      // 0..100 power-bar reading the Play page actually shows (see `maxForce` doc above).
+      return Math.round((hi / maxForce) * 100);
     });
     return { angle: angleDeg, forces };
   });
