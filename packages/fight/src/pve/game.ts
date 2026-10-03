@@ -776,6 +776,14 @@ export class PveGame extends BaseGame {
         this.raw(119, 0, [["i32", 0]]);
         if (s === GameState.ALLSessionStopped) this.stopPve();
         return this.drain();
+      case "DELIVER":
+        // TransmissionGateCommand (137): stepping onto the gate readies the player for the next floor; unlike
+        // MISSION_PREPARE(116) this only ever sets Ready (never clears it) and isn't echoed to other clients.
+        if ((s === GameState.SessionPrepared || s === GameState.GameOver) && c.ready) {
+          this.pp.get(p)!.ready = true;
+          this.checkState(0);
+        }
+        return this.drain();
       case "MISSION_EVENT":
         if (s === GameState.Playing) {
           // GSPacketIn-like reader over the ints that followed the sub (scripts call packet.ReadInt())

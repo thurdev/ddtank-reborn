@@ -17,14 +17,14 @@
 | Bolsa/Inventário | 27 | 18 | 2 | 7 | 0 | 0 | 8 |
 | Boss mundial/Minigames | 7 | 0 | 6 | 0 | 1 | 0 | 4 |
 | Cartas | 8 | 4 | 0 | 0 | 4 | 0 | 2 |
-| Casamento | 24 | 9 | 13 | 0 | 2 | 0 | 0 |
-| Combate (GAME_CMD) | 39 | 31 | 2 | 6 | 0 | 0 | 4 |
+| Casamento | 24 | 10 | 13 | 0 | 1 | 0 | 4 |
+| Combate (GAME_CMD) | 39 | 32 | 1 | 6 | 0 | 0 | 4 |
 | Configurações | 2 | 1 | 0 | 0 | 1 | 0 | 0 |
 | Conta/Login | 6 | 4 | 0 | 0 | 2 | 0 | 0 |
 | Correio | 7 | 6 | 0 | 0 | 1 | 0 | 0 |
 | Escola/Aprendiz | 4 | 4 | 0 | 0 | 0 | 0 | 0 |
 | Eventos/Atividades | 37 | 12 | 10 | 9 | 6 | 0 | 2 |
-| Fazenda | 14 | 1 | 13 | 0 | 0 | 0 | 0 |
+| Fazenda | 14 | 1 | 13 | 0 | 0 | 0 | 4 |
 | Ferreiro | 16 | 6 | 2 | 8 | 0 | 0 | 1 |
 | GvG/Liga | 4 | 0 | 4 | 0 | 0 | 0 | 0 |
 | Leilão | 3 | 1 | 2 | 0 | 0 | 0 | 0 |
@@ -34,13 +34,13 @@
 | Outros | 16 | 6 | 2 | 1 | 7 | 0 | 1 |
 | Personagem/FC | 3 | 1 | 0 | 0 | 2 | 0 | 0 |
 | Pets | 17 | 13 | 0 | 4 | 0 | 0 | 2 |
-| PvE/Masmorras | 9 | 0 | 7 | 0 | 2 | 0 | 0 |
+| PvE/Masmorras | 9 | 1 | 7 | 0 | 1 | 0 | 0 |
 | Salas PvP | 21 | 17 | 0 | 0 | 4 | 0 | 0 |
 | Sociedade/Guilda | 28 | 25 | 1 | 2 | 0 | 0 | 12 |
 | Spa/Fonte termal | 14 | 13 | 0 | 1 | 0 | 0 | 5 |
 | Totem/Honra | 2 | 0 | 0 | 0 | 2 | 0 | 0 |
 | VIP | 1 | 1 | 0 | 0 | 0 | 0 | 1 |
-| **Total** | 361 | 205 | 67 | 39 | 50 | 0 | 48 |
+| **Total** | 361 | 208 | 66 | 39 | 48 | 0 | 56 |
 
 ## Amigos
 
@@ -101,7 +101,7 @@
 | `sendBuyWorldBossBuff` | `worldboss/WorldBossManager.as`<br>`worldboss/view/BuffCartItem.as` | 102 WORLDBOSS_CMD | BUFF_BUY=38 | partial | yes | 30 Xu cobrados uma vez (o original cobrava duas). — evidência: research/e2e/events/e20-buff.png |
 | `sendLeaveBossRoom` | `worldboss/view/RoomMenuView.as` | 102 WORLDBOSS_CMD | LEAVE_ROOM=33 | partial | no | Sai da sala (102/4). |
 | `sendWorldBossRoomMove` | `worldboss/view/WorldBossScneneMap.as` | 102 WORLDBOSS_CMD | MOVE=35 | partial | yes | Movimento repassado a todos na sala (102/6). — evidência: research/e2e/events/e17-worldboss-move.png |
-| `createPackageOut` | `littleGame/LittleGameManager.as` | 166 LITTLEGAME_COMMAND |  | missing | no |  |
+| `createPackageOut` | `littleGame/LittleGameManager.as` | 166 LITTLEGAME_COMMAND |  | missing | no | Real no original, não lacuna de fidelidade — subsistema inteiro não portado ainda (orçamento): LITTLEGAME_COMMAND (código 166) é só um relay fino (LittleGameHandler.cs, 13 linhas: client.Player.LittleGame?.ProcessData(...)) para um minigame completo da fonte termal em vendor/DDTank41/Game.Server/LittleGame/* (22 arquivos: LittleGameWorldMgr, LittleGameLogicProcessor, handlers de EnterWorld/LeaveWorld/Move/Click/CancelClick/PosSync/ReportScore — um jogo de posição/clique em tempo real dentro da sala de spa, Source Flash/src/littleGame/LittleGameManager.as no cliente). Nenhuma parte foi portada; nenhuma tabela/estado equivalente existe em apps/game. Tamanho comparável ao chick activation (84) — fora do orçamento desta sessão. |
 
 ## Cartas
 
@@ -121,16 +121,16 @@
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
 | `sendExitMarryRoom` | `church/controller/ChurchRoomListController.as` | 21 SCENE_REMOVE_USER |  | ok | no |  |
-| `sendMateTime` | `church/view/weddingRoomList/DivorcePromptFrame.as`<br>`church/view/weddingRoomList/WeddingRoomListNavView.as` | 85 MATE_ONLINE_TIME |  | missing | no |  |
+| `sendMateTime` | `church/view/weddingRoomList/DivorcePromptFrame.as`<br>`church/view/weddingRoomList/WeddingRoomListNavView.as` | 85 MATE_ONLINE_TIME |  | ok | no | MATE_ONLINE_TIME implementado (MateTimeHandler.cs, apps/game/src/handlers/marriage.ts): int userId -> responde com o LastDate daquele jogador (online: valor em memória; offline: linha de Sys_Users_Detail; desconhecido: agora). Usado pela capela pra mostrar 'visto por último' do cônjuge offline. Testado em apps/game/test/marriage-farm-auction.test.ts (online, offline via DB, userId inexistente), não clicado no cliente real. |
 | `sendCreateRoom` | `church/controller/ChurchRoomListController.as` | 94 GAME_ROOM | GAME_ROOM_CREATE=0 | ok | no |  |
-| `sendChurchMovieOver` | — | 167 CHURCH_MOVIE_OVER |  | missing | no |  |
+| `sendChurchMovieOver` | — | 167 CHURCH_MOVIE_OVER |  | missing | no | Morto no original dos dois lados: GameSocketOut.as define sendChurchMovieOver() (PackageOut(CHURCH_MOVIE_OVER=167)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e nenhum [PacketHandler(167,...)] existe em Game.Server. Status 'missing' aqui é fidelidade, não lacuna. |
 | `sendSceneChange` | `church/controller/ChurchRoomController.as` | 233 MARRY_SCENE_CHANGE |  | partial | no |  |
 | `sendForMarryInfo` | `civil/view/CivilRegisterFrame.as` | 235 MARRYINFO_GET |  | ok | no |  |
 | `sendMarryRoomLogin` | `church/view/ChurchMainView.as` | 240 MARRY_SCENE_LOGIN |  | ok | no |  |
-| `sendCreateRoom` | `church/controller/ChurchRoomListController.as` | 241 MARRY_ROOM_CREATE |  | partial | no |  |
+| `sendCreateRoom` | `church/controller/ChurchRoomListController.as` | 241 MARRY_ROOM_CREATE |  | partial | yes | Fluxo completo testado de ponta a ponta com o layout real de pacotes (apps/game/test/marriage-farm-auction.test.ts '247/250 MARRY_APPLY...'): 247 propõe (anel consumido) -> 250 aceita (ambos IsMarried) -> 241 cria a capela (cobra PRICE_MARRY_ROOM, IsCreatedMarryRoom=true, SelfMarryRoomID setado) -> 242 noivo recebe o ack (roomInfoPacket + bool true) -> 242 noiva entra na mesma sala -> 249/2 HYMENEAL inicia o casamento, ambos os clientes recebem started=true. Não clicado no Ruffle real (orçamento de screenshots), mas verificado byte a byte contra o formato confirmado em ChurchManager.as. |
 | `sendExitRoom` | `church/controller/ChurchRoomController.as`<br>`ddt/manager/ChurchManager.as` | 244 PLAYER_EXIT_MARRY_ROOM |  | ok | no |  |
 | `sendValidateMarry` | `ddt/manager/ChurchManager.as` | 246 MARRY_STATUS |  | ok | no |  |
-| `sendPropose` | `ddt/view/common/church/ChurchBuyRingFrame.as`<br>`ddt/view/common/church/ChurchProposeFrame.as` | 247 MARRY_APPLY |  | ok | no |  |
+| `sendPropose` | `ddt/view/common/church/ChurchBuyRingFrame.as`<br>`ddt/view/common/church/ChurchProposeFrame.as` | 247 MARRY_APPLY |  | ok | yes | MARRY_APPLY testado de ponta a ponta (apps/game/test/marriage-farm-auction.test.ts): consome o anel (11103) já na bolsa em vez de comprar, recusa mesmo sexo/já casado, grava Marry_Apply e notifica o alvo (247 com proposerId/nick/mensagem/answerId). Ver 241:sendCreateRoom (continuação do mesmo teste até a capela). |
 | `sendUnmarry` | `church/controller/ChurchRoomListController.as` | 248 DIVORCE_APPLY |  | ok | no |  |
 | `sendChurchContinuation` | `church/controller/ChurchRoomController.as` | 249 MARRY_CMD | CONTINUATION=3 | partial | no |  |
 | `sendChurchForbid` | `church/view/menu/MenuPanel.as` | 249 MARRY_CMD | FORBID=8 | partial | no |  |
@@ -140,9 +140,9 @@
 | `sendChurchMove` | `church/view/churchScene/SceneMap.as` | 249 MARRY_CMD | MOVE=1 | partial | no |  |
 | `sendGunSalute` | `church/view/churchScene/MoonSceneMap.as` | 249 MARRY_CMD | GUNSALUTE=11 | partial | no |  |
 | `sendPosition` | `church/view/churchScene/WeddingSceneMap.as` | 249 MARRY_CMD | POSITION=10 | partial | no |  |
-| `sendStartWedding` | `church/controller/ChurchRoomController.as` | 249 MARRY_CMD | HYMENEAL=2 | partial | no |  |
+| `sendStartWedding` | `church/controller/ChurchRoomController.as` | 249 MARRY_CMD | HYMENEAL=2 | partial | yes | Ver 241:sendCreateRoom — mesmo teste cobre 249/HYMENEAL=2: primeira vez (IsGotRing=false em ambos) manda os anéis por correio e grava IsMarried/IsGotRing sem cobrar Xu; broadcast 249/2 roomId+started=true chega pros dois clientes. Não clicado no Ruffle real, verificado por teste de protocolo com os codes/subs reais. |
 | `sendUseFire` | `church/view/churchFire/ChurchFireView.as` | 249 MARRY_CMD | USEFIRECRACKERS=6 | partial | no |  |
-| `sendProposeRespose` | `ddt/view/common/church/ChurchProposeResponseFrame.as` | 250 MARRY_APPLY_REPLY |  | ok | no |  |
+| `sendProposeRespose` | `ddt/view/common/church/ChurchProposeResponseFrame.as` | 250 MARRY_APPLY_REPLY |  | ok | yes | MARRY_APPLY_REPLY testado: aceitar casa os dois (IsMarried/SpouseID nos dois lados), recusar manda a 'carta de bom moço' por correio. Ver 241:sendCreateRoom. |
 | `sendModifyChurchDiscription` | `church/controller/ChurchRoomController.as` | 253 MARRY_ROOM_INFO_UPDATE |  | partial | no |  |
 
 ## Combate (GAME_CMD)
@@ -175,13 +175,13 @@
 | `sendGhostTarget` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | GHOST_TARGET=54 | ok | no |  |
 | `sendKillSelf` | — | 91 GAME_CMD | KILLSELF=21 | stub | no | KILLSELF (sub 21): morto no próprio original, mesma varredura de sendGameCMDBlast (nenhum GameCommand(21,...)). |
 | `sendLoadingProgress` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | LOAD=16 | ok | no |  |
-| `sendMissionTryAgain` | `ddt/manager/GameInSocketOut.as` | 91 91 |  | ok | no |  |
+| `sendMissionTryAgain` | `ddt/manager/GameInSocketOut.as` | 91 91 |  | ok | no | TryAgainCommand.cs (sub 119 GAME_MISSION_TRY_AGAIN) no C# live deste donor server toma SEMPRE o ramo de desistir: WantTryAgain=0, Stop(), SendMissionTryAgain() — a lógica de retry pago (cobrar TryAgainCost em Xu e voltar pra mesma sessão) está presente só como bloco comentado, com uma mensagem fixa de 'recurso em desenvolvimento' no meio do código morto. Ou seja: 'tentar de novo' sempre fecha a sessão no original de verdade, não é uma lacuna do port. apps/game/src/fight/ddt.ts (case TRY_AGAIN) replica esse comportamento 1:1 (WantTryAgain forçado a 0, sempre fecha). Verificado lendo TryAgainCommand.cs:9-96 inteiro (o ramo ativo termina na linha 23; o resto é comentário). |
 | `sendPassStory` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | PASS_STORY=133 | ok | no |  |
 | `sendPaymentTakeCard` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | PAYMENT_TAKE_CARD=114 | ok | no | PAYMENT_TAKE_CARD (sub 114) implementado (PaymentTakeCardCommand.cs): paga 486 Xu (437 VIP) por um flip de carta extra (CanTakeOut++) e chama TakeCard. Desvio: o fast-path do buff Card_Get (BuffType 73, uso gratuito) não foi portado — sempre cobra Xu. Testado: apps/game/test/fight.test.ts "GAME_CMD 114 PAYMENT_TAKE_CARD charges Money and grants one extra pick" (saldo de Xu debitado e resposta 91/98 isAuto=false confirmados). |
 | `sendPetSkill` | `game/view/prop/PetSkillBar.as` | 91 GAME_CMD | PET_SKILL=144 | ok | no |  |
 | `sendShootTag` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | FIRE_TAG=96 | ok | no |  |
 | `sendSuicide` | — | 91 GAME_CMD | SUICIDE=17 | ok | no |  |
-| `sendTransmissionGate` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | DELIVER=137 | partial | no | DELIVER (sub 137, TransmissionGateCommand.cs) é real no original (marca o jogador Ready entre fases de masmorra multi-andar e chama game.CheckState) mas não foi portado nesta sessão — a funcionalidade de encadeamento de andares de PvE que ele desbloqueia não existe neste motor ainda (mesma lacuna do tipo de sala PvE do Labirinto, ver BACKLOG/HANDLERS.md). O pacote é lido e descartado sem travar a conexão (confirmado em apps/game/test/fight.test.ts). |
+| `sendTransmissionGate` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | DELIVER=137 | ok | no | DELIVER (sub 137, TransmissionGateCommand.cs) agora portado: stepping no portão marca Player.Ready=true (só liga, nunca desliga, sem eco — diferente do checkbox 116 MISSION_PREPARE) e chama game.CheckState(0), desbloqueando o encadeamento de andares multi-sessão de masmorra (apps/game/src/fight/ddt.ts parsePveCommand sub 137 -> packages/fight/src/pve/game.ts case DELIVER). Testado em packages/fight/test/pve.test.ts ('dungeon floor chaining also works via GAME_CMD 137 DELIVER'), não clicado no cliente real. |
 | `sendUpdatePlayStep` | `ddt/manager/GameInSocketOut.as` | 91 GAME_CMD | MISSION_CMD=25 | ok | no |  |
 | `useDeputyWeapon` | — | 91 GAME_CMD | USE_DEPUTY_WEAPON=84 | ok | no |  |
 | `sendWorldBossRoomStauts` | `game/actions/MissionOverAction.as`<br>`worldboss/WorldBossManager.as`<br>`worldboss/view/WorldBossFightRoomState.as` (+1) | 102 WORLDBOSS_CMD | STAUTS=36 | partial | yes | Luta PvE tipo 14 com o script do dragão portado (ACDragon/AC1243/WorldAcientDragon do DDT-6600 em packages/fight/src/pve/scripts/manual/worldboss.ts): o dragão aparece, fala e ataca (71087 de dano), HP inicial = HP global restante. Desvio: o jogador age antes do dragão (no 6600 o dragão one-shotava antes). Estado 3 não tira mais o jogador da sala do boss (corrigido: reviver dava 'Xu insuficiente'). — evidência: research/e2e/batch3/39-wb1.png, research/e2e/batch3/40-wb-myturn.png, research/e2e/batch3/45-wb-shot2.png |
@@ -238,9 +238,9 @@
 | `sendFinishRoulette` | `ddt/view/caddyII/CaddyFrame.as`<br>`ddt/view/caddyII/CardBoxFrame.as`<br>`ddt/view/roulette/RouletteView.as` (+1) | 28 LOTTERY_FINISH |  | ok | no | LOTTERY_FINISH implementado: move CaddyBag + LotteryAwardList pras bolsas reais (sobra por correio), ResetLottery. Testado por código, não clicado. |
 | `sendQequestBadLuck` | `ddt/view/caddyII/badLuck/CaddyBadLuckView.as` | 45 CADDY_GET_BADLUCK |  | ok | no | CADDY_GET_BADLUCK implementado: ranking top 20 por Sys_Users_Extra.TotalCaddyOpen (WorldMgr.CaddyRank). Testado por código, não clicado. |
 | `sendGetTimeBox` | `ddt/manager/BossBoxManager.as`<br>`ddt/view/bossbox/BossBoxView.as` | 53 GET_TIME_BOX |  | ok | no | Caixa de tempo online: minutos contados no servidor desde o login/última caixa (o original confiava no relatório do cliente), 1x por caixa/dia; caixa de nível 1x por nível. Coberto por events.test.ts. No cliente o contador do hall (00:15:00) aparece; prêmio vem de Shop_Goods_Box. |
-| `sendChickActivationGetAward` | `chickActivation/view/ChickActivationViewFrame.as` | 84 ACTIVITY_PACKAGE | ChickActivationType.CHICKACTIVATION=2 | missing | no |  |
-| `sendChickActivationOpenKey` | `chickActivation/view/ChickActivationViewFrame.as` | 84 ACTIVITY_PACKAGE | ChickActivationType.CHICKACTIVATION=2 | missing | no |  |
-| `sendChickActivationQuery` | `chickActivation/ChickActivationManager.as` | 84 ACTIVITY_PACKAGE | ChickActivationType.CHICKACTIVATION=2 | missing | no |  |
+| `sendChickActivationGetAward` | `chickActivation/view/ChickActivationViewFrame.as` | 84 ACTIVITY_PACKAGE | ChickActivationType.CHICKACTIVATION=2 | missing | no | Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:198+), prêmio por faixa de Grade dentro de 60 dias do resgate (chickInfo.KeyOpenedTime.AddDays(60)). |
+| `sendChickActivationOpenKey` | `chickActivation/view/ChickActivationViewFrame.as` | 84 ACTIVITY_PACKAGE | ChickActivationType.CHICKACTIVATION=2 | missing | no | Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:171-197), código de 14 caracteres resgatado uma vez (IsKeyOpened). |
+| `sendChickActivationQuery` | `chickActivation/ChickActivationManager.as` | 84 ACTIVITY_PACKAGE | ChickActivationType.CHICKACTIVATION=2 | missing | no | Real no original (não é lacuna de fidelidade, é feature grande não portada ainda por orçamento): ActivityPackageHandler.cs (668 linhas, sub ACTIVITY_PACKAGE=84) trata ChickActivationType.CHICKACTIVATION (linhas 135-250ish) como um sistema de 'código de ativação' de 14 caracteres (QUERY consulta UserChickActiveInfo/IsKeyOpened; OPENKEY resgata o código; GETAWARD paga um prêmio por faixa de nível — m_gradeList {10,20,30,40,45,50,55,60,65} — dentro de 60 dias do resgate). A tabela Activity_System_Item já foi migrada para Postgres, mas falta o UserChickActiveInfo/handler em apps/game e a UI admin pra cadastrar códigos. Ver BACKLOG.md 'Não portado nesta batch'. |
 | `sendChickenBoxTakeOverCard` | `newChickenBox/view/NewChickenBoxView.as` | 87 NEWCHICKENBOX_SYS | TAKEOVERCARD=13 | partial | no | Ver 87:sendNewChickenBox. TAKEOVERCARD: custo escalonado (openCardPrice[canOpenCounts-1]), item entregue, 5 usos. |
 | `sendChickenBoxUseEagleEye` | `newChickenBox/view/NewChickenBoxView.as` | 87 NEWCHICKENBOX_SYS | USEEAGLEEYE=11 | partial | no | Ver 87:sendNewChickenBox. USEEAGLEEYE: custo escalonado (eagleEyePrice), revela a carta sem consumir. |
 | `sendClickStartBntNewChickenBox` | `newChickenBox/view/NewChickenBoxFrame.as` | 87 NEWCHICKENBOX_SYS | CLICKSTARTBNT=15 | partial | no | Ver 87:sendNewChickenBox. CLICKSTARTBNT: embaralha as posições do tabuleiro (RandomPosition portado). |
@@ -276,15 +276,15 @@
 |---|---|---|---|---|---|---|
 | `sendBuyPetExpItem` | `farm/viewx/FarmBuyExpFrame.as` | 68 PET | BUY_PET_EXP_ITEM=19 | ok | no |  |
 | `doMature` | — | 81 FARM | ACCELERATE_FIELD=3 | partial | no |  |
-| `enterFarm` | — | 81 FARM | ENTER_FARM=1 | partial | no |  |
+| `enterFarm` | — | 81 FARM | ENTER_FARM=1 | partial | yes | Fluxo plantar->regar->colher testado de ponta a ponta com o layout real de pacotes (apps/game/test/marriage-farm-auction.test.ts '81 FARM — plant, fast-forward, harvest'): ENTER_FARM(1) devolve o snapshot dos 8 campos iniciais. Não clicado no Ruffle real (orçamento de screenshots). |
 | `exitFarm` | — | 81 FARM | EXIT_FARM=16 | partial | no |  |
-| `fastForwardGrop` | — | 81 FARM | FRAM_GROP_FASTFORWARD=18 | partial | no |  |
+| `fastForwardGrop` | — | 81 FARM | FRAM_GROP_FASTFORWARD=18 | partial | yes | FRAM_GROP_FASTFORWARD(18): cobra FastGrowNeedMoney em Money (ou GiftToken) por campo e soma FAST_GROW_SUB_MIN de AccelerateTime, adiantando a maturação sem esperar o relógio real. Ver 81:enterFarm. |
 | `giftPacks` | — | 81 FARM | FARM_GIFTPACKS=20 | partial | no |  |
-| `seeding` | — | 81 FARM | GROW_FIELD=2 | partial | no |  |
+| `seeding` | — | 81 FARM | GROW_FIELD=2 | partial | yes | GROW_FIELD(2): consome 1 semente da FarmBag (332100 Lúa Mì testado), grava SeedID/PlantTime/FieldValidDate/GainCount no campo e responde FARM_LAND_INFO (sub 17, não ecoa o sub da requisição). Replantar após colher também testado. Ver 81:enterFarm. |
 | `sendBeginHelper` | `farm/viewx/helper/FarmHelperView.as`<br>`farm/viewx/helper/HelperBeginFrame.as` | 81 FARM | HELPER_SWITCH_FIELD=9 | partial | no |  |
 | `sendCompose` | `farm/view/compose/FarmComposePnl.as` | 81 FARM | COMPOSE_FOOD=5 | partial | no |  |
 | `toFarmHelper` | — | 81 FARM | HELPER_SWITCH_FIELD=9 | partial | no |  |
-| `toGather` | — | 81 FARM | GAIN_FIELD=4 | partial | no |  |
+| `toGather` | — | 81 FARM | GAIN_FIELD=4 | partial | yes | GAIN_FIELD(4) em campo próprio: exige isRipe (elapsed+AccelerateTime >= FieldValidDate), zera o campo e entrega Property2 unidades do item Property4 na bolsa (propBag aqui; correio se a bolsa estiver cheia). Ver 81:enterFarm. |
 | `toHelperRenewMoney` | — | 81 FARM | HELPER_PAY_FIELD=8 | partial | no |  |
 | `toKillCrop` | — | 81 FARM | KILLCROP_FIELD=7 | partial | no |  |
 | `toSpread` | — | 81 FARM | PAY_FIELD=6 | partial | no |  |
@@ -360,12 +360,12 @@
 |---|---|---|---|---|---|---|
 | `sendErrorMsg` | `calendar/CalendarManager.as`<br>`calendar/view/goodsExchange/GoodsExchangeView.as`<br>`ddt/bagStore/BagStoreFrame.as` (+13) | 8 CLIENT_LOG |  | ok | no |  |
 | `sendDailyAward` | `calendar/CalendarManager.as`<br>`hall/HallStateView.as`<br>`times/TimesManager.as` (+1) | 13 DAILY_AWARD |  | ok | yes | Tipo 5 (presença no calendário) marca o dia em DailyLogList uma vez por dia (o original aceitava várias); tipo 0 "Nhận mỗi ngày" dá o buff Daily_Award tipo 0 uma vez por dia; 2 ovo e 3 caixa VIP também com claim diário (app."EventClaims"). — evidência: research/e2e/events/e3-signed.png, e5-daily-claimed.png |
-| `syncStep` | — | 15 USER_ANSWER |  | missing | no |  |
-| `syncWeakStep` | — | 15 USER_ANSWER |  | missing | no |  |
+| `syncStep` | — | 15 USER_ANSWER |  | missing | no | Real no original, não lacuna de fidelidade — feature de tutorial não portada ainda (orçamento): UserAnswerHandler.cs (código 15 USER_ANSWER) recebe byte b, int step (enum Step em SqlDataProvider/Step.cs, ~90 marcos tipo POP_WELCOME/BAG_OPEN_SHOW/POP_WIN_I), opcionalmente paga um prêmio via DropInventory.AnswerDrop(step) e sempre grava UpdateAnswerSite(step) (bitmask de progresso, pra retomar o tutorial sem repetir popups). O campo PlayerInfo.AnswerSite já existe (apps/game/src/game/player-info.ts, persistido) mas nada escreve nele ainda — nenhum handler para o código 15. Baixo impacto de gameplay (é bookkeeping de UI do tutorial Freshman, que já funciona via outros meios nesta port — packages/fight/test/pve.test.ts 'freshman 6-2'); mapear as ~90 constantes de Step com precisão ficou fora do orçamento desta sessão. |
+| `syncWeakStep` | — | 15 USER_ANSWER |  | missing | no | Ver 15:syncStep — mesmo handler/código 15 (variante 'weak' = sem o prêmio automático, só grava progresso). |
 | `sendPicc` | `calendar/view/ActivityState.as` | 30 PICC |  | ok | no |  |
-| `sendGoodsExchange` | `calendar/view/goodsExchange/GoodsExchangeView.as` | 31 GOODS_EXCHANGE |  | missing | no |  |
-| `sendCollectInfoValidate` | `quest/InfoCollectView.as` | 32 COLLECTINFO |  | missing | no |  |
-| `sendQuestionReply` | `ddt/manager/QuestionInfoMannager.as` | 89 QUESTION_REPLY |  | missing | no |  |
+| `sendGoodsExchange` | `calendar/view/goodsExchange/GoodsExchangeView.as` | 31 GOODS_EXCHANGE |  | missing | no | Chamado pelo cliente (calendar/view/goodsExchange/GoodsExchangeView.as:177) mas sem [PacketHandler(31,...)] em Game.Server — o pedido de troca de itens do calendário é descartado silenciosamente no próprio original (não é um no-op registrado como 128/130, é ausência total de handler, igual 104/105/239). Status 'missing' aqui é fidelidade, não lacuna. |
+| `sendCollectInfoValidate` | `quest/InfoCollectView.as` | 32 COLLECTINFO |  | missing | no | Chamado pelo cliente (quest/InfoCollectView.as:200) mas sem [PacketHandler(32,...)] em Game.Server — o formulário de 'coleta de informação' (CPF/telefone etc. de alguma campanha) nunca foi implementado no servidor original; o cliente envia e nada responde. Status 'missing' aqui é fidelidade, não lacuna. |
+| `sendQuestionReply` | `ddt/manager/QuestionInfoMannager.as` | 89 QUESTION_REPLY |  | missing | no | Chamado pelo cliente (ddt/manager/QuestionInfoMannager.as:85) mas sem [PacketHandler(89,...)] em Game.Server — resposta a uma pergunta (survey/quiz de evento) nunca implementada no original. Status 'missing' aqui é fidelidade, não lacuna. |
 | `sendSignAward` | `calendar/CalendarManager.as` | 90 GET_SIGNAWARD |  | ok | no | Prêmio por N presenças no mês (Daily_Award tipos 1/7 com AwardDays=N): exige N dias marcados e paga uma vez por mês+tier (o C# duplicava itens no loop). Coberto por apps/game/test/events.test.ts; no cliente só dispara ao atingir 3/6/12/18 presenças. |
 | `labyrinthRequestUpdate` | — | 131 LABYRINTH | REQUEST_UPDATE=2 | partial | no | LABYRINTH implementado como camada administrativa/econômica (apps/game/src/handlers/activities.ts + Sys_Users_Labyrinth): sub 1 DOUBLE_REWARD, 2 REQUEST_UPDATE, 3 CLEAN_OUT, 4 SPEEDED_UP, 5 STOP, 6 RESET, 9 TRY_AGAIN. Desvio documentado: o contador de andar por tempo real (Timer de 1s do original) é liquidado instantaneamente no CLEAN_OUT em vez de um timer por jogador; `myProgress` (andares vencidos em combate real) fica em 0 pra todo mundo até o tipo de sala PvE do labirinto ser portado — ver HANDLERS.md. Testado por código (activities.test.ts), não clicado. |
 | `sendAcademyApprentice` | `ddt/view/academyCommon/academyRequest/AcademyRequestMasterFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | ACADEMY_FOR_APPRENTICE=4 | ok | yes | Pedido de aprendiz → mestre recebe 141/4 (AcademyMgr em memória, 1 h). — evidência: research/e2e/batch3/23-bob-academy.png, research/e2e/batch3/24-bob-ask.png, research/e2e/batch3/25-thur-request.png |
@@ -437,8 +437,8 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `sendBeginFightNpc` | — | 50 FIGHT_NPC |  | missing | no |  |
-| `sendGameMissionStart` | `ddt/manager/GameInSocketOut.as` | 82 CrazyTankPackageType.GAME_MISSION_START |  | missing | no |  |
+| `sendBeginFightNpc` | — | 50 FIGHT_NPC |  | missing | no | Morto no original dos dois lados: GameSocketOut.as define sendBeginFightNpc() (PackageOut(FIGHT_NPC=50)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e o servidor não registra [PacketHandler(50,...)] em Game.Server/Fighting.Server (o 'FIGHT_NPC=88' de Game.Logic/Protocol/eFightPackageType.cs é um protocolo interno Center<->Fighting diferente, não o pacote de cliente). Status 'missing' aqui é fidelidade, não lacuna. |
+| `sendGameMissionStart` | `ddt/manager/GameInSocketOut.as` | 82 CrazyTankPackageType.GAME_MISSION_START |  | ok | no | GAME_MISSION_START implementado (GameUserStartHandler.cs, apps/game/src/handlers/rooms.ts + Fight.missionStart em apps/game/src/fight/ddt.ts): bool flag; se true, força Ready=true em todo jogador do jogo PvE da sala atual e chama checkState(0) (sem checagem de host no original). É isto que o MissionRoomView.as do cliente envia, no lugar de 94/7 GAME_START, ao clicar 'Iniciar' entre sessões de uma masmorra multi-andar tipo FightLab (roomType 5) já em andamento — sem este handler o jogo ficava parado em SessionPrepared/GameOver a partir do 2º andar. Reusa a semântica de 137 DELIVER (só liga Ready, sem eco). Testado em apps/game/test/fight.test.ts ('82 GAME_MISSION_START ... forwarded to the room's active game.missionStart()'), não clicado no cliente real. |
 | `labyrinthCleanOut` | — | 131 LABYRINTH | CLEAN_OUT=3 | partial | no |  |
 | `labyrinthCleanOutTimerComplete` | — | 131 LABYRINTH | CLEAN_OUT_COMPLETE=8 | partial | no |  |
 | `labyrinthDouble` | — | 131 LABYRINTH | DOUBLE_REWARD=1 | partial | no |  |

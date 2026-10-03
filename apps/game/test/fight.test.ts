@@ -152,6 +152,23 @@ describe("@ddt/fight adapter", () => {
     a.c.close();
   }, 60000);
 
+  it("82 GAME_MISSION_START (GameUserStartHandler): flag gates the call, forwarded to the room's active game.missionStart() with no host check", async () => {
+    (server.ctx.rooms as unknown as { o: { botFallbackSec: number } }).o.botFallbackSec = 0;
+    const a = await lobby();
+    roomCmd(a.c, 7);
+    for (let i = 0; i < 50 && !a.player().currentRoom?.game; i++) { engine.tick((clock += 40)); await new Promise((r) => setTimeout(r, 2)); }
+    const room = a.player().currentRoom!;
+    let called = 0;
+    (room.game as unknown as { missionStart: () => void }).missionStart = () => { called++; };
+    a.c.out(82, (p) => p.writeBoolean(false));
+    await new Promise((r) => setTimeout(r, 5));
+    expect(called).toBe(0); // GameUserStartHandler.cs:11 — ReadBoolean() must be true
+    a.c.out(82, (p) => p.writeBoolean(true));
+    await new Promise((r) => setTimeout(r, 5));
+    expect(called).toBe(1);
+    a.c.close();
+  }, 60000);
+
   it("GAME_CMD subs confirmed dead in the original (3 BLAST, 10 MOVESTOP, 19 CHANGEBALL, 21 KILLSELF, 22 BEAT, 97 WANNA_LEADER) are accepted without a server reply or crash", async () => {
     (server.ctx.rooms as unknown as { o: { botFallbackSec: number } }).o.botFallbackSec = 0;
     const a = await lobby();

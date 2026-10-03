@@ -294,12 +294,19 @@ class DdtGame implements FightGame {
     if (!cmd) {
       // Confirmed dead in the original too (no Game.Logic.Cmd class carries these GAME_CMD subs — CommandMgr's
       // reflection scan never registers them, same silent drop as here): 3 BLAST, 19 CHANGEBALL, 21 KILLSELF,
-      // 22 BEAT. 137 DELIVER (TransmissionGateCommand) is real but unported — it readies a player between PvE
-      // dungeon floors, a chaining feature this engine doesn't have yet (tracked in BACKLOG with the Labyrinth gap).
+      // 22 BEAT. 137 DELIVER is handled above via parsePveCommand (pve-only, like 116/98/130/133/119/23).
       this.engine.o.log?.(`fight ${this.id}: GAME_CMD sub ${sub} from ${from.id} ignored`);
       return;
     }
     this.dispatch(this.game.handle(from.id, cmd, Date.now()));
+  }
+
+  /** GameUserStartHandler (82): host forces every player Ready (PVEGame.MissionStart); no-op for PvP (AbstractGame
+   * default). Reuses the DELIVER(137) semantics — set-only, no 116 echo — since GameUserStartHandler doesn't SendToAll. */
+  missionStart(): void {
+    if (!this.pve) return;
+    const now = Date.now();
+    for (const id of this.members.keys()) this.dispatch(this.game.handle(id, { cmd: "DELIVER", ready: true }, now));
   }
 
   removePlayer(p: RoomMember): void {
@@ -629,6 +636,8 @@ export function parsePveCommand(sub: number, pkt: GSPacket): FightCommand | null
     case 98: case 130: return { cmd: "TAKE_CARD", index: pkt.readByte() };
     case 133: return { cmd: "PASS_DRAMA", pass: pkt.readBoolean() };
     case 119: return { cmd: "TRY_AGAIN", tryAgain: pkt.readInt(), isHost: pkt.readBoolean() };
+    // TransmissionGateCommand (137): readies the player stepping onto the gate between multi-floor PvE sessions.
+    case 137: return { cmd: "DELIVER", ready: pkt.readBoolean() };
     case 23: {
       // MissionEventCommand → PVEGame.GeneralCommand(packet): the script reads ints (fight lab: type, quizId, answer)
       const data: number[] = [];
