@@ -1,0 +1,24 @@
+{
+  "apiUrl": "https://example.com",
+  "updateUrl": "https://example.com/launcher/updates/",
+  "client": {
+    "swfUrl": "https://example.com/flash/Loading.swf",
+    "configUrl": "https://example.com/flash/config.xml",
+    "width": 1000,
+    "height": 600
+  },
+  "runtimes": {
+    "projector": {
+      "url": "https://SEU-MIRROR/flashplayer_32_sa.exe",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "version": "32.0.0.465"
+    },
+    "ruffle": {
+      "url": "https://github.com/ruffle-rs/ruffle/releases/download/nightly-AAAA-MM-DD/ruffle-nightly-AAAA_MM_DD-windows-x86_64.zip",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "exe": "ruffle.exe"
+    }
+  },
+  "runtimePaths": {},
+  "runtimeExtraArgs": { "projector": [], "ruffle": [] }
+}
