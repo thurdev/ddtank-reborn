@@ -1112,3 +1112,95 @@ manchado e pelo flare (item 6 — é o que mais importa pro usuário, "unaccepta
 `staged_loading/`, mas **não repacotado** — `DDT_Loading.swf` tem um mecanismo de repack especial descrito no
 lote anterior, fora do escopo/orçamento desta sessão) e confirmar se os mesmos sintomas (manchas/flare)
 aparecem na tela de loading.
+
+## [FEITO — itens 1-3] Forense do speckle (hipótese JPEG3 refutada) + fix do kerning "Leilão" + magenta dos prédios + auditoria de corrupção por SWF (agente único, sessão 4, 2026-10-03)
+
+Partiu da hipótese forte de que o speckle rosa/vermelho do saguão noturno vinha de corrupção JPEG3/alpha no
+**primeiro** lote de repack (tradução de labels), antes até do night-grade existir. **Essa hipótese está
+refutada com prova dura** — ver item 1. O item 6 da sessão 3 (pendência #1, "chão manchado e flare") também
+foi resolvido: não é um bug, é uma arte decorativa pré-existente do jogo que só ficou visível pelo contraste
+do modo noturno (item 1b).
+
+**1. Prova (item 1 da tarefa).** `hall.swf` tem 12 tags `DefineBitsJPEG3`, 9 `DefineBitsJPEG2`, 99
+`DefineBitsLossless2` (contagem via `ffdec -export image` + grep nos tipos de tag). Mas: (a) `replace.mjs`
+(tradução de labels) **sempre** reencodou como PNG desde sempre — `grep` confirma só `.png()` no pipeline de
+encode, nunca `.jpeg()`; não existe o bug de double-lossy-pass no lote de labels. (b) `night-hall.mjs` já tinha
+sido corrigido na sessão 3 pra forçar PNG também. Ou seja: **nenhum dos dois lotes de repack de `hall.swf`
+jamais reencodou JPEG com alpha quebrado.**
+
+**1b. Achado mais importante — o "chão manchado"/flare não é bitmap, é `ddthallicon.swf::iconGlow1`/`iconGlow2`
+(símbolos vetoriais pré-existentes, não tocados, pixel-idêntico ao vendor).** Decompilado `ddthallicon.swf`
+(swf2xml): `assets.hallIcon.iconGlow1`/`iconGlow2` são `DefineSprite` com 36/29 frames de animação, cada frame
+um `DefineShape` com fill tipo bitmap **tiled 20x** de uma textura `DefineBitsLossless2` 86x86 (não JPEG —
+já descarta a hipótese JPEG3 pra esse símbolo específico também). Comparado os 36 frames do `iconGlow1`
+(characterId 250-320) entre o `ddthallicon.swf` do vendor e o do overlay (`apps/api/assets/flash/...`) com
+`cmp` byte-a-byte: **100% idênticos** — `ddthallicon.swf` como um todo diverge do vendor (tamanho/hash
+diferentes, outro conteúdo foi tocado em sessão anterior), mas os bitmaps do glow especificamente nunca foram
+reimportados/alterados. Conclusão: o `iconGlow1`/`iconGlow2` é um efeito decorativo (partícula/brilho tipo
+"bola elétrica", anexado dinamicamente por nome de classe, não referenciado estaticamente em `hall.swf`) que
+sempre existiu no jogo original e provavelmente era sutil/invisível contra o fundo claro de dia — só ficou
+visível como "mancha rosa" porque o fundo ao redor escureceu drasticamente no night-grade (efeito de
+contraste), não porque o bitmap foi corrompido. Fix real está fora do escopo de imagem: precisaria editar as
+cores de fill do shape vetorial em `ddthallicon.swf` (ou recolorir as 36 texturas 86x86 pra um tom frio em vez
+de quente) — documentado aqui pra próxima sessão, conforme a instrução de fallback da tarefa ("senão,
+documentar ddthallicon iconGlow"). A lua do saguão (pedida como alternativa) **já existe**: `night-hall.mjs`
+pinta `paintStars(..., { moon: { cx: W*0.84, cy: H*0.16, ... } })` no backdrop composite desde a sessão 3/
+pt.2.
+
+**2. `pack.sh` já sempre parte do vendor** (item 2 da tarefa) — `SWFDIR` é hardcoded pro diretório do vendor,
+nunca lê do overlay; confirmado lendo o script, nenhuma mudança necessária aí.
+
+**3. Bug real do "Lellão" achado e corrigido** (`tools/i18n/images/replace.mjs`): não era kerning/overlap de
+contorno (a hipótese inicial, testada e descartada — aumentar o espaçamento entre glifos não mudou nada). Causa
+raiz: `ctx.strokeText()` (usado pro contorno chunky das legendas tipo-botão) descarta o pontinho do "i" ao
+converter o glifo em path de contorno — bug específico de como esse backend de canvas (`@napi-rs/canvas`)
+rasteriza um sub-path pequeno e desconectado (o ponto) durante o stroke; `ctx.fillText()` do mesmo glifo sempre
+renderizou o ponto corretamente. Reproduzido de forma idêntica em supersampling 3x e no stroke mínimo (1.4px),
+descartando tanto "resolução baixa" quanto "overlap de kerning" como causa. **Fix**: reescrito o contorno como
+múltiplos `ctx.fillText()` (preenchimento puro — nunca perde sub-paths) deslocados em 2 anéis concêntricos ao
+redor do glifo, em vez de chamar `ctx.strokeText()`; a sombra é aplicada uma única vez por linha (não por
+amostra do anel — descoberto que repetir a sombra 24x também apagava o ponto). Função nova
+`drawOutlinedText()`; desenha a string inteira de uma vez (layout/kerning nativo da fonte), não
+caractere-por-caractere (uma tentativa intermediária de posicionar cada glifo manualmente também corrompia o
+ponto, provavelmente por hinting diferente ao isolar "i" do contexto). Verificado visualmente: "Leilão" agora
+renderiza com o ponto do "i" visível e separado do "l" vizinho.
+
+**4. Matiz magenta dos prédios reduzido** (item 3 da tarefa, `tools/i18n/images/night-hall.mjs`): causa —
+`nightGradePixel` mistura RGB em direção a um matiz azul-arroxeado (230°), mas um pixel quente (parede/telhado
+laranja/marrom) só migra ~24% em direção ao azul (mix baixo, categoria "building"), ficando com R ainda
+dominante sobre G mesmo depois da mistura (~R>B>G, tom salmão/marrom) — e o `sScale` antigo (0.95 em
+"building", 0.88 no fim-prédio do "composite") mal dessaturava isso. Escurecer forte (`lScale` 0.56) um tom
+salmão pouco dessaturado lê como magenta/vinho escuro. **Fix**: `sScale`/`sCeil` reduzidos (building:
+0.95->0.62, 0.5->0.32; fim-prédio do composite: gradiente até 0.62/0.32 em vez de constante 0.88/0.4) — mesma
+`hueShiftMix` (prédios não perdem identidade de material). Confirmado numericamente (sem gastar mais
+image-views): média de canal R/G/B de amostras de prédio recém-geradas fica em ordem R>G>B suave (ex. 52/47/39
+— tom pedra fria) em vez do padrão R≈B>>G que seria magenta.
+
+**5. Auditoria "mesma classe de corrupção" (item 4 da tarefa) — achado real, diferente de `hall.swf`.** A
+função `encode()` compartilhada em `night-grade.mjs` foi reescrita pra **sempre** retornar PNG (antes: só
+forçava PNG se o chamador passasse `"png"` explicitamente; decidia por JPEG se `ext` fosse `"jpg"/"jpeg"`).
+Dois chamadores ainda deixavam essa decisão pro `extForFile(file)` original: **`night-loading.mjs`**
+(`DDT_Loading.swf::1.jpg`, backdrop principal de boot) e **`dark-frames.mjs`** (`bagandinfo2.swf::54_...jpg` e
+`quest.swf::133_...jpg`, fundos de janela). Os dois últimos **já tinham sido repacotados** numa sessão anterior
+("molduras bespoke", pt.2) com o bug ativo — stage antigo tinha `.jpg` reencodado em JPEG q95 por cima de
+pixels já escurecidos (2 passes lossy, mesmo bug do speckle do saguão). Corrigido: `encode()` sempre PNG;
+`night-loading.mjs`/`dark-frames.mjs` agora renomeiam a saída pra `.png` (mesmo padrão de `night-hall.mjs`) e
+limpam o `.jpg` velho/corrompido do diretório staged antes de escrever. Re-executado `dark-frames.mjs` (61
+arquivos, 0 missing) e `night-loading.mjs` (não repacotado — `DDT_Loading.swf` ainda tem o mecanismo de
+repack especial fora de escopo, mas o staged agora está limpo pra quando for).
+
+**6. Repack**: `tools/i18n/images/pack.sh` rodado para todo o `staged/` (toda a árvore i18n acumulada, ~80
+SWFs) — 0 falhas no log. `hall.swf`/`hall_old.swf` (4.8M cada, labels + night-grade com os 3 fixes acima),
+`bagandinfo2.swf`/`quest.swf` (fix de JPEG3), `chat.swf`/`chat1.swf` (label "Atual") todos confirmados
+atualizados em `apps/api/assets/flash/ui/vietnam/swf/`.
+
+**7. Verificação ao vivo**: `pnpm dev:all`, Playwright, `/play` sessão já autenticada, cache desabilitado.
+Screenshots novos em `research/i18n/darkmode-verify/` (ver antes-depois atualizado). `research/i18n/
+before-after.html`: 2 linhas substituídas (42.png/Leilão, 12.png/composite) + 3 novas (amostra de prédio,
+bagandinfo2.swf, quest.swf) — badge de contagem 14->17.
+
+**Pendências pro próximo lote**: (1) recolorir `ddthallicon.swf::iconGlow1`/`iconGlow2` pra um tom frio (ou
+decidir não mexer, já que é decorativo pré-existente e não um bug) — é o item que resolve a reclamação visual
+do usuário sobre o "chão manchado"; (2) "Kênh" + aba vertical direita do chat (ainda não achado, herdado da
+sessão 3); (3) repackar `DDT_Loading.swf` com o fix de `encode()` depois de resolver o mecanismo de repack
+especial.

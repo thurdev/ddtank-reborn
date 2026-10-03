@@ -90,10 +90,18 @@ async function processSwf(swf) {
         const mix = 0.65 * (1 - frac) + 0.22 * frac;
         const lScale = 0.42 * (1 - frac) + 0.56 * frac;
         const lCeil = 0.52 * (1 - frac) + 0.68 * frac;
+        // 2026-10-03 fix (magenta cast on the building end of the composite, matching the "building" category
+        // fix below): sScale was a flat 0.88 across the whole gradient. At the building end (frac->1, low hue
+        // mix) that barely desaturated the RGB-lerp's warm-pixel-toward-blue result, which reads as dark
+        // maroon/magenta once darkened. Sky end (frac->0) keeps a higher sScale (it's already near-gray, so
+        // more saturation there just means more visible blue, not pink); building end drops to 0.62 like the
+        // "building" category.
+        const sScale = 0.88 * (1 - frac) + 0.62 * frac;
+        const sCeil = 0.4 * (1 - frac) + 0.32 * frac;
         for (let x = 0; x < W; x++) {
           const i = (y * W + x) * ch;
           if (out[i + 3] === 0) continue;
-          const [r, g, b] = nightGradePixel(out[i], out[i + 1], out[i + 2], { lScale, lFloor: 0.02, lCeil, sScale: 0.88, sCeil: 0.4, hueShiftDeg: MOON_HUE, hueShiftMix: mix });
+          const [r, g, b] = nightGradePixel(out[i], out[i + 1], out[i + 2], { lScale, lFloor: 0.02, lCeil, sScale, sCeil, hueShiftDeg: MOON_HUE, hueShiftMix: mix });
           out[i] = r; out[i + 1] = g; out[i + 2] = b;
         }
       }
@@ -120,9 +128,18 @@ async function processSwf(swf) {
     } else {
       // building: keep readable — darkened enough to clearly read as night, hue nudged toward cool but not
       // recolored, + lit-window glow heuristic.
+      //
+      // 2026-10-03 fix (magenta cast reported by the user, research/i18n/darkmode-verify/12-hall-night-
+      // cachebust.png): nightGradePixel's RGB-lerp step mixes a warm source pixel (building walls/roofs,
+      // R>>G>B) only ~24% toward the blue tint anchor — R stays dominant over G while B partially catches up,
+      // landing in R>B>G territory (salmon/brown in hue terms). The old sScale=0.95 barely desaturated that,
+      // so a moderately-saturated warm-shifted-toward-blue hue, darkened hard (lScale 0.56), reads as dark
+      // maroon/magenta rather than a neutral cool gray. Pulling sScale/sCeil down here (0.95->0.62, 0.5->0.32)
+      // desaturates the result enough to read "cool/neutral stone at night" instead of "pink," while
+      // hueShiftMix stays the same so buildings don't lose their material-identity hue entirely.
       for (let i = 0; i < out.length; i += 4) {
         if (out[i + 3] === 0) continue;
-        const [r, g, b] = nightGradePixel(out[i], out[i + 1], out[i + 2], { lScale: 0.56, lFloor: 0.04, lCeil: 0.72, sScale: 0.95, sCeil: 0.5, hueShiftDeg: MOON_HUE, hueShiftMix: 0.24 });
+        const [r, g, b] = nightGradePixel(out[i], out[i + 1], out[i + 2], { lScale: 0.56, lFloor: 0.04, lCeil: 0.72, sScale: 0.62, sCeil: 0.32, hueShiftDeg: MOON_HUE, hueShiftMix: 0.24 });
         out[i] = r; out[i + 1] = g; out[i + 2] = b;
       }
       addWindowGlow(out, info, { block: 8, minLum: 140, minDeltaOverMean: 30 });

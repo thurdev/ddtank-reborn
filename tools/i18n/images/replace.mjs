@@ -143,6 +143,62 @@ function wrapLines(ctx, text, maxWidthPx, targetLineCount) {
   return lines;
 }
 
+// Ring of unit offset vectors used by the "faux stroke" fill in drawOutlinedText below.
+const _ringCache = new Map();
+function offsetRing(n) {
+  let r = _ringCache.get(n);
+  if (!r) {
+    r = [];
+    for (let i = 0; i < n; i++) {
+      const a = (i / n) * Math.PI * 2;
+      r.push([Math.cos(a), Math.sin(a)]);
+    }
+    _ringCache.set(n, r);
+  }
+  return r;
+}
+
+// Draw `text` as one whole-string layout (natural font advances/kerning — ctx.textAlign must already be set
+// by the caller), with a faux outline + single drop shadow.
+//
+// 2026-10-03 investigation: the original code did a single ctx.strokeText() call over the whole string for
+// the chunky-caption outline. That was found to silently drop the dot on "i" entirely when a neighboring
+// glyph is a tall stroke (e.g. "Leilão" -> "Lellão", hall.swf::42.png / hall_old.swf::134.png, reported by
+// the user) — not a resolution/overlap artifact (reproduced identically at 3x supersampling and down to the
+// minimum stroke width), but something in how this canvas backend converts a glyph to a *stroked path*: a
+// tiny disconnected sub-path (the dot) degenerates during stroking and never rasterizes, while plain
+// ctx.fillText() on the same glyph renders the dot correctly. Two things were tried and ruled out before
+// landing on this:
+//   - Manual per-character positioning (draw each glyph separately, spaced out by hand): this changed the
+//     bug rather than fixing it — isolating "i" from its neighbors in its own fillText() call altered its
+//     hinting/rounding enough that the per-character x bookkeeping (measureText-based) could still place the
+//     dot under a neighboring glyph's ink. Whole-string layout (this function) sidesteps that: the font's own
+//     shaping decides every glyph's position, consistently with how the dot was confirmed to render correctly
+//     in isolation.
+//   - Casting the shadow once per ring sample (24 shadowed fillText calls per glyph): also found to erase the
+//     dot even with correct per-character positioning. Casting the shadow exactly once per line (one shadowed
+//     fillText of the whole string, no offset) before the unshadowed outline/fill passes avoids that entirely
+//     and still reads as the same drop shadow.
+// Net effect: build the "stroke" as a faux outline out of repeated ctx.fillText() calls offset around 2
+// concentric rings (plus center), instead of calling ctx.strokeText() at all — every pass is a plain fill, so
+// dots/accents/holes always rasterize the same way they do for the real glyph.
+function drawOutlinedText(ctx, text, x, y, strokeW, strokeColor, fillStyle, shadowColor) {
+  const prevFill = ctx.fillStyle;
+  if (strokeW) {
+    const r = strokeW / 2;
+    const ring = offsetRing(12);
+    ctx.fillStyle = strokeColor;
+    ctx.shadowColor = shadowColor;
+    ctx.fillText(text, x, y);
+    ctx.shadowColor = "transparent";
+    for (const radius of [r, r * 0.5]) for (const [dx, dy] of ring) ctx.fillText(text, x + dx * radius, y + dy * radius);
+  }
+  ctx.shadowColor = "transparent";
+  ctx.fillStyle = fillStyle;
+  ctx.fillText(text, x, y);
+  ctx.fillStyle = prevFill;
+}
+
 /**
  * @param {string} srcPath   source PNG/JPG exported by FFDec
  * @param {string} outPath   destination PNG (always PNG so alpha survives for SWF re-import)
@@ -197,56 +253,53 @@ export async function replaceImageText(srcPath, outPath, newText, opts = {}) {
   // --- new text layer via canvas (reliable custom-font rendering, independent of system fontconfig) ---
   const fontFamily = flat ? FONT_PLAIN : FONT_CHUNKY;
   const lineCountHint = Math.max(1, box.lineCount || 1);
+  // SS = supersampling factor for the actual glyph draw (see below). Measurement/fit below still happens in
+  // logical (1x) units on a throwaway canvas — only the final render is supersampled.
+  const SS = 3;
   const canvas = createCanvas(W, H);
   const ctx = canvas.getContext("2d");
 
   let fontSize = Math.floor((bh / lineCountHint) * 0.8 * (opts.fontScale || 1));
   fontSize = clamp(fontSize, 8, Math.floor(bh * 0.88));
-  let lines, lineHeight, totalH;
+  let lines, lineHeight, totalH, strokeW;
   for (;;) {
     ctx.font = `700 ${fontSize}px "${fontFamily}"`;
     lines = wrapLines(ctx, newText, bw * 0.96, lineCountHint);
     lineHeight = fontSize * 1.14;
     totalH = lines.length * lineHeight;
+    strokeW = flat ? 0 : Math.max(1.4, fontSize * 0.11);
     const widest = Math.max(...lines.map((l) => ctx.measureText(l).width));
     if ((totalH <= bh * 1.06 && widest <= bw * 0.98) || fontSize <= 7) break;
     fontSize -= 1;
   }
-  ctx.font = `700 ${fontSize}px "${fontFamily}"`;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "alphabetic";
   const cx = (bx0 + bx1) / 2;
   const startY = by0 + (bh - totalH) / 2 + fontSize * 0.82;
 
-  const strokeW = flat ? 0 : Math.max(1.4, fontSize * 0.11);
+  // Draw on a supersampled canvas (SSx linear size), then downscale to W,H below — gives the outline-fill
+  // passes (drawOutlinedText) clean sub-pixel positioning before the final lanczos3 downsample.
+  const ssCanvas = createCanvas(W * SS, H * SS);
+  const sctx = ssCanvas.getContext("2d");
+  sctx.font = `700 ${fontSize * SS}px "${fontFamily}"`;
+  sctx.textAlign = "center";
+  sctx.textBaseline = "alphabetic";
   for (let i = 0; i < lines.length; i++) {
-    const y = startY + i * lineHeight;
-    ctx.save();
+    const y = (startY + i * lineHeight) * SS;
+    sctx.save();
+    let fillStyle;
     if (!flat) {
-      ctx.shadowColor = "rgba(0,0,0,0.55)";
-      ctx.shadowBlur = Math.max(1, fontSize * 0.08);
-      ctx.shadowOffsetY = Math.max(1, fontSize * 0.07);
-    }
-    if (strokeW) {
-      ctx.lineJoin = "round";
-      ctx.miterLimit = 2;
-      ctx.lineWidth = strokeW;
-      ctx.strokeStyle = rgbaStr(stroke, 1);
-      ctx.strokeText(lines[i], cx, y);
-    }
-    if (!flat) {
-      const grad = ctx.createLinearGradient(0, y - fontSize * 0.8, 0, y + fontSize * 0.25);
+      const grad = sctx.createLinearGradient(0, y - fontSize * SS * 0.8, 0, y + fontSize * SS * 0.25);
       grad.addColorStop(0, rgbaStr(fill, 1));
       grad.addColorStop(1, rgbaStr({ r: clamp(fill.r - 35, 0, 255), g: clamp(fill.g - 35, 0, 255), b: clamp(fill.b - 35, 0, 255) }, 1));
-      ctx.fillStyle = grad;
+      fillStyle = grad;
     } else {
-      ctx.fillStyle = rgbaStr(fill, 1);
+      fillStyle = rgbaStr(fill, 1);
     }
-    ctx.shadowColor = "transparent";
-    ctx.fillText(lines[i], cx, y);
-    ctx.restore();
+    sctx.shadowBlur = flat ? 0 : Math.max(1, fontSize * 0.08) * SS;
+    sctx.shadowOffsetY = flat ? 0 : Math.max(1, fontSize * 0.07) * SS;
+    drawOutlinedText(sctx, lines[i], cx * SS, y, strokeW * SS, rgbaStr(stroke, 1), fillStyle, flat ? "transparent" : "rgba(0,0,0,0.55)");
+    sctx.restore();
   }
-  const textBuf = canvas.toBuffer("image/png");
+  const textBuf = await sharp(ssCanvas.toBuffer("image/png")).resize(W, H, { kernel: "lanczos3" }).png().toBuffer();
 
   const composites = [{ input: eraseMaskBuf, left: bx0, top: by0, blend: "dest-out" }];
   if (fillPatchBuf) composites.push({ input: fillPatchBuf, left: bx0, top: by0, blend: "over" });
