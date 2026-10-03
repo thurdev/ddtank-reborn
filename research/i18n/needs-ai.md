@@ -24,6 +24,24 @@ image-to-image inpainting guided by a text-region mask, keeping canvas size/anch
 
 - `hall.swf` / `hall_old.swf` :: `7_asset.hallSaveFile.noviceBG.png` / `4_asset.hallSaveFile.noviceBG.png` (588×339) — the legacy "enable Adobe Flash Player local storage" dialog text (9-line paragraph). This one actually *is* flat text on a plain backdrop (the programmatic pipeline could handle it), but it's a Flash-Player-specific settings prompt that may be meaningless under Ruffle — worth confirming whether it even surfaces before spending a render+repack cycle on it. VN→PT-BR draft: "Đề nghị / Để bạn chơi game được thuận tiện, Gunny yêu cầu bạn mở chức năng lưu của Adobe Flash Player / ... / (Nhắn OK ở cửa sổ bên phải để đồng ý)" → "Sugestão / Para jogar com mais conforto, o Gunny pede que você ative o armazenamento local do Adobe Flash Player / ... / (Clique OK na janela à direita para concordar)".
 
+## Batch 2 (2026-10-03) — rest of the inventory processed
+
+See `research/i18n/needs-ai-batch2.md` for the full deduped list (951 "no translation found" + 81 "render still had
+VN residue after retry" phrases, out of 2796 rows processed by `tools/i18n/images/run-remaining.mjs`). 189 images
+were rendered+verified+repacked this round (255 total across 57 SWFs now in the overlay).
+
+Also: the hall-bar "Đấu giá" (Auction) and "Kênh" (Channel) icon labels — confirmed still Vietnamese on the live
+hall screenshot — were searched for exhaustively (OCR text + asset filename, exact and fuzzy/no-diacritics, across
+all 8967 exported images in all 119 SWFs, and as an isolated key in `language.txt`) and **not found as a bitmap
+anywhere**. "Nạp" and "Phản hồi" *were* found and fixed (`toolbar.swf::14_asset.toolbar.supplyBtnAsset.png` →
+"Recarregar", `toolbar.swf::10_asset.toolbar.complainBtnAsset.png` → "Feedback") and are confirmed live. Working
+hypothesis for the other two: native `TextField`/`StaticText` symbols with the VN string compiled directly into the
+SWF (same class of bug as the mail-window fields noted in the lote #1 writeup) — the image pipeline can't touch
+those; needs `ffdec -replaceText`/`-importText` on the right symbol (not yet located — try opening
+`ddthallicon.swf`/`corei.swf`/`coreii.swf` in the FFDec GUI and inspecting the text/symbol tree directly instead of
+the image export) or a source rebuild. PT-BR already staged in `curated-captions.json` ("Đấu giá"→"Leilão",
+"Kênh"→"Canal") for whenever the real symbol is found.
+
 ## Everything else
 
 The remaining ~2790 OCR-flagged rows in `research/i18n/image-inventory.json` (P3–P6: most main-window

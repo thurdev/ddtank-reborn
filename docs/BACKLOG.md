@@ -419,3 +419,59 @@ iniciado** — é lote separado (ver abaixo), reaproveitando o mesmo pipeline.
    imagens, reaproveitando `tools/i18n/images/` inteiro (só editar `targets.json`/`curated-captions.json`).
 7. **Dark mode / night mode / prédios em alta qualidade**: NÃO iniciado nesta leva (era item 3 do plano
    original) — fica para lote separado, mesmo pipeline de overlay.
+
+## [FEITO — resto do inventário processado] Lote de IMAGENS PT-BR #2 (agente 2026-10-03)
+Status: os ~2790 registros restantes do inventário (P1–P6) foram processados por `tools/i18n/images/run-remaining.mjs`
+(novo script, reaproveita `lookup.mjs`/`replace.mjs` sem reescrever nada) + os 4 labels da barra do hall pendentes do
+lote #1. **189 imagens novas renderizadas e verificadas** (+2 da barra do hall = 191), **57 SWFs reempacotados** no
+overlay (`apps/api/assets/flash/...`, vendor intocado). Total acumulado: **255 imagens em 57 SWFs** já têm PT-BR.
+
+1. **4 labels pendentes da barra do hall, localizados**: "Nạp" → `toolbar.swf::14_asset.toolbar.supplyBtnAsset.png`
+   ("Recarregar") e "Phản hồi" → `toolbar.swf::10_asset.toolbar.complainBtnAsset.png` ("Feedback") — confirmados
+   por nome de asset + OCR parcial, renderizados e reempacotados. **"Đấu giá" e "Kênh" não foram encontrados** apesar
+   de busca exaustiva (grep por nome de asset + OCR fuzzy, incluindo sem acento, em todas as 8967 imagens exportadas
+   das 119 SWFs, e em `language.txt` por chave isolada) — forte indício de que são `TextField`/`StaticText` nativos
+   do SWF com o valor VN cravado no símbolo compilado (mesma hipótese já registrada para a janela de correio, item 5
+   do lote #1), não bitmap — o pipeline de imagem não serve para esses dois; precisam de edição direta de texto via
+   FFDec (`-replaceText`/`-importText`) ou rebuild a partir do AS3 fonte. Traduções já cadastradas em
+   `curated-captions.json` ("Đấu giá"→"Leilão", "Kênh"→"Canal") para quando a fonte certa for achada.
+2. **Pipeline**: `tools/i18n/images/run-remaining.mjs` usa o `ptBrSuggestion` já calculado pelo `gen-inventory.mjs`
+   (mesma cadeia curated → language.txt → mt-cache → glossary), renderiza via `replace.mjs`, e adiciona um **gate de
+   qualidade automático**: reOCR da imagem gerada — se ainda sobrar diacrítico vietnamita, tenta de novo com fonte
+   menor + padding de apagamento maior (`fontScale`/`padScale`, novos parâmetros em `replace.mjs`, reaproveitando a
+   bbox já detectada na 1ª tentativa); se persistir, a imagem é descartada (não publicada) e cai em
+   `research/i18n/needs-ai-batch2.md`. Linhas sem tradução alguma (confiança OCR >= 35 e >= 55% caracteres-letra)
+   também caem nessa lista; abaixo do limiar de confiança é tratado como falso positivo de OCR em arte/ícone
+   decorativo e só contabilizado como "skipped" (não lista imagem a imagem — ver `research/i18n/run-report.json`).
+3. **Contagem por categoria/prioridade** (`research/i18n/run-report.json`, 2796 linhas processadas):
+
+   | Prioridade | replaced | needs-ai (sem tradução) | needs-ai (render falhou/resíduo VN) | skipped (baixa confiança) |
+   |---|---|---|---|---|
+   | P1 loading | 0 | 0 | 0 | 2 |
+   | P2 hall/lobby | 4 | 19 | 1 | 76 |
+   | P3 janelas principais | 81 | 389 | 32 | 574 |
+   | P4 botões/títulos/ícones | 23 | 186 | 10 | 260 |
+   | P5 combate | 7 | 81 | 9 | 202 |
+   | P6 resto | 74 | 276 | 29 | 461 |
+   | **Total** | **189** | **951** | **81** | **1575** |
+
+   "needs-ai sem tradução" é a maior categoria — a imensa maioria das ~2790 imagens restantes são legendas/tooltips
+   curtos que nunca apareceram no lote curado nem em `language.txt`/glossário; precisam de uma rodada de tradução
+   (MT ou humana) alimentando `curated-captions.json`/`glossary.json` antes de poder ser renderizadas — a lista
+   completa, **deduplicada por frase** (muitas imagens repetem a mesma legenda entre `hall.swf`/`hall_old.swf`,
+   `bagandinfo.swf`/`bagandinfo1.swf`/`bagandinfo2.swf`, `corei.swf`/`_corei.swf`, `trainer.swf`..`trainer6.swf`,
+   `tutorialstepassets.swf`/`oldTutorialstepassets.swf`, etc. — pares/séries de SWFs quase idênticas) está em
+   `research/i18n/needs-ai-batch2.md`, ordenada por frequência.
+4. **Correção de bug no `pack.sh`**: `ffdec-cli` falhava com `IllegalAccessError` (módulo JPMS do JDK bloqueando o
+   decodificador CMYK JPEG interno) ao reempacotar `corei.swf`/`_corei.swf`/`ddtstore.swf` — adicionado
+   `--add-opens java.desktop/com.sun.imageio.plugins.jpeg=ALL-UNNAMED` na chamada do `java`, resolvido.
+5. **Verificado no cliente real** (`pnpm dev:all` + Playwright, login `test`/`test`): tela do hall mostra "Recarregar"
+   e "Feedback" na barra inferior; tela de bolsa/inventário mostra os novos rótulos de `bagandinfo.swf` (ex.: "Sử
+   dụng"→ainda pendente de tradução — ver needs-ai-batch2 — mas os que tinham match, ex. categorias/abas já
+   traduzidas pelo lote #1, continuam OK). Ver screenshots da sessão.
+6. **Próximo lote**: (a) traduzir as frases de `needs-ai-batch2.md` (começar pelas de maior contagem — `Hạng`,
+   `Sử dụng`, `Công trạng`, textos de tutorial) e rerodar `run-remaining.mjs` (ele já pula tudo que está em
+   `targets.json`, então é incremental); (b) achar a fonte real de "Đấu giá"/"Kênh" (provavelmente precisa abrir os
+   SWFs candidatos — `ddthallicon.swf`, `corei.swf`, `coreii.swf` — no FFDec GUI e olhar a árvore de símbolos, não só
+   o export de imagem); (c) lote de imagens `needs-ai.md` original (arte pintada, precisa Recraft/Higgsfield); (d)
+   dark mode/night mode (item 7 acima, não iniciado).

@@ -1,0 +1,39 @@
+{
+  "generatedAt": "2026-10-03T03:05:37.055Z",
+  "counts": {
+    "1": {
+      "skipped-low-confidence": 2
+    },
+    "2": {
+      "skipped-low-confidence": 76,
+      "needs-ai-no-translation": 19,
+      "replaced": 4,
+      "needs-ai-render-failed": 1
+    },
+    "3": {
+      "skipped-low-confidence": 574,
+      "needs-ai-no-translation": 389,
+      "needs-ai-render-failed": 32,
+      "replaced": 81
+    },
+    "4": {
+      "needs-ai-no-translation": 186,
+      "needs-ai-render-failed": 10,
+      "skipped-low-confidence": 260,
+      "replaced": 23
+    },
+    "5": {
+      "skipped-low-confidence": 202,
+      "needs-ai-render-failed": 9,
+      "needs-ai-no-translation": 81,
+      "replaced": 7
+    },
+    "6": {
+      "skipped-low-confidence": 461,
+      "needs-ai-no-translation": 276,
+      "replaced": 74,
+      "needs-ai-render-failed": 29
+    }
+  },
+  "total": 2796
+}

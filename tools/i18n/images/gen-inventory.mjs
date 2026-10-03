@@ -42,6 +42,26 @@ function parseCharId(file) {
 
 const translate = buildTranslator();
 
+// Status: cross-reference targets.json (rendered + repacked) and the run-report from run-remaining.mjs
+// (skipped / needs-ai classification) so the human-readable .md carries a Status column, not just the raw OCR dump.
+const TARGETS_PATH = join(ROOT, "tools/i18n/images/targets.json");
+const REPORT_PATH = `${SP}/i18n/run-report-full.json`;
+const doneSet = new Set();
+try {
+  const t = JSON.parse(readFileSync(TARGETS_PATH, "utf8"));
+  for (const [swf, files] of Object.entries(t)) for (const file of Object.keys(files)) doneSet.add(`${swf}::${file}`);
+} catch {}
+const statusMap = new Map();
+try {
+  const rep = JSON.parse(readFileSync(REPORT_PATH, "utf8"));
+  for (const r of rep) statusMap.set(`${r.swf}::${r.file}`, r.cat);
+} catch {}
+function statusFor(swf, file) {
+  if (doneSet.has(`${swf}::${file}`)) return "done";
+  const cat = statusMap.get(`${swf}::${file}`);
+  return cat || "pending";
+}
+
 const lines = readFileSync(NDJSON, "utf8").split("\n").filter(Boolean);
 const rows = [];
 for (const line of lines) {
@@ -65,6 +85,7 @@ for (const line of lines) {
     priority: rank,
     ptBrSuggestion: pt,
     ptBrSource: source,
+    status: statusFor(o.swf, o.file),
   });
 }
 rows.sort((a, b) => a.priority - b.priority || b.size - a.size);
@@ -90,6 +111,9 @@ md += `bitmap. See \`research/i18n/image-inventory.json\` for the full machine-r
 md += `human-readable summary — only a sample of rows per SWF is listed below to keep the file reviewable).\n\n`;
 md += `**Totals**: ${lines.length} images scanned, **${rows.length}** flagged with Vietnamese diacritics (false positives from noisy OCR on decorative/item art are expected and were not manually cleared — see "Method" below).\n\n`;
 md += `**By priority**: ${[...byPriority.entries()].sort((a, b) => a[0] - b[0]).map(([p, n]) => `P${p} (${PRIORITY_RULES.find((r) => r.rank === p)?.name ?? "rest"})=${n}`).join(", ")}\n\n`;
+const byStatus = new Map();
+for (const r of rows) byStatus.set(r.status, (byStatus.get(r.status) || 0) + 1);
+md += `**By status**: ${[...byStatus.entries()].sort((a, b) => b[1] - a[1]).map(([s, n]) => `${s}=${n}`).join(", ")}\n\n`;
 md += `## Method\n\n`;
 md += `1. \`export-all.sh\` runs \`ffdec-cli -export image\` per SWF (resumable, skips already-exported dirs).\n`;
 md += `2. \`ocr-scan.mjs\` runs every exported PNG/JPG through tesseract.js \`vie\`, normalizing size (upscale <200px, downscale >900px) for speed/accuracy, writing one NDJSON row per image with the recognized text.\n`;
@@ -110,12 +134,12 @@ for (const swf of swfOrder) {
   const list = bySwf.get(swf);
   const { name } = classify(swf);
   md += `### ${swf} (${name}, P${classify(swf).rank}) — ${list.length} flagged image(s)\n\n`;
-  md += `| File | Size | WxH | OCR text | PT-BR suggestion |\n|---|---|---|---|---|\n`;
+  md += `| File | Size | WxH | OCR text | PT-BR suggestion | Status |\n|---|---|---|---|---|---|\n`;
   for (const r of list.slice(0, 15)) {
     const short = r.ocrText.replace(/\n/g, " / ").slice(0, 90);
-    md += `| \`${r.file}\` | ${r.size}B | ${r.w}x${r.h} | ${short.replace(/\|/g, "\\|")} | ${r.ptBrSuggestion ? r.ptBrSuggestion.replace(/\|/g, "\\|") : "_(needs translation)_"} |\n`;
+    md += `| \`${r.file}\` | ${r.size}B | ${r.w}x${r.h} | ${short.replace(/\|/g, "\\|")} | ${r.ptBrSuggestion ? r.ptBrSuggestion.replace(/\|/g, "\\|") : "_(needs translation)_"} | ${r.status} |\n`;
   }
-  if (list.length > 15) md += `| _(+${list.length - 15} more — see JSON)_ | | | | |\n`;
+  if (list.length > 15) md += `| _(+${list.length - 15} more — see JSON)_ | | | | | |\n`;
   md += `\n`;
 }
 
