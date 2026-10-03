@@ -45,3 +45,9 @@ Ficamos na 4.1: única versão com código-fonte completo (servidor + cliente AS
 5.5 só existe como binários (`Servidor5.5.rar`, fóruns) — possível no futuro via decompilação ILSpy/FFDec reaproveitando protocolo/gerador de schema/fight engine/launcher/site/admin; reavaliar se o pacote 5.5 aparecer.
 - Higgsfield: mesmo sem crédito, alguns modelos próprios do Higgsfield têm ~2 mil gerações grátis — conferir quais (models_explore/balance) antes de usar; alternativa ao Recraft.
 - Lote de imagens (junto com as imagens com texto PT-BR): lobby/hall em night mode (background escuro/noturno), prédios do lobby no MESMO estilo mas em alta qualidade (upscale/redesenho a partir do original), UI inteira em DARK MODE (janelas, painéis, botões escuros); só o lobby/hall é NIGHT MODE (cena noturna) — mesmo tamanho/âncora dos originais, via overlay.
+
+## Decisão 2026-10-03 — imagens
+Todas as imagens geradas por script (texto desenhado por cima, filtros night/dark) foram DESCARTADAS: ficaram feias e quebraram botões.
+O jogo usa a arte original + só traduções de TEXTO (language.txt, servidor, banco, strings do ABC, arrays estáticos, TextFields nativos).
+Imagens com texto + remaster dark/night serão refeitas com IA image-to-image (Higgsfield/Recraft) usando o original como referência:
+mesmo design e estilo, mais atualizado/alta resolução ("remaster"), texto PT-BR com as mesmas fontes. Pré-requisito: créditos/gerações grátis ou chave Recraft.
