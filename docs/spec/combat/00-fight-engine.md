@@ -374,7 +374,20 @@ Dead teammates can use props (`place == -1` costs `psychic` (Property7) and adds
 ### 7.4 Effects / buffs
 `AbstractEffect(type)` attaches to `Living.EffectList` and subscribes to living events (BeginSelfTurn, BeforeTakeDamage…) (`Effects/AbstractEffect.cs`). Types: `eEffectType.cs` (49 kinds). Equipment/gem effects are created from `ItemTemplate.Property3` switch (`Player.InitBuffer` `Player.cs:680-767`: 1 AddAttack, 2 AddDefence, 3 AddAgility, 4 AddLucky, 5 AddDamage, 6 ReduceDamage, 7 AddBlood, 8 Fatal, 9 IceFronzeEquip, 10 NoHoleEquip, 11 AtomBomb, 12 ArmorPiercer, 13 AvoidDamage, 14 MakeCritical, 15 AssimilateDamage, 16 AssimilateBlood, 17 SealEquip, 18 AddTurnEquip, 19 AddDander, 20 ReflexDamage, 21 ReduceStrength, 22 ContinueReduceBlood, 23 LockDirection, 24 AddBomb, 25 ContinueReduceDamage, 26 RecoverBlood) — `(Property4, Property5)` = (probability %, value). Example: `IceFronzeEffect(count)` sets `IsFrost`, decrements each own turn, stops at < 0 (`Effects/IceFronzeEffect.cs`). Card buffs: `CardEffect/**`, `CardBuffMgr.cs`. Paid fight buffs: `FightBufferInfo.cs`, `Player.InitFightBuffer` `Player.cs:1422`.
 
-Port: one TS class per effect type in `apps/game/src/combat/effects/`, event-bus on `Living`; keep the numeric `eEffectType` for packets.
+**Ported** (`packages/fight/src/game/effects.ts` + `equipEffects.ts`/`cardEffects.ts`/`petEffects.ts`, not `apps/game`
+— the effect layer is pure-engine like everything else in `@ddt/fight`): `Living.hooks` (`HookBus`) is the event-bus
+above; `Living.effectList`/`cardEffectList`/`petEffectList` (`EffectListOf<E>`) are the generic `EffectList.cs`/
+`CardEffectList.cs`/`PetEffectList.cs`. All 26 `Property3` kinds, all 30 `CardEffect/Effects/*.cs` classes (wired by
+`CardID` 1..15 exactly like `Player.InitCardBuffer`, `Player.cs:1534-1850`), and one worked pet-skill-element example
+(`CE1067`) are ported with unit tests (`test/effects.test.ts`); the ~250 remaining pet `AE####`/`PE####`/`CE####`
+ids are a documented, bounded follow-up (see `petEffects.ts`'s file header). Guild-skill fight buffs
+(`FightBufferInfo.cs`/`Consortion*Buffer.cs`) are *not* re-implemented as `AbstractEffect`s — in the original they're
+resolved to flat stat deltas before the fight (`GamePlayer.FightBuffers`), so this port takes the same shortcut:
+`PlayerSpec.guildBuffs`, applied once in `Player.reset()`. Not wired into `apps/game` yet: the adapter needs (a) the
+exact gem-vs-attribute-gem `ItemTemplate` predicate for `GamePlayer.EquipEffect` (apps/game's `stats.ts` only
+confirms the *attribute*-gem shape), and (b) `CardBuff`/`CardGroup`/`Pet_Skill_Element` rows in `packages/db`, none
+of which exist yet — wiring either without them would either guess the predicate or silently no-op, so it's left as
+a tracked gap (docs/BACKLOG.md) rather than risk the live adapter.
 
 ### 7.5 Death
 `Living.Die()` (`Living.cs:897-919`): blood 0 → `HEALTH type 6`; stop attacking; `Physics.Die()`; `OnDied` / `OnDie` events; `CheckState(0)`. `Player.Die` lifts y by 70 (ghost) (`Player.cs:671-678`). Falling out of map (`StartMoving` finds no ground) kills. `SimpleNpc.Die` rolls NPC drop `DropInventory.NPCDrop(NpcInfo.DropId)` for the current player (`SimpleNpc.cs` `GetDropItemInfo`). PvE kill counters: `PVEGame.living_Died` (`PVEGame.cs:1238-1246`).

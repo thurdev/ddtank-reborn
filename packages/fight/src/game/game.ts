@@ -752,8 +752,10 @@ export class BaseGame implements BombHost {
       b.setSpeedXY(vx, vy);
       this.map.addPhysical(b);
       b.startMoving();
+      // Player.FlyingPartical: a gem proc (effects.ts/equipEffects.ts) can override the ball's own glow for this shot.
+      const partical = l instanceof Player && l.flyingPartical ? String(l.flyingPartical) : info.flyingPartical;
       bombs.push({
-        bombCount, shootCount, digMap: b.digMap, bombId: b.id, x, y, vx, vy, ballId: info.id, flyingPartical: info.flyingPartical,
+        bombCount, shootCount, digMap: b.digMap, bombId: b.id, x, y, vx, vy, ballId: info.id, flyingPartical: partical,
         radii: int((info.radii * 1000) / 4), power: int(info.power) * 1000, actions: b.actions,
       });
       maxLife = Math.max(maxLife, b.lifeTime);
@@ -811,6 +813,7 @@ export class BaseGame implements BombHost {
             if (p instanceof Player) {
               p.totalCure += heal;
               p.addBlood(heal);
+              p.hooks.emit("playerCure", p, heal); // Player.PlayerCure
               act(ActionType.CURE, p.id, p.blood, heal, 0);
             }
           }
