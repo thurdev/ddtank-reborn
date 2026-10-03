@@ -60,10 +60,23 @@ export async function loadRaw(srcPathOrBuffer) {
   return { data: Buffer.from(data), info, meta };
 }
 
-/** Encode a raw RGBA buffer back to PNG/JPEG bytes matching the original extension. */
-export async function encode(raw, info, ext) {
-  let pipeline = sharp(raw, { raw: { width: info.width, height: info.height, channels: 4 } });
-  return ext === "jpeg" || ext === "jpg" ? pipeline.jpeg({ quality: 95 }).toBuffer() : pipeline.png().toBuffer();
+/**
+ * Encode a raw RGBA buffer back to bytes for staging.
+ *
+ * ALWAYS PNG, regardless of `ext`. 2026-10-03 forensics (hall night-mode speckle investigation):
+ * night-hall.mjs hardcodes encode(out, info, "png") and documents why — re-exporting a JPEG-sourced
+ * image as JPEG here, then letting `ffdec -importImages` re-encode it *again* into the SWF's JPEG
+ * tag, stacks two lossy passes on pixels that already went through night-grade math, producing visible
+ * pink/red speckle and posterization. night-loading.mjs and dark-frames.mjs were still calling this
+ * with `extForFile(file)` (so any .jpg/.jpeg source hit the jpeg() branch below) — same latent bug,
+ * just not yet hit in this specific repack. The `ext` param is kept only so callers don't need updating
+ * and so `extForFile` is still used to pick the *output filename* (.png) in callers that rename the
+ * staged file; it no longer affects the encoded format. Forcing PNG flips the SWF tag to
+ * DefineBitsLossless2 (32-bit, alpha-capable) on reimport — bigger file, zero added noise.
+ */
+export async function encode(raw, info, _ext) {
+  const pipeline = sharp(raw, { raw: { width: info.width, height: info.height, channels: 4 } });
+  return pipeline.png().toBuffer();
 }
 
 // Cache of hue -> stable mid-tone RGB anchor color, used by nightGradePixel's hue-shift step below.

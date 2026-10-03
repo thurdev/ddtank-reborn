@@ -72,8 +72,12 @@ async function main() {
 
       const ext = extForFile(file);
       const buf = await encode(out, info, ext);
-      writeFileSync(join(outDir, file), buf);
-      console.log(`[${swf}] ${file} -> ${mode}`);
+      // encode() always returns PNG now (2026-10-03 fix, see night-grade.mjs) — write under a .png name
+      // even when the source was .jpg, so `ffdec -importImages` sees a real PNG and reimports as
+      // DefineBitsLossless2 instead of stacking a second lossy JPEG pass on top of the night-grade math.
+      const outName = file.replace(/\.(jpe?g)$/i, ".png");
+      writeFileSync(join(outDir, outName), buf);
+      console.log(`[${swf}] ${file} -> ${mode}${outName !== file ? ` (staged as ${outName})` : ""}`);
     }
   }
 }

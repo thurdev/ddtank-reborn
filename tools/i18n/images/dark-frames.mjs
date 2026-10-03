@@ -6,7 +6,7 @@
 // Method: applyProtectedDarken() (night-grade.mjs) — same hue-preserving HSL darken as the shared-chrome
 // script, but graduated-protects text glyph strokes (local edge-magnitude) and saturated icon pixels so
 // labels/icons baked into the same bitmap as the frame stay legible instead of going dark/muddy with it.
-import { readdirSync, existsSync, mkdirSync, writeFileSync } from "node:fs";
+import { readdirSync, existsSync, mkdirSync, writeFileSync, unlinkSync } from "node:fs";
 import { join } from "node:path";
 import { loadRaw, encode, extForFile, applyProtectedDarken } from "./night-grade.mjs";
 
@@ -80,7 +80,19 @@ async function main() {
       // (red/blue/green stat bars), while the panel itself still darkens ~40% in mean brightness.
       const out = applyProtectedDarken(data, info, { lScale: 0.42, sScale: 1.12, edgeThreshold: 110, satProtect: 0.68 });
       const buf = await encode(out, info, extForFile(file));
-      writeFileSync(join(stageDir, file), buf);
+      // encode() always returns PNG now (2026-10-03 fix, see night-grade.mjs): two targets here
+      // (bagandinfo2.swf's 54_...bagCellOverBgAsset.jpg, quest.swf's 133_...leftBGStyle1.jpg) are
+      // DefineBitsJPEG-backed sources. Writing PNG bytes under their old .jpg name would either
+      // confuse ffdec -importImages or, before this fix, re-encoded them as JPEG q95 on top of the
+      // already-darkened pixels — a second lossy pass stacked on the first, the same speckle/
+      // posterization bug found and fixed in night-hall.mjs. Rename to .png so the reimport lands as
+      // DefineBitsLossless2 instead.
+      const outName = file.replace(/\.(jpe?g)$/i, ".png");
+      writeFileSync(join(stageDir, outName), buf);
+      if (outName !== file) {
+        const staleJpg = join(stageDir, file);
+        if (existsSync(staleJpg)) unlinkSync(staleJpg); // drop the earlier run's corrupted .jpg
+      }
       total++;
     }
     console.log(`[${swf}] ${files.length} frame asset(s) processed`);
