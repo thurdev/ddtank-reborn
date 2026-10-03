@@ -1,0 +1,12 @@
+{
+  "name": "i18n-images-tools",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0",
+  "description": "Standalone toolbox (not a pnpm workspace member) for the PT-BR image-text replacement batch.",
+  "dependencies": {
+    "@napi-rs/canvas": "^1.0.10",
+    "sharp": "^0.33.5",
+    "tesseract.js": "^5.1.1"
+  }
+}
