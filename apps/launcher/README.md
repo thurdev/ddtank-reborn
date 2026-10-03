@@ -24,6 +24,21 @@ pnpm --filter launcher fetch-runtime projector   # baixa o runtime p/ embutir no
 Na primeira execução, o binário do Electron é baixado automaticamente: a versão 44 não tem mais postinstall.
 Na API falsa, qualquer usuário entra com a senha `123`.
 
+### Build de produção (apontando para o servidor hospedado)
+
+```bash
+cp launcher.config.production.example.json launcher.config.json
+# edite launcher.config.json: troque example.com pelo seu domínio (ou IP) real, igual ao SITE_ADDRESS do Caddy
+pnpm --filter launcher fetch-runtime projector   # opcional: embutir o Flash Player projector no instalador
+pnpm --filter launcher dist:win                  # gera release/*.exe (NSIS + portátil) já com esse config embutido
+```
+
+`launcher.config.production.example.json` (na raiz de `apps/launcher/`) é o ponto de partida: `apiUrl`
+aponta para o domínio do `docker-compose.yml` (`SITE_ADDRESS` do Caddy — ver `docs/deploy/README.md`), e
+`manifestUrl`/`loginUrl`/`swfUrl` são derivados dele automaticamente (ver "Configuração" abaixo). Gere um
+build por ambiente se tiver mais de um servidor (ex.: um `launcher.config.json` para produção, outro para
+o servidor de testes do Tailscale em `docs/deploy/tailscale.md`).
+
 ## Configuração (todas as URLs são configuráveis)
 
 A configuração é lida em camadas. Quando a mesma chave aparece em mais de uma camada, vale a última:

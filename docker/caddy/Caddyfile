@@ -1,0 +1,35 @@
+{
+	# empty email -> Caddy skips ACME account registration until SITE_ADDRESS is a real domain.
+	email {$ACME_EMAIL:""}
+}
+
+# Main site: player website (apps/web) + API/game reverse proxy.
+# SITE_ADDRESS examples:
+#   example.com          -> Caddy gets a Let's Encrypt cert automatically (needs DNS pointed here, port 80+443 open)
+#   :80                   -> plain HTTP, for an IP-only / no-domain deploy (default)
+{$SITE_ADDRESS::80} {
+	encode zstd gzip
+
+	@ws path /ws*
+	reverse_proxy @ws game:9300
+
+	@api path /api* /request* /flash* /resource* /uploads*
+	reverse_proxy @api api:8080
+
+	root * /srv/web
+	try_files {path} /index.html
+	file_server
+}
+
+# Admin panel (apps/admin), on its own hostname or port so it is never served from the player domain.
+# ADMIN_ADDRESS examples: admin.example.com (auto HTTPS) | :8081 (plain HTTP, IP-only deploy)
+{$ADMIN_ADDRESS::8081} {
+	encode zstd gzip
+
+	@api path /api*
+	reverse_proxy @api api:8080
+
+	root * /srv/admin
+	try_files {path} /index.html
+	file_server
+}
