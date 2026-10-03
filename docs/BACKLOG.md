@@ -374,9 +374,48 @@ Pendente (próximo lote):
      suficiente nessas telas.
 Itens "mortos no original": decidir caso a caso — implementar do zero ou esconder o botão no cliente.
 
-## [PRÓXIMO após tradução do banco] Lote de IMAGENS PT-BR + dark mode (agente novo)
-Metade do jogo é imagem com texto em vietnamita: tela de loading, hall/lobby (menu inteiro), ícones, botões, títulos, banners, assets de jogo — TUDO.
-1. Inventário COMPLETO (o atual `research/i18n/images-with-text.md` tem só 13 + hall — insuficiente): varrer todos os SWFs (FFDec) + PNG/JPG do pack, detectar texto (OCR local ou heurística + revisão), classificar por tela/prioridade (loading, hall, janelas principais, ícones, combate).
-2. Gerar PT-BR a partir do original (mesmo tamanho/âncora): render de texto no estilo + Recraft / modelos grátis do Higgsfield para casos difíceis.
-3. No mesmo pipeline: lobby night mode, UI dark mode, prédios em alta qualidade.
-4. Saída via overlay da API (SWFs re-empacotados com FFDec quando a imagem está dentro do SWF).
+## [FEITO — inventário + 1º lote de render] Lote de IMAGENS PT-BR (agente 2026-10-03)
+Status: inventário completo + pipeline programático funcionando end-to-end (FFDec export → OCR → inpaint/redraw →
+FFDec re-import → overlay da API) + **63 imagens já substituídas e verificadas no cliente real** (hall/lobby
+inteiro + um 1º conjunto de janelas principais). Dark mode / night mode / prédios em alta qualidade **ainda não
+iniciado** — é lote separado (ver abaixo), reaproveitando o mesmo pipeline.
+
+1. **Inventário completo**: todos os 119 arquivos fonte (114 `ui/vietnam/swf/*.swf` + `Loading.swf` +
+   `DDT_Loading.swf` + `1.png`/`2.png`/`3.png`, que são SWF disfarçado de PNG) exportados com FFDec — 8967
+   imagens — e passados por OCR local (`tesseract.js`, idioma `vie`, heurística de diacríticos vietnamitas para
+   reduzir falsos positivos). **2859 imagens** flagadas com texto VN, classificadas por tela/prioridade
+   (loading/hall/janelas principais/ícones/combate/resto) em `research/i18n/image-inventory.json` (dados) +
+   `.md` (resumo legível, por SWF). Script: `tools/i18n/images/gen-inventory.mjs`.
+2. **Pipeline de substituição** em `tools/i18n/images/`: `export-all.sh` (FFDec, resumível), `ocr-scan.mjs`
+   (tesseract.js, ~115 imagens/s com 6 workers), `lookup.mjs` (PT-BR via mapa curado > `language.txt` VN↔PT-BR
+   já traduzido > cache de MT > glossário), `replace.mjs` (apaga o texto antigo por subtração alfa real —
+   `dest-out`, não só compor por cima — então, se o fundo for opaco, repinta um patch em gradiente amostrado
+   das faixas acima/abaixo do texto; desenha o texto PT-BR com Canvas (`@napi-rs/canvas`, fontes OFL Lilita
+   One/Baloo 2 — mais confiável que SVG+fontconfig pro texto), cor/gradiente/contorno/sombra estimados dos
+   próprios pixels do texto original, auto-fit + quebra de linha, mesmo canvas), `apply-batch.mjs` +
+   `targets.json` + `curated-captions.json` (lote atual), `pack.sh` (reempacota só os PNGs modificados de volta
+   no SWF via `ffdec -importImages`, saída em `apps/api/assets/flash/ui/vietnam/swf/*.swf` — vendor nunca
+   tocado).
+3. **63 imagens renderizadas e reempacotadas** (9 SWFs): hall.swf + hall_old.swf (lobby inteiro — 13 legendas de
+   prédio + ~13 tooltips de hover + ícones Fazenda/Eventos/Bolsa de Valores/Convide!/Ok = 50 imagens, 2x pelos
+   dois SWFs do hall), roomlist.swf (Nome da sala/Senha), store.swf (Forja/Corte automático), gameover.swf
+   (personagem), wonderfulactivity.swf (Rei da Evolução/Rei do Treino), elitegame.swf (Pontos), vipview.swf
+   (Personagem:), calendar.swf (Recompensa/Número de vezes acumuladas). **Verificado no cliente real rodando**
+   (`pnpm dev:all` + Playwright, login `test`/`test`, `/play`) — screenshot confirma "Sala dos Mestres", "Campo
+   de Treinamento", "Fonte Termal", "Sala de Jogos", "Salão de Casamento", "Sala Mestre-Discípulo", "Amigos",
+   "Passo da Expedição", "Fazenda", "Eventos" todos em PT-BR no hall ao vivo.
+4. **Pendente no hall** (não estava no OCR do `hall.swf`/`hall_old.swf` original, achar o asset certo depois):
+   "Đấu giá" (Auction), "Nạp" (Recarregar), "Kênh" (Canal), "Phản hồi" (Feedback) — ainda em VN no screenshot de
+   verificação; "Nạp" confirmado em `ddthallicon.swf`/`corei.swf`/`coreii.swf`/`wonderfulactivity.swf` (barra
+   inferior, não em `hall.swf`) — os outros três ainda não localizados no inventário, procurar em
+   `toolbar.swf`/`serverList.swf`/`ddthallicon.swf` no próximo lote.
+5. **`research/i18n/needs-ai.md`**: 5 imagens onde o texto está integrado à arte pintada (não dá pra
+   apagar/redesenhar programaticamente sem ficar ruim) — o comic tutorial `battleLABS.png` (4 painéis), o banner
+   de loading `DDT_Loading.swf::25.png` (3 palavras em cores diferentes sobre fita decorada), e 3 backgrounds
+   grandes com texto múltiplo embutido (`DungeonListBG.jpg`, `wonderful.accumulative.title.png`,
+   `awardSystem.roulette.RouletteBG.png`) — para lote de IA (Recraft/Higgsfield grátis) depois.
+6. **Resto do inventário** (~2790 imagens P3–P6 não processadas nesta leva — a maioria provavelmente são placas
+   simples que o pipeline já dá conta, mas não foram triadas individualmente) fica para o próximo lote de
+   imagens, reaproveitando `tools/i18n/images/` inteiro (só editar `targets.json`/`curated-captions.json`).
+7. **Dark mode / night mode / prédios em alta qualidade**: NÃO iniciado nesta leva (era item 3 do plano
+   original) — fica para lote separado, mesmo pipeline de overlay.

@@ -1,0 +1,83 @@
+{
+  "hall.swf": {
+    "24.png": "Phòng cao thủ",
+    "27.png": "Sân tập luyện",
+    "21.png": "Suối nước nóng",
+    "48.png": "Phòng game",
+    "51.png": "Lễ đường kết hôn",
+    "36.png": "Phòng sư đồ",
+    "33.png": "Kết bạn",
+    "39.png": "Ải Viễn Chinh",
+    "30.png": "Tiệm rèn",
+    "2_asset.hall.farmIcon.png": "Nông Trại",
+    "277.png": "Nông Trại",
+    "267.png": "Sự kiện",
+    "256.png": "Mời bạn!",
+    "1_asset.hall.stockIcon.png": "Chứng khoán",
+    "10_asset.hallSaveFile.okBtn.png": "Đồng ý",
+    "243.png": "1 người vì mọi người, mọi người vì 1 người. Hãy gia nhập Guild nào!",
+    "239.png": "Tắm suối,thư giãn lại còn được lên kinh nghiệm!",
+    "235.png": "Bảng xếp hạng các cao thủ!",
+    "231.png": "Luyện tập để thành cao thủ!",
+    "226.png": "Đền tiệm rèn có thể thăng cấp,chất lượng cho trang bị của mình!",
+    "222.png": "Tìm bạn bè,mở rộng vòng tay yêu thương.",
+    "218.png": "Tìm kiếm những sư phụ giỏi,những đệ tử tiềm năng,cùng nhau phát triển",
+    "214.png": "Mua bán các loại trang bị vũ khí quý hiếm!",
+    "209.png": "Đây là nơi để người chơi tự do thách đấu, chiến đấu, tham gia guild chiến với nhau.",
+    "205.png": "Nơi vượt phó bản, chinh phục những Boss khó tính, hung ác nhất.",
+    "200.png": "Độc đáo,lạ mắt Nhất định không ai đụng hàng!",
+    "176.png": "Nơi cử hành hôn lễ!"
+  },
+  "hall_old.swf": {
+    "116.png": "Phòng cao thủ",
+    "119.png": "Sân tập luyện",
+    "113.png": "Suối nước nóng",
+    "140.png": "Phòng game",
+    "143.png": "Lễ đường kết hôn",
+    "128.png": "Phòng sư đồ",
+    "125.png": "Kết bạn",
+    "131.png": "Ải Viễn Chinh",
+    "122.png": "Tiệm rèn",
+    "9_asset.hall.farmIcon.png": "Nông Trại",
+    "11.png": "Nông Trại",
+    "73.png": "Sự kiện",
+    "84.png": "Mời bạn!",
+    "10_asset.hallSaveFile.okBtn.png": "Đồng ý",
+    "335.png": "1 người vì mọi người, mọi người vì 1 người. Hãy gia nhập Guild nào!",
+    "331.png": "Tắm suối,thư giãn lại còn được lên kinh nghiệm!",
+    "327.png": "Bảng xếp hạng các cao thủ!",
+    "323.png": "Luyện tập để thành cao thủ!",
+    "318.png": "Đền tiệm rèn có thể thăng cấp,chất lượng cho trang bị của mình!",
+    "314.png": "Tìm bạn bè,mở rộng vòng tay yêu thương.",
+    "310.png": "Tìm kiếm những sư phụ giỏi,những đệ tử tiềm năng,cùng nhau phát triển",
+    "306.png": "Mua bán các loại trang bị vũ khí quý hiếm!",
+    "301.png": "Đây là nơi để người chơi tự do thách đấu, chiến đấu, tham gia guild chiến với nhau.",
+    "297.png": "Nơi vượt phó bản, chinh phục những Boss khó tính, hung ác nhất.",
+    "292.png": "Độc đáo,lạ mắt Nhất định không ai đụng hàng!",
+    "268.png": "Nơi cử hành hôn lễ!"
+  },
+  "roomlist.swf": {
+    "75_asset.roomList.CreateRoomText.png": "Tên phòng",
+    "29_asset.roomList.passText.png": "Mật khẩu"
+  },
+  "store.swf": {
+    "18_asset.store.Title.png": "Tiệm rèn",
+    "75_asset.ddtstore.exalt.TitleText.png": "Tự cắt"
+  },
+  "gameover.swf": {
+    "30_asset.experience.tabName.png": "nhân vật"
+  },
+  "wonderfulactivity.swf": {
+    "68_carnicalAct.title1.png": "Vua Tăng Cấp",
+    "10_carnicalAct.title7.png": "Vua Tu Luyện"
+  },
+  "elitegame.swf": {
+    "2_EliteGame.scoreRank.scoretitle.png": "Điểm"
+  },
+  "vipview.swf": {
+    "1_asset.vip.name.png": "Nhân vật:"
+  },
+  "calendar.swf": {
+    "9_Calendar.SignedAward.Title.png": "Phần thưởng tích lũy: Số lần tích lũy:"
+  }
+}
