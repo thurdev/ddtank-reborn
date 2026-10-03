@@ -1,3 +1,4 @@
-Game logo "DDReborn" for a 2D cartoon artillery game (DDTank style), transparent background, centered, wide format.
-Big chunky 3D-looking golden letters "DD" with a red/orange gradient outline on top line, and "REBORN" below in bold golden letters with dark red outline and white inner highlight, slightly arched. A cartoon cannon bullet / rocket crossing behind the letters, small golden wings on both sides, a subtle crosshair target ornament, a few sparkles. Glossy casual-game logo style like "DD Clássico" / DDTank logos. Readable at small size.
-Only text: "DDReborn" (exact spelling). No other words. Transparent background.
+Game logo "DDReborn" for a 2D cartoon artillery game (DDTank style), centered, wide format, on a plain flat pure green background (#00FF00, chroma key, no gradient, no shadows on the background).
+Top line "DD": huge chunky glossy golden letters with thick red/orange outline and a dark brown outer stroke. Bottom line "REBORN": bold golden letters with dark red outline and white inner highlight, slightly arched, small golden wings on both ends.
+THE SHOT (important): a shiny golden artillery shell / cannon bullet with a red tip flies diagonally from the UPPER-LEFT down into the "DD" (like it was just fired), leaving a bright orange-yellow FIRE TRAIL / curved motion arc swoosh behind it that sweeps over the top of the letters; small sparks and a blue holographic crosshair target on the right of "DD". Glossy mobile-game logo quality.
+Only text: "DDReborn" (exact spelling). No other words, no watermark.
