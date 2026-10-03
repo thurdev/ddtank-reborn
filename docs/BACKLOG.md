@@ -724,3 +724,37 @@ amigos, guild, lista de salas, masmorra, eventos/calendário, leilão, configura
 
 Detalhe janela-a-janela, mais itens menores (botão "Thêm bạn" do mail sem tradução encontrada por OCR
 irreconhecível, truncamento sem reticências do nome de canal/rank de guild) em `research/i18n/ui-sweep.md`.
+
+### Follow-up (2026-10-03): varredura do constant pool ABC — testou a hipótese do item 2 direto
+
+Construído `tools/i18n/abc-strings/` (`scan.mjs`/`patch.mjs`, zero deps — parser próprio de SWF CWS/FWS + tags
+DoABC/DoABC2 + pool de strings ABC) pra testar se o texto nativo/dinâmico do item 2 acima (Mua, Giỏ hàng, Tìm,
+Bắt đầu, labels de equipamento, headers de tabela) é string literal no bytecode ABC. **Resultado: não é, em
+lugar nenhum** — varredura exaustiva de toda a árvore `FlashSV1` (126 arquivos) achou só **42** strings VN em ABC,
+todas dentro de `2.png`/`3.png`/`DDT_Loading.swf` (zero em qualquer `ui/vietnam/swf/*.swf`). Decompilando `2.png`
+(`ddt/data/EquipType.as`) mostra o motivo: `EquipType.PARTNAME` é um `public static const Array` que chama
+`LanguageMgr.GetTranslation("tank.data.EquipType.head")` — só a CHAVE (ASCII) é literal ABC; o valor vem de
+`language.txt` em runtime. Como é `static const`, o array só é avaliado **uma vez**, na inicialização da classe —
+se isso acontece antes de `LanguageMgr.setup()` terminar de parsear o `language.txt`, o array fica travado com o
+que `_dic` tinha naquele instante. Pista nova e concreta pro item 2 (bug de ordem de inicialização estática, não
+"componente não localizado") — não veio com o rastreamento real da ordem de boot comprovado, mas é um alvo bem
+mais estreito pra uma tarefa dedicada futura. Precisa de mudança de código AS3 + recompile, não de patch de
+string — fora do escopo desta sessão.
+
+As 42 strings reais viraram PT-BR e foram aplicadas (`tools/i18n/abc-strings/translations.json` +
+`patch.mjs`, reescreve só o pool de strings do ABC, valida re-escaneando com `--vn-only` e com
+`ffdec -export script`) e publicadas em `apps/api/assets/flash/{2.png,3.png,DDT_Loading.swf}`. Isso **re-diagnostica
+o item 3** (bug de fonte dropando diacríticos): "Đồng ý"/"Hủy bỏ" não eram um bug de fonte do Ruffle — são
+`com.pickgliss.ui.vo.AlertInfo.SUBMIT_LABEL`/`CANCEL_LABEL`, literais ABC que o pipeline de imagem/DB/language.txt
+nunca tocava; agora mostram "Confirmar"/"Cancelar" (verificado ao vivo, `research/i18n/abc-verify/02-settings.png`).
+`scripts/gen-secrets.mjs` foi atualizado pra encadear `patch.mjs` antes do `patch-client-key` (sempre a partir do
+`2.png` do vendor, nunca da própria saída anterior — ordem documentada no próprio script).
+
+**Item 6 (typo "Pontes"): não reproduzido.** Busca exaustiva (tabela `app."Translations"` ao vivo, `language.txt`
+PT/VN, `curated-captions.json`, `image-inventory.json`, ABC de `2.png`/`3.png`) não achou nenhuma ocorrência de
+"Pontes" em lugar nenhum — as duas entradas que batem com esse texto (`curated-captions.json`,
+`13_asset.placardAndEvent.weekOffer1/2.png`) já estão corretas ("Pontos"), e esse SWF nem está no overlay ainda.
+Hipótese mais provável: leitura errada de "Pontos" num banner de 72-77px de largura em fonte condensada. Precisa
+de screenshot direto do painel da guild (conta de teste desta sessão não tem guild) pra confirmar.
+
+Detalhes completos em `research/i18n/ui-sweep.md` (seção "Follow-up 2026-10-03") e `research/i18n/abc-strings.json`.

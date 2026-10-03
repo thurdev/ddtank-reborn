@@ -1,0 +1,450 @@
+{
+  "generatedAt": "2026-10-03T09:08:50.512Z",
+  "scannedFiles": 126,
+  "filesWithErrors": [
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/1.png",
+      "error": "not an SWF signature (got \"roa\") — skipped"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/Launcher.swf",
+      "error": "ZWS (LZMA-compressed) SWF not supported — skipped"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/ui/vietnam/img/trainer/character/female.png",
+      "error": "not an SWF signature (got \"\\tPN\") — skipped"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/ui/vietnam/img/trainer/character/male.png",
+      "error": "not an SWF signature (got \"\\tPN\") — skipped"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/ui/vietnam/xml/xml.png",
+      "error": "not an SWF signature (got \"PK\\u0003\") — skipped"
+    }
+  ],
+  "vnStringCount": 42,
+  "results": [
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1087936,
+      "abcName": "ddt/view/tips/FineSuitTipsSimple",
+      "cpoolIndex": 4,
+      "string": "Trang phục đá",
+      "usageHint": "cpool string #4 in DoABC tag @ body offset 1087936 (abcName=\"ddt/view/tips/FineSuitTipsSimple\") — structural location only, not a traced call site",
+      "ptBr": "Traje de Pedra"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1087936,
+      "abcName": "ddt/view/tips/FineSuitTipsSimple",
+      "cpoolIndex": 5,
+      "string": "Trang phục đồng",
+      "usageHint": "cpool string #5 in DoABC tag @ body offset 1087936 (abcName=\"ddt/view/tips/FineSuitTipsSimple\") — structural location only, not a traced call site",
+      "ptBr": "Traje de Bronze"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1087936,
+      "abcName": "ddt/view/tips/FineSuitTipsSimple",
+      "cpoolIndex": 6,
+      "string": "Trang phục bạc",
+      "usageHint": "cpool string #6 in DoABC tag @ body offset 1087936 (abcName=\"ddt/view/tips/FineSuitTipsSimple\") — structural location only, not a traced call site",
+      "ptBr": "Traje de Prata"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1087936,
+      "abcName": "ddt/view/tips/FineSuitTipsSimple",
+      "cpoolIndex": 7,
+      "string": "Trang phục vàng",
+      "usageHint": "cpool string #7 in DoABC tag @ body offset 1087936 (abcName=\"ddt/view/tips/FineSuitTipsSimple\") — structural location only, not a traced call site",
+      "ptBr": "Traje de Ouro"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1087936,
+      "abcName": "ddt/view/tips/FineSuitTipsSimple",
+      "cpoolIndex": 8,
+      "string": "Trang phục ngọc",
+      "usageHint": "cpool string #8 in DoABC tag @ body offset 1087936 (abcName=\"ddt/view/tips/FineSuitTipsSimple\") — structural location only, not a traced call site",
+      "ptBr": "Traje de Jade"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1087936,
+      "abcName": "ddt/view/tips/FineSuitTipsSimple",
+      "cpoolIndex": 33,
+      "string": "Tiền thưởng",
+      "usageHint": "cpool string #33 in DoABC tag @ body offset 1087936 (abcName=\"ddt/view/tips/FineSuitTipsSimple\") — structural location only, not a traced call site",
+      "ptBr": "Recompensa"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1087936,
+      "abcName": "ddt/view/tips/FineSuitTipsSimple",
+      "cpoolIndex": 92,
+      "string": "Phòng thủ <font color='#76ff80'>+",
+      "usageHint": "cpool string #92 in DoABC tag @ body offset 1087936 (abcName=\"ddt/view/tips/FineSuitTipsSimple\") — structural location only, not a traced call site",
+      "ptBr": "Defesa <font color='#76ff80'>+"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1087936,
+      "abcName": "ddt/view/tips/FineSuitTipsSimple",
+      "cpoolIndex": 96,
+      "string": "May mắn <font color='#76ff80'>+",
+      "usageHint": "cpool string #96 in DoABC tag @ body offset 1087936 (abcName=\"ddt/view/tips/FineSuitTipsSimple\") — structural location only, not a traced call site",
+      "ptBr": "Sorte <font color='#76ff80'>+"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1087936,
+      "abcName": "ddt/view/tips/FineSuitTipsSimple",
+      "cpoolIndex": 98,
+      "string": "Ma Kháng <font color='#76ff80'>+",
+      "usageHint": "cpool string #98 in DoABC tag @ body offset 1087936 (abcName=\"ddt/view/tips/FineSuitTipsSimple\") — structural location only, not a traced call site",
+      "ptBr": "Resist. Mágica <font color='#76ff80'>+"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1087936,
+      "abcName": "ddt/view/tips/FineSuitTipsSimple",
+      "cpoolIndex": 100,
+      "string": "Hộ giáp <font color='#76ff80'>+",
+      "usageHint": "cpool string #100 in DoABC tag @ body offset 1087936 (abcName=\"ddt/view/tips/FineSuitTipsSimple\") — structural location only, not a traced call site",
+      "ptBr": "Armadura <font color='#76ff80'>+"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1087936,
+      "abcName": "ddt/view/tips/FineSuitTipsSimple",
+      "cpoolIndex": 102,
+      "string": "Nhanh nhẹn <font color='#76ff80'>+",
+      "usageHint": "cpool string #102 in DoABC tag @ body offset 1087936 (abcName=\"ddt/view/tips/FineSuitTipsSimple\") — structural location only, not a traced call site",
+      "ptBr": "Agilidade <font color='#76ff80'>+"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1239473,
+      "abcName": "game/objects/GameLiving",
+      "cpoolIndex": 112,
+      "string": "Kẻ Nào Không Phục",
+      "usageHint": "cpool string #112 in DoABC tag @ body offset 1239473 (abcName=\"game/objects/GameLiving\") — structural location only, not a traced call site",
+      "ptBr": "Invencível"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1239473,
+      "abcName": "game/objects/GameLiving",
+      "cpoolIndex": 115,
+      "string": "Giáng Sinh Tuyết Trắng",
+      "usageHint": "cpool string #115 in DoABC tag @ body offset 1239473 (abcName=\"game/objects/GameLiving\") — structural location only, not a traced call site",
+      "ptBr": "Natal de Neve Branca"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1239473,
+      "abcName": "game/objects/GameLiving",
+      "cpoolIndex": 117,
+      "string": "Tiểu Ác Ma",
+      "usageHint": "cpool string #117 in DoABC tag @ body offset 1239473 (abcName=\"game/objects/GameLiving\") — structural location only, not a traced call site",
+      "ptBr": "Pequeno Diabrete"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1239473,
+      "abcName": "game/objects/GameLiving",
+      "cpoolIndex": 119,
+      "string": "Hoa Ngọt Ngào",
+      "usageHint": "cpool string #119 in DoABC tag @ body offset 1239473 (abcName=\"game/objects/GameLiving\") — structural location only, not a traced call site",
+      "ptBr": "Flor Doce"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1239473,
+      "abcName": "game/objects/GameLiving",
+      "cpoolIndex": 121,
+      "string": "Vô Song",
+      "usageHint": "cpool string #121 in DoABC tag @ body offset 1239473 (abcName=\"game/objects/GameLiving\") — structural location only, not a traced call site",
+      "ptBr": "Sem Igual"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1239473,
+      "abcName": "game/objects/GameLiving",
+      "cpoolIndex": 123,
+      "string": "Nhất Chi Hoa",
+      "usageHint": "cpool string #123 in DoABC tag @ body offset 1239473 (abcName=\"game/objects/GameLiving\") — structural location only, not a traced call site",
+      "ptBr": "Flor Solitária"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1239473,
+      "abcName": "game/objects/GameLiving",
+      "cpoolIndex": 125,
+      "string": "Soái Ca",
+      "usageHint": "cpool string #125 in DoABC tag @ body offset 1239473 (abcName=\"game/objects/GameLiving\") — structural location only, not a traced call site",
+      "ptBr": "Príncipe Encantado"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1239473,
+      "abcName": "game/objects/GameLiving",
+      "cpoolIndex": 127,
+      "string": "Bối Rối",
+      "usageHint": "cpool string #127 in DoABC tag @ body offset 1239473 (abcName=\"game/objects/GameLiving\") — structural location only, not a traced call site",
+      "ptBr": "Confuso"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1239473,
+      "abcName": "game/objects/GameLiving",
+      "cpoolIndex": 129,
+      "string": "Bá Chủ",
+      "usageHint": "cpool string #129 in DoABC tag @ body offset 1239473 (abcName=\"game/objects/GameLiving\") — structural location only, not a traced call site",
+      "ptBr": "Soberano"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1239473,
+      "abcName": "game/objects/GameLiving",
+      "cpoolIndex": 131,
+      "string": "Nữ Hoàng Vương Quốc",
+      "usageHint": "cpool string #131 in DoABC tag @ body offset 1239473 (abcName=\"game/objects/GameLiving\") — structural location only, not a traced call site",
+      "ptBr": "Rainha do Reino"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1239473,
+      "abcName": "game/objects/GameLiving",
+      "cpoolIndex": 133,
+      "string": "Điện Nước Đầy Đủ",
+      "usageHint": "cpool string #133 in DoABC tag @ body offset 1239473 (abcName=\"game/objects/GameLiving\") — structural location only, not a traced call site",
+      "ptBr": "Tudo em Dia"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 1476719,
+      "abcName": "login/LoginStateView",
+      "cpoolIndex": 97,
+      "string": "Đồng ý",
+      "usageHint": "cpool string #97 in DoABC tag @ body offset 1476719 (abcName=\"login/LoginStateView\") — structural location only, not a traced call site",
+      "ptBr": "Confirmar"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 4136794,
+      "abcName": "littleGame/view/OptionLeftView",
+      "cpoolIndex": 18,
+      "string": "Đại chiến gà",
+      "usageHint": "cpool string #18 in DoABC tag @ body offset 4136794 (abcName=\"littleGame/view/OptionLeftView\") — structural location only, not a traced call site",
+      "ptBr": "Grande Guerra das Galinhas"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 6279174,
+      "abcName": "com/pickgliss/ui/vo/AlertInfo",
+      "cpoolIndex": 4,
+      "string": "Hủy bỏ",
+      "usageHint": "cpool string #4 in DoABC tag @ body offset 6279174 (abcName=\"com/pickgliss/ui/vo/AlertInfo\") — structural location only, not a traced call site",
+      "ptBr": "Cancelar"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 6279174,
+      "abcName": "com/pickgliss/ui/vo/AlertInfo",
+      "cpoolIndex": 6,
+      "string": "Đồng ý",
+      "usageHint": "cpool string #6 in DoABC tag @ body offset 6279174 (abcName=\"com/pickgliss/ui/vo/AlertInfo\") — structural location only, not a traced call site",
+      "ptBr": "Confirmar"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 7754093,
+      "abcName": "farm/viewx/helper/FarmHelperView",
+      "cpoolIndex": 12,
+      "string": "12giờ",
+      "usageHint": "cpool string #12 in DoABC tag @ body offset 7754093 (abcName=\"farm/viewx/helper/FarmHelperView\") — structural location only, not a traced call site",
+      "ptBr": "12h"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 7754093,
+      "abcName": "farm/viewx/helper/FarmHelperView",
+      "cpoolIndex": 13,
+      "string": "24giờ",
+      "usageHint": "cpool string #13 in DoABC tag @ body offset 7754093 (abcName=\"farm/viewx/helper/FarmHelperView\") — structural location only, not a traced call site",
+      "ptBr": "24h"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 7827134,
+      "abcName": "ddt/view/chat/ChatFormats",
+      "cpoolIndex": 6,
+      "string": "Mối tình đầu",
+      "usageHint": "cpool string #6 in DoABC tag @ body offset 7827134 (abcName=\"ddt/view/chat/ChatFormats\") — structural location only, not a traced call site",
+      "ptBr": "Primeiro Amor"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 7827134,
+      "abcName": "ddt/view/chat/ChatFormats",
+      "cpoolIndex": 7,
+      "string": "Chúc mừng sinh nhật",
+      "usageHint": "cpool string #7 in DoABC tag @ body offset 7827134 (abcName=\"ddt/view/chat/ChatFormats\") — structural location only, not a traced call site",
+      "ptBr": "Feliz Aniversário"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 7827134,
+      "abcName": "ddt/view/chat/ChatFormats",
+      "cpoolIndex": 8,
+      "string": "Lá lành đùm lá rách",
+      "usageHint": "cpool string #8 in DoABC tag @ body offset 7827134 (abcName=\"ddt/view/chat/ChatFormats\") — structural location only, not a traced call site",
+      "ptBr": "Mão Amiga"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 7827134,
+      "abcName": "ddt/view/chat/ChatFormats",
+      "cpoolIndex": 9,
+      "string": "Vua thách đấu",
+      "usageHint": "cpool string #9 in DoABC tag @ body offset 7827134 (abcName=\"ddt/view/chat/ChatFormats\") — structural location only, not a traced call site",
+      "ptBr": "Rei do Desafio"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 7827134,
+      "abcName": "ddt/view/chat/ChatFormats",
+      "cpoolIndex": 10,
+      "string": "Đời không đối thủ",
+      "usageHint": "cpool string #10 in DoABC tag @ body offset 7827134 (abcName=\"ddt/view/chat/ChatFormats\") — structural location only, not a traced call site",
+      "ptBr": "Invicto na Vida"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/2.png",
+      "tagCode": 82,
+      "tagOffset": 8507328,
+      "abcName": "worldboss/view/WorldBossAwardOptionLeftView",
+      "cpoolIndex": 18,
+      "string": "Long Thần Chiến",
+      "usageHint": "cpool string #18 in DoABC tag @ body offset 8507328 (abcName=\"worldboss/view/WorldBossAwardOptionLeftView\") — structural location only, not a traced call site",
+      "ptBr": "Guerra do Deus Dragão"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/3.png",
+      "tagCode": 82,
+      "tagOffset": 77253,
+      "abcName": "road7th/manager/StepManager",
+      "cpoolIndex": 138,
+      "string": "gà hồng",
+      "usageHint": "cpool string #138 in DoABC tag @ body offset 77253 (abcName=\"road7th/manager/StepManager\") — structural location only, not a traced call site",
+      "ptBr": "galinha rosa"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/3.png",
+      "tagCode": 82,
+      "tagOffset": 210169,
+      "abcName": "road7th/game/view/prompt/PromptView",
+      "cpoolIndex": 28,
+      "string": "bắn tui nè, không biết cách bắn hả",
+      "usageHint": "cpool string #28 in DoABC tag @ body offset 210169 (abcName=\"road7th/game/view/prompt/PromptView\") — structural location only, not a traced call site",
+      "ptBr": "Atire em mim, não sabe atirar?"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/3.png",
+      "tagCode": 82,
+      "tagOffset": 210169,
+      "abcName": "road7th/game/view/prompt/PromptView",
+      "cpoolIndex": 34,
+      "string": "đến lượt bạn mới dùng được",
+      "usageHint": "cpool string #34 in DoABC tag @ body offset 210169 (abcName=\"road7th/game/view/prompt/PromptView\") — structural location only, not a traced call site",
+      "ptBr": "Só pode usar no seu turno"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/3.png",
+      "tagCode": 82,
+      "tagOffset": 210169,
+      "abcName": "road7th/game/view/prompt/PromptView",
+      "cpoolIndex": 36,
+      "string": "Tui đứng xa chút, xem bạn bắn trúng không?",
+      "usageHint": "cpool string #36 in DoABC tag @ body offset 210169 (abcName=\"road7th/game/view/prompt/PromptView\") — structural location only, not a traced call site",
+      "ptBr": "Vou ficar mais longe, vamos ver se você acerta"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/3.png",
+      "tagCode": 82,
+      "tagOffset": 210169,
+      "abcName": "road7th/game/view/prompt/PromptView",
+      "cpoolIndex": 38,
+      "string": "thể lực không đủ",
+      "usageHint": "cpool string #38 in DoABC tag @ body offset 210169 (abcName=\"road7th/game/view/prompt/PromptView\") — structural location only, not a traced call site",
+      "ptBr": "energia insuficiente"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/DDT_Loading.swf",
+      "tagCode": 82,
+      "tagOffset": 785900,
+      "abcName": "loading/MainLoading",
+      "cpoolIndex": 55,
+      "string": "File hệ thống",
+      "usageHint": "cpool string #55 in DoABC tag @ body offset 785900 (abcName=\"loading/MainLoading\") — structural location only, not a traced call site",
+      "ptBr": "Arquivo do sistema"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/DDT_Loading.swf",
+      "tagCode": 82,
+      "tagOffset": 785900,
+      "abcName": "loading/MainLoading",
+      "cpoolIndex": 57,
+      "string": "Bản mẫu",
+      "usageHint": "cpool string #57 in DoABC tag @ body offset 785900 (abcName=\"loading/MainLoading\") — structural location only, not a traced call site",
+      "ptBr": "Modelo"
+    },
+    {
+      "swf": "vendor/DDTank41/Source Flash/FlashSV1/DDT_Loading.swf",
+      "tagCode": 82,
+      "tagOffset": 785900,
+      "abcName": "loading/MainLoading",
+      "cpoolIndex": 61,
+      "string": "Đang tải",
+      "usageHint": "cpool string #61 in DoABC tag @ body offset 785900 (abcName=\"loading/MainLoading\") — structural location only, not a traced call site",
+      "ptBr": "Carregando"
+    }
+  ],
+  "note": "Exhaustive scan of the whole FlashSV1 client tree (126 files: every SWF + the 2/3.png core SWFs disguised with a .png extension). Every one of the 42 VN-char ABC constant-pool string literals found lives in just 3 files: 2.png (34), 3.png (5), DDT_Loading.swf (3) — confirm/cancel dialog defaults, a handful of avatar-skin tier / stat-bonus / achievement-title strings, the in-arena tutorial NPC dialogue, and the loading screen. ZERO vietnam/swf/*.swf UI chrome files (shop.swf, roomlist.swf, bagandinfo.swf, email.swf, invite.swf, consortion*.swf, auction.swf, hall.swf, calendar.swf, setting.swf, ...) contain ANY ABC string literal with Vietnamese characters. This empirically confirms research/i18n/ui-sweep.md \"Not fixed\" item 1: the large native/dynamic UI-chrome class (Mua, Giỏ hàng, Tìm, Bắt đầu, Tổ đội, Xóa, equip-slot names, stat labels, table headers, pagers, Nam/Nữ filters...) is NOT baked into any ABC constant pool anywhere in the client. Decompiling 2.png (tools/i18n/abc-strings scan + ffdec -export script, see tank.data.EquipType.as) shows why: these all go through ddt.manager.LanguageMgr.GetTranslation(\"<dotted.key>\") at runtime, resolved from language.txt loaded over the network — only the dotted KEY strings (ASCII, no Vietnamese) live in the ABC pool, never the display value. The served pt-BR language.txt already has correct translations (e.g. tank.data.EquipType.head -> \"Chapéu\", verified serving with HTTP 200), yet affected labels still render Vietnamese in the live client — e.g. ddt.data.EquipType.PARTNAME (EquipType.as) is a `public static const Array` whose entries are LanguageMgr.GetTranslation(...) calls evaluated ONCE at class-initialization time. If that class initializer runs before LanguageMgr.setup() has parsed the (possibly still-loading or cached) language.txt, the array permanently bakes in whatever _dic held at that instant. This static-initializer-ordering theory is new evidence, not yet proven by tracing actual load order; it is the most concrete lead for a follow-up task and squarely a different, larger problem than an ABC string-literal patch (would need an AS3 source change + recompile, e.g. converting PARTNAME-style arrays to lazy getters, or guaranteeing LanguageMgr.setup() always completes before any class with such an array is first touched)."
+}
