@@ -12,7 +12,7 @@
 //
 // Usage: node scripts/gen-secrets.mjs [--force]   (--force overwrites secrets already set, not just blanks)
 import { randomBytes } from "node:crypto";
-import { existsSync, readFileSync, writeFileSync, copyFileSync, mkdirSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync, copyFileSync, mkdirSync, unlinkSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execSync } from "node:child_process";
@@ -105,12 +105,32 @@ upsert(gameEnv, { RSA_PRIVATE_KEY: rsaPrivateKey });
 forceUpsert(apiEnv, { RSA_USE_VENDOR_KEY: "false" });
 forceUpsert(gameEnv, { RSA_USE_VENDOR_KEY: "false" });
 
+// Pipeline order: tools/i18n/abc-strings/patch.mjs (rewrites the Vietnamese ABC constant-pool string
+// literals found in 2.png to PT-BR — see research/i18n/abc-strings.json) must run BEFORE
+// patch-client-key (which does a dynamic indexOf() for the RSA modulus, so it works fine on the
+// i18n-patched file's new byte layout). It always reads from the untouched VENDOR 2.png into a scratch
+// temp file — never from this script's own previous output — so re-running key rotation never tries to
+// find-and-replace an RSA modulus in a file that no longer contains the original (already-rotated) one.
 const vendor2png = resolve(REPO, "vendor", "DDTank41", "Source Flash", "FlashSV1", "2.png");
 const patchedOutDir = resolve(REPO, "apps", "api", "assets", "flash");
 const patchedOut = resolve(patchedOutDir, "2.png");
+const abcStringsTool = resolve(REPO, "tools", "i18n", "abc-strings", "patch.mjs");
 if (existsSync(vendor2png)) {
   mkdirSync(patchedOutDir, { recursive: true });
-  run(["--filter", "@ddt/api", "run", "-s", "patch-client-key", vendor2png, patchedOut, modulus], { stdio: "inherit" });
+  let keySource = vendor2png;
+  if (existsSync(abcStringsTool)) {
+    const i18nTmp = resolve(patchedOutDir, "2.i18n-tmp.png");
+    execSync(`node ${q(abcStringsTool)} ${q(vendor2png)} ${q(i18nTmp)}`, { cwd: REPO, stdio: "inherit" });
+    keySource = i18nTmp;
+  } else {
+    console.warn(`WARNING: ${abcStringsTool} not found — shipping 2.png with un-translated ABC string literals.`);
+  }
+  run(["--filter", "@ddt/api", "run", "-s", "patch-client-key", keySource, patchedOut, modulus], { stdio: "inherit" });
+  if (keySource !== vendor2png) {
+    try {
+      unlinkSync(keySource);
+    } catch {}
+  }
   console.log(`patched client -> ${patchedOut} (apps/api serves this overlay instead of vendor's 2.png)`);
 } else {
   console.warn(`WARNING: ${vendor2png} not found — skipped patch-client-key.`);

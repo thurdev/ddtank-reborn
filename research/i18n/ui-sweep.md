@@ -197,3 +197,72 @@ Re-opened Shop live after repacking: the wallet panel (previously one garbled li
 (Xu/Lễ kim/H.Chương with numbers), and the color-panel button now reads "Tabela de cores" with no leading comma.
 See `research/i18n/before-after.html` for a broader before/after sample (67 of the 690 fixed + 94 reverted rows —
 full lists in `tools/i18n/images/targets.json` and the `fix-garbled-*-log.json` files).
+
+## Follow-up (2026-10-03): ABC constant-pool sweep — "Not fixed" item 1 tested directly, item 2 re-diagnosed
+
+Built `tools/i18n/abc-strings/` (`scan.mjs`/`patch.mjs`/`lib.mjs`, no deps — parses CWS/FWS SWF, finds DoABC/DoABC2
+tags, reads the ABC constant pool's string section) to directly test the hypothesis that the native/dynamic UI
+text from item 1 above (Mua, Giỏ hàng, Tìm, Bắt đầu, equip-slot labels, table headers, Pontes...) is a hardcoded
+ABC string literal, as opposed to a `LanguageMgr` key. Full results + translations in `research/i18n/abc-strings.json`.
+
+**Result: hypothesis refuted, exhaustively.** Scanned the entire `FlashSV1` tree (126 files, including `2.png`/
+`3.png` — CWS SWFs disguised with a `.png` extension, see `research/client/01-client-map.md` §5). Found exactly
+**42** Vietnamese-character ABC string literals, **all** inside `2.png` (34), `3.png` (5) and `DDT_Loading.swf`
+(3). **Zero** in any `ui/vietnam/swf/*.swf` (shop, roomlist, bagandinfo, email, invite, consortion*, auction,
+hall, calendar, setting, ...) — confirming this item's own earlier `-export script` spot-check on `bagandinfo.swf`
+generalizes to the whole UI-chrome layer. Decompiling `2.png` (`ddt/data/EquipType.as`) shows the actual
+mechanism: `EquipType.PARTNAME` is a `public static const Array` built from
+`LanguageMgr.GetTranslation("tank.data.EquipType.head")`-style calls — only the **dotted key** is an ABC literal,
+the Vietnamese display text is resolved at runtime from `language.txt` via `ddt/manager/LanguageMgr.as`
+(`GetTranslation` reads `_dic[key]`, populated once by `LanguageMgr.setup()`). Since `PARTNAME` is `static const`,
+AS3 evaluates it **once**, at class-initialization time — if `EquipType` is first touched before
+`LanguageMgr.setup()` has finished parsing `language.txt`, the array permanently bakes in whatever `_dic` held at
+that instant. This is a concrete, previously-undocumented lead for item 1 (a static-initializer-ordering bug, or
+a language.txt load-order race) — not proven by tracing actual boot order yet, but a much narrower place to look
+than "a shared/common component SWF not yet identified". Fixing it needs an AS3 source change + recompile (e.g.
+lazy getters instead of eager `static const` arrays), not a string-literal patch — out of scope for this session.
+
+**The 42 real ABC literals got translated and patched** (`tools/i18n/abc-strings/translations.json`, applied with
+`patch.mjs` — rewrites the string pool's u30 length + UTF-8 bytes in place, leaves every other ABC structure
+byte-identical since namespaces/multinames/method bodies reference strings by constant-pool *index*, never byte
+offset). Validated two ways: re-scanning the patched files with `scan.mjs --vn-only` (the same
+PT-BR/VN-diacritic-overlap-safe regex `tools/i18n/images/lookup.mjs` uses) finds 0 remaining, and
+`ffdec -export script` on the patched `2.png` round-trips cleanly, showing e.g.
+`com.pickgliss.ui.vo.AlertInfo: SUBMIT_LABEL:String = "Confirmar"`, `CANCEL_LABEL:String = "Cancelar"`.
+
+This directly **re-diagnoses "Not fixed" item 2** (font-glyph-dropping): the Settings "Đồng ý"/"Hủy bỏ" buttons
+were never a Ruffle font-embedding bug — `AlertInfo.SUBMIT_LABEL`/`CANCEL_LABEL` are literal Vietnamese ABC
+constants the image/DB/language.txt pipeline never touches at all (it only translates bitmaps, `app.Translations`
+DB rows, and `language.txt` keys — never raw ABC literals), so the original VN text was rendering as-is, correctly
+(the earlier "glyph-dropping" read was a misdiagnosis of this gap, not evidence of a Ruffle bug — unless a real
+glyph-drop bug exists independently elsewhere, which this session did not re-test). Live-verified in
+`pnpm dev:all` (test/test, Settings window): now renders **"Confirmar" / "Cancelar"** cleanly, both spelled in
+full. Screenshots: `research/i18n/abc-verify/00-boot.png` (loading screen: "Carregando[Arquivo do sistema]: 8/13",
+was "Đang tải[Bản mẫu]: 12/13"), `01-after-wait.png` (hall, unchanged/consistent with earlier findings),
+`02-settings.png` (Settings dialog, Confirmar/Cancelar).
+
+Deployed via `apps/api/assets/flash/{2.png,3.png,DDT_Loading.swf}` (overlay wins over vendor, confirmed by
+`apps/api/src/routes/static.ts`'s `flashFix.resolve(rel) ?? flash.resolve(rel)`). `scripts/gen-secrets.mjs` was
+updated so its `patch-client-key` step chains through `tools/i18n/abc-strings/patch.mjs` first — it always
+re-derives from the untouched **vendor** `2.png` into a scratch temp file, never from its own previous output, so
+a later key rotation can't fail trying to find an already-rotated RSA modulus. Pipeline order is documented in a
+comment at that call site in `gen-secrets.mjs`.
+
+**"Pontes" → "Pontos" typo (item 5): not reproduced, despite an exhaustive search.** Checked: `app."Translations"`
+DB table live (`WHERE text ILIKE '%Pontes%' OR text ILIKE '%Semanal%'` → 0 rows), both `language.txt` PT-BR/VN
+files, `curated-captions.json` (has **two** matches for this exact banner text, both already correctly spelled
+"**Pontos** de Contribuição Semanal"), `image-inventory.json`/`.md` (same two assets, `ptBrSuggestion` also
+correct, status `done`), `targets.json`, and the decompiled ABC of `2.png`/`3.png` (no "Cống hiến"/"Pontes"
+literal). The two matching bitmap assets (`13_asset.placardAndEvent.weekOffer1.png`,
+`12_asset.placardAndEvent.weekOffer2.png`) belong to `placardAndEvent.swf`, which isn't even in the
+`apps/api/assets/flash` overlay yet (never packed) — so the live client can't currently be showing a PT-BR typo
+from that asset at all; it'd still be 100% Vietnamese there. The guild-window sighting must be a different,
+unlocated asset, or (more likely, given the banner's tiny 72-77px width and bold condensed font) a QA misread of
+"Pontos" as "Pontes". Needs a targeted screenshot crop of the actual guild side-panel (requires an account that
+owns/joined a guild — this session's test account has none, see `research/e2e/guild/g1-guild-hall.png`) as the
+next concrete step, rather than a blind fix.
+
+**Layout overlaps (items 3-4): unchanged, out of scope for this session too** — still display-list positioning in
+`shop.swf`/`email.swf`'s compiled timelines, not a text or ABC-string-literal problem; still needs a
+`-replaceText`/timeline-edit pass this session didn't attempt (ABC string patching, this session's tool, can't
+move DisplayObject positions).
