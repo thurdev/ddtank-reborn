@@ -1,8 +1,0 @@
-Ornamental game UI frame ONLY, flat front view, wide landscape, for a web page hosting the cartoon game DDTank. EVERYTHING that is not the frame itself must be plain flat pure green (#00FF00, chroma key): the area around the frame AND the big central window. No scenery, no forest, no sky, no game screenshot anywhere.
-Frame design (dark mode): deep navy/purple fabric scroll with gold trim, rolled scroll ends with golden caps on the far left and far right, two golden columns wrapped with gold ribbons separating three areas.
-Layout:
-- CENTER: a large empty rectangular window, exact 5:3 aspect, filled with flat #00FF00, with a thin ornate gold border.
-- LEFT and RIGHT of it: tall cream parchment panels, completely EMPTY (no text, no tables, no lines).
-- BOTTOM: a thin golden ruler bar under the central window (tick marks only, no numbers).
-- TOP CENTER: only a small simple golden ledge/mount where a logo will be placed later — NO emblem, NO bomb, NO icon, NO wings, nothing on it.
-No text, no characters, no icons. Sharp clean edges so it can be cut out.
