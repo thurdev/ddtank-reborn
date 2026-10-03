@@ -90,7 +90,10 @@ export const ConfigSchema = z.object({
   BOT_FALLBACK_SEC: num(25),
   CHAT_COOLDOWN_SEC: num(3), // original SceneChatHandler: 30 s (felt like "chat is broken")
 
-  LANGUAGE_FILE: z.string().default(resolve(APP_ROOT, "data", "Language-vn.txt")),
+  /** PT-BR is the default; set LANGUAGE_FILE=<repo>/apps/game/data/Language-vn.txt to use the original VN source. */
+  LANGUAGE_FILE: z.string().default(resolve(APP_ROOT, "..", "..", "data", "i18n", "pt-BR", "server-language.txt")),
+  /** app."Translations" overlay lang applied to `game` schema text at template-load time (Templates.load). */
+  DEFAULT_LANG: z.string().default("pt-BR"),
   /** Dev only: accept any socket LOGIN password (the ticket is not checked). Refused when NODE_ENV=production. */
   DEV_ALLOW_ANY_TICKET: bool(false),
   /** Write heartbeat/online count to app."Servers" (shared with apps/api ServerList.ashx). */

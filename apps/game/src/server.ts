@@ -134,7 +134,7 @@ export class GameServer {
       if (!text) throw new Error("No RSA private key: set RSA_PRIVATE_KEY / RSA_PRIVATE_KEY_FILE (or RSA_USE_VENDOR_KEY=true in dev)");
       rsaKey = parseRsaKey(text);
     }
-    const templates = await new Templates().load(db.db, cfg.SERVER_ID);
+    const templates = await new Templates().load(db.db, cfg.SERVER_ID, cfg.DEFAULT_LANG);
     log.info(`templates: ${templates.items.size} items, ${templates.shop.size} shop goods, ${templates.maps.size} maps`);
     const lang = LanguageMgr.fromFile(cfg.LANGUAGE_FILE);
     const pickMap = (m: number) => templates.pickMap(m, cfg.SERVER_ID);
@@ -324,7 +324,7 @@ export class GameServer {
         return true;
       },
       reloadTemplates: async () => {
-        await this.ctx.templates.load(this.ctx.db.db, this.cfg.SERVER_ID);
+        await this.ctx.templates.load(this.ctx.db.db, this.cfg.SERVER_ID, this.cfg.DEFAULT_LANG);
         const ev = eventsRuntime(this.ctx);
         await ev.reload();
         return { items: this.ctx.templates.items.size, shop: this.ctx.templates.shop.size, maps: this.ctx.templates.maps.size, scheduledEvents: ev.scheduler.events.length, achievements: ev.data.achievements.size };

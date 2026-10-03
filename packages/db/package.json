@@ -29,6 +29,8 @@
     "db:migrate": "tsx scripts/migrate.ts",
     "db:seed": "tsx scripts/seed.ts",
     "db:seed:export": "tsx scripts/export-seed.ts",
+    "db:texts:export": "tsx scripts/export-texts.ts",
+    "db:texts:import": "tsx scripts/import-translations.ts",
     "db:dev-account": "tsx scripts/create-dev-account.ts",
     "db:serve": "tsx scripts/serve-pglite.ts",
     "db:studio": "drizzle-kit studio",

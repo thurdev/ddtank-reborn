@@ -1,0 +1,77 @@
+﻿<rewards>
+	<reward level="2">
+			<rewardItem sort="1" title="Função: Lobby do Jogo:" content="Local para criar salas e lutar" items="|"/>
+			<rewardItem sort="2" title="Item obtido por missão:" content="" items="10008|10008"/>
+			<rewardItem sort="3" title="Roupa aleatória obtida por missão:" content="" items="5229,5242,5243,5247|5106,5103,5163,5180"/>
+	</reward>
+	<reward level="3">
+			<rewardItem sort="1" title="Função: Bolsa:" content="Usada para guardar armas, equipamentos e moedas" items="|"/>
+			<rewardItem sort="2" title="Item e arma obtidos por missão:" content="" items="7009,10003,10024,10025|7009,10003,10024,10025"/>
+			<rewardItem sort="3" title="Penteado aleatório obtido por missão:" content="" items="3214,3235,3237,3236|3107,3110,3129,3150"/>
+	</reward>
+	<reward level="4">
+			<rewardItem sort="1" title="Item obtido por missão:" content="" items="10001,10007,10012,10009|10001,10007,10012,10009"/>
+			<rewardItem sort="2" title="Óculos aleatório obtido por missão:" content="" items="2204,2207,2221,2223|2104,2123,2126,2127"/>
+			<rewardItem sort="3" title="Chapéu aleatório obtido por missão:" content="" items="1203,1211,1217,1252|1112,1137,1144,1189"/>
+	</reward>
+	<reward level="5">
+			<rewardItem sort="1" title="Função: Centro de Amizades:" content="Aqui você pode conhecer muitos amigos" items="|"/>
+			<rewardItem sort="2" title="Item obtido por missão:" content="" items="10006,10005,10004,10017|10006,10005,10004,10017"/>
+			<rewardItem sort="3" title="Anel e asas aleatórios obtidos por missão:" content="" items="9002,9005,15005,15007|9002,9005,15005,15007"/>
+	</reward>
+	<reward level="6">
+			<rewardItem sort="1" title="Função: Templo Mestre-Discípulo:" content="Torne-se discípulo para subir de nível mais rápido e ganhar recompensas generosas" items="|"/>
+			<rewardItem sort="2" title="Item e bracelete aleatório obtidos por missão:" content="" items="10018,8006,8004|10018,8006,8004"/>
+			<rewardItem sort="3" title="Acessório de rosto aleatório obtido por missão:" content="" items="4214,4221,4234,4248|4113,4120,4133,4147"/>
+	</reward>
+	<reward level="7">
+			<rewardItem sort="1" title="Função: Clube do Clã:" content="Entrar em um clã facilita ganhos e traz proteção e honra" items="|"/>
+			<rewardItem sort="2" title="Arma e item obtidos por missão:" content="" items="7011,10010,10011,10016|7011,10010,10011,10016"/>
+			<rewardItem sort="3" title="Olhos aleatórios obtidos por missão:" content="" items="6208,6213,6225,6232|6112,6122,6114,6118"/>
+	</reward>
+	<reward level="8">
+			<rewardItem sort="1" title="Função: Cais da Expedição:" content="Derrote monstros e avance; entrada para um local misterioso com boas recompensas" items="|"/>
+			<rewardItem sort="2" title="Função: Forja:" content="O lugar para fortalecer bastante suas armas, aqui não há fracasso!" items="10015|10015"/>
+			<rewardItem sort="3" title="Item obtido por missão:" content="" items="11019|11019"/>
+	</reward>
+	<reward level="9">
+			<rewardItem sort="1" title="Função: Loja:" content="A loja de itens que realiza seu desejo de ficar mais bonito, mais forte e mais diferente" items="|"/>
+			<rewardItem sort="2" title="Função: Combinação:" content="" items="11001,11005,11009,11013|11001,11005,11009,11013"/>
+			<rewardItem sort="3" title="Item obtido por missão:" content="" items="11021|11021"/>
+	</reward>
+	<reward level="10">
+			<rewardItem sort="1" title="Função: Fusão:" content="Função da Forja: funde 4 itens de nível baixo em 1 item de nível alto" items="|"/>
+			<rewardItem sort="2" title="Arma aleatória obtida por missão:" content="" items="7006,7012|7006,7012"/>
+			<rewardItem sort="3" title="Item obtido por missão:" content="" items="11001,11022|11001,11022"/>
+	</reward>
+	<reward level="11">
+			<rewardItem sort="1" title="Função: Incrustação:" content="Função da Forja: incrustar gemas no equipamento aumenta bastante seu poder!" items="|"/>
+			<rewardItem sort="2" title="Gema de ataque obtida por missão:" content="" items="311101|311101"/>
+			<rewardItem sort="3" title="Item obtido por missão:" content="" items="11021|11021"/>
+	</reward>
+	<reward level="12">
+			<rewardItem sort="1" title="Função: Hall da Fama:" content="As pessoas mais respeitadas do mundo de DDTank estão todas aqui!" items="|"/>
+			<rewardItem sort="2" title="Função: Desafio:" content="Você pode desafiar uma pessoa específica!" items="13144,13145|13144,13145"/>
+			<rewardItem sort="3" title="Super Pacote de 1 Real:" content="Recarregue 1 real e receba itens que valem 100 reais!" items="13136,13137|13136,13137"/>
+	</reward>
+	<reward level="13">
+			<rewardItem sort="1" title="Função: Fonte Termal:" content="Aqui você pode relaxar, fazer amigos e ganhar muita experiência" items="|"/>
+			<rewardItem sort="2" title="Arma aleatória obtida por missão:" content="" items="7013,7014|7013,7014"/>
+			<rewardItem sort="3" title="Item obtido por missão:" content="" items="11022|11022"/>
+	</reward>
+	<reward level="14">
+			<rewardItem sort="1" title="Função: Leilão:" content="Aqui é o lugar para garimpar tesouros e vender itens em consignação!" items="|"/>
+			<rewardItem sort="2" title="Item obtido por missão:" content="" items="11014,11010|11014,11010"/>
+			<rewardItem sort="3" title="Item obtido por missão:" content="" items="312101|312101"/>
+	</reward>
+	<reward level="15">
+			<rewardItem sort="1" title="Função: Laboratório de Combate:" content="Aprenda técnicas e truques de combate, o caminho mais rápido para se tornar um mestre!" items="|"/>
+			<rewardItem sort="2" title="Arma aleatória obtida por missão:" content="" items="9106,9106|9106,9106"/>
+			<rewardItem sort="3" title="Item obtido por missão:" content="" items="5253,11997|5153,11997"/>
+	</reward>
+	<reward level="16">
+			<rewardItem sort="1" title="Função: Caixa de Presentes:" content="Receba ou envie presentes e veja seu índice de carisma" items="|"/>
+			<rewardItem sort="2" title="Item obtido por missão:" content="" items="11003,11007|11003,11007"/>
+			<rewardItem sort="3" title="Item obtido por missão:" content="" items="11011,11015|11011,11015"/>
+	</reward>
+</rewards>
