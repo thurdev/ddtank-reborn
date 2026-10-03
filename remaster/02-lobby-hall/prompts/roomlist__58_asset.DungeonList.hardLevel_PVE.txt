@@ -2,6 +2,7 @@ REMASTER of the attached reference image: a piece of the town LOBBY/hall (backgr
 LAYOUT (strict): same framing, same shape and silhouette, same proportions, every element in the same place and size. Do NOT add, remove, move, zoom, crop, rotate or change perspective. No new characters, objects, logos or emblems.
 STYLE: same hand-painted cartoon casual-game art (DDTank/Gunny), same palette family, cleaner lines, sharper details, higher resolution, polished modern game art. NOT photorealistic, NOT 3D render, NOT a diorama.
 DARK MODE: shift light/cream/beige UI surfaces to deep navy/charcoal with the same gold/colored trims and accents; keep icons and characters in their original colors; everything stays readable.
+BRAND (strict): our game is "DDReborn". Any game or server logo/name in the original (Gunny, NewGun, DDTank, 7Road, Vietnamese/Chinese server names, watermarks, URLs) must be replaced by the logo text "DDReborn" in the same style and place, or removed if it is just a small watermark. Never write other brand names.
 TEXT: if the original has text, keep it in the same place but write it in Brazilian Portuguese with the same lettering style; never invent new text, numbers or labels.
 BACKGROUND (strict): wherever the original is transparent, use plain flat pure green #00FF00 (chroma key) — no gradient, no shadow, no scenery. Clean sharp edges.
 FORMAT: aspect ratio 16:9 (original 111x29px); generate at high resolution, it will be downscaled to the exact size.
