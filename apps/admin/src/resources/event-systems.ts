@@ -11,6 +11,9 @@ const KINDS = [
   { value: "weekly_reset", label: "Reset semanal", tone: "neutral" as const },
   { value: "double_exp", label: "EXP em dobro", tone: "mint" as const },
   { value: "double_gold", label: "Ouro em dobro", tone: "sun" as const },
+  { value: "chickenbox", label: "Rương Vua Gà (chicken box)", tone: "sun" as const },
+  { value: "luckystar", label: "Lucky Star", tone: "grape" as const },
+  { value: "labyrinth", label: "Mê cung (labyrinth)", tone: "coral" as const },
 ];
 
 export const scheduledEvents = defineResource({
@@ -34,7 +37,7 @@ export const scheduledEvents = defineResource({
     { name: "durationMin", label: "Duração (min)", type: "number", min: 1, max: 10080, default: 60, list: true },
     { name: "startDate", label: "Válido a partir de", type: "datetime" },
     { name: "endDate", label: "Válido até", type: "datetime" },
-    { name: "params", label: "Parâmetros (JSON)", type: "json", span: 2, hint: 'worldboss: {"bossHp":20000000,"name":"Rồng","rankAwards":[{"rank":1,"giftToken":500}]} · double_*: {"rate":2} · league: {"maxCount":10}' },
+    { name: "params", label: "Parâmetros (JSON)", type: "json", span: 2, hint: 'worldboss: {"bossHp":20000000,"name":"Rồng","rankAwards":[{"rank":1,"giftToken":500}]} · double_*: {"rate":2} · league: {"maxCount":10} · chickenbox: {"pool":[{"templateId":11107,"count":500,"weight":10}],"openCardPrice":[100,200,300,500,800],"eagleEyePrice":[50,100,150,250,400],"flushPrice":500} · luckystar: {"pool":[...]} · labyrinth: {"priceBig":5000,"priceSmall":1000,"cleanOutGiftToken":100,"pricePerMin":10} — "enabled":false closes the feature without deleting the row.' },
   ],
 });
 

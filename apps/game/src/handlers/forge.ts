@@ -13,6 +13,7 @@ import type { HandlerRegistry } from "./registry.js";
 import { mailItems } from "./items.js";
 import { getEquipControl } from "../db/consortia.js";
 import { personalRiches, smithBonusLevel } from "../game/consortia.js";
+import { pushRecords } from "./events.js";
 
 /** StrengthenMgr.RateItems (StrengthenMgr.cs:29): rate per strengthen stone level 1..6. */
 export const STRENGTHEN_RATE_ITEMS = [0.75, 3.0, 12.0, 48.0, 240.0, 768.0];
@@ -209,6 +210,7 @@ export async function strengthen(ctx: ServerContext, p: GamePlayer, pkt: GSPacke
       item.openHole();
       store.addItemTo(item, 5);
       p.questInv?.onItemStrengthen(item.template.CategoryID, item.StrengthenLevel);
+      pushRecords(p, new Map([[32, 1]])); // AchievementCondition type 32 ItemStrengthenCondition: successful-strengthen counter
     } else {
       out.writeByte(1); out.writeBoolean(false);
       if (!god) {

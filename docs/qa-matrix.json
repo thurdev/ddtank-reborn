@@ -939,7 +939,7 @@
   "code": 233,
   "name": "MARRY_SCENE_CHANGE",
   "sub": "",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -954,7 +954,7 @@
   "code": 235,
   "name": "MARRYINFO_GET",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -969,7 +969,7 @@
   "code": 240,
   "name": "MARRY_SCENE_LOGIN",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -984,7 +984,7 @@
   "code": 241,
   "name": "MARRY_ROOM_CREATE",
   "sub": "",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1000,7 +1000,7 @@
   "code": 244,
   "name": "PLAYER_EXIT_MARRY_ROOM",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1015,7 +1015,7 @@
   "code": 246,
   "name": "MARRY_STATUS",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1031,7 +1031,7 @@
   "code": 247,
   "name": "MARRY_APPLY",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1046,7 +1046,7 @@
   "code": 248,
   "name": "DIVORCE_APPLY",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1061,7 +1061,7 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "CONTINUATION=3",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1076,7 +1076,7 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "FORBID=8",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1091,7 +1091,7 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "INVITE=4",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1106,7 +1106,7 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "KICK=7",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1121,7 +1121,7 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "LARGESS=5",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1136,7 +1136,7 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "MOVE=1",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1151,7 +1151,7 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "GUNSALUTE=11",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1166,7 +1166,7 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "POSITION=10",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1181,7 +1181,7 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "HYMENEAL=2",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1196,7 +1196,7 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "USEFIRECRACKERS=6",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1211,7 +1211,7 @@
   "code": 250,
   "name": "MARRY_APPLY_REPLY",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1226,7 +1226,7 @@
   "code": 253,
   "name": "MARRY_ROOM_INFO_UPDATE",
   "sub": "",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1914,7 +1914,7 @@
   "code": 242,
   "name": "MARRY_ROOM_LOGIN",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -2106,9 +2106,9 @@
   "code": 26,
   "name": "LOTTERY_OPEN_BOX",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "LOTTERY_OPEN_BOX implementado (apps/game/src/handlers/activities.ts): num=-1 abre o tabuleiro de 18 slots (item 112019/190000, ItemBoxMgr.FindLotteryItemBoxByRand portado em pickLotteryBoard); num=templateId abre um rương direto via createItemBox (reuso de use.ts), chaves 11456×4 para 112047/112100/112101 (Sys_Users_Extra.TotalCaddyOpen incrementado). Testado por código (activities.test.ts), não clicado no cliente real (orçamento de tokens estrito desta sessão).",
   "evidence": ""
  },
  {
@@ -2122,9 +2122,9 @@
   "code": 26,
   "name": "LOTTERY_OPEN_BOX",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "Mesmo handler que sendOpenDead (código 26 LOTTERY_OPEN_BOX) — ver nota lá.",
   "evidence": ""
  },
  {
@@ -2138,9 +2138,9 @@
   "code": 27,
   "name": "LOTTERY_RANDOM_SELECT",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "LOTTERY_RANDOM_SELECT implementado: 1 carta por sorteio do tabuleiro de 18, máx. 8 sorteios, custo de chave escalonado (sorteio N consome N chaves, igual ao original — LotteryRandomSelectHandler.cs). Testado por código, não clicado.",
   "evidence": ""
  },
  {
@@ -2156,9 +2156,9 @@
   "code": 28,
   "name": "LOTTERY_FINISH",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "LOTTERY_FINISH implementado: move CaddyBag + LotteryAwardList pras bolsas reais (sobra por correio), ResetLottery. Testado por código, não clicado.",
   "evidence": ""
  },
  {
@@ -2171,9 +2171,9 @@
   "code": 45,
   "name": "CADDY_GET_BADLUCK",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "CADDY_GET_BADLUCK implementado: ranking top 20 por Sys_Users_Extra.TotalCaddyOpen (WorldMgr.CaddyRank). Testado por código, não clicado.",
   "evidence": ""
  },
  {
@@ -2247,9 +2247,9 @@
   "code": 87,
   "name": "NEWCHICKENBOX_SYS",
   "sub": "TAKEOVERCARD=13",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "Ver 87:sendNewChickenBox. TAKEOVERCARD: custo escalonado (openCardPrice[canOpenCounts-1]), item entregue, 5 usos.",
   "evidence": ""
  },
  {
@@ -2262,9 +2262,9 @@
   "code": 87,
   "name": "NEWCHICKENBOX_SYS",
   "sub": "USEEAGLEEYE=11",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "Ver 87:sendNewChickenBox. USEEAGLEEYE: custo escalonado (eagleEyePrice), revela a carta sem consumir.",
   "evidence": ""
  },
  {
@@ -2277,9 +2277,9 @@
   "code": 87,
   "name": "NEWCHICKENBOX_SYS",
   "sub": "CLICKSTARTBNT=15",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "Ver 87:sendNewChickenBox. CLICKSTARTBNT: embaralha as posições do tabuleiro (RandomPosition portado).",
   "evidence": ""
  },
  {
@@ -2292,9 +2292,9 @@
   "code": 87,
   "name": "NEWCHICKENBOX_SYS",
   "sub": "FLUSHCHICKENVIEW=14",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "Ver 87:sendNewChickenBox. FLUSHCHICKENVIEW: grátis se passaram 120 min desde o último flush (IsFreeFlushTime), senão cobra flushPrice.",
   "evidence": ""
  },
  {
@@ -2307,9 +2307,9 @@
   "code": 87,
   "name": "NEWCHICKENBOX_SYS",
   "sub": "CLOSE_GAME=32",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "CLOSE_GAME: no-op, igual ao original (ChickenBoxHandler.cs case CLOSE_GAME está vazio).",
   "evidence": ""
  },
  {
@@ -2322,9 +2322,9 @@
   "code": 87,
   "name": "NEWCHICKENBOX_SYS",
   "sub": "ENTER_GAME=31",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "Lucky Star (mesmo código 87): ENTER_GAME cobra 2500 Xu, sorteia o tabuleiro de 14 (coinTemplateID 201193 forçado na posição 0, PlayerActives.CreateLuckyStartAward). Pool configurável via kind=\"luckystar\".",
   "evidence": ""
  },
  {
@@ -2337,9 +2337,9 @@
   "code": 87,
   "name": "NEWCHICKENBOX_SYS",
   "sub": "START_TURN=33",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "START_TURN: cooldown de 7s, consome item 201192 (LUCKYSTAR_ID), embaralha o tabuleiro e sorteia por peso (.Random); se cair na moeda, 97% de chance de re-sortear excluindo a moeda (GetAward portado).",
   "evidence": ""
  },
  {
@@ -2352,9 +2352,9 @@
   "code": 87,
   "name": "NEWCHICKENBOX_SYS",
   "sub": "TURN_COMPLETE=34",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "TURN_COMPLETE: entrega o prêmio sorteado (moeda credita Xu acumulado; outros itens vão pra bolsa, sobra por correio).",
   "evidence": ""
  },
  {
@@ -2367,9 +2367,9 @@
   "code": 87,
   "name": "NEWCHICKENBOX_SYS",
   "sub": "ENTERCHICKENVIEW=10",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "NEWCHICKENBOX_SYS implementado (apps/game/src/handlers/activities.ts): tabuleiro de 18 cartas (ChickenBoxHandler.cs portado), pool configurável via app.\"ScheduledEvents\" kind=\"chickenbox\" (admin Events page) com defaults embutidos. Estado em memória (não persistido em New_ChickenBox_Data — desvio documentado em HANDLERS.md). Testado por código, não clicado.",
   "evidence": ""
  },
  {
@@ -2382,9 +2382,9 @@
   "code": 87,
   "name": "NEWCHICKENBOX_SYS",
   "sub": "AllITEMSHOW=12",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "Ver 87:sendNewChickenBox. ALLITEMSHOW: reenvia a lista atual do tabuleiro.",
   "evidence": ""
  },
  {
@@ -2399,7 +2399,7 @@
   "sub": "",
   "server": "missing",
   "verified": "no",
-  "notes": "",
+  "notes": "Morto no original: ePackageType.CARD_LOTTERY=104 existe mas nenhuma classe [PacketHandler] assina esse código (grep em vendor/DDTank41/Game.Server/Packets/Client) — pacote é descartado pelo servidor original. Status 'missing' aqui é fidelidade, não lacuna.",
   "evidence": ""
  },
  {
@@ -2414,7 +2414,7 @@
   "sub": "",
   "server": "missing",
   "verified": "no",
-  "notes": "",
+  "notes": "Morto no original: mesma situação de 104 (ePackageType.LUCK_LOTTERY=105 sem handler registrado).",
   "evidence": ""
  },
  {
@@ -2427,9 +2427,9 @@
   "code": 128,
   "name": "LEFT_GUN_ROULETTE_SOCKET",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "Morto no próprio original: LeftGunHandler.cs está registrado (PacketHandler 128) mas todo o corpo está comentado — o recurso 'roleta esquerda' foi desativado pelo time original, não processa nada. Port: sem handler (mesmo efeito observável).",
   "evidence": ""
  },
  {
@@ -2442,9 +2442,9 @@
   "code": 130,
   "name": "LEFT_GUN_ROULETTE_COMPLETTE",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "Mesma desativação do original que 128 (LeftGunCompleteHandler.cs só envia um aviso se LeftRoutteRate>0, campo nunca setado porque 128 está morto).",
   "evidence": ""
  },
  {
@@ -2457,9 +2457,9 @@
   "code": 145,
   "name": "GUILDMEMBERWEEK_SYSTEM",
   "sub": "SEND_ADDRUNKING=10",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "Morto no próprio original: ActiveSystemHandler.cs (código 145 ACTIVITY_SYSTEM) só trata sub==8 (monta um pacote PLAYERTOP10 e NUNCA chama SendTCP — o cliente nunca recebe resposta); subs 9/10 (GuildMemberWeek) e os de LanternRiddles/LightRoad caem no 'return 0' default sem nenhum efeito. Confirmado lendo o arquivo inteiro (18 linhas).",
   "evidence": ""
  },
  {
@@ -2472,9 +2472,9 @@
   "code": 145,
   "name": "GUILDMEMBERWEEK_SYSTEM",
   "sub": "CLOSE=9",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original.",
   "evidence": ""
  },
  {
@@ -2487,9 +2487,9 @@
   "code": 145,
   "name": "GUILDMEMBERWEEK_SYSTEM",
   "sub": "ENTER_GAME=8",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original.",
   "evidence": ""
  },
  {
@@ -2502,9 +2502,9 @@
   "code": 145,
   "name": "ACTIVITY_SYSTEM",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original.",
   "evidence": ""
  },
  {
@@ -2517,9 +2517,9 @@
   "code": 145,
   "name": "ACTIVITY_SYSTEM",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original.",
   "evidence": ""
  },
  {
@@ -2532,9 +2532,9 @@
   "code": 145,
   "name": "ACTIVITY_SYSTEM",
   "sub": "LANTERNRIDDLES_SKILL=41",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original.",
   "evidence": ""
  },
  {
@@ -2547,9 +2547,9 @@
   "code": 145,
   "name": "LIGHTROAD_SYSTEM",
   "sub": "ENTER_GAME=64",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original.",
   "evidence": ""
  },
  {
@@ -2562,9 +2562,9 @@
   "code": 204,
   "name": "OPEN_ALL_CARDBOX",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "OPEN_ALL_CARDBOX implementado: cada item da CaddyBag -> CardBag.addCard(Property5, rand 1..2), igual ao original (OpenAllCardBoxHandler.cs). Testado por código, não clicado.",
   "evidence": ""
  },
  {
@@ -2624,9 +2624,9 @@
   "code": 232,
   "name": "CADDY_SELL_ALL_GOODS",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "Código 232 = CaddyClearAllHandler.cs no original (nome do pacote no cliente não corresponde ao nome da classe). Implementado: resgata cada item da CaddyBag por Ouro/Lễ kim via Item.ReclaimType/ReclaimValue, esvazia a bolsa. Testado por código, não clicado.",
   "evidence": ""
  },
  {
@@ -2639,7 +2639,7 @@
   "sub": "",
   "server": "missing",
   "verified": "no",
-  "notes": "",
+  "notes": "Morto no original: ePackageType.GOTO_CARD_LOTTERY=239 sem handler registrado (mesma varredura de 104/105).",
   "evidence": ""
  },
  {
@@ -2680,7 +2680,7 @@
   "code": 81,
   "name": "FARM",
   "sub": "ACCELERATE_FIELD=3",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -2693,7 +2693,7 @@
   "code": 81,
   "name": "FARM",
   "sub": "ENTER_FARM=1",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -2706,7 +2706,7 @@
   "code": 81,
   "name": "FARM",
   "sub": "EXIT_FARM=16",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -2719,7 +2719,7 @@
   "code": 81,
   "name": "FARM",
   "sub": "FRAM_GROP_FASTFORWARD=18",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -2732,7 +2732,7 @@
   "code": 81,
   "name": "FARM",
   "sub": "FARM_GIFTPACKS=20",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -2745,7 +2745,7 @@
   "code": 81,
   "name": "FARM",
   "sub": "GROW_FIELD=2",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -2761,7 +2761,7 @@
   "code": 81,
   "name": "FARM",
   "sub": "HELPER_SWITCH_FIELD=9",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -2776,7 +2776,7 @@
   "code": 81,
   "name": "FARM",
   "sub": "COMPOSE_FOOD=5",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -2789,7 +2789,7 @@
   "code": 81,
   "name": "FARM",
   "sub": "HELPER_SWITCH_FIELD=9",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -2802,7 +2802,7 @@
   "code": 81,
   "name": "FARM",
   "sub": "GAIN_FIELD=4",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -2815,7 +2815,7 @@
   "code": 81,
   "name": "FARM",
   "sub": "HELPER_PAY_FIELD=8",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -2828,7 +2828,7 @@
   "code": 81,
   "name": "FARM",
   "sub": "KILLCROP_FIELD=7",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -2841,7 +2841,7 @@
   "code": 81,
   "name": "FARM",
   "sub": "PAY_FIELD=6",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3148,7 +3148,7 @@
   "code": 192,
   "name": "AUCTION_ADD",
   "sub": "",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3161,7 +3161,7 @@
   "code": 193,
   "name": "AUCTION_UPDATE",
   "sub": "",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3174,7 +3174,7 @@
   "code": 194,
   "name": "AUCTION_DELETE",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3460,7 +3460,7 @@
   "code": 251,
   "name": "SCENE_STATE",
   "sub": "",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3622,9 +3622,9 @@
   "code": 131,
   "name": "LABYRINTH",
   "sub": "REQUEST_UPDATE=2",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "LABYRINTH implementado como camada administrativa/econômica (apps/game/src/handlers/activities.ts + Sys_Users_Labyrinth): sub 1 DOUBLE_REWARD, 2 REQUEST_UPDATE, 3 CLEAN_OUT, 4 SPEEDED_UP, 5 STOP, 6 RESET, 9 TRY_AGAIN. Desvio documentado: o contador de andar por tempo real (Timer de 1s do original) é liquidado instantaneamente no CLEAN_OUT em vez de um timer por jogador; `myProgress` (andares vencidos em combate real) fica em 0 pra todo mundo até o tipo de sala PvE do labirinto ser portado — ver HANDLERS.md. Testado por código (activities.test.ts), não clicado.",
   "evidence": ""
  },
  {
@@ -3697,9 +3697,9 @@
   "code": 145,
   "name": "ACTIVITY_SYSTEM",
   "sub": "LANTERNRIDDLES_ANSWER=40",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
-  "notes": "",
+  "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original.",
   "evidence": ""
  },
  {
@@ -3800,7 +3800,7 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "MARRYROOMSENDGIFT=12",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3952,7 +3952,7 @@
   "code": 236,
   "name": "MARRYINFO_ADD",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3967,7 +3967,7 @@
   "code": 237,
   "name": "MARRYINFO_UPDATE",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3980,7 +3980,7 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "MARRYROOMSENDGIFT=12",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3995,9 +3995,9 @@
   "code": 258,
   "name": "NOVICEACTIVITY",
   "sub": "",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "NOVICEACTIVITY implementado simplificado: usa as mesmas tabelas Event_Reward_Info/Goods do 259 (firstRecharge), elegibilidade = Grade do jogador >= Condition (o contador de progresso por PlayerExtra — nível/fortalecimento/recarga/VIP/FC — não foi portado; ver HANDLERS.md). Claim idempotente por (ActivityType, Condition) via app.\"EventClaims\". Testado por código, não clicado.",
   "evidence": ""
  },
  {
@@ -4378,7 +4378,7 @@
   "code": 131,
   "name": "LABYRINTH",
   "sub": "CLEAN_OUT=3",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4391,7 +4391,7 @@
   "code": 131,
   "name": "LABYRINTH",
   "sub": "CLEAN_OUT_COMPLETE=8",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4404,7 +4404,7 @@
   "code": 131,
   "name": "LABYRINTH",
   "sub": "DOUBLE_REWARD=1",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4417,7 +4417,7 @@
   "code": 131,
   "name": "LABYRINTH",
   "sub": "RESET_LABYRINTH=6",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4430,7 +4430,7 @@
   "code": 131,
   "name": "LABYRINTH",
   "sub": "SPEEDED_UP_CLEAN_OUT=4",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4443,7 +4443,7 @@
   "code": 131,
   "name": "LABYRINTH",
   "sub": "STOP_CLEAN_OUT=5",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4456,7 +4456,7 @@
   "code": 131,
   "name": "LABYRINTH",
   "sub": "TRY_AGAIN=9",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""

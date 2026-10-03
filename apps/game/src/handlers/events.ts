@@ -6,7 +6,7 @@
  *   (world boss open/close + rank rewards, league notice 42, elite state 162/1, weekly reset, double exp/gold).
  * Every claim goes through `claimOnce` (app."EventClaims") so a repeated packet never grants twice.
  */
-import { eq, sql } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { GSPacket } from "@ddt/protocol";
 import { player as P } from "@ddt/db";
 import type { GamePlayer } from "../game/player.js";
@@ -443,6 +443,22 @@ export async function timeBox(ctx: ServerContext, p: GamePlayer, pkt: GSPacket):
   }
 }
 
+/**
+ * PlayerRank.AddAchievementRank (GameUtils/PlayerRank.cs:195): persists a title into player."Sys_User_Rank" instead
+ * of only announcing it (the original's `NewTitleMgr` title-definition table isn't migrated, so NewTitleID stays 0
+ * and the title is identified by its Name, same as the achievement reward text). Permanent (Validate 0, like
+ * AddAchievementRank), equipped immediately (IsExit true) and re-sent as the full 34 USER_RANK list.
+ */
+async function grantTitle(ctx: ServerContext, p: GamePlayer, name: string): Promise<void> {
+  const db = ctx.db.db;
+  const now = ctx.now();
+  const [row] = await db.select().from(P.Sys_User_Rank).where(and(eq(P.Sys_User_Rank.UserID, p.id), eq(P.Sys_User_Rank.Name, name))).limit(1);
+  if (row) await db.update(P.Sys_User_Rank).set({ IsExit: true, BeginDate: now, EndDate: now, Validate: 0 }).where(eq(P.Sys_User_Rank.ID, row.ID));
+  else await db.insert(P.Sys_User_Rank).values({ UserID: p.id, Name: name, NewTitleID: 0, BeginDate: now, EndDate: now, Validate: 0, IsExit: true });
+  const ranks = await db.select().from(P.Sys_User_Rank).where(and(eq(P.Sys_User_Rank.UserID, p.id), eq(P.Sys_User_Rank.IsExit, true)));
+  p.send(Out.userRanks(p.id, ranks));
+}
+
 /** 230 ACHIEVEMENT_FINISH: the original granted any id the client sent; the port checks CanCompleted against records. */
 export async function achievementFinish(ctx: ServerContext, p: GamePlayer, id: number): Promise<boolean> {
   const rt = eventsRuntime(ctx);
@@ -457,6 +473,7 @@ export async function achievementFinish(ctx: ServerContext, p: GamePlayer, id: n
   const out = new GSPacket(230, p.id);
   out.writeInt(id); out.writeInt(now.getUTCFullYear()); out.writeInt(now.getUTCMonth() + 1); out.writeInt(now.getUTCDate());
   p.send(out);
+  for (const name of titles) await grantTitle(ctx, p, name);
   if (titles.length) p.sendMessage(0, `Título obtido: ${titles.join(", ")}`);
   return true;
 }

@@ -379,5 +379,76 @@
     "verified": "yes",
     "notes": "Varredura do básico pt.2: criada sala 'Thi đấu' (Phòng game > Bắt đầu > Tạo phòng), Thur como chủ phòng, clicado 'Bắt đầu' sozinho — contador 'Xin chờ...' subiu e, depois do fallback (~25s), a partida carregou de verdade contra um bot (tela de luta real: avatar vs bot, HP, turno, mira). Confirma BOT_FALLBACK_SEC funcionando no cliente real.",
     "evidence": ""
+  },
+  "26:sendOpenDead": {
+    "notes": "LOTTERY_OPEN_BOX implementado (apps/game/src/handlers/activities.ts): num=-1 abre o tabuleiro de 18 slots (item 112019/190000, ItemBoxMgr.FindLotteryItemBoxByRand portado em pickLotteryBoard); num=templateId abre um rương direto via createItemBox (reuso de use.ts), chaves 11456×4 para 112047/112100/112101 (Sys_Users_Extra.TotalCaddyOpen incrementado). Testado por código (activities.test.ts), não clicado no cliente real (orçamento de tokens estrito desta sessão)."
+  },
+  "26:sendRouletteBox": {
+    "notes": "Mesmo handler que sendOpenDead (código 26 LOTTERY_OPEN_BOX) — ver nota lá."
+  },
+  "27:sendStartTurn": {
+    "notes": "LOTTERY_RANDOM_SELECT implementado: 1 carta por sorteio do tabuleiro de 18, máx. 8 sorteios, custo de chave escalonado (sorteio N consome N chaves, igual ao original — LotteryRandomSelectHandler.cs). Testado por código, não clicado."
+  },
+  "28:sendFinishRoulette": {
+    "notes": "LOTTERY_FINISH implementado: move CaddyBag + LotteryAwardList pras bolsas reais (sobra por correio), ResetLottery. Testado por código, não clicado."
+  },
+  "45:sendQequestBadLuck": {
+    "notes": "CADDY_GET_BADLUCK implementado: ranking top 20 por Sys_Users_Extra.TotalCaddyOpen (WorldMgr.CaddyRank). Testado por código, não clicado."
+  },
+  "104:sendCardLotteryIds": {
+    "notes": "Morto no original: ePackageType.CARD_LOTTERY=104 existe mas nenhuma classe [PacketHandler] assina esse código (grep em vendor/DDTank41/Game.Server/Packets/Client) — pacote é descartado pelo servidor original. Status 'missing' aqui é fidelidade, não lacuna."
+  },
+  "105:sendLuckLottery": {
+    "notes": "Morto no original: mesma situação de 104 (ePackageType.LUCK_LOTTERY=105 sem handler registrado)."
+  },
+  "239:gotoCardLottery": {
+    "notes": "Morto no original: ePackageType.GOTO_CARD_LOTTERY=239 sem handler registrado (mesma varredura de 104/105)."
+  },
+  "128:sendStartTurn_LeftGun": {
+    "status": "stub",
+    "notes": "Morto no próprio original: LeftGunHandler.cs está registrado (PacketHandler 128) mas todo o corpo está comentado — o recurso 'roleta esquerda' foi desativado pelo time original, não processa nada. Port: sem handler (mesmo efeito observável)."
+  },
+  "130:sendEndTurn_LeftGun": {
+    "status": "stub",
+    "notes": "Mesma desativação do original que 128 (LeftGunCompleteHandler.cs só envia um aviso se LeftRoutteRate>0, campo nunca setado porque 128 está morto)."
+  },
+  "87:sendNewChickenBox": {
+    "notes": "NEWCHICKENBOX_SYS implementado (apps/game/src/handlers/activities.ts): tabuleiro de 18 cartas (ChickenBoxHandler.cs portado), pool configurável via app.\"ScheduledEvents\" kind=\"chickenbox\" (admin Events page) com defaults embutidos. Estado em memória (não persistido em New_ChickenBox_Data — desvio documentado em HANDLERS.md). Testado por código, não clicado."
+  },
+  "87:sendChickenBoxTakeOverCard": { "notes": "Ver 87:sendNewChickenBox. TAKEOVERCARD: custo escalonado (openCardPrice[canOpenCounts-1]), item entregue, 5 usos." },
+  "87:sendChickenBoxUseEagleEye": { "notes": "Ver 87:sendNewChickenBox. USEEAGLEEYE: custo escalonado (eagleEyePrice), revela a carta sem consumir." },
+  "87:sendFlushNewChickenBox": { "notes": "Ver 87:sendNewChickenBox. FLUSHCHICKENVIEW: grátis se passaram 120 min desde o último flush (IsFreeFlushTime), senão cobra flushPrice." },
+  "87:sendOverShowItems": { "notes": "Ver 87:sendNewChickenBox. ALLITEMSHOW: reenvia a lista atual do tabuleiro." },
+  "87:sendClickStartBntNewChickenBox": { "notes": "Ver 87:sendNewChickenBox. CLICKSTARTBNT: embaralha as posições do tabuleiro (RandomPosition portado)." },
+  "87:sendLuckyStarEnter": {
+    "notes": "Lucky Star (mesmo código 87): ENTER_GAME cobra 2500 Xu, sorteia o tabuleiro de 14 (coinTemplateID 201193 forçado na posição 0, PlayerActives.CreateLuckyStartAward). Pool configurável via kind=\"luckystar\"."
+  },
+  "87:sendLuckyStarTurn": {
+    "notes": "START_TURN: cooldown de 7s, consome item 201192 (LUCKYSTAR_ID), embaralha o tabuleiro e sorteia por peso (.Random); se cair na moeda, 97% de chance de re-sortear excluindo a moeda (GetAward portado)."
+  },
+  "87:sendLuckyStarTurnComplete": { "notes": "TURN_COMPLETE: entrega o prêmio sorteado (moeda credita Xu acumulado; outros itens vão pra bolsa, sobra por correio)." },
+  "87:sendLuckyStarClose": { "notes": "CLOSE_GAME: no-op, igual ao original (ChickenBoxHandler.cs case CLOSE_GAME está vazio)." },
+  "145:sendGuildMemberWeekAddRanking": {
+    "status": "stub",
+    "notes": "Morto no próprio original: ActiveSystemHandler.cs (código 145 ACTIVITY_SYSTEM) só trata sub==8 (monta um pacote PLAYERTOP10 e NUNCA chama SendTCP — o cliente nunca recebe resposta); subs 9/10 (GuildMemberWeek) e os de LanternRiddles/LightRoad caem no 'return 0' default sem nenhum efeito. Confirmado lendo o arquivo inteiro (18 linhas)."
+  },
+  "145:sendGuildMemberWeekStarClose": { "status": "stub", "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original." },
+  "145:sendGuildMemberWeekStarEnter": { "status": "stub", "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original." },
+  "145:sendLanternRiddlesQuestion": { "status": "stub", "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original." },
+  "145:sendLanternRiddlesRankInfo": { "status": "stub", "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original." },
+  "145:sendLanternRiddlesUseSkill": { "status": "stub", "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original." },
+  "145:sendLanternRiddlesAnswer": { "status": "stub", "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original." },
+  "145:sendLightRoadStarEnter": { "status": "stub", "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original." },
+  "204:sendOpenAll": {
+    "notes": "OPEN_ALL_CARDBOX implementado: cada item da CaddyBag -> CardBag.addCard(Property5, rand 1..2), igual ao original (OpenAllCardBoxHandler.cs). Testado por código, não clicado."
+  },
+  "232:sendSellAll": {
+    "notes": "Código 232 = CaddyClearAllHandler.cs no original (nome do pacote no cliente não corresponde ao nome da classe). Implementado: resgata cada item da CaddyBag por Ouro/Lễ kim via Item.ReclaimType/ReclaimValue, esvazia a bolsa. Testado por código, não clicado."
+  },
+  "131:labyrinthRequestUpdate": {
+    "notes": "LABYRINTH implementado como camada administrativa/econômica (apps/game/src/handlers/activities.ts + Sys_Users_Labyrinth): sub 1 DOUBLE_REWARD, 2 REQUEST_UPDATE, 3 CLEAN_OUT, 4 SPEEDED_UP, 5 STOP, 6 RESET, 9 TRY_AGAIN. Desvio documentado: o contador de andar por tempo real (Timer de 1s do original) é liquidado instantaneamente no CLEAN_OUT em vez de um timer por jogador; `myProgress` (andares vencidos em combate real) fica em 0 pra todo mundo até o tipo de sala PvE do labirinto ser portado — ver HANDLERS.md. Testado por código (activities.test.ts), não clicado."
+  },
+  "258:sendNoviceActivityGetAward": {
+    "notes": "NOVICEACTIVITY implementado simplificado: usa as mesmas tabelas Event_Reward_Info/Goods do 259 (firstRecharge), elegibilidade = Grade do jogador >= Condition (o contador de progresso por PlayerExtra — nível/fortalecimento/recarga/VIP/FC — não foi portado; ver HANDLERS.md). Claim idempotente por (ActivityType, Condition) via app.\"EventClaims\". Testado por código, não clicado."
   }
 }
