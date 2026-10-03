@@ -807,5 +807,48 @@ que faz `2.png` carregar/executar antes do `StartupResourceLoader.start()` e adi
 string PT-BR embutida no próprio `cinit` do `LanguageMgr`, mesmo antes do fetch de rede completar) — mesmo tipo
 de edição de bytecode, só que num alvo único e menor.
 
+## [FEITO] As 8 classes com `static const Array` + `GetTranslation` — recompiladas com getters lazy (2026-10-03)
+
+**Pergunta 1 (de onde vem o VN, já que `language.txt` não tinha carregado ainda): não existe fonte VN
+separada/anterior.** Checado e descartado: um segundo request tipo-`language.txt` mais cedo (só existe um
+fetch de `language.txt` por boot); um `LanguageMgr`/`EquipType` duplicado no domínio do `DDT_Loading.swf`
+(`ffdec -export script` nele lista as 87 classes — todas `asset.*`/`game.*`/`com.greensock.*`/
+`com.wirelust.as3zlib.*`, zero classes `ddt.*`, é só o minigame de carregamento, self-contained); cache via
+`SharedObject` do idioma (só achado `LoaderSavingManager`/`SharedManager`, de configs não relacionadas);
+dicionário embutido de fallback no próprio `GetTranslation` (não existe, é `_dic[key] ? _dic[key] : ""`,
+`_dic` fica `null` até `setup()` rodar). Ou seja: não tem "fonte mais cedo" pra traduzir — no instante em que
+esses 8 arrays são montados, nenhum locale (nem VN nem PT-BR) terminou de carregar ainda; o texto VN que
+aparece é o comportamento pré-existente do build vendor vazando por uma dependência de timing que sempre
+existiu mas era invisível (ver análise da sessão anterior acima). O porquê exato do valor virar VN em vez de
+`""`/erro é uma nuance de ordem de execução AVM2/Ruffle que precisaria de um debugger de bytecode pra fechar
+100% (não disponível neste ambiente) — mas isso não muda o diagnóstico nem a correção.
+
+**Pergunta 2 (patch): feito, sem precisar de fallback pra patch de literal ABC.** As 10 arrays nas 8 classes
+(`EquipType.PARTNAME`, `QualityType.QUALITY_STRING`, `CardInfo.{cardsType,cardsMain}`,
+`ChatFastReplyPanel.FASTREPLYS`, `CardsTipPanel.{CARDTYPE,CARDTYPE_VICE_MAIN}`,
+`SmallMapView.{HARD_LEVEL,HARD_LEVEL1}`, `LotteryContorller.btnTipArray`,
+`LaterEquipmentView.enchantLevelTxtArr`) viraram `private static var _NAME` + `static function get NAME()`
+que constrói e cacheia o array no primeiro **uso**, não no `cinit`. API pública idêntica (mesmo nome,
+mesma visibilidade) — quem lê `Classe.NAME[i]` em outro lugar do SWF usa `getproperty`, que funciona igual
+contra slot const ou contra getter, então nenhuma outra classe precisou ser recompilada (confirmado
+reexportando o resultado: só essas 8 mudaram). Recompilado com o compilador AS3 embutido do FFDec
+(`-importScript`), sem erros, round-trip limpo.
+
+Ferramenta nova, reprodutível: `tools/i18n/static-arrays/scripts/` (os 8 `.as` finais já editados, path de
+pacote igual ao que o FFDec espera) + `tools/i18n/static-arrays/patch.mjs` (`node patch.mjs <in> <out>`,
+chama `ffdec-cli -importScript`; testado funcionando direto a partir do `2.png` **vendor** intocado, não só
+do overlay). `scripts/gen-secrets.mjs` agora encadeia: `2.png` vendor → `abc-strings/patch.mjs` (strings) →
+**`static-arrays/patch.mjs` (novo, bytecode)** → `patch-client-key` (RSA) → `apps/api/assets/flash/2.png`,
+sempre a partir do vendor intocado em arquivos temporários descartados no final (mesmo padrão de antes).
+
+**Verificado ao vivo** (`pnpm dev:all`, test/test, Playwright, viewport 1400x950): `GET /flash/2.png` serve os
+bytes novos (tamanho bate exato), cliente sobe sem VerifyError e sem erro novo no console (só o 404 de
+`weekly/weeklyinfo.xml`, já conhecido e não relacionado). Tooltip de item na loja agora mostra **"Qualidade:
+refinado"** (`QualityType.QUALITY_STRING`, PT-BR) e **"Tipo: Arma"** (`EquipType.PARTNAME`, PT-BR) —
+screenshots em `research/i18n/static-arrays-verify/`. Detalhes completos, incluindo o que NÃO foi corrigido
+por isso (as legendas Nón/Kính/Mặt/Áo/Bộ/Cánh do boneco de papel na loja/bolsa continuam VN — confirmado que
+NÃO vêm de `EquipType.PARTNAME`, é outra fonte ainda não localizada, mesmo item aberto de antes) em
+`research/i18n/ui-sweep.md` ("Follow-up session 4").
+
 Detalhes completos (incluindo a lista de requisições de rede e os screenshots de verificação) em
 `research/i18n/ui-sweep.md`.

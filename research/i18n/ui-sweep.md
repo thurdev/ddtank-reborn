@@ -374,3 +374,87 @@ doc (e.g. `QualityType` almost certainly drives item-quality labels shown in too
 individually verified against live screenshots this session — flagging as the concrete next step's starting
 list rather than re-confirming each one.
 move DisplayObject positions).
+
+## Follow-up (2026-10-03, session 4): the 8 eager-static-array classes patched (lazy getters), shipped and verified live
+
+Task: (1) find out where the Vietnamese shown by the 8 classes flagged in session 3 (`EquipType`, `CardInfo`,
+`QualityType`, `ChatFastReplyPanel`, `CardsTipPanel`, `SmallMapView`, `LotteryContorller`,
+`LaterEquipmentView`) actually comes from, given `language.txt` hadn't loaded yet; (2) patch them.
+
+**Part 1 — no earlier/separate VN source exists.** Checked three candidate mechanisms, all ruled out:
+- **Not a second `language.txt`-like request.** Exactly one `language.txt` fetch happens per boot (confirmed
+  already in session 3's network capture); no other `.txt`/`.xml` resembling a language dictionary is
+  requested earlier, and `ddt/manager/PathManager.as::getLanguagePath()` has a single hardcoded path (no
+  alternate CDN/fallback URL in the AS3 source).
+- **Not a duplicate `LanguageMgr`/`EquipType` living in `DDT_Loading.swf`'s own ApplicationDomain.**
+  `ffdec -export script` on `apps/api/assets/flash/DDT_Loading.swf` lists all 87 of its classes — every one
+  is `asset.*`/`game.*`/`com.greensock.*`/`com.wirelust.as3zlib.*` (it's a small, fully self-contained
+  whack-a-mole mini-game bundled with the loading screen). Zero `ddt.*` classes, so there is no second
+  `LanguageMgr` or `EquipType` definition anywhere that could shadow or pre-seed the real one.
+- **Not a `SharedObject`-cached copy of an old language file.** `grep -rn SharedObject` across
+  `Source Flash/src` turns up only `LoaderSavingManager`/`SharedManager` (used for unrelated settings/saved
+  state, named `"road"`), nothing that caches `language.txt` content client-side.
+- **`ddt.manager.LanguageMgr.GetTranslation()` itself has no embedded fallback dictionary** — it's
+  `_dic[key] ? _dic[key] : ""`, and `_dic` is `null` until `LanguageMgr.setup()` runs (confirmed reading the
+  full class body this session).
+
+So there is nothing upstream to translate instead — translating "the earlier source" isn't a coherent fix
+here, because at the moment these 8 arrays are built there is no fully-loaded locale resource yet (VN or
+PT-BR). The baked Vietnamese text is the pre-existing vendor build's behavior leaking through a timing
+dependency that happened to be invisible before (VN build + VN race = VN either way); exactly why the raced
+read yields literal VN text rather than `""`/a thrown error is an AVM2/Ruffle execution-order nuance that
+would need a bytecode step-debugger to pin exactly (not available in this toolchain, flagged honestly in
+session 3 and still true) — but it doesn't change the diagnosis (eager `static const` evaluated too early)
+or the fix (stop evaluating eagerly). Session 3's root cause stands confirmed by elimination, not by
+tracing the exact AVM2 opcode sequence.
+
+**Part 2 — patched.** Exported all 8 classes from the overlay `apps/api/assets/flash/2.png` with
+`ffdec-cli.jar -selectclass <8 fully-qualified names> -export script`, and converted every
+`GetTranslation()`-driven `static const Array` (10 arrays total — some classes have two) into a
+`private static var _NAME` cache plus a same-visibility `static function get NAME():Array` that builds and
+caches the array on first **read** instead of at class-init:
+`ddt.data.EquipType.PARTNAME`, `ddt.data.goods.QualityType.QUALITY_STRING`,
+`cardSystem.data.CardInfo.{cardsType,cardsMain}`, `ddt.view.chat.ChatFastReplyPanel.FASTREPLYS`,
+`ddt.view.tips.CardsTipPanel.{CARDTYPE,CARDTYPE_VICE_MAIN}`,
+`game.view.smallMap.SmallMapView.{HARD_LEVEL,HARD_LEVEL1}`, `lottery.LotteryContorller.btnTipArray`,
+`store.view.strength.LaterEquipmentView.enchantLevelTxtArr` (this last one is `GetTranslation(...).split(",")`
+rather than an array literal — same treatment, same fix shape). Callers elsewhere in the SWF's other DoABC
+tags read `Class.NAME[i]` via the `getproperty` opcode either way (a getter trait and a const-slot trait are
+both valid `getproperty` targets), so no other class needed recompiling — confirmed by re-exporting the
+compiled result and diffing: every other class byte-identical, only these 8 changed.
+
+Recompiled with FFDec's built-in AS3 compiler (`-importScript <in> <out> <scriptsfolder>`, `playerglobal.swc`
+bundled under `vendor/_tools/ffdec/flashlib`) — no compiler errors, and the output round-trips cleanly
+through `-export script` again showing the new getters. **No fallback to ABC literal patching was needed**;
+FFDec's recompiler handled all 8 classes directly.
+
+Checked-in as a reproducible pipeline step: `tools/i18n/static-arrays/scripts/` holds the 8 final, already-
+edited `.as` sources (not regenerated per run — this is the fixed "diff" FFDec applies), and
+`tools/i18n/static-arrays/patch.mjs` wraps `-importScript` (`node patch.mjs <in> <out>`). Verified it also
+works taking the untouched **vendor** `2.png` directly as input (not just the overlay), so it's reproducible
+from scratch. `scripts/gen-secrets.mjs`'s client-patch chain now runs it between the existing
+`tools/i18n/abc-strings/patch.mjs` (ABC string-literal translation) step and `patch-client-key` (RSA
+modulus patch): vendor `2.png` → abc-strings patch → **static-arrays patch (new)** → RSA key patch →
+`apps/api/assets/flash/2.png`. Each step always re-derives from the untouched vendor file through scratch
+temp files (`2.i18n-tmp.png`, `2.lazy-arrays-tmp.png`, both cleaned up after the run), same pattern as
+before, so key rotation stays reproducible.
+
+**Verified live** (`pnpm dev:all`, `test`/`test`, Playwright against `/play`, 1400x950 viewport): confirmed
+`GET /flash/2.png` serves the newly patched bytes (size matches the recompiled file exactly), the client
+boots with no VerifyError and no new console errors (only the pre-existing unrelated
+`weekly/weeklyinfo.xml` 404), and — concretely — hovering a shop item's tooltip now shows **"Qualidade:
+refinado"** (`QualityType.QUALITY_STRING`, PT-BR) and **"Tipo: Arma"** (`EquipType.PARTNAME`, PT-BR) where
+the original vendor build would show the Vietnamese quality/type names. Screenshots:
+`research/i18n/static-arrays-verify/00-hall.png` (hall, unaffected/consistent with earlier sessions),
+`03-shop-equip.png` and `04-tooltip.png` (the tooltip with `Qualidade: refinado` / `Tipo: Arma`).
+
+**Scope note — this does NOT fix the shop/bag paper-doll equip-slot captions** ("Nón"/"Kính"/"Mặt"/"Áo"/
+"Bộ"/"Cánh" still show Vietnamese in `04-tooltip.png`'s background and `03-shop-equip.png`'s left sidebar,
+same as session 3's and earlier sessions' findings). That confirms those specific captions are **not**
+`EquipType.PARTNAME` after all — they're driven by some other, still-unlocated source (same open item
+tracked since the original ui-sweep: "a shared/common component SWF not yet identified" / rendered from a
+component whose `-export text`/`-export script` comes back empty). `EquipType.PARTNAME` previously was only
+a *correlation* hypothesis for that specific symptom (session 3 explicitly flagged it as unconfirmed); it is
+now confirmed, via the live "Tipo: Arma" tooltip, to drive the item-type label in `GoodsTipPanel`/shop
+tooltips specifically, not the paper-doll slot icons. The paper-doll caption bug remains open for a future
+session, now with one fewer plausible cause to re-check.
