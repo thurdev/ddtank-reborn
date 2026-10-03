@@ -134,10 +134,16 @@ export function weaklessGuild(c: PlayerInfo): PacketOut {
   return p;
 }
 
-/** 34 USER_RANK list (SendUserRanks, :2088) — titles not ported yet: empty list. */
-export function userRanks(id: number): PacketOut {
+/** 34 USER_RANK list (AbstractPacketLib.SendUserRanks :2088): int count, each {int NewTitleID, str Name, date
+ *  BeginDate, date EndDate (Validate 0 -> BeginDate+1y, else BeginDate+Validate days)}. */
+export function userRanks(id: number, ranks: { NewTitleID: number; Name: string | null; BeginDate: Date; Validate: number }[] = []): PacketOut {
   const p = new PacketOut(34, id);
-  p.writeInt(0);
+  p.writeInt(ranks.length);
+  for (const r of ranks) {
+    p.writeInt(r.NewTitleID); p.writeString(r.Name ?? "");
+    wd(p, r.BeginDate);
+    wd(p, r.Validate > 0 ? new Date(r.BeginDate.getTime() + r.Validate * 86_400_000) : new Date(r.BeginDate.getTime() + 365 * 86_400_000));
+  }
   return p;
 }
 

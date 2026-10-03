@@ -17,30 +17,30 @@
 | Bolsa/Inventário | 27 | 11 | 3 | 0 | 13 | 0 | 8 |
 | Boss mundial/Minigames | 7 | 0 | 6 | 0 | 1 | 0 | 4 |
 | Cartas | 8 | 4 | 0 | 0 | 4 | 0 | 2 |
-| Casamento | 24 | 2 | 20 | 0 | 2 | 0 | 0 |
+| Casamento | 24 | 9 | 13 | 0 | 2 | 0 | 0 |
 | Combate (GAME_CMD) | 39 | 0 | 35 | 0 | 4 | 0 | 4 |
 | Configurações | 2 | 1 | 0 | 0 | 1 | 0 | 0 |
-| Conta/Login | 6 | 3 | 0 | 0 | 3 | 0 | 0 |
+| Conta/Login | 6 | 4 | 0 | 0 | 2 | 0 | 0 |
 | Correio | 7 | 6 | 0 | 0 | 1 | 0 | 0 |
 | Escola/Aprendiz | 4 | 4 | 0 | 0 | 0 | 0 | 0 |
-| Eventos/Atividades | 37 | 5 | 0 | 0 | 32 | 0 | 2 |
-| Fazenda | 14 | 0 | 11 | 0 | 3 | 0 | 0 |
+| Eventos/Atividades | 37 | 12 | 10 | 9 | 6 | 0 | 2 |
+| Fazenda | 14 | 0 | 14 | 0 | 0 | 0 | 0 |
 | Ferreiro | 16 | 4 | 2 | 0 | 10 | 0 | 1 |
 | GvG/Liga | 4 | 0 | 4 | 0 | 0 | 0 | 0 |
-| Leilão | 3 | 0 | 3 | 0 | 0 | 0 | 0 |
+| Leilão | 3 | 1 | 2 | 0 | 0 | 0 | 0 |
 | Lobby/Chat/Bugle | 10 | 9 | 0 | 0 | 1 | 0 | 0 |
-| Loja | 7 | 2 | 0 | 0 | 5 | 0 | 1 |
-| Missões | 23 | 15 | 0 | 0 | 8 | 0 | 5 |
-| Outros | 16 | 4 | 0 | 0 | 12 | 0 | 1 |
+| Loja | 7 | 2 | 1 | 0 | 4 | 0 | 1 |
+| Missões | 23 | 15 | 2 | 1 | 5 | 0 | 5 |
+| Outros | 16 | 6 | 2 | 0 | 8 | 0 | 1 |
 | Personagem/FC | 3 | 1 | 0 | 0 | 2 | 0 | 0 |
 | Pets | 17 | 0 | 17 | 0 | 0 | 0 | 2 |
-| PvE/Masmorras | 9 | 0 | 0 | 0 | 9 | 0 | 0 |
+| PvE/Masmorras | 9 | 0 | 7 | 0 | 2 | 0 | 0 |
 | Salas PvP | 21 | 17 | 0 | 0 | 4 | 0 | 0 |
 | Sociedade/Guilda | 28 | 25 | 1 | 2 | 0 | 0 | 12 |
 | Spa/Fonte termal | 14 | 13 | 0 | 1 | 0 | 0 | 5 |
 | Totem/Honra | 2 | 0 | 0 | 0 | 2 | 0 | 0 |
 | VIP | 1 | 1 | 0 | 0 | 0 | 0 | 1 |
-| **Total** | 361 | 133 | 69 | 3 | 156 | 0 | 48 |
+| **Total** | 361 | 151 | 119 | 13 | 78 | 0 | 48 |
 
 ## Amigos
 
@@ -124,26 +124,26 @@
 | `sendMateTime` | `church/view/weddingRoomList/DivorcePromptFrame.as`<br>`church/view/weddingRoomList/WeddingRoomListNavView.as` | 85 MATE_ONLINE_TIME |  | missing | no |  |
 | `sendCreateRoom` | `church/controller/ChurchRoomListController.as` | 94 GAME_ROOM | GAME_ROOM_CREATE=0 | ok | no |  |
 | `sendChurchMovieOver` | — | 167 CHURCH_MOVIE_OVER |  | missing | no |  |
-| `sendSceneChange` | `church/controller/ChurchRoomController.as` | 233 MARRY_SCENE_CHANGE |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `sendForMarryInfo` | `civil/view/CivilRegisterFrame.as` | 235 MARRYINFO_GET |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `sendMarryRoomLogin` | `church/view/ChurchMainView.as` | 240 MARRY_SCENE_LOGIN |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `sendCreateRoom` | `church/controller/ChurchRoomListController.as` | 241 MARRY_ROOM_CREATE |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `sendExitRoom` | `church/controller/ChurchRoomController.as`<br>`ddt/manager/ChurchManager.as` | 244 PLAYER_EXIT_MARRY_ROOM |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `sendValidateMarry` | `ddt/manager/ChurchManager.as` | 246 MARRY_STATUS |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `sendPropose` | `ddt/view/common/church/ChurchBuyRingFrame.as`<br>`ddt/view/common/church/ChurchProposeFrame.as` | 247 MARRY_APPLY |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `sendUnmarry` | `church/controller/ChurchRoomListController.as` | 248 DIVORCE_APPLY |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `sendChurchContinuation` | `church/controller/ChurchRoomController.as` | 249 MARRY_CMD | CONTINUATION=3 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `sendChurchForbid` | `church/view/menu/MenuPanel.as` | 249 MARRY_CMD | FORBID=8 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `sendChurchInvite` | `church/view/invite/ChurchInvitePlayerItem.as` | 249 MARRY_CMD | INVITE=4 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `sendChurchKick` | `church/view/menu/MenuPanel.as` | 249 MARRY_CMD | KICK=7 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `sendChurchLargess` | `church/controller/ChurchRoomController.as` | 249 MARRY_CMD | LARGESS=5 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `sendChurchMove` | `church/view/churchScene/SceneMap.as` | 249 MARRY_CMD | MOVE=1 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `sendGunSalute` | `church/view/churchScene/MoonSceneMap.as` | 249 MARRY_CMD | GUNSALUTE=11 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `sendPosition` | `church/view/churchScene/WeddingSceneMap.as` | 249 MARRY_CMD | POSITION=10 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `sendStartWedding` | `church/controller/ChurchRoomController.as` | 249 MARRY_CMD | HYMENEAL=2 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `sendUseFire` | `church/view/churchFire/ChurchFireView.as` | 249 MARRY_CMD | USEFIRECRACKERS=6 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `sendProposeRespose` | `ddt/view/common/church/ChurchProposeResponseFrame.as` | 250 MARRY_APPLY_REPLY |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `sendModifyChurchDiscription` | `church/controller/ChurchRoomController.as` | 253 MARRY_ROOM_INFO_UPDATE |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendSceneChange` | `church/controller/ChurchRoomController.as` | 233 MARRY_SCENE_CHANGE |  | partial | no |  |
+| `sendForMarryInfo` | `civil/view/CivilRegisterFrame.as` | 235 MARRYINFO_GET |  | ok | no |  |
+| `sendMarryRoomLogin` | `church/view/ChurchMainView.as` | 240 MARRY_SCENE_LOGIN |  | ok | no |  |
+| `sendCreateRoom` | `church/controller/ChurchRoomListController.as` | 241 MARRY_ROOM_CREATE |  | partial | no |  |
+| `sendExitRoom` | `church/controller/ChurchRoomController.as`<br>`ddt/manager/ChurchManager.as` | 244 PLAYER_EXIT_MARRY_ROOM |  | ok | no |  |
+| `sendValidateMarry` | `ddt/manager/ChurchManager.as` | 246 MARRY_STATUS |  | ok | no |  |
+| `sendPropose` | `ddt/view/common/church/ChurchBuyRingFrame.as`<br>`ddt/view/common/church/ChurchProposeFrame.as` | 247 MARRY_APPLY |  | ok | no |  |
+| `sendUnmarry` | `church/controller/ChurchRoomListController.as` | 248 DIVORCE_APPLY |  | ok | no |  |
+| `sendChurchContinuation` | `church/controller/ChurchRoomController.as` | 249 MARRY_CMD | CONTINUATION=3 | partial | no |  |
+| `sendChurchForbid` | `church/view/menu/MenuPanel.as` | 249 MARRY_CMD | FORBID=8 | partial | no |  |
+| `sendChurchInvite` | `church/view/invite/ChurchInvitePlayerItem.as` | 249 MARRY_CMD | INVITE=4 | partial | no |  |
+| `sendChurchKick` | `church/view/menu/MenuPanel.as` | 249 MARRY_CMD | KICK=7 | partial | no |  |
+| `sendChurchLargess` | `church/controller/ChurchRoomController.as` | 249 MARRY_CMD | LARGESS=5 | partial | no |  |
+| `sendChurchMove` | `church/view/churchScene/SceneMap.as` | 249 MARRY_CMD | MOVE=1 | partial | no |  |
+| `sendGunSalute` | `church/view/churchScene/MoonSceneMap.as` | 249 MARRY_CMD | GUNSALUTE=11 | partial | no |  |
+| `sendPosition` | `church/view/churchScene/WeddingSceneMap.as` | 249 MARRY_CMD | POSITION=10 | partial | no |  |
+| `sendStartWedding` | `church/controller/ChurchRoomController.as` | 249 MARRY_CMD | HYMENEAL=2 | partial | no |  |
+| `sendUseFire` | `church/view/churchFire/ChurchFireView.as` | 249 MARRY_CMD | USEFIRECRACKERS=6 | partial | no |  |
+| `sendProposeRespose` | `ddt/view/common/church/ChurchProposeResponseFrame.as` | 250 MARRY_APPLY_REPLY |  | ok | no |  |
+| `sendModifyChurchDiscription` | `church/controller/ChurchRoomController.as` | 253 MARRY_ROOM_INFO_UPDATE |  | partial | no |  |
 
 ## Combate (GAME_CMD)
 
@@ -204,7 +204,7 @@
 | `sendPint` | `ddt/manager/SocketManager.as` | 4 PING |  | ok | no |  |
 | `sendBagLocked` | `baglocked/BagLockedController.as`<br>`ddt/manager/ServerManager.as` | 25 BAG_LOCKED |  | missing | no |  |
 | `sendCheckCode` | `ddt/view/CheckCodeFrame.as` | 200 CHECK_CODE |  | missing | no |  |
-| `sendEnterRoom` | `church/controller/ChurchRoomListController.as`<br>`church/view/weddingRoomList/WeddingRoomListNavView.as`<br>`church/view/weddingRoomList/frame/WeddingRoomEnterConfirmView.as` (+2) | 242 MARRY_ROOM_LOGIN |  | missing | no |  |
+| `sendEnterRoom` | `church/controller/ChurchRoomListController.as`<br>`church/view/weddingRoomList/WeddingRoomListNavView.as`<br>`church/view/weddingRoomList/frame/WeddingRoomEnterConfirmView.as` (+2) | 242 MARRY_ROOM_LOGIN |  | ok | no |  |
 | `sendpkgCheckHack` | `ddt/manager/CheckSpeedManager.as` | 300 300 |  | ok | no |  |
 
 ## Correio
@@ -232,42 +232,42 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `sendOpenDead` | `ddt/view/caddyII/bead/BeadViewII.as`<br>`ddt/view/caddyII/offerPack/OfferPackViewII.as` | 26 LOTTERY_OPEN_BOX |  | missing | no |  |
-| `sendRouletteBox` | `ddt/manager/RouletteManager.as`<br>`ddt/view/caddyII/CaddyViewII.as` | 26 LOTTERY_OPEN_BOX |  | missing | no |  |
-| `sendStartTurn` | `ddt/view/roulette/RouletteView.as`<br>`surpriseRoulette/view/SurpriseRouletteView.as` | 27 LOTTERY_RANDOM_SELECT |  | missing | no |  |
-| `sendFinishRoulette` | `ddt/view/caddyII/CaddyFrame.as`<br>`ddt/view/caddyII/CardBoxFrame.as`<br>`ddt/view/roulette/RouletteView.as` (+1) | 28 LOTTERY_FINISH |  | missing | no |  |
-| `sendQequestBadLuck` | `ddt/view/caddyII/badLuck/CaddyBadLuckView.as` | 45 CADDY_GET_BADLUCK |  | missing | no |  |
+| `sendOpenDead` | `ddt/view/caddyII/bead/BeadViewII.as`<br>`ddt/view/caddyII/offerPack/OfferPackViewII.as` | 26 LOTTERY_OPEN_BOX |  | ok | no | LOTTERY_OPEN_BOX implementado (apps/game/src/handlers/activities.ts): num=-1 abre o tabuleiro de 18 slots (item 112019/190000, ItemBoxMgr.FindLotteryItemBoxByRand portado em pickLotteryBoard); num=templateId abre um rương direto via createItemBox (reuso de use.ts), chaves 11456×4 para 112047/112100/112101 (Sys_Users_Extra.TotalCaddyOpen incrementado). Testado por código (activities.test.ts), não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `sendRouletteBox` | `ddt/manager/RouletteManager.as`<br>`ddt/view/caddyII/CaddyViewII.as` | 26 LOTTERY_OPEN_BOX |  | ok | no | Mesmo handler que sendOpenDead (código 26 LOTTERY_OPEN_BOX) — ver nota lá. |
+| `sendStartTurn` | `ddt/view/roulette/RouletteView.as`<br>`surpriseRoulette/view/SurpriseRouletteView.as` | 27 LOTTERY_RANDOM_SELECT |  | ok | no | LOTTERY_RANDOM_SELECT implementado: 1 carta por sorteio do tabuleiro de 18, máx. 8 sorteios, custo de chave escalonado (sorteio N consome N chaves, igual ao original — LotteryRandomSelectHandler.cs). Testado por código, não clicado. |
+| `sendFinishRoulette` | `ddt/view/caddyII/CaddyFrame.as`<br>`ddt/view/caddyII/CardBoxFrame.as`<br>`ddt/view/roulette/RouletteView.as` (+1) | 28 LOTTERY_FINISH |  | ok | no | LOTTERY_FINISH implementado: move CaddyBag + LotteryAwardList pras bolsas reais (sobra por correio), ResetLottery. Testado por código, não clicado. |
+| `sendQequestBadLuck` | `ddt/view/caddyII/badLuck/CaddyBadLuckView.as` | 45 CADDY_GET_BADLUCK |  | ok | no | CADDY_GET_BADLUCK implementado: ranking top 20 por Sys_Users_Extra.TotalCaddyOpen (WorldMgr.CaddyRank). Testado por código, não clicado. |
 | `sendGetTimeBox` | `ddt/manager/BossBoxManager.as`<br>`ddt/view/bossbox/BossBoxView.as` | 53 GET_TIME_BOX |  | ok | no | Caixa de tempo online: minutos contados no servidor desde o login/última caixa (o original confiava no relatório do cliente), 1x por caixa/dia; caixa de nível 1x por nível. Coberto por events.test.ts. No cliente o contador do hall (00:15:00) aparece; prêmio vem de Shop_Goods_Box. |
 | `sendChickActivationGetAward` | `chickActivation/view/ChickActivationViewFrame.as` | 84 ACTIVITY_PACKAGE | ChickActivationType.CHICKACTIVATION=2 | missing | no |  |
 | `sendChickActivationOpenKey` | `chickActivation/view/ChickActivationViewFrame.as` | 84 ACTIVITY_PACKAGE | ChickActivationType.CHICKACTIVATION=2 | missing | no |  |
 | `sendChickActivationQuery` | `chickActivation/ChickActivationManager.as` | 84 ACTIVITY_PACKAGE | ChickActivationType.CHICKACTIVATION=2 | missing | no |  |
-| `sendChickenBoxTakeOverCard` | `newChickenBox/view/NewChickenBoxView.as` | 87 NEWCHICKENBOX_SYS | TAKEOVERCARD=13 | missing | no |  |
-| `sendChickenBoxUseEagleEye` | `newChickenBox/view/NewChickenBoxView.as` | 87 NEWCHICKENBOX_SYS | USEEAGLEEYE=11 | missing | no |  |
-| `sendClickStartBntNewChickenBox` | `newChickenBox/view/NewChickenBoxFrame.as` | 87 NEWCHICKENBOX_SYS | CLICKSTARTBNT=15 | missing | no |  |
-| `sendFlushNewChickenBox` | `newChickenBox/view/NewChickenBoxFrame.as` | 87 NEWCHICKENBOX_SYS | FLUSHCHICKENVIEW=14 | missing | no |  |
-| `sendLuckyStarClose` | `luckStar/manager/LuckStarManager.as` | 87 NEWCHICKENBOX_SYS | CLOSE_GAME=32 | missing | no |  |
-| `sendLuckyStarEnter` | `luckStar/manager/LuckStarManager.as` | 87 NEWCHICKENBOX_SYS | ENTER_GAME=31 | missing | no |  |
-| `sendLuckyStarTurn` | `luckStar/view/LuckStarFrame.as` | 87 NEWCHICKENBOX_SYS | START_TURN=33 | missing | no |  |
-| `sendLuckyStarTurnComplete` | `luckStar/view/LuckStarFrame.as` | 87 NEWCHICKENBOX_SYS | TURN_COMPLETE=34 | missing | no |  |
-| `sendNewChickenBox` | `newChickenBox/controller/NewChickenBoxManager.as` | 87 NEWCHICKENBOX_SYS | ENTERCHICKENVIEW=10 | missing | no |  |
-| `sendOverShowItems` | `newChickenBox/controller/NewChickenBoxManager.as` | 87 NEWCHICKENBOX_SYS | AllITEMSHOW=12 | missing | no |  |
-| `sendCardLotteryIds` | `lottery/view/CardChooseRightView.as` | 104 CARD_LOTTERY |  | missing | no |  |
-| `sendLuckLottery` | `lottery/LotteryContorller.as` | 105 LUCK_LOTTERY |  | missing | no |  |
-| `sendStartTurn_LeftGun` | `roulette/RouletteFrame.as` | 128 LEFT_GUN_ROULETTE_SOCKET |  | missing | no |  |
-| `sendEndTurn_LeftGun` | `roulette/RouletteFrame.as` | 130 LEFT_GUN_ROULETTE_COMPLETTE |  | missing | no |  |
-| `sendGuildMemberWeekAddRanking` | `guildMemberWeek/controller/GuildMemberWeekController.as` | 145 GUILDMEMBERWEEK_SYSTEM | SEND_ADDRUNKING=10 | missing | no |  |
-| `sendGuildMemberWeekStarClose` | `guildMemberWeek/manager/GuildMemberWeekManager.as` | 145 GUILDMEMBERWEEK_SYSTEM | CLOSE=9 | missing | no |  |
-| `sendGuildMemberWeekStarEnter` | `guildMemberWeek/manager/GuildMemberWeekManager.as` | 145 GUILDMEMBERWEEK_SYSTEM | ENTER_GAME=8 | missing | no |  |
-| `sendLanternRiddlesQuestion` | `lanternriddles/view/LanternRiddlesView.as` | 145 ACTIVITY_SYSTEM |  | missing | no |  |
-| `sendLanternRiddlesRankInfo` | `lanternriddles/view/LanternRiddlesView.as` | 145 ACTIVITY_SYSTEM |  | missing | no |  |
-| `sendLanternRiddlesUseSkill` | `lanternriddles/view/LanternRiddlesView.as` | 145 ACTIVITY_SYSTEM | LANTERNRIDDLES_SKILL=41 | missing | no |  |
-| `sendLightRoadStarEnter` | `lightRoad/manager/LightRoadManager.as` | 145 LIGHTROAD_SYSTEM | ENTER_GAME=64 | missing | no |  |
-| `sendOpenAll` | `ddt/view/caddyII/CaddyBagView.as` | 204 OPEN_ALL_CARDBOX |  | missing | no |  |
+| `sendChickenBoxTakeOverCard` | `newChickenBox/view/NewChickenBoxView.as` | 87 NEWCHICKENBOX_SYS | TAKEOVERCARD=13 | partial | no | Ver 87:sendNewChickenBox. TAKEOVERCARD: custo escalonado (openCardPrice[canOpenCounts-1]), item entregue, 5 usos. |
+| `sendChickenBoxUseEagleEye` | `newChickenBox/view/NewChickenBoxView.as` | 87 NEWCHICKENBOX_SYS | USEEAGLEEYE=11 | partial | no | Ver 87:sendNewChickenBox. USEEAGLEEYE: custo escalonado (eagleEyePrice), revela a carta sem consumir. |
+| `sendClickStartBntNewChickenBox` | `newChickenBox/view/NewChickenBoxFrame.as` | 87 NEWCHICKENBOX_SYS | CLICKSTARTBNT=15 | partial | no | Ver 87:sendNewChickenBox. CLICKSTARTBNT: embaralha as posições do tabuleiro (RandomPosition portado). |
+| `sendFlushNewChickenBox` | `newChickenBox/view/NewChickenBoxFrame.as` | 87 NEWCHICKENBOX_SYS | FLUSHCHICKENVIEW=14 | partial | no | Ver 87:sendNewChickenBox. FLUSHCHICKENVIEW: grátis se passaram 120 min desde o último flush (IsFreeFlushTime), senão cobra flushPrice. |
+| `sendLuckyStarClose` | `luckStar/manager/LuckStarManager.as` | 87 NEWCHICKENBOX_SYS | CLOSE_GAME=32 | partial | no | CLOSE_GAME: no-op, igual ao original (ChickenBoxHandler.cs case CLOSE_GAME está vazio). |
+| `sendLuckyStarEnter` | `luckStar/manager/LuckStarManager.as` | 87 NEWCHICKENBOX_SYS | ENTER_GAME=31 | partial | no | Lucky Star (mesmo código 87): ENTER_GAME cobra 2500 Xu, sorteia o tabuleiro de 14 (coinTemplateID 201193 forçado na posição 0, PlayerActives.CreateLuckyStartAward). Pool configurável via kind="luckystar". |
+| `sendLuckyStarTurn` | `luckStar/view/LuckStarFrame.as` | 87 NEWCHICKENBOX_SYS | START_TURN=33 | partial | no | START_TURN: cooldown de 7s, consome item 201192 (LUCKYSTAR_ID), embaralha o tabuleiro e sorteia por peso (.Random); se cair na moeda, 97% de chance de re-sortear excluindo a moeda (GetAward portado). |
+| `sendLuckyStarTurnComplete` | `luckStar/view/LuckStarFrame.as` | 87 NEWCHICKENBOX_SYS | TURN_COMPLETE=34 | partial | no | TURN_COMPLETE: entrega o prêmio sorteado (moeda credita Xu acumulado; outros itens vão pra bolsa, sobra por correio). |
+| `sendNewChickenBox` | `newChickenBox/controller/NewChickenBoxManager.as` | 87 NEWCHICKENBOX_SYS | ENTERCHICKENVIEW=10 | partial | no | NEWCHICKENBOX_SYS implementado (apps/game/src/handlers/activities.ts): tabuleiro de 18 cartas (ChickenBoxHandler.cs portado), pool configurável via app."ScheduledEvents" kind="chickenbox" (admin Events page) com defaults embutidos. Estado em memória (não persistido em New_ChickenBox_Data — desvio documentado em HANDLERS.md). Testado por código, não clicado. |
+| `sendOverShowItems` | `newChickenBox/controller/NewChickenBoxManager.as` | 87 NEWCHICKENBOX_SYS | AllITEMSHOW=12 | partial | no | Ver 87:sendNewChickenBox. ALLITEMSHOW: reenvia a lista atual do tabuleiro. |
+| `sendCardLotteryIds` | `lottery/view/CardChooseRightView.as` | 104 CARD_LOTTERY |  | missing | no | Morto no original: ePackageType.CARD_LOTTERY=104 existe mas nenhuma classe [PacketHandler] assina esse código (grep em vendor/DDTank41/Game.Server/Packets/Client) — pacote é descartado pelo servidor original. Status 'missing' aqui é fidelidade, não lacuna. |
+| `sendLuckLottery` | `lottery/LotteryContorller.as` | 105 LUCK_LOTTERY |  | missing | no | Morto no original: mesma situação de 104 (ePackageType.LUCK_LOTTERY=105 sem handler registrado). |
+| `sendStartTurn_LeftGun` | `roulette/RouletteFrame.as` | 128 LEFT_GUN_ROULETTE_SOCKET |  | stub | no | Morto no próprio original: LeftGunHandler.cs está registrado (PacketHandler 128) mas todo o corpo está comentado — o recurso 'roleta esquerda' foi desativado pelo time original, não processa nada. Port: sem handler (mesmo efeito observável). |
+| `sendEndTurn_LeftGun` | `roulette/RouletteFrame.as` | 130 LEFT_GUN_ROULETTE_COMPLETTE |  | stub | no | Mesma desativação do original que 128 (LeftGunCompleteHandler.cs só envia um aviso se LeftRoutteRate>0, campo nunca setado porque 128 está morto). |
+| `sendGuildMemberWeekAddRanking` | `guildMemberWeek/controller/GuildMemberWeekController.as` | 145 GUILDMEMBERWEEK_SYSTEM | SEND_ADDRUNKING=10 | stub | no | Morto no próprio original: ActiveSystemHandler.cs (código 145 ACTIVITY_SYSTEM) só trata sub==8 (monta um pacote PLAYERTOP10 e NUNCA chama SendTCP — o cliente nunca recebe resposta); subs 9/10 (GuildMemberWeek) e os de LanternRiddles/LightRoad caem no 'return 0' default sem nenhum efeito. Confirmado lendo o arquivo inteiro (18 linhas). |
+| `sendGuildMemberWeekStarClose` | `guildMemberWeek/manager/GuildMemberWeekManager.as` | 145 GUILDMEMBERWEEK_SYSTEM | CLOSE=9 | stub | no | Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original. |
+| `sendGuildMemberWeekStarEnter` | `guildMemberWeek/manager/GuildMemberWeekManager.as` | 145 GUILDMEMBERWEEK_SYSTEM | ENTER_GAME=8 | stub | no | Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original. |
+| `sendLanternRiddlesQuestion` | `lanternriddles/view/LanternRiddlesView.as` | 145 ACTIVITY_SYSTEM |  | stub | no | Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original. |
+| `sendLanternRiddlesRankInfo` | `lanternriddles/view/LanternRiddlesView.as` | 145 ACTIVITY_SYSTEM |  | stub | no | Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original. |
+| `sendLanternRiddlesUseSkill` | `lanternriddles/view/LanternRiddlesView.as` | 145 ACTIVITY_SYSTEM | LANTERNRIDDLES_SKILL=41 | stub | no | Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original. |
+| `sendLightRoadStarEnter` | `lightRoad/manager/LightRoadManager.as` | 145 LIGHTROAD_SYSTEM | ENTER_GAME=64 | stub | no | Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original. |
+| `sendOpenAll` | `ddt/view/caddyII/CaddyBagView.as` | 204 OPEN_ALL_CARDBOX |  | ok | no | OPEN_ALL_CARDBOX implementado: cada item da CaddyBag -> CardBag.addCard(Property5, rand 1..2), igual ao original (OpenAllCardBoxHandler.cs). Testado por código, não clicado. |
 | `sendOpenCardBox` | `ddt/view/caddyII/card/CardViewII.as` | 216 CARDS_DATA |  | ok | yes | Caixa de cartas aberta → carta na bolsa de cartas (216). — evidência: research/e2e/batch4/11-cardbox-open.png, research/e2e/batch4/12-cardbag.png |
 | `sendWeeklyClick` | `times/TimesManager.as` | 219 WEEKLY_CLICK_CNT |  | ok | no | Como o original (LastGetEgg). |
 | `sendBuyGift` | `giftSystem/view/ClearingInterface.as` | 221 USER_SEND_GIFTS |  | ok | yes | Varredura do básico pt.2 (2026-10-02): 221 USER_SEND_GIFTS implementado (apps/game/src/handlers/items.ts sendGift, UserSendGiftHandler.cs). Verificado no cliente real: Thur (grade temporariamente 20 via qa-setup para liberar a aba Hộp quà, nível mínimo 16) comprou 'Hoa Mẫu đơn' (100 Xu) e enviou pra Bob pelo fluxo giftSystem (ClearingInterface, campo Tặng cho + autocomplete). Confirmado: Xu de Thur caiu exatamente 100 (99900), Bob.charmGP 0→10, linha em Sys_Users_Gift (SenderID 1, ReceiverID 34, TemplateID 325203, Count 1), mail tipo 55 'Bạn gửi tặng...' entregue pra Bob. Teste automatizado também em test/handlers.test.ts "shop" > "221 USER_SEND_GIFTS". |
-| `sendSellAll` | `ddt/view/caddyII/CaddyBagView.as`<br>`ddt/view/caddyII/CaddyFrame.as`<br>`ddt/view/caddyII/CardBoxFrame.as` | 232 CADDY_SELL_ALL_GOODS |  | missing | no |  |
-| `gotoCardLottery` | — | 239 GOTO_CARD_LOTTERY |  | missing | no |  |
+| `sendSellAll` | `ddt/view/caddyII/CaddyBagView.as`<br>`ddt/view/caddyII/CaddyFrame.as`<br>`ddt/view/caddyII/CardBoxFrame.as` | 232 CADDY_SELL_ALL_GOODS |  | ok | no | Código 232 = CaddyClearAllHandler.cs no original (nome do pacote no cliente não corresponde ao nome da classe). Implementado: resgata cada item da CaddyBag por Ouro/Lễ kim via Item.ReclaimType/ReclaimValue, esvazia a bolsa. Testado por código, não clicado. |
+| `gotoCardLottery` | — | 239 GOTO_CARD_LOTTERY |  | missing | no | Morto no original: ePackageType.GOTO_CARD_LOTTERY=239 sem handler registrado (mesma varredura de 104/105). |
 | `sendRequestAwards` | `ddt/view/caddyII/reader/ReadAwardsView.as` | 245 CADDY_GET_AWARDS |  | ok | no |  |
 
 ## Fazenda
@@ -275,19 +275,19 @@
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
 | `sendBuyPetExpItem` | `farm/viewx/FarmBuyExpFrame.as` | 68 PET | BUY_PET_EXP_ITEM=19 | partial | no |  |
-| `doMature` | — | 81 FARM | ACCELERATE_FIELD=3 | missing | no |  |
-| `enterFarm` | — | 81 FARM | ENTER_FARM=1 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `exitFarm` | — | 81 FARM | EXIT_FARM=16 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `fastForwardGrop` | — | 81 FARM | FRAM_GROP_FASTFORWARD=18 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `giftPacks` | — | 81 FARM | FARM_GIFTPACKS=20 | missing | no |  |
-| `seeding` | — | 81 FARM | GROW_FIELD=2 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `sendBeginHelper` | `farm/viewx/helper/FarmHelperView.as`<br>`farm/viewx/helper/HelperBeginFrame.as` | 81 FARM | HELPER_SWITCH_FIELD=9 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `sendCompose` | `farm/view/compose/FarmComposePnl.as` | 81 FARM | COMPOSE_FOOD=5 | missing | no |  |
-| `toFarmHelper` | — | 81 FARM | HELPER_SWITCH_FIELD=9 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `toGather` | — | 81 FARM | GAIN_FIELD=4 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `toHelperRenewMoney` | — | 81 FARM | HELPER_PAY_FIELD=8 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `toKillCrop` | — | 81 FARM | KILLCROP_FIELD=7 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `toSpread` | — | 81 FARM | PAY_FIELD=6 | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `doMature` | — | 81 FARM | ACCELERATE_FIELD=3 | partial | no |  |
+| `enterFarm` | — | 81 FARM | ENTER_FARM=1 | partial | no |  |
+| `exitFarm` | — | 81 FARM | EXIT_FARM=16 | partial | no |  |
+| `fastForwardGrop` | — | 81 FARM | FRAM_GROP_FASTFORWARD=18 | partial | no |  |
+| `giftPacks` | — | 81 FARM | FARM_GIFTPACKS=20 | partial | no |  |
+| `seeding` | — | 81 FARM | GROW_FIELD=2 | partial | no |  |
+| `sendBeginHelper` | `farm/viewx/helper/FarmHelperView.as`<br>`farm/viewx/helper/HelperBeginFrame.as` | 81 FARM | HELPER_SWITCH_FIELD=9 | partial | no |  |
+| `sendCompose` | `farm/view/compose/FarmComposePnl.as` | 81 FARM | COMPOSE_FOOD=5 | partial | no |  |
+| `toFarmHelper` | — | 81 FARM | HELPER_SWITCH_FIELD=9 | partial | no |  |
+| `toGather` | — | 81 FARM | GAIN_FIELD=4 | partial | no |  |
+| `toHelperRenewMoney` | — | 81 FARM | HELPER_PAY_FIELD=8 | partial | no |  |
+| `toKillCrop` | — | 81 FARM | KILLCROP_FIELD=7 | partial | no |  |
+| `toSpread` | — | 81 FARM | PAY_FIELD=6 | partial | no |  |
 
 ## Ferreiro
 
@@ -323,9 +323,9 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `auctionGood` | — | 192 AUCTION_ADD |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `auctionBid` | — | 193 AUCTION_UPDATE |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
-| `auctionCancelSell` | — | 194 AUCTION_DELETE |  | partial | no | Implementado nesta batch (marriage.ts/farm.ts/auction.ts; ver apps/game/HANDLERS.md). Verificado por teste automatizado + estado no banco (`test/marriage-farm-auction.test.ts`); não clicado no cliente real (orçamento de tokens estrito desta sessão). |
+| `auctionGood` | — | 192 AUCTION_ADD |  | partial | no |  |
+| `auctionBid` | — | 193 AUCTION_UPDATE |  | partial | no |  |
+| `auctionCancelSell` | — | 194 AUCTION_DELETE |  | ok | no |  |
 
 ## Lobby/Chat/Bugle
 
@@ -352,7 +352,7 @@
 | `sendPresentGoods` | `shop/ShopController.as`<br>`shop/manager/ShopGiftsManager.as` | 57 GOODS_PRESENT |  | missing | no |  |
 | `sendQuickBuyGoldBox` | `ddt/command/QuickBuyFrame.as` | 126 BUY_QUICK_GOLDBOX |  | missing | no |  |
 | `sendFriendState` | `ddt/manager/PlayerStateManager.as`<br>`im/StateIconButton.as`<br>`labyrinth/view/CleanOutFrame.as` (+1) | 160 IM_CMD | FRIEND_STATE=165 | ok | no |  |
-| `sendCurrentState` | `church/controller/ChurchRoomController.as`<br>`civil/CivilController.as`<br>`consortion/ConsortionControl.as` (+3) | 251 SCENE_STATE |  | missing | no |  |
+| `sendCurrentState` | `church/controller/ChurchRoomController.as`<br>`civil/CivilController.as`<br>`consortion/ConsortionControl.as` (+3) | 251 SCENE_STATE |  | partial | no |  |
 
 ## Missões
 
@@ -367,19 +367,19 @@
 | `sendCollectInfoValidate` | `quest/InfoCollectView.as` | 32 COLLECTINFO |  | missing | no |  |
 | `sendQuestionReply` | `ddt/manager/QuestionInfoMannager.as` | 89 QUESTION_REPLY |  | missing | no |  |
 | `sendSignAward` | `calendar/CalendarManager.as` | 90 GET_SIGNAWARD |  | ok | no | Prêmio por N presenças no mês (Daily_Award tipos 1/7 com AwardDays=N): exige N dias marcados e paga uma vez por mês+tier (o C# duplicava itens no loop). Coberto por apps/game/test/events.test.ts; no cliente só dispara ao atingir 3/6/12/18 presenças. |
-| `labyrinthRequestUpdate` | — | 131 LABYRINTH | REQUEST_UPDATE=2 | missing | no |  |
+| `labyrinthRequestUpdate` | — | 131 LABYRINTH | REQUEST_UPDATE=2 | partial | no | LABYRINTH implementado como camada administrativa/econômica (apps/game/src/handlers/activities.ts + Sys_Users_Labyrinth): sub 1 DOUBLE_REWARD, 2 REQUEST_UPDATE, 3 CLEAN_OUT, 4 SPEEDED_UP, 5 STOP, 6 RESET, 9 TRY_AGAIN. Desvio documentado: o contador de andar por tempo real (Timer de 1s do original) é liquidado instantaneamente no CLEAN_OUT em vez de um timer por jogador; `myProgress` (andares vencidos em combate real) fica em 0 pra todo mundo até o tipo de sala PvE do labirinto ser portado — ver HANDLERS.md. Testado por código (activities.test.ts), não clicado. |
 | `sendAcademyApprentice` | `ddt/view/academyCommon/academyRequest/AcademyRequestMasterFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | ACADEMY_FOR_APPRENTICE=4 | ok | yes | Pedido de aprendiz → mestre recebe 141/4 (AcademyMgr em memória, 1 h). — evidência: research/e2e/batch3/23-bob-academy.png, research/e2e/batch3/24-bob-ask.png, research/e2e/batch3/25-thur-request.png |
 | `sendAcademyApprenticeConfirm` | `ddt/view/academyCommon/academyRequest/AcademyAnswerApprenticeFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | APPRENTICE_CONFIRM=7 | ok | no |  |
 | `sendAcademyMaster` | `ddt/view/academyCommon/academyRequest/AcademyRequestApprenticeFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | ACADEMY_FOR_MASTER=5 | ok | no |  |
 | `sendAcademyMasterConfirm` | `ddt/view/academyCommon/academyRequest/AcademyAnswerMasterFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | MASTER_CONFIRM=6 | ok | yes | Mestre aceita: 141/10 para os dois, Sys_Users_Detail atualizado (masterID/masterOrApprentices/estado), aviso 141/17 + correio. Formatura no nível 20: caixas por nível (AcademyApprenticeAward/MasterAward), prêmios de conclusão, graduatesCount+1 (test/academy.test.ts). — evidência: research/e2e/batch3/26-thur-accept.png, research/e2e/batch3/27-bob-accepted.png |
-| `sendLanternRiddlesAnswer` | `lanternriddles/view/QuestionView.as` | 145 ACTIVITY_SYSTEM | LANTERNRIDDLES_ANSWER=40 | missing | no |  |
+| `sendLanternRiddlesAnswer` | `lanternriddles/view/QuestionView.as` | 145 ACTIVITY_SYSTEM | LANTERNRIDDLES_ANSWER=40 | stub | no | Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original. |
 | `sendUserLuckyNum` | `calendar/CalendarManager.as`<br>`calendar/view/LuckyNumBar.as` | 161 USER_LUCKYNUM |  | ok | no |  |
 | `sendQuestAdd` | `ddt/manager/TaskManager.as` | 176 QUEST_ADD |  | ok | no |  |
 | `sendQuestRemove` | — | 177 QUEST_REMOVE |  | ok | no |  |
 | `sendQuestFinish` | `ddt/manager/TaskManager.as`<br>`quest/TaskMainFrame.as` | 179 QUEST_FINISH |  | ok | yes | Varredura pt.3 (2026-10-02): root cause achado em `apps/game/src/game/quests.ts` `condCompleted` — tipo 18 (OwnConsortiaCondition, 'Hiệu lệnh guild'/'Gia nhập 1 guild', Quest_Condiction QuestID 339 Para1=0 Para2=1) nunca tinha sido portado; e tipos 3/9/11/19 (UsingItemCondition 'Thử nghiệm tu luyện' QuestID 8, ItemStrengthenCondition, ItemFusionCondition, ItemComposeCondition) já decrementavam via onUsingItem/onItemStrengthen/onItemFusion/onItemCompose mas estavam faltando no bucket 'completo quando valor<=0' do switch — o contador zerava e o claim nunca via como pronto. Todos corrigidos (18 avaliado on-demand como grade/owned-item: Para1 0 member count [ConsortiaID!=0, único Para2 real é 1], 1 riches, 2/3/4 smith/shop/store level; 3/9/11/19 adicionados ao bucket). Também adicionado tipo 25 (ItemInsertCondition) ligado ao handler de engaste (forge.ts inlay). Confirmado no cliente real: 'Nhận thưởng' nas duas missões OK!! (339 guild, 8 poção de treino) agora completa — `QuestData.IsComplete=true`, `CompletedDate` novo — e persiste na hora (179 agora chama `saveIntoDatabase` após o claim, não esperava mais o autosave de 10 min). |
 | `sendRequestUpdate` | `effortView/EffortMainFrame.as` | 225 REQUEST_UPDATE |  | ok | no |  |
 | `sendAchievementFinish` | `ddt/manager/EffortManager.as` | 230 ACHIEVEMENT_FINISH |  | ok | yes | O cliente envia ao completar; o servidor confere AchievementCondition × registros (Sys_Users_Record, tipos de snapshot: ataque/defesa/agilidade/sorte/FC/nível/partidas/vitórias/tempo online/dias de login) e grava AchievementData uma vez; pontos de conquista somados. Correção: o 228 precisa trazer todos os tipos de registro (o EffortManager quebrava com null e nada completava). Título (RewardType 1) só anunciado. — evidência: research/e2e/events/e25-achievement.png |
-| `requestRefund` | — | 249 MARRY_CMD | MARRYROOMSENDGIFT=12 | missing | no |  |
+| `requestRefund` | — | 249 MARRY_CMD | MARRYROOMSENDGIFT=12 | partial | no |  |
 | `sendAccumulativeLoginAward` | `accumulativeLogin/view/AccumulativeLoginView.as` | 338 ACCUMULATIVELOGIN_AWARD |  | ok | no | Login_Award_Item_Template (Type = dia, dia 7 = item escolhido); dias contados 1x/dia no login (máx. 7), prêmio 1x por dia (EventClaims). |
 
 ## Outros
@@ -395,10 +395,10 @@
 | `sendUseLog` | — | 213 USE_LOG |  | ok | no |  |
 | `sendCIDCheck` | — | 224 CID_CHECK |  | missing | no |  |
 | `sendForSwitch` | — | 225 ENTHRALL_SWITCH |  | ok | no |  |
-| `sendRegisterInfo` | `civil/view/CivilRegisterFrame.as`<br>`civil/view/CivilRightView.as` | 236 MARRYINFO_ADD |  | missing | no |  |
-| `sendModifyInfo` | `civil/view/CivilRegisterFrame.as` | 237 MARRYINFO_UPDATE |  | missing | no |  |
-| `refund` | — | 249 MARRY_CMD | MARRYROOMSENDGIFT=12 | missing | no |  |
-| `sendNoviceActivityGetAward` | `ddt/manager/GameInSocketOut.as` | 258 NOVICEACTIVITY |  | missing | no |  |
+| `sendRegisterInfo` | `civil/view/CivilRegisterFrame.as`<br>`civil/view/CivilRightView.as` | 236 MARRYINFO_ADD |  | ok | no |  |
+| `sendModifyInfo` | `civil/view/CivilRegisterFrame.as` | 237 MARRYINFO_UPDATE |  | ok | no |  |
+| `refund` | — | 249 MARRY_CMD | MARRYROOMSENDGIFT=12 | partial | no |  |
+| `sendNoviceActivityGetAward` | `ddt/manager/GameInSocketOut.as` | 258 NOVICEACTIVITY |  | partial | no | NOVICEACTIVITY implementado simplificado: usa as mesmas tabelas Event_Reward_Info/Goods do 259 (firstRecharge), elegibilidade = Grade do jogador >= Condition (o contador de progresso por PlayerExtra — nível/fortalecimento/recarga/VIP/FC — não foi portado; ver HANDLERS.md). Claim idempotente por (ActivityType, Condition) via app."EventClaims". Testado por código, não clicado. |
 | `sendFirstRechargeGetAward` | `ddt/manager/GameInSocketOut.as` | 259 FIRSTRECHARGE |  | ok | yes | Sem pagamentos reais: o presente de primeira recarga é grátis e único (FIRST_RECHARGE_FREE=false volta ao original). Itens em Event_Reward_Goods tipo 7/1 (editáveis no admin); o ícone some após resgatar. — evidência: research/e2e/events/e11-firstrecharge.png, e12-firstrecharge-claimed.png |
 | `sendBringUpEat` | `ddt/manager/GameInSocketOut.as` | 308 EQUIP_BRING_UP |  | missing | no |  |
 | `sendBringUpLockStatusUpdate` | `ddt/manager/GameInSocketOut.as` | 313 ITEM_CELL_IS_LOCKED |  | missing | no |  |
@@ -439,13 +439,13 @@
 |---|---|---|---|---|---|---|
 | `sendBeginFightNpc` | — | 50 FIGHT_NPC |  | missing | no |  |
 | `sendGameMissionStart` | `ddt/manager/GameInSocketOut.as` | 82 CrazyTankPackageType.GAME_MISSION_START |  | missing | no |  |
-| `labyrinthCleanOut` | — | 131 LABYRINTH | CLEAN_OUT=3 | missing | no |  |
-| `labyrinthCleanOutTimerComplete` | — | 131 LABYRINTH | CLEAN_OUT_COMPLETE=8 | missing | no |  |
-| `labyrinthDouble` | — | 131 LABYRINTH | DOUBLE_REWARD=1 | missing | no |  |
-| `labyrinthReset` | — | 131 LABYRINTH | RESET_LABYRINTH=6 | missing | no |  |
-| `labyrinthSpeededUpCleanOut` | — | 131 LABYRINTH | SPEEDED_UP_CLEAN_OUT=4 | missing | no |  |
-| `labyrinthStopCleanOut` | — | 131 LABYRINTH | STOP_CLEAN_OUT=5 | missing | no |  |
-| `labyrinthTryAgain` | — | 131 LABYRINTH | TRY_AGAIN=9 | missing | no |  |
+| `labyrinthCleanOut` | — | 131 LABYRINTH | CLEAN_OUT=3 | partial | no |  |
+| `labyrinthCleanOutTimerComplete` | — | 131 LABYRINTH | CLEAN_OUT_COMPLETE=8 | partial | no |  |
+| `labyrinthDouble` | — | 131 LABYRINTH | DOUBLE_REWARD=1 | partial | no |  |
+| `labyrinthReset` | — | 131 LABYRINTH | RESET_LABYRINTH=6 | partial | no |  |
+| `labyrinthSpeededUpCleanOut` | — | 131 LABYRINTH | SPEEDED_UP_CLEAN_OUT=4 | partial | no |  |
+| `labyrinthStopCleanOut` | — | 131 LABYRINTH | STOP_CLEAN_OUT=5 | partial | no |  |
+| `labyrinthTryAgain` | — | 131 LABYRINTH | TRY_AGAIN=9 | partial | no |  |
 
 ## Salas PvP
 
