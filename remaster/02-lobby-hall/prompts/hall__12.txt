@@ -1,0 +1,27 @@
+Remaster of the attached reference image — the town lobby of the 2D cartoon game DDTank. Reproduce THE SAME IMAGE, only better rendered and at night.
+
+Camera and framing: identical to the reference. High isometric bird's-eye view looking down at a round town plaza, 5:3 landscape. Nothing outside the original frame, no zoom, no extra town, no extra buildings, no people.
+
+Exact layout (keep every element in this exact spot and size):
+- CENTER: big round beige stone colosseum, open top with orange petal-shaped roof panels inside, arches on two floors.
+- TOP CENTER-LEFT: small building with a large glass dome (snow-globe style) and purple roofs.
+- TOP LEFT: half-timbered house with red roofs; left of it a purple flowering tree.
+- TOP LEFT-CENTER: tall square red-and-white tower with a pointed roof.
+- TOP CENTER-RIGHT: tall beige stone building with grey tiled roof.
+- TOP RIGHT: red house with a pink heart sign; to its right a floating island with a small castle in the sky.
+- LEFT MIDDLE: round stone fountain with water, above-left of the church.
+- LEFT: colorful tent/circus stand with flags, small green tent below it.
+- LEFT-BOTTOM: pink wedding church with white towers, crosses and a big pink heart window.
+- LEFT EDGE: a colorful arched sign board — its text must say "Canal".
+- RIGHT MIDDLE: beige building with blue tiled roof and columns; further right a big beige mansion with a golden/orange roof.
+- BOTTOM CENTER: red-roofed SHOP building with striped awning and colorful balloons, sign "SHOP".
+- BOTTOM LEFT: arched stone footbridge going down-left, stairs on the far left.
+- BOTTOM RIGHT: harbor/pier on blue sea with a dark wooden steampunk tower building and boats.
+- RIGHT EDGE: beach and sea coastline curving top-right.
+- Stone-paved round plaza connecting everything, green bushes and trees around, mountains far top-left.
+
+Style: the same hand-painted cartoon / anime casual-game 2D art style as the reference (DDTank, Gunny), bright saturated colors, clean outlines. NOT photorealistic, NOT 3D, NOT a miniature diorama. Remaster = sharper lines, cleaner shading, more detail, higher resolution.
+
+NIGHT TIME: deep indigo/navy night sky with stars and a pale moon at top right instead of daylight; the whole scene in cool blue moonlight; warm yellow light glowing from every window, lanterns and street lamps along the plaza; fountain water softly glowing; sea dark blue with moon reflections. Dark but colorful and readable.
+
+Only text allowed: "Canal" on the left sign and "SHOP" on the shop. No other text, no watermark.

@@ -1,0 +1,6 @@
+IMAGE EDIT / REMASTER of the attached reference image. This is a UI asset from the 2D cartoon game DDTank.
+STRICT: keep the EXACT same composition, framing, camera angle, layout and silhouette. Every element stays in the same position, same size, same shape, same proportions. Do NOT add, remove or move anything. Do NOT zoom, crop, rotate or change perspective. Output must overlay the original pixel-for-pixel in layout.
+Remaster only the rendering quality: same hand-painted cartoon game art style, same colors and palette, cleaner lines, sharper details, higher resolution, modern polished game art. Not photorealistic, not 3D render, not a new scene.
+Dark mode: shift the UI to a dark theme (deep navy/charcoal backgrounds, keep accents and readability). If it is the town lobby, make it NIGHT time: dark blue starry sky, warm lit windows, lanterns.
+Replace ALL visible text with this Brazilian Portuguese text, same position, same font style, same colors, outline and effects: "Clique no botão "pagar" para finalizar o pagamento".
+Keep transparent background if the reference has transparency. Final asset size: 289x32px (generate at higher resolution with the same aspect ratio; we downscale).
