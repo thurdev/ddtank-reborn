@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-03T03:05:48.362Z",
+ "generatedAt": "2026-10-03T04:13:46.404Z",
  "totalImagesScanned": 8967,
  "totalWithVnText": 2859,
  "rows": [
@@ -529,7 +529,7 @@
    "priority": 2,
    "ptBrSuggestion": "Nome da sala",
    "ptBrSource": "curated",
-   "status": "needs-ai-no-translation"
+   "status": "done"
   },
   {
    "swf": "toolbar.swf",
@@ -753,7 +753,7 @@
    "priority": 2,
    "ptBrSuggestion": "Nome da sala",
    "ptBrSource": "curated",
-   "status": "needs-ai-no-translation"
+   "status": "done"
   },
   {
    "swf": "toolbar.swf",
@@ -1071,9 +1071,9 @@
    "ocrConfidence": 79,
    "screen": "hall/lobby",
    "priority": 2,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Número de pessoas.",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "hall.swf",
@@ -1359,9 +1359,9 @@
    "ocrConfidence": 91,
    "screen": "hall/lobby",
    "priority": 2,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Combate entre jogadores; o sistema sorteia o mapa e o adversário aleatoriamente",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "roomlist.swf",
@@ -1375,9 +1375,9 @@
    "ocrConfidence": 94,
    "screen": "hall/lobby",
    "priority": 2,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Este modo tem várias fases; ao derrotar o chefe final você ganhará muitos tesouros",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "roomlist.swf",
@@ -1791,8 +1791,8 @@
    "ocrConfidence": 23,
    "screen": "hall/lobby",
    "priority": 2,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
+   "ptBrSuggestion": "Sala de Jogos)",
+   "ptBrSource": "curated",
    "status": "done"
   },
   {
@@ -1807,8 +1807,8 @@
    "ocrConfidence": 42,
    "screen": "hall/lobby",
    "priority": 2,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
+   "ptBrSuggestion": "Sala de Jogos)",
+   "ptBrSource": "curated",
    "status": "done"
   },
   {
@@ -2079,9 +2079,9 @@
    "ocrConfidence": 82,
    "screen": "hall/lobby",
    "priority": 2,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Não selecionado",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "roomlist.swf",
@@ -2335,9 +2335,9 @@
    "ocrConfidence": 96,
    "screen": "hall/lobby",
    "priority": 2,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Herói",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "roomlist.swf",
@@ -2463,9 +2463,9 @@
    "ocrConfidence": 85,
    "screen": "hall/lobby",
    "priority": 2,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Digite o ID da sala",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "hall_old.swf",
@@ -2511,9 +2511,9 @@
    "ocrConfidence": 95,
    "screen": "hall/lobby",
    "priority": 2,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Senha",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "roomlist.swf",
@@ -2527,9 +2527,9 @@
    "ocrConfidence": 62,
    "screen": "hall/lobby",
    "priority": 2,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Senha",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "serverList.swf",
@@ -3487,9 +3487,9 @@
    "ocrConfidence": 55,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Recarga Acumulada - Receba Presentes",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "farm.swf",
@@ -3983,9 +3983,9 @@
    "ocrConfidence": 38,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mover",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "store.swf",
@@ -4399,9 +4399,9 @@
    "ocrConfidence": 93,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Número de viradas de carta",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "newchickenbox.swf",
@@ -4415,9 +4415,9 @@
    "ocrConfidence": 93,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Número de viradas de carta",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "auction.swf",
@@ -4623,9 +4623,9 @@
    "ocrConfidence": 42,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Pressione a barra de espaço para carregar a força; solte para atirar)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "quest.swf",
@@ -4911,9 +4911,9 @@
    "ocrConfidence": 67,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Lista de cargos e permissões",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortia.swf",
@@ -4943,9 +4943,9 @@
    "ocrConfidence": 38,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Forja",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "gameover.swf",
@@ -5183,9 +5183,9 @@
    "ocrConfidence": 56,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Começar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionii.swf",
@@ -5279,9 +5279,9 @@
    "ocrConfidence": 47,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Teleportar!",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "newchickenbox1.swf",
@@ -5359,9 +5359,9 @@
    "ocrConfidence": 93,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Transferir atributo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "calendar.swf",
@@ -5375,9 +5375,9 @@
    "ocrConfidence": 38,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Domingo Segunda Terça Quarta Quinta Sexta Sábado",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "store.swf",
@@ -5439,9 +5439,9 @@
    "ocrConfidence": 54,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Poder de Combate",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "store.swf",
@@ -5519,9 +5519,9 @@
    "ocrConfidence": 49,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Criar Clã",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "worldboss.swf",
@@ -6223,9 +6223,9 @@
    "ocrConfidence": 69,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Virtude elevada, grande prestígio",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "newchickenbox1.swf",
@@ -6463,9 +6463,9 @@
    "ocrConfidence": 74,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Amuleto Mágico",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "consortiabattle.swf",
@@ -6495,9 +6495,9 @@
    "ocrConfidence": 63,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Busca aleatória)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionclub.swf",
@@ -6527,9 +6527,9 @@
    "ocrConfidence": 46,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Escolha para aprimorar o item",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -6543,9 +6543,9 @@
    "ocrConfidence": 46,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Escolha para aprimorar o item",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bank.swf",
@@ -6575,9 +6575,9 @@
    "ocrConfidence": 42,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Refinamento 2",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo2.swf",
@@ -6591,9 +6591,9 @@
    "ocrConfidence": 43,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Refinamento 2",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -6607,9 +6607,9 @@
    "ocrConfidence": 43,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Refinamento 2",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo1.swf",
@@ -6623,9 +6623,9 @@
    "ocrConfidence": 51,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Escolha para aprimorar o item",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "farm.swf",
@@ -6655,9 +6655,9 @@
    "ocrConfidence": 44,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Começar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionii.swf",
@@ -6703,9 +6703,9 @@
    "ocrConfidence": 49,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Primeira Recarga",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo2.swf",
@@ -6719,9 +6719,9 @@
    "ocrConfidence": 47,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Informações pessoais",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo1.swf",
@@ -6735,9 +6735,9 @@
    "ocrConfidence": 46,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Informações pessoais",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -6751,9 +6751,9 @@
    "ocrConfidence": 47,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Informações pessoais",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionii.swf",
@@ -6783,9 +6783,9 @@
    "ocrConfidence": 43,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "[Recompensa da primeira vitória]",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "awardsystem.swf",
@@ -6847,9 +6847,9 @@
    "ocrConfidence": 40,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Por favor, entre!)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "store.swf",
@@ -6943,9 +6943,9 @@
    "ocrConfidence": 45,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique no slot de fusão de equipamento",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo1.swf",
@@ -6959,9 +6959,9 @@
    "ocrConfidence": 47,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Caixa de presente)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo2.swf",
@@ -6975,9 +6975,9 @@
    "ocrConfidence": 50,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Caixa de presente)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -6991,9 +6991,9 @@
    "ocrConfidence": 50,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Caixa de presente)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo2.swf",
@@ -7103,9 +7103,9 @@
    "ocrConfidence": 61,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Caça ao Tesouro",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "calendar.swf",
@@ -7151,9 +7151,9 @@
    "ocrConfidence": 83,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Traje",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -7167,9 +7167,9 @@
    "ocrConfidence": 83,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Traje",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "vipview.swf",
@@ -7263,9 +7263,9 @@
    "ocrConfidence": 67,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Informações pessoais",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "forgemain.swf",
@@ -7295,9 +7295,9 @@
    "ocrConfidence": 65,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Informações pessoais",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -7311,9 +7311,9 @@
    "ocrConfidence": 65,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Informações pessoais",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "cardsystem.swf",
@@ -7343,9 +7343,9 @@
    "ocrConfidence": 75,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Regras da partida",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "store.swf",
@@ -7407,9 +7407,9 @@
    "ocrConfidence": 58,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Caixa de presente",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo2.swf",
@@ -7423,9 +7423,9 @@
    "ocrConfidence": 52,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Caixa de presente",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -7439,9 +7439,9 @@
    "ocrConfidence": 52,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Caixa de presente",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortiabattle.swf",
@@ -7503,9 +7503,9 @@
    "ocrConfidence": 83,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Fundir",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "firsttainer.swf",
@@ -7567,9 +7567,9 @@
    "ocrConfidence": 69,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mascote",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo2.swf",
@@ -7759,9 +7759,9 @@
    "ocrConfidence": 84,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Visualizar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "store.swf",
@@ -7775,9 +7775,9 @@
    "ocrConfidence": 71,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Incrustação",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo2.swf",
@@ -7791,9 +7791,9 @@
    "ocrConfidence": 62,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Totem",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -7807,9 +7807,9 @@
    "ocrConfidence": 62,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Totem",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "firsttainer.swf",
@@ -7903,9 +7903,9 @@
    "ocrConfidence": 70,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Recrutar membro",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "auction.swf",
@@ -7919,9 +7919,9 @@
    "ocrConfidence": 71,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Vendedor",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "academycommon.swf",
@@ -7935,9 +7935,9 @@
    "ocrConfidence": 53,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Benefícios de mestre-discípulo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddtstore.swf",
@@ -8015,9 +8015,9 @@
    "ocrConfidence": 93,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Gerenciar Clã",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddtstore.swf",
@@ -8175,9 +8175,9 @@
    "ocrConfidence": 84,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Sair do Clã",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "store.swf",
@@ -8207,9 +8207,9 @@
    "ocrConfidence": 81,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Totem",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -8223,9 +8223,9 @@
    "ocrConfidence": 81,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Totem",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddtstore.swf",
@@ -8399,9 +8399,9 @@
    "ocrConfidence": 77,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Vender tudo.",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionii.swf",
@@ -8559,9 +8559,9 @@
    "ocrConfidence": 53,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Organizar bolsa)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo2.swf",
@@ -8575,9 +8575,9 @@
    "ocrConfidence": 65,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Organizar bolsa)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -8591,9 +8591,9 @@
    "ocrConfidence": 65,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Organizar bolsa)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "awardsystem1.swf",
@@ -8703,9 +8703,9 @@
    "ocrConfidence": 61,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Adicionar amigo",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "bagandinfo2.swf",
@@ -8719,9 +8719,9 @@
    "ocrConfidence": 59,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Adicionar amigo",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "bagandinfo.swf",
@@ -8735,9 +8735,9 @@
    "ocrConfidence": 59,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Adicionar amigo",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "activeevents.swf",
@@ -8799,9 +8799,9 @@
    "ocrConfidence": 67,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique aqui para fundir",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "firsttainer.swf",
@@ -8815,9 +8815,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Vitória",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "roulette1.swf",
@@ -8831,9 +8831,9 @@
    "ocrConfidence": 62,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Continuar.",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "roulette.swf",
@@ -8879,9 +8879,9 @@
    "ocrConfidence": 90,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Operação",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortion.swf",
@@ -8895,9 +8895,9 @@
    "ocrConfidence": 55,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Sair do Clã",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "awardsystem.swf",
@@ -8943,9 +8943,9 @@
    "ocrConfidence": 78,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique aqui para teleportar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "awardsystem.swf",
@@ -8959,9 +8959,9 @@
    "ocrConfidence": 47,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Recompensa;",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "awardsystem1.swf",
@@ -8975,9 +8975,9 @@
    "ocrConfidence": 43,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Recompensa;",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddtstore.swf",
@@ -9103,9 +9103,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Recrutar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "academycommon.swf",
@@ -9215,9 +9215,9 @@
    "ocrConfidence": 74,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Vender tudo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortia.swf",
@@ -9231,9 +9231,9 @@
    "ocrConfidence": 57,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Aviso",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortia.swf",
@@ -9535,9 +9535,9 @@
    "ocrConfidence": 47,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Comprar comida!",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "academy.swf",
@@ -9567,9 +9567,9 @@
    "ocrConfidence": 92,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Recompensa",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "awardsystem1.swf",
@@ -9599,9 +9599,9 @@
    "ocrConfidence": 91,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Recompensa",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionii.swf",
@@ -9615,9 +9615,9 @@
    "ocrConfidence": 85,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Descrição: 1. Todos os membros do Clã recebem esta carta. 2. Cada envio de carta do Clã custa 1000 pontos de patrimônio.",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionii.swf",
@@ -9663,9 +9663,9 @@
    "ocrConfidence": 80,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Benefícios de mestre-discípulo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionclub.swf",
@@ -9903,9 +9903,9 @@
    "ocrConfidence": 95,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Tabela de recompensas",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "awardsystem1.swf",
@@ -9951,9 +9951,9 @@
    "ocrConfidence": 77,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Verificar nome)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo2.swf",
@@ -9967,9 +9967,9 @@
    "ocrConfidence": 75,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Verificar nome)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -9983,9 +9983,9 @@
    "ocrConfidence": 75,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Verificar nome)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "store.swf",
@@ -10047,9 +10047,9 @@
    "ocrConfidence": 82,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Verificar nome)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo2.swf",
@@ -10063,9 +10063,9 @@
    "ocrConfidence": 81,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Verificar nome)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -10079,9 +10079,9 @@
    "ocrConfidence": 81,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Verificar nome)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddtstore.swf",
@@ -10175,9 +10175,9 @@
    "ocrConfidence": 95,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Forja",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "firsttainer.swf",
@@ -10303,9 +10303,9 @@
    "ocrConfidence": 71,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Verificar nome)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -10319,9 +10319,9 @@
    "ocrConfidence": 71,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Verificar nome)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo1.swf",
@@ -10335,9 +10335,9 @@
    "ocrConfidence": 80,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Verificar nome)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddtstore.swf",
@@ -10479,9 +10479,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Quartas de final",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddtstore.swf",
@@ -10687,9 +10687,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Fase de classificação",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "store.swf",
@@ -10751,9 +10751,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Semifinal",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "store.swf",
@@ -10927,9 +10927,9 @@
    "ocrConfidence": 83,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Anterior)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "calendar.swf",
@@ -10943,9 +10943,9 @@
    "ocrConfidence": 91,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Conteúdo:",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "academycommon.swf",
@@ -10991,9 +10991,9 @@
    "ocrConfidence": 84,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mérito Total",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "wonderfulactivity.swf",
@@ -11135,9 +11135,9 @@
    "ocrConfidence": 76,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Ajuda)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionii.swf",
@@ -11151,9 +11151,9 @@
    "ocrConfidence": 72,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Gerenciar cargo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "wonderfulactivity.swf",
@@ -11167,9 +11167,9 @@
    "ocrConfidence": 45,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "VIP Supremo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddtstore.swf",
@@ -11327,9 +11327,9 @@
    "ocrConfidence": 38,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Fundir",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "farm.swf",
@@ -11535,9 +11535,9 @@
    "ocrConfidence": 79,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Anúncio do Clã",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "academy.swf",
@@ -11631,9 +11631,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Escolher comida",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "vipview.swf",
@@ -11647,9 +11647,9 @@
    "ocrConfidence": 65,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Abrir para amigos)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionii.swf",
@@ -11663,9 +11663,9 @@
    "ocrConfidence": 49,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Missão do Clã",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "roulette.swf",
@@ -11695,9 +11695,9 @@
    "ocrConfidence": 35,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "[Mover",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "wonderfulactivity.swf",
@@ -11775,9 +11775,9 @@
    "ocrConfidence": 39,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Pedido de casamento,",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "academy.swf",
@@ -11807,9 +11807,9 @@
    "ocrConfidence": 51,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Carta do Clã",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "wonderfulactivity.swf",
@@ -11951,9 +11951,9 @@
    "ocrConfidence": 37,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Evolução do Mascote",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "store.swf",
@@ -11999,9 +11999,9 @@
    "ocrConfidence": 45,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Chat privado",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionii.swf",
@@ -12015,9 +12015,9 @@
    "ocrConfidence": 87,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Transferir Clã",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionii.swf",
@@ -12127,9 +12127,9 @@
    "ocrConfidence": 64,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Conteúdo:",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "farm.swf",
@@ -12271,9 +12271,9 @@
    "ocrConfidence": 81,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "\"Preço final\"",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "auction.swf",
@@ -12287,9 +12287,9 @@
    "ocrConfidence": 93,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Digite o valor do lance",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "gameover.swf",
@@ -12303,9 +12303,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mérito",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo1.swf",
@@ -12399,9 +12399,9 @@
    "ocrConfidence": 86,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Adicionar amigo,",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "academy.swf",
@@ -12463,9 +12463,9 @@
    "ocrConfidence": 93,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Editar aviso / Promover ou rebaixar / Expulsar / Recrutar / Guerra de Clã",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "auction.swf",
@@ -12559,9 +12559,9 @@
    "ocrConfidence": 49,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Pontos de Contribuição Semanal",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddtstore.swf",
@@ -12607,9 +12607,9 @@
    "ocrConfidence": 92,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Você já tem a Bolsa VIP, recebeu a recompensa:",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "awardsystem.swf",
@@ -12623,9 +12623,9 @@
    "ocrConfidence": 93,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Você já tem a Bolsa VIP, recebeu a recompensa:",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "gameover.swf",
@@ -12895,9 +12895,9 @@
    "ocrConfidence": 61,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Use Pedra da Sorte para dobrar a recompensa",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "cardsystem.swf",
@@ -12927,9 +12927,9 @@
    "ocrConfidence": 68,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Pontos de Contribuição Semanal",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortion.swf",
@@ -12991,9 +12991,9 @@
    "ocrConfidence": 86,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Atenção: válido durante o dia; os pontos restantes serão convertidos em experiência ou mérito",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "wonderfulactivity.swf",
@@ -13103,9 +13103,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Abrir para amigos",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionii.swf",
@@ -13135,9 +13135,9 @@
    "ocrConfidence": 53,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Reviver)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortion.swf",
@@ -13183,9 +13183,9 @@
    "ocrConfidence": 37,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "[Tabela de Classificação]",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "wonderfulactivity.swf",
@@ -13231,9 +13231,9 @@
    "ocrConfidence": 76,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Tempo:",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "auction.swf",
@@ -13311,9 +13311,9 @@
    "ocrConfidence": 53,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Abrir tudo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "awardsystem.swf",
@@ -13327,9 +13327,9 @@
    "ocrConfidence": 49,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Abrir tudo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo2.swf",
@@ -13343,9 +13343,9 @@
    "ocrConfidence": 70,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Taxa;",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo1.swf",
@@ -13359,9 +13359,9 @@
    "ocrConfidence": 71,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Taxa;",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -13375,9 +13375,9 @@
    "ocrConfidence": 70,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Taxa;",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "roulette.swf",
@@ -13551,9 +13551,9 @@
    "ocrConfidence": 72,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Tempo:",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddtstore.swf",
@@ -13615,9 +13615,9 @@
    "ocrConfidence": 94,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Quantidade de pedras",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "awardsystem.swf",
@@ -13631,9 +13631,9 @@
    "ocrConfidence": 94,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Quantidade de pedras",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "cardsystem.swf",
@@ -13775,9 +13775,9 @@
    "ocrConfidence": 77,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Missão do Clã",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddtstore.swf",
@@ -13791,9 +13791,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Processamento",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortia.swf",
@@ -13839,9 +13839,9 @@
    "ocrConfidence": 91,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Anterior)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortion.swf",
@@ -13855,9 +13855,9 @@
    "ocrConfidence": 64,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Aviso do Clã",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "farm.swf",
@@ -14207,9 +14207,9 @@
    "ocrConfidence": 94,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Abrir para si mesmo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "awardsystem1.swf",
@@ -14255,9 +14255,9 @@
    "ocrConfidence": 81,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "[Desfile de moda!",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo2.swf",
@@ -14271,9 +14271,9 @@
    "ocrConfidence": 67,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "[Desfile de moda]",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -14287,9 +14287,9 @@
    "ocrConfidence": 67,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "[Desfile de moda]",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "store.swf",
@@ -14431,9 +14431,9 @@
    "ocrConfidence": 56,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Forja",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "quest.swf",
@@ -14511,9 +14511,9 @@
    "ocrConfidence": 95,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Solicitação",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "newchickenbox1.swf",
@@ -14559,9 +14559,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Convite",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "quest.swf",
@@ -14687,9 +14687,9 @@
    "ocrConfidence": 85,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mover",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo1.swf",
@@ -14703,9 +14703,9 @@
    "ocrConfidence": 85,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mover",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -14719,9 +14719,9 @@
    "ocrConfidence": 85,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mover",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortia.swf",
@@ -14815,9 +14815,9 @@
    "ocrConfidence": 42,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Remover",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddtstore.swf",
@@ -14879,9 +14879,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Usar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -14895,9 +14895,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Usar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddtstore.swf",
@@ -14927,9 +14927,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Usar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddtstore.swf",
@@ -15023,9 +15023,9 @@
    "ocrConfidence": 40,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Aba 1",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "quest.swf",
@@ -15135,9 +15135,9 @@
    "ocrConfidence": 91,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Lista do Clã",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "elitegame.swf",
@@ -15167,9 +15167,9 @@
    "ocrConfidence": 92,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Aba 3",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "cardsystem.swf",
@@ -15183,9 +15183,9 @@
    "ocrConfidence": 92,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Aba 2",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "cardsystem.swf",
@@ -15199,9 +15199,9 @@
    "ocrConfidence": 92,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Aba 4",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "wonderfulactivity.swf",
@@ -15247,9 +15247,9 @@
    "ocrConfidence": 56,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Vender",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionii.swf",
@@ -15279,9 +15279,9 @@
    "ocrConfidence": 46,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Vender",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -15295,9 +15295,9 @@
    "ocrConfidence": 46,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Vender",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "quest.swf",
@@ -15455,9 +15455,9 @@
    "ocrConfidence": 63,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mascote Raro",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "auction.swf",
@@ -15487,9 +15487,9 @@
    "ocrConfidence": 53,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Entrar no Clã",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "elitegame.swf",
@@ -15679,9 +15679,9 @@
    "ocrConfidence": 94,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mover",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -15695,9 +15695,9 @@
    "ocrConfidence": 94,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mover",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "firstrecharge.swf",
@@ -15743,9 +15743,9 @@
    "ocrConfidence": 95,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mover",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "wonderfulactivity.swf",
@@ -15807,9 +15807,9 @@
    "ocrConfidence": 35,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Poção de crescimento",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "auction.swf",
@@ -15839,9 +15839,9 @@
    "ocrConfidence": 64,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mérito",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddtstore.swf",
@@ -15855,9 +15855,9 @@
    "ocrConfidence": 57,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Tipo de pagamento",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "store.swf",
@@ -15871,9 +15871,9 @@
    "ocrConfidence": 50,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Tipo de pagamento:",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "quest.swf",
@@ -15903,9 +15903,9 @@
    "ocrConfidence": 70,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Nome;",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "labyrinth.swf",
@@ -15935,9 +15935,9 @@
    "ocrConfidence": 87,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Selecionar tudo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddtstore.swf",
@@ -16255,9 +16255,9 @@
    "ocrConfidence": 57,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "\"Sucesso\"",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "quest.swf",
@@ -16383,9 +16383,9 @@
    "ocrConfidence": 40,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "\"Desafiar\"",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "wonderfulactivity.swf",
@@ -16543,9 +16543,9 @@
    "ocrConfidence": 68,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Fusão",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "quest.swf",
@@ -16799,9 +16799,9 @@
    "ocrConfidence": 80,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mais",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo1.swf",
@@ -16815,9 +16815,9 @@
    "ocrConfidence": 80,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mais",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -16831,9 +16831,9 @@
    "ocrConfidence": 80,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mais",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortia.swf",
@@ -16863,9 +16863,9 @@
    "ocrConfidence": 82,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Cancelar solicitação,",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "auction.swf",
@@ -16895,9 +16895,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Probabilidade de receber os seguintes itens",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionclub.swf",
@@ -16911,9 +16911,9 @@
    "ocrConfidence": 54,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "PESSOA",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "awardsystem.swf",
@@ -16927,9 +16927,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Probabilidade de receber os seguintes itens",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo2.swf",
@@ -16943,9 +16943,9 @@
    "ocrConfidence": 78,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Custo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -16959,9 +16959,9 @@
    "ocrConfidence": 78,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Custo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo1.swf",
@@ -16975,9 +16975,9 @@
    "ocrConfidence": 60,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Custo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "awardsystem1.swf",
@@ -16991,9 +16991,9 @@
    "ocrConfidence": 90,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Selecione o item para guardar na bolsa",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionclub.swf",
@@ -17023,9 +17023,9 @@
    "ocrConfidence": 85,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Selecione o item para guardar na bolsa",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "elitegame.swf",
@@ -17039,9 +17039,9 @@
    "ocrConfidence": 58,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Sua classificação",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "awardsystem.swf",
@@ -17055,9 +17055,9 @@
    "ocrConfidence": 36,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Bolsa atual:",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "vipview.swf",
@@ -17103,9 +17103,9 @@
    "ocrConfidence": 56,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "[Recebido]",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "awardsystem1.swf",
@@ -17151,9 +17151,9 @@
    "ocrConfidence": 90,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Os 10 melhores jogadores recebem recompensas",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "quest.swf",
@@ -17231,9 +17231,9 @@
    "ocrConfidence": 65,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Enviado",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionii.swf",
@@ -17247,9 +17247,9 @@
    "ocrConfidence": 94,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Recrutar / Guerra de Clã",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo1.swf",
@@ -17311,9 +17311,9 @@
    "ocrConfidence": 95,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Pessoa",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo2.swf",
@@ -17327,9 +17327,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Usar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo1.swf",
@@ -17343,9 +17343,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Usar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -17359,9 +17359,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Usar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "store.swf",
@@ -17375,9 +17375,9 @@
    "ocrConfidence": 94,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Você deve pagar no total:",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "awardsystem1.swf",
@@ -17391,9 +17391,9 @@
    "ocrConfidence": 94,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Você deve pagar no total:",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "awardsystem.swf",
@@ -17407,9 +17407,9 @@
    "ocrConfidence": 94,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Você deve pagar no total:",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "awardsystem.swf",
@@ -17423,9 +17423,9 @@
    "ocrConfidence": 44,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(aberto, contínuo:",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "awardsystem1.swf",
@@ -17439,9 +17439,9 @@
    "ocrConfidence": 54,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "[aberto, contínuo:",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "forgemain1.swf",
@@ -17503,9 +17503,9 @@
    "ocrConfidence": 89,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "O líder do Clã não anunciou uma nova missão!",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionii.swf",
@@ -17519,9 +17519,9 @@
    "ocrConfidence": 81,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Selecionar tudo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionii.swf",
@@ -17535,9 +17535,9 @@
    "ocrConfidence": 95,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Destinatário / Assunto",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "store.swf",
@@ -17759,9 +17759,9 @@
    "ocrConfidence": 76,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mérito de Combate",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "bagandinfo2.swf",
@@ -17775,9 +17775,9 @@
    "ocrConfidence": 69,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Custo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo1.swf",
@@ -17791,9 +17791,9 @@
    "ocrConfidence": 69,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Custo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -17807,9 +17807,9 @@
    "ocrConfidence": 69,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Custo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "academy.swf",
@@ -17855,9 +17855,9 @@
    "ocrConfidence": 74,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Classificação",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "awardsystem1.swf",
@@ -17871,9 +17871,9 @@
    "ocrConfidence": 55,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Ajuda",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "farm.swf",
@@ -17903,9 +17903,9 @@
    "ocrConfidence": 41,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Ajuda",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "awardsystem.swf",
@@ -17919,9 +17919,9 @@
    "ocrConfidence": 54,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Ajuda",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "store.swf",
@@ -17935,9 +17935,9 @@
    "ocrConfidence": 89,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Quantia do presente",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortion.swf",
@@ -17967,9 +17967,9 @@
    "ocrConfidence": 61,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Aprimorar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "cardsystem.swf",
@@ -18191,9 +18191,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mais",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "awardsystem1.swf",
@@ -18223,9 +18223,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mais",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -18239,9 +18239,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mais",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionii.swf",
@@ -18255,9 +18255,9 @@
    "ocrConfidence": 64,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Gerenciar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "awardsystem1.swf",
@@ -18271,9 +18271,9 @@
    "ocrConfidence": 64,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Gerenciar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "awardsystem.swf",
@@ -18287,9 +18287,9 @@
    "ocrConfidence": 64,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Gerenciar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "store.swf",
@@ -18319,9 +18319,9 @@
    "ocrConfidence": 78,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Resultado do combate",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "vipview.swf",
@@ -18351,9 +18351,9 @@
    "ocrConfidence": 58,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Ajuda)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo2.swf",
@@ -18367,9 +18367,9 @@
    "ocrConfidence": 93,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Você recebeu o item:",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo1.swf",
@@ -18383,9 +18383,9 @@
    "ocrConfidence": 90,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Você recebeu o item:",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "bagandinfo.swf",
@@ -18399,9 +18399,9 @@
    "ocrConfidence": 93,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Você recebeu o item:",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "farm.swf",
@@ -18431,9 +18431,9 @@
    "ocrConfidence": 38,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Guia",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "store.swf",
@@ -18479,9 +18479,9 @@
    "ocrConfidence": 47,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Encontrar oponente forte",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "gameover.swf",
@@ -18607,9 +18607,9 @@
    "ocrConfidence": 54,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Ajuda",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "auction.swf",
@@ -18703,9 +18703,9 @@
    "ocrConfidence": 82,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Alterar,",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "gameover.swf",
@@ -18719,9 +18719,9 @@
    "ocrConfidence": 82,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Equipe mestre-discípulo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "gameover.swf",
@@ -18751,9 +18751,9 @@
    "ocrConfidence": 70,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Confirmar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "quest.swf",
@@ -18783,9 +18783,9 @@
    "ocrConfidence": 76,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mestre-discípulo online",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "auction.swf",
@@ -18815,9 +18815,9 @@
    "ocrConfidence": 91,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Guerra de Clã",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionii.swf",
@@ -18831,9 +18831,9 @@
    "ocrConfidence": 94,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Guerra de Clã",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "cardsystem.swf",
@@ -18863,9 +18863,9 @@
    "ocrConfidence": 48,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Detalhes)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "gameover.swf",
@@ -18879,9 +18879,9 @@
    "ocrConfidence": 91,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Guerra de Clã",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "awardsystem1.swf",
@@ -18959,9 +18959,9 @@
    "ocrConfidence": 81,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Guerra de Clã",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "awardsystem.swf",
@@ -18991,9 +18991,9 @@
    "ocrConfidence": 82,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Casal",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "gameover.swf",
@@ -19007,9 +19007,9 @@
    "ocrConfidence": 89,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Derrotar oponente",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "gameover.swf",
@@ -19039,9 +19039,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Dia,",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "quest.swf",
@@ -19087,9 +19087,9 @@
    "ocrConfidence": 93,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(outros membros não podem usar)",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "bagandinfo1.swf",
@@ -19183,9 +19183,9 @@
    "ocrConfidence": 49,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Benefícios VIP",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "gameover.swf",
@@ -19199,9 +19199,9 @@
    "ocrConfidence": 49,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Benefícios VIP",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "farm.swf",
@@ -19407,9 +19407,9 @@
    "ocrConfidence": 50,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(patrimônio)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "cardsystem.swf",
@@ -19599,9 +19599,9 @@
    "ocrConfidence": 96,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Requisito:",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionii.swf",
@@ -19615,9 +19615,9 @@
    "ocrConfidence": 94,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Custo:",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "consortionii.swf",
@@ -19631,9 +19631,9 @@
    "ocrConfidence": 95,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Descrição:",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "farm.swf",
@@ -19791,9 +19791,9 @@
    "ocrConfidence": 84,
    "screen": "main windows",
    "priority": 3,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Concluído por mim:",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "activeevents.swf",
@@ -20095,9 +20095,9 @@
    "ocrConfidence": 92,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Felicidades e longa vida! Realize o casamento para provar seu amor",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "core.swf",
@@ -20111,9 +20111,9 @@
    "ocrConfidence": 95,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Felicidades e longa vida! Realize o casamento para provar seu amor.",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "corei.swf",
@@ -20271,9 +20271,9 @@
    "ocrConfidence": 96,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Escolher para experimentar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "gotopage.swf",
@@ -20319,9 +20319,9 @@
    "ocrConfidence": 79,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Não é fácil encontrar alguém que te entenda; será que vai realmente terminar esse casamento?",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "core.swf",
@@ -20335,9 +20335,9 @@
    "ocrConfidence": 95,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Você e essa pessoa resolveram o relacionamento conjugal. Você está solteiro(a) novamente.",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "gotopage.swf",
@@ -20463,9 +20463,9 @@
    "ocrConfidence": 95,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Você e essa pessoa resolveram o relacionamento conjugal. Você está solteiro(a) novamente.",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreii.swf",
@@ -20911,9 +20911,9 @@
    "ocrConfidence": 44,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Segredo do Rei da Galinha",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -20927,9 +20927,9 @@
    "ocrConfidence": 38,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Exploração da Masmorra",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -20959,9 +20959,9 @@
    "ocrConfidence": 93,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Destinados um ao Outro",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -21039,9 +21039,9 @@
    "ocrConfidence": 89,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "espaço",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "corei.swf",
@@ -21087,9 +21087,9 @@
    "ocrConfidence": 54,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Astrologia",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -21103,9 +21103,9 @@
    "ocrConfidence": 96,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Natal",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -21151,9 +21151,9 @@
    "ocrConfidence": 51,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Benefícios",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -21199,9 +21199,9 @@
    "ocrConfidence": 35,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Grande Festa do Rei da Galinha",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip.swf",
@@ -21215,9 +21215,9 @@
    "ocrConfidence": 94,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Selecione a tela para continuar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -21247,9 +21247,9 @@
    "ocrConfidence": 37,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Corrida de Cavalos",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -21263,9 +21263,9 @@
    "ocrConfidence": 69,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "[Buscar imagem]",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "ddthallicon.swf",
@@ -21311,9 +21311,9 @@
    "ocrConfidence": 94,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Selecione a tela para continuar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -21327,9 +21327,9 @@
    "ocrConfidence": 48,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Pintinho Aventureiro",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -21343,9 +21343,9 @@
    "ocrConfidence": 45,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Exploração do Mascote",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "corei.swf",
@@ -21391,9 +21391,9 @@
    "ocrConfidence": 73,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Item",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip.swf",
@@ -21503,9 +21503,9 @@
    "ocrConfidence": 49,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Primeira Recarga",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "core.swf",
@@ -21583,9 +21583,9 @@
    "ocrConfidence": 56,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Desconto",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -21615,9 +21615,9 @@
    "ocrConfidence": 43,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Roleta",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -21631,9 +21631,9 @@
    "ocrConfidence": 89,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Formar Par",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -21647,9 +21647,9 @@
    "ocrConfidence": 47,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Presente Limitado",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip1.swf",
@@ -21679,9 +21679,9 @@
    "ocrConfidence": 47,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Investimento,",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -21695,9 +21695,9 @@
    "ocrConfidence": 70,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Tesouro do Rei da Galinha",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip.swf",
@@ -21935,9 +21935,9 @@
    "ocrConfidence": 67,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Adicionar amigo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "corei.swf",
@@ -22031,9 +22031,9 @@
    "ocrConfidence": 66,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "[Tipo de pagamento:",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip.swf",
@@ -22047,9 +22047,9 @@
    "ocrConfidence": 71,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "[Tipo de pagamento:",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "core.swf",
@@ -22063,9 +22063,9 @@
    "ocrConfidence": 93,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Seja amigo de <User B> para poder escrever no mural de <User B>",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "core.swf",
@@ -22079,9 +22079,9 @@
    "ocrConfidence": 81,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Selecionar!",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreii.swf",
@@ -22095,9 +22095,9 @@
    "ocrConfidence": 90,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Recarregar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreii.swf",
@@ -22111,9 +22111,9 @@
    "ocrConfidence": 91,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Anunciar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "corei.swf",
@@ -22127,9 +22127,9 @@
    "ocrConfidence": 75,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Ver equipamento",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip.swf",
@@ -22239,9 +22239,9 @@
    "ocrConfidence": 46,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Desafiar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -22303,9 +22303,9 @@
    "ocrConfidence": 55,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Batalha de Sobrevivência",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreii.swf",
@@ -22335,9 +22335,9 @@
    "ocrConfidence": 48,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Deus da Guerra",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "ddthallicon.swf",
@@ -22351,9 +22351,9 @@
    "ocrConfidence": 61,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Novo Caminho",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "ddthallicon.swf",
@@ -22415,9 +22415,9 @@
    "ocrConfidence": 94,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Escolher forma de pagamento",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -22431,9 +22431,9 @@
    "ocrConfidence": 36,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Desfile de Moda",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "coreii.swf",
@@ -22447,9 +22447,9 @@
    "ocrConfidence": 63,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Escolher forma de pagamento",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -22463,9 +22463,9 @@
    "ocrConfidence": 59,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Duelo de Elite",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -22495,9 +22495,9 @@
    "ocrConfidence": 52,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Recompensa Pendente",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -22543,9 +22543,9 @@
    "ocrConfidence": 62,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Bilhete de Galinha Mutante",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -22559,9 +22559,9 @@
    "ocrConfidence": 63,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Continente",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -22591,9 +22591,9 @@
    "ocrConfidence": 66,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Grande Vitória",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "ddthallicon.swf",
@@ -22639,9 +22639,9 @@
    "ocrConfidence": 60,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Tesouro",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -22655,9 +22655,9 @@
    "ocrConfidence": 48,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Herói PK",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -22671,9 +22671,9 @@
    "ocrConfidence": 39,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Check-in",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -22687,9 +22687,9 @@
    "ocrConfidence": 77,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Presente de Crescimento",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "core.swf",
@@ -22767,9 +22767,9 @@
    "ocrConfidence": 75,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Oferta de Recarga",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "ddthallicon.swf",
@@ -22783,9 +22783,9 @@
    "ocrConfidence": 52,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Caminho da Glória",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -22799,9 +22799,9 @@
    "ocrConfidence": 53,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Batalha em Equipe",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -22831,9 +22831,9 @@
    "ocrConfidence": 61,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Olá a todos! Vamos ser amigos juntos na cidade!",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "corei.swf",
@@ -22847,9 +22847,9 @@
    "ocrConfidence": 61,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Olá a todos! Vamos ser amigos juntos na cidade!",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -22927,9 +22927,9 @@
    "ocrConfidence": 80,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Aviso",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -22943,9 +22943,9 @@
    "ocrConfidence": 74,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Roleta Misteriosa",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -22991,9 +22991,9 @@
    "ocrConfidence": 69,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Presente Online",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -23007,9 +23007,9 @@
    "ocrConfidence": 44,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Trocar Recompensa",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -23023,9 +23023,9 @@
    "ocrConfidence": 74,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Charada da Festa das Lanternas",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -23103,9 +23103,9 @@
    "ocrConfidence": 66,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Encontro Romântico",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -23119,9 +23119,9 @@
    "ocrConfidence": 51,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Contribuição do Clã",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -23135,9 +23135,9 @@
    "ocrConfidence": 39,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Batalha de Insetos",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -23167,9 +23167,9 @@
    "ocrConfidence": 78,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Reforço",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -23183,9 +23183,9 @@
    "ocrConfidence": 40,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Armário Mágico",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -23311,9 +23311,9 @@
    "ocrConfidence": 39,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Bolsa de Valores",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -23327,9 +23327,9 @@
    "ocrConfidence": 58,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Atraente",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -23391,9 +23391,9 @@
    "ocrConfidence": 52,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Você e a Ilha da Galinha",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "core.swf",
@@ -23503,9 +23503,9 @@
    "ocrConfidence": 55,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Coletar Cartas",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -23567,9 +23567,9 @@
    "ocrConfidence": 59,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Banco Real",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -23583,9 +23583,9 @@
    "ocrConfidence": 73,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Arena de Verão",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -23663,9 +23663,9 @@
    "ocrConfidence": 64,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Membros precisam ter pontos de contribuição suficientes para usar esta função.",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "corei.swf",
@@ -23679,9 +23679,9 @@
    "ocrConfidence": 64,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Membros precisam ter pontos de contribuição suficientes para usar esta função.",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -23903,9 +23903,9 @@
    "ocrConfidence": 44,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "VIP",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip.swf",
@@ -23999,9 +23999,9 @@
    "ocrConfidence": 92,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Milionário",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip.swf",
@@ -24031,9 +24031,9 @@
    "ocrConfidence": 85,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Carregando, aguarde um momento.",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "core.swf",
@@ -24047,9 +24047,9 @@
    "ocrConfidence": 87,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Carregando, aguarde um momento.",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip1.swf",
@@ -24159,9 +24159,9 @@
    "ocrConfidence": 94,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "recusou o pedido de casamento, te deu um cartão de boa pessoa, e enviou um convite para sua caixa de correio",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "coreii.swf",
@@ -24191,9 +24191,9 @@
    "ocrConfidence": 95,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "recusou o pedido de casamento, te deu um cartão de boa pessoa, e enviou um convite para sua caixa de correio",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "core.swf",
@@ -24207,9 +24207,9 @@
    "ocrConfidence": 94,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "convida você para o casamento, aceita?",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "corei.swf",
@@ -24223,9 +24223,9 @@
    "ocrConfidence": 94,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "convida você para o casamento, aceita?",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -24303,9 +24303,9 @@
    "ocrConfidence": 92,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique para selecionar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "core.swf",
@@ -24719,9 +24719,9 @@
    "ocrConfidence": 88,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Quantia do presente",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddthallicon.swf",
@@ -24783,9 +24783,9 @@
    "ocrConfidence": 84,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Lista de Redes Sociais",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "core.swf",
@@ -24799,9 +24799,9 @@
    "ocrConfidence": 72,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Lista de Redes Sociais",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip1.swf",
@@ -25007,9 +25007,9 @@
    "ocrConfidence": 73,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Recompensa nível 20-29",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "core.swf",
@@ -25055,9 +25055,9 @@
    "ocrConfidence": 62,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Recompensa nível 30-39",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreii.swf",
@@ -25391,9 +25391,9 @@
    "ocrConfidence": 59,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Sistema envia felicitações",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "ddthallicon.swf",
@@ -25567,9 +25567,9 @@
    "ocrConfidence": 95,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mérito",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip.swf",
@@ -25583,9 +25583,9 @@
    "ocrConfidence": 96,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mérito",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "core.swf",
@@ -25631,9 +25631,9 @@
    "ocrConfidence": 77,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Nível do Clã",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip.swf",
@@ -25647,9 +25647,9 @@
    "ocrConfidence": 77,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Nível do Clã",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "corei.swf",
@@ -25679,9 +25679,9 @@
    "ocrConfidence": 80,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Nível do Clã",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip1.swf",
@@ -25695,9 +25695,9 @@
    "ocrConfidence": 80,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Nível do Clã",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreii.swf",
@@ -25711,9 +25711,9 @@
    "ocrConfidence": 56,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Escolher cor",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreii.swf",
@@ -25727,9 +25727,9 @@
    "ocrConfidence": 75,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Escolher na lista de amigos",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "core.swf",
@@ -25743,9 +25743,9 @@
    "ocrConfidence": 54,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Escolher cor",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "corei.swf",
@@ -25791,9 +25791,9 @@
    "ocrConfidence": 76,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Escolher cor da pele",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "core.swf",
@@ -25807,9 +25807,9 @@
    "ocrConfidence": 77,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Escolher cor da pele",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "corei.swf",
@@ -25903,9 +25903,9 @@
    "ocrConfidence": 96,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Recarga rápida",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "coreii.swf",
@@ -25919,9 +25919,9 @@
    "ocrConfidence": 94,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Você deve pagar no total:",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "core.swf",
@@ -25935,9 +25935,9 @@
    "ocrConfidence": 94,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Você deve pagar no total:",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "core.swf",
@@ -25983,9 +25983,9 @@
    "ocrConfidence": 96,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Recarga rápida",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "levelicon.swf",
@@ -26095,9 +26095,9 @@
    "ocrConfidence": 96,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Escolher cor",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "core.swf",
@@ -26127,9 +26127,9 @@
    "ocrConfidence": 95,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Escolher cor",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip.swf",
@@ -26207,9 +26207,9 @@
    "ocrConfidence": 94,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Quantia do presente",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip.swf",
@@ -26223,9 +26223,9 @@
    "ocrConfidence": 95,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Quantia do presente",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreii.swf",
@@ -26271,9 +26271,9 @@
    "ocrConfidence": 71,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Quantia do presente",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "core.swf",
@@ -26335,9 +26335,9 @@
    "ocrConfidence": 93,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Poder de Combate",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip1.swf",
@@ -26351,9 +26351,9 @@
    "ocrConfidence": 93,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Poder de Combate",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "corei.swf",
@@ -26399,9 +26399,9 @@
    "ocrConfidence": 96,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Vitória",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip1.swf",
@@ -26415,9 +26415,9 @@
    "ocrConfidence": 96,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Vitória",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreii.swf",
@@ -26447,9 +26447,9 @@
    "ocrConfidence": 52,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Escolher na lista de amigos",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip1.swf",
@@ -26495,9 +26495,9 @@
    "ocrConfidence": 92,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Ajuda",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "corei.swf",
@@ -26767,9 +26767,9 @@
    "ocrConfidence": 94,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Recuperar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip1.swf",
@@ -26783,9 +26783,9 @@
    "ocrConfidence": 94,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Recuperar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip.swf",
@@ -26799,9 +26799,9 @@
    "ocrConfidence": 73,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Qualidade",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip1.swf",
@@ -26815,9 +26815,9 @@
    "ocrConfidence": 91,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Nível",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip.swf",
@@ -26831,9 +26831,9 @@
    "ocrConfidence": 92,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Nível",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip1.swf",
@@ -26847,9 +26847,9 @@
    "ocrConfidence": 71,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Qualidade",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip.swf",
@@ -26895,9 +26895,9 @@
    "ocrConfidence": 92,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Redução de dano",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip1.swf",
@@ -26911,9 +26911,9 @@
    "ocrConfidence": 93,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Redução de dano",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip.swf",
@@ -27119,9 +27119,9 @@
    "ocrConfidence": 96,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Classificação",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip1.swf",
@@ -27135,9 +27135,9 @@
    "ocrConfidence": 96,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Classificação",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip.swf",
@@ -27151,9 +27151,9 @@
    "ocrConfidence": 96,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Classificação",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip.swf",
@@ -27167,9 +27167,9 @@
    "ocrConfidence": 96,
    "screen": "buttons/titles/icons",
    "priority": 4,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Classificação",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "coreiconandtip.swf",
@@ -27935,9 +27935,9 @@
    "ocrConfidence": 37,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Desafiar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "churchroom.swf",
@@ -27967,9 +27967,9 @@
    "ocrConfidence": 56,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Torneio",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "room.swf",
@@ -27983,9 +27983,9 @@
    "ocrConfidence": 56,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Torneio",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "churchroom.swf",
@@ -28111,9 +28111,9 @@
    "ocrConfidence": 55,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Técnica Extraordinária",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "room.swf",
@@ -29503,9 +29503,9 @@
    "ocrConfidence": 42,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "- Vitória",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "game.swf",
@@ -29695,9 +29695,9 @@
    "ocrConfidence": 76,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "O valor do presente deve ser múltiplo de 100",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "room.swf",
@@ -29823,9 +29823,9 @@
    "ocrConfidence": 90,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Jogar confete de casamento.",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "gameii.swf",
@@ -29871,9 +29871,9 @@
    "ocrConfidence": 84,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "1. Pelo menos 2 pessoas. 2. Devem estar no mesmo Clã.",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "room.swf",
@@ -30015,9 +30015,9 @@
    "ocrConfidence": 45,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Exibir nome completo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "churchroom.swf",
@@ -30031,9 +30031,9 @@
    "ocrConfidence": 52,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Exibir fogos de artifício",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "room.swf",
@@ -30047,9 +30047,9 @@
    "ocrConfidence": 79,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "[Normal",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "churchroom.swf",
@@ -30063,9 +30063,9 @@
    "ocrConfidence": 46,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Exibir flores de casamento",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "challengeroom.swf",
@@ -30079,9 +30079,9 @@
    "ocrConfidence": 74,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "7 (segundos",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "room.swf",
@@ -30095,9 +30095,9 @@
    "ocrConfidence": 76,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Difícil)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "room.swf",
@@ -30111,9 +30111,9 @@
    "ocrConfidence": 77,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "1. Pelo menos 2 pessoas. 2. Devem estar no mesmo Clã.",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "challengeroom.swf",
@@ -30175,9 +30175,9 @@
    "ocrConfidence": 69,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "10/segundo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "hotspringroom.swf",
@@ -30239,9 +30239,9 @@
    "ocrConfidence": 96,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Vitória",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "gameii.swf",
@@ -30287,9 +30287,9 @@
    "ocrConfidence": 94,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Diante dos convidados, eu os declaro marido e mulher. O noivo pode beijar a noiva",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "game.swf",
@@ -30367,9 +30367,9 @@
    "ocrConfidence": 37,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "1 tela",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "churchroom.swf",
@@ -30383,9 +30383,9 @@
    "ocrConfidence": 37,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Exibir flores de casamento",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "churchroom.swf",
@@ -30399,9 +30399,9 @@
    "ocrConfidence": 95,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "A noiva coloca a aliança no noivo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "gameii.swf",
@@ -30431,9 +30431,9 @@
    "ocrConfidence": 94,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "O noivo coloca a aliança na noiva",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "gameii.swf",
@@ -30479,9 +30479,9 @@
    "ocrConfidence": 94,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Na saúde e na doença, onde quer que estejamos, prometo amar e respeitar você",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "churchroom.swf",
@@ -30495,9 +30495,9 @@
    "ocrConfidence": 94,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Na saúde e na doença, onde quer que estejamos, prometo amar e respeitar você",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "game.swf",
@@ -30655,9 +30655,9 @@
    "ocrConfidence": 93,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "A noiva e o noivo trocam as alianças; em nome de Deus, eu os declaro marido e mulher",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "fightlib.swf",
@@ -30687,9 +30687,9 @@
    "ocrConfidence": 93,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Senhor, viemos diante de Vós pedir Vossa bênção",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "churchroom.swf",
@@ -30703,9 +30703,9 @@
    "ocrConfidence": 95,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Você aceita este homem como seu marido?",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "churchroom.swf",
@@ -30719,9 +30719,9 @@
    "ocrConfidence": 94,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Eu aceito você como meu marido, na riqueza ou na pobreza",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "churchroom.swf",
@@ -30735,9 +30735,9 @@
    "ocrConfidence": 95,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "na saúde ou na doença, vou amar e respeitar você por toda a vida",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "churchroom.swf",
@@ -30751,9 +30751,9 @@
    "ocrConfidence": 94,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "na saúde ou na doença, vou amar e respeitar você por toda a vida",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "room.swf",
@@ -30847,9 +30847,9 @@
    "ocrConfidence": 93,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Eu juro aceitar você como minha esposa, na riqueza ou na pobreza",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "game.swf",
@@ -30927,9 +30927,9 @@
    "ocrConfidence": 95,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Deus uniu vocês dois; ninguém pode separá-los. Amém",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "game.swf",
@@ -30991,9 +30991,9 @@
    "ocrConfidence": 95,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Que Deus bendiga Seus filhos amados",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "churchroom.swf",
@@ -31183,9 +31183,9 @@
    "ocrConfidence": 96,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Eu te dou este anel como prova do meu amor",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "hotspringroom.swf",
@@ -31215,9 +31215,9 @@
    "ocrConfidence": 96,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Eu te dou este anel como prova do meu amor",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "room.swf",
@@ -31263,9 +31263,9 @@
    "ocrConfidence": 95,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Você aceita esta mulher como sua esposa?",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "gameii.swf",
@@ -31327,9 +31327,9 @@
    "ocrConfidence": 64,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Nível da sala",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "game.swf",
@@ -31391,9 +31391,9 @@
    "ocrConfidence": 94,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "O padre testemunhou os votos de vocês dois",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "game.swf",
@@ -31503,9 +31503,9 @@
    "ocrConfidence": 56,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "5 segundos,",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "fightlib.swf",
@@ -31535,9 +31535,9 @@
    "ocrConfidence": 96,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Para sempre ao lado dela?",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "hotspringroom.swf",
@@ -31567,9 +31567,9 @@
    "ocrConfidence": 96,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Para sempre ao lado dele?",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "room.swf",
@@ -31903,9 +31903,9 @@
    "ocrConfidence": 87,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Nível:",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "churchroom.swf",
@@ -31919,9 +31919,9 @@
    "ocrConfidence": 96,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "hoje e para sempre",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "game.swf",
@@ -32063,9 +32063,9 @@
    "ocrConfidence": 77,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Difícil)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "churchroom.swf",
@@ -32127,9 +32127,9 @@
    "ocrConfidence": 85,
    "screen": "combat",
    "priority": 5,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Senha",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "room.swf",
@@ -33215,9 +33215,9 @@
    "ocrConfidence": 92,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Felicidades e longa vida! Realize o casamento para provar seu amor",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "trainer.swf",
@@ -33871,9 +33871,9 @@
    "ocrConfidence": 95,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Você e essa pessoa resolveram o relacionamento conjugal. Você está solteiro(a) novamente.",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "totem.swf",
@@ -35391,9 +35391,9 @@
    "ocrConfidence": 67,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Eu sei.",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "oldTutorialstepassets.swf",
@@ -35407,9 +35407,9 @@
    "ocrConfidence": 67,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Eu sei.",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "tutorialstepassets.swf",
@@ -35663,9 +35663,9 @@
    "ocrConfidence": 55,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Resultado",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "trainer5.swf",
@@ -35903,9 +35903,9 @@
    "ocrConfidence": 73,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Sementes e fertilizantes podem ser comprados aqui.",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "_corei.swf",
@@ -36095,9 +36095,9 @@
    "ocrConfidence": 65,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Espere a planta florescer e dar frutos antes de colher",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "petsbag.swf",
@@ -36191,9 +36191,9 @@
    "ocrConfidence": 85,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique para aprimorar a joia",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "farmpettrainerui.swf",
@@ -36383,9 +36383,9 @@
    "ocrConfidence": 76,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Editar informações",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "civil.swf",
@@ -36511,9 +36511,9 @@
    "ocrConfidence": 91,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Pedido de casamento",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "farmpettrainerui.swf",
@@ -36527,9 +36527,9 @@
    "ocrConfidence": 79,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Você pode colher furtivamente na horta dos amigos",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "_corei.swf",
@@ -36607,9 +36607,9 @@
    "ocrConfidence": 62,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Use fertilizante, compre aqui",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "tutorialstepassets.swf",
@@ -36687,9 +36687,9 @@
    "ocrConfidence": 56,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Chat privado",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "petsbag.swf",
@@ -36831,9 +36831,9 @@
    "ocrConfidence": 79,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique aqui para adotar um mascote",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "petsbag.swf",
@@ -36911,9 +36911,9 @@
    "ocrConfidence": 62,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Pessoal",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "farmpettrainerui.swf",
@@ -36927,9 +36927,9 @@
    "ocrConfidence": 65,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Vamos lutar junto com a equipe!",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "petsbag.swf",
@@ -36975,9 +36975,9 @@
    "ocrConfidence": 95,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Estamos na loja, vamos escolher uma roupa para experimentar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "oldTutorialstepassets.swf",
@@ -36991,9 +36991,9 @@
    "ocrConfidence": 95,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Estamos na loja, vamos escolher uma roupa para experimentar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "_corei.swf",
@@ -37007,9 +37007,9 @@
    "ocrConfidence": 67,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Adicionar amigo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -37023,9 +37023,9 @@
    "ocrConfidence": 85,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Sala de teste.",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "farmpettrainerui.swf",
@@ -37039,9 +37039,9 @@
    "ocrConfidence": 71,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Você pode visitar a horta dos amigos",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "enthrall.swf",
@@ -37135,9 +37135,9 @@
    "ocrConfidence": 96,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Registro de presentes",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "_corei.swf",
@@ -37183,9 +37183,9 @@
    "ocrConfidence": 76,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Pessoal",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "tutorialstepassets.swf",
@@ -37231,9 +37231,9 @@
    "ocrConfidence": 81,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Escolha a semente primeiro",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "oldTrainer.swf",
@@ -37327,9 +37327,9 @@
    "ocrConfidence": 77,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Já pode ser colhido",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat1.swf",
@@ -37391,9 +37391,9 @@
    "ocrConfidence": 87,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Escolha um tipo de semente",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -37535,9 +37535,9 @@
    "ocrConfidence": 47,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Escolha um tipo de fertilizante",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -37599,9 +37599,9 @@
    "ocrConfidence": 90,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Evolução",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "petsbag.swf",
@@ -37647,9 +37647,9 @@
    "ocrConfidence": 66,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Apresentação",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "petsbag.swf",
@@ -37663,9 +37663,9 @@
    "ocrConfidence": 96,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Aumentar Estrela",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -37679,9 +37679,9 @@
    "ocrConfidence": 56,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Embelezar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -37711,9 +37711,9 @@
    "ocrConfidence": 75,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Ver equipamento",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -37727,9 +37727,9 @@
    "ocrConfidence": 40,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Itens",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -37759,9 +37759,9 @@
    "ocrConfidence": 93,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique com o mouse e depois ataque",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "oldTutorialstepassets.swf",
@@ -37775,9 +37775,9 @@
    "ocrConfidence": 93,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique com o mouse e depois ataque",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "toffilist.swf",
@@ -37791,9 +37791,9 @@
    "ocrConfidence": 53,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Guia",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "toffilist.swf",
@@ -37855,9 +37855,9 @@
    "ocrConfidence": 53,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Aumentar Estrela",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "toffilist.swf",
@@ -37887,9 +37887,9 @@
    "ocrConfidence": 44,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Blog",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "tutorialstepassets.swf",
@@ -37903,9 +37903,9 @@
    "ocrConfidence": 96,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Vamos criar uma sala, escolha o salão principal",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "oldTutorialstepassets.swf",
@@ -37919,9 +37919,9 @@
    "ocrConfidence": 96,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Vamos criar uma sala, escolha o salão principal",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "petsbag.swf",
@@ -37999,9 +37999,9 @@
    "ocrConfidence": 74,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Conquista",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "_corei.swf",
@@ -38031,9 +38031,9 @@
    "ocrConfidence": 56,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Olá a todos! Vamos ser amigos juntos na cidade!",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "_corei.swf",
@@ -38047,9 +38047,9 @@
    "ocrConfidence": 56,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Olá a todos! Vamos ser amigos juntos na cidade!",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "tutorialstepassets.swf",
@@ -38111,9 +38111,9 @@
    "ocrConfidence": 70,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Atraente",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "gemstone.swf",
@@ -38239,9 +38239,9 @@
    "ocrConfidence": 75,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "As primeiras horas dão 100% de experiência — após 5 horas você não ganha mais experiência! Organize seu tempo e cuide da sua saúde!",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "gemstone.swf",
@@ -38303,9 +38303,9 @@
    "ocrConfidence": 87,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique aqui para ir à praça",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "oldTutorialstepassets.swf",
@@ -38319,9 +38319,9 @@
    "ocrConfidence": 87,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique aqui para ir à praça",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "tutorialstepassets.swf",
@@ -38335,9 +38335,9 @@
    "ocrConfidence": 87,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique aqui para ir à praça",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "oldTutorialstepassets.swf",
@@ -38351,9 +38351,9 @@
    "ocrConfidence": 87,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique aqui para ir à praça",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "tutorialstepassets.swf",
@@ -38511,9 +38511,9 @@
    "ocrConfidence": 69,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Amigos",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "petsbag.swf",
@@ -38575,9 +38575,9 @@
    "ocrConfidence": 93,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique no botão \"pagar\" para finalizar o pagamento",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "oldTutorialstepassets.swf",
@@ -38591,9 +38591,9 @@
    "ocrConfidence": 93,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique no botão \"pagar\" para finalizar o pagamento",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "petsbag.swf",
@@ -38623,9 +38623,9 @@
    "ocrConfidence": 92,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique para selecionar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat1.swf",
@@ -38671,9 +38671,9 @@
    "ocrConfidence": 65,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Membros precisam ter pontos de contribuição suficientes para usar esta função.",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat1.swf",
@@ -38943,9 +38943,9 @@
    "ocrConfidence": 43,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Experiência)",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "effort.swf",
@@ -39007,9 +39007,9 @@
    "ocrConfidence": 51,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Aprimoramento rápido",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "email.swf",
@@ -39023,9 +39023,9 @@
    "ocrConfidence": 87,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Amigos",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "trainer.swf",
@@ -39055,9 +39055,9 @@
    "ocrConfidence": 93,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique em concordar para criar a sala",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "oldTutorialstepassets.swf",
@@ -39071,9 +39071,9 @@
    "ocrConfidence": 93,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique em concordar para criar a sala",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "tutorialstepassets.swf",
@@ -39087,9 +39087,9 @@
    "ocrConfidence": 84,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique aqui para entrar na loja",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "oldTutorialstepassets.swf",
@@ -39103,9 +39103,9 @@
    "ocrConfidence": 84,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique aqui para entrar na loja",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "_corei.swf",
@@ -39119,9 +39119,9 @@
    "ocrConfidence": 95,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "recusou o pedido de casamento, te deu um cartão de boa pessoa, e enviou um convite para sua caixa de correio",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "tutorialstepassets.swf",
@@ -39135,9 +39135,9 @@
    "ocrConfidence": 92,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique para começar a jogar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "tutorialstepassets.swf",
@@ -39151,9 +39151,9 @@
    "ocrConfidence": 93,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique para começar a jogar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "oldTutorialstepassets.swf",
@@ -39167,9 +39167,9 @@
    "ocrConfidence": 92,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique para começar a jogar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "oldTutorialstepassets.swf",
@@ -39183,9 +39183,9 @@
    "ocrConfidence": 93,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique para começar a jogar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chickactivation.swf",
@@ -39215,9 +39215,9 @@
    "ocrConfidence": 89,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Preparando, aguarde...",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chatball.swf",
@@ -39279,9 +39279,9 @@
    "ocrConfidence": 94,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Preparando, aguarde...",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "_corei.swf",
@@ -39295,9 +39295,9 @@
    "ocrConfidence": 94,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "convida você para o casamento, aceita?",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat1.swf",
@@ -39423,9 +39423,9 @@
    "ocrConfidence": 93,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique para entrar na forja",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "oldTutorialstepassets.swf",
@@ -39439,9 +39439,9 @@
    "ocrConfidence": 93,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique para entrar na forja",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "trainer1.swf",
@@ -39471,9 +39471,9 @@
    "ocrConfidence": 91,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique para receber a recompensa",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "oldTutorialstepassets.swf",
@@ -39487,9 +39487,9 @@
    "ocrConfidence": 91,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique para receber a recompensa",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "petsbag.swf",
@@ -39519,9 +39519,9 @@
    "ocrConfidence": 94,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique para salvar a imagem",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "oldTutorialstepassets.swf",
@@ -39535,9 +39535,9 @@
    "ocrConfidence": 94,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique para salvar a imagem",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "trainer1.swf",
@@ -39791,9 +39791,9 @@
    "ocrConfidence": 42,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Sala de Jogos)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "toffilist.swf",
@@ -39807,9 +39807,9 @@
    "ocrConfidence": 86,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Pontos)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "littlegame.swf",
@@ -39823,9 +39823,9 @@
    "ocrConfidence": 88,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Atenção: válido durante o dia; os pontos restantes serão convertidos em experiência ou mérito",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "guildmemberweek.swf",
@@ -39919,9 +39919,9 @@
    "ocrConfidence": 96,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Meu presente",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "_corei.swf",
@@ -39983,9 +39983,9 @@
    "ocrConfidence": 71,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Lista de Redes Sociais",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chatball.swf",
@@ -40015,9 +40015,9 @@
    "ocrConfidence": 94,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique para fechar a bolsa",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "oldTutorialstepassets.swf",
@@ -40031,9 +40031,9 @@
    "ocrConfidence": 94,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Clique para fechar a bolsa",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "email.swf",
@@ -40047,9 +40047,9 @@
    "ocrConfidence": 90,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Lembrete: esta é uma carta comum; cuidado com fraudes",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "littlegame.swf",
@@ -40255,9 +40255,9 @@
    "ocrConfidence": 96,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Escolher criar sala",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "oldTutorialstepassets.swf",
@@ -40271,9 +40271,9 @@
    "ocrConfidence": 96,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Escolher criar sala",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat1.swf",
@@ -40383,9 +40383,9 @@
    "ocrConfidence": 68,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": ", tabela de cores",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "toffilist.swf",
@@ -40463,9 +40463,9 @@
    "ocrConfidence": 77,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Classificação Pessoal",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "im.swf",
@@ -40543,9 +40543,9 @@
    "ocrConfidence": 70,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Carteira",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat1.swf",
@@ -40719,9 +40719,9 @@
    "ocrConfidence": 79,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "pequeno) grande",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "guildmemberweek.swf",
@@ -40767,9 +40767,9 @@
    "ocrConfidence": 61,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Mérito",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chatball.swf",
@@ -40831,9 +40831,9 @@
    "ocrConfidence": 50,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Função",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat1.swf",
@@ -40943,9 +40943,9 @@
    "ocrConfidence": 90,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Pontos de Atração",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "toffilist.swf",
@@ -40975,9 +40975,9 @@
    "ocrConfidence": 96,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Receber anexo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chickactivation.swf",
@@ -41039,9 +41039,9 @@
    "ocrConfidence": 46,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Poder de Combate:",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "_corei.swf",
@@ -41135,9 +41135,9 @@
    "ocrConfidence": 68,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Conjunto de roupas",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat.swf",
@@ -41151,9 +41151,9 @@
    "ocrConfidence": 74,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "/W Chat privado",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "roadcomponent.swf",
@@ -41215,9 +41215,9 @@
    "ocrConfidence": 73,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Medalha",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat1.swf",
@@ -41231,9 +41231,9 @@
    "ocrConfidence": 88,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "/W Chat privado",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chickactivation.swf",
@@ -41263,9 +41263,9 @@
    "ocrConfidence": 47,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Conjunto de roupas",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "ddtcorescalebitmap.swf",
@@ -41359,9 +41359,9 @@
    "ocrConfidence": 90,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Pontos de hoje",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chickactivation.swf",
@@ -41375,9 +41375,9 @@
    "ocrConfidence": 76,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Sexta, Sábado, Domingo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -41391,9 +41391,9 @@
    "ocrConfidence": 62,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Máscara",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -41407,9 +41407,9 @@
    "ocrConfidence": 91,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Cabelo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -41423,9 +41423,9 @@
    "ocrConfidence": 87,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Boa avaliação",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -41455,9 +41455,9 @@
    "ocrConfidence": 94,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Apresentar mestre / Aceitar discípulo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "toffilist.swf",
@@ -41471,9 +41471,9 @@
    "ocrConfidence": 87,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Pontos semanais",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chickactivation.swf",
@@ -41487,9 +41487,9 @@
    "ocrConfidence": 96,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Sexta, Sábado, Domingo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -41503,9 +41503,9 @@
    "ocrConfidence": 57,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Embelezar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "giftsystem.swf",
@@ -41551,9 +41551,9 @@
    "ocrConfidence": 77,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "/K Megafone Mundial",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -41567,9 +41567,9 @@
    "ocrConfidence": 68,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Especial",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat1.swf",
@@ -41583,9 +41583,9 @@
    "ocrConfidence": 79,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "/K Megafone Mundial",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -41615,9 +41615,9 @@
    "ocrConfidence": 96,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mérito",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "toffilist.swf",
@@ -41663,9 +41663,9 @@
    "ocrConfidence": 87,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Patrimônio total",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -41711,9 +41711,9 @@
    "ocrConfidence": 96,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Convidar amigo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -41727,9 +41727,9 @@
    "ocrConfidence": 39,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Olhos",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "oldTrainer.swf",
@@ -41759,9 +41759,9 @@
    "ocrConfidence": 57,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Novo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chickactivation.swf",
@@ -41791,9 +41791,9 @@
    "ocrConfidence": 48,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Asas",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -41871,9 +41871,9 @@
    "ocrConfidence": 96,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Mérito",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "petsbag.swf",
@@ -42015,9 +42015,9 @@
    "ocrConfidence": 92,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Recusar mensagens de estranhos",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "_corei.swf",
@@ -42063,9 +42063,9 @@
    "ocrConfidence": 48,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Traje",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -42095,9 +42095,9 @@
    "ocrConfidence": 86,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "[Receber anexo!",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -42159,9 +42159,9 @@
    "ocrConfidence": 93,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Pacote de presente de nível",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -42223,9 +42223,9 @@
    "ocrConfidence": 95,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Função de rede social",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "feedback.swf",
@@ -42319,9 +42319,9 @@
    "ocrConfidence": 96,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Classificação",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "corescalebitmap.swf",
@@ -42367,9 +42367,9 @@
    "ocrConfidence": 73,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Óculos",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "avatarcollection.swf",
@@ -42447,9 +42447,9 @@
    "ocrConfidence": 75,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Chapéu",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "email.swf",
@@ -42463,9 +42463,9 @@
    "ocrConfidence": 47,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Carta enviada",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "avatarcollection1.swf",
@@ -42479,9 +42479,9 @@
    "ocrConfidence": 41,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Ativar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "texpsystem.swf",
@@ -42511,9 +42511,9 @@
    "ocrConfidence": 48,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Óculos)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "gemstone.swf",
@@ -42575,9 +42575,9 @@
    "ocrConfidence": 60,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Moderno",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "avatarcollection1.swf",
@@ -42623,9 +42623,9 @@
    "ocrConfidence": 43,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Moderno",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "_corei.swf",
@@ -42687,9 +42687,9 @@
    "ocrConfidence": 95,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Poder de Combate",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat.swf",
@@ -42751,9 +42751,9 @@
    "ocrConfidence": 92,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "/P Grupo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "feedback.swf",
@@ -42783,9 +42783,9 @@
    "ocrConfidence": 65,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "/X Megafone Pequeno",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "feedback.swf",
@@ -42831,9 +42831,9 @@
    "ocrConfidence": 95,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "/D Megafone Grande",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat1.swf",
@@ -42847,9 +42847,9 @@
    "ocrConfidence": 79,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "/X Megafone Pequeno",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat1.swf",
@@ -42863,9 +42863,9 @@
    "ocrConfidence": 92,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "/P Grupo",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "_corei.swf",
@@ -42911,9 +42911,9 @@
    "ocrConfidence": 95,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "/D Megafone Grande",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat1.swf",
@@ -42959,9 +42959,9 @@
    "ocrConfidence": 59,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Novo recurso",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -43071,9 +43071,9 @@
    "ocrConfidence": 49,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Carta enviada",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "corescalebitmap.swf",
@@ -43119,9 +43119,9 @@
    "ocrConfidence": 92,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Oferta",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat.swf",
@@ -43151,9 +43151,9 @@
    "ocrConfidence": 94,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Permitir amizade",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chatball.swf",
@@ -43215,9 +43215,9 @@
    "ocrConfidence": 52,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Total)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "email.swf",
@@ -43231,9 +43231,9 @@
    "ocrConfidence": 96,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Destinatário / Assunto",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "toffilist.swf",
@@ -43263,9 +43263,9 @@
    "ocrConfidence": 96,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Classificação",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "petsbag.swf",
@@ -43327,9 +43327,9 @@
    "ocrConfidence": 54,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "(Semanal)",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "toffilist.swf",
@@ -43359,9 +43359,9 @@
    "ocrConfidence": 94,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Remetente / Assunto",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "shop.swf",
@@ -43423,9 +43423,9 @@
    "ocrConfidence": 54,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Ajuda",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "toffilist.swf",
@@ -43455,9 +43455,9 @@
    "ocrConfidence": 89,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Nenhum resultado encontrado",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "giftsystem.swf",
@@ -43471,9 +43471,9 @@
    "ocrConfidence": 95,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Retribuir",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "corescalebitmap.swf",
@@ -43487,9 +43487,9 @@
    "ocrConfidence": 55,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Salvar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "effort.swf",
@@ -43567,9 +43567,9 @@
    "ocrConfidence": 96,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Indicador de status online",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat1.swf",
@@ -43599,9 +43599,9 @@
    "ocrConfidence": 76,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Todos",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "email.swf",
@@ -43615,9 +43615,9 @@
    "ocrConfidence": 96,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "6 horas",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat.swf",
@@ -43663,9 +43663,9 @@
    "ocrConfidence": 29,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "skipped-low-confidence"
+   "ptBrSuggestion": "Ajuda",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "effort.swf",
@@ -43695,9 +43695,9 @@
    "ocrConfidence": 93,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Quantia do presente",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat1.swf",
@@ -43775,9 +43775,9 @@
    "ocrConfidence": 96,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "1 hora",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat.swf",
@@ -43839,9 +43839,9 @@
    "ocrConfidence": 93,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Ajuda",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat1.swf",
@@ -43935,9 +43935,9 @@
    "ocrConfidence": 96,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Função de megafone",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "email.swf",
@@ -43967,9 +43967,9 @@
    "ocrConfidence": 96,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Receber convite",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "toffilist.swf",
@@ -44031,9 +44031,9 @@
    "ocrConfidence": 95,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Retribuir",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chickactivation.swf",
@@ -44191,9 +44191,9 @@
    "ocrConfidence": 95,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Música de fundo",
+   "ptBrSource": "curated",
+   "status": "needs-ai-render-failed"
   },
   {
    "swf": "chickactivation.swf",
@@ -44223,9 +44223,9 @@
    "ocrConfidence": 96,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Efeitos",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat.swf",
@@ -44383,9 +44383,9 @@
    "ocrConfidence": 86,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Chat privado",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat.swf",
@@ -44495,9 +44495,9 @@
    "ocrConfidence": 57,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Salvar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "corescalebitmap.swf",
@@ -44671,9 +44671,9 @@
    "ocrConfidence": 22,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "skipped-low-confidence"
+   "ptBrSuggestion": "Salvar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat.swf",
@@ -44879,9 +44879,9 @@
    "ocrConfidence": 90,
    "screen": "rest",
    "priority": 6,
-   "ptBrSuggestion": null,
-   "ptBrSource": "none",
-   "status": "needs-ai-no-translation"
+   "ptBrSuggestion": "Voltar",
+   "ptBrSource": "curated",
+   "status": "done"
   },
   {
    "swf": "chat1.swf",

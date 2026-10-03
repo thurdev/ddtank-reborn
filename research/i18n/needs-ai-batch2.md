@@ -11,136 +11,53 @@ SWFs share the same caption/tooltip wording, so this list is phrases, not images
 
 | VN text (cleaned) | reason | count | example(s) |
 |---|---|---|---|
-| Hạng | no-translation | 7 | elitegame.swf::9_EliteGame.scoreRank.rankBmp.png, coreiconandtip1.swf::40_asset.core.leveltip.ReputeBg.png, coreiconandtip1.swf::39_asset.core.consortiaTip.ReputePic.png, coreiconandtip.swf::67_asset.core.consortiaTip.ReputePic.png, coreiconandtip.swf::65_asset.core.leveltip.ReputeBg.png |
-| ( Ktratên ) | no-translation | 6 | bagandinfo1.swf::72_bagAndInfo.reworkname.check_up.png, bagandinfo2.swf::79_bagAndInfo.reworkname.check_up.png, bagandinfo.swf::79_bagAndInfo.reworkname.check_up.png, bagandinfo1.swf::77_bagAndInfo.reworkname.check_down.png, bagandinfo2.swf::84_bagAndInfo.reworkname.check_down.png |
-| Sử dụng | no-translation | 6 | bagandinfo2.swf::20_bagAndInfo.cellMenu.useAsset.png, bagandinfo.swf::20_bagAndInfo.cellMenu.useAsset.png, bagandinfo1.swf::24_bagAndInfo.cellMenu.useAsset.png, bagandinfo2.swf::21_bagAndInfo.cellMenu.useOverAsset.png, bagandinfo1.swf::9_bagAndInfo.cellMenu.useOverAsset.png |
-| Công trạng | no-translation | 5 | gameover.swf::31_asset.experience.tabExploit.png, coreiconandtip1.swf::89_asset.core.leveltip.ExploitBg.png, coreiconandtip.swf::12_asset.core.leveltip.ExploitBg.png, toffilist.swf::66_asset.Toffilist.exploitImgAsset1_2.png, toffilist.swf::67_asset.Toffilist.exploitImgAsset1_1.png |
-| Bạn phải trả tóng cộng: | no-translation | 5 | store.swf::9_asset.store.shortCutPayTip.png, awardsystem1.swf::52_asset.bead.quickFont1.png, awardsystem.swf::52_asset.bead.quickFont1.png, coreii.swf::106_asset.core.QuickBuyMoneyTip.png, core.swf::14_asset.core.QuickBuyMoneyTip.png |
-| 2 Giúp đỡ . | no-translation | 4 | awardsystem1.swf::80_asset.awardSystem.NoteBtnBG.png, awardsystem.swf::21_asset.awardSystem.NoteBtnBG.png, consortion.swf::62_asset.consortion.pollFrame.helpBtn.png, giftsystem.swf::25_asset.giftSystem.help.png |
-| Cắp gulld | no-translation | 4 | coreiconandtip.swf::50_asset.core.consortiaTip.LevelPic.png, coreiconandtip.swf::30_asset.core.guildLevelAsset.png, coreiconandtip1.swf::72_asset.core.guildLevelAsset.png, coreiconandtip1.swf::54_asset.core.consortiaTip.LevelPic.png |
+| Bạn phải trả tóng cộng: | render-failed-vn-residue | 5 | store.swf::9_asset.store.shortCutPayTip.png, awardsystem1.swf::52_asset.bead.quickFont1.png, awardsystem.swf::52_asset.bead.quickFont1.png, coreii.swf::106_asset.core.QuickBuyMoneyTip.png, core.swf::14_asset.core.QuickBuyMoneyTip.png |
 | Dùng chuột trái chọn vũ khí, đặt vào góc trái khung trang bị. | render-failed-vn-residue | 4 | tutorialstepassets.swf::33_asset.tutorialstep.text_a44.png, tutorialstepassets.swf::13_asset.tutorialstep.text_s44.png, oldTutorialstepassets.swf::33_asset.tutorialstep.text_a44.png, oldTutorialstepassets.swf::13_asset.tutorialstep.text_s44.png |
 | Hoàn thành nhiệm vụ là cách tốt nhất để tăng cấp. | render-failed-vn-residue | 4 | tutorialstepassets.swf::8_asset.tutorialstep.text_s51.png, oldTutorialstepassets.swf::8_asset.tutorialstep.text_s51.png, tutorialstepassets.swf::1_asset.tutorialstep.text_s61.png, oldTutorialstepassets.swf::1_asset.tutorialstep.text_s61.png |
-| Nhấp vào đây về quảng trường | no-translation | 4 | tutorialstepassets.swf::18_asset.tutorialstep.text_s39.png, oldTutorialstepassets.swf::18_asset.tutorialstep.text_s39.png, tutorialstepassets.swf::10_asset.tutorialstep.text_s47.png, oldTutorialstepassets.swf::10_asset.tutorialstep.text_s47.png |
-| Nhấp bắt đầu chơi game | no-translation | 4 | tutorialstepassets.swf::3_asset.tutorialstep.text_s56.png, tutorialstepassets.swf::31_asset.tutorialstep.text_a57.png, oldTutorialstepassets.swf::3_asset.tutorialstep.text_s56.png, oldTutorialstepassets.swf::31_asset.tutorialstep.text_a57.png |
-| 6# Thông!tin? Ñ cá¡nhân | no-translation | 3 | bagandinfo2.swf::44_asset.infoBtn2.png, bagandinfo1.swf::43_asset.infoBtn2.png, bagandinfo.swf::44_asset.infoBtn2.png |
-| (87 iộp qua | no-translation | 3 | bagandinfo1.swf::48_asset.giftBtn2.png, bagandinfo2.swf::49_asset.giftBtn2.png, bagandinfo.swf::49_asset.giftBtn2.png |
 | “TT hyện ] | no-translation | 3 | bagandinfo2.swf::23_asset.texpBtn2.png, bagandinfo.swf::23_asset.texpBtn2.png, bagandinfo1.swf::26_asset.texpBtn2.png |
-| 9%7Sápxép túi) | no-translation | 3 | bagandinfo1.swf::87_bagAndInfo.bag.sortBagBtnAsset.png, bagandinfo2.swf::96_bagAndInfo.bag.sortBagBtnAsset.png, bagandinfo.swf::96_bagAndInfo.bag.sortBagBtnAsset.png |
-| G “Thêm bạn | no-translation | 3 | bagandinfo1.swf::68_bagAndInfo.info.addFriendBtnAsset.png, bagandinfo2.swf::73_bagAndInfo.info.addFriendBtnAsset.png, bagandinfo.swf::73_bagAndInfo.info.addFriendBtnAsset.png |
+| G “Thêm bạn | render-failed-vn-residue | 3 | bagandinfo1.swf::68_bagAndInfo.info.addFriendBtnAsset.png, bagandinfo2.swf::73_bagAndInfo.info.addFriendBtnAsset.png, bagandinfo.swf::73_bagAndInfo.info.addFriendBtnAsset.png |
 | im Lại | no-translation | 3 | ddtstore.swf::362.png, petsbag.swf::360.png, petsbag.swf::265.png |
-| Tiếp phí; | no-translation | 3 | bagandinfo2.swf::60_bagAndInfo.bag.continueGoodsAsset.png, bagandinfo1.swf::57_bagAndInfo.bag.continueGoodsAsset.png, bagandinfo.swf::60_bagAndInfo.bag.continueGoodsAsset.png |
-| <È› Di chuyển | no-translation | 3 | bagandinfo2.swf::24_bagAndInfo.cellMenu.moveOverAsset.png, bagandinfo1.swf::27_bagAndInfo.cellMenu.moveOverAsset.png, bagandinfo.swf::24_bagAndInfo.cellMenu.moveOverAsset.png |
-| ˆ Bán | no-translation | 3 | bagandinfo1.swf::7_bagAndInfo.bag.sellGoodsAsset.png, bagandinfo2.swf::75_bagAndInfo.bag.sellGoodsAsset.png, bagandinfo.swf::75_bagAndInfo.bag.sellGoodsAsset.png |
-| Di chuyền | no-translation | 3 | bagandinfo2.swf::26_bagAndInfo.cellMenu.moveAsset.png, bagandinfo.swf::26_bagAndInfo.cellMenu.moveAsset.png, bagandinfo1.swf::29_bagAndInfo.cellMenu.moveAsset.png |
 | Q vở | no-translation | 3 | bagandinfo2.swf::18_bagAndInfo.cellMenu.openOverAsset.png, bagandinfo1.swf::22_bagAndInfo.cellMenu.openOverAsset.png, bagandinfo.swf::18_bagAndInfo.cellMenu.openOverAsset.png |
-| $ Nhiều | no-translation | 3 | bagandinfo2.swf::98_bagAndInfo.cellMenu.openBatchOverAsset.png, bagandinfo1.swf::96_bagAndInfo.cellMenu.openBatchOverAsset.png, bagandinfo.swf::98_bagAndInfo.cellMenu.openBatchOverAsset.png |
-| SẾ Chị phí | no-translation | 3 | bagandinfo2.swf::25_bagAndInfo.cellMenu.addPriceOverAsset.jpg, bagandinfo1.swf::28_bagAndInfo.cellMenu.addPriceOverAsset.jpg, bagandinfo.swf::25_bagAndInfo.cellMenu.addPriceOverAsset.jpg |
-| 2 Giúp đỡ | no-translation | 3 | store.swf::89_asset.store.NoteBtnBG.png, corei.swf::10_asset.corei.helpbutton.png, _corei.swf::88_asset.corei.helpbutton.png |
-| Nhiều | no-translation | 3 | bagandinfo1.swf::85_bagAndInfo.cellMenu.openBatchAsset.png, bagandinfo2.swf::94_bagAndInfo.cellMenu.openBatchAsset.png, bagandinfo.swf::94_bagAndInfo.cellMenu.openBatchAsset.png |
-| L Quản lý ` | no-translation | 3 | consortionii.swf::70_asset.consortion.shop.manager.png, awardsystem1.swf::97_ddt.view.caddy.OfferPack.consortiaManager.png, awardsystem.swf::3_ddt.view.caddy.OfferPack.consortiaManager.png |
-| Bạn nhận được vật phậm: | no-translation | 3 | bagandinfo2.swf::40_asset.bagAndInfo.itemOpenUp.png, bagandinfo1.swf::40_asset.bagAndInfo.itemOpenUp.png, bagandinfo.swf::40_asset.bagAndInfo.itemOpenUp.png |
-| Gulld chiến | no-translation | 3 | consortionii.swf::47_asset.consortion.jobManage.pm5.png, consortionii.swf::48_asset.consortion.jobManage.pm4.png, gameover.swf::58_asset.experience.exploitExpItemTxt_a5.png |
 | ẽwu | no-translation | 3 | bagandinfo2.swf::15_bagAndInfo.reworkname.backgound_input.png, bagandinfo1.swf::2_bagAndInfo.reworkname.backgound_input.png, bagandinfo.swf::15_bagAndInfo.reworkname.backgound_input.png |
-| Bạn và người ấy đã giải quyết xong quan hệ hôn nhân. Bạn trở lại độc thân. | no-translation | 3 | core.swf::155_asset.church.UnmarriedAsset.png, corei.swf::5_asset.church.UnmarriedAsset.png, _corei.swf::93_asset.church.UnmarriedAsset.png |
 | Bạn không oó nhẫn cưới, không thể cầu hôn. Mua nhẫn cần 999 xu | render-failed-vn-residue | 3 | core.swf::8_asset.church.ProposeBuyRingAsset.png, corei.swf::23_asset.church.ProposeBuyRingAsset.png, _corei.swf::4_asset.church.ProposeBuyRingAsset.png |
-| từ chối lời cầu hôn, tặng bạn card người tốt, mời bạn vào hộp thư nhận | no-translation | 3 | corei.swf::210_asset.church.RejectProposeAsset.png, core.swf::17_asset.church.RejectProposeAsset.png, _corei.swf::103_asset.church.RejectProposeAsset.png |
-| mời bạn tham gia lễ cưới, đồng ý không? | no-translation | 3 | core.swf::175_asset.church.churchInviteMsgAsset.png, corei.swf::111_asset.church.churchInviteMsgAsset.png, _corei.swf::192_asset.church.churchInviteMsgAsset.png |
-| Lực chiến | no-translation | 3 | coreiconandtip.swf::85_asset.core.leveltip.BattleBg.png, coreiconandtip1.swf::22_asset.core.leveltip.BattleBg.png, toffilist.swf::90_asset.Toffilist.fightingImgAsset1_2.png |
-| Tên phòng | no-translation | 2 | roomlist.swf::14_asset.roomList.roomName.png, roomlist.swf::35_asset.DungeonList.name_PVE.png |
-| Mật mã | no-translation | 2 | roomlist.swf::50_asset.roomList.inputPass.png, churchroomlist.swf::14_asset.church.roomCreatePwdLabelAsset.png |
+| từ chối lời cầu hôn, tặng bạn card người tốt, mời bạn vào hộp thư nhận | render-failed-vn-residue | 3 | corei.swf::210_asset.church.RejectProposeAsset.png, core.swf::17_asset.church.RejectProposeAsset.png, _corei.swf::103_asset.church.RejectProposeAsset.png |
 | ‡ uc VÁ N | no-translation | 2 | wonderfulactivity.swf::38_wonderfulactivity.zhuanpan.back.png, roulette.swf::1_wonderfulactivity.zhuanpan.back.png |
 | "ThôngtinFcá*nhân Guild: „\|\| Bong Bô\|\| \| Cánh L] li „ đình] [Hỗ trợ Vvakhl \|Imtỏ\| \| khád Zm Lựecsé[ ] s Tần gu Nhơn Sang. Ị -:9:29 ..099 ...— Ph Ma (vo  | no-translation | 2 | bagandinfo2.swf::16_bagAndInfo.info.personalInfoBgAsset.png, bagandinfo.swf::16_bagAndInfo.info.personalInfoBgAsset.png |
-| Số lần lật bài | no-translation | 2 | newchickenbox1.swf::7_asset.newChickenBox.openCardTimes.png, newchickenbox.swf::7_asset.newChickenBox.openCardTimes.png |
 | : Thành F phẩm f Ñ 2 vÀ. II | no-translation | 2 | bagandinfo2.swf::64_equipretrieve.trieveCell1.png, bagandinfo.swf::64_equipretrieve.trieveCell1.png |
 | \| Bắt đầu \| | no-translation | 2 | newchickenbox1.swf::6_asset.newChickenBox.start.png, newchickenbox.swf::6_asset.newChickenBox.start.png |
 | \| Trang)Phục | no-translation | 2 | bagandinfo2.swf::1_asset.avatarCollBtn2.png, bagandinfo.swf::1_asset.avatarCollBtn2.png |
-| thấp chọn 6ð tí luyện vệt ghẩm | no-translation | 2 | bagandinfo2.swf::67_asset.trieve.StartStrengthTip.png, bagandinfo.swf::67_asset.trieve.StartStrengthTip.png |
-| 5TinhlƯuyệên 2 | no-translation | 2 | bagandinfo2.swf::85_equipretrieve.ensureBt.png, bagandinfo.swf::85_equipretrieve.ensureBt.png |
-| Cn⁄ì\ ví 2š ù L Nạp Làn Đầu | no-translation | 2 | firstrecharge.swf::89.png, ddthallicon.swf::177.png |
-| .. Trang Phục | no-translation | 2 | bagandinfo2.swf::2_asset.avatarCollBtn.png, bagandinfo.swf::2_asset.avatarCollBtn.png |
 | í° Dát vàng” | render-failed-vn-residue | 2 | forgemain1.swf::3_asset.wishBead.doBtn.png, forgemain.swf::11_asset.wishBead.doBtn.png |
-| XI << Thông tin 5 cá nhân | no-translation | 2 | bagandinfo2.swf::46_asset.infoBtn1.png, bagandinfo.swf::46_asset.infoBtn1.png |
-| (~ "II tệ? Hộp quà | no-translation | 2 | bagandinfo2.swf::50_asset.giftBtn1.png, bagandinfo.swf::50_asset.giftBtn1.png |
-| “1 Vật tổ | no-translation | 2 | bagandinfo2.swf::88_asset.totemInfoBtn.png, bagandinfo.swf::88_asset.totemInfoBtn.png |
 | \| t@vạma'cáp2 | no-translation | 2 | bagandinfo2.swf::27_bagAndInfo.bag.settedPWDAsset.png, bagandinfo.swf::27_bagAndInfo.bag.settedPWDAsset.png |
-| ® vật tổ | no-translation | 2 | bagandinfo2.swf::87_asset.totemInfoBtn1.png, bagandinfo.swf::87_asset.totemInfoBtn1.png |
-| Chiến thắng | no-translation | 2 | firsttainer.swf::103.png, game.swf::779.png |
-| (Phần thưởng | no-translation | 2 | awardsystem.swf::89_asset.caddy.badLuck.AwardBtnII.png, awardsystem1.swf::19_asset.caddy.badLuck.AwardBtnII.png |
 | 'Chúc mừng bạn nhận được bảo rương thời gian, bạn nhận được phản thưởng sau: | render-failed-vn-residue | 2 | awardsystem1.swf::32_asset.awardSystem.timeBox.TimeTip.png, awardsystem.swf::74_asset.awardSystem.timeBox.TimeTip.png |
-| “ Ktratên | no-translation | 2 | bagandinfo2.swf::83_bagAndInfo.reworkname.check_over.png, bagandinfo.swf::83_bagAndInfo.reworkname.check_over.png |
 | 'Chúc mừng bạn nhận được rương tân thủ, bạn nhận được phản thưởng: | render-failed-vn-residue | 2 | awardsystem1.swf::81_asset.awardSystem.timeBox.GradeTip.png, awardsystem.swf::20_asset.awardSystem.timeBox.GradeTip.png |
 | \| S mình Luyện, ¡ xA.. 7 "j | no-translation | 2 | bagandinfo2.swf::38_bagAndInfo.bag.trieveBtnAsset.png, bagandinfo.swf::38_bagAndInfo.bag.trieveBtnAsset.png |
 | \| Nhận | no-translation | 2 | wonderfulactivity.swf::39_wonderful.sendGiftActivity.sendBtn.png, shop.swf::21_asset.shop.PayPaneGetBtn.png |
 | >4 > q ni P Lên ,Ầ v.v I4 Số. + M Lá k ý. | no-translation | 2 | consortionii.swf::103_asset.consortion.skillIcon.§8§.jpg, game.swf::167_asset.game.buff101.jpg |
-| Bạn đã có túi VIP,nhận được phần thưởng: | no-translation | 2 | awardsystem1.swf::30_asset.awardSystem.timeBox.VipTip.png, awardsystem.swf::76_asset.awardSystem.timeBox.VipTip.png |
-| l Mở toàn bộ | no-translation | 2 | awardsystem1.swf::69_ddt.view.cardBoxCaddy.openAll.png, awardsystem.swf::34_ddt.view.cardBoxCaddy.openAll.png |
-| S.lượng đá | no-translation | 2 | awardsystem1.swf::6_asset.caddy.badLuck.MyNumberBG.png, awardsystem.swf::44_asset.caddy.badLuck.MyNumberBG.png |
 | Nhắấp chọn loại rương muốn mở | render-failed-vn-residue | 2 | awardsystem.swf::63_asset.bead.selectNode.png, awardsystem1.swf::41_asset.bead.selectNodeI.png |
-| [Múa thời trang) | no-translation | 2 | bagandinfo2.swf::74_bagAndInfo.info.buyAvatarAsset.png, bagandinfo.swf::74_bagAndInfo.info.buyAvatarAsset.png |
-| Xác suất nhận được các vật phẩm sau | no-translation | 2 | awardsystem1.swf::1_asset.caddy.lookFont.png, awardsystem.swf::118_asset.caddy.lookFont.png |
-| ~ Chi phí | no-translation | 2 | bagandinfo2.swf::42_bagAndInfo.cellMenu.addPriceAsset.png, bagandinfo.swf::42_bagAndInfo.cellMenu.addPriceAsset.png |
-| Chọn item cắt vào túi | no-translation | 2 | awardsystem1.swf::74_asset.caddy.NodeBagAsset.png, awardsystem.swf::28_asset.caddy.NodeBagAsset.png |
-| Người nhận Chủ đề | no-translation | 2 | consortionii.swf::11_asset.consortion.mail.topword.png, email.swf::3_asset.email.writingTopTip.png |
 | [Chức | no-translation | 2 | consortia.swf::43_asset.consortia.memberList.Job.png, consortion.swf::52_asset.memberList.job.png |
 | kiên] | no-translation | 2 | consortion.swf::36_asset.memberList.name.png, consortia.swf::25_asset.consortia.memberList.name.png |
-| Q.lợi VIP | no-translation | 2 | gameover.swf::93_asset.experience.attachExpItemTxt_a0.png, gameover.swf::61_asset.experience.exploitExpItemTxt_a2.png |
 | LÝ ữ ữ j nu nhậpImãikiếm chứng; | no-translation | 2 | corei.swf::142_asset.core.checkCodeBgAsset.png, _corei.swf::165_asset.core.checkCodeBgAsset.png |
-| Chúc bách niên giai lão Tổ chức. cưới đễ chứng minh tình yêu của bạn | no-translation | 2 | corei.swf::52_asset.church.AgreeProposeAsset.png, _corei.swf::52_asset.church.AgreeProposeAsset.png |
-| Chọn màn hình đề tiếp tục | no-translation | 2 | coreiconandtip.swf::124.png, coreiconandtip1.swf::168.png |
-| "Thêm bạn | no-translation | 2 | corei.swf::187_cityWide.addFriendBt.png, _corei.swf::124_cityWide.addFriendBt.png |
 | (4® nộ n Da nà | no-translation | 2 | corei.swf::98_asset.clearingInterface.chooseFriendBtn.png, _corei.swf::201_asset.clearingInterface.chooseFriendBtn.png |
 | ( chọn nhiều \| | no-translation | 2 | core.swf::211_asset.vote.mulAnswer.png, coreii.swf::13_asset.vote.mulAnswer.png |
-| [Kiêu trả phí: | no-translation | 2 | coreiconandtip1.swf::66_bagAndInfo.AddPrice.Labe.png, coreiconandtip.swf::37_bagAndInfo.AddPrice.Labe.png |
-| Xem. irang bị | no-translation | 2 | corei.swf::196_asset.church.lookEquipAsset.png, _corei.swf::116_asset.church.lookEquipAsset.png |
 | c/. =¬: ^¬ Bạn cũ trở về | no-translation | 2 | ddthallicon.swf::65_assets.hallIcon.oldPlayerRegressIcon.png, ddthallicon.swf::23_assets.hallIcon.oldPlayerIcon.png |
-| XinichàoXehúngita! cùng thành phó vớiInhaukétibanInhé! | no-translation | 2 | corei.swf::182_asset.league.leagueNotice.png, corei.swf::119_cityWide.cityWideTextBg.png |
 | Vùng quay may mắn | render-failed-vn-residue | 2 | corei.swf::244.png, _corei.swf::313.png |
-| Nhấp chọn | no-translation | 2 | ddthallicon.swf::127.png, farmpettrainerui.swf::1.png |
 | sổ b „ | no-translation | 2 | coreiconandtip1.swf::37_asset.core.payBuffAsset71.jpg, coreiconandtip.swf::69_asset.core.payBuffAsset71.jpg |
 | Si b đ | no-translation | 2 | coreiconandtip1.swf::85_asset.core.payBuffAsset70.jpg, coreiconandtip.swf::16_asset.core.payBuffAsset70.jpg |
-| V Lễ kim | no-translation | 2 | coreii.swf::39_asset.shop.PayTypeLabelGift.png, shop.swf::60_asset.shop.SubBtnGiftIconUp.png |
 | Hạn lượng | no-translation | 2 | core.swf::49_asset.shop.LabelIconLimitCount.png, coreii.swf::46_asset.shop.LabelIconLimitCount.png |
 | Bạn hiện có H.Chương, số lượng càng: II | no-translation | 2 | corei.swf::141_asset.core.MyConsortiaTax.DonateBG.png, _corei.swf::166_asset.core.MyConsortiaTax.DonateBG.png |
 | 3z ưng | no-translation | 2 | coreiconandtip1.swf::87_asset.core.freeAsset.jpg, coreiconandtip.swf::14_asset.core.freeAsset.jpg |
-| “Chọn màu (x | no-translation | 2 | coreii.swf::28_asset.shop.TextureBtnDown.png, core.swf::65_asset.shop.TextureBtnDown.png |
-| Chọn màu da | no-translation | 2 | coreii.swf::27_asset.shop.TextureBtnUp.png, core.swf::67_asset.shop.TextureBtnUp.png |
-| tiếp phí nhanh | no-translation | 2 | core.swf::62_asset.shop.ShopRechargeEquipTitle.png, coreii.swf::31_asset.shop.ShopRechargeEquipTitle.png |
+| tiếp phí nhanh | render-failed-vn-residue | 2 | core.swf::62_asset.shop.ShopRechargeEquipTitle.png, coreii.swf::31_asset.shop.ShopRechargeEquipTitle.png |
 | \| Chọn màu | no-translation | 2 | core.swf::31_asset.shop.ColorBtnUp.png, coreii.swf::65_asset.shop.ColorBtnUp.png |
-| Chọn màu | no-translation | 2 | coreii.swf::66_asset.shop.ColorBtnDown.png, core.swf::30_asset.shop.ColorBtnDown.png |
-| V lễ kim | no-translation | 2 | coreiconandtip1.swf::86_bagAndInfo.AddPrice.CheckBtnGiftBG.png, coreiconandtip.swf::15_bagAndInfo.AddPrice.CheckBtnGiftBG.png |
-| Thắng | no-translation | 2 | coreiconandtip.swf::55_asset.core.leveltip.WinRateBg.png, coreiconandtip1.swf::5_asset.core.leveltip.WinRateBg.png |
-| Hồi phục | no-translation | 2 | coreiconandtip.swf::24_asset.core.tip.GoodsTipItemRecover.png, coreiconandtip1.swf::78_asset.core.tip.GoodsTipItemRecover.png |
-| Phẩm chất | no-translation | 2 | coreiconandtip.swf::27_asset.core.tip.GoodsTipQuality.png, coreiconandtip1.swf::75_asset.core.tip.GoodsTipQuality.png |
-| Gức độ | no-translation | 2 | coreiconandtip1.swf::82_asset.core.tip.GoodsTipItemArmAngle.png, coreiconandtip.swf::19_asset.core.tip.GoodsTipItemArmAngle.png |
-| giăm thương | no-translation | 2 | coreiconandtip.swf::26_asset.core.tip.GoodsTipItemRecover1.png, coreiconandtip1.swf::76_asset.core.tip.GoodsTipItemRecover1.png |
 | Miễn phí | render-failed-vn-residue | 2 | core.swf::54_asset.shop.PayTypeLabelFree.png, coreii.swf::40_asset.shop.PayTypeLabelFree.png |
 | Nhiệt ký tũn tứ | no-translation | 2 | corei.swf::47_asset.chatFrame.record.png, _corei.swf::56_asset.chatFrame.record.png |
-| Giải diâu | no-translation | 2 | room.swf::7_asset.roomLoading.GameMode_2.png, room.swf::5_asset.roomLoading.GameMode_12.png |
 | Là L - | no-translation | 2 | hotspringroomlist.swf::5_asset.HotSpringMainView.nextBtnAsset.png, churchroomlist.swf::21_asset.church.main.btnPageNextAsset.png |
-| Anh trao em nhẫn này làm chứng cho tình yêu của anh | no-translation | 2 | churchroom.swf::86_asset.church.room.FatherPaopao17.png, churchroom.swf::84_asset.church.room.FatherPaopao19.png |
 | Bạn đã thành ma, có thể dùng chuột để nhặt rương, có nhiều đạo cụ hay lắm đó. Chú ý: Đạo cụ nhặt được có thể dùng ZXC hỗ trợ <@# lúc đồng đội hành động. | render-failed-vn-residue | 2 | trainer.swf::4_asset.trainer.ghostTip.png, oldTrainer.swf::5_asset.trainer.ghostTip.png |
 | íÍ Am ì AI l< SE | no-translation | 2 | _corei.swf::296.png, _corei.swf::275.png |
-| Tôi biết rồi. | no-translation | 2 | tutorialstepassets.swf::34_asset.tutorialstep.iknow.png, oldTutorialstepassets.swf::34_asset.tutorialstep.iknow.png |
-| Chúng ta đang ở trong shop, chọn quần áo mặc thử nào. | no-translation | 2 | tutorialstepassets.swf::21_asset.tutorialstep.text_s36.png, oldTutorialstepassets.swf::21_asset.tutorialstep.text_s36.png |
-| Dùng chuột click vào, sau đó tiền hành tắn công. | no-translation | 2 | tutorialstepassets.swf::26_asset.tutorialstep.text_s28.png, oldTutorialstepassets.swf::26_asset.tutorialstep.text_s28.png |
-| Chúng ta sẽ tạo phòng, chọn sảnh lớn. | no-translation | 2 | tutorialstepassets.swf::6_asset.tutorialstep.text_s53.png, oldTutorialstepassets.swf::6_asset.tutorialstep.text_s53.png |
-| Xin/ChàoXchúngita] cùng thành phố vớiInhaukétibanInhé! | no-translation | 2 | _corei.swf::186_cityWide.cityWideTextBg.png, _corei.swf::128_asset.league.leagueNotice.png |
+| Chúng ta sẽ tạo phòng, chọn sảnh lớn. | render-failed-vn-residue | 2 | tutorialstepassets.swf::6_asset.tutorialstep.text_s53.png, oldTutorialstepassets.swf::6_asset.tutorialstep.text_s53.png |
 | ‹€ eo ghô | no-translation | 2 | chat1.swf::9_asset.chat.BugleViewBigBugle.png, chat.swf::3_asset.chat.BugleViewBigBugle.png |
-| Nhấp thẻ "trả tiền" để thanh toán | no-translation | 2 | tutorialstepassets.swf::19_asset.tutorialstep.text_s38.png, oldTutorialstepassets.swf::19_asset.tutorialstep.text_s38.png |
-| Nhấp đồng ý tạo phòng | no-translation | 2 | tutorialstepassets.swf::4_asset.tutorialstep.text_s55.png, oldTutorialstepassets.swf::4_asset.tutorialstep.text_s55.png |
-| Nhấp vào đây vào shop. | no-translation | 2 | tutorialstepassets.swf::23_asset.tutorialstep.text_s34.png, oldTutorialstepassets.swf::23_asset.tutorialstep.text_s34.png |
-| Nhấp để vào tiệm rèn | no-translation | 2 | tutorialstepassets.swf::14_asset.tutorialstep.text_s43.png, oldTutorialstepassets.swf::14_asset.tutorialstep.text_s43.png |
-| Nhấp để nhận thưởng. | no-translation | 2 | tutorialstepassets.swf::16_asset.tutorialstep.text_s41.png, oldTutorialstepassets.swf::16_asset.tutorialstep.text_s41.png |
-| Nhấp chọn lưu hình ảnh | no-translation | 2 | tutorialstepassets.swf::20_asset.tutorialstep.text_s37.png, oldTutorialstepassets.swf::20_asset.tutorialstep.text_s37.png |
+| Nhấp thẻ "trả tiền" để thanh toán | render-failed-vn-residue | 2 | tutorialstepassets.swf::19_asset.tutorialstep.text_s38.png, oldTutorialstepassets.swf::19_asset.tutorialstep.text_s38.png |
+| Nhấp đồng ý tạo phòng | render-failed-vn-residue | 2 | tutorialstepassets.swf::4_asset.tutorialstep.text_s55.png, oldTutorialstepassets.swf::4_asset.tutorialstep.text_s55.png |
 | Lấy vũ khí bỏ vào ô | render-failed-vn-residue | 2 | tutorialstepassets.swf::28_asset.tutorialstep.text_s13.png, oldTutorialstepassets.swf::28_asset.tutorialstep.text_s13.png |
-| Nhấp để đóng túi | no-translation | 2 | tutorialstepassets.swf::27_asset.tutorialstep.text_s14.png, oldTutorialstepassets.swf::27_asset.tutorialstep.text_s14.png |
-| Chọn tạo phòng | no-translation | 2 | tutorialstepassets.swf::5_asset.tutorialstep.text_s54.png, oldTutorialstepassets.swf::5_asset.tutorialstep.text_s54.png |
-| /K Loa thỗ gới | no-translation | 2 | chat.swf::272.png, chat1.swf::231.png |
-| /P Nhóm | no-translation | 2 | chat.swf::258.png, chat1.swf::243.png |
-| /X Loa nhỏ | no-translation | 2 | chat.swf::263.png, chat1.swf::240.png |
-| /D Loa lớn | no-translation | 2 | chat.swf::278.png, chat1.swf::223.png |
-| Đáp lễ | no-translation | 2 | giftsystem.swf::9_asset.rebackMenu.rebackOver.png, giftsystem.swf::8_asset.rebackMenu.rebackOut.png |
-| lưu | no-translation | 2 | corescalebitmap.swf::282_asset.core.levelRewardLightBgAssetII_leftup.png, ddtcorescalebitmap.swf::29_asset.core.NewScale9CornerImage4.§1§.png |
 | Loa lớn | render-failed-vn-residue | 2 | chat.swf::63_asset.chat.ChannelState_BigBuggle.png, chat1.swf::16_asset.chat.ChannelState_BigBuggle.png |
 | Đề nghị Để bạn chơi game được thuận tiện, Gunny yêu cầu bạn mở chức năng lưu của Adobe Flash Player Ưu điểm: Adobe Flash Player Sefling Không cần tải lại Loeal  | no-translation | 1 | hall_old.swf::4_asset.hallSaveFile.noviceBG.png |
 | Đề nghị Để bạn chơi game được thuận tiện, Gunny yêu cầu bạn mở chức năng lưu của Adobe Flash Player Ưu điểm: Adobe Flash Player Sefling Không cần tải lại Loeal  | no-translation | 1 | hall.swf::7_asset.hallSaveFile.noviceBG.png |
@@ -149,16 +66,12 @@ SWFs share the same caption/tooltip wording, so this list is phrases, not images
 | AAvisos de salud Díno a la pizateria. Se cuidadoso, evita engañlos. El juego moderado beneñicia al cerebro, .en exceso lo daña. Organiza tu tiennpo razonablerne | no-translation | 1 | serverList.swf::7_asset.serverlist.health.png |
 | loạiphòng - \| | no-translation | 1 | roomlist.swf::36_asset.DungeonList.model_PVE.png |
 | \| <4 Trước ! | no-translation | 1 | roomlist.swf::20_asset.DungeonList.pre_PVE.png |
-| Số người. | no-translation | 1 | roomlist.swf::27_asset.DungeonList.placeCount_PVE.png |
+| Số người. | render-failed-vn-residue | 1 | roomlist.swf::27_asset.DungeonList.placeCount_PVE.png |
 | Haz doble clic.aquí para Iniciar Juego. | no-translation | 1 | serverList.swf::11_asset.serverlist.enterGame.png |
-| Chiến đầu giữa các người chơi với nhau, hệ thống sẽ ngẫu nhiên sắp đặt bản đề. và đồi thủ. | no-translation | 1 | roomlist.swf::69_asset.roomList.explainText_2.png |
-| Mô hình này có bao nhiêu là quan ải, giết được BOSS cuối cùng bạn sẽ được rất nhiều bảo vật. | no-translation | 1 | roomlist.swf::71_asset.DungeonList.explainText_1.png |
+| Chiến đầu giữa các người chơi với nhau, hệ thống sẽ ngẫu nhiên sắp đặt bản đề. và đồi thủ. | render-failed-vn-residue | 1 | roomlist.swf::69_asset.roomList.explainText_2.png |
+| Mô hình này có bao nhiêu là quan ải, giết được BOSS cuối cùng bạn sẽ được rất nhiều bảo vật. | render-failed-vn-residue | 1 | roomlist.swf::71_asset.DungeonList.explainText_1.png |
 | PM HA ì | no-translation | 1 | hall.swf::311.png |
 | Mô hình luyện tập thường, có thẻ nhận được phần thưởng kinh nghiệm. | render-failed-vn-residue | 1 | roomlist.swf::70_asset.roomList.explainText_1.png |
-| 2 Chưa chọn | no-translation | 1 | roomlist.swf::64_asset.roomList.hardLevel_0.png |
-| Anh Hùng | no-translation | 1 | roomlist.swf::59_asset.roomList.hardLevel_04.png |
-| xin nhập ID phòng | no-translation | 1 | roomlist.swf::52_asset.roomList.inputID.png |
-| viật mã | no-translation | 1 | roomlist.swf::30_asset.roomList.Pass.png |
 | đầu tư ít lời . Ñ - "GV L Mở event: >> — | no-translation | 1 | wonderfulactivity.swf::87_wonderfulactivity.farme.backgroud.png |
 | xuluyèngnoain® — Y "Thích làm người no heng thì hay colemao! g "ẤẠ si 7 4\| 7 ¡ - | render-failed-vn-residue | 1 | wonderfulactivity.swf::7_wonderfulactivity.hero.back.png |
 | NÊN .. 120g CO ¬ 2 + 9922 / ú Chúc mừng! 5 Š Bạn nhận được các vật phẩm sau s ® -. Ñ ® ® „5t s .s % Ố ® % ® s s sốdư ÿ Đầutư 2P ca. . g2 - —— ÃA 22 ^A | no-translation | 1 | awardsystem.swf::103_asset.awardSystem.surpriseRoulette.bg.png |
@@ -170,7 +83,6 @@ SWFs share the same caption/tooltip wording, so this list is phrases, not images
 | Em E2 mm ng —— h Tên sôlượng” conlại. \| Giá chót' Trạng thái. \| Giá. \| | no-translation | 1 | auction.swf::56_asset.auctionHouse.BuyBG.png |
 | “Chào mừng các Gunner đến với Vòng quay. may mắn! Xin lưu ý: 1. Trong thời gian Event, Qunner có 1 cơ hội trong ngày để thử vận may. 2. Xu khuyến mãi chỉ có thể | render-failed-vn-residue | 1 | roulette1.swf::8_asset.roulette.helpBG.png |
 | .đn Sa > ca 5 | no-translation | 1 | awardsystem.swf::104_asset.awardSystem.surpriseRoulette.bg1.png |
-| lạ N&Z lễ _ * Z ,Z Nấp Tích LữV Nhân Quà] tên Ta, | no-translation | 1 | wonderfulactivity.swf::84_wonderful.accumulative.title.png |
 | ¬ XÃ. %7 s Bắt đầu LH 2 ° | no-translation | 1 | roulette.swf::7_asset.roulette.startDownBtn.png |
 | T0 nnscogiEn E2iaiinhorbonlia\eapGozsokaYeapr4Teso] atenergioemctogoteoroirotrggopgtrndiGuoer kiện được) oi ở 14:00417-00SVờng 2 Ìmở) E065, (S§Người/chơi!s€Jbát | render-failed-vn-residue | 1 | elitegame.swf::6_EliteGame.ruleBmp.png |
 | SN Nhà vô địch >SSì .— Í \| | no-translation | 1 | elitegame.swf::22_EliteGame.pauungview.championBG.png |
@@ -179,7 +91,6 @@ SWFs share the same caption/tooltip wording, so this list is phrases, not images
 | “Đá may mắn đổi vũ khiixin ˆ Thiên sứ baniphuetang'qua. kế k g LUẬI 2.48 Chiến Thên (11/99V/9610) ke >7 xe. vì - (>> é 4“ EYODAS 2 SANNẦ ./ Kí ( 9 “ ẹ Ầ S ;; 2% | render-failed-vn-residue | 1 | wonderfulactivity.swf::11_wonderfulactivity.luck.backgroud.jpg |
 | ..xx*® =>. >> X ¬ Ñ SA \| Yêu cầu Nhận thưởng. Trạngtháinhận. \| \| \| \| \| \| \| | no-translation | 1 | wonderfulactivity.swf::60_carnicalAct.bg.jpg |
 | ⁄a .ì Lm | no-translation | 1 | store.swf::153_asset.store.wishBeadBG1.jpg |
-| ca ¬ ` Di chuyên Ậ | no-translation | 1 | store.swf::14_asset.store.transfBG.jpg |
 | mm vật phẩm IETIA giá \| Vạt phăm tôi đầu giá\| phẩm tôi đầu giá | no-translation | 1 | auction.swf::54_asset.auctionHouse.TitleBuy_btn.png |
 | mm vật phẩm \|“Đáugiá)\| giá. lư mm phẩm tôi đầu giá | no-translation | 1 | auction.swf::53_asset.auctionHouse.TitleSell_btn.png |
 | [Tìm vật phám \| vật phẩm \| Em giá IoEETE phẩm tôi đầu giá | no-translation | 1 | auction.swf::52_asset.auctionHouse.TitleBrowse_btn.png |
@@ -187,379 +98,185 @@ SWFs share the same caption/tooltip wording, so this list is phrases, not images
 | l \| Xu tích lũy $ <X.... : | render-failed-vn-residue | 1 | luckstar.swf::2_luckyStar.view.SuperLuckyStarBg.jpg |
 | =“Sè. 4i 1] G -. ơm l4 Trang bị SA ¬ ¬ 4 h chúc phúc Mì L— | render-failed-vn-residue | 1 | forgemain1.swf::1_asset.wishBead.leftViewBg.png |
 | z“Sè. ¿4\| q ] (Châu báu' 4 Trang bị HS ¬ ¬ h LN chúc phúc, HH L | render-failed-vn-residue | 1 | forgemain.swf::17_asset.wishBead.leftViewBg.png |
-| (Gì #SpaccbarE (thanh n lực đạt [buông] :a có thể bắn | no-translation | 1 | firsttainer.swf::157.png |
 | P7 SN ‹ ` Thành phẩm Ñ 5 ———l | no-translation | 1 | bagandinfo1.swf::60_equipretrieve.trieveCell1.png |
 | tết TT | no-translation | 1 | store.swf::162_store.StoreIIFailBitAsset.png |
-| Dãnh sách chức VỊ kim hiêu quyền họn | no-translation | 1 | consortionii.swf::131_asset.consortion.jobManage.bg.png |
-| : — : ; Tiệmãrèn E | no-translation | 1 | consortia.swf::19_asset.consortia.myConsortiaView.smithBtn.png |
 | Ñ = ;; Cấp hiện tại. Cấp kế: Nguyên, Tốn liệu \| Exp tăng [euiidl=epThenglconglcoofnhenJGuccinemTcong] [nh.eule ~pTkhiuyeno | render-failed-vn-residue | 1 | bagandinfo.swf::100_asset.bagAndInfo.bag.NecklacePtetrochemicalView.bg.png |
 | hết Đại wse«o | no-translation | 1 | ddtstore.swf::100_asset.ddtstore.StoreIIFailBitAsset.png |
-| _"~ Bắt đâu/ | no-translation | 1 | luckstar.swf::12_luckyStar.view.BtnStartBg.png |
 | Trang \| bị. [ | no-translation | 1 | store.swf::145_asset.store.EquipBG.png |
-| € Dịch chuyển! ) | no-translation | 1 | store.swf::3_asset.store.transfStartBtn.png |
-| Dịch chuyên thuộc tính | no-translation | 1 | store.swf::7_asset.store.transfArrowBG.png |
-| Chủnhật Thứi Thứ2 Thứ# Thứ Thứ Thứ© | no-translation | 1 | calendar.swf::3_Calendar.Grid.Title.png |
-| ải ƒ Lực chiến Ì | no-translation | 1 | wonderfulactivity.swf::5_wonderfulactivity.powerBitmap.png |
 | í “Cường hóa” \| | render-failed-vn-residue | 1 | store.swf::44_asset.store.StrengthBtn.png |
-| ~^# iTaoïguild Ầ | no-translation | 1 | consortionclub.swf::24_asset.club.createConsortiaBtn.png |
+| ~^# iTaoïguild Ầ | render-failed-vn-residue | 1 | consortionclub.swf::24_asset.club.createConsortiaBtn.png |
 | Đôi phần tông | no-translation | 1 | worldboss.swf::5_asset.worldbossAwardRoom.rightBg2.png |
 | ⁄ ` Cấp 8-10 sử dụng | render-failed-vn-residue | 1 | consortionii.swf::99_asset.consortiaii.level10BtnSelected.png |
 | 2 T (Tú cường Xĩ (hóa ưu đãi | no-translation | 1 | store.swf::135_asset.store.BuyGiftBagBG.png |
 | 244i Lì Em Vó, Server | no-translation | 1 | noviceactivity.swf::16.png |
 | Tài sản Guild không đủ,cách tăt tài ng là lu 1. Làm nhiệm vụ Guild 2. Gulld chiến 3. Quyên tài sản Bây gờ quyên tài sản cho Guid không? | render-failed-vn-residue | 1 | consortionii.swf::130_asset.consortion.remainFrame.word.png |
-| Đức cao vọng trọng | no-translation | 1 | academycommon.swf::17_asset.academyCommon.RecommendPlayerCellView.masterHonor4.png |
-| " Bùa ma thuật N Z | no-translation | 1 | store.swf::151_asset.store.GodBG.png |
-| (Tìm ngẫu nhiên) | no-translation | 1 | consortionclub.swf::4_asset.club.randomSearchBtn.png |
-| “TinhlƯuyện 2 | no-translation | 1 | bagandinfo1.swf::78_equipretrieve.ensureBt.png |
-| thấp chọn 68 tí luyện vệt ghẩm | no-translation | 1 | bagandinfo1.swf::62_asset.trieve.StartStrengthTip.png |
+| " Bùa ma thuật N Z | render-failed-vn-residue | 1 | store.swf::151_asset.store.GodBG.png |
 | Mỹ LẠ | no-translation | 1 | farm.swf::219.png |
-| IBắt1đàu J | no-translation | 1 | labyrinth.swf::17_ddt.labyrinth.startGmaeBtn.png |
 | CápX123 sử dụng | no-translation | 1 | consortionii.swf::98_asset.consortiaii.level3Btn.png |
-| [2hànthưởng vượt ải làn/đâu tiện) | no-translation | 1 | awardsystem1.swf::93_asset.awardSystem.timeBox.FightLibTip.png |
-| (4Xingia nhập! | no-translation | 1 | consortionclub.swf::34_asset.club.applyBtn.png |
+| [2hànthưởng vượt ải làn/đâu tiện) | render-failed-vn-residue | 1 | awardsystem1.swf::93_asset.awardSystem.timeBox.FightLibTip.png |
 | INnapveogayicli cruyên tộc tình rang bị | no-translation | 1 | store.swf::53_asset.store.transfStartTip.png |
-| Nhấp vao @Ry hợp thênh teng bị | no-translation | 1 | store.swf::113_asset.store.StartComposeTip.png |
-| Z2 hề Đào Kho báu | no-translation | 1 | farm.swf::108.png |
-| II << Thông tin 5 cá nhân | no-translation | 1 | bagandinfo1.swf::45_asset.infoBtn1.png |
-| in, \ Quy định g.đấu | no-translation | 1 | elitegame.swf::7_EliteGame.rule.unselected.png |
-| T—M tệ? Hộp quà | no-translation | 1 | bagandinfo1.swf::49_asset.giftBtn1.png |
 | ⁄ ® (hóa x | no-translation | 1 | store.swf::21_asset.store.strengthBtn.png |
-| (dung luyện' | no-translation | 1 | store.swf::24_asset.store.fusionBtn.png |
 | 7Ð I-xxgX aỊ M” Là :#r An + “Đá may măn:? v4 M IH ~x H H \| / mm N4 | no-translation | 1 | wonderfulactivity.swf::12_wonderfulactivity.luck.btn.png |
-| CA Thú củng | no-translation | 1 | bagandinfo1.swf::74_asset.petBtn2.png |
 | = thành | no-translation | 1 | store.swf::114_asset.store.composeBtn.png |
-| Q. Xem thử | no-translation | 1 | store.swf::143_asset.store.PreviewBtn.png |
-| khảm nạm | no-translation | 1 | store.swf::110_asset.store.embedBtn.png |
 | Khảm nạm cần vàng, tiếp tục không? Chú ý : châu báu sau khi khảm nạm sẽ bị che lấp | render-failed-vn-residue | 1 | store.swf::105_asset.store.embedAlert2.png |
-| Chiêu mộ „ thành viên | no-translation | 1 | consortia.swf::56_asset.consortia.myConsortiaView.auditingApplyBtn.png |
-| Người bán | no-translation | 1 | auction.swf::33_asset.auctionHouse.SellPerson.png |
-| QYoïr"sư đồ | no-translation | 1 | academycommon.swf::31_asset.academyCommon.myAcademy.freeBtn.png |
 | ó tùng lực (60iWowde bán! | no-translation | 1 | firsttainer.swf::166.png |
 | Lời hội tưởng | no-translation | 1 | consortia.swf::55_asset.consortia.myConsortiaView.chairChannelBtn.png |
-| Quản lý guild | no-translation | 1 | consortia.swf::31_asset.consortia.myConsortiaView.consortiaAssetManagerBtn.png |
 | lũ ẵ | no-translation | 1 | ddtstore.swf::93_asset.ddtstore.FusionTabBtnUnSelected.png |
 | \| t@/vạtma'cáp2 | no-translation | 1 | bagandinfo1.swf::3_bagAndInfo.bag.settedPWDAsset.png |
-| Thoát khỏi guld | no-translation | 1 | consortia.swf::48_asset.consortia.myConsortiaView.exitConsortiaBtn.png |
-| ® Bán hết. | no-translation | 1 | awardsystem.swf::67_asset.caddy.SellAllBtn.png |
 | Tên \| | no-translation | 1 | auction.swf::40_asset.auctionHouse.GoodsName.png |
 | í x†nanglthu Ồ muthập/đá em | no-translation | 1 | awardsystem1.swf::9_asset.caddy.badLuck.BadLuckBtnI.png |
 | (Cường hóa trang bị dưới cấp 5,không bị giảm cấp khi thất bại) | render-failed-vn-residue | 1 | store.swf::90_store.StoreIIFiveFailBitAsset.png |
 | rang DI ì | no-translation | 1 | academycommon.swf::23_asset.academyCommon.academyRequest.look.png |
 | \| Sử dụng ) | no-translation | 1 | newtitle.swf::2_asset.newTitle.useBtn.png |
-| lfelt vào đây đề dung luyện | no-translation | 1 | ddtstore.swf::313.png |
-| kiếp tục. | no-translation | 1 | roulette1.swf::5_asset.roulette.recur.png |
-| Thao tác | no-translation | 1 | consortionii.swf::57_asset.consortion.takeIn.operate.png |
-| Thoát - khỏi guild - | no-translation | 1 | consortion.swf::67_asset.building.exit.png |
 | /& ^À G Em phánhƯơng) | no-translation | 1 | awardsystem.swf::26_asset.caddy.LookBtn.png |
 | /& ^ G Em phánhƯơng) | no-translation | 1 | awardsystem1.swf::76_asset.caddy.LookBtn.png |
-| Glleic vào 6ây đồ dịch chuyên | no-translation | 1 | ddtstore.swf::131.png |
-| .W——Y——. (Phần thưởng; | no-translation | 1 | awardsystem.swf::87_asset.caddy.badLuck.AwardBtnI.png |
-| " W—_—Y——=. N (Phần thưởng; | no-translation | 1 | awardsystem1.swf::20_asset.caddy.badLuck.AwardBtnI.png |
 | \| Dừng ) | no-translation | 1 | ddtstore.swf::9_asset.newFusion.stopBtn.png |
 | \| Thông báo gưảd | no-translation | 1 | consortia.swf::51_asset.consortia.myConsortiaView.displayBoardBtn1.png |
 | Lời hôi -„ trưởng | no-translation | 1 | consortion.swf::72_asset.building.chairmanChanel.png |
 | \| Giá \| | no-translation | 1 | auction.swf::32_asset.auctionHouse.BidPrice.png |
 | năng nhân | no-translation | 1 | consortionii.swf::52_asset.consortion.skillFrame.personalSkill2.png |
-| Chiêu mộ | no-translation | 1 | consortion.swf::21_asset.building.takeIn.png |
 | @X:“hangithut thập đá | no-translation | 1 | awardsystem.swf::22_asset.caddy.badLuck.BadLuckBtnII.png |
 | X‹“hangithul thập đá | no-translation | 1 | awardsystem1.swf::8_asset.caddy.badLuck.BadLuckBtnII.png |
 | Kỹ\|nang Guild | no-translation | 1 | consortionii.swf::128_asset.consortion.skillFrame.consortionSkill2.png |
-| ® Bán hết | no-translation | 1 | awardsystem1.swf::39_asset.caddy.SellAllBtn.png |
-| “Thông báo gái | no-translation | 1 | consortia.swf::50_asset.consortia.myConsortiaView.displayBoardBtn2.png |
 | \| thạchthằn bí \| | no-translation | 1 | quest.swf::56_asset.core.quest.buySpinelBtn.png |
 | 3m nhệp 09m ©effi) (Ð Lập Guild cần điều kiện sau 9 809%9 © Nhận cột đạt trên gấp (2 ® 60008 công | no-translation | 1 | consortionclub.swf::23_asset.createConsortionFrame.BG.png |
-| @ IMuaTthứciăn! | no-translation | 1 | farm.swf::15_asset.farm.buyExpBtnBG.png |
-| Thuyết minh: 1 : 1.Các thành viên Guild đều nhận được thư này. '2 : Mỗi lằn gửi thư Guild cần 1000 điểm tài sản. | no-translation | 1 | consortionii.swf::121_asset.consortion.mail.explain.png |
-| Q.ợi sư đồ | no-translation | 1 | academy.swf::19_asset.academy.freeBtn.png |
 | “Tối mời. | no-translation | 1 | consortionclub.swf::9_asset.club.inviteRecord2.png |
-| Bảng phần thưởng | no-translation | 1 | gameover.swf::29_asset.takeoutCard.TitleBitmap.png |
 | \| Giải phong án) | no-translation | 1 | cardsystem.swf::58_asset.cardEquipView.openBtn.png |
-| Lò rèn | no-translation | 1 | store.swf::8_asset.newStore.tabForge.unSelectedBtn.png |
+| Lò rèn | render-failed-vn-residue | 1 | store.swf::8_asset.newStore.tabForge.unSelectedBtn.png |
 | Tínhnăng,VIP,và! túi VIP \| | no-translation | 1 | vipview.swf::7_asset.vip.vipStatusBtn2.png |
 | Bạn có 2 lằn lật bài miễn phí và tiêu thêm xu đề lật thêm 1 lần. | render-failed-vn-residue | 1 | gameover.swf::38_asset.takeoutCard.InstructionBitmap.png |
-| ( Ktratên ` | no-translation | 1 | bagandinfo1.swf::76_bagAndInfo.reworkname.check_over.png |
 | ——— ” \| \ ? Gia Oông 7 . ¿ Gia Công ï lÀ M . U | no-translation | 1 | ddtstore.swf::27_asset.newStore.tabFine.selectedBtn.png |
-| Tứ kết | no-translation | 1 | elitegame.swf::25_EliteGame.pauungview.§8§.png |
 | (Cường hóa trang bị dưới cấp 5,không bị giảm cấp khi thát bại) | render-failed-vn-residue | 1 | ddtstore.swf::99_asset.ddtstore.StoreIIFiveFailBitAsset.png |
 | Tên Cấp Lực chiến Trạng thái I | render-failed-vn-residue | 1 | academy.swf::27.png |
 | =—Ý}J”Ỷ—SSS Ĩ Tiệm rèn \| | no-translation | 1 | ddtstore.swf::10_asset.newStore.tabStore.selectedBtn.png |
 | Tháo châu báu cần. 200. xu, tiếp tục không? | render-failed-vn-residue | 1 | store.swf::104_asset.store.embedBackoutAlert.png |
 | Nhân GeÏtUr | no-translation | 1 | academy.swf::30.png |
-| Vòng loại | no-translation | 1 | elitegame.swf::28_EliteGame.pauungview.§16§.png |
-| Bán kết | no-translation | 1 | elitegame.swf::26_EliteGame.pauungview.§4§.png |
-| (Trước) | no-translation | 1 | auction.swf::38_asset.auctionHouse.borwse.prev.png |
-| & Nội dung: | no-translation | 1 | calendar.swf::24_Calendar.Activity.iconContent.png |
-| Tông C trạng | no-translation | 1 | gameover.swf::16_asset.experience.TotalExploitTxt.png |
 | StWÝXmms * | no-translation | 1 | wonderfulactivity.swf::48_wonderfulactivity.newgamebenifit.progressframe.png |
-| (&» Trợ giúp | no-translation | 1 | farm.swf::242.png |
-| ⁄ ` Quản V chức vị | no-translation | 1 | consortionii.swf::101_asset.chairmanChannel.jobManage.png |
-| VIPISieuT©áp | no-translation | 1 | wonderfulactivity.swf::31_carnicalAct.title16.png |
 | \| Tính năng VIP và túi VIP | no-translation | 1 | vipview.swf::8_asset.vip.vipStatusBtn1.png |
-| Dunglluyện | no-translation | 1 | ddtstore.swf::96_asset.ddtstore.FusionBtn.png |
-| ⁄ ` Tuyên bồ guild | no-translation | 1 | consortionii.swf::123_asset.chairmanChannel.declaration.png |
+| ⁄ ` Tuyên bồ guild | render-failed-vn-residue | 1 | consortionii.swf::123_asset.chairmanChannel.declaration.png |
 | ⁄ ` Nâng cấp gulld | render-failed-vn-residue | 1 | consortionii.swf::3_asset.chairmanChannel.upGrade.png |
-| Chọn thức ăn | no-translation | 1 | farm.swf::298_assets.farmHouse.selectHouseCompose.png |
-| (Mở/cho bạn bè) | no-translation | 1 | vipview.swf::22_asset.vip.giveOthersOpenedBtn2.png |
-| DY”53đcmy Sứ mệnh guñd | no-translation | 1 | consortionii.swf::1_asset.consortion.SeltaskI.png |
-| [Diichuyên | no-translation | 1 | ddtstore.swf::51_asset.ddtstore.TransferBtn.png |
-| "87 CAU hôn, | no-translation | 1 | academy.swf::21_asset.academy.courtshipBtnAsset.png |
-| lv. ôi Thư Gulld | no-translation | 1 | consortionii.swf::71_asset.chairmanChannel.mail.png |
 | IEXxpXthêm | no-translation | 1 | gameover.swf::94_asset.experience.attachExpItemTitle.png |
 | TẾ) Đồ trong túi công kích hoặc thông đến kết sắt | no-translation | 1 | consortionii.swf::13_asset.consortion.bank.title.png |
-| Tiên]hóaTpet | no-translation | 1 | wonderfulactivity.swf::75_carnicalAct.title11.png |
 | 2Ý chương QUuI\|d | no-translation | 1 | consortion.swf::73_asset.consortion.buyBadgeBtnTxt.png |
-| Œœ9Chat mật | no-translation | 1 | academy.swf::4_asset.academy.talkBtnAsset.png |
-| Nhượng gulld | no-translation | 1 | consortionii.swf::9_asset.chairmanChannel.transfer.png |
 | Uuyện \| | no-translation | 1 | bagandinfo.swf::99_asset.bagAndInfo.bag.NecklacePtetrochemicalView.PtetrochemicalBtn.png |
-| l¬ Nội dung: | no-translation | 1 | activeevents.swf::6_asset.activeEvents.iconContent.png |
 | Mở,cho; mình \| | no-translation | 1 | vipview.swf::20_asset.vip.giveYourselfOpenBtn2.png |
 | Lỗ plnemg) êm | no-translation | 1 | store.swf::88_asset.store.transfer.Hole.png |
-| “Giá chót” | no-translation | 1 | auction.swf::24_asset.auctionHouse.Browse.MouthfulR.png |
-| Hãy nhập số lượng đầu giá | no-translation | 1 | auction.swf::11_asset.auctionHouse.SellLeftAlerBg.png |
-| Thêm bạn, | no-translation | 1 | academycommon.swf::30_asset.academyCommon.myAcademy.addFriendBtn.png |
 | \| Thêm bạn | no-translation | 1 | academy.swf::23_asset.academy.addBtnAsset.png |
-| Sửa thông báo Thăng chức/gián chức Khai trừ Chiêu mộ Gulld chiến | no-translation | 1 | consortionii.swf::50_asset.consortion.jobManage.pm2.png |
 | “Giá đấu \| | no-translation | 1 | auction.swf::63_asset.auctionHouse.Browse.BidR.png |
 | HỢD] + Õ hàn h | no-translation | 1 | ddtstore.swf::295.png |
-| IP Điểm cổng Ñ hiến tuân | no-translation | 1 | consortion.swf::13_asset.placardAndEvent.weekOffer1.png |
 | xá ⁄Z STECNGTH CN | no-translation | 1 | wonderfulactivity.swf::94_wonderfulactivity.strength6.png |
 | Equa tác chiên | no-translation | 1 | gameover.swf::43_asset.experience.fightExpItemTxt_b2.png |
 | \| Vòng bảng | no-translation | 1 | elitegame.swf::1_EliteGame.ruleView.showRank.png |
 | — ÀN me | no-translation | 1 | ddtstore.swf::54_asset.ddtstore.TransferArrow.png |
-| Dùng Đá mmê/cung x2'phần thưởng | no-translation | 1 | labyrinth.swf::7_ddt.labyrinth.doubleAward.png |
-| 7ƒ k—xẬậk= Điểm cống hiến tuần | no-translation | 1 | consortion.swf::12_asset.placardAndEvent.weekOffer2.png |
 | TA4Lũ) guild | no-translation | 1 | consortion.swf::70_asset.placardAndEvent.event1.png |
 | \| Tạo phòng | no-translation | 1 | elitegame.swf::20_EliteGame.ruleView.joinScoreRoom.png |
-| Chú ý:Hiệu lực trong ngảy số điểm dự sẽ chuyên sang exp, hoặc công trạng. | no-translation | 1 | worldboss.swf::29.png |
 | nhận (Đã nnận \| | no-translation | 1 | wonderfulactivity.swf::22_wonderfulactivity.getover.png |
 | 1 Thư \| | no-translation | 1 | academycommon.swf::32_asset.academyCommon.myAcademy.emailBtn.png |
-| Mở cho bạn bè | no-translation | 1 | vipview.swf::23_asset.vip.giveOthersOpenedBtn1.png |
-| (“Hồi sinh] | no-translation | 1 | consortiabattle.swf::3_asset.consortiaBattle.stayRes.png |
-| [Bảng )Xép Hạng. | no-translation | 1 | luckstar.swf::9_luckyStar.view.RankBtnBG.png |
 | \| N \| hệ n | no-translation | 1 | wonderfulactivity.swf::24_wonderfulactivity.big.get.png |
-| .> Thời gian: | no-translation | 1 | activeevents.swf::5_asset.activeEvents.iconGive.png |
 | @me@a\| \| Hãy nhập giá đấu | no-translation | 1 | auction.swf::10_asset.auctionHouse.Browse.BidBG.png |
 | \| Tích lũy x2 | no-translation | 1 | consortiabattle.swf::7_asset.consortiaBattle.doubleScoreBtn.png |
-| 'G3Trời gian: | no-translation | 1 | calendar.swf::4_Calendar.Activity.iconTime.png |
 | liranglpi ¬ Dị | no-translation | 1 | ddtstore.swf::253.png |
 | em. : ị ‡ ma | no-translation | 1 | farm.swf::144.png |
-| N (“Sứ mệnh guild | no-translation | 1 | consortion.swf::17_asset.consortion.taskI.png |
-| Gia Công | no-translation | 1 | ddtstore.swf::28_asset.newStore.tabFine.unSelectedBtn.png |
-| (Trước) rước | no-translation | 1 | academy.swf::9_asset.academy.preBtnAsset.png |
-| A=¬z.—z£x Thông báo guild | no-translation | 1 | consortion.swf::30_asset.placardAndEvent.placard2.png |
+| A=¬z.—z£x Thông báo guild | render-failed-vn-residue | 1 | consortion.swf::30_asset.placardAndEvent.placard2.png |
 | \| 1 1 \| 4i 4i ịi Ii M M | no-translation | 1 | farm.swf::83_asset.farm.baseImage1.png |
 | \| “PhU Hiệu \| | no-translation | 1 | ddtstore.swf::8_asset.newStore.emblem.unSelectedBtn.png |
 | Mở từ trong DI | no-translation | 1 | calendar.swf::11_Calendar.Activity.openBag.png |
 | Nhấp chọn loại rương muốn mở | render-failed-vn-residue | 1 | awardsystem.swf::64_asset.bead.selectNodeI.png |
-| Mở cho mình | no-translation | 1 | vipview.swf::21_asset.vip.giveYourselfOpenBtn1.png |
-| [Mủa thời trang! | no-translation | 1 | bagandinfo1.swf::69_bagAndInfo.info.buyAvatarAsset.png |
 | am lỗ | no-translation | 1 | store.swf::82_asset.store.embedOpenHoleBtn.png |
-| LòRèn | no-translation | 1 | ddtstore.swf::43_asset.newStore.tabForge.unSelectedBtn.png |
 | Điêmmey. liểm cũa tôi\| Dự đoán hôm. | no-translation | 1 | calendar.swf::14_Calendar.LuckyNum.Grid.png |
-| Đơn xin | no-translation | 1 | consortionclub.swf::33_asset.club.applyRecordBtn1.png |
-| Lời mời | no-translation | 1 | consortionclub.swf::10_asset.club.inviteRecord1.png |
-| 7 NH 4 -Tháo bỏ | no-translation | 1 | store.swf::121_asset.store.embedBackoutDownItem.png |
-| Thỗ phụ1 | no-translation | 1 | cardsystem.swf::6_asset.cardEquipView.viceCard1.png |
-| Danh sách Gưild | no-translation | 1 | consortionclub.swf::27_asset.club.consortionLists.png |
-| Thẻ phụ3 | no-translation | 1 | cardsystem.swf::12_asset.cardEquipView.viceCard3.png |
-| Thẻ phụ2 | no-translation | 1 | cardsystem.swf::10_asset.cardEquipView.viceCard2.png |
-| Thẻ phụ4 | no-translation | 1 | cardsystem.swf::16_asset.cardEquipView.viceCard4.png |
+| Lời mời | render-failed-vn-residue | 1 | consortionclub.swf::10_asset.club.inviteRecord1.png |
 | em \| chứng | no-translation | 1 | quest.swf::55_asset.core.quest.collectInfo.Check.png |
 | Lo Ga \| <>V” Hiện | no-translation | 1 | consortiabattle.swf::20.png |
 | \| Mử khúa/khúa | no-translation | 1 | ddtstore.swf::13_asset.store.evolutionLock.png |
 | ITX) 4 j › ý | no-translation | 1 | wonderfulactivity.swf::109_wonderfulactivity.orderNo2Asset.png |
-| Petihiếm | no-translation | 1 | farm.swf::4_assets.farm.newPetCome.png |
 | “Trạng thái \| | no-translation | 1 | auction.swf::8_asset.auctionHouse.topLb5.jpg |
-| NhậpIQuild | no-translation | 1 | store.swf::112_asset.store.consortiaBG.png |
 | = (tiep MỊ? | no-translation | 1 | quest.swf::2_asset.core.quest.QuestCateTitle5Collapsed.png |
 | ó H À é me, | no-translation | 1 | academy.swf::10_asset.academy.online_Asset.png |
 | U.hệ chủ G | no-translation | 1 | consortionclub.swf::26_asset.club.contactChairmanBtn.png |
-| thuốc tăng trưởng | no-translation | 1 | farm.swf::24_assets.farmShop.unSelectManure.png |
 | “Giá chót \| | no-translation | 1 | auction.swf::23_asset.auctionHouse.topLb4.jpg |
-| “Công trạng | no-translation | 1 | consortionii.swf::58_asset.consortion.shop.offerbg.png |
-| Kiều trả phía | no-translation | 1 | ddtstore.swf::86_asset.store.SelectMoneyTip.png |
-| Kiều trả phí: | no-translation | 1 | store.swf::72_asset.store.SelectMoneyTip.png |
-| Tên; | no-translation | 1 | auction.swf::22_asset.auctionHouse.topLb1.jpg |
-| Chọn hét | no-translation | 1 | consortionii.swf::44_asset.consortion.takeIn.selectAll2.png |
+| Kiều trả phí: | render-failed-vn-residue | 1 | store.swf::72_asset.store.SelectMoneyTip.png |
 | [Cống hiền \| | no-translation | 1 | consortionii.swf::8_asset.consortion.shop.ttOfferBg.png |
-| "Thành công | no-translation | 1 | store.swf::35_asset.store.FusionSuccessRates.png |
-| Khiêu/Chiền" | no-translation | 1 | labyrinth.swf::6_ddt.labyrinth.todayNum.png |
-| HợpXthành | no-translation | 1 | farm.swf::77_assets.farmShop.btnCompose.png |
-| Hủy xin phép, | no-translation | 1 | consortionclub.swf::31_asset.club.canelApply.png |
-| INGƯỜI | no-translation | 1 | consortionclub.swf::6_asset.club.memberNums.png |
-| "“ Chỉ phí | no-translation | 1 | bagandinfo1.swf::42_bagAndInfo.cellMenu.addPriceAsset.png |
 | TRDận lời mới, | no-translation | 1 | consortionclub.swf::35_asset.club.acceptInvite.png |
-| Hạng của bạn | no-translation | 1 | elitegame.swf::19_EliteGame.scoreRank.myRank.png |
-| kTúi hiện có: | no-translation | 1 | awardsystem.swf::12_asset.caddy.FontII.png |
-| ì Đã nhận] | no-translation | 1 | noviceactivity.swf::2_asset.novice.rightview.awarditem.alreadygetbtn.png |
-| Tøp 10 gunner nhận được phần thưởng. | no-translation | 1 | awardsystem.swf::58_asset.RBadLuck.FontR.png |
+| ì Đã nhận] | render-failed-vn-residue | 1 | noviceactivity.swf::2_asset.novice.rightview.awarditem.alreadygetbtn.png |
 | Nivật: | no-translation | 1 | elitegame.swf::17_EliteGame.scoreRank.nameBmp.png |
-| Đã gửi ị | no-translation | 1 | quest.swf::59_asset.core.quest.collectInfo.Already.png |
-| Chiêu mộ Gulld chiến | no-translation | 1 | consortionii.swf::49_asset.consortion.jobManage.pm3.png |
-| Người | no-translation | 1 | consortia.swf::9_asset.consortia.myConsortiaView.titleWord3.png |
-| (mở, liên tục: | no-translation | 1 | awardsystem.swf::91_asset.awardSystem.AutoOpen.png |
-| [mở, liên tục: | no-translation | 1 | awardsystem1.swf::17_asset.awardSystem.AutoOpen.png |
 | Nhấp để tiền hành dát vàng | render-failed-vn-residue | 1 | forgemain1.swf::10_asset.awardSystem.bagEquip.png |
 | Nhấp để tiến hành đát vàng | render-failed-vn-residue | 1 | forgemain.swf::16_asset.awardSystem.bagEquip.png |
-| Chũ guild không công bố sứ mệnh mới! | no-translation | 1 | consortion.swf::35_asset.conortionTask.notask.png |
-| Ị Chọn hốt | no-translation | 1 | consortionii.swf::45_asset.consortion.takeIn.selectAll1.png |
-| C.trạng chiến đầu | no-translation | 1 | gameover.swf::63_asset.experience.exploitExpItemTxt_a0.png |
-| V lỗ kim | no-translation | 1 | store.swf::106_asset.store.CheckBtnGiftBG.png |
-| luyện | no-translation | 1 | ddtstore.swf::57_asset.newFusion.canFusion.png |
+| C.trạng chiến đầu | render-failed-vn-residue | 1 | gameover.swf::63_asset.experience.exploitExpItemTxt_a0.png |
 | INhậpllalltên3 | no-translation | 1 | vipview.swf::12_asset.vip.repeatName.png |
 | \| Quản lý › | no-translation | 1 | store.swf::159_asset.store.consortiaManager.png |
-| Hquả tóc chiến | no-translation | 1 | gameover.swf::47_asset.experience.fightExpItemTxt_a2.png |
-| ( Giúp đỡ ` | no-translation | 1 | consortia.swf::45_asset.consortia.myConsortiaView.helpBtn.png |
 | ấ N k AÁ | no-translation | 1 | farm.swf::74_asset.farmHouse.composeBg.png |
-| Fe“ Huớng dân ` tỷ m ” | no-translation | 1 | store.swf::101_asset.store.EmbedNodeBtn.png |
+| Fe“ Huớng dân ` tỷ m ” | render-failed-vn-residue | 1 | store.swf::101_asset.store.EmbedNodeBtn.png |
 | Tae Hướng gắn ' ứkEaiz2 | no-translation | 1 | store.swf::4_asset.store.transfNodeBtn.png |
-| Gặp đthÙ mạnh | no-translation | 1 | gameover.swf::86_asset.experience.attachExpItemTxt_a7.png |
 | G.trọng sørvsr | no-translation | 1 | gameover.swf::60_asset.experience.exploitExpItemTxt_a3.png |
 | , s L2 Descr. Síntesis: | no-translation | 1 | store.swf::141_asset.store.ComposeNodeBtn.png |
 | Thẻ x2 crạng | no-translation | 1 | gameover.swf::62_asset.experience.exploitExpItemTxt_a1.png |
-| Thay đổi, | no-translation | 1 | consortionii.swf::135_asset.consortion.jobManage.change.png |
-| Tổ đội sư đỗ | no-translation | 1 | gameover.swf::88_asset.experience.attachExpItemTxt_a5.png |
-| nhấn) Xác nhấn | no-translation | 1 | consortionii.swf::132_asset.consortion.jobManage.comfirm.png |
-| Sư đồ onling | no-translation | 1 | gameover.swf::89_asset.experience.attachExpItemTxt_a4.png |
-| ( Chitiết ` | no-translation | 1 | auction.swf::21_asset.auctionHouse.Notes.png |
-| Gulld chiền | no-translation | 1 | gameover.swf::92_asset.experience.attachExpItemTxt_a1.png |
-| Vợ chồng | no-translation | 1 | gameover.swf::91_asset.experience.attachExpItemTxt_a2.png |
-| Hạ đối thủ | no-translation | 1 | gameover.swf::49_asset.experience.fightExpItemTxt_a0.png |
+| Sư đồ onling | render-failed-vn-residue | 1 | gameover.swf::89_asset.experience.attachExpItemTxt_a4.png |
+| Gulld chiền | render-failed-vn-residue | 1 | gameover.swf::92_asset.experience.attachExpItemTxt_a1.png |
+| Gulld chiến | render-failed-vn-residue | 1 | gameover.swf::58_asset.experience.exploitExpItemTxt_a5.png |
 | Thổ x2 øxp | no-translation | 1 | gameover.swf::87_asset.experience.attachExpItemTxt_a6.png |
-| Ngày, | no-translation | 1 | consortionii.swf::124_asset.consortion.skillFrame.day.png |
-| (thành viên khác không thễ sử dụng) | no-translation | 1 | consortionii.swf::12_asset.consortion.bankFrame.title.png |
+| (thành viên khác không thễ sử dụng) | render-failed-vn-residue | 1 | consortionii.swf::12_asset.consortion.bankFrame.title.png |
 | Hồn mø | no-translation | 1 | gameover.swf::46_asset.experience.fightExpItemTxt_a3.png |
 | IMãT: | no-translation | 1 | activeevents.swf::8_asset.activeEvents.activityCardPSWII.png |
 | Tôn | no-translation | 1 | academy.swf::14_asset.academy.nameTitle.png |
-| tài/sản) | no-translation | 1 | quest.swf::42_asset.core.quest.RewardText.Type4.png |
 | điền rên. | no-translation | 1 | consortionclub.swf::17_asset.club.declareBG5.jpg |
-| Yêu cầu: | no-translation | 1 | consortionii.swf::41_asset.consortion.upGrade.require.png |
-| Hau phí: | no-translation | 1 | consortionii.swf::127_asset.consortion.upGrade.consume.png |
-| Mô tả: | no-translation | 1 | consortionii.swf::120_asset.consortion.upGrade.explainWord.png |
 | H Mì Ỹ | no-translation | 1 | farm.swf::249.png |
 | Kynan hông | no-translation | 1 | consortion.swf::8_asset.conortionTask.FontSkill.png |
-| Tôi hoan Thanh: | no-translation | 1 | consortion.swf::2_asset.conortionTask.FontII.png |
+| Tôi hoan Thanh: | render-failed-vn-residue | 1 | consortion.swf::2_asset.conortionTask.FontII.png |
 | 0ng Gống | no-translation | 1 | consortion.swf::7_asset.conortionTask.FontIMoney.png |
 | . đi Nhấp chọn số bên phải đẻ; Enhap†mã kiểm chứng) \| SN EG 0X N22 29225 2Ì 4 | no-translation | 1 | core.swf::130_asset.core.checkCodeBgAsset.png |
 | \| Bạn càn trả: Hiện có: \| 1Ø Xu 3\| ØZxu lViễkm 7 Viêm 0Ô \| ( Bạn có, vật phẩm cần tiếp phía] | render-failed-vn-residue | 1 | core.swf::63_asset.shop.ShopRechargeGoodsBg.png |
 | GuilidjShop: cáp 1 [7] Điểm hiến ng cáp 2 [7] Điểm hiến ăn: cáp s 7] Điểm hiến tăng cáp 4 [7] Điểm hiến tăng cáp s [7] Điểm hiến tăng Tiệm rèn Qui dd [C1 bin hi | no-translation | 1 | corei.swf::115_asset.core.consortionManager.BG.png |
 | \| Bạncầntả: Hiện có: \| \| ŒZ"xu Xi @Pxu ! ¡ k= T1 0 —— \| V Lễ kim J ('VLễkim \| ( Bạn có, vật,phẩm/cäniếp\|phíess | render-failed-vn-residue | 1 | coreii.swf::30_asset.shop.ShopRechargeGoodsBg.png |
-| Chúc bách niên giai lão Tở chức cưới để chứng minh tình yêu của bạn. | no-translation | 1 | core.swf::111_asset.church.AgreeProposeAsset.png |
 | Ghnuoïm Ứng nhậnTđược]túi\|VIDPDanTđainhänTđược] tong nh trưởngTsau!\| œ | no-translation | 1 | corei.swf::24_asset.vip.giftFrameTitle.png |
-| Chọn mặc thử | no-translation | 1 | core.swf::79_asset.core.tryonBgAsset.png |
-| 9 Không dễ để có 1 người hiểu mình,chẳng lẽ kết thúc tình cảm vợ chồng thật sao? [Eonbevuorzi mong 0yđle90s % | no-translation | 1 | corei.swf::126_asset.church.UnmarryAsset.png |
 | NA ôngehiênltich BS, J RiÔngJchiênitích s Ỗi xX ni EJ S gịchiênjtichg hiến) tí Ti h C Cì | no-translation | 1 | gotopage.swf::10_asset.leagueShow.recordStatisticsTitle.png |
 | S : 1L 2 7 xz x —— HẠT: STRCNGTH “ KG Evz, vn | no-translation | 1 | coreiconandtip1.swf::157.png |
 | cát [7] Điểm hiến tăng cá2 [7] Điểm hiến ng cáo [7] Điểm hiến ng các [~ 7] Điểmhiến ng cás [~ 7] Điểm hiến tng [C1 bn hiến ăn | no-translation | 1 | core.swf::266.png |
-| ⁄ si; « % Bí Kíp Vua Gà | no-translation | 1 | ddthallicon.swf::92_asset.hall.bibleIcon.png |
-| z5 . VĂN (ASỡZaC Lại tThám!Tiiểm Địa Cung | no-translation | 1 | ddthallicon.swf::387_asset.ddthall.dungeonExploration.png |
-| Trời Sính Một Cặp | no-translation | 1 | ddthallicon.swf::33_asset.hallIcon.perfectCouple.png |
 | #4 \| TW xX (.Z-] TP Đại Chiến | no-translation | 1 | ddthallicon.swf::109_assets.hallIcon.cityBattle.png |
 | Không dễ để có 1 mồi tình, định kết thúc tình cảm vợ chồng của bạn thật sao? Ly hôn trừ: 3333xu: | render-failed-vn-residue | 1 | core.swf::156_asset.church.UnmarryAsset.png |
-| @ không gian | no-translation | 1 | ddthallicon.swf::115_assets.hallIcon.buriedIcon.png |
-| Chiêm Tinh | no-translation | 1 | ddthallicon.swf::8_assets.hallIcon.zodiacIcon.png |
-| Giáng Sinh | no-translation | 1 | ddthallicon.swf::53_assets.hallIcon.witchBlessingIcon.png |
 | ⁄ˆA T Dân Giành Lì/X] | no-translation | 1 | ddthallicon.swf::45_assets.hallIcon.redEnvelope.png |
-| ⁄27ZA ` << AI ø2 Phúc Lợi | no-translation | 1 | ddthallicon.swf::81_asset.hallIcon.welfareCenterIcon.png |
 | <qà⁄ ] Ắ te XN Ả I©ode Gà Hành | no-translation | 1 | ddthallicon.swf::24_assets.hallIcon.chickActivationIcon.png |
-| Đại,tiệc vua-gà | no-translation | 1 | ddthallicon.swf::91_assets.hallIcon.DDTMatch.png |
-| ø a. La st ⁄ M Đua Ngựa | no-translation | 1 | ddthallicon.swf::42_assets.hallIcon.horseRace.png |
-| Tìm hình] | no-translation | 1 | ddthallicon.swf::97_assets.hallIcon.DDPlayIcon.png |
+| Tìm hình] | render-failed-vn-residue | 1 | ddthallicon.swf::97_assets.hallIcon.DDPlayIcon.png |
 | G2 L1 \| NA À3 j -Gulld:/ 4 Tranh Tài | no-translation | 1 | ddthallicon.swf::29_assets.hallIcon.kingDivisionIcon.png |
 | ®: \| ẽ ”% NG n Online | no-translation | 1 | ddthallicon.swf::22_asset.hall.callBackLotteryDrawIcon.png |
-| Na. hGàYcon 7 mạo hiệm | no-translation | 1 | ddthallicon.swf::118_assets.hallIcon.boguAdventureIcon.png |
-| 427A» #4 Thám'Hiểm Cưng | no-translation | 1 | ddthallicon.swf::43_assets.hallIcon.petIsland.png |
 | í fOlem tạng tiếp tục Vượt dị | no-translation | 1 | coreiconandtip1.swf::13_asset.core.payBuffAsset72.note.png |
-| Vật | no-translation | 1 | ddthallicon.swf::18_assets.hallIcon.treasureLostIcon.png |
 | í fOlem tạng tiếp tục vượt dị | no-translation | 1 | coreiconandtip.swf::95_asset.core.payBuffAsset72.note.png |
 | (ápÌhiênHtại) bạn nhận được. | no-translation | 1 | core.swf::196_asset.core.levelRewardRedLevelTipAsset.png |
-| « . Ñ 4i v là Nhược) Giảm Giá | no-translation | 1 | ddthallicon.swf::95_assets.hallIcon.panicBuyingIcon.png |
 | ông xếp Gà | no-translation | 1 | ddthallicon.swf::25_assets.hallIconl.sanxiaoBtn.png |
-| N MÀ + ¡Bàn Quay, Gunny, | no-translation | 1 | ddthallicon.swf::93_assets.hallIcon.bombTurnTable.icon.png |
-| “® Ghép Cặp | no-translation | 1 | ddthallicon.swf::111_assets.hallIcon.MemoryGameIcon.png |
-| 2ZZAX w /@ "Quà 4 Giớt Hạn | no-translation | 1 | ddthallicon.swf::203.png |
 | ra 1 4 xị + Z2 xã z < Z2 tYY)£VMZ#VYY1 < — > | no-translation | 1 | coreiconandtip1.swf::141.png |
-| L g Đầu Tư, | no-translation | 1 | ddthallicon.swf::31_assets.hallIcon.angelInvestmentIcon.png |
-| ~^ « Kho'Báu Vua Gà | no-translation | 1 | ddthallicon.swf::96_assets.hallIcon.ddQiYuanIcon.png |
 | TG H Ì | no-translation | 1 | corei.swf::135_asset.core.GuideBg_1.png |
 | Nhắc nhở : Bạn có vài trang bị quá hạn,hệ thống đã tiếp phí giúp bạn thêm 7 ngày! | render-failed-vn-residue | 1 | coreii.swf::50_asset.shop.ShopRechargeServerDescription.png |
-| Hãy kết bạn với <User B> để có thể viết lên tường nhà <User B> | no-translation | 1 | core.swf::55_asset.community.CommunityTip.png |
-| Í chọn! Ì | no-translation | 1 | core.swf::3_asset.vote.oneAnswer.png |
-| ( Nạp | no-translation | 1 | coreii.swf::33_asset.shop.RechargeViewChargeBtn.png |
-| Công bồ | no-translation | 1 | coreii.swf::96_microBlog.IssueBt.png |
+| Hãy kết bạn với <User B> để có thể viết lên tường nhà <User B> | render-failed-vn-residue | 1 | core.swf::55_asset.community.CommunityTip.png |
 | Z> W7 lâi Đài | no-translation | 1 | ddthallicon.swf::63_assets.hallIcon.ringStationIcon.png |
-| 2x NV e4 AM Khiêu Chiến | no-translation | 1 | ddthallicon.swf::74_assets.hallIcon.dreamlandChallengeIcon.png |
 | Z4 “đã —; l {S4 4 (Hoa Gunny | no-translation | 1 | ddthallicon.swf::98_assets.hallIcon.flowerGivingIcon.png |
-| Đầu!Sinh Tồn | no-translation | 1 | ddthallicon.swf::37_assets.hallIcon.survivalBattleIcon.png |
-| Ng Chiến thần | no-translation | 1 | ddthallicon.swf::59_assets.hallIcon.leagueIcon.png |
-| Z ì 7N: í Co Con Đường Mới | no-translation | 1 | ddthallicon.swf::101_assets.hallIcon.godsRoadsIcon.png |
+| Ng Chiến thần | render-failed-vn-residue | 1 | ddthallicon.swf::59_assets.hallIcon.leagueIcon.png |
+| Z ì 7N: í Co Con Đường Mới | render-failed-vn-residue | 1 | ddthallicon.swf::101_assets.hallIcon.godsRoadsIcon.png |
 | cà th Ấn | no-translation | 1 | ddthallicon.swf::79_asset.hall.thanksGivingIcon.png |
 | (2/7 Dơanh Chiến | no-translation | 1 | ddthallicon.swf::4_assets.hallIcon.campIcon.png |
-| Chọn loại hình thanh toán | no-translation | 1 | core.swf::110_asset.AddPricePanel.AddPricePanelBg.png |
-| Showzthời >2 trang | no-translation | 1 | ddthallicon.swf::94_asset.hall.draftIcon.png |
-| Chọn loại hình thanh toán @it@ TIƯŠ9 nh | no-translation | 1 | coreii.swf::137_asset.AddPricePanel.AddPricePanelBg.png |
-| { v4 ñ Đấú Đình Cao | no-translation | 1 | ddthallicon.swf::87_assets.hallIcon.peatBattleIcon.png |
-| 7Ø, “Treo Ihưởng | no-translation | 1 | ddthallicon.swf::20_assets.hallIcon.rewardTaskIcon.png |
+| Showzthời >2 trang | render-failed-vn-residue | 1 | ddthallicon.swf::94_asset.hall.draftIcon.png |
 | ⁄ NN \| & =2 Nap liên tục | no-translation | 1 | ddthallicon.swf::61_assets.hallIcon.conRechargeIcon.png |
 | \| , ] Tôi LàBOSS | no-translation | 1 | ddthallicon.swf::83_asset.hall.reverseIcon.png |
-| 24 >$< li Vé Gà đột biến | no-translation | 1 | ddthallicon.swf::41_assets.hallIcon.syahIcon.png |
-| .°? Lục Địa | no-translation | 1 | ddthallicon.swf::19_assets.hallIcon.AdventureIcon.png |
-| @z Thắng Lớn | no-translation | 1 | ddthallicon.swf::113_assets.hallIcon.superWinnerEntryIcon.png |
-| s 2 < 3 %/ Kho Báu | no-translation | 1 | ddthallicon.swf::114_assets.hallIcon.ddtBuriedIcon.png |
-| “ . PK Anh Hùng | no-translation | 1 | ddthallicon.swf::15_assets.hallIcon.braveDoor.icon.png |
-| Điễm Dan | no-translation | 1 | ddthallicon.swf::47_asset.hall.checkInIcon.png |
-| 4 Qùa trưởng thành | no-translation | 1 | ddthallicon.swf::110_assets.hallIcon.growthPachageIcon.png |
+| @z Thắng Lớn | render-failed-vn-residue | 1 | ddthallicon.swf::113_assets.hallIcon.superWinnerEntryIcon.png |
 | g5 thiệu? | no-translation | 1 | core.swf::52_asset.shop.LabelIconRecommend.png |
-| ki Ưu Đãi Nạp | no-translation | 1 | ddthallicon.swf::106_asset.hall.rechargBackIcon.png |
-| _JI Ñ ⁄ > co" `“) Ủ Con Đường Vinh Quang | no-translation | 1 | ddthallicon.swf::76_assets.hallIcon.lightRoadIcon.png |
-| LỘ / XX Đầu Đội | no-translation | 1 | ddthallicon.swf::6_assets.hallIcon.teamBattleIcon.png |
+| ki Ưu Đãi Nạp | render-failed-vn-residue | 1 | ddthallicon.swf::106_asset.hall.rechargBackIcon.png |
 | Z7 7ZXAAN ⁄ 1⁄4 À © \| Ầ % "Kho'Báu Mê Cung | no-translation | 1 | ddthallicon.swf::58_assets.hallIcon.treasureHuntingIcon.png |
 | Hs Á CN . “2. Tôm Tươi | no-translation | 1 | ddthallicon.swf::9_assets.hallIcon.cloudbuylotteryIcon.png |
 | Bniên tá | no-translation | 1 | ddthallicon.swf::54_asset.hall.familyFoodIcon.png |
-| "hông Báo | no-translation | 1 | ddthallicon.swf::13_asset.hall.noticeIcon.png |
-| (o” Vòng Quay Thàn Bí | no-translation | 1 | ddthallicon.swf::39_assets.hallIcon.mysteriousRouletteIcon.png |
-| P 7 s7 $ Quà online | no-translation | 1 | ddthallicon.swf::64_assets.hallIcon.accumulativeLoginIcon.png |
-| e> 2: Đồi Thưởng | no-translation | 1 | ddthallicon.swf::86_asset.hallIcon.exchangeAct.png |
-| ®)\ Câu đồ Nguyên Tiêu | no-translation | 1 | ddthallicon.swf::11_assets.hallIcon.lanternriddlesIcon.png |
 | cÀ Tự TRÒ | no-translation | 1 | ddthallicon.swf::70_assets.hallIcon.pyramidIcon.png |
-| 5. Đầu Hẹn Hồ | no-translation | 1 | ddthallicon.swf::44_asset.hall.meetIcon.png |
-| ⁄ N bi Cóng' hiền Gulld | no-translation | 1 | ddthallicon.swf::78_assets.hallIcon.guildmemberweekIcon.png |
-| "5. S"Z Côn:Trùng Chiến; | no-translation | 1 | ddthallicon.swf::2_assets.hallIcon.catchInsect.png |
-| S? Cứu Viện | no-translation | 1 | ddthallicon.swf::69_assets.hallIcon.rescue.png |
-| ø 7. eo kTủ Ma-Thuật. | no-translation | 1 | ddthallicon.swf::56_asset.hall.magicWardrobe.png |
 | - \| Khon8 áu HácYÁm! | no-translation | 1 | ddthallicon.swf::85_assets.hallIcon.devilTurnIcon.png |
 | c \| lóT .Z - đi) Nông Trại | no-translation | 1 | ddthallicon.swf::105_asset.hall.farmIcon.png |
 | Q c&S A2 Đặ cá c | no-translation | 1 | ddthallicon.swf::171.png |
 | Lo phúc du | no-translation | 1 | ddthallicon.swf::32_assets.hallIcon.luckStoneIcon.png |
 | <. Học Gá | no-translation | 1 | ddthallicon.swf::82_asset.hall.flyHappyIcon.png |
-| >> —¬ {Chứng, Khoán | no-translation | 1 | ddthallicon.swf::99_assets.hallIcon.stockIcon.png |
-| €%c 6 Hấp Dẫn | no-translation | 1 | ddthallicon.swf::26_assets.hallIcon.limitActivityIcon.png |
 | St: Tụ Tài | no-translation | 1 | ddthallicon.swf::68_assets.hallIcon.goldmineIcon.png |
-| Z⁄ Bạn Và Đảo Gà | no-translation | 1 | ddthallicon.swf::120_assets.hallIcon.defendDDTIslandIcon.png |
 | ".Thưở ngự Nguyệt | no-translation | 1 | ddthallicon.swf::3_assets.hallIcon.worshipTheMoon.png |
-| -> va Thu Thập Thẻ | no-translation | 1 | ddthallicon.swf::40_assets.hallIcon.godCard.png |
-| í 2>ã ị Hi Ut®.! Ngân Hàng Hoàng Gia | no-translation | 1 | ddthallicon.swf::73_assets.hallIcon.bankIcon.png |
-| là Lạ St Đầu Trường Mùa Hè | no-translation | 1 | ddthallicon.swf::104_assets.hallIcon.ballGameIcon.png |
 | ¬* \| Ghép Hình | no-translation | 1 | ddthallicon.swf::52_asset.hall.jigsawIcon.png |
-| Thành viên phải đủ điểm công hiền mới sử dụng được Tác kh nâng Qu kg ng ung qượi | no-translation | 1 | core.swf::120_asset.core.ConsortiaAssetManager.buttomWord.png |
-| Thành viên phải đủ điểm công hiền mới sử dụng được Tác kh nâng Qu kg ng lung đượi | no-translation | 1 | corei.swf::148_asset.core.ConsortiaAssetManager.buttomWord.png |
-| KZ 2 = mi 2 VIP Ý | no-translation | 1 | coreiconandtip.swf::101_asset.seniorVipIcon.big_1.png |
 | Nguý | no-translation | 1 | coreii.swf::232.png |
-| Triệu Phú | no-translation | 1 | ddthallicon.swf::100_assets.hallIcon.lotteryTicketIcon.png |
-| Đang tải, xim chờ chút. | no-translation | 1 | coreii.swf::310.png |
-| Đang tải, xin chờ chút. | no-translation | 1 | core.swf::324.png |
 | khâu : | no-translation | 1 | ddthallicon.swf::349.png |
 | X#e nhiệm muối lê ï b9glrl với ngiười nèy? Nhốm ben, | no-translation | 1 | corei.swf::36_asset.friendGroup.bg.png |
 | C chương | no-translation | 1 | coreii.swf::37_asset.shop.PayTypeLabelMedal.png |
-| Œ) Danh sách SNS | no-translation | 1 | core.swf::212_asset.community.CMBtn_02.png |
-| ữ) Danh sách SNS | no-translation | 1 | core.swf::201_asset.community.CMBtn_01.png |
-| P.thưởng cáp)20-29 | no-translation | 1 | gotopage.swf::44_asset.leagueShow.selected20_29Asset.png |
+| P.thưởng cáp)20-29 | render-failed-vn-residue | 1 | gotopage.swf::44_asset.leagueShow.selected20_29Asset.png |
 | (O7 Xu Không đủ ) | render-failed-vn-residue | 1 | corei.swf::108_asset.clearingInterface.enough.png |
-| P.thướng cáp130-39 | no-translation | 1 | gotopage.swf::42_asset.leagueShow.selected30_39Asset.png |
-| Hệ thóng gửi chúc phúc | no-translation | 1 | corei.swf::69_asset.church.ProposeSysMsgAsset.png |
-| Chơon trong DS bạn bể | no-translation | 1 | coreii.swf::57_asset.shop.shopFriendsBtn.png |
-| V Lễškim | no-translation | 1 | core.swf::56_asset.shop.PayTypeLabelGift.png |
-| =x"xr—v¬rrueg 2họn trong DS bạn | no-translation | 1 | core.swf::39_asset.shop.shopFriendsBtn.png |
+| Hệ thóng gửi chúc phúc | render-failed-vn-residue | 1 | corei.swf::69_asset.church.ProposeSysMsgAsset.png |
 | Sự on Sự ~ >4 - ng ng " ni na TT CÀ L “SE do Gếp l—. NG ` 2 xe ¬ va. N2 lu N ¬R xe G ch ớn Ạ ; s3 229ø.., 2E. . 3 -m. .. S ó i SA: v› ST : Na - TT „%2 TU NI Em  | render-failed-vn-residue | 1 | hotspringroom.swf::70.png |
 | 4 mo =9 =^tS E2 Tham gia lễ cưới: NỞ ì I Tên phòng. Sốngười. Ƒ ÿ \| \ ( \ Ồ %\ g ồ | no-translation | 1 | churchroomlist.swf::19_asset.church.main.bgJoinListAsset.png |
 | Ñ s Ễ Ñ (.. : BI minh ` 9m tmột nửa của ï m”— 7... Định tình suốt đời không Chí lð lời Rối Suông mà như 1 /ˆ.. trách nhiệm,một vật chứng đẹp nhất trên đời Nhẫn  | no-translation | 1 | churchroomlist.swf::18_asset.church.main.picPreviewAsset.png |
@@ -568,11 +285,9 @@ SWFs share the same caption/tooltip wording, so this list is phrases, not images
 | ( ETp=7 Tan phòng Người \|Em-Ienems- = lưmn —”m11 \| ——m”m{{—CờCmTTCÐmm mnmm„m„ "—_— eư;i— \| | no-translation | 1 | hotspringroomlist.swf::2_asset.HotSpringMainView.roomListBGAsset.png |
 | 59/9572 7 v29099,22) 2/9 v2. S9 cớ 2279952972222 .0222 — 7 vn 222A 2 2 22A ME ANH] 2 Z l N n2 0922/0902/9>. Z” M ¬ 2 NA : 2 \| _. _—44 . > Li nh — 7%” Z Bái. s  | render-failed-vn-residue | 1 | hotspringroom.swf::307.jpg |
 | [Plem) SE] “Đạo!cuitheo'người \| mmg, sRương:đạo cụ chiền đầu _— | render-failed-vn-residue | 1 | room.swf::71_asset.room.view.RoomRightPropViewBGAsset.png |
-| Khiếu chien | no-translation | 1 | room.swf::6_asset.roomLoading.GameMode_14.png |
 | Phó lbáïm | no-translation | 1 | room.swf::8_asset.roomLoading.GameMode_7.png |
 | \| ] (TClickfchọn mở; | no-translation | 1 | room.swf::62_asset.room.view.roomPlayerItemCloseBGAsset.png |
 | Tụ ốo | no-translation | 1 | room.swf::3_asset.roomLoading.GameMode_0.png |
-| `Kỹ thuật Siêu phảm | no-translation | 1 | game.swf::185_asset.game.achiev5.png |
 | lên | no-translation | 1 | room.swf::69_asset.room.view.roomPlayerItemWaitBGAsset.png |
 | Tiêu eo đi Ềmn eiaia (an @Ề đi (tem [hổ trợ đồng đội | no-translation | 1 | game.swf::46_asset.game.ghost.msg1.png |
 | „co ._M š⁄ HN ... xu ~- ^Y P : à lv. ý ... . lon li ¬ M | render-failed-vn-residue | 1 | game.swf::606.png |
@@ -582,64 +297,41 @@ SWFs share the same caption/tooltip wording, so this list is phrases, not images
 | 4 lF Lá Ếĩ M | no-translation | 1 | game.swf::718.png |
 | 1. Ch ố thể tham ga khi trong thời ga diễn rasự iện 1. Người chưi phải đạt level 30 trở lên mới được tham gia ghi đầu. xà năng dd du in nu s4int diễn L5 sô s00  | no-translation | 1 | room.swf::138_asset.room.view.bigMapInfoPanel.eliteGameBtnAsset.png |
 | E *È Em | no-translation | 1 | gameii.swf::764.png |
-| - Chiền thắng | no-translation | 1 | game.swf::316.png |
+| - Chiền thắng | render-failed-vn-residue | 1 | game.swf::316.png |
 | “Phó bản đặc biệt | render-failed-vn-residue | 1 | room.swf::11_asset.room.TypeBtn_B_02.png |
-| ihúi quai Mời nhập số tiền Ù ]x Lễ kim phải là bội số của 100 | no-translation | 1 | churchroom.swf::52_asset.church.room.giftFrameBgAssetForGuest.png |
 | í Phó bản đặc biệt. | render-failed-vn-residue | 1 | room.swf::142_asset.room.TypeBtn_B_01.png |
 | í Phó bản thường | render-failed-vn-residue | 1 | room.swf::120_asset.room.TypeBtn_A_01.png |
 | “Phó bản thường | render-failed-vn-residue | 1 | room.swf::131_asset.room.TypeBtn_A_02.png |
 | M v lở l | no-translation | 1 | room.swf::13_asset.room.view.bigMapInfoPanel.guildModeIconAsset.png |
-| Tung hoa cưới. | no-translation | 1 | churchroom.swf::60_asset.church.room.fireBgAsset.png |
-| 1.Ít nhất 2 người. 2.Phải cùng quild | no-translation | 1 | room.swf::12_asset.room.view.bigMapInfoPanel.guildModeBtnOverAsset.png |
+| 1.Ít nhất 2 người. 2.Phải cùng quild | render-failed-vn-residue | 1 | room.swf::12_asset.room.view.bigMapInfoPanel.guildModeBtnOverAsset.png |
 | 1.Không giới hạn. 2.Tự động chọn bã đồ. \| 3.ƯuU tiên xếp then level. | no-translation | 1 | room.swf::141_asset.room.view.bigMapInfoPanel.freeModeBtnOverAsset.png |
-| ve W—.Ow—~X, S9 "Hiển Thì hồ Tên | no-translation | 1 | churchroom.swf::37_asset.church.room.menuShowNameAcAsset.png |
-| va —YxY.—_. 9 Hiển THỊ pháo | no-translation | 1 | churchroom.swf::35_asset.church.room.menuShowPaoAcAsset.png |
-| [ Thường | no-translation | 1 | room.swf::38_asset.rrom.normalBtnAsset.png |
-| ve N-“w—Ý. 9 Hiển th hoa cười | no-translation | 1 | churchroom.swf::39_asset.church.room.menuShowFireAcAsset.png |
-| 7 (giây | no-translation | 1 | challengeroom.swf::8_asset.room.challengeChooseMap.Challenge7SecondSelected.png |
-| (Khó) | no-translation | 1 | room.swf::124_asset.room.diffBtnSelectedAsset.png |
-| 1Ít nhất 2 người. 2.Phải cùng quild | no-translation | 1 | room.swf::10_asset.room.view.bigMapInfoPanel.guildModeBtnAsset.png |
+| 1Ít nhất 2 người. 2.Phải cùng quild | render-failed-vn-residue | 1 | room.swf::10_asset.room.view.bigMapInfoPanel.guildModeBtnAsset.png |
 | 1.Không giới hạn. 2.Tự động chọn bản đồ. \| 3.Ưu tiên xếp then level. | no-translation | 1 | room.swf::140_asset.room.view.bigMapInfoPanel.freeModeBtnAsset.png |
-| 10/giây | no-translation | 1 | challengeroom.swf::12_asset.room.challengeChooseMap.Challenge10SecondSelected.png |
-| Trước mặt quan khách cha xin tuyên bố 2 con thành vợ chồng. Chú rễ có thể hôn cô dâu | no-translation | 1 | churchroom.swf::79_asset.church.room.FatherPaopao23.png |
 | Thất | no-translation | 1 | game.swf::330.png |
-| 1 màn hình | no-translation | 1 | fightlib.swf::194.png |
-| "re Vy. li Hiến Thì hoa Bưới | no-translation | 1 | churchroom.swf::38_asset.church.room.menuShowFireAsset.png |
-| Cô dâu đeo nhẫn cưới cho chú rễ | no-translation | 1 | churchroom.swf::85_asset.church.room.FatherPaopao18.png |
-| Chú rễ đeo nhẫn cưới cho cô dâu | no-translation | 1 | churchroom.swf::87_asset.church.room.FatherPaopao16.png |
 | "® YHiên]! hong. L5 bóng | no-translation | 1 | hotspringroom.swf::39_asset.hotSpring.showPaoAsset2.png |
-| Bát luận bệnh tật hay khỏe mạnh, bắt cứ nơi đâu xin nguyện yêu thương, kính trọng đón nhận cô ta | no-translation | 1 | churchroom.swf::73_asset.church.room.FatherPaopao8.png |
-| Bắt luận bệnh tật hay khỏe mạnh, bắt cứ nơi đâu xin nguyện yêu thương, kính trọng đón nhận anh ta | no-translation | 1 | churchroom.swf::77_asset.church.room.FatherPaopao4.png |
+| Bát luận bệnh tật hay khỏe mạnh, bắt cứ nơi đâu xin nguyện yêu thương, kính trọng đón nhận cô ta | render-failed-vn-residue | 1 | churchroom.swf::73_asset.church.room.FatherPaopao8.png |
+| Bắt luận bệnh tật hay khỏe mạnh, bắt cứ nơi đâu xin nguyện yêu thương, kính trọng đón nhận anh ta | render-failed-vn-residue | 1 | churchroom.swf::77_asset.church.room.FatherPaopao4.png |
 | Diên b ).⁄ | no-translation | 1 | game.swf::287_asset.game.buff285.png |
 | Khiêu iển | no-translation | 1 | challengeroom.swf::2_asset.room.challengeChooseMap.RoomModeTypeBig.jpg |
-| Cô dâu chú rễ trao nhẫn cưới, ta thay mặt chúa tuyên bồ 2 con thành vợ chồng | no-translation | 1 | churchroom.swf::82_asset.church.room.FatherPaopao20.png |
-| Thiên chúa, chúngcon đến trước mặtngười xin người chú cphúc cho chúng con | no-translation | 1 | churchroom.swf::94_asset.church.room.FatherPaopao1.png |
-| Con có đồng ý lầy người này làm chồng không? | no-translation | 1 | churchroom.swf::78_asset.church.room.FatherPaopao3.png |
-| Em xin th chấp nhận anh làm chồng, bắt chấp giàu có hay đói nghèo | no-translation | 1 | churchroom.swf::90_asset.church.room.FatherPaopao13.png |
-| bệnh tật hay khỏe mạnh, đều yêu mền quý trọng anh đến suốt cuộc đời | no-translation | 1 | churchroom.swf::91_asset.church.room.FatherPaopao12.png |
-| bệnh tật hay khỏe mạnh, đều yêu mền quý trọng em đến suốt cuộc đời | no-translation | 1 | churchroom.swf::89_asset.church.room.FatherPaopao14.png |
-| Anh xin thề chấp nhận em làm vợ, bát chấp giàu có hay đói nghèo | no-translation | 1 | churchroom.swf::92_asset.church.room.FatherPaopao11.png |
-| Thượng đề đã kết hợp cho 2 con, không ai được chia rẻ. Amen | no-translation | 1 | churchroom.swf::81_asset.church.room.FatherPaopao21.png |
-| Xin chúa chúc phúc cho những Đứa con thân yêu của người | no-translation | 1 | churchroom.swf::88_asset.church.room.FatherPaopao15.png |
+| Thiên chúa, chúngcon đến trước mặtngười xin người chú cphúc cho chúng con | render-failed-vn-residue | 1 | churchroom.swf::94_asset.church.room.FatherPaopao1.png |
+| Con có đồng ý lầy người này làm chồng không? | render-failed-vn-residue | 1 | churchroom.swf::78_asset.church.room.FatherPaopao3.png |
+| Em xin th chấp nhận anh làm chồng, bắt chấp giàu có hay đói nghèo | render-failed-vn-residue | 1 | churchroom.swf::90_asset.church.room.FatherPaopao13.png |
+| bệnh tật hay khỏe mạnh, đều yêu mền quý trọng anh đến suốt cuộc đời | render-failed-vn-residue | 1 | churchroom.swf::91_asset.church.room.FatherPaopao12.png |
+| bệnh tật hay khỏe mạnh, đều yêu mền quý trọng em đến suốt cuộc đời | render-failed-vn-residue | 1 | churchroom.swf::89_asset.church.room.FatherPaopao14.png |
+| Anh xin thề chấp nhận em làm vợ, bát chấp giàu có hay đói nghèo | render-failed-vn-residue | 1 | churchroom.swf::92_asset.church.room.FatherPaopao11.png |
+| Thượng đề đã kết hợp cho 2 con, không ai được chia rẻ. Amen | render-failed-vn-residue | 1 | churchroom.swf::81_asset.church.room.FatherPaopao21.png |
 | "re Vo-xm về Hiến thị 7) | no-translation | 1 | churchroom.swf::34_asset.church.room.menuShowPaoAsset.png |
 | thời/gianttânrcông\|mỗi Vòng | no-translation | 1 | challengeroom.swf::1_asset.room.challengeChooseMap.RoundTime.png |
-| Con có đồng ý lầy người này làm vợ không? | no-translation | 1 | churchroom.swf::74_asset.church.room.FatherPaopao7.png |
+| Con có đồng ý lầy người này làm vợ không? | render-failed-vn-residue | 1 | churchroom.swf::74_asset.church.room.FatherPaopao7.png |
 | đXY. tạ ø | no-translation | 1 | gameii.swf::569.png |
-| Mức độïphòng | no-translation | 1 | room.swf::57_asset.room.roomHardLevelAsset.png |
-| Cha đã chứng kiến lời thè của 2 con | no-translation | 1 | churchroom.swf::80_asset.church.room.FatherPaopao22.png |
+| Cha đã chứng kiến lời thè của 2 con | render-failed-vn-residue | 1 | churchroom.swf::80_asset.church.room.FatherPaopao22.png |
 | @ hon] bản/đềi | no-translation | 1 | challengeroom.swf::3_asset.room.challengeChooseMap.ChooseMapBitmap.png |
-| k5 giây, | no-translation | 1 | room.swf::99_asset.room.view.smallMapInfoPanel.§15secondsAsset§.png |
-| Mãi mãi ở bên cô ấy không? | no-translation | 1 | churchroom.swf::72_asset.church.room.FatherPaopao9.png |
-| Mãi mãi ở bên anh ấy không? | no-translation | 1 | churchroom.swf::76_asset.church.room.FatherPaopao5.png |
 | Miêu) tả! lỗ) | no-translation | 1 | churchroomlist.swf::16_asset.church.roomCreateIntroAsset.png |
 | k0 giây, | no-translation | 1 | room.swf::96_asset.room.view.smallMapInfoPanel.§10secondsAsset§.png |
 | x-. Lại x41 | no-translation | 1 | game.swf::158_asset.game.buff40.png |
 | xi lối E—ã | no-translation | 1 | game.swf::113_asset.game.buff48.png |
-| Mức độ: | no-translation | 1 | room.swf::28_asset.room.levelAsset.png |
-| hôm nay và mãi mãi | no-translation | 1 | churchroom.swf::83_asset.church.room.FatherPaopao2.png |
 | Nhân] | no-translation | 1 | game.swf::85_asset.game.getPropCiteAsset.png |
 | liên phòng | no-translation | 1 | churchroomlist.swf::4_asset.church.roomEnterRoomNameAsset.png |
-| Khó) | no-translation | 1 | room.swf::14_asset.room.hardTxtAsset.png |
 | ¬i J L Ỉ | no-translation | 1 | game.swf::225_asset.game.achiev.num1.png |
 | \| => ¡ . 2ASRSU \| Thuộc tính gó©' Thuộctínhmới.. \| P—]\| | no-translation | 1 | petsbag.swf::33_petsBag.eat.bg.png |
 | tượng | no-translation | 1 | weekly.swf::23_asset.weekly.Bg.png |
@@ -695,62 +387,25 @@ SWFs share the same caption/tooltip wording, so this list is phrases, not images
 | 0Nhấp tê) eivoột vào đó hợp (thêm) G8 b8 vào @ @ng loại | no-translation | 1 | trainerui.swf::92.png |
 | '®ên luyện tệp 62 môðOliels vêo @y GŠ vòo mê | no-translation | 1 | trainerui.swf::77.png |
 | êm đều gi mớ pồiIOles vào đjy Ø8 vêo moi | no-translation | 1 | trainerui.swf::74.png |
-| r › Kết quả em | no-translation | 1 | shop.swf::110_asset.shop.ShopSearchEndBtn.png |
 | si vi ư ¬ < ` ^ | no-translation | 1 | _corei.swf::204_game.crazyTank.view.Prop33Asset.png |
 | (L8 Gưỡng đØ œ9Oflots vào 6y đồ vêo mol | no-translation | 1 | trainerui.swf::89.png |
-| Hạt giống và phân bón có thê ollott mua tại đây. | no-translation | 1 | farmpettrainerui.swf::15.png |
 | (le @Ô tê nhiệm vụ nam phêm (hưởng | render-failed-vn-residue | 1 | trainerui.swf::35.png |
-| tây đợi cây 6êm hoa kết trái rồi tu hoạch nhéi | no-translation | 1 | farmpettrainerui.swf::12.png |
 | INhậtký,quà \| | no-translation | 1 | giftsystem.swf::15_asset.giftAndRecord.record2.png |
 | (Quàcủa!tôi \| | no-translation | 1 | giftsystem.swf::29_asset.giftAndRecord.myGift2.png |
 | Cfliet tại đây độ thú cưng Xuất Chiên! | render-failed-vn-residue | 1 | farmpettrainerui.swf::67.png |
-| Nhấp đề bồi dưỡng trang sức | no-translation | 1 | storefinebringup.swf::9.png |
 | tây đợi cây đêm ioe kết trái rồi thu hoạch nhé \| | no-translation | 1 | farmpettrainerui.swf::30.png |
 | ó Dùng lực (60iãowde bán! | no-translation | 1 | trainer1.swf::76.png |
 | Nhận miễn phí | render-failed-vn-residue | 1 | shop.swf::87_asset.shop.TopBtnFreeDown.png |
-| ]ỈỈÝÁ——.) Thông tin sửa | no-translation | 1 | civil.swf::32_asset.civil.amendBtnAsset.png |
 | \| Trạng thái | no-translation | 1 | civil.swf::5_asset.civil.stateTitle.png |
-| C Cầu hôn | no-translation | 1 | civil.swf::31_asset.civil.courtshipBtnAsset.png |
-| Bạn có thể hiếi trộm tại vườn ceữe bạn bò | no-translation | 1 | farmpettrainerui.swf::4.png |
-| Sữ dụng phân bồn,ollo(c tại đây [ | no-translation | 1 | farmpettrainerui.swf::52.png |
-| 88 Chat mật | no-translation | 1 | civil.swf::4_asset.civil.talkBtnAsset.png |
 | (Kéo “(hức ến" vào và oliel Nuôi” | no-translation | 1 | farmpettrainerui.swf::71.png |
-| Glfok tại đây đồ nhận nuôi thú oưng | no-translation | 1 | farmpettrainerui.swf::75.png |
-| 'Đá nhân | no-translation | 1 | toffilist.swf::7_asset.Toffilist.personalAssetII.png |
-| ti8y cùng đồng đội chiến đầu nào! | no-translation | 1 | farmpettrainerui.swf::64.png |
-| Phòng thử. | no-translation | 1 | shop.swf::1_asset.shop.DressBtnDown.png |
-| Bạn oó thê thăm vườn của bạn bò | no-translation | 1 | farmpettrainerui.swf::8.png |
-| Nhật ký quà | no-translation | 1 | giftsystem.swf::14_asset.giftAndRecord.record1.png |
-| Cá nhân | no-translation | 1 | toffilist.swf::8_asset.Toffilist.personalAssetI.png |
-| Hãy chọn hạt giống trước | no-translation | 1 | farmpettrainerui.swf::40.png |
 | hẹn 1 khoảnh đốt tống | no-translation | 1 | farmpettrainerui.swf::36.png |
-| Gồ thô thu hoạch được rồi | no-translation | 1 | farmpettrainerui.swf::48.png |
-| Hãy chọn 1 loại hạt giồng | no-translation | 1 | farmpettrainerui.swf::33.png |
 | Giới thiệu \| | no-translation | 1 | shop.swf::92_asset.shop.TopBtnRecommendDown.png |
-| tlếy ghọn 3 loại phân bón | no-translation | 1 | farmpettrainerui.swf::56.png |
-| Tiến Hóa | no-translation | 1 | petsbag.swf::39_petsBag.evolution.unSelectedButton.png |
-| 6T] Giới thiệu | no-translation | 1 | shop.swf::93_asset.shop.TopBtnRecommendUp.png |
-| Tăng Sao | no-translation | 1 | petsbag.swf::32_petsBag.risingStar.petsBag.unSelectedButton.png |
-| v72 II Làm đẹp | no-translation | 1 | shop.swf::82_asset.shop.TopBtnBeautyupUp.png |
 | Vvv-YAIUS7 MI Trang bị | render-failed-vn-residue | 1 | shop.swf::84_asset.shop.TopBtnEquipmentUp.png |
-| l@=7ZZCTS=ZvSv II ¡“ Đạo cụ | no-translation | 1 | shop.swf::91_asset.shop.TopBtnPropUp.png |
-| 'wpeto Hắn dẫn | no-translation | 1 | toffilist.swf::86_asset.Toffilist.charmvalueImg2Asset.png |
 | 4 ` (ra sản \| | no-translation | 1 | toffilist.swf::93_asset.Toffilist.meansImg2Asset.png |
-| (Tăng Sao | no-translation | 1 | petsbag.swf::31_petsBag.risingStar.petsBag.selectedButton.png |
-| Í #*x C Blog | no-translation | 1 | im.swf::19_asset.IM.MicroBlog_01.png |
-| 4 N (Thành tích | no-translation | 1 | toffilist.swf::103_asset.Toffilist.achievementpointImg2Asset.png |
-| << ^ Hấp dẫn | no-translation | 1 | toffilist.swf::87_asset.Toffilist.charmvalueImg1Asset.png |
-| “3gỡ đầu được 100% đếm knh nghiệm — Quá 5 gờ không nhận được khh nghệm! Hãy sắp xếp thời gian hợp lý Chú ý sức khỏe! | no-translation | 1 | enthrall.swf::3_asset.core.view.enthrall.TipBG.png |
-| 4 Bạn bè | no-translation | 1 | im.swf::29_asset.IM.IMBtn_02.png |
-| Thành viên phải đủ điểm công hiền mới sử dụng được Tác kh nâng Qu kg lưng đượi | no-translation | 1 | _corei.swf::159_asset.core.ConsortiaAssetManager.buttomWord.png |
 | (qu—h ÃbL \| Đào Tạo Pet \| | no-translation | 1 | petsbag.swf::14_petsBag.advanced.groom.png |
-| (@ Thông] Kinhinghiệp) | no-translation | 1 | enthrall.swf::6_asset.core.view.enthrall.InfoNormal0.png |
-| Bồi dưỡnginhanh | no-translation | 1 | storefinebringup.swf::1_asset.store.bringup.eatAllBtn.png |
-| m Bạn bè | no-translation | 1 | email.swf::34_asset.email.friendBtn.png |
+| (@ Thông] Kinhinghiệp) | render-failed-vn-residue | 1 | enthrall.swf::6_asset.core.view.enthrall.InfoNormal0.png |
 | (Code Gà Đội Trưởng. \| | no-translation | 1 | chickactivation.swf::14_assets.chickActivation.frameBtnSelected2.png |
-| Đang chuẩn bị, xin chờ... | no-translation | 1 | oldTutorialstepassets.swf::2_asset.tutorialstep.text_s57.png |
 | 4ZN írs\ G27 | no-translation | 1 | _corei.swf::20_game.crazyTank.view.Prop12Asset.png |
-| Đang chuẩn bị, xon chờ... | no-translation | 1 | tutorialstepassets.swf::2_asset.tutorialstep.text_s57.png |
 | v . ũ hmm hủ . .. ũ ° ` vo. LŨ | no-translation | 1 | chat1.swf::175.png |
 | L . ũ em bi . .. ũ . ` vo. LŨ | no-translation | 1 | chat.swf::352.png |
 | SA TỰ NGÃ ở | no-translation | 1 | petsbag.swf::63_assets.petsBag.prop19.jpg |
@@ -758,101 +413,43 @@ SWFs share the same caption/tooltip wording, so this list is phrases, not images
 | Hiện có xu, mời nhập số lượng. NG 5 Treì gin | render-failed-vn-residue | 1 | _corei.swf::73_asset.core.MyConsortiaTax.taxBG.png |
 | (Co xvaA -~ \ Ếr..sd | no-translation | 1 | petsbag.swf::67_assets.petsBag.prop15.jpg |
 | \| tšênTCáp) ) | no-translation | 1 | gemstone.swf::16_gemstone.upGradeBtn.png |
-| Phònglgame) | no-translation | 1 | trainer.swf::91.png |
-| Điểm) | no-translation | 1 | toffilist.swf::24_asset.Toffilist.scoreAsset1.png |
-| Chú ý:Hiệu lực trong ngảy số điểm dư sẽ chuyên sang exp, hoặc công trạng. | no-translation | 1 | littlegame.swf::9_asset.littleGame.ScoreNote.png |
-| Quà của tôi | no-translation | 1 | giftsystem.swf::27_asset.giftAndRecord.myGift1.png |
+| Chú ý:Hiệu lực trong ngảy số điểm dư sẽ chuyên sang exp, hoặc công trạng. | render-failed-vn-residue | 1 | littlegame.swf::9_asset.littleGame.ScoreNote.png |
 | Xá nhiệm muốn) li 9girl với ngưười nèy? Nhốm) ben, | no-translation | 1 | _corei.swf::3_asset.friendGroup.bg.png |
-| â Danh sách SNS | no-translation | 1 | im.swf::38_asset.IM.CMBtn_02.png |
-| Nhắc nhở: Đây là thư gửi thông thường, xm chú ý, đề phỏng lửa gạt | no-translation | 1 | email.swf::17_asset.email.prompt.png |
 | í gồ Em \| | no-translation | 1 | giftsystem.swf::7_asset.giftShop.dessert2.png |
 | í \ Ww⁄ | no-translation | 1 | enthrall.swf::8_asset.core.view.enthrall.InfoBall100.png |
 | r. DS đen. | no-translation | 1 | im.swf::45_asset.IM.deleteFriendBtnAsset.png |
 | (@miệm \| | no-translation | 1 | giftsystem.swf::17_asset.giftShop.hotGoods2.png |
 | L N Á — NGHI Gì | no-translation | 1 | totem.swf::49.png |
-| , bảng đổi màu | no-translation | 1 | shop.swf::115_asset.shop.BtnColorPanel.png |
-| Xếp hạng. an của tôi. Cá Nhân. | no-translation | 1 | guildmemberweek.swf::1_asset.guildmemberweek.Main.smallrunking.png.png |
+| Xếp hạng. an của tôi. Cá Nhân. | render-failed-vn-residue | 1 | guildmemberweek.swf::1_asset.guildmemberweek.Main.smallrunking.png.png |
 | ý Kết Đan | no-translation | 1 | im.swf::51_asset.IM.addFriendBtnAsset.png |
 | \| Chọn mặc thử | no-translation | 1 | shop.swf::13_asset.shop.ShopItemCellClickTryBg.png |
-| s Túi tiền | no-translation | 1 | shop.swf::123_asset.shop.BtnShopCart.png |
-| nhỏ) lớn | no-translation | 1 | setting.swf::8_asset.setting.sliderBg.png |
-| -YrgI (Công trạng | no-translation | 1 | toffilist.swf::72_asset.Toffilist.exploitOrderImg1Asset.png |
-| LẠ 47) lÕmÏ Chức năng | no-translation | 1 | shop.swf::58_asset.shop.SubBtnFuncIconUp.png |
 | (17, Xu không đủ ) | render-failed-vn-residue | 1 | _corei.swf::195_asset.clearingInterface.enough.png |
 | vx5 - Iế#\|Chức năng | no-translation | 1 | shop.swf::57_asset.shop.SubBtnFuncIconDown.png |
-| Điểm hấp dẫn | no-translation | 1 | toffilist.swf::85_asset.Toffilist.charmvalueImgAsset1_2.png |
-| Nhận đính kèm | no-translation | 1 | email.swf::13_asset.email.reciveMailBtn2.png |
-| Lực chiến: | no-translation | 1 | petsbag.swf::85_assets.petsBag.fightPower.png |
 | Ímo9so cụ | no-translation | 1 | shop.swf::55_asset.shop.SubBtnGiftMedalPropIconUp.png |
-| <ÿ? Set tW# quần áo | no-translation | 1 | shop.swf::78_asset.shop.SubBtnSuitIconUp.png |
-| /W Chatriông | no-translation | 1 | chat.swf::266.png |
-| gi Huân chương | no-translation | 1 | shop.swf::69_asset.shop.SubBtnMedalIconUp.png |
-| /W Chatriêng | no-translation | 1 | chat1.swf::237.png |
-| Set "“fquảnláo | no-translation | 1 | shop.swf::76_asset.shop.SubBtnSuitIconDown.png |
-| Điễm h.nay | no-translation | 1 | toffilist.swf::50_asset.Toffilist.matchScoreDayAsset.png |
-| =5: Thứ 6,7, chủ nhật | no-translation | 1 | chickactivation.swf::1_assets.chickActivation.selectAfterThreeDays.png |
-| (3 Mặt nạ | no-translation | 1 | shop.swf::56_asset.shop.SubBtnFaceIconUp.png |
-| @ Tóc | no-translation | 1 | shop.swf::64_asset.shop.SubBtnHairIconUp.png |
-| (Đánh giá tốt | no-translation | 1 | shop.swf::101_asset.shop.PraiseRankingBtn2.png |
-| Giới thiệu bái sư/nhận đệ tử | no-translation | 1 | setting.swf::18_asset.setting.academy.png |
-| Điễm tuần | no-translation | 1 | toffilist.swf::49_asset.Toffilist.matchScoreWeekAsset.png |
-| Thứ 6,7, chủ nhật | no-translation | 1 | chickactivation.swf::2_assets.chickActivation.unSelectAfterThreeDays.png |
-| 63. àm đẹp | no-translation | 1 | shop.swf::11_asset.shop.SubBtnGiftMedalBeautyupIconUp.png |
-| (_ Đặc biệt | no-translation | 1 | shop.swf::75_asset.shop.SubBtnSpecialIconUp.png |
-| Tổng tsản | no-translation | 1 | toffilist.swf::95_asset.Toffilist.LnTAImgAsset1_2.png |
-| Mời bạn | no-translation | 1 | im.swf::25_asset.IM.InviteBlog.png |
-| '®I Mắt | no-translation | 1 | shop.swf::53_asset.shop.SubBtnEyeIconUp.png |
-| ĐA Mới | no-translation | 1 | shop.swf::71_asset.shop.SubBtnRecommendIconUp.png |
-| Ø›? Cánh | no-translation | 1 | shop.swf::80_asset.shop.SubBtnWingIconUp.png |
+| Công trạng | render-failed-vn-residue | 1 | toffilist.swf::66_asset.Toffilist.exploitImgAsset1_2.png |
 | Hiệu ứng đặc biệt vũ khí | render-failed-vn-residue | 1 | setting.swf::4_asset.setting.wqtx.png |
 | LLÚ luyện, phòng ngự; | no-translation | 1 | texpsystem.swf::4_asset.texpSystem.txtDef.png |
-| Từ chồi tin nhắn người lạ | no-translation | 1 | setting.swf::10_asset.setting.refusedPrivateChat.png |
-| <9?Trang phục | no-translation | 1 | shop.swf::33_asset.shop.SubBtnGiftMedalClothIconUp.png |
-| [Nhận đính kèm! | no-translation | 1 | email.swf::14_asset.email.reciveMailBtn1.png |
-| Túi quà level | no-translation | 1 | chickactivation.swf::20_assets.chickActivation.unSelectLevelPacks.png |
-| Tính năng mạng xã hội | no-translation | 1 | setting.swf::14_asset.setting.CommunityFunction.png |
+| Từ chồi tin nhắn người lạ | render-failed-vn-residue | 1 | setting.swf::10_asset.setting.refusedPrivateChat.png |
 | 16COĐIda aTtiCUIO: | no-translation | 1 | feedback.swf::22_asset.feedback.getTimeTextImg.png |
-| ®y@8Mắt kính | no-translation | 1 | shop.swf::62_asset.shop.SubBtnGlassesIconUp.png |
-| 4® Nón | no-translation | 1 | shop.swf::67_asset.shop.SubBtnHatIconUp.png |
-| Thư,đã gửi | no-translation | 1 | email.swf::8_asset.email.sendedButton2.png |
-| Kích]hoạt | no-translation | 1 | avatarcollection1.swf::6_asset.avatarColl.canActivityIcon.png |
+| ®y@8Mắt kính | render-failed-vn-residue | 1 | shop.swf::62_asset.shop.SubBtnGlassesIconUp.png |
+| Thư,đã gửi | render-failed-vn-residue | 1 | email.swf::8_asset.email.sendedButton2.png |
 | luluyện" mayimán | no-translation | 1 | texpsystem.swf::2_asset.texpSystem.txtLuk.png |
-| La... Mắt kính) | no-translation | 1 | shop.swf::61_asset.shop.SubBtnGlassesIconDown.png |
 | đới | no-translation | 1 | toffilist.swf::36_asset.Toffilist.PlayerRankNum4.png |
-| A5 Hiện ại | no-translation | 1 | chat.swf::269.png |
-| Z5 Hiến Đại | no-translation | 1 | chat1.swf::234.png |
 | Gómoecoget a1tiCUlO: | no-translation | 1 | feedback.swf::31_asset.feedback.acquirementTextImg.png |
 | Evaluación lên nh | no-translation | 1 | feedback.swf::17_asset.feedback.playerEvaluationTextImg.png |
 | lạng | no-translation | 1 | toffilist.swf::25_asset.Toffilist.rankingTitleImgAsset.png |
-| T5 ] tính mới | no-translation | 1 | latentenergy.swf::1_asset.latentEnergyFrame.replaceBtn.png |
 | Ễmừh | no-translation | 1 | shop.swf::47_asset.shop.SubBtnBgUp.png |
 | \|. Tặng | no-translation | 1 | shop.swf::23_asset.shop.PayPaneGivingBtn.png |
 | [Gấp | no-translation | 1 | toffilist.swf::55_asset.Toffilist.gradeOrderTitleImgAsset.png |
-| E Thư đã (gửi | no-translation | 1 | email.swf::9_asset.email.sendedButton1.png |
-| T Ưu đãi | no-translation | 1 | shop.swf::51_asset.shop.SubBtnDiscountIconUp.png |
-| Cho phép kêt bạn | no-translation | 1 | setting.swf::17_asset.setting.addFriend.png |
-| (Tông) | no-translation | 1 | toffilist.swf::97_asset.Toffilist.accumulateImg2Asset.png |
-| (Tuần) | no-translation | 1 | toffilist.swf::13_asset.Toffilist.weekAddImg2Asset.png |
-| Người gửi Chủ đề | no-translation | 1 | email.swf::6_asset.email.titleTop.png |
 | liên! | no-translation | 1 | toffilist.swf::45_asset.Toffilist.nameTitleImgAsset.png |
-| Không có kết quã tìm kiếm hão hữu | no-translation | 1 | im.swf::18_asset.IM.NAN.png |
 | Mówil'rugador- | no-translation | 1 | feedback.swf::16_asset.feedback.playersMobileTextImg.png |
-| Báo hiệu online | no-translation | 1 | setting.swf::7_asset.setting.sxts.png |
-| 119 Tát cả | no-translation | 1 | shop.swf::116_asset.shop.SubBtnGiftMedalAllIconUp.png |
-| 6 giờ | no-translation | 1 | email.swf::7_asset.email.sixHouer.png |
-| 1 giờ | no-translation | 1 | email.swf::23_asset.email.oneHouer.png |
 | Tổng) gen triển tiền | no-translation | 1 | effort.swf::2_asset.Effort.title_02.png |
-| Tính năng loa | no-translation | 1 | setting.swf::9_asset.setting.lbgn.png |
-| Nhận lời mời | no-translation | 1 | setting.swf::11_asset.setting.jsyq.png |
-| Nhạc nền | no-translation | 1 | setting.swf::15_asset.setting.bjyy.png |
-| Hiệu ứng | no-translation | 1 | setting.swf::1_asset.setting.yxyx.png |
+| Nhạc nền | render-failed-vn-residue | 1 | setting.swf::15_asset.setting.bjyy.png |
 | ^A"ọA | no-translation | 1 | chat.swf::411.png |
-| Chatriêng | no-translation | 1 | chat1.swf::20_asset.chat.ChannelState_Private.png |
 | Iliệm ®gi | no-translation | 1 | chat1.swf::19_asset.chat.ChannelState_Current.png |
 | IS "à | no-translation | 1 | email.swf::12_asset.email.rightPageBtn.png |
 | dối " | no-translation | 1 | email.swf::29_asset.email.leftPageBtn.png |
 | Y"i bá | no-translation | 1 | roadcomponent.swf::39_asset.core.comboxBtn4.png |
-| Lại | no-translation | 1 | roadcomponent.swf::3_core.RadioButton.Red.CheckBtnUnSelect.png |
 | ˆ Ä Là ử | no-translation | 1 | _corei.swf::232.png |
 | Chưa hoàn thành | render-failed-vn-residue | 1 | effort.swf::12_asset.Effort.item_03.png |
 | s. Lư bà . | no-translation | 1 | _corei.swf::230.png |
