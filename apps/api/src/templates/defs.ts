@@ -6,10 +6,45 @@
  * changes (TemplateCache) and served at REQUEST_PATH/<file>.xml with the compression the original wrote.
  */
 import { sql } from "drizzle-orm";
-import type { DbHandle } from "@ddt/db";
+import { applyTranslations, loadTranslations, type DbHandle } from "@ddt/db";
 import { el, fmtDateDefault, result, wallNow, XEl, type XValue } from "../lib/flash-xml.js";
 import { all, q } from "../lib/db.js";
 import { item, spec, type Row } from "../lib/spec.js";
+
+/**
+ * pt-BR DB text overlay (see packages/db/src/translations.ts, docs/BACKLOG.md "Localização PT-BR"). Every
+ * `flat()` template whose `table` is listed here gets its rows run through `applyTranslations` before the XML
+ * is built — same mechanism apps/game/src/db/templates.ts uses, keyed by each table's actual primary key
+ * column (matches `TARGETS` in packages/db/scripts/export-texts.ts). Tables not listed just keep their
+ * original `game` schema text (no overlay row ever matches, which is the designed fallback).
+ */
+const LANG = "pt-BR";
+const TRANSLATED_PK: Record<string, string> = {
+  Game_Map: "ID",
+  NPC_Info: "ID",
+  Mission_Info: "Id",
+  Mission_Info_Backup: "Id",
+  Achievement: "ID",
+  Quest: "ID",
+  Shop_Goods: "TemplateID",
+  Pet_Template_Info: "TemplateID",
+  Pet_Skill_Info: "ID",
+  Pet_Skill_Element_Info: "ID",
+  Rune_Template: "TemplateID",
+  Card_Info: "ID",
+  Consortia_BuffTemp: "id",
+  New_Title: "ID",
+  SuitTemplateInfo: "SuitId",
+};
+
+/** Applies the pt-BR overlay to `rows` in place when `table` is one of TRANSLATED_PK; a no-op otherwise. */
+async function translateRows(h: DbHandle, table: string, rows: Row[]): Promise<Row[]> {
+  const pk = TRANSLATED_PK[table];
+  if (!pk) return rows;
+  const overlay = await loadTranslations(h.db, table, LANG);
+  if (!overlay.size) return rows;
+  return rows.map((r) => applyTranslations(r, pk, overlay));
+}
 
 export interface TemplateFile {
   /** File name without extension, as written by csFunction.CreateCompressXml. */
@@ -64,7 +99,7 @@ function flat(o: {
       const sp = spec(o.attrs);
       return wrap(
         async () => {
-          rows = await all(h, schema, o.table, o.order);
+          rows = await translateRows(h, o.table, await all(h, schema, o.table, o.order));
           const items = rows.map((r) => item(o.elem ?? "Item", sp, r));
           return o.wrapIn ? [el(o.wrapIn, []).add(...items)] : items;
         },
@@ -250,7 +285,7 @@ export const TEMPLATES: TemplateDef[] = [
     build: (h) =>
       wrap(async () => {
         const [a, c, g] = await Promise.all([
-          all(h, "game", "Achievement"),
+          translateRows(h, "Achievement", await all(h, "game", "Achievement")),
           all(h, "game", "AchievementCondition"),
           all(h, "game", "Achievement_Goods"),
         ]);
@@ -422,7 +457,11 @@ export const TEMPLATES: TemplateDef[] = [
     deps: ["game.Quest", "game.Quest_Condiction", "game.Quest_Goods"],
     build: (h) =>
       wrap(async () => {
-        const [qs, cs, gs] = await Promise.all([all(h, "game", "Quest", `"ID"`), all(h, "game", "Quest_Condiction"), all(h, "game", "Quest_Goods")]);
+        const [qs, cs, gs] = await Promise.all([
+          translateRows(h, "Quest", await all(h, "game", "Quest", `"ID"`)),
+          all(h, "game", "Quest_Condiction"),
+          all(h, "game", "Quest_Goods"),
+        ]);
         const cBy = groupBy(cs, "QuestID");
         const gBy = groupBy(gs, "QuestID");
         return qs.map((x) => {

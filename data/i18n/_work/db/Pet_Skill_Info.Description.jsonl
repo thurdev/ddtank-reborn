@@ -1,0 +1,1645 @@
+{"rowId":"1","text":"Thú cưng sau khi kết thúc mỗi turn có 100% xác suất tấn công địch, gây 15% sát thương."}
+{"rowId":"2","text":"Thú cưng sau khi kết thúc mỗi turn có 100% xác suất tấn công địch, gây 25% sát thương."}
+{"rowId":"3","text":"Thú cưng sau khi kết thúc mỗi turn có 100% xác suất tấn công địch, gây 36% sát thương."}
+{"rowId":"4","text":"Thêm 1 Trứng Gà"}
+{"rowId":"5","text":"Thêm 1 Trứng Gà"}
+{"rowId":"6","text":"Thêm 1 Trứng Gà"}
+{"rowId":"7","text":"Đến lượt bắn,thú cưng có 100% cơ hội tấn công đối phương,gây 10% sát thương."}
+{"rowId":"8","text":"Đến lượt bắn,thú cưng có 100% cơ hội tấn công đối phương,gây 20% sát thương."}
+{"rowId":"9","text":"Đến lượt bắn,thú cưng có 100% cơ hội tấn công đối phương,gây 30% sát thương."}
+{"rowId":"10","text":"Thêm 1 Bong Bóng Gà"}
+{"rowId":"11","text":"Thêm 1 Bong Bóng Gà"}
+{"rowId":"12","text":"Thêm 1 Bong Bóng Gà"}
+{"rowId":"13","text":"Thú cưng sau khi kết thúc mỗi turn có 100% xác suất tấn công địch, gây 15% sát thương."}
+{"rowId":"14","text":"Thú cưng sau khi kết thúc mỗi turn có 100% xác suất tấn công địch, gây 25% sát thương."}
+{"rowId":"15","text":"Thú cưng sau khi kết thúc mỗi turn có 100% xác suất tấn công địch, gây 36% sát thương."}
+{"rowId":"16","text":"Thêm 1 Đậu Nổ"}
+{"rowId":"17","text":"Thêm 1 Đậu Nổ"}
+{"rowId":"18","text":"Thêm 1 Đậu Nổ"}
+{"rowId":"19","text":"Thú cưng sau khi kết thúc mỗi turn có 100% xác suất tấn công địch, gây 15% sát thương."}
+{"rowId":"20","text":"Thú cưng sau khi kết thúc mỗi turn có 100% xác suất tấn công địch, gây 25% sát thương."}
+{"rowId":"21","text":"Thú cưng sau khi kết thúc mỗi turn có 100% xác suất tấn công địch, gây 36% sát thương."}
+{"rowId":"22","text":"Thêm 1 Hòn Kiến"}
+{"rowId":"23","text":"Thêm 1 Hòn Kiến"}
+{"rowId":"24","text":"Thêm 1 Hòn Kiến"}
+{"rowId":"25","text":"Bắn 1 Đạn Theo Dõi, gây 100% sát thương cơ bản, 100% bạo kích, hiệu quả theo dõi chỉ có hiệu lực với người chơi."}
+{"rowId":"26","text":"Bắn 1 Đạn Theo Dõi, gây 130% sát thương cơ bản, 100% bạo kích, hiệu quả theo dõi chỉ có hiệu lực với người chơi."}
+{"rowId":"27","text":"Bắn 1 Đạn Theo Dõi, gây 155% sát thương cơ bản, 100% bạo kích, hiệu quả theo dõi chỉ có hiệu lực với người chơi."}
+{"rowId":"28","text":"Ném ra 1 gà, gây 120% sát thương cơ bản,100% crit.Tăng 100 điểm may mắn bản thân, duy trì 2 TURN."}
+{"rowId":"29","text":"Ném ra 1 gà, gây 150% sát thương cơ bản,100% crit.Tăng 300 điểm may mắn bản thân, duy trì 2 TURN."}
+{"rowId":"30","text":"Ném ra 1 gà, gây 180% sát thương cơ bản,100% crit.Tăng 500 điểm may mắn bản thân, duy trì 2 TURN."}
+{"rowId":"31","text":"Ném 1 hạt giống, gây 120% sát thương cơ bản, 100% bạo kích, bản thân mỗi turn hồi phục 2% HP, duy trì 2 turn."}
+{"rowId":"32","text":"Ném 1 hạt giống, gây 150% sát thương cơ bản, 100% bạo kích, bản thân mỗi turn hồi phục 4% HP, duy trì 2 turn."}
+{"rowId":"33","text":"Ném 1 hạt giống, gây 180% sát thương cơ bản, 100% bạo kích, bản thân mỗi turn hồi phục 6% HP, duy trì 2 turn."}
+{"rowId":"34","text":"Ném 1 Kiến Lửa, gây 120% sát thương cơ bản, 100% bạo kích, bản thân tăng 100 hộ giáp, duy trì 2 turn."}
+{"rowId":"35","text":"Ném 1 Kiến Lửa, gây 150% sát thương cơ bản, 100% bạo kích, bản thân tăng 300 hộ giáp, duy trì 2 turn."}
+{"rowId":"36","text":"Ném 1 Kiến Lửa, gây 180% sát thương cơ bản, 100% bạo kích, bản thân tăng 500 hộ giáp, duy trì 2 turn."}
+{"rowId":"37","text":"Nhận hiệu quả miễn kháng, phòng thủ +15%, tấn công -20%, nhưng không thể di chuyển, duy trì 2 turn."}
+{"rowId":"38","text":"Nhận hiệu quả miễn kháng, phòng thủ +20%, tấn công -20%, nhưng không thể di chuyển, duy trì 2 turn."}
+{"rowId":"39","text":"Nhận hiệu quả miễn kháng, phòng thủ +30%, tấn công -15%, nhưng không thể di chuyển, duy trì 2 turn."}
+{"rowId":"40","text":"Bắn bất kỳ loại đạn nào trong TURN cũng sẽ tăng 100 hộ giáp cho đồng đội bị đánh trúng, duy trì 2 TURN."}
+{"rowId":"41","text":"Bắn bất kỳ loại đạn nào trong TURN cũng sẽ tăng 300 hộ giáp cho đồng đội bị đánh trúng, duy trì 2 TURN."}
+{"rowId":"42","text":"Bắn bất kỳ loại đạn nào trong TURN cũng sẽ tăng 100 sát thương cho đồng đội bị đánh trúng, duy trì 2 TURN."}
+{"rowId":"43","text":"Bắn bất kỳ loại đạn nào trong TURN cũng sẽ tăng 300 sát thương cho đồng đội bị đánh trúng, duy trì 2 TURN."}
+{"rowId":"44","text":"Bản thân và đơn vị xung quanh mỗi turn hồi phục 2% +800 HP, duy trì 3 turn"}
+{"rowId":"45","text":"Bản thân và đơn vị xung quanh mỗi turn hồi phục 3% +1000 HP, duy trì 3 turn"}
+{"rowId":"46","text":"Bản thân và đơn vị xung quanh mỗi turn hồi phục 3% +1500 HP, duy trì 4 turn"}
+{"rowId":"47","text":"Kỹ năng phát động"}
+{"rowId":"48","text":"Kỹ năng phát động"}
+{"rowId":"49","text":"Kỹ năng phát động"}
+{"rowId":"50","text":"Nhận được 500 điểm giảm thương, mỗi lần bị tấn công giảm thêm 5% sát thương, duy trì 1 turn."}
+{"rowId":"51","text":"Nhận được 500 +10% điểm giảm thương, mỗi lần bị tấn công giảm thêm 5% sát thương, duy trì 1 turn."}
+{"rowId":"52","text":"Nhận được 500 +20% điểm giảm thương, mỗi lần bị tấn công giảm thêm 10% sát thương, duy trì 1 turn."}
+{"rowId":"53","text":"Khi bị đánh sát thương giảm"}
+{"rowId":"54","text":"Khi bị đánh sát thương giảm"}
+{"rowId":"55","text":"Khi bị đánh sát thương giảm"}
+{"rowId":"56","text":"Nhận thêm 250 điểm hộ giáp, khi giải trừ sẽ mất hiệu quả cộng thêm, tối đa cộng dồn 3 lần."}
+{"rowId":"57","text":"Nhận thêm 365 điểm hộ giáp, khi giải trừ sẽ mất hiệu quả cộng thêm, tối đa cộng dồn 3 lần."}
+{"rowId":"58","text":"Giải trừ hiệu quả Bắn Chỉ Định"}
+{"rowId":"59","text":"Hồi phục 1500 HP cho tất cả đồng đội trên toàn bản đồ."}
+{"rowId":"60","text":"Hồi phục 3000 HP cho tất cả đồng đội trên toàn bản đồ."}
+{"rowId":"61","text":"Đồng đội xung quanh hồi phục ngay 8% HP, mỗi turn hồi phục 3% HP, duy trì 3 turn."}
+{"rowId":"62","text":"Đồng đội xung quanh hồi phục ngay 10% HP, mỗi turn hồi phục 4% HP, duy trì 4 turn."}
+{"rowId":"63","text":"Kỹ năng phát động"}
+{"rowId":"64","text":"Kỹ năng phát động"}
+{"rowId":"65","text":"Bản thân thêm vỏ phản xạ, mỗi lần bị tấn công phản đòn bằng 30% tổng sát thương, duy trì 2 turn. Chỉ hiệu quả khi chiến đấu."}
+{"rowId":"66","text":"Bản thân thêm vỏ phản xạ, mỗi lần bị tấn công phản đòn bằng 50% tổng sát thương, duy trì 2 turn. Chỉ hiệu quả khi chiến đấu."}
+{"rowId":"67","text":"Phản sát thương"}
+{"rowId":"68","text":"Phản sát thương"}
+{"rowId":"69","text":"Mỗi lần bị tấn công trúng chính xác, nhận 40 sát thương thêm, tối đa cộng dồn 4 lần, sau khi turn bản thân kết thúc, giảm 2 lần hiệu quả thêm."}
+{"rowId":"70","text":"Mỗi lần bị tấn công trúng chính xác, nhận 55 sát thương thêm, tối đa cộng dồn 6 lần, sau khi turn bản thân kết thúc, giảm 2 lần hiệu quả thêm."}
+{"rowId":"71","text":"Giải trừ hiệu quả ưu thế hỏa lực"}
+{"rowId":"72","text":"Tăng 300 điểm hiệu quả cho các vũ khí phụ loại thiên sứ ban phúc"}
+{"rowId":"73","text":"Tăng 600 điểm hiệu quả cho các vũ khí phụ loại thiên sứ ban phúc"}
+{"rowId":"74","text":"Thêm Khiên Phòng Hộ cho tất cả đồng đội, mỗi lần bị bắn trúng hồi phục 0.3% HP."}
+{"rowId":"75","text":"Thêm Khiên Phòng Hộ cho tất cả đồng đội, mỗi lần bị bắn trúng hồi phục 0.4% HP, nếu HP thấp hơn 20%, hiệu quả hồi phục x2."}
+{"rowId":"76","text":"Tăng 6% hộ giáp và phòng thủ."}
+{"rowId":"77","text":"Tăng 10% hộ giáp và phòng thủ."}
+{"rowId":"78","text":"Mỗi lần bắn gây sát thương bằng 2% HP hiện tại của bản thân"}
+{"rowId":"79","text":"Mỗi lần bắn gây sát thương bằng 3% HP hiện tại của bản thân"}
+{"rowId":"80","text":"Sử dụng vũ khí phụ loại khiên sẽ lập tức hồi phục 500 HP"}
+{"rowId":"81","text":"Sử dụng vũ khí phụ loại khiên sẽ lập tức hồi phục 1000 HP"}
+{"rowId":"82","text":"Khi bắn vũ khí phụ loại thiên sứ ban phúc, kèm hiệu quả hồi phục bản thân 3% HP."}
+{"rowId":"83","text":"Khi bắn vũ khí phụ loại thiên sứ ban phúc, kèm hiệu quả hồi phục bản thân 6% HP."}
+{"rowId":"84","text":"Mỗi lần bị tấn công có 20% xác suất phản đòn bằng 3% HP hiện tại."}
+{"rowId":"85","text":"Mỗi lần bị tấn công có 20% xác suất phản đòn bằng 5% HP hiện tại."}
+{"rowId":"86","text":"Tăng 30% sát thương, tăng 10% may mắn, giảm 30% hộ giáp, nhận hiệu quả miễn kháng. Hiệu quả mất khi di chuyển."}
+{"rowId":"87","text":"Sát thương +45%, may mắn +15%, hộ giáp -25%, nhận hiệu quả miễn kháng. Hiệu quả mất khi di chuyển."}
+{"rowId":"88","text":"Sau khi di chuyển sẽ giải trừ hiệu quả pháo đài V3"}
+{"rowId":"89","text":"Tăng 100 công kích, phòng ngự, nhanh nhẹn, may mắn, 1000 HP tối đa cho tất cả chiến hữu. Duy trì 3 TURN."}
+{"rowId":"90","text":"Tăng 300 công kích, phòng ngự, nhanh nhẹn, may mắn, 2000 HP tối đa cho tất cả chiến hữu. Duy trì 3 TURN."}
+{"rowId":"91","text":"Bắn 1 Hạt Bay, khi hạt giống nổ hồi phục HP đồng đội xung quanh, giảm HP địch, hạt giống mỗi giây tăng 3% HP."}
+{"rowId":"92","text":"Bắn 1 Hạt Bay, khi hạt giống nổ hồi phục HP đồng đội xung quanh, giảm HP địch, hạt giống mỗi giây tăng 6% HP."}
+{"rowId":"93","text":"Hoàn toàn không chịu sát thương, hồi phục 5% HP, duy trì 1 turn. Chỉ hiệu quả khi chiến đấu."}
+{"rowId":"94","text":"Hoàn toàn không chịu sát thương, hồi phục 15% HP, duy trì 1 turn. Chỉ hiệu quả khi chiến đấu."}
+{"rowId":"95","text":"Mỗi turn -3.3% HP, nhận 4 điểm ma pháp"}
+{"rowId":"96","text":"TURN đầu tiên sẽ nhận được 50 ma pháp, nhưng sẽ hết hiệu lực ở TURN thứ 2."}
+{"rowId":"97","text":"Khi đồng đội bắt đầu turn nếu được kỹ năng Mầm Xanh duy trì hiệu quả hồi phục, bản thân sẽ tăng 1 điểm ma pháp."}
+{"rowId":"98","text":"Giảm 50 điểm ma lực"}
+{"rowId":"99","text":"Mỗi lần bị tấn công tăng 1 điểm ma pháp"}
+{"rowId":"100","text":"Thú cưng của bạn sau mỗi hiệp có 100% xác xuất xông ra công kích đối phương, gây 10% sát thương"}
+{"rowId":"101","text":"Thú cưng của bạn sau mỗi hiệp có 100% xác xuất xông ra công kích đối phương, gây 20% sát thương"}
+{"rowId":"102","text":"Thú cưng của bạn sau mỗi hiệp có 100% xác xuất xông ra công kích đối phương, gây 30% sát thương"}
+{"rowId":"103","text":"Ném 1 Đạn Rồng Lửa, gây 120% sát thương cơ bản, 100% bạo kích, mục tiêu bị đánh trúng mỗi turn mất 1% HP, duy trì 3 turn. (Chỉ có hiệu quả khi chiến đấu)"}
+{"rowId":"104","text":"Ném 1 Đạn Rồng Lửa, gây 150% sát thương cơ bản, 100% bạo kích, mục tiêu bị đánh trúng mỗi turn mất 2% HP, duy trì 3 turn. (Chỉ có hiệu quả khi chiến đấu)"}
+{"rowId":"105","text":"Ném 1 Đạn Rồng Lửa, gây 180% sát thương cơ bản, 100% bạo kích, mục tiêu bị đánh trúng mỗi turn mất 3% HP, duy trì 3 turn. (Chỉ có hiệu quả khi chiến đấu)"}
+{"rowId":"106","text":"Sát thương cơ bản +15%, hộ giáp giảm 500 điểm, duy trì 3 turn."}
+{"rowId":"107","text":"Sát thương cơ bản +25%, hộ giáp giảm 650 điểm, duy trì 3 turn."}
+{"rowId":"108","text":"Mỗi lần bị tấn công, có xác suất nhất định thức tỉnh Hồn Rồng hồi phục 2% HP. Duy trì 1 turn."}
+{"rowId":"109","text":"Mỗi lần bị tấn công, có xác suất nhất định thức tỉnh Hồn Rồng hồi phục 4% HP. Duy trì 1 turn."}
+{"rowId":"110","text":"Mỗi lần tới lượt địch tấn công, địch sẽ chịu bỏng Ấn Rồng Lửa! Mất 1000 HP, mất thêm 2% HP hiện tại, chỉ có hiệu quả khi chiến đấu. Duy trì 3 turn."}
+{"rowId":"111","text":"Mỗi lần tới lượt địch tấn công, địch sẽ chịu bỏng Ấn Rồng Lửa! Mất 2000 HP, mất thêm 4% HP hiện tại, chỉ có hiệu quả khi chiến đấu. Duy trì 3 turn."}
+{"rowId":"112","text":"Tấn công tăng 150, sát thương tăng 100."}
+{"rowId":"113","text":"Tấn công tăng 300, sát thương tăng 200."}
+{"rowId":"114","text":"Chân Long Tại Thiên, gây cho tất cả địch 3000 sát thương, diệt nhanh địch đang có HP dưới 5%. (Chỉ có hiệu quả khi chiến đấu)"}
+{"rowId":"115","text":"Chân Long Tại Thiên, gây cho tất cả địch 5000 sát thương, diệt nhanh địch đang có HP dưới 10%. (Chỉ có hiệu quả khi chiến đấu)"}
+{"rowId":"116","text":"Khi chịu sát thương, mỗi mất 3500 HP nhận 1 điểm ma pháp"}
+{"rowId":"117","text":"Hồi HP 2%"}
+{"rowId":"118","text":"Hồi HP 4%"}
+{"rowId":"119","text":"Hiển thị"}
+{"rowId":"120","text":"Hiển thị"}
+{"rowId":"121","text":"100% xác xuất tấn công địch sau mỗi turn, gây 10% sát thương."}
+{"rowId":"122","text":"100% xác xuất tấn công địch sau mỗi turn, gây 20% sát thương."}
+{"rowId":"123","text":"100% xác xuất tấn công địch sau mỗi turn, gây 30% sát thương."}
+{"rowId":"124","text":"Thi triển gây 120% sát thương, 100% crit và tăng 100đ tấn công cho bản thân, duy trì 2 turn."}
+{"rowId":"125","text":"Thi triển gây 150% sát thương, 100% crit và tăng 300đ tấn công cho bản thân, duy trì 2 turn."}
+{"rowId":"126","text":"Thi triển gây 180% sát thương, 100% crit và tăng 500đ tấn công cho bản thân, duy trì 2 turn."}
+{"rowId":"127","text":"Tăng 100 điểm hộ giáp cho tất cả đồng đội, duy trì 2 turn.Không cộng dồn để dùng."}
+{"rowId":"128","text":"Tăng 200 điểm hộ giáp cho tất cả đồng đội, duy trì 2 turn.Không cộng dồn để dùng."}
+{"rowId":"129","text":"Tăng 300 điểm hộ giáp cho tất cả đồng đội, duy trì 2 turn. Không cộng dồn để dùng."}
+{"rowId":"130","text":"Mỗi turn giảm 500 HP, tăng 150 điểm sát thương, di chuyển sẽ hủy. Khi HP không đủ, dùng kỹ năng này sẽ tử vong."}
+{"rowId":"131","text":"Mỗi turn giảm 800 HP, tăng 300 điểm sát thương, di chuyển sẽ hủy. Khi HP không đủ, dùng kỹ năng này sẽ tử vong."}
+{"rowId":"132","text":"Tăng nhanh nhẹn 300 điểm."}
+{"rowId":"133","text":"Tăng nhanh nhẹn 500 điểm."}
+{"rowId":"134","text":"Tăng 100 điểm tấn công cho toàn bộ đồng đội."}
+{"rowId":"135","text":"Tăng 300 điểm tấn công cho toàn bộ đồng đội."}
+{"rowId":"136","text":"Tăng 200 điểm tấn công, 100 sát thương, 30% crit và kèm theo hiệu ứng dẫn đường, duy trì 1 turn."}
+{"rowId":"137","text":"Tăng 300 điểm tấn công, 150 sát thương, 50% crit và kèm theo hiệu ứng dẫn đường, duy trì 1 turn."}
+{"rowId":"138","text":"Khi đến lượt thi triển, tăng 2 điểm ma pháp cho toàn bộ thú cưng cùng phe."}
+{"rowId":"139","text":"Xóa hiệu ứng Địa Ngục Băng Giá"}
+{"rowId":"140","text":"Thú cưng có 100% xác suất tấn công kẻ địch khi kết thúc turn, gây 30% sát thương."}
+{"rowId":"141","text":"Thú cưng có 100% xác suất tấn công kẻ địch khi kết thúc turn, gây 40% sát thương."}
+{"rowId":"142","text":"Thú cưng có 100% xác suất tấn công kẻ địch khi kết thúc turn, gây 50% sát thương."}
+{"rowId":"143","text":"Bắn ra nọc độc, gây 120% sát thương, 100% bạo kích, mục tiêu trúng phải giảm 100 sát thương, duy trì 3 turn."}
+{"rowId":"144","text":"Bắn ra nọc độc, gây 150% sát thương, 100% bạo kích, mục tiêu trúng phải giảm 200 sát thương, duy trì 3 turn."}
+{"rowId":"145","text":"Bắn ra nọc độc, gây 180% sát thương, 100% bạo kích, mục tiêu trúng phải giảm 300 sát thương, duy trì 3 turn."}
+{"rowId":"146","text":"Giảm 300 tấn công, 300 phòng thủ toàn bộ phe địch, duy trì 2 turn. Kỹ năng chỉ hiệu quả trong chiến đấu."}
+{"rowId":"147","text":"Giảm 500 tấn công, 500 phòng thủ toàn bộ phe địch, duy trì 2 turn. Kỹ năng chỉ hiệu quả trong chiến đấu."}
+{"rowId":"148","text":"Giảm 10 điểm ma pháp của tất cả thú cưng bên địch. Kỹ năng chỉ hiệu quả trong chiến đấu."}
+{"rowId":"149","text":"Giảm 30 điểm ma pháp của tất cả thú cưng bên địch. Kỹ năng chỉ hiệu quả trong chiến đấu."}
+{"rowId":"150","text":"Mỗi turn giảm 500 HP, tăng 20% bạo kích. Duy trì 3 turn."}
+{"rowId":"151","text":"Mỗi turn giảm 1000 HP, tăng 50% bạo kích. Duy trì 3 turn."}
+{"rowId":"152","text":"Tăng 100 hộ giáp, 1500 HP tối đa."}
+{"rowId":"153","text":"Tăng 200 hộ giáp, 3000 HP tối đa."}
+{"rowId":"154","text":"Giảm 100 hộ giáp tất cả phe địch và không thể di chuyển, duy trì 2 turn."}
+{"rowId":"155","text":"Giảm 200 hộ giáp tất cả phe địch và không thể di chuyển, duy trì 2 turn."}
+{"rowId":"156","text":"Mỗi lần bị tấn công nhận được 2 điểm ma pháp."}
+{"rowId":"157","text":"Sau mỗi đợt tấn công thú cưng sẽ tấn công địch,gây 10% sát thương."}
+{"rowId":"158","text":"Sau mỗi đợt tấn công thú cưng sẽ tấn công địch,gây 20% sát thương."}
+{"rowId":"159","text":"Sau mỗi đợt tấn công thú cưng sẽ tấn công địch,gây 30% sát thương."}
+{"rowId":"160","text":"Thi triển xung kích, gây 120% sát thương cơ bản, 100% bạo kích, bản thân tăng 100 hộ giáp, duy trì 2 turn."}
+{"rowId":"161","text":"Thi triển xung kích, gây 150% sát thương cơ bản, 100% bạo kích, bản thân tăng 300 hộ giáp, duy trì 2 turn."}
+{"rowId":"162","text":"Thi triển xung kích, gây 180% sát thương cơ bản, 100% bạo kích, bản thân tăng 500 hộ giáp, duy trì 2 turn."}
+{"rowId":"163","text":"Nhận được 500 điểm giảm thương, mỗi lần bị tấn công giảm thêm 5% sát thương, duy trì 1 turn."}
+{"rowId":"164","text":"Nhận được 500 +10% điểm giảm thương, mỗi lần bị tấn công giảm thêm 5% sát thương, duy trì 1 turn."}
+{"rowId":"165","text":"Nhận được 500 +20% điểm giảm thương, mỗi lần bị tấn công giảm thêm 10% sát thương, duy trì 1 turn."}
+{"rowId":"166","text":"Mỗi lần bị tấn công phản đòn bằng 30% tất cả sát thương, duy trì 2 turn. Chỉ hiệu quả khi chiến đấu."}
+{"rowId":"167","text":"Mỗi lần bị tấn công phản đòn bằng 50% tất cả sát thương, duy trì 2 turn. Chỉ hiệu quả khi chiến đấu."}
+{"rowId":"168","text":"Mở che chắn, tăng 6% hộ giáp và phòng thủ"}
+{"rowId":"169","text":"Mở che chắn, tăng 10% hộ giáp và phòng thủ"}
+{"rowId":"170","text":"Mỗi lần bị tấn công có 20% xác suất phản đòn bằng 3% HP hiện tại."}
+{"rowId":"171","text":"Mỗi lần bị tấn công có 20% xác suất phản đòn bằng 5% HP hiện tại."}
+{"rowId":"172","text":"Hoàn toàn không chịu sát thương, hồi phục 5% HP, duy trì 1 turn. Chỉ hiệu quả khi chiến đấu."}
+{"rowId":"173","text":"Hoàn toàn không chịu sát thương, hồi phục 15% HP, duy trì 1 turn. Chỉ hiệu quả khi chiến đấu."}
+{"rowId":"174","text":"Mỗi lần bị tấn công tăng 1 điểm ma pháp"}
+{"rowId":"175","text":"Sau mỗi đợt tấn công Pet sẽ tấn công địch, gây 30% sát thương."}
+{"rowId":"176","text":"Sau mỗi đợt tấn công Pet sẽ tấn công địch, gây 40% sát thương."}
+{"rowId":"177","text":"Sau mỗi đợt tấn công Pet sẽ tấn công địch, gây 50% sát thương."}
+{"rowId":"178","text":"Gây 120% sát thương cơ bản, 100% bạo kích, mục tiêu bị trúng giảm 100 tấn công, duy trì 3 Turn."}
+{"rowId":"179","text":"Gây 150% sát thương cơ bản, 100% bạo kích, mục tiêu bị trúng giảm 200 tấn công, duy trì 3 Turn."}
+{"rowId":"180","text":"Gây 180% sát thương cơ bản, 100% bạo kích, mục tiêu bị trúng giảm 300 tấn công, duy trì 3 Turn."}
+{"rowId":"181","text":"Tất cả đồng đội tăng 100 hộ giáp, mỗi Turn hồi 800 điểm HP. Duy trì 2 Turn, chỉ có hiệu quả khi chiến đấu."}
+{"rowId":"182","text":"Tất cả đồng đội tăng 200 hộ giáp, mỗi Turn hồi 1000 điểm HP. Duy trì 2 Turn, chỉ có hiệu quả khi chiến đấu."}
+{"rowId":"183","text":"Giảm 10 điểm ma pháp Pet địch bị bắn trúng, tăng 5 điểm ma pháp Pet đồng đội. Chỉ có hiệu quả khi chiến đấu."}
+{"rowId":"184","text":"Giảm 20 điểm ma pháp Pet địch bị bắn trúng, tăng 10 điểm ma pháp Pet đồng đội. Chỉ có hiệu quả khi chiến đấu."}
+{"rowId":"185","text":"May mắn +300."}
+{"rowId":"186","text":"May mắn +500."}
+{"rowId":"187","text":"Tất cả đồng đội +100 sát thương."}
+{"rowId":"188","text":"Tất cả đồng đội +300 sát thương."}
+{"rowId":"189","text":"Khiến đối phương không thể di chuyển, mỗi turn gây 800 sát thương người chơi bị bắn trúng, duy trì 2 turn."}
+{"rowId":"190","text":"Khiến đối phương không thể di chuyển, mỗi turn gây 1300 sát thương người chơi bị bắn trúng, duy trì 2 turn."}
+{"rowId":"191","text":"Mỗi lần bị tấn công nhận được 2 điểm ma pháp."}
+{"rowId":"192","text":"Hạt nhân"}
+{"rowId":"193","text":"Hạt nhân"}
+{"rowId":"194","text":"Sau mỗi đợt tấn công thú cưng sẽ tấn công địch, gây 50% sát thương."}
+{"rowId":"195","text":"Ném 1 Cầu Lục gây 120% sát thương cơ bản, 100% bạo kích, mục tiêu bị trúng không thể dùng kỹ năng chủ động thú cưng 2 turn. (Không thể cùng với POW, cộng dồn đạo cụ)"}
+{"rowId":"196","text":"Ném 1 Cầu Lục gây 150% sát thương cơ bản, 100% bạo kích, mục tiêu bị trúng không thể dùng kỹ năng chủ động thú cưng 2 turn. (Không thể cùng với POW, cộng dồn đạo cụ)"}
+{"rowId":"197","text":"Ném 1 Cầu Lục gây 180% sát thương cơ bản, 100% bạo kích, mục tiêu bị trúng không thể dùng kỹ năng chủ động thú cưng 2 turn. (Không thể cùng với POW, cộng dồn đạo cụ)"}
+{"rowId":"198","text":"Khi đối phương dùng kỹ năng chủ động, bản thân nhận được 30% ma pháp còn lại của đối phương."}
+{"rowId":"199","text":"Khi đối phương dùng kỹ năng chủ động, bản thân nhận được 50% ma pháp còn lại của đối phương."}
+{"rowId":"200","text":"Ẩn thân trong thi đấu 2 turn và ngẫu nhiên di chuyển nhanh đến điểm xuất phát đầu. (Không thể cùng với đạo cụ, cộng dồn)"}
+{"rowId":"201","text":"Tất cả phe ta -20% sát thương bạo kích phải chịu. (Không cộng dồn, chỉ nhận hiệu quả cao nhất)"}
+{"rowId":"202","text":"Tất cả phe ta -30% sát thương bạo kích phải chịu. (Không cộng dồn, chỉ nhận hiệu quả cao nhất)"}
+{"rowId":"203","text":"Sát thương phải chịu -15%, duy trì 2 turn."}
+{"rowId":"204","text":"Sát thương phải chịu -30%, duy trì 2 turn"}
+{"rowId":"205","text":"Sát thương phải chịu -50%, duy trì 2 turn"}
+{"rowId":"206","text":"Nhận được kỹ năng"}
+{"rowId":"207","text":"Nhận được kỹ năng"}
+{"rowId":"208","text":"Trong chiến đấu khi đến lượt mình ra tay có thể trộm tất cả địch mỗi người 1 điểm ma pháp"}
+{"rowId":"209","text":"Trong chiến đấu khi đến lượt mình ra tay có thể trộm tất cả địch mỗi người 2 điểm ma pháp"}
+{"rowId":"210","text":"Khiến địch giảm điểm ma pháp."}
+{"rowId":"211","text":"Khiến địch giảm điểm ma pháp."}
+{"rowId":"212","text":"Trong thi đấu lấy 30% sát thương gây cho địch chuyển thành hồi HP bản thân, duy trì 1 turn (Không được cộng dồn với POW)."}
+{"rowId":"213","text":"Trong thi đấu lấy 30% sát thương gây cho địch chuyển thành hồi HP bản thân, duy trì 2 turn (Không được cộng dồn với POW)."}
+{"rowId":"214","text":"Nhận được kỹ năng"}
+{"rowId":"215","text":"Nhận được kỹ năng"}
+{"rowId":"216","text":"Hủy hiệu quả Nụ Cười Thâm Hiểm"}
+{"rowId":"217","text":"Hủy hiệu quả HP"}
+{"rowId":"218","text":"Trộm đối phương 1 ma pháp"}
+{"rowId":"219","text":"Trộm đối phương 2 ma pháp"}
+{"rowId":"220","text":"Hấp thu 30%"}
+{"rowId":"221","text":"Hấp thu 30%"}
+{"rowId":"231","text":"Trong thời gian dùng kỹ năng thú cưng nhận hiệu quả miễn kháng, hiệu quả điều trị tất cả đồng đội +30%."}
+{"rowId":"232","text":"Trong thời gian dùng kỹ năng thú cưng nhận hiệu quả miễn kháng, hiệu quả điều trị tất cả đồng đội +50%."}
+{"rowId":"242","text":"Giải trừ hiệu quả Bắn Chỉ Định"}
+{"rowId":"243","text":"Sau khi di chuyển sẽ giải trừ hiệu quả pháo đài V3"}
+{"rowId":"244","text":"Giải trừ hiệu quả ưu thế hỏa lực"}
+{"rowId":"245","text":"Mỗi lần bị tấn công trúng chính xác, nhận 40 sát thương thêm, tối đa cộng dồn 4 lần, sau khi turn bản thân kết thúc, giảm 2 lần hiệu quả thêm."}
+{"rowId":"246","text":"Mỗi lần bị tấn công trúng chính xác, nhận 55 sát thương thêm, tối đa cộng dồn 6 lần, sau khi turn bản thân kết thúc, giảm 2 lần hiệu quả thêm."}
+{"rowId":"247","text":"Khi bị tấn công hồi phục HP"}
+{"rowId":"248","text":"Khi bị tấn công hồi phục HP, x2 khi HP thấp"}
+{"rowId":"260","text":"Mỗi turn sau khi bắn có xác suất 100% xông lên tấn công địch, gây 30% sát thương."}
+{"rowId":"261","text":"Mỗi turn sau khi bắn có xác suất 100% xông lên tấn công địch, gây 40% sát thương."}
+{"rowId":"262","text":"Mỗi turn sau khi bắn có xác suất 100% xông lên tấn công địch, gây 50% sát thương."}
+{"rowId":"263","text":"Ném 1 đào tiên, gây 150% sát thương cơ bản, tăng 20% xác suất bạo kích, duy trì 2 turn."}
+{"rowId":"264","text":"Ném 1 đào tiên, gây 180% sát thương cơ bản, tăng 20% xác suất bạo kích, duy trì 2 turn."}
+{"rowId":"265","text":"Ném 1 đào tiên, gây 220% sát thương cơ bản, tăng 20% xác suất bạo kích, duy trì 2 turn."}
+{"rowId":"266","text":"Tất cả đồng đội +5% Ma Công, toàn thể phe địch giảm 10% Ma Kháng."}
+{"rowId":"267","text":"Tất cả đồng đội +10% Ma Công, toàn thể phe địch giảm 15% Ma Kháng."}
+{"rowId":"268","text":"Tất cả phe địch không thể hành động 1 turn. (Chỉ có hiệu quả khi chiến đấu)"}
+{"rowId":"269","text":"Tất cả phe địch không thể hành động 1 turn, ma pháp -10 điểm. (Chỉ có hiệu quả khi chiến đấu)"}
+{"rowId":"270","text":"Giảm 10% sát thương phải chịu, có 20% xác suất miễn bị bạo kích."}
+{"rowId":"271","text":"Giảm 20% sát thương phải chịu, có 30% xác suất miễn bị bạo kích."}
+{"rowId":"272","text":"Đánh dấu tất cả người chơi phe địch ẩn thân, duy trì 2 turn (chỉ có hiệu quả khi chiến đấu)"}
+{"rowId":"273","text":"Đánh dấu tất cả người chơi phe địch ẩn thân, khiến địch chịu thêm 20% sát thương, duy trì 2 turn (Chỉ có hiệu quả khi chiến đấu)"}
+{"rowId":"274","text":"Mỗi lần chịu đòn trí mạng hồi phục 5% HP, mỗi trận tối đa kích hoạt 3 lần. (Chỉ có hiệu quả khi chiến đấu)"}
+{"rowId":"275","text":"Vung Gậy Như Ý, gây cho địch ngẫu nhiên trong toàn màn hình 5 lần 100% sát thương phạm vi."}
+{"rowId":"276","text":"Vung Gậy Như Ý khiến địch ngẫu nhiên trong toàn màn hình 5 lần 150% sát thương phạm vi, cứ hạ 1 kẻ địch tất cả đồng đội hồi 5% HP."}
+{"rowId":"277","text":"Mỗi lần dùng đạo cụ chiến đấu +1 ma pháp, mỗi turn tối đa +7 ma pháp."}
+{"rowId":"278","text":"Nhận kỹ năng tăng sát thương"}
+{"rowId":"279","text":"Hồi phục ma pháp khi bị tấn công"}
+{"rowId":"280","text":"Mỗi turn bắn xong, thú cưng xông ra tấn công địch, gây 65% sát thương."}
+{"rowId":"281","text":"Sát thương cơ bản tăng 30%, hộ giáp giảm 750, tăng 15% giới hạn HP, duy trì 3 turn."}
+{"rowId":"282","text":"Mỗi lần bị tấn công, thức tỉnh Hồn Rồng hồi phục 4% HP, duy trì 1 turn"}
+{"rowId":"283","text":"Tấn công tăng 450, sát thương tăng 300."}
+{"rowId":"284","text":"Khi bị sát thương, mỗi mất 3500 HP nhận 1 điểm ma pháp, có xác suất nhất định kích hoạt hiệu quả bảo vệ Hồn Rồng."}
+{"rowId":"285","text":"Kích hoạt sát thương lần 2"}
+{"rowId":"286","text":"Hồi HP 4%"}
+{"rowId":"287","text":"Kích hoạt Rồng Bảo Vệ"}
+{"rowId":"288","text":"Mỗi turn bắn xong, thú cưng xông ra tấn công địch, gây 65% sát thương."}
+{"rowId":"289","text":"Vung Sừng Hươu đâm xuyên phòng thủ địch, gây 180% sát thương cơ bản, 100% bạo kích, mục tiêu bị đánh trúng tấn công và phòng thủ giảm 20%, duy trì 3 turn."}
+{"rowId":"290","text":"Tất cả đồng đội tăng 300 sát thương và 10% tỷ lệ bạo kích."}
+{"rowId":"291","text":"Dùng khi thi đấu khiến địch không thể di chuyển, mỗi turn giảm 5% HP, duy trì 3 turn."}
+{"rowId":"292","text":"Sau mỗi đợt tấn công thú cưng sẽ tấn công địch, gây 30% sát thương."}
+{"rowId":"293","text":"Sau mỗi đợt tấn công thú cưng sẽ tấn công địch, gây 40% sát thương."}
+{"rowId":"294","text":"Ném 1 Đạn Liệt Băng, gây 180% sát thương, 100% bạo kích, tăng 6% tấn công và sát thương, duy trì 2 turn."}
+{"rowId":"295","text":"Tất cả đồng đội tăng 30% tỷ lệ giảm thương, duy trì 2 turn, không thể cộng dồn."}
+{"rowId":"296","text":"Mỗi turn mất 8% HP để đổi 800 sát thương thêm, sau khi di chuyển hiệu quả bị hủy. Khi HP còn không đủ sẽ tử vong."}
+{"rowId":"297","text":"Tất cả đồng đội tăng 600 nhanh nhẹn."}
+{"rowId":"298","text":"Tất cả đồng đội tăng 600 tấn công."}
+{"rowId":"299","text":"Tăng 5% tấn công và sát thương, tăng 50% tỷ lệ bạo kích, kèm hiệu quả dẫn đường, duy trì 2 turn."}
+{"rowId":"300","text":"Đến lượt bản thân, tất cả đồng đội tăng thêm 2 điểm ma pháp và hồi phục 2% HP."}
+{"rowId":"301","text":"Mỗi turn bắn xong, thú cưng có xác suất 100% xông ra tấn công địch, gây 65% sát thương."}
+{"rowId":"302","text":"Phun thuốc độc, gây 180% sát thương cơ bản, 100% bạo kích, khi bị đánh trúng mục tiêu giảm sát thương 25%, duy trì 3 turn."}
+{"rowId":"303","text":"Tất cả địch tấn công và phòng thủ giảm 30%, duy trì 2 turn. Chỉ có hiệu quả khi chiến đấu."}
+{"rowId":"304","text":"Mỗi turn mất 5% giới hạn HP, tăng 75% tỷ lệ bạo kích, tăng 30% sát thương bạo kích, duy trì 3 turn."}
+{"rowId":"305","text":"Khi thi đấu tất cả địch hộ giáp và ma kháng giảm 35%, đồng thời không thể di chuyển, duy trì 2 turn."}
+{"rowId":"306","text":"Mỗi lần bị đánh trúng nhận thêm 2 điểm ma pháp, có xác suất khiến địch chịu hiệu quả trúng độc."}
+{"rowId":"307","text":"Nhận hiệu quả trúng độc, sát thương phải chịu tăng 10%, duy trì 2 turn."}
+{"rowId":"308","text":"Mỗi turn bắn xong có xác suất 100% xông ra tấn công địch, gây 65% sát thương."}
+{"rowId":"309","text":"Ném 1 đào tiên, gây 220% sát thương cơ bản, tăng 25% tỷ lệ bạo kích, duy trì 3 turn."}
+{"rowId":"310","text":"Tất cả địch không thể hành động 1 turn, giảm 20 điểm ma pháp. (Chỉ có hiệu quả khi chiến đấu)"}
+{"rowId":"311","text":"Giảm 30% sát thương phải chịu, có xác suất 35% miễn bị bạo kích."}
+{"rowId":"312","text":"Đánh dấu tất cả địch ẩn thân, khiến địch chịu thêm 30% sát thương, duy trì 2 turn (Chỉ có hiệu quả khi chiến đấu)"}
+{"rowId":"313","text":"Nhận kỹ năng tăng sát thương"}
+{"rowId":"314","text":"Mỗi lần chịu đòn chí mạng hồi phục 5% HP và tăng 50 điểm nộ khí, mỗi trận đấu tối đa kích hoạt 3 lần. (Chỉ có hiệu quả khi chiến đấu)"}
+{"rowId":"315","text":"Mỗi lần dùng đạo cụ chiến đấu tăng 1 điểm ma pháp và 2 điểm nộ khí."}
+{"rowId":"316","text":"Hộ giáp tăng 500, giới hạn HP tăng 8%."}
+{"rowId":"317","text":"Xóa hiệu ứng Địa Ngục Băng Giá"}
+{"rowId":"318","text":"Mỗi turn bắn xong, thú cưng xông ra tấn công địch, gây 65% sát thương."}
+{"rowId":"319","text":"Ném 1 Cầu Lục, gây 180% sát thương cơ bản, 100% bạo kích, mục tiêu bị đánh trúng không thể dùng kỹ năng thú cưng 3 turn."}
+{"rowId":"320","text":"Bản thân tăng điểm ma pháp bằng 60% điểm địch cần tiêu hao khi dùng kỹ năng chủ động, hồi phục thêm 4 điểm ma pháp."}
+{"rowId":"321","text":"Giảm 30% sát thương bạo kích đồng đội phải chịu, tăng 15% tỉ lệ bạo kích của đồng đội. (Không cộng dồn, lấy hiệu quả cao nhất)"}
+{"rowId":"322","text":"Giảm 50% sát thương phải chịu, duy trì 3 turn."}
+{"rowId":"323","text":"Biến thân Ác Ma, giảm điểm ma pháp tiêu hao, chuyển 35% sát thương của địch thành HP, duy trì 2 turn. (Chỉ hiệu quả trong thi đấu)"}
+{"rowId":"324","text":"Hấp thu 35% sát thương"}
+{"rowId":"325","text":"Mỗi lần đến lượt bản thân ra tay, hút 2 điểm ma pháp của tất cả phe địch, tăng 1 điểm ma pháp cho tất cả đồng đội"}
+{"rowId":"363","text":"Ném 1 đào tiên, gây 120% sát thương cơ bản, tăng 20% xác suất bạo kích, duy trì 2 turn."}
+{"rowId":"364","text":"Ném 1 đào tiên, gây 150% sát thương cơ bản, tăng 20% xác suất bạo kích, duy trì 2 turn."}
+{"rowId":"365","text":"Ném 1 đào tiên, gây 180% sát thương cơ bản, tăng 20% xác suất bạo kích, duy trì 2 turn."}
+{"rowId":"375","text":"Vung Gậy Như Ý, gây cho địch ngẫu nhiên trong toàn màn hình 5 lần 60% sát thương phạm vi."}
+{"rowId":"376","text":"Vung Gậy Như Ý khiến địch ngẫu nhiên trong toàn màn hình 5 lần 100% sát thương phạm vi, cứ hạ 1 kẻ địch tất cả đồng đội hồi 5% HP."}
+{"rowId":"377","text":"Mỗi lần dùng đạo cụ chiến đấu +1 ma pháp, mỗi turn tối đa +5 ma pháp."}
+{"rowId":"401","text":"Tăng Sao: Sát thương POW +5%."}
+{"rowId":"402","text":"Tăng Sao: Sát thương POW +10%."}
+{"rowId":"403","text":"Tăng Sao: Sát thương POW +15%."}
+{"rowId":"404","text":"Tăng Sao: Sát thương POW +20%."}
+{"rowId":"405","text":"Tăng Sao: Sát thương POW +25%."}
+{"rowId":"406","text":"Tăng Sao: Sát thương POW +30%."}
+{"rowId":"407","text":"Tăng Sao: Sát thương POW +35%."}
+{"rowId":"408","text":"Tăng Sao: Sát thương POW +40%."}
+{"rowId":"409","text":"Tăng Sao: Sát thương POW +45%."}
+{"rowId":"410","text":"Tăng Sao: Sát thương POW +50%."}
+{"rowId":"411","text":"Tăng Sao: Sát thương bạo kích phải chịu -5%."}
+{"rowId":"412","text":"Tăng Sao: Sát thương bạo kích phải chịu -10%."}
+{"rowId":"413","text":"Tăng Sao: Sát thương bạo kích phải chịu -15%."}
+{"rowId":"414","text":"Tăng Sao: Sát thương bạo kích phải chịu -20%."}
+{"rowId":"415","text":"Tăng Sao: Sát thương bạo kích phải chịu -25%."}
+{"rowId":"416","text":"Tăng Sao: Sát thương bạo kích phải chịu -30%."}
+{"rowId":"417","text":"Tăng Sao: Sát thương bạo kích phải chịu -35%."}
+{"rowId":"418","text":"Tăng Sao: Sát thương bạo kích phải chịu -40%."}
+{"rowId":"419","text":"Tăng Sao: Sát thương bạo kích phải chịu -45%."}
+{"rowId":"420","text":"Tăng Sao: Sát thương bạo kích phải chịu -50%."}
+{"rowId":"421","text":"Tăng Sao: Bị tấn công sẽ tăng 2% Ma Kháng, cộng dồn 10 tầng, xóa khi đến turn bản thân"}
+{"rowId":"422","text":"Tăng Sao: Bị tấn công sẽ tăng 4% Ma Kháng, cộng dồn 10 tầng, xóa khi đến turn bản thân"}
+{"rowId":"423","text":"Tăng Sao: Bị tấn công sẽ tăng 6% Ma Kháng, cộng dồn 10 tầng, xóa khi đến turn bản thân"}
+{"rowId":"424","text":"Tăng Sao: Bị tấn công sẽ tăng 8% Ma Kháng, cộng dồn 10 tầng, xóa khi đến turn bản thân"}
+{"rowId":"425","text":"Tăng Sao: Bị tấn công sẽ tăng 10% Ma Kháng, cộng dồn 10 tầng, xóa khi đến turn bản thân"}
+{"rowId":"426","text":"Tăng Sao: Bị tấn công sẽ tăng 12% Ma Kháng, cộng dồn 10 tầng, xóa khi đến turn bản thân"}
+{"rowId":"427","text":"Tăng Sao: Bị tấn công sẽ tăng 14% Ma Kháng, cộng dồn 10 tầng, xóa khi đến turn bản thân"}
+{"rowId":"428","text":"Tăng Sao: Bị tấn công sẽ tăng 16% Ma Kháng, cộng dồn 10 tầng, xóa khi đến turn bản thân"}
+{"rowId":"429","text":"Tăng Sao: Bị tấn công sẽ tăng 18% Ma Kháng, cộng dồn 10 tầng, xóa khi đến turn bản thân"}
+{"rowId":"430","text":"Tăng Sao: Bị tấn công sẽ tăng 20% Ma Kháng, cộng dồn 10 tầng, xóa khi đến turn bản thân"}
+{"rowId":"431","text":"Khi bị đánh sát thương giảm"}
+{"rowId":"432","text":"Khi bị đánh sát thương giảm"}
+{"rowId":"433","text":"Khi bị đánh sát thương giảm"}
+{"rowId":"434","text":"Khi bị đánh sát thương giảm"}
+{"rowId":"435","text":"Khi bị đánh sát thương giảm"}
+{"rowId":"436","text":"Khi bị đánh sát thương giảm"}
+{"rowId":"437","text":"Khi bị đánh sát thương giảm"}
+{"rowId":"438","text":"Khi bị đánh sát thương giảm"}
+{"rowId":"439","text":"Khi bị đánh sát thương giảm"}
+{"rowId":"440","text":"Khi bị đánh sát thương giảm"}
+{"rowId":"441","text":"Mỗi turn sau khi bắn, pet sẽ có sác xuất 100% tấn công kẻ địch, tạo 30% sát thương"}
+{"rowId":"442","text":"Khi kết thúc turn, pet sẽ có sác xuất 100% tấn công kẻ địch, tạo 40% sát thương"}
+{"rowId":"443","text":"Khi kết thúc turn, pet sẽ có sác xuất 100% tấn công kẻ địch, tạo 50% sát thương"}
+{"rowId":"444","text":"Ném 1 trứng bay, tạo 150% sát thương cơ bản, bạo kích nhất định, bắn trúng sẽ giảm 30% sát thương của mục tiêu, duy trì 2 turn"}
+{"rowId":"445","text":"Ném 1 trứng bay, tạo 180% sát thương cơ bản, bạo kích nhất định, bắn trúng sẽ giảm 30% sát thương của mục tiêu, duy trì 2 turn"}
+{"rowId":"446","text":"Ném 1 trứng bay, tạo 220% sát thương cơ bản, bạo kích nhất định, bắn trúng sẽ giảm 30% sát thương của mục tiêu, duy trì 2 turn"}
+{"rowId":"447","text":"Thi triển kungfu - Quy Tương, trong turn khi sử dụng PASS, sẽ khởi động tư thế phòng thủ, giảm sát thương nhận 20%, giảm bạo kích nhận 40%, duy trì 2 turn"}
+{"rowId":"448","text":"Thi triển kungfu - Quy Tương, trong turn khi sử dụng PASS, sẽ khởi động tư thế phòng thủ, giảm sát thương nhận 30%, giảm bạo kích nhận 60%, duy trì 2 turn"}
+{"rowId":"449","text":"Thi triển kungfu - Thần Báo, nộ khí giảm 50, trong turn nhất định bộc phát năng lực Thần Báo, tăng 70% tốc độ tấn công, thể lực trong turn có Thần Báo giảm còn 120, duy trì 1 turn"}
+{"rowId":"450","text":"Thi triển kungfu - Thần Báo, nộ khí giảm 50, trong turn nhất định bộc phát năng lực Thần Báo, thể lực trong turn có Thần Báo giảm còn 120, duy trì 1 turn"}
+{"rowId":"451","text":"Thi triển kungfu - Điệp Ẩn, khi bắt đầu turn, nếu HP thấp hơn 40% sẽ nhận được hiệu quả ẩn thân 1 turn"}
+{"rowId":"452","text":"Thi triển kungfu - Điệp Ẩn, khi bắt đầu turn, nếu HP thấp hơn 40% sẽ nhận được hiệu quả ẩn thân 1 turn"}
+{"rowId":"453","text":"Thi triển kungfu - Xà Ảnh, di chuyển đến vị trí ngẫu nhiên giữa bản thân và kẻ địch, các vị trí khác sẽ xuất hiện phân thân, phân thân bị tấn công 3 lần hoặc hết 1 turn sẽ biến mất. Chỉ có hiệu quả trong chiến đấu"}
+{"rowId":"454","text":"Thi triển kungfu - Xà Ảnh, di chuyển đến vị trí ngẫu nhiên giữa bản thân và kẻ địch, các vị trí khác sẽ xuất hiện phân thân, phân thân bị tấn công 3 lần hoặc hết 1 turn sẽ biến mất. Chỉ có hiệu quả trong chiến đấu"}
+{"rowId":"455","text":"Thi triển kungfu - Hổ Cầm, tất cả viên đạn bắn ra đều có hiệu quả Trói Buộc, duy trì 2 turn. Chỉ có hiệu quả trong chiến đấu"}
+{"rowId":"456","text":"Thi triển kungfu - Hổ Cầm, tất cả viên đạn bắn ra đều có hiệu quả Trói Buộc, duy trì 2 turn. Chỉ có hiệu quả trong chiến đấu"}
+{"rowId":"457","text":"Thi triển kungfu - Long Ngâm, phóng ra lực cuồng bạo, mất 80% HP hiện tại, bỏ qua 40% phòng thủ của đối phương, duy trì 1 turn"}
+{"rowId":"458","text":"Thi triển kungfu - Long Ngâm, phóng ra lực cuồng bạo, mất 80% HP hiện tại, bỏ qua 60% phòng thủ của đối phương, duy trì 1 turn"}
+{"rowId":"459","text":"Mỗi khi thi triển kungfu, sẽ hồi phục 4 điểm ma pháp, kèm hiệu quả phản kích tuyệt thế, khi HP tối đa mất 1% sẽ tăng điểm sát thương thêm 1% (tăng nhiều nhất 80%, duy trì 1 turn)"}
+{"rowId":"460","text":"Nhận kỹ năng"}
+{"rowId":"461","text":"Nhận kỹ năng"}
+{"rowId":"462","text":"Mỗi turn sau khi bắn, pet sẽ có sác xuất 100% tấn công kẻ địch, tạo 15% sát thương"}
+{"rowId":"463","text":"Khi kết thúc turn, pet sẽ có sác xuất 100% tấn công kẻ địch, tạo 25% sát thương"}
+{"rowId":"464","text":"Khi kết thúc turn, pet sẽ có sác xuất 100% tấn công kẻ địch, tạo 36% sát thương"}
+{"rowId":"465","text":"Ném 1 trứng bay, tạo 120% sát thương cơ bản, bạo kích nhất định, bắn trúng sẽ giảm 30% sát thương của mục tiêu, duy trì 2 turn"}
+{"rowId":"466","text":"Ném 1 trứng bay, tạo 150% sát thương cơ bản, bạo kích nhất định, bắn trúng sẽ giảm 30% sát thương của mục tiêu, duy trì 2 turn"}
+{"rowId":"467","text":"Ném 1 trứng bay, tạo 180% sát thương cơ bản, bạo kích nhất định, bắn trúng sẽ giảm 30% sát thương của mục tiêu, duy trì 2 turn"}
+{"rowId":"468","text":"Thi triển kungfu - Quy Tương, trong turn khi sử dụng PASS, sẽ khởi động tư thế phòng thủ, giảm sát thương nhận 10%, giảm bạo kích nhận 20%, duy trì 2 turn"}
+{"rowId":"469","text":"Thi triển kungfu - Quy Tương, trong turn khi sử dụng PASS, sẽ khởi động tư thế phòng thủ, giảm sát thương nhận 20%, giảm bạo kích nhận 40%, duy trì 2 turn"}
+{"rowId":"470","text":"Thi triển kungfu - Thần Báo, nộ khí giảm 50, trong turn nhất định bộc phát năng lực Thần Báo, tăng 40% tốc độ tấn công, thể lực trong turn có Thần Báo giảm còn 80, duy trì 1 turn"}
+{"rowId":"471","text":"Thi triển kungfu - Thần Báo, nộ khí giảm 50, trong turn nhất định bộc phát năng lực Thần Báo, thể lực trong turn có Thần Báo giảm còn 80, duy trì 1 turn"}
+{"rowId":"472","text":"Thi triển kungfu - Điệp Ẩn, khi bắt đầu turn, nếu HP thấp hơn 30% sẽ nhận được hiệu quả ẩn thân 1 turn"}
+{"rowId":"473","text":"Thi triển kungfu - Điệp Ẩn, khi bắt đầu turn, nếu HP thấp hơn 30% sẽ nhận được hiệu quả ẩn thân 1 turn"}
+{"rowId":"474","text":"Thi triển kungfu - Xà Ảnh, di chuyển đến vị trí ngẫu nhiên giữa bản thân và kẻ địch, các vị trí khác sẽ xuất hiện phân thân, phân thân bị tấn công 3 lần hoặc hết 1 turn sẽ biến mất. Chỉ có hiệu quả trong chiến đấu"}
+{"rowId":"475","text":"Thi triển kungfu - Xà Ảnh, di chuyển đến vị trí ngẫu nhiên giữa bản thân và kẻ địch, các vị trí khác sẽ xuất hiện phân thân, phân thân bị tấn công 3 lần hoặc hết 1 turn sẽ biến mất. Chỉ có hiệu quả trong chiến đấu"}
+{"rowId":"476","text":"Thi triển kungfu - Hổ Cầm, tất cả viên đạn bắn ra đều có hiệu quả Trói Buộc, duy trì 2 turn. Chỉ có hiệu quả trong chiến đấu"}
+{"rowId":"477","text":"Thi triển kungfu - Hổ Cầm, tất cả viên đạn bắn ra đều có hiệu quả Trói Buộc, duy trì 2 turn. Chỉ có hiệu quả trong chiến đấu"}
+{"rowId":"478","text":"Thi triển kungfu - Long Ngâm, phóng ra lực cuồng bạo, mất 80% HP hiện tại, bỏ qua 30% phòng thủ của đối phương, duy trì 1 turn"}
+{"rowId":"479","text":"Thi triển kungfu - Long Ngâm, phóng ra lực cuồng bạo, mất 80% HP hiện tại, bỏ qua 40% phòng thủ của đối phương, duy trì 1 turn"}
+{"rowId":"480","text":"Mỗi khi thi triển kungfu, sẽ hồi phục 2 điểm ma pháp, kèm hiệu quả phản kích tuyệt thế, khi HP tối đa mất 1% sẽ tăng điểm sát thương thêm 1% (tăng nhiều nhất 80%, duy trì 1 turn)"}
+{"rowId":"481","text":"Nhận kỹ năng"}
+{"rowId":"482","text":"Nhận kỹ năng"}
+{"rowId":"483","text":"Sát thương tăng 5% (BUFF đội)"}
+{"rowId":"484","text":"Sát thương tăng 8% (BUFF đội)"}
+{"rowId":"485","text":"Sát thương tăng 10% (BUFF đội)"}
+{"rowId":"486","text":"Sát thương tăng 12% (BUFF đội)"}
+{"rowId":"487","text":"Sát thương tăng 14% (BUFF đội)"}
+{"rowId":"488","text":"Sát thương tăng 16% (BUFF đội)"}
+{"rowId":"489","text":"Sát thương tăng 18% (BUFF đội)"}
+{"rowId":"490","text":"Giới hạn HP tăng 5% (BUFF đội)"}
+{"rowId":"491","text":"Giới hạn HP tăng 6% (BUFF đội)"}
+{"rowId":"492","text":"Giới hạn HP tăng 7% (BUFF đội)"}
+{"rowId":"493","text":"Giới hạn HP tăng 8% (BUFF đội)"}
+{"rowId":"494","text":"Giới hạn HP tăng 9% (BUFF đội)"}
+{"rowId":"495","text":"Giới hạn HP tăng 10% (BUFF đội)"}
+{"rowId":"496","text":"Giới hạn HP tăng 12% (BUFF đội)"}
+{"rowId":"497","text":"Mỗi turn sau khi bắn, pet sẽ có sác xuất 100% tấn công kẻ địch, tạo 65% sát thương"}
+{"rowId":"498","text":"Thi triển kungfu - Quy Tương, trong turn khi sử dụng PASS, sẽ nhận thêm 10 điểm nộ khí và khởi động tư thế phòng thủ, giảm sát thương nhận 30%, giảm bạo kích nhận 60%, duy trì 2 turn"}
+{"rowId":"499","text":"Thi triển kungfu - Thần Báo, nộ khí tăng 50, trong turn nhất định bộc phát năng lực Thần Báo, tăng 80% tốc độ tấn công, thể lực trong turn có Thần Báo giảm còn 120, duy trì 1 turn"}
+{"rowId":"500","text":"Thi triển kungfu - Điệp Ẩn, khi bắt đầu turn, nếu HP thấp hơn 40% sẽ nhận được hiệu quả ẩn thân và giảm sát thương 20%"}
+{"rowId":"501","text":"Thi triển kungfu - Xà Ảnh, di chuyển đến vị trí ngẫu nhiên giữa bản thân và kẻ địch, các vị trí khác sẽ xuất hiện phân thân, phân thân bị tấn công 5 lần hoặc hết 1 turn sẽ biến mất. Chỉ có hiệu quả trong chiến đấu"}
+{"rowId":"502","text":"Thi triển kungfu - Long Ngâm, phóng ra lực cuồng bạo, mất 50% HP hiện tại, bỏ qua 65% phòng thủ của đối phương, nếu đang trong trạng thái ẩn thân, sẽ tăng sát thương thêm 25%, duy trì 1 turn"}
+{"rowId":"503","text":"Mỗi khi thi triển kungfu, sẽ hồi phục 4 điểm ma pháp và tăng 5% giới hạn HP (hiệu quả xếp chồng nhiều nhất 10 lần), kèm hiệu quả phản kích tuyệt thế, khi HP tối đa mất 1% sẽ tăng điểm sát thương thêm 1% (duy trì 1 turn)"}
+{"rowId":"504","text":"Dano aumentado em  habilidades"}
+{"rowId":"505","text":"Ganha habilidades."}
+{"rowId":"506","text":"Khi bị tấn công có 10% kích hoạt Chúc Phúc, hộ giáp và phòng thủ tăng 20%, duy trì 2 turn."}
+{"rowId":"507","text":"Khi tấn công có 10% kích hoạt Tán Dương, giảm 50% sát thương mục tiêu, duy trì 2 turn (Hiệu lực với PVP)"}
+{"rowId":"508","text":"Khi tấn công có 10% kích hoạt Sức Mạnh, ma công tăng 30%, duy trì 2 turn"}
+{"rowId":"509","text":"Khi tấn công có 10% kích hoạt Nghệ Thuật, sát thương mục tiêu phải chịu tăng 20%, duy trì 2 turn"}
+{"rowId":"510","text":"Sát thương phải chịu tăng 20%"}
+{"rowId":"511","text":"Hương vị máu tươi sẽ đánh thức bản năng khát máu của Pet Hắc Ám, mỗi khi kết thúc turn sẽ có sác xuất 30% cắn đối phương, tạo 100% sát thương"}
+{"rowId":"512","text":"Hương vị máu tươi sẽ đánh thức bản năng khát máu của Pet Hắc Ám, mỗi khi kết thúc turn sẽ có sác xuất 30% cắn đối phương, tạo 120% sát thương"}
+{"rowId":"513","text":"Hương vị máu tươi sẽ đánh thức bản năng khát máu của Pet Hắc Ám, mỗi khi kết thúc turn sẽ có sác xuất 30% cắn đối phương, tạo 150% sát thương"}
+{"rowId":"514","text":"Tạo 120% sát thương, bạo kích nhất định, thiêu đốt tâm linh của mục tiêu trong 2 turn: Mỗi turn khi bắt đầu sẽ giảm 20% thể lực, hiệu quả không thể xếp chồng"}
+{"rowId":"515","text":"Tạo 150% sát thương, bạo kích nhất định, thiêu đốt tâm linh của mục tiêu trong 2 turn: Mỗi turn khi bắt đầu sẽ giảm 25% thể lực, hiệu quả không thể xếp chồng"}
+{"rowId":"516","text":"Tạo 180% sát thương, bạo kích nhất định, thiêu đốt tâm linh của mục tiêu trong 2 turn: Mỗi turn khi bắt đầu sẽ giảm 30% thể lực, hiệu quả không thể xếp chồng"}
+{"rowId":"517","text":"Mỗi lần mất HP trong chiến đấu sẽ đánh thức bản năng huyết ảnh, Pet Hắc Ám mất 5% HP sẽ tăng 15 điểm tốc độ (Chỉ hiệu quả trong PVP)"}
+{"rowId":"518","text":"Mỗi lần mất HP trong chiến đấu sẽ đánh thức bản năng huyết ảnh, Pet Hắc Ám mất 5% HP sẽ tăng 20 điểm tốc độ (Chỉ hiệu quả trong PVP)"}
+{"rowId":"519","text":"Người chơi bị bắn trúng trong turn sẽ bị hạn chế 1 phần góc nhìn, giảm 20% sát thương, duy trì 2 turn, hiệu quả không thể xếp chồng (Chỉ hiệu quả trong PVP)"}
+{"rowId":"520","text":"Người chơi bị bắn trúng trong turn sẽ bị hạn chế 1 phần góc nhìn, giảm 30% sát thương, duy trì 2 turn, hiệu quả không thể xếp chồng (Chỉ hiệu quả trong PVP)"}
+{"rowId":"521","text":"Pet Hắc Ám dùng ma thuật để nhận được uy lực của giáp trụ, sát thương tạo thành nhiều nhất giới hạn ở mức 30% HP (Chỉ hiệu quả trong PVP)"}
+{"rowId":"522","text":"Pet Hắc Ám dùng ma thuật để nhận được uy lực của giáp trụ, sát thương tạo thành nhiều nhất giới hạn ở mức 20% HP (Chỉ hiệu quả trong PVP)"}
+{"rowId":"523","text":"Pet Hắc Ám phóng ra dịch độc, pet bị dính độc sẽ chịu sự trừng phạt đau đớn, giảm 50% hiệu quả trị liệu của toàn bộ pet đối phương, kéo dài 3 turn (Chỉ hiệu quả trong PVP)"}
+{"rowId":"524","text":"Pet Hắc Ám phóng ra dịch độc, pet bị dính độc sẽ chịu sự trừng phạt đau đớn, giảm 80% hiệu quả trị liệu của toàn bộ pet đối phương, kéo dài 3 turn (Chỉ hiệu quả trong PVP)"}
+{"rowId":"525","text":"Pet Hắc Ám niệm chú, dùng máu tươi để hiến tế tà thần, nhận sức mạnh trong turn mỗi lần bắn sẽ kèm theo sát thương tương đương với 1% HP đã mất, sát thương kèm theo đó sẽ bỏ qua phòng thủ và hộ giáp"}
+{"rowId":"526","text":"Pet Hắc Ám niệm chú, dùng máu tươi để hiến tế tà thần, nhận sức mạnh trong turn mỗi lần bắn sẽ kèm theo sát thương tương đương với 3% HP đã mất, sát thương kèm theo đó sẽ bỏ qua phòng thủ và hộ giáp"}
+{"rowId":"527","text":"Hút toàn bộ người chơi 2 bên vào không gian phía trên, sau đó sẽ ngẫu nhiên xuất hiện ở các vị trí khác nhau trong map (Chỉ có hiệu quả trong PVP)"}
+{"rowId":"528","text":"Pet Hắc Ám sẽ cầu khấn đấng U Minh cho Ma Thần xuất thế, khi bắt đầu turn, mỗi lần mất 10% HP lớn nhất sẽ hồi phục 2 điểm ma pháp"}
+{"rowId":"529","text":"Sát thương tăng 10% (BUFF đội)"}
+{"rowId":"551","text":"HP tối đa +7%, sát thương +7%."}
+{"rowId":"552","text":"HP tối đa +9%, sát thương +9%."}
+{"rowId":"553","text":"HP tối đa +12%, sát thương +12%."}
+{"rowId":"554","text":"HP tối đa +15%, sát thương +15%."}
+{"rowId":"555","text":"Hiệu quả hồi phục trong Ảo Cảnh Tà Thần+3%，Sát thương+5%。"}
+{"rowId":"556","text":"Hiệu quả hồi phục trong Ảo Cảnh Tà Thần+4%，Sát thương+6%。"}
+{"rowId":"557","text":"Hiệu quả hồi phục trong Ảo Cảnh Tà Thần+5%，Sát thương+7%。"}
+{"rowId":"558","text":"Hiệu quả hồi phục trong Ảo Cảnh Tà Thần+6%，Sát thương+8%。"}
+{"rowId":"559","text":"Hiệu quả hồi phục trong Ảo Cảnh Tà Thần+8%，Sát thương+10%。"}
+{"rowId":"560","text":"Bảo vệ tất cả đồng đội trong màn đêm, giúp đồng đội chịu 30% sát thương, duy trì 2 turn. Có thể nuốt Lửa Hận Thù đang tồn tại, khiến đồng đội được bảo vệ nhận Giáp Minotaure, duy trì 2 turn."}
+{"rowId":"561","text":"Bảo vệ tất cả đồng đội trong màn đêm, giúp đồng đội chịu 40% sát thương, duy trì 2 turn. Có thể nuốt Lửa Hận Thù đang tồn tại, khiến đồng đội được bảo vệ nhận Giáp Minotaure, duy trì 2 turn."}
+{"rowId":"562","text":"Bảo vệ tất cả đồng đội trong màn đêm, giúp đồng đội chịu 50% sát thương, duy trì 2 turn. Có thể nuốt Lửa Hận Thù đang tồn tại, khiến đồng đội được bảo vệ nhận Giáp Minotaure, duy trì 2 turn."}
+{"rowId":"563","text":"Ban ngày xâu xé gây Xuất Huyết cho địch trong cự ly 300, mỗi turn gây mất 4% HP, duy trì 3 turn. Có thể nuốt Lửa Oán Giận đang có, Xuất Huyết sẽ kèm Cấm Trị Liệu (Có hiệu lực trong PVP)."}
+{"rowId":"564","text":"Ban ngày xâu xé gây Xuất Huyết cho địch trong cự ly 300, mỗi turn gây mất 6% HP, duy trì 3 turn. Có thể nuốt Lửa Oán Giận đang có, Xuất Huyết sẽ kèm Cấm Trị Liệu (Có hiệu lực trong PVP)."}
+{"rowId":"565","text":"Ban ngày xâu xé gây Xuất Huyết cho địch trong cự ly 300, mỗi turn gây mất 8% HP, duy trì 3 turn. Có thể nuốt Lửa Oán Giận đang có, Xuất Huyết sẽ kèm Cấm Trị Liệu (Có hiệu lực trong PVP)."}
+{"rowId":"566","text":"Mỗi khi chịu sát thương, Giáp Minotaure giảm sát thương bằng 1.5% HP hiện tại."}
+{"rowId":"567","text":"Mỗi khi chịu sát thương, Giáp Minotaure giảm sát thương bằng 2.0% HP hiện tại."}
+{"rowId":"568","text":"Mỗi khi chịu sát thương, Giáp Minotaure giảm sát thương bằng 2.5% HP hiện tại."}
+{"rowId":"569","text":"Búa Minotaure cực nặng gây thêm sát thương cho địch ở địa hình thấp hơn, mỗi 100 pixel tăng 10% sát thương, tối đa tăng 120% sát thương (Có hiệu lực trong PVP)."}
+{"rowId":"570","text":"Búa Minotaure cực nặng gây thêm sát thương cho địch ở địa hình thấp hơn, mỗi 100 pixel tăng 20% sát thương, tối đa tăng 120% sát thương (Có hiệu lực trong PVP)."}
+{"rowId":"571","text":"Búa Minotaure cực nặng gây thêm sát thương cho địch ở địa hình thấp hơn, mỗi 100 pixel tăng 30% sát thương, tối đa tăng 120% sát thương (Có hiệu lực trong PVP)."}
+{"rowId":"572","text":"Hỏa Khuyển cực nhạy với sức gió. Trong lúc bắn, nếu gió thuận mỗi 1.0 gió tăng 15% sát thương, nếu gió ngược mỗi 1.0 gió giảm 10% sát thương."}
+{"rowId":"573","text":"Hỏa Khuyển cực nhạy với sức gió. Trong lúc bắn, nếu gió thuận mỗi 1.0 gió tăng 30% sát thương, nếu gió ngược mỗi 1.0 gió giảm 10% sát thương."}
+{"rowId":"574","text":"Hỏa Khuyển cực nhạy với sức gió. Trong lúc bắn, nếu gió thuận mỗi 1.0 gió tăng 20% sát thương, nếu gió ngược mỗi 1.0 gió giảm 10% sát thương."}
+{"rowId":"575","text":"Hỏa Khuyển thay đổi thời tiết, lập tức đổi hướng gió, turn này chắc chắn phát động hiệu quả Liên Kích."}
+{"rowId":"576","text":"Không thể bị đóng băng hoặc dùng 3 tia, tốc độ tấn công -50%, HP +100%, bắn ra Lửa Đen gây lỗ đạn khổng lồ, duy trì 2 turn. Nuốt Lửa Hận Thù và Lửa Oán Giận hồi 30% HP."}
+{"rowId":"577","text":"Hỏa Khuyển gọi dậy sức mạnh bóng tối, không thể bị đóng băng, tấn công 3 tia vô hiệu, tốc độ tấn công giảm 50%, HP tăng 100%, tất cả đạn pháo biến thành Lửa Đen, gây hiệu quả lỗ đạn khổng lồ, duy trì 2 turn. Có thể nuốt Lửa Hận Thù và Lửa Oán Giận đang có, hồi phục 30% HP."}
+{"rowId":"578","text":"Hỏa Khuyển gọi dậy sức mạnh bóng tối, không thể bị đóng băng, tấn công 3 tia vô hiệu, tốc độ tấn công giảm 50%, HP tăng 100%, tất cả đạn pháo biến thành Lửa Đen, gây hiệu quả lỗ đạn khổng lồ, duy trì 2 turn. Có thể nuốt Lửa Hận Thù và Lửa Oán Giận đang có, hồi phục 30% HP."}
+{"rowId":"579","text":"Hỏa Khuyển ký hiệp ước duy trì 3 turn, trong thời gian hiệu lực, mỗi turn bắt đầu sẽ giảm 50% thể lực, nhận thêm 20 điểm ma pháp."}
+{"rowId":"580","text":"Kích hoạt tiềm năng, lập tức triệu hồi Lửa Oán Giận và Lửa Hận Thù, trong 2 turn, ma công và sát thương tăng 35%. Sau khi hiệu quả kết thúc, giảm 20% HP tối đa (Không gây tử vong)."}
+{"rowId":"581","text":"Nhận được kỹ năng"}
+{"rowId":"582","text":"Giảm HP"}
+{"rowId":"583","text":"Khi chịu 20 lần sát thương, nhận 20 điểm ma pháp và triệu hồi Lửa Hận Thù. Dùng kỹ năng 3 lần sẽ nhận 20 điểm ma pháp và triệu hồi Lửa Oán Giận."}
+{"rowId":"584","text":"Mỗi khi chịu sát thương, Giáp Minotaure giảm sát thương bằng 1.5% HP hiện tại."}
+{"rowId":"585","text":"Mỗi khi chịu sát thương, Giáp Minotaure giảm sát thương bằng 2.0% HP hiện tại."}
+{"rowId":"586","text":"Mỗi khi chịu sát thương, Giáp Minotaure giảm sát thương bằng 2.5% HP hiện tại."}
+{"rowId":"587","text":"Nhận được kỹ năng"}
+{"rowId":"588","text":"Nhận được kỹ năng"}
+{"rowId":"589","text":"Nhận được kỹ năng"}
+{"rowId":"590","text":"Nhận được kỹ năng"}
+{"rowId":"591","text":"Nhận được kỹ năng"}
+{"rowId":"592","text":"Nhận được kỹ năng"}
+{"rowId":"593","text":"Nhận được kỹ năng"}
+{"rowId":"594","text":"Nhận được kỹ năng"}
+{"rowId":"595","text":"Bảo vệ đồng đội trong màn đêm, giúp chịu 50% sát thương, duy trì 2 turn. Có thể nuốt Lửa Hận Thù đang có, giúp đồng đội được bảo vệ nhận Giáp Đen Minotaure và Búa Bạc Minotaure, duy trì 2 turn."}
+{"rowId":"596","text":"Ban ngày xâu xé gây Xuất Huyết cho địch trong cự ly 300, mỗi turn gây mất 8% HP, duy trì 3 turn. Có thể nuốt Lửa Oán Giận đang có, Xuất Huyết sẽ kèm Cấm Trị Liệu và Cấm Bay (Có hiệu lực trong PVP)."}
+{"rowId":"597","text":"Mỗi khi chịu sát thương pháo, Giáp Minotaure giảm sát thương bằng 3% HP tối đa."}
+{"rowId":"598","text":"Búa Minotaure +30% sát thương/100 pixels cho địch vị trí thấp hơn, tối đa +120% sát thương. -15% sát thương phải chịu/100 pixels từ địch vị trí cao hơn, tối đa -60% sát thương (Có hiệu lực trong PVP)."}
+{"rowId":"599","text":"Hỏa Khuyển cực nhạy với sức gió. Trong lúc bắn, nếu gió thuận mỗi 1.0 gió tăng 30% sát thương và ma công."}
+{"rowId":"600","text":"Không thể bị đóng băng hoặc dùng 3 tia, di chuyển không tốn thể lực, tốc độ tấn công -50%, HP +100%, bắn ra Lửa Đen gây lỗ đạn khổng lồ, duy trì 3 turn. Nuốt Lửa Hận Thù và Lửa Oán Giận hồi 30% HP."}
+{"rowId":"601","text":"Khi chịu 14 lần sát thương, nhận 30 điểm ma pháp và triệu hồi Lửa Hận Thù. Dùng kỹ năng 2 lần sẽ nhận 30 điểm ma pháp và triệu hồi Lửa Oán Giận."}
+{"rowId":"602","text":"Mỗi khi chịu sát thương, Giáp Minotaure giảm sát thương bằng 3% HP hiện tại."}
+{"rowId":"603","text":"Nhận được kỹ năng"}
+{"rowId":"604","text":"Nhận được kỹ năng"}
+{"rowId":"605","text":"Nhận được kỹ năng"}
+{"rowId":"606","text":"Nhận được kỹ năng"}
+{"rowId":"607","text":"Nhận được kỹ năng"}
+{"rowId":"608","text":"Nhận được kỹ năng"}
+{"rowId":"609","text":"Nhận được kỹ năng"}
+{"rowId":"610","text":"Nhận được kỹ năng"}
+{"rowId":"611","text":"Bảo vệ tất cả đồng đội trong màn đêm, giúp đồng đội chịu 30% sát thương, duy trì 2 turn. Có thể nuốt Lửa Hận Thù đang tồn tại, khiến đồng đội được bảo vệ nhận Giáp Minotaure, duy trì 2 turn."}
+{"rowId":"612","text":"Bảo vệ tất cả đồng đội trong màn đêm, giúp đồng đội chịu 40% sát thương, duy trì 2 turn. Có thể nuốt Lửa Hận Thù đang tồn tại, khiến đồng đội được bảo vệ nhận Giáp Minotaure, duy trì 2 turn."}
+{"rowId":"613","text":"Bảo vệ tất cả đồng đội trong màn đêm, giúp đồng đội chịu 50% sát thương, duy trì 2 turn. Có thể nuốt Lửa Hận Thù đang tồn tại, khiến đồng đội được bảo vệ nhận Giáp Minotaure, duy trì 2 turn."}
+{"rowId":"614","text":"Ban ngày xâu xé điên cuồng, gây hiệu quả Xuất Huyết cho địch trong cự ly 300, khiến địch mỗi turn mất 3% HP, duy trì 3 turn. Có thể nuốt Lửa Oán Giận đang có, Xuất Huyết sẽ kèm hiệu quả Cấm Trị Liệu (Có hiệu lực trong PVP)."}
+{"rowId":"615","text":"Ban ngày xâu xé điên cuồng, gây hiệu quả Xuất Huyết cho địch trong cự ly 300, khiến địch mỗi turn mất 4% HP, duy trì 3 turn. Có thể nuốt Lửa Oán Giận đang có, Xuất Huyết sẽ kèm hiệu quả Cấm Trị Liệu (Có hiệu lực trong PVP)."}
+{"rowId":"616","text":"Ban ngày xâu xé điên cuồng, gây hiệu quả Xuất Huyết cho địch trong cự ly 300, khiến địch mỗi turn mất 5% HP, duy trì 3 turn. Có thể nuốt Lửa Oán Giận đang có, Xuất Huyết sẽ kèm hiệu quả Cấm Trị Liệu (Có hiệu lực trong PVP)."}
+{"rowId":"617","text":"Mỗi khi chịu sát thương pháo, Giáp Minotaure giảm sát thương bằng 1.0% HP hiện tại."}
+{"rowId":"618","text":"Mỗi khi chịu sát thương pháo, Giáp Minotaure giảm sát thương bằng 1.5% HP hiện tại."}
+{"rowId":"619","text":"Mỗi khi chịu sát thương pháo, Giáp Minotaure giảm sát thương bằng 2.0% HP hiện tại."}
+{"rowId":"620","text":"Búa Minotaure cực nặng gây thêm sát thương cho địch ở địa hình thấp hơn, mỗi 100 pixel tăng 6% sát thương, tối đa tăng 60% sát thương (Có hiệu lực trong PVP)."}
+{"rowId":"621","text":"Búa Minotaure cực nặng gây thêm sát thương cho địch ở địa hình thấp hơn, mỗi 100 pixel tăng 8% sát thương, tối đa tăng 60% sát thương (Có hiệu lực trong PVP)."}
+{"rowId":"622","text":"Búa Minotaure cực nặng gây thêm sát thương cho địch ở địa hình thấp hơn, mỗi 100 pixel tăng 10% sát thương, tối đa tăng 60% sát thương (Có hiệu lực trong PVP)."}
+{"rowId":"623","text":"Hỏa Khuyển cực nhạy với sức gió. Trong lúc bắn, nếu gió thuận mỗi 1.0 gió tăng 5% sát thương, nếu gió ngược mỗi 1.0 gió giảm 10% sát thương."}
+{"rowId":"624","text":"Hỏa Khuyển cực nhạy với sức gió. Trong lúc bắn, nếu gió thuận mỗi 1.0 gió tăng 10% sát thương, nếu gió ngược mỗi 1.0 gió giảm 10% sát thương."}
+{"rowId":"625","text":"Hỏa Khuyển cực nhạy với sức gió. Trong lúc bắn, nếu gió thuận mỗi 1.0 gió tăng 10% sát thương, nếu gió ngược mỗi 1.0 gió giảm 10% sát thương."}
+{"rowId":"626","text":"Hỏa Khuyển thay đổi thời tiết, lập tức đổi hướng gió, turn này chắc chắn phát động hiệu quả Liên Kích."}
+{"rowId":"627","text":"Kích hoạt tiềm năng, lập tức triệu hồi Lửa Oán Giận và Lửa Hận Thù, trong 2 turn, ma công và sát thương tăng 20%. Sau khi hiệu quả kết thúc, giảm 30% HP tối đa (Không gây tử vong)."}
+{"rowId":"628","text":"Khi chịu 25 lần sát thương, nhận 20 điểm ma pháp và triệu hồi Lửa Hận Thù. Dùng kỹ năng 4 lần sẽ nhận 20 điểm ma pháp và triệu hồi Lửa Oán Giận."}
+{"rowId":"629","text":"Mỗi khi chịu sát thương, Giáp Minotaure giảm sát thương bằng 1.0% HP hiện tại."}
+{"rowId":"630","text":"Mỗi khi chịu sát thương, Giáp Minotaure giảm sát thương bằng 1.5% HP hiện tại."}
+{"rowId":"631","text":"Mỗi khi chịu sát thương, Giáp Minotaure giảm sát thương bằng 2.0% HP hiện tại."}
+{"rowId":"632","text":"Nhận được kỹ năng"}
+{"rowId":"633","text":"Nhận được kỹ năng"}
+{"rowId":"634","text":"Nhận được kỹ năng"}
+{"rowId":"635","text":"Nhận được kỹ năng"}
+{"rowId":"636","text":"Hiệu quả hồi phục của vũ khí phụ tăng 3%, sát thương tăng 5%."}
+{"rowId":"637","text":"Hiệu quả hồi phục của vũ khí phụ tăng 4%, sát thương tăng 6%."}
+{"rowId":"638","text":"Hiệu quả hồi phục của vũ khí phụ tăng 5%, sát thương tăng 7%."}
+{"rowId":"639","text":"Hiệu quả hồi phục của vũ khí phụ tăng 6%, sát thương tăng 8%."}
+{"rowId":"640","text":"Hiệu quả hồi phục của vũ khí phụ tăng 8%, sát thương tăng 10%."}
+{"rowId":"641","text":"恢复100%血量"}
+{"rowId":"642","text":"减伤50%血量"}
+{"rowId":"643","text":"获得技能。"}
+{"rowId":"644","text":"Khi chiến đấu, bản thân tăng 20 (max: 80) sát thương."}
+{"rowId":"645","text":"Khi chiến đấu, bản thân tăng 50 (max: 80) sát thương."}
+{"rowId":"646","text":"Khi chiến đấu, bản thân tăng 80 (max: 80) sát thương."}
+{"rowId":"647","text":"Khi chiến đấu, tấn công có 2% (max: 3%) kích hoạt Dẫn Đường (Có hiệu lực trong PVP)."}
+{"rowId":"648","text":"Khi chiến đấu, tấn công có 3% (max: 3%) kích hoạt Dẫn Đường (Có hiệu lực trong PVP)."}
+{"rowId":"649","text":"Khi chiến đấu, bản thân tăng 35 (max: 100) hộ giáp."}
+{"rowId":"650","text":"Khi chiến đấu, bản thân tăng 65 (max: 100) hộ giáp."}
+{"rowId":"651","text":"Khi chiến đấu, bản thân tăng 100 (max: 100) hộ giáp."}
+{"rowId":"652","text":"Khi bị sát thương, chống đỡ 100 sát thương (max: 300) (Có hiệu lực trong PVP)."}
+{"rowId":"653","text":"Khi bị sát thương, chống đỡ 200 sát thương (max: 300) (Có hiệu lực trong PVP)."}
+{"rowId":"654","text":"Khi bị sát thương, chống đỡ 300 sát thương (max: 300) (Có hiệu lực trong PVP)."}
+{"rowId":"655","text":"Khi bị sát thương, phản đòn 1% tổng sát thương (max: 3%) (Có hiệu lực trong PVP)."}
+{"rowId":"656","text":"Phản Sát Thương"}
+{"rowId":"657","text":"Khi bị sát thương, phản đòn 2% tổng sát thương (max: 3%) (Có hiệu lực trong PVP)."}
+{"rowId":"658","text":"Phản Sát Thương"}
+{"rowId":"659","text":"Khi bị sát thương, phản đòn 3% tổng sát thương (max: 3%) (Có hiệu lực trong PVP)."}
+{"rowId":"660","text":"Phản Sát Thương"}
+{"rowId":"661","text":"Khi chiến đấu phòng thủ, hộ giáp của bản thân +1% (max: 3%)."}
+{"rowId":"662","text":"Khi chiến đấu, phòng thủ, hộ giáp của bản thân +2% (max: 3%)."}
+{"rowId":"663","text":"Khi chiến đấu, phòng thủ, hộ giáp của bản thân +3% (max: 3%)."}
+{"rowId":"664","text":"Tất cả đồng đội +1% tấn công, phòng thủ, nhanh nhẹn, may mắn (max: 3%)."}
+{"rowId":"665","text":"Tất cả đồng đội +2% tấn công, phòng thủ, nhanh nhẹn, may mắn (max: 3%)."}
+{"rowId":"666","text":"Tất cả đồng đội +3% tấn công, phòng thủ, nhanh nhẹn, may mắn (max: 3%)."}
+{"rowId":"667","text":"Khi bắt đầu turn, bản thân nhận 1 khiên hấp thu 1000 (max: 3000) sát thương, duy trì 6 turn, 6 turn kích hoạt 1 lần."}
+{"rowId":"668","text":"Khi bắt đầu turn, bản thân nhận 1 khiên hấp thu 2000 (max: 3000) sát thương, duy trì 6 turn, 6 turn kích hoạt 1 lần."}
+{"rowId":"669","text":"Khi bắt đầu turn, bản thân nhận 1 khiên hấp thu 3000 (max: 3000) sát thương, duy trì 6 turn, 6 turn kích hoạt 1 lần."}
+{"rowId":"670","text":"Khi bắt đầu turn, hồi 500 +3% (max: 5%) HP, 6 turn kích hoạt 1 lần."}
+{"rowId":"671","text":"Khi bắt đầu turn, hồi 500 +4% (max: 5%) HP, 6 turn kích hoạt 1 lần."}
+{"rowId":"672","text":"Khi bắt đầu turn, hồi 500 +5% (max: 5%) HP, 6 turn kích hoạt 1 lần."}
+{"rowId":"673","text":"Nhận hiệu quả Hồi Phục +5% (max: 15%)."}
+{"rowId":"674","text":"Nhận hiệu quả Hồi Phục +10% (max: 15%)."}
+{"rowId":"675","text":"Nhận hiệu quả Hồi Phục +15% (max: 15%)."}
+{"rowId":"676","text":"Khi trúng địch, 30% kèm hiệu quả Bỏng, mỗi turn mất 3% (max: 5%) HP, duy trì 3 turn (Có hiệu lực trong PVP)."}
+{"rowId":"677","text":"Khi trúng địch, 30% kèm hiệu quả Bỏng, mỗi turn mất 4% (max: 5%) HP, duy trì 3 turn (Có hiệu lực trong PVP)."}
+{"rowId":"678","text":"Khi trúng địch, 30% kèm hiệu quả Bỏng, mỗi turn mất 5% (max: 5%) HP, duy trì 3 turn (Có hiệu lực trong PVP)."}
+{"rowId":"679","text":"Khi chiến đấu, sát thương cơ bản +5% (max: 10%)."}
+{"rowId":"680","text":"Khi chiến đấu, sát thương cơ bản +8% (max: 10%)."}
+{"rowId":"681","text":"Khi chiến đấu, sát thương cơ bản +10% (max: 10%)."}
+{"rowId":"682","text":"Khi chiến đấu, tấn công có 4% (max: 5%) kích hoạt Dẫn Đường (Có hiệu lực trong PVP)."}
+{"rowId":"683","text":"Khi chiến đấu, tấn công có 5% (max: 5%) kích hoạt Dẫn Đường (Có hiệu lực trong PVP)."}
+{"rowId":"684","text":"Khi chiến đấu, bản thân tăng 100 nhanh nhẹn (max: 300), tỉ lệ bạo kích +8%."}
+{"rowId":"685","text":"Khi chiến đấu, bản thân tăng 200 nhanh nhẹn (max: 300), tỉ lệ bạo kích +8%."}
+{"rowId":"686","text":"Khi chiến đấu, bản thân tăng 300 nhanh nhẹn (max: 300), tỉ lệ bạo kích +8%."}
+{"rowId":"687","text":"Tất cả đồng đội +150 tấn công (max: 450)."}
+{"rowId":"688","text":"Tất cả đồng đội +300 tấn công (max: 450)."}
+{"rowId":"689","text":"Tất cả đồng đội +450 tấn công (max: 450)."}
+{"rowId":"690","text":"Khi trúng địch, khiến mục tiêu -5% sát thương và hộ giáp, cộng dồn 1 tầng (max: 3), duy trì 2 turn."}
+{"rowId":"691","text":"Khi trúng địch, khiến mục tiêu -5% sát thương và hộ giáp, cộng dồn 2 tầng (max: 3), duy trì 2 turn."}
+{"rowId":"692","text":"Khi trúng địch, khiến mục tiêu -5% sát thương và hộ giáp, cộng dồn 3 tầng (max: 3), duy trì 2 turn."}
+{"rowId":"693","text":"Khi chiến đấu, HP tối đa của bản thân +4% (max: 8%)."}
+{"rowId":"694","text":"Khi chiến đấu, HP tối đa của bản thân +6% (max: 8%)."}
+{"rowId":"695","text":"Khi chiến đấu, HP tối đa của bản thân +8% (max: 8%)."}
+{"rowId":"696","text":"Khi trúng địch, 3% (max: 5%) khiến mục tiêu -40 ma lực (Có hiệu lực trong PVP)."}
+{"rowId":"697","text":"Khi trúng địch, 4% (max: 5%) khiến mục tiêu -40 ma lực (Có hiệu lực trong PVP)."}
+{"rowId":"698","text":"Khi trúng địch, 5% (max: 5%) khiến mục tiêu -40 ma lực (Có hiệu lực trong PVP)."}
+{"rowId":"699","text":"Khi chiến đấu, tỉ lệ bạo kích của bản thân +10% (max: 15%)."}
+{"rowId":"700","text":"Khi chiến đấu, tỉ lệ bạo kích của bản thân +12% (max: 15%)."}
+{"rowId":"701","text":"Khi chiến đấu, tỉ lệ bạo kích của bản thân +15% (max: 15%)."}
+{"rowId":"702","text":"Khi chiến đấu, phòng thủ, hộ giáp của bản thân +3% (max: 5%)."}
+{"rowId":"703","text":"Khi chiến đấu, phòng thủ, hộ giáp của bản thân +4% (max: 5%)."}
+{"rowId":"704","text":"Khi chiến đấu, phòng thủ, hộ giáp của bản thân +5% (max: 5%)."}
+{"rowId":"705","text":"Tất cả đồng đội +3% sát thương (max: 5%)."}
+{"rowId":"706","text":"Tất cả đồng đội +4% sát thương (max: 5%)."}
+{"rowId":"707","text":"Tất cả đồng đội +5% sát thương (max: 5%)."}
+{"rowId":"708","text":"Khi trúng địch, 3% (max: 5%) khiến mục tiêu không thể dùng kỹ năng Pet, duy trì 2 turn (Có hiệu lực trong PVP)."}
+{"rowId":"709","text":"Khi trúng địch, 4% (max: 5%) khiến mục tiêu không thể dùng kỹ năng Pet, duy trì 2 turn (Có hiệu lực trong PVP)."}
+{"rowId":"710","text":"Khi trúng địch, 5% (max: 5%) khiến mục tiêu không thể dùng kỹ năng Pet, duy trì 2 turn (Có hiệu lực trong PVP)."}
+{"rowId":"711","text":"Khi trúng địch, 3% (max: 5%) kích hoạt Hút HP, chuyển 20% sát thương gây ra thành hồi HP."}
+{"rowId":"712","text":"Hấp thu 20%"}
+{"rowId":"713","text":"Khi trúng địch, 4% (max: 5%) kích hoạt Hút HP, chuyển 20% sát thương gây ra thành hồi HP."}
+{"rowId":"714","text":"Khi trúng địch, 5% (max: 5%) kích hoạt Hút HP, chuyển 20% sát thương gây ra thành hồi HP."}
+{"rowId":"715","text":"Khi trúng địch, 3% (max: 5%) kích hoạt Bất Động, khiến mục tiêu không hành động trong 1 turn (Có hiệu lực trong PVP)."}
+{"rowId":"716","text":"Khi trúng địch, 4% (max: 5%) kích hoạt Bất Động, khiến mục tiêu không hành động trong 1 turn (Có hiệu lực trong PVP)."}
+{"rowId":"717","text":"Khi trúng địch, 5% (max: 5%) kích hoạt Bất Động, khiến mục tiêu không hành động trong 1 turn (Có hiệu lực trong PVP)."}
+{"rowId":"718","text":"Khi chiến đấu, sát thương bạo kích của bản thân +10% (max: 20%)."}
+{"rowId":"719","text":"Khi chiến đấu, sát thương bạo kích của bản thân +15% (max: 20%)."}
+{"rowId":"720","text":"Khi chiến đấu, sát thương bạo kích của bản thân +20% (max: 20%)."}
+{"rowId":"721","text":"Toàn phe địch -10% (max: 20%) ma kháng."}
+{"rowId":"722","text":"Toàn phe địch -15% (max: 20%) ma kháng."}
+{"rowId":"723","text":"Toàn phe địch -20% (max: 20%) ma kháng."}
+{"rowId":"724","text":"Khi HP dưới 50%, sát thương +10% (max: 20%)."}
+{"rowId":"725","text":"Khi HP dưới 50%, sát thương +15% (max: 20%)."}
+{"rowId":"726","text":"Khi HP dưới 50%, sát thương +20% (max: 20%)."}
+{"rowId":"727","text":"Khi trúng địch, bỏ qua 8% (max: 12%) phòng thủ của mục tiêu (Có hiệu lực trong PVP)."}
+{"rowId":"728","text":"Nhận được kỹ năng"}
+{"rowId":"729","text":"Khi trúng địch, bỏ qua 10% (max: 12%) phòng thủ của mục tiêu (Có hiệu lực trong PVP)."}
+{"rowId":"730","text":"Nhận được kỹ năng"}
+{"rowId":"731","text":"Khi trúng địch, bỏ qua 12% (max: 12%) phòng thủ của mục tiêu (Có hiệu lực trong PVP)."}
+{"rowId":"732","text":"Nhận được kỹ năng"}
+{"rowId":"733","text":"Khi trúng địch, 3% (max: 5%) kích hoạt Trói Buộc, duy trì 1 turn (Có hiệu lực trong PVP)."}
+{"rowId":"734","text":"Khi trúng địch, 4% (max: 5%) kích hoạt Trói Buộc, duy trì 1 turn (Có hiệu lực trong PVP)."}
+{"rowId":"735","text":"Khi trúng địch, 5% (max: 5%) kích hoạt Trói Buộc, duy trì 1 turn (Có hiệu lực trong PVP)."}
+{"rowId":"736","text":"Khi HP dưới 20%, sát thương +5% (max: 15%)."}
+{"rowId":"737","text":"Khi HP dưới 20%, sát thương +10% (max: 15%)."}
+{"rowId":"738","text":"Khi HP dưới 20%, sát thương +15% (max: 15%)."}
+{"rowId":"739","text":"Khi trúng địch, bỏ qua 4% (max: 8%) phòng thủ của mục tiêu (Có hiệu lực trong PVP)."}
+{"rowId":"740","text":"Nhận được kỹ năng"}
+{"rowId":"741","text":"Khi trúng địch, bỏ qua 6% (max: 8%) phòng thủ của mục tiêu (Có hiệu lực trong PVP)."}
+{"rowId":"742","text":"Nhận được kỹ năng"}
+{"rowId":"743","text":"Khi trúng địch, bỏ qua 8% (max: 8%) phòng thủ của mục tiêu (Có hiệu lực trong PVP)."}
+{"rowId":"744","text":"Nhận được kỹ năng"}
+{"rowId":"745","text":"Khi trúng địch, 1% (max: 3%) kích hoạt Trói Buộc, duy trì 1 turn."}
+{"rowId":"746","text":"Khi trúng địch, 2% (max: 3%) kích hoạt Trói Buộc, duy trì 1 turn."}
+{"rowId":"747","text":"Khi trúng địch, 3% (max: 3%) kích hoạt Trói Buộc, duy trì 1 turn."}
+{"rowId":"748","text":"Khi chiến đấu, tốc độ của bản thân +15 (max: 45), có hiệu lực trong PVP."}
+{"rowId":"749","text":"Khi chiến đấu, tốc độ của bản thân +30 (max: 45), có hiệu lực trong PVP."}
+{"rowId":"750","text":"Khi chiến đấu, tốc độ của bản thân +45 (max: 45), có hiệu lực trong PVP."}
+{"rowId":"751","text":"Khi Đạn Pháo trúng địch, 2% (max: 4%) khiến mục tiêu mất tầm nhìn, duy trì 2 turn (Có hiệu lực trong PVP)."}
+{"rowId":"752","text":"Khi Đạn Pháo trúng địch, 3% (max: 4%) khiến mục tiêu mất tầm nhìn, duy trì 2 turn (Có hiệu lực trong PVP)."}
+{"rowId":"753","text":"Khi Đạn Pháo trúng địch, 4% (max: 4%) khiến mục tiêu mất tầm nhìn, duy trì 2 turn (Có hiệu lực trong PVP)."}
+{"rowId":"754","text":"Khi trúng địch, 3% (max: 5%) kích hoạt Cấm Trị Liệu, duy trì 2 turn (Có hiệu lực trong PVP)."}
+{"rowId":"755","text":"Khi trúng địch, 4% (max: 5%) kích hoạt Cấm Trị Liệu, duy trì 2 turn (Có hiệu lực trong PVP)."}
+{"rowId":"756","text":"Khi trúng địch, 5% (max: 5%) kích hoạt Cấm Trị Liệu, duy trì 2 turn (Có hiệu lực trong PVP)."}
+{"rowId":"757","text":"Khi chiến đấu, mỗi turn nhận thêm 2 (max: 4) điểm ma pháp."}
+{"rowId":"758","text":"Khi chiến đấu, mỗi turn nhận thêm 3 (max: 4) điểm ma pháp."}
+{"rowId":"759","text":"Khi chiến đấu, mỗi turn nhận thêm 4 (max: 4) điểm ma pháp."}
+{"rowId":"760","text":"Khi bị sát thương, chống đỡ 300 sát thương (max: 300) (Có hiệu lực trong PVP)."}
+{"rowId":"761","text":"Khi bị sát thương, chống đỡ 400 sát thương (max: 300) (Có hiệu lực trong PVP)."}
+{"rowId":"762","text":"Khi bị sát thương, chống đỡ 500 sát thương (max: 300) (Có hiệu lực trong PVP)."}
+{"rowId":"763","text":"HP tối đa +5%, sát thương +5%."}
+{"rowId":"764","text":"HP tối đa +7%, sát thương +7%."}
+{"rowId":"765","text":"HP tối đa +9%, sát thương +9%."}
+{"rowId":"766","text":"HP tối đa +12%, sát thương +12%."}
+{"rowId":"767","text":"HP tối đa +15%, sát thương +15%."}
+{"rowId":"768","text":"Nhận được kỹ năng"}
+{"rowId":"769","text":"Nhận được kỹ năng"}
+{"rowId":"770","text":"Nhận được kỹ năng"}
+{"rowId":"771","text":"Pet sẽ lao vào tấn công mục tiêu địch sau khi chủ nhân bắn xong mỗi turn, gây 15% sát thương."}
+{"rowId":"772","text":"Pet sẽ lao vào tấn công mục tiêu địch sau khi chủ nhân bắn xong mỗi turn, gây 25% sát thương."}
+{"rowId":"773","text":"Pet sẽ lao vào tấn công mục tiêu địch sau khi chủ nhân bắn xong mỗi turn, gây 36% sát thương."}
+{"rowId":"774","text":"Điều khiển cầu lửa, gây cho mục tiêu 120% sát thương cơ bản, chắc chắn bạo kích. Cộng dồn 1 tầng Dấu Ấn Hồ Ly, duy trì 5 turn (Có hiệu lực trong PVP)."}
+{"rowId":"775","text":"Điều khiển cầu lửa, gây cho mục tiêu 150% sát thương cơ bản, chắc chắn bạo kích. Cộng dồn 1 tầng Dấu Ấn Hồ Ly, duy trì 5 turn (Có hiệu lực trong PVP)."}
+{"rowId":"776","text":"Điều khiển cầu lửa, gây cho mục tiêu 180% sát thương cơ bản, chắc chắn bạo kích. Cộng dồn 1 tầng Dấu Ấn Hồ Ly, duy trì 5 turn (Có hiệu lực trong PVP)."}
+{"rowId":"777","text":"Mục tiêu địch mang Dấu Ấn, mỗi turn chịu 80% sát thương Thực. Dấu Ấn tối đa cộng dồn 5 tầng, duy trì 5 turn (Có hiệu lực trong PVP)."}
+{"rowId":"778","text":"Mục tiêu địch mang Dấu Ấn, mỗi turn chịu 120% sát thương Thực. Dấu Ấn tối đa cộng dồn 5 tầng, duy trì 5 turn (Có hiệu lực trong PVP)."}
+{"rowId":"779","text":"Khi bị sát thương sẽ kích hoạt Sức Huyết Mạch, turn này chỉ phải chịu 70% sát thương, 30% sát thương đã giảm sẽ có tác dụng sau khi bản thân tấn công trong turn kế."}
+{"rowId":"780","text":"Khi bị sát thương sẽ kích hoạt Sức Huyết Mạch, turn này chỉ phải chịu 50% sát thương, 50% sát thương đã giảm sẽ có tác dụng sau khi bản thân tấn công trong turn kế."}
+{"rowId":"781","text":"Kích nổ Dấu Ấn, gây sát thương cho mục tiêu mang Dấu Ấn. Mỗi tầng Dấu Ấn sẽ tăng cho bản thân 200% sát thương Thực (Có hiệu lực trong PVP)."}
+{"rowId":"782","text":"Kích nổ Dấu Ấn, gây sát thương cho mục tiêu mang Dấu Ấn. Mỗi tầng Dấu Ấn sẽ tăng cho bản thân 300% sát thương Thực (Có hiệu lực trong PVP)."}
+{"rowId":"783","text":"Nuốt Dấu Ấn từ địch, đủ 5 tầng Dấu Ấn sẽ kích hoạt Thần Tốc (Thể lực turn này là 80), 4 tầng Dấu Ấn sẽ kích hoạt tăng 300 điểm sát thương trong 2 turn, 3 tầng Dấu Ấn sẽ kích hoạt Ẩn Thân trong 2 turn (Có hiệu lực trong PVP)."}
+{"rowId":"784","text":"Nuốt Dấu Ấn từ địch, đủ 5 tầng Dấu Ấn sẽ kích hoạt Thần Tốc (Thể lực turn này là 110), 4 tầng Dấu Ấn sẽ kích hoạt tăng 500 điểm sát thương trong 2 turn, 3 tầng Dấu Ấn sẽ kích hoạt Ẩn Thân Nhóm trong 2 turn (Có hiệu lực trong PVP)."}
+{"rowId":"785","text":"Tốn mỗi điểm ma pháp sẽ chống đỡ sát thương bằng 0.5% HP tối đa. Mỗi turn tối đa tốn 20 điểm ma pháp."}
+{"rowId":"786","text":"Tốn mỗi điểm ma pháp sẽ chống đỡ sát thương bằng 0.5% HP tối đa. Mỗi turn tối đa tốn 40 điểm ma pháp."}
+{"rowId":"787","text":"Sau khi quả đạn đầu tiên phát nổ, trong khu vực nổ sẽ xuất hiện Lửa, duy trì 2 turn. Địch trong khu vực Lửa sẽ bị kèm 1 tầng Dấu Ấn (Có hiệu lực trong PVP)."}
+{"rowId":"788","text":"Khi bắt đầu turn, mỗi mục tiêu địch mang Dấu Ấn trên sân, giúp hồi thêm 3 điểm ma lực (Có hiệu lực trong PVP)."}
+{"rowId":"789","text":"Thần Tốc"}
+{"rowId":"790","text":"Sát Thương"}
+{"rowId":"791","text":"Ẩn Thân"}
+{"rowId":"792","text":"Khu Vực Dấu Ấn"}
+{"rowId":"793","text":"Dấu Ấn"}
+{"rowId":"794","text":"Cộng Dồn Kỹ Năng Mới"}
+{"rowId":"795","text":"Vũ khí phụ: Hiệu quả hồi phục +3%, sát thương +3%."}
+{"rowId":"796","text":"Vũ khí phụ: Hiệu quả hồi phục +4%, sát thương +4%."}
+{"rowId":"797","text":"Vũ khí phụ: Hiệu quả hồi phục +5%, sát thương +5%."}
+{"rowId":"798","text":"Vũ khí phụ: Hiệu quả hồi phục +6%, sát thương +6%."}
+{"rowId":"799","text":"Vũ khí phụ: Hiệu quả hồi phục +8%, sát thương +8%."}
+{"rowId":"800","text":"Khi chiến đấu, sát thương và ma công +3% (max: 5%)."}
+{"rowId":"801","text":"Khi chiến đấu, sát thương và ma công +4% (max: 5%)."}
+{"rowId":"802","text":"Khi chiến đấu, sát thương và ma công +5% (max: 5%)."}
+{"rowId":"803","text":"Thần Tốc"}
+{"rowId":"804","text":"Sát Thương"}
+{"rowId":"805","text":"Ẩn Thân"}
+{"rowId":"806","text":"Khi trúng địch, 4% giảm 20% thể lực tối đa của mục tiêu, duy trì 2 turn (Có hiệu lực trong PVP)."}
+{"rowId":"807","text":"Khi trúng địch, 6% giảm 20% thể lực tối đa của mục tiêu, duy trì 2 turn (Có hiệu lực trong PVP)."}
+{"rowId":"808","text":"Khi trúng địch, 8% giảm 20% thể lực tối đa của mục tiêu, duy trì 2 turn (Có hiệu lực trong PVP)."}
+{"rowId":"809","text":"Khi chiến đấu, HP tối đa của bản thân +2% (max:4%)"}
+{"rowId":"810","text":"Khi chiến đấu, HP tối đa của bản thân +3% (max:4%)"}
+{"rowId":"811","text":"Khi chiến đấu, HP tối đa của bản thân +4% (max:4%)"}
+{"rowId":"812","text":"Vũ khí phụ: Hiệu quả hồi phục +3%, sát thương +3%."}
+{"rowId":"813","text":"Vũ khí phụ: Hiệu quả hồi phục +4%, sát thương +4%."}
+{"rowId":"814","text":"Vũ khí phụ: Hiệu quả hồi phục +5%, sát thương +5%."}
+{"rowId":"815","text":"Vũ khí phụ: Hiệu quả hồi phục +6%, sát thương +6%."}
+{"rowId":"816","text":"Vũ khí phụ: Hiệu quả hồi phục +8%, sát thương +8%."}
+{"rowId":"817","text":"<font color='#4cd700'>{0}</font> kích hoạt Lửa Thiêu Đốt, mỗi turn chịu <font color='#4cd700'>{1}</font> ST Lửa, duy trì 3 turn."}
+{"rowId":"818","text":"<font color='#4cd700'>{0}</font> kích hoạt Đóng Băng Cực Tốc, khóa tấn công/di chuyển mục tiêu 2 turn, bị tấn công sẽ mất hiệu quả, triệt tiêu sát thương."}
+{"rowId":"819","text":"<font color='#4cd700'>{0}</font> kích hoạt Bắn Tia Chớp, địch phạm vi 300 chịu <font color='#4cd700'>{1}</font> ST Gió."}
+{"rowId":"820","text":"Kích hoạt Sức Mạnh Mặt Đất, gây thêm sát thương cho địch vị trí thấp hơn. Mỗi 100 pixel sẽ tăng <fon color='#4cd700'>{0}</font> ST Đất."}
+{"rowId":"821","text":"Mỗi turn hấp thu <font color='#4cd700'>{0}</font> điểm sát thương (Ánh hưởng bởi Kháng Lửa)."}
+{"rowId":"822","text":"Mỗi turn hồi <font color='#4cd700'>{0}</font> HP (Ảnh hưởng bởi Kháng Nước)."}
+{"rowId":"823","text":"Né tránh +<font color='#4cd700'>{0}</font> (Ảnh hưởng bởi Kháng Gió)."}
+{"rowId":"824","text":"Mỗi cự li 100 pixel giảm <font color='#4cd700'>{0}</font> sát thương phải chịu (Ảnh hưởng bởi Kháng Đất)."}
+{"rowId":"825","text":"Sau mỗi đợt tấn công thú cưng sẽ tấn công địch, gây 30% sát thương."}
+{"rowId":"826","text":"Sau mỗi đợt tấn công thú cưng sẽ tấn công địch, gây 40% sát thương."}
+{"rowId":"827","text":"Sau mỗi đợt tấn công thú cưng sẽ tấn công địch, gây 50% sát thương."}
+{"rowId":"828","text":"Ném một mai rùa cứng, gây 150% sát thương, chắc chắn bạo kích, giúp 1 đồng đội ngẫu nhiên Giảm Thương 10% (Không có đồng đội sẽ tăng cho bản thân), duy trì 3 turn"}
+{"rowId":"829","text":"Ném một mai rùa cứng, gây 180% sát thương, chắc chắn bạo kích, giúp 1 đồng đội ngẫu nhiên Giảm Thương 15% (Không có đồng đội sẽ tăng cho bản thân), duy trì 3 turn"}
+{"rowId":"830","text":"Ném một mai rùa cứng, gây 220% sát thương, chắc chắn bạo kích, giúp 1 đồng đội ngẫu nhiên Giảm Thương 20% (Không có đồng đội sẽ tăng cho bản thân), duy trì 3 turn"}
+{"rowId":"831","text":"Vào trạng thái phòng thủ, tăng 20% Hộ Giáp, giảm 60% xác suất bị bạo kích. Thể tích va chạm lớn hơn, tốc độ ra đòn giảm 30%, duy trì 3 turn. Có hiệu lực trong PVP."}
+{"rowId":"832","text":"Vào trạng thái phòng thủ, tăng 35% Hộ Giáp, giảm 60% xác suất bị bạo kích. Thể tích va chạm lớn hơn, tốc độ ra đòn giảm 30%, duy trì 3 turn. Có hiệu lực trong PVP."}
+{"rowId":"833","text":"Vào trạng thái phòng thủ, tăng 50% Hộ Giáp, giảm 60% xác suất bị bạo kích. Thể tích va chạm lớn hơn, tốc độ ra đòn giảm 30%, duy trì 3 turn. Có hiệu lực trong PVP."}
+{"rowId":"834","text":"Đủ 50 điểm ma pháp sẽ mở kích hoạt Khiêu Khích, thu hút tấn công phe địch trong phạm vi bán kính 200 quanh mình. Mỗi phát đạn trúng đòn sẽ phản đòn sát thương Thực bằng 80% Hộ Giáp bản thân +800 HP Tối Đa của bản thân, hiệu quả duy trì 2 turn, chờ 3 turn (Có hiệu lực trong PVP)."}
+{"rowId":"835","text":"Giúp đồng đội san sẻ sát thương, bản thân hồi HP bằng 5% sát thương giúp san sẻ +300, tối đa hồi 10000 HP, duy trì 2 turn. Có hiệu lực trong PVP."}
+{"rowId":"836","text":"Giúp đồng đội san sẻ sát thương, bản thân hồi HP bằng 10% sát thương giúp san sẻ +500, tối đa hồi 10000 HP, duy trì 2 turn. Có hiệu lực trong PVP."}
+{"rowId":"837","text":"Rùa khổng lồ đè nặng xuống đất, tất cả người chơi chịu 120% ST cơ bản + ST bằng 200% Hộ Giáp của bản thân, bị Cấm Bay, duy trì 2 turn."}
+{"rowId":"838","text":"Rùa khổng lồ đè nặng xuống đất, tất cả người chơi chịu 150% ST cơ bản + ST bằng 300% Hộ Giáp của bản thân, bị Cấm Bay, duy trì 2 turn."}
+{"rowId":"839","text":"Mỗi lần bị sát thương sẽ hồi 3 điểm ma pháp, tăng 10% Ma Kháng và Hộ Giáp, cộng dồn tối đa 4 tầng, duy trì 2 turn, mỗi turn tối đa hồi 15 điểm ma pháp."}
+{"rowId":"840","text":"Tăng 10% hiệu quả Giảm Thương, mỗi đồng đội có mặt giúp tăng thêm 10% Giảm Thương, tối đa tăng 30%."}
+{"rowId":"841","text":"Khi bản thân hoặc đồng đội tử vong, hiệu quả Nhặt Hồn tăng gấp bội."}
+{"rowId":"842","text":"Phản Sát Thương"}
+{"rowId":"843","text":"Phản Sát Thương"}
+{"rowId":"844","text":"Phản Sát Thương"}
+{"rowId":"845","text":"San Sẻ Sát Thương"}
+{"rowId":"846","text":"Ném một mai rùa cứng, gây 220% sát thương, chắc chắn bạo kích, giúp 2 đồng đội ngẫu nhiên Giảm Thương 20% (Không có đồng đội sẽ tăng cho bản thân), duy trì 3 turn"}
+{"rowId":"847","text":"Vào trạng thái phòng thủ, tăng 80% Hộ Giáp, giảm 90% xác suất bị bạo kích. Thể tích va chạm lớn hơn, miễn dịch sát thương từ một số góc độ nhất định, duy trì 3 turn."}
+{"rowId":"848","text":"Phản Sát Thương"}
+{"rowId":"849","text":"Đủ 30 điểm ma pháp sẽ mở kích hoạt Khiêu Khích, thu hút tấn công phe địch trong phạm vi bán kính 200 quanh mình. Mỗi phát đạn trúng đòn sẽ phản đòn sát thương Thực bằng 80% Hộ Giáp bản thân +800 HP Tối Đa của bản thân, hiệu quả duy trì 2 turn, chờ 3 turn (Có hiệu lực trong PVP)."}
+{"rowId":"850","text":"Rùa khổng lồ đè nặng xuống đất, tất cả người chơi chịu 150% ST cơ bản + ST bằng 300% Hộ Giáp của bản thân, bị Cấm Di Chuyển, Cấm Bay, duy trì 2 turn."}
+{"rowId":"851","text":"Mỗi lần bị sát thương sẽ hồi 5 điểm ma pháp, tăng 10% Ma Kháng và Hộ Giáp, cộng dồn tối đa 4 tầng, duy trì 2 turn, mỗi turn tối đa hồi 15 điểm ma pháp. (Miễn dịch phát đạn đầu tiên, chỉ hiệu lực trong PVP)."}
+{"rowId":"852","text":"Mỗi lần bị sát thương sẽ hồi 5 điểm ma pháp, tăng 10% Ma Kháng và Hộ Giáp, cộng dồn tối đa 4 tầng, duy trì 2 turn, mỗi turn tối đa hồi 15 điểm ma pháp."}
+{"rowId":"853","text":"(Miễn dịch phát đạn đầu tiên, chỉ hiệu lực trong PVP)"}
+{"rowId":"854","text":"Tăng 20% hiệu quả Giảm Thương, mỗi đồng đội có mặt giúp tăng thêm 10% Giảm Thương, tối đa tăng 30%. Tăng thêm 10% HP Tối Đa. (Bị trúng đạn chỉ chịu sát thương bằng 25% HP Tối Đa của bản thân, chỉ hiệu lực trong PVP)"}
+{"rowId":"855","text":"Mỗi đồng đội có mặt giúp tăng thêm 10% Giảm Thương"}
+{"rowId":"856","text":"Khi chiến đấu, sát thương phải chịu giảm 5% (MAX 10%)."}
+{"rowId":"857","text":"Khi chiến đấu, sát thương phải chịu giảm 8% (MAX 10%)."}
+{"rowId":"858","text":"Khi chiến đấu, sát thương phải chịu giảm 10% (MAX 10%)."}
+{"rowId":"859","text":"Khi chiến đấu, HP tối đa tăng 5% (MAX 10%)."}
+{"rowId":"860","text":"Khi chiến đấu, HP tối đa tăng 8% (MAX 10%)."}
+{"rowId":"861","text":"Khi chiến đấu, HP tối đa tăng 10% (MAX 10%)."}
+{"rowId":"862","text":"Bị trúng đạn chỉ chịu sát thương bằng 25% HP Tối Đa của bản thân. (Chỉ hiệu lực trong PVP)"}
+{"rowId":"863","text":"Xóa Né Tránh"}
+{"rowId":"864","text":"Nhận hiệu quả Giảm Thương 500 + 25%. Mỗi lần bị tấn công, giảm thêm 15% sát thương phải chịu, duy trì 1 turn."}
+{"rowId":"865","text":"Bản thân nhận một vỏ bọc phản xạ sát thương. Mỗi lần bị tấn công, phản đòn 50% sát thương phải chịu, duy trì 3 turn. Chỉ hiệu lực trong PVP."}
+{"rowId":"866","text":"Mỗi lần bị tấn công, 30% phản đòn sát thương bằng 5% HP tối đa."}
+{"rowId":"867","text":"Khi bị đánh sát thương giảm"}
+{"rowId":"868","text":"Phản Sát Thương"}
+{"rowId":"869","text":"Nhận hiệu quả Giảm Thương 500 + 25%. Mỗi lần bị tấn công, giảm thêm 15% sát thương phải chịu, duy trì 1 turn."}
+{"rowId":"870","text":"Mỗi lần bị tấn công sẽ phản đòn 50% sát thương phải chịu, duy trì 3 turn. Chỉ hiệu lực trong PVP."}
+{"rowId":"871","text":"Mỗi lần bị tấn công, 20% phản đòn sát thương bằng 5% HP tối đa."}
+{"rowId":"872","text":"Khi bị đánh sát thương giảm"}
+{"rowId":"873","text":"Phản Sát Thương"}
+{"rowId":"874","text":"Miễn kháng, tăng 30% phòng thủ, duy trì 2 turn"}
+{"rowId":"875","text":"Khi bị bắn trúng sẽ tăng 55 điểm sát thương, tối đa 6 lần, turn bản thân kết thúc giảm 1 lần hiệu quả"}
+{"rowId":"876","text":"Mỗi turn giảm 3.3% HP, nhận 6 điểm ma pháp, khi HP tối đa dưới 30% sẽ mất hiệu quả"}
+{"rowId":"877","text":"Giải trừ hỏa lực ưu thế"}
+{"rowId":"878","text":"Khi bị bắn trúng sẽ tăng 55 điểm sát thương, tối đa 6 lần, turn bản thân kết thúc giảm 1 lần hiệu quả"}
+{"rowId":"879","text":"Mỗi turn giảm 3.3% HP, nhận 6 điểm ma pháp, khi HP tối đa dưới 30% sẽ mất hiệu quả"}
+{"rowId":"880","text":"Pet sẽ lao vào tấn công mục tiêu địch sau khi chủ nhân bắn xong mỗi turn, gây 15% sát thương."}
+{"rowId":"881","text":"Pet sẽ lao vào tấn công mục tiêu địch sau khi chủ nhân bắn xong mỗi turn, gây 25% sát thương."}
+{"rowId":"882","text":"Pet sẽ lao vào tấn công mục tiêu địch sau khi chủ nhân bắn xong mỗi turn, gây 36% sát thương."}
+{"rowId":"883","text":"Bắn ra một viên đạn bay, gây 120% sát thương cơ bản, bản thân tăng 10% HP tối đa, mục tiêu giảm 12% HP tối đa (Chỉ hiệu lực trong PVP), duy trì 3 turn."}
+{"rowId":"884","text":"Bắn ra một viên đạn bay, gây 150% sát thương cơ bản, bản thân tăng 10% HP tối đa, mục tiêu giảm 12% HP tối đa (Chỉ hiệu lực trong PVP), duy trì 3 turn."}
+{"rowId":"885","text":"Bắn ra một viên đạn bay, gây 180% sát thương cơ bản, bản thân tăng 10% HP tối đa, mục tiêu giảm 12% HP tối đa (Chỉ hiệu lực trong PVP), duy trì 3 turn."}
+{"rowId":"886","text":"Giảm HP tối đa kẻ địch 12% (pvp)"}
+{"rowId":"887","text":"Tổn thất 30% HP hiện có, mỗi turn hồi 10% HP tối đa, duy trì 3 turn."}
+{"rowId":"888","text":"Tổn thất 20%, HP hiện có, mỗi turn hồi 12% HP tối đa, duy trì 3 turn."}
+{"rowId":"889","text":"Khi đang có Khiên Heo, sau khi dùng, mỗi turn hồi 8% HP hiện tại, duy trì 3 turn."}
+{"rowId":"890","text":"Khi đang có Khiên Heo, dùng sẽ gây ST Thực bằng 20% HP tối đa của bản thân + 200% ST cơ bản cho người chơi trong phạm vi 300 pixel. Sau khi dùng khiên sẽ biến mất."}
+{"rowId":"891","text":"Khi đang có Khiên Heo, dùng sẽ bật xa một khoảng so với mục tiêu ngẫu nhiên trong phạm vi 300 pixel, đồng thời khiến mục tiêu Tăng Tốc Lực Bắn, duy trì 3 turn. Sau khi dùng khiên sẽ biến mất."}
+{"rowId":"892","text":"Khi HP dưới 50%, nhận khiên bằng 50% HP Tối Đa, duy trì 3 turn, chờ 6 turn."}
+{"rowId":"893","text":"Mỗi mất 10% HP tăng 3 điểm ma pháp, mỗi turn nhiều nhất hồi phục 12 điểm."}
+{"rowId":"894","text":"Công Lửa +100"}
+{"rowId":"895","text":"Công Lửa +200"}
+{"rowId":"896","text":"Công Lửa +300"}
+{"rowId":"897","text":"Công Nước +100"}
+{"rowId":"898","text":"Công Nước +200"}
+{"rowId":"899","text":"Công Nước +300"}
+{"rowId":"900","text":"Công Gió +100"}
+{"rowId":"901","text":"Công Gió +200"}
+{"rowId":"902","text":"Công Gió +300"}
+{"rowId":"903","text":"Công Đất +100"}
+{"rowId":"904","text":"Công Đất +200"}
+{"rowId":"905","text":"Công Đất +300"}
+{"rowId":"906","text":"Kháng Lửa +150"}
+{"rowId":"907","text":"Kháng Lửa +300"}
+{"rowId":"908","text":"Kháng Lửa +450"}
+{"rowId":"909","text":"Kháng Nước +150"}
+{"rowId":"910","text":"Kháng Nước +300"}
+{"rowId":"911","text":"Kháng Nước +450"}
+{"rowId":"912","text":"Kháng Gió +150"}
+{"rowId":"913","text":"Kháng Gió +300"}
+{"rowId":"914","text":"Kháng Gió +450"}
+{"rowId":"915","text":"Kháng Đất +150"}
+{"rowId":"916","text":"Kháng Đất +300"}
+{"rowId":"917","text":"Kháng Đất +450"}
+{"rowId":"918","text":"Công Lửa +3%"}
+{"rowId":"919","text":"Công Lửa +5%"}
+{"rowId":"920","text":"Công Lửa +8%"}
+{"rowId":"921","text":"Công Nước +3%"}
+{"rowId":"922","text":"Công Nước +5%"}
+{"rowId":"923","text":"Công Nước +8%"}
+{"rowId":"924","text":"Công Gió +3%"}
+{"rowId":"925","text":"Công Gió +5%"}
+{"rowId":"926","text":"Công Gió +8%"}
+{"rowId":"927","text":"Công Đất +3%"}
+{"rowId":"928","text":"Công Đất +5%"}
+{"rowId":"929","text":"Công Đất +8%"}
+{"rowId":"930","text":"Kháng Lửa +5%"}
+{"rowId":"931","text":"Kháng Lửa +8%"}
+{"rowId":"932","text":"Kháng Lửa +12%"}
+{"rowId":"933","text":"Kháng Nước +5%"}
+{"rowId":"934","text":"Kháng Nước +8%"}
+{"rowId":"935","text":"Kháng Nước +12%"}
+{"rowId":"936","text":"Kháng Gió +5%"}
+{"rowId":"937","text":"Kháng Gió +8%"}
+{"rowId":"938","text":"Kháng Gió +12%"}
+{"rowId":"939","text":"Kháng Đất +5%"}
+{"rowId":"940","text":"Kháng Đất +8%"}
+{"rowId":"941","text":"Kháng Đất +12%"}
+{"rowId":"942","text":"Khi kích hoạt Lửa Thiêu Đốt, Công Lửa +200, duy trì 3 turn."}
+{"rowId":"943","text":"Khi kích hoạt Lửa Thiêu Đốt, Công Lửa +350, duy trì 3 turn."}
+{"rowId":"944","text":"Khi kích hoạt Lửa Thiêu Đốt, Công Lửa +500, duy trì 3 turn."}
+{"rowId":"945","text":"Khi kích hoạt Lửa Thiêu Đốt, Công Lửa +8%, duy trì 3 turn."}
+{"rowId":"946","text":"Khi kích hoạt Lửa Thiêu Đốt, Công Lửa +12%, duy trì 3 turn."}
+{"rowId":"947","text":"Khi kích hoạt Lửa Thiêu Đốt, Công Lửa +16%, duy trì 3 turn."}
+{"rowId":"948","text":"Xác suất kích hoạt Lửa Thiêu Đốt +20%"}
+{"rowId":"949","text":"Xác suất kích hoạt Lửa Thiêu Đốt +35%"}
+{"rowId":"950","text":"Xác suất kích hoạt Lửa Thiêu Đốt +50%"}
+{"rowId":"951","text":"Lửa Thiêu Đốt gây Bỏng kèm hiệu quả -10% Kháng Lửa, duy trì 3 turn."}
+{"rowId":"952","text":"Lửa Thiêu Đốt gây Bỏng kèm hiệu quả -20% Kháng Lửa, duy trì 3 turn."}
+{"rowId":"953","text":"Lửa Thiêu Đốt gây Bỏng kèm hiệu quả -30% Kháng Lửa, duy trì 3 turn."}
+{"rowId":"957","text":"Khi kích hoạt Đóng Băng Cực Tốc, Công Nước +350, duy trì 3 turn"}
+{"rowId":"958","text":"Khi kích hoạt Đóng Băng Cực Tốc, Công Nước +500, duy trì 3 turn"}
+{"rowId":"959","text":"Khi kích hoạt Đóng Băng Cực Tốc, Công Nước +800, duy trì 3 turn"}
+{"rowId":"960","text":"Khi kích hoạt Đóng Băng Cực Tốc, Công Nước +16%, duy trì 3 turn"}
+{"rowId":"961","text":"Khi kích hoạt Đóng Băng Cực Tốc, Công Nước +20%, duy trì 3 turn"}
+{"rowId":"962","text":"Khi kích hoạt Đóng Băng Cực Tốc, Công Nước +24%, duy trì 3 turn"}
+{"rowId":"963","text":"Xác suất kích hoạt Đóng Băng Cực Tốc +20%"}
+{"rowId":"964","text":"Xác suất kích hoạt Đóng Băng Cực Tốc +35%"}
+{"rowId":"965","text":"Xác suất kích hoạt Đóng Băng Cực Tốc +50%"}
+{"rowId":"966","text":"Đóng Băng Cực Tốc kèm hiệu quả -15% Kháng Nước, duy trì 3 turn."}
+{"rowId":"967","text":"Đóng Băng Cực Tốc kèm hiệu quả -30% Kháng Nước, duy trì 3 turn."}
+{"rowId":"968","text":"Đóng Băng Cực Tốc kèm hiệu quả -45% Kháng Nước, duy trì 3 turn."}
+{"rowId":"972","text":"Khi kích hoạt Bắn Tia Chớp, Công Gió +200, duy trì 3 turn."}
+{"rowId":"973","text":"Khi kích hoạt Bắn Tia Chớp, Công Gió +350, duy trì 3 turn."}
+{"rowId":"974","text":"Khi kích hoạt Bắn Tia Chớp, Công Gió +500, duy trì 3 turn."}
+{"rowId":"975","text":"Khi kích hoạt Bắn Tia Chớp, Công Gió +8%, duy trì 3 turn."}
+{"rowId":"976","text":"Khi kích hoạt Bắn Tia Chớp, Công Gió +12%, duy trì 3 turn."}
+{"rowId":"977","text":"Khi kích hoạt Bắn Tia Chớp, Công Gió +16%, duy trì 3 turn."}
+{"rowId":"978","text":"Xác suất kích hoạt Bắn Tia Chớp +20%"}
+{"rowId":"979","text":"Xác suất kích hoạt Bắn Tia Chớp +35%"}
+{"rowId":"980","text":"Xác suất kích hoạt Bắn Tia Chớp +50%"}
+{"rowId":"981","text":"Bắn Tia Chớp kèm hiệu quả -10% Kháng Gió, duy trì 3 turn."}
+{"rowId":"982","text":"Bắn Tia Chớp kèm hiệu quả -20% Kháng Gió, duy trì 3 turn."}
+{"rowId":"983","text":"Bắn Tia Chớp kèm hiệu quả -30% Kháng Gió, duy trì 3 turn."}
+{"rowId":"984","text":"Nếu mục tiêu ở địa hình thấp hơn, mỗi 100 pixel Công Đất +75"}
+{"rowId":"985","text":"Nếu mục tiêu ở địa hình thấp hơn, mỗi 100 pixel Công Đất +125"}
+{"rowId":"986","text":"Nếu mục tiêu ở địa hình thấp hơn, mỗi 100 pixel Công Đất +175"}
+{"rowId":"987","text":"Nếu mục tiêu ở địa hình thâp hơn, mỗi 100 pixel Công Đất +4%"}
+{"rowId":"988","text":"Nếu mục tiêu ở địa hình thâp hơn, mỗi 100 pixel Công Đất +6%"}
+{"rowId":"989","text":"Nếu mục tiêu ở địa hình thâp hơn, mỗi 100 pixel Công Đất +8%"}
+{"rowId":"990","text":"Khi trúng mục tiêu, Kháng Đất của mục tiêu giảm 4%, duy trì 3 turn."}
+{"rowId":"991","text":"Khi trúng mục tiêu, Kháng Đất của mục tiêu giảm 8%, duy trì 3 turn."}
+{"rowId":"992","text":"Mỗi lần bị tấn công nhận 2 điểm ma pháp, đồng đội khác nhận 1 điểm ma pháp"}
+{"rowId":"993","text":"Mỗi turn bắn xong, thú cưng có xác suất 100% xông ra tấn công địch, gây 65% sát thương."}
+{"rowId":"995","text":"10% kích hoạt miễn dịch Đóng Băng, Có hiệu lực trong PVP (Kỹ năng của Thần Hộ Mệnh hệ Lửa, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"996","text":"Khi kích hoạt Đóng Băng Cực Tốc, 30% khiến Đóng Băng duy trì thêm 1 turn. (Kỹ năng của Thần Hộ Mệnh hệ Nước, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"997","text":"Miễn sát thương chí mạng 1 lần và hồi 5% HP tối đa, mỗi trận 1 lần (Kỹ năng của Thần Hộ Mệnh hệ Nước, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"998","text":"Khi trúng mục tiêu, 2% kích hoạt Tia Chớp, trúng kẻ địch khác gây 50% sát thương (Kỹ năng của Thần Hộ Mệnh hệ Gió, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"999","text":"Khi kích hoạt Né Tránh, thuộc tính Nguyên Tố +30%, duy trì 3 turn (Kỹ năng của Thần Hộ Mệnh hệ Gió, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"1000","text":"Khi trúng mục tiêu, 10% kích hoạt, Đạn Pháo từ mục tiêu không thể gây Đào Đất, duy trì 3 turn (Kỹ năng của Thần Hộ Mệnh hệ Đất, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"1001","text":"Khi chịu sát thương từ cự ly 12 trở lên sẽ có 10% kích hoạt, sát thương phải chịu -30%. (Kỹ năng của Thần Hộ Mệnh hệ Đất, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"1002","text":"Tất cả đồng đội trong bản đồ hồi phục 15% HP và miễn dịch sát thương 1 lần. (Không cộng dồn, tối đa miễn sát thương bằng 20% HP)."}
+{"rowId":"1003","text":"Dùng các loại vũ khí phụ khiên hồi ngay 8% HP, đồng thời nhận thêm 10% giảm thương, duy trì 2 turn."}
+{"rowId":"1004","text":"Khi dùng vũ khí phụ hồi máu, bản thân và 1 mục tiêu khác tăng 7 điểm ma pháp."}
+{"rowId":"1005","text":"Khi HP dưới 50%, 10% hồi phục 20% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1006","text":"Khi HP dưới 50%, 11% hồi phục 20% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1007","text":"Khi HP dưới 50%, 12% hồi phục 20% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1008","text":"Khi HP dưới 50%, 13% hồi phục 20% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1009","text":"Khi HP dưới 50%, 14% hồi phục 20% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1010","text":"Khi HP dưới 50%, 15% hồi phục 20% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1011","text":"Khi HP dưới 50%, 16% hồi phục 20% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1012","text":"Khi HP dưới 50%, 17% hồi phục 20% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1013","text":"Khi HP dưới 50%, 18% hồi phục 20% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1014","text":"Khi HP dưới 50%, 19% hồi phục 20% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1015","text":"Khi HP dưới 50%, 20% hồi phục 20% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1016","text":"Khi HP dưới 50%, 21% hồi phục 20% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1017","text":"Khi HP dưới 50%, 22% hồi phục 20% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1018","text":"Khi HP dưới 50%, 23% hồi phục 20% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1019","text":"Khi HP dưới 50%, 24% hồi phục 20% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1020","text":"Khi HP dưới 50%, 25% hồi phục 20% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1021","text":"Khi HP dưới 50%, 26% hồi phục 20% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1022","text":"Khi HP dưới 50%, 27% hồi phục 20% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1023","text":"Khi HP dưới 50%, 28% hồi phục 20% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1024","text":"Khi HP dưới 50%, 29% hồi phục 20% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1025","text":"Khi HP dưới 50%, 30% hồi phục 30% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1026","text":"Khi HP dưới 50%, 31% hồi phục 30% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1027","text":"Khi HP dưới 50%, 32% hồi phục 30% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1028","text":"Khi HP dưới 50%, 33% hồi phục 30% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1029","text":"Khi HP dưới 50%, 34% hồi phục 30% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1030","text":"Khi HP dưới 50%, 35% hồi phục 30% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1031","text":"Khi HP dưới 50%, 36% hồi phục 30% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1032","text":"Khi HP dưới 50%, 37% hồi phục 30% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1033","text":"Khi HP dưới 50%, 38% hồi phục 30% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1034","text":"Khi HP dưới 50%, 39% hồi phục 30% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1035","text":"Khi HP dưới 50%, 30% hồi phục 30% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1036","text":"Khi HP dưới 50%, 31% hồi phục 30% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1037","text":"Khi HP dưới 50%, 32% hồi phục 30% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1038","text":"Khi HP dưới 50%, 33% hồi phục 30% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1039","text":"Khi HP dưới 50%, 33% hồi phục 30% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1040","text":"Khi HP dưới 50%, 35% hồi phục 30% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1041","text":"Khi HP dưới 50%, 36% hồi phục 30% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1042","text":"Khi HP dưới 50%, 37% hồi phục 30% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1043","text":"Khi HP dưới 50%, 38% hồi phục 30% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1044","text":"Khi HP dưới 50%, 39% hồi phục 30% HP tối đa (Chỉ 1 lần)"}
+{"rowId":"1045","text":"Khi HP dưới 50%, 50% hồi phục 30% HP tối đa (Chỉ 2 lần)"}
+{"rowId":"1046","text":"Lửa Thiêu Đốt kích hoạt hiệu quả Bỏng, sẽ khiến Pet giảm 8 điểm MP. (Kỹ năng của Thần Hộ Mệnh hệ Lửa, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"1047","text":"12% kích hoạt miễn dịch Đóng Băng, Có hiệu lực trong PVP (Kỹ năng của Thần Hộ Mệnh hệ Lửa, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"1048","text":"Khi kích hoạt Đóng Băng Cực Tốc, 40% khiến Đóng Băng duy trì thêm 1 turn. (Kỹ năng của Thần Hộ Mệnh hệ Nước, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"1049","text":"Miễn sát thương chí mạng 1 lần và hồi 10% HP tối đa, mỗi trận 1 lần (Kỹ năng của Thần Hộ Mệnh hệ Nước, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"1050","text":"Khi trúng mục tiêu, 3% kích hoạt Tia Chớp, trúng kẻ địch khác gây 50% sát thương (Kỹ năng của Thần Hộ Mệnh hệ Gió, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"1051","text":"Khi kích hoạt Né Tránh, thuộc tính Nguyên Tố +40%, duy trì 3 turn (Kỹ năng của Thần Hộ Mệnh hệ Gió, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"1052","text":"Khi trúng mục tiêu, 12% kích hoạt, Đạn Pháo từ mục tiêu không thể gây Đào Đất, duy trì 3 turn (Kỹ năng của Thần Hộ Mệnh hệ Đất, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"1053","text":"Khi chịu sát thương từ cự ly 12 trở lên sẽ có 20% kích hoạt, sát thương phải chịu -30%. (Kỹ năng của Thần Hộ Mệnh hệ Đất, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"1054","text":"Lửa Thiêu Đốt kích hoạt hiệu quả Bỏng, sẽ khiến Pet giảm 10 điểm MP. (Kỹ năng của Thần Hộ Mệnh hệ Lửa, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"1055","text":"15% kích hoạt miễn dịch Đóng Băng, Có hiệu lực trong PVP (Kỹ năng của Thần Hộ Mệnh hệ Lửa, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"1056","text":"Khi kích hoạt Đóng Băng Cực Tốc, 50% khiến Đóng Băng duy trì thêm 1 turn. (Kỹ năng của Thần Hộ Mệnh hệ Nước, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"1057","text":"Miễn sát thương chí mạng 1 lần và hồi 15% HP tối đa, mỗi trận 1 lần (Kỹ năng của Thần Hộ Mệnh hệ Nước, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"1058","text":"Khi trúng mục tiêu, 4% kích hoạt Tia Chớp, trúng kẻ địch khác gây 50% sát thương (Kỹ năng của Thần Hộ Mệnh hệ Gió, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"1059","text":"Khi kích hoạt Né Tránh, thuộc tính Nguyên Tố +50%, duy trì 3 turn (Kỹ năng của Thần Hộ Mệnh hệ Gió, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"1060","text":"Khi trúng mục tiêu, 15% kích hoạt, Đạn Pháo từ mục tiêu không thể gây Đào Đất, duy trì 3 turn (Kỹ năng của Thần Hộ Mệnh hệ Đất, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"1061","text":"Khi chịu sát thương từ cự ly 12 trở lên sẽ có 30% kích hoạt, sát thương phải chịu -30%. (Kỹ năng của Thần Hộ Mệnh hệ Đất, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"1062","text":"Mỗi đồng đội có mặt giúp tăng thêm 10% Giảm Thương"}
+{"rowId":"1063","text":"Hai bên kết nghĩa tăng 300 HP"}
+{"rowId":"1064","text":"Hai bên kết nghĩa tăng 800 HP"}
+{"rowId":"1065","text":"Hai bên kết nghĩa tăng 1500 HP"}
+{"rowId":"1066","text":"Hai bên kết nghĩa tăng 3000 HP"}
+{"rowId":"1067","text":"Hai bên kết nghĩa tăng 5000 HP"}
+{"rowId":"1068","text":"Hai bên kết nghĩa tăng 7500 HP"}
+{"rowId":"1069","text":"Hai bên kết nghĩa tăng 10000 HP"}
+{"rowId":"1070","text":"Hai bên kết nghĩa tăng 12500 HP"}
+{"rowId":"1071","text":"Hai bên kết nghĩa tăng 15000 HP"}
+{"rowId":"1072","text":"Hai bên kết nghĩa tăng 18000 HP"}
+{"rowId":"1073","text":"Thêm Khiên Phòng Hộ cho tất cả đồng đội, mỗi lần bị bắn trúng hồi phục 0.6% HP. Nếu HP dưới 20%, hiệu quả hồi phục x2."}
+{"rowId":"1074","text":"Bắn 1 Hạt Bay, khi hạt giống nổ hồi phục HP đồng đội xung quanh, giảm HP địch, hạt giống mỗi giây tăng 8% HP."}
+{"rowId":"1075","text":"Khi đồng đội bắt đầu turn, nếu nhận được hiệu quả hồi phục từ Mầm Xanh, bản thân sẽ tăng 2 điểm ma pháp."}
+{"rowId":"1076","text":"Khi bị tấn công hồi phục HP, x2 khi HP thấp"}
+{"rowId":"1077","text":"Khi HP dưới 40%, hồi phục 3% (max: 10%) HP tối đa (3 turn 1 lần)"}
+{"rowId":"1078","text":"Khi HP dưới 40%, hồi phục 4% (max: 10%) HP tối đa (3 turn 1 lần)"}
+{"rowId":"1079","text":"Khi HP dưới 40%, hồi phục 5% (max: 10%) HP tối đa (3 turn 1 lần)"}
+{"rowId":"1080","text":"Khi bắt đầu turn, bản thân nhận khiên hấp thu sát thương bằng 4% (max: 8%) HP tối đa, duy trì 4 turn, 4 turn 1 lần."}
+{"rowId":"1081","text":"Khi bắt đầu turn, bản thân nhận khiên hấp thu sát thương bằng 6% (max: 8%) HP tối đa, duy trì 4 turn, 4 turn 1 lần."}
+{"rowId":"1082","text":"Khi bắt đầu turn, bản thân nhận khiên hấp thu sát thương bằng 8% (max: 8%) HP tối đa, duy trì 4 turn, 4 turn 1 lần."}
+{"rowId":"1083","text":"Hắc Ám ném Cánh Quỷ, gây 180% sát thương cơ bản, chắc chắn bạo kích. Cánh Quỷ sẽ thiêu đốt mục tiêu trong 2 turn: Bắt đầu mỗi turn sẽ mất 50% thể lực. Hiệu quả không cộng dồn."}
+{"rowId":"1084","text":"Hắc Ám ném ra chất độc, khiến thú cưng toàn phe địch giảm 100% hiệu quả trị liệu, duy trì 3 turn. (Chỉ hiệu lực trong PVP)"}
+{"rowId":"1085","text":"Hắc Ám niệm chú, dùng sức mạnh huyết mạch hiến tế cho tà thần. Trong turn này, mỗi phát đạn bắn ra sẽ kèm sát thương bằng 5% HP bản thân bị mất. Sát thương gây kèm sẽ Xuyên phòng thủ và Hộ Giáp."}
+{"rowId":"1086","text":"Mỗi turn mất 15% HP tối đa"}
+{"rowId":"1087","text":"Hạ được mục tiêu địch, MP của Pet hồi 20 (max: 40) điểm, mỗi trận hiệu lực 1 lần"}
+{"rowId":"1088","text":"Hạ được mục tiêu địch, MP của Pet hồi 25 (max: 40) điểm, mỗi trận hiệu lực 1 lần"}
+{"rowId":"1089","text":"Hạ được mục tiêu địch, MP của Pet hồi 30 (max: 40) điểm, mỗi trận hiệu lực 1 lần"}
+{"rowId":"1090","text":"Hạ được mục tiêu địch, MP của Pet hồi 35 (max: 40) điểm, mỗi trận hiệu lực 1 lần"}
+{"rowId":"1091","text":"Hạ được mục tiêu địch, MP của Pet hồi 40 (max: 40) điểm, mỗi trận hiệu lực 1 lần"}
+{"rowId":"1092","text":"Khi bắt đầu chiến đấu, Pet có xác suất 2% (max: 6%) nhận 30 MP"}
+{"rowId":"1093","text":"Khi bắt đầu chiến đấu, Pet có xác suất 3% (max: 6%) nhận 30 MP"}
+{"rowId":"1094","text":"Khi bắt đầu chiến đấu, Pet có xác suất 4% (max: 6%) nhận 30 MP"}
+{"rowId":"1095","text":"Khi bắt đầu chiến đấu, Pet có xác suất 5% (max: 6%) nhận 30 MP"}
+{"rowId":"1096","text":"Khi bắt đầu chiến đấu, Pet có xác suất 6% (max: 6%) nhận 30 MP"}
+{"rowId":"1097","text":"Khi trúng địch, gây 1 tầng hiệu quả Bị Thương, khiến sát thương mục tiêu phải chịu tăng 2% (max: 6%), hiệu quả duy trì 2 turn, có thể cộng dồn 5 tầng."}
+{"rowId":"1098","text":"Khi trúng địch, gây 1 tầng hiệu quả Bị Thương, khiến sát thương mục tiêu phải chịu tăng 3% (max: 6%), hiệu quả duy trì 2 turn, có thể cộng dồn 5 tầng."}
+{"rowId":"1099","text":"Khi trúng địch, gây 1 tầng hiệu quả Bị Thương, khiến sát thương mục tiêu phải chịu tăng 4% (max: 6%), hiệu quả duy trì 2 turn, có thể cộng dồn 5 tầng."}
+{"rowId":"1100","text":"Khi trúng địch, gây 1 tầng hiệu quả Bị Thương, khiến sát thương mục tiêu phải chịu tăng 5% (max: 6%), hiệu quả duy trì 2 turn, có thể cộng dồn 5 tầng."}
+{"rowId":"1101","text":"Khi trúng địch, gây 1 tầng hiệu quả Bị Thương, khiến sát thương mục tiêu phải chịu tăng 6% (max: 6%), hiệu quả duy trì 2 turn, có thể cộng dồn 5 tầng."}
+{"rowId":"1102","text":"Hạ được mục tiêu địch, sát thương cơ bản tăng 2% (max: 6%), có thể cộng dồn 5 tầng, có hiệu lực trong trận này."}
+{"rowId":"1103","text":"Hạ được mục tiêu địch, sát thương cơ bản tăng 3% (max: 6%), có thể cộng dồn 5 tầng, có hiệu lực trong trận này."}
+{"rowId":"1104","text":"Hạ được mục tiêu địch, sát thương cơ bản tăng 4% (max: 6%), có thể cộng dồn 5 tầng, có hiệu lực trong trận này."}
+{"rowId":"1105","text":"Hạ được mục tiêu địch, sát thương cơ bản tăng 5% (max: 6%), có thể cộng dồn 5 tầng, có hiệu lực trong trận này."}
+{"rowId":"1106","text":"Hạ được mục tiêu địch, sát thương cơ bản tăng 6% (max: 6%), có thể cộng dồn 5 tầng, có hiệu lực trong trận này."}
+{"rowId":"1107","text":"Hạ được mục tiêu địch, HP tối đa tăng 2% (max: 6%), có thể cộng dồn 5 tầng, có hiệu lực trong trận này."}
+{"rowId":"1108","text":"Hạ được mục tiêu địch, HP tối đa tăng 3% (max: 6%), có thể cộng dồn 5 tầng, có hiệu lực trong trận này."}
+{"rowId":"1109","text":"Hạ được mục tiêu địch, HP tối đa tăng 4% (max: 6%), có thể cộng dồn 5 tầng, có hiệu lực trong trận này."}
+{"rowId":"1110","text":"Hạ được mục tiêu địch, HP tối đa tăng 5% (max: 6%), có thể cộng dồn 5 tầng, có hiệu lực trong trận này."}
+{"rowId":"1111","text":"Hạ được mục tiêu địch, HP tối đa tăng 6% (max: 6%), có thể cộng dồn 5 tầng, có hiệu lực trong trận này."}
+{"rowId":"1112","text":"Hạ địch sẽ hút HP bằng 4% (max:12%) sát thương gây cho địch và hồi HP bản thân trong 2 turn, có hiệu lực trong PVP；"}
+{"rowId":"1113","text":"Hạ địch sẽ hút HP bằng 6% (max:12%) sát thương gây cho địch và hồi HP bản thân trong 2 turn, có hiệu lực trong PVP；"}
+{"rowId":"1114","text":"Hạ địch sẽ hút HP bằng 8% (max:12%) sát thương gây cho địch và hồi HP bản thân trong 2 turn, có hiệu lực trong PVP；"}
+{"rowId":"1115","text":"Hạ địch sẽ hút HP bằng 10% (max:12%) sát thương gây cho địch và hồi HP bản thân trong 2 turn, có hiệu lực trong PVP；"}
+{"rowId":"1116","text":"Hạ địch sẽ hút HP bằng 12% (max:12%) sát thương gây cho địch và hồi HP bản thân trong 2 turn, có hiệu lực trong PVP；"}
+{"rowId":"1117","text":"Khi tử vong, giúp đồng đội có tỉ lệ HP thấp nhất hồi 10% (max: 20%) HP tối đa."}
+{"rowId":"1118","text":"Khi tử vong, giúp đồng đội có tỉ lệ HP thấp nhất hồi 12% (max: 20%) HP tối đa."}
+{"rowId":"1119","text":"Khi tử vong, giúp đồng đội có tỉ lệ HP thấp nhất hồi 15% (max: 20%) HP tối đa."}
+{"rowId":"1120","text":"Khi tử vong, giúp đồng đội có tỉ lệ HP thấp nhất hồi 18% (max: 20%) HP tối đa."}
+{"rowId":"1121","text":"Khi tử vong, giúp đồng đội có tỉ lệ HP thấp nhất hồi 20% (max: 20%) HP tối đa."}
+{"rowId":"1122","text":"Khi tử vong, đồng đội nhận được Tịnh Hóa, giải trừ trạng thái bất lợi cho 1 (max: 3) đồng đội ngẫu nhiên"}
+{"rowId":"1123","text":"Khi tử vong, đồng đội nhận được Tịnh Hóa, giải trừ trạng thái bất lợi cho 2 (max: 3) đồng đội ngẫu nhiên"}
+{"rowId":"1124","text":"Khi tử vong, đồng đội nhận được Tịnh Hóa, giải trừ trạng thái bất lợi cho 3 (max: 3) đồng đội ngẫu nhiên"}
+{"rowId":"1125","text":"Khi tử vong, đồng đội nhận được Tịnh Hóa, giải trừ trạng thái bất lợi cho 3 (max: 3) đồng đội ngẫu nhiên"}
+{"rowId":"1126","text":"Khi tử vong, đồng đội nhận được Tịnh Hóa, giải trừ trạng thái bất lợi cho 3 (max: 3) đồng đội ngẫu nhiên"}
+{"rowId":"1127","text":"Khi bị sát thương có 2% (max:6%) xác suất kích hoạt Bụi Gai, phản sát thương bằng 50% sát thương chịu trong 2 turn, mỗi trận 1 lần, có hiệu lực trong PVP;"}
+{"rowId":"1128","text":"Khi bị sát thương có 3% (max:6%) xác suất kích hoạt Bụi Gai, phản sát thương bằng 50% sát thương chịu trong 2 turn, mỗi trận 1 lần, có hiệu lực trong PVP;"}
+{"rowId":"1129","text":"Khi bị sát thương có 4% (max:6%) xác suất kích hoạt Bụi Gai, phản sát thương bằng 50% sát thương chịu trong 2 turn, mỗi trận 1 lần, có hiệu lực trong PVP;"}
+{"rowId":"1130","text":"Khi bị sát thương có 5% (max:6%) xác suất kích hoạt Bụi Gai, phản sát thương bằng 50% sát thương chịu trong 2 turn, mỗi trận 1 lần, có hiệu lực trong PVP;"}
+{"rowId":"1131","text":"Khi bị sát thương có 6% (max:6%) xác suất kích hoạt Bụi Gai, phản sát thương bằng 50% sát thương chịu trong 2 turn, mỗi trận 1 lần, có hiệu lực trong PVP;"}
+{"rowId":"1132","text":"Đánh trúng nhân vật HP dưới 10% (max: 20%) có xác suất 5% kích hoạt hiệu quả Cuồng Bạo, sát thương thêm 50% HP tối đa của mục tiêu, có hiệu lực trong PVP."}
+{"rowId":"1133","text":"Đánh trúng nhân vật HP dưới 12% (max: 20%) có xác suất 5% kích hoạt hiệu quả Cuồng Bạo, sát thương thêm 50% HP tối đa của mục tiêu, có hiệu lực trong PVP."}
+{"rowId":"1134","text":"Đánh trúng nhân vật HP dưới 15% (max: 20%) có xác suất 5% kích hoạt hiệu quả Cuồng Bạo, sát thương thêm 50% HP tối đa của mục tiêu, có hiệu lực trong PVP."}
+{"rowId":"1135","text":"Đánh trúng nhân vật HP dưới 18% (max: 20%) có xác suất 5% kích hoạt hiệu quả Cuồng Bạo, sát thương thêm 50% HP tối đa của mục tiêu, có hiệu lực trong PVP."}
+{"rowId":"1136","text":"Đánh trúng nhân vật HP dưới 20% (max: 20%) có xác suất 5% kích hoạt hiệu quả Cuồng Bạo, sát thương thêm 50% HP tối đa của mục tiêu, có hiệu lực trong PVP."}
+{"rowId":"1137","text":"Bị sát thương 20 lần sẽ kích hoạt Nhẫn Thuật, giúp bản thân hồi 10% (max: 20%) HP, mỗi trận 1 lần."}
+{"rowId":"1138","text":"Bị sát thương 20 lần sẽ kích hoạt Nhẫn Thuật, giúp bản thân hồi 12% (max: 20%) HP, mỗi trận 1 lần."}
+{"rowId":"1139","text":"Bị sát thương 20 lần sẽ kích hoạt Nhẫn Thuật, giúp bản thân hồi 15% (max: 20%) HP, mỗi trận 1 lần."}
+{"rowId":"1140","text":"Bị sát thương 20 lần sẽ kích hoạt Nhẫn Thuật, giúp bản thân hồi 18% (max: 20%) HP, mỗi trận 1 lần."}
+{"rowId":"1141","text":"Bị sát thương 20 lần sẽ kích hoạt Nhẫn Thuật, giúp bản thân hồi 20 (max: 20%)% HP, mỗi trận 1 lần."}
+{"rowId":"1142","text":"+2%(max:10%)"}
+{"rowId":"1143","text":"+4%(max:10%)"}
+{"rowId":"1144","text":"+6%(max:10%)"}
+{"rowId":"1145","text":"+8%(max:10%)"}
+{"rowId":"1146","text":"+10%(max:10%)"}
+{"rowId":"1147","text":"+2%(max:10%)"}
+{"rowId":"1148","text":"+4%(max:10%)"}
+{"rowId":"1149","text":"+6%(max:10%)"}
+{"rowId":"1150","text":"+8%(max:10%)"}
+{"rowId":"1151","text":"+10%(max:10%)"}
+{"rowId":"1152","text":"+0.5%(max:2.5%)"}
+{"rowId":"1153","text":"+1.0%(max:2.5%)"}
+{"rowId":"1154","text":"+1.5%(max:2.5%)"}
+{"rowId":"1155","text":"+2.0%(max:2.5%)"}
+{"rowId":"1156","text":"+2.5%(max:2.5%)"}
+{"rowId":"1157","text":"Sau mỗi đợt tấn công thú cưng sẽ tấn công địch, gây 30% sát thương."}
+{"rowId":"1158","text":"Sau mỗi đợt tấn công thú cưng sẽ tấn công địch, gây 40% sát thương."}
+{"rowId":"1159","text":"Sau mỗi đợt tấn công thú cưng sẽ tấn công địch, gây 50% sát thương."}
+{"rowId":"1160","text":"Ném 1 Cầu Lửa, gây 150% sát thương, chắn chắn bạo kích, đồng thời kích hoạt Thần Tốc, trong turn Thần Tốc thể lực giảm còn 120."}
+{"rowId":"1161","text":"Ném 1 Cầu Lửa, gây 180% sát thương, chắn chắn bạo kích, đồng thời kích hoạt Thần Tốc, trong turn Thần Tốc thể lực giảm còn 120."}
+{"rowId":"1162","text":"Ném 1 Cầu Lửa, gây 220% sát thương, chắn chắn bạo kích, đồng thời kích hoạt Thần Tốc, trong turn Thần Tốc thể lực giảm còn 120."}
+{"rowId":"1163","text":"Bắn ra đạn 3 tia, gây cháy trong khu vực nổ, khiến mục tiêu trong khu vực đó mỗi turn mất 8% HP tối đa và 20 MP, Lửa duy trì 3 turn (Có hiệu lực trong PVP)."}
+{"rowId":"1164","text":"Khu Vực Dấu Ấn"}
+{"rowId":"1165","text":"Kỹ năng mới"}
+{"rowId":"1166","text":"Dùng 1 kỹ năng chủ động sẽ tăng 1 Lửa Nộ, đạt 3 Lửa sẽ chuyển thành Lửa Bảo Vệ, nhận hiệu quả +30% Giảm Thương, +30% Sát Thương, duy trì 3 turn"}
+{"rowId":"1167","text":"Nhận được kỹ năng"}
+{"rowId":"1168","text":"Nhận được kỹ năng"}
+{"rowId":"1169","text":"Khi bắt đầu trận, nếu có tốc độ bắn nhanh nhất, mỗi turn được hồi thêm 10 MP, nếu không mỗi turn sẽ hồi thêm 5 MP. (Trong PVE chỉ hồi 5 MP)"}
+{"rowId":"1170","text":"Khi trúng địch, 50% kích hoạt Bạo Kích kèm Lửa Đỏ (Mỗi turn chịu sát thương bằng 250% sát thương cơ bản của người tấn công), duy trì 3 turn. Đạn không tạo ra hố, tự mang hiệu quả Dẫn Đường."}
+{"rowId":"1171","text":"Nhận được kỹ năng"}
+{"rowId":"1172","text":"Dùng hết toàn bộ MP, mỗi 3 MP hồi phục 1% HP tối đa."}
+{"rowId":"1173","text":"Sát Thương, Hộ Giáp, Ma Công, Ma Kháng tăng 5%"}
+{"rowId":"1174","text":"Chịu sát thương chí mạng (last hit) sẽ vào trạng thái Ngủ Đông, 2 turn sau hồi tỉnh, hồi 50% HP tối đa, thời gian chờ 10 turn."}
+{"rowId":"1175","text":"Sát thương phải chịu tăng 2%"}
+{"rowId":"1176","text":"Sát thương phải chịu tăng 3%"}
+{"rowId":"1177","text":"Sát thương phải chịu tăng 4%"}
+{"rowId":"1178","text":"Sát thương phải chịu tăng 5%"}
+{"rowId":"1179","text":"Sát thương phải chịu tăng 6%"}
+{"rowId":"1180","text":"Hấp thụ"}
+{"rowId":"1181","text":"Hấp thụ"}
+{"rowId":"1182","text":"Hấp thụ"}
+{"rowId":"1183","text":"Hấp thụ"}
+{"rowId":"1184","text":"Hấp thụ"}
+{"rowId":"1185","text":"Phản Sát Thương"}
+{"rowId":"1186","text":"Nhận được kỹ năng"}
+{"rowId":"1187","text":"Nhận được kỹ năng"}
+{"rowId":"1188","text":"Nhận được kỹ năng"}
+{"rowId":"1189","text":"Nhận được kỹ năng"}
+{"rowId":"1190","text":"Nhận được kỹ năng"}
+{"rowId":"1191","text":"Nhận được kỹ năng"}
+{"rowId":"1192","text":"Nhận được kỹ năng"}
+{"rowId":"1193","text":"Nhận được kỹ năng"}
+{"rowId":"1194","text":"Nhận được kỹ năng"}
+{"rowId":"1195","text":"Nhận được kỹ năng"}
+{"rowId":"1196","text":"Nhận được kỹ năng"}
+{"rowId":"1197","text":"Nhận được kỹ năng"}
+{"rowId":"1198","text":"Nhận được kỹ năng"}
+{"rowId":"1199","text":"Dùng 1 kỹ năng chủ động sẽ tăng 1 Lửa Nộ, đạt 2 Lửa sẽ chuyển thành Lửa Bảo Vệ, nhận hiệu quả +50% Giảm Thương, +50% Sát Thương, duy trì 3 turn"}
+{"rowId":"1200","text":"Nhận được kỹ năng"}
+{"rowId":"1211","text":"Nhận được kỹ năng"}
+{"rowId":"1212","text":"Ném 1 Cầu Lửa, gây 220% sát thương, chắn chắn bạo kích, đồng thời kích hoạt Thần Tốc, trong turn Thần Tốc, thể lực giảm còn 150."}
+{"rowId":"1213","text":"Khi trúng địch, 100% kích hoạt Bạo Kích kèm Lửa Đỏ (Mỗi turn chịu sát thương bằng 250% sát thương cơ bản của người tấn công), duy trì 3 turn. Đạn không tạo ra hố, tự mang hiệu quả Dẫn Đường, +15% hiệu quả Xuyên Giáp."}
+{"rowId":"1214","text":"Nhận được kỹ năng"}
+{"rowId":"1215","text":"Dùng hết toàn bộ MP, mỗi 2 MP hồi phục 1% HP tối đa."}
+{"rowId":"1216","text":"Chịu sát thương chí mạng (last hit) sẽ vào trạng thái Ngủ Đông, tự mang hiệu quả Miễn Kháng, 2 turn sau hồi tỉnh, hồi 80% HP tối đa, thời gian chờ 10 turn."}
+{"rowId":"1217","text":"Sát Thương, Hộ Giáp tăng 10%, Ma Công, Ma Kháng tăng 15%."}
+{"rowId":"1218","text":"Bắn ra đạn 3 tia, gây cháy trong khu vực nổ, khiến mục tiêu trong khu vực đó mỗi turn mất 10% HP tối đa và 25 MP, Lửa duy trì 3 turn (Có hiệu lực trong PVP)."}
+{"rowId":"1219","text":"Khu Vực Dấu Ấn"}
+{"rowId":"1220","text":"Kỹ năng mới"}
+{"rowId":"1221","text":"Mỗi turn khi tấn công, Pet sẽ xông đến tấn công địch, gây 15% sát thương."}
+{"rowId":"1222","text":"Mỗi turn khi tấn công, Pet sẽ xông đến tấn công địch, gây 25% sát thương."}
+{"rowId":"1223","text":"Mỗi turn khi tấn công, Pet sẽ xông đến tấn công địch, gây 36% sát thương."}
+{"rowId":"1224","text":"Ném ra một viên đạn bay, gây 120% sát thương cơ bản, chắc chắn bạo kích, kèm 20% miễn bị bạo kích, duy trì 2 turn."}
+{"rowId":"1225","text":"Ném ra một viên đạn bay, gây 150% sát thương cơ bản, chắc chắn bạo kích, kèm 25% miễn bị bạo kích, duy trì 2 turn."}
+{"rowId":"1226","text":"Ném ra một viên đạn bay, gây 180% sát thương cơ bản, chắc chắn bạo kích, kèm 30% miễn bị bạo kích, duy trì 2 turn."}
+{"rowId":"1227","text":"Khi đang trong Hình Thái Chuột, sau khi dùng sẽ chui lên lớp đất mặt trên cùng tại vị trí đang đứng, kèm 80% Giảm Thương, duy trì 1 turn"}
+{"rowId":"1228","text":"Khi đang trong Hình Thái Chuột,, sau khi dùng sẽ vào trạng thái Ngủ Đông (không thể thực hiện thao tác khác), hồi ngay 5% HP, mỗi turn hồi 6% HP, duy trì 3 turn, khi bị sát thương sẽ ngưng Ngủ Đông"}
+{"rowId":"1229","text":"Khi đang trong Hình Thái Chuột,, sau khi dùng sẽ vào trạng thái Ngủ Đông (không thể thực hiện thao tác khác), hồi ngay 8% HP, mỗi turn hồi 6% HP, duy trì 3 turn, khi bị sát thương sẽ ngưng Ngủ Đông"}
+{"rowId":"1230","text":"Khi đang trong Hình Thái Chuột,, sau khi dùng sẽ vào trạng thái Ngủ Đông (không thể thực hiện thao tác khác), hồi ngay 10% HP, mỗi turn hồi 6% HP, duy trì 3 turn, khi bị sát thương sẽ ngưng Ngủ Đông"}
+{"rowId":"1231","text":"Chuột nhập thể, có thể đi xuyên qua đất, thể lực tiêu hao tính theo phần trăm cố định, duy trì 4 turn"}
+{"rowId":"1232","text":"Vào trạng thái tàng hình, mỗi turn hồi thêm 3 MP"}
+{"rowId":"1233","text":"Tăng 300 điểm nhanh nhẹn"}
+{"rowId":"1234","text":"Kỹ năng Ẩn Thân Đơn được nâng cấp thành Ẩn Thân Nhóm"}
+{"rowId":"1235","text":"Xóa kỹ năng"}
+{"rowId":"1236","text":"Xác suất miễn bạo kích trong chiến đấu tăng 10% (max: 20%)."}
+{"rowId":"1237","text":"Xác suất miễn bạo kích trong chiến đấu tăng 15% (max: 20%)."}
+{"rowId":"1238","text":"Xác suất miễn bạo kích trong chiến đấu tăng 20% (max: 20%)."}
+{"rowId":"1239","text":"Sát thương Bỏng phải chịu khi chiến đấu giảm 5% (max: 15%)"}
+{"rowId":"1240","text":"Sát thương Bỏng phải chịu khi chiến đấu giảm 10% (max: 15%)"}
+{"rowId":"1241","text":"Sát thương Bỏng phải chịu khi chiến đấu giảm 15% (max: 15%)"}
+{"rowId":"1242","text":"HP tối đa của bản thân khi chiến đấu tăng 4% (max: 12%)."}
+{"rowId":"1243","text":"HP tối đa của bản thân khi chiến đấu tăng 8% (max: 12%)."}
+{"rowId":"1244","text":"HP tối đa của bản thân khi chiến đấu tăng 12% (max: 12%)."}
+{"rowId":"1245","text":"Ném ra một viên đạn bay, gây 180% sát thương cơ bản, chắc chắn bạo kích, kèm 50% miễn bị bạo kích, duy trì 2 turn."}
+{"rowId":"1246","text":"Tăng 300 điểm nhanh nhẹn, tăng 4% né tránh (Không cộng dồn với hiệu quả kỹ năng nguyên tố)"}
+{"rowId":"1247","text":"Khi đang trong Hình Thái Chuột, sau khi dùng sẽ chui lên lớp đất mặt trên cùng tại vị trí đang đứng, nhận 80% Giảm Thương, duy trì 1 turn, kèm 30% sát thương thêm, duy trì 2 turn"}
+{"rowId":"1248","text":"Vào trạng thái tàng hình, mỗi turn hồi thêm 5 MP"}
+{"rowId":"1249","text":"Nhận kỹ năng"}
+{"rowId":"1250","text":"Nhận kỹ năng"}
+{"rowId":"1251","text":"Xóa kỹ năng"}
+{"rowId":"1253","text":"Kỹ năng khởi tạo xong sẽ kích hoạt hiệu quả tiếp theo"}
+{"rowId":"1254","text":"Khi bắt đầu chiến đấu, bản thân nhận hiệu quả tàng hình, duy trì 2 Turn, 8 (max 6) turn 1 lần."}
+{"rowId":"1255","text":"Khi bắt đầu chiến đấu, bản thân nhận hiệu quả tàng hình, duy trì 2 Turn, 7 (max 6) turn 1 lần."}
+{"rowId":"1256","text":"Khi bắt đầu chiến đấu, bản thân nhận hiệu quả tàng hình, duy trì 2 Turn, 6 (max 6) turn 1 lần."}
+{"rowId":"1257","text":"Trong chiến đấu, sát thương phải chịu giảm 3% (max 5%)."}
+{"rowId":"1258","text":"Trong chiến đấu, sát thương phải chịu giảm 4% (max 5%)."}
+{"rowId":"1259","text":"Trong chiến đấu, sát thương phải chịu giảm 5% (max 5%)."}
+{"rowId":"1260","text":"Mỗi turn khi tấn công, pet sẽ xông đến tấn công địch, gây 15% sát thương."}
+{"rowId":"1261","text":"Mỗi turn khi tấn công, pet sẽ xông đến tấn công địch, gây 25% sát thương."}
+{"rowId":"1262","text":"Mỗi turn khi tấn công, pet sẽ xông đến tấn công địch, gây 36% sát thương."}
+{"rowId":"1263","text":"Ném một viên đạn bay, gây 120% sát thương cơ bản, chắc chắn bạo kích, xóa hết nộ của mục tiêu."}
+{"rowId":"1264","text":"Ném một viên đạn bay, gây 150% sát thương cơ bản, chắc chắn bạo kích, xóa hết nộ của mục tiêu."}
+{"rowId":"1265","text":"Ném một viên đạn bay, gây 180% sát thương cơ bản, chắc chắn bạo kích, xóa hết nộ của mục tiêu."}
+{"rowId":"1266","text":"Giảm Thương +15%"}
+{"rowId":"1267","text":"Sau khi dùng, HP tối đa +25%, duy trì 2 turn."}
+{"rowId":"1268","text":"Phe ta tăng 20% miễn bạo, duy trì 2 turn."}
+{"rowId":"1269","text":"Phe ta nhận khiên bằng 15% HP tối đa của bản thân, duy trì 3 turn, dùng xong sẽ bỏ qua turn."}
+{"rowId":"1270","text":"Sát thương bạo kích phải chịu -15%"}
+{"rowId":"1271","text":"Sát thương bạo kích phải chịu -30%"}
+{"rowId":"1272","text":"Khi bị sát thương, 50% miễn dịch phát đạn đầu tiên (Có hiệu lực trong PVP)"}
+{"rowId":"1273","text":"Giảm Thương +20%"}
+{"rowId":"1274","text":"Phe ta tăng 30% miễn bạo, tăng 10% sát thương, duy trì 2 turn."}
+{"rowId":"1275","text":"Phe ta hồi 12% HP tối đa, nhận khiên bằng 15% HP tối đa của bản thân. Khiên duy trì 3 turn, dùng xong sẽ bỏ qua turn."}
+{"rowId":"1276","text":"Sát thương bạo kích phải chịu -40%"}
+{"rowId":"1277","text":"Khiên"}
+{"rowId":"1283","text":"Xuất Chiêu: Mai Rùa. Sau khi dùng \"PASS\" trong turn, vào Tư Thế Phòng Thủ, giảm 30% sát thương phải chịu, giảm 60% sát thương bạo kích phải chịu, duy trì 2 turn."}
+{"rowId":"1284","text":"Xuất Chiêu: Thần Tốc. Turn này chắc chắn kích hoạt Thần Tốc, tăng 40% tốc độ tấn công. Trong turn kích hoạt Thần Tốc, thể lực giảm còn 80, duy trì 1 turn."}
+{"rowId":"1285","text":"Mỗi khi xuất chiêu, hồi 3 MP. Kích hoạt hiệu quả Tuyệt Địa Phản Kích, mỗi mất 1% HP tối đa sẽ tăng 1% sát thương gây ra (Tối đa tăng 80%, duy trì 1 turn)."}
+{"rowId":"1291","text":"Trước mỗi lượt tấn công, Pet 100% xông ra tấn công địch, gây 30% sát thương."}
+{"rowId":"1292","text":"Trước mỗi lượt tấn công, Pet 100% xông ra tấn công địch, gây 40% sát thương."}
+{"rowId":"1293","text":"Trước mỗi lượt tấn công, Pet 100% xông ra tấn công địch, gây 50% sát thương."}
+{"rowId":"1294","text":"Ném ra một quả cầu nước, gây 150% sát thương, chắc chắn bạo kích, đồng thời kích hoạt hiệu quả Đóng Băng, duy trì 2 turn (Có hiệu lực trong PVP);"}
+{"rowId":"1295","text":"Ném ra một quả cầu nước, gây 180% sát thương, chắc chắn bạo kích, đồng thời kích hoạt hiệu quả Đóng Băng, duy trì 2 turn (Có hiệu lực trong PVP);"}
+{"rowId":"1296","text":"Ném ra một quả cầu nước, gây 220% sát thương, chắc chắn bạo kích, đồng thời kích hoạt hiệu quả Đóng Băng, duy trì 2 turn (Có hiệu lực trong PVP);"}
+{"rowId":"1297","text":"Bắn ra tia sáng thẳng xuyên địa hình, khiến mục tiêu chịu 500% sát thương (Không Bạo Kích). Sát thương thay đổi tùy theo tiến độ thanh lực bắn, lực kéo càng dài sát thương càng thấp, mỗi cự ly sát thương giảm 5%."}
+{"rowId":"1298","text":"Sau khi dùng, chấn động màn hình, gây 150% ST cơ bản, có thể diệt nhanh người chơi địch HP dưới 10% (Có hiệu lực trong PVP)"}
+{"rowId":"1299","text":"Mỗi tốn 1 Nộ, tăng 10% sát thương, duy trì 3 turn"}
+{"rowId":"1300","text":"Khi bắt đầu chiến đấu, nhận khiên chắn bằng 30% HP tối đa, tăng 20% Giảm Thương, hiệu quả duy trì 2 turn."}
+{"rowId":"1301","text":"Khi bắt đầu mỗi turn sẽ nhận được 1 Nộ, tối đa tích lũy 3 Nộ"}
+{"rowId":"1302","text":"Chịu sát thương chí mạng sẽ vào trạng thái Đóng Băng, không thể thao tác, 2 turn sau sẽ tử vong. Nếu bị sát thương Bỏng từ Pet sẽ lập tức mất trạng thái Đóng Băng, hồi phục 50% HP (mỗi trận 1 lần)"}
+{"rowId":"1303","text":"Tăng 30% Giảm Thương, 50% Giảm Bạo Thương"}
+{"rowId":"1304","text":"Ném ra một quả cầu nước, gây 220% sát thương, chắc chắn bạo kích, đồng thời kích hoạt hiệu quả Đóng Băng, duy trì 3 turn (Có hiệu lực trong PVP);"}
+{"rowId":"1305","text":"Bắn ra tia sáng thẳng xuyên địa hình, khiến mục tiêu chịu 700% sát thương (25% gây Bạo Kích). Sát thương thay đổi tùy theo tiến độ thanh lực bắn, lực kéo càng dài sát thương càng thấp, mỗi cự ly sát thương giảm 5%."}
+{"rowId":"1306","text":"Sau khi dùng, chấn động màn hình, gây 200% ST cơ bản, có thể diệt nhanh người chơi địch HP dưới 12% (Có hiệu lực trong PVP)"}
+{"rowId":"1307","text":"Mỗi tốn 1 Nộ, tăng 15% sát thương, duy trì 3 turn"}
+{"rowId":"1308","text":"Khi bắt đầu chiến đấu, nhận khiên chắn bằng 50% HP tối đa, tăng 30% Giảm Thương, hiệu quả duy trì 3 turn."}
+{"rowId":"1309","text":"Khi bắt đầu mỗi turn nhận được 1 Nộ, mỗi 4 turn nhận thêm 1 nộ. Khi bắt đầu turn, nếu HP của bản thân cao nhất trong trận, sẽ được nhận thêm 1 Nộ, tối đa tích lũy 4 Nộ"}
+{"rowId":"1310","text":"Nhận 35% Giảm Thương, 60% Giảm Bạo Thương. Khi bị Bạo Kích sẽ lập tức tăng thêm 30% Giảm Thương và 20% Kháng Xuyên Giáp, duy trì 3 turn"}
+{"rowId":"1311","text":"Mỗi lần bị bỏng sẽ hồi 4% HP (Có hiệu lực trong PVP)"}
+{"rowId":"1312","text":"Mỗi lần bị bỏng sẽ hồi 5% HP (Có hiệu lực trong PVP)"}
+{"rowId":"1313","text":"Mỗi lần bị bỏng sẽ hồi 6% HP (Có hiệu lực trong PVP)"}
+{"rowId":"1314","text":"Mỗi lần bị bỏng sẽ hồi 7% HP (Có hiệu lực trong PVP)"}
+{"rowId":"1315","text":"Mỗi lần bị bỏng sẽ hồi 8% HP (Có hiệu lực trong PVP)"}
+{"rowId":"1316","text":"Mỗi lần bị bỏng sẽ hồi 9% HP (Có hiệu lực trong PVP)"}
+{"rowId":"1317","text":"Mỗi lần bị bạo kích sẽ nhận khiên hút sát thương bằng 5% HP tối đa, duy trì 2 turn. (Có hiệu lực trong PVP)"}
+{"rowId":"1318","text":"Mỗi lần bị bạo kích sẽ nhận khiên hút sát thương bằng 6% HP tối đa, duy trì 2 turn. (Có hiệu lực trong PVP)"}
+{"rowId":"1319","text":"Mỗi lần bị bạo kích sẽ nhận khiên hút sát thương bằng 7% HP tối đa, duy trì 2 turn. (Có hiệu lực trong PVP)"}
+{"rowId":"1320","text":"Mỗi lần bị bạo kích sẽ nhận khiên hút sát thương bằng 8% HP tối đa, duy trì 2 turn. (Có hiệu lực trong PVP)"}
+{"rowId":"1321","text":"Mỗi lần bị bạo kích sẽ nhận khiên hút sát thương bằng 9% HP tối đa, duy trì 2 turn. (Có hiệu lực trong PVP)"}
+{"rowId":"1322","text":"Mỗi lần bị bạo kích sẽ nhận khiên hút sát thương bằng 10% HP tối đa, duy trì 2 turn. (Có hiệu lực trong PVP)"}
+{"rowId":"1323","text":"Mỗi lần bị xuyên giáp sẽ tăng 12% giảm thương (Có hiệu lực trong PVP)"}
+{"rowId":"1324","text":"Mỗi lần bị xuyên giáp sẽ tăng 15% giảm thương (Có hiệu lực trong PVP)"}
+{"rowId":"1325","text":"Mỗi lần bị xuyên giáp sẽ tăng 18% giảm thương (Có hiệu lực trong PVP)"}
+{"rowId":"1326","text":"Mỗi lần bị xuyên giáp sẽ tăng 21% giảm thương (Có hiệu lực trong PVP)"}
+{"rowId":"1327","text":"Mỗi lần bị xuyên giáp sẽ tăng 24% giảm thương (Có hiệu lực trong PVP)"}
+{"rowId":"1328","text":"Mỗi lần bị xuyên giáp sẽ tăng 27% giảm thương (Có hiệu lực trong PVP)"}
+{"rowId":"1329","text":"Mỗi khi chịu hiệu ứng sát thương độ cao sẽ tăng 12% giảm thương (Có hiệu lực trong PVP)."}
+{"rowId":"1330","text":"Mỗi khi chịu hiệu ứng sát thương độ cao sẽ tăng 15% giảm thương (Có hiệu lực trong PVP)."}
+{"rowId":"1331","text":"Mỗi khi chịu hiệu ứng sát thương độ cao sẽ tăng 18% giảm thương (Có hiệu lực trong PVP)."}
+{"rowId":"1332","text":"Mỗi khi chịu hiệu ứng sát thương độ cao sẽ tăng 21% giảm thương (Có hiệu lực trong PVP)."}
+{"rowId":"1333","text":"Mỗi khi chịu hiệu ứng sát thương độ cao sẽ tăng 24% giảm thương (Có hiệu lực trong PVP)."}
+{"rowId":"1334","text":"Mỗi khi chịu hiệu ứng sát thương độ cao sẽ tăng 27% giảm thương (Có hiệu lực trong PVP)."}
+{"rowId":"1335","text":"Kháng Nước tăng 15%"}
+{"rowId":"1336","text":"Kháng Nước tăng 18%"}
+{"rowId":"1337","text":"Kháng Nước tăng 21%"}
+{"rowId":"1338","text":"Kháng Nước tăng 24%"}
+{"rowId":"1339","text":"Kháng Nước tăng 27%"}
+{"rowId":"1340","text":"Kháng Nước tăng 30%"}
+{"rowId":"1341","text":"Kháng Lửa tăng 15%"}
+{"rowId":"1342","text":"Kháng Lửa tăng 18%"}
+{"rowId":"1343","text":"Kháng Lửa tăng 21%"}
+{"rowId":"1344","text":"Kháng Lửa tăng 24%"}
+{"rowId":"1345","text":"Kháng Lửa tăng 27%"}
+{"rowId":"1346","text":"Kháng Lửa tăng 30%"}
+{"rowId":"1347","text":"Kháng Gió tăng 15%"}
+{"rowId":"1348","text":"Kháng Gió tăng 18%"}
+{"rowId":"1349","text":"Kháng Gió tăng 21%"}
+{"rowId":"1350","text":"Kháng Gió tăng 24%"}
+{"rowId":"1351","text":"Kháng Gió tăng 27%"}
+{"rowId":"1352","text":"Kháng Gió tăng 30%"}
+{"rowId":"1353","text":"Kháng Đất tăng 15%"}
+{"rowId":"1354","text":"Kháng Đất tăng 18%"}
+{"rowId":"1355","text":"Kháng Đất tăng 21%"}
+{"rowId":"1356","text":"Kháng Đất tăng 24%"}
+{"rowId":"1357","text":"Kháng Đất tăng 27%"}
+{"rowId":"1358","text":"Kháng Đất tăng 30%"}
+{"rowId":"1359","text":"HP tối đa tăng 600"}
+{"rowId":"1360","text":"HP tối đa tăng 900"}
+{"rowId":"1361","text":"HP tối đa tăng 1200"}
+{"rowId":"1362","text":"HP tối đa tăng 1500"}
+{"rowId":"1363","text":"HP tối đa tăng 1800"}
+{"rowId":"1364","text":"HP tối đa tăng 2100"}
+{"rowId":"1365","text":"HP tối đa tăng 600"}
+{"rowId":"1366","text":"HP tối đa tăng 900"}
+{"rowId":"1367","text":"HP tối đa tăng 1200"}
+{"rowId":"1368","text":"HP tối đa tăng 1500"}
+{"rowId":"1369","text":"HP tối đa tăng 1800"}
+{"rowId":"1370","text":"HP tối đa tăng 2100"}
+{"rowId":"1371","text":"HP tối đa tăng 600"}
+{"rowId":"1372","text":"HP tối đa tăng 900"}
+{"rowId":"1373","text":"HP tối đa tăng 1200"}
+{"rowId":"1374","text":"HP tối đa tăng 1500"}
+{"rowId":"1375","text":"HP tối đa tăng 1800"}
+{"rowId":"1376","text":"HP tối đa tăng 2100"}
+{"rowId":"1377","text":"HP tối đa tăng 600"}
+{"rowId":"1378","text":"HP tối đa tăng 900"}
+{"rowId":"1379","text":"HP tối đa tăng 1200"}
+{"rowId":"1380","text":"HP tối đa tăng 1500"}
+{"rowId":"1381","text":"HP tối đa tăng 1800"}
+{"rowId":"1382","text":"HP tối đa tăng 2100"}
+{"rowId":"1383","text":"Toàn phe địch Công Nước giảm 12% (Có hiệu lực trong PVP)"}
+{"rowId":"1384","text":"Toàn phe địch Công Nước giảm 14% (Có hiệu lực trong PVP)"}
+{"rowId":"1385","text":"Toàn phe địch Công Nước giảm 16% (Có hiệu lực trong PVP)"}
+{"rowId":"1386","text":"Toàn phe địch Công Nước giảm 18% (Có hiệu lực trong PVP)"}
+{"rowId":"1387","text":"Toàn phe địch Công Nước giảm 20% (Có hiệu lực trong PVP)"}
+{"rowId":"1388","text":"Toàn phe địch Công Nước giảm 24% (Có hiệu lực trong PVP)"}
+{"rowId":"1389","text":"Toàn phe địch Công Lửa giảm 12% (Có hiệu lực trong PVP)"}
+{"rowId":"1390","text":"Toàn phe địch Công Lửa giảm 14% (Có hiệu lực trong PVP)"}
+{"rowId":"1391","text":"Toàn phe địch Công Lửa giảm 16% (Có hiệu lực trong PVP)"}
+{"rowId":"1392","text":"Toàn phe địch Công Lửa giảm 18% (Có hiệu lực trong PVP)"}
+{"rowId":"1393","text":"Toàn phe địch Công Lửa giảm 20% (Có hiệu lực trong PVP)"}
+{"rowId":"1394","text":"Toàn phe địch Công Lửa giảm 24% (Có hiệu lực trong PVP)"}
+{"rowId":"1395","text":"Toàn phe địch Công Gió giảm 12% (Có hiệu lực trong PVP)"}
+{"rowId":"1396","text":"Toàn phe địch Công Gió giảm 14% (Có hiệu lực trong PVP)"}
+{"rowId":"1397","text":"Toàn phe địch Công Gió giảm 16% (Có hiệu lực trong PVP)"}
+{"rowId":"1398","text":"Toàn phe địch Công Gió giảm 18% (Có hiệu lực trong PVP)"}
+{"rowId":"1399","text":"Toàn phe địch Công Gió giảm 20% (Có hiệu lực trong PVP)"}
+{"rowId":"1400","text":"Toàn phe địch Công Gió giảm 24% (Có hiệu lực trong PVP)"}
+{"rowId":"1401","text":"Toàn phe địch Công Đất giảm 12% (Có hiệu lực trong PVP)"}
+{"rowId":"1402","text":"Toàn phe địch Công Đất giảm 14% (Có hiệu lực trong PVP)"}
+{"rowId":"1403","text":"Toàn phe địch Công Đất giảm 16% (Có hiệu lực trong PVP)"}
+{"rowId":"1404","text":"Toàn phe địch Công Đất giảm 18% (Có hiệu lực trong PVP)"}
+{"rowId":"1405","text":"Toàn phe địch Công Đất giảm 20% (Có hiệu lực trong PVP)"}
+{"rowId":"1406","text":"Toàn phe địch Công Đất giảm 24% (Có hiệu lực trong PVP)"}
+{"rowId":"1407","text":"Bỏng sẽ hồi HP"}
+{"rowId":"1408","text":"Bỏng sẽ hồi HP"}
+{"rowId":"1409","text":"Bỏng sẽ hồi HP"}
+{"rowId":"1410","text":"Bỏng sẽ hồi HP"}
+{"rowId":"1411","text":"Bỏng sẽ hồi HP"}
+{"rowId":"1412","text":"Bỏng sẽ hồi HP"}
+{"rowId":"1413","text":"Bạo kích sẽ nhận được khiên"}
+{"rowId":"1414","text":"Bạo kích sẽ nhận được khiên"}
+{"rowId":"1415","text":"Bạo kích sẽ nhận được khiên"}
+{"rowId":"1416","text":"Bạo kích sẽ nhận được khiên"}
+{"rowId":"1417","text":"Bạo kích sẽ nhận được khiên"}
+{"rowId":"1418","text":"Bạo kích sẽ nhận được khiên"}
+{"rowId":"1419","text":"Xuyên giáp sẽ tăng giảm thương"}
+{"rowId":"1420","text":"Xuyên giáp sẽ tăng giảm thương"}
+{"rowId":"1421","text":"Xuyên giáp sẽ tăng giảm thương"}
+{"rowId":"1422","text":"Xuyên giáp sẽ tăng giảm thương"}
+{"rowId":"1423","text":"Xuyên giáp sẽ tăng giảm thương"}
+{"rowId":"1424","text":"Xuyên giáp sẽ tăng giảm thương"}
+{"rowId":"1425","text":"Mỗi lượt chịu X lần sát thương, nhận kỹ năng"}
+{"rowId":"1426","text":"Mỗi lượt chịu X lần sát thương, nhận kỹ năng"}
+{"rowId":"1427","text":"Mỗi lượt chịu X lần sát thương, nhận kỹ năng"}
+{"rowId":"1428","text":"Mỗi lượt chịu X lần sát thương, nhận kỹ năng"}
+{"rowId":"1429","text":"Mỗi lượt chịu X lần sát thương, nhận kỹ năng"}
+{"rowId":"1430","text":"Mỗi lượt chịu X lần sát thương, nhận kỹ năng"}
+{"rowId":"1484","text":"Xác suất miễn bạo kích của toàn phe ta tăng 4% (max :8%)."}
+{"rowId":"1485","text":"Xác suất miễn bạo kích của toàn phe ta tăng 6% (max :8%)."}
+{"rowId":"1486","text":"Xác suất miễn bạo kích của toàn phe ta tăng 8% (max :8%)."}
+{"rowId":"1487","text":"Toàn phe ta giảm 5% (max 15%) sát thương bạo kích phải chịu."}
+{"rowId":"1488","text":"Toàn phe ta giảm 10% (max 15%) sát thương bạo kích phải chịu."}
+{"rowId":"1489","text":"Toàn phe ta giảm 15% (max 15%) sát thương bạo kích phải chịu."}
+{"rowId":"1490","text":"Nhận Kỹ Năng."}
+{"rowId":"1491","text":"Nhận Kỹ Năng."}
+{"rowId":"1492","text":"Nhận Kỹ Năng."}
+{"rowId":"1493","text":"Nhận Kỹ Năng."}
+{"rowId":"1494","text":"Nhận Kỹ Năng."}
+{"rowId":"1495","text":"Nhận Kỹ Năng."}
+{"rowId":"1496","text":"Trước mỗi lượt tấn công, Pet 100% xông ra tấn công địch, gây 80% sát thương."}
+{"rowId":"1497","text":"Chịu sát thương chí mạng sẽ vào trạng thái Đóng Băng, không thể thao tác, 2 turn sau sẽ tử vong. Nếu bị sát thương Bỏng từ Pet sẽ lập tức mất trạng thái Đóng Băng, hồi phục 100% HP (mỗi trận 1 lần)"}
+{"rowId":"1498","text":"HP cao nhất kích hoạt"}
+{"rowId":"1518","text":"Khi bị bạo kích nhận"}
+{"rowId":"1541","text":"Mỗi turn bắn xong, Pet 100% xông ra tấn công địch, gây 150% sát thương."}
+{"rowId":"1542","text":"Ném ra một quả cầu nước, gây 220% sát thương, chắc chắn bạo kích, đồng thời kích hoạt hiệu quả Đóng Băng, giảm 30% sát thương, duy trì 3 turn (Có hiệu lực trong PVP)."}
+{"rowId":"1543","text":"Bắn ra tia sáng thẳng xuyên địa hình, khiến mục tiêu chịu 700% sát thương (25% gây Bạo Kích, 20% kích hoạt Đóng Băng). Sát thương thay đổi tùy theo tiến độ thanh lực bắn, lực kéo càng dài sát thương càng thấp, mỗi cự ly sát thương giảm 5%."}
+{"rowId":"1544","text":"Sau khi dùng, chấn động màn hình, gây 200% ST cơ bản, có thể diệt nhanh người chơi địch HP dưới 15% (Có hiệu lực trong PVP)"}
+{"rowId":"1545","text":"Mỗi tốn 1 Nộ, tăng 17.5% sát thương, duy trì 3 turn"}
+{"rowId":"1546","text":"Khi bắt đầu chiến đấu, nhận khiên chắn bằng 50% HP tối đa, tăng 30% giảm thương, hiệu quả duy trì 3 turn (Mỗi 8 Turn 1 lần)."}
+{"rowId":"1547","text":"Khi bắt đầu mỗi turn nhận được 1 Nộ, mỗi 4 turn nhận thêm 1 nộ. Khi bắt đầu turn, nếu HP của bản thân cao nhất trong trận, sẽ được nhận thêm 1 Nộ, tối đa tích lũy 4 Nộ, có thể trang bị thêm 1 kỹ năng"}
+{"rowId":"1548","text":"Chịu sát thương chí mạng sẽ vào trạng thái Đóng Băng, không thể thao tác, 2 turn sau sẽ tử vong. Nếu bị sát thương Bỏng từ Pet sẽ lập tức mất trạng thái Đóng Băng, hồi phục 100% HP (Mỗi trận 2 lần, cần chờ 8 Turn)"}
+{"rowId":"1549","text":"Nhận 35% giảm thương, 60% Giảm Bạo Thương. Khi bị bạo kíchsẽ lập tức tăng thêm 30% giảm thương và 20% Kháng Xuyên Giáp, duy trì 3 turn. Khi chịu sát thương Bỏng sẽ hồi 5% HP tối đa."}
+{"rowId":"1550","text":"Nhận khi bị Bỏng"}
+{"rowId":"1551","text":"Kháng Bỏng +12%. Trước mỗi lượt tấn công, Pet 100% xông ra tấn công địch, gây 150% sát thương."}
+{"rowId":"1552","text":"Kháng Bỏng +12%. Ném ra 1 Cầu Băng, gây 220% sát thương, chắc chắn bạo kích, kích hoạt hiệu quả Đóng Băng, giảm 30% sát thương, duy trì 3 turn. (Có hiệu lực trong PVP)."}
+{"rowId":"1553","text":"Tăng Sát Thương 8%. Bắn ra tia sáng xuyên địa hình, gây cho mục tiêu 700% sát thương (30% kích hoạt Bạo Kích, 20% kích hoạt Đóng Băng), sát thương thay đổi tùy theo thanh lực bắn, kéo càng dài sát thương càng thấp, mỗi cự li sát thương giảm 5%."}
+{"rowId":"1554","text":"Kháng Xuyên Giáp +10%. Sau khi dùng, chấn động màn hình, gây 200% ST cơ bản, có thể diệt nhanh người chơi địch HP dưới 15% (Có hiệu lực trong PVP)"}
+{"rowId":"1555","text":"Kháng Bỏng +12%. Mỗi tốn 1 Nộ sẽ tăng 17.5% hiệu quả Tăng Sát Thương, duy trì 3 turn"}
+{"rowId":"1556","text":"Kháng Xuyên Giáp +10%. Khi bắt đầu chiến đấu, nhận Khiên Chắn bằng 50% HP tối đa, tăng 30% giảm thương, duy trì 3 turn (Mỗi 8 turn 1 lần)."}
+{"rowId":"1557","text":"Kháng Xuyên Giáp +10%. Khi bắt đầu mỗi turn nhận được 1 Nộ, mỗi 4 turn nhận thêm 1 nộ. Khi bắt đầu turn, nếu HP của bản thân cao nhất trong trận, sẽ được nhận thêm 1 Nộ, tối đa tích lũy 4 Nộ, có thể trang bị thêm 1 kỹ năng"}
+{"rowId":"1558","text":"Kháng Bỏng +12%. Khi chịu sát thương chí mạng, sẽ vào trạng thái Đóng Băng, không thể thao tác, 2 turn sau trực tiếp tử vong. Nếu chịu sát thương Bỏng từ Pet, sẽ hủy trạng thái Đóng Băng, hồi 100% HP (Mỗi trận kích hoạt 2 lần, cần chờ 8 turn)"}
+{"rowId":"1559","text":"Kháng Bỏng +12%. Nhận 35% giảm thương, 60% Giảm Bạo Thương. Khi bị bạo kíchsẽ lập tức tăng thêm 30% giảm thương và 20% Kháng Xuyên Giáp, duy trì 3 turn. Khi chịu sát thương Bỏng sẽ hồi 5% HP tối đa."}
+{"rowId":"1560","text":"Kháng Bỏng +12%. Trước mỗi lượt tấn công, Pet 100% xông ra tấn công địch, gây 150% sát thương."}
+{"rowId":"1561","text":"Kháng Bỏng +12%. Ném ra 1 Cầu Băng, gây 220% sát thương, chắc chắn bạo kích, kích hoạt hiệu quả Đóng Băng, giảm 30% sát thương, duy trì 3 turn."}
+{"rowId":"1562","text":"Tăng Sát Thương 8%. Bắn ra tia sáng xuyên địa hình, gây cho mục tiêu 700% sát thương (30% kích hoạt Bạo Kích, 35% kích hoạt Đóng Băng), sát thương thay đổi tùy theo thanh lực bắn, kéo càng dài sát thương càng thấp, mỗi cự li sát thương giảm 5%."}
+{"rowId":"1563","text":"Kháng Xuyên Giáp +10%. Sau khi dùng, chấn động màn hình, gây 200% sát thương cơ bản, có thể diệt nhanh người chơi địch HP dưới 15% (Có hiệu lực trong PVP)"}
+{"rowId":"1564","text":"Kháng Bỏng +12%%. Mỗi tốn 1 Nộ sẽ tăng 17.5% hiệu quả Tăng Sát Thương, duy trì 3 turn"}
+{"rowId":"1565","text":"Kháng Xuyên Giáp +10%. Khi bắt đầu chiến đấu, nhận Khiên Chắn bằng 50% HP tối đa, tăng 30% giảm thương, duy trì 3 turn (Mỗi 8 turn 1 lần)."}
+{"rowId":"1566","text":"Kháng Xuyên Giáp +10%. Khi bắt đầu mỗi turn nhận được 1 Nộ, mỗi 4 turn nhận thêm 1 nộ. Khi bắt đầu turn, nếu HP của bản thân cao nhất trong trận, sẽ được nhận thêm 1 Nộ, tối đa tích lũy 4 Nộ, có thể trang bị thêm 1 kỹ năng"}
+{"rowId":"1567","text":"Kháng Bỏng +12%. Khi chịu sát thương chí mạng, sẽ vào trạng thái Đóng Băng, không thể thao tác, 2 turn sau trực tiếp tử vong. Nếu chịu sát thương Bỏng từ Pet, sẽ hủy trạng thái Đóng Băng, hồi 100% HP (Mỗi trận kích hoạt 2 lần)"}
+{"rowId":"1568","text":"Kháng Bỏng +12%. Nhận 35% giảm thương, 60% Giảm Bạo Thương. Khi bị bạo kíchsẽ lập tức tăng thêm 30% giảm thương và 20% Kháng Xuyên Giáp, duy trì 3 turn. Khi chịu sát thương Bỏng sẽ hồi 5% HP tối đa."}
+{"rowId":"1635","text":"Toàn phe ta nhận Khiêu Phòng Hộ, mỗi lần bị đạn pháo bắn trúng sẽ hồi 0.6% HP. Nếu đơn vị có HP dưới 30%, nhận hiệu quả hồi phục gấp đôi."}
+{"rowId":"1636","text":"Bắn 1 Hạt Bay, khi hạt giống nổ hồi phục HP đồng đội xung quanh, giảm HP địch, hạt giống mỗi giây tăng 8% HP. Đồng đội trong phạm vi hiệu quả tăng 30% hiệu quả trị liệu, duy trì 3 turn."}
+{"rowId":"1637","text":"Khi đồng đội bắt đầu turn, nếu nhận được hiệu quả hồi phục từ Mầm Xanh, bản thân sẽ tăng 2 MP, có xác suất 30% kích hoạt Bạo Kích, hồi thêm 2 MP."}
+{"rowId":"1638","text":"Khi bị tấn công sẽ hồi phục HP, nếu HP thấp hiệu quả nhân đôi."}
+{"rowId":"1639","text":"Nhận Kỹ Năng"}
+{"rowId":"1640","text":"HP Tối Đa +10%; Toàn phe ta nhận Khiêu Phòng Hộ, mỗi lần bị đạn pháo bắn trúng sẽ hồi 0.6% HP. Nếu đơn vị có HP dưới 30%, nhận hiệu quả hồi phục gấp đôi."}
+{"rowId":"1641","text":"Kháng Bỏng +8%; Bắn 1 Hạt Bay, khi hạt giống nổ hồi phục HP đồng đội xung quanh, giảm HP địch, hạt giống mỗi giây tăng 8% HP. Đồng đội trong phạm vi hiệu quả tăng 30% hiệu quả trị liệu, duy trì 3 turn."}
+{"rowId":"1642","text":"Kháng Xuyên Giáp +5%; Khi đồng đội bắt đầu turn, nếu nhận được hiệu quả hồi phục từ Mầm Xanh, bản thân sẽ tăng 2 MP, có xác suất 30% kích hoạt Bạo Kích, hồi thêm 2 MP."}
+{"rowId":"1643","text":"HP Tối Đa +10%; Toàn phe ta nhận Khiêu Phòng Hộ, mỗi lần bị đạn pháo bắn trúng sẽ hồi 0.6% HP. Nếu đơn vị có HP dưới 30%, nhận hiệu quả hồi phục gấp đôi."}
+{"rowId":"1644","text":"Kháng Bỏng +8%; Bắn 1 Hạt Bay, khi hạt giống nổ hồi phục HP đồng đội xung quanh, giảm HP địch, hạt giống mỗi giây tăng 8% HP. Đồng đội trong phạm vi hiệu quả tăng 30% hiệu quả trị liệu, duy trì 3 turn."}
+{"rowId":"1645","text":"Kháng Xuyên Giáp +5%; Khi đồng đội bắt đầu turn, nếu nhận được hiệu quả hồi phục từ Mầm Xanh, bản thân sẽ tăng 2 MP, có xác suất 30% kích hoạt Bạo Kích, hồi thêm 2 MP."}
+{"rowId":"1663","text":"你的宠物在你每回合开炮结束时有100%的几率冲出去攻击敌方,造成100%伤害。"}
+{"rowId":"1664","text":"扔出一发烈冰弹，造成180%的伤害，百分百暴击，50%几率触发冰冻效果；并提升6%的攻击和伤害，持续2回合。"}
+{"rowId":"1665","text":"友方全体增加40%的减伤率，40%暴击减免，持续2回合。该技能不可叠加使用。"}
+{"rowId":"1666","text":"以每回合损失8%生命为代价，获得800点伤害加成+30%减伤，移动后效果取消。当剩余血量不能承受该技能时，将带来死亡。"}
+{"rowId":"1667","text":"增加友方全体敏捷10%+600点，首回合速度最快，额外获得10点魔法值；"}
+{"rowId":"1668","text":"增加友方全体攻击10%+600点，暴击伤害额外提升20%"}
+{"rowId":"1669","text":"增加15%攻击和伤害，暴击率增加50%，并附带引导效果，持续2回合。"}
+{"rowId":"1670","text":"轮到自己出手时，友方全体额外增加2点魔法值并恢复2%生命(自身双倍)。"}
+{"rowId":"1671","text":"获得技能"}
+{"rowId":"1672","text":"移除极寒地狱效果"}
+{"rowId":"1673","text":"获得技能。"}
+{"rowId":"1674","text":"获得技能。"}
+{"rowId":"1675","text":"灼烧抵抗10%；你的宠物在你每回合开炮结束时有100%的几率冲出去攻击敌方,造成100%伤害。"}
+{"rowId":"1676","text":"灼烧抵抗10%；扔出一发烈冰弹，造成180%的伤害，百分百暴击，50%几率触发冰冻效果；并提升6%的攻击和伤害，持续2回合。"}
+{"rowId":"1677","text":"穿甲抵抗8%；友方全体增加40%的减伤率，40%暴击减免，持续2回合。该技能不可叠加使用。"}
+{"rowId":"1678","text":"减伤提升15%；以每回合损失8%生命为代价，获得800点伤害加成+30%减伤，移动后效果取消。当剩余血量不能承受该技能时，将带来死亡。"}
+{"rowId":"1679","text":"穿甲抵抗8%；增加友方全体敏捷10%+600点，首回合速度最快，额外获得10点魔法值；"}
+{"rowId":"1680","text":"灼烧抵抗10%；增加友方全体攻击10%+600点，暴击伤害额外提升20%"}
+{"rowId":"1681","text":"穿甲抵抗8%；增加15%攻击和伤害，暴击率增加50%，并附带引导效果，持续2回合。"}
+{"rowId":"1682","text":"血量上限15%；轮到自己出手时，友方全体额外增加2点魔法值并恢复2%生命(自身双倍)。"}
+{"rowId":"1683","text":"灼烧抵抗10%；你的宠物在你每回合开炮结束时有100%的几率冲出去攻击敌方,造成100%伤害。"}
+{"rowId":"1684","text":"灼烧抵抗10%；扔出一发烈冰弹，造成180%的伤害，百分百暴击，50%几率触发冰冻效果；并提升6%的攻击和伤害，持续2回合。"}
+{"rowId":"1685","text":"穿甲抵抗8%；友方全体增加40%的减伤率，40%暴击减免，持续2回合。该技能不可叠加使用。"}
+{"rowId":"1686","text":"减伤提升15%；以每回合损失8%生命为代价，获得800点伤害加成+30%减伤，移动后效果取消。当剩余血量不能承受该技能时，将带来死亡。"}
+{"rowId":"1687","text":"穿甲抵抗8%；增加友方全体敏捷10%+600点，首回合速度最快，额外获得10点魔法值；"}
+{"rowId":"1688","text":"灼烧抵抗10%；增加友方全体攻击10%+600点，暴击伤害额外提升20%"}
+{"rowId":"1689","text":"穿甲抵抗8%；增加15%攻击和伤害，暴击率增加50%，并附带引导效果，持续2回合。"}
+{"rowId":"1690","text":"血量上限15%；轮到自己出手时，友方全体额外增加2点魔法值并恢复2%生命(自身双倍)。"}
+{"rowId":"1691","text":"Tất cả đồng đội trong bản đồ hồi phục 15% HP và miễn dịch sát thương 1 lần. (Không cộng dồn, tối đa miễn sát thương bằng 20% HP), +10% giảm thương, duy trì 3 turn."}
+{"rowId":"1692","text":"Dùng các loại vũ khí phụ thuẫn hồi ngay 8% HP, đồng thời nhận thêm 20% giảm thương, duy trì 2 turn."}
+{"rowId":"1693","text":"Khi dùng vũ khí phụ Thiên Sứ Ban Phúc, bản thân và 1 mục tiêu khác tăng 10 Điểm MP, +20% Sát Thương, duy trì 2 turn."}
+{"rowId":"1694","text":"Kháng Bỏng +8%. Phe ta hồi 15% HP và miễn dịch sát thương 1 lần (Không thể cộng dồn, tối đa miễn dịch sát thương bằng 20% HP của bản thân), tăng 10% giảm thương, duy trì 3 turn."}
+{"rowId":"1695","text":"Giảm Thương +5%. Dùng các loại vũ khí phụ thuẫn hồi ngay 8% HP, đồng thời nhận thêm 20% giảm thương, duy trì 2 turn."}
+{"rowId":"1696","text":"Kháng Xuyên Giáp +5%. Khi dùng vũ khí phụ Thiên Sứ Ban Phúc, bản thân và 1 mục tiêu khác tăng 10 Điểm MP, tăng 20% sát thương, duy trì 2 turn."}
+{"rowId":"1697","text":"Kháng Bỏng +8%. Phe ta hồi 15% HP và miễn dịch sát thương 1 lần (Không thể cộng dồn, tối đa miễn dịch sát thương bằng 20% HP của bản thân), tăng 10% giảm thương, duy trì 3 turn."}
+{"rowId":"1698","text":"Giảm Thương +5%. Dùng các loại vũ khí phụ thuẫn hồi ngay 8% HP, đồng thời nhận thêm 20% giảm thương, duy trì 2 turn."}
+{"rowId":"1699","text":"Kháng Xuyên Giáp +5%. Khi dùng vũ khí phụ Thiên Sứ Ban Phúc, bản thân và 1 mục tiêu khác tăng 10 Điểm MP, tăng 20% sát thương, duy trì 2 turn."}
+{"rowId":"1700","text":"Trước mỗi lượt tấn công, Pet 100% xông ra tấn công địch, gây 100% sát thương."}
+{"rowId":"1701","text":"Thi triển kungfu - Quy Tương, trong turn khi sử dụng PASS, sẽ nhận thêm 10 điểm nộ khí và khởi động tư thế phòng thủ, giảm sát thương nhận 50%, giảm bạo kích nhận 80%, duy trì 2 turn, nhận thêm 5 MP."}
+{"rowId":"1702","text":"Thi triển kungfu - Thần Báo, nộ khí tăng 20, trong turn nhất định bộc phát năng lực Thần Báo, tăng 80% tốc độ tấn công, thể lực trong turn có Thần Báo giảm còn 120, duy trì 1 turn. Nhận thêm hiệu quả Miễn Kháng, duy trì 2 turn."}
+{"rowId":"1703","text":"Thi triển kungfu - Điệp Ẩn, khi bắt đầu turn, nếu HP thấp hơn 60% sẽ nhận được hiệu quả ẩn thân và giảm sát thương 20%, duy trì 1 turn."}
+{"rowId":"1704","text":"Thi triển kungfu - Xà Ảnh, di chuyển đến vị trí ngẫu nhiên giữa bản thân và kẻ địch, các vị trí khác sẽ xuất hiện phân thân, phân thân bị tấn công 5 lần hoặc hết 3 turn sẽ biến mất. Khi phân thân tồn tại, sát thương lên bản thể sẽ do phân thân gánh chịu (Chỉ có hiệu quả trong chiến đấu)"}
+{"rowId":"1705","text":"Xuất Chiêu: Rồng Gầm. Dùng sức mạnh Cuồng Bạo, hi sinh 50% HP hiện tại, bỏ qua 65% phòng thủ của mục tiêu. Nếu đang trong trạng thái Tàng Hình, sát thương tăng 25%, duy trì 1 turn."}
+{"rowId":"1706","text":"Mỗi khi thi triển kungfu, sẽ hồi phục 5 điểm ma pháp và tăng 10% giới hạn HP (hiệu quả xếp chồng nhiều nhất 5 lần), kèm hiệu quả phản kích tuyệt thế, khi HP tối đa mất 1% sẽ tăng điểm sát thương thêm 1.3% (duy trì 1 turn)"}
+{"rowId":"1707","text":"Kháng Xuyên Giáp +10%; Trước mỗi lượt tấn công, Pet 100% xông ra tấn công địch, gây 100% sát thương."}
+{"rowId":"1708","text":"HP Tối Đa +15%; Thi triển kungfu - Quy Tương, trong turn khi sử dụng PASS, sẽ nhận thêm 10 điểm nộ khí và khởi động tư thế phòng thủ, giảm sát thương nhận 50%, giảm bạo kích nhận 80%, duy trì 2 turn, nhận thêm 5 MP."}
+{"rowId":"1709","text":"Kháng Bỏng +12%; Thi triển kungfu - Thần Báo, nộ khí tăng 20, trong turn nhất định bộc phát năng lực Thần Báo, tăng 80% tốc độ tấn công, thể lực trong turn có Thần Báo giảm còn 120, duy trì 1 turn. Nhận thêm hiệu quả Miễn Kháng, duy trì 2 turn."}
+{"rowId":"1710","text":"Kháng Xuyên Giáp +10%; Thi triển kungfu - Điệp Ẩn, khi bắt đầu turn, nếu HP thấp hơn 60% sẽ nhận được hiệu quả ẩn thân và giảm sát thương 20%, duy trì 1 turn."}
+{"rowId":"1711","text":"Tăng Sát Thương +10%; Thi triển kungfu - Xà Ảnh, di chuyển đến vị trí ngẫu nhiên giữa bản thân và kẻ địch, các vị trí khác sẽ xuất hiện phân thân, phân thân bị tấn công 5 lần hoặc hết 3 turn sẽ biến mất. Khi phân thân tồn tại, sát thương lên bản thể sẽ do phân thân gánh chịu (Chỉ có hiệu quả trong chiến đấu)"}
+{"rowId":"1712","text":"Kháng Xuyên Giáp +10%; Xuất Chiêu: Rồng Gầm. Dùng sức mạnh Cuồng Bạo, hi sinh 50% HP hiện tại, bỏ qua 65% phòng thủ của mục tiêu. Nếu đang trong trạng thái Tàng Hình, sát thương tăng 25%, duy trì 1 turn."}
+{"rowId":"1713","text":"4 Thuộc Tính Cơ Bản +5%; Mỗi khi thi triển kungfu, sẽ hồi phục 5 điểm ma pháp và tăng 10% giới hạn HP (hiệu quả xếp chồng nhiều nhất 5 lần), kèm hiệu quả phản kích tuyệt thế, khi HP tối đa mất 1% sẽ tăng điểm sát thương thêm 1.3% (duy trì 1 turn)"}
+{"rowId":"1714","text":"Kháng Xuyên Giáp +10%; Trước mỗi lượt tấn công, Pet 100% xông ra tấn công địch, gây 100% sát thương."}
+{"rowId":"1715","text":"HP Tối Đa +15%; Thi triển kungfu - Quy Tương, trong turn khi sử dụng PASS, sẽ nhận thêm 10 điểm nộ khí và khởi động tư thế phòng thủ, giảm sát thương nhận 50%, giảm bạo kích nhận 80%, duy trì 2 turn, nhận thêm 5 MP."}
+{"rowId":"1716","text":"Kháng Bỏng +12%; Thi triển kungfu - Thần Báo, nộ khí tăng 20, trong turn nhất định bộc phát năng lực Thần Báo, tăng 80% tốc độ tấn công, thể lực trong turn có Thần Báo giảm còn 120, duy trì 1 turn. Nhận thêm hiệu quả Miễn Kháng, duy trì 2 turn."}
+{"rowId":"1717","text":"Kháng Xuyên Giáp +10%; Thi triển kungfu - Điệp Ẩn, khi bắt đầu turn, nếu HP thấp hơn 60% sẽ nhận được hiệu quả ẩn thân và giảm sát thương 20%, duy trì 1 turn."}
+{"rowId":"1718","text":"Tăng Sát Thương +10%; Thi triển kungfu - Xà Ảnh, di chuyển đến vị trí ngẫu nhiên giữa bản thân và kẻ địch, các vị trí khác sẽ xuất hiện phân thân, phân thân bị tấn công 5 lần hoặc hết 3 turn sẽ biến mất. Khi phân thân tồn tại, sát thương lên bản thể sẽ do phân thân gánh chịu (Chỉ có hiệu quả trong chiến đấu)"}
+{"rowId":"1719","text":"Kháng Xuyên Giáp +10%; Xuất Chiêu: Rồng Gầm. Dùng sức mạnh Cuồng Bạo, hi sinh 50% HP hiện tại, bỏ qua 65% phòng thủ của mục tiêu. Nếu đang trong trạng thái Tàng Hình, sát thương tăng 25%, duy trì 1 turn."}
+{"rowId":"1720","text":"4 Thuộc Tính Cơ Bản +5%; Mỗi khi thi triển kungfu, sẽ hồi phục 5 điểm ma pháp và tăng 10% giới hạn HP (hiệu quả xếp chồng nhiều nhất 5 lần), kèm hiệu quả phản kích tuyệt thế, khi HP tối đa mất 1% sẽ tăng điểm sát thương thêm 1.3% (duy trì 1 turn)"}
+{"rowId":"1721","text":"Khi chiến đấu, sát thương phải chịu giảm 5% (MAX 10%)."}
+{"rowId":"1722","text":"Khi chiến đấu, sát thương phải chịu giảm 8% (MAX 10%)."}
+{"rowId":"1723","text":"Khi chiến đấu, sát thương phải chịu giảm 10% (MAX 10%)."}
+{"rowId":"1724","text":"Khi trúng địch, 3% (max:5%) đóng băng mục tiêu 2 turn (Chỉ hiệu lực trong PVP)."}
+{"rowId":"1725","text":"Khi trúng địch, 4% (max:5%) đóng băng mục tiêu 2 turn (Chỉ hiệu lực trong PVP)."}
+{"rowId":"1726","text":"Khi trúng địch, 5% (max:5%) đóng băng mục tiêu 2 turn (Chỉ hiệu lực trong PVP)."}
+{"rowId":"1727","text":"Khi bị bỏng sẽ hồi 4% (max: 8%) HP tối đa"}
+{"rowId":"1728","text":"Khi bị bỏng sẽ hồi 6% (max: 8%) HP tối đa"}
+{"rowId":"1729","text":"Khi bị bỏng sẽ hồi 8% (max: 8%) HP tối đa"}
+{"rowId":"1730","text":"Bỏng sẽ hồi HP"}
+{"rowId":"1731","text":"Bỏng sẽ hồi HP"}
+{"rowId":"1732","text":"Bỏng sẽ hồi HP"}
+{"rowId":"1733","text":"Trước mỗi lượt tấn công, Pet 100% xông ra tấn công địch, gây 100% sát thương."}
+{"rowId":"1734","text":"Bắn ra nọc độc, gây 180% sát thương cơ bản, 100% bạo kích, mục tiêu trúng phải giảm 35% sát thương, kèm hiệu quả Trúng Độc (Sát thương phải chịu tăng 10%), duy trì 3 turn."}
+{"rowId":"1735","text":"Toàn phe địch giảm 50% tấn công và phòng thủ, duy trì 2 turn. Chỉ có hiệu quả khi chiến đấu."}
+{"rowId":"1736","text":"Mỗi turn mất 5% HP tối đa, tỉ lệ bạo kích tăng 75%, sát thương bạo kích gây ra tăng 50%, sát thương bạo kích phải chịu giảm 50%, duy trì 3 turn."}
+{"rowId":"1737","text":"Khi thi đấu, toàn phe địch giảm 50% Hộ Giáp và Kháng Ma, không thể di chuyển hoặc bay, duy trì 2 turn."}
+{"rowId":"1738","text":"Mỗi lần bị đánh trúng, nhận thêm 2 MP, có xác suất khiến người chơi phe địch bị Trúng Độc (Sát thương phải chịu tăng 10%, duy trì 3 turn, tối đa cộng dồn 3 tầng)"}
+{"rowId":"1739","text":"Hộ Giáp +500, HP Tối Đa +15%, Tăng Giảm Thương +15%"}
+{"rowId":"1740","text":"Sát thương phải chịu tăng 20%"}
+{"rowId":"1741","text":"Nhận hiệu quả Trúng Độc, sát thương phải chịu tăng 10%, duy trì 2 turn."}
+{"rowId":"1742","text":"Kháng Bỏng +12%; Trước mỗi lượt tấn công, Pet 100% xông ra tấn công địch, gây 100% sát thương."}
+{"rowId":"1743","text":"Kháng Bỏng +12%; Bắn ra nọc độc, gây 180% sát thương cơ bản, 100% bạo kích, mục tiêu trúng phải giảm 35% sát thương, kèm hiệu quả Trúng Độc (Sát thương phải chịu tăng 10%), duy trì 3 turn."}
+{"rowId":"1744","text":"Kháng Xuyên Giáp +10%; Toàn phe địch giảm 50% tấn công và phòng thủ, duy trì 2 turn. Chỉ có hiệu quả khi chiến đấu."}
+{"rowId":"1745","text":"Kháng Bỏng +12%; Mỗi turn mất 5% HP tối đa, tỉ lệ bạo kích tăng 75%, sát thương bạo kích gây ra tăng 50%, sát thương bạo kích phải chịu giảm 50%, duy trì 3 turn."}
+{"rowId":"1746","text":"Kháng Xuyên Giáp +10%; Khi thi đấu, toàn phe địch giảm 50% Hộ Giáp và Kháng Ma, không thể di chuyển hoặc bay, duy trì 2 turn."}
+{"rowId":"1747","text":"Tăng Giảm Thương +15%; Mỗi lần bị đánh trúng, nhận thêm 2 MP, có xác suất khiến người chơi phe địch bị Trúng Độc (Sát thương phải chịu tăng 10%, duy trì 3 turn, tối đa cộng dồn 3 tầng)"}
+{"rowId":"1748","text":"Kháng Xuyên Giáp +10%; Hộ Giáp +500, HP Tối Đa +15%, Tăng Giảm Thương +15%"}
+{"rowId":"1749","text":"Kháng Bỏng +12%; Trước mỗi lượt tấn công, Pet 100% xông ra tấn công địch, gây 100% sát thương."}
+{"rowId":"1750","text":"Kháng Bỏng +12%; Bắn ra nọc độc, gây 180% sát thương cơ bản, 100% bạo kích, mục tiêu trúng phải giảm 35% sát thương, kèm hiệu quả Trúng Độc (Sát thương phải chịu tăng 10%), duy trì 3 turn."}
+{"rowId":"1751","text":"Kháng Xuyên Giáp +10%; Toàn phe địch giảm 50% tấn công và phòng thủ, duy trì 2 turn. Chỉ có hiệu quả khi chiến đấu."}
+{"rowId":"1752","text":"Kháng Bỏng +12%; Mỗi turn mất 5% HP tối đa, tỉ lệ bạo kích tăng 75%, sát thương bạo kích gây ra tăng 50%, sát thương bạo kích phải chịu giảm 50%, duy trì 3 turn."}
+{"rowId":"1753","text":"Kháng Xuyên Giáp +10%; Khi thi đấu, toàn phe địch giảm 50% Hộ Giáp và Kháng Ma, không thể di chuyển hoặc bay, duy trì 2 turn."}
+{"rowId":"1754","text":"Tăng Giảm Thương +15%; Mỗi lần bị đánh trúng, nhận thêm 2 MP, có xác suất khiến người chơi phe địch bị Trúng Độc (Sát thương phải chịu tăng 10%, duy trì 3 turn, tối đa cộng dồn 3 tầng)"}
+{"rowId":"1755","text":"Kháng Xuyên Giáp +10%; Hộ Giáp +500, HP Tối Đa +15%, Tăng Giảm Thương +15%"}
+{"rowId":"1762","text":"Bảo vệ tất cả đồng đội trong màn đêm, hiệu quả Giảm Thương của bản thân tăng 30%, giúp đồng đội chịu 50% sát thương, duy trì 2 turn. Có thể nuốt Lửa Hận Thù đang tồn tại, khiến đồng đội được bảo vệ nhận Giáp Đen Minotaure và Búa Bạc Minotaure, duy trì 2 turn."}
+{"rowId":"1763","text":"Ban ngày xâu xé điên cuồng, gây hiệu quả Xuất Huyết cho địch trong cự ly 300, khiến địch mỗi turn mất 10% HP, duy trì 3 turn. Có thể nuốt Lửa Oán Giận đang có, Xuất Huyết sẽ kèm hiệu quả Cấm Trị Liệu và Cấm Bay (Có hiệu lực trong PVP)."}
+{"rowId":"1764","text":"Mỗi khi chịu sát thương đạn pháo, Giáp Minotaure giảm sát thương bằng 4% HP hiện tại."}
+{"rowId":"1765","text":"Búa Minotaure cực nặng gây thêm sát thương cho địch ở địa hình thấp hơn, mỗi 100 pixel tăng 30% sát thương, tối đa tăng 150% sát thương. Với địch ở địa hình cao hơn, tạo hiệu quả giảm thương, mỗi 100 pixel giảm 20% sát thương, tối đa giảm 60% sát thương (Có hiệu lực trong PVP)."}
+{"rowId":"1766","text":"Hỏa Khuyển cực nhạy với sức gió. Khi bắn pháo, nếu gió thuận mỗi 1.0 gió tăng 30% sát thương và Ma Công. Tăng Giảm Thương +8% (Không chịu ảnh hưởng bởi sức gió)."}
+{"rowId":"1767","text":"Hỏa Khuyển gọi dậy sức mạnh bóng tối, không thể bị đóng băng, không thể dùng 3 tia, di chuyển không tốn thể lực, tốc độ tấn công giảm 0%, HP tăng 100%, tất cả đạn pháo biến thành Lửa Đen, gây hiệu quả lỗ đạn khổng lồ, duy trì 3 turn. Có thể nuốt Lửa Hận Thù và Lửa Oán Giận đang có, hồi phục 60% HP."}
+{"rowId":"1768","text":"Sau khi chịu sát thương 10 lần, nhận 30 MP và triệu hồi Lửa Hận Thù. Sau khi dùng kỹ năng 2 lần, nhận 40 MP và triệu hồi Lửa Oán Giận."}
+{"rowId":"1769","text":"Nhận được kỹ năng"}
+{"rowId":"1770","text":"Nhận được kỹ năng"}
+{"rowId":"1771","text":"Nhận được kỹ năng"}
+{"rowId":"1772","text":"Nhận được kỹ năng"}
+{"rowId":"1773","text":"Nhận được kỹ năng"}
+{"rowId":"1774","text":"Kháng Bỏng +12%; Bảo vệ tất cả đồng đội trong màn đêm, hiệu quả Giảm Thương của bản thân tăng 30%, giúp đồng đội chịu 50% sát thương, duy trì 2 turn. Có thể nuốt Lửa Hận Thù đang tồn tại, khiến đồng đội được bảo vệ nhận Giáp Đen Minotaure và Búa Bạc Minotaure, duy trì 2 turn."}
+{"rowId":"1775","text":"Kháng Bỏng +12%; Ban ngày xâu xé điên cuồng, gây hiệu quả Xuất Huyết cho địch trong cự ly 300, khiến địch mỗi turn mất 10% HP, duy trì 3 turn. Có thể nuốt Lửa Oán Giận đang có, Xuất Huyết sẽ kèm hiệu quả Cấm Trị Liệu và Cấm Bay (Có hiệu lực trong PVP)."}
+{"rowId":"1776","text":"Kháng Xuyên Giáp +10%; Mỗi khi chịu sát thương đạn pháo, Giáp Minotaure giảm sát thương bằng 4% HP hiện tại."}
+{"rowId":"1777","text":"Kháng Xuyên Giáp +10%; Búa Minotaure cực nặng gây thêm sát thương cho địch ở địa hình thấp hơn, mỗi 100 pixel tăng 30% sát thương, tối đa tăng 150% sát thương. Với địch ở địa hình cao hơn, tạo hiệu quả giảm thương, mỗi 100 pixel giảm 20% sát thương, tối đa giảm 60% sát thương (Có hiệu lực trong PVP)."}
+{"rowId":"1778","text":"Kháng Bỏng +12%; Hỏa Khuyển cực nhạy với sức gió. Khi bắn pháo, nếu gió thuận mỗi 1.0 gió tăng 30% sát thương và Ma Công. Tăng Giảm Thương +8% (Không chịu ảnh hưởng bởi sức gió)."}
+{"rowId":"1779","text":"HP Tối Đa +15%; Hỏa Khuyển gọi dậy sức mạnh bóng tối, không thể bị đóng băng, không thể dùng 3 tia, di chuyển không tốn thể lực, tốc độ tấn công giảm 0%, HP tăng 100%, tất cả đạn pháo biến thành Lửa Đen, gây hiệu quả lỗ đạn khổng lồ, duy trì 3 turn. Có thể nuốt Lửa Hận Thù và Lửa Oán Giận đang có, hồi phục 60% HP."}
+{"rowId":"1780","text":"Kháng Xuyên Giáp +10%; Sau khi chịu sát thương 10 lần, nhận 30 MP và triệu hồi Lửa Hận Thù. Sau khi dùng kỹ năng 2 lần, nhận 40 MP và triệu hồi Lửa Oán Giận."}
+{"rowId":"1781","text":"Kháng Bỏng +12%; Bảo vệ tất cả đồng đội trong màn đêm, hiệu quả Giảm Thương của bản thân tăng 30%, giúp đồng đội chịu 50% sát thương, duy trì 2 turn. Có thể nuốt Lửa Hận Thù đang tồn tại, khiến đồng đội được bảo vệ nhận Giáp Đen Minotaure và Búa Bạc Minotaure, duy trì 2 turn."}
+{"rowId":"1782","text":"Kháng Bỏng +12%; Ban ngày xâu xé điên cuồng, gây hiệu quả Xuất Huyết cho địch trong cự ly 300, khiến địch mỗi turn mất 10% HP, duy trì 3 turn. Có thể nuốt Lửa Oán Giận đang có, Xuất Huyết sẽ kèm hiệu quả Cấm Trị Liệu và Cấm Bay (Có hiệu lực trong PVP)."}
+{"rowId":"1783","text":"Kháng Xuyên Giáp +10%; Mỗi khi chịu sát thương đạn pháo, Giáp Minotaure giảm sát thương bằng 4% HP hiện tại."}
+{"rowId":"1784","text":"Kháng Xuyên Giáp +10%; Búa Minotaure cực nặng gây thêm sát thương cho địch ở địa hình thấp hơn, mỗi 100 pixel tăng 30% sát thương, tối đa tăng 150% sát thương. Với địch ở địa hình cao hơn, tạo hiệu quả giảm thương, mỗi 100 pixel giảm 20% sát thương, tối đa giảm 60% sát thương (Có hiệu lực trong PVP)."}
+{"rowId":"1785","text":"Kháng Bỏng +12%; Hỏa Khuyển cực nhạy với sức gió. Khi bắn pháo, nếu gió thuận mỗi 1.0 gió tăng 30% sát thương và Ma Công, Tăng Giảm Thương +8%."}
+{"rowId":"1786","text":"HP Tối Đa +15%; Hỏa Khuyển gọi dậy sức mạnh bóng tối, không thể bị đóng băng, không thể dùng 3 tia, di chuyển không tốn thể lực, tốc độ tấn công giảm 0%, HP tăng 100%, tất cả đạn pháo biến thành Lửa Đen, gây hiệu quả lỗ đạn khổng lồ, duy trì 3 turn. Có thể nuốt Lửa Hận Thù và Lửa Oán Giận đang có, hồi phục 60% HP."}
+{"rowId":"1787","text":"Kháng Xuyên Giáp +10%; Sau khi chịu sát thương 10 lần, nhận 30 MP và triệu hồi Lửa Hận Thù. Sau khi dùng kỹ năng 2 lần, nhận 40 MP và triệu hồi Lửa Oán Giận."}
+{"rowId":"1791","text":"Khi bị đạn bắn trúng, 7% xác suất hấp thụ sát thương đó hồi 5% HP cho bản thân, số lần chờ 5 (Số lần chịu sát thương Đạn), có hiệu lực trong PVP"}
+{"rowId":"1792","text":"Khi bị đạn bắn trúng, 8% xác suất hấp thụ sát thương đó hồi 5% HP cho bản thân, số lần chờ 5 (Số lần chịu sát thương Đạn), có hiệu lực trong PVP"}
+{"rowId":"1793","text":"Khi bị đạn bắn trúng, 9% xác suất hấp thụ sát thương đó hồi 5% HP cho bản thân, số lần chờ 5 (Số lần chịu sát thương Đạn), có hiệu lực trong PVP"}
+{"rowId":"1794","text":"Khi bị đạn bắn trúng, 10% xác suất hấp thụ sát thương đó hồi 5% HP cho bản thân, số lần chờ 5 (Số lần chịu sát thương Đạn), có hiệu lực trong PVP"}
+{"rowId":"1795","text":"Khi bị đạn bắn trúng, 11% xác suất hấp thụ sát thương đó hồi 5% HP cho bản thân, số lần chờ 5 (Số lần chịu sát thương Đạn), có hiệu lực trong PVP"}
+{"rowId":"1796","text":"Khi bị đạn bắn trúng, 12% xác suất hấp thụ sát thương đó hồi 5% HP cho bản thân, số lần chờ 5 (Số lần chịu sát thương Đạn), có hiệu lực trong PVP"}
+{"rowId":"1797","text":"Khi bị đạn bắn trúng, 13% xác suất hấp thụ sát thương đó hồi 5% HP cho bản thân, số lần chờ 5 (Số lần chịu sát thương Đạn), có hiệu lực trong PVP"}
+{"rowId":"1798","text":"Khi bị đạn bắn trúng, 14% xác suất hấp thụ sát thương đó hồi 5% HP cho bản thân, số lần chờ 5 (Số lần chịu sát thương Đạn), có hiệu lực trong PVP"}
+{"rowId":"1799","text":"Khi bị đạn bắn trúng, 15% xác suất hấp thụ sát thương đó hồi 5% HP cho bản thân, số lần chờ 5 (Số lần chịu sát thương Đạn), có hiệu lực trong PVP"}
+{"rowId":"1800","text":"5% miễn dịch sát thương không phải từ Đạn, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1801","text":"5.75% miễn dịch sát thương không phải từ Đạn, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1802","text":"6.5% miễn dịch sát thương không phải từ Đạn, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1803","text":"7.25% miễn dịch sát thương không phải từ Đạn, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1804","text":"8% miễn dịch sát thương không phải từ Đạn, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1805","text":"8.75% miễn dịch sát thương không phải từ Đạn, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1806","text":"9.5% miễn dịch sát thương không phải từ Đạn, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1807","text":"10.25% miễn dịch sát thương không phải từ Đạn, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1808","text":"11% miễn dịch sát thương không phải từ Đạn, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1809","text":"11.75% miễn dịch sát thương không phải từ Đạn, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1810","text":"12.5% miễn dịch sát thương không phải từ Đạn, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1811","text":"13.25% miễn dịch sát thương không phải từ Đạn, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1812","text":"5% miễn dịch kỹ năng loại khống chế (Đóng Băng/Bất Động/Trói Buộc/Cấm Bay), cần chờ  turn, có hiệu lực trong PVP"}
+{"rowId":"1813","text":"5.75% miễn dịch kỹ năng loại khống chế (Đóng Băng/Bất Động/Trói Buộc/Cấm Bay), cần chờ  turn, có hiệu lực trong PVP"}
+{"rowId":"1814","text":"6.5% miễn dịch kỹ năng loại khống chế (Đóng Băng/Bất Động/Trói Buộc/Cấm Bay), cần chờ  turn, có hiệu lực trong PVP"}
+{"rowId":"1815","text":"7.25% miễn dịch kỹ năng loại khống chế (Đóng Băng/Bất Động/Trói Buộc/Cấm Bay), cần chờ  turn, có hiệu lực trong PVP"}
+{"rowId":"1816","text":"8% miễn dịch kỹ năng loại khống chế (Đóng Băng/Bất Động/Trói Buộc/Cấm Bay), cần chờ  turn, có hiệu lực trong PVP"}
+{"rowId":"1817","text":"8.75% miễn dịch kỹ năng loại khống chế (Đóng Băng/Bất Động/Trói Buộc/Cấm Bay), cần chờ  turn, có hiệu lực trong PVP"}
+{"rowId":"1818","text":"9.5% miễn dịch kỹ năng loại khống chế (Đóng Băng/Bất Động/Trói Buộc/Cấm Bay), cần chờ  turn, có hiệu lực trong PVP"}
+{"rowId":"1819","text":"10.25% miễn dịch kỹ năng loại khống chế (Đóng Băng/Bất Động/Trói Buộc/Cấm Bay), cần chờ  turn, có hiệu lực trong PVP"}
+{"rowId":"1820","text":"11% miễn dịch kỹ năng loại khống chế (Đóng Băng/Bất Động/Trói Buộc/Cấm Bay), cần chờ  turn, có hiệu lực trong PVP"}
+{"rowId":"1821","text":"11.75% miễn dịch kỹ năng loại khống chế (Đóng Băng/Bất Động/Trói Buộc/Cấm Bay), cần chờ  turn, có hiệu lực trong PVP"}
+{"rowId":"1822","text":"12.5% miễn dịch kỹ năng loại khống chế (Đóng Băng/Bất Động/Trói Buộc/Cấm Bay), cần chờ  turn, có hiệu lực trong PVP"}
+{"rowId":"1823","text":"13.25% miễn dịch kỹ năng loại khống chế (Đóng Băng/Bất Động/Trói Buộc/Cấm Bay), cần chờ  turn, có hiệu lực trong PVP"}
+{"rowId":"1824","text":"7% miễn dịch sát thương do chênh lệch độ cao, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1825","text":"8% miễn dịch sát thương do chênh lệch độ cao, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1826","text":"9% miễn dịch sát thương do chênh lệch độ cao, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1827","text":"10% miễn dịch sát thương do chênh lệch độ cao, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1828","text":"11% miễn dịch sát thương do chênh lệch độ cao, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1829","text":"12% miễn dịch sát thương do chênh lệch độ cao, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1830","text":"13% miễn dịch sát thương do chênh lệch độ cao, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1831","text":"14% miễn dịch sát thương do chênh lệch độ cao, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1832","text":"15% miễn dịch sát thương do chênh lệch độ cao, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1833","text":"16% miễn dịch sát thương do chênh lệch độ cao, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1834","text":"17% miễn dịch sát thương do chênh lệch độ cao, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1835","text":"18% miễn dịch sát thương do chênh lệch độ cao, cần chờ 5 turn, có hiệu lực trong PVP"}
+{"rowId":"1849","text":"Khi bị đạn bắn trúng, 16% xác suất hấp thụ sát thương đó hồi 5% HP cho bản thân, số lần chờ 5 (Số lần chịu sát thương Đạn), có hiệu lực trong PVP"}
+{"rowId":"1850","text":"Khi bị đạn bắn trúng, 5% xác suất hấp thụ sát thương đó hồi 5% HP cho bản thân, số lần chờ 5 (Số lần chịu sát thương Đạn), có hiệu lực trong PVP"}
+{"rowId":"1851","text":"Khi bị đạn bắn trúng, 6% xác suất hấp thụ sát thương đó hồi 5% HP cho bản thân, số lần chờ 5 (Số lần chịu sát thương Đạn), có hiệu lực trong PVP"}
+{"rowId":"1943","text":"Dùng 1 kỹ năng chủ động sẽ tăng 1 Lửa Nộ, đạt 2 Lửa sẽ chuyển thành Lửa Bảo Vệ, hồi ngay 8% HP tối đa, nhận hiệu quả +50% giảm thương, +50% Sát Thương, duy trì 3 turn."}
+{"rowId":"1944","text":"Ném 1 Cầu Lửa, gây 220% sát thương, chắn chắn bạo kích, đồng thời kích hoạt Thần TốcTrong turn Thần Tốc, thể lực giảm còn 180."}
+{"rowId":"1945","text":"Khi trúng địch, 100% kích hoạt bạo kíchkèm Lửa Đỏ (Mỗi turn chịu sát thương bằng 300% sát thương cơ bản của người tấn công), hiệu quả trị liệu từ Pet giảm 50%, duy trì 3 turn. Đạn không tạo ra hố, tự mang hiệu quả Dẫn Đường, +15% hiệu quả Xuyên Giáp."}
+{"rowId":"1946","text":"Dùng hết toàn bộ MP, tăng 20% giảm thương, duy trì 2 turn, mỗi 2 Điểm MP hồi phục 1% HP tối đa."}
+{"rowId":"1947","text":"Chịu sát thương chí mạng sẽ vào trạng thái Ngủ Đông, tự mang hiệu quả Miễn Kháng, 2 turn sau hồi tỉnh, hồi 100% HP tối đa, tăng 25% HP tối đa. (Thời gian chờ 8 Turn)"}
+{"rowId":"1948","text":"Sát Thương, Hộ Giáp +15%, Ma Công, Ma Kháng +15%"}
+{"rowId":"1949","text":"Bắn ra đạn 3 tia, gây cháy trong khu vực nổ, khiến mục tiêu trong khu vực đó mỗi turn mất 12% HP tối đa và 25 MP, giảm 30% thể lực tối đa, Lửa duy trì 3 turn (Có hiệu lực trong PVP)."}
+{"rowId":"1950","text":"Nhận được kỹ năng"}
+{"rowId":"1951","text":"Nhận được kỹ năng"}
+{"rowId":"1952","text":"Khu Vực Dấu Ấn"}
+{"rowId":"1953","text":"Kỹ năng mới"}
+{"rowId":"1954","text":"Kháng Xuyên Giáp +10%. Dùng 1 kỹ năng chủ động sẽ tăng 1 Lửa Nộ, sau khi đạt đến 2 Lửa sẽ chuyển đổi thành Lửa Bảo Vệ, hồi ngay 8% HP tối đa, nhận hiệu quả 50% giảm thương, 50% Tăng Sát Thương, duy trì 3 turn."}
+{"rowId":"1955","text":"Kháng Bỏng +12%. Ném ra 1 Cầu Lửa, gây 220% sát thương, chắc chắn bạo kích, kích hoạt hiệu quả Thần Tốc, trong turn Thần Tốc thể lực giảm còn 180."}
+{"rowId":"1956","text":"Kháng Xuyên Giáp +10%. Khi trúng địch, 100% kích hoạt bạo kíchkèm Lửa Đỏ (Mỗi turn chịu sát thương bằng 300% sát thương cơ bản của người tấn công), hiệu quả trị liệu từ Pet giảm 50%, duy trì 3 turn. Đạn không tạo ra hố, tự mang hiệu quả Dẫn Đường, +15% hiệu quả Xuyên Giáp."}
+{"rowId":"1957","text":"HP Tối Đa +15%. Dùng toàn bộ Điểm MP, tăng 20% giảm thương, duy trì 2 turn, mỗi 2 Điểm MP hồi 1% HP tối đa."}
+{"rowId":"1958","text":"Kháng Bỏng +12%. Khi chịu sát thương chí mạng chủ động, sẽ vào trạng thái Ngủ Đông. Khi đang Ngủ Đông sẽ mang hiệu quả Miễn Kháng, 2 turn sau hồi sinh, hồi đến 100% HP, tăng 25% HP Tối Đa. (Chờ 8 turn)"}
+{"rowId":"1959","text":"Kháng Xuyên Giáp +10%. Sát Thương, Hộ Giáp +15%, Ma Công, Ma Kháng +15%."}
+{"rowId":"1960","text":"Kháng Xuyên Giáp +10%. Bắn ra đạn 3 tia, gây cháy trong khu vực nổ, khiến mục tiêu trong khu vực đó mỗi turn mất 12% HP tối đa và 25 MP, giảm 30% thể lực tối đa, Lửa duy trì 3 turn (Có hiệu lực trong PVP)."}
+{"rowId":"1961","text":"Kháng Xuyên Giáp +10%. Dùng 1 kỹ năng chủ động sẽ tăng 1 Lửa Nộ, sau khi đạt đến 2 Lửa sẽ chuyển đổi thành Lửa Bảo Vệ, nhận hiệu quả 50% giảm thương, 50% Tăng Sát Thương, hồi 8% HP tối đa, duy trì 3 turn."}
+{"rowId":"1962","text":"Kháng Bỏng +12%. Ném ra 1 Cầu Lửa, gây 220% sát thương, chắc chắn bạo kích, kích hoạt hiệu quả Thần Tốc, trong turn Thần Tốc thể lực giảm còn 180."}
+{"rowId":"1963","text":"Kháng Xuyên Giáp +10%. Khi trúng địch, 100% kích hoạt bạo kíchkèm Lửa Đỏ (Mỗi turn chịu sát thương bằng 300% sát thương cơ bản của người tấn công), hiệu quả trị liệu từ Pet giảm 50%, duy trì 3 turn. Đạn không tạo ra hố, tự mang hiệu quả Dẫn Đường, +15% hiệu quả Xuyên Giáp."}
+{"rowId":"1964","text":"HP Tối Đa +15%. Dùng toàn bộ Điểm MP, tăng 20% giảm thương, duy trì 2 turn, mỗi 2 Điểm MP hồi 1% HP tối đa."}
+{"rowId":"1965","text":"Kháng Bỏng +12%. Khi chịu sát thương Chí Mạng chủ động, sẽ vào trạng thái Ngủ Đông. Khi đang Ngủ Đông sẽ mang hiệu quả Miễn Kháng, 2 turn sau hồi sinh, hồi đến 100% HP. (Chờ 8 turn)"}
+{"rowId":"1966","text":"Kháng Xuyên Giáp +10%. Sát Thương, Hộ Giáp +15%, Ma Công, Ma Kháng +15%."}
+{"rowId":"1967","text":"Kháng Xuyên Giáp +10%. Bắn ra đạn 3 tia, gây cháy trong khu vực nổ, khiến mục tiêu trong khu vực đó mỗi turn mất 12% HP tối đa và 25 MP, Lửa duy trì 3 turn (Có hiệu lực trong PVP)."}
+{"rowId":"1997","text":"Nhận được kỹ năng"}
+{"rowId":"1998","text":"Nhận được kỹ năng"}
+{"rowId":"1999","text":"每回合开炮结束时有100%的几率冲出去攻击敌方,造成100%伤害。"}
+{"rowId":"2000","text":"扔出一个蟠桃,造成220%的基本伤害,并提升25%暴击率和暴击伤害,持续3回合。"}
+{"rowId":"2001","text":"全体敌方玩家无法行动1回合,魔法值减少20点,且受到伤害提升20%。（只在对战中有效）"}
+{"rowId":"2002","text":"减少30%所受伤害,并有60%几率免除被暴击。"}
+{"rowId":"2003","text":"标记所有隐身的敌方玩家,并使其伤害降低30%,额外承受30%的伤害,持续2个回合（只在对战中有效）"}
+{"rowId":"2004","text":"每当遭受致命打击后恢复8%生命并增加50点怒气值,减伤提升30%,元素减伤提升30%持续1回合(可叠加),每场战斗最多触发三次。（只在对战中有效）"}
+{"rowId":"2005","text":"每次使用战斗道具增加2点魔法值和4点怒气值."}
+{"rowId":"2006","text":"受到伤害提升20%"}
+{"rowId":"2007","text":"灼烧抵抗12%；每回合开炮结束时有100%的几率冲出去攻击敌方,造成100%伤害。"}
+{"rowId":"2008","text":"穿甲抵抗10%；扔出一个蟠桃,造成220%的基本伤害,并提升25%暴击率和暴击伤害,持续3回合。"}
+{"rowId":"2009","text":"穿甲抵抗10%；全体敌方玩家无法行动1回合,魔法值减少20点,且受到伤害提升20%。（只在对战中有效）"}
+{"rowId":"2010","text":"灼烧抵抗12%；减少30%所受伤害,并有60%几率免除被暴击。"}
+{"rowId":"2011","text":"血量上限提升15%；标记所有隐身的敌方玩家,并使其伤害降低30%,额外承受30%的伤害,持续2个回合（只在对战中有效）"}
+{"rowId":"2012","text":"灼烧抵抗12%；每当遭受致命打击后恢复8%生命并增加50点怒气值,减伤提升30%,元素减伤提升30%持续1回合(可叠加),每场战斗最多触发三次。（只在对战中有效）"}
+{"rowId":"2013","text":"灼烧抵抗12%；每次使用战斗道具增加2点魔法值和4点怒气值."}
+{"rowId":"2014","text":"灼烧抵抗12%；每回合开炮结束时有100%的几率冲出去攻击敌方,造成100%伤害。"}
+{"rowId":"2015","text":"穿甲抵抗10%；扔出一个蟠桃,造成220%的基本伤害,并提升25%暴击率和暴击伤害,持续3回合。"}
+{"rowId":"2016","text":"穿甲抵抗10%；全体敌方玩家无法行动1回合,魔法值减少20点,且受到伤害提升20%。（只在对战中有效）"}
+{"rowId":"2017","text":"灼烧抵抗12%；减少30%所受伤害,并有60%几率免除被暴击。"}
+{"rowId":"2018","text":"血量上限提升15%；标记所有隐身的敌方玩家,并使其伤害降低30%,额外承受30%的伤害,持续2个回合（只在对战中有效）"}
+{"rowId":"2019","text":"灼烧抵抗12%；每当遭受致命打击后恢复8%生命并增加50点怒气值,减伤提升30%持续1回合(可叠加),每场战斗最多触发三次。（只在对战中有效）"}
+{"rowId":"2020","text":"灼烧抵抗12%；每次使用战斗道具增加2点魔法值和4点怒气值."}
+{"rowId":"2036","text":"Tăng 20% giảm thương, bị trúng đạn chỉ chịu sát thương bằng 35% HP tối đa của bản thân. (Chỉ hiệu lực trong PVP)"}
+{"rowId":"2037","text":"Phe ta tăng 50% Miễn Bạo, tăng 15% sát thương, duy trì 2 turn"}
+{"rowId":"2038","text":"Phe ta hồi 18% HP tối đa, nhận khiên bằng 15% HP tối đa của bản thân. Khiên duy trì 3 turn, dùng xong sẽ bỏ qua turn."}
+{"rowId":"2039","text":"Sát thương bạo kích phải chịu -40%, sát thương bạo kích đồng đội phải chịu -15%"}
+{"rowId":"2040","text":"Bị trúng đạn chỉ chịu sát thương bằng 35% HP tối đa của bản thân. (Chỉ hiệu lực trong PVP)"}
+{"rowId":"2041","text":"HP Tối Đa +10%. Tăng 20% giảm thương, bị trúng đạn chỉ chịu sát thương bằng 35% HP tối đa của bản thân. (Chỉ hiệu lực trong PVP)"}
+{"rowId":"2042","text":"Kháng Bỏng +10%. Phe ta tăng 50% Miễn Bạo, tăng 15% sát thương, duy trì 2 turn"}
+{"rowId":"2043","text":"Kháng Bỏng +10%. Phe ta hồi 18% HP, nhận Khiên Chắn bằng 15% HP tối đa của bản thân, Khiên Chắn duy trì 3 turn. Sau khi dùng, sẽ bỏ qua turn."}
+{"rowId":"2044","text":"Kháng Xuyên Giáp +8%. Bản thân giảm 40% sát thương bạo phải chịu, đồng đội giảm 15% sát thương bạo phải chịu"}
+{"rowId":"2045","text":"HP Tối Đa +10%. Tăng 20% giảm thương, bị trúng đạn chỉ chịu sát thương bằng 35% HP tối đa của bản thân. (Chỉ hiệu lực trong PVP)"}
+{"rowId":"2046","text":"Kháng Bỏng +10%. Phe ta tăng 50% Miễn Bạo, tăng 15% sát thương, duy trì 2 turn"}
+{"rowId":"2047","text":"Kháng Bỏng +10%. Phe ta hồi 18% HP, nhận Khiên Chắn bằng 15% HP tối đa của bản thân, Khiên Chắn duy trì 3 turn. Sau khi dùng, sẽ bỏ qua turn."}
+{"rowId":"2048","text":"Kháng Xuyên Giáp +8%. Bản thân giảm 40% sát thương bạo phải chịu, đồng đội giảm 15% sát thương bạo phải chịu"}
+{"rowId":"9992","text":"Khi trúng mục tiêu, Kháng Đất của mục tiêu giảm 12%, duy trì 3 turn."}
+{"rowId":"9993","text":"Lửa Thiêu Đốt kích hoạt hiệu quả Bỏng, sẽ khiến Pet giảm 5 điểm MP. (Kỹ năng của Thần Hộ Mệnh hệ Lửa, kỹ năng cùng loại chỉ loại cấp cao hơn có hiệu lực)."}
+{"rowId":"10416","text":"Khi bị đánh giảm 200 sát thương"}
+{"rowId":"10417","text":"Khi bị đánh giảm 250 sát thương"}
+{"rowId":"10418","text":"Khi bị đánh giảm 350 sát thương"}
+{"rowId":"10419","text":"Phản lại 600 điểm sát thương"}
+{"rowId":"10420","text":"Phản lại 1200 điểm sát thương"}
+{"rowId":"11716","text":"Bỏng"}
+{"rowId":"11717","text":"Đóng Băng"}
+{"rowId":"11718","text":"Độc"}
+{"rowId":"110413","text":"血量+1000"}
+{"rowId":"110414","text":"傷害+20點，攻、防、敏、幸各提升20點"}
+{"rowId":"110415","text":"攻、防、敏、幸各提升30點"}
+{"rowId":"110416","text":"Dois conjuntos de vida + 800 Armadura + 30"}
+{"rowId":"1010000","text":"血量增加300"}
+{"rowId":"1010100","text":"护甲增加30,血量增加1000"}
+{"rowId":"1010101","text":"血量+300,攻击+50"}
+{"rowId":"1010102","text":"幸运+100,防御+50"}
+{"rowId":"1010103","text":"降低被暴击伤害10%"}
+{"rowId":"1010104","text":"降低被暴击伤害10%,伤害+20,护甲增加20"}
+{"rowId":"1010105","text":"伤害+10，降低被暴击伤害5%"}
+{"rowId":"1010106","text":"攻击+25、敏捷+25"}
+{"rowId":"1010107","text":"伤害+10  降低被暴击伤害5%"}
+{"rowId":"1010200","text":"伤害+30"}
+{"rowId":"1010300","text":"防御+50,敏捷+50,幸运+50"}
+{"rowId":"1010400","text":"攻击+10"}
+{"rowId":"1010500","text":"血量增加400"}
+{"rowId":"1010600","text":"攻击+30"}
+{"rowId":"1010700","text":"血量+350"}
+{"rowId":"1010800","text":"防御+15"}
+{"rowId":"1010801","text":"防御+35"}
+{"rowId":"1010802","text":"幸运+10"}
+{"rowId":"1010803","text":"血量+350,防御+20"}
+{"rowId":"1010804","text":"血量+350,敏捷+20"}
+{"rowId":"1010805","text":"血量+310"}
+{"rowId":"1010806","text":"血量+310,攻击+15"}
+{"rowId":"1010807","text":"血量+400,敏捷+40,减少5%暴击伤害"}
+{"rowId":"1010808","text":"血量+400,敏捷+40,减5%减伤害"}
+{"rowId":"1010809","text":"幸运+80"}
+{"rowId":"1010810","text":"血量+400,防御+40,减5%减伤害"}
+{"rowId":"1010811","text":"攻击+50，防御+50,敏捷+50,幸运+50"}
+{"rowId":"1010812","text":"攻防敏幸+5, +100 HP ，减伤 1%"}
+{"rowId":"1010813","text":"攻防敏幸+5, +100 HP ，减伤 2%"}
+{"rowId":"1010814","text":"攻防敏幸+5, +200 HP ，减伤 1%"}
+{"rowId":"1010815","text":"攻防敏幸+10, +200 HP ，减伤 2%"}
+{"rowId":"1010816","text":"攻防敏幸+15, +200 HP ，减伤 2%"}
+{"rowId":"1010817","text":"攻击+50，防御+50,敏捷+50,幸运+50"}
+{"rowId":"1010818","text":"攻击+50，防御+50,敏捷+50,幸运+50"}
+{"rowId":"1010819","text":"攻击+50，防御+50,敏捷+50,幸运+50"}
+{"rowId":"1010820","text":"攻击+50，防御+50,敏捷+50,幸运+50"}
+{"rowId":"1010821","text":"攻击+50，防御+50,敏捷+50,幸运+50"}
+{"rowId":"1010822","text":"攻防敏幸+15, +200 HP ，减伤 2%"}
+{"rowId":"1010823","text":"攻防敏幸+10,减伤 2%"}
+{"rowId":"1010824","text":"攻防敏幸+10,减伤 2%"}
+{"rowId":"1010825","text":"攻敏+20,魔攻魔防+10,减伤 3%"}
+{"rowId":"1010826","text":"防幸+20,魔攻魔防+10,减伤 3%"}
+{"rowId":"1010827","text":"攻敏+20,魔攻魔防+10,减伤 3%"}
+{"rowId":"1010828","text":"防幸+20,魔攻魔防+10,减伤 3%"}
+{"rowId":"1010829","text":"2套装效果：攻击+20 - 敏捷 +20, 魔抗 + 10, 魔攻+10, 血量 +500, 承受伤害 3%."}
+{"rowId":"1010830","text":"2套装效果：防御 +20 - May +20, 魔抗 + 10, 魔攻+10, 承受伤害 3%."}
+{"rowId":"1010831","text":"2套装效果：攻击+20 - 敏捷 +20, 魔抗 + 10, 魔攻+10, 血量 +500, 承受伤害 3%."}
+{"rowId":"1010832","text":"2套装效果：防御 +20 - May +20, 魔抗 + 10, 魔攻+10, 承受伤害 3%."}
+{"rowId":"1010833","text":"攻击+25，防御+25,敏捷+25,幸运+25"}
+{"rowId":"1010834","text":"攻击+25，防御+25,敏捷+25,幸运+25"}
+{"rowId":"1010835","text":"效果：攻击+20，敏捷 +20, 魔抗 + 10, 魔攻+10, 血量 +500, 收到伤害降低 5%."}
+{"rowId":"1010836","text":"效果：防御 +30，May +30, 魔抗 + 10, 魔攻+10, 降低被暴击伤害 2%."}
+{"rowId":"1010837","text":"效果：攻击+20，敏捷 +20, 魔抗 + 10, 魔攻+10, 血量 +500, 收到伤害降低 5%."}
+{"rowId":"1010838","text":"效果：防御 +30，May +30, 魔抗 + 10, 魔攻+10, 降低被暴击伤害 2%."}
+{"rowId":"1010839","text":"效果：攻击+20，敏捷 +20, 魔抗 + 15, 护甲+3, 血量 +500, 收到伤害降低 5%."}
+{"rowId":"1010840","text":"效果：防御 +30，May +30, 魔抗 + 15, 护甲+3, 降低被暴击伤害 2%."}
+{"rowId":"1010841","text":"攻击+25，防御+25,敏捷+25,幸运+25,血量+250"}
+{"rowId":"1010842","text":"攻击+25，防御+25,敏捷+25,幸运+25,血量+251"}
+{"rowId":"1010850","text":"效果: 敏捷+20，幸运+20，魔攻+15，伤害+3，血量+500，受到伤害降低6%"}
+{"rowId":"1010851","text":"效果: 敏捷+20，防御+20，魔攻+15，伤害+3，血量+500，受到暴击伤害降低3%"}
+{"rowId":"1010852","text":"效果：四维+30，受伤降低1%，血量+500"}
+{"rowId":"1010853","text":"效果：四维+30，受伤降低1%，血量+500"}
+{"rowId":"1010854","text":"敏捷+20 - 幸运 +20, 魔攻 + 15, 伤害 +3, HP +500, 受到伤害降低 6%."}
+{"rowId":"1010855","text":"攻击 +20, 防御 +20, 魔抗 +20, 护甲 +3, 血量 +500, 降低被暴击伤害 3%."}

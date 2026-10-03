@@ -1,0 +1,1653 @@
+{"rowId":"1","text":"Trứng Gà Lv1"}
+{"rowId":"2","text":"Trứng Gà Lv2"}
+{"rowId":"3","text":"Trứng Gà Lv3"}
+{"rowId":"4","text":"Trứng Gà -Đạn mới"}
+{"rowId":"5","text":"Trứng Gà -Đạn mới 2"}
+{"rowId":"6","text":"Trứng Gà -Đạn mới 3"}
+{"rowId":"7","text":"Bong Bóng Gà Lv1"}
+{"rowId":"8","text":"Bong Bóng Gà Lv2"}
+{"rowId":"9","text":"Bong Bóng Gà Lv3"}
+{"rowId":"10","text":"Bong Bóng Gà-Đạn mới"}
+{"rowId":"11","text":"Bong Bóng Gà-Đạn mới 2"}
+{"rowId":"12","text":"Bong Bóng Gà-Đạn mới 3"}
+{"rowId":"13","text":"Đậu Nổ Lv1"}
+{"rowId":"14","text":"Đậu Nổ Lv2"}
+{"rowId":"15","text":"Đậu Nổ Lv3"}
+{"rowId":"16","text":"Đậu Nổ-Đạn mới"}
+{"rowId":"17","text":"Đậu Nổ-Đạn mới 2"}
+{"rowId":"18","text":"Đậu Nổ-Đạn mới 3"}
+{"rowId":"19","text":"Hòn Kiến Lv1"}
+{"rowId":"20","text":"Hòn Kiến Lv2"}
+{"rowId":"21","text":"Hòn Kiến Lv3"}
+{"rowId":"22","text":"Hòn Kiến-Đạn mới"}
+{"rowId":"23","text":"Hòn Kiến-Đạn mới 2"}
+{"rowId":"24","text":"Hòn Kiến-Đạn mới 3"}
+{"rowId":"25","text":"Đạn Theo Dõi Lv1"}
+{"rowId":"26","text":"Đạn Theo Dõi Lv2"}
+{"rowId":"27","text":"Đạn Theo Dõi Lv3"}
+{"rowId":"28","text":"Gà Chúc Phúc Lv1"}
+{"rowId":"29","text":"Gà Chúc Phúc Lv2"}
+{"rowId":"30","text":"Gà Chúc Phúc Lv3"}
+{"rowId":"31","text":"Hạt Nở Chậm Lv1"}
+{"rowId":"32","text":"Hạt Nở Chậm Lv2"}
+{"rowId":"33","text":"Hạt Nở Chậm Lv3"}
+{"rowId":"34","text":"Hòn Kiến Lửa Lv1"}
+{"rowId":"35","text":"Hòn Kiến Lửa Lv2"}
+{"rowId":"36","text":"Hòn Kiến Lửa Lv3"}
+{"rowId":"37","text":"Bất Động Lv1"}
+{"rowId":"38","text":"Bất Động Lv2"}
+{"rowId":"39","text":"Bất Động Lv3"}
+{"rowId":"40","text":"Khiên Gà Lv1"}
+{"rowId":"41","text":"Khiên Gà Lv2"}
+{"rowId":"42","text":"Kiếm Gà Lv1"}
+{"rowId":"43","text":"Kiếm Gà Lv2"}
+{"rowId":"44","text":"Hoa Nở Lv1"}
+{"rowId":"45","text":"Hoa Nở Lv2"}
+{"rowId":"46","text":"Hoa Nở Lv3"}
+{"rowId":"47","text":"Mỗi TURN phục hồi 300 HP"}
+{"rowId":"48","text":"Mỗi TURN phục hồi 500 HP"}
+{"rowId":"49","text":"Mỗi TURN phục hồi 800 HP"}
+{"rowId":"50","text":"Càng Đánh Càng Mạnh Lv1"}
+{"rowId":"51","text":"Càng Đánh Càng Mạnh Lv2"}
+{"rowId":"52","text":"Càng Đánh Càng Mạnh Lv3"}
+{"rowId":"53","text":"Tấn công giảm sát thương"}
+{"rowId":"54","text":"Tấn công giảm sát thương"}
+{"rowId":"55","text":"Tấn công giảm sát thương"}
+{"rowId":"56","text":"Bắn Chỉ Định Lv1"}
+{"rowId":"57","text":"Bắn Chỉ Định Lv2"}
+{"rowId":"58","text":"Bắn Chỉ Định-Giải trừ hiệu quả"}
+{"rowId":"59","text":"Mưa Thần Lv1"}
+{"rowId":"60","text":"Mưa Thần Lv2"}
+{"rowId":"61","text":"Hoa Nở Trăm Lần Lv1"}
+{"rowId":"62","text":"Hoa Nở Trăm Lần Lv2"}
+{"rowId":"63","text":"Hoa Nở-Hồi phục HP"}
+{"rowId":"64","text":"Hoa Nở-Hồi phục HP"}
+{"rowId":"65","text":"Gai Kiến Lv1"}
+{"rowId":"66","text":"Gai Kiến Lv2"}
+{"rowId":"67","text":"Phản Sát Thương"}
+{"rowId":"68","text":"Phản Sát Thương-2"}
+{"rowId":"69","text":"Gà Phẫn Nộ Lv1"}
+{"rowId":"70","text":"Gà Phẫn Nộ Lv2"}
+{"rowId":"71","text":"Giải trừ Hỏa Lực Cao"}
+{"rowId":"72","text":"Thiên Sứ Yêu Thương Lv1"}
+{"rowId":"73","text":"Thiên Sứ Yêu Thương Lv2"}
+{"rowId":"74","text":"Tự Vệ Lv1"}
+{"rowId":"75","text":"Tự Vệ Lv2"}
+{"rowId":"76","text":"Kén Trùng Lv1"}
+{"rowId":"77","text":"Kén Trùng Lv2"}
+{"rowId":"78","text":"Súng AK Lv1"}
+{"rowId":"79","text":"Súng AK Lv2"}
+{"rowId":"80","text":"Luật Cướp Biển Lv1"}
+{"rowId":"81","text":"Luật Cướp Biển Lv2"}
+{"rowId":"82","text":"Cộng Sinh Lv1"}
+{"rowId":"83","text":"Cộng Sinh Lv2"}
+{"rowId":"84","text":"Kén Gai Lv1"}
+{"rowId":"85","text":"Kén Gai Lv2"}
+{"rowId":"86","text":"Pháo Đài V3 Lv1"}
+{"rowId":"87","text":"Pháo Đài V3 Lv2"}
+{"rowId":"88","text":"Giải trừ Pháo Đài V3"}
+{"rowId":"89","text":"Cạn Ly Lv1"}
+{"rowId":"90","text":"Cạn Ly Lv2"}
+{"rowId":"91","text":"Hạt Bay Lv1"}
+{"rowId":"92","text":"Hạt Bay Lv2"}
+{"rowId":"93","text":"Tiếp Cận Lv1"}
+{"rowId":"94","text":"Tiếp Cận Lv2"}
+{"rowId":"95","text":"Gà Nổi Loạn"}
+{"rowId":"96","text":"Ưu Thế Trời Phú"}
+{"rowId":"97","text":"Ma Lực Sinh Sôi"}
+{"rowId":"98","text":"Giải trừ Ma Lực Sinh Sôi"}
+{"rowId":"99","text":"Kiên Trì Bất Khuất"}
+{"rowId":"100","text":"Liệt diệm Lv1"}
+{"rowId":"101","text":"Liệt diệm Lv2"}
+{"rowId":"102","text":"Liệt diệm Lv3"}
+{"rowId":"103","text":"Đạn Rồng Lửa Lv1"}
+{"rowId":"104","text":"Đạn Rồng Lửa Lv2"}
+{"rowId":"105","text":"Đạn Rồng Lửa Lv3"}
+{"rowId":"106","text":"Hiệp Ước Tà Long Lv1"}
+{"rowId":"107","text":"Hiệp Ước Tà Long Lv2"}
+{"rowId":"108","text":"Rồng Bảo Vệ Lv1"}
+{"rowId":"109","text":"Rồng Bảo Vệ Lv2"}
+{"rowId":"110","text":"Rồng Truy Kích Lv1"}
+{"rowId":"111","text":"Rồng Truy Kích Lv2"}
+{"rowId":"112","text":"Sừng Rồng Sắc Nhọn Lv1"}
+{"rowId":"113","text":"Sừng Rồng Sắc Nhọn Lv2"}
+{"rowId":"114","text":"Rồng Phẫn Nộ Lv1"}
+{"rowId":"115","text":"Rồng Phẫn Nộ Lv2"}
+{"rowId":"116","text":"Thịnh Nộ"}
+{"rowId":"117","text":"Rồng Bảo Vệ Lv1"}
+{"rowId":"118","text":"Rồng Bảo Vệ Lv1"}
+{"rowId":"119","text":"Nộ long truy kích Lv1"}
+{"rowId":"120","text":"Nộ long truy kích Lv2"}
+{"rowId":"121","text":"Thiên Thạch Băng Lv1"}
+{"rowId":"122","text":"Thiên Thạch Băng Lv2"}
+{"rowId":"123","text":"Thiên Thạch Băng Lv3"}
+{"rowId":"124","text":"Đạn Liệt Băng Lv1"}
+{"rowId":"125","text":"Đạn Liệt Băng Lv2"}
+{"rowId":"126","text":"Đạn Liệt Băng Lv3"}
+{"rowId":"127","text":"Chắn Thủy Tinh Lv1"}
+{"rowId":"128","text":"Chắn Thủy Tinh Lv2"}
+{"rowId":"129","text":"Chắn Thủy Tinh Lv3"}
+{"rowId":"130","text":"Địa Ngục Băng Giá Lv1"}
+{"rowId":"131","text":"Địa Ngục Băng Giá Lv2"}
+{"rowId":"132","text":"Tấn Lôi Lv1"}
+{"rowId":"133","text":"Tấn Lôi Lv2"}
+{"rowId":"134","text":"Tim Phụng Hoàng Lv1"}
+{"rowId":"135","text":"Tim Phụng Hoàng Lv2"}
+{"rowId":"136","text":"Nhất Kích Tất Sát Lv1"}
+{"rowId":"137","text":"Nhất Kích Tất Sát Lv2"}
+{"rowId":"138","text":"Băng Hồn"}
+{"rowId":"139","text":"Xóa Địa Ngục Băng Giá"}
+{"rowId":"140","text":"Cuồng Vũ Lv1"}
+{"rowId":"141","text":"Cuồng Vũ Lv2"}
+{"rowId":"142","text":"Cuồng Vũ Lv3"}
+{"rowId":"143","text":"Nọc Độc Lv1"}
+{"rowId":"144","text":"Nọc Độc Lv2"}
+{"rowId":"145","text":"Nọc Độc Lv3"}
+{"rowId":"146","text":"Kiệt Sức Lv1"}
+{"rowId":"147","text":"Kiệt Sức Lv2"}
+{"rowId":"148","text":"Mahoraga Lv1"}
+{"rowId":"149","text":"Mahoraga Lv2"}
+{"rowId":"150","text":"Cuồng bạo Lv1"}
+{"rowId":"151","text":"Cuồng bạo Lv2"}
+{"rowId":"152","text":"Hắc nha Lv1"}
+{"rowId":"153","text":"Hắc nha Lv2"}
+{"rowId":"154","text":"Tuyệt vọng Lv1"}
+{"rowId":"155","text":"Tuyệt vọng Lv2"}
+{"rowId":"156","text":"Chuyển hóa"}
+{"rowId":"157","text":"Miêu trảo Lv1"}
+{"rowId":"158","text":"Miêu trảo Lv2"}
+{"rowId":"159","text":"Miêu trảo Lv3"}
+{"rowId":"160","text":"Xung Kích Lv1"}
+{"rowId":"161","text":"Xung Kích Lv2"}
+{"rowId":"162","text":"Xung Kích Lv3"}
+{"rowId":"163","text":"Hồi Phục Lv1"}
+{"rowId":"164","text":"Hồi Phục Lv2"}
+{"rowId":"165","text":"Hồi Phục Lv3"}
+{"rowId":"166","text":"Trả Đòn Lv1"}
+{"rowId":"167","text":"Trả Đòn Lv2"}
+{"rowId":"168","text":"Che Chắn Lv1"}
+{"rowId":"169","text":"Che Chắn Lv2"}
+{"rowId":"170","text":"Phản Kích Lv1"}
+{"rowId":"171","text":"Phản Kích Lv2"}
+{"rowId":"172","text":"Vô Địch Lv1"}
+{"rowId":"173","text":"Vô Địch Lv2"}
+{"rowId":"174","text":"Bất Khuất"}
+{"rowId":"175","text":"Hươu Xuất Kích Lv1"}
+{"rowId":"176","text":"Hươu Xuất Kích Lv2"}
+{"rowId":"177","text":"Hươu Xuất Kích Lv3"}
+{"rowId":"178","text":"Hươu Ngốc Nghếch Lv1"}
+{"rowId":"179","text":"Hươu Ngốc Nghếch Lv2"}
+{"rowId":"180","text":"Hươu Ngốc Nghếch Lv3"}
+{"rowId":"181","text":"Mối Thù Chung Lv1"}
+{"rowId":"182","text":"Mối Thù Chung Lv2"}
+{"rowId":"183","text":"Sao Đổi Ngôi Lv1"}
+{"rowId":"184","text":"Sao Đổi Ngôi Lv2"}
+{"rowId":"185","text":"Thần May Mắn Lv1"}
+{"rowId":"186","text":"Thần May Mắn Lv2"}
+{"rowId":"187","text":"Khiếp Sợ Lv1"}
+{"rowId":"188","text":"Khiếp Sợ Lv2"}
+{"rowId":"189","text":"Sừng Xuyên Kích Lv1"}
+{"rowId":"190","text":"Sừng Xuyên Kích Lv2"}
+{"rowId":"191","text":"Hươu Ban Ơn"}
+{"rowId":"192","text":"Hạt nhân 1"}
+{"rowId":"193","text":"Hạt nhân 2"}
+{"rowId":"194","text":"Xanh Biếc-Đánh Lv3"}
+{"rowId":"195","text":"Khóa Cầu Lục Lv1"}
+{"rowId":"196","text":"Khóa Cầu Lục Lv2"}
+{"rowId":"197","text":"Khóa Cầu Lục Lv3"}
+{"rowId":"198","text":"Nụ Cười Thâm Hiểm Lv1"}
+{"rowId":"199","text":"Nụ Cười Thâm Hiểm Lv2"}
+{"rowId":"200","text":"Chuyền Càn Khôn"}
+{"rowId":"201","text":"May Mắn Lv1"}
+{"rowId":"202","text":"May Mắn Lv2"}
+{"rowId":"203","text":"Phóng Khoáng Lv1"}
+{"rowId":"204","text":"Phóng Khoáng Lv2"}
+{"rowId":"205","text":"Phóng Khoáng Lv3"}
+{"rowId":"206","text":"Đánh Mạnh Lv1"}
+{"rowId":"207","text":"Đánh Mạnh Lv2"}
+{"rowId":"208","text":"Ưu Ái Lv1"}
+{"rowId":"209","text":"Ưu Ái Lv2"}
+{"rowId":"210","text":"Siêu Phàm Lv1"}
+{"rowId":"211","text":"Siêu Phàm Lv2"}
+{"rowId":"212","text":"Hút HP Lv1"}
+{"rowId":"213","text":"Hút HP Lv2"}
+{"rowId":"214","text":"Đánh Mạnh Lv3"}
+{"rowId":"215","text":"Đánh Mạnh Lv4"}
+{"rowId":"216","text":"Hủy Nụ cười thâm hiểm"}
+{"rowId":"217","text":"Hủy Hút HP"}
+{"rowId":"218","text":"Trộm Ma Pháp Lv1"}
+{"rowId":"219","text":"Trộm Ma Pháp Lv2"}
+{"rowId":"220","text":"Nhận hút HP"}
+{"rowId":"221","text":"Nhận hút HP"}
+{"rowId":"231","text":"Điều Trị Lv1"}
+{"rowId":"232","text":"Điều Trị Lv2"}
+{"rowId":"242","text":"Bắn Chỉ Định-Giải trừ hiệu quả"}
+{"rowId":"243","text":"Giải trừ Pháo Đài V3"}
+{"rowId":"244","text":"Giải trừ 2 lần hỏa lực ưu thế"}
+{"rowId":"245","text":"Gà Phẫn Nộ Lv1"}
+{"rowId":"246","text":"Gà Phẫn Nộ Lv2"}
+{"rowId":"247","text":"Khiên Phòng Hộ"}
+{"rowId":"248","text":"Khiên Phòng Hộ"}
+{"rowId":"260","text":"Cưỡi Mây Lv1"}
+{"rowId":"261","text":"Cưỡi Mây Lv2"}
+{"rowId":"262","text":"Cưỡi Mây Lv3"}
+{"rowId":"263","text":"Bàn Đào Lv1"}
+{"rowId":"264","text":"Bàn Đào Lv2"}
+{"rowId":"265","text":"Bàn Đào Lv3"}
+{"rowId":"266","text":"Diệt Yêu Lv1"}
+{"rowId":"267","text":"Diệt Yêu Lv2"}
+{"rowId":"268","text":"Bất Động Lv1"}
+{"rowId":"269","text":"Bất Động Lv2"}
+{"rowId":"270","text":"Kim Cang Lv1"}
+{"rowId":"271","text":"Kim Cang Lv2"}
+{"rowId":"272","text":"Hỏa Nhãn Kim Tinh Lv1"}
+{"rowId":"273","text":"Hỏa Nhãn Kim Tinh Lv2"}
+{"rowId":"274","text":"Lông Vàng"}
+{"rowId":"275","text":"Náo Thiên Cung Lv1"}
+{"rowId":"276","text":"Náo Thiên Cung Lv2"}
+{"rowId":"277","text":"Đấu Thắng Phật"}
+{"rowId":"278","text":"Nhận kỹ năng tăng sát thương"}
+{"rowId":"279","text":"Hồi phục ma pháp khi bị tấn công"}
+{"rowId":"280","text":"Thức-Lửa Cháy Bập Bùng"}
+{"rowId":"281","text":"Thức-Hiệp Ước Tà Long"}
+{"rowId":"282","text":"Thức-Rồng Bảo Vệ"}
+{"rowId":"283","text":"Thức-Sừng Rồng Sắc Nhọn"}
+{"rowId":"284","text":"Thức-Thịnh Nộ"}
+{"rowId":"285","text":"Sát Thương 2 Lần"}
+{"rowId":"286","text":"Rồng Bảo Vệ"}
+{"rowId":"287","text":"Kích hoạt Rồng Bảo Vệ"}
+{"rowId":"288","text":"Thức-Hươu Xuất Kích"}
+{"rowId":"289","text":"Thức-Hươu Ngốc Nghếch"}
+{"rowId":"290","text":"Thức-Khiếp Sợ"}
+{"rowId":"291","text":"Thức-Sừng Xuyên Kích"}
+{"rowId":"292","text":"Xanh Biếc-Đánh Lv1"}
+{"rowId":"293","text":"Xanh Biếc-Đánh Lv2"}
+{"rowId":"294","text":"Thức-Đạn Liệt Băng"}
+{"rowId":"295","text":"Thức-Chắn Thủy Tinh"}
+{"rowId":"296","text":"Thức-Địa Ngục Băng Giá"}
+{"rowId":"297","text":"Thức-Tấn Lôi"}
+{"rowId":"298","text":"Thức-Tim Phụng Hoàng"}
+{"rowId":"299","text":"Thức-Nhất Kích Tất Sát"}
+{"rowId":"300","text":"Thức-Băng Hồn"}
+{"rowId":"301","text":"Thức-Cuồng Vũ"}
+{"rowId":"302","text":"Thức-Nọc Độc"}
+{"rowId":"303","text":"Thức-Kiệt Sức"}
+{"rowId":"304","text":"Thức-Cuồng Bạo"}
+{"rowId":"305","text":"Thức-Quái Vật Ngàn Năm"}
+{"rowId":"306","text":"Thức-Chuyển hóa"}
+{"rowId":"307","text":"Hiệu quả trúng độc"}
+{"rowId":"308","text":"Thức-Cưỡi Mây"}
+{"rowId":"309","text":"Thức-Đào Tiên Vạn Năm"}
+{"rowId":"310","text":"Thức-Bất Động"}
+{"rowId":"311","text":"Thức-Kim Cang"}
+{"rowId":"312","text":"Thức-Hỏa Nhãn Kim Tinh"}
+{"rowId":"313","text":"Nhận kỹ năng tăng sát thương"}
+{"rowId":"314","text":"Thức-Lông Vàng"}
+{"rowId":"315","text":"Thức-Đấu Thắng Phật"}
+{"rowId":"316","text":"Thức-Hắc Nha"}
+{"rowId":"317","text":"Xóa Địa Ngục Băng Giá"}
+{"rowId":"318","text":"Thức-Yoyo Xuất Kích"}
+{"rowId":"319","text":"Thức-Cầu Lục Phong Tỏa"}
+{"rowId":"320","text":"Thức-Nụ Cười Thâm Hiểm"}
+{"rowId":"321","text":"Thức-Kẻ May Mắn"}
+{"rowId":"322","text":"Thức-Kiên Cường"}
+{"rowId":"323","text":"Thức-Ác Ma"}
+{"rowId":"324","text":"Nhận hút HP"}
+{"rowId":"325","text":"Thức-Ưu Ái"}
+{"rowId":"363","text":"Bàn Đào Lv1"}
+{"rowId":"364","text":"Bàn Đào Lv2"}
+{"rowId":"365","text":"Bàn Đào Lv3"}
+{"rowId":"375","text":"Náo Thiên Cung Lv1"}
+{"rowId":"376","text":"Náo Thiên Cung Lv2"}
+{"rowId":"377","text":"Đấu Thắng Phật"}
+{"rowId":"401","text":"Cường Hóa Pow Lv1"}
+{"rowId":"402","text":"Cường Hóa Pow Lv2"}
+{"rowId":"403","text":"Cường Hóa Pow Lv3"}
+{"rowId":"404","text":"Cường Hóa Pow Lv4"}
+{"rowId":"405","text":"Cường Hóa Pow Lv5"}
+{"rowId":"406","text":"Cường Hóa Pow Lv6"}
+{"rowId":"407","text":"Cường Hóa Pow Lv7"}
+{"rowId":"408","text":"Cường Hóa Pow Lv8"}
+{"rowId":"409","text":"Cường Hóa Pow Lv9"}
+{"rowId":"410","text":"Cường Hóa Pow Lv10"}
+{"rowId":"411","text":"May Mắn Lv1"}
+{"rowId":"412","text":"May Mắn Lv2"}
+{"rowId":"413","text":"May Mắn Lv3"}
+{"rowId":"414","text":"May Mắn Lv4"}
+{"rowId":"415","text":"May Mắn Lv5"}
+{"rowId":"416","text":"May Mắn Lv6"}
+{"rowId":"417","text":"May Mắn Lv7"}
+{"rowId":"418","text":"May Mắn Lv8"}
+{"rowId":"419","text":"May Mắn Lv9"}
+{"rowId":"420","text":"May Mắn Lv10"}
+{"rowId":"421","text":"Ma Kháng Lv1"}
+{"rowId":"422","text":"Ma Kháng Lv2"}
+{"rowId":"423","text":"Ma Kháng Lv3"}
+{"rowId":"424","text":"Ma Kháng Lv4"}
+{"rowId":"425","text":"Ma Kháng Lv5"}
+{"rowId":"426","text":"Ma Kháng Lv6"}
+{"rowId":"427","text":"Ma Kháng Lv7"}
+{"rowId":"428","text":"Ma Kháng Lv8"}
+{"rowId":"429","text":"Ma Kháng Lv9"}
+{"rowId":"430","text":"Ma Kháng Lv10"}
+{"rowId":"431","text":"Tấn công giảm sát thương"}
+{"rowId":"432","text":"Tấn công giảm sát thương"}
+{"rowId":"433","text":"Tấn công giảm sát thương"}
+{"rowId":"434","text":"Tấn công giảm sát thương"}
+{"rowId":"435","text":"Tấn công giảm sát thương"}
+{"rowId":"436","text":"Tấn công giảm sát thương"}
+{"rowId":"437","text":"Tấn công giảm sát thương"}
+{"rowId":"438","text":"Tấn công giảm sát thương"}
+{"rowId":"439","text":"Tấn công giảm sát thương"}
+{"rowId":"440","text":"Tấn công giảm sát thương"}
+{"rowId":"441","text":"Dấu Vết Móng Vuốt Lv1"}
+{"rowId":"442","text":"Dấu Vết Móng Vuốt Lv2"}
+{"rowId":"443","text":"Dấu Vết Móng Vuốt Lv3"}
+{"rowId":"444","text":"Trứng Bay Lv1"}
+{"rowId":"445","text":"Trứng Bay Lv2"}
+{"rowId":"446","text":"Trứng Bay Lv3"}
+{"rowId":"447","text":"Tư Thế Phòng Thủ Lv1"}
+{"rowId":"448","text":"Tư Thế Phòng Thủ Lv2"}
+{"rowId":"449","text":"Tư Thế Tấn Công Lv1"}
+{"rowId":"450","text":"Tư Thế Tấn Công Lv2"}
+{"rowId":"451","text":"Tư Thế Ẩn Náu Lv1"}
+{"rowId":"452","text":"Tư Thế Ẩn Náu Lv2"}
+{"rowId":"453","text":"Tư Thế Phân Thân Lv1"}
+{"rowId":"454","text":"Tư Thế Phân Thân Lv2"}
+{"rowId":"455","text":"Tư Thế Khống Chế Lv1"}
+{"rowId":"456","text":"Tư Thế Khống Chế Lv2"}
+{"rowId":"457","text":"Tư Thế Cuồng Bạo Lv1"}
+{"rowId":"458","text":"Tư Thế Cuồng Bạo Lv2"}
+{"rowId":"459","text":"Sở Trường Kungfu"}
+{"rowId":"460","text":"Giải Trừ Xuyên Giáp Lv1"}
+{"rowId":"461","text":"Giải Trừ Xuyên Giáp Lv2"}
+{"rowId":"462","text":"Dấu Vết Móng Vuốt Lv1"}
+{"rowId":"463","text":"Dấu Vết Móng Vuốt Lv2"}
+{"rowId":"464","text":"Dấu Vết Móng Vuốt Lv3"}
+{"rowId":"465","text":"Trứng Bay Lv1"}
+{"rowId":"466","text":"Trứng Bay Lv2"}
+{"rowId":"467","text":"Trứng Bay Lv3"}
+{"rowId":"468","text":"Tư Thế Phòng Thủ Lv1"}
+{"rowId":"469","text":"Tư Thế Phòng Thủ Lv2"}
+{"rowId":"470","text":"Tư Thế Tấn Công Lv1"}
+{"rowId":"471","text":"Tư Thế Tấn Công Lv2"}
+{"rowId":"472","text":"Tư Thế Ẩn Náu Lv1"}
+{"rowId":"473","text":"Tư Thế Ẩn Náu Lv2"}
+{"rowId":"474","text":"Tư Thế Phân Thân Lv1"}
+{"rowId":"475","text":"Tư Thế Phân Thân Lv2"}
+{"rowId":"476","text":"Tư Thế Khống Chế Lv1"}
+{"rowId":"477","text":"Tư Thế Khống Chế Lv2"}
+{"rowId":"478","text":"Tư Thế Cuồng Bạo Lv1"}
+{"rowId":"479","text":"Tư Thế Cuồng Bạo Lv2"}
+{"rowId":"480","text":"Sở Trường Kungfu"}
+{"rowId":"481","text":"Giải Trừ Xuyên Giáp Lv1"}
+{"rowId":"482","text":"Giải Trừ Xuyên Giáp Lv2"}
+{"rowId":"483","text":"Dũng Khí Lv1"}
+{"rowId":"484","text":"Dũng Khí Lv2"}
+{"rowId":"485","text":"Dũng Khí Lv3"}
+{"rowId":"486","text":"Dũng Khí Lv4"}
+{"rowId":"487","text":"Dũng Khí Lv5"}
+{"rowId":"488","text":"Dũng Khí Lv6"}
+{"rowId":"489","text":"Dũng Khí Lv7"}
+{"rowId":"490","text":"Phù Hộ Lv1"}
+{"rowId":"491","text":"Phù Hộ Lv2"}
+{"rowId":"492","text":"Phù Hộ Lv3"}
+{"rowId":"493","text":"Phù Hộ Lv4"}
+{"rowId":"494","text":"Phù Hộ Lv5"}
+{"rowId":"495","text":"Phù Hộ Lv6"}
+{"rowId":"496","text":"Phù Hộ Lv7"}
+{"rowId":"497","text":"Thức-Dấu Vết Móng Vuốt"}
+{"rowId":"498","text":"Thức-Tư Thế Phòng Thủ"}
+{"rowId":"499","text":"Thức-Tư Thế Tấn Công"}
+{"rowId":"500","text":"Thức-Tư Thế Ẩn Náu"}
+{"rowId":"501","text":"Thức-Tư Thế Phân Thân"}
+{"rowId":"502","text":"Thức-Tư Thế Cuồng Bạo"}
+{"rowId":"503","text":"Thức-Sở Trường Kungfu"}
+{"rowId":"504","text":"Obtenha a habilidade de diminuir o dmg causado pel"}
+{"rowId":"505","text":"remover a penetração de armadura lv2"}
+{"rowId":"506","text":"Chúc Phúc"}
+{"rowId":"507","text":"Tán Dương"}
+{"rowId":"508","text":"Sức Mạnh"}
+{"rowId":"509","text":"Nghệ Thuật"}
+{"rowId":"510","text":"Nhận kỹ năng"}
+{"rowId":"511","text":"Khát Máu Lv1"}
+{"rowId":"512","text":"Khát Máu Lv2"}
+{"rowId":"513","text":"Khát Máu Lv3"}
+{"rowId":"514","text":"Đôi Cánh Ác Ma Lv1"}
+{"rowId":"515","text":"Đôi Cánh Ác Ma Lv2"}
+{"rowId":"516","text":"Đôi Cánh Ác Ma Lv3"}
+{"rowId":"517","text":"Thức Tỉnh Huyết Ảnh Lv1"}
+{"rowId":"518","text":"Thức Tỉnh Huyết Ảnh Lv2"}
+{"rowId":"519","text":"Bẫy U Minh Lv1"}
+{"rowId":"520","text":"Bẫy U Minh Lv2"}
+{"rowId":"521","text":"Giáp Ma Linh Lv1"}
+{"rowId":"522","text":"Giáp Ma Linh Lv2"}
+{"rowId":"523","text":"Đau Khổ Tột Cùng Lv1"}
+{"rowId":"524","text":"Đau Khổ Tột Cùng Lv2"}
+{"rowId":"525","text":"Hiến Tế Ác Thần Lv1"}
+{"rowId":"526","text":"Hiến Tế Ác Thần Lv2"}
+{"rowId":"527","text":"Tung Tích Ma Ảnh"}
+{"rowId":"528","text":"Ma Thần Tái Thế"}
+{"rowId":"529","text":"Nhận được kỹ năng"}
+{"rowId":"551","text":"Ấn Gà"}
+{"rowId":"552","text":"Ấn Gà"}
+{"rowId":"553","text":"Ấn Gà"}
+{"rowId":"554","text":"Ấn Gà"}
+{"rowId":"555","text":"Ấn Tà Thần"}
+{"rowId":"556","text":"Ấn Tà Thần"}
+{"rowId":"557","text":"Ấn Tà Thần"}
+{"rowId":"558","text":"Ấn Tà Thần"}
+{"rowId":"559","text":"Ấn Tà Thần"}
+{"rowId":"560","text":"Màn Đêm Bảo Vệ Lv1"}
+{"rowId":"561","text":"Màn Đêm Bảo Vệ Lv2"}
+{"rowId":"562","text":"Màn Đêm Bảo Vệ Lv3"}
+{"rowId":"563","text":"Ban Ngày Xâu Xé Lv1"}
+{"rowId":"564","text":"Ban Ngày Xâu Xé Lv2"}
+{"rowId":"565","text":"Ban Ngày Xâu Xé Lv3"}
+{"rowId":"566","text":"Giáp Minotaure Lv1"}
+{"rowId":"567","text":"Giáp Minotaure Lv2"}
+{"rowId":"568","text":"Giáp Minotaure Lv3"}
+{"rowId":"569","text":"Búa Minotaure Lv1"}
+{"rowId":"570","text":"Búa Minotaure Lv2"}
+{"rowId":"571","text":"Búa Minotaure Lv3"}
+{"rowId":"572","text":"Thiên Phú Lv1"}
+{"rowId":"573","text":"Thiên Phú Lv2"}
+{"rowId":"574","text":"Thiên Phú Lv3"}
+{"rowId":"575","text":"Năng Lực"}
+{"rowId":"576","text":"Hắc Ám"}
+{"rowId":"577","text":"Hắc Ám Lv2"}
+{"rowId":"578","text":"Hắc Ám Lv3"}
+{"rowId":"579","text":"Khế Ước Công Bằng"}
+{"rowId":"580","text":"Cái Giá Sinh Mệnh"}
+{"rowId":"581","text":"Nhận Kỹ Năng"}
+{"rowId":"582","text":"Giảm HP"}
+{"rowId":"583","text":"Oán Hận"}
+{"rowId":"584","text":"Giáp Minotaure Lv1"}
+{"rowId":"585","text":"Giáp Minotaure Lv2"}
+{"rowId":"586","text":"Giáp Minotaure Lv3"}
+{"rowId":"587","text":"Nhận Kỹ Năng"}
+{"rowId":"588","text":"Nhận Kỹ Năng"}
+{"rowId":"589","text":"Nhận Kỹ Năng"}
+{"rowId":"590","text":"Nhận Kỹ Năng"}
+{"rowId":"591","text":"Nhận Kỹ Năng"}
+{"rowId":"592","text":"Nhận Kỹ Năng"}
+{"rowId":"593","text":"Nhận Kỹ Năng"}
+{"rowId":"594","text":"Nhận Kỹ Năng"}
+{"rowId":"595","text":"Thức-Màn Đêm Bảo Vệ"}
+{"rowId":"596","text":"Thức-Ban Ngày Xâu Xé"}
+{"rowId":"597","text":"Giáp Đen Minotaure"}
+{"rowId":"598","text":"Búa Bạc Minotaure"}
+{"rowId":"599","text":"Thức-Thiên Phú"}
+{"rowId":"600","text":"Thức-Hắc Ám"}
+{"rowId":"601","text":"Thức-Tâm Hỏa"}
+{"rowId":"602","text":"Giáp Đen Minotaure"}
+{"rowId":"603","text":"Nhận Kỹ Năng"}
+{"rowId":"604","text":"Nhận Kỹ Năng"}
+{"rowId":"605","text":"Nhận Kỹ Năng"}
+{"rowId":"606","text":"Nhận Kỹ Năng"}
+{"rowId":"607","text":"Nhận Kỹ Năng"}
+{"rowId":"608","text":"Nhận Kỹ Năng"}
+{"rowId":"609","text":"Nhận Kỹ Năng"}
+{"rowId":"610","text":"Nhận Kỹ Năng"}
+{"rowId":"611","text":"Màn Đêm Bảo Vệ"}
+{"rowId":"612","text":"Màn Đêm Bảo Vệ"}
+{"rowId":"613","text":"Màn Đêm Bảo Vệ"}
+{"rowId":"614","text":"Ban Ngày Xâu Xé"}
+{"rowId":"615","text":"Ban Ngày Xâu Xé"}
+{"rowId":"616","text":"Ban Ngày Xâu Xé"}
+{"rowId":"617","text":"Giáp Minotaure"}
+{"rowId":"618","text":"Giáp Minotaure"}
+{"rowId":"619","text":"Giáp Minotaure"}
+{"rowId":"620","text":"Búa Minotaure"}
+{"rowId":"621","text":"Búa Minotaure"}
+{"rowId":"622","text":"Búa Minotaure"}
+{"rowId":"623","text":"Thiên Phú"}
+{"rowId":"624","text":"Thiên Phú"}
+{"rowId":"625","text":"Thiên Phú Lv3"}
+{"rowId":"626","text":"Năng Lực"}
+{"rowId":"627","text":"Cái Giá Sinh Mệnh"}
+{"rowId":"628","text":"Oán Hận"}
+{"rowId":"629","text":"Giáp Minotaure Lv1"}
+{"rowId":"630","text":"Giáp Minotaure Lv2"}
+{"rowId":"631","text":"Giáp Minotaure Lv3"}
+{"rowId":"632","text":"Nhận Kỹ Năng"}
+{"rowId":"633","text":"Nhận Kỹ Năng"}
+{"rowId":"634","text":"Nhận Kỹ Năng"}
+{"rowId":"635","text":"Nhận Kỹ Năng"}
+{"rowId":"636","text":"Ấn Pháo Đài"}
+{"rowId":"637","text":"Ấn Pháo Đài"}
+{"rowId":"638","text":"Ấn Pháo Đài"}
+{"rowId":"639","text":"Ấn Pháo Đài"}
+{"rowId":"640","text":"Ấn Pháo Đài"}
+{"rowId":"641","text":"命运之轮恢复"}
+{"rowId":"642","text":"命运之轮伤害"}
+{"rowId":"643","text":"获得技能"}
+{"rowId":"644","text":"Tấn Công"}
+{"rowId":"645","text":"Tấn Công"}
+{"rowId":"646","text":"Tấn Công"}
+{"rowId":"647","text":"Dẫn Đường"}
+{"rowId":"648","text":"Dẫn Đường"}
+{"rowId":"649","text":"Trọng Giáp"}
+{"rowId":"650","text":"Trọng Giáp"}
+{"rowId":"651","text":"Trọng Giáp"}
+{"rowId":"652","text":"Chống Đỡ"}
+{"rowId":"653","text":"Chống Đỡ"}
+{"rowId":"654","text":"Chống Đỡ"}
+{"rowId":"655","text":"Bụi Gai"}
+{"rowId":"656","text":"Phản Sát Thương"}
+{"rowId":"657","text":"Bụi Gai"}
+{"rowId":"658","text":"Phản Sát Thương"}
+{"rowId":"659","text":"Bụi Gai"}
+{"rowId":"660","text":"Phản Sát Thương"}
+{"rowId":"661","text":"Trọng Giáp"}
+{"rowId":"662","text":"Trọng Giáp"}
+{"rowId":"663","text":"Trọng Giáp"}
+{"rowId":"664","text":"Cường Hóa"}
+{"rowId":"665","text":"Cường Hóa"}
+{"rowId":"666","text":"Cường Hóa"}
+{"rowId":"667","text":"Khiên"}
+{"rowId":"668","text":"Khiên"}
+{"rowId":"669","text":"Khiên"}
+{"rowId":"670","text":"Hồi Phục"}
+{"rowId":"671","text":"Hồi Phục"}
+{"rowId":"672","text":"Hồi Phục"}
+{"rowId":"673","text":"Vệ Sĩ"}
+{"rowId":"674","text":"Vệ Sĩ"}
+{"rowId":"675","text":"Vệ Sĩ"}
+{"rowId":"676","text":"Bỏng"}
+{"rowId":"677","text":"Bỏng"}
+{"rowId":"678","text":"Bỏng"}
+{"rowId":"679","text":"Tấn Công"}
+{"rowId":"680","text":"Tấn Công"}
+{"rowId":"681","text":"Tấn Công"}
+{"rowId":"682","text":"Dẫn Đường"}
+{"rowId":"683","text":"Dẫn Đường"}
+{"rowId":"684","text":"Chí Mạng"}
+{"rowId":"685","text":"Chí Mạng"}
+{"rowId":"686","text":"Chí Mạng"}
+{"rowId":"687","text":"Cường Công"}
+{"rowId":"688","text":"Cường Công"}
+{"rowId":"689","text":"Cường Công"}
+{"rowId":"690","text":"Ăn Mòn"}
+{"rowId":"691","text":"Ăn Mòn"}
+{"rowId":"692","text":"Ăn Mòn"}
+{"rowId":"693","text":"Hóa Thân"}
+{"rowId":"694","text":"Hóa Thân"}
+{"rowId":"695","text":"Hóa Thân"}
+{"rowId":"696","text":"Ma Lực Xâm Nhập"}
+{"rowId":"697","text":"Ma Lực Xâm Nhập"}
+{"rowId":"698","text":"Ma Lực Xâm Nhập"}
+{"rowId":"699","text":"Chí Mạng"}
+{"rowId":"700","text":"Chí Mạng"}
+{"rowId":"701","text":"Chí Mạng"}
+{"rowId":"702","text":"Trọng Giáp"}
+{"rowId":"703","text":"Trọng Giáp"}
+{"rowId":"704","text":"Trọng Giáp"}
+{"rowId":"705","text":"Tấn Công"}
+{"rowId":"706","text":"Tấn Công"}
+{"rowId":"707","text":"Tấn Công"}
+{"rowId":"708","text":"Khóa"}
+{"rowId":"709","text":"Khóa"}
+{"rowId":"710","text":"Khóa"}
+{"rowId":"711","text":"Hút HP"}
+{"rowId":"712","text":"Nhận hút HP"}
+{"rowId":"713","text":"Hút HP"}
+{"rowId":"714","text":"Hút HP"}
+{"rowId":"715","text":"Bất Động"}
+{"rowId":"716","text":"Bất Động"}
+{"rowId":"717","text":"Bất Động"}
+{"rowId":"718","text":"Chí Mạng"}
+{"rowId":"719","text":"Chí Mạng"}
+{"rowId":"720","text":"Chí Mạng"}
+{"rowId":"721","text":"Diệt Quái"}
+{"rowId":"722","text":"Diệt Quái"}
+{"rowId":"723","text":"Diệt Quái"}
+{"rowId":"724","text":"Chuyên"}
+{"rowId":"725","text":"Chuyên"}
+{"rowId":"726","text":"Chuyên"}
+{"rowId":"727","text":"Xuyên Thấu"}
+{"rowId":"728","text":"Nhận Hủy Xuyên Giáp Lv1"}
+{"rowId":"729","text":"Xuyên Thấu"}
+{"rowId":"730","text":"Nhận Hủy Xuyên Giáp Lv1"}
+{"rowId":"731","text":"Xuyên Thấu"}
+{"rowId":"732","text":"Nhận Hủy Xuyên Giáp Lv1"}
+{"rowId":"733","text":"Tư thế khống chế"}
+{"rowId":"734","text":"Tư thế khống chế"}
+{"rowId":"735","text":"Tư thế khống chế"}
+{"rowId":"736","text":"Chuyên"}
+{"rowId":"737","text":"Chuyên"}
+{"rowId":"738","text":"Chuyên"}
+{"rowId":"739","text":"Xuyên Thấu"}
+{"rowId":"740","text":"Nhận Hủy Xuyên Giáp Lv1"}
+{"rowId":"741","text":"Xuyên Thấu"}
+{"rowId":"742","text":"Nhận Hủy Xuyên Giáp Lv1"}
+{"rowId":"743","text":"Xuyên Thấu"}
+{"rowId":"744","text":"Nhận Hủy Xuyên Giáp Lv1"}
+{"rowId":"745","text":"Tư thế khống chế"}
+{"rowId":"746","text":"Tư thế khống chế"}
+{"rowId":"747","text":"Tư thế khống chế"}
+{"rowId":"748","text":"Cực Nhanh"}
+{"rowId":"749","text":"Cực Nhanh"}
+{"rowId":"750","text":"Cực Nhanh"}
+{"rowId":"751","text":"Mù Lòa"}
+{"rowId":"752","text":"Mù Lòa"}
+{"rowId":"753","text":"Mù Lòa"}
+{"rowId":"754","text":"Cấm Trị Liệu"}
+{"rowId":"755","text":"Cấm Trị Liệu"}
+{"rowId":"756","text":"Cấm Trị Liệu"}
+{"rowId":"757","text":"Ma Lực Sinh Sôi"}
+{"rowId":"758","text":"Ma Lực Sinh Sôi"}
+{"rowId":"759","text":"Ma Lực Sinh Sôi"}
+{"rowId":"760","text":"Chống Đỡ"}
+{"rowId":"761","text":"Chống Đỡ"}
+{"rowId":"762","text":"Chống Đỡ"}
+{"rowId":"763","text":"Dấu Ấn Rồng"}
+{"rowId":"764","text":"Dấu Ấn Rồng"}
+{"rowId":"765","text":"Dấu Ấn Rồng"}
+{"rowId":"766","text":"Dấu Ấn Rồng"}
+{"rowId":"767","text":"Dấu Ấn Rồng"}
+{"rowId":"768","text":"Nhận Hủy Phản Đòn"}
+{"rowId":"769","text":"Nhận Hủy Phản Đòn"}
+{"rowId":"770","text":"Nhận Hủy Phản Đòn"}
+{"rowId":"771","text":"Hồ Ly Cắn Xé Lv1"}
+{"rowId":"772","text":"Hồ Ly Cắn Xé Lv2"}
+{"rowId":"773","text":"Hồ Ly Cắn Xé Lv3"}
+{"rowId":"774","text":"Hồ Ly Tấn Công Lv1"}
+{"rowId":"775","text":"Hồ Ly Tấn Công Lv2"}
+{"rowId":"776","text":"Hồ Ly Tấn Công Lv3"}
+{"rowId":"777","text":"Dấu Ấn Hồ Ly Lv1"}
+{"rowId":"778","text":"Dấu Ấn Hồ Ly Lv2"}
+{"rowId":"779","text":"Sức Huyết Mạch Lv1"}
+{"rowId":"780","text":"Sức Huyết Mạch Lv2"}
+{"rowId":"781","text":"Lửa Diệt Hồn Lv1"}
+{"rowId":"782","text":"Lửa Diệt Hồn Lv2"}
+{"rowId":"783","text":"Hồ Ly Tru Lv1"}
+{"rowId":"784","text":"Hồ Ly Tru Lv2"}
+{"rowId":"785","text":"Thủ Linh Hồn Lv1"}
+{"rowId":"786","text":"Thủ Linh Hồn Lv2"}
+{"rowId":"787","text":"Xoáy Lửa Lv1"}
+{"rowId":"788","text":"Sức Thiêu Đốt Lv1"}
+{"rowId":"789","text":"Nhận kỹ năng"}
+{"rowId":"790","text":"Nhận kỹ năng"}
+{"rowId":"791","text":"Nhận kỹ năng"}
+{"rowId":"792","text":"Khu Vực Dấu Ấn"}
+{"rowId":"793","text":"Nhận kỹ năng"}
+{"rowId":"794","text":"Cộng Dồn Kỹ Năng Mới"}
+{"rowId":"795","text":"Ấn Trường Gà"}
+{"rowId":"796","text":"Ấn Trường Gà"}
+{"rowId":"797","text":"Ấn Trường Gà"}
+{"rowId":"798","text":"Ấn Trường Gà"}
+{"rowId":"799","text":"Ấn Trường Gà"}
+{"rowId":"800","text":"Tấn Công"}
+{"rowId":"801","text":"Tấn Công"}
+{"rowId":"802","text":"Tấn Công"}
+{"rowId":"803","text":"Nhận kỹ năng"}
+{"rowId":"804","text":"Nhận kỹ năng"}
+{"rowId":"805","text":"Nhận kỹ năng"}
+{"rowId":"806","text":"Mệt Mỏi"}
+{"rowId":"807","text":"Mệt Mỏi"}
+{"rowId":"808","text":"Mệt Mỏi"}
+{"rowId":"809","text":"Huyết Mạch"}
+{"rowId":"810","text":"Huyết Mạch"}
+{"rowId":"811","text":"Huyết Mạch"}
+{"rowId":"812","text":"Ấn Gà Con"}
+{"rowId":"813","text":"Ấn Gà Con"}
+{"rowId":"814","text":"Ấn Gà Con"}
+{"rowId":"815","text":"Ấn Gà Con"}
+{"rowId":"816","text":"Ấn Gà Con"}
+{"rowId":"817","text":"Lửa Thiêu Đốt"}
+{"rowId":"818","text":"Đóng Băng Cực Tốc"}
+{"rowId":"819","text":"Bắn Tia Chớp"}
+{"rowId":"820","text":"Sức Mạnh Mặt Đất"}
+{"rowId":"821","text":"Khiên Nóng Bỏng"}
+{"rowId":"822","text":"Mưa Trị Liệu"}
+{"rowId":"823","text":"Tốc Độ Của Gió"}
+{"rowId":"824","text":"Linh Hồn Của Đất"}
+{"rowId":"825","text":"Cắn Xé Dữ Dội"}
+{"rowId":"826","text":"Cắn Xé Dữ Dội"}
+{"rowId":"827","text":"Cắn Xé Dữ Dội"}
+{"rowId":"828","text":"Đạn Mai Rùa"}
+{"rowId":"829","text":"Đạn Mai Rùa"}
+{"rowId":"830","text":"Đạn Mai Rùa"}
+{"rowId":"831","text":"Giáp Gai"}
+{"rowId":"832","text":"Giáp Gai"}
+{"rowId":"833","text":"Giáp Gai"}
+{"rowId":"834","text":"Miệt Thị"}
+{"rowId":"835","text":"Đánh Tráo"}
+{"rowId":"836","text":"Đánh Tráo"}
+{"rowId":"837","text":"Núi Đè"}
+{"rowId":"838","text":"Núi Đè"}
+{"rowId":"839","text":"Bật Lại"}
+{"rowId":"840","text":"Đoàn Kết"}
+{"rowId":"841","text":"Giúp Đỡ Nhau"}
+{"rowId":"842","text":"Nhận kỹ năng"}
+{"rowId":"843","text":"Nhận kỹ năng"}
+{"rowId":"844","text":"Nhận kỹ năng"}
+{"rowId":"845","text":"Nhận kỹ năng"}
+{"rowId":"846","text":"Thức-Đạn Mai Rùa"}
+{"rowId":"847","text":"Thức-Giáp Gai"}
+{"rowId":"848","text":"Nhận kỹ năng"}
+{"rowId":"849","text":"Thức-Miệt Thị"}
+{"rowId":"850","text":"Thức-Núi Đè"}
+{"rowId":"851","text":"Thức-Bật Lại"}
+{"rowId":"852","text":"Nhận kỹ năng"}
+{"rowId":"853","text":"Nhận kỹ năng"}
+{"rowId":"854","text":"Thức-Đoàn Kết"}
+{"rowId":"855","text":"Nhận kỹ năng"}
+{"rowId":"856","text":"Mai Rùa Hộ Thể"}
+{"rowId":"857","text":"Mai Rùa Hộ Thể"}
+{"rowId":"858","text":"Mai Rùa Hộ Thể"}
+{"rowId":"859","text":"Thần Rùa Nhập Thể"}
+{"rowId":"860","text":"Thần Rùa Nhập Thể"}
+{"rowId":"861","text":"Thần Rùa Nhập Thể"}
+{"rowId":"862","text":"Thức-Đoàn Kết"}
+{"rowId":"863","text":"Xóa Né Tránh"}
+{"rowId":"864","text":"Thức-Cứng Chắc"}
+{"rowId":"865","text":"Thức-Sắc Bén"}
+{"rowId":"866","text":"Thức-Vỏ Gai"}
+{"rowId":"867","text":"Tấn công giảm sát thương"}
+{"rowId":"868","text":"Phản Sát Thương-2"}
+{"rowId":"869","text":"Thức-Trị Liệu"}
+{"rowId":"870","text":"Thức-Phục Thù"}
+{"rowId":"871","text":"Thức-Phản Kích"}
+{"rowId":"872","text":"Tấn công giảm sát thương"}
+{"rowId":"873","text":"Phản Sát Thương-2"}
+{"rowId":"874","text":"Thức-Bất Động"}
+{"rowId":"875","text":"Thức-Gà Phẫn Nộ"}
+{"rowId":"876","text":"Thức-Gà Nổi Loạn"}
+{"rowId":"877","text":"Giải trừ 2 lần hỏa lực ưu thế"}
+{"rowId":"878","text":"Gà Phẫn Nộ Lv2"}
+{"rowId":"879","text":"Gà Nổi Loạn"}
+{"rowId":"880","text":"Heo Ủi Lv.1"}
+{"rowId":"881","text":"Heo Ủi Lv.2"}
+{"rowId":"882","text":"Heo Ủi Lv.3"}
+{"rowId":"883","text":"Đạn Bay Lv.1"}
+{"rowId":"884","text":"Đạn Bay Lv.2"}
+{"rowId":"885","text":"Đạn Bay Lv.3"}
+{"rowId":"886","text":"Nhận kỹ năng"}
+{"rowId":"887","text":"Vỏ Cứng Lv.1"}
+{"rowId":"888","text":"Vỏ Cứng Lv.2"}
+{"rowId":"889","text":"Hồi Sức"}
+{"rowId":"890","text":"Ủi Mạnh"}
+{"rowId":"891","text":"Heo Run"}
+{"rowId":"892","text":"Khiên Heo"}
+{"rowId":"893","text":"Sức Hút"}
+{"rowId":"894","text":"Rực Cháy-Sơ"}
+{"rowId":"895","text":"Rực Cháy-Trung"}
+{"rowId":"896","text":"Rực Cháy-Cao"}
+{"rowId":"897","text":"Nước Cắt-Sơ"}
+{"rowId":"898","text":"Nước Cắt-Trung"}
+{"rowId":"899","text":"Nước Cắt-Cao"}
+{"rowId":"900","text":"Cưỡi Gió-Sơ"}
+{"rowId":"901","text":"Cưỡi Gió-Trung"}
+{"rowId":"902","text":"Cưỡi Gió-Cao"}
+{"rowId":"903","text":"Gươm Trong Đá-Sơ"}
+{"rowId":"904","text":"Gươm Trong Đá-Trung"}
+{"rowId":"905","text":"Gươm Trong Đá-Cao"}
+{"rowId":"906","text":"Tường Lửa-Sơ"}
+{"rowId":"907","text":"Tường Lửa-Trung"}
+{"rowId":"908","text":"Tường Lửa-Cao"}
+{"rowId":"909","text":"Khiên Băng-Sơ"}
+{"rowId":"910","text":"Khiên Băng-Trung"}
+{"rowId":"911","text":"Khiên Băng-Cao"}
+{"rowId":"912","text":"Lả Lướt-Sơ"}
+{"rowId":"913","text":"Lả Lướt-Trung"}
+{"rowId":"914","text":"Lả Lướt-Cao"}
+{"rowId":"915","text":"Giáp Thạch-Sơ"}
+{"rowId":"916","text":"Giáp Thạch-Trung"}
+{"rowId":"917","text":"Giáp Thạch-Cao"}
+{"rowId":"918","text":"Vũ Điệu Lửa-Sơ"}
+{"rowId":"919","text":"Vũ Điệu Lửa-Trung"}
+{"rowId":"920","text":"Vũ Điệu Lửa-Cao"}
+{"rowId":"921","text":"Gợn Sóng-Sơ"}
+{"rowId":"922","text":"Gợn Sóng-Trung"}
+{"rowId":"923","text":"Gợn Sóng-Cao"}
+{"rowId":"924","text":"Bão Lốc-Sơ"}
+{"rowId":"925","text":"Bão Lốc-Trung"}
+{"rowId":"926","text":"Bão Lốc-Cao"}
+{"rowId":"927","text":"Đất Giận Dữ-Sơ"}
+{"rowId":"928","text":"Đất Giận Dữ-Trung"}
+{"rowId":"929","text":"Đất Giận Dữ-Cao"}
+{"rowId":"930","text":"Lửa Chúc Phúc-Sơ"}
+{"rowId":"931","text":"Lửa Chúc Phúc-Trung"}
+{"rowId":"932","text":"Lửa Chúc Phúc-Cao"}
+{"rowId":"933","text":"Giáp Băng-Sơ"}
+{"rowId":"934","text":"Giáp Băng-Trung"}
+{"rowId":"935","text":"Giáp Băng-Cao"}
+{"rowId":"936","text":"Làn Điệu Gió-Sơ"}
+{"rowId":"937","text":"Làn Điệu Gió-Trung"}
+{"rowId":"938","text":"Làn Điệu Gió-Cao"}
+{"rowId":"939","text":"Đất Bảo Vệ-Sơ"}
+{"rowId":"940","text":"Đất Bảo Vệ-Trung"}
+{"rowId":"941","text":"Đất Bảo Vệ-Cao"}
+{"rowId":"942","text":"Sức Lửa-Sơ"}
+{"rowId":"943","text":"Sức Lửa-Trung"}
+{"rowId":"944","text":"Sức Lửa-Cao"}
+{"rowId":"945","text":"Nguyên Tố Lửa-Sơ"}
+{"rowId":"946","text":"Nguyên Tố Lửa-Trung"}
+{"rowId":"947","text":"Nguyên Tố Lửa-Cao"}
+{"rowId":"948","text":"Hồn Lửa Mạnh-Sơ"}
+{"rowId":"949","text":"Hồn Lửa Mạnh-Trung"}
+{"rowId":"950","text":"Hồn Lửa Mạnh-Cao"}
+{"rowId":"951","text":"Lửa Xâm Lấn-Sơ"}
+{"rowId":"952","text":"Lửa Xâm Lấn-Trung"}
+{"rowId":"953","text":"Lửa Xâm Lấn-Cao"}
+{"rowId":"957","text":"Băng Sương-Sơ"}
+{"rowId":"958","text":"Băng Sương-Trung"}
+{"rowId":"959","text":"Băng Sương-Cao"}
+{"rowId":"960","text":"Nguyên Tố Nước-Sơ"}
+{"rowId":"961","text":"Nguyên Tố Nước-Trung"}
+{"rowId":"962","text":"Nguyên Tố Nước-Cao"}
+{"rowId":"963","text":"Hồn Nước Mạnh-Sơ"}
+{"rowId":"964","text":"Hồn Nước Mạnh-Trung"}
+{"rowId":"965","text":"Hồn Nước Mạnh-Cao"}
+{"rowId":"966","text":"Sương Giá-Sơ"}
+{"rowId":"967","text":"Sương Giá-Trung"}
+{"rowId":"968","text":"Sương Giá-Cao"}
+{"rowId":"972","text":"Hồn Gió-Sơ"}
+{"rowId":"973","text":"Hồn Gió-Trung"}
+{"rowId":"974","text":"Hồn Gió-Cao"}
+{"rowId":"975","text":"Sấm Chớp-Sơ"}
+{"rowId":"976","text":"Sấm Chớp-Trung"}
+{"rowId":"977","text":"Sấm Chớp-Cao"}
+{"rowId":"978","text":"Hồn Gió Mạnh-Sơ"}
+{"rowId":"979","text":"Hồn Gió Mạnh-Trung"}
+{"rowId":"980","text":"Hồn Gió Mạnh-Cao"}
+{"rowId":"981","text":"Gió Sắc-Sơ"}
+{"rowId":"982","text":"Gió Sắc-Trung"}
+{"rowId":"983","text":"Gió Sắc-Cao"}
+{"rowId":"984","text":"Gai Đất-Sơ"}
+{"rowId":"985","text":"Gai Đất-Trung"}
+{"rowId":"986","text":"Gai Đất-Cao"}
+{"rowId":"987","text":"Đất Chúc Phúc-Sơ"}
+{"rowId":"988","text":"Đất Chúc Phúc-Trung"}
+{"rowId":"989","text":"Đất Chúc Phúc-Cao"}
+{"rowId":"990","text":"Đất Xâm Thực-Sơ"}
+{"rowId":"991","text":"Đất Xâm Thực-Trung"}
+{"rowId":"992","text":"Thức-Hươu Ban Ơn"}
+{"rowId":"993","text":"Thức-Đá Sương Đông"}
+{"rowId":"995","text":"Thuần Khiết-Sơ"}
+{"rowId":"996","text":"Kết Giới Nước-Sơ"}
+{"rowId":"997","text":"Phản Chiếu-Sơ"}
+{"rowId":"998","text":"Chuỗi Sấm Sét-Sơ"}
+{"rowId":"999","text":"Lời Của Gió-Sơ"}
+{"rowId":"1000","text":"Hóa Đá-Sơ"}
+{"rowId":"1001","text":"Kiên Cố-Sơ"}
+{"rowId":"1002","text":"Thức-Mưa Thần"}
+{"rowId":"1003","text":"Thức-Lời Thề Hải Tặc"}
+{"rowId":"1004","text":"Thức-Thiên Sứ Yêu Thương"}
+{"rowId":"1005","text":"Thuật Trị Liệu"}
+{"rowId":"1006","text":"Thuật Trị Liệu"}
+{"rowId":"1007","text":"Thuật Trị Liệu"}
+{"rowId":"1008","text":"Thuật Trị Liệu"}
+{"rowId":"1009","text":"Thuật Trị Liệu"}
+{"rowId":"1010","text":"Thuật Trị Liệu"}
+{"rowId":"1011","text":"Thuật Trị Liệu"}
+{"rowId":"1012","text":"Thuật Trị Liệu"}
+{"rowId":"1013","text":"Thuật Trị Liệu"}
+{"rowId":"1014","text":"Thuật Trị Liệu"}
+{"rowId":"1015","text":"Thuật Trị Liệu"}
+{"rowId":"1016","text":"Thuật Trị Liệu"}
+{"rowId":"1017","text":"Thuật Trị Liệu"}
+{"rowId":"1018","text":"Thuật Trị Liệu"}
+{"rowId":"1019","text":"Thuật Trị Liệu"}
+{"rowId":"1020","text":"Thuật Trị Liệu"}
+{"rowId":"1021","text":"Thuật Trị Liệu"}
+{"rowId":"1022","text":"Thuật Trị Liệu"}
+{"rowId":"1023","text":"Thuật Trị Liệu"}
+{"rowId":"1024","text":"Thuật Trị Liệu"}
+{"rowId":"1025","text":"Thuật Trị Liệu"}
+{"rowId":"1026","text":"Thuật Trị Liệu"}
+{"rowId":"1027","text":"Thuật Trị Liệu"}
+{"rowId":"1028","text":"Thuật Trị Liệu"}
+{"rowId":"1029","text":"Thuật Trị Liệu"}
+{"rowId":"1030","text":"Thuật Trị Liệu"}
+{"rowId":"1031","text":"Thuật Trị Liệu"}
+{"rowId":"1032","text":"Thuật Trị Liệu"}
+{"rowId":"1033","text":"Thuật Trị Liệu"}
+{"rowId":"1034","text":"Thuật Trị Liệu"}
+{"rowId":"1035","text":"Thuật Trị Liệu"}
+{"rowId":"1036","text":"Thuật Trị Liệu"}
+{"rowId":"1037","text":"Thuật Trị Liệu"}
+{"rowId":"1038","text":"Thuật Trị Liệu"}
+{"rowId":"1039","text":"Thuật Trị Liệu"}
+{"rowId":"1040","text":"Thuật Trị Liệu"}
+{"rowId":"1041","text":"Thuật Trị Liệu"}
+{"rowId":"1042","text":"Thuật Trị Liệu"}
+{"rowId":"1043","text":"Thuật Trị Liệu"}
+{"rowId":"1044","text":"Thuật Trị Liệu"}
+{"rowId":"1045","text":"Thuật Trị Liệu"}
+{"rowId":"1046","text":"Bùng Cháy-Trung"}
+{"rowId":"1047","text":"Thuần Khiết-Trung"}
+{"rowId":"1048","text":"Kết Giới Nước-Trung"}
+{"rowId":"1049","text":"Phản Chiếu-Trung"}
+{"rowId":"1050","text":"Chuỗi Sấm Sét-Trung"}
+{"rowId":"1051","text":"Lời Của Gió-Trung"}
+{"rowId":"1052","text":"Hóa Đá-Trung"}
+{"rowId":"1053","text":"Kiên Cố-Trung"}
+{"rowId":"1054","text":"Bùng Cháy-Cao"}
+{"rowId":"1055","text":"Thuần Khiết-Cao"}
+{"rowId":"1056","text":"Kết Giới Nước-Cao"}
+{"rowId":"1057","text":"Phản Chiếu-Cao"}
+{"rowId":"1058","text":"Chuỗi Sấm Sét-Cao"}
+{"rowId":"1059","text":"Lời Của Gió-Cao"}
+{"rowId":"1060","text":"Hóa Đá-Cao"}
+{"rowId":"1061","text":"Kiên Cố-Cao"}
+{"rowId":"1062","text":"Nhận kỹ năng"}
+{"rowId":"1063","text":"Tình Anh Em"}
+{"rowId":"1064","text":"Tình Anh Em"}
+{"rowId":"1065","text":"Tình Anh Em"}
+{"rowId":"1066","text":"Tình Anh Em"}
+{"rowId":"1067","text":"Tình Anh Em"}
+{"rowId":"1068","text":"Tình Anh Em"}
+{"rowId":"1069","text":"Tình Anh Em"}
+{"rowId":"1070","text":"Tình Anh Em"}
+{"rowId":"1071","text":"Tình Anh Em"}
+{"rowId":"1072","text":"Tình Anh Em"}
+{"rowId":"1073","text":"Thức-Tự Vệ"}
+{"rowId":"1074","text":"Thức-Hạt Bay"}
+{"rowId":"1075","text":"Thức-Ma Lực Sinh Sôi"}
+{"rowId":"1076","text":"Khiên Phòng Hộ"}
+{"rowId":"1077","text":"Bất Khuất"}
+{"rowId":"1078","text":"Bất Khuất"}
+{"rowId":"1079","text":"Bất Khuất"}
+{"rowId":"1080","text":"Khiên"}
+{"rowId":"1081","text":"Khiên"}
+{"rowId":"1082","text":"Khiên"}
+{"rowId":"1083","text":"Thức-Cánh Quỷ Thiêu Đốt"}
+{"rowId":"1084","text":"Thức-Đau Khổ Xâm Thực"}
+{"rowId":"1085","text":"Thức-Hiến Tế Tà Thần"}
+{"rowId":"1086","text":"Thiêu Đốt"}
+{"rowId":"1087","text":"Hồi Ma Lv1"}
+{"rowId":"1088","text":"Hồi Ma Lv2"}
+{"rowId":"1089","text":"Hồi Ma Lv3"}
+{"rowId":"1090","text":"Hồi Ma Lv4"}
+{"rowId":"1091","text":"Hồi Ma Lv5"}
+{"rowId":"1092","text":"Đánh Trước Lv1"}
+{"rowId":"1093","text":"Đánh Trước Lv2"}
+{"rowId":"1094","text":"Đánh Trước Lv3"}
+{"rowId":"1095","text":"Đánh Trước Lv4"}
+{"rowId":"1096","text":"Đánh Trước Lv5"}
+{"rowId":"1097","text":"Bị Thương Lv1"}
+{"rowId":"1098","text":"Bị Thương Lv2"}
+{"rowId":"1099","text":"Bị Thương Lv3"}
+{"rowId":"1100","text":"Bị Thương Lv4"}
+{"rowId":"1101","text":"Bị Thương Lv5"}
+{"rowId":"1102","text":"Cường Lực Lv1"}
+{"rowId":"1103","text":"Cường Lực Lv2"}
+{"rowId":"1104","text":"Cường Lực Lv3"}
+{"rowId":"1105","text":"Cường Lực Lv4"}
+{"rowId":"1106","text":"Cường Lực Lv5"}
+{"rowId":"1107","text":"Huyết Mạch Lv1"}
+{"rowId":"1108","text":"Huyết Mạch Lv2"}
+{"rowId":"1109","text":"Huyết Mạch Lv3"}
+{"rowId":"1110","text":"Huyết Mạch Lv4"}
+{"rowId":"1111","text":"Huyết Mạch Lv5"}
+{"rowId":"1112","text":"Khát Vọng Lv1"}
+{"rowId":"1113","text":"Khát Vọng Lv2"}
+{"rowId":"1114","text":"Khát Vọng Lv3"}
+{"rowId":"1115","text":"Khát Vọng Lv4"}
+{"rowId":"1116","text":"Khát Vọng Lv5"}
+{"rowId":"1117","text":"Phù Hộ Lv1"}
+{"rowId":"1118","text":"Phù Hộ Lv2"}
+{"rowId":"1119","text":"Phù Hộ Lv3"}
+{"rowId":"1120","text":"Phù Hộ Lv4"}
+{"rowId":"1121","text":"Phù Hộ Lv5"}
+{"rowId":"1122","text":"Phù Hộ Lv1"}
+{"rowId":"1123","text":"Phù Hộ Lv2"}
+{"rowId":"1124","text":"Phù Hộ Lv3"}
+{"rowId":"1125","text":"Phù Hộ Lv3"}
+{"rowId":"1126","text":"Phù Hộ Lv3"}
+{"rowId":"1127","text":"Bụi Gai Lv1"}
+{"rowId":"1128","text":"Bụi Gai Lv2"}
+{"rowId":"1129","text":"Bụi Gai Lv3"}
+{"rowId":"1130","text":"Bụi Gai Lv4"}
+{"rowId":"1131","text":"Bụi Gai Lv5"}
+{"rowId":"1132","text":"Cuồng Bạo Lv1"}
+{"rowId":"1133","text":"Cuồng Bạo Lv2"}
+{"rowId":"1134","text":"Cuồng Bạo Lv3"}
+{"rowId":"1135","text":"Cuồng Bạo Lv4"}
+{"rowId":"1136","text":"Cuồng Bạo Lv5"}
+{"rowId":"1137","text":"Nhẫn Thuật Lv1"}
+{"rowId":"1138","text":"Nhẫn Thuật Lv2"}
+{"rowId":"1139","text":"Nhẫn Thuật Lv3"}
+{"rowId":"1140","text":"Nhẫn Thuật Lv4"}
+{"rowId":"1141","text":"Nhẫn Thuật Lv5"}
+{"rowId":"1142","text":"Kháng Xuyên Giáp Lv1"}
+{"rowId":"1143","text":"Kháng Xuyên Giáp Lv2"}
+{"rowId":"1144","text":"Kháng Xuyên Giáp Lv3"}
+{"rowId":"1145","text":"Kháng Xuyên Giáp Lv4"}
+{"rowId":"1146","text":"Kháng Xuyên Giáp Lv5"}
+{"rowId":"1147","text":"Kháng Bỏng Lv1"}
+{"rowId":"1148","text":"Kháng Bỏng Lv2"}
+{"rowId":"1149","text":"Kháng Bỏng Lv3"}
+{"rowId":"1150","text":"Kháng Bỏng Lv4"}
+{"rowId":"1151","text":"Kháng Bỏng Lv5"}
+{"rowId":"1152","text":"Kháng Đóng Băng Lv1"}
+{"rowId":"1153","text":"Kháng Đóng Băng Lv2"}
+{"rowId":"1154","text":"Kháng Đóng Băng Lv3"}
+{"rowId":"1155","text":"Kháng Đóng Băng Lv4"}
+{"rowId":"1156","text":"Kháng Đóng Băng Lv5"}
+{"rowId":"1157","text":"Phượng Hoàng Vẫy Cánh"}
+{"rowId":"1158","text":"Phượng Hoàng Vẫy Cánh"}
+{"rowId":"1159","text":"Phượng Hoàng Vẫy Cánh"}
+{"rowId":"1160","text":"Biển Lửa Lấp Lánh Lv1"}
+{"rowId":"1161","text":"Biển Lửa Lấp Lánh Lv2"}
+{"rowId":"1162","text":"Biển Lửa Lấp Lánh Lv3"}
+{"rowId":"1163","text":"Ánh Lửa Ngút Trời"}
+{"rowId":"1164","text":"Khu Vực Dấu Ấn"}
+{"rowId":"1165","text":"Bỏng"}
+{"rowId":"1166","text":"Lửa Bảo Vệ"}
+{"rowId":"1167","text":"Nhận kỹ năng"}
+{"rowId":"1168","text":"Nhận kỹ năng"}
+{"rowId":"1169","text":"Thế Như Lửa Thiêu"}
+{"rowId":"1170","text":"SPOW-Lửa Đỏ"}
+{"rowId":"1171","text":"Nhận Hủy Xuyên Giáp Lv1"}
+{"rowId":"1172","text":"Lửa Đỏ Bùng Lên"}
+{"rowId":"1173","text":"Ánh Lửa Bập Bùng"}
+{"rowId":"1174","text":"Phượng Hoàng Niết Bàn"}
+{"rowId":"1175","text":"Nhận kỹ năng"}
+{"rowId":"1176","text":"Nhận kỹ năng"}
+{"rowId":"1177","text":"Nhận kỹ năng"}
+{"rowId":"1178","text":"Nhận kỹ năng"}
+{"rowId":"1179","text":"Nhận kỹ năng"}
+{"rowId":"1180","text":"Nhận hiệu quả Hút HP"}
+{"rowId":"1181","text":"Nhận hiệu quả Hút HP"}
+{"rowId":"1182","text":"Nhận hiệu quả Hút HP"}
+{"rowId":"1183","text":"Nhận hiệu quả Hút HP"}
+{"rowId":"1184","text":"Nhận hiệu quả Hút HP"}
+{"rowId":"1185","text":"Phản Sát Thương"}
+{"rowId":"1186","text":"Nhận kỹ năng"}
+{"rowId":"1187","text":"Nhận kỹ năng"}
+{"rowId":"1188","text":"Nhận kỹ năng"}
+{"rowId":"1189","text":"Nhận kỹ năng"}
+{"rowId":"1190","text":"Nhận kỹ năng"}
+{"rowId":"1191","text":"Nhận kỹ năng"}
+{"rowId":"1192","text":"Nhận kỹ năng"}
+{"rowId":"1193","text":"Nhận kỹ năng"}
+{"rowId":"1194","text":"Nhận kỹ năng"}
+{"rowId":"1195","text":"Nhận kỹ năng"}
+{"rowId":"1196","text":"Nhận kỹ năng"}
+{"rowId":"1197","text":"Nhận kỹ năng"}
+{"rowId":"1198","text":"Nhận kỹ năng"}
+{"rowId":"1199","text":"Thức-Lửa Bảo Vệ"}
+{"rowId":"1200","text":"Nhận kỹ năng"}
+{"rowId":"1211","text":"Nhận kỹ năng"}
+{"rowId":"1212","text":"Thức-Biển Lửa Lấp Lánh"}
+{"rowId":"1213","text":"Thức-SPOW-Lửa Đỏ"}
+{"rowId":"1214","text":"Nhận Hủy Xuyên Giáp Lv1"}
+{"rowId":"1215","text":"Thức-Lửa Đỏ Bùng Lên"}
+{"rowId":"1216","text":"Thức-Phượng Hoàng Niết Bàn"}
+{"rowId":"1217","text":"Thức-Ánh Lửa Bập Bùng"}
+{"rowId":"1218","text":"Thức-Ánh Lửa Ngút Trời"}
+{"rowId":"1219","text":"Khu Vực Dấu Ấn"}
+{"rowId":"1220","text":"Bỏng"}
+{"rowId":"1221","text":"Vuốt Nhọn"}
+{"rowId":"1222","text":"Vuốt Nhọn"}
+{"rowId":"1223","text":"Vuốt Nhọn"}
+{"rowId":"1224","text":"Đạn Bay"}
+{"rowId":"1225","text":"Đạn Bay"}
+{"rowId":"1226","text":"Đạn Bay"}
+{"rowId":"1227","text":"Xuất Kích"}
+{"rowId":"1228","text":"Ngủ Đông"}
+{"rowId":"1229","text":"Ngủ Đông"}
+{"rowId":"1230","text":"Ngủ Đông"}
+{"rowId":"1231","text":"Chuột Biến Hình"}
+{"rowId":"1232","text":"Âm Thầm Tiến Bước"}
+{"rowId":"1233","text":"Tốc Độ Thần Sầu"}
+{"rowId":"1234","text":"Cường Hóa Âm Thầm"}
+{"rowId":"1235","text":"Xóa kỹ năng"}
+{"rowId":"1236","text":"Kháng Bạo"}
+{"rowId":"1237","text":"Kháng Bạo"}
+{"rowId":"1238","text":"Kháng Bạo"}
+{"rowId":"1239","text":"Pháo Yêu Tinh"}
+{"rowId":"1240","text":"Pháo Yêu Tinh"}
+{"rowId":"1241","text":"Pháo Yêu Tinh"}
+{"rowId":"1242","text":"Tấm Khiên Sinh Mệnh"}
+{"rowId":"1243","text":"Tấm Khiên Sinh Mệnh"}
+{"rowId":"1244","text":"Tấm Khiên Sinh Mệnh"}
+{"rowId":"1245","text":"Thức-Đạn Bay"}
+{"rowId":"1246","text":"Thức-Tốc Độ Thần Sầu"}
+{"rowId":"1247","text":"Thức-Xuất Kích"}
+{"rowId":"1248","text":"Thức-Âm Thầm Tiến Bước"}
+{"rowId":"1249","text":"Nhận kỹ năng"}
+{"rowId":"1250","text":"Nhận kỹ năng"}
+{"rowId":"1251","text":"Xóa kỹ năng"}
+{"rowId":"1252","text":"Né Tránh +4%"}
+{"rowId":"1253","text":"Kỹ năng khởi tạo xong sẽ kích hoạt"}
+{"rowId":"1254","text":"Hardy Âm Thầm"}
+{"rowId":"1255","text":"Hardy Âm Thầm"}
+{"rowId":"1256","text":"Hardy Âm Thầm"}
+{"rowId":"1257","text":"Hardy Bảo Vệ"}
+{"rowId":"1258","text":"Hardy Bảo Vệ"}
+{"rowId":"1259","text":"Hardy Bảo Vệ"}
+{"rowId":"1260","text":"Thỏ Xuất Kích"}
+{"rowId":"1261","text":"Thỏ Xuất Kích"}
+{"rowId":"1262","text":"Thỏ Xuất Kích"}
+{"rowId":"1263","text":"Thỏ Đạn Bay"}
+{"rowId":"1264","text":"Thỏ Đạn Bay"}
+{"rowId":"1265","text":"Thỏ Đạn Bay"}
+{"rowId":"1266","text":"Thỏ Giảm Thương"}
+{"rowId":"1267","text":"Thỏ Mạnh Mẽ"}
+{"rowId":"1268","text":"Thỏ Chống Đỡ"}
+{"rowId":"1269","text":"Thỏ Cầm Khiên"}
+{"rowId":"1270","text":"Thỏ Cứng Cựa"}
+{"rowId":"1271","text":"Thỏ Cứng Cựa"}
+{"rowId":"1272","text":"Thỏ Né Tránh"}
+{"rowId":"1273","text":"Thức-Thỏ Giảm Thương"}
+{"rowId":"1274","text":"Thức-Thỏ Chống Đỡ"}
+{"rowId":"1275","text":"Thức-Thỏ Cầm Khiên"}
+{"rowId":"1276","text":"Thức-Thỏ Cứng Cựa"}
+{"rowId":"1277","text":"Nhận Kỹ Năng"}
+{"rowId":"1283","text":"Thức Tỉnh 1-Tư Thế Phòng Thủ"}
+{"rowId":"1284","text":"Thức Tỉnh 1-Tư Thế Tấn Công"}
+{"rowId":"1285","text":"Thức Tỉnh 1-Sở Trường KungFu"}
+{"rowId":"1291","text":"Gió Lốc Băng Ngục"}
+{"rowId":"1292","text":"Gió Lốc Băng Ngục"}
+{"rowId":"1293","text":"Gió Lốc Băng Ngục"}
+{"rowId":"1294","text":"Gai Băng"}
+{"rowId":"1295","text":"Gai Băng"}
+{"rowId":"1296","text":"Gai Băng"}
+{"rowId":"1297","text":"Hơi Thở Băng Giá"}
+{"rowId":"1298","text":"Rồng Gầm"}
+{"rowId":"1299","text":"Sức Mạnh Cực Hàn"}
+{"rowId":"1300","text":"Tường Băng Sương"}
+{"rowId":"1301","text":"Hàn Băng Phẫn Nộ"}
+{"rowId":"1302","text":"Giấc Ngủ Vĩnh Hằng"}
+{"rowId":"1303","text":"Áo Giáp Băng Giá"}
+{"rowId":"1304","text":"Thức 1-Gai Băng"}
+{"rowId":"1305","text":"Thức 1-Hơi Thở Băng Giá"}
+{"rowId":"1306","text":"Thức 1-Rồng Gầm"}
+{"rowId":"1307","text":"Thức 1-Sức Mạnh Cực Hàn"}
+{"rowId":"1308","text":"Thức 1-Băng SươngChắn"}
+{"rowId":"1309","text":"Thức 1-Hàn Băng Phẫn Nộ"}
+{"rowId":"1310","text":"Thức 1-Áo Giáp Băng Giá"}
+{"rowId":"1311","text":"Ngũ Nguyên-Nước"}
+{"rowId":"1312","text":"Ngũ Nguyên-Nước"}
+{"rowId":"1313","text":"Ngũ Nguyên-Nước"}
+{"rowId":"1314","text":"Ngũ Nguyên-Nước"}
+{"rowId":"1315","text":"Ngũ Nguyên-Nước"}
+{"rowId":"1316","text":"Ngũ Nguyên-Nước"}
+{"rowId":"1317","text":"Ngũ Nguyên-Lửa"}
+{"rowId":"1318","text":"Ngũ Nguyên-Lửa"}
+{"rowId":"1319","text":"Ngũ Nguyên-Lửa"}
+{"rowId":"1320","text":"Ngũ Nguyên-Lửa"}
+{"rowId":"1321","text":"Ngũ Nguyên-Lửa"}
+{"rowId":"1322","text":"Ngũ Nguyên-Lửa"}
+{"rowId":"1323","text":"Ngũ Nguyên-Gió"}
+{"rowId":"1324","text":"Ngũ Nguyên-Gió"}
+{"rowId":"1325","text":"Ngũ Nguyên-Gió"}
+{"rowId":"1326","text":"Ngũ Nguyên-Gió"}
+{"rowId":"1327","text":"Ngũ Nguyên-Gió"}
+{"rowId":"1328","text":"Ngũ Nguyên-Gió"}
+{"rowId":"1329","text":"Ngũ Nguyên-Đất"}
+{"rowId":"1330","text":"Ngũ Nguyên-Đất"}
+{"rowId":"1331","text":"Ngũ Nguyên-Đất"}
+{"rowId":"1332","text":"Ngũ Nguyên-Đất"}
+{"rowId":"1333","text":"Ngũ Nguyên-Đất"}
+{"rowId":"1334","text":"Ngũ Nguyên-Đất"}
+{"rowId":"1335","text":"Diệt Sát-Nước"}
+{"rowId":"1336","text":"Diệt Sát-Nước"}
+{"rowId":"1337","text":"Diệt Sát-Nước"}
+{"rowId":"1338","text":"Diệt Sát-Nước"}
+{"rowId":"1339","text":"Diệt Sát-Nước"}
+{"rowId":"1340","text":"Diệt Sát-Nước"}
+{"rowId":"1341","text":"Diệt Sát-Lửa"}
+{"rowId":"1342","text":"Diệt Sát-Lửa"}
+{"rowId":"1343","text":"Diệt Sát-Lửa"}
+{"rowId":"1344","text":"Diệt Sát-Lửa"}
+{"rowId":"1345","text":"Diệt Sát-Lửa"}
+{"rowId":"1346","text":"Diệt Sát-Lửa"}
+{"rowId":"1347","text":"Diệt Sát-Gió"}
+{"rowId":"1348","text":"Diệt Sát-Gió"}
+{"rowId":"1349","text":"Diệt Sát-Gió"}
+{"rowId":"1350","text":"Diệt Sát-Gió"}
+{"rowId":"1351","text":"Diệt Sát-Gió"}
+{"rowId":"1352","text":"Diệt Sát-Gió"}
+{"rowId":"1353","text":"Diệt Sát-Đất"}
+{"rowId":"1354","text":"Diệt Sát-Đất"}
+{"rowId":"1355","text":"Diệt Sát-Đất"}
+{"rowId":"1356","text":"Diệt Sát-Đất"}
+{"rowId":"1357","text":"Diệt Sát-Đất"}
+{"rowId":"1358","text":"Diệt Sát-Đất"}
+{"rowId":"1359","text":"Sắc Lệnh-Nước"}
+{"rowId":"1360","text":"Sắc Lệnh-Nước"}
+{"rowId":"1361","text":"Sắc Lệnh-Nước"}
+{"rowId":"1362","text":"Sắc Lệnh-Nước"}
+{"rowId":"1363","text":"Sắc Lệnh-Nước"}
+{"rowId":"1364","text":"Sắc Lệnh-Nước"}
+{"rowId":"1365","text":"Sắc Lệnh-Lửa"}
+{"rowId":"1366","text":"Sắc Lệnh-Lửa"}
+{"rowId":"1367","text":"Sắc Lệnh-Lửa"}
+{"rowId":"1368","text":"Sắc Lệnh-Lửa"}
+{"rowId":"1369","text":"Sắc Lệnh-Lửa"}
+{"rowId":"1370","text":"Sắc Lệnh-Lửa"}
+{"rowId":"1371","text":"Sắc Lệnh-Gió"}
+{"rowId":"1372","text":"Sắc Lệnh-Gió"}
+{"rowId":"1373","text":"Sắc Lệnh-Gió"}
+{"rowId":"1374","text":"Sắc Lệnh-Gió"}
+{"rowId":"1375","text":"Sắc Lệnh-Gió"}
+{"rowId":"1376","text":"Sắc Lệnh-Gió"}
+{"rowId":"1377","text":"Sắc Lệnh-Đất"}
+{"rowId":"1378","text":"Sắc Lệnh-Đất"}
+{"rowId":"1379","text":"Sắc Lệnh-Đất"}
+{"rowId":"1380","text":"Sắc Lệnh-Đất"}
+{"rowId":"1381","text":"Sắc Lệnh-Đất"}
+{"rowId":"1382","text":"Sắc Lệnh-Đất"}
+{"rowId":"1383","text":"Thời Vận-Nước"}
+{"rowId":"1384","text":"Thời Vận-Nước"}
+{"rowId":"1385","text":"Thời Vận-Nước"}
+{"rowId":"1386","text":"Thời Vận-Nước"}
+{"rowId":"1387","text":"Thời Vận-Nước"}
+{"rowId":"1388","text":"Thời Vận-Nước"}
+{"rowId":"1389","text":"Thời Vận-Lửa"}
+{"rowId":"1390","text":"Thời Vận-Lửa"}
+{"rowId":"1391","text":"Thời Vận-Lửa"}
+{"rowId":"1392","text":"Thời Vận-Lửa"}
+{"rowId":"1393","text":"Thời Vận-Lửa"}
+{"rowId":"1394","text":"Thời Vận-Lửa"}
+{"rowId":"1395","text":"Thời Vận-Gió"}
+{"rowId":"1396","text":"Thời Vận-Gió"}
+{"rowId":"1397","text":"Thời Vận-Gió"}
+{"rowId":"1398","text":"Thời Vận-Gió"}
+{"rowId":"1399","text":"Thời Vận-Gió"}
+{"rowId":"1400","text":"Thời Vận-Gió"}
+{"rowId":"1401","text":"Thời Vận-Đất"}
+{"rowId":"1402","text":"Thời Vận-Đất"}
+{"rowId":"1403","text":"Thời Vận-Đất"}
+{"rowId":"1404","text":"Thời Vận-Đất"}
+{"rowId":"1405","text":"Thời Vận-Đất"}
+{"rowId":"1406","text":"Thời Vận-Đất"}
+{"rowId":"1407","text":"Ngũ Nguyên"}
+{"rowId":"1408","text":"Ngũ Nguyên"}
+{"rowId":"1409","text":"Ngũ Nguyên"}
+{"rowId":"1410","text":"Ngũ Nguyên"}
+{"rowId":"1411","text":"Ngũ Nguyên"}
+{"rowId":"1412","text":"Ngũ Nguyên"}
+{"rowId":"1413","text":"Ngũ Nguyên"}
+{"rowId":"1414","text":"Ngũ Nguyên"}
+{"rowId":"1415","text":"Ngũ Nguyên"}
+{"rowId":"1416","text":"Ngũ Nguyên"}
+{"rowId":"1417","text":"Ngũ Nguyên"}
+{"rowId":"1418","text":"Ngũ Nguyên"}
+{"rowId":"1419","text":"Ngũ Nguyên"}
+{"rowId":"1420","text":"Ngũ Nguyên"}
+{"rowId":"1421","text":"Ngũ Nguyên"}
+{"rowId":"1422","text":"Ngũ Nguyên"}
+{"rowId":"1423","text":"Ngũ Nguyên"}
+{"rowId":"1424","text":"Ngũ Nguyên"}
+{"rowId":"1425","text":"Ngũ Nguyên"}
+{"rowId":"1426","text":"Ngũ Nguyên"}
+{"rowId":"1427","text":"Ngũ Nguyên"}
+{"rowId":"1428","text":"Ngũ Nguyên"}
+{"rowId":"1429","text":"Ngũ Nguyên"}
+{"rowId":"1430","text":"Ngũ Nguyên"}
+{"rowId":"1484","text":"Miễn Dịch Bạo Kích"}
+{"rowId":"1485","text":"Miễn Dịch Bạo Kích"}
+{"rowId":"1486","text":"Miễn Dịch Bạo Kích"}
+{"rowId":"1487","text":"Chống ST Bạo Kích"}
+{"rowId":"1488","text":"Chống ST Bạo Kích"}
+{"rowId":"1489","text":"Chống ST Bạo Kích"}
+{"rowId":"1490","text":"Nhận Kỹ Năng"}
+{"rowId":"1491","text":"Nhận Kỹ Năng"}
+{"rowId":"1492","text":"Nhận Kỹ Năng"}
+{"rowId":"1493","text":"Nhận Kỹ Năng"}
+{"rowId":"1494","text":"Nhận Kỹ Năng"}
+{"rowId":"1495","text":"Nhận Kỹ Năng"}
+{"rowId":"1496","text":"Thức 1-Gió Lốc Băng Ngục"}
+{"rowId":"1497","text":"Thức 1-Giấc Ngủ Vĩnh Hằng"}
+{"rowId":"1498","text":"Nhận được kỹ năng"}
+{"rowId":"1518","text":"Thức 1-Áo Giáp Băng Giá"}
+{"rowId":"1541","text":"Thức Tỉnh 2-Gió Lốc Băng Ngục"}
+{"rowId":"1542","text":"Thức Tỉnh 2-Gai Băng"}
+{"rowId":"1543","text":"Thức Tỉnh 2-Hơi Thở Băng Giá"}
+{"rowId":"1544","text":"Thức Tỉnh 2-Rồng Gầm"}
+{"rowId":"1545","text":"Thức Tỉnh 2-Sức Mạnh Cực Hàn"}
+{"rowId":"1546","text":"Thức Tỉnh 2-Chắn Băng Sương"}
+{"rowId":"1547","text":"Thức Tỉnh 2-Hàn Băng Phẫn Nộ"}
+{"rowId":"1548","text":"Thức Tỉnh 2-Giấc Ngủ Vĩnh Hằng"}
+{"rowId":"1549","text":"Thức Tỉnh 2-Áo Giáp Băng Giá"}
+{"rowId":"1550","text":"Nhận Kỹ Năng"}
+{"rowId":"1551","text":"Thức Tỉnh 3-Gió Lốc Băng Ngục"}
+{"rowId":"1552","text":"Thức Tỉnh 3-Gai Băng"}
+{"rowId":"1553","text":"Thức Tỉnh 3-Hơi Thở Băng Giá"}
+{"rowId":"1554","text":"Thức Tỉnh 3-Rồng Gầm"}
+{"rowId":"1555","text":"Thức Tỉnh 3-Sức Mạnh Cực Hàn"}
+{"rowId":"1556","text":"Thức Tỉnh 3-Chắn Băng Sương"}
+{"rowId":"1557","text":"Thức Tỉnh 3-Hàn Băng Phẫn Nộ"}
+{"rowId":"1558","text":"Thức Tỉnh 3-Giấc Ngủ Vĩnh Hằng"}
+{"rowId":"1559","text":"Thức Tỉnh 3-Áo Giáp Băng Giá"}
+{"rowId":"1560","text":"Thức Tỉnh 3-Gió Lốc Băng Ngục"}
+{"rowId":"1561","text":"Thức Tỉnh 3-Gai Băng"}
+{"rowId":"1562","text":"Thức Tỉnh 3-Hơi Thở Băng Giá"}
+{"rowId":"1563","text":"Thức Tỉnh 3-Rồng Gầm"}
+{"rowId":"1564","text":"Thức Tỉnh 3-Sức Mạnh Cực Hàn"}
+{"rowId":"1565","text":"Thức Tỉnh 3-Chắn Băng Sương"}
+{"rowId":"1566","text":"Thức Tỉnh 3-Hàn Băng Phẫn Nộ"}
+{"rowId":"1567","text":"Thức Tỉnh 3-Giấc Ngủ Vĩnh Hằng"}
+{"rowId":"1568","text":"Thức Tỉnh 3-Áo Giáp Băng Giá"}
+{"rowId":"1635","text":"Thức Tỉnh 2-Tự Vệ"}
+{"rowId":"1636","text":"Thức Tỉnh 2-Hạt Bay"}
+{"rowId":"1637","text":"Thức Tỉnh 2-Ma Lực Sinh Sôi"}
+{"rowId":"1638","text":"Khiên Phòng Hộ"}
+{"rowId":"1639","text":"Nhận Kỹ Năng"}
+{"rowId":"1640","text":"Thức Tỉnh 3-Tự Vệ"}
+{"rowId":"1641","text":"Thức Tỉnh 3-Hạt Bay"}
+{"rowId":"1642","text":"Thức Tỉnh 3-Ma Lực Sinh Sôi"}
+{"rowId":"1643","text":"Thức Tỉnh 3-Tự Vệ"}
+{"rowId":"1644","text":"Thức Tỉnh 3-Hạt Bay"}
+{"rowId":"1645","text":"Thức Tỉnh 3-Ma Lực Sinh Sôi"}
+{"rowId":"1663","text":"2觉·霜冻陨石"}
+{"rowId":"1664","text":"2觉·烈冰弹"}
+{"rowId":"1665","text":"2觉·水晶屏障"}
+{"rowId":"1666","text":"2觉·极寒地狱"}
+{"rowId":"1667","text":"2觉·迅雷"}
+{"rowId":"1668","text":"2觉·凤凰之心"}
+{"rowId":"1669","text":"2觉·一击必杀心得"}
+{"rowId":"1670","text":"2觉·冰之魂"}
+{"rowId":"1671","text":"获得技能"}
+{"rowId":"1672","text":"移除极寒地狱"}
+{"rowId":"1673","text":"获得技能"}
+{"rowId":"1674","text":"获得技能"}
+{"rowId":"1675","text":"3觉·霜冻陨石"}
+{"rowId":"1676","text":"3觉·烈冰弹"}
+{"rowId":"1677","text":"3觉·水晶屏障"}
+{"rowId":"1678","text":"3觉·极寒地狱"}
+{"rowId":"1679","text":"3觉·迅雷"}
+{"rowId":"1680","text":"3觉·凤凰之心"}
+{"rowId":"1681","text":"3觉·一击必杀心得"}
+{"rowId":"1682","text":"3觉·冰之魂"}
+{"rowId":"1683","text":"3觉·霜冻陨石"}
+{"rowId":"1684","text":"3觉·烈冰弹"}
+{"rowId":"1685","text":"3觉·水晶屏障"}
+{"rowId":"1686","text":"3觉·极寒地狱"}
+{"rowId":"1687","text":"3觉·迅雷"}
+{"rowId":"1688","text":"3觉·凤凰之心"}
+{"rowId":"1689","text":"3觉·一击必杀心得"}
+{"rowId":"1690","text":"3觉·冰之魂"}
+{"rowId":"1691","text":"Thức Tỉnh 2-Mưa Thần"}
+{"rowId":"1692","text":"Thức Tỉnh 2-Lời Thề Hải Tặc"}
+{"rowId":"1693","text":"Thức Tỉnh 2-Thiên Sứ Yêu Thương"}
+{"rowId":"1694","text":"Thức Tỉnh 3-Mưa Thần"}
+{"rowId":"1695","text":"Thức Tỉnh 3-Lời Thề Hải Tặc"}
+{"rowId":"1696","text":"Thức Tỉnh 3-Thiên Sứ Yêu Thương"}
+{"rowId":"1697","text":"Thức Tỉnh 3-Mưa Thần"}
+{"rowId":"1698","text":"Thức Tỉnh 3-Lời Thề Hải Tặc"}
+{"rowId":"1699","text":"Thức Tỉnh 3-Thiên Sứ Yêu Thương"}
+{"rowId":"1700","text":"Thức Tỉnh 2-Dấu Vết Móng Vuốt"}
+{"rowId":"1701","text":"Thức Tỉnh 2-Tư Thế Phòng Thủ"}
+{"rowId":"1702","text":"Thức Tỉnh 2-Tư Thế Tấn Công"}
+{"rowId":"1703","text":"Thức Tỉnh 2-Tư Thế Ẩn Náu"}
+{"rowId":"1704","text":"Thức Tỉnh 2-Tư Thế Phân Thân"}
+{"rowId":"1705","text":"Thức Tỉnh 2-Tư Thế Cuồng Bạo"}
+{"rowId":"1706","text":"Thức Tỉnh 2-Sở Trường KungFu"}
+{"rowId":"1707","text":"Thức Tỉnh 3-Dấu Vết Móng Vuốt"}
+{"rowId":"1708","text":"Thức Tỉnh 3-Tư Thế Phòng Thủ"}
+{"rowId":"1709","text":"Thức Tỉnh 3-Tư Thế Tấn Công"}
+{"rowId":"1710","text":"Thức Tỉnh 3-Tư Thế Ẩn Náu"}
+{"rowId":"1711","text":"Thức Tỉnh 3-Tư Thế Phân Thân"}
+{"rowId":"1712","text":"Thức Tỉnh 3-Tư Thế Cuồng Bạo"}
+{"rowId":"1713","text":"Thức Tỉnh 3-Sở Trường KungFu"}
+{"rowId":"1714","text":"Thức Tỉnh 3-Dấu Vết Móng Vuốt"}
+{"rowId":"1715","text":"Thức Tỉnh 3-Tư Thế Phòng Thủ"}
+{"rowId":"1716","text":"Thức Tỉnh 3-Tư Thế Tấn Công"}
+{"rowId":"1717","text":"Thức Tỉnh 3-Tư Thế Ẩn Náu"}
+{"rowId":"1718","text":"Thức Tỉnh 3-Tư Thế Phân Thân"}
+{"rowId":"1719","text":"Thức Tỉnh 3-Tư Thế Cuồng Bạo"}
+{"rowId":"1720","text":"Thức Tỉnh 3-Sở Trường KungFu"}
+{"rowId":"1721","text":"Giáp Băng"}
+{"rowId":"1722","text":"Giáp Băng"}
+{"rowId":"1723","text":"Giáp Băng"}
+{"rowId":"1724","text":"Dao Băng"}
+{"rowId":"1725","text":"Dao Băng"}
+{"rowId":"1726","text":"Dao Băng"}
+{"rowId":"1727","text":"Hồn Băng"}
+{"rowId":"1728","text":"Hồn Băng"}
+{"rowId":"1729","text":"Hồn Băng"}
+{"rowId":"1730","text":"Nhận Kỹ Năng"}
+{"rowId":"1731","text":"Nhận Kỹ Năng"}
+{"rowId":"1732","text":"Nhận Kỹ Năng"}
+{"rowId":"1733","text":"Thức Tỉnh 2-Cuồng Vũ"}
+{"rowId":"1734","text":"Thức Tỉnh 2-Nọc Độc"}
+{"rowId":"1735","text":"Thức Tỉnh 2-Kiệt Sức"}
+{"rowId":"1736","text":"Thức Tỉnh 2-Cuồng Bạo"}
+{"rowId":"1737","text":"Thức Tỉnh 2-Quái Vật Ngàn Năm"}
+{"rowId":"1738","text":"Thức Tỉnh 2-Chuyển Hóa"}
+{"rowId":"1739","text":"Thức Tỉnh 2-Hắc Nha"}
+{"rowId":"1740","text":"Nhận Kỹ Năng"}
+{"rowId":"1741","text":"Hiệu quả trúng độc"}
+{"rowId":"1742","text":"Thức Tỉnh 3-Cuồng Vũ"}
+{"rowId":"1743","text":"Thức Tỉnh 3-Nọc Độc"}
+{"rowId":"1744","text":"Thức Tỉnh 3-Kiệt Sức"}
+{"rowId":"1745","text":"Thức Tỉnh 3-Cuồng Bạo"}
+{"rowId":"1746","text":"Thức Tỉnh 3-Quái Vật Ngàn Năm"}
+{"rowId":"1747","text":"Thức Tỉnh 3-Chuyển Hóa"}
+{"rowId":"1748","text":"Thức Tỉnh 3-Hắc Nha"}
+{"rowId":"1749","text":"Thức Tỉnh 3-Cuồng Vũ"}
+{"rowId":"1750","text":"Thức Tỉnh 3-Nọc Độc"}
+{"rowId":"1751","text":"Thức Tỉnh 3-Kiệt Sức"}
+{"rowId":"1752","text":"Thức Tỉnh 3-Cuồng Bạo"}
+{"rowId":"1753","text":"Thức Tỉnh 3-Quái Vật Ngàn Năm"}
+{"rowId":"1754","text":"Thức Tỉnh 3-Chuyển Hóa"}
+{"rowId":"1755","text":"Thức Tỉnh 3-Hắc Nha"}
+{"rowId":"1762","text":"Thức Tỉnh 2-Màn Đêm Bảo Vệ"}
+{"rowId":"1763","text":"Thức Tỉnh 2-Ban Ngày Xâu Xé"}
+{"rowId":"1764","text":"Thức Tỉnh 2-Giáp Đen Minotaure"}
+{"rowId":"1765","text":"Thức Tỉnh 2-Búa Bạc Minotaure"}
+{"rowId":"1766","text":"Thức Tỉnh 2-Tài Năng"}
+{"rowId":"1767","text":"Thức Tỉnh 2-Hắc Ám"}
+{"rowId":"1768","text":"Thức Tỉnh 2-Tâm Hỏa"}
+{"rowId":"1769","text":"Nhận Kỹ Năng"}
+{"rowId":"1770","text":"Nhận Kỹ Năng"}
+{"rowId":"1771","text":"Nhận Kỹ Năng"}
+{"rowId":"1772","text":"Nhận Kỹ Năng"}
+{"rowId":"1773","text":"Nhận Kỹ Năng"}
+{"rowId":"1774","text":"Thức Tỉnh 3-Màn Đêm Bảo Vệ"}
+{"rowId":"1775","text":"Thức Tỉnh 3-Ban Ngày Xâu Xé"}
+{"rowId":"1776","text":"Thức Tỉnh 3-Giáp Đen Minotaure"}
+{"rowId":"1777","text":"Thức Tỉnh 3-Búa Bạc Minotaure"}
+{"rowId":"1778","text":"Thức Tỉnh 3-Tài Năng"}
+{"rowId":"1779","text":"Thức Tỉnh 3-Hắc Ám"}
+{"rowId":"1780","text":"Thức Tỉnh 3-Tâm Hỏa"}
+{"rowId":"1781","text":"Thức Tỉnh 3-Màn Đêm Bảo Vệ"}
+{"rowId":"1782","text":"Thức Tỉnh 3-Ban Ngày Xâu Xé"}
+{"rowId":"1783","text":"Thức Tỉnh 3-Giáp Đen Minotaure"}
+{"rowId":"1784","text":"Thức Tỉnh 3-Búa Bạc Minotaure"}
+{"rowId":"1785","text":"Thức Tỉnh 3-Tài Năng"}
+{"rowId":"1786","text":"Thức Tỉnh 3-Hắc Ám"}
+{"rowId":"1787","text":"Thức Tỉnh 3-Tâm Hỏa"}
+{"rowId":"1791","text":"Mưa Trời Tinh Hoa"}
+{"rowId":"1792","text":"Mưa Trời Tinh Hoa"}
+{"rowId":"1793","text":"Mưa Trời Tinh Hoa"}
+{"rowId":"1794","text":"Mưa Trời Tinh Hoa"}
+{"rowId":"1795","text":"Mưa Trời Tinh Hoa"}
+{"rowId":"1796","text":"Mưa Trời Tinh Hoa"}
+{"rowId":"1797","text":"Mưa Trời Tinh Hoa"}
+{"rowId":"1798","text":"Mưa Trời Tinh Hoa"}
+{"rowId":"1799","text":"Mưa Trời Tinh Hoa"}
+{"rowId":"1800","text":"Ánh Lửa Bảo Vệ"}
+{"rowId":"1801","text":"Ánh Lửa Bảo Vệ"}
+{"rowId":"1802","text":"Ánh Lửa Bảo Vệ"}
+{"rowId":"1803","text":"Ánh Lửa Bảo Vệ"}
+{"rowId":"1804","text":"Ánh Lửa Bảo Vệ"}
+{"rowId":"1805","text":"Ánh Lửa Bảo Vệ"}
+{"rowId":"1806","text":"Ánh Lửa Bảo Vệ"}
+{"rowId":"1807","text":"Ánh Lửa Bảo Vệ"}
+{"rowId":"1808","text":"Ánh Lửa Bảo Vệ"}
+{"rowId":"1809","text":"Ánh Lửa Bảo Vệ"}
+{"rowId":"1810","text":"Ánh Lửa Bảo Vệ"}
+{"rowId":"1811","text":"Ánh Lửa Bảo Vệ"}
+{"rowId":"1812","text":"Phong Hành Thuật"}
+{"rowId":"1813","text":"Phong Hành Thuật"}
+{"rowId":"1814","text":"Phong Hành Thuật"}
+{"rowId":"1815","text":"Phong Hành Thuật"}
+{"rowId":"1816","text":"Phong Hành Thuật"}
+{"rowId":"1817","text":"Phong Hành Thuật"}
+{"rowId":"1818","text":"Phong Hành Thuật"}
+{"rowId":"1819","text":"Phong Hành Thuật"}
+{"rowId":"1820","text":"Phong Hành Thuật"}
+{"rowId":"1821","text":"Phong Hành Thuật"}
+{"rowId":"1822","text":"Phong Hành Thuật"}
+{"rowId":"1823","text":"Phong Hành Thuật"}
+{"rowId":"1824","text":"Hậu Thổ Quyết"}
+{"rowId":"1825","text":"Hậu Thổ Quyết"}
+{"rowId":"1826","text":"Hậu Thổ Quyết"}
+{"rowId":"1827","text":"Hậu Thổ Quyết"}
+{"rowId":"1828","text":"Hậu Thổ Quyết"}
+{"rowId":"1829","text":"Hậu Thổ Quyết"}
+{"rowId":"1830","text":"Hậu Thổ Quyết"}
+{"rowId":"1831","text":"Hậu Thổ Quyết"}
+{"rowId":"1832","text":"Hậu Thổ Quyết"}
+{"rowId":"1833","text":"Hậu Thổ Quyết"}
+{"rowId":"1834","text":"Hậu Thổ Quyết"}
+{"rowId":"1835","text":"Hậu Thổ Quyết"}
+{"rowId":"1849","text":"Mưa Trời Tinh Hoa"}
+{"rowId":"1850","text":"Nguồn Nước Ban Phúc"}
+{"rowId":"1851","text":"Nguồn Nước Ban Phúc"}
+{"rowId":"1943","text":"Thức Tỉnh 2-Lửa Bảo Vệ"}
+{"rowId":"1944","text":"Thức Tỉnh 2-Biển Lửa Lấp Lánh"}
+{"rowId":"1945","text":"Thức Tỉnh 2-SPOW-Lửa Đỏ"}
+{"rowId":"1946","text":"Thức Tỉnh 2-Lửa Đỏ Bùng Lên"}
+{"rowId":"1947","text":"Thức Tỉnh 2-Phượng Hoàng Niết Bàn"}
+{"rowId":"1948","text":"Thức Tỉnh 2-Ánh Lửa Bập Bùng"}
+{"rowId":"1949","text":"Thức Tỉnh 2-Ánh Lửa Ngút Trời"}
+{"rowId":"1950","text":"Nhận Kỹ Năng"}
+{"rowId":"1951","text":"Nhận Kỹ Năng"}
+{"rowId":"1952","text":"Khu Vực Dấu Ấn"}
+{"rowId":"1953","text":"Bỏng"}
+{"rowId":"1954","text":"Thức Tỉnh 3-Lửa Bảo Vệ"}
+{"rowId":"1955","text":"Thức Tỉnh 3-Biển Lửa Lấp Lánh"}
+{"rowId":"1956","text":"Thức Tỉnh 3-SPOW-Lửa Đỏ"}
+{"rowId":"1957","text":"Thức Tỉnh 3-Lửa Đỏ Bùng Lên"}
+{"rowId":"1958","text":"Thức Tỉnh 3-Phượng Hoàng Niết Bàn"}
+{"rowId":"1959","text":"Thức Tỉnh 3-Ánh Lửa Bập Bùng"}
+{"rowId":"1960","text":"Thức Tỉnh 3-Ánh Lửa Ngút Trời"}
+{"rowId":"1961","text":"Thức Tỉnh 3-Lửa Bảo Vệ"}
+{"rowId":"1962","text":"Thức Tỉnh 3-Biển Lửa Lấp Lánh"}
+{"rowId":"1963","text":"Thức Tỉnh 3-SPOW-Lửa Đỏ"}
+{"rowId":"1964","text":"Thức Tỉnh 3-Lửa Đỏ Bùng Lên"}
+{"rowId":"1965","text":"Thức Tỉnh 3-Phượng Hoàng Niết Bàn"}
+{"rowId":"1966","text":"Thức Tỉnh 3-Ánh Lửa Bập Bùng"}
+{"rowId":"1967","text":"Thức Tỉnh 3-Ánh Lửa Ngút Trời"}
+{"rowId":"1997","text":"Nhận Kỹ Năng"}
+{"rowId":"1998","text":"Nhận Kỹ Năng"}
+{"rowId":"1999","text":"2觉·腾云出击"}
+{"rowId":"2000","text":"2觉·万年蟠桃"}
+{"rowId":"2001","text":"2觉·定身术"}
+{"rowId":"2002","text":"2觉·金刚不坏"}
+{"rowId":"2003","text":"2觉·火眼金睛"}
+{"rowId":"2004","text":"2觉·三命金毫"}
+{"rowId":"2005","text":"2觉·斗战胜佛"}
+{"rowId":"2006","text":"获得技能"}
+{"rowId":"2007","text":"3觉·腾云出击"}
+{"rowId":"2008","text":"3觉·万年蟠桃"}
+{"rowId":"2009","text":"3觉·定身术"}
+{"rowId":"2010","text":"3觉·金刚不坏"}
+{"rowId":"2011","text":"3觉·火眼金睛"}
+{"rowId":"2012","text":"3觉·三命金毫"}
+{"rowId":"2013","text":"3觉·斗战胜佛"}
+{"rowId":"2014","text":"3觉·腾云出击"}
+{"rowId":"2015","text":"3觉·万年蟠桃"}
+{"rowId":"2016","text":"3觉·定身术"}
+{"rowId":"2017","text":"3觉·金刚不坏"}
+{"rowId":"2018","text":"3觉·火眼金睛"}
+{"rowId":"2019","text":"3觉·三命金毫"}
+{"rowId":"2020","text":"3觉·斗战胜佛"}
+{"rowId":"2036","text":"Thức Tỉnh 2-Thỏ Giảm Thương"}
+{"rowId":"2037","text":"Thức Tỉnh 2-Thỏ Chống Đỡ"}
+{"rowId":"2038","text":"Thức Tỉnh 2-Thỏ Cầm Khiên"}
+{"rowId":"2039","text":"Thức Tỉnh 2-Thỏ Cứng Cựa"}
+{"rowId":"2040","text":"Nhận Kỹ Năng"}
+{"rowId":"2041","text":"Thức Tỉnh 3-Thỏ Giảm Thương"}
+{"rowId":"2042","text":"Thức Tỉnh 3-Thỏ Chống Đỡ"}
+{"rowId":"2043","text":"Thức Tỉnh 3-Thỏ Cầm Khiên"}
+{"rowId":"2044","text":"Thức Tỉnh 3-Thỏ Cứng Cựa"}
+{"rowId":"2045","text":"Thức Tỉnh 3-Thỏ Giảm Thương"}
+{"rowId":"2046","text":"Thức Tỉnh 3-Thỏ Chống Đỡ"}
+{"rowId":"2047","text":"Thức Tỉnh 3-Thỏ Cầm Khiên"}
+{"rowId":"2048","text":"Thức Tỉnh 3-Thỏ Cứng Cựa"}
+{"rowId":"9992","text":"Đất Xâm Thực-Cao"}
+{"rowId":"9993","text":"Bùng Cháy-Sơ"}
+{"rowId":"10416","text":"Bộc phát giảm thương"}
+{"rowId":"10417","text":"Bộc phát giảm thương"}
+{"rowId":"10418","text":"Bộc phát giảm thương"}
+{"rowId":"10419","text":"Phản sát thương -2"}
+{"rowId":"10420","text":"Phản sát thương -2"}
+{"rowId":"11716","text":"Bỏng"}
+{"rowId":"11717","text":"Đóng Băng"}
+{"rowId":"11718","text":"Độc"}
+{"rowId":"110413","text":"血量+1000"}
+{"rowId":"110414","text":"傷害+20點，攻、防、敏、幸各提升20點"}
+{"rowId":"110415","text":"攻、防、敏、幸各提升30點"}
+{"rowId":"110416","text":"生命+800  护甲+30"}
+{"rowId":"1010000","text":"血量增加300"}
+{"rowId":"1010100","text":"护甲增加30,血量增加1000"}
+{"rowId":"1010101","text":"血量+300,攻击+50"}
+{"rowId":"1010102","text":"幸运+100,防御+50"}
+{"rowId":"1010103","text":"降低被暴击伤害10%"}
+{"rowId":"1010104","text":"降低被暴击伤害10%,伤害+20,护甲增加20"}
+{"rowId":"1010105","text":"伤害+10，降低被暴击伤害5%"}
+{"rowId":"1010106","text":"攻击+25、敏捷+25"}
+{"rowId":"1010107","text":"伤害+10  降低被暴击伤害5%"}
+{"rowId":"1010200","text":"伤害+30"}
+{"rowId":"1010300","text":"防御+50,敏捷+50,幸运+50"}
+{"rowId":"1010400","text":"攻击+10"}
+{"rowId":"1010500","text":"血量增加400"}
+{"rowId":"1010600","text":"攻击+30"}
+{"rowId":"1010700","text":"血量+350"}
+{"rowId":"1010800","text":"防御+15"}
+{"rowId":"1010801","text":"防御+35"}
+{"rowId":"1010802","text":"幸运+10"}
+{"rowId":"1010803","text":"血量+350,防御+20"}
+{"rowId":"1010804","text":"血量+350,敏捷+20"}
+{"rowId":"1010805","text":"血量+310"}
+{"rowId":"1010806","text":"血量+310,攻击+15"}
+{"rowId":"1010807","text":"血量+400,敏捷+40,减少5%暴击伤害"}
+{"rowId":"1010808","text":"血量+400,敏捷+40,减5%减伤害"}
+{"rowId":"1010809","text":"幸运+80"}
+{"rowId":"1010810","text":"血量+400,防御+40,减5%减伤害"}
+{"rowId":"1010811","text":"攻击+50，防御+50,敏捷+50,幸运+50"}
+{"rowId":"1010812","text":"攻防敏幸+5, +100 HP ，减伤 1%"}
+{"rowId":"1010813","text":"攻防敏幸+5, +100 HP ，减伤 2%"}
+{"rowId":"1010814","text":"攻防敏幸+5, +200 HP ，减伤 1%"}
+{"rowId":"1010815","text":"攻防敏幸+10, +200 HP ，减伤 2%"}
+{"rowId":"1010816","text":"攻防敏幸+15, +200 HP ，减伤 2%"}
+{"rowId":"1010817","text":"攻击+50，防御+50,敏捷+50,幸运+50"}
+{"rowId":"1010818","text":"攻击+50，防御+50,敏捷+50,幸运+50"}
+{"rowId":"1010819","text":"攻击+50，防御+50,敏捷+50,幸运+50"}
+{"rowId":"1010820","text":"攻击+50，防御+50,敏捷+50,幸运+50"}
+{"rowId":"1010821","text":"攻击+50，防御+50,敏捷+50,幸运+50"}
+{"rowId":"1010822","text":"攻防敏幸+15, +200 HP ，减伤 2%"}
+{"rowId":"1010823","text":"攻防敏幸+10,减伤 2%"}
+{"rowId":"1010824","text":"攻防敏幸+10,减伤 2%"}
+{"rowId":"1010825","text":"攻敏+20,魔攻魔防+10,减伤 3%"}
+{"rowId":"1010826","text":"防幸+20,魔攻魔防+10,减伤 3%"}
+{"rowId":"1010827","text":"攻敏+20,魔攻魔防+10,减伤 3%"}
+{"rowId":"1010828","text":"防幸+20,魔攻魔防+10,减伤 3%"}
+{"rowId":"1010829","text":"Hiệu quả bộ 2：Công +20 - Nhanh +20, Ma Kháng + 10,"}
+{"rowId":"1010830","text":"Hiệu quả bộ 2：Thủ +20 - May +20, Ma Kháng + 10, Ma"}
+{"rowId":"1010831","text":"Hiệu quả bộ 2：Công +20 - Nhanh +20, Ma Kháng + 10,"}
+{"rowId":"1010832","text":"Hiệu quả bộ 2：Thủ +20 - May +20, Ma Kháng + 10, Ma"}
+{"rowId":"1010833","text":"攻击+25，防御+25,敏捷+25,幸运+25"}
+{"rowId":"1010834","text":"攻击+25，防御+25,敏捷+25,幸运+25"}
+{"rowId":"1010835","text":"效果：攻击+20，敏捷 +20, 魔抗 + 10, 魔攻+10, 血量 +500, 收到伤害降低 5"}
+{"rowId":"1010836","text":"效果：防御 +30，May +30, 魔抗 + 10, 魔攻+10, 降低被暴击伤害 2%."}
+{"rowId":"1010837","text":"效果：攻击+20，敏捷 +20, 魔抗 + 10, 魔攻+10, 血量 +500, 收到伤害降低 5"}
+{"rowId":"1010838","text":"效果：防御 +30，May +30, 魔抗 + 10, 魔攻+10, 降低被暴击伤害 2%."}
+{"rowId":"1010839","text":"效果：攻击+20，敏捷 +20, 魔抗 + 10, 魔攻+10, 血量 +500, 收到伤害降低 5"}
+{"rowId":"1010840","text":"效果：防御 +30，May +30, 魔抗 + 10, 魔攻+10, 降低被暴击伤害 2%."}
+{"rowId":"1010841","text":"攻击+25，防御+25,敏捷+25,幸运+25,血量+250"}
+{"rowId":"1010842","text":"攻击+25，防御+25,敏捷+25,幸运+25,血量+251"}
+{"rowId":"1010843","text":"效果: 攻击+20 - 敏捷 +20, 魔抗 + 15, 护甲 +3, HP +500, 受到伤害降"}
+{"rowId":"1010844","text":"效果: 攻击+20 - 幸运 +20, 魔抗 + 15, 护甲 +3, HP +500, 受到伤害降"}
+{"rowId":"1010845","text":"效果: 攻击+20 - 敏捷 +20, 魔抗 + 15, 护甲 +3, HP +500, 受到伤害降"}
+{"rowId":"1010846","text":"效果: 攻击+20 - 幸运 +20, 魔抗 + 15, 护甲 +3, HP +500, 受到伤害降"}
+{"rowId":"1010847","text":"效果: 攻击+20 - 敏捷 +20, 魔抗 + 15, 伤害 +3, HP +500, 受到伤害降"}
+{"rowId":"1010848","text":"效果: 攻击+20 - 防御 +20, 魔抗 + 15, 伤害 +3, HP +500, 受到伤害降"}
+{"rowId":"1010849","text":"效果: 攻击+28 - 敏捷 +28, 防御+28 - 幸运+28, HP +500"}
+{"rowId":"1010850","text":"Hiệu quả: Nhanh +20, May +20, Ma Công + 15, Sát +3"}
+{"rowId":"1010851","text":"Hiệu quả: Nhanh +20, Thủ +20, Ma Công + 15, Sát +3"}
+{"rowId":"1010852","text":"Công-Thủ-Nhanh-May tăng 30 điểm,HP +500, Giảm Sát"}
+{"rowId":"1010853","text":"Công-Thủ-Nhanh-May tăng 30 điểm,HP +500, Giảm Sát"}
+{"rowId":"1010854","text":"Kết hợp 2 trang bị nhận hiệu quả: Nhanh +20, May +"}
+{"rowId":"1010855","text":"Kết hợp 3 trang bị nhận hiệu quả: Công +20, Thủ +2"}

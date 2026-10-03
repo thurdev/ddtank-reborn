@@ -1,0 +1,1714 @@
+{"rowId":"1017","text":"Không thể di chuyển"}
+{"rowId":"1018","text":"Nhận được miễn kháng, tăng hiệu quả phòng ngự, nhưng không thể di chuyển."}
+{"rowId":"1019","text":"Nhận được miễn kháng, tăng hiệu quả phòng ngự, nhưng không thể di chuyển."}
+{"rowId":"1020","text":"Nhận được miễn kháng, tăng hiệu quả phòng ngự, nhưng không thể di chuyển."}
+{"rowId":"1021","text":"Duy trì 2 TURN"}
+{"rowId":"1022","text":"Tăng hộ giáp."}
+{"rowId":"1023","text":"Tăng hộ giáp."}
+{"rowId":"1024","text":"Tăng sát thương."}
+{"rowId":"1025","text":"Tăng sát thương."}
+{"rowId":"1026","text":"Hồi phục HP."}
+{"rowId":"1027","text":"Hồi phục HP."}
+{"rowId":"1028","text":"Hồi phục HP."}
+{"rowId":"1029","text":"Giảm sát thương chịu được."}
+{"rowId":"1030","text":"Giảm sát thương chịu được."}
+{"rowId":"1031","text":"Giảm sát thương chịu được."}
+{"rowId":"1040","text":"Tăng may mắn."}
+{"rowId":"1041","text":"Tăng may mắn."}
+{"rowId":"1042","text":"Tăng may mắn."}
+{"rowId":"1043","text":"Hồi phục HP."}
+{"rowId":"1044","text":"Hồi phục HP."}
+{"rowId":"1045","text":"Hồi phục HP."}
+{"rowId":"1046","text":"Tăng phòng ngự."}
+{"rowId":"1047","text":"Tăng phòng ngự."}
+{"rowId":"1048","text":"Tăng phòng ngự."}
+{"rowId":"1049","text":"Tăng hộ giáp, hiệu quả sẽ biến mất khi di chuyển."}
+{"rowId":"1050","text":"Tăng hộ giáp, hiệu quả sẽ biến mất khi di chuyển."}
+{"rowId":"1063","text":"Hồi phục HP."}
+{"rowId":"1064","text":"Hồi phục HP."}
+{"rowId":"1067","text":"Phản sát thương."}
+{"rowId":"1068","text":"Phản sát thương."}
+{"rowId":"1072","text":"Tăng sát thương, bị công kích sẽ mất."}
+{"rowId":"1083","text":"Nhận được miễn kháng, tăng công kích, may mắn, giảm hiệu quả phòng ngự, lúc di c"}
+{"rowId":"1084","text":"Nhận được miễn kháng, tăng công kích, may mắn, giảm hiệu quả phòng ngự, lúc di c"}
+{"rowId":"1092","text":"Tăng công kích, phòng ngự, nhanh nhẹn, may mắn, HP tối đa."}
+{"rowId":"1093","text":"Tăng công kích, phòng ngự, nhanh nhẹn, may mắn, HP tối đa."}
+{"rowId":"1111","text":"Phản sát thương. (TIPS ở 1067)"}
+{"rowId":"1112","text":"Phản sát thương. (TIPS ở 1068)"}
+{"rowId":"1117","text":"Có thể đỡ được lượng lớn sát thương."}
+{"rowId":"1118","text":"Tăng phòng ngự."}
+{"rowId":"1119","text":"Tăng phòng ngự."}
+{"rowId":"1120","text":"Tăng hộ giáp."}
+{"rowId":"1121","text":"Tăng hộ giáp."}
+{"rowId":"1122","text":"% sat thương công kích"}
+{"rowId":"1123","text":"% sat thương công kích"}
+{"rowId":"1124","text":"% sat thương công kích"}
+{"rowId":"1130","text":"Công kích giảm 200"}
+{"rowId":"1131","text":"Công kích giảm 150"}
+{"rowId":"1132","text":"Công kích giảm 100"}
+{"rowId":"1135","text":"Giảm 500 điểm sát thương chịu được"}
+{"rowId":"1136","text":"duy trì phản kích"}
+{"rowId":"1137","text":"hiệu ứng phản dame"}
+{"rowId":"1138","text":"100% bạo kích"}
+{"rowId":"1139","text":"x% sát thương của thú cưng công kích"}
+{"rowId":"1149","text":"x% sát thương của thú cưng công kích"}
+{"rowId":"1150","text":"Giảm 1% HP, duy trì 3 turn"}
+{"rowId":"1151","text":"Gảm 2% HP, duy trì 3 turn"}
+{"rowId":"1152","text":"Giảm 3% HP, duy trì 3 turn"}
+{"rowId":"1153","text":"Sát thương cơ bản tăng 15%, hộ giáp giảm 500"}
+{"rowId":"1154","text":"Sát thương cơ bản tăng 25%, hộ giáp giảm 650"}
+{"rowId":"1155","text":"Hộ giáp giảm 500"}
+{"rowId":"1156","text":"Hộ giáp giảm 650"}
+{"rowId":"1157","text":"Hồi phục 2% HP"}
+{"rowId":"1158","text":"Hồi phục 4% HP"}
+{"rowId":"1159","text":"Mỗi turn giảm 1000 HP, giảm thêm 2% HP hiện tại"}
+{"rowId":"1160","text":"Mỗi turn giảm 2000 HP, giảm thêm 4% HP hiện tại"}
+{"rowId":"1161","text":"Giảm 3000 HP, diệt nhanh khi 5%"}
+{"rowId":"1162","text":"Giảm 5000 HP, diệt nhanh khi 10%"}
+{"rowId":"1163","text":"Tấn công tăng 150, sát thương tăng 100"}
+{"rowId":"1164","text":"Tấn công tăng 300, sát thương tăng 200"}
+{"rowId":"1165","text":"Sát thương tăng 100"}
+{"rowId":"1166","text":"Sát thương tăng 200"}
+{"rowId":"1169","text":"(đồng thời dịch chuyển hỏa long ấn kí)"}
+{"rowId":"1170","text":"Mỗi lần đến hiệp của kẻ địch, thú cưng sẽ tiến hành công kích"}
+{"rowId":"1171","text":"Mỗi lần đến hiệp của kẻ địch, thú cưng sẽ tiến hành công kích"}
+{"rowId":"1172","text":"Khi bị công kích hồi phục HP"}
+{"rowId":"1173","text":"Khi bị công kích hồi phục HP"}
+{"rowId":"1174","text":"Khi bị tấn công có xác suất nhất định hồi HP"}
+{"rowId":"1175","text":"Khi bị tấn công có xác suất nhất định hồi HP"}
+{"rowId":"1176","text":"Mỗi lần đến hiệp của kẻ địch, thú cưng sẽ tiến hành công kích"}
+{"rowId":"1177","text":"Mỗi lần đến hiệp của kẻ địch, thú cưng sẽ tiến hành công kích"}
+{"rowId":"1178","text":"Tăng tấn công 100"}
+{"rowId":"1179","text":"Tăng tấn công 300"}
+{"rowId":"1180","text":"Tăng tấn công 500"}
+{"rowId":"1181","text":"Tăng hộ giáp 100"}
+{"rowId":"1182","text":"Tăng hộ giáp 200"}
+{"rowId":"1183","text":"Tăng hộ giáp 300"}
+{"rowId":"1184","text":"Tăng sát thương 150"}
+{"rowId":"1185","text":"Tăng sát thương 300"}
+{"rowId":"1186","text":"Mỗi turn giảm 500 HP"}
+{"rowId":"1187","text":"Mỗi turn giảm 800 HP"}
+{"rowId":"1190","text":"Tăng nhanh nhẹn 300"}
+{"rowId":"1191","text":"Tăng nhanh nhẹn 500"}
+{"rowId":"1192","text":"Tăng tấn công 100"}
+{"rowId":"1193","text":"Tăng tấn công 300"}
+{"rowId":"1194","text":"Tăng tấn công 200"}
+{"rowId":"1195","text":"Tăng tấn công 300"}
+{"rowId":"1196","text":"Tăng sát thương 100"}
+{"rowId":"1197","text":"Tăng sát thương 150"}
+{"rowId":"1198","text":"Tăng bạo kích 30%"}
+{"rowId":"1199","text":"Tăng bạo kích 50%"}
+{"rowId":"1200","text":"Khi đến lượt, tăng 2 điểm ma pháp cho toàn bộ thú cưng cùng phe"}
+{"rowId":"1201","text":"Sát thương-100"}
+{"rowId":"1202","text":"Sát thương-200"}
+{"rowId":"1203","text":"Sát thương-300"}
+{"rowId":"1204","text":"Tấn công-300, Phòng thủ-300"}
+{"rowId":"1205","text":"Tấn công-500, Phòng thủ-500"}
+{"rowId":"1206","text":"Tấn công-300, Phòng thủ-300"}
+{"rowId":"1207","text":"Tấn công-500, Phòng thủ-500"}
+{"rowId":"1208","text":"Giảm 10 điểm ma pháp thú cưng"}
+{"rowId":"1209","text":"Giảm 30 điểm ma pháp thú cưng"}
+{"rowId":"1210","text":"Mỗi turn -500 HP"}
+{"rowId":"1211","text":"Mỗi turn -1000 HP"}
+{"rowId":"1212","text":"Tỷ lệ bạo kích +20%"}
+{"rowId":"1213","text":"Tỷ lệ bạo kích +50%"}
+{"rowId":"1214","text":"Hộ giáp +100, HP+1500"}
+{"rowId":"1215","text":"Hộ giáp +200, HP+3000"}
+{"rowId":"1216","text":"Tăng 1500 HP"}
+{"rowId":"1217","text":"Tăng 3000 HP"}
+{"rowId":"1220","text":"Hộ giáp -100"}
+{"rowId":"1221","text":"Hộ giáp -200"}
+{"rowId":"1222","text":"Không thể di chuyển"}
+{"rowId":"1223","text":"Mỗi lần bị tấn công tăng 2 điểm thú cưng"}
+{"rowId":"1224","text":"Mỗi turn giảm 500 HP"}
+{"rowId":"1225","text":"Mỗi turn giảm 800 HP"}
+{"rowId":"1226","text":"Mỗi turn giảm 500 HP"}
+{"rowId":"1227","text":"Mỗi turn giảm 1000 HP"}
+{"rowId":"1228","text":"Phản sát thương"}
+{"rowId":"1229","text":"Phản sát thương"}
+{"rowId":"1230","text":"Duy trì gai nhọn"}
+{"rowId":"1231","text":"Giảm 500 điểm sát thương phải chịu"}
+{"rowId":"1235","text":"Phản đòn"}
+{"rowId":"1238","text":"Tăng sát thương"}
+{"rowId":"1239","text":"Tăng sát thương"}
+{"rowId":"1240","text":"Tăng sát thương"}
+{"rowId":"1241","text":"Tăng hộ giáp"}
+{"rowId":"1242","text":"Tăng hộ giáp"}
+{"rowId":"1245","text":"Mỗi lần công kích tăng 2 điểm ma pháp"}
+{"rowId":"1246","text":"Giảm 650 sát thương phải chịu"}
+{"rowId":"1247","text":"Giảm 750 sát thương phải chịu"}
+{"rowId":"1248","text":"Giảm sát thương phải chịu"}
+{"rowId":"1249","text":"Giảm sát thương phải chịu"}
+{"rowId":"1250","text":"Giảm sát thương phải chịu"}
+{"rowId":"1251","text":"Phản sát thương"}
+{"rowId":"1252","text":"Phản sát thương"}
+{"rowId":"1253","text":"Ma pháp thú cưng giảm 3 điểm"}
+{"rowId":"1254","text":"Tấn công -100"}
+{"rowId":"1255","text":"Tấn công -200"}
+{"rowId":"1256","text":"Tấn công -300"}
+{"rowId":"1257","text":"Hộ giáp +100"}
+{"rowId":"1258","text":"Hộ giáp +200"}
+{"rowId":"1259","text":"Hồi phục HP."}
+{"rowId":"1260","text":"Hồi phục HP."}
+{"rowId":"1261","text":"May mắn +300"}
+{"rowId":"1262","text":"May mắn +500"}
+{"rowId":"1263","text":"Nhận được 2 điểm ma pháp"}
+{"rowId":"1264","text":"Tấn công +100"}
+{"rowId":"1265","text":"Tấn công +300"}
+{"rowId":"1266","text":"Giảm 10 điểm ma pháp Pet địch bị bắn trúng"}
+{"rowId":"1267","text":"Giảm 20 điểm ma pháp Pet địch bị bắn trúng"}
+{"rowId":"1268","text":"Pet đồng đội +5 điểm ma pháp"}
+{"rowId":"1269","text":"Pet đồng đội +10 điểm ma pháp"}
+{"rowId":"1270","text":"Giảm 800 HP người chơi bị bắn trúng"}
+{"rowId":"1271","text":"Giảm 1300 HP người chơi bị bắn trúng"}
+{"rowId":"1272","text":"获得核爆技能192"}
+{"rowId":"1273","text":"获得核爆技能193"}
+{"rowId":"1275","text":"Nhận được 2 ma pháp"}
+{"rowId":"1276","text":"Hồi 1% HP"}
+{"rowId":"1277","text":"Hồi 2% HP"}
+{"rowId":"1278","text":"Sát thương bạo kích phải chịu -20%"}
+{"rowId":"1279","text":"Sát thương bạo kích phải chịu -30%"}
+{"rowId":"1280","text":"Ẩn Thân"}
+{"rowId":"1281","text":"Sát thương phải chịu -15%"}
+{"rowId":"1282","text":"Giảm 30% sát thưởng phải chịu"}
+{"rowId":"1283","text":"Sát thương phải chịu -50%"}
+{"rowId":"1284","text":"Hồi 30% HP"}
+{"rowId":"1285","text":"Hồi 30% HP"}
+{"rowId":"1286","text":"Khóa KN Thú Cưỡi"}
+{"rowId":"1287","text":"Khóa KN Thú Cưng"}
+{"rowId":"1288","text":"Trong thi đấu ngẫu nhiên di chuyển đến 1 vị trí"}
+{"rowId":"1289","text":"Nhận kỹ năng Siêu Phàm 210 được kỹ năng 216"}
+{"rowId":"1290","text":"Nhận kỹ năng Siêu Phàm 211 được kỹ năng 217"}
+{"rowId":"1291","text":"Giảm 2 điểm ma pháp địch"}
+{"rowId":"1292","text":"Giảm 3 điểm ma pháp địch"}
+{"rowId":"1293","text":"Nhận được kỹ năng 206"}
+{"rowId":"1294","text":"Nhận được kỹ năng 207"}
+{"rowId":"1295","text":"Nhận Đánh Mạnh 214"}
+{"rowId":"1296","text":"Nhận Đánh Mạnh 215"}
+{"rowId":"1300","text":"Trộm 30% ma pháp kỹ năng chủ động địch"}
+{"rowId":"1301","text":"Trộm 50% ma pháp kỹ năng chủ động địch"}
+{"rowId":"1302","text":"Nhận được 1 ma pháp"}
+{"rowId":"1303","text":"Nhận được 2 ma pháp"}
+{"rowId":"1304","text":"Khiến địch -1 ma pháp"}
+{"rowId":"1305","text":"Giảm 2 điểm ma pháp địch"}
+{"rowId":"1306","text":"Nhận được kỹ năng 218"}
+{"rowId":"1307","text":"Nhận được kỹ năng 219"}
+{"rowId":"1308","text":"Hồi 30% sát thương"}
+{"rowId":"1309","text":"Hồi 30% sát thương"}
+{"rowId":"1310","text":"Nhận được kỹ năng 220"}
+{"rowId":"1311","text":"Nhận được kỹ năng 221"}
+{"rowId":"1322","text":"Mỗi sát thương 3500 điểm, tăng 1 điểm Ma Pháp"}
+{"rowId":"1323","text":"5% diệt nhanh"}
+{"rowId":"1324","text":"10% diệt nhanh"}
+{"rowId":"1325","text":"Thú cưng tấn công X% sát thương"}
+{"rowId":"1326","text":"Thú cưng tấn công X% sát thương"}
+{"rowId":"1327","text":"Thú cưng tấn công X% sát thương"}
+{"rowId":"1331","text":"Nhận miễn kháng, tăng hiệu quả phòng thủ, nhưng không thể di chuyển."}
+{"rowId":"1332","text":"Nhận miễn kháng, tăng hiệu quả phòng thủ, nhưng không thể di chuyển."}
+{"rowId":"1333","text":"Nhận miễn kháng, tăng hiệu quả phòng thủ, nhưng không thể di chuyển."}
+{"rowId":"1334","text":"Tấn công giảm 20%"}
+{"rowId":"1335","text":"Tấn công giảm 15%"}
+{"rowId":"1336","text":"Tăng hộ giáp, mất hiệu quả khi di chuyển."}
+{"rowId":"1337","text":"Tăng hộ giáp, mất hiệu quả khi di chuyển."}
+{"rowId":"1342","text":"Nhận miễn kháng, tăng sát thương, may mắn, giảm hộ giáp, mất hiệu quả khi di chu"}
+{"rowId":"1343","text":"Nhận miễn kháng, tăng sát thương, may mắn, giảm hộ giáp, mất hiệu quả khi di chu"}
+{"rowId":"1352","text":"Giảm 3.3% HP."}
+{"rowId":"1353","text":"Bị tấn công sẽ tăng sát thương"}
+{"rowId":"1354","text":"Bị tấn công sẽ tăng sát thương"}
+{"rowId":"1358","text":"Hồi HP"}
+{"rowId":"1359","text":"Hồi HP"}
+{"rowId":"1360","text":"Hồi HP"}
+{"rowId":"1361","text":"Hồi HP"}
+{"rowId":"1362","text":"Hồi HP"}
+{"rowId":"1363","text":"Hồi HP"}
+{"rowId":"1366","text":"Hồi HP"}
+{"rowId":"1367","text":"Hồi HP"}
+{"rowId":"1368","text":"Hồi HP khi bị tấn công"}
+{"rowId":"1369","text":"Hồi HP khi bị tấn công, HP quá thấp nhận hiệu quả x2"}
+{"rowId":"1370","text":"Hồi HP khi bị tấn công"}
+{"rowId":"1371","text":"Hồi HP khi bị tấn công, HP quá thấp nhận hiệu quả x2"}
+{"rowId":"1421","text":"Xác suất bạo kích +20%"}
+{"rowId":"1422","text":"Tăng Ma Công"}
+{"rowId":"1423","text":"Giảm Ma Kháng"}
+{"rowId":"1424","text":"Tăng Ma Công"}
+{"rowId":"1425","text":"Giảm Ma Kháng"}
+{"rowId":"1426","text":"Bất động 1 turn"}
+{"rowId":"1427","text":"Giảm 10 ma pháp"}
+{"rowId":"1428","text":"Giảm sát thương, xác suất miễn bị bạo kích"}
+{"rowId":"1429","text":"Giảm sát thương, xác suất miễn bị bạo kích"}
+{"rowId":"1430","text":"Miễn bị bạo kích"}
+{"rowId":"1431","text":"Miễn bị bạo kích"}
+{"rowId":"1432","text":"Đánh dấu người chơi ẩn"}
+{"rowId":"1433","text":"Nhận kỹ năng tăng sát thương"}
+{"rowId":"1434","text":"Tăng sát thương"}
+{"rowId":"1435","text":"Khi chịu đòn trí mạng được hồi HP"}
+{"rowId":"1436","text":"Sát thương toàn màn hình"}
+{"rowId":"1437","text":"Sát thương toàn màn hình"}
+{"rowId":"1438","text":"Dùng vật phẩm tăng ma pháp"}
+{"rowId":"1439","text":"Tăng hộ giáp"}
+{"rowId":"1440","text":"Tăng hộ giáp"}
+{"rowId":"1441","text":"Tăng hộ giáp"}
+{"rowId":"1442","text":"Giảm sát thương phải chịu"}
+{"rowId":"1443","text":"Giảm sát thương phải chịu"}
+{"rowId":"1444","text":"Giảm sát thương phải chịu"}
+{"rowId":"1445","text":"Giảm sát thương phải chịu"}
+{"rowId":"1446","text":"Giảm sát thương phải chịu"}
+{"rowId":"1447","text":"Phản Sát Thương"}
+{"rowId":"1448","text":"Phản Sát Thương"}
+{"rowId":"1449","text":"Tăng hộ giáp và phòng thủ"}
+{"rowId":"1450","text":"Tăng hộ giáp và phòng thủ"}
+{"rowId":"1451","text":"Tăng phòng thủ"}
+{"rowId":"1452","text":"Tăng phòng thủ"}
+{"rowId":"1462","text":"Thú cưng tấn công X% sát thương"}
+{"rowId":"1463","text":"Tấn công tăng 450, sát thương tăng 300"}
+{"rowId":"1464","text":"Sát thương tăng 300"}
+{"rowId":"1465","text":"Sát thương cơ bản tăng 30%, hộ giáp giảm 750, giới hạn HP tăng 15%"}
+{"rowId":"1466","text":"Hộ giáp giảm 750."}
+{"rowId":"1467","text":"Giới hạn HP tăng 15%"}
+{"rowId":"1468","text":"Khi bị tấn công hồi phục HP"}
+{"rowId":"1469","text":"Khi bị tấn công có xác suất nhất định hồi HP"}
+{"rowId":"1470","text":"Hồi phục 4% HP"}
+{"rowId":"1473","text":"Thú cưng tấn công X% sát thương"}
+{"rowId":"1474","text":"Tấn công giảm 20%"}
+{"rowId":"1475","text":"Phòng thủ giảm 20%"}
+{"rowId":"1476","text":"Tỷ lệ bạo kích tăng 10%"}
+{"rowId":"1477","text":"Giảm HP người chơi bị đánh trúng"}
+{"rowId":"1478","text":"Không thể di chuyển"}
+{"rowId":"1479","text":"Nhận được 1 điểm ma pháp"}
+{"rowId":"1480","text":"Thú cưng tấn công X% sát thương"}
+{"rowId":"1481","text":"Thú cưng tấn công X% sát thương"}
+{"rowId":"1482","text":"Tăng tấn công và sát thương."}
+{"rowId":"1483","text":"Tăng sát thương."}
+{"rowId":"1484","text":"Tỷ lệ giảm thương tăng 30%."}
+{"rowId":"1485","text":"Mỗi turn giảm HP 8%"}
+{"rowId":"1486","text":"Tăng sát thương 800"}
+{"rowId":"1487","text":"Tăng nhanh nhẹn 600"}
+{"rowId":"1488","text":"Tăng tấn công 600"}
+{"rowId":"1489","text":"Tăng tấn công."}
+{"rowId":"1490","text":"Tăng sát thương."}
+{"rowId":"1491","text":"Tăng tỷ lệ bạo kích."}
+{"rowId":"1493","text":"Hồi phục HP."}
+{"rowId":"1494","text":"Thú cưng tấn công X% sát thương"}
+{"rowId":"1495","text":"Sát thương giảm 25%"}
+{"rowId":"1496","text":"Tấn công và phòng thủ giảm 30%"}
+{"rowId":"1498","text":"Mỗi turn giảm HP 5%"}
+{"rowId":"1499","text":"Tỷ lệ bạo kích +75%, sát thương bạo kích +30%."}
+{"rowId":"1501","text":"Hộ giáp giảm, ma kháng giảm."}
+{"rowId":"1502","text":"Không thể di chuyển"}
+{"rowId":"1503","text":"Ma kháng giảm"}
+{"rowId":"1504","text":"Nhận hiệu quả trúng độc"}
+{"rowId":"1505","text":"Sát thương phải chịu tăng 10%"}
+{"rowId":"1506","text":"Thú cưng tấn công X% sát thương"}
+{"rowId":"1507","text":"Tỷ lệ bạo kích tăng 25%"}
+{"rowId":"1508","text":"Giảm 20 điểm ma pháp"}
+{"rowId":"1509","text":"Giảm sát thương, xác suất miễn bị bạo kích"}
+{"rowId":"1510","text":"Miễn bị bạo kích"}
+{"rowId":"1511","text":"Nhận kỹ năng tăng sát thương"}
+{"rowId":"1512","text":"Tăng sát thương"}
+{"rowId":"1513","text":"Khi chịu đòn chí mạng được tăng nộ khí"}
+{"rowId":"1514","text":"Khi chịu đòn chí mạng được hồi HP và tăng nộ khí"}
+{"rowId":"1515","text":"Dùng đạo cụ chiến đấu tăng điểm ma pháp"}
+{"rowId":"1516","text":"Dùng đạo cụ chiến đấu tăng điểm nộ khí"}
+{"rowId":"1517","text":"Hộ giáp +500, HP +8%"}
+{"rowId":"1518","text":"Tăng HP"}
+{"rowId":"1522","text":"Tăng hộ giáp"}
+{"rowId":"1523","text":"Tăng hộ giáp"}
+{"rowId":"1524","text":"Tăng hộ giáp"}
+{"rowId":"1525","text":"Giảm sát thương phải chịu"}
+{"rowId":"1526","text":"Giảm sát thương phải chịu"}
+{"rowId":"1527","text":"Giảm sát thương phải chịu"}
+{"rowId":"1528","text":"Tăng hộ giáp và phòng thủ"}
+{"rowId":"1529","text":"Tăng hộ giáp và phòng thủ"}
+{"rowId":"1530","text":"Tăng phòng thủ"}
+{"rowId":"1531","text":"Tăng phòng thủ"}
+{"rowId":"1532","text":"Thú cưng tấn công X% sát thương"}
+{"rowId":"1533","text":"Khóa KN Thú Cưng"}
+{"rowId":"1534","text":"Hút ma pháp kỹ năng"}
+{"rowId":"1535","text":"Tăng tỉ lệ bạo kích"}
+{"rowId":"1536","text":"Giảm sát thương khi bị bạo kích, tăng tỉ lệ bạo kích"}
+{"rowId":"1537","text":"Sát thương phải chịu -50%"}
+{"rowId":"1538","text":"Hồi phục 35% sát thương"}
+{"rowId":"1539","text":"Nhận kỹ năng 324"}
+{"rowId":"1540","text":"Tất cả đồng đội tăng 1 điểm ma pháp"}
+{"rowId":"1541","text":"Bản thân tăng 4 điểm ma pháp"}
+{"rowId":"1542","text":"Thú cưng tấn công X% sát thương"}
+{"rowId":"1543","text":"Thú cưng tấn công X% sát thương"}
+{"rowId":"1544","text":"Thú cưng tấn công X% sát thương"}
+{"rowId":"1545","text":"Giảm sát thương 30%"}
+{"rowId":"1546","text":"Giảm sát thương 30%"}
+{"rowId":"1547","text":"Giảm sát thương 30%"}
+{"rowId":"1548","text":"Tăng sát thương 150%"}
+{"rowId":"1549","text":"Tăng sát thương 180%"}
+{"rowId":"1550","text":"Tăng sát thương 220%"}
+{"rowId":"1551","text":"100% Bạo kích"}
+{"rowId":"1552","text":"Giảm sát thương bạo kích phải chịu, giảm tất cả sát thương"}
+{"rowId":"1553","text":"Giảm sát thương bạo kích phải chịu, giảm tất cả sát thương"}
+{"rowId":"1554","text":"Giảm tất cả sát thương"}
+{"rowId":"1555","text":"Giảm tất cả sát thương"}
+{"rowId":"1562","text":"Không thể điều chỉnh góc độ"}
+{"rowId":"1563","text":"Không thể điều chỉnh góc độ"}
+{"rowId":"1564","text":"Xuyên Phòng Lv1"}
+{"rowId":"1565","text":"Xuyên Phòng Lv1"}
+{"rowId":"1566","text":"Xuyên Giáp Lv1"}
+{"rowId":"1567","text":"Xuyên Giáp Lv2"}
+{"rowId":"1568","text":"Nhận Giải Trừ Xuyên Giáp Lv1"}
+{"rowId":"1569","text":"Nhận Giải Trừ Xuyên Giáp Lv2"}
+{"rowId":"1570","text":"Giải Trừ Xuyên Giáp Lv1"}
+{"rowId":"1571","text":"Giải Trừ Xuyên Giáp Lv2"}
+{"rowId":"1572","text":"Bỏ qua phòng thủ đối phương"}
+{"rowId":"1573","text":"Bỏ qua phòng thủ đối phương"}
+{"rowId":"1575","text":"Điểm ma pháp 2"}
+{"rowId":"1576","text":"Tăng sát thương"}
+{"rowId":"1577","text":"Nộ Lv1"}
+{"rowId":"1578","text":"Thú cưng tấn công X% sát thương"}
+{"rowId":"1579","text":"Thú cưng tấn công X% sát thương"}
+{"rowId":"1580","text":"Thú cưng tấn công X% sát thương"}
+{"rowId":"1581","text":"Giảm sát thương 30%"}
+{"rowId":"1582","text":"Giảm sát thương 30%"}
+{"rowId":"1583","text":"Giảm sát thương 30%"}
+{"rowId":"1584","text":"Tăng sát thương 120%"}
+{"rowId":"1585","text":"Tăng sát thương 150%"}
+{"rowId":"1586","text":"Tăng sát thương 180%"}
+{"rowId":"1587","text":"100% Bạo kích"}
+{"rowId":"1588","text":"Giảm sát thương bạo kích phải chịu, giảm tất cả sát thương"}
+{"rowId":"1589","text":"Giảm sát thương bạo kích phải chịu, giảm tất cả sát thương"}
+{"rowId":"1590","text":"Giảm tất cả sát thương"}
+{"rowId":"1591","text":"Giảm tất cả sát thương"}
+{"rowId":"1598","text":"Không thể điều chỉnh góc độ"}
+{"rowId":"1599","text":"Không thể điều chỉnh góc độ"}
+{"rowId":"1600","text":"Xuyên Phòng Lv1"}
+{"rowId":"1601","text":"Xuyên Phòng Lv1"}
+{"rowId":"1602","text":"Xuyên Giáp Lv1"}
+{"rowId":"1603","text":"Xuyên Giáp Lv2"}
+{"rowId":"1604","text":"Nhận Giải Trừ Xuyên Giáp Lv1"}
+{"rowId":"1605","text":"Nhận Giải Trừ Xuyên Giáp Lv2"}
+{"rowId":"1606","text":"Giải Trừ Xuyên Giáp Lv1"}
+{"rowId":"1607","text":"Giải Trừ Xuyên Giáp Lv2"}
+{"rowId":"1608","text":"Bỏ qua phòng thủ đối phương"}
+{"rowId":"1609","text":"Bỏ qua phòng thủ đối phương"}
+{"rowId":"1611","text":"Điểm ma pháp 2"}
+{"rowId":"1612","text":"Tăng sát thương"}
+{"rowId":"1613","text":"Nộ Lv1"}
+{"rowId":"1614","text":"Điệp Ẩn phát động %HP"}
+{"rowId":"1615","text":"Điệp Ẩn phát động %HP"}
+{"rowId":"1616","text":"Thú cưng tấn công X% sát thương"}
+{"rowId":"1617","text":"Nộ"}
+{"rowId":"1618","text":"Nộ"}
+{"rowId":"1619","text":"Giảm tất cả sát thương"}
+{"rowId":"1621","text":"Đánh dấu người chơi ẩn"}
+{"rowId":"1622","text":"Nhận kỹ năng tăng sát thương"}
+{"rowId":"1623","text":"Tăng sát thương"}
+{"rowId":"1624","text":"Điểm ma pháp 4"}
+{"rowId":"1625","text":"Tăng sát thương"}
+{"rowId":"1626","text":"Giới Hạn HP + 5%"}
+{"rowId":"1627","text":"Xuyên Giáp"}
+{"rowId":"1628","text":"Xuyên giáp"}
+{"rowId":"1629","text":"Nhận Giải Trừ Xuyên Giáp"}
+{"rowId":"1630","text":"Giải Trừ Xuyên Giáp"}
+{"rowId":"1631","text":"Bỏ qua phòng thủ đối phương"}
+{"rowId":"1633","text":"Tăng hộ giáp và phòng thủ."}
+{"rowId":"1634","text":"Tăng phòng thủ"}
+{"rowId":"1635","text":"Sát thương giảm 50%"}
+{"rowId":"1636","text":"Ma công tăng 30%"}
+{"rowId":"1637","text":"Chịu sát thương tăng kỹ năng"}
+{"rowId":"1638","text":"Sát thương phải chịu tăng 20%"}
+{"rowId":"1639","text":"Sát thương pet tấn công X%"}
+{"rowId":"1640","text":"Sát thương pet tấn công X%"}
+{"rowId":"1641","text":"Sát thương pet tấn công X%"}
+{"rowId":"1642","text":"Giảm 20% thể lực lớn nhất"}
+{"rowId":"1643","text":"Giảm 25% thể lực lớn nhất"}
+{"rowId":"1644","text":"Giảm 30% thể lực lớn nhất"}
+{"rowId":"1645","text":"Tăng 120% sát thương"}
+{"rowId":"1646","text":"Tăng 150% sát thương"}
+{"rowId":"1647","text":"Tăng 180% sát thương"}
+{"rowId":"1648","text":"Bạo kích 100%"}
+{"rowId":"1649","text":"Tăng tốc độ"}
+{"rowId":"1650","text":"Tăng tốc độ"}
+{"rowId":"1651","text":"Mất tầm nhìn, giảm sát thương 20%"}
+{"rowId":"1652","text":"Mất tầm nhìn, giảm sát thương 30%"}
+{"rowId":"1653","text":"Mất tầm nhìn"}
+{"rowId":"1654","text":"Mất tầm nhìn"}
+{"rowId":"1655","text":"Sát thương tạo thành nhiều nhất giới hạn ở mức 30% HP"}
+{"rowId":"1656","text":"Sát thương tạo thành nhiều nhất giới hạn ở mức 30% HP"}
+{"rowId":"1657","text":"Hiệu quả trị liệu giảm 50%"}
+{"rowId":"1658","text":"Hiệu quả trị liệu giảm 80%"}
+{"rowId":"1659","text":"Đạn bắn ra kèm sát thương bằng mức 1% HP đã mất"}
+{"rowId":"1660","text":"Đạn bắn ra kèm sát thương bằng mức 3% HP đã mất"}
+{"rowId":"1661","text":"Ngẫu nhiên hoán đổi vị trí"}
+{"rowId":"1662","text":"Mỗi lần mất 10% HP sẽ tăng điểm Ma Pháp thêm 2"}
+{"rowId":"1692","text":"HP +7%, sát thương +7%"}
+{"rowId":"1693","text":"Hồi phục HP"}
+{"rowId":"1694","text":"Sát thương +"}
+{"rowId":"1695","text":"HP +9%, sát thương +9%"}
+{"rowId":"1696","text":"Hồi phục HP"}
+{"rowId":"1697","text":"Sát thương +"}
+{"rowId":"1698","text":"HP +12%, sát thương +12%"}
+{"rowId":"1699","text":"Hồi phục HP"}
+{"rowId":"1700","text":"Sát thương +"}
+{"rowId":"1701","text":"HP +15%, sát thương +15%"}
+{"rowId":"1702","text":"Hồi phục HP"}
+{"rowId":"1703","text":"Sát thương +"}
+{"rowId":"1704","text":"Hiệu quả hồi phục trong+3%，Sát thương+5%"}
+{"rowId":"1705","text":"Sát thương"}
+{"rowId":"1706","text":"Hiệu quả hồi phục trong+4%，Sát thương+6%"}
+{"rowId":"1707","text":"Sát thương"}
+{"rowId":"1708","text":"Hiệu quả hồi phục trong+5%，Sát thương+7%"}
+{"rowId":"1709","text":"Sát thương"}
+{"rowId":"1710","text":"Hiệu quả hồi phục trong+6%，Sát thương+8%"}
+{"rowId":"1711","text":"Sát thương"}
+{"rowId":"1712","text":"Hiệu quả hồi phục trong+8%，Sát thương+10%"}
+{"rowId":"1713","text":"Sát thương"}
+{"rowId":"1714","text":"Được đồng đội gánh 30% sát thương"}
+{"rowId":"1715","text":"Được đồng đội gánh 40% sát thương"}
+{"rowId":"1716","text":"Được đồng đội gánh 50% sát thương"}
+{"rowId":"1717","text":"Mỗi turn giảm 4% HP, duy trì 3 turn"}
+{"rowId":"1718","text":"Mỗi turn giảm 6% HP, duy trì 3 turn"}
+{"rowId":"1719","text":"Mỗi turn giảm 8% HP, duy trì 3 turn"}
+{"rowId":"1720","text":"Giảm sát thương pháo"}
+{"rowId":"1721","text":"Giảm sát thương pháo"}
+{"rowId":"1722","text":"Giảm sát thương pháo"}
+{"rowId":"1723","text":"Địa hình càng cao, sát thương càng cao"}
+{"rowId":"1724","text":"Địa hình càng cao, sát thương càng cao"}
+{"rowId":"1725","text":"Địa hình càng cao, sát thương càng cao"}
+{"rowId":"1726","text":"Thiên phú sức gió"}
+{"rowId":"1727","text":"Thiên phú sức gió"}
+{"rowId":"1728","text":"Thiên phú sức gió"}
+{"rowId":"1729","text":"Đổi Gió"}
+{"rowId":"1730","text":"Liên Kích"}
+{"rowId":"1731","text":"Miễn đóng băng, giảm tốc độ tấn công, tăng HP tối đa"}
+{"rowId":"1732","text":"Giảm tốc độ"}
+{"rowId":"1733","text":"Giảm tốc độ"}
+{"rowId":"1734","text":"Giảm tốc độ"}
+{"rowId":"1735","text":"Tăng HP tối đa"}
+{"rowId":"1736","text":"Tăng HP tối đa"}
+{"rowId":"1737","text":"Tăng HP tối đa"}
+{"rowId":"1738","text":"Hồi HP"}
+{"rowId":"1739","text":"Hồi HP"}
+{"rowId":"1740","text":"Hồi HP"}
+{"rowId":"1741","text":"Nhận kỹ năng"}
+{"rowId":"1742","text":"Nhận kỹ năng"}
+{"rowId":"1743","text":"Tăng Ma Công"}
+{"rowId":"1744","text":"Tăng sát thương"}
+{"rowId":"1745","text":"Nhận kỹ năng"}
+{"rowId":"1746","text":"Nhận kỹ năng"}
+{"rowId":"1747","text":"Giảm HP"}
+{"rowId":"1748","text":"Nhận kỹ năng"}
+{"rowId":"1749","text":"Cấm Dùng 3 Tia"}
+{"rowId":"1755","text":"Giảm sát thương pháo"}
+{"rowId":"1756","text":"Giảm sát thương pháo"}
+{"rowId":"1757","text":"Giảm sát thương pháo"}
+{"rowId":"1761","text":"Dùng kỹ năng 3 lần sẽ triệu hồi"}
+{"rowId":"1762","text":"Nhận được 20 điểm ma pháp"}
+{"rowId":"1763","text":"Giảm 50% thể lực tối đa"}
+{"rowId":"1764","text":"Nhận được 20 điểm ma pháp"}
+{"rowId":"1765","text":"Nhận kỹ năng"}
+{"rowId":"1766","text":"Chịu 20 lần sát thương sẽ triệu hồi"}
+{"rowId":"1767","text":"Giảm sát thương pháo"}
+{"rowId":"1768","text":"Giảm sát thương pháo"}
+{"rowId":"1769","text":"Giảm sát thương pháo"}
+{"rowId":"1770","text":"Đổi kiểu dáng"}
+{"rowId":"1774","text":"Giảm sát thương pháo"}
+{"rowId":"1775","text":"Tăng sát thương gây ra, giảm sát thương phải chịu"}
+{"rowId":"1776","text":"Giảm thương +"}
+{"rowId":"1777","text":"Sát thương +30% ma công +30%"}
+{"rowId":"1778","text":"Ma công +"}
+{"rowId":"1779","text":"Hồi HP"}
+{"rowId":"1781","text":"Nhận kỹ năng"}
+{"rowId":"1782","text":"Chịu 14 lần sát thương sẽ triệu hồi"}
+{"rowId":"1783","text":"Nhận được 30 điểm ma pháp"}
+{"rowId":"1784","text":"Nhận kỹ năng"}
+{"rowId":"1785","text":"Dùng kỹ năng 2 lần sẽ triệu hồi"}
+{"rowId":"1786","text":"Giảm sát thương pháo"}
+{"rowId":"1787","text":"Tăng sát thương gây ra, giảm sát thương phải chịu"}
+{"rowId":"1788","text":"Giảm thương +"}
+{"rowId":"1789","text":"Thể lực giảm 50%, nhận thêm 20 điểm ma pháp"}
+{"rowId":"1790","text":"Nhận kỹ năng"}
+{"rowId":"1791","text":"Nhận kỹ năng"}
+{"rowId":"1792","text":"Được đồng đội gánh 30% sát thương"}
+{"rowId":"1793","text":"Được đồng đội gánh 40% sát thương"}
+{"rowId":"1794","text":"Được đồng đội gánh 50% sát thương"}
+{"rowId":"1798","text":"Giảm sát thương pháo"}
+{"rowId":"1799","text":"Giảm sát thương pháo"}
+{"rowId":"1800","text":"Giảm sát thương pháo"}
+{"rowId":"1801","text":"Mỗi turn giảm 3% HP, duy trì 3 turn"}
+{"rowId":"1802","text":"Mỗi turn giảm 4% HP, duy trì 3 turn"}
+{"rowId":"1803","text":"Mỗi turn giảm 5% HP, duy trì 3 turn"}
+{"rowId":"1804","text":"Giảm sát thương pháo"}
+{"rowId":"1805","text":"Giảm sát thương pháo"}
+{"rowId":"1806","text":"Giảm sát thương pháo"}
+{"rowId":"1807","text":"Địa hình càng cao, sát thương càng cao"}
+{"rowId":"1808","text":"Địa hình càng cao, sát thương càng cao"}
+{"rowId":"1809","text":"Địa hình càng cao, sát thương càng cao"}
+{"rowId":"1810","text":"Thiên phú sức gió"}
+{"rowId":"1811","text":"Thiên phú sức gió"}
+{"rowId":"1812","text":"Thiên phú sức gió"}
+{"rowId":"1813","text":"Tăng ma công"}
+{"rowId":"1814","text":"Tăng sát thương"}
+{"rowId":"1815","text":"Nhận kỹ năng"}
+{"rowId":"1816","text":"Nhận kỹ năng"}
+{"rowId":"1817","text":"Chịu 25 lần sát thương sẽ triệu hồi"}
+{"rowId":"1818","text":"Dùng kỹ năng 4 lần sẽ triệu hồi"}
+{"rowId":"1819","text":"Nhận được 20 điểm ma pháp"}
+{"rowId":"1820","text":"Địa hình càng cao, sát thương càng cao"}
+{"rowId":"1821","text":"Di chuyển không tốn thể lực"}
+{"rowId":"1822","text":"Hồi phục +3%, sát thương +5%"}
+{"rowId":"1823","text":"Sát thương +"}
+{"rowId":"1824","text":"Hồi phục +4%, sát thương +6%"}
+{"rowId":"1825","text":"Sát thương +"}
+{"rowId":"1826","text":"Hồi phục +5%, sát thương +7%"}
+{"rowId":"1827","text":"Sát thương +"}
+{"rowId":"1828","text":"Hồi phục +6%, sát thương +8%"}
+{"rowId":"1829","text":"Sát thương +"}
+{"rowId":"1830","text":"Hồi phục +7%, sát thương +10%"}
+{"rowId":"1831","text":"Sát thương +"}
+{"rowId":"1832","text":"恢复100%血量"}
+{"rowId":"1833","text":"血量减少当前的50%"}
+{"rowId":"1834","text":"Địa hình càng cao, sát thương càng cao, địa hình càng thấp, giảm thương càng cao"}
+{"rowId":"1835","text":"Thay đổi mẫu bộ"}
+{"rowId":"1836","text":"Miễn dịch đóng băng, tốc độ tấn công giảm, giới hạn HP tăng"}
+{"rowId":"1837","text":"Cấm dùng 3 tia"}
+{"rowId":"1838","text":"Giảm tốc độ"}
+{"rowId":"1839","text":"HP, giới hạn tăng"}
+{"rowId":"1840","text":"Nhận kỹ năng"}
+{"rowId":"1841","text":"Di chuyển không tốn thể lực"}
+{"rowId":"1842","text":"HP+5%, sát thương +5%"}
+{"rowId":"1843","text":"Hồi Phục HP"}
+{"rowId":"1844","text":"Sát thương +"}
+{"rowId":"1845","text":"HP +7%, sát thương +7%"}
+{"rowId":"1846","text":"Hồi Phục HP"}
+{"rowId":"1847","text":"Sát thương +"}
+{"rowId":"1848","text":"HP +9%, sát thương +9%"}
+{"rowId":"1849","text":"Hồi Phục HP"}
+{"rowId":"1850","text":"Sát thương +"}
+{"rowId":"1851","text":"HP +12%, sát thương +12%"}
+{"rowId":"1852","text":"Hồi Phục HP"}
+{"rowId":"1853","text":"Sát thương +"}
+{"rowId":"1854","text":"HP +15%, sát thương +15%"}
+{"rowId":"1855","text":"Hồi Phục HP"}
+{"rowId":"1856","text":"Sát thương +"}
+{"rowId":"1999","text":"Nhận được 1 ma pháp"}
+{"rowId":"2037","text":"HP tăng 7% (BUFF đội)"}
+{"rowId":"2038","text":"HP tăng 8% (BUFF đội)"}
+{"rowId":"2039","text":"HP tăng 9% (BUFF đội)"}
+{"rowId":"2040","text":"HP tăng 10% (BUFF đội)"}
+{"rowId":"2041","text":"HP tăng 12% (BUFF đội)"}
+{"rowId":"2101","text":"Sát thương POW +5%."}
+{"rowId":"2102","text":"Sát thương POW + 10%."}
+{"rowId":"2103","text":"Sát thương POW +15%."}
+{"rowId":"2104","text":"Sát thương POW +20%."}
+{"rowId":"2105","text":"Sát thương POW +25%."}
+{"rowId":"2106","text":"Sát thương POW +30%."}
+{"rowId":"2107","text":"Sát thương POW +35%."}
+{"rowId":"2108","text":"Sát thương POW +40%."}
+{"rowId":"2109","text":"Sát thương POW +45%."}
+{"rowId":"2110","text":"Sát thương POW +50%."}
+{"rowId":"2201","text":"Sát thương bạo kích phải chịu -5%"}
+{"rowId":"2202","text":"Sát thương bạo kích phải chịu -10%"}
+{"rowId":"2203","text":"Sát thương bạo kích phải chịu -15%"}
+{"rowId":"2204","text":"Sát thương bạo kích phải chịu -20%"}
+{"rowId":"2205","text":"Sát thương bạo kích phải chịu -25%"}
+{"rowId":"2206","text":"Sát thương bạo kích phải chịu -30%"}
+{"rowId":"2207","text":"Sát thương bạo kích phải chịu -35%"}
+{"rowId":"2208","text":"Sát thương bạo kích phải chịu -40%"}
+{"rowId":"2209","text":"Sát thương bạo kích phải chịu -45%"}
+{"rowId":"2210","text":"Sát thương bạo kích phải chịu -50%"}
+{"rowId":"2301","text":"Nhận được kỹ năng 431"}
+{"rowId":"2302","text":"Nhận được kỹ năng 432"}
+{"rowId":"2303","text":"Nhận được kỹ năng 433"}
+{"rowId":"2304","text":"Nhận được kỹ năng 434"}
+{"rowId":"2305","text":"Nhận được kỹ năng 435"}
+{"rowId":"2306","text":"Nhận được kỹ năng 436"}
+{"rowId":"2307","text":"Nhận được kỹ năng 437"}
+{"rowId":"2308","text":"Nhận được kỹ năng 438"}
+{"rowId":"2309","text":"Nhận được kỹ năng 439"}
+{"rowId":"2310","text":"Nhận được kỹ năng 440"}
+{"rowId":"2401","text":"Tăng Ma Kháng 2%"}
+{"rowId":"2402","text":"Tăng Ma Kháng 4%"}
+{"rowId":"2403","text":"Tăng Ma Kháng 6%"}
+{"rowId":"2404","text":"Tăng Ma Kháng 8%"}
+{"rowId":"2405","text":"Tăng Ma Kháng 10%"}
+{"rowId":"2406","text":"Tăng Ma Kháng 12%"}
+{"rowId":"2407","text":"Tăng Ma Kháng 14%"}
+{"rowId":"2408","text":"Tăng Ma Kháng 16%"}
+{"rowId":"2409","text":"Tăng Ma Kháng 18%"}
+{"rowId":"2410","text":"Tăng Ma Kháng 20%"}
+{"rowId":"2411","text":"Hồi HP 5% (BUFF đội thêm)"}
+{"rowId":"2412","text":"Hồi HP 6% (BUFF đội thêm)"}
+{"rowId":"2413","text":"Hồi HP 7% (BUFF đội thêm)"}
+{"rowId":"2414","text":"Hồi HP 8% (BUFF đội thêm)"}
+{"rowId":"2415","text":"Hồi HP 9% (BUFF đội thêm)"}
+{"rowId":"2416","text":"Hồi HP 10% (BUFF đội thêm)"}
+{"rowId":"2417","text":"Hồi HP 12% (BUFF đội thêm)"}
+{"rowId":"2418","text":"Tăng 20 sát thương"}
+{"rowId":"2419","text":"Tăng 50 sát thương"}
+{"rowId":"2420","text":"Tăng 80 sát thương"}
+{"rowId":"2422","text":"Tăng 35 hộ giáp"}
+{"rowId":"2423","text":"Tăng 65 hộ giáp"}
+{"rowId":"2424","text":"Tăng 100 hộ giáp"}
+{"rowId":"2425","text":"Khi bị sát thương, chống đỡ 100 sát thương"}
+{"rowId":"2426","text":"Khi bị sát thương, chống đỡ 200 sát thương"}
+{"rowId":"2427","text":"Khi bị sát thương, chống đỡ 300 sát thương"}
+{"rowId":"2428","text":"Phản đòn sát thương."}
+{"rowId":"2429","text":"Duy trì gai nhọn"}
+{"rowId":"2431","text":"Hiệu quả phản đòn"}
+{"rowId":"2432","text":"Phản Sát Thương"}
+{"rowId":"2433","text":"Duy trì gai nhọn"}
+{"rowId":"2435","text":"Hiệu quả phản đòn"}
+{"rowId":"2436","text":"Sát thương toàn màn hình"}
+{"rowId":"2437","text":"Duy trì gai nhọn"}
+{"rowId":"2438","text":"Dùng vật phẩm tăng ma pháp"}
+{"rowId":"2439","text":"Hiệu quả phản đòn"}
+{"rowId":"2440","text":"Phòng thủ, hộ giáp +1%"}
+{"rowId":"2442","text":"Phòng thủ, hộ giáp +2%"}
+{"rowId":"2444","text":"Phòng thủ, hộ giáp +3%"}
+{"rowId":"2446","text":"Tăng 1% tấn công, phòng thủ, nhanh nhẹn, may mắn."}
+{"rowId":"2447","text":"Tăng 2% tấn công, phòng thủ, nhanh nhẹn, may mắn."}
+{"rowId":"2448","text":"Tăng 3% tấn công, phòng thủ, nhanh nhẹn, may mắn."}
+{"rowId":"2458","text":"Hấp thu 1000 sát thương."}
+{"rowId":"2459","text":"Hấp thu 2000 sát thương."}
+{"rowId":"2460","text":"Hấp thu 3000 sát thương."}
+{"rowId":"2461","text":"Hồi 3% +500 HP."}
+{"rowId":"2462","text":"Hồi 4% +500 HP."}
+{"rowId":"2463","text":"Hồi 5% +500 HP."}
+{"rowId":"2464","text":"Hiệu quả trị liệu +5%"}
+{"rowId":"2465","text":"Hiệu quả trị liệu +10%"}
+{"rowId":"2466","text":"Hiệu quả trị liệu +15%"}
+{"rowId":"2467","text":"Mỗi turn mất 3% HP"}
+{"rowId":"2468","text":"Mỗi turn mất 4% HP"}
+{"rowId":"2469","text":"Mỗi turn mất 5% HP"}
+{"rowId":"2470","text":"ST cơ bản +5%"}
+{"rowId":"2471","text":"ST cơ bản +8%"}
+{"rowId":"2472","text":"ST cơ bản +10%"}
+{"rowId":"2473","text":"Nhanh nhẹn +100, tỉ lệ bạo kích +8%"}
+{"rowId":"2474","text":"Nhanh nhẹn +200, tỉ lệ bạo kích +8%"}
+{"rowId":"2475","text":"Nhanh nhẹn+300, tỉ lệ bạo kích +8%"}
+{"rowId":"2476","text":"Tỉ lệ bạo kích"}
+{"rowId":"2477","text":"Tỉ lệ bạo kích"}
+{"rowId":"2478","text":"Tỉ lệ bạo kích"}
+{"rowId":"2479","text":"Tấn công +150"}
+{"rowId":"2480","text":"Tấn công +300"}
+{"rowId":"2481","text":"Tấn công +450"}
+{"rowId":"2482","text":"Sát thương, hộ giáp -5%"}
+{"rowId":"2483","text":"Giảm Hộ Giáp"}
+{"rowId":"2484","text":"Sát thương, hộ giáp -5%"}
+{"rowId":"2485","text":"Giảm Hộ Giáp"}
+{"rowId":"2486","text":"Sát thương, hộ giáp -5%"}
+{"rowId":"2487","text":"Giảm Hộ Giáp"}
+{"rowId":"2488","text":"HP tối đa +4%"}
+{"rowId":"2489","text":"HP tối đa +6%"}
+{"rowId":"2490","text":"HP tối đa +8%"}
+{"rowId":"2491","text":"Pet -40 điểm ma pháp"}
+{"rowId":"2492","text":"Pet -40 điểm ma pháp"}
+{"rowId":"2493","text":"Pet -40 điểm ma pháp"}
+{"rowId":"2494","text":"Tăng tỉ lệ bạo kích"}
+{"rowId":"2495","text":"Tăng tỉ lệ bạo kích"}
+{"rowId":"2496","text":"Tăng tỉ lệ bạo kích"}
+{"rowId":"2497","text":"Tỉ lệ bạo kích +10%"}
+{"rowId":"2498","text":"Tỉ lệ bạo kích +12%"}
+{"rowId":"2499","text":"Tỉ lệ bạo kích +15%"}
+{"rowId":"2500","text":"Phòng thủ, hộ giáp +3%"}
+{"rowId":"2502","text":"Phòng thủ, hộ giáp +4%"}
+{"rowId":"2504","text":"Phòng thủ, hộ giáp +5%"}
+{"rowId":"2506","text":"Sát thương +3%"}
+{"rowId":"2507","text":"Sát thương +4%"}
+{"rowId":"2508","text":"Sát thương +5%"}
+{"rowId":"2509","text":"Cấm dùng kỹ năng Pet"}
+{"rowId":"2510","text":"Nhận kỹ năng"}
+{"rowId":"2511","text":"Hồi HP bằng 20% sát thương"}
+{"rowId":"2512","text":"Bất Động 1 turn"}
+{"rowId":"2513","text":"Sát thương bạo kích +10%"}
+{"rowId":"2514","text":"Sát thương bạo kích +15%"}
+{"rowId":"2515","text":"Sát thương bạo kích +20%"}
+{"rowId":"2516","text":"Ma Kháng -10%"}
+{"rowId":"2517","text":"Ma Kháng -15%"}
+{"rowId":"2518","text":"Ma Kháng -20%"}
+{"rowId":"2519","text":"Sát thương +10%"}
+{"rowId":"2520","text":"Sát thương +15%"}
+{"rowId":"2521","text":"Sát thương +20%"}
+{"rowId":"2522","text":"Bỏ qua một phần phòng thủ của địch"}
+{"rowId":"2523","text":"Xuyên Giáp Lv1"}
+{"rowId":"2524","text":"Nhận Hủy Xuyên Giáp Lv1"}
+{"rowId":"2525","text":"Hủy Xuyên Giáp Lv1"}
+{"rowId":"2526","text":"Bỏ qua một phần phòng thủ của địch"}
+{"rowId":"2527","text":"Xuyên Giáp Lv1"}
+{"rowId":"2528","text":"Nhận Hủy Xuyên Giáp Lv1"}
+{"rowId":"2529","text":"Hủy Xuyên Giáp Lv1"}
+{"rowId":"2530","text":"Bỏ qua một phần phòng thủ của địch"}
+{"rowId":"2531","text":"Xuyên Giáp Lv1"}
+{"rowId":"2532","text":"Nhận Hủy Xuyên Giáp Lv1"}
+{"rowId":"2533","text":"Hủy Xuyên Giáp Lv1"}
+{"rowId":"2534","text":"Không thể điều chỉnh góc độ"}
+{"rowId":"2535","text":"Tăng sát thương"}
+{"rowId":"2536","text":"Tăng sát thương"}
+{"rowId":"2537","text":"Tăng sát thương"}
+{"rowId":"2538","text":"Bỏ qua một phần phòng thủ của địch"}
+{"rowId":"2539","text":"Xuyên Giáp Lv1"}
+{"rowId":"2540","text":"Nhận Hủy Xuyên Giáp Lv1"}
+{"rowId":"2541","text":"Hủy Xuyên Giáp Lv1"}
+{"rowId":"2542","text":"Bỏ qua một phần phòng thủ của địch"}
+{"rowId":"2543","text":"Xuyên Giáp Lv1"}
+{"rowId":"2544","text":"Nhận Hủy Xuyên Giáp Lv1"}
+{"rowId":"2545","text":"Hủy Xuyên Giáp Lv1"}
+{"rowId":"2546","text":"Bỏ qua một phần phòng thủ của địch"}
+{"rowId":"2547","text":"Xuyên Giáp Lv1"}
+{"rowId":"2548","text":"Nhận Hủy Xuyên Giáp Lv1"}
+{"rowId":"2549","text":"Hủy Xuyên Giáp Lv1"}
+{"rowId":"2550","text":"Không thể điều chỉnh góc độ"}
+{"rowId":"2551","text":"Tăng tốc độ"}
+{"rowId":"2552","text":"Tăng tốc độ"}
+{"rowId":"2553","text":"Tăng tốc độ"}
+{"rowId":"2554","text":"Mất tầm nhìn"}
+{"rowId":"2555","text":"Cấm Trị Liệu"}
+{"rowId":"2556","text":"Nhận được 2 điểm ma pháp"}
+{"rowId":"2557","text":"Nhận được 3 điểm ma pháp"}
+{"rowId":"2558","text":"Nhận được 4 điểm ma pháp"}
+{"rowId":"2559","text":"Kích Hoạt % HP"}
+{"rowId":"2560","text":"Kích Hoạt % HP"}
+{"rowId":"2561","text":"Khi bị sát thương, chống đỡ 300 sát thương"}
+{"rowId":"2562","text":"Khi bị sát thương, chống đỡ 400 sát thương"}
+{"rowId":"2563","text":"Khi bị sát thương, chống đỡ 500 sát thương"}
+{"rowId":"2564","text":"Hồi phục HP"}
+{"rowId":"2565","text":"Hồi phục HP"}
+{"rowId":"2566","text":"Hồi phục HP"}
+{"rowId":"2567","text":"Phản đòn 1% tất cả sát thương"}
+{"rowId":"2568","text":"Phản đòn 2% tất cả sát thương"}
+{"rowId":"2569","text":"Phản đòn 3% tất cả sát thương"}
+{"rowId":"2570","text":"Pet tấn công X% sát thương"}
+{"rowId":"2571","text":"Pet tấn công X% sát thương"}
+{"rowId":"2572","text":"Pet tấn công X% sát thương"}
+{"rowId":"2573","text":"Sát thương +150%"}
+{"rowId":"2574","text":"Sát thương +180%"}
+{"rowId":"2575","text":"Sát thương +220%"}
+{"rowId":"2576","text":"100% bạo kích"}
+{"rowId":"2577","text":"Cộng Dồn Kỹ Năng"}
+{"rowId":"2578","text":"Dấu Ấn Hồ Ly"}
+{"rowId":"2579","text":"Dấu Ấn Hồ Ly"}
+{"rowId":"2580","text":"Sức Huyết Mạch"}
+{"rowId":"2581","text":"Sức Huyết Mạch"}
+{"rowId":"2582","text":"Lửa Diệt Hồn"}
+{"rowId":"2583","text":"Lửa Diệt Hồn"}
+{"rowId":"2584","text":"Hồ Ly Tru"}
+{"rowId":"2585","text":"Hồ Ly Tru"}
+{"rowId":"2586","text":"Thủ Linh Hồn"}
+{"rowId":"2587","text":"Thủ Linh Hồn"}
+{"rowId":"2588","text":"Xoáy Lửa"}
+{"rowId":"2589","text":"Hồi Ma"}
+{"rowId":"2590","text":"Thần Tốc"}
+{"rowId":"2591","text":"Sát Thương"}
+{"rowId":"2592","text":"Ẩn Thân"}
+{"rowId":"2593","text":"Xoáy Lửa"}
+{"rowId":"2594","text":"Dấu Ấn Hồ Ly, tối đa cộng dồn 5 tầng, duy trì 5 turn."}
+{"rowId":"2595","text":"Cộng Dồn Kỹ Năng"}
+{"rowId":"2596","text":"Hồi phục +3%, sát thương +3%"}
+{"rowId":"2597","text":"Sát thương +"}
+{"rowId":"2598","text":"Hồi phục +4%, sát thương +4%"}
+{"rowId":"2599","text":"Sát thương +"}
+{"rowId":"2600","text":"Hồi phục +5%, sát thương +5%"}
+{"rowId":"2601","text":"Sát thương +"}
+{"rowId":"2602","text":"Hồi phục +6%, sát thương +6%"}
+{"rowId":"2603","text":"Sát thương +"}
+{"rowId":"2604","text":"Hồi phục +8%, sát thương +8%"}
+{"rowId":"2605","text":"Sát thương +"}
+{"rowId":"2608","text":"Sát thương, ma công +3%"}
+{"rowId":"2609","text":"Sát thương, ma công +4%"}
+{"rowId":"2610","text":"Sát thương, ma công +5%"}
+{"rowId":"2611","text":"Ma công"}
+{"rowId":"2612","text":"Ma công"}
+{"rowId":"2613","text":"Ma công"}
+{"rowId":"2614","text":"Thần Tốc"}
+{"rowId":"2615","text":"Sát Thương"}
+{"rowId":"2616","text":"Ẩn Thân"}
+{"rowId":"2624","text":"Hồi phục +3%, sát thương +3%"}
+{"rowId":"2625","text":"Sát thương +"}
+{"rowId":"2626","text":"Hồi phục +4%, sát thương +4%"}
+{"rowId":"2627","text":"Sát thương +"}
+{"rowId":"2628","text":"Hồi phục +5%, sát thương +5%"}
+{"rowId":"2629","text":"Sát thương +"}
+{"rowId":"2630","text":"Hồi phục +6%, sát thương +6%"}
+{"rowId":"2631","text":"Sát thương +"}
+{"rowId":"2632","text":"Hồi phục +8%, sát thương +8%"}
+{"rowId":"2633","text":"Sát thương +"}
+{"rowId":"2634","text":"Mỗi turn chịu sát thương Hệ Lửa"}
+{"rowId":"2635","text":"Đóng Băng"}
+{"rowId":"2636","text":"Sát Thương Hệ Gió"}
+{"rowId":"2637","text":"Địa hình càng cao, sát thương càng cao"}
+{"rowId":"2638","text":"Hấp thu sát thương."}
+{"rowId":"2639","text":"Hồi phục HP."}
+{"rowId":"2640","text":"Né tránh +"}
+{"rowId":"2641","text":"Giảm thương +"}
+{"rowId":"2642","text":"Pet tấn công X% sát thương"}
+{"rowId":"2643","text":"Pet tấn công X% sát thương"}
+{"rowId":"2644","text":"Pet tấn công X% sát thương"}
+{"rowId":"2645","text":"Giảm Thương 10%"}
+{"rowId":"2646","text":"Sát thương +150%"}
+{"rowId":"2647","text":"100% bạo kích"}
+{"rowId":"2648","text":"Giảm Thương 15%"}
+{"rowId":"2649","text":"Sát thương +180%"}
+{"rowId":"2650","text":"Giảm Thương 20%"}
+{"rowId":"2651","text":"Sát thương +220%"}
+{"rowId":"2652","text":"Tăng Hộ Giáp, Giảm Bạo Kích"}
+{"rowId":"2653","text":"Giảm Tốc Độ"}
+{"rowId":"2654","text":"Biến Hình"}
+{"rowId":"2657","text":"Tăng Hộ Giáp, Giảm Bạo Kích"}
+{"rowId":"2658","text":"Giảm Tốc Độ"}
+{"rowId":"2661","text":"Tăng Hộ Giáp, Giảm Bạo Kích"}
+{"rowId":"2662","text":"Giảm Tốc Độ"}
+{"rowId":"2665","text":"Điểm ma pháp kích hoạt Miệt Thị"}
+{"rowId":"2666","text":"Khiêu Khích"}
+{"rowId":"2667","text":"Miễn bị bạo kích"}
+{"rowId":"2668","text":"Sát thương toàn màn hình"}
+{"rowId":"2669","text":"Sát thương toàn màn hình"}
+{"rowId":"2670","text":"Cấm Bay"}
+{"rowId":"2672","text":"San Sẻ Sát Thương"}
+{"rowId":"2675","text":"Điểm Ma Lực"}
+{"rowId":"2676","text":"Tăng Hộ Giáp, Ma Kháng"}
+{"rowId":"2677","text":"Tăng Ma Kháng"}
+{"rowId":"2678","text":"Tăng Giảm Thương"}
+{"rowId":"2679","text":"Giảm Thương Đồng Đội (Phần trăm)"}
+{"rowId":"2680","text":"Giảm Thương Đồng Đội (Trị cố định)"}
+{"rowId":"2681","text":"Khi bản thân hoặc đồng đội tử vong, hiệu quả Nhặt Hồn tăng gấp bội"}
+{"rowId":"2682","text":"100% bạo kích"}
+{"rowId":"2683","text":"Giảm Thương 20%"}
+{"rowId":"2684","text":"Sát thương +220%"}
+{"rowId":"2685","text":"Tăng Hộ Giáp, Phản Sát Thương"}
+{"rowId":"2688","text":"Điểm ma pháp kích hoạt Miệt Thị"}
+{"rowId":"2689","text":"Khiêu Khích"}
+{"rowId":"2690","text":"Miễn bị bạo kích"}
+{"rowId":"2691","text":"Sát thương toàn màn hình"}
+{"rowId":"2692","text":"Cấm Bay"}
+{"rowId":"2693","text":"Không thể di chuyển"}
+{"rowId":"2696","text":"Mỗi lần bị tấn công, tăng 5 Điểm Pet"}
+{"rowId":"2697","text":"Giảm Hộ Giáp"}
+{"rowId":"2698","text":"Ma Kháng"}
+{"rowId":"2699","text":"Miễn dịch phát đạn đầu tiên"}
+{"rowId":"2700","text":"Tăng Giảm Thương"}
+{"rowId":"2701","text":"Giảm Thương Đồng Đội (Phần trăm)"}
+{"rowId":"2702","text":"Giảm Thương Đồng Đội (Trị cố định)"}
+{"rowId":"2703","text":"HP tối đa +10%"}
+{"rowId":"2704","text":"HP tối đa +10%"}
+{"rowId":"2706","text":"Giúp đồng đội san sẻ sát thương, bản thân hồi HP"}
+{"rowId":"2707","text":"Giảm sát thương phải chịu"}
+{"rowId":"2708","text":"Giảm sát thương phải chịu"}
+{"rowId":"2709","text":"Giảm sát thương phải chịu"}
+{"rowId":"2710","text":"Tăng HP Tối Đa"}
+{"rowId":"2711","text":"Tăng HP Tối Đa"}
+{"rowId":"2712","text":"Tăng HP Tối Đa"}
+{"rowId":"2713","text":"HP tối đa +5%"}
+{"rowId":"2714","text":"HP tối đa +8%"}
+{"rowId":"2715","text":"HP tối đa +10%"}
+{"rowId":"2716","text":"Miễn bị bạo kích"}
+{"rowId":"2718","text":"Gây sát thương bằng 25% HP Tối Đa của bản thân"}
+{"rowId":"2721","text":"Giảm sát thương chịu"}
+{"rowId":"2723","text":"Giảm sát thương chịu"}
+{"rowId":"2724","text":"Phản đòn sát thương"}
+{"rowId":"2725","text":"Duy trì gai nhọn"}
+{"rowId":"2727","text":"Hiệu quả phản đòn"}
+{"rowId":"2729","text":"Hiệu quả phản đòn"}
+{"rowId":"2730","text":"Giảm sát thương chịu"}
+{"rowId":"2732","text":"Giảm sát thương chịu"}
+{"rowId":"2733","text":"Phản đòn sát thương"}
+{"rowId":"2734","text":"Duy trì gai nhọn"}
+{"rowId":"2736","text":"Hiệu quả phản đòn"}
+{"rowId":"2738","text":"Hiệu quả phản đòn"}
+{"rowId":"2740","text":"Nhận miễn kháng, tăng hiệu quả phòng thủ, nhưng không thể di chuyển."}
+{"rowId":"2741","text":"Duy trì 2 turn"}
+{"rowId":"2744","text":"Bị tấn công sẽ tăng sát thương"}
+{"rowId":"2745","text":"Kỹ năng kích hoạt % HP"}
+{"rowId":"2748","text":"Giảm 5% HP, nhận 6 ma pháp"}
+{"rowId":"2749","text":"Pet tấn công X% sát thương"}
+{"rowId":"2750","text":"Pet tấn công X% sát thương"}
+{"rowId":"2751","text":"Pet tấn công X% sát thương"}
+{"rowId":"2752","text":"Tăng sát thương"}
+{"rowId":"2753","text":"Tăng sát thương"}
+{"rowId":"2754","text":"Tăng sát thương"}
+{"rowId":"2755","text":"Tăng 10% HP tối đa"}
+{"rowId":"2758","text":"Giảm 12% HP tối đa"}
+{"rowId":"2759","text":"Hồi phục HP"}
+{"rowId":"2760","text":"Hồi phục HP"}
+{"rowId":"2761","text":"Mất 30% HP"}
+{"rowId":"2762","text":"Mất 20% HP"}
+{"rowId":"2763","text":"Hồi HP"}
+{"rowId":"2764","text":"Gây sát thương"}
+{"rowId":"2765","text":"Tăng tốc thanh lực"}
+{"rowId":"2766","text":"Công Lửa +100"}
+{"rowId":"2767","text":"Công Lửa +200"}
+{"rowId":"2768","text":"Công Lửa +300"}
+{"rowId":"2769","text":"Công Nước +100"}
+{"rowId":"2770","text":"Công Nước +200"}
+{"rowId":"2771","text":"Công Nước +300"}
+{"rowId":"2772","text":"Công Gió +100"}
+{"rowId":"2773","text":"Công Gió +200"}
+{"rowId":"2774","text":"Công Gió +300"}
+{"rowId":"2775","text":"Công Đất +100"}
+{"rowId":"2776","text":"Công Đất +200"}
+{"rowId":"2777","text":"Công Đất +300"}
+{"rowId":"2778","text":"Kháng Lửa +150"}
+{"rowId":"2779","text":"Kháng Lửa +300"}
+{"rowId":"2780","text":"Kháng Lửa +450"}
+{"rowId":"2781","text":"Kháng Nước +150"}
+{"rowId":"2782","text":"Kháng Nước +300"}
+{"rowId":"2783","text":"Kháng Nước +450"}
+{"rowId":"2784","text":"Kháng Gió +150"}
+{"rowId":"2785","text":"Kháng Gió +300"}
+{"rowId":"2786","text":"Kháng Gió +450"}
+{"rowId":"2787","text":"Kháng Đất +150"}
+{"rowId":"2788","text":"Kháng Đất +300"}
+{"rowId":"2789","text":"Kháng Đất +450"}
+{"rowId":"2790","text":"Công Lửa +3%"}
+{"rowId":"2791","text":"Công Lửa +5%"}
+{"rowId":"2792","text":"Công Lửa +8%"}
+{"rowId":"2793","text":"Công Nước +3%"}
+{"rowId":"2794","text":"Công Nước +5%"}
+{"rowId":"2795","text":"Công Nước +8%"}
+{"rowId":"2796","text":"Công Gió +3%"}
+{"rowId":"2797","text":"Công Gió +5%"}
+{"rowId":"2798","text":"Công Gió +8%"}
+{"rowId":"2799","text":"Công Đất +3%"}
+{"rowId":"2800","text":"Công Đất +5%"}
+{"rowId":"2801","text":"Công Đất +8%"}
+{"rowId":"2802","text":"Kháng Lửa +5%"}
+{"rowId":"2803","text":"Kháng Lửa +8%"}
+{"rowId":"2804","text":"Kháng Lửa +12%"}
+{"rowId":"2805","text":"Kháng Nước +5%"}
+{"rowId":"2806","text":"Kháng Nước +8%"}
+{"rowId":"2807","text":"Kháng Nước +12%"}
+{"rowId":"2808","text":"Kháng Gió +5%"}
+{"rowId":"2809","text":"Kháng Gió +8%"}
+{"rowId":"2810","text":"Kháng Gió +12%"}
+{"rowId":"2811","text":"Kháng Đất +5%"}
+{"rowId":"2812","text":"Kháng Đất +8%"}
+{"rowId":"2813","text":"Kháng Đất +12%"}
+{"rowId":"2814","text":"Công Lửa +200"}
+{"rowId":"2815","text":"Công Lửa +350"}
+{"rowId":"2816","text":"Công Lửa +500"}
+{"rowId":"2817","text":"Công Lửa +8%"}
+{"rowId":"2818","text":"Công Lửa +12%"}
+{"rowId":"2819","text":"Công Lửa +16%"}
+{"rowId":"2820","text":"Xác suất kích hoạt +20%"}
+{"rowId":"2821","text":"Xác suất kích hoạt +35%"}
+{"rowId":"2822","text":"Xác suất kích hoạt +50%"}
+{"rowId":"2823","text":"Kháng Lửa -10%"}
+{"rowId":"2824","text":"Kháng Lửa -20%"}
+{"rowId":"2825","text":"Kháng Lửa -30%"}
+{"rowId":"2829","text":"Công Nước +350"}
+{"rowId":"2830","text":"Công Nước +500"}
+{"rowId":"2831","text":"Công Nước +800"}
+{"rowId":"2832","text":"Công Nước +16%"}
+{"rowId":"2833","text":"Công Nước +20%"}
+{"rowId":"2834","text":"Công Nước +24%"}
+{"rowId":"2835","text":"Xác suất kích hoạt +20%"}
+{"rowId":"2836","text":"Xác suất kích hoạt +35%"}
+{"rowId":"2837","text":"Xác suất kích hoạt +50%"}
+{"rowId":"2838","text":"Kháng Nước -15%"}
+{"rowId":"2839","text":"Kháng Nước -30%"}
+{"rowId":"2840","text":"Kháng Nước -45%"}
+{"rowId":"2844","text":"Công Gió +200"}
+{"rowId":"2845","text":"Công Gió +350"}
+{"rowId":"2846","text":"Công Gió +500"}
+{"rowId":"2847","text":"Công Gió +8%"}
+{"rowId":"2848","text":"Công Gió +12%"}
+{"rowId":"2849","text":"Công Gió +16%"}
+{"rowId":"2850","text":"Xác suất kích hoạt +20%"}
+{"rowId":"2851","text":"Xác suất kích hoạt +35%"}
+{"rowId":"2852","text":"Xác suất kích hoạt +50%"}
+{"rowId":"2853","text":"Kháng Gió -10%"}
+{"rowId":"2854","text":"Kháng Gió -20%"}
+{"rowId":"2855","text":"Kháng Gió -30%"}
+{"rowId":"2856","text":"Mỗi 100 pixel +75 Công Đất"}
+{"rowId":"2857","text":"Mỗi 100 pixel +125 Công Đất"}
+{"rowId":"2858","text":"Mỗi 100 pixel +175 Công Đất"}
+{"rowId":"2859","text":"Mỗi 100 pixel +4% Công Đất"}
+{"rowId":"2860","text":"Mỗi 100 pixel +6% Công Đất"}
+{"rowId":"2861","text":"Mỗi 100 pixel +8% Công Đất"}
+{"rowId":"2862","text":"Kháng Đất -4%"}
+{"rowId":"2863","text":"Kháng Đất -8%"}
+{"rowId":"2864","text":"Kháng Đất -12%"}
+{"rowId":"2865","text":"Khấu trừ MP của Pet"}
+{"rowId":"2867","text":"Miễn dịch Đóng Băng"}
+{"rowId":"2868","text":"Đóng Băng duy trì +1 turn"}
+{"rowId":"2869","text":"Khi chịu đòn trí mạng được hồi HP"}
+{"rowId":"2870","text":"Sát thương mục tiêu khác"}
+{"rowId":"2871","text":"Thuộc tính Nguyên Tố +30%"}
+{"rowId":"2872","text":"Công Nước +30%"}
+{"rowId":"2873","text":"Công Gió +30%"}
+{"rowId":"2874","text":"Công Đất +30%"}
+{"rowId":"2875","text":"Kháng Lửa +30%"}
+{"rowId":"2876","text":"Kháng Nước +30%"}
+{"rowId":"2877","text":"Kháng Gió +30%"}
+{"rowId":"2878","text":"Kháng Đất +30%"}
+{"rowId":"2879","text":"Đạn Pháo không thể đào hố"}
+{"rowId":"2880","text":"Giảm Thương 30%"}
+{"rowId":"2882","text":"Miễn giảm sát thương 1 lần"}
+{"rowId":"2884","text":"Tăng hiệu quả Giảm Thương."}
+{"rowId":"2887","text":"HP dưới 50% sẽ kích hoạt"}
+{"rowId":"2888","text":"HP dưới 50% sẽ kích hoạt"}
+{"rowId":"2889","text":"HP dưới 50% sẽ kích hoạt"}
+{"rowId":"2890","text":"HP dưới 50% sẽ kích hoạt"}
+{"rowId":"2891","text":"% HP kích hoạt Bướm Ẩn"}
+{"rowId":"2892","text":"Khiên"}
+{"rowId":"2893","text":"Mỗi mất 10% HP, MP +3"}
+{"rowId":"2894","text":"Đánh lui"}
+{"rowId":"2895","text":"HP dưới 50% sẽ kích hoạt"}
+{"rowId":"2896","text":"Khấu trừ MP của Pet"}
+{"rowId":"2897","text":"Khấu trừ MP của Pet"}
+{"rowId":"2898","text":"Khi chịu đòn trí mạng được hồi HP"}
+{"rowId":"2899","text":"Khi chịu đòn trí mạng được hồi HP"}
+{"rowId":"2900","text":"Thuộc tính Nguyên Tố +40%"}
+{"rowId":"2901","text":"Công Nước +40%"}
+{"rowId":"2902","text":"Công Gió +40%"}
+{"rowId":"2903","text":"Công Đất +40%"}
+{"rowId":"2904","text":"Kháng Lửa +40%"}
+{"rowId":"2905","text":"Kháng Nước +40%"}
+{"rowId":"2906","text":"Kháng Gió +40%"}
+{"rowId":"2907","text":"Kháng Đất +40%"}
+{"rowId":"2908","text":"Thuộc tính Nguyên Tố +50%"}
+{"rowId":"2909","text":"Công Nước +50%"}
+{"rowId":"2910","text":"Công Gió +50%"}
+{"rowId":"2911","text":"Công Đất +50%"}
+{"rowId":"2912","text":"Kháng Lửa +50%"}
+{"rowId":"2913","text":"Kháng Nước +50%"}
+{"rowId":"2914","text":"Kháng Gió +50%"}
+{"rowId":"2915","text":"Kháng Đất +50%"}
+{"rowId":"2917","text":"Giảm Thương Đồng Đội (Phần trăm)"}
+{"rowId":"2918","text":"Giảm Thương Đồng Đội (Trị cố định)"}
+{"rowId":"2919","text":"HP tăng 300"}
+{"rowId":"2920","text":"Hồi Phục HP"}
+{"rowId":"2921","text":"HP tăng 800"}
+{"rowId":"2922","text":"Hồi Phục HP"}
+{"rowId":"2923","text":"HP tăng 1500"}
+{"rowId":"2924","text":"Hồi Phục HP"}
+{"rowId":"2925","text":"HP tăng 3000"}
+{"rowId":"2926","text":"Hồi Phục HP"}
+{"rowId":"2927","text":"HP tăng 5000"}
+{"rowId":"2928","text":"Hồi Phục HP"}
+{"rowId":"2929","text":"HP tăng 7500"}
+{"rowId":"2930","text":"Hồi Phục HP"}
+{"rowId":"2931","text":"HP tăng 10000"}
+{"rowId":"2932","text":"Hồi Phục HP"}
+{"rowId":"2933","text":"HP tăng 12500"}
+{"rowId":"2934","text":"Hồi Phục HP"}
+{"rowId":"2935","text":"HP tăng 15000"}
+{"rowId":"2936","text":"Hồi Phục HP"}
+{"rowId":"2937","text":"HP tăng 18000"}
+{"rowId":"2938","text":"Hồi Phục HP"}
+{"rowId":"2939","text":"Bị tấn công sẽ hồi HP. Khi HP quá thấp, hiệu quả x2."}
+{"rowId":"2940","text":"Bị tấn công sẽ hồi HP. Khi HP quá thấp, hiệu quả x2."}
+{"rowId":"2943","text":"HP dưới 40% kích hoạt"}
+{"rowId":"2944","text":"HP dưới 40% kích hoạt"}
+{"rowId":"2945","text":"HP dưới 40% kích hoạt"}
+{"rowId":"2946","text":"Khiên"}
+{"rowId":"2947","text":"Khiên"}
+{"rowId":"2948","text":"Khiên"}
+{"rowId":"2949","text":"Giảm 50% thể lực tối đa"}
+{"rowId":"2950","text":"Hiệu quả trị liệu giảm 100%"}
+{"rowId":"2951","text":"Đạn kèm sát thương thực bằng 5% HP bản thân bị mất."}
+{"rowId":"2952","text":"Mỗi turn mất 15% HP tối đa"}
+{"rowId":"2953","text":"Sát thương do Pet Tấn Công X% gây ra"}
+{"rowId":"2954","text":"Sát thương do Pet Tấn Công X% gây ra"}
+{"rowId":"2955","text":"Sát thương do Pet Tấn Công X% gây ra"}
+{"rowId":"2956","text":"Thần Tốc, 120 thể lực"}
+{"rowId":"2957","text":"100% bạo kích"}
+{"rowId":"2958","text":"Sát thương +150%"}
+{"rowId":"2959","text":"Sát thương +180%"}
+{"rowId":"2960","text":"Sát thương +220%"}
+{"rowId":"2961","text":"Xoáy Lửa"}
+{"rowId":"2962","text":"Xoáy Lửa"}
+{"rowId":"2963","text":"Mỗi turn giảm HP 8%"}
+{"rowId":"2964","text":"Pet -20 MP"}
+{"rowId":"2965","text":"Nhận kỹ năng"}
+{"rowId":"2966","text":"Dùng kỹ năng 3 lần sẽ triệu hồi"}
+{"rowId":"2967","text":"Sát Thương"}
+{"rowId":"2968","text":"Tăng sát thương 30%, tăng giảm thương 30%"}
+{"rowId":"2970","text":"Xác suất bạo kích +50%"}
+{"rowId":"2972","text":"Mỗi turn giảm HP nhất định"}
+{"rowId":"2973","text":"Duy trì 1 turn"}
+{"rowId":"2974","text":"Nhận được Xóa Miễn Kháng"}
+{"rowId":"2975","text":"Xóa Miễn Kháng"}
+{"rowId":"2976","text":"3 MP tính 1% HP"}
+{"rowId":"2977","text":"Sát Thương, Hộ Giáp, Ma Công, Ma Kháng tăng 5%"}
+{"rowId":"2978","text":"Hộ Giáp +5%"}
+{"rowId":"2979","text":"Ma Công +5%"}
+{"rowId":"2980","text":"Ma Kháng +5%"}
+{"rowId":"2981","text":"Khi chịu đòn chí mạng sẽ kích hoạt"}
+{"rowId":"2982","text":"Nhận 20 MP"}
+{"rowId":"2983","text":"Nhận 25 MP"}
+{"rowId":"2984","text":"Nhận 30 MP"}
+{"rowId":"2985","text":"Nhận 35 MP"}
+{"rowId":"2986","text":"Nhận 40 MP"}
+{"rowId":"2987","text":"Nhận 30 MP"}
+{"rowId":"2988","text":"Chịu sát thương tăng kỹ năng"}
+{"rowId":"2989","text":"Sát thương phải chịu tăng"}
+{"rowId":"2990","text":"Chịu sát thương tăng kỹ năng"}
+{"rowId":"2991","text":"Sát thương phải chịu tăng"}
+{"rowId":"2992","text":"Chịu sát thương tăng kỹ năng"}
+{"rowId":"2993","text":"Sát thương phải chịu tăng"}
+{"rowId":"2994","text":"Chịu sát thương tăng kỹ năng"}
+{"rowId":"2995","text":"Sát thương phải chịu tăng"}
+{"rowId":"2996","text":"Chịu sát thương tăng kỹ năng"}
+{"rowId":"2997","text":"Sát thương phải chịu tăng"}
+{"rowId":"2998","text":"Sát thương tăng 2%"}
+{"rowId":"2999","text":"Sát thương tăng 3%"}
+{"rowId":"3000","text":"Sát thương tăng 4%"}
+{"rowId":"3001","text":"Sát thương tăng 5%"}
+{"rowId":"3002","text":"Sát thương tăng 6%"}
+{"rowId":"3003","text":"HP tối đa +2%"}
+{"rowId":"3004","text":"HP tối đa +3%"}
+{"rowId":"3005","text":"HP tối đa +4%"}
+{"rowId":"3006","text":"HP tối đa +5%"}
+{"rowId":"3007","text":"HP tối đa +6%"}
+{"rowId":"3008","text":"Hồi 2% HP"}
+{"rowId":"3009","text":"Hồi 3% HP"}
+{"rowId":"3010","text":"Hồi 4% HP"}
+{"rowId":"3011","text":"Hồi HP 5%"}
+{"rowId":"3012","text":"Hồi HP 6%"}
+{"rowId":"3013","text":"Nhận kỹ năng"}
+{"rowId":"3014","text":"Hồi HP bằng 4% sát thương"}
+{"rowId":"3015","text":"Nhận kỹ năng"}
+{"rowId":"3016","text":"Hồi HP bằng 6% sát thương"}
+{"rowId":"3017","text":"Nhận kỹ năng"}
+{"rowId":"3018","text":"Hồi HP bằng 8% sát thương"}
+{"rowId":"3019","text":"Nhận kỹ năng"}
+{"rowId":"3020","text":"Hồi HP bằng 10% sát thương"}
+{"rowId":"3021","text":"Nhận kỹ năng"}
+{"rowId":"3022","text":"Hồi HP bằng 12% sát thương"}
+{"rowId":"3023","text":"Hồi HP 10%"}
+{"rowId":"3024","text":"Hồi 12% HP"}
+{"rowId":"3025","text":"Hồi 15% HP"}
+{"rowId":"3026","text":"Hồi 18% HP"}
+{"rowId":"3027","text":"Hồi 20% HP"}
+{"rowId":"3028","text":"Sát thương tăng 5% (BUFF đội)"}
+{"rowId":"3029","text":"Sát thương tăng 8% (BUFF đội)"}
+{"rowId":"3030","text":"Sát thương tăng 10% (BUFF đội)"}
+{"rowId":"3031","text":"Sát thương tăng 12% (BUFF đội)"}
+{"rowId":"3032","text":"Sát thương tăng 14% (BUFF đội)"}
+{"rowId":"3033","text":"Sát thương tăng 16% (BUFF đội)"}
+{"rowId":"3034","text":"Sát thương tăng 18% (BUFF đội)"}
+{"rowId":"3035","text":"HP tăng 5% (BUFF đội)"}
+{"rowId":"3036","text":"HP tăng 6% (BUFF đội)"}
+{"rowId":"3037","text":"Hiệu quả phản đòn"}
+{"rowId":"3038","text":"Khi HP dưới 10%, gây thêm sát thương bằng 50% HP tối đa"}
+{"rowId":"3039","text":"Nhận kỹ năng"}
+{"rowId":"3040","text":"Chịu 20 lần sát thương sẽ triệu hồi"}
+{"rowId":"3041","text":"Hồi HP 10%"}
+{"rowId":"3042","text":"Nhận kỹ năng"}
+{"rowId":"3043","text":"Chịu 20 lần sát thương sẽ triệu hồi"}
+{"rowId":"3044","text":"Hồi 12% HP"}
+{"rowId":"3045","text":"Nhận kỹ năng"}
+{"rowId":"3046","text":"Chịu 20 lần sát thương sẽ triệu hồi"}
+{"rowId":"3047","text":"Hồi 15% HP"}
+{"rowId":"3048","text":"Nhận kỹ năng"}
+{"rowId":"3049","text":"Chịu 20 lần sát thương sẽ triệu hồi"}
+{"rowId":"3050","text":"Hồi 18% HP"}
+{"rowId":"3051","text":"Nhận kỹ năng"}
+{"rowId":"3052","text":"Chịu 20 lần sát thương sẽ triệu hồi"}
+{"rowId":"3053","text":"Hồi 20% HP"}
+{"rowId":"3054","text":"Hồi Ma"}
+{"rowId":"3055","text":"Đánh Trước"}
+{"rowId":"3056","text":"Bị Thương"}
+{"rowId":"3057","text":"Cường Lực"}
+{"rowId":"3058","text":"Huyết Mạch"}
+{"rowId":"3059","text":"Khát Vọng"}
+{"rowId":"3060","text":"Phù Hộ"}
+{"rowId":"3061","text":"Phù Hộ"}
+{"rowId":"3062","text":"Bụi Gai"}
+{"rowId":"3063","text":"Cuồng Bạo"}
+{"rowId":"3064","text":"Nhẫn Thuật"}
+{"rowId":"3065","text":"Kháng Xuyên Giáp"}
+{"rowId":"3066","text":"Kháng Xuyên Giáp"}
+{"rowId":"3067","text":"Kháng Xuyên Giáp"}
+{"rowId":"3068","text":"Kháng Xuyên Giáp"}
+{"rowId":"3069","text":"Kháng Xuyên Giáp"}
+{"rowId":"3070","text":"Kháng Bỏng"}
+{"rowId":"3071","text":"Kháng Bỏng"}
+{"rowId":"3072","text":"Kháng Bỏng"}
+{"rowId":"3073","text":"Kháng Bỏng"}
+{"rowId":"3074","text":"Kháng Bỏng"}
+{"rowId":"3075","text":"Kháng Đóng Băng"}
+{"rowId":"3076","text":"Kháng Đóng Băng"}
+{"rowId":"3077","text":"Kháng Đóng Băng"}
+{"rowId":"3078","text":"Kháng Đóng Băng"}
+{"rowId":"3079","text":"Kháng Đóng Băng"}
+{"rowId":"3080","text":"Nhận kỹ năng"}
+{"rowId":"3081","text":"Nhận kỹ năng"}
+{"rowId":"3082","text":"Nhận kỹ năng"}
+{"rowId":"3084","text":"3 Tia"}
+{"rowId":"3085","text":"Nhận kỹ năng"}
+{"rowId":"3086","text":"Dùng kỹ năng 2 lần sẽ triệu hồi"}
+{"rowId":"3087","text":"Sát Thương"}
+{"rowId":"3088","text":"Tăng sát thương 50%, tăng giảm thương 50%"}
+{"rowId":"3089","text":"Thần Tốc, 120 thể lực"}
+{"rowId":"3090","text":"100% bạo kích"}
+{"rowId":"3091","text":"Sát thương +220%"}
+{"rowId":"3092","text":"Xác suất bạo kích +100%"}
+{"rowId":"3093","text":"Xuyên Phòng Lv1"}
+{"rowId":"3094","text":"Xuyên Giáp Lv1"}
+{"rowId":"3095","text":"Nhận Hủy Xuyên Giáp Lv1"}
+{"rowId":"3096","text":"Hủy Xuyên Giáp Lv1"}
+{"rowId":"3097","text":"2 MP tính 1% HP"}
+{"rowId":"3098","text":"Khi chịu đòn chí mạng sẽ kích hoạt"}
+{"rowId":"3099","text":"Duy trì 2 turn"}
+{"rowId":"3100","text":"Khi HP dưới 12%, gây thêm sát thương bằng 50% HP tối đa"}
+{"rowId":"3101","text":"Khi HP dưới 15%, gây thêm sát thương bằng 50% HP tối đa"}
+{"rowId":"3102","text":"Khi HP dưới 18%, gây thêm sát thương bằng 50% HP tối đa"}
+{"rowId":"3103","text":"Khi HP dưới 20%, gây thêm sát thương bằng 50% HP tối đa"}
+{"rowId":"3104","text":"Sát Thương, Hộ Giáp tăng 10%, Ma Công, Ma Kháng tăng 15%"}
+{"rowId":"3105","text":"Hộ Giáp +10%"}
+{"rowId":"3106","text":"Ma Công +15%"}
+{"rowId":"3107","text":"Ma Kháng +15%"}
+{"rowId":"3108","text":"Xoáy Lửa"}
+{"rowId":"3109","text":"Xoáy Lửa"}
+{"rowId":"3110","text":"Mỗi turn giảm 10% HP"}
+{"rowId":"3111","text":"Pet -25 MP"}
+{"rowId":"3112","text":"Sát thương do Pet Tấn Công X% gây ra"}
+{"rowId":"3113","text":"Sát thương do Pet Tấn Công X% gây ra"}
+{"rowId":"3114","text":"Sát thương do Pet Tấn Công X% gây ra"}
+{"rowId":"3115","text":"100% bạo kích"}
+{"rowId":"3116","text":"Không thể di chuyển"}
+{"rowId":"3117","text":"Sát thương +120%"}
+{"rowId":"3118","text":"Sát thương +150%"}
+{"rowId":"3119","text":"Sát thương +180%"}
+{"rowId":"3121","text":"Không thể di chuyển"}
+{"rowId":"3122","text":"Hồi phục HP."}
+{"rowId":"3126","text":"Đào hố"}
+{"rowId":"3127","text":"Hồi thêm MP"}
+{"rowId":"3128","text":"Tăng nhanh nhẹn 300"}
+{"rowId":"3129","text":"Ẩn Thân"}
+{"rowId":"3132","text":"Giảm xác suất bị bạo kích"}
+{"rowId":"3133","text":"Giảm xác suất bị bạo kích"}
+{"rowId":"3134","text":"Giảm xác suất bị bạo kích"}
+{"rowId":"3135","text":"Giảm sát thương, xác suất miễn bị bạo kích"}
+{"rowId":"3136","text":"Miễn bị bạo kích"}
+{"rowId":"3137","text":"Miễn bị bạo kích"}
+{"rowId":"3138","text":"Miễn bị bạo kích"}
+{"rowId":"3139","text":"Kháng Bỏng"}
+{"rowId":"3140","text":"Kháng Bỏng"}
+{"rowId":"3141","text":"Kháng Bỏng"}
+{"rowId":"3142","text":"HP tối đa +5%"}
+{"rowId":"3143","text":"HP tối đa +8%"}
+{"rowId":"3144","text":"HP tối đa +12%"}
+{"rowId":"3145","text":"Hồi Phục HP"}
+{"rowId":"3146","text":"Hồi Phục HP"}
+{"rowId":"3147","text":"Hồi Phục HP"}
+{"rowId":"3148","text":"Giảm xác suất bị bạo kích"}
+{"rowId":"3149","text":"Sát thương tăng 30%"}
+{"rowId":"3150","text":"Hồi thêm MP"}
+{"rowId":"3157","text":"Né tránh +"}
+{"rowId":"3159","text":"Không thể di chuyển"}
+{"rowId":"3160","text":"Tàng Hình"}
+{"rowId":"3161","text":"Tàng Hình"}
+{"rowId":"3162","text":"Tàng Hình"}
+{"rowId":"3163","text":"Giảm sát thương phải chịu"}
+{"rowId":"3164","text":"Giảm sát thương phải chịu"}
+{"rowId":"3165","text":"Giảm sát thương phải chịu"}
+{"rowId":"3166","text":"Sát thương do Pet Tấn Công X% gây ra"}
+{"rowId":"3167","text":"Sát thương do Pet Tấn Công X% gây ra"}
+{"rowId":"3168","text":"Sát thương do Pet Tấn Công X% gây ra"}
+{"rowId":"3169","text":"100% bạo kích"}
+{"rowId":"3170","text":"Sát thương +120%"}
+{"rowId":"3171","text":"Giảm nộ"}
+{"rowId":"3172","text":"Sát thương +120%"}
+{"rowId":"3173","text":"Sát thương +120%"}
+{"rowId":"3174","text":"Tăng Giảm Thương"}
+{"rowId":"3175","text":"HP tối đa +25%"}
+{"rowId":"3176","text":"Hồi 25% HP"}
+{"rowId":"3177","text":"20% miễn bị bạo kích"}
+{"rowId":"3179","text":"Khiên"}
+{"rowId":"3180","text":"Sát thương bạo kích phải chịu -15%"}
+{"rowId":"3181","text":"Sát thương bạo kích phải chịu -30%"}
+{"rowId":"3182","text":"Miễn dịch phát đạn đầu tiên"}
+{"rowId":"3183","text":"Tăng giảm thương"}
+{"rowId":"3184","text":"30% miễn bị bạo kích"}
+{"rowId":"3185","text":"Tăng sát thương."}
+{"rowId":"3186","text":"Hồi 12% HP"}
+{"rowId":"3187","text":"Sát thương bạo kích phải chịu -40%"}
+{"rowId":"3198","text":"Giảm sát thương bạo kích phải chịu, giảm sát thương phải chịu"}
+{"rowId":"3199","text":"Giảm sát thương phải chịu"}
+{"rowId":"3201","text":"MP 2"}
+{"rowId":"3202","text":"Tăng sát thương"}
+{"rowId":"3208","text":"Sát thương do Pet Tấn Công X% gây ra"}
+{"rowId":"3209","text":"Sát thương do Pet Tấn Công X% gây ra"}
+{"rowId":"3210","text":"Sát thương do Pet Tấn Công X% gây ra"}
+{"rowId":"3211","text":"100% bạo kích"}
+{"rowId":"3212","text":"Sát thương +150%"}
+{"rowId":"3213","text":"Đóng Băng"}
+{"rowId":"3214","text":"Sát thương +180%"}
+{"rowId":"3215","text":"Sát thương +220%"}
+{"rowId":"3216","text":"Sát thương cực quang"}
+{"rowId":"3217","text":"Sát thương toàn màn hình"}
+{"rowId":"3218","text":"Mỗi tốn 1 Nộ, tăng 10% sát thương"}
+{"rowId":"3219","text":"Khiên Chắn"}
+{"rowId":"3220","text":"Khiên Chắn + Giảm Thương"}
+{"rowId":"3221","text":"Nộ +"}
+{"rowId":"3222","text":"Đóng Băng"}
+{"rowId":"3223","text":"Giảm Thương + Miễn Bạo"}
+{"rowId":"3224","text":"Sát thương bạo kích phải chịu -50%"}
+{"rowId":"3225","text":"Đóng Băng"}
+{"rowId":"3226","text":"Sát thương cực quang"}
+{"rowId":"3227","text":"Sát thương toàn màn hình"}
+{"rowId":"3228","text":"12% sẽ diệt nhanh"}
+{"rowId":"3229","text":"Mỗi tốn 1 Nộ, tăng 15% sát thương"}
+{"rowId":"3230","text":"Khiên Chắn"}
+{"rowId":"3231","text":"Khiên Chắn + Giảm Thương"}
+{"rowId":"3232","text":"Nộ +"}
+{"rowId":"3233","text":"Nộ +1"}
+{"rowId":"3235","text":"Nhận Kỹ Năng"}
+{"rowId":"3236","text":"Nhận Kỹ Năng"}
+{"rowId":"3237","text":"Nhận Kỹ Năng"}
+{"rowId":"3238","text":"Nhận Kỹ Năng"}
+{"rowId":"3239","text":"Nhận Kỹ Năng"}
+{"rowId":"3240","text":"Nhận Kỹ Năng"}
+{"rowId":"3241","text":"Nhận Kỹ Năng"}
+{"rowId":"3242","text":"Nhận Kỹ Năng"}
+{"rowId":"3243","text":"Nhận Kỹ Năng"}
+{"rowId":"3244","text":"Nhận Kỹ Năng"}
+{"rowId":"3245","text":"Nhận Kỹ Năng"}
+{"rowId":"3246","text":"Nhận Kỹ Năng"}
+{"rowId":"3247","text":"Nhận Kỹ Năng"}
+{"rowId":"3248","text":"Nhận Kỹ Năng"}
+{"rowId":"3249","text":"Nhận Kỹ Năng"}
+{"rowId":"3250","text":"Nhận Kỹ Năng"}
+{"rowId":"3251","text":"Nhận Kỹ Năng"}
+{"rowId":"3252","text":"Nhận Kỹ Năng"}
+{"rowId":"3253","text":"Giảm ST Độ Cao"}
+{"rowId":"3254","text":"Giảm ST Độ Cao"}
+{"rowId":"3255","text":"Giảm ST Độ Cao"}
+{"rowId":"3256","text":"Giảm ST Độ Cao"}
+{"rowId":"3257","text":"Giảm ST Độ Cao"}
+{"rowId":"3258","text":"Giảm ST Độ Cao"}
+{"rowId":"3259","text":"Hồi HP"}
+{"rowId":"3260","text":"Hồi HP"}
+{"rowId":"3261","text":"Hồi HP"}
+{"rowId":"3262","text":"Hồi HP"}
+{"rowId":"3263","text":"Hồi HP"}
+{"rowId":"3264","text":"Hồi HP"}
+{"rowId":"3265","text":"Khiên Chắn"}
+{"rowId":"3266","text":"Khiên Chắn"}
+{"rowId":"3267","text":"Khiên Chắn"}
+{"rowId":"3268","text":"Khiên Chắn"}
+{"rowId":"3269","text":"Khiên Chắn"}
+{"rowId":"3270","text":"Khiên Chắn"}
+{"rowId":"3271","text":"Tỷ lệ giảm thương tăng"}
+{"rowId":"3272","text":"Tỷ lệ giảm thương tăng"}
+{"rowId":"3273","text":"Tỷ lệ giảm thương tăng"}
+{"rowId":"3274","text":"Tỷ lệ giảm thương tăng"}
+{"rowId":"3275","text":"Tỷ lệ giảm thương tăng"}
+{"rowId":"3276","text":"Tỷ lệ giảm thương tăng"}
+{"rowId":"3277","text":"Chịu 5 lần sát thương sẽ triệu hồi"}
+{"rowId":"3278","text":"Chịu 5 lần sát thương sẽ triệu hồi"}
+{"rowId":"3279","text":"Chịu 5 lần sát thương sẽ triệu hồi"}
+{"rowId":"3280","text":"Chịu 5 lần sát thương sẽ triệu hồi"}
+{"rowId":"3281","text":"Chịu 5 lần sát thương sẽ triệu hồi"}
+{"rowId":"3282","text":"Chịu 5 lần sát thương sẽ triệu hồi"}
+{"rowId":"3283","text":"Kháng Nước"}
+{"rowId":"3284","text":"Kháng Nước"}
+{"rowId":"3285","text":"Kháng Nước"}
+{"rowId":"3286","text":"Kháng Nước"}
+{"rowId":"3287","text":"Kháng Nước"}
+{"rowId":"3288","text":"Kháng Nước"}
+{"rowId":"3289","text":"Kháng Lửa"}
+{"rowId":"3290","text":"Kháng Lửa"}
+{"rowId":"3291","text":"Kháng Lửa"}
+{"rowId":"3292","text":"Kháng Lửa"}
+{"rowId":"3293","text":"Kháng Lửa"}
+{"rowId":"3294","text":"Kháng Lửa"}
+{"rowId":"3295","text":"Kháng Gió"}
+{"rowId":"3296","text":"Kháng Gió"}
+{"rowId":"3297","text":"Kháng Gió"}
+{"rowId":"3298","text":"Kháng Gió"}
+{"rowId":"3299","text":"Kháng Gió"}
+{"rowId":"3300","text":"Kháng Gió"}
+{"rowId":"3301","text":"Kháng Đất"}
+{"rowId":"3302","text":"Kháng Đất"}
+{"rowId":"3303","text":"Kháng Đất"}
+{"rowId":"3304","text":"Kháng Đất"}
+{"rowId":"3305","text":"Kháng Đất"}
+{"rowId":"3306","text":"Kháng Đất"}
+{"rowId":"3307","text":"Tăng HP"}
+{"rowId":"3308","text":"Hồi Phục"}
+{"rowId":"3309","text":"Tăng HP"}
+{"rowId":"3310","text":"Hồi Phục"}
+{"rowId":"3311","text":"Tăng HP"}
+{"rowId":"3312","text":"Hồi Phục"}
+{"rowId":"3313","text":"Tăng HP"}
+{"rowId":"3314","text":"Hồi Phục"}
+{"rowId":"3315","text":"Tăng HP"}
+{"rowId":"3316","text":"Hồi Phục"}
+{"rowId":"3317","text":"Tăng HP"}
+{"rowId":"3318","text":"Hồi Phục"}
+{"rowId":"3319","text":"Tăng HP"}
+{"rowId":"3320","text":"Hồi Phục"}
+{"rowId":"3321","text":"Tăng HP"}
+{"rowId":"3322","text":"Hồi Phục"}
+{"rowId":"3323","text":"Tăng HP"}
+{"rowId":"3324","text":"Hồi Phục"}
+{"rowId":"3325","text":"Tăng HP"}
+{"rowId":"3326","text":"Hồi Phục"}
+{"rowId":"3327","text":"Tăng HP"}
+{"rowId":"3328","text":"Hồi Phục"}
+{"rowId":"3329","text":"Tăng HP"}
+{"rowId":"3330","text":"Hồi Phục"}
+{"rowId":"3331","text":"Tăng HP"}
+{"rowId":"3332","text":"Hồi Phục"}
+{"rowId":"3333","text":"Tăng HP"}
+{"rowId":"3334","text":"Hồi Phục"}
+{"rowId":"3335","text":"Tăng HP"}
+{"rowId":"3336","text":"Hồi Phục"}
+{"rowId":"3337","text":"Tăng HP"}
+{"rowId":"3338","text":"Hồi Phục"}
+{"rowId":"3339","text":"Tăng HP"}
+{"rowId":"3340","text":"Hồi Phục"}
+{"rowId":"3341","text":"Tăng HP"}
+{"rowId":"3342","text":"Hồi Phục"}
+{"rowId":"3343","text":"Tăng HP"}
+{"rowId":"3344","text":"Hồi Phục"}
+{"rowId":"3345","text":"Tăng HP"}
+{"rowId":"3346","text":"Hồi Phục"}
+{"rowId":"3347","text":"Tăng HP"}
+{"rowId":"3348","text":"Hồi Phục"}
+{"rowId":"3349","text":"Tăng HP"}
+{"rowId":"3350","text":"Hồi Phục"}
+{"rowId":"3351","text":"Tăng HP"}
+{"rowId":"3352","text":"Hồi Phục"}
+{"rowId":"3353","text":"Tăng HP"}
+{"rowId":"3354","text":"Hồi Phục"}
+{"rowId":"3355","text":"Công Nước"}
+{"rowId":"3356","text":"Công Nước"}
+{"rowId":"3357","text":"Công Nước"}
+{"rowId":"3358","text":"Công Nước"}
+{"rowId":"3359","text":"Công Nước"}
+{"rowId":"3360","text":"Công Nước"}
+{"rowId":"3361","text":"Công Lửa"}
+{"rowId":"3362","text":"Công Lửa"}
+{"rowId":"3363","text":"Công Lửa"}
+{"rowId":"3364","text":"Công Lửa"}
+{"rowId":"3365","text":"Công Lửa"}
+{"rowId":"3366","text":"Công Lửa"}
+{"rowId":"3367","text":"Công Gió"}
+{"rowId":"3368","text":"Công Gió"}
+{"rowId":"3369","text":"Công Gió"}
+{"rowId":"3370","text":"Công Gió"}
+{"rowId":"3371","text":"Công Gió"}
+{"rowId":"3372","text":"Công Gió"}
+{"rowId":"3373","text":"Công Đất"}
+{"rowId":"3374","text":"Công Đất"}
+{"rowId":"3375","text":"Công Đất"}
+{"rowId":"3376","text":"Công Đất"}
+{"rowId":"3377","text":"Công Đất"}
+{"rowId":"3378","text":"Công Đất"}
+{"rowId":"3454","text":"Miễn Bị Bạo Kích"}
+{"rowId":"3455","text":"Miễn Bị Bạo Kích"}
+{"rowId":"3456","text":"Miễn Bị Bạo Kích"}
+{"rowId":"3457","text":"Giảm ST Bạo Kích"}
+{"rowId":"3458","text":"Giảm ST Bạo Kích"}
+{"rowId":"3459","text":"Giảm ST Bạo Kích"}
+{"rowId":"3460","text":"Giảm Ma Công"}
+{"rowId":"3461","text":"Giảm Ma Công"}
+{"rowId":"3462","text":"Giảm Ma Công"}
+{"rowId":"3463","text":"Giảm Ma Công"}
+{"rowId":"3464","text":"Giảm Ma Công"}
+{"rowId":"3486","text":"10% sẽ diệt nhanh"}
+{"rowId":"3488","text":"Đóng Băng"}
+{"rowId":"3490","text":"Giảm Thương + Miễn Bạo"}
+{"rowId":"3491","text":"Sát thương bạo kích phải chịu -50%"}
+{"rowId":"3493","text":"Giảm Thương + Kháng Xuyên Giáp"}
+{"rowId":"3494","text":"Kháng Xuyên Giáp"}
+{"rowId":"3495","text":"Giảm Ma Công"}
+{"rowId":"3496","text":"Đóng Băng"}
+{"rowId":"3497","text":"Giảm sát thương phải chịu"}
+{"rowId":"3522","text":"Sát thương do Pet Tấn Công X% gây ra"}
+{"rowId":"3523","text":"Sát thương do Pet Tấn Công X% gây ra"}
+{"rowId":"3524","text":"Giảm sát thương 30%"}
+{"rowId":"3525","text":"Sát thương cực quang"}
+{"rowId":"3526","text":"Sát thương toàn màn hình"}
+{"rowId":"3527","text":"15% sẽ diệt nhanh"}
+{"rowId":"3528","text":"Mỗi tốn 1 Nộ, tăng 20% sát thương"}
+{"rowId":"3529","text":"Đóng Băng"}
+{"rowId":"3530","text":"Đóng Băng"}
+{"rowId":"3532","text":"Hồi HP"}
+{"rowId":"3533","text":"Kháng Bỏng"}
+{"rowId":"3534","text":"Kháng Bỏng"}
+{"rowId":"3535","text":"Sát thương tăng"}
+{"rowId":"3536","text":"Kháng Xuyên Giáp"}
+{"rowId":"3537","text":"Kháng Bỏng"}
+{"rowId":"3538","text":"Kháng Xuyên Giáp"}
+{"rowId":"3539","text":"Kháng Xuyên Giáp"}
+{"rowId":"3540","text":"Kháng Bỏng"}
+{"rowId":"3541","text":"Kháng Bỏng"}
+{"rowId":"3543","text":"Kỹ năng +1"}
+{"rowId":"3622","text":"Bị tấn công sẽ hồi HP. Khi HP quá thấp, hiệu quả x2."}
+{"rowId":"3623","text":"Bị tấn công sẽ hồi HP. Khi HP quá thấp, hiệu quả x2."}
+{"rowId":"3625","text":"Hiệu quả trị liệu +30%"}
+{"rowId":"3629","text":"HP tối đa +10%"}
+{"rowId":"3630","text":"Kháng Bỏng +"}
+{"rowId":"3631","text":"Kháng Xuyên Giáp +"}
+{"rowId":"3662","text":"Sát thương do Pet Tấn Công X% gây ra"}
+{"rowId":"3664","text":"Tăng tấn công và sát thương."}
+{"rowId":"3665","text":"Tăng sát thương."}
+{"rowId":"3666","text":"100% bạo kích"}
+{"rowId":"3668","text":"Đóng Băng"}
+{"rowId":"3669","text":"Giảm Thương/Miễn Bạo +40%."}
+{"rowId":"3670","text":"40% Miễn Bị Bạo Kích"}
+{"rowId":"3671","text":"Mỗi turn giảm 8% HP, tăng 800 sát thương, giảm thương +30%"}
+{"rowId":"3672","text":"Tăng sát thương 800"}
+{"rowId":"3673","text":"Giảm Thương +30%"}
+{"rowId":"3676","text":"Tăng nhanh nhẹn 10%+600"}
+{"rowId":"3677","text":"Nhận Kỹ Năng"}
+{"rowId":"3678","text":"Nhận Kỹ Năng"}
+{"rowId":"3680","text":"Tăng tấn công 10%+600"}
+{"rowId":"3681","text":"Sát thương bạo kích +20%"}
+{"rowId":"3682","text":"Tăng tấn công."}
+{"rowId":"3683","text":"Tăng sát thương."}
+{"rowId":"3684","text":"Tăng tỉ lệ bạo kích."}
+{"rowId":"3686","text":"Khi đến lượt, tăng 2 điểm ma pháp cho toàn bộ thú cưng cùng phe"}
+{"rowId":"3687","text":"Hồi phục HP."}
+{"rowId":"3688","text":"Khi đến lượt, tăng 2 điểm ma pháp cho toàn bộ thú cưng cùng phe"}
+{"rowId":"3689","text":"Hồi phục HP."}
+{"rowId":"3690","text":"Kháng Bỏng"}
+{"rowId":"3691","text":"Kháng Bỏng"}
+{"rowId":"3692","text":"Kháng Xuyên Giáp"}
+{"rowId":"3693","text":"Giảm Thương +15%"}
+{"rowId":"3694","text":"Kháng Xuyên Giáp"}
+{"rowId":"3695","text":"Kháng Bỏng"}
+{"rowId":"3696","text":"Kháng Xuyên Giáp"}
+{"rowId":"3697","text":"HP tối đa"}
+{"rowId":"3698","text":"Hồi Phục HP"}
+{"rowId":"3700","text":"Miễn giảm sát thương 1 lần"}
+{"rowId":"3701","text":"Giảm Thương +10%"}
+{"rowId":"3703","text":"Tăng hiệu quả giảm thương."}
+{"rowId":"3708","text":"Kháng Bỏng"}
+{"rowId":"3709","text":"Tăng hiệu quả giảm thương."}
+{"rowId":"3710","text":"Kháng Xuyên Giáp"}
+{"rowId":"3711","text":"Sát thương do Pet Tấn Công X% gây ra"}
+{"rowId":"3713","text":"Giảm sát thương bạo kích phải chịu, giảm sát thương phải chịu"}
+{"rowId":"3714","text":"Giảm sát thương phải chịu"}
+{"rowId":"3715","text":"Kích Nộ"}
+{"rowId":"3717","text":"Duy trì 2 turn"}
+{"rowId":"3718","text":"% HP kích hoạt Bướm Ẩn"}
+{"rowId":"3720","text":"MP 5"}
+{"rowId":"3721","text":"Tăng sát thương"}
+{"rowId":"3722","text":"HP Tối Đa +10%"}
+{"rowId":"3723","text":"Kháng Xuyên Giáp +"}
+{"rowId":"3724","text":"HP tối đa"}
+{"rowId":"3725","text":"Hồi Phục HP"}
+{"rowId":"3726","text":"Kháng Bỏng +"}
+{"rowId":"3727","text":"Kháng Xuyên Giáp +"}
+{"rowId":"3729","text":"Kháng Xuyên Giáp +"}
+{"rowId":"3730","text":"Tăng tấn công, phòng thủ, nhanh nhẹn, may mắn"}
+{"rowId":"3735","text":"Giảm sát thương phải chịu"}
+{"rowId":"3736","text":"Giảm sát thương phải chịu"}
+{"rowId":"3737","text":"Giảm sát thương phải chịu"}
+{"rowId":"3738","text":"Đóng Băng"}
+{"rowId":"3739","text":"Đóng Băng"}
+{"rowId":"3740","text":"Đóng Băng"}
+{"rowId":"3741","text":"Nhận Kỹ Năng"}
+{"rowId":"3742","text":"Nhận Kỹ Năng"}
+{"rowId":"3743","text":"Nhận Kỹ Năng"}
+{"rowId":"3744","text":"Hồi HP"}
+{"rowId":"3745","text":"Hồi HP"}
+{"rowId":"3746","text":"Hồi HP"}
+{"rowId":"3747","text":"Sát thương do Pet Tấn Công X% gây ra"}
+{"rowId":"3748","text":"Sát thương giảm 25%"}
+{"rowId":"3749","text":"Nhận kỹ năng tăng sát thương phải chịu"}
+{"rowId":"3750","text":"Tăng Sát Thương Phải Chịu"}
+{"rowId":"3751","text":"Tấn công và phòng thủ giảm 50%"}
+{"rowId":"3754","text":"Sát thương bạo kích phải chịu -50%"}
+{"rowId":"3755","text":"Hộ giáp giảm, ma kháng giảm."}
+{"rowId":"3756","text":"Không thể di chuyển"}
+{"rowId":"3757","text":"Ma kháng giảm"}
+{"rowId":"3758","text":"Cấm Bay"}
+{"rowId":"3759","text":"Nhận hiệu quả trúng độc"}
+{"rowId":"3760","text":"Sát thương phải chịu tăng 10%"}
+{"rowId":"3761","text":"Hộ Giáp +500, HP+15%, Giảm Thương +15%"}
+{"rowId":"3762","text":"Tăng HP"}
+{"rowId":"3764","text":"Giảm sát thương phải chịu"}
+{"rowId":"3765","text":"Kháng Bỏng +"}
+{"rowId":"3766","text":"Kháng Bỏng +"}
+{"rowId":"3767","text":"Kháng Xuyên Giáp +"}
+{"rowId":"3768","text":"Kháng Bỏng +"}
+{"rowId":"3769","text":"Kháng Xuyên Giáp +"}
+{"rowId":"3770","text":"Giảm sát thương phải chịu"}
+{"rowId":"3771","text":"Kháng Xuyên Giáp +"}
+{"rowId":"3780","text":"Giảm sát thương phải chịu"}
+{"rowId":"3781","text":"Mỗi turn giảm 10% HP, duy trì 3 turn"}
+{"rowId":"3782","text":"Giảm sát thương đạn pháo"}
+{"rowId":"3783","text":"Tăng sát thương gây ra, giảm sát thương phải chịu"}
+{"rowId":"3784","text":"Giảm Thương +"}
+{"rowId":"3785","text":"Giảm sát thương phải chịu"}
+{"rowId":"3786","text":"Giảm Tốc Độ"}
+{"rowId":"3787","text":"Hồi HP"}
+{"rowId":"3789","text":"Nhận Kỹ Năng"}
+{"rowId":"3790","text":"Nhận Kỹ Năng"}
+{"rowId":"3791","text":"Chịu 10 lần sát thương sẽ triệu hồi"}
+{"rowId":"3792","text":"Dùng kỹ năng 2 lần sẽ triệu hồi"}
+{"rowId":"3793","text":"Nhận 40 MP"}
+{"rowId":"3794","text":"Kháng Bỏng +"}
+{"rowId":"3795","text":"Kháng Bỏng +"}
+{"rowId":"3796","text":"Kháng Xuyên Giáp +"}
+{"rowId":"3797","text":"Kháng Xuyên Giáp +"}
+{"rowId":"3798","text":"Kháng Bỏng +"}
+{"rowId":"3799","text":"HP +15%"}
+{"rowId":"3800","text":"Hồi 15% HP"}
+{"rowId":"3801","text":"Kháng Xuyên Giáp +"}
+{"rowId":"3912","text":"Nhận Kỹ Năng"}
+{"rowId":"3913","text":"Dùng kỹ năng 2 lần sẽ triệu hồi"}
+{"rowId":"3914","text":"Sát Thương"}
+{"rowId":"3915","text":"Tăng sát thương 50%, tăng giảm thương 50%"}
+{"rowId":"3916","text":"Hồi phục HP."}
+{"rowId":"3917","text":"Thần Tốc, 120 thể lực"}
+{"rowId":"3918","text":"Mỗi turn giảm HP nhất định"}
+{"rowId":"3919","text":"Giảm sát thương phải chịu"}
+{"rowId":"3920","text":"Khi chịu đòn chí mạng sẽ kích hoạt"}
+{"rowId":"3921","text":"Sát Thương, Hộ Giáp +15%, Ma Công, Ma Kháng +15%"}
+{"rowId":"3922","text":"Hộ Giáp +15%"}
+{"rowId":"3923","text":"Xoáy Lửa"}
+{"rowId":"3924","text":"Xoáy Lửa"}
+{"rowId":"3925","text":"Mỗi turn giảm 12% HP"}
+{"rowId":"3926","text":"Pet -25 MP"}
+{"rowId":"3927","text":"Kháng Xuyên Giáp"}
+{"rowId":"3928","text":"Kháng Bỏng"}
+{"rowId":"3929","text":"Kháng Xuyên Giáp"}
+{"rowId":"3930","text":"HP +12%"}
+{"rowId":"3931","text":"Hồi 12% HP"}
+{"rowId":"3932","text":"Kháng Bỏng"}
+{"rowId":"3933","text":"Kháng Xuyên Giáp"}
+{"rowId":"3934","text":"Kháng Xuyên Giáp"}
+{"rowId":"3969","text":"Hiệu quả trị liệu -50%"}
+{"rowId":"3970","text":"HP +25%"}
+{"rowId":"3971","text":"Giảm 30% Thể Lực Tối Đa"}
+{"rowId":"3976","text":"Sát thương do Pet Tấn Công X% gây ra"}
+{"rowId":"3978","text":"Nhận kỹ năng tăng sát thương phải chịu"}
+{"rowId":"3979","text":"Tăng Sát Thương Phải Chịu"}
+{"rowId":"3980","text":"Miễn Bị Bạo Kích"}
+{"rowId":"3981","text":"Dùng đạo cụ chiến đấu tăng điểm ma pháp"}
+{"rowId":"3982","text":"Dùng đạo cụ chiến đấu tăng điểm nộ khí"}
+{"rowId":"3983","text":"Kháng Bỏng"}
+{"rowId":"3984","text":"Kháng Xuyên Giáp"}
+{"rowId":"3985","text":"Kháng Xuyên Giáp"}
+{"rowId":"3986","text":"Kháng Bỏng"}
+{"rowId":"3987","text":"HP +15%"}
+{"rowId":"3988","text":"Hồi 15% HP"}
+{"rowId":"3989","text":"Kháng Bỏng"}
+{"rowId":"3990","text":"Kháng Bỏng"}
+{"rowId":"4003","text":"Tối đa gây sát thương bằng 35% HP tối đa của bản thân"}
+{"rowId":"4004","text":"50% Miễn Bị Bạo Kích"}
+{"rowId":"4005","text":"Tăng sát thương."}
+{"rowId":"4006","text":"Hồi 18% HP"}
+{"rowId":"4007","text":"Sát thương bạo kích phải chịu -15%"}
+{"rowId":"4008","text":"HP +10%"}
+{"rowId":"4009","text":"Hồi HP 10%"}
+{"rowId":"4010","text":"Kháng Bỏng"}
+{"rowId":"4011","text":"Kháng Bỏng"}
+{"rowId":"4012","text":"Kháng Xuyên Giáp"}
+{"rowId":"4436","text":"Phản Sát Thương"}
+{"rowId":"4699","text":"Tỷ lệ bạo kích +75%, sát thương bạo kích +50%."}
+{"rowId":"11716","text":"Mỗi turn mất 10% HP"}
+{"rowId":"11717","text":"Đóng Băng"}
+{"rowId":"11718","text":"Thể lực tối đa bị tổn thất"}
+{"rowId":"103028","text":"Tịnh Hóa"}
+{"rowId":"103029","text":"Tịnh Hóa"}
+{"rowId":"103030","text":"Tịnh Hóa"}
+{"rowId":"103031","text":"Tịnh Hóa"}
+{"rowId":"103032","text":"Tịnh Hóa"}
+{"rowId":"103033","text":"Phản đòn sát thương."}
+{"rowId":"103034","text":"Duy trì gai nhọn"}
+{"rowId":"103035","text":"Phản đòn 1% tất cả sát thương"}
