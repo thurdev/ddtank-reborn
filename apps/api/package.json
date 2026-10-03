@@ -17,6 +17,7 @@
   "dependencies": {
     "@ddt/auth": "workspace:*",
     "@ddt/db": "workspace:*",
+    "@ddt/fight": "workspace:*",
     "@ddt/protocol": "workspace:*",
     "@fastify/cors": "^11.3.0",
     "@fastify/formbody": "^9.0.0",

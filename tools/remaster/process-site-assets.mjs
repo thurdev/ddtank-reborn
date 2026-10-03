@@ -20,11 +20,18 @@ const OUT = join(ROOT, "apps", "web", "public", "play");
 mkdirSync(OUT, { recursive: true });
 
 /**
- * Chroma-keys pure green (#00FF00) out of an RGB(A) image, despills the green fringe on partially-keyed edge
- * pixels, and crops to the bounding box of what's left (the actual art, discarding the big green matte the
- * generator pads the canvas with). Returns a sharp() pipeline ready for .resize()/.toFile().
+ * Chroma-keys the green matte out of an RGB(A) image and crops to the bounding box of what's left.
+ *
+ * These generations aren't flat #00FF00 — the matte is a soft green vignette (brighter near the art, darker at
+ * the canvas edges) — but the art itself (gold/cream/warm palette) is reliably on the *other* side of a simple
+ * discriminator: `greenness = G - max(R,B)`. Green matte (incl. the vignette) is always green-dominant
+ * (greenness roughly +40..+95 in samples); the gold/cream art is always red-or-blue-dominant (greenness
+ * negative). So, unlike a neighbour-chained flood fill (which leaks across the gold's own internal shading
+ * gradients once it crosses one soft edge), a global per-pixel threshold on `greenness` cleanly separates the
+ * two with no risk of eating into the art — and still ramps smoothly (feature, not threshold) across the
+ * anti-aliased rim between them. Despills that rim (pulls G back toward max(R,B)) before cropping.
  */
-async function chromaKeyTrim(srcPath, { tLow = 36, tHigh = 95, pad = 2 } = {}) {
+async function chromaKeyTrim(srcPath, { tLow = 6, tHigh = 22, pad = 2 } = {}) {
   const { data, info } = await sharp(srcPath).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   const { width, height, channels } = info; // channels === 4 (ensureAlpha)
   let minX = width;
@@ -39,14 +46,14 @@ async function chromaKeyTrim(srcPath, { tLow = 36, tHigh = 95, pad = 2 } = {}) {
       const g = data[i + 1];
       const b = data[i + 2];
       const mx = r > b ? r : b;
-      const greenness = g - mx; // > 0 means this pixel leans green vs. its other channels
+      const greenness = g - mx; // > 0 ⇒ green-dominant (matte/vignette); <= 0 ⇒ warm art, always kept opaque
       let a;
       if (greenness <= tLow) a = 255;
       else if (greenness >= tHigh) a = 0;
       else a = Math.round(255 * (1 - (greenness - tLow) / (tHigh - tLow)));
-      if (a < 255 && greenness > 0) {
-        // Despill: pull the green channel back toward max(r,b) proportional to how much this edge pixel
-        // was keyed, so the remaining rim of a half-transparent pixel doesn't read as a green halo.
+      if (a < 255) {
+        // Despill: pull the green channel back toward max(r,b) proportional to how transparent this edge
+        // pixel became, so the remaining rim doesn't read as a green halo once composited.
         const k = 1 - a / 255;
         data[i + 1] = Math.round(g - greenness * k);
       }
@@ -60,7 +67,7 @@ async function chromaKeyTrim(srcPath, { tLow = 36, tHigh = 95, pad = 2 } = {}) {
     }
   }
   if (maxX < minX) {
-    // Nothing keyed out (e.g. no green found) — keep the whole frame rather than crash.
+    // Nothing left after keying (shouldn't happen) — keep the whole frame rather than crash.
     minX = 0;
     minY = 0;
     maxX = width - 1;
@@ -81,14 +88,18 @@ async function writeWebp(pipeline, outPath, { maxDim, quality = 90 } = {}) {
   console.log(`  -> ${outPath.replace(ROOT + "\\", "").replace(ROOT + "/", "")} (${kb} KB)`);
 }
 
-/** Frame pieces: green-screen art that gets keyed, trimmed, and shipped at ~2x their CSS footprint. */
+/**
+ * Frame pieces. `chroma: true` pieces are isolated ornaments on a green-screen matte (keyed + trimmed to their
+ * content bbox); the two tileable textures are generated full-bleed (no green matte — sampled border pixels are
+ * the fabric/parchment colour itself) so they're only resized, never keyed/trimmed.
+ */
 const PIECES = [
-  { file: "02-logo-ddreborn.png", out: "logo.webp", maxDim: 960 },
-  { file: "03a-ponta-pergaminho.png", out: "scroll-end.webp", maxDim: 640 },
-  { file: "03b-coluna-dourada.png", out: "column.webp", maxDim: 220 },
-  { file: "03c-canto-dourado.png", out: "corner.webp", maxDim: 320 },
-  { file: "03d-textura-tecido-escuro.png", out: "fabric-tile.webp", maxDim: 512 },
-  { file: "03e-textura-pergaminho.png", out: "parchment-tile.webp", maxDim: 512 },
+  { file: "02-logo-ddreborn.png", out: "logo.webp", maxDim: 960, chroma: true },
+  { file: "03a-ponta-pergaminho.png", out: "scroll-end.webp", maxDim: 640, chroma: true },
+  { file: "03b-coluna-dourada.png", out: "column.webp", maxDim: 220, chroma: true },
+  { file: "03c-canto-dourado.png", out: "corner.webp", maxDim: 320, chroma: true },
+  { file: "03d-textura-tecido-escuro.png", out: "fabric-tile.webp", maxDim: 512, chroma: false },
+  { file: "03e-textura-pergaminho.png", out: "parchment-tile.webp", maxDim: 512, chroma: false },
 ];
 
 async function processBackground() {
@@ -119,8 +130,8 @@ async function processPieces() {
       continue;
     }
     console.log(`piece: ${piece.file}`);
-    const trimmed = await chromaKeyTrim(src);
-    await writeWebp(trimmed, join(OUT, piece.out), { maxDim: piece.maxDim });
+    const pipeline = piece.chroma ? await chromaKeyTrim(src) : sharp(src);
+    await writeWebp(pipeline, join(OUT, piece.out), { maxDim: piece.maxDim });
   }
 }
 

@@ -1,25 +1,98 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Button, Spinner } from "@ddtank/ui";
 import { ArrowLeft, Maximize } from "lucide-react";
 import { GameFrame } from "@/components/GameFrame";
-import { configQuery } from "@/lib/api";
+import { AimSidePanel } from "@/components/AimTablePanel";
+import { aimTablesQuery, configQuery } from "@/lib/api";
 import { useI18n } from "@/i18n";
+import "./play.css";
 
-/** Full-screen game page. The config (with per-session flashvars) comes from GET /api/public/config. */
+/** Unscaled "design" size of .play-stage (apps/web/src/pages/play.css) — kept in sync by hand (no layout
+ *  measurement round-trip needed before the first paint). */
+const STAGE_W = 1932;
+const STAGE_H = 836;
+/** Breathing room so the composition never touches the viewport edges. */
+const STAGE_MARGIN = 24;
+
+/** Scales `.play-stage` to fit the viewport via CSS transform (GPU compositing — crisp at any factor, unlike
+ *  resizing the 1000x600 game canvas itself, which the frame never does: GameFrame always renders at its real
+ *  1000x600 CSS size). Snapped to the nearest 0.01 so the composition's hairline borders don't shimmer between
+ *  renders while the window is actively being resized. */
+function useStageScale(availRef: React.RefObject<HTMLElement | null>): number {
+  const [scale, setScale] = useState(1);
+  useEffect(() => {
+    const el = availRef.current;
+    if (!el) return;
+    const compute = () => {
+      const w = el.clientWidth - STAGE_MARGIN * 2;
+      const h = el.clientHeight - STAGE_MARGIN * 2;
+      const s = Math.min(1, w / STAGE_W, h / STAGE_H);
+      setScale(Math.max(0.2, Math.round(s * 100) / 100));
+    };
+    compute();
+    const ro = new ResizeObserver(compute);
+    ro.observe(el);
+    window.addEventListener("resize", compute);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", compute);
+    };
+  }, [availRef]);
+  return scale;
+}
+
+function LogoSlot() {
+  const [broken, setBroken] = useState(false);
+  return (
+    <div className="play-logo-slot">
+      {!broken ? (
+        <img src="/play/logo.webp" alt="DDReborn" onError={() => setBroken(true)} />
+      ) : (
+        <span className="play-logo-fallback">DDReborn</span>
+      )}
+    </div>
+  );
+}
+
+function Ruler() {
+  const ticks = Array.from({ length: 11 }, (_, i) => i); // 0..10, 100px apart over the 1000px game width
+  return (
+    <div className="play-ruler" aria-hidden="true">
+      {ticks.map((n) => (
+        <div className="play-ruler-tick" key={n}>
+          <span>{n}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** Full-page game page: parchment/gold "DD Clássico" composition (background, logo, ornamental frame, angle/force
+ *  reference tables, distance ruler) hosting the real Ruffle client in an exact 1000x600 hole. Auth/config fetch
+ *  and the fullscreen button are unchanged from before the redesign. */
 export function PlayPage() {
   const { t } = useI18n();
-  const ref = useRef<HTMLDivElement>(null);
+  const fullscreenRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
   const { data, error, isLoading, refetch } = useQuery({ ...configQuery, staleTime: 0 });
+  const aim = useQuery(aimTablesQuery);
+  const scale = useStageScale(viewportRef);
 
   const fullscreen = () => {
-    void ref.current?.requestFullscreen?.();
+    void fullscreenRef.current?.requestFullscreen?.();
   };
 
+  const distances = aim.data?.distances ?? [];
+  const rows = aim.data?.rows ?? [];
+  const half = Math.ceil(rows.length / 2);
+  const leftRows = rows.slice(0, half);
+  const rightRows = rows.slice(half);
+
   return (
-    <div ref={ref} className="fixed inset-0 z-50 flex flex-col bg-night-deep">
-      <div className="flex h-10 shrink-0 items-center gap-2 border-b border-line/60 bg-night px-2">
+    <div ref={fullscreenRef} className="fixed inset-0 z-50 flex flex-col bg-night-deep">
+      <div className="relative z-10 flex h-10 shrink-0 items-center gap-2 border-b border-line/60 bg-night px-2">
         <Button variant="ghost" size="sm" asChild>
           <Link to="/">
             <ArrowLeft /> {t("play.back")}
@@ -30,7 +103,8 @@ export function PlayPage() {
           <Maximize /> {t("play.fullscreen")}
         </Button>
       </div>
-      <div className="relative flex-1">
+
+      <div className="play-page-bg relative flex-1">
         {isLoading && (
           <div className="absolute inset-0 grid place-items-center">
             <Spinner className="size-10" />
@@ -44,7 +118,38 @@ export function PlayPage() {
             </div>
           </div>
         )}
-        {data && <GameFrame {...data.game} />}
+
+        {data && (
+          <div ref={viewportRef} className="play-stage-viewport">
+            <div className="play-stage" style={{ transform: `scale(${scale})` }}>
+              <LogoSlot />
+
+              <div className="play-scroll-post left" />
+
+              <AimSidePanel side="left" rows={leftRows} distances={distances} />
+
+              <div className="play-column-gutter left" />
+
+              <div className="play-frame">
+                <span className="play-corner tl" />
+                <span className="play-corner tr" />
+                <span className="play-corner br" />
+                <span className="play-corner bl" />
+                <div className="play-frame-hole">
+                  <GameFrame {...data.game} />
+                </div>
+              </div>
+
+              <div className="play-column-gutter right" />
+
+              <AimSidePanel side="right" rows={rightRows} distances={distances} />
+
+              <div className="play-scroll-post right" />
+
+              <Ruler />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

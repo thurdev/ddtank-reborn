@@ -26,6 +26,8 @@ export const serverConfigFields: FieldDef[] = [
   { name: "dropRate", label: "Taxa de drop", type: "number", int: false, step: 0.1, min: 0, max: 100, required: true, default: 1, section: "Taxas" },
   { name: "offerRate", label: "Taxa de mérito", type: "number", int: false, step: 0.1, min: 0, max: 100, default: 1, section: "Taxas" },
   { name: "maxPlayers", label: "Limite de jogadores online", type: "number", min: 1, default: 1000, section: "Taxas" },
+  // Jogo
+  { name: "aimAngles", label: "Ângulos das tabelas de mira", type: "tags", default: ["20", "30", "50", "65"], hint: "Página Jogar: ângulos (graus) mostrados nos painéis de ângulo/força — GET /api/public/aim-tables", section: "Jogo" },
   // Operação
   { name: "maintenance", label: "Modo manutenção", type: "boolean", hint: "Bloqueia novos logins de não-admins", section: "Operação" },
   { name: "maintenanceMessage", label: "Mensagem de manutenção", type: "text", section: "Operação" },

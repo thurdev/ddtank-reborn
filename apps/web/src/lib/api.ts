@@ -83,6 +83,17 @@ export interface AuthResponse {
   user: User;
 }
 
+export interface AimTableRow {
+  angle: number;
+  /** force needed for distances[i]; null when unreachable */
+  forces: (number | null)[];
+}
+export interface AimTableResult {
+  distances: number[];
+  distanceUnitPx: number;
+  rows: AimTableRow[];
+}
+
 // ---- Query options ----
 
 export const configQuery = queryOptions({
@@ -107,6 +118,12 @@ export const rankingQuery = (type: RankingType) =>
     queryKey: ["public", "ranking", type],
     queryFn: () => api.get<RankingRow[]>(`/api/public/ranking?type=${type}`),
   });
+
+export const aimTablesQuery = queryOptions({
+  queryKey: ["public", "aim-tables"],
+  queryFn: () => api.get<AimTableResult>("/api/public/aim-tables"),
+  staleTime: 10 * 60_000,
+});
 
 export const meQuery = queryOptions({
   queryKey: ["account", "me"],
