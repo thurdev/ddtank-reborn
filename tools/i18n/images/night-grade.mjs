@@ -66,27 +66,48 @@ export async function encode(raw, info, ext) {
   return ext === "jpeg" || ext === "jpg" ? pipeline.jpeg({ quality: 95 }).toBuffer() : pipeline.png().toBuffer();
 }
 
+// Cache of hue -> stable mid-tone RGB anchor color, used by nightGradePixel's hue-shift step below.
+const _tintCache = new Map();
+function nightTintRgb(hueDeg) {
+  let c = _tintCache.get(hueDeg);
+  if (!c) { c = hslToRgb(hueDeg, 0.55, 0.42); _tintCache.set(hueDeg, c); }
+  return c;
+}
+
 /**
- * Per-pixel night grade: darken + optional hue shift toward blue/purple (for sky/distant layers), applied
- * in HSL space (hue-preserving by default — only shifted when hueShiftDeg is non-zero) so material identity
- * survives, same approach as dark-mode-skins.mjs. Alpha untouched.
+ * Per-pixel night grade: darken + optional hue shift toward blue/purple (for sky/distant layers), then
+ * lightness/saturation scaling in HSL space. Alpha untouched.
+ *
+ * The hue shift is a LINEAR RGB MIX toward a fixed target color (luminance-matched to the source pixel), not
+ * an HSL hue rotation/mix. Found the hard way (2026-10-03 relight pass): HSL hue is numerically unstable for
+ * near-gray pixels (saturation≈0 means hue is nearly undefined — a 1-unit JPEG-block rounding difference in
+ * which channel is max flips the computed hue by ~120°). Mixing hue in HSL space amplifies that per-pixel
+ * noise into visible red/pink speckle once lCeil drops low enough to make the hue error visible against a
+ * darkened background (confirmed by diffing the staged PNG pre-repack: the speckle was already there, not a
+ * repack/Ruffle artifact). Mixing in RGB space first — then deriving h/s/l from the already-tinted, no-longer-
+ * near-gray pixel for the lightness/saturation step — sidesteps the instability because by the time hue is
+ * extracted, the pixel has real saturation again.
  */
 export function nightGradePixel(r, g, b, opts) {
   const { lScale = 0.55, lFloor = 0.02, lCeil = 0.85, sScale = 1.1, sCeil = 0.6, hueShiftDeg = 0, hueShiftMix = 0 } = opts;
-  let [h, s, l] = rgbToHsl(r, g, b);
+  let rr = r, gg = g, bb = b;
   if (hueShiftDeg !== 0 && hueShiftMix > 0) {
-    // Mix the hue toward a target blue/purple hue rather than a flat additive rotation — reads as a cool
-    // night cast on near-neutral sky/cloud tones without recoloring already-saturated building pixels
-    // (those have their own hue far from the target, so mixing barely moves them... handled by caller
-    // choosing a smaller hueShiftMix for building-classified images).
-    const target = hueShiftDeg;
-    let delta = ((target - h + 540) % 360) - 180;
-    h = (h + delta * hueShiftMix + 360) % 360;
+    const [tr, tg, tb] = nightTintRgb(hueShiftDeg);
+    // Scale the tint to the source pixel's own luminance so a bright pixel mixed toward a mid-brightness
+    // anchor color doesn't just go flat/gray — it keeps reading as "this pixel, but cooler".
+    const srcLum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    const tintLum = 0.2126 * tr + 0.7152 * tg + 0.0722 * tb || 1;
+    const rel = srcLum / tintLum;
+    rr = r * (1 - hueShiftMix) + Math.min(255, tr * rel) * hueShiftMix;
+    gg = g * (1 - hueShiftMix) + Math.min(255, tg * rel) * hueShiftMix;
+    bb = b * (1 - hueShiftMix) + Math.min(255, tb * rel) * hueShiftMix;
   }
+  let [h, s, l] = rgbToHsl(clampByte(rr), clampByte(gg), clampByte(bb));
   const l2 = Math.min(lCeil, Math.max(lFloor, l * lScale));
   const s2 = Math.min(sCeil, s * sScale);
   return hslToRgb(h, s2, l2).map((v) => Math.round(Math.max(0, Math.min(255, v))));
 }
+function clampByte(v) { return Math.max(0, Math.min(255, v)); }
 
 export function applyNightGrade(raw, info, opts) {
   const out = Buffer.from(raw);
