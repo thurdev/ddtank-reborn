@@ -9,7 +9,8 @@
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm -r test",
     "dev:all": "node scripts/dev.mjs",
-    "free-ports": "bash scripts/free-ports.sh"
+    "free-ports": "bash scripts/free-ports.sh",
+    "client:art": "node tools/i18n/build-client-art.mjs"
   },
   "devDependencies": {
     "@types/node": "^26.6.3",

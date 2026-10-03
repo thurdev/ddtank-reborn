@@ -1,0 +1,4 @@
+Ornamental game UI frame, transparent background, wide landscape, for a web page hosting the cartoon game DDTank. Style: parchment / cream scroll with golden filigree, rolled scroll ends on the left and right, two thick golden columns separating three areas.
+Layout: a LARGE EMPTY RECTANGULAR HOLE in the center (exact aspect 5:3, fully transparent, where the 1000x600 game will appear), framed by gold. On the LEFT and RIGHT of the hole, a vertical cream parchment panel (empty, light, for info tables). Top center: a space where a logo sits on a golden wing ornament. Bottom: a thin golden ruler bar under the game hole.
+Dark-mode variant: deep navy/purple parchment with gold trim (generate this dark version).
+No text, no characters, no tables content — empty panels only.

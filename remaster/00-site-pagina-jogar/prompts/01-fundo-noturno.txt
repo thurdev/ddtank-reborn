@@ -1,0 +1,6 @@
+Wide 16:9 background illustration (1920x1080 or larger) for the web page that hosts the 2D cartoon game "DDReborn" (DDTank / Gunny style).
+Style: bright hand-painted cartoon casual-game art like DDTank promotional art, clean outlines, saturated colors. NOT photorealistic, NOT 3D.
+Scene: a fantasy jungle / floating-rock canyon at NIGHT — deep indigo starry sky, big pale moon, glowing fireflies, cool blue moonlight on giant trees and cliffs, warm lanterns hanging from branches.
+Composition (important): the CENTER of the image (about 60% width x 70% height) must be calm, simple, darker and low-detail, because the game window and a decorative frame will be placed on top of it. Put the interesting detail on the LEFT and RIGHT edges and the BOTTOM corners: giant trees and vines left and right, a sandy path at the bottom center.
+Characters: bottom-left corner a group of cute chibi elf/fairy girls and a white-haired chibi mage girl with a staff; bottom-right corner three chibi boys sitting playing on phones/tablets (DDTank character style: big heads, big eyes, colorful hair).
+No text, no logo, no UI.

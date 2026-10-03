@@ -1204,3 +1204,9 @@ decidir não mexer, já que é decorativo pré-existente e não um bug) — é o
 do usuário sobre o "chão manchado"; (2) "Kênh" + aba vertical direita do chat (ainda não achado, herdado da
 sessão 3); (3) repackar `DDT_Loading.swf` com o fix de `encode()` depois de resolver o mecanismo de repack
 especial.
+
+## [PRÓXIMO site] Página "Jogar" estilo DD Clássico (pedido 2026-10-03)
+Referência: `remaster/00-site-pagina-jogar/inputs/referencia-ddclassico.png`.
+- `apps/web` Play: fundo (imagem IA), logo DDReborn no topo, moldura pergaminho (dark) com o jogo 1000×600 no centro + régua de distância 0–10 embaixo.
+- Painéis laterais com TABELAS de ângulo/força (Âng. 20, 30, 50, 65; distância 1–20 → força) em HTML, CALCULADAS pelo `@ddt/fight` (simulação de trajetória sem vento, mesma física do servidor) — gerar via script e expor em `/api/public/aim-tables`; ângulos configuráveis no admin.
+- Imagens geradas pelo usuário em `remaster/00-site-pagina-jogar/outputs/` (fundo, logo, moldura); até lá usar placeholders CSS.

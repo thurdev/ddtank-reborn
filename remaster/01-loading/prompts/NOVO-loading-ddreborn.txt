@@ -1,0 +1,5 @@
+New loading screen for the 2D cartoon game "DDReborn" (DDTank style), EXACTLY 5:3 (1000x600 final), use the attached original loading image as layout reference.
+KEEP: the bottom-center area free for the progress bar exactly like the reference — the golden ornamental progress bar frame centered at the bottom (roughly from 23% to 78% of the width, at 88-96% of the height). Keep that bar frame in the same place and size (you may restyle it in gold/navy), and keep the area just above it uncluttered.
+Style: premium casual-game key art, hand-painted cartoon, bright saturated colors, clean outlines, chibi characters with big heads and big eyes (DDTank / Gunny). NOT photorealistic, NOT 3D.
+Scene: NIGHT — dark starry sky, glowing moon, colorful rim lights. Center: a heroic chibi pirate captain with a skull hat and goggles leaping forward with a cannon, on the right a big angry dark-purple cartoon bomb monster with glowing red eyes, small floating cute pet on the side, golden sparkles and magic trails. A shiny "DDReborn" golden logo at the top center (chunky gold letters with red outline).
+Only text allowed: "DDReborn". No other words.
