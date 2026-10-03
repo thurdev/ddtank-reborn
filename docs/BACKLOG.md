@@ -1022,3 +1022,93 @@ inline).
 5. Ferramentas novas reaproveitáveis: `tools/i18n/images/night-grade.mjs` (biblioteca), `night-hall.mjs`,
    `night-loading.mjs`, `dark-frames.mjs` — todos data-driven (editar a lista `TARGETS`/filtros, não a lógica)
    pra estender a cobertura (ex. achar os bitmaps do email/shop-central pendentes acima).
+
+## [PARCIAL] Correção do saguão noturno — ruído/qualidade inaceitável reportada pelo usuário (agente 2026-10-03, sessão 3)
+
+Agente único, ≤15 image views. Partiu do feedback direto do usuário sobre `research/i18n/darkmode-verify/07-hall-night.png`
+(resultado do lote "pt.2" acima): ruído rosa/vermelho no chão/prédios, não parece noite de verdade, flare branco
+estourado perto de "Amigos"/"Eventos", labels "Đấu giá"/"Kênh"/"Guild"/chat tabs ainda sem tradução.
+
+**1. Causa raiz do ruído — achada e corrigida, mas NÃO explica o que se vê ao vivo (ver item 6).** `tools/i18n/images/night-grade.mjs`
+`nightGradePixel` misturava o matiz **em espaço HSL** (`delta`/rotação de H) mesmo depois do lote anterior ter
+documentado que isso é instável pra pixels quase-cinza (H é ruidoso quando S≈0 — o comentário no código dizia
+"corrigido misturando RGB linear" mas o código *não* fazia isso de fato, só a docstring). Resultado: qualquer
+micro-variação de JPEG-block em pixels de baixa saturação (grama/sombra) virava uma mancha rosa/vermelha grande
+depois da mistura de matiz + hue-instável. **Reescrito**: a mistura de matiz agora é um lerp em **RGB**, com a
+cor-alvo escalada pela luminância do pixel de origem, e só *depois* disso é que entra em HSL pra aplicar
+`lScale`/`sScale` (nesse ponto o pixel já tem saturação real, H deixa de ser ruidoso). Confirmado por crop local
+(`ground_before.png` limpo → `ground_staged.png` com a mancha → `ground_staged_fixed.png` limpo de novo) que isso
+elimina o speckle **no bitmap**. Também achado nesse processo: a pipeline antiga reexportava `.jpg` como JPEG
+q95 e o `ffdec -importImages` reencodava **de novo** (2 passes lossy empilhados) — trocado pra sempre reimportar
+como PNG (`DefineBitsLossless2`); provado com teste de round-trip (reimportar um PNG e reexportar via FFDec bate
+byte-a-byte, 0 diferença; o antigo .jpg não batia).
+
+**2. Grade noturno bem mais forte** (era quase dia — `lScale`/`hueShiftMix` antigos eram fracos demais):
+composite (céu+prédio no mesmo bitmap, ex. `12.jpg`) agora varia de exposição -58%/mix 0.65 no topo (céu) a
+-44%/mix 0.22 na base (prédios/chão); categoria "sky" (nuvens/horizonte) -58%/mix 0.65; "building" -44%/mix
+0.24 (ainda legível, mas visivelmente noturno); nova categoria **"flare"** (sprite grande E muito claro,
+detectado por estatística — não lista manual) crushed a -74%/dessaturado forte, pra não sobrar branco estourado.
+
+**3. Labels achados e traduzidos nesta sessão** (os 3 que a leva anterior não tinha achado + 1 que não tinha
+nem sido procurado): "Guild"→"Sociedade" e "Shop"→"Loja" (texto original em inglês mesmo na build VN — por
+isso o filtro de OCR "só vietnamita" da leva de imagens nunca sinalizou esses dois bitmaps: `hall.swf`
+18.png/45.png, `hall_old.swf` 110.png/137.png, achados por tamanho/posição, não por OCR); "Đấu giá"→"Leilão"
+(já estava em `curated-captions.json` de uma leva anterior, mas o bitmap certo — `hall.swf` 42.png/`hall_old.swf`
+134.png — nunca tinha sido localizado); "Hiện tại"→"Atual" (aba do mini-chat do saguão, achada por nome de
+asset `ChannelState_Current` em `chat.swf`/`chat1.swf`, não em hall.swf — confirma a dica da tarefa de checar
+fora do hall). **"SHOP" pintado no telhado do prédio mantido como está**, só a legenda flutuante branca virou
+"Loja", por instrução da tarefa. Script novo `tools/i18n/images/_apply-extra-labels.mjs` (chama `replace.mjs`
+direto, sem passar por `targets.json`/OCR, já que a tradução de cada um já era conhecida).
+
+**4. "Kênh" e a aba vertical direita do chat ("Hiện tại"/"Guild"/"Chat mật" — widget diferente do item 3) —
+NÃO encontrados.** Busca exaustiva (dimensões de candidatos em `hall.swf`/`hall_old.swf`, nomes de asset em
+`serverList.swf`/`toolbar.swf`/`chat.swf`/`chat1.swf`/`ddthallicon.swf`, `-export text` do FFDec pra texto
+nativo em 10 SWFs candidatos — nenhum tem `DefineText`/`DefineEditText` com essas strings) não achou o bitmap
+nem um `TextField` nativo. `serverList.swf::3_asset.serverlist.selectChannel.png` parece ser um seletor de
+canal diferente (já dizia "Elige Canal", em espanhol — de uma leva anterior, fora de escopo corrigir agora).
+Hipótese mais forte: esse widget (ícones C/▲/▼ + 3 labels empilhados à direita do chat) é desenhado por um SWF
+que não foi exportado nesta inventariação (`chat.swf`/`chat1.swf` têan 190+ arquivos cada, pode ter ficado de
+fora do range de dimensão que eu escaneei). Fica pro próximo lote com orçamento de busca maior.
+
+**5. Repack**: `hall.swf`+`hall_old.swf` reempacotados em `apps/api/assets/flash/ui/vietnam/swf/` via
+`pack.sh`/ffdec `-importImages` padrão (vendor intocado). `chat.swf`+`chat1.swf` também (só a aba "Atual").
+
+**6. ACHADO MAIS IMPORTANTE DA SESSÃO — o ruído visível ao vivo e o flare branco provavelmente NÃO são bitmap.**
+Verificado no cliente real rodando (`pnpm dev:all`, Playwright, `/play`, sem login manual — sessão já
+autenticada): depois do repack, com cache do browser desabilitado via CDP (`Network.setCacheDisabled`) e
+confirmando por `curl` que a API já serve os bytes novos (tamanho bate exato com o arquivo em
+`apps/api/assets/flash/...`), **o chão ainda mostra o mesmo padrão de manchas rosa/vermelho, e o flare perto de
+"Amigos" continua idêntico** — tanto na versão com o bug de matiz HSL quanto na versão corrigida (RGB lerp),
+tanto como PNG quanto (testado à parte) como JPEG. Como (a) o round-trip FFDec do bitmap é comprovadamente
+limpo (0 diferença de pixel) e (b) o crop local renderizado por `sharp` a partir do PNG final sai limpo (sem
+manchas), mas (c) o Ruffle ao vivo mostra a mancha de qualquer forma e ela **não muda** entre versões/formatos
+diferentes do bitmap — a conclusão mais provável é que o chão com manchas e o flare são uma **camada separada
+em tempo de execução** (partículas animadas tipo pétala/brilho, ou um MovieClip com gradiente, ex. os symbols
+`assets.hallIcon.iconGlow1`/`iconGlow2` achados em `ddthallicon.swf`, 36 frames de animação, usados
+dinamicamente por nome de classe — não referenciados estaticamente em `hall.swf`, por isso não aparecem num
+grep de characterId), e não um bitmap estático dentro de `hall.swf`/`hall_old.swf`. Tentei escurecer o
+candidato mais provável (`hall.swf` 141.png/`hall_old.swf` 233.png, um sprite grande e claro tipo "bola de
+raio roxa" — nova categoria "flare" do item 2) mas não fez diferença visível ao vivo, reforçando a hipótese.
+**Não resolvido nesta sessão** — precisa de alguém abrir `hall.swf` no FFDec GUI (não CLI) e inspecionar a
+timeline/MovieClips da cena principal manualmente pra achar o símbolo certo, ou testar remover/ocultar
+`iconGlow1`/`iconGlow2` e ver se o flare some.
+
+**Evidência**: `research/i18n/darkmode-verify/11-hall-night-fixed.png` e `12-hall-night-cachebust.png` (cliente
+ao vivo, pós-fix, cache desabilitado — labels novos confirmados: "Sociedade", "Loja", "Lellão" [sic, ver
+observação abaixo], "Atual"; grade bem mais escuro/noturno que `07-hall-night.png`; manchas e flare persistem).
+`research/i18n/before-after.html` atualizado (2 linhas trocadas + 4 novas, seção "Dark/night mode").
+
+**Observação a corrigir no próximo lote**: a legenda "Leilão" renderizou com um artefato visual no cliente ao
+vivo (aparece como algo tipo "Lellão" na screenshot 11/12) — o bitmap gerado localmente (`check` não feito pra
+essa, só pras outras) deve ter um problema de kerning/fonte na palavra "Leilão" especificamente (o "i" pode
+estar colidindo com o "l" vizinho no font "Lilita One"); conferir `hall.swf::42.png`/`hall_old.swf::134.png`
+gerados e, se for mesmo um bug de kerning, ajustar letter-spacing no `replace.mjs` pra esse caso ou aumentar
+o padding entre glifos.
+
+**Pendências pro próximo lote, em ordem de prioridade**: (1) achar a camada/MovieClip responsável pelo chão
+manchado e pelo flare (item 6 — é o que mais importa pro usuário, "unacceptable" no pedido original); (2)
+"Kênh" + aba vertical direita do chat (item 4); (3) bug de kerning em "Leilão"; (4) estender o mesmo fix de
+`nightGradePixel` (RGB-lerp) pro `night-loading.mjs` (já rodado localmente, gera output limpo em
+`staged_loading/`, mas **não repacotado** — `DDT_Loading.swf` tem um mecanismo de repack especial descrito no
+lote anterior, fora do escopo/orçamento desta sessão) e confirmar se os mesmos sintomas (manchas/flare)
+aparecem na tela de loading.

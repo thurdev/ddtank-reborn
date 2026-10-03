@@ -17,8 +17,8 @@
 //                  gets a vertical-gradient hybrid: strong sky treatment up top fading to the building
 //                  treatment by ~45% down, so there's no hard seam.
 import sharp from "sharp";
-import { readdirSync, existsSync, mkdirSync, statSync } from "node:fs";
-import { join } from "node:path";
+import { readdirSync, existsSync, mkdirSync, statSync, unlinkSync } from "node:fs";
+import { join, basename } from "node:path";
 import {
   loadRaw, encode, extForFile, nightGradePixel, pixelStats,
   paintStars, paintVignette, addWindowGlow, mulberry32, seedFromString,
@@ -38,6 +38,11 @@ function classify(name, w, h, st) {
   const flatPale = st.lightness > 0.72 && st.sat < 0.08 && st.stdL < 0.28;
   const maxDim = Math.max(w, h);
   if (maxDim < 120 && !flatPale) return "skip";
+  // Large, very bright sprites that aren't flat sky (e.g. a sun/flare VFX, a magic-burst glow) read as a
+  // blown-out white blob once everything else goes dark — found via a brightness/size outlier scan (07-hall-
+  // night.png review): 141.png/233.png (314x314 "electric ball" near Amigos) and 177.png/269.png (218x131).
+  // These get a much heavier darken+desaturate than architecture so they fade to a subtle night glint instead.
+  if (maxDim >= 150 && st.lightness > 0.65) return "flare";
   if (st.sat <= 0.08 || flatPale) return "sky";
   return "building";
 }
@@ -64,7 +69,7 @@ async function processSwf(swf) {
   const compositeCandidate = infos.find((it) => !EXCLUDE_NAME_RE.test(it.f) && it.area >= 400000 && it.meta.width / it.meta.height >= 1.2 && it.meta.width / it.meta.height <= 2.5);
   const compositeFile = compositeCandidate ? compositeCandidate.f : null;
 
-  const counts = { sky: 0, building: 0, composite: 0, skip: 0 };
+  const counts = { sky: 0, building: 0, composite: 0, flare: 0, skip: 0 };
   for (const item of infos) {
     const { f, data, info, meta, st } = item;
     const cls = f === compositeFile ? "composite" : classify(f, meta.width, meta.height, st);
@@ -78,44 +83,70 @@ async function processSwf(swf) {
       const H = info.height, W = info.width, ch = info.channels;
       for (let y = 0; y < H; y++) {
         // Sky treatment fades out by 45% down the canvas (buildings/ground occupy the lower portion).
+        // Stronger pass (2026-10-03 relight): overall exposure -45..-55%, more saturation pulled out than
+        // added (sScale<1), sky gets the coldest/darkest end, building end stays readable but still clearly
+        // nocturnal (was barely graded before — lScale 0.78/mix 0.1 read as daytime).
         const frac = Math.min(1, y / (H * 0.45));
-        const mix = 0.55 * (1 - frac) + 0.1 * frac;
-        const lScale = 0.62 * (1 - frac) + 0.78 * frac; // darken sky a bit more than the ground/buildings
+        const mix = 0.65 * (1 - frac) + 0.22 * frac;
+        const lScale = 0.42 * (1 - frac) + 0.56 * frac;
+        const lCeil = 0.52 * (1 - frac) + 0.68 * frac;
         for (let x = 0; x < W; x++) {
           const i = (y * W + x) * ch;
           if (out[i + 3] === 0) continue;
-          const [r, g, b] = nightGradePixel(out[i], out[i + 1], out[i + 2], { lScale, lFloor: 0.02, lCeil: 0.85, sScale: 1.1, sCeil: 0.55, hueShiftDeg: MOON_HUE, hueShiftMix: mix });
+          const [r, g, b] = nightGradePixel(out[i], out[i + 1], out[i + 2], { lScale, lFloor: 0.02, lCeil, sScale: 0.88, sCeil: 0.4, hueShiftDeg: MOON_HUE, hueShiftMix: mix });
           out[i] = r; out[i + 1] = g; out[i + 2] = b;
         }
       }
       // Vignette + window glow paint onto the graded scene first; stars/moon go last so the vignette's
       // edge-darkening never dims them (they're a top-layer sky effect, not part of the base scene).
-      paintVignette(out, info, { strength: 0.3 });
+      paintVignette(out, info, { strength: 0.35 });
       addWindowGlow(out, info, { block: 12, minLum: 150, minDeltaOverMean: 35 });
-      paintStars(out, info, { seed, count: 110, skyTopFrac: 0.02, skyBottomFrac: 0.4, moon: { cx: W * 0.84, cy: H * 0.16, r: Math.min(W, H) * 0.045 } });
+      paintStars(out, info, { seed, count: 130, skyTopFrac: 0.02, skyBottomFrac: 0.4, moon: { cx: W * 0.84, cy: H * 0.16, r: Math.min(W, H) * 0.045 } });
     } else if (cls === "sky") {
       for (let i = 0; i < out.length; i += 4) {
         if (out[i + 3] === 0) continue;
-        const [r, g, b] = nightGradePixel(out[i], out[i + 1], out[i + 2], { lScale: 0.6, lFloor: 0.03, lCeil: 0.85, sScale: 1.15, sCeil: 0.5, hueShiftDeg: MOON_HUE, hueShiftMix: 0.55 });
+        const [r, g, b] = nightGradePixel(out[i], out[i + 1], out[i + 2], { lScale: 0.42, lFloor: 0.03, lCeil: 0.55, sScale: 0.85, sCeil: 0.38, hueShiftDeg: MOON_HUE, hueShiftMix: 0.65 });
         out[i] = r; out[i + 1] = g; out[i + 2] = b;
       }
       paintStars(out, info, { seed, count: Math.max(6, Math.round((info.width * info.height) / 9000)), skyTopFrac: 0, skyBottomFrac: 1 });
-    } else {
-      // building: keep readable — moderate darken, hue barely nudged toward cool, no stars.
+    } else if (cls === "flare") {
+      // Blown-out VFX/glow sprites (sun-flare-like): crush them down to a dim, cool, mostly-desaturated
+      // glint instead of a blown-out white/colored blob — "no blown-out white" per the night-mode brief.
       for (let i = 0; i < out.length; i += 4) {
         if (out[i + 3] === 0) continue;
-        const [r, g, b] = nightGradePixel(out[i], out[i + 1], out[i + 2], { lScale: 0.72, lFloor: 0.04, lCeil: 0.88, sScale: 1.08, sCeil: 0.55, hueShiftDeg: MOON_HUE, hueShiftMix: 0.14 });
+        const [r, g, b] = nightGradePixel(out[i], out[i + 1], out[i + 2], { lScale: 0.26, lFloor: 0.02, lCeil: 0.4, sScale: 0.55, sCeil: 0.28, hueShiftDeg: MOON_HUE, hueShiftMix: 0.5 });
+        out[i] = r; out[i + 1] = g; out[i + 2] = b;
+      }
+    } else {
+      // building: keep readable — darkened enough to clearly read as night, hue nudged toward cool but not
+      // recolored, + lit-window glow heuristic.
+      for (let i = 0; i < out.length; i += 4) {
+        if (out[i + 3] === 0) continue;
+        const [r, g, b] = nightGradePixel(out[i], out[i + 1], out[i + 2], { lScale: 0.56, lFloor: 0.04, lCeil: 0.72, sScale: 0.95, sCeil: 0.5, hueShiftDeg: MOON_HUE, hueShiftMix: 0.24 });
         out[i] = r; out[i + 1] = g; out[i + 2] = b;
       }
       addWindowGlow(out, info, { block: 8, minLum: 140, minDeltaOverMean: 30 });
     }
 
-    const ext = extForFile(f);
-    const buf = await encode(out, info, ext);
+    // Always re-encode lossless (PNG, alpha preserved) regardless of the source extension. The original
+    // pipeline kept .jpg sources as JPEG (quality 95) on the way out, which `ffdec -importImages` then
+    // re-encodes *again* into the SWF's JPEG tag — two lossy passes stacked on an image that's already been
+    // through night-grade math, compounding into visible pink/red speckle and posterization (confirmed by a
+    // pixel-diff round-trip test: a PNG reimport is byte-for-byte identical after ffdec re-export; a JPEG
+    // reimport is not). Forcing PNG flips the SWF tag to DefineBitsLossless2 (32-bit, alpha-capable) on
+    // reimport — bigger file, zero added noise.
+    const buf = await encode(out, info, "png");
     const { writeFileSync } = await import("node:fs");
-    writeFileSync(join(stageDir, f), buf);
+    const outName = f.replace(/\.(jpe?g)$/i, ".png");
+    writeFileSync(join(stageDir, outName), buf);
+    // Clean up a stale same-stem file left over from an older run under the original (lossy) extension, so
+    // pack.sh's `-importImages` never sees both a .jpg and a .png for the same character id.
+    if (outName !== f) {
+      const staleJpg = join(stageDir, f);
+      if (existsSync(staleJpg)) unlinkSync(staleJpg);
+    }
   }
-  console.log(`[${swf}] composite=${counts.composite} sky=${counts.sky} building=${counts.building} skipped=${counts.skip} (of ${infos.length} not-already-staged)`);
+  console.log(`[${swf}] composite=${counts.composite} sky=${counts.sky} building=${counts.building} flare=${counts.flare} skipped=${counts.skip} (of ${infos.length} not-already-staged)`);
 }
 
 async function main() {
