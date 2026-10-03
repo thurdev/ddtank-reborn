@@ -214,3 +214,8 @@ re-roll da moeda, preço do "tentar de novo" do labirinto, clean-out liquidando 
 idempotência do 258). Suíte completa: 17 arquivos / 98 testes, sem regressão. `pnpm --filter @ddt/game typecheck`:
 limpo. Nada clicado no cliente real (Ruffle) — verificado só por teste automatizado/typecheck, igual aos outros
 lotes recentes sob orçamento estrito.
+
+## Revisitar (pedido do usuário 2026-10-03)
+Tudo que ficou partial / stub / missing / "morto no original" / ok-mas-não-verificado será revisitado depois do PT-BR e da hospedagem.
+Lista completa e sempre atualizada: `docs/REVISIT.md` (gerar com `npx tsx tools/qa/gen-revisit.ts` após `tools/qa/gen-matrix.ts`).
+Itens "mortos no original": decidir caso a caso — implementar do zero ou esconder o botão no cliente.
