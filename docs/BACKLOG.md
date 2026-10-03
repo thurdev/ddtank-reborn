@@ -920,3 +920,105 @@ liberado)**:
 4. Itens do `needs-ai.md`/`needs-ai-batch2.md` (inpaint de texto VN em arte pintada) — precisa IA.
 5. `research/i18n/ai-out/` e `before-after.html` não atualizados (nada gerado por IA nesta sessão pra
    adicionar lá — o antes/depois do item 3 está em `darkmode-verify/` em vez disso).
+
+## [FEITO — itens 1-3 do pendente acima] Lote visual dark/night mode pt.2 (agente 2026-10-03) — saguão noturno, loading, molduras bespoke
+
+Agente único, orçamento de ≤20 screenshots/image views. Continuação direta da sessão `[PARCIAL]` acima: os 3
+itens pendentes que **não** precisavam de IA (céu/prédios do saguão em modo noturno, telas de loading, molduras
+bespoke de bag/shop/settings/quest/mail/guild) foram feitos com o mesmo método determinístico (sharp, sem
+geração de imagem — IA seguia indisponível nesta sessão, confirmado no início, não re-testado). Item 4
+(inpaint de texto VN em arte pintada) continua bloqueado por IA, sem mudança.
+
+**Novo módulo compartilhado**: `tools/i18n/images/night-grade.mjs` — reaproveita o remap HSL do
+`dark-mode-skins.mjs` e adiciona: `nightGradePixel` (darken + "blue/purple shift" via **mix de RGB para uma
+cor-alvo**, não rotação de matiz HSL — achado importante: rotação de matiz HSL não tem efeito nenhum em pixels
+quase-neutros/cinza-claro como nuvens, porque matiz é indefinido quando saturação≈0; o céu/nuvens deste jogo são
+exatamente esse caso, por isso o primeiro teste "não mudou nada" apesar do código rodar — corrigido misturando
+RGB linear na direção da cor-alvo, que funciona em qualquer saturação original), `paintStars`/moon (PRNG
+determinístico `mulberry32` por seed do nome do arquivo, então é reproduzível), `paintVignette`, `addWindowGlow`
+(detector de "retângulo brilhante pequeno" por grid grosseiro, heurística — pinta um glow âmbar), e
+`applyProtectedDarken` (remap escuro com **proteção graduada** — não máscara binária — de pixels de alto
+contraste local (`edgeMagnitudeMap`, tipo Sobel) e de saturação alta, pra texto/ícones ficarem legíveis dentro
+da mesma bitmap que a moldura escurecida).
+
+**1. Saguão noturno** (`tools/i18n/images/night-hall.mjs`, `hall.swf`+`hall_old.swf`): classificação por
+estatística de pixel (não lista manual) em 3 categorias — `composite` (o único fundo pintado grande, `12.jpg`/
+`104.jpg`, 1000x600, céu+prédios na mesma bitmap: gradiente vertical, tratamento de céu forte no topo
+desvanecendo pro tratamento de prédio ~45% pra baixo, com lua+estrelas+vinheta), `sky` (peças de saturação
+quase zero — faixas de nuvens/horizonte, nuvens-flocos pequenas e pálidas — tingimento azul/roxo forte +
+estrelas), `building` (o resto que passa pelos filtros — escurecido moderado, matiz quase preservado, "legível",
++ glow de janela). Filtros de exclusão: já-localizado (arquivo já existe no `STAGE_ROOT` da leva de texto
+anterior — nunca re-tocado), `battleLABS`/`noviceBG` (fora de escopo, tratados em `needs-ai.md`), saturação
+nativa >0.5 (sprites de bandeira/animação vívidos, não arquitetura), muito pequeno a menos que seja um
+"flat pale" (nuvem-floco). **Achado e corrigido durante a execução**: a 1ª tentativa escolheu o arquivo
+`composite` só por área, e `battleLABS.png` (492×1616 = 795k px) tem área maior que `12.jpg` (1000×600 = 600k)
+— o comic-tutorial quase recebeu lua/estrelas/vinheta em vez do fundo real, e o fundo real ficou sem o
+tratamento forte. Corrigido: candidatura a `composite` agora exige não-excluído por nome + aspect ratio
+paisagem (1.2–2.5). Resultado por SWF: 1 composite + 7 sky + 24 building (62 imagens já localizadas, puladas).
+Repacotado em `apps/api/assets/flash/ui/vietnam/swf/{hall,hall_old}.swf` via o mesmo mecanismo do `pack.sh`.
+
+**2. Loading screens** (`tools/i18n/images/night-loading.mjs`, `Loading.swf`+`DDT_Loading.swf`, que ficam em
+`vendor/.../FlashSV1/` direto, não em `ui/vietnam/swf/`): `DDT_Loading.swf::1.jpg` (1000×600, fundo principal
+do boot) — mesmo tratamento `composite` do saguão (lua no canto, estrelas, vinheta). `DDT_Loading.swf::25.png`
+(banner do título "NEWGUN"/"HUYỀN THOẠI", já documentado em `needs-ai.md` como não-separável — 3 cores
+diferentes pintadas sobre fita decorada) — **graded-only, sem overlay de texto PT-BR** (confirma a decisão do
+item 2 da task spec: "overlay a PT-BR caption only if it looks clean" — não ficou limpo o suficiente nas
+sessões anteriores, então só escureceu pra combinar, texto VN mantido). `Loading.swf::4.png` (painel de fundo
+plano, baixa saturação) — tratamento `sky`. Pulado: ícones pequenos (cursor, barra de progresso) — não são
+"splash bitmaps". **Repack especial**: `DDT_Loading.swf` já tinha sido modificado por uma sessão anterior via
+`ffdec -replace` (texto nativo, tag `DefineText`, não bitmap) — reexportei as imagens de dentro do SWF **atual**
+do overlay (não do vendor) como base, e reempacotei usando esse mesmo overlay como fonte do `-importImages`,
+preservando a correção de texto nativo anterior. `Loading.swf` não tinha overlay ainda — criado do zero
+(vendor + `-importImages`). Verificado ao vivo (ver abaixo): tela de loading aparece com céu roxo/azul escuro,
+lua, estrelas, texto "NEWGUN" continua legível.
+
+**3. Molduras bespoke por janela** (`tools/i18n/images/dark-frames.mjs`) — bag (`bagandinfo.swf`/`1`/`2`:
+painel "boneco de papel" `personalInfoBgAsset`, painel de forja/retrieve `equipretrieve.background`, e o
+conjunto de 9 tiles bespoke `BG{Center,LeftCenter,RightCenter,TopCenter,BottomCenter,LeftTop,RightTop,
+RightBottom,BottomLeft}Asset` que forma a moldura externa da janela de bolsa — confirmado por nome que é um
+9-slice bespoke só desse SWF, não o `corescalebitmap`/`ddtcorescalebitmap` compartilhado já escurecido), shop
+(`RightViewBg`/`PresentBg`/`BodyInfoBg`/`ColorPanelBg`/`LeftMoneyPanel`/`BgTitle`), settings (`setting.bg`/
+`setting.title`), quest (`styleGuideleaf`/`leftBGStyle1`/`titleBG`/`QuestCateTitleBG[Style2]`), mail
+(`email.personBG`/`payBG`/`moneyBG`/`DiamondBg` — não achei um painel único grande pro frame do email; o
+resto da moldura provavelmente já vem do chrome compartilhado), guild (`consortia.myConsortiaView.BG2` +
+`memberItem.BG{1,2,3}` + `consortiaEventList.BG`, `consortionclub.club.BG` + `createConsortionFrame.BG`). 61
+imagens em 9 SWFs. **Achado e corrigido durante o tuning**: os thresholds iniciais de proteção
+(`edgeThreshold=35`, `satProtect=0.45`) protegiam demais — medido no painel do bag: 23% dos pixels tinham
+edge-magnitude ≥35 (textura de grão de madeira, não texto) e 33% tinham saturação HSL >0.45 (tons de
+marrom/sépia já leem como "saturados" em HSL mesmo parecendo neutros a olho nu) — o painel quase não escurecia
+visualmente apesar do código rodar certo. Retunado pra `edgeThreshold=110`/`satProtect=0.68` (só bordas de
+glifo de verdade + ícones vivamente coloridos) — brilho médio do painel caiu de 173→101 (-42%) mantendo o
+texto nítido. Repacotado em `apps/api/assets/flash/ui/vietnam/swf/{bagandinfo,bagandinfo1,bagandinfo2,shop,
+setting,quest,email,consortia,consortionclub}.swf`.
+
+**Verificado ao vivo** (`pnpm dev:all` já rodando — confirmado antes de usar, não reiniciado; Playwright,
+`test`/`test`, 1400×950): screenshots em `research/i18n/darkmode-verify/06-loading-night.png` (boot splash
+noturno, lua visível, "NEWGUN" legível), `07-hall-night.png` (saguão: céu roxo/azul escuro com estrelas e lua à
+direita, prédios ainda coloridos/legíveis, labels PT-BR ok), `08-bag-frame-dark.png` (painel do boneco de
+papel visivelmente mais escuro que a versão clara original, texto/stats legíveis), `09-shop-frame-dark.png`
+(painel de prévia do personagem na loja escurecido), `10-quest-frame-dark.png` (janela de missão com painel
+esquerdo e corpo do texto escurecidos, texto legível). Também adicionado ao
+`research/i18n/before-after.html` (nova seção "Dark/night mode", 10 pares antes/depois com thumbnails
+inline).
+
+**Pendências / achados pro próximo lote**:
+1. No screenshot do saguão ao vivo (`07-hall-night.png`) sobrou um "sol" com raios decorativos perto do texto
+   "Amigos"/badge "Eventos" (canto superior direito) que **não** escureceu — não é a minha lua (a lua aparece
+   um pouco mais à direita, um círculo liso) nem bateu em nenhum dos 93 arquivos classificados de
+   `hall.swf`/`hall_old.swf`; é provavelmente um sprite/MovieClip de brilho separado (ex. efeito de luz num
+   ícone animado) vivendo em outro SWF (`ddthallicon.swf`/`toolbar.swf`?) não coberto por este lote — achar e
+   tratar no próximo.
+2. Shop: o painel central de listagem de itens ("Oferta" tab) e a barra lateral "Mua nhiều" continuam claros
+   no screenshot ao vivo — os 6 assets de `shop.swf` tratados cobrem o preview de personagem/título/cor, mas
+   não achei (nem procurei exaustivamente, por orçamento) o(s) bitmap(s) de fundo do painel central da lista;
+   pode ser que a lista não tenha arte própria (só os placeholders de item, que ficam brancos até carregar
+   imagem real) — confirmar no próximo lote com itens carregados de verdade.
+3. Email/mail: nenhum painel-frame grande foi encontrado (só 4 backgrounds pequenos de campo/moeda) — ou a
+   moldura do email já vem 100% do chrome 9-slice compartilhado (já escurecido na sessão anterior) ou a arte
+   bespoke dela está em outro SWF não investigado; não verificado ao vivo nesta sessão (orçamento).
+4. Item 4 da lista anterior (inpaint de texto VN em arte pintada — `needs-ai.md`/`needs-ai-batch2.md`) **ainda
+   bloqueado por IA**, sem re-teste de disponibilidade nesta sessão (a task já veio com a instrução "AI
+   generation unavailable right now").
+5. Ferramentas novas reaproveitáveis: `tools/i18n/images/night-grade.mjs` (biblioteca), `night-hall.mjs`,
+   `night-loading.mjs`, `dark-frames.mjs` — todos data-driven (editar a lista `TARGETS`/filtros, não a lógica)
+   pra estender a cobertura (ex. achar os bitmaps do email/shop-central pendentes acima).
