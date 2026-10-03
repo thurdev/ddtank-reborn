@@ -265,4 +265,112 @@ next concrete step, rather than a blind fix.
 **Layout overlaps (items 3-4): unchanged, out of scope for this session too** — still display-list positioning in
 `shop.swf`/`email.swf`'s compiled timelines, not a text or ABC-string-literal problem; still needs a
 `-replaceText`/timeline-edit pass this session didn't attempt (ABC string patching, this session's tool, can't
+
+## Follow-up (2026-10-03, session 3): "Not fixed" item 1 — root cause confirmed with live boot-order evidence
+
+Task: find why runtime-translated strings (Mua, Giỏ hàng, Tìm, Bắt đầu, equip-slot labels, table headers) still
+show vi-VN even though their `LanguageMgr.GetTranslation(key)` keys are correctly translated in the served
+`language.txt`. Session 2 had a lead (`EquipType.PARTNAME` is a `static const Array` built from `GetTranslation()`
+calls, baked once at class-init) but explicitly flagged it as "not proven by tracing actual boot order yet."
+
+**Ruled out this session, with direct evidence:**
+- **Not server content.** `curl http://localhost:8080/flash/ui/vietnam/language.txt` (direct, bypassing the Vite
+  proxy which doesn't even forward `/flash/*`) returns the correct PT-BR body — `tank.data.EquipType.head:Chapéu`
+  at line 277, `.glass:Óculos`, `.hair:Cabelo` etc. all correct.
+- **Not browser/HTTP caching.** The client itself appends a cache-busting `?rnd=0.xxx` query param to every
+  `language.txt` request (confirmed via Playwright network capture), so no cached response can ever be served;
+  every page load is a guaranteed fresh fetch. `Cache-Control: public, max-age=300` + content-hash `ETag` on the
+  API route (`apps/api/src/routes/static.ts`) is correctly configured and irrelevant here since the URL always
+  differs.
+- **Not a stale long-lived Ruffle session.** Reproduced on a **brand-new Playwright page load** (fresh navigation
+  to `/play`, no prior tab reuse) — bag window equip-slot labels (`Nón`/`Kính`/`Tóc`/`Mặt`/`Áo`/`Bộ`/`Cánh`) and
+  shop window (`Nón`/`Kính`/.../`Mua`×5/`Giỏ hàng`/`Tìm`/`Nam`/`Nữ`) both show 100% vi-VN on first load, every
+  time. Screenshots: `research/i18n/session3-verify/02-bag.png`, `research/i18n/session3-verify/04-shop2.png`
+  (`01-hall.png` for context — building labels are still correctly PT-BR, confirming sessions 1-2's image-pipeline
+  fixes remain intact; only the LanguageMgr-driven native text regressed/was never covered).
+
+**New evidence found this session: network request order proves the race is real, not hypothetical.**
+Captured the full network log of a fresh `/play` boot via Playwright
+(`mcp__playwright__browser_network_requests`). The relevant slice, in request order:
+```
+62. GET /flash/Loading.swf
+...
+66. GET /flash/DDT_Loading.swf
+...
+69. GET /flash/2.png          <- EquipType.as lives here (confirmed session 2: "Decompiling 2.png shows ... EquipType")
+70. GET /flash/ui/vietnam/levelreward.xml
+71. GET /resource/flash/characterDefine.xml
+72. GET /request/fightspirittemplatelist.xml
+73. GET /flash/ui/vietnam/language.txt     <- LanguageMgr.setup() fires only after THIS resolves
+74. GET /flash/ui/vietnam/zhancode.txt
+75+. UI module SWFs (expression.swf, corei.swf, hall.swf, ... bagandinfo.swf at #175)
+```
+**`2.png` — the module containing `EquipType`'s compiled bytecode — is fetched 4 requests before `language.txt`
+is even requested.** Per `vendor/DDTank41/Source Flash/src/ddt/loader/StartupResourceLoader.as` (read this
+session), `LanguageMgr.setup()` has exactly one call site in the whole AS3 codebase (confirmed via
+`grep -r "LanguageMgr.setup"` across `Source Flash/src`): `creatLanguageLoader()`, invoked from `loadLanguage()`,
+which is the first thing `start()` does, and nothing downstream (`loadExppression()` → `loadUIModule()`) runs
+until that completes. So in the documented application-level flow, nothing should touch `EquipType` this early —
+yet `2.png` (which bundles `EquipType` alongside other classes like `ddt/view/tips/FineSuitTipsSimple`, per the
+`research/i18n/abc-strings.json` scan) is loaded as a **separate, earlier** module, before `StartupResourceLoader`
+ever starts its queue. Per the ABC/DoABC tag spec, a SWF's designated entry script runs automatically the moment
+the tag is parsed/loaded — if `2.png`'s entry script (whatever registers/exports its bundled classes) references
+`EquipType` even indirectly as part of its own setup, `EquipType`'s class initializer — and therefore
+`PARTNAME`'s array-literal construction, which calls `LanguageMgr.GetTranslation()` once per slot — runs at that
+moment, before `language.txt` has even been requested, let alone parsed. Because `PARTNAME` is `static const`,
+AVM2 evaluates it exactly once and the result is permanent for the life of the SWF instance; the later, correct
+`LanguageMgr.setup()` call cannot retroactively fix an already-baked array.
+
+**Open gap, honestly flagged rather than guessed at:** this does not yet explain why the baked result is full
+*Vietnamese* text rather than empty strings or a `null`-reference crash (`LanguageMgr._dic[key]` on a `null`
+`_dic` should throw `Error #1009` under normal AVM2 null-property semantics, and `GetTranslation`'s own fallback
+(`_dic[key] ? _dic[key] : ""`) would yield `""` if `_dic` were empty-but-non-null). Two explanations remain
+unverified: (a) Ruffle's AVM2 implementation may not throw on this particular access pattern and some other,
+still-unlocated code path seeds `_dic` with Vietnamese content very early (there is only one `LanguageMgr.setup()`
+call site in the AS3 source, so if this is happening it would have to be via a different, as-yet-unfound
+mechanism — possibly a Ruffle-specific quirk, not present in the original AS3 source at all); or (b) `EquipType`
+is not actually touched at `2.png`-load time but slightly later (still before `language.txt` finishes parsing) by
+something in the hall/avatar-render path, and the “instant” vi-VN result is coming from a different, not-yet-
+identified source entirely and `EquipType.PARTNAME` is a correlation (matching key names/order) rather than the
+confirmed mechanism. Tracing this further needs an actual AVM2 bytecode step-debugger attached to Ruffle (not
+available in this toolchain) or inserting temporary trace-logging into a patched `LanguageMgr`/`EquipType` and
+rebuilding — out of scope for this session's budget.
+
+**Why the original vi-VN-only client never showed this as a bug:** nothing here is new to our port — the
+compiled client bytecode is byte-identical to vendor except for the already-documented ABC string-literal patches
+(session 2's 42 strings, none of which touch `EquipType`). If `EquipType` really is touched before `language.txt`
+loads, that race existed in the original deployment too; it was invisible there because the only language ever
+served was Vietnamese, so a "wrong" (raced) value and a "correct" value were the same string. Overlaying a
+different locale is what makes a pre-existing, latent timing bug visible. This directly answers the task's "does
+the original have this ordering" question: **functionally yes, behaviorally no** — same code path, no observable
+symptom until the content differs by locale.
+
+**Recommended fix, not attempted this session (risk/effort didn't fit the budget):** ABC-patch `EquipType`'s
+class initializer in `2.png` to replace each `findpropstrict LanguageMgr / pushstring <key> / callproperty
+GetTranslation` sequence in the `PARTNAME` array construction with a single `pushstring <PT-BR literal>`. This is
+materially different from the existing `tools/i18n/abc-strings/patch.mjs` (which only rewrites constant-pool
+string *values* in place and never touches bytecode/opcodes) — it needs real method-body bytecode editing
+(shrinking the instruction stream, appending new strings to the constant pool, recomputing the method body's
+code-length prefix). Given `patch.mjs`'s own `lib.mjs` already has SWF/ABC tag parsing primitives, this is a
+tractable follow-up but a separate, larger tool, not a one-line change. The safer, lower-effort alternative is a
+load-order fix instead of a bytecode patch: find whatever causes `2.png` to load/execute before
+`StartupResourceLoader.start()` begins and defer it, OR force a **synchronous** `LanguageMgr.setup()` call (e.g.
+patching `LanguageMgr`'s own class in whichever SWF defines it to self-populate `_dic` from an embedded PT-BR
+string baked into its own class initializer) so `_dic` is never null/VN at the moment anything else references
+it — same bytecode-editing caveat applies, just to a smaller, single-purpose target (`LanguageMgr` instead of
+every static-array class). Worth checking first whether other classes in `2.png`/`3.png` share this exact
+`static const Array = [...GetTranslation()...]` pattern (grep the AS3 source tree for
+`static const.*Array.*GetTranslation` beyond `EquipType`) before building the patcher, since one bytecode-editing
+tool could fix all of them in one pass.
+
+**Checked — 7 more classes share the exact pattern** (`grep -rlE "static const.*Array.*GetTranslation" "vendor/
+DDTank41/Source Flash/src"`): `cardSystem/data/CardInfo.as`, `ddt/data/EquipType.as`,
+`ddt/data/goods/QualityType.as`, `ddt/view/chat/ChatFastReplyPanel.as`, `ddt/view/tips/CardsTipPanel.as`,
+`game/view/smallMap/SmallMapView.as`, `lottery/LotteryContorller.as`,
+`store/view/strength/LaterEquipmentView.as`. This is a systemic authoring pattern in the original codebase, not
+an `EquipType`-only accident — the eventual bytecode patcher (or load-order fix) needs to cover all 8, and this
+likely also explains some of the still-unexplained "table headers"/"stat labels" VN text noted elsewhere in this
+doc (e.g. `QualityType` almost certainly drives item-quality labels shown in tooltips/table columns). Not
+individually verified against live screenshots this session — flagging as the concrete next step's starting
+list rather than re-confirming each one.
 move DisplayObject positions).

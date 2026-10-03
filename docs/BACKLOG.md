@@ -758,3 +758,54 @@ Hipótese mais provável: leitura errada de "Pontos" num banner de 72-77px de la
 de screenshot direto do painel da guild (conta de teste desta sessão não tem guild) pra confirmar.
 
 Detalhes completos em `research/i18n/ui-sweep.md` (seção "Follow-up 2026-10-03") e `research/i18n/abc-strings.json`.
+
+### Follow-up (2026-10-03, sessão 3): item 2 — causa raiz confirmada com evidência de ordem de boot ao vivo
+
+Objetivo era provar (ou descartar) a pista da sessão anterior (`EquipType.PARTNAME`, array estático travado antes
+do `language.txt` carregar). **Descartado via evidência direta**: cache de browser/Ruffle (o cliente já envia
+`?rnd=` cache-buster em toda requisição de `language.txt`, confirmado via captura de rede) e sessão Ruffle velha
+(reproduzido em **page load 100% novo** do Playwright — ver `research/i18n/ui-sweep.md` seção "session 3" pros
+screenshots). **Confirmado via nova evidência**: capturando a ordem real das requisições de rede no boot,
+`2.png` (onde `EquipType` vive, confirmado sessão 2) é buscado na requisição #69 — **4 requisições antes** de
+`language.txt` (#73). Como `LanguageMgr.setup()` só tem um call-site em todo o código AS3
+(`StartupResourceLoader.creatLanguageLoader()`, primeira coisa que `start()` faz), e nada no fluxo documentado
+toca `EquipType` tão cedo, isso bate com a pista: `2.png` é carregado como módulo separado, mais cedo, fora da
+fila do `StartupResourceLoader` — se o script de entrada desse SWF referenciar `EquipType` (direta ou
+indiretamente) como parte da própria inicialização, o `cinit` da classe (e portanto `PARTNAME`) roda antes do
+`language.txt` sequer ser requisitado.
+
+**Gap em aberto, não escondido**: isso não explica totalmente por que o resultado travado é vietnamita completo
+(não `""`/vazio nem um crash de null-reference, que seria o esperado se `_dic` estivesse `null` nesse instante).
+Duas explicações não verificadas: Ruffle pode não lançar erro nesse acesso específico e alguma fonte ainda não
+localizada popula `_dic` cedo demais; ou `EquipType` é tocado um pouco depois (não exatamente no load de `2.png`)
+por código de renderização do hall/avatar ainda não identificado. Precisaria de um debugger de bytecode AVM2
+anexado ao Ruffle (não disponível neste ambiente) pra fechar 100%.
+
+**Resposta à pergunta "o original tinha essa ordem também?": sim, funcionalmente — não, visivelmente.** O
+bytecode do cliente é idêntico ao vendor (exceto os 42 literais já patcheados, nenhum em `EquipType`). Se a
+corrida existe, sempre existiu no original — só era invisível porque o único idioma servido era vietnamita, então
+o valor "errado" (correndo antes do load) e o valor "certo" eram a mesma string. Sobrepor um locale diferente é o
+que torna um bug de timing antigo e latente, visível.
+
+**Achado novo**: o padrão `public static const Array = [...LanguageMgr.GetTranslation(...)...]` não é exclusivo
+do `EquipType` — `grep -rlE "static const.*Array.*GetTranslation" "vendor/DDTank41/Source Flash/src"` achou mais
+7 classes com o mesmo padrão: `cardSystem/data/CardInfo.as`, `ddt/data/goods/QualityType.as`,
+`ddt/view/chat/ChatFastReplyPanel.as`, `ddt/view/tips/CardsTipPanel.as`, `game/view/smallMap/SmallMapView.as`,
+`lottery/LotteryContorller.as`, `store/view/strength/LaterEquipmentView.as`. Provavelmente explica outros
+"headers de tabela"/"labels de status" ainda em VN além do grid de equipamento — `QualityType` em especial
+parece um bom candidato pra labels de qualidade de item em tooltips/colunas. Não verificado individualmente
+contra screenshot ao vivo nesta sessão.
+
+**Correção não tentada nesta sessão (não cabia no orçamento)**: a opção robusta é um patch de bytecode ABC no
+`cinit` dessas 8 classes, trocando a sequência `findpropstrict LanguageMgr / pushstring <key> / callproperty
+GetTranslation` por um único `pushstring <literal PT-BR>` — diferente do `tools/i18n/abc-strings/patch.mjs`
+atual (que só troca VALOR de string já existente no pool, nunca bytecode/opcodes); precisa editar o corpo do
+método de verdade (encolher a sequência de instruções, anexar strings novas ao pool, recalcular o length-prefix
+do code). `lib.mjs` já tem os parsers de tag SWF/ABC prontos pra servir de base. Alternativa mais barata: achar o
+que faz `2.png` carregar/executar antes do `StartupResourceLoader.start()` e adiar isso, ou forçar
+`LanguageMgr._dic` a nunca ficar null/vazio no instante em que outra coisa o referencia (self-popular de uma
+string PT-BR embutida no próprio `cinit` do `LanguageMgr`, mesmo antes do fetch de rede completar) — mesmo tipo
+de edição de bytecode, só que num alvo único e menor.
+
+Detalhes completos (incluindo a lista de requisições de rede e os screenshots de verificação) em
+`research/i18n/ui-sweep.md`.
