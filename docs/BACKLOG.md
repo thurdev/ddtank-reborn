@@ -475,3 +475,73 @@ overlay (`apps/api/assets/flash/...`, vendor intocado). Total acumulado: **255 i
    SWFs candidatos — `ddthallicon.swf`, `corei.swf`, `coreii.swf` — no FFDec GUI e olhar a árvore de símbolos, não só
    o export de imagem); (c) lote de imagens `needs-ai.md` original (arte pintada, precisa Recraft/Higgsfield); (d)
    dark mode/night mode (item 7 acima, não iniciado).
+
+## [FEITO — lote #3: texto nativo SWF + resto do needs-ai-batch2] PT-BR (agente 2026-10-03)
+Status: **529 imagens novas** renderizadas e reempacotadas (total acumulado **784 imagens em 80 SWFs**, 88 SWFs no
+overlay); **28 TextFields nativos** (DefineText/DefineEditText, não-bitmap) traduzidos via `ffdec -replace` em 12
+SWFs; investigação de "Đấu giá"/"Kênh" concluída (não são TextField nem script — ver item 2).
+
+1. **Hipótese do lote #2 sobre "Đấu giá"/"Kênh" como TextField nativo, invalidada por busca exaustiva**:
+   `ffdec-cli -export text` e `-export script` rodados contra **todos os 119 SWFs** do cliente (não só os 9
+   candidatos) — zero ocorrências de "Kênh"/"Đấu giá"/"giá" em qualquer `DefineText`/`DefineEditText` ou código
+   ActionScript decompilado. Também não batem com nenhuma chave isolada em `language.txt` (a chave mais próxima,
+   `tank.hall.ChooseHallView.auction` = "Khu đấu giá" → PT "Casa de leilões", **já está traduzida e implantada**
+   tanto em `apps/api/assets/flash/ui/vietnam/language.txt` quanto em `apps/client-harness/public/game/flash/...`
+   — byte-idêntico a `data/i18n/pt-BR/client-language.txt` — mas essa string mais longa não é a que aparece no
+   prédio do hall). **Confirmado ao vivo via Playwright** (`pnpm dev:all`, login `test`/`test`, `/play`): o prédio
+   mostra exatamente "Đấu giá" (não "Khu đấu giá") e o botão de canal mostra "Kênh" — ambos ainda em VN, ao lado de
+   12 legendas de prédio já corretas em PT-BR (Sala dos Mestres, Campo de Treinamento, Fonte Termal, Guild, Sala de
+   Jogos, Salão de Casamento, Amigos, Sala Mestre-Discípulo, Passo da Expedição, Fazenda, Eventos, Recarregar,
+   Feedback — todas renderizando glyphs ã/ç/õ/á/é corretamente, sem tofu/retângulo de glyph faltando → fontes
+   embarcadas já cobrem os diacríticos PT-BR necessários, nenhum re-embedding de fonte foi preciso). **Conclusão**:
+   "Đấu giá"/"Kênh" são, com alta probabilidade, bitmap igual às outras 12 legendas do prédio, mas com OCR de
+   confiança 0% (vários candidatos 0%/sem texto reconhecido em `hall.swf`/`hall_old.swf` no sweep original) — falso
+   negativo do pipeline de imagem, não candidato a texto nativo. Precisa abrir `hall.swf`/`hall_old.swf` no FFDec
+   GUI (árvore de símbolos visual, não grep/OCR) para achar o asset exato — fica para o próximo lote.
+2. **Texto nativo SWF (`DefineText`/`DefineEditText`) — pipeline novo, com duas limitações sérias do FFDec CLI
+   v26.3.0 documentadas**:
+   - `ffdec-cli -importText <in> <out> <folder>` (bulk) é **no-op silencioso**: roda sem erro, produz um SWF
+     byte-idêntico ao de entrada mesmo com uma pasta inexistente como argumento. Confirmado com teste isolado
+     (`email.swf` chid 119, trivial, 1 TextField). Não usar.
+   - `ffdec-cli -replace <in> <out> <characterId> <dataFile>` funciona para **TextFields de um único "run" de cor**
+     (a maioria dos labels curtos), mas: (a) com múltiplos "runs" separados por `--- RECORDSEPARATOR ---` (o próprio
+     formato que o `-export text` produz!), ele **duplica** os runs em vez de substituir — vi um registro de 3 runs
+     virar 5 (meus 3 nunos + os 2 originais em VN intactos, texto final misturado PT+VN); (b) com `-format
+     text:formatted` (que tem x/y por run) em parágrafos de ajuda mais longos, trava com
+     `ValueTooLargeException: Value is too large for UI8: 288` no encoder de `DefineText` legado (`StaticTextTag`) —
+     bug/limite real do formato antigo, não contornável via CLI; (c) mesmo em runs únicos, ~20% das chamadas falham
+     silenciosamente (`SEVERE: Error during text import` no stderr, mas **exit code 0** e SWF de saída idêntico ao
+     de entrada — sempre reexportar e comparar, nunca confiar só no exit code).
+   - Dado isso: **28 de 35 TextFields de run único** traduzidos com sucesso (`fightlib.swf`: Cự ly→Distância,
+     Lực→Força, giây parcial; `oldTrainer.swf`, `quest.swf`: "Bạn có nhiệm vụ mới!"→"Você tem uma nova missão!";
+     `email.swf`, `roulette.swf`, `storefinebringup.swf`, `trainer1.swf`, `weekly.swf`, `store.swf`/`ddtstore.swf`:
+     labels de taxa de 1 linha). 7 falharam no bug (b) acima (`fightlib.swf` "giây", `oldTrainer.swf` 3x,
+     `times.swf` "Ấn", `weekly.swf` 2x) — todos textos muito curtos (2-17 chars), seguem em VN.
+   - **~125 registros multi-run não aplicados** (traduções já redigidas nesta sessão mas não persistidas em
+     arquivo versionado — refazer a tradução no próximo lote, reaproveitando `research/i18n/needs-ai-batch2.md`
+     como referência de frequência): parágrafos de ajuda de `ddtstore.swf`/`store.swf` (troca/cŕ.hóa/tăng
+     sao/dung luyện/khảm/hợp thành), `forgemain.swf`/`forgemain1.swf` (dát vàng), `farm.swf`, `guildmemberweek.swf`,
+     `labyrinth.swf`, `latentenergy.swf`, `luckstar.swf`, `consortiabattle.swf`, `storefinebringup.swf`. Precisam de
+     edição manual no FFDec GUI (que não tem esse bug de duplicação) ou um patcher de tag SWF customizado — fora do
+     escopo de automação CLI desta sessão.
+   - SWFs novos no overlay (criados do zero, vendor nunca tocado): `consortiabattle.swf`, `labyrinth.swf`,
+     `latentenergy.swf`, `storefinebringup.swf`, `times.swf`, `weekly.swf`.
+3. **951 imagens "needs-ai sem tradução" do lote #2**: dedupe por frase OCR (687 frases distintas, 848
+   ocorrências) → **462 traduzidas** (LLM, tradução manual frase a frase aplicando convenções já estabelecidas —
+   Guild→Clã, etc.) e adicionadas a `curated-captions.json` (46→506 entradas); 225 frases deixadas de fora
+   (garbled demais pra decifrar com confiança — ruído de OCR em ícones pequenos, ex. `"ẽwu"`, `"StWÝXmms *"`).
+   `gen-inventory.mjs` rerodado (recomputa `ptBrSuggestion` a partir do ndjson já cacheado, não reexporta/reOCR) →
+   `run-remaining.mjs` rerodado (incremental, pula tudo já em `targets.json`) → **529 imagens novas renderizadas**
+   (P2=7, P3=226, P4=113, P5=31, P6=152) → `pack.sh` reempacotou **88 SWFs** no overlay (0 falhas).
+   `research/i18n/needs-ai-batch2.md` caiu de 951 para **355 "sem tradução"** (443 frases distintas) + 150
+   "render-failed-vn-residue" (resíduo VN após 2 tentativas — candidatos a `needs-ai.md`/arte pintada).
+4. **Verificado ao vivo** (`pnpm dev:all` já rodando — Postgres/API porta 8080/policy 843/web 5173 de uma sessão
+   anterior ainda de pé —, login `test`/`test`, `/play`, Playwright): screenshot do hall mostra as 12 legendas de
+   prédio + Recarregar + Feedback em PT-BR, confirmando que o lote #2 (529 imagens) não quebrou nada já traduzido.
+   "Đấu giá"/"Kênh" seguem em VN (ver item 1).
+5. **Próximo lote**: (a) achar o asset bitmap exato de "Đấu giá"/"Kênh" no FFDec GUI (não CLI/OCR — confiança 0%
+   no sweep); (b) os ~125 textos nativos multi-run (ajuda/tutorial) — editar no FFDec GUI ou escrever um patcher de
+   tag `DefineText` customizado (o bug de duplicação do `-replace` parece ser do parser de texto multi-run do CLI,
+   não do formato SWF em si); (c) as 443 frases `needs-ai-batch2.md` restantes (maioria ruído de OCR, mas vale uma
+   segunda passada) + 150 `render-failed-vn-residue`; (d) `needs-ai.md` original (arte pintada) + dark mode/night
+   mode (ainda não iniciados).
