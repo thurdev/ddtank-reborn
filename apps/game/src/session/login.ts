@@ -6,7 +6,7 @@ import { updateAwardApp } from "../handlers/academy.js";
 import { hotSpringOnQuit } from "../handlers/hotspring.js";
 import { initFightLabPermission } from "../game/fightlab.js";
 import { eventsOnLogin, eventsOnQuit, eventsRuntime, worldBossOpen } from "../handlers/events.js";
-import { loadUserCardBag, loadUserPets } from "../db/pets-cards.js";
+import { loadUserCardBag, loadUserPets, loadEatPets } from "../db/pets-cards.js";
 import { validateGameLogin } from "@ddt/auth";
 import { consortiaOnLogin } from "../handlers/consortia.js";
 import { findCharacterByUserName, loadMatchInfo, loadPlayerInfo, setOnlineState } from "../db/characters.js";
@@ -124,9 +124,10 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   // CardBag (equipped cards) and the equipped pet only feed the stats (no card/pet modules yet); farm/avatar: TODO.
   p.statTables = ctx.templates.stats;
   // CardInventory / PetInventory.LoadFromDatabase (GamePlayer.LoadFromDatabase); their CommitChanges sends 216 / 68 below
-  const [cardRows, petRows] = await Promise.all([loadUserCardBag(db, userId), loadUserPets(db, userId)]);
+  const [cardRows, petRows, eatPets] = await Promise.all([loadUserCardBag(db, userId), loadUserPets(db, userId), loadEatPets(db, userId)]);
   p.cardBag.load(cardRows);
   p.petBag.load(petRows);
+  p.petBag.eat = eatPets;
   p.cards = p.cardBag.equipped();
   p.pet = p.petBag.equipped();
   p.recalcStats(); // FightPower/attributes are part of the login packet

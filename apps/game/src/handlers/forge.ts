@@ -432,6 +432,97 @@ export async function embedBackout(ctx: ServerContext, p: GamePlayer, pkt: GSPac
   p.send(out);
 }
 
+/**
+ * OpenFiveSixHoleHandler.cs (217): drill (PropBag item whose own TemplateID is the right tier for the hole's
+ * current level) spent on the StoreBag[slot] equip's hole 5 or 6, Property7..8 random exp; a 100 ms cooldown per
+ * player (LastOpenHole) matches the throttle, not an anti-cheat.
+ */
+const HOLE_LEVEL_UP_EXP = [400, 600, 700, 800, 800];
+export async function openFiveSixHole(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd = Math.random): Promise<void> {
+  const slot = pkt.readInt();
+  const hole = pkt.readInt(); // 5 or 6
+  const drillTemplateId = pkt.readInt();
+  const now = ctx.now().getTime();
+  if (p.lastOpenHole + 100 > now) return p.sendMessage(0, ctx.lang.t("GameServer.OpenHole.TooQuickly"));
+  p.lastOpenHole = now;
+  const item = p.storeBag.getItemAt(slot);
+  if (!item || ![7, 1, 5].includes(item.template.CategoryID)) return p.sendMessage(0, "Không thể đục lỗ.");
+  const drill = p.propBag.getItemByTemplateID(0, drillTemplateId);
+  if (!drill || drill.Count <= 0 || (hole !== 5 && hole !== 6)) return;
+  if (drill.IsBinds && !item.IsBinds) p.storeBag.updateItem(item);
+  const lvKey = (hole === 6 ? "Hole6Level" : "Hole5Level") as "Hole5Level" | "Hole6Level";
+  const expKey = (hole === 6 ? "Hole6Exp" : "Hole5Exp") as "Hole5Exp" | "Hole6Exp";
+  const holeKey = (hole === 6 ? "Hole6" : "Hole5") as "Hole5" | "Hole6";
+  let leveledUp = false;
+  if (drill.isDrill(item[lvKey])) {
+    p.propBag.removeCountFromStack(drill, 1);
+    item[expKey] += Math.trunc(drill.template.Property7 + rnd() * (drill.template.Property8 - drill.template.Property7));
+    const needExp = HOLE_LEVEL_UP_EXP[item[lvKey]];
+    if (needExp !== undefined && item[expKey] >= needExp) {
+      item[lvKey]++;
+      item[expKey] = 0;
+      if (item[lvKey] > 0 && item[holeKey] < 0) item[holeKey] = 0;
+      leveledUp = true;
+    }
+  } else {
+    p.sendMessage(0, "Cấp mũi khoan không phù hợp để đục lỗ.");
+  }
+  p.storeBag.updateItem(item);
+  const out = new GSPacket(217, p.id);
+  out.writeByte(0);
+  out.writeBoolean(leveledUp);
+  out.writeInt(hole);
+  p.send(out);
+}
+
+/**
+ * ItemTrendHandle.cs (120 ITEM_TREND): converts an owned equip between "trend" (tendency) variants listed in the
+ * Item_Refinery reward chain, or buys the training device (item 34101) outright when `num === -1`. The game's
+ * `Item_Refinery` table has 0 rows in the source .bak (never configured on this server, in the original too), so
+ * this is live code that is currently always a no-op (RefineryMgr.RefineryTrend never finds a match) — same
+ * observable behaviour as the original with an empty config.
+ */
+export async function itemTrend(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): Promise<void> {
+  const bagType = pkt.readInt();
+  const place = pkt.readInt();
+  const bagType2 = pkt.readInt();
+  const num = pkt.readInt();
+  const operation = pkt.readInt();
+  let catalyst: ItemInfo | null = null;
+  if (num === -1) {
+    pkt.readInt(); pkt.readInt(); // unused ints (gold/display, the original never prices this branch either)
+    const tpl = ctx.templates.findItem(34101);
+    if (!tpl) return;
+    catalyst = ItemInfo.createFromTemplate(tpl, 1, 102, ctx.now());
+    const shop = ctx.templates.shopByTemplate(34101).find((s) => s.APrice1 === -1 && s.AValue1 !== 0);
+    const money = shop?.AValue1 ?? 0;
+    if (!(money <= p.info.Money + p.info.MoneyLock)) return;
+    p.removeMoney(money);
+    catalyst.ValidDate = shop?.AUnit ?? 0;
+  } else {
+    catalyst = p.getInventory(bagType2)?.getItemAt(num) ?? null;
+  }
+  const item = p.getInventory(bagType)?.getItemAt(place);
+  if (!catalyst || !item) return;
+  const newTemplateId = ctx.templates.refineryTrend(operation, item.TemplateID);
+  const newTpl = newTemplateId != null ? ctx.templates.findItem(newTemplateId) : undefined;
+  if (newTpl) {
+    const res = ItemInfo.createFromTemplate(newTpl, 1, 115, ctx.now());
+    const inv = p.getItemInventory(newTpl);
+    if (inv?.addItem(res, inv.beginSlot)) {
+      inv.updateItem(res);
+      p.getInventory(bagType)?.removeItem(item);
+      catalyst.Count--;
+      if (num !== -1) p.getInventory(bagType2)?.updateItem(catalyst); // num === -1: a virtual, never-stored catalyst
+      p.sendMessage(0, ctx.lang.t("ItemTrendHandle.Success"));
+    } else {
+      p.sendMessage(0, ctx.lang.t("ItemFusionHandler.NoPlace"));
+    }
+    return;
+  }
+  p.sendMessage(0, ctx.lang.t("ItemTrendHandle.Fail"));
+}
+
 export function registerForge(r: HandlerRegistry): void {
   r.player(59, "ITEM_STRENGTHEN", (ctx, p, pkt) => strengthen(ctx, p, pkt), "partial");
   r.player(58, "ITEM_COMPOSE", (ctx, p, pkt) => compose(ctx, p, pkt), "partial");
@@ -439,4 +530,13 @@ export function registerForge(r: HandlerRegistry): void {
   r.player(121, "ITEM_INLAY", (ctx, p, pkt) => inlay(ctx, p, pkt));
   r.player(125, "ITEM_EMBED_BACKOUT", (ctx, p, pkt) => embedBackout(ctx, p, pkt));
   r.player(122, "CLEAR_STORE_BAG", (ctx, p) => clearStoreBag(ctx, p));
+  r.player(217, "OPEN_FIVE_SIX_HOLE", (ctx, p, pkt) => openFiveSixHole(ctx, p, pkt));
+  r.player(120, "ITEM_TREND", (ctx, p, pkt) => itemTrend(ctx, p, pkt));
+  // Confirmed dead in the original vendor/DDTank41 (no [PacketHandler] class anywhere carries these codes — a
+  // later-client (6600+) feature set never wired into the 4.1 server): 61 ITEM_TRANSFER, 95 NECKLACE_STRENGTH,
+  // 106 WISHBEADEQUIP, 133 LATENT_ENERGY, 138 ITEM_ADVANCE, 209 FIGHT_SPIRIT, 295 STORE_FINE_SUIT, 391 EQUIP_GHOST.
+  for (const [code, name] of [[61, "ITEM_TRANSFER"], [95, "NECKLACE_STRENGTH"], [106, "WISHBEADEQUIP"], [133, "LATENT_ENERGY"],
+    [138, "ITEM_ADVANCE"], [209, "FIGHT_SPIRIT"], [295, "STORE_FINE_SUIT"], [391, "EQUIP_GHOST"]] as [number, string][]) {
+    r.player(code, name, () => undefined, "stub");
+  }
 }

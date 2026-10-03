@@ -275,6 +275,18 @@ export class ItemInfo {
     return part ? Number(part.split(",")[1]) : NaN;
   }
 
+  /** ItemInfo.isDrill (ItemInfo.cs:1117): this item's own TemplateID is the right drill tier for `holelv` (0..4). */
+  isDrill(holelv: number): boolean {
+    switch (this.TemplateID) {
+      case 11035: return holelv === 0;
+      case 11036: return holelv === 1;
+      case 11026: return holelv === 2;
+      case 11027: return holelv === 3;
+      case 11034: return holelv === 4;
+      default: return false;
+    }
+  }
+
   /** ItemInfo.Clone: new instance (ItemID 0), same properties. */
   clone(): ItemInfo {
     const c = new ItemInfo(this.template);

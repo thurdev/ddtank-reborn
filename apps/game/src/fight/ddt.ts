@@ -26,6 +26,8 @@ export interface DdtFightOptions {
   onWorldBossHurt?: (member: RoomMember, hurt: number) => void;
   /** PVPGame.TakeCard drop (DropInventory.CardDrop + AddTemplate TempBag); returns the card face shown to everyone */
   takeCard?: (member: RoomMember, roomType: number) => { templateId: number; count: number };
+  /** PaymentTakeCardCommand.cs (GAME_CMD sub 114): charge for an extra card flip; false = too poor, nothing happens. */
+  payTakeCard?: (member: RoomMember) => boolean;
   /** GamePlayer.OnGameOver (quest conditions) for every human seat */
   onPlayerGameOver?: (member: RoomMember, g: { roomType: number; gameType: number; isWin: boolean; kills: number; playerCount: number }) => void;
   /** PvE tables + drops (Templates); without it startPve returns null */
@@ -273,9 +275,27 @@ class DdtGame implements FightGame {
       this.takeCard(from.id, pkt.readByte(), false);
       return;
     }
+    // PaymentTakeCardCommand.cs (114): pay Money for an extra card flip, then TakeCard like a normal pick
+    // (index in range) or an auto pick (out of range, same fallback as 98/130).
+    if (sub === 114) {
+      const index = pkt.readByte();
+      if (this.engine.o.payTakeCard?.(from)) {
+        const left = this.canTakeOut.get(from.id) ?? 0;
+        this.canTakeOut.set(from.id, left + 1);
+        this.takeCard(from.id, index, false);
+      }
+      return;
+    }
+    // MoveStopCommand.cs (10) / WannaLeadCommand.cs (97): registered in the original with an empty HandleCommand
+    // body — confirmed no-ops, not missing handlers.
+    if (sub === 10 || sub === 97) return;
     pkt.offset = at;
     const cmd = parseCommand(pkt);
     if (!cmd) {
+      // Confirmed dead in the original too (no Game.Logic.Cmd class carries these GAME_CMD subs — CommandMgr's
+      // reflection scan never registers them, same silent drop as here): 3 BLAST, 19 CHANGEBALL, 21 KILLSELF,
+      // 22 BEAT. 137 DELIVER (TransmissionGateCommand) is real but unported — it readies a player between PvE
+      // dungeon floors, a chaining feature this engine doesn't have yet (tracked in BACKLOG with the Labyrinth gap).
       this.engine.o.log?.(`fight ${this.id}: GAME_CMD sub ${sub} from ${from.id} ignored`);
       return;
     }

@@ -10,7 +10,7 @@ import type { PlayerInventory } from "../game/inventory.js";
 import { loadEquippedItems } from "../db/items.js";
 import { loadPlayerInfo, loadPlayerInfoByNick, addCharmGP } from "../db/characters.js";
 import { saveItem } from "../db/items.js";
-import { sendMail, addUserGift } from "../db/social.js";
+import { sendMail, addUserGift, getAllUserReceivedGifts, loadUserRanks } from "../db/social.js";
 import type { ShopItemInfo } from "../db/templates.js";
 import * as Out from "../packets/out.js";
 import { GSPacket } from "@ddt/protocol";
@@ -302,6 +302,57 @@ export async function sendGift(ctx: ServerContext, p: GamePlayer, pkt: GSPacket)
   p.sendMessage(0, ctx.lang.t("GoodsPresentHandler.Success"));
 }
 
+/**
+ * UserItemContineueHandler.cs (62 ITEM_CONTINUE): extends an owned item's ValidDate using its shop listing price
+ * (tier A/B/C like BUY_GOODS); the item must be a timed EquipBag slot (>= 31)/PropBag/StoreBag item.
+ */
+export async function itemContinue(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): Promise<void> {
+  if (bagLocked(ctx, p)) return;
+  const count = pkt.readInt();
+  for (let i = 0; i < count; i++) {
+    const bagType = pkt.readByte();
+    const place = pkt.readInt();
+    const shopId = pkt.readInt();
+    const type = pkt.readByte();
+    pkt.readBoolean();
+    if (!((bagType === BagType.EquipBag && place >= 31) || bagType === BagType.PropBag || bagType === BagType.Store)) {
+      p.sendMessage(0, "Không thể tiếp phí");
+      continue;
+    }
+    const bag = p.getInventory(bagType);
+    const item = bag?.getItemAt(place);
+    if (!bag || !item || item.ValidDate === 0) { p.sendMessage(0, "Vật phẩm này không thể tiếp phí"); continue; }
+    const shop = ctx.templates.shop.get(shopId);
+    if (!shop || shop.TemplateID !== item.TemplateID) {
+      p.sendMessage(0, "Phát hiện gian lận hệ thống. Điều này sẽ được gửi tới BQT chờ giải quyết.");
+      return; // the original's loop can only exit (via `break`) on this exact mismatch
+    }
+    const totals: PriceTotals = { gold: 0, money: 0, offer: 0, gifttoken: 0, petScore: 0, score: 0, dmgScore: 0 };
+    const need = setItemType(shop, type, totals);
+    const validDate = item.ValidDate, count0 = item.Count, wasValid = item.isValidItem(ctx.now());
+    let ok = true;
+    for (let j = 0; j < need.length; j += 2) if (p.getTemplateCount(need[j]!, ctx.templates.findItem) < need[j + 1]!) ok = false;
+    if (!ok) return p.sendMessage(1, ctx.lang.t("UserBuyItemHandler.NoBuyItem"));
+    const c = p.info;
+    if (totals.gold <= c.Gold && totals.money <= c.Money + c.MoneyLock && totals.offer <= c.Offer && totals.gifttoken <= c.GiftToken && totals.petScore <= c.petScore && totals.score <= c.Score) {
+      p.removeMoney(totals.money); p.removeGold(totals.gold); p.removeOffer(totals.offer); p.removeGiftToken(totals.gifttoken);
+      p.removePetScore(totals.petScore); p.removeScore(totals.score);
+      for (let j = 0; j < need.length; j += 2) p.removeTemplateInShop(need[j]!, need[j + 1]!, ctx.templates.findItem);
+      const unit = type === 1 ? shop.AUnit : type === 2 ? shop.BUnit : type === 3 ? shop.CUnit : 0;
+      item.ValidDate = unit;
+      if (!wasValid) { item.BeginDate = ctx.now(); item.IsUsed = false; }
+      else item.ValidDate += validDate;
+      item.IsBinds = true;
+      bag.updateItem(item);
+      p.sendMessage(0, ctx.lang.t("UserItemContineueHandler.Success"));
+    } else {
+      item.ValidDate = validDate;
+      item.Count = count0;
+      p.sendMessage(0, ctx.lang.t("UserItemContineueHandler.NoMoney"));
+    }
+  }
+}
+
 export function registerItems(r: HandlerRegistry): void {
   r.player(49, "CHANGE_PLACE_GOODS", (ctx, p, pkt) => {
     const bagType = pkt.readByte();
@@ -396,4 +447,116 @@ export function registerItems(r: HandlerRegistry): void {
     if (!info || !items) return p.sendMessage(3, "Thông tin người chơi không có thực!");
     p.send(Out.userEquip(info, items, ctx.now()));
   });
+
+  /** ChangeDesignationHandler.cs (34 USER_RANK): show/hide the guild tag over the player's head. */
+  r.player(34, "USER_RANK", (_ctx, p, pkt) => {
+    p.info.IsShowConsortia = pkt.readBoolean();
+  });
+
+  r.player(62, "ITEM_CONTINUE", (ctx, p, pkt) => itemContinue(ctx, p, pkt));
+
+  /**
+   * GoodsCountHandler.cs (168 GOODS_COUNT): global daily-stock counters for shop goods bought today
+   * (WorldMgr.GetAllShopFreeCount). Deviation (same as 44 BUY_GOODS, see HANDLERS.md): shop id 20's daily limit is
+   * enforced per player here, not as a shared global stock, so there is nothing to report — the list is empty.
+   */
+  r.player(168, "GOODS_COUNT", (_ctx, p) => {
+    const out = new GSPacket(168, p.id);
+    out.writeInt(0);
+    p.send(out);
+  }, "partial");
+
+  /** UserChangeItemColorHandler.cs (182 USE_COLOR_CARD): recolor an equip slot using a PropBag color item, or Money. */
+  r.player(182, "USE_COLOR_CARD", (ctx, p, pkt) => {
+    pkt.readInt();
+    const propSlot = pkt.readInt();
+    pkt.readInt();
+    const equipSlot = pkt.readInt();
+    const color = pkt.readString();
+    const skin = pkt.readString();
+    const templateId = pkt.readInt();
+    const item = p.equipBag.getItemAt(equipSlot);
+    if (!item) return;
+    const colorItem = p.propBag.getItemAt(propSlot);
+    let ok = false;
+    if (colorItem?.isValidItem(ctx.now())) { p.propBag.removeCountFromStack(colorItem, 1); ok = true; }
+    else {
+      const price = ctx.templates.shopByTemplate(templateId).find((s) => s.APrice1 === -1 && s.AValue1 !== 0)?.AValue1 ?? 0;
+      if (price <= p.info.Money + p.info.MoneyLock) { p.removeMoney(price); ok = true; }
+    }
+    if (ok) {
+      item.Color = color ?? "";
+      item.Skin = skin ?? "";
+      p.equipBag.updateItem(item);
+    }
+    p.sendMessage(0, ctx.lang.t("UserChangeItemColorHandler.Success"));
+  });
+
+  /** ReworkRankHandler.cs (189 USER_CHANGE_RANK): switch the displayed title to one of the player's own, earned
+   * (Sys_User_Rank) titles — or clear it when the name doesn't match any. */
+  r.player(189, "USER_CHANGE_RANK", async (ctx, p, pkt) => {
+    const honor = pkt.readString();
+    if (!honor) return;
+    const now = ctx.now();
+    const ranks = await loadUserRanks(ctx.db.db, p.id);
+    const match = ranks.find((rk) => (rk.Name ?? "").includes(honor) && (rk.Validate <= 0 || rk.BeginDate.getTime() + rk.Validate * 86_400_000 > now.getTime()));
+    p.info.Honor = match ? honor : "";
+    p.info.honorId = 0; // NewTitleID table was never migrated (see HANDLERS.md "Player stats") — honor is matched by Name only
+    p.updatePlayerProperties();
+  });
+
+  /** UserGetGiftHandler.cs (218 USER_GET_GIFTS): list every gift a player (self or anyone else, int userId) has
+   * ever received, summed by TemplateID. (PlayerGiftHandler, also registered on 218 in the original, is a dead
+   * single-int no-op the C# reflection loader shadows — this port keeps the meaningful one.) */
+  r.player(218, "USER_GET_GIFTS", async (ctx, p, pkt) => {
+    const userId = pkt.readInt();
+    const online = ctx.world.get(userId);
+    const info = online?.info ?? (userId === p.id ? p.info : await loadPlayerInfo(ctx.db.db, userId));
+    if (!info) return;
+    const gifts = await getAllUserReceivedGifts(ctx.db.db, userId);
+    const out = new GSPacket(218, p.id);
+    out.writeInt(info.ID);
+    out.writeInt(info.charmGP ?? 0);
+    out.writeInt(gifts.length);
+    for (const g of gifts) { out.writeInt(g.TemplateID); out.writeInt(g.Count); }
+    p.send(out);
+  });
+
+  /** PropDeleteHandler.cs (75 PROP_DELETE): discard a prop from the in-fight hand (FightBag). */
+  r.player(75, "PROP_DELETE", (_ctx, p, pkt) => {
+    p.fightBag.removeItemAt(pkt.readInt());
+  });
+
+  /** GameTakeTempItemsHandler.cs (108 GAME_TAKE_TEMP): pick one (int place) or all (-1) TempBag items into their
+   * real bags; overflow mails the whole remaining TempBag. The original's `item.Template.BagType == eBageType.Card`
+   * branch is dead code — ItemTemplateInfo.BagType's switch (ItemTemplateInfo.cs:11-31) never returns Card for any
+   * CategoryID, so cards never take that path; every item goes through the normal `GetItemInventory` add. */
+  r.player(108, "GAME_TAKE_TEMP", async (ctx, p, pkt) => {
+    const place = pkt.readInt();
+    const take = async (it: ItemInfo): Promise<boolean> => {
+      const inv = p.getItemInventory(it.template);
+      if (inv?.addItem(it)) { p.tempBag.removeItem(it); return true; }
+      return false;
+    };
+    if (place !== -1) {
+      const it = p.tempBag.getItemAt(place);
+      if (it) await take(it);
+    } else {
+      for (const it of p.tempBag.getItems()) if (!(await take(it))) break;
+    }
+    const left = p.tempBag.getItems();
+    if (left.length) {
+      await mailItems(ctx, p, left, "Túi Đầy! Hoàn trả vật phẩm", 9);
+      for (const it of left) p.tempBag.removeItem(it);
+      p.sendMessage(1, ctx.lang.t("GameTakeTempItemsHandler.Msg")); // eMessageType.BIGBUGLE_NOTICE
+    }
+  });
+
+  // Confirmed dead in the original vendor/DDTank41 (no [PacketHandler] class anywhere carries these codes):
+  // 66 PROP_USE, 77 ITEM_OVERDUE, 171 USE_REWORK_NAME, 188 USE_CONSORTIA_REWORK_NAME, 205 USE_CHANGE_COLOR_SHELL,
+  // 222 EQUIP_RECYCLE_ITEM, 265 NEWTITLE_CARD.
+  for (const [code, name] of [[66, "PROP_USE"], [77, "ITEM_OVERDUE"], [171, "USE_REWORK_NAME"], [188, "USE_CONSORTIA_REWORK_NAME"],
+    [205, "USE_CHANGE_COLOR_SHELL"], [222, "EQUIP_RECYCLE_ITEM"], [265, "NEWTITLE_CARD"]] as [number, string][]) {
+    r.player(code, name, () => undefined, "stub");
+  }
 }

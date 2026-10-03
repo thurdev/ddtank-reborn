@@ -33,6 +33,21 @@ export async function addUserGift(db: Database, senderId: number, receiverId: nu
   await db.insert(player.Sys_Users_Gift).values({ SenderID: senderId, ReceiverID: receiverId, TemplateID: templateId, Count: count });
 }
 
+/** PlayerRank: the player's own earned titles (Sys_User_Rank, IsExit rows), used by 189 USER_CHANGE_RANK. */
+export async function loadUserRanks(db: Database, userId: number): Promise<{ Name: string | null; Validate: number; BeginDate: Date }[]> {
+  return db.select({ Name: player.Sys_User_Rank.Name, Validate: player.Sys_User_Rank.Validate, BeginDate: player.Sys_User_Rank.BeginDate })
+    .from(player.Sys_User_Rank).where(and(eq(player.Sys_User_Rank.UserID, userId), eq(player.Sys_User_Rank.IsExit, true)));
+}
+
+/** PlayerBussiness.GetAllUserReceivedGifts (218 USER_GET_GIFTS): every gift ever received, summed by TemplateID. */
+export async function getAllUserReceivedGifts(db: Database, userId: number): Promise<{ TemplateID: number; Count: number }[]> {
+  const rows = await db.select({ TemplateID: player.Sys_Users_Gift.TemplateID, Count: player.Sys_Users_Gift.Count })
+    .from(player.Sys_Users_Gift).where(eq(player.Sys_Users_Gift.ReceiverID, userId));
+  const sums = new Map<number, number>();
+  for (const r of rows) sums.set(r.TemplateID, (sums.get(r.TemplateID) ?? 0) + r.Count);
+  return [...sums].map(([TemplateID, Count]) => ({ TemplateID, Count }));
+}
+
 export type QuestDataRow = typeof player.QuestData.$inferSelect;
 export type BuffRow = typeof player.User_Buff.$inferSelect;
 export type AchievementDataRow = typeof player.AchievementData.$inferSelect;
