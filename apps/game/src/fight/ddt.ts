@@ -488,9 +488,20 @@ class DdtGame implements FightGame {
 /** 91 GAME_CMD body writers for every engine event (C# file:line in packages/fight/src/game/events.ts). */
 export function serializeEvent(e: FightEvent): PacketOut | null {
   if (e.cmd === "PVE_AWARD" || e.cmd === "PVE_STOPPED") return null;
+  // BaseGame.SendEquipEffect (BaseGame.cs:2146): not a GAME_CMD — its own packet (code 3: writeInt(3), writeString).
+  if (e.cmd === "EQUIP_EFFECT_MSG") {
+    const p = new PacketOut(3);
+    p.writeInt(3);
+    p.writeString(e.message);
+    return p;
+  }
   const p = new PacketOut(91, e.livingId, e.livingId);
   p.writeByte(e.code);
   switch (e.cmd) {
+    case "SEND_PICTURE":
+      p.writeInt(e.type);
+      p.writeBoolean(e.state);
+      break;
     case "RAW":
       for (const [t, v] of e.body) {
         if (t === "u8") p.writeByte((v as number) & 0xff);

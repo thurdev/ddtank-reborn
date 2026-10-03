@@ -46,8 +46,10 @@ Evidências: `research/e2e/batch4/`. Testes: `apps/game/test/pets-cards-vip.test
 
 **Não iniciado / faltando**
 - Pets: adoção (5/6), reverter (18), equipamento de pet (20/21), estrela/evolução (22/23), comer pets (33); exp de pet só por comida (como o original).
-- Cartas: reset de propriedades (196), Card_Buff/efeitos de conjunto em combate.
-- Efeitos de skills de pet (Pet_Skill_Element) e de equipamentos/gemas/guilda em combate (só stats).
+- Cartas: reset de propriedades (196).
+- ~~Card_Buff/efeitos de conjunto, de gema/equipamento e de guilda em combate (só stats)~~ **motor portado em
+  `packages/fight` na sessão 2026-10-03** — falta ligar `apps/game` (ver nota detalhada mais abaixo). Elementos
+  de skill de pet (`Pet_Skill_Element`) só têm o framework + 1 exemplo portados, não os ~250 ids.
 
 ## Varredura do básico — verificação no cliente (pt.2, 2026-10-02)
 
@@ -568,13 +570,22 @@ Combate 39→36 pendências (4 missing→0), Bolsa 22→20 (13 missing→0), Fer
   virou `implemented` (era `partial`).
 - **Pendências reais que ficaram** (não são "não verificado", são lacunas de verdade, citadas em HANDLERS.md):
   - ~~137 DELIVER~~ **portado na sessão 2026-10-03** — ver "Revisão QA 2026-10-03" no fim deste arquivo.
-  - **Card_Buff (bônus de conjunto de cartas) + efeitos de gema/equipamento/habilidade de guilda durante a
-    luta**: `vendor/DDTank41/Game.Logic/CardEffect/Effects/*.cs` tem ~25 classes de bônus de conjunto
-    (FourArtifacts, FiveGodSoldier, Goblin, GuluKingdom, ShadowDevil, TimeVortex, WarriorsArena, ...) — nenhuma
-    portada. É um motor de efeitos de combate à parte (não FightPower, que já inclui equipamento/gemas/cartas/pet
-    — `stats.ts` — só os efeitos *durante* a luta, tipo "conjunto X dá +dano quando Y", ficaram de fora).
-    Dimensionar como tarefa própria (provavelmente múltiplas sessões): ler cada classe C#, portar pra
-    `packages/fight`, achar onde o motor aplica dano/defesa pra interceptar.
+  - ~~Card_Buff (bônus de conjunto de cartas) + efeitos de gema/equipamento durante a luta~~ **portado na sessão
+    2026-10-03**: motor de efeitos genérico (`packages/fight/src/game/effects.ts` — `HookBus`/`EffectListOf`,
+    espelha `AbstractEffect`/`EffectList.cs`, `CardEffectList.cs`, `PetEffectList.cs`) + as 30 classes de
+    `CardEffect/Effects/*.cs` (`cardEffects.ts`, com o dispatch por `CardID` 1..15 igual ao `Player.
+    InitCardBuffer`, incl. os bugs do original preservados de propósito — ver cabeçalho do arquivo) + as 26 gemas
+    de equipamento de `Effects/*.cs` (`equipEffects.ts`, `Player.InitBuffer`) + ícones/mensagens de buff
+    (SEND_PICTURE 128, EQUIP_EFFECT_MSG) + testes (`test/effects.test.ts`). Habilidade de guilda em combate NÃO
+    é um `AbstractEffect` no original (é delta fixo resolvido antes da luta, `GamePlayer.FightBuffers` — ver
+    `Game.Server/Buffer/Consortion*Buffer.cs`); o motor replica isso via `PlayerSpec.guildBuffs`, aplicado em
+    `Player.reset()`. **Falta** (não dá pra inventar sem o dado real, documentado em `00-fight-engine.md §7.4`):
+    (1) ligar `apps/game` nesses três — precisa confirmar o predicado exato que separa "gema de atributo" (já
+    identificado em `stats.ts`) de "gema de efeito" no `ItemTemplate`, e `CardBuff`/`CardGroup` não existem em
+    `packages/db` ainda (sem eles o dispatcher de cartas não tem o que ler); (2) elementos de habilidade de pet
+    (`PetEffects/**`, ~250 classes `AE####`/`PE####`/`CE####`) — só o framework + um exemplo (`CE1067`, thorns)
+    foram portados (`petEffects.ts`), o resto é tarefa própria grande (uma classe pequena por id, não é
+    transformação mecânica em lote).
   - 114 PAYMENT_TAKE_CARD: o fast-path do buff `Card_Get` (BuffType 73, flip grátis) não foi portado — sempre
     cobra Xu (486/437 VIP), que é o caminho comum.
   - 120 ITEM_TREND/`Item_Refinery`: útil só se alguém popular a tabela (admin panel) — hoje é inofensivo mas

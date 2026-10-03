@@ -240,6 +240,11 @@ export interface DropItem { templateId: number; count: number; isBind?: boolean;
 export interface PveAwardEvent { cmd: "PVE_AWARD"; code: 0; livingId: number; userId: number; items: DropItem[]; bag: "temp" | "fight"; except?: number; to?: number[] }
 /** not a packet: PVEGame.Stop → PlayerDetail.ResetRoom / SetPvePermission */
 export interface PveStoppedEvent { cmd: "PVE_STOPPED"; code: 0; livingId: number; isWin: boolean; hasNextMission: boolean; except?: number; to?: number[] }
+/** BaseGame.SendPlayerPicture (BaseGame.cs:2834) — gem/card/pet effect buff icons (91 GAME_CMD, sub 128). */
+export interface PictureEvent extends Ev<"SEND_PICTURE"> { type: number; state: boolean }
+/** BaseGame.SendEquipEffect (BaseGame.cs:2146) — the floating proc text; NOT a GAME_CMD, its own packet (code 3:
+ * writeInt(3), writeString(message)), so it carries no `code`/eTankCmdType sub-byte. */
+export interface EquipEffectMsgEvent { cmd: "EQUIP_EFFECT_MSG"; livingId: number; message: string; except?: number; to?: number[] }
 
 export type FightEvent =
   | RawEvent
@@ -270,7 +275,9 @@ export type FightEvent =
   | UseDeputyWeaponEvent
   | BotCommandEvent
   | PlayerPropertyEvent
-  | GameOverEvent;
+  | GameOverEvent
+  | PictureEvent
+  | EquipEffectMsgEvent;
 
 type DistOmit<T, K extends keyof never> = T extends unknown ? Omit<T, K> : never;
 /** event without `code` (filled from `cmd`; RAW keeps its own) */
@@ -278,7 +285,7 @@ export type FightEventInit = DistOmit<Exclude<FightEvent, RawEvent>, "code"> | R
 
 export function withCode(e: FightEventInit): FightEvent {
   if (e.cmd === "RAW") return e as FightEvent;
-  if (e.cmd === "PVE_AWARD" || e.cmd === "PVE_STOPPED") return { ...e, code: 0 } as FightEvent;
+  if (e.cmd === "PVE_AWARD" || e.cmd === "PVE_STOPPED" || e.cmd === "EQUIP_EFFECT_MSG") return { ...e, code: 0 } as FightEvent;
   return { ...e, code: eTankCmdType[e.cmd] } as FightEvent;
 }
 

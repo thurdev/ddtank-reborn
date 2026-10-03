@@ -7,6 +7,7 @@ import { Box } from "./box.js";
 import { SimpleBomb } from "../phy/bomb.js";
 import { hertAddition, turnDelay, turnEnergy } from "./formulas.js";
 import type { BaseGame } from "./game.js";
+import { EffectListOf, HookBus, type EffectLike } from "./effects.js";
 
 /** Game.Logic/LivingConfig.cs — PascalCase on purpose: donor scripts set these fields directly. */
 export class LivingConfig {
@@ -92,6 +93,22 @@ export class Living extends LivingBody {
   private _hide = false;
   private _noHole = false;
   private _seal = false;
+
+  /** Living.BeginSelfTurn/PlayerShoot/… multicast events (effects.ts) — gem/card/pet effects subscribe here. */
+  readonly hooks = new HookBus();
+  /** Living.EffectList / CardEffectList / PetEffectList (Effects/EffectList.cs, CardEffect/CardEffectList.cs,
+   * PetEffects/PetEffectList.cs) — one bag per family, same generic list (effects.ts). */
+  readonly effectList = new EffectListOf<EffectLike>(this);
+  readonly cardEffectList = new EffectListOf<EffectLike>(this);
+  readonly petEffectList = new EffectListOf<EffectLike>(this);
+  /** Living.AttackGemLimit/DefendGemLimit/EffectTrigger (Living.cs:168-170) — shared equip-gem proc cooldown. */
+  attackGemLimit = 0;
+  defendGemLimit = 0;
+  effectTrigger = false;
+  /** Living.FlyingPartical — temporary ball-glow override for the next shot (gem effects), read by game.ts FIRE. */
+  flyingPartical = 0;
+  /** Effects/LockDirectionEffect.cs */
+  lockDirection = false;
 
   constructor(id: number, game: BaseGame, team: number, name: string, maxBlood: number, direction: number) {
     super(id);
@@ -182,13 +199,18 @@ export class Living extends LivingBody {
   takeDamage(source: Living, d: { damage: number; critical: number }): boolean {
     let result = false;
     if (this.config.IsHelper && this.kind !== "player" && source.kind === "player") return false;
+    this.hooks.emit("beginAttacked", this); // Living.OnStartAttacked/OnMakeDamage(living) (Living.cs:1380/2214)
     if (!this.isFrost && this.blood > 0) {
-      if (source !== this || source.team === this.team) this.onBeforeTakedDamage(source, d);
+      if (source !== this || source.team === this.team) {
+        this.onBeforeTakedDamage(source, d);
+        this.hooks.emit("beforeTakeDamage", this, source, d); // Living.BeforeTakeDamage (Living.cs:1330)
+      }
       let total = d.damage + d.critical >= 0 ? d.damage + d.critical : 0;
       if (this instanceof Player && total !== 0) total -= int((total * this.reduceDamePlus) / 100);
       this.blood -= total >= 0 ? total : 0;
       if (this.syncAtTime) this.game.emit({ cmd: "HEALTH", livingId: this.id, type: 1, blood: this.blood, value: total });
       this.onAfterTakedDamage(source);
+      this.hooks.emit("afterTakenHit", this, source, d.damage, d.critical); // Living.AfterKilledByLiving (Living.cs:1314)
       if (this.blood <= 0 && (this.keepLife || this.config.KeepLife)) this.blood = 1;
       if (this.blood <= 0) this.die();
       source.onAfterKillingLiving(this, d.damage, d.critical);
@@ -209,6 +231,7 @@ export class Living extends LivingBody {
       this.game.totalHurt += damage + critical;
       this.game.currentTurnTotalDamage = damage + critical; // Living.cs:1293
     }
+    this.hooks.emit("afterKillingLiving", this, target, damage, critical); // Living.AfterKillingLiving (Living.cs:1296)
   }
 
   /** Living.Die (Living.cs:897) */
@@ -238,6 +261,7 @@ export class Living extends LivingBody {
     if (!this.isAttacking) {
       this.isAttacking = true;
       this.onStartAttacking();
+      this.hooks.emit("beginAttacking", this); // Living.BeginAttacking (Living.cs:1388)
     }
   }
   stopAttacking(): void {
@@ -256,11 +280,16 @@ export class Living extends LivingBody {
     this.controlBall = false;
     this.noHoleTurn = false;
     this.currentIsHitTarget = false;
+    // Living.cs:1597-1607 — the shared equip-gem proc cooldown ticks down once per round.
+    if (this.attackGemLimit > 0) this.attackGemLimit--;
+    if (this.defendGemLimit > 0) this.defendGemLimit--;
     this.onBeginNewTurn();
+    this.hooks.emit("beginNewTurn", this); // Living.BeginNextTurn (Living.cs:1338)
   }
   prepareSelfTurn(): void {
     this.tickEffects();
     this.onBeginSelfTurn();
+    this.hooks.emit("beginSelfTurn", this); // Living.BeginSelfTurn (Living.cs:1345)
   }
 
   /** Living.GetShootPoint (Living.cs:1062) — player variant */
@@ -336,6 +365,10 @@ export interface PlayerSpec {
   healstone?: { heal: number } | null;
   /** Battle pet (Player.Pet / PetSkillCD, Player.cs:780): equipped skills with their Pet_Skill_Info data */
   pet?: PetSpec | null;
+  /** Guild-skill fight buffs resolved to flat deltas by the caller (Game.Server/Buffer/Consortion*Buffer.cs via
+   * GamePlayer.FightBuffers) — e.g. ConsortionAddPropertyBuffer → attack/defence/agility/lucky,
+   * ConsortionAddMaxBloodBuffer → maxBloodPercent, ConsortionAddCriticalBuffer → critical. */
+  guildBuffs?: { attack?: number; defence?: number; agility?: number; lucky?: number; maxBloodPercent?: number; critical?: number };
 }
 
 export interface PetSkillSpec { id: number; costMP: number; coldDown: number; newBallId: number; ballType: number; delay: number; pic?: string; effectPic?: string }
@@ -373,6 +406,11 @@ export class Player extends TurnedLiving {
   reduceDamePlus: number;
   readonly itemFightBag = new Map<number, number>();
   targetPoint: Point = { x: 0, y: 0 };
+  /** Player.PowerRatio — cosmetic fight-power gauge reset; zeroed by a few card set bonuses, never read elsewhere. */
+  powerRatio = 100;
+  /** Effects/AddTurnEquipEffect.cs: `IsAddQuipTurn` / `ShootMovieDelay` (Player.cs). */
+  addQuipTurn = false;
+  shootMovieDelay = 0;
 
   constructor(id: number, game: BaseGame, spec: PlayerSpec) {
     super(id, game, spec.team, spec.nickname, spec.hp, 1);
@@ -384,7 +422,9 @@ export class Player extends TurnedLiving {
     this.deputyWeaponResCount = spec.deputyWeapon ? spec.deputyWeapon.strengthenLevel + 1 : 0;
   }
 
-  /** Player.Reset (Player.cs:2205): stats from the spec, full blood, main weapon balls. */
+  /** Player.Reset (Player.cs:2205): stats from the spec, full blood, main weapon balls. `GuildBuffs` mirrors
+   * `GamePlayer.FightBuffers`/`BufferList` (Game.Server/Buffer/*, ConsortiaBuffer rows) — guild-skill fight
+   * buffs are resolved to flat deltas by the caller (apps/game), not re-implemented inside the pure engine. */
   reset(): void {
     const s = this.spec;
     this.attack = s.attack;
@@ -394,7 +434,17 @@ export class Player extends TurnedLiving {
     this.baseDamage = s.baseAttack;
     this.baseGuard = s.baseDefence;
     this.maxBlood = s.hp;
-    this.blood = s.hp;
+    const gb = s.guildBuffs;
+    if (gb) {
+      this.attack += gb.attack ?? 0;
+      this.defence += gb.defence ?? 0;
+      this.agility += gb.agility ?? 0;
+      this.lucky += gb.lucky ?? 0;
+      this.guildAddCritical = gb.critical ?? 0;
+      // Player.cs:489/2264-2266: `m_maxBlood += m_maxBlood * FightBuffers.ConsortionAddMaxBlood / 100`
+      if (gb.maxBloodPercent) this.maxBlood += int((this.maxBlood * gb.maxBloodPercent) / 100);
+    }
+    this.blood = this.maxBlood;
     this.isLiving = true;
     this.delay = this.getTurnDelay();
     this.setDanderQuiet(0);
@@ -402,6 +452,13 @@ export class Player extends TurnedLiving {
     this.energy = turnEnergy(this.agility);
     this.psychic = 0; // Player.cs:2220
     this.petSkillTurn.clear();
+    this.hooks.emit("playerAfterReset", this); // Player.PlayerAfterReset (Player.cs:2232-ish)
+  }
+
+  /** Player.AddMaxBlood (Player.cs:2335) — card set bonuses add/remove maxBlood only, current blood untouched. */
+  addMaxBlood(value: number): number {
+    if (value !== 0) this.maxBlood += value;
+    return value;
   }
 
   // ---------------------------------------------------------------- boxes / ghost (Player.cs:2052-2140, 2380-2410, 2665)
@@ -630,6 +687,8 @@ export class Player extends TurnedLiving {
   /** Player.Shoot (Player.cs:2414-2544) */
   shoot(x: number, y: number, force: number, angle: number): boolean {
     if (this.shootCount <= 0) return false;
+    this.effectTrigger = false;
+    this.hooks.emit("playerShoot", this); // Player.PlayerShoot (Player.cs:2427, OnPlayerShoot)
     let id = this.currentBall.id;
     if (this.ballCount === 1 && !this.isSpecialSkill && this.isBombOrIgnoreArmor === 0) {
       if (this.prop === 20002) id = this.multiBallId;
@@ -643,6 +702,7 @@ export class Player extends TurnedLiving {
       this.setShootCount(1);
     }
     if (!this.game.shootImp(this, id, x, y, force, angle, this.ballCount, this.shootCount)) return false;
+    this.hooks.emit("afterPlayerShooted", this); // Player.AfterPlayerShooted (Player.cs:2539, OnAfterPlayerShoot)
     if (this.isBombOrIgnoreArmor === 1) this.ignoreArmor = false;
     this.isBombOrIgnoreArmor = 0;
     this.shootCount--;

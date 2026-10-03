@@ -32,6 +32,10 @@ onClientGameCmd((userId, cmd) => game.handle(userId, cmd).forEach(send));   // {
 | `phy/` | `Tile` (1-bit bitmap, `dig`, `isEmpty`, `isRectangleEmptyQuick`), `GameMap` (two layers + physics set, ground search, walking, `findHitByHitPoint`), `Physics`/`LivingBody`, `BombObject`/`SimpleBomb` (float32 Euler flight, 3 px swept collision, BombAction timeline), `simulateShot()` (stand-alone trajectory, used by bots and usable for client prediction) |
 | `game/` | `PvpGame` (`handle(userId, FightCommand)`, `update(now)`, `drain()`), `Player`/`Living`/`TurnedLiving`, pure formulas (`turnDelay`, `turnTime`, `nextWind`, `vane`, `shellDamage`, `criticalDamage`, `hertAddition`, `analyticAim`, `calculateExperience`, `calculateOffer`, `playerKillOffer`) |
 | `game/events.ts` | `FightEvent` union — one per S→C GAME_CMD packet, `cmd`/`code` from `@ddt/protocol` `eTankCmdType`, `livingId` = header Parameter1, fields in C# write order (cited per type); `FightCommand` — parsed C→S commands |
+| `game/effects.ts` | In-fight effect layer core: `HookBus` (`Living.hooks` — the C# `BeginSelfTurn`/`PlayerShoot`/… multicast events as typed pub/sub), `EffectListOf<E>` (`Living.effectList`/`cardEffectList`/`petEffectList`, generic `EffectList.cs`/`CardEffectList.cs`/`PetEffectList.cs`), `AbstractEffect`/`BasePlayerEffect`/`AbstractCardEffect`/`AbstractPetEffect` |
+| `game/equipEffects.ts` | Gem/rune special effects (`Effects/*.cs`, `Player.InitBuffer`): all 26 `Property3` kinds (stat procs, Ice/Seal/NoHole/LockDirection/ReduceStrength/ContinueReduceBlood/ContinueReduceDamage on-kill, armour-piercer, lifesteal, thorns, extra shots, …) + `applyEquipEffects(player, templates)` |
+| `game/cardEffects.ts` | Card set bonuses (`CardEffect/Effects/*.cs`, `Player.InitCardBuffer`): all 30 classes (15 wired by `CardID` 1..15, like the original) + `applyCardEffects(player, cards, tables)` |
+| `game/petEffects.ts` | Pet skill elements (`PetEffects/**`, `Player.InitPetSkillEffect`): framework + `CE1067` (thorns) as a worked example + `applyPetSkillEffects(player, skills)` — the ~250 remaining `AE####`/`PE####`/`CE####` ids are a documented follow-up (see file header) |
 | `bot/` | `solveAim()` (angle × force search with the real integrator), `planBotTurn()`, `BotRunner`, `difficultyParams()` (02-bots §2.3 table) |
 | `math/` | `DotNetRandom` (bit-exact `System.Random(seed)`), `f32`/`int`/`roundEven` C# numeric helpers |
 | `data/` | `FightAssets`, `.ddtm`/`.ddtb` codecs, `inflateRaw()` (browser) |
@@ -99,10 +103,18 @@ turn time/delay. All match bit-for-bit.
 
 - `Player.SetXY` energy: the original subtracts `|m_x − x|` after assigning `m_x` (always 0); we charge the real
   distance, and `MOVESTART` is clamped to the remaining energy (the original trusts the client, spec §3.4).
-- Not modelled yet: drop boxes (`CreateBox`/fire drops — need drop tables), pets/pet skills, card/equipment/gem effects
-  (only Ice/Hide/NoHole/Seal and the 10001–10022 props), healstone, guild/paid fight buffers, PvE extras (Labyrinth gates, effects with real stat changes); world boss dragon scripts are hand-ported from DDT-6600 (`src/pve/scripts/manual/worldboss.ts`, players act first),
-  achievements, ghost movement and dead-teammate props. `GAME_CREATE` carries only the fight fields (the server adds
-  the lobby fields). Level-up from GP is delegated to the server (`gradeForGp`).
+- Not modelled yet: drop boxes (`CreateBox`/fire drops — need drop tables), PvE extras (Labyrinth gates, effects with
+  real stat changes); world boss dragon scripts are hand-ported from DDT-6600 (`src/pve/scripts/manual/worldboss.ts`,
+  players act first), achievements, ghost movement and dead-teammate props. `GAME_CREATE` carries only the fight
+  fields (the server adds the lobby fields). Level-up from GP is delegated to the server (`gradeForGp`).
+- Card/equip-gem/pet effect gem procs (`equipEffects.ts`/`cardEffects.ts`/`petEffects.ts`) roll through the game's
+  seeded `DotNetRandom` instead of each C# `AbstractEffect`'s own unseeded `new Random()` (reseeded by wall clock on
+  every construction) — the original isn't part of the fight's own determinism story either way, and routing through
+  the shared RNG keeps this port's "same seed ⇒ same event stream" guarantee intact. `NoHoleEquipEffect` fires from
+  `beginAttacked` instead of the C# `Player.CollidByObject` (closest equivalent hook we expose).
+- Guild-skill fight buffs (`Game.Server/Buffer/Consortion*Buffer.cs`, `GamePlayer.FightBuffers`) are resolved to flat
+  stat/maxBlood/critical deltas by the caller and passed in via `PlayerSpec.guildBuffs`, applied once in
+  `Player.reset()` — the pure engine never talks to `BufferList`/the DB.
 - `BaseGame.SendGameNextTurn` passes the float wind to `GetVane(int)` (decompiled code); we use `wind×10` like FIRE/VANE.
 - Safety cap of 1500 integration steps (60 s) per projectile (the original could loop forever with no gravity).
 - `Tile.Remove` writes past the end of the buffer are dropped (C# would throw).
