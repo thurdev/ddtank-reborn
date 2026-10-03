@@ -75,13 +75,9 @@
     "18_asset.store.Title.png": "Tiệm rèn",
     "75_asset.ddtstore.exalt.TitleText.png": "Tự cắt",
     "118_asset.store.ComposeBtn.png": "€ Hợp thành |",
-    "149_asset.store.LuckyBG.png": "Bùa may\nmắn",
     "148_asset.store.StrengthStoneBG.png": "Đá\ncường\nhóa",
-    "120_asset.ddtstore.exalt.exalt.png": "í° Tăng (cấp )",
     "142_asset.store.ComposeStoneBG.png": "Đá\nhợp\nthành",
-    "354.png": "Nhấp chọn vào đây vào giao diện khảm\nnạm , khảm nạm châu báu sẽ làm bạn\ntăng sức mạnh~",
     "39_asset.newStore.tabStore.unSelectedBtn.png": "Tiệm rèn",
-    "358.png": "Lấy trang bị vừa cường hóa đến cấp 3 bỏ vào\nkhung trang bịe",
     "14_asset.store.transfBG.jpg": "ca ¬ `\nDi chuyên\nẬ",
     "3_asset.store.transfStartBtn.png": "€ Dịch chuyển! )",
     "7_asset.store.transfArrowBG.png": "Dịch chuyên\nthuộc tính",
@@ -112,7 +108,6 @@
   "wonderfulactivity.swf": {
     "68_carnicalAct.title1.png": "Vua Tăng Cấp",
     "10_carnicalAct.title7.png": "Vua Tu Luyện",
-    "16_wonderfulactivity.conRank.bg.jpg": "| ———nỔC h\nJ Tiêu phí top 10 nhận thưởng tương ứng, kếtthúcsẽ gửi quà qua thư Ì\n| —— Ể\n| xép hạng | Tên Xu đã tiêu Phần thưởng |\n| Ể\n| .\n| h\n| h\nJ Ầ\n| |\n| Ầ\n| |\n] h\n| h\n] Ì\nJ Ầ\n| Ậ",
     "72_wonderfulactivity.levelBitmap.png": "Cấp Ï",
     "107_asset.wonderful.RechargeBtn.png": "| Nạp xu |",
     "84_wonderful.accumulative.title.png": "lạ N&Z lễ _\n* Z ,Z\nNấp Tích LữV Nhân Quà] tên Ta,",
@@ -145,28 +140,20 @@
   },
   "toolbar.swf": {
     "14_asset.toolbar.supplyBtnAsset.png": "Nạp",
-    "10_asset.toolbar.complainBtnAsset.png": "Phản hồi",
-    "11_asset.toolbar.ShortCutBtn.png": ". ,\nl lÀ\ný . xuan AX XXY\nSTạo shortcut°"
+    "10_asset.toolbar.complainBtnAsset.png": "Phản hồi"
   },
   "cardsystem.swf": {
-    "35_asset.upgradeFrame.cardBG.png": "VN\n7 HA\nVị trí thẻ bài",
-    "33_asset.cardSystem.reset.CardBack.png": "‡ _= NI\nThẻ bài\n5722/04)\n7127",
-    "45_asset.cardBag.collectBtn.png": "IŠThẻ bài sưu|tàm)!",
-    "36_asset.cardBag.cardBG.png": "Vị trí”\nthẻ bài",
     "56_asset.cardEquipView.mainCardWord.png": "Thẻ chính",
-    "40_asset.cardCell.upGrade.png": "ø \"`\nThăng(cấp\n[nEss cểh]",
     "6_asset.cardEquipView.viceCard1.png": "Thỗ phụ1",
     "12_asset.cardEquipView.viceCard3.png": "Thẻ phụ3",
     "10_asset.cardEquipView.viceCard2.png": "Thẻ phụ2",
     "16_asset.cardEquipView.viceCard4.png": "Thẻ phụ4"
   },
   "luckstar.swf": {
-    "20_luckyStar.view.RankBG.png": "Xếp h: ng\nca m0, 'Sau May Mắn dùng",
     "12_luckyStar.view.BtnStartBg.png": "_\"~\nBắt đâu/",
     "9_luckyStar.view.RankBtnBG.png": "[Bảng )Xép Hạng."
   },
   "academy.swf": {
-    "6_asset.academy.selectAsset.png": ".]X MỶ]31XUXũ[JV tu nh",
     "20_asset.academy.equipBtnAsset.png": "ˆ Trang bị",
     "19_asset.academy.freeBtn.png": "Q.ợi sư đồ",
     "21_asset.academy.courtshipBtnAsset.png": "\"87 CAU hôn,",
@@ -174,15 +161,10 @@
     "9_asset.academy.preBtnAsset.png": "(Trước)\nrước"
   },
   "firsttainer.swf": {
-    "154_asset.trainer.mcMoveBg.png": "1|\n@y=HI Gichuyên”\nnhặt vũ khí:vàinón",
     "157.png": "(Gì #SpaccbarE (thanh\nn\n\nlực đạt [buông] :a\n\ncó thể bắn",
     "103.png": "Chiến thắng"
   },
   "consortionii.swf": {
-    "97_asset.consortiaii.level3BtnSelected.png": "⁄ `\nCấp 1-3\nsử dụng",
-    "95_asset.consortiaii.level7BtnSelected.png": "⁄ `\nCấp 4-7\nsử dụng",
-    "100_asset.consortiaii.level10Btn.png": "Cấp 810\nsử dụng;",
-    "51_asset.consortion.jobManage.pm1.png": "Sửa thông báo\n\nThăng chức/gián chức\nKhai trừ\n\nChiêu mộ\n\nNâng cấp gulld\n\nSửa thông điệp\n\nQuản lý chức vị\n\nGulld chiến\n\nThư Gulld\n\nSứ mệnh gulld",
     "63_asset.consortion.takeIn.name.png": "Tên",
     "67_asset.consortion.skllFrame.metal2.png": "Huân chương",
     "133_asset.consortion.shop.coinbg.png": "((3Vàng ...  G)(7 Xu )",
@@ -212,21 +194,17 @@
     "120_asset.consortion.upGrade.explainWord.png": "Mô tả:"
   },
   "academycommon.swf": {
-    "27_asset.academyCommon.myAcademy.gradueteNumBG.png": "Số đệ tử tốt nghiệp: Danh hiệu sư đồ:",
     "17_asset.academyCommon.RecommendPlayerCellView.masterHonor4.png": "Đức cao vọng trọng",
     "31_asset.academyCommon.myAcademy.freeBtn.png": "QYoïr\"sư đồ",
     "30_asset.academyCommon.myAcademy.addFriendBtn.png": "Thêm bạn,"
   },
   "newchickenbox1.swf": {
-    "32.png": "ÍSuGorGunnercolnd dùng xuyênltháu Gói nhìn]\n[t>SUibouvatikhlVbAi Khi không Còn CƠ Hội lậu\nteoog0totfnge5tpeiyBocfovangŒfipttise,\nKGunnerthoátkhỏi ương gà thì họ thóng sellưu]\ntgœergtœ90eitod8,",
     "7_asset.newChickenBox.openCardTimes.png": "Số lần lật bài"
   },
   "newchickenbox.swf": {
-    "32.png": "ÍSuGorGunnercolnd dùng xuyênltháu Gói nhìn]\n[t>SUibouvatikhlVbAi Khi không Còn CƠ Hội lậu\nteoog0totfnge5tpeiyBocfovangŒfipttise,\nKGunnerthoátkhỏi ương gà thì họ thóng sellưu]\ntgœergtœ90eitod8,",
     "7_asset.newChickenBox.openCardTimes.png": "Số lần lật bài"
   },
   "farm.swf": {
-    "46_assets.farmShop.promptPop.png": "Làm mới Pet lại\n\ncòn được tích điểm,\nvào cửa hàng nông\ntrại đề đối quà nhé !",
     "108.png": "Z2\nhề\nĐào Kho báu",
     "15_asset.farm.buyExpBtnBG.png": "@\nIMuaTthứciăn!",
     "242.png": "(&» Trợ giúp",
@@ -237,7 +215,6 @@
   },
   "bagandinfo2.swf": {
     "69_asset.cardSystemBtn2.png": "2S\nThẻ bài",
-    "70_asset.cardSystemBtn1.png": "5”\nẤT? Thẻ bài",
     "19_bagAndInfo.cellMenu.openAsset.png": "Mở",
     "67_asset.trieve.StartStrengthTip.png": "thấp chọn 6ð tí luyện vệt ghẩm",
     "85_equipretrieve.ensureBt.png": "5TinhlƯuyệên 2",
@@ -267,7 +244,6 @@
   },
   "bagandinfo.swf": {
     "69_asset.cardSystemBtn2.png": "2S\nThẻ bài",
-    "70_asset.cardSystemBtn1.png": "5”\nẤT? Thẻ bài",
     "19_bagAndInfo.cellMenu.openAsset.png": "Mở",
     "67_asset.trieve.StartStrengthTip.png": "thấp chọn 6ð tí luyện vệt ghẩm",
     "85_equipretrieve.ensureBt.png": "5TinhlƯuyệên 2",
@@ -297,7 +273,6 @@
   },
   "bagandinfo1.swf": {
     "64_asset.cardSystemBtn2.png": "2\nThẻ bài",
-    "65_asset.cardSystemBtn1.png": "—”Ð‹ó.ýn nh\nẤ7 Thẻ bài",
     "23_bagAndInfo.cellMenu.openAsset.png": "Mở",
     "78_equipretrieve.ensureBt.png": "“TinhlƯuyện 2",
     "62_asset.trieve.StartStrengthTip.png": "thấp chọn 68 tí luyện vệt ghẩm",
@@ -328,12 +303,7 @@
     "89.png": "Cn⁄ì\\\n\nví 2š\n\nù L\nNạp Làn Đầu"
   },
   "ddtstore.swf": {
-    "165.png": "Glielc vào 6ây đồ cường hóa",
-    "432.png": "Nhấp chọn đề hợp thành",
-    "406.png": "Nhấp chọn vào đây vào giao diện khảm\nnạm , khảm nạm châu báu sẽ làm bạn\ntăng sức mạnh~",
-    "410.png": "Lấy trang bị vừa cường hóa đến cấp 3 bỏ vào\nkhung trang bịo",
     "277.png": "Khác",
-    "62_asset.ddtstore.strengthNumTxt.png": "(Sá lượng đá cường hóa!",
     "313.png": "lfelt vào đây đề dung luyện",
     "131.png": "Glleic vào 6ây đồ dịch chuyên",
     "96_asset.ddtstore.FusionBtn.png": "Dunglluyện",
@@ -350,7 +320,6 @@
   },
   "consortion.swf": {
     "37_asset.building.manager.png": "Quản lý",
-    "69_asset.placardAndEvent.event2.png": "“SỰ kiện) kiện N\nguild",
     "67_asset.building.exit.png": "Thoát\n- khỏi guild -",
     "21_asset.building.takeIn.png": "Chiêu mộ",
     "13_asset.placardAndEvent.weekOffer1.png": "IP Điểm cổng Ñ\nhiến tuân",
@@ -360,7 +329,6 @@
     "62_asset.consortion.pollFrame.helpBtn.png": "2 Giúp đỡ ."
   },
   "consortia.swf": {
-    "53_asset.consortia.myConsortiaView.consortiaEventBtn2.png": "} đ\"e——=-eeeeïmn:nne. N\n. Sự kiện guild |",
     "54_asset.consortia.myConsortiaView.consortiaEventBtn1.png": "An\nSự kiện guild",
     "19_asset.consortia.myConsortiaView.smithBtn.png": ":  — :\n; Tiệmãrèn E",
     "56_asset.consortia.myConsortiaView.auditingApplyBtn.png": "Chiêu mộ\n„ thành viên",
@@ -375,9 +343,6 @@
     "5_asset.roulette.recur.png": "kiếp tục."
   },
   "awardsystem1.swf": {
-    "162.png": "Nhấp chọn để mở\nbảo rương",
-    "75_asset.caddy.NodeAsset.png": "Mở rương tiêu hao 4 búa",
-    "22_asset.card.getFont.png": "Thẻ bài\nnhận được",
     "90_asset.offerPack.fontII.png": "công trạng",
     "50_asset.bead.quickFont3.png": "Lễ kim",
     "20_asset.caddy.badLuck.AwardBtnI.png": "\" W—_—Y——=. N\n(Phần thưởng;",
@@ -393,10 +358,7 @@
     "97_ddt.view.caddy.OfferPack.consortiaManager.png": "L Quản lý `"
   },
   "awardsystem.swf": {
-    "209.png": "Nhấp chọn để mở\nbảo rương",
     "102_asset.caddy.AwardsNode.png": "Phần thưởng",
-    "27_asset.caddy.NodeAsset.png": "Mở rương tiêu hao 4 búa",
-    "85_asset.card.getFont.png": "Thẻ bài\nnhận được",
     "10_asset.offerPack.fontII.png": "công trạng",
     "54_asset.bead.quickFont3.png": "Lễ kim",
     "67_asset.caddy.SellAllBtn.png": "® Bán hết.",
@@ -414,21 +376,13 @@
     "3_ddt.view.caddy.OfferPack.consortiaManager.png": "L Quản lý `"
   },
   "quest.swf": {
-    "32_asset.core.quest.QuestCateTitle1Expanded.png": "-› Nhiệm vụ chủ tuyến",
     "50_asset.core.quest.QuestCateTitle3Expanded.png": "< Nhiệm vụ hàng ngày",
-    "3_asset.core.quest.QuestCateTitle6Expanded.png": "s Nhiệm vụ tu luyện",
-    "47_asset.core.quest.QuestCateTitle7Expanded.png": "ss Nhiệm vụ sử thi",
     "45_asset.core.quest.QuestCateTitle4Expanded.png": "ss Nhiệm vụ sự kiện",
-    "1_asset.core.quest.QuestCateTitle5Expanded.png": "ss Nhiệm vụ VỊP",
-    "7_asset.core.quest.QuestCateTitle2Expanded.png": "ss Nhiệm vụ phụ",
     "9_asset.core.quest.collectInfo.Send.png": "Gửi",
-    "18_asset.core.quest.QuestInfoPlanTitle.png": "kiến độinhiệm Vụi",
     "59_asset.core.quest.collectInfo.Already.png": "Đã gửi ị",
     "42_asset.core.quest.RewardText.Type4.png": "tài/sản)"
   },
   "corei.swf": {
-    "203_asset.clearingInterface.clearing.png": "Bạn cần\n15 Xu ›\nBạn đã mua vật phẩm",
-    "26_asset.core.MyConsortiaTax.taxBG.png": "Hiện có xu, mời nhập số lượng.\nNG Tre) gân",
     "114_exitPrompt.dayMissionBt.png": "Nhiệm vụ hàng ngày:",
     "188_exitPrompt.actMissionBt.png": "Nhiệm vụ sự kiện:",
     "52_asset.church.AgreeProposeAsset.png": "Chúc bách niên giai lão\nTổ chức. cưới đễ chứng minh tình yêu của bạn",
@@ -443,10 +397,7 @@
     "10_asset.corei.helpbutton.png": "2 Giúp đỡ"
   },
   "core.swf": {
-    "61_asset.shop.ShopRechargeEquipDescription.png": "Nhắc nhở:\n1 số trang bị của bạn\nđã hết hạn,nạp thêm nhé",
     "47_asset.shop.LabelIconDiscount.png": "Khuyến\nmãi",
-    "76_asset.core.MyConsortiaTax.taxBG.png": "Hiện có xu, mời nhập số lượng.\nLÍ 5 Trðì gia",
-    "19_asset.AddPricePanel.RenewalDianJuanUp.png": ".\nJ @) XU]\nẴ N— M",
     "40_asset.shop.ShopGift.png": "lễ kim",
     "111_asset.church.AgreeProposeAsset.png": "Chúc bách niên giai lão\nTở chức cưới để chứng minh tình yêu của bạn.",
     "79_asset.core.tryonBgAsset.png": "Chọn mặc thử",
@@ -465,7 +416,6 @@
     "39_asset.shop.shopFriendsBtn.png": "=x\"xr—v¬rrueg\n2họn trong DS bạn"
   },
   "coreii.swf": {
-    "32_asset.shop.ShopRechargeEquipDescription.png": "Nhắc nhở:\n1 số trang bị của bạn\nđã hết hạn,nạp thêm nhé",
     "55_asset.shop.ShopGift.png": "lễ kim",
     "33_asset.shop.RechargeViewChargeBtn.png": "( Nạp",
     "96_microBlog.IssueBt.png": "Công bồ",
@@ -478,8 +428,6 @@
     "66_asset.shop.ColorBtnDown.png": "Chọn màu"
   },
   "ddthallicon.swf": {
-    "16_assets.hallIcon.indianaIcon.png": "đie‹àà\nĐoạt Bảo\n1 Vàng",
-    "21_assets.hallIcon.rouletteGunIcon.png": "Ý$: LẦN\nVùng quay\nmay mắn",
     "92_asset.hall.bibleIcon.png": "⁄ si;\n«\n%\nBí Kíp Vua Gà",
     "387_asset.ddthall.dungeonExploration.png": "z5 . VĂN\n(ASỡZaC Lại\ntThám!Tiiểm\nĐịa Cung",
     "33_asset.hallIcon.perfectCouple.png": "Trời Sính\nMột Cặp",
@@ -574,7 +522,6 @@
     "39_asset.core.consortiaTip.ReputePic.png": "Hạng"
   },
   "churchroom.swf": {
-    "43_asset.church.room.guestListBoxAsset.png": "Khách mời\nCấp Giới tính\n|",
     "52_asset.church.room.giftFrameBgAssetForGuest.png": "ihúi quai\nMời nhập số tiền\nÙ ]x\nLễ kim phải là bội số của 100",
     "60_asset.church.room.fireBgAsset.png": "Tung hoa cưới.",
     "37_asset.church.room.menuShowNameAcAsset.png": "ve W—.Ow—~X,\nS9 \"Hiển Thì hồ Tên",
@@ -593,7 +540,6 @@
     "83_asset.church.room.FatherPaopao2.png": "hôm nay và mãi mãi"
   },
   "room.swf": {
-    "133_asset.room.dungeonModeSelectedAsset.png": "“ta: Phó bản\n\"Vrư\n^ Fe.",
     "22_asset.room.TypeBtn_C_01.png": "| gzxzzrewxrgz-r-wsxee ecyovengsgumvprrrrvcroswemvl\n¡. Phó bản cao cấp",
     "92_asset.room.view.roomSignalCommonAsset.png": "Thường",
     "91_asset.room.view.roomSignalBadAsset.png": "Kém",
@@ -609,24 +555,17 @@
     "14_asset.room.hardTxtAsset.png": "Khó)"
   },
   "fightlib.swf": {
-    "27_fightLib.Lessons.hardness.Low.png": "'Sơ/cấp)",
     "194.png": "1 màn hình"
   },
   "petsbag.swf": {
-    "457.png": "ÕL\nmm).\nlề\nKỹ năng! cv\n\n4 (0 b\n1",
     "34_assets.petsBag.eatPets.eatPetsButton.png": "Manh hoa\nthú cưng",
-    "88_assets.petsBag.fight1.png": "Xuâttrận",
     "39_petsBag.evolution.unSelectedButton.png": "Tiến Hóa",
     "32_petsBag.risingStar.petsBag.unSelectedButton.png": "Tăng Sao",
     "31_petsBag.risingStar.petsBag.selectedButton.png": "(Tăng Sao",
     "85_assets.petsBag.fightPower.png": "Lực chiến:"
   },
-  "baglocked.swf": {
-    "9_asset.baglocked.explain.png": "Sau khi tạo mật mã bảo vệ cắp 2 thì mỗi lằn đăng nhập\nvật sẽ ở trạng thái khóa, ở trạng thái này nhân vật khôr\nthực hiện các chức năng:\n\n1. Mua bán vật phẩm\n\n2. Đầu giá vật phẩm.\n\n3. Trả xu\n\n4. Cồng hiền Gulld\n\n5. Rèn\n\n6. Bỏ vật phẩm.\n\nMỗi lằn đăng nhập phải chọn \"mở khóa\", và nhập mật m.\nxác rồi mới có sử dụng các chức năng này.\n\nChú ý: Mật mã cấp 2 không nên trùng với mật mã đang\nNếu quên mật mã, xin liên hệ bộ phận khách hàng."
-  },
+  "baglocked.swf": {},
   "_corei.swf": {
-    "109_asset.clearingInterface.clearing.png": "Bạn cần\n15 Xu ›\nBạn đã mua vật phẩm",
-    "197_asset.clearingInterface.buyMoney.png": "4 n xu\n^ V2 CXXCXXXLXXCXXZSCX\n¿2£ Nạp 2\nò p\nnh hà quẾả:\n<2xx*rz=zz=z==z2~ 2\n-",
     "190_exitPrompt.dayMissionBt.png": "Nhiệm vụ hàng ngày:",
     "123_exitPrompt.actMissionBt.png": "Nhiệm vụ sự kiện:",
     "52_asset.church.AgreeProposeAsset.png": "Chúc bách niên giai lão\nTổ chức. cưới đễ chứng minh tình yêu của bạn",
@@ -640,7 +579,6 @@
     "88_asset.corei.helpbutton.png": "2 Giúp đỡ"
   },
   "shop.swf": {
-    "16_asset.shop.LeftMoneyPanel.png": "Ban hien co êi\nØ2 Xu\n\nViễxm\n\nÔỔrcves",
     "124_asset.shop.CartBtnDown.png": "Giỏ hàng",
     "81_asset.shop.TopBtnBeautyupDown.png": "Làm đẹp",
     "83_asset.shop.TopBtnEquipmentDown.png": "Trang bị",
@@ -680,22 +618,8 @@
   "choicefigure.swf": {
     "57.png": "77\n.”-.„ S\nHN\n\n— $ á\n\nx\nxu\nem"
   },
-  "totem.swf": {
-    "8_asset.totem.infoView.levelBg.png": "| Cấp Vật Tỗ 1"
-  },
+  "totem.swf": {},
   "tutorialstepassets.swf": {
-    "30_asset.tutorialstep.text_s11.png": "Vừa nhận được 1 món vũ khí, trang bị vũ khí chứ.\nMời bạn làm theo mũi tên để mở túi.",
-    "11_asset.tutorialstep.text_s46.png": "Nhấp thẻ \"Cường hóa\" để tiền hành cường hóa.",
-    "12_asset.tutorialstep.text_s45.png": "Dùng chuột trái chọn đà cường hóa",
-    "15_asset.tutorialstep.text_s42.png": "Nhấp vào đây đóng bản nhiệm vụ.",
-    "7_asset.tutorialstep.text_s52.png": "Nhấp vào đây đóng bản nhiệm vụ.",
-    "24_asset.tutorialstep.text_s33.png": "Nhấp vào đây đóng bản nhiệm vụ.",
-    "9_asset.tutorialstep.text_s50.png": "Nhấp chọn vào giao diện nhiệm vụ",
-    "17_asset.tutorialstep.text_s40.png": "Nhấp chọn vào giao diện nhiệm vụ",
-    "32_asset.tutorialstep.text_a45.png": "Để vào trái ô đá cường hóa",
-    "25_asset.tutorialstep.text_s31.png": "Bạn có nhiệm vụ mới, mời chọn",
-    "22_asset.tutorialstep.text_s35.png": "Chọn lọai Xu khóa",
-    "29_asset.tutorialstep.text_s12.png": "Nhấp lấy vũ khí",
     "34_asset.tutorialstep.iknow.png": "Tôi biết rồi.",
     "21_asset.tutorialstep.text_s36.png": "Chúng ta đang ở trong shop,\nchọn quần áo mặc thử nào.",
     "26_asset.tutorialstep.text_s28.png": "Dùng chuột click vào, sau đó tiền hành tắn công.",
@@ -712,18 +636,6 @@
     "5_asset.tutorialstep.text_s54.png": "Chọn tạo phòng"
   },
   "oldTutorialstepassets.swf": {
-    "30_asset.tutorialstep.text_s11.png": "Vừa nhận được 1 món vũ khí, trang bị vũ khí chứ.\nMời bạn làm theo mũi tên để mở túi.",
-    "11_asset.tutorialstep.text_s46.png": "Nhấp thẻ \"Cường hóa\" để tiền hành cường hóa.",
-    "12_asset.tutorialstep.text_s45.png": "Dùng chuột trái chọn đà cường hóa",
-    "15_asset.tutorialstep.text_s42.png": "Nhấp vào đây đóng bản nhiệm vụ.",
-    "7_asset.tutorialstep.text_s52.png": "Nhấp vào đây đóng bản nhiệm vụ.",
-    "24_asset.tutorialstep.text_s33.png": "Nhấp vào đây đóng bản nhiệm vụ.",
-    "9_asset.tutorialstep.text_s50.png": "Nhấp chọn vào giao diện nhiệm vụ",
-    "17_asset.tutorialstep.text_s40.png": "Nhấp chọn vào giao diện nhiệm vụ",
-    "32_asset.tutorialstep.text_a45.png": "Để vào trái ô đá cường hóa",
-    "25_asset.tutorialstep.text_s31.png": "Bạn có nhiệm vụ mới, mời chọn",
-    "22_asset.tutorialstep.text_s35.png": "Chọn lọai Xu khóa",
-    "29_asset.tutorialstep.text_s12.png": "Nhấp lấy vũ khí",
     "34_asset.tutorialstep.iknow.png": "Tôi biết rồi.",
     "21_asset.tutorialstep.text_s36.png": "Chúng ta đang ở trong shop,\nchọn quần áo mặc thử nào.",
     "26_asset.tutorialstep.text_s28.png": "Dùng chuột click vào, sau đó tiền hành tắn công.",
@@ -740,7 +652,6 @@
     "5_asset.tutorialstep.text_s54.png": "Chọn tạo phòng"
   },
   "toffilist.swf": {
-    "53_asset.Toffilist.lookEquip_btnAsset.png": "TC In\n2Xem'trang bị\n22227222777502/7,",
     "57_asset.Toffilist.gradeOrderImg2Asset.png": "mGipm\nCấp",
     "44_asset.Toffilist.prePageImgAsset.png": "Trước",
     "101_asset.Toffilist.AchievementImgAsset1_2.png": "Thành tựu",
@@ -764,9 +675,6 @@
     "13_asset.Toffilist.weekAddImg2Asset.png": "(Tuần)"
   },
   "farmpettrainerui.swf": {
-    "19.png": "Chọn số lượng hợp thành rồi ollett tại đây!",
-    "79.png": "Chọn kỹ năng chiền đều của thú cưng",
-    "22.png": "Chọn vật phẩm đồ hợp thành",
     "15.png": "Hạt giống và phân bón có thê ollott mua tại đây.",
     "12.png": "tây đợi cây 6êm hoa kết trái rồi tu hoạch nhéi",
     "4.png": "Bạn có thể hiếi trộm tại vườn ceữe bạn bò",
@@ -788,24 +696,19 @@
     "31_asset.civil.courtshipBtnAsset.png": "C Cầu hôn",
     "4_asset.civil.talkBtnAsset.png": "88 Chat mật"
   },
-  "oldTrainer.swf": {
-    "4_asset.trainer.guide.guide.png": "Chúng ta thử uy lực của vũ khí mới\nxem. Nhắn xác nhận sau đó tiếp tục\nhuấn luyện tân thủ."
-  },
+  "oldTrainer.swf": {},
   "effort.swf": {
     "10_asset.Effort.RewardBtn.png": "Nhận",
     "13_asset.Effort.item_02.png": "Đã hoàn thành",
     "14_asset.Effort.item_01.png": "Toàn bộ"
   },
-  "guildmemberweek.swf": {
-    "6_asset.guildmemberweek.AddRankingFrame.PlayerPoint.png.png": "lHiệnTcó] PxuPinayinhâpTsó)XuTgópŠ"
-  },
+  "guildmemberweek.swf": {},
   "email.swf": {
     "10_asset.email.selectAllBtn2.png": "Chọn hết",
     "35_asset.email.factorage.png": "Phí: 100 vàng",
     "31_asset.email.helpPage.png": "hướng dẫn",
     "11_asset.email.selectAllBtn1.png": "Chọn hết",
     "2_asset.email.writingViewTitle.png": "Viết thư",
-    "26_asset.email.moneyInputImg.png": "xu EwxỄẼ._;",
     "34_asset.email.friendBtn.png": "m Bạn bè",
     "17_asset.email.prompt.png": "Nhắc nhở: Đây là thư gửi thông thường, xm chú ý, đề phỏng lửa gạt",
     "13_asset.email.reciveMailBtn2.png": "Nhận đính kèm",
@@ -845,8 +748,7 @@
     "34_asset.club.applyBtn.png": "(4Xingia nhập!",
     "33_asset.club.applyRecordBtn1.png": "Đơn xin",
     "27_asset.club.consortionLists.png": "Danh sách Gưild",
-    "31_asset.club.canelApply.png": "Hủy xin phép,",
-    "6_asset.club.memberNums.png": "INGƯỜI"
+    "31_asset.club.canelApply.png": "Hủy xin phép,"
   },
   "labyrinth.swf": {
     "17_ddt.labyrinth.startGmaeBtn.png": "IBắt1đàu J",

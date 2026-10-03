@@ -673,3 +673,54 @@ parar, resetar, tentar de novo). Dimensionar como tarefa própria — não cabia
 `pnpm --filter game test` / `pnpm --filter @ddt/fight test`: suites completas verdes (apps/game 117+2 testes,
 @ddt/fight 159+1) depois desta revisão. `docs/qa-matrix.json`/`QA-MATRIX.md`/`REVISIT.md` regenerados
 (`npx tsx tools/qa/gen-matrix.ts && npx tsx tools/qa/gen-revisit.ts`).
+
+## Varredura visual PT-BR + correção de 2 bugs no pipeline de imagens (agente 2026-10-03)
+
+Resposta a um report do usuário jogando o cliente real: "muitos botões continuam em vietnamita; alguns botões
+ficaram QUEBRADOS pela nossa substituição de imagem; a tela de loading continua a vietnamita antiga." Varredura
+completa com Playwright (login real, `/play`, 17 janelas: loading, hall, bag/personagem/pets/totem, shop, mail,
+amigos, guild, lista de salas, masmorra, eventos/calendário, leilão, configurações) documentada em
+`research/i18n/ui-sweep.md`. Achados completos lá; resumo:
+
+1. **2 bugs reais no pipeline, corrigidos** (`tools/i18n/images/lookup.mjs`):
+   - Ruído de OCR (glyph de ícone decorativo lido como 1-3 símbolos soltos colados ao texto, ex. `, bảng đổi màu`)
+     sobrevivia literalmente na legenda renderizada quando o match era via substring do glossário (`, tabela de
+     cores`) — era exatamente a classe de "botão quebrado" reportada. Corrigido com `cleanOcrNoise()`.
+   - O regex de verificação "ainda tem vietnamita?" (usado por `run-remaining.mjs` pra decidir se reverte uma
+     imagem recém-renderizada) incluía acentos que o PORTUGUÊS também usa (ã, â, ô, é, í, ó, ú...) — qualquer
+     render PT-BR correto contendo um desses era rejeitado e **revertido pro vietnamita por engano**. Esse é
+     provavelmente o maior contribuinte pro "ainda não traduziu" relatado: traduções corretas estavam sendo
+     descartadas pelo próprio gate de qualidade. Corrigido com `VN_ONLY_RE` (só diacríticos que não existem em
+     português: đ, ă, ơ, ư, dot-below, hook-above, vogais com diacrítico duplo empilhado, ì/ù/ỳ).
+   - Reconciliação (`tools/i18n/images/fix-garbled.mjs`, script novo): re-traduziu e re-verificou as 784 linhas de
+     `targets.json` com a lógica corrigida — **690 imagens re-renderizadas e melhoradas**, **94 revertidas** pro
+     pixel original (OCR era majoritariamente arte pintada ilegível / substituição parcial de glossário deixando
+     mistura vi+pt sem sentido — logadas pro lote de IA em vez de serem publicadas quebradas). 87 SWFs
+     reempacotados. Amostra visual em `research/i18n/before-after.html` (67 pares, lista completa nos logs
+     `fix-garbled-{improved,revert}-log.json` do scratchpad + `targets.json`).
+2. **Maior lacuna remanescente — texto nativo/dinâmico, fora do alcance do pipeline de imagens**: um conjunto grande
+   e consistente de labels curtos (slots de equipamento, headers de tabela Tên/Cấp/Hạng/Trạng thái, paginação
+   Trước/Sau, filtro Nam/Nữ, botões Mua/Giỏ hàng/Tìm/Tổ đội/Bắt đầu/Xóa) não existe como bitmap em nenhum SWF
+   escaneado (`image-inventory.json`) nem como texto estático SWF (`ffdec -export text` vazio nos SWFs donos). Uma
+   chave de exemplo (`tank.data.EquipType.head`) ESTÁ em `language.txt` e ESTÁ traduzida corretamente no arquivo
+   servido (confirmado via `curl /flash/ui/vietnam/language.txt` → "Chapéu") mas o cliente ao vivo ainda mostra
+   "Nón" — a fonte real desses labels não foi localizada (não está em `core.swf`/`corei.swf`/`coreii.swf`).
+   Precisa de uma tarefa dedicada pra rastrear o call-site real do `LanguageMgr`/componente antes de tentar
+   corrigir — não é um problema de imagem.
+3. **Bug de fonte dropando diacríticos exclusivos do vietnamita** (đ, ă, ơ, ư, dot-below, hook-above) em alguns
+   TextFields dinâmicos: "Đồng ý"/"Hủy bỏ" (Configurações) viram "Đng ý"/"Hy b", um assunto de email vira "Đn bù bo
+   tri", uma lista de evento vira "Tng nhng vt phm h tr...". Confirmado que NÃO é o arquivo de fonte (renderizei
+   `NotoSans-Regular.ttf` via `@napi-rs/canvas` pros caracteres em questão — todos têm tinta/glyph) — é uma
+   interação Ruffle×fonte-embutida-no-SWF, fora do escopo desta tarefa. Reportado pro dono do `GameFrame.tsx`.
+4. **Tela de loading**: splash `DDT_Loading.swf::25.png` continua pendente de IA (já estava em `needs-ai.md`); além
+   disso o HUD do minigame ("điểm : 0", "Đang tải[Bản mẫu]: 12/13" — note o placeholder `[Bản mẫu]` nunca
+   substituído) nunca foi escaneado — não está no `image-inventory.json`. Pendente de um scan dedicado.
+5. **2 bugs de layout encontrados, não corrigidos** (precisam editar posição no display-list do SWF, não
+   conteúdo): checkboxes "Conjunto"/"Asas" sobrepostos no `shop.swf` (confirmado que cada PNG renderiza correto
+   isoladamente — é posição, não conteúdo); barra de botões do mail (`email.swf`) com 4 botões cuja soma de
+   largura em PT-BR estoura a linha de largura fixa.
+6. **Typo encontrado**: aba do Guild mostra "Pontes de Contribuição Semanal" (deveria ser "**Pontos**") — fonte da
+   string não localizada (provavelmente `app.Translations` no DB, não nos arquivos de texto do cliente/servidor).
+
+Detalhe janela-a-janela, mais itens menores (botão "Thêm bạn" do mail sem tradução encontrada por OCR
+irreconhecível, truncamento sem reticências do nome de canal/rank de guild) em `research/i18n/ui-sweep.md`.

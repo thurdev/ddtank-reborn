@@ -17,6 +17,10 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createWorker } from "tesseract.js";
 import { replaceImageText, closeWorker } from "./replace.mjs";
+// Vietnamese-ONLY diacritic signature (excludes á/â/ã/é/ê/í/ó/ô/õ/ú/ç, which Portuguese also uses — the earlier
+// version of this regex matched those too and wrongly flagged correct PT-BR renders as "still Vietnamese"; see
+// lookup.mjs VN_ONLY_RE / docs/BACKLOG.md image-pipeline bugfix note).
+import { VN_ONLY_RE as VN_RE } from "./lookup.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..", "..", "..");
@@ -29,7 +33,6 @@ const LIMIT = argv.limit ? Number(argv.limit) : Infinity;
 const PRIO_FILTER = argv.priority ? new Set(argv.priority.split(",").map(Number)) : null;
 const CONF_THRESHOLD = argv.conf ? Number(argv.conf) : 35;
 
-const VN_RE = /[àáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵ]/i;
 const norm = (s) => (s || "").replace(/\s+/g, " ").trim();
 
 const inv = JSON.parse(readFileSync(join(ROOT, "research/i18n/image-inventory.json"), "utf8"));
