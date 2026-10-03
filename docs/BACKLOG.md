@@ -567,9 +567,7 @@ Combate 39→36 pendências (4 missing→0), Bolsa 22→20 (13 missing→0), Fer
   no-op/mortos no `Game.Logic/Cmd/*.cs` original (grep de todo `[GameCommand(...)]`). Dispatcher 91 GAME_CMD
   virou `implemented` (era `partial`).
 - **Pendências reais que ficaram** (não são "não verificado", são lacunas de verdade, citadas em HANDLERS.md):
-  - 137 DELIVER (`TransmissionGateCommand.cs`): pronto no original (ready-check entre andares de masmorra PvE),
-    não portado — precisa do encadeamento de andares de PvE, que não existe neste motor (mesma lacuna do tipo de
-    sala do Labirinto).
+  - ~~137 DELIVER~~ **portado na sessão 2026-10-03** — ver "Revisão QA 2026-10-03" no fim deste arquivo.
   - **Card_Buff (bônus de conjunto de cartas) + efeitos de gema/equipamento/habilidade de guilda durante a
     luta**: `vendor/DDTank41/Game.Logic/CardEffect/Effects/*.cs` tem ~25 classes de bônus de conjunto
     (FourArtifacts, FiveGodSoldier, Goblin, GuluKingdom, ShadowDevil, TimeVortex, WarriorsArena, ...) — nenhuma
@@ -581,3 +579,86 @@ Combate 39→36 pendências (4 missing→0), Bolsa 22→20 (13 missing→0), Fer
     cobra Xu (486/437 VIP), que é o caminho comum.
   - 120 ITEM_TREND/`Item_Refinery`: útil só se alguém popular a tabela (admin panel) — hoje é inofensivo mas
     inerte.
+
+## Revisão QA 2026-10-03 — Eventos/Atividades, Casamento, Fazenda, Missões, PvE/Masmorras, Boss mundial
+
+Passagem pedida pelo usuário sobre `docs/REVISIT.md`: cada linha "missing"/"stub"/"partial" dessas 6 áreas revisada
+(implementada ou confirmada morta no original com evidência); itens "ok (não verificado)" verificados por teste de
+protocolo com o layout real de pacotes (stack rodando, orçamento estrito de screenshots: só o necessário).
+
+**Implementado (achados reais, citados no C#):**
+- **137 DELIVER** (`TransmissionGateCommand.cs`, GAME_CMD): o jogador ganha Ready=true ao pisar no portão entre
+  sessões de uma masmorra PvE multi-andar (só liga, nunca desliga, sem eco — diferente do checkbox 116
+  MISSION_PREPARE) e chama `checkState(0)`. `packages/fight/src/pve/game.ts` (`case "DELIVER"`) +
+  `apps/game/src/fight/ddt.ts` (`parsePveCommand` sub 137). Teste:
+  `packages/fight/test/pve.test.ts` "dungeon floor chaining also works via GAME_CMD 137 DELIVER" (reusa a fixture
+  Pve 2 "Ant Cave" de 2 andares já existente, trocando MISSION_PREPARE por DELIVER).
+- **82 GAME_MISSION_START** (`GameUserStartHandler.cs`), achado real durante a varredura de PvE/Masmorras: o
+  cliente AS3 (`MissionRoomView.as`, usado por salas FightLab/roomType 5) **substitui** o 94/7 GAME_START normal
+  por este pacote assim que uma masmorra multi-andar já está em curso (entre andares) — sem handler, o jogo ficava
+  parado em SessionPrepared/GameOver a partir do 2º andar e o cliente real não tinha como avançar. Implementado
+  como `Fight.missionStart()` (reusa a semântica do 137 DELIVER, mas força Ready em todo jogador da sala, sem
+  checagem de host, igual ao original) + `apps/game/src/handlers/rooms.ts`. Teste: `apps/game/test/fight.test.ts`
+  "82 GAME_MISSION_START".
+- **85 MATE_ONLINE_TIME** (`MateTimeHandler.cs`), achado na varredura de Casamento: responde o `LastDate` de
+  qualquer jogador (online, offline via `Sys_Users_Detail`, ou agora() se não existir) — usado pela capela pra
+  mostrar "visto por último" do cônjuge offline. `apps/game/src/handlers/marriage.ts`. Teste:
+  `apps/game/test/marriage-farm-auction.test.ts` "85 MATE_ONLINE_TIME" (online, offline, id inexistente).
+
+**Confirmado morto no original (evidência nova em `tools/qa/overrides.json`, sem mudar status — mesma convenção
+dos lotes anteriores, "decidir depois" fica documentado em vez de implementado do zero):**
+- 50 FIGHT_NPC: `sendBeginFightNpc()` existe no `GameSocketOut.as` mas **nenhum arquivo do cliente a chama**
+  (grep completo) e não há `[PacketHandler(50,...)]` no original — morto dos dois lados.
+- 167 CHURCH_MOVIE_OVER: mesmo padrão de 50 (função existe, nunca chamada; sem handler no original).
+- 31 GOODS_EXCHANGE, 32 COLLECTINFO, 89 QUESTION_REPLY: estes **são** chamados pelo cliente
+  (`GoodsExchangeView.as`, `InfoCollectView.as`, `QuestionInfoMannager.as`) mas não há handler nenhum no
+  `Game.Server` original — pacote sempre descartado, já no jogo de origem.
+- 91/TRY_AGAIN sendMissionTryAgain: `TryAgainCommand.cs` do donor server *sempre* desiste (WantTryAgain=0,
+  Stop()) — a lógica de retry pago está só como bloco comentado morto (com uma mensagem de "recurso em
+  desenvolvimento" no meio). O port replica fielmente: "tentar de novo" sempre fecha a sessão, não é lacuna.
+
+**Confirmado real, porém grande demais pra esta sessão (tamanho citado, documentado em vez de implementado):**
+- 84 ACTIVITY_PACKAGE / chick activation (3 linhas da matriz): `ActivityPackageHandler.cs` tem 668 linhas; o
+  sub CHICKACTIVATION é um sistema de código de ativação de 14 caracteres com prêmio por faixa de nível dentro de
+  60 dias. Tabela `Activity_System_Item` já migrada, falta o handler + UI admin.
+- 166 LITTLEGAME_COMMAND: o handler em si é um relay de 13 linhas (`LittleGameHandler.cs`) pra um subsistema
+  inteiro de minigame da fonte termal em `Game.Server/LittleGame/*` (22 arquivos — mundo, posição, clique,
+  pontuação). Nada portado ainda.
+- 15 USER_ANSWER (syncStep/syncWeakStep): sistema de progresso de tutorial (`enum Step`, ~90 marcos tipo
+  POP_WELCOME/BAG_OPEN_SHOW). Campo `PlayerInfo.AnswerSite` já existe e é persistido, mas nada escreve nele —
+  sem handler pro código 15. Baixo impacto de gameplay (bookkeeping de popups já cobertos por outro caminho no
+  tutorial Freshman).
+
+**Verificado por teste de protocolo (layout real de pacotes, servidor real rodando via `startServer()`/`FakeClient`
+— não clicado no Ruffle: a sessão abriu o client real em `localhost:5173/play` e confirmou que a UI do Flash roda
+num `<canvas>` sem árvore de acessibilidade, então qualquer fluxo multi-tela exigiria vários screenshots só pra
+navegar — incompatível com o orçamento de 3 screenshots pedido para as 5 áreas; protocolo real ficou mais barato e
+determinístico, e é o padrão que o resto desta base já usa):**
+- **Casamento** (`apps/game/test/marriage-farm-auction.test.ts` "247/250 MARRY_APPLY..."): fluxo completo
+  proposta (247, consome o anel) → aceite (250, casa os dois) → cria a capela (241, cobra
+  `PRICE_MARRY_ROOM`) → cônjuge entra na mesma sala (242) → inicia o casamento (249/HYMENEAL=2, ambos os
+  clientes recebem started=true, anéis por correio na primeira vez).
+- **Fazenda** (mesmo arquivo, "81 FARM — plant, fast-forward, harvest"): planta semente real da FarmBag
+  (332100 Lúa Mì) via GROW_FIELD, acelera via FRAM_GROP_FASTFORWARD (cobra Money, soma AccelerateTime), colhe
+  via GAIN_FIELD (exige `isRipe`, entrega Property2 unidades do item Property4 na bolsa), replanta em seguida.
+  Achado de leitura: a resposta das três (`fieldPacket`) sempre usa sub 17 (FARM_LAND_INFO), não ecoa o sub da
+  requisição — documentado no comentário do teste pra não confundir o próximo agente.
+- **Missões** (`apps/game/test/quests.test.ts`, já existia e segue verde): claim completo (179 REQUEST_UPDATE)
+  com progresso rastreado, prêmio pago (Gold) e persistido em `QuestData`.
+- **PvE mission win / board de cartas fecha após vitória** (`packages/fight/test/pve-cards.test.ts`, já existia
+  e segue verde): última sessão de uma masmorra vencida → 2 cartas, auto-pick ao Stop, `SHOW_CARDS` (89) —
+  o desvio documentado (original travava em "00") já estava corrigido e testado.
+- **Boss mundial**: `worldBossDamage()` (chamado via `onWorldBossHurt` quando `roomType===14`, ligado à engine
+  real em `apps/game/src/server.ts:163` / `apps/game/src/fight/ddt.ts:415`) reduz o HP global e paga ranking —
+  coberto em `apps/game/test/events.test.ts` "weekly reset runs once per window; world boss ranking rewards
+  once"; confirmação visual no cliente real não repetida nesta sessão (evidência histórica já existe em
+  `research/e2e/events/e19-boss-fight.png` de uma sessão anterior).
+
+**Labirinto (tipo de sala PvE)**: continua a maior lacuna real da área PvE — `myProgress` (andar vencido por
+combate de verdade) fica em 0 pra todo mundo porque o tipo de sala/engine do Labirinto nunca foi portado (a
+camada 131 já implementada é só o lado administrativo/econômico: dobrar prêmio, limpar automático, acelerar,
+parar, resetar, tentar de novo). Dimensionar como tarefa própria — não cabia no orçamento desta sessão.
+
+`pnpm --filter game test` / `pnpm --filter @ddt/fight test`: suites completas verdes (apps/game 117+2 testes,
+@ddt/fight 159+1) depois desta revisão. `docs/qa-matrix.json`/`QA-MATRIX.md`/`REVISIT.md` regenerados
+(`npx tsx tools/qa/gen-matrix.ts && npx tsx tools/qa/gen-revisit.ts`).

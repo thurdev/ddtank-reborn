@@ -42,6 +42,8 @@ export interface FightGame {
   /** Member left the room/disconnected (BaseGame.RemovePlayer). */
   removePlayer(p: RoomMember): void;
   stop(): void;
+  /** GameUserStartHandler (82 GAME_MISSION_START): force every player Ready. PvE only; no-op/absent for PvP. */
+  missionStart?(): void;
 }
 
 export interface FightEngine {

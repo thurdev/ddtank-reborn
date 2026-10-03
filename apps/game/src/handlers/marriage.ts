@@ -252,6 +252,18 @@ export function registerMarriage(r: HandlerRegistry): void {
   const cmd = marryCmdRouter();
   r.player(249, "MARRY_CMD", cmd.handler, "partial");
 
+  // MateTimeHandler.cs (85): int userId -> that player's last-login date (now, if the row can't be found at all);
+  // the chapel UI uses it to show "last seen" for an offline spouse. Not gated to the spouse — the original
+  // handler answers for any userId, online or not.
+  r.player(85, "MATE_ONLINE_TIME", async (ctx, p, pkt) => {
+    const id = pkt.readInt();
+    const online = ctx.world.get(id);
+    const lastDate = online ? online.info.LastDate : (await ctx.db.db.select({ LastDate: DETAIL.LastDate }).from(DETAIL).where(eq(DETAIL.UserID, id)).limit(1))[0]?.LastDate ?? new Date();
+    const o = new PacketOut(85);
+    Out.wd(o, lastDate);
+    p.send(o);
+  });
+
   r.player(246, "MARRY_STATUS", async (ctx, p, pkt) => { // int userId
     const id = pkt.readInt();
     const online = ctx.world.get(id);

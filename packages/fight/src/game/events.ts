@@ -303,4 +303,5 @@ export type FightCommand =
   | { cmd: "TAKE_CARD"; index: number }
   | { cmd: "PASS_DRAMA"; pass: boolean }
   | { cmd: "TRY_AGAIN"; tryAgain: number; isHost: boolean }
-  | { cmd: "MISSION_EVENT"; data: number[] };
+  | { cmd: "MISSION_EVENT"; data: number[] }
+  | { cmd: "DELIVER"; ready: boolean };

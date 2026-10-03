@@ -744,7 +744,7 @@
   "sub": "",
   "server": "missing",
   "verified": "no",
-  "notes": "",
+  "notes": "Real no original, não lacuna de fidelidade — subsistema inteiro não portado ainda (orçamento): LITTLEGAME_COMMAND (código 166) é só um relay fino (LittleGameHandler.cs, 13 linhas: client.Player.LittleGame?.ProcessData(...)) para um minigame completo da fonte termal em vendor/DDTank41/Game.Server/LittleGame/* (22 arquivos: LittleGameWorldMgr, LittleGameLogicProcessor, handlers de EnterWorld/LeaveWorld/Move/Click/CancelClick/PosSync/ReportScore — um jogo de posição/clique em tempo real dentro da sala de spa, Source Flash/src/littleGame/LittleGameManager.as no cliente). Nenhuma parte foi portada; nenhuma tabela/estado equivalente existe em apps/game. Tamanho comparável ao chick activation (84) — fora do orçamento desta sessão.",
   "evidence": ""
  },
  {
@@ -896,9 +896,9 @@
   "code": 85,
   "name": "MATE_ONLINE_TIME",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "MATE_ONLINE_TIME implementado (MateTimeHandler.cs, apps/game/src/handlers/marriage.ts): int userId -> responde com o LastDate daquele jogador (online: valor em memória; offline: linha de Sys_Users_Detail; desconhecido: agora). Usado pela capela pra mostrar 'visto por último' do cônjuge offline. Testado em apps/game/test/marriage-farm-auction.test.ts (online, offline via DB, userId inexistente), não clicado no cliente real.",
   "evidence": ""
  },
  {
@@ -926,7 +926,7 @@
   "sub": "",
   "server": "missing",
   "verified": "no",
-  "notes": "",
+  "notes": "Morto no original dos dois lados: GameSocketOut.as define sendChurchMovieOver() (PackageOut(CHURCH_MOVIE_OVER=167)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e nenhum [PacketHandler(167,...)] existe em Game.Server. Status 'missing' aqui é fidelidade, não lacuna.",
   "evidence": ""
  },
  {
@@ -985,8 +985,8 @@
   "name": "MARRY_ROOM_CREATE",
   "sub": "",
   "server": "partial",
-  "verified": "no",
-  "notes": "",
+  "verified": "yes",
+  "notes": "Fluxo completo testado de ponta a ponta com o layout real de pacotes (apps/game/test/marriage-farm-auction.test.ts '247/250 MARRY_APPLY...'): 247 propõe (anel consumido) -> 250 aceita (ambos IsMarried) -> 241 cria a capela (cobra PRICE_MARRY_ROOM, IsCreatedMarryRoom=true, SelfMarryRoomID setado) -> 242 noivo recebe o ack (roomInfoPacket + bool true) -> 242 noiva entra na mesma sala -> 249/2 HYMENEAL inicia o casamento, ambos os clientes recebem started=true. Não clicado no Ruffle real (orçamento de screenshots), mas verificado byte a byte contra o formato confirmado em ChurchManager.as.",
   "evidence": ""
  },
  {
@@ -1032,8 +1032,8 @@
   "name": "MARRY_APPLY",
   "sub": "",
   "server": "ok",
-  "verified": "no",
-  "notes": "",
+  "verified": "yes",
+  "notes": "MARRY_APPLY testado de ponta a ponta (apps/game/test/marriage-farm-auction.test.ts): consome o anel (11103) já na bolsa em vez de comprar, recusa mesmo sexo/já casado, grava Marry_Apply e notifica o alvo (247 com proposerId/nick/mensagem/answerId). Ver 241:sendCreateRoom (continuação do mesmo teste até a capela).",
   "evidence": ""
  },
  {
@@ -1182,8 +1182,8 @@
   "name": "MARRY_CMD",
   "sub": "HYMENEAL=2",
   "server": "partial",
-  "verified": "no",
-  "notes": "",
+  "verified": "yes",
+  "notes": "Ver 241:sendCreateRoom — mesmo teste cobre 249/HYMENEAL=2: primeira vez (IsGotRing=false em ambos) manda os anéis por correio e grava IsMarried/IsGotRing sem cobrar Xu; broadcast 249/2 roomId+started=true chega pros dois clientes. Não clicado no Ruffle real, verificado por teste de protocolo com os codes/subs reais.",
   "evidence": ""
  },
  {
@@ -1212,8 +1212,8 @@
   "name": "MARRY_APPLY_REPLY",
   "sub": "",
   "server": "ok",
-  "verified": "no",
-  "notes": "",
+  "verified": "yes",
+  "notes": "MARRY_APPLY_REPLY testado: aceitar casa os dois (IsMarried/SpouseID nos dois lados), recusar manda a 'carta de bom moço' por correio. Ver 241:sendCreateRoom.",
   "evidence": ""
  },
  {
@@ -1627,7 +1627,7 @@
   "sub": "",
   "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "TryAgainCommand.cs (sub 119 GAME_MISSION_TRY_AGAIN) no C# live deste donor server toma SEMPRE o ramo de desistir: WantTryAgain=0, Stop(), SendMissionTryAgain() — a lógica de retry pago (cobrar TryAgainCost em Xu e voltar pra mesma sessão) está presente só como bloco comentado, com uma mensagem fixa de 'recurso em desenvolvimento' no meio do código morto. Ou seja: 'tentar de novo' sempre fecha a sessão no original de verdade, não é uma lacuna do port. apps/game/src/fight/ddt.ts (case TRY_AGAIN) replica esse comportamento 1:1 (WantTryAgain forçado a 0, sempre fecha). Verificado lendo TryAgainCommand.cs:9-96 inteiro (o ramo ativo termina na linha 23; o resto é comentário).",
   "evidence": ""
  },
  {
@@ -1713,9 +1713,9 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "DELIVER=137",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "DELIVER (sub 137, TransmissionGateCommand.cs) é real no original (marca o jogador Ready entre fases de masmorra multi-andar e chama game.CheckState) mas não foi portado nesta sessão — a funcionalidade de encadeamento de andares de PvE que ele desbloqueia não existe neste motor ainda (mesma lacuna do tipo de sala PvE do Labirinto, ver BACKLOG/HANDLERS.md). O pacote é lido e descartado sem travar a conexão (confirmado em apps/game/test/fight.test.ts).",
+  "notes": "DELIVER (sub 137, TransmissionGateCommand.cs) agora portado: stepping no portão marca Player.Ready=true (só liga, nunca desliga, sem eco — diferente do checkbox 116 MISSION_PREPARE) e chama game.CheckState(0), desbloqueando o encadeamento de andares multi-sessão de masmorra (apps/game/src/fight/ddt.ts parsePveCommand sub 137 -> packages/fight/src/pve/game.ts case DELIVER). Testado em packages/fight/test/pve.test.ts ('dungeon floor chaining also works via GAME_CMD 137 DELIVER'), não clicado no cliente real.",
   "evidence": ""
  },
  {
@@ -2204,7 +2204,7 @@
   "sub": "ChickActivationType.CHICKACTIVATION=2",
   "server": "missing",
   "verified": "no",
-  "notes": "",
+  "notes": "Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:198+), prêmio por faixa de Grade dentro de 60 dias do resgate (chickInfo.KeyOpenedTime.AddDays(60)).",
   "evidence": ""
  },
  {
@@ -2219,7 +2219,7 @@
   "sub": "ChickActivationType.CHICKACTIVATION=2",
   "server": "missing",
   "verified": "no",
-  "notes": "",
+  "notes": "Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:171-197), código de 14 caracteres resgatado uma vez (IsKeyOpened).",
   "evidence": ""
  },
  {
@@ -2234,7 +2234,7 @@
   "sub": "ChickActivationType.CHICKACTIVATION=2",
   "server": "missing",
   "verified": "no",
-  "notes": "",
+  "notes": "Real no original (não é lacuna de fidelidade, é feature grande não portada ainda por orçamento): ActivityPackageHandler.cs (668 linhas, sub ACTIVITY_PACKAGE=84) trata ChickActivationType.CHICKACTIVATION (linhas 135-250ish) como um sistema de 'código de ativação' de 14 caracteres (QUERY consulta UserChickActiveInfo/IsKeyOpened; OPENKEY resgata o código; GETAWARD paga um prêmio por faixa de nível — m_gradeList {10,20,30,40,45,50,55,60,65} — dentro de 60 dias do resgate). A tabela Activity_System_Item já foi migrada para Postgres, mas falta o UserChickActiveInfo/handler em apps/game e a UI admin pra cadastrar códigos. Ver BACKLOG.md 'Não portado nesta batch'.",
   "evidence": ""
  },
  {
@@ -2694,8 +2694,8 @@
   "name": "FARM",
   "sub": "ENTER_FARM=1",
   "server": "partial",
-  "verified": "no",
-  "notes": "",
+  "verified": "yes",
+  "notes": "Fluxo plantar->regar->colher testado de ponta a ponta com o layout real de pacotes (apps/game/test/marriage-farm-auction.test.ts '81 FARM — plant, fast-forward, harvest'): ENTER_FARM(1) devolve o snapshot dos 8 campos iniciais. Não clicado no Ruffle real (orçamento de screenshots).",
   "evidence": ""
  },
  {
@@ -2720,8 +2720,8 @@
   "name": "FARM",
   "sub": "FRAM_GROP_FASTFORWARD=18",
   "server": "partial",
-  "verified": "no",
-  "notes": "",
+  "verified": "yes",
+  "notes": "FRAM_GROP_FASTFORWARD(18): cobra FastGrowNeedMoney em Money (ou GiftToken) por campo e soma FAST_GROW_SUB_MIN de AccelerateTime, adiantando a maturação sem esperar o relógio real. Ver 81:enterFarm.",
   "evidence": ""
  },
  {
@@ -2746,8 +2746,8 @@
   "name": "FARM",
   "sub": "GROW_FIELD=2",
   "server": "partial",
-  "verified": "no",
-  "notes": "",
+  "verified": "yes",
+  "notes": "GROW_FIELD(2): consome 1 semente da FarmBag (332100 Lúa Mì testado), grava SeedID/PlantTime/FieldValidDate/GainCount no campo e responde FARM_LAND_INFO (sub 17, não ecoa o sub da requisição). Replantar após colher também testado. Ver 81:enterFarm.",
   "evidence": ""
  },
  {
@@ -2803,8 +2803,8 @@
   "name": "FARM",
   "sub": "GAIN_FIELD=4",
   "server": "partial",
-  "verified": "no",
-  "notes": "",
+  "verified": "yes",
+  "notes": "GAIN_FIELD(4) em campo próprio: exige isRipe (elapsed+AccelerateTime >= FieldValidDate), zera o campo e entrega Property2 unidades do item Property4 na bolsa (propBag aqui; correio se a bolsa estiver cheia). Ver 81:enterFarm.",
   "evidence": ""
  },
  {
@@ -3523,7 +3523,7 @@
   "sub": "",
   "server": "missing",
   "verified": "no",
-  "notes": "",
+  "notes": "Real no original, não lacuna de fidelidade — feature de tutorial não portada ainda (orçamento): UserAnswerHandler.cs (código 15 USER_ANSWER) recebe byte b, int step (enum Step em SqlDataProvider/Step.cs, ~90 marcos tipo POP_WELCOME/BAG_OPEN_SHOW/POP_WIN_I), opcionalmente paga um prêmio via DropInventory.AnswerDrop(step) e sempre grava UpdateAnswerSite(step) (bitmask de progresso, pra retomar o tutorial sem repetir popups). O campo PlayerInfo.AnswerSite já existe (apps/game/src/game/player-info.ts, persistido) mas nada escreve nele ainda — nenhum handler para o código 15. Baixo impacto de gameplay (é bookkeeping de UI do tutorial Freshman, que já funciona via outros meios nesta port — packages/fight/test/pve.test.ts 'freshman 6-2'); mapear as ~90 constantes de Step com precisão ficou fora do orçamento desta sessão.",
   "evidence": ""
  },
  {
@@ -3536,7 +3536,7 @@
   "sub": "",
   "server": "missing",
   "verified": "no",
-  "notes": "",
+  "notes": "Ver 15:syncStep — mesmo handler/código 15 (variante 'weak' = sem o prêmio automático, só grava progresso).",
   "evidence": ""
  },
  {
@@ -3566,7 +3566,7 @@
   "sub": "",
   "server": "missing",
   "verified": "no",
-  "notes": "",
+  "notes": "Chamado pelo cliente (calendar/view/goodsExchange/GoodsExchangeView.as:177) mas sem [PacketHandler(31,...)] em Game.Server — o pedido de troca de itens do calendário é descartado silenciosamente no próprio original (não é um no-op registrado como 128/130, é ausência total de handler, igual 104/105/239). Status 'missing' aqui é fidelidade, não lacuna.",
   "evidence": ""
  },
  {
@@ -3581,7 +3581,7 @@
   "sub": "",
   "server": "missing",
   "verified": "no",
-  "notes": "",
+  "notes": "Chamado pelo cliente (quest/InfoCollectView.as:200) mas sem [PacketHandler(32,...)] em Game.Server — o formulário de 'coleta de informação' (CPF/telefone etc. de alguma campanha) nunca foi implementado no servidor original; o cliente envia e nada responde. Status 'missing' aqui é fidelidade, não lacuna.",
   "evidence": ""
  },
  {
@@ -3596,7 +3596,7 @@
   "sub": "",
   "server": "missing",
   "verified": "no",
-  "notes": "",
+  "notes": "Chamado pelo cliente (ddt/manager/QuestionInfoMannager.as:85) mas sem [PacketHandler(89,...)] em Game.Server — resposta a uma pergunta (survey/quiz de evento) nunca implementada no original. Status 'missing' aqui é fidelidade, não lacuna.",
   "evidence": ""
  },
  {
@@ -4352,7 +4352,7 @@
   "sub": "",
   "server": "missing",
   "verified": "no",
-  "notes": "",
+  "notes": "Morto no original dos dois lados: GameSocketOut.as define sendBeginFightNpc() (PackageOut(FIGHT_NPC=50)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e o servidor não registra [PacketHandler(50,...)] em Game.Server/Fighting.Server (o 'FIGHT_NPC=88' de Game.Logic/Protocol/eFightPackageType.cs é um protocolo interno Center<->Fighting diferente, não o pacote de cliente). Status 'missing' aqui é fidelidade, não lacuna.",
   "evidence": ""
  },
  {
@@ -4365,9 +4365,9 @@
   "code": 82,
   "name": "CrazyTankPackageType.GAME_MISSION_START",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "GAME_MISSION_START implementado (GameUserStartHandler.cs, apps/game/src/handlers/rooms.ts + Fight.missionStart em apps/game/src/fight/ddt.ts): bool flag; se true, força Ready=true em todo jogador do jogo PvE da sala atual e chama checkState(0) (sem checagem de host no original). É isto que o MissionRoomView.as do cliente envia, no lugar de 94/7 GAME_START, ao clicar 'Iniciar' entre sessões de uma masmorra multi-andar tipo FightLab (roomType 5) já em andamento — sem este handler o jogo ficava parado em SessionPrepared/GameOver a partir do 2º andar. Reusa a semântica de 137 DELIVER (só liga Ready, sem eco). Testado em apps/game/test/fight.test.ts ('82 GAME_MISSION_START ... forwarded to the room's active game.missionStart()'), não clicado no cliente real.",
   "evidence": ""
  },
  {

@@ -137,7 +137,16 @@ export function registerRooms(r: HandlerRegistry): SubRouter {
     o.writeInt(p.info.VIPLevel); o.writeString(room.Name); o.writeString(room.Password); o.writeInt(-1); o.writeBoolean(room.isOpenBoss);
     target.send(o);
   });
-  // 82 / 86 host start shortcuts.
+  // GameUserStartHandler.cs: bool flag; if (flag && currentRoom != null) RoomMgr.StartGameMission(currentRoom) ->
+  // game.MissionStart(host) -> every Player.Ready = true + CheckState(0). No host check in the original. This is
+  // what the AS3 client's MissionRoomView.startGame() sends INSTEAD of 94/7 GAME_START for FightLab (roomType 5)
+  // rooms (BaseRoomView.startGame() sends 94/7; MissionRoomView overrides it to send 82) — without this handler a
+  // FightLab mission's PVEGame sits in SessionPrepared/GameOver forever past floor 1.
+  r.player(82, "GAME_MISSION_START", (_ctx, p, pkt) => {
+    const flag = pkt.readBoolean();
+    if (flag && p.currentRoom) p.currentRoom.game?.missionStart?.();
+  });
+  // 86 host start shortcut.
   r.player(86, "QUEST_ONE_KEY_FINISH(start)", (ctx, p) => {
     if (p.currentRoom && p.currentRoom.host === p) ctx.rooms.startGame(p.currentRoom);
   });

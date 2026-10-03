@@ -22,6 +22,19 @@ function play(game: PveGame, bots: BotRunner, until: (e: FightEvent[]) => boolea
   return { all, now: maxMs };
 }
 
+/** Same as play(), but readies players via DELIVER (137, TransmissionGateCommand — the physical gate) instead of
+ * MISSION_PREPARE (116, the UI checkbox): both are independent C→S paths to the same Player.Ready flag. */
+function playViaGate(game: PveGame, bots: BotRunner, until: (e: FightEvent[]) => boolean, maxMs = 1_800_000) {
+  const all: FightEvent[] = [];
+  for (let now = 0; now < maxMs; now += 40) {
+    const ev = [...game.update(now), ...bots.update(now)];
+    if (game.state === GameState.SessionPrepared && game.turnIndex !== 0) for (const p of game.players) ev.push(...game.handle(p.spec.userId, { cmd: "DELIVER", ready: true }, now));
+    all.push(...ev);
+    if (until(all) || game.state === GameState.Stopped) return { all, now };
+  }
+  return { all, now: maxMs };
+}
+
 function newGame(pveId: number, roomType: number, players: PlayerSpec[], seed = 3, hardLevel = 0) {
   const game = new PveGame({ id: 1, roomType, gameType: roomType === 4 ? 7 : 10, timeType: 3, assets, players, seed, pveInfo: pves.get(pveId)!, hardLevel, data, drops: { copyDrop: () => [{ templateId: 11020, count: 1 }] } });
   const bots = new BotRunner(game, new Map(players.map((p) => [p.userId, { difficulty: 100 }])), 5);
@@ -72,6 +85,14 @@ describe("PvE engine", () => {
     expect(game.missingScripts).toEqual([]);
     const over = all.find((e) => e.cmd === "GAME_MISSION_OVER");
     expect(over).toBeDefined();
+  });
+
+  it("dungeon floor chaining also works via GAME_CMD 137 DELIVER (the gate), not just 116 MISSION_PREPARE", () => {
+    const { game, bots } = newGame(2, 4, [spec(1, { grade: 10, hp: 3000, attack: 400 }), spec(2, { grade: 10, hp: 3000, attack: 400 })], 11, 0);
+    const { all } = playViaGate(game, bots, (e) => e.filter((x) => x.cmd === "GAME_MISSION_OVER").length >= 1, 3_600_000);
+    expect(game.Misssions.size).toBeGreaterThan(1);
+    const over = all.find((e) => e.cmd === "GAME_MISSION_OVER");
+    expect(over, "DELIVER never readied players past the gate into floor 2").toBeDefined();
   });
 
   it("missing scripts fall back to the generic AI and never freeze", () => {
