@@ -28,6 +28,14 @@
 </style>
 </head>
 <body>
+<div style="background:#3a1414;border:2px solid #a44;border-radius:8px;padding:14px 18px;margin-bottom:24px;color:#ffd9d9;font-size:14px;line-height:1.5;">
+  <strong>DESCARTADO (2026-10-03):</strong> todo o lote de imagens abaixo (render de legenda, night-grade, dark-mode chrome, dark frames)
+  foi revertido do cliente servido — alguns botões renderizavam quebrados e o filtro de night-grade ficou pior que a arte original.
+  O overlay voltou a ser 100% bitmap vendor; só texto (ABC string literals + static-array lazy getters) continua traduzido, via
+  <code>tools/i18n/build-client-art.mjs</code>. Esta página fica como registro histórico do que foi tentado — não reflete o que está no ar.
+  Ver <code>docs/BACKLOG.md</code> ("Descartado o lote de imagens geradas") e <code>research/i18n/discarded/README.md</code>.
+  Reaplicação futura: remaster por IA image-to-image, não os renders determinísticos abaixo.
+</div>
 <h1>DDTank Reborn — Lote de imagens PT-BR: antes/depois</h1>
 <p class="sub">Amostra representativa das imagens afetadas pela correção do pipeline (ruído de OCR colado na legenda + regex de verificação que confundia acentos do português com o vietnamita). Lista completa em <code>tools/i18n/images/targets.json</code> e nos logs <code>fix-garbled-improved-log.json</code> / <code>fix-garbled-revert-log.json</code>.</p>
 

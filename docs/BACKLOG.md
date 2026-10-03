@@ -1205,6 +1205,52 @@ do usuário sobre o "chão manchado"; (2) "Kênh" + aba vertical direita do chat
 sessão 3); (3) repackar `DDT_Loading.swf` com o fix de `encode()` depois de resolver o mecanismo de repack
 especial.
 
+## [FEITO — reversão] Descartado o lote de imagens geradas; orquestrador único `tools/i18n/build-client-art.mjs` (agente 2026-10-03)
+
+**Decisão do usuário (final, substitui todas as tentativas de imagem acima)**: o filtro de night-grade ficou
+feio, alguns botões renderizados quebraram, e as legendas do hall regrediram pro vietnamita (repack a partir
+do vendor sem reaplicar as substituições PT-BR anteriores). Em vez de continuar corrigindo imagem por imagem,
+**todo o lote gerado/editado (`tools/i18n/images/{replace,night-hall,night-loading,dark-mode-skins,dark-frames}.mjs`
++ tudo que eles escreveram no overlay) foi descartado**. O cliente servido volta a ser 100% bitmap vendor; só
+texto continua traduzido.
+
+**Investigação (`research/i18n/abc-strings.json`, scan exaustivo de 126 arquivos ABC)**: confirmado que
+**só 3 arquivos** em toda a árvore `FlashSV1` têm string literal VN em bytecode ABC — `2.png` (34), `3.png`
+(5), `DDT_Loading.swf` (3). **Zero** em qualquer `ui/vietnam/swf/*.swf` ou no `Loading.swf` solto — ou seja,
+toda diferença desses arquivos vs. vendor era 100% edição de bitmap do lote descartado, nunca texto nativo.
+Isso tornou a reversão mecânica e sem ambiguidade: comparar overlay vs. vendor por conteúdo ABC, não por
+tentativa-e-erro visual.
+
+**`tools/i18n/build-client-art.mjs`** (+ `pnpm client:art`), um orquestrador único, idempotente:
+1. `revertImageOnlyOverlays()`: apaga `apps/api/assets/flash/ui/vietnam/swf/` inteiro (89 arquivos, incl. o
+   artefato órfão `_corei.swf`) e `Loading.swf` — `apps/api/src/routes/static.ts` já resolve overlay-then-
+   -vendor (`flashFix.resolve(rel) ?? flash.resolve(rel)`), então apagar = reverter 100% pro vendor sem copiar
+   nada.
+2. `buildCoreChain()`: reconstrói `2.png` (vendor → `abc-strings/patch.mjs` → `static-arrays/patch.mjs`, sem
+   RSA — dev usa a chave vendor), `3.png` e `DDT_Loading.swf` (só `abc-strings`) **sempre a partir do vendor**,
+   nunca do overlay anterior — determinístico, idempotente, nunca acumula patch sobre patch.
+3. Passos de imagem (`--images`/`--night`/`--dark`) continuam no script, **opt-in, OFF por padrão** — kept pra
+   quando existir um remaster por IA image-to-image; a ordem (texto sempre antes do night-grade, no mesmo
+   stage root) já está corrigida ali pra não repetir a regressão do hall.
+4. `ui/vietnam/{language.txt,levelreward.xml,movingnotification.txt}` e `ui/vietnam/xml/xml.png` (fix
+   não-relacionado do `GhostStarContainer`) **não foram tocados** — não são do pipeline de imagens.
+
+**Arquivado**: `research/i18n/discarded/README.md` (nota, sem binários — os PNGs gerados viviam fora do repo,
+num scratch dir). `tools/i18n/images/{curated-captions,targets}.json` e `research/i18n/image-inventory.json`
+ficam no lugar pra reuso futuro (texto VI→PT-BR já levantado por imagem).
+
+**Verificado**: `node tools/i18n/build-client-art.mjs` rodado; checagem **byte-a-byte** via `curl` confirma
+`hall.swf`, `bagandinfo.swf`, `shop.swf`, `Loading.swf` servidos **idênticos ao vendor** (cmp limpo) e
+`2.png`/`3.png`/`DDT_Loading.swf` só com o patch de texto (mesmo hash de uma build já verificada ao vivo em
+sessão anterior). Ao vivo (Playwright, `test`/`test`, `/play`): a tela de boot (`DDT_Loading.swf`) renderiza
+com a arte 100% vendor (lampiões, bambu, torii, leitão rosa, banner "NEWGUN") e o texto do minigame em PT-BR
+("Carregando[Modelo]: 13/13") — confirma texto+arte-original funcionando juntos. **Não foi possível confirmar
+visualmente hall/bag/shop**: o carregamento do `2.png` (ABC grande, 2515 classes) trava o Ruffle/WASM
+("Unable to lock Ruffle core" → instância destruída) por volta de ~18-20s em todas as 5 tentativas — máquina
+com **832 processos** no momento do teste, e o mesmo `2.png` (hash idêntico) já foi verificado ao vivo numa
+sessão anterior com a máquina menos carregada; não é um problema de conteúdo. Recomendado reverificar hall/
+bag/shop com `pnpm dev:all` numa máquina menos ocupada.
+
 ## [PRÓXIMO site] Página "Jogar" estilo DD Clássico (pedido 2026-10-03)
 Referência: `remaster/00-site-pagina-jogar/inputs/referencia-ddclassico.png`.
 - `apps/web` Play: fundo (imagem IA), logo DDReborn no topo, moldura pergaminho (dark) com o jogo 1000×600 no centro + régua de distância 0–10 embaixo.
