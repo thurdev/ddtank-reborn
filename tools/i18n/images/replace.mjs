@@ -157,7 +157,7 @@ export async function replaceImageText(srcPath, outPath, newText, opts = {}) {
     H = meta.height;
 
   const box = opts.box || (await ocrBBox(raw)) || { x0: Math.round(W * 0.06), y0: Math.round(H * 0.12), x1: Math.round(W * 0.94), y1: Math.round(H * 0.88), lineCount: 1 };
-  const pad = Math.max(3, Math.round((box.y1 - box.y0) * 0.22));
+  const pad = Math.max(3, Math.round((box.y1 - box.y0) * 0.22 * (opts.padScale || 1)));
   const bx0 = Math.floor(clamp(box.x0 - pad, 0, W - 1));
   const by0 = Math.floor(clamp(box.y0 - pad, 0, H - 1));
   const bx1 = Math.ceil(clamp(box.x1 + pad, 1, W));
@@ -200,7 +200,7 @@ export async function replaceImageText(srcPath, outPath, newText, opts = {}) {
   const canvas = createCanvas(W, H);
   const ctx = canvas.getContext("2d");
 
-  let fontSize = Math.floor((bh / lineCountHint) * 0.8);
+  let fontSize = Math.floor((bh / lineCountHint) * 0.8 * (opts.fontScale || 1));
   fontSize = clamp(fontSize, 8, Math.floor(bh * 0.88));
   let lines, lineHeight, totalH;
   for (;;) {

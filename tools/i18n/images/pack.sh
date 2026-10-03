@@ -16,6 +16,8 @@ for d in "$STAGE"/*/; do
   [ -f "$src" ] || { echo "[skip] no vendor source for $name"; continue; }
   out="$OVERLAY/$name"
   echo "[pack] $name"
-  java -jar "$FFDEC" -importImages "$src" "$out" "$d" >>"$SP/i18n/pack.log" 2>&1
+  # --add-opens: some vendor SWFs embed CMYK JPEGs; ffdec's CMYK reader needs reflective access to the JDK's
+  # internal JPEG decoder that JPMS blocks by default on modern JDKs (java.lang.IllegalAccessError otherwise).
+  java --add-opens java.desktop/com.sun.imageio.plugins.jpeg=ALL-UNNAMED -jar "$FFDEC" -importImages "$src" "$out" "$d" >>"$SP/i18n/pack.log" 2>&1
   if [ -f "$out" ]; then echo "  -> $(du -h "$out" | cut -f1)"; else echo "  !! FAILED, see $SP/i18n/pack.log"; fi
 done
