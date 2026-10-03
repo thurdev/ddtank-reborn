@@ -1,6 +1,8 @@
-IMAGE EDIT / REMASTER of the attached reference image. This is a UI asset from the 2D cartoon game DDTank.
-STRICT: keep the EXACT same composition, framing, camera angle, layout and silhouette. Every element stays in the same position, same size, same shape, same proportions. Do NOT add, remove or move anything. Do NOT zoom, crop, rotate or change perspective. Output must overlay the original pixel-for-pixel in layout.
-Remaster only the rendering quality: same hand-painted cartoon game art style, same colors and palette, cleaner lines, sharper details, higher resolution, modern polished game art. Not photorealistic, not 3D render, not a new scene.
-Dark mode: shift the UI to a dark theme (deep navy/charcoal backgrounds, keep accents and readability). If it is the town lobby, make it NIGHT time: dark blue starry sky, warm lit windows, lanterns.
-Translate ALL visible text (Vietnamese/Chinese) to Brazilian Portuguese, same position, same font style, colors, outline and effects. Original text (OCR, may be noisy): "Hạt nhân thản chướng ễ".
-Keep transparent background if the reference has transparency. Final asset size: 326x60px (generate at higher resolution with the same aspect ratio; we downscale).
+REMASTER of the attached reference image: a small game ICON from the 2D cartoon game DDTank. Reproduce THE SAME asset, only better rendered — this is not a new design.
+LAYOUT (strict): same framing, same shape and silhouette, same proportions, every element in the same place and size. Do NOT add, remove, move, zoom, crop, rotate or change perspective. No new characters, objects, logos or emblems.
+STYLE: same hand-painted cartoon casual-game art (DDTank/Gunny), same palette family, cleaner lines, sharper details, higher resolution, polished modern game art. NOT photorealistic, NOT 3D render, NOT a diorama.
+DARK MODE: shift light/cream/beige UI surfaces to deep navy/charcoal with the same gold/colored trims and accents; keep icons and characters in their original colors; everything stays readable.
+TEXT: if the original has text, keep it in the same place but write it in Brazilian Portuguese with the same lettering style; never invent new text, numbers or labels.
+BACKGROUND (strict): wherever the original is transparent, use plain flat pure green #00FF00 (chroma key) — no gradient, no shadow, no scenery. Clean sharp edges.
+FORMAT: aspect ratio 16:9 (original 326x60px); generate at high resolution, it will be downscaled to the exact size.
+THIN ASSET: the original is a very wide horizontal strip (326x60px). Draw it as a single horizontal strip centered in the canvas, keeping its exact width-to-height proportion (5.4:1), with plain flat #00FF00 green filling the rest of the canvas — it will be cropped.
