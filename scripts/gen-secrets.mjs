@@ -106,29 +106,44 @@ forceUpsert(apiEnv, { RSA_USE_VENDOR_KEY: "false" });
 forceUpsert(gameEnv, { RSA_USE_VENDOR_KEY: "false" });
 
 // Pipeline order: tools/i18n/abc-strings/patch.mjs (rewrites the Vietnamese ABC constant-pool string
-// literals found in 2.png to PT-BR — see research/i18n/abc-strings.json) must run BEFORE
-// patch-client-key (which does a dynamic indexOf() for the RSA modulus, so it works fine on the
-// i18n-patched file's new byte layout). It always reads from the untouched VENDOR 2.png into a scratch
-// temp file — never from this script's own previous output — so re-running key rotation never tries to
-// find-and-replace an RSA modulus in a file that no longer contains the original (already-rotated) one.
+// literals found in 2.png to PT-BR — see research/i18n/abc-strings.json), THEN
+// tools/i18n/static-arrays/patch.mjs (recompiles 8 classes whose `static const Array` is built from
+// LanguageMgr.GetTranslation() at class-init time, before language.txt has loaded, into lazy getters —
+// see research/i18n/ui-sweep.md "Not fixed" item 1 and tools/i18n/static-arrays/patch.mjs's own header
+// comment), must both run BEFORE patch-client-key (which does a dynamic indexOf() for the RSA modulus,
+// so it works fine on either prior step's new byte layout). The chain always reads from the untouched
+// VENDOR 2.png into scratch temp files — never from this script's own previous output — so re-running
+// key rotation never tries to find-and-replace an RSA modulus in a file that no longer contains the
+// original (already-rotated) one.
 const vendor2png = resolve(REPO, "vendor", "DDTank41", "Source Flash", "FlashSV1", "2.png");
 const patchedOutDir = resolve(REPO, "apps", "api", "assets", "flash");
 const patchedOut = resolve(patchedOutDir, "2.png");
 const abcStringsTool = resolve(REPO, "tools", "i18n", "abc-strings", "patch.mjs");
+const staticArraysTool = resolve(REPO, "tools", "i18n", "static-arrays", "patch.mjs");
 if (existsSync(vendor2png)) {
   mkdirSync(patchedOutDir, { recursive: true });
   let keySource = vendor2png;
+  const scratchFiles = [];
   if (existsSync(abcStringsTool)) {
     const i18nTmp = resolve(patchedOutDir, "2.i18n-tmp.png");
-    execSync(`node ${q(abcStringsTool)} ${q(vendor2png)} ${q(i18nTmp)}`, { cwd: REPO, stdio: "inherit" });
+    execSync(`node ${q(abcStringsTool)} ${q(keySource)} ${q(i18nTmp)}`, { cwd: REPO, stdio: "inherit" });
     keySource = i18nTmp;
+    scratchFiles.push(i18nTmp);
   } else {
     console.warn(`WARNING: ${abcStringsTool} not found — shipping 2.png with un-translated ABC string literals.`);
   }
+  if (existsSync(staticArraysTool)) {
+    const lazyTmp = resolve(patchedOutDir, "2.lazy-arrays-tmp.png");
+    execSync(`node ${q(staticArraysTool)} ${q(keySource)} ${q(lazyTmp)}`, { cwd: REPO, stdio: "inherit" });
+    keySource = lazyTmp;
+    scratchFiles.push(lazyTmp);
+  } else {
+    console.warn(`WARNING: ${staticArraysTool} not found — shipping 2.png with the eager static-array GetTranslation() race unpatched.`);
+  }
   run(["--filter", "@ddt/api", "run", "-s", "patch-client-key", keySource, patchedOut, modulus], { stdio: "inherit" });
-  if (keySource !== vendor2png) {
+  for (const f of scratchFiles) {
     try {
-      unlinkSync(keySource);
+      unlinkSync(f);
     } catch {}
   }
   console.log(`patched client -> ${patchedOut} (apps/api serves this overlay instead of vendor's 2.png)`);
