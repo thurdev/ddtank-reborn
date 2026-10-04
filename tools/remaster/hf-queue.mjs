@@ -11,6 +11,7 @@ import { createServer } from "node:http";
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
+import sharp from "sharp";
 
 const ROOT = resolve(".");
 const AUTO = join(ROOT, "remaster/_auto");
@@ -33,10 +34,10 @@ function hasAlpha(f) {
 
 function editPrompt(vn, pt) {
   return [
-    `Edit this image: replace the text "${vn}" with "${pt}" (Brazilian Portuguese, spelled exactly like that)`,
-    "in the exact same font, bold letter style, same text colors and vertical gradient, same outline and shadow, same size and position (shrink the text slightly only if needed to fit the same space).",
-    "Keep the shape, colors, border, highlights, background and every other pixel identical to the original.",
-    "Do not add any background, border, frame, ornaments or new elements. Output the same image only.",
+    `Edit this image: replace the text "${vn}" with "${pt}" (Brazilian Portuguese, spelled exactly like that).`,
+    "Copy the original text style EXACTLY: same font family, same font weight (if the original is thin/regular keep it thin/regular, if bold keep bold), same text size, same text color(s), and only the same effects the original already has (do not add outline, shadow, glow or gradient if the original has none).",
+    "Keep the same number of lines, line breaks, alignment and margins; the text must fit fully inside the image with the same empty space around it — make the text smaller if needed, never bigger.",
+    "Keep every non-text pixel identical to the original. Do not add any background, border, frame, ornaments or new elements. Output the same image only.",
   ].join(" ");
 }
 
@@ -59,15 +60,70 @@ for (const m of manifest) {
 }
 jobs.sort((a, b) => a.prio - b.prio || b.w * b.h - a.w * a.h);
 
-function prepare(j) {
+// Fraction of opaque pixels: < 0.6 means "text/shape on transparency" (alpha must come from the new output).
+async function opaqueFraction(src) {
+  const { data, info } = await sharp(src).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  let n = 0;
+  for (let i = 3; i < data.length; i += 4) if (data[i] > 200) n++;
+  return n / (info.width * info.height);
+}
+
+async function prepare(j) {
   const src = join(ROOT, "remaster", j.category, "inputs", j.file);
   const up = join(AUTO, "up", j.id + ".png");
-  if (!existsSync(up)) {
-    const [w, h] = ffprobe(src).map(Number);
-    const k = Math.max(1, Math.min(8, Math.ceil(640 / Math.min(w, h)), Math.floor(2048 / Math.max(w, h))));
-    execFileSync("ffmpeg", ["-loglevel", "error", "-y", "-i", src, "-vf", `scale=iw*${k}:ih*${k}:flags=lanczos`, up]);
+  const meta = await sharp(src).metadata();
+  const k = Math.max(1, Math.min(8, Math.ceil(640 / Math.min(meta.width, meta.height)), Math.floor(2048 / Math.max(meta.width, meta.height))));
+  j.alpha = meta.hasAlpha ? await opaqueFraction(src) : 1;
+  // Transparent areas -> flat chroma green so the model sees the real contrast and keeps a keyable background.
+  await sharp(src).resize(meta.width * k, meta.height * k, { kernel: "lanczos3" }).flatten({ background: "#00ff00" }).png().toFile(up);
+  const green = j.alpha < 0.999 ? " The flat pure green #00FF00 background must stay exactly flat pure green." : "";
+  return { id: j.id, upload: up.replace(/\\/g, "/"), prompt: editPrompt(j.vn, j.pt) + green };
+}
+
+// Key out the chroma green (#00FF00-ish) with soft edges + despill.
+function chromaKey(data, ch) {
+  for (let i = 0; i < data.length; i += ch) {
+    const r = data[i], g = data[i + 1], b = data[i + 2];
+    const d = g - Math.max(r, b);
+    let a = d > 90 ? 0 : d > 30 ? Math.round(255 * (1 - (d - 30) / 60)) : 255;
+    if (a < 255 && g > Math.max(r, b)) data[i + 1] = Math.max(r, b);
+    data[i + 3] = Math.min(data[i + 3], a);
   }
-  return { id: j.id, upload: up.replace(/\\/g, "/"), prompt: editPrompt(j.vn, j.pt) };
+  return data;
+}
+
+
+// bbox of pixels with alpha > t
+function bbox(data, w, h, t = 24) {
+  let x0 = w, y0 = h, x1 = -1, y1 = -1;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (data[(y * w + x) * 4 + 3] > t) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+  return x1 < 0 ? null : { x: x0, y: y0, w: x1 - x0 + 1, h: y1 - y0 + 1 };
+}
+
+// Text-only asset: key the new text out, fit it (keep aspect) into the ORIGINAL text box, and if the original text is
+// a flat colour, recolour the new text with it (antialiasing preserved through alpha).
+async function finishTextOnly(raw, src, meta, out) {
+  const o = await sharp(src).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const ob = bbox(o.data, o.info.width, o.info.height) ?? { x: 0, y: 0, w: meta.width, h: meta.height };
+  const g = await sharp(raw).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  chromaKey(g.data, 4);
+  const gb = bbox(g.data, g.info.width, g.info.height);
+  if (!gb) throw new Error("no text found in output");
+  const k = Math.min(ob.w / gb.w, ob.h / gb.h);
+  const tw = Math.max(1, Math.round(gb.w * k)), th = Math.max(1, Math.round(gb.h * k));
+  const text = await sharp(g.data, { raw: { width: g.info.width, height: g.info.height, channels: 4 } })
+    .extract({ left: gb.x, top: gb.y, width: gb.w, height: gb.h }).resize(tw, th, { kernel: "lanczos3" }).raw().toBuffer();
+  // original text colour statistics (opaque pixels only)
+  let n = 0, sr = 0, sg = 0, sb = 0, vr = 0;
+  for (let i = 0; i < o.data.length; i += 4) if (o.data[i + 3] > 200) { n++; sr += o.data[i]; sg += o.data[i + 1]; sb += o.data[i + 2]; }
+  const mr = sr / n, mg = sg / n, mb = sb / n;
+  for (let i = 0; i < o.data.length; i += 4) if (o.data[i + 3] > 200) vr += (o.data[i] - mr) ** 2 + (o.data[i + 1] - mg) ** 2 + (o.data[i + 2] - mb) ** 2;
+  const flat = n > 0 && Math.sqrt(vr / n / 3) < 28;
+  if (flat) for (let i = 0; i < text.length; i += 4) { text[i] = mr; text[i + 1] = mg; text[i + 2] = mb; }
+  const left = ob.x + Math.round((ob.w - tw) * 0); // left-aligned like the original box start
+  const top = ob.y + Math.round((ob.h - th) / 2);
+  return sharp({ create: { width: meta.width, height: meta.height, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
+    .composite([{ input: text, raw: { width: tw, height: th, channels: 4 }, left, top }]).png().toFile(out);
 }
 
 async function finish(j, hf) {
@@ -76,14 +132,18 @@ async function finish(j, hf) {
   if (!res.ok) throw new Error(`download ${res.status}`);
   writeFileSync(raw, Buffer.from(await res.arrayBuffer()));
   const src = join(ROOT, "remaster", j.category, "inputs", j.file);
-  const [w, h] = ffprobe(src).map(Number);
-  const crop = `crop='min(iw,ih*${w}/${h})':'min(ih,iw*${h}/${w})',scale=${w}:${h}:flags=lanczos`;
-  if (hasAlpha(src)) {
-    execFileSync("ffmpeg", ["-loglevel", "error", "-y", "-i", raw, "-i", src, "-filter_complex",
-      `[0]${crop},format=rgb24[c];[1]format=rgba,alphaextract[a];[c][a]alphamerge`, j.out]);
-  } else {
-    execFileSync("ffmpeg", ["-loglevel", "error", "-y", "-i", raw, "-vf", crop, j.out]);
+  const meta = await sharp(src).metadata();
+  const fitted = sharp(raw).resize(meta.width, meta.height, { fit: "cover", position: "centre", kernel: "lanczos3" }).ensureAlpha();
+  if (!meta.hasAlpha) return fitted.removeAlpha().png().toFile(j.out);
+  const { data, info } = await fitted.raw().toBuffer({ resolveWithObject: true });
+  if ((j.alpha ?? (await opaqueFraction(src))) < 0.6) return finishTextOnly(raw, src, meta, j.out);
+  {
+    // solid asset (button/panel): keep the original silhouette, but also key any green the model left inside
+    const orig = await sharp(src).ensureAlpha().raw().toBuffer();
+    chromaKey(data, info.channels);
+    for (let i = 3; i < data.length; i += 4) data[i] = Math.min(data[i], orig[i]);
   }
+  return sharp(data, { raw: { width: info.width, height: info.height, channels: info.channels } }).png().toFile(j.out);
 }
 
 createServer(async (req, res) => {
@@ -95,7 +155,7 @@ createServer(async (req, res) => {
       if (!j) return send(200, { done: true });
       state.jobs[j.id] = { ...(state.jobs[j.id] ?? {}), busy: true, at: Date.now() };
       save();
-      return send(200, prepare(j));
+      return send(200, await prepare(j));
     }
     if (u.pathname === "/done") {
       const j = jobs.find((x) => x.id === u.searchParams.get("id"));
