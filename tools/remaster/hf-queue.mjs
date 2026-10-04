@@ -47,6 +47,8 @@ const save = () => writeFileSync(stateFile, JSON.stringify(state, null, 1));
 
 // Jobs: UI categories, known PT-BR translation, OCR text present, not already produced.
 const ORDER = ["02-lobby-hall", "03-janelas", "04-botoes-titulos", "05-icones", "06-combate-outros"];
+const TR = existsSync(join(AUTO, "translations.json")) ? JSON.parse(readFileSync(join(AUTO, "translations.json"), "utf8")) : {};
+const VN = /[ăđơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]/i;
 const jobs = [];
 for (const m of manifest) {
   if (!ORDER.includes(m.category)) continue;
@@ -56,7 +58,9 @@ for (const m of manifest) {
   if (!pt || !vn || (r.ocrConfidence ?? 0) < 55) continue;
   const id = m.file.replace(/\.(png|jpe?g)$/i, "");
   const out = join(ROOT, "remaster", m.category, "outputs", id + ".png");
-  jobs.push({ id, ...m, vn: vn.slice(0, 80), pt, out, prio: ORDER.indexOf(m.category) });
+  const clean = TR[id];
+  if (!clean || VN.test(clean)) continue; // only jobs with a validated PT-BR translation
+  jobs.push({ id, ...m, vn: vn.slice(0, 120), pt: clean, out, prio: ORDER.indexOf(m.category) });
 }
 jobs.sort((a, b) => a.prio - b.prio || b.w * b.h - a.w * a.h);
 
@@ -76,11 +80,35 @@ async function prepare(j) {
   j.alpha = meta.hasAlpha ? await opaqueFraction(src) : 1;
   // Transparent areas -> flat chroma green so the model sees the real contrast and keeps a keyable background.
   await sharp(src).resize(meta.width * k, meta.height * k, { kernel: "lanczos3" }).flatten({ background: "#00ff00" }).png().toFile(up);
+  let weight = "";
+  if (j.alpha < 0.6) {
+    const { data, info } = await sharp(src).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+    const b = bbox(data, info.width, info.height);
+    let on = 0; if (b) for (let y = b.y; y < b.y + b.h; y++) for (let x = b.x; x < b.x + b.w; x++) if (data[(y * info.width + x) * 4 + 3] > 128) on++;
+    const dens = b ? on / (b.w * b.h) : 0;
+    weight = dens < 0.24 ? " The original font weight is REGULAR (thin strokes) — do NOT make it bold." : " The original font weight is BOLD — keep it bold.";
+  }
   const green = j.alpha < 0.999 ? " The flat pure green #00FF00 background must stay exactly flat pure green." : "";
-  return { id: j.id, upload: up.replace(/\\/g, "/"), prompt: editPrompt(j.vn, j.pt) + green };
+  return { id: j.id, upload: up.replace(/\\/g, "/"), prompt: editPrompt(j.vn, j.pt) + weight + green };
 }
 
 // Key out the chroma green (#00FF00-ish) with soft edges + despill.
+// Dominant colour of the image border (the model sometimes returns black/white instead of the green we sent).
+function borderColor(data, w, h) {
+  const m = new Map();
+  const add = (x, y) => { const i = (y * w + x) * 4; const k = (data[i] >> 4) + "," + (data[i + 1] >> 4) + "," + (data[i + 2] >> 4); m.set(k, (m.get(k) ?? 0) + 1); };
+  for (let x = 0; x < w; x++) { add(x, 0); add(x, h - 1); }
+  for (let y = 0; y < h; y++) { add(0, y); add(w - 1, y); }
+  const [k] = [...m.entries()].sort((a, b) => b[1] - a[1])[0];
+  return k.split(",").map((v) => +v * 16 + 8);
+}
+function keyColor(data, ch, [kr, kg, kb]) {
+  for (let i = 0; i < data.length; i += ch) {
+    const d = Math.abs(data[i] - kr) + Math.abs(data[i + 1] - kg) + Math.abs(data[i + 2] - kb);
+    const a = d < 40 ? 0 : d < 110 ? Math.round(255 * (d - 40) / 70) : 255;
+    data[i + 3] = Math.min(data[i + 3], a);
+  }
+}
 function chromaKey(data, ch) {
   for (let i = 0; i < data.length; i += ch) {
     const r = data[i], g = data[i + 1], b = data[i + 2];
@@ -106,7 +134,8 @@ async function finishTextOnly(raw, src, meta, out) {
   const o = await sharp(src).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   const ob = bbox(o.data, o.info.width, o.info.height) ?? { x: 0, y: 0, w: meta.width, h: meta.height };
   const g = await sharp(raw).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
-  chromaKey(g.data, 4);
+  const bc = borderColor(g.data, g.info.width, g.info.height);
+  if (bc[1] > bc[0] + 60 && bc[1] > bc[2] + 60) chromaKey(g.data, 4); else keyColor(g.data, 4, bc);
   const gb = bbox(g.data, g.info.width, g.info.height);
   if (!gb) throw new Error("no text found in output");
   const k = Math.min(ob.w / gb.w, ob.h / gb.h);
