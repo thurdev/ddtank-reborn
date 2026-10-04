@@ -1,0 +1,10 @@
+[
+  {
+    "category": "01-loading",
+    "file": "DDT_Loading__1.recraft-v1.png",
+    "swf": "DDT_Loading.swf",
+    "sourceFile": "1.jpg",
+    "fit": "cover",
+    "note": "Main loading background (1000x600). AI output is 16:9; centered cover-crop to 5:3 crops the sides only, so the bottom-center progress bar (same spot as the original) stays framed like the original."
+  }
+]

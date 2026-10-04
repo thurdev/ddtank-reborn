@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<title>Code text-replace quality test</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: system-ui, sans-serif; max-width: 980px; margin: 32px auto; padding: 0 16px; line-height: 1.45; }
+  h1 { font-size: 20px; }
+  h2 { font-size: 16px; margin-top: 40px; }
+  p.lede { color: #666; }
+  .case { border: 1px solid #ccc; border-radius: 8px; padding: 16px; margin: 20px 0; }
+  .pair { display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-start; margin: 12px 0; }
+  figure { margin: 0; }
+  figure img { image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges; display: block; border: 1px solid #999; background:
+    repeating-conic-gradient(#eee 0% 25%, #fff 0% 50%) 50% / 16px 16px; }
+  figcaption { font-size: 12px; color: #666; margin-top: 4px; }
+  .note { font-size: 14px; background: #f7f7f7; border-left: 3px solid #888; padding: 8px 12px; margin-top: 10px; }
+  .verdict { font-weight: 600; }
+  .good { color: #0a7d2c; }
+  .ok { color: #a06a00; }
+  code { background: #eee; padding: 1px 4px; border-radius: 3px; }
+  table.summary { border-collapse: collapse; margin-top: 28px; width: 100%; }
+  table.summary th, table.summary td { border: 1px solid #ccc; padding: 6px 10px; text-align: left; font-size: 14px; }
+</style>
+</head>
+<body>
+<h1>Code-driven "erase + render PT-BR text" quality test</h1>
+<p class="lede">
+  4 images, one of each kind, run through a fresh pixel-measured pipeline (<code>tools/i18n/images/_code-test-measure.mjs</code>
+  + <code>tools/i18n/images/_code-text-test-render.mjs</code>) — <strong>not</strong> the existing
+  <code>tools/i18n/images/replace.mjs</code>, which was judged ugly (wrong fonts, bad erasing, OCR noise) and was only
+  read for reference. Text boxes/colors here come from direct pixel measurement, not OCR, to rule out OCR noise as a
+  variable. Originals are shown at their native size; results are upscaled 2x with nearest-neighbour so individual
+  pixels/antialiasing are visible.
+</p>
+
+<div class="case">
+  <h2>1. Panel tooltip (plain flat text) — AgreeProposeAsset</h2>
+  <div class="pair">
+    <figure><img src="../../remaster/04-botoes-titulos/inputs/corei__52_asset.church.AgreeProposeAsset.png" width="447" height="191"><figcaption>original (447×191)</figcaption></figure>
+    <figure><img src="../../remaster/04-botoes-titulos/outputs/corei__52_asset.church.AgreeProposeAsset.code-test.png" width="894" height="382"><figcaption>code-test result, 2x nearest-neighbour</figcaption></figure>
+  </div>
+  <div class="note">
+    <strong>Font:</strong> system <code>Arial</code> (not the FFDec-extracted core.swf Arial — see finding below).<br>
+    <strong>Method:</strong> pixel-scanned bbox restricted to y≥75 (below the heart garland) found two lines,
+    right-edge-aligned (x1 within 7px of each other across lines) → rendered right-aligned. Fill/outline sampled as
+    near-black, flat (no outline/stroke). Backdrop opaque (pink, ~a=255) → erased via alpha dest-out then refilled
+    with a 2-stop vertical gradient sampled from the strips just above/below the box.<br>
+    <strong>Ink-density sanity check:</strong> orig 4.0% of region, result 8.1% (longer PT-BR string, expected).<br>
+    <strong>Verdict:</strong> <span class="verdict good">Good.</span> Clean erase (no Vietnamese fragments, no visible
+    patch seam), weight/size close to the original, alignment preserved.
+  </div>
+</div>
+
+<div class="case">
+  <h2>2. Chunky gradient/outlined title — "Bảng phần thưởng" → "Tabela de recompensas"</h2>
+  <div class="pair">
+    <figure><img src="../../remaster/03-janelas/inputs/gameover__29_asset.takeoutCard.TitleBitmap.png" width="306" height="48"><figcaption>original (306×48), OCR confidence 95</figcaption></figure>
+    <figure><img src="../../remaster/03-janelas/outputs/gameover__29_asset.takeoutCard.TitleBitmap.code-test.png" width="612" height="96"><figcaption>code-test result, 2x nearest-neighbour</figcaption></figure>
+  </div>
+  <div class="note">
+    <strong>Font:</strong> <code>Lilita One</code> (bundled OFL, images/fonts/LilitaOne.ttf) — no embedded TTF exists
+    for this one: the title is baked straight into the bitmap art, not an SWF text field, so there was nothing to
+    extract; Lilita One was picked by eye as the closest bundled match to the rounded, condensed, heavy-weight look.<br>
+    <strong>Method:</strong> bbox = whole non-near-white region (single line, nearly full width). Fill = measured
+    light-orange→darker-orange 2-stop gradient, outline = measured dark brown-red, plus a drop shadow — all
+    reproduced with the faux-outline/gradient/shadow renderer. Backdrop measured as transparent (title PNG has no
+    opaque background despite looking white in a browser preview) → erase only, no fill patch needed.<br>
+    <strong>Ink-density sanity check:</strong> orig 26% of region, result 40% (PT-BR string is longer, font auto-fit
+    chose a slightly smaller size — 30px vs the box's 48px height — to keep it on one line).<br>
+    <strong>Verdict:</strong> <span class="verdict good">Good.</span> This is the strongest result of the four — gradient,
+    outline, and shadow all read as "the same font family" as the original at a glance.
+  </div>
+</div>
+
+<div class="case">
+  <h2>3. Button with text — "Thêm bạn" → "Adicionar amigo"</h2>
+  <div class="pair">
+    <figure><img src="../../remaster/04-botoes-titulos/inputs/corei__187_cityWide.addFriendBt.png" width="150" height="53"><figcaption>original (150×53), OCR confidence 67</figcaption></figure>
+    <figure><img src="../../remaster/04-botoes-titulos/outputs/corei__187_cityWide.addFriendBt.code-test.png" width="300" height="106"><figcaption>code-test result, 2x nearest-neighbour</figcaption></figure>
+  </div>
+  <div class="note">
+    <strong>Font:</strong> <code>Lilita One</code> (same reasoning as #2 — chunky button caption baked into the bitmap).<br>
+    <strong>Method:</strong> bbox restricted to the button interior (away from the bevel border) via a
+    near-white-OR-near-black threshold; fill = measured cream/white, outline = measured dark red-brown. Backdrop
+    opaque (button face) → refilled with a dark brown gradient patch sampled from the strips at the very top/bottom
+    of the interior (close to the bevel, hence dark).<br>
+    <strong>Ink-density check:</strong> not reliable here — the background gradient patch itself is dark brown, which
+    collides with the "ink = very dark OR very light" threshold used for measurement, inflating the apparent ink
+    density (92%). Judged by eye instead.<br>
+    <strong>Verdict:</strong> <span class="verdict ok">Good enough, with a caveat.</span> "Adicionar amigo" (16 chars) vs
+    "Thêm bạn" (8 chars) forced auto-fit down to 19px in a 150px-wide button — legible and on-model, but visibly
+    tighter than the original's generous margins. This is the one kind (short buttons with much-longer PT-BR text)
+    where a human/LLM pass to abbreviate the translation, or a rule to widen the button, would help more than better
+    rendering code could.
+  </div>
+</div>
+
+<div class="case">
+  <h2>4. Hall building caption (stylized, hall.swf) — Guild recruitment plate</h2>
+  <div class="pair">
+    <figure><img src="../../remaster/02-lobby-hall/inputs/hall__243.png" width="145" height="88"><figcaption>original (145×88), OCR confidence 95</figcaption></figure>
+    <figure><img src="../../remaster/02-lobby-hall/outputs/hall__243.code-test.png" width="290" height="176"><figcaption>code-test result, 2x nearest-neighbour</figcaption></figure>
+  </div>
+  <div class="note">
+    <strong>Font:</strong> system <code>Arial</code> (same finding as #1).<br>
+    <strong>Method:</strong> pixel scan found 4 line-bands matching the original's 4-line wrap exactly
+    ("1 người vì mọi người," / "mọi người vì 1 người." / "Hãy gia nhập Guild" / "nào!"), left-aligned (all lines start
+    within 1px of each other) → rendered left-aligned. Flat near-black fill, fully transparent backdrop (a≈0) →
+    erase only, no fill patch.<br>
+    <strong>Ink-density check:</strong> orig 13.2%, result 12.4% (ratio 0.94 — closest of the four, PT-BR string is a
+    similar length to the Vietnamese).<br>
+    <strong>Verdict:</strong> <span class="verdict good">Good.</span> Auto-wrap to 4 lines at 15px reproduces the
+    original's layout almost exactly.
+  </div>
+</div>
+
+<h2>Font-extraction finding (affects #1 and #4)</h2>
+<p>
+  FFDec font export (<code>java -jar vendor/_tools/ffdec/ffdec-cli.jar -export font tools/i18n/fonts/extracted/&lt;swf&gt; "&lt;swf path&gt;"</code>)
+  was run against <code>hall.swf</code>, <code>hall_old.swf</code>, <code>core.swf</code>, <code>corei.swf</code>,
+  <code>coreii.swf</code>, <code>roomlist.swf</code>, <code>gameover.swf</code>. Only <code>core.swf</code> (→ Arial,
+  chid 242) and <code>corei.swf</code> (→ Arial, chid 297) produced actual <code>.ttf</code> files; the rest
+  (<code>hall</code>/<code>hall_old</code>'s "Microsoft YaHei", <code>corei</code>'s two CJK/Vietnamese-named fonts,
+  <code>coreii</code>, <code>roomlist</code>, <code>gameover</code>) exported nothing — these are device/system-font
+  references with no embedded glyph outlines, not something FFDec can turn into a usable TTF.
+</p>
+<p>
+  The two Arial files that <em>did</em> export turned out to be <strong>glyph-subset</strong> TTFs: they only contain
+  the specific characters the original Vietnamese string used. A first render pass using
+  <code>fonts/extracted/core/242_Arial.ttf</code> produced <code>.notdef</code> tofu boxes for most Latin letters in
+  the new PT-BR text (not shown here; superseded by the Arial-by-name result above). Font extraction correctly
+  identified <em>which</em> font family the original used (Arial) but the extracted file itself is unusable for
+  free-form translated text — what actually works is referencing the real, fully-covered <code>"Arial"</code> by
+  family name, which Windows + <code>@napi-rs/canvas</code>'s <code>GlobalFonts</code> already exposes as an
+  installed system font (confirmed via <code>GlobalFonts.has('Arial')</code>), no registration needed.
+</p>
+<p>
+  Practical takeaway for the real batch: extract fonts to identify family/weight/style as a <em>reference</em>, but
+  render with a full-coverage font (system Arial/Tahoma/Segoe UI for "plain sans" originals, or a bundled OFL display
+  font such as Lilita One for the chunky baked-in-bitmap captions/titles/buttons) rather than the extracted TTF
+  itself, unless that TTF happens to already contain every PT-BR glyph needed (unlikely for a per-string subset
+  export).
+</p>
+
+<table class="summary">
+  <tr><th>#</th><th>Kind</th><th>Font used</th><th>Verdict</th></tr>
+  <tr><td>1</td><td>Plain panel tooltip (flat black)</td><td>system Arial</td><td class="good">Good</td></tr>
+  <tr><td>2</td><td>Chunky gradient/outlined title</td><td>Lilita One</td><td class="good">Good</td></tr>
+  <tr><td>3</td><td>Chunky button</td><td>Lilita One</td><td class="ok">Good enough (tight fit on long PT-BR + short button)</td></tr>
+  <tr><td>4</td><td>Hall building caption (stylized)</td><td>system Arial</td><td class="good">Good</td></tr>
+</table>
+
+<h2>Overall conclusion</h2>
+<p>
+  Code can do erase + render well <strong>when two things hold</strong>: (a) the text box/alignment/colors are
+  measured from the actual pixels (not OCR, which is what made the old <code>replace.mjs</code> pipeline noisy), and
+  (b) the render font is a full-glyph-coverage font chosen to match the original's look (system Arial-family for
+  plain UI text, a bundled chunky OFL display font for baked-in titles/buttons/captions) rather than a literal
+  FFDec-exported embedded font, which is usually either a glyph subset or not exportable at all. Flat-text captions
+  (#1, #4) and chunky display titles (#2) come out looking native. The one weak spot is short buttons whose PT-BR
+  translation is much longer than the Vietnamese original (#3) — auto-fit keeps it legible but cramped; that case
+  needs either a shorter PT-BR string or a slightly enlarged button, which is a translation/layout decision, not a
+  rendering one.
+</p>
+</body>
+</html>
