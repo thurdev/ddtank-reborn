@@ -11,3 +11,4 @@ packages/protocol/csharp-oracle/original/
 .playwright-mcp/
 remaster/*/inputs/
 remaster/*/outputs/
+remaster/_auto/

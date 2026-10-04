@@ -5,6 +5,11 @@
     "swf": "DDT_Loading.swf",
     "sourceFile": "1.jpg",
     "fit": "cover",
-    "note": "Main loading background (1000x600). AI output is 16:9; centered cover-crop to 5:3 crops the sides only, so the bottom-center progress bar (same spot as the original) stays framed like the original."
+    "anchor": {
+      "rect": [190, 508, 828, 596],
+      "feather": 2.2,
+      "note": "Progress-bar functional area. loading/MainLoading.as draws the live fill+%% text as a fixed-position MovieClip ('progressItem', PlaceObject matrix translateX=-2369/20=-118.45,translateY=3306/20=165.3 twips->px inside MainLoadingAsset, whose background child (chid2=1.jpg) sits at local (0,0)) -- so the ornate gold frame itself is NOT vector-drawn by the client, it's baked into 1.jpg's pixels, and the live fill bar is positioned to expect that baked frame at 1.jpg's own coordinates. Measured directly off vendor 1.jpg by color + visual grid: the real frame's own bbox is approx x:[222,782] y:[527,575] (1000x600 canvas) -- matches the prompt's stated '23-78% width, 88-96% height' almost exactly, so the prompt was fine; the AI output just didn't paint precisely there (its own bar lands around x:[211,818] y:[542,584] after the cover-crop, per research/e2e -- a 1-5% drift, small but visible). Rect above is the frame's own bbox padded to also fully cover where the AI's drifted bar lands, so the cutout below fully hides it with no remnant peeking out."
+    },
+    "note": "Main loading background (1000x600). AI output is 16:9; centered cover-crop to 5:3 crops the sides only, so the composition stays framed like the reference. The progress-bar frame itself is now handled by `anchor` above: cut from vendor 1.jpg (color-classified gold metal + glass fill, feathered edges) and composited onto the fitted output at the exact pixel rect the live 'progressItem' fill bar expects, instead of trusting the AI's own (slightly misaligned) painted bar."
   }
 ]
