@@ -2,7 +2,7 @@
 // Processes N jobs from the local queue (tools/remaster/hf-queue.mjs) in the logged-in Higgsfield tab,
 // WITHOUT reloading the page (reload resets the Unlimited toggle). Refuses to generate if Unlimited is off.
 async (page) => {
-  const N = 10;
+  const N = 20;
   const p = page.context().pages().find((x) => x.url().includes('higgsfield'));
   const Q = 'http://127.0.0.1:7788';
   const ids = async () => [...new Set((await p.$$eval('img', (els) => els.map((e) => e.currentSrc || e.src))).filter((s) => s.includes('hf_2026')).map((s) => decodeURIComponent(s).match(/hf_\d+_\d+_[0-9a-f-]+/)?.[0]).filter(Boolean))];
@@ -13,15 +13,29 @@ async (page) => {
     const job = await (await p.request.get(Q + '/next')).json();
     if (job.done) { log.push('queue empty'); break; }
     try {
+      const tb0 = p.locator('textarea, [contenteditable=true], [role=textbox]').last();
+      await tb0.click(); await p.keyboard.press('Control+A'); await p.keyboard.press('Delete'); await p.waitForTimeout(500);
       await clearRefs();
-      await p.getByRole('button', { name: 'References' }).click(); await p.waitForTimeout(1200);
+      const refBtn = p.getByRole('button', { name: 'References' });
+      if (await refBtn.count()) await refBtn.first().click();
+      else {
+        // with a reference attached the "References" button is replaced by an add-image icon next to the thumbnails
+        const box = await p.evaluate(() => { const tb = document.querySelector('textarea, [contenteditable=true]'); let el = tb; for (let i = 0; i < 6 && el; i++) el = el.parentElement; const bs = [...(el?.querySelectorAll('button') ?? [])].filter((b) => !b.textContent.trim()); const r = bs[0]?.getBoundingClientRect(); return r ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; });
+        if (!box) throw new Error('no References/add-image button');
+        await p.mouse.click(box.x, box.y);
+      }
+      await p.waitForTimeout(1500);
+      if (!(await p.locator('input[type=file]').count())) throw new Error('upload dialog did not open');
       await p.locator('input[type=file]').first().setInputFiles(job.upload); await p.waitForTimeout(7000);
       const tile = await p.evaluate(() => { const up = [...document.querySelectorAll('*')].find((e) => e.textContent?.trim() === 'Upload media' && e.children.length < 3); let dlg = up; for (let i = 0; i < 8 && dlg; i++) { dlg = dlg.parentElement; if (dlg.querySelectorAll('img').length > 3) break; } const img = dlg?.querySelector('img'); const r = img?.getBoundingClientRect(); return r ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; });
       if (!tile) throw new Error('upload tile not found');
       await p.mouse.click(tile.x, tile.y); await p.waitForTimeout(1500); await p.keyboard.press('Escape'); await p.waitForTimeout(600);
       const nAtt = await thumbs.count(); if (nAtt !== 1) throw new Error('attached refs=' + nAtt);
       const tb = p.locator('textarea, [contenteditable=true], [role=textbox]').last(); await tb.click(); await p.keyboard.press('Control+A'); await p.keyboard.press('Delete'); await p.keyboard.insertText(job.prompt); await p.waitForTimeout(500);
-      const sw = p.locator('[role=switch]').last(); const on = (await sw.getAttribute('aria-checked')) !== 'false' && (await sw.getAttribute('data-state')) !== 'unchecked'; if (!on) throw new Error('unlimited is OFF - not generating');
+      const sw = p.locator('[role=switch]').last();
+      const isOn = async () => (await sw.getAttribute('aria-checked')) === 'true' || ['on', 'checked'].includes(await sw.getAttribute('data-state'));
+      if (!(await isOn())) { await sw.click(); await p.waitForTimeout(1200); }
+      if (!(await isOn())) throw new Error('unlimited is OFF and could not be enabled - not generating');
       const before = new Set(await ids());
       await p.getByRole('button', { name: /^Unlimited/ }).last().click();
       let hf = null;

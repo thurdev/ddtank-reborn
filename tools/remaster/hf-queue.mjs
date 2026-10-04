@@ -12,6 +12,26 @@ import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import sharp from "sharp";
+import { createWorker } from "tesseract.js";
+import { copyFileSync, renameSync } from "node:fs";
+
+// OCR validator: the generated text must match the expected PT-BR (catches duplicated lines, typos, missing words).
+const ocr = await createWorker("por", 1, { langPath: new URL(".", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1"), gzip: true });
+const norm = (t) => t.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+function similarity(a, b) {
+  a = norm(a); b = norm(b);
+  if (!a.length || !b.length) return 0;
+  const d = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+  for (let j = 1; j <= b.length; j++) d[0][j] = j;
+  for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++)
+    d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+  return 1 - d[a.length][b.length] / Math.max(a.length, b.length);
+}
+async function ocrScore(file, expected) {
+  const buf = await sharp(file).resize({ width: 1400, withoutEnlargement: false }).flatten({ background: "#ffffff" }).png().toBuffer();
+  const { data } = await ocr.recognize(buf);
+  return { score: similarity(data.text, expected), text: data.text.replace(/\s+/g, " ").trim() };
+}
 
 const ROOT = resolve(".");
 const AUTO = join(ROOT, "remaster/_auto");
@@ -188,10 +208,24 @@ createServer(async (req, res) => {
     }
     if (u.pathname === "/done") {
       const j = jobs.find((x) => x.id === u.searchParams.get("id"));
-      await finish(j, u.searchParams.get("hf"));
-      state.jobs[j.id] = { hf: u.searchParams.get("hf"), ok: true };
+      const tmp = j.out.replace(/\.png$/, ".candidate.png");
+      const realOut = j.out;
+      j.out = tmp;
+      try { await finish(j, u.searchParams.get("hf")); } finally { j.out = realOut; }
+      const { score, text } = await ocrScore(tmp, j.pt);
+      const prev = state.jobs[j.id] ?? {};
+      const best = Math.max(prev.best ?? 0, score);
+      if (score >= (prev.best ?? 0)) copyFileSync(tmp, j.out.replace(/\.png$/, ".best.png"));
+      const fails = (prev.fails ?? 0) + (score >= 0.95 ? 0 : 1);
+      if (score >= 0.95 || (fails >= 3 && best >= 0.85)) {
+        renameSync(score >= 0.95 ? tmp : j.out.replace(/\.png$/, ".best.png"), j.out);
+        state.jobs[j.id] = { hf: u.searchParams.get("hf"), ok: true, score: Math.max(score, best) };
+        save();
+        return send(200, { ok: true, score: +score.toFixed(2) });
+      }
+      state.jobs[j.id] = { fails, best, why: `ocr ${score.toFixed(2)}: ${text.slice(0, 60)}` };
       save();
-      return send(200, { ok: true, out: j.out });
+      return send(200, { ok: false, error: `ocr ${score.toFixed(2)} (retry ${fails}/3)` });
     }
     if (u.pathname === "/fail") {
       const id = u.searchParams.get("id");
