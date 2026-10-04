@@ -1,0 +1,39 @@
+REMASTER (not new art): the whack-a-mole mini-game panel shown during loading (DDT_Loading.swf, class
+asset.hamster.hallAsset). Use the attached image as the exact layout reference. Same design, same
+positions, just more polished / higher production value, dark-mode-friendly palette, PT-BR text.
+
+TEXT: change "điểm : 100" (top-left, orange chunky title font) to "Pontos" only -- do NOT draw the number,
+the colon or "100"; the live client draws the number and a separate colon character as its own dynamic
+text layer on top of your art, in a similar orange chunky style. Write "Pontos" once, nothing else. No
+other text anywhere in the image.
+
+STRICT RULE -- the 8 holes must stay at EXACTLY these pixel positions and sizes (measured from the
+original art + game.view.MapView.as's BOGU_POS_ARRAY, which the client uses to position the mole that pops
+out of each hole; coordinates are center-x,center-y in the 645x393 reference image, size is the hole
+ellipse's own width x height):
+  1. center (115,135) size 112x37  -- top-left
+  2. center (285,125) size 112x37  -- top-center
+  3. center (460,135) size 112x37  -- top-right
+  4. center (200,190) size 112x37  -- middle-left
+  5. center (370,190) size 112x37  -- middle-right (no middle-center hole -- staggered/honeycomb layout)
+  6. center (140,290) size 112x37  -- bottom-left
+  7. center (285,260) size 112x37  -- bottom-center
+  8. center (435,290) size 112x37  -- bottom-right
+Do NOT add a 9th hole, remove a hole, resize any hole, or shift any hole's position even slightly -- the
+real game pops an animated mole up through each hole at these exact coordinates, so if a hole in your
+image is off by more than a couple pixels the mole will appear to pop up next to the hole instead of out
+of it. Keep the holes themselves as plain dark recessed ellipses (no mole inside) -- the mole is a separate
+animated sprite the client places on top at runtime.
+
+Keep: the rounded-trapezoid card shape, the white rounded border, the orange/gold gradient interior, the
+cute round mole-face-with-red-X icon top-right (this IS the close button's art, baked into this same
+image -- keep it clickable-looking, same spot, same size).
+
+Style: same cute cartoon/casual-game look as the rest of DDTank's remastered UI -- clean, bright, chibi,
+rounded shapes, soft drop shadows. NOT photorealistic, NOT 3D.
+
+Background: where the original is transparent (outside the rounded card shape), fill with solid #00FF00
+(chroma key, cropped automatically).
+
+Aspect ratio: 645x393 (nearly 5:3). If that exact ratio isn't available, keep the card's full silhouette
+visible and centered with a little green margin -- do not crop any part of the card or holes.

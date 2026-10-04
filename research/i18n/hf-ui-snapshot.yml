@@ -1,0 +1,1130 @@
+- generic [active] [ref=f13e1]:
+  - banner [ref=f13e2]:
+    - generic [ref=f13e3]:
+      - link [ref=f13e4] [cursor=pointer]:
+        - /url: /
+        - img "Higgsfield" [ref=f13e5]
+      - navigation "Main" [ref=f13e9]:
+        - list [ref=f13e12]:
+          - listitem [ref=f13e13]:
+            - link "Explore" [ref=f13e14] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=f13e15]:
+            - link "Image" [ref=f13e16] [cursor=pointer]:
+              - /url: /ai/image?model=gpt_image_2
+          - listitem [ref=f13e17]:
+            - link "Video" [ref=f13e18] [cursor=pointer]:
+              - /url: /ai/video
+          - listitem [ref=f13e19]:
+            - link "Audio" [ref=f13e20] [cursor=pointer]:
+              - /url: /audio
+          - listitem [ref=f13e21]:
+            - link "MCP" [ref=f13e22] [cursor=pointer]:
+              - /url: /mcp
+          - listitem [ref=f13e23]:
+            - link "API New" [ref=f13e24] [cursor=pointer]:
+              - /url: https://console.higgsfield.ai
+              - text: API
+              - generic [ref=f13e25]: New
+          - listitem [ref=f13e26]:
+            - link "AI Influencer Free" [ref=f13e27] [cursor=pointer]:
+              - /url: /ai-influencer-studio
+              - text: AI Influencer
+              - generic [ref=f13e28]: Free
+          - separator [ref=f13e29]
+          - listitem [ref=f13e30]:
+            - link "ChatGPT Plugin" [ref=f13e31] [cursor=pointer]:
+              - /url: /mcp?tab=chatgpt
+          - listitem [ref=f13e32]:
+            - link "Genjutsu top" [ref=f13e33] [cursor=pointer]:
+              - /url: /ai/video?model=genjutsu
+              - text: Genjutsu
+              - generic [ref=f13e34]: top
+          - listitem [ref=f13e35]:
+            - link "Ads Studio Free" [ref=f13e36] [cursor=pointer]:
+              - /url: /ads-studio
+              - text: Ads Studio
+              - generic [ref=f13e37]: Free
+          - listitem [ref=f13e38]:
+            - link "Effects" [ref=f13e39] [cursor=pointer]:
+              - /url: /effects/use
+          - listitem [ref=f13e40]:
+            - link "Cinema Studio" [ref=f13e41] [cursor=pointer]:
+              - /url: /generate
+          - listitem [ref=f13e42]:
+            - link "Contests" [ref=f13e43] [cursor=pointer]:
+              - /url: /contests/higgsfield-global-film-festival
+              - generic [aria-hidden] [ref=f13e44]: Contests Contests
+          - listitem [ref=f13e46]:
+            - link "Marketing Studio" [ref=f13e47] [cursor=pointer]:
+              - /url: /marketing-studio
+          - listitem [ref=f13e48]:
+            - link "Supercomputer" [ref=f13e49] [cursor=pointer]:
+              - /url: /supercomputer
+          - listitem [ref=f13e51]:
+            - link "3D Jutsu New" [ref=f13e52] [cursor=pointer]:
+              - /url: /3d-jutsu
+              - text: 3D Jutsu
+              - generic [ref=f13e53]: New
+          - listitem [ref=f13e54]:
+            - link "Edit" [ref=f13e55] [cursor=pointer]:
+              - /url: /layers
+          - listitem [ref=f13e56]:
+            - link "Academy" [ref=f13e57] [cursor=pointer]:
+              - /url: /academy
+          - listitem [ref=f13e58]:
+            - link "Community" [ref=f13e59] [cursor=pointer]:
+              - /url: /community
+          - listitem [ref=f13e60]:
+            - link "Plugins" [ref=f13e61] [cursor=pointer]:
+              - /url: /plugins/after-effects
+          - listitem [ref=f13e62]:
+            - link "Canvas" [ref=f13e63] [cursor=pointer]:
+              - /url: /canvas
+          - listitem [ref=f13e64]:
+            - link "Originals" [ref=f13e65] [cursor=pointer]:
+              - /url: /original-series
+      - generic [ref=f13e66]:
+        - generic [ref=f13e67]:
+          - button "Search Higgsfield" [ref=f13e68] [cursor=pointer]
+          - link "Upgrade 30% OFF" [ref=f13e71] [cursor=pointer]:
+            - /url: /pricing
+            - text: Upgrade
+            - generic: 30% OFF
+          - link "Enterprise" [ref=f13e74] [cursor=pointer]:
+            - /url: https://higgsfield.ai/enterprise
+          - link "Folder icon Assets" [ref=f13e78] [cursor=pointer]:
+            - /url: /asset/all
+            - img "Folder icon" [ref=f13e80]
+            - generic [ref=f13e81]: Assets
+        - generic [ref=f13e83]:
+          - button "Add members" [ref=f13e84] [cursor=pointer]
+          - button "Account menu" [ref=f13e87] [cursor=pointer]:
+            - img "user profile" [ref=f13e90]
+  - main [ref=f13e94]:
+    - generic [ref=f13e96]:
+      - generic [ref=f13e100]:
+        - img "AI generated image" [ref=f13e102]
+        - img "AI generated image" [ref=f13e105]
+        - img "AI generated image" [ref=f13e108]
+        - img "AI generated image" [ref=f13e111]
+        - img "AI generated image" [ref=f13e114]
+        - img "AI generated image" [ref=f13e117]
+        - img "AI generated image" [ref=f13e120]
+      - generic:
+        - generic:
+          - heading "AI IMAGE GENERATOR BUILT FOR PROFESSIONALS" [level=1]
+          - paragraph: Commercial-ready visuals in seconds. Perfect text, consistent characters, and every leading model at your fingertips
+          - link "Create Image Now" [ref=f13e123] [cursor=pointer]:
+            - /url: /ai/image?model=gpt_image_2
+        - generic [ref=f13e126]:
+          - generic [ref=f13e127]:
+            - generic [ref=f13e128]: Prompt
+            - generic [ref=f13e129]:
+              - generic [ref=f13e130]:
+                - button "Choose File" [ref=f13e131]
+                - button "Upload image" [ref=f13e132] [cursor=pointer]
+              - textbox "Prompt" [ref=f13e135]:
+                - /placeholder: Describe any visual idea. We will generate an image.
+            - generic [ref=f13e136]:
+              - button "Nano Banana Pro" [ref=f13e137] [cursor=pointer]
+              - button "3:4" [ref=f13e141] [cursor=pointer]
+              - combobox [aria-hidden] [ref=f13e145]
+          - button "Generate" [ref=f13e146] [cursor=pointer]
+    - generic [ref=f13e148]:
+      - generic [ref=f13e149]:
+        - paragraph [ref=f13e150]: Everything between your idea and a finished visual - generation, editing, storyboarding, and video - lives in one place
+        - link "Get started" [ref=f13e151] [cursor=pointer]:
+          - /url: /ai/image?model=nano-banana-pro
+      - link [ref=f13e154] [cursor=pointer]:
+        - /url: /ai/image?model=nano-banana-pro
+        - figure "Flawless text in every image" [ref=f13e156]:
+          - img "Flawless text in every image" [ref=f13e157]
+        - heading "Flawless text in every image" [level=5] [ref=f13e158]
+        - paragraph [ref=f13e159]: Headlines, labels, packaging - rendered with perfect spelling and legibility. Powered by Nano Banana Pro's reasoning engine, not guesswork
+      - link [ref=f13e160] [cursor=pointer]:
+        - /url: /ai/image?model=nano-banana-pro
+        - figure "From image to video in one click" [ref=f13e162]:
+          - img "From image to video in one click" [ref=f13e163]
+        - heading "From image to video in one click" [level=5] [ref=f13e164]
+        - paragraph [ref=f13e165]: Generate your image, then animate it with Sora 2, Kling, or Seedance - cinematic motion, camera control, and platform-ready export without leaving the editor
+      - link [ref=f13e166] [cursor=pointer]:
+        - /url: /character
+        - figure "One face across every frame" [ref=f13e168]:
+          - img "One face across every frame" [ref=f13e169]
+        - heading "One face across every frame" [level=5] [ref=f13e170]
+        - paragraph [ref=f13e171]: Soul ID locks your character's identity - same face, same style, same person - across storyboards, campaigns, and video sequences. No drift
+      - link [ref=f13e172] [cursor=pointer]:
+        - /url: /ai/image?model=nano-banana-pro
+        - figure "Top models in a single place" [ref=f13e174]:
+          - img "Top models in a single place" [ref=f13e175]
+        - heading "Top models in a single place" [level=5] [ref=f13e176]
+        - paragraph [ref=f13e177]: Nano Banana Pro, GPT Image, Seedream, FLUX, Kling O1 - all integrated. Switch models in a click, compare outputs, and pick the best result
+      - link [ref=f13e178] [cursor=pointer]:
+        - /url: /ai/image?model=nano-banana-pro
+        - figure "Native 4K fidelity" [ref=f13e180]:
+          - img "Native 4K fidelity" [ref=f13e181]
+        - heading "Native 4K fidelity" [level=5] [ref=f13e182]
+        - paragraph [ref=f13e183]: Forget upscaling artifacts. Generate crystal-clear images at native 2K with intelligent refinement to 4K. Perfect for print, textures, and macro photography
+      - link [ref=f13e184] [cursor=pointer]:
+        - /url: /edit?model=nano_banana_pro_inpaint
+        - figure "Edit anything without regenerating" [ref=f13e186]:
+          - img "Edit anything without regenerating" [ref=f13e187]
+        - heading "Edit anything without regenerating" [level=5] [ref=f13e188]
+        - paragraph [ref=f13e189]: Brush over any area - swap objects, fix backgrounds, change colors, rewrite labels. Nano Banana Pro Inpaint understands context, so edits blend seamlessly every time
+    - generic [ref=f13e190]:
+      - generic [ref=f13e191]:
+        - heading "STOP SWITCHING TABS. START CREATING." [level=2] [ref=f13e192]
+        - paragraph [ref=f13e193]: Access Nano Banana Pro, GPT Image, FLUX, Seedream, and more from one workspace. Choose your model, dial in the settings, and create at up to 4K resolution
+      - figure [ref=f13e195]:
+        - img "How it looks" [ref=f13e196]
+    - generic [ref=f13e198]:
+      - generic [ref=f13e200]:
+        - paragraph [ref=f13e201]: BUILT FOR EVERY CREATOR. Whether you are designing a campaign, building a brand, or creating daily content, Higgsfield gives you the tools to create stunning visuals faster.
+        - button "Get started" [ref=f13e204] [cursor=pointer]
+      - generic [ref=f13e207]:
+        - generic [ref=f13e210]:
+          - generic [ref=f13e213] [cursor=pointer]:
+            - img "Interactive card background image" [ref=f13e214]
+            - generic [ref=f13e218]:
+              - heading "E-Commerce & Product" [level=3] [ref=f13e219]
+              - button [ref=f13e221]
+            - generic: Turn static product shots into studio-quality visuals and video ads - no crew, no studio, no delays
+          - generic [ref=f13e226] [cursor=pointer]:
+            - img "Interactive card background image" [ref=f13e227]
+            - generic [ref=f13e231]:
+              - heading "Social Media & Content Creation" [level=3] [ref=f13e232]
+              - button [ref=f13e234]
+            - generic: Generate scroll-stopping visuals across every platform and format - from a single workspace
+          - generic [ref=f13e239] [cursor=pointer]:
+            - img "Interactive card background image" [ref=f13e240]
+            - generic [ref=f13e244]:
+              - heading "Infographics & Visual Data" [level=3] [ref=f13e245]
+              - button [ref=f13e247]
+            - generic: Turn complex information into clear, shareable infographics - without a designer or a dozen tools
+          - generic [ref=f13e252] [cursor=pointer]:
+            - img "Interactive card background image" [ref=f13e253]
+            - generic [ref=f13e257]:
+              - heading "Film & Video Pre-Production" [level=3] [ref=f13e258]
+              - button [ref=f13e260]
+            - generic: Visualize your screenplay instantly with precise camera control, cinematic lighting, and consistent characters
+          - generic [ref=f13e265] [cursor=pointer]:
+            - img "Interactive card background image" [ref=f13e266]
+            - generic [ref=f13e270]:
+              - heading "Fashion & Lifestyle Brands" [level=3] [ref=f13e271]
+              - button [ref=f13e273]
+            - generic: Generate editorial-quality campaigns across locations, outfits, and styles - without a single day on set
+          - generic [ref=f13e278] [cursor=pointer]:
+            - img "Interactive card background image" [ref=f13e279]
+            - generic [ref=f13e283]:
+              - heading "Marketing & Brand Design" [level=3] [ref=f13e284]
+              - button [ref=f13e286]
+            - generic: Generate on-brand visuals with accurate text, exact colors, and consistent identity - ready for any channel
+        - generic [ref=f13e289]:
+          - button "Previous" [disabled] [ref=f13e290]
+          - button "Next" [ref=f13e293] [cursor=pointer]
+    - generic [ref=f13e296]:
+      - img "media" [ref=f13e300]
+      - generic [ref=f13e304]:
+        - heading "Cinema studio" [level=2] [ref=f13e305]
+        - paragraph [ref=f13e306]: The first AI Cinema Studio with real optical physics for cinematic video generation. Move from random generation to a deterministic, professional workflow.
+        - link "Try Cinema Studio" [ref=f13e307] [cursor=pointer]:
+          - /url: /generate
+    - generic [ref=f13e311]:
+      - heading "FROM SCRIPT TO SCREEN" [level=2] [ref=f13e313]
+      - generic [ref=f13e314]:
+        - generic [ref=f13e317]:
+          - generic [ref=f13e318]:
+            - figure "Cinema feature preview" [ref=f13e320]:
+              - img "Cinema feature preview" [ref=f13e321]
+            - paragraph [ref=f13e322]: BESPOKE OPTICAL STACK. Build the camera that doesn't exist. Combine the grit of 16mm film with the sharpness of modern Anamorphic glass.
+          - generic [ref=f13e323]:
+            - figure "Cinema feature preview" [ref=f13e325]:
+              - img "Cinema feature preview" [ref=f13e326]
+            - paragraph [ref=f13e327]: SCRIPT TO SCENE. Describe your vision in words and watch it come to life. Scene, lighting, subject, mood, all from a single prompt
+          - generic [ref=f13e328]:
+            - figure "Cinema feature preview" [ref=f13e330]:
+              - img "Cinema feature preview" [ref=f13e331]
+            - paragraph [ref=f13e332]: VISUAL REFERENCE. Upload an image to set the creative direction. Guide the look and feel of every generation before it starts
+          - generic [ref=f13e333]:
+            - figure "Cinema feature preview" [ref=f13e335]:
+              - img "Cinema feature preview" [ref=f13e336]
+            - paragraph [ref=f13e337]: HYBRID WORKFLOW. Stop switching tabs. Easily toggle between Photography Mode and Videography Mode instantly. Iterate on your still image.
+          - generic [ref=f13e338]:
+            - figure "Cinema feature preview" [ref=f13e340]:
+              - img "Cinema feature preview" [ref=f13e341]
+            - paragraph [ref=f13e342]: MULTI-AXIS MOTION CONTROL. Simple pans are for amateurs. The Cinema Studio allows you to stack up to 3 simultaneous camera movements
+        - generic [ref=f13e343]:
+          - button "Previous" [disabled] [ref=f13e344]
+          - button "Next" [ref=f13e347] [cursor=pointer]
+    - generic [ref=f13e351]:
+      - heading "Pick your plan" [level=2] [ref=f13e352]
+      - paragraph [ref=f13e353]: Get access to more generations and priority access to new features
+      - generic [ref=f13e355]:
+        - generic [ref=f13e358]:
+          - paragraph [ref=f13e360]: Monthly
+          - switch "Toggle between monthly and annual billing" [checked] [ref=f13e361] [cursor=pointer]
+          - generic [ref=f13e362]:
+            - paragraph [ref=f13e363]: Annual
+            - generic [ref=f13e364]: 30% OFF
+        - generic [ref=f13e367]:
+          - generic [ref=f13e371]:
+            - generic [ref=f13e372]:
+              - generic [ref=f13e373]:
+                - generic [ref=f13e374]: Starter
+                - paragraph [ref=f13e376]: For first-time AI content creators
+              - generic [ref=f13e378]:
+                - generic [ref=f13e379]:
+                  - generic [ref=f13e383]:
+                    - generic [ref=f13e387]:
+                      - generic [ref=f13e388]: "2"
+                      - generic [ref=f13e390]: "7"
+                      - generic [ref=f13e392]: "0"
+                    - text: credits/mo.
+                  - generic [ref=f13e394]:
+                    - generic [ref=f13e395]: = 135 Nano Banana Pro Generations
+                    - generic [ref=f13e396]: ~ 15 Seedance 2.0 Fast videos
+                - generic [ref=f13e397]: Fixed amount of 270 credits/mo
+              - generic [ref=f13e402]:
+                - generic [ref=f13e403]: €19
+                - generic [ref=f13e404]: per month, billed annually
+            - generic [ref=f13e405]:
+              - generic [ref=f13e406]:
+                - button "Downgrade Plan" [ref=f13e407] [cursor=pointer]
+                - generic [ref=f13e408]: No difference compared to monthly
+              - generic [ref=f13e410]:
+                - generic [ref=f13e411]:
+                  - generic [ref=f13e412]: 7-Day Unlimited
+                  - button "Learn more" [ref=f13e416] [cursor=pointer]
+                - generic [ref=f13e417]:
+                  - generic [ref=f13e418]:
+                    - generic [ref=f13e421]: Higgsfield Genjutsu
+                    - generic [ref=f13e422]: No free gens
+                  - generic [ref=f13e424]:
+                    - generic [ref=f13e427]: Nano Banana 2
+                    - generic [ref=f13e428]: NO UNLIMITED
+                  - generic [ref=f13e430]:
+                    - generic [ref=f13e433]: Nano Banana Pro
+                    - generic [ref=f13e434]: NO UNLIMITED
+                  - generic [ref=f13e436]:
+                    - generic [ref=f13e439]: Kling 3.0
+                    - generic [ref=f13e440]: NO UNLIMITED
+              - generic [ref=f13e442]:
+                - generic [ref=f13e447]:
+                  - text: "Parallel generations: up to 2 Videos,"
+                  - generic [ref=f13e448]:
+                    - text: 4 Images
+                    - button [ref=f13e449]
+                - generic [ref=f13e453]: Access to Supercomputer
+                - generic [ref=f13e458]: Access to Seedance 2.0 Fast & 2.0 Mini
+                - generic [ref=f13e467]:
+                  - text: Access to selected models only
+                  - generic [ref=f13e468]:
+                    - text: "& features"
+                    - button [ref=f13e469]
+                - generic [ref=f13e473]: Early access to advanced AI features
+                - generic [ref=f13e478]: Access to unlimited marketplace
+                - generic [ref=f13e483]: Lowest cost per credit
+              - generic [ref=f13e488]:
+                - generic [ref=f13e489]: 365-DAY UNLIMITED & FREE GENS
+                - generic [ref=f13e491]:
+                  - generic [ref=f13e492]:
+                    - generic [ref=f13e496]:
+                      - text: Soul V2
+                      - generic [ref=f13e497]:
+                        - text: "& Cinema"
+                        - button [ref=f13e498]
+                    - generic [ref=f13e502]: 300 FREE GENS
+                  - generic [ref=f13e504]:
+                    - generic [ref=f13e508]:
+                      - text: Seedream
+                      - generic [ref=f13e509]:
+                        - text: 5.0 Lite
+                        - button [ref=f13e510]
+                    - generic [ref=f13e514]: 365 UNLIMITED
+                  - generic [ref=f13e516]:
+                    - generic [ref=f13e520]:
+                      - text: Flux.2
+                      - generic [ref=f13e521]:
+                        - text: Pro (1K)
+                        - button [ref=f13e522]
+                    - generic [ref=f13e526]: 365 UNLIMITED
+                  - generic [ref=f13e528]: Seedream 4.5
+                  - generic [ref=f13e533]: Nano Banana
+                  - generic [ref=f13e538]: Kling O1 Image
+                  - generic [ref=f13e543]: GPT Image
+          - generic [ref=f13e551]:
+            - generic [ref=f13e552]:
+              - generic [ref=f13e553]:
+                - generic [ref=f13e554]:
+                  - generic [ref=f13e555]: Plus
+                  - paragraph [ref=f13e556]: 20% OFF
+                  - paragraph [ref=f13e557]:
+                    - generic [ref=f13e558]: Seedance 2.0
+                - paragraph [ref=f13e561]: For consistent and easy AI content creation
+              - generic [ref=f13e563]:
+                - generic [ref=f13e564]:
+                  - generic [ref=f13e568]:
+                    - generic [ref=f13e572]:
+                      - generic [ref=f13e573]: "1"
+                      - generic [ref=f13e575]: ","
+                      - generic [ref=f13e577]: "2"
+                      - generic [ref=f13e579]: "0"
+                      - generic [ref=f13e581]: "0"
+                    - text: credits/mo.
+                  - generic [ref=f13e583]:
+                    - generic [ref=f13e584]: = 600 Nano Banana Pro Generations
+                    - generic [ref=f13e585]: ~ 53 Seedance 2.0 videos
+                - generic [ref=f13e586]: Fixed amount of 1,200 credits/mo
+              - generic [ref=f13e591]:
+                - generic [ref=f13e592]: €59
+                - generic [ref=f13e594]: €47
+                - generic [ref=f13e595]: per month, billed annually
+            - generic [ref=f13e596]:
+              - generic [ref=f13e597]:
+                - button "Upgrade Plan" [ref=f13e598] [cursor=pointer]
+                - generic [ref=f13e599]: Save €144 compared to monthly
+              - generic [ref=f13e601]:
+                - generic [ref=f13e602]:
+                  - generic [ref=f13e603]: 7-Day Unlimited
+                  - button "Learn more" [ref=f13e607] [cursor=pointer]
+                - generic [ref=f13e608]:
+                  - generic [ref=f13e609]:
+                    - generic [ref=f13e612]: Higgsfield Genjutsu
+                    - generic [ref=f13e613]:
+                      - generic [ref=f13e614]: 720p
+                      - generic [ref=f13e615]: 3 free gens
+                  - generic [ref=f13e616]:
+                    - generic [ref=f13e619]: Nano Banana Pro
+                    - generic [ref=f13e620]: NO UNLIMITED
+                  - generic [ref=f13e622]:
+                    - generic [ref=f13e625]:
+                      - text: Nano
+                      - generic [ref=f13e626]:
+                        - text: Banana 2
+                        - button [ref=f13e627]
+                    - generic [ref=f13e631]:
+                      - generic [ref=f13e632]: 2K
+                      - generic [ref=f13e633]: UNLIMITED
+                  - generic [ref=f13e634]:
+                    - generic [ref=f13e638]:
+                      - text: Kling 3.0
+                      - button [ref=f13e639]
+                    - generic [ref=f13e643]: UNLIMITED
+              - generic [ref=f13e645]:
+                - generic [ref=f13e646]:
+                  - generic [ref=f13e650]:
+                    - text: Unlimited paid
+                    - generic [ref=f13e651]:
+                      - text: parallel generations
+                      - button [ref=f13e652]
+                  - generic [ref=f13e656]: New
+                - generic [ref=f13e658]: Access to Supercomputer
+                - generic [ref=f13e663]: Access to all Seedance models
+                - generic [ref=f13e672]:
+                  - text: Access to all models
+                  - generic [ref=f13e673]:
+                    - text: "& features"
+                    - button [ref=f13e674]
+                - generic [ref=f13e682]:
+                  - text: Early access to advanced
+                  - generic [ref=f13e683]:
+                    - text: AI features
+                    - button [ref=f13e684]
+                - generic [ref=f13e688]: Access to unlimited marketplace
+                - generic [ref=f13e693]: Lowest cost per credit
+              - generic [ref=f13e698]:
+                - generic [ref=f13e699]: 365-DAY UNLIMITED & FREE GENS
+                - generic [ref=f13e701]:
+                  - generic [ref=f13e702]:
+                    - generic [ref=f13e706]:
+                      - text: Soul V2 &
+                      - generic [ref=f13e707]:
+                        - text: Cinema
+                        - button [ref=f13e708]
+                    - generic [ref=f13e712]: 5,000 FREE GENS
+                  - generic [ref=f13e714]:
+                    - generic [ref=f13e718]:
+                      - text: Seedream
+                      - generic [ref=f13e719]:
+                        - text: 5.0 Lite
+                        - button [ref=f13e720]
+                    - generic [ref=f13e724]: 365 UNLIMITED
+                  - generic [ref=f13e726]:
+                    - generic [ref=f13e730]:
+                      - text: Flux.2
+                      - generic [ref=f13e731]:
+                        - text: Pro (1K)
+                        - button [ref=f13e732]
+                    - generic [ref=f13e736]: 365 UNLIMITED
+                  - generic [ref=f13e738]:
+                    - generic [ref=f13e743]:
+                      - text: Seedream 4.5
+                      - button [ref=f13e744]
+                    - generic [ref=f13e748]: 365 UNLIMITED
+                  - generic [ref=f13e750]:
+                    - generic [ref=f13e755]:
+                      - text: Nano Banana
+                      - button [ref=f13e756]
+                    - generic [ref=f13e760]: 365 UNLIMITED
+                  - generic [ref=f13e762]:
+                    - generic [ref=f13e766]:
+                      - text: Kling
+                      - generic [ref=f13e767]:
+                        - text: O1 Image
+                        - button [ref=f13e768]
+                    - generic [ref=f13e772]: 365 UNLIMITED
+                  - generic [ref=f13e774]:
+                    - generic [ref=f13e779]:
+                      - text: GPT Image
+                      - button [ref=f13e780]
+                    - generic [ref=f13e784]: 365 UNLIMITED
+          - generic [ref=f13e787]:
+            - generic [ref=f13e788]: Most popular
+            - generic [ref=f13e793]:
+              - generic [ref=f13e794]:
+                - generic [ref=f13e795]:
+                  - generic [ref=f13e796]:
+                    - generic [ref=f13e797]: Ultra
+                    - paragraph [ref=f13e798]: 23% OFF
+                    - paragraph [ref=f13e799]:
+                      - generic [ref=f13e800]: Seedance 2.0
+                  - paragraph [ref=f13e803]: For creators building AI projects
+                - generic [ref=f13e805]:
+                  - generic [ref=f13e806]:
+                    - generic [ref=f13e810]:
+                      - generic [ref=f13e814]:
+                        - generic [ref=f13e815]: "3"
+                        - generic [ref=f13e817]: ","
+                        - generic [ref=f13e819]: "0"
+                        - generic [ref=f13e821]: "0"
+                        - generic [ref=f13e823]: "0"
+                      - text: credits/mo.
+                    - generic [ref=f13e825]:
+                      - generic [ref=f13e826]: = 1500 Nano Banana Pro Generations
+                      - generic [ref=f13e827]: ~ 133 Seedance 2.0 videos
+                  - generic [ref=f13e828]:
+                    - generic [ref=f13e829] [cursor=pointer]
+                    - generic [ref=f13e834]:
+                      - button "3,000" [ref=f13e835] [cursor=pointer]
+                      - button "6,000" [ref=f13e836] [cursor=pointer]
+                      - button "9,000" [ref=f13e837] [cursor=pointer]
+                - generic [ref=f13e839]:
+                  - generic [ref=f13e840]: €129
+                  - generic [ref=f13e842]: €99
+                  - generic [ref=f13e843]: per month, billed annually
+              - generic [ref=f13e844]:
+                - generic [ref=f13e845]:
+                  - button "Upgrade Plan" [ref=f13e846] [cursor=pointer]
+                  - generic [ref=f13e847]: Save €360 compared to monthly
+                - generic [ref=f13e849]:
+                  - generic [ref=f13e850]:
+                    - generic [ref=f13e851]: 7-Day Unlimited
+                    - button "Learn more" [ref=f13e855] [cursor=pointer]
+                  - generic [ref=f13e856]:
+                    - generic [ref=f13e857]:
+                      - generic [ref=f13e860]: Higgsfield Genjutsu
+                      - generic [ref=f13e861]:
+                        - generic [ref=f13e862]: 720p
+                        - generic [ref=f13e863]: 3 free gens
+                    - generic [ref=f13e864]:
+                      - generic [ref=f13e867]:
+                        - text: Nano
+                        - generic [ref=f13e868]:
+                          - text: Banana Pro
+                          - button [ref=f13e869]
+                      - generic [ref=f13e873]:
+                        - generic [ref=f13e874]: 2K
+                        - generic [ref=f13e875]: UNLIMITED
+                    - generic [ref=f13e876]:
+                      - generic [ref=f13e879]:
+                        - text: Nano
+                        - generic [ref=f13e880]:
+                          - text: Banana 2
+                          - button [ref=f13e881]
+                      - generic [ref=f13e885]:
+                        - generic [ref=f13e886]: 2K
+                        - generic [ref=f13e887]: UNLIMITED
+                    - generic [ref=f13e888]:
+                      - generic [ref=f13e892]:
+                        - text: Kling 3.0
+                        - button [ref=f13e893]
+                      - generic [ref=f13e897]: UNLIMITED
+                - generic [ref=f13e899]:
+                  - generic [ref=f13e900]:
+                    - generic [ref=f13e904]:
+                      - text: Unlimited paid
+                      - generic [ref=f13e905]:
+                        - text: parallel generations
+                        - button [ref=f13e906]
+                    - generic [ref=f13e910]: New
+                  - generic [ref=f13e912]: Access to Supercomputer
+                  - generic [ref=f13e917]: Access to all Seedance models
+                  - generic [ref=f13e926]:
+                    - text: Access to all models
+                    - generic [ref=f13e927]:
+                      - text: "& features"
+                      - button [ref=f13e928]
+                  - generic [ref=f13e936]:
+                    - text: Early access to advanced
+                    - generic [ref=f13e937]:
+                      - text: AI features
+                      - button [ref=f13e938]
+                  - generic [ref=f13e942]: Access to unlimited marketplace
+                  - generic [ref=f13e947]:
+                    - generic [ref=f13e948]: Lowest cost per credit
+                    - generic [ref=f13e952]: 55% cheaper
+                - generic [ref=f13e953]:
+                  - generic [ref=f13e954]: 365-DAY UNLIMITED & FREE GENS
+                  - generic [ref=f13e956]:
+                    - generic [ref=f13e957]:
+                      - generic [ref=f13e961]:
+                        - text: Soul V2 &
+                        - generic [ref=f13e962]:
+                          - text: Cinema
+                          - button [ref=f13e963]
+                      - generic [ref=f13e967]: 10,000 FREE GENS
+                    - generic [ref=f13e969]:
+                      - generic [ref=f13e973]:
+                        - text: Seedream
+                        - generic [ref=f13e974]:
+                          - text: 5.0 Lite
+                          - button [ref=f13e975]
+                      - generic [ref=f13e979]: 365 UNLIMITED
+                    - generic [ref=f13e981]:
+                      - generic [ref=f13e985]:
+                        - text: Flux.2
+                        - generic [ref=f13e986]:
+                          - text: Pro (1K)
+                          - button [ref=f13e987]
+                      - generic [ref=f13e991]: 365 UNLIMITED
+                    - generic [ref=f13e993]:
+                      - generic [ref=f13e998]:
+                        - text: Seedream 4.5
+                        - button [ref=f13e999]
+                      - generic [ref=f13e1003]:
+                        - generic [ref=f13e1004]: 4K
+                        - generic [ref=f13e1005]: 365 UNLIMITED
+                    - generic [ref=f13e1006]:
+                      - generic [ref=f13e1011]:
+                        - text: Nano Banana
+                        - button [ref=f13e1012]
+                      - generic [ref=f13e1016]: 365 UNLIMITED
+                    - generic [ref=f13e1018]:
+                      - generic [ref=f13e1022]:
+                        - text: Kling
+                        - generic [ref=f13e1023]:
+                          - text: O1 Image
+                          - button [ref=f13e1024]
+                      - generic [ref=f13e1028]: 365 UNLIMITED
+                    - generic [ref=f13e1030]:
+                      - generic [ref=f13e1035]:
+                        - text: GPT Image
+                        - button [ref=f13e1036]
+                      - generic [ref=f13e1040]: 365 UNLIMITED
+          - generic [ref=f13e1043]:
+            - generic [ref=f13e1044]: BEST VALUE
+            - generic [ref=f13e1049]:
+              - generic [ref=f13e1050]:
+                - generic [ref=f13e1051]:
+                  - generic [ref=f13e1052]:
+                    - generic [ref=f13e1053]: Team
+                    - paragraph [ref=f13e1054]: 18% OFF
+                    - paragraph [ref=f13e1055]:
+                      - generic [ref=f13e1056]: Seedance 2.0
+                  - paragraph [ref=f13e1059]: For agencies and small teams to create faster
+                - generic [ref=f13e1061]:
+                  - generic [ref=f13e1065]:
+                    - generic [ref=f13e1069]:
+                      - generic [ref=f13e1070]: "2"
+                      - generic [ref=f13e1072]: ","
+                      - generic [ref=f13e1074]: "0"
+                      - generic [ref=f13e1076]: "0"
+                      - generic [ref=f13e1078]: "0"
+                    - text: credits in total/mo
+                  - list [ref=f13e1080]:
+                    - listitem [ref=f13e1081]: = 1,000 credits per seat/mo
+                    - listitem [ref=f13e1082]: = 1,000 Nano Banana Pro images
+                    - listitem [ref=f13e1083]:
+                      - generic [ref=f13e1084]: ~ 229
+                      - text: Kling 3.0 videos
+                - generic [ref=f13e1086]:
+                  - generic [ref=f13e1087]: €79
+                  - generic [ref=f13e1089]: €65
+                  - generic [ref=f13e1090]: per seat/mo, billed annually
+              - generic [ref=f13e1091]:
+                - generic [ref=f13e1092]:
+                  - button "Upgrade Plan" [ref=f13e1093] [cursor=pointer]
+                  - generic [ref=f13e1094]: Save €168 compared to monthly
+                - generic [ref=f13e1096] [cursor=pointer]:
+                  - button "Decrease team size" [disabled] [ref=f13e1097]
+                  - paragraph [ref=f13e1100]: 2 seats
+                  - button "Increase team size" [ref=f13e1101]
+                - generic [ref=f13e1104]:
+                  - generic [ref=f13e1105]: Workspace & Collaboration
+                  - generic [ref=f13e1106]: 2 to 9 members in one shared workspace
+                  - generic [ref=f13e1111]: "Parallel generations: up to 16 video & 16 image"
+                  - generic [ref=f13e1116]: Access to all features & models
+                  - generic [ref=f13e1121]: Shared credit pool
+                  - generic [ref=f13e1126]: Shared workspace for your team
+                  - generic [ref=f13e1131]: Early access to advanced AI features
+                  - generic [ref=f13e1136]: Access to Seedance 2.0
+                  - generic [ref=f13e1141]: Access to Supercomputer
+                - generic [ref=f13e1146]:
+                  - generic [ref=f13e1147]: Analytics & Support
+                  - generic [ref=f13e1148]: Basic analytics
+                  - generic [ref=f13e1153]: Priority support
+                - generic [ref=f13e1158]:
+                  - generic [ref=f13e1159]: Admin & Control
+                  - generic [ref=f13e1160]: SSO
+                  - generic [ref=f13e1165]: Admin spend control
+                  - generic [ref=f13e1170]: Priority queue
+                - generic [ref=f13e1175]:
+                  - generic [ref=f13e1176]: Security & Compliance
+                  - generic [ref=f13e1177]: Delegated top-up access
+                  - generic [ref=f13e1182]: Indemnification
+                  - generic [ref=f13e1187]: No training on your data
+                  - generic [ref=f13e1192]: SOC 2 security
+                  - generic [ref=f13e1197]: AI Educator & Slack support
+        - generic [ref=f13e1202]: Unlimited models and Free Generations on plans are accessible only via higgsfield.ai and are not accessible on MCP/CLI, Canvas or Supercomputer.Prices exclude VAT and local taxes, calculated at checkout. Unlimited usage may be subject to dynamic speed adjustments during high-traffic periods. Learn moreAccess to new models and advanced features may be done on a rolling basis and not available to all users at launch.
+    - generic [ref=f13e1205]:
+      - generic [ref=f13e1207]:
+        - heading "Get insights from experts blog" [level=2] [ref=f13e1208]
+        - paragraph [ref=f13e1209]: Get the insights you need. Our experts share actionable hacks, break down the hottest topics, and provide essential how-to guides to help you build, optimize, and scale.
+        - link [ref=f13e1212] [cursor=pointer]:
+          - /url: /blog
+          - button "Read our blog" [ref=f13e1213]
+      - generic [ref=f13e1218]:
+        - link [ref=f13e1219] [cursor=pointer]:
+          - /url: /blog/agentic-ai-for-content-creation
+          - article [ref=f13e1220]:
+            - figure [ref=f13e1221]:
+              - img "How to Use Agentic AI for Content Creation" [ref=f13e1223]
+            - heading "How to Use Agentic AI for Content Creation" [level=3] [ref=f13e1225]
+        - link [ref=f13e1226] [cursor=pointer]:
+          - /url: /blog/how-we-built-supercomputer
+          - article [ref=f13e1227]:
+            - figure [ref=f13e1228]:
+              - 'img "Inside Higgsfield #2: How We Built Supercomputer" [ref=f13e1230]'
+            - 'heading "Inside Higgsfield #2: How We Built Supercomputer" [level=3] [ref=f13e1232]'
+        - link [ref=f13e1233] [cursor=pointer]:
+          - /url: /blog/how-we-built-cinema-studio
+          - article [ref=f13e1234]:
+            - figure [ref=f13e1235]:
+              - 'img "Inside Higgsfield #1: How We Built Cinema Studio" [ref=f13e1237]'
+            - 'heading "Inside Higgsfield #1: How We Built Cinema Studio" [level=3] [ref=f13e1239]'
+        - link [ref=f13e1240] [cursor=pointer]:
+          - /url: /blog/cinema-studio-4-0
+          - article [ref=f13e1241]:
+            - figure [ref=f13e1242]:
+              - 'img "Meet Cinema Studio 4.0: New Generation of AI Filmmaking" [ref=f13e1244]'
+            - 'heading "Meet Cinema Studio 4.0: New Generation of AI Filmmaking" [level=3] [ref=f13e1246]'
+        - link [ref=f13e1247] [cursor=pointer]:
+          - /url: /blog/Why-Does-Your-AI-Characters-Face-Keep-Changing
+          - article [ref=f13e1248]:
+            - figure [ref=f13e1249]:
+              - img "Why Does Your AI Character's Face Keep Changing?" [ref=f13e1251]
+            - heading "Why Does Your AI Character's Face Keep Changing?" [level=3] [ref=f13e1253]
+        - link [ref=f13e1254] [cursor=pointer]:
+          - /url: /blog/terms-of-use-privacy-policy-update
+          - article [ref=f13e1255]:
+            - figure [ref=f13e1256]:
+              - img "Updates to Higgsfield's Terms of Use and Privacy Policy" [ref=f13e1258]
+            - heading "Updates to Higgsfield's Terms of Use and Privacy Policy" [level=3] [ref=f13e1260]
+        - link [ref=f13e1261] [cursor=pointer]:
+          - /url: /blog/AI-Motion-Design-When-Video-Generation-Meets-Code
+          - article [ref=f13e1262]:
+            - figure [ref=f13e1263]:
+              - 'img "What''s New in GenAI: AI Motion Design Meets CodeGen Video Generation" [ref=f13e1265]'
+            - 'heading "What''s New in GenAI: AI Motion Design Meets CodeGen Video Generation" [level=3] [ref=f13e1267]'
+        - link [ref=f13e1268] [cursor=pointer]:
+          - /url: /blog/sports-product-video-ads-ai-2026
+          - article [ref=f13e1269]:
+            - figure [ref=f13e1270]:
+              - img "How to Turn Sports Product Photos into AI Video Ads in 2026" [ref=f13e1272]
+            - heading "How to Turn Sports Product Photos into AI Video Ads in 2026" [level=3] [ref=f13e1274]
+        - link [ref=f13e1275] [cursor=pointer]:
+          - /url: /blog/seedance4k-breakdown
+          - article [ref=f13e1276]:
+            - figure [ref=f13e1277]:
+              - img "Recreate Our 1-Minute Seedance 4K Film - The Full Seedance 4K Breakdown With All Prompts" [ref=f13e1279]
+            - heading "Recreate Our 1-Minute Seedance 4K Film - The Full Seedance 4K Breakdown With All Prompts" [level=3] [ref=f13e1281]
+        - link [ref=f13e1282] [cursor=pointer]:
+          - /url: /blog/ai-ad-agency
+          - article [ref=f13e1283]:
+            - figure [ref=f13e1284]:
+              - img "How to Build an Automated AI Business?" [ref=f13e1286]
+            - heading "How to Build an Automated AI Business?" [level=3] [ref=f13e1288]
+    - generic [ref=f13e1290]:
+      - generic [ref=f13e1291]:
+        - heading "Still have questions?" [level=2] [ref=f13e1292]
+        - paragraph [ref=f13e1293]: We’ve answered the most frequently asked questions
+      - generic [ref=f13e1294]:
+        - group [ref=f13e1295]:
+          - generic "What AI image models are available on Higgsfield?" [ref=f13e1296] [cursor=pointer]
+          - generic [ref=f13e1299]: Higgsfield gives you access to 15+ leading models in one workspace - including Nano Banana Pro, GPT Image, Seedream, FLUX, Kling O1, and Higgsfield Soul. You can switch between models instantly and compare outputs to find the best fit for your project.
+        - group [ref=f13e1300]:
+          - generic "What is the maximum image resolution I can generate?" [ref=f13e1301] [cursor=pointer]
+        - group [ref=f13e1305]:
+          - generic "Can Higgsfield generate accurate text inside images?" [ref=f13e1306] [cursor=pointer]
+        - group [ref=f13e1310]:
+          - generic "Can I keep the same character consistent across multiple images?" [ref=f13e1311] [cursor=pointer]
+        - group [ref=f13e1315]:
+          - generic "Can I turn my AI images into video?" [ref=f13e1316] [cursor=pointer]
+        - group [ref=f13e1320]:
+          - generic "What aspect ratios and formats are supported?" [ref=f13e1321] [cursor=pointer]
+        - group [ref=f13e1325]:
+          - generic "Can I edit specific parts of a generated image without regenerating the whole thing?" [ref=f13e1326] [cursor=pointer]
+        - group [ref=f13e1330]:
+          - generic "Is Higgsfield free to use?" [ref=f13e1331] [cursor=pointer]
+        - group [ref=f13e1335]:
+          - generic "Can I use Higgsfield with my team?" [ref=f13e1336] [cursor=pointer]
+        - group [ref=f13e1340]:
+          - generic "Can I input my exact brand colors?" [ref=f13e1341] [cursor=pointer]
+    - generic [ref=f13e1346]:
+      - heading "Explore more AI features" [level=2] [ref=f13e1347]
+      - generic [ref=f13e1348]:
+        - link "Image Editing" [ref=f13e1349] [cursor=pointer]:
+          - /url: /image-editing
+        - link "Nano Banana Pro Intro" [ref=f13e1350] [cursor=pointer]:
+          - /url: /nano-banana-pro-intro
+        - link "Nano Banana Pro Prompt Guide" [ref=f13e1351] [cursor=pointer]:
+          - /url: /nano-banana-pro-prompt-guide
+        - link "FLUX 2 Intro" [ref=f13e1352] [cursor=pointer]:
+          - /url: /flux-2-intro
+        - link "GPT 1.5" [ref=f13e1353] [cursor=pointer]:
+          - /url: /gpt-1.5
+        - link "GPT 2" [ref=f13e1354] [cursor=pointer]:
+          - /url: /gpt-2
+        - link "Seedream 5.0" [ref=f13e1355] [cursor=pointer]:
+          - /url: /seedream-5.0
+        - link "Soul Intro" [ref=f13e1356] [cursor=pointer]:
+          - /url: /soul-intro
+        - link "Soul" [ref=f13e1357] [cursor=pointer]:
+          - /url: /soul
+        - link "Claude AI Image Generator" [ref=f13e1358] [cursor=pointer]:
+          - /url: /claude-ai-image-generator
+        - link "Angles" [ref=f13e1359] [cursor=pointer]:
+          - /url: /apps/angles
+        - link "Relight" [ref=f13e1360] [cursor=pointer]:
+          - /url: /apps/relight
+        - link "Skin Enhancer" [ref=f13e1361] [cursor=pointer]:
+          - /url: /apps/skin-enhancer
+        - link "Style Snap" [ref=f13e1362] [cursor=pointer]:
+          - /url: /apps/style-snap
+        - link "Paint App" [ref=f13e1363] [cursor=pointer]:
+          - /url: /apps/paint-app
+        - link "Breakdown" [ref=f13e1364] [cursor=pointer]:
+          - /url: /apps/breakdown
+        - link "3D Render" [ref=f13e1365] [cursor=pointer]:
+          - /url: /apps/3d-render
+        - link "J Magazine" [ref=f13e1366] [cursor=pointer]:
+          - /url: /apps/j-magazine
+        - link "J Poster" [ref=f13e1367] [cursor=pointer]:
+          - /url: /apps/j-poster
+        - link "Renaissance" [ref=f13e1368] [cursor=pointer]:
+          - /url: /apps/renaissance
+        - link "Meme Generator" [ref=f13e1369] [cursor=pointer]:
+          - /url: /apps/meme-generator
+        - link "AI Headshot Generator" [ref=f13e1370] [cursor=pointer]:
+          - /url: /apps/ai-headshot-generator
+        - link "Expand Image" [ref=f13e1371] [cursor=pointer]:
+          - /url: /apps/expand-image
+        - link "Image Background Remover" [ref=f13e1372] [cursor=pointer]:
+          - /url: /apps/image-background-remover
+        - link "Color Grading" [ref=f13e1373] [cursor=pointer]:
+          - /url: /apps/color-grading
+        - link "AI Video Generator" [ref=f13e1374] [cursor=pointer]:
+          - /url: /ai-video
+        - link "Kling 3.0" [ref=f13e1375] [cursor=pointer]:
+          - /url: /kling-3.0
+        - link "Seedance 2.0" [ref=f13e1376] [cursor=pointer]:
+          - /url: /seedance/2.0
+        - link "Seedance 2.5" [ref=f13e1377] [cursor=pointer]:
+          - /url: /seedance/2.5
+        - link "Wan 2.6" [ref=f13e1378] [cursor=pointer]:
+          - /url: /wan-2.6
+        - link "Grok Imagine" [ref=f13e1379] [cursor=pointer]:
+          - /url: /grok-imagine
+        - link "AI Image Editor" [ref=f13e1380] [cursor=pointer]:
+          - /url: /ai-image-editor
+        - link "AI Art Generator" [ref=f13e1381] [cursor=pointer]:
+          - /url: /ai-art-generator
+        - link "AI Design Generator" [ref=f13e1382] [cursor=pointer]:
+          - /url: /ai-design-generator
+        - link "AI Logo Generator" [ref=f13e1383] [cursor=pointer]:
+          - /url: /ai-logo-generator
+        - link "AI Thumbnail Generator" [ref=f13e1384] [cursor=pointer]:
+          - /url: /ai-thumbnail-generator
+        - link "AI Background Generator" [ref=f13e1385] [cursor=pointer]:
+          - /url: /ai-background-generator
+        - link "AI Product Photography" [ref=f13e1386] [cursor=pointer]:
+          - /url: /ai-product-photography
+        - link "AI Profile Picture Generator" [ref=f13e1387] [cursor=pointer]:
+          - /url: /ai-profile-picture-generator
+        - link "AI Portrait Generator" [ref=f13e1388] [cursor=pointer]:
+          - /url: /ai-portrait-generator
+        - link "AI Anime Generator" [ref=f13e1389] [cursor=pointer]:
+          - /url: /ai-anime-generator
+        - link "AI Cartoon Generator" [ref=f13e1390] [cursor=pointer]:
+          - /url: /ai-cartoon-generator
+        - link "AI Animal Generator" [ref=f13e1391] [cursor=pointer]:
+          - /url: /ai-animal-generator
+        - link "AI Image Upscaler" [ref=f13e1392] [cursor=pointer]:
+          - /url: /ai-image-upscaler
+        - link "AI Image Enhancer" [ref=f13e1393] [cursor=pointer]:
+          - /url: /ai-image-enhancer
+        - link "AI Object Remover" [ref=f13e1394] [cursor=pointer]:
+          - /url: /ai-object-remover
+        - link "AI Hairstyle Changer" [ref=f13e1395] [cursor=pointer]:
+          - /url: /ai-hairstyle-changer
+        - link "AI Clothes Changer" [ref=f13e1396] [cursor=pointer]:
+          - /url: /ai-clothes-changer
+        - link "AI Prompt Generator" [ref=f13e1397] [cursor=pointer]:
+          - /url: /ai-prompt-generator
+        - link "AI Avatar Generator" [ref=f13e1398] [cursor=pointer]:
+          - /url: /ai-avatar-generator
+        - link "Face Swap" [ref=f13e1399] [cursor=pointer]:
+          - /url: /apps/face-swap
+    - generic [ref=f13e1401]:
+      - generic [ref=f13e1402]:
+        - heading "AI-native creative suite" [level=2] [ref=f13e1403]
+        - generic [ref=f13e1404]:
+          - generic [ref=f13e1406]:
+            - heading "Create" [level=3] [ref=f13e1407]
+            - list [ref=f13e1408]:
+              - listitem [ref=f13e1409]:
+                - link "AI Video" [ref=f13e1410] [cursor=pointer]:
+                  - /url: /ai-video
+              - listitem [ref=f13e1411]:
+                - link "AI Image" [ref=f13e1412] [cursor=pointer]:
+                  - /url: /ai-image
+              - listitem [ref=f13e1413]:
+                - link "Edit Image" [ref=f13e1414] [cursor=pointer]:
+                  - /url: /edit?model=nano_banana_pro_inpaint
+              - listitem [ref=f13e1415]:
+                - link "Inpaint" [ref=f13e1416] [cursor=pointer]:
+                  - /url: /image-editing
+              - listitem [ref=f13e1417]:
+                - link "Upscale" [ref=f13e1418] [cursor=pointer]:
+                  - /url: /upscale
+              - listitem [ref=f13e1419]:
+                - link "Sora 2 Upscale" [ref=f13e1420] [cursor=pointer]:
+                  - /url: /sora-2-upscale
+              - listitem [ref=f13e1421]:
+                - link "Mixed Media" [ref=f13e1422] [cursor=pointer]:
+                  - /url: /mixed-media-intro
+              - listitem [ref=f13e1423]:
+                - link "AI Face Swap" [ref=f13e1424] [cursor=pointer]:
+                  - /url: /apps/face-swap
+              - listitem [ref=f13e1425]:
+                - link "AI Influencer" [ref=f13e1426] [cursor=pointer]:
+                  - /url: /ai-influencer
+              - listitem [ref=f13e1427]:
+                - link "Apps" [ref=f13e1428] [cursor=pointer]:
+                  - /url: /apps
+          - generic [ref=f13e1429]:
+            - generic [ref=f13e1430]:
+              - heading "Video Models" [level=3] [ref=f13e1431]
+              - list [ref=f13e1432]:
+                - listitem [ref=f13e1433]:
+                  - link "Seedance 2.5" [ref=f13e1434] [cursor=pointer]:
+                    - /url: /seedance/2.5
+                - listitem [ref=f13e1435]:
+                  - link "Seedance 2.0" [ref=f13e1436] [cursor=pointer]:
+                    - /url: /seedance/2.0
+                - listitem [ref=f13e1437]:
+                  - link "Kling 3.0" [ref=f13e1438] [cursor=pointer]:
+                    - /url: /kling-3.0
+                - listitem [ref=f13e1439]:
+                  - link "Sora 2 Introduction" [ref=f13e1440] [cursor=pointer]:
+                    - /url: /sora-2
+                - listitem [ref=f13e1441]:
+                  - link "Veo 3.1 Introduction" [ref=f13e1442] [cursor=pointer]:
+                    - /url: /veo3.1
+                - listitem [ref=f13e1443]:
+                  - link "WAN 2.6" [ref=f13e1444] [cursor=pointer]:
+                    - /url: /wan-2.6
+                - listitem [ref=f13e1445]:
+                  - link "Grok Imagine 1.5" [ref=f13e1446] [cursor=pointer]:
+                    - /url: /grok-imagine-1.5
+                - listitem [ref=f13e1447]:
+                  - link "Gemini Omni Flash" [ref=f13e1448] [cursor=pointer]:
+                    - /url: /gemini-omni-flash
+            - generic [ref=f13e1449]:
+              - heading "Image Models" [level=3] [ref=f13e1450]
+              - list [ref=f13e1451]:
+                - listitem [ref=f13e1452]:
+                  - link "Nano Banana" [ref=f13e1453] [cursor=pointer]:
+                    - /url: /nano-banana-intro
+                - listitem [ref=f13e1454]:
+                  - link "Flux 2" [ref=f13e1455] [cursor=pointer]:
+                    - /url: /flux-2-intro
+                - listitem [ref=f13e1456]:
+                  - link "Seedream 5" [ref=f13e1457] [cursor=pointer]:
+                    - /url: /seedream-5.0
+                - listitem [ref=f13e1458]:
+                  - link "GPT Image 2" [ref=f13e1459] [cursor=pointer]:
+                    - /url: /gpt-2
+          - generic [ref=f13e1460]:
+            - generic [ref=f13e1461]:
+              - heading "Studios" [level=3] [ref=f13e1462]
+              - list [ref=f13e1463]:
+                - listitem [ref=f13e1464]:
+                  - link "Cinema Studio" [ref=f13e1465] [cursor=pointer]:
+                    - /url: /cinematic-video-generator
+                - listitem [ref=f13e1466]:
+                  - link "Marketing Studio" [ref=f13e1467] [cursor=pointer]:
+                    - /url: /marketing-studio-intro
+                - listitem [ref=f13e1468]:
+                  - link "Lipsync Studio" [ref=f13e1469] [cursor=pointer]:
+                    - /url: /lipsync-studio
+                - listitem [ref=f13e1470]:
+                  - link "Photodump Studio" [ref=f13e1471] [cursor=pointer]:
+                    - /url: /photodump-studio
+                - listitem [ref=f13e1472]:
+                  - link "Fashion Factory" [ref=f13e1473] [cursor=pointer]:
+                    - /url: /fashion-factory
+                - listitem [ref=f13e1474]:
+                  - link "Higgsfield Popcorn" [ref=f13e1475] [cursor=pointer]:
+                    - /url: /storyboard-generator
+                - listitem [ref=f13e1476]:
+                  - link "Higgsfield Canvas" [ref=f13e1477] [cursor=pointer]:
+                    - /url: /canvas-intro
+            - generic [ref=f13e1478]:
+              - heading "Soul" [level=3] [ref=f13e1479]
+              - list [ref=f13e1480]:
+                - listitem [ref=f13e1481]:
+                  - link "Soul 2.0" [ref=f13e1482] [cursor=pointer]:
+                    - /url: /soul-intro
+                - listitem [ref=f13e1483]:
+                  - link "Soul ID Character" [ref=f13e1484] [cursor=pointer]:
+                    - /url: /character
+                - listitem [ref=f13e1485]:
+                  - link "Soul Cinema" [ref=f13e1486] [cursor=pointer]:
+                    - /url: /soul-cinema
+          - generic [ref=f13e1487]:
+            - generic [ref=f13e1488]:
+              - heading "Platform" [level=3] [ref=f13e1489]
+              - list [ref=f13e1490]:
+                - listitem [ref=f13e1491]:
+                  - link "Supercomputer" [ref=f13e1492] [cursor=pointer]:
+                    - /url: /supercomputer-intro
+                - listitem [ref=f13e1493]:
+                  - link "MCP/CLI" [ref=f13e1494] [cursor=pointer]:
+                    - /url: /mcp
+                - listitem [ref=f13e1495]:
+                  - link "API" [ref=f13e1496] [cursor=pointer]:
+                    - /url: https://higgsfield.ai/higgsfield-api
+                - listitem [ref=f13e1497]:
+                  - link "Collab" [ref=f13e1498] [cursor=pointer]:
+                    - /url: /chat-intro
+                - listitem [ref=f13e1499]:
+                  - link "Games" [ref=f13e1500] [cursor=pointer]:
+                    - /url: /games-intro
+                - listitem [ref=f13e1501]:
+                  - link "Reference Extension" [ref=f13e1502] [cursor=pointer]:
+                    - /url: https://chromewebstore.google.com/detail/higgsfield-reference/oohmjaflbknghbidmaoonmchcodhmkgj
+            - generic [ref=f13e1503]:
+              - heading "Resources" [level=3] [ref=f13e1504]
+              - list [ref=f13e1505]:
+                - listitem [ref=f13e1506]:
+                  - link "Blog" [ref=f13e1507] [cursor=pointer]:
+                    - /url: /blog
+                - listitem [ref=f13e1508]:
+                  - link "Creator Hub" [ref=f13e1509] [cursor=pointer]:
+                    - /url: /creator-hub
+                - listitem [ref=f13e1510]:
+                  - link "Help Center" [ref=f13e1511] [cursor=pointer]:
+                    - /url: /creator-hub/help-center
+                - listitem [ref=f13e1512]:
+                  - link "Academy" [ref=f13e1513] [cursor=pointer]:
+                    - /url: /academy
+                - listitem [ref=f13e1514]:
+                  - link "Prompt Guide" [ref=f13e1515] [cursor=pointer]:
+                    - /url: /nano-banana-pro-prompt-guide
+          - generic [ref=f13e1516]:
+            - generic [ref=f13e1517]:
+              - heading "Company" [level=3] [ref=f13e1518]
+              - list [ref=f13e1519]:
+                - listitem [ref=f13e1520]:
+                  - link "About" [ref=f13e1521] [cursor=pointer]:
+                    - /url: /about
+                - listitem [ref=f13e1522]:
+                  - link "Trust" [ref=f13e1523] [cursor=pointer]:
+                    - /url: /trust
+                - listitem [ref=f13e1524]:
+                  - link "Enterprise" [ref=f13e1525] [cursor=pointer]:
+                    - /url: /enterprise
+                - listitem [ref=f13e1526]:
+                  - link "Team" [ref=f13e1527] [cursor=pointer]:
+                    - /url: /team-plan
+                - listitem [ref=f13e1528]:
+                  - link "Pricing" [ref=f13e1529] [cursor=pointer]:
+                    - /url: /pricing
+                - listitem [ref=f13e1530]:
+                  - link "Careers" [ref=f13e1531] [cursor=pointer]:
+                    - /url: https://jobs.ashbyhq.com/higgsfieldai
+                - listitem [ref=f13e1532]:
+                  - link "Contact" [ref=f13e1533] [cursor=pointer]:
+                    - /url: /contact
+            - generic [ref=f13e1534]:
+              - heading "Community" [level=3] [ref=f13e1535]
+              - list [ref=f13e1536]:
+                - listitem [ref=f13e1537]:
+                  - link "Community" [ref=f13e1538] [cursor=pointer]:
+                    - /url: /community
+                - listitem [ref=f13e1539]:
+                  - link "Contests" [ref=f13e1540] [cursor=pointer]:
+                    - /url: /contests
+                - listitem [ref=f13e1541]:
+                  - link "Creative Partners" [ref=f13e1542] [cursor=pointer]:
+                    - /url: https://higgsfield.ai/creator-partnership-program
+      - generic [ref=f13e1543]:
+        - paragraph [ref=f13e1545]: 535 Mission St, 14th floor, San Francisco, CA, 94105
+        - list [ref=f13e1546]:
+          - listitem [ref=f13e1547]:
+            - link "X / Twitter" [ref=f13e1548] [cursor=pointer]:
+              - /url: https://x.com/higgsfield
+          - listitem [ref=f13e1549]:
+            - link "Youtube" [ref=f13e1550] [cursor=pointer]:
+              - /url: https://www.youtube.com/@HiggsfieldAI
+          - listitem [ref=f13e1551]:
+            - link "LinkedIn" [ref=f13e1552] [cursor=pointer]:
+              - /url: https://www.linkedin.com/company/higgsfield
+          - listitem [ref=f13e1553]:
+            - link "Tiktok" [ref=f13e1554] [cursor=pointer]:
+              - /url: https://www.tiktok.com/@higgsfield.ai90
+          - listitem [ref=f13e1555]:
+            - link "Discord" [ref=f13e1556] [cursor=pointer]:
+              - /url: https://discord.com/invite/higgsfield
+  - contentinfo [ref=f13e1557]:
+    - navigation [ref=f13e1558]:
+      - paragraph [ref=f13e1559]:
+        - generic [ref=f13e1560]: © 2026 Higgsfield, Inc.
+        - generic [ref=f13e1561]: All rights reserved.
+      - list [ref=f13e1562]:
+        - listitem [ref=f13e1563]:
+          - button "Change language" [ref=f13e1565] [cursor=pointer]:
+            - img "English flag" [ref=f13e1567]
+            - generic [ref=f13e1568]: English
+        - listitem [ref=f13e1572]:
+          - link "Help center" [ref=f13e1573] [cursor=pointer]:
+            - /url: /creator-hub/help-center
+        - listitem [ref=f13e1574]:
+          - link "Cookie Notice" [ref=f13e1575] [cursor=pointer]:
+            - /url: /cookie-notice
+        - listitem [ref=f13e1576]:
+          - button "Cookie Settings" [ref=f13e1577] [cursor=pointer]
+        - listitem [ref=f13e1578]:
+          - link "Terms" [ref=f13e1579] [cursor=pointer]:
+            - /url: /terms-of-use-agreement
+        - listitem [ref=f13e1580]:
+          - link "Privacy" [ref=f13e1581] [cursor=pointer]:
+            - /url: /privacy-policy
+  - alert
+  - alert
+  - alert
+  - alert
+  - alert
+  - alert

@@ -1,0 +1,261 @@
+- generic [ref=f15e1]:
+  - banner [ref=f15e2]:
+    - generic [ref=f15e4]:
+      - generic [ref=f15e5]:
+        - generic [ref=f15e6]:
+          - generic [ref=f15e7]: Special offer
+          - paragraph [ref=f15e12]: Unlimited Seedance 2.5 at 720p for 30 days. Available on Scale plan with 30% OFF.
+        - button "Get Unlimited Seedance 2.5" [ref=f15e13] [cursor=pointer]
+      - button "Close promotion" [ref=f15e14] [cursor=pointer]
+  - banner [ref=f15e17]:
+    - generic [ref=f15e18]:
+      - link [ref=f15e19] [cursor=pointer]:
+        - /url: /
+        - img "Higgsfield" [ref=f15e20]
+      - navigation "Main" [ref=f15e24]:
+        - list [ref=f15e27]:
+          - listitem [ref=f15e28]:
+            - link "Explore" [ref=f15e29] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=f15e30]:
+            - link "Image" [ref=f15e31] [cursor=pointer]:
+              - /url: /ai/image?model=seedream_v4_5
+          - listitem [ref=f15e32]:
+            - link "Video" [ref=f15e33] [cursor=pointer]:
+              - /url: /ai/video
+          - listitem [ref=f15e34]:
+            - link "Audio" [ref=f15e35] [cursor=pointer]:
+              - /url: /audio
+          - listitem [ref=f15e36]:
+            - link "MCP" [ref=f15e37] [cursor=pointer]:
+              - /url: /mcp
+          - listitem [ref=f15e38]:
+            - link "API New" [ref=f15e39] [cursor=pointer]:
+              - /url: https://console.higgsfield.ai
+              - text: API
+              - generic [ref=f15e40]: New
+          - listitem [ref=f15e41]:
+            - link "AI Influencer Free" [ref=f15e42] [cursor=pointer]:
+              - /url: /ai-influencer-studio
+              - text: AI Influencer
+              - generic [ref=f15e43]: Free
+          - separator [ref=f15e44]
+          - listitem [ref=f15e45]:
+            - link "ChatGPT Plugin" [ref=f15e46] [cursor=pointer]:
+              - /url: /mcp?tab=chatgpt
+          - listitem [ref=f15e47]:
+            - link "Genjutsu top" [ref=f15e48] [cursor=pointer]:
+              - /url: /ai/video?model=genjutsu
+              - text: Genjutsu
+              - generic [ref=f15e49]: top
+          - listitem [ref=f15e50]:
+            - link "Ads Studio Free" [ref=f15e51] [cursor=pointer]:
+              - /url: /ads-studio
+              - text: Ads Studio
+              - generic [ref=f15e52]: Free
+          - listitem [ref=f15e53]:
+            - link "Effects" [ref=f15e54] [cursor=pointer]:
+              - /url: /effects/use
+          - listitem [ref=f15e55]:
+            - link "Cinema Studio" [ref=f15e56] [cursor=pointer]:
+              - /url: /generate
+          - listitem [ref=f15e57]:
+            - link "Contests" [ref=f15e58] [cursor=pointer]:
+              - /url: /contests/higgsfield-global-film-festival
+              - generic [aria-hidden] [ref=f15e59]: Contests Contests
+          - listitem [ref=f15e61]:
+            - link "Marketing Studio" [ref=f15e62] [cursor=pointer]:
+              - /url: /marketing-studio
+          - listitem [ref=f15e63]:
+            - link "Supercomputer" [ref=f15e64] [cursor=pointer]:
+              - /url: /supercomputer
+          - listitem [ref=f15e66]:
+            - link "3D Jutsu New" [ref=f15e67] [cursor=pointer]:
+              - /url: /3d-jutsu
+              - text: 3D Jutsu
+              - generic [ref=f15e68]: New
+          - listitem [ref=f15e69]:
+            - link "Edit" [ref=f15e70] [cursor=pointer]:
+              - /url: /layers
+          - listitem [ref=f15e71]:
+            - link "Academy" [ref=f15e72] [cursor=pointer]:
+              - /url: /academy
+          - listitem [ref=f15e73]:
+            - link "Community" [ref=f15e74] [cursor=pointer]:
+              - /url: /community
+          - listitem [ref=f15e75]:
+            - link "Plugins" [ref=f15e76] [cursor=pointer]:
+              - /url: /plugins/after-effects
+          - listitem [ref=f15e77]:
+            - link "Canvas" [ref=f15e78] [cursor=pointer]:
+              - /url: /canvas
+          - listitem [ref=f15e79]:
+            - link "Originals" [ref=f15e80] [cursor=pointer]:
+              - /url: /original-series
+      - generic [ref=f15e81]:
+        - generic [ref=f15e82]:
+          - button "Search Higgsfield" [ref=f15e83] [cursor=pointer]
+          - link "Upgrade 30% OFF" [ref=f15e86] [cursor=pointer]:
+            - /url: /pricing
+            - text: Upgrade
+            - generic: 30% OFF
+          - link "Enterprise" [ref=f15e89] [cursor=pointer]:
+            - /url: https://higgsfield.ai/enterprise
+          - link "Folder icon Assets" [ref=f15e93] [cursor=pointer]:
+            - /url: /asset/all
+            - img "Folder icon" [ref=f15e95]
+            - generic [ref=f15e96]: Assets
+        - generic [ref=f15e98]:
+          - button "Add members" [ref=f15e99] [cursor=pointer]
+          - button "Account menu" [ref=f15e102] [cursor=pointer]:
+            - img "user profile" [ref=f15e105]
+  - main [ref=f15e109]:
+    - generic [ref=f15e111]:
+      - generic [ref=f15e112]:
+        - generic [ref=f15e115]:
+          - generic:
+            - generic:
+              - button [aria-hidden]
+              - button [aria-hidden]
+          - generic [ref=f15e116]:
+            - button "Filter" [ref=f15e118] [cursor=pointer]
+            - slider [ref=f15e124]
+        - complementary "AI Influencer" [ref=f15e125]:
+          - generic [ref=f15e126]:
+            - generic [ref=f15e127]:
+              - generic [ref=f15e128]:
+                - paragraph [ref=f15e129]: Build your next hype machine
+                - paragraph [ref=f15e130]: With free generations
+              - link "Create your Influencer" [ref=f15e133] [cursor=pointer]:
+                - /url: /ai-influencer-studio
+            - button "Dismiss AI Influencer banner" [ref=f15e134] [cursor=pointer]
+        - generic [ref=f15e139]:
+          - generic [ref=f15e141]:
+            - img "image generation" [ref=f15e142]
+            - generic [ref=f15e144] [cursor=pointer]:
+              - checkbox
+          - generic [ref=f15e146]:
+            - img "image generation" [ref=f15e147]
+            - generic [ref=f15e149] [cursor=pointer]:
+              - checkbox
+          - generic [ref=f15e151]:
+            - img "image generation" [ref=f15e152]
+            - generic [ref=f15e154] [cursor=pointer]:
+              - checkbox
+          - generic [ref=f15e156]:
+            - img "image generation" [ref=f15e157]
+            - generic [ref=f15e159] [cursor=pointer]:
+              - checkbox
+          - generic [ref=f15e161]:
+            - img "image generation" [ref=f15e162]
+            - generic [ref=f15e164] [cursor=pointer]:
+              - checkbox
+          - generic [ref=f15e166]:
+            - img "image generation" [ref=f15e167]
+            - generic [ref=f15e169] [cursor=pointer]:
+              - checkbox
+          - generic [ref=f15e171]:
+            - img "image generation" [ref=f15e172]
+            - generic [ref=f15e174] [cursor=pointer]:
+              - checkbox
+          - generic [ref=f15e176]:
+            - img "image generation" [ref=f15e177]
+            - generic [ref=f15e179] [cursor=pointer]:
+              - checkbox
+          - generic [ref=f15e181]:
+            - img "image generation" [ref=f15e182]
+            - generic [ref=f15e184] [cursor=pointer]:
+              - checkbox
+          - generic [ref=f15e186]:
+            - img "image generation" [ref=f15e187]
+            - generic [ref=f15e189] [cursor=pointer]:
+              - checkbox
+          - generic [ref=f15e191]:
+            - img "image generation" [ref=f15e192]
+            - generic [ref=f15e194] [cursor=pointer]:
+              - checkbox
+          - generic [ref=f15e196]:
+            - img "image generation" [ref=f15e197]
+            - generic [ref=f15e199] [cursor=pointer]:
+              - checkbox
+          - generic [ref=f15e201]:
+            - img "image generation" [ref=f15e202]
+            - generic [ref=f15e204] [cursor=pointer]:
+              - checkbox
+          - generic [ref=f15e206]:
+            - img "image generation" [ref=f15e207]
+            - generic [ref=f15e209] [cursor=pointer]:
+              - checkbox
+          - generic [ref=f15e211]:
+            - img "image generation" [ref=f15e212]
+            - generic [ref=f15e214] [cursor=pointer]:
+              - checkbox
+          - generic [ref=f15e216]:
+            - img "image generation" [ref=f15e217]
+            - generic [ref=f15e219] [cursor=pointer]:
+              - checkbox
+          - generic [ref=f15e221]:
+            - img "image generation" [ref=f15e222]
+            - generic [ref=f15e224] [cursor=pointer]:
+              - checkbox
+          - generic [ref=f15e226]:
+            - img "image generation" [ref=f15e227]
+            - generic [ref=f15e229] [cursor=pointer]:
+              - checkbox
+          - generic [ref=f15e231]:
+            - img "image generation" [ref=f15e232]
+            - generic [ref=f15e234] [cursor=pointer]:
+              - checkbox
+          - generic [ref=f15e238] [cursor=pointer]:
+            - checkbox
+          - generic [ref=f15e242] [cursor=pointer]:
+            - checkbox
+          - generic [ref=f15e246] [cursor=pointer]:
+            - checkbox
+      - group [ref=f15e252]:
+        - generic [ref=f15e253]:
+          - generic [ref=f15e255]:
+            - textbox [ref=f15e256]
+            - generic: Describe the scene you imagine
+          - generic [ref=f15e257]:
+            - generic [ref=f15e258]:
+              - button "References" [ref=f15e259] [cursor=pointer]
+              - button "Elements" [ref=f15e263] [cursor=pointer]
+            - group [ref=f15e267]:
+              - button [ref=f15e269] [cursor=pointer]:
+                - generic [ref=f15e270]: Seedream 4.5
+            - generic [ref=f15e282]:
+              - generic [ref=f15e284]:
+                - group [ref=f15e285]:
+                  - button [ref=f15e289] [cursor=pointer]:
+                    - generic [ref=f15e290]: 2K
+                - button "Auto" [ref=f15e299] [cursor=pointer]
+                - button "Decrement 1/4 Increment" [ref=f15e306] [cursor=pointer]:
+                  - generic [ref=f15e307]:
+                    - button "Decrement" [disabled] [ref=f15e308]
+                    - generic [ref=f15e311]: 1/4
+                    - button "Increment" [ref=f15e312]
+                - generic [ref=f15e315]:
+                  - text: Unlimited
+                  - button [ref=f15e316] [cursor=pointer]:
+                    - switch [checked] [active] [ref=f15e317]
+              - button "Scroll settings left"
+              - button "Scroll settings right"
+        - complementary [ref=f15e318]:
+          - button "Unlimited" [ref=f15e319] [cursor=pointer]
+  - region "Notifications Alt+T"
+  - alert
+  - alert
+  - alert
+  - alert
+  - alert
+  - alert
+  - region "Notifications alt+T"
+  - generic:
+    - region "Notifications"
+  - listbox "Typeahead menu"
+  - generic [ref=f15e325]:
+    - button [ref=f15e326] [cursor=pointer]
+    - generic [ref=f15e331]:
+      - generic [ref=f15e332]: Credits are running low! Over 90% already used
+      - button "Upgrade" [ref=f15e334] [cursor=pointer]

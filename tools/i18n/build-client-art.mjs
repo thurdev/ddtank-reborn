@@ -102,6 +102,50 @@ function runNode(scriptPath, args, label) {
   execFileSync(process.execPath, [scriptPath, ...args], { stdio: "inherit", cwd: ROOT });
 }
 
+/** Native-text (non-ABC) string patch via `ffdec -replace`, for the handful of Vietnamese strings baked
+ *  as DefineText/DefineText2/DefineEditText tags rather than ABC constant-pool literals (abc-strings.mjs
+ *  only scans the latter -- see research/i18n/abc-strings.json). `ffdec -importText` (bulk) is a confirmed
+ *  silent no-op in FFDec CLI v26.3.0 (research/i18n/ui-sweep.md, docs/BACKLOG.md); `-replace <in> <out>
+ *  <charId> <dataFile> [<charId2> <dataFile2>...]` works for single-"run" text records (one font/color per
+ *  record) and -- bonus confirmed by hand for this exact call -- auto-vectorizes any glyphs the replacement
+ *  text needs that the embedded glyph-subset font doesn't already have (adds them to the font's own
+ *  glyphShapeTable/codeTable from a system font), so translated text isn't limited to the original string's
+ *  character subset. `replacements`: [{ charId, text }]; each text is written to its own scratch file and
+ *  passed as one characterId/dataFile pair in a single -replace invocation (multiple pairs apply in one
+ *  SWF rewrite, cheaper than one process per string). Always re-exports+diffs the result against the
+ *  intended text afterward, since ~20% of single-run replacements fail silently in this FFDec version
+ *  (SEVERE stderr, exit code 0, output byte-identical to input) per the same research notes. */
+function runFfdecNativeTextReplace(inSwf, outSwf, replacements, label) {
+  mkdirSync(SCRATCH, { recursive: true });
+  const args = [inSwf, outSwf];
+  const dataFiles = [];
+  for (const { charId, text } of replacements) {
+    const f = join(SCRATCH, `native-text.${charId}.txt`);
+    writeFileSync(f, text, "utf8");
+    dataFiles.push(f);
+    args.push(String(charId), f);
+  }
+  log(label ?? "native-text", `ffdec -replace ${replacements.map((r) => r.charId).join(",")} on ${inSwf}`);
+  execFileSync("java", ["-jar", FFDEC_JAR, "-replace", ...args], { stdio: "inherit", cwd: ROOT });
+
+  // Verify: re-export text from the result and confirm every replacement actually landed (guards against
+  // the ~20% silent-failure case documented above -- never trust exit code 0 alone for this command).
+  const verifyDir = join(SCRATCH, "native-text-verify");
+  rmSync(verifyDir, { recursive: true, force: true });
+  execFileSync("java", ["-jar", FFDEC_JAR, "-export", "text", verifyDir, outSwf], { stdio: "pipe", cwd: ROOT });
+  let failed = 0;
+  for (const { charId, text } of replacements) {
+    const exported = join(verifyDir, `${charId}.txt`);
+    const got = existsSync(exported) ? readFileSync(exported, "utf8").split(/\r?\n--- RECORDSEPARATOR ---\r?\n/)[0] : null;
+    if (got !== text) {
+      failed++;
+      log(label ?? "native-text", `VERIFY FAILED chid ${charId}: expected ${JSON.stringify(text)}, got ${JSON.stringify(got)}`);
+    }
+  }
+  if (failed === 0) log(label ?? "native-text", `verified: all ${replacements.length} replacement(s) landed`);
+  return failed === 0;
+}
+
 /** Step 1: delete every overlay SWF confirmed to be a pure leftover bitmap edit (no ABC string literal in
  *  it anywhere -- research/i18n/abc-strings.json). The static route falls back to vendor automatically. */
 function revertImageOnlyOverlays() {
@@ -171,13 +215,26 @@ function buildCoreChain() {
     log("core:3.png", `SKIP -- vendor file not found: ${vendor3}`);
   }
 
-  // --- DDT_Loading.swf: abc-strings only (the self-contained loading minigame's 3 VN strings) ---
+  // --- DDT_Loading.swf: abc-strings (3 VN strings) -> native-text (whack-a-mole HUD's "điểm" score label,
+  //     chid 40 = a DefineText2 glyph-run, NOT an ABC string literal -- abc-strings.mjs can't see it; see
+  //     research/i18n/ui-sweep.md "Loading screen" + docs/BACKLOG.md item 2 for why -importText is unusable
+  //     and -replace is the only working CLI path for native/non-ABC text). chid 40's second text RECORD
+  //     (a lone full-width "：" in a different embedded font, fontId 39) is left alone -- it's punctuation,
+  //     not Vietnamese, and replacing a 2-run DefineText2 in one -replace call is the documented duplication
+  //     bug (ui-sweep.md); translating only run 1 ("điểm" -> "Pontos") and keeping run 2 as-is renders
+  //     "Pontos：" with no duplicate glyphs, confirmed by rendering chid 41 (the sprite wrapping chid 40)
+  //     after the patch. ---
   const vendorLoading = join(VENDOR, "DDT_Loading.swf");
   if (existsSync(vendorLoading)) {
-    const tmp = join(SCRATCH, "DDT_Loading.abc-strings.swf");
-    runNode(abcStringsTool, [vendorLoading, tmp], "core:DDT_Loading.swf");
-    copyFileSync(tmp, join(OVERLAY, "DDT_Loading.swf"));
-    log("core:DDT_Loading.swf", "-> apps/api/assets/flash/DDT_Loading.swf (text patches only)");
+    const tmpAbc = join(SCRATCH, "DDT_Loading.abc-strings.swf");
+    runNode(abcStringsTool, [vendorLoading, tmpAbc], "core:DDT_Loading.swf");
+    const tmpText = join(SCRATCH, "DDT_Loading.native-text.swf");
+    const ok = runFfdecNativeTextReplace(tmpAbc, tmpText, [{ charId: 40, text: "Pontos" }], "core:DDT_Loading.swf");
+    copyFileSync(ok ? tmpText : tmpAbc, join(OVERLAY, "DDT_Loading.swf"));
+    log(
+      "core:DDT_Loading.swf",
+      `-> apps/api/assets/flash/DDT_Loading.swf (text patches${ok ? " + native-text (score label)" : " only -- native-text patch FAILED verification, shipped without it"})`
+    );
   } else {
     log("core:DDT_Loading.swf", `SKIP -- vendor file not found: ${vendorLoading}`);
   }
@@ -261,10 +318,149 @@ function chromaKeyDespill(data, info) {
   }
 }
 
+/** Default color classifier for anchor compositing: flags pixels that look like the warm-gold ornate
+ *  frame metal or the pale/blue glass bar interior used by DDTank's progress-bar chrome. Tunable per
+ *  entry via approved.json's `anchor.classify` (see runAnchorComposite below) since a different anchored
+ *  asset (a different gold trim, a different glass tint) may need different thresholds. */
+const DEFAULT_ANCHOR_CLASSIFY = {
+  goldMinR: 165, goldMinRMinusB: 55, goldMinGMinusB: 15, goldMaxGMinusR: 15,
+  glassMinB: 105, glassBrightMin: 320, glassBrightMax: 700, glassMaxRMinusG: 32, glassMinBMinusR: -25,
+};
+
+function classifyAnchorPixel(r, g, b, c) {
+  const bright = r + g + b;
+  const isGold = r > c.goldMinR && r - b > c.goldMinRMinusB && g - b > c.goldMinGMinusB && g - r < c.goldMaxGMinusR;
+  const isGlass =
+    b > c.glassMinB && bright > c.glassBrightMin && bright < c.glassBrightMax &&
+    Math.abs(r - g) < c.glassMaxRMinusG && b - r > c.glassMinBMinusR;
+  return isGold || isGlass;
+}
+
+/** Reusable fix for AI remaster outputs whose painted art doesn't land exactly where the client's OWN
+ *  runtime-drawn chrome (a fixed-position MovieClip/text field, positioned by the SWF's display list,
+ *  independent of whatever pixels the AI painted) expects it. Cuts the real artwork for that functional
+ *  area out of the ORIGINAL vendor image (same sourceFile the AI was given as a reference, so it's
+ *  already pixel-identical to what the live client was designed against) at `anchor.rect` -- expressed in
+ *  the FINAL fitted width x height's own coordinate space, e.g. for DDT_Loading__1: the pixel rect of the
+ *  gold progress-bar frame in the 1000x600 canvas, measured once from vendor/.../1.jpg and cross-checked
+ *  against the SWF's PlaceObject matrices for MainLoadingAsset -- then composites that cutout back onto
+ *  the fitted AI art at the exact same rect, so the new art's décor lines up pixel-for-pixel with where
+ *  the real UI will actually draw, no matter how close (or far) the AI got on its own.
+ *  Alpha for the cutout comes from a color classifier (gold metal OR glass fill, see
+ *  DEFAULT_ANCHOR_CLASSIFY), not a hard rectangle, so only the ornament's own silhouette gets pasted back
+ *  -- the rest of the rect lets the new art's own background (ground, grass, whatever) show through.
+ *  `anchor.rect` is deliberately padded a bit beyond the frame's own bbox in practice (see approved.json)
+ *  so it also fully covers wherever the AI's own (misaligned) attempt at the same ornament landed --
+ *  otherwise a sliver of the old, wrongly-placed art would still peek out from under the new cutout. */
+async function runAnchorComposite(sharp, fittedBuffer, width, height, anchor, vendorSourcePath) {
+  const [x0, y0, x1, y1] = anchor.rect;
+  const w = x1 - x0, h = y1 - y0;
+  if (w <= 0 || h <= 0 || x0 < 0 || y0 < 0 || x1 > width || y1 > height) {
+    log("approved", `anchor rect [${anchor.rect}] out of bounds for ${width}x${height} -- skipping anchor composite`);
+    return fittedBuffer;
+  }
+  if (!existsSync(vendorSourcePath)) {
+    log("approved", `anchor source not found: ${vendorSourcePath} -- skipping anchor composite`);
+    return fittedBuffer;
+  }
+  const classify = { ...DEFAULT_ANCHOR_CLASSIFY, ...(anchor.classify ?? {}) };
+  const feather = anchor.feather ?? 2.2;
+
+  // Source crop: the vendor reference image is the original asset at its canonical size, which per
+  // manifest.csv is exactly `width`x`height` -- so anchor.rect indexes into it directly, no rescaling.
+  const { data } = await sharp(vendorSourcePath)
+    .extract({ left: x0, top: y0, width: w, height: h })
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+
+  const mask = Buffer.alloc(w * h);
+  for (let i = 0; i < w * h; i++) {
+    if (classifyAnchorPixel(data[i * 4], data[i * 4 + 1], data[i * 4 + 2], classify)) mask[i] = 255;
+  }
+  // Blur the binary mask for a feathered edge. sharp upsamples a 1-channel raw buffer to 3 channels on
+  // its way back out via .raw() in some builds -- read however many channels it actually gives back
+  // (maskInfo.channels) rather than assuming 1, and just take every Nth byte (R==G==B for a grey blur).
+  const { data: maskBlurred, info: maskInfo } = await sharp(mask, { raw: { width: w, height: h, channels: 1 } })
+    .blur(feather)
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  const mc = maskInfo.channels;
+
+  const cutout = Buffer.alloc(w * h * 4);
+  for (let i = 0; i < w * h; i++) {
+    cutout[i * 4] = data[i * 4];
+    cutout[i * 4 + 1] = data[i * 4 + 1];
+    cutout[i * 4 + 2] = data[i * 4 + 2];
+    cutout[i * 4 + 3] = maskBlurred[i * mc];
+  }
+  const cutoutPng = await sharp(cutout, { raw: { width: w, height: h, channels: 4 } }).png().toBuffer();
+  return sharp(fittedBuffer).composite([{ input: cutoutPng, left: x0, top: y0 }]).png().toBuffer();
+}
+
+/** Opt-in QA gate for AI remaster outputs that include fixed, game-logic-critical positions -- e.g. the
+ *  whack-a-mole panel's 8 holes (remaster/01-loading/prompts/DDT_Loading_mole-panel.txt), which must land
+ *  within a couple pixels of game.view.MapView.as's BOGU_POS_ARRAY or the mole will visibly pop up next to
+ *  its hole instead of out of it. An approved.json entry opts in with:
+ *    "holes": { "positions": [[cx,cy,w,h], ...], "template": "01-loading/_mole-hole-template.png",
+ *               "maxOffsetPx": 2, "searchRadius": 12 }
+ *  `positions` are hole centers + size in the FITTED (manifest width x height) output's own coordinate
+ *  space. `template` is a small grayscale reference crop of one hole (relative to remaster/), used as a
+ *  real template-matching probe -- not a color heuristic -- via brute-force SSD search over every integer
+ *  offset within `searchRadius` px of each expected center, same idea as OpenCV's matchTemplate but
+ *  dependency-free. Any hole whose best-match offset exceeds `maxOffsetPx` fails the whole entry (the
+ *  caller skips importing it) so a misaligned hole never reaches the live SWF silently. */
+async function validateHoleAlignment(sharp, fittedBuffer, holesCfg) {
+  const { positions, template, maxOffsetPx = 2, searchRadius = 12 } = holesCfg;
+  const templatePath = join(ROOT, "remaster", template);
+  if (!existsSync(templatePath)) {
+    return { valid: false, results: [], error: `hole template not found: ${templatePath}` };
+  }
+  const fittedMeta = await sharp(fittedBuffer).greyscale().raw().toBuffer({ resolveWithObject: true });
+  const FW = fittedMeta.info.width, FH = fittedMeta.info.height, fitted = fittedMeta.data;
+
+  const results = [];
+  let valid = true;
+  for (let idx = 0; idx < positions.length; idx++) {
+    const [cx, cy, w, h] = positions[idx];
+    const { data: tmplRaw, info: tmplInfo } = await sharp(templatePath)
+      .greyscale()
+      .resize(Math.round(w), Math.round(h))
+      .raw()
+      .toBuffer({ resolveWithObject: true });
+    const tw = tmplInfo.width, th = tmplInfo.height;
+
+    let best = { dx: 0, dy: 0, ssd: Infinity };
+    for (let dy = -searchRadius; dy <= searchRadius; dy++) {
+      for (let dx = -searchRadius; dx <= searchRadius; dx++) {
+        const ox = Math.round(cx - tw / 2 + dx);
+        const oy = Math.round(cy - th / 2 + dy);
+        if (ox < 0 || oy < 0 || ox + tw > FW || oy + th > FH) continue;
+        let ssd = 0;
+        for (let ty = 0; ty < th; ty++) {
+          const frow = (oy + ty) * FW + ox;
+          const trow = ty * tw;
+          for (let tx = 0; tx < tw; tx++) {
+            const diff = fitted[frow + tx] - tmplRaw[trow + tx];
+            ssd += diff * diff;
+          }
+        }
+        if (ssd < best.ssd) best = { dx, dy, ssd };
+      }
+    }
+    const offset = Math.hypot(best.dx, best.dy);
+    const ok = offset <= maxOffsetPx;
+    if (!ok) valid = false;
+    results.push({ index: idx, expected: [cx, cy], offsetPx: offset, dx: best.dx, dy: best.dy, ok });
+  }
+  return { valid, results };
+}
+
 /** Post-process one approved AI output to the exact original width x height + correct tag encoding.
  *  `srcExt` is the ORIGINAL (vendor) image's extension (from manifest.csv), which decides JPEG vs PNG --
- *  never the AI output's own format, which is just whatever the generator happened to save. */
-async function processApprovedImage(sharp, outputsPath, width, height, fit, srcExt) {
+ *  never the AI output's own format, which is just whatever the generator happened to save.
+ *  `anchor` (optional, from approved.json) runs runAnchorComposite() on the fitted result -- see there. */
+async function processApprovedImage(sharp, outputsPath, width, height, fit, srcExt, anchor, vendorSourcePath) {
   const mode = fit || "cover";
   const base = sharp(outputsPath).ensureAlpha();
   if (mode === "chroma") {
@@ -276,7 +472,9 @@ async function processApprovedImage(sharp, outputsPath, width, height, fit, srcE
       height,
       { fit: "cover", position: "center" }
     );
-    return { buffer: await keyed.png().toBuffer(), outExt: "png" };
+    let buffer = await keyed.png().toBuffer();
+    if (anchor) buffer = await runAnchorComposite(sharp, buffer, width, height, anchor, vendorSourcePath);
+    return { buffer, outExt: "png" };
   }
   let img;
   if (mode === "contain") {
@@ -287,10 +485,17 @@ async function processApprovedImage(sharp, outputsPath, width, height, fit, srcE
     img = base.resize(width, height, { fit: "cover", position: "center" });
   }
   if (srcExt === "jpg" || srcExt === "jpeg") {
-    const buffer = await img.flatten({ background: "#000000" }).jpeg({ quality: 92, mozjpeg: true }).toBuffer();
+    let buffer = await img.flatten({ background: "#000000" }).jpeg({ quality: 92, mozjpeg: true }).toBuffer();
+    if (anchor) {
+      // Re-decode as a PNG intermediate for the anchor composite (needs alpha), then re-flatten/re-encode
+      // to JPEG so the final tag encoding still matches the original's opaque JPEG tag type.
+      const withAnchor = await runAnchorComposite(sharp, buffer, width, height, anchor, vendorSourcePath);
+      buffer = await sharp(withAnchor).flatten({ background: "#000000" }).jpeg({ quality: 92, mozjpeg: true }).toBuffer();
+    }
     return { buffer, outExt: "jpg" };
   }
-  const buffer = await img.png().toBuffer();
+  let buffer = await img.png().toBuffer();
+  if (anchor) buffer = await runAnchorComposite(sharp, buffer, width, height, anchor, vendorSourcePath);
   return { buffer, outExt: "png" };
 }
 
@@ -333,7 +538,7 @@ async function runApprovedAssetsStep() {
 
   const bySwf = new Map(); // swf -> [{ sourceFile, buffer, outExt, label }]
   for (const entry of entries) {
-    const { category, file, swf, fit } = entry;
+    const { category, file, swf, fit, anchor } = entry;
     if (!category || !file || !swf) {
       log("approved", `SKIP invalid entry (missing category/file/swf): ${JSON.stringify(entry)}`);
       continue;
@@ -366,13 +571,46 @@ async function runApprovedAssetsStep() {
     }
 
     const srcExt = sourceFile.slice(sourceFile.lastIndexOf(".") + 1).toLowerCase();
-    const { buffer, outExt } = await processApprovedImage(sharp, outputsPath, row.width, row.height, fit, srcExt);
+    // anchor's reference crop comes from the Higgsfield-reference copy under remaster/<category>/inputs/,
+    // named `<swfStem>__<sourceFile>` by convention (see remaster/README.md) -- same pixels the AI was
+    // given as a guide, so it's exactly what the live client's fixed-position chrome was designed against.
+    const vendorSourcePath = anchor
+      ? join(ROOT, "remaster", category, "inputs", `${swf.replace(/\.swf$/i, "")}__${sourceFile}`)
+      : undefined;
+    const { buffer, outExt } = await processApprovedImage(
+      sharp,
+      outputsPath,
+      row.width,
+      row.height,
+      fit,
+      srcExt,
+      anchor,
+      vendorSourcePath
+    );
+
+    if (entry.holes) {
+      const { valid, results, error } = await validateHoleAlignment(sharp, buffer, entry.holes);
+      if (error) {
+        log("approved", `SKIP ${category}/${file} -- hole validation error: ${error}`);
+        continue;
+      }
+      const worst = results.reduce((m, r) => Math.max(m, r.offsetPx), 0);
+      if (!valid && !entry.holes.force) {
+        const bad = results.filter((r) => !r.ok).map((r) => `#${r.index} off by ${r.offsetPx.toFixed(1)}px`).join(", ");
+        log(
+          "approved",
+          `REJECT ${category}/${file} -- hole alignment check failed (max allowed ${entry.holes.maxOffsetPx ?? 2}px): ${bad}`
+        );
+        continue;
+      }
+      log("approved", `${category}/${file} -- hole alignment OK (worst offset ${worst.toFixed(1)}px of ${results.length} holes)`);
+    }
 
     if (!bySwf.has(swf)) bySwf.set(swf, []);
     bySwf.get(swf).push({ sourceFile, buffer, outExt, label: `${category}/${file}` });
     log(
       "approved",
-      `${category}/${file} -> ${swf}::${sourceFile} (${row.width}x${row.height}, fit=${fit ?? "cover"}, encoded .${outExt})`
+      `${category}/${file} -> ${swf}::${sourceFile} (${row.width}x${row.height}, fit=${fit ?? "cover"}${anchor ? ", anchor=" + JSON.stringify(anchor.rect) : ""}, encoded .${outExt})`
     );
   }
 
