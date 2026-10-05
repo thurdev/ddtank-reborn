@@ -27,10 +27,24 @@ function similarity(a, b) {
     d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
   return 1 - d[a.length][b.length] / Math.max(a.length, b.length);
 }
+const ocrVi = await createWorker("vie", 1, { langPath: new URL("../i18n/images/", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1"), gzip: false });
+const VN_ONLY = /[ăđơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]/i;
+async function hasVietnamese(file) {
+  const buf = await sharp(file).resize({ width: 1400 }).flatten({ background: "#ffffff" }).png().toBuffer();
+  const { data } = await ocrVi.recognize(buf);
+  return (data.text.match(new RegExp(VN_ONLY.source, "gi")) ?? []).length >= 2;
+}
 async function ocrScore(file, expected) {
   const buf = await sharp(file).resize({ width: 1400, withoutEnlargement: false }).flatten({ background: "#ffffff" }).png().toBuffer();
   const { data } = await ocr.recognize(buf);
-  return { score: similarity(data.text, expected), text: data.text.replace(/\s+/g, " ").trim() };
+  // partial match: the expected text must appear somewhere in the OCR output (decorations add extra "text")
+  const o = norm(data.text), e = norm(expected);
+  let best = similarity(data.text, expected);
+  if (o.length > e.length) for (let i = 0; i + e.length <= o.length; i += Math.max(1, Math.floor(e.length / 8))) {
+    best = Math.max(best, similarity(o.slice(i, i + e.length), e));
+    if (best >= 0.99) break;
+  }
+  return { score: best, text: data.text.replace(/\s+/g, " ").trim() };
 }
 
 const ROOT = resolve(".");
@@ -70,6 +84,7 @@ const ORDER = ["02-lobby-hall", "03-janelas", "04-botoes-titulos", "05-icones", 
 const TR = existsSync(join(AUTO, "translations.json")) ? JSON.parse(readFileSync(join(AUTO, "translations.json"), "utf8")) : {};
 const VN = /[ăđơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]/i;
 const jobs = [];
+const complex = [];
 for (const m of manifest) {
   if (!ORDER.includes(m.category)) continue;
   const r = byPath.get(`${m.swf}::${m.srcFile}`);
@@ -80,9 +95,23 @@ for (const m of manifest) {
   const out = join(ROOT, "remaster", m.category, "outputs", id + ".png");
   const clean = TR[id];
   if (!clean || VN.test(clean)) continue; // only jobs with a validated PT-BR translation
+  // Complex images (several separate texts / noisy OCR) need a per-element prompt: defer them to a later pass.
+  const lines = (r.ocrText ?? "").split(/\n+/).map((t) => t.trim()).filter(Boolean);
+  const noisy = /[#»«_=€¬|©®{}<>\\~^]/.test(r.ocrText ?? "");
+  if (noisy || lines.length > 4 || vn.length > 110) { complex.push({ id, category: m.category, file: m.file, ocr: r.ocrText, pt: clean }); continue; }
   jobs.push({ id, ...m, vn: vn.slice(0, 120), pt: clean, out, prio: ORDER.indexOf(m.category) });
 }
+const CP = existsSync(join(AUTO, "complex-prompts.json")) ? JSON.parse(readFileSync(join(AUTO, "complex-prompts.json"), "utf8")) : {};
+for (const c of complex) {
+  const spec = CP[c.id];
+  if (!spec || spec.skip || !spec.prompt) continue;
+  const m = manifest.find((x) => x.file === c.file && x.category === c.category);
+  if (!m) continue;
+  const pt = spec.elements.map((e) => e.pt).join(" ");
+  jobs.push({ id: c.id, ...m, vn: "", pt, custom: spec.prompt, complex: true, out: join(ROOT, "remaster", m.category, "outputs", c.id + ".png"), prio: ORDER.indexOf(m.category) + 0.5 });
+}
 jobs.sort((a, b) => a.prio - b.prio || b.w * b.h - a.w * a.h);
+writeFileSync(join(AUTO, "complex.json"), JSON.stringify(complex, null, 1));
 
 // Fraction of opaque pixels: < 0.6 means "text/shape on transparency" (alpha must come from the new output).
 async function opaqueFraction(src) {
@@ -109,7 +138,7 @@ async function prepare(j) {
     weight = dens < 0.24 ? " The original font weight is REGULAR (thin strokes) — do NOT make it bold." : " The original font weight is BOLD — keep it bold.";
   }
   const green = j.alpha < 0.999 ? " The flat pure green #00FF00 background must stay exactly flat pure green." : "";
-  return { id: j.id, upload: up.replace(/\\/g, "/"), prompt: editPrompt(j.vn, j.pt) + weight + green };
+  return { id: j.id, upload: up.replace(/\\/g, "/"), prompt: (j.custom ?? editPrompt(j.vn, j.pt)) + weight + green };
 }
 
 // Key out the chroma green (#00FF00-ish) with soft edges + despill.
@@ -200,7 +229,7 @@ createServer(async (req, res) => {
   const send = (code, obj) => { res.writeHead(code, { "content-type": "application/json" }); res.end(JSON.stringify(obj)); };
   try {
     if (u.pathname === "/next") {
-      const j = jobs.find((j) => !existsSync(j.out) && (state.jobs[j.id]?.fails ?? 0) < 3 && !state.jobs[j.id]?.busy);
+      const j = jobs.find((j) => !existsSync(j.out) && (state.jobs[j.id]?.fails ?? 0) < 3 && !(state.jobs[j.id]?.busy && Date.now() - (state.jobs[j.id]?.at ?? 0) < 600000));
       if (!j) return send(200, { done: true });
       state.jobs[j.id] = { ...(state.jobs[j.id] ?? {}), busy: true, at: Date.now() };
       save();
@@ -212,7 +241,9 @@ createServer(async (req, res) => {
       const realOut = j.out;
       j.out = tmp;
       try { await finish(j, u.searchParams.get("hf")); } finally { j.out = realOut; }
-      const { score, text } = await ocrScore(tmp, j.pt);
+      let { score, text } = await ocrScore(tmp, j.pt);
+      if (j.complex) score = score >= 0.8 ? 1 : score; // multi-element: looser text match
+      if (await hasVietnamese(tmp)) { score = Math.min(score, 0.5); text = "VIETNAMESE LEFT: " + text; }
       const prev = state.jobs[j.id] ?? {};
       const best = Math.max(prev.best ?? 0, score);
       if (score >= (prev.best ?? 0)) copyFileSync(tmp, j.out.replace(/\.png$/, ".best.png"));

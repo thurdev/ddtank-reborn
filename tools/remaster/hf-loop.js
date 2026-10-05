@@ -2,7 +2,7 @@
 // Processes N jobs from the local queue (tools/remaster/hf-queue.mjs) in the logged-in Higgsfield tab,
 // WITHOUT reloading the page (reload resets the Unlimited toggle). Refuses to generate if Unlimited is off.
 async (page) => {
-  const N = 20;
+  const N = 10;
   const p = page.context().pages().find((x) => x.url().includes('higgsfield'));
   const Q = 'http://127.0.0.1:7788';
   const ids = async () => [...new Set((await p.$$eval('img', (els) => els.map((e) => e.currentSrc || e.src))).filter((s) => s.includes('hf_2026')).map((s) => decodeURIComponent(s).match(/hf_\d+_\d+_[0-9a-f-]+/)?.[0]).filter(Boolean))];
@@ -13,6 +13,14 @@ async (page) => {
     const job = await (await p.request.get(Q + '/next')).json();
     if (job.done) { log.push('queue empty'); break; }
     try {
+      // close any lightbox/detail view or dialog left open (it blocks the prompt bar)
+      for (let k = 0; k < 4; k++) {
+        const overlay = (await p.getByRole('button', { name: /Turn to video|Recreate/ }).count()) || (await p.getByText('Upload media').count());
+        if (!overlay) break;
+        await p.keyboard.press('Escape'); await p.waitForTimeout(700);
+        const close = p.locator('button:has(svg)').filter({ hasText: '' });
+        if ((await p.getByRole('button', { name: /Turn to video/ }).count()) && (await close.count())) { const vp = p.viewportSize(); await p.mouse.click(vp.width - 37, 37); await p.waitForTimeout(700); }
+      }
       const tb0 = p.locator('textarea, [contenteditable=true], [role=textbox]').last();
       await tb0.click(); await p.keyboard.press('Control+A'); await p.keyboard.press('Delete'); await p.waitForTimeout(500);
       await clearRefs();
