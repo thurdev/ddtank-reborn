@@ -125,7 +125,8 @@ async function opaqueFraction(src) {
 // layout), so mapping the output back is a pure scale + crop — no guessing where the object went.
 const ASPECTS = [[1, 1], [4, 3], [3, 4], [16, 9], [9, 16], [3, 2], [2, 3], [21, 9]];
 function padGeom(w0, h0) {
-  const k = Math.max(1, Math.min(8, Math.ceil(640 / Math.min(w0, h0)), Math.floor(2048 / Math.max(w0, h0))));
+  // Seedream 5.0 Lite rejects small inputs: shortest side >= 1024 (longest side capped at 4096)
+  const k = Math.max(1, Math.min(Math.ceil(1024 / Math.min(w0, h0)), Math.floor(4096 / Math.max(w0, h0))));
   const W = w0 * k, H = h0 * k;
   let best = null;
   for (const [a, b] of ASPECTS) {
