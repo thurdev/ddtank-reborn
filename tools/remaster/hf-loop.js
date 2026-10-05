@@ -2,7 +2,7 @@
 // Processes N jobs from the local queue (tools/remaster/hf-queue.mjs) in the logged-in Higgsfield tab,
 // WITHOUT reloading the page (reload resets the Unlimited toggle). Refuses to generate if Unlimited is off.
 async (page) => {
-  const N = 10;
+  const N = 1;
   const p = page.context().pages().find((x) => x.url().includes('higgsfield'));
   const Q = 'http://127.0.0.1:7788';
   const ids = async () => [...new Set((await p.$$eval('img', (els) => els.map((e) => e.currentSrc || e.src))).filter((s) => s.includes('hf_2026')).map((s) => decodeURIComponent(s).match(/hf_\d+_\d+_[0-9a-f-]+/)?.[0]).filter(Boolean))];
@@ -53,9 +53,21 @@ async (page) => {
       if (!(await isOn())) { await sw.click(); await p.waitForTimeout(1200); }
       if (!(await isOn())) throw new Error('unlimited is OFF and could not be enabled - not generating');
       const before = new Set(await ids());
+      const errRe = /(too small|smaller than|minimum|at least \d+|resolution|failed|error|not supported|try again)/i;
+      const toastText = () => p.evaluate(() => [...document.querySelectorAll('[data-sonner-toast],[role=alert],[role=status]')].map((e) => e.textContent.trim()).join(' | '));
+      const toastsBefore = await toastText();
       await p.getByRole('button', { name: /^Unlimited/ }).last().click();
+      const clickedAt = Date.now();
       let hf = null;
-      for (let i = 0; i < 80 && !hf; i++) { await p.waitForTimeout(3000); if (await p.getByText(/^(Processing|Generating|In queue|Queued)/).count()) continue; hf = (await ids()).filter((x) => !before.has(x)).sort().reverse()[0] || null; }
+      for (let i = 0; i < 80 && !hf; i++) {
+        await p.waitForTimeout(3000);
+        const t = await toastText();
+        if (t !== toastsBefore && errRe.test(t)) throw new Error('higgsfield error: ' + t.slice(0, 160));
+        if (await p.getByText(/^(Processing|Generating|In queue|Queued)/).count()) continue;
+        // only generations created AFTER the click (old history lazy-loading must never be mistaken for our result)
+        const stamp = (x) => { const m = x.match(/hf_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})(\d{2})/); return m ? Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6]) : 0; };
+        hf = (await ids()).filter((x) => !before.has(x) && stamp(x) >= clickedAt - 90000).sort().reverse()[0] || null;
+      }
       if (!hf) throw new Error('timeout');
       const r = await (await p.request.post(`${Q}/done?id=${encodeURIComponent(job.id)}&hf=${hf}`)).json();
       log.push(`${job.id}: ${r.ok ? 'ok' : r.error}`);
