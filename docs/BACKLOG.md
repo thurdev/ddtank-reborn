@@ -1261,3 +1261,4 @@ Referência: `remaster/00-site-pagina-jogar/inputs/referencia-ddclassico.png`.
 - Simples (1 bloco de texto): fila `tools/remaster/hf-queue.mjs` + `hf-loop.js` (Seedream 4.5 unlimited no navegador Playwright logado), validação OCR ≥0.95, até 3 tentativas.
 - Complexas (64, vários textos): prompt por elemento em preparação (`remaster/_auto/complex-prompts.json`). Caso de teste: janela com banner + "Thời gian :" + cabeçalhos da tabela — o prompt antigo deixou "Thời gian" e inventou uma linha extra.
 - Pendente: checagem de vietnamita restante via OCR (vie) também para as simples; revisão manual das que falharam 3x.
+- Modelo escolhido para a automação: **Seedream 5.0 Lite** (unlimited) — resultado quase 1:1 em botões/barras (ex.: "Tên phòng"→"Nome da sala" mantendo textura, fonte, cor, posição). URL: higgsfield.ai/ai/image?model=seedream_v5_lite.
