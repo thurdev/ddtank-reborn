@@ -1256,3 +1256,8 @@ Referência: `remaster/00-site-pagina-jogar/inputs/referencia-ddclassico.png`.
 - `apps/web` Play: fundo (imagem IA), logo DDReborn no topo, moldura pergaminho (dark) com o jogo 1000×600 no centro + régua de distância 0–10 embaixo.
 - Painéis laterais com TABELAS de ângulo/força (Âng. 20, 30, 50, 65; distância 1–20 → força) em HTML, CALCULADAS pelo `@ddt/fight` (simulação de trajetória sem vento, mesma física do servidor) — gerar via script e expor em `/api/public/aim-tables`; ângulos configuráveis no admin.
 - Imagens geradas pelo usuário em `remaster/00-site-pagina-jogar/outputs/` (fundo, logo, moldura); até lá usar placeholders CSS.
+
+## Remaster de imagens via Higgsfield (automação em andamento, 2026-10-05)
+- Simples (1 bloco de texto): fila `tools/remaster/hf-queue.mjs` + `hf-loop.js` (Seedream 4.5 unlimited no navegador Playwright logado), validação OCR ≥0.95, até 3 tentativas.
+- Complexas (64, vários textos): prompt por elemento em preparação (`remaster/_auto/complex-prompts.json`). Caso de teste: janela com banner + "Thời gian :" + cabeçalhos da tabela — o prompt antigo deixou "Thời gian" e inventou uma linha extra.
+- Pendente: checagem de vietnamita restante via OCR (vie) também para as simples; revisão manual das que falharam 3x.
