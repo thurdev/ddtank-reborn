@@ -24,17 +24,25 @@ async (page) => {
       const tb0 = p.locator('textarea, [contenteditable=true], [role=textbox]').last();
       await tb0.click(); await p.keyboard.press('Control+A'); await p.keyboard.press('Delete'); await p.waitForTimeout(500);
       await clearRefs();
-      const refBtn = p.getByRole('button', { name: 'References' });
-      if (await refBtn.count()) await refBtn.first().click();
-      else {
-        // with a reference attached the "References" button is replaced by an add-image icon next to the thumbnails
-        const box = await p.evaluate(() => { const tb = document.querySelector('textarea, [contenteditable=true]'); let el = tb; for (let i = 0; i < 6 && el; i++) el = el.parentElement; const bs = [...(el?.querySelectorAll('button') ?? [])].filter((b) => !b.textContent.trim()); const r = bs[0]?.getBoundingClientRect(); return r ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; });
-        if (!box) throw new Error('no References/add-image button');
-        await p.mouse.click(box.x, box.y);
+      let opened = false;
+      for (let tries = 0; tries < 4 && !opened; tries++) {
+        await p.waitForTimeout(800 + tries * 700);
+        const refBtn = p.getByRole('button', { name: 'References' });
+        if (await refBtn.count()) await refBtn.first().click();
+        else {
+          // with a reference attached the "References" button is replaced by an add-image icon next to the thumbnails
+          const box = await p.evaluate(() => { const tb = document.querySelector('textarea, [contenteditable=true]'); let el = tb; for (let i = 0; i < 6 && el; i++) el = el.parentElement; const bs = [...(el?.querySelectorAll('button') ?? [])].filter((b) => !b.textContent.trim()); const r = bs[0]?.getBoundingClientRect(); return r ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; });
+          if (box) await p.mouse.click(box.x, box.y);
+        }
+        for (let w = 0; w < 6 && !opened; w++) { await p.waitForTimeout(500); opened = (await p.locator('input[type=file]').count()) > 0 && (await p.getByText('Upload media').count()) > 0; }
+        if (!opened) await p.keyboard.press('Escape');
       }
+      if (!opened) throw new Error('upload dialog did not open');
+      const nImgs = async () => p.evaluate(() => { const up = [...document.querySelectorAll('*')].find((e) => e.textContent?.trim() === 'Upload media' && e.children.length < 3); let dlg = up; for (let i = 0; i < 8 && dlg; i++) { dlg = dlg.parentElement; if (dlg.querySelectorAll('img').length > 3) break; } return dlg ? dlg.querySelectorAll('img').length : 0; });
+      const before0 = await nImgs();
+      await p.locator('input[type=file]').first().setInputFiles(job.upload);
+      for (let w = 0; w < 30; w++) { await p.waitForTimeout(700); if ((await nImgs()) > before0) break; }
       await p.waitForTimeout(1500);
-      if (!(await p.locator('input[type=file]').count())) throw new Error('upload dialog did not open');
-      await p.locator('input[type=file]').first().setInputFiles(job.upload); await p.waitForTimeout(7000);
       const tile = await p.evaluate(() => { const up = [...document.querySelectorAll('*')].find((e) => e.textContent?.trim() === 'Upload media' && e.children.length < 3); let dlg = up; for (let i = 0; i < 8 && dlg; i++) { dlg = dlg.parentElement; if (dlg.querySelectorAll('img').length > 3) break; } const img = dlg?.querySelector('img'); const r = img?.getBoundingClientRect(); return r ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; });
       if (!tile) throw new Error('upload tile not found');
       await p.mouse.click(tile.x, tile.y); await p.waitForTimeout(1500); await p.keyboard.press('Escape'); await p.waitForTimeout(600);
