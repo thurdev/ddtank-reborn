@@ -121,21 +121,47 @@ async function opaqueFraction(src) {
   return n / (info.width * info.height);
 }
 
+// Upscale factor + green padding to a standard aspect ratio (Seedream "Auto" then returns that exact aspect and keeps the
+// layout), so mapping the output back is a pure scale + crop — no guessing where the object went.
+const ASPECTS = [[1, 1], [4, 3], [3, 4], [16, 9], [9, 16], [3, 2], [2, 3], [21, 9]];
+function padGeom(w0, h0) {
+  const k = Math.max(1, Math.min(8, Math.ceil(640 / Math.min(w0, h0)), Math.floor(2048 / Math.max(w0, h0))));
+  const W = w0 * k, H = h0 * k;
+  let best = null;
+  for (const [a, b] of ASPECTS) {
+    const r = a / b;
+    const cw = W / H >= r ? W : Math.round(H * r);
+    const ch = W / H >= r ? Math.round(W / r) : H;
+    if (!best || cw * ch < best.cw * best.ch) best = { cw, ch, aspect: `${a}:${b}` };
+  }
+  return { k, W, H, ...best, x: Math.floor((best.cw - W) / 2), y: Math.floor((best.ch - H) / 2) };
+}
+
 async function prepare(j) {
   const src = join(ROOT, "remaster", j.category, "inputs", j.file);
   const up = join(AUTO, "up", j.id + ".png");
   const meta = await sharp(src).metadata();
-  const k = Math.max(1, Math.min(8, Math.ceil(640 / Math.min(meta.width, meta.height)), Math.floor(2048 / Math.max(meta.width, meta.height))));
+  const g = padGeom(meta.width, meta.height);
   j.alpha = meta.hasAlpha ? await opaqueFraction(src) : 1;
-  // Transparent areas -> flat chroma green so the model sees the real contrast and keeps a keyable background.
-  await sharp(src).resize(meta.width * k, meta.height * k, { kernel: "lanczos3" }).flatten({ background: "#00ff00" }).png().toFile(up);
+  // Transparent areas + padding -> flat chroma green so the model sees the real contrast and keeps a keyable background.
+  const scaled = await sharp(src).resize(g.W, g.H, { kernel: "lanczos3" }).flatten({ background: "#00ff00" }).png().toBuffer();
+  await sharp({ create: { width: g.cw, height: g.ch, channels: 3, background: "#00ff00" } }).composite([{ input: scaled, left: g.x, top: g.y }]).png().toFile(up);
   let weight = "";
   if (j.alpha < 0.6) {
     const { data, info } = await sharp(src).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
     const b = bbox(data, info.width, info.height);
     let on = 0; if (b) for (let y = b.y; y < b.y + b.h; y++) for (let x = b.x; x < b.x + b.w; x++) if (data[(y * info.width + x) * 4 + 3] > 128) on++;
     const dens = b ? on / (b.w * b.h) : 0;
-    weight = dens < 0.24 ? " The original font weight is REGULAR (thin strokes) — do NOT make it bold." : " The original font weight is BOLD — keep it bold.";
+    // stroke thickness: mean horizontal run length of opaque pixels relative to the text height
+    let runs = 0, runLen = 0;
+    if (b) for (let y = b.y; y < b.y + b.h; y++) { let r = 0; for (let x = b.x; x <= b.x + b.w; x++) { const on = x < b.x + b.w && data[(y * info.width + x) * 4 + 3] > 128; if (on) r++; else if (r) { runs++; runLen += r; r = 0; } } }
+    // line count: bands of rows containing ink separated by empty rows
+    let lines = 0, inBand = false;
+    if (b) for (let y = b.y; y < b.y + b.h; y++) { let ink = 0; for (let x = b.x; x < b.x + b.w; x++) if (data[(y * info.width + x) * 4 + 3] > 128) ink++; const has = ink > 0; if (has && !inBand) lines++; inBand = has; }
+    const lineH = b && lines ? b.h / lines : 1;
+    const stroke = runs ? runLen / runs / lineH : 0;
+    weight = (stroke < 0.13 ? " The original font weight is REGULAR (thin strokes) — do NOT make it bold." : " The original font weight is BOLD — keep it bold.")
+      + ` The text must be written on exactly ${lines || 1} line${lines === 1 ? " (one single line, do not wrap)" : "s"}, using the full width like the original, same text height.`;
   }
   const green = j.alpha < 0.999 ? " The flat pure green #00FF00 background must stay exactly flat pure green." : "";
   return { id: j.id, upload: up.replace(/\\/g, "/"), prompt: (j.custom ?? editPrompt(j.vn, j.pt)) + weight + green };
@@ -162,8 +188,8 @@ function chromaKey(data, ch) {
   for (let i = 0; i < data.length; i += ch) {
     const r = data[i], g = data[i + 1], b = data[i + 2];
     const d = g - Math.max(r, b);
-    let a = d > 90 ? 0 : d > 30 ? Math.round(255 * (1 - (d - 30) / 60)) : 255;
-    if (a < 255 && g > Math.max(r, b)) data[i + 1] = Math.max(r, b);
+    let a = d > 60 ? 0 : d > 15 ? Math.round(255 * (1 - (d - 15) / 45)) : 255;
+    if (g > Math.max(r, b)) data[i + 1] = Math.max(r, b); // despill every pixel
     data[i + 3] = Math.min(data[i + 3], a);
   }
   return data;
@@ -211,17 +237,53 @@ async function finish(j, hf) {
   writeFileSync(raw, Buffer.from(await res.arrayBuffer()));
   const src = join(ROOT, "remaster", j.category, "inputs", j.file);
   const meta = await sharp(src).metadata();
-  const fitted = sharp(raw).resize(meta.width, meta.height, { fit: "cover", position: "centre", kernel: "lanczos3" }).ensureAlpha();
-  if (!meta.hasAlpha) return fitted.removeAlpha().png().toFile(j.out);
-  const { data, info } = await fitted.raw().toBuffer({ resolveWithObject: true });
+  const g = padGeom(meta.width, meta.height);
+  // exact inverse of prepare(): scale the output to the padded canvas, crop the original area, scale to the original size
+  // sharp applies only one resize per pipeline -> do it in three separate steps
+  const canvas = await sharp(raw).resize(g.cw, g.ch, { fit: "fill", kernel: "lanczos3" }).png().toBuffer();
+  const area = await sharp(canvas).extract({ left: g.x, top: g.y, width: g.W, height: g.H }).png().toBuffer();
+  const back = await sharp(area).resize(meta.width, meta.height, { fit: "fill", kernel: "lanczos3" }).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const data = back.data;
+  if (!meta.hasAlpha) return sharp(data, { raw: { width: meta.width, height: meta.height, channels: 4 } }).removeAlpha().png().toFile(j.out);
+  const o = await sharp(src).ensureAlpha().raw().toBuffer();
+  // text-only assets: fit the new text into the ORIGINAL text box (never overflow), recoloured to the original colour
   if ((j.alpha ?? (await opaqueFraction(src))) < 0.6) return finishTextOnly(raw, src, meta, j.out);
-  {
-    // solid asset (button/panel): keep the original silhouette, but also key any green the model left inside
-    const orig = await sharp(src).ensureAlpha().raw().toBuffer();
-    chromaKey(data, info.channels);
-    for (let i = 3; i < data.length; i += 4) data[i] = Math.min(data[i], orig[i]);
+  chromaKey(data, 4);
+  if (true) {
+    for (let i = 3; i < data.length; i += 4) data[i] = Math.min(data[i], o[i]); // solid: original silhouette
+  } else {
+    // text-only: recolour to the original text colour when it is a flat colour
+    let n = 0, sr = 0, sg = 0, sb = 0, v = 0;
+    for (let i = 0; i < o.length; i += 4) if (o[i + 3] > 200) { n++; sr += o[i]; sg += o[i + 1]; sb += o[i + 2]; }
+    const mr = sr / n, mg = sg / n, mb = sb / n;
+    for (let i = 0; i < o.length; i += 4) if (o[i + 3] > 200) v += (o[i] - mr) ** 2 + (o[i + 1] - mg) ** 2 + (o[i + 2] - mb) ** 2;
+    if (n && Math.sqrt(v / n / 3) < 28) for (let i = 0; i < data.length; i += 4) if (data[i + 3]) { data[i] = mr; data[i + 1] = mg; data[i + 2] = mb; }
   }
-  return sharp(data, { raw: { width: info.width, height: info.height, channels: info.channels } }).png().toFile(j.out);
+  return sharp(data, { raw: { width: meta.width, height: meta.height, channels: 4 } }).png().toFile(j.out);
+}
+
+// Solid asset with transparency (button/panel/frame): register the generated object onto the ORIGINAL object's box,
+// so it can never come out bigger/shifted than the original (which could overlap other UI), then apply the original
+// silhouette. Falls back to the plain cover-fit when no object can be found in the output.
+async function finishSolid(raw, src, meta, out, fallback) {
+  const o = await sharp(src).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const ob = bbox(o.data, o.info.width, o.info.height, 128);
+  const g = await sharp(raw).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const bc = borderColor(g.data, g.info.width, g.info.height);
+  if (bc[1] > bc[0] + 60 && bc[1] > bc[2] + 60) chromaKey(g.data, 4); else keyColor(g.data, 4, bc);
+  const gb = bbox(g.data, g.info.width, g.info.height, 128);
+  let data;
+  if (ob && gb && gb.w > 8 && gb.h > 8) {
+    const obj = await sharp(g.data, { raw: { width: g.info.width, height: g.info.height, channels: 4 } })
+      .extract({ left: gb.x, top: gb.y, width: gb.w, height: gb.h }).resize(ob.w, ob.h, { fit: "fill", kernel: "lanczos3" }).png().toBuffer();
+    data = await sharp({ create: { width: meta.width, height: meta.height, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
+      .composite([{ input: obj, left: ob.x, top: ob.y }]).raw().toBuffer();
+  } else {
+    data = fallback.data;
+    chromaKey(data, 4);
+  }
+  for (let i = 3; i < data.length; i += 4) data[i] = Math.min(data[i], o.data[i]);
+  return sharp(data, { raw: { width: meta.width, height: meta.height, channels: 4 } }).png().toFile(out);
 }
 
 createServer(async (req, res) => {
