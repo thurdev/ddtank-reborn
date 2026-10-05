@@ -34,8 +34,28 @@ async function hasVietnamese(file) {
   const { data } = await ocrVi.recognize(buf);
   return (data.text.match(new RegExp(VN_ONLY.source, "gi")) ?? []).length >= 2;
 }
+async function ocrVariants(file) {
+  const base = sharp(file).resize({ height: 160, withoutEnlargement: false }).extend({ top: 40, bottom: 40, left: 40, right: 40, background: { r: 0, g: 0, b: 0, alpha: 0 } });
+  const light = await base.clone().flatten({ background: "#ffffff" }).png().toBuffer();
+  const dark = await base.clone().flatten({ background: "#000000" }).png().toBuffer();
+  const g = (b) => sharp(b).grayscale().normalise();
+  return [
+    light, dark,
+    await g(dark).negate().png().toBuffer(),          // light text on dark/textured bg -> dark text on light
+    await g(light).threshold(150).png().toBuffer(),
+    await g(dark).negate().threshold(150).png().toBuffer(),
+  ];
+}
 async function ocrScore(file, expected) {
-  const buf = await sharp(file).resize({ width: 1400, withoutEnlargement: false }).flatten({ background: "#ffffff" }).png().toBuffer();
+  let best = { score: 0, text: "" };
+  for (const buf of await ocrVariants(file)) {
+    const r = await ocrOne(buf, expected);
+    if (r.score > best.score) best = r;
+    if (best.score >= 0.98) break;
+  }
+  return best;
+}
+async function ocrOne(buf, expected) {
   const { data } = await ocr.recognize(buf);
   // partial match: the expected text must appear somewhere in the OCR output (decorations add extra "text")
   const o = norm(data.text), e = norm(expected);

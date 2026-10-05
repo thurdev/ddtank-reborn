@@ -2,7 +2,7 @@
 // Processes N jobs from the local queue (tools/remaster/hf-queue.mjs) in the logged-in Higgsfield tab,
 // WITHOUT reloading the page (reload resets the Unlimited toggle). Refuses to generate if Unlimited is off.
 async (page) => {
-  const N = 1;
+  const N = 10;
   const p = page.context().pages().find((x) => x.url().includes('higgsfield'));
   const Q = 'http://127.0.0.1:7788';
   const ids = async () => [...new Set((await p.$$eval('img', (els) => els.map((e) => e.currentSrc || e.src))).filter((s) => s.includes('hf_2026')).map((s) => decodeURIComponent(s).match(/hf_\d+_\d+_[0-9a-f-]+/)?.[0]).filter(Boolean))];
