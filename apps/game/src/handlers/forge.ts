@@ -6,6 +6,7 @@
  */
 import { GSPacket } from "@ddt/protocol";
 import { ItemInfo, BagType, templateBagType, type ItemTemplate } from "../game/item.js";
+import type { PlayerInventory } from "../game/inventory.js";
 import type { GamePlayer } from "../game/player.js";
 import type { Templates } from "../db/templates.js";
 import type { ServerContext } from "../session/context.js";
@@ -290,11 +291,29 @@ export async function compose(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, 
   p.updatePlayerProperties();
 }
 
+/** Reborn auto-split: o cliente joga a pilha inteira num slot só (sem picker de
+ * quantidade). Espalha 1 unidade por slot 1-4 a partir de pilhas do mesmo tipo,
+ * então pilha de 4+ funde direto. Resto fica no slot de origem. */
+export function autoSplitFusionSlots(store: PlayerInventory): void {
+  for (let pass = 0; pass < 3; pass++) {
+    const filled = [1, 2, 3, 4].filter((s) => store.getItemAt(s));
+    if (filled.length >= 4) return;
+    const first = store.getItemAt(filled[0] ?? 1);
+    const donor = [1, 2, 3, 4]
+      .map((s) => store.getItemAt(s))
+      .find((it) => it && it.Count > 1 && (!first || it.TemplateID === first.TemplateID));
+    const empty = [1, 2, 3, 4].find((s) => !store.getItemAt(s));
+    if (!donor || empty === undefined) return;
+    if (!store.moveItem(donor.Place, empty, 1)) return;
+  }
+}
+
 /** ItemFusionHandler.cs (78): byte op 0 = preview (76), 1 = fuse (400 gold). */
 export async function fusion(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd = Math.random): Promise<void> {
   const op = pkt.readByte();
   if (bagLocked(ctx, p)) return;
   const store = p.storeBag;
+  autoSplitFusionSlots(store);
   const items: ItemInfo[] = [];
   for (let i = 1; i <= 4; i++) {
     const it = store.getItemAt(i);
