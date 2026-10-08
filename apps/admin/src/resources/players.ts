@@ -35,13 +35,14 @@ export const players = defineResource({
   ],
   rowActions: [
     {
+      /** Dá item ao jogador; busca por nome. */
       id: "give-item",
       label: { "pt-BR": "Dar item", en: "Give item" },
       icon: Gift,
       path: "give-item",
       success: "Item enviado",
       fields: [
-        { name: "templateId", label: "TemplateID", type: "number", required: true, min: 1 },
+        { name: "templateId", label: "Item", type: "item-picker", required: true },
         { name: "count", label: "Quantidade", type: "number", required: true, min: 1, default: 1 },
         { name: "validDays", label: "Validade (dias)", type: "number", min: 0, default: 0, hint: "0 = permanente" },
         { name: "viaMail", label: "Enviar por correio", type: "boolean", default: true },
@@ -75,7 +76,7 @@ export const players = defineResource({
 /** New table (no equivalent in the original server): AI opponents for PvP rooms. */
 export const bots = defineResource({
   name: "bots",
-  table: "bots (novo)",
+  table: 'app."Bots"',
   label: { "pt-BR": "Bots", en: "Bots" },
   singular: { "pt-BR": "bot", en: "bot" },
   description: "Adversários controlados pela IA nas salas: nome, nível, dificuldade e equipamentos.",
@@ -103,8 +104,8 @@ export const bots = defineResource({
       ],
       hint: "Controla a precisão de ângulo/força e o uso de itens.",
     },
-    { name: "weaponTemplateId", label: "Arma (TemplateID)", type: "number", min: 0, required: true },
-    { name: "equips", label: "Equipamentos (TemplateIDs)", type: "tags", list: true, hint: "Chapéu, roupa, asas…" },
+    { name: "weaponTemplateId", label: "Arma", type: "number", min: 0, required: true, list: true, reference: "items", hint: "Picker por nome; salva TemplateID" },
+    { name: "equips", label: "Equipamentos", type: "tags", list: true, reference: "items", hint: "Picker por nome; salva TemplateIDs. Chapéu, roupa, asas…" },
     { name: "guild", label: "Guilda exibida", type: "text" },
     { name: "enabled", label: "Ativo", type: "boolean", default: true, list: true, inlineToggle: true },
   ],

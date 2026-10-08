@@ -6,6 +6,7 @@
  *   POST /kick {userId | nick, msg?}   KITOFF_USER
  *   POST /reload-templates             reload item/shop/map caches + event templates + app."ScheduledEvents"
  *   GET  /events                       scheduler status (open windows, next starts, x2 rates, world boss ranking)
+ *   GET  /events/upcoming?limit=N     próximos de app.ScheduledEvents com nextStart (só leitura)
  *   POST /events/start {kind, minutes} force-open a scheduled system now (admin "start now")
  *   POST /events/stop {kind}           close the open window of that kind until its next start
  *   POST /mail-notice {userId}         117 MAIL_RESPONSE to an online player (apps/api mailed something)
@@ -22,6 +23,7 @@ export interface AdminApi {
   kick(target: { userId?: number; nick?: string }, msg: string): Promise<boolean>;
   reloadTemplates(): Promise<Record<string, number>>;
   events(): Record<string, unknown>;
+  eventsUpcoming?(limit: number): unknown;
   eventsForce(kind: string, minutes: number): Promise<Record<string, unknown>>;
   eventsStop(kind: string): Promise<Record<string, unknown>>;
   mailNotice(userId: number): boolean;
@@ -50,6 +52,21 @@ function readJson(req: http.IncomingMessage, max = 64 * 1024): Promise<Record<st
   });
 }
 
+/**
+ * Deriva /events/upcoming de api.events() (só leitura, sem tocar scheduler).
+ * Como lê esse código (cada variável):
+ * - `st`: retorno de api.events() (contém `next` com nextStart já calculado).
+ * - `limit`: teto de linhas (1..100).
+ * - `linhas`: entradas com next válido, ordenadas por data.
+ */
+function upcomingFromStatus(st: Record<string, unknown>, limit: number): unknown[] {
+  const linhas = ((st as { next?: { id: number; kind: string; title: string; next: string | Date | null }[] }).next ?? [])
+    .filter((e) => e.next)
+    .map((e) => ({ id: e.id, kind: e.kind, title: e.title, nextStart: e.next }));
+  linhas.sort((a, b) => new Date(a.nextStart as string).getTime() - new Date(b.nextStart as string).getTime());
+  return linhas.slice(0, limit);
+}
+
 export function startAdmin(host: string, port: number, token: string | undefined, api: AdminApi, log: Logger): Promise<http.Server> {
   const srv = http.createServer(async (req, res) => {
     const send = (code: number, body: unknown) => {
@@ -73,6 +90,11 @@ export function startAdmin(host: string, port: number, token: string | undefined
       }
       if (req.method === "POST" && url.pathname === "/reload-templates") return send(200, await api.reloadTemplates());
       if (req.method === "GET" && url.pathname === "/events") return send(200, api.events());
+      if (req.method === "GET" && url.pathname === "/events/upcoming") {
+        const limit = Math.max(1, Math.min(100, Number(url.searchParams.get("limit")) || 20));
+        if (api.eventsUpcoming) return send(200, { upcoming: await api.eventsUpcoming(limit) });
+        return send(200, { upcoming: upcomingFromStatus(api.events(), limit) });
+      }
       if (req.method === "POST" && url.pathname === "/events/start") {
         const b = await readJson(req);
         if (typeof b.kind !== "string" || !b.kind) return send(400, { error: "kind required" });

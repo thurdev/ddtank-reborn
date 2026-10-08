@@ -39,6 +39,15 @@ function kick(client: GameClient, msg: string): void {
   client.disconnect(`kick: ${msg}`);
 }
 
+/** Espera um login em andamento da mesma conta terminar (burst é longo). */
+function waitLoginFree(loggingIn: Set<string>, key: string, ms: number): Promise<boolean> {
+  const end = Date.now() + ms;
+  return new Promise((res) => {
+    const tick = () => (loggingIn.has(key) ? (Date.now() > end ? res(false) : setTimeout(tick, 50)) : res(true));
+    tick();
+  });
+}
+
 export async function handleLogin(ctx: ServerContext, client: GameClient): Promise<void> {
   const login = client.pendingLogin;
   client.pendingLogin = null;
@@ -47,7 +56,11 @@ export async function handleLogin(ctx: ServerContext, client: GameClient): Promi
   const pass = login?.payload?.password;
   if (!user || pass == null) return kick(client, t("UserLoginHandler.LoginError"));
   const key = user.toLowerCase();
-  if (ctx.world.loggingIn.has(key)) return kick(client, t("UserLoginHandler.LoginError"));
+  if (ctx.world.loggingIn.has(key)) {
+    // Reconnect/2ª aba durante o burst: espera o 1º terminar em vez de chutar.
+    // Quem chega por último vence (single session): o fluxo abaixo chuta a sessão velha.
+    if (!(await waitLoginFree(ctx.world.loggingIn, key, 5000))) return kick(client, t("UserLoginHandler.LoginError"));
+  }
   ctx.world.loggingIn.add(key);
   try {
     if (!(await ctx.tickets.validate(user, pass))) return kick(client, t("UserLoginHandler.OverTime"));

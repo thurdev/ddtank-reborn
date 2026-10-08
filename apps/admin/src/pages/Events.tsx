@@ -1,13 +1,34 @@
+/**
+ * Página de eventos do admin (PT-BR).
+ *
+ * Salva de verdade via REST existente (`@/crud/api` + `defineResource`):
+ * - `events` -> `PATCH/POST /api/admin/events` (calendário cria/edita/alterna `IsShow`).
+ * - `scheduledEvents` -> `/api/admin/scheduled-events` (agendador).
+ * - `eventAwards` -> `/api/admin/event-awards` (prêmios por `ActiveID`).
+ * - `eventCodes` -> `/api/admin/event-codes` (códigos por `ActiveID`).
+ * Sem mock, sem endpoint custom `/api/admin/events/status|start|stop|codes`.
+ *
+ * Como lê esse código (cada variável):
+ * - `EventRow`: linha `game."Active"` (`ActiveID`, `Title`, `Type`, `StartDate`, `EndDate`, `IsShow`).
+ * - `TYPE_COLORS`/`colorOf(e)`: cor do chip por `e.Type`.
+ * - `dayKey(d)`: chave `ano-mês-dia` p/ agrupar; `startOfDay(d)`: zera hora.
+ * - `Calendar`: `cursor`=mês visível, `rows`=eventos, `inMonth`=filtro mês, `byDay`=mapa dia->eventos.
+ * - `dialog`: `null|create|edit` p/ `SchemaForm` de `events`; `create`=`POST`, `update`=`PATCH`.
+ * - `SchedulerPanel`: `q`=query `scheduledEvents`, `m`=mutations; `toggle`=PATCH `enabled`.
+ * - `AwardsPanel`: `activeId`=filtro/criação, `q`=query `eventAwards`, `m.create`=POST prêmio.
+ * - `CodesPanel`: `activeId`=filtro/criação, `dialog`=aberto, `m.create`=POST código.
+ * - `EventsPage`: abas; cada aba `ResourcePage embedded` = CRUD real do resource.
+ */
 import { useMemo, useState } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Button, Card, PageHeader, Switch, Tabs, TabsContent, TabsList, TabsTrigger, cn } from "@ddtank/ui";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button, Card, Dialog, DialogContent, Input, PageHeader, Switch, Tabs, TabsContent, TabsList, TabsTrigger, cn } from "@ddtank/ui";
+import { ChevronLeft, ChevronRight, Pencil, Plus } from "lucide-react";
 import { listQuery, useResourceMutations } from "@/crud/api";
 import { ResourcePage } from "@/crud/ResourcePage";
+import { SchemaForm } from "@/crud/SchemaForm";
 import { events } from "@/resources/content";
 import { dailyAward, eventAwards, eventCodes, scheduledEvents, timeBoxes } from "@/resources/event-systems";
-import { api } from "@/lib/api";
 import { useI18n } from "@/i18n";
 
 /** Row of game."Active". */
@@ -34,7 +55,8 @@ function Calendar() {
     return new Date(n.getFullYear(), n.getMonth(), 1);
   });
   const { data } = useQuery(listQuery(events, { page: 1, pageSize: 500, sort: "StartDate" }));
-  const { update } = useResourceMutations(events);
+  const { create, update } = useResourceMutations(events);
+  const [dialog, setDialog] = useState<null | { kind: "create" } | { kind: "edit"; row: EventRow }>(null);
   const rows = (data?.items ?? []) as unknown as EventRow[];
 
   const monthStart = cursor;
@@ -74,6 +96,9 @@ function Calendar() {
       <Card className="p-4">
         <div className="mb-3 flex items-center gap-2">
           <h2 className="font-display text-2xl">{monthFmt.format(cursor)}</h2>
+          <Button size="sm" onClick={() => setDialog({ kind: "create" })}>
+            <Plus /> Novo
+          </Button>
           <div className="ml-auto flex gap-1">
             <Button size="icon" variant="secondary" aria-label="Mês anterior" onClick={() => shift(-1)}>
               <ChevronLeft />
@@ -108,14 +133,16 @@ function Calendar() {
                 <div className={cn("mb-1 text-right font-mono", k === todayKey ? "text-sun" : "text-muted")}>{d.getDate()}</div>
                 <div className="flex flex-col gap-0.5">
                   {list.slice(0, 3).map((e) => (
-                    <span
+                    <button
                       key={e.ActiveID}
-                      title={e.Title}
-                      className={cn("truncate rounded-md px-1.5 py-0.5 font-semibold text-night-deep", !e.IsShow && "line-through opacity-50")}
+                      type="button"
+                      title={`${e.Title} — editar`}
+                      onClick={() => setDialog({ kind: "edit", row: e })}
+                      className={cn("truncate rounded-md px-1.5 py-0.5 text-left font-semibold text-night-deep", !e.IsShow && "line-through opacity-50")}
                       style={{ background: colorOf(e) }}
                     >
                       {e.Title}
-                    </span>
+                    </button>
                   ))}
                   {list.length > 3 && <span className="px-1 text-muted">+{list.length - 3}</span>}
                 </div>
@@ -139,6 +166,9 @@ function Calendar() {
                     {rangeFmt.format(new Date(e.StartDate))} – {rangeFmt.format(new Date(e.EndDate))}
                   </p>
                 </div>
+                <Button size="icon" variant="ghost" aria-label={`Editar ${e.Title}`} onClick={() => setDialog({ kind: "edit", row: e })}>
+                  <Pencil />
+                </Button>
                 <Switch
                   checked={e.IsShow}
                   aria-label={e.Title}
@@ -151,143 +181,157 @@ function Calendar() {
           })}
         </ul>
       </Card>
+      <Dialog open={dialog !== null} onOpenChange={(o) => !o && setDialog(null)}>
+        {dialog?.kind === "create" && (
+          <DialogContent title="Novo evento" size="lg">
+            <SchemaForm
+              fields={events.fields}
+              mode="create"
+              onCancel={() => setDialog(null)}
+              onSubmit={async (body) => {
+                try {
+                  await create.mutateAsync(body);
+                  toast.success(t("crud.created"));
+                  setDialog(null);
+                } catch {
+                  toast.error(t("common.error"));
+                }
+              }}
+            />
+          </DialogContent>
+        )}
+        {dialog?.kind === "edit" && (
+          <DialogContent title={`Editar ${dialog.row.Title}`} size="lg">
+            <SchemaForm
+              fields={events.fields}
+              mode="edit"
+              initial={dialog.row as unknown as Record<string, unknown>}
+              onCancel={() => setDialog(null)}
+              onSubmit={async (body) => {
+                try {
+                  await update.mutateAsync({ id: dialog.row.ActiveID, body });
+                  toast.success(t("crud.saved"));
+                  setDialog(null);
+                } catch {
+                  toast.error(t("common.error"));
+                }
+              }}
+            />
+          </DialogContent>
+        )}
+      </Dialog>
     </div>
   );
 }
 
-interface SchedStatus {
-  now: string;
-  open: { id: number; kind: string; title: string; start: string; end: string }[];
-  next: { id: number; kind: string; title: string; next: string | null }[];
-  rates: { exp: number; gold: number };
-  worldBoss: { name: string; blood: number; maxBlood: number; players: number; ranking: { nick: string; damage: number }[] } | null;
-  eliteStatus: number;
-  leagueOpen: boolean;
-  log: string[];
-}
-
-const KIND_LABEL: Record<string, string> = {
-  worldboss: "Boss mundial",
-  league: "Liga",
-  elite: "Elite",
-  weekly_reset: "Reset semanal",
-  double_exp: "EXP x2",
-  double_gold: "Ouro x2",
-};
-
-const fmtUtc = (s: string | null) => (s ? new Date(s).toISOString().replace("T", " ").slice(0, 16) + " UTC" : "—");
-
-/** Live scheduler state from apps/game (GET /events on the internal channel) + start/stop now. */
+/** Agendador real via REST `scheduledEvents` (`/api/admin/scheduled-events`). */
 function SchedulerPanel() {
-  const qc = useQueryClient();
-  const { data, error } = useQuery({
-    queryKey: ["events", "status"],
-    queryFn: () => api.get<SchedStatus>("/api/admin/events/status"),
-    refetchInterval: 10_000,
-  });
-  const [minutes, setMinutes] = useState(30);
-  const act = async (path: string, body: Record<string, unknown>) => {
-    try {
-      await api.post(path, body);
-      toast.success("OK");
-      await qc.invalidateQueries({ queryKey: ["events", "status"] });
-    } catch {
-      toast.error("Servidor de jogo indisponível");
-    }
-  };
+  const { t } = useI18n();
+  const { data } = useQuery(listQuery(scheduledEvents, { page: 1, pageSize: 100, sort: "id" }));
+  const { update } = useResourceMutations(scheduledEvents);
+  const rows = (data?.items ?? []) as unknown as { id: number; kind: string; title: string; enabled: boolean }[];
   return (
     <Card className="mb-4 p-4">
-      <div className="mb-3 flex flex-wrap items-center gap-3">
+      <div className="mb-2 flex flex-wrap items-center gap-2">
         <h2 className="font-display text-lg">Agendador do servidor</h2>
-        {data && (
-          <span className="text-sm text-muted">
-            EXP x{data.rates.exp} · Ouro x{data.rates.gold} · Elite {data.eliteStatus || "fechado"} · Liga {data.leagueOpen ? "aberta" : "fechada"}
-          </span>
-        )}
-        {error && <span className="text-sm text-coral">Servidor de jogo indisponível</span>}
-        <Button size="sm" variant="outline" className="ml-auto" onClick={() => act("/api/admin/events/reload", {})}>
-          Recarregar no jogo
-        </Button>
+        <span className="text-sm text-muted">Liga/desliga salva via PATCH real; CRUD completo abaixo.</span>
       </div>
-      <div className="grid gap-3 md:grid-cols-2">
-        <div>
-          <p className="mb-1 text-sm font-semibold">Abertos agora</p>
-          <ul className="flex flex-col gap-1 text-sm">
-            {(data?.open ?? []).length === 0 && <li className="text-muted">Nenhum</li>}
-            {data?.open.map((w) => (
-              <li key={`${w.kind}${w.start}`} className="flex items-center gap-2">
-                <span className="font-semibold">{KIND_LABEL[w.kind] ?? w.kind}</span>
-                <span className="text-muted">até {fmtUtc(w.end)}</span>
-                <Button size="sm" variant="ghost" onClick={() => act("/api/admin/events/stop", { kind: w.kind })}>
-                  Encerrar
-                </Button>
-              </li>
-            ))}
-          </ul>
-          {data?.worldBoss && (
-            <p className="mt-2 text-sm">
-              {data.worldBoss.name}: {data.worldBoss.blood.toLocaleString()} / {data.worldBoss.maxBlood.toLocaleString()} HP · {data.worldBoss.players} na sala
-              {data.worldBoss.ranking.length > 0 && ` · 1º ${data.worldBoss.ranking[0]!.nick} (${data.worldBoss.ranking[0]!.damage})`}
-            </p>
-          )}
-        </div>
-        <div>
-          <p className="mb-1 text-sm font-semibold">Próximos</p>
-          <ul className="flex flex-col gap-1 text-sm">
-            {data?.next.map((n) => (
-              <li key={n.id}>
-                <span className="font-semibold">{n.title || KIND_LABEL[n.kind] || n.kind}</span> <span className="text-muted">{fmtUtc(n.next)}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-      <div className="mt-3 flex flex-wrap items-center gap-2">
-        <span className="text-sm">Iniciar agora por</span>
-        <input
-          type="number"
-          min={1}
-          max={1440}
-          value={minutes}
-          onChange={(e) => setMinutes(Number(e.target.value) || 30)}
-          className="w-20 rounded-lg border border-line bg-transparent px-2 py-1 text-sm"
-          aria-label="minutos"
-        />
-        <span className="text-sm">min:</span>
-        {Object.entries(KIND_LABEL).map(([k, l]) => (
-          <Button key={k} size="sm" variant="outline" onClick={() => act("/api/admin/events/start", { kind: k, minutes })}>
-            {l}
-          </Button>
+      <ul className="flex flex-col gap-2">
+        {rows.length === 0 && <li className="text-sm text-muted">{t("crud.empty")}</li>}
+        {rows.map((r) => (
+          <li key={r.id} className="flex items-center gap-3 rounded-xl border border-line/60 p-2 text-sm">
+            <span className="font-semibold">{r.title || r.kind}</span>
+            <span className="text-muted">{r.kind} · #{r.id}</span>
+            <Switch
+              checked={!!r.enabled}
+              aria-label={r.title || r.kind}
+              onCheckedChange={(enabled) => update.mutate({ id: r.id, body: { enabled } }, { onError: () => toast.error(t("common.error")) })}
+            />
+          </li>
         ))}
-      </div>
-      {data && data.log.length > 0 && <pre className="mt-3 max-h-32 overflow-auto rounded-lg bg-black/20 p-2 text-xs">{data.log.join("\n")}</pre>}
+      </ul>
     </Card>
   );
 }
 
-/** Activation codes (player."Active_Number") for an Active with HasKey 1/4. */
-function CodesPanel() {
-  const [activeId, setActiveId] = useState(0);
-  const [count, setCount] = useState(10);
-  const [codes, setCodes] = useState<string[]>([]);
-  const gen = async () => {
-    try {
-      const r = await api.post<{ codes: string[] }>(`/api/admin/events/${activeId}/codes`, { count });
-      setCodes(r.codes);
-      toast.success(`${r.codes.length} códigos`);
-    } catch {
-      toast.error("Erro");
-    }
-  };
+/** Prêmios reais via REST `eventAwards` (`/api/admin/event-awards`), filtrados por `ActiveID`. */
+function AwardsPanel() {
+  const { t } = useI18n();
+  const [activeId, setActiveId] = useState("");
+  const [dialog, setDialog] = useState(false);
+  const { data } = useQuery(listQuery(eventAwards, { page: 1, pageSize: 20, sort: "ActiveID", q: activeId || undefined }));
+  const { create } = useResourceMutations(eventAwards);
+  const rows = (data?.items ?? []) as unknown as { ID: number; ActiveID: number; ItemID: number; Count: number }[];
   return (
     <Card className="mb-4 flex flex-wrap items-center gap-2 p-4">
-      <span className="text-sm">Gerar códigos para ActiveID (HasKey 1/4)</span>
-      <input type="number" value={activeId} onChange={(e) => setActiveId(Number(e.target.value))} className="w-24 rounded-lg border border-line bg-transparent px-2 py-1 text-sm" aria-label="ActiveID" />
-      <input type="number" value={count} min={1} max={1000} onChange={(e) => setCount(Number(e.target.value))} className="w-20 rounded-lg border border-line bg-transparent px-2 py-1 text-sm" aria-label="quantidade" />
-      <Button size="sm" onClick={gen} disabled={!activeId}>
-        Gerar
+      <span className="text-sm">Prêmios do ActiveID</span>
+      <Input value={activeId} onChange={(e) => setActiveId(e.target.value)} placeholder="ex. 12" className="w-28" aria-label="ActiveID" />
+      <Button size="sm" onClick={() => setDialog(true)}>
+        <Plus /> Novo prêmio{activeId ? ` p/ ${activeId}` : ""}
       </Button>
-      {codes.length > 0 && <textarea readOnly className="mt-2 h-24 w-full rounded-lg border border-line bg-transparent p-2 font-mono text-xs" value={codes.join("\n")} />}
+      <span className="text-sm text-muted">{rows.length} encontrados (CRUD completo abaixo)</span>
+      <Dialog open={dialog} onOpenChange={(o) => !o && setDialog(false)}>
+        {dialog && (
+          <DialogContent title="Novo prêmio" size="lg">
+            <SchemaForm
+              fields={eventAwards.fields}
+              mode="create"
+              initial={activeId ? ({ ActiveID: Number(activeId) } as unknown as Record<string, unknown>) : undefined}
+              onCancel={() => setDialog(false)}
+              onSubmit={async (body) => {
+                try {
+                  await create.mutateAsync(body);
+                  toast.success(t("crud.created"));
+                  setDialog(false);
+                } catch {
+                  toast.error(t("common.error"));
+                }
+              }}
+            />
+          </DialogContent>
+        )}
+      </Dialog>
+    </Card>
+  );
+}
+
+/** Códigos reais via REST `eventCodes` (`/api/admin/event-codes`), cria/edita por `ActiveID`. */
+function CodesPanel() {
+  const { t } = useI18n();
+  const [activeId, setActiveId] = useState("");
+  const [dialog, setDialog] = useState(false);
+  const { data } = useQuery(listQuery(eventCodes, { page: 1, pageSize: 20, sort: "ActiveID", q: activeId || undefined }));
+  const { create } = useResourceMutations(eventCodes);
+  const rows = (data?.items ?? []) as unknown as { AwardID: string; ActiveID: number }[];
+  return (
+    <Card className="mb-4 flex flex-wrap items-center gap-2 p-4">
+      <span className="text-sm">Códigos do ActiveID (HasKey 1/4)</span>
+      <Input value={activeId} onChange={(e) => setActiveId(e.target.value)} placeholder="ex. 12" className="w-28" aria-label="ActiveID" />
+      <Button size="sm" onClick={() => setDialog(true)}>
+        <Plus /> Novo código{activeId ? ` p/ ${activeId}` : ""}
+      </Button>
+      <span className="text-sm text-muted">{rows.length} encontrados (CRUD completo abaixo)</span>
+      <Dialog open={dialog} onOpenChange={(o) => !o && setDialog(false)}>
+        {dialog && (
+          <DialogContent title="Novo código" size="md">
+            <SchemaForm
+              fields={eventCodes.fields}
+              mode="create"
+              initial={activeId ? ({ ActiveID: Number(activeId) } as unknown as Record<string, unknown>) : undefined}
+              onCancel={() => setDialog(false)}
+              onSubmit={async (body) => {
+                try {
+                  await create.mutateAsync(body);
+                  toast.success(t("crud.created"));
+                  setDialog(false);
+                } catch {
+                  toast.error(t("common.error"));
+                }
+              }}
+            />
+          </DialogContent>
+        )}
+      </Dialog>
     </Card>
   );
 }
@@ -318,6 +362,7 @@ export function EventsPage() {
           <ResourcePage def={scheduledEvents} embedded />
         </TabsContent>
         <TabsContent value="awards">
+          <AwardsPanel />
           <ResourcePage def={eventAwards} embedded />
         </TabsContent>
         <TabsContent value="codes">

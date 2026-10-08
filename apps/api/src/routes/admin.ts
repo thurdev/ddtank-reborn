@@ -288,7 +288,29 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
     } else if (req.params.action === "unban") {
       await ctx.h.db.execute(sql`UPDATE player."Sys_Users_Detail" SET "ForbidDate" = ${new Date(Date.UTC(2000, 0, 1))}, "ForbidReason" = '', "IsExist" = true WHERE "UserID" = ${id}`);
     } else if (req.params.action === "give-item") {
-      await sendMail(ctx, id, String(u.NickName), "GM", "Item", { items: [{ templateId: b.templateId, count: b.count, validDays: b.validDays }] });
+      /**
+       * Entrega item ao jogador: tenta mochila direto, cai para correio.
+       * Como lê esse código (cada variável): `tid` id do template; `count` quantidade pedida; `validDays` dias validade; `u` jogador dono; `tpl` template achado; `livre` slot vago BagType 0; `now` hora atual.
+       */
+      const tid = Number(b.templateId ?? b.TemplateID);
+      const count = Number(b.count ?? 1);
+      const validDays = Number(b.validDays ?? 0);
+      if (!tid) return reply.code(400).send({ message: "templateId é obrigatório" });
+      if (!Number.isFinite(count) || count <= 0) return reply.code(400).send({ message: "count deve ser maior que zero" });
+      const tpl = await q(ctx.h, sql`SELECT "TemplateID" FROM game."Shop_Goods" WHERE "TemplateID" = ${tid} LIMIT 1`);
+      if (!tpl.length) return reply.code(404).send({ message: "Template não encontrado" });
+      try {
+        const now = wallNow();
+        const ocup = await q(ctx.h, sql`SELECT "Place" FROM player."Sys_Users_Goods" WHERE "UserID" = ${id} AND "BagType" = 0 AND "IsExist" = true ORDER BY "Place"`);
+        const usados = new Set((ocup as Row[]).map((r) => Number(r.Place)));
+        let livre = -1;
+        for (let p = 31; p <= 49; p++) if (!usados.has(p)) { livre = p; break; }
+        if (livre < 0) throw new Error("bag cheia");
+        await ctx.h.db.execute(sql`INSERT INTO player."Sys_Users_Goods" ("UserID","BagType","TemplateID","Place","Count","IsJudge","Color","IsExist","StrengthenLevel","AttackCompose","DefendCompose","LuckCompose","AgilityCompose","IsBinds","BeginDate","ValidDate","IsUsed")
+          VALUES (${id}, 0, ${tid}, ${livre}, ${count}, true, '', true, 0, 0, 0, 0, 0, true, ${now}, ${validDays}, false)`);
+      } catch {
+        await sendMail(ctx, id, String(u.NickName), "GM", "Item", { items: [{ templateId: tid, count, validDays }] });
+      }
     } else return reply.code(404).send({ message: "Ação desconhecida" });
     await audit(ctx, actor(req), "players", `${req.params.action} ${u.NickName} (${id})`, b);
     return { ok: true };
