@@ -14,7 +14,7 @@ export async function checkSpeedHack(ctx: ServerContext, p: GamePlayer): Promise
   const now = unixSeconds(ctx.now());
   if (cfg.SPEED_CHECK_ENABLED && now - p.timeCheckHack < cfg.SPEED_CHECK_INTERVAL_MIN * 60 - cfg.SPEED_CHECK_TOLERANCE_SEC) {
     ctx.log.warn(`speed hack detected: ${p.info.UserName}`);
-    p.sendMessage(0, `Bạn bị tạm khoá ${cfg.SPEED_CHECK_BAN_MIN} phút do sử dụng cỗ máy thời gian!`);
+    p.sendMessage(0, `Você foi bloqueado por ${cfg.SPEED_CHECK_BAN_MIN} minuto(s) por usar acelerador de tempo!`);
     await p.saveIntoDatabase(ctx.db.db);
     await forbidPlayer(ctx.db.db, p.id, new Date(ctx.now().getTime() + cfg.SPEED_CHECK_BAN_MIN * 60_000), true, "Hack speed");
     p.sink.disconnect("speed hack");

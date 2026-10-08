@@ -5,12 +5,12 @@ import { registerScript, AMissionControl, __arr, __list } from "../../runtime.js
 
 export class TVS12002 extends AMissionControl {
   static KillChat = __arr([
-      "Không có gì phải sợ, đau đớn sẻ qua",
-      "Kẻ tầm thường và thấp hèn."
+      "Não há o que temer, a dor vai passar",
+      "Seres medíocres e insignificantes."
     ]);
   static ShootedChat = __arr([
-      "Chỉ được vậy thôi à ?…",
-      "Sức mạnh cũng thường…"
+      "Só isso?…",
+      "Até que são fortes…"
     ]);
   static msg(living, target, damageAmount, criticalAmount) {
     }
@@ -53,7 +53,7 @@ export class TVS12002 extends AMissionControl {
       this.m_boss.FallFrom(this.m_boss.X, this.m_boss.Y, "", 0, 0, 1000, (null));
       this.m_boss.SetRelateDemagemRect(-21, -79, 72, 91);
       this.m_boss.AddDelay(10);
-      this.m_boss.Say("Nếu chiến thắng ta thì các ngươi sẻ tiếp cận được vòng xoáy thời gian!", 0, 6000);
+      this.m_boss.Say("Se me vencerem, vocês chegarão ao vórtice do tempo!", 0, 6000);
       this.m_moive.PlayMovie("in", 9000, 0);
       this.m_front.PlayMovie("in", 9000, 0);
       this.m_moive.PlayMovie("out", 15000, 0);

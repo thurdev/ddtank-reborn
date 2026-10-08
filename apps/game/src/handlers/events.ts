@@ -67,7 +67,7 @@ export class EventsRuntime {
       case "worldboss": {
         const b = this.boss;
         b.window = w;
-        b.name = String(prm.name ?? "Rồng Thần");
+        b.name = String(prm.name ?? "Dragão Divino");
         b.resourceId = String(prm.resourceId ?? "1");
         b.pveId = Number(prm.pveId ?? 1243);
         b.maxBlood = Number(prm.bossHp ?? 20_000_000);
@@ -81,7 +81,7 @@ export class EventsRuntime {
       case "league":
         this.leagueOpen = true;
         this.broadcast((p) => Out.leagueNotice(p.id, p.match.restCount ?? 0, Number(prm.maxCount ?? 10), 1));
-        this.broadcast(Out.message(1, "Chiến thần đã bắt đầu, mau vào phòng game chiến đấu nào!"));
+        this.broadcast(Out.message(1, "O Deus da Guerra começou, entre logo na sala para lutar!"));
         break;
       case "elite":
         this.eliteStatus = Number(prm.status ?? 5);
@@ -142,7 +142,7 @@ export function worldBossOpen(rt: EventsRuntime, _p: GamePlayer): GSPacket {
   p.writeByte(0);
   p.writeString(open ? b.resourceId : "0");
   p.writeInt(open ? b.pveId : 0);
-  p.writeString("Thần thú");
+  p.writeString("Fera Divina");
   p.writeString(b.name);
   p.writeInt(b.maxBlood);
   p.writeInt(0); p.writeInt(0);
@@ -152,7 +152,7 @@ export function worldBossOpen(rt: EventsRuntime, _p: GamePlayer): GSPacket {
   p.writeBoolean(!open || b.blood <= 0); // fightOver
   p.writeBoolean(!open); // roomClose
   p.writeInt(11573); p.writeInt(0); p.writeInt(15); p.writeInt(1000);
-  p.writeInt(1); p.writeInt(1); p.writeString("Tăng Sát Thương"); p.writeInt(30); p.writeString("Sát thương cơ bản tăng 200."); p.writeInt(-1);
+  p.writeInt(1); p.writeInt(1); p.writeString("Aumentar Dano"); p.writeInt(30); p.writeString("Dano base aumenta em 200."); p.writeInt(-1);
   p.writeBoolean(true); p.writeBoolean(false);
   return p;
 }
@@ -327,7 +327,7 @@ export async function dailyAward(ctx: ServerContext, p: GamePlayer, type: number
       return p.sendMessage(0, `${t("GameUserDailyAward.Success", "Prêmio diário recebido!")}${tpl ? ` ${tpl.Name}` : ""}`);
     }
     case 2: {
-      if (!(await claimOnce(db, p.id, "egg", day))) return p.sendMessage(0, "Bạn đã nhận 1 lần hôm nay!");
+      if (!(await claimOnce(db, p.id, "egg", day))) return p.sendMessage(0, "Você já recebeu 1 vez hoje!");
       p.info.LastGetEgg = now;
       const s = await give(ctx, p, [{ templateId: 112059, count: 1 }], "Ovo diário");
       return p.sendMessage(0, `${t("GameServer.DailyEggReceive.Success", "Ovo diário recebido:")} ${s}`);
@@ -339,7 +339,7 @@ export async function dailyAward(ctx: ServerContext, p: GamePlayer, type: number
       if (!(await claimOnce(db, p.id, "vip", day))) {
         p.info.CanTakeVipReward = false;
         p.send(Out.openVip(p.info));
-        return p.sendMessage(0, "Bạn đã nhận được phần thưởng hôm nay!");
+        return p.sendMessage(0, "Você já recebeu a recompensa de hoje!");
       }
       const s = await openBoxRewards(ctx, p, box.TemplateID, "Caixa VIP");
       // the client pops the VIP gift frame while CanTakeVipReward is set (ChecVipkExpireDay re-opens it the next day)
@@ -384,7 +384,7 @@ export async function signAward(ctx: ServerContext, p: GamePlayer, count: number
   const rewards: Reward[] = rt.data.dailyAward.filter((d) => d.AwardDays === count && (d.Type === 1 || d.Type === 7) && (d.Sex === 0 || d.Sex === (p.info.Sex ? 1 : 2)))
     .map((d) => (d.Type === 7 ? { templateId: -1100, count: d.Count } : { templateId: d.TemplateID, count: d.Count, validDate: d.ValidDate, isBind: d.IsBinds }));
   const s = await give(ctx, p, rewards, "Prêmio de presença");
-  p.sendMessage(0, `Nhận thưởng quà điểm danh hàng ngày thành công! ${s}`);
+  p.sendMessage(0, `Presente de presença diária recebido com sucesso! ${s}`);
   return true;
 }
 
@@ -431,7 +431,7 @@ export async function timeBox(ctx: ServerContext, p: GamePlayer, pkt: GSPacket):
     if (boxType === 0) {
       boxBegin.set(p, now.getTime());
       const next = rt.data.findBox(0, c.Grade, c.BoxProgression ?? 0);
-      p.sendMessage(0, next ? `Nhận quà từ rương thời gian. ${s}` : `Bạn đã nhận hết của ngày hôm nay. ${s}`);
+      p.sendMessage(0, next ? `Presente do baú do tempo recebido. ${s}` : `Você já recebeu tudo de hoje. ${s}`);
     } else p.sendMessage(0, `${ctx.lang.t("UserGetTimeBoxHandler.level")} ${s}`);
   } else p.sendMessage(0, ctx.lang.t("UserGetTimeBoxHandler.fail"));
   if (boxType === 0) {
@@ -486,9 +486,9 @@ export async function accumulativeLogin(ctx: ServerContext, p: GamePlayer, selec
     const rows = rt.data.loginAward.filter((r) => r.Type === day && (day < 7 || r.RewardItemID === selected));
     if (!rows.length) break;
     if (!(await claimOnce(ctx.db.db, p.id, "accaward", String(day)))) { c.accumulativeAwardDays = day; continue; }
-    const s = await give(ctx, p, rows.map((r) => ({ templateId: r.RewardItemID, count: r.RewardItemCount, validDate: r.RewardItemValid, isBind: r.IsBind, strengthenLevel: r.StrengthenLevel })), `Quà đăng nhập ${day} ngày`);
+    const s = await give(ctx, p, rows.map((r) => ({ templateId: r.RewardItemID, count: r.RewardItemCount, validDate: r.RewardItemValid, isBind: r.IsBind, strengthenLevel: r.StrengthenLevel })), `Presente de ${day} dia(s) de login`);
     c.accumulativeAwardDays = day;
-    p.sendMessage(0, `Quà đăng nhập ${day} ngày: ${s}`);
+    p.sendMessage(0, `Presente de ${day} dia(s) de login: ${s}`);
   }
   const out = new GSPacket(338, p.id);
   out.writeInt(c.accumulativeLoginDays ?? 0);
@@ -506,7 +506,7 @@ export async function firstRecharge(ctx: ServerContext, p: GamePlayer): Promise<
     return false;
   }
   const goods = rt.data.eventGoods.filter((g) => g.ActivityType === 7 && g.SubActivityType === 1);
-  const s = await give(ctx, p, goods.map((g) => ({ templateId: g.TemplateId, count: g.Count ?? 1, validDate: g.ValidDate ?? 0, isBind: g.IsBind ?? true, strengthenLevel: g.StrengthLevel ?? 0, attack: g.AttackCompose ?? 0, defence: g.DefendCompose ?? 0, agility: g.AgilityCompose ?? 0, luck: g.LuckCompose ?? 0 })), "Quà nạp lần đầu");
+  const s = await give(ctx, p, goods.map((g) => ({ templateId: g.TemplateId, count: g.Count ?? 1, validDate: g.ValidDate ?? 0, isBind: g.IsBind ?? true, strengthenLevel: g.StrengthLevel ?? 0, attack: g.AttackCompose ?? 0, defence: g.DefendCompose ?? 0, agility: g.AgilityCompose ?? 0, luck: g.LuckCompose ?? 0 })), "Presente da primeira recarga");
   p.info.IsGetAward = true;
   p.send(Out.firstRecharge(true, true));
   p.sendMessage(0, `Presente recebido! ${s}`);

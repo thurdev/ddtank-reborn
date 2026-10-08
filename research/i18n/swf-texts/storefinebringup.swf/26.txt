@@ -1,0 +1,9 @@
+     Có thể bồi dưỡng trang sức tại giao diện này, đặt 
+--- RECORDSEPARATOR ---
+trang sức muốn trưởng thành vào ô bồi dưỡng, nhấp 
+--- RECORDSEPARATOR ---
+bồi dưỡng nhanh, trang sức sau khi bồi dưỡng sẽ gộp 
+--- RECORDSEPARATOR ---
+tất cả trang sức được gộp và chưa khóa trong túi. Khi 
+--- RECORDSEPARATOR ---
+bồi dưỡng nhanh cần chú ý:            

@@ -1,0 +1,1645 @@
+{"rowId":"1","text":"Ao fim de cada turno, o mascote tem 100% de chance de atacar o inimigo, causando 15% de dano."}
+{"rowId":"2","text":"Ao fim de cada turno, o mascote tem 100% de chance de atacar o inimigo, causando 25% de dano."}
+{"rowId":"3","text":"Ao fim de cada turno, o mascote tem 100% de chance de atacar o inimigo, causando 36% de dano."}
+{"rowId":"4","text":"+1 Ovo de Galinha"}
+{"rowId":"5","text":"+1 Ovo de Galinha"}
+{"rowId":"6","text":"+1 Ovo de Galinha"}
+{"rowId":"7","text":"Na sua vez de atirar, o mascote tem 100% de chance de atacar o oponente, causando 10% de dano."}
+{"rowId":"8","text":"Na sua vez de atirar, o mascote tem 100% de chance de atacar o oponente, causando 20% de dano."}
+{"rowId":"9","text":"Na sua vez de atirar, o mascote tem 100% de chance de atacar o oponente, causando 30% de dano."}
+{"rowId":"10","text":"+1 Bolha de Galinha"}
+{"rowId":"11","text":"+1 Bolha de Galinha"}
+{"rowId":"12","text":"+1 Bolha de Galinha"}
+{"rowId":"13","text":"Ao fim de cada turno, o mascote tem 100% de chance de atacar o inimigo, causando 15% de dano."}
+{"rowId":"14","text":"Ao fim de cada turno, o mascote tem 100% de chance de atacar o inimigo, causando 25% de dano."}
+{"rowId":"15","text":"Ao fim de cada turno, o mascote tem 100% de chance de atacar o inimigo, causando 36% de dano."}
+{"rowId":"16","text":"+1 Feijão Explosivo"}
+{"rowId":"17","text":"+1 Feijão Explosivo"}
+{"rowId":"18","text":"+1 Feijão Explosivo"}
+{"rowId":"19","text":"Ao fim de cada turno, o mascote tem 100% de chance de atacar o inimigo, causando 15% de dano."}
+{"rowId":"20","text":"Ao fim de cada turno, o mascote tem 100% de chance de atacar o inimigo, causando 25% de dano."}
+{"rowId":"21","text":"Ao fim de cada turno, o mascote tem 100% de chance de atacar o inimigo, causando 36% de dano."}
+{"rowId":"22","text":"+1 Bola de Formiga"}
+{"rowId":"23","text":"+1 Bola de Formiga"}
+{"rowId":"24","text":"+1 Bola de Formiga"}
+{"rowId":"25","text":"Dispara 1 Míssil Teleguiado, causando 100% do dano base, 100% crítico; o efeito teleguiado só vale contra jogadores."}
+{"rowId":"26","text":"Dispara 1 Míssil Teleguiado, causando 130% do dano base, 100% crítico; o efeito teleguiado só vale contra jogadores."}
+{"rowId":"27","text":"Dispara 1 Míssil Teleguiado, causando 155% do dano base, 100% crítico; o efeito teleguiado só vale contra jogadores."}
+{"rowId":"28","text":"Arremessa 1 galinha, causando 120% do dano base, 100% crítico. Aumenta a própria Sorte em 100 por 2 TURNOS."}
+{"rowId":"29","text":"Arremessa 1 galinha, causando 150% do dano base, 100% crítico. Aumenta a própria Sorte em 300 por 2 TURNOS."}
+{"rowId":"30","text":"Arremessa 1 galinha, causando 180% do dano base, 100% crítico. Aumenta a própria Sorte em 500 por 2 TURNOS."}
+{"rowId":"31","text":"Arremessa 1 semente, causando 120% do dano base, 100% crítico; recupera 2% de HP por turno por 2 turnos."}
+{"rowId":"32","text":"Arremessa 1 semente, causando 150% do dano base, 100% crítico; recupera 4% de HP por turno por 2 turnos."}
+{"rowId":"33","text":"Arremessa 1 semente, causando 180% do dano base, 100% crítico; recupera 6% de HP por turno por 2 turnos."}
+{"rowId":"34","text":"Arremessa 1 Formiga de Fogo, causando 120% do dano base, 100% crítico; +100 de Armadura por 2 turnos."}
+{"rowId":"35","text":"Arremessa 1 Formiga de Fogo, causando 150% do dano base, 100% crítico; +300 de Armadura por 2 turnos."}
+{"rowId":"36","text":"Arremessa 1 Formiga de Fogo, causando 180% do dano base, 100% crítico; +500 de Armadura por 2 turnos."}
+{"rowId":"37","text":"Recebe Imunidade, Defesa +15%, Ataque -20%, mas não pode se mover, por 2 turnos."}
+{"rowId":"38","text":"Recebe Imunidade, Defesa +20%, Ataque -20%, mas não pode se mover, por 2 turnos."}
+{"rowId":"39","text":"Recebe Imunidade, Defesa +30%, Ataque -15%, mas não pode se mover, por 2 turnos."}
+{"rowId":"40","text":"Qualquer disparo no TURNO dá +100 de Armadura aos aliados atingidos por 2 TURNOS."}
+{"rowId":"41","text":"Qualquer disparo no TURNO dá +300 de Armadura aos aliados atingidos por 2 TURNOS."}
+{"rowId":"42","text":"Qualquer disparo no TURNO dá +100 de Dano aos aliados atingidos por 2 TURNOS."}
+{"rowId":"43","text":"Qualquer disparo no TURNO dá +300 de Dano aos aliados atingidos por 2 TURNOS."}
+{"rowId":"44","text":"Você e as unidades ao redor recuperam 2% +800 HP por turno por 3 turnos"}
+{"rowId":"45","text":"Você e as unidades ao redor recuperam 3% +1000 HP por turno por 3 turnos"}
+{"rowId":"46","text":"Você e as unidades ao redor recuperam 3% +1500 HP por turno por 4 turnos"}
+{"rowId":"47","text":"Ativação de Habilidade"}
+{"rowId":"48","text":"Ativação de Habilidade"}
+{"rowId":"49","text":"Ativação de Habilidade"}
+{"rowId":"50","text":"Recebe 500 de redução de dano; cada ataque sofrido reduz mais 5% do dano, por 1 turno."}
+{"rowId":"51","text":"Recebe 500 +10% de redução de dano; cada ataque sofrido reduz mais 5% do dano, por 1 turno."}
+{"rowId":"52","text":"Recebe 500 +20% de redução de dano; cada ataque sofrido reduz mais 10% do dano, por 1 turno."}
+{"rowId":"53","text":"Reduz o dano ao ser atingido"}
+{"rowId":"54","text":"Reduz o dano ao ser atingido"}
+{"rowId":"55","text":"Reduz o dano ao ser atingido"}
+{"rowId":"56","text":"Recebe +250 de Armadura; ao remover, perde o bônus; acumula até 3 vezes."}
+{"rowId":"57","text":"Recebe +365 de Armadura; ao remover, perde o bônus; acumula até 3 vezes."}
+{"rowId":"58","text":"Remove o efeito Tiro Designado"}
+{"rowId":"59","text":"Recupera 1500 HP de todos os aliados no mapa inteiro."}
+{"rowId":"60","text":"Recupera 3000 HP de todos os aliados no mapa inteiro."}
+{"rowId":"61","text":"Aliados ao redor recuperam 8% de HP na hora e 3% de HP por turno, por 3 turnos."}
+{"rowId":"62","text":"Aliados ao redor recuperam 10% de HP na hora e 4% de HP por turno, por 4 turnos."}
+{"rowId":"63","text":"Ativação de Habilidade"}
+{"rowId":"64","text":"Ativação de Habilidade"}
+{"rowId":"65","text":"Ganha uma carapaça refletora; cada ataque sofrido reflete 30% do dano total, por 2 turnos. Só funciona em combate."}
+{"rowId":"66","text":"Ganha uma carapaça refletora; cada ataque sofrido reflete 50% do dano total, por 2 turnos. Só funciona em combate."}
+{"rowId":"67","text":"Refletir Dano"}
+{"rowId":"68","text":"Refletir Dano"}
+{"rowId":"69","text":"Cada vez que for atingido em cheio, sofre 40 de dano extra, acumulando até 4 vezes; ao fim do seu turno, reduz 2 acúmulos."}
+{"rowId":"70","text":"Cada vez que for atingido em cheio, sofre 55 de dano extra, acumulando até 6 vezes; ao fim do seu turno, reduz 2 acúmulos."}
+{"rowId":"71","text":"Remove o efeito de vantagem de poder de fogo"}
+{"rowId":"72","text":"+300 de efeito para armas secundárias do tipo Bênção do Anjo"}
+{"rowId":"73","text":"+600 de efeito para armas secundárias do tipo Bênção do Anjo"}
+{"rowId":"74","text":"Dá Escudo Protetor a todos os aliados; cada vez que forem atingidos, recuperam 0.3% de HP."}
+{"rowId":"75","text":"Dá Escudo Protetor a todos os aliados; cada vez que forem atingidos, recuperam 0.4% de HP; com HP abaixo de 20%, a cura dobra."}
+{"rowId":"76","text":"+6% de Armadura e Defesa."}
+{"rowId":"77","text":"+10% de Armadura e Defesa."}
+{"rowId":"78","text":"Cada disparo causa dano igual a 2% do seu HP atual"}
+{"rowId":"79","text":"Cada disparo causa dano igual a 3% do seu HP atual"}
+{"rowId":"80","text":"Usar arma secundária do tipo escudo recupera 500 HP na hora"}
+{"rowId":"81","text":"Usar arma secundária do tipo escudo recupera 1000 HP na hora"}
+{"rowId":"82","text":"Ao usar arma secundária do tipo Bênção do Anjo, também recupera 3% do seu HP."}
+{"rowId":"83","text":"Ao usar arma secundária do tipo Bênção do Anjo, também recupera 6% do seu HP."}
+{"rowId":"84","text":"A cada ataque sofrido, 20% de chance de revidar com 3% do HP atual."}
+{"rowId":"85","text":"A cada ataque sofrido, 20% de chance de revidar com 5% do HP atual."}
+{"rowId":"86","text":"Dano +30%, Sorte +10%, Armadura -30% e recebe Imunidade. O efeito se perde ao se mover."}
+{"rowId":"87","text":"Dano +45%, Sorte +15%, Armadura -25% e recebe Imunidade. O efeito se perde ao se mover."}
+{"rowId":"88","text":"Ao se mover, o efeito Fortaleza V3 é removido"}
+{"rowId":"89","text":"+100 de Ataque, Defesa, Agilidade e Sorte e +1000 de HP Máximo para todos os aliados. Dura 3 TURNOS."}
+{"rowId":"90","text":"+300 de Ataque, Defesa, Agilidade e Sorte e +2000 de HP Máximo para todos os aliados. Dura 3 TURNOS."}
+{"rowId":"91","text":"Dispara 1 Semente Voadora; ao explodir, recupera HP dos aliados ao redor e reduz HP dos inimigos; a semente aumenta 3% de HP por segundo."}
+{"rowId":"92","text":"Dispara 1 Semente Voadora; ao explodir, recupera HP dos aliados ao redor e reduz HP dos inimigos; a semente aumenta 6% de HP por segundo."}
+{"rowId":"93","text":"Fica totalmente imune a dano e recupera 5% de HP por 1 turno. Só funciona em combate."}
+{"rowId":"94","text":"Fica totalmente imune a dano e recupera 15% de HP por 1 turno. Só funciona em combate."}
+{"rowId":"95","text":"-3.3% de HP por turno e recebe 4 Pontos de Magia"}
+{"rowId":"96","text":"No primeiro TURNO recebe 50 de Magia, mas o efeito acaba no 2º TURNO."}
+{"rowId":"97","text":"Quando um aliado inicia o turno com o efeito de cura da habilidade Broto, você ganha 1 Ponto de Magia."}
+{"rowId":"98","text":"Reduz 50 Pontos de Magia"}
+{"rowId":"99","text":"+1 Ponto de Magia a cada ataque sofrido"}
+{"rowId":"100","text":"Após cada rodada, seu mascote tem 100% de chance de atacar o oponente, causando 10% de dano"}
+{"rowId":"101","text":"Após cada rodada, seu mascote tem 100% de chance de atacar o oponente, causando 20% de dano"}
+{"rowId":"102","text":"Após cada rodada, seu mascote tem 100% de chance de atacar o oponente, causando 30% de dano"}
+{"rowId":"103","text":"Arremessa 1 Bala do Dragão de Fogo, causando 120% do dano base, 100% crítico; o alvo atingido perde 1% de HP por turno por 3 turnos. (Só funciona em combate)"}
+{"rowId":"104","text":"Arremessa 1 Bala do Dragão de Fogo, causando 150% do dano base, 100% crítico; o alvo atingido perde 2% de HP por turno por 3 turnos. (Só funciona em combate)"}
+{"rowId":"105","text":"Arremessa 1 Bala do Dragão de Fogo, causando 180% do dano base, 100% crítico; o alvo atingido perde 3% de HP por turno por 3 turnos. (Só funciona em combate)"}
+{"rowId":"106","text":"Dano base +15%, Armadura -500, por 3 turnos."}
+{"rowId":"107","text":"Dano base +25%, Armadura -650, por 3 turnos."}
+{"rowId":"108","text":"A cada ataque sofrido, há certa chance de despertar a Alma do Dragão e recuperar 2% de HP. Dura 1 turno."}
+{"rowId":"109","text":"A cada ataque sofrido, há certa chance de despertar a Alma do Dragão e recuperar 4% de HP. Dura 1 turno."}
+{"rowId":"110","text":"Cada vez que for a vez do inimigo atacar, ele sofre queimadura do Selo do Dragão de Fogo! Perde 1000 HP e mais 2% do HP atual; só funciona em combate. Dura 3 turnos."}
+{"rowId":"111","text":"Cada vez que for a vez do inimigo atacar, ele sofre queimadura do Selo do Dragão de Fogo! Perde 2000 HP e mais 4% do HP atual; só funciona em combate. Dura 3 turnos."}
+{"rowId":"112","text":"Ataque +150, Dano +100."}
+{"rowId":"113","text":"Ataque +300, Dano +200."}
+{"rowId":"114","text":"Dragão Verdadeiro no Céu: causa 3000 de dano a todos os inimigos e abate na hora inimigos com HP abaixo de 5%. (Só funciona em combate)"}
+{"rowId":"115","text":"Dragão Verdadeiro no Céu: causa 5000 de dano a todos os inimigos e abate na hora inimigos com HP abaixo de 10%. (Só funciona em combate)"}
+{"rowId":"116","text":"Ao sofrer dano, ganha 1 Ponto de Magia a cada 3500 HP perdidos"}
+{"rowId":"117","text":"Recupera 2% HP"}
+{"rowId":"118","text":"Recupera 4% HP"}
+{"rowId":"119","text":"Exibir"}
+{"rowId":"120","text":"Exibir"}
+{"rowId":"121","text":"100% de chance de atacar o inimigo após cada turno, causando 10% de dano."}
+{"rowId":"122","text":"100% de chance de atacar o inimigo após cada turno, causando 20% de dano."}
+{"rowId":"123","text":"100% de chance de atacar o inimigo após cada turno, causando 30% de dano."}
+{"rowId":"124","text":"Causa 120% de dano, 100% crítico e +100 de Ataque para si por 2 turnos."}
+{"rowId":"125","text":"Causa 150% de dano, 100% crítico e +300 de Ataque para si por 2 turnos."}
+{"rowId":"126","text":"Causa 180% de dano, 100% crítico e +500 de Ataque para si por 2 turnos."}
+{"rowId":"127","text":"+100 de Armadura para todos os aliados por 2 turnos. Não acumula."}
+{"rowId":"128","text":"+200 de Armadura para todos os aliados por 2 turnos. Não acumula."}
+{"rowId":"129","text":"+300 de Armadura para todos os aliados por 2 turnos. Não acumula."}
+{"rowId":"130","text":"-500 HP por turno e +150 de Dano; cancela ao se mover. Se o HP não for suficiente, usar esta habilidade causa a morte."}
+{"rowId":"131","text":"-800 HP por turno e +300 de Dano; cancela ao se mover. Se o HP não for suficiente, usar esta habilidade causa a morte."}
+{"rowId":"132","text":"Agilidade +300."}
+{"rowId":"133","text":"Agilidade +500."}
+{"rowId":"134","text":"+100 de Ataque para todos os aliados."}
+{"rowId":"135","text":"+300 de Ataque para todos os aliados."}
+{"rowId":"136","text":"+200 de Ataque, +100 de Dano, +30% de crítico e efeito de Guia, por 1 turno."}
+{"rowId":"137","text":"+300 de Ataque, +150 de Dano, +50% de crítico e efeito de Guia, por 1 turno."}
+{"rowId":"138","text":"Ao usar, +2 Pontos de Magia para todos os mascotes aliados."}
+{"rowId":"139","text":"Remove o efeito Inferno Congelado"}
+{"rowId":"140","text":"O mascote tem 100% de chance de atacar o inimigo ao fim do turno, causando 30% de dano."}
+{"rowId":"141","text":"O mascote tem 100% de chance de atacar o inimigo ao fim do turno, causando 40% de dano."}
+{"rowId":"142","text":"O mascote tem 100% de chance de atacar o inimigo ao fim do turno, causando 50% de dano."}
+{"rowId":"143","text":"Dispara veneno, causando 120% de dano, 100% crítico; o alvo atingido tem -100 de Dano por 3 turnos."}
+{"rowId":"144","text":"Dispara veneno, causando 150% de dano, 100% crítico; o alvo atingido tem -200 de Dano por 3 turnos."}
+{"rowId":"145","text":"Dispara veneno, causando 180% de dano, 100% crítico; o alvo atingido tem -300 de Dano por 3 turnos."}
+{"rowId":"146","text":"-300 de Ataque e -300 de Defesa para todo o time inimigo por 2 turnos. Só funciona em combate."}
+{"rowId":"147","text":"-500 de Ataque e -500 de Defesa para todo o time inimigo por 2 turnos. Só funciona em combate."}
+{"rowId":"148","text":"-10 Pontos de Magia de todos os mascotes inimigos. Só funciona em combate."}
+{"rowId":"149","text":"-30 Pontos de Magia de todos os mascotes inimigos. Só funciona em combate."}
+{"rowId":"150","text":"-500 HP por turno e +20% de crítico. Dura 3 turnos."}
+{"rowId":"151","text":"-1000 HP por turno e +50% de crítico. Dura 3 turnos."}
+{"rowId":"152","text":"+100 de Armadura e +1500 de HP Máximo."}
+{"rowId":"153","text":"+200 de Armadura e +3000 de HP Máximo."}
+{"rowId":"154","text":"-100 de Armadura para todos os inimigos e eles não podem se mover, por 2 turnos."}
+{"rowId":"155","text":"-200 de Armadura para todos os inimigos e eles não podem se mover, por 2 turnos."}
+{"rowId":"156","text":"+2 Pontos de Magia a cada ataque sofrido."}
+{"rowId":"157","text":"Após cada ataque, o mascote ataca o inimigo, causando 10% de dano."}
+{"rowId":"158","text":"Após cada ataque, o mascote ataca o inimigo, causando 20% de dano."}
+{"rowId":"159","text":"Após cada ataque, o mascote ataca o inimigo, causando 30% de dano."}
+{"rowId":"160","text":"Executa uma Investida, causando 120% do dano base, 100% crítico e +100 de Armadura para si por 2 turnos."}
+{"rowId":"161","text":"Executa uma Investida, causando 150% do dano base, 100% crítico e +300 de Armadura para si por 2 turnos."}
+{"rowId":"162","text":"Executa uma Investida, causando 180% do dano base, 100% crítico e +500 de Armadura para si por 2 turnos."}
+{"rowId":"163","text":"Recebe 500 de redução de dano; cada ataque sofrido reduz mais 5% do dano, por 1 turno."}
+{"rowId":"164","text":"Recebe 500 +10% de redução de dano; cada ataque sofrido reduz mais 5% do dano, por 1 turno."}
+{"rowId":"165","text":"Recebe 500 +20% de redução de dano; cada ataque sofrido reduz mais 10% do dano, por 1 turno."}
+{"rowId":"166","text":"A cada ataque sofrido, revida com 30% de todo o dano, por 2 turnos. Só funciona em combate."}
+{"rowId":"167","text":"A cada ataque sofrido, revida com 50% de todo o dano, por 2 turnos. Só funciona em combate."}
+{"rowId":"168","text":"Ativa a proteção, +6% de Armadura e Defesa"}
+{"rowId":"169","text":"Ativa a proteção, +10% de Armadura e Defesa"}
+{"rowId":"170","text":"A cada ataque sofrido, 20% de chance de revidar com 3% do HP atual."}
+{"rowId":"171","text":"A cada ataque sofrido, 20% de chance de revidar com 5% do HP atual."}
+{"rowId":"172","text":"Fica totalmente imune a dano e recupera 5% de HP por 1 turno. Só funciona em combate."}
+{"rowId":"173","text":"Fica totalmente imune a dano e recupera 15% de HP por 1 turno. Só funciona em combate."}
+{"rowId":"174","text":"+1 Ponto de Magia a cada ataque sofrido"}
+{"rowId":"175","text":"Após cada ataque, o Mascote ataca o inimigo, causando 30% de dano."}
+{"rowId":"176","text":"Após cada ataque, o Mascote ataca o inimigo, causando 40% de dano."}
+{"rowId":"177","text":"Após cada ataque, o Mascote ataca o inimigo, causando 50% de dano."}
+{"rowId":"178","text":"Causa 120% do dano base, 100% crítico; o alvo atingido tem -100 de Ataque por 3 Turnos."}
+{"rowId":"179","text":"Causa 150% do dano base, 100% crítico; o alvo atingido tem -200 de Ataque por 3 Turnos."}
+{"rowId":"180","text":"Causa 180% do dano base, 100% crítico; o alvo atingido tem -300 de Ataque por 3 Turnos."}
+{"rowId":"181","text":"Todos os aliados ganham +100 de Armadura e recuperam 800 HP por Turno. Dura 2 Turnos, só funciona em combate."}
+{"rowId":"182","text":"Todos os aliados ganham +200 de Armadura e recuperam 1000 HP por Turno. Dura 2 Turnos, só funciona em combate."}
+{"rowId":"183","text":"-10 Pontos de Magia do Mascote inimigo atingido e +5 Pontos de Magia do Mascote aliado. Só funciona em combate."}
+{"rowId":"184","text":"-20 Pontos de Magia do Mascote inimigo atingido e +10 Pontos de Magia do Mascote aliado. Só funciona em combate."}
+{"rowId":"185","text":"Sorte +300."}
+{"rowId":"186","text":"Sorte +500."}
+{"rowId":"187","text":"Todos os aliados +100 de Dano."}
+{"rowId":"188","text":"Todos os aliados +300 de Dano."}
+{"rowId":"189","text":"Impede o oponente de se mover e causa 800 de dano por turno ao jogador atingido, por 2 turnos."}
+{"rowId":"190","text":"Impede o oponente de se mover e causa 1300 de dano por turno ao jogador atingido, por 2 turnos."}
+{"rowId":"191","text":"+2 Pontos de Magia a cada ataque sofrido."}
+{"rowId":"192","text":"Núcleo"}
+{"rowId":"193","text":"Núcleo"}
+{"rowId":"194","text":"Após cada ataque, o mascote ataca o inimigo, causando 50% de dano."}
+{"rowId":"195","text":"Arremessa 1 Esfera Verde, causando 120% do dano base, 100% crítico; o alvo atingido não pode usar habilidades ativas de mascote por 2 turnos. (Não combina com POW nem acumula com itens)"}
+{"rowId":"196","text":"Arremessa 1 Esfera Verde, causando 150% do dano base, 100% crítico; o alvo atingido não pode usar habilidades ativas de mascote por 2 turnos. (Não combina com POW nem acumula com itens)"}
+{"rowId":"197","text":"Arremessa 1 Esfera Verde, causando 180% do dano base, 100% crítico; o alvo atingido não pode usar habilidades ativas de mascote por 2 turnos. (Não combina com POW nem acumula com itens)"}
+{"rowId":"198","text":"Quando o oponente usa uma habilidade ativa, você recebe 30% da magia restante dele."}
+{"rowId":"199","text":"Quando o oponente usa uma habilidade ativa, você recebe 50% da magia restante dele."}
+{"rowId":"200","text":"Fica invisível na competição por 2 turnos e se move rapidamente para um ponto de partida aleatório. (Não combina nem acumula com itens)"}
+{"rowId":"201","text":"Todo o seu time sofre -20% de dano crítico. (Não acumula, vale o efeito mais alto)"}
+{"rowId":"202","text":"Todo o seu time sofre -30% de dano crítico. (Não acumula, vale o efeito mais alto)"}
+{"rowId":"203","text":"Dano recebido -15% por 2 turnos."}
+{"rowId":"204","text":"Dano recebido -30% por 2 turnos"}
+{"rowId":"205","text":"Dano recebido -50% por 2 turnos"}
+{"rowId":"206","text":"Habilidade Obtida"}
+{"rowId":"207","text":"Habilidade Obtida"}
+{"rowId":"208","text":"Em combate, na sua vez, rouba 1 Ponto de Magia de cada inimigo"}
+{"rowId":"209","text":"Em combate, na sua vez, rouba 2 Pontos de Magia de cada inimigo"}
+{"rowId":"210","text":"Reduz os Pontos de Magia do inimigo."}
+{"rowId":"211","text":"Reduz os Pontos de Magia do inimigo."}
+{"rowId":"212","text":"Na competição, converte 30% do dano causado ao inimigo em cura própria por 1 turno (Não acumula com POW)."}
+{"rowId":"213","text":"Na competição, converte 30% do dano causado ao inimigo em cura própria por 2 turnos (Não acumula com POW)."}
+{"rowId":"214","text":"Habilidade Obtida"}
+{"rowId":"215","text":"Habilidade Obtida"}
+{"rowId":"216","text":"Remove o efeito Sorriso Sinistro"}
+{"rowId":"217","text":"Remove o efeito de HP"}
+{"rowId":"218","text":"Rouba 1 de Magia do oponente"}
+{"rowId":"219","text":"Rouba 2 de Magia do oponente"}
+{"rowId":"220","text":"Absorve 30%"}
+{"rowId":"221","text":"Absorve 30%"}
+{"rowId":"231","text":"Durante o uso da habilidade do mascote recebe Imunidade, e a cura de todos os aliados fica +30%."}
+{"rowId":"232","text":"Durante o uso da habilidade do mascote recebe Imunidade, e a cura de todos os aliados fica +50%."}
+{"rowId":"242","text":"Remove o efeito Tiro Designado"}
+{"rowId":"243","text":"Ao se mover, o efeito Fortaleza V3 é removido"}
+{"rowId":"244","text":"Remove o efeito de vantagem de poder de fogo"}
+{"rowId":"245","text":"Cada vez que for atingido em cheio, sofre 40 de dano extra, acumulando até 4 vezes; ao fim do seu turno, reduz 2 acúmulos."}
+{"rowId":"246","text":"Cada vez que for atingido em cheio, sofre 55 de dano extra, acumulando até 6 vezes; ao fim do seu turno, reduz 2 acúmulos."}
+{"rowId":"247","text":"Recupera HP ao ser atacado"}
+{"rowId":"248","text":"Recupera HP ao ser atacado, x2 com HP baixo"}
+{"rowId":"260","text":"Após atirar em cada turno, tem 100% de chance de avançar e atacar o inimigo, causando 30% de dano."}
+{"rowId":"261","text":"Após atirar em cada turno, tem 100% de chance de avançar e atacar o inimigo, causando 40% de dano."}
+{"rowId":"262","text":"Após atirar em cada turno, tem 100% de chance de avançar e atacar o inimigo, causando 50% de dano."}
+{"rowId":"263","text":"Arremessa 1 Pêssego da Imortalidade, causando 150% do dano base e +20% de chance de crítico por 2 turnos."}
+{"rowId":"264","text":"Arremessa 1 Pêssego da Imortalidade, causando 180% do dano base e +20% de chance de crítico por 2 turnos."}
+{"rowId":"265","text":"Arremessa 1 Pêssego da Imortalidade, causando 220% do dano base e +20% de chance de crítico por 2 turnos."}
+{"rowId":"266","text":"Todos os aliados +5% de Atq. Mágico; todo o time inimigo -10% de Res. Mágica."}
+{"rowId":"267","text":"Todos os aliados +10% de Atq. Mágico; todo o time inimigo -15% de Res. Mágica."}
+{"rowId":"268","text":"Todo o time inimigo não pode agir por 1 turno. (Só funciona em combate)"}
+{"rowId":"269","text":"Todo o time inimigo não pode agir por 1 turno e perde 10 de Magia. (Só funciona em combate)"}
+{"rowId":"270","text":"Reduz em 10% o dano recebido, com 20% de chance de ficar imune a crítico."}
+{"rowId":"271","text":"Reduz em 20% o dano recebido, com 30% de chance de ficar imune a crítico."}
+{"rowId":"272","text":"Marca todos os jogadores inimigos invisíveis por 2 turnos (só funciona em combate)"}
+{"rowId":"273","text":"Marca todos os jogadores inimigos invisíveis e faz o inimigo sofrer +20% de dano, por 2 turnos (Só funciona em combate)"}
+{"rowId":"274","text":"A cada golpe crítico sofrido, recupera 5% de HP, até 3 vezes por batalha. (Só funciona em combate)"}
+{"rowId":"275","text":"Gira o Bastão dos Desejos, causando 5 vezes 100% de dano em área a inimigos aleatórios na tela toda."}
+{"rowId":"276","text":"Gira o Bastão dos Desejos, causando 5 vezes 150% de dano em área a inimigos aleatórios na tela toda; a cada inimigo derrotado, todos os aliados recuperam 5% de HP."}
+{"rowId":"277","text":"+1 de Magia a cada uso de item de combate, até +7 de Magia por turno."}
+{"rowId":"278","text":"Receber Habilidade de Aumento de Dano"}
+{"rowId":"279","text":"Recupera Magia ao Ser Atacado"}
+{"rowId":"280","text":"Após atirar em cada turno, o mascote avança e ataca o inimigo, causando 65% de dano."}
+{"rowId":"281","text":"Dano base +30%, Armadura -750, HP Máximo +15%, por 3 turnos."}
+{"rowId":"282","text":"A cada ataque sofrido, desperta a Alma do Dragão e recupera 4% de HP, por 1 turno"}
+{"rowId":"283","text":"Ataque +450, Dano +300."}
+{"rowId":"284","text":"Ao sofrer dano, ganha 1 Ponto de Magia a cada 3500 HP perdidos, com certa chance de ativar a proteção da Alma do Dragão."}
+{"rowId":"285","text":"Ativa o segundo dano"}
+{"rowId":"286","text":"Recupera 4% HP"}
+{"rowId":"287","text":"Ativar Dragão Guardião"}
+{"rowId":"288","text":"Após atirar em cada turno, o mascote avança e ataca o inimigo, causando 65% de dano."}
+{"rowId":"289","text":"Golpeia com os chifres do cervo, perfurando a defesa inimiga e causando 180% do dano base, 100% crítico; o alvo atingido tem -20% de Ataque e Defesa por 3 turnos."}
+{"rowId":"290","text":"Todos os aliados +300 de Dano e +10% de chance de crítico."}
+{"rowId":"291","text":"Na competição, impede o inimigo de se mover e reduz 5% do HP dele por turno, por 3 turnos."}
+{"rowId":"292","text":"Após cada ataque, o mascote ataca o inimigo, causando 30% de dano."}
+{"rowId":"293","text":"Após cada ataque, o mascote ataca o inimigo, causando 40% de dano."}
+{"rowId":"294","text":"Arremessa 1 Bala de Gelo Estilhaçante, causando 180% de dano, 100% crítico e +6% de Ataque e Dano por 2 turnos."}
+{"rowId":"295","text":"Todos os aliados +30% de redução de dano por 2 turnos, não acumula."}
+{"rowId":"296","text":"Perde 8% de HP por turno em troca de +800 de dano extra; ao se mover o efeito é cancelado. Se o HP não for suficiente, você morre."}
+{"rowId":"297","text":"Todos os aliados +600 de Agilidade."}
+{"rowId":"298","text":"Todos os aliados +600 de Ataque."}
+{"rowId":"299","text":"+5% de Ataque e Dano, +50% de chance de crítico e efeito de Guia, por 2 turnos."}
+{"rowId":"300","text":"Na sua vez, todos os aliados ganham +2 Pontos de Magia e recuperam 2% de HP."}
+{"rowId":"301","text":"Após atirar em cada turno, o mascote tem 100% de chance de avançar e atacar o inimigo, causando 65% de dano."}
+{"rowId":"302","text":"Cospe veneno, causando 180% do dano base, 100% crítico; o alvo atingido tem o dano reduzido em 25% por 3 turnos."}
+{"rowId":"303","text":"Todos os inimigos têm Ataque e Defesa -30% por 2 turnos. Só funciona em combate."}
+{"rowId":"304","text":"Perde 5% do HP Máximo por turno; +75% de chance de crítico e +30% de dano crítico, por 3 turnos."}
+{"rowId":"305","text":"Na competição, todos os inimigos têm Armadura e Res. Mágica -35% e não podem se mover, por 2 turnos."}
+{"rowId":"306","text":"+2 Pontos de Magia a cada vez que for atingido, com chance de envenenar o inimigo."}
+{"rowId":"307","text":"Recebe Envenenamento: dano recebido +10% por 2 turnos."}
+{"rowId":"308","text":"Após atirar em cada turno, tem 100% de chance de avançar e atacar o inimigo, causando 65% de dano."}
+{"rowId":"309","text":"Arremessa 1 Pêssego da Imortalidade, causando 220% do dano base e +25% de chance de crítico por 3 turnos."}
+{"rowId":"310","text":"Todos os inimigos não podem agir por 1 turno e perdem 20 Pontos de Magia. (Só funciona em combate)"}
+{"rowId":"311","text":"Reduz em 30% o dano recebido, com 35% de chance de ficar imune a crítico."}
+{"rowId":"312","text":"Marca todos os inimigos invisíveis e faz o inimigo sofrer +30% de dano, por 2 turnos (Só funciona em combate)"}
+{"rowId":"313","text":"Receber Habilidade de Aumento de Dano"}
+{"rowId":"314","text":"A cada golpe crítico sofrido, recupera 5% de HP e ganha 50 de Fúria, até 3 vezes por batalha. (Só funciona em combate)"}
+{"rowId":"315","text":"+1 Ponto de Magia e +2 de Fúria a cada uso de item de combate."}
+{"rowId":"316","text":"Armadura +500, HP Máximo +8%."}
+{"rowId":"317","text":"Remove o efeito Inferno Congelado"}
+{"rowId":"318","text":"Após atirar em cada turno, o mascote avança e ataca o inimigo, causando 65% de dano."}
+{"rowId":"319","text":"Arremessa 1 Esfera Verde, causando 180% do dano base, 100% crítico; o alvo atingido não pode usar habilidades de mascote por 3 turnos."}
+{"rowId":"320","text":"Ganha Pontos de Magia iguais a 60% do custo da habilidade ativa usada pelo inimigo e recupera mais 4 Pontos de Magia."}
+{"rowId":"321","text":"Reduz em 30% o dano crítico sofrido pelos aliados e aumenta em 15% a chance de crítico deles. (Não acumula, vale o efeito mais alto)"}
+{"rowId":"322","text":"Reduz em 50% o dano recebido por 3 turnos."}
+{"rowId":"323","text":"Transforma-se em Demônio, reduz o custo de magia e converte 35% do dano do inimigo em HP, por 2 turnos. (Só funciona em competição)"}
+{"rowId":"324","text":"Absorve 35% do dano"}
+{"rowId":"325","text":"Na sua vez, drena 2 Pontos de Magia de todo o time inimigo e dá +1 Ponto de Magia a todos os aliados"}
+{"rowId":"363","text":"Arremessa 1 Pêssego da Imortalidade, causando 120% do dano base e +20% de chance de crítico por 2 turnos."}
+{"rowId":"364","text":"Arremessa 1 Pêssego da Imortalidade, causando 150% do dano base e +20% de chance de crítico por 2 turnos."}
+{"rowId":"365","text":"Arremessa 1 Pêssego da Imortalidade, causando 180% do dano base e +20% de chance de crítico por 2 turnos."}
+{"rowId":"375","text":"Gira o Bastão dos Desejos, causando 5 vezes 60% de dano em área a inimigos aleatórios na tela toda."}
+{"rowId":"376","text":"Gira o Bastão dos Desejos, causando 5 vezes 100% de dano em área a inimigos aleatórios na tela toda; a cada inimigo derrotado, todos os aliados recuperam 5% de HP."}
+{"rowId":"377","text":"+1 de Magia a cada uso de item de combate, até +5 de Magia por turno."}
+{"rowId":"401","text":"Estrelas: Dano POW +5%."}
+{"rowId":"402","text":"Estrelas: Dano POW +10%."}
+{"rowId":"403","text":"Estrelas: Dano POW +15%."}
+{"rowId":"404","text":"Estrelas: Dano POW +20%."}
+{"rowId":"405","text":"Estrelas: Dano POW +25%."}
+{"rowId":"406","text":"Estrelas: Dano POW +30%."}
+{"rowId":"407","text":"Estrelas: Dano POW +35%."}
+{"rowId":"408","text":"Estrelas: Dano POW +40%."}
+{"rowId":"409","text":"Estrelas: Dano POW +45%."}
+{"rowId":"410","text":"Estrelas: Dano POW +50%."}
+{"rowId":"411","text":"Estrelas: Dano crítico recebido -5%."}
+{"rowId":"412","text":"Estrelas: Dano crítico recebido -10%."}
+{"rowId":"413","text":"Estrelas: Dano crítico recebido -15%."}
+{"rowId":"414","text":"Estrelas: Dano crítico recebido -20%."}
+{"rowId":"415","text":"Estrelas: Dano crítico recebido -25%."}
+{"rowId":"416","text":"Estrelas: Dano crítico recebido -30%."}
+{"rowId":"417","text":"Estrelas: Dano crítico recebido -35%."}
+{"rowId":"418","text":"Estrelas: Dano crítico recebido -40%."}
+{"rowId":"419","text":"Estrelas: Dano crítico recebido -45%."}
+{"rowId":"420","text":"Estrelas: Dano crítico recebido -50%."}
+{"rowId":"421","text":"Estrelas: Ao ser atacado, +2% de Res. Mágica, acumula 10 vezes, zera no seu turno"}
+{"rowId":"422","text":"Estrelas: Ao ser atacado, +4% de Res. Mágica, acumula 10 vezes, zera no seu turno"}
+{"rowId":"423","text":"Estrelas: Ao ser atacado, +6% de Res. Mágica, acumula 10 vezes, zera no seu turno"}
+{"rowId":"424","text":"Estrelas: Ao ser atacado, +8% de Res. Mágica, acumula 10 vezes, zera no seu turno"}
+{"rowId":"425","text":"Estrelas: Ao ser atacado, +10% de Res. Mágica, acumula 10 vezes, zera no seu turno"}
+{"rowId":"426","text":"Estrelas: Ao ser atacado, +12% de Res. Mágica, acumula 10 vezes, zera no seu turno"}
+{"rowId":"427","text":"Estrelas: Ao ser atacado, +14% de Res. Mágica, acumula 10 vezes, zera no seu turno"}
+{"rowId":"428","text":"Estrelas: Ao ser atacado, +16% de Res. Mágica, acumula 10 vezes, zera no seu turno"}
+{"rowId":"429","text":"Estrelas: Ao ser atacado, +18% de Res. Mágica, acumula 10 vezes, zera no seu turno"}
+{"rowId":"430","text":"Estrelas: Ao ser atacado, +20% de Res. Mágica, acumula 10 vezes, zera no seu turno"}
+{"rowId":"431","text":"Reduz o dano ao ser atingido"}
+{"rowId":"432","text":"Reduz o dano ao ser atingido"}
+{"rowId":"433","text":"Reduz o dano ao ser atingido"}
+{"rowId":"434","text":"Reduz o dano ao ser atingido"}
+{"rowId":"435","text":"Reduz o dano ao ser atingido"}
+{"rowId":"436","text":"Reduz o dano ao ser atingido"}
+{"rowId":"437","text":"Reduz o dano ao ser atingido"}
+{"rowId":"438","text":"Reduz o dano ao ser atingido"}
+{"rowId":"439","text":"Reduz o dano ao ser atingido"}
+{"rowId":"440","text":"Reduz o dano ao ser atingido"}
+{"rowId":"441","text":"Após atirar em cada turno, o mascote tem 100% de chance de atacar o inimigo, causando 30% de dano"}
+{"rowId":"442","text":"Ao fim do turno, o mascote tem 100% de chance de atacar o inimigo, causando 40% de dano"}
+{"rowId":"443","text":"Ao fim do turno, o mascote tem 100% de chance de atacar o inimigo, causando 50% de dano"}
+{"rowId":"444","text":"Arremessa 1 Ovo Voador, causando 150% do dano base com crítico garantido; ao acertar, reduz em 30% o dano do alvo por 2 turnos"}
+{"rowId":"445","text":"Arremessa 1 Ovo Voador, causando 180% do dano base com crítico garantido; ao acertar, reduz em 30% o dano do alvo por 2 turnos"}
+{"rowId":"446","text":"Arremessa 1 Ovo Voador, causando 220% do dano base com crítico garantido; ao acertar, reduz em 30% o dano do alvo por 2 turnos"}
+{"rowId":"447","text":"Usa o kung fu Postura da Tartaruga: ao usar PASS no turno, ativa a postura defensiva, reduzindo em 20% o dano recebido e em 40% o crítico recebido, por 2 turnos"}
+{"rowId":"448","text":"Usa o kung fu Postura da Tartaruga: ao usar PASS no turno, ativa a postura defensiva, reduzindo em 30% o dano recebido e em 60% o crítico recebido, por 2 turnos"}
+{"rowId":"449","text":"Usa o kung fu Leopardo Divino: -50 de Fúria; no turno, libera o poder do Leopardo Divino, +70% de velocidade de ataque, e o Vigor no turno do Leopardo cai para 120, por 1 turno"}
+{"rowId":"450","text":"Usa o kung fu Leopardo Divino: -50 de Fúria; no turno, libera o poder do Leopardo Divino, e o Vigor no turno do Leopardo cai para 120, por 1 turno"}
+{"rowId":"451","text":"Usa o kung fu Borboleta Oculta: no início do turno, se o HP estiver abaixo de 40%, recebe Invisibilidade por 1 turno"}
+{"rowId":"452","text":"Usa o kung fu Borboleta Oculta: no início do turno, se o HP estiver abaixo de 40%, recebe Invisibilidade por 1 turno"}
+{"rowId":"453","text":"Usa o kung fu Sombra da Serpente: move-se para um ponto aleatório entre você e o inimigo, criando clones nos outros pontos; os clones somem após 3 ataques ou ao fim de 1 turno. Só funciona em combate"}
+{"rowId":"454","text":"Usa o kung fu Sombra da Serpente: move-se para um ponto aleatório entre você e o inimigo, criando clones nos outros pontos; os clones somem após 3 ataques ou ao fim de 1 turno. Só funciona em combate"}
+{"rowId":"455","text":"Usa o kung fu Garra do Tigre: todas as balas disparadas têm efeito Amarrar, por 2 turnos. Só funciona em combate"}
+{"rowId":"456","text":"Usa o kung fu Garra do Tigre: todas as balas disparadas têm efeito Amarrar, por 2 turnos. Só funciona em combate"}
+{"rowId":"457","text":"Usa o kung fu Canto do Dragão: libera uma força furiosa, perde 80% do HP atual e ignora 40% da defesa do oponente, por 1 turno"}
+{"rowId":"458","text":"Usa o kung fu Canto do Dragão: libera uma força furiosa, perde 80% do HP atual e ignora 60% da defesa do oponente, por 1 turno"}
+{"rowId":"459","text":"A cada kung fu usado, recupera 4 Pontos de Magia e ganha um contra-ataque supremo: a cada 1% do HP Máximo perdido, +1% de dano (até 80%, por 1 turno)"}
+{"rowId":"460","text":"Receber Habilidade"}
+{"rowId":"461","text":"Receber Habilidade"}
+{"rowId":"462","text":"Após atirar em cada turno, o mascote tem 100% de chance de atacar o inimigo, causando 15% de dano"}
+{"rowId":"463","text":"Ao fim do turno, o mascote tem 100% de chance de atacar o inimigo, causando 25% de dano"}
+{"rowId":"464","text":"Ao fim do turno, o mascote tem 100% de chance de atacar o inimigo, causando 36% de dano"}
+{"rowId":"465","text":"Arremessa 1 Ovo Voador, causando 120% do dano base com crítico garantido; ao acertar, reduz em 30% o dano do alvo por 2 turnos"}
+{"rowId":"466","text":"Arremessa 1 Ovo Voador, causando 150% do dano base com crítico garantido; ao acertar, reduz em 30% o dano do alvo por 2 turnos"}
+{"rowId":"467","text":"Arremessa 1 Ovo Voador, causando 180% do dano base com crítico garantido; ao acertar, reduz em 30% o dano do alvo por 2 turnos"}
+{"rowId":"468","text":"Usa o kung fu Postura da Tartaruga: ao usar PASS no turno, ativa a postura defensiva, reduzindo em 10% o dano recebido e em 20% o crítico recebido, por 2 turnos"}
+{"rowId":"469","text":"Usa o kung fu Postura da Tartaruga: ao usar PASS no turno, ativa a postura defensiva, reduzindo em 20% o dano recebido e em 40% o crítico recebido, por 2 turnos"}
+{"rowId":"470","text":"Usa o kung fu Leopardo Divino: -50 de Fúria; no turno, libera o poder do Leopardo Divino, +40% de velocidade de ataque, e o Vigor no turno do Leopardo cai para 80, por 1 turno"}
+{"rowId":"471","text":"Usa o kung fu Leopardo Divino: -50 de Fúria; no turno, libera o poder do Leopardo Divino, e o Vigor no turno do Leopardo cai para 80, por 1 turno"}
+{"rowId":"472","text":"Usa o kung fu Borboleta Oculta: no início do turno, se o HP estiver abaixo de 30%, recebe Invisibilidade por 1 turno"}
+{"rowId":"473","text":"Usa o kung fu Borboleta Oculta: no início do turno, se o HP estiver abaixo de 30%, recebe Invisibilidade por 1 turno"}
+{"rowId":"474","text":"Usa o kung fu Sombra da Serpente: move-se para um ponto aleatório entre você e o inimigo, criando clones nos outros pontos; os clones somem após 3 ataques ou ao fim de 1 turno. Só funciona em combate"}
+{"rowId":"475","text":"Usa o kung fu Sombra da Serpente: move-se para um ponto aleatório entre você e o inimigo, criando clones nos outros pontos; os clones somem após 3 ataques ou ao fim de 1 turno. Só funciona em combate"}
+{"rowId":"476","text":"Usa o kung fu Garra do Tigre: todas as balas disparadas têm efeito Amarrar, por 2 turnos. Só funciona em combate"}
+{"rowId":"477","text":"Usa o kung fu Garra do Tigre: todas as balas disparadas têm efeito Amarrar, por 2 turnos. Só funciona em combate"}
+{"rowId":"478","text":"Usa o kung fu Canto do Dragão: libera uma força furiosa, perde 80% do HP atual e ignora 30% da defesa do oponente, por 1 turno"}
+{"rowId":"479","text":"Usa o kung fu Canto do Dragão: libera uma força furiosa, perde 80% do HP atual e ignora 40% da defesa do oponente, por 1 turno"}
+{"rowId":"480","text":"A cada kung fu usado, recupera 2 Pontos de Magia e ganha um contra-ataque supremo: a cada 1% do HP Máximo perdido, +1% de dano (até 80%, por 1 turno)"}
+{"rowId":"481","text":"Receber Habilidade"}
+{"rowId":"482","text":"Receber Habilidade"}
+{"rowId":"483","text":"Dano +5% (BUFF de equipe)"}
+{"rowId":"484","text":"Dano +8% (BUFF de equipe)"}
+{"rowId":"485","text":"Dano +10% (BUFF de equipe)"}
+{"rowId":"486","text":"Dano +12% (BUFF de equipe)"}
+{"rowId":"487","text":"Dano +14% (BUFF de equipe)"}
+{"rowId":"488","text":"Dano +16% (BUFF de equipe)"}
+{"rowId":"489","text":"Dano +18% (BUFF de equipe)"}
+{"rowId":"490","text":"HP Máximo +5% (BUFF de equipe)"}
+{"rowId":"491","text":"HP Máximo +6% (BUFF de equipe)"}
+{"rowId":"492","text":"HP Máximo +7% (BUFF de equipe)"}
+{"rowId":"493","text":"HP Máximo +8% (BUFF de equipe)"}
+{"rowId":"494","text":"HP Máximo +9% (BUFF de equipe)"}
+{"rowId":"495","text":"HP Máximo +10% (BUFF de equipe)"}
+{"rowId":"496","text":"HP Máximo +12% (BUFF de equipe)"}
+{"rowId":"497","text":"Após atirar em cada turno, o mascote tem 100% de chance de atacar o inimigo, causando 65% de dano"}
+{"rowId":"498","text":"Usa o kung fu Postura da Tartaruga: ao usar PASS no turno, ganha +10 de Fúria e ativa a postura defensiva, reduzindo em 30% o dano recebido e em 60% o crítico recebido, por 2 turnos"}
+{"rowId":"499","text":"Usa o kung fu Leopardo Divino: +50 de Fúria; no turno, libera o poder do Leopardo Divino, +80% de velocidade de ataque, e o Vigor no turno do Leopardo cai para 120, por 1 turno"}
+{"rowId":"500","text":"Usa o kung fu Borboleta Oculta: no início do turno, se o HP estiver abaixo de 40%, recebe Invisibilidade e redução de dano de 20%"}
+{"rowId":"501","text":"Usa o kung fu Sombra da Serpente: move-se para um ponto aleatório entre você e o inimigo, criando clones nos outros pontos; os clones somem após 5 ataques ou ao fim de 1 turno. Só funciona em combate"}
+{"rowId":"502","text":"Usa o kung fu Canto do Dragão: libera uma força furiosa, perde 50% do HP atual e ignora 65% da defesa do oponente; se estiver invisível, +25% de dano, por 1 turno"}
+{"rowId":"503","text":"A cada kung fu usado, recupera 4 Pontos de Magia e +5% de HP Máximo (acumula até 10 vezes), e ganha um contra-ataque supremo: a cada 1% do HP Máximo perdido, +1% de dano (por 1 turno)"}
+{"rowId":"504","text":"Dano aumentado em  habilidades"}
+{"rowId":"505","text":"Ganha habilidades."}
+{"rowId":"506","text":"Ao ser atacado, 10% de chance de ativar Bênção: Armadura e Defesa +20% por 2 turnos."}
+{"rowId":"507","text":"Ao atacar, 10% de chance de ativar Louvor: reduz em 50% o dano do alvo por 2 turnos (Vale no PVP)"}
+{"rowId":"508","text":"Ao atacar, 10% de chance de ativar Força: Atq. Mágico +30% por 2 turnos"}
+{"rowId":"509","text":"Ao atacar, 10% de chance de ativar Arte: o alvo sofre +20% de dano por 2 turnos"}
+{"rowId":"510","text":"Dano recebido +20%"}
+{"rowId":"511","text":"O sabor do sangue desperta o instinto sanguinário do Mascote Sombrio: ao fim de cada turno, 30% de chance de morder o oponente, causando 100% de dano"}
+{"rowId":"512","text":"O sabor do sangue desperta o instinto sanguinário do Mascote Sombrio: ao fim de cada turno, 30% de chance de morder o oponente, causando 120% de dano"}
+{"rowId":"513","text":"O sabor do sangue desperta o instinto sanguinário do Mascote Sombrio: ao fim de cada turno, 30% de chance de morder o oponente, causando 150% de dano"}
+{"rowId":"514","text":"Causa 120% de dano com crítico garantido e queima a mente do alvo por 2 turnos: no início de cada turno, -20% de Vigor; o efeito não acumula"}
+{"rowId":"515","text":"Causa 150% de dano com crítico garantido e queima a mente do alvo por 2 turnos: no início de cada turno, -25% de Vigor; o efeito não acumula"}
+{"rowId":"516","text":"Causa 180% de dano com crítico garantido e queima a mente do alvo por 2 turnos: no início de cada turno, -30% de Vigor; o efeito não acumula"}
+{"rowId":"517","text":"Cada perda de HP em combate desperta o instinto da Sombra Sangrenta: a cada 5% de HP perdido, o Mascote Sombrio ganha +15 de velocidade (Só vale no PVP)"}
+{"rowId":"518","text":"Cada perda de HP em combate desperta o instinto da Sombra Sangrenta: a cada 5% de HP perdido, o Mascote Sombrio ganha +20 de velocidade (Só vale no PVP)"}
+{"rowId":"519","text":"O jogador atingido no turno tem a visão parcialmente limitada e -20% de dano por 2 turnos; o efeito não acumula (Só vale no PVP)"}
+{"rowId":"520","text":"O jogador atingido no turno tem a visão parcialmente limitada e -30% de dano por 2 turnos; o efeito não acumula (Só vale no PVP)"}
+{"rowId":"521","text":"O Mascote Sombrio usa magia para obter o poder da armadura: o dano recebido fica limitado a no máximo 30% do HP (Só vale no PVP)"}
+{"rowId":"522","text":"O Mascote Sombrio usa magia para obter o poder da armadura: o dano recebido fica limitado a no máximo 20% do HP (Só vale no PVP)"}
+{"rowId":"523","text":"O Mascote Sombrio libera um líquido venenoso; os mascotes envenenados sofrem uma punição dolorosa, reduzindo em 50% a cura de todos os mascotes do oponente por 3 turnos (Só vale no PVP)"}
+{"rowId":"524","text":"O Mascote Sombrio libera um líquido venenoso; os mascotes envenenados sofrem uma punição dolorosa, reduzindo em 80% a cura de todos os mascotes do oponente por 3 turnos (Só vale no PVP)"}
+{"rowId":"525","text":"O Mascote Sombrio recita um feitiço e oferece sangue ao Deus Maligno; no turno, cada disparo causa dano extra igual a 1% do HP perdido, ignorando Defesa e Armadura"}
+{"rowId":"526","text":"O Mascote Sombrio recita um feitiço e oferece sangue ao Deus Maligno; no turno, cada disparo causa dano extra igual a 3% do HP perdido, ignorando Defesa e Armadura"}
+{"rowId":"527","text":"Puxa todos os jogadores dos dois lados para o espaço acima e depois os faz surgir em posições aleatórias do mapa (Só funciona no PVP)"}
+{"rowId":"528","text":"O Mascote Sombrio invoca o Submundo para trazer o Deus Demônio; no início do turno, recupera 2 Pontos de Magia a cada 10% do HP Máximo perdido"}
+{"rowId":"529","text":"Dano +10% (BUFF de equipe)"}
+{"rowId":"551","text":"HP Máximo +7%, Dano +7%."}
+{"rowId":"552","text":"HP Máximo +9%, Dano +9%."}
+{"rowId":"553","text":"HP Máximo +12%, Dano +12%."}
+{"rowId":"554","text":"HP Máximo +15%, Dano +15%."}
+{"rowId":"555","text":"Cura na Ilusão do Deus Maligno +3%, Dano +5%."}
+{"rowId":"556","text":"Cura na Ilusão do Deus Maligno +4%, Dano +6%."}
+{"rowId":"557","text":"Cura na Ilusão do Deus Maligno +5%, Dano +7%."}
+{"rowId":"558","text":"Cura na Ilusão do Deus Maligno +6%, Dano +8%."}
+{"rowId":"559","text":"Cura na Ilusão do Deus Maligno +8%, Dano +10%."}
+{"rowId":"560","text":"Protege todos os aliados na noite, absorvendo 30% do dano deles por 2 turnos. Pode devorar a Chama do Ódio existente, dando aos aliados protegidos a Armadura de Minotauro por 2 turnos."}
+{"rowId":"561","text":"Protege todos os aliados na noite, absorvendo 40% do dano deles por 2 turnos. Pode devorar a Chama do Ódio existente, dando aos aliados protegidos a Armadura de Minotauro por 2 turnos."}
+{"rowId":"562","text":"Protege todos os aliados na noite, absorvendo 50% do dano deles por 2 turnos. Pode devorar a Chama do Ódio existente, dando aos aliados protegidos a Armadura de Minotauro por 2 turnos."}
+{"rowId":"563","text":"O Dilacerar do Dia causa Sangramento aos inimigos num raio de 300, tirando 4% de HP por turno por 3 turnos. Pode devorar a Chama do Rancor existente, e o Sangramento passa a Bloquear Cura (Vale no PVP)."}
+{"rowId":"564","text":"O Dilacerar do Dia causa Sangramento aos inimigos num raio de 300, tirando 6% de HP por turno por 3 turnos. Pode devorar a Chama do Rancor existente, e o Sangramento passa a Bloquear Cura (Vale no PVP)."}
+{"rowId":"565","text":"O Dilacerar do Dia causa Sangramento aos inimigos num raio de 300, tirando 8% de HP por turno por 3 turnos. Pode devorar a Chama do Rancor existente, e o Sangramento passa a Bloquear Cura (Vale no PVP)."}
+{"rowId":"566","text":"A cada dano sofrido, a Armadura de Minotauro reduz o dano em 1.5% do HP atual."}
+{"rowId":"567","text":"A cada dano sofrido, a Armadura de Minotauro reduz o dano em 2.0% do HP atual."}
+{"rowId":"568","text":"A cada dano sofrido, a Armadura de Minotauro reduz o dano em 2.5% do HP atual."}
+{"rowId":"569","text":"O pesadíssimo Martelo de Minotauro causa dano extra a inimigos em terreno mais baixo: +10% de dano a cada 100 pixels, até +120% (Vale no PVP)."}
+{"rowId":"570","text":"O pesadíssimo Martelo de Minotauro causa dano extra a inimigos em terreno mais baixo: +20% de dano a cada 100 pixels, até +120% (Vale no PVP)."}
+{"rowId":"571","text":"O pesadíssimo Martelo de Minotauro causa dano extra a inimigos em terreno mais baixo: +30% de dano a cada 100 pixels, até +120% (Vale no PVP)."}
+{"rowId":"572","text":"O Cão de Fogo é muito sensível ao vento. Ao atirar, com vento a favor, +15% de dano a cada 1.0 de vento; com vento contra, -10% de dano a cada 1.0 de vento."}
+{"rowId":"573","text":"O Cão de Fogo é muito sensível ao vento. Ao atirar, com vento a favor, +30% de dano a cada 1.0 de vento; com vento contra, -10% de dano a cada 1.0 de vento."}
+{"rowId":"574","text":"O Cão de Fogo é muito sensível ao vento. Ao atirar, com vento a favor, +20% de dano a cada 1.0 de vento; com vento contra, -10% de dano a cada 1.0 de vento."}
+{"rowId":"575","text":"O Cão de Fogo muda o clima e inverte o vento na hora; neste turno, o efeito Combo é garantido."}
+{"rowId":"576","text":"Não pode ser congelado nem usar Tiro Triplo; velocidade de ataque -50%, HP +100%; dispara Fogo Negro que abre crateras enormes, por 2 turnos. Devorar a Chama do Ódio e a Chama do Rancor recupera 30% de HP."}
+{"rowId":"577","text":"O Cão de Fogo desperta o poder das trevas: não pode ser congelado, o Tiro Triplo fica sem efeito, velocidade de ataque -50%, HP +100%, todas as balas viram Fogo Negro e abrem crateras enormes, por 2 turnos. Pode devorar a Chama do Ódio e a Chama do Rancor existentes, recuperando 30% de HP."}
+{"rowId":"578","text":"O Cão de Fogo desperta o poder das trevas: não pode ser congelado, o Tiro Triplo fica sem efeito, velocidade de ataque -50%, HP +100%, todas as balas viram Fogo Negro e abrem crateras enormes, por 2 turnos. Pode devorar a Chama do Ódio e a Chama do Rancor existentes, recuperando 30% de HP."}
+{"rowId":"579","text":"O Cão de Fogo firma um pacto por 3 turnos: enquanto durar, no início de cada turno perde 50% do Vigor e ganha +20 Pontos de Magia."}
+{"rowId":"580","text":"Ativa o potencial e invoca na hora a Chama do Rancor e a Chama do Ódio; por 2 turnos, Atq. Mágico e Dano +35%. Ao fim do efeito, perde 20% do HP Máximo (não causa morte)."}
+{"rowId":"581","text":"Habilidade Obtida"}
+{"rowId":"582","text":"Reduzir HP"}
+{"rowId":"583","text":"Ao sofrer dano 20 vezes, ganha 20 Pontos de Magia e invoca a Chama do Ódio. Ao usar habilidades 3 vezes, ganha 20 Pontos de Magia e invoca a Chama do Rancor."}
+{"rowId":"584","text":"A cada dano sofrido, a Armadura de Minotauro reduz o dano em 1.5% do HP atual."}
+{"rowId":"585","text":"A cada dano sofrido, a Armadura de Minotauro reduz o dano em 2.0% do HP atual."}
+{"rowId":"586","text":"A cada dano sofrido, a Armadura de Minotauro reduz o dano em 2.5% do HP atual."}
+{"rowId":"587","text":"Habilidade Obtida"}
+{"rowId":"588","text":"Habilidade Obtida"}
+{"rowId":"589","text":"Habilidade Obtida"}
+{"rowId":"590","text":"Habilidade Obtida"}
+{"rowId":"591","text":"Habilidade Obtida"}
+{"rowId":"592","text":"Habilidade Obtida"}
+{"rowId":"593","text":"Habilidade Obtida"}
+{"rowId":"594","text":"Habilidade Obtida"}
+{"rowId":"595","text":"Protege os aliados na noite, absorvendo 50% do dano por 2 turnos. Pode devorar a Chama do Ódio existente, dando aos aliados protegidos a Armadura Negra e o Martelo de Prata de Minotauro por 2 turnos."}
+{"rowId":"596","text":"O Dilacerar do Dia causa Sangramento aos inimigos num raio de 300, tirando 8% de HP por turno por 3 turnos. Pode devorar a Chama do Rancor existente, e o Sangramento passa a Bloquear Cura e Proibir Voo (Vale no PVP)."}
+{"rowId":"597","text":"A cada dano de canhão sofrido, a Armadura de Minotauro reduz o dano em 3% do HP Máximo."}
+{"rowId":"598","text":"Martelo de Minotauro: +30% de dano a cada 100 pixels contra inimigos mais baixos, até +120%; -15% de dano recebido a cada 100 pixels de inimigos mais altos, até -60% (Vale no PVP)."}
+{"rowId":"599","text":"O Cão de Fogo é muito sensível ao vento. Ao atirar, com vento a favor, +30% de Dano e Atq. Mágico a cada 1.0 de vento."}
+{"rowId":"600","text":"Não pode ser congelado nem usar Tiro Triplo, mover-se não gasta Vigor, velocidade de ataque -50%, HP +100%; dispara Fogo Negro que abre crateras enormes, por 3 turnos. Devorar a Chama do Ódio e a Chama do Rancor recupera 30% de HP."}
+{"rowId":"601","text":"Ao sofrer dano 14 vezes, ganha 30 Pontos de Magia e invoca a Chama do Ódio. Ao usar habilidades 2 vezes, ganha 30 Pontos de Magia e invoca a Chama do Rancor."}
+{"rowId":"602","text":"A cada dano sofrido, a Armadura de Minotauro reduz o dano em 3% do HP atual."}
+{"rowId":"603","text":"Habilidade Obtida"}
+{"rowId":"604","text":"Habilidade Obtida"}
+{"rowId":"605","text":"Habilidade Obtida"}
+{"rowId":"606","text":"Habilidade Obtida"}
+{"rowId":"607","text":"Habilidade Obtida"}
+{"rowId":"608","text":"Habilidade Obtida"}
+{"rowId":"609","text":"Habilidade Obtida"}
+{"rowId":"610","text":"Habilidade Obtida"}
+{"rowId":"611","text":"Protege todos os aliados na noite, absorvendo 30% do dano deles por 2 turnos. Pode devorar a Chama do Ódio existente, dando aos aliados protegidos a Armadura de Minotauro por 2 turnos."}
+{"rowId":"612","text":"Protege todos os aliados na noite, absorvendo 40% do dano deles por 2 turnos. Pode devorar a Chama do Ódio existente, dando aos aliados protegidos a Armadura de Minotauro por 2 turnos."}
+{"rowId":"613","text":"Protege todos os aliados na noite, absorvendo 50% do dano deles por 2 turnos. Pode devorar a Chama do Ódio existente, dando aos aliados protegidos a Armadura de Minotauro por 2 turnos."}
+{"rowId":"614","text":"O Dilacerar do Dia furioso causa Sangramento aos inimigos num raio de 300, tirando 3% de HP por turno por 3 turnos. Pode devorar a Chama do Rancor existente, e o Sangramento passa a Bloquear Cura (Vale no PVP)."}
+{"rowId":"615","text":"O Dilacerar do Dia furioso causa Sangramento aos inimigos num raio de 300, tirando 4% de HP por turno por 3 turnos. Pode devorar a Chama do Rancor existente, e o Sangramento passa a Bloquear Cura (Vale no PVP)."}
+{"rowId":"616","text":"O Dilacerar do Dia furioso causa Sangramento aos inimigos num raio de 300, tirando 5% de HP por turno por 3 turnos. Pode devorar a Chama do Rancor existente, e o Sangramento passa a Bloquear Cura (Vale no PVP)."}
+{"rowId":"617","text":"A cada dano de canhão sofrido, a Armadura de Minotauro reduz o dano em 1.0% do HP atual."}
+{"rowId":"618","text":"A cada dano de canhão sofrido, a Armadura de Minotauro reduz o dano em 1.5% do HP atual."}
+{"rowId":"619","text":"A cada dano de canhão sofrido, a Armadura de Minotauro reduz o dano em 2.0% do HP atual."}
+{"rowId":"620","text":"O pesadíssimo Martelo de Minotauro causa dano extra a inimigos em terreno mais baixo: +6% de dano a cada 100 pixels, até +60% (Vale no PVP)."}
+{"rowId":"621","text":"O pesadíssimo Martelo de Minotauro causa dano extra a inimigos em terreno mais baixo: +8% de dano a cada 100 pixels, até +60% (Vale no PVP)."}
+{"rowId":"622","text":"O pesadíssimo Martelo de Minotauro causa dano extra a inimigos em terreno mais baixo: +10% de dano a cada 100 pixels, até +60% (Vale no PVP)."}
+{"rowId":"623","text":"O Cão de Fogo é muito sensível ao vento. Ao atirar, com vento a favor, +5% de dano a cada 1.0 de vento; com vento contra, -10% de dano a cada 1.0 de vento."}
+{"rowId":"624","text":"O Cão de Fogo é muito sensível ao vento. Ao atirar, com vento a favor, +10% de dano a cada 1.0 de vento; com vento contra, -10% de dano a cada 1.0 de vento."}
+{"rowId":"625","text":"O Cão de Fogo é muito sensível ao vento. Ao atirar, com vento a favor, +10% de dano a cada 1.0 de vento; com vento contra, -10% de dano a cada 1.0 de vento."}
+{"rowId":"626","text":"O Cão de Fogo muda o clima e inverte o vento na hora; neste turno, o efeito Combo é garantido."}
+{"rowId":"627","text":"Ativa o potencial e invoca na hora a Chama do Rancor e a Chama do Ódio; por 2 turnos, Atq. Mágico e Dano +20%. Ao fim do efeito, perde 30% do HP Máximo (não causa morte)."}
+{"rowId":"628","text":"Ao sofrer dano 25 vezes, ganha 20 Pontos de Magia e invoca a Chama do Ódio. Ao usar habilidades 4 vezes, ganha 20 Pontos de Magia e invoca a Chama do Rancor."}
+{"rowId":"629","text":"A cada dano sofrido, a Armadura de Minotauro reduz o dano em 1.0% do HP atual."}
+{"rowId":"630","text":"A cada dano sofrido, a Armadura de Minotauro reduz o dano em 1.5% do HP atual."}
+{"rowId":"631","text":"A cada dano sofrido, a Armadura de Minotauro reduz o dano em 2.0% do HP atual."}
+{"rowId":"632","text":"Habilidade Obtida"}
+{"rowId":"633","text":"Habilidade Obtida"}
+{"rowId":"634","text":"Habilidade Obtida"}
+{"rowId":"635","text":"Habilidade Obtida"}
+{"rowId":"636","text":"Cura da arma secundária +3%, Dano +5%."}
+{"rowId":"637","text":"Cura da arma secundária +4%, Dano +6%."}
+{"rowId":"638","text":"Cura da arma secundária +5%, Dano +7%."}
+{"rowId":"639","text":"Cura da arma secundária +6%, Dano +8%."}
+{"rowId":"640","text":"Cura da arma secundária +8%, Dano +10%."}
+{"rowId":"641","text":"Recupera 100% de HP"}
+{"rowId":"642","text":"Reduz 50% de HP"}
+{"rowId":"643","text":"Habilidade obtida."}
+{"rowId":"644","text":"Em combate, +20 de Dano para si (máx: 80)."}
+{"rowId":"645","text":"Em combate, +50 de Dano para si (máx: 80)."}
+{"rowId":"646","text":"Em combate, +80 de Dano para si (máx: 80)."}
+{"rowId":"647","text":"Em combate, ataques têm 2% (máx: 3%) de chance de ativar Guia (Vale no PVP)."}
+{"rowId":"648","text":"Em combate, ataques têm 3% (máx: 3%) de chance de ativar Guia (Vale no PVP)."}
+{"rowId":"649","text":"Em combate, +35 de Armadura para si (máx: 100)."}
+{"rowId":"650","text":"Em combate, +65 de Armadura para si (máx: 100)."}
+{"rowId":"651","text":"Em combate, +100 de Armadura para si (máx: 100)."}
+{"rowId":"652","text":"Ao sofrer dano, bloqueia 100 de dano (máx: 300) (Vale no PVP)."}
+{"rowId":"653","text":"Ao sofrer dano, bloqueia 200 de dano (máx: 300) (Vale no PVP)."}
+{"rowId":"654","text":"Ao sofrer dano, bloqueia 300 de dano (máx: 300) (Vale no PVP)."}
+{"rowId":"655","text":"Ao sofrer dano, reflete 1% do dano total (máx: 3%) (Vale no PVP)."}
+{"rowId":"656","text":"Refletir Dano"}
+{"rowId":"657","text":"Ao sofrer dano, reflete 2% do dano total (máx: 3%) (Vale no PVP)."}
+{"rowId":"658","text":"Refletir Dano"}
+{"rowId":"659","text":"Ao sofrer dano, reflete 3% do dano total (máx: 3%) (Vale no PVP)."}
+{"rowId":"660","text":"Refletir Dano"}
+{"rowId":"661","text":"Em combate, Defesa e Armadura próprias +1% (máx: 3%)."}
+{"rowId":"662","text":"Em combate, Defesa e Armadura próprias +2% (máx: 3%)."}
+{"rowId":"663","text":"Em combate, Defesa e Armadura próprias +3% (máx: 3%)."}
+{"rowId":"664","text":"Todos os aliados +1% de Ataque, Defesa, Agilidade e Sorte (máx: 3%)."}
+{"rowId":"665","text":"Todos os aliados +2% de Ataque, Defesa, Agilidade e Sorte (máx: 3%)."}
+{"rowId":"666","text":"Todos os aliados +3% de Ataque, Defesa, Agilidade e Sorte (máx: 3%)."}
+{"rowId":"667","text":"No início do turno, recebe 1 escudo que absorve 1000 (máx: 3000) de dano por 6 turnos; ativa 1 vez a cada 6 turnos."}
+{"rowId":"668","text":"No início do turno, recebe 1 escudo que absorve 2000 (máx: 3000) de dano por 6 turnos; ativa 1 vez a cada 6 turnos."}
+{"rowId":"669","text":"No início do turno, recebe 1 escudo que absorve 3000 (máx: 3000) de dano por 6 turnos; ativa 1 vez a cada 6 turnos."}
+{"rowId":"670","text":"No início do turno, recupera 500 +3% (máx: 5%) de HP; ativa 1 vez a cada 6 turnos."}
+{"rowId":"671","text":"No início do turno, recupera 500 +4% (máx: 5%) de HP; ativa 1 vez a cada 6 turnos."}
+{"rowId":"672","text":"No início do turno, recupera 500 +5% (máx: 5%) de HP; ativa 1 vez a cada 6 turnos."}
+{"rowId":"673","text":"Cura recebida +5% (máx: 15%)."}
+{"rowId":"674","text":"Cura recebida +10% (máx: 15%)."}
+{"rowId":"675","text":"Cura recebida +15% (máx: 15%)."}
+{"rowId":"676","text":"Ao atingir o inimigo, 30% de chance de Queimadura: perde 3% (máx: 5%) de HP por turno por 3 turnos (Vale no PVP)."}
+{"rowId":"677","text":"Ao atingir o inimigo, 30% de chance de Queimadura: perde 4% (máx: 5%) de HP por turno por 3 turnos (Vale no PVP)."}
+{"rowId":"678","text":"Ao atingir o inimigo, 30% de chance de Queimadura: perde 5% (máx: 5%) de HP por turno por 3 turnos (Vale no PVP)."}
+{"rowId":"679","text":"Em combate, dano base +5% (máx: 10%)."}
+{"rowId":"680","text":"Em combate, dano base +8% (máx: 10%)."}
+{"rowId":"681","text":"Em combate, dano base +10% (máx: 10%)."}
+{"rowId":"682","text":"Em combate, ataques têm 4% (máx: 5%) de chance de ativar Guia (Vale no PVP)."}
+{"rowId":"683","text":"Em combate, ataques têm 5% (máx: 5%) de chance de ativar Guia (Vale no PVP)."}
+{"rowId":"684","text":"Em combate, +100 de Agilidade para si (máx: 300) e +8% de chance de crítico."}
+{"rowId":"685","text":"Em combate, +200 de Agilidade para si (máx: 300) e +8% de chance de crítico."}
+{"rowId":"686","text":"Em combate, +300 de Agilidade para si (máx: 300) e +8% de chance de crítico."}
+{"rowId":"687","text":"Todos os aliados +150 de Ataque (máx: 450)."}
+{"rowId":"688","text":"Todos os aliados +300 de Ataque (máx: 450)."}
+{"rowId":"689","text":"Todos os aliados +450 de Ataque (máx: 450)."}
+{"rowId":"690","text":"Ao atingir o inimigo, o alvo tem -5% de Dano e Armadura, acumulando 1 vez (máx: 3), por 2 turnos."}
+{"rowId":"691","text":"Ao atingir o inimigo, o alvo tem -5% de Dano e Armadura, acumulando 2 vezes (máx: 3), por 2 turnos."}
+{"rowId":"692","text":"Ao atingir o inimigo, o alvo tem -5% de Dano e Armadura, acumulando 3 vezes (máx: 3), por 2 turnos."}
+{"rowId":"693","text":"Em combate, HP Máximo próprio +4% (máx: 8%)."}
+{"rowId":"694","text":"Em combate, HP Máximo próprio +6% (máx: 8%)."}
+{"rowId":"695","text":"Em combate, HP Máximo próprio +8% (máx: 8%)."}
+{"rowId":"696","text":"Ao atingir o inimigo, 3% (máx: 5%) de chance de tirar 40 de Magia do alvo (Vale no PVP)."}
+{"rowId":"697","text":"Ao atingir o inimigo, 4% (máx: 5%) de chance de tirar 40 de Magia do alvo (Vale no PVP)."}
+{"rowId":"698","text":"Ao atingir o inimigo, 5% (máx: 5%) de chance de tirar 40 de Magia do alvo (Vale no PVP)."}
+{"rowId":"699","text":"Em combate, chance de crítico própria +10% (máx: 15%)."}
+{"rowId":"700","text":"Em combate, chance de crítico própria +12% (máx: 15%)."}
+{"rowId":"701","text":"Em combate, chance de crítico própria +15% (máx: 15%)."}
+{"rowId":"702","text":"Em combate, Defesa e Armadura próprias +3% (máx: 5%)."}
+{"rowId":"703","text":"Em combate, Defesa e Armadura próprias +4% (máx: 5%)."}
+{"rowId":"704","text":"Em combate, Defesa e Armadura próprias +5% (máx: 5%)."}
+{"rowId":"705","text":"Todos os aliados +3% de Dano (máx: 5%)."}
+{"rowId":"706","text":"Todos os aliados +4% de Dano (máx: 5%)."}
+{"rowId":"707","text":"Todos os aliados +5% de Dano (máx: 5%)."}
+{"rowId":"708","text":"Ao atingir o inimigo, 3% (máx: 5%) de chance de impedir o alvo de usar habilidades de Mascote por 2 turnos (Vale no PVP)."}
+{"rowId":"709","text":"Ao atingir o inimigo, 4% (máx: 5%) de chance de impedir o alvo de usar habilidades de Mascote por 2 turnos (Vale no PVP)."}
+{"rowId":"710","text":"Ao atingir o inimigo, 5% (máx: 5%) de chance de impedir o alvo de usar habilidades de Mascote por 2 turnos (Vale no PVP)."}
+{"rowId":"711","text":"Ao atingir o inimigo, 3% (máx: 5%) de chance de ativar Drenar HP, convertendo 20% do dano causado em cura."}
+{"rowId":"712","text":"Absorve 20%"}
+{"rowId":"713","text":"Ao atingir o inimigo, 4% (máx: 5%) de chance de ativar Drenar HP, convertendo 20% do dano causado em cura."}
+{"rowId":"714","text":"Ao atingir o inimigo, 5% (máx: 5%) de chance de ativar Drenar HP, convertendo 20% do dano causado em cura."}
+{"rowId":"715","text":"Ao atingir o inimigo, 3% (máx: 5%) de chance de ativar Imobilizar, impedindo o alvo de agir por 1 turno (Vale no PVP)."}
+{"rowId":"716","text":"Ao atingir o inimigo, 4% (máx: 5%) de chance de ativar Imobilizar, impedindo o alvo de agir por 1 turno (Vale no PVP)."}
+{"rowId":"717","text":"Ao atingir o inimigo, 5% (máx: 5%) de chance de ativar Imobilizar, impedindo o alvo de agir por 1 turno (Vale no PVP)."}
+{"rowId":"718","text":"Em combate, dano crítico próprio +10% (máx: 20%)."}
+{"rowId":"719","text":"Em combate, dano crítico próprio +15% (máx: 20%)."}
+{"rowId":"720","text":"Em combate, dano crítico próprio +20% (máx: 20%)."}
+{"rowId":"721","text":"Todo o time inimigo -10% (máx: 20%) de Res. Mágica."}
+{"rowId":"722","text":"Todo o time inimigo -15% (máx: 20%) de Res. Mágica."}
+{"rowId":"723","text":"Todo o time inimigo -20% (máx: 20%) de Res. Mágica."}
+{"rowId":"724","text":"Com HP abaixo de 50%, Dano +10% (máx: 20%)."}
+{"rowId":"725","text":"Com HP abaixo de 50%, Dano +15% (máx: 20%)."}
+{"rowId":"726","text":"Com HP abaixo de 50%, Dano +20% (máx: 20%)."}
+{"rowId":"727","text":"Ao atingir o inimigo, ignora 8% (máx: 12%) da Defesa do alvo (Vale no PVP)."}
+{"rowId":"728","text":"Habilidade Obtida"}
+{"rowId":"729","text":"Ao atingir o inimigo, ignora 10% (máx: 12%) da Defesa do alvo (Vale no PVP)."}
+{"rowId":"730","text":"Habilidade Obtida"}
+{"rowId":"731","text":"Ao atingir o inimigo, ignora 12% (máx: 12%) da Defesa do alvo (Vale no PVP)."}
+{"rowId":"732","text":"Habilidade Obtida"}
+{"rowId":"733","text":"Ao atingir o inimigo, 3% (máx: 5%) de chance de ativar Amarrar por 1 turno (Vale no PVP)."}
+{"rowId":"734","text":"Ao atingir o inimigo, 4% (máx: 5%) de chance de ativar Amarrar por 1 turno (Vale no PVP)."}
+{"rowId":"735","text":"Ao atingir o inimigo, 5% (máx: 5%) de chance de ativar Amarrar por 1 turno (Vale no PVP)."}
+{"rowId":"736","text":"Com HP abaixo de 20%, Dano +5% (máx: 15%)."}
+{"rowId":"737","text":"Com HP abaixo de 20%, Dano +10% (máx: 15%)."}
+{"rowId":"738","text":"Com HP abaixo de 20%, Dano +15% (máx: 15%)."}
+{"rowId":"739","text":"Ao atingir o inimigo, ignora 4% (máx: 8%) da Defesa do alvo (Vale no PVP)."}
+{"rowId":"740","text":"Habilidade Obtida"}
+{"rowId":"741","text":"Ao atingir o inimigo, ignora 6% (máx: 8%) da Defesa do alvo (Vale no PVP)."}
+{"rowId":"742","text":"Habilidade Obtida"}
+{"rowId":"743","text":"Ao atingir o inimigo, ignora 8% (máx: 8%) da Defesa do alvo (Vale no PVP)."}
+{"rowId":"744","text":"Habilidade Obtida"}
+{"rowId":"745","text":"Ao atingir o inimigo, 1% (máx: 3%) de chance de ativar Amarrar por 1 turno."}
+{"rowId":"746","text":"Ao atingir o inimigo, 2% (máx: 3%) de chance de ativar Amarrar por 1 turno."}
+{"rowId":"747","text":"Ao atingir o inimigo, 3% (máx: 3%) de chance de ativar Amarrar por 1 turno."}
+{"rowId":"748","text":"Em combate, velocidade própria +15 (máx: 45), vale no PVP."}
+{"rowId":"749","text":"Em combate, velocidade própria +30 (máx: 45), vale no PVP."}
+{"rowId":"750","text":"Em combate, velocidade própria +45 (máx: 45), vale no PVP."}
+{"rowId":"751","text":"Quando a bala de canhão atinge o inimigo, 2% (máx: 4%) de chance de o alvo perder a visão por 2 turnos (Vale no PVP)."}
+{"rowId":"752","text":"Quando a bala de canhão atinge o inimigo, 3% (máx: 4%) de chance de o alvo perder a visão por 2 turnos (Vale no PVP)."}
+{"rowId":"753","text":"Quando a bala de canhão atinge o inimigo, 4% (máx: 4%) de chance de o alvo perder a visão por 2 turnos (Vale no PVP)."}
+{"rowId":"754","text":"Ao atingir o inimigo, 3% (máx: 5%) de chance de ativar Bloquear Cura por 2 turnos (Vale no PVP)."}
+{"rowId":"755","text":"Ao atingir o inimigo, 4% (máx: 5%) de chance de ativar Bloquear Cura por 2 turnos (Vale no PVP)."}
+{"rowId":"756","text":"Ao atingir o inimigo, 5% (máx: 5%) de chance de ativar Bloquear Cura por 2 turnos (Vale no PVP)."}
+{"rowId":"757","text":"Em combate, ganha +2 (máx: 4) Pontos de Magia por turno."}
+{"rowId":"758","text":"Em combate, ganha +3 (máx: 4) Pontos de Magia por turno."}
+{"rowId":"759","text":"Em combate, ganha +4 (máx: 4) Pontos de Magia por turno."}
+{"rowId":"760","text":"Ao sofrer dano, bloqueia 300 de dano (máx: 300) (Vale no PVP)."}
+{"rowId":"761","text":"Ao sofrer dano, bloqueia 400 de dano (máx: 300) (Vale no PVP)."}
+{"rowId":"762","text":"Ao sofrer dano, bloqueia 500 de dano (máx: 300) (Vale no PVP)."}
+{"rowId":"763","text":"HP Máximo +5%, Dano +5%."}
+{"rowId":"764","text":"HP Máximo +7%, Dano +7%."}
+{"rowId":"765","text":"HP Máximo +9%, Dano +9%."}
+{"rowId":"766","text":"HP Máximo +12%, Dano +12%."}
+{"rowId":"767","text":"HP Máximo +15%, Dano +15%."}
+{"rowId":"768","text":"Habilidade Obtida"}
+{"rowId":"769","text":"Habilidade Obtida"}
+{"rowId":"770","text":"Habilidade Obtida"}
+{"rowId":"771","text":"O Mascote avança contra o alvo inimigo depois que o dono atira em cada turno, causando 15% de dano."}
+{"rowId":"772","text":"O Mascote avança contra o alvo inimigo depois que o dono atira em cada turno, causando 25% de dano."}
+{"rowId":"773","text":"O Mascote avança contra o alvo inimigo depois que o dono atira em cada turno, causando 36% de dano."}
+{"rowId":"774","text":"Controla bolas de fogo, causando ao alvo 120% do dano base com crítico garantido. Acumula 1 Marca da Raposa por 5 turnos (Vale no PVP)."}
+{"rowId":"775","text":"Controla bolas de fogo, causando ao alvo 150% do dano base com crítico garantido. Acumula 1 Marca da Raposa por 5 turnos (Vale no PVP)."}
+{"rowId":"776","text":"Controla bolas de fogo, causando ao alvo 180% do dano base com crítico garantido. Acumula 1 Marca da Raposa por 5 turnos (Vale no PVP)."}
+{"rowId":"777","text":"Inimigos com a Marca sofrem 80% de Dano Verdadeiro por turno. A Marca acumula até 5 vezes e dura 5 turnos (Vale no PVP)."}
+{"rowId":"778","text":"Inimigos com a Marca sofrem 120% de Dano Verdadeiro por turno. A Marca acumula até 5 vezes e dura 5 turnos (Vale no PVP)."}
+{"rowId":"779","text":"Ao sofrer dano, ativa o Poder da Linhagem: neste turno sofre só 70% do dano; os 30% reduzidos fazem efeito depois do seu ataque no próximo turno."}
+{"rowId":"780","text":"Ao sofrer dano, ativa o Poder da Linhagem: neste turno sofre só 50% do dano; os 50% reduzidos fazem efeito depois do seu ataque no próximo turno."}
+{"rowId":"781","text":"Detona as Marcas, causando dano aos alvos marcados. Cada Marca dá +200% de Dano Verdadeiro (Vale no PVP)."}
+{"rowId":"782","text":"Detona as Marcas, causando dano aos alvos marcados. Cada Marca dá +300% de Dano Verdadeiro (Vale no PVP)."}
+{"rowId":"783","text":"Devora as Marcas do inimigo: 5 Marcas ativam Velocidade Divina (Vigor do turno = 80), 4 Marcas dão +300 de dano por 2 turnos e 3 Marcas dão Invisibilidade por 2 turnos (Vale no PVP)."}
+{"rowId":"784","text":"Devora as Marcas do inimigo: 5 Marcas ativam Velocidade Divina (Vigor do turno = 110), 4 Marcas dão +500 de dano por 2 turnos e 3 Marcas dão Invisibilidade em Grupo por 2 turnos (Vale no PVP)."}
+{"rowId":"785","text":"Cada Ponto de Magia gasto bloqueia dano igual a 0.5% do HP Máximo. Gasta no máximo 20 Pontos de Magia por turno."}
+{"rowId":"786","text":"Cada Ponto de Magia gasto bloqueia dano igual a 0.5% do HP Máximo. Gasta no máximo 40 Pontos de Magia por turno."}
+{"rowId":"787","text":"Após a explosão da primeira bala, surge Fogo na área da explosão por 2 turnos. Inimigos na área do Fogo recebem 1 Marca (Vale no PVP)."}
+{"rowId":"788","text":"No início do turno, cada inimigo marcado em campo dá +3 de Magia (Vale no PVP)."}
+{"rowId":"789","text":"Velocidade Divina"}
+{"rowId":"790","text":"Dano"}
+{"rowId":"791","text":"Invisibilidade"}
+{"rowId":"792","text":"Área Marcada"}
+{"rowId":"793","text":"Marca"}
+{"rowId":"794","text":"Acúmulo de Nova Habilidade"}
+{"rowId":"795","text":"Arma secundária: Cura +3%, Dano +3%."}
+{"rowId":"796","text":"Arma secundária: Cura +4%, Dano +4%."}
+{"rowId":"797","text":"Arma secundária: Cura +5%, Dano +5%."}
+{"rowId":"798","text":"Arma secundária: Cura +6%, Dano +6%."}
+{"rowId":"799","text":"Arma secundária: Cura +8%, Dano +8%."}
+{"rowId":"800","text":"Em combate, Dano e Atq. Mágico +3% (máx: 5%)."}
+{"rowId":"801","text":"Em combate, Dano e Atq. Mágico +4% (máx: 5%)."}
+{"rowId":"802","text":"Em combate, Dano e Atq. Mágico +5% (máx: 5%)."}
+{"rowId":"803","text":"Velocidade Divina"}
+{"rowId":"804","text":"Dano"}
+{"rowId":"805","text":"Invisibilidade"}
+{"rowId":"806","text":"Ao atingir o inimigo, 4% de chance de reduzir em 20% o Vigor Máximo do alvo por 2 turnos (Vale no PVP)."}
+{"rowId":"807","text":"Ao atingir o inimigo, 6% de chance de reduzir em 20% o Vigor Máximo do alvo por 2 turnos (Vale no PVP)."}
+{"rowId":"808","text":"Ao atingir o inimigo, 8% de chance de reduzir em 20% o Vigor Máximo do alvo por 2 turnos (Vale no PVP)."}
+{"rowId":"809","text":"Em combate, HP Máximo próprio +2% (máx: 4%)"}
+{"rowId":"810","text":"Em combate, HP Máximo próprio +3% (máx: 4%)"}
+{"rowId":"811","text":"Em combate, HP Máximo próprio +4% (máx: 4%)"}
+{"rowId":"812","text":"Arma secundária: Cura +3%, Dano +3%."}
+{"rowId":"813","text":"Arma secundária: Cura +4%, Dano +4%."}
+{"rowId":"814","text":"Arma secundária: Cura +5%, Dano +5%."}
+{"rowId":"815","text":"Arma secundária: Cura +6%, Dano +6%."}
+{"rowId":"816","text":"Arma secundária: Cura +8%, Dano +8%."}
+{"rowId":"817","text":"<font color='#4cd700'>{0}</font> ativa Fogo Abrasador, sofrendo <font color='#4cd700'>{1}</font> de dano de Fogo por turno por 3 turnos."}
+{"rowId":"818","text":"<font color='#4cd700'>{0}</font> ativa Congelamento Instantâneo, travando ataque/movimento do alvo por 2 turnos; ao ser atacado o efeito some e anula o dano."}
+{"rowId":"819","text":"<font color='#4cd700'>{0}</font> ativa Disparo Relâmpago; inimigos num raio de 300 sofrem <font color='#4cd700'>{1}</font> de dano de Vento."}
+{"rowId":"820","text":"Ativa Poder da Terra, causando dano extra a inimigos mais baixos. A cada 100 pixels, +<fon color='#4cd700'>{0}</font> de dano de Terra."}
+{"rowId":"821","text":"Absorve <font color='#4cd700'>{0}</font> de dano por turno (Afetado pela Resistência ao Fogo)."}
+{"rowId":"822","text":"Recupera <font color='#4cd700'>{0}</font> HP por turno (Afetado pela Resistência à Água)."}
+{"rowId":"823","text":"Esquiva +<font color='#4cd700'>{0}</font> (Afetado pela Resistência ao Vento)."}
+{"rowId":"824","text":"A cada 100 pixels de distância, reduz <font color='#4cd700'>{0}</font> do dano recebido (Afetado pela Resistência à Terra)."}
+{"rowId":"825","text":"Após cada ataque, o mascote ataca o inimigo, causando 30% de dano."}
+{"rowId":"826","text":"Após cada ataque, o mascote ataca o inimigo, causando 40% de dano."}
+{"rowId":"827","text":"Após cada ataque, o mascote ataca o inimigo, causando 50% de dano."}
+{"rowId":"828","text":"Arremessa um casco duro, causando 150% de dano com crítico garantido, e dá a 1 aliado aleatório Redução de Dano de 10% (sem aliados, vale para si), por 3 turnos"}
+{"rowId":"829","text":"Arremessa um casco duro, causando 180% de dano com crítico garantido, e dá a 1 aliado aleatório Redução de Dano de 15% (sem aliados, vale para si), por 3 turnos"}
+{"rowId":"830","text":"Arremessa um casco duro, causando 220% de dano com crítico garantido, e dá a 1 aliado aleatório Redução de Dano de 20% (sem aliados, vale para si), por 3 turnos"}
+{"rowId":"831","text":"Entra em postura defensiva: +20% de Armadura e -60% de chance de sofrer crítico. A área de colisão aumenta e a velocidade de ataque cai 30%, por 3 turnos. Vale no PVP."}
+{"rowId":"832","text":"Entra em postura defensiva: +35% de Armadura e -60% de chance de sofrer crítico. A área de colisão aumenta e a velocidade de ataque cai 30%, por 3 turnos. Vale no PVP."}
+{"rowId":"833","text":"Entra em postura defensiva: +50% de Armadura e -60% de chance de sofrer crítico. A área de colisão aumenta e a velocidade de ataque cai 30%, por 3 turnos. Vale no PVP."}
+{"rowId":"834","text":"Com 50 Pontos de Magia, ativa Provocar, atraindo os ataques inimigos num raio de 200 ao seu redor. Cada disparo que acertar reflete Dano Verdadeiro igual a 80% da sua Armadura +800 do seu HP Máximo; dura 2 turnos, recarga de 3 turnos (Vale no PVP)."}
+{"rowId":"835","text":"Divide o dano com os aliados e recupera HP igual a 5% do dano dividido +300, até 10000 HP, por 2 turnos. Vale no PVP."}
+{"rowId":"836","text":"Divide o dano com os aliados e recupera HP igual a 10% do dano dividido +500, até 10000 HP, por 2 turnos. Vale no PVP."}
+{"rowId":"837","text":"A tartaruga gigante esmaga o chão: todos os jogadores sofrem 120% do dano base + dano igual a 200% da sua Armadura e ficam Proibidos de Voar, por 2 turnos."}
+{"rowId":"838","text":"A tartaruga gigante esmaga o chão: todos os jogadores sofrem 150% do dano base + dano igual a 300% da sua Armadura e ficam Proibidos de Voar, por 2 turnos."}
+{"rowId":"839","text":"A cada dano sofrido, recupera 3 Pontos de Magia e ganha +10% de Res. Mágica e Armadura, acumulando até 4 vezes, por 2 turnos; recupera no máximo 15 Pontos de Magia por turno."}
+{"rowId":"840","text":"Redução de Dano +10%; cada aliado presente dá +10% de Redução de Dano, até +30%."}
+{"rowId":"841","text":"Quando você ou um aliado morre, o efeito Coletar Alma é multiplicado."}
+{"rowId":"842","text":"Refletir Dano"}
+{"rowId":"843","text":"Refletir Dano"}
+{"rowId":"844","text":"Refletir Dano"}
+{"rowId":"845","text":"Dividir Dano"}
+{"rowId":"846","text":"Arremessa um casco duro, causando 220% de dano com crítico garantido, e dá a 2 aliados aleatórios Redução de Dano de 20% (sem aliados, vale para si), por 3 turnos"}
+{"rowId":"847","text":"Entra em postura defensiva: +80% de Armadura e -90% de chance de sofrer crítico. A área de colisão aumenta e fica imune a dano de certos ângulos, por 3 turnos."}
+{"rowId":"848","text":"Refletir Dano"}
+{"rowId":"849","text":"Com 30 Pontos de Magia, ativa Provocar, atraindo os ataques inimigos num raio de 200 ao seu redor. Cada disparo que acertar reflete Dano Verdadeiro igual a 80% da sua Armadura +800 do seu HP Máximo; dura 2 turnos, recarga de 3 turnos (Vale no PVP)."}
+{"rowId":"850","text":"A tartaruga gigante esmaga o chão: todos os jogadores sofrem 150% do dano base + dano igual a 300% da sua Armadura e ficam Proibidos de Mover e de Voar, por 2 turnos."}
+{"rowId":"851","text":"A cada dano sofrido, recupera 5 Pontos de Magia e ganha +10% de Res. Mágica e Armadura, acumulando até 4 vezes, por 2 turnos; recupera no máximo 15 Pontos de Magia por turno. (Imune ao primeiro disparo, só vale no PVP)."}
+{"rowId":"852","text":"A cada dano sofrido, recupera 5 Pontos de Magia e ganha +10% de Res. Mágica e Armadura, acumulando até 4 vezes, por 2 turnos; recupera no máximo 15 Pontos de Magia por turno."}
+{"rowId":"853","text":"(Imune ao primeiro disparo, só vale no PVP)"}
+{"rowId":"854","text":"Redução de Dano +20%; cada aliado presente dá +10% de Redução de Dano, até +30%. HP Máximo +10%. (Ao ser atingido, sofre no máximo dano igual a 25% do seu HP Máximo, só vale no PVP)"}
+{"rowId":"855","text":"Cada aliado presente dá +10% de Redução de Dano"}
+{"rowId":"856","text":"Em combate, dano recebido -5% (MÁX 10%)."}
+{"rowId":"857","text":"Em combate, dano recebido -8% (MÁX 10%)."}
+{"rowId":"858","text":"Em combate, dano recebido -10% (MÁX 10%)."}
+{"rowId":"859","text":"Em combate, HP Máximo +5% (MÁX 10%)."}
+{"rowId":"860","text":"Em combate, HP Máximo +8% (MÁX 10%)."}
+{"rowId":"861","text":"Em combate, HP Máximo +10% (MÁX 10%)."}
+{"rowId":"862","text":"Ao ser atingido, sofre no máximo dano igual a 25% do seu HP Máximo. (Só vale no PVP)"}
+{"rowId":"863","text":"Remover Esquiva"}
+{"rowId":"864","text":"Recebe Redução de Dano de 500 + 25%. A cada ataque sofrido, reduz mais 15% do dano recebido, por 1 turno."}
+{"rowId":"865","text":"Ganha uma carapaça que reflete dano. A cada ataque sofrido, reflete 50% do dano recebido, por 3 turnos. Só vale no PVP."}
+{"rowId":"866","text":"A cada ataque sofrido, 30% de chance de refletir dano igual a 5% do HP Máximo."}
+{"rowId":"867","text":"Reduz o dano ao ser atingido"}
+{"rowId":"868","text":"Refletir Dano"}
+{"rowId":"869","text":"Recebe Redução de Dano de 500 + 25%. A cada ataque sofrido, reduz mais 15% do dano recebido, por 1 turno."}
+{"rowId":"870","text":"A cada ataque sofrido, reflete 50% do dano recebido, por 3 turnos. Só vale no PVP."}
+{"rowId":"871","text":"A cada ataque sofrido, 20% de chance de refletir dano igual a 5% do HP Máximo."}
+{"rowId":"872","text":"Reduz o dano ao ser atingido"}
+{"rowId":"873","text":"Refletir Dano"}
+{"rowId":"874","text":"Imunidade e Defesa +30% por 2 turnos"}
+{"rowId":"875","text":"Ao ser atingido, +55 de dano, até 6 vezes; ao fim do seu turno, reduz 1 acúmulo"}
+{"rowId":"876","text":"-3.3% de HP por turno e +6 Pontos de Magia; com HP Máximo abaixo de 30% o efeito se perde"}
+{"rowId":"877","text":"Remover vantagem de poder de fogo"}
+{"rowId":"878","text":"Ao ser atingido, +55 de dano, até 6 vezes; ao fim do seu turno, reduz 1 acúmulo"}
+{"rowId":"879","text":"-3.3% de HP por turno e +6 Pontos de Magia; com HP Máximo abaixo de 30% o efeito se perde"}
+{"rowId":"880","text":"O Mascote avança contra o alvo inimigo depois que o dono atira em cada turno, causando 15% de dano."}
+{"rowId":"881","text":"O Mascote avança contra o alvo inimigo depois que o dono atira em cada turno, causando 25% de dano."}
+{"rowId":"882","text":"O Mascote avança contra o alvo inimigo depois que o dono atira em cada turno, causando 36% de dano."}
+{"rowId":"883","text":"Dispara uma bala voadora, causando 120% do dano base; você ganha +10% de HP Máximo e o alvo perde 12% de HP Máximo (Só vale no PVP), por 3 turnos."}
+{"rowId":"884","text":"Dispara uma bala voadora, causando 150% do dano base; você ganha +10% de HP Máximo e o alvo perde 12% de HP Máximo (Só vale no PVP), por 3 turnos."}
+{"rowId":"885","text":"Dispara uma bala voadora, causando 180% do dano base; você ganha +10% de HP Máximo e o alvo perde 12% de HP Máximo (Só vale no PVP), por 3 turnos."}
+{"rowId":"886","text":"Reduz o HP Máximo do inimigo em 12% (PVP)"}
+{"rowId":"887","text":"Perde 30% do HP atual e recupera 10% do HP Máximo por turno, por 3 turnos."}
+{"rowId":"888","text":"Perde 20% do HP atual e recupera 12% do HP Máximo por turno, por 3 turnos."}
+{"rowId":"889","text":"Com o Escudo do Porco ativo, após usar, recupera 8% do HP atual por turno, por 3 turnos."}
+{"rowId":"890","text":"Com o Escudo do Porco ativo, usar causa Dano Verdadeiro igual a 20% do seu HP Máximo + 200% do dano base aos jogadores num raio de 300 pixels. Depois de usar, o escudo some."}
+{"rowId":"891","text":"Com o Escudo do Porco ativo, usar arremessa para longe um alvo aleatório num raio de 300 pixels e dá a ele Aceleração de Disparo por 3 turnos. Depois de usar, o escudo some."}
+{"rowId":"892","text":"Com HP abaixo de 50%, recebe um escudo igual a 50% do HP Máximo por 3 turnos, recarga de 6 turnos."}
+{"rowId":"893","text":"A cada 10% de HP perdido, +3 Pontos de Magia; recupera no máximo 12 por turno."}
+{"rowId":"894","text":"Atq. de Fogo +100"}
+{"rowId":"895","text":"Atq. de Fogo +200"}
+{"rowId":"896","text":"Atq. de Fogo +300"}
+{"rowId":"897","text":"Atq. de Água +100"}
+{"rowId":"898","text":"Atq. de Água +200"}
+{"rowId":"899","text":"Atq. de Água +300"}
+{"rowId":"900","text":"Atq. de Vento +100"}
+{"rowId":"901","text":"Atq. de Vento +200"}
+{"rowId":"902","text":"Atq. de Vento +300"}
+{"rowId":"903","text":"Atq. de Terra +100"}
+{"rowId":"904","text":"Atq. de Terra +200"}
+{"rowId":"905","text":"Atq. de Terra +300"}
+{"rowId":"906","text":"Res. ao Fogo +150"}
+{"rowId":"907","text":"Res. ao Fogo +300"}
+{"rowId":"908","text":"Res. ao Fogo +450"}
+{"rowId":"909","text":"Res. à Água +150"}
+{"rowId":"910","text":"Res. à Água +300"}
+{"rowId":"911","text":"Res. à Água +450"}
+{"rowId":"912","text":"Res. ao Vento +150"}
+{"rowId":"913","text":"Res. ao Vento +300"}
+{"rowId":"914","text":"Res. ao Vento +450"}
+{"rowId":"915","text":"Res. à Terra +150"}
+{"rowId":"916","text":"Res. à Terra +300"}
+{"rowId":"917","text":"Res. à Terra +450"}
+{"rowId":"918","text":"Atq. de Fogo +3%"}
+{"rowId":"919","text":"Atq. de Fogo +5%"}
+{"rowId":"920","text":"Atq. de Fogo +8%"}
+{"rowId":"921","text":"Atq. de Água +3%"}
+{"rowId":"922","text":"Atq. de Água +5%"}
+{"rowId":"923","text":"Atq. de Água +8%"}
+{"rowId":"924","text":"Atq. de Vento +3%"}
+{"rowId":"925","text":"Atq. de Vento +5%"}
+{"rowId":"926","text":"Atq. de Vento +8%"}
+{"rowId":"927","text":"Atq. de Terra +3%"}
+{"rowId":"928","text":"Atq. de Terra +5%"}
+{"rowId":"929","text":"Atq. de Terra +8%"}
+{"rowId":"930","text":"Res. ao Fogo +5%"}
+{"rowId":"931","text":"Res. ao Fogo +8%"}
+{"rowId":"932","text":"Res. ao Fogo +12%"}
+{"rowId":"933","text":"Res. à Água +5%"}
+{"rowId":"934","text":"Res. à Água +8%"}
+{"rowId":"935","text":"Res. à Água +12%"}
+{"rowId":"936","text":"Res. ao Vento +5%"}
+{"rowId":"937","text":"Res. ao Vento +8%"}
+{"rowId":"938","text":"Res. ao Vento +12%"}
+{"rowId":"939","text":"Res. à Terra +5%"}
+{"rowId":"940","text":"Res. à Terra +8%"}
+{"rowId":"941","text":"Res. à Terra +12%"}
+{"rowId":"942","text":"Ao ativar Fogo Abrasador, Atq. de Fogo +200 por 3 turnos."}
+{"rowId":"943","text":"Ao ativar Fogo Abrasador, Atq. de Fogo +350 por 3 turnos."}
+{"rowId":"944","text":"Ao ativar Fogo Abrasador, Atq. de Fogo +500 por 3 turnos."}
+{"rowId":"945","text":"Ao ativar Fogo Abrasador, Atq. de Fogo +8% por 3 turnos."}
+{"rowId":"946","text":"Ao ativar Fogo Abrasador, Atq. de Fogo +12% por 3 turnos."}
+{"rowId":"947","text":"Ao ativar Fogo Abrasador, Atq. de Fogo +16% por 3 turnos."}
+{"rowId":"948","text":"Chance de ativar Fogo Abrasador +20%"}
+{"rowId":"949","text":"Chance de ativar Fogo Abrasador +35%"}
+{"rowId":"950","text":"Chance de ativar Fogo Abrasador +50%"}
+{"rowId":"951","text":"A Queimadura do Fogo Abrasador também reduz a Res. ao Fogo em 10% por 3 turnos."}
+{"rowId":"952","text":"A Queimadura do Fogo Abrasador também reduz a Res. ao Fogo em 20% por 3 turnos."}
+{"rowId":"953","text":"A Queimadura do Fogo Abrasador também reduz a Res. ao Fogo em 30% por 3 turnos."}
+{"rowId":"957","text":"Ao ativar Congelamento Instantâneo, Atq. de Água +350 por 3 turnos"}
+{"rowId":"958","text":"Ao ativar Congelamento Instantâneo, Atq. de Água +500 por 3 turnos"}
+{"rowId":"959","text":"Ao ativar Congelamento Instantâneo, Atq. de Água +800 por 3 turnos"}
+{"rowId":"960","text":"Ao ativar Congelamento Instantâneo, Atq. de Água +16% por 3 turnos"}
+{"rowId":"961","text":"Ao ativar Congelamento Instantâneo, Atq. de Água +20% por 3 turnos"}
+{"rowId":"962","text":"Ao ativar Congelamento Instantâneo, Atq. de Água +24% por 3 turnos"}
+{"rowId":"963","text":"Chance de ativar Congelamento Instantâneo +20%"}
+{"rowId":"964","text":"Chance de ativar Congelamento Instantâneo +35%"}
+{"rowId":"965","text":"Chance de ativar Congelamento Instantâneo +50%"}
+{"rowId":"966","text":"O Congelamento Instantâneo também reduz a Res. à Água em 15% por 3 turnos."}
+{"rowId":"967","text":"O Congelamento Instantâneo também reduz a Res. à Água em 30% por 3 turnos."}
+{"rowId":"968","text":"O Congelamento Instantâneo também reduz a Res. à Água em 45% por 3 turnos."}
+{"rowId":"972","text":"Ao ativar Disparo Relâmpago, Atq. de Vento +200 por 3 turnos."}
+{"rowId":"973","text":"Ao ativar Disparo Relâmpago, Atq. de Vento +350 por 3 turnos."}
+{"rowId":"974","text":"Ao ativar Disparo Relâmpago, Atq. de Vento +500 por 3 turnos."}
+{"rowId":"975","text":"Ao ativar Disparo Relâmpago, Atq. de Vento +8% por 3 turnos."}
+{"rowId":"976","text":"Ao ativar Disparo Relâmpago, Atq. de Vento +12% por 3 turnos."}
+{"rowId":"977","text":"Ao ativar Disparo Relâmpago, Atq. de Vento +16% por 3 turnos."}
+{"rowId":"978","text":"Chance de ativar Disparo Relâmpago +20%"}
+{"rowId":"979","text":"Chance de ativar Disparo Relâmpago +35%"}
+{"rowId":"980","text":"Chance de ativar Disparo Relâmpago +50%"}
+{"rowId":"981","text":"O Disparo Relâmpago também reduz a Res. ao Vento em 10% por 3 turnos."}
+{"rowId":"982","text":"O Disparo Relâmpago também reduz a Res. ao Vento em 20% por 3 turnos."}
+{"rowId":"983","text":"O Disparo Relâmpago também reduz a Res. ao Vento em 30% por 3 turnos."}
+{"rowId":"984","text":"Se o alvo estiver em terreno mais baixo, Atq. de Terra +75 a cada 100 pixels"}
+{"rowId":"985","text":"Se o alvo estiver em terreno mais baixo, Atq. de Terra +125 a cada 100 pixels"}
+{"rowId":"986","text":"Se o alvo estiver em terreno mais baixo, Atq. de Terra +175 a cada 100 pixels"}
+{"rowId":"987","text":"Se o alvo estiver em terreno mais baixo, Atq. de Terra +4% a cada 100 pixels"}
+{"rowId":"988","text":"Se o alvo estiver em terreno mais baixo, Atq. de Terra +6% a cada 100 pixels"}
+{"rowId":"989","text":"Se o alvo estiver em terreno mais baixo, Atq. de Terra +8% a cada 100 pixels"}
+{"rowId":"990","text":"Ao atingir o alvo, reduz a Res. à Terra dele em 4% por 3 turnos."}
+{"rowId":"991","text":"Ao atingir o alvo, reduz a Res. à Terra dele em 8% por 3 turnos."}
+{"rowId":"992","text":"A cada ataque sofrido, ganha 2 Pontos de Magia e os outros aliados ganham 1"}
+{"rowId":"993","text":"Após atirar em cada turno, o mascote tem 100% de chance de avançar e atacar o inimigo, causando 65% de dano."}
+{"rowId":"995","text":"10% de chance de ficar imune a Congelamento, vale no PVP (Habilidade do Guardião de Fogo; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"996","text":"Ao ativar Congelamento Instantâneo, 30% de chance de o Congelamento durar mais 1 turno. (Habilidade do Guardião de Água; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"997","text":"Fica imune a 1 golpe fatal e recupera 5% do HP Máximo, 1 vez por batalha (Habilidade do Guardião de Água; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"998","text":"Ao atingir o alvo, 2% de chance de ativar Relâmpago, causando 50% de dano a outro inimigo (Habilidade do Guardião de Vento; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"999","text":"Ao ativar Esquiva, atributos Elementais +30% por 3 turnos (Habilidade do Guardião de Vento; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"1000","text":"Ao atingir o alvo, 10% de chance de as balas do alvo não cavarem o terreno por 3 turnos (Habilidade do Guardião de Terra; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"1001","text":"Ao sofrer dano a uma distância de 12 ou mais, 10% de chance de reduzir o dano recebido em 30%. (Habilidade do Guardião de Terra; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"1002","text":"Todos os aliados no mapa recuperam 15% de HP e ficam imunes a dano 1 vez. (Não acumula; a imunidade cobre no máximo 20% do HP)."}
+{"rowId":"1003","text":"Usar armas secundárias do tipo escudo recupera 8% de HP na hora e dá +10% de redução de dano por 2 turnos."}
+{"rowId":"1004","text":"Ao usar arma secundária de cura, você e mais 1 alvo ganham +7 Pontos de Magia."}
+{"rowId":"1005","text":"Com HP abaixo de 50%, 10% de chance de recuperar 20% do HP Máximo (Só 1 vez)"}
+{"rowId":"1006","text":"Com HP abaixo de 50%, 11% de chance de recuperar 20% do HP Máximo (Só 1 vez)"}
+{"rowId":"1007","text":"Com HP abaixo de 50%, 12% de chance de recuperar 20% do HP Máximo (Só 1 vez)"}
+{"rowId":"1008","text":"Com HP abaixo de 50%, 13% de chance de recuperar 20% do HP Máximo (Só 1 vez)"}
+{"rowId":"1009","text":"Com HP abaixo de 50%, 14% de chance de recuperar 20% do HP Máximo (Só 1 vez)"}
+{"rowId":"1010","text":"Com HP abaixo de 50%, 15% de chance de recuperar 20% do HP Máximo (Só 1 vez)"}
+{"rowId":"1011","text":"Com HP abaixo de 50%, 16% de chance de recuperar 20% do HP Máximo (Só 1 vez)"}
+{"rowId":"1012","text":"Com HP abaixo de 50%, 17% de chance de recuperar 20% do HP Máximo (Só 1 vez)"}
+{"rowId":"1013","text":"Com HP abaixo de 50%, 18% de chance de recuperar 20% do HP Máximo (Só 1 vez)"}
+{"rowId":"1014","text":"Com HP abaixo de 50%, 19% de chance de recuperar 20% do HP Máximo (Só 1 vez)"}
+{"rowId":"1015","text":"Com HP abaixo de 50%, 20% de chance de recuperar 20% do HP Máximo (Só 1 vez)"}
+{"rowId":"1016","text":"Com HP abaixo de 50%, 21% de chance de recuperar 20% do HP Máximo (Só 1 vez)"}
+{"rowId":"1017","text":"Com HP abaixo de 50%, 22% de chance de recuperar 20% do HP Máximo (Só 1 vez)"}
+{"rowId":"1018","text":"Com HP abaixo de 50%, 23% de chance de recuperar 20% do HP Máximo (Só 1 vez)"}
+{"rowId":"1019","text":"Com HP abaixo de 50%, 24% de chance de recuperar 20% do HP Máximo (Só 1 vez)"}
+{"rowId":"1020","text":"Com HP abaixo de 50%, 25% de chance de recuperar 20% do HP Máximo (Só 1 vez)"}
+{"rowId":"1021","text":"Com HP abaixo de 50%, 26% de chance de recuperar 20% do HP Máximo (Só 1 vez)"}
+{"rowId":"1022","text":"Com HP abaixo de 50%, 27% de chance de recuperar 20% do HP Máximo (Só 1 vez)"}
+{"rowId":"1023","text":"Com HP abaixo de 50%, 28% de chance de recuperar 20% do HP Máximo (Só 1 vez)"}
+{"rowId":"1024","text":"Com HP abaixo de 50%, 29% de chance de recuperar 20% do HP Máximo (Só 1 vez)"}
+{"rowId":"1025","text":"Com HP abaixo de 50%, 30% de chance de recuperar 30% do HP Máximo (Só 1 vez)"}
+{"rowId":"1026","text":"Com HP abaixo de 50%, 31% de chance de recuperar 30% do HP Máximo (Só 1 vez)"}
+{"rowId":"1027","text":"Com HP abaixo de 50%, 32% de chance de recuperar 30% do HP Máximo (Só 1 vez)"}
+{"rowId":"1028","text":"Com HP abaixo de 50%, 33% de chance de recuperar 30% do HP Máximo (Só 1 vez)"}
+{"rowId":"1029","text":"Com HP abaixo de 50%, 34% de chance de recuperar 30% do HP Máximo (Só 1 vez)"}
+{"rowId":"1030","text":"Com HP abaixo de 50%, 35% de chance de recuperar 30% do HP Máximo (Só 1 vez)"}
+{"rowId":"1031","text":"Com HP abaixo de 50%, 36% de chance de recuperar 30% do HP Máximo (Só 1 vez)"}
+{"rowId":"1032","text":"Com HP abaixo de 50%, 37% de chance de recuperar 30% do HP Máximo (Só 1 vez)"}
+{"rowId":"1033","text":"Com HP abaixo de 50%, 38% de chance de recuperar 30% do HP Máximo (Só 1 vez)"}
+{"rowId":"1034","text":"Com HP abaixo de 50%, 39% de chance de recuperar 30% do HP Máximo (Só 1 vez)"}
+{"rowId":"1035","text":"Com HP abaixo de 50%, 30% de chance de recuperar 30% do HP Máximo (Só 1 vez)"}
+{"rowId":"1036","text":"Com HP abaixo de 50%, 31% de chance de recuperar 30% do HP Máximo (Só 1 vez)"}
+{"rowId":"1037","text":"Com HP abaixo de 50%, 32% de chance de recuperar 30% do HP Máximo (Só 1 vez)"}
+{"rowId":"1038","text":"Com HP abaixo de 50%, 33% de chance de recuperar 30% do HP Máximo (Só 1 vez)"}
+{"rowId":"1039","text":"Com HP abaixo de 50%, 33% de chance de recuperar 30% do HP Máximo (Só 1 vez)"}
+{"rowId":"1040","text":"Com HP abaixo de 50%, 35% de chance de recuperar 30% do HP Máximo (Só 1 vez)"}
+{"rowId":"1041","text":"Com HP abaixo de 50%, 36% de chance de recuperar 30% do HP Máximo (Só 1 vez)"}
+{"rowId":"1042","text":"Com HP abaixo de 50%, 37% de chance de recuperar 30% do HP Máximo (Só 1 vez)"}
+{"rowId":"1043","text":"Com HP abaixo de 50%, 38% de chance de recuperar 30% do HP Máximo (Só 1 vez)"}
+{"rowId":"1044","text":"Com HP abaixo de 50%, 39% de chance de recuperar 30% do HP Máximo (Só 1 vez)"}
+{"rowId":"1045","text":"Com HP abaixo de 50%, 50% de chance de recuperar 30% do HP Máximo (Só 2 vezes)"}
+{"rowId":"1046","text":"A Queimadura do Fogo Abrasador faz o Mascote perder 8 de MP. (Habilidade do Guardião de Fogo; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"1047","text":"12% de chance de ficar imune a Congelamento, vale no PVP (Habilidade do Guardião de Fogo; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"1048","text":"Ao ativar Congelamento Instantâneo, 40% de chance de o Congelamento durar mais 1 turno. (Habilidade do Guardião de Água; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"1049","text":"Fica imune a 1 golpe fatal e recupera 10% do HP Máximo, 1 vez por batalha (Habilidade do Guardião de Água; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"1050","text":"Ao atingir o alvo, 3% de chance de ativar Relâmpago, causando 50% de dano a outro inimigo (Habilidade do Guardião de Vento; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"1051","text":"Ao ativar Esquiva, atributos Elementais +40% por 3 turnos (Habilidade do Guardião de Vento; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"1052","text":"Ao atingir o alvo, 12% de chance de as balas do alvo não cavarem o terreno por 3 turnos (Habilidade do Guardião de Terra; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"1053","text":"Ao sofrer dano a uma distância de 12 ou mais, 20% de chance de reduzir o dano recebido em 30%. (Habilidade do Guardião de Terra; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"1054","text":"A Queimadura do Fogo Abrasador faz o Mascote perder 10 de MP. (Habilidade do Guardião de Fogo; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"1055","text":"15% de chance de ficar imune a Congelamento, vale no PVP (Habilidade do Guardião de Fogo; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"1056","text":"Ao ativar Congelamento Instantâneo, 50% de chance de o Congelamento durar mais 1 turno. (Habilidade do Guardião de Água; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"1057","text":"Fica imune a 1 golpe fatal e recupera 15% do HP Máximo, 1 vez por batalha (Habilidade do Guardião de Água; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"1058","text":"Ao atingir o alvo, 4% de chance de ativar Relâmpago, causando 50% de dano a outro inimigo (Habilidade do Guardião de Vento; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"1059","text":"Ao ativar Esquiva, atributos Elementais +50% por 3 turnos (Habilidade do Guardião de Vento; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"1060","text":"Ao atingir o alvo, 15% de chance de as balas do alvo não cavarem o terreno por 3 turnos (Habilidade do Guardião de Terra; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"1061","text":"Ao sofrer dano a uma distância de 12 ou mais, 30% de chance de reduzir o dano recebido em 30%. (Habilidade do Guardião de Terra; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"1062","text":"Cada aliado presente dá +10% de Redução de Dano"}
+{"rowId":"1063","text":"Irmãos jurados ganham +300 HP"}
+{"rowId":"1064","text":"Irmãos jurados ganham +800 HP"}
+{"rowId":"1065","text":"Irmãos jurados ganham +1500 HP"}
+{"rowId":"1066","text":"Irmãos jurados ganham +3000 HP"}
+{"rowId":"1067","text":"Irmãos jurados ganham +5000 HP"}
+{"rowId":"1068","text":"Irmãos jurados ganham +7500 HP"}
+{"rowId":"1069","text":"Irmãos jurados ganham +10000 HP"}
+{"rowId":"1070","text":"Irmãos jurados ganham +12500 HP"}
+{"rowId":"1071","text":"Irmãos jurados ganham +15000 HP"}
+{"rowId":"1072","text":"Irmãos jurados ganham +18000 HP"}
+{"rowId":"1073","text":"Dá Escudo Protetor a todos os aliados; cada vez que forem atingidos, recuperam 0.6% de HP. Com HP abaixo de 20%, a cura dobra."}
+{"rowId":"1074","text":"Dispara 1 Semente Voadora; ao explodir, recupera HP dos aliados ao redor e reduz HP dos inimigos; a semente aumenta 8% de HP por segundo."}
+{"rowId":"1075","text":"Quando um aliado inicia o turno com o efeito de cura do Broto, você ganha +2 Pontos de Magia."}
+{"rowId":"1076","text":"Recupera HP ao ser atacado, x2 com HP baixo"}
+{"rowId":"1077","text":"Com HP abaixo de 40%, recupera 3% (máx: 10%) do HP Máximo (1 vez a cada 3 turnos)"}
+{"rowId":"1078","text":"Com HP abaixo de 40%, recupera 4% (máx: 10%) do HP Máximo (1 vez a cada 3 turnos)"}
+{"rowId":"1079","text":"Com HP abaixo de 40%, recupera 5% (máx: 10%) do HP Máximo (1 vez a cada 3 turnos)"}
+{"rowId":"1080","text":"No início do turno, recebe um escudo que absorve dano igual a 4% (máx: 8%) do HP Máximo, por 4 turnos, 1 vez a cada 4 turnos."}
+{"rowId":"1081","text":"No início do turno, recebe um escudo que absorve dano igual a 6% (máx: 8%) do HP Máximo, por 4 turnos, 1 vez a cada 4 turnos."}
+{"rowId":"1082","text":"No início do turno, recebe um escudo que absorve dano igual a 8% (máx: 8%) do HP Máximo, por 4 turnos, 1 vez a cada 4 turnos."}
+{"rowId":"1083","text":"As Trevas arremessam Asas Demoníacas, causando 180% do dano base com crítico garantido. As Asas queimam o alvo por 2 turnos: no início de cada turno, perde 50% do Vigor. O efeito não acumula."}
+{"rowId":"1084","text":"As Trevas lançam veneno, reduzindo em 100% a cura de todos os mascotes inimigos por 3 turnos. (Só vale no PVP)"}
+{"rowId":"1085","text":"As Trevas recitam um feitiço e oferecem o poder da linhagem ao Deus Maligno. Neste turno, cada disparo causa dano extra igual a 5% do HP perdido. O dano extra Perfura Defesa e Armadura."}
+{"rowId":"1086","text":"Perde 15% do HP Máximo por turno"}
+{"rowId":"1087","text":"Ao derrotar um inimigo, o Mascote recupera 20 (máx: 40) de MP, 1 vez por batalha"}
+{"rowId":"1088","text":"Ao derrotar um inimigo, o Mascote recupera 25 (máx: 40) de MP, 1 vez por batalha"}
+{"rowId":"1089","text":"Ao derrotar um inimigo, o Mascote recupera 30 (máx: 40) de MP, 1 vez por batalha"}
+{"rowId":"1090","text":"Ao derrotar um inimigo, o Mascote recupera 35 (máx: 40) de MP, 1 vez por batalha"}
+{"rowId":"1091","text":"Ao derrotar um inimigo, o Mascote recupera 40 (máx: 40) de MP, 1 vez por batalha"}
+{"rowId":"1092","text":"No início da batalha, o Mascote tem 2% (máx: 6%) de chance de receber 30 de MP"}
+{"rowId":"1093","text":"No início da batalha, o Mascote tem 3% (máx: 6%) de chance de receber 30 de MP"}
+{"rowId":"1094","text":"No início da batalha, o Mascote tem 4% (máx: 6%) de chance de receber 30 de MP"}
+{"rowId":"1095","text":"No início da batalha, o Mascote tem 5% (máx: 6%) de chance de receber 30 de MP"}
+{"rowId":"1096","text":"No início da batalha, o Mascote tem 6% (máx: 6%) de chance de receber 30 de MP"}
+{"rowId":"1097","text":"Ao atingir o inimigo, aplica 1 acúmulo de Ferido, fazendo o alvo sofrer +2% (máx: 6%) de dano por 2 turnos; acumula até 5 vezes."}
+{"rowId":"1098","text":"Ao atingir o inimigo, aplica 1 acúmulo de Ferido, fazendo o alvo sofrer +3% (máx: 6%) de dano por 2 turnos; acumula até 5 vezes."}
+{"rowId":"1099","text":"Ao atingir o inimigo, aplica 1 acúmulo de Ferido, fazendo o alvo sofrer +4% (máx: 6%) de dano por 2 turnos; acumula até 5 vezes."}
+{"rowId":"1100","text":"Ao atingir o inimigo, aplica 1 acúmulo de Ferido, fazendo o alvo sofrer +5% (máx: 6%) de dano por 2 turnos; acumula até 5 vezes."}
+{"rowId":"1101","text":"Ao atingir o inimigo, aplica 1 acúmulo de Ferido, fazendo o alvo sofrer +6% (máx: 6%) de dano por 2 turnos; acumula até 5 vezes."}
+{"rowId":"1102","text":"Ao derrotar um inimigo, dano base +2% (máx: 6%), acumula até 5 vezes, vale nesta batalha."}
+{"rowId":"1103","text":"Ao derrotar um inimigo, dano base +3% (máx: 6%), acumula até 5 vezes, vale nesta batalha."}
+{"rowId":"1104","text":"Ao derrotar um inimigo, dano base +4% (máx: 6%), acumula até 5 vezes, vale nesta batalha."}
+{"rowId":"1105","text":"Ao derrotar um inimigo, dano base +5% (máx: 6%), acumula até 5 vezes, vale nesta batalha."}
+{"rowId":"1106","text":"Ao derrotar um inimigo, dano base +6% (máx: 6%), acumula até 5 vezes, vale nesta batalha."}
+{"rowId":"1107","text":"Ao derrotar um inimigo, HP Máximo +2% (máx: 6%), acumula até 5 vezes, vale nesta batalha."}
+{"rowId":"1108","text":"Ao derrotar um inimigo, HP Máximo +3% (máx: 6%), acumula até 5 vezes, vale nesta batalha."}
+{"rowId":"1109","text":"Ao derrotar um inimigo, HP Máximo +4% (máx: 6%), acumula até 5 vezes, vale nesta batalha."}
+{"rowId":"1110","text":"Ao derrotar um inimigo, HP Máximo +5% (máx: 6%), acumula até 5 vezes, vale nesta batalha."}
+{"rowId":"1111","text":"Ao derrotar um inimigo, HP Máximo +6% (máx: 6%), acumula até 5 vezes, vale nesta batalha."}
+{"rowId":"1112","text":"Ao derrotar um inimigo, drena HP igual a 4% (máx: 12%) do dano causado e recupera seu HP por 2 turnos, vale no PVP;"}
+{"rowId":"1113","text":"Ao derrotar um inimigo, drena HP igual a 6% (máx: 12%) do dano causado e recupera seu HP por 2 turnos, vale no PVP;"}
+{"rowId":"1114","text":"Ao derrotar um inimigo, drena HP igual a 8% (máx: 12%) do dano causado e recupera seu HP por 2 turnos, vale no PVP;"}
+{"rowId":"1115","text":"Ao derrotar um inimigo, drena HP igual a 10% (máx: 12%) do dano causado e recupera seu HP por 2 turnos, vale no PVP;"}
+{"rowId":"1116","text":"Ao derrotar um inimigo, drena HP igual a 12% (máx: 12%) do dano causado e recupera seu HP por 2 turnos, vale no PVP;"}
+{"rowId":"1117","text":"Ao morrer, o aliado com menor % de HP recupera 10% (máx: 20%) do HP Máximo."}
+{"rowId":"1118","text":"Ao morrer, o aliado com menor % de HP recupera 12% (máx: 20%) do HP Máximo."}
+{"rowId":"1119","text":"Ao morrer, o aliado com menor % de HP recupera 15% (máx: 20%) do HP Máximo."}
+{"rowId":"1120","text":"Ao morrer, o aliado com menor % de HP recupera 18% (máx: 20%) do HP Máximo."}
+{"rowId":"1121","text":"Ao morrer, o aliado com menor % de HP recupera 20% (máx: 20%) do HP Máximo."}
+{"rowId":"1122","text":"Ao morrer, os aliados recebem Purificação, removendo efeitos negativos de 1 (máx: 3) aliado aleatório"}
+{"rowId":"1123","text":"Ao morrer, os aliados recebem Purificação, removendo efeitos negativos de 2 (máx: 3) aliados aleatórios"}
+{"rowId":"1124","text":"Ao morrer, os aliados recebem Purificação, removendo efeitos negativos de 3 (máx: 3) aliados aleatórios"}
+{"rowId":"1125","text":"Ao morrer, os aliados recebem Purificação, removendo efeitos negativos de 3 (máx: 3) aliados aleatórios"}
+{"rowId":"1126","text":"Ao morrer, os aliados recebem Purificação, removendo efeitos negativos de 3 (máx: 3) aliados aleatórios"}
+{"rowId":"1127","text":"Ao sofrer dano, 2% (máx: 6%) de chance de ativar Espinheiro, refletindo 50% do dano recebido por 2 turnos, 1 vez por batalha, vale no PVP;"}
+{"rowId":"1128","text":"Ao sofrer dano, 3% (máx: 6%) de chance de ativar Espinheiro, refletindo 50% do dano recebido por 2 turnos, 1 vez por batalha, vale no PVP;"}
+{"rowId":"1129","text":"Ao sofrer dano, 4% (máx: 6%) de chance de ativar Espinheiro, refletindo 50% do dano recebido por 2 turnos, 1 vez por batalha, vale no PVP;"}
+{"rowId":"1130","text":"Ao sofrer dano, 5% (máx: 6%) de chance de ativar Espinheiro, refletindo 50% do dano recebido por 2 turnos, 1 vez por batalha, vale no PVP;"}
+{"rowId":"1131","text":"Ao sofrer dano, 6% (máx: 6%) de chance de ativar Espinheiro, refletindo 50% do dano recebido por 2 turnos, 1 vez por batalha, vale no PVP;"}
+{"rowId":"1132","text":"Ao atingir um personagem com HP abaixo de 10% (máx: 20%), 5% de chance de ativar Fúria Selvagem, causando dano extra igual a 50% do HP Máximo do alvo, vale no PVP."}
+{"rowId":"1133","text":"Ao atingir um personagem com HP abaixo de 12% (máx: 20%), 5% de chance de ativar Fúria Selvagem, causando dano extra igual a 50% do HP Máximo do alvo, vale no PVP."}
+{"rowId":"1134","text":"Ao atingir um personagem com HP abaixo de 15% (máx: 20%), 5% de chance de ativar Fúria Selvagem, causando dano extra igual a 50% do HP Máximo do alvo, vale no PVP."}
+{"rowId":"1135","text":"Ao atingir um personagem com HP abaixo de 18% (máx: 20%), 5% de chance de ativar Fúria Selvagem, causando dano extra igual a 50% do HP Máximo do alvo, vale no PVP."}
+{"rowId":"1136","text":"Ao atingir um personagem com HP abaixo de 20% (máx: 20%), 5% de chance de ativar Fúria Selvagem, causando dano extra igual a 50% do HP Máximo do alvo, vale no PVP."}
+{"rowId":"1137","text":"Ao sofrer dano 20 vezes, ativa Ninjutsu e recupera 10% (máx: 20%) de HP, 1 vez por batalha."}
+{"rowId":"1138","text":"Ao sofrer dano 20 vezes, ativa Ninjutsu e recupera 12% (máx: 20%) de HP, 1 vez por batalha."}
+{"rowId":"1139","text":"Ao sofrer dano 20 vezes, ativa Ninjutsu e recupera 15% (máx: 20%) de HP, 1 vez por batalha."}
+{"rowId":"1140","text":"Ao sofrer dano 20 vezes, ativa Ninjutsu e recupera 18% (máx: 20%) de HP, 1 vez por batalha."}
+{"rowId":"1141","text":"Ao sofrer dano 20 vezes, ativa Ninjutsu e recupera 20 (máx: 20%)% de HP, 1 vez por batalha."}
+{"rowId":"1142","text":"+2%(máx:10%)"}
+{"rowId":"1143","text":"+4%(máx:10%)"}
+{"rowId":"1144","text":"+6%(máx:10%)"}
+{"rowId":"1145","text":"+8%(máx:10%)"}
+{"rowId":"1146","text":"+10%(máx:10%)"}
+{"rowId":"1147","text":"+2%(máx:10%)"}
+{"rowId":"1148","text":"+4%(máx:10%)"}
+{"rowId":"1149","text":"+6%(máx:10%)"}
+{"rowId":"1150","text":"+8%(máx:10%)"}
+{"rowId":"1151","text":"+10%(máx:10%)"}
+{"rowId":"1152","text":"+0.5%(máx:2.5%)"}
+{"rowId":"1153","text":"+1.0%(máx:2.5%)"}
+{"rowId":"1154","text":"+1.5%(máx:2.5%)"}
+{"rowId":"1155","text":"+2.0%(máx:2.5%)"}
+{"rowId":"1156","text":"+2.5%(máx:2.5%)"}
+{"rowId":"1157","text":"Após cada ataque, o mascote ataca o inimigo, causando 30% de dano."}
+{"rowId":"1158","text":"Após cada ataque, o mascote ataca o inimigo, causando 40% de dano."}
+{"rowId":"1159","text":"Após cada ataque, o mascote ataca o inimigo, causando 50% de dano."}
+{"rowId":"1160","text":"Arremessa 1 Bola de Fogo, causando 150% de dano com crítico garantido e ativando Velocidade Divina; no turno de Velocidade Divina, o Vigor cai para 120."}
+{"rowId":"1161","text":"Arremessa 1 Bola de Fogo, causando 180% de dano com crítico garantido e ativando Velocidade Divina; no turno de Velocidade Divina, o Vigor cai para 120."}
+{"rowId":"1162","text":"Arremessa 1 Bola de Fogo, causando 220% de dano com crítico garantido e ativando Velocidade Divina; no turno de Velocidade Divina, o Vigor cai para 120."}
+{"rowId":"1163","text":"Dispara um Tiro Triplo que incendeia a área da explosão; alvos na área perdem 8% do HP Máximo e 20 de MP por turno; o Fogo dura 3 turnos (Vale no PVP)."}
+{"rowId":"1164","text":"Área Marcada"}
+{"rowId":"1165","text":"Nova Habilidade"}
+{"rowId":"1166","text":"Cada habilidade ativa usada dá +1 Chama da Fúria; com 3 Chamas, vira Fogo Protetor, dando +30% de Redução de Dano e +30% de Dano por 3 turnos"}
+{"rowId":"1167","text":"Habilidade Obtida"}
+{"rowId":"1168","text":"Habilidade Obtida"}
+{"rowId":"1169","text":"No início da batalha, se tiver a maior velocidade de disparo, recupera +10 de MP por turno; senão, +5 de MP por turno. (No PVE recupera só 5 de MP)"}
+{"rowId":"1170","text":"Ao atingir o inimigo, 50% de chance de Crítico com Fogo Vermelho (sofre por turno dano igual a 250% do dano base do atacante) por 3 turnos. A bala não abre cratera e já tem efeito de Guia."}
+{"rowId":"1171","text":"Habilidade Obtida"}
+{"rowId":"1172","text":"Gasta todo o MP; cada 3 de MP recupera 1% do HP Máximo."}
+{"rowId":"1173","text":"Dano, Armadura, Atq. Mágico e Res. Mágica +5%"}
+{"rowId":"1174","text":"Ao sofrer o golpe fatal (last hit), entra em Hibernação; desperta 2 turnos depois recuperando 50% do HP Máximo; recarga de 10 turnos."}
+{"rowId":"1175","text":"Dano recebido +2%"}
+{"rowId":"1176","text":"Dano recebido +3%"}
+{"rowId":"1177","text":"Dano recebido +4%"}
+{"rowId":"1178","text":"Dano recebido +5%"}
+{"rowId":"1179","text":"Dano recebido +6%"}
+{"rowId":"1180","text":"Absorção"}
+{"rowId":"1181","text":"Absorção"}
+{"rowId":"1182","text":"Absorção"}
+{"rowId":"1183","text":"Absorção"}
+{"rowId":"1184","text":"Absorção"}
+{"rowId":"1185","text":"Refletir Dano"}
+{"rowId":"1186","text":"Habilidade Obtida"}
+{"rowId":"1187","text":"Habilidade Obtida"}
+{"rowId":"1188","text":"Habilidade Obtida"}
+{"rowId":"1189","text":"Habilidade Obtida"}
+{"rowId":"1190","text":"Habilidade Obtida"}
+{"rowId":"1191","text":"Habilidade Obtida"}
+{"rowId":"1192","text":"Habilidade Obtida"}
+{"rowId":"1193","text":"Habilidade Obtida"}
+{"rowId":"1194","text":"Habilidade Obtida"}
+{"rowId":"1195","text":"Habilidade Obtida"}
+{"rowId":"1196","text":"Habilidade Obtida"}
+{"rowId":"1197","text":"Habilidade Obtida"}
+{"rowId":"1198","text":"Habilidade Obtida"}
+{"rowId":"1199","text":"Cada habilidade ativa usada dá +1 Chama da Fúria; com 2 Chamas, vira Fogo Protetor, dando +50% de Redução de Dano e +50% de Dano por 3 turnos"}
+{"rowId":"1200","text":"Habilidade Obtida"}
+{"rowId":"1211","text":"Habilidade Obtida"}
+{"rowId":"1212","text":"Arremessa 1 Bola de Fogo, causando 220% de dano com crítico garantido e ativando Velocidade Divina; no turno de Velocidade Divina, o Vigor cai para 150."}
+{"rowId":"1213","text":"Ao atingir o inimigo, 100% de chance de Crítico com Fogo Vermelho (sofre por turno dano igual a 250% do dano base do atacante) por 3 turnos. A bala não abre cratera, já tem efeito de Guia e +15% de Perfurar Armadura."}
+{"rowId":"1214","text":"Habilidade Obtida"}
+{"rowId":"1215","text":"Gasta todo o MP; cada 2 de MP recupera 1% do HP Máximo."}
+{"rowId":"1216","text":"Ao sofrer o golpe fatal (last hit), entra em Hibernação com Imunidade; desperta 2 turnos depois recuperando 80% do HP Máximo; recarga de 10 turnos."}
+{"rowId":"1217","text":"Dano e Armadura +10%; Atq. Mágico e Res. Mágica +15%."}
+{"rowId":"1218","text":"Dispara um Tiro Triplo que incendeia a área da explosão; alvos na área perdem 10% do HP Máximo e 25 de MP por turno; o Fogo dura 3 turnos (Vale no PVP)."}
+{"rowId":"1219","text":"Área Marcada"}
+{"rowId":"1220","text":"Nova Habilidade"}
+{"rowId":"1221","text":"A cada turno de ataque, o Mascote avança contra o inimigo, causando 15% de dano."}
+{"rowId":"1222","text":"A cada turno de ataque, o Mascote avança contra o inimigo, causando 25% de dano."}
+{"rowId":"1223","text":"A cada turno de ataque, o Mascote avança contra o inimigo, causando 36% de dano."}
+{"rowId":"1224","text":"Arremessa uma bala voadora, causando 120% do dano base com crítico garantido e 20% de imunidade a crítico por 2 turnos."}
+{"rowId":"1225","text":"Arremessa uma bala voadora, causando 150% do dano base com crítico garantido e 25% de imunidade a crítico por 2 turnos."}
+{"rowId":"1226","text":"Arremessa uma bala voadora, causando 180% do dano base com crítico garantido e 30% de imunidade a crítico por 2 turnos."}
+{"rowId":"1227","text":"Na Forma de Rato, ao usar, sobe para a camada de terra mais alta no local onde está, com 80% de Redução de Dano por 1 turno"}
+{"rowId":"1228","text":"Na Forma de Rato, ao usar, entra em Hibernação (não pode fazer outras ações), recupera 5% de HP na hora e 6% por turno por 3 turnos; ao sofrer dano, a Hibernação é interrompida"}
+{"rowId":"1229","text":"Na Forma de Rato, ao usar, entra em Hibernação (não pode fazer outras ações), recupera 8% de HP na hora e 6% por turno por 3 turnos; ao sofrer dano, a Hibernação é interrompida"}
+{"rowId":"1230","text":"Na Forma de Rato, ao usar, entra em Hibernação (não pode fazer outras ações), recupera 10% de HP na hora e 6% por turno por 3 turnos; ao sofrer dano, a Hibernação é interrompida"}
+{"rowId":"1231","text":"Possessão do Rato: pode atravessar a terra, e o Vigor gasto é uma porcentagem fixa, por 4 turnos"}
+{"rowId":"1232","text":"Entra em modo invisível e recupera +3 de MP por turno"}
+{"rowId":"1233","text":"Agilidade +300"}
+{"rowId":"1234","text":"A habilidade Invisibilidade Individual é melhorada para Invisibilidade em Grupo"}
+{"rowId":"1235","text":"Remover Habilidade"}
+{"rowId":"1236","text":"Chance de imunidade a crítico em combate +10% (máx: 20%)."}
+{"rowId":"1237","text":"Chance de imunidade a crítico em combate +15% (máx: 20%)."}
+{"rowId":"1238","text":"Chance de imunidade a crítico em combate +20% (máx: 20%)."}
+{"rowId":"1239","text":"Dano de Queimadura recebido em combate -5% (máx: 15%)"}
+{"rowId":"1240","text":"Dano de Queimadura recebido em combate -10% (máx: 15%)"}
+{"rowId":"1241","text":"Dano de Queimadura recebido em combate -15% (máx: 15%)"}
+{"rowId":"1242","text":"HP Máximo próprio em combate +4% (máx: 12%)."}
+{"rowId":"1243","text":"HP Máximo próprio em combate +8% (máx: 12%)."}
+{"rowId":"1244","text":"HP Máximo próprio em combate +12% (máx: 12%)."}
+{"rowId":"1245","text":"Arremessa uma bala voadora, causando 180% do dano base com crítico garantido e 50% de imunidade a crítico por 2 turnos."}
+{"rowId":"1246","text":"Agilidade +300 e Esquiva +4% (Não acumula com efeitos de habilidades elementais)"}
+{"rowId":"1247","text":"Na Forma de Rato, ao usar, sobe para a camada de terra mais alta no local onde está, com 80% de Redução de Dano por 1 turno e +30% de dano extra por 2 turnos"}
+{"rowId":"1248","text":"Entra em modo invisível e recupera +5 de MP por turno"}
+{"rowId":"1249","text":"Receber Habilidade"}
+{"rowId":"1250","text":"Receber Habilidade"}
+{"rowId":"1251","text":"Remover Habilidade"}
+{"rowId":"1253","text":"Após inicializar, a habilidade ativa o próximo efeito"}
+{"rowId":"1254","text":"No início do combate, recebe invisibilidade por 2 Turnos, 1 vez a cada 8 (máx 6) turnos."}
+{"rowId":"1255","text":"No início do combate, recebe invisibilidade por 2 Turnos, 1 vez a cada 7 (máx 6) turnos."}
+{"rowId":"1256","text":"No início do combate, recebe invisibilidade por 2 Turnos, 1 vez a cada 6 (máx 6) turnos."}
+{"rowId":"1257","text":"Em combate, dano recebido -3% (máx 5%)."}
+{"rowId":"1258","text":"Em combate, dano recebido -4% (máx 5%)."}
+{"rowId":"1259","text":"Em combate, dano recebido -5% (máx 5%)."}
+{"rowId":"1260","text":"A cada turno de ataque, o mascote avança contra o inimigo, causando 15% de dano."}
+{"rowId":"1261","text":"A cada turno de ataque, o mascote avança contra o inimigo, causando 25% de dano."}
+{"rowId":"1262","text":"A cada turno de ataque, o mascote avança contra o inimigo, causando 36% de dano."}
+{"rowId":"1263","text":"Arremessa uma bala voadora, causando 120% do dano base com crítico garantido e zerando a Fúria do alvo."}
+{"rowId":"1264","text":"Arremessa uma bala voadora, causando 150% do dano base com crítico garantido e zerando a Fúria do alvo."}
+{"rowId":"1265","text":"Arremessa uma bala voadora, causando 180% do dano base com crítico garantido e zerando a Fúria do alvo."}
+{"rowId":"1266","text":"Redução de Dano +15%"}
+{"rowId":"1267","text":"Após usar, HP Máximo +25% por 2 turnos."}
+{"rowId":"1268","text":"Seu time ganha +20% de imunidade a crítico por 2 turnos."}
+{"rowId":"1269","text":"Seu time recebe um escudo igual a 15% do próprio HP Máximo por 3 turnos; após usar, pula o turno."}
+{"rowId":"1270","text":"Dano crítico recebido -15%"}
+{"rowId":"1271","text":"Dano crítico recebido -30%"}
+{"rowId":"1272","text":"Ao sofrer dano, 50% de chance de ficar imune ao primeiro disparo (Vale no PVP)"}
+{"rowId":"1273","text":"Redução de Dano +20%"}
+{"rowId":"1274","text":"Seu time ganha +30% de imunidade a crítico e +10% de dano por 2 turnos."}
+{"rowId":"1275","text":"Seu time recupera 12% do HP Máximo e recebe um escudo igual a 15% do próprio HP Máximo. O escudo dura 3 turnos; após usar, pula o turno."}
+{"rowId":"1276","text":"Dano crítico recebido -40%"}
+{"rowId":"1277","text":"Escudo"}
+{"rowId":"1283","text":"Golpe: Casco de Tartaruga. Após usar \"PASS\" no turno, entra em Postura Defensiva, reduzindo em 30% o dano recebido e em 60% o dano crítico recebido, por 2 turnos."}
+{"rowId":"1284","text":"Golpe: Velocidade Divina. Neste turno ativa Velocidade Divina com certeza, +40% de velocidade de ataque. No turno ativado, o Vigor cai para 80, por 1 turno."}
+{"rowId":"1285","text":"A cada golpe usado, recupera 3 de MP. Ativa o Contra-ataque Desesperado: a cada 1% do HP Máximo perdido, +1% de dano causado (até +80%, por 1 turno)."}
+{"rowId":"1291","text":"Antes de cada ataque, o Mascote tem 100% de chance de avançar contra o inimigo, causando 30% de dano."}
+{"rowId":"1292","text":"Antes de cada ataque, o Mascote tem 100% de chance de avançar contra o inimigo, causando 40% de dano."}
+{"rowId":"1293","text":"Antes de cada ataque, o Mascote tem 100% de chance de avançar contra o inimigo, causando 50% de dano."}
+{"rowId":"1294","text":"Arremessa uma bola d'água, causando 150% de dano com crítico garantido e ativando Congelamento por 2 turnos (Vale no PVP);"}
+{"rowId":"1295","text":"Arremessa uma bola d'água, causando 180% de dano com crítico garantido e ativando Congelamento por 2 turnos (Vale no PVP);"}
+{"rowId":"1296","text":"Arremessa uma bola d'água, causando 220% de dano com crítico garantido e ativando Congelamento por 2 turnos (Vale no PVP);"}
+{"rowId":"1297","text":"Dispara um raio reto que atravessa o terreno, causando 500% de dano ao alvo (sem Crítico). O dano varia conforme a barra de força: quanto mais longa, menor o dano; -5% de dano por distância."}
+{"rowId":"1298","text":"Ao usar, a tela treme, causando 150% do dano base e podendo abater na hora jogadores inimigos com HP abaixo de 10% (Vale no PVP)"}
+{"rowId":"1299","text":"Cada 1 de Fúria gasto dá +10% de dano por 3 turnos"}
+{"rowId":"1300","text":"No início do combate, recebe um escudo igual a 30% do HP Máximo e +20% de Redução de Dano, por 2 turnos."}
+{"rowId":"1301","text":"No início de cada turno ganha 1 de Fúria, acumulando até 3"}
+{"rowId":"1302","text":"Ao sofrer um golpe fatal, entra em Congelamento, sem poder agir, e morre 2 turnos depois. Se sofrer dano de Queimadura de um Mascote, sai na hora do Congelamento e recupera 50% de HP (1 vez por batalha)"}
+{"rowId":"1303","text":"Redução de Dano +30% e Redução de Dano Crítico +50%"}
+{"rowId":"1304","text":"Arremessa uma bola d'água, causando 220% de dano com crítico garantido e ativando Congelamento por 3 turnos (Vale no PVP);"}
+{"rowId":"1305","text":"Dispara um raio reto que atravessa o terreno, causando 700% de dano ao alvo (25% de chance de Crítico). O dano varia conforme a barra de força: quanto mais longa, menor o dano; -5% de dano por distância."}
+{"rowId":"1306","text":"Ao usar, a tela treme, causando 200% do dano base e podendo abater na hora jogadores inimigos com HP abaixo de 12% (Vale no PVP)"}
+{"rowId":"1307","text":"Cada 1 de Fúria gasto dá +15% de dano por 3 turnos"}
+{"rowId":"1308","text":"No início do combate, recebe um escudo igual a 50% do HP Máximo e +30% de Redução de Dano, por 3 turnos."}
+{"rowId":"1309","text":"No início de cada turno ganha 1 de Fúria, e +1 a cada 4 turnos. No início do turno, se seu HP for o maior da batalha, ganha +1 de Fúria; acumula até 4"}
+{"rowId":"1310","text":"Recebe 35% de Redução de Dano e 60% de Redução de Dano Crítico. Ao sofrer Crítico, ganha na hora +30% de Redução de Dano e +20% de Resistência a Perfurar Armadura, por 3 turnos"}
+{"rowId":"1311","text":"Cada Queimadura sofrida recupera 4% de HP (Vale no PVP)"}
+{"rowId":"1312","text":"Cada Queimadura sofrida recupera 5% de HP (Vale no PVP)"}
+{"rowId":"1313","text":"Cada Queimadura sofrida recupera 6% de HP (Vale no PVP)"}
+{"rowId":"1314","text":"Cada Queimadura sofrida recupera 7% de HP (Vale no PVP)"}
+{"rowId":"1315","text":"Cada Queimadura sofrida recupera 8% de HP (Vale no PVP)"}
+{"rowId":"1316","text":"Cada Queimadura sofrida recupera 9% de HP (Vale no PVP)"}
+{"rowId":"1317","text":"Cada crítico sofrido dá um escudo que absorve dano igual a 5% do HP Máximo, por 2 turnos. (Vale no PVP)"}
+{"rowId":"1318","text":"Cada crítico sofrido dá um escudo que absorve dano igual a 6% do HP Máximo, por 2 turnos. (Vale no PVP)"}
+{"rowId":"1319","text":"Cada crítico sofrido dá um escudo que absorve dano igual a 7% do HP Máximo, por 2 turnos. (Vale no PVP)"}
+{"rowId":"1320","text":"Cada crítico sofrido dá um escudo que absorve dano igual a 8% do HP Máximo, por 2 turnos. (Vale no PVP)"}
+{"rowId":"1321","text":"Cada crítico sofrido dá um escudo que absorve dano igual a 9% do HP Máximo, por 2 turnos. (Vale no PVP)"}
+{"rowId":"1322","text":"Cada crítico sofrido dá um escudo que absorve dano igual a 10% do HP Máximo, por 2 turnos. (Vale no PVP)"}
+{"rowId":"1323","text":"Cada Perfurar Armadura sofrido dá +12% de redução de dano (Vale no PVP)"}
+{"rowId":"1324","text":"Cada Perfurar Armadura sofrido dá +15% de redução de dano (Vale no PVP)"}
+{"rowId":"1325","text":"Cada Perfurar Armadura sofrido dá +18% de redução de dano (Vale no PVP)"}
+{"rowId":"1326","text":"Cada Perfurar Armadura sofrido dá +21% de redução de dano (Vale no PVP)"}
+{"rowId":"1327","text":"Cada Perfurar Armadura sofrido dá +24% de redução de dano (Vale no PVP)"}
+{"rowId":"1328","text":"Cada Perfurar Armadura sofrido dá +27% de redução de dano (Vale no PVP)"}
+{"rowId":"1329","text":"Ao sofrer efeito de dano por altura, +12% de redução de dano (Vale no PVP)."}
+{"rowId":"1330","text":"Ao sofrer efeito de dano por altura, +15% de redução de dano (Vale no PVP)."}
+{"rowId":"1331","text":"Ao sofrer efeito de dano por altura, +18% de redução de dano (Vale no PVP)."}
+{"rowId":"1332","text":"Ao sofrer efeito de dano por altura, +21% de redução de dano (Vale no PVP)."}
+{"rowId":"1333","text":"Ao sofrer efeito de dano por altura, +24% de redução de dano (Vale no PVP)."}
+{"rowId":"1334","text":"Ao sofrer efeito de dano por altura, +27% de redução de dano (Vale no PVP)."}
+{"rowId":"1335","text":"Res. à Água +15%"}
+{"rowId":"1336","text":"Res. à Água +18%"}
+{"rowId":"1337","text":"Res. à Água +21%"}
+{"rowId":"1338","text":"Res. à Água +24%"}
+{"rowId":"1339","text":"Res. à Água +27%"}
+{"rowId":"1340","text":"Res. à Água +30%"}
+{"rowId":"1341","text":"Res. ao Fogo +15%"}
+{"rowId":"1342","text":"Res. ao Fogo +18%"}
+{"rowId":"1343","text":"Res. ao Fogo +21%"}
+{"rowId":"1344","text":"Res. ao Fogo +24%"}
+{"rowId":"1345","text":"Res. ao Fogo +27%"}
+{"rowId":"1346","text":"Res. ao Fogo +30%"}
+{"rowId":"1347","text":"Res. ao Vento +15%"}
+{"rowId":"1348","text":"Res. ao Vento +18%"}
+{"rowId":"1349","text":"Res. ao Vento +21%"}
+{"rowId":"1350","text":"Res. ao Vento +24%"}
+{"rowId":"1351","text":"Res. ao Vento +27%"}
+{"rowId":"1352","text":"Res. ao Vento +30%"}
+{"rowId":"1353","text":"Res. à Terra +15%"}
+{"rowId":"1354","text":"Res. à Terra +18%"}
+{"rowId":"1355","text":"Res. à Terra +21%"}
+{"rowId":"1356","text":"Res. à Terra +24%"}
+{"rowId":"1357","text":"Res. à Terra +27%"}
+{"rowId":"1358","text":"Res. à Terra +30%"}
+{"rowId":"1359","text":"HP Máximo +600"}
+{"rowId":"1360","text":"HP Máximo +900"}
+{"rowId":"1361","text":"HP Máximo +1200"}
+{"rowId":"1362","text":"HP Máximo +1500"}
+{"rowId":"1363","text":"HP Máximo +1800"}
+{"rowId":"1364","text":"HP Máximo +2100"}
+{"rowId":"1365","text":"HP Máximo +600"}
+{"rowId":"1366","text":"HP Máximo +900"}
+{"rowId":"1367","text":"HP Máximo +1200"}
+{"rowId":"1368","text":"HP Máximo +1500"}
+{"rowId":"1369","text":"HP Máximo +1800"}
+{"rowId":"1370","text":"HP Máximo +2100"}
+{"rowId":"1371","text":"HP Máximo +600"}
+{"rowId":"1372","text":"HP Máximo +900"}
+{"rowId":"1373","text":"HP Máximo +1200"}
+{"rowId":"1374","text":"HP Máximo +1500"}
+{"rowId":"1375","text":"HP Máximo +1800"}
+{"rowId":"1376","text":"HP Máximo +2100"}
+{"rowId":"1377","text":"HP Máximo +600"}
+{"rowId":"1378","text":"HP Máximo +900"}
+{"rowId":"1379","text":"HP Máximo +1200"}
+{"rowId":"1380","text":"HP Máximo +1500"}
+{"rowId":"1381","text":"HP Máximo +1800"}
+{"rowId":"1382","text":"HP Máximo +2100"}
+{"rowId":"1383","text":"Todo o time inimigo tem Atq. de Água -12% (Vale no PVP)"}
+{"rowId":"1384","text":"Todo o time inimigo tem Atq. de Água -14% (Vale no PVP)"}
+{"rowId":"1385","text":"Todo o time inimigo tem Atq. de Água -16% (Vale no PVP)"}
+{"rowId":"1386","text":"Todo o time inimigo tem Atq. de Água -18% (Vale no PVP)"}
+{"rowId":"1387","text":"Todo o time inimigo tem Atq. de Água -20% (Vale no PVP)"}
+{"rowId":"1388","text":"Todo o time inimigo tem Atq. de Água -24% (Vale no PVP)"}
+{"rowId":"1389","text":"Todo o time inimigo tem Atq. de Fogo -12% (Vale no PVP)"}
+{"rowId":"1390","text":"Todo o time inimigo tem Atq. de Fogo -14% (Vale no PVP)"}
+{"rowId":"1391","text":"Todo o time inimigo tem Atq. de Fogo -16% (Vale no PVP)"}
+{"rowId":"1392","text":"Todo o time inimigo tem Atq. de Fogo -18% (Vale no PVP)"}
+{"rowId":"1393","text":"Todo o time inimigo tem Atq. de Fogo -20% (Vale no PVP)"}
+{"rowId":"1394","text":"Todo o time inimigo tem Atq. de Fogo -24% (Vale no PVP)"}
+{"rowId":"1395","text":"Todo o time inimigo tem Atq. de Vento -12% (Vale no PVP)"}
+{"rowId":"1396","text":"Todo o time inimigo tem Atq. de Vento -14% (Vale no PVP)"}
+{"rowId":"1397","text":"Todo o time inimigo tem Atq. de Vento -16% (Vale no PVP)"}
+{"rowId":"1398","text":"Todo o time inimigo tem Atq. de Vento -18% (Vale no PVP)"}
+{"rowId":"1399","text":"Todo o time inimigo tem Atq. de Vento -20% (Vale no PVP)"}
+{"rowId":"1400","text":"Todo o time inimigo tem Atq. de Vento -24% (Vale no PVP)"}
+{"rowId":"1401","text":"Todo o time inimigo tem Atq. de Terra -12% (Vale no PVP)"}
+{"rowId":"1402","text":"Todo o time inimigo tem Atq. de Terra -14% (Vale no PVP)"}
+{"rowId":"1403","text":"Todo o time inimigo tem Atq. de Terra -16% (Vale no PVP)"}
+{"rowId":"1404","text":"Todo o time inimigo tem Atq. de Terra -18% (Vale no PVP)"}
+{"rowId":"1405","text":"Todo o time inimigo tem Atq. de Terra -20% (Vale no PVP)"}
+{"rowId":"1406","text":"Todo o time inimigo tem Atq. de Terra -24% (Vale no PVP)"}
+{"rowId":"1407","text":"Queimadura recupera HP"}
+{"rowId":"1408","text":"Queimadura recupera HP"}
+{"rowId":"1409","text":"Queimadura recupera HP"}
+{"rowId":"1410","text":"Queimadura recupera HP"}
+{"rowId":"1411","text":"Queimadura recupera HP"}
+{"rowId":"1412","text":"Queimadura recupera HP"}
+{"rowId":"1413","text":"Crítico concede escudo"}
+{"rowId":"1414","text":"Crítico concede escudo"}
+{"rowId":"1415","text":"Crítico concede escudo"}
+{"rowId":"1416","text":"Crítico concede escudo"}
+{"rowId":"1417","text":"Crítico concede escudo"}
+{"rowId":"1418","text":"Crítico concede escudo"}
+{"rowId":"1419","text":"Perfurar Armadura aumenta a redução de dano"}
+{"rowId":"1420","text":"Perfurar Armadura aumenta a redução de dano"}
+{"rowId":"1421","text":"Perfurar Armadura aumenta a redução de dano"}
+{"rowId":"1422","text":"Perfurar Armadura aumenta a redução de dano"}
+{"rowId":"1423","text":"Perfurar Armadura aumenta a redução de dano"}
+{"rowId":"1424","text":"Perfurar Armadura aumenta a redução de dano"}
+{"rowId":"1425","text":"A cada rodada, ao sofrer X danos, recebe habilidade"}
+{"rowId":"1426","text":"A cada rodada, ao sofrer X danos, recebe habilidade"}
+{"rowId":"1427","text":"A cada rodada, ao sofrer X danos, recebe habilidade"}
+{"rowId":"1428","text":"A cada rodada, ao sofrer X danos, recebe habilidade"}
+{"rowId":"1429","text":"A cada rodada, ao sofrer X danos, recebe habilidade"}
+{"rowId":"1430","text":"A cada rodada, ao sofrer X danos, recebe habilidade"}
+{"rowId":"1484","text":"Chance de imunidade a crítico de todo o seu time +4% (máx: 8%)."}
+{"rowId":"1485","text":"Chance de imunidade a crítico de todo o seu time +6% (máx: 8%)."}
+{"rowId":"1486","text":"Chance de imunidade a crítico de todo o seu time +8% (máx: 8%)."}
+{"rowId":"1487","text":"Todo o seu time sofre -5% (máx 15%) de dano crítico."}
+{"rowId":"1488","text":"Todo o seu time sofre -10% (máx 15%) de dano crítico."}
+{"rowId":"1489","text":"Todo o seu time sofre -15% (máx 15%) de dano crítico."}
+{"rowId":"1490","text":"Receber Habilidade."}
+{"rowId":"1491","text":"Receber Habilidade."}
+{"rowId":"1492","text":"Receber Habilidade."}
+{"rowId":"1493","text":"Receber Habilidade."}
+{"rowId":"1494","text":"Receber Habilidade."}
+{"rowId":"1495","text":"Receber Habilidade."}
+{"rowId":"1496","text":"Antes de cada ataque, o Mascote tem 100% de chance de avançar contra o inimigo, causando 80% de dano."}
+{"rowId":"1497","text":"Ao sofrer um golpe fatal, entra em Congelamento, sem poder agir, e morre 2 turnos depois. Se sofrer dano de Queimadura de um Mascote, sai na hora do Congelamento e recupera 100% de HP (1 vez por batalha)"}
+{"rowId":"1498","text":"Ativa com o maior HP"}
+{"rowId":"1518","text":"Recebe ao sofrer crítico"}
+{"rowId":"1541","text":"Após atirar em cada turno, o Mascote tem 100% de chance de avançar contra o inimigo, causando 150% de dano."}
+{"rowId":"1542","text":"Arremessa uma bola d'água, causando 220% de dano com crítico garantido, ativando Congelamento e reduzindo 30% do dano, por 3 turnos (Vale no PVP)."}
+{"rowId":"1543","text":"Dispara um raio reto que atravessa o terreno, causando 700% de dano ao alvo (25% de chance de Crítico, 20% de Congelamento). O dano varia conforme a barra de força: quanto mais longa, menor o dano; -5% de dano por distância."}
+{"rowId":"1544","text":"Ao usar, a tela treme, causando 200% do dano base e podendo abater na hora jogadores inimigos com HP abaixo de 15% (Vale no PVP)"}
+{"rowId":"1545","text":"Cada 1 de Fúria gasto dá +17.5% de dano por 3 turnos"}
+{"rowId":"1546","text":"No início do combate, recebe um escudo igual a 50% do HP Máximo e +30% de redução de dano, por 3 turnos (1 vez a cada 8 Turnos)."}
+{"rowId":"1547","text":"No início de cada turno ganha 1 de Fúria, e +1 a cada 4 turnos. No início do turno, se seu HP for o maior da batalha, ganha +1 de Fúria; acumula até 4 e permite equipar mais 1 habilidade"}
+{"rowId":"1548","text":"Ao sofrer um golpe fatal, entra em Congelamento, sem poder agir, e morre 2 turnos depois. Se sofrer dano de Queimadura de um Mascote, sai na hora do Congelamento e recupera 100% de HP (2 vezes por batalha, recarga de 8 Turnos)"}
+{"rowId":"1549","text":"Recebe 35% de redução de dano e 60% de Redução de Dano Crítico. Ao sofrer crítico, ganha na hora +30% de redução de dano e +20% de Resistência a Perfurar Armadura, por 3 turnos. Ao sofrer dano de Queimadura, recupera 5% do HP Máximo."}
+{"rowId":"1550","text":"Recebe ao sofrer Queimadura"}
+{"rowId":"1551","text":"Resistência a Queimadura +12%. Antes de cada ataque, o Mascote tem 100% de chance de avançar contra o inimigo, causando 150% de dano."}
+{"rowId":"1552","text":"Resistência a Queimadura +12%. Arremessa 1 Bola de Gelo, causando 220% de dano com crítico garantido, ativando Congelamento e reduzindo 30% do dano, por 3 turnos. (Vale no PVP)."}
+{"rowId":"1553","text":"Aumento de Dano 8%. Dispara um raio que atravessa o terreno, causando 700% de dano ao alvo (30% de Crítico, 20% de Congelamento); o dano varia conforme a barra de força: quanto mais longa, menor o dano; -5% por distância."}
+{"rowId":"1554","text":"Resistência a Perfurar Armadura +10%. Ao usar, a tela treme, causando 200% do dano base e podendo abater na hora jogadores inimigos com HP abaixo de 15% (Vale no PVP)"}
+{"rowId":"1555","text":"Resistência a Queimadura +12%. Cada 1 de Fúria gasto dá +17.5% de Aumento de Dano por 3 turnos"}
+{"rowId":"1556","text":"Resistência a Perfurar Armadura +10%. No início do combate, recebe um Escudo igual a 50% do HP Máximo e +30% de redução de dano, por 3 turnos (1 vez a cada 8 turnos)."}
+{"rowId":"1557","text":"Resistência a Perfurar Armadura +10%. No início de cada turno ganha 1 de Fúria, e +1 a cada 4 turnos. No início do turno, se seu HP for o maior da batalha, ganha +1 de Fúria; acumula até 4 e permite equipar mais 1 habilidade"}
+{"rowId":"1558","text":"Resistência a Queimadura +12%. Ao sofrer um golpe fatal, entra em Congelamento, sem poder agir, e morre direto 2 turnos depois. Se sofrer dano de Queimadura de um Mascote, cancela o Congelamento e recupera 100% de HP (2 vezes por batalha, recarga de 8 turnos)"}
+{"rowId":"1559","text":"Resistência a Queimadura +12%. Recebe 35% de redução de dano e 60% de Redução de Dano Crítico. Ao sofrer crítico, ganha na hora +30% de redução de dano e +20% de Resistência a Perfurar Armadura, por 3 turnos. Ao sofrer dano de Queimadura, recupera 5% do HP Máximo."}
+{"rowId":"1560","text":"Resistência a Queimadura +12%. Antes de cada ataque, o Mascote tem 100% de chance de avançar contra o inimigo, causando 150% de dano."}
+{"rowId":"1561","text":"Resistência a Queimadura +12%. Arremessa 1 Bola de Gelo, causando 220% de dano com crítico garantido, ativando Congelamento e reduzindo 30% do dano, por 3 turnos."}
+{"rowId":"1562","text":"Aumento de Dano 8%. Dispara um raio que atravessa o terreno, causando 700% de dano ao alvo (30% de Crítico, 35% de Congelamento); o dano varia conforme a barra de força: quanto mais longa, menor o dano; -5% por distância."}
+{"rowId":"1563","text":"Resistência a Perfurar Armadura +10%. Ao usar, a tela treme, causando 200% do dano base e podendo abater na hora jogadores inimigos com HP abaixo de 15% (Vale no PVP)"}
+{"rowId":"1564","text":"Resistência a Queimadura +12%%. Cada 1 de Fúria gasto dá +17.5% de Aumento de Dano por 3 turnos"}
+{"rowId":"1565","text":"Resistência a Perfurar Armadura +10%. No início do combate, recebe um Escudo igual a 50% do HP Máximo e +30% de redução de dano, por 3 turnos (1 vez a cada 8 turnos)."}
+{"rowId":"1566","text":"Resistência a Perfurar Armadura +10%. No início de cada turno ganha 1 de Fúria, e +1 a cada 4 turnos. No início do turno, se seu HP for o maior da batalha, ganha +1 de Fúria; acumula até 4 e permite equipar mais 1 habilidade"}
+{"rowId":"1567","text":"Resistência a Queimadura +12%. Ao sofrer um golpe fatal, entra em Congelamento, sem poder agir, e morre direto 2 turnos depois. Se sofrer dano de Queimadura de um Mascote, cancela o Congelamento e recupera 100% de HP (2 vezes por batalha)"}
+{"rowId":"1568","text":"Resistência a Queimadura +12%. Recebe 35% de redução de dano e 60% de Redução de Dano Crítico. Ao sofrer crítico, ganha na hora +30% de redução de dano e +20% de Resistência a Perfurar Armadura, por 3 turnos. Ao sofrer dano de Queimadura, recupera 5% do HP Máximo."}
+{"rowId":"1635","text":"Todo o seu time recebe Escudo Protetor; cada vez que for atingido por bala de canhão, recupera 0.6% de HP. Unidades com HP abaixo de 30% recebem cura dobrada."}
+{"rowId":"1636","text":"Dispara 1 Semente Voadora; ao explodir, recupera HP dos aliados ao redor e reduz HP dos inimigos; a semente aumenta 8% de HP por segundo. Aliados na área recebem +30% de cura por 3 turnos."}
+{"rowId":"1637","text":"Quando um aliado inicia o turno com o efeito de cura do Broto, você ganha +2 de MP, com 30% de chance de Crítico, recuperando mais 2 de MP."}
+{"rowId":"1638","text":"Ao ser atacado recupera HP; com HP baixo, o efeito dobra."}
+{"rowId":"1639","text":"Receber Habilidade"}
+{"rowId":"1640","text":"HP Máximo +10%; Todo o seu time recebe Escudo Protetor; cada vez que for atingido por bala de canhão, recupera 0.6% de HP. Unidades com HP abaixo de 30% recebem cura dobrada."}
+{"rowId":"1641","text":"Resistência a Queimadura +8%; Dispara 1 Semente Voadora; ao explodir, recupera HP dos aliados ao redor e reduz HP dos inimigos; a semente aumenta 8% de HP por segundo. Aliados na área recebem +30% de cura por 3 turnos."}
+{"rowId":"1642","text":"Resistência a Perfurar Armadura +5%; Quando um aliado inicia o turno com o efeito de cura do Broto, você ganha +2 de MP, com 30% de chance de Crítico, recuperando mais 2 de MP."}
+{"rowId":"1643","text":"HP Máximo +10%; Todo o seu time recebe Escudo Protetor; cada vez que for atingido por bala de canhão, recupera 0.6% de HP. Unidades com HP abaixo de 30% recebem cura dobrada."}
+{"rowId":"1644","text":"Resistência a Queimadura +8%; Dispara 1 Semente Voadora; ao explodir, recupera HP dos aliados ao redor e reduz HP dos inimigos; a semente aumenta 8% de HP por segundo. Aliados na área recebem +30% de cura por 3 turnos."}
+{"rowId":"1645","text":"Resistência a Perfurar Armadura +5%; Quando um aliado inicia o turno com o efeito de cura do Broto, você ganha +2 de MP, com 30% de chance de Crítico, recuperando mais 2 de MP."}
+{"rowId":"1663","text":"Ao fim de cada disparo seu no turno, seu mascote tem 100% de chance de avançar e atacar o inimigo, causando 100% de dano."}
+{"rowId":"1664","text":"Arremessa uma Bala de Gelo Estilhaçante, causando 180% de dano, 100% crítico, com 50% de chance de Congelamento; e +6% de Ataque e Dano por 2 turnos."}
+{"rowId":"1665","text":"Todo o seu time ganha +40% de redução de dano e 40% de redução de crítico por 2 turnos. Esta habilidade não acumula."}
+{"rowId":"1666","text":"Em troca de perder 8% de HP por turno, ganha +800 de dano e +30% de redução de dano; ao se mover o efeito é cancelado. Se o HP restante não suportar a habilidade, você morre."}
+{"rowId":"1667","text":"Todo o seu time ganha Agilidade +10% +600; no primeiro turno, o mais rápido ganha +10 Pontos de Magia;"}
+{"rowId":"1668","text":"Todo o seu time ganha Ataque +10% +600 e +20% de dano crítico"}
+{"rowId":"1669","text":"+15% de Ataque e Dano, +50% de chance de crítico e efeito de Guia, por 2 turnos."}
+{"rowId":"1670","text":"Na sua vez, todo o seu time ganha +2 Pontos de Magia e recupera 2% de HP (você recebe o dobro)."}
+{"rowId":"1671","text":"Habilidade Obtida"}
+{"rowId":"1672","text":"Remove o efeito Inferno Congelado"}
+{"rowId":"1673","text":"Habilidade obtida."}
+{"rowId":"1674","text":"Habilidade obtida."}
+{"rowId":"1675","text":"Resistência a Queimadura 10%; Ao fim de cada disparo seu no turno, seu mascote tem 100% de chance de avançar e atacar o inimigo, causando 100% de dano."}
+{"rowId":"1676","text":"Resistência a Queimadura 10%; Arremessa uma Bala de Gelo Estilhaçante, causando 180% de dano, 100% crítico, com 50% de chance de Congelamento; e +6% de Ataque e Dano por 2 turnos."}
+{"rowId":"1677","text":"Resistência a Perfurar Armadura 8%; Todo o seu time ganha +40% de redução de dano e 40% de redução de crítico por 2 turnos. Esta habilidade não acumula."}
+{"rowId":"1678","text":"Redução de Dano +15%; Em troca de perder 8% de HP por turno, ganha +800 de dano e +30% de redução de dano; ao se mover o efeito é cancelado. Se o HP restante não suportar a habilidade, você morre."}
+{"rowId":"1679","text":"Resistência a Perfurar Armadura 8%; Todo o seu time ganha Agilidade +10% +600; no primeiro turno, o mais rápido ganha +10 Pontos de Magia;"}
+{"rowId":"1680","text":"Resistência a Queimadura 10%; Todo o seu time ganha Ataque +10% +600 e +20% de dano crítico"}
+{"rowId":"1681","text":"Resistência a Perfurar Armadura 8%; +15% de Ataque e Dano, +50% de chance de crítico e efeito de Guia, por 2 turnos."}
+{"rowId":"1682","text":"HP Máximo 15%; Na sua vez, todo o seu time ganha +2 Pontos de Magia e recupera 2% de HP (você recebe o dobro)."}
+{"rowId":"1683","text":"Resistência a Queimadura 10%; Ao fim de cada disparo seu no turno, seu mascote tem 100% de chance de avançar e atacar o inimigo, causando 100% de dano."}
+{"rowId":"1684","text":"Resistência a Queimadura 10%; Arremessa uma Bala de Gelo Estilhaçante, causando 180% de dano, 100% crítico, com 50% de chance de Congelamento; e +6% de Ataque e Dano por 2 turnos."}
+{"rowId":"1685","text":"Resistência a Perfurar Armadura 8%; Todo o seu time ganha +40% de redução de dano e 40% de redução de crítico por 2 turnos. Esta habilidade não acumula."}
+{"rowId":"1686","text":"Redução de Dano +15%; Em troca de perder 8% de HP por turno, ganha +800 de dano e +30% de redução de dano; ao se mover o efeito é cancelado. Se o HP restante não suportar a habilidade, você morre."}
+{"rowId":"1687","text":"Resistência a Perfurar Armadura 8%; Todo o seu time ganha Agilidade +10% +600; no primeiro turno, o mais rápido ganha +10 Pontos de Magia;"}
+{"rowId":"1688","text":"Resistência a Queimadura 10%; Todo o seu time ganha Ataque +10% +600 e +20% de dano crítico"}
+{"rowId":"1689","text":"Resistência a Perfurar Armadura 8%; +15% de Ataque e Dano, +50% de chance de crítico e efeito de Guia, por 2 turnos."}
+{"rowId":"1690","text":"HP Máximo 15%; Na sua vez, todo o seu time ganha +2 Pontos de Magia e recupera 2% de HP (você recebe o dobro)."}
+{"rowId":"1691","text":"Todos os aliados no mapa recuperam 15% de HP e ficam imunes a dano 1 vez. (Não acumula; a imunidade cobre no máximo 20% do HP), +10% de redução de dano por 3 turnos."}
+{"rowId":"1692","text":"Usar armas secundárias do tipo escudo recupera 8% de HP na hora e dá +20% de redução de dano por 2 turnos."}
+{"rowId":"1693","text":"Ao usar a arma secundária Bênção do Anjo, você e mais 1 alvo ganham +10 de MP e +20% de Dano por 2 turnos."}
+{"rowId":"1694","text":"Resistência a Queimadura +8%. Seu time recupera 15% de HP e fica imune a dano 1 vez (não acumula; a imunidade cobre no máximo 20% do seu HP), +10% de redução de dano por 3 turnos."}
+{"rowId":"1695","text":"Redução de Dano +5%. Usar armas secundárias do tipo escudo recupera 8% de HP na hora e dá +20% de redução de dano por 2 turnos."}
+{"rowId":"1696","text":"Resistência a Perfurar Armadura +5%. Ao usar a arma secundária Bênção do Anjo, você e mais 1 alvo ganham +10 de MP e +20% de dano por 2 turnos."}
+{"rowId":"1697","text":"Resistência a Queimadura +8%. Seu time recupera 15% de HP e fica imune a dano 1 vez (não acumula; a imunidade cobre no máximo 20% do seu HP), +10% de redução de dano por 3 turnos."}
+{"rowId":"1698","text":"Redução de Dano +5%. Usar armas secundárias do tipo escudo recupera 8% de HP na hora e dá +20% de redução de dano por 2 turnos."}
+{"rowId":"1699","text":"Resistência a Perfurar Armadura +5%. Ao usar a arma secundária Bênção do Anjo, você e mais 1 alvo ganham +10 de MP e +20% de dano por 2 turnos."}
+{"rowId":"1700","text":"Antes de cada ataque, o Mascote tem 100% de chance de avançar contra o inimigo, causando 100% de dano."}
+{"rowId":"1701","text":"Usa o kung fu Postura da Tartaruga: ao usar PASS no turno, ganha +10 de Fúria e ativa a postura defensiva, reduzindo em 50% o dano recebido e em 80% o crítico recebido, por 2 turnos, e ganha +5 de MP."}
+{"rowId":"1702","text":"Usa o kung fu Leopardo Divino: +20 de Fúria; no turno, libera o poder do Leopardo Divino, +80% de velocidade de ataque, e o Vigor no turno do Leopardo cai para 120, por 1 turno. Também recebe Imunidade por 2 turnos."}
+{"rowId":"1703","text":"Usa o kung fu Borboleta Oculta: no início do turno, se o HP estiver abaixo de 60%, recebe Invisibilidade e redução de dano de 20%, por 1 turno."}
+{"rowId":"1704","text":"Usa o kung fu Sombra da Serpente: move-se para um ponto aleatório entre você e o inimigo, criando clones nos outros pontos; os clones somem após 5 ataques ou ao fim de 3 turnos. Enquanto existirem, os clones absorvem o dano ao corpo real (Só funciona em combate)"}
+{"rowId":"1705","text":"Golpe: Rugido do Dragão. Usa o poder da Fúria, sacrifica 50% do HP atual e ignora 65% da defesa do alvo. Se estiver Invisível, +25% de dano, por 1 turno."}
+{"rowId":"1706","text":"A cada kung fu usado, recupera 5 Pontos de Magia e +10% de HP Máximo (acumula até 5 vezes), e ganha um contra-ataque supremo: a cada 1% do HP Máximo perdido, +1.3% de dano (por 1 turno)"}
+{"rowId":"1707","text":"Resistência a Perfurar Armadura +10%; Antes de cada ataque, o Mascote tem 100% de chance de avançar contra o inimigo, causando 100% de dano."}
+{"rowId":"1708","text":"HP Máximo +15%; Usa o kung fu Postura da Tartaruga: ao usar PASS no turno, ganha +10 de Fúria e ativa a postura defensiva, reduzindo em 50% o dano recebido e em 80% o crítico recebido, por 2 turnos, e ganha +5 de MP."}
+{"rowId":"1709","text":"Resistência a Queimadura +12%; Usa o kung fu Leopardo Divino: +20 de Fúria; no turno, libera o poder do Leopardo Divino, +80% de velocidade de ataque, e o Vigor no turno do Leopardo cai para 120, por 1 turno. Também recebe Imunidade por 2 turnos."}
+{"rowId":"1710","text":"Resistência a Perfurar Armadura +10%; Usa o kung fu Borboleta Oculta: no início do turno, se o HP estiver abaixo de 60%, recebe Invisibilidade e redução de dano de 20%, por 1 turno."}
+{"rowId":"1711","text":"Aumento de Dano +10%; Usa o kung fu Sombra da Serpente: move-se para um ponto aleatório entre você e o inimigo, criando clones nos outros pontos; os clones somem após 5 ataques ou ao fim de 3 turnos. Enquanto existirem, os clones absorvem o dano ao corpo real (Só funciona em combate)"}
+{"rowId":"1712","text":"Resistência a Perfurar Armadura +10%; Golpe: Rugido do Dragão. Usa o poder da Fúria, sacrifica 50% do HP atual e ignora 65% da defesa do alvo. Se estiver Invisível, +25% de dano, por 1 turno."}
+{"rowId":"1713","text":"4 Atributos Básicos +5%; A cada kung fu usado, recupera 5 Pontos de Magia e +10% de HP Máximo (acumula até 5 vezes), e ganha um contra-ataque supremo: a cada 1% do HP Máximo perdido, +1.3% de dano (por 1 turno)"}
+{"rowId":"1714","text":"Resistência a Perfurar Armadura +10%; Antes de cada ataque, o Mascote tem 100% de chance de avançar contra o inimigo, causando 100% de dano."}
+{"rowId":"1715","text":"HP Máximo +15%; Usa o kung fu Postura da Tartaruga: ao usar PASS no turno, ganha +10 de Fúria e ativa a postura defensiva, reduzindo em 50% o dano recebido e em 80% o crítico recebido, por 2 turnos, e ganha +5 de MP."}
+{"rowId":"1716","text":"Resistência a Queimadura +12%; Usa o kung fu Leopardo Divino: +20 de Fúria; no turno, libera o poder do Leopardo Divino, +80% de velocidade de ataque, e o Vigor no turno do Leopardo cai para 120, por 1 turno. Também recebe Imunidade por 2 turnos."}
+{"rowId":"1717","text":"Resistência a Perfurar Armadura +10%; Usa o kung fu Borboleta Oculta: no início do turno, se o HP estiver abaixo de 60%, recebe Invisibilidade e redução de dano de 20%, por 1 turno."}
+{"rowId":"1718","text":"Aumento de Dano +10%; Usa o kung fu Sombra da Serpente: move-se para um ponto aleatório entre você e o inimigo, criando clones nos outros pontos; os clones somem após 5 ataques ou ao fim de 3 turnos. Enquanto existirem, os clones absorvem o dano ao corpo real (Só funciona em combate)"}
+{"rowId":"1719","text":"Resistência a Perfurar Armadura +10%; Golpe: Rugido do Dragão. Usa o poder da Fúria, sacrifica 50% do HP atual e ignora 65% da defesa do alvo. Se estiver Invisível, +25% de dano, por 1 turno."}
+{"rowId":"1720","text":"4 Atributos Básicos +5%; A cada kung fu usado, recupera 5 Pontos de Magia e +10% de HP Máximo (acumula até 5 vezes), e ganha um contra-ataque supremo: a cada 1% do HP Máximo perdido, +1.3% de dano (por 1 turno)"}
+{"rowId":"1721","text":"Em combate, dano recebido -5% (MÁX 10%)."}
+{"rowId":"1722","text":"Em combate, dano recebido -8% (MÁX 10%)."}
+{"rowId":"1723","text":"Em combate, dano recebido -10% (MÁX 10%)."}
+{"rowId":"1724","text":"Ao atingir o inimigo, 3% (máx: 5%) de chance de congelar o alvo por 2 turnos (Só vale no PVP)."}
+{"rowId":"1725","text":"Ao atingir o inimigo, 4% (máx: 5%) de chance de congelar o alvo por 2 turnos (Só vale no PVP)."}
+{"rowId":"1726","text":"Ao atingir o inimigo, 5% (máx: 5%) de chance de congelar o alvo por 2 turnos (Só vale no PVP)."}
+{"rowId":"1727","text":"Ao sofrer Queimadura, recupera 4% (máx: 8%) do HP Máximo"}
+{"rowId":"1728","text":"Ao sofrer Queimadura, recupera 6% (máx: 8%) do HP Máximo"}
+{"rowId":"1729","text":"Ao sofrer Queimadura, recupera 8% (máx: 8%) do HP Máximo"}
+{"rowId":"1730","text":"Queimadura recupera HP"}
+{"rowId":"1731","text":"Queimadura recupera HP"}
+{"rowId":"1732","text":"Queimadura recupera HP"}
+{"rowId":"1733","text":"Antes de cada ataque, o Mascote tem 100% de chance de avançar contra o inimigo, causando 100% de dano."}
+{"rowId":"1734","text":"Dispara veneno, causando 180% do dano base, 100% crítico; o alvo atingido tem -35% de dano e recebe Envenenamento (dano recebido +10%), por 3 turnos."}
+{"rowId":"1735","text":"Todo o time inimigo tem -50% de Ataque e Defesa por 2 turnos. Só funciona em combate."}
+{"rowId":"1736","text":"Perde 5% do HP Máximo por turno; +75% de chance de crítico, +50% de dano crítico causado e -50% de dano crítico recebido, por 3 turnos."}
+{"rowId":"1737","text":"Na competição, todo o time inimigo tem -50% de Armadura e Res. Mágica e não pode se mover nem voar, por 2 turnos."}
+{"rowId":"1738","text":"A cada vez que for atingido, ganha +2 de MP, com chance de Envenenar os jogadores inimigos (dano recebido +10%, por 3 turnos, acumula até 3 vezes)"}
+{"rowId":"1739","text":"Armadura +500, HP Máximo +15%, Redução de Dano +15%"}
+{"rowId":"1740","text":"Dano recebido +20%"}
+{"rowId":"1741","text":"Recebe Envenenamento: dano recebido +10% por 2 turnos."}
+{"rowId":"1742","text":"Resistência a Queimadura +12%; Antes de cada ataque, o Mascote tem 100% de chance de avançar contra o inimigo, causando 100% de dano."}
+{"rowId":"1743","text":"Resistência a Queimadura +12%; Dispara veneno, causando 180% do dano base, 100% crítico; o alvo atingido tem -35% de dano e recebe Envenenamento (dano recebido +10%), por 3 turnos."}
+{"rowId":"1744","text":"Resistência a Perfurar Armadura +10%; Todo o time inimigo tem -50% de Ataque e Defesa por 2 turnos. Só funciona em combate."}
+{"rowId":"1745","text":"Resistência a Queimadura +12%; Perde 5% do HP Máximo por turno; +75% de chance de crítico, +50% de dano crítico causado e -50% de dano crítico recebido, por 3 turnos."}
+{"rowId":"1746","text":"Resistência a Perfurar Armadura +10%; Na competição, todo o time inimigo tem -50% de Armadura e Res. Mágica e não pode se mover nem voar, por 2 turnos."}
+{"rowId":"1747","text":"Redução de Dano +15%; A cada vez que for atingido, ganha +2 de MP, com chance de Envenenar os jogadores inimigos (dano recebido +10%, por 3 turnos, acumula até 3 vezes)"}
+{"rowId":"1748","text":"Resistência a Perfurar Armadura +10%; Armadura +500, HP Máximo +15%, Redução de Dano +15%"}
+{"rowId":"1749","text":"Resistência a Queimadura +12%; Antes de cada ataque, o Mascote tem 100% de chance de avançar contra o inimigo, causando 100% de dano."}
+{"rowId":"1750","text":"Resistência a Queimadura +12%; Dispara veneno, causando 180% do dano base, 100% crítico; o alvo atingido tem -35% de dano e recebe Envenenamento (dano recebido +10%), por 3 turnos."}
+{"rowId":"1751","text":"Resistência a Perfurar Armadura +10%; Todo o time inimigo tem -50% de Ataque e Defesa por 2 turnos. Só funciona em combate."}
+{"rowId":"1752","text":"Resistência a Queimadura +12%; Perde 5% do HP Máximo por turno; +75% de chance de crítico, +50% de dano crítico causado e -50% de dano crítico recebido, por 3 turnos."}
+{"rowId":"1753","text":"Resistência a Perfurar Armadura +10%; Na competição, todo o time inimigo tem -50% de Armadura e Res. Mágica e não pode se mover nem voar, por 2 turnos."}
+{"rowId":"1754","text":"Redução de Dano +15%; A cada vez que for atingido, ganha +2 de MP, com chance de Envenenar os jogadores inimigos (dano recebido +10%, por 3 turnos, acumula até 3 vezes)"}
+{"rowId":"1755","text":"Resistência a Perfurar Armadura +10%; Armadura +500, HP Máximo +15%, Redução de Dano +15%"}
+{"rowId":"1762","text":"Protege todos os aliados na noite, aumenta sua própria Redução de Dano em 30% e absorve 50% do dano dos aliados, por 2 turnos. Pode devorar a Chama do Ódio existente, dando aos aliados protegidos a Armadura Negra e o Martelo de Prata de Minotauro por 2 turnos."}
+{"rowId":"1763","text":"O Dilacerar do Dia furioso causa Sangramento aos inimigos num raio de 300, tirando 10% de HP por turno por 3 turnos. Pode devorar a Chama do Rancor existente, e o Sangramento passa a Bloquear Cura e Proibir Voo (Vale no PVP)."}
+{"rowId":"1764","text":"A cada dano de bala de canhão sofrido, a Armadura de Minotauro reduz o dano em 4% do HP atual."}
+{"rowId":"1765","text":"O pesadíssimo Martelo de Minotauro causa dano extra a inimigos em terreno mais baixo: +30% a cada 100 pixels, até +150%. Contra inimigos mais altos, reduz o dano recebido em 20% a cada 100 pixels, até -60% (Vale no PVP)."}
+{"rowId":"1766","text":"O Cão de Fogo é muito sensível ao vento. Ao atirar, com vento a favor, +30% de Dano e Atq. Mágico a cada 1.0 de vento. Redução de Dano +8% (não afetada pelo vento)."}
+{"rowId":"1767","text":"O Cão de Fogo desperta o poder das trevas: não pode ser congelado, não pode usar Tiro Triplo, mover-se não gasta Vigor, velocidade de ataque -0%, HP +100%, todas as balas viram Fogo Negro e abrem crateras enormes, por 3 turnos. Pode devorar a Chama do Ódio e a Chama do Rancor existentes, recuperando 60% de HP."}
+{"rowId":"1768","text":"Ao sofrer dano 10 vezes, ganha 30 de MP e invoca a Chama do Ódio. Ao usar habilidades 2 vezes, ganha 40 de MP e invoca a Chama do Rancor."}
+{"rowId":"1769","text":"Habilidade Obtida"}
+{"rowId":"1770","text":"Habilidade Obtida"}
+{"rowId":"1771","text":"Habilidade Obtida"}
+{"rowId":"1772","text":"Habilidade Obtida"}
+{"rowId":"1773","text":"Habilidade Obtida"}
+{"rowId":"1774","text":"Resistência a Queimadura +12%; Protege todos os aliados na noite, aumenta sua própria Redução de Dano em 30% e absorve 50% do dano dos aliados, por 2 turnos. Pode devorar a Chama do Ódio existente, dando aos aliados protegidos a Armadura Negra e o Martelo de Prata de Minotauro por 2 turnos."}
+{"rowId":"1775","text":"Resistência a Queimadura +12%; O Dilacerar do Dia furioso causa Sangramento aos inimigos num raio de 300, tirando 10% de HP por turno por 3 turnos. Pode devorar a Chama do Rancor existente, e o Sangramento passa a Bloquear Cura e Proibir Voo (Vale no PVP)."}
+{"rowId":"1776","text":"Resistência a Perfurar Armadura +10%; A cada dano de bala de canhão sofrido, a Armadura de Minotauro reduz o dano em 4% do HP atual."}
+{"rowId":"1777","text":"Resistência a Perfurar Armadura +10%; O pesadíssimo Martelo de Minotauro causa dano extra a inimigos em terreno mais baixo: +30% a cada 100 pixels, até +150%. Contra inimigos mais altos, reduz o dano recebido em 20% a cada 100 pixels, até -60% (Vale no PVP)."}
+{"rowId":"1778","text":"Resistência a Queimadura +12%; O Cão de Fogo é muito sensível ao vento. Ao atirar, com vento a favor, +30% de Dano e Atq. Mágico a cada 1.0 de vento. Redução de Dano +8% (não afetada pelo vento)."}
+{"rowId":"1779","text":"HP Máximo +15%; O Cão de Fogo desperta o poder das trevas: não pode ser congelado, não pode usar Tiro Triplo, mover-se não gasta Vigor, velocidade de ataque -0%, HP +100%, todas as balas viram Fogo Negro e abrem crateras enormes, por 3 turnos. Pode devorar a Chama do Ódio e a Chama do Rancor existentes, recuperando 60% de HP."}
+{"rowId":"1780","text":"Resistência a Perfurar Armadura +10%; Ao sofrer dano 10 vezes, ganha 30 de MP e invoca a Chama do Ódio. Ao usar habilidades 2 vezes, ganha 40 de MP e invoca a Chama do Rancor."}
+{"rowId":"1781","text":"Resistência a Queimadura +12%; Protege todos os aliados na noite, aumenta sua própria Redução de Dano em 30% e absorve 50% do dano dos aliados, por 2 turnos. Pode devorar a Chama do Ódio existente, dando aos aliados protegidos a Armadura Negra e o Martelo de Prata de Minotauro por 2 turnos."}
+{"rowId":"1782","text":"Resistência a Queimadura +12%; O Dilacerar do Dia furioso causa Sangramento aos inimigos num raio de 300, tirando 10% de HP por turno por 3 turnos. Pode devorar a Chama do Rancor existente, e o Sangramento passa a Bloquear Cura e Proibir Voo (Vale no PVP)."}
+{"rowId":"1783","text":"Resistência a Perfurar Armadura +10%; A cada dano de bala de canhão sofrido, a Armadura de Minotauro reduz o dano em 4% do HP atual."}
+{"rowId":"1784","text":"Resistência a Perfurar Armadura +10%; O pesadíssimo Martelo de Minotauro causa dano extra a inimigos em terreno mais baixo: +30% a cada 100 pixels, até +150%. Contra inimigos mais altos, reduz o dano recebido em 20% a cada 100 pixels, até -60% (Vale no PVP)."}
+{"rowId":"1785","text":"Resistência a Queimadura +12%; O Cão de Fogo é muito sensível ao vento. Ao atirar, com vento a favor, +30% de Dano e Atq. Mágico a cada 1.0 de vento, Redução de Dano +8%."}
+{"rowId":"1786","text":"HP Máximo +15%; O Cão de Fogo desperta o poder das trevas: não pode ser congelado, não pode usar Tiro Triplo, mover-se não gasta Vigor, velocidade de ataque -0%, HP +100%, todas as balas viram Fogo Negro e abrem crateras enormes, por 3 turnos. Pode devorar a Chama do Ódio e a Chama do Rancor existentes, recuperando 60% de HP."}
+{"rowId":"1787","text":"Resistência a Perfurar Armadura +10%; Ao sofrer dano 10 vezes, ganha 30 de MP e invoca a Chama do Ódio. Ao usar habilidades 2 vezes, ganha 40 de MP e invoca a Chama do Rancor."}
+{"rowId":"1791","text":"Ao ser atingido por bala, 7% de chance de absorver o dano e recuperar 5% de HP, recarga de 5 (acertos de bala sofridos), vale no PVP"}
+{"rowId":"1792","text":"Ao ser atingido por bala, 8% de chance de absorver o dano e recuperar 5% de HP, recarga de 5 (acertos de bala sofridos), vale no PVP"}
+{"rowId":"1793","text":"Ao ser atingido por bala, 9% de chance de absorver o dano e recuperar 5% de HP, recarga de 5 (acertos de bala sofridos), vale no PVP"}
+{"rowId":"1794","text":"Ao ser atingido por bala, 10% de chance de absorver o dano e recuperar 5% de HP, recarga de 5 (acertos de bala sofridos), vale no PVP"}
+{"rowId":"1795","text":"Ao ser atingido por bala, 11% de chance de absorver o dano e recuperar 5% de HP, recarga de 5 (acertos de bala sofridos), vale no PVP"}
+{"rowId":"1796","text":"Ao ser atingido por bala, 12% de chance de absorver o dano e recuperar 5% de HP, recarga de 5 (acertos de bala sofridos), vale no PVP"}
+{"rowId":"1797","text":"Ao ser atingido por bala, 13% de chance de absorver o dano e recuperar 5% de HP, recarga de 5 (acertos de bala sofridos), vale no PVP"}
+{"rowId":"1798","text":"Ao ser atingido por bala, 14% de chance de absorver o dano e recuperar 5% de HP, recarga de 5 (acertos de bala sofridos), vale no PVP"}
+{"rowId":"1799","text":"Ao ser atingido por bala, 15% de chance de absorver o dano e recuperar 5% de HP, recarga de 5 (acertos de bala sofridos), vale no PVP"}
+{"rowId":"1800","text":"5% de chance de imunidade a dano que não seja de bala, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1801","text":"5.75% de chance de imunidade a dano que não seja de bala, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1802","text":"6.5% de chance de imunidade a dano que não seja de bala, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1803","text":"7.25% de chance de imunidade a dano que não seja de bala, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1804","text":"8% de chance de imunidade a dano que não seja de bala, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1805","text":"8.75% de chance de imunidade a dano que não seja de bala, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1806","text":"9.5% de chance de imunidade a dano que não seja de bala, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1807","text":"10.25% de chance de imunidade a dano que não seja de bala, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1808","text":"11% de chance de imunidade a dano que não seja de bala, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1809","text":"11.75% de chance de imunidade a dano que não seja de bala, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1810","text":"12.5% de chance de imunidade a dano que não seja de bala, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1811","text":"13.25% de chance de imunidade a dano que não seja de bala, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1812","text":"5% de chance de imunidade a habilidades de controle (Congelar/Imobilizar/Amarrar/Proibir Voo), recarga de  turnos, vale no PVP"}
+{"rowId":"1813","text":"5.75% de chance de imunidade a habilidades de controle (Congelar/Imobilizar/Amarrar/Proibir Voo), recarga de  turnos, vale no PVP"}
+{"rowId":"1814","text":"6.5% de chance de imunidade a habilidades de controle (Congelar/Imobilizar/Amarrar/Proibir Voo), recarga de  turnos, vale no PVP"}
+{"rowId":"1815","text":"7.25% de chance de imunidade a habilidades de controle (Congelar/Imobilizar/Amarrar/Proibir Voo), recarga de  turnos, vale no PVP"}
+{"rowId":"1816","text":"8% de chance de imunidade a habilidades de controle (Congelar/Imobilizar/Amarrar/Proibir Voo), recarga de  turnos, vale no PVP"}
+{"rowId":"1817","text":"8.75% de chance de imunidade a habilidades de controle (Congelar/Imobilizar/Amarrar/Proibir Voo), recarga de  turnos, vale no PVP"}
+{"rowId":"1818","text":"9.5% de chance de imunidade a habilidades de controle (Congelar/Imobilizar/Amarrar/Proibir Voo), recarga de  turnos, vale no PVP"}
+{"rowId":"1819","text":"10.25% de chance de imunidade a habilidades de controle (Congelar/Imobilizar/Amarrar/Proibir Voo), recarga de  turnos, vale no PVP"}
+{"rowId":"1820","text":"11% de chance de imunidade a habilidades de controle (Congelar/Imobilizar/Amarrar/Proibir Voo), recarga de  turnos, vale no PVP"}
+{"rowId":"1821","text":"11.75% de chance de imunidade a habilidades de controle (Congelar/Imobilizar/Amarrar/Proibir Voo), recarga de  turnos, vale no PVP"}
+{"rowId":"1822","text":"12.5% de chance de imunidade a habilidades de controle (Congelar/Imobilizar/Amarrar/Proibir Voo), recarga de  turnos, vale no PVP"}
+{"rowId":"1823","text":"13.25% de chance de imunidade a habilidades de controle (Congelar/Imobilizar/Amarrar/Proibir Voo), recarga de  turnos, vale no PVP"}
+{"rowId":"1824","text":"7% de chance de imunidade a dano por diferença de altura, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1825","text":"8% de chance de imunidade a dano por diferença de altura, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1826","text":"9% de chance de imunidade a dano por diferença de altura, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1827","text":"10% de chance de imunidade a dano por diferença de altura, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1828","text":"11% de chance de imunidade a dano por diferença de altura, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1829","text":"12% de chance de imunidade a dano por diferença de altura, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1830","text":"13% de chance de imunidade a dano por diferença de altura, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1831","text":"14% de chance de imunidade a dano por diferença de altura, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1832","text":"15% de chance de imunidade a dano por diferença de altura, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1833","text":"16% de chance de imunidade a dano por diferença de altura, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1834","text":"17% de chance de imunidade a dano por diferença de altura, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1835","text":"18% de chance de imunidade a dano por diferença de altura, recarga de 5 turnos, vale no PVP"}
+{"rowId":"1849","text":"Ao ser atingido por bala, 16% de chance de absorver o dano e recuperar 5% de HP, recarga de 5 (acertos de bala sofridos), vale no PVP"}
+{"rowId":"1850","text":"Ao ser atingido por bala, 5% de chance de absorver o dano e recuperar 5% de HP, recarga de 5 (acertos de bala sofridos), vale no PVP"}
+{"rowId":"1851","text":"Ao ser atingido por bala, 6% de chance de absorver o dano e recuperar 5% de HP, recarga de 5 (acertos de bala sofridos), vale no PVP"}
+{"rowId":"1943","text":"Cada habilidade ativa usada dá +1 Chama da Fúria; com 2 Chamas, vira Fogo Protetor, recupera na hora 8% do HP Máximo e dá +50% de redução de dano e +50% de Dano por 3 turnos."}
+{"rowId":"1944","text":"Arremessa 1 Bola de Fogo, causando 220% de dano com crítico garantido e ativando Velocidade Divina; no turno de Velocidade Divina, o Vigor cai para 180."}
+{"rowId":"1945","text":"Ao atingir o inimigo, 100% de chance de crítico com Fogo Vermelho (sofre por turno dano igual a 300% do dano base do atacante) e -50% de cura vinda de Mascotes, por 3 turnos. A bala não abre cratera, já tem efeito de Guia e +15% de Perfurar Armadura."}
+{"rowId":"1946","text":"Gasta todo o MP, ganha +20% de redução de dano por 2 turnos; cada 2 de MP recupera 1% do HP Máximo."}
+{"rowId":"1947","text":"Ao sofrer um golpe fatal, entra em Hibernação com Imunidade; desperta 2 turnos depois recuperando 100% do HP Máximo e com +25% de HP Máximo. (Recarga de 8 Turnos)"}
+{"rowId":"1948","text":"Dano e Armadura +15%, Atq. Mágico e Res. Mágica +15%"}
+{"rowId":"1949","text":"Dispara um Tiro Triplo que incendeia a área da explosão; alvos na área perdem 12% do HP Máximo e 25 de MP por turno e têm -30% de Vigor Máximo; o Fogo dura 3 turnos (Vale no PVP)."}
+{"rowId":"1950","text":"Habilidade Obtida"}
+{"rowId":"1951","text":"Habilidade Obtida"}
+{"rowId":"1952","text":"Área Marcada"}
+{"rowId":"1953","text":"Nova Habilidade"}
+{"rowId":"1954","text":"Resistência a Perfurar Armadura +10%. Cada habilidade ativa usada dá +1 Chama da Fúria; com 2 Chamas, vira Fogo Protetor, recupera na hora 8% do HP Máximo e dá 50% de redução de dano e 50% de Aumento de Dano por 3 turnos."}
+{"rowId":"1955","text":"Resistência a Queimadura +12%. Arremessa 1 Bola de Fogo, causando 220% de dano com crítico garantido e ativando Velocidade Divina; no turno de Velocidade Divina, o Vigor cai para 180."}
+{"rowId":"1956","text":"Resistência a Perfurar Armadura +10%. Ao atingir o inimigo, 100% de chance de crítico com Fogo Vermelho (sofre por turno dano igual a 300% do dano base do atacante) e -50% de cura vinda de Mascotes, por 3 turnos. A bala não abre cratera, já tem efeito de Guia e +15% de Perfurar Armadura."}
+{"rowId":"1957","text":"HP Máximo +15%. Gasta todo o MP, ganha +20% de redução de dano por 2 turnos; cada 2 de MP recupera 1% do HP Máximo."}
+{"rowId":"1958","text":"Resistência a Queimadura +12%. Ao sofrer um golpe fatal, entra em Hibernação. Durante a Hibernação tem Imunidade; revive 2 turnos depois com 100% do HP e +25% de HP Máximo. (Recarga de 8 turnos)"}
+{"rowId":"1959","text":"Resistência a Perfurar Armadura +10%. Dano e Armadura +15%, Atq. Mágico e Res. Mágica +15%."}
+{"rowId":"1960","text":"Resistência a Perfurar Armadura +10%. Dispara um Tiro Triplo que incendeia a área da explosão; alvos na área perdem 12% do HP Máximo e 25 de MP por turno e têm -30% de Vigor Máximo; o Fogo dura 3 turnos (Vale no PVP)."}
+{"rowId":"1961","text":"Resistência a Perfurar Armadura +10%. Cada habilidade ativa usada dá +1 Chama da Fúria; com 2 Chamas, vira Fogo Protetor, dando 50% de redução de dano e 50% de Aumento de Dano e recuperando 8% do HP Máximo, por 3 turnos."}
+{"rowId":"1962","text":"Resistência a Queimadura +12%. Arremessa 1 Bola de Fogo, causando 220% de dano com crítico garantido e ativando Velocidade Divina; no turno de Velocidade Divina, o Vigor cai para 180."}
+{"rowId":"1963","text":"Resistência a Perfurar Armadura +10%. Ao atingir o inimigo, 100% de chance de crítico com Fogo Vermelho (sofre por turno dano igual a 300% do dano base do atacante) e -50% de cura vinda de Mascotes, por 3 turnos. A bala não abre cratera, já tem efeito de Guia e +15% de Perfurar Armadura."}
+{"rowId":"1964","text":"HP Máximo +15%. Gasta todo o MP, ganha +20% de redução de dano por 2 turnos; cada 2 de MP recupera 1% do HP Máximo."}
+{"rowId":"1965","text":"Resistência a Queimadura +12%. Ao sofrer um golpe Fatal, entra em Hibernação. Durante a Hibernação tem Imunidade; revive 2 turnos depois com 100% do HP. (Recarga de 8 turnos)"}
+{"rowId":"1966","text":"Resistência a Perfurar Armadura +10%. Dano e Armadura +15%, Atq. Mágico e Res. Mágica +15%."}
+{"rowId":"1967","text":"Resistência a Perfurar Armadura +10%. Dispara um Tiro Triplo que incendeia a área da explosão; alvos na área perdem 12% do HP Máximo e 25 de MP por turno; o Fogo dura 3 turnos (Vale no PVP)."}
+{"rowId":"1997","text":"Habilidade Obtida"}
+{"rowId":"1998","text":"Habilidade Obtida"}
+{"rowId":"1999","text":"Ao fim de cada disparo no turno, 100% de chance de avançar e atacar o inimigo, causando 100% de dano."}
+{"rowId":"2000","text":"Arremessa um Pêssego da Imortalidade, causando 220% do dano base e +25% de chance e dano crítico por 3 turnos."}
+{"rowId":"2001","text":"Todos os jogadores inimigos não podem agir por 1 turno, perdem 20 Pontos de Magia e sofrem +20% de dano. (Só funciona em combate)"}
+{"rowId":"2002","text":"Reduz em 30% o dano recebido, com 60% de chance de ficar imune a crítico."}
+{"rowId":"2003","text":"Marca todos os jogadores inimigos invisíveis, reduzindo em 30% o dano deles e fazendo-os sofrer +30% de dano, por 2 turnos (Só funciona em combate)"}
+{"rowId":"2004","text":"A cada golpe fatal sofrido, recupera 8% de HP e ganha 50 de Fúria, +30% de redução de dano e +30% de redução de dano elemental por 1 turno (acumula), até 3 vezes por batalha. (Só funciona em combate)"}
+{"rowId":"2005","text":"+2 Pontos de Magia e +4 de Fúria a cada uso de item de combate."}
+{"rowId":"2006","text":"Dano recebido +20%"}
+{"rowId":"2007","text":"Resistência a Queimadura 12%; Ao fim de cada disparo no turno, 100% de chance de avançar e atacar o inimigo, causando 100% de dano."}
+{"rowId":"2008","text":"Resistência a Perfurar Armadura 10%; Arremessa um Pêssego da Imortalidade, causando 220% do dano base e +25% de chance e dano crítico por 3 turnos."}
+{"rowId":"2009","text":"Resistência a Perfurar Armadura 10%; Todos os jogadores inimigos não podem agir por 1 turno, perdem 20 Pontos de Magia e sofrem +20% de dano. (Só funciona em combate)"}
+{"rowId":"2010","text":"Resistência a Queimadura 12%; Reduz em 30% o dano recebido, com 60% de chance de ficar imune a crítico."}
+{"rowId":"2011","text":"HP Máximo +15%; Marca todos os jogadores inimigos invisíveis, reduzindo em 30% o dano deles e fazendo-os sofrer +30% de dano, por 2 turnos (Só funciona em combate)"}
+{"rowId":"2012","text":"Resistência a Queimadura 12%; A cada golpe fatal sofrido, recupera 8% de HP e ganha 50 de Fúria, +30% de redução de dano e +30% de redução de dano elemental por 1 turno (acumula), até 3 vezes por batalha. (Só funciona em combate)"}
+{"rowId":"2013","text":"Resistência a Queimadura 12%; +2 Pontos de Magia e +4 de Fúria a cada uso de item de combate."}
+{"rowId":"2014","text":"Resistência a Queimadura 12%; Ao fim de cada disparo no turno, 100% de chance de avançar e atacar o inimigo, causando 100% de dano."}
+{"rowId":"2015","text":"Resistência a Perfurar Armadura 10%; Arremessa um Pêssego da Imortalidade, causando 220% do dano base e +25% de chance e dano crítico por 3 turnos."}
+{"rowId":"2016","text":"Resistência a Perfurar Armadura 10%; Todos os jogadores inimigos não podem agir por 1 turno, perdem 20 Pontos de Magia e sofrem +20% de dano. (Só funciona em combate)"}
+{"rowId":"2017","text":"Resistência a Queimadura 12%; Reduz em 30% o dano recebido, com 60% de chance de ficar imune a crítico."}
+{"rowId":"2018","text":"HP Máximo +15%; Marca todos os jogadores inimigos invisíveis, reduzindo em 30% o dano deles e fazendo-os sofrer +30% de dano, por 2 turnos (Só funciona em combate)"}
+{"rowId":"2019","text":"Resistência a Queimadura 12%; A cada golpe fatal sofrido, recupera 8% de HP e ganha 50 de Fúria e +30% de redução de dano por 1 turno (acumula), até 3 vezes por batalha. (Só funciona em combate)"}
+{"rowId":"2020","text":"Resistência a Queimadura 12%; +2 Pontos de Magia e +4 de Fúria a cada uso de item de combate."}
+{"rowId":"2036","text":"Redução de dano +20%; ao ser atingido, sofre no máximo dano igual a 35% do seu HP Máximo. (Só vale no PVP)"}
+{"rowId":"2037","text":"Seu time ganha +50% de imunidade a crítico e +15% de dano por 2 turnos"}
+{"rowId":"2038","text":"Seu time recupera 18% do HP Máximo e recebe um escudo igual a 15% do próprio HP Máximo. O escudo dura 3 turnos; após usar, pula o turno."}
+{"rowId":"2039","text":"Dano crítico recebido -40%, dano crítico recebido pelos aliados -15%"}
+{"rowId":"2040","text":"Ao ser atingido, sofre no máximo dano igual a 35% do seu HP Máximo. (Só vale no PVP)"}
+{"rowId":"2041","text":"HP Máximo +10%. Redução de dano +20%; ao ser atingido, sofre no máximo dano igual a 35% do seu HP Máximo. (Só vale no PVP)"}
+{"rowId":"2042","text":"Resistência a Queimadura +10%. Seu time ganha +50% de imunidade a crítico e +15% de dano por 2 turnos"}
+{"rowId":"2043","text":"Resistência a Queimadura +10%. Seu time recupera 18% de HP e recebe um Escudo igual a 15% do próprio HP Máximo; o Escudo dura 3 turnos. Após usar, pula o turno."}
+{"rowId":"2044","text":"Resistência a Perfurar Armadura +8%. Você recebe -40% de dano crítico e os aliados -15%"}
+{"rowId":"2045","text":"HP Máximo +10%. Redução de dano +20%; ao ser atingido, sofre no máximo dano igual a 35% do seu HP Máximo. (Só vale no PVP)"}
+{"rowId":"2046","text":"Resistência a Queimadura +10%. Seu time ganha +50% de imunidade a crítico e +15% de dano por 2 turnos"}
+{"rowId":"2047","text":"Resistência a Queimadura +10%. Seu time recupera 18% de HP e recebe um Escudo igual a 15% do próprio HP Máximo; o Escudo dura 3 turnos. Após usar, pula o turno."}
+{"rowId":"2048","text":"Resistência a Perfurar Armadura +8%. Você recebe -40% de dano crítico e os aliados -15%"}
+{"rowId":"9992","text":"Ao atingir o alvo, reduz a Res. à Terra dele em 12% por 3 turnos."}
+{"rowId":"9993","text":"A Queimadura do Fogo Abrasador faz o Mascote perder 5 de MP. (Habilidade do Guardião de Fogo; entre habilidades iguais, só a de nível mais alto vale)."}
+{"rowId":"10416","text":"Reduz 200 do dano ao ser atingido"}
+{"rowId":"10417","text":"Reduz 250 do dano ao ser atingido"}
+{"rowId":"10418","text":"Reduz 350 do dano ao ser atingido"}
+{"rowId":"10419","text":"Reflete 600 de dano"}
+{"rowId":"10420","text":"Reflete 1200 de dano"}
+{"rowId":"11716","text":"Queimadura"}
+{"rowId":"11717","text":"Congelar"}
+{"rowId":"11718","text":"Veneno"}
+{"rowId":"110413","text":"HP +1000"}
+{"rowId":"110414","text":"Dano +20, Ataque, Defesa, Agilidade e Sorte +20 cada"}
+{"rowId":"110415","text":"Ataque, Defesa, Agilidade e Sorte +30 cada"}
+{"rowId":"110416","text":"Dois conjuntos: HP +800 Armadura +30"}
+{"rowId":"1010000","text":"HP +300"}
+{"rowId":"1010100","text":"Armadura +30, HP +1000"}
+{"rowId":"1010101","text":"HP +300, Ataque +50"}
+{"rowId":"1010102","text":"Sorte +100, Defesa +50"}
+{"rowId":"1010103","text":"Reduz dano crítico recebido em 10%"}
+{"rowId":"1010104","text":"Reduz dano crítico recebido em 10%, Dano +20, Armadura +20"}
+{"rowId":"1010105","text":"Dano +10, reduz dano crítico recebido em 5%"}
+{"rowId":"1010106","text":"Ataque +25, Agilidade +25"}
+{"rowId":"1010107","text":"Dano +10  reduz dano crítico recebido em 5%"}
+{"rowId":"1010200","text":"Dano +30"}
+{"rowId":"1010300","text":"Defesa +50, Agilidade +50, Sorte +50"}
+{"rowId":"1010400","text":"Ataque +10"}
+{"rowId":"1010500","text":"HP +400"}
+{"rowId":"1010600","text":"Ataque +30"}
+{"rowId":"1010700","text":"HP +350"}
+{"rowId":"1010800","text":"Defesa +15"}
+{"rowId":"1010801","text":"Defesa +35"}
+{"rowId":"1010802","text":"Sorte +10"}
+{"rowId":"1010803","text":"HP +350, Defesa +20"}
+{"rowId":"1010804","text":"HP +350, Agilidade +20"}
+{"rowId":"1010805","text":"HP +310"}
+{"rowId":"1010806","text":"HP +310, Ataque +15"}
+{"rowId":"1010807","text":"HP +400, Agilidade +40, reduz dano crítico em 5%"}
+{"rowId":"1010808","text":"HP +400, Agilidade +40, redução de dano 5%"}
+{"rowId":"1010809","text":"Sorte +80"}
+{"rowId":"1010810","text":"HP +400, Defesa +40, redução de dano 5%"}
+{"rowId":"1010811","text":"Ataque +50, Defesa +50, Agilidade +50, Sorte +50"}
+{"rowId":"1010812","text":"Atq/Def/Agi/Sor +5, +100 HP, redução de dano 1%"}
+{"rowId":"1010813","text":"Atq/Def/Agi/Sor +5, +100 HP, redução de dano 2%"}
+{"rowId":"1010814","text":"Atq/Def/Agi/Sor +5, +200 HP, redução de dano 1%"}
+{"rowId":"1010815","text":"Atq/Def/Agi/Sor +10, +200 HP, redução de dano 2%"}
+{"rowId":"1010816","text":"Atq/Def/Agi/Sor +15, +200 HP, redução de dano 2%"}
+{"rowId":"1010817","text":"Ataque +50, Defesa +50, Agilidade +50, Sorte +50"}
+{"rowId":"1010818","text":"Ataque +50, Defesa +50, Agilidade +50, Sorte +50"}
+{"rowId":"1010819","text":"Ataque +50, Defesa +50, Agilidade +50, Sorte +50"}
+{"rowId":"1010820","text":"Ataque +50, Defesa +50, Agilidade +50, Sorte +50"}
+{"rowId":"1010821","text":"Ataque +50, Defesa +50, Agilidade +50, Sorte +50"}
+{"rowId":"1010822","text":"Atq/Def/Agi/Sor +15, +200 HP, redução de dano 2%"}
+{"rowId":"1010823","text":"Atq/Def/Agi/Sor +10, redução de dano 2%"}
+{"rowId":"1010824","text":"Atq/Def/Agi/Sor +10, redução de dano 2%"}
+{"rowId":"1010825","text":"Atq/Agi +20, Atq. Mágico/Res. Mágica +10, redução de dano 3%"}
+{"rowId":"1010826","text":"Def/Sor +20, Atq. Mágico/Res. Mágica +10, redução de dano 3%"}
+{"rowId":"1010827","text":"Atq/Agi +20, Atq. Mágico/Res. Mágica +10, redução de dano 3%"}
+{"rowId":"1010828","text":"Def/Sor +20, Atq. Mágico/Res. Mágica +10, redução de dano 3%"}
+{"rowId":"1010829","text":"Efeito de 2 peças: Ataque +20 - Agilidade +20, Res. Mágica +10, Atq. Mágico +10, HP +500, dano recebido 3%."}
+{"rowId":"1010830","text":"Efeito de 2 peças: Defesa +20 - Sorte +20, Res. Mágica +10, Atq. Mágico +10, dano recebido 3%."}
+{"rowId":"1010831","text":"Efeito de 2 peças: Ataque +20 - Agilidade +20, Res. Mágica +10, Atq. Mágico +10, HP +500, dano recebido 3%."}
+{"rowId":"1010832","text":"Efeito de 2 peças: Defesa +20 - Sorte +20, Res. Mágica +10, Atq. Mágico +10, dano recebido 3%."}
+{"rowId":"1010833","text":"Ataque +25, Defesa +25, Agilidade +25, Sorte +25"}
+{"rowId":"1010834","text":"Ataque +25, Defesa +25, Agilidade +25, Sorte +25"}
+{"rowId":"1010835","text":"Efeito: Ataque +20, Agilidade +20, Res. Mágica +10, Atq. Mágico +10, HP +500, dano recebido -5%."}
+{"rowId":"1010836","text":"Efeito: Defesa +30, Sorte +30, Res. Mágica +10, Atq. Mágico +10, reduz dano crítico recebido em 2%."}
+{"rowId":"1010837","text":"Efeito: Ataque +20, Agilidade +20, Res. Mágica +10, Atq. Mágico +10, HP +500, dano recebido -5%."}
+{"rowId":"1010838","text":"Efeito: Defesa +30, Sorte +30, Res. Mágica +10, Atq. Mágico +10, reduz dano crítico recebido em 2%."}
+{"rowId":"1010839","text":"Efeito: Ataque +20, Agilidade +20, Res. Mágica +15, Armadura +3, HP +500, dano recebido -5%."}
+{"rowId":"1010840","text":"Efeito: Defesa +30, Sorte +30, Res. Mágica +15, Armadura +3, reduz dano crítico recebido em 2%."}
+{"rowId":"1010841","text":"Ataque +25, Defesa +25, Agilidade +25, Sorte +25, HP +250"}
+{"rowId":"1010842","text":"Ataque +25, Defesa +25, Agilidade +25, Sorte +25, HP +251"}
+{"rowId":"1010850","text":"Efeito: Agilidade +20, Sorte +20, Atq. Mágico +15, Dano +3, HP +500, dano recebido -6%"}
+{"rowId":"1010851","text":"Efeito: Agilidade +20, Defesa +20, Atq. Mágico +15, Dano +3, HP +500, dano crítico recebido -3%"}
+{"rowId":"1010852","text":"Efeito: 4 atributos +30, dano recebido -1%, HP +500"}
+{"rowId":"1010853","text":"Efeito: 4 atributos +30, dano recebido -1%, HP +500"}
+{"rowId":"1010854","text":"Agilidade +20 - Sorte +20, Atq. Mágico +15, Dano +3, HP +500, dano recebido -6%."}
+{"rowId":"1010855","text":"Ataque +20, Defesa +20, Res. Mágica +20, Armadura +3, HP +500, reduz dano crítico recebido em 3%."}

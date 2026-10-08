@@ -83,7 +83,7 @@ export class NTM1087 extends AMissionControl {
             this.m_boss = this.Game.CreateBoss(this.bossID, 260, 560, 1, 1, "");
             this.m_boss.FallFrom(260, 620, "fall", 0, 2, 1000);
             this.m_boss.SetRelateDemagemRect(this.m_boss.NpcInfo.X, this.m_boss.NpcInfo.Y, this.m_boss.NpcInfo.Width, this.m_boss.NpcInfo.Height);
-            this.m_boss.Say("Loài người kia，đến được đây quả nhiên có chút bản lĩnh！", 0, 3000);
+            this.m_boss.Say("Humanos, chegar até aqui mostra que têm alguma habilidade!", 0, 3000);
             this.m_moive.PlayMovie("in", 6000, 0);
             //m_boss.PlayMovie("weakness", 10000, 5000);
             this.m_front.PlayMovie("in", 6000, 0);

@@ -1,0 +1,5 @@
+1. Khi làm thức ăn thú cưng cần tốn thực vật tương 
+--- RECORDSEPARATOR ---
+ứng, khi số lượng thực vật nhỏ hơn thức ăn 1 thú cưng 
+--- RECORDSEPARATOR ---
+cần sẽ không thể làm thức ăn thú cưng này.

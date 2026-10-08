@@ -4,7 +4,7 @@ import { RoomType } from "../rooms/room.js";
 import { roomList } from "../packets/out.js";
 import { SubRouter, type HandlerRegistry } from "./registry.js";
 
-const NO_WEAPON = "Không mang vũ khí, không thể tham gia.";
+const NO_WEAPON = "Sem arma equipada, não é possível participar.";
 
 export function roomRouter(): SubRouter {
   return new SubRouter("int", "GAME_ROOM")
@@ -61,7 +61,7 @@ export function roomRouter(): SubRouter {
       if (!room || room.host !== p) return;
       for (const m of room.getPlayers()) {
         if (!m.hasMainWeapon) {
-          p.sendMessage(3, "Có thành viên hoặc khán giả không mang vũ khí, không thể bắt đầu!");
+          p.sendMessage(3, "Há membros ou espectadores sem arma, não é possível começar!");
           room.IsPlaying = false;
           room.sendCancelPickUp();
           return;

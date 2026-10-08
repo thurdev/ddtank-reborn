@@ -1,0 +1,3 @@
+3. Trang bị hai bên trái phải bắt buộc là trang bị cùng 
+--- RECORDSEPARATOR ---
+loại.

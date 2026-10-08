@@ -173,7 +173,7 @@ export class ThirteenNormalBrotherNpc extends ABrain {
             this.Body.SyncAtTime = true;
             this.Body.AddBlood(5000);
 			this.Body.PlayMovie("castA", 100, 0);
-            this.Body.Say("Hồi phục sức mạnh", 1, 0);
+            this.Body.Say("Recuperar força", 1, 0);
         }
   CreateChild() {
             this.Body.PlayMovie("call", 100, 0);

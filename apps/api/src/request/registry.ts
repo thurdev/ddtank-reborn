@@ -30,7 +30,7 @@ const STUBS = [
   "/FavoriteTransit.ashx", "/GetSID.ashx", "/GiftRecieveLog.ashx", "/giftsendlog.ashx", "/giftsendlog1.ashx",
   "/gmtipallbyids.ashx", "/IMFriendsBbs.ashx", "/IMFriendsGood.ashx", "/IMRecentContactsList.ashx", "/KeyGenerator.ashx",
   "/LoadUserEquip.ashx", "/LoadUserItems.ashx", "/LoadUsersSort.ashx", "/LogTime.ashx", "/luckstaractivityrank.ashx",
-  "/MapWeekList.ashx", "/MarryInfoPageList.ashx", "/PayTransit.ashx", "/RenameConsortiaName.ashx", "/RenameNick.ashx",
+  "/MapWeekList.ashx", "/PayTransit.ashx", "/RenameConsortiaName.ashx", "/RenameNick.ashx",
   "/SentReward.ashx", "/shopcheapitemlist2.ashx", "/UserGoodsInfo.ashx", "/UserQuestList.ashx", "/VisualizeItemLoad.ashx",
   "/CelebList/celebbyweekleaguescore.ashx",
   // requested by the client, no handler in DDTank41 either
@@ -48,6 +48,7 @@ const PORTED: Endpoint[] = [
   NickNameCheck,
   CreateLogin,
   social.IMListLoad,
+  social.MarryInfoPageList,
   social.UserApprenticeshipInfoList,
   social.UserRankDate,
   social.ApprenticeshipClubList,

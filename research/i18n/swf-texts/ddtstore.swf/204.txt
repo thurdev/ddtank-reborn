@@ -1,0 +1,5 @@
+1. Loại vật phẩm dung luyện quyết định loại vật 
+--- RECORDSEPARATOR ---
+phẩm có thể dung luyện ra, 4 vị trí dung luyện vật 
+--- RECORDSEPARATOR ---
+phẩm phải đặt đủ mới có thể dung luyện.

@@ -1,0 +1,5 @@
+2. Sau khi tăng sao thành công, trang bị sẽ 
+--- RECORDSEPARATOR ---
+nhận được kỹ năng tăng sao, hiệu quả kỹ 
+--- RECORDSEPARATOR ---
+năng sẽ tăng theo cấp kỹ năng 

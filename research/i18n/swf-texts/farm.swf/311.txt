@@ -1,0 +1,3 @@
+5. Khi mở nếu thiếu Hạt giống, sẽ xuất hiện 
+--- RECORDSEPARATOR ---
+nhắc nhở mua, cũng có thể đến của hàng mua.

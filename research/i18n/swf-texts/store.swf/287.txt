@@ -1,0 +1,3 @@
+ 2.Trang bị phải còn trong thời gian hiệu lực mới có thể 
+--- RECORDSEPARATOR ---
+  đổi cho nhau.

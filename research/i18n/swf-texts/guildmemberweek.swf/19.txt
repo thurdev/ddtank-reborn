@@ -1,0 +1,5 @@
+2. Khi hoạt động kết thúc người chơi có điểm cống hiến
+--- RECORDSEPARATOR ---
+    trong  Top 10  sẽ nhận được phần thưởng xếp hạng và
+--- RECORDSEPARATOR ---
+    phần thưởng thêm.

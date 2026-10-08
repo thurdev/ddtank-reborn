@@ -1,0 +1,5 @@
+5. Nếu người chơi có điểm cống hiến bằng nhau, sẽ ưu
+--- RECORDSEPARATOR ---
+    tiên xếp hạng cho người đạt mức cống hiến này
+--- RECORDSEPARATOR ---
+    trước.

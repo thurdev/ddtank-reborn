@@ -5,14 +5,14 @@ import { registerScript, AMissionControl, LanguageMgr, __arr } from "../../runti
 
 export class KT1121 extends AMissionControl {
   static KillChat = __arr([
-           "Ah, mặt tôi .....",  
+           "Ah, meu rosto.....",  
       
-            "Ặc, giáp trụ xinh đẹp của mình đã bị trầy rồi.....",  	  
+            "Argh, minha linda armadura ficou arranhada.....",  	  
  
-            "Ui za, đau quá !"
+            "Ui, que dor!"
         ]);
   static ShootedChat = __arr([
-            "Ah, của tôi hết đừng lấy！"
+            "Ah, é tudo meu, não pegue!"
         ]);
   boss = null;
   npcID = 2104;
@@ -57,7 +57,7 @@ export class KT1121 extends AMissionControl {
             this.m_front = this.Game.Createlayer(1131, 150, "font", "game.asset.living.AntQueenAsset", "out", 1, 1);
             this.boss = this.Game.CreateBoss(this.bossID, 1316, 444, -1, 1, "");
             this.boss.SetRelateDemagemRect(-42, -200, 84, 194);
-            this.boss.Say(LanguageMgr.GetTranslation("Rương là của ta, bảo bối điều là của ta, chỉ cần ta nhìn thấy đều là của ta!"), 0, 200, 0);
+            this.boss.Say(LanguageMgr.GetTranslation("O baú é meu, os tesouros são meus, tudo que eu vejo é meu!"), 0, 200, 0);
 
             this.m_moive.PlayMovie("in", 6000, 0);
             this.m_front.PlayMovie("in", 6100, 0);

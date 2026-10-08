@@ -1,0 +1,3 @@
+5.Tiềm năng có thể được kích hoạt nhiều lần để 
+--- RECORDSEPARATOR ---
+được thuộc tính mới.

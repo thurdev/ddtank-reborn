@@ -1,0 +1,9 @@
+4. 
+--- RECORDSEPARATOR ---
+ผลการอัญเชิญสามารถใช้ซ้อนได้
+--- RECORDSEPARATOR ---
+ 
+--- RECORDSEPARATOR ---
+และแฝงไปในตัวผู้
+--- RECORDSEPARATOR ---
+เล่นอัตโนมัติ

@@ -1,0 +1,28 @@
+Proprietary License — DDTank Reborn
+Copyright (c) 2026 thurdev. All rights reserved.
+
+1. This repository is PRIVATE. Access is granted only to explicitly invited
+   collaborators, for the sole purpose of developing and operating the
+   DDTank Reborn live server under the owner's direction.
+
+2. No permission is granted to use, copy, modify, merge, publish, distribute,
+   sublicense, sell, rent, host commercially, or create derivative works,
+   except with prior written authorization from the copyright holder.
+   In particular, COMMERCIAL USE AND SALE — including selling the system,
+   selling access to it, selling hosted instances/servers, or charging
+   players for advantages derived from this code — are EXPRESSLY PROHIBITED.
+
+3. Nothing here transfers ownership. All contributions made by collaborators
+   are assigned to the project owner (see CONTRIBUTING.md) unless otherwise
+   agreed in writing.
+
+4. Future open-sourcing is planned. When the project goes community, this
+   license WILL BE REPLACED by a source-available license with a built-in
+   conversion to an OSI-approved license (intended: Business Source License
+   1.1 converting to Apache-2.0 on a fixed Change Date). Commercial
+   restrictions will survive for code released under the BSL until each
+   Change Date passes.
+
+5. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
+
+Owner contact: see GitHub @thurdev.

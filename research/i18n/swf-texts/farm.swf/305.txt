@@ -1,0 +1,5 @@
+3. Cho ăn có thể tăng độ no thú cưng, độ no cao thấp 
+--- RECORDSEPARATOR ---
+sẽ ảnh hưởng trực tiếp đến thuộc tính cộng thêm khi 
+--- RECORDSEPARATOR ---
+thú cưng tham chiến.

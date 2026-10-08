@@ -9,8 +9,19 @@ async (page) => {
   const thumbs = p.locator('img[alt="object image"]');
   const clearRefs = async () => { let g = 0; while ((await thumbs.count()) > 0 && g++ < 8) { const b = await thumbs.first().boundingBox(); await p.mouse.move(b.x + b.width / 2, b.y + b.height / 2); await p.waitForTimeout(350); await p.mouse.click(b.x + b.width - 3, b.y + 1); await p.waitForTimeout(600); } };
   const log = [];
+  // fresh page each batch: hours of generation history bloat the DOM until clicks time out. The URL keeps the model;
+  // the Unlimited switch is re-enabled below before every generation and the model guard verifies the page.
+  let ready = false;
+  for (let attempt = 0; attempt < 2 && !ready; attempt++) {
+    await p.goto(p.url(), { waitUntil: 'domcontentloaded', timeout: 120000 }).catch(() => {});
+    for (let i = 0; i < 40 && !ready; i++) { await p.waitForTimeout(5000); ready = await p.evaluate(() => document.querySelectorAll('[role=textbox]').length > 0 && document.querySelectorAll('[role=switch]').length > 0).catch(() => false); }
+  }
+  if (!ready) return 'ABORT: page did not finish loading (machine overloaded?)';
+  await p.waitForTimeout(2000);
   for (let n = 0; n < N; n++) {
-    const job = await (await p.request.get(Q + '/next')).json();
+    // engine follows the page: ?model=gpt -> GPT Image jobs (art), otherwise Seedream 5.0 Lite jobs (plain text)
+    const engine = p.url().includes('model=gpt') ? 'gpt' : 'seedream';
+    const job = await (await p.request.get(Q + '/next?engine=' + engine)).json();
     if (job.done) { log.push('queue empty'); break; }
     try {
       // close any lightbox/detail view or dialog left open (it blocks the prompt bar)
@@ -52,6 +63,13 @@ async (page) => {
       const isOn = async () => (await sw.getAttribute('aria-checked')) === 'true' || ['on', 'checked'].includes(await sw.getAttribute('data-state'));
       if (!(await isOn())) { await sw.click(); await p.waitForTimeout(1200); }
       if (!(await isOn())) throw new Error('unlimited is OFF and could not be enabled - not generating');
+      // model guard: the selector once drifted to Seedream 4.5 (paid, 1 credit) and GPT Image. Never generate unless the
+      // page is on Seedream 5.0 Lite (unlimited); abort the whole batch otherwise.
+      const btnTexts = await p.$$eval('button', (bs) => bs.map((b) => b.textContent.trim()));
+      const modelOk = engine === 'gpt'
+        ? p.url().includes('model=gpt') && btnTexts.includes('ChatGPT') && btnTexts.includes('1:1')
+        : p.url().includes('seedream_v5_lite') && btnTexts.some((t) => /^Seedream 5\.0 lite$/i.test(t));
+      if (!modelOk) { log.push(`ABORT: page is not on the expected model for ${engine} (url ${p.url()})`); await p.request.post(`${Q}/fail?id=${encodeURIComponent(job.id)}&why=${encodeURIComponent('upload dialog: model guard')}`); break; }
       const before = new Set(await ids());
       const errRe = /(too small|smaller than|minimum|at least \d+|resolution|failed|error|not supported|try again)/i;
       const toastText = () => p.evaluate(() => [...document.querySelectorAll('[data-sonner-toast],[role=alert],[role=status]')].map((e) => e.textContent.trim()).join(' | '));
@@ -59,7 +77,7 @@ async (page) => {
       await p.getByRole('button', { name: /^Unlimited/ }).last().click();
       const clickedAt = Date.now();
       let hf = null;
-      for (let i = 0; i < 80 && !hf; i++) {
+      for (let i = 0; i < 120 && !hf; i++) { // GPT Image takes ~1.5-3 min
         await p.waitForTimeout(3000);
         const t = await toastText();
         if (t !== toastsBefore && errRe.test(t)) throw new Error('higgsfield error: ' + t.slice(0, 160));

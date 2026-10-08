@@ -5,14 +5,14 @@ import { registerScript, AMissionControl, __arr } from "../../runtime.js";
 
 export class DTGK1167 extends AMissionControl {
   static KillChat = __arr([
-           "Gửi cho bạn trở về nhà!",
+           "Vou te mandar de volta pra casa!",
 
-           "Một mình, bạn có ảo tưởng có thể đánh bại tôi?"
+           "Sozinho, você acha mesmo que pode me derrotar?"
         ]);
   static ShootedChat = __arr([
-            " Đau ah! Đau ...",
+            " Ai! Dói...",
 
-            "Quốc vương vạn tuế ..."
+            "Vida longa ao rei..."
         ]);
   m_boss = null;
   m_front = null;

@@ -1,0 +1,5 @@
+6. Thông tin xếp hạng mỗi 10 phút cập nhật 1 lần, khi
+--- RECORDSEPARATOR ---
+    kết thúc hoạt động phần thưởng sẽ được gửi qua
+--- RECORDSEPARATOR ---
+    thư, xin chú ý nhận.

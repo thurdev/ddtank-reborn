@@ -245,7 +245,7 @@ export async function updateAwardApp(ctx: ServerContext, p: GamePlayer, oldLevel
 
 const hoursLeft = (d: Date | null | undefined) => (d && d.getTime() > Date.now() ? Math.ceil((d.getTime() - Date.now()) / 3_600_000) : 0);
 const frozen = (c: Rel) => !!c.freezesDate && c.freezesDate.getTime() > Date.now();
-const FROZEN_MSG = (c: Rel) => `Bạn bị giới hạn do trước đó đã từ bỏ đệ tử hoặc sư phụ. Vui lòng thử lại sau ${hoursLeft(c.freezesDate)} giờ nữa.`;
+const FROZEN_MSG = (c: Rel) => `Você está bloqueado por ter abandonado um aluno ou mestre. Tente novamente em ${hoursLeft(c.freezesDate)} hora(s).`;
 
 export function academyRouter(): SubRouter {
   return new SubRouter("byte", "ACADEMY")
@@ -258,7 +258,7 @@ export function academyRouter(): SubRouter {
       if (getRequest(ctx, p.id, id)) return;
       if (frozen(p.info as Rel)) return p.sendMessage(0, FROZEN_MSG(p.info as Rel));
       const o = ctx.world.get(id);
-      if (!o || o.info.apprenticeshipState >= MASTER_FULL_STATE || !checkCanMaster(o.info.Grade)) return p.sendMessage(0, "Người chơi này không online.");
+      if (!o || o.info.apprenticeshipState >= MASTER_FULL_STATE || !checkCanMaster(o.info.Grade)) return p.sendMessage(0, "Este jogador não está online.");
       requests(ctx).push({ sender: p.id, receiver: id, type: 1, at: Date.now() });
       o.send(askPacket(4, p.id, p.info.NickName ?? "", msg));
     })
@@ -268,23 +268,23 @@ export function academyRouter(): SubRouter {
       if (getRequest(ctx, p.id, id)) return;
       if (frozen(p.info as Rel)) return p.sendMessage(0, FROZEN_MSG(p.info as Rel));
       const o = ctx.world.get(id);
-      if (!o || o.info.masterID !== 0 || !checkCanApp(o.info.Grade)) return p.sendMessage(0, "Người chơi này không online.");
+      if (!o || o.info.masterID !== 0 || !checkCanApp(o.info.Grade)) return p.sendMessage(0, "Este jogador não está online.");
       requests(ctx).push({ sender: p.id, receiver: id, type: 0, at: Date.now() });
       o.send(askPacket(5, p.id, p.info.NickName ?? "", msg));
     })
     .on(6, "MASTER_CONFIRM", async (ctx, p, pkt) => {
       const id = pkt.readInt();
       const r = getRequest(ctx, id, p.id);
-      if (!r || r.type !== 1) return p.sendMessage(0, "Số đăng ký thiếu hoặc đã bị xóa.");
+      if (!r || r.type !== 1) return p.sendMessage(0, "Inscrição inexistente ou já removida.");
       removeRequest(ctx, r);
       if (frozen(p.info as Rel)) return p.sendMessage(0, FROZEN_MSG(p.info as Rel));
-      if (p.info.apprenticeshipState >= MASTER_FULL_STATE || !checkCanMaster(p.info.Grade)) return p.sendMessage(0, "Thật tiếc, đối phương đã là bậc thầy hãy thử lại vào lần sau!");
+      if (p.info.apprenticeshipState >= MASTER_FULL_STATE || !checkCanMaster(p.info.Grade)) return p.sendMessage(0, "Que pena, o jogador já é mestre. Tente outra vez!");
       const app = ctx.world.get(id);
-      if (!app || !checkCanApp(app.info.Grade)) return p.sendMessage(0, "Đối phương không trực tuyến, vui lòng đợi hoặc thử lại sau!");
-      if (!(await addApprentice(ctx, p, app))) return p.sendMessage(0, "Thật tiếc, đối phương đã có sư phụ hãy nhanh hơn vào lần sau");
-      app.send(systemNotice(`[${p.info.NickName}] đã chấp nhận bạn làm sư phụ`, true));
+      if (!app || !checkCanApp(app.info.Grade)) return p.sendMessage(0, "O jogador não está online, aguarde ou tente mais tarde!");
+      if (!(await addApprentice(ctx, p, app))) return p.sendMessage(0, "Que pena, o jogador já tem um mestre. Seja mais rápido da próxima vez");
+      app.send(systemNotice(`[${p.info.NickName}] aceitou você como mestre`, true));
       await mailTo(ctx, p.id, p.info.NickName ?? "", ctx.lang.t("Game.Server.AppSystem.TakeApprenticeMail.Title"), ctx.lang.t("Game.Server.AppSystem.TakeApprenticeMail.Content"));
-      p.sendMessage(0, `[${app.info.NickName}] đã chấp nhận làm đồ đệ của bạn`);
+      p.sendMessage(0, `[${app.info.NickName}] aceitou ser seu aluno`);
     })
     .on(7, "APPRENTICE_CONFIRM", async (ctx, p, pkt) => {
       const id = pkt.readInt();

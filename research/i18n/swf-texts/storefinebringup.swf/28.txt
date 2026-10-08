@@ -1,0 +1,5 @@
+2. Trang sức chia làm 3 phẩm chất bồi dưỡng, chỉ khi trang 
+--- RECORDSEPARATOR ---
+sức phẩm chất bồi dưỡng thấp gộp trang sức phẩm chất 
+--- RECORDSEPARATOR ---
+bồi dưỡng cao mới mất nhiều EXP

@@ -5,35 +5,35 @@ import { registerScript, ABrain, __arr, __int } from "../../runtime.js";
 
 export class ThirteenTerrorDevilBoss extends ABrain {
   static AllAttackChat = __arr([ 
-            "Trận động đất, bản thân mình! ! <br/> bạn vui lòng Ay giúp đỡ",
+            "Terremoto! Eu mesmo! ! <br/> alguém me ajude",
        
-            "Hạ vũ khí xuống!",
+            "Abaixem as armas!",
        
-            "Xem nếu bạn có thể đủ khả năng, một số ít!！"
+            "Veja se você aguenta um pouco!！"
         ]);
   static ShootChat = __arr([
-             "Cho bạn biết những gì một cú sút vết nứt!",
+             "Veja o que é um golpe de verdade!",
                                
-             "Gửi cho bạn một quả bóng - bạn phải chọn Vâng",
+             "Tome uma bola - você tem que aceitar",
 
-             "Nhóm của bạn của những người dân thường ngu dốt và thấp"
+             "Bando de plebeus ignorantes e insignificantes"
         ]);
   static ShootedChat = __arr([
-           "Ah ~ ~ Tại sao bạn tấn công? <br/> tôi đang làm gì?",
+           "Ah~~ Por que você está atacando? <br/> O que eu estou fazendo?",
                    
-            "Oh ~ ~ nó thực sự đau khổ! Tại sao tôi phải chiến đấu? <br/> tôi phải chiến đấu ..."
+            "Oh~~ dói de verdade! Por que tenho que lutar? <br/> Tenho que lutar..."
 
         ]);
   static AddBooldChat = __arr([
-            "Xoắn ah xoay ~ <br/>xoắn ah xoay ~ ~ ~",
+            "Gira e roda~ <br/>gira e roda~~~",
                
             "~ Hallelujah <br/>Luyaluya ~ ~ ~",
                 
-            "Yeah Yeah Yeah, <br/> để thoải mái!"
+            "Yeah Yeah Yeah, <br/> que relaxante!"
          
         ]);
   static KillAttackChat = __arr([
-            "Con rồng trong thế giới! !"
+            "O dragão do mundo! !"
         ]);
   m_attackTurn = 0;
   npcID = 5322;

@@ -1,0 +1,3 @@
+2. Mỗi lần tăng cấp thất bại nhận được điểm                                           
+--- RECORDSEPARATOR ---
+mắn, điểm cao tỷ lệ tăng cấp cao.

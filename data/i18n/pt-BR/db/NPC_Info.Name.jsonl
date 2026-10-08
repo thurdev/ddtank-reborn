@@ -1,24 +1,1005 @@
+{"rowId":"7422","text":"Galo"}
+{"rowId":"7423","text":"Galinheiro"}
+{"rowId":"7431","text":"Galinha Feiosa"}
+{"rowId":"7432","text":"Gaiola de Galinha"}
+{"rowId":"7433","text":"Ovo Podre"}
+{"rowId":"8001","text":"Granada Boneca"}
+{"rowId":"8002","text":"Homem-Granada Quente"}
+{"rowId":"8101","text":"Guerreiro do Deus Maligno"}
+{"rowId":"8102","text":"Guerreiro do Deus Maligno"}
+{"rowId":"8103","text":"Carsey"}
 {"rowId":"8104","text":"Explorador"}
+{"rowId":"8105","text":"Totem"}
+{"rowId":"9001","text":"Homem-Granada Pequeno"}
+{"rowId":"9002","text":"Homem-Granada Feroz"}
+{"rowId":"9101","text":"Mosquito Agulhão"}
+{"rowId":"9102","text":"Rei Escorpião"}
+{"rowId":"9103","text":"Mecanismo da Passagem Secreta"}
+{"rowId":"9104","text":"Montanha de Armas"}
+{"rowId":"10001","text":"Demônio de Pedra"}
+{"rowId":"10002","text":"Javali"}
+{"rowId":"10005","text":"Gol 1"}
+{"rowId":"10006","text":"Gol 2"}
+{"rowId":"10007","text":"Gol 3"}
+{"rowId":"10008","text":"Gol 4"}
+{"rowId":"10009","text":"Gol 5"}
+{"rowId":"10011","text":"Tucano"}
+{"rowId":"10012","text":"Boneco de Neve Travesso"}
+{"rowId":"10013","text":"Cervo Fofo"}
+{"rowId":"10014","text":"Companheiro de Festa"}
+{"rowId":"10015","text":"Borboleta Rara"}
+{"rowId":"10016","text":"Asas do Explorador"}
+{"rowId":"10101","text":"Franken"}
+{"rowId":"10102","text":"Morcego"}
+{"rowId":"11001","text":"Pássaro Malvado"}
+{"rowId":"11002","text":"Javali"}
+{"rowId":"11101","text":"Anna"}
+{"rowId":"11102","text":"Polvinho"}
+{"rowId":"11103","text":"Água-viva"}
+{"rowId":"11104","text":"Polvo"}
+{"rowId":"11105","text":"Búfalo d'Água"}
+{"rowId":"12001","text":"Soldado Lobo"}
+{"rowId":"12002","text":"Capitão Lobo"}
+{"rowId":"12003","text":"Tenente Lobo Velho"}
+{"rowId":"12004","text":"Esquadrão dos Pintinhos"}
+{"rowId":"12005","text":"NPC Desconhecido"}
+{"rowId":"12006","text":"Artilharia dos Pintinhos"}
+{"rowId":"12007","text":"Granadinha"}
+{"rowId":"12008","text":"Capitão Crocodilo"}
+{"rowId":"12009","text":"Soldado Pintinho"}
+{"rowId":"12010","text":"Coronel Lobo"}
+{"rowId":"12011","text":"Soldado Pintinho"}
+{"rowId":"12012","text":"Soldado Pintinho"}
+{"rowId":"12013","text":"Nave dos Pintinhos"}
+{"rowId":"12014","text":"Nave Colômbia"}
+{"rowId":"12015","text":"Estrela da Morte"}
+{"rowId":"12016","text":"Sábio Papagaio"}
+{"rowId":"12017","text":"Ogiva de Liga"}
+{"rowId":"12018","text":"Ogiva de Liga"}
+{"rowId":"12019","text":"Bala Efêmera"}
+{"rowId":"12020","text":"Superogiva de Liga"}
+{"rowId":"12101","text":"Soldado Lobo"}
+{"rowId":"12102","text":"Capitão Lobo"}
+{"rowId":"12103","text":"Tenente Lobo Velho"}
+{"rowId":"12104","text":"Esquadrão dos Pintinhos"}
+{"rowId":"12105","text":"NPC Desconhecido"}
+{"rowId":"12106","text":"Artilharia dos Pintinhos"}
+{"rowId":"12107","text":"Granadinha"}
+{"rowId":"12108","text":"Capitão Crocodilo"}
+{"rowId":"12109","text":"Soldado Pintinho"}
+{"rowId":"12110","text":"Coronel Lobo"}
+{"rowId":"12111","text":"Soldado Pintinho"}
+{"rowId":"12112","text":"Soldado Pintinho"}
+{"rowId":"12113","text":"Nave dos Pintinhos"}
+{"rowId":"12114","text":"Nave Colômbia"}
+{"rowId":"12115","text":"Estrela da Morte"}
+{"rowId":"12116","text":"Sábio Papagaio"}
+{"rowId":"12117","text":"Ogiva de Liga"}
+{"rowId":"12118","text":"Ogiva de Liga"}
+{"rowId":"12119","text":"Bala Efêmera"}
+{"rowId":"12303","text":"Tenente Lobo Velho"}
+{"rowId":"12304","text":"Esquadrão dos Pintinhos"}
+{"rowId":"12305","text":"NPC Desconhecido"}
+{"rowId":"12306","text":"Artilharia dos Pintinhos"}
+{"rowId":"12307","text":"Granadinha"}
+{"rowId":"12308","text":"Capitão Crocodilo"}
+{"rowId":"12309","text":"Soldado Pintinho"}
+{"rowId":"12310","text":"Coronel Lobo"}
+{"rowId":"12311","text":"Soldado Pintinho"}
+{"rowId":"12312","text":"Soldado Pintinho"}
+{"rowId":"12313","text":"Nave dos Pintinhos"}
+{"rowId":"12314","text":"Nave Colômbia"}
+{"rowId":"12315","text":"Estrela da Morte"}
+{"rowId":"12316","text":"Sábio Papagaio"}
+{"rowId":"12317","text":"Ogiva de Liga"}
+{"rowId":"12318","text":"Ogiva de Liga"}
+{"rowId":"12319","text":"Bala Efêmera"}
+{"rowId":"12320","text":"Superogiva de Liga"}
+{"rowId":"30002","text":"Conde Sombrio"}
+{"rowId":"30003","text":"Conde Sombrio"}
+{"rowId":"30001","text":"Morcego Vampiro"}
 {"rowId":"30004","text":"Capitão"}
-{"rowId":"60015","text":"Armadura Minotaure"}
-{"rowId":"3001","text":"Guerreiro tribal"}
-{"rowId":"3002","text":"Guerreiro tribal"}
-{"rowId":"3003","text":"Guerreiro tribal"}
-{"rowId":"3101","text":"Guerreiro tribal"}
-{"rowId":"3102","text":"Guerreiro tribal"}
-{"rowId":"3103","text":"Guerreiro tribal"}
-{"rowId":"3201","text":"Guerreiro tribal"}
-{"rowId":"3202","text":"Guerreiro tribal"}
-{"rowId":"3203","text":"Guerreiro tribal"}
-{"rowId":"3301","text":"Guerreiro tribal"}
-{"rowId":"3302","text":"Guerreiro tribal"}
-{"rowId":"3303","text":"Guerreiro tribal"}
+{"rowId":"13001","text":"Daniliz"}
+{"rowId":"13002","text":"Rei"}
+{"rowId":"13003","text":"Bulan Mais Novo"}
+{"rowId":"13004","text":"Bulan Mais Velho"}
+{"rowId":"13005","text":"Sulan"}
+{"rowId":"13006","text":"Demônio do Lenço Rosa"}
+{"rowId":"13007","text":"Minotauro"}
+{"rowId":"13008","text":"Mathias"}
+{"rowId":"13009","text":"Ilusão de Mathias"}
+{"rowId":"13010","text":"Caixa de Tortura"}
+{"rowId":"13012","text":"Vingador"}
+{"rowId":"13013","text":"Ladrão de Almas"}
+{"rowId":"13014","text":"Conquistador"}
+{"rowId":"13101","text":"Daniliz Comum"}
+{"rowId":"13102","text":"Rei"}
+{"rowId":"13103","text":"Bulan Mais Novo"}
+{"rowId":"13104","text":"Bulan Mais Velho"}
+{"rowId":"13105","text":"Sulan"}
+{"rowId":"13106","text":"Demônio do Lenço Rosa"}
+{"rowId":"13107","text":"Minotauro"}
+{"rowId":"13108","text":"Mathias"}
+{"rowId":"13109","text":"Ilusão de Mathias"}
+{"rowId":"13110","text":"Caixa de Tortura"}
+{"rowId":"13112","text":"Vingador"}
+{"rowId":"13113","text":"Ladrão de Almas"}
+{"rowId":"13114","text":"Conquistador"}
+{"rowId":"13201","text":"Daniliz"}
+{"rowId":"13202","text":"Rei"}
+{"rowId":"13203","text":"Bulan Mais Novo"}
+{"rowId":"13204","text":"Bulan Mais Velho"}
+{"rowId":"13205","text":"Sulan"}
+{"rowId":"13206","text":"Demônio do Lenço Rosa"}
+{"rowId":"13207","text":"Minotauro"}
+{"rowId":"13208","text":"Mathias"}
+{"rowId":"13209","text":"Ilusão de Mathias"}
+{"rowId":"13210","text":"Caixa de Tortura"}
+{"rowId":"13212","text":"Vingador"}
+{"rowId":"13213","text":"Ladrão de Almas"}
+{"rowId":"13214","text":"Conquistador"}
+{"rowId":"13301","text":"Daniliz"}
+{"rowId":"13302","text":"Rei"}
+{"rowId":"13303","text":"Bulan Mais Novo"}
+{"rowId":"13304","text":"Bulan Mais Velho"}
+{"rowId":"13305","text":"Sulan"}
+{"rowId":"13306","text":"Demônio do Lenço Rosa"}
+{"rowId":"13307","text":"Minotauro"}
+{"rowId":"13308","text":"Mathias"}
+{"rowId":"13309","text":"Ilusão de Mathias"}
+{"rowId":"13310","text":"Caixa de Tortura"}
+{"rowId":"13312","text":"Vingador"}
+{"rowId":"13313","text":"Ladrão de Almas"}
+{"rowId":"13314","text":"Conquistador"}
+{"rowId":"13401","text":"Daniliz"}
+{"rowId":"13402","text":"Rei"}
+{"rowId":"13403","text":"Bulan Mais Novo"}
+{"rowId":"13404","text":"Bulan Mais Velho"}
+{"rowId":"13405","text":"Sulan"}
+{"rowId":"13406","text":"Demônio do Lenço Rosa"}
+{"rowId":"13407","text":"Minotauro"}
+{"rowId":"13408","text":"Mathias"}
+{"rowId":"13409","text":"Ilusão de Mathias"}
+{"rowId":"13410","text":"Caixa de Tortura"}
+{"rowId":"13412","text":"Vingador"}
+{"rowId":"13413","text":"Ladrão de Almas"}
+{"rowId":"13414","text":"Conquistador"}
+{"rowId":"14001","text":"Bola"}
+{"rowId":"14002","text":"Thomas"}
+{"rowId":"14003","text":"Fã Fervoroso"}
+{"rowId":"14004","text":"Atirador Carlos"}
+{"rowId":"14005","text":"Riccardo"}
+{"rowId":"14006","text":"Gol"}
+{"rowId":"14007","text":"Árbitro Negro"}
+{"rowId":"14008","text":"Rio Saltitante"}
+{"rowId":"14009","text":"Jasin"}
+{"rowId":"14101","text":"Bola"}
+{"rowId":"14102","text":"Thomas"}
+{"rowId":"14103","text":"Fã Fervoroso"}
+{"rowId":"14104","text":"Atirador Carlos"}
+{"rowId":"14105","text":"Riccardo"}
+{"rowId":"14106","text":"Gol"}
+{"rowId":"14107","text":"Árbitro Negro"}
+{"rowId":"14108","text":"Rio Saltitante"}
+{"rowId":"14109","text":"Jasin"}
+{"rowId":"14201","text":"Bola"}
+{"rowId":"14202","text":"Thomas"}
+{"rowId":"14203","text":"Fã Fervoroso"}
+{"rowId":"14204","text":"Atirador Carlos"}
+{"rowId":"14205","text":"Riccardo"}
+{"rowId":"14206","text":"Gol"}
+{"rowId":"14207","text":"Árbitro Negro"}
+{"rowId":"14208","text":"Rio Saltitante"}
+{"rowId":"14209","text":"Jasin"}
+{"rowId":"15001","text":"Rei Galinha"}
+{"rowId":"15002","text":"CHEFE Casal"}
+{"rowId":"16001","text":"Waka"}
+{"rowId":"20001","text":"Galinha Rosa"}
+{"rowId":"21001","text":"Galinha de Elite"}
+{"rowId":"21002","text":"Capitão Galinha"}
+{"rowId":"22001","text":"Galinha Sedutora"}
+{"rowId":"23001","text":"Galinha Rosa"}
+{"rowId":"23002","text":"Galinha de Elite"}
+{"rowId":"23003","text":"Capitão Galinha"}
+{"rowId":"24001","text":"Galinha Duoduo"}
+{"rowId":"24002","text":"Capitão Chifrudo"}
+{"rowId":"25001","text":"Robô A"}
+{"rowId":"25002","text":"Robert Enlouquecido"}
+{"rowId":"40001","text":"Formiga do Labirinto"}
+{"rowId":"40002","text":"Formiga Rainha"}
+{"rowId":"40003","text":"Galinha do Labirinto"}
+{"rowId":"40004","text":"Capitão do Labirinto"}
+{"rowId":"40005","text":"Galinha do Labirinto"}
+{"rowId":"40006","text":"Doce do Labirinto"}
+{"rowId":"40007","text":"Doce do Labirinto"}
+{"rowId":"40008","text":"Capanga do Labirinto"}
+{"rowId":"40009","text":"Rei Bomba do Labirinto"}
+{"rowId":"40010","text":"Guerreiro do Labirinto"}
+{"rowId":"40011","text":"Bravo do Labirinto"}
+{"rowId":"40012","text":"Líder do Labirinto"}
+{"rowId":"40013","text":"Líder do Labirinto"}
+{"rowId":"40014","text":"Escravo do Labirinto"}
+{"rowId":"40015","text":"Águia Sangrenta do Labirinto"}
+{"rowId":"40016","text":"Lobo Sangrento do Labirinto"}
+{"rowId":"40017","text":"Escravo do Labirinto"}
+{"rowId":"40018","text":"Deus da Guerra do Labirinto"}
+{"rowId":"40019","text":"Deus da Guerra do Labirinto"}
+{"rowId":"40020","text":"Fogo-fátuo do Labirinto"}
+{"rowId":"40021","text":"Dragão do Labirinto"}
+{"rowId":"40022","text":"Demônio do Labirinto"}
+{"rowId":"40023","text":"Dragão do Labirinto"}
+{"rowId":"40024","text":"Voador do Labirinto"}
+{"rowId":"40025","text":"Dragão do Labirinto"}
+{"rowId":"40026","text":"Canhão do Labirinto"}
+{"rowId":"40027","text":"Canhão do Labirinto"}
+{"rowId":"40028","text":"Comandante do Labirinto"}
+{"rowId":"40029","text":"Dragão do Labirinto"}
+{"rowId":"40030","text":"Dragão Fantasma do Labirinto"}
+{"rowId":"40031","text":"Lobo do Labirinto"}
+{"rowId":"40032","text":"Ajudante do Labirinto"}
+{"rowId":"40033","text":"Lobo Feroz do Labirinto"}
+{"rowId":"40034","text":"Marechal do Labirinto"}
+{"rowId":"40035","text":"Tenente do Labirinto"}
+{"rowId":"40036","text":"Ajudante do Labirinto"}
+{"rowId":"40037","text":"Tenente do Labirinto"}
+{"rowId":"40038","text":"Marechal do Labirinto"}
+{"rowId":"40039","text":"Marechal do Labirinto"}
+{"rowId":"40040","text":"Marechal do Labirinto"}
+{"rowId":"40041","text":"Marechal do Labirinto"}
+{"rowId":"40042","text":"Marechal do Labirinto"}
+{"rowId":"40043","text":"Ogiva de Liga"}
+{"rowId":"40044","text":"Ogiva de Liga"}
+{"rowId":"40045","text":"Bala Efêmera"}
+{"rowId":"40046","text":"Superogiva de Liga"}
+{"rowId":"40047","text":"Ogiva de Liga"}
+{"rowId":"40048","text":"Ogiva de Liga"}
+{"rowId":"40049","text":"Bala Efêmera"}
+{"rowId":"40050","text":"Superogiva de Liga"}
+{"rowId":"40051","text":"Lobo da Neve do Labirinto"}
+{"rowId":"40052","text":"Micy do Labirinto"}
+{"rowId":"40053","text":"Duende do Labirinto"}
+{"rowId":"40054","text":"Águia do Labirinto"}
+{"rowId":"40055","text":"Mickey do Labirinto"}
+{"rowId":"40056","text":"Caranguejo do Labirinto"}
+{"rowId":"40057","text":"Caracol do Labirinto"}
+{"rowId":"40058","text":"Peixe-espada do Labirinto"}
+{"rowId":"40059","text":"Polvo do Labirinto"}
+{"rowId":"40060","text":"Asa do Labirinto"}
+{"rowId":"40061","text":"Protetor do Labirinto"}
+{"rowId":"40062","text":"Guarda do Labirinto"}
+{"rowId":"40063","text":"Aranha do Labirinto"}
+{"rowId":"40064","text":"Borboleta do Labirinto"}
+{"rowId":"40065","text":"Rei do Labirinto"}
+{"rowId":"40066","text":"Rei Espiritual do Labirinto"}
+{"rowId":"40067","text":"Lula do Labirinto"}
+{"rowId":"40068","text":"Guerreiro do Deus Maligno do Labirinto"}
+{"rowId":"40069","text":"Guerreiro do Deus Maligno do Labirinto"}
+{"rowId":"40070","text":"Lobo do Labirinto"}
+{"rowId":"40071","text":"Cavaleiro do Labirinto"}
+{"rowId":"40072","text":"Mosquito Venenoso do Labirinto"}
+{"rowId":"40073","text":"Craque do Labirinto"}
+{"rowId":"40074","text":"Escravo do Labirinto"}
+{"rowId":"40076","text":"Jasin do Labirinto"}
+{"rowId":"40077","text":"Tucano do Labirinto"}
+{"rowId":"40078","text":"Javali do Labirinto"}
+{"rowId":"40079","text":"Chefe Deus da Fortuna"}
+{"rowId":"40080","text":"Rei Macaco do Labirinto"}
+{"rowId":"40081","text":"Rei Macaco do Labirinto"}
+{"rowId":"44401","text":"Soldado do Covil 1"}
+{"rowId":"44402","text":"Soldado do Covil 2"}
+{"rowId":"44403","text":"Comandante do Covil"}
+{"rowId":"44404","text":"Soldado do Covil 3"}
+{"rowId":"44405","text":"Soldado do Covil 4"}
+{"rowId":"44406","text":"Guerreiro do Covil"}
+{"rowId":"44407","text":"General do Covil"}
+{"rowId":"44408","text":"Soldado do Covil 5"}
+{"rowId":"44409","text":"Lutador do Covil"}
+{"rowId":"44410","text":"Soberano do Covil"}
+{"rowId":"44411","text":"Emboscador do Covil"}
+{"rowId":"44412","text":"Guardião do Covil"}
+{"rowId":"44413","text":"Esquadrão do Covil"}
+{"rowId":"44414","text":"Rikou do Covil"}
+{"rowId":"44415","text":"Destruidor do Covil 1"}
+{"rowId":"44416","text":"Destruidor do Covil 2"}
+{"rowId":"44417","text":"Destruidor do Covil 3"}
+{"rowId":"44418","text":"Demônio do Covil"}
+{"rowId":"44419","text":"Último do Covil 1"}
+{"rowId":"44420","text":"Último do Covil 2"}
+{"rowId":"44421","text":"Último do Covil 3"}
+{"rowId":"44422","text":"Último Guerreiro"}
+{"rowId":"50001","text":"Guardião"}
+{"rowId":"50002","text":"Guardião"}
+{"rowId":"50003","text":"Guardião"}
+{"rowId":"50004","text":"Guardião"}
+{"rowId":"50005","text":"Guardião"}
+{"rowId":"50006","text":"Caranguejo Divino"}
+{"rowId":"50007","text":"Caranguejo Divino"}
+{"rowId":"50008","text":"Caranguejo Divino"}
+{"rowId":"50009","text":"Caranguejo Divino"}
+{"rowId":"50010","text":"Caranguejo Divino"}
+{"rowId":"50011","text":"Caranguejo Divino"}
+{"rowId":"50012","text":"Caranguejo Divino"}
+{"rowId":"50101","text":"Borboleta Fantasma Nv1"}
+{"rowId":"50102","text":"Borboleta Fantasma Nv2"}
+{"rowId":"50103","text":"Borboleta Fantasma Nv3"}
+{"rowId":"50104","text":"Borboleta Fantasma Nv4"}
+{"rowId":"50105","text":"Borboleta Fantasma Nv5"}
+{"rowId":"50106","text":"Borboleta Fantasma Nv6"}
+{"rowId":"50201","text":"Monstro Aquático"}
+{"rowId":"50202","text":"Monstro Aquático"}
+{"rowId":"50203","text":"Monstro Aquático"}
+{"rowId":"50204","text":"Monstro Aquático"}
+{"rowId":"50205","text":"Monstro Aquático"}
+{"rowId":"50206","text":"Diabo Astuto"}
+{"rowId":"50207","text":"Diabo Astuto"}
+{"rowId":"50208","text":"Diabo Astuto"}
+{"rowId":"50209","text":"Diabo Astuto"}
+{"rowId":"50210","text":"Diabo Astuto"}
+{"rowId":"50211","text":"Verme Perverso"}
+{"rowId":"50212","text":"Verme Perverso"}
+{"rowId":"50213","text":"Verme Perverso"}
+{"rowId":"50214","text":"Verme Perverso"}
+{"rowId":"50215","text":"Verme Perverso"}
+{"rowId":"50216","text":"Unicórnio"}
+{"rowId":"50217","text":"Unicórnio"}
+{"rowId":"50218","text":"Unicórnio"}
+{"rowId":"50219","text":"Unicórnio"}
+{"rowId":"50220","text":"Unicórnio"}
+{"rowId":"50221","text":"Touro Mutante"}
+{"rowId":"50222","text":"Touro Mutante"}
+{"rowId":"50223","text":"Touro Mutante"}
+{"rowId":"50224","text":"Touro Mutante"}
+{"rowId":"50225","text":"Touro Mutante"}
+{"rowId":"50226","text":"Líder Sombrio"}
+{"rowId":"50227","text":"Líder Sombrio"}
+{"rowId":"50228","text":"Líder Sombrio"}
+{"rowId":"50229","text":"Líder Sombrio"}
+{"rowId":"50230","text":"Líder Sombrio"}
+{"rowId":"50301","text":"Formiga Gulosa"}
+{"rowId":"50302","text":"Galinha Gulosa"}
+{"rowId":"50303","text":"Guerreiro Guloso"}
+{"rowId":"50304","text":"Morcego Guloso"}
+{"rowId":"50305","text":"Dragãozinho Guloso"}
+{"rowId":"51000","text":"Alvo"}
+{"rowId":"60001","text":"Taylor Pequeno"}
+{"rowId":"60002","text":"Taylor Grande"}
+{"rowId":"60003","text":"Capal Sombrio"}
+{"rowId":"60004","text":"Comandante Sombrio"}
+{"rowId":"60005","text":"Sars Sombrio"}
+{"rowId":"60006","text":"Carl Espírito Maligno"}
+{"rowId":"60007","text":"Goblin Mineiro"}
+{"rowId":"60008","text":"Rei Baiacu"}
+{"rowId":"60009","text":"Taylosie"}
+{"rowId":"60010","text":"Espírito Maligno Kate"}
+{"rowId":"60011","text":"Homem da Selva"}
+{"rowId":"60012","text":"Bandido da Montanha"}
+{"rowId":"60013","text":"Goblin Suicida"}
+{"rowId":"60014","text":"Fantasma de Areia"}
+{"rowId":"60015","text":"Armadura de Minotauro"}
+{"rowId":"60016","text":"Líder Demoníaco"}
+{"rowId":"60017","text":"Vespa da Floresta"}
+{"rowId":"60018","text":"Cavaleiro da Floresta"}
+{"rowId":"60019","text":"General Zhao"}
+{"rowId":"60020","text":"Chifre da Morte"}
+{"rowId":"70001","text":"Árvore Fantasma Venenosa"}
+{"rowId":"70002","text":"Árvore Fantasma do Pesadelo"}
+{"rowId":"70003","text":"Árvore Fantasma Sedutora"}
+{"rowId":"70004","text":"Soldado Celestial"}
+{"rowId":"70005","text":"Rainha-Mãe"}
+{"rowId":"70006","text":"Demônio Azul"}
+{"rowId":"70007","text":"Demônio Vermelho"}
+{"rowId":"70008","text":"Demônio Kaka"}
+{"rowId":"70009","text":"Sacerdote Ali"}
+{"rowId":"70010","text":"Dominador do Tempo"}
+{"rowId":"70011","text":"Dominador de Espíritos"}
+{"rowId":"70012","text":"Rei Escorpião"}
+{"rowId":"70099","text":"Explorador"}
+{"rowId":"70103","text":"Mini Árvore Fantasma"}
+{"rowId":"70104","text":"Vaqueiro"}
+{"rowId":"70111","text":"Chapéu do Demônio"}
+{"rowId":"70204","text":"Tecelã"}
+{"rowId":"71000","text":"Rainha-Mãe do Oeste"}
+{"rowId":"71001","text":"Draven"}
+{"rowId":"71002","text":"Draven"}
+{"rowId":"71003","text":"Doninha"}
+{"rowId":"71004","text":"Pintinho"}
+{"rowId":"71005","text":"Corda"}
+{"rowId":"71006","text":"Libélula"}
+{"rowId":"71007","text":"Cigarra"}
+{"rowId":"71008","text":"Borboleta"}
+{"rowId":"71009","text":"Besouro"}
+{"rowId":"71010","text":"Lançador"}
+{"rowId":"71011","text":"Pedra"}
+{"rowId":"71012","text":"Barril de Madeira"}
+{"rowId":"71013","text":"Pintinho"}
+{"rowId":"71015","text":"Fantasma da Doença"}
+{"rowId":"71016","text":"Pintinho"}
+{"rowId":"71024","text":"Guarda de Lâmina"}
+{"rowId":"71025","text":"Bandido"}
+{"rowId":"71026","text":"Espadachim"}
+{"rowId":"71027","text":"Capitão Crocodilo"}
+{"rowId":"71028","text":"Espírito Fantasma"}
+{"rowId":"71029","text":"Bruxa"}
+{"rowId":"71030","text":"Monstro Tubarão"}
+{"rowId":"71031","text":"Monstro Tubarão"}
+{"rowId":"71032","text":"Caçador"}
+{"rowId":"71033","text":"Escorpião Vermelho"}
+{"rowId":"71034","text":"Rei Escorpião"}
+{"rowId":"71035","text":"Escorpião Azul"}
+{"rowId":"71036","text":"Boneca de Fogo"}
+{"rowId":"71039","text":"Deus Maligno"}
+{"rowId":"71040","text":"Deus Maligno"}
+{"rowId":"71041","text":"Deus Maligno"}
+{"rowId":"71042","text":"Deus Maligno"}
+{"rowId":"71043","text":"Polvo"}
+{"rowId":"71044","text":"Polvo"}
+{"rowId":"71045","text":"Polvo"}
+{"rowId":"71046","text":"Polvo"}
+{"rowId":"71047","text":"Rei Escorpião"}
+{"rowId":"71048","text":"Rei Escorpião"}
+{"rowId":"71049","text":"Rei Escorpião"}
+{"rowId":"71050","text":"Rei Escorpião"}
+{"rowId":"71051","text":"Pequeno Cospe-fogo"}
+{"rowId":"71052","text":"Pequeno Cospe-fogo"}
+{"rowId":"71053","text":"Pequeno Cospe-fogo"}
+{"rowId":"71054","text":"Pequeno Cospe-fogo"}
+{"rowId":"71055","text":"Águia Mágica"}
+{"rowId":"71056","text":"Guarda Lobo"}
+{"rowId":"71057","text":"Orbe Tricolor 1"}
+{"rowId":"71058","text":"Orbe Tricolor 2"}
+{"rowId":"71059","text":"Orbe Tricolor 3"}
+{"rowId":"71060","text":"Fera Guardiã Mágica"}
+{"rowId":"71061","text":"Águia Mágica"}
+{"rowId":"71062","text":"Guarda Lobo"}
+{"rowId":"71063","text":"Orbe Tricolor 1"}
+{"rowId":"71064","text":"Orbe Tricolor 2"}
+{"rowId":"71065","text":"Orbe Tricolor 3"}
+{"rowId":"71066","text":"Fera Guardiã Mágica"}
+{"rowId":"71070","text":"Orbe Tricolor 2"}
+{"rowId":"71071","text":"Orbe Tricolor 3"}
+{"rowId":"71072","text":"Fera Guardiã Mágica"}
+{"rowId":"71076","text":"Orbe Tricolor 2"}
+{"rowId":"71077","text":"Orbe Tricolor 3"}
+{"rowId":"2501","text":"Formiga Vanguarda"}
+{"rowId":"71073","text":"Águia Mágica"}
+{"rowId":"71074","text":"Guarda Lobo"}
+{"rowId":"2502","text":"Formiga Batedora"}
+{"rowId":"2503","text":"Daniliz"}
+{"rowId":"71075","text":"Orbe Tricolor 1"}
+{"rowId":"71078","text":"Fera Guardiã Mágica"}
+{"rowId":"71079","text":"Aranha Mecânica"}
+{"rowId":"71080","text":"Borboleta Mecânica"}
+{"rowId":"71081","text":"Guarda Espacial"}
+{"rowId":"71082","text":"Senhor do Espaço"}
+{"rowId":"71083","text":"Aranha Mecânica"}
+{"rowId":"71084","text":"Borboleta Mecânica"}
+{"rowId":"71085","text":"Guarda Espacial"}
+{"rowId":"71086","text":"Senhor do Espaço"}
+{"rowId":"71087","text":"Aranha Mecânica"}
+{"rowId":"71088","text":"Borboleta Mecânica"}
+{"rowId":"71089","text":"Guarda Espacial"}
+{"rowId":"71090","text":"Senhor do Espaço"}
+{"rowId":"71091","text":"Aranha Mecânica"}
+{"rowId":"71092","text":"Borboleta Mecânica"}
+{"rowId":"71093","text":"Guarda Espacial"}
+{"rowId":"71094","text":"Senhor do Espaço"}
+{"rowId":"71095","text":"Soldado Lobo da Neve"}
+{"rowId":"71096","text":"Kyurem Dragão de Gelo"}
+{"rowId":"71097","text":"Soldado Lobo da Neve"}
+{"rowId":"71098","text":"Kyurem Dragão de Gelo"}
+{"rowId":"71099","text":"Soldado Lobo da Neve"}
+{"rowId":"71100","text":"Kyurem Dragão de Gelo"}
+{"rowId":"71101","text":"Soldado Lobo da Neve"}
+{"rowId":"71102","text":"Kyurem Dragão de Gelo"}
+{"rowId":"71103","text":"Robô A"}
+{"rowId":"71104","text":"Robô B"}
+{"rowId":"71105","text":"Nave Caçadora"}
+{"rowId":"71107","text":"Robô A"}
+{"rowId":"71108","text":"Robô B"}
+{"rowId":"71109","text":"Nave Caçadora"}
+{"rowId":"71111","text":"Robô A"}
+{"rowId":"71112","text":"Robô B"}
+{"rowId":"71113","text":"Nave Caçadora"}
+{"rowId":"71115","text":"Robô A"}
+{"rowId":"71116","text":"Robô B"}
+{"rowId":"71117","text":"Nave Caçadora"}
+{"rowId":"71118","text":"Rei Deus Maligno"}
+{"rowId":"71119","text":"Rei Deus Maligno"}
+{"rowId":"71120","text":"Rei Deus Maligno"}
+{"rowId":"71121","text":"Rei Deus Maligno"}
+{"rowId":"71122","text":"Peixe Capanga"}
+{"rowId":"71123","text":"Peixe Capanga"}
+{"rowId":"71124","text":"Peixe Capanga"}
+{"rowId":"71125","text":"Peixe Capanga"}
+{"rowId":"71126","text":"Bruxa Galinha"}
+{"rowId":"71127","text":"Bruxa Galinha"}
+{"rowId":"71128","text":"Bruxa Galinha"}
+{"rowId":"71129","text":"Bruxa Galinha"}
+{"rowId":"71130","text":"Líder Demoníaco"}
+{"rowId":"71131","text":"Líder Demoníaco"}
+{"rowId":"71132","text":"Líder Demoníaco"}
+{"rowId":"71133","text":"Líder Demoníaco"}
+{"rowId":"71134","text":"Fortão Taka"}
+{"rowId":"71135","text":"Totem Explosivo"}
+{"rowId":"71136","text":"Ancião Ossificado"}
+{"rowId":"71137","text":"Fortão Taka"}
+{"rowId":"71138","text":"Totem Explosivo"}
+{"rowId":"71139","text":"Ancião Ossificado"}
+{"rowId":"71140","text":"Fortão Taka"}
+{"rowId":"71141","text":"Totem Explosivo"}
+{"rowId":"71142","text":"Ancião Ossificado"}
+{"rowId":"71143","text":"Fortão Taka"}
+{"rowId":"71144","text":"Totem Explosivo"}
+{"rowId":"71145","text":"Ancião Ossificado"}
+{"rowId":"71146","text":"Pássaro das Dunas"}
+{"rowId":"71147","text":"Alma"}
+{"rowId":"71148","text":"Rei Macaco Ilusório"}
+{"rowId":"71149","text":"Rei Macaco Furioso"}
+{"rowId":"71150","text":"Pássaro das Dunas"}
+{"rowId":"71151","text":"Alma"}
+{"rowId":"71152","text":"Rei Macaco Ilusório"}
+{"rowId":"71153","text":"Rei Macaco Furioso"}
+{"rowId":"71154","text":"Pássaro das Dunas"}
+{"rowId":"71155","text":"Alma"}
+{"rowId":"71156","text":"Rei Macaco Ilusório"}
+{"rowId":"71157","text":"Rei Macaco Furioso"}
+{"rowId":"71158","text":"Pássaro das Dunas"}
+{"rowId":"71159","text":"Alma"}
+{"rowId":"71160","text":"Rei Macaco Ilusório"}
+{"rowId":"71161","text":"Rei Macaco Furioso"}
+{"rowId":"72000","text":"Chefe Pirata"}
+{"rowId":"73000","text":"Fera Nian"}
+{"rowId":"80001","text":"Galinha Deus da Guerra"}
+{"rowId":"80002","text":"Disciplina"}
+{"rowId":"80003","text":"General Zhao"}
+{"rowId":"80004","text":"Rainha"}
+{"rowId":"80005","text":"Goss Bisi"}
+{"rowId":"80006","text":"Galinha Deus da Guerra"}
+{"rowId":"80007","text":"Disciplina"}
+{"rowId":"80008","text":"General Zhao"}
+{"rowId":"80009","text":"Rainha"}
+{"rowId":"80010","text":"Goss Bisi"}
+{"rowId":"80011","text":"Galinha Deus da Guerra"}
+{"rowId":"80012","text":"Disciplina"}
+{"rowId":"80013","text":"General Zhao"}
+{"rowId":"80014","text":"Rainha"}
+{"rowId":"80015","text":"Goss Bisi"}
+{"rowId":"80016","text":"Goblin"}
+{"rowId":"80017","text":"Goblin"}
+{"rowId":"80018","text":"Goblin"}
+{"rowId":"80019","text":"Capanga"}
+{"rowId":"80020","text":"Capanga"}
+{"rowId":"80021","text":"Capanga"}
+{"rowId":"91000","text":"Formiga Vanguarda"}
+{"rowId":"92000","text":"Formiga Batedora"}
+{"rowId":"93000","text":"Galinha Rosa"}
+{"rowId":"94000","text":"Galinha de Elite"}
+{"rowId":"95000","text":"Bravo Tribal"}
+{"rowId":"96000","text":"Guerreiro Tribal"}
+{"rowId":"12120","text":"Superogiva de Liga"}
+{"rowId":"12201","text":"Soldado Lobo"}
+{"rowId":"12202","text":"Capitão Lobo"}
+{"rowId":"12203","text":"Tenente Lobo Velho"}
+{"rowId":"12204","text":"Esquadrão dos Pintinhos"}
+{"rowId":"12205","text":"NPC Desconhecido"}
+{"rowId":"12206","text":"Artilharia dos Pintinhos"}
+{"rowId":"12207","text":"Granadinha"}
+{"rowId":"12208","text":"Capitão Crocodilo"}
+{"rowId":"12209","text":"Soldado Pintinho"}
+{"rowId":"12210","text":"Coronel Lobo"}
+{"rowId":"12211","text":"Soldado Pintinho"}
+{"rowId":"12212","text":"Soldado Pintinho"}
+{"rowId":"12213","text":"Nave dos Pintinhos"}
+{"rowId":"12214","text":"Nave Colômbia"}
+{"rowId":"12215","text":"Estrela da Morte"}
+{"rowId":"12216","text":"Sábio Papagaio"}
+{"rowId":"12217","text":"Ogiva de Liga"}
+{"rowId":"12218","text":"Ogiva de Liga"}
+{"rowId":"12219","text":"Bala Efêmera"}
+{"rowId":"12220","text":"Superogiva de Liga"}
+{"rowId":"12301","text":"Soldado Lobo"}
+{"rowId":"12302","text":"Capitão Lobo"}
+{"rowId":"71067","text":"Águia Mágica"}
+{"rowId":"71068","text":"Guarda Lobo"}
+{"rowId":"71069","text":"Orbe Tricolor 1"}
+{"rowId":"2504","text":"Formiga Guarda"}
+{"rowId":"2601","text":"Formiga Vanguarda"}
+{"rowId":"2602","text":"Formiga Batedora"}
+{"rowId":"2603","text":"Daniliz"}
+{"rowId":"2604","text":"Formiga Guarda"}
+{"rowId":"2701","text":"Formiga Vanguarda"}
+{"rowId":"2702","text":"Formiga Batedora"}
+{"rowId":"2703","text":"Daniliz"}
+{"rowId":"2704","text":"Formiga Guarda"}
+{"rowId":"7501","text":"Galinhazinha"}
+{"rowId":"7502","text":"Pintinho"}
+{"rowId":"7503","text":"Galinheiro Reforçado"}
+{"rowId":"7511","text":"Galinha"}
+{"rowId":"7521","text":"Galinha"}
+{"rowId":"7522","text":"Galo"}
+{"rowId":"7523","text":"Galinheiro"}
+{"rowId":"7531","text":"Galinha Feiosa"}
+{"rowId":"7532","text":"Gaiola de Galinha"}
+{"rowId":"7533","text":"Ovo Podre"}
+{"rowId":"7601","text":"Galinhazinha"}
+{"rowId":"7602","text":"Pintinho"}
+{"rowId":"7603","text":"Galinheiro Reforçado"}
+{"rowId":"7611","text":"Galinha"}
+{"rowId":"7621","text":"Galinha"}
+{"rowId":"7622","text":"Galo"}
+{"rowId":"7623","text":"Galinheiro"}
+{"rowId":"7631","text":"Galinha Feiosa"}
+{"rowId":"7632","text":"Gaiola de Galinha"}
+{"rowId":"7633","text":"Ovo Podre"}
+{"rowId":"7701","text":"Galinhazinha"}
+{"rowId":"7702","text":"Pintinho"}
+{"rowId":"7703","text":"Galinheiro Reforçado"}
+{"rowId":"7711","text":"Galinha"}
+{"rowId":"7721","text":"Galinha"}
+{"rowId":"7722","text":"Galo"}
+{"rowId":"7723","text":"Galinheiro"}
+{"rowId":"7731","text":"Galinha Feiosa"}
+{"rowId":"7732","text":"Gaiola de Galinha"}
+{"rowId":"7733","text":"Ovo Podre"}
+{"rowId":"1","text":"Monstrinho de Treino 1"}
+{"rowId":"2","text":"Monstrinho de Treino 2"}
+{"rowId":"3","text":"Monstrinho de Treino 2"}
+{"rowId":"4","text":"Alvo"}
+{"rowId":"5","text":"Alvo"}
+{"rowId":"6","text":"Alvo Voador"}
+{"rowId":"101","text":"Fantasma 1"}
+{"rowId":"102","text":"Fantasma 2"}
+{"rowId":"103","text":"Fantasma 3"}
+{"rowId":"104","text":"Fantasma 4"}
+{"rowId":"105","text":"Fantasma 5"}
+{"rowId":"106","text":"Fantasma 6"}
+{"rowId":"107","text":"Fantasma 7"}
+{"rowId":"108","text":"Fantasma 8"}
+{"rowId":"109","text":"Fantasma 9"}
+{"rowId":"116","text":"Fantasma 16"}
+{"rowId":"201","text":"Galinha"}
+{"rowId":"202","text":"Galinha de Elite"}
+{"rowId":"1001","text":"Galinha Rosa"}
+{"rowId":"1002","text":"Galinha de Elite"}
+{"rowId":"1003","text":"Baroff"}
+{"rowId":"1004","text":"Granadinha"}
+{"rowId":"1005","text":"Galinha"}
+{"rowId":"1006","text":"Galinha"}
+{"rowId":"1007","text":"Matthias"}
+{"rowId":"1008","text":"Fantasma de Matthias"}
+{"rowId":"1009","text":"Guarda Galinha"}
+{"rowId":"1010","text":"Galinha Capanga"}
+{"rowId":"1011","text":"Granada Capanga"}
+{"rowId":"1101","text":"Galinha Rosa"}
+{"rowId":"1102","text":"Galinha de Elite"}
+{"rowId":"1103","text":"Baroff"}
+{"rowId":"1104","text":"Granadinha"}
+{"rowId":"1105","text":"Galinha"}
+{"rowId":"1106","text":"Galinha"}
+{"rowId":"1107","text":"Matthias"}
+{"rowId":"1108","text":"Fantasma de Matthias"}
+{"rowId":"1109","text":"Guarda Galinha"}
+{"rowId":"1110","text":"Galinha Capanga"}
+{"rowId":"1111","text":"Granada Capanga"}
+{"rowId":"1201","text":"Galinha Rosa"}
+{"rowId":"1202","text":"Galinha de Elite"}
+{"rowId":"1203","text":"Baroff"}
+{"rowId":"1204","text":"Granadinha"}
+{"rowId":"1205","text":"Galinha"}
+{"rowId":"1206","text":"Galinha"}
+{"rowId":"1207","text":"Matthias"}
+{"rowId":"1208","text":"Fantasma de Matthias"}
+{"rowId":"1209","text":"Guarda Galinha"}
+{"rowId":"1210","text":"Galinha Capanga"}
+{"rowId":"1211","text":"Granada Capanga"}
+{"rowId":"1243","text":"Chefe Dragão"}
+{"rowId":"1301","text":"Galinha Rosa"}
+{"rowId":"1302","text":"Galinha de Elite"}
+{"rowId":"1303","text":"Baroff"}
+{"rowId":"1304","text":"Granadinha"}
+{"rowId":"1305","text":"Galinha"}
+{"rowId":"1306","text":"Galinha"}
+{"rowId":"1307","text":"Matthias"}
+{"rowId":"1308","text":"Fantasma de Matthias"}
+{"rowId":"1309","text":"Guarda Galinha"}
+{"rowId":"1310","text":"Galinha Capanga"}
+{"rowId":"1311","text":"Granada Capanga"}
+{"rowId":"2001","text":"Formiga Vanguarda"}
+{"rowId":"2002","text":"Formiga Batedora"}
+{"rowId":"2003","text":"Daniliz"}
+{"rowId":"2004","text":"Formiga Guarda"}
+{"rowId":"2101","text":"Formiga Vanguarda"}
+{"rowId":"2102","text":"Formiga Batedora"}
+{"rowId":"2103","text":"Daniliz"}
+{"rowId":"2104","text":"Formiga Guarda"}
+{"rowId":"2401","text":"Formiga Vanguarda"}
+{"rowId":"2402","text":"Formiga Batedora"}
+{"rowId":"2403","text":"Daniliz"}
+{"rowId":"2404","text":"Formiga Guarda"}
+{"rowId":"3000","text":"Bulanbala Mais Velho"}
+{"rowId":"3001","text":"Guerreiro Tribal"}
+{"rowId":"3002","text":"Guerreiro Tribal"}
+{"rowId":"3003","text":"Guerreiro Tribal"}
+{"rowId":"3004","text":"Bravo Tribal"}
+{"rowId":"3005","text":"Bravo Tribal"}
+{"rowId":"3006","text":"Bravo Tribal"}
+{"rowId":"3007","text":"Feijão Mágico"}
+{"rowId":"3008","text":"Bulanbala Mais Velho"}
+{"rowId":"3009","text":"Bulanbala Mais Novo"}
+{"rowId":"3010","text":"Totem-Cansaço"}
+{"rowId":"3011","text":"Totem-Correntes"}
+{"rowId":"3012","text":"Totem-Explosão"}
+{"rowId":"3013","text":"Totem-Cura"}
+{"rowId":"3014","text":"Guerreiro do Deus Maligno"}
+{"rowId":"3015","text":"Portão Selado"}
+{"rowId":"3016","text":"Sulan"}
+{"rowId":"3017","text":"Sulan"}
+{"rowId":"3018","text":"Feijão Mágico"}
+{"rowId":"3019","text":"Bulanbala Mais Velho"}
+{"rowId":"3101","text":"Guerreiro Tribal"}
+{"rowId":"3102","text":"Guerreiro Tribal"}
+{"rowId":"3103","text":"Guerreiro Tribal"}
+{"rowId":"3104","text":"Bravo Tribal"}
+{"rowId":"3105","text":"Bravo Tribal"}
+{"rowId":"3106","text":"Bravo Tribal"}
+{"rowId":"3107","text":"Feijão Mágico"}
+{"rowId":"3108","text":"Bulanbala Mais Velho"}
+{"rowId":"3109","text":"Bulanbala Mais Novo"}
+{"rowId":"3110","text":"Totem-Cansaço"}
+{"rowId":"3111","text":"Totem-Correntes"}
+{"rowId":"3112","text":"Totem-Explosão"}
+{"rowId":"3113","text":"Totem-Cura"}
+{"rowId":"3114","text":"Guerreiro do Deus Maligno"}
+{"rowId":"3115","text":"Portão Selado"}
+{"rowId":"3116","text":"Sulan"}
+{"rowId":"3117","text":"Sulan"}
+{"rowId":"3118","text":"Feijão Mágico"}
+{"rowId":"3119","text":"Bulanbala Mais Velho"}
+{"rowId":"3201","text":"Guerreiro Tribal"}
+{"rowId":"3202","text":"Guerreiro Tribal"}
+{"rowId":"3203","text":"Guerreiro Tribal"}
+{"rowId":"3204","text":"Bravo Tribal"}
+{"rowId":"3205","text":"Bravo Tribal"}
+{"rowId":"3206","text":"Bravo Tribal"}
+{"rowId":"3207","text":"Feijão Mágico"}
+{"rowId":"3208","text":"Bulanbala Mais Velho"}
+{"rowId":"3209","text":"Bulanbala Mais Novo"}
+{"rowId":"3210","text":"Totem-Cansaço"}
+{"rowId":"3211","text":"Totem-Correntes"}
+{"rowId":"3212","text":"Totem-Explosão"}
+{"rowId":"3213","text":"Totem-Cura"}
+{"rowId":"3214","text":"Guerreiro do Deus Maligno"}
+{"rowId":"3215","text":"Portão Selado"}
+{"rowId":"3216","text":"Sulan"}
+{"rowId":"3217","text":"Sulan"}
+{"rowId":"3218","text":"Feijão Mágico"}
+{"rowId":"3219","text":"Bulanbala Mais Velho"}
+{"rowId":"3301","text":"Guerreiro Tribal"}
+{"rowId":"3302","text":"Guerreiro Tribal"}
+{"rowId":"3303","text":"Guerreiro Tribal"}
+{"rowId":"3304","text":"Bravo Tribal"}
+{"rowId":"3305","text":"Bravo Tribal"}
+{"rowId":"3306","text":"Bravo Tribal"}
+{"rowId":"3307","text":"Feijão Mágico"}
+{"rowId":"3308","text":"Bulanbala Mais Velho (Heroico)"}
+{"rowId":"3309","text":"Bulanbala Mais Novo"}
+{"rowId":"3310","text":"Totem-Cansaço"}
+{"rowId":"3311","text":"Totem-Correntes"}
+{"rowId":"3312","text":"Totem-Explosão"}
+{"rowId":"3313","text":"Totem-Cura"}
+{"rowId":"3314","text":"Guerreiro do Deus Maligno"}
+{"rowId":"3315","text":"Portão Selado"}
+{"rowId":"3316","text":"Sulan (Heroico)"}
+{"rowId":"3317","text":"Sulan (Heroico)"}
+{"rowId":"3318","text":"Feijão Mágico"}
+{"rowId":"3319","text":"Bulanbala Mais Velho"}
+{"rowId":"4001","text":"Bomba Nuclear"}
+{"rowId":"4002","text":"Portão Selado"}
+{"rowId":"4003","text":"Soldado Suicida"}
+{"rowId":"4004","text":"Grande Canhão"}
+{"rowId":"4005","text":"Águia Divina"}
+{"rowId":"4006","text":"Lobo do Deserto"}
+{"rowId":"4007","text":"Fogo do Submundo"}
+{"rowId":"4008","text":"Minotauro 1"}
+{"rowId":"4009","text":"Minotauro 2"}
+{"rowId":"4101","text":"Bomba Nuclear"}
+{"rowId":"4102","text":"Portão Selado"}
+{"rowId":"4103","text":"Soldado Suicida"}
+{"rowId":"4104","text":"Grande Canhão"}
+{"rowId":"4105","text":"Águia Divina"}
+{"rowId":"4106","text":"Lobo do Deserto"}
+{"rowId":"4107","text":"Fogo do Submundo"}
+{"rowId":"4108","text":"Minotauro"}
+{"rowId":"4109","text":"Minotauro"}
+{"rowId":"4110","text":"Fogo do Inferno"}
+{"rowId":"4201","text":"Bomba Nuclear"}
+{"rowId":"4202","text":"Portão Selado"}
+{"rowId":"4203","text":"Soldado Suicida"}
+{"rowId":"4204","text":"Grande Canhão"}
+{"rowId":"4205","text":"Águia Divina"}
+{"rowId":"4206","text":"Lobo do Deserto"}
+{"rowId":"4207","text":"Fogo do Submundo"}
+{"rowId":"4208","text":"Minotauro"}
+{"rowId":"4209","text":"Minotauro"}
+{"rowId":"4210","text":"Fogo do Inferno"}
+{"rowId":"4301","text":"Bomba Nuclear"}
+{"rowId":"4302","text":"Portão Selado"}
+{"rowId":"4303","text":"Soldado Suicida"}
+{"rowId":"4304","text":"Grande Canhão"}
+{"rowId":"4305","text":"Águia Divina"}
+{"rowId":"4306","text":"Lobo do Deserto"}
+{"rowId":"4307","text":"Fogo do Submundo"}
+{"rowId":"4308","text":"Minotauro"}
+{"rowId":"4309","text":"Minotauro"}
+{"rowId":"4310","text":"Fogo do Inferno"}
+{"rowId":"5001","text":"Galinha Boxeadora"}
+{"rowId":"5002","text":"Robô"}
+{"rowId":"5003","text":"Demônio"}
+{"rowId":"5004","text":"Demônio de Pedra"}
+{"rowId":"5005","text":"Valentão da Escola"}
+{"rowId":"5006","text":"Coelho de Orelhas Curtas"}
+{"rowId":"5007","text":"Flores Frescas"}
+{"rowId":"5008","text":"Barco-Dragão"}
+{"rowId":"5009","text":"Cogumelinho"}
+{"rowId":"5010","text":"Pirulito"}
+{"rowId":"5011","text":"Fofura de Ação de Graças"}
+{"rowId":"5012","text":"Conde"}
+{"rowId":"5013","text":"Noiva em Fuga"}
 {"rowId":"5014","text":"Papai Noel"}
+{"rowId":"5015","text":"Pequena Fera Nian"}
+{"rowId":"5101","text":"Demônio Pochi"}
+{"rowId":"5102","text":"Escravo"}
+{"rowId":"5103","text":"Engrenagem"}
 {"rowId":"5104","text":"Explorador"}
+{"rowId":"5111","text":"Goblin Soldado"}
+{"rowId":"5112","text":"Goblin Feroz"}
+{"rowId":"5113","text":"Goblin Trapaceiro"}
+{"rowId":"5114","text":"Demônio Pochi"}
+{"rowId":"5116","text":"Canhão Dragão"}
+{"rowId":"5117","text":"Canhão Demolidor"}
+{"rowId":"5121","text":"Demônio do Lenço Rosa"}
+{"rowId":"5122","text":"Ferro de Solda"}
+{"rowId":"5123","text":"Caixa Bizarra"}
+{"rowId":"5124","text":"Plataforma Alta"}
+{"rowId":"5131","text":"Dragão da Chama Maligna"}
+{"rowId":"5132","text":"Dragão Travesso"}
 {"rowId":"5133","text":"Explorador"}
+{"rowId":"5134","text":"Cristal"}
+{"rowId":"5135","text":"NPC Obstáculo"}
+{"rowId":"5201","text":"Demônio Pochi"}
+{"rowId":"5202","text":"Escravo"}
+{"rowId":"5203","text":"Engrenagem"}
 {"rowId":"5204","text":"Explorador"}
+{"rowId":"5211","text":"Goblin Soldado"}
+{"rowId":"5212","text":"Goblin Feroz"}
+{"rowId":"5213","text":"Goblin Trapaceiro"}
+{"rowId":"5214","text":"Demônio Pochi"}
+{"rowId":"5216","text":"Canhão Dragão"}
+{"rowId":"5217","text":"Canhão Demolidor"}
+{"rowId":"5221","text":"Demônio do Lenço Rosa"}
+{"rowId":"5222","text":"Ferro de Solda"}
+{"rowId":"5223","text":"Caixa Bizarra"}
+{"rowId":"5224","text":"Plataforma Alta"}
+{"rowId":"5231","text":"Dragão da Chama Maligna"}
+{"rowId":"5232","text":"Dragão Travesso"}
 {"rowId":"5233","text":"Explorador"}
+{"rowId":"5234","text":"Cristal"}
+{"rowId":"5235","text":"NPC Obstáculo"}
+{"rowId":"5301","text":"Demônio Pochi"}
+{"rowId":"5302","text":"Escravo"}
+{"rowId":"5303","text":"Engrenagem"}
 {"rowId":"5304","text":"Explorador"}
+{"rowId":"5311","text":"Goblin Soldado"}
+{"rowId":"5312","text":"Goblin Feroz"}
+{"rowId":"5313","text":"Goblin Trapaceiro"}
+{"rowId":"5314","text":"Demônio Pochi"}
+{"rowId":"5316","text":"Canhão Dragão"}
+{"rowId":"5317","text":"Canhão Demolidor"}
+{"rowId":"5321","text":"Demônio do Lenço Rosa"}
+{"rowId":"5322","text":"Ferro de Solda"}
+{"rowId":"5323","text":"Caixa Bizarra"}
+{"rowId":"5324","text":"Plataforma Alta"}
+{"rowId":"5331","text":"Dragão da Chama Maligna"}
+{"rowId":"5332","text":"Dragão Travesso"}
 {"rowId":"5333","text":"Explorador"}
+{"rowId":"5334","text":"Cristal"}
+{"rowId":"5335","text":"NPC Obstáculo"}
+{"rowId":"5401","text":"Demônio Pochi"}
+{"rowId":"5402","text":"Escravo Técnico"}
+{"rowId":"5403","text":"Engrenagem"}
 {"rowId":"5404","text":"Explorador"}
+{"rowId":"5411","text":"Goblin Engenheiro"}
+{"rowId":"5412","text":"Goblin Feroz"}
+{"rowId":"5413","text":"Goblin Trapaceiro"}
+{"rowId":"5414","text":"Demônio Pochi"}
+{"rowId":"5416","text":"Canhão Dragão"}
+{"rowId":"5417","text":"Canhão de Cerco"}
+{"rowId":"5421","text":"Demônio do Lenço Rosa"}
+{"rowId":"5422","text":"Ferro da Sorte"}
+{"rowId":"5423","text":"Caixa de Tortura"}
+{"rowId":"5424","text":"Tribunal"}
+{"rowId":"5431","text":"Dragão da Chama Maligna"}
+{"rowId":"5432","text":"Dragãozinho"}
 {"rowId":"5433","text":"Explorador"}
+{"rowId":"5434","text":"Cristal de Gelo"}
+{"rowId":"5435","text":"NPC Barreira"}
+{"rowId":"6112","text":"Base da Esfera de Pontos"}
+{"rowId":"6113","text":"Esfera de Pontos"}
+{"rowId":"6114","text":"Capitão da Equipe Vermelha"}
+{"rowId":"6121","text":"Equipe Vermelha"}
+{"rowId":"6122","text":"Equipe Azul"}
+{"rowId":"6123","text":"Grace"}
+{"rowId":"6124","text":"Muro"}
+{"rowId":"6131","text":"Oai Tu"}
+{"rowId":"6132","text":"Árbitro Ladrão"}
+{"rowId":"6134","text":"Torcida (Direita)"}
+{"rowId":"6135","text":"Hooligan"}
+{"rowId":"6141","text":"Árbitro Ladrão"}
+{"rowId":"6143","text":"Torcida (Direita)"}
+{"rowId":"6144","text":"Escudo do Chefe"}
+{"rowId":"6145","text":"Púlpito do Árbitro"}
+{"rowId":"6212","text":"Base da Esfera de Pontos"}
+{"rowId":"6213","text":"Esfera de Pontos"}
+{"rowId":"6214","text":"Capitão da Equipe Vermelha"}
+{"rowId":"6221","text":"Equipe Vermelha"}
+{"rowId":"6222","text":"Equipe Azul"}
+{"rowId":"6223","text":"Grace"}
+{"rowId":"6224","text":"Muro"}
+{"rowId":"6231","text":"Oai Tu"}
+{"rowId":"6232","text":"Árbitro Ladrão"}
+{"rowId":"6234","text":"Torcida (Direita)"}
+{"rowId":"6235","text":"Hooligan"}
+{"rowId":"6241","text":"Árbitro Ladrão"}
+{"rowId":"6243","text":"Torcida (Direita)"}
+{"rowId":"6244","text":"Escudo do Chefe"}
+{"rowId":"6245","text":"Púlpito do Árbitro"}
+{"rowId":"6312","text":"Base da Esfera de Pontos"}
+{"rowId":"6313","text":"Esfera de Pontos"}
+{"rowId":"6314","text":"Capitão da Equipe Vermelha"}
+{"rowId":"6321","text":"Equipe Vermelha"}
+{"rowId":"6322","text":"Equipe Azul"}
+{"rowId":"6323","text":"Grace"}
+{"rowId":"6324","text":"Muro"}
+{"rowId":"6331","text":"Oai Tu"}
+{"rowId":"6332","text":"Árbitro Ladrão"}
+{"rowId":"6334","text":"Torcida (Direita)"}
+{"rowId":"6335","text":"Hooligan"}
+{"rowId":"6341","text":"Árbitro Ladrão"}
+{"rowId":"6343","text":"Torcida (Direita)"}
+{"rowId":"6344","text":"Escudo do Chefe"}
+{"rowId":"6345","text":"Púlpito do Árbitro"}
+{"rowId":"7001","text":"Galinhazinha"}
+{"rowId":"7002","text":"Pintinho"}
+{"rowId":"7003","text":"Galinheiro Reforçado"}
+{"rowId":"7011","text":"Galinha"}
+{"rowId":"7021","text":"Galinha"}
+{"rowId":"7022","text":"Galo"}
+{"rowId":"7023","text":"Galinheiro"}
+{"rowId":"7031","text":"Galinha Feiosa"}
+{"rowId":"7032","text":"Gaiola de Galinha"}
+{"rowId":"7033","text":"Ovo Podre"}
+{"rowId":"7101","text":"Galinhazinha"}
+{"rowId":"7102","text":"Pintinho"}
+{"rowId":"7103","text":"Galinheiro Reforçado"}
+{"rowId":"7111","text":"Galinha"}
+{"rowId":"7121","text":"Galinha"}
+{"rowId":"7122","text":"Galo"}
+{"rowId":"7123","text":"Galinheiro"}
+{"rowId":"7131","text":"Galinha Feiosa"}
+{"rowId":"7132","text":"Gaiola de Galinha"}
+{"rowId":"7133","text":"Ovo Podre"}
+{"rowId":"7201","text":"Galinhazinha"}
+{"rowId":"7202","text":"Pintinho"}
+{"rowId":"7203","text":"Galinheiro Reforçado"}
+{"rowId":"7211","text":"Galinha"}
+{"rowId":"7221","text":"Galinha"}
+{"rowId":"7222","text":"Galo"}
+{"rowId":"7223","text":"Galinheiro"}
+{"rowId":"7231","text":"Galinha Feiosa"}
+{"rowId":"7232","text":"Gaiola de Galinha"}
+{"rowId":"7233","text":"Ovo Podre"}
+{"rowId":"7401","text":"Galinhazinha"}
+{"rowId":"7402","text":"Pintinho"}
+{"rowId":"7403","text":"Galinheiro Reforçado"}
+{"rowId":"7411","text":"Galinha"}
+{"rowId":"7421","text":"Galinha"}

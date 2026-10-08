@@ -19,7 +19,7 @@ export class ThirteenSimpleDevilBoss extends ABrain {
              "Seu grupo de pessoas comuns é ignorante e baixo"
         ]);
   static ShootedChat = __arr([
-           "Ah ~ ~ Tại sao bạn tấn công? <br/> tôi đang làm gì?",
+           "Ah~~ Por que você está atacando? <br/> O que eu estou fazendo?",
 
             "Oh ~ ~ realmente dói! Por que eu tenho que lutar? <br/> Eu tenho que lutar ..."
 
@@ -29,7 +29,7 @@ export class ThirteenSimpleDevilBoss extends ABrain {
 
             "~ Aleluia <br/>Luyaluya ~ ~ ~",
                 
-            "Yeah Yeah Yeah, <br/> để thoải mái!"
+            "Yeah Yeah Yeah, <br/> que relaxante!"
          
         ]);
   static KillAttackChat = __arr([

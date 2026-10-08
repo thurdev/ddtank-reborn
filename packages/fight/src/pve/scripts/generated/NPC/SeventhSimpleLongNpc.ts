@@ -5,19 +5,19 @@ import { registerScript, ABrain, LanguageMgr, __arr, __int, __newArr } from "../
 
 export class SeventhSimpleLongNpc extends ABrain {
   static AllAttackChat = __arr([
-			LanguageMgr.GetTranslation("Ddtank super là số 1", __newArr(0, null))
+			LanguageMgr.GetTranslation("DDTank Reborn é o número 1", __newArr(0, null))
 		]);
   static ShootChat = __arr([
-			LanguageMgr.GetTranslation("Anh em tiến lên !", __newArr(0, null))
+			LanguageMgr.GetTranslation("Avante, irmãos!", __newArr(0, null))
 		]);
   static KillPlayerChat = __arr([
-			LanguageMgr.GetTranslation("Anh em tiến lên !", __newArr(0, null))
+			LanguageMgr.GetTranslation("Avante, irmãos!", __newArr(0, null))
 		]);
   static CallChat = __arr([
-			LanguageMgr.GetTranslation("Ai giết được chúng sẻ được ban thưởng !", __newArr(0, null))
+			LanguageMgr.GetTranslation("Quem matá-los será recompensado!", __newArr(0, null))
 		]);
   static JumpChat = __arr([
-			LanguageMgr.GetTranslation("Ai giết được chúng sẻ được ban thưởng !", __newArr(0, null))
+			LanguageMgr.GetTranslation("Quem matá-los será recompensado!", __newArr(0, null))
 		]);
   static KillAttackChat = __arr([
 			LanguageMgr.GetTranslation("GameServerScript.AI.NPC.SimpleQueenAntAi.msg13", __newArr(0, null)),

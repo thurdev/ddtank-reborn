@@ -1,0 +1,3 @@
+4. Sau khi đổi, thuộc tính cường hóa, cấp luyện hóa, lỗ phong 
+--- RECORDSEPARATOR ---
+ấn sẽ chuyển đổi và bị khóa lại.

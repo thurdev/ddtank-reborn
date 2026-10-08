@@ -69,7 +69,7 @@ export class PDHAAH1144 extends AMissionControl {
             this.m_king.PlayMovie("in", 2000, 0);
             this.Game.SendObjectFocus(this.m_king, 2, 2000, 3000);
             this.m_king.PlayMovie("standA", 9000, 0);
-            this.m_king.Say("Ngọn lửa sôi sục đang cháy trong ta!", 0, 9200);
+            this.m_king.Say("As chamas ardentes queimam dentro de mim!", 0, 9200);
 
             this.m_moive.PlayMovie("in", 13000, 0);
             this.m_front.PlayMovie("in", 13200, 0);
@@ -119,7 +119,7 @@ export class PDHAAH1144 extends AMissionControl {
   CreateBornKing2() {
             this.Game.RemoveLiving(this.m_king.Id);
             this.m_king2.PlayMovie("born", 0, 0);
-            this.m_king2.Say("<span class=\"red\">Thực sự là giận lắm rồi. Ta sẽ nghiền nát tất cả!</span>", 0, 200);
+            this.m_king2.Say("<span class=\"red\">Agora estou furioso de verdade. Vou esmagar todos vocês!</span>", 0, 200);
         }
   UpdateUIData() {
             super.UpdateUIData();

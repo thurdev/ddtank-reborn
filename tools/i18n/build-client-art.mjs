@@ -134,10 +134,15 @@ function runFfdecNativeTextReplace(inSwf, outSwf, replacements, label) {
   rmSync(verifyDir, { recursive: true, force: true });
   execFileSync("java", ["-jar", FFDEC_JAR, "-export", "text", verifyDir, outSwf], { stdio: "pipe", cwd: ROOT });
   let failed = 0;
-  for (const { charId, text } of replacements) {
+  for (const { charId, text: sent, expect } of replacements) {
+    const text = expect ?? sent;
     const exported = join(verifyDir, `${charId}.txt`);
-    const got = existsSync(exported) ? readFileSync(exported, "utf8").split(/\r?\n--- RECORDSEPARATOR ---\r?\n/)[0] : null;
-    if (got !== text) {
+    // multi-record texts (one record per line/run) are compared record by record; single ones on record 0
+    const recs = (t) => t.replace(/\r/g, "").split(/\n--- RECORDSEPARATOR ---\n/).map((r) => r.replace(/\n+$/, ""));
+    const raw = existsSync(exported) ? readFileSync(exported, "utf8") : null;
+    const got = raw === null ? null : text.includes("--- RECORDSEPARATOR ---") ? recs(raw).join("|") : recs(raw)[0];
+    const want = text.includes("--- RECORDSEPARATOR ---") ? recs(text).join("|") : text;
+    if (got !== want) {
       failed++;
       log(label ?? "native-text", `VERIFY FAILED chid ${charId}: expected ${JSON.stringify(text)}, got ${JSON.stringify(got)}`);
     }
@@ -697,8 +702,88 @@ stages before night-grade, into the same stage root).
   log("discard", "wrote research/i18n/discarded/README.md");
 }
 
+/** Static SWF texts (DefineText/DefineEditText) translated by hand in research/i18n/swf-text-pt.json
+ *  ({ "<swf>": { "<charId>": { vi: [records], pt: [records] } } }, built by tools/qa/swf-text-audit.sh +
+ *  tools/qa/swf-text-merge.mjs). Runs AFTER the image import so it patches the final overlay copy (or the vendor
+ *  file when no overlay exists), one -replace call per SWF, verified by runFfdecNativeTextReplace. */
+function runSwfTextStep() {
+  const f = join(ROOT, "research", "i18n", "swf-text-pt.json");
+  if (!existsSync(f)) { log("swf-text", "no research/i18n/swf-text-pt.json -- skipping"); return; }
+  const db = JSON.parse(readFileSync(f, "utf8"));
+  const vendorRoot = join(ROOT, "vendor", "DDTank41", "Source Flash", "FlashSV1");
+  let swfs = 0, ok = 0;
+  for (const [swf, entries] of Object.entries(db)) {
+    const reps = Object.entries(entries)
+      .filter(([, e]) => e.pt.every((l, i) => l || !e.vi[i].trim()))
+      // fewer PT records than the original leave the trailing Vietnamese records in place: pad with blank records
+      .map(([charId, e]) => ({ charId: Number(charId), text: [...e.pt, ...Array(Math.max(0, e.vi.length - e.pt.length)).fill(" ")].join("\n--- RECORDSEPARATOR ---\n") }));
+    if (!reps.length) continue;
+    const rel = existsSync(join(vendorRoot, swf)) ? swf : join("ui", "vietnam", "swf", swf);
+    const overlayPath = join(OVERLAY, rel);
+    const src = existsSync(overlayPath) ? overlayPath : join(vendorRoot, rel);
+    if (!existsSync(src)) { log("swf-text", `SKIP ${swf}: not found`); continue; }
+    mkdirSync(dirname(overlayPath), { recursive: true });
+    const tmp = join(SCRATCH, `swf-text.${swf}`);
+    mkdirSync(SCRATCH, { recursive: true });
+    copyFileSync(src, tmp);
+    swfs++;
+    // FFDec -replace on multi-record DefineText needs its "formatted" text (per-record [x/y/font] blocks): plain
+    // record lists get appended instead of replacing. Export formatted, swap only the text runs, keep every block.
+    const cnt = join(SCRATCH, "swf-text-count");
+    rmSync(cnt, { recursive: true, force: true });
+    execFileSync("java", ["-jar", FFDEC_JAR, "-format", "text:formatted", "-export", "text", cnt, tmp], { stdio: "pipe", cwd: ROOT });
+    for (const r of reps) {
+      const fx = join(cnt, `${r.charId}.txt`);
+      if (!existsSync(fx)) continue;
+      const SEP = "\n--- RECORDSEPARATOR ---\n";
+      const pt = r.text.split(SEP);
+      const raw = readFileSync(fx, "utf8");
+      // tokens: [...] parameter blocks (escaped \] may appear inside) and the text runs between them
+      const parts = raw.split(/(\[(?:[^\]\\]|\\.)*\])/);
+      const esc = (t) => t.replace(/\\/g, "\\\\").replace(/\[/g, "\\[").replace(/\]/g, "\\]");
+      const runs = parts.filter((p) => p && !p.startsWith("[")).length;
+      if (!runs) continue;
+      // more PT lines than runs: the extra ones join the last run
+      const recs = pt.length > runs ? [...pt.slice(0, runs - 1), pt.slice(runs - 1).join(" ")] : [...pt, ...Array(runs - pt.length).fill("")];
+      let k = 0;
+      // blocks keep position/font/colour; their per-glyph kerning lines (spacing/spacingpair) describe the
+      // Vietnamese glyphs and some break FFDec's parser (`spacing """`, empty chars): dropped
+      const block = (p) => p.replace(/^(?:spacing|spacingpair) .*\r?\n/gm, "");
+      r.text = parts.map((p) => (!p ? p : p.startsWith("[") ? block(p) : esc(recs[k++]))).join("");
+      r.expect = recs.join(SEP);
+    }
+    try {
+      if (runFfdecNativeTextReplace(tmp, overlayPath, reps, `swf-text:${swf}`)) ok++;
+      else {
+        // ~20% of replacements fail silently in a batch: re-apply each text alone on top of the batch result
+        let cur = join(SCRATCH, `swf-text.${swf}.retry.swf`), good = 0;
+        copyFileSync(overlayPath, cur);
+        for (const r of reps) {
+          const out = `${cur}.${r.charId}.swf`;
+          try { if (runFfdecNativeTextReplace(cur, out, [r], `swf-text-retry:${swf}`)) good++; cur = out; } catch { log("swf-text", `${swf}: retry SKIP chid ${r.charId}`); }
+        }
+        copyFileSync(cur, overlayPath);
+        log("swf-text", `${swf}: retry pass ${good}/${reps.length} verified`);
+        if (good === reps.length) ok++;
+      }
+    } catch (e) {
+      // one bad record makes FFDec exit 1 for the whole batch: apply the texts one at a time, skipping the failures
+      log("swf-text", `${swf}: batch -replace failed (${e.message.split("\n")[0].slice(0, 80)}...), retrying one text at a time`);
+      let cur = tmp, good = 0;
+      for (const r of reps) {
+        const out = `${tmp}.${r.charId}.swf`;
+        try { runFfdecNativeTextReplace(cur, out, [r], `swf-text:${swf}`); cur = out; good++; } catch { log("swf-text", `${swf}: SKIP chid ${r.charId} (ffdec -replace failed)`); }
+      }
+      copyFileSync(cur, overlayPath);
+      log("swf-text", `${swf}: ${good}/${reps.length} text(s) applied one by one`);
+    }
+  }
+  log("swf-text", `${ok}/${swfs} SWF(s) fully verified`);
+}
+
 async function main() {
   log("build", `flags: images=${OPT_IMAGES} night=${OPT_NIGHT} dark=${OPT_DARK} prod=${PROD} approved=${OPT_APPROVED}`);
+  if (has("--only-swf-text")) { runSwfTextStep(); return; } // re-patch static texts on the current overlay, nothing else
   const removed = revertImageOnlyOverlays();
   buildCoreChain();
   if (OPT_APPROVED) {
@@ -707,6 +792,7 @@ async function main() {
     log("approved", "skipped (--no-approved)");
   }
   runOptInImageSteps();
+  if (!has("--no-swf-text")) runSwfTextStep();
   writeDiscardedNote();
   log("build", `done. ${removed} leftover image-edit file(s) reverted to vendor; 2.png/3.png/DDT_Loading.swf rebuilt text-only.`);
   log("build", "restart apps/api (or pnpm dev:all) so the CiTree overlay index picks up the deleted/rebuilt files.");

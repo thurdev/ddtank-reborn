@@ -1262,3 +1262,32 @@ Referência: `remaster/00-site-pagina-jogar/inputs/referencia-ddclassico.png`.
 - Complexas (64, vários textos): prompt por elemento em preparação (`remaster/_auto/complex-prompts.json`). Caso de teste: janela com banner + "Thời gian :" + cabeçalhos da tabela — o prompt antigo deixou "Thời gian" e inventou uma linha extra.
 - Pendente: checagem de vietnamita restante via OCR (vie) também para as simples; revisão manual das que falharam 3x.
 - Modelo escolhido para a automação: **Seedream 5.0 Lite** (unlimited) — resultado quase 1:1 em botões/barras (ex.: "Tên phòng"→"Nome da sala" mantendo textura, fonte, cor, posição). URL: higgsfield.ai/ai/image?model=seedream_v5_lite.
+- Ao terminar a fila (710): (1) gerar página de revisão (original × final) de TODAS as imagens aprovadas para o usuário marcar ruins; (2) reprocessar automaticamente as que falharam 3x (`state.jobs[*].fails>=3`) com outra variação de prompt; (3) refazer as marcadas como ruins; (4) só então reempacotar nos SWFs (approved.json) e testar no jogo.
+
+### Remaster — notas do fim da fila (2026-10-06)
+- Pós-processamento refeito: matting com cor conhecida (interiores translúcidos de botões/pílulas voltavam verdes), verde-chave estimado da saída, texto-só buscado só perto da caixa original. Todos os aprovados foram reprocessados a partir do raw (backup antigo em `remaster/_auto/pre-matting/`).
+- Os 6 aprovados por fallback (score < 0.95) foram reprocessados a partir da ÚLTIMA geração, não da melhor — revisar na página de revisão.
+- Traduções corrigidas: store__149 (Amuleto da Sorte), corei__244/_corei__313 (Roleta da Sorte), consortionii__3 (Melhorar guilda). corei__203/_corei__109 (janela de compra, 4 textos) removidos da fila simples — precisam de prompt complexo.
+- Ver na revisão: "récebed" (awardsystem VipTip, regenerado), quest "Missão principal" com cores invertidas.
+- **Texto longo simples agora é renderizado em SVG** (`tools/remaster/render-text.mjs`): grafia exata garantida, cor/contorno/alinhamento/linhas medidos do original. Critério: texto-só sobre transparência, ≥16 letras, 1 cor de preenchimento. 112 jobs feitos assim (versões IA anteriores em `remaster/_auto/ai-backup/`). IA (Seedream) fica para botões/títulos estilizados curtos.
+- Revisar: textos multicor viraram 1 cor (ex.: "Você não tem aliança…" tinha palavras brancas); fonte serifada original virou sans ("Clique para iniciar a douração"); "Mérito Total" perdeu o brilho verde (precisa chave magenta para assets com verde).
+- **Janelas grandes com vários textos (14, ex.: wonderfulactivity strength/GodSyah, roulette help, baglocked explain)**: a IA embaralha todos os textos → adiadas (`j.window`). Fase final: IA só APAGA o texto ("remove all text, keep everything else") + cada elemento PT-BR renderizado em SVG na caixa original (caixas via OCR vie, tradução por elemento).
+
+### Remaster — fila concluída (2026-10-07)
+- 705/708 prontas (as 3 restantes não têm texto: cantos de scale9 e um radio button, `skip`).
+- **Janelas** feitas com `tools/remaster/compose-blocks.mjs`: blocos por imagem em `remaster/_auto/specs.json` (`inpaint` apaga o texto localmente — mediana local / máscaras bright/dark/purple + preenchimento por difusão; `style` desenha o PT-BR em SVG com tamanho/cor/contorno/gradiente medidos). `base:"original"` dispensa a IA; `eraseOnly` usa a IA só para apagar (Clã/strength). `tools/remaster/bands.mjs` acha as caixas dos textos.
+- Rótulos curtos simples também passaram para SVG (a IA errava acento/grafia: "Megofone", "Mascara", "Ajudá", "Nével").
+- Página de revisão: `node tools/remaster/review-page.mjs` → abrir `remaster/_review.html` (marcas no navegador, botão "Exportar marcas" → `review-marks.json`).
+- `remaster/approved.json`: 705 entradas `auto: true, review: "pending"` geradas do manifest para o primeiro reempacote/teste no jogo; refazer as marcadas na revisão.
+- Pendente: cópias HD (`outputs-hd`) das feitas à mão/SVG/blocos; ~20 observações em `review-notes.json`.
+
+### Remaster — rodada de revisão 1 (2026-10-07)
+- Usuário revisou 701: 511 ok, 190 refazer (`remaster/_auto/review-marks-1.json`). Todas as 190 refeitas (3 sem texto voltaram ao original).
+- Prompt novo (PROMPT_V 4, `FIDELITY`): edição só das letras, todo o resto pixel-idêntico — o "HD redraw" mudava fonte/cor/arte. Tudo em Seedream 5.0 Lite.
+- Janelas com texto longo: `spec.crops` → cada texto vira um job curto num recorte; `tools/remaster/stitch-crops.mjs` / `finish-window.mjs` colam de volta (+ `blocks` para linhas desenhadas).
+- `compose-blocks.mjs` ganhou máscaras: grey, both, row, plate, purple, bright/dark; `clear`, `erasedPatch`, `knownAlpha`, estilos com gradiente/glow/itálico/[destaque].
+- `tools/remaster/apply-pending.mjs` aplica rejeições/specs/marcas com o servidor da fila parado.
+- Página de revisão abre no filtro "Refeitas (rodada 1)"; marcas em chave nova (rodada 2).
+
+### Pendente — página de jogar (2026-10-07)
+- Usuário: "temos que refazer a página de play, tá um lixo". Refazer a página que embute o cliente (Ruffle) no site (apps/web) — layout/visual premium junto com o redesign do site.

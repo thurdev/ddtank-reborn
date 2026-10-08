@@ -1,0 +1,1846 @@
+{
+ "consortiabattle.swf": {
+  "84": {
+   "vi": [
+    "1. 8 guild có điểm tăng tài sản nhiều nhất ",
+    "    mỗi tuần sẽ có tư cách tham gia tranh bá ",
+    "    guild."
+   ],
+   "pt": [
+    "1. Os 8 clãs que mais aumentarem o patrimônio ",
+    "    na semana podem disputar a Guerra ",
+    "    de Clãs."
+   ]
+  },
+  "85": {
+   "vi": [
+    "3. Mỗi thành viên guild sau khi tử vong sẽ tự ",
+    "    về điểm hồi sinh."
+   ],
+   "pt": [
+    "3. Cada membro do clã que morrer volta ",
+    "    ao ponto de renascimento."
+   ]
+  },
+  "86": {
+   "vi": [
+    "2. Hạ gà đối thủ nhận được tích lũy, hạng ",
+    "    tích lũy quyết định cho hạng tranh bá ",
+    "    guild."
+   ],
+   "pt": [
+    "2. Derrotar adversários dá pontos; o ranking ",
+    "    de pontos define a posição na Guerra ",
+    "    de Clãs."
+   ]
+  },
+  "87": {
+   "vi": [
+    "4. Chấm dứt liên sát và mua tích lũy x2 sẽ ",
+    "    nhận được tích lũy thêm."
+   ],
+   "pt": [
+    "4. Encerrar sequências e comprar pontos x2 ",
+    "    dá pontos extras."
+   ]
+  },
+  "88": {
+   "vi": [
+    "5. Liên thắng sẽ vào trận kế với lượng HP ",
+    "    còn lại."
+   ],
+   "pt": [
+    "5. Quem vence em sequência entra na próxima com o HP ",
+    "    que sobrou."
+   ]
+  },
+  "89": {
+   "vi": [
+    "6. Chiến đấu không được dùng đạo cụ và vũ ",
+    "    khí phụ. "
+   ],
+   "pt": [
+    "6. Não é permitido usar itens nem arma ",
+    "    secundária. "
+   ]
+  },
+  "90": {
+   "vi": [
+    "7.Guild tranh bá bắt đầu vào 8h30 thứ 7 hằng",
+    "    tuần."
+   ],
+   "pt": [
+    "7.A Guerra de Clãs começa às 8h30 de todo sábado",
+    "    ."
+   ]
+  }
+ },
+ "ddtstore.swf": {
+  "187": {
+   "vi": [
+    "     Hệ thống đổi giúp chuyển hoán thuộc tínhcường ",
+    "hóa, cấp luyện hóa, lỗ phong ấn, châu báu của 2 ",
+    "trang bị cùng loại. Khi đổi cần chú ý :"
+   ],
+   "pt": [
+    "     O sistema de transferência move os atributos de ",
+    "fortalecimento, refino, furos selados e joias entre 2 ",
+    "equipamentos do mesmo tipo. Ao transferir, atenção:"
+   ]
+  },
+  "188": {
+   "vi": [
+    "3. Trang bị hai bên trái phải bắt buộc là trang bị cùng ",
+    "loại."
+   ],
+   "pt": [
+    "3. Os equipamentos da esquerda e da direita precisam ser do mesmo ",
+    "tipo."
+   ]
+  },
+  "189": {
+   "vi": [
+    "1. Tỷ lệ thành công đổi thuộc tính là 100%."
+   ],
+   "pt": [
+    "1. A chance de sucesso da transferência é de 100%."
+   ]
+  },
+  "190": {
+   "vi": [
+    "4. Sau khi đổi, thuộc tính cường hóa, cấp luyện hóa, lỗ phong ",
+    "ấn sẽ chuyển đổi và bị khóa lại."
+   ],
+   "pt": [
+    "4. Após a transferência, fortalecimento, refino e furos ",
+    "selados são trocados e os itens ficam vinculados."
+   ]
+  },
+  "191": {
+   "vi": [
+    "2. Trang bị hoàn mỹ trở lên còn trong thời gian hiệu lực mới ",
+    "dùng được chức năng đổi."
+   ],
+   "pt": [
+    "2. Só equipamentos Perfeitos ou melhores e dentro da validade ",
+    "podem usar a transferência."
+   ]
+  },
+  "192": {
+   "vi": [
+    "5. Châu báu trên trang bị đã khảm có thể tự do chọn có đổi ",
+    "hay không."
+   ],
+   "pt": [
+    "5. As joias encaixadas no equipamento podem ou não ser ",
+    "transferidas, você escolhe."
+   ]
+  },
+  "193": {
+   "vi": [
+    "6. Phí đổi: 40000 vàng"
+   ],
+   "pt": [
+    "6. Taxa de transferência: 40000 de ouro"
+   ]
+  },
+  "195": {
+   "vi": [
+    "   Cường hóa giúp tăng sát thương ",
+    "của vũ khí và hộ giáp của trang bị. ",
+    "Cường hóa cần chú ý:"
+   ],
+   "pt": [
+    "   O fortalecimento aumenta o dano ",
+    "da arma e a defesa do equipamento. ",
+    "Ao fortalecer, atenção:"
+   ]
+  },
+  "196": {
+   "vi": [
+    "1.  Vật phẩm có thể cường hóa: vũ khí, nón, ",
+    "áo.",
+    "2.  Cường hóa giúp tăng 10% sát thương ",
+    "củavũ khí, 10% hộ giáp của nón và áo.",
+    "3.  Cấp cường hóa càng cao, Đá cường hóa ",
+    "tiêu hao càng nhiều. Nạp VIP hoặc tăng cấp ",
+    "Tiệm rèn Guild để tăng kinh nghiệm của Đá ",
+    "cường hóa..",
+    "4.  Khi chọn \"Liên tục\", nhấp nút cường hóa ",
+    "sẽ dùng tất cả Đá cường hóa hoặc tiêu hao ",
+    "lượng Đá cường hóa cần để thăng cấp trang ",
+    "bị."
+   ],
+   "pt": [
+    "1.  Podem ser fortalecidos: arma, chapéu, ",
+    "roupa.",
+    "2.  Cada nível dá +10% de dano ",
+    "na arma e +10% de defesa no chapéu e na roupa.",
+    "3.  Quanto maior o nível, mais Pedras de ",
+    "Fortalecimento são gastas. Recarregue VIP ou suba ",
+    "a Forja do Clã para dar mais EXP às Pedras ",
+    "de Fortalecimento.",
+    "4.  Com \"Contínuo\" marcado, o botão de fortalecer ",
+    "usa todas as Pedras de Fortalecimento ou só ",
+    "as necessárias para subir o nível do ",
+    "equipamento."
+   ]
+  },
+  "198": {
+   "vi": [
+    "3. Tăng sao trang bị sẽ tốn Ngọc Tăng ",
+    "Sao, ngọc cấp thấp có thể dung luyện ",
+    "thành ngọc cấp cao, cấp Ngọc Tăng ",
+    "Sao càng cao, tỷ lệ tăng sao càng cao  "
+   ],
+   "pt": [
+    "3. Subir estrelas gasta Gemas de ",
+    "Estrela; gemas de nível baixo podem ser fundidas ",
+    "em gemas de nível alto. Quanto maior o nível da ",
+    "Gema de Estrela, maior a chance de sucesso."
+   ]
+  },
+  "199": {
+   "vi": [
+    "1. Tăng sao tiến hành với các set trang ",
+    "bị khác nhau, sát thương cơ bản của ",
+    "vũ khí càng cao, hiệu quả càng tốt! "
+   ],
+   "pt": [
+    "1. As estrelas sobem conforme o conjunto ",
+    "do equipamento; quanto maior o dano base ",
+    "da arma, melhor o resultado!"
+   ]
+  },
+  "200": {
+   "vi": [
+    "4. Vũ khí, trang bị khi tăng sap đến cấp 10, ",
+    "sẽ nhậ được hiệu quả đặc biệt "
+   ],
+   "pt": [
+    "4. Armas e equipamentos com estrela nível 10 ",
+    "ganham um efeito especial."
+   ]
+  },
+  "201": {
+   "vi": [
+    "2. Sau khi tăng sao thành công, trang bị sẽ ",
+    "nhận được kỹ năng tăng sao, hiệu quả kỹ ",
+    "năng sẽ tăng theo cấp kỹ năng "
+   ],
+   "pt": [
+    "2. Ao subir de estrela, o equipamento ",
+    "ganha uma habilidade de estrela; o efeito ",
+    "aumenta com o nível da habilidade."
+   ]
+  },
+  "203": {
+   "vi": [
+    "  Hệ thống dung luyện có thể tăng cấp ",
+    "vật phẩm từ thấp lên cao, khi luyện ",
+    "cần chú ý : "
+   ],
+   "pt": [
+    "  A fusão sobe itens de nível baixo ",
+    "para nível alto. Ao fundir, ",
+    "atenção:"
+   ]
+  },
+  "204": {
+   "vi": [
+    "1. Loại vật phẩm dung luyện quyết định loại vật ",
+    "phẩm có thể dung luyện ra, 4 vị trí dung luyện vật ",
+    "phẩm phải đặt đủ mới có thể dung luyện."
+   ],
+   "pt": [
+    "1. O tipo de item fundido define o item que ",
+    "pode ser gerado; os 4 espaços de fusão ",
+    "precisam estar preenchidos para fundir."
+   ]
+  },
+  "205": {
+   "vi": [
+    "Thời hạn của thành phẩm là thời hạn hữu hiệu ",
+    "ngắn nhất của vật phẩm dung luyện ",
+    "(Trang bị dung luyện nhận được có hiệu ",
+    "lực 3 ngày)."
+   ],
+   "pt": [
+    "A validade do resultado é a menor validade ",
+    "entre os itens fundidos ",
+    "(equipamento obtido por fusão tem ",
+    "validade de 3 dias)."
+   ]
+  },
+  "206": {
+   "vi": [
+    "2. Đá Chu Tước, Đá Huyền Vũ, Đá Thanh Long, Đá ",
+    "Bạch Hổ, châu báu, nhẫn, vòng tay, mảnh vật ",
+    "phẩm thông qua dung luyện nhận được cấp cao ",
+    "hơn."
+   ],
+   "pt": [
+    "2. Pedra Fênix, Pedra Tartaruga, Pedra Dragão, Pedra ",
+    "Tigre, joias, anéis, pulseiras e fragmentos ",
+    "sobem de nível pela ",
+    "fusão."
+   ]
+  },
+  "207": {
+   "vi": [
+    "3. Đá hợp thành, nhẫn, vòng tay, châu báu hoặc ",
+    "mảnh 4 cái cùng loại dung luyện có thể sinh ra vật ",
+    "phẩm cấp cao tương ứng."
+   ],
+   "pt": [
+    "3. 4 Pedras de Fusão, anéis, pulseiras, joias ou ",
+    "fragmentos do mesmo tipo geram um item ",
+    "de nível maior correspondente."
+   ]
+  },
+  "213": {
+   "vi": [
+    "Loại và cấp châu báu phải giống nhau mới ",
+    "có thể dung luyện."
+   ],
+   "pt": [
+    "Joias só podem ser fundidas com tipo e nível ",
+    "iguais."
+   ]
+  },
+  "214": {
+   "vi": [
+    "Tên và cấp của nhẫn, vòng tay phải giống nhau ",
+    "mới có thể dung luyện, thuộc tính hợp thành ",
+    "của nhẫn, vòng tay dung luyện nhận được là 0."
+   ],
+   "pt": [
+    "Anéis e pulseiras precisam ter nome e nível iguais ",
+    "para fundir; o atributo de fusão ",
+    "do anel/pulseira gerado é 0."
+   ]
+  },
+  "215": {
+   "vi": [
+    "Tên và cấp vật phẩm dạng mảnh cần giống ",
+    "nhau mới có thể dung luyện."
+   ],
+   "pt": [
+    "Fragmentos precisam ter nome e nível ",
+    "iguais para fundir."
+   ]
+  },
+  "216": {
+   "vi": [
+    "Nhẫn và vòng tay cao nhất có thể dung luyện ",
+    "đến +5."
+   ],
+   "pt": [
+    "Anéis e pulseiras podem ser fundidos no máximo ",
+    "até +5."
+   ]
+  },
+  "218": {
+   "vi": [
+    "Thông qua hệ thống khảm có thể khảm ",
+    "châu báu cho trang bị để tăng hiệu ",
+    "ứng kèm theo, khi khảm cần chú ý: "
+   ],
+   "pt": [
+    "O sistema de encaixe coloca joias ",
+    "no equipamento para dar efeitos ",
+    "extras. Ao encaixar, atenção:"
+   ]
+  },
+  "219": {
+   "vi": [
+    "1. Cường hóa có thể mở lỗ cường hóa của vũ ",
+    "khí, áo và nón. Dùng mũi khoan để mở lỗ ",
+    "phong ấn."
+   ],
+   "pt": [
+    "1. O fortalecimento abre furos de fortalecimento na ",
+    "arma, roupa e chapéu. Use a broca para abrir furos ",
+    "selados."
+   ]
+  },
+  "220": {
+   "vi": [
+    "     Lỗ cường hóa thông qua cường hóa trực tiếp mở ",
+    "đến cấp cao nhất, có thể khảm châu báu cấp bất kỳ; ",
+    "Lỗ phong ấn thông qua dùng Mũi khoan tăng cấp, ",
+    "không thể khảm cao hơn cấp châu báu hiện tại."
+   ],
+   "pt": [
+    "     Furos de fortalecimento abrem até o nível máximo ",
+    "só fortalecendo e aceitam joia de qualquer nível; ",
+    "furos selados sobem de nível com a Broca e ",
+    "não aceitam joia acima do nível atual do furo."
+   ]
+  },
+  "221": {
+   "vi": [
+    "2. Lỗ phân thành tấn công, phòng thủ, thuộc ",
+    "tính, trong lỗ chỉ có thể khảm châu báu tương ",
+    "ứng."
+   ],
+   "pt": [
+    "2. Os furos são de ataque, defesa e atributo; ",
+    "cada furo só aceita a joia do ",
+    "mesmo tipo."
+   ]
+  },
+  "222": {
+   "vi": [
+    "3. Châu báu tấn công sẽ kèm hiệu quả đặc ",
+    "biệt khi bạn tấn công, Châu báu phòng thủ sẽ ",
+    "kèm hiệu quả đặc biệt khi bạn bị tấn công, ",
+    "Châu báu thuộc tính tăng thuộc tính trang bị ",
+    "của bạn."
+   ],
+   "pt": [
+    "3. Joias de ataque dão efeito especial ",
+    "quando você ataca; joias de defesa dão ",
+    "efeito especial quando você é atacado; ",
+    "joias de atributo aumentam os atributos do ",
+    "seu equipamento."
+   ]
+  },
+  "226": {
+   "vi": [
+    "Châu báu tháo đã khảm cần tốn 200 xu."
+   ],
+   "pt": [
+    "Remover uma joia encaixada custa 200 moedas."
+   ]
+  },
+  "228": {
+   "vi": [
+    "Thông qua hệ thống hợp thành có thể cộng ",
+    "thuộc tính của Đá Thánh Thú vào vũ khí ",
+    "hoặc trang bị, khi hợp thành cần chú ý: "
+   ],
+   "pt": [
+    "O sistema de combinação adiciona os ",
+    "atributos da Pedra da Fera Sagrada à arma ",
+    "ou equipamento. Ao combinar, atenção:"
+   ]
+  },
+  "229": {
+   "vi": [
+    "1. Tất cả trang bị đều có thể hợp thành thuộc ",
+    "tính của Đá Thánh Thú, Đá Thánh Thú khác ",
+    "nhau thuộc tính kèm theo cũng khác nhau.",
+    "2. Đá Thánh Thú cấp càng cao tỷ lệ thành ",
+    "công kèm theo đến trang bị càng thấp. ",
+    "3. Mỗi thuộc tính của mỗi trang bị chỉ có thể ",
+    "kèm theo 1 hiệu ứng Đá Thánh Thú.",
+    "4. Đá Thánh Thú cấp thấp không thể thay thế ",
+    "hiệu ứng Đá Thánh Thú cấp cao."
+   ],
+   "pt": [
+    "1. Todo equipamento pode receber os atributos ",
+    "da Pedra da Fera Sagrada; pedras diferentes ",
+    "dão atributos diferentes.",
+    "2. Quanto maior o nível da Pedra da Fera, menor ",
+    "a chance de sucesso.",
+    "3. Cada atributo de cada equipamento aceita ",
+    "só 1 efeito de Pedra da Fera Sagrada.",
+    "4. Pedra da Fera de nível baixo não substitui ",
+    "o efeito de uma de nível alto."
+   ]
+  },
+  "305": {
+   "vi": [
+    "1. Loại vật phẩm dung luyện quyết định vật phẩm ",
+    "được dung luyện, đủ điều kiện mới được dung luyện."
+   ],
+   "pt": [
+    "1. O tipo de item fundido define o item ",
+    "gerado; só funde se cumprir as condições."
+   ]
+  },
+  "306": {
+   "vi": [
+    "3. Chọn Có thể dung luyện sẽ hiện vật phẩm được ",
+    "dung luyện."
+   ],
+   "pt": [
+    "3. Marque \"Pode fundir\" para mostrar os itens ",
+    "que podem ser fundidos."
+   ]
+  },
+  "307": {
+   "vi": [
+    "2. Đá hợp thành, Vòng tay, Nhẫn và một số mảnh ",
+    "vật phẩm khác dung luyện để nhận cấp cao hơn."
+   ],
+   "pt": [
+    "2. Pedras de Fusão, pulseiras, anéis e alguns fragmentos ",
+    "sobem de nível pela fusão."
+   ]
+  },
+  "308": {
+   "vi": [
+    "4. Thời hạn thành phẩm là thời hạn hữu hiệu ngắn ",
+    "nhất vật phẩm dung luyện, luyện nhận được có hiệu ",
+    "lực 3 ngày."
+   ],
+   "pt": [
+    "4. A validade do resultado é a menor validade ",
+    "entre os itens fundidos; o item gerado tem ",
+    "validade de 3 dias."
+   ]
+  },
+  "309": {
+   "vi": [
+    "5. Tên và cấp vật phẩm dạng mảnh cần giống nhau ",
+    "mới được dung luyện."
+   ],
+   "pt": [
+    "5. Fragmentos precisam ter nome e nível iguais ",
+    "para fundir."
+   ]
+  },
+  "310": {
+   "vi": [
+    "6. Tên và cấp của nhẫn, vòng tay phải giống nhau ",
+    "mới được dung luyện, thuộc tính hợp thành của nó ",
+    "dung luyện được là 0."
+   ],
+   "pt": [
+    "6. Anéis e pulseiras precisam ter nome e nível iguais ",
+    "para fundir; o atributo de fusão ",
+    "gerado é 0."
+   ]
+  },
+  "311": {
+   "vi": [
+    "7. Nhẫn và Vòng tay dung luyện cấp tối đa +5."
+   ],
+   "pt": [
+    "7. Anéis e pulseiras fundem no máximo até +5."
+   ]
+  },
+  "394": {
+   "vi": [
+    "1. Nón, trang sức, vũ khí, vũ khí phụ, cường  ",
+    "hóa đến Lv12 sẽ tăng cấp, sau tăng cấp thuộc ",
+    "tính trang bị tăng."
+   ],
+   "pt": [
+    "1. Chapéu, acessório, arma e arma secundária ",
+    "fortalecidos até Nv12 podem subir de nível; ",
+    "isso aumenta os atributos do equipamento."
+   ]
+  },
+  "395": {
+   "vi": [
+    "3. Điểm may mắn 24:00 mỗi ngày xóa về 0, nên ",
+    "tăng cấp 1 lần."
+   ],
+   "pt": [
+    "3. Os pontos de sorte zeram às 24:00 todo dia; ",
+    "suba de nível 1 vez por dia."
+   ]
+  },
+  "396": {
+   "vi": [
+    "2. Mỗi lần tăng cấp thất bại nhận được điểm                                           ",
+    "mắn, điểm cao tỷ lệ tăng cấp cao."
+   ],
+   "pt": [
+    "2. Cada falha ao subir de nível dá pontos de ",
+    "sorte; mais pontos, mais chance de sucesso."
+   ]
+  }
+ },
+ "DDT_Loading.swf": {
+  "19": {
+   "vi": [
+    "Đang tải"
+   ],
+   "pt": [
+    "Carregando"
+   ]
+  }
+ },
+ "email.swf": {
+  "119": {
+   "vi": [
+    "Chọn để xem"
+   ],
+   "pt": [
+    "Selecione para ver"
+   ]
+  }
+ },
+ "farm.swf": {
+  "301": {
+   "vi": [
+    "Thức ăn thú cưng làm ra có thể cho thú cưng ăn, ",
+    "cho ăn sẽ nhận được nhiều lợi ích,",
+    "Trong quá trình làm thức ăn thú cưng và cho ăn ",
+    "cần chú ý những điểm sau:  "
+   ],
+   "pt": [
+    "A ração feita pode ser dada aos mascotes, ",
+    "alimentar traz muitos benefícios.",
+    "Ao fazer ração e alimentar o mascote, ",
+    "atente para o seguinte:  "
+   ]
+  },
+  "302": {
+   "vi": [
+    "1. Khi làm thức ăn thú cưng cần tốn thực vật tương ",
+    "ứng, khi số lượng thực vật nhỏ hơn thức ăn 1 thú cưng ",
+    "cần sẽ không thể làm thức ăn thú cưng này."
+   ],
+   "pt": [
+    "1. Fazer ração gasta as plantas ",
+    "correspondentes; sem plantas suficientes para 1 ração ",
+    "não é possível fazer essa ração."
+   ]
+  },
+  "303": {
+   "vi": [
+    "2. Thức ăn thú cưng làm xong sẽ bỏ vào túi của bạn."
+   ],
+   "pt": [
+    "2. A ração pronta vai para a sua mochila."
+   ]
+  },
+  "304": {
+   "vi": [
+    "4. Khi cho thú cưng ăn hãy kéo thức ăn thú cưng đến ô ",
+    "cho ăn, nhấp cho ăn."
+   ],
+   "pt": [
+    "4. Para alimentar, arraste a ração até o espaço ",
+    "de comida e clique em alimentar."
+   ]
+  },
+  "305": {
+   "vi": [
+    "3. Cho ăn có thể tăng độ no thú cưng, độ no cao thấp ",
+    "sẽ ảnh hưởng trực tiếp đến thuộc tính cộng thêm khi ",
+    "thú cưng tham chiến."
+   ],
+   "pt": [
+    "3. Alimentar aumenta a saciedade do mascote; a saciedade ",
+    "afeta diretamente os atributos extras quando ",
+    "o mascote entra em combate."
+   ]
+  },
+  "307": {
+   "vi": [
+    "2. Khi sử dụng trợ thủ sẽ tự tiêu hủy nông ",
+    "sản hiện có."
+   ],
+   "pt": [
+    "2. Ao usar o ajudante, a colheita atual ",
+    "é descartada automaticamente."
+   ]
+  },
+  "308": {
+   "vi": [
+    "1. Khi sử dụng trợ giúp trồng trọt cần chọn ",
+    "Hạt giống và thời gian tự động trồng."
+   ],
+   "pt": [
+    "1. Para usar o ajudante de plantio, escolha ",
+    "a semente e o tempo de plantio automático."
+   ]
+  },
+  "309": {
+   "vi": [
+    "3. Trước khi thời gian tự động trồng kết thúc ",
+    "trợ thủ chỉ có thể nhận được một phần thức ăn ",
+    "thú cưng, không trả lại Hạt giống còn lại."
+   ],
+   "pt": [
+    "3. Se parar antes do fim do plantio automático, ",
+    "o ajudante entrega só parte da ração ",
+    "e as sementes restantes não são devolvidas."
+   ]
+  },
+  "310": {
+   "vi": [
+    "4. Sau khi bắt đầu tự động trồng Ruộng sẽ vào ",
+    "trạng thái khóa, không thể tiến hành bất cứ ",
+    "thao tác nào."
+   ],
+   "pt": [
+    "4. Durante o plantio automático o canteiro fica ",
+    "bloqueado e nenhuma ação ",
+    "pode ser feita."
+   ]
+  },
+  "311": {
+   "vi": [
+    "5. Khi mở nếu thiếu Hạt giống, sẽ xuất hiện ",
+    "nhắc nhở mua, cũng có thể đến của hàng mua."
+   ],
+   "pt": [
+    "5. Se faltarem sementes ao abrir, aparece ",
+    "um aviso de compra; também dá para comprar na loja."
+   ]
+  }
+ },
+ "fightlib.swf": {
+  "36": {
+   "vi": [
+    "Cự ly"
+   ],
+   "pt": [
+    "Distância"
+   ]
+  },
+  "48": {
+   "vi": [
+    "Lực"
+   ],
+   "pt": [
+    "Força"
+   ]
+  },
+  "61": {
+   "vi": [
+    "Cự ly"
+   ],
+   "pt": [
+    "Distância"
+   ]
+  },
+  "62": {
+   "vi": [
+    "Lực"
+   ],
+   "pt": [
+    "Força"
+   ]
+  },
+  "84": {
+   "vi": [
+    "Cự ly"
+   ],
+   "pt": [
+    "Distância"
+   ]
+  },
+  "85": {
+   "vi": [
+    "Cự ly"
+   ],
+   "pt": [
+    "Distância"
+   ]
+  },
+  "96": {
+   "vi": [
+    "Lực"
+   ],
+   "pt": [
+    "Força"
+   ]
+  },
+  "97": {
+   "vi": [
+    "Lực"
+   ],
+   "pt": [
+    "Força"
+   ]
+  },
+  "234": {
+   "vi": [
+    "Đầu tiên chúng ta sẽ chọn bài tập đo màn hình "
+   ],
+   "pt": [
+    "Primeiro, escolha o exercício de medir a tela "
+   ]
+  },
+  "235": {
+   "vi": [
+    "sau đó chọn bài sơ cấp"
+   ],
+   "pt": [
+    "e depois a lição para iniciantes"
+   ]
+  }
+ },
+ "firsttainer.swf": {
+  "211": {
+   "vi": [
+    "để nhận được đạo cụ ",
+    "     ",
+    "(tăng 1 lần công kích)",
+    " "
+   ],
+   "pt": [
+    "para ganhar o item ",
+    "     ",
+    "(+1 ataque)",
+    " "
+   ]
+  },
+  "215": {
+   "vi": [
+    "Đánh bại 2",
+    "con gà",
+    "，"
+   ],
+   "pt": [
+    "Derrote 2",
+    "galinhas",
+    "，"
+   ]
+  }
+ },
+ "forgemain.swf": {
+  "29": {
+   "vi": [
+    "      Dát vàng sẽ tăng thêm sát thương ",
+    "cho vũ khí hoặc quần áo trang bị,",
+    "Lưu ý khi dát vàng:"
+   ],
+   "pt": [
+    "      A douração aumenta o dano ",
+    "da arma ou a defesa da roupa,",
+    "Atenção ao dourar:"
+   ]
+  },
+  "31": {
+   "vi": [
+    "1. Chỉ vũ khí",
+    "、",
+    "nón và áo đã cường hóa ",
+    "+12 trở lên mới được dát vàng"
+   ],
+   "pt": [
+    "1. Só arma",
+    "、",
+    "chapéu e roupa fortalecidos ",
+    "+12 ou mais podem ser dourados"
+   ]
+  },
+  "32": {
+   "vi": [
+    "2. khi dát vàng thành công, sát thương hoặc ",
+    "hộ giáp của vũ khí hay nón áo sẽ tăng lên ",
+    "và đối với vũ khí sẽ biến đổi."
+   ],
+   "pt": [
+    "2. Ao dourar com sucesso, o dano ou ",
+    "a defesa da arma, chapéu ou roupa aumenta ",
+    "e a arma muda de aparência."
+   ]
+  },
+  "33": {
+   "vi": [
+    "3.Châu báu chúc phúc công kích để dát vàng vũ ",
+    "khí, Châu báu chúc phúc phòng ngự dùng để dát ",
+    "vàng áo và châu báu chúc phúc thuộc tính để ",
+    "dát vàng nón. Mỗi loại châu báu chúc phúc chỉ ",
+    "có thể dát vàng theo một loại vật phẩm."
+   ],
+   "pt": [
+    "3.Joia da bênção de ataque doura a ",
+    "arma, a joia da bênção de defesa doura ",
+    "a roupa e a joia da bênção de atributo ",
+    "doura o chapéu. Cada tipo de joia da bênção ",
+    "só doura um tipo de item."
+   ]
+  },
+  "34": {
+   "vi": [
+    "4. Dát vàng vũ khí có tỉ lệ thành công",
+    "，",
+    " nhất định ",
+    " và ngẫu nhiên hoàn toàn. Tất cả sẽ phụ thuộc vào ",
+    " sự may mắn của bạn nên đừng cố gắng thay đổi thông ",
+    "số trên máy nhằm ăn gian nhé ahihi"
+   ],
+   "pt": [
+    "4. Dourar a arma tem chance de sucesso",
+    "，",
+    " definida ",
+    " e totalmente aleatória. Tudo depende ",
+    " da sua sorte, então não tente mexer nos ",
+    "dados para trapacear, hein!"
+   ]
+  },
+  "35": {
+   "vi": [
+    "5. Dát vàng sẽ có thời hạn là 30 ngày. Hết",
+    "，",
+    "hạn ",
+    "vật phẩm sẽ trở về như ban đầu."
+   ],
+   "pt": [
+    "5. A douração dura 30 dias. Ao fim",
+    "，",
+    "do prazo, ",
+    "o item volta a ser como era."
+   ]
+  },
+  "36": {
+   "vi": [
+    "6. Các vật phẩm cường hóa thấp hơn +12 ",
+    "sẽ không thể tiếp tục dát vàng cho dù thế nào đi ",
+    "nữa."
+   ],
+   "pt": [
+    "6. Itens fortalecidos abaixo de +12 ",
+    "não podem ser dourados de jeito ",
+    "nenhum."
+   ]
+  }
+ },
+ "forgemain1.swf": {
+  "17": {
+   "vi": [
+    "      Dát vàng sẽ tăng thêm sát thương ",
+    "cho vũ khí hoặc quần áo trang bị,",
+    "Lưu ý khi dát vàng:"
+   ],
+   "pt": [
+    "      A douração aumenta o dano ",
+    "da arma ou a defesa da roupa,",
+    "Atenção ao dourar:"
+   ]
+  },
+  "19": {
+   "vi": [
+    "1. Chỉ vũ khí",
+    "、",
+    "nón và áo đã cường hóa ",
+    "+12 trở lên mới được dát vàng"
+   ],
+   "pt": [
+    "1. Só arma",
+    "、",
+    "chapéu e roupa fortalecidos ",
+    "+12 ou mais podem ser dourados"
+   ]
+  },
+  "20": {
+   "vi": [
+    "2. khi dát vàng thành công, sát thương hoặc ",
+    "hộ giáp của vũ khí hay nón áo sẽ tăng lên ",
+    "và đối với vũ khí sẽ biến đổi."
+   ],
+   "pt": [
+    "2. Ao dourar com sucesso, o dano ou ",
+    "a defesa da arma, chapéu ou roupa aumenta ",
+    "e a arma muda de aparência."
+   ]
+  },
+  "21": {
+   "vi": [
+    "3.Châu báu chúc phúc công kích để dát vàng vũ ",
+    "khí, Châu báu chúc phúc phòng ngự dùng để dát ",
+    "vàng áo và châu báu chúc phúc thuộc tính để ",
+    "dát vàng nón. Mỗi loại châu báu chúc phúc chỉ ",
+    "có thể dát vàng theo một loại vật phẩm."
+   ],
+   "pt": [
+    "3.Joia da bênção de ataque doura a ",
+    "arma, a joia da bênção de defesa doura ",
+    "a roupa e a joia da bênção de atributo ",
+    "doura o chapéu. Cada tipo de joia da bênção ",
+    "só doura um tipo de item."
+   ]
+  },
+  "22": {
+   "vi": [
+    "4. Dát vàng vũ khí có tỉ lệ thành công",
+    "，",
+    " nhất định ",
+    " và ngẫu nhiên hoàn toàn. Tất cả sẽ phụ thuộc vào ",
+    " sự may mắn của bạn nên đừng cố gắng thay đổi thông ",
+    "số trên máy nhằm ăn gian nhé ahihi"
+   ],
+   "pt": [
+    "4. Dourar a arma tem chance de sucesso",
+    "，",
+    " definida ",
+    " e totalmente aleatória. Tudo depende ",
+    " da sua sorte, então não tente mexer nos ",
+    "dados para trapacear, hein!"
+   ]
+  },
+  "23": {
+   "vi": [
+    "5. Dát vàng sẽ có thời hạn là 30 ngày. Hết",
+    "，",
+    "hạn ",
+    "vật phẩm sẽ trở về như ban đầu."
+   ],
+   "pt": [
+    "5. A douração dura 30 dias. Ao fim",
+    "，",
+    "do prazo, ",
+    "o item volta a ser como era."
+   ]
+  },
+  "24": {
+   "vi": [
+    "6. Các vật phẩm cường hóa thấp hơn +12 ",
+    "sẽ không thể tiếp tục dát vàng cho dù thế nào đi ",
+    "nữa."
+   ],
+   "pt": [
+    "6. Itens fortalecidos abaixo de +12 ",
+    "não podem ser dourados de jeito ",
+    "nenhum."
+   ]
+  }
+ },
+ "guildmemberweek.swf": {
+  "18": {
+   "vi": [
+    "1. Trong thời gian hoạt động, cống hiến của người chơi",
+    "    đạt  500  sẽ nhận được phần thưởng Cần Lao, đồng",
+    "    thời tiến hành xếp hạng."
+   ],
+   "pt": [
+    "1. Durante o evento, quem atingir 500 de contribuição",
+    "    ganha o prêmio Dedicação e",
+    "    entra no ranking."
+   ]
+  },
+  "19": {
+   "vi": [
+    "2. Khi hoạt động kết thúc người chơi có điểm cống hiến",
+    "    trong  Top 10  sẽ nhận được phần thưởng xếp hạng và",
+    "    phần thưởng thêm."
+   ],
+   "pt": [
+    "2. Ao fim do evento, quem estiver no Top 10 de",
+    "    contribuição ganha o prêmio do ranking e",
+    "    um prêmio extra."
+   ]
+  },
+  "20": {
+   "vi": [
+    "3. Người chơi là quan viên Guild trở lên có thể tăng phần",
+    "    thưởng xếp hạng cho 10 hạng đầu."
+   ],
+   "pt": [
+    "3. Oficiais do Clã ou acima podem aumentar o prêmio",
+    "    do ranking dos 10 primeiros."
+   ]
+  },
+  "21": {
+   "vi": [
+    "4. Số Xu tăng cho mỗi hạng không thể nhỏ hơn  100 ,",
+    "    sau khi tăng sẽ khấu trừ 10% thuế. Số Xu sau khi",
+    "    khấu trừ chính là số Xu người đạt thứ hạng nhận",
+    "    được."
+   ],
+   "pt": [
+    "4. O valor somado a cada posição não pode ser menor que 100 moedas,",
+    "    e 10% são descontados como taxa. O valor após o",
+    "    desconto é o que o jogador da posição",
+    "    recebe."
+   ]
+  },
+  "22": {
+   "vi": [
+    "5. Nếu người chơi có điểm cống hiến bằng nhau, sẽ ưu",
+    "    tiên xếp hạng cho người đạt mức cống hiến này",
+    "    trước."
+   ],
+   "pt": [
+    "5. Em caso de empate na contribuição, fica à frente",
+    "    quem atingiu essa contribuição",
+    "    primeiro."
+   ]
+  },
+  "27": {
+   "vi": [
+    "6. Thông tin xếp hạng mỗi 10 phút cập nhật 1 lần, khi",
+    "    kết thúc hoạt động phần thưởng sẽ được gửi qua",
+    "    thư, xin chú ý nhận."
+   ],
+   "pt": [
+    "6. O ranking atualiza a cada 10 minutos; ao fim",
+    "    do evento os prêmios são enviados por",
+    "    correio, fique atento."
+   ]
+  }
+ },
+ "labyrinth.swf": {
+  "34": {
+   "vi": [
+    "1. \"Mê cung\" mỗi ngày khiêu chiến 1 lần, dùng Đá ",
+    "mê cung được x2 phần thưởng."
+   ],
+   "pt": [
+    "1. O \"Labirinto\" pode ser desafiado 1 vez por dia; usar a Pedra ",
+    "do Labirinto dá recompensa x2."
+   ]
+  },
+  "35": {
+   "vi": [
+    "3. Có thể chọn tự động (tiêu hao xu khóa) để đến ",
+    "ải cao nhất đã từng đạt và nhận tất cả phần ",
+    "thưởng."
+   ],
+   "pt": [
+    "3. Dá para usar o automático (gasta moedas vinculadas) e ir até ",
+    "a fase mais alta já alcançada, recebendo todas as ",
+    "recompensas."
+   ]
+  },
+  "36": {
+   "vi": [
+    "2. Thoát mê cung khi chưa thất bại có thể tiếp ",
+    "tục khiêu chiến ải hiện tại. Nhấp Tái lập sẽ ",
+    "khiêu chiến lại ải đầu tiên."
+   ],
+   "pt": [
+    "2. Sair do labirinto sem ter perdido permite continuar ",
+    "desafiando a fase atual. Clicar em Reiniciar ",
+    "volta para a primeira fase."
+   ]
+  },
+  "37": {
+   "vi": [
+    "4. Có thể dùng tiền đồng mê cung mua đạo cụ ",
+    "hiếm trong cửa hàng mê cung."
+   ],
+   "pt": [
+    "4. Moedas de bronze do labirinto compram itens ",
+    "raros na loja do labirinto."
+   ]
+  }
+ },
+ "latentenergy.swf": {
+  "5": {
+   "vi": [
+    "1.Thuộc tính tiềm năng nhận được khi kích hoạt ",
+    "trang bị, có thể chuyển đổi tại Tiệm Rèn."
+   ],
+   "pt": [
+    "1.O atributo latente é obtido ao ativar o ",
+    "equipamento e pode ser transferido na Forja."
+   ]
+  },
+  "6": {
+   "vi": [
+    "5.Tiềm năng có thể được kích hoạt nhiều lần để ",
+    "được thuộc tính mới."
+   ],
+   "pt": [
+    "5.O potencial pode ser ativado várias vezes para ",
+    "obter novos atributos."
+   ]
+  },
+  "7": {
+   "vi": [
+    "2. Kích hoạt tiềm năng thành công 100%, mỗi ",
+    "lần cần tốn 1 Đá năng lượng."
+   ],
+   "pt": [
+    "2. A ativação tem 100% de sucesso; cada ",
+    "vez gasta 1 Pedra de Energia."
+   ]
+  },
+  "8": {
+   "vi": [
+    "3.Tiềm năng kích hoạt có thời hạn, quá hạn sẽ ",
+    "mất, dùng Đá năng lượng để kích hoạt lại."
+   ],
+   "pt": [
+    "3.O potencial ativado tem validade; ao vencer ",
+    "some, use a Pedra de Energia para reativar."
+   ]
+  },
+  "9": {
+   "vi": [
+    "4. Đá năng lượng cấp cao sẽ kích hoạt được ",
+    "tiềm năng cấp cao, tiềm năng cao thay thế tiềm ",
+    "năng thấp."
+   ],
+   "pt": [
+    "4. Pedras de Energia de nível alto ativam ",
+    "potencial alto, que substitui o potencial ",
+    "baixo."
+   ]
+  }
+ },
+ "Launcher.swf": {
+  "33": {
+   "vi": [
+    "Nhập tài khoản mật khẩu để đăng nhập"
+   ],
+   "pt": [
+    "Digite sua conta e senha para entrar"
+   ]
+  },
+  "34": {
+   "vi": [
+    "Tài khoản"
+   ],
+   "pt": [
+    "Conta"
+   ]
+  },
+  "35": {
+   "vi": [
+    "Mật khẩu"
+   ],
+   "pt": [
+    "Senha"
+   ]
+  }
+ },
+ "luckstar.swf": {
+  "32": {
+   "vi": [
+    "1. Mở Siêu Sao May Mắn cần tiêu hao",
+    "    Sao May Mắn."
+   ],
+   "pt": [
+    "1. Abrir a Super Estrela da Sorte gasta",
+    "    Estrelas da Sorte."
+   ]
+  },
+  "33": {
+   "vi": [
+    "3. Phần thưởng cơ bản của Tích Lũy Xu",
+    "    là 1000 Xu."
+   ],
+   "pt": [
+    "3. O prêmio base das Moedas Acumuladas",
+    "    é 1000 moedas."
+   ]
+  },
+  "34": {
+   "vi": [
+    "2. Mỗi lần tốn 1 Sao May Mắn sẽ tích",
+    "    lũy          vào Tích Lũy Xu"
+   ],
+   "pt": [
+    "2. Cada Estrela da Sorte gasta acumula",
+    "              nas Moedas Acumuladas"
+   ]
+  },
+  "35": {
+   "vi": [
+    "4. Rút được Phúc Lợi Xu sẽ nhận được",
+    "    tất cả Xu trong Tích Lũy Xu."
+   ],
+   "pt": [
+    "4. Tirar o Bônus de Moedas dá",
+    "    todas as Moedas Acumuladas."
+   ]
+  },
+  "36": {
+   "vi": [
+    "5. Số Sao May Mắn đã dùng đạt       sao",
+    "    sẽ nhận được phần thưởng xếp hạng"
+   ],
+   "pt": [
+    "5. Ao usar       Estrelas da Sorte",
+    "    você ganha o prêmio do ranking"
+   ]
+  },
+  "37": {
+   "vi": [
+    "6.Sau khi quay trúng xu thưởng, kho xu",
+    "    sẽ quay về mặc định 1000 xu."
+   ],
+   "pt": [
+    "6.Depois de ganhar o bônus de moedas, o total",
+    "    volta para as 1000 moedas iniciais."
+   ]
+  }
+ },
+ "oldTrainer.swf": {
+  "27": {
+   "vi": [
+    "Nhấn giữ"
+   ],
+   "pt": [
+    "Segure"
+   ]
+  },
+  "29": {
+   "vi": [
+    " Giữ nguyên phím",
+    "“  ",
+    "",
+    "”để nhân vật di                   ",
+    "chuyển đến cờ đỏ"
+   ],
+   "pt": [
+    " Segure a tecla",
+    "“  ",
+    " ",
+    "”para o personagem ir           ",
+    "até a bandeira vermelha"
+   ]
+  },
+  "30": {
+   "vi": [
+    "Bài tập di chuyển"
+   ],
+   "pt": [
+    "Treino de movimento"
+   ]
+  },
+  "40": {
+   "vi": [
+    "　　",
+    "           ",
+    " Bài tập chỉnh góc",
+    " ",
+    "Giữ phím",
+    "”     ”",
+    "、",
+    "”     ”điều chỉnh ",
+    "góc 40 độ"
+   ],
+   "pt": [
+    "　　",
+    "           ",
+    " Treino de ângulo",
+    " ",
+    "Segure",
+    "”     ”",
+    "、",
+    "”     ” para ajustar",
+    "o ângulo para 40 graus"
+   ]
+  },
+  "78": {
+   "vi": [
+    "Giữ ",
+    "spacebar, khi lực bắn chạm mũi tên chỉ thì",
+    " thả ",
+    "ra ",
+    "để bắn. "
+   ],
+   "pt": [
+    "Segure ",
+    "a barra de espaço; quando a força chegar à seta,",
+    " solte ",
+    " ",
+    "para atirar. "
+   ]
+  },
+  "79": {
+   "vi": [
+    "　",
+    "Bài tập luyện bắn"
+   ],
+   "pt": [
+    "　",
+    "Treino de tiro"
+   ]
+  },
+  "102": {
+   "vi": [
+    "Nhấn giữ"
+   ],
+   "pt": [
+    "Segure"
+   ]
+  },
+  "119": {
+   "vi": [
+    "Rất tốt, hãy thử tiêu diệt ",
+    "mấy con gà bên ",
+    "dưới xem"
+   ],
+   "pt": [
+    "Muito bem! Agora tente acabar ",
+    "com as galinhas ali ",
+    "embaixo"
+   ]
+  }
+ },
+ "quest.swf": {
+  "155": {
+   "vi": [
+    "Bạn có nhiệm vụ mới!"
+   ],
+   "pt": [
+    "Você tem uma nova missão!"
+   ]
+  }
+ },
+ "roulette.swf": {
+  "29": {
+   "vi": [
+    "     Chào mừng đến với Bàn Quay May ",
+    "Mắn! Hãy chú ý những điểm sau: "
+   ],
+   "pt": [
+    "     Bem-vindo à Roleta da ",
+    "Sorte! Atenção aos pontos a seguir: "
+   ]
+  },
+  "30": {
+   "vi": [
+    "1. Hoạt động mở, bạn có 1 cơ hội quay ",
+    "Bàn Quay."
+   ],
+   "pt": [
+    "1. Com o evento aberto, você tem 1 chance de girar ",
+    "a Roleta."
+   ]
+  },
+  "31": {
+   "vi": [
+    "2. Nạp xu trả lại, chỉ có hiệu lực trong",
+    " thời gian hoạt động."
+   ],
+   "pt": [
+    "2. O bônus de recarga só vale durante",
+    " o período do evento."
+   ]
+  },
+  "32": {
+   "vi": [
+    "3.Phần trả lại cao nhất là           xu."
+   ],
+   "pt": [
+    "3.O bônus máximo é de           moedas."
+   ]
+  },
+  "33": {
+   "vi": [
+    "4. Đóng hoạt động Bàn Quay giữa chừng,",
+    " phần thưởng sẽ bảo lưu đến lúc hoạt ",
+    "động kết thúc."
+   ],
+   "pt": [
+    "4. Se fechar a Roleta no meio do giro,",
+    " o prêmio fica guardado até o fim ",
+    " do evento."
+   ]
+  },
+  "34": {
+   "vi": [
+    "5. Xu nhận được trực tiếp đặt vào túi, ",
+    "hoặc gửi qua thư."
+   ],
+   "pt": [
+    "5. As moedas ganhas vão direto para a mochila, ",
+    "ou chegam por correio."
+   ]
+  }
+ },
+ "store.swf": {
+  "286": {
+   "vi": [
+    " 1.Tỷ lệ đổi thuộc tính là 100%"
+   ],
+   "pt": [
+    " 1.A chance de transferir atributos é de 100%"
+   ]
+  },
+  "287": {
+   "vi": [
+    " 2.Trang bị phải còn trong thời gian hiệu lực mới có thể ",
+    "  đổi cho nhau."
+   ],
+   "pt": [
+    " 2.Os equipamentos precisam estar dentro da validade para ",
+    "  serem trocados entre si."
+   ]
+  },
+  "288": {
+   "vi": [
+    "3.Bắt buộc phải là trang bị cùng loại (vd: vòng tay -> vòng tay",
+    "nhẫn -> nhẫn ) mới thể đổi cho nhau."
+   ],
+   "pt": [
+    "3.Precisam ser do mesmo tipo (ex.: pulseira -> pulseira,",
+    "anel -> anel) para serem trocados entre si."
+   ]
+  },
+  "289": {
+   "vi": [
+    "4.Châu báu trên trang bị đã khảm có thể chọn đổi hoặc không."
+   ],
+   "pt": [
+    "4.As joias encaixadas podem ou não ser transferidas, você escolhe."
+   ]
+  },
+  "290": {
+   "vi": [
+    "5.Sau khi đổi, thuộc tính cường hóa + cấp luyện hóa + ",
+    "lỗ phong ấn sẽ chuyển đổi và sẽ khóa lại."
+   ],
+   "pt": [
+    "5.Após a troca, fortalecimento + refino + ",
+    "furos selados são transferidos e ficam vinculados."
+   ]
+  },
+  "291": {
+   "vi": [
+    "Hệ thống DI CHUYỂN giúp đổi các thuộc tính",
+    "gồm : cường hóa + cấp luyện hóa + lỗ phong",
+    "ấn + châu báu của 2 trang bị cùng loại.",
+    "Cần chú ý :"
+   ],
+   "pt": [
+    "O sistema de TRANSFERÊNCIA troca os atributos",
+    "de fortalecimento + refino + furos",
+    "selados + joias de 2 equipamentos do mesmo tipo.",
+    "Atenção:"
+   ]
+  },
+  "293": {
+   "vi": [
+    "Cường hóa sẽ tăng sát thương của vũ khí và ",
+    "hộ giáp của trang bị, khi cường hóa cần chú ý: "
+   ],
+   "pt": [
+    "O fortalecimento aumenta o dano da arma e a ",
+    "defesa do equipamento. Ao fortalecer, atenção: "
+   ]
+  },
+  "294": {
+   "vi": [
+    "1.",
+    "Vũ khí, trợ thủ, áo và mũ có thể cường hóa."
+   ],
+   "pt": [
+    "1.",
+    "Arma, auxiliar, roupa e chapéu podem ser fortalecidos."
+   ]
+  },
+  "295": {
+   "vi": [
+    "2.",
+    "Cường hóa xong sẽ tăng thuộc tính,",
+    "cường hóa đến cấp nhất ",
+    "định có thể dát vàng để nhận thuộc tính cao hơn hoặc kèm thêm ",
+    "cái mức để khảm nạm. "
+   ],
+   "pt": [
+    "2.",
+    "O fortalecimento aumenta os atributos;",
+    "ao chegar a certo",
+    "nível é possível dourar para atributos maiores ou ganhar ",
+    "mais espaços de encaixe. "
+   ]
+  },
+  "298": {
+   "vi": [
+    "Khi vũ khí, áo, nón cường hóa đạt cấp +12",
+    "có thể vào lò rèn để dát vàng trang bị ",
+    "để tăng sát thương cho vũ khí hoặc hộ giáp",
+    " cho áo nón cần chú ý điều sau:"
+   ],
+   "pt": [
+    "Armas, roupas e chapéus fortalecidos até +12",
+    "podem ir à forja para serem dourados,",
+    "aumentando o dano da arma ou a defesa",
+    " da roupa e do chapéu. Atenção:"
+   ]
+  },
+  "299": {
+   "vi": [
+    "Để dát vàng vũ khí dùng châu báu chúc phúc công kích ",
+    "Để dát vàng áo dùng châu báu chúc phúc phòng ngự ",
+    "Để dát vàng nón dùng châu báu chúc phúc thuộc tính",
+    "Châu báu chúc phúc có thể kiếm ở túi maria,apollo,midas ",
+    "Vũ khí khi được dát vàng sẽ biến đổi hình dạng."
+   ],
+   "pt": [
+    "Para dourar a arma use a joia da bênção de ataque ",
+    "Para dourar a roupa use a joia da bênção de defesa ",
+    "Para dourar o chapéu use a joia da bênção de atributo",
+    "Joias da bênção vêm das bolsas Maria, Apollo e Midas ",
+    "A arma dourada muda de aparência."
+   ]
+  },
+  "301": {
+   "vi": [
+    "Cần 4 vật phẩm hoàn toàn giống nhau (tên, cấp bậc) mới có ",
+    "thể dung luyện thành công ra vật phẩm cao cấp hơn."
+   ],
+   "pt": [
+    "São precisos 4 itens totalmente iguais (nome, nível) para ",
+    "fundir com sucesso um item de nível maior."
+   ]
+  },
+  "302": {
+   "vi": [
+    "Các vật phẩm có thể dung luyện : đá Chu Tước, đá Huyền Vũ, ",
+    "đá Thanh Long, đá Thanh Long, đá Cường Hóa, Châu Báu, ",
+    "Nhẫn, Vòng Tay, mảnh ghép trang bị."
+   ],
+   "pt": [
+    "Itens que podem ser fundidos: Pedra Fênix, Pedra Tartaruga, ",
+    "Pedra Dragão, Pedra Tigre, Pedra de Fortalecimento, joias, ",
+    "anéis, pulseiras, fragmentos de equipamento."
+   ]
+  },
+  "303": {
+   "vi": [
+    "4 loại đá cùng loại, nhẫn, lắc tay, châu báu kết hợp công thức ",
+    "dung luyện tương ứng sẽ nhận được vật phẩm cao cấp mà bạn ",
+    "mong muốn."
+   ],
+   "pt": [
+    "4 pedras do mesmo tipo, anéis, pulseiras e joias com a fórmula ",
+    "de fusão certa geram o item de nível maior que você ",
+    "deseja."
+   ]
+  },
+  "304": {
+   "vi": [
+    "    Hệ thống DUNG LUYỆN giúp người chơi",
+    " nâng cấp vật phẩm.",
+    "Cần chú ý :"
+   ],
+   "pt": [
+    "    O sistema de FUSÃO permite ao jogador",
+    " evoluir itens.",
+    "Atenção:"
+   ]
+  },
+  "305": {
+   "vi": [
+    "Nhẫn và Vòng Tay có thể dung luyện tối đa +5"
+   ],
+   "pt": [
+    "Anéis e pulseiras podem ser fundidos no máximo até +5"
+   ]
+  },
+  "306": {
+   "vi": [
+    "Đá Thánh Thú và đá Cường Hóa có thể dung ",
+    "luyện tối đa +5"
+   ],
+   "pt": [
+    "Pedras da Fera Sagrada e de Fortalecimento fundem ",
+    "no máximo até +5"
+   ]
+  },
+  "313": {
+   "vi": [
+    "Hệ thống KHẢM NẠM giúp khảm các châu báu",
+    "vào vũ khí và trang bị để tăng thuộc tính sức mạnh",
+    "Cần chú ý"
+   ],
+   "pt": [
+    "O sistema de ENCAIXE coloca joias",
+    "em armas e equipamentos para aumentar a força",
+    "Atenção"
+   ]
+  },
+  "314": {
+   "vi": [
+    "Mỗi vũ khí và trang bị sẽ có các lỗ khảm châu báu",
+    "khác biệt nhau"
+   ],
+   "pt": [
+    "Cada arma e equipamento tem furos de encaixe",
+    "diferentes"
+   ]
+  },
+  "315": {
+   "vi": [
+    "Cần tiêu hao mũi khoan để mở các lỗ khóa."
+   ],
+   "pt": [
+    "É preciso gastar brocas para abrir os furos fechados."
+   ]
+  },
+  "316": {
+   "vi": [
+    "Chỉ có thể khảm châu báu vào vũ khí và trang bị",
+    "có hình dáng lỗ khảm tương ứng"
+   ],
+   "pt": [
+    "Só é possível encaixar joias em armas e equipamentos",
+    "com o furo do formato correspondente"
+   ]
+  },
+  "317": {
+   "vi": [
+    "Có thể tháo bỏ châu báu đã khảm sẵn để khảm",
+    "châu báu cấp cao hơn"
+   ],
+   "pt": [
+    "Você pode remover joias já encaixadas para colocar",
+    "joias de nível maior"
+   ]
+  },
+  "318": {
+   "vi": [
+    "Chi phí tháo bỏ châu báu đã khảm : 200 xu"
+   ],
+   "pt": [
+    "Custo para remover uma joia encaixada: 200 moedas"
+   ]
+  },
+  "320": {
+   "vi": [
+    "Hệ thống HỢP THÀNH giúp cộng các thuộc tính",
+    "của Đá Thánh Thú vào vũ khí và trang bị.",
+    "Cần chú ý :"
+   ],
+   "pt": [
+    "O sistema de COMBINAÇÃO adiciona os atributos",
+    "da Pedra da Fera Sagrada à arma e ao equipamento.",
+    "Atenção:"
+   ]
+  },
+  "321": {
+   "vi": [
+    "Đá Chu Tước tăng thuộc tính Tấn Công",
+    "Đá Huyền Vũ tăng thuộc tính Phòng Thủ",
+    "Đá Bạch Hổ tăng thuộc tính May Măn",
+    "Đá Thanh Long tăng thuộc tính Nhanh Nhẹn"
+   ],
+   "pt": [
+    "Pedra Fênix aumenta o Ataque",
+    "Pedra Tartaruga aumenta a Defesa",
+    "Pedra Tigre aumenta a Sorte",
+    "Pedra Dragão aumenta a Agilidade"
+   ]
+  },
+  "322": {
+   "vi": [
+    "Đá Thánh Thú cấp càng cao tương ứng với",
+    "tỷ lệ hợp thành càng thấp."
+   ],
+   "pt": [
+    "Quanto maior o nível da Pedra da Fera Sagrada,",
+    "menor a chance de combinação."
+   ]
+  },
+  "323": {
+   "vi": [
+    "Mỗi thuộc tính của trang bị chỉ có thể hợp thành ",
+    "1 đá Thánh Thú."
+   ],
+   "pt": [
+    "Cada atributo do equipamento aceita só ",
+    "1 Pedra da Fera Sagrada."
+   ]
+  },
+  "324": {
+   "vi": [
+    "Đá Thánh Thú cấp thấp sẽ không thể thay thế ",
+    "thuộc tính của đá Thánh Thú cấp cao hơn."
+   ],
+   "pt": [
+    "Uma Pedra da Fera Sagrada de nível baixo não substitui ",
+    "o atributo de uma de nível maior."
+   ]
+  }
+ },
+ "storefinebringup.swf": {
+  "26": {
+   "vi": [
+    "     Có thể bồi dưỡng trang sức tại giao diện này, đặt ",
+    "trang sức muốn trưởng thành vào ô bồi dưỡng, nhấp ",
+    "bồi dưỡng nhanh, trang sức sau khi bồi dưỡng sẽ gộp ",
+    "tất cả trang sức được gộp và chưa khóa trong túi. Khi ",
+    "bồi dưỡng nhanh cần chú ý:            "
+   ],
+   "pt": [
+    "     Aqui você pode aprimorar acessórios: coloque o ",
+    "acessório que quer evoluir no espaço de aprimoramento, clique em ",
+    "aprimoramento rápido; o acessório aprimorado absorve ",
+    "todos os acessórios não bloqueados da mochila. No ",
+    "aprimoramento rápido, atenção:            "
+   ]
+  },
+  "27": {
+   "vi": [
+    "1.Trang sức đang dùng sẽ khóa tại giao diện bồi dưỡng."
+   ],
+   "pt": [
+    "1.Acessórios em uso ficam bloqueados nesta tela."
+   ]
+  },
+  "28": {
+   "vi": [
+    "2. Trang sức chia làm 3 phẩm chất bồi dưỡng, chỉ khi trang ",
+    "sức phẩm chất bồi dưỡng thấp gộp trang sức phẩm chất ",
+    "bồi dưỡng cao mới mất nhiều EXP"
+   ],
+   "pt": [
+    "2. Os acessórios têm 3 qualidades de aprimoramento; só ao juntar ",
+    "um de qualidade baixa a um de qualidade ",
+    "alta é que se perde mais EXP"
+   ]
+  },
+  "29": {
+   "vi": [
+    "4. Thời hạn trang sức sau bồi dưỡng sẽ tính theo thời hạn ",
+    "ít nhất của các trang sức gộp."
+   ],
+   "pt": [
+    "4. A validade do acessório aprimorado é a menor validade ",
+    "entre os acessórios absorvidos."
+   ]
+  },
+  "30": {
+   "vi": [
+    "3. Trang sức khóa không bị gộp nhưng được bồi dưỡng."
+   ],
+   "pt": [
+    "3. Acessórios bloqueados não são absorvidos, mas podem ser aprimorados."
+   ]
+  }
+ },
+ "times.swf": {
+  "48": {
+   "vi": [
+    "Ấn"
+   ],
+   "pt": [
+    "Edição"
+   ]
+  }
+ },
+ "trainer1.swf": {
+  "83": {
+   "vi": [
+    "để nhận được đạo cụ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(tăng 1 lần công kích) "
+   ],
+   "pt": [
+    "para ganhar o item &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(+1 ataque) "
+   ]
+  },
+  "87": {
+   "vi": [
+    " Đánh bại 2con gà，"
+   ],
+   "pt": [
+    " Derrote 2 galinhas，"
+   ]
+  }
+ },
+ "weekly.swf": {
+  "41": {
+   "vi": [
+    "Trang trước"
+   ],
+   "pt": [
+    "Página anterior"
+   ]
+  },
+  "62": {
+   "vi": [
+    "Mở"
+   ],
+   "pt": [
+    "Abrir"
+   ]
+  }
+ }
+}

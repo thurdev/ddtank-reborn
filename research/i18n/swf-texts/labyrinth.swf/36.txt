@@ -1,0 +1,5 @@
+2. Thoát mê cung khi chưa thất bại có thể tiếp 
+--- RECORDSEPARATOR ---
+tục khiêu chiến ải hiện tại. Nhấp Tái lập sẽ 
+--- RECORDSEPARATOR ---
+khiêu chiến lại ải đầu tiên.

@@ -1,0 +1,11 @@
+4. Dát vàng vũ khí có tỉ lệ thành công
+--- RECORDSEPARATOR ---
+，
+--- RECORDSEPARATOR ---
+ nhất định 
+--- RECORDSEPARATOR ---
+ và ngẫu nhiên hoàn toàn. Tất cả sẽ phụ thuộc vào 
+--- RECORDSEPARATOR ---
+ sự may mắn của bạn nên đừng cố gắng thay đổi thông 
+--- RECORDSEPARATOR ---
+số trên máy nhằm ăn gian nhé ahihi

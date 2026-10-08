@@ -1,0 +1,5 @@
+4. Sau khi bắt đầu tự động trồng Ruộng sẽ vào 
+--- RECORDSEPARATOR ---
+trạng thái khóa, không thể tiến hành bất cứ 
+--- RECORDSEPARATOR ---
+thao tác nào.

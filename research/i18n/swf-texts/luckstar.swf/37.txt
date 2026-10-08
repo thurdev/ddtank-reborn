@@ -1,0 +1,3 @@
+6.Sau khi quay trúng xu thưởng, kho xu
+--- RECORDSEPARATOR ---
+    sẽ quay về mặc định 1000 xu.

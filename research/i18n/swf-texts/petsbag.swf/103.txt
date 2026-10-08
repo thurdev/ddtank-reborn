@@ -1,0 +1,13 @@
+1
+--- RECORDSEPARATOR ---
+、
+--- RECORDSEPARATOR ---
+Utilizar hierba chiba para avanzar el Pet y 
+--- RECORDSEPARATOR ---
+elevar atributo del mismo, solo se necesita el 
+--- RECORDSEPARATOR ---
+pet en batalla evoluciona todos los atributos 
+--- RECORDSEPARATOR ---
+para mejorar automáticamente el atributo del 
+--- RECORDSEPARATOR ---
+pet en lucha. 

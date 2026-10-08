@@ -12,7 +12,7 @@ export class TNSM3103 extends AMissionControl {
             "Vamos lutar de novo!"
         ]);
   static ShootedChat = __arr([
-            "Ah ~ ~ Tại sao bạn tấn công?<br/>Eu estou fazendo?",
+            "Ah~~ Por que você está atacando?<br/>O que eu estou fazendo?",
 
             "Oh ~ ~ realmente dói! Por que eu tenho que lutar?<br/>Eu tenho que lutar..."
         ]);

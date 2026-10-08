@@ -1,0 +1,3 @@
+3. Điểm may mắn 24:00 mỗi ngày xóa về 0, nên 
+--- RECORDSEPARATOR ---
+tăng cấp 1 lần.

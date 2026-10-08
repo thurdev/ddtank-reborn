@@ -1,0 +1,1 @@
+4.Cuando el pet tiene mayor grado de felicidad, mejor atributo saldra, cuando esta por debajo de cierto valor, los pets no se pueden luchar. 

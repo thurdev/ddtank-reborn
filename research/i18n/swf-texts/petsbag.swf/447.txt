@@ -1,0 +1,1 @@
+5.Solo los pets en batalla pueden tener influencia a tu atributo de lucha, solo los pets participa la lucha pueden conseguir Exp. 

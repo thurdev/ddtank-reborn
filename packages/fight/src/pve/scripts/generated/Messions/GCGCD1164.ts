@@ -65,7 +65,7 @@ export class GCGCD1164 extends AMissionControl {
             this.npc = this.Game.CreateNpc(this.npcId, 1920, 900, 1, -1, config);
 
             this.npc.PlayMovie("stand", 1000, 0);
-            this.npc.Say("Chúng mình không muốn bị lây bệnh. Cứu!! Cứu!!", 0, 2000);
+            this.npc.Say("Não queremos ser contaminados. Socorro!! Socorro!!", 0, 2000);
 
             this.npc.CallFuction((this.CreateBossEffect.bind(this)), 4000);
         }
@@ -76,15 +76,15 @@ export class GCGCD1164 extends AMissionControl {
             this.m_kingFront.PlayMovie("in", 2000, 0);
             this.m_kingMoive.PlayMovie("out", 5000, 0);
             this.m_kingFront.PlayMovie("out", 5400, 0);
-            this.boss.Say("Định cứu gà con cuối cùng à? Không dễ vậy đâu.", 0 , 6000);
+            this.boss.Say("Querem salvar o último pintinho? Não vai ser tão fácil.", 0 , 6000);
             this.boss.PlayMovie("skill", 8000, 0);
-            this.boss.Say("Giỏi thì phá lá chắn bảo vệ của ta.", 0, 8000);
+            this.boss.Say("Se forem bons, quebrem meu escudo protetor.", 0, 8000);
             this.Game.SendObjectFocus(this.npc, 1, 9000, 0);
             this.npc.PlayMovie("standB", 10000, 0);
             this.npc.Config.CanTakeDamage = false;
-            this.npc.Say("Chết phải hạ những quả trứng thối mới phá vỡ được lá chắn", 0, 11000);
+            this.npc.Say("Precisam destruir os ovos podres para quebrar o escudo", 0, 11000);
             this.Game.SendObjectFocus(this.boss, 1, 13000, 0);
-            this.boss.Say("Đã đến thì đừng hòng đi. Ta sẽ nhốt hết vào lồng.", 0, 14000, 3000);
+            this.boss.Say("Já que vieram, não vão sair. Vou prender todos na jaula.", 0, 14000, 3000);
         }
   OnNewTurnStarted() {
             super.OnNewTurnStarted();
@@ -125,7 +125,7 @@ export class GCGCD1164 extends AMissionControl {
                 let waitTime = __int(this.Game.GetWaitTimerLeft());
                 this.Game.SendObjectFocus(this.npc, 1, waitTime + 500, 500);
                 this.npc.PlayMovie("out", waitTime + 1000, 0);
-                this.npc.Say("Nhanh phá lồng cứu chúng tôi với...", 0, waitTime + 1500, 3500);
+                this.npc.Say("Rápido, quebrem a jaula e nos salvem...", 0, waitTime + 1500, 3500);
                 this.npc.Config.CanTakeDamage = true;
             }
         }

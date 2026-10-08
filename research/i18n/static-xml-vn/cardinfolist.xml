@@ -1,0 +1,79 @@
+<Result value="true" message="Success!">
+  <Item ID="1" SuitID="1" Name="Bộ thẻ huyệt ma kiến" Description="Vô số dũng sĩ từ mọi nơi đều đang tập hợp tại đây, cánh rừng ma quái.Mọi người cần phải tìm ra nơi cư ngụ của loài kiến ma &quot;Huyệt ma kiến&quot; . Qua những trận chiến gian nan, cuối cùng họ cũng hạ được nữ vương kiến và lấy được bộ thẻ phép thuật!">
+    <Card ID="314103" />
+    <Card ID="314102" />
+    <Card ID="314101" />
+    <Card ID="0" />
+    <Card ID="0" />
+  </Item>
+  <Item ID="2" SuitID="1" Name="Bộ thẻ vương thành gà" Description="Sau khi hạ được Quốc vương xấu tính của vương thành gà, các dũng sĩ đã chế tạo thành công bộ thẻ phép thuật nhưng chẳng may Mathias đã cướp chúng đi.Giờ mọi người phải cùng hợp sức để cướp lại bộ thẻ!">
+    <Card ID="314107" />
+    <Card ID="314106" />
+    <Card ID="314105" />
+    <Card ID="314104" />
+    <Card ID="0" />
+  </Item>
+  <Item ID="3" SuitID="1" Name="Bộ thẻ bộ lạc tà thần" Description="Tương truyền rằng có một bộ thẻ đã ghi lại những bí mật kinh thiên động địa của cây thương cổ đang bị lưu lạc trong một bộ lạc bị khống chế bởi thế lực đen tối. Hãy mau đến đó tìm lại bộ thẻ này!">
+    <Card ID="314112" />
+    <Card ID="314111" />
+    <Card ID="314110" />
+    <Card ID="314109" />
+    <Card ID="314108" />
+  </Item>
+  <Item ID="4" SuitID="1" Name="Bộ thẻ pháo đài hắc ám" Description="Trong pháo đài hắc ám,không hiểu sao luôn phát ra  thứ ánh sáng lấp lánh, thì ra đó là ánh sáng của bộ thẻ thần bí.Nếu lấy lại được và sử dụng đúng cách sẽ giúp pháo đài trở lại sự yên bình.">
+    <Card ID="314116" />
+    <Card ID="314115" />
+    <Card ID="314114" />
+    <Card ID="314113" />
+    <Card ID="0" />
+  </Item>
+  <Item ID="5" SuitID="0" Name="Bộ thẻ vũ khí thần bí" Description="Các dũng sĩ đã tìm thấy trong rừng sâu dấu tích 4 loại vũ khí.Tương truyền do không thể khống chế sức mạnh nên vũ khí đã bị tiêu hủy.Nếu như bây giờ chúng ta tìm ra 4 loại thẻ đặc biệt thì có thể triệu hồi sức mạnh của vũ khí.">
+    <Card ID="314120" />
+    <Card ID="314119" />
+    <Card ID="314118" />
+    <Card ID="314117" />
+    <Card ID="0" />
+  </Item>
+  <Item ID="6" SuitID="1" Name="Bộ thẻ Goblin" Description="Tà Diệm Long cuối cùng đã bị hạ, hãy xem có thứ gì rơi ra kìa.Các dũng sĩ chạy đến xem thì phát hiện ra bộ thẻ Goblin ghi cháp những bí mật. Nhưng đúng lúc này xào huyệt sụp đổ, các dũng sĩ đã không thể quay trở ra.">
+    <Card ID="314125" />
+    <Card ID="314124" />
+    <Card ID="314123" />
+    <Card ID="314122" />
+    <Card ID="314121" />
+  </Item>
+  <Item ID="7" SuitID="1" Name="Bộ thẻ giải cứu gà con" Description="Giải cứu những chú gà vàng thật xinh xắn sẽ được tặng những bộ thẻ thần bí. Nhưng không chỉ có 1 con gà mái xấu xí, các dũng sĩ, ãy mau lên đường cứu những chú gà vàng nào!">
+    <Card ID="314129" />
+    <Card ID="314128" />
+    <Card ID="314127" />
+    <Card ID="314126" />
+    <Card ID="0" />
+  </Item>
+  <Item ID="8" SuitID="1" Name="Bộ thẻ Đấu trường gà" Description="Vương quốc gà đã tổ chức thành công đại hội thể thao đầu tiên. Và lần này cũng đặc biệt sản xuất bộ thẻ Đấu trường gà. Ngoài việc dùng làm kỹ niệm, bộ thẻ còn mang đến cho bạn sự may mắn.Bạn có phải là người của chiến thắng không?">
+    <Card ID="314134" />
+    <Card ID="314133" />
+    <Card ID="314132" />
+    <Card ID="314131" />
+    <Card ID="314130" />
+  </Item>
+  <Item ID="9" SuitID="0" Name="Bộ thẻ Ngũ Thần Binh" Description="Ngũ đại thần đang cai quản và giữ thế cân bằng cho thế giới, thế nhưng vũ khí họ sử dụng lại lưu lạc trong nhân gian. Tương truyền nếu tập hợp được cùng lúc 5 vũ khí này sẽ có sức mạnh vô song!">
+    <Card ID="314139" />
+    <Card ID="314138" />
+    <Card ID="314137" />
+    <Card ID="314136" />
+    <Card ID="314135" />
+  </Item>
+  <Item ID="10" SuitID="1" Name="Bộ thẻ Vòng xoáy thời gian" Description="Vậy là tất cả những chiến tranh đều do bác học Vẹt mà ra. Các chiến sỹ trận mạc đã tặng những dũng sỹ của chúng ta thẻ bài quý được cất giữ đã lâu nhằm tỏ lòng biết ơn.">
+    <Card ID="314144" />
+    <Card ID="314143" />
+    <Card ID="314142" />
+    <Card ID="314141" />
+    <Card ID="314140" />
+  </Item>
+  <Item ID="11" SuitID="1" Name="Thẻ Đấu Trường Dũng Sĩ" Description="Nghe nói trong đấu trường xưa có 1 bộ thẻ Đấu Trường Dũng Sĩ có uy lực rất mạnh, không thể để chúng rơi vào tay thế lực đen tối, các dũng sĩ hãy bắt đầu cuộc hành trình của mình">
+    <Card ID="314149" />
+    <Card ID="314148" />
+    <Card ID="314147" />
+    <Card ID="314146" />
+    <Card ID="314145" />
+  </Item>
+</Result>
