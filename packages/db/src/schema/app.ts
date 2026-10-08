@@ -196,3 +196,20 @@ export const ScheduledEvents = appSchema.table("ScheduledEvents", {
   params: jsonb("params").$type<Record<string, unknown>>().notNull().default(sql`'{}'::jsonb`),
   updatedAt: ts("updatedAt").notNull().defaultNow(),
 });
+
+/**
+ * app."InviteFriends" — DDTank Reborn invite-a-friend (107 INVITE_FRIEND).
+ * The 4.1 C# base has the packet enum but no server logic (Facebook-era stub);
+ * this table backs the Reborn implementation: one row per confirmed invite nick.
+ * Reward tiers (claimed via app."EventClaims" kind "invite"): 1/3/5/10 invites.
+ */
+export const InviteFriends = appSchema.table(
+  "InviteFriends",
+  {
+    id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
+    UserID: integer("UserID").notNull(),
+    InvitedNick: varchar("InvitedNick", { length: 64 }).notNull(),
+    CreatedAt: ts("CreatedAt").notNull().defaultNow(),
+  },
+  (t) => [index("InviteFriends_user_idx").on(t.UserID)],
+);
