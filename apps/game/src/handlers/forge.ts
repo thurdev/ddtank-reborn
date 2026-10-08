@@ -58,66 +58,87 @@ export function composeChance(stoneQuality: number, luckP2: number | null, smith
   return Math.floor(p * 10) / 10;
 }
 
+/** What a fusion roll can produce: the reward template picked + whether it succeeded. */
 export interface FusionPick { template: ItemTemplate; result: boolean }
 
-/** FusionMgr.Fusion / FusionPreview (candidates at MaxLevel+1, MaxLevel, MaxLevel+2 ordered by rate/need). */
-export function fusionCandidates(items: ItemInfo[], tpl: Templates): { max?: ItemTemplate; min?: ItemTemplate; rate: number; need: number; isBind: boolean } | null {
-  const types = items.map((i) => i.template.FusionType).sort((a, b) => a - b);
-  const key = types.join("");
-  const f = tpl.fusions.get(key);
-  let maxLevel = 0, rate = 0, need = 0, isBind = false;
-  for (const it of items) {
-    maxLevel = Math.max(maxLevel, it.template.Level);
-    rate += it.template.FusionRate;
-    need += it.template.FusionNeedRate;
-    if (it.IsBinds) isBind = true;
+/**
+ * Finds which rewards the 4 placed stones can produce.
+ *
+ * Como funciona (FusionMgr.cs): junta o FusionType das 4 pedras numa chave
+ * (ex. tipos [3,3,3,3] → chave "3333"), busca a receita em Item_Fusion e soma
+ * FusionRate / FusionNeedRate das pedras. Candidatos: item de recompensa no nível
+ * da pedra mais forte +1, no mesmo nível e +2 (só os que existirem no banco).
+ * `max` = melhor prêmio (chance boa), `min` = prêmio de consolação.
+ *
+ * @param placedStones 4 pedras dos slots 1-4 da storeBag (mesmo TemplateID)
+ * @param templates acesso às tabelas (Item_Fusion, itens)
+ * @returns null se não há receita pra essa combinação
+ */
+export function fusionCandidates(placedStones: ItemInfo[], templates: Templates): { max?: ItemTemplate; min?: ItemTemplate; rate: number; need: number; isBind: boolean } | null {
+  const sortedFusionTypes = placedStones.map((stone) => stone.template.FusionType).sort((a, b) => a - b);
+  const recipeKey = sortedFusionTypes.join("");
+  const recipe = templates.fusions.get(recipeKey);
+  let highestStoneLevel = 0, totalFusionRate = 0, totalNeedRate = 0, anyStoneBound = false;
+  for (const stone of placedStones) {
+    highestStoneLevel = Math.max(highestStoneLevel, stone.template.Level);
+    totalFusionRate += stone.template.FusionRate;
+    totalNeedRate += stone.template.FusionNeedRate;
+    if (stone.IsBinds) anyStoneBound = true;
   }
-  if (!f) return null;
-  const list = [tpl.goodsByFusionTypeAndLevel(f.Reward, maxLevel + 1), tpl.goodsByFusionTypeAndLevel(f.Reward, maxLevel), tpl.goodsByFusionTypeAndLevel(f.Reward, maxLevel + 2)]
-    .filter((t): t is ItemTemplate => !!t);
-  const r = (t: ItemTemplate) => rate / t.FusionNeedRate;
-  const max = list.filter((t) => r(t) <= 1.1).sort((a, b) => r(b) - r(a))[0];
-  const min = list.filter((t) => r(t) > 1.1).sort((a, b) => r(a) - r(b))[0];
-  return { max, min, rate, need, isBind };
+  if (!recipe) return null;
+  const rewardOptions = [templates.goodsByFusionTypeAndLevel(recipe.Reward, highestStoneLevel + 1), templates.goodsByFusionTypeAndLevel(recipe.Reward, highestStoneLevel), templates.goodsByFusionTypeAndLevel(recipe.Reward, highestStoneLevel + 2)]
+    .filter((reward): reward is ItemTemplate => !!reward);
+  // rateRatio = força das pedras / exigência do prêmio. <= 1.1: prêmio bom alcançável.
+  const rateRatio = (reward: ItemTemplate) => totalFusionRate / reward.FusionNeedRate;
+  const bestReward = rewardOptions.filter((reward) => rateRatio(reward) <= 1.1).sort((a, b) => rateRatio(b) - rateRatio(a))[0];
+  const consolationReward = rewardOptions.filter((reward) => rateRatio(reward) > 1.1).sort((a, b) => rateRatio(a) - rateRatio(b))[0];
+  return { max: bestReward, min: consolationReward, rate: totalFusionRate, need: totalNeedRate, isBind: anyStoneBound };
 }
 
-/** FusionMgr.FusionPreview: template -> success rate %. */
-export function fusionPreview(items: ItemInfo[], tpl: Templates): { rates: Map<number, number>; isBind: boolean } {
-  const c = fusionCandidates(items, tpl);
-  const rates = new Map<number, number>();
-  if (!c) return { rates, isBind: items.some((i) => i.IsBinds) };
-  if (c.max && !c.min) rates.set(c.max.TemplateID, (100 * c.rate) / c.need);
-  if (c.max && c.min) {
-    const tr = c.max.Level - c.min.Level === 2 ? (100 * c.rate * 0.6) / c.max.FusionNeedRate : (100 * c.rate) / c.max.FusionNeedRate;
-    rates.set(c.max.TemplateID, tr);
-    rates.set(c.min.TemplateID, 100 - tr);
+/**
+ * Preview da fusão (o que o cliente mostra antes de confirmar).
+ * FusionMgr.FusionPreview: template do prêmio -> chance % de sair.
+ * Se só há `max`: chance direta. Se há os dois: divide 100% entre eles.
+ */
+export function fusionPreview(placedStones: ItemInfo[], templates: Templates): { rates: Map<number, number>; isBind: boolean } {
+  const candidates = fusionCandidates(placedStones, templates);
+  const previewRates = new Map<number, number>();
+  if (!candidates) return { rates: previewRates, isBind: placedStones.some((stone) => stone.IsBinds) };
+  if (candidates.max && !candidates.min) previewRates.set(candidates.max.TemplateID, (100 * candidates.rate) / candidates.need);
+  if (candidates.max && candidates.min) {
+    const topRewardChance = candidates.max.Level - candidates.min.Level === 2 ? (100 * candidates.rate * 0.6) / candidates.max.FusionNeedRate : (100 * candidates.rate) / candidates.max.FusionNeedRate;
+    previewRates.set(candidates.max.TemplateID, topRewardChance);
+    previewRates.set(candidates.min.TemplateID, 100 - topRewardChance);
   }
-  if (!c.max && c.min) rates.set(c.min.TemplateID, (100 * c.rate) / c.need);
-  return { rates, isBind: c.isBind };
+  if (!candidates.max && candidates.min) previewRates.set(candidates.min.TemplateID, (100 * candidates.rate) / candidates.need);
+  return { rates: previewRates, isBind: candidates.isBind };
 }
 
-/** FusionMgr.Fusion (FusionMgr.cs): picked template and success flag. */
-export function fusionRoll(items: ItemInfo[], tpl: Templates, rnd = Math.random): FusionPick | null {
-  const c = fusionCandidates(items, tpl);
-  if (!c) return null;
-  let pick: ItemTemplate | undefined;
-  let result = false;
-  if (c.max && !c.min) {
-    pick = c.max;
-    if (Math.floor(rnd() * c.need) < c.rate) result = true;
+/**
+ * Rola a fusão (FusionMgr.Fusion em FusionMgr.cs): sorteia o prêmio e se deu bom.
+ * Trava anti-frustração do original: se o prêmio sorteado já está na bancada, falha.
+ */
+export function fusionRoll(placedStones: ItemInfo[], templates: Templates, rnd = Math.random): FusionPick | null {
+  const candidates = fusionCandidates(placedStones, templates);
+  if (!candidates) return null;
+  let pickedReward: ItemTemplate | undefined;
+  let succeeded = false;
+  if (candidates.max && !candidates.min) {
+    pickedReward = candidates.max;
+    if (Math.floor(rnd() * candidates.need) < candidates.rate) succeeded = true;
   }
-  if (c.max && c.min) {
-    if ((100 * c.rate) / c.max.FusionNeedRate > Math.floor(rnd() * 100)) pick = c.max;
-    else pick = c.min;
-    result = true;
+  if (candidates.max && candidates.min) {
+    if ((100 * candidates.rate) / candidates.max.FusionNeedRate > Math.floor(rnd() * 100)) pickedReward = candidates.max;
+    else pickedReward = candidates.min;
+    succeeded = true;
   }
-  if (!c.max && c.min) {
-    pick = c.min;
-    if (Math.floor(rnd() * c.need) < c.rate) result = true;
+  if (!candidates.max && candidates.min) {
+    pickedReward = candidates.min;
+    if (Math.floor(rnd() * candidates.need) < candidates.rate) succeeded = true;
   }
-  if (!pick) return null;
-  if (result && items.some((i) => i.TemplateID === pick!.TemplateID)) result = false;
-  return { template: pick, result };
+  if (!pickedReward) return null;
+  if (succeeded && placedStones.some((stone) => stone.TemplateID === pickedReward!.TemplateID)) succeeded = false;
+  return { template: pickedReward, result: succeeded };
 }
 
 function bagLocked(ctx: ServerContext, p: GamePlayer): boolean {
@@ -291,87 +312,109 @@ export async function compose(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, 
   p.updatePlayerProperties();
 }
 
-/** Reborn auto-split: o cliente joga a pilha inteira num slot só (sem picker de
- * quantidade). Espalha 1 unidade por slot 1-4 a partir de pilhas do mesmo tipo,
- * então pilha de 4+ funde direto. Resto fica no slot de origem. */
-export function autoSplitFusionSlots(store: PlayerInventory): void {
+/**
+ * Reborn auto-split da fusão — por que existe:
+ * o cliente Flash não tem seletor de quantidade: arrastar a pedra joga a pilha
+ * INTEIRA num slot só, e a fusão precisa de 1 unidade em cada slot 1-4.
+ * Então antes de validar, o servidor espalha 1 unidade por slot vazio a partir
+ * de pilhas do mesmo tipo da primeira preenchida. Resto fica no slot de origem.
+ * Ex: slot1 com 6 pedras → vira 3/1/1/1 e funde direto. Tipos mistos continuam
+ * barrados pela checagem normal abaixo. Usa `moveItem` (mesmo split do arrastar
+ * manual, persiste via dirty/commit como qualquer move).
+ *
+ * @param workbench a storeBag (bancada da forja, slots 0-19; fusão usa 1-4)
+ */
+export function autoSplitFusionSlots(workbench: PlayerInventory): void {
   for (let pass = 0; pass < 3; pass++) {
-    const filled = [1, 2, 3, 4].filter((s) => store.getItemAt(s));
-    if (filled.length >= 4) return;
-    const first = store.getItemAt(filled[0] ?? 1);
-    const donor = [1, 2, 3, 4]
-      .map((s) => store.getItemAt(s))
-      .find((it) => it && it.Count > 1 && (!first || it.TemplateID === first.TemplateID));
-    const empty = [1, 2, 3, 4].find((s) => !store.getItemAt(s));
-    if (!donor || empty === undefined) return;
-    if (!store.moveItem(donor.Place, empty, 1)) return;
+    const filledSlots = [1, 2, 3, 4].filter((slot) => workbench.getItemAt(slot));
+    if (filledSlots.length >= 4) return;
+    const firstStone = workbench.getItemAt(filledSlots[0] ?? 1);
+    const donorStack = [1, 2, 3, 4]
+      .map((slot) => workbench.getItemAt(slot))
+      .find((stone) => stone && stone.Count > 1 && (!firstStone || stone.TemplateID === firstStone.TemplateID));
+    const emptySlot = [1, 2, 3, 4].find((slot) => !workbench.getItemAt(slot));
+    if (!donorStack || emptySlot === undefined) return;
+    if (!workbench.moveItem(donorStack.Place, emptySlot, 1)) return;
   }
 }
 
-/** ItemFusionHandler.cs (78): byte op 0 = preview (76), 1 = fuse (400 gold). */
-export async function fusion(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd = Math.random): Promise<void> {
-  const op = pkt.readByte();
-  if (bagLocked(ctx, p)) return;
-  const store = p.storeBag;
-  autoSplitFusionSlots(store);
-  const items: ItemInfo[] = [];
-  for (let i = 1; i <= 4; i++) {
-    const it = store.getItemAt(i);
-    if (it) items.push(it);
+/**
+ * Fusão (ItemFusionHandler.cs, pacote 78; preview = pacote 76).
+ *
+ * Fluxo no jogo: jogador arrasta 4 pedras iguais pros slots 1-4 da bancada
+ * (StoreIIFusionBG.as no cliente) e aperta fundir. Cada tentativa consome
+ * 1 unidade de cada slot + 400 ouro, e o resultado cai no slot 0
+ * (o que estava no 0 volta pra bolsa ou vai pro correio).
+ *
+ * Pacote que chega: 1 byte `operation` (0 = só mostra preview, 1 = funde).
+ * Resposta preview (76): quantidade de prêmios, pra cada um
+ * [templateID, dias de validade, chance%] + se amarra (bind).
+ * Resposta fusão (78): 1 boolean (deu bom ou não) + mensagem de chat.
+ */
+export async function fusion(ctx: ServerContext, player: GamePlayer, pkt: GSPacket, rnd = Math.random): Promise<void> {
+  const operation = pkt.readByte();
+  if (bagLocked(ctx, player)) return;
+  const workbench = player.storeBag;
+  autoSplitFusionSlots(workbench);
+  const placedStones: ItemInfo[] = [];
+  for (let slot = 1; slot <= 4; slot++) {
+    const stone = workbench.getItemAt(slot);
+    if (stone) placedStones.push(stone);
   }
-  if (items.length >= 4 && items.some((i) => i.TemplateID !== items[0]!.TemplateID)) return p.sendMessage(1, ctx.lang.t("Há itens de tipos diferentes!"));
-  if (items.length !== 4) return p.sendMessage(0, ctx.lang.t("ItemFusionHandler.ItemNotEnough"));
-  const valid = items.map((i) => i.ValidDate).sort((a, b) => a - b);
-  const minValidItem = items.every((i) => i.ValidDate !== 0) ? valid[0]! : valid[1]!;
-  let minValid = minValidItem;
-  if (op === 0) {
-    const pv = fusionPreview(items, ctx.templates);
-    const roll = fusionCandidates(items, ctx.templates);
-    let isBind = pv.isBind;
-    const anyReward = roll?.max ?? roll?.min;
-    if (anyReward && (anyReward.CategoryID === 7 || anyReward.CategoryID === 17)) { minValid = 7; isBind = true; }
-    if (pv.rates.size === 0) return;
-    const out = new GSPacket(76, p.id);
-    out.writeInt(pv.rates.size);
-    for (const [tplId, rate] of pv.rates) {
-      out.writeInt(tplId); out.writeInt(minValid); out.writeInt(Math.trunc(rate > 100 ? 100 : rate >= 0 ? rate : 0));
+  if (placedStones.length >= 4 && placedStones.some((stone) => stone.TemplateID !== placedStones[0]!.TemplateID)) return player.sendMessage(1, ctx.lang.t("Há itens de tipos diferentes!"));
+  if (placedStones.length !== 4) return player.sendMessage(0, ctx.lang.t("ItemFusionHandler.ItemNotEnough"));
+  const sortedExpiries = placedStones.map((stone) => stone.ValidDate).sort((a, b) => a - b);
+  // Validade do prêmio: menor das 4 (0 = permanente; se alguma é permanente, usa a 2ª menor).
+  const shortestExpiry = placedStones.every((stone) => stone.ValidDate !== 0) ? sortedExpiries[0]! : sortedExpiries[1]!;
+  let rewardExpiryDays = shortestExpiry;
+  if (operation === 0) {
+    const preview = fusionPreview(placedStones, ctx.templates);
+    const candidates = fusionCandidates(placedStones, ctx.templates);
+    let rewardBound = preview.isBind;
+    const anyReward = candidates?.max ?? candidates?.min;
+    if (anyReward && (anyReward.CategoryID === 7 || anyReward.CategoryID === 17)) { rewardExpiryDays = 7; rewardBound = true; }
+    if (preview.rates.size === 0) return;
+    const out = new GSPacket(76, player.id);
+    out.writeInt(preview.rates.size);
+    for (const [rewardTemplateId, chancePct] of preview.rates) {
+      out.writeInt(rewardTemplateId); out.writeInt(rewardExpiryDays); out.writeInt(Math.trunc(chancePct > 100 ? 100 : chancePct >= 0 ? chancePct : 0));
     }
-    out.writeBoolean(isBind);
-    p.send(out);
+    out.writeBoolean(rewardBound);
+    player.send(out);
     return;
   }
-  if (p.info.Gold < 400) return p.sendMessage(1, ctx.lang.t("ItemFusionHandler.NoMoney"));
-  const pick = fusionRoll(items, ctx.templates, rnd);
-  if (!pick) return p.sendMessage(0, ctx.lang.t("ItemFusionHandler.NoCondition"));
-  let isBind = items.some((i) => i.IsBinds);
-  if (pick.template.CategoryID === 7 || pick.template.CategoryID === 17) { minValid = 7; isBind = true; }
-  const mail: ItemInfo[] = [];
-  store.beginChanges();
+  if (player.info.Gold < 400) return player.sendMessage(1, ctx.lang.t("ItemFusionHandler.NoMoney"));
+  const rolled = fusionRoll(placedStones, ctx.templates, rnd);
+  if (!rolled) return player.sendMessage(0, ctx.lang.t("ItemFusionHandler.NoCondition"));
+  let rewardBound = placedStones.some((stone) => stone.IsBinds);
+  if (rolled.template.CategoryID === 7 || rolled.template.CategoryID === 17) { rewardExpiryDays = 7; rewardBound = true; }
+  const overflowToMail: ItemInfo[] = [];
+  workbench.beginChanges();
   try {
-    const prev = store.getItemAt(0);
-    if (prev) {
-      store.takeOutItem(prev);
-      const dest = p.getItemInventory(prev.template);
-      if (!dest || !(dest.stackItemToAnother(prev) || dest.addItem(prev))) mail.push(prev);
+    const previousResult = workbench.getItemAt(0);
+    if (previousResult) {
+      workbench.takeOutItem(previousResult);
+      const homeBag = player.getItemInventory(previousResult.template);
+      if (!homeBag || !(homeBag.stackItemToAnother(previousResult) || homeBag.addItem(previousResult))) overflowToMail.push(previousResult);
     }
-    p.removeGold(400);
-    for (const it of items) store.removeCountFromStack(it, 1);
-    if (pick.result) {
-      if (templateBagType(pick.template) === BagType.EquipBag) minValid = minValidItem;
-      const res = ItemInfo.createFromTemplate(pick.template, 1, 105, ctx.now());
-      res.IsBinds = isBind;
-      res.ValidDate = minValid;
-      p.questInv?.onItemFusion(pick.template.FusionType);
-      p.sendMessage(0, ctx.lang.t("ItemFusionHandler.Succeed1") + (pick.template.Name ?? ""));
-      if (!store.addItemTo(res, 0)) mail.push(res);
-    } else p.sendMessage(0, ctx.lang.t("ItemFusionHandler.Failed"));
+    player.removeGold(400);
+    for (const stone of placedStones) workbench.removeCountFromStack(stone, 1);
+    if (rolled.result) {
+      if (templateBagType(rolled.template) === BagType.EquipBag) rewardExpiryDays = shortestExpiry;
+      const reward = ItemInfo.createFromTemplate(rolled.template, 1, 105, ctx.now());
+      reward.IsBinds = rewardBound;
+      reward.ValidDate = rewardExpiryDays;
+      player.questInv?.onItemFusion(rolled.template.FusionType);
+      player.sendMessage(0, ctx.lang.t("ItemFusionHandler.Succeed1") + (rolled.template.Name ?? ""));
+      if (!workbench.addItemTo(reward, 0)) overflowToMail.push(reward);
+    } else player.sendMessage(0, ctx.lang.t("ItemFusionHandler.Failed"));
   } finally {
-    store.commitChanges();
+    workbench.commitChanges();
   }
-  if (mail.length) await mailItems(ctx, p, mail);
-  const out = new GSPacket(78, p.id);
-  out.writeBoolean(pick.result);
-  p.send(out);
+  if (overflowToMail.length) await mailItems(ctx, player, overflowToMail);
+  const done = new GSPacket(78, player.id);
+  done.writeBoolean(rolled.result);
+  player.send(done);
 }
 
 /** ItemInlayHandle.cs (121): gem (Property1 31) into a hole whose type equals gem Property2. */
