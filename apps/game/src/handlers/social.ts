@@ -125,14 +125,22 @@ function inviteRouter(): SubRouter {
     });
 }
 
-/** 107/5 INVITE_FRIEND_LOGIN for the login burst (InviteFriendsManager.login reads). */
+/** 107/5 INVITE_FRIEND_LOGIN for the login burst (InviteFriendsManager.login reads).
+ * Nunca derruba o login: qualquer erro de invite vira pacote zerado. */
 export async function inviteLoginPacket(ctx: ServerContext, p: GamePlayer): Promise<GSPacket> {
   const out = new GSPacket(107, p.id);
   out.writeInt(5);
   out.writeString(String(p.id));
-  out.writeInt(await countInvites(ctx.db.db, p.id));
-  out.writeDateTime(ctx.now(), true);
-  for (const f of inviteFlags(await claimedInviteTiers(ctx.db.db, p.id))) out.writeInt(f);
+  try {
+    out.writeInt(await countInvites(ctx.db.db, p.id));
+    out.writeDateTime(ctx.now(), true);
+    for (const f of inviteFlags(await claimedInviteTiers(ctx.db.db, p.id))) out.writeInt(f);
+  } catch (e) {
+    ctx.log.debug(`invite state fallback: ${e instanceof Error ? e.message : e}`);
+    out.writeInt(0);
+    out.writeDateTime(ctx.now(), true);
+    for (const f of [0, 0, 0, 0]) out.writeInt(f);
+  }
   out.writeInt(1); // serverID (OverSeasCommunController display only)
   return out;
 }
