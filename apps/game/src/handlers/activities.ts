@@ -111,7 +111,7 @@ function caddyAwardsPkt(items: ItemInfo[], name: string): GSPacket {
  *  must be 112019/190000); else num is the templateId of a chest to open directly (ItemBoxMgr.CreateItemBox). */
 export async function lotteryOpenBox(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): Promise<void> {
   const s = lottery(p);
-  if (s.lottery !== -1) return p.sendMessage(0, "Rương đang hoạt động!");
+  if (s.lottery !== -1) return p.sendMessage(0, "O baú já está ativo!");
   const bagType = pkt.readByte();
   const slot = pkt.readInt();
   const idNum = pkt.readInt();
@@ -125,13 +125,13 @@ export async function lotteryOpenBox(ctx: ServerContext, p: GamePlayer, pkt: GSP
     return p.send(lotteryBoardPkt(it.TemplateID, rows));
   }
   const dest = bag ?? p.caddyBag;
-  if (dest.findFirstEmptySlot() === -1) { p.sendMessage(0, "Rương đã đầy không thể mở thêm!"); return void p.send(caddyAwardsPkt(p.caddyBag.getItems(), "")); }
+  if (dest.findFirstEmptySlot() === -1) { p.sendMessage(0, "O baú está cheio, não é possível abrir mais!"); return void p.send(caddyAwardsPkt(p.caddyBag.getItems(), "")); }
   const chest = [...p.allBags()].map((b) => b.getItemByTemplateID(0, idNum)).find((x) => x);
   if (!chest || chest.Count < 1) return void p.send(caddyAwardsPkt(p.caddyBag.getItems(), ""));
   const special = idNum === 112047 || idNum === 112100 || idNum === 112101;
   if (special) {
     const key = p.propBag.getItemByTemplateID(0, 11456);
-    if (!key || key.Count < 4) { p.sendMessage(0, `${key?.template.Name ?? "Chìa khóa"} không đủ.`); return void p.send(caddyAwardsPkt(p.caddyBag.getItems(), "")); }
+    if (!key || key.Count < 4) { p.sendMessage(0, `${key?.template.Name ?? "Chave"} insuficiente.`); return void p.send(caddyAwardsPkt(p.caddyBag.getItems(), "")); }
     p.propBag.removeTemplate(11456, 4);
     await bumpCaddyOpenCount(ctx, p);
   }
@@ -144,10 +144,10 @@ export async function lotteryOpenBox(ctx: ServerContext, p: GamePlayer, pkt: GSP
   for (const x of r.items) { rewards.push({ templateId: x.row.TemplateId, count: x.count, validDate: x.row.ItemValid, isBind: x.row.IsBind }); name = ctx.templates.findItem(x.row.TemplateId)?.Name ?? name; }
   for (const b of p.allBags()) if (b.removeTemplate(idNum, 1)) break;
   const g = grantRewards(p, rewards, ctx.templates.findItem, ctx.now());
-  if (g.overflow.length) await mailItems(ctx, p, g.overflow, "Mở rương", 8);
+  if (g.overflow.length) await mailItems(ctx, p, g.overflow, "Abrir baú", 8);
   s.lottery = -1;
   p.send(caddyAwardsPkt(p.caddyBag.getItems(), name));
-  if (g.summary.length) p.sendMessage(0, `Bạn nhận được ${g.summary.join(", ")}.`);
+  if (g.summary.length) p.sendMessage(0, `Você recebeu ${g.summary.join(", ")}.`);
 }
 
 /** Sys_Users_Extra.TotalCaddyOpen (UsersExtraInfo.AddBadLuckCaddy): atomic SQL increment, offline-safe. */
@@ -160,14 +160,14 @@ async function bumpCaddyOpenCount(ctx: ServerContext, p: GamePlayer): Promise<vo
 /** 27 LOTTERY_RANDOM_SELECT: draw 1 card from the 18-board, max 8 draws, draw n costs n keys (escalating, as original). */
 export async function lotteryRandomSelect(ctx: ServerContext, p: GamePlayer): Promise<void> {
   const s = lottery(p);
-  if (s.lottery < 0 || s.lotteryId <= 0) return p.sendMessage(0, "Bạn chưa mở rương.");
-  if (s.lottery >= 8) return p.sendMessage(0, "Bạn đã hết lượt mở rương.");
+  if (s.lottery < 0 || s.lotteryId <= 0) return p.sendMessage(0, "Você ainda não abriu o baú.");
+  if (s.lottery >= 8) return p.sendMessage(0, "Você não tem mais aberturas de baú.");
   const keyId = s.lotteryId === 190000 ? 190001 : 11444;
   const have = p.propBag.getItemByTemplateID(0, keyId)?.Count ?? 0;
-  if (have < s.lottery + 1) return p.sendMessage(0, "Không đủ chìa để mở rương.");
+  if (have < s.lottery + 1) return p.sendMessage(0, "Chaves insuficientes para abrir o baú.");
   s.lottery++;
   const r = createItemBox(s.items);
-  if (!r || !r.items.length) return p.sendMessage(0, "Lỗi lấy dữ liệu phần thưởng.");
+  if (!r || !r.items.length) return p.sendMessage(0, "Erro ao obter os dados da recompensa.");
   const picked = r.items[0]!;
   const idx = s.items.findIndex((x) => x.TemplateId === picked.row.TemplateId && x.ItemCount === picked.count);
   if (idx >= 0) s.items.splice(idx, 1);
@@ -193,7 +193,7 @@ export async function lotteryFinish(ctx: ServerContext, p: GamePlayer): Promise<
   if (s.lottery !== -1 && s.awards.length) {
     for (const it of s.awards) if (!p.addTemplateToBag(it, templateBagType(it.template), it.Count)) overflow.push(it);
   }
-  if (overflow.length) await mailItems(ctx, p, overflow, "Mở túi đầy trả về thư", 8);
+  if (overflow.length) await mailItems(ctx, p, overflow, "Mochila cheia, itens enviados por correio", 8);
   resetLottery(p);
 }
 
@@ -217,7 +217,7 @@ function openAllCardBox(p: GamePlayer): void {
     p.caddyBag.removeItem(it);
     const n = 1 + Math.floor(Math.random() * 2);
     p.cardBag.addCard(it.template.Property5, n);
-    p.sendMessage(0, `Bạn vừa mở ${it.template.Name} và nhận được ${n} thẻ bài.`);
+    p.sendMessage(0, `Você abriu ${it.template.Name} e recebeu ${n} carta(s).`);
   }
 }
 
@@ -234,7 +234,7 @@ function caddySellAll(p: GamePlayer): void {
   if (gold) p.addGold(gold);
   if (giftToken) p.addGiftToken(giftToken);
   p.commitChanges();
-  const msg = [gold ? `Bạn nhận được ${gold} vàng` : "", giftToken ? `Bạn nhận được ${giftToken} lễ kim` : ""].filter(Boolean).join(" ");
+  const msg = [gold ? `Você recebeu ${gold} de ouro` : "", giftToken ? `Você recebeu ${giftToken} Cupons` : ""].filter(Boolean).join(" ");
   if (msg) p.sendMessage(0, msg);
 }
 
@@ -317,19 +317,19 @@ export function luckyDraw(s: LuckyState): Card {
 
 export function chickenBoxHandler(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): void {
   const cmd = pkt.readInt();
-  if ([10, 11, 12, 13, 14, 15].includes(cmd) && !isOpen(ctx, "chickenbox")) return p.sendMessage(0, "Rương Vua Gà hiện đã đóng.");
-  if ([31, 32, 33, 34].includes(cmd) && !isOpen(ctx, "luckystar")) return p.sendMessage(0, "Lucky Star hiện đã đóng.");
+  if ([10, 11, 12, 13, 14, 15].includes(cmd) && !isOpen(ctx, "chickenbox")) return p.sendMessage(0, "O Baú do Rei Galo está fechado.");
+  if ([31, 32, 33, 34].includes(cmd) && !isOpen(ctx, "luckystar")) return p.sendMessage(0, "A Estrela da Sorte está fechada.");
   const openPrice = arr(ctx, "chickenbox", "openCardPrice", [100, 200, 300, 500, 800]);
   const eyePrice = arr(ctx, "chickenbox", "eagleEyePrice", [50, 100, 150, 250, 400]);
   switch (cmd) {
     case 13: { // TAKEOVERCARD
       const pos = pkt.readInt();
       const s = chickenState(ctx, p);
-      if (s.canOpenCounts <= 0) return p.sendMessage(0, "Bạn đã dùng hết lượt mở thẻ.");
+      if (s.canOpenCounts <= 0) return p.sendMessage(0, "Você usou todas as aberturas de cartas.");
       const c = s.rewards.find((x) => x.position === pos && !x.isSelected);
-      if (!c) return p.sendMessage(0, "Không tìm thấy thẻ này.");
+      if (!c) return p.sendMessage(0, "Carta não encontrada.");
       const price = openPrice[Math.min(s.canOpenCounts, openPrice.length) - 1] ?? openPrice[openPrice.length - 1]!;
-      if (p.info.Money < price) return p.sendMessage(0, "Không đủ xu.");
+      if (p.info.Money < price) return p.sendMessage(0, "Cupons insuficientes.");
       p.removeMoney(price);
       c.isSelected = true; c.isBind = true;
       const out = new GSPacket(87);
@@ -338,7 +338,7 @@ export function chickenBoxHandler(ctx: ServerContext, p: GamePlayer, pkt: GSPack
       out.writeBoolean(c.isSelected); out.writeBoolean(c.isSeeded); out.writeBoolean(c.isBind); out.writeInt(0);
       p.send(out);
       const tpl = ctx.templates.findItem(c.templateId);
-      if (tpl) { const g = grantRewards(p, [{ templateId: c.templateId, count: c.count, isBind: true }], ctx.templates.findItem, ctx.now()); if (g.overflow.length) void mailItems(ctx, p, g.overflow, "Thẻ bài", 8); p.sendMessage(0, `Bạn nhận được ${tpl.Name ?? c.templateId} x${c.count}.`); }
+      if (tpl) { const g = grantRewards(p, [{ templateId: c.templateId, count: c.count, isBind: true }], ctx.templates.findItem, ctx.now()); if (g.overflow.length) void mailItems(ctx, p, g.overflow, "Carta", 8); p.sendMessage(0, `Você recebeu ${tpl.Name ?? c.templateId} x${c.count}.`); }
       s.canOpenCounts--;
       if (s.canOpenCounts === 0) { const sp = new GSPacket(87); sp.writeInt(12); p.send(sp); }
       return;
@@ -346,11 +346,11 @@ export function chickenBoxHandler(ctx: ServerContext, p: GamePlayer, pkt: GSPack
     case 11: { // USEEAGLEEYE
       const pos = pkt.readInt();
       const s = chickenState(ctx, p);
-      if (s.canEagleEyeCounts <= 0) return p.sendMessage(0, "Bạn đã dùng hết lượt soi thẻ.");
+      if (s.canEagleEyeCounts <= 0) return p.sendMessage(0, "Você usou todas as revelações de cartas.");
       const c = s.rewards.find((x) => x.position === pos && !x.isSeeded);
-      if (!c) return p.sendMessage(0, "Không tìm thấy thẻ này.");
+      if (!c) return p.sendMessage(0, "Carta não encontrada.");
       const price = eyePrice[Math.min(s.canEagleEyeCounts, eyePrice.length) - 1] ?? eyePrice[eyePrice.length - 1]!;
-      if (p.info.Money < price) return p.sendMessage(0, "Không đủ xu.");
+      if (p.info.Money < price) return p.sendMessage(0, "Cupons insuficientes.");
       p.removeMoney(price);
       c.isSeeded = true;
       const out = new GSPacket(87);
@@ -365,10 +365,10 @@ export function chickenBoxHandler(ctx: ServerContext, p: GamePlayer, pkt: GSPack
       const s = chickenState(ctx, p);
       const free = isFreeFlushTime(s, ctx.now());
       const price = num(ctx, "chickenbox", "flushPrice", 500);
-      if (!free) { if (p.info.Money < price) return p.sendMessage(0, "Không đủ xu."); p.removeMoney(price); }
+      if (!free) { if (p.info.Money < price) return p.sendMessage(0, "Cupons insuficientes."); p.removeMoney(price); }
       flushChickenBox(ctx, p);
       p.send(chickenListPkt(ctx, chickenOf.get(p)!));
-      return p.sendMessage(0, free ? "Làm mới miễn phí." : "Làm mới thành công.");
+      return p.sendMessage(0, free ? "Atualização grátis." : "Atualizado com sucesso.");
     }
     case 12: // AllITEMSHOW
       return p.send(chickenListPkt(ctx, chickenState(ctx, p)));
@@ -384,9 +384,9 @@ export function chickenBoxHandler(ctx: ServerContext, p: GamePlayer, pkt: GSPack
       return p.send(chickenListPkt(ctx, chickenState(ctx, p)));
     case 31: { // ENTER_GAME (Lucky Star)
       const money = 2500;
-      if (p.info.Money < money) return p.sendMessage(0, `Cần ${money} xu để sử dụng tính năng!`);
+      if (p.info.Money < money) return p.sendMessage(0, `São necessários ${money} Cupons para usar esta função!`);
       p.removeMoney(money);
-      p.sendMessage(0, `Đã trừ ${money} xu khi bắt đầu mở tính năng!`);
+      p.sendMessage(0, `${money} Cupons descontados ao abrir a função!`);
       const s = setupLucky(ctx, p);
       sendLuckyAllGoods(p, s);
       return;
@@ -395,10 +395,10 @@ export function chickenBoxHandler(ctx: ServerContext, p: GamePlayer, pkt: GSPack
       return;
     case 33: { // START_TURN (7s cooldown, consumes LUCKYSTAR_ITEM)
       const s = luckyOf.get(p);
-      if (!s) return p.sendMessage(0, "Bạn chưa vào Lucky Star.");
-      if (ctx.now().getTime() - s.lastTurn < 7000) return p.sendMessage(0, "Vui lòng chờ.");
+      if (!s) return p.sendMessage(0, "Você ainda não entrou na Estrela da Sorte.");
+      if (ctx.now().getTime() - s.lastTurn < 7000) return p.sendMessage(0, "Aguarde.");
       const it = p.propBag.getItemByTemplateID(0, LUCKYSTAR_ITEM);
-      if (!it || it.Count <= 0) return p.sendMessage(0, `${ctx.templates.findItem(LUCKYSTAR_ITEM)?.Name ?? "Lucky Star"} không đủ.`);
+      if (!it || it.Count <= 0) return p.sendMessage(0, `${ctx.templates.findItem(LUCKYSTAR_ITEM)?.Name ?? "Estrela da Sorte"} insuficiente.`);
       p.propBag.removeTemplate(LUCKYSTAR_ITEM, 1);
       for (let i = s.rewards.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [s.rewards[i], s.rewards[j]] = [s.rewards[j]!, s.rewards[i]!]; }
       s.lastTurn = ctx.now().getTime();
@@ -483,7 +483,7 @@ function settleCleanOut(ctx: ServerContext, p: GamePlayer, l: LabyrinthRow): { e
 
 export async function labyrinthHandler(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): Promise<void> {
   const sub = pkt.readInt();
-  if (!isOpen(ctx, "labyrinth")) return p.sendMessage(0, "Mê cung hiện đã đóng.");
+  if (!isOpen(ctx, "labyrinth")) return p.sendMessage(0, "O Labirinto está fechado.");
   const l = await loadLabyrinth(ctx, p);
   const today = ctx.now().toISOString().slice(0, 10);
   if (today !== l.LastDate.toISOString().slice(0, 10)) {
@@ -505,15 +505,15 @@ export async function labyrinthHandler(ctx: ServerContext, p: GamePlayer, pkt: G
     }
     case 3: { // CLEAN_OUT
       const price = num(ctx, "labyrinth", "cleanOutGiftToken", 100);
-      if (p.info.GiftToken < price) { p.sendMessage(0, "Không đủ lễ kim."); l.isCleanOut = false; break; }
+      if (p.info.GiftToken < price) { p.sendMessage(0, "Cupons de presente insuficientes."); l.isCleanOut = false; break; }
       p.removeGiftToken(price);
       l.isCleanOut = true;
       const r = settleCleanOut(ctx, p, l);
-      if (r.exp || r.hardCurrency) p.sendMessage(0, `Mê cung: +${r.exp} exp, +${r.hardCurrency} tệ.`);
+      if (r.exp || r.hardCurrency) p.sendMessage(0, `Labirinto: +${r.exp} exp, +${r.hardCurrency} moedas.`);
       break;
     }
     case 4: { // SPEEDED_UP_CLEAN_OUT
-      if (!l.isCleanOut) { p.sendMessage(0, "Chưa dọn mê cung."); break; }
+      if (!l.isCleanOut) { p.sendMessage(0, "O Labirinto ainda não foi limpo."); break; }
       const mins = Math.abs(Math.floor(l.currentRemainTime / 60));
       const price = num(ctx, "labyrinth", "pricePerMin", 10) * mins;
       if (p.info.Money < price) break;
@@ -525,15 +525,15 @@ export async function labyrinthHandler(ctx: ServerContext, p: GamePlayer, pkt: G
       l.isCleanOut = false;
       break;
     case 6: // RESET_LABYRINTH
-      if (l.tryAgainComplete) { l.currentFloor = 1; l.accumulateExp = 0; l.tryAgainComplete = false; l.ProcessAward = initProcessAward(); p.sendMessage(0, "Mê cung đã được làm mới."); }
-      else p.sendMessage(0, "Chưa thể làm mới.");
+      if (l.tryAgainComplete) { l.currentFloor = 1; l.accumulateExp = 0; l.tryAgainComplete = false; l.ProcessAward = initProcessAward(); p.sendMessage(0, "O Labirinto foi reiniciado."); }
+      else p.sendMessage(0, "Ainda não é possível atualizar.");
       break;
     case 9: { // TRY_AGAIN
       const again = pkt.readBoolean(); pkt.readBoolean();
       if (again) {
         const price = labyrinthTryAgainMoney(ctx, l);
-        if (p.info.Money >= price) { p.removeMoney(price); l.completeChallenge = true; l.isInGame = true; p.sendMessage(0, "Tiếp tục mê cung."); }
-      } else p.sendMessage(0, "Đã dừng mê cung.");
+        if (p.info.Money >= price) { p.removeMoney(price); l.completeChallenge = true; l.isInGame = true; p.sendMessage(0, "Continuar o Labirinto."); }
+      } else p.sendMessage(0, "Labirinto pausado.");
       break;
     }
     default:
@@ -582,13 +582,13 @@ export async function noviceActivity(ctx: ServerContext, p: GamePlayer, activity
   const rt = eventsRuntime(ctx);
   const condition = subActivityType <= 1 ? 1 : subActivityType;
   const goods = rt.data.eventGoods.filter((g) => g.ActivityType === activityType && g.SubActivityType === condition);
-  if (!goods.length) return p.sendMessage(0, "Không có phần thưởng.");
-  if (condition > p.info.Grade) return p.sendMessage(0, "Điều kiện không đủ! thao tác thất bại.");
-  if (!(await claimOnce(ctx.db.db, p.id, "novice", `${activityType}:${condition}`))) return p.sendMessage(0, "Đã nhận phần thưởng này rồi.");
+  if (!goods.length) return p.sendMessage(0, "Sem recompensa.");
+  if (condition > p.info.Grade) return p.sendMessage(0, "Condições insuficientes! A operação falhou.");
+  if (!(await claimOnce(ctx.db.db, p.id, "novice", `${activityType}:${condition}`))) return p.sendMessage(0, "Você já recebeu esta recompensa.");
   const rewards: Reward[] = goods.map((g) => ({ templateId: g.TemplateId, count: g.Count ?? 1, validDate: g.ValidDate ?? 0, isBind: g.IsBind ?? true }));
   const g = grantRewards(p, rewards, ctx.templates.findItem, ctx.now());
-  if (g.overflow.length) await mailItems(ctx, p, g.overflow, "Quà Mở Máy Chủ", 51);
-  p.sendMessage(0, "Nhận quà sự kiện thành công!");
+  if (g.overflow.length) await mailItems(ctx, p, g.overflow, "Presente de Abertura do Servidor", 51);
+  p.sendMessage(0, "Presente do evento recebido com sucesso!");
 }
 
 // ------------------------------------------------------------------ registration

@@ -1,0 +1,5 @@
+6. Tên và cấp của nhẫn, vòng tay phải giống nhau 
+--- RECORDSEPARATOR ---
+mới được dung luyện, thuộc tính hợp thành của nó 
+--- RECORDSEPARATOR ---
+dung luyện được là 0.

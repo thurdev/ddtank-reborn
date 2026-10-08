@@ -209,7 +209,7 @@ export function grantRewards(p: GamePlayer, rewards: Reward[], find: (id: number
         case -200: p.addMoney(r.count); summary.push(`${r.count} xu`); continue;
         case -300: p.addMedal(r.count, find); summary.push(`${r.count} medalha`); continue;
         case -800: p.addHonor(r.count); continue;
-        case -1100: p.addGiftToken(r.count); summary.push(`${r.count} lễ kim`); continue;
+        case -1100: p.addGiftToken(r.count); summary.push(`${r.count} Cupons`); continue;
         case 11107: p.addGP(r.count, false); summary.push(`${r.count} exp`); continue;
       }
       const t = find(r.templateId);

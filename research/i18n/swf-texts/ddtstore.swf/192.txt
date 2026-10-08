@@ -1,0 +1,3 @@
+5. Châu báu trên trang bị đã khảm có thể tự do chọn có đổi 
+--- RECORDSEPARATOR ---
+hay không.

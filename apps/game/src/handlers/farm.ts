@@ -114,7 +114,7 @@ async function giveOrMail(ctx: ServerContext, p: GamePlayer, tpl: ItemTemplate, 
   if (inv.addTemplate(item, count)) return;
   item.UserID = 0; item.BagType = -1; item.Place = -1;
   await saveItem(ctx.db.db, item);
-  await sendMail(ctx.db.db, { Content: "Túi đầy", Title: "Túi đầy", Annex1: String(item.ItemID), Annex1Name: tpl.Name ?? "", Gold: 0, Money: 0, Type: 9, Receiver: p.info.NickName ?? "", ReceiverID: p.id, Sender: "Nông trại", SenderID: 0 } as never);
+  await sendMail(ctx.db.db, { Content: "Mochila cheia", Title: "Mochila cheia", Annex1: String(item.ItemID), Annex1Name: tpl.Name ?? "", Gold: 0, Money: 0, Type: 9, Receiver: p.info.NickName ?? "", ReceiverID: p.id, Sender: "Fazenda", SenderID: 0 } as never);
   p.send(Out.mailResponse(p.id, 1));
 }
 

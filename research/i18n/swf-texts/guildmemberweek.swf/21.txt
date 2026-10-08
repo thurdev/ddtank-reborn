@@ -1,0 +1,7 @@
+4. Số Xu tăng cho mỗi hạng không thể nhỏ hơn  100 ,
+--- RECORDSEPARATOR ---
+    sau khi tăng sẽ khấu trừ 10% thuế. Số Xu sau khi
+--- RECORDSEPARATOR ---
+    khấu trừ chính là số Xu người đạt thứ hạng nhận
+--- RECORDSEPARATOR ---
+    được.

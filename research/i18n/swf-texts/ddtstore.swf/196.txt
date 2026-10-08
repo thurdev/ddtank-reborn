@@ -1,0 +1,23 @@
+1.  Vật phẩm có thể cường hóa: vũ khí, nón, 
+--- RECORDSEPARATOR ---
+áo.
+--- RECORDSEPARATOR ---
+2.  Cường hóa giúp tăng 10% sát thương 
+--- RECORDSEPARATOR ---
+củavũ khí, 10% hộ giáp của nón và áo.
+--- RECORDSEPARATOR ---
+3.  Cấp cường hóa càng cao, Đá cường hóa 
+--- RECORDSEPARATOR ---
+tiêu hao càng nhiều. Nạp VIP hoặc tăng cấp 
+--- RECORDSEPARATOR ---
+Tiệm rèn Guild để tăng kinh nghiệm của Đá 
+--- RECORDSEPARATOR ---
+cường hóa..
+--- RECORDSEPARATOR ---
+4.  Khi chọn "Liên tục", nhấp nút cường hóa 
+--- RECORDSEPARATOR ---
+sẽ dùng tất cả Đá cường hóa hoặc tiêu hao 
+--- RECORDSEPARATOR ---
+lượng Đá cường hóa cần để thăng cấp trang 
+--- RECORDSEPARATOR ---
+bị.

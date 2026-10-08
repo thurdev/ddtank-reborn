@@ -83,7 +83,7 @@ export class DTGT1165 extends AMissionControl {
 
             this.m_boss.PlayMovie("standC", 0, 0);
             this.m_boss.PlayMovie("go", 1000, 0);
-            this.m_boss.Say("Ô ! Ngưới mới à, chắc bạn không biết quy tắc ở đây.", 0, 0);
+            this.m_boss.Say("Oh! Novato, é? Você não deve conhecer as regras daqui.", 0, 0);
 
             this.m_boss.CallFuction((this.NextAttack2.bind(this)), 4000);
             this.m_boss.CallFuction((this.NextAttack.bind(this)), 5000);

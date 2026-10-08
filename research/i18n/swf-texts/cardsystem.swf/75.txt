@@ -1,0 +1,17 @@
+替換：
+--- RECORDSEPARATOR ---
+完成洗點操作後，可點
+--- RECORDSEPARATOR ---
+擊
+--- RECORDSEPARATOR ---
+替換按
+--- RECORDSEPARATOR ---
+鈕，點
+--- RECORDSEPARATOR ---
+擊
+--- RECORDSEPARATOR ---
+後可保存當前最新的屬性數
+--- RECORDSEPARATOR ---
+值
+--- RECORDSEPARATOR ---
+。

@@ -2751,7 +2751,7 @@ noviceactivity.rightView.conditionTxt9:Recarregar {0} Moedas
 noviceactivity.rightView.detailsTxt8:Acumular (gasto na loja) a quantidade de moedas exigida dá recompensa! O acúmulo reinicia toda segunda-feira
 noviceactivity.rightView.detailsTxt9:Atingir a meta de recarga acumulada dá recompensa! O acúmulo reinicia toda segunda-feira
 firstrecharge.mainframe.title:Primeira recarga
-firstrecharge.mainframe.contentTxt:Olá, para celebrar o lançamento de Gunny Lộc Phát:\nFaça sua primeira recarga e receba uma recompensa valiosa <FONT SIZE='20' FACE='Arial' KERNING='2' COLOR='#fe0000'>deste Evento </FONT>Atenção: cada personagem só pode receber o pacote de presente 1 vez.
+firstrecharge.mainframe.contentTxt:Olá, para celebrar o lançamento de DDTank Reborn:\nFaça sua primeira recarga e receba uma recompensa valiosa <FONT SIZE='20' FACE='Arial' KERNING='2' COLOR='#fe0000'>deste Evento </FONT>Atenção: cada personagem só pode receber o pacote de presente 1 vez.
 firstrecharge.mainframe.gotoFirstFill:A primeira recarga, de qualquer valor, recebe uma recompensa, recarregar agora?
 firstrecharge.mainframe.contentTxtAnymoney:qualquer valor
 firstrecharge.mainframe.contentTxtScale:{0}%
@@ -3146,7 +3146,7 @@ ddt.farms.adoptPetsAlertTitle:Confirmar adoção
 ddt.farms.adoptPetsAlertContonet:Confirma adotar este pet?		
 ddt.farms.refreshPetsAlertTitle:Confirmar renovação		
 ddt.farms.refreshPetsAlertContonetI:Você já obteve um pet de 4 estrelas, quer continuar?		
-ddt.farms.refreshPetsLastTimes	tạo mới	
+ddt.farms.refreshPetsLastTimes	renovar	
 ddt.farms.shopPayButton:Comprar		
 ddt.farms.shopPayAlert:Você precisa pagar		
 ddt.farms.petRefreshVolume:Ficha de renovação de pet		

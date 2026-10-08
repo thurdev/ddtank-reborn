@@ -6,32 +6,32 @@ import { registerScript, ABrain, __arr, __int } from "../../runtime.js";
 export class ThirteenNormalFourthBoss extends ABrain {
   static AllAttackChat = __arr([
 
-             "Bạn sẽ trả giá cho việc này ! "
+             "Você vai pagar por isso!"
         ]);
   static ShootChat = __arr([
                
-             "Tôi không muốn chỉ là lãng phí khi bạn đánh bại!",
+             "Não quero desperdiçar meu tempo derrotando você!",
              
-             "Oh, bạn chơi tốt đấy, <br/>ha ha ha ha!",
+             "Oh, você joga bem, <br/>ha ha ha ha!",
                
-             "Xem tôi là danh dự của bạn!"          
+             "Veja a minha honra!"          
         ]);
   static CallChat = __arr([
-            "Các, <br/>Boom con của ta !"                          
+            "Venham, <br/>minhas bombinhas!"                          
         ]);
   static AngryChat = __arr([
-            "Sức mạnh cuối cùng !"                          
+            "Poder final!"                          
         ]);
   static KillAttackChat = __arr([
             "I want kill you ?"                          
         ]);
   static SealChat = __arr([
-            "Hãy đón nhận cái nón đến tột cùng !"                          
+            "Recebam o chapéu supremo!"                          
         ]);
   static KillPlayerChat = __arr([
-            "Địa ngục là điểm đến duy nhất của ngươi !",                  
+            "O inferno é seu único destino!",                  
  
-            "Quá dễ để ta tiêu diệt."
+            "Fácil demais para eu destruir."
         ]);
   attackingTurn = 0;
   target = null;

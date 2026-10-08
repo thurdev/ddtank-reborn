@@ -5,14 +5,14 @@ import { registerScript, AMissionControl, __arr } from "../../runtime.js";
 
 export class GAH1073 extends AMissionControl {
   static KillChat = __arr([
-           "Gửi cho bạn trở về nhà!",
+           "Vou te mandar de volta pra casa!",
 
-           "Một mình, bạn có ảo tưởng có thể đánh bại tôi?"
+           "Sozinho, você acha mesmo que pode me derrotar?"
         ]);
   static ShootedChat = __arr([
-            " Đau ah! Đau ...",
+            " Ai! Dói...",
 
-            "Quốc vương vạn tuế ..."
+            "Vida longa ao rei..."
         ]);
   m_boss = null;
   m_moive = null;
@@ -60,7 +60,7 @@ export class GAH1073 extends AMissionControl {
             this.m_boss.FallFrom(this.m_boss.X, this.m_boss.Y, "", 0, 2, 2000);
             this.m_boss.SetRelateDemagemRect(34, -35, 11, 18);
             this.m_boss.AddDelay(10);
-            this.m_boss.Say("Dám xâm phạm địa bàn của ta, chờ chết!", 0, 6000);
+            this.m_boss.Say("Ousam invadir meu território? Preparem-se para morrer!", 0, 6000);
             this.m_boss.PlayMovie("call", 5900, 0);
             this.m_moive.PlayMovie("in", 9000, 0);
             this.m_boss.PlayMovie("weakness", 10000, 5000);

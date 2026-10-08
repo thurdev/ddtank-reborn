@@ -268,11 +268,11 @@ export function firstRecharge(isRecharged: boolean, isGetAward: boolean): Packet
 /** 102/0 world boss OPEN (SendOpenWorldBoss, :2593) with BaseWorldBossRoom defaults (boss closed). */
 export function openWorldBoss(): PacketOut {
   const p = new PacketOut(102);
-  p.writeByte(0); p.writeString("0"); p.writeInt(0); p.writeString("Thần thú"); p.writeString("boss");
+  p.writeByte(0); p.writeString("0"); p.writeInt(0); p.writeString("Fera Divina"); p.writeString("boss");
   p.writeInt(0); p.writeInt(0); p.writeInt(0); p.writeInt(1); p.writeInt(0); p.writeInt(0);
   wd(p, MIN_DATE); wd(p, MIN_DATE); p.writeInt(0); p.writeBoolean(true); p.writeBoolean(true);
   p.writeInt(0); p.writeInt(0); p.writeInt(0); p.writeInt(0);
-  p.writeInt(1); p.writeInt(1); p.writeString("Tăng Sát Thương"); p.writeInt(30); p.writeString("Sát thương cơ bản tăng 200."); p.writeInt(-1);
+  p.writeInt(1); p.writeInt(1); p.writeString("Aumentar Dano"); p.writeInt(30); p.writeString("Dano base aumenta em 200."); p.writeInt(-1);
   p.writeBoolean(true); p.writeBoolean(false);
   return p;
 }

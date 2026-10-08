@@ -1,0 +1,3 @@
+5.Sau khi đổi, thuộc tính cường hóa + cấp luyện hóa + 
+--- RECORDSEPARATOR ---
+lỗ phong ấn sẽ chuyển đổi và sẽ khóa lại.

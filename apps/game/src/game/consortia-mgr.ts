@@ -298,7 +298,7 @@ export class ConsortiaMgr {
     upd.writeByte(22); upd.writeByte(4); upd.writeInt(c.ID); upd.writeInt(c.Value); upd.writeInt(c.Finish);
     for (const m of this.online(t.consortiaId)) m.send(upd);
     if (c.Value >= c.Target) {
-      const msg = ConsortiaMgr.taskChat(this.t("Consortia.TaskCondition.Completed", "Nhiệm vụ Guild: {0} đã hoàn thành!", c.Content));
+      const msg = ConsortiaMgr.taskChat(this.t("Consortia.TaskCondition.Completed", "Missão do Clã: {0} concluída!", c.Content));
       for (const m of this.online(t.consortiaId)) m.send(msg);
     }
     void this.saveTask(t);
@@ -332,7 +332,7 @@ export class ConsortiaMgr {
       const members = this.online(t.consortiaId);
       const done = t.conditions.every((c) => c.Value >= c.Target);
       if (t.beginTime.getTime() + t.time * 60_000 < now.getTime()) {
-        const msg = ConsortiaMgr.taskChat(this.t("Consortia.Task.Complete", "Sứ mệnh Guild đã kết thúc."));
+        const msg = ConsortiaMgr.taskChat(this.t("Consortia.Task.Complete", "A missão do Clã terminou."));
         for (const m of members) m.send(msg);
         this.tasks.delete(t.consortiaId);
         await this.saveTask(null, t.consortiaId);
@@ -352,13 +352,13 @@ export class ConsortiaMgr {
           m.addOffer(offer);
           m.info.RichesOffer += contrib;
           m.updateProperties();
-          m.sendMessage(2, this.t("Consortia.Task.Reward", "Bạn nhận được thưởng từ Guild."));
+          m.sendMessage(2, this.t("Consortia.Task.Reward", "Você recebeu uma recompensa do Clã."));
           await sendMail(this.ctx.db.db, {
-            Content: `Bao gồm: \n${exp} kinh nghiệm.\n${offer} cống hiến`, Title: "Sứ mệnh Guild", Gold: 0, Money: 0, Type: 59,
+            Content: `Inclui: \n${exp} de experiência.\n${offer} de contribuição`, Title: "Missão do Clã", Gold: 0, Money: 0, Type: 59,
             Receiver: m.info.NickName ?? "", ReceiverID: m.id, Sender: m.info.ConsortiaName, SenderID: 0,
           });
           m.send(Out.mailResponse(m.id, 1));
-          m.send(ConsortiaMgr.taskChat(this.t("Consortia.Task.Complete", "Sứ mệnh Guild đã kết thúc.")));
+          m.send(ConsortiaMgr.taskChat(this.t("Consortia.Task.Complete", "A missão do Clã terminou.")));
         }
         await this.refreshRiches(t.consortiaId);
       }

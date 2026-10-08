@@ -1,0 +1,8 @@
+<Result value="true" message="success">
+  <ExtraInfo templateId="200199" itemType="19" param1="5" param2="1" param3="60" param4="0" param5="0" description="Khi tấn công {0}% xác suất tăng {1} điểm sát thương, Lv30 có thể trang bị" />
+  <ExtraInfo templateId="200200" itemType="19" param1="5" param2="1" param3="40" param4="0" param5="0" description="Khi tấn công {0}% xác suất tăng {1} điểm sát thương, Lv20 có thể trang bị" />
+  <ExtraInfo templateId="200201" itemType="19" param1="5" param2="1" param3="20" param4="0" param5="0" description="Khi tấn công {0}% xác suất tăng {1} điểm sát thương, Lv10 có thể trang bị" />
+  <ExtraInfo templateId="200202" itemType="16" param1="5" param2="2" param3="60" param4="0" param5="0" description="Khi bị tấn công {0}% xác suất khiến sát thương phải chịu giảm {1} điểm, Lv30 có thể trang bị" />
+  <ExtraInfo templateId="200203" itemType="16" param1="5" param2="2" param3="40" param4="0" param5="0" description="Khi bị tấn công {0}% xác suất khiến sát thương phải chịu giảm {1} điểm, Lv20 có thể trang bị" />
+  <ExtraInfo templateId="200204" itemType="16" param1="5" param2="2" param3="20" param4="0" param5="0" description="Khi bị tấn công {0}% xác suất khiến sát thương phải chịu giảm {1} điểm, Lv10 có thể trang bị" />
+</Result>

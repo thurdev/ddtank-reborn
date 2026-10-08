@@ -46,7 +46,7 @@ export class NTM1086 extends AMissionControl {
             this.m_boss = this.Game.CreateBoss(this.bossID, 750, 420, -1, 1, "");
             this.m_boss.FallFrom(750, 520, "fall", 0, 2, 1000);
             this.m_boss.SetRelateDemagemRect(this.m_boss.NpcInfo.X, this.m_boss.NpcInfo.Y, this.m_boss.NpcInfo.Width, this.m_boss.NpcInfo.Height);
-            this.m_boss.Say("Đến đúng lúc lắm，ta đang chán đây！", 0, 4000);
+            this.m_boss.Say("Chegaram na hora certa, eu estava entediado!", 0, 4000);
             this.m_moive.PlayMovie("in", 6000, 0);
             this.m_front.PlayMovie("in", 6000, 0);
             this.m_moive.PlayMovie("out", 9000, 0);

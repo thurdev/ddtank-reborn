@@ -17,16 +17,16 @@ import type { AppCtx } from "../../context.js";
 
 // PlayerBussiness.PullDown messages (ActiveBussiness.Msg0..Msg10)
 const MSG: Record<number, string> = {
-  0: "Nhận lãnh thành công, vật phẩm đã gửi đến thư người dùng.",
-  1: "Lỗi không xác định.",
-  2: "Tên người dùng không tồn tại.",
-  3: "Nhận vật phẩm thất bại.",
-  4: "Số này không tồn tại, hãy kiểm tra lại.",
-  5: "Số này đã nhận thưởng, không thể nhận nữa.",
-  6: "Bạn đã nhận phần thưởng này rồi",
-  7: "Hoạt động chưa bắt đầu.",
-  8: "Hoạt động đã kết thúc.",
-  10: "Bạn không có quyền nhận phần thưởng này.",
+  0: "Recebido com sucesso, os itens foram enviados ao seu correio.",
+  1: "Erro desconhecido.",
+  2: "O usuário não existe.",
+  3: "Falha ao receber o item.",
+  4: "Este código não existe, verifique novamente.",
+  5: "Este código já foi resgatado e não pode ser usado de novo.",
+  6: "Você já recebeu esta recompensa",
+  7: "O evento ainda não começou.",
+  8: "O evento já terminou.",
+  10: "Você não tem permissão para receber esta recompensa.",
 };
 
 interface ActiveRow { ActiveID: number; Title: string; HasKey: number; IsOnly: number; StartDate: Date; EndDate: Date }

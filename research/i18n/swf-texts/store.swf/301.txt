@@ -1,0 +1,3 @@
+Cần 4 vật phẩm hoàn toàn giống nhau (tên, cấp bậc) mới có 
+--- RECORDSEPARATOR ---
+thể dung luyện thành công ra vật phẩm cao cấp hơn.

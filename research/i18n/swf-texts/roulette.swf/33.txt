@@ -1,0 +1,5 @@
+4. Đóng hoạt động Bàn Quay giữa chừng,
+--- RECORDSEPARATOR ---
+ phần thưởng sẽ bảo lưu đến lúc hoạt 
+--- RECORDSEPARATOR ---
+động kết thúc.

@@ -46,7 +46,7 @@ export class GCGCD1163 extends AMissionControl {
             this.boss = this.Game.CreateBoss(this.bossID, 275, 950, 1, 1, "");
 			this.boss.FallFrom(338, 950, "", 0, 0, 2000);
             this.boss.SetRelateDemagemRect(this.boss.NpcInfo.X, this.boss.NpcInfo.Y, this.boss.NpcInfo.Width, this.boss.NpcInfo.Height);
-            this.boss.Say("Đừng để bọn chúng tiếp tục xâm nhập!", 0, 2000, 4000);
+            this.boss.Say("Não deixem que eles avancem mais!", 0, 2000, 4000);
         }
   OnNewTurnStarted() {
             super.OnNewTurnStarted();

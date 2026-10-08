@@ -57,13 +57,13 @@ export class GCGCK1162 extends AMissionControl {
   CreateEffectSaying() {
             this.Game.SendObjectFocus(this.m_king, 1, 1000, 0);
             this.m_king.PlayMovie("speak", 1500, 0);
-            this.m_king.Say("Loài người sao lại mò tới đây?", 0, 1500);
+            this.m_king.Say("Como os humanos chegaram até aqui?", 0, 1500);
             this.Game.SendObjectFocus(this.boss, 1, 4000, 0);
             this.boss.PlayMovie("speak", 4500, 0);
-            this.boss.Say("Không cần biết. Tiêu diệt bọn chúng!", 0, 4500);
+            this.boss.Say("Não importa. Acabem com eles!", 0, 4500);
             this.Game.SendObjectFocus(this.king, 1, 8000, 0);
             this.king.PlayMovie("speak", 8500, 0);
-            this.king.Say("Bây giờ bọn ngươi bỏ chạy còn kịp đó.", 0, 8500, 10000);
+            this.king.Say("Ainda dá tempo de fugir.", 0, 8500, 10000);
         }
   OnNewTurnStarted() {
             super.OnNewTurnStarted();

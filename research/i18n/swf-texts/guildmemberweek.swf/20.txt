@@ -1,0 +1,3 @@
+3. Người chơi là quan viên Guild trở lên có thể tăng phần
+--- RECORDSEPARATOR ---
+    thưởng xếp hạng cho 10 hạng đầu.

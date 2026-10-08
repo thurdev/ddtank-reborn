@@ -1,0 +1,1 @@
+6.Las estrellas del pet influye a los atributos basicos y atributo crecimiento del Pet, cuando mas alta la estrella, mas fuerte sera el pet. 

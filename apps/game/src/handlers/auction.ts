@@ -60,7 +60,7 @@ function cloneForAuction(src: ItemInfo, count: number, now: Date): ItemInfo {
 
 /** Mail a single detached item (or just currency) — same shape as academy.ts's mailTo, kept local on purpose. */
 async function mailTo(ctx: ServerContext, toId: number, toNick: string, title: string, content: string, item?: ItemInfo, gold = 0, money = 0, type = 2): Promise<void> {
-  const row: Record<string, unknown> = { Content: content, Title: title, Gold: gold, Money: money, Type: type, Receiver: toNick, ReceiverID: toId, Sender: "Trung tâm đấu giá", SenderID: 0 };
+  const row: Record<string, unknown> = { Content: content, Title: title, Gold: gold, Money: money, Type: type, Receiver: toNick, ReceiverID: toId, Sender: "Casa de Leilões", SenderID: 0 };
   if (item) { row.Annex1 = String(item.ItemID); row.Annex1Name = item.template.Name ?? ""; }
   await sendMail(ctx.db.db, row as never);
   ctx.world.get(toId)?.send(Out.mailResponse(toId, 1));
@@ -92,7 +92,7 @@ async function add(ctx: ServerContext, p: GamePlayer, pkt: { readByte(): number;
   const goodsCount = pkt.readInt();
   const fail = (key: string, ...args: unknown[]) => p.sendMessage(0, ctx.lang.t(key, ...args));
 
-  if (isWarrior(p)) return p.sendMessage(0, "Tài khoản không có quyền thực hiện chức năng này.");
+  if (isWarrior(p)) return p.sendMessage(0, "Esta conta não tem permissão para usar esta função.");
   if (p.info.HasBagPassword && p.info.IsLocked) return p.sendMessage(0, ctx.lang.t("Bag.Locked"));
   if (price < 0 || (mouthful !== 0 && mouthful < price)) return; // silent, like the original
   const needGold = Math.max(1, Math.trunc(price * 0.03 * (durationCode === 0 ? 1 : durationCode === 1 ? 3 : 6)));
@@ -130,9 +130,9 @@ async function update(ctx: ServerContext, p: GamePlayer, pkt: { readInt(): numbe
   const money = pkt.readInt();
   const reply = (ok: boolean) => { const g = new PacketOut(193, p.id); g.writeBoolean(ok); g.writeInt(auctionId); p.send(g); };
 
-  if (isWarrior(p)) { p.sendMessage(0, "Tài khoản không có quyền thực hiện chức năng này."); return reply(false); }
+  if (isWarrior(p)) { p.sendMessage(0, "Esta conta não tem permissão para usar esta função."); return reply(false); }
   const limit = limitLevel(ctx, 0);
-  if (p.info.Grade < limit) { p.sendMessage(0, `Cần cấp ${limit} để thực hiện thao tác trên!.`); return reply(false); }
+  if (p.info.Grade < limit) { p.sendMessage(0, `É necessário nível ${limit} para realizar esta ação!`); return reply(false); }
   if (p.info.HasBagPassword && p.info.IsLocked) { p.sendMessage(0, ctx.lang.t("Bag.Locked")); return reply(false); }
 
   const [row] = await ctx.db.db.select().from(A).where(and(eq(A.AuctionID, auctionId), eq(A.IsExist, true))).limit(1);

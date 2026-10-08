@@ -5,14 +5,14 @@ import { registerScript, AMissionControl, __arr } from "../../runtime.js";
 
 export class GAH1077 extends AMissionControl {
   static KillChat = __arr([
-           "Chỉ được zậy thôi sao ?",  
+           "Só isso?",  
 
-           "Ai ya~đánh đau quá! Ah hahahaha ?",  		   
+           "Ai~ que dor! Ah hahahaha?",  		   
  
-            "A~cũng được lấm."
+            "Ah~ até que foi bom."
         ]);
   static ShootedChat = __arr([
-            "Tưởng thắng rồi sao ? Chưa kết thúc đâu! Tôi còn quay lại!" 
+            "Acham que venceram? Ainda não acabou! Eu vou voltar!" 
         ]);
   m_king = null;
   m_kill = 0;
@@ -60,7 +60,7 @@ export class GAH1077 extends AMissionControl {
 			this.m_king.FallFrom(888, 510, "fall", 0, 2, 1000);
 
             this.m_king.SetRelateDemagemRect(-41, -187, 83, 140);
-            this.m_king.Say("Bạn biết quá nhiều, tôi không thể cho phép bạn tiếp tục sống!", 0, 3000);
+            this.m_king.Say("Você sabe demais, não posso deixar você viver!", 0, 3000);
 			this.m_kingMoive.PlayMovie("in", 9000, 0);
             this.m_kingFront.PlayMovie("in", 9000, 0);
             this.m_kingMoive.PlayMovie("out", 13000, 0);

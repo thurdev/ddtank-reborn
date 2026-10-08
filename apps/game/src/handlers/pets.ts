@@ -168,16 +168,16 @@ export async function petCommand(ctx: ServerContext, p: GamePlayer, pkt: GSPacke
       // AdoptPet.cs: int place in the current adopt offer -> moved into the first empty pet slot.
       const place = pkt.readInt();
       const slot = bag.findFirstEmptySlot();
-      if (slot === -1) { p.sendMessage(0, "Số lượng pet đã đạt giới hạn!"); return; }
-      if (place < 0 || place >= bag.adopt.length) { p.sendMessage(0, "Không tìm thấy pet này!"); return; }
+      if (slot === -1) { p.sendMessage(0, "O número de pets atingiu o limite!"); return; }
+      if (place < 0 || place >= bag.adopt.length) { p.sendMessage(0, "Pet não encontrado!"); return; }
       const picked = bag.adopt[place];
       if (!picked) return;
       if (bag.addPetTo(picked, slot)) {
         const info = T.templates.get(picked.TemplateID);
         if (info && (info.StarLevel > 3 || info.KindID >= 5)) {
-          const msg = `[${p.zoneName}] Người chơi [${p.info.NickName}] may mắn bắt được ${info.Name} ${info.StarLevel} sao.`;
+          const msg = `[${p.zoneName}] O jogador [${p.info.NickName}] teve sorte e capturou ${info.Name} de ${info.StarLevel} estrela(s).`;
           for (const o of ctx.world.all()) o.sendMessage(0, msg);
-        } else p.sendMessage(0, "Bắt thành công.");
+        } else p.sendMessage(0, "Captura bem-sucedida.");
       }
       bag.adopt = [];
       p.flushPets();
@@ -245,7 +245,7 @@ export async function petCommand(ctx: ServerContext, p: GamePlayer, pkt: GSPacke
       inv!.takeOutItem(item);
       bag.changed.add(place);
       petsChanged(p, true);
-      p.sendMessage(0, "Trang bị vật phẩm PET thành công!");
+      p.sendMessage(0, "Item de PET equipado com sucesso!");
       return;
     }
     case 21: {
@@ -312,9 +312,9 @@ export async function petCommand(ctx: ServerContext, p: GamePlayer, pkt: GSPacke
       const type = pkt.readInt();
       const eat = bag.eat;
       const blocked = hungBuCacCho(eat.weaponLevel, eat.clothesLevel, eat.hatLevel);
-      const names = ["Áo hoặc Nón", "Vũ khí và Nón", "Vũ khí và Áo"] as const;
+      const names = ["Roupa ou Chapéu", "Vũ khí và Nón", "Vũ khí và Áo"] as const;
       if (([eat.weaponLevel, eat.clothesLevel, eat.hatLevel][amor]) === blocked) {
-        return p.sendMessage(0, `Vui lòng nâng cấp ${names[amor]} trước!`);
+        return p.sendMessage(0, `Evolua ${names[amor]} primeiro!`);
       }
       if (type === 1) {
         const count = pkt.readInt();
@@ -333,12 +333,12 @@ export async function petCommand(ctx: ServerContext, p: GamePlayer, pkt: GSPacke
         const count = pkt.readInt();
         const eatItemId = 201567;
         const info2 = p.propBag.getItemByTemplateID(0, eatItemId);
-        if (!info2) return p.sendMessage(0, "Không đủ số lượng đá manh hóa!");
+        if (!info2) return p.sendMessage(0, "Pedras de fortalecimento insuficientes!");
         let totalPoint = count * info2.template.Property2;
         const need = moeNeedExp(T, [eat.weaponExp, eat.clothesExp, eat.hatExp][amor]!, [eat.weaponLevel, eat.clothesLevel, eat.hatLevel][amor]!);
         let realCount = count;
         if (totalPoint > need && info2.template.Property2 > 0) { realCount = Math.ceil(need / info2.template.Property2); totalPoint = info2.template.Property2; }
-        if (!p.propBag.removeCountFromStack(info2, realCount)) return p.sendMessage(0, "Không đủ số lượng đá manh hóa!");
+        if (!p.propBag.removeCountFromStack(info2, realCount)) return p.sendMessage(0, "Pedras de fortalecimento insuficientes!");
         eatPetsUpgrade(T, eat, amor, totalPoint);
       }
       bag.eatDirty = true;
@@ -379,7 +379,7 @@ export function cardCommand(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): v
       const it = p.equipBag.getItemAt(slot);
       const card = it ? ctx.templates.findItem(it.template.Property5) : undefined;
       if (!it || count <= 0 || count > it.Count || !card || card.CategoryID !== 26) {
-        p.sendMessage(0, "Thẻ bài không tồn tại.");
+        p.sendMessage(0, "A carta não existe.");
         return;
       }
       const n = it.Count;

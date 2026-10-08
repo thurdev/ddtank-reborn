@@ -136,7 +136,7 @@ export function moveOrEquipCard(bag: CardInventory, slot: number, place: number)
   if (slot >= CARD_EQUIP_SLOTS && place < CARD_EQUIP_SLOTS) {
     const c = bag.getItemAt(slot);
     if (!c) return { changedStats: false };
-    if (bag.isCardEquip(c.TemplateID)) return { changedStats: false, msg: "Thẻ bài này đã được trang bị." };
+    if (bag.isCardEquip(c.TemplateID)) return { changedStats: false, msg: "Esta carta já está equipada." };
     bag.removeCardAt(place);
     bag.addCardTo(cloneCard(c), place);
     return { changedStats: true };
@@ -151,9 +151,9 @@ export function upgradeCard(bag: CardInventory, slot: number, cond: (level: numb
   if (slot < CARD_EQUIP_SLOTS) return { ok: false, levelUp: false };
   const c = bag.getItemAt(slot);
   if (!c) return { ok: false, levelUp: false };
-  if (c.Level >= maxLevel) return { ok: false, levelUp: false, msg: "Thẻ của bạn đã đạt cấp cao nhất không thể tiếp tục." };
+  if (c.Level >= maxLevel) return { ok: false, levelUp: false, msg: "Sua carta já atingiu o nível máximo e não pode evoluir mais." };
   const k = cond(c.Level + 1);
-  if (!k || c.Count < k.UpdateCardCount) return { ok: false, levelUp: false, msg: "Bạn không có đủ số lượng thẻ bài để tăng cấp." };
+  if (!k || c.Count < k.UpdateCardCount) return { ok: false, levelUp: false, msg: "Você não tem cartas suficientes para evoluir." };
   c.Count -= k.UpdateCardCount;
   c.CardGP += k.MaxExp > k.MinExp ? k.MinExp + Math.floor(rnd() * (k.MaxExp - k.MinExp)) : k.MinExp;
   let levelUp = false;

@@ -7,6 +7,7 @@ import { join } from "node:path";
 const [out, ...ids] = process.argv.slice(2);
 const cats = readdirSync("remaster").filter((d) => existsSync(join("remaster", d, "inputs")));
 const find = (dir, id) => {
+  if (dir === "outputs" && process.env.OUTDIR && existsSync(join(process.env.OUTDIR, id + ".png"))) return join(process.env.OUTDIR, id + ".png");
   for (const c of cats) for (const f of readdirSync(join("remaster", c, dir))) if (f.replace(/\.(png|jpe?g)$/i, "") === id) return join("remaster", c, dir, f);
   return null;
 };

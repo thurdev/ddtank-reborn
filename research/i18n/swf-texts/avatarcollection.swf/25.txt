@@ -1,0 +1,7 @@
+2.
+--- RECORDSEPARATOR ---
+收集图鉴可获得属性，收集数量达到一半获得
+--- RECORDSEPARATOR ---
+1/2
+--- RECORDSEPARATOR ---
+属性，集齐获得完整属性。

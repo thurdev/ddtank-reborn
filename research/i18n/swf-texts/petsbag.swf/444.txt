@@ -1,0 +1,1 @@
+2.Los pets consiguen Exp por comer alimentos Pet, tambien puede aumentar la felicidad del pet. 

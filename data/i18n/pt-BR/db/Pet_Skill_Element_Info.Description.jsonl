@@ -1,0 +1,1714 @@
+{"rowId":"1017","text":"Não pode se mover"}
+{"rowId":"1018","text":"Recebe Imunidade e mais Defesa, mas não pode se mover."}
+{"rowId":"1019","text":"Recebe Imunidade e mais Defesa, mas não pode se mover."}
+{"rowId":"1020","text":"Recebe Imunidade e mais Defesa, mas não pode se mover."}
+{"rowId":"1021","text":"Dura 2 TURNOS"}
+{"rowId":"1022","text":"Aumenta a Armadura."}
+{"rowId":"1023","text":"Aumenta a Armadura."}
+{"rowId":"1024","text":"Aumenta o Dano."}
+{"rowId":"1025","text":"Aumenta o Dano."}
+{"rowId":"1026","text":"Recupera HP."}
+{"rowId":"1027","text":"Recupera HP."}
+{"rowId":"1028","text":"Recupera HP."}
+{"rowId":"1029","text":"Reduz o dano recebido."}
+{"rowId":"1030","text":"Reduz o dano recebido."}
+{"rowId":"1031","text":"Reduz o dano recebido."}
+{"rowId":"1040","text":"Aumenta a Sorte."}
+{"rowId":"1041","text":"Aumenta a Sorte."}
+{"rowId":"1042","text":"Aumenta a Sorte."}
+{"rowId":"1043","text":"Recupera HP."}
+{"rowId":"1044","text":"Recupera HP."}
+{"rowId":"1045","text":"Recupera HP."}
+{"rowId":"1046","text":"Aumenta a Defesa."}
+{"rowId":"1047","text":"Aumenta a Defesa."}
+{"rowId":"1048","text":"Aumenta a Defesa."}
+{"rowId":"1049","text":"Aumenta a Armadura; o efeito some ao se mover."}
+{"rowId":"1050","text":"Aumenta a Armadura; o efeito some ao se mover."}
+{"rowId":"1063","text":"Recupera HP."}
+{"rowId":"1064","text":"Recupera HP."}
+{"rowId":"1067","text":"Reflete dano."}
+{"rowId":"1068","text":"Reflete dano."}
+{"rowId":"1072","text":"Aumenta o Dano; some ao ser atacado."}
+{"rowId":"1083","text":"Recebe Imunidade, aumenta Ataque e Sorte, reduz a Defesa; ao se mo"}
+{"rowId":"1084","text":"Recebe Imunidade, aumenta Ataque e Sorte, reduz a Defesa; ao se mo"}
+{"rowId":"1092","text":"Aumenta Ataque, Defesa, Agilidade, Sorte e HP Máximo."}
+{"rowId":"1093","text":"Aumenta Ataque, Defesa, Agilidade, Sorte e HP Máximo."}
+{"rowId":"1111","text":"Reflete dano. (TIPS em 1067)"}
+{"rowId":"1112","text":"Reflete dano. (TIPS em 1068)"}
+{"rowId":"1117","text":"Pode bloquear muito dano."}
+{"rowId":"1118","text":"Aumenta a Defesa."}
+{"rowId":"1119","text":"Aumenta a Defesa."}
+{"rowId":"1120","text":"Aumenta a Armadura."}
+{"rowId":"1121","text":"Aumenta a Armadura."}
+{"rowId":"1122","text":"% de dano de ataque"}
+{"rowId":"1123","text":"% de dano de ataque"}
+{"rowId":"1124","text":"% de dano de ataque"}
+{"rowId":"1130","text":"Ataque -200"}
+{"rowId":"1131","text":"Ataque -150"}
+{"rowId":"1132","text":"Ataque -100"}
+{"rowId":"1135","text":"Reduz 500 do dano recebido"}
+{"rowId":"1136","text":"Manter Contra-ataque"}
+{"rowId":"1137","text":"Efeito de refletir dano"}
+{"rowId":"1138","text":"100% crítico"}
+{"rowId":"1139","text":"x% de dano do ataque do mascote"}
+{"rowId":"1149","text":"x% de dano do ataque do mascote"}
+{"rowId":"1150","text":"Reduz 1% de HP por 3 turnos"}
+{"rowId":"1151","text":"Reduz 2% de HP por 3 turnos"}
+{"rowId":"1152","text":"Reduz 3% de HP por 3 turnos"}
+{"rowId":"1153","text":"Dano base +15%, Armadura -500"}
+{"rowId":"1154","text":"Dano base +25%, Armadura -650"}
+{"rowId":"1155","text":"Armadura -500"}
+{"rowId":"1156","text":"Armadura -650"}
+{"rowId":"1157","text":"Recupera 2% de HP"}
+{"rowId":"1158","text":"Recupera 4% de HP"}
+{"rowId":"1159","text":"-1000 HP por turno e mais -2% do HP atual"}
+{"rowId":"1160","text":"-2000 HP por turno e mais -4% do HP atual"}
+{"rowId":"1161","text":"-3000 HP, abate na hora com 5%"}
+{"rowId":"1162","text":"-5000 HP, abate na hora com 10%"}
+{"rowId":"1163","text":"Ataque +150, Dano +100"}
+{"rowId":"1164","text":"Ataque +300, Dano +200"}
+{"rowId":"1165","text":"Dano +100"}
+{"rowId":"1166","text":"Dano +200"}
+{"rowId":"1169","text":"(também transfere o Selo do Dragão de Fogo)"}
+{"rowId":"1170","text":"A cada rodada do inimigo, o mascote ataca"}
+{"rowId":"1171","text":"A cada rodada do inimigo, o mascote ataca"}
+{"rowId":"1172","text":"Recupera HP ao ser atacado"}
+{"rowId":"1173","text":"Recupera HP ao ser atacado"}
+{"rowId":"1174","text":"Ao ser atacado, certa chance de recuperar HP"}
+{"rowId":"1175","text":"Ao ser atacado, certa chance de recuperar HP"}
+{"rowId":"1176","text":"A cada rodada do inimigo, o mascote ataca"}
+{"rowId":"1177","text":"A cada rodada do inimigo, o mascote ataca"}
+{"rowId":"1178","text":"Ataque +100"}
+{"rowId":"1179","text":"Ataque +300"}
+{"rowId":"1180","text":"Ataque +500"}
+{"rowId":"1181","text":"Armadura +100"}
+{"rowId":"1182","text":"Armadura +200"}
+{"rowId":"1183","text":"Armadura +300"}
+{"rowId":"1184","text":"Dano +150"}
+{"rowId":"1185","text":"Dano +300"}
+{"rowId":"1186","text":"-500 HP por turno"}
+{"rowId":"1187","text":"-800 HP por turno"}
+{"rowId":"1190","text":"Agilidade +300"}
+{"rowId":"1191","text":"Agilidade +500"}
+{"rowId":"1192","text":"Ataque +100"}
+{"rowId":"1193","text":"Ataque +300"}
+{"rowId":"1194","text":"Ataque +200"}
+{"rowId":"1195","text":"Ataque +300"}
+{"rowId":"1196","text":"Dano +100"}
+{"rowId":"1197","text":"Dano +150"}
+{"rowId":"1198","text":"Crítico +30%"}
+{"rowId":"1199","text":"Crítico +50%"}
+{"rowId":"1200","text":"Na sua vez, +2 Pontos de Magia para todos os mascotes aliados"}
+{"rowId":"1201","text":"Dano -100"}
+{"rowId":"1202","text":"Dano -200"}
+{"rowId":"1203","text":"Dano -300"}
+{"rowId":"1204","text":"Ataque -300, Defesa -300"}
+{"rowId":"1205","text":"Ataque -500, Defesa -500"}
+{"rowId":"1206","text":"Ataque -300, Defesa -300"}
+{"rowId":"1207","text":"Ataque -500, Defesa -500"}
+{"rowId":"1208","text":"-10 Pontos de Magia do mascote"}
+{"rowId":"1209","text":"-30 Pontos de Magia do mascote"}
+{"rowId":"1210","text":"-500 HP por turno"}
+{"rowId":"1211","text":"-1000 HP por turno"}
+{"rowId":"1212","text":"Chance de Crítico +20%"}
+{"rowId":"1213","text":"Chance de Crítico +50%"}
+{"rowId":"1214","text":"Armadura +100, HP +1500"}
+{"rowId":"1215","text":"Armadura +200, HP +3000"}
+{"rowId":"1216","text":"HP +1500"}
+{"rowId":"1217","text":"HP +3000"}
+{"rowId":"1220","text":"Armadura -100"}
+{"rowId":"1221","text":"Armadura -200"}
+{"rowId":"1222","text":"Não pode se mover"}
+{"rowId":"1223","text":"+2 pontos de mascote a cada ataque sofrido"}
+{"rowId":"1224","text":"-500 HP por turno"}
+{"rowId":"1225","text":"-800 HP por turno"}
+{"rowId":"1226","text":"-500 HP por turno"}
+{"rowId":"1227","text":"-1000 HP por turno"}
+{"rowId":"1228","text":"Refletir Dano"}
+{"rowId":"1229","text":"Refletir Dano"}
+{"rowId":"1230","text":"Manter espinhos"}
+{"rowId":"1231","text":"Reduz 500 do dano recebido"}
+{"rowId":"1235","text":"Revide"}
+{"rowId":"1238","text":"Aumentar Dano"}
+{"rowId":"1239","text":"Aumentar Dano"}
+{"rowId":"1240","text":"Aumentar Dano"}
+{"rowId":"1241","text":"Aumentar Armadura"}
+{"rowId":"1242","text":"Aumentar Armadura"}
+{"rowId":"1245","text":"+2 Pontos de Magia a cada ataque"}
+{"rowId":"1246","text":"Reduz 650 do dano recebido"}
+{"rowId":"1247","text":"Reduz 750 do dano recebido"}
+{"rowId":"1248","text":"Reduzir Dano Recebido"}
+{"rowId":"1249","text":"Reduzir Dano Recebido"}
+{"rowId":"1250","text":"Reduzir Dano Recebido"}
+{"rowId":"1251","text":"Refletir Dano"}
+{"rowId":"1252","text":"Refletir Dano"}
+{"rowId":"1253","text":"Magia do mascote -3"}
+{"rowId":"1254","text":"Ataque -100"}
+{"rowId":"1255","text":"Ataque -200"}
+{"rowId":"1256","text":"Ataque -300"}
+{"rowId":"1257","text":"Armadura +100"}
+{"rowId":"1258","text":"Armadura +200"}
+{"rowId":"1259","text":"Recupera HP."}
+{"rowId":"1260","text":"Recupera HP."}
+{"rowId":"1261","text":"Sorte +300"}
+{"rowId":"1262","text":"Sorte +500"}
+{"rowId":"1263","text":"Recebe 2 Pontos de Magia"}
+{"rowId":"1264","text":"Ataque +100"}
+{"rowId":"1265","text":"Ataque +300"}
+{"rowId":"1266","text":"-10 Pontos de Magia do Mascote inimigo atingido"}
+{"rowId":"1267","text":"-20 Pontos de Magia do Mascote inimigo atingido"}
+{"rowId":"1268","text":"Mascotes aliados +5 Pontos de Magia"}
+{"rowId":"1269","text":"Mascotes aliados +10 Pontos de Magia"}
+{"rowId":"1270","text":"Reduz 800 HP do jogador atingido"}
+{"rowId":"1271","text":"Reduz 1300 HP do jogador atingido"}
+{"rowId":"1272","text":"Receber habilidade Explosão Nuclear 192"}
+{"rowId":"1273","text":"Receber habilidade Explosão Nuclear 193"}
+{"rowId":"1275","text":"Recebe 2 de Magia"}
+{"rowId":"1276","text":"Recupera 1% HP"}
+{"rowId":"1277","text":"Recupera 2% HP"}
+{"rowId":"1278","text":"Dano crítico recebido -20%"}
+{"rowId":"1279","text":"Dano crítico recebido -30%"}
+{"rowId":"1280","text":"Invisibilidade"}
+{"rowId":"1281","text":"Dano recebido -15%"}
+{"rowId":"1282","text":"Reduz 30% do dano recebido"}
+{"rowId":"1283","text":"Dano recebido -50%"}
+{"rowId":"1284","text":"Recupera 30% HP"}
+{"rowId":"1285","text":"Recupera 30% HP"}
+{"rowId":"1286","text":"Bloquear Hab. de Montaria"}
+{"rowId":"1287","text":"Bloquear Hab. de Mascote"}
+{"rowId":"1288","text":"Na competição, move-se para uma posição aleatória"}
+{"rowId":"1289","text":"Receber habilidade Extraordinário 210 e ganhar habilidade 216"}
+{"rowId":"1290","text":"Receber habilidade Extraordinário 211 e ganhar habilidade 217"}
+{"rowId":"1291","text":"Reduz 2 Pontos de Magia do inimigo"}
+{"rowId":"1292","text":"Reduz 3 Pontos de Magia do inimigo"}
+{"rowId":"1293","text":"Receber Habilidade 206"}
+{"rowId":"1294","text":"Receber Habilidade 207"}
+{"rowId":"1295","text":"Receber Golpe Forte 214"}
+{"rowId":"1296","text":"Receber Golpe Forte 215"}
+{"rowId":"1300","text":"Rouba 30% da magia das habilidades ativas do inimigo"}
+{"rowId":"1301","text":"Rouba 50% da magia das habilidades ativas do inimigo"}
+{"rowId":"1302","text":"Recebe 1 de Magia"}
+{"rowId":"1303","text":"Recebe 2 de Magia"}
+{"rowId":"1304","text":"Inimigo -1 de Magia"}
+{"rowId":"1305","text":"Reduz 2 Pontos de Magia do inimigo"}
+{"rowId":"1306","text":"Receber Habilidade 218"}
+{"rowId":"1307","text":"Receber Habilidade 219"}
+{"rowId":"1308","text":"Recupera 30% do dano"}
+{"rowId":"1309","text":"Recupera 30% do dano"}
+{"rowId":"1310","text":"Receber Habilidade 220"}
+{"rowId":"1311","text":"Receber Habilidade 221"}
+{"rowId":"1322","text":"A cada 3500 de dano, +1 Ponto de Magia"}
+{"rowId":"1323","text":"Abate na hora com 5%"}
+{"rowId":"1324","text":"Abate na hora com 10%"}
+{"rowId":"1325","text":"Mascote ataca com X% de dano"}
+{"rowId":"1326","text":"Mascote ataca com X% de dano"}
+{"rowId":"1327","text":"Mascote ataca com X% de dano"}
+{"rowId":"1331","text":"Recebe Imunidade e mais Defesa, mas não pode se mover."}
+{"rowId":"1332","text":"Recebe Imunidade e mais Defesa, mas não pode se mover."}
+{"rowId":"1333","text":"Recebe Imunidade e mais Defesa, mas não pode se mover."}
+{"rowId":"1334","text":"Ataque -20%"}
+{"rowId":"1335","text":"Ataque -15%"}
+{"rowId":"1336","text":"Aumenta a Armadura; o efeito some ao se mover."}
+{"rowId":"1337","text":"Aumenta a Armadura; o efeito some ao se mover."}
+{"rowId":"1342","text":"Recebe Imunidade, aumenta Dano e Sorte, reduz a Armadura; o efeito some ao se mo"}
+{"rowId":"1343","text":"Recebe Imunidade, aumenta Dano e Sorte, reduz a Armadura; o efeito some ao se mo"}
+{"rowId":"1352","text":"Reduz 3.3% de HP."}
+{"rowId":"1353","text":"Ser atacado aumenta o dano"}
+{"rowId":"1354","text":"Ser atacado aumenta o dano"}
+{"rowId":"1358","text":"Recuperar HP"}
+{"rowId":"1359","text":"Recuperar HP"}
+{"rowId":"1360","text":"Recuperar HP"}
+{"rowId":"1361","text":"Recuperar HP"}
+{"rowId":"1362","text":"Recuperar HP"}
+{"rowId":"1363","text":"Recuperar HP"}
+{"rowId":"1366","text":"Recuperar HP"}
+{"rowId":"1367","text":"Recuperar HP"}
+{"rowId":"1368","text":"Recupera HP ao ser atacado"}
+{"rowId":"1369","text":"Recupera HP ao ser atacado; com HP muito baixo, o efeito dobra"}
+{"rowId":"1370","text":"Recupera HP ao ser atacado"}
+{"rowId":"1371","text":"Recupera HP ao ser atacado; com HP muito baixo, o efeito dobra"}
+{"rowId":"1421","text":"Chance de Crítico +20%"}
+{"rowId":"1422","text":"Aumentar Atq. Mágico"}
+{"rowId":"1423","text":"Reduzir Res. Mágica"}
+{"rowId":"1424","text":"Aumentar Atq. Mágico"}
+{"rowId":"1425","text":"Reduzir Res. Mágica"}
+{"rowId":"1426","text":"Imobilizado por 1 turno"}
+{"rowId":"1427","text":"Reduz 10 de Magia"}
+{"rowId":"1428","text":"Reduz dano e dá chance de imunidade a crítico"}
+{"rowId":"1429","text":"Reduz dano e dá chance de imunidade a crítico"}
+{"rowId":"1430","text":"Imune a Crítico"}
+{"rowId":"1431","text":"Imune a Crítico"}
+{"rowId":"1432","text":"Marca jogadores invisíveis"}
+{"rowId":"1433","text":"Receber Habilidade de Aumento de Dano"}
+{"rowId":"1434","text":"Aumentar Dano"}
+{"rowId":"1435","text":"Recupera HP ao sofrer golpe fatal"}
+{"rowId":"1436","text":"Dano em Tela Inteira"}
+{"rowId":"1437","text":"Dano em Tela Inteira"}
+{"rowId":"1438","text":"Usar Item Aumenta Magia"}
+{"rowId":"1439","text":"Aumentar Armadura"}
+{"rowId":"1440","text":"Aumentar Armadura"}
+{"rowId":"1441","text":"Aumentar Armadura"}
+{"rowId":"1442","text":"Reduzir Dano Recebido"}
+{"rowId":"1443","text":"Reduzir Dano Recebido"}
+{"rowId":"1444","text":"Reduzir Dano Recebido"}
+{"rowId":"1445","text":"Reduzir Dano Recebido"}
+{"rowId":"1446","text":"Reduzir Dano Recebido"}
+{"rowId":"1447","text":"Refletir Dano"}
+{"rowId":"1448","text":"Refletir Dano"}
+{"rowId":"1449","text":"Aumenta Armadura e Defesa"}
+{"rowId":"1450","text":"Aumenta Armadura e Defesa"}
+{"rowId":"1451","text":"Aumentar Defesa"}
+{"rowId":"1452","text":"Aumentar Defesa"}
+{"rowId":"1462","text":"Mascote ataca com X% de dano"}
+{"rowId":"1463","text":"Ataque +450, Dano +300"}
+{"rowId":"1464","text":"Dano +300"}
+{"rowId":"1465","text":"Dano base +30%, Armadura -750, HP Máximo +15%"}
+{"rowId":"1466","text":"Armadura -750."}
+{"rowId":"1467","text":"HP Máximo +15%"}
+{"rowId":"1468","text":"Recupera HP ao ser atacado"}
+{"rowId":"1469","text":"Ao ser atacado, certa chance de recuperar HP"}
+{"rowId":"1470","text":"Recupera 4% de HP"}
+{"rowId":"1473","text":"Mascote ataca com X% de dano"}
+{"rowId":"1474","text":"Ataque -20%"}
+{"rowId":"1475","text":"Defesa -20%"}
+{"rowId":"1476","text":"Chance de Crítico +10%"}
+{"rowId":"1477","text":"Reduz HP do jogador atingido"}
+{"rowId":"1478","text":"Não pode se mover"}
+{"rowId":"1479","text":"Recebe 1 Ponto de Magia"}
+{"rowId":"1480","text":"Mascote ataca com X% de dano"}
+{"rowId":"1481","text":"Mascote ataca com X% de dano"}
+{"rowId":"1482","text":"Aumenta Ataque e Dano."}
+{"rowId":"1483","text":"Aumenta o Dano."}
+{"rowId":"1484","text":"Redução de dano +30%."}
+{"rowId":"1485","text":"-8% de HP por turno"}
+{"rowId":"1486","text":"Dano +800"}
+{"rowId":"1487","text":"Agilidade +600"}
+{"rowId":"1488","text":"Ataque +600"}
+{"rowId":"1489","text":"Aumenta o Ataque."}
+{"rowId":"1490","text":"Aumenta o Dano."}
+{"rowId":"1491","text":"Aumenta a chance de Crítico."}
+{"rowId":"1493","text":"Recupera HP."}
+{"rowId":"1494","text":"Mascote ataca com X% de dano"}
+{"rowId":"1495","text":"Dano -25%"}
+{"rowId":"1496","text":"Ataque e Defesa -30%"}
+{"rowId":"1498","text":"-5% de HP por turno"}
+{"rowId":"1499","text":"Chance de Crítico +75%, dano crítico +30%."}
+{"rowId":"1501","text":"Reduz Armadura e Res. Mágica."}
+{"rowId":"1502","text":"Não pode se mover"}
+{"rowId":"1503","text":"Reduz Res. Mágica"}
+{"rowId":"1504","text":"Recebe Envenenamento"}
+{"rowId":"1505","text":"Dano recebido +10%"}
+{"rowId":"1506","text":"Mascote ataca com X% de dano"}
+{"rowId":"1507","text":"Chance de Crítico +25%"}
+{"rowId":"1508","text":"Reduz 20 Pontos de Magia"}
+{"rowId":"1509","text":"Reduz dano e dá chance de imunidade a crítico"}
+{"rowId":"1510","text":"Imune a Crítico"}
+{"rowId":"1511","text":"Receber Habilidade de Aumento de Dano"}
+{"rowId":"1512","text":"Aumentar Dano"}
+{"rowId":"1513","text":"Ganha Fúria ao sofrer golpe fatal"}
+{"rowId":"1514","text":"Recupera HP e ganha Fúria ao sofrer golpe fatal"}
+{"rowId":"1515","text":"Usar item de combate aumenta os Pontos de Magia"}
+{"rowId":"1516","text":"Usar item de combate aumenta a Fúria"}
+{"rowId":"1517","text":"Armadura +500, HP +8%"}
+{"rowId":"1518","text":"Aumenta o HP"}
+{"rowId":"1522","text":"Aumentar Armadura"}
+{"rowId":"1523","text":"Aumentar Armadura"}
+{"rowId":"1524","text":"Aumentar Armadura"}
+{"rowId":"1525","text":"Reduzir Dano Recebido"}
+{"rowId":"1526","text":"Reduzir Dano Recebido"}
+{"rowId":"1527","text":"Reduzir Dano Recebido"}
+{"rowId":"1528","text":"Aumenta Armadura e Defesa"}
+{"rowId":"1529","text":"Aumenta Armadura e Defesa"}
+{"rowId":"1530","text":"Aumentar Defesa"}
+{"rowId":"1531","text":"Aumentar Defesa"}
+{"rowId":"1532","text":"Mascote ataca com X% de dano"}
+{"rowId":"1533","text":"Bloquear Hab. de Mascote"}
+{"rowId":"1534","text":"Drena magia de habilidade"}
+{"rowId":"1535","text":"Aumenta a chance de Crítico"}
+{"rowId":"1536","text":"Reduz o dano crítico recebido e aumenta a chance de Crítico"}
+{"rowId":"1537","text":"Dano recebido -50%"}
+{"rowId":"1538","text":"Recupera 35% do dano"}
+{"rowId":"1539","text":"Receber Habilidade 324"}
+{"rowId":"1540","text":"Todos os aliados +1 Ponto de Magia"}
+{"rowId":"1541","text":"+4 Pontos de Magia para si"}
+{"rowId":"1542","text":"Mascote ataca com X% de dano"}
+{"rowId":"1543","text":"Mascote ataca com X% de dano"}
+{"rowId":"1544","text":"Mascote ataca com X% de dano"}
+{"rowId":"1545","text":"Reduz o dano em 30%"}
+{"rowId":"1546","text":"Reduz o dano em 30%"}
+{"rowId":"1547","text":"Reduz o dano em 30%"}
+{"rowId":"1548","text":"Dano +150%"}
+{"rowId":"1549","text":"Dano +180%"}
+{"rowId":"1550","text":"Dano +220%"}
+{"rowId":"1551","text":"100% Crítico"}
+{"rowId":"1552","text":"Reduz o dano crítico recebido e todo o dano"}
+{"rowId":"1553","text":"Reduz o dano crítico recebido e todo o dano"}
+{"rowId":"1554","text":"Reduz todo o dano"}
+{"rowId":"1555","text":"Reduz todo o dano"}
+{"rowId":"1562","text":"Não pode ajustar o ângulo"}
+{"rowId":"1563","text":"Não pode ajustar o ângulo"}
+{"rowId":"1564","text":"Perfurar Defesa Nv1"}
+{"rowId":"1565","text":"Perfurar Defesa Nv1"}
+{"rowId":"1566","text":"Perfurar Armadura Nv1"}
+{"rowId":"1567","text":"Perfurar Armadura Nv2"}
+{"rowId":"1568","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"1569","text":"Receber Remover Perfurar Armadura Nv2"}
+{"rowId":"1570","text":"Remover Perfurar Armadura Nv1"}
+{"rowId":"1571","text":"Remover Perfurar Armadura Nv2"}
+{"rowId":"1572","text":"Ignora a defesa do oponente"}
+{"rowId":"1573","text":"Ignora a defesa do oponente"}
+{"rowId":"1575","text":"Pontos de Magia 2"}
+{"rowId":"1576","text":"Aumentar Dano"}
+{"rowId":"1577","text":"Fúria Nv1"}
+{"rowId":"1578","text":"Mascote ataca com X% de dano"}
+{"rowId":"1579","text":"Mascote ataca com X% de dano"}
+{"rowId":"1580","text":"Mascote ataca com X% de dano"}
+{"rowId":"1581","text":"Reduz o dano em 30%"}
+{"rowId":"1582","text":"Reduz o dano em 30%"}
+{"rowId":"1583","text":"Reduz o dano em 30%"}
+{"rowId":"1584","text":"Dano +120%"}
+{"rowId":"1585","text":"Dano +150%"}
+{"rowId":"1586","text":"Dano +180%"}
+{"rowId":"1587","text":"100% Crítico"}
+{"rowId":"1588","text":"Reduz o dano crítico recebido e todo o dano"}
+{"rowId":"1589","text":"Reduz o dano crítico recebido e todo o dano"}
+{"rowId":"1590","text":"Reduz todo o dano"}
+{"rowId":"1591","text":"Reduz todo o dano"}
+{"rowId":"1598","text":"Não pode ajustar o ângulo"}
+{"rowId":"1599","text":"Não pode ajustar o ângulo"}
+{"rowId":"1600","text":"Perfurar Defesa Nv1"}
+{"rowId":"1601","text":"Perfurar Defesa Nv1"}
+{"rowId":"1602","text":"Perfurar Armadura Nv1"}
+{"rowId":"1603","text":"Perfurar Armadura Nv2"}
+{"rowId":"1604","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"1605","text":"Receber Remover Perfurar Armadura Nv2"}
+{"rowId":"1606","text":"Remover Perfurar Armadura Nv1"}
+{"rowId":"1607","text":"Remover Perfurar Armadura Nv2"}
+{"rowId":"1608","text":"Ignora a defesa do oponente"}
+{"rowId":"1609","text":"Ignora a defesa do oponente"}
+{"rowId":"1611","text":"Pontos de Magia 2"}
+{"rowId":"1612","text":"Aumentar Dano"}
+{"rowId":"1613","text":"Fúria Nv1"}
+{"rowId":"1614","text":"Borboleta Oculta ativa com %HP"}
+{"rowId":"1615","text":"Borboleta Oculta ativa com %HP"}
+{"rowId":"1616","text":"Mascote ataca com X% de dano"}
+{"rowId":"1617","text":"Fúria"}
+{"rowId":"1618","text":"Fúria"}
+{"rowId":"1619","text":"Reduz todo o dano"}
+{"rowId":"1621","text":"Marca jogadores invisíveis"}
+{"rowId":"1622","text":"Receber Habilidade de Aumento de Dano"}
+{"rowId":"1623","text":"Aumentar Dano"}
+{"rowId":"1624","text":"Pontos de Magia 4"}
+{"rowId":"1625","text":"Aumentar Dano"}
+{"rowId":"1626","text":"HP Máximo +5%"}
+{"rowId":"1627","text":"Perfurar Armadura"}
+{"rowId":"1628","text":"Perfurar Armadura"}
+{"rowId":"1629","text":"Receber Remover Perfurar Armadura"}
+{"rowId":"1630","text":"Remover Perfurar Armadura"}
+{"rowId":"1631","text":"Ignora a defesa do oponente"}
+{"rowId":"1633","text":"Aumenta Armadura e Defesa."}
+{"rowId":"1634","text":"Aumentar Defesa"}
+{"rowId":"1635","text":"Dano -50%"}
+{"rowId":"1636","text":"Atq. Mágico +30%"}
+{"rowId":"1637","text":"Sofrer Dano Aumenta Habilidade"}
+{"rowId":"1638","text":"Dano recebido +20%"}
+{"rowId":"1639","text":"Dano do ataque do mascote X%"}
+{"rowId":"1640","text":"Dano do ataque do mascote X%"}
+{"rowId":"1641","text":"Dano do ataque do mascote X%"}
+{"rowId":"1642","text":"Reduz 20% do Vigor Máximo"}
+{"rowId":"1643","text":"Reduz 25% do Vigor Máximo"}
+{"rowId":"1644","text":"Reduz 30% do Vigor Máximo"}
+{"rowId":"1645","text":"Dano +120%"}
+{"rowId":"1646","text":"Dano +150%"}
+{"rowId":"1647","text":"Dano +180%"}
+{"rowId":"1648","text":"Crítico 100%"}
+{"rowId":"1649","text":"Aumenta a velocidade"}
+{"rowId":"1650","text":"Aumenta a velocidade"}
+{"rowId":"1651","text":"Perde a visão, dano -20%"}
+{"rowId":"1652","text":"Perde a visão, dano -30%"}
+{"rowId":"1653","text":"Perde a visão"}
+{"rowId":"1654","text":"Perde a visão"}
+{"rowId":"1655","text":"O dano causado fica limitado a no máximo 30% do HP"}
+{"rowId":"1656","text":"O dano causado fica limitado a no máximo 30% do HP"}
+{"rowId":"1657","text":"Cura -50%"}
+{"rowId":"1658","text":"Cura -80%"}
+{"rowId":"1659","text":"Os disparos causam dano extra igual a 1% do HP perdido"}
+{"rowId":"1660","text":"Os disparos causam dano extra igual a 3% do HP perdido"}
+{"rowId":"1661","text":"Troca de posição aleatória"}
+{"rowId":"1662","text":"A cada 10% de HP perdido, +2 Pontos de Magia"}
+{"rowId":"1692","text":"HP +7%, Dano +7%"}
+{"rowId":"1693","text":"Recuperar HP"}
+{"rowId":"1694","text":"Dano +"}
+{"rowId":"1695","text":"HP +9%, Dano +9%"}
+{"rowId":"1696","text":"Recuperar HP"}
+{"rowId":"1697","text":"Dano +"}
+{"rowId":"1698","text":"HP +12%, Dano +12%"}
+{"rowId":"1699","text":"Recuperar HP"}
+{"rowId":"1700","text":"Dano +"}
+{"rowId":"1701","text":"HP +15%, Dano +15%"}
+{"rowId":"1702","text":"Recuperar HP"}
+{"rowId":"1703","text":"Dano +"}
+{"rowId":"1704","text":"Cura +3%, Dano +5%"}
+{"rowId":"1705","text":"Dano"}
+{"rowId":"1706","text":"Cura +4%, Dano +6%"}
+{"rowId":"1707","text":"Dano"}
+{"rowId":"1708","text":"Cura +5%, Dano +7%"}
+{"rowId":"1709","text":"Dano"}
+{"rowId":"1710","text":"Cura +6%, Dano +8%"}
+{"rowId":"1711","text":"Dano"}
+{"rowId":"1712","text":"Cura +8%, Dano +10%"}
+{"rowId":"1713","text":"Dano"}
+{"rowId":"1714","text":"Aliado absorve 30% do dano"}
+{"rowId":"1715","text":"Aliado absorve 40% do dano"}
+{"rowId":"1716","text":"Aliado absorve 50% do dano"}
+{"rowId":"1717","text":"-4% de HP por turno por 3 turnos"}
+{"rowId":"1718","text":"-6% de HP por turno por 3 turnos"}
+{"rowId":"1719","text":"-8% de HP por turno por 3 turnos"}
+{"rowId":"1720","text":"Reduz o dano de canhão"}
+{"rowId":"1721","text":"Reduz o dano de canhão"}
+{"rowId":"1722","text":"Reduz o dano de canhão"}
+{"rowId":"1723","text":"Quanto mais alto o terreno, maior o dano"}
+{"rowId":"1724","text":"Quanto mais alto o terreno, maior o dano"}
+{"rowId":"1725","text":"Quanto mais alto o terreno, maior o dano"}
+{"rowId":"1726","text":"Dom do Vento"}
+{"rowId":"1727","text":"Dom do Vento"}
+{"rowId":"1728","text":"Dom do Vento"}
+{"rowId":"1729","text":"Mudar Vento"}
+{"rowId":"1730","text":"Combo"}
+{"rowId":"1731","text":"Imune a Congelamento, menor velocidade de ataque, mais HP Máximo"}
+{"rowId":"1732","text":"Reduz a velocidade"}
+{"rowId":"1733","text":"Reduz a velocidade"}
+{"rowId":"1734","text":"Reduz a velocidade"}
+{"rowId":"1735","text":"Aumenta o HP Máximo"}
+{"rowId":"1736","text":"Aumenta o HP Máximo"}
+{"rowId":"1737","text":"Aumenta o HP Máximo"}
+{"rowId":"1738","text":"Recuperar HP"}
+{"rowId":"1739","text":"Recuperar HP"}
+{"rowId":"1740","text":"Recuperar HP"}
+{"rowId":"1741","text":"Receber Habilidade"}
+{"rowId":"1742","text":"Receber Habilidade"}
+{"rowId":"1743","text":"Aumentar Atq. Mágico"}
+{"rowId":"1744","text":"Aumentar Dano"}
+{"rowId":"1745","text":"Receber Habilidade"}
+{"rowId":"1746","text":"Receber Habilidade"}
+{"rowId":"1747","text":"Reduzir HP"}
+{"rowId":"1748","text":"Receber Habilidade"}
+{"rowId":"1749","text":"Proibido Tiro Triplo"}
+{"rowId":"1755","text":"Reduz o dano de canhão"}
+{"rowId":"1756","text":"Reduz o dano de canhão"}
+{"rowId":"1757","text":"Reduz o dano de canhão"}
+{"rowId":"1761","text":"Usar habilidades 3 vezes invoca"}
+{"rowId":"1762","text":"Recebe 20 Pontos de Magia"}
+{"rowId":"1763","text":"Reduz 50% do Vigor Máximo"}
+{"rowId":"1764","text":"Recebe 20 Pontos de Magia"}
+{"rowId":"1765","text":"Receber Habilidade"}
+{"rowId":"1766","text":"Sofrer dano 20 vezes invoca"}
+{"rowId":"1767","text":"Reduz o dano de canhão"}
+{"rowId":"1768","text":"Reduz o dano de canhão"}
+{"rowId":"1769","text":"Reduz o dano de canhão"}
+{"rowId":"1770","text":"Mudar Aparência"}
+{"rowId":"1774","text":"Reduz o dano de canhão"}
+{"rowId":"1775","text":"Aumenta o dano causado e reduz o dano recebido"}
+{"rowId":"1776","text":"Redução de dano +"}
+{"rowId":"1777","text":"Dano +30%, Atq. Mágico +30%"}
+{"rowId":"1778","text":"Atq. Mágico +"}
+{"rowId":"1779","text":"Recuperar HP"}
+{"rowId":"1781","text":"Receber Habilidade"}
+{"rowId":"1782","text":"Sofrer dano 14 vezes invoca"}
+{"rowId":"1783","text":"Recebe 30 Pontos de Magia"}
+{"rowId":"1784","text":"Receber Habilidade"}
+{"rowId":"1785","text":"Usar habilidades 2 vezes invoca"}
+{"rowId":"1786","text":"Reduz o dano de canhão"}
+{"rowId":"1787","text":"Aumenta o dano causado e reduz o dano recebido"}
+{"rowId":"1788","text":"Redução de dano +"}
+{"rowId":"1789","text":"Vigor -50%, +20 Pontos de Magia"}
+{"rowId":"1790","text":"Receber Habilidade"}
+{"rowId":"1791","text":"Receber Habilidade"}
+{"rowId":"1792","text":"Aliado absorve 30% do dano"}
+{"rowId":"1793","text":"Aliado absorve 40% do dano"}
+{"rowId":"1794","text":"Aliado absorve 50% do dano"}
+{"rowId":"1798","text":"Reduz o dano de canhão"}
+{"rowId":"1799","text":"Reduz o dano de canhão"}
+{"rowId":"1800","text":"Reduz o dano de canhão"}
+{"rowId":"1801","text":"-3% de HP por turno por 3 turnos"}
+{"rowId":"1802","text":"-4% de HP por turno por 3 turnos"}
+{"rowId":"1803","text":"-5% de HP por turno por 3 turnos"}
+{"rowId":"1804","text":"Reduz o dano de canhão"}
+{"rowId":"1805","text":"Reduz o dano de canhão"}
+{"rowId":"1806","text":"Reduz o dano de canhão"}
+{"rowId":"1807","text":"Quanto mais alto o terreno, maior o dano"}
+{"rowId":"1808","text":"Quanto mais alto o terreno, maior o dano"}
+{"rowId":"1809","text":"Quanto mais alto o terreno, maior o dano"}
+{"rowId":"1810","text":"Dom do Vento"}
+{"rowId":"1811","text":"Dom do Vento"}
+{"rowId":"1812","text":"Dom do Vento"}
+{"rowId":"1813","text":"Aumenta o Atq. Mágico"}
+{"rowId":"1814","text":"Aumentar Dano"}
+{"rowId":"1815","text":"Receber Habilidade"}
+{"rowId":"1816","text":"Receber Habilidade"}
+{"rowId":"1817","text":"Sofrer dano 25 vezes invoca"}
+{"rowId":"1818","text":"Usar habilidades 4 vezes invoca"}
+{"rowId":"1819","text":"Recebe 20 Pontos de Magia"}
+{"rowId":"1820","text":"Quanto mais alto o terreno, maior o dano"}
+{"rowId":"1821","text":"Mover-se não gasta Vigor"}
+{"rowId":"1822","text":"Cura +3%, Dano +5%"}
+{"rowId":"1823","text":"Dano +"}
+{"rowId":"1824","text":"Cura +4%, Dano +6%"}
+{"rowId":"1825","text":"Dano +"}
+{"rowId":"1826","text":"Cura +5%, Dano +7%"}
+{"rowId":"1827","text":"Dano +"}
+{"rowId":"1828","text":"Cura +6%, Dano +8%"}
+{"rowId":"1829","text":"Dano +"}
+{"rowId":"1830","text":"Cura +7%, Dano +10%"}
+{"rowId":"1831","text":"Dano +"}
+{"rowId":"1832","text":"Recupera 100% de HP"}
+{"rowId":"1833","text":"Reduz o HP atual em 50%"}
+{"rowId":"1834","text":"Quanto mais alto o terreno, maior o dano; quanto mais baixo, maior a redução de dano"}
+{"rowId":"1835","text":"Mudar modelo do conjunto"}
+{"rowId":"1836","text":"Imune a Congelamento, menor velocidade de ataque, mais HP Máximo"}
+{"rowId":"1837","text":"Proibido Tiro Triplo"}
+{"rowId":"1838","text":"Reduz a velocidade"}
+{"rowId":"1839","text":"Aumenta HP e limite"}
+{"rowId":"1840","text":"Receber Habilidade"}
+{"rowId":"1841","text":"Mover-se não gasta Vigor"}
+{"rowId":"1842","text":"HP +5%, Dano +5%"}
+{"rowId":"1843","text":"Recuperar HP"}
+{"rowId":"1844","text":"Dano +"}
+{"rowId":"1845","text":"HP +7%, Dano +7%"}
+{"rowId":"1846","text":"Recuperar HP"}
+{"rowId":"1847","text":"Dano +"}
+{"rowId":"1848","text":"HP +9%, Dano +9%"}
+{"rowId":"1849","text":"Recuperar HP"}
+{"rowId":"1850","text":"Dano +"}
+{"rowId":"1851","text":"HP +12%, Dano +12%"}
+{"rowId":"1852","text":"Recuperar HP"}
+{"rowId":"1853","text":"Dano +"}
+{"rowId":"1854","text":"HP +15%, Dano +15%"}
+{"rowId":"1855","text":"Recuperar HP"}
+{"rowId":"1856","text":"Dano +"}
+{"rowId":"1999","text":"Recebe 1 de Magia"}
+{"rowId":"2037","text":"HP +7% (BUFF de equipe)"}
+{"rowId":"2038","text":"HP +8% (BUFF de equipe)"}
+{"rowId":"2039","text":"HP +9% (BUFF de equipe)"}
+{"rowId":"2040","text":"HP +10% (BUFF de equipe)"}
+{"rowId":"2041","text":"HP +12% (BUFF de equipe)"}
+{"rowId":"2101","text":"Dano POW +5%."}
+{"rowId":"2102","text":"Dano POW +10%."}
+{"rowId":"2103","text":"Dano POW +15%."}
+{"rowId":"2104","text":"Dano POW +20%."}
+{"rowId":"2105","text":"Dano POW +25%."}
+{"rowId":"2106","text":"Dano POW +30%."}
+{"rowId":"2107","text":"Dano POW +35%."}
+{"rowId":"2108","text":"Dano POW +40%."}
+{"rowId":"2109","text":"Dano POW +45%."}
+{"rowId":"2110","text":"Dano POW +50%."}
+{"rowId":"2201","text":"Dano crítico recebido -5%"}
+{"rowId":"2202","text":"Dano crítico recebido -10%"}
+{"rowId":"2203","text":"Dano crítico recebido -15%"}
+{"rowId":"2204","text":"Dano crítico recebido -20%"}
+{"rowId":"2205","text":"Dano crítico recebido -25%"}
+{"rowId":"2206","text":"Dano crítico recebido -30%"}
+{"rowId":"2207","text":"Dano crítico recebido -35%"}
+{"rowId":"2208","text":"Dano crítico recebido -40%"}
+{"rowId":"2209","text":"Dano crítico recebido -45%"}
+{"rowId":"2210","text":"Dano crítico recebido -50%"}
+{"rowId":"2301","text":"Receber Habilidade 431"}
+{"rowId":"2302","text":"Receber Habilidade 432"}
+{"rowId":"2303","text":"Receber Habilidade 433"}
+{"rowId":"2304","text":"Receber Habilidade 434"}
+{"rowId":"2305","text":"Receber Habilidade 435"}
+{"rowId":"2306","text":"Receber Habilidade 436"}
+{"rowId":"2307","text":"Receber Habilidade 437"}
+{"rowId":"2308","text":"Receber Habilidade 438"}
+{"rowId":"2309","text":"Receber Habilidade 439"}
+{"rowId":"2310","text":"Receber Habilidade 440"}
+{"rowId":"2401","text":"Res. Mágica +2%"}
+{"rowId":"2402","text":"Res. Mágica +4%"}
+{"rowId":"2403","text":"Res. Mágica +6%"}
+{"rowId":"2404","text":"Res. Mágica +8%"}
+{"rowId":"2405","text":"Res. Mágica +10%"}
+{"rowId":"2406","text":"Res. Mágica +12%"}
+{"rowId":"2407","text":"Res. Mágica +14%"}
+{"rowId":"2408","text":"Res. Mágica +16%"}
+{"rowId":"2409","text":"Res. Mágica +18%"}
+{"rowId":"2410","text":"Res. Mágica +20%"}
+{"rowId":"2411","text":"Recupera 5% de HP (BUFF de equipe extra)"}
+{"rowId":"2412","text":"Recupera 6% de HP (BUFF de equipe extra)"}
+{"rowId":"2413","text":"Recupera 7% de HP (BUFF de equipe extra)"}
+{"rowId":"2414","text":"Recupera 8% de HP (BUFF de equipe extra)"}
+{"rowId":"2415","text":"Recupera 9% de HP (BUFF de equipe extra)"}
+{"rowId":"2416","text":"Recupera 10% de HP (BUFF de equipe extra)"}
+{"rowId":"2417","text":"Recupera 12% de HP (BUFF de equipe extra)"}
+{"rowId":"2418","text":"Dano +20"}
+{"rowId":"2419","text":"Dano +50"}
+{"rowId":"2420","text":"Dano +80"}
+{"rowId":"2422","text":"Armadura +35"}
+{"rowId":"2423","text":"Armadura +65"}
+{"rowId":"2424","text":"Armadura +100"}
+{"rowId":"2425","text":"Ao sofrer dano, bloqueia 100 de dano"}
+{"rowId":"2426","text":"Ao sofrer dano, bloqueia 200 de dano"}
+{"rowId":"2427","text":"Ao sofrer dano, bloqueia 300 de dano"}
+{"rowId":"2428","text":"Reflete dano."}
+{"rowId":"2429","text":"Manter espinhos"}
+{"rowId":"2431","text":"Efeito de revide"}
+{"rowId":"2432","text":"Refletir Dano"}
+{"rowId":"2433","text":"Manter espinhos"}
+{"rowId":"2435","text":"Efeito de revide"}
+{"rowId":"2436","text":"Dano em Tela Inteira"}
+{"rowId":"2437","text":"Manter espinhos"}
+{"rowId":"2438","text":"Usar Item Aumenta Magia"}
+{"rowId":"2439","text":"Efeito de revide"}
+{"rowId":"2440","text":"Defesa e Armadura +1%"}
+{"rowId":"2442","text":"Defesa e Armadura +2%"}
+{"rowId":"2444","text":"Defesa e Armadura +3%"}
+{"rowId":"2446","text":"+1% de Ataque, Defesa, Agilidade e Sorte."}
+{"rowId":"2447","text":"+2% de Ataque, Defesa, Agilidade e Sorte."}
+{"rowId":"2448","text":"+3% de Ataque, Defesa, Agilidade e Sorte."}
+{"rowId":"2458","text":"Absorve 1000 de dano."}
+{"rowId":"2459","text":"Absorve 2000 de dano."}
+{"rowId":"2460","text":"Absorve 3000 de dano."}
+{"rowId":"2461","text":"Recupera 3% +500 HP."}
+{"rowId":"2462","text":"Recupera 4% +500 HP."}
+{"rowId":"2463","text":"Recupera 5% +500 HP."}
+{"rowId":"2464","text":"Cura +5%"}
+{"rowId":"2465","text":"Cura +10%"}
+{"rowId":"2466","text":"Cura +15%"}
+{"rowId":"2467","text":"Perde 3% de HP por turno"}
+{"rowId":"2468","text":"Perde 4% de HP por turno"}
+{"rowId":"2469","text":"Perde 5% de HP por turno"}
+{"rowId":"2470","text":"Dano base +5%"}
+{"rowId":"2471","text":"Dano base +8%"}
+{"rowId":"2472","text":"Dano base +10%"}
+{"rowId":"2473","text":"Agilidade +100, chance de Crítico +8%"}
+{"rowId":"2474","text":"Agilidade +200, chance de Crítico +8%"}
+{"rowId":"2475","text":"Agilidade +300, chance de Crítico +8%"}
+{"rowId":"2476","text":"Chance de Crítico"}
+{"rowId":"2477","text":"Chance de Crítico"}
+{"rowId":"2478","text":"Chance de Crítico"}
+{"rowId":"2479","text":"Ataque +150"}
+{"rowId":"2480","text":"Ataque +300"}
+{"rowId":"2481","text":"Ataque +450"}
+{"rowId":"2482","text":"Dano e Armadura -5%"}
+{"rowId":"2483","text":"Reduz a Armadura"}
+{"rowId":"2484","text":"Dano e Armadura -5%"}
+{"rowId":"2485","text":"Reduz a Armadura"}
+{"rowId":"2486","text":"Dano e Armadura -5%"}
+{"rowId":"2487","text":"Reduz a Armadura"}
+{"rowId":"2488","text":"HP Máximo +4%"}
+{"rowId":"2489","text":"HP Máximo +6%"}
+{"rowId":"2490","text":"HP Máximo +8%"}
+{"rowId":"2491","text":"Mascote -40 Pontos de Magia"}
+{"rowId":"2492","text":"Mascote -40 Pontos de Magia"}
+{"rowId":"2493","text":"Mascote -40 Pontos de Magia"}
+{"rowId":"2494","text":"Aumenta a chance de Crítico"}
+{"rowId":"2495","text":"Aumenta a chance de Crítico"}
+{"rowId":"2496","text":"Aumenta a chance de Crítico"}
+{"rowId":"2497","text":"Chance de Crítico +10%"}
+{"rowId":"2498","text":"Chance de Crítico +12%"}
+{"rowId":"2499","text":"Chance de Crítico +15%"}
+{"rowId":"2500","text":"Defesa e Armadura +3%"}
+{"rowId":"2502","text":"Defesa e Armadura +4%"}
+{"rowId":"2504","text":"Defesa e Armadura +5%"}
+{"rowId":"2506","text":"Dano +3%"}
+{"rowId":"2507","text":"Dano +4%"}
+{"rowId":"2508","text":"Dano +5%"}
+{"rowId":"2509","text":"Proibido usar habilidades de Mascote"}
+{"rowId":"2510","text":"Receber Habilidade"}
+{"rowId":"2511","text":"Recupera HP igual a 20% do dano"}
+{"rowId":"2512","text":"Imobilizado por 1 turno"}
+{"rowId":"2513","text":"Dano crítico +10%"}
+{"rowId":"2514","text":"Dano crítico +15%"}
+{"rowId":"2515","text":"Dano crítico +20%"}
+{"rowId":"2516","text":"Res. Mágica -10%"}
+{"rowId":"2517","text":"Res. Mágica -15%"}
+{"rowId":"2518","text":"Res. Mágica -20%"}
+{"rowId":"2519","text":"Dano +10%"}
+{"rowId":"2520","text":"Dano +15%"}
+{"rowId":"2521","text":"Dano +20%"}
+{"rowId":"2522","text":"Ignora parte da defesa do inimigo"}
+{"rowId":"2523","text":"Perfurar Armadura Nv1"}
+{"rowId":"2524","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"2525","text":"Cancelar Perfurar Armadura Nv1"}
+{"rowId":"2526","text":"Ignora parte da defesa do inimigo"}
+{"rowId":"2527","text":"Perfurar Armadura Nv1"}
+{"rowId":"2528","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"2529","text":"Cancelar Perfurar Armadura Nv1"}
+{"rowId":"2530","text":"Ignora parte da defesa do inimigo"}
+{"rowId":"2531","text":"Perfurar Armadura Nv1"}
+{"rowId":"2532","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"2533","text":"Cancelar Perfurar Armadura Nv1"}
+{"rowId":"2534","text":"Não pode ajustar o ângulo"}
+{"rowId":"2535","text":"Aumentar Dano"}
+{"rowId":"2536","text":"Aumentar Dano"}
+{"rowId":"2537","text":"Aumentar Dano"}
+{"rowId":"2538","text":"Ignora parte da defesa do inimigo"}
+{"rowId":"2539","text":"Perfurar Armadura Nv1"}
+{"rowId":"2540","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"2541","text":"Cancelar Perfurar Armadura Nv1"}
+{"rowId":"2542","text":"Ignora parte da defesa do inimigo"}
+{"rowId":"2543","text":"Perfurar Armadura Nv1"}
+{"rowId":"2544","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"2545","text":"Cancelar Perfurar Armadura Nv1"}
+{"rowId":"2546","text":"Ignora parte da defesa do inimigo"}
+{"rowId":"2547","text":"Perfurar Armadura Nv1"}
+{"rowId":"2548","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"2549","text":"Cancelar Perfurar Armadura Nv1"}
+{"rowId":"2550","text":"Não pode ajustar o ângulo"}
+{"rowId":"2551","text":"Aumenta a velocidade"}
+{"rowId":"2552","text":"Aumenta a velocidade"}
+{"rowId":"2553","text":"Aumenta a velocidade"}
+{"rowId":"2554","text":"Perde a visão"}
+{"rowId":"2555","text":"Bloquear Cura"}
+{"rowId":"2556","text":"Recebe 2 Pontos de Magia"}
+{"rowId":"2557","text":"Recebe 3 Pontos de Magia"}
+{"rowId":"2558","text":"Recebe 4 Pontos de Magia"}
+{"rowId":"2559","text":"Ativação por % de HP"}
+{"rowId":"2560","text":"Ativação por % de HP"}
+{"rowId":"2561","text":"Ao sofrer dano, bloqueia 300 de dano"}
+{"rowId":"2562","text":"Ao sofrer dano, bloqueia 400 de dano"}
+{"rowId":"2563","text":"Ao sofrer dano, bloqueia 500 de dano"}
+{"rowId":"2564","text":"Recuperar HP"}
+{"rowId":"2565","text":"Recuperar HP"}
+{"rowId":"2566","text":"Recuperar HP"}
+{"rowId":"2567","text":"Reflete 1% de todo o dano"}
+{"rowId":"2568","text":"Reflete 2% de todo o dano"}
+{"rowId":"2569","text":"Reflete 3% de todo o dano"}
+{"rowId":"2570","text":"Mascote ataca com X% de dano"}
+{"rowId":"2571","text":"Mascote ataca com X% de dano"}
+{"rowId":"2572","text":"Mascote ataca com X% de dano"}
+{"rowId":"2573","text":"Dano +150%"}
+{"rowId":"2574","text":"Dano +180%"}
+{"rowId":"2575","text":"Dano +220%"}
+{"rowId":"2576","text":"100% crítico"}
+{"rowId":"2577","text":"Acúmulo de Habilidade"}
+{"rowId":"2578","text":"Marca da Raposa"}
+{"rowId":"2579","text":"Marca da Raposa"}
+{"rowId":"2580","text":"Poder da Linhagem"}
+{"rowId":"2581","text":"Poder da Linhagem"}
+{"rowId":"2582","text":"Fogo Destrói-alma"}
+{"rowId":"2583","text":"Fogo Destrói-alma"}
+{"rowId":"2584","text":"Uivo da Raposa"}
+{"rowId":"2585","text":"Uivo da Raposa"}
+{"rowId":"2586","text":"Guardião da Alma"}
+{"rowId":"2587","text":"Guardião da Alma"}
+{"rowId":"2588","text":"Redemoinho de Fogo"}
+{"rowId":"2589","text":"Recuperar Magia"}
+{"rowId":"2590","text":"Velocidade Divina"}
+{"rowId":"2591","text":"Dano"}
+{"rowId":"2592","text":"Invisibilidade"}
+{"rowId":"2593","text":"Redemoinho de Fogo"}
+{"rowId":"2594","text":"Marca da Raposa, acumula até 5 vezes, por 5 turnos."}
+{"rowId":"2595","text":"Acúmulo de Habilidade"}
+{"rowId":"2596","text":"Cura +3%, Dano +3%"}
+{"rowId":"2597","text":"Dano +"}
+{"rowId":"2598","text":"Cura +4%, Dano +4%"}
+{"rowId":"2599","text":"Dano +"}
+{"rowId":"2600","text":"Cura +5%, Dano +5%"}
+{"rowId":"2601","text":"Dano +"}
+{"rowId":"2602","text":"Cura +6%, Dano +6%"}
+{"rowId":"2603","text":"Dano +"}
+{"rowId":"2604","text":"Cura +8%, Dano +8%"}
+{"rowId":"2605","text":"Dano +"}
+{"rowId":"2608","text":"Dano e Atq. Mágico +3%"}
+{"rowId":"2609","text":"Dano e Atq. Mágico +4%"}
+{"rowId":"2610","text":"Dano e Atq. Mágico +5%"}
+{"rowId":"2611","text":"Atq. Mágico"}
+{"rowId":"2612","text":"Atq. Mágico"}
+{"rowId":"2613","text":"Atq. Mágico"}
+{"rowId":"2614","text":"Velocidade Divina"}
+{"rowId":"2615","text":"Dano"}
+{"rowId":"2616","text":"Invisibilidade"}
+{"rowId":"2624","text":"Cura +3%, Dano +3%"}
+{"rowId":"2625","text":"Dano +"}
+{"rowId":"2626","text":"Cura +4%, Dano +4%"}
+{"rowId":"2627","text":"Dano +"}
+{"rowId":"2628","text":"Cura +5%, Dano +5%"}
+{"rowId":"2629","text":"Dano +"}
+{"rowId":"2630","text":"Cura +6%, Dano +6%"}
+{"rowId":"2631","text":"Dano +"}
+{"rowId":"2632","text":"Cura +8%, Dano +8%"}
+{"rowId":"2633","text":"Dano +"}
+{"rowId":"2634","text":"Sofre dano de Fogo por turno"}
+{"rowId":"2635","text":"Congelar"}
+{"rowId":"2636","text":"Dano de Vento"}
+{"rowId":"2637","text":"Quanto mais alto o terreno, maior o dano"}
+{"rowId":"2638","text":"Absorve dano."}
+{"rowId":"2639","text":"Recupera HP."}
+{"rowId":"2640","text":"Esquiva +"}
+{"rowId":"2641","text":"Redução de dano +"}
+{"rowId":"2642","text":"Mascote ataca com X% de dano"}
+{"rowId":"2643","text":"Mascote ataca com X% de dano"}
+{"rowId":"2644","text":"Mascote ataca com X% de dano"}
+{"rowId":"2645","text":"Redução de Dano 10%"}
+{"rowId":"2646","text":"Dano +150%"}
+{"rowId":"2647","text":"100% crítico"}
+{"rowId":"2648","text":"Redução de Dano 15%"}
+{"rowId":"2649","text":"Dano +180%"}
+{"rowId":"2650","text":"Redução de Dano 20%"}
+{"rowId":"2651","text":"Dano +220%"}
+{"rowId":"2652","text":"Aumenta Armadura, reduz Crítico"}
+{"rowId":"2653","text":"Reduz Velocidade"}
+{"rowId":"2654","text":"Transformação"}
+{"rowId":"2657","text":"Aumenta Armadura, reduz Crítico"}
+{"rowId":"2658","text":"Reduz Velocidade"}
+{"rowId":"2661","text":"Aumenta Armadura, reduz Crítico"}
+{"rowId":"2662","text":"Reduz Velocidade"}
+{"rowId":"2665","text":"Pontos de Magia ativam Desprezo"}
+{"rowId":"2666","text":"Provocar"}
+{"rowId":"2667","text":"Imune a Crítico"}
+{"rowId":"2668","text":"Dano em Tela Inteira"}
+{"rowId":"2669","text":"Dano em Tela Inteira"}
+{"rowId":"2670","text":"Proibido Voar"}
+{"rowId":"2672","text":"Dividir Dano"}
+{"rowId":"2675","text":"Pontos de Magia"}
+{"rowId":"2676","text":"Aumenta Armadura e Res. Mágica"}
+{"rowId":"2677","text":"Aumenta Res. Mágica"}
+{"rowId":"2678","text":"Aumenta Redução de Dano"}
+{"rowId":"2679","text":"Redução de Dano dos Aliados (Porcentagem)"}
+{"rowId":"2680","text":"Redução de Dano dos Aliados (Valor Fixo)"}
+{"rowId":"2681","text":"Quando você ou um aliado morre, o efeito Coletar Alma é multiplicado"}
+{"rowId":"2682","text":"100% crítico"}
+{"rowId":"2683","text":"Redução de Dano 20%"}
+{"rowId":"2684","text":"Dano +220%"}
+{"rowId":"2685","text":"Aumenta Armadura, Reflete Dano"}
+{"rowId":"2688","text":"Pontos de Magia ativam Desprezo"}
+{"rowId":"2689","text":"Provocar"}
+{"rowId":"2690","text":"Imune a Crítico"}
+{"rowId":"2691","text":"Dano em Tela Inteira"}
+{"rowId":"2692","text":"Proibido Voar"}
+{"rowId":"2693","text":"Não pode se mover"}
+{"rowId":"2696","text":"A cada ataque sofrido, +5 Pontos de Mascote"}
+{"rowId":"2697","text":"Reduz a Armadura"}
+{"rowId":"2698","text":"Res. Mágica"}
+{"rowId":"2699","text":"Imune ao Primeiro Disparo"}
+{"rowId":"2700","text":"Aumenta Redução de Dano"}
+{"rowId":"2701","text":"Redução de Dano dos Aliados (Porcentagem)"}
+{"rowId":"2702","text":"Redução de Dano dos Aliados (Valor Fixo)"}
+{"rowId":"2703","text":"HP Máximo +10%"}
+{"rowId":"2704","text":"HP Máximo +10%"}
+{"rowId":"2706","text":"Divide o dano com os aliados e recupera HP"}
+{"rowId":"2707","text":"Reduzir Dano Recebido"}
+{"rowId":"2708","text":"Reduzir Dano Recebido"}
+{"rowId":"2709","text":"Reduzir Dano Recebido"}
+{"rowId":"2710","text":"Aumentar HP Máximo"}
+{"rowId":"2711","text":"Aumentar HP Máximo"}
+{"rowId":"2712","text":"Aumentar HP Máximo"}
+{"rowId":"2713","text":"HP Máximo +5%"}
+{"rowId":"2714","text":"HP Máximo +8%"}
+{"rowId":"2715","text":"HP Máximo +10%"}
+{"rowId":"2716","text":"Imune a Crítico"}
+{"rowId":"2718","text":"Causa dano igual a 25% do seu HP Máximo"}
+{"rowId":"2721","text":"Reduz o dano recebido"}
+{"rowId":"2723","text":"Reduz o dano recebido"}
+{"rowId":"2724","text":"Reflete dano"}
+{"rowId":"2725","text":"Manter espinhos"}
+{"rowId":"2727","text":"Efeito de revide"}
+{"rowId":"2729","text":"Efeito de revide"}
+{"rowId":"2730","text":"Reduz o dano recebido"}
+{"rowId":"2732","text":"Reduz o dano recebido"}
+{"rowId":"2733","text":"Reflete dano"}
+{"rowId":"2734","text":"Manter espinhos"}
+{"rowId":"2736","text":"Efeito de revide"}
+{"rowId":"2738","text":"Efeito de revide"}
+{"rowId":"2740","text":"Recebe Imunidade e mais Defesa, mas não pode se mover."}
+{"rowId":"2741","text":"Dura 2 turnos"}
+{"rowId":"2744","text":"Ser atacado aumenta o dano"}
+{"rowId":"2745","text":"Habilidade ativada por % de HP"}
+{"rowId":"2748","text":"-5% de HP, recebe 6 de Magia"}
+{"rowId":"2749","text":"Mascote ataca com X% de dano"}
+{"rowId":"2750","text":"Mascote ataca com X% de dano"}
+{"rowId":"2751","text":"Mascote ataca com X% de dano"}
+{"rowId":"2752","text":"Aumentar Dano"}
+{"rowId":"2753","text":"Aumentar Dano"}
+{"rowId":"2754","text":"Aumentar Dano"}
+{"rowId":"2755","text":"HP Máximo +10%"}
+{"rowId":"2758","text":"HP Máximo -12%"}
+{"rowId":"2759","text":"Recuperar HP"}
+{"rowId":"2760","text":"Recuperar HP"}
+{"rowId":"2761","text":"Perde 30% de HP"}
+{"rowId":"2762","text":"Perde 20% de HP"}
+{"rowId":"2763","text":"Recuperar HP"}
+{"rowId":"2764","text":"Causa dano"}
+{"rowId":"2765","text":"Acelera a barra de força"}
+{"rowId":"2766","text":"Atq. de Fogo +100"}
+{"rowId":"2767","text":"Atq. de Fogo +200"}
+{"rowId":"2768","text":"Atq. de Fogo +300"}
+{"rowId":"2769","text":"Atq. de Água +100"}
+{"rowId":"2770","text":"Atq. de Água +200"}
+{"rowId":"2771","text":"Atq. de Água +300"}
+{"rowId":"2772","text":"Atq. de Vento +100"}
+{"rowId":"2773","text":"Atq. de Vento +200"}
+{"rowId":"2774","text":"Atq. de Vento +300"}
+{"rowId":"2775","text":"Atq. de Terra +100"}
+{"rowId":"2776","text":"Atq. de Terra +200"}
+{"rowId":"2777","text":"Atq. de Terra +300"}
+{"rowId":"2778","text":"Res. ao Fogo +150"}
+{"rowId":"2779","text":"Res. ao Fogo +300"}
+{"rowId":"2780","text":"Res. ao Fogo +450"}
+{"rowId":"2781","text":"Res. à Água +150"}
+{"rowId":"2782","text":"Res. à Água +300"}
+{"rowId":"2783","text":"Res. à Água +450"}
+{"rowId":"2784","text":"Res. ao Vento +150"}
+{"rowId":"2785","text":"Res. ao Vento +300"}
+{"rowId":"2786","text":"Res. ao Vento +450"}
+{"rowId":"2787","text":"Res. à Terra +150"}
+{"rowId":"2788","text":"Res. à Terra +300"}
+{"rowId":"2789","text":"Res. à Terra +450"}
+{"rowId":"2790","text":"Atq. de Fogo +3%"}
+{"rowId":"2791","text":"Atq. de Fogo +5%"}
+{"rowId":"2792","text":"Atq. de Fogo +8%"}
+{"rowId":"2793","text":"Atq. de Água +3%"}
+{"rowId":"2794","text":"Atq. de Água +5%"}
+{"rowId":"2795","text":"Atq. de Água +8%"}
+{"rowId":"2796","text":"Atq. de Vento +3%"}
+{"rowId":"2797","text":"Atq. de Vento +5%"}
+{"rowId":"2798","text":"Atq. de Vento +8%"}
+{"rowId":"2799","text":"Atq. de Terra +3%"}
+{"rowId":"2800","text":"Atq. de Terra +5%"}
+{"rowId":"2801","text":"Atq. de Terra +8%"}
+{"rowId":"2802","text":"Res. ao Fogo +5%"}
+{"rowId":"2803","text":"Res. ao Fogo +8%"}
+{"rowId":"2804","text":"Res. ao Fogo +12%"}
+{"rowId":"2805","text":"Res. à Água +5%"}
+{"rowId":"2806","text":"Res. à Água +8%"}
+{"rowId":"2807","text":"Res. à Água +12%"}
+{"rowId":"2808","text":"Res. ao Vento +5%"}
+{"rowId":"2809","text":"Res. ao Vento +8%"}
+{"rowId":"2810","text":"Res. ao Vento +12%"}
+{"rowId":"2811","text":"Res. à Terra +5%"}
+{"rowId":"2812","text":"Res. à Terra +8%"}
+{"rowId":"2813","text":"Res. à Terra +12%"}
+{"rowId":"2814","text":"Atq. de Fogo +200"}
+{"rowId":"2815","text":"Atq. de Fogo +350"}
+{"rowId":"2816","text":"Atq. de Fogo +500"}
+{"rowId":"2817","text":"Atq. de Fogo +8%"}
+{"rowId":"2818","text":"Atq. de Fogo +12%"}
+{"rowId":"2819","text":"Atq. de Fogo +16%"}
+{"rowId":"2820","text":"Chance de ativação +20%"}
+{"rowId":"2821","text":"Chance de ativação +35%"}
+{"rowId":"2822","text":"Chance de ativação +50%"}
+{"rowId":"2823","text":"Res. ao Fogo -10%"}
+{"rowId":"2824","text":"Res. ao Fogo -20%"}
+{"rowId":"2825","text":"Res. ao Fogo -30%"}
+{"rowId":"2829","text":"Atq. de Água +350"}
+{"rowId":"2830","text":"Atq. de Água +500"}
+{"rowId":"2831","text":"Atq. de Água +800"}
+{"rowId":"2832","text":"Atq. de Água +16%"}
+{"rowId":"2833","text":"Atq. de Água +20%"}
+{"rowId":"2834","text":"Atq. de Água +24%"}
+{"rowId":"2835","text":"Chance de ativação +20%"}
+{"rowId":"2836","text":"Chance de ativação +35%"}
+{"rowId":"2837","text":"Chance de ativação +50%"}
+{"rowId":"2838","text":"Res. à Água -15%"}
+{"rowId":"2839","text":"Res. à Água -30%"}
+{"rowId":"2840","text":"Res. à Água -45%"}
+{"rowId":"2844","text":"Atq. de Vento +200"}
+{"rowId":"2845","text":"Atq. de Vento +350"}
+{"rowId":"2846","text":"Atq. de Vento +500"}
+{"rowId":"2847","text":"Atq. de Vento +8%"}
+{"rowId":"2848","text":"Atq. de Vento +12%"}
+{"rowId":"2849","text":"Atq. de Vento +16%"}
+{"rowId":"2850","text":"Chance de ativação +20%"}
+{"rowId":"2851","text":"Chance de ativação +35%"}
+{"rowId":"2852","text":"Chance de ativação +50%"}
+{"rowId":"2853","text":"Res. ao Vento -10%"}
+{"rowId":"2854","text":"Res. ao Vento -20%"}
+{"rowId":"2855","text":"Res. ao Vento -30%"}
+{"rowId":"2856","text":"+75 de Atq. de Terra a cada 100 pixels"}
+{"rowId":"2857","text":"+125 de Atq. de Terra a cada 100 pixels"}
+{"rowId":"2858","text":"+175 de Atq. de Terra a cada 100 pixels"}
+{"rowId":"2859","text":"+4% de Atq. de Terra a cada 100 pixels"}
+{"rowId":"2860","text":"+6% de Atq. de Terra a cada 100 pixels"}
+{"rowId":"2861","text":"+8% de Atq. de Terra a cada 100 pixels"}
+{"rowId":"2862","text":"Res. à Terra -4%"}
+{"rowId":"2863","text":"Res. à Terra -8%"}
+{"rowId":"2864","text":"Res. à Terra -12%"}
+{"rowId":"2865","text":"Desconta MP do Mascote"}
+{"rowId":"2867","text":"Imune a Congelamento"}
+{"rowId":"2868","text":"Congelamento dura +1 turno"}
+{"rowId":"2869","text":"Recupera HP ao sofrer golpe fatal"}
+{"rowId":"2870","text":"Dano a outro alvo"}
+{"rowId":"2871","text":"Atributos Elementais +30%"}
+{"rowId":"2872","text":"Atq. de Água +30%"}
+{"rowId":"2873","text":"Atq. de Vento +30%"}
+{"rowId":"2874","text":"Atq. de Terra +30%"}
+{"rowId":"2875","text":"Res. ao Fogo +30%"}
+{"rowId":"2876","text":"Res. à Água +30%"}
+{"rowId":"2877","text":"Res. ao Vento +30%"}
+{"rowId":"2878","text":"Res. à Terra +30%"}
+{"rowId":"2879","text":"Balas de canhão não cavam crateras"}
+{"rowId":"2880","text":"Redução de Dano 30%"}
+{"rowId":"2882","text":"Imune a dano 1 vez"}
+{"rowId":"2884","text":"Aumenta o efeito de Redução de Dano."}
+{"rowId":"2887","text":"Ativa com HP abaixo de 50%"}
+{"rowId":"2888","text":"Ativa com HP abaixo de 50%"}
+{"rowId":"2889","text":"Ativa com HP abaixo de 50%"}
+{"rowId":"2890","text":"Ativa com HP abaixo de 50%"}
+{"rowId":"2891","text":"% de HP ativa Borboleta Oculta"}
+{"rowId":"2892","text":"Escudo"}
+{"rowId":"2893","text":"A cada 10% de HP perdido, MP +3"}
+{"rowId":"2894","text":"Empurrão"}
+{"rowId":"2895","text":"Ativa com HP abaixo de 50%"}
+{"rowId":"2896","text":"Desconta MP do Mascote"}
+{"rowId":"2897","text":"Desconta MP do Mascote"}
+{"rowId":"2898","text":"Recupera HP ao sofrer golpe fatal"}
+{"rowId":"2899","text":"Recupera HP ao sofrer golpe fatal"}
+{"rowId":"2900","text":"Atributos Elementais +40%"}
+{"rowId":"2901","text":"Atq. de Água +40%"}
+{"rowId":"2902","text":"Atq. de Vento +40%"}
+{"rowId":"2903","text":"Atq. de Terra +40%"}
+{"rowId":"2904","text":"Res. ao Fogo +40%"}
+{"rowId":"2905","text":"Res. à Água +40%"}
+{"rowId":"2906","text":"Res. ao Vento +40%"}
+{"rowId":"2907","text":"Res. à Terra +40%"}
+{"rowId":"2908","text":"Atributos Elementais +50%"}
+{"rowId":"2909","text":"Atq. de Água +50%"}
+{"rowId":"2910","text":"Atq. de Vento +50%"}
+{"rowId":"2911","text":"Atq. de Terra +50%"}
+{"rowId":"2912","text":"Res. ao Fogo +50%"}
+{"rowId":"2913","text":"Res. à Água +50%"}
+{"rowId":"2914","text":"Res. ao Vento +50%"}
+{"rowId":"2915","text":"Res. à Terra +50%"}
+{"rowId":"2917","text":"Redução de Dano dos Aliados (Porcentagem)"}
+{"rowId":"2918","text":"Redução de Dano dos Aliados (Valor Fixo)"}
+{"rowId":"2919","text":"HP +300"}
+{"rowId":"2920","text":"Recuperar HP"}
+{"rowId":"2921","text":"HP +800"}
+{"rowId":"2922","text":"Recuperar HP"}
+{"rowId":"2923","text":"HP +1500"}
+{"rowId":"2924","text":"Recuperar HP"}
+{"rowId":"2925","text":"HP +3000"}
+{"rowId":"2926","text":"Recuperar HP"}
+{"rowId":"2927","text":"HP +5000"}
+{"rowId":"2928","text":"Recuperar HP"}
+{"rowId":"2929","text":"HP +7500"}
+{"rowId":"2930","text":"Recuperar HP"}
+{"rowId":"2931","text":"HP +10000"}
+{"rowId":"2932","text":"Recuperar HP"}
+{"rowId":"2933","text":"HP +12500"}
+{"rowId":"2934","text":"Recuperar HP"}
+{"rowId":"2935","text":"HP +15000"}
+{"rowId":"2936","text":"Recuperar HP"}
+{"rowId":"2937","text":"HP +18000"}
+{"rowId":"2938","text":"Recuperar HP"}
+{"rowId":"2939","text":"Recupera HP ao ser atacado. Com HP muito baixo, o efeito dobra."}
+{"rowId":"2940","text":"Recupera HP ao ser atacado. Com HP muito baixo, o efeito dobra."}
+{"rowId":"2943","text":"Ativa com HP abaixo de 40%"}
+{"rowId":"2944","text":"Ativa com HP abaixo de 40%"}
+{"rowId":"2945","text":"Ativa com HP abaixo de 40%"}
+{"rowId":"2946","text":"Escudo"}
+{"rowId":"2947","text":"Escudo"}
+{"rowId":"2948","text":"Escudo"}
+{"rowId":"2949","text":"Reduz 50% do Vigor Máximo"}
+{"rowId":"2950","text":"Cura -100%"}
+{"rowId":"2951","text":"Os disparos causam Dano Verdadeiro extra igual a 5% do HP perdido."}
+{"rowId":"2952","text":"Perde 15% do HP Máximo por turno"}
+{"rowId":"2953","text":"Dano causado pelo Ataque do Mascote X%"}
+{"rowId":"2954","text":"Dano causado pelo Ataque do Mascote X%"}
+{"rowId":"2955","text":"Dano causado pelo Ataque do Mascote X%"}
+{"rowId":"2956","text":"Velocidade Divina, 120 de Vigor"}
+{"rowId":"2957","text":"100% crítico"}
+{"rowId":"2958","text":"Dano +150%"}
+{"rowId":"2959","text":"Dano +180%"}
+{"rowId":"2960","text":"Dano +220%"}
+{"rowId":"2961","text":"Redemoinho de Fogo"}
+{"rowId":"2962","text":"Redemoinho de Fogo"}
+{"rowId":"2963","text":"-8% de HP por turno"}
+{"rowId":"2964","text":"Mascote -20 de MP"}
+{"rowId":"2965","text":"Receber Habilidade"}
+{"rowId":"2966","text":"Usar habilidades 3 vezes invoca"}
+{"rowId":"2967","text":"Dano"}
+{"rowId":"2968","text":"Dano +30%, Redução de Dano +30%"}
+{"rowId":"2970","text":"Chance de Crítico +50%"}
+{"rowId":"2972","text":"Perde certa quantidade de HP por turno"}
+{"rowId":"2973","text":"Dura 1 turno"}
+{"rowId":"2974","text":"Receber Remover Imunidade"}
+{"rowId":"2975","text":"Remover Imunidade"}
+{"rowId":"2976","text":"3 de MP = 1% de HP"}
+{"rowId":"2977","text":"Dano, Armadura, Atq. Mágico e Res. Mágica +5%"}
+{"rowId":"2978","text":"Armadura +5%"}
+{"rowId":"2979","text":"Atq. Mágico +5%"}
+{"rowId":"2980","text":"Res. Mágica +5%"}
+{"rowId":"2981","text":"Ativa ao sofrer golpe fatal"}
+{"rowId":"2982","text":"Recebe 20 de MP"}
+{"rowId":"2983","text":"Recebe 25 de MP"}
+{"rowId":"2984","text":"Recebe 30 de MP"}
+{"rowId":"2985","text":"Recebe 35 de MP"}
+{"rowId":"2986","text":"Recebe 40 de MP"}
+{"rowId":"2987","text":"Recebe 30 de MP"}
+{"rowId":"2988","text":"Sofrer Dano Aumenta Habilidade"}
+{"rowId":"2989","text":"Dano Recebido Aumentado"}
+{"rowId":"2990","text":"Sofrer Dano Aumenta Habilidade"}
+{"rowId":"2991","text":"Dano Recebido Aumentado"}
+{"rowId":"2992","text":"Sofrer Dano Aumenta Habilidade"}
+{"rowId":"2993","text":"Dano Recebido Aumentado"}
+{"rowId":"2994","text":"Sofrer Dano Aumenta Habilidade"}
+{"rowId":"2995","text":"Dano Recebido Aumentado"}
+{"rowId":"2996","text":"Sofrer Dano Aumenta Habilidade"}
+{"rowId":"2997","text":"Dano Recebido Aumentado"}
+{"rowId":"2998","text":"Dano +2%"}
+{"rowId":"2999","text":"Dano +3%"}
+{"rowId":"3000","text":"Dano +4%"}
+{"rowId":"3001","text":"Dano +5%"}
+{"rowId":"3002","text":"Dano +6%"}
+{"rowId":"3003","text":"HP Máximo +2%"}
+{"rowId":"3004","text":"HP Máximo +3%"}
+{"rowId":"3005","text":"HP Máximo +4%"}
+{"rowId":"3006","text":"HP Máximo +5%"}
+{"rowId":"3007","text":"HP Máximo +6%"}
+{"rowId":"3008","text":"Recupera 2% HP"}
+{"rowId":"3009","text":"Recupera 3% HP"}
+{"rowId":"3010","text":"Recupera 4% HP"}
+{"rowId":"3011","text":"Recupera 5% HP"}
+{"rowId":"3012","text":"Recupera 6% HP"}
+{"rowId":"3013","text":"Receber Habilidade"}
+{"rowId":"3014","text":"Recupera HP igual a 4% do dano"}
+{"rowId":"3015","text":"Receber Habilidade"}
+{"rowId":"3016","text":"Recupera HP igual a 6% do dano"}
+{"rowId":"3017","text":"Receber Habilidade"}
+{"rowId":"3018","text":"Recupera HP igual a 8% do dano"}
+{"rowId":"3019","text":"Receber Habilidade"}
+{"rowId":"3020","text":"Recupera HP igual a 10% do dano"}
+{"rowId":"3021","text":"Receber Habilidade"}
+{"rowId":"3022","text":"Recupera HP igual a 12% do dano"}
+{"rowId":"3023","text":"Recupera 10% HP"}
+{"rowId":"3024","text":"Recupera 12% HP"}
+{"rowId":"3025","text":"Recupera 15% HP"}
+{"rowId":"3026","text":"Recupera 18% HP"}
+{"rowId":"3027","text":"Recupera 20% de HP"}
+{"rowId":"3028","text":"Dano +5% (BUFF de equipe)"}
+{"rowId":"3029","text":"Dano +8% (BUFF de equipe)"}
+{"rowId":"3030","text":"Dano +10% (BUFF de equipe)"}
+{"rowId":"3031","text":"Dano +12% (BUFF de equipe)"}
+{"rowId":"3032","text":"Dano +14% (BUFF de equipe)"}
+{"rowId":"3033","text":"Dano +16% (BUFF de equipe)"}
+{"rowId":"3034","text":"Dano +18% (BUFF de equipe)"}
+{"rowId":"3035","text":"HP +5% (BUFF de equipe)"}
+{"rowId":"3036","text":"HP +6% (BUFF de equipe)"}
+{"rowId":"3037","text":"Efeito de revide"}
+{"rowId":"3038","text":"Com HP abaixo de 10%, causa dano extra igual a 50% do HP Máximo"}
+{"rowId":"3039","text":"Receber Habilidade"}
+{"rowId":"3040","text":"Sofrer dano 20 vezes invoca"}
+{"rowId":"3041","text":"Recupera 10% HP"}
+{"rowId":"3042","text":"Receber Habilidade"}
+{"rowId":"3043","text":"Sofrer dano 20 vezes invoca"}
+{"rowId":"3044","text":"Recupera 12% HP"}
+{"rowId":"3045","text":"Receber Habilidade"}
+{"rowId":"3046","text":"Sofrer dano 20 vezes invoca"}
+{"rowId":"3047","text":"Recupera 15% HP"}
+{"rowId":"3048","text":"Receber Habilidade"}
+{"rowId":"3049","text":"Sofrer dano 20 vezes invoca"}
+{"rowId":"3050","text":"Recupera 18% HP"}
+{"rowId":"3051","text":"Receber Habilidade"}
+{"rowId":"3052","text":"Sofrer dano 20 vezes invoca"}
+{"rowId":"3053","text":"Recupera 20% de HP"}
+{"rowId":"3054","text":"Recuperar Magia"}
+{"rowId":"3055","text":"Ataque Antecipado"}
+{"rowId":"3056","text":"Ferido"}
+{"rowId":"3057","text":"Força Bruta"}
+{"rowId":"3058","text":"Linhagem"}
+{"rowId":"3059","text":"Anseio"}
+{"rowId":"3060","text":"Proteção Divina"}
+{"rowId":"3061","text":"Proteção Divina"}
+{"rowId":"3062","text":"Espinheiro"}
+{"rowId":"3063","text":"Fúria Selvagem"}
+{"rowId":"3064","text":"Ninjutsu"}
+{"rowId":"3065","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3066","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3067","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3068","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3069","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3070","text":"Resistir a Queimadura"}
+{"rowId":"3071","text":"Resistir a Queimadura"}
+{"rowId":"3072","text":"Resistir a Queimadura"}
+{"rowId":"3073","text":"Resistir a Queimadura"}
+{"rowId":"3074","text":"Resistir a Queimadura"}
+{"rowId":"3075","text":"Resistir a Congelamento"}
+{"rowId":"3076","text":"Resistir a Congelamento"}
+{"rowId":"3077","text":"Resistir a Congelamento"}
+{"rowId":"3078","text":"Resistir a Congelamento"}
+{"rowId":"3079","text":"Resistir a Congelamento"}
+{"rowId":"3080","text":"Receber Habilidade"}
+{"rowId":"3081","text":"Receber Habilidade"}
+{"rowId":"3082","text":"Receber Habilidade"}
+{"rowId":"3084","text":"Triplo"}
+{"rowId":"3085","text":"Receber Habilidade"}
+{"rowId":"3086","text":"Usar habilidades 2 vezes invoca"}
+{"rowId":"3087","text":"Dano"}
+{"rowId":"3088","text":"Dano +50%, Redução de Dano +50%"}
+{"rowId":"3089","text":"Velocidade Divina, 120 de Vigor"}
+{"rowId":"3090","text":"100% crítico"}
+{"rowId":"3091","text":"Dano +220%"}
+{"rowId":"3092","text":"Chance de Crítico +100%"}
+{"rowId":"3093","text":"Perfurar Defesa Nv1"}
+{"rowId":"3094","text":"Perfurar Armadura Nv1"}
+{"rowId":"3095","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"3096","text":"Cancelar Perfurar Armadura Nv1"}
+{"rowId":"3097","text":"2 de MP = 1% de HP"}
+{"rowId":"3098","text":"Ativa ao sofrer golpe fatal"}
+{"rowId":"3099","text":"Dura 2 turnos"}
+{"rowId":"3100","text":"Com HP abaixo de 12%, causa dano extra igual a 50% do HP Máximo"}
+{"rowId":"3101","text":"Com HP abaixo de 15%, causa dano extra igual a 50% do HP Máximo"}
+{"rowId":"3102","text":"Com HP abaixo de 18%, causa dano extra igual a 50% do HP Máximo"}
+{"rowId":"3103","text":"Com HP abaixo de 20%, causa dano extra igual a 50% do HP Máximo"}
+{"rowId":"3104","text":"Dano e Armadura +10%, Atq. Mágico e Res. Mágica +15%"}
+{"rowId":"3105","text":"Armadura +10%"}
+{"rowId":"3106","text":"Atq. Mágico +15%"}
+{"rowId":"3107","text":"Res. Mágica +15%"}
+{"rowId":"3108","text":"Redemoinho de Fogo"}
+{"rowId":"3109","text":"Redemoinho de Fogo"}
+{"rowId":"3110","text":"-10% de HP por turno"}
+{"rowId":"3111","text":"Mascote -25 de MP"}
+{"rowId":"3112","text":"Dano causado pelo Ataque do Mascote X%"}
+{"rowId":"3113","text":"Dano causado pelo Ataque do Mascote X%"}
+{"rowId":"3114","text":"Dano causado pelo Ataque do Mascote X%"}
+{"rowId":"3115","text":"100% crítico"}
+{"rowId":"3116","text":"Não pode se mover"}
+{"rowId":"3117","text":"Dano +120%"}
+{"rowId":"3118","text":"Dano +150%"}
+{"rowId":"3119","text":"Dano +180%"}
+{"rowId":"3121","text":"Não pode se mover"}
+{"rowId":"3122","text":"Recupera HP."}
+{"rowId":"3126","text":"Cavar cratera"}
+{"rowId":"3127","text":"Recupera MP extra"}
+{"rowId":"3128","text":"Agilidade +300"}
+{"rowId":"3129","text":"Invisibilidade"}
+{"rowId":"3132","text":"Reduz a chance de sofrer crítico"}
+{"rowId":"3133","text":"Reduz a chance de sofrer crítico"}
+{"rowId":"3134","text":"Reduz a chance de sofrer crítico"}
+{"rowId":"3135","text":"Reduz dano e dá chance de imunidade a crítico"}
+{"rowId":"3136","text":"Imune a Crítico"}
+{"rowId":"3137","text":"Imune a Crítico"}
+{"rowId":"3138","text":"Imune a Crítico"}
+{"rowId":"3139","text":"Resistir a Queimadura"}
+{"rowId":"3140","text":"Resistir a Queimadura"}
+{"rowId":"3141","text":"Resistir a Queimadura"}
+{"rowId":"3142","text":"HP Máximo +5%"}
+{"rowId":"3143","text":"HP Máximo +8%"}
+{"rowId":"3144","text":"HP Máximo +12%"}
+{"rowId":"3145","text":"Recuperar HP"}
+{"rowId":"3146","text":"Recuperar HP"}
+{"rowId":"3147","text":"Recuperar HP"}
+{"rowId":"3148","text":"Reduz a chance de sofrer crítico"}
+{"rowId":"3149","text":"Dano +30%"}
+{"rowId":"3150","text":"Recupera MP extra"}
+{"rowId":"3157","text":"Esquiva +"}
+{"rowId":"3159","text":"Não pode se mover"}
+{"rowId":"3160","text":"Invisibilidade"}
+{"rowId":"3161","text":"Invisibilidade"}
+{"rowId":"3162","text":"Invisibilidade"}
+{"rowId":"3163","text":"Reduzir Dano Recebido"}
+{"rowId":"3164","text":"Reduzir Dano Recebido"}
+{"rowId":"3165","text":"Reduzir Dano Recebido"}
+{"rowId":"3166","text":"Dano causado pelo Ataque do Mascote X%"}
+{"rowId":"3167","text":"Dano causado pelo Ataque do Mascote X%"}
+{"rowId":"3168","text":"Dano causado pelo Ataque do Mascote X%"}
+{"rowId":"3169","text":"100% crítico"}
+{"rowId":"3170","text":"Dano +120%"}
+{"rowId":"3171","text":"Reduz Fúria"}
+{"rowId":"3172","text":"Dano +120%"}
+{"rowId":"3173","text":"Dano +120%"}
+{"rowId":"3174","text":"Aumenta Redução de Dano"}
+{"rowId":"3175","text":"HP Máximo +25%"}
+{"rowId":"3176","text":"Recupera 25% HP"}
+{"rowId":"3177","text":"20% de imunidade a crítico"}
+{"rowId":"3179","text":"Escudo"}
+{"rowId":"3180","text":"Dano crítico recebido -15%"}
+{"rowId":"3181","text":"Dano crítico recebido -30%"}
+{"rowId":"3182","text":"Imune ao Primeiro Disparo"}
+{"rowId":"3183","text":"Aumenta a Redução de Dano"}
+{"rowId":"3184","text":"30% de imunidade a crítico"}
+{"rowId":"3185","text":"Aumenta o Dano."}
+{"rowId":"3186","text":"Recupera 12% HP"}
+{"rowId":"3187","text":"Dano crítico recebido -40%"}
+{"rowId":"3198","text":"Reduz o dano crítico recebido e o dano recebido"}
+{"rowId":"3199","text":"Reduzir Dano Recebido"}
+{"rowId":"3201","text":"MP 2"}
+{"rowId":"3202","text":"Aumentar Dano"}
+{"rowId":"3208","text":"Dano causado pelo Ataque do Mascote X%"}
+{"rowId":"3209","text":"Dano causado pelo Ataque do Mascote X%"}
+{"rowId":"3210","text":"Dano causado pelo Ataque do Mascote X%"}
+{"rowId":"3211","text":"100% crítico"}
+{"rowId":"3212","text":"Dano +150%"}
+{"rowId":"3213","text":"Congelar"}
+{"rowId":"3214","text":"Dano +180%"}
+{"rowId":"3215","text":"Dano +220%"}
+{"rowId":"3216","text":"Dano de Aurora"}
+{"rowId":"3217","text":"Dano em Tela Inteira"}
+{"rowId":"3218","text":"Cada 1 de Fúria gasto dá +10% de dano"}
+{"rowId":"3219","text":"Escudo"}
+{"rowId":"3220","text":"Escudo + Redução de Dano"}
+{"rowId":"3221","text":"Fúria +"}
+{"rowId":"3222","text":"Congelar"}
+{"rowId":"3223","text":"Redução de Dano + Imunidade a Crítico"}
+{"rowId":"3224","text":"Dano crítico recebido -50%"}
+{"rowId":"3225","text":"Congelar"}
+{"rowId":"3226","text":"Dano de Aurora"}
+{"rowId":"3227","text":"Dano em Tela Inteira"}
+{"rowId":"3228","text":"Abate na hora com 12%"}
+{"rowId":"3229","text":"Cada 1 de Fúria gasto dá +15% de dano"}
+{"rowId":"3230","text":"Escudo"}
+{"rowId":"3231","text":"Escudo + Redução de Dano"}
+{"rowId":"3232","text":"Fúria +"}
+{"rowId":"3233","text":"Fúria +1"}
+{"rowId":"3235","text":"Receber Habilidade"}
+{"rowId":"3236","text":"Receber Habilidade"}
+{"rowId":"3237","text":"Receber Habilidade"}
+{"rowId":"3238","text":"Receber Habilidade"}
+{"rowId":"3239","text":"Receber Habilidade"}
+{"rowId":"3240","text":"Receber Habilidade"}
+{"rowId":"3241","text":"Receber Habilidade"}
+{"rowId":"3242","text":"Receber Habilidade"}
+{"rowId":"3243","text":"Receber Habilidade"}
+{"rowId":"3244","text":"Receber Habilidade"}
+{"rowId":"3245","text":"Receber Habilidade"}
+{"rowId":"3246","text":"Receber Habilidade"}
+{"rowId":"3247","text":"Receber Habilidade"}
+{"rowId":"3248","text":"Receber Habilidade"}
+{"rowId":"3249","text":"Receber Habilidade"}
+{"rowId":"3250","text":"Receber Habilidade"}
+{"rowId":"3251","text":"Receber Habilidade"}
+{"rowId":"3252","text":"Receber Habilidade"}
+{"rowId":"3253","text":"Reduz dano por altura"}
+{"rowId":"3254","text":"Reduz dano por altura"}
+{"rowId":"3255","text":"Reduz dano por altura"}
+{"rowId":"3256","text":"Reduz dano por altura"}
+{"rowId":"3257","text":"Reduz dano por altura"}
+{"rowId":"3258","text":"Reduz dano por altura"}
+{"rowId":"3259","text":"Recuperar HP"}
+{"rowId":"3260","text":"Recuperar HP"}
+{"rowId":"3261","text":"Recuperar HP"}
+{"rowId":"3262","text":"Recuperar HP"}
+{"rowId":"3263","text":"Recuperar HP"}
+{"rowId":"3264","text":"Recuperar HP"}
+{"rowId":"3265","text":"Escudo"}
+{"rowId":"3266","text":"Escudo"}
+{"rowId":"3267","text":"Escudo"}
+{"rowId":"3268","text":"Escudo"}
+{"rowId":"3269","text":"Escudo"}
+{"rowId":"3270","text":"Escudo"}
+{"rowId":"3271","text":"Aumenta a taxa de redução de dano"}
+{"rowId":"3272","text":"Aumenta a taxa de redução de dano"}
+{"rowId":"3273","text":"Aumenta a taxa de redução de dano"}
+{"rowId":"3274","text":"Aumenta a taxa de redução de dano"}
+{"rowId":"3275","text":"Aumenta a taxa de redução de dano"}
+{"rowId":"3276","text":"Aumenta a taxa de redução de dano"}
+{"rowId":"3277","text":"Sofrer dano 5 vezes invoca"}
+{"rowId":"3278","text":"Sofrer dano 5 vezes invoca"}
+{"rowId":"3279","text":"Sofrer dano 5 vezes invoca"}
+{"rowId":"3280","text":"Sofrer dano 5 vezes invoca"}
+{"rowId":"3281","text":"Sofrer dano 5 vezes invoca"}
+{"rowId":"3282","text":"Sofrer dano 5 vezes invoca"}
+{"rowId":"3283","text":"Res. à Água"}
+{"rowId":"3284","text":"Res. à Água"}
+{"rowId":"3285","text":"Res. à Água"}
+{"rowId":"3286","text":"Res. à Água"}
+{"rowId":"3287","text":"Res. à Água"}
+{"rowId":"3288","text":"Res. à Água"}
+{"rowId":"3289","text":"Res. ao Fogo"}
+{"rowId":"3290","text":"Res. ao Fogo"}
+{"rowId":"3291","text":"Res. ao Fogo"}
+{"rowId":"3292","text":"Res. ao Fogo"}
+{"rowId":"3293","text":"Res. ao Fogo"}
+{"rowId":"3294","text":"Res. ao Fogo"}
+{"rowId":"3295","text":"Res. ao Vento"}
+{"rowId":"3296","text":"Res. ao Vento"}
+{"rowId":"3297","text":"Res. ao Vento"}
+{"rowId":"3298","text":"Res. ao Vento"}
+{"rowId":"3299","text":"Res. ao Vento"}
+{"rowId":"3300","text":"Res. ao Vento"}
+{"rowId":"3301","text":"Res. à Terra"}
+{"rowId":"3302","text":"Res. à Terra"}
+{"rowId":"3303","text":"Res. à Terra"}
+{"rowId":"3304","text":"Res. à Terra"}
+{"rowId":"3305","text":"Res. à Terra"}
+{"rowId":"3306","text":"Res. à Terra"}
+{"rowId":"3307","text":"Aumenta o HP"}
+{"rowId":"3308","text":"Recuperação"}
+{"rowId":"3309","text":"Aumenta o HP"}
+{"rowId":"3310","text":"Recuperação"}
+{"rowId":"3311","text":"Aumenta o HP"}
+{"rowId":"3312","text":"Recuperação"}
+{"rowId":"3313","text":"Aumenta o HP"}
+{"rowId":"3314","text":"Recuperação"}
+{"rowId":"3315","text":"Aumenta o HP"}
+{"rowId":"3316","text":"Recuperação"}
+{"rowId":"3317","text":"Aumenta o HP"}
+{"rowId":"3318","text":"Recuperação"}
+{"rowId":"3319","text":"Aumenta o HP"}
+{"rowId":"3320","text":"Recuperação"}
+{"rowId":"3321","text":"Aumenta o HP"}
+{"rowId":"3322","text":"Recuperação"}
+{"rowId":"3323","text":"Aumenta o HP"}
+{"rowId":"3324","text":"Recuperação"}
+{"rowId":"3325","text":"Aumenta o HP"}
+{"rowId":"3326","text":"Recuperação"}
+{"rowId":"3327","text":"Aumenta o HP"}
+{"rowId":"3328","text":"Recuperação"}
+{"rowId":"3329","text":"Aumenta o HP"}
+{"rowId":"3330","text":"Recuperação"}
+{"rowId":"3331","text":"Aumenta o HP"}
+{"rowId":"3332","text":"Recuperação"}
+{"rowId":"3333","text":"Aumenta o HP"}
+{"rowId":"3334","text":"Recuperação"}
+{"rowId":"3335","text":"Aumenta o HP"}
+{"rowId":"3336","text":"Recuperação"}
+{"rowId":"3337","text":"Aumenta o HP"}
+{"rowId":"3338","text":"Recuperação"}
+{"rowId":"3339","text":"Aumenta o HP"}
+{"rowId":"3340","text":"Recuperação"}
+{"rowId":"3341","text":"Aumenta o HP"}
+{"rowId":"3342","text":"Recuperação"}
+{"rowId":"3343","text":"Aumenta o HP"}
+{"rowId":"3344","text":"Recuperação"}
+{"rowId":"3345","text":"Aumenta o HP"}
+{"rowId":"3346","text":"Recuperação"}
+{"rowId":"3347","text":"Aumenta o HP"}
+{"rowId":"3348","text":"Recuperação"}
+{"rowId":"3349","text":"Aumenta o HP"}
+{"rowId":"3350","text":"Recuperação"}
+{"rowId":"3351","text":"Aumenta o HP"}
+{"rowId":"3352","text":"Recuperação"}
+{"rowId":"3353","text":"Aumenta o HP"}
+{"rowId":"3354","text":"Recuperação"}
+{"rowId":"3355","text":"Atq. de Água"}
+{"rowId":"3356","text":"Atq. de Água"}
+{"rowId":"3357","text":"Atq. de Água"}
+{"rowId":"3358","text":"Atq. de Água"}
+{"rowId":"3359","text":"Atq. de Água"}
+{"rowId":"3360","text":"Atq. de Água"}
+{"rowId":"3361","text":"Atq. de Fogo"}
+{"rowId":"3362","text":"Atq. de Fogo"}
+{"rowId":"3363","text":"Atq. de Fogo"}
+{"rowId":"3364","text":"Atq. de Fogo"}
+{"rowId":"3365","text":"Atq. de Fogo"}
+{"rowId":"3366","text":"Atq. de Fogo"}
+{"rowId":"3367","text":"Atq. de Vento"}
+{"rowId":"3368","text":"Atq. de Vento"}
+{"rowId":"3369","text":"Atq. de Vento"}
+{"rowId":"3370","text":"Atq. de Vento"}
+{"rowId":"3371","text":"Atq. de Vento"}
+{"rowId":"3372","text":"Atq. de Vento"}
+{"rowId":"3373","text":"Atq. de Terra"}
+{"rowId":"3374","text":"Atq. de Terra"}
+{"rowId":"3375","text":"Atq. de Terra"}
+{"rowId":"3376","text":"Atq. de Terra"}
+{"rowId":"3377","text":"Atq. de Terra"}
+{"rowId":"3378","text":"Atq. de Terra"}
+{"rowId":"3454","text":"Imune a Crítico"}
+{"rowId":"3455","text":"Imune a Crítico"}
+{"rowId":"3456","text":"Imune a Crítico"}
+{"rowId":"3457","text":"Reduzir Dano Crítico"}
+{"rowId":"3458","text":"Reduzir Dano Crítico"}
+{"rowId":"3459","text":"Reduzir Dano Crítico"}
+{"rowId":"3460","text":"Reduzir Atq. Mágico"}
+{"rowId":"3461","text":"Reduzir Atq. Mágico"}
+{"rowId":"3462","text":"Reduzir Atq. Mágico"}
+{"rowId":"3463","text":"Reduzir Atq. Mágico"}
+{"rowId":"3464","text":"Reduzir Atq. Mágico"}
+{"rowId":"3486","text":"Abate na hora com 10%"}
+{"rowId":"3488","text":"Congelar"}
+{"rowId":"3490","text":"Redução de Dano + Imunidade a Crítico"}
+{"rowId":"3491","text":"Dano crítico recebido -50%"}
+{"rowId":"3493","text":"Redução de Dano + Res. a Perfurar Armadura"}
+{"rowId":"3494","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3495","text":"Reduzir Atq. Mágico"}
+{"rowId":"3496","text":"Congelar"}
+{"rowId":"3497","text":"Reduzir Dano Recebido"}
+{"rowId":"3522","text":"Dano causado pelo Ataque do Mascote X%"}
+{"rowId":"3523","text":"Dano causado pelo Ataque do Mascote X%"}
+{"rowId":"3524","text":"Reduz o dano em 30%"}
+{"rowId":"3525","text":"Dano de Aurora"}
+{"rowId":"3526","text":"Dano em Tela Inteira"}
+{"rowId":"3527","text":"Abate na hora com 15%"}
+{"rowId":"3528","text":"Cada 1 de Fúria gasto dá +20% de dano"}
+{"rowId":"3529","text":"Congelar"}
+{"rowId":"3530","text":"Congelar"}
+{"rowId":"3532","text":"Recuperar HP"}
+{"rowId":"3533","text":"Resistir a Queimadura"}
+{"rowId":"3534","text":"Resistir a Queimadura"}
+{"rowId":"3535","text":"Aumento de Dano"}
+{"rowId":"3536","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3537","text":"Resistir a Queimadura"}
+{"rowId":"3538","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3539","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3540","text":"Resistir a Queimadura"}
+{"rowId":"3541","text":"Resistir a Queimadura"}
+{"rowId":"3543","text":"Habilidade +1"}
+{"rowId":"3622","text":"Recupera HP ao ser atacado. Com HP muito baixo, o efeito dobra."}
+{"rowId":"3623","text":"Recupera HP ao ser atacado. Com HP muito baixo, o efeito dobra."}
+{"rowId":"3625","text":"Cura +30%"}
+{"rowId":"3629","text":"HP Máximo +10%"}
+{"rowId":"3630","text":"Resistência a Queimadura +"}
+{"rowId":"3631","text":"Resistência a Perfurar Armadura +"}
+{"rowId":"3662","text":"Dano causado pelo Ataque do Mascote X%"}
+{"rowId":"3664","text":"Aumenta Ataque e Dano."}
+{"rowId":"3665","text":"Aumenta o Dano."}
+{"rowId":"3666","text":"100% crítico"}
+{"rowId":"3668","text":"Congelar"}
+{"rowId":"3669","text":"Redução de Dano/Imunidade a Crítico +40%."}
+{"rowId":"3670","text":"40% de Imunidade a Crítico"}
+{"rowId":"3671","text":"-8% de HP por turno, +800 de dano, Redução de Dano +30%"}
+{"rowId":"3672","text":"Dano +800"}
+{"rowId":"3673","text":"Redução de Dano +30%"}
+{"rowId":"3676","text":"Agilidade +10% +600"}
+{"rowId":"3677","text":"Receber Habilidade"}
+{"rowId":"3678","text":"Receber Habilidade"}
+{"rowId":"3680","text":"Ataque +10% +600"}
+{"rowId":"3681","text":"Dano crítico +20%"}
+{"rowId":"3682","text":"Aumenta o Ataque."}
+{"rowId":"3683","text":"Aumenta o Dano."}
+{"rowId":"3684","text":"Aumenta a chance de crítico."}
+{"rowId":"3686","text":"Na sua vez, +2 Pontos de Magia para todos os mascotes aliados"}
+{"rowId":"3687","text":"Recupera HP."}
+{"rowId":"3688","text":"Na sua vez, +2 Pontos de Magia para todos os mascotes aliados"}
+{"rowId":"3689","text":"Recupera HP."}
+{"rowId":"3690","text":"Resistir a Queimadura"}
+{"rowId":"3691","text":"Resistir a Queimadura"}
+{"rowId":"3692","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3693","text":"Redução de Dano +15%"}
+{"rowId":"3694","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3695","text":"Resistir a Queimadura"}
+{"rowId":"3696","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3697","text":"HP Máximo"}
+{"rowId":"3698","text":"Recuperar HP"}
+{"rowId":"3700","text":"Imune a dano 1 vez"}
+{"rowId":"3701","text":"Redução de Dano +10%"}
+{"rowId":"3703","text":"Aumenta o efeito de redução de dano."}
+{"rowId":"3708","text":"Resistir a Queimadura"}
+{"rowId":"3709","text":"Aumenta o efeito de redução de dano."}
+{"rowId":"3710","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3711","text":"Dano causado pelo Ataque do Mascote X%"}
+{"rowId":"3713","text":"Reduz o dano crítico recebido e o dano recebido"}
+{"rowId":"3714","text":"Reduzir Dano Recebido"}
+{"rowId":"3715","text":"Fúria"}
+{"rowId":"3717","text":"Dura 2 turnos"}
+{"rowId":"3718","text":"% de HP ativa Borboleta Oculta"}
+{"rowId":"3720","text":"MP 5"}
+{"rowId":"3721","text":"Aumentar Dano"}
+{"rowId":"3722","text":"HP Máximo +10%"}
+{"rowId":"3723","text":"Resistência a Perfurar Armadura +"}
+{"rowId":"3724","text":"HP Máximo"}
+{"rowId":"3725","text":"Recuperar HP"}
+{"rowId":"3726","text":"Resistência a Queimadura +"}
+{"rowId":"3727","text":"Resistência a Perfurar Armadura +"}
+{"rowId":"3729","text":"Resistência a Perfurar Armadura +"}
+{"rowId":"3730","text":"Aumenta Ataque, Defesa, Agilidade e Sorte"}
+{"rowId":"3735","text":"Reduzir Dano Recebido"}
+{"rowId":"3736","text":"Reduzir Dano Recebido"}
+{"rowId":"3737","text":"Reduzir Dano Recebido"}
+{"rowId":"3738","text":"Congelar"}
+{"rowId":"3739","text":"Congelar"}
+{"rowId":"3740","text":"Congelar"}
+{"rowId":"3741","text":"Receber Habilidade"}
+{"rowId":"3742","text":"Receber Habilidade"}
+{"rowId":"3743","text":"Receber Habilidade"}
+{"rowId":"3744","text":"Recuperar HP"}
+{"rowId":"3745","text":"Recuperar HP"}
+{"rowId":"3746","text":"Recuperar HP"}
+{"rowId":"3747","text":"Dano causado pelo Ataque do Mascote X%"}
+{"rowId":"3748","text":"Dano -25%"}
+{"rowId":"3749","text":"Receber Habilidade de Aumento de Dano Recebido"}
+{"rowId":"3750","text":"Aumentar Dano Recebido"}
+{"rowId":"3751","text":"Ataque e Defesa -50%"}
+{"rowId":"3754","text":"Dano crítico recebido -50%"}
+{"rowId":"3755","text":"Reduz Armadura e Res. Mágica."}
+{"rowId":"3756","text":"Não pode se mover"}
+{"rowId":"3757","text":"Reduz Res. Mágica"}
+{"rowId":"3758","text":"Proibido Voar"}
+{"rowId":"3759","text":"Recebe Envenenamento"}
+{"rowId":"3760","text":"Dano recebido +10%"}
+{"rowId":"3761","text":"Armadura +500, HP +15%, Redução de Dano +15%"}
+{"rowId":"3762","text":"Aumenta o HP"}
+{"rowId":"3764","text":"Reduzir Dano Recebido"}
+{"rowId":"3765","text":"Resistência a Queimadura +"}
+{"rowId":"3766","text":"Resistência a Queimadura +"}
+{"rowId":"3767","text":"Resistência a Perfurar Armadura +"}
+{"rowId":"3768","text":"Resistência a Queimadura +"}
+{"rowId":"3769","text":"Resistência a Perfurar Armadura +"}
+{"rowId":"3770","text":"Reduzir Dano Recebido"}
+{"rowId":"3771","text":"Resistência a Perfurar Armadura +"}
+{"rowId":"3780","text":"Reduzir Dano Recebido"}
+{"rowId":"3781","text":"-10% de HP por turno por 3 turnos"}
+{"rowId":"3782","text":"Reduz o dano de bala de canhão"}
+{"rowId":"3783","text":"Aumenta o dano causado e reduz o dano recebido"}
+{"rowId":"3784","text":"Redução de Dano +"}
+{"rowId":"3785","text":"Reduzir Dano Recebido"}
+{"rowId":"3786","text":"Reduz Velocidade"}
+{"rowId":"3787","text":"Recuperar HP"}
+{"rowId":"3789","text":"Receber Habilidade"}
+{"rowId":"3790","text":"Receber Habilidade"}
+{"rowId":"3791","text":"Sofrer dano 10 vezes invoca"}
+{"rowId":"3792","text":"Usar habilidades 2 vezes invoca"}
+{"rowId":"3793","text":"Recebe 40 de MP"}
+{"rowId":"3794","text":"Resistência a Queimadura +"}
+{"rowId":"3795","text":"Resistência a Queimadura +"}
+{"rowId":"3796","text":"Resistência a Perfurar Armadura +"}
+{"rowId":"3797","text":"Resistência a Perfurar Armadura +"}
+{"rowId":"3798","text":"Resistência a Queimadura +"}
+{"rowId":"3799","text":"HP +15%"}
+{"rowId":"3800","text":"Recupera 15% HP"}
+{"rowId":"3801","text":"Resistência a Perfurar Armadura +"}
+{"rowId":"3912","text":"Receber Habilidade"}
+{"rowId":"3913","text":"Usar habilidades 2 vezes invoca"}
+{"rowId":"3914","text":"Dano"}
+{"rowId":"3915","text":"Dano +50%, Redução de Dano +50%"}
+{"rowId":"3916","text":"Recupera HP."}
+{"rowId":"3917","text":"Velocidade Divina, 120 de Vigor"}
+{"rowId":"3918","text":"Perde certa quantidade de HP por turno"}
+{"rowId":"3919","text":"Reduzir Dano Recebido"}
+{"rowId":"3920","text":"Ativa ao sofrer golpe fatal"}
+{"rowId":"3921","text":"Dano e Armadura +15%, Atq. Mágico e Res. Mágica +15%"}
+{"rowId":"3922","text":"Armadura +15%"}
+{"rowId":"3923","text":"Redemoinho de Fogo"}
+{"rowId":"3924","text":"Redemoinho de Fogo"}
+{"rowId":"3925","text":"-12% de HP por turno"}
+{"rowId":"3926","text":"Mascote -25 de MP"}
+{"rowId":"3927","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3928","text":"Resistir a Queimadura"}
+{"rowId":"3929","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3930","text":"HP +12%"}
+{"rowId":"3931","text":"Recupera 12% HP"}
+{"rowId":"3932","text":"Resistir a Queimadura"}
+{"rowId":"3933","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3934","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3969","text":"Cura -50%"}
+{"rowId":"3970","text":"HP +25%"}
+{"rowId":"3971","text":"Reduz 30% do Vigor Máximo"}
+{"rowId":"3976","text":"Dano causado pelo Ataque do Mascote X%"}
+{"rowId":"3978","text":"Receber Habilidade de Aumento de Dano Recebido"}
+{"rowId":"3979","text":"Aumentar Dano Recebido"}
+{"rowId":"3980","text":"Imune a Crítico"}
+{"rowId":"3981","text":"Usar item de combate aumenta os Pontos de Magia"}
+{"rowId":"3982","text":"Usar item de combate aumenta a Fúria"}
+{"rowId":"3983","text":"Resistir a Queimadura"}
+{"rowId":"3984","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3985","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3986","text":"Resistir a Queimadura"}
+{"rowId":"3987","text":"HP +15%"}
+{"rowId":"3988","text":"Recupera 15% HP"}
+{"rowId":"3989","text":"Resistir a Queimadura"}
+{"rowId":"3990","text":"Resistir a Queimadura"}
+{"rowId":"4003","text":"Causa no máximo dano igual a 35% do seu HP Máximo"}
+{"rowId":"4004","text":"50% de Imunidade a Crítico"}
+{"rowId":"4005","text":"Aumenta o Dano."}
+{"rowId":"4006","text":"Recupera 18% HP"}
+{"rowId":"4007","text":"Dano crítico recebido -15%"}
+{"rowId":"4008","text":"HP +10%"}
+{"rowId":"4009","text":"Recupera 10% HP"}
+{"rowId":"4010","text":"Resistir a Queimadura"}
+{"rowId":"4011","text":"Resistir a Queimadura"}
+{"rowId":"4012","text":"Resistir a Perfurar Armadura"}
+{"rowId":"4436","text":"Refletir Dano"}
+{"rowId":"4699","text":"Chance de Crítico +75%, dano crítico +50%."}
+{"rowId":"11716","text":"Perde 10% de HP por turno"}
+{"rowId":"11717","text":"Congelar"}
+{"rowId":"11718","text":"Perda de Vigor Máximo"}
+{"rowId":"103028","text":"Purificação"}
+{"rowId":"103029","text":"Purificação"}
+{"rowId":"103030","text":"Purificação"}
+{"rowId":"103031","text":"Purificação"}
+{"rowId":"103032","text":"Purificação"}
+{"rowId":"103033","text":"Reflete dano."}
+{"rowId":"103034","text":"Manter espinhos"}
+{"rowId":"103035","text":"Reflete 1% de todo o dano"}

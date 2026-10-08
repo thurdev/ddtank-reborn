@@ -1,0 +1,5 @@
+2. Hạ gà đối thủ nhận được tích lũy, hạng 
+--- RECORDSEPARATOR ---
+    tích lũy quyết định cho hạng tranh bá 
+--- RECORDSEPARATOR ---
+    guild.

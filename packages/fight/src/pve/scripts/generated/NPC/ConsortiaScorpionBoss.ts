@@ -64,14 +64,14 @@ export class ConsortiaScorpionBoss extends ABrain {
             this.Body.RangeAttacking(this.Body.X - 10000, this.Body.X + 10000, "cry", 3300, null);
         }
   Attack2() {
-            this.Body.Say("Hãy đỡ phi tiêu của ta!", 0 , 500);
+            this.Body.Say("Defenda meus dardos!", 0 , 500);
             this.Body.PlayMovie("beatB", 1000, 0);
             this.target = this.Game.FindRandomPlayer();
             this.Body.CurrentDamagePlus = 5;
             this.Body.RangeAttacking(this.Body.X - 10000, this.Body.X + 10000, "cry", 3500, null);
         }
   Attack3() {
-            this.Body.Say("Chọt chọt chọt!!!", 0, 500);
+            this.Body.Say("Cutuca cutuca cutuca!!!", 0, 500);
             this.Body.PlayMovie("beatC", 1000, 0);
             this.target = this.Game.FindRandomPlayer();
             this.Body.CurrentDamagePlus = 15;

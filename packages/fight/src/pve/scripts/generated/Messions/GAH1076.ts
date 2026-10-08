@@ -6,13 +6,13 @@ import { registerScript, AMissionControl, LanguageMgr, LoadingFileInfo, __arr, _
 export class GAH1076 extends AMissionControl {
   static KillChat = __arr([
 		
-            "Tôi cuối cùng cũng thoát <br/> khỏi khống chế của <br/> Matthias, thật nhức đầu! "
+            "Finalmente me livrei <br/> do controle de <br/> Matthias, que dor de cabeça!"
         ]);
   static ShootedChat = __arr([
 		
-			"Ai ya, các bạn <br/> sao lại đánh tôi? <br/> Tôi làm gì ?... ",                  
+			"Ai, por que <br/> vocês estão me batendo? <br/> O que eu fiz?...",                  
  
-            "Ui~đau quá, sao phải đánh nhau, mình phải chiến đấu ?"
+            "Ui~ que dor! Por que brigar? Por que tenho que lutar?"
         ]);
   m_kingMoive = null;
   m_kingFront = null;
@@ -72,7 +72,7 @@ export class GAH1076 extends AMissionControl {
             this.m_king.SetRelateDemagemRect(-21, -87, 72, 59);
             this.m_king.AddDelay(10);
 
-            this.m_king.Say(LanguageMgr.GetTranslation("Tất cả các bạn dân thường thấp hèn, dám tự tin trong cung điện của tôi!"), 0, 3000);
+            this.m_king.Say(LanguageMgr.GetTranslation("Plebeus insignificantes, como ousam se exibir no meu palácio!"), 0, 3000);
             this.m_kingMoive.PlayMovie("in", 9000, 0);
             this.m_kingFront.PlayMovie("in", 9000, 0);
             this.m_kingMoive.PlayMovie("out", 13000, 0);
@@ -124,7 +124,7 @@ export class GAH1076 extends AMissionControl {
                 }
                 this.m_secondKing.SetRelateDemagemRect(-21, -87, 72, 59);
 
-                this.m_secondKing.Say(LanguageMgr.GetTranslation("Bạn tức giận tôi, tôi không tha thứ cho bạn!"), 0, 3000);
+                this.m_secondKing.Say(LanguageMgr.GetTranslation("Você me irritou, não vou te perdoar!"), 0, 3000);
 
                 let players = this.Game.GetAllFightPlayers();
                 let RandomPlayer = this.Game.FindRandomPlayer();

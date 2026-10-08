@@ -122,7 +122,11 @@ function buildMasker(glossary: GlossaryEntry[]) {
   // be masked now that translation happens in line-delimited batches (one "@@N@@ text" per line): an
   // unmasked embedded newline would split one item across two lines and desync every @@N@@ marker after it.
   const placeholderRe = String.raw`\{\d+\}|%[sd]|<[^>]+>|\\n|\r\n|\r|\n`;
-  const re = new RegExp(`(${glossaryRe})|(${placeholderRe})`, "giu");
+  // 2026-10-07: glossary terms are NO LONGER masked before MT — an opaque token broke word order
+  // ("Vũ khí lựu đạn" -> "Granada Arma") and substring hits corrupted words ("Xuyên" -> "Moedas ienes").
+  // Only placeholders are masked; glossary is applied after MT on whole words (applyGlossaryAfter).
+  void glossaryRe;
+  const re = new RegExp(`()(${placeholderRe})`, "gu");
   const ptByVi = new Map(glossary.map(([vi, pt]) => [vi.toLowerCase(), pt]));
 
   return function mask(text: string): { masked: string; tokens: string[] } {
@@ -134,6 +138,14 @@ function buildMasker(glossary: GlossaryEntry[]) {
     });
     return { masked, tokens };
   };
+}
+
+/** Whole-word glossary pass on the MT output: any Vietnamese glossary term MT left untranslated becomes the
+ * canonical PT-BR word. Word boundaries are Unicode-letter lookarounds, so "Xu" never matches inside "Xuyên". */
+export function applyGlossaryAfter(text: string, glossary: GlossaryEntry[]): string {
+  let out = text;
+  for (const [vi, pt] of glossary) out = out.replace(new RegExp(`(?<!\p{L})${escapeRe(vi)}(?!\p{L})`, "giu"), pt);
+  return out;
 }
 
 function unmask(translated: string, tokens: string[]): string {
@@ -431,7 +443,7 @@ async function main() {
     try {
       const { texts, provider } = await translateBatch(items.map((m) => m.masked));
       for (let i = 0; i < items.length; i++) {
-        cache[items[i]!.src] = { text: unmask(texts[i]!, items[i]!.tokens), provider, ts: new Date().toISOString() };
+        cache[items[i]!.src] = { text: applyGlossaryAfter(unmask(texts[i]!, items[i]!.tokens), glossary), provider, ts: new Date().toISOString() };
       }
       providerCounts[provider] = (providerCounts[provider] ?? 0) + items.length;
       done += items.length;

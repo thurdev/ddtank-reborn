@@ -1,0 +1,3 @@
+3. Phần thưởng cơ bản của Tích Lũy Xu
+--- RECORDSEPARATOR ---
+    là 1000 Xu.

@@ -1,0 +1,17 @@
+1. Tất cả trang bị đều có thể hợp thành thuộc 
+--- RECORDSEPARATOR ---
+tính của Đá Thánh Thú, Đá Thánh Thú khác 
+--- RECORDSEPARATOR ---
+nhau thuộc tính kèm theo cũng khác nhau.
+--- RECORDSEPARATOR ---
+2. Đá Thánh Thú cấp càng cao tỷ lệ thành 
+--- RECORDSEPARATOR ---
+công kèm theo đến trang bị càng thấp. 
+--- RECORDSEPARATOR ---
+3. Mỗi thuộc tính của mỗi trang bị chỉ có thể 
+--- RECORDSEPARATOR ---
+kèm theo 1 hiệu ứng Đá Thánh Thú.
+--- RECORDSEPARATOR ---
+4. Đá Thánh Thú cấp thấp không thể thay thế 
+--- RECORDSEPARATOR ---
+hiệu ứng Đá Thánh Thú cấp cao.

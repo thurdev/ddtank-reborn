@@ -5,15 +5,15 @@ import { registerScript, AMissionControl, __arr } from "../../runtime.js";
 
 export class BLTTT1126 extends AMissionControl {
   static KillPlayerChat = __arr([
-            "Đùa với các ngươi chán quá!",
+            "Brincar com vocês é muito chato!",
 
-            "Trình chỉ tới vậy sao?",
-            "Ta mới sử dụng 1 phần công lực thôi đó."
+            "Só isso que vocês sabem fazer?",
+            "Eu só usei uma parte do meu poder."
         ]);
   static AngryChat = __arr([
-            "Dám chọc giận ta à?",
+            "Ousa me provocar?",
             "Ta né, ta né!!!",
-            "Đồ khốn nạn. Dám đánh ta!!"
+            "Seu canalha. Como ousa me atacar!!"
         ]);
   m_kingMoive = null;
   m_kingFront = null;
@@ -76,7 +76,7 @@ export class BLTTT1126 extends AMissionControl {
             this.m_king.SetRelateDemagemRect(-42, -187, 75, 187);
             //m_king.AddDelay(10);
 
-            this.m_king.Say("Đến đây thôi, dám ngăn cản nghi lễ của ta, không muốn sống à!", 0, 2000);
+            this.m_king.Say("Chega! Ousam interromper meu ritual? Não têm amor à vida?!", 0, 2000);
             this.m_kingMoive.PlayMovie("in", 7000, 0);
             this.m_kingFront.PlayMovie("in", 7000, 0);
             this.m_kingMoive.PlayMovie("out", 13000, 0);

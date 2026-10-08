@@ -1,0 +1,5 @@
+      La fundición de oro puede elevar el 
+--- RECORDSEPARATOR ---
+daño de la arma y armadura del equipo,
+--- RECORDSEPARATOR ---
+Notas para fundir oro:

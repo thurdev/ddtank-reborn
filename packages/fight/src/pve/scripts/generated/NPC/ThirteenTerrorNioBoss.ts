@@ -5,18 +5,18 @@ import { registerScript, ABrain, __arr, __int } from "../../runtime.js";
 
 export class ThirteenTerrorNioBoss extends ABrain {
   static AllAttackChat = __arr([ 
-            "Địa chấn ! <br/> Thật đáng sợ",
+            "Terremoto! <br/> Que assustador",
        
-            "Đặt hết vũ khí xuống !",
+            "Abaixem todas as armas!",
        
-            "Nhìn bạn cũng có thể có thể chịu được một số ít!"
+            "Parece que você aguenta um pouco!"
         ]);
   static ShootChat = __arr([
-             "Cảm nhận sức mạnh của ta !",
+             "Sintam o meu poder!",
                                
-             "Gửi cho cậu nhưng viên kheo đau khổ",
+             "Tome estas bolas de sofrimento",
 
-             "Cho các ngươi nén mùi lợi hại "
+             "Provem do meu poder"
         ]);
   static ShootedChat = __arr([
            "哎呀~~你们为什么要攻击我？<br/>我在干什么？",
@@ -29,7 +29,7 @@ export class ThirteenTerrorNioBoss extends ABrain {
                
             "Hallelujah ~ <br/> Luyaluya ~ ~",
                 
-            "Kì diệu quá! Đã đem đến cho ta sức mạnh siêu phàm !"
+            "Incrível! Isso me deu um poder sobre-humano!"
          
         ]);
   static KillAttackChat = __arr([

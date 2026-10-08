@@ -1,0 +1,3 @@
+2. Nạp xu trả lại, chỉ có hiệu lực trong
+--- RECORDSEPARATOR ---
+ thời gian hoạt động.

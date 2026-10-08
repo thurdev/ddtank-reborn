@@ -1,0 +1,25 @@
+洗點消耗：
+--- RECORDSEPARATOR ---
+每
+--- RECORDSEPARATOR ---
+完成
+--- RECORDSEPARATOR ---
+1
+--- RECORDSEPARATOR ---
+次洗點需要消耗
+--- RECORDSEPARATOR ---
+    
+--- RECORDSEPARATOR ---
+卡
+--- RECORDSEPARATOR ---
+牌，如果
+--- RECORDSEPARATOR ---
+卡
+--- RECORDSEPARATOR ---
+牌數量不足，也可消耗
+--- RECORDSEPARATOR ---
+     
+--- RECORDSEPARATOR ---
+進行洗點。
+--- RECORDSEPARATOR ---
+        

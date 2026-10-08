@@ -1,0 +1,7 @@
+Hệ thống DI CHUYỂN giúp đổi các thuộc tính
+--- RECORDSEPARATOR ---
+gồm : cường hóa + cấp luyện hóa + lỗ phong
+--- RECORDSEPARATOR ---
+ấn + châu báu của 2 trang bị cùng loại.
+--- RECORDSEPARATOR ---
+Cần chú ý :

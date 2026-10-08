@@ -132,7 +132,7 @@ export class ThirdSimpleBloomNpcS2 extends ABrain {
   KillAttack(fx, mx) {
 		}
   MoveToPlayer(player) {
-            this.Body.Say("Đến gần tui sẻ hồi máu cho!", 0, 2000);
+            this.Body.Say("Cheguem perto que eu curo vocês!", 0, 2000);
         }
   MoveTo() {
 			if (this.IsEixt == 1)

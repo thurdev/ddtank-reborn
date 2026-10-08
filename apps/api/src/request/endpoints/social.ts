@@ -21,7 +21,7 @@ function totalFirst(r: XEl, total: number): XEl {
 
 /** IMListLoad.ashx: friends of `id` (SP_Users_Friends -> V_Sys_Users_Friends). Plain XML (client REQUEST_LOADER). */
 export const IMListLoad = define("/IMListLoad.ashx", async ({ app, int }) => {
-  const kids: XEl[] = [el("customList", [["ID", 0], ["Name", "Bạn bè"]])];
+  const kids: XEl[] = [el("customList", [["ID", 0], ["Name", "Amigos"]])];
   try {
     const rows = await q(app.h, sql`SELECT * FROM app."V_Sys_Users_Friends" WHERE "UserID" = ${int("id")} AND "IsExist" = true`);
     for (const g of rows)
@@ -295,4 +295,42 @@ export const ApprenticeshipClubList = define("/ApprenticeshipClubList.ashx", asy
   }
   const r = result(true, "Success!", kids, [["isPlayerRegeisted", false], ["isSelfPublishEquip", false]]);
   return xml(totalFirst(r, total));
+});
+
+/**
+ * MarryInfoPageList.ashx (Tank.Request/MarryInfoPageList.ashx.cs + PlayerBussiness.GetMarryInfoPage:1676): civil
+ * registry page of one sex, 12 per page, V_Sys_Marry_Info ordered "State desc, IsMarried". Plain XML.
+ */
+export const MarryInfoPageList = define("/MarryInfoPageList.ashx", async ({ app, p, int }) => {
+  try {
+    const page = Math.max(1, int("page", 1));
+    const size = 12;
+    const sex = (p("sex") ?? "").toLowerCase() === "true";
+    const name = (p("name") ?? "").trim();
+    const where = and([
+      sql`m."IsExist" = true AND d."IsExist" = true AND d."Sex" = ${sex}`,
+      !!name && sql`d."NickName" ILIKE ${"%" + name.replace(/[%_\\]/g, (c) => "\\" + c) + "%"}`,
+    ]);
+    const from = sql`player."Marry_Info" m JOIN player."Sys_Users_Detail" d ON d."UserID" = m."UserID"
+      LEFT JOIN player."Sys_Users_Order" o ON o."UserID" = m."UserID"`;
+    const c = await q1<{ n: number }>(app.h, sql`SELECT count(*)::int AS n FROM ${from} WHERE ${where}`);
+    const rows = await q(app.h, sql`SELECT m."ID", m."UserID", m."IsPublishEquip", COALESCE(m."Introduction", '') AS "Introduction",
+        COALESCE(d."NickName", '') AS "NickName", d."IsConsortia", d."ConsortiaID", d."Sex", d."Win", d."Total", d."Escape", d."GP",
+        COALESCE(d."Honor", '') AS "Honor", d."Style", d."Colors", d."Hide", d."Grade", d."State", COALESCE(o."Repute", 0) AS "Repute",
+        d."Skin", d."Offer", d."IsMarried", d."Nimbus", d."FightPower"
+      FROM ${from} WHERE ${where} ORDER BY d."State" DESC, d."IsMarried", m."ID" LIMIT ${size} OFFSET ${(page - 1) * size}`);
+    const kids = rows.map((r) =>
+      el("Info", [
+        ["ID", r.ID as number], ["UserID", r.UserID as number], ["IsPublishEquip", !!r.IsPublishEquip], ["Introduction", r.Introduction as string],
+        ["NickName", r.NickName as string], ["IsConsortia", !!r.IsConsortia], ["ConsortiaID", r.ConsortiaID as number], ["Sex", !!r.Sex],
+        ["Win", r.Win as number], ["Total", r.Total as number], ["Escape", r.Escape as number], ["GP", r.GP as number], ["Honor", r.Honor as string],
+        ["Style", (r.Style as string) ?? ""], ["Colors", (r.Colors as string) ?? ""], ["Hide", r.Hide as number], ["Grade", r.Grade as number],
+        ["State", r.State as number], ["Repute", Number(r.Repute)], ["Skin", (r.Skin as string) ?? ""], ["Offer", r.Offer as number],
+        ["IsMarried", !!r.IsMarried], ["ConsortiaName", ""], ["DutyName", ""], ["Nimbus", r.Nimbus as number], ["FightPower", r.FightPower as number],
+      ]),
+    );
+    return xml(totalFirst(result(true, "Success!", kids), Number(c?.n ?? 0)));
+  } catch {
+    return xml(totalFirst(result(false, "Fail!"), 0));
+  }
 });

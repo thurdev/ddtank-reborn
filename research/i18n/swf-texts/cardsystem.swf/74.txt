@@ -1,0 +1,25 @@
+洗點
+--- RECORDSEPARATOR ---
+：
+--- RECORDSEPARATOR ---
+每
+--- RECORDSEPARATOR ---
+完成
+--- RECORDSEPARATOR ---
+1
+--- RECORDSEPARATOR ---
+次洗點操作，可隨機改變
+--- RECORDSEPARATOR ---
+1
+--- RECORDSEPARATOR ---
+次當前
+--- RECORDSEPARATOR ---
+卡
+--- RECORDSEPARATOR ---
+牌所有屬性的數
+--- RECORDSEPARATOR ---
+值
+--- RECORDSEPARATOR ---
+，但不會改變
+--- RECORDSEPARATOR ---
+屬性。不限制洗點次數。

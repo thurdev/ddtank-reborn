@@ -1,0 +1,5 @@
+3. Trước khi thời gian tự động trồng kết thúc 
+--- RECORDSEPARATOR ---
+trợ thủ chỉ có thể nhận được một phần thức ăn 
+--- RECORDSEPARATOR ---
+thú cưng, không trả lại Hạt giống còn lại.

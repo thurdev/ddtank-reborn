@@ -1,0 +1,3 @@
+4. Thời hạn trang sức sau bồi dưỡng sẽ tính theo thời hạn 
+--- RECORDSEPARATOR ---
+ít nhất của các trang sức gộp.

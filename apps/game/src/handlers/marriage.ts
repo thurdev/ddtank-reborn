@@ -119,7 +119,7 @@ async function setMarried(ctx: ServerContext, userId: number, v: { IsMarried: bo
 }
 
 async function mailItem(ctx: ServerContext, toId: number, toNick: string, title: string, content: string, item?: ItemInfo, money = 0): Promise<void> {
-  const row: Record<string, unknown> = { Content: content, Title: title, Gold: 0, Money: money, Type: 14, Receiver: toNick, ReceiverID: toId, Sender: "Nhà thờ", SenderID: 0 };
+  const row: Record<string, unknown> = { Content: content, Title: title, Gold: 0, Money: money, Type: 14, Receiver: toNick, ReceiverID: toId, Sender: "Igreja", SenderID: 0 };
   if (item) { row.Annex1 = String(item.ItemID); row.Annex1Name = item.template.Name ?? ""; }
   await sendMail(ctx.db.db, row as never);
   ctx.world.get(toId)?.send(Out.mailResponse(toId, 1));
@@ -161,8 +161,8 @@ export function marryCmdRouter(): SubRouter {
       } else {
         const ring = ctx.templates.findItem(WEDDING_RING_TEMPLATE);
         if (ring) {
-          await mailItem(ctx, groom.id, groom.info.NickName ?? "", "Nhẫn cưới", "Nhẫn cưới", ItemInfo.createFromTemplate(ring, 1, 102));
-          await mailItem(ctx, bride.id, bride.info.NickName ?? "", "Nhẫn cưới", "Nhẫn cưới", ItemInfo.createFromTemplate(ring, 1, 102));
+          await mailItem(ctx, groom.id, groom.info.NickName ?? "", "Anel de casamento", "Anel de casamento", ItemInfo.createFromTemplate(ring, 1, 102));
+          await mailItem(ctx, bride.id, bride.info.NickName ?? "", "Anel de casamento", "Anel de casamento", ItemInfo.createFromTemplate(ring, 1, 102));
         }
         await setMarried(ctx, groom.id, { IsMarried: true, SpouseID: groom.info.SpouseID, SpouseName: groom.info.SpouseName ?? "", IsGotRing: true });
         await setMarried(ctx, bride.id, { IsMarried: true, SpouseID: bride.info.SpouseID, SpouseName: bride.info.SpouseName ?? "", IsGotRing: true });

@@ -61,7 +61,7 @@ export function openBox(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd = 
   if (num < 1 || num > it.Count) num = it.Count;
   const tpl: Templates = ctx.templates;
   const rows = tpl.itemBoxes.get(it.TemplateID);
-  if (!rows?.length) return p.sendMessage(0, ctx.lang.t("OpenUpArkHandler.NoBox") === "OpenUpArkHandler.NoBox" ? "Hộp này không có vật phẩm." : ctx.lang.t("OpenUpArkHandler.NoBox"));
+  if (!rows?.length) return p.sendMessage(0, ctx.lang.t("OpenUpArkHandler.NoBox") === "OpenUpArkHandler.NoBox" ? "Esta caixa não tem itens." : ctx.lang.t("OpenUpArkHandler.NoBox"));
   const name = it.template.Name ?? "";
   if (!bag.removeCountFromStack(it, num)) return; // consume first (anti-dupe)
   const tot = { gold: 0, money: 0, giftToken: 0, medal: 0, exp: 0, honor: 0, hardCurrency: 0 };
@@ -144,7 +144,7 @@ export function cardUse(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): void 
     if (place === -1) {
       const s = tpl.shop.get(shopId);
       const t = s ? tpl.findItem(s.TemplateID) : undefined;
-      if (!s || !t || !tpl.isOnShop(shopId)) { p.sendMessage(0, "Không thể mua vật phẩm này."); continue; }
+      if (!s || !t || !tpl.isOnShop(shopId)) { p.sendMessage(0, "Não é possível comprar este item."); continue; }
       if (!(s.APrice1 === -1 && s.AValue1 > 0) || s.AValue1 > p.info.Money + p.info.MoneyLock) continue;
       p.removeMoney(s.AValue1);
       item = ItemInfo.createFromTemplate(t, 1, 102, ctx.now());
@@ -169,7 +169,7 @@ export function cardUse(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): void 
       if (bag && t.CanDelete) bag.removeCountFromStack(item, 1);
       p.send(Out.openVip(p.info));
       p.updateProperties();
-      p.sendMessage(0, opened ? `Chúc mừng bạn nhận được ${days} ngày sử dụng đặc quyền VIP!` : `Bạn nhận được thêm ${days} ngày sử dụng đặc quyền VIP!`);
+      p.sendMessage(0, opened ? `Parabéns, você recebeu ${days} dia(s) de privilégios VIP!` : `Você recebeu mais ${days} dia(s) de privilégios VIP!`);
       continue;
     }
     if (bag && !bag.removeCountFromStack(item, 1)) continue;
@@ -213,8 +213,8 @@ export function openVip(ctx: ServerContext, p: GamePlayer, nick: string, days: n
   const money = vipPrice(card, days);
   if (days <= 0 || money < 0) return;
   const target = nick === p.info.NickName ? p : ctx.world.all().find((o) => o.info.NickName === nick);
-  if (!target) return p.sendMessage(0, `Người chơi ${nick} không tồn tại hoặc tạm vắng!`);
-  if (target === p && p.info.VIPLevel === 9) return p.sendMessage(0, "Bạn đã đạt cấp VIP tối đa!"); // checked before charging (original charged first)
+  if (!target) return p.sendMessage(0, `O jogador ${nick} não existe ou está ausente!`);
+  if (target === p && p.info.VIPLevel === 9) return p.sendMessage(0, "Você já atingiu o nível VIP máximo!"); // checked before charging (original charged first)
   if (p.info.Money + p.info.MoneyLock < money) return p.sendMessage(0, ctx.lang.t("UserBuyItemHandler.Money"));
   p.removeMoney(money);
   const table = vipExpTable(ctx.templates.serverConfig.get("VIPExpForEachLv"));
@@ -223,8 +223,8 @@ export function openVip(ctx: ServerContext, p: GamePlayer, nick: string, days: n
   if (target.info.typeVIP > 0) target.info.VIPNextLevelDaysNeeded = vipNextLevelDays(target.info, table, card);
   target.send(Out.openVip(target.info));
   target.updateProperties();
-  if (target !== p) target.sendMessage(0, `${p.info.NickName}, ${opened ? "tiếp phí" : "gia hạn"} VIP cho bạn thành công!`);
-  p.sendMessage(0, target === p ? (opened ? "Kích hoạt VIP thành công!" : "Gia hạn VIP thành công!") : `${opened ? "Kích hoạt" : "Gia hạn"} VIP cho ${nick} thành công!`);
+  if (target !== p) target.sendMessage(0, `${p.info.NickName} ${opened ? "renovou" : "estendeu"} seu VIP com sucesso!`);
+  p.sendMessage(0, target === p ? (opened ? "VIP ativado com sucesso!" : "VIP renovado com sucesso!") : `VIP ${opened ? "ativado" : "renovado"} para ${nick} com sucesso!`);
 }
 
 /** ArrangeBagHandler.cs (124): compact the bag (and stack when `merge`). Only if `count` matches the item count. */

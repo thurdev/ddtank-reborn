@@ -1,0 +1,1653 @@
+{"rowId":"1","text":"Ovo de Galinha Nv1"}
+{"rowId":"2","text":"Ovo de Galinha Nv2"}
+{"rowId":"3","text":"Ovo de Galinha Nv3"}
+{"rowId":"4","text":"Ovo de Galinha-Nova Bala"}
+{"rowId":"5","text":"Ovo de Galinha-Nova Bala 2"}
+{"rowId":"6","text":"Ovo de Galinha-Nova Bala 3"}
+{"rowId":"7","text":"Bolha de Galinha Nv1"}
+{"rowId":"8","text":"Bolha de Galinha Nv2"}
+{"rowId":"9","text":"Bolha de Galinha Nv3"}
+{"rowId":"10","text":"Bolha de Galinha-Nova Bala"}
+{"rowId":"11","text":"Bolha de Galinha-Nova Bala 2"}
+{"rowId":"12","text":"Bolha de Galinha-Nova Bala 3"}
+{"rowId":"13","text":"Feijão Explosivo Nv1"}
+{"rowId":"14","text":"Feijão Explosivo Nv2"}
+{"rowId":"15","text":"Feijão Explosivo Nv3"}
+{"rowId":"16","text":"Feijão Explosivo-Nova Bala"}
+{"rowId":"17","text":"Feijão Explosivo-Nova Bala 2"}
+{"rowId":"18","text":"Feijão Explosivo-Nova Bala 3"}
+{"rowId":"19","text":"Bola de Formiga Nv1"}
+{"rowId":"20","text":"Bola de Formiga Nv2"}
+{"rowId":"21","text":"Bola de Formiga Nv3"}
+{"rowId":"22","text":"Bola de Formiga-Nova Bala"}
+{"rowId":"23","text":"Bola de Formiga-Nova Bala 2"}
+{"rowId":"24","text":"Bola de Formiga-Nova Bala 3"}
+{"rowId":"25","text":"Míssil Teleguiado Nv1"}
+{"rowId":"26","text":"Míssil Teleguiado Nv2"}
+{"rowId":"27","text":"Míssil Teleguiado Nv3"}
+{"rowId":"28","text":"Galinha da Bênção Nv1"}
+{"rowId":"29","text":"Galinha da Bênção Nv2"}
+{"rowId":"30","text":"Galinha da Bênção Nv3"}
+{"rowId":"31","text":"Semente Lenta Nv1"}
+{"rowId":"32","text":"Semente Lenta Nv2"}
+{"rowId":"33","text":"Semente Lenta Nv3"}
+{"rowId":"34","text":"Bola de Formiga de Fogo Nv1"}
+{"rowId":"35","text":"Bola de Formiga de Fogo Nv2"}
+{"rowId":"36","text":"Bola de Formiga de Fogo Nv3"}
+{"rowId":"37","text":"Imobilizar Nv1"}
+{"rowId":"38","text":"Imobilizar Nv2"}
+{"rowId":"39","text":"Imobilizar Nv3"}
+{"rowId":"40","text":"Escudo da Galinha Nv1"}
+{"rowId":"41","text":"Escudo da Galinha Nv2"}
+{"rowId":"42","text":"Espada da Galinha Nv1"}
+{"rowId":"43","text":"Espada da Galinha Nv2"}
+{"rowId":"44","text":"Florescer Nv1"}
+{"rowId":"45","text":"Florescer Nv2"}
+{"rowId":"46","text":"Florescer Nv3"}
+{"rowId":"47","text":"Recupera 300 HP por TURNO"}
+{"rowId":"48","text":"Recupera 500 HP por TURNO"}
+{"rowId":"49","text":"Recupera 800 HP por TURNO"}
+{"rowId":"50","text":"Quanto Mais Luta, Mais Forte Nv1"}
+{"rowId":"51","text":"Quanto Mais Luta, Mais Forte Nv2"}
+{"rowId":"52","text":"Quanto Mais Luta, Mais Forte Nv3"}
+{"rowId":"53","text":"Ataque Reduz Dano"}
+{"rowId":"54","text":"Ataque Reduz Dano"}
+{"rowId":"55","text":"Ataque Reduz Dano"}
+{"rowId":"56","text":"Tiro Designado Nv1"}
+{"rowId":"57","text":"Tiro Designado Nv2"}
+{"rowId":"58","text":"Tiro Designado-Remover Efeito"}
+{"rowId":"59","text":"Chuva Divina Nv1"}
+{"rowId":"60","text":"Chuva Divina Nv2"}
+{"rowId":"61","text":"Cem Florescimentos Nv1"}
+{"rowId":"62","text":"Cem Florescimentos Nv2"}
+{"rowId":"63","text":"Florescer-Recuperar HP"}
+{"rowId":"64","text":"Florescer-Recuperar HP"}
+{"rowId":"65","text":"Espinho de Formiga Nv1"}
+{"rowId":"66","text":"Espinho de Formiga Nv2"}
+{"rowId":"67","text":"Refletir Dano"}
+{"rowId":"68","text":"Refletir Dano-2"}
+{"rowId":"69","text":"Galinha Furiosa Nv1"}
+{"rowId":"70","text":"Galinha Furiosa Nv2"}
+{"rowId":"71","text":"Remover Alto Poder de Fogo"}
+{"rowId":"72","text":"Anjo do Amor Nv1"}
+{"rowId":"73","text":"Anjo do Amor Nv2"}
+{"rowId":"74","text":"Autodefesa Nv1"}
+{"rowId":"75","text":"Autodefesa Nv2"}
+{"rowId":"76","text":"Casulo Nv1"}
+{"rowId":"77","text":"Casulo Nv2"}
+{"rowId":"78","text":"Fuzil AK Nv1"}
+{"rowId":"79","text":"Fuzil AK Nv2"}
+{"rowId":"80","text":"Lei dos Piratas Nv1"}
+{"rowId":"81","text":"Lei dos Piratas Nv2"}
+{"rowId":"82","text":"Simbiose Nv1"}
+{"rowId":"83","text":"Simbiose Nv2"}
+{"rowId":"84","text":"Casulo Espinhoso Nv1"}
+{"rowId":"85","text":"Casulo Espinhoso Nv2"}
+{"rowId":"86","text":"Fortaleza V3 Nv1"}
+{"rowId":"87","text":"Fortaleza V3 Nv2"}
+{"rowId":"88","text":"Remover Fortaleza V3"}
+{"rowId":"89","text":"Saúde! Nv1"}
+{"rowId":"90","text":"Saúde! Nv2"}
+{"rowId":"91","text":"Semente Voadora Nv1"}
+{"rowId":"92","text":"Semente Voadora Nv2"}
+{"rowId":"93","text":"Aproximação Nv1"}
+{"rowId":"94","text":"Aproximação Nv2"}
+{"rowId":"95","text":"Galinha Rebelde"}
+{"rowId":"96","text":"Vantagem Inata"}
+{"rowId":"97","text":"Magia Proliferante"}
+{"rowId":"98","text":"Remover Magia Proliferante"}
+{"rowId":"99","text":"Persistência Indomável"}
+{"rowId":"100","text":"Chama Ardente Nv1"}
+{"rowId":"101","text":"Chama Ardente Nv2"}
+{"rowId":"102","text":"Chama Ardente Nv3"}
+{"rowId":"103","text":"Bala do Dragão de Fogo Nv1"}
+{"rowId":"104","text":"Bala do Dragão de Fogo Nv2"}
+{"rowId":"105","text":"Bala do Dragão de Fogo Nv3"}
+{"rowId":"106","text":"Pacto do Dragão Maligno Nv1"}
+{"rowId":"107","text":"Pacto do Dragão Maligno Nv2"}
+{"rowId":"108","text":"Dragão Guardião Nv1"}
+{"rowId":"109","text":"Dragão Guardião Nv2"}
+{"rowId":"110","text":"Dragão Perseguidor Nv1"}
+{"rowId":"111","text":"Dragão Perseguidor Nv2"}
+{"rowId":"112","text":"Chifre de Dragão Afiado Nv1"}
+{"rowId":"113","text":"Chifre de Dragão Afiado Nv2"}
+{"rowId":"114","text":"Dragão Furioso Nv1"}
+{"rowId":"115","text":"Dragão Furioso Nv2"}
+{"rowId":"116","text":"Fúria"}
+{"rowId":"117","text":"Dragão Guardião Nv1"}
+{"rowId":"118","text":"Dragão Guardião Nv1"}
+{"rowId":"119","text":"Perseguição do Dragão Furioso Nv1"}
+{"rowId":"120","text":"Perseguição do Dragão Furioso Nv2"}
+{"rowId":"121","text":"Meteoro de Gelo Nv1"}
+{"rowId":"122","text":"Meteoro de Gelo Nv2"}
+{"rowId":"123","text":"Meteoro de Gelo Nv3"}
+{"rowId":"124","text":"Bala de Gelo Estilhaçante Nv1"}
+{"rowId":"125","text":"Bala de Gelo Estilhaçante Nv2"}
+{"rowId":"126","text":"Bala de Gelo Estilhaçante Nv3"}
+{"rowId":"127","text":"Barreira de Cristal Nv1"}
+{"rowId":"128","text":"Barreira de Cristal Nv2"}
+{"rowId":"129","text":"Barreira de Cristal Nv3"}
+{"rowId":"130","text":"Inferno Congelado Nv1"}
+{"rowId":"131","text":"Inferno Congelado Nv2"}
+{"rowId":"132","text":"Trovão Veloz Nv1"}
+{"rowId":"133","text":"Trovão Veloz Nv2"}
+{"rowId":"134","text":"Coração da Fênix Nv1"}
+{"rowId":"135","text":"Coração da Fênix Nv2"}
+{"rowId":"136","text":"Golpe Mortal Nv1"}
+{"rowId":"137","text":"Golpe Mortal Nv2"}
+{"rowId":"138","text":"Alma de Gelo"}
+{"rowId":"139","text":"Remover Inferno Congelado"}
+{"rowId":"140","text":"Dança Furiosa Nv1"}
+{"rowId":"141","text":"Dança Furiosa Nv2"}
+{"rowId":"142","text":"Dança Furiosa Nv3"}
+{"rowId":"143","text":"Veneno Nv1"}
+{"rowId":"144","text":"Veneno Nv2"}
+{"rowId":"145","text":"Veneno Nv3"}
+{"rowId":"146","text":"Exaustão Nv1"}
+{"rowId":"147","text":"Exaustão Nv2"}
+{"rowId":"148","text":"Mahoraga Nv1"}
+{"rowId":"149","text":"Mahoraga Nv2"}
+{"rowId":"150","text":"Fúria Selvagem Nv1"}
+{"rowId":"151","text":"Fúria Selvagem Nv2"}
+{"rowId":"152","text":"Presa Negra Nv1"}
+{"rowId":"153","text":"Presa Negra Nv2"}
+{"rowId":"154","text":"Desespero Nv1"}
+{"rowId":"155","text":"Desespero Nv2"}
+{"rowId":"156","text":"Transmutação"}
+{"rowId":"157","text":"Garra de Gato Nv1"}
+{"rowId":"158","text":"Garra de Gato Nv2"}
+{"rowId":"159","text":"Garra de Gato Nv3"}
+{"rowId":"160","text":"Investida Nv1"}
+{"rowId":"161","text":"Investida Nv2"}
+{"rowId":"162","text":"Investida Nv3"}
+{"rowId":"163","text":"Recuperação Nv1"}
+{"rowId":"164","text":"Recuperação Nv2"}
+{"rowId":"165","text":"Recuperação Nv3"}
+{"rowId":"166","text":"Revide Nv1"}
+{"rowId":"167","text":"Revide Nv2"}
+{"rowId":"168","text":"Proteção Nv1"}
+{"rowId":"169","text":"Proteção Nv2"}
+{"rowId":"170","text":"Contra-ataque Nv1"}
+{"rowId":"171","text":"Contra-ataque Nv2"}
+{"rowId":"172","text":"Invencível Nv1"}
+{"rowId":"173","text":"Invencível Nv2"}
+{"rowId":"174","text":"Indomável"}
+{"rowId":"175","text":"Ataque do Cervo Nv1"}
+{"rowId":"176","text":"Ataque do Cervo Nv2"}
+{"rowId":"177","text":"Ataque do Cervo Nv3"}
+{"rowId":"178","text":"Cervo Bobo Nv1"}
+{"rowId":"179","text":"Cervo Bobo Nv2"}
+{"rowId":"180","text":"Cervo Bobo Nv3"}
+{"rowId":"181","text":"Inimigo Comum Nv1"}
+{"rowId":"182","text":"Inimigo Comum Nv2"}
+{"rowId":"183","text":"Estrela Cadente Nv1"}
+{"rowId":"184","text":"Estrela Cadente Nv2"}
+{"rowId":"185","text":"Deus da Sorte Nv1"}
+{"rowId":"186","text":"Deus da Sorte Nv2"}
+{"rowId":"187","text":"Pavor Nv1"}
+{"rowId":"188","text":"Pavor Nv2"}
+{"rowId":"189","text":"Chifrada Perfurante Nv1"}
+{"rowId":"190","text":"Chifrada Perfurante Nv2"}
+{"rowId":"191","text":"Graça do Cervo"}
+{"rowId":"192","text":"Nuclear 1"}
+{"rowId":"193","text":"Nuclear 2"}
+{"rowId":"194","text":"Esmeralda-Golpe Nv3"}
+{"rowId":"195","text":"Bloqueio da Esfera Verde Nv1"}
+{"rowId":"196","text":"Bloqueio da Esfera Verde Nv2"}
+{"rowId":"197","text":"Bloqueio da Esfera Verde Nv3"}
+{"rowId":"198","text":"Sorriso Sinistro Nv1"}
+{"rowId":"199","text":"Sorriso Sinistro Nv2"}
+{"rowId":"200","text":"Troca Cósmica"}
+{"rowId":"201","text":"Sorte Nv1"}
+{"rowId":"202","text":"Sorte Nv2"}
+{"rowId":"203","text":"Generosidade Nv1"}
+{"rowId":"204","text":"Generosidade Nv2"}
+{"rowId":"205","text":"Generosidade Nv3"}
+{"rowId":"206","text":"Golpe Forte Nv1"}
+{"rowId":"207","text":"Golpe Forte Nv2"}
+{"rowId":"208","text":"Favor Nv1"}
+{"rowId":"209","text":"Favor Nv2"}
+{"rowId":"210","text":"Extraordinário Nv1"}
+{"rowId":"211","text":"Extraordinário Nv2"}
+{"rowId":"212","text":"Drenar HP Nv1"}
+{"rowId":"213","text":"Drenar HP Nv2"}
+{"rowId":"214","text":"Golpe Forte Nv3"}
+{"rowId":"215","text":"Golpe Forte Nv4"}
+{"rowId":"216","text":"Remover Sorriso Sinistro"}
+{"rowId":"217","text":"Remover Drenar HP"}
+{"rowId":"218","text":"Roubar Magia Nv1"}
+{"rowId":"219","text":"Roubar Magia Nv2"}
+{"rowId":"220","text":"Receber Drenar HP"}
+{"rowId":"221","text":"Receber Drenar HP"}
+{"rowId":"231","text":"Tratamento Nv1"}
+{"rowId":"232","text":"Tratamento Nv2"}
+{"rowId":"242","text":"Tiro Designado-Remover Efeito"}
+{"rowId":"243","text":"Remover Fortaleza V3"}
+{"rowId":"244","text":"Remover Poder de Fogo Duplo"}
+{"rowId":"245","text":"Galinha Furiosa Nv1"}
+{"rowId":"246","text":"Galinha Furiosa Nv2"}
+{"rowId":"247","text":"Escudo Protetor"}
+{"rowId":"248","text":"Escudo Protetor"}
+{"rowId":"260","text":"Montar na Nuvem Nv1"}
+{"rowId":"261","text":"Montar na Nuvem Nv2"}
+{"rowId":"262","text":"Montar na Nuvem Nv3"}
+{"rowId":"263","text":"Pêssego da Imortalidade Nv1"}
+{"rowId":"264","text":"Pêssego da Imortalidade Nv2"}
+{"rowId":"265","text":"Pêssego da Imortalidade Nv3"}
+{"rowId":"266","text":"Exterminar Demônios Nv1"}
+{"rowId":"267","text":"Exterminar Demônios Nv2"}
+{"rowId":"268","text":"Imobilizar Nv1"}
+{"rowId":"269","text":"Imobilizar Nv2"}
+{"rowId":"270","text":"Diamante Nv1"}
+{"rowId":"271","text":"Diamante Nv2"}
+{"rowId":"272","text":"Olhos de Fogo Dourados Nv1"}
+{"rowId":"273","text":"Olhos de Fogo Dourados Nv2"}
+{"rowId":"274","text":"Pelo Dourado"}
+{"rowId":"275","text":"Caos no Palácio Celestial Nv1"}
+{"rowId":"276","text":"Caos no Palácio Celestial Nv2"}
+{"rowId":"277","text":"Buda Vitorioso"}
+{"rowId":"278","text":"Receber Habilidade de Aumento de Dano"}
+{"rowId":"279","text":"Recupera Magia ao Ser Atacado"}
+{"rowId":"280","text":"Despertar-Chamas Crepitantes"}
+{"rowId":"281","text":"Despertar-Pacto do Dragão Maligno"}
+{"rowId":"282","text":"Despertar-Dragão Guardião"}
+{"rowId":"283","text":"Despertar-Chifre de Dragão Afiado"}
+{"rowId":"284","text":"Despertar-Fúria"}
+{"rowId":"285","text":"Dano Duplo"}
+{"rowId":"286","text":"Dragão Guardião"}
+{"rowId":"287","text":"Ativar Dragão Guardião"}
+{"rowId":"288","text":"Despertar-Ataque do Cervo"}
+{"rowId":"289","text":"Despertar-Cervo Bobo"}
+{"rowId":"290","text":"Despertar-Pavor"}
+{"rowId":"291","text":"Despertar-Chifrada Perfurante"}
+{"rowId":"292","text":"Esmeralda-Golpe Nv1"}
+{"rowId":"293","text":"Esmeralda-Golpe Nv2"}
+{"rowId":"294","text":"Despertar-Bala de Gelo Estilhaçante"}
+{"rowId":"295","text":"Despertar-Barreira de Cristal"}
+{"rowId":"296","text":"Despertar-Inferno Congelado"}
+{"rowId":"297","text":"Despertar-Trovão Veloz"}
+{"rowId":"298","text":"Despertar-Coração da Fênix"}
+{"rowId":"299","text":"Despertar-Golpe Mortal"}
+{"rowId":"300","text":"Despertar-Alma de Gelo"}
+{"rowId":"301","text":"Despertar-Dança Furiosa"}
+{"rowId":"302","text":"Despertar-Veneno"}
+{"rowId":"303","text":"Despertar-Exaustão"}
+{"rowId":"304","text":"Despertar-Fúria Selvagem"}
+{"rowId":"305","text":"Despertar-Monstro Milenar"}
+{"rowId":"306","text":"Despertar-Transmutação"}
+{"rowId":"307","text":"Efeito de Envenenamento"}
+{"rowId":"308","text":"Despertar-Montar na Nuvem"}
+{"rowId":"309","text":"Despertar-Pêssego de Dez Mil Anos"}
+{"rowId":"310","text":"Despertar-Imobilizar"}
+{"rowId":"311","text":"Despertar-Diamante"}
+{"rowId":"312","text":"Despertar-Olhos de Fogo Dourados"}
+{"rowId":"313","text":"Receber Habilidade de Aumento de Dano"}
+{"rowId":"314","text":"Despertar-Pelo Dourado"}
+{"rowId":"315","text":"Despertar-Buda Vitorioso"}
+{"rowId":"316","text":"Despertar-Presa Negra"}
+{"rowId":"317","text":"Remover Inferno Congelado"}
+{"rowId":"318","text":"Despertar-Ataque Ioiô"}
+{"rowId":"319","text":"Despertar-Esfera Verde Bloqueadora"}
+{"rowId":"320","text":"Despertar-Sorriso Sinistro"}
+{"rowId":"321","text":"Despertar-Sortudo"}
+{"rowId":"322","text":"Despertar-Resiliência"}
+{"rowId":"323","text":"Despertar-Demônio"}
+{"rowId":"324","text":"Receber Drenar HP"}
+{"rowId":"325","text":"Despertar-Favor"}
+{"rowId":"363","text":"Pêssego da Imortalidade Nv1"}
+{"rowId":"364","text":"Pêssego da Imortalidade Nv2"}
+{"rowId":"365","text":"Pêssego da Imortalidade Nv3"}
+{"rowId":"375","text":"Caos no Palácio Celestial Nv1"}
+{"rowId":"376","text":"Caos no Palácio Celestial Nv2"}
+{"rowId":"377","text":"Buda Vitorioso"}
+{"rowId":"401","text":"Fortalecer POW Nv1"}
+{"rowId":"402","text":"Fortalecer POW Nv2"}
+{"rowId":"403","text":"Fortalecer POW Nv3"}
+{"rowId":"404","text":"Fortalecer POW Nv4"}
+{"rowId":"405","text":"Fortalecer POW Nv5"}
+{"rowId":"406","text":"Fortalecer POW Nv6"}
+{"rowId":"407","text":"Fortalecer POW Nv7"}
+{"rowId":"408","text":"Fortalecer POW Nv8"}
+{"rowId":"409","text":"Fortalecer POW Nv9"}
+{"rowId":"410","text":"Fortalecer POW Nv10"}
+{"rowId":"411","text":"Sorte Nv1"}
+{"rowId":"412","text":"Sorte Nv2"}
+{"rowId":"413","text":"Sorte Nv3"}
+{"rowId":"414","text":"Sorte Nv4"}
+{"rowId":"415","text":"Sorte Nv5"}
+{"rowId":"416","text":"Sorte Nv6"}
+{"rowId":"417","text":"Sorte Nv7"}
+{"rowId":"418","text":"Sorte Nv8"}
+{"rowId":"419","text":"Sorte Nv9"}
+{"rowId":"420","text":"Sorte Nv10"}
+{"rowId":"421","text":"Resistência Mágica Nv1"}
+{"rowId":"422","text":"Resistência Mágica Nv2"}
+{"rowId":"423","text":"Resistência Mágica Nv3"}
+{"rowId":"424","text":"Resistência Mágica Nv4"}
+{"rowId":"425","text":"Resistência Mágica Nv5"}
+{"rowId":"426","text":"Resistência Mágica Nv6"}
+{"rowId":"427","text":"Resistência Mágica Nv7"}
+{"rowId":"428","text":"Resistência Mágica Nv8"}
+{"rowId":"429","text":"Resistência Mágica Nv9"}
+{"rowId":"430","text":"Resistência Mágica Nv10"}
+{"rowId":"431","text":"Ataque Reduz Dano"}
+{"rowId":"432","text":"Ataque Reduz Dano"}
+{"rowId":"433","text":"Ataque Reduz Dano"}
+{"rowId":"434","text":"Ataque Reduz Dano"}
+{"rowId":"435","text":"Ataque Reduz Dano"}
+{"rowId":"436","text":"Ataque Reduz Dano"}
+{"rowId":"437","text":"Ataque Reduz Dano"}
+{"rowId":"438","text":"Ataque Reduz Dano"}
+{"rowId":"439","text":"Ataque Reduz Dano"}
+{"rowId":"440","text":"Ataque Reduz Dano"}
+{"rowId":"441","text":"Marca de Garra Nv1"}
+{"rowId":"442","text":"Marca de Garra Nv2"}
+{"rowId":"443","text":"Marca de Garra Nv3"}
+{"rowId":"444","text":"Ovo Voador Nv1"}
+{"rowId":"445","text":"Ovo Voador Nv2"}
+{"rowId":"446","text":"Ovo Voador Nv3"}
+{"rowId":"447","text":"Postura Defensiva Nv1"}
+{"rowId":"448","text":"Postura Defensiva Nv2"}
+{"rowId":"449","text":"Postura Ofensiva Nv1"}
+{"rowId":"450","text":"Postura Ofensiva Nv2"}
+{"rowId":"451","text":"Postura Furtiva Nv1"}
+{"rowId":"452","text":"Postura Furtiva Nv2"}
+{"rowId":"453","text":"Postura de Clones Nv1"}
+{"rowId":"454","text":"Postura de Clones Nv2"}
+{"rowId":"455","text":"Postura de Controle Nv1"}
+{"rowId":"456","text":"Postura de Controle Nv2"}
+{"rowId":"457","text":"Postura Furiosa Nv1"}
+{"rowId":"458","text":"Postura Furiosa Nv2"}
+{"rowId":"459","text":"Especialidade Kung Fu"}
+{"rowId":"460","text":"Remover Perfurar Armadura Nv1"}
+{"rowId":"461","text":"Remover Perfurar Armadura Nv2"}
+{"rowId":"462","text":"Marca de Garra Nv1"}
+{"rowId":"463","text":"Marca de Garra Nv2"}
+{"rowId":"464","text":"Marca de Garra Nv3"}
+{"rowId":"465","text":"Ovo Voador Nv1"}
+{"rowId":"466","text":"Ovo Voador Nv2"}
+{"rowId":"467","text":"Ovo Voador Nv3"}
+{"rowId":"468","text":"Postura Defensiva Nv1"}
+{"rowId":"469","text":"Postura Defensiva Nv2"}
+{"rowId":"470","text":"Postura Ofensiva Nv1"}
+{"rowId":"471","text":"Postura Ofensiva Nv2"}
+{"rowId":"472","text":"Postura Furtiva Nv1"}
+{"rowId":"473","text":"Postura Furtiva Nv2"}
+{"rowId":"474","text":"Postura de Clones Nv1"}
+{"rowId":"475","text":"Postura de Clones Nv2"}
+{"rowId":"476","text":"Postura de Controle Nv1"}
+{"rowId":"477","text":"Postura de Controle Nv2"}
+{"rowId":"478","text":"Postura Furiosa Nv1"}
+{"rowId":"479","text":"Postura Furiosa Nv2"}
+{"rowId":"480","text":"Especialidade Kung Fu"}
+{"rowId":"481","text":"Remover Perfurar Armadura Nv1"}
+{"rowId":"482","text":"Remover Perfurar Armadura Nv2"}
+{"rowId":"483","text":"Coragem Nv1"}
+{"rowId":"484","text":"Coragem Nv2"}
+{"rowId":"485","text":"Coragem Nv3"}
+{"rowId":"486","text":"Coragem Nv4"}
+{"rowId":"487","text":"Coragem Nv5"}
+{"rowId":"488","text":"Coragem Nv6"}
+{"rowId":"489","text":"Coragem Nv7"}
+{"rowId":"490","text":"Proteção Divina Nv1"}
+{"rowId":"491","text":"Proteção Divina Nv2"}
+{"rowId":"492","text":"Proteção Divina Nv3"}
+{"rowId":"493","text":"Proteção Divina Nv4"}
+{"rowId":"494","text":"Proteção Divina Nv5"}
+{"rowId":"495","text":"Proteção Divina Nv6"}
+{"rowId":"496","text":"Proteção Divina Nv7"}
+{"rowId":"497","text":"Despertar-Marca de Garra"}
+{"rowId":"498","text":"Despertar-Postura Defensiva"}
+{"rowId":"499","text":"Despertar-Postura Ofensiva"}
+{"rowId":"500","text":"Despertar-Postura Furtiva"}
+{"rowId":"501","text":"Despertar-Postura de Clones"}
+{"rowId":"502","text":"Despertar-Postura Furiosa"}
+{"rowId":"503","text":"Despertar-Especialidade Kung Fu"}
+{"rowId":"504","text":"Obtenha a habilidade de diminuir o dano causado pel"}
+{"rowId":"505","text":"Remover Perfurar Armadura Nv2"}
+{"rowId":"506","text":"Bênção"}
+{"rowId":"507","text":"Louvor"}
+{"rowId":"508","text":"Força"}
+{"rowId":"509","text":"Arte"}
+{"rowId":"510","text":"Receber Habilidade"}
+{"rowId":"511","text":"Sede de Sangue Nv1"}
+{"rowId":"512","text":"Sede de Sangue Nv2"}
+{"rowId":"513","text":"Sede de Sangue Nv3"}
+{"rowId":"514","text":"Asas Demoníacas Nv1"}
+{"rowId":"515","text":"Asas Demoníacas Nv2"}
+{"rowId":"516","text":"Asas Demoníacas Nv3"}
+{"rowId":"517","text":"Despertar da Sombra Sangrenta Nv1"}
+{"rowId":"518","text":"Despertar da Sombra Sangrenta Nv2"}
+{"rowId":"519","text":"Armadilha do Submundo Nv1"}
+{"rowId":"520","text":"Armadilha do Submundo Nv2"}
+{"rowId":"521","text":"Armadura Espectral Nv1"}
+{"rowId":"522","text":"Armadura Espectral Nv2"}
+{"rowId":"523","text":"Agonia Extrema Nv1"}
+{"rowId":"524","text":"Agonia Extrema Nv2"}
+{"rowId":"525","text":"Sacrifício ao Deus Maligno Nv1"}
+{"rowId":"526","text":"Sacrifício ao Deus Maligno Nv2"}
+{"rowId":"527","text":"Rastro Fantasma"}
+{"rowId":"528","text":"Retorno do Deus Demônio"}
+{"rowId":"529","text":"Habilidade Obtida"}
+{"rowId":"551","text":"Selo da Galinha"}
+{"rowId":"552","text":"Selo da Galinha"}
+{"rowId":"553","text":"Selo da Galinha"}
+{"rowId":"554","text":"Selo da Galinha"}
+{"rowId":"555","text":"Selo do Deus Maligno"}
+{"rowId":"556","text":"Selo do Deus Maligno"}
+{"rowId":"557","text":"Selo do Deus Maligno"}
+{"rowId":"558","text":"Selo do Deus Maligno"}
+{"rowId":"559","text":"Selo do Deus Maligno"}
+{"rowId":"560","text":"Proteção da Noite Nv1"}
+{"rowId":"561","text":"Proteção da Noite Nv2"}
+{"rowId":"562","text":"Proteção da Noite Nv3"}
+{"rowId":"563","text":"Dilacerar do Dia Nv1"}
+{"rowId":"564","text":"Dilacerar do Dia Nv2"}
+{"rowId":"565","text":"Dilacerar do Dia Nv3"}
+{"rowId":"566","text":"Armadura de Minotauro Nv1"}
+{"rowId":"567","text":"Armadura de Minotauro Nv2"}
+{"rowId":"568","text":"Armadura de Minotauro Nv3"}
+{"rowId":"569","text":"Martelo de Minotauro Nv1"}
+{"rowId":"570","text":"Martelo de Minotauro Nv2"}
+{"rowId":"571","text":"Martelo de Minotauro Nv3"}
+{"rowId":"572","text":"Dom Nv1"}
+{"rowId":"573","text":"Dom Nv2"}
+{"rowId":"574","text":"Dom Nv3"}
+{"rowId":"575","text":"Capacidade"}
+{"rowId":"576","text":"Trevas"}
+{"rowId":"577","text":"Trevas Nv2"}
+{"rowId":"578","text":"Trevas Nv3"}
+{"rowId":"579","text":"Pacto Justo"}
+{"rowId":"580","text":"Preço da Vida"}
+{"rowId":"581","text":"Receber Habilidade"}
+{"rowId":"582","text":"Reduzir HP"}
+{"rowId":"583","text":"Rancor"}
+{"rowId":"584","text":"Armadura de Minotauro Nv1"}
+{"rowId":"585","text":"Armadura de Minotauro Nv2"}
+{"rowId":"586","text":"Armadura de Minotauro Nv3"}
+{"rowId":"587","text":"Receber Habilidade"}
+{"rowId":"588","text":"Receber Habilidade"}
+{"rowId":"589","text":"Receber Habilidade"}
+{"rowId":"590","text":"Receber Habilidade"}
+{"rowId":"591","text":"Receber Habilidade"}
+{"rowId":"592","text":"Receber Habilidade"}
+{"rowId":"593","text":"Receber Habilidade"}
+{"rowId":"594","text":"Receber Habilidade"}
+{"rowId":"595","text":"Despertar-Proteção da Noite"}
+{"rowId":"596","text":"Despertar-Dilacerar do Dia"}
+{"rowId":"597","text":"Armadura Negra de Minotauro"}
+{"rowId":"598","text":"Martelo de Prata de Minotauro"}
+{"rowId":"599","text":"Despertar-Dom"}
+{"rowId":"600","text":"Despertar-Trevas"}
+{"rowId":"601","text":"Despertar-Fogo Interior"}
+{"rowId":"602","text":"Armadura Negra de Minotauro"}
+{"rowId":"603","text":"Receber Habilidade"}
+{"rowId":"604","text":"Receber Habilidade"}
+{"rowId":"605","text":"Receber Habilidade"}
+{"rowId":"606","text":"Receber Habilidade"}
+{"rowId":"607","text":"Receber Habilidade"}
+{"rowId":"608","text":"Receber Habilidade"}
+{"rowId":"609","text":"Receber Habilidade"}
+{"rowId":"610","text":"Receber Habilidade"}
+{"rowId":"611","text":"Proteção da Noite"}
+{"rowId":"612","text":"Proteção da Noite"}
+{"rowId":"613","text":"Proteção da Noite"}
+{"rowId":"614","text":"Dilacerar do Dia"}
+{"rowId":"615","text":"Dilacerar do Dia"}
+{"rowId":"616","text":"Dilacerar do Dia"}
+{"rowId":"617","text":"Armadura de Minotauro"}
+{"rowId":"618","text":"Armadura de Minotauro"}
+{"rowId":"619","text":"Armadura de Minotauro"}
+{"rowId":"620","text":"Martelo de Minotauro"}
+{"rowId":"621","text":"Martelo de Minotauro"}
+{"rowId":"622","text":"Martelo de Minotauro"}
+{"rowId":"623","text":"Dom"}
+{"rowId":"624","text":"Dom"}
+{"rowId":"625","text":"Dom Nv3"}
+{"rowId":"626","text":"Capacidade"}
+{"rowId":"627","text":"Preço da Vida"}
+{"rowId":"628","text":"Rancor"}
+{"rowId":"629","text":"Armadura de Minotauro Nv1"}
+{"rowId":"630","text":"Armadura de Minotauro Nv2"}
+{"rowId":"631","text":"Armadura de Minotauro Nv3"}
+{"rowId":"632","text":"Receber Habilidade"}
+{"rowId":"633","text":"Receber Habilidade"}
+{"rowId":"634","text":"Receber Habilidade"}
+{"rowId":"635","text":"Receber Habilidade"}
+{"rowId":"636","text":"Selo da Fortaleza"}
+{"rowId":"637","text":"Selo da Fortaleza"}
+{"rowId":"638","text":"Selo da Fortaleza"}
+{"rowId":"639","text":"Selo da Fortaleza"}
+{"rowId":"640","text":"Selo da Fortaleza"}
+{"rowId":"641","text":"Roda do Destino-Recuperação"}
+{"rowId":"642","text":"Roda do Destino-Dano"}
+{"rowId":"643","text":"Habilidade Obtida"}
+{"rowId":"644","text":"Ataque"}
+{"rowId":"645","text":"Ataque"}
+{"rowId":"646","text":"Ataque"}
+{"rowId":"647","text":"Guia"}
+{"rowId":"648","text":"Guia"}
+{"rowId":"649","text":"Armadura Pesada"}
+{"rowId":"650","text":"Armadura Pesada"}
+{"rowId":"651","text":"Armadura Pesada"}
+{"rowId":"652","text":"Resistir"}
+{"rowId":"653","text":"Resistir"}
+{"rowId":"654","text":"Resistir"}
+{"rowId":"655","text":"Espinheiro"}
+{"rowId":"656","text":"Refletir Dano"}
+{"rowId":"657","text":"Espinheiro"}
+{"rowId":"658","text":"Refletir Dano"}
+{"rowId":"659","text":"Espinheiro"}
+{"rowId":"660","text":"Refletir Dano"}
+{"rowId":"661","text":"Armadura Pesada"}
+{"rowId":"662","text":"Armadura Pesada"}
+{"rowId":"663","text":"Armadura Pesada"}
+{"rowId":"664","text":"Fortalecer"}
+{"rowId":"665","text":"Fortalecer"}
+{"rowId":"666","text":"Fortalecer"}
+{"rowId":"667","text":"Escudo"}
+{"rowId":"668","text":"Escudo"}
+{"rowId":"669","text":"Escudo"}
+{"rowId":"670","text":"Recuperação"}
+{"rowId":"671","text":"Recuperação"}
+{"rowId":"672","text":"Recuperação"}
+{"rowId":"673","text":"Guarda-costas"}
+{"rowId":"674","text":"Guarda-costas"}
+{"rowId":"675","text":"Guarda-costas"}
+{"rowId":"676","text":"Queimadura"}
+{"rowId":"677","text":"Queimadura"}
+{"rowId":"678","text":"Queimadura"}
+{"rowId":"679","text":"Ataque"}
+{"rowId":"680","text":"Ataque"}
+{"rowId":"681","text":"Ataque"}
+{"rowId":"682","text":"Guia"}
+{"rowId":"683","text":"Guia"}
+{"rowId":"684","text":"Crítico"}
+{"rowId":"685","text":"Crítico"}
+{"rowId":"686","text":"Crítico"}
+{"rowId":"687","text":"Ataque Forte"}
+{"rowId":"688","text":"Ataque Forte"}
+{"rowId":"689","text":"Ataque Forte"}
+{"rowId":"690","text":"Corrosão"}
+{"rowId":"691","text":"Corrosão"}
+{"rowId":"692","text":"Corrosão"}
+{"rowId":"693","text":"Encarnação"}
+{"rowId":"694","text":"Encarnação"}
+{"rowId":"695","text":"Encarnação"}
+{"rowId":"696","text":"Invasão Mágica"}
+{"rowId":"697","text":"Invasão Mágica"}
+{"rowId":"698","text":"Invasão Mágica"}
+{"rowId":"699","text":"Crítico"}
+{"rowId":"700","text":"Crítico"}
+{"rowId":"701","text":"Crítico"}
+{"rowId":"702","text":"Armadura Pesada"}
+{"rowId":"703","text":"Armadura Pesada"}
+{"rowId":"704","text":"Armadura Pesada"}
+{"rowId":"705","text":"Ataque"}
+{"rowId":"706","text":"Ataque"}
+{"rowId":"707","text":"Ataque"}
+{"rowId":"708","text":"Bloqueio"}
+{"rowId":"709","text":"Bloqueio"}
+{"rowId":"710","text":"Bloqueio"}
+{"rowId":"711","text":"Drenar HP"}
+{"rowId":"712","text":"Receber Drenar HP"}
+{"rowId":"713","text":"Drenar HP"}
+{"rowId":"714","text":"Drenar HP"}
+{"rowId":"715","text":"Imobilizar"}
+{"rowId":"716","text":"Imobilizar"}
+{"rowId":"717","text":"Imobilizar"}
+{"rowId":"718","text":"Crítico"}
+{"rowId":"719","text":"Crítico"}
+{"rowId":"720","text":"Crítico"}
+{"rowId":"721","text":"Mata-monstros"}
+{"rowId":"722","text":"Mata-monstros"}
+{"rowId":"723","text":"Mata-monstros"}
+{"rowId":"724","text":"Especialista"}
+{"rowId":"725","text":"Especialista"}
+{"rowId":"726","text":"Especialista"}
+{"rowId":"727","text":"Penetração"}
+{"rowId":"728","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"729","text":"Penetração"}
+{"rowId":"730","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"731","text":"Penetração"}
+{"rowId":"732","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"733","text":"Postura de Controle"}
+{"rowId":"734","text":"Postura de Controle"}
+{"rowId":"735","text":"Postura de Controle"}
+{"rowId":"736","text":"Especialista"}
+{"rowId":"737","text":"Especialista"}
+{"rowId":"738","text":"Especialista"}
+{"rowId":"739","text":"Penetração"}
+{"rowId":"740","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"741","text":"Penetração"}
+{"rowId":"742","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"743","text":"Penetração"}
+{"rowId":"744","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"745","text":"Postura de Controle"}
+{"rowId":"746","text":"Postura de Controle"}
+{"rowId":"747","text":"Postura de Controle"}
+{"rowId":"748","text":"Velocidade Extrema"}
+{"rowId":"749","text":"Velocidade Extrema"}
+{"rowId":"750","text":"Velocidade Extrema"}
+{"rowId":"751","text":"Cegueira"}
+{"rowId":"752","text":"Cegueira"}
+{"rowId":"753","text":"Cegueira"}
+{"rowId":"754","text":"Bloquear Cura"}
+{"rowId":"755","text":"Bloquear Cura"}
+{"rowId":"756","text":"Bloquear Cura"}
+{"rowId":"757","text":"Magia Proliferante"}
+{"rowId":"758","text":"Magia Proliferante"}
+{"rowId":"759","text":"Magia Proliferante"}
+{"rowId":"760","text":"Resistir"}
+{"rowId":"761","text":"Resistir"}
+{"rowId":"762","text":"Resistir"}
+{"rowId":"763","text":"Marca do Dragão"}
+{"rowId":"764","text":"Marca do Dragão"}
+{"rowId":"765","text":"Marca do Dragão"}
+{"rowId":"766","text":"Marca do Dragão"}
+{"rowId":"767","text":"Marca do Dragão"}
+{"rowId":"768","text":"Receber Remover Revide"}
+{"rowId":"769","text":"Receber Remover Revide"}
+{"rowId":"770","text":"Receber Remover Revide"}
+{"rowId":"771","text":"Mordida da Raposa Nv1"}
+{"rowId":"772","text":"Mordida da Raposa Nv2"}
+{"rowId":"773","text":"Mordida da Raposa Nv3"}
+{"rowId":"774","text":"Ataque da Raposa Nv1"}
+{"rowId":"775","text":"Ataque da Raposa Nv2"}
+{"rowId":"776","text":"Ataque da Raposa Nv3"}
+{"rowId":"777","text":"Marca da Raposa Nv1"}
+{"rowId":"778","text":"Marca da Raposa Nv2"}
+{"rowId":"779","text":"Poder da Linhagem Nv1"}
+{"rowId":"780","text":"Poder da Linhagem Nv2"}
+{"rowId":"781","text":"Fogo Destrói-alma Nv1"}
+{"rowId":"782","text":"Fogo Destrói-alma Nv2"}
+{"rowId":"783","text":"Uivo da Raposa Nv1"}
+{"rowId":"784","text":"Uivo da Raposa Nv2"}
+{"rowId":"785","text":"Guardião da Alma Nv1"}
+{"rowId":"786","text":"Guardião da Alma Nv2"}
+{"rowId":"787","text":"Redemoinho de Fogo Nv1"}
+{"rowId":"788","text":"Poder Abrasador Nv1"}
+{"rowId":"789","text":"Receber Habilidade"}
+{"rowId":"790","text":"Receber Habilidade"}
+{"rowId":"791","text":"Receber Habilidade"}
+{"rowId":"792","text":"Área Marcada"}
+{"rowId":"793","text":"Receber Habilidade"}
+{"rowId":"794","text":"Acúmulo de Nova Habilidade"}
+{"rowId":"795","text":"Selo da Arena das Galinhas"}
+{"rowId":"796","text":"Selo da Arena das Galinhas"}
+{"rowId":"797","text":"Selo da Arena das Galinhas"}
+{"rowId":"798","text":"Selo da Arena das Galinhas"}
+{"rowId":"799","text":"Selo da Arena das Galinhas"}
+{"rowId":"800","text":"Ataque"}
+{"rowId":"801","text":"Ataque"}
+{"rowId":"802","text":"Ataque"}
+{"rowId":"803","text":"Receber Habilidade"}
+{"rowId":"804","text":"Receber Habilidade"}
+{"rowId":"805","text":"Receber Habilidade"}
+{"rowId":"806","text":"Cansaço"}
+{"rowId":"807","text":"Cansaço"}
+{"rowId":"808","text":"Cansaço"}
+{"rowId":"809","text":"Linhagem"}
+{"rowId":"810","text":"Linhagem"}
+{"rowId":"811","text":"Linhagem"}
+{"rowId":"812","text":"Selo do Pintinho"}
+{"rowId":"813","text":"Selo do Pintinho"}
+{"rowId":"814","text":"Selo do Pintinho"}
+{"rowId":"815","text":"Selo do Pintinho"}
+{"rowId":"816","text":"Selo do Pintinho"}
+{"rowId":"817","text":"Fogo Abrasador"}
+{"rowId":"818","text":"Congelamento Instantâneo"}
+{"rowId":"819","text":"Disparo Relâmpago"}
+{"rowId":"820","text":"Poder da Terra"}
+{"rowId":"821","text":"Escudo Escaldante"}
+{"rowId":"822","text":"Chuva Curativa"}
+{"rowId":"823","text":"Velocidade do Vento"}
+{"rowId":"824","text":"Alma da Terra"}
+{"rowId":"825","text":"Mordida Feroz"}
+{"rowId":"826","text":"Mordida Feroz"}
+{"rowId":"827","text":"Mordida Feroz"}
+{"rowId":"828","text":"Bala de Casco"}
+{"rowId":"829","text":"Bala de Casco"}
+{"rowId":"830","text":"Bala de Casco"}
+{"rowId":"831","text":"Armadura de Espinhos"}
+{"rowId":"832","text":"Armadura de Espinhos"}
+{"rowId":"833","text":"Armadura de Espinhos"}
+{"rowId":"834","text":"Desprezo"}
+{"rowId":"835","text":"Troca"}
+{"rowId":"836","text":"Troca"}
+{"rowId":"837","text":"Peso da Montanha"}
+{"rowId":"838","text":"Peso da Montanha"}
+{"rowId":"839","text":"Ricochete"}
+{"rowId":"840","text":"União"}
+{"rowId":"841","text":"Ajuda Mútua"}
+{"rowId":"842","text":"Receber Habilidade"}
+{"rowId":"843","text":"Receber Habilidade"}
+{"rowId":"844","text":"Receber Habilidade"}
+{"rowId":"845","text":"Receber Habilidade"}
+{"rowId":"846","text":"Despertar-Bala de Casco"}
+{"rowId":"847","text":"Despertar-Armadura de Espinhos"}
+{"rowId":"848","text":"Receber Habilidade"}
+{"rowId":"849","text":"Despertar-Desprezo"}
+{"rowId":"850","text":"Despertar-Peso da Montanha"}
+{"rowId":"851","text":"Despertar-Ricochete"}
+{"rowId":"852","text":"Receber Habilidade"}
+{"rowId":"853","text":"Receber Habilidade"}
+{"rowId":"854","text":"Despertar-União"}
+{"rowId":"855","text":"Receber Habilidade"}
+{"rowId":"856","text":"Casco Protetor"}
+{"rowId":"857","text":"Casco Protetor"}
+{"rowId":"858","text":"Casco Protetor"}
+{"rowId":"859","text":"Possessão do Deus Tartaruga"}
+{"rowId":"860","text":"Possessão do Deus Tartaruga"}
+{"rowId":"861","text":"Possessão do Deus Tartaruga"}
+{"rowId":"862","text":"Despertar-União"}
+{"rowId":"863","text":"Remover Esquiva"}
+{"rowId":"864","text":"Despertar-Firmeza"}
+{"rowId":"865","text":"Despertar-Afiado"}
+{"rowId":"866","text":"Despertar-Casca Espinhosa"}
+{"rowId":"867","text":"Ataque Reduz Dano"}
+{"rowId":"868","text":"Refletir Dano-2"}
+{"rowId":"869","text":"Despertar-Cura"}
+{"rowId":"870","text":"Despertar-Vingança"}
+{"rowId":"871","text":"Despertar-Contra-ataque"}
+{"rowId":"872","text":"Ataque Reduz Dano"}
+{"rowId":"873","text":"Refletir Dano-2"}
+{"rowId":"874","text":"Despertar-Imobilizar"}
+{"rowId":"875","text":"Despertar-Galinha Furiosa"}
+{"rowId":"876","text":"Despertar-Galinha Rebelde"}
+{"rowId":"877","text":"Remover Poder de Fogo Duplo"}
+{"rowId":"878","text":"Galinha Furiosa Nv2"}
+{"rowId":"879","text":"Galinha Rebelde"}
+{"rowId":"880","text":"Focinhada Nv1"}
+{"rowId":"881","text":"Focinhada Nv2"}
+{"rowId":"882","text":"Focinhada Nv3"}
+{"rowId":"883","text":"Bala Voadora Nv1"}
+{"rowId":"884","text":"Bala Voadora Nv2"}
+{"rowId":"885","text":"Bala Voadora Nv3"}
+{"rowId":"886","text":"Receber Habilidade"}
+{"rowId":"887","text":"Casca Dura Nv1"}
+{"rowId":"888","text":"Casca Dura Nv2"}
+{"rowId":"889","text":"Revigorar"}
+{"rowId":"890","text":"Focinhada Forte"}
+{"rowId":"891","text":"Porco Tremendo"}
+{"rowId":"892","text":"Escudo do Porco"}
+{"rowId":"893","text":"Atração"}
+{"rowId":"894","text":"Ardente-Básico"}
+{"rowId":"895","text":"Ardente-Médio"}
+{"rowId":"896","text":"Ardente-Avançado"}
+{"rowId":"897","text":"Lâmina d'Água-Básico"}
+{"rowId":"898","text":"Lâmina d'Água-Médio"}
+{"rowId":"899","text":"Lâmina d'Água-Avançado"}
+{"rowId":"900","text":"Cavalgar o Vento-Básico"}
+{"rowId":"901","text":"Cavalgar o Vento-Médio"}
+{"rowId":"902","text":"Cavalgar o Vento-Avançado"}
+{"rowId":"903","text":"Espada na Pedra-Básico"}
+{"rowId":"904","text":"Espada na Pedra-Médio"}
+{"rowId":"905","text":"Espada na Pedra-Avançado"}
+{"rowId":"906","text":"Muralha de Fogo-Básico"}
+{"rowId":"907","text":"Muralha de Fogo-Médio"}
+{"rowId":"908","text":"Muralha de Fogo-Avançado"}
+{"rowId":"909","text":"Escudo de Gelo-Básico"}
+{"rowId":"910","text":"Escudo de Gelo-Médio"}
+{"rowId":"911","text":"Escudo de Gelo-Avançado"}
+{"rowId":"912","text":"Deslizar-Básico"}
+{"rowId":"913","text":"Deslizar-Médio"}
+{"rowId":"914","text":"Deslizar-Avançado"}
+{"rowId":"915","text":"Armadura de Pedra-Básico"}
+{"rowId":"916","text":"Armadura de Pedra-Médio"}
+{"rowId":"917","text":"Armadura de Pedra-Avançado"}
+{"rowId":"918","text":"Dança do Fogo-Básico"}
+{"rowId":"919","text":"Dança do Fogo-Médio"}
+{"rowId":"920","text":"Dança do Fogo-Avançado"}
+{"rowId":"921","text":"Ondulação-Básico"}
+{"rowId":"922","text":"Ondulação-Médio"}
+{"rowId":"923","text":"Ondulação-Avançado"}
+{"rowId":"924","text":"Tornado-Básico"}
+{"rowId":"925","text":"Tornado-Médio"}
+{"rowId":"926","text":"Tornado-Avançado"}
+{"rowId":"927","text":"Terra Furiosa-Básico"}
+{"rowId":"928","text":"Terra Furiosa-Médio"}
+{"rowId":"929","text":"Terra Furiosa-Avançado"}
+{"rowId":"930","text":"Fogo da Bênção-Básico"}
+{"rowId":"931","text":"Fogo da Bênção-Médio"}
+{"rowId":"932","text":"Fogo da Bênção-Avançado"}
+{"rowId":"933","text":"Armadura de Gelo-Básico"}
+{"rowId":"934","text":"Armadura de Gelo-Médio"}
+{"rowId":"935","text":"Armadura de Gelo-Avançado"}
+{"rowId":"936","text":"Melodia do Vento-Básico"}
+{"rowId":"937","text":"Melodia do Vento-Médio"}
+{"rowId":"938","text":"Melodia do Vento-Avançado"}
+{"rowId":"939","text":"Terra Protetora-Básico"}
+{"rowId":"940","text":"Terra Protetora-Médio"}
+{"rowId":"941","text":"Terra Protetora-Avançado"}
+{"rowId":"942","text":"Poder do Fogo-Básico"}
+{"rowId":"943","text":"Poder do Fogo-Médio"}
+{"rowId":"944","text":"Poder do Fogo-Avançado"}
+{"rowId":"945","text":"Elemento Fogo-Básico"}
+{"rowId":"946","text":"Elemento Fogo-Médio"}
+{"rowId":"947","text":"Elemento Fogo-Avançado"}
+{"rowId":"948","text":"Alma de Fogo Forte-Básico"}
+{"rowId":"949","text":"Alma de Fogo Forte-Médio"}
+{"rowId":"950","text":"Alma de Fogo Forte-Avançado"}
+{"rowId":"951","text":"Fogo Invasor-Básico"}
+{"rowId":"952","text":"Fogo Invasor-Médio"}
+{"rowId":"953","text":"Fogo Invasor-Avançado"}
+{"rowId":"957","text":"Geada-Básico"}
+{"rowId":"958","text":"Geada-Médio"}
+{"rowId":"959","text":"Geada-Avançado"}
+{"rowId":"960","text":"Elemento Água-Básico"}
+{"rowId":"961","text":"Elemento Água-Médio"}
+{"rowId":"962","text":"Elemento Água-Avançado"}
+{"rowId":"963","text":"Alma de Água Forte-Básico"}
+{"rowId":"964","text":"Alma de Água Forte-Médio"}
+{"rowId":"965","text":"Alma de Água Forte-Avançado"}
+{"rowId":"966","text":"Gelo-Básico"}
+{"rowId":"967","text":"Gelo-Médio"}
+{"rowId":"968","text":"Gelo-Avançado"}
+{"rowId":"972","text":"Alma do Vento-Básico"}
+{"rowId":"973","text":"Alma do Vento-Médio"}
+{"rowId":"974","text":"Alma do Vento-Avançado"}
+{"rowId":"975","text":"Raios e Trovões-Básico"}
+{"rowId":"976","text":"Raios e Trovões-Médio"}
+{"rowId":"977","text":"Raios e Trovões-Avançado"}
+{"rowId":"978","text":"Alma de Vento Forte-Básico"}
+{"rowId":"979","text":"Alma de Vento Forte-Médio"}
+{"rowId":"980","text":"Alma de Vento Forte-Avançado"}
+{"rowId":"981","text":"Vento Cortante-Básico"}
+{"rowId":"982","text":"Vento Cortante-Médio"}
+{"rowId":"983","text":"Vento Cortante-Avançado"}
+{"rowId":"984","text":"Espinho de Terra-Básico"}
+{"rowId":"985","text":"Espinho de Terra-Médio"}
+{"rowId":"986","text":"Espinho de Terra-Avançado"}
+{"rowId":"987","text":"Terra da Bênção-Básico"}
+{"rowId":"988","text":"Terra da Bênção-Médio"}
+{"rowId":"989","text":"Terra da Bênção-Avançado"}
+{"rowId":"990","text":"Terra Corrosiva-Básico"}
+{"rowId":"991","text":"Terra Corrosiva-Médio"}
+{"rowId":"992","text":"Despertar-Graça do Cervo"}
+{"rowId":"993","text":"Despertar-Pedra da Geada de Inverno"}
+{"rowId":"995","text":"Pureza-Básico"}
+{"rowId":"996","text":"Barreira de Água-Básico"}
+{"rowId":"997","text":"Reflexo-Básico"}
+{"rowId":"998","text":"Corrente de Raios-Básico"}
+{"rowId":"999","text":"Palavras do Vento-Básico"}
+{"rowId":"1000","text":"Petrificar-Básico"}
+{"rowId":"1001","text":"Solidez-Básico"}
+{"rowId":"1002","text":"Despertar-Chuva Divina"}
+{"rowId":"1003","text":"Despertar-Juramento Pirata"}
+{"rowId":"1004","text":"Despertar-Anjo do Amor"}
+{"rowId":"1005","text":"Arte da Cura"}
+{"rowId":"1006","text":"Arte da Cura"}
+{"rowId":"1007","text":"Arte da Cura"}
+{"rowId":"1008","text":"Arte da Cura"}
+{"rowId":"1009","text":"Arte da Cura"}
+{"rowId":"1010","text":"Arte da Cura"}
+{"rowId":"1011","text":"Arte da Cura"}
+{"rowId":"1012","text":"Arte da Cura"}
+{"rowId":"1013","text":"Arte da Cura"}
+{"rowId":"1014","text":"Arte da Cura"}
+{"rowId":"1015","text":"Arte da Cura"}
+{"rowId":"1016","text":"Arte da Cura"}
+{"rowId":"1017","text":"Arte da Cura"}
+{"rowId":"1018","text":"Arte da Cura"}
+{"rowId":"1019","text":"Arte da Cura"}
+{"rowId":"1020","text":"Arte da Cura"}
+{"rowId":"1021","text":"Arte da Cura"}
+{"rowId":"1022","text":"Arte da Cura"}
+{"rowId":"1023","text":"Arte da Cura"}
+{"rowId":"1024","text":"Arte da Cura"}
+{"rowId":"1025","text":"Arte da Cura"}
+{"rowId":"1026","text":"Arte da Cura"}
+{"rowId":"1027","text":"Arte da Cura"}
+{"rowId":"1028","text":"Arte da Cura"}
+{"rowId":"1029","text":"Arte da Cura"}
+{"rowId":"1030","text":"Arte da Cura"}
+{"rowId":"1031","text":"Arte da Cura"}
+{"rowId":"1032","text":"Arte da Cura"}
+{"rowId":"1033","text":"Arte da Cura"}
+{"rowId":"1034","text":"Arte da Cura"}
+{"rowId":"1035","text":"Arte da Cura"}
+{"rowId":"1036","text":"Arte da Cura"}
+{"rowId":"1037","text":"Arte da Cura"}
+{"rowId":"1038","text":"Arte da Cura"}
+{"rowId":"1039","text":"Arte da Cura"}
+{"rowId":"1040","text":"Arte da Cura"}
+{"rowId":"1041","text":"Arte da Cura"}
+{"rowId":"1042","text":"Arte da Cura"}
+{"rowId":"1043","text":"Arte da Cura"}
+{"rowId":"1044","text":"Arte da Cura"}
+{"rowId":"1045","text":"Arte da Cura"}
+{"rowId":"1046","text":"Combustão-Médio"}
+{"rowId":"1047","text":"Pureza-Médio"}
+{"rowId":"1048","text":"Barreira de Água-Médio"}
+{"rowId":"1049","text":"Reflexo-Médio"}
+{"rowId":"1050","text":"Corrente de Raios-Médio"}
+{"rowId":"1051","text":"Palavras do Vento-Médio"}
+{"rowId":"1052","text":"Petrificar-Médio"}
+{"rowId":"1053","text":"Solidez-Médio"}
+{"rowId":"1054","text":"Combustão-Avançado"}
+{"rowId":"1055","text":"Pureza-Avançado"}
+{"rowId":"1056","text":"Barreira de Água-Avançado"}
+{"rowId":"1057","text":"Reflexo-Avançado"}
+{"rowId":"1058","text":"Corrente de Raios-Avançado"}
+{"rowId":"1059","text":"Palavras do Vento-Avançado"}
+{"rowId":"1060","text":"Petrificar-Avançado"}
+{"rowId":"1061","text":"Solidez-Avançado"}
+{"rowId":"1062","text":"Receber Habilidade"}
+{"rowId":"1063","text":"Irmandade"}
+{"rowId":"1064","text":"Irmandade"}
+{"rowId":"1065","text":"Irmandade"}
+{"rowId":"1066","text":"Irmandade"}
+{"rowId":"1067","text":"Irmandade"}
+{"rowId":"1068","text":"Irmandade"}
+{"rowId":"1069","text":"Irmandade"}
+{"rowId":"1070","text":"Irmandade"}
+{"rowId":"1071","text":"Irmandade"}
+{"rowId":"1072","text":"Irmandade"}
+{"rowId":"1073","text":"Despertar-Autodefesa"}
+{"rowId":"1074","text":"Despertar-Semente Voadora"}
+{"rowId":"1075","text":"Despertar-Magia Proliferante"}
+{"rowId":"1076","text":"Escudo Protetor"}
+{"rowId":"1077","text":"Indomável"}
+{"rowId":"1078","text":"Indomável"}
+{"rowId":"1079","text":"Indomável"}
+{"rowId":"1080","text":"Escudo"}
+{"rowId":"1081","text":"Escudo"}
+{"rowId":"1082","text":"Escudo"}
+{"rowId":"1083","text":"Despertar-Asas Demoníacas Ardentes"}
+{"rowId":"1084","text":"Despertar-Agonia Corrosiva"}
+{"rowId":"1085","text":"Despertar-Sacrifício ao Deus Maligno"}
+{"rowId":"1086","text":"Queimar"}
+{"rowId":"1087","text":"Recuperar Magia Nv1"}
+{"rowId":"1088","text":"Recuperar Magia Nv2"}
+{"rowId":"1089","text":"Recuperar Magia Nv3"}
+{"rowId":"1090","text":"Recuperar Magia Nv4"}
+{"rowId":"1091","text":"Recuperar Magia Nv5"}
+{"rowId":"1092","text":"Ataque Antecipado Nv1"}
+{"rowId":"1093","text":"Ataque Antecipado Nv2"}
+{"rowId":"1094","text":"Ataque Antecipado Nv3"}
+{"rowId":"1095","text":"Ataque Antecipado Nv4"}
+{"rowId":"1096","text":"Ataque Antecipado Nv5"}
+{"rowId":"1097","text":"Ferido Nv1"}
+{"rowId":"1098","text":"Ferido Nv2"}
+{"rowId":"1099","text":"Ferido Nv3"}
+{"rowId":"1100","text":"Ferido Nv4"}
+{"rowId":"1101","text":"Ferido Nv5"}
+{"rowId":"1102","text":"Força Bruta Nv1"}
+{"rowId":"1103","text":"Força Bruta Nv2"}
+{"rowId":"1104","text":"Força Bruta Nv3"}
+{"rowId":"1105","text":"Força Bruta Nv4"}
+{"rowId":"1106","text":"Força Bruta Nv5"}
+{"rowId":"1107","text":"Linhagem Nv1"}
+{"rowId":"1108","text":"Linhagem Nv2"}
+{"rowId":"1109","text":"Linhagem Nv3"}
+{"rowId":"1110","text":"Linhagem Nv4"}
+{"rowId":"1111","text":"Linhagem Nv5"}
+{"rowId":"1112","text":"Anseio Nv1"}
+{"rowId":"1113","text":"Anseio Nv2"}
+{"rowId":"1114","text":"Anseio Nv3"}
+{"rowId":"1115","text":"Anseio Nv4"}
+{"rowId":"1116","text":"Anseio Nv5"}
+{"rowId":"1117","text":"Proteção Divina Nv1"}
+{"rowId":"1118","text":"Proteção Divina Nv2"}
+{"rowId":"1119","text":"Proteção Divina Nv3"}
+{"rowId":"1120","text":"Proteção Divina Nv4"}
+{"rowId":"1121","text":"Proteção Divina Nv5"}
+{"rowId":"1122","text":"Proteção Divina Nv1"}
+{"rowId":"1123","text":"Proteção Divina Nv2"}
+{"rowId":"1124","text":"Proteção Divina Nv3"}
+{"rowId":"1125","text":"Proteção Divina Nv3"}
+{"rowId":"1126","text":"Proteção Divina Nv3"}
+{"rowId":"1127","text":"Espinheiro Nv1"}
+{"rowId":"1128","text":"Espinheiro Nv2"}
+{"rowId":"1129","text":"Espinheiro Nv3"}
+{"rowId":"1130","text":"Espinheiro Nv4"}
+{"rowId":"1131","text":"Espinheiro Nv5"}
+{"rowId":"1132","text":"Fúria Selvagem Nv1"}
+{"rowId":"1133","text":"Fúria Selvagem Nv2"}
+{"rowId":"1134","text":"Fúria Selvagem Nv3"}
+{"rowId":"1135","text":"Fúria Selvagem Nv4"}
+{"rowId":"1136","text":"Fúria Selvagem Nv5"}
+{"rowId":"1137","text":"Ninjutsu Nv1"}
+{"rowId":"1138","text":"Ninjutsu Nv2"}
+{"rowId":"1139","text":"Ninjutsu Nv3"}
+{"rowId":"1140","text":"Ninjutsu Nv4"}
+{"rowId":"1141","text":"Ninjutsu Nv5"}
+{"rowId":"1142","text":"Resistir a Perfurar Armadura Nv1"}
+{"rowId":"1143","text":"Resistir a Perfurar Armadura Nv2"}
+{"rowId":"1144","text":"Resistir a Perfurar Armadura Nv3"}
+{"rowId":"1145","text":"Resistir a Perfurar Armadura Nv4"}
+{"rowId":"1146","text":"Resistir a Perfurar Armadura Nv5"}
+{"rowId":"1147","text":"Resistir a Queimadura Nv1"}
+{"rowId":"1148","text":"Resistir a Queimadura Nv2"}
+{"rowId":"1149","text":"Resistir a Queimadura Nv3"}
+{"rowId":"1150","text":"Resistir a Queimadura Nv4"}
+{"rowId":"1151","text":"Resistir a Queimadura Nv5"}
+{"rowId":"1152","text":"Resistir a Congelamento Nv1"}
+{"rowId":"1153","text":"Resistir a Congelamento Nv2"}
+{"rowId":"1154","text":"Resistir a Congelamento Nv3"}
+{"rowId":"1155","text":"Resistir a Congelamento Nv4"}
+{"rowId":"1156","text":"Resistir a Congelamento Nv5"}
+{"rowId":"1157","text":"Bater de Asas da Fênix"}
+{"rowId":"1158","text":"Bater de Asas da Fênix"}
+{"rowId":"1159","text":"Bater de Asas da Fênix"}
+{"rowId":"1160","text":"Mar de Fogo Cintilante Nv1"}
+{"rowId":"1161","text":"Mar de Fogo Cintilante Nv2"}
+{"rowId":"1162","text":"Mar de Fogo Cintilante Nv3"}
+{"rowId":"1163","text":"Chamas até o Céu"}
+{"rowId":"1164","text":"Área Marcada"}
+{"rowId":"1165","text":"Queimadura"}
+{"rowId":"1166","text":"Fogo Protetor"}
+{"rowId":"1167","text":"Receber Habilidade"}
+{"rowId":"1168","text":"Receber Habilidade"}
+{"rowId":"1169","text":"Ímpeto Flamejante"}
+{"rowId":"1170","text":"SPOW-Fogo Vermelho"}
+{"rowId":"1171","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"1172","text":"Explosão de Fogo Vermelho"}
+{"rowId":"1173","text":"Chama Tremulante"}
+{"rowId":"1174","text":"Renascer da Fênix"}
+{"rowId":"1175","text":"Receber Habilidade"}
+{"rowId":"1176","text":"Receber Habilidade"}
+{"rowId":"1177","text":"Receber Habilidade"}
+{"rowId":"1178","text":"Receber Habilidade"}
+{"rowId":"1179","text":"Receber Habilidade"}
+{"rowId":"1180","text":"Receber Efeito Drenar HP"}
+{"rowId":"1181","text":"Receber Efeito Drenar HP"}
+{"rowId":"1182","text":"Receber Efeito Drenar HP"}
+{"rowId":"1183","text":"Receber Efeito Drenar HP"}
+{"rowId":"1184","text":"Receber Efeito Drenar HP"}
+{"rowId":"1185","text":"Refletir Dano"}
+{"rowId":"1186","text":"Receber Habilidade"}
+{"rowId":"1187","text":"Receber Habilidade"}
+{"rowId":"1188","text":"Receber Habilidade"}
+{"rowId":"1189","text":"Receber Habilidade"}
+{"rowId":"1190","text":"Receber Habilidade"}
+{"rowId":"1191","text":"Receber Habilidade"}
+{"rowId":"1192","text":"Receber Habilidade"}
+{"rowId":"1193","text":"Receber Habilidade"}
+{"rowId":"1194","text":"Receber Habilidade"}
+{"rowId":"1195","text":"Receber Habilidade"}
+{"rowId":"1196","text":"Receber Habilidade"}
+{"rowId":"1197","text":"Receber Habilidade"}
+{"rowId":"1198","text":"Receber Habilidade"}
+{"rowId":"1199","text":"Despertar-Fogo Protetor"}
+{"rowId":"1200","text":"Receber Habilidade"}
+{"rowId":"1211","text":"Receber Habilidade"}
+{"rowId":"1212","text":"Despertar-Mar de Fogo Cintilante"}
+{"rowId":"1213","text":"Despertar-SPOW-Fogo Vermelho"}
+{"rowId":"1214","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"1215","text":"Despertar-Explosão de Fogo Vermelho"}
+{"rowId":"1216","text":"Despertar-Renascer da Fênix"}
+{"rowId":"1217","text":"Despertar-Chama Tremulante"}
+{"rowId":"1218","text":"Despertar-Chamas até o Céu"}
+{"rowId":"1219","text":"Área Marcada"}
+{"rowId":"1220","text":"Queimadura"}
+{"rowId":"1221","text":"Garra Afiada"}
+{"rowId":"1222","text":"Garra Afiada"}
+{"rowId":"1223","text":"Garra Afiada"}
+{"rowId":"1224","text":"Bala Voadora"}
+{"rowId":"1225","text":"Bala Voadora"}
+{"rowId":"1226","text":"Bala Voadora"}
+{"rowId":"1227","text":"Ataque"}
+{"rowId":"1228","text":"Hibernação"}
+{"rowId":"1229","text":"Hibernação"}
+{"rowId":"1230","text":"Hibernação"}
+{"rowId":"1231","text":"Rato Transformista"}
+{"rowId":"1232","text":"Avanço Silencioso"}
+{"rowId":"1233","text":"Velocidade Divina"}
+{"rowId":"1234","text":"Fortalecimento Silencioso"}
+{"rowId":"1235","text":"Remover Habilidade"}
+{"rowId":"1236","text":"Resistir a Crítico"}
+{"rowId":"1237","text":"Resistir a Crítico"}
+{"rowId":"1238","text":"Resistir a Crítico"}
+{"rowId":"1239","text":"Canhão de Fada"}
+{"rowId":"1240","text":"Canhão de Fada"}
+{"rowId":"1241","text":"Canhão de Fada"}
+{"rowId":"1242","text":"Escudo da Vida"}
+{"rowId":"1243","text":"Escudo da Vida"}
+{"rowId":"1244","text":"Escudo da Vida"}
+{"rowId":"1245","text":"Despertar-Bala Voadora"}
+{"rowId":"1246","text":"Despertar-Velocidade Divina"}
+{"rowId":"1247","text":"Despertar-Ataque"}
+{"rowId":"1248","text":"Despertar-Avanço Silencioso"}
+{"rowId":"1249","text":"Receber Habilidade"}
+{"rowId":"1250","text":"Receber Habilidade"}
+{"rowId":"1251","text":"Remover Habilidade"}
+{"rowId":"1252","text":"Esquiva +4%"}
+{"rowId":"1253","text":"Habilidade é ativada após inicializar"}
+{"rowId":"1254","text":"Hardy Silencioso"}
+{"rowId":"1255","text":"Hardy Silencioso"}
+{"rowId":"1256","text":"Hardy Silencioso"}
+{"rowId":"1257","text":"Hardy Protetor"}
+{"rowId":"1258","text":"Hardy Protetor"}
+{"rowId":"1259","text":"Hardy Protetor"}
+{"rowId":"1260","text":"Ataque do Coelho"}
+{"rowId":"1261","text":"Ataque do Coelho"}
+{"rowId":"1262","text":"Ataque do Coelho"}
+{"rowId":"1263","text":"Coelho Bala Voadora"}
+{"rowId":"1264","text":"Coelho Bala Voadora"}
+{"rowId":"1265","text":"Coelho Bala Voadora"}
+{"rowId":"1266","text":"Coelho Redutor de Dano"}
+{"rowId":"1267","text":"Coelho Forte"}
+{"rowId":"1268","text":"Coelho Resistente"}
+{"rowId":"1269","text":"Coelho com Escudo"}
+{"rowId":"1270","text":"Coelho Durão"}
+{"rowId":"1271","text":"Coelho Durão"}
+{"rowId":"1272","text":"Coelho Esquivo"}
+{"rowId":"1273","text":"Despertar-Coelho Redutor de Dano"}
+{"rowId":"1274","text":"Despertar-Coelho Resistente"}
+{"rowId":"1275","text":"Despertar-Coelho com Escudo"}
+{"rowId":"1276","text":"Despertar-Coelho Durão"}
+{"rowId":"1277","text":"Receber Habilidade"}
+{"rowId":"1283","text":"Despertar 1-Postura Defensiva"}
+{"rowId":"1284","text":"Despertar 1-Postura Ofensiva"}
+{"rowId":"1285","text":"Despertar 1-Especialidade Kung Fu"}
+{"rowId":"1291","text":"Ciclone da Prisão de Gelo"}
+{"rowId":"1292","text":"Ciclone da Prisão de Gelo"}
+{"rowId":"1293","text":"Ciclone da Prisão de Gelo"}
+{"rowId":"1294","text":"Espinho de Gelo"}
+{"rowId":"1295","text":"Espinho de Gelo"}
+{"rowId":"1296","text":"Espinho de Gelo"}
+{"rowId":"1297","text":"Sopro Congelante"}
+{"rowId":"1298","text":"Rugido do Dragão"}
+{"rowId":"1299","text":"Poder do Frio Extremo"}
+{"rowId":"1300","text":"Muralha de Geada"}
+{"rowId":"1301","text":"Fúria Glacial"}
+{"rowId":"1302","text":"Sono Eterno"}
+{"rowId":"1303","text":"Armadura Glacial"}
+{"rowId":"1304","text":"Despertar 1-Espinho de Gelo"}
+{"rowId":"1305","text":"Despertar 1-Sopro Congelante"}
+{"rowId":"1306","text":"Despertar 1-Rugido do Dragão"}
+{"rowId":"1307","text":"Despertar 1-Poder do Frio Extremo"}
+{"rowId":"1308","text":"Despertar 1-Barreira de Geada"}
+{"rowId":"1309","text":"Despertar 1-Fúria Glacial"}
+{"rowId":"1310","text":"Despertar 1-Armadura Glacial"}
+{"rowId":"1311","text":"Cinco Elementos-Água"}
+{"rowId":"1312","text":"Cinco Elementos-Água"}
+{"rowId":"1313","text":"Cinco Elementos-Água"}
+{"rowId":"1314","text":"Cinco Elementos-Água"}
+{"rowId":"1315","text":"Cinco Elementos-Água"}
+{"rowId":"1316","text":"Cinco Elementos-Água"}
+{"rowId":"1317","text":"Cinco Elementos-Fogo"}
+{"rowId":"1318","text":"Cinco Elementos-Fogo"}
+{"rowId":"1319","text":"Cinco Elementos-Fogo"}
+{"rowId":"1320","text":"Cinco Elementos-Fogo"}
+{"rowId":"1321","text":"Cinco Elementos-Fogo"}
+{"rowId":"1322","text":"Cinco Elementos-Fogo"}
+{"rowId":"1323","text":"Cinco Elementos-Vento"}
+{"rowId":"1324","text":"Cinco Elementos-Vento"}
+{"rowId":"1325","text":"Cinco Elementos-Vento"}
+{"rowId":"1326","text":"Cinco Elementos-Vento"}
+{"rowId":"1327","text":"Cinco Elementos-Vento"}
+{"rowId":"1328","text":"Cinco Elementos-Vento"}
+{"rowId":"1329","text":"Cinco Elementos-Terra"}
+{"rowId":"1330","text":"Cinco Elementos-Terra"}
+{"rowId":"1331","text":"Cinco Elementos-Terra"}
+{"rowId":"1332","text":"Cinco Elementos-Terra"}
+{"rowId":"1333","text":"Cinco Elementos-Terra"}
+{"rowId":"1334","text":"Cinco Elementos-Terra"}
+{"rowId":"1335","text":"Aniquilação-Água"}
+{"rowId":"1336","text":"Aniquilação-Água"}
+{"rowId":"1337","text":"Aniquilação-Água"}
+{"rowId":"1338","text":"Aniquilação-Água"}
+{"rowId":"1339","text":"Aniquilação-Água"}
+{"rowId":"1340","text":"Aniquilação-Água"}
+{"rowId":"1341","text":"Aniquilação-Fogo"}
+{"rowId":"1342","text":"Aniquilação-Fogo"}
+{"rowId":"1343","text":"Aniquilação-Fogo"}
+{"rowId":"1344","text":"Aniquilação-Fogo"}
+{"rowId":"1345","text":"Aniquilação-Fogo"}
+{"rowId":"1346","text":"Aniquilação-Fogo"}
+{"rowId":"1347","text":"Aniquilação-Vento"}
+{"rowId":"1348","text":"Aniquilação-Vento"}
+{"rowId":"1349","text":"Aniquilação-Vento"}
+{"rowId":"1350","text":"Aniquilação-Vento"}
+{"rowId":"1351","text":"Aniquilação-Vento"}
+{"rowId":"1352","text":"Aniquilação-Vento"}
+{"rowId":"1353","text":"Aniquilação-Terra"}
+{"rowId":"1354","text":"Aniquilação-Terra"}
+{"rowId":"1355","text":"Aniquilação-Terra"}
+{"rowId":"1356","text":"Aniquilação-Terra"}
+{"rowId":"1357","text":"Aniquilação-Terra"}
+{"rowId":"1358","text":"Aniquilação-Terra"}
+{"rowId":"1359","text":"Decreto-Água"}
+{"rowId":"1360","text":"Decreto-Água"}
+{"rowId":"1361","text":"Decreto-Água"}
+{"rowId":"1362","text":"Decreto-Água"}
+{"rowId":"1363","text":"Decreto-Água"}
+{"rowId":"1364","text":"Decreto-Água"}
+{"rowId":"1365","text":"Decreto-Fogo"}
+{"rowId":"1366","text":"Decreto-Fogo"}
+{"rowId":"1367","text":"Decreto-Fogo"}
+{"rowId":"1368","text":"Decreto-Fogo"}
+{"rowId":"1369","text":"Decreto-Fogo"}
+{"rowId":"1370","text":"Decreto-Fogo"}
+{"rowId":"1371","text":"Decreto-Vento"}
+{"rowId":"1372","text":"Decreto-Vento"}
+{"rowId":"1373","text":"Decreto-Vento"}
+{"rowId":"1374","text":"Decreto-Vento"}
+{"rowId":"1375","text":"Decreto-Vento"}
+{"rowId":"1376","text":"Decreto-Vento"}
+{"rowId":"1377","text":"Decreto-Terra"}
+{"rowId":"1378","text":"Decreto-Terra"}
+{"rowId":"1379","text":"Decreto-Terra"}
+{"rowId":"1380","text":"Decreto-Terra"}
+{"rowId":"1381","text":"Decreto-Terra"}
+{"rowId":"1382","text":"Decreto-Terra"}
+{"rowId":"1383","text":"Fortuna-Água"}
+{"rowId":"1384","text":"Fortuna-Água"}
+{"rowId":"1385","text":"Fortuna-Água"}
+{"rowId":"1386","text":"Fortuna-Água"}
+{"rowId":"1387","text":"Fortuna-Água"}
+{"rowId":"1388","text":"Fortuna-Água"}
+{"rowId":"1389","text":"Fortuna-Fogo"}
+{"rowId":"1390","text":"Fortuna-Fogo"}
+{"rowId":"1391","text":"Fortuna-Fogo"}
+{"rowId":"1392","text":"Fortuna-Fogo"}
+{"rowId":"1393","text":"Fortuna-Fogo"}
+{"rowId":"1394","text":"Fortuna-Fogo"}
+{"rowId":"1395","text":"Fortuna-Vento"}
+{"rowId":"1396","text":"Fortuna-Vento"}
+{"rowId":"1397","text":"Fortuna-Vento"}
+{"rowId":"1398","text":"Fortuna-Vento"}
+{"rowId":"1399","text":"Fortuna-Vento"}
+{"rowId":"1400","text":"Fortuna-Vento"}
+{"rowId":"1401","text":"Fortuna-Terra"}
+{"rowId":"1402","text":"Fortuna-Terra"}
+{"rowId":"1403","text":"Fortuna-Terra"}
+{"rowId":"1404","text":"Fortuna-Terra"}
+{"rowId":"1405","text":"Fortuna-Terra"}
+{"rowId":"1406","text":"Fortuna-Terra"}
+{"rowId":"1407","text":"Cinco Elementos"}
+{"rowId":"1408","text":"Cinco Elementos"}
+{"rowId":"1409","text":"Cinco Elementos"}
+{"rowId":"1410","text":"Cinco Elementos"}
+{"rowId":"1411","text":"Cinco Elementos"}
+{"rowId":"1412","text":"Cinco Elementos"}
+{"rowId":"1413","text":"Cinco Elementos"}
+{"rowId":"1414","text":"Cinco Elementos"}
+{"rowId":"1415","text":"Cinco Elementos"}
+{"rowId":"1416","text":"Cinco Elementos"}
+{"rowId":"1417","text":"Cinco Elementos"}
+{"rowId":"1418","text":"Cinco Elementos"}
+{"rowId":"1419","text":"Cinco Elementos"}
+{"rowId":"1420","text":"Cinco Elementos"}
+{"rowId":"1421","text":"Cinco Elementos"}
+{"rowId":"1422","text":"Cinco Elementos"}
+{"rowId":"1423","text":"Cinco Elementos"}
+{"rowId":"1424","text":"Cinco Elementos"}
+{"rowId":"1425","text":"Cinco Elementos"}
+{"rowId":"1426","text":"Cinco Elementos"}
+{"rowId":"1427","text":"Cinco Elementos"}
+{"rowId":"1428","text":"Cinco Elementos"}
+{"rowId":"1429","text":"Cinco Elementos"}
+{"rowId":"1430","text":"Cinco Elementos"}
+{"rowId":"1484","text":"Imunidade a Crítico"}
+{"rowId":"1485","text":"Imunidade a Crítico"}
+{"rowId":"1486","text":"Imunidade a Crítico"}
+{"rowId":"1487","text":"Resistir a Dano Crítico"}
+{"rowId":"1488","text":"Resistir a Dano Crítico"}
+{"rowId":"1489","text":"Resistir a Dano Crítico"}
+{"rowId":"1490","text":"Receber Habilidade"}
+{"rowId":"1491","text":"Receber Habilidade"}
+{"rowId":"1492","text":"Receber Habilidade"}
+{"rowId":"1493","text":"Receber Habilidade"}
+{"rowId":"1494","text":"Receber Habilidade"}
+{"rowId":"1495","text":"Receber Habilidade"}
+{"rowId":"1496","text":"Despertar 1-Ciclone da Prisão de Gelo"}
+{"rowId":"1497","text":"Despertar 1-Sono Eterno"}
+{"rowId":"1498","text":"Habilidade Obtida"}
+{"rowId":"1518","text":"Despertar 1-Armadura Glacial"}
+{"rowId":"1541","text":"Despertar 2-Ciclone da Prisão de Gelo"}
+{"rowId":"1542","text":"Despertar 2-Espinho de Gelo"}
+{"rowId":"1543","text":"Despertar 2-Sopro Congelante"}
+{"rowId":"1544","text":"Despertar 2-Rugido do Dragão"}
+{"rowId":"1545","text":"Despertar 2-Poder do Frio Extremo"}
+{"rowId":"1546","text":"Despertar 2-Barreira de Geada"}
+{"rowId":"1547","text":"Despertar 2-Fúria Glacial"}
+{"rowId":"1548","text":"Despertar 2-Sono Eterno"}
+{"rowId":"1549","text":"Despertar 2-Armadura Glacial"}
+{"rowId":"1550","text":"Receber Habilidade"}
+{"rowId":"1551","text":"Despertar 3-Ciclone da Prisão de Gelo"}
+{"rowId":"1552","text":"Despertar 3-Espinho de Gelo"}
+{"rowId":"1553","text":"Despertar 3-Sopro Congelante"}
+{"rowId":"1554","text":"Despertar 3-Rugido do Dragão"}
+{"rowId":"1555","text":"Despertar 3-Poder do Frio Extremo"}
+{"rowId":"1556","text":"Despertar 3-Barreira de Geada"}
+{"rowId":"1557","text":"Despertar 3-Fúria Glacial"}
+{"rowId":"1558","text":"Despertar 3-Sono Eterno"}
+{"rowId":"1559","text":"Despertar 3-Armadura Glacial"}
+{"rowId":"1560","text":"Despertar 3-Ciclone da Prisão de Gelo"}
+{"rowId":"1561","text":"Despertar 3-Espinho de Gelo"}
+{"rowId":"1562","text":"Despertar 3-Sopro Congelante"}
+{"rowId":"1563","text":"Despertar 3-Rugido do Dragão"}
+{"rowId":"1564","text":"Despertar 3-Poder do Frio Extremo"}
+{"rowId":"1565","text":"Despertar 3-Barreira de Geada"}
+{"rowId":"1566","text":"Despertar 3-Fúria Glacial"}
+{"rowId":"1567","text":"Despertar 3-Sono Eterno"}
+{"rowId":"1568","text":"Despertar 3-Armadura Glacial"}
+{"rowId":"1635","text":"Despertar 2-Autodefesa"}
+{"rowId":"1636","text":"Despertar 2-Semente Voadora"}
+{"rowId":"1637","text":"Despertar 2-Magia Proliferante"}
+{"rowId":"1638","text":"Escudo Protetor"}
+{"rowId":"1639","text":"Receber Habilidade"}
+{"rowId":"1640","text":"Despertar 3-Autodefesa"}
+{"rowId":"1641","text":"Despertar 3-Semente Voadora"}
+{"rowId":"1642","text":"Despertar 3-Magia Proliferante"}
+{"rowId":"1643","text":"Despertar 3-Autodefesa"}
+{"rowId":"1644","text":"Despertar 3-Semente Voadora"}
+{"rowId":"1645","text":"Despertar 3-Magia Proliferante"}
+{"rowId":"1663","text":"Despertar 2-Meteoro de Gelo"}
+{"rowId":"1664","text":"Despertar 2-Bala de Gelo Estilhaçante"}
+{"rowId":"1665","text":"Despertar 2-Barreira de Cristal"}
+{"rowId":"1666","text":"Despertar 2-Inferno Congelado"}
+{"rowId":"1667","text":"Despertar 2-Trovão Veloz"}
+{"rowId":"1668","text":"Despertar 2-Coração da Fênix"}
+{"rowId":"1669","text":"Despertar 2-Golpe Mortal"}
+{"rowId":"1670","text":"Despertar 2-Alma de Gelo"}
+{"rowId":"1671","text":"Habilidade Obtida"}
+{"rowId":"1672","text":"Remover Inferno Congelado"}
+{"rowId":"1673","text":"Habilidade Obtida"}
+{"rowId":"1674","text":"Habilidade Obtida"}
+{"rowId":"1675","text":"Despertar 3-Meteoro de Gelo"}
+{"rowId":"1676","text":"Despertar 3-Bala de Gelo Estilhaçante"}
+{"rowId":"1677","text":"Despertar 3-Barreira de Cristal"}
+{"rowId":"1678","text":"Despertar 3-Inferno Congelado"}
+{"rowId":"1679","text":"Despertar 3-Trovão Veloz"}
+{"rowId":"1680","text":"Despertar 3-Coração da Fênix"}
+{"rowId":"1681","text":"Despertar 3-Golpe Mortal"}
+{"rowId":"1682","text":"Despertar 3-Alma de Gelo"}
+{"rowId":"1683","text":"Despertar 3-Meteoro de Gelo"}
+{"rowId":"1684","text":"Despertar 3-Bala de Gelo Estilhaçante"}
+{"rowId":"1685","text":"Despertar 3-Barreira de Cristal"}
+{"rowId":"1686","text":"Despertar 3-Inferno Congelado"}
+{"rowId":"1687","text":"Despertar 3-Trovão Veloz"}
+{"rowId":"1688","text":"Despertar 3-Coração da Fênix"}
+{"rowId":"1689","text":"Despertar 3-Golpe Mortal"}
+{"rowId":"1690","text":"Despertar 3-Alma de Gelo"}
+{"rowId":"1691","text":"Despertar 2-Chuva Divina"}
+{"rowId":"1692","text":"Despertar 2-Juramento Pirata"}
+{"rowId":"1693","text":"Despertar 2-Anjo do Amor"}
+{"rowId":"1694","text":"Despertar 3-Chuva Divina"}
+{"rowId":"1695","text":"Despertar 3-Juramento Pirata"}
+{"rowId":"1696","text":"Despertar 3-Anjo do Amor"}
+{"rowId":"1697","text":"Despertar 3-Chuva Divina"}
+{"rowId":"1698","text":"Despertar 3-Juramento Pirata"}
+{"rowId":"1699","text":"Despertar 3-Anjo do Amor"}
+{"rowId":"1700","text":"Despertar 2-Marca de Garra"}
+{"rowId":"1701","text":"Despertar 2-Postura Defensiva"}
+{"rowId":"1702","text":"Despertar 2-Postura Ofensiva"}
+{"rowId":"1703","text":"Despertar 2-Postura Furtiva"}
+{"rowId":"1704","text":"Despertar 2-Postura de Clones"}
+{"rowId":"1705","text":"Despertar 2-Postura Furiosa"}
+{"rowId":"1706","text":"Despertar 2-Especialidade Kung Fu"}
+{"rowId":"1707","text":"Despertar 3-Marca de Garra"}
+{"rowId":"1708","text":"Despertar 3-Postura Defensiva"}
+{"rowId":"1709","text":"Despertar 3-Postura Ofensiva"}
+{"rowId":"1710","text":"Despertar 3-Postura Furtiva"}
+{"rowId":"1711","text":"Despertar 3-Postura de Clones"}
+{"rowId":"1712","text":"Despertar 3-Postura Furiosa"}
+{"rowId":"1713","text":"Despertar 3-Especialidade Kung Fu"}
+{"rowId":"1714","text":"Despertar 3-Marca de Garra"}
+{"rowId":"1715","text":"Despertar 3-Postura Defensiva"}
+{"rowId":"1716","text":"Despertar 3-Postura Ofensiva"}
+{"rowId":"1717","text":"Despertar 3-Postura Furtiva"}
+{"rowId":"1718","text":"Despertar 3-Postura de Clones"}
+{"rowId":"1719","text":"Despertar 3-Postura Furiosa"}
+{"rowId":"1720","text":"Despertar 3-Especialidade Kung Fu"}
+{"rowId":"1721","text":"Armadura de Gelo"}
+{"rowId":"1722","text":"Armadura de Gelo"}
+{"rowId":"1723","text":"Armadura de Gelo"}
+{"rowId":"1724","text":"Faca de Gelo"}
+{"rowId":"1725","text":"Faca de Gelo"}
+{"rowId":"1726","text":"Faca de Gelo"}
+{"rowId":"1727","text":"Alma de Gelo"}
+{"rowId":"1728","text":"Alma de Gelo"}
+{"rowId":"1729","text":"Alma de Gelo"}
+{"rowId":"1730","text":"Receber Habilidade"}
+{"rowId":"1731","text":"Receber Habilidade"}
+{"rowId":"1732","text":"Receber Habilidade"}
+{"rowId":"1733","text":"Despertar 2-Dança Furiosa"}
+{"rowId":"1734","text":"Despertar 2-Veneno"}
+{"rowId":"1735","text":"Despertar 2-Exaustão"}
+{"rowId":"1736","text":"Despertar 2-Fúria Selvagem"}
+{"rowId":"1737","text":"Despertar 2-Monstro Milenar"}
+{"rowId":"1738","text":"Despertar 2-Transmutação"}
+{"rowId":"1739","text":"Despertar 2-Presa Negra"}
+{"rowId":"1740","text":"Receber Habilidade"}
+{"rowId":"1741","text":"Efeito de Envenenamento"}
+{"rowId":"1742","text":"Despertar 3-Dança Furiosa"}
+{"rowId":"1743","text":"Despertar 3-Veneno"}
+{"rowId":"1744","text":"Despertar 3-Exaustão"}
+{"rowId":"1745","text":"Despertar 3-Fúria Selvagem"}
+{"rowId":"1746","text":"Despertar 3-Monstro Milenar"}
+{"rowId":"1747","text":"Despertar 3-Transmutação"}
+{"rowId":"1748","text":"Despertar 3-Presa Negra"}
+{"rowId":"1749","text":"Despertar 3-Dança Furiosa"}
+{"rowId":"1750","text":"Despertar 3-Veneno"}
+{"rowId":"1751","text":"Despertar 3-Exaustão"}
+{"rowId":"1752","text":"Despertar 3-Fúria Selvagem"}
+{"rowId":"1753","text":"Despertar 3-Monstro Milenar"}
+{"rowId":"1754","text":"Despertar 3-Transmutação"}
+{"rowId":"1755","text":"Despertar 3-Presa Negra"}
+{"rowId":"1762","text":"Despertar 2-Proteção da Noite"}
+{"rowId":"1763","text":"Despertar 2-Dilacerar do Dia"}
+{"rowId":"1764","text":"Despertar 2-Armadura Negra de Minotauro"}
+{"rowId":"1765","text":"Despertar 2-Martelo de Prata de Minotauro"}
+{"rowId":"1766","text":"Despertar 2-Talento"}
+{"rowId":"1767","text":"Despertar 2-Trevas"}
+{"rowId":"1768","text":"Despertar 2-Fogo Interior"}
+{"rowId":"1769","text":"Receber Habilidade"}
+{"rowId":"1770","text":"Receber Habilidade"}
+{"rowId":"1771","text":"Receber Habilidade"}
+{"rowId":"1772","text":"Receber Habilidade"}
+{"rowId":"1773","text":"Receber Habilidade"}
+{"rowId":"1774","text":"Despertar 3-Proteção da Noite"}
+{"rowId":"1775","text":"Despertar 3-Dilacerar do Dia"}
+{"rowId":"1776","text":"Despertar 3-Armadura Negra de Minotauro"}
+{"rowId":"1777","text":"Despertar 3-Martelo de Prata de Minotauro"}
+{"rowId":"1778","text":"Despertar 3-Talento"}
+{"rowId":"1779","text":"Despertar 3-Trevas"}
+{"rowId":"1780","text":"Despertar 3-Fogo Interior"}
+{"rowId":"1781","text":"Despertar 3-Proteção da Noite"}
+{"rowId":"1782","text":"Despertar 3-Dilacerar do Dia"}
+{"rowId":"1783","text":"Despertar 3-Armadura Negra de Minotauro"}
+{"rowId":"1784","text":"Despertar 3-Martelo de Prata de Minotauro"}
+{"rowId":"1785","text":"Despertar 3-Talento"}
+{"rowId":"1786","text":"Despertar 3-Trevas"}
+{"rowId":"1787","text":"Despertar 3-Fogo Interior"}
+{"rowId":"1791","text":"Chuva da Essência Celestial"}
+{"rowId":"1792","text":"Chuva da Essência Celestial"}
+{"rowId":"1793","text":"Chuva da Essência Celestial"}
+{"rowId":"1794","text":"Chuva da Essência Celestial"}
+{"rowId":"1795","text":"Chuva da Essência Celestial"}
+{"rowId":"1796","text":"Chuva da Essência Celestial"}
+{"rowId":"1797","text":"Chuva da Essência Celestial"}
+{"rowId":"1798","text":"Chuva da Essência Celestial"}
+{"rowId":"1799","text":"Chuva da Essência Celestial"}
+{"rowId":"1800","text":"Chama Protetora"}
+{"rowId":"1801","text":"Chama Protetora"}
+{"rowId":"1802","text":"Chama Protetora"}
+{"rowId":"1803","text":"Chama Protetora"}
+{"rowId":"1804","text":"Chama Protetora"}
+{"rowId":"1805","text":"Chama Protetora"}
+{"rowId":"1806","text":"Chama Protetora"}
+{"rowId":"1807","text":"Chama Protetora"}
+{"rowId":"1808","text":"Chama Protetora"}
+{"rowId":"1809","text":"Chama Protetora"}
+{"rowId":"1810","text":"Chama Protetora"}
+{"rowId":"1811","text":"Chama Protetora"}
+{"rowId":"1812","text":"Arte de Andar no Vento"}
+{"rowId":"1813","text":"Arte de Andar no Vento"}
+{"rowId":"1814","text":"Arte de Andar no Vento"}
+{"rowId":"1815","text":"Arte de Andar no Vento"}
+{"rowId":"1816","text":"Arte de Andar no Vento"}
+{"rowId":"1817","text":"Arte de Andar no Vento"}
+{"rowId":"1818","text":"Arte de Andar no Vento"}
+{"rowId":"1819","text":"Arte de Andar no Vento"}
+{"rowId":"1820","text":"Arte de Andar no Vento"}
+{"rowId":"1821","text":"Arte de Andar no Vento"}
+{"rowId":"1822","text":"Arte de Andar no Vento"}
+{"rowId":"1823","text":"Arte de Andar no Vento"}
+{"rowId":"1824","text":"Segredo da Mãe Terra"}
+{"rowId":"1825","text":"Segredo da Mãe Terra"}
+{"rowId":"1826","text":"Segredo da Mãe Terra"}
+{"rowId":"1827","text":"Segredo da Mãe Terra"}
+{"rowId":"1828","text":"Segredo da Mãe Terra"}
+{"rowId":"1829","text":"Segredo da Mãe Terra"}
+{"rowId":"1830","text":"Segredo da Mãe Terra"}
+{"rowId":"1831","text":"Segredo da Mãe Terra"}
+{"rowId":"1832","text":"Segredo da Mãe Terra"}
+{"rowId":"1833","text":"Segredo da Mãe Terra"}
+{"rowId":"1834","text":"Segredo da Mãe Terra"}
+{"rowId":"1835","text":"Segredo da Mãe Terra"}
+{"rowId":"1849","text":"Chuva da Essência Celestial"}
+{"rowId":"1850","text":"Fonte da Bênção"}
+{"rowId":"1851","text":"Fonte da Bênção"}
+{"rowId":"1943","text":"Despertar 2-Fogo Protetor"}
+{"rowId":"1944","text":"Despertar 2-Mar de Fogo Cintilante"}
+{"rowId":"1945","text":"Despertar 2-SPOW-Fogo Vermelho"}
+{"rowId":"1946","text":"Despertar 2-Explosão de Fogo Vermelho"}
+{"rowId":"1947","text":"Despertar 2-Renascer da Fênix"}
+{"rowId":"1948","text":"Despertar 2-Chama Tremulante"}
+{"rowId":"1949","text":"Despertar 2-Chamas até o Céu"}
+{"rowId":"1950","text":"Receber Habilidade"}
+{"rowId":"1951","text":"Receber Habilidade"}
+{"rowId":"1952","text":"Área Marcada"}
+{"rowId":"1953","text":"Queimadura"}
+{"rowId":"1954","text":"Despertar 3-Fogo Protetor"}
+{"rowId":"1955","text":"Despertar 3-Mar de Fogo Cintilante"}
+{"rowId":"1956","text":"Despertar 3-SPOW-Fogo Vermelho"}
+{"rowId":"1957","text":"Despertar 3-Explosão de Fogo Vermelho"}
+{"rowId":"1958","text":"Despertar 3-Renascer da Fênix"}
+{"rowId":"1959","text":"Despertar 3-Chama Tremulante"}
+{"rowId":"1960","text":"Despertar 3-Chamas até o Céu"}
+{"rowId":"1961","text":"Despertar 3-Fogo Protetor"}
+{"rowId":"1962","text":"Despertar 3-Mar de Fogo Cintilante"}
+{"rowId":"1963","text":"Despertar 3-SPOW-Fogo Vermelho"}
+{"rowId":"1964","text":"Despertar 3-Explosão de Fogo Vermelho"}
+{"rowId":"1965","text":"Despertar 3-Renascer da Fênix"}
+{"rowId":"1966","text":"Despertar 3-Chama Tremulante"}
+{"rowId":"1967","text":"Despertar 3-Chamas até o Céu"}
+{"rowId":"1997","text":"Receber Habilidade"}
+{"rowId":"1998","text":"Receber Habilidade"}
+{"rowId":"1999","text":"Despertar 2-Ataque Sobre as Nuvens"}
+{"rowId":"2000","text":"Despertar 2-Pêssego de Dez Mil Anos"}
+{"rowId":"2001","text":"Despertar 2-Imobilizar"}
+{"rowId":"2002","text":"Despertar 2-Diamante"}
+{"rowId":"2003","text":"Despertar 2-Olhos de Fogo Dourados"}
+{"rowId":"2004","text":"Despertar 2-Pelo Dourado"}
+{"rowId":"2005","text":"Despertar 2-Buda Vitorioso"}
+{"rowId":"2006","text":"Habilidade Obtida"}
+{"rowId":"2007","text":"Despertar 3-Ataque Sobre as Nuvens"}
+{"rowId":"2008","text":"Despertar 3-Pêssego de Dez Mil Anos"}
+{"rowId":"2009","text":"Despertar 3-Imobilizar"}
+{"rowId":"2010","text":"Despertar 3-Diamante"}
+{"rowId":"2011","text":"Despertar 3-Olhos de Fogo Dourados"}
+{"rowId":"2012","text":"Despertar 3-Pelo Dourado"}
+{"rowId":"2013","text":"Despertar 3-Buda Vitorioso"}
+{"rowId":"2014","text":"Despertar 3-Ataque Sobre as Nuvens"}
+{"rowId":"2015","text":"Despertar 3-Pêssego de Dez Mil Anos"}
+{"rowId":"2016","text":"Despertar 3-Imobilizar"}
+{"rowId":"2017","text":"Despertar 3-Diamante"}
+{"rowId":"2018","text":"Despertar 3-Olhos de Fogo Dourados"}
+{"rowId":"2019","text":"Despertar 3-Pelo Dourado"}
+{"rowId":"2020","text":"Despertar 3-Buda Vitorioso"}
+{"rowId":"2036","text":"Despertar 2-Coelho Redutor de Dano"}
+{"rowId":"2037","text":"Despertar 2-Coelho Resistente"}
+{"rowId":"2038","text":"Despertar 2-Coelho com Escudo"}
+{"rowId":"2039","text":"Despertar 2-Coelho Durão"}
+{"rowId":"2040","text":"Receber Habilidade"}
+{"rowId":"2041","text":"Despertar 3-Coelho Redutor de Dano"}
+{"rowId":"2042","text":"Despertar 3-Coelho Resistente"}
+{"rowId":"2043","text":"Despertar 3-Coelho com Escudo"}
+{"rowId":"2044","text":"Despertar 3-Coelho Durão"}
+{"rowId":"2045","text":"Despertar 3-Coelho Redutor de Dano"}
+{"rowId":"2046","text":"Despertar 3-Coelho Resistente"}
+{"rowId":"2047","text":"Despertar 3-Coelho com Escudo"}
+{"rowId":"2048","text":"Despertar 3-Coelho Durão"}
+{"rowId":"9992","text":"Terra Corrosiva-Avançado"}
+{"rowId":"9993","text":"Combustão-Básico"}
+{"rowId":"10416","text":"Explosão de Redução de Dano"}
+{"rowId":"10417","text":"Explosão de Redução de Dano"}
+{"rowId":"10418","text":"Explosão de Redução de Dano"}
+{"rowId":"10419","text":"Refletir Dano -2"}
+{"rowId":"10420","text":"Refletir Dano -2"}
+{"rowId":"11716","text":"Queimadura"}
+{"rowId":"11717","text":"Congelar"}
+{"rowId":"11718","text":"Veneno"}
+{"rowId":"110413","text":"HP +1000"}
+{"rowId":"110414","text":"Dano +20, Ataque, Defesa, Agilidade e Sorte +20 cada"}
+{"rowId":"110415","text":"Ataque, Defesa, Agilidade e Sorte +30 cada"}
+{"rowId":"110416","text":"HP +800  Armadura +30"}
+{"rowId":"1010000","text":"HP +300"}
+{"rowId":"1010100","text":"Armadura +30, HP +1000"}
+{"rowId":"1010101","text":"HP +300, Ataque +50"}
+{"rowId":"1010102","text":"Sorte +100, Defesa +50"}
+{"rowId":"1010103","text":"Reduz dano crítico recebido em 10%"}
+{"rowId":"1010104","text":"Reduz dano crítico recebido em 10%, Dano +20, Armadura +20"}
+{"rowId":"1010105","text":"Dano +10, reduz dano crítico recebido em 5%"}
+{"rowId":"1010106","text":"Ataque +25, Agilidade +25"}
+{"rowId":"1010107","text":"Dano +10  reduz dano crítico recebido em 5%"}
+{"rowId":"1010200","text":"Dano +30"}
+{"rowId":"1010300","text":"Defesa +50, Agilidade +50, Sorte +50"}
+{"rowId":"1010400","text":"Ataque +10"}
+{"rowId":"1010500","text":"HP +400"}
+{"rowId":"1010600","text":"Ataque +30"}
+{"rowId":"1010700","text":"HP +350"}
+{"rowId":"1010800","text":"Defesa +15"}
+{"rowId":"1010801","text":"Defesa +35"}
+{"rowId":"1010802","text":"Sorte +10"}
+{"rowId":"1010803","text":"HP +350, Defesa +20"}
+{"rowId":"1010804","text":"HP +350, Agilidade +20"}
+{"rowId":"1010805","text":"HP +310"}
+{"rowId":"1010806","text":"HP +310, Ataque +15"}
+{"rowId":"1010807","text":"HP +400, Agilidade +40, reduz dano crítico em 5%"}
+{"rowId":"1010808","text":"HP +400, Agilidade +40, redução de dano 5%"}
+{"rowId":"1010809","text":"Sorte +80"}
+{"rowId":"1010810","text":"HP +400, Defesa +40, redução de dano 5%"}
+{"rowId":"1010811","text":"Ataque +50, Defesa +50, Agilidade +50, Sorte +50"}
+{"rowId":"1010812","text":"Atq/Def/Agi/Sor +5, +100 HP, redução de dano 1%"}
+{"rowId":"1010813","text":"Atq/Def/Agi/Sor +5, +100 HP, redução de dano 2%"}
+{"rowId":"1010814","text":"Atq/Def/Agi/Sor +5, +200 HP, redução de dano 1%"}
+{"rowId":"1010815","text":"Atq/Def/Agi/Sor +10, +200 HP, redução de dano 2%"}
+{"rowId":"1010816","text":"Atq/Def/Agi/Sor +15, +200 HP, redução de dano 2%"}
+{"rowId":"1010817","text":"Ataque +50, Defesa +50, Agilidade +50, Sorte +50"}
+{"rowId":"1010818","text":"Ataque +50, Defesa +50, Agilidade +50, Sorte +50"}
+{"rowId":"1010819","text":"Ataque +50, Defesa +50, Agilidade +50, Sorte +50"}
+{"rowId":"1010820","text":"Ataque +50, Defesa +50, Agilidade +50, Sorte +50"}
+{"rowId":"1010821","text":"Ataque +50, Defesa +50, Agilidade +50, Sorte +50"}
+{"rowId":"1010822","text":"Atq/Def/Agi/Sor +15, +200 HP, redução de dano 2%"}
+{"rowId":"1010823","text":"Atq/Def/Agi/Sor +10, redução de dano 2%"}
+{"rowId":"1010824","text":"Atq/Def/Agi/Sor +10, redução de dano 2%"}
+{"rowId":"1010825","text":"Atq/Agi +20, Atq. Mágico/Res. Mágica +10, redução de dano 3%"}
+{"rowId":"1010826","text":"Def/Sor +20, Atq. Mágico/Res. Mágica +10, redução de dano 3%"}
+{"rowId":"1010827","text":"Atq/Agi +20, Atq. Mágico/Res. Mágica +10, redução de dano 3%"}
+{"rowId":"1010828","text":"Def/Sor +20, Atq. Mágico/Res. Mágica +10, redução de dano 3%"}
+{"rowId":"1010829","text":"Efeito de 2 peças: Ataque +20 - Agilidade +20, Res. Mágica +10,"}
+{"rowId":"1010830","text":"Efeito de 2 peças: Defesa +20 - Sorte +20, Res. Mágica +10, Atq."}
+{"rowId":"1010831","text":"Efeito de 2 peças: Ataque +20 - Agilidade +20, Res. Mágica +10,"}
+{"rowId":"1010832","text":"Efeito de 2 peças: Defesa +20 - Sorte +20, Res. Mágica +10, Atq."}
+{"rowId":"1010833","text":"Ataque +25, Defesa +25, Agilidade +25, Sorte +25"}
+{"rowId":"1010834","text":"Ataque +25, Defesa +25, Agilidade +25, Sorte +25"}
+{"rowId":"1010835","text":"Efeito: Ataque +20, Agilidade +20, Res. Mágica +10, Atq. Mágico +10, HP +500, dano recebido -5"}
+{"rowId":"1010836","text":"Efeito: Defesa +30, Sorte +30, Res. Mágica +10, Atq. Mágico +10, reduz dano crítico recebido em 2%."}
+{"rowId":"1010837","text":"Efeito: Ataque +20, Agilidade +20, Res. Mágica +10, Atq. Mágico +10, HP +500, dano recebido -5"}
+{"rowId":"1010838","text":"Efeito: Defesa +30, Sorte +30, Res. Mágica +10, Atq. Mágico +10, reduz dano crítico recebido em 2%."}
+{"rowId":"1010839","text":"Efeito: Ataque +20, Agilidade +20, Res. Mágica +10, Atq. Mágico +10, HP +500, dano recebido -5"}
+{"rowId":"1010840","text":"Efeito: Defesa +30, Sorte +30, Res. Mágica +10, Atq. Mágico +10, reduz dano crítico recebido em 2%."}
+{"rowId":"1010841","text":"Ataque +25, Defesa +25, Agilidade +25, Sorte +25, HP +250"}
+{"rowId":"1010842","text":"Ataque +25, Defesa +25, Agilidade +25, Sorte +25, HP +251"}
+{"rowId":"1010843","text":"Efeito: Ataque +20 - Agilidade +20, Res. Mágica +15, Armadura +3, HP +500, dano recebido red."}
+{"rowId":"1010844","text":"Efeito: Ataque +20 - Sorte +20, Res. Mágica +15, Armadura +3, HP +500, dano recebido red."}
+{"rowId":"1010845","text":"Efeito: Ataque +20 - Agilidade +20, Res. Mágica +15, Armadura +3, HP +500, dano recebido red."}
+{"rowId":"1010846","text":"Efeito: Ataque +20 - Sorte +20, Res. Mágica +15, Armadura +3, HP +500, dano recebido red."}
+{"rowId":"1010847","text":"Efeito: Ataque +20 - Agilidade +20, Res. Mágica +15, Dano +3, HP +500, dano recebido red."}
+{"rowId":"1010848","text":"Efeito: Ataque +20 - Defesa +20, Res. Mágica +15, Dano +3, HP +500, dano recebido red."}
+{"rowId":"1010849","text":"Efeito: Ataque +28 - Agilidade +28, Defesa +28 - Sorte +28, HP +500"}
+{"rowId":"1010850","text":"Efeito: Agilidade +20, Sorte +20, Atq. Mágico +15, Dano +3"}
+{"rowId":"1010851","text":"Efeito: Agilidade +20, Defesa +20, Atq. Mágico +15, Dano +3"}
+{"rowId":"1010852","text":"Atq-Def-Agi-Sor +30, HP +500, Reduz Dano"}
+{"rowId":"1010853","text":"Atq-Def-Agi-Sor +30, HP +500, Reduz Dano"}
+{"rowId":"1010854","text":"Combine 2 equipamentos para obter: Agilidade +20, Sorte +"}
+{"rowId":"1010855","text":"Combine 3 equipamentos para obter: Ataque +20, Defesa +2"}

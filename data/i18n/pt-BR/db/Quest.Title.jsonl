@@ -1,1 +1,728 @@
-{"rowId":"1620","text":"Sonho verde"}
+{"rowId":"4","text":"Fortalecer Arma Nv5"}
+{"rowId":"5","text":"Fortalecer Arma Nv8"}
+{"rowId":"6","text":"Compensação de Conquista"}
+{"rowId":"7","text":"Desbloquear Treino"}
+{"rowId":"8","text":"Teste de Treino"}
+{"rowId":"9","text":"Desbloquear Missão de Treino"}
+{"rowId":"48","text":"Clã Sobe de Nível -- Nv2"}
+{"rowId":"49","text":"Clã Sobe de Nível -- Nv4"}
+{"rowId":"50","text":"Clã Sobe de Nível -- Nv6"}
+{"rowId":"332","text":"Braços Abertos"}
+{"rowId":"51","text":"Clã Sobe de Nível -- Nv8"}
+{"rowId":"53","text":"Dever do Membro do Clã"}
+{"rowId":"54","text":"Persistência Ⅰ"}
+{"rowId":"55","text":"Persistência Ⅱ"}
+{"rowId":"56","text":"Persistência Ⅲ"}
+{"rowId":"57","text":"Persistência Ⅳ"}
+{"rowId":"64","text":"Fortalecer Traje Nv3"}
+{"rowId":"65","text":"Fortalecer Traje Nv5"}
+{"rowId":"66","text":"Fortalecer Traje Nv8"}
+{"rowId":"1072","text":"Noite Feliz-Canção de Bênção"}
+{"rowId":"950","text":"Cristal Misterioso"}
+{"rowId":"952","text":"Trocar Lança Antiga"}
+{"rowId":"953","text":"Trocar VIP Bumerangue"}
+{"rowId":"624","text":"Moral 3"}
+{"rowId":"627","text":"Moral 4"}
+{"rowId":"630","text":"Moral 5"}
+{"rowId":"633","text":"Moral 6"}
+{"rowId":"52","text":"Clã Sobe de Nível -- Nv10"}
+{"rowId":"623","text":"Arte do Combate 3"}
+{"rowId":"625","text":"Técnica de Combate 4"}
+{"rowId":"626","text":"Arte do Combate 4"}
+{"rowId":"628","text":"Técnica de Combate 5"}
+{"rowId":"629","text":"Arte do Combate 5"}
+{"rowId":"631","text":"Técnica de Combate 6"}
+{"rowId":"88","text":"Galinha? Galinha!"}
+{"rowId":"91","text":"Cidade Galinha-- Batalha Decisiva"}
+{"rowId":"92","text":"Cidade Galinha-- Escuridão"}
+{"rowId":"632","text":"Arte do Combate 6"}
+{"rowId":"634","text":"Técnica de Combate 7"}
+{"rowId":"635","text":"Arte do Combate 7"}
+{"rowId":"636","text":"Moral 7"}
+{"rowId":"639","text":"Moral 8"}
+{"rowId":"637","text":"Técnica de Combate 8"}
+{"rowId":"638","text":"Arte do Combate 8"}
+{"rowId":"640","text":"Corneta de Convocação 1"}
+{"rowId":"641","text":"Corneta de Combate 1"}
+{"rowId":"642","text":"Corneta da Vitória 1"}
+{"rowId":"643","text":"Corneta de Convocação 2"}
+{"rowId":"644","text":"Corneta de Combate 2"}
+{"rowId":"116","text":"Desafio do Bravo Ⅰ"}
+{"rowId":"327","text":"Desafio do Bravo 3"}
+{"rowId":"1093","text":"24 Termos Solares-Início da Primavera"}
+{"rowId":"645","text":"Corneta da Vitória 2"}
+{"rowId":"646","text":"Corneta de Convocação 3"}
+{"rowId":"647","text":"Corneta de Combate 3"}
+{"rowId":"648","text":"Corneta da Vitória 3"}
+{"rowId":"649","text":"Corneta de Convocação 4"}
+{"rowId":"951","text":"Cristal Cinco Cores"}
+{"rowId":"650","text":"Corneta de Combate 4"}
+{"rowId":"652","text":"Corneta de Convocação 5"}
+{"rowId":"653","text":"Corneta de Combate 5"}
+{"rowId":"654","text":"Corneta da Vitória 5"}
+{"rowId":"655","text":"Corneta de Convocação 6"}
+{"rowId":"656","text":"Corneta de Combate 6"}
+{"rowId":"613","text":"Expedição-Mestre e Discípulo 2"}
+{"rowId":"614","text":"Expedição-Mestre e Discípulo 3"}
+{"rowId":"1657","text":"Negociar com o Chefe"}
+{"rowId":"657","text":"Corneta da Vitória 6"}
+{"rowId":"658","text":"Corneta de Convocação 7"}
+{"rowId":"659","text":"Corneta de Combate 7"}
+{"rowId":"660","text":"Corneta da Vitória 7"}
+{"rowId":"661","text":"Corneta de Convocação 8"}
+{"rowId":"662","text":"Corneta de Combate 8"}
+{"rowId":"954","text":"Trocar VIP·Martelo de Minotauro"}
+{"rowId":"1000","text":"Conquista Cíclica"}
+{"rowId":"1002","text":"Reunião"}
+{"rowId":"279","text":"Fortaleza Sombria, Batalha Final!"}
+{"rowId":"663","text":"Corneta da Vitória 8"}
+{"rowId":"664","text":"Expedição 1"}
+{"rowId":"665","text":"Expedição 2"}
+{"rowId":"666","text":"Expedição 3"}
+{"rowId":"305","text":"Honra VIP"}
+{"rowId":"212","text":"Fortalecer Traje Nv10"}
+{"rowId":"213","text":"Fortalecer Traje Nv12"}
+{"rowId":"667","text":"Expedição 4"}
+{"rowId":"668","text":"Expedição 5"}
+{"rowId":"669","text":"Expedição 6"}
+{"rowId":"670","text":"Expedição 7"}
+{"rowId":"671","text":"Expedição 8"}
+{"rowId":"672","text":"Expedição 9"}
+{"rowId":"1001","text":"Missão 24 Termos Solares-Orvalho Branco"}
+{"rowId":"278","text":"Atacar a Fortaleza Sombria"}
+{"rowId":"204","text":"Tribo do Deus Maligno--Reconhecimento"}
+{"rowId":"210","text":"Fortalecer Arma Nv10"}
+{"rowId":"140","text":"Recompensa do Clã"}
+{"rowId":"205","text":"Tribo do Deus Maligno--Ataque"}
+{"rowId":"1733","text":"Vingança da Galinha"}
+{"rowId":"1734","text":"Teste de Força"}
+{"rowId":"1735","text":"Clã Poderoso"}
+{"rowId":"1736","text":"Fúria da Rainha Formiga"}
+{"rowId":"206","text":"Tribo do Deus Maligno--Batalha Final"}
+{"rowId":"211","text":"Fortalecer Arma Nv12"}
+{"rowId":"277","text":"Espionar a Fortaleza Sombria"}
+{"rowId":"69","text":"Vamos Casar, Amor"}
+{"rowId":"70","text":"Prova de Amor ——Anel de Noivado!"}
+{"rowId":"71","text":"Fundir Acessórios"}
+{"rowId":"86","text":"Recompensa ao Bom Samaritano"}
+{"rowId":"89","text":"Cidade Galinha-- Imperador"}
+{"rowId":"90","text":"Poder Sombrio"}
+{"rowId":"325","text":"Flor de Cinco Cores"}
+{"rowId":"326","text":"Disputa pelo Tesouro 5"}
+{"rowId":"328","text":"Flor de Cinco Cores 2"}
+{"rowId":"3005","text":"Fase da Expedição 1"}
+{"rowId":"3006","text":"Fase da Expedição 2"}
+{"rowId":"3007","text":"Fase da Expedição 3"}
+{"rowId":"329","text":"Amigos por Toda Parte"}
+{"rowId":"330","text":"Enviar uma Carta"}
+{"rowId":"331","text":"Mais Amigos, Mais Diversão"}
+{"rowId":"333","text":"Em Busca de Companheiros"}
+{"rowId":"334","text":"Desafio do Bravo 4"}
+{"rowId":"335","text":"Visitar um Grande Mestre"}
+{"rowId":"336","text":"Braços Abertos 2"}
+{"rowId":"337","text":"Braços Abertos 3"}
+{"rowId":"338","text":"Desafio do Bravo 5"}
+{"rowId":"341","text":"Treino do Bravo"}
+{"rowId":"345","text":"Treino do Bravo 1"}
+{"rowId":"1037","text":"Treino Mestre e Discípulo (Mestre)"}
+{"rowId":"97","text":"Formigueiro-- Ataque Forte"}
+{"rowId":"117","text":"Desafio do Bravo Ⅱ"}
+{"rowId":"118","text":"Desafio do Bravo Ⅲ"}
+{"rowId":"119","text":"Desafio do Bravo Ⅳ"}
+{"rowId":"138","text":"Substituir Joia"}
+{"rowId":"124","text":"Golpe Fatal"}
+{"rowId":"125","text":"Fortalecer Arma Nv2"}
+{"rowId":"306","text":"Recompensa de Login VIP Roxo"}
+{"rowId":"318","text":"Disputa pelo Tesouro"}
+{"rowId":"319","text":"Primeira Batalha"}
+{"rowId":"320","text":"Disputa pelo Tesouro 2"}
+{"rowId":"321","text":"Desafio do Bravo"}
+{"rowId":"322","text":"Disputa pelo Tesouro 3"}
+{"rowId":"323","text":"Desafio do Bravo 2"}
+{"rowId":"324","text":"Disputa pelo Tesouro 4"}
+{"rowId":"339","text":"Ordem do Clã"}
+{"rowId":"340","text":"Combate e Honra"}
+{"rowId":"342","text":"Primeira Expedição"}
+{"rowId":"395","text":"Guerra do Dragão! Batalha Final"}
+{"rowId":"435","text":"Resgate do Pintinho! Batalha Final"}
+{"rowId":"1092","text":"Adivinhe o Enigma"}
+{"rowId":"343","text":"Primeiro Fortalecimento de Arma"}
+{"rowId":"344","text":"Solte a Voz"}
+{"rowId":"346","text":"Ninho das Formigas Demoníacas (Fácil)"}
+{"rowId":"347","text":"Primeira Compra"}
+{"rowId":"1035","text":"Cosplay de Halloween"}
+{"rowId":"1036","text":"24 Termos Solares-Início do Inverno"}
+{"rowId":"1038","text":"Treino Mestre e Discípulo (Discípulo)"}
+{"rowId":"1039","text":"Pintinho Furioso"}
+{"rowId":"1040","text":"Medalha do Talento"}
+{"rowId":"1008","text":"Música de Dia dos Namorados"}
+{"rowId":"1030","text":"24 Termos Solares-Descida da Geada"}
+{"rowId":"1033","text":"Medalha do Talento"}
+{"rowId":"1592","text":"Pintinho Furioso"}
+{"rowId":"1041","text":"Festival Xia Yuan"}
+{"rowId":"353","text":"Treino do Bravo 2"}
+{"rowId":"460","text":"Primeira Recarga"}
+{"rowId":"1005","text":"Medalha do Talento"}
+{"rowId":"1006","text":"Coração Grato (Mestre)"}
+{"rowId":"1042","text":"Feliz Dia dos Solteiros"}
+{"rowId":"1043","text":"Filme de Dia dos Namorados"}
+{"rowId":"1044","text":"Tesouro Perdido-Mapa"}
+{"rowId":"1045","text":"Tesouro Perdido-Chave"}
+{"rowId":"1046","text":"Tesouro Perdido-De Volta à Luz"}
+{"rowId":"1047","text":"24 Termos Solares-Neve Leve"}
+{"rowId":"1048","text":"Fogos de Ação de Graças"}
+{"rowId":"1049","text":"Peru de Ação de Graças"}
+{"rowId":"348","text":"Combinar Equipamento"}
+{"rowId":"349","text":"Desafio do Bravo 6"}
+{"rowId":"350","text":"Resgate do Pintinho (Fácil)"}
+{"rowId":"3008","text":"Fase da Expedição 4"}
+{"rowId":"3009","text":"Fase da Expedição 5"}
+{"rowId":"1593","text":"Socorro ao Pintinho"}
+{"rowId":"1594","text":"Herói Salva-galinha"}
+{"rowId":"351","text":"Primeira Fusão"}
+{"rowId":"352","text":"Certificado de Honra-Medalha"}
+{"rowId":"354","text":"Resgate do Pintinho (Fácil)"}
+{"rowId":"355","text":"Fortalecer Arma Nv3"}
+{"rowId":"356","text":"Primeiro Encaixe"}
+{"rowId":"357","text":"Desafio do Bravo 7"}
+{"rowId":"358","text":"Visitar a Sala dos Mestres"}
+{"rowId":"360","text":"Bravo Desafiante"}
+{"rowId":"462","text":"Treino do Bravo 3"}
+{"rowId":"1003","text":"Festa do Bolo da Lua"}
+{"rowId":"1004","text":"Fúria da Rainha Formiga-Mundo dos Monstros"}
+{"rowId":"1007","text":"Coração Grato (Discípulo)"}
+{"rowId":"1595","text":"Gastos de Boas-vindas do Pintinho"}
+{"rowId":"602","text":"Orientação do Grande Mestre"}
+{"rowId":"605","text":"Amor sem Limites 1"}
+{"rowId":"1009","text":"Ultraman vs Monstrinho"}
+{"rowId":"1010","text":"24 Termos Solares-Equinócio de Outono"}
+{"rowId":"1011","text":"União! União! (Lealdade)"}
+{"rowId":"1012","text":"União! União! (Bravura)"}
+{"rowId":"1013","text":"Celebração Nacional (Clã)"}
+{"rowId":"1014","text":"Celebração Nacional (Deus Maligno)"}
+{"rowId":"1015","text":"Celebração Nacional (Fogos)"}
+{"rowId":"1016","text":"Aniversário de 2 Anos-Ganhe Medalhas"}
+{"rowId":"1017","text":"Aniversário de 2 Anos-Casal em Harmonia"}
+{"rowId":"1018","text":"Aniversário de 2 Anos-Upar Rapidinho"}
+{"rowId":"1019","text":"Aniversário de 2 Anos-Prova Mestre e Discípulo (Mestre)"}
+{"rowId":"1020","text":"Aniversário de 2 Anos-Prova Mestre e Discípulo (Discípulo)"}
+{"rowId":"1021","text":"Dia da Pátria-Asas Finas Mágicas"}
+{"rowId":"1024","text":"Escalada do Duplo Nove"}
+{"rowId":"1027","text":"Vinho de Dia dos Namorados"}
+{"rowId":"1028","text":"Mestre e Discípulo Unidos (Mestre)"}
+{"rowId":"1022","text":"Dia da Pátria-Asas Mágicas"}
+{"rowId":"1023","text":"Bom Presságio no Dia da Pátria"}
+{"rowId":"1025","text":"Flores do Duplo Nove"}
+{"rowId":"1026","text":"24 Termos Solares-Orvalho Frio"}
+{"rowId":"1029","text":"Mestre e Discípulo Unidos (Discípulo)"}
+{"rowId":"1031","text":"União! União!"}
+{"rowId":"1032","text":"Enviado Contra o Mal"}
+{"rowId":"1034","text":"Caixa de Doces de Halloween"}
+{"rowId":"1737","text":"Arroz do Herói Gióng"}
+{"rowId":"1738","text":"Treino do Herói Gióng 1"}
+{"rowId":"1739","text":"Treino do Herói Gióng 2"}
+{"rowId":"1740","text":"O Menino de Phu Dong"}
+{"rowId":"1741","text":"Melancia aos Ancestrais"}
+{"rowId":"1597","text":"Estilingue Divino"}
+{"rowId":"1600","text":"Mestre e Discípulo em Ação (Mestre)"}
+{"rowId":"394","text":"Guerra do Dragão! Ataque"}
+{"rowId":"2501","text":"Missão de Treino 1"}
+{"rowId":"2502","text":"Missão de Treino 1"}
+{"rowId":"2503","text":"Missão de Treino 1"}
+{"rowId":"2504","text":"Missão de Treino 1"}
+{"rowId":"2505","text":"Missão de Treino 1"}
+{"rowId":"2506","text":"Missão de Treino 1"}
+{"rowId":"2507","text":"Missão de Treino 1"}
+{"rowId":"2508","text":"Missão de Treino 1"}
+{"rowId":"2509","text":"Missão de Treino 1"}
+{"rowId":"2510","text":"Missão de Treino 1"}
+{"rowId":"2511","text":"Missão de Treino 1"}
+{"rowId":"2512","text":"Missão de Treino 1"}
+{"rowId":"385","text":"Fazendo Amizades Ⅳ"}
+{"rowId":"393","text":"Guerra do Dragão! Reconhecimento"}
+{"rowId":"439","text":"Arena das Galinhas! Conhecer"}
+{"rowId":"464","text":"Banho nas Termas"}
+{"rowId":"466","text":"Visitar o Leilão"}
+{"rowId":"467","text":"Eliminar Galinhas Monstro (Fácil)"}
+{"rowId":"440","text":"Arena das Galinhas! Avançar"}
+{"rowId":"441","text":"Arena das Galinhas! Vencer"}
+{"rowId":"450","text":"Aceitar Discípulo"}
+{"rowId":"485","text":"Tesouro do Colecionador"}
+{"rowId":"530","text":"Flor de Cinco Cores 3"}
+{"rowId":"531","text":"Flor de Cinco Cores 4"}
+{"rowId":"532","text":"Flor de Cinco Cores 5"}
+{"rowId":"533","text":"Flor de Cinco Cores 6"}
+{"rowId":"1596","text":"Roubar Ovos"}
+{"rowId":"1598","text":"Usar Broca"}
+{"rowId":"1599","text":"Presente para o Vencedor"}
+{"rowId":"1601","text":"Mestre e Discípulo em Ação (Discípulo)"}
+{"rowId":"606","text":"Amor sem Limites 2"}
+{"rowId":"607","text":"Amor sem Limites 3"}
+{"rowId":"608","text":"Amor sem Limites 4"}
+{"rowId":"1602","text":"Vingança da Rainha"}
+{"rowId":"1603","text":"Presente do Festival da Lua"}
+{"rowId":"1604","text":"Festival de Compras"}
+{"rowId":"1605","text":"Clã Forte"}
+{"rowId":"1606","text":"Meio Ambiente Verde"}
+{"rowId":"463","text":"Atacar o Galinheiro (Normal)"}
+{"rowId":"465","text":"Combate do Bravo 8"}
+{"rowId":"468","text":"Treino do Bravo 4"}
+{"rowId":"469","text":"Visitar a Sala de Treino"}
+{"rowId":"378","text":"Fazendo Amizades Ⅰ"}
+{"rowId":"1060","text":"Medalha do Talento"}
+{"rowId":"1069","text":"Ano-Novo-Subir ao Pavilhão"}
+{"rowId":"1070","text":"Ano-Novo-Ouvir os Sinos"}
+{"rowId":"1074","text":"Aniversário-Receber Moedas de Ouro"}
+{"rowId":"1075","text":"Aniversário-Receber Medalhas"}
+{"rowId":"1076","text":"Título do 2º Aniversário"}
+{"rowId":"1077","text":"Aniversário-Cantar Juntos"}
+{"rowId":"1083","text":"Medalha do Talento"}
+{"rowId":"379","text":"Fazendo Amizades Ⅱ"}
+{"rowId":"380","text":"Fazendo Amizades Ⅲ"}
+{"rowId":"381","text":"Fazendo Amizades Ⅳ"}
+{"rowId":"382","text":"Fazendo Amizades Ⅰ"}
+{"rowId":"383","text":"Fazendo Amizades Ⅱ"}
+{"rowId":"384","text":"Fazendo Amizades Ⅲ"}
+{"rowId":"2688","text":"Missão de Treino 10"}
+{"rowId":"2689","text":"Missão de Treino 10"}
+{"rowId":"2690","text":"Missão de Treino 10"}
+{"rowId":"2691","text":"Missão de Treino 10"}
+{"rowId":"2692","text":"Missão de Treino 10"}
+{"rowId":"2693","text":"Missão de Treino 10"}
+{"rowId":"2694","text":"Missão de Treino 10"}
+{"rowId":"1071","text":"Ano-Novo-Receber o Novo Ano"}
+{"rowId":"1651","text":"Começando a Jornada"}
+{"rowId":"1656","text":"Infiltrar o Palácio"}
+{"rowId":"1073","text":"Natal-Bênçãos Festivas"}
+{"rowId":"1051","text":"Reunião de Ação de Graças"}
+{"rowId":"1650","text":"Compras Divertidas (3)"}
+{"rowId":"2695","text":"Missão de Treino 10"}
+{"rowId":"2696","text":"Missão de Treino 10"}
+{"rowId":"2697","text":"Missão de Treino 10"}
+{"rowId":"2698","text":"Missão de Treino 10"}
+{"rowId":"2699","text":"Missão de Treino 10"}
+{"rowId":"2700","text":"Missão de Treino 10"}
+{"rowId":"1059","text":"Formigas Rebeldes"}
+{"rowId":"1061","text":"Abraço de Dia dos Namorados"}
+{"rowId":"1062","text":"24 Termos Solares-Solstício de Inverno"}
+{"rowId":"1063","text":"Natal-Dia dos Presentes"}
+{"rowId":"1064","text":"Presente do Papai Noel"}
+{"rowId":"610","text":"Amor sem Limites 6"}
+{"rowId":"611","text":"Amor sem Limites 7"}
+{"rowId":"612","text":"Expedição-Mestre e Discípulo"}
+{"rowId":"1065","text":"Consertar o Boneco de Neve-Flocos"}
+{"rowId":"1066","text":"Consertar o Boneco de Neve-Bolas de Neve"}
+{"rowId":"1655","text":"Conspiração da Rainha"}
+{"rowId":"1067","text":"Consertar o Boneco de Neve-Cogumelo da Neve"}
+{"rowId":"1068","text":"Enigmas das Lanternas de Ano-Novo por EXP"}
+{"rowId":"1050","text":"Coração Grato"}
+{"rowId":"1052","text":"Cadê a Princesa-Certificado de Bravura"}
+{"rowId":"1053","text":"Cadê a Princesa-Derrotar o Dragão Maligno"}
+{"rowId":"1090","text":"Festival Shang Yuan"}
+{"rowId":"1091","text":"Comer \"Yuanxiao\" no Festival das Lanternas"}
+{"rowId":"601","text":"Acompanhar o Mestre"}
+{"rowId":"1054","text":"Cadê a Princesa-Quebrar o Feitiço"}
+{"rowId":"1055","text":"24 Termos Solares-Grande Neve"}
+{"rowId":"1056","text":"Trenó de Sulan"}
+{"rowId":"1057","text":"Mestre e Discípulo Superam Tudo (Mestre)"}
+{"rowId":"1058","text":"Mestre e Discípulo Superam Tudo (Discípulo)"}
+{"rowId":"1078","text":"24 Termos Solares-Frio Menor"}
+{"rowId":"1079","text":"Primavera Romântica"}
+{"rowId":"1080","text":"Laço Mestre e Discípulo (Mestre)"}
+{"rowId":"1081","text":"Laço Mestre e Discípulo (Discípulo)"}
+{"rowId":"1082","text":"Dragãozinho Sapeca"}
+{"rowId":"1084","text":"24 Termos Solares-Frio Maior"}
+{"rowId":"1085","text":"Véspera e Ano-Novo"}
+{"rowId":"609","text":"Amor sem Limites 5"}
+{"rowId":"1674","text":"Bênção do Novato (B)"}
+{"rowId":"1675","text":"Cliente em Potencial"}
+{"rowId":"1086","text":"Ano-Novo da Sorte"}
+{"rowId":"1087","text":"Ano-Novo-Roubar Pastéis"}
+{"rowId":"1088","text":"Ano-Novo-Soltar Fogos"}
+{"rowId":"1089","text":"Ano-Novo-Visitas de Felicitação"}
+{"rowId":"2513","text":"Missão de Treino 1"}
+{"rowId":"2514","text":"Missão de Treino 1"}
+{"rowId":"2515","text":"Missão de Treino 1"}
+{"rowId":"2516","text":"Missão de Treino 1"}
+{"rowId":"2517","text":"Missão de Treino 1"}
+{"rowId":"2518","text":"Missão de Treino 1"}
+{"rowId":"2519","text":"Missão de Treino 1"}
+{"rowId":"2520","text":"Missão de Treino 1"}
+{"rowId":"2521","text":"Missão de Treino 2"}
+{"rowId":"2522","text":"Missão de Treino 2"}
+{"rowId":"2523","text":"Missão de Treino 2"}
+{"rowId":"1676","text":"Superestrela da Música"}
+{"rowId":"3010","text":"Trocar Bumerangue"}
+{"rowId":"3011","text":"Trocar Lança Antiga"}
+{"rowId":"2524","text":"Missão de Treino 2"}
+{"rowId":"2525","text":"Missão de Treino 2"}
+{"rowId":"2526","text":"Missão de Treino 2"}
+{"rowId":"2527","text":"Missão de Treino 2"}
+{"rowId":"2528","text":"Missão de Treino 2"}
+{"rowId":"2529","text":"Missão de Treino 2"}
+{"rowId":"2530","text":"Missão de Treino 2"}
+{"rowId":"534","text":"Flor de Cinco Cores 7"}
+{"rowId":"535","text":"Flor de Cinco Cores 8"}
+{"rowId":"536","text":"Tornar-se Discípulo"}
+{"rowId":"537","text":"Equipar Arma"}
+{"rowId":"538","text":"Baixar o Launcher"}
+{"rowId":"1614","text":"Glória do Clã"}
+{"rowId":"1618","text":"Força da Amizade"}
+{"rowId":"1620","text":"Sonho Azul"}
+{"rowId":"1609","text":"Glória do Clã"}
+{"rowId":"1611","text":"Bolos da Lua com a Galinha Dourada"}
+{"rowId":"545","text":"Junte-se à Família Gunny"}
+{"rowId":"546","text":"Mestre e Discípulo"}
+{"rowId":"547","text":"Mestre e Discípulo Ⅱ"}
+{"rowId":"548","text":"Mestre e Discípulo Ⅲ"}
+{"rowId":"549","text":"Mestre e Discípulo Ⅳ"}
+{"rowId":"603","text":"Moeda de Johnny"}
+{"rowId":"604","text":"Compartilhar Alegria"}
+{"rowId":"2531","text":"Missão de Treino 2"}
+{"rowId":"2532","text":"Missão de Treino 2"}
+{"rowId":"2533","text":"Missão de Treino 2"}
+{"rowId":"2534","text":"Missão de Treino 2"}
+{"rowId":"2535","text":"Missão de Treino 2"}
+{"rowId":"2536","text":"Missão de Treino 2"}
+{"rowId":"2537","text":"Missão de Treino 2"}
+{"rowId":"1612","text":"Lanternas na Noite do Festival da Lua"}
+{"rowId":"1613","text":"Abra Baús e Ganhe Itens Incríveis"}
+{"rowId":"1635","text":"Batalha Mestre e Discípulo"}
+{"rowId":"2538","text":"Missão de Treino 2"}
+{"rowId":"2539","text":"Missão de Treino 2"}
+{"rowId":"2540","text":"Missão de Treino 2"}
+{"rowId":"2541","text":"Missão de Treino 3"}
+{"rowId":"2542","text":"Missão de Treino 3"}
+{"rowId":"2543","text":"Missão de Treino 3"}
+{"rowId":"2544","text":"Missão de Treino 3"}
+{"rowId":"2545","text":"Missão de Treino 3"}
+{"rowId":"2546","text":"Missão de Treino 3"}
+{"rowId":"2547","text":"Missão de Treino 3"}
+{"rowId":"2548","text":"Missão de Treino 3"}
+{"rowId":"1607","text":"Chicote Pochi"}
+{"rowId":"1608","text":"Proteja o Meio Ambiente do Reino"}
+{"rowId":"1610","text":"Herói do Clã"}
+{"rowId":"1621","text":"Glória da Vitória"}
+{"rowId":"3012","text":"Trocar Martelo de Minotauro"}
+{"rowId":"3023","text":"Trocar Martelo S-Fera Espiritual"}
+{"rowId":"3024","text":"Trocar Chapéu S-Fera Espiritual"}
+{"rowId":"1615","text":"Primeiro Desafio"}
+{"rowId":"1616","text":"Manual Secreto de Ataque"}
+{"rowId":"1617","text":"Manual Secreto de Defesa"}
+{"rowId":"1619","text":"Compras Divertidas"}
+{"rowId":"1622","text":"Manual Secreto de Agilidade"}
+{"rowId":"2549","text":"Missão de Treino 3"}
+{"rowId":"2550","text":"Missão de Treino 3"}
+{"rowId":"2551","text":"Missão de Treino 3"}
+{"rowId":"2552","text":"Missão de Treino 3"}
+{"rowId":"2553","text":"Missão de Treino 3"}
+{"rowId":"2554","text":"Missão de Treino 3"}
+{"rowId":"2555","text":"Missão de Treino 3"}
+{"rowId":"2556","text":"Missão de Treino 3"}
+{"rowId":"1641","text":"Presente aos Professores"}
+{"rowId":"1643","text":"Por um Clã Forte"}
+{"rowId":"1645","text":"Gunny Invencível"}
+{"rowId":"1647","text":"Amor Eterno"}
+{"rowId":"2557","text":"Missão de Treino 3"}
+{"rowId":"2558","text":"Missão de Treino 3"}
+{"rowId":"2559","text":"Missão de Treino 3"}
+{"rowId":"2560","text":"Missão de Treino 3"}
+{"rowId":"2561","text":"Missão de Treino 4"}
+{"rowId":"2562","text":"Missão de Treino 4"}
+{"rowId":"2563","text":"Missão de Treino 4"}
+{"rowId":"2564","text":"Missão de Treino 4"}
+{"rowId":"2565","text":"Missão de Treino 4"}
+{"rowId":"2566","text":"Missão de Treino 4"}
+{"rowId":"1639","text":"Batalha Mestre e Discípulo"}
+{"rowId":"1640","text":"Batalha Mestre e Discípulo"}
+{"rowId":"1642","text":"Um por Todos"}
+{"rowId":"1644","text":"Caça ao Tesouro"}
+{"rowId":"1648","text":"Compras Divertidas (1)"}
+{"rowId":"3026","text":"Classe Diferenciada - Inferior"}
+{"rowId":"3027","text":"Classe Diferenciada - Média"}
+{"rowId":"3028","text":"Classe Diferenciada - Superior"}
+{"rowId":"3029","text":"Campo de Batalha Cruel 1"}
+{"rowId":"1649","text":"Compras Divertidas (2)"}
+{"rowId":"1646","text":"Coletar Fogos de Artifício"}
+{"rowId":"1652","text":"Classe Diferenciada - Inferior"}
+{"rowId":"1653","text":"Classe Diferenciada - Média"}
+{"rowId":"1654","text":"Classe Diferenciada - Superior"}
+{"rowId":"2585","text":"Missão de Treino 5"}
+{"rowId":"2586","text":"Missão de Treino 5"}
+{"rowId":"2587","text":"Missão de Treino 5"}
+{"rowId":"2588","text":"Missão de Treino 5"}
+{"rowId":"2589","text":"Missão de Treino 5"}
+{"rowId":"2590","text":"Missão de Treino 5"}
+{"rowId":"2591","text":"Missão de Treino 5"}
+{"rowId":"2592","text":"Missão de Treino 5"}
+{"rowId":"1627","text":"Glória do Clã"}
+{"rowId":"1632","text":"Batalha Mestre e Discípulo"}
+{"rowId":"1633","text":"Coletar Números da Sorte"}
+{"rowId":"1658","text":"Galinha Boazinha Ganha Presente"}
+{"rowId":"2593","text":"Missão de Treino 5"}
+{"rowId":"2594","text":"Missão de Treino 5"}
+{"rowId":"2595","text":"Missão de Treino 5"}
+{"rowId":"2596","text":"Missão de Treino 5"}
+{"rowId":"2597","text":"Missão de Treino 5"}
+{"rowId":"2598","text":"Missão de Treino 5"}
+{"rowId":"2599","text":"Missão de Treino 5"}
+{"rowId":"2600","text":"Missão de Treino 5"}
+{"rowId":"1623","text":"Manual Secreto de Sorte"}
+{"rowId":"1624","text":"Manual Secreto de Sobrevivência"}
+{"rowId":"1625","text":"Bravo Talentoso"}
+{"rowId":"1626","text":"Asas do Amor"}
+{"rowId":"1628","text":"Fazer Justiça"}
+{"rowId":"1629","text":"Atirador Poderoso - Inferior"}
+{"rowId":"1662","text":"Papai Noel Perdeu as Coisas"}
+{"rowId":"1663","text":"Encontrar a Chaminé"}
+{"rowId":"1665","text":"Meia de Natal"}
+{"rowId":"1666","text":"Estrela Brilhante na Noite"}
+{"rowId":"1630","text":"Atirador Poderoso - Médio"}
+{"rowId":"1631","text":"Atirador Poderoso - Superior"}
+{"rowId":"1634","text":"Compras Divertidas"}
+{"rowId":"1636","text":"Classe Diferenciada - Inferior"}
+{"rowId":"1637","text":"Classe Diferenciada - Média"}
+{"rowId":"1638","text":"Classe Diferenciada - Superior"}
+{"rowId":"615","text":"Expedição-Mestre e Discípulo 4"}
+{"rowId":"616","text":"Técnica de Combate 1"}
+{"rowId":"618","text":"Moral 1"}
+{"rowId":"621","text":"Moral 2"}
+{"rowId":"617","text":"Arte do Combate 1"}
+{"rowId":"619","text":"Técnica de Combate 2"}
+{"rowId":"1688","text":"Membro Exemplar (1)"}
+{"rowId":"1689","text":"Membro Exemplar (2)"}
+{"rowId":"1672","text":"Conde Galinha"}
+{"rowId":"1673","text":"Bênção do Novato (A)"}
+{"rowId":"620","text":"Arte do Combate 2"}
+{"rowId":"622","text":"Técnica de Combate 3"}
+{"rowId":"651","text":"Corneta da Vitória 4"}
+{"rowId":"1659","text":"Compras de Natal"}
+{"rowId":"1660","text":"Compras de Natal"}
+{"rowId":"1661","text":"Compras de Natal"}
+{"rowId":"1664","text":"Encontrar a Rena"}
+{"rowId":"1667","text":"Perdido na Ilha Deserta"}
+{"rowId":"1690","text":"Força do Amor"}
+{"rowId":"1668","text":"Explorar a Selva"}
+{"rowId":"1669","text":"Explorar o Deserto"}
+{"rowId":"1670","text":"Explorar o Castelo Assombrado"}
+{"rowId":"1671","text":"Explorar o Oceano"}
+{"rowId":"1677","text":"Lado a Lado 1"}
+{"rowId":"3030","text":"Campo de Batalha Cruel 2"}
+{"rowId":"3031","text":"Campo de Batalha Cruel 3"}
+{"rowId":"3032","text":"Campo de Batalha Cruel 4"}
+{"rowId":"1678","text":"Lado a Lado 2"}
+{"rowId":"1679","text":"Lado a Lado 3"}
+{"rowId":"1680","text":"Alegria Inesperada"}
+{"rowId":"1681","text":"Herói Salvador: Cidade Real das Galinhas"}
+{"rowId":"1682","text":"Herói Salvador: Tribo do Deus Maligno"}
+{"rowId":"1683","text":"Herói Salvador: Fortaleza Sombria"}
+{"rowId":"1685","text":"Grande Batalha no Ninho das Formigas"}
+{"rowId":"1686","text":"Confusão na Cidade Real das Galinhas (1)"}
+{"rowId":"1687","text":"Confusão na Cidade Real das Galinhas (2)"}
+{"rowId":"1715","text":"Recebendo o Ano do Dragão"}
+{"rowId":"1716","text":"Sentimentos Transbordantes"}
+{"rowId":"1726","text":"Preparando o White Day (1)"}
+{"rowId":"1684","text":"Herói Salvador: Retrato do Herói"}
+{"rowId":"1691","text":"Faxina de Ano-Novo"}
+{"rowId":"1692","text":"Cidade Galinha Agitada"}
+{"rowId":"1693","text":"Primeira Visita do Ano à Cidade Galinha"}
+{"rowId":"1694","text":"Felicitar a Rainha Formiga"}
+{"rowId":"1695","text":"Felicitar Sulan"}
+{"rowId":"1696","text":"Caixa de Presente da Primavera"}
+{"rowId":"1697","text":"Compras de Ano-Novo (1)"}
+{"rowId":"1698","text":"Compras de Ano-Novo (2)"}
+{"rowId":"1699","text":"Estouro de Fogos de Ano-Novo"}
+{"rowId":"1700","text":"Estouro de Fogos de Ano-Novo"}
+{"rowId":"1701","text":"Bolo de Arroz da Primavera."}
+{"rowId":"1702","text":"Doce de Ano-Novo"}
+{"rowId":"1703","text":"Lanterna do Festival das Lanternas"}
+{"rowId":"1704","text":"Bravo Combatente."}
+{"rowId":"1729","text":"White Day"}
+{"rowId":"1713","text":"Envelope Vermelho da Primavera"}
+{"rowId":"1714","text":"Presente de Primavera para a Galinha Boazinha"}
+{"rowId":"1705","text":"Visitar o Galinheiro"}
+{"rowId":"1706","text":"Desafio da Cidade Real das Galinhas (Difícil)"}
+{"rowId":"1707","text":"Amor Correspondido"}
+{"rowId":"1727","text":"Preparando o White Day (2)"}
+{"rowId":"1728","text":"Presente de Carinho"}
+{"rowId":"1731","text":"Lute e Ganhe Presentes"}
+{"rowId":"1708","text":"Desafio da Cidade Real das Galinhas (Heroico)"}
+{"rowId":"1709","text":"Algoz da Tribo"}
+{"rowId":"1710","text":"Segredo da Fortaleza"}
+{"rowId":"1711","text":"Medalha da Vitória"}
+{"rowId":"1712","text":"Cavaleiro do Reino"}
+{"rowId":"1717","text":"Agradecimento ao Novo Jogador"}
+{"rowId":"1718","text":"Profundo Agradecimento"}
+{"rowId":"1725","text":"Guia de Treino"}
+{"rowId":"1730","text":"Vamos às Compras!"}
+{"rowId":"1732","text":"Resposta de Amor"}
+{"rowId":"2567","text":"Missão de Treino 4"}
+{"rowId":"2568","text":"Missão de Treino 4"}
+{"rowId":"2569","text":"Missão de Treino 4"}
+{"rowId":"2570","text":"Missão de Treino 4"}
+{"rowId":"3033","text":"Campo de Batalha Cruel 5"}
+{"rowId":"3051","text":"Ração de Mascote"}
+{"rowId":"3052","text":"Deixar o Mascote Fofo"}
+{"rowId":"3053","text":"Mascote Sobe de Nível"}
+{"rowId":"2571","text":"Missão de Treino 4"}
+{"rowId":"2572","text":"Missão de Treino 4"}
+{"rowId":"2573","text":"Missão de Treino 4"}
+{"rowId":"2574","text":"Missão de Treino 4"}
+{"rowId":"2575","text":"Missão de Treino 4"}
+{"rowId":"2576","text":"Missão de Treino 4"}
+{"rowId":"2577","text":"Missão de Treino 4"}
+{"rowId":"2578","text":"Missão de Treino 4"}
+{"rowId":"2579","text":"Missão de Treino 4"}
+{"rowId":"2580","text":"Missão de Treino 4"}
+{"rowId":"2581","text":"Missão de Treino 5"}
+{"rowId":"2582","text":"Missão de Treino 5"}
+{"rowId":"2583","text":"Missão de Treino 5"}
+{"rowId":"2584","text":"Missão de Treino 5"}
+{"rowId":"2601","text":"Missão de Treino 6"}
+{"rowId":"3004","text":"Encontrar My Chau"}
+{"rowId":"3056","text":"dasdasdasd"}
+{"rowId":"5002","text":"Trocar Itens Dourados"}
+{"rowId":"5003","text":"Trocar Itens de EXP"}
+{"rowId":"2602","text":"Missão de Treino 6"}
+{"rowId":"2603","text":"Missão de Treino 6"}
+{"rowId":"2604","text":"Missão de Treino 6"}
+{"rowId":"2605","text":"Missão de Treino 6"}
+{"rowId":"2606","text":"Missão de Treino 6"}
+{"rowId":"2607","text":"Missão de Treino 6"}
+{"rowId":"2608","text":"Missão de Treino 6"}
+{"rowId":"2609","text":"Missão de Treino 6"}
+{"rowId":"2610","text":"Missão de Treino 6"}
+{"rowId":"2611","text":"Missão de Treino 6"}
+{"rowId":"2612","text":"Missão de Treino 6"}
+{"rowId":"2613","text":"Missão de Treino 6"}
+{"rowId":"2614","text":"Missão de Treino 6"}
+{"rowId":"2615","text":"Missão de Treino 6"}
+{"rowId":"3034","text":"Entre e Ganhe Presentes"}
+{"rowId":"5009","text":"Combate do Bravo 6"}
+{"rowId":"5010","text":"Combate do Bravo 7"}
+{"rowId":"2616","text":"Missão de Treino 6"}
+{"rowId":"2617","text":"Missão de Treino 6"}
+{"rowId":"2618","text":"Missão de Treino 6"}
+{"rowId":"2619","text":"Missão de Treino 6"}
+{"rowId":"2620","text":"Missão de Treino 6"}
+{"rowId":"2621","text":"Missão de Treino 7"}
+{"rowId":"2622","text":"Missão de Treino 7"}
+{"rowId":"2623","text":"Missão de Treino 7"}
+{"rowId":"2624","text":"Missão de Treino 7"}
+{"rowId":"2625","text":"Missão de Treino 7"}
+{"rowId":"2626","text":"Missão de Treino 7"}
+{"rowId":"2627","text":"Missão de Treino 7"}
+{"rowId":"2628","text":"Missão de Treino 7"}
+{"rowId":"2629","text":"Missão de Treino 7"}
+{"rowId":"2630","text":"Missão de Treino 7"}
+{"rowId":"5011","text":"Derrotar o Rei da Montanha 1"}
+{"rowId":"5012","text":"Derrotar o Rei da Montanha 2"}
+{"rowId":"5013","text":"Derrotar o Rei da Montanha 3"}
+{"rowId":"5014","text":"Derrotar o Rei da Montanha 4"}
+{"rowId":"5015","text":"Derrotar o Rei da Montanha 5"}
+{"rowId":"5016","text":"Derrotar Hoa Ky 1"}
+{"rowId":"2631","text":"Missão de Treino 7"}
+{"rowId":"2632","text":"Missão de Treino 7"}
+{"rowId":"2633","text":"Missão de Treino 7"}
+{"rowId":"2634","text":"Missão de Treino 7"}
+{"rowId":"2635","text":"Missão de Treino 7"}
+{"rowId":"2636","text":"Missão de Treino 7"}
+{"rowId":"2637","text":"Missão de Treino 7"}
+{"rowId":"2638","text":"Missão de Treino 7"}
+{"rowId":"2639","text":"Missão de Treino 7"}
+{"rowId":"2640","text":"Missão de Treino 7"}
+{"rowId":"2641","text":"Missão de Treino 8"}
+{"rowId":"2642","text":"Missão de Treino 8"}
+{"rowId":"2643","text":"Missão de Treino 8"}
+{"rowId":"2644","text":"Missão de Treino 8"}
+{"rowId":"2645","text":"Missão de Treino 8"}
+{"rowId":"5019","text":"Derrotar Hoa Ky 4"}
+{"rowId":"5020","text":"Derrotar Hoa Ky 5"}
+{"rowId":"5021","text":"Ingredientes do Bolo 1"}
+{"rowId":"5022","text":"Ingredientes do Bolo 2"}
+{"rowId":"5023","text":"Ingredientes do Bolo 3"}
+{"rowId":"2646","text":"Missão de Treino 8"}
+{"rowId":"2647","text":"Missão de Treino 8"}
+{"rowId":"2648","text":"Missão de Treino 8"}
+{"rowId":"2649","text":"Missão de Treino 8"}
+{"rowId":"2650","text":"Missão de Treino 8"}
+{"rowId":"2651","text":"Missão de Treino 8"}
+{"rowId":"2652","text":"Missão de Treino 8"}
+{"rowId":"2653","text":"Missão de Treino 8"}
+{"rowId":"2654","text":"Missão de Treino 8"}
+{"rowId":"2655","text":"Missão de Treino 8"}
+{"rowId":"2656","text":"Missão de Treino 8"}
+{"rowId":"2657","text":"Missão de Treino 8"}
+{"rowId":"2658","text":"Missão de Treino 8"}
+{"rowId":"2659","text":"Missão de Treino 8"}
+{"rowId":"2660","text":"Missão de Treino 8"}
+{"rowId":"3035","text":"Casal Perfeito"}
+{"rowId":"5025","text":"Ingredientes do Bolo 5"}
+{"rowId":"5026","text":"Receber Presente do Festival da Lua"}
+{"rowId":"2661","text":"Missão de Treino 9"}
+{"rowId":"2662","text":"Missão de Treino 9"}
+{"rowId":"2663","text":"Missão de Treino 9"}
+{"rowId":"2664","text":"Missão de Treino 9"}
+{"rowId":"2665","text":"Missão de Treino 9"}
+{"rowId":"2666","text":"Missão de Treino 9"}
+{"rowId":"2667","text":"Missão de Treino 9"}
+{"rowId":"2668","text":"Missão de Treino 9"}
+{"rowId":"2669","text":"Missão de Treino 9"}
+{"rowId":"2670","text":"Missão de Treino 9"}
+{"rowId":"2671","text":"Missão de Treino 9"}
+{"rowId":"2672","text":"Missão de Treino 9"}
+{"rowId":"2673","text":"Missão de Treino 9"}
+{"rowId":"2674","text":"Missão de Treino 9"}
+{"rowId":"2675","text":"Missão de Treino 9"}
+{"rowId":"2676","text":"Missão de Treino 9"}
+{"rowId":"2677","text":"Missão de Treino 9"}
+{"rowId":"2678","text":"Missão de Treino 9"}
+{"rowId":"2679","text":"Missão de Treino 9"}
+{"rowId":"2680","text":"Missão de Treino 9"}
+{"rowId":"2681","text":"Missão de Treino 10"}
+{"rowId":"2682","text":"Missão de Treino 10"}
+{"rowId":"2683","text":"Missão de Treino 10"}
+{"rowId":"2684","text":"Missão de Treino 10"}
+{"rowId":"2685","text":"Missão de Treino 10"}
+{"rowId":"2686","text":"Missão de Treino 10"}
+{"rowId":"2687","text":"Missão de Treino 10"}
+{"rowId":"3001","text":"Caçar Itens"}
+{"rowId":"3002","text":"Oferecer Itens"}
+{"rowId":"3003","text":"Trocar Itens"}
+{"rowId":"5004","text":"Combate do Bravo 1"}
+{"rowId":"5005","text":"Combate do Bravo 2"}
+{"rowId":"5006","text":"Combate do Bravo 3"}
+{"rowId":"3013","text":"Combate sem Parar 1"}
+{"rowId":"3014","text":"Combate sem Parar 2"}
+{"rowId":"3015","text":"Combate sem Parar 3"}
+{"rowId":"3016","text":"Combate sem Parar 4"}
+{"rowId":"3017","text":"Combate sem Parar 5"}
+{"rowId":"3018","text":"No Topo 1"}
+{"rowId":"3019","text":"No Topo 2"}
+{"rowId":"3020","text":"No Topo 3"}
+{"rowId":"3021","text":"No Topo 4"}
+{"rowId":"3022","text":"No Topo 5"}
+{"rowId":"3025","text":"Trocar Armadura S-Fera Espiritual"}
+{"rowId":"3036","text":"União no Clã 1"}
+{"rowId":"3037","text":"União no Clã 2"}
+{"rowId":"3038","text":"União no Clã 3"}
+{"rowId":"3039","text":"União no Clã 4"}
+{"rowId":"3040","text":"União no Clã 5"}
+{"rowId":"3041","text":"Clã Mais Forte 1"}
+{"rowId":"5007","text":"Combate do Bravo 4"}
+{"rowId":"5008","text":"Combate do Bravo 5"}
+{"rowId":"3042","text":"Clã Mais Forte 2"}
+{"rowId":"3043","text":"Clã Mais Forte 3"}
+{"rowId":"3044","text":"Clã Mais Forte 4"}
+{"rowId":"3045","text":"Clã Mais Forte 5"}
+{"rowId":"3046","text":"Medalha \"In\""}
+{"rowId":"3047","text":"Medalha \"ven\""}
+{"rowId":"3048","text":"Medalha \"cí\""}
+{"rowId":"3049","text":"Medalha \"vel\""}
+{"rowId":"3050","text":"Junte Letras e Ganhe o Estilingue Divino"}
+{"rowId":"3054","text":"Trocar Pedra de Fortalecimento 5"}
+{"rowId":"5001","text":"Trocar Itens de Mascote"}
+{"rowId":"5017","text":"Derrotar Hoa Ky 2"}
+{"rowId":"5018","text":"Derrotar Hoa Ky 3"}
+{"rowId":"5024","text":"Ingredientes do Bolo 4"}
+{"rowId":"5027","text":"Trocar Itens 1"}

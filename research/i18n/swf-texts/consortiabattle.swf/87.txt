@@ -1,0 +1,3 @@
+4. Chấm dứt liên sát và mua tích lũy x2 sẽ 
+--- RECORDSEPARATOR ---
+    nhận được tích lũy thêm.

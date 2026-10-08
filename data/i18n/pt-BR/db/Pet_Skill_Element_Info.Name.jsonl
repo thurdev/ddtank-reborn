@@ -1,0 +1,2084 @@
+{"rowId":"1001","text":"+1 Disparo"}
+{"rowId":"1002","text":"Receber Habilidade 4"}
+{"rowId":"1003","text":"Receber Habilidade 5"}
+{"rowId":"1004","text":"Receber Habilidade 6"}
+{"rowId":"1005","text":"Receber Habilidade 10"}
+{"rowId":"1006","text":"Receber Habilidade 11"}
+{"rowId":"1007","text":"Receber Habilidade 12"}
+{"rowId":"1008","text":"Receber Habilidade 16"}
+{"rowId":"1009","text":"Receber Habilidade 17"}
+{"rowId":"1010","text":"Receber Habilidade 18"}
+{"rowId":"1011","text":"Receber Habilidade 22"}
+{"rowId":"1012","text":"Receber Habilidade 23"}
+{"rowId":"1013","text":"Receber Habilidade 24"}
+{"rowId":"1014","text":"Causa 50 de dano"}
+{"rowId":"1015","text":"Causa 100 de dano"}
+{"rowId":"1016","text":"Causa 150 de dano"}
+{"rowId":"1017","text":"Não pode se mover"}
+{"rowId":"1018","text":"Imobilizar Nv1"}
+{"rowId":"1019","text":"Imobilizar Nv2"}
+{"rowId":"1020","text":"Imobilizar Nv3"}
+{"rowId":"1021","text":"Imunidade"}
+{"rowId":"1022","text":"Escudo da Galinha Nv1"}
+{"rowId":"1023","text":"Escudo da Galinha Nv2"}
+{"rowId":"1024","text":"Espada da Galinha Nv1"}
+{"rowId":"1025","text":"Espada da Galinha Nv2"}
+{"rowId":"1026","text":"Florescer Nv1"}
+{"rowId":"1027","text":"Florescer Nv2"}
+{"rowId":"1028","text":"Florescer Nv3"}
+{"rowId":"1029","text":"Quanto Mais Luta, Mais Forte Nv1"}
+{"rowId":"1030","text":"Quanto Mais Luta, Mais Forte Nv2"}
+{"rowId":"1031","text":"Quanto Mais Luta, Mais Forte Nv3"}
+{"rowId":"1032","text":"Receber Habilidade 53"}
+{"rowId":"1033","text":"Receber Habilidade 54"}
+{"rowId":"1034","text":"Receber Habilidade 55"}
+{"rowId":"1035","text":"Dano +10%"}
+{"rowId":"1036","text":"Dano +20%"}
+{"rowId":"1037","text":"Dano +30%"}
+{"rowId":"1038","text":"Guia"}
+{"rowId":"1039","text":"Dano +150%"}
+{"rowId":"1040","text":"Galinha da Bênção Nv1"}
+{"rowId":"1041","text":"Galinha da Bênção Nv2"}
+{"rowId":"1042","text":"Galinha da Bênção Nv3"}
+{"rowId":"1043","text":"Recuperação Lenta Nv1"}
+{"rowId":"1044","text":"Recuperação Lenta Nv2"}
+{"rowId":"1045","text":"Recuperação Lenta Nv3"}
+{"rowId":"1046","text":"Bola de Formiga de Fogo Nv1"}
+{"rowId":"1047","text":"Bola de Formiga de Fogo Nv2"}
+{"rowId":"1048","text":"Bola de Formiga de Fogo Nv3"}
+{"rowId":"1049","text":"Tiro Designado Nv1"}
+{"rowId":"1050","text":"Tiro Designado Nv2"}
+{"rowId":"1051","text":"Armadura +50"}
+{"rowId":"1052","text":"Armadura +70"}
+{"rowId":"1053","text":"Remover Efeito"}
+{"rowId":"1054","text":"Remover Efeito"}
+{"rowId":"1055","text":"Receber Habilidade 58"}
+{"rowId":"1056","text":"Chuva Divina Nv1"}
+{"rowId":"1057","text":"Chuva Divina Nv2"}
+{"rowId":"1058","text":"Recupera 1000 HP"}
+{"rowId":"1059","text":"Recupera 3000 HP"}
+{"rowId":"1060","text":"Receber Habilidade 47"}
+{"rowId":"1061","text":"Receber Habilidade 48"}
+{"rowId":"1062","text":"Receber Habilidade 49"}
+{"rowId":"1063","text":"Cem Flores Desabrochando Nv1"}
+{"rowId":"1064","text":"Cem Flores Desabrochando Nv2"}
+{"rowId":"1065","text":"Receber Habilidade 63"}
+{"rowId":"1066","text":"Receber Habilidade 64"}
+{"rowId":"1067","text":"Espinho de Formiga Nv1"}
+{"rowId":"1068","text":"Espinho de Formiga Nv2"}
+{"rowId":"1069","text":"Receber Habilidade 70"}
+{"rowId":"1070","text":"Receber Habilidade 71"}
+{"rowId":"1071","text":"Remover Efeito 1072, 1073"}
+{"rowId":"1072","text":"Alto Poder de Fogo Nv1"}
+{"rowId":"1073","text":"Alto Poder de Fogo Nv2"}
+{"rowId":"1074","text":"Bênção do Anjo +300"}
+{"rowId":"1075","text":"Bênção do Anjo +600"}
+{"rowId":"1076","text":"Mascote causa 200 de dano ao redor"}
+{"rowId":"1077","text":"Mascote causa 400 de dano ao redor"}
+{"rowId":"1078","text":"Recupera 500 HP na hora"}
+{"rowId":"1079","text":"Recupera 1000 HP na hora"}
+{"rowId":"1080","text":"Recupera 300 HP"}
+{"rowId":"1081","text":"Recupera 600 HP"}
+{"rowId":"1082","text":"Sempre Imune"}
+{"rowId":"1083","text":"Fortaleza V3 Nv1"}
+{"rowId":"1084","text":"Fortaleza V3 Nv2"}
+{"rowId":"1085","text":"Sorte +500"}
+{"rowId":"1086","text":"Sorte +800"}
+{"rowId":"1087","text":"Defesa -1000"}
+{"rowId":"1088","text":"Defesa -800"}
+{"rowId":"1089","text":"Receber Habilidade 88"}
+{"rowId":"1090","text":"Remover Efeito 1082, 1083, 1084, 1085"}
+{"rowId":"1091","text":"Remover Efeito 1086, 1087, 1088"}
+{"rowId":"1092","text":"Saúde! Nv1"}
+{"rowId":"1093","text":"Saúde! Nv2"}
+{"rowId":"1094","text":"Defesa +100"}
+{"rowId":"1095","text":"Defesa +300"}
+{"rowId":"1096","text":"Agilidade +100"}
+{"rowId":"1097","text":"Agilidade +300"}
+{"rowId":"1098","text":"Sorte +100"}
+{"rowId":"1099","text":"Sorte +300"}
+{"rowId":"1100","text":"HP Máximo +1000"}
+{"rowId":"1101","text":"HP Máximo +2000"}
+{"rowId":"1102","text":"Recupera 500 HP"}
+{"rowId":"1103","text":"Recupera 1000 HP"}
+{"rowId":"1104","text":"Canhão Planador*800"}
+{"rowId":"1105","text":"Canhão Planador*1000"}
+{"rowId":"1106","text":"Recebe 1 Ponto de Magia"}
+{"rowId":"1107","text":"Recebe 50 Pontos de Magia"}
+{"rowId":"1108","text":"Recebe 3 Pontos de Magia"}
+{"rowId":"1109","text":"Receber Habilidade 98"}
+{"rowId":"1110","text":"Remove 50 Pontos de Magia"}
+{"rowId":"1111","text":"Espinho de Formiga Nv1"}
+{"rowId":"1112","text":"Espinho de Formiga Nv2"}
+{"rowId":"1113","text":"Reflete 300 de dano"}
+{"rowId":"1114","text":"Reflete 500 de dano"}
+{"rowId":"1115","text":"Recupera 500 HP"}
+{"rowId":"1116","text":"Recupera 1000 HP"}
+{"rowId":"1117","text":"Aproximação"}
+{"rowId":"1118","text":"Crescimento Acelerado Nv1"}
+{"rowId":"1119","text":"Crescimento Acelerado Nv2"}
+{"rowId":"1120","text":"Casulo Nv1"}
+{"rowId":"1121","text":"Casulo Nv2"}
+{"rowId":"1122","text":"Ataque do Mascote Nv1"}
+{"rowId":"1123","text":"Ataque do Mascote Nv2"}
+{"rowId":"1124","text":"Ataque do Mascote Nv3"}
+{"rowId":"1125","text":"Dano +100%"}
+{"rowId":"1126","text":"Dano +120%"}
+{"rowId":"1127","text":"Dano +140%"}
+{"rowId":"1128","text":"Dano +300%"}
+{"rowId":"1129","text":"Dano +350%"}
+{"rowId":"1130","text":"Ataque -200"}
+{"rowId":"1131","text":"Ataque -150"}
+{"rowId":"1132","text":"Ataque -100"}
+{"rowId":"1133","text":"Dano +120%"}
+{"rowId":"1134","text":"Dano +180%"}
+{"rowId":"1135","text":"Reduz 500 do dano recebido"}
+{"rowId":"1136","text":"Manter Contra-ataque"}
+{"rowId":"1137","text":"Refletir Dano"}
+{"rowId":"1138","text":"100% de chance de crítico"}
+{"rowId":"1139","text":"Ataque do Mascote Nv2 (Exclusivo de Dragão)"}
+{"rowId":"1149","text":"Ataque do Mascote Nv3 (Exclusivo de Dragão)"}
+{"rowId":"1150","text":"Bala do Dragão de Fogo Nv1"}
+{"rowId":"1151","text":"Bala do Dragão de Fogo Nv2"}
+{"rowId":"1152","text":"Bala do Dragão de Fogo Nv3"}
+{"rowId":"1153","text":"Pacto do Dragão Maligno Nv1"}
+{"rowId":"1154","text":"Pacto do Dragão Maligno Nv2"}
+{"rowId":"1155","text":"Pacto do Dragão Maligno Nv1"}
+{"rowId":"1156","text":"Pacto do Dragão Maligno Nv2"}
+{"rowId":"1157","text":"Dragão Guardião Nv1"}
+{"rowId":"1158","text":"Dragão Guardião Nv1"}
+{"rowId":"1159","text":"Selo do Dragão de Fogo"}
+{"rowId":"1160","text":"Selo do Dragão de Fogo"}
+{"rowId":"1161","text":"Dragão Furioso Nv1"}
+{"rowId":"1162","text":"Dragão Furioso Nv2"}
+{"rowId":"1163","text":"Chifre de Dragão Afiado Nv1"}
+{"rowId":"1164","text":"Chifre de Dragão Afiado Nv2"}
+{"rowId":"1165","text":"Chifre de Dragão Afiado Nv1"}
+{"rowId":"1166","text":"Chifre de Dragão Afiado Nv2"}
+{"rowId":"1167","text":"Mudar para Postura Dragão Furioso"}
+{"rowId":"1168","text":"Mudar para Postura Dragão Adormecido"}
+{"rowId":"1169","text":"Mudar para Postura Dragão Irado"}
+{"rowId":"1170","text":"Perseguição do Dragão Furioso Nv1"}
+{"rowId":"1171","text":"Perseguição do Dragão Furioso Nv2"}
+{"rowId":"1172","text":"Alma do Dragão Protetora Nv1"}
+{"rowId":"1173","text":"Alma do Dragão Protetora Nv2"}
+{"rowId":"1174","text":"Dragão Guardião Nv1"}
+{"rowId":"1175","text":"Dragão Guardião Nv2"}
+{"rowId":"1176","text":"Perseguição do Dragão Furioso Nv1"}
+{"rowId":"1177","text":"Perseguição do Dragão Furioso Nv2"}
+{"rowId":"1178","text":"Bala de Gelo Estilhaçante Nv1"}
+{"rowId":"1179","text":"Bala de Gelo Estilhaçante Nv2"}
+{"rowId":"1180","text":"Bala de Gelo Estilhaçante Nv3"}
+{"rowId":"1181","text":"Barreira de Cristal Nv1"}
+{"rowId":"1182","text":"Barreira de Cristal Nv2"}
+{"rowId":"1183","text":"Barreira de Cristal Nv3"}
+{"rowId":"1184","text":"Inferno Congelado Nv1"}
+{"rowId":"1185","text":"Inferno Congelado Nv2"}
+{"rowId":"1186","text":"Inferno Congelado Nv1"}
+{"rowId":"1187","text":"Inferno Congelado Nv2"}
+{"rowId":"1188","text":"Receber Habilidade 139"}
+{"rowId":"1189","text":"Cancelar Efeito"}
+{"rowId":"1190","text":"Raios e Trovões Nv1"}
+{"rowId":"1191","text":"Raios e Trovões Nv2"}
+{"rowId":"1192","text":"Coração da Fênix Nv1"}
+{"rowId":"1193","text":"Coração da Fênix Nv2"}
+{"rowId":"1194","text":"Golpe Mortal Nv1"}
+{"rowId":"1195","text":"Golpe Mortal Nv2"}
+{"rowId":"1196","text":"Golpe Mortal Nv1"}
+{"rowId":"1197","text":"Golpe Mortal Nv2"}
+{"rowId":"1198","text":"Golpe Mortal Nv1"}
+{"rowId":"1199","text":"Golpe Mortal Nv2"}
+{"rowId":"1200","text":"Alma de Gelo"}
+{"rowId":"1201","text":"Veneno Nv1"}
+{"rowId":"1202","text":"Veneno Nv2"}
+{"rowId":"1203","text":"Veneno Nv3"}
+{"rowId":"1204","text":"Exaustão Nv1"}
+{"rowId":"1205","text":"Exaustão Nv2"}
+{"rowId":"1206","text":"Exaustão Nv1"}
+{"rowId":"1207","text":"Exaustão Nv2"}
+{"rowId":"1208","text":"Mahoraga Nv1"}
+{"rowId":"1209","text":"Mahoraga Nv2"}
+{"rowId":"1210","text":"Fúria Selvagem Nv1"}
+{"rowId":"1211","text":"Fúria Selvagem Nv2"}
+{"rowId":"1212","text":"Fúria Selvagem Nv1"}
+{"rowId":"1213","text":"Fúria Selvagem Nv2"}
+{"rowId":"1214","text":"Presa Negra Nv1"}
+{"rowId":"1215","text":"Presa Negra Nv2"}
+{"rowId":"1216","text":"Presa Negra Nv1"}
+{"rowId":"1217","text":"Presa Negra Nv2"}
+{"rowId":"1218","text":"Presa Negra Nv1"}
+{"rowId":"1219","text":"Presa Negra Nv2"}
+{"rowId":"1220","text":"Desespero Nv1"}
+{"rowId":"1221","text":"Desespero Nv2"}
+{"rowId":"1222","text":"Monstro Milenar"}
+{"rowId":"1223","text":"Transmutação"}
+{"rowId":"1224","text":"Inferno Congelado Nv1"}
+{"rowId":"1225","text":"Inferno Congelado Nv2"}
+{"rowId":"1226","text":"Fúria Selvagem Nv1"}
+{"rowId":"1227","text":"Fúria Selvagem Nv2"}
+{"rowId":"1228","text":"Revide Nv1"}
+{"rowId":"1229","text":"Revide Nv2"}
+{"rowId":"1230","text":"Manter Garra de Gato"}
+{"rowId":"1231","text":"Reduz 500 do dano recebido"}
+{"rowId":"1232","text":"Receber Habilidade 10416"}
+{"rowId":"1233","text":"Receber Habilidade 10417"}
+{"rowId":"1234","text":"Receber Habilidade 10418"}
+{"rowId":"1235","text":"Revide"}
+{"rowId":"1236","text":"Reflete 500 de dano"}
+{"rowId":"1237","text":"Reflete 800 de dano"}
+{"rowId":"1238","text":"Investida Nv1"}
+{"rowId":"1239","text":"Investida Nv2"}
+{"rowId":"1240","text":"Investida Nv3"}
+{"rowId":"1241","text":"Escudo Firme Nv1"}
+{"rowId":"1242","text":"Escudo Firme Nv2"}
+{"rowId":"1243","text":"Recupera 1500 HP"}
+{"rowId":"1244","text":"Recupera 2500 HP"}
+{"rowId":"1245","text":"Recebe 2 Pontos de Magia"}
+{"rowId":"1246","text":"Reduz 650 do dano recebido"}
+{"rowId":"1247","text":"Reduz 750 do dano recebido"}
+{"rowId":"1248","text":"Curar Ferimentos Nv1"}
+{"rowId":"1249","text":"Curar Ferimentos Nv2"}
+{"rowId":"1250","text":"Curar Ferimentos Nv3"}
+{"rowId":"1251","text":"Ferrão de Formiga Nv1 (Garra de Gato)"}
+{"rowId":"1252","text":"Ferrão de Formiga Nv2 (Garra de Gato)"}
+{"rowId":"1253","text":"No seu turno, remove 3 Pontos de Magia do oponente"}
+{"rowId":"1254","text":"Ataque -100"}
+{"rowId":"1255","text":"Ataque -200"}
+{"rowId":"1256","text":"Ataque -300"}
+{"rowId":"1257","text":"Aliados +100 de Armadura"}
+{"rowId":"1258","text":"Aliados +200 de Armadura"}
+{"rowId":"1259","text":"Aliados recuperam 800 HP"}
+{"rowId":"1260","text":"Aliados recuperam 1000 HP"}
+{"rowId":"1261","text":"Sorte +300"}
+{"rowId":"1262","text":"Sorte +500"}
+{"rowId":"1263","text":"Recebe 2 Pontos de Magia"}
+{"rowId":"1264","text":"Todos os aliados +100 de Dano"}
+{"rowId":"1265","text":"Todos os aliados +300 de Dano"}
+{"rowId":"1266","text":"Reduz 10 Pontos de Magia do inimigo"}
+{"rowId":"1267","text":"Reduz 20 Pontos de Magia do inimigo"}
+{"rowId":"1268","text":"Mascotes aliados +5 Pontos de Magia"}
+{"rowId":"1269","text":"Mascotes aliados +10 Pontos de Magia"}
+{"rowId":"1270","text":"Reduz 800 HP do jogador atingido"}
+{"rowId":"1271","text":"Reduz 1300 HP do jogador atingido"}
+{"rowId":"1272","text":"Receber Habilidade 192"}
+{"rowId":"1273","text":"Receber Habilidade 193"}
+{"rowId":"1274","text":"Habilidade Vazia"}
+{"rowId":"1275","text":"Recebe 2 de Magia"}
+{"rowId":"1276","text":"Recupera 1% HP"}
+{"rowId":"1277","text":"Recupera 2% HP"}
+{"rowId":"1278","text":"Dano crítico recebido -20%"}
+{"rowId":"1279","text":"Dano crítico recebido -30%"}
+{"rowId":"1280","text":"Invisibilidade Individual"}
+{"rowId":"1281","text":"Dano recebido -15%"}
+{"rowId":"1282","text":"Reduz 30% do dano recebido"}
+{"rowId":"1283","text":"Dano recebido -50%"}
+{"rowId":"1284","text":"Recupera 30% HP"}
+{"rowId":"1285","text":"Recupera 30% HP"}
+{"rowId":"1286","text":"Bloquear Hab. de Montaria"}
+{"rowId":"1287","text":"Bloquear Hab. de Mascote"}
+{"rowId":"1288","text":"Supervelocidade"}
+{"rowId":"1289","text":"Receber Habilidade 210"}
+{"rowId":"1290","text":"Receber Habilidade 211"}
+{"rowId":"1291","text":"Reduz 1 Ponto de Magia do inimigo"}
+{"rowId":"1292","text":"Reduz 2 Pontos de Magia do inimigo"}
+{"rowId":"1293","text":"Receber Habilidade 206"}
+{"rowId":"1294","text":"Receber Habilidade 207"}
+{"rowId":"1295","text":"Receber Habilidade 214"}
+{"rowId":"1296","text":"Receber Habilidade 215"}
+{"rowId":"1297","text":"Remover Efeito Sorriso Sinistro"}
+{"rowId":"1298","text":"Remover Efeito Drenar HP 1"}
+{"rowId":"1299","text":"Remover Efeito Drenar HP 2"}
+{"rowId":"1300","text":"Rouba 30% da magia das habilidades ativas do inimigo"}
+{"rowId":"1301","text":"Rouba 50% da magia das habilidades ativas do inimigo"}
+{"rowId":"1302","text":"Recebe 1 de Magia"}
+{"rowId":"1303","text":"Recebe 2 de Magia"}
+{"rowId":"1304","text":"Inimigo -1 de Magia"}
+{"rowId":"1305","text":"Reduz 2 Pontos de Magia do inimigo"}
+{"rowId":"1306","text":"Receber 218"}
+{"rowId":"1307","text":"Receber 219"}
+{"rowId":"1308","text":"Recupera 30% do dano"}
+{"rowId":"1309","text":"Recupera 30% do dano"}
+{"rowId":"1310","text":"Receber Habilidade 220"}
+{"rowId":"1311","text":"Receber Habilidade 221"}
+{"rowId":"1322","text":"Consome HP e Magia"}
+{"rowId":"1323","text":"Abate Rápido"}
+{"rowId":"1324","text":"Abate Rápido"}
+{"rowId":"1325","text":"Ataque do Mascote Nv1"}
+{"rowId":"1326","text":"Ataque do Mascote Nv2"}
+{"rowId":"1327","text":"Ataque do Mascote Nv3"}
+{"rowId":"1328","text":"Dano +100%"}
+{"rowId":"1329","text":"Dano +130%"}
+{"rowId":"1330","text":"Dano +155%"}
+{"rowId":"1331","text":"Imobilizar Nv1"}
+{"rowId":"1332","text":"Imobilizar Nv2"}
+{"rowId":"1333","text":"Imobilizar Nv3"}
+{"rowId":"1334","text":"Ataque -20%"}
+{"rowId":"1335","text":"Ataque -15%"}
+{"rowId":"1336","text":"Tiro Designado Nv1"}
+{"rowId":"1337","text":"Tiro Designado Nv2"}
+{"rowId":"1338","text":"Receber Habilidade 242"}
+{"rowId":"1339","text":"Remover Efeito"}
+{"rowId":"1340","text":"Mascote causa 2% de dano ao redor"}
+{"rowId":"1341","text":"Mascote causa 3% de dano ao redor"}
+{"rowId":"1342","text":"Fortaleza V3 Nv1"}
+{"rowId":"1343","text":"Fortaleza V3 Nv2"}
+{"rowId":"1344","text":"Sorte +10%"}
+{"rowId":"1345","text":"Sorte +15%"}
+{"rowId":"1346","text":"Armadura -30%"}
+{"rowId":"1347","text":"Armadura -25%"}
+{"rowId":"1348","text":"Receber Habilidade 243"}
+{"rowId":"1349","text":"Remover Efeito 1082, 1083, 1084, 1085"}
+{"rowId":"1350","text":"Remover Efeito 1086, 1087, 1088"}
+{"rowId":"1351","text":"Recebe 4 Pontos de Magia"}
+{"rowId":"1352","text":"Reduz 3.3% de HP."}
+{"rowId":"1353","text":"Galinha Furiosa Nv1"}
+{"rowId":"1354","text":"Galinha Furiosa Nv2"}
+{"rowId":"1355","text":"Receber Habilidade 244"}
+{"rowId":"1356","text":"Remover Efeito 1354, 1355"}
+{"rowId":"1357","text":"Receber Habilidade 244"}
+{"rowId":"1358","text":"Recuperação Lenta Nv1"}
+{"rowId":"1359","text":"Recuperação Lenta Nv2"}
+{"rowId":"1360","text":"Recuperação Lenta Nv3"}
+{"rowId":"1361","text":"Florescer Nv1"}
+{"rowId":"1362","text":"Florescer Nv2"}
+{"rowId":"1363","text":"Florescer Nv3"}
+{"rowId":"1364","text":"Recupera 8% HP"}
+{"rowId":"1365","text":"Recupera 10% HP"}
+{"rowId":"1366","text":"Cem Florescimentos Nv1"}
+{"rowId":"1367","text":"Cem Florescimentos Nv2"}
+{"rowId":"1368","text":"Receber Habilidade"}
+{"rowId":"1369","text":"Receber Habilidade"}
+{"rowId":"1370","text":"Escudo Protetor"}
+{"rowId":"1371","text":"Escudo Protetor"}
+{"rowId":"1372","text":"Efeito Bênção do Anjo"}
+{"rowId":"1373","text":"Efeito Bênção do Anjo"}
+{"rowId":"1374","text":"Bala Voadora"}
+{"rowId":"1375","text":"Bala Voadora"}
+{"rowId":"1376","text":"Magia Proliferante"}
+{"rowId":"1418","text":"Dano +50%"}
+{"rowId":"1419","text":"Dano +80%"}
+{"rowId":"1420","text":"Dano +120%"}
+{"rowId":"1421","text":"Chance de Crítico +20%"}
+{"rowId":"1422","text":"Aumentar Atq. Mágico"}
+{"rowId":"1423","text":"Reduzir Res. Mágica"}
+{"rowId":"1424","text":"Aumentar Atq. Mágico"}
+{"rowId":"1425","text":"Reduzir Res. Mágica"}
+{"rowId":"1426","text":"Imobilizado por 1 turno"}
+{"rowId":"1427","text":"Reduzir Magia"}
+{"rowId":"1428","text":"Reduzir Dano Próprio"}
+{"rowId":"1429","text":"Reduzir Dano Próprio"}
+{"rowId":"1430","text":"Imune a Crítico"}
+{"rowId":"1431","text":"Imune a Crítico"}
+{"rowId":"1432","text":"Marcar Invisível"}
+{"rowId":"1433","text":"Receber Habilidade"}
+{"rowId":"1434","text":"Aumento de Dano"}
+{"rowId":"1435","text":"Recupera HP ao Sofrer Crítico"}
+{"rowId":"1436","text":"Dano em Tela Inteira"}
+{"rowId":"1437","text":"Dano em Tela Inteira"}
+{"rowId":"1438","text":"Usar Item Aumenta Magia"}
+{"rowId":"1439","text":"Bola de Formiga de Fogo Nv1"}
+{"rowId":"1440","text":"Bola de Formiga de Fogo Nv2"}
+{"rowId":"1441","text":"Bola de Formiga de Fogo Nv3"}
+{"rowId":"1442","text":"Reduzir Dano Recebido"}
+{"rowId":"1443","text":"Reduzir Dano Recebido"}
+{"rowId":"1444","text":"Reduzir Dano Recebido"}
+{"rowId":"1445","text":"Quanto Mais Luta, Mais Forte Nv1"}
+{"rowId":"1446","text":"Quanto Mais Luta, Mais Forte Nv2"}
+{"rowId":"1447","text":"Espinho de Formiga Nv1"}
+{"rowId":"1448","text":"Espinho de Formiga Nv2"}
+{"rowId":"1449","text":"Casulo Nv1"}
+{"rowId":"1450","text":"Casulo Nv2"}
+{"rowId":"1451","text":"Casulo Nv1"}
+{"rowId":"1452","text":"Casulo Nv2"}
+{"rowId":"1453","text":"Refletir Dano"}
+{"rowId":"1454","text":"Refletir Dano"}
+{"rowId":"1455","text":"Recupera 5% HP"}
+{"rowId":"1456","text":"Recupera 15% HP"}
+{"rowId":"1457","text":"Recebe 2 Habilidades"}
+{"rowId":"1458","text":"Recupera Magia ao Ser Atacado"}
+{"rowId":"1459","text":"Reflete 3% do dano"}
+{"rowId":"1460","text":"Reflete 5% do dano"}
+{"rowId":"1462","text":"Ataque do Mascote"}
+{"rowId":"1463","text":"Despertar-Chifre de Dragão Afiado"}
+{"rowId":"1464","text":"Despertar-Chifre de Dragão Afiado"}
+{"rowId":"1465","text":"Despertar-Pacto do Dragão Maligno"}
+{"rowId":"1466","text":"Redução de Armadura"}
+{"rowId":"1467","text":"Aumento de HP Máximo"}
+{"rowId":"1468","text":"Receber Habilidade"}
+{"rowId":"1469","text":"Despertar-Dragão Guardião"}
+{"rowId":"1470","text":"Recuperar HP"}
+{"rowId":"1471","text":"Receber Habilidade"}
+{"rowId":"1473","text":"Ataque do Mascote"}
+{"rowId":"1474","text":"Ataque -20%"}
+{"rowId":"1475","text":"Defesa -20%"}
+{"rowId":"1476","text":"Chance de Crítico +10%"}
+{"rowId":"1477","text":"Reduz HP do jogador atingido"}
+{"rowId":"1478","text":"Não pode se mover"}
+{"rowId":"1479","text":"Recebe 1 Ponto de Magia"}
+{"rowId":"1480","text":"Ataque do Mascote"}
+{"rowId":"1481","text":"Ataque do Mascote"}
+{"rowId":"1482","text":"Despertar-Bala de Gelo Estilhaçante"}
+{"rowId":"1483","text":"Bala de Gelo Estilhaçante"}
+{"rowId":"1484","text":"Despertar-Barreira de Cristal"}
+{"rowId":"1485","text":"Despertar-Inferno Congelado"}
+{"rowId":"1486","text":"Despertar-Inferno Congelado"}
+{"rowId":"1487","text":"Despertar-Trovão Veloz"}
+{"rowId":"1488","text":"Despertar-Coração da Fênix"}
+{"rowId":"1489","text":"Despertar-Golpe Mortal"}
+{"rowId":"1490","text":"Despertar-Golpe Mortal"}
+{"rowId":"1491","text":"Despertar-Golpe Mortal"}
+{"rowId":"1492","text":"Guia"}
+{"rowId":"1493","text":"Recuperar HP"}
+{"rowId":"1494","text":"Ataque do Mascote"}
+{"rowId":"1495","text":"Despertar-Veneno"}
+{"rowId":"1496","text":"Despertar-Exaustão"}
+{"rowId":"1497","text":"Exaustão Nv2"}
+{"rowId":"1498","text":"Despertar-Fúria Selvagem"}
+{"rowId":"1499","text":"Despertar-Fúria Selvagem"}
+{"rowId":"1500","text":"Fúria Selvagem Nv2"}
+{"rowId":"1501","text":"Monstro"}
+{"rowId":"1502","text":"Milenar"}
+{"rowId":"1503","text":"Monstro Milenar"}
+{"rowId":"1504","text":"Receber Habilidade"}
+{"rowId":"1505","text":"Veneno Vingativo"}
+{"rowId":"1506","text":"Ataque do Mascote"}
+{"rowId":"1507","text":"Despertar-Pêssego de Dez Mil Anos"}
+{"rowId":"1508","text":"Reduzir Magia"}
+{"rowId":"1509","text":"Despertar-Diamante"}
+{"rowId":"1510","text":"Imune a Crítico"}
+{"rowId":"1511","text":"Receber Habilidade"}
+{"rowId":"1512","text":"Aumento de Dano"}
+{"rowId":"1513","text":"Recupera Fúria ao sofrer crítico"}
+{"rowId":"1514","text":"Pelo Dourado"}
+{"rowId":"1515","text":"Usar Item Aumenta Magia"}
+{"rowId":"1516","text":"Usar item aumenta a Fúria"}
+{"rowId":"1517","text":"Despertar-Presa Negra"}
+{"rowId":"1518","text":"Despertar-Presa Negra"}
+{"rowId":"1519","text":"Despertar-Presa Negra"}
+{"rowId":"1520","text":"Receber Habilidade 139"}
+{"rowId":"1521","text":"Remover Efeito"}
+{"rowId":"1522","text":"Investida Nv1"}
+{"rowId":"1523","text":"Investida Nv2"}
+{"rowId":"1524","text":"Investida Nv3"}
+{"rowId":"1525","text":"Reduzir Dano Recebido"}
+{"rowId":"1526","text":"Reduzir Dano Recebido"}
+{"rowId":"1527","text":"Reduzir Dano Recebido"}
+{"rowId":"1528","text":"Escudo Firme Nv1"}
+{"rowId":"1529","text":"Escudo Firme Nv2"}
+{"rowId":"1530","text":"Aumentar Defesa"}
+{"rowId":"1531","text":"Aumentar Defesa"}
+{"rowId":"1532","text":"Ataque do Mascote"}
+{"rowId":"1533","text":"Bloquear Hab. de Mascote"}
+{"rowId":"1534","text":"Drena magia equivalente a 60% das habilidades ativas do inimigo"}
+{"rowId":"1535","text":"Chance de Crítico +15%"}
+{"rowId":"1536","text":"Dano crítico recebido -30%"}
+{"rowId":"1537","text":"Dano recebido -50%"}
+{"rowId":"1538","text":"Recupera 35% do dano"}
+{"rowId":"1539","text":"Receber Habilidade"}
+{"rowId":"1540","text":"Favor"}
+{"rowId":"1541","text":"Aumentar Pontos de Magia"}
+{"rowId":"1542","text":"Ataque do Mascote Nv1"}
+{"rowId":"1543","text":"Ataque do Mascote Nv2"}
+{"rowId":"1544","text":"Ataque do Mascote Nv3"}
+{"rowId":"1545","text":"Ovo Voador Nv1"}
+{"rowId":"1546","text":"Ovo Voador Nv2"}
+{"rowId":"1547","text":"Ovo Voador Nv3"}
+{"rowId":"1548","text":"Dano +150%"}
+{"rowId":"1549","text":"Dano +180%"}
+{"rowId":"1550","text":"Dano +220%"}
+{"rowId":"1551","text":"Crítico 100%"}
+{"rowId":"1552","text":"Dano crítico recebido -40%"}
+{"rowId":"1553","text":"Dano crítico recebido -60%"}
+{"rowId":"1554","text":"Dano recebido -20%"}
+{"rowId":"1555","text":"Dano recebido -30%"}
+{"rowId":"1556","text":"Bênção Divina Nv1"}
+{"rowId":"1557","text":"Bênção Divina Nv2"}
+{"rowId":"1558","text":"Invisibilidade Nv1"}
+{"rowId":"1559","text":"Invisibilidade Nv2"}
+{"rowId":"1560","text":"Clone Nv1"}
+{"rowId":"1561","text":"Clone Nv2"}
+{"rowId":"1562","text":"Corrente Nv1"}
+{"rowId":"1563","text":"Corrente Nv2"}
+{"rowId":"1564","text":"Perfurar Defesa Nv1"}
+{"rowId":"1565","text":"Perfurar Defesa Nv2"}
+{"rowId":"1566","text":"Perfurar Armadura Nv1"}
+{"rowId":"1567","text":"Perfurar Armadura Nv2"}
+{"rowId":"1568","text":"Remover Perfurar Armadura Nv1"}
+{"rowId":"1569","text":"Remover Perfurar Armadura Nv2"}
+{"rowId":"1570","text":"Remover Perfurar Armadura Nv1"}
+{"rowId":"1571","text":"Remover Perfurar Armadura Nv2"}
+{"rowId":"1572","text":"Canto do Dragão"}
+{"rowId":"1573","text":"Canto do Dragão"}
+{"rowId":"1574","text":"Especialidade Kung Fu"}
+{"rowId":"1575","text":"Recebe 4 Pontos de Magia"}
+{"rowId":"1576","text":"Aumentar Dano"}
+{"rowId":"1577","text":"Fúria Nv1"}
+{"rowId":"1578","text":"Ataque do Mascote Nv1"}
+{"rowId":"1579","text":"Ataque do Mascote Nv2"}
+{"rowId":"1580","text":"Ataque do Mascote Nv3"}
+{"rowId":"1581","text":"Ovo Voador Nv1"}
+{"rowId":"1582","text":"Ovo Voador Nv2"}
+{"rowId":"1583","text":"Ovo Voador Nv3"}
+{"rowId":"1584","text":"Dano +120%"}
+{"rowId":"1585","text":"Dano +150%"}
+{"rowId":"1586","text":"Dano +180%"}
+{"rowId":"1587","text":"Crítico 100%"}
+{"rowId":"1588","text":"Dano crítico recebido -20%"}
+{"rowId":"1589","text":"Dano crítico recebido -40%"}
+{"rowId":"1590","text":"Dano recebido -10%"}
+{"rowId":"1591","text":"Dano recebido -20%"}
+{"rowId":"1592","text":"Bênção Divina Nv1"}
+{"rowId":"1593","text":"Bênção Divina Nv2"}
+{"rowId":"1594","text":"Invisibilidade Nv1"}
+{"rowId":"1595","text":"Invisibilidade Nv2"}
+{"rowId":"1596","text":"Clone Nv1"}
+{"rowId":"1597","text":"Clone Nv2"}
+{"rowId":"1598","text":"Corrente Nv1"}
+{"rowId":"1599","text":"Corrente Nv2"}
+{"rowId":"1600","text":"Perfurar Defesa Nv1"}
+{"rowId":"1601","text":"Perfurar Defesa Nv2"}
+{"rowId":"1602","text":"Perfurar Armadura Nv1"}
+{"rowId":"1603","text":"Perfurar Armadura Nv2"}
+{"rowId":"1604","text":"Remover Perfurar Armadura Nv1"}
+{"rowId":"1605","text":"Remover Perfurar Armadura Nv2"}
+{"rowId":"1606","text":"Remover Perfurar Armadura Nv1"}
+{"rowId":"1607","text":"Remover Perfurar Armadura Nv2"}
+{"rowId":"1608","text":"Canto do Dragão"}
+{"rowId":"1609","text":"Canto do Dragão"}
+{"rowId":"1610","text":"Especialidade Kung Fu"}
+{"rowId":"1611","text":"Recebe 2 Pontos de Magia"}
+{"rowId":"1612","text":"Aumentar Dano"}
+{"rowId":"1613","text":"Fúria Nv1"}
+{"rowId":"1614","text":"Borboleta Oculta"}
+{"rowId":"1615","text":"Borboleta Oculta"}
+{"rowId":"1616","text":"Ataque do Mascote"}
+{"rowId":"1617","text":"Fúria"}
+{"rowId":"1618","text":"Fúria"}
+{"rowId":"1619","text":"Reduzir Dano Recebido"}
+{"rowId":"1620","text":"Clone"}
+{"rowId":"1621","text":"Marcar Invisível"}
+{"rowId":"1622","text":"Receber Habilidade"}
+{"rowId":"1623","text":"Aumento de Dano"}
+{"rowId":"1624","text":"Recebe 4 Pontos de Magia"}
+{"rowId":"1625","text":"Aumentar Dano"}
+{"rowId":"1626","text":"Limite de HP"}
+{"rowId":"1627","text":"Perfurar Defesa"}
+{"rowId":"1628","text":"Perfurar Armadura"}
+{"rowId":"1629","text":"Receber Remover Perfurar Armadura"}
+{"rowId":"1630","text":"Remover Perfurar Armadura"}
+{"rowId":"1631","text":"Canto do Dragão"}
+{"rowId":"1632","text":"Bênção Divina Nv3"}
+{"rowId":"1633","text":"Aumentar Armadura"}
+{"rowId":"1634","text":"Aumentar Defesa"}
+{"rowId":"1635","text":"Reduzir Dano"}
+{"rowId":"1636","text":"Aumentar Atq. Mágico"}
+{"rowId":"1637","text":"Sofrer Dano Aumenta Habilidade"}
+{"rowId":"1638","text":"Dano Recebido Aumentado"}
+{"rowId":"1639","text":"Sede de Sangue Nv1"}
+{"rowId":"1640","text":"Sede de Sangue Nv2"}
+{"rowId":"1641","text":"Sede de Sangue Nv3"}
+{"rowId":"1642","text":"Asas Demoníacas Nv1"}
+{"rowId":"1643","text":"Asas Demoníacas Nv2"}
+{"rowId":"1644","text":"Asas Demoníacas Nv3"}
+{"rowId":"1645","text":"Dano +120%"}
+{"rowId":"1646","text":"Dano +150%"}
+{"rowId":"1647","text":"Dano +180%"}
+{"rowId":"1648","text":"Crítico 100%"}
+{"rowId":"1649","text":"Despertar da Sombra Sangrenta Nv1"}
+{"rowId":"1650","text":"Despertar da Sombra Sangrenta Nv2"}
+{"rowId":"1651","text":"Armadilha do Submundo Nv1"}
+{"rowId":"1652","text":"Armadilha do Submundo Nv2"}
+{"rowId":"1653","text":"Perde a Visão"}
+{"rowId":"1654","text":"Perde a Visão"}
+{"rowId":"1655","text":"Armadura Espectral Nv1"}
+{"rowId":"1656","text":"Armadura Espectral Nv2"}
+{"rowId":"1657","text":"Agonia Extrema Nv1"}
+{"rowId":"1658","text":"Agonia Extrema Nv2"}
+{"rowId":"1659","text":"Sacrifício ao Deus Maligno Nv1"}
+{"rowId":"1660","text":"Sacrifício ao Deus Maligno Nv2"}
+{"rowId":"1661","text":"Rastro Fantasma"}
+{"rowId":"1662","text":"Retorno do Deus Demônio"}
+{"rowId":"1663","text":"Habilidade Obtida"}
+{"rowId":"1664","text":"Remover Efeito"}
+{"rowId":"1692","text":"Selo da Galinha"}
+{"rowId":"1693","text":"Recuperar HP"}
+{"rowId":"1694","text":"Dano +"}
+{"rowId":"1695","text":"Selo da Galinha"}
+{"rowId":"1696","text":"Recuperar HP"}
+{"rowId":"1697","text":"Dano +"}
+{"rowId":"1698","text":"Selo da Galinha"}
+{"rowId":"1699","text":"Recuperar HP"}
+{"rowId":"1700","text":"Dano +"}
+{"rowId":"1701","text":"Selo da Galinha"}
+{"rowId":"1702","text":"Recuperar HP"}
+{"rowId":"1703","text":"Dano +"}
+{"rowId":"1704","text":"Selo do Deus Maligno"}
+{"rowId":"1705","text":"Dano"}
+{"rowId":"1706","text":"Selo do Deus Maligno"}
+{"rowId":"1707","text":"Dano"}
+{"rowId":"1708","text":"Selo do Deus Maligno"}
+{"rowId":"1709","text":"Dano"}
+{"rowId":"1710","text":"Selo do Deus Maligno"}
+{"rowId":"1711","text":"Dano"}
+{"rowId":"1712","text":"Selo do Deus Maligno"}
+{"rowId":"1713","text":"Dano"}
+{"rowId":"1714","text":"Proteção da Noite Nv1"}
+{"rowId":"1715","text":"Proteção da Noite Nv2"}
+{"rowId":"1716","text":"Proteção da Noite Nv3"}
+{"rowId":"1717","text":"Dilacerar do Dia Nv1"}
+{"rowId":"1718","text":"Dilacerar do Dia Nv2"}
+{"rowId":"1719","text":"Dilacerar do Dia Nv3"}
+{"rowId":"1720","text":"Armadura de Minotauro Nv1"}
+{"rowId":"1721","text":"Armadura de Minotauro Nv2"}
+{"rowId":"1722","text":"Armadura de Minotauro Nv3"}
+{"rowId":"1723","text":"Espada de Minotauro Nv1"}
+{"rowId":"1724","text":"Espada de Minotauro Nv2"}
+{"rowId":"1725","text":"Espada de Minotauro Nv3"}
+{"rowId":"1726","text":"Dom Nv1"}
+{"rowId":"1727","text":"Dom Nv2"}
+{"rowId":"1728","text":"Dom Nv3"}
+{"rowId":"1729","text":"Capacidade"}
+{"rowId":"1730","text":"Capacidade"}
+{"rowId":"1731","text":"Trevas Nv1"}
+{"rowId":"1732","text":"Trevas Nv1"}
+{"rowId":"1733","text":"Trevas Nv2"}
+{"rowId":"1734","text":"Trevas Nv3"}
+{"rowId":"1735","text":"Trevas Nv1"}
+{"rowId":"1736","text":"Trevas Nv2"}
+{"rowId":"1737","text":"Trevas Nv3"}
+{"rowId":"1738","text":"Trevas Nv1"}
+{"rowId":"1739","text":"Trevas Nv2"}
+{"rowId":"1740","text":"Trevas Nv3"}
+{"rowId":"1741","text":"Pacto Justo Nv1"}
+{"rowId":"1742","text":"Pacto Justo Nv2"}
+{"rowId":"1743","text":"Preço da Vida Nv1"}
+{"rowId":"1744","text":"Preço da Vida Nv1"}
+{"rowId":"1745","text":"Preço da Vida Nv1"}
+{"rowId":"1746","text":"Preço da Vida Nv1"}
+{"rowId":"1747","text":"Preço da Vida Nv1"}
+{"rowId":"1748","text":"Rancor Nv1"}
+{"rowId":"1749","text":"Trevas Nv1"}
+{"rowId":"1750","text":"Cão de Fogo: Chama do Rancor"}
+{"rowId":"1751","text":"Cão de Fogo: Chama do Ódio"}
+{"rowId":"1752","text":"Efeito Chama do Ódio"}
+{"rowId":"1753","text":"Efeito Chama do Ódio"}
+{"rowId":"1754","text":"Efeito Chama do Ódio"}
+{"rowId":"1755","text":"Armadura de Minotauro Nv1"}
+{"rowId":"1756","text":"Armadura de Minotauro Nv2"}
+{"rowId":"1757","text":"Armadura de Minotauro Nv3"}
+{"rowId":"1758","text":"Efeito Chama do Rancor"}
+{"rowId":"1759","text":"Bloquear Cura"}
+{"rowId":"1760","text":"Recupera 30%"}
+{"rowId":"1761","text":"Rancor Nv1"}
+{"rowId":"1762","text":"Rancor Nv1"}
+{"rowId":"1763","text":"Pacto Justo Nv1"}
+{"rowId":"1764","text":"Pacto Justo Nv1"}
+{"rowId":"1765","text":"Rancor Nv1"}
+{"rowId":"1766","text":"Rancor Nv1"}
+{"rowId":"1767","text":"Armadura de Minotauro Nv1"}
+{"rowId":"1768","text":"Armadura de Minotauro Nv2"}
+{"rowId":"1769","text":"Armadura de Minotauro Nv3"}
+{"rowId":"1770","text":"Trevas Nv1"}
+{"rowId":"1771","text":"Proibido Voar"}
+{"rowId":"1772","text":"Efeito Chama do Ódio"}
+{"rowId":"1773","text":"Efeito Chama do Rancor"}
+{"rowId":"1774","text":"Armadura Negra de Minotauro"}
+{"rowId":"1775","text":"Martelo de Prata de Minotauro"}
+{"rowId":"1776","text":"Martelo de Prata de Minotauro"}
+{"rowId":"1777","text":"Despertar-Dom"}
+{"rowId":"1778","text":"Despertar-Dom"}
+{"rowId":"1779","text":"Trevas Nv3"}
+{"rowId":"1780","text":"Recupera 45%"}
+{"rowId":"1781","text":"Rancor Nv1"}
+{"rowId":"1782","text":"Rancor Nv1"}
+{"rowId":"1783","text":"Rancor Nv1"}
+{"rowId":"1784","text":"Rancor Nv1"}
+{"rowId":"1785","text":"Rancor Nv1"}
+{"rowId":"1786","text":"Armadura Negra de Minotauro"}
+{"rowId":"1787","text":"Martelo de Prata de Minotauro"}
+{"rowId":"1788","text":"Martelo de Prata de Minotauro"}
+{"rowId":"1789","text":"Pacto Justo Nv1"}
+{"rowId":"1790","text":"Trevas Nv1"}
+{"rowId":"1791","text":"Trevas Nv1"}
+{"rowId":"1792","text":"Proteção da Noite Nv1"}
+{"rowId":"1793","text":"Proteção da Noite Nv2"}
+{"rowId":"1794","text":"Proteção da Noite Nv3"}
+{"rowId":"1795","text":"Efeito Chama do Ódio"}
+{"rowId":"1796","text":"Efeito Chama do Ódio"}
+{"rowId":"1797","text":"Efeito Chama do Ódio"}
+{"rowId":"1798","text":"Armadura de Minotauro Nv1"}
+{"rowId":"1799","text":"Armadura de Minotauro Nv2"}
+{"rowId":"1800","text":"Armadura de Minotauro Nv3"}
+{"rowId":"1801","text":"Dilacerar do Dia Nv1"}
+{"rowId":"1802","text":"Dilacerar do Dia Nv2"}
+{"rowId":"1803","text":"Dilacerar do Dia Nv3"}
+{"rowId":"1804","text":"Armadura de Minotauro Nv1"}
+{"rowId":"1805","text":"Armadura de Minotauro Nv2"}
+{"rowId":"1806","text":"Armadura de Minotauro Nv3"}
+{"rowId":"1807","text":"Espada de Minotauro Nv1"}
+{"rowId":"1808","text":"Espada de Minotauro Nv2"}
+{"rowId":"1809","text":"Espada de Minotauro Nv3"}
+{"rowId":"1810","text":"Dom Nv1"}
+{"rowId":"1811","text":"Dom Nv2"}
+{"rowId":"1812","text":"Dom Nv3"}
+{"rowId":"1813","text":"Preço da Vida Nv1"}
+{"rowId":"1814","text":"Preço da Vida Nv1"}
+{"rowId":"1815","text":"Rancor Nv1"}
+{"rowId":"1816","text":"Rancor Nv1"}
+{"rowId":"1817","text":"Rancor Nv1"}
+{"rowId":"1818","text":"Rancor Nv1"}
+{"rowId":"1819","text":"Rancor Nv1"}
+{"rowId":"1820","text":"Martelo de Minotauro"}
+{"rowId":"1821","text":"Despertar-Trevas"}
+{"rowId":"1822","text":"Selo da Fortaleza"}
+{"rowId":"1823","text":"Dano +"}
+{"rowId":"1824","text":"Selo da Fortaleza"}
+{"rowId":"1825","text":"Dano +"}
+{"rowId":"1826","text":"Selo da Fortaleza"}
+{"rowId":"1827","text":"Dano +"}
+{"rowId":"1828","text":"Selo da Fortaleza"}
+{"rowId":"1829","text":"Dano +"}
+{"rowId":"1830","text":"Selo da Fortaleza"}
+{"rowId":"1831","text":"Dano +"}
+{"rowId":"1832","text":"Recupera 100% de HP"}
+{"rowId":"1833","text":"HP -50%"}
+{"rowId":"1834","text":"Martelo de Minotauro"}
+{"rowId":"1835","text":"Trevas Nv1"}
+{"rowId":"1836","text":"Trevas Nv1"}
+{"rowId":"1837","text":"Trevas Nv1"}
+{"rowId":"1838","text":"Trevas Nv3"}
+{"rowId":"1839","text":"Trevas Nv3"}
+{"rowId":"1840","text":"Trevas Nv1"}
+{"rowId":"1841","text":"Despertar-Trevas"}
+{"rowId":"1842","text":"Selo do Dragão"}
+{"rowId":"1843","text":"Recuperar HP"}
+{"rowId":"1844","text":"Dano +"}
+{"rowId":"1845","text":"Selo do Dragão"}
+{"rowId":"1846","text":"Recuperar HP"}
+{"rowId":"1847","text":"Dano +"}
+{"rowId":"1848","text":"Selo do Dragão"}
+{"rowId":"1849","text":"Recuperar HP"}
+{"rowId":"1850","text":"Dano +"}
+{"rowId":"1851","text":"Selo do Dragão"}
+{"rowId":"1852","text":"Recuperar HP"}
+{"rowId":"1853","text":"Dano +"}
+{"rowId":"1854","text":"Selo do Dragão"}
+{"rowId":"1855","text":"Recuperar HP"}
+{"rowId":"1856","text":"Dano +"}
+{"rowId":"1999","text":"Recebe 1 de Magia"}
+{"rowId":"2000","text":"HP +300"}
+{"rowId":"2001","text":"Armadura +30"}
+{"rowId":"2002","text":"Ataque +10"}
+{"rowId":"2003","text":"Dano +30"}
+{"rowId":"2004","text":"Defesa +50"}
+{"rowId":"2005","text":"Agilidade +50"}
+{"rowId":"2006","text":"Sorte +50"}
+{"rowId":"2007","text":"Ataque +30"}
+{"rowId":"2008","text":"HP +400"}
+{"rowId":"2009","text":"HP +350"}
+{"rowId":"2010","text":"Defesa +15"}
+{"rowId":"2011","text":"Defesa +35"}
+{"rowId":"2012","text":"Sorte +10"}
+{"rowId":"2013","text":"Defesa +20"}
+{"rowId":"2014","text":"Agilidade +20"}
+{"rowId":"2015","text":"HP +310"}
+{"rowId":"2016","text":"Ataque +15"}
+{"rowId":"2017","text":"Agilidade +40"}
+{"rowId":"2018","text":"Reduz dano crítico recebido em 5%"}
+{"rowId":"2019","text":"Sorte +80"}
+{"rowId":"2020","text":"Redução de dano 5%"}
+{"rowId":"2021","text":"Defesa +40"}
+{"rowId":"2022","text":"Ataque +50"}
+{"rowId":"2023","text":"Ataque +5"}
+{"rowId":"2024","text":"Defesa +5"}
+{"rowId":"2025","text":"Agilidade +5"}
+{"rowId":"2026","text":"Sorte +5"}
+{"rowId":"2027","text":"HP +100"}
+{"rowId":"2028","text":"HP +200"}
+{"rowId":"2029","text":"Ataque +10"}
+{"rowId":"2030","text":"Defesa +10"}
+{"rowId":"2031","text":"Agilidade +10"}
+{"rowId":"2032","text":"Sorte +10"}
+{"rowId":"2033","text":"Redução de dano 1%"}
+{"rowId":"2034","text":"Redução de dano 2%"}
+{"rowId":"2035","text":"Agilidade +15"}
+{"rowId":"2036","text":"Sorte +15"}
+{"rowId":"2037","text":"Proteção Divina Nv3"}
+{"rowId":"2038","text":"Proteção Divina Nv4"}
+{"rowId":"2039","text":"Proteção Divina Nv5"}
+{"rowId":"2040","text":"Proteção Divina Nv6"}
+{"rowId":"2041","text":"Proteção Divina Nv7"}
+{"rowId":"2048","text":"Ataque Mágico +10"}
+{"rowId":"2049","text":"Resistência Mágica +10"}
+{"rowId":"2050","text":"Ataque Mágico +5"}
+{"rowId":"2051","text":"Resistência Mágica +5"}
+{"rowId":"2052","text":"Reduz dano crítico recebido em 2%"}
+{"rowId":"2053","text":"Ataque +20"}
+{"rowId":"2054","text":"Sorte +20"}
+{"rowId":"2055","text":"Redução de dano 3%"}
+{"rowId":"2056","text":"HP +500"}
+{"rowId":"2057","text":"Ataque +25"}
+{"rowId":"2058","text":"Defesa +25"}
+{"rowId":"2059","text":"Agilidade +25"}
+{"rowId":"2060","text":"Sorte +25"}
+{"rowId":"2061","text":"Defesa +30"}
+{"rowId":"2062","text":"Sorte +30"}
+{"rowId":"2063","text":"HP +500"}
+{"rowId":"2064","text":"Resistência Mágica +15"}
+{"rowId":"2065","text":"Armadura +3"}
+{"rowId":"2066","text":"HP +250"}
+{"rowId":"2067","text":"Redução de dano 6%"}
+{"rowId":"2068","text":"Redução de dano 4%"}
+{"rowId":"2069","text":"Ataque +28"}
+{"rowId":"2070","text":"Defesa +28"}
+{"rowId":"2071","text":"Agilidade +28"}
+{"rowId":"2072","text":"Sorte +28"}
+{"rowId":"2073","text":"Ataque Mágico +15"}
+{"rowId":"2074","text":"Dano +3"}
+{"rowId":"2075","text":"HP +500"}
+{"rowId":"2076","text":"Defesa +20"}
+{"rowId":"2077","text":"Reduz dano crítico recebido em 3%"}
+{"rowId":"2078","text":"Agilidade +30"}
+{"rowId":"2079","text":"Resistência Mágica +20"}
+{"rowId":"2101","text":"Dano POW +5%."}
+{"rowId":"2102","text":"Dano POW +10%."}
+{"rowId":"2103","text":"Dano POW +15%."}
+{"rowId":"2104","text":"Dano POW +20%."}
+{"rowId":"2105","text":"Dano POW +25%."}
+{"rowId":"2106","text":"Dano POW +30%."}
+{"rowId":"2107","text":"Dano POW +35%."}
+{"rowId":"2108","text":"Dano POW +40%."}
+{"rowId":"2109","text":"Dano POW +45%."}
+{"rowId":"2110","text":"Dano POW +50%."}
+{"rowId":"2201","text":"Dano crítico recebido -5%"}
+{"rowId":"2202","text":"Dano crítico recebido -10%"}
+{"rowId":"2203","text":"Dano crítico recebido -15%"}
+{"rowId":"2204","text":"Dano crítico recebido -20%"}
+{"rowId":"2205","text":"Dano crítico recebido -25%"}
+{"rowId":"2206","text":"Dano crítico recebido -30%"}
+{"rowId":"2207","text":"Dano crítico recebido -35%"}
+{"rowId":"2208","text":"Dano crítico recebido -40%"}
+{"rowId":"2209","text":"Dano crítico recebido -45%"}
+{"rowId":"2210","text":"Dano crítico recebido -50%"}
+{"rowId":"2301","text":"Receber Habilidade 431"}
+{"rowId":"2302","text":"Receber Habilidade 432"}
+{"rowId":"2303","text":"Receber Habilidade 433"}
+{"rowId":"2304","text":"Receber Habilidade 434"}
+{"rowId":"2305","text":"Receber Habilidade 435"}
+{"rowId":"2306","text":"Receber Habilidade 436"}
+{"rowId":"2307","text":"Receber Habilidade 437"}
+{"rowId":"2308","text":"Receber Habilidade 438"}
+{"rowId":"2309","text":"Receber Habilidade 439"}
+{"rowId":"2310","text":"Receber Habilidade 440"}
+{"rowId":"2401","text":"Res. Mágica +2%"}
+{"rowId":"2402","text":"Res. Mágica +4%"}
+{"rowId":"2403","text":"Res. Mágica +6%"}
+{"rowId":"2404","text":"Res. Mágica +8%"}
+{"rowId":"2405","text":"Res. Mágica +10%"}
+{"rowId":"2406","text":"Res. Mágica +12%"}
+{"rowId":"2407","text":"Res. Mágica +14%"}
+{"rowId":"2408","text":"Res. Mágica +16%"}
+{"rowId":"2409","text":"Res. Mágica +18%"}
+{"rowId":"2410","text":"Res. Mágica +20%"}
+{"rowId":"2411","text":"Recupera 5% HP"}
+{"rowId":"2412","text":"Recupera 6% HP"}
+{"rowId":"2413","text":"Recupera 7% HP"}
+{"rowId":"2414","text":"Recupera 8% HP"}
+{"rowId":"2415","text":"Recupera 9% HP"}
+{"rowId":"2416","text":"Recupera 10% HP"}
+{"rowId":"2417","text":"Recupera 12% HP"}
+{"rowId":"2418","text":"Ataque"}
+{"rowId":"2419","text":"Ataque"}
+{"rowId":"2420","text":"Ataque"}
+{"rowId":"2421","text":"Guia"}
+{"rowId":"2422","text":"Armadura Pesada"}
+{"rowId":"2423","text":"Armadura Pesada"}
+{"rowId":"2424","text":"Armadura Pesada"}
+{"rowId":"2425","text":"Resistir"}
+{"rowId":"2426","text":"Resistir"}
+{"rowId":"2427","text":"Resistir"}
+{"rowId":"2428","text":"Espinheiro"}
+{"rowId":"2429","text":"Manter Garra"}
+{"rowId":"2430","text":"Refletir Dano"}
+{"rowId":"2431","text":"Revide"}
+{"rowId":"2432","text":"Espinheiro"}
+{"rowId":"2433","text":"Manter Garra"}
+{"rowId":"2434","text":"Refletir Dano"}
+{"rowId":"2435","text":"Revide"}
+{"rowId":"2436","text":"Dano em Tela Inteira"}
+{"rowId":"2437","text":"Manter Garra"}
+{"rowId":"2438","text":"Usar Item Aumenta Magia"}
+{"rowId":"2439","text":"Revide"}
+{"rowId":"2440","text":"Armadura Pesada"}
+{"rowId":"2441","text":"Armadura Pesada"}
+{"rowId":"2442","text":"Armadura Pesada"}
+{"rowId":"2443","text":"Armadura Pesada"}
+{"rowId":"2444","text":"Armadura Pesada"}
+{"rowId":"2445","text":"Armadura Pesada"}
+{"rowId":"2446","text":"Fortalecer"}
+{"rowId":"2447","text":"Fortalecer"}
+{"rowId":"2448","text":"Fortalecer"}
+{"rowId":"2449","text":"Aumentar Defesa"}
+{"rowId":"2450","text":"Aumentar Defesa"}
+{"rowId":"2451","text":"Aumentar Defesa"}
+{"rowId":"2452","text":"Aumentar Agilidade"}
+{"rowId":"2453","text":"Aumentar Agilidade"}
+{"rowId":"2454","text":"Aumentar Agilidade"}
+{"rowId":"2455","text":"Aumentar Sorte"}
+{"rowId":"2456","text":"Aumentar Sorte"}
+{"rowId":"2457","text":"Aumentar Sorte"}
+{"rowId":"2458","text":"Escudo"}
+{"rowId":"2459","text":"Escudo"}
+{"rowId":"2460","text":"Escudo"}
+{"rowId":"2461","text":"Recuperação"}
+{"rowId":"2462","text":"Recuperação"}
+{"rowId":"2463","text":"Recuperação"}
+{"rowId":"2464","text":"Guarda-costas"}
+{"rowId":"2465","text":"Guarda-costas"}
+{"rowId":"2466","text":"Guarda-costas"}
+{"rowId":"2467","text":"Queimadura"}
+{"rowId":"2468","text":"Queimadura"}
+{"rowId":"2469","text":"Queimadura"}
+{"rowId":"2470","text":"Ataque"}
+{"rowId":"2471","text":"Ataque"}
+{"rowId":"2472","text":"Ataque"}
+{"rowId":"2473","text":"Crítico"}
+{"rowId":"2474","text":"Crítico"}
+{"rowId":"2475","text":"Crítico"}
+{"rowId":"2476","text":"Crítico"}
+{"rowId":"2477","text":"Crítico"}
+{"rowId":"2478","text":"Crítico"}
+{"rowId":"2479","text":"Ataque Forte"}
+{"rowId":"2480","text":"Ataque Forte"}
+{"rowId":"2481","text":"Ataque Forte"}
+{"rowId":"2482","text":"Corrosão"}
+{"rowId":"2483","text":"Corrosão"}
+{"rowId":"2484","text":"Corrosão"}
+{"rowId":"2485","text":"Corrosão"}
+{"rowId":"2486","text":"Corrosão"}
+{"rowId":"2487","text":"Corrosão"}
+{"rowId":"2488","text":"Encarnação"}
+{"rowId":"2489","text":"Encarnação"}
+{"rowId":"2490","text":"Encarnação"}
+{"rowId":"2491","text":"Invasão Mágica"}
+{"rowId":"2492","text":"Invasão Mágica"}
+{"rowId":"2493","text":"Invasão Mágica"}
+{"rowId":"2494","text":"Crítico"}
+{"rowId":"2495","text":"Crítico"}
+{"rowId":"2496","text":"Crítico"}
+{"rowId":"2497","text":"Crítico"}
+{"rowId":"2498","text":"Crítico"}
+{"rowId":"2499","text":"Crítico"}
+{"rowId":"2500","text":"Armadura Pesada"}
+{"rowId":"2501","text":"Armadura Pesada"}
+{"rowId":"2502","text":"Armadura Pesada"}
+{"rowId":"2503","text":"Armadura Pesada"}
+{"rowId":"2504","text":"Armadura Pesada"}
+{"rowId":"2505","text":"Armadura Pesada"}
+{"rowId":"2506","text":"Ataque"}
+{"rowId":"2507","text":"Ataque"}
+{"rowId":"2508","text":"Ataque"}
+{"rowId":"2509","text":"Bloqueio"}
+{"rowId":"2510","text":"Receber Habilidade"}
+{"rowId":"2511","text":"Recupera HP igual a 20% do dano"}
+{"rowId":"2512","text":"Imobilizar"}
+{"rowId":"2513","text":"Crítico"}
+{"rowId":"2514","text":"Crítico"}
+{"rowId":"2515","text":"Crítico"}
+{"rowId":"2516","text":"Mata-monstros"}
+{"rowId":"2517","text":"Mata-monstros"}
+{"rowId":"2518","text":"Mata-monstros"}
+{"rowId":"2519","text":"Especialista"}
+{"rowId":"2520","text":"Especialista"}
+{"rowId":"2521","text":"Especialista"}
+{"rowId":"2522","text":"Perfurar Defesa Nv1"}
+{"rowId":"2523","text":"Perfurar Armadura Nv1"}
+{"rowId":"2524","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"2525","text":"Cancelar Perfurar Armadura Nv1"}
+{"rowId":"2526","text":"Perfurar Defesa Nv1"}
+{"rowId":"2527","text":"Perfurar Armadura Nv1"}
+{"rowId":"2528","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"2529","text":"Cancelar Perfurar Armadura Nv1"}
+{"rowId":"2530","text":"Perfurar Defesa Nv1"}
+{"rowId":"2531","text":"Perfurar Armadura Nv1"}
+{"rowId":"2532","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"2533","text":"Cancelar Perfurar Armadura Nv1"}
+{"rowId":"2534","text":"Amarrar"}
+{"rowId":"2535","text":"Especialista"}
+{"rowId":"2536","text":"Especialista"}
+{"rowId":"2537","text":"Especialista"}
+{"rowId":"2538","text":"Perfurar Defesa Nv1"}
+{"rowId":"2539","text":"Perfurar Armadura Nv1"}
+{"rowId":"2540","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"2541","text":"Cancelar Perfurar Armadura Nv1"}
+{"rowId":"2542","text":"Perfurar Defesa Nv1"}
+{"rowId":"2543","text":"Perfurar Armadura Nv1"}
+{"rowId":"2544","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"2545","text":"Cancelar Perfurar Armadura Nv1"}
+{"rowId":"2546","text":"Perfurar Defesa Nv1"}
+{"rowId":"2547","text":"Perfurar Armadura Nv1"}
+{"rowId":"2548","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"2549","text":"Cancelar Perfurar Armadura Nv1"}
+{"rowId":"2550","text":"Amarrar"}
+{"rowId":"2551","text":"Velocidade Extrema"}
+{"rowId":"2552","text":"Velocidade Extrema"}
+{"rowId":"2553","text":"Velocidade Extrema"}
+{"rowId":"2554","text":"Cegueira"}
+{"rowId":"2555","text":"Bloquear Cura"}
+{"rowId":"2556","text":"Magia Proliferante"}
+{"rowId":"2557","text":"Magia Proliferante"}
+{"rowId":"2558","text":"Magia Proliferante"}
+{"rowId":"2559","text":"Ativação por HP"}
+{"rowId":"2560","text":"Ativação por HP"}
+{"rowId":"2561","text":"Resistir"}
+{"rowId":"2562","text":"Resistir"}
+{"rowId":"2563","text":"Resistir"}
+{"rowId":"2564","text":"Recuperar HP"}
+{"rowId":"2565","text":"Recuperar HP"}
+{"rowId":"2566","text":"Recuperar HP"}
+{"rowId":"2567","text":"Espinheiro"}
+{"rowId":"2568","text":"Espinheiro"}
+{"rowId":"2569","text":"Espinheiro"}
+{"rowId":"2570","text":"Ataque do Mascote Nv1"}
+{"rowId":"2571","text":"Ataque do Mascote Nv2"}
+{"rowId":"2572","text":"Ataque do Mascote Nv3"}
+{"rowId":"2573","text":"Dano +150%"}
+{"rowId":"2574","text":"Dano +180%"}
+{"rowId":"2575","text":"Dano +220%"}
+{"rowId":"2576","text":"Chance de Crítico"}
+{"rowId":"2577","text":"Acúmulo de Habilidade"}
+{"rowId":"2578","text":"Marca da Raposa"}
+{"rowId":"2579","text":"Marca da Raposa"}
+{"rowId":"2580","text":"Poder da Linhagem"}
+{"rowId":"2581","text":"Poder da Linhagem"}
+{"rowId":"2582","text":"Fogo Destrói-alma"}
+{"rowId":"2583","text":"Fogo Destrói-alma"}
+{"rowId":"2584","text":"Uivo da Raposa"}
+{"rowId":"2585","text":"Uivo da Raposa"}
+{"rowId":"2586","text":"Guardião da Alma"}
+{"rowId":"2587","text":"Guardião da Alma"}
+{"rowId":"2588","text":"Redemoinho de Fogo"}
+{"rowId":"2589","text":"Recuperar Magia"}
+{"rowId":"2590","text":"Velocidade Divina"}
+{"rowId":"2591","text":"Dano"}
+{"rowId":"2592","text":"Invisibilidade"}
+{"rowId":"2593","text":"Marca"}
+{"rowId":"2594","text":"Marca"}
+{"rowId":"2595","text":"Acúmulo de Habilidade"}
+{"rowId":"2596","text":"Selo da Arena das Galinhas"}
+{"rowId":"2597","text":"Dano +"}
+{"rowId":"2598","text":"Selo da Arena das Galinhas"}
+{"rowId":"2599","text":"Dano +"}
+{"rowId":"2600","text":"Selo da Arena das Galinhas"}
+{"rowId":"2601","text":"Dano +"}
+{"rowId":"2602","text":"Selo da Arena das Galinhas"}
+{"rowId":"2603","text":"Dano +"}
+{"rowId":"2604","text":"Selo da Arena das Galinhas"}
+{"rowId":"2605","text":"Dano +"}
+{"rowId":"2608","text":"Ataque"}
+{"rowId":"2609","text":"Ataque"}
+{"rowId":"2610","text":"Ataque"}
+{"rowId":"2611","text":"Ataque"}
+{"rowId":"2612","text":"Ataque"}
+{"rowId":"2613","text":"Ataque"}
+{"rowId":"2614","text":"Velocidade Divina"}
+{"rowId":"2615","text":"Dano"}
+{"rowId":"2616","text":"Invisibilidade"}
+{"rowId":"2624","text":"Selo do Pintinho"}
+{"rowId":"2625","text":"Dano +"}
+{"rowId":"2626","text":"Selo do Pintinho"}
+{"rowId":"2627","text":"Dano +"}
+{"rowId":"2628","text":"Selo do Pintinho"}
+{"rowId":"2629","text":"Dano +"}
+{"rowId":"2630","text":"Selo do Pintinho"}
+{"rowId":"2631","text":"Dano +"}
+{"rowId":"2632","text":"Selo do Pintinho"}
+{"rowId":"2633","text":"Dano +"}
+{"rowId":"2634","text":"Fogo Vermelho"}
+{"rowId":"2635","text":"Congelar"}
+{"rowId":"2636","text":"Relâmpago"}
+{"rowId":"2637","text":"Dano +"}
+{"rowId":"2638","text":"Escudo"}
+{"rowId":"2639","text":"Recuperação"}
+{"rowId":"2640","text":"Esquiva +"}
+{"rowId":"2641","text":"Redução de Dano"}
+{"rowId":"2642","text":"Mordida Feroz"}
+{"rowId":"2643","text":"Mordida Feroz"}
+{"rowId":"2644","text":"Mordida Feroz"}
+{"rowId":"2645","text":"Redução de Dano 10%"}
+{"rowId":"2646","text":"Dano +150%"}
+{"rowId":"2647","text":"Crítico Garantido"}
+{"rowId":"2648","text":"Redução de Dano 15%"}
+{"rowId":"2649","text":"Dano +180%"}
+{"rowId":"2650","text":"Redução de Dano 20%"}
+{"rowId":"2651","text":"Dano +220%"}
+{"rowId":"2652","text":"Armadura de Espinhos"}
+{"rowId":"2653","text":"Velocidade Extrema"}
+{"rowId":"2654","text":"Transformação"}
+{"rowId":"2655","text":"Receber Habilidade"}
+{"rowId":"2656","text":"Refletir Dano"}
+{"rowId":"2657","text":"Armadura de Espinhos"}
+{"rowId":"2658","text":"Velocidade Extrema"}
+{"rowId":"2659","text":"Receber Habilidade"}
+{"rowId":"2660","text":"Refletir Dano"}
+{"rowId":"2661","text":"Armadura de Espinhos"}
+{"rowId":"2662","text":"Velocidade Extrema"}
+{"rowId":"2663","text":"Receber Habilidade"}
+{"rowId":"2664","text":"Refletir Dano"}
+{"rowId":"2665","text":"Desprezo"}
+{"rowId":"2666","text":"Provocar"}
+{"rowId":"2667","text":"Imune a Crítico"}
+{"rowId":"2668","text":"Dano em Tela Inteira"}
+{"rowId":"2669","text":"Dano em Tela Inteira"}
+{"rowId":"2670","text":"Proibido Voar"}
+{"rowId":"2671","text":"Receber Habilidade"}
+{"rowId":"2672","text":"Proteger Jogador"}
+{"rowId":"2673","text":"Recuperar HP"}
+{"rowId":"2674","text":"Recuperar HP"}
+{"rowId":"2675","text":"Ricochete"}
+{"rowId":"2676","text":"Ricochete"}
+{"rowId":"2677","text":"Ricochete"}
+{"rowId":"2678","text":"União"}
+{"rowId":"2679","text":"União"}
+{"rowId":"2680","text":"União"}
+{"rowId":"2681","text":"Ajuda Mútua"}
+{"rowId":"2682","text":"Crítico Garantido"}
+{"rowId":"2683","text":"Redução de Dano 20%"}
+{"rowId":"2684","text":"Dano +220%"}
+{"rowId":"2685","text":"Armadura de Espinhos"}
+{"rowId":"2686","text":"Receber Habilidade"}
+{"rowId":"2687","text":"Refletir Dano"}
+{"rowId":"2688","text":"Desprezo"}
+{"rowId":"2689","text":"Provocar"}
+{"rowId":"2690","text":"Imune a Crítico"}
+{"rowId":"2691","text":"Dano em Tela Inteira"}
+{"rowId":"2692","text":"Proibido Voar"}
+{"rowId":"2693","text":"Proibido Mover"}
+{"rowId":"2694","text":"Receber Habilidade"}
+{"rowId":"2695","text":"Receber Habilidade"}
+{"rowId":"2696","text":"Ricochete"}
+{"rowId":"2697","text":"Ricochete"}
+{"rowId":"2698","text":"Ricochete"}
+{"rowId":"2699","text":"Imune ao Primeiro Disparo"}
+{"rowId":"2700","text":"União"}
+{"rowId":"2701","text":"União"}
+{"rowId":"2702","text":"União"}
+{"rowId":"2703","text":"HP Máximo"}
+{"rowId":"2704","text":"Recupera 10% HP"}
+{"rowId":"2705","text":"União"}
+{"rowId":"2706","text":"Troca"}
+{"rowId":"2707","text":"Casco Protetor"}
+{"rowId":"2708","text":"Casco Protetor"}
+{"rowId":"2709","text":"Casco Protetor"}
+{"rowId":"2710","text":"Possessão do Deus Tartaruga"}
+{"rowId":"2711","text":"Possessão do Deus Tartaruga"}
+{"rowId":"2712","text":"Possessão do Deus Tartaruga"}
+{"rowId":"2713","text":"Recupera 5% HP"}
+{"rowId":"2714","text":"Recupera 8% HP"}
+{"rowId":"2715","text":"Recupera 10% HP"}
+{"rowId":"2716","text":"Imune a Crítico"}
+{"rowId":"2717","text":"Receber Habilidade"}
+{"rowId":"2718","text":"Dano Baseado no HP Máximo"}
+{"rowId":"2719","text":"Receber Habilidade"}
+{"rowId":"2720","text":"Remover Esquiva"}
+{"rowId":"2721","text":"Reduzir Dano Recebido"}
+{"rowId":"2722","text":"Receber Habilidade 867"}
+{"rowId":"2723","text":"Quanto Mais Luta, Mais Forte Nv3"}
+{"rowId":"2724","text":"Espinho de Formiga Nv2"}
+{"rowId":"2725","text":"Manter Espinhos"}
+{"rowId":"2726","text":"Refletir Dano"}
+{"rowId":"2727","text":"Revide"}
+{"rowId":"2728","text":"Reflete 5% do Dano"}
+{"rowId":"2729","text":"Revide"}
+{"rowId":"2730","text":"Reduzir Dano Recebido"}
+{"rowId":"2731","text":"Receber Habilidade 55"}
+{"rowId":"2732","text":"Quanto Mais Luta, Mais Forte Nv2"}
+{"rowId":"2733","text":"Revide Nv2"}
+{"rowId":"2734","text":"Manter Garra"}
+{"rowId":"2735","text":"Refletir Dano"}
+{"rowId":"2736","text":"Revide"}
+{"rowId":"2737","text":"Reflete 5% do Dano"}
+{"rowId":"2738","text":"Revide"}
+{"rowId":"2740","text":"Imobilizar Nv3"}
+{"rowId":"2741","text":"Imunidade"}
+{"rowId":"2742","text":"Receber Habilidade"}
+{"rowId":"2743","text":"Remover Efeito"}
+{"rowId":"2744","text":"Galinha Furiosa"}
+{"rowId":"2745","text":"Habilidade Ativada por HP"}
+{"rowId":"2746","text":"Receber Habilidade"}
+{"rowId":"2747","text":"Recebe 6 de Magia"}
+{"rowId":"2748","text":"Reduz 5% de HP"}
+{"rowId":"2749","text":"Ataque do Mascote Nv1"}
+{"rowId":"2750","text":"Ataque do Mascote Nv2"}
+{"rowId":"2751","text":"Ataque do Mascote Nv3"}
+{"rowId":"2752","text":"Dano +120%"}
+{"rowId":"2753","text":"Dano +150%"}
+{"rowId":"2754","text":"Dano +180%"}
+{"rowId":"2755","text":"Bala Voadora"}
+{"rowId":"2756","text":"HP"}
+{"rowId":"2757","text":"Receber Habilidade"}
+{"rowId":"2758","text":"Bala Voadora"}
+{"rowId":"2759","text":"Casca Dura"}
+{"rowId":"2760","text":"Casca Dura"}
+{"rowId":"2761","text":"Perde HP"}
+{"rowId":"2762","text":"Perde HP"}
+{"rowId":"2763","text":"Renascer"}
+{"rowId":"2764","text":"Focinhada"}
+{"rowId":"2765","text":"Porco Tremendo"}
+{"rowId":"2766","text":"Ardente"}
+{"rowId":"2767","text":"Ardente"}
+{"rowId":"2768","text":"Ardente"}
+{"rowId":"2769","text":"Lâmina d'Água"}
+{"rowId":"2770","text":"Lâmina d'Água"}
+{"rowId":"2771","text":"Lâmina d'Água"}
+{"rowId":"2772","text":"Cavalgar o Vento"}
+{"rowId":"2773","text":"Cavalgar o Vento"}
+{"rowId":"2774","text":"Cavalgar o Vento"}
+{"rowId":"2775","text":"Espada na Pedra"}
+{"rowId":"2776","text":"Espada na Pedra"}
+{"rowId":"2777","text":"Espada na Pedra"}
+{"rowId":"2778","text":"Muralha de Fogo"}
+{"rowId":"2779","text":"Muralha de Fogo"}
+{"rowId":"2780","text":"Muralha de Fogo"}
+{"rowId":"2781","text":"Escudo de Gelo"}
+{"rowId":"2782","text":"Escudo de Gelo"}
+{"rowId":"2783","text":"Escudo de Gelo"}
+{"rowId":"2784","text":"Deslizar"}
+{"rowId":"2785","text":"Deslizar"}
+{"rowId":"2786","text":"Deslizar"}
+{"rowId":"2787","text":"Armadura de Pedra"}
+{"rowId":"2788","text":"Armadura de Pedra"}
+{"rowId":"2789","text":"Armadura de Pedra"}
+{"rowId":"2790","text":"Dança do Fogo"}
+{"rowId":"2791","text":"Dança do Fogo"}
+{"rowId":"2792","text":"Dança do Fogo"}
+{"rowId":"2793","text":"Ondulação"}
+{"rowId":"2794","text":"Ondulação"}
+{"rowId":"2795","text":"Ondulação"}
+{"rowId":"2796","text":"Tornado"}
+{"rowId":"2797","text":"Tornado"}
+{"rowId":"2798","text":"Tornado"}
+{"rowId":"2799","text":"Terra Furiosa"}
+{"rowId":"2800","text":"Terra Furiosa"}
+{"rowId":"2801","text":"Terra Furiosa"}
+{"rowId":"2802","text":"Fogo da Bênção"}
+{"rowId":"2803","text":"Fogo da Bênção"}
+{"rowId":"2804","text":"Fogo da Bênção"}
+{"rowId":"2805","text":"Armadura de Gelo"}
+{"rowId":"2806","text":"Armadura de Gelo"}
+{"rowId":"2807","text":"Armadura de Gelo"}
+{"rowId":"2808","text":"Melodia do Vento"}
+{"rowId":"2809","text":"Melodia do Vento"}
+{"rowId":"2810","text":"Melodia do Vento"}
+{"rowId":"2811","text":"Terra Protetora"}
+{"rowId":"2812","text":"Terra Protetora"}
+{"rowId":"2813","text":"Terra Protetora"}
+{"rowId":"2814","text":"Poder do Fogo"}
+{"rowId":"2815","text":"Poder do Fogo"}
+{"rowId":"2816","text":"Poder do Fogo"}
+{"rowId":"2817","text":"Elemento Fogo"}
+{"rowId":"2818","text":"Elemento Fogo"}
+{"rowId":"2819","text":"Elemento Fogo"}
+{"rowId":"2820","text":"Alma de Fogo Forte"}
+{"rowId":"2821","text":"Alma de Fogo Forte"}
+{"rowId":"2822","text":"Alma de Fogo Forte"}
+{"rowId":"2823","text":"Fogo Invasor"}
+{"rowId":"2824","text":"Fogo Invasor"}
+{"rowId":"2825","text":"Fogo Invasor"}
+{"rowId":"2829","text":"Geada"}
+{"rowId":"2830","text":"Geada"}
+{"rowId":"2831","text":"Geada"}
+{"rowId":"2832","text":"Elemento Água"}
+{"rowId":"2833","text":"Elemento Água"}
+{"rowId":"2834","text":"Elemento Água"}
+{"rowId":"2835","text":"Alma de Água Forte"}
+{"rowId":"2836","text":"Alma de Água Forte"}
+{"rowId":"2837","text":"Alma de Água Forte"}
+{"rowId":"2838","text":"Gelo"}
+{"rowId":"2839","text":"Gelo"}
+{"rowId":"2840","text":"Gelo"}
+{"rowId":"2844","text":"Alma do Vento"}
+{"rowId":"2845","text":"Alma do Vento"}
+{"rowId":"2846","text":"Alma do Vento"}
+{"rowId":"2847","text":"Raios e Trovões"}
+{"rowId":"2848","text":"Raios e Trovões"}
+{"rowId":"2849","text":"Raios e Trovões"}
+{"rowId":"2850","text":"Alma de Vento Forte"}
+{"rowId":"2851","text":"Alma de Vento Forte"}
+{"rowId":"2852","text":"Alma de Vento Forte"}
+{"rowId":"2853","text":"Vento Cortante"}
+{"rowId":"2854","text":"Vento Cortante"}
+{"rowId":"2855","text":"Vento Cortante"}
+{"rowId":"2856","text":"Espinho de Terra"}
+{"rowId":"2857","text":"Espinho de Terra"}
+{"rowId":"2858","text":"Espinho de Terra"}
+{"rowId":"2859","text":"Terra da Bênção"}
+{"rowId":"2860","text":"Terra da Bênção"}
+{"rowId":"2861","text":"Terra da Bênção"}
+{"rowId":"2862","text":"Terra Corrosiva"}
+{"rowId":"2863","text":"Terra Corrosiva"}
+{"rowId":"2864","text":"Terra Corrosiva"}
+{"rowId":"2865","text":"Combustão"}
+{"rowId":"2867","text":"Pureza"}
+{"rowId":"2868","text":"Barreira de Água"}
+{"rowId":"2869","text":"Reflexo"}
+{"rowId":"2870","text":"Corrente de Raios"}
+{"rowId":"2871","text":"Palavras do Vento"}
+{"rowId":"2872","text":"Palavras do Vento"}
+{"rowId":"2873","text":"Palavras do Vento"}
+{"rowId":"2874","text":"Palavras do Vento"}
+{"rowId":"2875","text":"Palavras do Vento"}
+{"rowId":"2876","text":"Palavras do Vento"}
+{"rowId":"2877","text":"Palavras do Vento"}
+{"rowId":"2878","text":"Palavras do Vento"}
+{"rowId":"2879","text":"Petrificar"}
+{"rowId":"2880","text":"Solidez"}
+{"rowId":"2881","text":"Chuva Divina"}
+{"rowId":"2882","text":"Imune a Dano 1 Vez"}
+{"rowId":"2883","text":"Recuperar HP"}
+{"rowId":"2884","text":"Redução de Dano"}
+{"rowId":"2885","text":"Recupera MP do Alvo"}
+{"rowId":"2886","text":"Recupera MP Próprio"}
+{"rowId":"2887","text":"Arte da Cura"}
+{"rowId":"2888","text":"Arte da Cura"}
+{"rowId":"2889","text":"Arte da Cura"}
+{"rowId":"2890","text":"Arte da Cura"}
+{"rowId":"2891","text":"Borboleta Oculta"}
+{"rowId":"2892","text":"Escudo do Porco"}
+{"rowId":"2893","text":"Atração"}
+{"rowId":"2894","text":"Porco Tremendo"}
+{"rowId":"2895","text":"Arte da Cura"}
+{"rowId":"2896","text":"Combustão"}
+{"rowId":"2897","text":"Combustão"}
+{"rowId":"2898","text":"Reflexo"}
+{"rowId":"2899","text":"Reflexo"}
+{"rowId":"2900","text":"Palavras do Vento"}
+{"rowId":"2901","text":"Palavras do Vento"}
+{"rowId":"2902","text":"Palavras do Vento"}
+{"rowId":"2903","text":"Palavras do Vento"}
+{"rowId":"2904","text":"Palavras do Vento"}
+{"rowId":"2905","text":"Palavras do Vento"}
+{"rowId":"2906","text":"Palavras do Vento"}
+{"rowId":"2907","text":"Palavras do Vento"}
+{"rowId":"2908","text":"Palavras do Vento"}
+{"rowId":"2909","text":"Palavras do Vento"}
+{"rowId":"2910","text":"Palavras do Vento"}
+{"rowId":"2911","text":"Palavras do Vento"}
+{"rowId":"2912","text":"Palavras do Vento"}
+{"rowId":"2913","text":"Palavras do Vento"}
+{"rowId":"2914","text":"Palavras do Vento"}
+{"rowId":"2915","text":"Palavras do Vento"}
+{"rowId":"2916","text":"União"}
+{"rowId":"2917","text":"União"}
+{"rowId":"2918","text":"União"}
+{"rowId":"2919","text":"Irmandade Nv1"}
+{"rowId":"2920","text":"Recuperar HP"}
+{"rowId":"2921","text":"Irmandade Nv2"}
+{"rowId":"2922","text":"Recuperar HP"}
+{"rowId":"2923","text":"Irmandade Nv3"}
+{"rowId":"2924","text":"Recuperar HP"}
+{"rowId":"2925","text":"Irmandade Nv4"}
+{"rowId":"2926","text":"Recuperar HP"}
+{"rowId":"2927","text":"Irmandade Nv5"}
+{"rowId":"2928","text":"Recuperar HP"}
+{"rowId":"2929","text":"Irmandade Nv6"}
+{"rowId":"2930","text":"Recuperar HP"}
+{"rowId":"2931","text":"Irmandade Nv7"}
+{"rowId":"2932","text":"Recuperar HP"}
+{"rowId":"2933","text":"Irmandade Nv8"}
+{"rowId":"2934","text":"Recuperar HP"}
+{"rowId":"2935","text":"Irmandade Nv9"}
+{"rowId":"2936","text":"Recuperar HP"}
+{"rowId":"2937","text":"Irmandade Nv10"}
+{"rowId":"2938","text":"Recuperar HP"}
+{"rowId":"2939","text":"Receber Habilidade"}
+{"rowId":"2940","text":"Escudo Protetor"}
+{"rowId":"2941","text":"Bala Voadora"}
+{"rowId":"2942","text":"Magia Proliferante"}
+{"rowId":"2943","text":"Indomável"}
+{"rowId":"2944","text":"Indomável"}
+{"rowId":"2945","text":"Indomável"}
+{"rowId":"2946","text":"Escudo"}
+{"rowId":"2947","text":"Escudo"}
+{"rowId":"2948","text":"Escudo"}
+{"rowId":"2949","text":"Asas Demoníacas Ardentes Nv4"}
+{"rowId":"2950","text":"Agonia Corrosiva Nv3"}
+{"rowId":"2951","text":"Sacrifício ao Deus Maligno Nv3"}
+{"rowId":"2952","text":"Queimar"}
+{"rowId":"2953","text":"Ataque do Mascote Nv1"}
+{"rowId":"2954","text":"Ataque do Mascote Nv2"}
+{"rowId":"2955","text":"Ataque do Mascote Nv3"}
+{"rowId":"2956","text":"Velocidade Divina"}
+{"rowId":"2957","text":"Crítico Garantido"}
+{"rowId":"2958","text":"Dano +150%"}
+{"rowId":"2959","text":"Dano +180%"}
+{"rowId":"2960","text":"Dano +220%"}
+{"rowId":"2961","text":"Redemoinho de Fogo"}
+{"rowId":"2962","text":"Marca"}
+{"rowId":"2963","text":"Perde HP"}
+{"rowId":"2964","text":"Perde MP"}
+{"rowId":"2965","text":"Fogo Protetor"}
+{"rowId":"2966","text":"Fogo Protetor"}
+{"rowId":"2967","text":"Fogo Protetor"}
+{"rowId":"2968","text":"Fogo Protetor"}
+{"rowId":"2969","text":"Recebe 5 MP"}
+{"rowId":"2970","text":"SPOW-Fogo Vermelho"}
+{"rowId":"2971","text":"Guia"}
+{"rowId":"2972","text":"SPOW-Fogo Vermelho"}
+{"rowId":"2973","text":"Imunidade"}
+{"rowId":"2974","text":"Receber Remover Imunidade"}
+{"rowId":"2975","text":"Remover Imunidade"}
+{"rowId":"2976","text":"Explosão de Fogo Vermelho"}
+{"rowId":"2977","text":"Chama Tremulante"}
+{"rowId":"2978","text":"Chama Tremulante"}
+{"rowId":"2979","text":"Chama Tremulante"}
+{"rowId":"2980","text":"Chama Tremulante"}
+{"rowId":"2981","text":"Renascer da Fênix"}
+{"rowId":"2982","text":"Pontos de Magia"}
+{"rowId":"2983","text":"Pontos de Magia"}
+{"rowId":"2984","text":"Pontos de Magia"}
+{"rowId":"2985","text":"Pontos de Magia"}
+{"rowId":"2986","text":"Pontos de Magia"}
+{"rowId":"2987","text":"Pontos de Magia"}
+{"rowId":"2988","text":"Sofrer Dano Aumenta Habilidade"}
+{"rowId":"2989","text":"Dano Recebido Aumentado"}
+{"rowId":"2990","text":"Sofrer Dano Aumenta Habilidade"}
+{"rowId":"2991","text":"Dano Recebido Aumentado"}
+{"rowId":"2992","text":"Sofrer Dano Aumenta Habilidade"}
+{"rowId":"2993","text":"Dano Recebido Aumentado"}
+{"rowId":"2994","text":"Sofrer Dano Aumenta Habilidade"}
+{"rowId":"2995","text":"Dano Recebido Aumentado"}
+{"rowId":"2996","text":"Sofrer Dano Aumenta Habilidade"}
+{"rowId":"2997","text":"Dano Recebido Aumentado"}
+{"rowId":"2998","text":"Aumento de Dano"}
+{"rowId":"2999","text":"Aumento de Dano"}
+{"rowId":"3000","text":"Aumento de Dano"}
+{"rowId":"3001","text":"Aumento de Dano"}
+{"rowId":"3002","text":"Aumento de Dano"}
+{"rowId":"3003","text":"Aumento de HP Máximo"}
+{"rowId":"3004","text":"Aumento de HP Máximo"}
+{"rowId":"3005","text":"Aumento de HP Máximo"}
+{"rowId":"3006","text":"Aumento de HP Máximo"}
+{"rowId":"3007","text":"Aumento de HP Máximo"}
+{"rowId":"3008","text":"Recupera 2% HP"}
+{"rowId":"3009","text":"Recupera 3% HP"}
+{"rowId":"3010","text":"Recupera 4% HP"}
+{"rowId":"3011","text":"Recupera 5% HP"}
+{"rowId":"3012","text":"Recupera 6% HP"}
+{"rowId":"3013","text":"Receber Habilidade"}
+{"rowId":"3014","text":"Recupera HP igual a 4% do dano"}
+{"rowId":"3015","text":"Receber Habilidade"}
+{"rowId":"3016","text":"Recupera HP igual a 6% do dano"}
+{"rowId":"3017","text":"Receber Habilidade"}
+{"rowId":"3018","text":"Recupera HP igual a 8% do dano"}
+{"rowId":"3019","text":"Receber Habilidade"}
+{"rowId":"3020","text":"Recupera HP igual a 10% do dano"}
+{"rowId":"3021","text":"Receber Habilidade"}
+{"rowId":"3022","text":"Recupera HP igual a 12% do dano"}
+{"rowId":"3023","text":"Recuperar HP"}
+{"rowId":"3024","text":"Recuperar HP"}
+{"rowId":"3025","text":"Recuperar HP"}
+{"rowId":"3026","text":"Recuperar HP"}
+{"rowId":"3027","text":"Recuperar HP"}
+{"rowId":"3028","text":"Coragem Nv1"}
+{"rowId":"3029","text":"Coragem Nv2"}
+{"rowId":"3030","text":"Coragem Nv3"}
+{"rowId":"3031","text":"Coragem Nv4"}
+{"rowId":"3032","text":"Coragem Nv5"}
+{"rowId":"3033","text":"Coragem Nv6"}
+{"rowId":"3034","text":"Coragem Nv7"}
+{"rowId":"3035","text":"Proteção Divina Nv1"}
+{"rowId":"3036","text":"Proteção Divina Nv2"}
+{"rowId":"3037","text":"Revide"}
+{"rowId":"3038","text":"Abate Rápido"}
+{"rowId":"3039","text":"Rancor Nv1"}
+{"rowId":"3040","text":"Rancor Nv1"}
+{"rowId":"3041","text":"Rancor Nv1"}
+{"rowId":"3042","text":"Rancor Nv1"}
+{"rowId":"3043","text":"Rancor Nv1"}
+{"rowId":"3044","text":"Rancor Nv1"}
+{"rowId":"3045","text":"Rancor Nv1"}
+{"rowId":"3046","text":"Rancor Nv1"}
+{"rowId":"3047","text":"Rancor Nv1"}
+{"rowId":"3048","text":"Rancor Nv1"}
+{"rowId":"3049","text":"Rancor Nv1"}
+{"rowId":"3050","text":"Rancor Nv1"}
+{"rowId":"3051","text":"Rancor Nv1"}
+{"rowId":"3052","text":"Rancor Nv1"}
+{"rowId":"3053","text":"Rancor Nv1"}
+{"rowId":"3054","text":"Recuperar Magia"}
+{"rowId":"3055","text":"Ataque Antecipado"}
+{"rowId":"3056","text":"Ferido"}
+{"rowId":"3057","text":"Força Bruta"}
+{"rowId":"3058","text":"Linhagem"}
+{"rowId":"3059","text":"Anseio"}
+{"rowId":"3060","text":"Proteção Divina"}
+{"rowId":"3061","text":"Proteção Divina"}
+{"rowId":"3062","text":"Espinheiro"}
+{"rowId":"3063","text":"Fúria Selvagem"}
+{"rowId":"3064","text":"Ninjutsu"}
+{"rowId":"3065","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3066","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3067","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3068","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3069","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3070","text":"Resistir a Queimadura"}
+{"rowId":"3071","text":"Resistir a Queimadura"}
+{"rowId":"3072","text":"Resistir a Queimadura"}
+{"rowId":"3073","text":"Resistir a Queimadura"}
+{"rowId":"3074","text":"Resistir a Queimadura"}
+{"rowId":"3075","text":"Resistir a Congelamento"}
+{"rowId":"3076","text":"Resistir a Congelamento"}
+{"rowId":"3077","text":"Resistir a Congelamento"}
+{"rowId":"3078","text":"Resistir a Congelamento"}
+{"rowId":"3079","text":"Resistir a Congelamento"}
+{"rowId":"3080","text":"Receber Habilidade"}
+{"rowId":"3081","text":"Receber Habilidade"}
+{"rowId":"3082","text":"Receber Habilidade"}
+{"rowId":"3083","text":"Recebe 5 MP"}
+{"rowId":"3084","text":"Triplo"}
+{"rowId":"3085","text":"Despertar-Fogo Protetor"}
+{"rowId":"3086","text":"Despertar-Fogo Protetor"}
+{"rowId":"3087","text":"Despertar-Fogo Protetor"}
+{"rowId":"3088","text":"Despertar-Fogo Protetor"}
+{"rowId":"3089","text":"Velocidade Divina"}
+{"rowId":"3090","text":"Crítico Garantido"}
+{"rowId":"3091","text":"Dano +220%"}
+{"rowId":"3092","text":"SPOW-Fogo Vermelho"}
+{"rowId":"3093","text":"Perfurar Defesa Nv1"}
+{"rowId":"3094","text":"Perfurar Armadura Nv1"}
+{"rowId":"3095","text":"Receber Remover Perfurar Armadura Nv1"}
+{"rowId":"3096","text":"Cancelar Perfurar Armadura Nv1"}
+{"rowId":"3097","text":"Explosão de Fogo Vermelho"}
+{"rowId":"3098","text":"Renascer da Fênix"}
+{"rowId":"3099","text":"Imunidade"}
+{"rowId":"3100","text":"Abate Rápido"}
+{"rowId":"3101","text":"Abate Rápido"}
+{"rowId":"3102","text":"Abate Rápido"}
+{"rowId":"3103","text":"Abate Rápido"}
+{"rowId":"3104","text":"Chama Tremulante"}
+{"rowId":"3105","text":"Chama Tremulante"}
+{"rowId":"3106","text":"Chama Tremulante"}
+{"rowId":"3107","text":"Chama Tremulante"}
+{"rowId":"3108","text":"Redemoinho de Fogo"}
+{"rowId":"3109","text":"Marca"}
+{"rowId":"3110","text":"Perde HP"}
+{"rowId":"3111","text":"Perde MP"}
+{"rowId":"3112","text":"Ataque do Mascote Nv1"}
+{"rowId":"3113","text":"Ataque do Mascote Nv2"}
+{"rowId":"3114","text":"Ataque do Mascote Nv3"}
+{"rowId":"3115","text":"Crítico Garantido"}
+{"rowId":"3116","text":"Aprisionar"}
+{"rowId":"3117","text":"Dano +120%"}
+{"rowId":"3118","text":"Dano +150%"}
+{"rowId":"3119","text":"Dano +180%"}
+{"rowId":"3120","text":"Ataque do Hamster"}
+{"rowId":"3121","text":"Hibernação"}
+{"rowId":"3122","text":"Recupera por Turno"}
+{"rowId":"3123","text":"Recuperação Imediata"}
+{"rowId":"3124","text":"Recuperação Imediata"}
+{"rowId":"3125","text":"Recuperação Imediata"}
+{"rowId":"3126","text":"Atravessar Terreno"}
+{"rowId":"3127","text":"Avanço Silencioso"}
+{"rowId":"3128","text":"Velocidade Divina"}
+{"rowId":"3129","text":"Fortalecimento Silencioso"}
+{"rowId":"3130","text":"Receber Habilidade"}
+{"rowId":"3131","text":"Remover Efeito"}
+{"rowId":"3132","text":"Imune a Crítico"}
+{"rowId":"3133","text":"Imune a Crítico"}
+{"rowId":"3134","text":"Imune a Crítico"}
+{"rowId":"3135","text":"Reduzir Dano Próprio"}
+{"rowId":"3136","text":"Imune a Crítico"}
+{"rowId":"3137","text":"Imune a Crítico"}
+{"rowId":"3138","text":"Imune a Crítico"}
+{"rowId":"3139","text":"Resistir a Queimadura"}
+{"rowId":"3140","text":"Resistir a Queimadura"}
+{"rowId":"3141","text":"Resistir a Queimadura"}
+{"rowId":"3142","text":"Escudo da Vida"}
+{"rowId":"3143","text":"Escudo da Vida"}
+{"rowId":"3144","text":"Escudo da Vida"}
+{"rowId":"3145","text":"Recuperar HP"}
+{"rowId":"3146","text":"Recuperar HP"}
+{"rowId":"3147","text":"Recuperar HP"}
+{"rowId":"3148","text":"Imune a Crítico"}
+{"rowId":"3149","text":"Aumento de Dano"}
+{"rowId":"3150","text":"Despertar-Avanço Silencioso"}
+{"rowId":"3151","text":"Receber Habilidade"}
+{"rowId":"3152","text":"Receber Habilidade"}
+{"rowId":"3153","text":"Receber Habilidade"}
+{"rowId":"3154","text":"Remover Efeito"}
+{"rowId":"3155","text":"Remover Efeito Resistência ao Vento"}
+{"rowId":"3156","text":"Receber Habilidade Esquiva"}
+{"rowId":"3157","text":"Esquiva +"}
+{"rowId":"3158","text":"Receber Habilidade (Inicial)"}
+{"rowId":"3159","text":"Monstro Milenar"}
+{"rowId":"3160","text":"Invisibilidade"}
+{"rowId":"3161","text":"Invisibilidade"}
+{"rowId":"3162","text":"Invisibilidade"}
+{"rowId":"3163","text":"Redução de Dano"}
+{"rowId":"3164","text":"Redução de Dano"}
+{"rowId":"3165","text":"Redução de Dano"}
+{"rowId":"3166","text":"Ataque do Mascote Nv1"}
+{"rowId":"3167","text":"Ataque do Mascote Nv2"}
+{"rowId":"3168","text":"Ataque do Mascote Nv3"}
+{"rowId":"3169","text":"Crítico Garantido"}
+{"rowId":"3170","text":"Dano +120%"}
+{"rowId":"3171","text":"Remover Fúria"}
+{"rowId":"3172","text":"Dano +120%"}
+{"rowId":"3173","text":"Dano +120%"}
+{"rowId":"3174","text":"Coelho Redutor de Dano"}
+{"rowId":"3175","text":"Coelho Forte"}
+{"rowId":"3176","text":"Recupera 25% HP"}
+{"rowId":"3177","text":"Coelho Resistente"}
+{"rowId":"3178","text":"Receber Habilidade"}
+{"rowId":"3179","text":"Coelho com Escudo"}
+{"rowId":"3180","text":"Coelho Durão"}
+{"rowId":"3181","text":"Coelho Durão"}
+{"rowId":"3182","text":"Coelho Esquivo"}
+{"rowId":"3183","text":"Coelho Redutor de Dano"}
+{"rowId":"3184","text":"Coelho Resistente"}
+{"rowId":"3185","text":"Aumentar Dano"}
+{"rowId":"3186","text":"Recupera 12% HP"}
+{"rowId":"3187","text":"Coelho Durão"}
+{"rowId":"3198","text":"Reduz 60% do dano crítico recebido"}
+{"rowId":"3199","text":"Reduz 30% do dano recebido"}
+{"rowId":"3200","text":"Velocidade Divina"}
+{"rowId":"3201","text":"Recebe 3 Pontos de MP"}
+{"rowId":"3202","text":"Aumentar Dano"}
+{"rowId":"3208","text":"Ciclone da Prisão de Gelo"}
+{"rowId":"3209","text":"Ciclone da Prisão de Gelo"}
+{"rowId":"3210","text":"Ciclone da Prisão de Gelo"}
+{"rowId":"3211","text":"Crítico Garantido"}
+{"rowId":"3212","text":"Espinho de Gelo"}
+{"rowId":"3213","text":"Congelar"}
+{"rowId":"3214","text":"Espinho de Gelo"}
+{"rowId":"3215","text":"Espinho de Gelo"}
+{"rowId":"3216","text":"Sopro Congelante"}
+{"rowId":"3217","text":"Rugido do Dragão"}
+{"rowId":"3218","text":"Poder do Frio Extremo"}
+{"rowId":"3219","text":"Muralha de Geada"}
+{"rowId":"3220","text":"Muralha de Geada"}
+{"rowId":"3221","text":"Fúria Glacial"}
+{"rowId":"3222","text":"Sono Eterno"}
+{"rowId":"3223","text":"Armadura Glacial"}
+{"rowId":"3224","text":"Redução de Dano"}
+{"rowId":"3225","text":"Despertar-Espinho de Gelo"}
+{"rowId":"3226","text":"Despertar-Sopro Congelante"}
+{"rowId":"3227","text":"Despertar-Rugido do Dragão"}
+{"rowId":"3228","text":"Abate Rápido"}
+{"rowId":"3229","text":"Poder do Frio Extremo"}
+{"rowId":"3230","text":"Despertar-Barreira de Geada"}
+{"rowId":"3231","text":"Despertar-Barreira de Geada"}
+{"rowId":"3232","text":"Despertar-Fúria Glacial"}
+{"rowId":"3233","text":"Fúria +1"}
+{"rowId":"3235","text":"Receber Habilidade"}
+{"rowId":"3236","text":"Receber Habilidade"}
+{"rowId":"3237","text":"Receber Habilidade"}
+{"rowId":"3238","text":"Receber Habilidade"}
+{"rowId":"3239","text":"Receber Habilidade"}
+{"rowId":"3240","text":"Receber Habilidade"}
+{"rowId":"3241","text":"Receber Habilidade"}
+{"rowId":"3242","text":"Receber Habilidade"}
+{"rowId":"3243","text":"Receber Habilidade"}
+{"rowId":"3244","text":"Receber Habilidade"}
+{"rowId":"3245","text":"Receber Habilidade"}
+{"rowId":"3246","text":"Receber Habilidade"}
+{"rowId":"3247","text":"Receber Habilidade"}
+{"rowId":"3248","text":"Receber Habilidade"}
+{"rowId":"3249","text":"Receber Habilidade"}
+{"rowId":"3250","text":"Receber Habilidade"}
+{"rowId":"3251","text":"Receber Habilidade"}
+{"rowId":"3252","text":"Receber Habilidade"}
+{"rowId":"3253","text":"Cinco Elementos-Terra"}
+{"rowId":"3254","text":"Cinco Elementos-Terra"}
+{"rowId":"3255","text":"Cinco Elementos-Terra"}
+{"rowId":"3256","text":"Cinco Elementos-Terra"}
+{"rowId":"3257","text":"Cinco Elementos-Terra"}
+{"rowId":"3258","text":"Cinco Elementos-Terra"}
+{"rowId":"3259","text":"Cinco Elementos-Água"}
+{"rowId":"3260","text":"Cinco Elementos-Água"}
+{"rowId":"3261","text":"Cinco Elementos-Água"}
+{"rowId":"3262","text":"Cinco Elementos-Água"}
+{"rowId":"3263","text":"Cinco Elementos-Água"}
+{"rowId":"3264","text":"Cinco Elementos-Água"}
+{"rowId":"3265","text":"Cinco Elementos-Fogo"}
+{"rowId":"3266","text":"Cinco Elementos-Fogo"}
+{"rowId":"3267","text":"Cinco Elementos-Fogo"}
+{"rowId":"3268","text":"Cinco Elementos-Fogo"}
+{"rowId":"3269","text":"Cinco Elementos-Fogo"}
+{"rowId":"3270","text":"Cinco Elementos-Fogo"}
+{"rowId":"3271","text":"Cinco Elementos-Vento"}
+{"rowId":"3272","text":"Cinco Elementos-Vento"}
+{"rowId":"3273","text":"Cinco Elementos-Vento"}
+{"rowId":"3274","text":"Cinco Elementos-Vento"}
+{"rowId":"3275","text":"Cinco Elementos-Vento"}
+{"rowId":"3276","text":"Cinco Elementos-Vento"}
+{"rowId":"3277","text":"Cinco Elementos-Terra"}
+{"rowId":"3278","text":"Cinco Elementos-Terra"}
+{"rowId":"3279","text":"Cinco Elementos-Terra"}
+{"rowId":"3280","text":"Cinco Elementos-Terra"}
+{"rowId":"3281","text":"Cinco Elementos-Terra"}
+{"rowId":"3282","text":"Cinco Elementos-Terra"}
+{"rowId":"3283","text":"Aniquilação-Água"}
+{"rowId":"3284","text":"Aniquilação-Água"}
+{"rowId":"3285","text":"Aniquilação-Água"}
+{"rowId":"3286","text":"Aniquilação-Água"}
+{"rowId":"3287","text":"Aniquilação-Água"}
+{"rowId":"3288","text":"Aniquilação-Água"}
+{"rowId":"3289","text":"Aniquilação-Fogo"}
+{"rowId":"3290","text":"Aniquilação-Fogo"}
+{"rowId":"3291","text":"Aniquilação-Fogo"}
+{"rowId":"3292","text":"Aniquilação-Fogo"}
+{"rowId":"3293","text":"Aniquilação-Fogo"}
+{"rowId":"3294","text":"Aniquilação-Fogo"}
+{"rowId":"3295","text":"Aniquilação-Vento"}
+{"rowId":"3296","text":"Aniquilação-Vento"}
+{"rowId":"3297","text":"Aniquilação-Vento"}
+{"rowId":"3298","text":"Aniquilação-Vento"}
+{"rowId":"3299","text":"Aniquilação-Vento"}
+{"rowId":"3300","text":"Aniquilação-Vento"}
+{"rowId":"3301","text":"Aniquilação-Terra"}
+{"rowId":"3302","text":"Aniquilação-Terra"}
+{"rowId":"3303","text":"Aniquilação-Terra"}
+{"rowId":"3304","text":"Aniquilação-Terra"}
+{"rowId":"3305","text":"Aniquilação-Terra"}
+{"rowId":"3306","text":"Aniquilação-Terra"}
+{"rowId":"3307","text":"Decreto-Água"}
+{"rowId":"3308","text":"Recuperação"}
+{"rowId":"3309","text":"Decreto-Água"}
+{"rowId":"3310","text":"Recuperação"}
+{"rowId":"3311","text":"Decreto-Água"}
+{"rowId":"3312","text":"Recuperação"}
+{"rowId":"3313","text":"Decreto-Água"}
+{"rowId":"3314","text":"Recuperação"}
+{"rowId":"3315","text":"Decreto-Água"}
+{"rowId":"3316","text":"Recuperação"}
+{"rowId":"3317","text":"Decreto-Água"}
+{"rowId":"3318","text":"Recuperação"}
+{"rowId":"3319","text":"Decreto-Fogo"}
+{"rowId":"3320","text":"Recuperação"}
+{"rowId":"3321","text":"Decreto-Fogo"}
+{"rowId":"3322","text":"Recuperação"}
+{"rowId":"3323","text":"Decreto-Fogo"}
+{"rowId":"3324","text":"Recuperação"}
+{"rowId":"3325","text":"Decreto-Fogo"}
+{"rowId":"3326","text":"Recuperação"}
+{"rowId":"3327","text":"Decreto-Fogo"}
+{"rowId":"3328","text":"Recuperação"}
+{"rowId":"3329","text":"Decreto-Fogo"}
+{"rowId":"3330","text":"Recuperação"}
+{"rowId":"3331","text":"Decreto-Vento"}
+{"rowId":"3332","text":"Recuperação"}
+{"rowId":"3333","text":"Decreto-Vento"}
+{"rowId":"3334","text":"Recuperação"}
+{"rowId":"3335","text":"Decreto-Vento"}
+{"rowId":"3336","text":"Recuperação"}
+{"rowId":"3337","text":"Decreto-Vento"}
+{"rowId":"3338","text":"Recuperação"}
+{"rowId":"3339","text":"Decreto-Vento"}
+{"rowId":"3340","text":"Recuperação"}
+{"rowId":"3341","text":"Decreto-Vento"}
+{"rowId":"3342","text":"Recuperação"}
+{"rowId":"3343","text":"Decreto-Terra"}
+{"rowId":"3344","text":"Recuperação"}
+{"rowId":"3345","text":"Decreto-Terra"}
+{"rowId":"3346","text":"Recuperação"}
+{"rowId":"3347","text":"Decreto-Terra"}
+{"rowId":"3348","text":"Recuperação"}
+{"rowId":"3349","text":"Decreto-Terra"}
+{"rowId":"3350","text":"Recuperação"}
+{"rowId":"3351","text":"Decreto-Terra"}
+{"rowId":"3352","text":"Recuperação"}
+{"rowId":"3353","text":"Decreto-Terra"}
+{"rowId":"3354","text":"Recuperação"}
+{"rowId":"3355","text":"Fortuna-Água"}
+{"rowId":"3356","text":"Fortuna-Água"}
+{"rowId":"3357","text":"Fortuna-Água"}
+{"rowId":"3358","text":"Fortuna-Água"}
+{"rowId":"3359","text":"Fortuna-Água"}
+{"rowId":"3360","text":"Fortuna-Água"}
+{"rowId":"3361","text":"Fortuna-Fogo"}
+{"rowId":"3362","text":"Fortuna-Fogo"}
+{"rowId":"3363","text":"Fortuna-Fogo"}
+{"rowId":"3364","text":"Fortuna-Fogo"}
+{"rowId":"3365","text":"Fortuna-Fogo"}
+{"rowId":"3366","text":"Fortuna-Fogo"}
+{"rowId":"3367","text":"Fortuna-Vento"}
+{"rowId":"3368","text":"Fortuna-Vento"}
+{"rowId":"3369","text":"Fortuna-Vento"}
+{"rowId":"3370","text":"Fortuna-Vento"}
+{"rowId":"3371","text":"Fortuna-Vento"}
+{"rowId":"3372","text":"Fortuna-Vento"}
+{"rowId":"3373","text":"Fortuna-Terra"}
+{"rowId":"3374","text":"Fortuna-Terra"}
+{"rowId":"3375","text":"Fortuna-Terra"}
+{"rowId":"3376","text":"Fortuna-Terra"}
+{"rowId":"3377","text":"Fortuna-Terra"}
+{"rowId":"3378","text":"Fortuna-Terra"}
+{"rowId":"3454","text":"Imune a Crítico"}
+{"rowId":"3455","text":"Imune a Crítico"}
+{"rowId":"3456","text":"Imune a Crítico"}
+{"rowId":"3457","text":"Reduzir Dano Crítico"}
+{"rowId":"3458","text":"Reduzir Dano Crítico"}
+{"rowId":"3459","text":"Reduzir Dano Crítico"}
+{"rowId":"3460","text":"Reduzir Atq. Mágico"}
+{"rowId":"3461","text":"Reduzir Atq. Mágico"}
+{"rowId":"3462","text":"Reduzir Atq. Mágico"}
+{"rowId":"3463","text":"Reduzir Atq. Mágico"}
+{"rowId":"3464","text":"Reduzir Atq. Mágico"}
+{"rowId":"3486","text":"Abate Rápido"}
+{"rowId":"3488","text":"Número de Congelamentos"}
+{"rowId":"3489","text":"Receber Habilidade"}
+{"rowId":"3490","text":"Armadura Glacial"}
+{"rowId":"3491","text":"Redução de Dano"}
+{"rowId":"3492","text":"Receber Habilidade"}
+{"rowId":"3493","text":"Redução de Dano"}
+{"rowId":"3494","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3495","text":"Reduzir Atq. Mágico"}
+{"rowId":"3496","text":"Sono Eterno"}
+{"rowId":"3497","text":"Reduzir Dano Recebido"}
+{"rowId":"3522","text":"Ciclone da Prisão de Gelo"}
+{"rowId":"3523","text":"Ciclone da Prisão de Gelo"}
+{"rowId":"3524","text":"Despertar-Espinho de Gelo"}
+{"rowId":"3525","text":"Despertar-Sopro Congelante"}
+{"rowId":"3526","text":"Despertar-Rugido do Dragão"}
+{"rowId":"3527","text":"Abate Rápido"}
+{"rowId":"3528","text":"Poder do Frio Extremo"}
+{"rowId":"3529","text":"Sono Eterno"}
+{"rowId":"3530","text":"Número de Congelamentos"}
+{"rowId":"3531","text":"Receber Habilidade"}
+{"rowId":"3532","text":"Recuperar HP"}
+{"rowId":"3533","text":"Resistir a Queimadura"}
+{"rowId":"3534","text":"Resistir a Queimadura"}
+{"rowId":"3535","text":"Aumentar Dano"}
+{"rowId":"3536","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3537","text":"Resistir a Queimadura"}
+{"rowId":"3538","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3539","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3540","text":"Resistir a Queimadura"}
+{"rowId":"3541","text":"Resistir a Queimadura"}
+{"rowId":"3543","text":"Habilidade +1"}
+{"rowId":"3622","text":"Receber Habilidade"}
+{"rowId":"3623","text":"Escudo Protetor"}
+{"rowId":"3624","text":"Bala Voadora"}
+{"rowId":"3625","text":"Aumentar Cura"}
+{"rowId":"3626","text":"Magia Proliferante"}
+{"rowId":"3627","text":"Receber Habilidade 4"}
+{"rowId":"3628","text":"Magia Proliferante"}
+{"rowId":"3629","text":"Aumentar HP Máximo"}
+{"rowId":"3630","text":"Resistência a Queimadura +"}
+{"rowId":"3631","text":"Resistência a Perfurar Armadura +"}
+{"rowId":"3662","text":"Ataque do Mascote"}
+{"rowId":"3663","text":"Dano +180%"}
+{"rowId":"3664","text":"Despertar-Bala de Gelo Estilhaçante"}
+{"rowId":"3665","text":"Bala de Gelo Estilhaçante"}
+{"rowId":"3666","text":"Crítico Garantido"}
+{"rowId":"3667","text":"Receber Habilidade 4"}
+{"rowId":"3668","text":"Congelar"}
+{"rowId":"3669","text":"Despertar-Barreira de Cristal"}
+{"rowId":"3670","text":"Imune a Crítico"}
+{"rowId":"3671","text":"Despertar-Inferno Congelado"}
+{"rowId":"3672","text":"Despertar-Inferno Congelado"}
+{"rowId":"3673","text":"Redução de Dano"}
+{"rowId":"3674","text":"Receber Habilidade"}
+{"rowId":"3675","text":"Remover Efeito"}
+{"rowId":"3676","text":"Despertar-Trovão Veloz"}
+{"rowId":"3677","text":"Receber Habilidade"}
+{"rowId":"3678","text":"Receber Habilidade"}
+{"rowId":"3679","text":"Recebe 5 MP"}
+{"rowId":"3680","text":"Despertar-Coração da Fênix"}
+{"rowId":"3681","text":"Crítico"}
+{"rowId":"3682","text":"Despertar-Golpe Mortal"}
+{"rowId":"3683","text":"Despertar-Golpe Mortal"}
+{"rowId":"3684","text":"Despertar-Golpe Mortal"}
+{"rowId":"3685","text":"Guia"}
+{"rowId":"3686","text":"Alma de Gelo"}
+{"rowId":"3687","text":"Recuperar HP"}
+{"rowId":"3688","text":"Alma de Gelo"}
+{"rowId":"3689","text":"Recuperar HP"}
+{"rowId":"3690","text":"Resistir a Queimadura"}
+{"rowId":"3691","text":"Resistir a Queimadura"}
+{"rowId":"3692","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3693","text":"Redução de Dano"}
+{"rowId":"3694","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3695","text":"Resistir a Queimadura"}
+{"rowId":"3696","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3697","text":"Alma de Gelo"}
+{"rowId":"3698","text":"Recupera 15% HP"}
+{"rowId":"3699","text":"Chuva Divina"}
+{"rowId":"3700","text":"Imune a Dano 1 Vez"}
+{"rowId":"3701","text":"Redução de Dano"}
+{"rowId":"3702","text":"Recuperar HP"}
+{"rowId":"3703","text":"Redução de Dano"}
+{"rowId":"3704","text":"Recupera MP do Alvo"}
+{"rowId":"3705","text":"Recupera MP Próprio"}
+{"rowId":"3706","text":"Aumentar Dano"}
+{"rowId":"3707","text":"Aumentar Dano"}
+{"rowId":"3708","text":"Resistir a Queimadura"}
+{"rowId":"3709","text":"Redução de Dano"}
+{"rowId":"3710","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3711","text":"Ataque do Mascote"}
+{"rowId":"3712","text":"Especialista em Artes Marciais"}
+{"rowId":"3713","text":"Reduz 80% do dano crítico recebido"}
+{"rowId":"3714","text":"Reduz 50% do dano recebido"}
+{"rowId":"3715","text":"Fúria"}
+{"rowId":"3716","text":"Pontos de MP"}
+{"rowId":"3717","text":"Imunidade"}
+{"rowId":"3718","text":"Borboleta Oculta"}
+{"rowId":"3719","text":"Clone"}
+{"rowId":"3720","text":"Recebe 5 MP"}
+{"rowId":"3721","text":"Aumentar Dano"}
+{"rowId":"3722","text":"HP Máximo"}
+{"rowId":"3723","text":"Resistência a Perfurar Armadura +"}
+{"rowId":"3724","text":"Postura Defensiva"}
+{"rowId":"3725","text":"Recupera 15% HP"}
+{"rowId":"3726","text":"Resistência a Queimadura +"}
+{"rowId":"3727","text":"Resistência a Perfurar Armadura +"}
+{"rowId":"3728","text":"Aumentar Dano"}
+{"rowId":"3729","text":"Resistência a Perfurar Armadura +"}
+{"rowId":"3730","text":"Especialista em Artes Marciais"}
+{"rowId":"3731","text":"Aumentar Defesa"}
+{"rowId":"3732","text":"Aumentar Agilidade"}
+{"rowId":"3733","text":"Aumentar Sorte"}
+{"rowId":"3734","text":"Clone Divide o Dano"}
+{"rowId":"3735","text":"Armadura de Gelo"}
+{"rowId":"3736","text":"Armadura de Gelo"}
+{"rowId":"3737","text":"Armadura de Gelo"}
+{"rowId":"3738","text":"Congelar"}
+{"rowId":"3739","text":"Congelar"}
+{"rowId":"3740","text":"Congelar"}
+{"rowId":"3741","text":"Receber Habilidade"}
+{"rowId":"3742","text":"Receber Habilidade"}
+{"rowId":"3743","text":"Receber Habilidade"}
+{"rowId":"3744","text":"Alma de Gelo"}
+{"rowId":"3745","text":"Alma de Gelo"}
+{"rowId":"3746","text":"Alma de Gelo"}
+{"rowId":"3747","text":"Ataque do Mascote"}
+{"rowId":"3748","text":"Despertar-Veneno"}
+{"rowId":"3749","text":"Receber Habilidade de Aumento de Dano Recebido"}
+{"rowId":"3750","text":"Aumentar Dano Recebido"}
+{"rowId":"3751","text":"Despertar-Exaustão"}
+{"rowId":"3752","text":"Exaustão Nv2"}
+{"rowId":"3753","text":"Despertar-Fúria Selvagem"}
+{"rowId":"3754","text":"Reduzir Dano Crítico Recebido"}
+{"rowId":"3755","text":"Monstro"}
+{"rowId":"3756","text":"Milenar"}
+{"rowId":"3757","text":"Monstro Milenar"}
+{"rowId":"3758","text":"Proibido Voar"}
+{"rowId":"3759","text":"Receber Habilidade"}
+{"rowId":"3760","text":"Veneno Vingativo"}
+{"rowId":"3761","text":"Despertar-Presa Negra"}
+{"rowId":"3762","text":"Despertar-Presa Negra"}
+{"rowId":"3763","text":"Despertar-Presa Negra"}
+{"rowId":"3764","text":"Reduz 15% do dano recebido"}
+{"rowId":"3765","text":"Resistência a Queimadura +"}
+{"rowId":"3766","text":"Resistência a Queimadura +"}
+{"rowId":"3767","text":"Resistência a Perfurar Armadura +"}
+{"rowId":"3768","text":"Resistência a Queimadura +"}
+{"rowId":"3769","text":"Resistência a Perfurar Armadura +"}
+{"rowId":"3770","text":"Redução de Dano"}
+{"rowId":"3771","text":"Resistência a Perfurar Armadura +"}
+{"rowId":"3780","text":"Redução de Dano"}
+{"rowId":"3781","text":"Dilacerar do Dia Nv3"}
+{"rowId":"3782","text":"Armadura Negra de Minotauro"}
+{"rowId":"3783","text":"Martelo de Prata de Minotauro"}
+{"rowId":"3784","text":"Martelo de Prata de Minotauro"}
+{"rowId":"3785","text":"Redução de Dano"}
+{"rowId":"3786","text":"Trevas Nv3"}
+{"rowId":"3787","text":"Trevas Nv3"}
+{"rowId":"3788","text":"Recupera 60%"}
+{"rowId":"3789","text":"Rancor Nv1"}
+{"rowId":"3790","text":"Rancor Nv1"}
+{"rowId":"3791","text":"Rancor Nv1"}
+{"rowId":"3792","text":"Rancor Nv1"}
+{"rowId":"3793","text":"Rancor Nv1"}
+{"rowId":"3794","text":"Resistência a Queimadura +"}
+{"rowId":"3795","text":"Resistência a Queimadura +"}
+{"rowId":"3796","text":"Resistência a Perfurar Armadura +"}
+{"rowId":"3797","text":"Resistência a Perfurar Armadura +"}
+{"rowId":"3798","text":"Resistência a Queimadura +"}
+{"rowId":"3799","text":"HP Máximo"}
+{"rowId":"3800","text":"Recupera 15% HP"}
+{"rowId":"3801","text":"Resistência a Perfurar Armadura +"}
+{"rowId":"3802","text":"Chuva da Essência Celestial"}
+{"rowId":"3803","text":"Chama Protetora"}
+{"rowId":"3804","text":"Arte de Andar no Vento"}
+{"rowId":"3805","text":"Segredo da Mãe Terra"}
+{"rowId":"3824","text":"Chuva da Essência Celestial"}
+{"rowId":"3825","text":"Chuva da Essência Celestial"}
+{"rowId":"3826","text":"Chuva da Essência Celestial"}
+{"rowId":"3827","text":"Chuva da Essência Celestial"}
+{"rowId":"3828","text":"Chuva da Essência Celestial"}
+{"rowId":"3829","text":"Chuva da Essência Celestial"}
+{"rowId":"3830","text":"Chuva da Essência Celestial"}
+{"rowId":"3831","text":"Chuva da Essência Celestial"}
+{"rowId":"3832","text":"Chuva da Essência Celestial"}
+{"rowId":"3833","text":"Chuva da Essência Celestial"}
+{"rowId":"3834","text":"Chuva da Essência Celestial"}
+{"rowId":"3912","text":"Despertar-Fogo Protetor"}
+{"rowId":"3913","text":"Despertar-Fogo Protetor"}
+{"rowId":"3914","text":"Despertar-Fogo Protetor"}
+{"rowId":"3915","text":"Despertar-Fogo Protetor"}
+{"rowId":"3916","text":"Despertar-Fogo Protetor"}
+{"rowId":"3917","text":"Velocidade Divina"}
+{"rowId":"3918","text":"SPOW-Fogo Vermelho"}
+{"rowId":"3919","text":"Reduzir Dano Recebido"}
+{"rowId":"3920","text":"Renascer da Fênix"}
+{"rowId":"3921","text":"Chama Tremulante"}
+{"rowId":"3922","text":"Chama Tremulante"}
+{"rowId":"3923","text":"Redemoinho de Fogo"}
+{"rowId":"3924","text":"Marca"}
+{"rowId":"3925","text":"Perde HP"}
+{"rowId":"3926","text":"Perde MP"}
+{"rowId":"3927","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3928","text":"Resistir a Queimadura"}
+{"rowId":"3929","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3930","text":"HP Máximo"}
+{"rowId":"3931","text":"Recupera 5% HP"}
+{"rowId":"3932","text":"Resistir a Queimadura"}
+{"rowId":"3933","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3934","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3969","text":"SPOW-Fogo Vermelho"}
+{"rowId":"3970","text":"HP Máximo"}
+{"rowId":"3971","text":"Reduzir Vigor"}
+{"rowId":"3976","text":"Ataque do Mascote"}
+{"rowId":"3977","text":"Pêssego de Dez Mil Anos"}
+{"rowId":"3978","text":"Receber Habilidade de Aumento de Dano Recebido"}
+{"rowId":"3979","text":"Aumentar Dano Recebido"}
+{"rowId":"3980","text":"Imune a Crítico"}
+{"rowId":"3981","text":"Usar Item Aumenta Magia"}
+{"rowId":"3982","text":"Usar item aumenta a Fúria"}
+{"rowId":"3983","text":"Resistir a Queimadura"}
+{"rowId":"3984","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3985","text":"Resistir a Perfurar Armadura"}
+{"rowId":"3986","text":"Resistir a Queimadura"}
+{"rowId":"3987","text":"HP Máximo"}
+{"rowId":"3988","text":"Recuperar HP"}
+{"rowId":"3989","text":"Resistir a Queimadura"}
+{"rowId":"3990","text":"Resistir a Queimadura"}
+{"rowId":"4002","text":"Receber Habilidade"}
+{"rowId":"4003","text":"Coelho Redutor de Dano"}
+{"rowId":"4004","text":"Coelho Resistente"}
+{"rowId":"4005","text":"Aumentar Dano"}
+{"rowId":"4006","text":"Recupera 18% HP"}
+{"rowId":"4007","text":"Coelho Durão"}
+{"rowId":"4008","text":"HP Máximo"}
+{"rowId":"4009","text":"Recuperar HP"}
+{"rowId":"4010","text":"Resistir a Queimadura"}
+{"rowId":"4011","text":"Resistir a Queimadura"}
+{"rowId":"4012","text":"Resistir a Perfurar Armadura"}
+{"rowId":"4436","text":"Espinheiro"}
+{"rowId":"4438","text":"Refletir Dano"}
+{"rowId":"4699","text":"Despertar-Fúria Selvagem"}
+{"rowId":"11716","text":"Queimadura"}
+{"rowId":"11717","text":"Congelar"}
+{"rowId":"11718","text":"Veneno"}
+{"rowId":"103028","text":"Purificação"}
+{"rowId":"103029","text":"Purificação"}
+{"rowId":"103030","text":"Purificação"}
+{"rowId":"103031","text":"Purificação"}
+{"rowId":"103032","text":"Purificação"}
+{"rowId":"103033","text":"Espinheiro"}
+{"rowId":"103034","text":"Garra"}
+{"rowId":"103035","text":"Espinheiro"}
+{"rowId":"103036","text":"Refletir Dano"}

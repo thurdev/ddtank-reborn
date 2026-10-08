@@ -1,0 +1,3 @@
+4. Khi cho thú cưng ăn hãy kéo thức ăn thú cưng đến ô 
+--- RECORDSEPARATOR ---
+cho ăn, nhấp cho ăn.

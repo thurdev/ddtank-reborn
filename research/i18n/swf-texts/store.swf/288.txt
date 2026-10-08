@@ -1,0 +1,3 @@
+3.Bắt buộc phải là trang bị cùng loại (vd: vòng tay -> vòng tay
+--- RECORDSEPARATOR ---
+nhẫn -> nhẫn ) mới thể đổi cho nhau.

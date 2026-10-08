@@ -1,0 +1,1 @@
+7.Nivel de pet no se puede superar al nivel presente del jugador. 

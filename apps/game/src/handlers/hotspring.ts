@@ -130,8 +130,8 @@ export class HotSpringMgr {
   add(p: GamePlayer, r: SpaRoom): boolean {
     const s = this.st(p);
     if (p.currentRoom || s.room) return false;
-    if (r.count >= r.info.maxCount) { p.sendMessage(0, "Phòng đầy"); return false; }
-    if (s.min <= 0) { p.sendMessage(0, "Bạn đã hết giờ tham gia ngày hôm nay"); return false; }
+    if (r.count >= r.info.maxCount) { p.sendMessage(0, "Sala cheia"); return false; }
+    if (s.min <= 0) { p.sendMessage(0, "Seu tempo de participação de hoje acabou"); return false; }
     r.players.push(p);
     s.room = r;
     s.lastTime = this.ctx.now();
@@ -180,14 +180,14 @@ export class HotSpringMgr {
     const s = this.st(p);
     if (!s.room) { this.stopTimer(p); return 0; }
     if (s.min <= 0) {
-      p.sendMessage(0, "Bạn đã hết giờ tham gia suối nước nóng.");
+      p.sendMessage(0, "Seu tempo nas Termas acabou.");
       this.remove(p);
       return 0;
     }
     let gp = Math.trunc(this.expWithLevel(p.info.Grade) / 10);
     if (gp <= 0) return 0;
     s.min--;
-    if (s.min <= 5) p.sendMessage(0, `Bạn chỉ còn ${s.min} phút.`);
+    if (s.min <= 5) p.sendMessage(0, `Restam apenas ${s.min} minuto(s).`);
     const vip = p.info.VIPLevel ?? 0;
     const mul = vip >= 8 ? 4 : vip > 5 ? 3 : vip >= 3 ? 2 : 1;
     gp *= mul;
@@ -197,8 +197,8 @@ export class HotSpringMgr {
     p.addGold(gold);
     p.addGP(gp, false);
     p.sendMessage(0, vip >= 3
-      ? `VIP [${vip}] bạn nhận được x${mul} kinh nghiêm. Số kinh nghiệm bạn nhận được là ${gp} kinh nghiệm, ${honor} vinh dự, ${giftToken} xu khóa, ${gold} vàng!`
-      : `Bạn nhận được ${gp} kinh nghiệm, ${honor} vinh dự, ${giftToken} xu khóa, ${gold} vàng!`);
+      ? `VIP [${vip}]: você recebe x${mul} de experiência. Você recebeu ${gp} de experiência, ${honor} de honra, ${giftToken} Cupons vinculados e ${gold} de ouro!`
+      : `Você recebeu ${gp} de experiência, ${honor} de honra, ${giftToken} Cupons vinculados e ${gold} de ouro!`);
     const pk = new PacketOut(191, p.id);
     pk.writeByte(7);
     pk.writeInt(s.min);
@@ -332,14 +332,14 @@ export function registerHotSpring(r: HandlerRegistry): SubRouter {
     const m = await hotSpringMgr(ctx);
     if (!m.remove(p)) return;
     const pk = new PacketOut(169);
-    pk.writeString("Đã thoát khỏi suối nước nóng!");
+    pk.writeString("Você saiu das Termas!");
     p.send(pk);
   });
   // 12 HOTSPRING_CMD_B: byte 11 = buy SpaPriRoomContinueTime minutes for SpaAddictionMoneyNeeded Xu
   r.player(12, "HOTSPRING_CMD_B", async (ctx, p, pkt) => {
     if (pkt.readByte() !== 11) return;
     const price = ctx.templates.cfgInt("SpaAddictionMoneyNeeded", 1299);
-    if (p.info.Money < price) return p.sendMessage(0, "Xu của bạn không đủ.");
+    if (p.info.Money < price) return p.sendMessage(0, "Seus Cupons não são suficientes.");
     const mins = ctx.templates.cfgInt("SpaPriRoomContinueTime", 30);
     const m = await hotSpringMgr(ctx);
     p.info.Money -= price;
@@ -349,7 +349,7 @@ export function registerHotSpring(r: HandlerRegistry): SubRouter {
     const pk = new PacketOut(191);
     pk.writeByte(12);
     p.send(pk);
-    p.sendMessage(0, `Gia hạn thành công! bạn bị trừ ${price} Xu và nhận được thêm ${mins} Phút`);
+    p.sendMessage(0, `Renovado com sucesso! Foram descontados ${price} Cupons e você ganhou mais ${mins} minuto(s)`);
   });
   r.player(175, "HOTSPRING_ROOM_CREATE", () => {}, "stub");
   const cmd = hotSpringCmdRouter();

@@ -1,0 +1,3 @@
+3. Chọn Có thể dung luyện sẽ hiện vật phẩm được 
+--- RECORDSEPARATOR ---
+dung luyện.

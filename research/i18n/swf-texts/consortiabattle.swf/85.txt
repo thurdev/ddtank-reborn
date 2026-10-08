@@ -1,0 +1,3 @@
+3. Mỗi thành viên guild sau khi tử vong sẽ tự 
+--- RECORDSEPARATOR ---
+    về điểm hồi sinh.

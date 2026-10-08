@@ -151,7 +151,7 @@ export async function clearStoreBag(ctx: ServerContext, p: GamePlayer): Promise<
   }
   if (left.length) {
     for (const it of left) store.takeOutItem(it);
-    await mailItems(ctx, p, left, ctx.lang.t("StoreClearItemHandler.Mail") === "StoreClearItemHandler.Mail" ? "Vật phẩm trả về từ Tiệm rèn." : ctx.lang.t("StoreClearItemHandler.Mail"), 9);
+    await mailItems(ctx, p, left, ctx.lang.t("StoreClearItemHandler.Mail") === "StoreClearItemHandler.Mail" ? "Itens devolvidos pela Forja." : ctx.lang.t("StoreClearItemHandler.Mail"), 9);
   }
 }
 
@@ -300,7 +300,7 @@ export async function fusion(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, r
     const it = store.getItemAt(i);
     if (it) items.push(it);
   }
-  if (items.length >= 4 && items.some((i) => i.TemplateID !== items[0]!.TemplateID)) return p.sendMessage(1, ctx.lang.t("Tồn tại vật phẩm không cùng loại!"));
+  if (items.length >= 4 && items.some((i) => i.TemplateID !== items[0]!.TemplateID)) return p.sendMessage(1, ctx.lang.t("Há itens de tipos diferentes!"));
   if (items.length !== 4) return p.sendMessage(0, ctx.lang.t("ItemFusionHandler.ItemNotEnough"));
   const valid = items.map((i) => i.ValidDate).sort((a, b) => a - b);
   const minValidItem = items.every((i) => i.ValidDate !== 0) ? valid[0]! : valid[1]!;
@@ -446,7 +446,7 @@ export async function openFiveSixHole(ctx: ServerContext, p: GamePlayer, pkt: GS
   if (p.lastOpenHole + 100 > now) return p.sendMessage(0, ctx.lang.t("GameServer.OpenHole.TooQuickly"));
   p.lastOpenHole = now;
   const item = p.storeBag.getItemAt(slot);
-  if (!item || ![7, 1, 5].includes(item.template.CategoryID)) return p.sendMessage(0, "Không thể đục lỗ.");
+  if (!item || ![7, 1, 5].includes(item.template.CategoryID)) return p.sendMessage(0, "Não é possível abrir o furo.");
   const drill = p.propBag.getItemByTemplateID(0, drillTemplateId);
   if (!drill || drill.Count <= 0 || (hole !== 5 && hole !== 6)) return;
   if (drill.IsBinds && !item.IsBinds) p.storeBag.updateItem(item);
@@ -465,7 +465,7 @@ export async function openFiveSixHole(ctx: ServerContext, p: GamePlayer, pkt: GS
       leveledUp = true;
     }
   } else {
-    p.sendMessage(0, "Cấp mũi khoan không phù hợp để đục lỗ.");
+    p.sendMessage(0, "O nível da broca não é adequado para abrir o furo.");
   }
   p.storeBag.updateItem(item);
   const out = new GSPacket(217, p.id);

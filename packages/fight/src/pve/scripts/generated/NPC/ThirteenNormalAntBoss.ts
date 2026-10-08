@@ -12,14 +12,14 @@ export class ThirteenNormalAntBoss extends ABrain {
             LanguageMgr.GetTranslation("GameServerScript.AI.NPC.SimpleQueenAntAi.msg3")
         ]);
   static ShootChat = __arr([
-            LanguageMgr.GetTranslation("Nén nhẹ mũi tên của ta đây !"),
+            LanguageMgr.GetTranslation("Provem minha flecha!"),
 
-            LanguageMgr.GetTranslation("Hãy nén thử mũi tên băng này đi !")  
+            LanguageMgr.GetTranslation("Provem esta flecha de gelo!")  
         ]);
   static KillPlayerChat = __arr([
-            LanguageMgr.GetTranslation("Nén nhẹ mũi tên của ta đây !"),
+            LanguageMgr.GetTranslation("Provem minha flecha!"),
 
-            LanguageMgr.GetTranslation("Đón nhận mũi tên thần kì !")
+            LanguageMgr.GetTranslation("Recebam a flecha mágica!")
         ]);
   static CallChat = __arr([
             LanguageMgr.GetTranslation("GameServerScript.AI.NPC.SimpleQueenAntAi.msg8"),

@@ -1,0 +1,7 @@
+5. Dát vàng sẽ có thời hạn là 30 ngày. Hết
+--- RECORDSEPARATOR ---
+，
+--- RECORDSEPARATOR ---
+hạn 
+--- RECORDSEPARATOR ---
+vật phẩm sẽ trở về như ban đầu.

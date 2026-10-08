@@ -1,0 +1,5 @@
+6.Cuando la validez de bendición del equipo 
+--- RECORDSEPARATOR ---
+fortalecido +12 está baja, no se puede fundir 
+--- RECORDSEPARATOR ---
+oro.
