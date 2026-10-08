@@ -1,11 +1,13 @@
 /**
- * Ferreiro (Store bag workbench, bag 12): 59 ITEM_STRENGTHEN, 58 ITEM_COMPOSE, 78 ITEM_FUSION (76 preview),
+ * Ferreiro (bancada da Store bag, bag 12): 59 ITEM_STRENGTHEN, 58 ITEM_COMPOSE, 78 ITEM_FUSION (76 preview),
  * 121 ITEM_INLAY, 125 ITEM_EMBED_BACKOUT, 122 CLEAR_STORE_BAG (01 §5, 02 §4).
- * Packets of one client are processed in order, and every handler re-reads the workbench and validates before it
- * mutates, so a repeated packet can never consume or create twice.
+ * No jogo: bancada onde jogador coloca equipamento + pedras para reforçar, compor, incrustar e fundir.
+ * Packets de um mesmo cliente são processados em ordem, e cada handler relê a bancada e valida antes de
+ * alterar, então um pacote repetido nunca consome nem cria duas vezes.
  */
 import { GSPacket } from "@ddt/protocol";
 import { ItemInfo, BagType, templateBagType, type ItemTemplate } from "../game/item.js";
+import type { PlayerInventory } from "../game/inventory.js";
 import type { GamePlayer } from "../game/player.js";
 import type { Templates } from "../db/templates.js";
 import type { ServerContext } from "../session/context.js";
@@ -33,8 +35,12 @@ export interface StrengthenRateInput {
 }
 
 /**
- * ItemStrengthenHandler.cs:41-112: returns floor((stones + luck + guild + vip) * 100), compared against
- * RandomSafe.Next(10000) (success if greater). Luck mirrors the C# exactly: (probability + Property2 / 100 [int div]).
+ * Calcula chance de reforço no jogo: soma força das pedras + bônus sorte/guilda/VIP e compara com sorteio 0-9999.
+ * Contrapartida C#: `ItemStrengthenHandler.cs:41-112` (`StrengthenMgr.RateItems`, `VIPStrengthenEx`).
+ * Pacote: não lê/responde pacote direto; usado por `strengthen` (59 ITEM_STRENGTHEN), que responde `GSPacket(59)`
+ * com `[byte resultado, boolean sucesso]` (`0`=sucesso, `1`=falha).
+ * Exemplo concreto: pedras nível `[2,2]`, `needRate=100`, sem sorte/guilda/VIP → `(3+3)*100/100=600`, `total=60000`
+ * (sempre sucesso pois `60000 > roll` em `0..9999`); sem pedra e `needRate>0` → `total=0` (sempre falha).
  */
 export function strengthenChance(i: StrengthenRateInput): number {
   let probability = 0;
@@ -58,68 +64,95 @@ export function composeChance(stoneQuality: number, luckP2: number | null, smith
   return Math.floor(p * 10) / 10;
 }
 
+/** What a fusion roll can produce: the reward template picked + whether it succeeded. */
 export interface FusionPick { template: ItemTemplate; result: boolean }
 
-/** FusionMgr.Fusion / FusionPreview (candidates at MaxLevel+1, MaxLevel, MaxLevel+2 ordered by rate/need). */
-export function fusionCandidates(items: ItemInfo[], tpl: Templates): { max?: ItemTemplate; min?: ItemTemplate; rate: number; need: number; isBind: boolean } | null {
-  const types = items.map((i) => i.template.FusionType).sort((a, b) => a - b);
-  const key = types.join("");
-  const f = tpl.fusions.get(key);
-  let maxLevel = 0, rate = 0, need = 0, isBind = false;
-  for (const it of items) {
-    maxLevel = Math.max(maxLevel, it.template.Level);
-    rate += it.template.FusionRate;
-    need += it.template.FusionNeedRate;
-    if (it.IsBinds) isBind = true;
+/**
+ * Finds which rewards the 4 placed stones can produce.
+ *
+ * Como funciona (FusionMgr.cs): junta o FusionType das 4 pedras numa chave
+ * (ex. tipos [3,3,3,3] → chave "3333"), busca a receita em Item_Fusion e soma
+ * FusionRate / FusionNeedRate das pedras. Candidatos: item de recompensa no nível
+ * da pedra mais forte +1, no mesmo nível e +2 (só os que existirem no banco).
+ * `max` = melhor prêmio (chance boa), `min` = prêmio de consolação.
+ *
+ * @param placedStones 4 pedras dos slots 1-4 da storeBag (mesmo TemplateID)
+ * @param templates acesso às tabelas (Item_Fusion, itens)
+ * @returns null se não há receita pra essa combinação
+ */
+export function fusionCandidates(placedStones: ItemInfo[], templates: Templates): { max?: ItemTemplate; min?: ItemTemplate; rate: number; need: number; isBind: boolean } | null {
+  const sortedFusionTypes = placedStones.map((stone) => stone.template.FusionType).sort((a, b) => a - b);
+  const recipeKey = sortedFusionTypes.join("");
+  const recipe = templates.fusions.get(recipeKey);
+  let highestStoneLevel = 0, totalFusionRate = 0, totalNeedRate = 0, anyStoneBound = false;
+  for (const stone of placedStones) {
+    highestStoneLevel = Math.max(highestStoneLevel, stone.template.Level);
+    totalFusionRate += stone.template.FusionRate;
+    totalNeedRate += stone.template.FusionNeedRate;
+    if (stone.IsBinds) anyStoneBound = true;
   }
-  if (!f) return null;
-  const list = [tpl.goodsByFusionTypeAndLevel(f.Reward, maxLevel + 1), tpl.goodsByFusionTypeAndLevel(f.Reward, maxLevel), tpl.goodsByFusionTypeAndLevel(f.Reward, maxLevel + 2)]
-    .filter((t): t is ItemTemplate => !!t);
-  const r = (t: ItemTemplate) => rate / t.FusionNeedRate;
-  const max = list.filter((t) => r(t) <= 1.1).sort((a, b) => r(b) - r(a))[0];
-  const min = list.filter((t) => r(t) > 1.1).sort((a, b) => r(a) - r(b))[0];
-  return { max, min, rate, need, isBind };
+  if (!recipe) return null;
+  const rewardOptions = [templates.goodsByFusionTypeAndLevel(recipe.Reward, highestStoneLevel + 1), templates.goodsByFusionTypeAndLevel(recipe.Reward, highestStoneLevel), templates.goodsByFusionTypeAndLevel(recipe.Reward, highestStoneLevel + 2)]
+    .filter((reward): reward is ItemTemplate => !!reward);
+  // rateRatio = força das pedras / exigência do prêmio. <= 1.1: prêmio bom alcançável.
+  const rateRatio = (reward: ItemTemplate) => totalFusionRate / reward.FusionNeedRate;
+  const bestReward = rewardOptions.filter((reward) => rateRatio(reward) <= 1.1).sort((a, b) => rateRatio(b) - rateRatio(a))[0];
+  const consolationReward = rewardOptions.filter((reward) => rateRatio(reward) > 1.1).sort((a, b) => rateRatio(a) - rateRatio(b))[0];
+  return { max: bestReward, min: consolationReward, rate: totalFusionRate, need: totalNeedRate, isBind: anyStoneBound };
 }
 
-/** FusionMgr.FusionPreview: template -> success rate %. */
-export function fusionPreview(items: ItemInfo[], tpl: Templates): { rates: Map<number, number>; isBind: boolean } {
-  const c = fusionCandidates(items, tpl);
-  const rates = new Map<number, number>();
-  if (!c) return { rates, isBind: items.some((i) => i.IsBinds) };
-  if (c.max && !c.min) rates.set(c.max.TemplateID, (100 * c.rate) / c.need);
-  if (c.max && c.min) {
-    const tr = c.max.Level - c.min.Level === 2 ? (100 * c.rate * 0.6) / c.max.FusionNeedRate : (100 * c.rate) / c.max.FusionNeedRate;
-    rates.set(c.max.TemplateID, tr);
-    rates.set(c.min.TemplateID, 100 - tr);
+/**
+ * Preview da fusão (o que o cliente mostra antes de confirmar).
+ * FusionMgr.FusionPreview: template do prêmio -> chance % de sair.
+ * Se só há `max`: chance direta. Se há os dois: divide 100% entre eles.
+ */
+export function fusionPreview(placedStones: ItemInfo[], templates: Templates): { rates: Map<number, number>; isBind: boolean } {
+  const candidates = fusionCandidates(placedStones, templates);
+  const previewRates = new Map<number, number>();
+  if (!candidates) return { rates: previewRates, isBind: placedStones.some((stone) => stone.IsBinds) };
+  if (candidates.max && !candidates.min) previewRates.set(candidates.max.TemplateID, (100 * candidates.rate) / candidates.need);
+  if (candidates.max && candidates.min) {
+    const topRewardChance = candidates.max.Level - candidates.min.Level === 2 ? (100 * candidates.rate * 0.6) / candidates.max.FusionNeedRate : (100 * candidates.rate) / candidates.max.FusionNeedRate;
+    previewRates.set(candidates.max.TemplateID, topRewardChance);
+    previewRates.set(candidates.min.TemplateID, 100 - topRewardChance);
   }
-  if (!c.max && c.min) rates.set(c.min.TemplateID, (100 * c.rate) / c.need);
-  return { rates, isBind: c.isBind };
+  if (!candidates.max && candidates.min) previewRates.set(candidates.min.TemplateID, (100 * candidates.rate) / candidates.need);
+  return { rates: previewRates, isBind: candidates.isBind };
 }
 
-/** FusionMgr.Fusion (FusionMgr.cs): picked template and success flag. */
-export function fusionRoll(items: ItemInfo[], tpl: Templates, rnd = Math.random): FusionPick | null {
-  const c = fusionCandidates(items, tpl);
-  if (!c) return null;
-  let pick: ItemTemplate | undefined;
-  let result = false;
-  if (c.max && !c.min) {
-    pick = c.max;
-    if (Math.floor(rnd() * c.need) < c.rate) result = true;
+/**
+ * Rola a fusão (FusionMgr.Fusion em FusionMgr.cs): sorteia o prêmio e se deu bom.
+ * Trava anti-frustração do original: se o prêmio sorteado já está na bancada, falha.
+ */
+export function fusionRoll(placedStones: ItemInfo[], templates: Templates, rnd = Math.random): FusionPick | null {
+  const candidates = fusionCandidates(placedStones, templates);
+  if (!candidates) return null;
+  let pickedReward: ItemTemplate | undefined;
+  let succeeded = false;
+  if (candidates.max && !candidates.min) {
+    pickedReward = candidates.max;
+    if (Math.floor(rnd() * candidates.need) < candidates.rate) succeeded = true;
   }
-  if (c.max && c.min) {
-    if ((100 * c.rate) / c.max.FusionNeedRate > Math.floor(rnd() * 100)) pick = c.max;
-    else pick = c.min;
-    result = true;
+  if (candidates.max && candidates.min) {
+    if ((100 * candidates.rate) / candidates.max.FusionNeedRate > Math.floor(rnd() * 100)) pickedReward = candidates.max;
+    else pickedReward = candidates.min;
+    succeeded = true;
   }
-  if (!c.max && c.min) {
-    pick = c.min;
-    if (Math.floor(rnd() * c.need) < c.rate) result = true;
+  if (!candidates.max && candidates.min) {
+    pickedReward = candidates.min;
+    if (Math.floor(rnd() * candidates.need) < candidates.rate) succeeded = true;
   }
-  if (!pick) return null;
-  if (result && items.some((i) => i.TemplateID === pick!.TemplateID)) result = false;
-  return { template: pick, result };
+  if (!pickedReward) return null;
+  if (succeeded && placedStones.some((stone) => stone.TemplateID === pickedReward!.TemplateID)) succeeded = false;
+  return { template: pickedReward, result: succeeded };
 }
 
+/**
+ * Trava de senha da bolsa no jogo: bloqueia uso da forja enquanto `HasBagPassword && IsLocked`.
+ * Contrapartida C#: checagem `HasBagPassword/IsLocked` usada pelos handlers de forja antes de mexer na `StoreBag`.
+ * Pacote: não lê nem responde pacote; só envia mensagem `0` com string exata `"Bag.Locked"` e retorna `true`.
+ * Exemplo concreto: jogador com senha ativa e bolsa trancada tenta `compose` → recebe `"Bag.Locked"` e nada é consumido.
+ */
 function bagLocked(ctx: ServerContext, p: GamePlayer): boolean {
   if (p.info.HasBagPassword && p.info.IsLocked) {
     p.sendMessage(0, ctx.lang.t("Bag.Locked"));
@@ -133,7 +166,20 @@ function isWarrior(p: GamePlayer): boolean {
   return (p.extra as { coupleBossBoxNum?: number } | null)?.coupleBossBoxNum === 9;
 }
 
-/** GamePlayer.ClearStoreBag (GamePlayer.cs:2205): workbench items back to Prop/Equip bag, rest by mail. */
+/**
+ * Esvazia bancada da forja no jogo: devolve cada item da `storeBag` para `propBag`/`equipBag`, resto vai por correio.
+ * Contrapartida C#: `GamePlayer.ClearStoreBag` (`GamePlayer.cs:2205`) + `StoreClearItemHandler` (122 CLEAR_STORE_BAG).
+ * Pacote: não lê pacote (122 não tem corpo); sem resposta de pacote, só move itens e envia correio com string exata
+ * `"StoreClearItemHandler.Mail"` (ou `"Itens devolvidos pela Forja."` como fallback).
+ * Exemplo concreto: bancada com espada + pedra e `propBag` cheia → espada volta para `equipBag`, pedra vai por correio.
+ * Como lê esse código (cada variável):
+ * - `store`: bancada da forja (`p.storeBag`, bag 12, slots 0-19); origem de todos os itens.
+ * - `left`: itens sem espaço nas bolsas; vão por correio via `mailItems`.
+ * - `it`: item atual da bancada em `store.getItems()`; contém `template`, `Place`, `BagType`, `Count`.
+ * - `toProp`: `true` quando `templateBagType(it.template) === BagType.PropBag`; decide bolsa destino.
+ * - `dest`: bolsa destino (`p.propBag` ou `p.equipBag`).
+ * - `place`: slot livre no destino (`findFirstEmptySlot()`, equipamento a partir de 31); `-1` = sem espaço.
+ */
 export async function clearStoreBag(ctx: ServerContext, p: GamePlayer): Promise<void> {
   const store = p.storeBag;
   const left: ItemInfo[] = [];
@@ -156,7 +202,12 @@ export async function clearStoreBag(ctx: ServerContext, p: GamePlayer): Promise<
   }
 }
 
-/** Guild smith level for strengthen (0 when not used / not allowed — the C# then only showed a message). */
+/**
+ * Bônus de ferreiro da guilda no jogo: +10% por nível na taxa de reforço/composição quando há permissão e riqueza.
+ * Contrapartida C#: `ItemStrengthenHandler.cs:88-103` (`Equip_Control` tipo 2, `smithBonusLevel`, `personalRiches`).
+ * Pacote: não lê/responde pacote; recebe `useGuild` (byte boolean lido pelo chamador) e retorna nível (0 = sem bônus).
+ * Exemplo concreto: `useGuild=true`, guilda com permissão e `SmithLevel=2` → retorna `2` (+20%); sem guilda e negado → mensagem exata `"ItemStrengthenHandler.FailbyPermission"` e nível 0.
+ */
 async function guildSmith(ctx: ServerContext, p: GamePlayer, useGuild: boolean): Promise<number> {
   if (!useGuild) return 0;
   const th = p.info.ConsortiaID ? await getEquipControl(ctx.db.db, p.info.ConsortiaID, 0, 2) : undefined;
@@ -165,7 +216,29 @@ async function guildSmith(ctx: ServerContext, p: GamePlayer, useGuild: boolean):
   return sb.level;
 }
 
-/** ItemStrengthenHandler.cs (59). */
+/**
+ * Reforço no jogo: sobe `StrengthenLevel` do equipamento do slot 5 da bancada consumindo pedras dos slots 0-2.
+ * Contrapartida C#: `ItemStrengthenHandler.cs` (pacote 59 ITEM_STRENGTHEN).
+ * Pacote que lê: `boolean useGuild` (usa bônus de ferreiro da guilda). Resposta `GSPacket(59)`: `[byte resultado, boolean sucesso]` (`0`+`true`=sucesso, `1`+`false`=falha).
+ * Exemplo concreto: espada `+3` no slot 5 + 2 pedras nível 2 nos slots 0-1 → consome 1 unidade de cada pedra, sorteia `chance > roll(0-9999)`; sucesso vira `+4`, falha sem pedra divina quebra ou regride item nível 3.
+ * Como lê esse código (cada variável):
+ * - `useGuild`: `boolean` lido do pacote; `true` = aplica bônus de ferreiro da guilda via `guildSmith`.
+ * - `store`: bancada da forja (`p.storeBag`, bag 12); slots 0-2 pedras, 3 divina, 4 sorte, 5 equipamento.
+ * - `item`: equipamento em `store.getItemAt(5)`; contém `template.CanStrengthen`, `Count`, `StrengthenLevel`, `IsBinds`.
+ * - `stones`: pedras de reforço (`CategoryID===11` e `Property1===2|35`) coletadas dos slots 0-2.
+ * - `s`: número do slot varrido em `[0,1,2]`; `st`: item encontrado nesse slot.
+ * - `luckIt`: item cru do slot 4; `luck`: pedra da sorte validada (`CategoryID===11`, `Property1===3`) ou `null`.
+ * - `godIt`: item cru do slot 3; `god`: pedra divina validada (`CategoryID===11`, `Property1===7`) ou `null` (sem ela, falha quebra/regride).
+ * - `needRate`: exigência da tabela `strengthenNeedRate(StrengthenLevel, CategoryID)`; denominador da chance.
+ * - `smith`: nível de ferreiro da guilda retornado por `guildSmith` (0 = sem bônus).
+ * - `chance`: número de `strengthenChance(...)` comparado com `roll`; sucesso quando `chance > roll`.
+ * - `original`: referência ao `item` antes de possível troca de `TemplateID` (arma re-templada vira outra linha).
+ * - `isBinds`: `true` quando equipamento, pedras, sorte ou divina têm `IsBinds`; resultado herda amarração.
+ * - `out`: `GSPacket(59, p.id)` de resposta com `[byte, boolean]`.
+ * - `roll`: sorteio `Math.floor(rnd()*10000)` (conta guerreira `isWarrior` força `0` = sucesso garantido).
+ * - `sg`: linha de `findStrengthenGoods/findRealStrengthenGoods` com `GainEquip` (evolução/devolução da arma).
+ * - `t`: novo `ItemTemplate` de `sg.GainEquip` usado em `ItemInfo.cloneFromTemplate`.
+ */
 export async function strengthen(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd = Math.random): Promise<void> {
   const useGuild = pkt.readBoolean();
   const store = p.storeBag;
@@ -240,7 +313,26 @@ export async function strengthen(ctx: ServerContext, p: GamePlayer, pkt: GSPacke
   p.updatePlayerProperties();
 }
 
-/** ItemComposeHandler.cs (58). */
+/**
+ * Composição no jogo: grava atributo (`AttackCompose`/`DefendCompose`/`AgilityCompose`/`LuckCompose`) no equipamento.
+ * Contrapartida C#: `ItemComposeHandler.cs` (pacote 58 ITEM_COMPOSE).
+ * Pacote que lê: `boolean useGuild`; usa bancada `storeBag` (slot 1 equipamento, slot 2 pedra, slot 0 sorte) e cobra `PRICE_COMPOSE_GOLD` (padrão 1600). Resposta `GSPacket(58)`: `[byte ok]` (`0`=sucesso, `1`=falha).
+ * Exemplo concreto: colar no slot 1 + pedra `Property3=1/Property4=50` no slot 2, `prob=42.5 > rand=10` → `AttackCompose=50`, consome pedra + 1600 ouro, responde byte `0`.
+ * Como lê esse código (cada variável):
+ * - `mustGold`: custo em ouro lido de `cfgInt("PRICE_COMPOSE_GOLD", 1600)`.
+ * - `useGuild`: `boolean` do pacote; `true` = tenta bônus de ferreiro da guilda.
+ * - `store`: bancada da forja (`p.storeBag`); slots 1 equipamento, 2 pedra, 0 sorte.
+ * - `item`: equipamento em `store.getItemAt(1)`; contém `CanCompose` e campos `*Compose`.
+ * - `stone`: pedra de composição em `store.getItemAt(2)` (`CategoryID===11`, `Property1===1`); `Property3` = atributo, `Property4` = valor.
+ * - `luckIt`: item cru do slot 0; `luck`: pedra da sorte validada (`CategoryID===11`, `Property1===3`) ou `null`.
+ * - `isBinds`: amarração resultante (`item.IsBinds || stone.IsBinds || luck.IsBinds`).
+ * - `smith`: nível de ferreiro da guilda (`0` sem `useGuild`); multiplica taxa por `(1+0.1*SmithLevel)`.
+ * - `th`: controle `Equip_Control` da guilda (`getEquipControl(...,0,2)`); `sb`: resultado `smithBonusLevel` com `denied/level`.
+ * - `prob`: chance de `composeChance(Quality, luck.Property2, smith)`; `rand`: sorteio `Math.floor(rnd()*100)`.
+ * - `key`: campo alterado (`AttackCompose|DefendCompose|AgilityCompose|LuckCompose`) via `stone.Property3 (1|2|3|4)`.
+ * - `ok`: `1`=falha, `0`=sucesso (`prob > rand` grava `item[key]=stone.Property4`).
+ * - `out`: `GSPacket(58, p.id)` de resposta com `writeByte(ok)`.
+ */
 export async function compose(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd = Math.random): Promise<void> {
   const mustGold = ctx.templates.cfgInt("PRICE_COMPOSE_GOLD", 1600);
   if (bagLocked(ctx, p)) return;
@@ -291,72 +383,142 @@ export async function compose(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, 
   p.updatePlayerProperties();
 }
 
-/** ItemFusionHandler.cs (78): byte op 0 = preview (76), 1 = fuse (400 gold). */
-export async function fusion(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd = Math.random): Promise<void> {
-  const op = pkt.readByte();
-  if (bagLocked(ctx, p)) return;
-  const store = p.storeBag;
-  const items: ItemInfo[] = [];
-  for (let i = 1; i <= 4; i++) {
-    const it = store.getItemAt(i);
-    if (it) items.push(it);
+/**
+ * Reborn auto-split da fusão — por que existe:
+ * o cliente Flash não tem seletor de quantidade: arrastar a pedra joga a pilha
+ * INTEIRA num slot só, e a fusão precisa de 1 unidade em cada slot 1-4.
+ * Então antes de validar, o servidor espalha 1 unidade por slot vazio a partir
+ * de pilhas do mesmo tipo da primeira preenchida. Resto fica no slot de origem.
+ * Ex: slot1 com 6 pedras → vira 3/1/1/1 e funde direto. Tipos mistos continuam
+ * barrados pela checagem normal abaixo. Usa `moveItem` (mesmo split do arrastar
+ * manual, persiste via dirty/commit como qualquer move).
+ *
+ * Como lê esse código (cada variável):
+ * - workbench: a storeBag do jogador (bancada da forja, slots 0-19; fusão usa 1-4).
+ *   Vem de `player.storeBag` (GamePlayer.cs: bancada = StoreBag).
+ * - pass: nº da volta (0..2). Cada volta preenche 1 slot; faltam no máx 3.
+ * - filledSlots: nºs dos slots 1-4 ocupados AGORA. Ex: [1] = só o slot 1 tem pedra.
+ * - firstStone: ItemInfo do 1º slot ocupado — dita o tipo permitido nas outras vagas.
+ *   ItemInfo = 1 linha de item no banco (Sys_Users_Goods): TemplateID (o quê),
+ *   Count (quantas unidades na pilha), Place (slot), IsBinds, ValidDate.
+ * - donorStack: pilha com Count > 1 do MESMO TemplateID da firstStone —
+ *   é de onde sai 1 unidade. null = nada pra espalhar, sai.
+ * - emptySlot: nº do slot vazio que vai receber a unidade. undefined = bancada
+ *   cheia, sai.
+ * - donorStack.Place: posição atual da pilha doadora (moveItem precisa origem→destino).
+ *
+ * @param workbench a storeBag (bancada da forja, slots 0-19; fusão usa 1-4)
+ */
+export function autoSplitFusionSlots(workbench: PlayerInventory): void {
+  for (let pass = 0; pass < 3; pass++) {
+    const filledSlots = [1, 2, 3, 4].filter((slot) => workbench.getItemAt(slot));
+    if (filledSlots.length >= 4) return;
+    const firstStone = workbench.getItemAt(filledSlots[0] ?? 1);
+    const donorStack = [1, 2, 3, 4]
+      .map((slot) => workbench.getItemAt(slot))
+      .find((stone) => stone && stone.Count > 1 && (!firstStone || stone.TemplateID === firstStone.TemplateID));
+    const emptySlot = [1, 2, 3, 4].find((slot) => !workbench.getItemAt(slot));
+    if (!donorStack || emptySlot === undefined) return;
+    if (!workbench.moveItem(donorStack.Place, emptySlot, 1)) return;
   }
-  if (items.length >= 4 && items.some((i) => i.TemplateID !== items[0]!.TemplateID)) return p.sendMessage(1, ctx.lang.t("Há itens de tipos diferentes!"));
-  if (items.length !== 4) return p.sendMessage(0, ctx.lang.t("ItemFusionHandler.ItemNotEnough"));
-  const valid = items.map((i) => i.ValidDate).sort((a, b) => a - b);
-  const minValidItem = items.every((i) => i.ValidDate !== 0) ? valid[0]! : valid[1]!;
-  let minValid = minValidItem;
-  if (op === 0) {
-    const pv = fusionPreview(items, ctx.templates);
-    const roll = fusionCandidates(items, ctx.templates);
-    let isBind = pv.isBind;
-    const anyReward = roll?.max ?? roll?.min;
-    if (anyReward && (anyReward.CategoryID === 7 || anyReward.CategoryID === 17)) { minValid = 7; isBind = true; }
-    if (pv.rates.size === 0) return;
-    const out = new GSPacket(76, p.id);
-    out.writeInt(pv.rates.size);
-    for (const [tplId, rate] of pv.rates) {
-      out.writeInt(tplId); out.writeInt(minValid); out.writeInt(Math.trunc(rate > 100 ? 100 : rate >= 0 ? rate : 0));
-    }
-    out.writeBoolean(isBind);
-    p.send(out);
-    return;
-  }
-  if (p.info.Gold < 400) return p.sendMessage(1, ctx.lang.t("ItemFusionHandler.NoMoney"));
-  const pick = fusionRoll(items, ctx.templates, rnd);
-  if (!pick) return p.sendMessage(0, ctx.lang.t("ItemFusionHandler.NoCondition"));
-  let isBind = items.some((i) => i.IsBinds);
-  if (pick.template.CategoryID === 7 || pick.template.CategoryID === 17) { minValid = 7; isBind = true; }
-  const mail: ItemInfo[] = [];
-  store.beginChanges();
-  try {
-    const prev = store.getItemAt(0);
-    if (prev) {
-      store.takeOutItem(prev);
-      const dest = p.getItemInventory(prev.template);
-      if (!dest || !(dest.stackItemToAnother(prev) || dest.addItem(prev))) mail.push(prev);
-    }
-    p.removeGold(400);
-    for (const it of items) store.removeCountFromStack(it, 1);
-    if (pick.result) {
-      if (templateBagType(pick.template) === BagType.EquipBag) minValid = minValidItem;
-      const res = ItemInfo.createFromTemplate(pick.template, 1, 105, ctx.now());
-      res.IsBinds = isBind;
-      res.ValidDate = minValid;
-      p.questInv?.onItemFusion(pick.template.FusionType);
-      p.sendMessage(0, ctx.lang.t("ItemFusionHandler.Succeed1") + (pick.template.Name ?? ""));
-      if (!store.addItemTo(res, 0)) mail.push(res);
-    } else p.sendMessage(0, ctx.lang.t("ItemFusionHandler.Failed"));
-  } finally {
-    store.commitChanges();
-  }
-  if (mail.length) await mailItems(ctx, p, mail);
-  const out = new GSPacket(78, p.id);
-  out.writeBoolean(pick.result);
-  p.send(out);
 }
 
-/** ItemInlayHandle.cs (121): gem (Property1 31) into a hole whose type equals gem Property2. */
+/**
+ * Fusão (ItemFusionHandler.cs, pacote 78; preview = pacote 76).
+ *
+ * Fluxo no jogo: jogador arrasta 4 pedras iguais pros slots 1-4 da bancada
+ * (StoreIIFusionBG.as no cliente) e aperta fundir. Cada tentativa consome
+ * 1 unidade de cada slot + 400 ouro, e o resultado cai no slot 0
+ * (o que estava no 0 volta pra bolsa ou vai pro correio).
+ *
+ * Pacote que chega: 1 byte `operation` (0 = só mostra preview, 1 = funde).
+ * Resposta preview (76): quantidade de prêmios, pra cada um
+ * [templateID, dias de validade, chance%] + se amarra (bind).
+ * Resposta fusão (78): 1 boolean (deu bom ou não) + mensagem de chat.
+ */
+export async function fusion(ctx: ServerContext, player: GamePlayer, pkt: GSPacket, rnd = Math.random): Promise<void> {
+  const operation = pkt.readByte();
+  if (bagLocked(ctx, player)) return;
+  const workbench = player.storeBag;
+  autoSplitFusionSlots(workbench);
+  const placedStones: ItemInfo[] = [];
+  for (let slot = 1; slot <= 4; slot++) {
+    const stone = workbench.getItemAt(slot);
+    if (stone) placedStones.push(stone);
+  }
+  if (placedStones.length >= 4 && placedStones.some((stone) => stone.TemplateID !== placedStones[0]!.TemplateID)) return player.sendMessage(1, ctx.lang.t("Há itens de tipos diferentes!"));
+  if (placedStones.length !== 4) return player.sendMessage(0, ctx.lang.t("ItemFusionHandler.ItemNotEnough"));
+  const sortedExpiries = placedStones.map((stone) => stone.ValidDate).sort((a, b) => a - b);
+  // Validade do prêmio: menor das 4 (0 = permanente; se alguma é permanente, usa a 2ª menor).
+  const shortestExpiry = placedStones.every((stone) => stone.ValidDate !== 0) ? sortedExpiries[0]! : sortedExpiries[1]!;
+  let rewardExpiryDays = shortestExpiry;
+  if (operation === 0) {
+    const preview = fusionPreview(placedStones, ctx.templates);
+    const candidates = fusionCandidates(placedStones, ctx.templates);
+    let rewardBound = preview.isBind;
+    const anyReward = candidates?.max ?? candidates?.min;
+    if (anyReward && (anyReward.CategoryID === 7 || anyReward.CategoryID === 17)) { rewardExpiryDays = 7; rewardBound = true; }
+    if (preview.rates.size === 0) return;
+    const out = new GSPacket(76, player.id);
+    out.writeInt(preview.rates.size);
+    for (const [rewardTemplateId, chancePct] of preview.rates) {
+      out.writeInt(rewardTemplateId); out.writeInt(rewardExpiryDays); out.writeInt(Math.trunc(chancePct > 100 ? 100 : chancePct >= 0 ? chancePct : 0));
+    }
+    out.writeBoolean(rewardBound);
+    player.send(out);
+    return;
+  }
+  if (player.info.Gold < 400) return player.sendMessage(1, ctx.lang.t("ItemFusionHandler.NoMoney"));
+  const rolled = fusionRoll(placedStones, ctx.templates, rnd);
+  if (!rolled) return player.sendMessage(0, ctx.lang.t("ItemFusionHandler.NoCondition"));
+  let rewardBound = placedStones.some((stone) => stone.IsBinds);
+  if (rolled.template.CategoryID === 7 || rolled.template.CategoryID === 17) { rewardExpiryDays = 7; rewardBound = true; }
+  const overflowToMail: ItemInfo[] = [];
+  workbench.beginChanges();
+  try {
+    const previousResult = workbench.getItemAt(0);
+    if (previousResult) {
+      workbench.takeOutItem(previousResult);
+      const homeBag = player.getItemInventory(previousResult.template);
+      if (!homeBag || !(homeBag.stackItemToAnother(previousResult) || homeBag.addItem(previousResult))) overflowToMail.push(previousResult);
+    }
+    player.removeGold(400);
+    for (const stone of placedStones) workbench.removeCountFromStack(stone, 1);
+    if (rolled.result) {
+      if (templateBagType(rolled.template) === BagType.EquipBag) rewardExpiryDays = shortestExpiry;
+      const reward = ItemInfo.createFromTemplate(rolled.template, 1, 105, ctx.now());
+      reward.IsBinds = rewardBound;
+      reward.ValidDate = rewardExpiryDays;
+      player.questInv?.onItemFusion(rolled.template.FusionType);
+      player.sendMessage(0, ctx.lang.t("ItemFusionHandler.Succeed1") + (rolled.template.Name ?? ""));
+      if (!workbench.addItemTo(reward, 0)) overflowToMail.push(reward);
+    } else player.sendMessage(0, ctx.lang.t("ItemFusionHandler.Failed"));
+  } finally {
+    workbench.commitChanges();
+  }
+  if (overflowToMail.length) await mailItems(ctx, player, overflowToMail);
+  const done = new GSPacket(78, player.id);
+  done.writeBoolean(rolled.result);
+  player.send(done);
+}
+
+/**
+ * Incrustação no jogo: coloca joia (`Property1===31`) num furo cujo tipo (`holeType`) equals `gem.Property2`.
+ * Contrapartida C#: `ItemInlayHandle.cs` (pacote 121 ITEM_INLAY).
+ * Pacote que lê: `[int itemBag, int itemPlace, int hole(1-6), int gemBag, int gemPlace]`; cobra `InlayGoldPrice` (padrão 2000) mesmo quando furo não combina. Resposta `GSPacket(121)`: `writeByte(1)` na falha, `writeInt(0)` no sucesso.
+ * Exemplo concreto: arma com furo 1 do tipo 5 + joia `Property1=31/Property2=5` → `Hole1=TemplateID` da joia, joia consumida, ouro -2000; joia de tipo errado → ouro cobrado mesmo assim, mensagem exata `"GameServer.InlayItem.Msg1"`.
+ * Como lê esse código (cada variável):
+ * - `itemBag`: id da bolsa do equipamento lido do pacote; `itemPlace`: slot do equipamento nessa bolsa.
+ * - `hole`: número do furo (1-6) lido do pacote; fora disso responde `1` + `"ItemInlayHandle.NoPlace"`.
+ * - `gemBag`: id da bolsa da joia lido do pacote; `gemPlace`: slot da joia nessa bolsa.
+ * - `ib`: inventário do equipamento (`p.getInventory(itemBag)`); `gb`: inventário da joia (`p.getInventory(gemBag)`).
+ * - `item`: equipamento em `ib.getItemAt(itemPlace)`; contém campos `Hole1..Hole6` e `holeType(hole)`.
+ * - `gem`: joia em `gb.getItemAt(gemPlace)`; válida quando `template.Property1===31`, tipo em `template.Property2`.
+ * - `price`: custo `cfgInt("InlayGoldPrice", 2000)`; exige `p.info.Gold > price`, senão `"UserBuyItemHandler.NoMoney"`.
+ * - `out`: `GSPacket(121, p.id)` de resposta.
+ * - `key`: campo do furo (`Hole${hole}`); `ok`: `holeType(hole)===gem.Property2 && item[key]>=0` (furo aberto).
+ * - `back`: joias antigas dos furos 5/6 devolvidas via `propBag` ou correio; `t`: `ItemTemplate` da joia antiga; `old`: nova `ItemInfo` amarrada criada dessa joia.
+ */
 export async function inlay(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): Promise<void> {
   const itemBag = pkt.readInt(), itemPlace = pkt.readInt(), hole = pkt.readInt(), gemBag = pkt.readInt(), gemPlace = pkt.readInt();
   const ib = p.getInventory(itemBag), gb = p.getInventory(gemBag);
