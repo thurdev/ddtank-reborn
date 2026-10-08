@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { eq } from "drizzle-orm";
 import { player } from "@ddt/db";
 import type { GameServer } from "../src/server.js";
-import { loggedIn, sharedDb, startServer } from "./helpers.js";
+import { loggedIn, sharedDb, startServer, type FakeClient } from "./helpers.js";
 
 let server: GameServer;
 beforeAll(async () => {
@@ -12,10 +12,20 @@ afterAll(async () => {
   await server?.stop();
 });
 
+/**
+ * O burst de login termina com 95 (necklace) + 107/5 (invite state). Como o
+ * 107 chega DEPOIS do 95, consome ele antes de marcar o ponto de partida —
+ * senão o primeiro 107 lido é o do login, não o da resposta testada.
+ */
+async function freshMark(c: FakeClient): Promise<number> {
+  const login = await c.code(107, undefined);
+  expect(login.pkt.readInt()).toBe(5); // sub echo do login
+  return c.mark();
+}
+
 describe("107 INVITE_FRIEND (Reborn impl — 4.1 base has no server logic)", () => {
   it("login burst carries 107/5 invite state", async () => {
     const { c, player: pl } = await loggedIn(server);
-    // 107/5 arrives right after 95 necklace (login.ts), i.e. after loggedIn resolves.
     const login = await c.code(107, undefined);
     expect(login.pkt.readInt()).toBe(5);
     expect(login.pkt.readString()).toBe(String(pl().id));
@@ -25,7 +35,6 @@ describe("107 INVITE_FRIEND (Reborn impl — 4.1 base has no server logic)", () 
     expect(login.pkt.readInt()).toBe(1); // serverID
     expect(pl().id).toBeGreaterThan(0);
     const m = c.mark();
-    // re-request view state
     c.out(107, (x) => x.writeInt(2));
     const r = await c.code(107, undefined, m);
     expect(r.pkt.readInt()).toBe(2); // sub echo
@@ -37,6 +46,7 @@ describe("107 INVITE_FRIEND (Reborn impl — 4.1 base has no server logic)", () 
 
   it("FRIENDREWARD records nick once and pushes FLUSHFRIENDNUM", async () => {
     const { c } = await loggedIn(server);
+    await freshMark(c);
     let m = c.mark();
     c.out(107, (x) => {
       x.writeInt(1);
@@ -61,13 +71,16 @@ describe("107 INVITE_FRIEND (Reborn impl — 4.1 base has no server logic)", () 
 
   it("GETREWARD grants tier gold once (claimOnce idempotent)", async () => {
     const { c, player: pl } = await loggedIn(server);
+    let m = await freshMark(c);
     c.out(107, (x) => {
       x.writeInt(1);
       x.writeUTF("AmigoOuro");
     });
-    await c.code(107, undefined);
+    const pre = await c.code(107, undefined, m);
+    const preSub = pre.pkt.readInt();
+    if (preSub !== 3) throw new Error(`expected FLUSH(3) before GETREWARD, got sub=${preSub}`);
     const gold = pl().info.Gold;
-    let m = c.mark();
+    m = c.mark();
     c.out(107, (x) => {
       x.writeInt(4);
       x.writeInt(1); // tier 1 (needs >=1 invite)
@@ -103,6 +116,7 @@ describe("107 INVITE_FRIEND (Reborn impl — 4.1 base has no server logic)", () 
 
   it("FBCLICK echoes server date", async () => {
     const { c } = await loggedIn(server);
+    await freshMark(c);
     const m = c.mark();
     c.out(107, (x) => x.writeInt(6));
     const r = await c.code(107, undefined, m);
@@ -116,6 +130,7 @@ describe("107 INVITE_FRIEND (Reborn impl — 4.1 base has no server logic)", () 
 describe("40 SNS_MSG_RECEIVE + 223 FRIEND_BRITHDAY", () => {
   it("40: fire-and-forget, no reply, connection stays alive", async () => {
     const { c } = await loggedIn(server);
+    await freshMark(c);
     const m = c.mark();
     c.out(40, (x) => x.writeInt(4));
     c.out(107, (x) => x.writeInt(2)); // next packet still answered
@@ -127,6 +142,7 @@ describe("40 SNS_MSG_RECEIVE + 223 FRIEND_BRITHDAY", () => {
 
   it("223: birthday mail type 60 + 117/1 refresh", async () => {
     const { c, ch } = await loggedIn(server);
+    await freshMark(c);
     const m = c.mark();
     c.out(223, (x) => {
       x.writeInt(1);

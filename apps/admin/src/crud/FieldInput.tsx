@@ -1,8 +1,9 @@
-import { useRef, useState, type KeyboardEvent } from "react";
-import { Button, Input, NativeSelect, Spinner, Switch, Textarea, cn } from "@ddtank/ui";
-import { ImageUp, X } from "lucide-react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import { Button, Dialog, DialogContent, Input, NativeSelect, Spinner, Switch, Textarea, cn } from "@ddtank/ui";
+import { ImageUp, Search, X } from "lucide-react";
 import { toast } from "sonner";
 import { uploadFile } from "@/lib/api";
+import { formataAtributosItem, getItemPorTemplateId, searchItensPorNome, type ItemResumo } from "@/resources/items";
 import { useI18n, useText } from "@/i18n";
 import type { FieldDef } from "./types";
 
@@ -94,10 +95,139 @@ function ImageInput({ id, value, onChange, folder, invalid }: { id: string; valu
   );
 }
 
+/**
+ * Picker de item: busca por nome, exibe nome+atributos, popup no tema.
+ * Como lê esse código (cada variável):
+ * - `value`: `TemplateID` atual (ou `null` vazio).
+ * - `atual`: resumo exibido no campo fechado.
+ * - `aberto`: popup (`Dialog`) visível ou não.
+ * - `busca`: texto digitado, enviado ao lookup com debounce.
+ * - `lista`: resultados do `searchItensPorNome`.
+ * - `carregando`: spinner durante a busca.
+ */
+function ItemPickerInput({ id, value, onChange, invalid, disabled }: { id: string; value: number | null; onChange: (v: unknown) => void; invalid?: boolean; disabled?: boolean }) {
+  const [aberto, setAberto] = useState(false);
+  const [busca, setBusca] = useState("");
+  const [lista, setLista] = useState<ItemResumo[]>([]);
+  const [carregando, setCarregando] = useState(false);
+  const [atual, setAtual] = useState<ItemResumo | null>(null);
+
+  useEffect(() => {
+    let vivo = true;
+    if (value === null) {
+      setAtual(null);
+      return;
+    }
+    if (atual?.TemplateID === value) return;
+    void getItemPorTemplateId(value).then((item) => {
+      if (vivo) setAtual(item);
+    });
+    return () => {
+      vivo = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+
+  useEffect(() => {
+    if (!aberto) return;
+    const timer = setTimeout(() => {
+      setCarregando(true);
+      void searchItensPorNome(busca)
+        .then(setLista)
+        .finally(() => setCarregando(false));
+    }, 250);
+    return () => clearTimeout(timer);
+  }, [busca, aberto]);
+
+  const escolher = (item: ItemResumo) => {
+    setAtual(item);
+    onChange(item.TemplateID);
+    setAberto(false);
+  };
+
+  return (
+    <>
+      <div
+        className={cn(
+          "flex min-h-10 items-center gap-2 rounded-xl border-2 border-line bg-night-deep/60 px-2 py-1.5",
+          invalid && "border-coral",
+        )}
+      >
+        <div className="min-w-0 flex-1">
+          {atual ? (
+            <>
+              <p className="truncate text-sm text-ink">{atual.Name}</p>
+              <p className="truncate font-mono text-xs text-muted">{formataAtributosItem(atual)}</p>
+            </>
+          ) : (
+            <span className="text-sm text-muted/60">{value ? `#${value} (não encontrado)` : "Buscar item por nome…"}</span>
+          )}
+        </div>
+        {value !== null && (
+          <button
+            type="button"
+            aria-label="Limpar item"
+            disabled={disabled}
+            onClick={() => {
+              setAtual(null);
+              onChange(null);
+            }}
+            className="rounded-lg p-1 text-muted hover:bg-panel-2 hover:text-ink"
+          >
+            <X className="size-4" />
+          </button>
+        )}
+        <Button type="button" variant="secondary" size="sm" disabled={disabled} onClick={() => setAberto(true)}>
+          <Search /> Buscar
+        </Button>
+      </div>
+      <Dialog open={aberto} onOpenChange={setAberto}>
+        <DialogContent title="Selecionar item" description="Busque por nome e escolha na lista.">
+          <Input
+            id={`${id}-busca`}
+            value={busca}
+            onChange={(e) => setBusca(e.target.value)}
+            placeholder="Ex.: Bazuca…"
+            autoFocus
+          />
+          <div className="mt-3 flex max-h-72 flex-col gap-1 overflow-y-auto">
+            {carregando ? (
+              <div className="grid place-items-center py-8">
+                <Spinner className="size-6" />
+              </div>
+            ) : lista.length === 0 ? (
+              <p className="py-8 text-center text-sm text-muted">
+                {busca.trim() ? "Nenhum item encontrado." : "Digite o nome do item."}
+              </p>
+            ) : (
+              lista.map((item) => (
+                <button
+                  key={item.TemplateID}
+                  type="button"
+                  onClick={() => escolher(item)}
+                  className="rounded-xl border-2 border-line bg-night-deep/60 px-3 py-2 text-left hover:border-sun"
+                >
+                  <span className="block truncate text-sm text-ink">{item.Name}</span>
+                  <span className="block truncate font-mono text-xs text-muted">{formataAtributosItem(item)}</span>
+                </button>
+              ))
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}
+
 export function FieldInput({ field: f, id, value, onChange, onBlur, invalid, mode }: Props) {
   const { t } = useI18n();
   const text = useText();
   const common = { id, onBlur, "aria-invalid": invalid, disabled: f.readOnly, placeholder: f.placeholder };
+
+  if ((f.type as string) === "item-picker") {
+    const templateId = typeof value === "number" && Number.isFinite(value) ? value : null;
+    return <ItemPickerInput id={id} value={templateId} onChange={onChange} invalid={invalid} disabled={f.readOnly} />;
+  }
 
   switch (f.type) {
     case "boolean":

@@ -1,5 +1,7 @@
 import { Sword } from "lucide-react";
 import { defineResource, type FieldOption } from "@/crud/types";
+import type { Row } from "@/crud/types";
+import { api } from "@/lib/api";
 
 /**
  * Item templates: game."Shop_Goods" (PK TemplateID) — packages/db/src/schema/game.ts,
@@ -32,6 +34,91 @@ export const QUALITY: FieldOption[] = [
   { value: 4, label: "Épico", tone: "grape" },
   { value: 5, label: "Lendário", tone: "sun" },
 ];
+
+/**
+ * Resumo de item p/ o picker (só leitura, mesmo contrato REST).
+ * Como lê esse código (cada variável):
+ * - `TemplateID`: PK em `game."Shop_Goods"`, valor gravado no formulário.
+ * - `Name`: nome exibido no picker e na busca `q`.
+ * - `CategoryID`/`Quality`/`NeedLevel`: filtros visuais na lista.
+ * - `Attack`/`Defence`/`Agility`/`Luck`: atributos exibidos abaixo do nome.
+ */
+export interface ItemResumo {
+  TemplateID: number;
+  Name: string;
+  CategoryID?: number;
+  Quality?: number;
+  NeedLevel?: number;
+  Attack?: number;
+  Defence?: number;
+  Agility?: number;
+  Luck?: number;
+}
+
+const numOuNulo = (v: unknown): number | undefined => {
+  const n = typeof v === "number" ? v : Number(v);
+  return Number.isFinite(n) ? n : undefined;
+};
+
+const linhaParaResumo = (linha: Row): ItemResumo => ({
+  TemplateID: Number(linha.TemplateID),
+  Name: String(linha.Name ?? ""),
+  CategoryID: numOuNulo(linha.CategoryID),
+  Quality: numOuNulo(linha.Quality),
+  NeedLevel: numOuNulo(linha.NeedLevel),
+  Attack: numOuNulo(linha.Attack),
+  Defence: numOuNulo(linha.Defence),
+  Agility: numOuNulo(linha.Agility),
+  Luck: numOuNulo(linha.Luck),
+});
+
+/**
+ * Texto curto `Nome + atributos` do picker.
+ * Como lê esse código (cada variável):
+ * - `item`: resumo vindo do lookup.
+ * - `partes`: fragmentos `Nv/ATK/DEF/AGI/SOR` filtrados (só valores > 0).
+ */
+export function formataAtributosItem(item: ItemResumo): string {
+  const partes: string[] = [`#${item.TemplateID}`];
+  if ((item.NeedLevel ?? 0) > 0) partes.push(`Nv ${item.NeedLevel}`);
+  if ((item.Attack ?? 0) > 0) partes.push(`ATK ${item.Attack}`);
+  if ((item.Defence ?? 0) > 0) partes.push(`DEF ${item.Defence}`);
+  if ((item.Agility ?? 0) > 0) partes.push(`AGI ${item.Agility}`);
+  if ((item.Luck ?? 0) > 0) partes.push(`SOR ${item.Luck}`);
+  return partes.join(" • ");
+}
+
+/**
+ * Busca itens por nome via `GET /api/admin/items?q=...` (sem mudar REST).
+ * Como lê esse código (cada variável):
+ * - `termo`: texto digitado no picker, enviado como `q`.
+ * - `limite`: `pageSize` da listagem (padrão 20).
+ * - `qs`: query string `page/pageSize/q` do contrato atual.
+ */
+export async function searchItensPorNome(termo: string, limite = 20): Promise<ItemResumo[]> {
+  const q = termo.trim();
+  if (!q) return [];
+  const qs = new URLSearchParams({ page: "1", pageSize: String(limite), q });
+  const res = await api.get<{ items: Row[] }>(`/api/admin/items?${qs}`);
+  return (res.items ?? []).map(linhaParaResumo);
+}
+
+/**
+ * Lê um item pelo `TemplateID` p/ exibir o atual selecionado.
+ * Como lê esse código (cada variável):
+ * - `templateId`: PK digitada/selecionada no formulário.
+ * - retorno: resumo ou `null` (id vazio/inválido ou 404).
+ */
+export async function getItemPorTemplateId(templateId: number): Promise<ItemResumo | null> {
+  if (!Number.isFinite(templateId) || templateId <= 0) return null;
+  try {
+    const linha = await api.get<Row>(`/api/admin/items/${encodeURIComponent(String(Math.trunc(templateId)))}`);
+    if (!linha || linha.TemplateID === undefined) return null;
+    return linhaParaResumo(linha);
+  } catch {
+    return null;
+  }
+}
 
 export const items = defineResource({
   name: "items",

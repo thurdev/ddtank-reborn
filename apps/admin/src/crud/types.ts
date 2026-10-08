@@ -16,7 +16,8 @@ export type FieldType =
   | "tags"
   | "json"
   | "password"
-  | "color";
+  | "color"
+  | "item-picker";
 
 export type Tone = "sun" | "coral" | "mint" | "sky" | "grape" | "neutral";
 
@@ -59,6 +60,8 @@ export interface FieldDef {
   section?: Text;
   /** image: upload target folder in storage. */
   uploadFolder?: string;
+  /** Nome do resource p/ picker por nome (ex. "items"); documenta intenção de lookup. */
+  reference?: string;
   /** Custom cell renderer. */
   render?: (value: unknown, row: Row) => ReactNode;
 }

@@ -29,7 +29,14 @@ describe("login", () => {
     expect(codes.indexOf(1)).toBeGreaterThan(0);
     const after = codes.slice(codes.indexOf(1));
     expect(after.slice(0, 7)).toEqual([1, 67, 15, 5, 13, 34, 92]);
-    expect(after.slice(-9)).toEqual([227, 402, 186, 231, 259, 102, 42, 145, 95]);
+    // Tail: ...enthrall(227)/avatar(402)... + activity icons (87,87) + necklace (95)
+    // + invite state (107/5). 87s = sendActivityIcons, 107 = inviteLoginPacket.
+    expect(after.slice(-10)).toEqual([402, 186, 231, 259, 102, 42, 145, 87, 87, 95]);
+    // Invite state (107/5) chega logo depois do 95 (inviteLoginPacket).
+    const inv = await c.code(107, undefined);
+    expect(inv.pkt.readInt()).toBe(5);
+    expect(codes.indexOf(227)).toBeGreaterThan(0);
+    expect(codes.indexOf(402)).toBeGreaterThan(codes.indexOf(227));
     const ls = c.received.find((r) => r.code === 1)!;
     expect(ls.clientId).toBe(ch.userId);
     expect(ls.pkt.readByte()).toBe(0);

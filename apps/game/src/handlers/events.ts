@@ -12,7 +12,7 @@ import { player as P } from "@ddt/db";
 import type { GamePlayer } from "../game/player.js";
 import type { ServerContext } from "../session/context.js";
 import { EventData, canCompleteAchievement, claimOnce, dayKey, grantRewards, insertAchievementData, monthKey, updateRecords, type Reward } from "../game/events.js";
-import { EventScheduler, loadScheduledEvents, type ActiveWindow } from "../game/scheduler.js";
+import { EventScheduler, loadScheduledEvents, nextStart, type ActiveWindow, type ScheduledEvent } from "../game/scheduler.js";
 import { createItemBox } from "./use.js";
 import { mailItems } from "./items.js";
 import * as Out from "../packets/out.js";
@@ -124,6 +124,49 @@ export class EventsRuntime {
       log: this.log.slice(0, 20),
     };
   }
+
+  /**
+   * Lista próximos eventos de app.ScheduledEvents com nextStart calculado (só leitura).
+   * Como lê esse código (cada variável):
+   * - `limit`: máximo de linhas retornadas.
+   * - `agora`: instante atual (ctx.now()).
+   * - `linhas`: projeção de scheduler.events via listUpcomingEvents.
+   */
+  upcoming(limit = 20): UpcomingRow[] {
+    const agora = this.ctx.now();
+    const linhas = listUpcomingEvents(this.scheduler.events, agora, limit);
+    return linhas;
+  }
+}
+
+/** Linha de GET /events/upcoming (espelho de app.ScheduledEvents + nextStart). */
+export interface UpcomingRow {
+  id: number;
+  kind: string;
+  title: string;
+  nextStart: Date | null;
+  durationMin: number;
+}
+
+/**
+ * Projeta eventos agendados para próximos inícios (só leitura, sem tick/mutação).
+ * Como lê esse código (cada variável):
+ * - `events`: linhas de app.ScheduledEvents já carregadas em scheduler.events.
+ * - `now`: instante atual para nextStart(ev, now).
+ * - `limit`: teto de linhas (1..100).
+ * - `linhas`: eventos com próxima data válida, ordenados por nextStart.
+ */
+export function listUpcomingEvents(events: ScheduledEvent[], now: Date, limit = 20): UpcomingRow[] {
+  const teto = Math.max(1, Math.min(100, Math.floor(limit) || 20));
+  const linhas: UpcomingRow[] = [];
+  for (const ev of events) {
+    if (!ev.enabled) continue;
+    const prox = nextStart(ev, now);
+    if (!prox) continue;
+    linhas.push({ id: ev.id, kind: ev.kind, title: ev.title, nextStart: prox, durationMin: ev.durationMin });
+  }
+  linhas.sort((a, b) => (a.nextStart?.getTime() ?? 0) - (b.nextStart?.getTime() ?? 0));
+  return linhas.slice(0, teto);
 }
 
 const runtimes = new WeakMap<ServerContext, EventsRuntime>();
