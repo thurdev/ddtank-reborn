@@ -36,13 +36,14 @@
 5. Subagentes: 1-2 arquivos cada, sem shell neles — verificação é com a IA principal.
 
 ## Fazendo agora (próxima IA continua daqui)
-- [ ] Admin 1:1 com o jogo (item picker game-like no dar-item, bots ligado na
-  tabela, calendário/eventos editáveis, spa/salas/recompensas) — Builder A.
-  REQUISITO DONO: picker de item tem que mostrar ÍCONE junto (nome+attr só não basta).
-  BUG VISTO: "Invalid input: expected string, received number" no teste rápido
-  do picker (provável Zod do SchemaForm recebendo number) — corrigir na rodada de verificação.
-- [ ] Backend: bots PvP↔`app.Bots` (seed? flag enabled? fallback), calendar/
-  ScheduledEvents game-side, robustez give-item — Builder B.
+- [x] Login race: 2º login durante burst tomava kick LoginError (texto igual ao
+  LoginNext, confunde). Fix: espera até 5s o burst em vez de chutar (login.ts
+  waitLoginFree). Testes burst atualizados (87 icons + 107/5). 30/30 verdes.
+- [x] Admin 1:1 (item picker c/ ÍCONE obrigatório, bots na tabela real,
+  calendário salva) + backend (bots provider+seed 0007, upcoming, give-item).
+  Migrações 0006+0007 aplicadas no live. Falta: teste manual no admin :5174
+  (picker mostra ícone? bots lista? calendar salva?) + corrigir Zod
+  "expected string, received number" se persistir.
 - [ ] PAUSADO: gap `missing` (MIGRATION-GAP.md), matriz Playwright botão-a-botão.
 - [ ] PAUSADO: docs JSDoc arquivo-a-arquivo (continuar lista após handlers).
 - [ ] Backup live (`scripts/backup-db.sh`) antes de abrir pra jogadores.
