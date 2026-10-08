@@ -1,6 +1,6 @@
 /** Friends — SP_Users_Friends_All / _Add / _Delete (Sys_Users_Friends). Mail — SP_Mail_Send (User_Messages). */
 import { and, eq } from "drizzle-orm";
-import { player, type Database } from "@ddt/db";
+import { app, player, type Database } from "@ddt/db";
 
 const F = player.Sys_Users_Friends;
 
@@ -79,4 +79,31 @@ export async function saveBuffs(db: Database, rows: BuffRow[]): Promise<void> {
   for (const r of rows) {
     await db.insert(player.User_Buff).values(r).onConflictDoUpdate({ target: [player.User_Buff.UserID, player.User_Buff.Type], set: { ...r } });
   }
+}
+
+const INV = app.InviteFriends;
+
+/** Invite-a-friend (107 INVITE_FRIEND, Reborn impl — the 4.1 base has no server logic). */
+export async function countInvites(db: Database, userId: number): Promise<number> {
+  const rows = await db.select({ id: INV.id }).from(INV).where(eq(INV.UserID, userId));
+  return rows.length;
+}
+
+/** Records an invite nick; false when already recorded (no double count). */
+export async function addInvite(db: Database, userId: number, nick: string): Promise<boolean> {
+  const ex = await db.select({ id: INV.id }).from(INV).where(and(eq(INV.UserID, userId), eq(INV.InvitedNick, nick))).limit(1);
+  if (ex[0]) return false;
+  await db.insert(INV).values({ UserID: userId, InvitedNick: nick });
+  return true;
+}
+
+/** Claimed invite tiers (app."EventClaims" kind "invite", key "tier:N"). */
+export async function claimedInviteTiers(db: Database, userId: number): Promise<Set<number>> {
+  const rows = await db.select({ Key: app.EventClaims.Key }).from(app.EventClaims).where(and(eq(app.EventClaims.UserID, userId), eq(app.EventClaims.Kind, "invite")));
+  const out = new Set<number>();
+  for (const r of rows) {
+    const m = /^tier:([1-4])$/.exec(r.Key ?? "");
+    if (m) out.add(Number(m[1]));
+  }
+  return out;
 }

@@ -12,6 +12,7 @@ import { consortiaOnLogin } from "../handlers/consortia.js";
 import { findCharacterByUserName, loadMatchInfo, loadPlayerInfo, setOnlineState } from "../db/characters.js";
 import { loadUserItems } from "../db/items.js";
 import { loadFriends, loadProgress } from "../db/social.js";
+import { inviteLoginPacket } from "../handlers/social.js";
 import { GamePlayer } from "../game/player.js";
 import { QuestInventory } from "../game/quests.js";
 import { BagType } from "../game/item.js";
@@ -169,6 +170,7 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   if (!ev.leagueOpen) p.send(Out.leagueNotice(p.id, match.restCount, 0, 2));
   p.send(Out.guildMemberWeek(p.id));
   p.send(Out.necklace(info));
+  p.send(await inviteLoginPacket(ctx, p)); // 107/5 INVITE_FRIEND_LOGIN
   // WorldMgr.OnPlayerOnline: friends see the online state (160/165).
   // ChangePlayerState also notifies the members of the same guild (online list of the guild screen)
   for (const f of ctx.world.all()) if (f !== p && (f.friends.has(p.id) || (info.ConsortiaID !== 0 && f.info.ConsortiaID === info.ConsortiaID))) f.send(Out.friendState(p.id, 1, info.typeVIP, info.VIPLevel));
