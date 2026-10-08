@@ -1,0 +1,11 @@
+{
+  // Usa o TypeScript do repo (5.9), não o embutido do VSCode.
+  // Sem isso, Ctrl+hover / F12 caem no TS errado e as referências somem.
+  "typescript.tsdk": "${workspaceFolder}/node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  // TS server um por pacote (monorepo pnpm): evita travar e resolve workspace:* certo.
+  "typescript.tsserver.maxTsServerMemory": 8192,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" }
+}

@@ -1,6 +1,12 @@
 /**
- * Bags, equipment, selling, shop buy and player info:
- * 49 CHANGE_PLACE_GOODS, 47 UNCHAIN_EQUIP, 127 REClAIM_GOODS, 44 BUY_GOODS, 74 ITEM_EQUIP (01 §3, §4, §2).
+ * Bolsa, equipamento, venda, loja e presente (pacotes 44/47/49/62/74/127/221/252).
+ * O que cada função faz (todas recebem o pacote já aberto e o jogador logado):
+ * - changeItemPlace: arrastar item entre slots/bolsas (split, stack, troca).
+ * - mailItems: manda excedente pro correio em cartas de 5 anexos (tipo 8).
+ * - buyGoods: carrinho da loja (preço em 7 moedas + item de custo, veste ao comprar).
+ * - sendGift: presente de charme pra amigo (cobra Money, dá charmGP + carta 55).
+ * - itemContinue: renova validade de item temporário pagando preço de loja.
+ * - registerItems: liga cada código de pacote à função (tabela no fim do arquivo).
  */
 import { ItemInfo, isAvatar, BagType, templateBagType } from "../game/item.js";
 import { getEquipControl } from "../db/consortia.js";
@@ -68,7 +74,16 @@ function bagLocked(ctx: ServerContext, p: GamePlayer): boolean {
   return false;
 }
 
-/** UserChangeItemPlaceHandler.cs:19 (Store/Bank/Consortia helper paths simplified to direct moves). */
+/** UserChangeItemPlaceHandler.cs:19 (Store/Bank/Consortia helper paths simplified to direct moves).
+ *
+ * Como lê esse código (cada variável):
+ * - bag / toBag: bolsa origem e destino (PlayerInventory: prop=0, equip, banco, guilda, store...).
+ *   Vêm de `player.getInventory(bagType)`; `toBag !== bag` = troca entre bolsas.
+ * - place / toPlace: slot origem e destino. toPlace -1 = "primeiro slot livre".
+ * - count: quantas unidades mover (0 = pilha toda; arrasto parcial manda o nº).
+ * - item: o ItemInfo na origem (TemplateID=o quê, Count=quantas, Place=slot).
+ * - cap: teto do banco da guilda = StoreLevel × 10 slots (sem guilda = 0, bloqueia).
+ */
 export function changeItemPlace(ctx: ServerContext, p: GamePlayer, bagType: number, place: number, toBagType: number, toPlace: number, count: number): void {
   const bag = p.getInventory(bagType);
   const toBag = p.getInventory(toBagType);
@@ -137,7 +152,13 @@ export function changeItemPlace(ctx: ServerContext, p: GamePlayer, bagType: numb
   }
 }
 
-/** Sends overflow items by mail (5 annexes per mail, default type 8 BuyItem) — UserBuyItemHandler.cs:239-325. */
+/** Sends overflow items by mail (5 annexes per mail, default type 8 BuyItem) — UserBuyItemHandler.cs:239-325.
+ *
+ * Como lê esse código (cada variável):
+ * - chunk: fatia de até 5 itens (carta só tem Annex1..5). Vem do `slice` do array.
+ * - mail: linhas da carta (Annex1..5 = IDs dos itens, viram UserID 0 = "no correio").
+ * - remark: texto da carta ("1、nome×qtd;..."). `it` = cada ItemInfo excedente.
+ */
 export async function mailItems(ctx: ServerContext, p: GamePlayer, items: ItemInfo[], title?: string, type = 8): Promise<void> {
   for (let i = 0; i < items.length; i += 5) {
     const chunk = items.slice(i, i + 5);
@@ -161,7 +182,18 @@ export async function mailItems(ctx: ServerContext, p: GamePlayer, items: ItemIn
   if (items.length) p.send(Out.mailResponse(p.id, 1)); // 117: the client reloads LoadUserMail.ashx
 }
 
-/** UserBuyItemHandler.cs:22. */
+/** UserBuyItemHandler.cs:22 (44 BUY_GOODS): carrinho multi-linha em 1 pacote.
+ * Pacote: int count (1..99); por linha [goodsId, type A/B/C, color, dress, skin, place].
+ * Cobra tudo junto (sem falha parcial) e veste se dress=true; sem espaço vai pro correio.
+ *
+ * Como lê esse código (cada variável):
+ * - totals (PriceTotals): soma do custo em 7 moedas (gold/money/offer/gifttoken/petScore/score/dmgScore).
+ * - need: mapa templateID->qtd de ITENS exigidos como custo (ex. pedra de troca).
+ * - buy: lista do que entregar [{item, dress, place}]; `place` = slot p/ anel/bracelete 7-10.
+ * - goodsId/type: linha da Shop_Goods; type 1/2/3 = tripla de preço A/B/C (setItemType).
+ * - unit: validade (BuyType 0, dias) ou quantidade (BuyType != 0) da unidade comprada.
+ * - eMsg/msg: 0=ok, 1=erro (texto vai pro chat); reply 44 sempre [1,3] no fim.
+ */
 export async function buyGoods(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): Promise<void> {
   const tpl = ctx.templates;
   const totals: PriceTotals = { gold: 0, money: 0, offer: 0, gifttoken: 0, petScore: 0, score: 0, dmgScore: 0 };
@@ -265,6 +297,12 @@ export async function buyGoods(ctx: ServerContext, p: GamePlayer, pkt: GSPacket)
  * (1..9999), one unused trailing int. Cost = ShopItemInfo.AValue1 × count Money; receiver gets
  * ItemTemplate.Property2 × count charmGP (SP_Users_UpdateCharmGP) + a log row (SP_Users_Gift_Add) + mail type 55
  * (UserGiftSystem.MailTitle). An online receiver's charmGP/public-info is bumped live and told via 117 (Gift).
+ *
+ * Como lê esse código (cada variável):
+ * - nick/shopItemId/count: quem recebe, qual item da loja, quantos (lidos do pacote, nessa ordem).
+ * - shop/t: linha Shop_Goods + ItemTemplate (Property2 = charme por unidade).
+ * - online/info: jogador alvo (na memória se online, senão carrega do banco pelo nick).
+ * - cost/charm: Money cobrado = AValue1×count; charme dado = Property2×count.
  */
 export async function sendGift(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): Promise<void> {
   const nick = pkt.readString();
@@ -305,6 +343,13 @@ export async function sendGift(ctx: ServerContext, p: GamePlayer, pkt: GSPacket)
 /**
  * UserItemContineueHandler.cs (62 ITEM_CONTINUE): extends an owned item's ValidDate using its shop listing price
  * (tier A/B/C like BUY_GOODS); the item must be a timed EquipBag slot (>= 31)/PropBag/StoreBag item.
+ *
+ * Como lê esse código (cada variável):
+ * - count: quantas renovações o pacote pede; bagType/place/shopId/type: onde está o item,
+ *   qual linha da loja paga, qual tripla A/B/C.
+ * - need/totals: custo (itens + moedas) calculado por setItemType.
+ * - validDate/count0/wasValid: backup pra restaurar se faltar dinheiro; item expirado
+ *   renascido ganha BeginDate nova (soma em cima se ainda válido).
  */
 export async function itemContinue(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): Promise<void> {
   if (bagLocked(ctx, p)) return;
