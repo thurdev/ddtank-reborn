@@ -1,5 +1,10 @@
 # DDTank Reborn — shared context for all agents
 
+Docs index (start here): `docs/README.md` — workflow (`CONTRIBUTING.md`,
+`docs/BRANCH-FLOW.md`), per-area guides (`docs/API.md`, `docs/GAME-SERVER.md`,
+`docs/CLIENT.md`, `docs/TESTING.md`), gap + QA (`docs/MIGRATION-GAP.md`,
+`docs/qa-matrix.json`).
+
 Goal: port the DDTank 4.1 private server (C#/.NET Framework + SQL Server + ASP.NET .ashx) to a modern stack,
 keep the original Flash AS3 client working (via Ruffle in the browser + optional desktop launcher),
 and add a full admin panel + documentation. Must be fully playable: lobby, PvP rooms, PvE dungeons,
