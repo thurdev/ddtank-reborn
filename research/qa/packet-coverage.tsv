@@ -1,0 +1,229 @@
+code	name	clientFn	firstWrite	server	file
+1	LOGIN	sendLogin		implemented	basic.ts
+4	PING	sendPint		implemented	basic.ts
+8	CLIENT_LOG	sendErrorMsg		implemented	basic.ts
+11	ACTIVE_PULLDOWN	sendActivePullDown		MISSING	
+12	HOTSPRING_CMD_B	sendHotAddTime	CONTINU_BY_MONEY	implemented	hotspring.ts
+13	DAILY_AWARD	sendDailyAward		implemented	events.ts
+16	SCENE_LOGIN	sendSceneLogin		implemented	basic.ts
+25	BAG_LOCKED	sendBagLocked		MISSING	
+40	SNS_MSG_RECEIVE	sendSnsMsg		implemented	social.ts
+44	BUY_GOODS	sendBuyGoods		implemented	items.ts
+46	BUY_GIFTBAG	sendBuyGiftBag		MISSING	
+50	FIGHT_NPC	sendBeginFightNpc		MISSING	
+53	GET_TIME_BOX	sendGetTimeBox		implemented	events.ts
+54	PROP_BUY	sendBuyProp		MISSING	
+55	PROP_SELL	sendSellProp		MISSING	
+57	GOODS_PRESENT	sendPresentGoods		MISSING	
+58	ITEM_COMPOSE	sendItemCompose		partial	forge.ts
+59	ITEM_STRENGTHEN	sendItemStrength		partial	forge.ts
+60	ITEM_HIDE	sendHideLayer		implemented	use.ts
+61	ITEM_TRANSFER	sendItemTransfer		MISSING	
+62	ITEM_CONTINUE	sendGoodsContinue		implemented	items.ts
+63	ITEM_OPENUP	sendItemOpenUp		implemented	use.ts
+71	S_BUGLE	sendSBugle		implemented	chat.ts
+72	B_BUGLE	sendBBugle		implemented	chat.ts
+73	C_BUGLE	sendCBugle		implemented	chat.ts
+74	ITEM_EQUIP	sendItemEquip		implemented	items.ts
+77	ITEM_OVERDUE	sendItemOverDue		MISSING	
+78	ITEM_FUSION	sendItemFusion		implemented	forge.ts
+85	MATE_ONLINE_TIME	sendMateTime		implemented	marriage.ts
+89	QUESTION_REPLY	sendQuestionReply		MISSING	
+90	GET_SIGNAWARD	sendSignAward		implemented	events.ts
+91	GAME_CMD	sendSuicide	SUICIDE	implemented	rooms.ts
+91	GAME_CMD	sendKillSelf	KILLSELF	implemented	rooms.ts
+92	VIP_RENEWAL	sendOpenVip		implemented	use.ts
+94	GAME_ROOM	sendGameLogin	GAME_ROOM_LOGIN	implemented	rooms.ts
+94	GAME_ROOM	sendGameStyle	GAME_PICKUP_STYLE	implemented	rooms.ts
+94	GAME_ROOM	sendGameMode	GAME_PICKUP_STYLE	implemented	rooms.ts
+108	GAME_TAKE_TEMP	sendGetTropToBag		implemented	items.ts
+110	ITEM_REFINERY	sendItemLianhua		MISSING	
+112	DELETE_MAIL	sendDeleteMail		implemented	mail.ts
+113	GET_MAIL_ATTACHMENT	sendGetMail		implemented	mail.ts
+114	UPDATE_MAIL	sendUpdateMail		implemented	mail.ts
+116	SEND_MAIL	sendEmail	0	implemented	mail.ts
+119	LINKREQUEST_GOODS	sendGetLinkGoodsInfo		MISSING	
+120	ITEM_TREND	sendItemTrend		implemented	forge.ts
+121	ITEM_INLAY	sendItemEmbed		implemented	forge.ts
+122	CLEAR_STORE_BAG	sendClearStoreBag		implemented	forge.ts
+125	ITEM_EMBED_BACKOUT	sendItemEmbedBackout		implemented	forge.ts
+126	BUY_QUICK_GOLDBOX	sendQuickBuyGoldBox		MISSING	
+167	CHURCH_MOVIE_OVER	sendChurchMovieOver		MISSING	
+168	GOODS_COUNT	sendUpdateGoodsCount		implemented	items.ts
+169	HOTSPRING_ROOM_PLAYER_REMOVE	sendHotSpringRoomPlayerRemove		implemented	hotspring.ts
+172	SAVE_DB	sendSaveDB		implemented	basic.ts
+175	HOTSPRING_ROOM_CREATE	sendHotSpringRoomCreate		stub	hotspring.ts
+179	QUEST_FINISH	sendQuestFinish		implemented	quests.ts
+187	HOTSPRING_ENTER	sendHotSpringEnter		implemented	hotspring.ts
+189	USER_CHANGE_RANK	sendReworkRank		implemented	items.ts
+190	HOTSPRING_ROOM_QUICK_ENTER	sendHotSpringRoomQuickEnter		implemented	hotspring.ts
+191	HOTSPRING_CMD	sendHotSpringRoomEdit	HOTSPRING_ROOM_EDIT	implemented	hotspring.ts
+191	HOTSPRING_CMD	sendHotSpringRoomPlayerTargetPoint	TARGET_POINT	implemented	hotspring.ts
+191	HOTSPRING_CMD	sendHotSpringRoomRenewalFee	HOTSPRING_ROOM_RENEWAL_FEE	implemented	hotspring.ts
+191	HOTSPRING_CMD	sendHotSpringRoomInvite	HOTSPRING_ROOM_INVITE	implemented	hotspring.ts
+191	HOTSPRING_CMD	sendHotSpringRoomAdminRemovePlayer	HOTSPRING_ROOM_ADMIN_REMOVE_PLAYER	implemented	hotspring.ts
+191	HOTSPRING_CMD	sendHotSpringRoomPlayerContinue	HOTSPRING_ROOM_PLAYER_CONTINUE	implemented	hotspring.ts
+196	CARD_RESET	sendCardReset	0	MISSING	
+196	CARD_RESET	sendReplaceCardProp	1	MISSING	
+201	HOTSPRING_ROOM_ENTER_VIEW	sendHotSpringRoomEnterView		implemented	hotspring.ts
+202	HOTSPRING_ROOM_ENTER	sendHotSpringRoomEnter		implemented	hotspring.ts
+203	LOOKUP_EFFORT	sendLookupEffort		MISSING	
+212	HOTSPRING_ROOM_ENTER_CONFIRM	sendHotSpringRoomEnterConfirm		implemented	hotspring.ts
+213	USE_LOG	sendUseLog		MISSING	
+214	USER_RELOAD_GIFT	sendReloadGift		MISSING	
+216	CARDS_DATA	sendMoveCards	0	implemented	pets.ts
+216	CARDS_DATA	sendOpenViceCard	1	implemented	pets.ts
+216	CARDS_DATA	sendOpenCardBox	2	implemented	pets.ts
+216	CARDS_DATA	sendUpGradeCard	3	implemented	pets.ts
+219	WEEKLY_CLICK_CNT	sendWeeklyClick		implemented	events.ts
+	SE	sendSellGoods		MISSING	
+21	SCENE_REMOVE_USER	sendExitMarryRoom		implemented	basic.ts
+26	LOTTERY_OPEN_BOX	sendRouletteBox		implemented	activities.ts
+26	LOTTERY_OPEN_BOX	sendOpenDead		implemented	activities.ts
+27	LOTTERY_RANDOM_SELECT	sendStartTurn		implemented	activities.ts
+28	LOTTERY_FINISH	sendFinishRoulette		implemented	activities.ts
+45	CADDY_GET_BADLUCK	sendQequestBadLuck		implemented	activities.ts
+49	CHANGE_PLACE_GOODS	sendMoveGoods		implemented	items.ts
+66	PROP_USE	sendUseProp		MISSING	
+91	GAME_CMD	sendAirPlane	AIRPLANE	implemented	rooms.ts
+91	GAME_CMD	sendGamePick	PICK	implemented	rooms.ts
+94	GAME_ROOM	sendUpdateRoomList	ROOMLIST_UPDATE	implemented	rooms.ts
+123	DEFY_AFFICHE	sendDefyAffiche		implemented	chat.ts
+124	CHANGE_PLACE_GOODS_ALL	sendMoveGoodsAll		implemented	use.ts
+129	CONSORTIA_CMD	sendConsortiaEquipConstrol	CONSORTIA_EQUIP_CONTROL	implemented	consortia.ts
+129	CONSORTIA_CMD	sendCreateConsortia	CONSORTIA_CREATE	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsortiaTryIn	CONSORTIA_TRYIN	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsortiaCancelTryIn	CONSORTIA_TRYIN	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsortiaInvate	CONSORTIA_INVITE	implemented	consortia.ts
+129	CONSORTIA_CMD	sendReleaseConsortiaTask	CONSORTIA_TASK_RELEASE	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsortiaInvatePass	CONSORTIA_INVITE_PASS	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsortiaInvateDelete	CONSORTIA_INVITE_DELETE	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsortiaUpdateDescription	CONSORTIA_DESCRIPTION_UPDATE	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsortiaUpdatePlacard	CONSORTIA_PLACARD_UPDATE	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsortiaUpdateDuty	CONSORTIA_DUTY_UPDATE	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsortiaUpgradeDuty	CONSORTIA_DUTY_UPDATE	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsoritaApplyStatusOut	CONSORTIA_APPLY_STATE	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsortiaOut	CONSORTIA_RENEGADE	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsortiaMemberGrade	CONSORTIA_USER_GRADE_UPDATE	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsortiaUserRemarkUpdate	CONSORTIA_USER_REMARK_UPDATE	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsortiaDutyDelete	CONSORTIA_DUTY_DELETE	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsortiaTryinPass	CONSORTIA_TRYIN_PASS	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsortiaTryinDelete	CONSORTIA_TRYIN_DEL	implemented	consortia.ts
+129	CONSORTIA_CMD	sendForbidSpeak	CONSORTIA_BANCHAT_UPDATE	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsortiaDismiss	CONSORTIA_DISBAND	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsortiaChangeChairman	CONSORTIA_CHAIRMAN_CHAHGE	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsortiaRichOffer	CONSORTIA_RICHES_OFFER	implemented	consortia.ts
+129	CONSORTIA_CMD	sendDonate	DONATE	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsortiaLevelUp	CONSORTIA_LEVEL_UP	implemented	consortia.ts
+160	IM_CMD	sendAddFriend	FRIEND_ADD	implemented	social.ts
+160	IM_CMD	sendDelFriend	FRIEND_REMOVE	implemented	social.ts
+160	IM_CMD	sendFriendState	FRIEND_STATE	implemented	social.ts
+171	USE_REWORK_NAME	sendUseReworkName		MISSING	
+176	QUEST_ADD	sendQuestAdd		implemented	quests.ts
+177	QUEST_REMOVE	sendQuestRemove		implemented	quests.ts
+181	QUEST_CHECK	sendQuestCheck		implemented	quests.ts
+182	USE_COLOR_CARD	sendChangeColor		implemented	items.ts
+183	CARD_USE	sendUseCard		implemented	use.ts
+200	CHECK_CODE	sendCheckCode		MISSING	
+204	OPEN_ALL_CARDBOX	sendOpenAll		implemented	activities.ts
+205	USE_CHANGE_COLOR_SHELL	sendUseChangeColorShell		MISSING	
+206	CHANGE_COLOR_OVER_DUE	sendChangeColorShellTimeOver		MISSING	
+217	OPEN_FIVE_SIX_HOLE	sendItemOpenFiveSixHole		implemented	forge.ts
+218	USER_GET_GIFTS	sendPlayerGift		implemented	items.ts
+221	USER_SEND_GIFTS	sendBuyGift		implemented	items.ts
+222	EQUIP_RECYCLE_ITEM	sendEquipRetrieve		MISSING	
+224	CID_CHECK	sendCIDCheck		MISSING	
+224	CID_CHECK	sendCIDInfo		MISSING	
+225	ENTHRALL_SWITCH	sendForSwitch		implemented	basic.ts
+225	REQUEST_UPDATE	sendRequestUpdate		implemented	basic.ts
+230	ACHIEVEMENT_FINISH	sendAchievementFinish		implemented	events.ts
+232	CADDY_SELL_ALL_GOODS	sendSellAll		implemented	activities.ts
+233	MARRY_SCENE_CHANGE	sendSceneChange		implemented	marriage.ts
+235	MARRYINFO_GET	sendForMarryInfo		implemented	marriage.ts
+236	MARRYINFO_ADD	sendRegisterInfo		implemented	marriage.ts
+237	MARRYINFO_UPDATE	sendModifyInfo		implemented	marriage.ts
+240	MARRY_SCENE_LOGIN	sendMarryRoomLogin		implemented	marriage.ts
+241	MARRY_ROOM_CREATE	sendCreateRoom	100	implemented	marriage.ts
+242	MARRY_ROOM_LOGIN	sendEnterRoom		implemented	marriage.ts
+244	PLAYER_EXIT_MARRY_ROOM	sendExitRoom		implemented	marriage.ts
+245	CADDY_GET_AWARDS	sendRequestAwards		MISSING	
+247	MARRY_APPLY	sendPropose		implemented	marriage.ts
+248	DIVORCE_APPLY	sendUnmarry		implemented	marriage.ts
+249	MARRY_CMD	sendChurchMove	MOVE	partial	marriage.ts
+249	MARRY_CMD	sendStartWedding	HYMENEAL	partial	marriage.ts
+249	MARRY_CMD	sendChurchContinuation	CONTINUATION	partial	marriage.ts
+249	MARRY_CMD	sendChurchInvite	INVITE	partial	marriage.ts
+249	MARRY_CMD	sendChurchLargess	LARGESS	partial	marriage.ts
+249	MARRY_CMD	sendUseFire	USEFIRECRACKERS	partial	marriage.ts
+249	MARRY_CMD	sendChurchKick	KICK	partial	marriage.ts
+249	MARRY_CMD	sendChurchForbid	FORBID	partial	marriage.ts
+249	MARRY_CMD	sendPosition	POSITION	partial	marriage.ts
+249	MARRY_CMD	sendGunSalute	GUNSALUTE	partial	marriage.ts
+250	MARRY_APPLY_REPLY	sendProposeRespose		implemented	marriage.ts
+253	MARRY_ROOM_INFO_UPDATE	sendModifyChurchDiscription		implemented	marriage.ts
+	A	sendAcademyRegister	ACADEMY_REGISTER	MISSING	
+	A	sendAcademyRemoveRegister	ACADEMY_REMOVE	MISSING	
+	A	sendAcademyApprentice	ACADEMY_FOR_APPRENTICE	MISSING	
+	A	sendAcademyMaster	ACADEMY_FOR_MASTER	MISSING	
+	A	sendAcademyMasterConfirm	MASTER_CONFIRM	MISSING	
+	A	sendAcademyApprenticeConfirm	APPRENTICE_CONFIRM	MISSING	
+	A	sendAcademyFireMaster	FIRE_MASTER	MISSING	
+	A	sendAcademyFireApprentice	FIRE_APPRENTICE	MISSING	
+20	SCENE_FACE	sendFace	0	implemented	chat.ts
+30	PICC	sendPicc		MISSING	
+31	GOODS_EXCHANGE	sendGoodsExchange		MISSING	
+32	COLLECTINFO	sendCollectInfoValidate		MISSING	
+34	USER_RANK	sendChangeDesignation		implemented	items.ts
+64	OPTION_UPDATE	sendOpition		MISSING	
+68	PET	sendEquipPetSkill	EQUIP_PET_SKILL	implemented	pets.ts
+68	PET	sendRefreshPet	REFRESH_PET	implemented	pets.ts
+68	PET	sendAdoptPet	ADOPT_PET	implemented	pets.ts
+68	PET	sendPetFollowOrCall	PET_FOLLOW	implemented	pets.ts
+68	PET	sendPetWake	PET_WAKE	implemented	pets.ts
+68	PET	sendPetFormInfo	PET_FORMINFO	implemented	pets.ts
+68	PET	sendPaySkill	PAY_SKILL	implemented	pets.ts
+68	PET	sendPetFightUnFight	FIGHT_PET	implemented	pets.ts
+68	PET	sendPetRisingStar	PET_RISINGSTAR	implemented	pets.ts
+68	PET	sendPetEvolution	PET_EVOLUTION	implemented	pets.ts
+68	PET	sendPetFeed	FEED_PET	implemented	pets.ts
+68	PET	sendPetRename	RENAME_PET	implemented	pets.ts
+68	PET	sendReleasePet	RELEASE_PET	implemented	pets.ts
+68	PET	sendRevertPet	REVER_PET	implemented	pets.ts
+68	PET	sendAddPet	ADD_PET	implemented	pets.ts
+68	PET	sendBuyPetExpItem	BUY_PET_EXP_ITEM	implemented	pets.ts
+81	FARM	sendCompose	COMPOSE_FOOD	implemented	farm.ts
+81	FARM	sendBeginHelper	HELPER_SWITCH_FIELD	implemented	farm.ts
+87	NEWCHICKENBOX_SYS	sendChickenBoxUseEagleEye	USEEAGLEEYE	partial	activities.ts
+87	NEWCHICKENBOX_SYS	sendChickenBoxTakeOverCard	TAKEOVERCARD	partial	activities.ts
+87	NEWCHICKENBOX_SYS	sendOverShowItems		partial	activities.ts
+87	NEWCHICKENBOX_SYS	sendFlushNewChickenBox	FLUSHCHICKENVIEW	partial	activities.ts
+87	NEWCHICKENBOX_SYS	sendClickStartBntNewChickenBox	CLICKSTARTBNT	partial	activities.ts
+87	NEWCHICKENBOX_SYS	sendNewChickenBox	ENTERCHICKENVIEW	partial	activities.ts
+91	GAME_CMD	sendPetSkill	PET_SKILL	implemented	rooms.ts
+99	TEXP	sendTexp		implemented	use.ts
+103	DAILYRECORD	sendDailyRecord		implemented	events.ts
+104	CARD_LOTTERY	sendCardLotteryIds		MISSING	
+105	LUCK_LOTTERY	sendLuckLottery		MISSING	
+106	WISHBEADEQUIP	sendWishBeadEquip		MISSING	
+128	LEFT_GUN_ROULETTE_SOCKET	sendStartTurn_LeftGun	1	MISSING	
+129	CONSORTIA_CMD	sendConsortionMail	CONSORTION_MAIL	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsortionPoll	POLL_CANDIDATE	implemented	consortia.ts
+129	CONSORTIA_CMD	sendConsortionSkill	SKILL_SOCKET	implemented	consortia.ts
+129	CONSORTIA_CMD	sendBuyBadge	BUY_BADGE	implemented	consortia.ts
+130	LEFT_GUN_ROULETTE_COMPLETTE	sendEndTurn_LeftGun	1	MISSING	
+138	ITEM_ADVANCE	sendItemExalt		MISSING	
+160	IM_CMD	sendOns	ONS_EQUIP	implemented	social.ts
+160	IM_CMD	sendCustomFriends	ADD_CUSTOM_FRIENDS	implemented	social.ts
+160	IM_CMD	sendOneOnOneTalk	ONE_ON_ONE_TALK	implemented	social.ts
+161	USER_LUCKYNUM	sendUserLuckyNum		MISSING	
+162	ELITEGAME	sendGetEliteGameState	ELITE_MATCH_TYPE	implemented	events.ts
+162	ELITEGAME	sendGetSelfRankSroce	ELITE_MATCH_PLAYER_RANK	implemented	events.ts
+162	ELITEGAME	sendGetPaarungDetail	ELITE_MATCH_RANK_DETAIL	implemented	events.ts
+162	ELITEGAME	sendEliteGameStart	ELITE_MATCH_RANK_START	implemented	events.ts
+216	CARDS_DATA	sendSortCards	4	implemented	pets.ts
+216	CARDS_DATA	sendFirstGetCards	5	implemented	pets.ts
+223	FRIEND_BRITHDAY	sendWithBrithday		implemented	social.ts
+251	SCENE_STATE	sendCurrentState		implemented	marriage.ts
+252	USE_CHANGE_SEX	sendChangeSex		implemented	items.ts
+265	NEWTITLE_CARD	sendNewTitleCard		MISSING	
+338	ACCUMULATIVELOGIN_AWARD	sendAccumulativeLoginAward		implemented	events.ts

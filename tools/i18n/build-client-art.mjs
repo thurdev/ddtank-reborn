@@ -69,7 +69,7 @@
  */
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, copyFileSync, writeFileSync } from "node:fs";
-import { join, dirname } from "node:path";
+import { join, dirname, isAbsolute } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createRequire } from "node:module";
 
@@ -617,6 +617,25 @@ async function runApprovedAssetsStep() {
       "approved",
       `${category}/${file} -> ${swf}::${sourceFile} (${row.width}x${row.height}, fit=${fit ?? "cover"}${anchor ? ", anchor=" + JSON.stringify(anchor.rect) : ""}, encoded .${outExt})`
     );
+  }
+
+  // SkelletonX BR client (human-translated art, research/i18n/skelleton-map.json from tools/i18n/skelleton-match.mjs):
+  // same SWF + same asset name/id + same size -> its bitmap is used verbatim and wins over our AI remaster output.
+  const skelMap = join(ROOT, "research", "i18n", "skelleton-map.json");
+  if (existsSync(skelMap) && !has("--no-skelleton")) {
+    let n = 0;
+    for (const e of JSON.parse(readFileSync(skelMap, "utf8"))) {
+      const from = isAbsolute(e.from) ? e.from : join(ROOT, e.from);
+      if (!existsSync(from)) continue;
+      const outExt = e.sourceFile.slice(e.sourceFile.lastIndexOf(".") + 1).toLowerCase() === "png" ? "png" : "jpg";
+      const buffer = outExt === "png" ? readFileSync(from) : await sharp(from).jpeg({ quality: 95 }).toBuffer();
+      const list = bySwf.get(e.swf) ?? [];
+      const keep = list.filter((x) => x.sourceFile !== e.sourceFile);
+      keep.push({ sourceFile: e.sourceFile, buffer, outExt, label: `skelleton/${e.swf}/${e.sourceFile}` });
+      bySwf.set(e.swf, keep);
+      n++;
+    }
+    log("approved", `skelleton: ${n} bitmap(s) from the SkelletonX BR client (override AI outputs on the same slot)`);
   }
 
   if (bySwf.size === 0) {

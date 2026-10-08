@@ -5,7 +5,7 @@
 **O clássico DDTank 4.1, reescrito numa stack moderna. Cliente Flash original + servidor 100% TypeScript.**
 
 [![PR Check](https://github.com/thurdev/ddtank-reborn/actions/workflows/pr-check.yml/badge.svg)](https://github.com/thurdev/ddtank-reborn/actions/workflows/pr-check.yml)
-[![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/License-PolyForm%20Noncommercial-blue.svg)](./LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?logo=typescript)](./tsconfig.base.json)
 [![Node 24 + pnpm 11](https://img.shields.io/badge/Node-24%20%7C%20pnpm-11-green?logo=node.js)](./package.json)
 
@@ -83,14 +83,13 @@ do servidor original, cite o arquivo C# (`vendor/...:linha`).
 
 ## 📜 Licença
 
-**[PolyForm Noncommercial 1.0.0](./LICENSE)** — resumo:
-
-- ✅ Baixar, usar, testar, modificar, criar mods e contribuir — **grátis, pra sempre**
-- 🚫 **Vender é proibido para todos, exceto o dono do projeto (@thurdev)**
-- ⚖️ Quem usar comercialmente sem autorização perde a licença e responde por violação
+**[MIT](./LICENSE)** — livre pra usar, estudar, modificar, hospedar e distribuir, igual ao
+projeto da comunidade em que nos apoiamos (SkelletonX/DDTank4.1). Créditos de terceiros em
+[THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).
 
 ## 🙏 Créditos
 
 Base C#: `pnkl1999/DDTank41` (+ fork `AloneInAbyss` branch `remake/main`).
+Tradução PT-BR e arte traduzida do cliente: [SkelletonX/DDTank4.1](https://github.com/SkelletonX/DDTank4.1) (MIT).
 Arte e cliente originais pertencem aos seus respectivos donos — este projeto é um
 trabalho de fã, sem afiliação, e não vende nada derivado deles.

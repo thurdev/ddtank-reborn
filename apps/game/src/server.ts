@@ -2,6 +2,7 @@
  * GameServer (Game.Server/GameServer.cs Start/Stop + Center.Server's online registry): boots caches, listeners,
  * timers (DB autosave, ping, speed-heartbeat watchdog, server heartbeat) and the admin channel.
  */
+import { grantRewards } from "./game/events.js";
 import type net from "node:net";
 import type http from "node:http";
 import type { WebSocketServer } from "ws";
@@ -356,6 +357,12 @@ export class GameServer {
         ev.scheduler.stop(kind);
         await ev.scheduler.tick();
         return ev.status();
+      },
+      giveItem: (tgt: { userId?: number; nick?: string }, templateId: number, count: number, bind: boolean) => {
+        const p = tgt.userId ? this.ctx.world.get(tgt.userId) : tgt.nick ? this.ctx.world.getByNick(tgt.nick) : undefined;
+        if (!p) return null;
+        const r = grantRewards(p, [{ templateId, count, isBind: bind }], this.ctx.templates.findItem, this.ctx.now());
+        return r.summary;
       },
       mailNotice: (userId: number) => {
         const p = this.ctx.world.get(userId);

@@ -11,6 +11,7 @@ import type { Templates } from "../db/templates.js";
 import type { ServerContext } from "../session/context.js";
 import type { HandlerRegistry } from "./registry.js";
 import { mailItems } from "./items.js";
+import * as Out from "../packets/out.js";
 import { getEquipControl } from "../db/consortia.js";
 import { personalRiches, smithBonusLevel } from "../game/consortia.js";
 import { pushRecords } from "./events.js";
@@ -523,7 +524,105 @@ export async function itemTrend(ctx: ServerContext, p: GamePlayer, pkt: GSPacket
   p.sendMessage(0, ctx.lang.t("ItemTrendHandle.Fail"));
 }
 
+/** StrengthenMgr.InheritTransferProperty (StrengthenMgr.cs:253): swaps strengthen / compose / holes / gold / latent
+ *  energy between the two workbench items. isGold itself is NOT swapped (the C# leaves it; mirrored). */
+export function inheritTransferProperty(a: ItemInfo, b: ItemInfo, tranHole: boolean, tranHoleFivSix: boolean): void {
+  const swap = <K extends keyof ItemInfo>(k: K) => { const t = a[k]; a[k] = b[k]; b[k] = t; };
+  if (tranHole) for (const k of ["Hole1", "Hole2", "Hole3", "Hole4"] as const) swap(k);
+  if (tranHoleFivSix) for (const k of ["Hole5", "Hole6"] as const) swap(k);
+  for (const k of ["Hole5Exp", "Hole5Level", "Hole6Exp", "Hole6Level", "StrengthenLevel", "StrengthenExp", "AttackCompose", "DefendCompose",
+    "LuckCompose", "AgilityCompose", "goldBeginTime", "goldValidDate", "StrengthenTimes", "latentEnergyCurStr", "latentEnergyNewStr", "latentEnergyEndTime"] as const) swap(k);
+  if (a.IsBinds || b.IsBinds) a.IsBinds = b.IsBinds = true;
+}
+
+/** ItemTransferHandler.cs (61): 10000 gold, StoreBag[0] <-> StoreBag[1] (same category, count 1); weapons (cat 7)
+ *  are re-templated to the strengthen-level look (StrengthenGoods GainEquip / OrginEquip). Reply 61 byte 0. */
+export async function transfer(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): Promise<void> {
+  if (bagLocked(ctx, p)) return;
+  const moveHole = pkt.readBoolean();
+  const moveFivSixHole = pkt.readBoolean();
+  const mustGold = 10000;
+  const store = p.storeBag;
+  const ord = store.getItemAt(0), nw = store.getItemAt(1);
+  if (!ord || !nw || ord.template.CategoryID !== nw.template.CategoryID || nw.Count !== 1 || ord.Count !== 1)
+    return p.sendMessage(0, ctx.lang.t("itemtransferhandler.nocondition"));
+  if (p.info.Gold < mustGold) return p.sendMessage(0, ctx.lang.t("ItemTransferHandler.NoGold"));
+  p.removeGold(mustGold);
+  inheritTransferProperty(ord, nw, moveHole, moveFivSixHole);
+  // OrginWeaponID / GainWeaponID (ItemTransferHandler.cs): the base weapon of the transfer chain, then the look for
+  // the item's strengthen level (10..15 -> GainEquip of that level, else OrginEquip)
+  const origin = (it: ItemInfo): number => {
+    const t = ctx.templates.strengthenGoods.find((g) => g.GainEquip === it.TemplateID || g.CurrentEquip === it.TemplateID);
+    if (t) return t.OrginEquip;
+    const gold = ctx.templates.goldEquipByNew(it.TemplateID);
+    if (!gold) return 0;
+    return ctx.templates.strengthenGoods.find((g) => g.GainEquip === gold.OldTemplateId || g.CurrentEquip === gold.OldTemplateId)?.OrginEquip ?? 0;
+  };
+  const gain = (level: number, transId: number): number => {
+    if (level >= 10 && level <= 15) return ctx.templates.findStrengthenGoods(level, transId)?.GainEquip ?? -1;
+    return ctx.templates.strengthenGoods.find((g) => g.GainEquip === transId || g.CurrentEquip === transId)?.OrginEquip ?? -1;
+  };
+  try {
+    const oO = origin(ord), oN = origin(nw);
+    const tO = oO > 0 ? ctx.templates.findItem(gain(ord.StrengthenLevel, oO)) : undefined;
+    const tN = oN > 0 ? ctx.templates.findItem(gain(nw.StrengthenLevel, oN)) : undefined;
+    if (nw.template.CategoryID === 7 && ord.template.CategoryID === 7 && tO && tN) {
+      const z = ItemInfo.cloneFromTemplate(tO, ord); z.openHole();
+      const o = ItemInfo.cloneFromTemplate(tN, nw); o.openHole();
+      store.removeItemAt(0); store.addItemTo(z, 0);
+      store.removeItemAt(1); store.addItemTo(o, 1);
+    } else {
+      store.updateItem(ord);
+      store.updateItem(nw);
+    }
+  } finally {
+    store.commitChanges();
+  }
+  const out = new GSPacket(61, p.id);
+  out.writeByte(0);
+  p.send(out);
+  p.updatePlayerProperties();
+}
+
+/** WishBeadEquipHandler.cs (106): gilding with a Wish Bead (11560 weapon / 11561 hat / 11562 clothes). Chance per
+ *  mille from config WishBeadRate (C#: 8 on a normal zone). Reply 106 int: 0 ok, 1 failed, 5 invalid, 6 already gold. */
+export async function wishBeadEquip(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd = Math.random): Promise<void> {
+  const place = pkt.readInt(), bagType = pkt.readInt(), templateId = pkt.readInt();
+  const placeBead = pkt.readInt(), bagTypeBead = pkt.readInt(), beadId = pkt.readInt();
+  const reply = (code: number) => { const o = new GSPacket(106, p.id); o.writeInt(code); p.send(o); };
+  const itemBag = p.getInventory(bagType), beadBag = p.getInventory(bagTypeBead);
+  const item = itemBag?.getItemAt(place), bead = beadBag?.getItemAt(placeBead);
+  if (!item || !bead || !itemBag || !beadBag) { p.sendMessage(0, ctx.lang.t("WishBeadEquipHandler.Msg1")); return reply(5); }
+  if (bead.Count < 1 || bead.TemplateID !== beadId) { p.sendMessage(0, ctx.lang.t("WishBeadEquipHandler.Msg2")); return reply(5); }
+  const cat = item.template.CategoryID;
+  const canWish = (beadId === 11560 && cat === 7) || (beadId === 11561 && cat === 5) || (beadId === 11562 && cat === 1);
+  if (!canWish) return reply(5);
+  const gold = ctx.templates.golds.find((g) => g.OldTemplateId === templateId);
+  item.IsBinds = true;
+  const validGold = item.goldValidDate > 0 && item.goldBeginTime.getTime() + item.goldValidDate * 864e5 > Date.now();
+  if (!gold && cat === 7) return reply(5);
+  if (/^true$/i.test(ctx.templates.serverConfig.get("IsWishBeadLimit") ?? "") && item.StrengthenLevel > ctx.templates.cfgInt("WishBeadLimitLv", 12)) return reply(5);
+  if (validGold) return reply(6);
+  let code = 1;
+  if (ctx.templates.cfgInt("WishBeadRate", 8) > Math.floor(rnd() * 1000)) {
+    item.goldBeginTime = new Date();
+    item.goldValidDate = 3;
+    item.isGold = true;
+    code = 0;
+    const notice = Out.message(2, `Parabéns! O jogador [${p.info.NickName}] dourou um equipamento com sucesso e ficou ainda mais forte.`);
+    for (const q of ctx.world.all()) q.send(notice);
+  }
+  itemBag.updateItem(item);
+  beadBag.removeCountFromStack(bead, 1);
+  itemBag.commitChanges?.();
+  beadBag.commitChanges?.();
+  reply(code);
+  p.updatePlayerProperties();
+}
+
 export function registerForge(r: HandlerRegistry): void {
+  r.player(106, "WISHBEADEQUIP", (ctx, p, pkt) => wishBeadEquip(ctx, p, pkt));
+  r.player(61, "ITEM_TRANSFER", (ctx, p, pkt) => transfer(ctx, p, pkt));
   r.player(59, "ITEM_STRENGTHEN", (ctx, p, pkt) => strengthen(ctx, p, pkt), "partial");
   r.player(58, "ITEM_COMPOSE", (ctx, p, pkt) => compose(ctx, p, pkt), "partial");
   r.player(78, "ITEM_FUSION", (ctx, p, pkt) => fusion(ctx, p, pkt));
@@ -532,10 +631,9 @@ export function registerForge(r: HandlerRegistry): void {
   r.player(122, "CLEAR_STORE_BAG", (ctx, p) => clearStoreBag(ctx, p));
   r.player(217, "OPEN_FIVE_SIX_HOLE", (ctx, p, pkt) => openFiveSixHole(ctx, p, pkt));
   r.player(120, "ITEM_TREND", (ctx, p, pkt) => itemTrend(ctx, p, pkt));
-  // Confirmed dead in the original vendor/DDTank41 (no [PacketHandler] class anywhere carries these codes — a
-  // later-client (6600+) feature set never wired into the 4.1 server): 61 ITEM_TRANSFER, 95 NECKLACE_STRENGTH,
-  // 106 WISHBEADEQUIP, 133 LATENT_ENERGY, 138 ITEM_ADVANCE, 209 FIGHT_SPIRIT, 295 STORE_FINE_SUIT, 391 EQUIP_GHOST.
-  for (const [code, name] of [[61, "ITEM_TRANSFER"], [95, "NECKLACE_STRENGTH"], [106, "WISHBEADEQUIP"], [133, "LATENT_ENERGY"],
+  // Not ported yet (stubs). Several DO have C# handlers in vendor/DDTank41/Game.Server/Packets/Client (e.g.
+  // ItemAdvanceHandler.cs for 138): port them like ITEM_TRANSFER / WISHBEADEQUIP above.
+  for (const [code, name] of [[95, "NECKLACE_STRENGTH"], [133, "LATENT_ENERGY"],
     [138, "ITEM_ADVANCE"], [209, "FIGHT_SPIRIT"], [295, "STORE_FINE_SUIT"], [391, "EQUIP_GHOST"]] as [number, string][]) {
     r.player(code, name, () => undefined, "stub");
   }

@@ -27,11 +27,9 @@ merge → `develop` roda no servidor de teste → PR `develop` → `main` →
 2. Review IA (`.github/workflows/pr-check.yml`) — aponta risco, não aprova sozinho.
 3. Review humano (thurdev). Merge só após os 3.
 
-## 5. Licença e propriedade das contribuições
-Licença: PolyForm Noncommercial 1.0.0 (ver LICENSE). Pode usar, testar,
-modificar e distribuir (inclui mods), NUNCA vender. Só o dono (thurdev)
-pode comercializar. Contribuir = concordar com isso + ceder ao dono o
-direito de relicenciar o projeto no futuro.
+## 5. Licença
+Licença: MIT (ver LICENSE). Ao contribuir você concorda que sua contribuição
+entra sob a mesma licença. Material de terceiros: THIRD_PARTY_NOTICES.md.
 
 ## 6. Fase comunidade (dormindo, já preparada)
 Quando abrir: `CODE_OF_CONDUCT.md` + `SECURITY.md` entram em vigor,

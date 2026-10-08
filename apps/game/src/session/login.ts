@@ -9,6 +9,7 @@ import { eventsOnLogin, eventsOnQuit, eventsRuntime, worldBossOpen } from "../ha
 import { loadUserCardBag, loadUserPets, loadEatPets } from "../db/pets-cards.js";
 import { validateGameLogin } from "@ddt/auth";
 import { consortiaOnLogin } from "../handlers/consortia.js";
+import { activityOpen } from "../handlers/activities.js";
 import { findCharacterByUserName, loadMatchInfo, loadPlayerInfo, setOnlineState } from "../db/characters.js";
 import { loadUserItems } from "../db/items.js";
 import { loadFriends, loadProgress } from "../db/social.js";
@@ -169,6 +170,7 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   p.send(ev.boss.window ? worldBossOpen(ev, p) : Out.openWorldBoss());
   if (!ev.leagueOpen) p.send(Out.leagueNotice(p.id, match.restCount, 0, 2));
   p.send(Out.guildMemberWeek(p.id));
+  sendActivityIcons(ctx, p);
   p.send(Out.necklace(info));
   p.send(await inviteLoginPacket(ctx, p)); // 107/5 INVITE_FRIEND_LOGIN
   // WorldMgr.OnPlayerOnline: friends see the online state (160/165).
@@ -205,4 +207,20 @@ async function doQuit(ctx: ServerContext, p: GamePlayer): Promise<void> {
     ctx.world.remove(p);
   }
   for (const f of ctx.world.all()) if (f.friends.has(p.id) || (p.info.ConsortiaID !== 0 && f.info.ConsortiaID === p.info.ConsortiaID)) f.send(Out.friendState(p.id, 0, p.info.typeVIP, p.info.VIPLevel));
+}
+
+/** Hall activity icons (PlayerActives.SendEvent :550 + the managers that toggle HallIconManager). Each follows its
+ *  scheduler event (enabled flag); EVENTS_ALL_OPEN=true opens every one of them (QA: every icon visible). */
+function sendActivityIcons(ctx: ServerContext, p: GamePlayer): void {
+  const all = process.env.EVENTS_ALL_OPEN === "true";
+  const on = (kind: string) => all || activityOpen(ctx, kind);
+  const end = new Date(Date.now() + 7 * 864e5);
+  const fmt = (d: Date) => d.toISOString().slice(0, 19).replace("T", " ");
+  if (on("chickenbox")) p.send(Out.chickenBoxOpen(p.id, [100, 200, 300, 500, 800], [50, 100, 150, 250, 400], 500, end));
+  if (on("luckystar")) p.send(Out.luckStarOpen(p.id));
+  if (all) {
+    p.send(Out.leftGunRouletteOpen(p.id, true));
+    p.send(Out.lightRoadOpen(p.id, true));
+    p.send(Out.guildMemberWeekOpen(p.id, fmt(new Date()), fmt(end)));
+  }
 }

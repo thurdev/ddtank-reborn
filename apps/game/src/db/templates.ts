@@ -183,6 +183,7 @@ export class Templates {
     this.itemBoxes = new Map();
     for (const b of box) this.itemBoxes.set(b.ID, [...(this.itemBoxes.get(b.ID) ?? []), b]);
     const golds = gold as GoldEquipRow[];
+    this.golds = golds;
     const cardMap = new Map((cardU as CardUpdateRow[]).map((c) => [`${c.Id}:${c.Level}`, c]));
     const pets = new Map((petF as PetFightRow[]).map((p) => [p.ID, p]));
     // PetMgr.GetEvolutionMax = Pet_Fight_Property row count.
@@ -250,6 +251,11 @@ export class Templates {
     }
   }
 
+  golds: GoldEquipRow[] = [];
+  /** GoldEquipMgr.FindGoldEquipOldTemplate(templateId): the gold row whose NewTemplateId is this item. */
+  goldEquipByNew(newTemplateId: number): GoldEquipRow | undefined {
+    return this.golds.find((g) => g.NewTemplateId === newTemplateId);
+  }
   /** StrengthenMgr.FindStrengthenGoodsInfo(level, templateId). */
   findStrengthenGoods(level: number, templateId: number): StrengthenGoodsRow | undefined {
     return this.strengthenGoods.find((g) => g.Level === level && g.CurrentEquip === templateId);

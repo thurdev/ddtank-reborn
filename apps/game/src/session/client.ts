@@ -7,6 +7,8 @@ import { GSPacket, RollingKeyCipher, ServerFrameDecoder, encodeFrame, parseLogin
 import type { GamePlayer, PacketSink } from "../game/player.js";
 import type { HandlerRegistry } from "../handlers/registry.js";
 import type { ServerContext } from "./context.js";
+/** PACKET_TRACE=true logs every packet in/out (QA: find unhandled client actions). */
+const TRACE = process.env.PACKET_TRACE === "true";
 
 export interface Transport {
   readonly kind: "tcp" | "ws" | "fake";
@@ -101,6 +103,7 @@ export class GameClient implements PacketSink {
     }
     if (this.player) pkt.clientId = this.player.id; // GameClient.OnRecvPacket overwrites ClientID
     const def = this.handlers.get(code);
+    if (TRACE) this.ctx.log.info(`[pkt] <- ${code} ${def ? def.name + (def.status !== "implemented" ? ` (${def.status})` : "") : "UNHANDLED"} len=${pkt.length ?? "?"}`);
     if (!def) return;
     this.chain = this.chain.then(async () => {
       if (this.closed && code !== 1) return;
@@ -119,6 +122,7 @@ export class GameClient implements PacketSink {
 
   send(pkt: GSPacket): void {
     if (this.closed) return;
+    if (TRACE) this.ctx.log.info(`[pkt] -> ${pkt.code} len=${pkt.length ?? "?"}`);
     this.transport.write(encodeFrame(pkt, this.cipher));
   }
 
