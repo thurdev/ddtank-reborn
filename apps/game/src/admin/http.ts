@@ -9,6 +9,7 @@
  *   POST /events/start {kind, minutes} force-open a scheduled system now (admin "start now")
  *   POST /events/stop {kind}           close the open window of that kind until its next start
  *   POST /mail-notice {userId}         117 MAIL_RESPONSE to an online player (apps/api mailed something)
+ *   POST /give-item {userId|nick, templateId, count?, bind?}  QA: item straight into an online player bag
  */
 import http from "node:http";
 import type { AddressInfo } from "node:net";
@@ -24,6 +25,7 @@ export interface AdminApi {
   eventsForce(kind: string, minutes: number): Promise<Record<string, unknown>>;
   eventsStop(kind: string): Promise<Record<string, unknown>>;
   mailNotice(userId: number): boolean;
+  giveItem(target: { userId?: number; nick?: string }, templateId: number, count: number, bind: boolean): string[] | null;
 }
 
 function readJson(req: http.IncomingMessage, max = 64 * 1024): Promise<Record<string, unknown>> {
@@ -84,6 +86,11 @@ export function startAdmin(host: string, port: number, token: string | undefined
       if (req.method === "POST" && url.pathname === "/mail-notice") {
         const b = await readJson(req);
         return send(200, { sent: api.mailNotice(Number(b.userId)) });
+      }
+      if (req.method === "POST" && url.pathname === "/give-item") {
+        const b = await readJson(req);
+        const r = api.giveItem({ userId: b.userId ? Number(b.userId) : undefined, nick: b.nick ? String(b.nick) : undefined }, Number(b.templateId), Number(b.count ?? 1), b.bind !== false);
+        return r ? send(200, { given: r }) : send(404, { error: "player not online" });
       }
       send(404, { error: "not found" });
     } catch (err) {

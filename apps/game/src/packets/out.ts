@@ -684,3 +684,40 @@ export function cardData(userId: number, slots: { place: number; card: CardView 
   }
   return p;
 }
+
+// ------------------------------------------------------------------ hall activity icons (PlayerActives.SendEvent, GamePlayer.cs:3362)
+/** 87/1 NEWCHICKENBOX_SYS CHICKENBOXOPEN (AbstractPacketLib.SendChickenBoxOpen :2446): prices are written last-to-first. */
+export function chickenBoxOpen(userId: number, openCardPrice: number[], eagleEyePrice: number[], flushPrice: number, end: Date): PacketOut {
+  const p = new PacketOut(87, userId);
+  p.writeInt(1);
+  p.writeInt(openCardPrice.length); for (let i = openCardPrice.length; i > 0; i--) p.writeInt(openCardPrice[i - 1]!);
+  p.writeInt(eagleEyePrice.length); for (let i = eagleEyePrice.length; i > 0; i--) p.writeInt(eagleEyePrice[i - 1]!);
+  p.writeInt(flushPrice);
+  p.writeDateTime(end);
+  return p;
+}
+/** 87/25 NEWCHICKENBOX_SYS ACTIVITY_OPEN = Lucky Star icon (SendLuckStarOpen :2466). */
+export function luckStarOpen(userId: number): PacketOut {
+  const p = new PacketOut(87, userId);
+  p.writeInt(25);
+  return p;
+}
+/** 137 LEFT_GUN_ROULETTE type 1 / TYPEI_ISOPEN 1 (LeftGunRouletteManager.__openRoulett): open, 0 spins left -> icon only. */
+export function leftGunRouletteOpen(userId: number, open: boolean): PacketOut {
+  const p = new PacketOut(137, userId);
+  p.writeInt(1); p.writeInt(1); p.writeBoolean(open);
+  if (open) { p.writeInt(0); p.writeString(""); }
+  return p;
+}
+/** 145 ACTIVITY_SYSTEM sub 64 LightRoad ACTIVATIONTYPE (LightRoadManager.openOrclose). */
+export function lightRoadOpen(userId: number, open: boolean): PacketOut {
+  const p = new PacketOut(145, userId);
+  p.writeByte(64); p.writeBoolean(open);
+  return p;
+}
+/** 145 ACTIVITY_SYSTEM sub 7 GuildMemberWeek OPEN (GuildMemberWeekManager.openOrclose). */
+export function guildMemberWeekOpen(userId: number, start: string, end: string): PacketOut {
+  const p = new PacketOut(145, userId);
+  p.writeByte(7); p.writeBoolean(true); p.writeString(start); p.writeString(end);
+  return p;
+}
