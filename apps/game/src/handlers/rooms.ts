@@ -1,4 +1,10 @@
-/** 94 GAME_ROOM (GameRoomLogicProcessor reads an int sub -> GameRoom/Handle/*.cs), 91 GAME_CMD, 70 GAME_INVITE. */
+/**
+ * Sala (lobby de partida) — por que existe: jogador cria/entra em sala antes da luta começar.
+ *
+ * Contrapartida C#: `RoomMgr.cs`, `GameRoom`, `GameRoom/Handle/*.cs` em `vendor/DDTank41/Game.Server/Rooms`.
+ * Pacotes: lê `94 GAME_ROOM` (sub `int` + corpo), responde `roomList` / mensagens; `91 GAME_CMD`, `70 GAME_INVITE`, `82 GAME_MISSION_START`, `86 QUEST_ONE_KEY_FINISH(start)`.
+ * Exemplo concreto: cliente envia `94` sub `0` com `roomType`, `timeType`, `name`, `password` → sala criada; envia `94` sub `1` com `hall`, `sel`, `roomId`, `password` → entra na sala.
+ */
 import { GSPacket } from "@ddt/protocol";
 import { RoomType } from "../rooms/room.js";
 import { roomList } from "../packets/out.js";
@@ -6,6 +12,19 @@ import { SubRouter, type HandlerRegistry } from "./registry.js";
 
 const NO_WEAPON = "Sem arma equipada, não é possível participar.";
 
+/**
+ * Registra rotas de sala (`94 GAME_ROOM`) — o que faz no jogo: criar/entrar/sair de sala, trocar time, dar ready, iniciar partida.
+ *
+ * Contrapartida C#: `RoomMgr.cs`, `GameRoom`, `EnterRoomAction` em `vendor/DDTank41/Game.Server/Rooms`.
+ * Formato que lê: `94` + sub `int` (`0` cria, `1` entra, `2` troca setup, `3` expulsa, `5` sai, `6` troca time, `7` inicia, `9` lista, `10` posição, `11/12` pickup, `15` ready).
+ * Exemplo concreto: `94` sub `7` com sala cheia e todos com arma → `ctx.rooms.startGame(room)` inicia luta.
+ *
+ * Como lê esse código (cada variável):
+ * - `ctx`: contexto do servidor (contém `rooms`, `world`, `lang`). Vem do `HandlerRegistry`.
+ * - `p`: jogador atual (`GamePlayer`). Vem da conexão autenticada; contém `currentRoom`, `hasMainWeapon`, `info`.
+ * - `pkt`: pacote `GSPacket` recebido. Vem do cliente Flash; contém sub + corpo binário.
+ * - `room`: sala atual (`p.currentRoom`). Vem de `ctx.rooms`; contém `host`, `RoomType`, `IsPlaying`.
+ */
 export function roomRouter(): SubRouter {
   return new SubRouter("int", "GAME_ROOM")
     // Create.cs: byte roomType, byte timeType, str name, str password (world-boss rooms not ported).
@@ -111,6 +130,22 @@ export function roomRouter(): SubRouter {
 }
 
 
+/**
+ * Registra handlers de sala no servidor — o que faz no jogo: liga `94 GAME_ROOM`, `91 GAME_CMD`, `70 GAME_INVITE`, `82 GAME_MISSION_START`, `86` ao `world`.
+ *
+ * Contrapartida C#: `RoomMgr.cs`, `GameRoom`, `EnterRoomAction` em `vendor/DDTank41/Game.Server/Rooms`; `82` espelha `GameUserStartHandler.cs` (`RoomMgr.StartGameMission` → `game.MissionStart(host)`).
+ * Formato que lê/responde: lê `91` (repassa para `game.processData` ou responde sub `98` falso) e `70` (convite com `RoomId`, `MapId`, `Name`, `Password`); responde `91`, `70`, `roomList`.
+ * Exemplo concreto: jogador sem partida envia `91` sub `98` → recebe `91` sub `98` falso; anfitrião de sala `FightLab` (`roomType 5`) envia `82` com `flag true` → `game.missionStart()` destrava próximo andar.
+ *
+ * Como lê esse código (cada variável):
+ * - `r`: registro de handlers (`HandlerRegistry`). Vem do bootstrap do servidor; recebe `r.player(código, nome, handler)`.
+ * - `rr`: roteador de `94 GAME_ROOM` retornado por `roomRouter()`. Vem de `roomRouter()`; contém `handler` com subs `0..15`.
+ * - `game`: partida ativa (`p.currentRoom?.game`). Vem de `p.currentRoom`; contém `processData`, `missionStart`.
+ * - `off`: posição original de leitura do pacote (`pkt.offset`). Vem de `pkt`; serve para restaurar leitura após sondar sub `98`.
+ * - `room`: sala do anfitrião (`p.currentRoom`). Vem de `p`; contém `RoomId`, `MapId`, `Name`, `Password`.
+ * - `target`: jogador convidado (`ctx.world.get(id)`). Vem de `ctx.world`; recebe pacote `70` se estiver online e sem sala.
+ * - `flag`: permissão para iniciar missão (`bool`). Vem do pacote `82`; quando `true` chama `missionStart`.
+ */
 export function registerRooms(r: HandlerRegistry): SubRouter {
   const rr = roomRouter();
   r.player(94, "GAME_ROOM", rr.handler);
