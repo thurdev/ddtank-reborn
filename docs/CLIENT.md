@@ -58,3 +58,41 @@ O pack 6600 (`vendor/DDT-6600/WebSimple/Flash_6600_v040/ui/turkey/`) é turco (`
   número/código/placeholder puro, nada de texto real).
 - Regerar tudo: `pnpm lang:6600` (ou `--dry` pra só ver as contagens antes de gravar). Depois de editar
   `lang-6600-extra.json` à mão, roda de novo pra reconstruir o `.txt` + o zip servido.
+
+### Marca da tela de boot/loading 6600 (logo "Bombom", "DEVELOP BY ASUNA")
+O boot do 6600 (antes do `language.txt` carregar) tinha a marca do servidor turco de origem — logo "Bombom"
+(com molde de barra de progresso) e a legenda solta "DEVELOP BY ASUNA". `tools/remaster/brand-6600.mjs`
+troca pela logo DDTank Reborn (`apps/web/public/play/logo.webp`), escrevendo em
+`apps/api/assets/flash6600/<mesmo caminho relativo ao pack>`:
+- `Loading.swf` (chid 26), `DDT_Loading.swf` (chid 42), `DDT_Loading1.swf` (chid 42) — a imagem inteira é só
+  "logo + moldura da barra de progresso" (fundo transparente); o script corta no y certo, troca só a logo
+  (contain, centralizada) e preserva a moldura decorativa de baixo intacta. Texto "Yükleniyor" (chid 18/31 em
+  Loading.swf; chid 18/47 nos DDT_Loading*) → "Carregando" via `ffdec -replace` nativo (fonte embutida já se
+  chama "Arial", então o FFDec acha glifo que falta sem precisar do truque de `swf-font-rename.mjs`).
+- `ui/turkey/swf/loading.swf` (tela "Bombom II" com os personagens de Natal, chid 18 = moldura/janela 533x515,
+  chid 34 = cena cheia 1000x600): aqui a logo está pintada dentro da arte (sem transparência atrás), não dá
+  pra só recortar — o script achata a imagem contra uma cor aproximada do fundo local, borra forte pra apagar
+  as letras, recorta só a área do logo com máscara de cantos suaves **E** multiplicada pelo alfa original (pra
+  não virar um retângulo opaco onde a arte era transparente — moldura arredondada/arco), e põe a logo nova por
+  cima menor que a área (sobra uma margem borrada ao redor). Texto desse arquivo já estava em chinês
+  ("正在加载"), não turco — fora do escopo (a tarefa só pede tradução de texto turco tipo "Yükleniyor").
+  SWF final fica bem maior que o vendor (~249KB → ~2MB: as duas imagens 533x515/1000x600 viram PNG sem perda
+  dentro do tag `DefineBitsJPEG3`, que é o que o FFDec CLI faz quando a entrada tem canal alfa mesmo pedindo
+  formato `jpeg3` — testado, sem ganho de tamanho real). Aceitável pra uma tela de loading secundária.
+- `smallNote.txt` — fica em `WebSimple/` (**um nível acima** do pack `Flash_6600_v040`, igual
+  `md5.xml`/`characterDefine.xml`; ver fallback `top` na rota `/flash6600/*` em
+  `apps/api/src/routes/static.ts`), não dentro do pack. Conteúdo é só `DEVELOP BY ASUNA`, carregado via
+  `URLLoader` por algum SWF de boot e mostrado como legenda solta (não é um `DefineText` de nenhum SWF
+  testado). O overlay (`apps/api/assets/flash6600/smallNote.txt`) é resolvido *antes* desse fallback pro
+  vendor, então basta um arquivo vazio pra sumir com o crédito.
+- Checados e sem marca, não precisam de patch: `22.swf` (só ABC/código do jogo, 0 imagens), `22.png` (apesar
+  do mesmo tamanho de `22.swf`, os bytes são completamente diferentes e não abre como SWF — provavelmente
+  lixo/binário não usado pelo boot; não mexe, risco > benefício), `1.png` (launcher de criação de personagem,
+  sem Bombom/ASUNA), `ui/turkey/swf/firstcore.swf` (ícones de UI do hall — VIP, botões, tooltips — sem logo),
+  `newhandopencartoon.swf` (diálogo do tutorial em turco, é história do jogo — piratas/tesouro —, não marca
+  do servidor, fora do escopo deste patch; tradução geral do cliente 6600 segue outra frente, não esta).
+- Rerodar: `node tools/remaster/brand-6600.mjs` (opção `--sheet` gera o contact-sheet antes/depois em
+  `research/6600/brand-review.jpg`, olhe antes de confiar — a cena 1000x600 em particular é um remendo
+  borrado, não um recorte limpo). Precisa de `vendor/` linkado e `tools/remaster/node_modules` instalado
+  (`sharp`) + `vendor/_tools/ffdec/ffdec-cli.jar` (Java). Idempotente: sempre reconstrói a partir do vendor
+  original, nunca de uma cópia já patchada.
