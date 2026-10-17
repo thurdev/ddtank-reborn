@@ -8,6 +8,8 @@ export const PKG_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 export const REPO_ROOT = resolve(PKG_ROOT, "..", "..");
 export const VENDOR_EXPORT = join(REPO_ROOT, "vendor", "_dbexport");
 export const RESEARCH_DB = join(REPO_ROOT, "research", "db");
+/** Committed copy of the DDT-6600 schema/row-counts export (M1 schema task), see research/6600/db-diff.md. */
+export const RESEARCH_DB_6600 = join(REPO_ROOT, "research", "6600", "db");
 export const SEED_DIR = join(PKG_ROOT, "seed");
 export const SCHEMA_DIR = join(PKG_ROOT, "src", "schema");
 
@@ -30,4 +32,16 @@ export function rowCountsPath(db: string): string {
   const v = join(VENDOR_EXPORT, db, "row-counts.json");
   if (existsSync(v)) return v;
   return join(RESEARCH_DB, db, "row-counts.json");
+}
+
+/** Same as catalogPath()/rowCountsPath() but for the DDT-6600 export (different research/ base dir). */
+export function catalogPath6600(db: string): string {
+  const v = join(VENDOR_EXPORT, db, "schema", "catalog.json");
+  if (existsSync(v)) return v;
+  return join(RESEARCH_DB_6600, db, "schema", "catalog.json");
+}
+export function rowCountsPath6600(db: string): string {
+  const v = join(VENDOR_EXPORT, db, "row-counts.json");
+  if (existsSync(v)) return v;
+  return join(RESEARCH_DB_6600, db, "row-counts.json");
 }
