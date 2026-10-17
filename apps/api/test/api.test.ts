@@ -159,7 +159,10 @@ describe("template XML (client boot files)", () => {
       if (snapPath) {
         const raw = readFileSync(snapPath);
         const snap = raw[0] === 0x78 ? inflate(raw) : raw.toString("utf8");
-        expect(attrNames(ours)).toEqual(attrNames(firstTag(snap, tag)));
+        // superset, não igualdade exata: QuestList/TemplateAllList/LoadPVEItems ganharam atributos que a 4.1 não
+        // tem (só o 6600 lê, ver research/6600/xml-diff.md) — a 4.1 ignora atributo desconhecido (AGENTS.md), e
+        // o que importa aqui é nunca perder/renomear um atributo que a 4.1 espera.
+        expect(attrNames(ours)).toEqual(expect.arrayContaining(attrNames(firstTag(snap, tag))));
       }
     });
   }
@@ -177,6 +180,68 @@ describe("template XML (client boot files)", () => {
     expect(inflate(r.rawPayload)).toContain("<Item QuestionCatalogID=");
     const c = await app.inject({ url: "/request/areacelebbygplist.xml" });
     expect(inflate(c.rawPayload)).toContain('value="true"');
+  });
+});
+
+describe("6600 compat (research/6600/xml-diff.md, docs/plan/MIGRACAO-6600.md M1)", () => {
+  // TaskManager.getImproveArray() (6600, ddt/manager/TaskManager.as:272-280) lê xml.@BindMoneyRate etc. do elemento
+  // <Rate> — sem ele o cliente 6600 quebrava com TypeError #1009 ao entrar na tela de missões (bug original desta
+  // tarefa). game.Quest_Rate está vazia na base seedada (0 linhas, igual à fonte original), então o builder cai
+  // no default do próprio snapshot 6600 (vendor/DDT-6600/Request/questlist.xml).
+  it("QuestList.xml carries <Rate> with the 6600 snapshot defaults (TaskManager.getImproveArray)", async () => {
+    const body = inflate((await app.inject({ url: "/request/questlist.xml" })).rawPayload);
+    expect(body).toContain('<Rate BindMoneyRate="1|1|1|1" ExpRate="1.5|2|2.5|3" GoldRate="1.5|2|2.5|3" ExploitRate="1.5|2|2.5|3" CanOneKeyFinishTime="10000" />');
+  });
+
+  it("QuestList.xml Item/Item_Good carry the 6600-only fields QuestInfo.as reads (RewardBindMoney, OneKeyFinishNeedMoney, ...)", async () => {
+    const body = inflate((await app.inject({ url: "/request/questlist.xml" })).rawPayload);
+    const item = firstTag(body, "Item");
+    expect(attrNames(item)).toEqual(
+      expect.arrayContaining(["RewardBindMoney", "OneKeyFinishNeedMoney", "CollocationCost", "CollocationColdTime", "Level2NeedMoney", "Level3NeedMoney", "Level4NeedMoney", "Level5NeedMoney"]),
+    );
+    // RewardBindMoney é o mesmo dado de RewardGiftToken (renome confirmado em Game.Server.Quests/QuestInventory.cs:476-480)
+    expect(/RewardGiftToken="(\d+)"/.exec(item)?.[1]).toBe(/RewardBindMoney="(\d+)"/.exec(item)?.[1]);
+    // fora de escopo (needs schema, M1 tarefa 1): defaults fixos iguais a 100% da amostra do snapshot 6600
+    expect(item).toContain('CollocationCost="-1"');
+    expect(item).toContain('OneKeyFinishNeedMoney="0"');
+    const good = firstTag(body, "Item_Good");
+    if (good) {
+      // RewardItemCount1..5 duplicam o único RewardItemCount que já temos (sem coluna por nível, ver report)
+      const count = /RewardItemCount="(\d+)"/.exec(good)?.[1];
+      for (let i = 1; i <= 5; i++) expect(new RegExp(`RewardItemCount${i}="${count}"`).test(good)).toBe(true);
+    }
+  });
+
+  it("ActivitySystemItems.xml / LoginAwardItemTemplate.xml / TemplateAllList.xml carry pre-existing columns that only the 6600 client reads", async () => {
+    const act = inflate((await app.inject({ url: "/request/activitysystemitems.xml" })).rawPayload);
+    if (/<Item /.test(act)) expect(attrNames(firstTag(act, "Item"))).toContain("Probability");
+    const login = inflate((await app.inject({ url: "/request/loginawarditemtemplate.xml" })).rawPayload);
+    if (/<Item /.test(login)) expect(attrNames(firstTag(login, "Item"))).toContain("AttackCompose");
+    const tpl = inflate((await app.inject({ url: "/request/templatealllist.xml" })).rawPayload);
+    expect(attrNames(firstTag(tpl, "Item"))).toContain("FloorPrice");
+  });
+
+  // Bug preexistente da própria 4.1 (não só do 6600): SuitTempleteAnalyzer.as/EquipSuitTempleteAnalyzer.as leem
+  // `xml..item` (minúsculo, E4X é case-sensitive) nas duas versões do cliente; nosso `flat()` gerava `<Item>`
+  // (maiúsculo, default), então as duas listas de conjunto (bônus de equipamento em grupo) sempre chegavam vazias
+  // pro cliente mesmo com linhas na tabela.
+  it("SuitPartEquipInfoList.xml / SuitTemplateInfoList.xml use lowercase <item> (both 4.1 and 6600 analyzers read xml..item)", async () => {
+    const parts = inflate((await app.inject({ url: "/request/suitpartequipinfolist.xml" })).rawPayload);
+    const suits = inflate((await app.inject({ url: "/request/suittemplateinfolist.xml" })).rawPayload);
+    expect(parts).toMatch(/<item ID="\d+"/);
+    expect(parts).not.toContain("<Item ");
+    expect(suits).toMatch(/<item SuitId="\d+"/);
+    expect(suits).not.toContain("<Item ");
+  });
+
+  // SP_Daily_League_Award_All não existe em nenhuma base (research/db/00-summary.md); o builder sempre-vazio foi
+  // removido de TEMPLATES pra cair no fallback do snapshot vendor/DDT-6600/Request (request.ts) — melhora os dois
+  // clientes (4.1 nunca teve esses dados; o fallback bate byte a byte com o 6600 original).
+  it("DailyLeagueAward.xml falls back to the 6600 vendor snapshot (no source table, no more always-empty Result)", async () => {
+    const r = await app.inject({ url: "/request/dailyleagueaward.xml" });
+    expect(r.headers["x-snapshot"]).toBe("6600");
+    const body = inflate(r.rawPayload);
+    expect(body).toMatch(/<item Level="\d+" Class="\d+"/);
   });
 });
 

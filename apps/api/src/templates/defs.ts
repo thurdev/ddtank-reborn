@@ -116,7 +116,9 @@ const S = {
   ballConfig: "TemplateID Common CommonAddWound CommonMultiBall Special",
   active:
     "ActiveID Description Content AwardContent HasKey EndDate:d IsOnly StartDate:d Title Type ActiveType='0' IsAdvance='false' GoodsExchangeTypes='' GoodsExchangeNum='' limitType='' limitValue='' ActionTimeContent",
-  activitySystem: "ActivityType Quality TemplateID ValidDate Count IsBind StrengthLevel AttackCompose DefendCompose AgilityCompose LuckCompose",
+  // Probability já existe na coluna (default 10000, game.ts) mas faltava no spec — ActivitySystemItemsDataAnalyzer
+  // (6600) lê via copyPorpertiesByXML, research/6600/xml-diff.md.
+  activitySystem: "ActivityType Quality TemplateID ValidDate Count IsBind StrengthLevel AttackCompose DefendCompose AgilityCompose LuckCompose Probability",
   achievement:
     "ID AchievementPoint AchievementType CanHide Detail EndDate:d IsActive IsOther IsShare NeedMaxLevel NeedMinLevel PicID PlaceID PreAchievementID StartDate:d Title",
   achievementCond: "AchievementID CondictionID CondictionType Condiction_Para1 Condiction_Para2",
@@ -133,9 +135,15 @@ const S = {
   map: "ID Name Description ForegroundWidth ForegroundHeight BackroundWidht BackroundHeight DeadWidth DeadHeight Weight DragIndex ForePic BackPic DeadPic Pic BackMusic Remark Type",
   petFight: "ID Exp Attack Agility Defence Lucky Blood",
   petMoe: "Level Attack Lucky Agility Blood Defence Guard Exp",
-  pve: "ID Name Type LevelLimits SimpleTemplateIds NormalTemplateIds HardTemplateIds TerrorTemplateIds Pic Description Ordering AdviceTips BossFightNeedMoney",
+  // EpicTemplateIds: dificuldade "Épico" que o 6600 acrescenta acima de Terror (DungeonAnalyzer lê via
+  // copyPorpertiesByXML); não existe coluna equivalente em game.Pve_Info (precisa schema novo, fora de escopo —
+  // ver research/6600/xml-diff.md), então emitimos "" (sem masmorra Épica) igual ao fallback que o próprio 6600
+  // usa pra PVEs sem essa dificuldade (vendor/DDT-6600/Request/loadpveitems.xml tem linhas com EpicTemplateIds="").
+  pve: "ID Name Type LevelLimits SimpleTemplateIds NormalTemplateIds HardTemplateIds TerrorTemplateIds Pic Description Ordering AdviceTips BossFightNeedMoney EpicTemplateIds=''",
   userBox: "ID Type Level Condition TemplateID",
-  loginAward: "ID Count=Type RewardItemID IsSelect IsBind RewardItemValid RewardItemCount StrengthenLevel DefendCompose AgilityCompose LuckCompose",
+  // AttackCompose já existe na coluna (game.ts) mas faltava no spec — AccumulativeLoginAnalyer (6600) lê via
+  // copyPorpertiesByXML, research/6600/xml-diff.md.
+  loginAward: "ID Count=Type RewardItemID IsSelect IsBind RewardItemValid RewardItemCount StrengthenLevel AttackCompose DefendCompose AgilityCompose LuckCompose",
   mapServer: "ServerID OpenMap IsSpecial",
   newTitle: "ID Order Show Name Pic Att Def Agi Luck Desc",
   npc: "ID Name Level Camp Type Blood MoveMin MoveMax BaseDamage BaseGuard Defence Agility Lucky ModelID ResourcesPath DropRate Experience Delay Immunity Alert Range Preserve Script FireX FireY DropId MagicAttack='0' MagicDefence='0'",
@@ -144,18 +152,36 @@ const S = {
   petSkillTemplate: "PetTemplateID KindID GetType='1' SkillID SkillBookID MinLevel DeleteSkillIDs",
   petTemplate:
     "TemplateID Name KindID Description Pic RareLevel MP StarLevel GameAssetUrl HighAgility HighAgilityGrow HighAttack HighAttackGrow HighBlood HighBloodGrow HighDamage HighDamageGrow HighDefence HighDefenceGrow HighGuard HighGuardGrow HighLuck HighLuckGrow",
+  // 6600 (FlashUtils.cs CreateQuestInfo + QuestInfo.as:148-185, research/6600/xml-diff.md) acrescenta campos de um
+  // sistema de "repescagem"/escolta de missão que a 4.1 não tem: RewardBindMoney (mesmo dado de RewardGiftToken,
+  // só renomeado — confirmado em Game.Server.Quests/QuestInventory.cs:476-480, o C# lê RewardBindMoney e exibe a
+  // msg "...RewardGiftToken") e OneKeyFinishNeedMoney/CollocationCost/CollocationColdTime/Level2-5NeedMoney, que no
+  // snapshot 6600 (vendor/DDT-6600/Request/questlist.xml) são constantes pra toda a tabela (0 ou -1 = "recurso
+  // desativado") — não existe coluna equivalente em packages/db/src/schema/game.ts Quest, então emitimos o
+  // default fixo em vez de criar schema novo (fora de escopo deste agente, ver research/6600/xml-diff.md).
   quest:
-    "ID QuestID Title Detail Objective NeedMinLevel NeedMaxLevel PreQuestID NextQuestID IsOther CanRepeat RepeatInterval RepeatMax RewardGP RewardGold RewardGiftToken RewardOffer RewardRiches RewardBuffID RewardBuffDate RewardMoney Rands RandDouble TimeMode StartDate EndDate MapID AutoEquip RewardMedal Rank StarLev NotMustCount",
+    "ID QuestID Title Detail Objective NeedMinLevel NeedMaxLevel PreQuestID NextQuestID IsOther CanRepeat RepeatInterval RepeatMax RewardGP RewardGold RewardGiftToken RewardOffer RewardRiches RewardBuffID RewardBuffDate RewardMoney Rands RandDouble TimeMode StartDate EndDate MapID AutoEquip RewardMedal Rank StarLev NotMustCount RewardBindMoney=RewardGiftToken OneKeyFinishNeedMoney='0' CollocationCost='-1' CollocationColdTime='-1' Level2NeedMoney='-1' Level3NeedMoney='-1' Level4NeedMoney='-1' Level5NeedMoney='-1'",
   questCond: "QuestID CondictionID CondictionTitle CondictionType Para1 Para2 isOpitional",
-  questGoods: "QuestID RewardItemID IsSelect RewardItemValid RewardItemCount StrengthenLevel AttackCompose DefendCompose AgilityCompose LuckCompose IsCount IsBind",
+  // RewardItemCount1..5 (6600 QuestInfo.as:237, lê um array de 5 contagens — provável reward escalonado por
+  // "nível" de repetição da missão): no snapshot 6600, 2755/2763 linhas (99,7%, research/6600/xml-diff.md) repetem
+  // o mesmo valor nas 5 posições, então duplicamos nosso único RewardItemCount (sem coluna separada por nível,
+  // fora de escopo) — os ~8 casos com valores diferentes por nível precisam de schema novo pra serem exatos.
+  questGoods:
+    "QuestID RewardItemID IsSelect RewardItemValid RewardItemCount StrengthenLevel AttackCompose DefendCompose AgilityCompose LuckCompose IsCount IsBind RewardItemCount1=RewardItemCount RewardItemCount2=RewardItemCount RewardItemCount3=RewardItemCount RewardItemCount4=RewardItemCount RewardItemCount5=RewardItemCount",
+  /** FlashUtils.cs CreateQuestRate (6600, Road.Flash/FlashUtils.cs:192) sobre game.Quest_Rate (SP_Quest_Rate_All,
+   *  ProduceBussiness.cs:3155-3164) — taxas globais de recompensa de missão, não por-missão. */
+  questRate: "BindMoneyRate ExpRate GoldRate ExploitRate CanOneKeyFinishTime",
   serverConfig: "Name Value",
   shopShow: "Type ShopId",
   shop: "ID ShopID GroupID TemplateID BuyType IsContinue IsBind IsVouch Label Beat AUnit APrice1 AValue1 APrice2 AValue2 APrice3 AValue3 BUnit BPrice1 BValue1 BPrice2 BValue2 BPrice3 BValue3 CUnit CPrice1 CValue1 CPrice2 CValue2 CPrice3 CValue3 IsCheap LimitCount StartDate EndDate",
   suitPart: "ID ContainEquip PartName",
   suitInfo:
     "SuitId SuitName EqipCount1 SkillDescribe1 Skill1 EqipCount2 SkillDescribe2 Skill2 EqipCount3 SkillDescribe3 Skill3 EqipCount4 SkillDescribe4 Skill4 EqipCount5 SkillDescribe5 Skill5",
+  // FloorPrice já existe na coluna (default 0, game.ts) mas faltava no spec — ItemTempleteAnalyzer (6600) lê via
+  // copyPorpertiesByXML pra ItemTemplateInfo.FloorPrice, usado no preço mínimo do leilão/correio (AuctionSellLeftView.as,
+  // email/view/WritingView.as), research/6600/xml-diff.md.
   itemTemplate:
-    "AddTime:D Agility Attack CanCompose CanDelete CanDrop CanEquip CanStrengthen CanUse CategoryID Colors Defence Description Level Luck MaxCount Name NeedLevel NeedSex Pic Data Property1 Property2 Property3 Property4 Property5 Property6 Property7 Property8 Quality Script BindType FusionType FusionRate FusionNeedRate TemplateID RefineryLevel Hole ReclaimValue ReclaimType CanRecycle SuitId",
+    "AddTime:D Agility Attack CanCompose CanDelete CanDrop CanEquip CanStrengthen CanUse CategoryID Colors Defence Description Level Luck MaxCount Name NeedLevel NeedSex Pic Data Property1 Property2 Property3 Property4 Property5 Property6 Property7 Property8 Quality Script BindType FusionType FusionRate FusionNeedRate TemplateID RefineryLevel Hole ReclaimValue ReclaimType CanRecycle SuitId FloorPrice",
   totemHonor: "ID Type NeedMoney AddHonor",
   strengthExp: "Level Exp NecklaceStrengthExp NecklaceStrengthPlus",
   rune: "TemplateID NextTemplateID Name BaseLevel MaxLevel Type1 Attribute1 Turn1 Rate1 Type2 Attribute2 Turn2 Rate2 Type3 Attribute3 Turn3 Rate3",
@@ -317,13 +343,12 @@ export const TEMPLATES: TemplateDef[] = [
   // ConsortiaBussiness -> Project_Player34 copy of Consortia_Level
   flat({ endpoint: "/ConsortiaLevelList.ashx", files: [z("ConsortiaLevelList")], schema: "player", table: "Consortia_Level", order: `"Level"`, attrs: S.consortiaLevel }),
   flat({ endpoint: "/DailyAwardList.ashx", files: [z("DailyAwardList")], table: "Daily_Award", attrs: S.dailyAward }),
-  {
-    // SP_Daily_League_Award_All does not exist in any DB (research/db/00-summary.md): the shipped file is an empty Result.
-    endpoint: "/DailyLeagueAwardList.ashx",
-    files: [p("dailyleagueaward_out"), z("dailyleagueaward")],
-    deps: [],
-    build: () => wrap(async () => []),
-  },
+  // dailyleagueaward.xml (DailyLeagueAwardList.ashx) foi removido de TEMPLATES de propósito: SP_Daily_League_Award_All
+  // não existe em nenhuma base (research/db/00-summary.md) e o 6600 (DailyLeagueAwardAnalyzer, 22 atributos por
+  // <item> — Class/Count/Hole1-6/RewardID/TemplateID/..., research/6600/xml-diff.md) também não tem tabela
+  // equivalente em packages/db (needs schema, M1 tarefa 1). Sem builder aqui, request.ts cai no fallback do
+  // snapshot vendor/DDT-6600/Request/dailyleagueaward.xml (byte a byte) em vez do Result vazio que a 4.1 sempre
+  // serviu — estritamente melhor pros dois clientes (4.1 ganha dados reais que nunca teve; 6600 bate com o original).
   flat({
     endpoint: "/DailyLeagueLevelList.ashx",
     files: [p("dailyleaguelevel_out"), z("dailyleaguelevel")],
@@ -454,30 +479,43 @@ export const TEMPLATES: TemplateDef[] = [
   {
     endpoint: "/QuestList.ashx",
     files: [z("QuestList")],
-    deps: ["game.Quest", "game.Quest_Condiction", "game.Quest_Goods"],
+    // game.Quest_Rate: tabela existe no schema (0 linhas na fonte original, §2.2 do plano) mas o builder 4.1 nunca a
+    // lia; o 6600 lê (ver S.questRate acima) então agora entra como dep pra invalidar o cache quando for populada.
+    deps: ["game.Quest", "game.Quest_Condiction", "game.Quest_Goods", "game.Quest_Rate"],
     build: (h) =>
       wrap(async () => {
-        const [qs, cs, gs] = await Promise.all([
+        const [qs, cs, gs, rate] = await Promise.all([
           translateRows(h, "Quest", await all(h, "game", "Quest", `"ID"`)),
           all(h, "game", "Quest_Condiction"),
           all(h, "game", "Quest_Goods"),
+          all(h, "game", "Quest_Rate"),
         ]);
         const cBy = groupBy(cs, "QuestID");
         const gBy = groupBy(gs, "QuestID");
-        return qs.map((x) => {
+        const items = qs.map((x) => {
           const e = item("Item", S.quest, x);
           for (const c of cBy.get(Number(x.ID)) ?? []) e.add(item("Item_Condiction", S.questCond, c));
           for (const g of gBy.get(Number(x.ID)) ?? []) e.add(item("Item_Good", S.questGoods, g));
           return e;
         });
+        // TaskManager.getImproveArray() (6600, ddt/manager/TaskManager.as:272-280) lê xml.@BindMoneyRate etc. do
+        // elemento <Rate> — sem ele o client 6600 estoura TypeError #1009 (bug original que motivou esta tarefa).
+        // game.Quest_Rate está vazia na base 4.1 restaurada (nunca foi usada); usamos a 1a linha se existir, senão
+        // os defaults do próprio snapshot 6600 (vendor/DDT-6600/Request/questlist.xml, idênticos em toda a tabela).
+        const rateRow = rate[0] ?? { BindMoneyRate: "1|1|1|1", ExpRate: "1.5|2|2.5|3", GoldRate: "1.5|2|2.5|3", ExploitRate: "1.5|2|2.5|3", CanOneKeyFinishTime: 10000 };
+        items.push(item("Rate", S.questRate, rateRow));
+        return items;
       }),
   },
   // ServiceBussiness (Project_Player34) -> player.Server_Config; plain text (client TEXT_LOADER)
   flat({ endpoint: "/serverconfig.ashx", files: [p("ServerConfig")], schema: "player", table: "Server_Config", order: `"ID"`, attrs: S.serverConfig }),
   flat({ endpoint: "/ShopGoodsShowList.ashx", files: [z("ShopGoodsShowList")], table: "ShopGoodsShowList", order: `"TempID"`, attrs: S.shopShow, wrapIn: "Store" }),
   flat({ endpoint: "/ShopItemList.ashx", files: [z("ShopItemList")], table: "Shop", order: `"Sort" DESC, "ID"`, attrs: S.shop, wrapIn: "Store" }),
-  flat({ endpoint: "/suitpartequipinfolist.ashx", files: [z("suitpartequipinfolist")], table: "Suit_TemplateID", attrs: S.suitPart }),
-  flat({ endpoint: "/suittemplateinfolist.ashx", files: [z("suittemplateinfolist")], table: "SuitTemplateInfo", attrs: S.suitInfo }),
+  // elem: "item" (minúsculo) — EquipSuitTempleteAnalyzer.as/SuitTempleteAnalyzer.as (4.1 e 6600, idênticos) leem
+  // `xml..item` (E4X é case-sensitive); o default de flat() é "Item" maiúsculo, que não bate com nada e deixava
+  // as duas listas de conjunto sempre vazias pro cliente — bug preexistente da 4.1, não só do 6600.
+  flat({ endpoint: "/suitpartequipinfolist.ashx", files: [z("suitpartequipinfolist")], table: "Suit_TemplateID", elem: "item", attrs: S.suitPart }),
+  flat({ endpoint: "/suittemplateinfolist.ashx", files: [z("suittemplateinfolist")], table: "SuitTemplateInfo", elem: "item", attrs: S.suitInfo }),
   flat({
     endpoint: "/TemplateAllList.ashx",
     files: [p("TemplateAlllist1"), z("TemplateAlllist")],
