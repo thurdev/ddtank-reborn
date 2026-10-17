@@ -58,7 +58,7 @@ export const LOGIN_ITEM_SPEC = (p: Row, isFirst: number) =>
 
 export default define(
   "/Login.ashx",
-  async ({ app, p, ip }) => {
+  async ({ app, p, ip, client }) => {
     let value = false;
     let message = t("Tank.Request.Login.Fail1");
     const children = [];
@@ -71,7 +71,9 @@ export default define(
       const [rawName, pwd, newPwd, nickname] = parts as [string, string, string, string];
       const site = p("site") ?? "";
       const name = getNameBySite(rawName, site);
-      const session = await consumeWebKey(app.h, name, pwd, newPwd, { gameKeyTtlMinutes: app.cfg.GAME_KEY_TTL_MIN });
+      // client: qual swf chamou (ReqCtx.client, "41"/"6600" via /request6600/) — grava em app.LoginSessions.Client
+      // pra apps/game (socket LOGIN) saber qual layout de pacote usar (docs/plan/MIGRACAO-6600.md M1).
+      const session = await consumeWebKey(app.h, name, pwd, newPwd, { gameKeyTtlMinutes: app.cfg.GAME_KEY_TTL_MIN, client });
       if (!session) {
         message = t("BaseInterface.LoginAndUpdate.Try");
         return xml(result(false, message));

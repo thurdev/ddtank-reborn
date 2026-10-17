@@ -109,7 +109,7 @@ export async function consumeWebKey(
   userName: string,
   key: string,
   tempPwd: string,
-  o: { userId?: number; gameKeyTtlMinutes?: number; now?: Date } = {},
+  o: { userId?: number; gameKeyTtlMinutes?: number; now?: Date; client?: string } = {},
 ): Promise<LoginSession | null> {
   const s = await getSession(h, userName);
   const now = o.now ?? new Date();
@@ -118,6 +118,9 @@ export async function consumeWebKey(
   const reOk = !!s.GameKey && !!s.GameKeyExpiresAt && s.GameKeyExpiresAt > now && safeEq(s.GameKey, key);
   if (!webOk && !reOk) return null;
   const gameExp = new Date(now.getTime() + (o.gameKeyTtlMinutes ?? 60 * 24) * 60_000);
+  // Grava qual swf chamou Login.ashx (ReqCtx.client, "41"/"6600") — é isso que apps/game lê de volta pra
+  // escolher o layout de pacote na socket LOGIN (docs/plan/MIGRACAO-6600.md M1, research/6600/packets-m1.md).
+  const client = o.client ?? s.Client ?? "41";
   await h.db
     .update(LoginSessions)
     .set({
@@ -126,9 +129,10 @@ export async function consumeWebKey(
       Count: sql`${LoginSessions.Count} + 1`,
       UserID: o.userId ?? s.UserID,
       UpdatedAt: now,
+      Client: client,
     })
     .where(eq(LoginSessions.UserName, s.UserName));
-  return s;
+  return { ...s, Client: client };
 }
 
 /** Sets the game user id after Login.ashx created/loaded the character. */
