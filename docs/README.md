@@ -15,6 +15,8 @@
 | Matriz de testes (361 itens, status) | [qa-matrix.json](./qa-matrix.json) + [QA-MATRIX.md](./QA-MATRIX.md) |
 | Testar (vitest + Playwright) | [TESTING.md](./TESTING.md) |
 | Roadmap fases | [ROADMAP.md](./ROADMAP.md) |
+| **Fila de tarefas (o que pegar agora)** | [plan/TASKS.md](./plan/TASKS.md) — migração 6600 → canais → Pix → site/admin |
+| Plano da migração 6600 | [plan/MIGRACAO-6600.md](./plan/MIGRACAO-6600.md) |
 | Backlog/feedback jogando | [BACKLOG.md](./BACKLOG.md), [REVISIT.md](./REVISIT.md) |
 | Segurança / conduta / licença | [SECURITY.md](../SECURITY.md), [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md), [LICENSE](../LICENSE) |
 
