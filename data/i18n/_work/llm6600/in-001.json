@@ -1,0 +1,722 @@
+[
+ {
+  "i": 180,
+  "tr": "Tıklayarak birliğe gir"
+ },
+ {
+  "i": 181,
+  "tr": "Gizemli cevher satın al"
+ },
+ {
+  "i": 182,
+  "tr": "Fırlatıcıyı indir"
+ },
+ {
+  "i": 183,
+  "tr": "VIP 6, 3 yıldızlı görev ödülünü elde edebilir."
+ },
+ {
+  "i": 184,
+  "tr": "Eğer 15 saniyede cevap vermezsen sistem varsayılan \nreddedecektir!"
+ },
+ {
+  "i": 185,
+  "tr": "Boss savaş odasına girmeye seni davet ediyor."
+ },
+ {
+  "i": 186,
+  "tr": "] fısıldıyor:"
+ },
+ {
+  "i": 187,
+  "tr": "Kendi, kara listeye eklenemez."
+ },
+ {
+  "i": 188,
+  "tr": "r tarafından siz aynı şehirdeki arkadaş olarak eklendi."
+ },
+ {
+  "i": 189,
+  "tr": "Bu bilgi bildirilmeyebilir."
+ },
+ {
+  "i": 190,
+  "tr": "Gerçek zamanlı sohbet"
+ },
+ {
+  "i": 191,
+  "tr": "<b>Tüketim:</b><font color='#f2c834'>{0} büyü değeri </font>"
+ },
+ {
+  "i": 192,
+  "tr": "[Geri dönme]"
+ },
+ {
+  "i": 193,
+  "tr": "Teyit satın Yetersiz sayıda?"
+ },
+ {
+  "i": 194,
+  "tr": "Lütfen renk değiştirmek istediğin teçhizatı \ntıklayarak seç"
+ },
+ {
+  "i": 195,
+  "tr": "VIP {0} ücretsiz"
+ },
+ {
+  "i": 196,
+  "tr": "VIP 6, kart çekmek \niçin %20 indirimli."
+ },
+ {
+  "i": 197,
+  "tr": "Güçlendirme taşı"
+ },
+ {
+  "i": 198,
+  "tr": "2 saatlik yenilmesi için {0} kupon harcayacağına emin misin?"
+ },
+ {
+  "i": 199,
+  "tr": "Tecrübe"
+ },
+ {
+  "i": 200,
+  "tr": "Mükafat"
+ },
+ {
+  "i": 201,
+  "tr": "Servet"
+ },
+ {
+  "i": 202,
+  "tr": "Birlik becerisi"
+ },
+ {
+  "i": 203,
+  "tr": "Birlik becerisi yükselt"
+ },
+ {
+  "i": 204,
+  "tr": "gem"
+ },
+ {
+  "i": 205,
+  "tr": "Bu sefer kart çekme satın aldığında {0} kuponun kesilir. Satın almak istediğine emin misin?"
+ },
+ {
+  "i": 206,
+  "tr": "Rafine \n Edilecek \n Öğe"
+ },
+ {
+  "i": 207,
+  "tr": "Eğitim+{0} \nKart+{1} \nEvcil hayvan+{2} \nTotem+{3} \ngem+{4} \nincisi+{5}  \nçizim+{6} \nSihirli Taş+{7}"
+ },
+ {
+  "i": 208,
+  "tr": "Eğitim+{0} \nEvcil hayvan+{1} \nTotem+{2} \nİnci+{3} \nçizim+{4}"
+ },
+ {
+  "i": 209,
+  "tr": "Kart +{0} \nTotem+{1} \nİnci+{2}\nçizim+{3}\nBinek+{4}\nBinicilik+{5}"
+ },
+ {
+  "i": 210,
+  "tr": "Sırt çantasını düzelt"
+ },
+ {
+  "i": 211,
+  "tr": "Öğe rafine et"
+ },
+ {
+  "i": 212,
+  "tr": "İkinci şifre"
+ },
+ {
+  "i": 213,
+  "tr": "Hızlı"
+ },
+ {
+  "i": 214,
+  "tr": "Böl"
+ },
+ {
+  "i": 215,
+  "tr": "Para yükle"
+ },
+ {
+  "i": 216,
+  "tr": "Sat"
+ },
+ {
+  "i": 217,
+  "tr": "Açık artırma"
+ },
+ {
+  "i": 218,
+  "tr": "Son fiyat"
+ },
+ {
+  "i": 219,
+  "tr": "Açık artırma öğesi"
+ },
+ {
+  "i": 220,
+  "tr": "Başlangıç fiyatı"
+ },
+ {
+  "i": 221,
+  "tr": "Açık artırma zaman sınırı"
+ },
+ {
+  "i": 222,
+  "tr": "Gerekli işlem ücreti"
+ },
+ {
+  "i": 223,
+  "tr": "Tıklayark açık artırma öğesi buraya koy"
+ },
+ {
+  "i": 224,
+  "tr": "8 saat"
+ },
+ {
+  "i": 225,
+  "tr": "24 saat"
+ },
+ {
+  "i": 226,
+  "tr": "48 saat"
+ },
+ {
+  "i": 227,
+  "tr": "İkinci şifre özelliği açıldıktan sonra bu hesap olan avatar oyuna her giriş yaptığında otomatik olarak kilitlenmiş duruma girer. Kilitlenmiş avatar aşağıdaki işlemleri yapamaz."
+ },
+ {
+  "i": 228,
+  "tr": "1. Öğe alım satımı"
+ },
+ {
+  "i": 229,
+  "tr": "Not: Hesabın korunmak için \"\"şifre ayarı\"\" tuşuna tıklayarak ikinci şifre ayarlamanızı tavsiye ediyoruz."
+ },
+ {
+  "i": 230,
+  "tr": "Bir raundda en fazla iki aksesuar kullanılır"
+ },
+ {
+  "i": 231,
+  "tr": "{0}"
+ },
+ {
+  "i": 232,
+  "tr": "Bu yüksek değerli öğe satılamaz."
+ },
+ {
+  "i": 233,
+  "tr": "Bu savaşta Bomba kralı dileğinin kullanım sayısı bitti"
+ },
+ {
+  "i": 234,
+  "tr": "ID"
+ },
+ {
+  "i": 235,
+  "tr": "Kişi sayısı"
+ },
+ {
+  "i": 236,
+  "tr": "Ödül alımı"
+ },
+ {
+  "i": 237,
+  "tr": "İlk kez ödül alımı"
+ },
+ {
+  "i": 238,
+  "tr": "Hayal ruleti"
+ },
+ {
+  "i": 239,
+  "tr": "Hedef"
+ },
+ {
+  "i": 240,
+  "tr": "Ödül"
+ },
+ {
+  "i": 241,
+  "tr": "Soru türü"
+ },
+ {
+  "i": 242,
+  "tr": "Soru başlığı"
+ },
+ {
+  "i": 243,
+  "tr": "Olay zamanı"
+ },
+ {
+  "i": 244,
+  "tr": "Yıl"
+ },
+ {
+  "i": 245,
+  "tr": "ay"
+ },
+ {
+  "i": 246,
+  "tr": "Gün"
+ },
+ {
+  "i": 247,
+  "tr": "Ayrıntılı tanıtım"
+ },
+ {
+  "i": 248,
+  "tr": "Etkinliğin normal olup olmadığı"
+ },
+ {
+  "i": 249,
+  "tr": "Etkinlik adı:"
+ },
+ {
+  "i": 250,
+  "tr": "Öğe elde etme yolu"
+ },
+ {
+  "i": 251,
+  "tr": "Öğe elde etme zamanı"
+ },
+ {
+  "i": 252,
+  "tr": "Yükleme sipariş numarası"
+ },
+ {
+  "i": 253,
+  "tr": "Yükleme yolu"
+ },
+ {
+  "i": 254,
+  "tr": "Yükleme miktarı"
+ },
+ {
+  "i": 255,
+  "tr": "Ad veya web sitesi teslim et"
+ },
+ {
+  "i": 256,
+  "tr": "Kullanıcı adı teslim et"
+ },
+ {
+  "i": 257,
+  "tr": "Oyuncu ismi"
+ },
+ {
+  "i": 258,
+  "tr": "Oyuncu cep telefonu"
+ },
+ {
+  "i": 259,
+  "tr": "Şikayet konusu"
+ },
+ {
+  "i": 260,
+  "tr": "Şikayet kaynağı"
+ },
+ {
+  "i": 261,
+  "tr": "Yanlış cevapladığında hediye paketi yok olacak!"
+ },
+ {
+  "i": 262,
+  "tr": "Öğeye tıklayarak sırt çantasına koy"
+ },
+ {
+  "i": 263,
+  "tr": "Dilek hazine sandığı aç"
+ },
+ {
+  "i": 264,
+  "tr": "Dilek hazine sandığı açılıyor, kapanmıyor"
+ },
+ {
+  "i": 265,
+  "tr": "Gizemli kart kutusu açılıyor, arayüz kapanamaz."
+ },
+ {
+  "i": 266,
+  "tr": "Melek dileği açıldığın elde edilen"
+ },
+ {
+  "i": 267,
+  "tr": "Dilek hazine sandığı açıldığında elde edilen"
+ },
+ {
+  "i": 268,
+  "tr": "Melek dileği"
+ },
+ {
+  "i": 269,
+  "tr": "Altın dilek"
+ },
+ {
+  "i": 270,
+  "tr": "Gümüş dilek"
+ },
+ {
+  "i": 271,
+  "tr": "Melek dileği sayısı yetersiz"
+ },
+ {
+  "i": 272,
+  "tr": "Çanak açmak için 4 çekiç gerekli."
+ },
+ {
+  "i": 273,
+  "tr": "VIP 6, hızlandırma açar"
+ },
+ {
+  "i": 274,
+  "tr": "şimdiki ödüller"
+ },
+ {
+  "i": 275,
+  "tr": "Şans sıralaması"
+ },
+ {
+  "i": 276,
+  "tr": "Aksesuar puana değişebilir"
+ },
+ {
+  "i": 277,
+  "tr": "Dilek puanı 30 puandan daha az, takas edemezsin."
+ },
+ {
+  "i": 278,
+  "tr": "Çıkan aksesuar ile <FONT SIZE='16' COLOR='#FF0000'>{0}</FONT>puan takas etmek istediğine emin misin?"
+ },
+ {
+  "i": 279,
+  "tr": "<p align=\"\"center\"\"><FONT SIZE='16' COLOR='#FF0000'>{0}</FONT>Melek dileği</p> takas edebilirsin."
+ },
+ {
+  "i": 280,
+  "tr": "Her 30 puan bir tane melek dileği takas edilir.</FONT>"
+ },
+ {
+  "i": 281,
+  "tr": "4 tane Melek dileği daha açarsan lüks bir gümüş dilek elde edebilirsin!"
+ },
+ {
+  "i": 282,
+  "tr": "17 tane Melek dileği daha açarsan parlak bir altın dilek elde edebilirsin!"
+ },
+ {
+  "i": 283,
+  "tr": "Tıklayarak açmak istediğiniz inci özelliğini seçin"
+ },
+ {
+  "i": 284,
+  "tr": "Tıklayarak gizemli kart kutusu açılır"
+ },
+ {
+  "i": 285,
+  "tr": "Tıklayarak rastgele kart kutusu açılır"
+ },
+ {
+  "i": 286,
+  "tr": "Bu tür inci sayısı yetersiz"
+ },
+ {
+  "i": 287,
+  "tr": "İnci hızlı bir şekilde satın al"
+ },
+ {
+  "i": 288,
+  "tr": "Devamlı \nyaldızlama:"
+ },
+ {
+  "i": 289,
+  "tr": "Lütfen öncelikle güçlendirmek \nistediğin teçhizatı çift tıklayarak seç"
+ },
+ {
+  "i": 290,
+  "tr": "Sırt çantasında şu var:"
+ },
+ {
+  "i": 291,
+  "tr": "Kart kutusu açıldığında kart veya kart ruhu rastgele elde edilir"
+ },
+ {
+  "i": 292,
+  "tr": "Kart ruhu hazine sandığı açıldığında kart ruhu rastgele elde edilir"
+ },
+ {
+  "i": 293,
+  "tr": "Şu anki mükafat"
+ },
+ {
+  "i": 294,
+  "tr": "Melek dileği aç"
+ },
+ {
+  "i": 295,
+  "tr": "Kart ruhu hazine sandığı aç"
+ },
+ {
+  "i": 296,
+  "tr": "Kart ruhu hazine sandığı bitmiş"
+ },
+ {
+  "i": 297,
+  "tr": "Yükselt"
+ },
+ {
+  "i": 298,
+  "tr": "Yıka"
+ },
+ {
+  "i": 299,
+  "tr": "Yıkama özelliğini değiştirmek istediğine emin misin?"
+ },
+ {
+  "i": 300,
+  "tr": "Değiştirmemek mi istiyorsun?"
+ },
+ {
+  "i": 301,
+  "tr": "Kart yuvası özelliği"
+ },
+ {
+  "i": 302,
+  "tr": "Seviye"
+ },
+ {
+  "i": 303,
+  "tr": "Tebrikler, {0}'ın {1} numaralı kart yuvası {2}.seviyeye yükseltti"
+ },
+ {
+  "i": 304,
+  "tr": "{0} numralı kart yuvası {1}.seviyeye yükseldi"
+ },
+ {
+  "i": 305,
+  "tr": "Ana kart yuvan {0}.seviyeye yükseldi"
+ },
+ {
+  "i": 306,
+  "tr": "Ana kart yuvası"
+ },
+ {
+  "i": 307,
+  "tr": "numaralı kart yuvası"
+ },
+ {
+  "i": 308,
+  "tr": "Bu kart yuvası zaten en yüksek seviyede"
+ },
+ {
+  "i": 309,
+  "tr": "Bu kart seti zaten donatıldı"
+ },
+ {
+  "i": 310,
+  "tr": "Kart ruhu hazine sandığı açılıyor, arayüz kapanamaz."
+ },
+ {
+  "i": 311,
+  "tr": "Güçlendirme taşının sağladığı tecrübe."
+ },
+ {
+  "i": 312,
+  "tr": "Birlik demirci atölyesinin sağladığı tecrübe bonusu."
+ },
+ {
+  "i": 313,
+  "tr": "VIP ile eklenen tecrübe bonusu"
+ },
+ {
+  "i": 314,
+  "tr": "Evcil hayvan tecrübe pano listesi yükleme başarısız!"
+ },
+ {
+  "i": 315,
+  "tr": "Ses 1 yükleme başarısız!"
+ },
+ {
+  "i": 316,
+  "tr": "Ses 2 yükleme başarısız!"
+ },
+ {
+  "i": 317,
+  "tr": "VIP ayrıcalığı"
+ },
+ {
+  "i": 318,
+  "tr": "1. VIP doğrudan 6.seviyeye yükselir"
+ },
+ {
+  "i": 319,
+  "tr": "3. 1000 bağlı kupon ve 1000 güçlendirme taşı elde eder."
+ },
+ {
+  "i": 320,
+  "tr": "VIP'e ait özel ayrıcalık"
+ },
+ {
+  "i": 321,
+  "tr": "2 yıldızlı görevden sonra güçlendirme tecrübe bonusu mevcut"
+ },
+ {
+  "i": 322,
+  "tr": "Çiftlik yardımcısı ve Milanda dileği ücretsiz şekilde kullanılır"
+ },
+ {
+  "i": 323,
+  "tr": "Bağlı kupon üst sınırı artar ve her gün alınabilir"
+ },
+ {
+  "i": 324,
+  "tr": "VIP için kural açıklaması"
+ },
+ {
+  "i": 325,
+  "tr": "1.VIP büyüme toplam 12.seviye, VIP bir aylık açıldığında geçerli süresi 30 gündür."
+ },
+ {
+  "i": 326,
+  "tr": "2.Her 10 kupon harcandığında 1 VIP tecrübe puanı elde edilir, VIP tam seviye olduğunda tecrübe elde edilemez."
+ },
+ {
+  "i": 327,
+  "tr": "3.VIP süresi geçtikten sonra kupon harcandığında da VIP tecrübe elde edilebilir, ama VIP ayrıcalığı kullanılamaz."
+ },
+ {
+  "i": 328,
+  "tr": "4.Bir seferde 6 aylık VIP satın alındığında VIP seviyesi 6 doğrudan .seviye olacaktır; geçerlilik süresi 6 aydır."
+ },
+ {
+  "i": 329,
+  "tr": "5.Bir seferde 3 aylık VIP satın alındığında VIP seviyesi doğrudan 4.seviye olacaktır; geçerlilik süresi 3 aydır."
+ },
+ {
+  "i": 330,
+  "tr": "Bağlı kupon üst sınırı artar"
+ },
+ {
+  "i": 331,
+  "tr": "Savaş tecrübesi eklentisi"
+ },
+ {
+  "i": 332,
+  "tr": "Güçlendirme tecrübe eklentisi"
+ },
+ {
+  "i": 333,
+  "tr": "Bir tuşla görev tamamlamayı artırır."
+ },
+ {
+  "i": 334,
+  "tr": "Görev yıldız seviyesi ödülü"
+ },
+ {
+  "i": 335,
+  "tr": "VIP parası ücretsiz şekilde açılır"
+ },
+ {
+  "i": 336,
+  "tr": "Uzak sunucu kart çekmesi indirimli"
+ },
+ {
+  "i": 337,
+  "tr": "Bombom kralı dileği, enerji keser"
+ },
+ {
+  "i": 338,
+  "tr": "Büyülü çanak için hızlandırma açılır"
+ },
+ {
+  "i": 339,
+  "tr": "Yenildiğinde mükafat kesilmeyecektir"
+ },
+ {
+  "i": 340,
+  "tr": "VIP hediye paketi"
+ },
+ {
+  "i": 341,
+  "tr": "BOSS savaşı aç"
+ },
+ {
+  "i": 342,
+  "tr": "Evcil hayvanın beşinci beceri hücresi"
+ },
+ {
+  "i": 343,
+  "tr": "Hasat tanrısı satın al"
+ },
+ {
+  "i": 344,
+  "tr": "Tüm sunucu duyurusu çevrimiçi oldu"
+ },
+ {
+  "i": 345,
+  "tr": "Ücretsiz Milanda dileği"
+ },
+ {
+  "i": 346,
+  "tr": "Etap uzatma hediyesi"
+ },
+ {
+  "i": 347,
+  "tr": "Kurtarma samanı"
+ },
+ {
+  "i": 348,
+  "tr": "Kart çekme hediyesi"
+ },
+ {
+  "i": 349,
+  "tr": "İyileştirme rüzgarı"
+ },
+ {
+  "i": 350,
+  "tr": "İlahi güç"
+ },
+ {
+  "i": 351,
+  "tr": "Eğitim ustası"
+ },
+ {
+  "i": 352,
+  "tr": "Tüm ücretsiz"
+ },
+ {
+  "i": 353,
+  "tr": "Kez/gün"
+ },
+ {
+  "i": 354,
+  "tr": "TA'ya bağlan"
+ },
+ {
+  "i": 355,
+  "tr": "Çırak olarak onu seç"
+ },
+ {
+  "i": 356,
+  "tr": "İlişki bitirmek"
+ },
+ {
+  "i": 357,
+  "tr": "Sınıf arkadaşım"
+ },
+ {
+  "i": 358,
+  "tr": "{0}'ın eşi"
+ },
+ {
+  "i": 359,
+  "tr": "Toplam mezun çırağın sayısı:"
+ }
+]

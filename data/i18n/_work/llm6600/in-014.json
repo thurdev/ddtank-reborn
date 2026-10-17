@@ -1,0 +1,722 @@
+[
+ {
+  "i": 2520,
+  "tr": "Vay\n Bahçemdeki jinseng ne kadar büyük."
+ },
+ {
+  "i": 2521,
+  "tr": "Ona ne yapmak istiyorsun?"
+ },
+ {
+  "i": 2522,
+  "tr": "Vay! Ne kadar tatlı bir jinseng. Gidip yanaklarını sıkmak istiyorum!"
+ },
+ {
+  "i": 2523,
+  "tr": "{0} Jinsengin gelişip büyüdüğünü farkettin."
+ },
+ {
+  "i": 2524,
+  "tr": "Sadece küçüklük döneminde cevap verebilirsin"
+ },
+ {
+  "i": 2525,
+  "tr": "<FONT SIZE='14'>Bu kadar tatlı bir jinsengi kesip kaynatmak istediğinden emin misin?</FONT>\n<FONT COLOR='#e70100'>Yetiştirme tamamlandı, hemen şimdiki başarıyla jinseng hediye paketini elde edeceksin\nDiğer：200 altında başarısı olan jinseng kesilip kaynatılınca ödül vermez</FONT>"
+ },
+ {
+  "i": 2526,
+  "tr": "Macera sonra erdi, jinseng {0} metre uçtu, {1} puan başarı elde ettin"
+ },
+ {
+  "i": 2527,
+  "tr": "Bilgi jinsengi değiştirir"
+ },
+ {
+  "i": 2528,
+  "tr": "Dikkat: Her cevapta jinsengin başarı değeri artar, Bombom arkadaşları lütfen dikkatli cevap verin."
+ },
+ {
+  "i": 2529,
+  "tr": "{0} Kupon harcayarak gübrelemek istediğinden emin misin?"
+ },
+ {
+  "i": 2530,
+  "tr": "Kutup füzyonu"
+ },
+ {
+  "i": 2531,
+  "tr": "Kutup füzyon etkinliği"
+ },
+ {
+  "i": 2532,
+  "tr": "Kutup füzyon etkinliği kapandı"
+ },
+ {
+  "i": 2533,
+  "tr": "Tek kayıtta： <font color='#ff0000'>{0}</font> kupon"
+ },
+ {
+  "i": 2534,
+  "tr": "{0} puan"
+ },
+ {
+  "i": 2535,
+  "tr": "Kayıt"
+ },
+ {
+  "i": 2536,
+  "tr": "Tek kayıtta isabet ödülü"
+ },
+ {
+  "i": 2537,
+  "tr": "Tek kayıtta hata ödülü"
+ },
+ {
+  "i": 2538,
+  "tr": "Sınav zamanı: {0}"
+ },
+ {
+  "i": 2539,
+  "tr": "Vietnam | Malezya | Hong Kong | Tayvan | Tayland | ABD | Rusya | Çin"
+ },
+ {
+  "i": 2540,
+  "tr": "Şimdiki soru sayısı: {0}/{1}"
+ },
+ {
+  "i": 2541,
+  "tr": "Cevaplama geri sayımı: {0} saniye"
+ },
+ {
+  "i": 2542,
+  "tr": "Bombom kralı ustası gizem etkinliği {0} dk sonra açılacak!"
+ },
+ {
+  "i": 2543,
+  "tr": "Tek vuruşta can değeri {0}"
+ },
+ {
+  "i": 2544,
+  "tr": "Çifte puan değeri {0}"
+ },
+ {
+  "i": 2545,
+  "tr": "Harici değer {0}"
+ },
+ {
+  "i": 2546,
+  "tr": "{0}\n\n{1}\n\n{2}\n\n{3}"
+ },
+ {
+  "i": 2547,
+  "tr": "Gönderim zamanı: {0} {1} {2} {3}"
+ },
+ {
+  "i": 2548,
+  "tr": "Varlık tanrısı, Bombom arkadaşları bir Bombom kırmızı çantasını farketti"
+ },
+ {
+  "i": 2549,
+  "tr": "[{0}] bir adet tam sürüm kırmızı çantayı gönderdi, herkesi hadi gelin ve kapın"
+ },
+ {
+  "i": 2550,
+  "tr": "Lütfen kırmızı çanta duyurusunu gönderin"
+ },
+ {
+  "i": 2551,
+  "tr": "Kırmızı çanta sayısı kupon sayısından fazla olamaz"
+ },
+ {
+  "i": 2552,
+  "tr": "{0} kırmızı çanta gönderdi"
+ },
+ {
+  "i": 2553,
+  "tr": "{0}, {1}kupon [{2}] kırmızı çantayı gönderdi"
+ },
+ {
+  "i": 2554,
+  "tr": "Etkinlik zamanında savaş alanına katılarak puan alabilirsin, puan koşullarını sağladığında karşılık gelen ödülü alırsın, ödül otomatik posta yoluyla gönderilir."
+ },
+ {
+  "i": 2555,
+  "tr": "Tek günlük savaşta {0} puan elde edilebilir"
+ },
+ {
+  "i": 2556,
+  "tr": "Ödül açıklaması"
+ },
+ {
+  "i": 2557,
+  "tr": "Kampa tıkladığında toplam puan sıralamaya girer|Oyuncunun puan sıralamasına tıkla"
+ },
+ {
+  "i": 2558,
+  "tr": "Çanta bağımlı kuponu üst sınıra ulaştı, bağlı kupon alımına devam edilemez!"
+ },
+ {
+  "i": 2559,
+  "tr": "Zaten bu atlas var, devam edilsin mi"
+ },
+ {
+  "i": 2560,
+  "tr": "Lütfen en az bir takım atlası seç"
+ },
+ {
+  "i": 2561,
+  "tr": "Delik arabirimine salonda büyü Sadece bir kopyası！"
+ },
+ {
+  "i": 2562,
+  "tr": "Oyuncuların Tebrikler [{0}] Çingene tüccar yenilemek için"
+ },
+ {
+  "i": 2563,
+  "tr": "{10-{0}}0% İndirim"
+ },
+ {
+  "i": 2564,
+  "tr": "Bu kişinin davetini bir daha alma"
+ },
+ {
+  "i": 2565,
+  "tr": "Çevrimiçi tüm alan bildirimi"
+ },
+ {
+  "i": 2566,
+  "tr": "Düğün yapma açıklaması"
+ },
+ {
+  "i": 2567,
+  "tr": "Kabus\nsürümü"
+ },
+ {
+  "i": 2568,
+  "tr": "Dikkat: Salonun haftalık eklenen sıralama,\nhaftalık Saygınlık 3000 üzeri olmalıdır."
+ },
+ {
+  "i": 2569,
+  "tr": "Bugünkü savaş alan sayısı sınıra ulaştı!"
+ },
+ {
+  "i": 2570,
+  "tr": "Binek"
+ },
+ {
+  "i": 2571,
+  "tr": "Binek seviyesini yükselterek sadece havalı görüntü değil, aynı zamanda büyük oranda nitelik yükselmesini elde edersin, Binek materyali sürüm geçilerek elde edilebilir"
+ },
+ {
+  "i": 2572,
+  "tr": "Sihir taşı"
+ },
+ {
+  "i": 2573,
+  "tr": "Sihir taşı insanın kendi sihir saldırısını, sihir savunma niteliklerinin önemli kısmını oluşturur, sihir taşı seviye materyali, sihir taşı arayüzünden satın alınabilir, sürüm geçilerek te elde edilebilir."
+ },
+ {
+  "i": 2574,
+  "tr": "Kıyafet çizimi"
+ },
+ {
+  "i": 2575,
+  "tr": "Kıyafet çizimi koleksiyon arzunu tatmin etmekle kalmaz, aynı zamanda nitelik ekleme de kazandırır"
+ },
+ {
+  "i": 2576,
+  "tr": "Takıya sihir ekleme"
+ },
+ {
+  "i": 2577,
+  "tr": "Takıya sihir ekleyerek sihir saldırı sihir savunma nitelikleri büyük oranda eklenir. Sadece takı seviyesi 5 olduğunda etki gösterir. Sihir ekleme materyali sürüm geçilerek elde edilebilir"
+ },
+ {
+  "i": 2578,
+  "tr": "Dikkat: Her tür takım 5/10/14 tane oluşturduğunda niteliği büyük oranda arttırır."
+ },
+ {
+  "i": 2579,
+  "tr": "İleriyi tıkla"
+ },
+ {
+  "i": 2580,
+  "tr": "Birlik Paketi"
+ },
+ {
+  "i": 2581,
+  "tr": "Maç parasının pakete girmesini onaylıyor musun？<FONT COLOR='#FF0000' >\nsadece Kupon kullanılabilir</FONT>"
+ },
+ {
+  "i": 2582,
+  "tr": "Kupon gönder"
+ },
+ {
+  "i": 2583,
+  "tr": "Paket sayısı"
+ },
+ {
+  "i": 2584,
+  "tr": "Mutlu yıllar, bol şanslar, yıldan yıla fayda, Bolluk bereket gelsin!"
+ },
+ {
+  "i": 2585,
+  "tr": "Paket sistem yardımı"
+ },
+ {
+  "i": 2586,
+  "tr": "{0}【{1}】bir tane Birlik Paketi koydu, hemen çal!!!"
+ },
+ {
+  "i": 2587,
+  "tr": "{0} {1} aldı {2}Bağlı kupon【{3}】koydu"
+ },
+ {
+  "i": 2588,
+  "tr": "{0} Paket koydu"
+ },
+ {
+  "i": 2589,
+  "tr": "Selamında hassas kelimeler var"
+ },
+ {
+  "i": 2590,
+  "tr": "Paket sayısı Kupon sayısını geçemez"
+ },
+ {
+  "i": 2591,
+  "tr": "Kupon sayısı 200-99999 arasında olmalıdır"
+ },
+ {
+  "i": 2592,
+  "tr": "Birlik Paketini gönder"
+ },
+ {
+  "i": 2593,
+  "tr": "Birlik Tesisleri"
+ },
+ {
+  "i": 2594,
+  "tr": "Kaydı al"
+ },
+ {
+  "i": 2595,
+  "tr": "Paketi çal"
+ },
+ {
+  "i": 2596,
+  "tr": "Taş, bakır, gümüş, altın, yeşim"
+ },
+ {
+  "i": 2597,
+  "tr": "{0} :"
+ },
+ {
+  "i": 2598,
+  "tr": "[{0}] kuşandıktan sonra nitelik:"
+ },
+ {
+  "i": 2599,
+  "tr": "[Takım oluşturma etkisi]"
+ },
+ {
+  "i": 2600,
+  "tr": "Can+, Savunma+, Şans+, Çeviklik+, Sihir savunması+, Zırh+,"
+ },
+ {
+  "i": 2601,
+  "tr": "Şapka, Gözlük, Şapka, Makyaj, Giyisi, Gözlük, Takım, Kıyafet, Kolye, Düğün\nyüzüğü, Yüzük, Yüzük, Bilezik, Bilezik"
+ },
+ {
+  "i": 2602,
+  "tr": "Lütfen sırayla oluşturun, şimdiki oluşturulabilen ekipman:{0}"
+ },
+ {
+  "i": 2603,
+  "tr": "Takım zaten en yüksek seviyeye yükseldi!"
+ },
+ {
+  "i": 2604,
+  "tr": "Materyal yetersiz!"
+ },
+ {
+  "i": 2605,
+  "tr": "Oluşturma başarısız"
+ },
+ {
+  "i": 2606,
+  "tr": "Oluşturuluyor"
+ },
+ {
+  "i": 2607,
+  "tr": "Oluşturulmamış"
+ },
+ {
+  "i": 2608,
+  "tr": "Ekleme Demircide takım oluşturma SetsBuildTemp.xml başarısız!"
+ },
+ {
+  "i": 2609,
+  "tr": "Kızkardeşi işaretle"
+ },
+ {
+  "i": 2610,
+  "tr": "Lüks düğün ücreti devam ödenmez"
+ },
+ {
+  "i": 2611,
+  "tr": "(Altın Ruh) saldırı+{0}"
+ },
+ {
+  "i": 2612,
+  "tr": "(Altın Ruh) savunma+{0}"
+ },
+ {
+  "i": 2613,
+  "tr": "(Altın Ruh) çeviklik+{0}"
+ },
+ {
+  "i": 2614,
+  "tr": "(Altın Ruh) şans+{0}"
+ },
+ {
+  "i": 2615,
+  "tr": "(Altın Ruh) can+{0}"
+ },
+ {
+  "i": 2616,
+  "tr": "(Altın Ruh)"
+ },
+ {
+  "i": 2617,
+  "tr": "Verilen hasar+2%"
+ },
+ {
+  "i": 2618,
+  "tr": "Hasar azaltma +2%"
+ },
+ {
+  "i": 2619,
+  "tr": "Yetiştir"
+ },
+ {
+  "i": 2620,
+  "tr": "Üzerindeki takılar yetiştirilemez"
+ },
+ {
+  "i": 2621,
+  "tr": "Bu takı zaten en yüksek seviyeye yükseltildi"
+ },
+ {
+  "i": 2622,
+  "tr": "Lütfen takıyı koyun"
+ },
+ {
+  "i": 2623,
+  "tr": "Takı zaten en yüksek seviyede"
+ },
+ {
+  "i": 2624,
+  "tr": "Kısayoldan takı Tecrübesi al"
+ },
+ {
+  "i": 2625,
+  "tr": "Seviye Yükselt"
+ },
+ {
+  "i": 2626,
+  "tr": "Takı Tecrübesi"
+ },
+ {
+  "i": 2627,
+  "tr": "Bu takının ek sihiri veya sentezli niteliği yok, yutulamaz"
+ },
+ {
+  "i": 2628,
+  "tr": "Yetiştirilebilir takı yok"
+ },
+ {
+  "i": 2629,
+  "tr": "Kilitli öğe yetiştirilemez"
+ },
+ {
+  "i": 2630,
+  "tr": "Bu takı zaten en yüksek seviyeye yükseltilmiş"
+ },
+ {
+  "i": 2631,
+  "tr": "[{0}] Sırt çantasının içindeki tüm bağlı olmayan takıları yutabilir, \ntecrübe {1} puan artar"
+ },
+ {
+  "i": 2632,
+  "tr": "Yaptığınız işlem çok sık, lütfen sonra tekrar deneyin"
+ },
+ {
+  "i": 2633,
+  "tr": "Bu takı zaten en yüksek seviyeye ulaştı, yetiştirilemez"
+ },
+ {
+  "i": 2634,
+  "tr": "İç hataları gir"
+ },
+ {
+  "i": 2635,
+  "tr": "[{0}] Sırt çantasının içindeki tüm bağlı olmayan takıları yutabilir, tecrübe {1} puan artar"
+ },
+ {
+  "i": 2636,
+  "tr": "<FONT COLOR='#FF0000'>[{0}]</FONT>{1}Tecrübeye dönüştürmek istediğinden emin misin？"
+ },
+ {
+  "i": 2637,
+  "tr": "{0} öğesini {1} Tecrübeye dönüştürmeyi onaylıyor musun?"
+ },
+ {
+  "i": 2638,
+  "tr": "<FONT COLOR='#FF0000'>bu işlemde büyük oranda Tecrübe kaybedilecek</FONT>"
+ },
+ {
+  "i": 2639,
+  "tr": "Lütfen aşağıya girdiğiniz [<FONT COLOR='#FF0000'>yes</FONT>] işlemi onaylayınız"
+ },
+ {
+  "i": 2640,
+  "tr": "Lütfen yetiştirilecek takıyı çift tıklayın, ayrıca korumak istediğiniz takıları kilitleyin."
+ },
+ {
+  "i": 2641,
+  "tr": "Sihir saldırısı"
+ },
+ {
+  "i": 2642,
+  "tr": "Sihir savunması"
+ },
+ {
+  "i": 2643,
+  "tr": "Zaten aktifleştirildi"
+ },
+ {
+  "i": 2644,
+  "tr": "Açık Değil"
+ },
+ {
+  "i": 2645,
+  "tr": "VIP Puan Mağazası"
+ },
+ {
+  "i": 2646,
+  "tr": "1. VIP hesapta hergün büyük miktarda puan alınabilir, puanlarla VIP Puan Mağazasında satın alabilirsin. \n2.VIP seviyesi yükseldikçe her alınan puan, puanlar da artar,Her pazartesi sıfırlanır.\n3. Biriken VIP Puanlarınızı her Pazar 23:59’a kadar harcamalısınız. Kalan VIP puanlarınız pazartesi 00:00’da sıfırlanacaktır."
+ },
+ {
+  "i": 2647,
+  "tr": "VIP puanı harca: \n\nBugün satın alabileceklerin:"
+ },
+ {
+  "i": 2648,
+  "tr": "Bugün {0} puan alabilirsin, sonraki seviyede {1} puan alacaksın"
+ },
+ {
+  "i": 2649,
+  "tr": "Bugün {0} puan alabilirsin"
+ },
+ {
+  "i": 2650,
+  "tr": "Tebrikler, {0} puan aldın"
+ },
+ {
+  "i": 2651,
+  "tr": "VIP {0} satın alınabilir"
+ },
+ {
+  "i": 2652,
+  "tr": "Bugün satın alım bitti."
+ },
+ {
+  "i": 2653,
+  "tr": "Meydan okuma başarılı olduktan sonra büyük oranda Tecrübe, Savaş ruhu tozu ve gizli bölge altın parası elde edebilirsin, sihirli kutsal taş kullanarak faydayı katlayabilirsin."
+ },
+ {
+  "i": 2654,
+  "tr": "Sihirli kutsal taş kullanarak\n faydayı katlayabilirsin."
+ },
+ {
+  "i": 2655,
+  "tr": "Sihirli Gizli Bölge sıralaması"
+ },
+ {
+  "i": 2656,
+  "tr": "Savaş Ruhu Topu, Labirent Parası"
+ },
+ {
+  "i": 2657,
+  "tr": "Gizli bölge altın parası\n Sihirli Eğitim İksiri, düşük seviye adak"
+ },
+ {
+  "i": 2658,
+  "tr": "Sihirli kutsal taş yetersiz, lütfen mağazaya gidip satın alın"
+ },
+ {
+  "i": 2659,
+  "tr": "Tebrikler, bu meydan okuam kupasında {0} kazandınız, aldığınız ödül: {1} tane Oyun kartı!"
+ },
+ {
+  "i": 2660,
+  "tr": "Totem yükseltme kuponu yetersiz, bu seviye yükseltme için {0} kupon harcamak gerekiyor, devam edilsin mi?"
+ },
+ {
+  "i": 2661,
+  "tr": "Taslak yükleme mesajı başarısız!"
+ },
+ {
+  "i": 2662,
+  "tr": "{0} bilet"
+ },
+ {
+  "i": 2663,
+  "tr": "Boş"
+ },
+ {
+  "i": 2664,
+  "tr": "Lütfen oylayacak bilet sayısını seçin\n Kupon harcayın"
+ },
+ {
+  "i": 2665,
+  "tr": "1 bilet\n10 bilet\n50 bilet\ndiğer       bilet"
+ },
+ {
+  "i": 2666,
+  "tr": "Ücretsiz sayının tamamı kullanıldı, bilet oylamak için Kupon harcamak gerekir, her bilet oylama başarılı olduğunda bir Ruh Taşı kazandırır"
+ },
+ {
+  "i": 2667,
+  "tr": "{0} kapak resmi yüklediniz, tekrar yüklemek için\n {1} Kupon harcamak gerekir"
+ },
+ {
+  "i": 2668,
+  "tr": "Bilet oylama başarısız"
+ },
+ {
+  "i": 2669,
+  "tr": "Güzel kızı onaylamak gerekir"
+ },
+ {
+  "i": 2670,
+  "tr": "Sadece 40. seviye üzerinde ve 100 bin savaş gücü üzerindeyken oyuncu oy kullanabilir"
+ },
+ {
+  "i": 2671,
+  "tr": "Yükleme başarılı"
+ },
+ {
+  "i": 2672,
+  "tr": "Yükleme başarısız"
+ },
+ {
+  "i": 2673,
+  "tr": "Bugünkü kullanabileceğin Sihirli Eğitim İksirinin miktarı sınıra ulaştı!"
+ },
+ {
+  "i": 2674,
+  "tr": "Lütfen Sihirli Eğitim İksirini girin"
+ },
+ {
+  "i": 2675,
+  "tr": "Lütfen Eğitim İksirini girin"
+ },
+ {
+  "i": 2676,
+  "tr": "Ekipman"
+ },
+ {
+  "i": 2677,
+  "tr": "{0} kupon/1 Tecrübe"
+ },
+ {
+  "i": 2678,
+  "tr": "{0}.seviye çiftlik açık!"
+ },
+ {
+  "i": 2679,
+  "tr": "Yetersiz Seviye."
+ },
+ {
+  "i": 2680,
+  "tr": "10 kızıl saçlı minimum."
+ },
+ {
+  "i": 2681,
+  "tr": "Destan"
+ },
+ {
+  "i": 2682,
+  "tr": "Yetiştirildikten sonra takıların yutuldukları \nen küçük etkilerine göre etkileri devam eder."
+ },
+ {
+  "i": 2683,
+  "tr": "Giriş"
+ },
+ {
+  "i": 2684,
+  "tr": "Bu aşama biraz zor. Bu aşamayı <FONT COLOR='#FF0000'> 2</FONT> kişi oynamak daha uygun. Tek başına devam etmek istediğine emin misin?"
+ },
+ {
+  "i": 2685,
+  "tr": "Giriş Sorunu"
+ },
+ {
+  "i": 2686,
+  "tr": "Yükleme Sorunu"
+ },
+ {
+  "i": 2687,
+  "tr": "Hesap Sorunu"
+ },
+ {
+  "i": 2688,
+  "tr": "Oyun Sorunu"
+ },
+ {
+  "i": 2689,
+  "tr": "Etkinlikle ilgili"
+ },
+ {
+  "i": 2690,
+  "tr": "Hile Bildirimi"
+ },
+ {
+  "i": 2691,
+  "tr": "Bug Bildirimi"
+ },
+ {
+  "i": 2692,
+  "tr": "Şikayet"
+ },
+ {
+  "i": 2693,
+  "tr": "Öneri"
+ },
+ {
+  "i": 2694,
+  "tr": "Diğer"
+ },
+ {
+  "i": 2695,
+  "tr": "Geribildirim Gönderildi"
+ },
+ {
+  "i": 2696,
+  "tr": "Parametre Hatası"
+ },
+ {
+  "i": 2697,
+  "tr": "Sistem hatası. Geri bildirim gönderilemedi"
+ },
+ {
+  "i": 2698,
+  "tr": "Hesap Doğrulama Hatası"
+ },
+ {
+  "i": 2699,
+  "tr": "Not: Satın Alma"
+ }
+]

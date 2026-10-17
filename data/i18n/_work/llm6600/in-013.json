@@ -1,0 +1,722 @@
+[
+ {
+  "i": 2340,
+  "tr": "Şimdiki malların içinde değerli öğeler var, yenilemek istediğinden emin misin?"
+ },
+ {
+  "i": 2341,
+  "tr": "Bahçe koruma savaşı açılsın mı?"
+ },
+ {
+  "i": 2342,
+  "tr": "Bahçe koruma savaşı zaten açıldı, girilsin mi?"
+ },
+ {
+  "i": 2343,
+  "tr": "Bahçe koruma savaşından çıkmak istediğinden emin misin?"
+ },
+ {
+  "i": 2344,
+  "tr": "Bahçe sahnesinde değilsin, bahçe koruma savaşı açılamaz!"
+ },
+ {
+  "i": 2345,
+  "tr": "Binek durumunda bahçe koruma savaşı açılamaz!"
+ },
+ {
+  "i": 2346,
+  "tr": "Bu sefer dirilmek için {0} kupon gerekir"
+ },
+ {
+  "i": 2347,
+  "tr": "Tüm binanın canı, {0} olarak doldu"
+ },
+ {
+  "i": 2348,
+  "tr": "Bahçe Altını, canavarları öldürerek elde et"
+ },
+ {
+  "i": 2349,
+  "tr": "{0} 0000 can iyileşti, {1} bahçe altını harcandı"
+ },
+ {
+  "i": 2350,
+  "tr": "Etkinin devam süresi {0} saniye, {1} bahçe altınını tüket"
+ },
+ {
+  "i": 2351,
+  "tr": "Can eklemek için {0} bahçe altını tüketilir"
+ },
+ {
+  "i": 2352,
+  "tr": "Donmuş canavar {0} bahçe altınını harcar"
+ },
+ {
+  "i": 2353,
+  "tr": "{0} karşı {1} hasar verdin"
+ },
+ {
+  "i": 2354,
+  "tr": "{0} sana karşı {1} hasar verdi"
+ },
+ {
+  "i": 2355,
+  "tr": "{0} yendin, savaşı kazandın!"
+ },
+ {
+  "i": 2356,
+  "tr": "Savaş başarısız, Bombom arkadaşları lütfen tekrar gelsin!"
+ },
+ {
+  "i": 2357,
+  "tr": "Savaşta {0} altın kazandın"
+ },
+ {
+  "i": 2358,
+  "tr": "Şu an savaştasın! Araç kullanılamaz"
+ },
+ {
+  "i": 2359,
+  "tr": "Bahçe altını yetersiz"
+ },
+ {
+  "i": 2360,
+  "tr": "Şu an savaştasın, hareket edemezsin"
+ },
+ {
+  "i": 2361,
+  "tr": "Bu seferki girişte tekrar hatırlatma"
+ },
+ {
+  "i": 2362,
+  "tr": "Bahçe koruma savaşı açılmadı"
+ },
+ {
+  "i": 2363,
+  "tr": "Çok hızlı tıkladın"
+ },
+ {
+  "i": 2364,
+  "tr": "Ölüm durumunda yetenek kullanamazsın"
+ },
+ {
+  "i": 2365,
+  "tr": "Bahçe koruma savaşı sona erdi"
+ },
+ {
+  "i": 2366,
+  "tr": "Ev"
+ },
+ {
+  "i": 2367,
+  "tr": "Çiftliğini yetiştir, \n yemek yaparak hayvanlarını besle."
+ },
+ {
+  "i": 2368,
+  "tr": "Özel evin, \n tıklayarak girebilirsin"
+ },
+ {
+  "i": 2369,
+  "tr": "Bahçeye girilemez"
+ },
+ {
+  "i": 2370,
+  "tr": "Bahçeye girebilmek için seviye 25 olman gerekir"
+ },
+ {
+  "i": 2371,
+  "tr": "Bahçeyi değiştirmek için 2 saniye aralığa ihtiyaç var"
+ },
+ {
+  "i": 2372,
+  "tr": "Çit, zemin karosu, çiçek, kabin"
+ },
+ {
+  "i": 2373,
+  "tr": "Evi genişlet"
+ },
+ {
+  "i": 2374,
+  "tr": "Zaten en yüksek seviyede"
+ },
+ {
+  "i": 2375,
+  "tr": "Genişletme başarılı"
+ },
+ {
+  "i": 2376,
+  "tr": "Sıcak ev, komforlu \n ışık."
+ },
+ {
+  "i": 2377,
+  "tr": "Ev dekoru"
+ },
+ {
+  "i": 2378,
+  "tr": "Duvar Kağıdı"
+ },
+ {
+  "i": 2379,
+  "tr": "Zemin"
+ },
+ {
+  "i": 2380,
+  "tr": "Yatak"
+ },
+ {
+  "i": 2381,
+  "tr": "Gardrop"
+ },
+ {
+  "i": 2382,
+  "tr": "Çalışma masası"
+ },
+ {
+  "i": 2383,
+  "tr": "Kitaplık"
+ },
+ {
+  "i": 2384,
+  "tr": "Misafir masası"
+ },
+ {
+  "i": 2385,
+  "tr": "Pencere"
+ },
+ {
+  "i": 2386,
+  "tr": "Halı"
+ },
+ {
+  "i": 2387,
+  "tr": "Uzun masa"
+ },
+ {
+  "i": 2388,
+  "tr": "Avize"
+ },
+ {
+  "i": 2389,
+  "tr": "Bonsai"
+ },
+ {
+  "i": 2390,
+  "tr": "Merdiven"
+ },
+ {
+  "i": 2391,
+  "tr": "Yüksek seviye araç kuşanamazsın"
+ },
+ {
+  "i": 2392,
+  "tr": "Laboratuvar"
+ },
+ {
+  "i": 2393,
+  "tr": "Bar"
+ },
+ {
+  "i": 2394,
+  "tr": "On bin öğenin dönüşüm kuralı, labaratuvarın gizemidir."
+ },
+ {
+  "i": 2395,
+  "tr": "İçkiye şarkı ol, hayatın geometrisi."
+ },
+ {
+  "i": 2396,
+  "tr": "Lütfen kendi bahçende labaratuvarı kullan."
+ },
+ {
+  "i": 2397,
+  "tr": "Gereken enerji: {0} (kalan {1})"
+ },
+ {
+  "i": 2398,
+  "tr": "Enerji yetersiz, oluşturmaya girilemez."
+ },
+ {
+  "i": 2399,
+  "tr": "Labaratuvar bilgi formu başarısız"
+ },
+ {
+  "i": 2400,
+  "tr": "Hergün arkadaşınla barda ücretsiz içkilerin tadına bak {0}/10 defa."
+ },
+ {
+  "i": 2401,
+  "tr": "Zaman ulaşmadı, bekledikten sonra tekrar gel"
+ },
+ {
+  "i": 2402,
+  "tr": "{0} kuponu içkiye harcamak istediğinden emin misin?"
+ },
+ {
+  "i": 2403,
+  "tr": "{0} kuponu bekleme zamanını silmek için harcamak istediğinden emin misin?"
+ },
+ {
+  "i": 2404,
+  "tr": "Tatma sayısı doldu."
+ },
+ {
+  "i": 2405,
+  "tr": "Evdeyken savaş odasına giriş yapamazsın."
+ },
+ {
+  "i": 2406,
+  "tr": "Bahçe"
+ },
+ {
+  "i": 2407,
+  "tr": "Rengi seç"
+ },
+ {
+  "i": 2408,
+  "tr": "Nguyên \nliệu"
+ },
+ {
+  "i": 2409,
+  "tr": "Bu turda {0} defa daha ödül açılabilir, yeniledikten sonra tekrar hesaplanır."
+ },
+ {
+  "i": 2410,
+  "tr": "Slaytı durdurmak için boşluk tuşuna bas, hedefe ne kadar yaklaşırsan o yüksek seviyeli öğe elde etme ihtimalin de o kadar yükselir."
+ },
+ {
+  "i": 2411,
+  "tr": "{0}%"
+ },
+ {
+  "i": 2412,
+  "tr": "Mükemmel kutsamanın değeri {0}!"
+ },
+ {
+  "i": 2413,
+  "tr": "Tebrikler, {0} çekilişini aldın!"
+ },
+ {
+  "i": 2414,
+  "tr": "Ödül açma sayın bitti! Yeniledikten sonra sayı tekrar ayarlanır."
+ },
+ {
+  "i": 2415,
+  "tr": "Kutsama tüketim değeri {0}!"
+ },
+ {
+  "i": 2416,
+  "tr": "Kutsama ücretinin kesimi başarısız!"
+ },
+ {
+  "i": 2417,
+  "tr": "Kutsama işlem aşamasında, çıkamazsın!"
+ },
+ {
+  "i": 2418,
+  "tr": "{0}/{1} raund"
+ },
+ {
+  "i": 2419,
+  "tr": "Oyun aşamada"
+ },
+ {
+  "i": 2420,
+  "tr": "Bu raundda şeytana karşı <FONT COLOR='#00ff00'>{0} puan</FONT>hasar verdim"
+ },
+ {
+  "i": 2421,
+  "tr": "Bu turda şeytan bana karşı<FONT COLOR='#ff0000'>{0} puan</FONT>hasar verdi"
+ },
+ {
+  "i": 2422,
+  "tr": "<FONT COLOR='#fff000'>can iyileşme kullanarak {0}puan can eklendi</FONT>"
+ },
+ {
+  "i": 2423,
+  "tr": "Bu sefer {0} kupon harcamak gerekecek, devam edilsin mi?"
+ },
+ {
+  "i": 2424,
+  "tr": "Sonraki raund"
+ },
+ {
+  "i": 2425,
+  "tr": "Kendine çiçek gönderip yumurta kıramazsın"
+ },
+ {
+  "i": 2426,
+  "tr": "Bugünkü çiçek gönderip yumurta kırma sayısı üst sınıra ulaştı"
+ },
+ {
+  "i": 2427,
+  "tr": "Bu kartın kullanımı kalmamış"
+ },
+ {
+  "i": 2428,
+  "tr": "Kullandıktan sonra şimdiki sayısı en fazla olan hayvan parçası silinecek"
+ },
+ {
+  "i": 2429,
+  "tr": "Oyun henüz açılmadı"
+ },
+ {
+  "i": 2430,
+  "tr": "<FONT COLOR='#ff0000'>{0} . kart oyunu başarısız</FONT>"
+ },
+ {
+  "i": 2431,
+  "tr": "<FONT COLOR='#fff000'>{0} . kart oyunu açıldı </FONT>"
+ },
+ {
+  "i": 2432,
+  "tr": "Kullandıktan sonra haçlı durumundaki hayvan parçası silinir"
+ },
+ {
+  "i": 2433,
+  "tr": "<FONT COLOR='#00ff00'>{0} yetenek kullan</FONT>"
+ },
+ {
+  "i": 2434,
+  "tr": "<FONT COLOR='#00ff00'>devam ettirme başarılı</FONT>"
+ },
+ {
+  "i": 2435,
+  "tr": "Bugünkü oyun kartının tamamı açıldı"
+ },
+ {
+  "i": 2436,
+  "tr": "Seviye yetersiz, girilemez"
+ },
+ {
+  "i": 2437,
+  "tr": "İşgal edilebilecek sayı:"
+ },
+ {
+  "i": 2438,
+  "tr": "Yağmalanabilecek sayı:"
+ },
+ {
+  "i": 2439,
+  "tr": "Yer işgal edilebilme zamanı {0} dakika uzatıldı,Sonraki Seviye{1}dakika"
+ },
+ {
+  "i": 2440,
+  "tr": "Hergün işgal edebilme sayısı {0} defa arttırıldı,Sonraki Seviye{1}kere"
+ },
+ {
+  "i": 2441,
+  "tr": "Hergün yağmalayabilme sayısı {0} defa arttırıldı,Sonraki Seviye{1}kere"
+ },
+ {
+  "i": 2442,
+  "tr": "Uçak iş zamanını {0} dakika uzatın"
+ },
+ {
+  "i": 2443,
+  "tr": "Günlük iş sayısını {0} kere arttırın"
+ },
+ {
+  "i": 2444,
+  "tr": "Günlük yağma sayısını {0} kere arttırın"
+ },
+ {
+  "i": 2445,
+  "tr": "Tümünü sok"
+ },
+ {
+  "i": 2446,
+  "tr": "<font color='#ffe456'>{0}</font>karşı yağmalama başarılı, elde edilen kaynak posta yoluyla gönderildi"
+ },
+ {
+  "i": 2447,
+  "tr": "<font color='#ffe456'>{0}</font>sana karşı başarıyla yağmalama yaptı, kalan kaynak posta yoluyla gönderildi"
+ },
+ {
+  "i": 2448,
+  "tr": "Yer açma tamamlandı, elde edilen kaynaklar posta yoluyla gönderildi"
+ },
+ {
+  "i": 2449,
+  "tr": "Düşük seviye kaynak puanı"
+ },
+ {
+  "i": 2450,
+  "tr": "Orta seviye kaynak puanı"
+ },
+ {
+  "i": 2451,
+  "tr": "Yüksek seviye kaynak puanı"
+ },
+ {
+  "i": 2452,
+  "tr": "Üretilenler:"
+ },
+ {
+  "i": 2453,
+  "tr": "Üretim sayı:"
+ },
+ {
+  "i": 2454,
+  "tr": "Kapabilecek enerji sayısı:"
+ },
+ {
+  "i": 2455,
+  "tr": "İşgal edilebilecek zaman:"
+ },
+ {
+  "i": 2456,
+  "tr": "{0} tane/2 saat"
+ },
+ {
+  "i": 2457,
+  "tr": "tane"
+ },
+ {
+  "i": 2458,
+  "tr": "{0} saat<font color='#ff9933'>(+{1} dakika)</font>"
+ },
+ {
+  "i": 2459,
+  "tr": "{0} tane elde edildi"
+ },
+ {
+  "i": 2460,
+  "tr": "Bu seferki yenileme için<font color='#ff0000'>{0}</font>kupon harcamak gerekir, devam edilsin mi ?"
+ },
+ {
+  "i": 2461,
+  "tr": "Öğenin eritilme sayısını seç"
+ },
+ {
+  "i": 2462,
+  "tr": "Sihir iksirini hızlı satın alma kısayolu"
+ },
+ {
+  "i": 2463,
+  "tr": "Sistem kırmızı çanta gönderme zamanı: {0}"
+ },
+ {
+  "i": 2464,
+  "tr": "Kırmızı çanta etkinliği sona erdi!"
+ },
+ {
+  "i": 2465,
+  "tr": "Mutlu yıllar"
+ },
+ {
+  "i": 2466,
+  "tr": "Küçük güç"
+ },
+ {
+  "i": 2467,
+  "tr": "Tam güç"
+ },
+ {
+  "i": 2468,
+  "tr": "Galiba balık çıktı!"
+ },
+ {
+  "i": 2469,
+  "tr": "Balık sürüsü hafifçe hareket etti!"
+ },
+ {
+  "i": 2470,
+  "tr": "Su yüzeyi dalgalandı!"
+ },
+ {
+  "i": 2471,
+  "tr": "Kanca galiba birşeye takıldı!"
+ },
+ {
+  "i": 2472,
+  "tr": "Balık oltası büküldü!"
+ },
+ {
+  "i": 2473,
+  "tr": "Balık sürüsü düşmeye başladı"
+ },
+ {
+  "i": 2474,
+  "tr": "Su yüzeyinde sıçramalar var!"
+ },
+ {
+  "i": 2475,
+  "tr": "Balık çengelini galiba birşeyler ısırdı!"
+ },
+ {
+  "i": 2476,
+  "tr": "Balık oltası sallanmaya başladı!"
+ },
+ {
+  "i": 2477,
+  "tr": "Balık sürüsü aniden çöktü!"
+ },
+ {
+  "i": 2478,
+  "tr": "Su yüzeyinde galiba hareket var!"
+ },
+ {
+  "i": 2479,
+  "tr": "<font color=\"#FFD800\">Tebrikler, balıkçılığı kullanarak[{0}] {1} puan elde ettiniz</font>"
+ },
+ {
+  "i": 2480,
+  "tr": "<font color=\"#FFD800\">Balık yakalandı, tebrikler [{0}] yakaladınız, {1} puan kazandınız</font>"
+ },
+ {
+  "i": 2481,
+  "tr": "<font color=\"#FFD800\">Büyük çabayla anca yakalandı, fakat kırık bir sepet olduğu ortaya çıktı</font>"
+ },
+ {
+  "i": 2482,
+  "tr": "Tebrikler, [{0}] yakaladınız<font color=\"#ffd800\">{1}</font>puan kazandınız"
+ },
+ {
+  "i": 2483,
+  "tr": "Büyük çabayla anca yakalandı, fakat kırık bir sepet olduğu ortaya çıktı"
+ },
+ {
+  "i": 2484,
+  "tr": "Balık şablon tablosu yüklenemedi!"
+ },
+ {
+  "i": 2485,
+  "tr": "Bombom balıkçılığına hoşgeldiniz"
+ },
+ {
+  "i": 2486,
+  "tr": "Yeterli balık tutma sayısı yok T.T"
+ },
+ {
+  "i": 2487,
+  "tr": "Şu an balıkçılıkta"
+ },
+ {
+  "i": 2488,
+  "tr": "Balıkçılık puanı"
+ },
+ {
+  "i": 2489,
+  "tr": "100 kupon harcayarak zıpkın kullanmak istediğine emin misin?"
+ },
+ {
+  "i": 2490,
+  "tr": "İyi kalpli olmaya devam ettiğinde balık tutma oranı artabilir"
+ },
+ {
+  "i": 2491,
+  "tr": "Tebrikler,Haydi rastgele"
+ },
+ {
+  "i": 2492,
+  "tr": "Zıpkın ile iyi balık yakalama ihtimalin artar"
+ },
+ {
+  "i": 2493,
+  "tr": "<font color=\"#16ECA3\">Bu sefer başarılı olamadın bir sonrakinde kesin tutacağız.</font>"
+ },
+ {
+  "i": 2494,
+  "tr": "<font color=\"#16ECA3\">Şansım yok, hiçbirşey tutamadım.</font>"
+ },
+ {
+  "i": 2495,
+  "tr": "<font color=\"#16ECA3\">balıklar oltadan kaçtı.</font>"
+ },
+ {
+  "i": 2496,
+  "tr": "<font color=\"#16ECA3\">Burada şu anda balık yok.</font>"
+ },
+ {
+  "i": 2497,
+  "tr": "<font color=\"#16ECA3\">Umutsuz olma, bol şans！</font>"
+ },
+ {
+  "i": 2498,
+  "tr": "[{0}]\nÜst +{1}\nArıtma +{2}\nEkipman +{3}\nFilizlenme +{4}\nHücum +{5}"
+ },
+ {
+  "i": 2499,
+  "tr": "iptal"
+ },
+ {
+  "i": 2500,
+  "tr": "Lütfen kırmızı çanta göndereceğin arkadaşını seç"
+ },
+ {
+  "i": 2501,
+  "tr": "Varlık ağacı"
+ },
+ {
+  "i": 2502,
+  "tr": "Varlık ağacı yardımı"
+ },
+ {
+  "i": 2503,
+  "tr": "Kırmızı çanta yetersiz"
+ },
+ {
+  "i": 2504,
+  "tr": "<FONT COLOR='#FF0000'> {0} </FONT>kupon harcayarak meyve olgunlaşmasını \nhızlandırmak istediğinden emin misin?"
+ },
+ {
+  "i": 2505,
+  "tr": "İçinde her çeşit mücevher ve yüksek seviye silah parçaları vb. vardır, belirli oranda kırmızı çanta ve +3 yüzük elde edebilirsin| içinde her çeşit mücevher ve yüksek seviye silahj parçaları vb. vardır, belirli oranda kırmızı çanta ve +3 bilezik elde edebilirsin| kırmızı çanta elde et, arkadaşına hediye göndermede kullanabilirsin|içinde her çeşit mücevher ve yüksek seviye silah parçaları vb. vardır, belirli oranda kırmızı çanta elde edebilirsin"
+ },
+ {
+  "i": 2506,
+  "tr": "Olgunlaştı"
+ },
+ {
+  "i": 2507,
+  "tr": "Jinsengin hastalandı, lütfen hemen iyileştir"
+ },
+ {
+  "i": 2508,
+  "tr": "Jinseng büyük macerası oyun açıklaması:"
+ },
+ {
+  "i": 2509,
+  "tr": "1、Jinsengi kontrol etmek için ← →bas\n2、Meteorlardan kaçmaya dikkat et, eğer çarparsan belirli canı kaybedersin. \n3、Buluta çarptığında belirli canı iyileştirirsin.\n4、Can 0 olduğunda oyun sona erer, uçma mesafesine göre başarı elde edilir\n5、Hedef 10000 metredir, oyuna başlamak için onaylamaya tıklayın."
+ },
+ {
+  "i": 2510,
+  "tr": "Etkinliğe kalan：{0}"
+ },
+ {
+  "i": 2511,
+  "tr": "Jinsengi kaynatıp kesme etkinliği başladı!"
+ },
+ {
+  "i": 2512,
+  "tr": "Şifalı Bitki kaynatma etkinliği sone erdi!"
+ },
+ {
+  "i": 2513,
+  "tr": "Jinsengi kaynatıp kesme yardımcı"
+ },
+ {
+  "i": 2514,
+  "tr": "1 saat hızlandır"
+ },
+ {
+  "i": 2515,
+  "tr": "Olgunlaşmayı hızlandır"
+ },
+ {
+  "i": 2516,
+  "tr": "{0} jinsengi henüz uyanmadı"
+ },
+ {
+  "i": 2517,
+  "tr": "Hastalıktan kurtul"
+ },
+ {
+  "i": 2518,
+  "tr": "Bugünkü cesaretlendirdiğin jinseng üst sınıra ulaştı, lütfen yarın devam et"
+ },
+ {
+  "i": 2519,
+  "tr": "Bugün çok iş yaptın, lütfen yarın devam et"
+ }
+]

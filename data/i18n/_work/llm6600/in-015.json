@@ -1,0 +1,722 @@
+[
+ {
+  "i": 2700,
+  "tr": "{0} jeton almak istediğinize emin misiniz?"
+ },
+ {
+  "i": 2701,
+  "tr": "[Mesaj] Mevcut aktivite toplamı {0}"
+ },
+ {
+  "i": 2702,
+  "tr": "Lütfen telefon numaranızın önüne ülke kodunuzu ekleyiniz (Tayvan numaralarının önündeki \"0\" silinmelidir):\nTayvan kullanıcıları: 886; Hong Kong Kullanıcıları: 852; Makao kullanıcıları: 853."
+ },
+ {
+  "i": 2703,
+  "tr": "Geçersiz Giriş. Lütfen tekrar deneyin."
+ },
+ {
+  "i": 2704,
+  "tr": "Bu bölümü 10 kere oynadınız. Oynamaya devam ederseniz, daha az ödül alırsınız."
+ },
+ {
+  "i": 2705,
+  "tr": "— 2013/8/13"
+ },
+ {
+  "i": 2706,
+  "tr": "Yeni oyun oyna: Ejderha botu etkinliği, Piramit Keşfi, Futbol Takım Kaptanı Dünya Bossu"
+ },
+ {
+  "i": 2707,
+  "tr": "lanternRiddles.view.questionText1: A.{0}\n\n B.{1}\n\n C.{2}\n\n D.{3}"
+ },
+ {
+  "i": 2708,
+  "tr": "DD Kral Heykeli"
+ },
+ {
+  "i": 2709,
+  "tr": "Başla"
+ },
+ {
+  "i": 2710,
+  "tr": "Çanta dolu. Kırılamaz."
+ },
+ {
+  "i": 2711,
+  "tr": "Bu öğe satıldı!"
+ },
+ {
+  "i": 2712,
+  "tr": "Bu kanal dolu. Lütfen başka bir kanala geçiş yapınız."
+ },
+ {
+  "i": 2713,
+  "tr": "Bugün zaten açtın. Lütfen yarın tekrar gel."
+ },
+ {
+  "i": 2714,
+  "tr": "Takas Miktarı"
+ },
+ {
+  "i": 2715,
+  "tr": "Otomatik-Başla aktifleştirildikten sonra, kartlar dönecek ve diriliş ücretleri otomatik olarak kesilecektir. Devam?"
+ },
+ {
+  "i": 2716,
+  "tr": "{0} kere açmak {1} harcamanı gerektirir"
+ },
+ {
+  "i": 2717,
+  "tr": "{0} kere aç"
+ },
+ {
+  "i": 2718,
+  "tr": "Hareket Gücünü satın almak için tıkla"
+ },
+ {
+  "i": 2719,
+  "tr": "Unvan Ödülü:\n Saldırı+5, Defans +5"
+ },
+ {
+  "i": 2720,
+  "tr": "Destek Öğesi"
+ },
+ {
+  "i": 2721,
+  "tr": "Bu etkinliğe katılmak için Sv 10 olmalısın."
+ },
+ {
+  "i": 2722,
+  "tr": "Ufak Hatırlatma: Kaplıca odasına giriş yaptıktan sonra tecrübe elde etmeye başlarsınız. Kaplıca odasında bir geri sayım mevcuttur: Süre bittikten sonra Kaplıca odasına geri dönemezsin."
+ },
+ {
+  "i": 2723,
+  "tr": "Doğru cevabı öğrenmek için 50 kupon harca."
+ },
+ {
+  "i": 2724,
+  "tr": "Bahis arttırmak için istediğiniz ülkeyi seçin."
+ },
+ {
+  "i": 2725,
+  "tr": "Düğün süresi uzatılamaz."
+ },
+ {
+  "i": 2726,
+  "tr": "Kaplıca Sistemi Sv 13'te açılır"
+ },
+ {
+  "i": 2727,
+  "tr": "DD Yumurta Çekilişi"
+ },
+ {
+  "i": 2728,
+  "tr": "Bir gümüş yumurta kağıdı kullandın."
+ },
+ {
+  "i": 2729,
+  "tr": "Yaşam Modu Açık"
+ },
+ {
+  "i": 2730,
+  "tr": "Yaşam Modu Kapalı"
+ },
+ {
+  "i": 2731,
+  "tr": "Yaşam Modu"
+ },
+ {
+  "i": 2732,
+  "tr": "Ayrılırsan son ödülü elde edemezsin."
+ },
+ {
+  "i": 2733,
+  "tr": "Günlük alınan puan"
+ },
+ {
+  "i": 2734,
+  "tr": "Katkı Sıralaması"
+ },
+ {
+  "i": 2735,
+  "tr": "Birlik Misyonu Katkı Sıralaması"
+ },
+ {
+  "i": 2736,
+  "tr": "Kazanılmamış"
+ },
+ {
+  "i": 2737,
+  "tr": "Max Seviye"
+ },
+ {
+  "i": 2738,
+  "tr": "Sonraki Sv :{0} Sv {1}\n {2}"
+ },
+ {
+  "i": 2739,
+  "tr": "Kilidini Aç: Sevgi Seviyesi ≥{0}"
+ },
+ {
+  "i": 2740,
+  "tr": "Sv {0}"
+ },
+ {
+  "i": 2741,
+  "tr": "Karı-Koca Sevgisi"
+ },
+ {
+  "i": 2742,
+  "tr": "Karı-Koca takım olurlarsa Sevgi Puanı elde edebilirler."
+ },
+ {
+  "i": 2743,
+  "tr": "Karı-Koca takımları için geçerli"
+ },
+ {
+  "i": 2744,
+  "tr": "Her Karı-Koca Savaşı için 1 sevgi puanı elde edilebilir."
+ },
+ {
+  "i": 2745,
+  "tr": "Her savaş etabı için 5 puan elde edilebilir."
+ },
+ {
+  "i": 2746,
+  "tr": "Sevgi puanlarını arttırmak için \"Kalp Çikolata\" ya da \"Sonsuz Aşk\" öğeleri kullanılabilir."
+ },
+ {
+  "i": 2747,
+  "tr": "Evlilik Yüzüğü Sistemi Yükleme Hatası!"
+ },
+ {
+  "i": 2748,
+  "tr": "Sv{0} Kilidini Aç"
+ },
+ {
+  "i": 2749,
+  "tr": "Lütfen evledikten sonra kullanın!"
+ },
+ {
+  "i": 2750,
+  "tr": "Çok hızlı. Bir süre bekleyin ve sonra tekrar deneyin!"
+ },
+ {
+  "i": 2751,
+  "tr": "Lütfen önce \"Arena Savaşçısı\" görevini tamamlayınız."
+ },
+ {
+  "i": 2752,
+  "tr": "Mektup yetersiz. Takaslanamaz."
+ },
+ {
+  "i": 2753,
+  "tr": "Arena Savaşları ya da Etkinlik görevlerinden her türlü mektubu alabilirsiniz."
+ },
+ {
+  "i": 2754,
+  "tr": "Geri sayım bittiğinde hediye paketleri kaybolur."
+ },
+ {
+  "i": 2755,
+  "tr": "Normal Fiyatı"
+ },
+ {
+  "i": 2756,
+  "tr": "Birlik Misyonunun bitmesine {0} saniye var. Süre bitmeden önce misyonu tamamlamayı ya da süreyi uzatmayı unutmayın."
+ },
+ {
+  "i": 2757,
+  "tr": "Birlik Misyonunun bitmesine {0} dakika var. Süre bitmeden önce misyonu tamamlamayı ya da süreyi uzatmayı unutmayın."
+ },
+ {
+  "i": 2758,
+  "tr": "{0} Birlik Üyesi {1} Birlik Gülü kullandı. Çevrimiçi olan lonca üyelerinin tonlarca tecrübesi var!"
+ },
+ {
+  "i": 2759,
+  "tr": "Bir Birlik Gülü kullan ve {0} tecrübe kazan."
+ },
+ {
+  "i": 2760,
+  "tr": "{0} Birlik Gülü kullanıldı. Ayrıca {1} tecrübe kazandın."
+ },
+ {
+  "i": 2761,
+  "tr": "Normal Düğün ya da Lüks Düğün oluştur."
+ },
+ {
+  "i": 2762,
+  "tr": "Bu düğünün süresi uzatılamaz."
+ },
+ {
+  "i": 2763,
+  "tr": "1. Değerli düğün eşyalarını elde etmek için üst düzey düğün oluşturun.\n2. Ücretsiz kırmızı zarf elde edebilmek için üst düzey düğüne katılın.\n3. Katılımcı sayısı farklı düzeydeki düğünler için değişmektedir."
+ },
+ {
+  "i": 2764,
+  "tr": "On Bin"
+ },
+ {
+  "i": 2765,
+  "tr": "Tüm sunuculara çevrimiçi duyurusu"
+ },
+ {
+  "i": 2766,
+  "tr": "Skor Paylaşımı"
+ },
+ {
+  "i": 2767,
+  "tr": "Lütfen zafer bildirimini giriniz ( Hala {0} karakter kullanabilirsiniz)"
+ },
+ {
+  "i": 2768,
+  "tr": "Bu benim için çocuk oyuncağı! Daha Fazla! Daha Fazla!"
+ },
+ {
+  "i": 2769,
+  "tr": "Bir büyük hoparlör karşılığında tüm sunuculara bir duyuru gönderilecek."
+ },
+ {
+  "i": 2770,
+  "tr": "Köprü Geçiş Sıralaması"
+ },
+ {
+  "i": 2771,
+  "tr": "Rütbe"
+ },
+ {
+  "i": 2772,
+  "tr": "Puanlar"
+ },
+ {
+  "i": 2773,
+  "tr": "Düzenleme Başarılı"
+ },
+ {
+  "i": 2774,
+  "tr": "Seviye Sınırlı Hediye Paketi"
+ },
+ {
+  "i": 2775,
+  "tr": "Seviye Sınırlı Hediye Paketi Hakkında"
+ },
+ {
+  "i": 2776,
+  "tr": "Birlik İnşaatı"
+ },
+ {
+  "i": 2777,
+  "tr": "Notlar"
+ },
+ {
+  "i": 2778,
+  "tr": "<b> Ücret: </b><font color='#f2c834'>Kalan Dayanıklılık</font>"
+ },
+ {
+  "i": 2779,
+  "tr": "Max Hasar Elde Et"
+ },
+ {
+  "i": 2780,
+  "tr": "Havai fişeği atmak içi sol tıklayın ve boşluğa basın. Hasar sonrası dayanıklılık miktarı değişir."
+ },
+ {
+  "i": 2781,
+  "tr": "Yüksek-Seviye düğün süresi uzatılamaz."
+ },
+ {
+  "i": 2782,
+  "tr": "İtem Haraket İkonu"
+ },
+ {
+  "i": 2783,
+  "tr": "Aksesuar Çantasını Temizle"
+ },
+ {
+  "i": 2784,
+  "tr": "Ücretli Kart Çevirme Aşaması"
+ },
+ {
+  "i": 2785,
+  "tr": "Aşamaya devam"
+ },
+ {
+  "i": 2786,
+  "tr": "2-aşamalı şifre ayarı"
+ },
+ {
+  "i": 2787,
+  "tr": "Bu özelliği kontrol edin ve oyun oynarken ikinci kez şifre girmek zorunda kalmayın."
+ },
+ {
+  "i": 2788,
+  "tr": "Rafine +{0}\nKart +{1}\nEvcil +{2}\nTotem +{3}\nSavaş Ruhu +{4}\nİnci +{5}\nÇizim +{6}\nSihirli Taş +{7}\nKıyafet +{ 8}\nEvcil Çizimi +{9}"
+ },
+ {
+  "i": 2789,
+  "tr": "Sihirli Taş +{0}\nBinek +{1}\nBinek Çizimi +{2}\nCazibe +{3}\nKıyafet +{4}\nRafine +{5}"
+ },
+ {
+  "i": 2790,
+  "tr": "Sihirli Taş +{0}\nBinek +{1}\nBinek Çizimi +{2}\nCazibe +{3}\nKıyafet +{4}\nTapınak +{5}\nRafine +{6}"
+ },
+ {
+  "i": 2791,
+  "tr": "Kara Canavar Cevheri yetersiz."
+ },
+ {
+  "i": 2792,
+  "tr": "Bu öğe uzatılamaz."
+ },
+ {
+  "i": 2793,
+  "tr": "Açıklama ekle"
+ },
+ {
+  "i": 2794,
+  "tr": "giriş açıklaması"
+ },
+ {
+  "i": 2795,
+  "tr": "Başarı Kırmızı Zarfları şuanda satışta yok. Lütfen duyuruları takip ediniz."
+ },
+ {
+  "i": 2796,
+  "tr": "Dükkanı yenilemek için {0} kupon harcamayı onayla?"
+ },
+ {
+  "i": 2797,
+  "tr": "Seviye 60 ya da VIP 6 değilsin"
+ },
+ {
+  "i": 2798,
+  "tr": "Binek Listesi Yükleme Başarısız!"
+ },
+ {
+  "i": 2799,
+  "tr": "Tapınak Kurban Listesi Yüklemesi Başarısız!"
+ },
+ {
+  "i": 2800,
+  "tr": "Açıklama çok uzun."
+ },
+ {
+  "i": 2801,
+  "tr": "{0} seviyede kilidi aç"
+ },
+ {
+  "i": 2802,
+  "tr": "Evcil Birikimi veri tabanı toplama hatası"
+ },
+ {
+  "i": 2803,
+  "tr": "Eleme Ustası Marketi Veri Tabanı Yükleme Hatası"
+ },
+ {
+  "i": 2804,
+  "tr": "Eleme Ustası Hediye Puanları Veri Tabanı Yükleme Hatası"
+ },
+ {
+  "i": 2805,
+  "tr": "Evcil Birikimi doldu."
+ },
+ {
+  "i": 2806,
+  "tr": "Evcil çantası doldu."
+ },
+ {
+  "i": 2807,
+  "tr": "Evcil dışarıdayken savaşamazsın.Evcil Birikimini Aktifleştir."
+ },
+ {
+  "i": 2808,
+  "tr": "Evcil Birikimi"
+ },
+ {
+  "i": 2809,
+  "tr": "Evcili yanına almak için yada çıkarmak için lütfen 2 kez tıklayın."
+ },
+ {
+  "i": 2810,
+  "tr": "{1} slot(s)Açmak için {0} Kupon harcanacaktır onaylıyormusunuz?"
+ },
+ {
+  "i": 2811,
+  "tr": "Evcil Kullanım Klavuzu"
+ },
+ {
+  "i": 2812,
+  "tr": "Saldırı,Defans,Çeviklik Şans"
+ },
+ {
+  "i": 2813,
+  "tr": "Free ({0})"
+ },
+ {
+  "i": 2814,
+  "tr": "2000 Tanesi/Kupon ({0})"
+ },
+ {
+  "i": 2815,
+  "tr": "Sahne kilidini açmak için 2000 kupon harcanacaktır.Onaylıyormusunuz?"
+ },
+ {
+  "i": 2816,
+  "tr": "Bugün bütün haklar kullanılmıştır.Lütfen yarın tekrar gel."
+ },
+ {
+  "i": 2817,
+  "tr": "Evcil Atılımı"
+ },
+ {
+  "i": 2818,
+  "tr": "Refah Yetersiz."
+ },
+ {
+  "i": 2819,
+  "tr": "Geliştirme için <FONT COLOR='#FF0000'>{0}</FONT> refah gerekir.Onaylıyormusunuz?"
+ },
+ {
+  "i": 2820,
+  "tr": "Eski oyuncu hesabı için bir yükleme yapın ve sonra hesap kurmak için indirim alın."
+ },
+ {
+  "i": 2821,
+  "tr": "Bu yetenek savaş modunda kullanılamaz."
+ },
+ {
+  "i": 2822,
+  "tr": "Bazı itemlerin potansiyel enerji değerleri doldu."
+ },
+ {
+  "i": 2823,
+  "tr": "Ve sonra"
+ },
+ {
+  "i": 2824,
+  "tr": "Lütfen elde etmek istediğiniz ödülü seçin."
+ },
+ {
+  "i": 2825,
+  "tr": "Her karakter aktif etkinlik sırasında yaptığı ilk yüklemenin ödülünü alır.Tekrar yükleme yapılırsa ödül talep edilemez.Buyüzden yükleme yapmadan önce hangi ödülü istediğinizi iyi seçiniz!"
+ },
+ {
+  "i": 2826,
+  "tr": "Yetersiz kupon.Yenileme hatası!"
+ },
+ {
+  "i": 2827,
+  "tr": "Bu ödül zaten alındı."
+ },
+ {
+  "i": 2828,
+  "tr": "Eleme Ustası"
+ },
+ {
+  "i": 2829,
+  "tr": "Harcama Kristalleri: \n\n Bugün hala satın alınabilir:"
+ },
+ {
+  "i": 2830,
+  "tr": "Maksimum Seviyede"
+ },
+ {
+  "i": 2831,
+  "tr": "{1} adım satın almak için {0} kupon harcanacak, \nonaylıyor musunuz?"
+ },
+ {
+  "i": 2832,
+  "tr": "Aşama Yetersiz."
+ },
+ {
+  "i": 2833,
+  "tr": "Yetersiz Kristal."
+ },
+ {
+  "i": 2834,
+  "tr": "Etkinlik Zaten bitti."
+ },
+ {
+  "i": 2835,
+  "tr": "Aktif etkinlik sırasında belli bir miktar puana ulaşıldıktan sonra ödül kazanılabilir."
+ },
+ {
+  "i": 2836,
+  "tr": "Kerkenkele Kral arena hasar saldırısı.Arkadaşlarınla birlikte hasar alamamak için dağılmalısınız."
+ },
+ {
+  "i": 2837,
+  "tr": "Yıl Canavarına tekrar meydan okumak için  {0} kupon harcanacak.Onaylıyormusun?"
+ },
+ {
+  "i": 2838,
+  "tr": "Hazırlık modunda.Çiftliğe giremezsin."
+ },
+ {
+  "i": 2839,
+  "tr": "Savaş Başladı.Çiftliğe giremezsin."
+ },
+ {
+  "i": 2840,
+  "tr": "Bugün ({0}) Satın alma şansın kaldı."
+ },
+ {
+  "i": 2841,
+  "tr": "{0} Bu puanı geçtikten sonra daha fazla puan alamazsın."
+ },
+ {
+  "i": 2842,
+  "tr": "Kral Heykeli gösterisi Başladı!"
+ },
+ {
+  "i": 2843,
+  "tr": "Fener Festivali Etkinliği Yardım"
+ },
+ {
+  "i": 2844,
+  "tr": "Fener Festivali Etkinliği Başladı!"
+ },
+ {
+  "i": 2845,
+  "tr": "Fener Festivali Etkinliği Bitti!"
+ },
+ {
+  "i": 2846,
+  "tr": "Yetersiz materyal.Yapılamaz."
+ },
+ {
+  "i": 2847,
+  "tr": "Mutlu Fener Festivali!"
+ },
+ {
+  "i": 2848,
+  "tr": "Bugün {0} arkadaşı ziyaret ettik.Hala {1} hediye alınabilir."
+ },
+ {
+  "i": 2849,
+  "tr": "Dilek Alınmadı."
+ },
+ {
+  "i": 2850,
+  "tr": "Arkadaşlarından henüz hiçbir dilek gelmedi."
+ },
+ {
+  "i": 2851,
+  "tr": "1 Dakikadan az zaman kaldı."
+ },
+ {
+  "i": 2852,
+  "tr": "46. Seviye Mağra kilidi açıldı."
+ },
+ {
+  "i": 2853,
+  "tr": "Tek seferde Yükleme Etkinliği Başladı."
+ },
+ {
+  "i": 2854,
+  "tr": "Tek seferde Yükleme Etkinliği ödülü alınabilir.Şimdi Al."
+ },
+ {
+  "i": 2855,
+  "tr": "Binicilik Noktası"
+ },
+ {
+  "i": 2856,
+  "tr": "Binek Yarışı"
+ },
+ {
+  "i": 2857,
+  "tr": "Binek Yarışı Başladı"
+ },
+ {
+  "i": 2858,
+  "tr": "Arkadaşını Seç"
+ },
+ {
+  "i": 2859,
+  "tr": "Binek Puanı Yetersiz."
+ },
+ {
+  "i": 2860,
+  "tr": "Maksimum Binek Puanı:{0}"
+ },
+ {
+  "i": 2861,
+  "tr": "Tebrikler Sıralaman {0} Binek Yarışında ve {1} Binek puanı aldın."
+ },
+ {
+  "i": 2862,
+  "tr": "Bu Binek Yarışında {0} Sıralamasını aldın ve {1} Binek puanı aldın."
+ },
+ {
+  "i": 2863,
+  "tr": "Tüm katılımcılar yerini aldı.Binek Yarışı başlayabilir."
+ },
+ {
+  "i": 2864,
+  "tr": "En az 28 Lvl olmalısın ve 4 arkadaşın olmalı.Diğer türlü Binek Yarışı başlayamaz."
+ },
+ {
+  "i": 2865,
+  "tr": "28 lvl Kilidi Açıldı"
+ },
+ {
+  "i": 2866,
+  "tr": "Aktif etkinlilk sırasında,sezonluk bölüm,savaş,keşif(Manuel Aşamalar) ve mağara girmeliler.Bu sayede rasgele \"mektup\" alabilirler.Karşılık gelen hediye paketini almak için Mektup toplamalısınız."
+ },
+ {
+  "i": 2867,
+  "tr": "Aktif Etkinlik sırasında,küçük cadıya dönüşme ve küçük cadı bulma şansı için Savaşlara girmeniz gerekmektedir.Şanslı oyuncular küçük cadı alabilirler."
+ },
+ {
+  "i": 2868,
+  "tr": "Yetersiz materyal.Takas Başarısız!"
+ },
+ {
+  "i": 2869,
+  "tr": "Bombom Kral Turnuvası Çiçek Arabası"
+ },
+ {
+  "i": 2870,
+  "tr": "[{0}]'s Çiçek Arabası"
+ },
+ {
+  "i": 2871,
+  "tr": "Baloff Çiçek Arabası"
+ },
+ {
+  "i": 2872,
+  "tr": "1. Aktif etkinlik sırasında Bombom Kral Heykeli parçaları muhteşem ödüller almak için kullanılabilir. \n2. Bombom Kral Heykeli parçaları aktif süreçte kullanılabilir. \n3. Her Ayın 13. gününde."
+ },
+ {
+  "i": 2873,
+  "tr": "(Normal ve Yüksek seviye İnşaa puanları Puan Marketinde kullanılabilir.)"
+ },
+ {
+  "i": 2874,
+  "tr": "İnşaa Etmek için {0} kupon harcanacak.Onaylıyormusun?"
+ },
+ {
+  "i": 2875,
+  "tr": "Bombom Kral Turnuvası Çiçek Arabası Başladı."
+ },
+ {
+  "i": 2876,
+  "tr": "Normal Takas"
+ },
+ {
+  "i": 2877,
+  "tr": "Kuponla İnşa et"
+ },
+ {
+  "i": 2878,
+  "tr": "Düşük Seviye Parça Kullanım Değeri:"
+ },
+ {
+  "i": 2879,
+  "tr": "Kalan Turnuva Zamanı:"
+ }
+]

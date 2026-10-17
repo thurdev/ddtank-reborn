@@ -1,0 +1,722 @@
+[
+ {
+  "i": 900,
+  "tr": "1. Oyuncular en alt kattan kutucuklara tıklamaya başlamalıdırlar,bu şekilde \"ilerleme\" göstererek en yüksek ödül puanlarını toplarlar. 2. Kutucuklara her tıklayışta geri puan kazanılır, ayrıca bir çok ödül elde etme şansı yakalanır. 3.Toplam puan her bir etkinlik sonunda var olan puanların da eklenmesiyle belirlenir. 4. Toplam puanlar alışveriş merkezinde ürün değişiminde kullanılabilir, etkinlik bittikten 24 saat sonra, değişim ancak tecrübe ve başarıya dönüşümle mümkündür."
+ },
+ {
+  "i": 901,
+  "tr": "top.puan"
+ },
+ {
+  "i": 902,
+  "tr": "Şeytan ruhu"
+ },
+ {
+  "i": 903,
+  "tr": "Tesadüfen şeytani ruhla karşılaştığında şansını aramaya devam \netmede başarısız olursun, Dirilmek ve devam etmek için <FONT COLOR='#ff0000'><B>{0}</B></FONT> Kupon Harca!"
+ },
+ {
+  "i": 904,
+  "tr": "Her seferde  3 kez dirilme şansın var."
+ },
+ {
+  "i": 905,
+  "tr": "Çoktan dirilme şansını kullandın mı, yeniden başlayınız!"
+ },
+ {
+  "i": 906,
+  "tr": "Şeytan ruhuyla karşılaştığında dirilme kuponu yetersiz, etkinlik sona erdi!"
+ },
+ {
+  "i": 907,
+  "tr": "{0}katı"
+ },
+ {
+  "i": 908,
+  "tr": "Her      sefer kart çekme şansına sahipsin"
+ },
+ {
+  "i": 909,
+  "tr": "Etkilik sona erdikten sonra ürün değiştirmeyi gerçekleştirebilirsin"
+ },
+ {
+  "i": 910,
+  "tr": "Etkinlik toplam puan değişim zamanı"
+ },
+ {
+  "i": 911,
+  "tr": "Hala son kutucuğu tıklamadınız mı, oyunda durmak istediğinize emin misiniz?"
+ },
+ {
+  "i": 912,
+  "tr": "Siz {0}-{1}aralığında toplam puan ödülü kazandınız"
+ },
+ {
+  "i": 913,
+  "tr": "Bu seferlik kart çevirme tüketimi <FONT COLOR='#ff002a'><B>{0}</B></FONT> kupon"
+ },
+ {
+  "i": 914,
+  "tr": "Tekrar gösterme"
+ },
+ {
+  "i": 915,
+  "tr": "Saya Tanrısı"
+ },
+ {
+  "i": 916,
+  "tr": "HP:"
+ },
+ {
+  "i": 917,
+  "tr": "Zırh:"
+ },
+ {
+  "i": 918,
+  "tr": "Hasar:"
+ },
+ {
+  "i": 919,
+  "tr": "Saldırı:"
+ },
+ {
+  "i": 920,
+  "tr": "Savunma:"
+ },
+ {
+  "i": 921,
+  "tr": "Çeviklik:"
+ },
+ {
+  "i": 922,
+  "tr": "Şans:"
+ },
+ {
+  "i": 923,
+  "tr": "Etkili olma süresi: {0}"
+ },
+ {
+  "i": 924,
+  "tr": "Ekipmanın geçerlilik süresi yetersiz, yenileme sonrası aktivitelerden ek nitelikiklerini kazanabilirsiniz."
+ },
+ {
+  "i": 925,
+  "tr": "Gerekli ekipmanınız henüz yok, oyundaki aktivitelere katılarak kazanabilirsiniz."
+ },
+ {
+  "i": 926,
+  "tr": "Ekipmanın geçerlilik süresi çok düşük, kullanma süresini uzatarak hemen niteliği başlatabilirsiniz."
+ },
+ {
+  "i": 927,
+  "tr": "· Saya Tanrısı"
+ },
+ {
+  "i": 928,
+  "tr": "Saya tanrısı geldi, detaylar için lütfen müthiş aktiviteye dikkat edin!"
+ },
+ {
+  "i": 929,
+  "tr": "Tebrikler, Saya tanrısının getirdiği nitelik yükseltmesini kazandınız, detaylar için lütfen müthiş aktiviteye dikkat edin!"
+ },
+ {
+  "i": 930,
+  "tr": "Saya Tanrısı şablonu yüklemesi başarısız!"
+ },
+ {
+  "i": 931,
+  "tr": "Evcil hayvan giysisi"
+ },
+ {
+  "i": 932,
+  "tr": "Evcil hayvan şapkası"
+ },
+ {
+  "i": 933,
+  "tr": "Evcil hayvan silahı"
+ },
+ {
+  "i": 934,
+  "tr": "Kutlama sandığı"
+ },
+ {
+  "i": 935,
+  "tr": "Kutlama sandığı şu an açılıyor, kapatılamaz"
+ },
+ {
+  "i": 936,
+  "tr": "Kutlama sandığını aç"
+ },
+ {
+  "i": 937,
+  "tr": "Hazine haritası yıldız seviyesi ödülü"
+ },
+ {
+  "i": 938,
+  "tr": "Hediye kutusu"
+ },
+ {
+  "i": 939,
+  "tr": "Günlük aktivite gösterim şablonu bilgisi başarısız"
+ },
+ {
+  "i": 940,
+  "tr": "Aktiflik şablonu bilgisi başarısız"
+ },
+ {
+  "i": 941,
+  "tr": "Günlük ödül ürünleri şablonu bilgisi başarısız"
+ },
+ {
+  "i": 942,
+  "tr": "Yıldız seviyesi yükseltme şablonu bilgisi başarısız"
+ },
+ {
+  "i": 943,
+  "tr": "Yükseltme sayısı şablonu bilgisi başarısız"
+ },
+ {
+  "i": 944,
+  "tr": "Harika aktivite şablonu bilgisi başarısız"
+ },
+ {
+  "i": 945,
+  "tr": "İlk yükleme şablonu bilgisi başarısız"
+ },
+ {
+  "i": 946,
+  "tr": "{0} yetersiz, açılamaz."
+ },
+ {
+  "i": 947,
+  "tr": "· Yükleme geri bildirimi"
+ },
+ {
+  "i": 948,
+  "tr": "· Tüketim geri bildirimi"
+ },
+ {
+  "i": 949,
+  "tr": "· Hazine tarlası"
+ },
+ {
+  "i": 950,
+  "tr": "· Melek dileği"
+ },
+ {
+  "i": 951,
+  "tr": "· Şans ruleti"
+ },
+ {
+  "i": 952,
+  "tr": "· Savaş arkadaşı yükleme geri bildirimi"
+ },
+ {
+  "i": 953,
+  "tr": "Aktivite süresinde yükleme yapılmış"
+ },
+ {
+  "i": 954,
+  "tr": "Aktivite süresinde tüketim yapılmış"
+ },
+ {
+  "i": 955,
+  "tr": "Harika aktivite"
+ },
+ {
+  "i": 956,
+  "tr": "Saat"
+ },
+ {
+  "i": 957,
+  "tr": "Dakika"
+ },
+ {
+  "i": 958,
+  "tr": "Saniye"
+ },
+ {
+  "i": 959,
+  "tr": "Kolye saflaştırma"
+ },
+ {
+  "i": 960,
+  "tr": "HP yükseltme + %{0}"
+ },
+ {
+  "i": 961,
+  "tr": "Yeteri kadar yükseltildi"
+ },
+ {
+  "i": 962,
+  "tr": "Sırt çantasında mor yakut taşı yok"
+ },
+ {
+  "i": 963,
+  "tr": "Kolye en yüksek seviyeye saflaştırıldı"
+ },
+ {
+  "i": 964,
+  "tr": "(Saflaştır{0})"
+ },
+ {
+  "i": 965,
+  "tr": "Aktif edildikten sonra, sıra size geldiğinde otomatik olarak \npass geçer"
+ },
+ {
+  "i": 966,
+  "tr": "<P ALIGN=\"LEFT\"><FONT FACE=\"宋体\" SIZE=\"14\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\"><BR><CT5><B><U><a href=\"event:\\\">İptal Et&gt;&gt;</a></U></B></CT5><BR></FONT></P>"
+ },
+ {
+  "i": 967,
+  "tr": "(+%{0})"
+ },
+ {
+  "i": 968,
+  "tr": "{0} kupon tüketerek hazine sandığını bir sonraki seviyeye yükseltmek istediğinizden emin misiniz?"
+ },
+ {
+  "i": 969,
+  "tr": "{0} kupon tüketerek zar atmak\n istediğinden emin misin?"
+ },
+ {
+  "i": 970,
+  "tr": "{0} kupon tüketerek kart çevirmek is\ntediğinden emin misin?"
+ },
+ {
+  "i": 971,
+  "tr": "Son ödülünü aldın, hemen yenile"
+ },
+ {
+  "i": 972,
+  "tr": "Şansın fena değil! Bir adım ileri!"
+ },
+ {
+  "i": 973,
+  "tr": "Gerçekten biraz arkadasın! Bir adım geri!"
+ },
+ {
+  "i": 974,
+  "tr": "Çok berbatsın! Başlangıç noktasına geri dön!"
+ },
+ {
+  "i": 975,
+  "tr": "Çok şanslısın! Bitiş noktasına var!"
+ },
+ {
+  "i": 976,
+  "tr": "Bugünkü zar atma sayısı kullanıldı!"
+ },
+ {
+  "i": 977,
+  "tr": "Hazine haritası en yüksek seviyede!"
+ },
+ {
+  "i": 978,
+  "tr": "Küçük uyarı: Hazine avına başlamak, herhangi bir hazine kartını açtırır, \naynı zamanda biraz kupon harcayarak ek olarak başka hazine kartlarını da açabilirsiniz."
+ },
+ {
+  "i": 979,
+  "tr": "Her biti? noktas?nda daha fazla sand?k ve hediye almak"
+ },
+ {
+  "i": 980,
+  "tr": "Cevher alışveriş merkezi"
+ },
+ {
+  "i": 981,
+  "tr": "Kara canavar Cevher"
+ },
+ {
+  "i": 982,
+  "tr": "Bağlı kupon yetersiz, kupon kullanmak istediğinizden emin misiniz?"
+ },
+ {
+  "i": 983,
+  "tr": "Lütfen hazine haritası görevini bitirdikten sonra, bir daha zar atın!"
+ },
+ {
+  "i": 984,
+  "tr": "{0} kara canavar gemi tüketerek satın alma işlemi yapmak istediğinizden emin misiniz?"
+ },
+ {
+  "i": 985,
+  "tr": "Bu seferki zar atma için tüketilmesi gereken {0} kupon"
+ },
+ {
+  "i": 986,
+  "tr": "Bu seferki zar atma ücretsiz"
+ },
+ {
+  "i": 987,
+  "tr": "Hazine haritası başlangıç noktasından, yıldız yükseltmeye tıklayabilirsiniz"
+ },
+ {
+  "i": 988,
+  "tr": "Not: Cevher alışveriş merkezinde satın alınan ürünler bağlıdır, evcil hayvan ekipmanlarının geçerlilik süresi 10 gündür."
+ },
+ {
+  "i": 989,
+  "tr": "Hemen dirilmek için 50 kupon tüketimine ihtiyaç vardır, hemen dirilinsin mi?"
+ },
+ {
+  "i": 990,
+  "tr": "3 yıldız seviyesi üzeri hazine haritası sadığından kazanılır"
+ },
+ {
+  "i": 991,
+  "tr": "Rastgele hazine haritası görevi kazan, görevi kazandıktan sonra kara canavar gemi ödülü kazanabilirsin"
+ },
+ {
+  "i": 992,
+  "tr": "Hazine evinden büyük miktarlarda kara canavar gemi kazanılabilir, her seferinde 3 kez kart çevirilebilir"
+ },
+ {
+  "i": 993,
+  "tr": "Tıklayarak kart \nruhu kazanabilirsiniz"
+ },
+ {
+  "i": 994,
+  "tr": "Her seferinde tıklamak için<FONT COLOR='#ff002a'><B>{0}</B></FONT>kupon tüketimine \nihtiyaç vardır，50 kart ruhu kazanılabilir, en yüksek \n120 kart ruhu kazanılabilir"
+ },
+ {
+  "i": 995,
+  "tr": "ilk evlilik"
+ },
+ {
+  "i": 996,
+  "tr": "Tecrübe artımı %{0}, seviye bu \n bölge tecrübe büyüme derecesinden küçük olduğu zaman otomatik kazanılır"
+ },
+ {
+  "i": 997,
+  "tr": "Evcil hayvan besle"
+ },
+ {
+  "i": 998,
+  "tr": "Hemen evcil hayvan beslemek istiyor musunuz?"
+ },
+ {
+  "i": 999,
+  "tr": "Evcil hayvan yemi yetersiz!"
+ },
+ {
+  "i": 1000,
+  "tr": "Besleme başarılı, güncel mutluluk {0}"
+ },
+ {
+  "i": 1001,
+  "tr": "Bağlı kupon yetersiz"
+ },
+ {
+  "i": 1002,
+  "tr": "Kupon yetersiz"
+ },
+ {
+  "i": 1003,
+  "tr": "İste"
+ },
+ {
+  "i": 1004,
+  "tr": "Hediye yolla"
+ },
+ {
+  "i": 1005,
+  "tr": "Lütfen istek yapılacak partneri ayarlayın"
+ },
+ {
+  "i": 1006,
+  "tr": "İstek yapılacak partnerin hepsi boş bırakılamaz"
+ },
+ {
+  "i": 1007,
+  "tr": "Lütfen boşanma ücretini ödeyecek bir arkadaşınızı seçin"
+ },
+ {
+  "i": 1008,
+  "tr": "Lütfen hesabınızı ödeyecek bir arkadaşınızı seçin"
+ },
+ {
+  "i": 1009,
+  "tr": "Uzun süre giriş yapmamış eski oyuncuları geri çağır"
+ },
+ {
+  "i": 1010,
+  "tr": "Bu oyuncu 25. seviyeye varmamış, portal odasına katılamaz"
+ },
+ {
+  "i": 1011,
+  "tr": "Güç değeri hergün 24 saat yenilenir, güç değeri \n yetersiz olduğu zaman portala başlanamaz (Usta ve öğrenci ve aktivite portalı güç değeri tüketmez)"
+ },
+ {
+  "i": 1012,
+  "tr": "Güç değeri satın almaya tıkla"
+ },
+ {
+  "i": 1013,
+  "tr": "{0} kupon harcayarak {1} güç değeri artırmayı onayla"
+ },
+ {
+  "i": 1014,
+  "tr": "Bugünkü satın alma sayısı üst sınıra ulaştı"
+ },
+ {
+  "i": 1015,
+  "tr": "Otomatik üst üste koyma"
+ },
+ {
+  "i": 1016,
+  "tr": "Ödeme isteği"
+ },
+ {
+  "i": 1017,
+  "tr": "Üyenin birliğe yaptığı haftalık \n katkı değeri"
+ },
+ {
+  "i": 1018,
+  "tr": "Kullanım sonrası kazanabileceğin ödüller:Güçlendirme taşı×50、3.Kutsal taşı×1、VIP Parası×1"
+ },
+ {
+  "i": 1019,
+  "tr": "Kullanım sonrası kazanabileceğin ödüller:Güçlendirme taşı×50、3.Kutsal taşı×1、3.seviye tecrübe iksiri×5、VIP Parası×2、Onur Özü×5"
+ },
+ {
+  "i": 1020,
+  "tr": "Kullanım sonrası kazanabileceğin ödüller:Güçlendirme taşı×50、3.Kutsal taşı×1、3.seviye tecrübe iksiri×5、Savaş ruhu tozu×1、VIP Parası×3、Onur Özü×5"
+ },
+ {
+  "i": 1021,
+  "tr": "Kullanım sonrası kazanabileceğin ödüller:Güçlendirme taşı×100、4.Kutsal taşı×1、4.seviye tecrübe iksiri×5、Savaş ruhu tozu×1、Matkap×10、VIP Parası×4、Onur Özü×10"
+ },
+ {
+  "i": 1022,
+  "tr": "Kullanım sonrası kazanabileceğin ödüller:Güçlendirme taşı×100、4.Kutsal taşı×1、4.seviye tecrübe iksiri×5、Savaş ruhu tozu×2、Matkap×10、Rastgele kart×10、VIP Parası×5、Onur Özü×10"
+ },
+ {
+  "i": 1023,
+  "tr": "Kullanım sonrası kazanabileceğin ödüller:Güçlendirme taşı×150、5.Kutsal taşı×1、5.seviye tecrübe iksiri×5、Savaş ruhu tozu×2、Matkap×20、Rastgele kart×20、CanavarSaldırısı×3、Alevli yüzük×3、VIP Parası×6、Onur Özü×20"
+ },
+ {
+  "i": 1024,
+  "tr": "Kullanım sonrası kazanabileceğin ödüller:Güçlendirme taşı×150、5.Kutsal taşı×1、Matkap×20、Rastgele kart×20、CanavarSaldırısı×3、Alevli yüzük×3、3.seviye eğitim iksiri×1、VIP Parası×7、Savaş ruhu tozu×3、Onur Özü×20"
+ },
+ {
+  "i": 1025,
+  "tr": "Kullanım sonrası kazanabileceğin ödüller:Güçlendirme taşı×150、5.Kutsal taşı×1、Matkap×30、Rastgele kart×20、CanavarSaldırısı×3、Alevli yüzük×3、3.seviye eğitim iksiri×1、Savunma incisi×1、VIP Parası×8、Savaş ruhu tozu×3、Onur Özü×30"
+ },
+ {
+  "i": 1026,
+  "tr": "Kullanım sonrası kazanabileceğin ödüller:Güçlendirme taşı×150、5.Kutsal taşı×1、Matkap×30、Rastgele kart×20、CanavarSaldırısı×3、Alevli yüzük×3、3.seviye eğitim iksiri×1、Savunma incisi×1、İlahi silah parçası sandığı×3、VIP Parası×9、Savaş ruhu tozu×4、Onur Özü×30"
+ },
+ {
+  "i": 1027,
+  "tr": "Kullanım sonrası kazanabileceğin ödüller:Güçlendirme taşı×200、Matkap×50、Rastgele kart×30、CanavarSaldırısı+1×3、Alevli yüzük+1×3、4.seviye eğitim iksiri×2、Savunma incisi×1、İlahi silah parçası sandığı×3、tohum×10、VIP Parası×10、Savaş ruhu tozu×4、Onur Özü×50"
+ },
+ {
+  "i": 1028,
+  "tr": "Kullanım sonrası kazanabileceğin ödüller:Güçlendirme taşı×200、Matkap×50、Rastgele kart×30、CanavarSaldırısı+1×3、Alevli yüzük+1×3、4.seviye eğitim iksiri×2、Savunma incisi×3、İlahi silah parçası sandığı×5、tohum×10、VIP Parası×11、Savaş ruhu tozu×5、Onur Özü×50"
+ },
+ {
+  "i": 1029,
+  "tr": "Kullanım sonrası kazanabileceğin ödüller:Güçlendirme taşı×200、Matkap×50、Rastgele kart×30、CanavarSaldırısı+1×3、Alevli yüzük+1×3、4.seviye eğitim iksiri×2、Savunma incisi×3、İlahi silah parçası sandığı×5、tohum×10、VIP Parası×12、Savaş ruhu tozu×5、Onur Özü×50"
+ },
+ {
+  "i": 1030,
+  "tr": "Boşanma"
+ },
+ {
+  "i": 1031,
+  "tr": "Arkadaş ödemesi"
+ },
+ {
+  "i": 1032,
+  "tr": "Arkadaşınız {0} sizden boşanma ücreti olarak {1} kupon istedi"
+ },
+ {
+  "i": 1033,
+  "tr": "Haftalık \nkatkı"
+ },
+ {
+  "i": 1034,
+  "tr": "Füzyon veri tablosu başarısız"
+ },
+ {
+  "i": 1035,
+  "tr": "Grup satın alım ödülü veri tablosu başarısız"
+ },
+ {
+  "i": 1036,
+  "tr": "Güç değeri veri tablosu başarısız"
+ },
+ {
+  "i": 1037,
+  "tr": "Aktivite\nportalı"
+ },
+ {
+  "i": 1038,
+  "tr": "Aktivite portalı  savaş izlemeyi açamaz"
+ },
+ {
+  "i": 1039,
+  "tr": "Yedi ay portalı aktivitesi sona erdi"
+ },
+ {
+  "i": 1040,
+  "tr": "Eski oyuncu geri dönüşü"
+ },
+ {
+  "i": 1041,
+  "tr": "·Yeniden hoş geldiniz"
+ },
+ {
+  "i": 1042,
+  "tr": "·Geri dönüş hediye paketi"
+ },
+ {
+  "i": 1043,
+  "tr": "·Geri dönüş görevi"
+ },
+ {
+  "i": 1044,
+  "tr": "·Diğer bölgeye gitmek istiyorum"
+ },
+ {
+  "i": 1045,
+  "tr": "·Oyuncu çağırma kaydı"
+ },
+ {
+  "i": 1046,
+  "tr": "Eski oyuncu\nöncelikleri"
+ },
+ {
+  "i": 1047,
+  "tr": "1. Üzerinizde bulunan tarihi geçmiş ekipmanlar otomatik olarak yenilenir. \n2. Figüran ismi kişisel renge dönüşür. \n3. Oyuna giriş yaparar geri dönüş hediye paketi her gün alınabilir. \n4. Geri dönüş görevlerinde yeni oynama yöntemi anında tecrübe edilir. \n5. Arkadaşlara daha fazla tecrübe kazandırılır, herkes tarafından sevilir. \n6. Geri döndükten sonra ilk yükleme ile %20 yükleme iadesi kazanılır. \n7. Diğer bölgelerde savaşarak öncelik hediye paketlerinin ve yükleme iadelerinin keyfi çıkarılabilir. \n8. Geri döndükten sonra birliğe katılmak, özel birlik görevlerinden büyük miktarda zenginlikle ödüllendirilir."
+ },
+ {
+  "i": 1048,
+  "tr": "Ayrı olduğunuz zaman diliminde, şu yenilikleri yaptık……"
+ },
+ {
+  "i": 1049,
+  "tr": "— 30 Ocak 2013'te mükemmel arena sürümü duyuruldu"
+ },
+ {
+  "i": 1050,
+  "tr": "— 23 Nisan 2013'te Birlik savaşı sürümü duyuruldu"
+ },
+ {
+  "i": 1051,
+  "tr": "Yeni oynama yöntemleri: Birlik savaşı, Hazine haritası, Evcil hayvan ekipmanları, Kolye saflaştırma"
+ },
+ {
+  "i": 1052,
+  "tr": "Yeni oynama yöntemleri: Savaş alanı, Tesadüf, Birlik BOSS, Potansiyel ekipman, Gizli yer alışveriş merkezi"
+ },
+ {
+  "i": 1053,
+  "tr": "Bölge değiştirip yeniden başlamak istiyorsanız, şu önceliklerin keyfini çıkarabilirsiniz:"
+ },
+ {
+  "i": 1054,
+  "tr": "1. Başka bir bölgeye geldiğiniz zaman                    değerinde eski oyuncu geri dönüş hediye paketini kazanabilir, aynı zamanda \n hesap numarası diğer bir bölgede olan yeni yaratılmış karakter                 . seviyeye vardıktan sonra sonra otomatik olarak hediye paketi kazanılabilir. \n2. Bölge değiştirdikten sonra herhangi bir miktarda yükleme yaparak eski bölgede tükettiğiniz iade geri bildirimini kazanabilirsiniz."
+ },
+ {
+  "i": 1055,
+  "tr": "Açıklama: Bölge değiştirme geri bildirim hediye paketi aynı hesap numarası ile sadece bir kez alınabilir."
+ },
+ {
+  "i": 1056,
+  "tr": "Oyuncu çağırmak, Bombom Dünyası'na arkadaşlarınız tarafından en içten bir biçimde davet edilmektir. Belki de o savaş sırasında sizinle omuz omuza savaşan bir arkadaş, ya da oyunda bir zamanlar sizin partneriniz, ya da bir hayranınız olabilir!"
+ },
+ {
+  "i": 1057,
+  "tr": "Eski oyuncu hesap numarası"
+ },
+ {
+  "i": 1058,
+  "tr": "Lütfen eski oyuncu hesap numarasınızı etkinleştirin ve iade geri bildirimini alın"
+ },
+ {
+  "i": 1059,
+  "tr": "Eski bölgenizdeki figüran                      . seviyeye vardı,\nalabilirsiniz"
+ },
+ {
+  "i": 1060,
+  "tr": "Eski bölgenizdeki biriken yükleme \nile kazanabileceğiniz iade"
+ },
+ {
+  "i": 1061,
+  "tr": "Herhangi bir miktarda ilk yüklemeyi tamamlayarak anında eski oyuncu hesap numarasını etkinleştirebilirsiniz"
+ },
+ {
+  "i": 1062,
+  "tr": "Eski bölgenizdeki figüran henüz 35. seviyeye varmadı, eski oyuncu seviye iadesi kazanılamaz."
+ },
+ {
+  "i": 1063,
+  "tr": "{0}. seviye"
+ },
+ {
+  "i": 1064,
+  "tr": "{0} kupon"
+ },
+ {
+  "i": 1065,
+  "tr": "Bağlı kupon alımı başarılı, lütfen postasını açıp kontrol edin."
+ },
+ {
+  "i": 1066,
+  "tr": "Yeni aktivite portal açılışınız var"
+ },
+ {
+  "i": 1067,
+  "tr": "Büyüme Yardımcısını Aç'a tıklayın"
+ },
+ {
+  "i": 1068,
+  "tr": "Aç"
+ },
+ {
+  "i": 1069,
+  "tr": "Lütfen “YES” yazıp yüksek seviye inci sentezlemeye başlayın!"
+ },
+ {
+  "i": 1070,
+  "tr": "Onayla <FONT COLOR='#FA46AF'> {0} </FONT>\ntecrübeye dönüştürme？"
+ },
+ {
+  "i": 1071,
+  "tr": "Lütfen buraya [         ] girerek işlemi onaylaın."
+ },
+ {
+  "i": 1072,
+  "tr": "YES"
+ },
+ {
+  "i": 1073,
+  "tr": "Güncel dalga sayısı"
+ },
+ {
+  "i": 1074,
+  "tr": "Kardeş eşgüdümü: Hasar+{0}%, Hasar azaltma+{1}%"
+ },
+ {
+  "i": 1075,
+  "tr": "Yeni sunucu avantajları"
+ },
+ {
+  "i": 1076,
+  "tr": "Kahraman karakter"
+ },
+ {
+  "i": 1077,
+  "tr": "· Grup satın alım tutkusu"
+ },
+ {
+  "i": 1078,
+  "tr": "· Hazine avı tutkusu"
+ },
+ {
+  "i": 1079,
+  "tr": "Hazine labirenti aktivitesi açıldı, görmek için harika aktivitelere tıkla"
+ }
+]

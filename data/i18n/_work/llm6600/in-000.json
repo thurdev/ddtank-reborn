@@ -1,0 +1,722 @@
+[
+ {
+  "i": 0,
+  "tr": "<font color='#ff0000'>100000</font>"
+ },
+ {
+  "i": 1,
+  "tr": "Birlik Hazinesi"
+ },
+ {
+  "i": 2,
+  "tr": "Kişisel katkı derecesi"
+ },
+ {
+  "i": 3,
+  "tr": "Bağlı kupon"
+ },
+ {
+  "i": 4,
+  "tr": "Katkı gerekli"
+ },
+ {
+  "i": 5,
+  "tr": "Not: Birlik alışveriş merkezinden satın alınan aksesuarların hepsi bağlı"
+ },
+ {
+  "i": 6,
+  "tr": "1.-3.seviye \niçin kullanılır"
+ },
+ {
+  "i": 7,
+  "tr": "4.-7.seviye \niçin kullanılır"
+ },
+ {
+  "i": 8,
+  "tr": "8.-10.seviye \niçin kullanılır"
+ },
+ {
+  "i": 9,
+  "tr": "Toplam tüketimi                                    Servet"
+ },
+ {
+  "i": 10,
+  "tr": "Toplam tüketimi                                    Kişisel katkı"
+ },
+ {
+  "i": 11,
+  "tr": "Toplam tüketimi                                    Bağlı kupon"
+ },
+ {
+  "i": 12,
+  "tr": "Şu an                   kuponun var, lütfen bağışlamak istediğin miktarı yaz."
+ },
+ {
+  "i": 13,
+  "tr": "Kupon =                  servet"
+ },
+ {
+  "i": 14,
+  "tr": "Tümü seç"
+ },
+ {
+  "i": 15,
+  "tr": "Kabul"
+ },
+ {
+  "i": 16,
+  "tr": "Reddet"
+ },
+ {
+  "i": 17,
+  "tr": "Başvuru \nreddedildi"
+ },
+ {
+  "i": 18,
+  "tr": "Birlik \nseviyesi"
+ },
+ {
+  "i": 19,
+  "tr": "Demirci \natöylesi"
+ },
+ {
+  "i": 20,
+  "tr": "Birlik \nmarketi"
+ },
+ {
+  "i": 21,
+  "tr": "Kasa"
+ },
+ {
+  "i": 22,
+  "tr": "Birlik \nbecerisi"
+ },
+ {
+  "i": 23,
+  "tr": "Kişisel beceri"
+ },
+ {
+  "i": 24,
+  "tr": "Açıklama:"
+ },
+ {
+  "i": 25,
+  "tr": "Sonraki seviye"
+ },
+ {
+  "i": 26,
+  "tr": "Gereksinim"
+ },
+ {
+  "i": 27,
+  "tr": "Tüketim"
+ },
+ {
+  "i": 28,
+  "tr": "Birlikten ayrılmak istediğine emin misin?"
+ },
+ {
+  "i": 29,
+  "tr": "Misafir listesi"
+ },
+ {
+  "i": 30,
+  "tr": "Teklifini kabul etti.\nTebrikler, evleniyorsunuz.\nDüğün yapmak için düğün salonuna gidebilirsin. Herkes aşkınızın şahidi olsun."
+ },
+ {
+  "i": 31,
+  "tr": "Sende tek taş yüzük yok, teklif edemezsin!"
+ },
+ {
+  "i": 32,
+  "tr": "Not: satın al\t                       799 kupon gerekli"
+ },
+ {
+  "i": 33,
+  "tr": "Tek taş yüzük"
+ },
+ {
+  "i": 34,
+  "tr": "Teklifini reddetti.\nsana bir iyi adam kartı verdi. Lütfen \ne-postanı kontrol et."
+ },
+ {
+  "i": 35,
+  "tr": "Şifre değiştir"
+ },
+ {
+  "i": 36,
+  "tr": "Misafirin arkadaş davet etmesine izin ver"
+ },
+ {
+  "i": 37,
+  "tr": "Düğün salonu yenile"
+ },
+ {
+  "i": 38,
+  "tr": "Karşı taraf çevrimdışında:"
+ },
+ {
+  "i": 39,
+  "tr": "Boşanmak için            kupon kesilecek."
+ },
+ {
+  "i": 40,
+  "tr": "Lütfen aşk belirtme sözü yaz"
+ },
+ {
+  "i": 41,
+  "tr": "Kalan harf"
+ },
+ {
+  "i": 42,
+  "tr": "Not: Evlilik teklif etmek için bir tek taş yüzük gerekli."
+ },
+ {
+  "i": 43,
+  "tr": "Sistemden gönderilen dilek"
+ },
+ {
+  "i": 44,
+  "tr": "Hediye paketi ver"
+ },
+ {
+  "i": 45,
+  "tr": "kupon harcayarak her misafire bir kırmızı paket vermek istediğine emin misin?"
+ },
+ {
+  "i": 46,
+  "tr": "Lütfen hediye verilen hediye \npaketi miktarını yaz"
+ },
+ {
+  "i": 47,
+  "tr": "Not: Kırmızı zarf ancak {0}'ın katısı olmalı."
+ },
+ {
+  "i": 48,
+  "tr": "Not: Her kırmızı zarf, {0} kupon."
+ },
+ {
+  "i": 49,
+  "tr": "Alıcı"
+ },
+ {
+  "i": 50,
+  "tr": "Konu"
+ },
+ {
+  "i": 51,
+  "tr": "1: Tüm Birlik üyeleri, kendi posta kutlarında postalan alabilir.\n2: Her Birlik posta maliyeti"
+ },
+ {
+  "i": 52,
+  "tr": "1000 servet harcanır."
+ },
+ {
+  "i": 53,
+  "tr": "Birlik bağışlaması"
+ },
+ {
+  "i": 54,
+  "tr": "1.seviye                          Katkı"
+ },
+ {
+  "i": 55,
+  "tr": "2.seviye                          Katkı"
+ },
+ {
+  "i": 56,
+  "tr": "3.seviye                          Katkı"
+ },
+ {
+  "i": 57,
+  "tr": "4.seviye                          Katkı"
+ },
+ {
+  "i": 58,
+  "tr": "5.seviye                          Katkı"
+ },
+ {
+  "i": 59,
+  "tr": "Katkı"
+ },
+ {
+  "i": 60,
+  "tr": "Birlik üyesi belirtilen katkıya ulaştığında birlik araçları kullanılabilir."
+ },
+ {
+  "i": 61,
+  "tr": "(Sadece size aittir, birlikteki diğer oyuncular kullanamaz.)"
+ },
+ {
+  "i": 62,
+  "tr": "Sırt çantası"
+ },
+ {
+  "i": 63,
+  "tr": "Sırt çantasındaki ürünleri \nçift tıkla veya kasaya sürükle"
+ },
+ {
+  "i": 64,
+  "tr": "Oda adı"
+ },
+ {
+  "i": 65,
+  "tr": "Damat"
+ },
+ {
+  "i": 66,
+  "tr": "Gelin"
+ },
+ {
+  "i": 67,
+  "tr": "Şu anki kişi"
+ },
+ {
+  "i": 68,
+  "tr": "Kalan zaman"
+ },
+ {
+  "i": 69,
+  "tr": "Tören tanıtımı"
+ },
+ {
+  "i": 70,
+  "tr": "Karş. teçh.gözat"
+ },
+ {
+  "i": 71,
+  "tr": "Kez"
+ },
+ {
+  "i": 72,
+  "tr": "Göndermek istediğine emin misin?"
+ },
+ {
+  "i": 73,
+  "tr": "Şu anki puanın"
+ },
+ {
+  "i": 74,
+  "tr": "Büyü değeri"
+ },
+ {
+  "i": 75,
+  "tr": "1.-15.seviye başlangıç aşamasıdır. Savaşta otomatik rehber etkisi var."
+ },
+ {
+  "i": 76,
+  "tr": "{0} öğe elde edeceksin."
+ },
+ {
+  "i": 77,
+  "tr": "İmza at"
+ },
+ {
+  "i": 78,
+  "tr": "Geri dön"
+ },
+ {
+  "i": 79,
+  "tr": "Etkinlik zamanı:"
+ },
+ {
+  "i": 80,
+  "tr": "Etkinlik ödülü:"
+ },
+ {
+  "i": 81,
+  "tr": "Etkinlik içeriği:"
+ },
+ {
+  "i": 82,
+  "tr": "Şans sayısı"
+ },
+ {
+  "i": 83,
+  "tr": "Numaram"
+ },
+ {
+  "i": 84,
+  "tr": "Yarın tahmin"
+ },
+ {
+  "i": 85,
+  "tr": "Günlük alım"
+ },
+ {
+  "i": 86,
+  "tr": "Miktar"
+ },
+ {
+  "i": 87,
+  "tr": "Satıcı"
+ },
+ {
+  "i": 88,
+  "tr": "Açık artırma kişisi"
+ },
+ {
+  "i": 89,
+  "tr": "Şu anki fiyat"
+ },
+ {
+  "i": 90,
+  "tr": "Açık artırma durumu"
+ },
+ {
+  "i": 91,
+  "tr": "Açık artırma miktarı"
+ },
+ {
+  "i": 92,
+  "tr": "Lütfen açık artırma miktarı yaz"
+ },
+ {
+  "i": 93,
+  "tr": "Geçici yardımcı"
+ },
+ {
+  "i": 94,
+  "tr": "Süper enerji"
+ },
+ {
+  "i": 95,
+  "tr": "Her sefer alınan yanma hasarı {0} puan azaltır."
+ },
+ {
+  "i": 96,
+  "tr": "Canavar ejderhanın kükreme saldırısında yerde kalmaya devam edebilir, ayrıca tüm özellikler {0} puan artar."
+ },
+ {
+  "i": 97,
+  "tr": "Her sefer alınan zehir hasarı {0} puan azaltır."
+ },
+ {
+  "i": 98,
+  "tr": "Boksörün ağır saldırılarına dayanabilir, ayrıca tüm özellikler {0} puan artar."
+ },
+ {
+  "i": 99,
+  "tr": "Görülen hasarı {0} puan azaltır."
+ },
+ {
+  "i": 100,
+  "tr": "Kupon\nyükleme yap"
+ },
+ {
+  "i": 101,
+  "tr": "Ödeceksin"
+ },
+ {
+  "i": 102,
+  "tr": "hediye satın aldın."
+ },
+ {
+  "i": 103,
+  "tr": "Şu an sahip olduğun"
+ },
+ {
+  "i": 104,
+  "tr": "ürününün yenilenmesi gerekir."
+ },
+ {
+  "i": 105,
+  "tr": "Etkinlik süresince tek seferde tüm özellikler satın almak için sadece <font COLOR='#FF0000'>99</font> kupon gerekli."
+ },
+ {
+  "i": 106,
+  "tr": "Sunulan"
+ },
+ {
+  "i": 107,
+  "tr": "Arkadaş seç"
+ },
+ {
+  "i": 108,
+  "tr": "Ödeme gerekli"
+ },
+ {
+  "i": 109,
+  "tr": "Toplam       ürün"
+ },
+ {
+  "i": 110,
+  "tr": "Rastgele"
+ },
+ {
+  "i": 111,
+  "tr": "Rastgele bir model oluştur"
+ },
+ {
+  "i": 112,
+  "tr": "Önceki görünüşü geri al"
+ },
+ {
+  "i": 113,
+  "tr": "Cüzdanım"
+ },
+ {
+  "i": 114,
+  "tr": "Palet"
+ },
+ {
+  "i": 115,
+  "tr": "Önerilen"
+ },
+ {
+  "i": 116,
+  "tr": "Teçhizat"
+ },
+ {
+  "i": 117,
+  "tr": "Güzellik"
+ },
+ {
+  "i": 118,
+  "tr": "Aksesuar"
+ },
+ {
+  "i": 119,
+  "tr": "İndirimli bölüm"
+ },
+ {
+  "i": 120,
+  "tr": "En çok \nsatan"
+ },
+ {
+  "i": 121,
+  "tr": "Yeni ürün"
+ },
+ {
+  "i": 122,
+  "tr": "İndirimli"
+ },
+ {
+  "i": 123,
+  "tr": "Silah"
+ },
+ {
+  "i": 124,
+  "tr": "Kıyafet"
+ },
+ {
+  "i": 125,
+  "tr": "Şapka"
+ },
+ {
+  "i": 126,
+  "tr": "Gözlük"
+ },
+ {
+  "i": 127,
+  "tr": "Takı"
+ },
+ {
+  "i": 128,
+  "tr": "Saç"
+ },
+ {
+  "i": 129,
+  "tr": "Göz"
+ },
+ {
+  "i": 130,
+  "tr": "Takım"
+ },
+ {
+  "i": 131,
+  "tr": "süsleme"
+ },
+ {
+  "i": 132,
+  "tr": "Fonksiyon \ntürü"
+ },
+ {
+  "i": 133,
+  "tr": "Özel tür"
+ },
+ {
+  "i": 134,
+  "tr": "Tüm"
+ },
+ {
+  "i": 135,
+  "tr": "Malzeme"
+ },
+ {
+  "i": 136,
+  "tr": "Tekli"
+ },
+ {
+  "i": 137,
+  "tr": "Başarı \n oranı"
+ },
+ {
+  "i": 138,
+  "tr": "Lütfen aynı yer olan teçhizatı koy."
+ },
+ {
+  "i": 139,
+  "tr": "İki teçhizatın özelliği, mühür yuvası ve seçilen incisini \ntransfer etmek ister misin?"
+ },
+ {
+  "i": 140,
+  "tr": "Not: Transfer ettikten sonra iki teçhizat, avatara bağlanır."
+ },
+ {
+  "i": 141,
+  "tr": "Lütfen teçhizat veya silah koymaya devam edin!"
+ },
+ {
+  "i": 142,
+  "tr": "Yardım açıklaması"
+ },
+ {
+  "i": 143,
+  "tr": "Donat"
+ },
+ {
+  "i": 144,
+  "tr": "Lütfen öncelikle güçlendirmek istediğin teçhizatı çift tıklayarak seç"
+ },
+ {
+  "i": 145,
+  "tr": "Lütfen öncelikle döşemek istediğin teçhizatı çift tıklayarak seç"
+ },
+ {
+  "i": 146,
+  "tr": "Lütfen öncelikle sentezlemek istediğin teçhizatı çift tıklayarak seç"
+ },
+ {
+  "i": 147,
+  "tr": "Lütfen transfer etmek istediğiniz teçhizatı seçin."
+ },
+ {
+  "i": 148,
+  "tr": "Lütfen füzyonlamak istediğin öğeyi çift tıklayarak seç"
+ },
+ {
+  "i": 149,
+  "tr": "Bundan sonra lütfen kullanmak istediğin aksesuarı seçmek için çift tıkla"
+ },
+ {
+  "i": 150,
+  "tr": "Bundan sonra lütfen kullanmak istediğin aksesuarı seç"
+ },
+ {
+  "i": 151,
+  "tr": "VIP 6.seviye güçlendirme tecrübe bonusu %50."
+ },
+ {
+  "i": 152,
+  "tr": "Güçlendi \nrmetaşı"
+ },
+ {
+  "i": 153,
+  "tr": "Şans \nsembolü"
+ },
+ {
+  "i": 154,
+  "tr": "Kutsallık sembolü"
+ },
+ {
+  "i": 155,
+  "tr": "Satın al"
+ },
+ {
+  "i": 156,
+  "tr": "Temel değer"
+ },
+ {
+  "i": 157,
+  "tr": "Şans sembolü"
+ },
+ {
+  "i": 158,
+  "tr": "Birlik eklentisi"
+ },
+ {
+  "i": 159,
+  "tr": "VIP eklentisi"
+ },
+ {
+  "i": 160,
+  "tr": "Toplam başarı\n oranı"
+ },
+ {
+  "i": 161,
+  "tr": "Toplam değer"
+ },
+ {
+  "i": 162,
+  "tr": "Sentezleme \ntaşı"
+ },
+ {
+  "i": 163,
+  "tr": "Oluşan \nöğe"
+ },
+ {
+  "i": 164,
+  "tr": "Yuva aç"
+ },
+ {
+  "i": 165,
+  "tr": "Kaldır"
+ },
+ {
+  "i": 166,
+  "tr": "İnciyi kaldır"
+ },
+ {
+  "i": 167,
+  "tr": "İnciyi kaldırmak için <FONT COLOR='#FF0000'>{0} kupon</FONT> harcanır, devam etmek ister misin?"
+ },
+ {
+  "i": 168,
+  "tr": "İnci döşeyerek <FONT COLOR='#FF0000'>2000 altın</FONT> harcanır, devam etmek ister misin?"
+ },
+ {
+  "i": 169,
+  "tr": "Gerekli altın"
+ },
+ {
+  "i": 170,
+  "tr": "Toplam ödeyeceğin"
+ },
+ {
+  "i": 171,
+  "tr": "İşlem başarılı."
+ },
+ {
+  "i": 172,
+  "tr": "İşlem başarısız."
+ },
+ {
+  "i": 173,
+  "tr": "Birlik daveti"
+ },
+ {
+  "i": 174,
+  "tr": "Bir tuşla tamamla"
+ },
+ {
+  "i": 175,
+  "tr": "Kalan sayı"
+ },
+ {
+  "i": 176,
+  "tr": "VIP 1, 2 yıldızlı görev ödülünü elde edebilir. VIP 6'dan üzeri olanlar 3 yıldızlı görev ödülünü elde edebilir."
+ },
+ {
+  "i": 177,
+  "tr": "Görevi tamamlamak için <FONT COLOR='#f43636'>{0}</FONT> kupon harcamak istediğine emin misin?"
+ },
+ {
+  "i": 178,
+  "tr": "Görev ödülü artırmak için <FONT COLOR='#f43636'>{0}</FONT> kupon harcamak istediğine emin misin?"
+ },
+ {
+  "i": 179,
+  "tr": "Bugünkü bir tuşla tamamlama sayın bitti."
+ }
+]

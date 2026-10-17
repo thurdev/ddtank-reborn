@@ -1,0 +1,682 @@
+[
+ {
+  "i": 2880,
+  "tr": "Not:1 Düşük Seviye Parça:10 Sıralama Puanı.1 Yüksek Seviye Parça=10 Etkinlik Puanı."
+ },
+ {
+  "i": 2881,
+  "tr": "Not:Her inşaa etme 100 Kupondur ve 10 Etkinlik puanına eşittir."
+ },
+ {
+  "i": 2882,
+  "tr": "Yüksek Seviye Parça Kullanım Miktarı:"
+ },
+ {
+  "i": 2883,
+  "tr": "Düşük Seviye Kral Heykeli Parçası:"
+ },
+ {
+  "i": 2884,
+  "tr": "Defne Yetiştirme"
+ },
+ {
+  "i": 2885,
+  "tr": "Güz puanı için Dilek ve Yüksek Seviye Dilek al.Güz puanı diğer öğelerin alışverişinde kullanılabilir."
+ },
+ {
+  "i": 2886,
+  "tr": "Dilek"
+ },
+ {
+  "i": 2887,
+  "tr": "Normal Duacı"
+ },
+ {
+  "i": 2888,
+  "tr": "Yüksek Seviye Dilek"
+ },
+ {
+  "i": 2889,
+  "tr": "Dindar Duacı"
+ },
+ {
+  "i": 2890,
+  "tr": "Ay Işığı Diyarı Kullanım Miktarı:"
+ },
+ {
+  "i": 2891,
+  "tr": "Ay Işığı Özü Kullanım Miktarı:"
+ },
+ {
+  "i": 2892,
+  "tr": "Yüksek Seviye Kral Heykeli Parçası:"
+ },
+ {
+  "i": 2893,
+  "tr": "Not:Ay Işığı Diyarı x1=10 Sıralama Puanı.Ay Işığı Özü x1=10 Etkinlik Puanı"
+ },
+ {
+  "i": 2894,
+  "tr": "Not:Her Dindar Duacı değeri 100 Kupon/Bağlı Kupondur.10 Etkinlik Puanı alınır."
+ },
+ {
+  "i": 2895,
+  "tr": "Giriş için 20 Lvl üstü olunması şarttır."
+ },
+ {
+  "i": 2896,
+  "tr": "Defne Yetiştirme Etkinliği başladı."
+ },
+ {
+  "i": 2897,
+  "tr": "Tapınak"
+ },
+ {
+  "i": 2898,
+  "tr": "Özel tapınağın.Girmek \n için Tıkla."
+ },
+ {
+  "i": 2899,
+  "tr": "Başlık"
+ },
+ {
+  "i": 2900,
+  "tr": "Tüm Zamanların En Güçlüsü"
+ },
+ {
+  "i": 2901,
+  "tr": "Depo"
+ },
+ {
+  "i": 2902,
+  "tr": "Depo Dolu"
+ },
+ {
+  "i": 2903,
+  "tr": "{1} (s)Yuvasını açmak için {0} kupon harcamak istiyomusun?"
+ },
+ {
+  "i": 2904,
+  "tr": "25 Lvl Depo kilidi açıldı."
+ },
+ {
+  "i": 2905,
+  "tr": "İteme çift tıklayın yada depoya sürükleyin."
+ },
+ {
+  "i": 2906,
+  "tr": "Depo1"
+ },
+ {
+  "i": 2907,
+  "tr": "Depo2"
+ },
+ {
+  "i": 2908,
+  "tr": "Satınalma Başarılı"
+ },
+ {
+  "i": 2909,
+  "tr": "Satınalma Hatası"
+ },
+ {
+  "i": 2910,
+  "tr": "Refah Evi"
+ },
+ {
+  "i": 2911,
+  "tr": "Refah"
+ },
+ {
+  "i": 2912,
+  "tr": "Refah puanı alıp ekleyebilir yada ev tadilatında kullanıp topraklar genişletilebilir."
+ },
+ {
+  "i": 2913,
+  "tr": "Rezidan Genişlet: {0}\nRezidans Yenile: {1}\n Avlu Yenile:"
+ },
+ {
+  "i": 2914,
+  "tr": "Bombom Sandığı"
+ },
+ {
+  "i": 2915,
+  "tr": "Lv 20 - Lv 40"
+ },
+ {
+  "i": 2916,
+  "tr": "Lv {0} Talep edilebilir Bağlı Kupon Miktarı"
+ },
+ {
+  "i": 2917,
+  "tr": "{0} * {1}x"
+ },
+ {
+  "i": 2918,
+  "tr": "Ödül Alımı Başarılı"
+ },
+ {
+  "i": 2919,
+  "tr": "Ödül Alım Hatası"
+ },
+ {
+  "i": 2920,
+  "tr": "Bombom Sandık Satınalma Başarılı"
+ },
+ {
+  "i": 2921,
+  "tr": "Bombom Sandık Satınalma Hatası"
+ },
+ {
+  "i": 2922,
+  "tr": "{1} (s)Bombom Sandığı satınalmak için {0} kupon harcanmasını istiyormusun?"
+ },
+ {
+  "i": 2923,
+  "tr": "Lütfen önce satınalın sonra ödülü alın."
+ },
+ {
+  "i": 2924,
+  "tr": "Yetersiz Seviye"
+ },
+ {
+  "i": 2925,
+  "tr": "Seviye {0}"
+ },
+ {
+  "i": 2926,
+  "tr": "Dilek elde etmek için  1-yıldız Lv 10'a sahip olunması gerekir."
+ },
+ {
+  "i": 2927,
+  "tr": "Dilek elde etmek için  2-yıldız Lv 10'a sahip olunması gerekir."
+ },
+ {
+  "i": 2928,
+  "tr": "Dilek elde etmek için  3-yıldız Lv 10'a sahip olunması gerekir."
+ },
+ {
+  "i": 2929,
+  "tr": "Dilek elde etmek için  4-yıldız Lv 10'a sahip olunması gerekir."
+ },
+ {
+  "i": 2930,
+  "tr": "Dilek elde etmek için  5-yıldız Lv 10'a sahip olunması gerekir."
+ },
+ {
+  "i": 2931,
+  "tr": "Dilek elde etmek için  6-yıldız Lv 10'a sahip olunması gerekir."
+ },
+ {
+  "i": 2932,
+  "tr": "1-Yıldız Dilek"
+ },
+ {
+  "i": 2933,
+  "tr": "2-Yıldız Dilek"
+ },
+ {
+  "i": 2934,
+  "tr": "3-Yıldız Dilek"
+ },
+ {
+  "i": 2935,
+  "tr": "4-Yıldız Dilek"
+ },
+ {
+  "i": 2936,
+  "tr": "5-Yıldız Dilek"
+ },
+ {
+  "i": 2937,
+  "tr": "6-Yıldız Dilek"
+ },
+ {
+  "i": 2938,
+  "tr": "Tebrikler {0}-Yıldız {1}Seviye Dilek Elde ettin."
+ },
+ {
+  "i": 2939,
+  "tr": "Adak başarılı.{0} Puan Exp Eklendi."
+ },
+ {
+  "i": 2940,
+  "tr": "Max. Seviye"
+ },
+ {
+  "i": 2941,
+  "tr": "Bombom Market"
+ },
+ {
+  "i": 2942,
+  "tr": "Kalan Miktar: {0}"
+ },
+ {
+  "i": 2943,
+  "tr": "Sınırsız"
+ },
+ {
+  "i": 2944,
+  "tr": "Anlaşma Yardım"
+ },
+ {
+  "i": 2945,
+  "tr": "Orijinal Değeri: {0} Kupon"
+ },
+ {
+  "i": 2946,
+  "tr": "Basit Hediye"
+ },
+ {
+  "i": 2947,
+  "tr": "Olması gereken Lvl{0}"
+ },
+ {
+  "i": 2948,
+  "tr": "Satınalma şansı yetersiz."
+ },
+ {
+  "i": 2949,
+  "tr": "Vip Seviyesi{0}olmalı"
+ },
+ {
+  "i": 2950,
+  "tr": "Yükleme İndirim Paketi"
+ },
+ {
+  "i": 2951,
+  "tr": "Tüketim İndirim Paketi"
+ },
+ {
+  "i": 2952,
+  "tr": "{0} Yıldız {1}"
+ },
+ {
+  "i": 2953,
+  "tr": "Tasarım Türünü Seçin"
+ },
+ {
+  "i": 2954,
+  "tr": "Tasarım Yok"
+ },
+ {
+  "i": 2955,
+  "tr": "Yüksek Seviye Tasarım"
+ },
+ {
+  "i": 2956,
+  "tr": "Lüks Tasarım"
+ },
+ {
+  "i": 2957,
+  "tr": "{0} {1}"
+ },
+ {
+  "i": 2958,
+  "tr": "Çiçek Arabası Turnuvası"
+ },
+ {
+  "i": 2959,
+  "tr": "1. Çiçek Arabası Etkinliği sırasında,muhteşem ödüller almak için Çiçek Arabası kullanın.\n2.Hergün 13:00-14:00 & 18:00-19:00 saatleri arasında çift kat ödül.\n3. Aktif turnuvada Baloff hediye paketi almak için Baloff kaptanını yenin(Çift kat bonusu ödülleri etkilemez).\n4.Oyuncular günde 3 kez katılabilir.\n5.Oyuncular Çiçek Arabası için günde sadece bir kez Lüks Tasarım yapabilir."
+ },
+ {
+  "i": 2960,
+  "tr": "Güdümlü Füze Atışı"
+ },
+ {
+  "i": 2961,
+  "tr": "Lütfen vurmak istediğiniz hedefi seçin."
+ },
+ {
+  "i": 2962,
+  "tr": "Son Hedef Zamanı:"
+ },
+ {
+  "i": 2963,
+  "tr": "Oran"
+ },
+ {
+  "i": 2964,
+  "tr": "Haha, Ben geldim!\nBugu zaferi için kalbinizi kırıcam,köleler!"
+ },
+ {
+  "i": 2965,
+  "tr": "Senin bu kadar az çaba göstermen beni hayal kırıklığına uğrattı."
+ },
+ {
+  "i": 2966,
+  "tr": "Beni geçebilir misin?\nİmkansız! Tüm gücünüzü verin, köleler!"
+ },
+ {
+  "i": 2967,
+  "tr": "Zafer Bugu Krallığının!\nWahaha!"
+ },
+ {
+  "i": 2968,
+  "tr": "Ben dünyaca ünlü Barlow, \nbir ufaklığa kaybedeceğimi hiç düşünmemiştim. \nAma geri geleceğim!"
+ },
+ {
+  "i": 2969,
+  "tr": "Çiçek Arabası etkinliği çifte ödül açık!Gel şimdi oyna!"
+ },
+ {
+  "i": 2970,
+  "tr": "Çiçek Arabası etkinliği çifte ödül bitti!"
+ },
+ {
+  "i": 2971,
+  "tr": "Bugün bütün Çiçek Arabası  şansını kullandın!"
+ },
+ {
+  "i": 2972,
+  "tr": "Canavarları ve engelleri atlamak için kısa mesafe atlayabilirsiniz.(5s bekleme süresi)"
+ },
+ {
+  "i": 2973,
+  "tr": "Çiçek Arabanı 30s görünmez yapabilirsin (5s bekleme süresi)"
+ },
+ {
+  "i": 2974,
+  "tr": "Kendin için çifte etkiyi serbest bırakmak için(5s bekleme süresi)"
+ },
+ {
+  "i": 2975,
+  "tr": "Güdümlü füze atışı,rakibini 10s haraketsiz tutar.(5s bekleme süresi)"
+ },
+ {
+  "i": 2976,
+  "tr": "Eşleme Kalan Zamanı:"
+ },
+ {
+  "i": 2977,
+  "tr": "Hedefe Ulaşıldı"
+ },
+ {
+  "i": 2978,
+  "tr": "Eşleşme Hatası"
+ },
+ {
+  "i": 2979,
+  "tr": "Eşleşmeden ayrılırsanız.Çiçek Arabası işlemi duracaktır."
+ },
+ {
+  "i": 2980,
+  "tr": "Süsleme için {0} kupon harcamak istediğine eminmisin?"
+ },
+ {
+  "i": 2981,
+  "tr": "Kısa mesafe sıçrama için {0} kupon/bağlı kupon harcamak istediğine eminmisin?"
+ },
+ {
+  "i": 2982,
+  "tr": "Çifte etkiyi kendin için serbest bırakmak için {0} kupon/bağlı kupon harcamak istediğine eminmisin?"
+ },
+ {
+  "i": 2983,
+  "tr": "Güdümlü Füze Atışı için {0} kupon/bağlı kupon harcamak istediğine eminmisin?"
+ },
+ {
+  "i": 2984,
+  "tr": "Çiçek Arabası Ustası"
+ },
+ {
+  "i": 2985,
+  "tr": "Madalya takası ve Yeniyıl puanları için kupon kazan.Yeniyıl puanlarını Mağzada kullanılabilir."
+ },
+ {
+  "i": 2986,
+  "tr": "Takas"
+ },
+ {
+  "i": 2987,
+  "tr": "Madalya Takası"
+ },
+ {
+  "i": 2988,
+  "tr": "Kupon Takası"
+ },
+ {
+  "i": 2989,
+  "tr": "İnanç Takası"
+ },
+ {
+  "i": 2990,
+  "tr": "Gümüş Çiçek Maldalyası Kullanım Miktarı:"
+ },
+ {
+  "i": 2991,
+  "tr": "Altın Çiçek Maldalyası Kullanım Miktarı:"
+ },
+ {
+  "i": 2992,
+  "tr": "Not: 1 Gümüş Çiçek Madalyası=10 Sıralama puanı.1 Altın Çiçek Madalyası=10 Yeniyıl puanı."
+ },
+ {
+  "i": 2993,
+  "tr": "Not:Her Kupon Takası 100 Kupon/Bağlı Kupon.10 yeniyıl puanı eder."
+ },
+ {
+  "i": 2994,
+  "tr": "Not:Her İnanç Takası 100 Kupon/Bağlı Kupon.10 yeniyıl puanı eder."
+ },
+ {
+  "i": 2995,
+  "tr": "Girmek için 15Lvl üstü gerekir."
+ },
+ {
+  "i": 2996,
+  "tr": "Çiçek Arabası Etkinliği başladı."
+ },
+ {
+  "i": 2997,
+  "tr": "Takas için {0} harcayacakmısınız?"
+ },
+ {
+  "i": 2998,
+  "tr": "Çiçek Arabası Etkinliğinde {0} saatten az zamanı kaldı."
+ },
+ {
+  "i": 2999,
+  "tr": "Bağlı Kupon: \n Kalan Bağlı Kupon:"
+ },
+ {
+  "i": 3000,
+  "tr": "Başlangıç Zamanı:<font color=\"#fff4d4\" size=\"14\">{0}</font>\nBitiş Zamanı:<font color=\"#fff4d4\" size=\"14\">{1} </font>"
+ },
+ {
+  "i": 3001,
+  "tr": "{0} Gün telafi etmek için Tasarım Kartı kullan?"
+ },
+ {
+  "i": 3002,
+  "tr": "Dilek Ağacı Etkinliği başladı!"
+ },
+ {
+  "i": 3003,
+  "tr": "Dilek Ağacı Etkinliği bitti!"
+ },
+ {
+  "i": 3004,
+  "tr": "Dilek Ağacı"
+ },
+ {
+  "i": 3005,
+  "tr": "Dilek Kart Değeri: {0}"
+ },
+ {
+  "i": 3006,
+  "tr": "Etkinlik Zamanlı Dilek Şansı: {0}"
+ },
+ {
+  "i": 3007,
+  "tr": "Tebrikler! {0} Aldın."
+ },
+ {
+  "i": 3008,
+  "tr": "Toplam Dilekler {0}x"
+ },
+ {
+  "i": 3009,
+  "tr": "{0} Üstünden {1} Yıl {2} Ay {3} Gün {4} Dakika {5} dilek aldın."
+ },
+ {
+  "i": 3010,
+  "tr": "Etkinlik Kalan Süresi: {0}"
+ },
+ {
+  "i": 3011,
+  "tr": "Bombom Kral Turnuvası<font FACE=\"宋体\" color=\"#FF0000\" size=\"14\"><b>{0}</b></font> Tur"
+ },
+ {
+  "i": 3012,
+  "tr": "bag.bagView.petsMergerInfo.txt: Düzenleme yapıldıktan sonra aynı tür pet ekipmanları tek parça olacaktır.\n<font FACE=\"宋体\" color=\"#FF0000\" size=\"14\"><b>(Birleştirme bağlı bağsız ayrımı yapmaz)</b></font>\n ve geçerlilik süresi aynı olan ekipmanlar için geçerlidir."
+ },
+ {
+  "i": 3013,
+  "tr": "Eşleştirme"
+ },
+ {
+  "i": 3014,
+  "tr": "Kart çevirme hakkı yetersiz."
+ },
+ {
+  "i": 3015,
+  "tr": "Şuanda kart çevriliyor.."
+ },
+ {
+  "i": 3016,
+  "tr": "Aktif bölümü sıfırlamak için {0} kupon kullanılacak onaylıyormusun?"
+ },
+ {
+  "i": 3017,
+  "tr": "{0} kupon kullanarak {1} kart çevirme şansı \nalınacak onaylıyor musun?"
+ },
+ {
+  "i": 3018,
+  "tr": "İkişer ödül listesi yüklenemedi!"
+ },
+ {
+  "i": 3019,
+  "tr": "Yetersiz puan."
+ },
+ {
+  "i": 3020,
+  "tr": "Oyuncular her kart çevirmede puan elde eder.Ödül için yeterli puan biriktiğinde ödül"
+ },
+ {
+  "i": 3021,
+  "tr": "Oyun bitti.Şimdi yenile."
+ },
+ {
+  "i": 3022,
+  "tr": "Kart zaten çevrildi."
+ },
+ {
+  "i": 3023,
+  "tr": "Etkinlik bitti."
+ },
+ {
+  "i": 3024,
+  "tr": "Koruma"
+ },
+ {
+  "i": 3025,
+  "tr": "Koruma sistemi seviye listesi yüklenemedi!"
+ },
+ {
+  "i": 3026,
+  "tr": "Koruma sistem modül listesi yüklenemedi!"
+ },
+ {
+  "i": 3027,
+  "tr": "Koruma Leveli Max."
+ },
+ {
+  "i": 3028,
+  "tr": "Altın yetersiz."
+ },
+ {
+  "i": 3029,
+  "tr": "Yetersiz Exp."
+ },
+ {
+  "i": 3030,
+  "tr": "Yetersiz Koruma ruhu"
+ },
+ {
+  "i": 3031,
+  "tr": "Hata Koruma bilgisi alınamadı."
+ },
+ {
+  "i": 3032,
+  "tr": "Yeni Seviye Efekti"
+ },
+ {
+  "i": 3033,
+  "tr": "Karakterinin {0} Lvl olması lazım."
+ },
+ {
+  "i": 3034,
+  "tr": "Karakter korumasının {0} Lvl olması lazım."
+ },
+ {
+  "i": 3035,
+  "tr": "Çevirmeye Devam et:{0} Tur"
+ },
+ {
+  "i": 3036,
+  "tr": "Çevirmeye Devam et:{0} Sonsuz"
+ },
+ {
+  "i": 3037,
+  "tr": "Zaten yüksek seviyedesin."
+ },
+ {
+  "i": 3038,
+  "tr": "Koruma Efekti: \n{0}"
+ },
+ {
+  "i": 3039,
+  "tr": "Koruma Efekti Ekipmanı Mevcut"
+ },
+ {
+  "i": 3040,
+  "tr": "İlgili çizim kartın yok."
+ },
+ {
+  "i": 3041,
+  "tr": "{0} Gün {1} Saat {2} Dakika"
+ },
+ {
+  "i": 3042,
+  "tr": "Benim Sıralamam:Sıralamada değilsin."
+ },
+ {
+  "i": 3043,
+  "tr": "{0}Kupon Mevcut:Sıralama için {1} kupon daha gerekli."
+ },
+ {
+  "i": 3044,
+  "tr": "Benim Sıralamam:"
+ },
+ {
+  "i": 3045,
+  "tr": "Sıralamanı yükseltmek için  {0} kupon lazım."
+ },
+ {
+  "i": 3046,
+  "tr": "Ödül Şartları"
+ },
+ {
+  "i": 3047,
+  "tr": "1.AçıkArttırma dışında bütün kupon harcamaları geçerlidir. \n2.Top10 daki oyuncular sıralamadan ödül alabilmek için en az {0} kupon harcamalıdır."
+ },
+ {
+  "i": 3048,
+  "tr": "Tapınak yükseltmek için {0} Yıldız(s)"
+ },
+ {
+  "i": 3049,
+  "tr": "Tapınak yükseltmek için {0} Yıldız(s) Lv {1}"
+ }
+]

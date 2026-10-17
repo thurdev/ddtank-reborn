@@ -1,0 +1,722 @@
+[
+ {
+  "i": 1440,
+  "tr": "Üçüncü Ödülü"
+ },
+ {
+  "i": 1441,
+  "tr": "İkinci Ödülü"
+ },
+ {
+  "i": 1442,
+  "tr": "Şampiyon Ödülü"
+ },
+ {
+  "i": 1443,
+  "tr": "Başlama saati:"
+ },
+ {
+  "i": 1444,
+  "tr": "Bitiş zamanı:"
+ },
+ {
+  "i": 1445,
+  "tr": "Düğün Salonu Kanal {0} Nu. {1}'de. Girmek için ona tıklayın."
+ },
+ {
+  "i": 1446,
+  "tr": "İlk boşanma"
+ },
+ {
+  "i": 1447,
+  "tr": "Sınırlı satış"
+ },
+ {
+  "i": 1448,
+  "tr": "Lütfen çift tıklayarak niteliklerin aktarılacağı ekipmanı seçin"
+ },
+ {
+  "i": 1449,
+  "tr": "Şimdiki dinamik değer bu seferki sürümde kart çevirmek için yeterli değil, satın alınsın mı?"
+ },
+ {
+  "i": 1450,
+  "tr": "Bağlı kupon yetersiz, kupon kullanılsın mı?"
+ },
+ {
+  "i": 1451,
+  "tr": "Ekli posta silinemez"
+ },
+ {
+  "i": 1452,
+  "tr": "Lütfen en az bir cevap seçin"
+ },
+ {
+  "i": 1453,
+  "tr": "Henüz değerlendirmediğiniz seçenekler var"
+ },
+ {
+  "i": 1454,
+  "tr": "Lütfen cevabı yazdıktan sonra gönderin"
+ },
+ {
+  "i": 1455,
+  "tr": "Lütfen cevabınızı yazın"
+ },
+ {
+  "i": 1456,
+  "tr": "Biriken giriş mesajı başarısız"
+ },
+ {
+  "i": 1457,
+  "tr": "Bir sonraki seviyeye yükseltirsen daha \nzengin deneyim hediye paketi alabilirsin!"
+ },
+ {
+  "i": 1458,
+  "tr": "<p align=\"center\">puan hazine avını <FONT SIZE='16' COLOR='#FF0000'>{0}</FONT>defa kullan</p>\n<FONT SIZE='14' COLOR='#FF0000'>Dikkat：her 30 puan bir defa hazine avı şansı ile takas edilebilir\nEğer çanta doluysa, sistem otomatik hazine avını durdurur</FONT>"
+ },
+ {
+  "i": 1459,
+  "tr": "Puanın 30 puana yetmiyor, takas edilemez"
+ },
+ {
+  "i": 1460,
+  "tr": "Etkinlik çoktan bitti"
+ },
+ {
+  "i": 1461,
+  "tr": "Yükleme geri bildirim etkinliği açıldı"
+ },
+ {
+  "i": 1462,
+  "tr": "Geri besleme harcama etkinliği açıldı"
+ },
+ {
+  "i": 1463,
+  "tr": "Küçük hoparlör harcanarak yayın yapılsın mı?"
+ },
+ {
+  "i": 1464,
+  "tr": "Noel baba her gece<FONT COLOR='#FF0000'>{0}</FONT>sonra herkese sınırlı sayıda <FONT COLOR='#FF0000'>300</FONT>noel hediyesi verecek，hergün<FONT COLOR='#FF0000'>25</FONT>tane kardan adam biriktirerek alabilirsin，miktarı sınırlıdır, ilk gelen alır!"
+ },
+ {
+  "i": 1465,
+  "tr": "Kar topu ekle"
+ },
+ {
+  "i": 1466,
+  "tr": "Çifte kar topu ekleyerek öncelikli Bağlı kupon indirimini al"
+ },
+ {
+  "i": 1467,
+  "tr": "1. 3 takım görüntü tanımlanabilir, denedikten sonra görüntüyü kaydederseniz o anki görüntü kaydedilebilir. \n2.Görüntüyü seçtikten sonra \"onayla\" butonuna tıklayarak o anki giysiyi giyebilirsiniz. \n3. Şekli kestikten sonra giysinin taşıdığı güçlendirme nitelikleri de aktarılabilir."
+ },
+ {
+  "i": 1468,
+  "tr": "Görüntü1"
+ },
+ {
+  "i": 1469,
+  "tr": "Görüntü2"
+ },
+ {
+  "i": 1470,
+  "tr": "Görüntü3"
+ },
+ {
+  "i": 1471,
+  "tr": "Tümü"
+ },
+ {
+  "i": 1472,
+  "tr": "Yüz süsleri"
+ },
+ {
+  "i": 1473,
+  "tr": "Arama sonucu:"
+ },
+ {
+  "i": 1474,
+  "tr": "Giysi değiştirme başarılı"
+ },
+ {
+  "i": 1475,
+  "tr": "Görüntüyü kaydetme başarılı"
+ },
+ {
+  "i": 1476,
+  "tr": "Bu kıyafet zaten görüntü giysisi olarak kaydedildi, koyulamaz."
+ },
+ {
+  "i": 1477,
+  "tr": "Altın yetersiz, giysi niteliği aktarılamaz"
+ },
+ {
+  "i": 1478,
+  "tr": "Onaylaya tıkladıktan sonra şimdiki giysi giyilebilir"
+ },
+ {
+  "i": 1479,
+  "tr": "Düzenlendikten sonra aynı türdeki modalar bir adet olarak saklanır. \nAynı türdeki modaların etkileri üst üste eklenir."
+ },
+ {
+  "i": 1480,
+  "tr": "Giysi açıklaması"
+ },
+ {
+  "i": 1481,
+  "tr": "Fener bilmece etkinliği {0} dakika sonra açılacak!"
+ },
+ {
+  "i": 1482,
+  "tr": "Hazine sandığını açmak için {0} kupon gerekir, açılsın mı?"
+ },
+ {
+  "i": 1483,
+  "tr": "{0} 30 dakika içinde zamanı dolacak. Hemen bak!"
+ },
+ {
+  "i": 1484,
+  "tr": "Lütfen kaydolma uygulamasını kullanarak kaydolup ödülünüzü alın"
+ },
+ {
+  "i": 1485,
+  "tr": "Bombom potpuri"
+ },
+ {
+  "i": 1486,
+  "tr": "Etkinlik kuralları: Etkinlik süresinde başkasına çiçek gönderen veya çiçek alanlar \npopülerlik sıralaması kazanır, zengin ödül alır, çiçek verirken ellerin güzel kokar, \nhadi hemen başla!\n Etkinlik sırasında: {0} ile {1} arası \n ödül zamanı: {2} ile {3} arası"
+ },
+ {
+  "i": 1487,
+  "tr": "Alma koşulları"
+ },
+ {
+  "i": 1488,
+  "tr": "Ödül al"
+ },
+ {
+  "i": 1489,
+  "tr": "Alma durumu"
+ },
+ {
+  "i": 1490,
+  "tr": "Gönderdiğim çiçek sayısı:"
+ },
+ {
+  "i": 1491,
+  "tr": "Çiçek sayısı"
+ },
+ {
+  "i": 1492,
+  "tr": "Temel ödül"
+ },
+ {
+  "i": 1493,
+  "tr": "Büyük ödül"
+ },
+ {
+  "i": 1494,
+  "tr": "{0}inci"
+ },
+ {
+  "i": 1495,
+  "tr": "Listede yok"
+ },
+ {
+  "i": 1496,
+  "tr": "Çiçek sayım:"
+ },
+ {
+  "i": 1497,
+  "tr": "Temel ödül alma gereksinimleri: {0}"
+ },
+ {
+  "i": 1498,
+  "tr": "Büyük ödül alma gereksinimleri: {0}"
+ },
+ {
+  "i": 1499,
+  "tr": "Çiçek gönder"
+ },
+ {
+  "i": 1500,
+  "tr": "Gönder"
+ },
+ {
+  "i": 1501,
+  "tr": "* {0}"
+ },
+ {
+  "i": 1502,
+  "tr": "Alınabilir"
+ },
+ {
+  "i": 1503,
+  "tr": "Diğer miktar"
+ },
+ {
+  "i": 1504,
+  "tr": "Lütfen çiçek gönderecek oyuncunun rumuzunu girin!"
+ },
+ {
+  "i": 1505,
+  "tr": "Alınabilir:"
+ },
+ {
+  "i": 1506,
+  "tr": "Başlangıç seviyesi hediye paketini gönder"
+ },
+ {
+  "i": 1507,
+  "tr": "Orta seviye hediye paketini gönder"
+ },
+ {
+  "i": 1508,
+  "tr": "Yüksek seviye hediye paketini gönder"
+ },
+ {
+  "i": 1509,
+  "tr": "Özel seviye hediye paketini gönder"
+ },
+ {
+  "i": 1510,
+  "tr": "Kalbimi sevmen kalbini sevmem gibidir, seni hayal kırıklığına uğratmam."
+ },
+ {
+  "i": 1511,
+  "tr": "Gönderme günlüğü"
+ },
+ {
+  "i": 1512,
+  "tr": "Biriken gönderme miktarı {0} buket çiçek"
+ },
+ {
+  "i": 1513,
+  "tr": "{0}, {1}buket çiçeği gönderdi <FONT SIZE='12' FACE='宋体' COLOR='#FFd633'>{2}</FONT>。"
+ },
+ {
+  "i": 1514,
+  "tr": "Eski oyuncunun geri dönme puanı mağazası"
+ },
+ {
+  "i": 1515,
+  "tr": "1. Geri çağırılan oyuncular giriş yaptıktan sonra çağıran kişiler puan alır. (geri çağırılan oyuncu 35. seviyeye çıktığında 10 puan, 35 seviye altı 2 puan) \n2. Arkadaş listenizde             özelliği görünen arkadaşlarınızı çevrimdışı davet edebilirsiniz."
+ },
+ {
+  "i": 1516,
+  "tr": "“Çağır”"
+ },
+ {
+  "i": 1517,
+  "tr": "{0} puan harcayıp {1} satın almak istediğinden emin misin?"
+ },
+ {
+  "i": 1518,
+  "tr": "Küçük hoparlörü harcamak gerekir"
+ },
+ {
+  "i": 1519,
+  "tr": "{0} kupon son fiyat, {1} kupon açık artırmada satıldı {2}x{3}"
+ },
+ {
+  "i": 1520,
+  "tr": "Tıklayarak satın al"
+ },
+ {
+  "i": 1521,
+  "tr": "Hızlı açık artırma"
+ },
+ {
+  "i": 1522,
+  "tr": "Ürün zaten satıldı veya raftan kaldırıldı"
+ },
+ {
+  "i": 1523,
+  "tr": "Açık Arttırma Yayını"
+ },
+ {
+  "i": 1524,
+  "tr": "Seviye {0} olduğunda açılır"
+ },
+ {
+  "i": 1525,
+  "tr": "Satış tablosu hatalı"
+ },
+ {
+  "i": 1526,
+  "tr": "Bombom yeni asker"
+ },
+ {
+  "i": 1527,
+  "tr": "Bombom onbaşı"
+ },
+ {
+  "i": 1528,
+  "tr": "Bombom teğmen"
+ },
+ {
+  "i": 1529,
+  "tr": "Bombom albay"
+ },
+ {
+  "i": 1530,
+  "tr": "Bombom mareşal"
+ },
+ {
+  "i": 1531,
+  "tr": "Bombom diktatör"
+ },
+ {
+  "i": 1532,
+  "tr": "Bombom tanrısı"
+ },
+ {
+  "i": 1533,
+  "tr": "İlerleme:"
+ },
+ {
+  "i": 1534,
+  "tr": "Durum:"
+ },
+ {
+  "i": 1535,
+  "tr": "Tamamlandı"
+ },
+ {
+  "i": 1536,
+  "tr": "Hemen git"
+ },
+ {
+  "i": 1537,
+  "tr": "Sahne ilerlemesi:"
+ },
+ {
+  "i": 1538,
+  "tr": "Ödül alımı başarılı"
+ },
+ {
+  "i": 1539,
+  "tr": "Büyük tanrı yolu"
+ },
+ {
+  "i": 1540,
+  "tr": "Eğlence modu"
+ },
+ {
+  "i": 1541,
+  "tr": "Lütfen oda"
+ },
+ {
+  "i": 1542,
+  "tr": "Bağlı kupon yetersiz, kupon ile tamamlansın mı?"
+ },
+ {
+  "i": 1543,
+  "tr": "Bakiye yetersiz!"
+ },
+ {
+  "i": 1544,
+  "tr": "Etkinlik süresi:"
+ },
+ {
+  "i": 1545,
+  "tr": "Her bire bir savaşta {0} kupon harcanırsa , galibiyet {1} kupon kazandırır."
+ },
+ {
+  "i": 1546,
+  "tr": "Görkemli yolculuk XMLhatalı"
+ },
+ {
+  "i": 1547,
+  "tr": "Muhteşem yolculuk"
+ },
+ {
+  "i": 1548,
+  "tr": "Görkemli yolculuk açıklaması"
+ },
+ {
+  "i": 1549,
+  "tr": "Görkemli yolculuk etkinlik zamanı"
+ },
+ {
+  "i": 1550,
+  "tr": "Yedi gün ödülünün veri okuması hatalı"
+ },
+ {
+  "i": 1551,
+  "tr": "Yedi ödül"
+ },
+ {
+  "i": 1552,
+  "tr": "Git"
+ },
+ {
+  "i": 1553,
+  "tr": "Tamamlanmamış"
+ },
+ {
+  "i": 1554,
+  "tr": "İndirimli Mağaza"
+ },
+ {
+  "i": 1555,
+  "tr": "Ürünlerin hepsi satıldı!"
+ },
+ {
+  "i": 1556,
+  "tr": "Eski fiyatı:{0}"
+ },
+ {
+  "i": 1557,
+  "tr": "Şimdiki fiyatı:{0}"
+ },
+ {
+  "i": 1558,
+  "tr": "Ek zaman:{0}"
+ },
+ {
+  "i": 1559,
+  "tr": "İndirim etkinliği bitti, lütfen sonraki etkinliğin başlamasını bekle!"
+ },
+ {
+  "i": 1560,
+  "tr": "Bu üründen {0} tane daha alabilirsin!"
+ },
+ {
+  "i": 1561,
+  "tr": "Sınırlı zamanlı etkinlik"
+ },
+ {
+  "i": 1562,
+  "tr": "Açılmamış"
+ },
+ {
+  "i": 1563,
+  "tr": "{0} Bağlı kupon harca"
+ },
+ {
+  "i": 1564,
+  "tr": "20. seviyeye ulaşmadın, bu etkinliğe katılamazsın!"
+ },
+ {
+  "i": 1565,
+  "tr": "Sadece {0} seviye üzerindeki oyuncular etkinliğe katılabilir"
+ },
+ {
+  "i": 1566,
+  "tr": "Çapraz sunucu ID Veritabanı yüklemesi başarısız"
+ },
+ {
+  "i": 1567,
+  "tr": "1.16 birlik  sunucu şampiyonluğu için rekabet ediyor.\n2.Sunucu şampiyonu tüm sunucular arası rekabete katılabilir.\n3.Birlik savaşı her ay olur\n4.Şampiyon birlik 4lü eleminasyon sistemine göre belirlenir."
+ },
+ {
+  "i": 1568,
+  "tr": "Eleme \nsıralaması,birlik adı,seviye,eleme puanı,oyuncu \nnumarası"
+ },
+ {
+  "i": 1569,
+  "tr": "{0} inci gün {1}:{2}"
+ },
+ {
+  "i": 1570,
+  "tr": "Sıralama ödülü"
+ },
+ {
+  "i": 1571,
+  "tr": "Birlik adı:{0}\n Birlik puanı:{1}"
+ },
+ {
+  "i": 1572,
+  "tr": "Birlik Adı: {0}\nBirlik Puanı: {1}\nSunucu ID: {2}"
+ },
+ {
+  "i": 1573,
+  "tr": "Bu seviyenin altındaki oyuncular  {0} Rekabete katılamazlar!"
+ },
+ {
+  "i": 1574,
+  "tr": "Lütfen! tüm sunucular rekabetine başlama davetimize bekliyoruz."
+ },
+ {
+  "i": 1575,
+  "tr": "Tüm katılma haklarını kullandın!"
+ },
+ {
+  "i": 1576,
+  "tr": "Etkinlik henüz açılmadı!"
+ },
+ {
+  "i": 1577,
+  "tr": "Savaş ruhu tozu yetersiz."
+ },
+ {
+  "i": 1578,
+  "tr": "tamam"
+ },
+ {
+  "i": 1579,
+  "tr": "KingDivisionManager.loaderConsortionMessage.Loading failure！"
+ },
+ {
+  "i": 1580,
+  "tr": "Hayalet Festivali"
+ },
+ {
+  "i": 1581,
+  "tr": "Gereksinimler: Sıralama girmek için en az {0} Hayalet kartı topla!"
+ },
+ {
+  "i": 1582,
+  "tr": "Ödül verisi bulunamıyor. Tekrar deneyiniz."
+ },
+ {
+  "i": 1583,
+  "tr": "Yenileme zamanı: {0}"
+ },
+ {
+  "i": 1584,
+  "tr": "Sıra"
+ },
+ {
+  "i": 1585,
+  "tr": "Toplama yöntemleri:Etkinlinliğe katılmak, Görevleri tamamlamak."
+ },
+ {
+  "i": 1586,
+  "tr": "Etkinlik Zamanı: {0}- {1}"
+ },
+ {
+  "i": 1587,
+  "tr": "Cadı Kutsaması"
+ },
+ {
+  "i": 1588,
+  "tr": "1. Olay zamanı boyunca, her gün {0} kez hediye isteyebilirsin. Bugün {1} kez kaldı."
+ },
+ {
+  "i": 1589,
+  "tr": "2. Olay boyunca, aşağıdaki özellikler artırılacak:"
+ },
+ {
+  "i": 1590,
+  "tr": "Cadı şekerlerini vermeyenleri cezalandıracak, \n her saat {0} Kutsama puanı alarak"
+ },
+ {
+  "i": 1591,
+  "tr": "Olay: {0}"
+ },
+ {
+  "i": 1592,
+  "tr": "Tanrı bizi korusun. Cadı {0} da \nçift Kutsama getirecek"
+ },
+ {
+  "i": 1593,
+  "tr": "Sıradaki isteme zamanı: {0}"
+ },
+ {
+  "i": 1594,
+  "tr": "İstenecek Ödül"
+ },
+ {
+  "i": 1595,
+  "tr": "Bugün tüm ödüller istendi, lütfen yarın tekrar gel"
+ },
+ {
+  "i": 1596,
+  "tr": "İçten Kutsama"
+ },
+ {
+  "i": 1597,
+  "tr": "Kutsama Şansı"
+ },
+ {
+  "i": 1598,
+  "tr": "Bu seviyenin kutsamasını alamadın"
+ },
+ {
+  "i": 1599,
+  "tr": "Maksimum Kutsama seviyesine ulaşıldı, daha fazla kutsanamaz!"
+ },
+ {
+  "i": 1600,
+  "tr": "Çifte ödül istemek {0} kupona mal olacak, devam edilsin mi?"
+ },
+ {
+  "i": 1601,
+  "tr": "Hadi seni şimdi kutsayacağım!"
+ },
+ {
+  "i": 1602,
+  "tr": "Etkinsiz şeker, lütfen daha fazla elde etmek için görevleri bitir ya da olaya katıl!"
+ },
+ {
+  "i": 1603,
+  "tr": "Çifte ödül isteme {0} kupona mal olacak. Kuponların yetersiz biraz satın almak ister misin?"
+ },
+ {
+  "i": 1604,
+  "tr": "1 Kutsama <FONT COLOR='#ff0000'>{0}</FONT> kupona mal olur, <FONT COLOR='#ff0000'>{1}</FONT> Tecrübe sunarak. Sıradaki seviyeye ulaşmak <FONT COLOR='#ff0000'>{2}</FONT>Tecrübe gerektirir"
+ },
+ {
+  "i": 1605,
+  "tr": "Mutlu noeller veritabanı yüklenme hatası"
+ },
+ {
+  "i": 1606,
+  "tr": "İçten Festival kuponlar yetersiz kalmaktadır!"
+ },
+ {
+  "i": 1607,
+  "tr": "Bombom Olaylar"
+ },
+ {
+  "i": 1608,
+  "tr": "Oda {0}Lv oyuncu ile dolu değil,sahne açılamaz!"
+ },
+ {
+  "i": 1609,
+  "tr": "Sihirli Taşı"
+ },
+ {
+  "i": 1610,
+  "tr": "Büyü Saldırısı"
+ },
+ {
+  "i": 1611,
+  "tr": "Büyü Direnişi"
+ },
+ {
+  "i": 1612,
+  "tr": "Evcil Hayvan(P)"
+ },
+ {
+  "i": 1613,
+  "tr": "Set ve Aksesuar rengi değiştirilemez"
+ },
+ {
+  "i": 1614,
+  "tr": "Sihirli Taş+{0}\nBağlar+{1}\nAt çizimler+{2}\nBüyüleyici+{3}\nSet+{4}\nUygulama+{5}"
+ },
+ {
+  "i": 1615,
+  "tr": "Savaş gücünü arttırdığında Büyü Zararı verir"
+ },
+ {
+  "i": 1616,
+  "tr": "Büyü Saldırısı zararını azaltır"
+ },
+ {
+  "i": 1617,
+  "tr": "Quick Exchange"
+ },
+ {
+  "i": 1618,
+  "tr": "Exchange"
+ },
+ {
+  "i": 1619,
+  "tr": "{0}derece açılması(40 derece altındaki sihirli taşlar sırt çantasında depolanır.)"
+ }
+]
