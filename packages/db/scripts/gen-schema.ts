@@ -14,7 +14,8 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { gunzipSync } from "node:zlib";
-import { DATABASES, PKG_ROOT, SCHEMA_DIR, SEED_DIR, catalogPath } from "../src/paths.js";
+import { DATABASES, PKG_ROOT, SCHEMA_DIR, SEED_DIR, VENDOR_EXPORT, catalogPath, catalogPath6600 } from "../src/paths.js";
+import { GAMEPLAY_6600_TABLES } from "./schema-6600-tables.js";
 
 interface CatColumn {
   name: string;
@@ -49,10 +50,110 @@ const EXTRA_INDEXES: Record<string, { cols: string[]; unique?: boolean }[]> = {
   "player.Auction": [{ cols: ["AuctioneerID"] }],
   "player.Sys_User_Rank": [{ cols: ["UserID"] }],
   "player.Sys_Users_AvatarCollection": [{ cols: ["UserID"] }],
+  // m1-schema: new DDT-6600 per-player tables, same "every per-user load is WHERE UserID=@UserID" reasoning.
+  "player.Mount_Data": [{ cols: ["UserID"] }],
+  "player.Sys_User_Drills": [{ cols: ["UserID"] }],
+  "player.Sys_User_MagicHouse": [{ cols: ["UserID"] }],
+  "player.Sys_User_Pet_Form": [{ cols: ["UserID"] }],
+  "player.Sys_User_RingStation": [{ cols: ["UserID"] }],
+  "player.Ringstation_Battle_Field": [{ cols: ["UserID"] }],
+  "player.Sys_User_Treasure": [{ cols: ["UserID"] }],
+  "player.Treasure_Data": [{ cols: ["UserID"] }],
+  "player.Treasure_Puzzle_Data": [{ cols: ["UserID"] }],
+  "player.Sys_Users_Christmas": [{ cols: ["UserID"] }],
+  "player.User_Avatar_Colection": [{ cols: ["UserID"] }],
+  "player.Gypsy_Item_Data": [{ cols: ["UserID"] }],
+  "player.Dice_Data": [{ cols: ["UserID"] }],
+  "player.BoguAdventure_Data": [{ cols: ["UserID"] }],
+  "player.Pyramid_Data": [{ cols: ["UserID"] }],
+  "player.Halloween_Rank": [{ cols: ["UserID"] }],
 };
 
 /** Natural-key column names tried (in order) for PK-less, non-empty template tables in `game`. */
 const NATURAL_KEY_CANDIDATES = ["ID", "Id", "id", "TemplateID"];
+
+/**
+ * New columns on EXISTING tables, found in DDT-6600 but missing from our 4.1-derived schema
+ * (task `m1-schema`, see `research/6600/db-diff.md` "Colunas novas em tabelas que já existem").
+ * Types/defaults copied verbatim from `research/6600/db/Project_Game6600/schema/catalog.json` so
+ * `mapType`/`mapDefault` translate them exactly like any other column. Every NOT NULL column here
+ * has a DEFAULT (matches the source), so existing rows and the 4.1 code paths that never read
+ * these columns keep working unchanged; the 4 nullable text columns default to NULL.
+ */
+const EXTRA_COLUMNS: Record<string, CatColumn[]> = {
+  "game.Pve_Info": [
+    { name: "NightmareTemplateIds", type: "nvarchar(1024)", nullable: true, identity: false, default: null, computed: null },
+    { name: "EpicTemplateIds", type: "nvarchar(1024)", nullable: true, identity: false, default: null, computed: null },
+    { name: "EpicGameScript", type: "nvarchar(100)", nullable: true, identity: false, default: null, computed: null },
+    { name: "NightmareGameScript", type: "nvarchar(100)", nullable: true, identity: false, default: null, computed: null },
+  ],
+  "game.Quest": [
+    { name: "Level2NeedMoney", type: "int", nullable: false, identity: false, default: "((-1))", computed: null },
+    { name: "Level3NeedMoney", type: "int", nullable: false, identity: false, default: "((-1))", computed: null },
+    { name: "Level4NeedMoney", type: "int", nullable: false, identity: false, default: "((-1))", computed: null },
+    { name: "Level5NeedMoney", type: "int", nullable: false, identity: false, default: "((-1))", computed: null },
+    { name: "OneKeyFinishNeedMoney", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+  ],
+  "game.Quest_Goods": [
+    { name: "RewardItemCount1", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "RewardItemCount2", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "RewardItemCount3", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "RewardItemCount4", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "RewardItemCount5", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+  ],
+  "player.Sys_Users_Detail": [
+    { name: "GiftGp", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "GiftLevel", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "IsOpenGift", type: "bit", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "CardSoul", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "receiebox", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "receieGrade", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "needGetBoxTime", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "TimeBox", type: "datetime", nullable: false, identity: false, default: "(getdate())", computed: null },
+    { name: "LeagueMoney", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "isFirstDivorce", type: "int", nullable: false, identity: false, default: "((1))", computed: null },
+    {
+      name: "PveEpicPermission",
+      type: "nvarchar(50)",
+      nullable: false,
+      identity: false,
+      default: "(N'0-0-0-0-0-0-0-0-0-0-0-0-0')",
+      computed: null,
+    },
+    { name: "horseRaceCanRaceTime", type: "int", nullable: false, identity: false, default: "((1))", computed: null },
+  ],
+  "player.Sys_Users_Extra": [
+    { name: "KingBlessInfo", type: "varchar(250)", nullable: true, identity: false, default: null, computed: null },
+    { name: "MissionEnergy", type: "int", nullable: false, identity: false, default: "((300))", computed: null },
+    { name: "buyEnergyCount", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "KingBlessEnddate", type: "datetime", nullable: false, identity: false, default: "(getdate())", computed: null },
+    { name: "KingBlessIndex", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "DressModelArr", type: "nvarchar(max)", nullable: true, identity: false, default: null, computed: null },
+    { name: "CurentDressModel", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "ScoreMagicstone", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "DeedInfo", type: "nvarchar(250)", nullable: true, identity: false, default: null, computed: null },
+    { name: "DeedEnddate", type: "datetime", nullable: false, identity: false, default: "(getdate())", computed: null },
+    { name: "DeedIndex", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "CatchInsectGetPrize", type: "nvarchar(50)", nullable: false, identity: false, default: "(N'0-0-0-0-0-0-0')", computed: null },
+    { name: "MagpieBridgeItems", type: "nvarchar(max)", nullable: false, identity: false, default: "(N'')", computed: null },
+    { name: "NowPositionMB", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "MagpieNum", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+  ],
+  "player.Sys_Users_Fight": [
+    { name: "MagicAttack", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "MagicDefence", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+  ],
+  "player.Sys_Users_Goods": [
+    { name: "beadExp", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "beadLevel", type: "int", nullable: false, identity: false, default: "((1))", computed: null },
+    { name: "beadIsLock", type: "bit", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "AdvanceDate", type: "datetime", nullable: false, identity: false, default: "(getdate())", computed: null },
+    { name: "MagicAttack", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "MagicDefence", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "MagicExp", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "MagicLevel", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+  ],
+};
 
 // ---------------------------------------------------------------------------------------------------------------
 
@@ -61,8 +162,19 @@ const notes: string[] = []; // synthetic key / special-case notes -> README
 
 function loadSeedRows(schema: string, table: string): Record<string, unknown>[] | null {
   const p = join(SEED_DIR, schema, `${table}.json.gz`);
-  if (!existsSync(p)) return null;
-  return JSON.parse(gunzipSync(readFileSync(p)).toString("utf8"));
+  if (existsSync(p)) return JSON.parse(gunzipSync(readFileSync(p)).toString("utf8"));
+  // New DDT-6600 tables (m1-schema) have no committed gz seed the first time this generator runs
+  // for them (gen-schema runs before db:seed:export) — read the raw vendor export instead so the
+  // synthetic-PK uniqueness check still works. Falls back to "cannot verify" (stays a heap) when
+  // vendor/_dbexport isn't present, same conservative default as the no-seed case below.
+  if (GAMEPLAY_6600_TABLES[table]) {
+    const vp = join(VENDOR_EXPORT, "Project_Game6600", "data", `${table}.json`);
+    if (existsSync(vp)) {
+      const raw = readFileSync(vp, "utf8");
+      return JSON.parse(raw.charCodeAt(0) === 0xfeff ? raw.slice(1) : raw);
+    }
+  }
+  return null;
 }
 
 function mapType(col: CatColumn, imp: Imports): { expr: string; kind: string } {
@@ -268,16 +380,35 @@ const generated: { schema: string; file: string }[] = [];
 const synthetic: string[] = [];
 const heaps: string[] = [];
 
+const sixNames = new Set(Object.keys(GAMEPLAY_6600_TABLES));
+let cat6600Cache: { tables: CatTable[] } | null = null;
+function load6600Catalog(): { tables: CatTable[] } {
+  if (!cat6600Cache) cat6600Cache = JSON.parse(readFileSync(catalogPath6600("Project_Game6600"), "utf8")) as { tables: CatTable[] };
+  return cat6600Cache;
+}
+
 for (const { db, schema } of DATABASES) {
   const cat = JSON.parse(readFileSync(catalogPath(db), "utf8")) as { tables: CatTable[] };
   const imp: Imports = new Set();
   const extrasImp: Imports = new Set();
   const out: string[] = [];
-  const tables = [...cat.tables].sort((a, b) => a.name.localeCompare(b.name));
+  const tables: CatTable[] = [...cat.tables];
+  if (schema === "game" || schema === "player") {
+    // m1-schema: append the new DDT-6600 gameplay tables that belong to this Postgres schema.
+    for (const t of load6600Catalog().tables) if (GAMEPLAY_6600_TABLES[t.name] === schema) tables.push(t);
+  }
+  tables.sort((a, b) => a.name.localeCompare(b.name));
   for (const t of tables) {
     if (t.schema !== "dbo") throw new Error(`non-dbo table ${t.schema}.${t.name}`);
     const lines: string[] = [];
     let pk = t.primaryKey;
+    const extraCols = EXTRA_COLUMNS[`${schema}.${t.name}`];
+    const cols = extraCols ? [...t.columns, ...extraCols] : t.columns;
+    if (extraCols) {
+      notes.push(
+        `\`${schema}.${t.name}\` gains ${extraCols.length} column(s) from DDT-6600 (m1-schema, see research/6600/db-diff.md): ${extraCols.map((c) => c.name).join(", ")} — nullable or with an explicit DEFAULT, no behaviour change for existing rows/4.1 code paths.`,
+      );
+    }
     if (!pk.length) {
       const k = pickSyntheticKey(schema, t);
       if (k) {
@@ -285,7 +416,7 @@ for (const { db, schema } of DATABASES) {
         synthetic.push(`| ${schema} | ${t.name} | ${k.cols.join(", ")} | ${k.why} |`);
       } else heaps.push(`${schema}.${t.name}`);
     }
-    for (const c of t.columns) {
+    for (const c of cols) {
       if (c.computed) throw new Error(`computed column ${t.name}.${c.name} not supported`);
       const { expr, kind } = mapType(c, imp);
       let e = expr;
@@ -316,8 +447,9 @@ for (const { db, schema } of DATABASES) {
       // Only Db_Membership.Mem_Paths has one (empty table) — kept as a comment, not enforced, like the C# expects nothing.
       notes.push(`FK \`${fk.name}\` on \`${schema}.${t.name}(${fk.cols.join(",")})\` -> \`${fk.ref}(${fk.refCols.join(",")})\` is not emitted (ref is not a PK/unique in a way that matters; table is empty).`);
     }
+    const srcLabel = sixNames.has(t.name) ? "DDT-6600 Db_Tank" : db;
     out.push(
-      `/** ${db}.dbo.${t.name} — ${t.rows} rows in source${pk.length ? `; PK (${pk.join(", ")})` : "; heap (no PK)"} */`,
+      `/** ${srcLabel}.dbo.${t.name} — ${t.rows} rows in source${sixNames.has(t.name) ? " (new, m1-schema)" : ""}${pk.length ? `; PK (${pk.join(", ")})` : "; heap (no PK)"} */`,
       `export const ${t.name} = ${schema}.table(`,
       `  ${JSON.stringify(t.name)},`,
       `  {`,
@@ -330,7 +462,9 @@ for (const { db, schema } of DATABASES) {
   }
   const pgCore = [...imp].filter((x) => x !== "sql").concat([...extrasImp]).sort();
   const header = [
-    `// AUTO-GENERATED by scripts/gen-schema.ts from ${db} catalog.json — DO NOT EDIT.`,
+    `// AUTO-GENERATED by scripts/gen-schema.ts from ${db} catalog.json${
+      schema === "game" || schema === "player" ? " + the DDT-6600 gameplay tables (m1-schema, see scripts/schema-6600-tables.ts)" : ""
+    } — DO NOT EDIT.`,
     `/* eslint-disable */`,
     `import { ${pgCore.join(", ")} } from "drizzle-orm/pg-core";`,
     ...(imp.has("sql") ? [`import { sql } from "drizzle-orm";`] : []),

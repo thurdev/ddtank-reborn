@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-01T18:11:05.376Z",
+ "generatedAt": "2026-10-17T21:47:00.415Z",
  "tables": [
   {
    "schema": "game",
@@ -9,15 +9,21 @@
   },
   {
    "schema": "game",
+   "table": "Achievement_Goods",
+   "rows": 60,
+   "file": "game/Achievement_Goods.json.gz"
+  },
+  {
+   "schema": "game",
    "table": "AchievementCondition",
    "rows": 341,
    "file": "game/AchievementCondition.json.gz"
   },
   {
    "schema": "game",
-   "table": "Achievement_Goods",
-   "rows": 60,
-   "file": "game/Achievement_Goods.json.gz"
+   "table": "AchievementReward",
+   "rows": 74,
+   "file": "game/AchievementReward.json.gz"
   },
   {
    "schema": "game",
@@ -30,6 +36,12 @@
    "table": "Active_Award",
    "rows": 310,
    "file": "game/Active_Award.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Activity_Halloween_Items",
+   "rows": 24,
+   "file": "game/Activity_Halloween_Items.json.gz"
   },
   {
    "schema": "game",
@@ -57,15 +69,9 @@
   },
   {
    "schema": "game",
-   "table": "CardUpdateCondition",
-   "rows": 31,
-   "file": "game/CardUpdateCondition.json.gz"
-  },
-  {
-   "schema": "game",
-   "table": "CardUpdateInfo",
-   "rows": 1470,
-   "file": "game/CardUpdateInfo.json.gz"
+   "table": "BoguAdventure_Reward",
+   "rows": 51,
+   "file": "game/BoguAdventure_Reward.json.gz"
   },
   {
    "schema": "game",
@@ -96,6 +102,30 @@
    "table": "Card_Template_Info",
    "rows": 250,
    "file": "game/Card_Template_Info.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "CardUpdateCondition",
+   "rows": 31,
+   "file": "game/CardUpdateCondition.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "CardUpdateInfo",
+   "rows": 1470,
+   "file": "game/CardUpdateInfo.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Cloth_Group_Template",
+   "rows": 279,
+   "file": "game/Cloth_Group_Template.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Cloth_Property_Template",
+   "rows": 24,
+   "file": "game/Cloth_Property_Template.json.gz"
   },
   {
    "schema": "game",
@@ -159,6 +189,12 @@
   },
   {
    "schema": "game",
+   "table": "Daily_Award",
+   "rows": 20,
+   "file": "game/Daily_Award.json.gz"
+  },
+  {
+   "schema": "game",
    "table": "DailyLeagueAwardItems",
    "rows": 93,
    "file": "game/DailyLeagueAwardItems.json.gz"
@@ -177,9 +213,15 @@
   },
   {
    "schema": "game",
-   "table": "Daily_Award",
-   "rows": 20,
-   "file": "game/Daily_Award.json.gz"
+   "table": "Dice_Game_Award",
+   "rows": 10,
+   "file": "game/Dice_Game_Award.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Dice_Level_Award",
+   "rows": 5,
+   "file": "game/Dice_Level_Award.json.gz"
   },
   {
    "schema": "game",
@@ -228,6 +270,12 @@
    "table": "Event_Reward_Info",
    "rows": 15,
    "file": "game/Event_Reward_Info.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Every_Day_Active_Progress",
+   "rows": 11,
+   "file": "game/Every_Day_Active_Progress.json.gz"
   },
   {
    "schema": "game",
@@ -321,6 +369,12 @@
   },
   {
    "schema": "game",
+   "table": "Lightriddle_Quest",
+   "rows": 336,
+   "file": "game/Lightriddle_Quest.json.gz"
+  },
+  {
+   "schema": "game",
    "table": "LoadUserBox",
    "rows": 29,
    "file": "game/LoadUserBox.json.gz"
@@ -336,6 +390,12 @@
    "table": "LuckyStart_Topten_Award",
    "rows": 34,
    "file": "game/LuckyStart_Topten_Award.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Magicstone_Template",
+   "rows": 542,
+   "file": "game/Magicstone_Template.json.gz"
   },
   {
    "schema": "game",
@@ -363,15 +423,57 @@
   },
   {
    "schema": "game",
-   "table": "NPC_Info",
-   "rows": 1005,
-   "file": "game/NPC_Info.json.gz"
+   "table": "Mount_Draw_Template",
+   "rows": 15,
+   "file": "game/Mount_Draw_Template.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Mount_SKill_Element_Tempalate",
+   "rows": 135,
+   "file": "game/Mount_SKill_Element_Tempalate.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Mount_SKill_Get_Template",
+   "rows": 90,
+   "file": "game/Mount_SKill_Get_Template.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Mount_Skill_Template",
+   "rows": 105,
+   "file": "game/Mount_Skill_Template.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Mount_Template",
+   "rows": 81,
+   "file": "game/Mount_Template.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Mystery_Shop_Items",
+   "rows": 188,
+   "file": "game/Mystery_Shop_Items.json.gz"
   },
   {
    "schema": "game",
    "table": "New_Title",
    "rows": 325,
    "file": "game/New_Title.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "NPC_Info",
+   "rows": 1005,
+   "file": "game/NPC_Info.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "NPC_Info2",
+   "rows": 1348,
+   "file": "game/NPC_Info2.json.gz"
   },
   {
    "schema": "game",
@@ -396,6 +498,12 @@
    "table": "Pet_Fight_Property",
    "rows": 70,
    "file": "game/Pet_Fight_Property.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Pet_Form_Data",
+   "rows": 6,
+   "file": "game/Pet_Form_Data.json.gz"
   },
   {
    "schema": "game",
@@ -477,6 +585,12 @@
   },
   {
    "schema": "game",
+   "table": "Ringstation_Config",
+   "rows": 1,
+   "file": "game/Ringstation_Config.json.gz"
+  },
+  {
+   "schema": "game",
    "table": "Rune_Template",
    "rows": 456,
    "file": "game/Rune_Template.json.gz"
@@ -507,15 +621,9 @@
   },
   {
    "schema": "game",
-   "table": "ShopGoodsShowList",
-   "rows": 5093,
-   "file": "game/ShopGoodsShowList.json.gz"
-  },
-  {
-   "schema": "game",
-   "table": "ShopGoodsShowList_BK",
-   "rows": 4090,
-   "file": "game/ShopGoodsShowList_BK.json.gz"
+   "table": "Shop_Cheap_Items",
+   "rows": 46,
+   "file": "game/Shop_Cheap_Items.json.gz"
   },
   {
    "schema": "game",
@@ -537,6 +645,18 @@
   },
   {
    "schema": "game",
+   "table": "ShopGoodsShowList",
+   "rows": 5093,
+   "file": "game/ShopGoodsShowList.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "ShopGoodsShowList_BK",
+   "rows": 4090,
+   "file": "game/ShopGoodsShowList_BK.json.gz"
+  },
+  {
+   "schema": "game",
    "table": "StrengThenExp",
    "rows": 16,
    "file": "game/StrengThenExp.json.gz"
@@ -555,15 +675,15 @@
   },
   {
    "schema": "game",
-   "table": "SuitTemplateInfo",
-   "rows": 46,
-   "file": "game/SuitTemplateInfo.json.gz"
-  },
-  {
-   "schema": "game",
    "table": "Suit_TemplateID",
    "rows": 111,
    "file": "game/Suit_TemplateID.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "SuitTemplateInfo",
+   "rows": 46,
+   "file": "game/SuitTemplateInfo.json.gz"
   },
   {
    "schema": "game",
@@ -582,6 +702,24 @@
    "table": "Totem_Info",
    "rows": 350,
    "file": "game/Totem_Info.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Treasure_Award",
+   "rows": 41,
+   "file": "game/Treasure_Award.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Treasure_Puzzle_Reward",
+   "rows": 6,
+   "file": "game/Treasure_Puzzle_Reward.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Tree_Template",
+   "rows": 51,
+   "file": "game/Tree_Template.json.gz"
   },
   {
    "schema": "game",

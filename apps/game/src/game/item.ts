@@ -124,6 +124,18 @@ export class ItemInfo {
   curExp = 0;
   cellLocked = false;
 
+  // DDT-6600 (m1-schema, player.Sys_Users_Goods): dano mágico por item + nível de runa ("bead").
+  // Sem lógica de combate própria ainda (packages/fight não lê estes campos) — só plumbing pro
+  // round-trip de banco não perder dados quando essas colunas forem usadas por handlers futuros.
+  MagicAttack = 0;
+  MagicDefence = 0;
+  MagicExp = 0;
+  MagicLevel = 0;
+  beadExp = 0;
+  beadLevel = 1;
+  beadIsLock = false;
+  AdvanceDate: Date = new Date();
+
   /** IsDirty: set on every mutation in C#; here set by inventory operations and explicit markDirty(). */
   isDirty = true;
   /** Unique in-memory id for not-yet-persisted items. */
@@ -193,6 +205,14 @@ export class ItemInfo {
       latentEnergyEndTime: row.latentEnergyEndTime,
       curExp: row.curExp,
       cellLocked: row.cellLocked,
+      MagicAttack: row.MagicAttack,
+      MagicDefence: row.MagicDefence,
+      MagicExp: row.MagicExp,
+      MagicLevel: row.MagicLevel,
+      beadExp: row.beadExp,
+      beadLevel: row.beadLevel,
+      beadIsLock: row.beadIsLock,
+      AdvanceDate: row.AdvanceDate,
     });
     it.isDirty = false;
     return it;
@@ -242,6 +262,14 @@ export class ItemInfo {
       latentEnergyEndTime: this.latentEnergyEndTime,
       curExp: this.curExp,
       cellLocked: this.cellLocked,
+      MagicAttack: this.MagicAttack,
+      MagicDefence: this.MagicDefence,
+      MagicExp: this.MagicExp,
+      MagicLevel: this.MagicLevel,
+      beadExp: this.beadExp,
+      beadLevel: this.beadLevel,
+      beadIsLock: this.beadIsLock,
+      AdvanceDate: this.AdvanceDate,
     };
     return this.ItemID > 0 ? { ...r, ItemID: this.ItemID } : r;
   }
