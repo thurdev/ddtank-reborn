@@ -121,7 +121,7 @@ export class GamePlayer implements RoomMember {
     private readonly levelBlood: (grade: number) => number = () => 0,
   ) {
     const hooks: InventoryHooks = {
-      onSlotsChanged: (bag, slots) => this.send(Out.inventorySlots(this.id, bag, slots)),
+      onSlotsChanged: (bag, slots) => this.send(Out.inventorySlots(this.id, bag, slots, undefined, this.clientKind)),
       onEquipChanged: () => this.updatePlayerProperties(),
       canEquip: (t) => this.canEquip(t),
       onNewGear: (it) => this.questInv?.onNewGear(it.template.CategoryID),
@@ -405,7 +405,7 @@ export class GamePlayer implements RoomMember {
     const places = all ? this.cardBag.cards.map((_, i) => i).filter((i) => this.cardBag.cards[i]) : this.cardBag.takeChanged();
     if (all) this.cardBag.changed.clear();
     if (!places.length) return;
-    this.send(Out.cardData(this.id, places.map((place) => ({ place, card: this.cardBag.getItemAt(place) }))));
+    this.send(Out.cardData(this.id, places.map((place) => ({ place, card: this.cardBag.getItemAt(place) })), this.clientKind, this.zoneId));
   }
 
   /** PlayerAvatarCollection.GetAvatarCollectWithAvatarID (PlayerAvatarCollection.cs:91). */

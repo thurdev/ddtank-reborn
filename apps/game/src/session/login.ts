@@ -142,7 +142,7 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   p.onGradeUp = (old) => { if (p.info.masterID) void updateAwardApp(ctx, p, old).catch((e) => ctx.log.warn(`academy award: ${e}`)); };
 
   // --- LoadFromDatabase
-  p.send(Out.inventorySlots(p.id, p.fightBag, [0, 1, 2])); // GamePlayer.cs:2960
+  p.send(Out.inventorySlots(p.id, p.fightBag, [0, 1, 2], undefined, p.clientKind)); // GamePlayer.cs:2960
   // UpdateItemForUser (GamePlayer.cs:5310): bags in the original order; empty bags send nothing.
   for (const [bag, type] of [
     [p.equipBag, BagType.EquipBag],
@@ -200,6 +200,10 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   const ev = eventsRuntime(ctx);
   p.send(ev.boss.window ? worldBossOpen(ev, p) : Out.openWorldBoss(p.clientKind));
   if (!ev.leagueOpen) p.send(Out.leagueNotice(p.id, match.restCount, 0, 2));
+  // 142 KING_BLESS_MAIN: 6600-only (GamePlayer.cs Login -> Out.SendKingBlessMain, no 4.1 equivalent code at
+  // all). Without it KingBlessManager._endTime stays null forever -> TypeError #1009 in getRemainTimeTxt()
+  // the first time the hall player-info panel reads it (research/6600/packets-m1.md).
+  if (p.clientKind === "6600") p.send(Out.kingBlessClosed());
   p.send(Out.guildMemberWeek(p.id));
   sendActivityIcons(ctx, p);
   p.send(Out.necklace(info));

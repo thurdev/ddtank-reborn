@@ -21,10 +21,10 @@ import * as Out from "../../packets/out.js";
 export async function getPlayerCard(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): Promise<void> {
   const targetId = pkt.readInt();
   const online = ctx.world.get(targetId);
-  if (online) return p.send(Out.playerCardData(targetId, online.cardBag.equipped()));
+  if (online) return p.send(Out.playerCardData(targetId, online.cardBag.equipped(), p.clientKind, p.zoneId));
   const info = await loadPlayerInfo(ctx.db.db, targetId);
   if (!info) return;
   const rows = await loadUserCardBag(ctx.db.db, targetId);
   const equipped = rows.filter((c) => c.Place >= 0 && c.Place < CARD_EQUIP_SLOTS && c.TemplateID !== 0);
-  p.send(Out.playerCardData(targetId, equipped));
+  p.send(Out.playerCardData(targetId, equipped, p.clientKind, p.zoneId));
 }
