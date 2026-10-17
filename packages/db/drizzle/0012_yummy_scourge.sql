@@ -1,0 +1,1 @@
+ALTER TABLE "app"."LoginSessions" ADD COLUMN "Client" varchar(8) DEFAULT '41' NOT NULL;

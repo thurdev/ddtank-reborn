@@ -37,6 +37,10 @@ export const LoginSessions = appSchema.table(
     ExpiresAt: ts("ExpiresAt").notNull(),
     GameKeyExpiresAt: ts("GameKeyExpiresAt"),
     LastIP: varchar("LastIP", { length: 64 }),
+    /** Qual swf chamou Login.ashx ("41" ou "6600", `ReqCtx.client` em apps/api/src/request/types.ts): a
+     *  socket LOGIN (apps/game) lê esta coluna pra saber em qual layout de pacote responder
+     *  (docs/plan/MIGRACAO-6600.md M1 — `research/6600/packets-m1.md`). Default "41" = comportamento antigo. */
+    Client: varchar("Client", { length: 8 }).notNull().default("41"),
   },
   (t) => [primaryKey({ name: "LoginSessions_pkey", columns: [t.UserName] })],
 );
