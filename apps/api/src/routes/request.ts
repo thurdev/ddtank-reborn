@@ -146,7 +146,13 @@ export async function requestRoutes(f: FastifyInstance, ctx: AppCtx) {
       },
     };
     try {
-      return send(reply, await ep.handle(rc));
+      const out = await ep.handle(rc);
+      // 6600 loads these via COMPRESS_REQUEST_LOADER (LoaderCreate.as) regardless of whether we have a real
+      // handler for them: an implemented endpoint (`ep` exists) skips the "unknown endpoint" zlib-wrap below
+      // (line ~133) and answered plain text, so ByteArray.uncompress() on the client threw #2058 right after
+      // `REQ /request6600/imlistload.ashx`. Wrap here too, whenever the handler didn't already zlib it.
+      if (is6600 && out.kind === "xml" && !out.zlib && COMPRESS_ASHX_6600.has(lower)) return send(reply, { ...out, zlib: true });
+      return send(reply, out);
     } catch (e) {
       ctx.log.error(e as object, `request ${rel}`);
       return send(reply, { kind: "xml", xml: result(false, "Fail!") });
