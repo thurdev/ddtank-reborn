@@ -1,4 +1,4 @@
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { eq } from "drizzle-orm";
 import { player } from "@ddt/db";
 import type { GameServer } from "../src/server.js";
@@ -22,7 +22,11 @@ const roomCmd = (c: FakeClient, sub: number, fill: (p: import("@ddt/protocol").P
 
 describe("login", () => {
   it("sends the login burst in the original order (GamePlayer.cs:2960, 3337-3406)", async () => {
-    const { c, ch } = await loggedIn(server);
+    // relógio fixo numa terça 10:00 UTC: a liga semeada em 0004_app_events.sql (sábado 20-21h UTC) mudava a ordem
+    // do burst quando o teste rodava nessa janela. Só o Date é falso (timers reais, o servidor é assíncrono).
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(new Date("2026-10-13T10:00:00Z"));
+    const { c, ch } = await loggedIn(server).finally(() => vi.useRealTimers());
     const codes = c.received.map((r) => r.code);
     // FightBag slots, EquipBag (weapon), then LoginSuccess ... necklace.
     expect(codes[0]).toBe(64);

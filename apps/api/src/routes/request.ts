@@ -41,6 +41,11 @@ export function send(reply: FastifyReply, out: Output) {
 /** XMLs que o 4.1 carrega como texto puro e o 6600 com COMPRESS_TEXT_LOADER (vendor/DDT-6600/Flash_Project/DDT660/src/ddt/
  *  loader/LoaderCreate.as:631 ServerConfig). Levantado comparando todos os solveRequestPath do 6600 com o que servimos. */
 const COMPRESS_6600 = new Set(["serverconfig"]);
+/** XMLs cujo conteúdo (não só formato) o 6600 interpreta diferente: o cliente 6600 recebe o snapshot do 6600.
+ *  loaduserbox: UserBoxInfoAnalyzer.as separa caixas por Level<=20 e BossBoxManager.currentGrade exige o ID 1
+ *  (nosso dado 4.1 começa no ID 2 com Level 60 → "#1010 accessing field: Level"). Lado servidor (prêmio das caixas)
+ *  ainda usa a tabela 4.1 — alinhar no M2 (docs/plan/TASKS.md). */
+const SNAPSHOT_FIRST_6600 = new Set(["loaduserbox"]);
 /** .ashx que o 6600 carrega com COMPRESS_REQUEST_LOADER (LoaderCreate.as): se ainda não temos o endpoint, a resposta
  *  vazia tem que sair em zlib senão ByteArray.uncompress() estoura e trava o carregamento (#2058). */
 const COMPRESS_ASHX_6600 = new Set(["/scenecollecrandomnpc.ashx", "/consortialist.ashx", "/consortiauserslist.ashx", "/dailyloglist.ashx", "/getfightreport.ashx", "/imlistload.ashx", "/loadusermail.ashx", "/mailsenderlist.ashx"]);
@@ -74,6 +79,13 @@ export async function requestRoutes(f: FastifyInstance, ctx: AppCtx) {
     // generated / snapshot template files
     if (lower.endsWith(".xml")) {
       const base = lower.slice(lower.lastIndexOf("/") + 1, -4);
+      if (is6600 && SNAPSHOT_FIRST_6600.has(base)) {
+        const snapFirst = snap6600.resolve(rel.replace(/^\//, ""));
+        if (snapFirst) {
+          const body = readFileSync(snapFirst);
+          return reply.type(body[0] === 0x78 ? "application/octet-stream" : "text/xml; charset=utf-8").header("X-Snapshot", "6600").send(body);
+        }
+      }
       const file = ctx.cache.get(base);
       if (file) {
         reply.header("ETag", file.etag).header("Cache-Control", "no-cache");
