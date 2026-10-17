@@ -64,7 +64,7 @@ export async function playConfig(ctx: AppCtx, acc: { ID: number; UserName: strin
     socketProxy: proxy,
     socket: { host: c.GAME_HOST, port: c.GAME_PORT, policyPort: c.POLICY_PORT },
     wsUrl: c.GAME_WS_URL,
-    requestUrl: `${base}/request/`,
+    requestUrl: `${base}/${fl === "flash6600" ? "request6600" : "request"}/`,
     resourceUrl: `${base}/resource/`,
     flashUrl: `${base}/${fl}/`,
     client: fl === "flash6600" ? "6600" : "41",

@@ -31,7 +31,8 @@ export function buildConfigXml(ctx: AppCtx, template: string, flashPath = "flash
     SITE: `${b}/resource/`,
     FIRSTPAGE: `${ctx.cfg.SITE_URL}/`,
     REGISTER: `${ctx.cfg.SITE_URL}/register`,
-    REQUEST_PATH: `${b}/request/`,
+    // 6600 tem REQUEST_PATH próprio (mesmos endpoints; routes/request.ts ajusta compressão por cliente)
+    REQUEST_PATH: flashPath === "flash" ? `${b}/request/` : `${b}/request6600/`,
     LOGIN_PATH: `${ctx.cfg.SITE_URL}/login`,
     FILL_PATH: `${ctx.cfg.SITE_URL}/account`,
     WEEKLYSITE: `${b}/${flashPath}/`,

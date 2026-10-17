@@ -15,6 +15,8 @@ export interface ReqCtx {
   /** int.Parse with a default (C# would throw -> handler's catch -> Fail!). */
   int(name: string, def?: number): number;
   ip: string;
+  /** Qual cliente chamou: "6600" quando veio por /request6600/ (migração M1), senão "41". Opcional pros testes. */
+  client?: "41" | "6600";
 }
 
 export interface Endpoint {
