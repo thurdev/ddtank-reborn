@@ -5,7 +5,7 @@
 import { PacketOut, compressPacket } from "@ddt/protocol";
 import type { ItemInfo } from "../game/item.js";
 import type { PlayerInventory } from "../game/inventory.js";
-import type { PlayerInfo, MatchRow } from "../game/player-info.js";
+import type { PlayerInfo, MatchRow, ClientKind } from "../game/player-info.js";
 import type { AchievementDataRow, BuffRow, ExtraRow, QuestDataRow, RecordRow } from "../db/social.js";
 import { MIN_DATE, wireDate, addDays } from "../util/time.js";
 
@@ -27,6 +27,8 @@ export interface PlayerView {
   weaponTemplateId: number;
   secondWeaponTemplateId: number;
   medal: number;
+  /** M1 client detection (research/6600/packets-m1.md): "41" or "6600", from app.LoginSessions.Client. */
+  clientKind: ClientKind;
 }
 
 /** 2 KIT_USER (SendKitoff, :896). */
@@ -44,15 +46,30 @@ export function message(type: number, msg: string): PacketOut {
   return p;
 }
 
-/** 1 LOGIN success (SendLoginSuccess, :763). */
+/**
+ * 1 LOGIN success (SendLoginSuccess, :763; 4.1 AS3 ServerManager.__onLoginComplete).
+ * 6600 reads the SAME code 1 but a different layout (vendor/DDT-6600/.../ServerManager.as:294-415 vs
+ * vendor/DDTank41/"Source Flash"/src/ddt/manager/ServerManager.as:211-343): +1 int after Money (BandMoney +
+ * a discarded int, 4.1 only has `medal`), +4 ints (isOld/CardSoul/GetSoulCount/uesedFinishTime) before
+ * totemId, the BossBox trio (receiebox/receieGrade/needGetBoxTime) MOVED from right after userGuildProgress
+ * to right after accumulativeAwardDays, and +4 new tail fields (isFirstDivorce/PveEpicPermission/
+ * MountsType/PetsID/horseRaceCanRaceTime, all 6600-only systems -> zero/empty). See research/6600/packets-m1.md.
+ */
 export function loginSuccess(v: PlayerView, extra: ExtraRow | null, now = new Date()): PacketOut {
   const c = v.info;
+  const is6600 = v.clientKind === "6600";
   const p = new PacketOut(1, c.ID);
   p.writeByte(0);
   p.writeInt(v.zoneId);
   p.writeInt(c.Attack); p.writeInt(c.Defence); p.writeInt(c.Agility); p.writeInt(c.Luck);
   p.writeInt(c.GP); p.writeInt(c.Repute); p.writeInt(c.Gold); p.writeInt(c.Money + c.MoneyLock);
-  p.writeInt(v.medal); p.writeInt(0); p.writeInt(c.Hide); p.writeInt(c.FightPower);
+  if (is6600) {
+    p.writeInt(0); // BandMoney (6600-only union currency, not implemented)
+    p.writeInt(0); // discarded int (ServerManager.as:319, pkg.readInt() with no assignment)
+  } else {
+    p.writeInt(v.medal);
+  }
+  p.writeInt(0); p.writeInt(c.Hide); p.writeInt(c.FightPower); // Score (unused -> 0), Hide, FightPower
   p.writeInt(c.apprenticeshipState); p.writeInt(c.masterID); p.writeString(c.masterOrApprentices ?? "");
   p.writeInt(c.graduatesCount); p.writeString(c.honourOfMaster ?? ""); wd(p, c.freezesDate);
   p.writeByte(c.typeVIP); p.writeInt(c.VIPLevel); p.writeInt(c.VIPExp); wd(p, c.VIPExpireDay); wd(p, c.LastDate);
@@ -64,7 +81,8 @@ export function loginSuccess(v: PlayerView, extra: ExtraRow | null, now = new Da
   p.writeInt(c.ConsortiaRiches); p.writeBoolean(c.HasBagPassword); p.writeString(c.PasswordQuest1);
   p.writeString(c.PasswordQuest2); p.writeInt(c.FailedPasswordAttemptCount); p.writeString(c.UserName ?? "");
   p.writeInt(c.Nimbus); p.writeString(c.PvePermission ?? ""); p.writeString(c.FightLabPermission ?? "");
-  p.writeInt(99999); p.writeInt(c.BoxProgression); p.writeInt(c.GetBoxLevel); p.writeInt(c.AlreadyGetBox);
+  p.writeInt(99999); // userGuildProgress (unused -> placeholder, as before)
+  if (!is6600) { p.writeInt(c.BoxProgression); p.writeInt(c.GetBoxLevel); p.writeInt(c.AlreadyGetBox); }
   wd(p, extra?.LastTimeHotSpring ?? now); wd(p, c.ShopFinallyGottenTime); p.writeInt(c.RichesRob + c.RichesOffer);
   const m = v.match;
   p.writeInt(m.dailyScore); p.writeInt(m.dailyWinCount); p.writeInt(m.dailyGameCount); p.writeBoolean(m.DailyLeagueFirst);
@@ -73,34 +91,73 @@ export function loginSuccess(v: PlayerView, extra: ExtraRow | null, now = new Da
   p.writeInt(t.spdTexpExp); p.writeInt(t.attTexpExp); p.writeInt(t.defTexpExp); p.writeInt(t.hpTexpExp); p.writeInt(t.lukTexpExp);
   p.writeInt(t.texpTaskCount); p.writeInt(t.texpCount); wd(p, t.texpTaskDate);
   p.writeBoolean(false); p.writeInt(c.badLuckNumber); p.writeInt(0); wd(p, now); p.writeInt(0);
-  p.writeInt(c.accumulativeLoginDays); p.writeInt(c.accumulativeAwardDays); p.writeInt(c.totemId); p.writeInt(c.necklaceExp);
-  p.writeInt(0);
+  if (is6600) {
+    p.writeBoolean(false); // isOld / IsOldPlayer (6600-only card-soul system, not implemented)
+    p.writeInt(0); p.writeInt(0); p.writeInt(0); // CardSoul, GetSoulCount, uesedFinishTime
+    p.writeInt(c.totemId); p.writeInt(c.necklaceExp);
+    p.writeInt(c.accumulativeLoginDays); p.writeInt(c.accumulativeAwardDays);
+    p.writeInt(c.BoxProgression); p.writeInt(c.GetBoxLevel); p.writeInt(c.AlreadyGetBox); // receiebox/receieGrade/needGetBoxTime, moved here
+    p.writeInt(0); // isFirstDivorce (6600-only marriage variant, not implemented)
+    p.writeString(""); // PveEpicPermission (6600-only PvE épico, not implemented)
+    p.writeInt(0); p.writeInt(0); // MountsType, PetsID (Montaria, M1 schema-only so far)
+    p.writeInt(0); // horseRaceCanRaceTime (Corrida de cavalos, not implemented)
+  } else {
+    p.writeInt(c.accumulativeLoginDays); p.writeInt(c.accumulativeAwardDays); p.writeInt(c.totemId); p.writeInt(c.necklaceExp);
+    p.writeInt(0); // fineSuitExp (4.1-only, already unused)
+  }
   return p;
 }
 
-/** 38 UPDATE_PRIVATE_INFO (SendUpdatePrivateInfo, :939; IsOpenPetScore=false). */
-export function privateInfo(c: PlayerInfo, medal: number): PacketOut {
+/**
+ * 38 UPDATE_PRIVATE_INFO (SendUpdatePrivateInfo, :939; IsOpenPetScore=false).
+ * 6600 reads the same code with +1 int (BandMoney + a discarded int instead of just `medal`) and the
+ * tail two fields swapped (myHonor before hardCurrency, not after) — PlayerManager.as __updatePrivateInfo
+ * (4.1 line 1557 vs 6600 line 1991). See research/6600/packets-m1.md.
+ */
+export function privateInfo(c: PlayerInfo, medal: number, clientKind: ClientKind = "41"): PacketOut {
   const p = new PacketOut(38, c.ID);
-  p.writeInt(c.Money + c.MoneyLock); p.writeInt(medal); p.writeInt(c.Score); p.writeInt(c.Gold); p.writeInt(c.GiftToken);
-  p.writeInt(c.damageScores); p.writeInt(c.petScore); p.writeInt(c.hardCurrency); p.writeInt(c.myHonor); // AbstractPacketLib.SendUpdatePrivateInfo order
+  p.writeInt(c.Money + c.MoneyLock);
+  if (clientKind === "6600") {
+    p.writeInt(0); // BandMoney (6600-only union currency, not implemented)
+    p.writeInt(0); // discarded int (PlayerManager.as:1996, e.pkg.readInt() with no assignment)
+    p.writeInt(c.Score); p.writeInt(c.Gold); p.writeInt(c.badLuckNumber); p.writeInt(c.damageScores); p.writeInt(c.petScore);
+    p.writeInt(c.myHonor); p.writeInt(c.hardCurrency); // order swapped vs 4.1
+  } else {
+    p.writeInt(medal); p.writeInt(c.Score); p.writeInt(c.Gold); p.writeInt(c.GiftToken);
+    p.writeInt(c.damageScores); p.writeInt(c.petScore); p.writeInt(c.hardCurrency); p.writeInt(c.myHonor);
+  }
   return p;
 }
 
-/** 67 UPDATE_PLAYER_INFO (SendUpdatePublicPlayer, :958). */
-export function publicPlayer(c: PlayerInfo, m: MatchRow): PacketOut {
+/**
+ * 67 UPDATE_PLAYER_INFO (SendUpdatePublicPlayer, :958).
+ * 6600 reads the same code with +2 ints after Luck (MagicAttack/MagicDefence — "dano mágico por item", not
+ * implemented yet, see docs/plan/MIGRACAO-6600.md §2.2), +1 int after honor (honorId), +1 int after
+ * weeklyGameCount (leagueMoney), +1 string before evolutionGrade (PveEpicPermission) — PlayerManager.as
+ * __updatePlayerInfo (4.1 line 1658 vs 6600 line 2088). See research/6600/packets-m1.md.
+ */
+export function publicPlayer(c: PlayerInfo, m: MatchRow, clientKind: ClientKind = "41"): PacketOut {
   const p = new PacketOut(67, c.ID);
-  for (const x of [c.GP, c.Offer, c.RichesOffer, c.RichesRob, c.Win, c.Total, c.Escape, c.Attack, c.Defence, c.Agility, c.Luck, c.hp, c.Hide]) p.writeInt(x);
+  for (const x of [c.GP, c.Offer, c.RichesOffer, c.RichesRob, c.Win, c.Total, c.Escape, c.Attack, c.Defence, c.Agility, c.Luck]) p.writeInt(x);
+  const is6600 = clientKind === "6600";
+  if (is6600) { p.writeInt(0); p.writeInt(0); } // MagicAttack, MagicDefence (not implemented)
+  p.writeInt(c.hp); p.writeInt(c.Hide);
   p.writeString(c.Style); p.writeString(c.Colors); p.writeString(c.Skin); p.writeBoolean(c.IsShowConsortia);
   p.writeInt(c.ConsortiaID); p.writeString(c.ConsortiaName); p.writeInt(c.badgeID); p.writeInt(0); p.writeInt(0);
   p.writeInt(c.Nimbus); p.writeString(c.PvePermission ?? ""); p.writeString(c.FightLabPermission ?? ""); p.writeInt(c.FightPower);
   p.writeInt(c.apprenticeshipState); p.writeInt(c.masterID); p.writeString(c.masterOrApprentices ?? ""); p.writeInt(c.graduatesCount);
-  p.writeString(c.honourOfMaster ?? ""); p.writeInt(c.AchievementPoint); p.writeString(c.Honor); wd(p, c.LastSpaDate);
+  p.writeString(c.honourOfMaster ?? ""); p.writeInt(c.AchievementPoint); p.writeString(c.Honor);
+  if (is6600) p.writeInt(c.honorId);
+  wd(p, c.LastSpaDate);
   p.writeInt(c.charmGP); p.writeInt(0); wd(p, c.ShopFinallyGottenTime); p.writeInt(c.RichesRob + c.RichesOffer);
   p.writeInt(m.addDayPrestge); p.writeInt(m.dailyWinCount); p.writeInt(m.dailyGameCount); p.writeInt(m.totalPrestige); p.writeInt(m.weeklyGameCount);
+  if (is6600) p.writeInt(0); // leagueMoney (not implemented)
   const t = c.Texp;
   p.writeInt(t.spdTexpExp); p.writeInt(t.attTexpExp); p.writeInt(t.defTexpExp); p.writeInt(t.hpTexpExp); p.writeInt(t.lukTexpExp);
   p.writeInt(t.texpTaskCount); p.writeInt(t.texpCount); wd(p, t.texpTaskDate);
-  p.writeInt(0); p.writeInt(c.evolutionGrade); p.writeInt(c.evolutionExp);
+  p.writeInt(0); // dungeonFlag count (0 entries, as before)
+  if (is6600) p.writeString(""); // PveEpicPermission (6600-only PvE épico, not implemented)
+  p.writeInt(c.evolutionGrade); p.writeInt(c.evolutionExp);
   return p;
 }
 
@@ -279,20 +336,44 @@ export function avatarCollectDelay(avatarId: number, sex: number, timeEnd: Date)
   return p;
 }
 
-/** 259 FIRSTRECHARGE (SendUpdateFirstRecharge, :465). */
+/**
+ * 259 FIRSTRECHARGE (SendUpdateFirstRecharge, :465). 4.1-only code: 6600's enum reuses 259 for
+ * `CONSUME_RANK` (ePackageType.as: FIRSTRECHARGE=259 in 4.1, CONSUME_RANK=259 in 6600 — a genuine code
+ * collision, not just a layout change). NEVER send this to a 6600 client — use consumeRankClosed instead.
+ * See research/6600/packets-m1.md.
+ */
 export function firstRecharge(isRecharged: boolean, isGetAward: boolean): PacketOut {
   const p = new PacketOut(259);
   p.writeBoolean(isRecharged); p.writeBoolean(isGetAward);
   return p;
 }
 
-/** 102/0 world boss OPEN (SendOpenWorldBoss, :2593) with BaseWorldBossRoom defaults (boss closed). */
-export function openWorldBoss(): PacketOut {
+/**
+ * 259 CONSUME_RANK closed/no-activity (6600 only; collides with 4.1's FIRSTRECHARGE at the same code — see
+ * firstRecharge above). ConsumeRankManager.__updateInfo (consumeRank/ConsumeRankManager.as:52-59) reads
+ * actId:UTF, isOpen:bool and returns immediately when isOpen is false, so this 2-field packet never crashes
+ * even though "consume rank" ranking itself isn't implemented yet.
+ */
+export function consumeRankClosed(): PacketOut {
+  const p = new PacketOut(259);
+  p.writeString(""); p.writeBoolean(false);
+  return p;
+}
+
+/**
+ * 102/0 world boss OPEN (SendOpenWorldBoss, :2593) with BaseWorldBossRoom defaults (boss closed).
+ * 6600 reads total_Blood as a Long (WorldBossManager.as:148 `readLong()` vs 4.1 line 161 `readInt()`) and
+ * +3 ints after reviveMoney (reFightMoney/addInjureBuffMoney/addInjureValue, WorldBossManager.as:169-171,
+ * not read at all in 4.1). See research/6600/packets-m1.md.
+ */
+export function openWorldBoss(clientKind: ClientKind = "41"): PacketOut {
   const p = new PacketOut(102);
   p.writeByte(0); p.writeString("0"); p.writeInt(0); p.writeString("Fera Divina"); p.writeString("boss");
-  p.writeInt(0); p.writeInt(0); p.writeInt(0); p.writeInt(1); p.writeInt(0); p.writeInt(0);
+  if (clientKind === "6600") p.writeLong(0); else p.writeInt(0); // total_Blood: 6600 reads a Long, not an Int
+  p.writeInt(0); p.writeInt(0); p.writeInt(1); p.writeInt(0); p.writeInt(0);
   wd(p, MIN_DATE); wd(p, MIN_DATE); p.writeInt(0); p.writeBoolean(true); p.writeBoolean(true);
   p.writeInt(0); p.writeInt(0); p.writeInt(0); p.writeInt(0);
+  if (clientKind === "6600") { p.writeInt(0); p.writeInt(0); p.writeInt(0); } // reFightMoney/addInjureBuffMoney/addInjureValue (6600-only)
   p.writeInt(1); p.writeInt(1); p.writeString("Aumentar Dano"); p.writeInt(30); p.writeString("Dano base aumenta em 200."); p.writeInt(-1);
   p.writeBoolean(true); p.writeBoolean(false);
   return p;
@@ -723,11 +804,18 @@ export function luckStarOpen(userId: number): PacketOut {
   p.writeInt(25);
   return p;
 }
-/** 137 LEFT_GUN_ROULETTE type 1 / TYPEI_ISOPEN 1 (LeftGunRouletteManager.__openRoulett): open, 0 spins left -> icon only. */
-export function leftGunRouletteOpen(userId: number, open: boolean): PacketOut {
+/**
+ * 137 LEFT_GUN_ROULETTE type 1 / TYPEI_ISOPEN 1 (LeftGunRouletteManager.__openRoulett): open, 0 spins left ->
+ * icon only. Same code/fields in both clients, but the "0 spins -> stop reading" guard differs: 4.1 checks
+ * `count <= 0` alone (roulette/LeftGunRouletteManager.as:102, 4.1), 6600 checks `count <= 0 && result == "0"`
+ * (same file, 6600, line 112) — an empty-string reward fails that second half, so the 6600 client falls
+ * through into reading a 20-int array we never sent (EOF). Send reward "0" for 6600 to take the same
+ * early-return path as 4.1. See research/6600/packets-m1.md.
+ */
+export function leftGunRouletteOpen(userId: number, open: boolean, clientKind: ClientKind = "41"): PacketOut {
   const p = new PacketOut(137, userId);
   p.writeInt(1); p.writeInt(1); p.writeBoolean(open);
-  if (open) { p.writeInt(0); p.writeString(""); }
+  if (open) { p.writeInt(0); p.writeString(clientKind === "6600" ? "0" : ""); }
   return p;
 }
 /** 145 ACTIVITY_SYSTEM sub 64 LightRoad ACTIVATIONTYPE (LightRoadManager.openOrclose). */

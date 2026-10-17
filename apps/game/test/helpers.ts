@@ -32,7 +32,7 @@ export function testKey(): RsaPrivateKey {
 
 let charSeq = 0;
 /** Creates an account character + a login ticket (app."LoginSessions" GameKey) + a main weapon in EquipBag slot 6. */
-export async function createCharacter(h: DbHandle, o: { gold?: number; money?: number; weapon?: number | null; grade?: number } = {}) {
+export async function createCharacter(h: DbHandle, o: { gold?: number; money?: number; weapon?: number | null; grade?: number; client?: "41" | "6600" } = {}) {
   const n = ++charSeq;
   const user = `tester${n}_${Date.now() % 100000}`;
   const nick = `Nick${n}_${Date.now() % 100000}`;
@@ -46,8 +46,10 @@ export async function createCharacter(h: DbHandle, o: { gold?: number; money?: n
   }
   const pass = `pw${n}abc`;
   const exp = new Date(Date.now() + 3600_000);
-  await h.db.execute(sql`INSERT INTO "app"."LoginSessions" ("UserName","WebKey","GameKey","ExpiresAt","GameKeyExpiresAt")
-    VALUES (${user.toLowerCase()}, ${"WEB" + n}, ${pass}, ${exp}, ${exp})`);
+  // "Client" ("41"/"6600"): M1 client detection (research/6600/packets-m1.md) — normally written by
+  // Login.ashx from ReqCtx.client; tests set it directly to pick the packet layout under test.
+  await h.db.execute(sql`INSERT INTO "app"."LoginSessions" ("UserName","WebKey","GameKey","ExpiresAt","GameKeyExpiresAt","Client")
+    VALUES (${user.toLowerCase()}, ${"WEB" + n}, ${pass}, ${exp}, ${exp}, ${o.client ?? "41"})`);
   return { userId, user, nick, pass };
 }
 

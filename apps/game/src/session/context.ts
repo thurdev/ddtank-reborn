@@ -4,6 +4,7 @@ import type { RsaPrivateKey } from "@ddt/protocol";
 import type { Config } from "../config.js";
 import type { Templates } from "../db/templates.js";
 import type { GamePlayer } from "../game/player.js";
+import type { ClientKind } from "../game/player-info.js";
 import type { RoomMgr } from "../rooms/room-mgr.js";
 import type { FightEngine } from "../fight/types.js";
 import type { LanguageMgr } from "../util/lang.js";
@@ -12,6 +13,8 @@ import type { Logger } from "../util/log.js";
 /** Validates the socket LOGIN "user,password" (password = tempPwd issued by Login.ashx, see apps/api README). */
 export interface TicketValidator {
   validate(userName: string, password: string): Promise<boolean>;
+  /** Which swf issued the ticket (app.LoginSessions.Client, M1 client detection) — "41" when unknown. */
+  clientKindFor?(userName: string): Promise<ClientKind>;
 }
 
 /** WorldMgr: online players by id / nickname. */

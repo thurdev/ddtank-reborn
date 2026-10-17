@@ -11,7 +11,7 @@ import type { AchievementDataRow, BuffRow, ExtraRow, QuestDataRow, RecordRow } f
 import * as Out from "../packets/out.js";
 import { BagType, ItemInfo, templateBagType, isSpecialTemplate, type ItemTemplate } from "./item.js";
 import { PlayerEquipInventory, PlayerInventory, type InventoryHooks } from "./inventory.js";
-import type { MatchRow, PlayerInfo } from "./player-info.js";
+import type { ClientKind, MatchRow, PlayerInfo } from "./player-info.js";
 import type { BaseRoom } from "../rooms/room.js";
 import type { QuestInventory } from "./quests.js";
 import { saveBuffs, saveQuests } from "../db/social.js";
@@ -53,6 +53,8 @@ const I32_MAX = 2147483647;
 
 export class GamePlayer implements RoomMember {
   readonly isBot = false;
+  /** Set right after login (session/login.ts, from app.LoginSessions.Client) — see game/player-info.ts ClientKind. */
+  clientKind: ClientKind = "41";
   readonly equipBag: PlayerEquipInventory;
   readonly propBag: PlayerInventory;
   readonly consortiaBag: PlayerInventory;
@@ -213,6 +215,7 @@ export class GamePlayer implements RoomMember {
       weaponTemplateId: this.mainWeapon?.TemplateID ?? -1,
       secondWeaponTemplateId: this.secondWeapon?.TemplateID ?? 0,
       medal: this.medal,
+      clientKind: this.clientKind,
     };
   }
 
@@ -232,8 +235,11 @@ export class GamePlayer implements RoomMember {
       return;
     }
     this.propsPending = false;
-    this.send(Out.privateInfo(this.info, this.medal));
-    const pub = Out.publicPlayer(this.info, this.match);
+    // NOTE: `pub` is built once in this.clientKind's layout and broadcast as-is to the whole room (M1 scope:
+    // a lobby of one client version). A room mixing 4.1 and 6600 viewers would need one 67 build per viewer
+    // client — not needed until salas/M2 support mixed clients (docs/plan/MIGRACAO-6600.md).
+    this.send(Out.privateInfo(this.info, this.medal, this.clientKind));
+    const pub = Out.publicPlayer(this.info, this.match, this.clientKind);
     this.send(pub);
     this.currentRoom?.sendToAll(pub, this);
   }

@@ -86,7 +86,7 @@ export class VirtualPlayer implements RoomMember {
     return {
       id: this.id, info: this.info, match: defaultMatch(this.id), zoneId: this.zoneId, zoneName: this.zoneName, roomIndex: this.roomIndex,
       roomTeam: this.roomTeam, inRoom: this.currentRoom != null, pingTime: 0, weaponTemplateId: this.spec.weaponTemplateId,
-      secondWeaponTemplateId: 0, medal: 0,
+      secondWeaponTemplateId: 0, medal: 0, clientKind: "41",
     };
   }
 

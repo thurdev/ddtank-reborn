@@ -26,7 +26,8 @@ export async function firstRecharge(ctx: ServerContext, p: GamePlayer): Promise<
   const goods = rt.data.eventGoods.filter((g) => g.ActivityType === 7 && g.SubActivityType === 1);
   const s = await give(ctx, p, goods.map((g) => ({ templateId: g.TemplateId, count: g.Count ?? 1, validDate: g.ValidDate ?? 0, isBind: g.IsBind ?? true, strengthenLevel: g.StrengthLevel ?? 0, attack: g.AttackCompose ?? 0, defence: g.DefendCompose ?? 0, agility: g.AgilityCompose ?? 0, luck: g.LuckCompose ?? 0 })), "Presente da primeira recarga");
   p.info.IsGetAward = true;
-  p.send(Out.firstRecharge(true, true));
+  // 259 collides between 4.1 FIRSTRECHARGE and 6600 CONSUME_RANK (research/6600/packets-m1.md).
+  p.send(p.clientKind === "6600" ? Out.consumeRankClosed() : Out.firstRecharge(true, true));
   p.sendMessage(0, `Presente recebido! ${s}`);
   return true;
 }

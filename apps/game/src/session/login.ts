@@ -10,7 +10,8 @@ import { eventsOnLogin, eventsRuntime } from "../handlers/eventos/agendador.js";
 import { eventsOnQuit, worldBossOpen } from "../handlers/eventos/boss-mundial.js";
 import { loadUserCardBag, loadUserPets, loadEatPets } from "../db/pets-cards.js";
 import { loadAvatarCollection } from "../db/avatar-collection.js";
-import { validateGameLogin } from "@ddt/auth";
+import { getSession, validateGameLogin } from "@ddt/auth";
+import type { ClientKind } from "../game/player-info.js";
 import { consortiaOnLogin } from "../handlers/sociedade/index.js";
 import { activityOpen } from "../handlers/eventos/agendador.js";
 import { sendNoviceActivityOpen } from "../handlers/eventos/novato.js";
@@ -34,6 +35,14 @@ export function dbTicketValidator(db: DbHandle, allowAny = false): TicketValidat
     async validate(user, pass) {
       if (allowAny) return true;
       return (await validateGameLogin(db, user, pass)) != null;
+    },
+    // M1 client detection (docs/plan/MIGRACAO-6600.md, research/6600/packets-m1.md): app.LoginSessions.Client
+    // was written by Login.ashx from ReqCtx.client (which swf hit /request/ vs /request6600/). Looked up by
+    // session row (not by validate()'s boolean) so allowAny/dev logins still pick up a real "6600" row when
+    // one exists (tests insert it directly into LoginSessions).
+    async clientKindFor(user) {
+      const s = await getSession(db, user);
+      return (s?.Client as ClientKind | undefined) ?? "41";
     },
   };
 }
@@ -83,7 +92,8 @@ export async function handleLogin(ctx: ServerContext, client: GameClient): Promi
       await quitPlayer(ctx, old);
     }
     if (client.closed) return;
-    const player = await loadPlayer(ctx, client, ch.UserID);
+    const clientKind = (await ctx.tickets.clientKindFor?.(user)) ?? "41";
+    const player = await loadPlayer(ctx, client, ch.UserID, clientKind);
     if (!player) return kick(client, t("UserLoginHandler.Forbid"));
     if (client.closed) {
       await quitPlayer(ctx, player);
@@ -99,7 +109,7 @@ export async function handleLogin(ctx: ServerContext, client: GameClient): Promi
 }
 
 /** GamePlayer.LoadFromDatabase (GamePlayer.cs:2937) + Login (GamePlayer.cs:3324): loads and sends the login burst. */
-async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number): Promise<GamePlayer | null> {
+async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number, clientKind: ClientKind): Promise<GamePlayer | null> {
   const db = ctx.db.db;
   const info = await loadPlayerInfo(db, userId);
   if (!info) return null;
@@ -110,6 +120,7 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
     loadProgress(db, userId),
   ]);
   const p = new GamePlayer(client, info, match, ctx.zoneId, ctx.zoneName, (g) => ctx.templates.levels.get(g) ?? 0);
+  p.clientKind = clientKind;
   if (!ctx.world.add(p)) return null; // WorldMgr.AddPlayer
   client.player = p; // before the burst: the client may answer while we are still sending
   await setOnlineState(db, userId, 1);
@@ -164,7 +175,7 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
     info.BoxProgression = 0;
   }
   p.send(Out.loginSuccess(p.view(), p.extra, now));
-  p.send(Out.publicPlayer(info, match));
+  p.send(Out.publicPlayer(info, match, p.clientKind));
   p.send(Out.weaklessGuild(info));
   p.send(Out.dateTime(now));
   p.send(Out.dailyAward(info.LastAward, now));
@@ -183,9 +194,11 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   p.send(Out.bufferList(p.id, p.buffs));
   p.send(Out.achievementData(p.id, p.achievements));
   // first-recharge gift is a free claim here (no real payments): FIRST_RECHARGE_FREE=false restores the original check
-  p.send(Out.firstRecharge(!!info.IsRecharged || process.env.FIRST_RECHARGE_FREE !== "false", !!info.IsGetAward));
+  // 259 collides between 4.1 FIRSTRECHARGE and 6600 CONSUME_RANK (research/6600/packets-m1.md): 6600 gets the
+  // "no active rank" shape instead, never the 4.1 layout at the same code.
+  p.send(p.clientKind === "6600" ? Out.consumeRankClosed() : Out.firstRecharge(!!info.IsRecharged || process.env.FIRST_RECHARGE_FREE !== "false", !!info.IsGetAward));
   const ev = eventsRuntime(ctx);
-  p.send(ev.boss.window ? worldBossOpen(ev, p) : Out.openWorldBoss());
+  p.send(ev.boss.window ? worldBossOpen(ev, p) : Out.openWorldBoss(p.clientKind));
   if (!ev.leagueOpen) p.send(Out.leagueNotice(p.id, match.restCount, 0, 2));
   p.send(Out.guildMemberWeek(p.id));
   sendActivityIcons(ctx, p);
@@ -251,7 +264,7 @@ function sendActivityIcons(ctx: ServerContext, p: GamePlayer): void {
   if (on("luckystar")) p.send(Out.luckStarOpen(p.id));
   if (all || explicit("lightroad")) p.send(Out.lightRoadOpen(p.id, true));
   if (all || explicit("guildmemberweek")) p.send(Out.guildMemberWeekOpen(p.id, fmt(new Date()), fmt(end)));
-  if (all) p.send(Out.leftGunRouletteOpen(p.id, true));
+  if (all) p.send(Out.leftGunRouletteOpen(p.id, true, p.clientKind));
   // littlegamenote (termas/minigame-termas): real feature has no hour-based schedule yet (mgr.ts note), so
   // this is QA-only (ALL_OPEN) rather than routed through littleGameMgr(ctx) -- avoids spinning up the Bogu
   // world/timers for every login when the feature is untouched.

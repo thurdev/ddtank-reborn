@@ -7,6 +7,17 @@ import type { player } from "@ddt/db";
 export type DetailRow = typeof player.Sys_Users_Detail.$inferSelect;
 export type MatchRow = typeof player.Sys_User_Match_Info.$inferSelect;
 
+/**
+ * Qual swf o jogador está usando, descoberto no login via app."LoginSessions"."Client" (gravado pelo
+ * Login.ashx/apps/api a partir de `ReqCtx.client`, que por sua vez vem do REQUEST_PATH do boot:
+ * /request6600/ = "6600", /request/ = "41"). Vários pacotes pós-login mudaram de layout entre as duas
+ * versões do cliente Flash com o MESMO código (ex.: 1 LOGIN, 38/67 UPDATE_*_INFO, 137 LEFT_GUN_ROULETTE,
+ * 102 WORLDBOSS_CMD) e um colidiu de código (259 FIRSTRECHARGE na 4.1 == CONSUME_RANK na 6600) — ver
+ * `research/6600/packets-m1.md` e `docs/plan/MIGRACAO-6600.md` M1. Default "41" preserva o byte-a-byte
+ * antigo pra quem nunca passou por essa coluna (bots, testes antigos, contas pré-6600).
+ */
+export type ClientKind = "41" | "6600";
+
 export interface TexpInfo {
   UserID: number;
   spdTexpExp: number;

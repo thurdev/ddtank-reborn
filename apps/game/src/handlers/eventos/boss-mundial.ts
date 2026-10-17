@@ -33,17 +33,23 @@ export interface WorldBossState {
 }
 
 // ------------------------------------------------------------------ pacotes
-/** 102/0 OPEN (AbstractPacketLib.SendOpenWorldBoss :2593) with the live window. */
-export function worldBossOpen(rt: EventsRuntime, _p: GamePlayer): GSPacket {
+/**
+ * 102/0 OPEN (AbstractPacketLib.SendOpenWorldBoss :2593) with the live window.
+ * 6600 reads total_Blood as a Long and +3 ints after reviveMoney (reFightMoney/addInjureBuffMoney/
+ * addInjureValue, not implemented -> 0) — same diff as Out.openWorldBoss (packets/out.ts), see
+ * research/6600/packets-m1.md.
+ */
+export function worldBossOpen(rt: EventsRuntime, p_: GamePlayer): GSPacket {
   const b = rt.boss;
   const open = !!b.window;
+  const is6600 = p_.clientKind === "6600";
   const p = new GSPacket(102);
   p.writeByte(0);
   p.writeString(open ? b.resourceId : "0");
   p.writeInt(open ? b.pveId : 0);
   p.writeString("Fera Divina");
   p.writeString(b.name);
-  p.writeInt(b.maxBlood);
+  if (is6600) p.writeLong(b.maxBlood); else p.writeInt(b.maxBlood);
   p.writeInt(0); p.writeInt(0);
   p.writeInt(1); p.writeInt(265); p.writeInt(1030);
   Out.wd(p, b.window?.start ?? new Date(0)); Out.wd(p, b.window?.end ?? new Date(0));
@@ -51,6 +57,7 @@ export function worldBossOpen(rt: EventsRuntime, _p: GamePlayer): GSPacket {
   p.writeBoolean(!open || b.blood <= 0); // fightOver
   p.writeBoolean(!open); // roomClose
   p.writeInt(11573); p.writeInt(0); p.writeInt(15); p.writeInt(1000);
+  if (is6600) { p.writeInt(0); p.writeInt(0); p.writeInt(0); } // reFightMoney/addInjureBuffMoney/addInjureValue (6600-only)
   p.writeInt(1); p.writeInt(1); p.writeString("Aumentar Dano"); p.writeInt(30); p.writeString("Dano base aumenta em 200."); p.writeInt(-1);
   p.writeBoolean(true); p.writeBoolean(false);
   return p;
