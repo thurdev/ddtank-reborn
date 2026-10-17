@@ -1,0 +1,722 @@
+[
+ {
+  "i": 1980,
+  "tr": "Ürünün üçüncü aşaması"
+ },
+ {
+  "i": 1981,
+  "tr": "Haha, geri geldim!\nKüçükler Bogo'nun kazanması için\n sert kürek çekmeli!"
+ },
+ {
+  "i": 1982,
+  "tr": "Sadece bu kadar mı çaba gösterdin, çok \n hayal kırıklığına uğradım."
+ },
+ {
+  "i": 1983,
+  "tr": "Beni geçebilir misin？\n İmkansız! Küçükler \n daha çok çabalamalı."
+ },
+ {
+  "i": 1984,
+  "tr": "Zafer Bogo Krallığına ait\n  hahaha"
+ },
+ {
+  "i": 1985,
+  "tr": "Ben Barov dünyanın en iyi\neliti, Haier'da küçüklere kaybetti, inanamıyorum! Mutlaka\n geri geleceğim!"
+ },
+ {
+  "i": 1986,
+  "tr": "Ejderha Botu Maçı etkinliği çift ödül vermeye başladı, hemen git ve katıl!"
+ },
+ {
+  "i": 1987,
+  "tr": "Ejderha Botu Maçı etkinliği çifte ödülü kapandı!"
+ },
+ {
+  "i": 1988,
+  "tr": "Bugünkü Ejderha Botu Maçının sayısı kullanıldı!"
+ },
+ {
+  "i": 1989,
+  "tr": "Bir mesafeyi atlayabilirsin, tuzak ve canavarları atla (geri sayım 5 saniye)"
+ },
+ {
+  "i": 1990,
+  "tr": "Kendi botun 30 saniye gizlenir, kesişmez (geri sayım 5 saniye)"
+ },
+ {
+  "i": 1991,
+  "tr": "Debuff'ları kendi üzerinde temizler (geri sayım 5 saniye)"
+ },
+ {
+  "i": 1992,
+  "tr": "Uydu çağırarak füze at, hedef 10 saniye hareket edemez (geri sayım 5 saniye)"
+ },
+ {
+  "i": 1993,
+  "tr": "Kalan maç zamanı:"
+ },
+ {
+  "i": 1994,
+  "tr": "Destinasyona ulaş"
+ },
+ {
+  "i": 1995,
+  "tr": "Maçı kaybettin"
+ },
+ {
+  "i": 1996,
+  "tr": "Maç sahnesinden çık, Ejderha Botu önceden askıya alınacak."
+ },
+ {
+  "i": 1997,
+  "tr": "{0} Kupon tüketip ekipman yapmak istediğinden emin misin?"
+ },
+ {
+  "i": 1998,
+  "tr": "{0} Kupon/Bağlı kupon tüketip bir mesafeyi anında atlamak istediğinden emin misin?"
+ },
+ {
+  "i": 1999,
+  "tr": "{0} Kupon/Bağlı kupon tüketip kendi Ejderha Botunu\n 30 saniyede görünmez yapmak istediğinden emin misin? Kesişmez."
+ },
+ {
+  "i": 2000,
+  "tr": "{0} Kupon/Bağlı kupon tüketip, kendi debuff'larını temizlemek istediğinden emin misin?"
+ },
+ {
+  "i": 2001,
+  "tr": "{0} Kupon/Bağlı kupon tüketip füze atmak \nistediğinden emin misin?"
+ },
+ {
+  "i": 2002,
+  "tr": "Parlayan Ağaç"
+ },
+ {
+  "i": 2003,
+  "tr": "Tamamen sevgile dolu"
+ },
+ {
+  "i": 2004,
+  "tr": "Güneş ışığıyla dolu"
+ },
+ {
+  "i": 2005,
+  "tr": "Sadece sulama belirli seviyeye ulaştıktan sonra ışık toplama büyümeye devam edebilir"
+ },
+ {
+  "i": 2006,
+  "tr": "Işık toplama tamamlandıktan sonra Kutsal Ağaç seviyesini yükseltmeye devam edebilirsin"
+ },
+ {
+  "i": 2007,
+  "tr": "Hızlı kullan"
+ },
+ {
+  "i": 2008,
+  "tr": "Kutsal ağaç çağır"
+ },
+ {
+  "i": 2009,
+  "tr": "Lütfen canavar se\nviyesini seç:"
+ },
+ {
+  "i": 2010,
+  "tr": "Canavar"
+ },
+ {
+  "i": 2011,
+  "tr": "Sebze"
+ },
+ {
+  "i": 2012,
+  "tr": "Enerji yetersiz, enerji iksiri kullanılsın mı?"
+ },
+ {
+  "i": 2013,
+  "tr": "Bombom Yemek Sanatı"
+ },
+ {
+  "i": 2014,
+  "tr": "Pişirme sayısı kullanıldı!"
+ },
+ {
+  "i": 2015,
+  "tr": "{0} Kupon harcayarak mükemmel pişirmeyi ister misin?"
+ },
+ {
+  "i": 2016,
+  "tr": "Lütfen ödülü aldıktan sonra tekrar pişir!"
+ },
+ {
+  "i": 2017,
+  "tr": "Olgunlaşma {0}-{1} ulaştı，şurad\naki öğeyi elde edeceksin:"
+ },
+ {
+  "i": 2018,
+  "tr": "Arkadaşını çağırmak için davet et"
+ },
+ {
+  "i": 2019,
+  "tr": "Besle"
+ },
+ {
+  "i": 2020,
+  "tr": "Çağırma daveti gönderildi"
+ },
+ {
+  "i": 2021,
+  "tr": "Aşk değeri yetersiz!"
+ },
+ {
+  "i": 2022,
+  "tr": "Kelebek İblisi çağırabilirsin"
+ },
+ {
+  "i": 2023,
+  "tr": "Sevgi: Zaman Tanrı Ağacı sulamak için kullanılır"
+ },
+ {
+  "i": 2024,
+  "tr": "Sulama başarılı, Kutsal Ağaç seviyesini {0} seviyesine yükselt!"
+ },
+ {
+  "i": 2025,
+  "tr": "Işık toplama başarılı, Kutsal Ağaç sonraki aşamaya büyüyecek!"
+ },
+ {
+  "i": 2026,
+  "tr": "Çiftlik Kelebek İblisi savaşta"
+ },
+ {
+  "i": 2027,
+  "tr": "Bu başkasının ağacı..."
+ },
+ {
+  "i": 2028,
+  "tr": "Daha fazla sevgiye ihtiyacım var, anca böyle gücüm geri geri."
+ },
+ {
+  "i": 2029,
+  "tr": "Günahkar yerin gücüne tanıklık et."
+ },
+ {
+  "i": 2030,
+  "tr": "Saklı Yer"
+ },
+ {
+  "i": 2031,
+  "tr": "Mücadele seti"
+ },
+ {
+  "i": 2032,
+  "tr": "1 yıldız zorluğu,2 yıldız zorluğu,3 yıldız zorluğu,4 yıldız zorluğu,5 yıldız zorluğu"
+ },
+ {
+  "i": 2033,
+  "tr": "1 yıldız, 2 yıldız, 3 yıldız, 4 yıldız, 5 yıldız"
+ },
+ {
+  "i": 2034,
+  "tr": "Festival Ayı"
+ },
+ {
+  "i": 2035,
+  "tr": "Kurban Ayı ödülü"
+ },
+ {
+  "i": 2036,
+  "tr": "Kurban Ayı {0} ay safhasına ulaştığında, bir tane alırsın.{1}!"
+ },
+ {
+  "i": 2037,
+  "tr": "{0} Kupon harcayın ve {1} ayı feda edin."
+ },
+ {
+  "i": 2038,
+  "tr": "Güz ayı kurban etkinliği başladı"
+ },
+ {
+  "i": 2039,
+  "tr": "Güz ayı kurban etkinliği sona erdi."
+ },
+ {
+  "i": 2040,
+  "tr": "Tebrikler! Sen aşağıda ki Kurban Ayı hediyelerini aldın:"
+ },
+ {
+  "i": 2041,
+  "tr": "1.<font color='#ff0000'>{0}-{1}；</font>\n2.Festival ayında karşılık gelen ödüller elde edilebilir, her festival ayında10 defa dolunay çıkar；（bu sayı iki günde biriktirilemez）\n3.Dolunayda karşılık gelen dolunay hediye paketi elde edilebilir, diğer ay aşamalarında karşılık gelen hediye paketleri elde edilebilir.worshipTheMoon.higherGradeNeeded:Bu etkinliğe katılmak için 15 levele ulaşmış olmanız gerekmektedir."
+ },
+ {
+  "i": 2042,
+  "tr": "Devam etmek için sol-tıkla"
+ },
+ {
+  "i": 2043,
+  "tr": "Bu etkinli?e kat?lmak i?in 15 levele ula?m?? olman?z gerekmektedir."
+ },
+ {
+  "i": 2044,
+  "tr": "saat"
+ },
+ {
+  "i": 2045,
+  "tr": "dakika"
+ },
+ {
+  "i": 2046,
+  "tr": "Hazine kutusu için {0} seviyesinin açılması gerekiyor"
+ },
+ {
+  "i": 2047,
+  "tr": "Kilit parçası"
+ },
+ {
+  "i": 2048,
+  "tr": "Girdiğiniz ID numarası geçersiz!"
+ },
+ {
+  "i": 2049,
+  "tr": "Reşit değilsiniz. Lütfen oyunda geçirdiğiniz zaman miktarını ayarlayınız. Dinlenmeyi unutmayınız!"
+ },
+ {
+  "i": 2050,
+  "tr": "ddt.dailyRecord.content31:<FONT COLOR='#f6dc8f'><B>{0}</B></FONT>.<FONT COLOR='#ffd633'><B>{1}</B></FONT> Gelişmiş <FONT COLOR='#ffd633'><B>{2}</B></FONT> Rütbe! <br/>"
+ },
+ {
+  "i": 2051,
+  "tr": "Haycan durumu sayısına ekleme başarısız"
+ },
+ {
+  "i": 2052,
+  "tr": "Kurtarma operasyonu ödülünü ekleme başarısız"
+ },
+ {
+  "i": 2053,
+  "tr": "Düğüm sayısındaki hata raporu başarısız"
+ },
+ {
+  "i": 2054,
+  "tr": "Binek resimi\n kullanılıyor"
+ },
+ {
+  "i": 2055,
+  "tr": "Binek resimi\n kullanılmıyor"
+ },
+ {
+  "i": 2056,
+  "tr": "Savaş enerjisi: {0}"
+ },
+ {
+  "i": 2057,
+  "tr": "Beraber"
+ },
+ {
+  "i": 2058,
+  "tr": "Uyandırılmadı"
+ },
+ {
+  "i": 2059,
+  "tr": "Çağırma kartı"
+ },
+ {
+  "i": 2060,
+  "tr": "Zaten beraber durumda"
+ },
+ {
+  "i": 2061,
+  "tr": "Çağırma başarılı."
+ },
+ {
+  "i": 2062,
+  "tr": "Tıklayarak hareket enerjisi satın alınabilir"
+ },
+ {
+  "i": 2063,
+  "tr": "Tebrikler, hareket enerjisi+1 satın aldın"
+ },
+ {
+  "i": 2064,
+  "tr": "Hareket enerjisini satın al"
+ },
+ {
+  "i": 2065,
+  "tr": "Hareket enerjisini \nsatın alma sayısı"
+ },
+ {
+  "i": 2066,
+  "tr": "Saksağanla karşılaştın, saksağanın köprüsünün mesafesi değişti."
+ },
+ {
+  "i": 2067,
+  "tr": "Tebrikler, başarıyla saksağan köprüsünü inşa ettin. Çoban Dokumacı kız verdiği yıldız festivali hediye paketini elde ettin!"
+ },
+ {
+  "i": 2068,
+  "tr": "Saksağan köprüsünü tamamlayarak (10 saksağan) \n yıldız festivali hediye paketini elde et, hediye kapetini açarak zengin \n ödül elde et, ayrıca gelişmiş·Aşk\n Bumerangı"
+ },
+ {
+  "i": 2069,
+  "tr": "Saksağan, Saksağanla karşılaştıktan sonra Saksağan köprüsünü inşa etme derecesini yükseltebilirsin."
+ },
+ {
+  "i": 2070,
+  "tr": "Tebrikler, [{0}] oyuncu çingene işadamında nadir öğe olan {1} satınaldı"
+ },
+ {
+  "i": 2071,
+  "tr": "{0} onur harcanarak bir defa \nmarket öğeleri yenilensin mi?"
+ },
+ {
+  "i": 2072,
+  "tr": "{0} kupon harcanarak？"
+ },
+ {
+  "i": 2073,
+  "tr": "Günlük ücretsiz \nyenileme zamanı{0}"
+ },
+ {
+  "i": 2074,
+  "tr": "Çingenenin gizemli mağazası açıldı."
+ },
+ {
+  "i": 2075,
+  "tr": "Çingenenin gizemli mağazası kapandı."
+ },
+ {
+  "i": 2076,
+  "tr": "Çingenenin gizemli mağazası henüz açılmadı"
+ },
+ {
+  "i": 2077,
+  "tr": "Onur yetersiz, yenileme başarısız!"
+ },
+ {
+  "i": 2078,
+  "tr": "Mağara savaş sayısı"
+ },
+ {
+  "i": 2079,
+  "tr": "VIP ayrıcalığı {0} defa"
+ },
+ {
+  "i": 2080,
+  "tr": "VIP aç"
+ },
+ {
+  "i": 2081,
+  "tr": "10 defa ard arda satın almaya basarak mükemmel sihirli taşa dokun"
+ },
+ {
+  "i": 2082,
+  "tr": "Sihirli mağara kaşifi"
+ },
+ {
+  "i": 2083,
+  "tr": "( Sihir ırkını öldürürken kaba, normal sihirli taş düşebilir)"
+ },
+ {
+  "i": 2084,
+  "tr": "( Sihir ırkını öldürürken normal, mükemmel sihirli taş düşebilir)"
+ },
+ {
+  "i": 2085,
+  "tr": "Dikkat: Sihirli küre taş sürüme girdikten sonra kesilir, çifte etki o an girildiğinde etki gösterebilir."
+ },
+ {
+  "i": 2086,
+  "tr": "10 defa ard arda satın almak için  <font color='#ff0000'>{0}</font> kupon gerekir\n devam edilsin mi?<font color='#ff0000'>(mükemmel taş çıkmak zorunda)</font>"
+ },
+ {
+  "i": 2087,
+  "tr": "Sihirli küre kullan \nçif kat ödül al"
+ },
+ {
+  "i": 2088,
+  "tr": "Ödüller alınmadı. Hadi gel!"
+ },
+ {
+  "i": 2089,
+  "tr": "Astroloji"
+ },
+ {
+  "i": 2090,
+  "tr": "Kova burcu insancıldır, hobileri geniştir, rasyonel bilgiye sahiptir."
+ },
+ {
+  "i": 2091,
+  "tr": "Balık burcunun duygusu çoktur, kalbinin derinliklerinde iyidir, narindir ve sezgisi güçlüdür"
+ },
+ {
+  "i": 2092,
+  "tr": "Kendine aşık olan koç burcu, iddalı ve maceracı ruhu vardır, denemeyi sever."
+ },
+ {
+  "i": 2093,
+  "tr": "İradeli olan boğa burcu, sıcak kanlı, arkadaş canlısı, sorumluluk sahibidir."
+ },
+ {
+  "i": 2094,
+  "tr": "İkizler  burcu akıllı ve çok yönlüdür, modaya karşı duyarlılık hisleri vardır."
+ },
+ {
+  "i": 2095,
+  "tr": "Yengeç sadece şefkatli değil, ayrıca hayal gücü yüksek bir burçtur"
+ },
+ {
+  "i": 2096,
+  "tr": "Aslan burcu coşkulu ve cömerttir, tiyatroya ve oyunculuğa karşı iyi performansı vardır"
+ },
+ {
+  "i": 2097,
+  "tr": "Başak burcu mütevazidir, zihni açıktır, ayrıca anatilik yeteneği vardır, temizliği sever."
+ },
+ {
+  "i": 2098,
+  "tr": "Terazi burcu olan kişilerin adalet duyguları güçlüdür, çok mantıklıdır ve doğuştan aşk ustalarıdır."
+ },
+ {
+  "i": 2099,
+  "tr": "Akrep burcu öngürülüdür, kin güderler, sezgileri keskindir, kafaya koyduklarını yapma güçleri vardır."
+ },
+ {
+  "i": 2100,
+  "tr": "Yay burcu doğuştan neşelidir, insanlara karşı dürüsttür, samimidir."
+ },
+ {
+  "i": 2101,
+  "tr": "Oğlak burcu birşeyi yaparken gerçekçidir, insanlara karşı mütevazidir, azimlidir ve çok çalışarak herşeyin üstesinden gelir."
+ },
+ {
+  "i": 2102,
+  "tr": "Hiç burç şansın yok!"
+ },
+ {
+  "i": 2103,
+  "tr": "Hemen tamamla>>"
+ },
+ {
+  "i": 2104,
+  "tr": "harcanarak bir defalık <font color='#ff0000'>{0} Kupon</font> astroloji sayısı alınsın mı?"
+ },
+ {
+  "i": 2105,
+  "tr": "Astroloji işlem aşamasında, lütfen biraz bekleyin!"
+ },
+ {
+  "i": 2106,
+  "tr": "Astroloji görevi başarıyla alındı"
+ },
+ {
+  "i": 2107,
+  "tr": "At yarışı"
+ },
+ {
+  "i": 2108,
+  "tr": "Yarış için 5 oyuncu eşleşecek.\n2. En yüksek binek leveline sahip olan daha hızlı olacak.\n3.Yarış içinde, periyodik item alabilirsin.Hedefi seç ve hızla 1 ve 2 butonlarını kullan.\n4.Ödüller yarıştan sonra yarış sıralamasına göre dağıtılacak.\n5.Eğer yarışın ortasında çıkarsan ya da bağlantın koparsa, sonra yarışa devam edemezsin.Yarış bittiğinde sıralaman belirlenir,sıralaman onların önünde ya da arkasında çıkabilir."
+ },
+ {
+  "i": 2109,
+  "tr": "Bugün <font color='#ffde00'>{0}</font> kez daha yarışabilirsin"
+ },
+ {
+  "i": 2110,
+  "tr": "Bir defa alım  <font color='#ff0000'>{0}</font> kupon harcayarak, devam edilsin mi?"
+ },
+ {
+  "i": 2111,
+  "tr": "Bariyeri açmak için <font color='#ff0000'>{0}</font>  kupon gerekir, devam edilsin mi?"
+ },
+ {
+  "i": 2112,
+  "tr": "Binek yok, at yarışına katılamazsın"
+ },
+ {
+  "i": 2113,
+  "tr": "Diğer oyuncuyu seçerek kısayol tuşuna basarak kullan, kullandıktan sonra hedef 3 saniye kalır"
+ },
+ {
+  "i": 2114,
+  "tr": "Diğer oyuncuyu seçerek kısayol tuşuna basarak kullan, kullandıktan sonra 5 saniye içinde hedefin hızı 40% azalır"
+ },
+ {
+  "i": 2115,
+  "tr": "Diğer oyuncuyu seçerek kısayol tuşuna basarak kullan,\nkullandıktan sonra 5 saniye içinde hedefin hızı 40% azalır, ayrıca kendi hızı 5 saniye içinde hedefin hızı 30% artar"
+ },
+ {
+  "i": 2116,
+  "tr": "Diğer oyuncuyu seçerek kısayol tuşuna basarak kullan,  kullandıktan sonra binek hız derecesi aynı olan hedef bineğin hızı artar, 5 saniye sürer"
+ },
+ {
+  "i": 2117,
+  "tr": "Kısayol tuşuna basarak kullan, kullandıktan sonra 5 saniye içinde hızı 50% artar"
+ },
+ {
+  "i": 2118,
+  "tr": "Kısayol tuşuna basarak kullan,  kullandıktan sonra diğer oyuncular 2 saniye durur"
+ },
+ {
+  "i": 2119,
+  "tr": "buff açıklaması: BUFF8 etkisini kullan"
+ },
+ {
+  "i": 2120,
+  "tr": "Hedef bitiş noktasına ulaştı, diğer araçlar kullanılamaz"
+ },
+ {
+  "i": 2121,
+  "tr": "Açılacak matkap sayısını gir"
+ },
+ {
+  "i": 2122,
+  "tr": "Lütfen harcanacak matkap"
+ },
+ {
+  "i": 2123,
+  "tr": "Uyandır"
+ },
+ {
+  "i": 2124,
+  "tr": "Tüketimi:"
+ },
+ {
+  "i": 2125,
+  "tr": "Etkisi:"
+ },
+ {
+  "i": 2126,
+  "tr": "Alım yolu:"
+ },
+ {
+  "i": 2127,
+  "tr": "Böcek operasyonu savaşı"
+ },
+ {
+  "i": 2128,
+  "tr": "Uyarı: Orman tüm gün açık, normal böceği yakalamak için ağ gerekir；nadir böcek perisini yakalamak için top gerekir"
+ },
+ {
+  "i": 2129,
+  "tr": "Etkinlik zamanı: {0}"
+ },
+ {
+  "i": 2130,
+  "tr": "Kişisel ödül"
+ },
+ {
+  "i": 2131,
+  "tr": "Bölge sıralaması"
+ },
+ {
+  "i": 2132,
+  "tr": "Sıralamayı atla"
+ },
+ {
+  "i": 2133,
+  "tr": "Ormandan ayrılmak istediğinden emin misin?"
+ },
+ {
+  "i": 2134,
+  "tr": "Ödül gönderme etkinlik sona erdikten sonraki sıralamaya göre ayarlanır."
+ },
+ {
+  "i": 2135,
+  "tr": "{0} puana ulaş"
+ },
+ {
+  "i": 2136,
+  "tr": "Çantada yem yok"
+ },
+ {
+  "i": 2137,
+  "tr": "Sonrakinde 100% böcek perisine denk geleceksin. \n kullandıktan sonra önce yeterli topu hazırla."
+ },
+ {
+  "i": 2138,
+  "tr": "Etkinlik başlatma seviyesi 20. seviyedir!"
+ },
+ {
+  "i": 2139,
+  "tr": "Ormana girilemez. Puan takas arayüzünde 24 saat saklanır. Ayrıca Bombom arkadaşları dikkatli olun! Teşekkürler!"
+ },
+ {
+  "i": 2140,
+  "tr": "(Şu anda gereken: Puanda ilerleyebilecek kişi)"
+ },
+ {
+  "i": 2141,
+  "tr": "Sıralama   rumuz   puan   ünvan"
+ },
+ {
+  "i": 2142,
+  "tr": "Sıralama   rumuz   puan    ünvan     bölge"
+ },
+ {
+  "i": 2143,
+  "tr": "Saldırı: {0} Çeviklik: {1}\n Koruma: {2} Şans: {3}"
+ },
+ {
+  "i": 2144,
+  "tr": "Şimdiki çantada ağ yok, savaşa gitmekten emin misin?"
+ },
+ {
+  "i": 2145,
+  "tr": "Şimdiki çantada top yok, savaşa gitmekten emin misin?"
+ },
+ {
+  "i": 2146,
+  "tr": "Kurtarma operasyonu"
+ },
+ {
+  "i": 2147,
+  "tr": "Oklar"
+ },
+ {
+  "i": 2148,
+  "tr": "Kurtarma canı"
+ },
+ {
+  "i": 2149,
+  "tr": "Bomba kralı dileği"
+ },
+ {
+  "i": 2150,
+  "tr": "{0} kupon kullanarak geri sayım zamanı sıfırlansın mı?"
+ },
+ {
+  "i": 2151,
+  "tr": "Kart hesaplama"
+ },
+ {
+  "i": 2152,
+  "tr": "Seviye 20. seviyeye ulaştı, bu etkinliğe katılamazsın"
+ },
+ {
+  "i": 2153,
+  "tr": "Ok ve yayda kullanılır, şimdiki ok bittiğinde kullanılabilir."
+ },
+ {
+  "i": 2154,
+  "tr": "Civcivin canı bitmek üzereyken otomatik kullan, civcivin canını \n doldurur. Her civciv için 1 tane tükebilir."
+ },
+ {
+  "i": 2155,
+  "tr": "Kullandıktan sonra yayda rehber şerit çıkar. V tuşuna basarak hedefi değiştirebilirsin."
+ },
+ {
+  "i": 2156,
+  "tr": "Kurtarma operasyonu etkinliği başladı."
+ },
+ {
+  "i": 2157,
+  "tr": "Kurtarma operasyonu etkinliği sona erdi."
+ },
+ {
+  "i": 2158,
+  "tr": "Kalan oklar"
+ },
+ {
+  "i": 2159,
+  "tr": "Etkinliğin kalan"
+ }
+]

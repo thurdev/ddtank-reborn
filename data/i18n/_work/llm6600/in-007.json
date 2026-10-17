@@ -1,0 +1,722 @@
+[
+ {
+  "i": 1260,
+  "tr": "Refah kayığı"
+ },
+ {
+  "i": 1261,
+  "tr": "Ejderha kayığı aktivitesine katılan bu bölge sıralamasındaki 1. \noyuncu ayrıca bu bölgedeki tüm oyunculara süprizler verebilir."
+ },
+ {
+  "i": 1262,
+  "tr": "{0} ejderha kayığı yaratmasına katıldı, olağanüstü katkı sağladı, bu bölgede totem indirimi avantajının açılnaasını sağladı, herkes istediği gibi onun getirdiği bu refahtan yararlanabilir!"
+ },
+ {
+  "i": 1263,
+  "tr": "kupon harca"
+ },
+ {
+  "i": 1264,
+  "tr": "şu an ateşlemek  için Space tuşu kullanlamaz"
+ },
+ {
+  "i": 1265,
+  "tr": "top olmadan pass kullanılamaz"
+ },
+ {
+  "i": 1266,
+  "tr": "Seviye Hediye Paketi"
+ },
+ {
+  "i": 1267,
+  "tr": "Yenileme Duyurusu"
+ },
+ {
+  "i": 1268,
+  "tr": "Bu bölgeden olmayan oyuncular özel sohbet yapamaz"
+ },
+ {
+  "i": 1269,
+  "tr": "Hızlı davet"
+ },
+ {
+  "i": 1270,
+  "tr": "Zaten bir mücadelede olduğunuzdan odaya giremezsiniz"
+ },
+ {
+  "i": 1271,
+  "tr": "Zaten odada olduğunuzdan odaya katılamazsınız"
+ },
+ {
+  "i": 1272,
+  "tr": "Birleştirme özelliğine sahip ekipman getirilemez!"
+ },
+ {
+  "i": 1273,
+  "tr": "Hızlı tek kişilik eşleştirme"
+ },
+ {
+  "i": 1274,
+  "tr": "Kendini davet edemezsin"
+ },
+ {
+  "i": 1275,
+  "tr": "Kalan Enerji değeri yeterince yüklendi, satın almanıza gerek yok."
+ },
+ {
+  "i": 1276,
+  "tr": "Düzenle"
+ },
+ {
+  "i": 1277,
+  "tr": "Cep telefon numaranızı bağlamanın faydaları"
+ },
+ {
+  "i": 1278,
+  "tr": "Bağlamayı başlat"
+ },
+ {
+  "i": 1279,
+  "tr": "Daha sonra hatırlat"
+ },
+ {
+  "i": 1280,
+  "tr": "Cep telefonu servisi"
+ },
+ {
+  "i": 1281,
+  "tr": "Servise başvur"
+ },
+ {
+  "i": 1282,
+  "tr": "Şifre korumayı tekrar ayarlayın"
+ },
+ {
+  "i": 1283,
+  "tr": "Onaylama kodu al"
+ },
+ {
+  "i": 1284,
+  "tr": "Lütfen onaylama kodunu 60 saniye içinde giriniz"
+ },
+ {
+  "i": 1285,
+  "tr": "Geri sayım:"
+ },
+ {
+  "i": 1286,
+  "tr": "Onaylama"
+ },
+ {
+  "i": 1287,
+  "tr": "Bağlanmış cep telefonunu değiştir"
+ },
+ {
+  "i": 1288,
+  "tr": "Şifre koruma sorusunu sil"
+ },
+ {
+  "i": 1289,
+  "tr": "İlk baştaki cep telefonu numarasını onaylayarak değiştir"
+ },
+ {
+  "i": 1290,
+  "tr": "Şifre koruma sorusunu onaylayarak değiştir"
+ },
+ {
+  "i": 1291,
+  "tr": "Henüz şifre koruma sorusu ayarlanmamış"
+ },
+ {
+  "i": 1292,
+  "tr": "İkinci seviye şifreyi silme"
+ },
+ {
+  "i": 1293,
+  "tr": "Bağlanmış cep telefonunu onaylayarak silme"
+ },
+ {
+  "i": 1294,
+  "tr": "Şifre koruma sorusunu onaylayarak silme"
+ },
+ {
+  "i": 1295,
+  "tr": "Bu işlev bugünlük donduruldu, lütfen yarın tekrar deneyin!"
+ },
+ {
+  "i": 1296,
+  "tr": "Lütfen ilk baştaki telefon numarasını girin"
+ },
+ {
+  "i": 1297,
+  "tr": "Uyarı: 3 kez başarısız giriş yaparsanız bu işlev geçici süreliğini dondurulur"
+ },
+ {
+  "i": 1298,
+  "tr": "İlk baştaki telefon numarası: {0}***{1}"
+ },
+ {
+  "i": 1299,
+  "tr": "Onaylama kodu:"
+ },
+ {
+  "i": 1300,
+  "tr": "Onaylama kodu almak 50 kupona mal olur"
+ },
+ {
+  "i": 1301,
+  "tr": "Uyarı: Onaylama koduna günde yalnız 1 kere başvurulabilir"
+ },
+ {
+  "i": 1302,
+  "tr": "Lütfen yeni telefon numarasını girin:"
+ },
+ {
+  "i": 1303,
+  "tr": "Lütfen yeni telefon numarasını onaylayın:"
+ },
+ {
+  "i": 1304,
+  "tr": "Uyarı: Günde yalnız 1 kere başvuru değişikliği yapılabilir."
+ },
+ {
+  "i": 1305,
+  "tr": "Bağlı telefon numarası: {0}***{1}"
+ },
+ {
+  "i": 1306,
+  "tr": "Uyarı: Bu başvuruyu günde yalnız 1 kere yapabilirsiniz"
+ },
+ {
+  "i": 1307,
+  "tr": "Şifre koruma"
+ },
+ {
+  "i": 1308,
+  "tr": "Bugün {0} kez daha işlem  yapabilirsiniz"
+ },
+ {
+  "i": 1309,
+  "tr": "Telefonla onaylama"
+ },
+ {
+  "i": 1310,
+  "tr": "Her oyuncu günde yalnız 1 kere şifre koruma sorularını silme başvurusu yapabilir"
+ },
+ {
+  "i": 1311,
+  "tr": "Her oyuncu günde yalnız 1 kere ikinci seviye şifreyi silme başvurusu yapabilir"
+ },
+ {
+  "i": 1312,
+  "tr": "Lütfen bağladığınız telefon nuamrasını giriniz"
+ },
+ {
+  "i": 1313,
+  "tr": "3 kez hata yapmak geçici olarak bu işlevi kilitleyecektir"
+ },
+ {
+  "i": 1314,
+  "tr": "Mesajla onaylama kodu almak isteyen her oyuncudan işlem ücreti olarak 50 kupon düşülür"
+ },
+ {
+  "i": 1315,
+  "tr": "Şifre koruma sorularını sil"
+ },
+ {
+  "i": 1316,
+  "tr": "İkinci seviye şifreyi sil"
+ },
+ {
+  "i": 1317,
+  "tr": "Cep telefonu numarası uzunluğu tutarsız"
+ },
+ {
+  "i": 1318,
+  "tr": "İki giriş birbirinden tutarsız"
+ },
+ {
+  "i": 1319,
+  "tr": "Onaylama kodu uzunluğu tutarsız"
+ },
+ {
+  "i": 1320,
+  "tr": "Şifremi unuttum"
+ },
+ {
+  "i": 1321,
+  "tr": "Süreyi uzat"
+ },
+ {
+  "i": 1322,
+  "tr": "{0} lonca varlığı harcayarak görev süresini {1} dakika uzatmak istediğinize emin misiniz?"
+ },
+ {
+  "i": 1323,
+  "tr": "Rulet şuanda dönüyor..."
+ },
+ {
+  "i": 1324,
+  "tr": "Harika etkinlik veri listesi başarısız oldu"
+ },
+ {
+  "i": 1325,
+  "tr": "Kısa mesajla bilgi onaylama başarısız"
+ },
+ {
+  "i": 1326,
+  "tr": "Savaş alanını yarıp geçme sürümü 18.07.2013 tarihinde çıkacak"
+ },
+ {
+  "i": 1327,
+  "tr": "Yeni eğlenceler: Kamp savaşı, talep etme, toplu alım, 65. seviye sınırı, Dünya BOSS'ları futbol takımı kaptanı"
+ },
+ {
+  "i": 1328,
+  "tr": "Öldür"
+ },
+ {
+  "i": 1329,
+  "tr": "Bombom kralları anlaşması yürürlüğe girdi"
+ },
+ {
+  "i": 1330,
+  "tr": "Geçerli harcama: Satış alanında alınanlar dışındaki kupon harcamaları sayılmaz"
+ },
+ {
+  "i": 1331,
+  "tr": "· Gizemli Çark"
+ },
+ {
+  "i": 1332,
+  "tr": "Yükleme yapılmış kupon güncel adeti:"
+ },
+ {
+  "i": 1333,
+  "tr": "Alt seviye ödüllerini alabilmek için tekrar kupon yüklemesi yapmanız gerekiyor"
+ },
+ {
+  "i": 1334,
+  "tr": "Başarıyla {0} kez hazine arandı!"
+ },
+ {
+  "i": 1335,
+  "tr": "En son yenileme"
+ },
+ {
+  "i": 1336,
+  "tr": "Ürünü almayı onaylıyor musunuz?"
+ },
+ {
+  "i": 1337,
+  "tr": "{0} kupon harcayarak ürünü almak istediğinize emin misiniz?"
+ },
+ {
+  "i": 1338,
+  "tr": "Gizemli çark şuanda dönüyor..."
+ },
+ {
+  "i": 1339,
+  "tr": "İlk olarak çift tıklayarak döküm yapmak istediğiniz ekipmanı seçiniz"
+ },
+ {
+  "i": 1340,
+  "tr": "Sonra çift tıklayarak kullanmak istediğiniz aksesuarı seçiniz"
+ },
+ {
+  "i": 1341,
+  "tr": "Lütfen çift tıklayarak iyileştirmek istediğiniz ekipmanı seçiniz"
+ },
+ {
+  "i": 1342,
+  "tr": "Lütfen çift tıklayarak iyileştirmek istediğiniz aksesuarı seçiniz"
+ },
+ {
+  "i": 1343,
+  "tr": "Yükleme geri bildiriminden alınabilecek ödüller var. | Hemen al"
+ },
+ {
+  "i": 1344,
+  "tr": "Harcama geri bildiriminden alınabilecek ödüller var! |Hemen al"
+ },
+ {
+  "i": 1345,
+  "tr": "Sadece oyun meydanında ödül alınabilir"
+ },
+ {
+  "i": 1346,
+  "tr": "Etkinlik sona erdi"
+ },
+ {
+  "i": 1347,
+  "tr": "Savaş ruhu sistemi 30. seviyede açılır"
+ },
+ {
+  "i": 1348,
+  "tr": "Eski oyuncumuz [{0}] Bombom'a geri hoşgeldi. Eski oyuncu loncasına büyük miktarda varlık getirebilir."
+ },
+ {
+  "i": 1349,
+  "tr": "Loncaya davet et"
+ },
+ {
+  "i": 1350,
+  "tr": "Evcil hayvan yumurtası"
+ },
+ {
+  "i": 1351,
+  "tr": "Evcil hayvan ekipmanı"
+ },
+ {
+  "i": 1352,
+  "tr": "Gizemli hayvan taşı"
+ },
+ {
+  "i": 1353,
+  "tr": "Ring savaşı"
+ },
+ {
+  "i": 1354,
+  "tr": "Yardımcı açıklama"
+ },
+ {
+  "i": 1355,
+  "tr": "1.her gün ringde 10 kez mücadele verebilirsiniz, 5 kez mücadele fırsatı satın alabilirsiniz..\n2.Farklı sıralama aralıklarında farklı anlık ödüller ve haftalık ödüller kazanırsınız.。\n3.Evcil hayvanlar ring mücadelesine katılamaz，Çift tarafın davranma sırası şöyledir\n  sırayla davranılır。\n4.Sıralama ödülleri her üç günde bir gece 00:00 da hesaplanır. Ödüller hesaplamadan sonra yarım saat içerisinde gönderilecektir."
+ },
+ {
+  "i": 1356,
+  "tr": "Benim sıralamam:"
+ },
+ {
+  "i": 1357,
+  "tr": "Ring: {0}"
+ },
+ {
+  "i": 1358,
+  "tr": "Bugün {0} kez daha ring mücadelesi verebilirsin"
+ },
+ {
+  "i": 1359,
+  "tr": "Bir sonraki mücadele vakti:"
+ },
+ {
+  "i": 1360,
+  "tr": "Mücadele hakkı almak için tıklayın"
+ },
+ {
+  "i": 1361,
+  "tr": "Bekleme süresini kaldırmak için tıklayın"
+ },
+ {
+  "i": 1362,
+  "tr": "Sıralama \nödülü:"
+ },
+ {
+  "i": 1363,
+  "tr": "Ödül alma \nvakti:"
+ },
+ {
+  "i": 1364,
+  "tr": "{0} gün sonra"
+ },
+ {
+  "i": 1365,
+  "tr": "{0} saat sonra"
+ },
+ {
+  "i": 1366,
+  "tr": "Hesaplanıyor"
+ },
+ {
+  "i": 1367,
+  "tr": "< 1 saat"
+ },
+ {
+  "i": 1368,
+  "tr": "{0} sıra"
+ },
+ {
+  "i": 1369,
+  "tr": "Sıralamaya giremediniz"
+ },
+ {
+  "i": 1370,
+  "tr": "Mücadele A"
+ },
+ {
+  "i": 1371,
+  "tr": "Mücadele B"
+ },
+ {
+  "i": 1372,
+  "tr": "Mücadele C"
+ },
+ {
+  "i": 1373,
+  "tr": "Kahramanlar listesi"
+ },
+ {
+  "i": 1374,
+  "tr": "Yeni"
+ },
+ {
+  "i": 1375,
+  "tr": "Mücadele raporu"
+ },
+ {
+  "i": 1376,
+  "tr": "Mücadele Raporu: <FONT SIZE='12' FACE='Song Font' COLOR='#FFd633'>{0}</FONT>           ile mücadele ettin ve kazandın. Sıralamada <FONT SIZE='12' FACE='Song Font' COLOR='#FFd633'>{1}</FONT>'liğe ulaştın."
+ },
+ {
+  "i": 1377,
+  "tr": "Mücadele Raporu: <FONT SIZE='12' FACE='Song Font' COLOR='#FFd633'>{0}</FONT>           ile mücadele ettin ve kaybettin. Sıralamanda değişiklik olmadı."
+ },
+ {
+  "i": 1378,
+  "tr": "Mücadele Raporu: <FONT SIZE='12' FACE='Song Font' COLOR='#FFd633'>{0}</FONT>           seninle mücadele etti ve sen kazandın. Sıralamanda değişiklik olmadı."
+ },
+ {
+  "i": 1379,
+  "tr": "Mücadele Raporu: <FONT SIZE='12' FACE='Song Font' COLOR='#FFd633'>{0}</FONT>           seninle mücadele etti ve sen kaybettin. Sıralamanda değişiklik olmadı."
+ },
+ {
+  "i": 1380,
+  "tr": "Mücadele Raporu: <FONT SIZE='12' FACE='Song Font' COLOR='#FFd633'>{0}</FONT>           ile mücadele ettin ve kazandın. Sıralamanda değişiklik olmadı."
+ },
+ {
+  "i": 1381,
+  "tr": "{0} kupon harcayarak 1 kez mücadele hakkı satın almayı onaylıyor musunuz?"
+ },
+ {
+  "i": 1382,
+  "tr": "{0} kupon harcayarak bekleme süresini kaldırmayı onaylıyor musunuz?"
+ },
+ {
+  "i": 1383,
+  "tr": "Ufaklık, kapışmaya cesaretin var mı?"
+ },
+ {
+  "i": 1384,
+  "tr": "Ruh hali"
+ },
+ {
+  "i": 1385,
+  "tr": "Onayla"
+ },
+ {
+  "i": 1386,
+  "tr": "1v1 savaş"
+ },
+ {
+  "i": 1387,
+  "tr": "2v2 savaş"
+ },
+ {
+  "i": 1388,
+  "tr": "3v3 savaş"
+ },
+ {
+  "i": 1389,
+  "tr": "4v4 savaş"
+ },
+ {
+  "i": 1390,
+  "tr": "Herhangi ekipmanı + {0} güçlendirme"
+ },
+ {
+  "i": 1391,
+  "tr": "Eğer daha da ilerisinin manzarasını görmek istiyorsan, zehir filizleyen ağaç cadının zehrinden kesinlikle sakınmalısın."
+ },
+ {
+  "i": 1392,
+  "tr": "Takım arkadaşını kesinlikle tehlikelerden kurtarmalısın, yoksa ölümü çok acıklı olacak."
+ },
+ {
+  "i": 1393,
+  "tr": "O çok güzel; ama küçük ağaç cadılarına kesinlikle dikkat etmelisin, seni çiçek polenlerinin içine çekerler ve dayanılmaz bir yorgunluğa maruz kalırsın."
+ },
+ {
+  "i": 1394,
+  "tr": "Mavi şeytanın saldırı çok yüksektir, kesinlikle hızla geçmelisiniz, onunla uzun süre savaşmamalısınız. Size ehdiye ettiğim aksesuarları iyice kullanın."
+ },
+ {
+  "i": 1395,
+  "tr": "Kırmızı şeytanın zırhı çok kalındır ve sizi bir araya çeker. Zırh deleni iyice kullanmayı ve farklı konumlarda durmayı unutmayın."
+ },
+ {
+  "i": 1396,
+  "tr": "Hayalet kral mükemmel bir şekilde ikizini çıkartabilir, hangisinin gerçek hangisinin sahte olduğunu ben de bilmiyorum, ama ikizi kaybolduğunda bütün gücünüzü toplayıp gerçek olana saldırmalısınız. Size hediye ettiğim aksesuarları iyice kullanın."
+ },
+ {
+  "i": 1397,
+  "tr": "O, basit ufak bir kıza benziyor; ama savaştıkça yüreklenir, sakın çok uzun süre erteleme."
+ },
+ {
+  "i": 1398,
+  "tr": "Bu kötü kadını ancak teknik sahibi olursanız öldürebilirsiniz, en iyisi hiç hata yapmamak, yoksa hayat düzeninizi alt üst eder."
+ },
+ {
+  "i": 1399,
+  "tr": "Büyük şeytan korkunç değil, asıl küçük şeytan kabusun olacak. Sana onun neler yapabildiğini söylemeyeceğim, kendin deneyim edip görebilisin!"
+ },
+ {
+  "i": 1400,
+  "tr": "Kaşif"
+ },
+ {
+  "i": 1401,
+  "tr": "Henüz ölen takım arkadaşın olmadığından bunu kullanamazsın"
+ },
+ {
+  "i": 1402,
+  "tr": "50 kupon"
+ },
+ {
+  "i": 1403,
+  "tr": "[Sistem] [{0}]'ın şansı döndü, bir tane {1} attı ve bir tane {1} ödülünü kaptı."
+ },
+ {
+  "i": 1404,
+  "tr": "[Sistem] Gerçekten üzücü, bir tane {0} attın, ama ne yazık ki {0} çok kazanıldığından bitti."
+ },
+ {
+  "i": 1405,
+  "tr": "[Sistem][{0}]'ın üzerine varlık tanrısı yapışmış, bir tane şampiyon ödülü atarak anlık şampiyon olup sonuna kadar sürdürebilirsen ancak şampiyon ödülünü kazanabilirsin."
+ },
+ {
+  "i": 1406,
+  "tr": "[Sistem] Gerçekten üzücü, bir tane şampiyon ödülü attın, ama ne yazık ki puanın şuanki şampiyonunki kadar yüksek değil. Gayretle çalışmaya devam!"
+ },
+ {
+  "i": 1407,
+  "tr": "Bir tane şampiyon ödülü atıp şuanki şampiyonu geçerek yeni şampiyon olduğu için  [{0}]'ı tebrik ederiz, sonuna kadar devam!"
+ },
+ {
+  "i": 1408,
+  "tr": "Süper Kazanan etkinliği başladı başlayacak! ~~\r Hadi hemen gel şansını dene!"
+ },
+ {
+  "i": 1409,
+  "tr": "Yalnızca 20. seviyedekiler bu etkinliğe katılabilir"
+ },
+ {
+  "i": 1410,
+  "tr": "Etkinlik kalan süresi:"
+ },
+ {
+  "i": 1411,
+  "tr": "Ödüller kazanılıp bitti... Bir dahaki sefere yine gel oyna!"
+ },
+ {
+  "i": 1412,
+  "tr": "Çok üzgünüz ama süre doldu, bir dahaki sefere yine gel oyna!"
+ },
+ {
+  "i": 1413,
+  "tr": "Lütfen bir sonraki atışın başlamasını bekleyiniz"
+ },
+ {
+  "i": 1414,
+  "tr": "Ödül yükleme başarısız"
+ },
+ {
+  "i": 1415,
+  "tr": "Lonca katkısı"
+ },
+ {
+  "i": 1416,
+  "tr": "Etkinlik açıklaması"
+ },
+ {
+  "i": 1417,
+  "tr": "Sıralama bilgisi her on dakikada bir yenilenir"
+ },
+ {
+  "i": 1418,
+  "tr": "İsim"
+ },
+ {
+  "i": 1419,
+  "tr": "Etkinlik katkısı"
+ },
+ {
+  "i": 1420,
+  "tr": "Sıralama ödülü"
+ },
+ {
+  "i": 1421,
+  "tr": "Bet arttırma ödülü"
+ },
+ {
+  "i": 1422,
+  "tr": "Bu sıranın kazanabileceği bet arttırma kuponu adeti"
+ },
+ {
+  "i": 1423,
+  "tr": "Şuanda sahip olduğunuz:"
+ },
+ {
+  "i": 1424,
+  "tr": "Kupon, lütfen bet arttırma kuponu adetini girin."
+ },
+ {
+  "i": 1425,
+  "tr": "bet arttırma kuponundan %10 vergi düşüldükten sonrası bu sıranın kazanabileceği ödül kuponudur."
+ },
+ {
+  "i": 1426,
+  "tr": "Kupon girişi"
+ },
+ {
+  "i": 1427,
+  "tr": "Bu seferki haftalık katkı etkinliğinde {0}'lik gibi iyi bir başarı elde ettin, tebrikler! Ödülün e-posta kutuna yolandı bile, kontrol etmeyi unutma!"
+ },
+ {
+  "i": 1428,
+  "tr": "Kazanılabilir kupon"
+ },
+ {
+  "i": 1429,
+  "tr": "Henüz herhangi bir sıraya bet arttırma yapmadın!"
+ },
+ {
+  "i": 1430,
+  "tr": "Bet arttırma ödülü işleminiz başarıyla uygulandı!"
+ },
+ {
+  "i": 1431,
+  "tr": "Hiç bir sıranın bet arttırma kuponu adeti 100'den az olamaz, lütfen tekrar girin!"
+ },
+ {
+  "i": 1432,
+  "tr": "Şuanda yönetici seviyesinde değilsiniz, etkinlik sıralaması ödülüne bet arttırma işlemi yapamazsınız!"
+ },
+ {
+  "i": 1433,
+  "tr": "1.Etkinlik süresince oyuncunun katkısı <FONT COLOR='#ff0000'>500'e</FONT> ulaştığında çalışkan ödülü kazanır; ayrıca sıralama yapabilir. \n2.Etkinlik bittikten sonra katkı seviyesi sıralamasındaki <FONT COLOR='#ff0000'>ilk on</FONT> oyuncu sıralamalarına karşılık gelen ödüller kazanırlar, ayrıca ekstra Bet arttırma ödülü kazanırlar.\n3.Lonca konumu yetkili üzeri seviyedeki oyuncular, ilk 10 ödülüne bet arttırma yapabilirler.\n4.Hiç bir sıranın bet arttırma kuponu sayısı <FONT COLOR='#ff0000'>100</FONT>'den az olamaz; bet arttırma sonrası bet arttırma kuponlarından %10 vergi düşülür. Vergi düşüldükten sonraki kupon sayısı bu sıranın kazanacağı kupon sayısıdır.  \n5.Oyuncuların katkı seviyesi aynı olduğunda, bu katkı seviyesine ilk varan oyuncuya göre sıralama yapılır.\n6.Sıralama bilgisi her ondakikada bir yenilenir. Ödüller, etkinlik sona erdikten sonra e-posta yoluyla oyuncuların e-posta kutularına gönderilir. Vakti geldiğinde kontrol etmeyi unutmayın."
+ },
+ {
+  "i": 1434,
+  "tr": "Haftalık lonca üyeleri katkı ödülü bilgisi edinme başarısız oldu!"
+ },
+ {
+  "i": 1435,
+  "tr": "7. seviye Haftalık Lonca Katkısı Etkinliği açıldı!"
+ },
+ {
+  "i": 1436,
+  "tr": "1. Süper Şans Yıldızı'nı başlatmak için Şans Yıldızı harcamanız gerekir.\n2. Her bir Şans Yıldızı harcamasında, Kupon Biriktirme Havuzunda <FONT COLOR='#ff0000'>50 kupon birikir</FONT>.\n3. Kupon Biriktirme Havuzu'nun en düşük ödülü 1000 kupondur.\n4. Şansına kupon iskontosu çıkan kişi, Kupon Biriktirme Havuzu'ndaki bütün kuponları kazanır.\n5. Kullanılan Şans Yıldızı sayısı <FONT COLOR='#ff0000'>{0}</FONT> ulaştığında sıralama ödülü kazanılır.\n6. Şansına kupon iskontosu çıktıktan sonra, Kupon Biriktirme Havuzu'ndaki kupon sayısı en az 1000 kupon olacaktır."
+ },
+ {
+  "i": 1437,
+  "tr": "Şanslı Ödülü"
+ },
+ {
+  "i": 1438,
+  "tr": "Üstün Ödülü"
+ },
+ {
+  "i": 1439,
+  "tr": "Seçkin Ödülü"
+ }
+]

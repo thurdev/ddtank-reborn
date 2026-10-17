@@ -1,0 +1,722 @@
+[
+ {
+  "i": 720,
+  "tr": "İnci gelişmiş yerine konulmalıdır."
+ },
+ {
+  "i": 721,
+  "tr": "{0}seviyesi açıldı"
+ },
+ {
+  "i": 722,
+  "tr": "Delik açılmamalıdır"
+ },
+ {
+  "i": 723,
+  "tr": "İnci seviyesi ve delik seviyesi uymuyor"
+ },
+ {
+  "i": 724,
+  "tr": "Seçilmiş matkap yok"
+ },
+ {
+  "i": 725,
+  "tr": "İnci satılmaz"
+ },
+ {
+  "i": 726,
+  "tr": "Seçiniz"
+ },
+ {
+  "i": 727,
+  "tr": "Elde <FONT COLOR='#FF0000'> {0} </FONT>inci"
+ },
+ {
+  "i": 728,
+  "tr": "Sentez için emin misin？"
+ },
+ {
+  "i": 729,
+  "tr": "delik aç"
+ },
+ {
+  "i": 730,
+  "tr": "matkap ve delik seviyesi uyuşmuyor, uygun olanı seçiniz"
+ },
+ {
+  "i": 731,
+  "tr": "İnci geliştirme yuvası"
+ },
+ {
+  "i": 732,
+  "tr": "İnci elde etmek için aşağıya tıklayınız"
+ },
+ {
+  "i": 733,
+  "tr": "İnci sentezi seviyesi çok yüksek daha fazla yükselmez."
+ },
+ {
+  "i": 734,
+  "tr": "İnci en yüksek seviyesine ulaştı  daha fazla yükselmez."
+ },
+ {
+  "i": 735,
+  "tr": "Birinci sınıf inci seviyesi yükseltilemez."
+ },
+ {
+  "i": 736,
+  "tr": "inci atılamaz"
+ },
+ {
+  "i": 737,
+  "tr": "Van Cleef&Arpels,Cariter,tiffany, Bvlgari"
+ },
+ {
+  "i": 738,
+  "tr": "Sentezlenebilir inci yok"
+ },
+ {
+  "i": 739,
+  "tr": "Bu işlem incinizi <br> durumuyla bağlar, eğer devam etmezseniz"
+ },
+ {
+  "i": 740,
+  "tr": "delik açmak için yeterli matkap yok"
+ },
+ {
+  "i": 741,
+  "tr": "Tüm inciler çoktan inci çantasına konuldu,  inci çantasına bakınız"
+ },
+ {
+  "i": 742,
+  "tr": "Düşük seviyedeki henüz kilitlenmemiş incileri kullanabilirsiniz"
+ },
+ {
+  "i": 743,
+  "tr": "İnci küresi otomatik olarak açıldığında, kapatınız otomatik açılınca tekar tıkyanız."
+ },
+ {
+  "i": 744,
+  "tr": "Açık pozisyonuna devam ederek öncelikli yüksek seviye inci küresini ulaş. Emin olduğunda açmaya başla."
+ },
+ {
+  "i": 745,
+  "tr": "Açmaya devam et"
+ },
+ {
+  "i": 746,
+  "tr": "İnci açıklaması"
+ },
+ {
+  "i": 747,
+  "tr": "İnci ayarlarını onaylar mısın？"
+ },
+ {
+  "i": 748,
+  "tr": "Gizli bölgeyi keşfet, kaybolan hazineyi ara."
+ },
+ {
+  "i": 749,
+  "tr": "5. Listedeki 1~10 Bombom dostları ve parıltılı taş miktarı 70'den büyük, ödül kazanabilirler."
+ },
+ {
+  "i": 750,
+  "tr": "Not"
+ },
+ {
+  "i": 751,
+  "tr": "10. isimden sonraki oyuncular ödül kurallarına dahil."
+ },
+ {
+  "i": 752,
+  "tr": "Portal liste yükelemesi başarısız."
+ },
+ {
+  "i": 753,
+  "tr": "İleri seviye evcil hayvan yem listesi yüklemesi başarısız."
+ },
+ {
+  "i": 754,
+  "tr": "Onurlandırma şablon bilgileri yüklenemedi."
+ },
+ {
+  "i": 755,
+  "tr": "Ürün ismi"
+ },
+ {
+  "i": 756,
+  "tr": "Savaşçı gizli bölgesi"
+ },
+ {
+  "i": 757,
+  "tr": "Sahip olduğunuz yeni fonksiyonu açınız."
+ },
+ {
+  "i": 758,
+  "tr": "Ödülünüzü henüz almadınız."
+ },
+ {
+  "i": 759,
+  "tr": "Bugün henüz giriş yapmadınız."
+ },
+ {
+  "i": 760,
+  "tr": "Bugün ücretsiz inci almaya{0} kere daha devam edebilirsiniz."
+ },
+ {
+  "i": 761,
+  "tr": "Şuanki kat sayısı"
+ },
+ {
+  "i": 762,
+  "tr": "Toplam kazanılan deneyim"
+ },
+ {
+  "i": 763,
+  "tr": "Tekrar kurmak istediğinden emin misin?"
+ },
+ {
+  "i": 764,
+  "tr": "gizli bölge altın parası"
+ },
+ {
+  "i": 765,
+  "tr": "Not: Gizli bölgedeki alışveriş merkezinden bağlılığı gözeterek satın alın"
+ },
+ {
+  "i": 766,
+  "tr": "Bombom Kralı anlaşması"
+ },
+ {
+  "i": 767,
+  "tr": "tanrısal koruma gücü, evcil hayvan yenileme, usta inci,Kurtarma Samanı, keşifçi savaşçı, enerji ruhu"
+ },
+ {
+  "i": 768,
+  "tr": "Temel karakter niteliği geliştirme özelliği 100 puan, portal, gizli bölge efekti"
+ },
+ {
+  "i": 769,
+  "tr": "Evcil hayvan sahip olma hergün 1 sefer ücretsiz."
+ },
+ {
+  "i": 770,
+  "tr": "Hergün 3 sefer ücretsiz inci alma."
+ },
+ {
+  "i": 771,
+  "tr": "Kamışların günlük kullanma sayısını 1 kere daha arttı."
+ },
+ {
+  "i": 772,
+  "tr": "Bir çok kişinin olduğu BOSS savaş portalını aç,ayrıca hergün ücretsiz 1 kere kazanma şansı yakala."
+ },
+ {
+  "i": 773,
+  "tr": "Görev arayüzünde satın aldığın enerji iksirini görev temsilinde kullan."
+ },
+ {
+  "i": 774,
+  "tr": "Temel karakter niteliği geliştirme özelliği 150 puan, portal, gizli bölge efekti"
+ },
+ {
+  "i": 775,
+  "tr": "Evcil hayvan sahip olma hergün 2 sefer ücretsiz."
+ },
+ {
+  "i": 776,
+  "tr": "Hergün 4 sefer ücretsiz inci alma."
+ },
+ {
+  "i": 777,
+  "tr": "Temel karakter niteliği geliştirme özelliği 200 puan, portal, gizli bölge efekti"
+ },
+ {
+  "i": 778,
+  "tr": "Evcil hayvan sahip olma hergün 3 sefer ücretsiz."
+ },
+ {
+  "i": 779,
+  "tr": "Hergün 6 sefer ücretsiz inci alma."
+ },
+ {
+  "i": 780,
+  "tr": "Kamışların günlük kullanma sayısını 2 kere daha arttı."
+ },
+ {
+  "i": 781,
+  "tr": "Bir çok kişinin olduğu BOSS savaş portalını aç,ayrıca hergün ücretsiz 2 kere kazanma şansı yakala."
+ },
+ {
+  "i": 782,
+  "tr": "{0}、{1}：{2}"
+ },
+ {
+  "i": 783,
+  "tr": "Bir kereye özgü 1 aylık üyelikte şu ayrıcalıklar elde edilier."
+ },
+ {
+  "i": 784,
+  "tr": "Bir kereye özgü 3 aylık üyelikte şu ayrıcalıklar elde edilier."
+ },
+ {
+  "i": 785,
+  "tr": "Bir kereye özgü yarım senelik üyelikte şu ayrıcalıklar elde edilier."
+ },
+ {
+  "i": 786,
+  "tr": "Henüz açılmadı"
+ },
+ {
+  "i": 787,
+  "tr": "1 aylık, 3 aylık, yarım sene"
+ },
+ {
+  "i": 788,
+  "tr": "Bombom kralı anlaşma {0}üyeliği açmak istediğinizden emin misiniz? \n ( Üyelik {1} kupon azalalımını gerektirir)"
+ },
+ {
+  "i": 789,
+  "tr": "Bombom kralı anlaşma {0}üyeliği{1} açmak istediğinizden emin misiniz? \n ( Üyelik {2} kupon azalalımını gerektirir)"
+ },
+ {
+  "i": 790,
+  "tr": "kalan zaman"
+ },
+ {
+  "i": 791,
+  "tr": "Tıklayarak üye olun"
+ },
+ {
+  "i": 792,
+  "tr": "{0}:{1}"
+ },
+ {
+  "i": 793,
+  "tr": "Saldırı, savunma, çeviklik, şans"
+ },
+ {
+  "i": 794,
+  "tr": "Sadece portaldaki gizli bölge etkilenir."
+ },
+ {
+  "i": 795,
+  "tr": "Bombom kralı anlaşma süresi doluyor mu, devam etirmeye ne dersiniz?"
+ },
+ {
+  "i": 796,
+  "tr": "Bombom kralı anlaşma süresi doldu mu, devam etirmeye ne dersiniz?"
+ },
+ {
+  "i": 797,
+  "tr": "Temsil ediliyor"
+ },
+ {
+  "i": 798,
+  "tr": "{0}:{1}:{2}"
+ },
+ {
+  "i": 799,
+  "tr": "Temsil et"
+ },
+ {
+  "i": 800,
+  "tr": "İptal"
+ },
+ {
+  "i": 801,
+  "tr": "Temsil süresi{0}dakika，temsil için{1}enerji değeri kullanımından emin misin？"
+ },
+ {
+  "i": 802,
+  "tr": "Temsili iptal etmek istediğinden emin misin?"
+ },
+ {
+  "i": 803,
+  "tr": "{0}enerji değerinin şuanki kullanım  gerekliliği，temsil başarısız."
+ },
+ {
+  "i": 804,
+  "tr": "Temsili tamamlamak için {0}kupon kullanmaktan emin misin？"
+ },
+ {
+  "i": 805,
+  "tr": "{0}kupon kullanmak，{1}enerji değeri arttırır。"
+ },
+ {
+  "i": 806,
+  "tr": "Bombom Kralı anlaşma ayrıcalığı"
+ },
+ {
+  "i": 807,
+  "tr": "Şuan yapıyor olduğun temsil görevi ya da henüz almadığın ödül"
+ },
+ {
+  "i": 808,
+  "tr": "Temsil pozisyonu yenileniyor, lütfen tekrar deneyin"
+ },
+ {
+  "i": 809,
+  "tr": "Enerji değeri en üst limitinde, lütfen kullandıktan sonra satın alın."
+ },
+ {
+  "i": 810,
+  "tr": "Enerji değeri en üst limitinde, enerji iksiri kullanılamaz."
+ },
+ {
+  "i": 811,
+  "tr": "Şans değeri ne kadar yüksek \nolursa, bir sonraki başarı oranı\n o kadar yüksek olur. Şans değeri\n hergün saat 24:00'te sıfırlanır."
+ },
+ {
+  "i": 812,
+  "tr": "En üst değer için:{0}"
+ },
+ {
+  "i": 813,
+  "tr": "İleri seviye\nportalı"
+ },
+ {
+  "i": 814,
+  "tr": "Fiyat (Kupon)"
+ },
+ {
+  "i": 815,
+  "tr": "delik seçilmedi!"
+ },
+ {
+  "i": 816,
+  "tr": "Savaşçı Gizli Bölgesi henüz açılmadı!"
+ },
+ {
+  "i": 817,
+  "tr": "Birlik BOSS"
+ },
+ {
+  "i": 818,
+  "tr": "Hemen gerekli(0) kuponu kullanarak tamamlayınız."
+ },
+ {
+  "i": 819,
+  "tr": "Madalya"
+ },
+ {
+  "i": 820,
+  "tr": "Fiyat"
+ },
+ {
+  "i": 821,
+  "tr": "Öncelik bağlı kupon kullanın"
+ },
+ {
+  "i": 822,
+  "tr": "Hazine Haritası"
+ },
+ {
+  "i": 823,
+  "tr": "Karşılaşma için bir Yolculuk başlat"
+ },
+ {
+  "i": 824,
+  "tr": "Yerel kıyafeti seç"
+ },
+ {
+  "i": 825,
+  "tr": "Yerel"
+ },
+ {
+  "i": 826,
+  "tr": "Sunucular arası"
+ },
+ {
+  "i": 827,
+  "tr": "Söyle&lt;{0}&gt;[{1}]"
+ },
+ {
+  "i": 828,
+  "tr": "Fonksiyonu aktive etmek için {0} kupon azalır, ya da devam etmesin mi?"
+ },
+ {
+  "i": 829,
+  "tr": "Madalya yetersiz"
+ },
+ {
+  "i": 830,
+  "tr": "Birlik BOSS mesaj yüklemesi başarısız"
+ },
+ {
+  "i": 831,
+  "tr": "Popüler"
+ },
+ {
+  "i": 832,
+  "tr": "kupon"
+ },
+ {
+  "i": 833,
+  "tr": "Birlik BOSS açıldı"
+ },
+ {
+  "i": 834,
+  "tr": "savaş alanı açıldı"
+ },
+ {
+  "i": 835,
+  "tr": ",gizli bölge altını x{0}"
+ },
+ {
+  "i": 836,
+  "tr": "savaş alanı"
+ },
+ {
+  "i": 837,
+  "tr": "Oyun kartı"
+ },
+ {
+  "i": 838,
+  "tr": "gerekli{0}ordu sıralaması"
+ },
+ {
+  "i": 839,
+  "tr": "{0}oyun kart harcanmasından emin ol，satın al{1}？"
+ },
+ {
+  "i": 840,
+  "tr": "oyun kartı yetersiz"
+ },
+ {
+  "i": 841,
+  "tr": "Tesadüf modu"
+ },
+ {
+  "i": 842,
+  "tr": "Tesadüfen senin romantikliğin uyuştuktan sonra\n beğendiğini seçTA birlikte savaş!"
+ },
+ {
+  "i": 843,
+  "tr": "Buradaki ekipmanlar çok iyi değil, \n tam olarak tıklayarak zafere ulaşın"
+ },
+ {
+  "i": 844,
+  "tr": "Yerel oyuncular sunucular arası konuşamaz"
+ },
+ {
+  "i": 845,
+  "tr": "Kapat"
+ },
+ {
+  "i": 846,
+  "tr": "Katıl"
+ },
+ {
+  "i": 847,
+  "tr": "Etkinlik adı"
+ },
+ {
+  "i": 848,
+  "tr": "Etkinlik zamanı"
+ },
+ {
+  "i": 849,
+  "tr": "Kalan miktar"
+ },
+ {
+  "i": 850,
+  "tr": "Etkinlik ödülü"
+ },
+ {
+  "i": 851,
+  "tr": "Tamamlanmamış hedef ({0})tane"
+ },
+ {
+  "i": 852,
+  "tr": "Tamamlanmış hedef ({0}) tane"
+ },
+ {
+  "i": 853,
+  "tr": "Gerekli aktif {0}"
+ },
+ {
+  "i": 854,
+  "tr": "Aktif derecesi hediye paketi"
+ },
+ {
+  "i": 855,
+  "tr": "(Lütfen o gün 23：50 tamamlayın ve alın)"
+ },
+ {
+  "i": 856,
+  "tr": "seviye>="
+ },
+ {
+  "i": 857,
+  "tr": "Günlük etkinlik"
+ },
+ {
+  "i": 858,
+  "tr": "tüm gün"
+ },
+ {
+  "i": 859,
+  "tr": "Başkan açar"
+ },
+ {
+  "i": 860,
+  "tr": "zenginlik yetersiz"
+ },
+ {
+  "i": 861,
+  "tr": "{0} zenginlik için harca, birlik BOSS zamanını 10 dakika uzat？"
+ },
+ {
+  "i": 862,
+  "tr": "{0} zenginlik için harca, birlik BOSS'u değiştir？"
+ },
+ {
+  "i": 863,
+  "tr": "Birlik seviyesi{0}seviye aç"
+ },
+ {
+  "i": 864,
+  "tr": "Birlik seviyesi ulaştı{0}seviye aç"
+ },
+ {
+  "i": 865,
+  "tr": "Birlik BOSS açıldı, lütfen tüm kahramanlar hemen ölüm vuruşuna geçsin"
+ },
+ {
+  "i": 866,
+  "tr": "Birlik BOSS etkinliği çoktan sona erdi"
+ },
+ {
+  "i": 867,
+  "tr": "Birlik BOSS sona erdirildi,tüm üyeler ölüm vuruşu ödülünü kazandı"
+ },
+ {
+  "i": 868,
+  "tr": "Birlik birlik BOSS ölüm vuruşu zamanını 10 dakika artırır"
+ },
+ {
+  "i": 869,
+  "tr": "Tamamladıktan sonra{0}aktiflik derecesi elde edilir"
+ },
+ {
+  "i": 870,
+  "tr": "Buradaki ekipmanlar çok iyi değil,tam tıklayarak zafere ulaşın"
+ },
+ {
+  "i": 871,
+  "tr": "Tamamladıktan sonra{0}aktiflik derecesi elde edilir,{1} tıkla"
+ },
+ {
+  "i": 872,
+  "tr": "Tıklayarak hemen tamamlayınız"
+ },
+ {
+  "i": 873,
+  "tr": "Geliştirme hala{0}popülerlik gerektirir"
+ },
+ {
+  "i": 874,
+  "tr": "Uluslararası Savaş"
+ },
+ {
+  "i": 875,
+  "tr": "Uluslararası Savaş Kuralları"
+ },
+ {
+  "i": 876,
+  "tr": "Mevcut Puan"
+ },
+ {
+  "i": 877,
+  "tr": "Puan Dükkanı:"
+ },
+ {
+  "i": 878,
+  "tr": "Geri"
+ },
+ {
+  "i": 879,
+  "tr": "Beceri:"
+ },
+ {
+  "i": 880,
+  "tr": "Tayvan"
+ },
+ {
+  "i": 881,
+  "tr": "Malezya"
+ },
+ {
+  "i": 882,
+  "tr": "Hong Kong"
+ },
+ {
+  "i": 883,
+  "tr": "Vietnam"
+ },
+ {
+  "i": 884,
+  "tr": "Uluslararası Savaşta sohbet kanalını kullanamazsınız."
+ },
+ {
+  "i": 885,
+  "tr": "Zafere azmetme anı"
+ },
+ {
+  "i": 886,
+  "tr": "Şu anda uygun maç yok, lütfen girmek için simgeye bir daha tıklayın <Zafere azmetme anı>"
+ },
+ {
+  "i": 887,
+  "tr": "Sistem Açıklaması"
+ },
+ {
+  "i": 888,
+  "tr": "1.Zafere azmetme anı Açıldı\nktan sonra varsayılan alana g\neçilip savaşılacaktır; oyuncula\nr tarafından rastgele kırmızı ve\nya mavi takımlarla eşleşecekti\nr."
+ },
+ {
+  "i": 889,
+  "tr": "2.İlk çıkışta şut atan takım ras\ntgele belirlenir;kırmızı ve mavi \ntakımın oyuncuları kesişerek s\nıralanır sırayla şut atılır. (Aynı \nmaçta Penaltı Vuruşu)"
+ },
+ {
+  "i": 890,
+  "tr": "3.Her takımın her 2 oyuncusu,\nsahasına göre 2 raundluk şut \nçekimi için sıralanır, her bir ra\nund bir sefer şut çekilir."
+ },
+ {
+  "i": 891,
+  "tr": "4.Haritada çıkan rastgele kale\nlere vurmarak ilgili puanları ve  \ntakımın puanları kazanılır, ma\nç bittikten sonra toplam puanı \nfazla olan taraf zafer kazanır; \nzaman dolduktan sonra şut çe\nkilemeyen veya kaleye vuruşu \nisabet ettiremeyenler 0 puan k\nazanır."
+ },
+ {
+  "i": 892,
+  "tr": "5.Ödül hesaplaması: Kazana t\narafın oyuncuları 2 sefer kart \nçevirme fırsatını kazanır; mağl\nup olma veya beraber kalma d\nurumunda 1 sefer kart çevirme \nşansı kazanılır; oyuncular bu \nmaçta şut çekerek kazandıklar\nı puanlar 1:50 oranına göre de\nneyim ödülüne dönüşür."
+ },
+ {
+  "i": 893,
+  "tr": "Seviyesi 20'den az olanalar Zafere Azmetme Anı'na katılamazlar."
+ },
+ {
+  "i": 894,
+  "tr": "Bugün ayrıca ek olarak 1 seferlik hazine keşfini kazanma şansınız var, vazgeçmek istediğinizden emin misiniz?"
+ },
+ {
+  "i": 895,
+  "tr": "Hazine keşfi bitti,bir daha girip başlayamazsınız"
+ },
+ {
+  "i": 896,
+  "tr": "Arkadaşlarınıza tarla düzeltmede 5 sefer yardım ederek ek bir hazine keşfi daha yapma şansı yakalayın."
+ },
+ {
+  "i": 897,
+  "tr": "İşlem çok çok sık yapıldı, lütfen biraz bekleyip yeniden deneyin."
+ },
+ {
+  "i": 898,
+  "tr": "Tarla hazine keşfi şansınız var."
+ },
+ {
+  "i": 899,
+  "tr": "Piramit Ödül itemi alım hatası!"
+ }
+]

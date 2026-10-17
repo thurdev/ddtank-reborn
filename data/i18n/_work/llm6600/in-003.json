@@ -1,0 +1,722 @@
+[
+ {
+  "i": 540,
+  "tr": "Sonraki sayfa"
+ },
+ {
+  "i": 541,
+  "tr": "Arkadaş davet et"
+ },
+ {
+  "i": 542,
+  "tr": "Fon müziği"
+ },
+ {
+  "i": 543,
+  "tr": "Ses efekti"
+ },
+ {
+  "i": 544,
+  "tr": "Silahın özel efekti"
+ },
+ {
+  "i": 545,
+  "tr": "Hoparlör özelliği"
+ },
+ {
+  "i": 546,
+  "tr": "Çevrimiçi ipucu"
+ },
+ {
+  "i": 547,
+  "tr": "Arkadaş olmaya izin ver"
+ },
+ {
+  "i": 548,
+  "tr": "Topluluk özelliği"
+ },
+ {
+  "i": 549,
+  "tr": "Rehber özelliği"
+ },
+ {
+  "i": 550,
+  "tr": "Yabancılardan gelen \nmesajı reddet"
+ },
+ {
+  "i": 551,
+  "tr": "Çırağınız mesajı \nreddetti"
+ },
+ {
+  "i": 552,
+  "tr": "Uzak sunucuyu seç"
+ },
+ {
+  "i": 553,
+  "tr": "Zorluğu seç"
+ },
+ {
+  "i": 554,
+  "tr": "Sıfırla"
+ },
+ {
+  "i": 555,
+  "tr": "Kendin için aç"
+ },
+ {
+  "i": 556,
+  "tr": "Arkadaş için aç"
+ },
+ {
+  "i": 557,
+  "tr": "Hizmet açma zamanı"
+ },
+ {
+  "i": 558,
+  "tr": "Şu anki kupon"
+ },
+ {
+  "i": 559,
+  "tr": "Avatar adı"
+ },
+ {
+  "i": 560,
+  "tr": "Adı tekrar yaz"
+ },
+ {
+  "i": 561,
+  "tr": "Bitiş zamanı"
+ },
+ {
+  "i": 562,
+  "tr": "VIP özel ayrıcalığı"
+ },
+ {
+  "i": 563,
+  "tr": "VIP ayrıcalığı süresi bitiş zamanı:"
+ },
+ {
+  "i": 564,
+  "tr": "Tebrikler, VIP hediye paketi elde ettin, aşağıdaki hediyeleri elde edebilirsin."
+ },
+ {
+  "i": 565,
+  "tr": "Kart buff"
+ },
+ {
+  "i": 566,
+  "tr": "Puan odasını kur"
+ },
+ {
+  "i": 567,
+  "tr": "Top 16 karşılaşmaya bak"
+ },
+ {
+  "i": 568,
+  "tr": "Top 16 ödülü"
+ },
+ {
+  "i": 569,
+  "tr": "Top 8 ödülü"
+ },
+ {
+  "i": 570,
+  "tr": "Top 4 ödülü"
+ },
+ {
+  "i": 571,
+  "tr": "İkinci olan ödülü"
+ },
+ {
+  "i": 572,
+  "tr": "Şampiyon ödülü"
+ },
+ {
+  "i": 573,
+  "tr": "Fırsat aç"
+ },
+ {
+  "i": 574,
+  "tr": "Bu sefer açmak için gerekli"
+ },
+ {
+  "i": 575,
+  "tr": "Şu anda bulunan"
+ },
+ {
+  "i": 576,
+  "tr": "Tebrikler, aşağıdaki öğeleri elde edebilirsin."
+ },
+ {
+  "i": 577,
+  "tr": "İpucu: Bazı teçhizatlarının süresi geçti,Lütfen zamanında yenile."
+ },
+ {
+  "i": 578,
+  "tr": "İpucu: Bazı teçhizatlarının süresi geçti, senin için 7 günlük yenilendi."
+ },
+ {
+  "i": 579,
+  "tr": "{0} tecrübe daha elde edilebilir"
+ },
+ {
+  "i": 580,
+  "tr": "Yok"
+ },
+ {
+  "i": 581,
+  "tr": "({0})"
+ },
+ {
+  "i": 582,
+  "tr": "İşlem başarılı"
+ },
+ {
+  "i": 583,
+  "tr": "Doğrula"
+ },
+ {
+  "i": 584,
+  "tr": "Elbise"
+ },
+ {
+  "i": 585,
+  "tr": "Lütfen para yükleme yolu seç!"
+ },
+ {
+  "i": 586,
+  "tr": "Ödeme şekli:"
+ },
+ {
+  "i": 587,
+  "tr": "Para yükleme türü"
+ },
+ {
+  "i": 588,
+  "tr": "Aşağıdaki öğeleri elde edeceksin:"
+ },
+ {
+  "i": 589,
+  "tr": "Tıklayarak deneyin"
+ },
+ {
+  "i": 590,
+  "tr": "Gizle"
+ },
+ {
+  "i": 591,
+  "tr": "Bombom kralı dileği"
+ },
+ {
+  "i": 592,
+  "tr": "{0} kupon kesilir"
+ },
+ {
+  "i": 593,
+  "tr": "Ücretsiz sayı"
+ },
+ {
+  "i": 594,
+  "tr": "Şu an gösterilen numaraya göre bomba at, lütfen!"
+ },
+ {
+  "i": 595,
+  "tr": "Sadece sıra sizdeyken kullanılır."
+ },
+ {
+  "i": 596,
+  "tr": "Ulaşamaz"
+ },
+ {
+  "i": 597,
+  "tr": "Merhaba!\n         Bombom'a hoşgeldiniz!\n         e basarak tam ekran olur!"
+ },
+ {
+  "i": 598,
+  "tr": "F11"
+ },
+ {
+  "i": 599,
+  "tr": "8 saat geri sayım hazine sandığı"
+ },
+ {
+  "i": 600,
+  "tr": "sonra açabilirsin"
+ },
+ {
+  "i": 601,
+  "tr": "(Çevrimdışı olduğunda yine zamanlar!)"
+ },
+ {
+  "i": 602,
+  "tr": "{0}.seviye olduktan sonra satın alınabilir."
+ },
+ {
+  "i": 603,
+  "tr": "VIP {0}.seviye olduktan sonra Hasat Tanrısı'nı satın alabilir."
+ },
+ {
+  "i": 604,
+  "tr": "Rüzgar gücü açıldı, rüzgar gücünün yönü ve şiddeti mevcut. Rüzgar yönüne açı daha küçük, rüzgara karşı açı daha büyük olmalı!"
+ },
+ {
+  "i": 605,
+  "tr": "Bu özellik sadece 1.-15.seviye arasında kullanılır."
+ },
+ {
+  "i": 606,
+  "tr": "Şu an      bağlı kuponun var, lütfen miktarı yaz"
+ },
+ {
+  "i": 607,
+  "tr": "Zaten Boss savaş odasına girdin."
+ },
+ {
+  "i": 608,
+  "tr": "İşlem başarılı olduktan sonra satın alınan öğe bağlı; elde edilen kuponlar normal, %10 kesintili olacaktır."
+ },
+ {
+  "i": 609,
+  "tr": "Lütfen içeriği yazın"
+ },
+ {
+  "i": 610,
+  "tr": "Bu ürün kaldırıldı"
+ },
+ {
+  "i": 611,
+  "tr": "Bağlı kupon sayısı zaten üst sınırına ulaştı, bir daha elde edilemez. Devam etmek istediğine emin misin?"
+ },
+ {
+  "i": 612,
+  "tr": "Büyüme puanı: 15 puan/gün"
+ },
+ {
+  "i": 613,
+  "tr": "365 gün"
+ },
+ {
+  "i": 614,
+  "tr": "1 yıl"
+ },
+ {
+  "i": 615,
+  "tr": "Açık artırma şirketi"
+ },
+ {
+  "i": 616,
+  "tr": "Oyun salonu"
+ },
+ {
+  "i": 617,
+  "tr": "Düğün salonu"
+ },
+ {
+  "i": 618,
+  "tr": "Çiftlik"
+ },
+ {
+  "i": 619,
+  "tr": "Keşif Rıhtımı"
+ },
+ {
+  "i": 620,
+  "tr": "Demirci atöylesi"
+ },
+ {
+  "i": 621,
+  "tr": "Alışveriş merkezi"
+ },
+ {
+  "i": 622,
+  "tr": "Onur Listesi"
+ },
+ {
+  "i": 623,
+  "tr": "Oyuncu listesi yenileme başarısız!"
+ },
+ {
+  "i": 624,
+  "tr": "Her oyunu her gün buradan ödül \nalabilir.VIP oyuncuları her gün ek \nolarak bir VIP ödülünü alabilir."
+ },
+ {
+  "i": 625,
+  "tr": "Bugün"
+ },
+ {
+  "i": 626,
+  "tr": "Pazar"
+ },
+ {
+  "i": 627,
+  "tr": "Gelecek Pazar"
+ },
+ {
+  "i": 628,
+  "tr": "Pazartesi"
+ },
+ {
+  "i": 629,
+  "tr": "Gelecek Pazartesi"
+ },
+ {
+  "i": 630,
+  "tr": "Salı"
+ },
+ {
+  "i": 631,
+  "tr": "Gelecek Salı"
+ },
+ {
+  "i": 632,
+  "tr": "Çarşamba"
+ },
+ {
+  "i": 633,
+  "tr": "Gelecek Çarşamba"
+ },
+ {
+  "i": 634,
+  "tr": "Perşembe"
+ },
+ {
+  "i": 635,
+  "tr": "Gelecek Perşembe"
+ },
+ {
+  "i": 636,
+  "tr": "Cuma"
+ },
+ {
+  "i": 637,
+  "tr": "Gelecek Cuma"
+ },
+ {
+  "i": 638,
+  "tr": "Cumartesi"
+ },
+ {
+  "i": 639,
+  "tr": "Gelecek Cumartesi"
+ },
+ {
+  "i": 640,
+  "tr": "Tıklayarak çeşitli savaşma becerileri satın alabilirsin. Dünya Boss'a karşı gelmek için süper savaşma gücüne sahip olabilirsin."
+ },
+ {
+  "i": 641,
+  "tr": "Kalan bir tuşla tamamlama sayısı: {0}"
+ },
+ {
+  "i": 642,
+  "tr": "Arial"
+ },
+ {
+  "i": 643,
+  "tr": "Bu öğenin türü uymuyor!"
+ },
+ {
+  "i": 644,
+  "tr": "Oda numarası:"
+ },
+ {
+  "i": 645,
+  "tr": "] seni arkadaş olarak ekledi"
+ },
+ {
+  "i": 646,
+  "tr": "Altın yetersiz, {0} Altın"
+ },
+ {
+  "i": 647,
+  "tr": "Bugün, ücretsiz sayısı: {0}"
+ },
+ {
+  "i": 648,
+  "tr": "Kurallar Açıklamaları"
+ },
+ {
+  "i": 649,
+  "tr": "Çift Zar:Tıklarsanız çift zar atılır. {0} kupon kesilir."
+ },
+ {
+  "i": 650,
+  "tr": "Büyük Zar: Tıklarsanız 4,5,6'dan biri gelir. {0} kupon kesilir."
+ },
+ {
+  "i": 651,
+  "tr": "Küçük Zar: Tıklarsanız 1,2,3'den biri gelir. {0} kupon kesilir."
+ },
+ {
+  "i": 652,
+  "tr": "Tıklandıktan sonra hücredeki değerli öğe yenilenir; {0} kupon harcanmak gerekir."
+ },
+ {
+  "i": 653,
+  "tr": "Yenilemeyi tıklayarak {0} kuponun kesilecektir."
+ },
+ {
+  "i": 654,
+  "tr": "Bugün bir daha hatırlatmasın"
+ },
+ {
+  "i": 655,
+  "tr": "Şu an {0}'ı seçtin, {1} kuponun kesilecektir."
+ },
+ {
+  "i": 656,
+  "tr": "Normal zar"
+ },
+ {
+  "i": 657,
+  "tr": "Çift zar"
+ },
+ {
+  "i": 658,
+  "tr": "Küçük zar"
+ },
+ {
+  "i": 659,
+  "tr": "{0}.seviye hazine sandığını tamamladın, aşağıdaki öğeleri elde edeceksin:"
+ },
+ {
+  "i": 660,
+  "tr": "Elde ettiğin öğeler:"
+ },
+ {
+  "i": 661,
+  "tr": "Aşağıdaki öğeleri zaten elde ettin:"
+ },
+ {
+  "i": 662,
+  "tr": "Tüm kart yuvalarının seviyesi Sv.0, sıfırlanamaz."
+ },
+ {
+  "i": 663,
+  "tr": "Tüm kart yuvalarını Sv.0'a sıfırlamak istediğinizden emin misiniz? Sıfırlandıktan"
+ },
+ {
+  "i": 664,
+  "tr": "sonra <FONT COLOR='#FF0000'> {0} </FONT> kart ruhunu elde edebilirsin. Bu işlem için <FONT COLOR='#FF0000'> {1} </FONT> kupon gerekli."
+ },
+ {
+  "i": 665,
+  "tr": "Başlangıç fiyatı, açık artırma fiyatı {0} kupondan yüksek olmalı."
+ },
+ {
+  "i": 666,
+  "tr": "(%{0} indirimli)"
+ },
+ {
+  "i": 667,
+  "tr": "Kalan kart çekme sayısı <FONT COLOR='#FF0000'>{0}</FONT>\n Bu sefer kart çekmek için <FONT COLOR='#FF0000'>{1}</FONT> kupon kesilir."
+ },
+ {
+  "i": 668,
+  "tr": "Arkadaşlarınızı Bombom'a davet edin!"
+ },
+ {
+  "i": 669,
+  "tr": "Select All"
+ },
+ {
+  "i": 670,
+  "tr": "davet edin"
+ },
+ {
+  "i": 671,
+  "tr": "Facebook"
+ },
+ {
+  "i": 672,
+  "tr": "duvarınıza yapıştırın"
+ },
+ {
+  "i": 673,
+  "tr": "paylaşın"
+ },
+ {
+  "i": 674,
+  "tr": "Ben az önce BOMBOM II'de {0} ünvanını kazandım! Hemen sen de katıl!"
+ },
+ {
+  "i": 675,
+  "tr": "Yine seviye atladım. Hemen benimle BOMBOM dünyasında maceraya gel!"
+ },
+ {
+  "i": 676,
+  "tr": "Ben seçkin VIP üyeyim. Bir çok ayrıcalığa sahibim. Hadi hep beraber katılalım!"
+ },
+ {
+  "i": 677,
+  "tr": "Sonunda 1. sürümü bitirdim. Macera dolu bir dünya.. İşte geldim."
+ },
+ {
+  "i": 678,
+  "tr": "Ben BOMBOM II'de evlendim. Hadi sen de gel beni tebrik et!"
+ },
+ {
+  "i": 679,
+  "tr": "Ben BOMBOM II'de yeni bir arkadaş buldum. Hadi seninle de birklite oynayalım!"
+ },
+ {
+  "i": 680,
+  "tr": "Ben insanlara bilgi ve eğitim veren bir akıl hocası oldum. Gelip benim öğretilerimi dikkalice dinlemek istermisin?"
+ },
+ {
+  "i": 681,
+  "tr": "Ben sevimli bir arkadaş yetiştirdim. Gelip ona bakmak istermisin?"
+ },
+ {
+  "i": 682,
+  "tr": "Ben bir totem açtım. Gizemli güçleri yakında açığa çıkacak. Sen de sahip olmak istermisin?"
+ },
+ {
+  "i": 683,
+  "tr": "Ben gizemli bir XuLian gerçekleştirdim. Daha da güçlendirebilirim. Beni yakalabilirmisin?"
+ },
+ {
+  "i": 684,
+  "tr": "Ben sonunda {0} bitirdim. Çok mutluyum! Hadi hemen bana yardıma gel!"
+ },
+ {
+  "i": 685,
+  "tr": "HaHa! Günlük görevlerin hepsini tamamladım. Sen hala ne bekliyorsun?"
+ },
+ {
+  "i": 686,
+  "tr": "Online olarak bedavaya çok sayıda ödül kazandım! Hadi hemen benimle birlikte sen de al!"
+ },
+ {
+  "i": 687,
+  "tr": "Eğitim iksir miktarı"
+ },
+ {
+  "i": 688,
+  "tr": "iksir miktarı"
+ },
+ {
+  "i": 689,
+  "tr": "İksir seviyesini geliştirmek için hala {0} adet gerekli."
+ },
+ {
+  "i": 690,
+  "tr": "VIP Paralarının hepsi kullanılmış"
+ },
+ {
+  "i": 691,
+  "tr": "İlk defa kupon yükleyen"
+ },
+ {
+  "i": 692,
+  "tr": "Özellikler"
+ },
+ {
+  "i": 693,
+  "tr": "Aktivite Zamanı"
+ },
+ {
+  "i": 694,
+  "tr": "Mevcut Metaryeller"
+ },
+ {
+  "i": 695,
+  "tr": "Değişim Metaryellerini seç"
+ },
+ {
+  "i": 696,
+  "tr": "Değişim miktarını gir"
+ },
+ {
+  "i": 697,
+  "tr": "Alışım savaş başlığı"
+ },
+ {
+  "i": 698,
+  "tr": "Antik dilek"
+ },
+ {
+  "i": 699,
+  "tr": "Minotar`un zararını azaltıcı yüzde al{0}"
+ },
+ {
+  "i": 700,
+  "tr": "Geniş ölçekli atak, çok iyi"
+ },
+ {
+  "i": 701,
+  "tr": "Atak artıyor{0}。"
+ },
+ {
+  "i": 702,
+  "tr": "İki ekipmanın özelliğini ve gücünü değiştirmek iste misiniz?<br><FONT SIZE='12' FACE='Arial' KERNING='2' COLOR='#FF0000'> Not：İki ekipman ve bağlı karakterin değişiminden sonra.</FONT>"
+ },
+ {
+  "i": 703,
+  "tr": "Yükleme kutusu şablonu başarısız"
+ },
+ {
+  "i": 704,
+  "tr": "Lütfen aynı seviyedeki metaryelleri koyun"
+ },
+ {
+  "i": 705,
+  "tr": "İnci sistemi seviye 16, açın"
+ },
+ {
+  "i": 706,
+  "tr": "İnci listesi yüklemesi başarısız"
+ },
+ {
+  "i": 707,
+  "tr": "Saldırı İncisi"
+ },
+ {
+  "i": 708,
+  "tr": "Savunma İncisi"
+ },
+ {
+  "i": 709,
+  "tr": "Nitelik İncisi"
+ },
+ {
+  "i": 710,
+  "tr": "sentezleme"
+ },
+ {
+  "i": 711,
+  "tr": "Kilitli/Kilitsiz"
+ },
+ {
+  "i": 712,
+  "tr": "Düşük seviyedeki inci yuvadaki deneyim seviyesiyle daha yüksek seviyeye yükseldi"
+ },
+ {
+  "i": 713,
+  "tr": "İnci kilitlendikten sonra ekipman alımında gelişme mümkündür. Fakat sentezleme değil."
+ },
+ {
+  "i": 714,
+  "tr": "Şuanki sayfa deneyimle yüksek seviyedeki inci yuvasına dönüştürülebilir"
+ },
+ {
+  "i": 715,
+  "tr": "İnci kilitlenmeli, sentezlenemez"
+ },
+ {
+  "i": 716,
+  "tr": "İnci, geliştirilmiş inci yuvasına seviye yükselterek koyulabilir."
+ },
+ {
+  "i": 717,
+  "tr": "Sentezlenecek inci yok"
+ },
+ {
+  "i": 718,
+  "tr": "Açmak istediğiniz deliği seçiniz, deliğe tekrar tıklayınız."
+ },
+ {
+  "i": 719,
+  "tr": "Delik çoktan en yüksek seviyesine ulaştı."
+ }
+]

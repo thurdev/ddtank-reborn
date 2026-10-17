@@ -1,0 +1,722 @@
+[
+ {
+  "i": 2160,
+  "tr": "Alım zamanı:"
+ },
+ {
+  "i": 2161,
+  "tr": "Ödülün kalanı:"
+ },
+ {
+  "i": 2162,
+  "tr": "Kupon/tane"
+ },
+ {
+  "i": 2163,
+  "tr": "Bağlı puan/tane"
+ },
+ {
+  "i": 2164,
+  "tr": "Satın alım sınırı{0}"
+ },
+ {
+  "i": 2165,
+  "tr": "{0} kupon harcanarak 1 hediye paketi satın almak istediğinden emin misin"
+ },
+ {
+  "i": 2166,
+  "tr": "Seviye {0}. Seviyeye ulaştı"
+ },
+ {
+  "i": 2167,
+  "tr": "Tüm bedenin güçlenmesi {0} seviye"
+ },
+ {
+  "i": 2168,
+  "tr": "Nitelik sentezleme+{0}"
+ },
+ {
+  "i": 2169,
+  "tr": "Savaş enerjisi {0}ıncı"
+ },
+ {
+  "i": 2170,
+  "tr": "Savaş enerjisi {0}-{1}ıncı"
+ },
+ {
+  "i": 2171,
+  "tr": "Savaş enerjisi {0} ulaştı"
+ },
+ {
+  "i": 2172,
+  "tr": "Tüm beden incisi {0} seviye"
+ },
+ {
+  "i": 2173,
+  "tr": "Totem {0} seviye"
+ },
+ {
+  "i": 2174,
+  "tr": "Eğitim genel seviyesi {0} ulaştı"
+ },
+ {
+  "i": 2175,
+  "tr": "Kart çevirme genel seviyesi {0} ulaştı"
+ },
+ {
+  "i": 2176,
+  "tr": "Binek {0} seviye {1} yıldıza ulaştı"
+ },
+ {
+  "i": 2177,
+  "tr": "Hayvan gelişimi {0} seviyeye ulaştı"
+ },
+ {
+  "i": 2178,
+  "tr": "Çok hızlı tıkladın, lütfen biraz dinlen!"
+ },
+ {
+  "i": 2179,
+  "tr": "VIP{0} ulaş"
+ },
+ {
+  "i": 2180,
+  "tr": "Tüm alanlarda VIP{0} {1} kişiye ulaştı"
+ },
+ {
+  "i": 2181,
+  "tr": "VIP{0} kişi her eklemede {1} kişi"
+ },
+ {
+  "i": 2182,
+  "tr": "VIP{0} ulaşınca ödülü alabilirsin"
+ },
+ {
+  "i": 2183,
+  "tr": "{0} tane {1} yıldız hayvan elde et"
+ },
+ {
+  "i": 2184,
+  "tr": "Her bölgede {0} tane {1} yıldız hayvan var"
+ },
+ {
+  "i": 2185,
+  "tr": "Her eklemede {0} tane {1} yıldız hayvan"
+ },
+ {
+  "i": 2186,
+  "tr": "{0} tane {1} yıldız kutsal hayvan elde et"
+ },
+ {
+  "i": 2187,
+  "tr": "Tüm alanlarda {0} tane {1} yıldız kutsal hayvan var"
+ },
+ {
+  "i": 2188,
+  "tr": "Her eklemede {0} tane {1} yıldız kutsal hayvan"
+ },
+ {
+  "i": 2189,
+  "tr": "Kendinde {0} tane {1}  yıldızlı hayvana sahip ol"
+ },
+ {
+  "i": 2190,
+  "tr": "Kendinde {0} tane {1}  yıldızlı kutsal hayvana sahip ol"
+ },
+ {
+  "i": 2191,
+  "tr": "{0}tane\n{1} kullan"
+ },
+ {
+  "i": 2192,
+  "tr": "{0} kart hayaleti elde et"
+ },
+ {
+  "i": 2193,
+  "tr": "{0} tane {1} seviye inci elde et"
+ },
+ {
+  "i": 2194,
+  "tr": "{0} tane {1}  ruh taşı elde et"
+ },
+ {
+  "i": 2195,
+  "tr": "{0}tane\n{1} yetiştir"
+ },
+ {
+  "i": 2196,
+  "tr": "Binek {0} seviye {1}"
+ },
+ {
+  "i": 2197,
+  "tr": "{0} elde et"
+ },
+ {
+  "i": 2198,
+  "tr": "Yükleme geri ödeme etkinliği açıldı."
+ },
+ {
+  "i": 2199,
+  "tr": "Geri ödemeyi harcama etkinliği başladı."
+ },
+ {
+  "i": 2200,
+  "tr": "Binek binicisinin seviye yükseltme etkinliği açıldı."
+ },
+ {
+  "i": 2201,
+  "tr": "Binek binici yeteneğinin  seviye yükseltme etkinliği açıldı."
+ },
+ {
+  "i": 2202,
+  "tr": "Yükleme geri ödemesinde alım ödülü var. |Hemen al"
+ },
+ {
+  "i": 2203,
+  "tr": "Geri besleme harcandığında ödül alınabilir|Hemen al"
+ },
+ {
+  "i": 2204,
+  "tr": "Binek yükseltme etkinliğinde ödül alınabilir. |Hemen al"
+ },
+ {
+  "i": 2205,
+  "tr": "Binek nitelik yükseltme etkinliğinde ödül alınabilir. |Hemen al"
+ },
+ {
+  "i": 2206,
+  "tr": "Çılgın seviye yükseltme etkinliğinde ödül alınabilir. |Hemen al"
+ },
+ {
+  "i": 2207,
+  "tr": "Güçlendirme Kralı etkinliğinde ödül alınabilir. |Hemen al"
+ },
+ {
+  "i": 2208,
+  "tr": "Sentezleme Kralı etkinliğinde ödül alınabilir. |Hemen al"
+ },
+ {
+  "i": 2209,
+  "tr": "Ekstrim çaylak kralı etkinliğinde ödül alınabilir. |Hemen al"
+ },
+ {
+  "i": 2210,
+  "tr": "İnci işletme etkinliğinde ödül alınabilir. |Hemen al"
+ },
+ {
+  "i": 2211,
+  "tr": "Totem öncüsü etkinliğinde ödül alınabilir. |Hemen al"
+ },
+ {
+  "i": 2212,
+  "tr": "Eğitim uzmanı etkinliğinde ödül alınabilir. |Hemen al"
+ },
+ {
+  "i": 2213,
+  "tr": "Çok değerli kart etkinliğinde ödül alınabilir. |Hemen al"
+ },
+ {
+  "i": 2214,
+  "tr": "Eğlenceli savaşçı ruh etkinliğinde ödül alınabilir. |Hemen al"
+ },
+ {
+  "i": 2215,
+  "tr": "Rüzgar Binek etkinliğinde ödül alınabilir. |Hemen al"
+ },
+ {
+  "i": 2216,
+  "tr": "Hayvan güçlendirme etkinliğinde ödül alınabilir. |Hemen al"
+ },
+ {
+  "i": 2217,
+  "tr": "Ulusal süper VIP etkinliğinde ödül alınabilir. |Hemen al"
+ },
+ {
+  "i": 2218,
+  "tr": "Ulusal hayvan elit etkinliğinde ödül alınabilir. |Hemen al"
+ },
+ {
+  "i": 2219,
+  "tr": "Hergün ödül etkinliğinde ödül alınabilir. |Hemen al"
+ },
+ {
+  "i": 2220,
+  "tr": "Çok fazla tıklıyorsun, lütfen biraz bekle!"
+ },
+ {
+  "i": 2221,
+  "tr": "Büyü değ-\nerini ekle"
+ },
+ {
+  "i": 2222,
+  "tr": "Büyü etkisini eklemede ilk eritme \nseviyesi +5 olduktan sonra etki başlayacak"
+ },
+ {
+  "i": 2223,
+  "tr": "{0} aşama {1} seviye büyü ekleme"
+ },
+ {
+  "i": 2224,
+  "tr": "Büyü saldırısı:"
+ },
+ {
+  "i": 2225,
+  "tr": "Büyü savunması:"
+ },
+ {
+  "i": 2226,
+  "tr": "Ekipmanı koymadınız!"
+ },
+ {
+  "i": 2227,
+  "tr": "Ruh taşını koymadınız!"
+ },
+ {
+  "i": 2228,
+  "tr": "Bu ekipmana zaten en yüksek seviye büyü eklendi"
+ },
+ {
+  "i": 2229,
+  "tr": "Büyü ekleme açıklaması"
+ },
+ {
+  "i": 2230,
+  "tr": "Tebrikler, büyü ekleme başarılı!"
+ },
+ {
+  "i": 2231,
+  "tr": "Önce lütfen büyü eklemek istediğiniz ekipmana çift tıklayarak ekleyin"
+ },
+ {
+  "i": 2232,
+  "tr": "Büyücü odası"
+ },
+ {
+  "i": 2233,
+  "tr": "Altın hazine kutusu 5 defa"
+ },
+ {
+  "i": 2234,
+  "tr": "Sihir saldırısını yükseltme:"
+ },
+ {
+  "i": 2235,
+  "tr": "Sihir savunmasını yükseltme:"
+ },
+ {
+  "i": 2236,
+  "tr": "Kritik hasarı yükseltme:"
+ },
+ {
+  "i": 2237,
+  "tr": "Hazine deposu dolu"
+ },
+ {
+  "i": 2238,
+  "tr": "Çırağın ek nitelikleri:"
+ },
+ {
+  "i": 2239,
+  "tr": "Azizin ek nitelikleri:"
+ },
+ {
+  "i": 2240,
+  "tr": "Ustanın ek nitelikleri:"
+ },
+ {
+  "i": 2241,
+  "tr": "saldırısını"
+ },
+ {
+  "i": 2242,
+  "tr": "savunmasını"
+ },
+ {
+  "i": 2243,
+  "tr": "Kritik hasarı"
+ },
+ {
+  "i": 2244,
+  "tr": "Sonraki seviyede yükseltilebilir:"
+ },
+ {
+  "i": 2245,
+  "tr": "Hergün ücretsiz 5 defa tekrarlanabilir, Sihir tozu, Sihir iksiri, Ruh taşı vb. öğeleri üretebilir"
+ },
+ {
+  "i": 2246,
+  "tr": "{0} Kupon harcayarak çok yüksek şansla Sihir iksiri, yüksek seviye silah parçası, Gelişim taşı, Ruh taşı elde edebilirsin"
+ },
+ {
+  "i": 2247,
+  "tr": "En yüksek seviyeye ulaştı"
+ },
+ {
+  "i": 2248,
+  "tr": "Çantayı aç"
+ },
+ {
+  "i": 2249,
+  "tr": "Bu turda harcanan<font color='#ff0000'>{0}</font>kupon<font color='#ff0000'>{1}</font>tane hazine kafesini açtı, devam edilsin mi？"
+ },
+ {
+  "i": 2250,
+  "tr": "Büyücü hazine sandığı"
+ },
+ {
+  "i": 2251,
+  "tr": "Altın hazine kutusu"
+ },
+ {
+  "i": 2252,
+  "tr": "Hazine sandığını alım sayısının tamamı kullanıldı"
+ },
+ {
+  "i": 2253,
+  "tr": "Hazine sandığı çekilişi başarılı!"
+ },
+ {
+  "i": 2254,
+  "tr": "Sihir iksiri yetersiz!"
+ },
+ {
+  "i": 2255,
+  "tr": "Bu turda harcanan<font color='#ff0000'>{0}</font>kupondur,\ndevam edilsin mi？"
+ },
+ {
+  "i": 2256,
+  "tr": "Birliğe katılmadın!"
+ },
+ {
+  "i": 2257,
+  "tr": "Sihir iksiri sayısı"
+ },
+ {
+  "i": 2258,
+  "tr": "İksir sayısı"
+ },
+ {
+  "i": 2259,
+  "tr": "<font color='#ff0000'>{0}</font>iksir daha kullanarak seviye yükseltilebilir"
+ },
+ {
+  "i": 2260,
+  "tr": "Aktifleştikten sonra silah bağlı hale gelir, devam edilsin mi?"
+ },
+ {
+  "i": 2261,
+  "tr": "Sihir savunma:"
+ },
+ {
+  "i": 2262,
+  "tr": "Kritik hasar:"
+ },
+ {
+  "i": 2263,
+  "tr": "Büyücü öğrencisi"
+ },
+ {
+  "i": 2264,
+  "tr": "Büyücü çırağı"
+ },
+ {
+  "i": 2265,
+  "tr": "Büyücü ustası"
+ },
+ {
+  "i": 2266,
+  "tr": "Aktifleştirdikten sonra eklenir:"
+ },
+ {
+  "i": 2267,
+  "tr": "Aktifleştirme açıklaması: Güçlendirmenin aktifleştirme koşulları"
+ },
+ {
+  "i": 2268,
+  "tr": "(          miktarda puan alarak \nsıralamada yerini alabilirsin )"
+ },
+ {
+  "i": 2269,
+  "tr": "Kripta,Kripta,Saklı Yer, Saklı Yer,Oyun oynamak , Oyun oynamak ,Oyun oynamak ,Oyun oynamak ,"
+ },
+ {
+  "i": 2270,
+  "tr": "Kalan satın alma:"
+ },
+ {
+  "i": 2271,
+  "tr": "Şanslı Büyük Piyango ödülü ,ilerleme çubuğu dolduğu zaman,\nsatın alan kişiler arasında şanslı kişiye ödül paketi verilecektir.."
+ },
+ {
+  "i": 2272,
+  "tr": "Mutluca Satın Al Satın Al Satın al"
+ },
+ {
+  "i": 2273,
+  "tr": "Satın Alma Miktarı"
+ },
+ {
+  "i": 2274,
+  "tr": "Uyarı"
+ },
+ {
+  "i": 2275,
+  "tr": "Satın alma şansı gerekli değere ulaştığı zaman <font color='#ff0000'>{0}</font>,\nBir hazine toplama şansı elde edeceksin"
+ },
+ {
+  "i": 2276,
+  "tr": "Hazine Toplama Şansı"
+ },
+ {
+  "i": 2277,
+  "tr": "Sığınak yok Hazine Şansı Toplayamazsın!"
+ },
+ {
+  "i": 2278,
+  "tr": "Tebrikler! Var olan: {0}!"
+ },
+ {
+  "i": 2279,
+  "tr": "Kazananları görmek>>"
+ },
+ {
+  "i": 2280,
+  "tr": "Kazanan Kayıtları"
+ },
+ {
+  "i": 2281,
+  "tr": "Al"
+ },
+ {
+  "i": 2282,
+  "tr": "Harcaman gereken <font color='#ff0000'>{0}</font> kupon"
+ },
+ {
+  "i": 2283,
+  "tr": "{0} x{1},"
+ },
+ {
+  "i": 2284,
+  "tr": "Paket Fiyatı:{0}"
+ },
+ {
+  "i": 2285,
+  "tr": "Şanslı Büyük Piyango ödülü sona erdi.Daha fazla satın alamazsınız"
+ },
+ {
+  "i": 2286,
+  "tr": "Harcama yapmak istiyorsan <FONT COLOR='#ff0000'> {0} </FONT> gerekli olan kuponlar <FONT COLOR='#ff0000'> 50 </FONT> dayanma gücü?"
+ },
+ {
+  "i": 2287,
+  "tr": "Harcama yapmak istiyorsan <FONT COLOR='#ff0000'> {0} </FONT> gerekli olan kuponlar <FONT COLOR='#ff0000'> 1 </FONT> altın zar şansı ?"
+ },
+ {
+  "i": 2288,
+  "tr": "Bugünün satın alma şansı kullanılmıştır!"
+ },
+ {
+  "i": 2289,
+  "tr": "Hala dayanma gücünüz var.Dayanıklılık satın alamazsınız!"
+ },
+ {
+  "i": 2290,
+  "tr": "Tetikleme etkisi (olay öğeleri için geçelerli) aşşağıdaki öğenin üzerine çift kat alırsın.\\N Etkisi karışık değildir.Çif katödül etkisi oyunda alınan öğeler için geçerlidir.Etkisi karışık değildir.Günlük sıfırlanır."
+ },
+ {
+  "i": 2291,
+  "tr": "<FONT COLOR='#ff0000'>Günlük Alım Şansı{0}  ({1}/{2})</FONT>"
+ },
+ {
+  "i": 2292,
+  "tr": "Uyarı: Aşşağıdaki ödüleri alabilmek için öğeleri toplamalısın"
+ },
+ {
+  "i": 2293,
+  "tr": "Öğe Bedeli"
+ },
+ {
+  "i": 2294,
+  "tr": "Savaş Taşı"
+ },
+ {
+  "i": 2295,
+  "tr": "Yeteri kadar dayanma gücü.Yoksa yapamazsınız."
+ },
+ {
+  "i": 2296,
+  "tr": "Yeteri kadar altın zar şansı.Yoksa yapamazsınız"
+ },
+ {
+  "i": 2297,
+  "tr": "Bir savaş bu olayda patlak verecektir.Bir silah alınız."
+ },
+ {
+  "i": 2298,
+  "tr": "Çifte Ödül AL"
+ },
+ {
+  "i": 2299,
+  "tr": "Altın Zar Şansı Bir Fazla"
+ },
+ {
+  "i": 2300,
+  "tr": "Hareket sırasında çıkamazsınız"
+ },
+ {
+  "i": 2301,
+  "tr": "5 saniye içinde açılması ve kullanılması sahne olamaz sonra"
+ },
+ {
+  "i": 2302,
+  "tr": "Yetersiz sayıda Yarış!"
+ },
+ {
+  "i": 2303,
+  "tr": "{0}Katla"
+ },
+ {
+  "i": 2304,
+  "tr": "6 aylık VIP\n{0} Kupon"
+ },
+ {
+  "i": 2305,
+  "tr": "3 aylık VIP\n{0} Kupon"
+ },
+ {
+  "i": 2306,
+  "tr": "1 aylık VIP\n{0} Kupon"
+ },
+ {
+  "i": 2307,
+  "tr": "{0} Saat"
+ },
+ {
+  "i": 2308,
+  "tr": "{0} Kupon"
+ },
+ {
+  "i": 2309,
+  "tr": "[{0}] karşı [{1}] kullan [<font color='#fffc00'>{2}</font>]!"
+ },
+ {
+  "i": 2310,
+  "tr": "At yarışı etkinliği başladı, | Hadi Katıl"
+ },
+ {
+  "i": 2311,
+  "tr": "At yarışı etkinliği bitti"
+ },
+ {
+  "i": 2312,
+  "tr": "Gizli bölgede sürükleme"
+ },
+ {
+  "i": 2313,
+  "tr": "İsim:{0}"
+ },
+ {
+  "i": 2314,
+  "tr": "Gerekli Kaynaklar:{0}\nToplam Ücret: {1} krediler"
+ },
+ {
+  "i": 2315,
+  "tr": "{0} seni pasta kesmeye devat etti!Katılmak istiyormusun?"
+ },
+ {
+  "i": 2316,
+  "tr": "Bu oda davetiye için maksimum sınıra ulaşmış"
+ },
+ {
+  "i": 2317,
+  "tr": "Yıl dönümü kutlama odasından {0} atmak istiyormusun ?"
+ },
+ {
+  "i": 2318,
+  "tr": "Sağlayıcı tarafından oda iptal edilmiştir"
+ },
+ {
+  "i": 2319,
+  "tr": "Not:Pastayı kesmek için tam katılım sayı olursa ev sahibi <font color='#ff0000'>gizemli ödülü</font> alır!Davetlilerde misafir ödülünü alır"
+ },
+ {
+  "i": 2320,
+  "tr": "Yıl dönümü odası açık! Herkes gelebilir!"
+ },
+ {
+  "i": 2321,
+  "tr": "öz"
+ },
+ {
+  "i": 2322,
+  "tr": "Sentezle"
+ },
+ {
+  "i": 2323,
+  "tr": "Eritmen gereken ekipmana çift tıkla"
+ },
+ {
+  "i": 2324,
+  "tr": "Eritmen gereken araca çift tıkla"
+ },
+ {
+  "i": 2325,
+  "tr": "Sayı"
+ },
+ {
+  "i": 2326,
+  "tr": "Gereken Altın:"
+ },
+ {
+  "i": 2327,
+  "tr": "Gereken öz:"
+ },
+ {
+  "i": 2328,
+  "tr": "Özellikle sentezlenmiş ekipmanı eritmek yasaktır"
+ },
+ {
+  "i": 2329,
+  "tr": "Koşullar yetersiz olduğundan eritilemez!"
+ },
+ {
+  "i": 2330,
+  "tr": "Bu öğe öz alabilir, özler yeni öğe sentezlenmesinde kullanılabilir"
+ },
+ {
+  "i": 2331,
+  "tr": "Eritileccek öğe konulmadı"
+ },
+ {
+  "i": 2332,
+  "tr": "Eritme aşamasında, lütfen sonra işlem yapın"
+ },
+ {
+  "i": 2333,
+  "tr": "Füzyon devam ediyor. Lütfen daha sonra tekrar deneyin."
+ },
+ {
+  "i": 2334,
+  "tr": "Lütfen çok sık tıklamayın"
+ },
+ {
+  "i": 2335,
+  "tr": "Kocan [{0}]: Canım, çiftliğe kelebeği çağırdım. |Hemen gel ve çağırmama yardım et."
+ },
+ {
+  "i": 2336,
+  "tr": "Karın [{0}]: Canım, çiftliğe kelebeği çağırdım. |Hemen gel ve çağırmama yardım et."
+ },
+ {
+  "i": 2337,
+  "tr": "Kelebeğin yaşlandı, |tarım hasatına erişilebilir"
+ },
+ {
+  "i": 2338,
+  "tr": "(Çizim)"
+ },
+ {
+  "i": 2339,
+  "tr": "(Nadir)"
+ }
+]

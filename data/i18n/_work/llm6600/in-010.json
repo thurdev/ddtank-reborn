@@ -1,0 +1,722 @@
+[
+ {
+  "i": 1800,
+  "tr": "Ring Savaşı"
+ },
+ {
+  "i": 1801,
+  "tr": "Ekipmanın tam giyinmamışın."
+ },
+ {
+  "i": 1802,
+  "tr": "Bu alanda zaten giyinen ekipman var."
+ },
+ {
+  "i": 1803,
+  "tr": "Burada çok zengin, renkli, harika etkinlikler var. Hergün gelip bakmayı unutma."
+ },
+ {
+  "i": 1804,
+  "tr": "Tecrübe Bugünkü sürüm tecrübesi {0}/{1} zaten alındı"
+ },
+ {
+  "i": 1805,
+  "tr": "YY üye"
+ },
+ {
+  "i": 1806,
+  "tr": "Onur listesi"
+ },
+ {
+  "i": 1807,
+  "tr": "Giriş sunucusunun hediye paketi"
+ },
+ {
+  "i": 1808,
+  "tr": "Yaşlı oyuncunun dönmesi"
+ },
+ {
+  "i": 1809,
+  "tr": "Gir"
+ },
+ {
+  "i": 1810,
+  "tr": "Yenile"
+ },
+ {
+  "i": 1811,
+  "tr": "Ünvan açıklaması"
+ },
+ {
+  "i": 1812,
+  "tr": "Müşteri Hizmetleri"
+ },
+ {
+  "i": 1813,
+  "tr": "Savaş gücü ünvanı:\n\n\n\nCazibe ünvanı:\n\n\n\nSavaş alanı başlığı:\n\n\n\nBinek Açıklaması："
+ },
+ {
+  "i": 1814,
+  "tr": "Maç ünvanı:\n\n\n\nMaç ünvanı:\n\n\n\nMaç ünvanı:\n\n\n\nMaç ünvanı"
+ },
+ {
+  "i": 1815,
+  "tr": "Elde etme koşulu：\nÜnvan etkisi：\n\n\nElde etme koşulu：\nÜnvan etkisi：\n\n\nElde etme koşulu：\nÜnvan etkisi：\n\n\nElde etme koşulu：\nÜnvan etkisi："
+ },
+ {
+  "i": 1816,
+  "tr": "Bu alandaki Savaş gücü sıralamasının birincisi\nSaldırı+30\n\n\nBu alandaki çekicilik sıralamasının birincisi\nhariç+10\n\n\n Bu alanın Saygınlık sıralama birincisi\nSaldırı+10 Çeviklik+20\n\n\n Bu alanın Saygınlık sıralama birincisi\nÇeviklik+10"
+ },
+ {
+  "i": 1817,
+  "tr": "Ekstrem Bogo Krallığı Egemenlik Maçı Şampiyonu\nÇeviklik+30\n\n\nEkstrem Bogo Krallığı Egemenlik Maçı İkincisi\nÇeviklik+20\n\n\nEkstrem Bogo Krallığı Egemenlik Maçı Üçüncüsü\nÇeviklik+10\n\n\nEkstrem Bogo Krallığı Egemenlik Maçı Şampiyonu 4-8kişi\nŞans+10"
+ },
+ {
+  "i": 1818,
+  "tr": "Savaş Gücü Kralı"
+ },
+ {
+  "i": 1819,
+  "tr": "Cazibe"
+ },
+ {
+  "i": 1820,
+  "tr": "Yarışma Şampiyonu"
+ },
+ {
+  "i": 1821,
+  "tr": "Ekstrem elmas"
+ },
+ {
+  "i": 1822,
+  "tr": "Ekstrem altın"
+ },
+ {
+  "i": 1823,
+  "tr": "Ekstrem gümüş"
+ },
+ {
+  "i": 1824,
+  "tr": "Elit oyuncular"
+ },
+ {
+  "i": 1825,
+  "tr": "Diğer oyuncuları gizlemek için buraya tıkla"
+ },
+ {
+  "i": 1826,
+  "tr": "Diğer oyuncuları görmek için  buraya tıkla"
+ },
+ {
+  "i": 1827,
+  "tr": "Detaya bak"
+ },
+ {
+  "i": 1828,
+  "tr": "Nicole:"
+ },
+ {
+  "i": 1829,
+  "tr": "Nicole'e giderek görev alabilirsin"
+ },
+ {
+  "i": 1830,
+  "tr": "Selam, sence ben güzel miyim?"
+ },
+ {
+  "i": 1831,
+  "tr": "Sayın @@{0}@@[{1}] çevrimiçi oldu!"
+ },
+ {
+  "i": 1832,
+  "tr": "Atletik, Demirci, Mağaza, Güçlenmek istiyorum, Ünlülerin Salonu, Keşif rıhtımı, Arkadaş, Usta çırak tapınağı, Eğitim, Kart, Düğün Salonu, İnci, Birlik Meydanı, Açık Arttırma, Savaş Mücadelesi, Totem, Savaş Alanı, Lig maçları, Evcil hayvan, Hediye kutusu, Evcil Hayvan, Binek,Savaşcının Gizli Yeri,Savaşcının Gizli Yeri,Mağara,Muhafız"
+ },
+ {
+  "i": 1833,
+  "tr": "{0} seviyede açılır"
+ },
+ {
+  "i": 1834,
+  "tr": "Atletik Meydan açıldı, benim buradan görevi aldıktan sonra savaşa git!"
+ },
+ {
+  "i": 1835,
+  "tr": "Demirci açıldı, benim buradan görevi aldıktan sonra karşılık gelen ekipmanı güçlendir!"
+ },
+ {
+  "i": 1836,
+  "tr": "Bugün hava çok güzel, dün akşam tam metal ceket formasını giydiğimi rüyamda gördüm, elimde intikam kılıcıyla Nicole'ye korsanları yenmesine yardım ettim, korsanlardan geriye çok Altın kaldı, haha!"
+ },
+ {
+  "i": 1837,
+  "tr": "Hayal kurma, görünüşe göre dünkü eğitim yeterince zor değildi, çabuk gel! Yanıma gel ve görevi al, yeni günün eğitimine başla."
+ },
+ {
+  "i": 1838,
+  "tr": "Bu kadar eğitim gördükten sonra çoktan nitelikli bir Bombom savaşçısı oldun, çabuk sefer rıhtımına git ve dene."
+ },
+ {
+  "i": 1839,
+  "tr": "Sadece Atletikte daha iyi atletizm seviyeni uygulayabilirsin, yanıma gelip görevi aldıktan sonra tekrar \"Atletik Meydan\"a giderek bir Atletizmi bitir."
+ },
+ {
+  "i": 1840,
+  "tr": "Binek sistemi"
+ },
+ {
+  "i": 1841,
+  "tr": "Küçük beyaz at, zengin yaban domuzu, küçük şeytani kurt, uçan süpürge, sihirli akvaryum balığı, senfoni balığı, sihirli halı, zaman çemberi,zaman Çarpanı"
+ },
+ {
+  "i": 1842,
+  "tr": "Hasar,  Zırh,  Can,Saldırısı,Savunması"
+ },
+ {
+  "i": 1843,
+  "tr": "Şu anda açık değil"
+ },
+ {
+  "i": 1844,
+  "tr": "Otomatik sonraki \nyıldız seviyesine \nyüksel"
+ },
+ {
+  "i": 1845,
+  "tr": "Binek yeteneği"
+ },
+ {
+  "i": 1846,
+  "tr": "Seviye doldu"
+ },
+ {
+  "i": 1847,
+  "tr": "Yetenek yükselt"
+ },
+ {
+  "i": 1848,
+  "tr": "Sv.{0}"
+ },
+ {
+  "i": 1849,
+  "tr": "Harcama miktarı:"
+ },
+ {
+  "i": 1850,
+  "tr": "Her savaşta en fazla 3 tane yetenek alınabilir"
+ },
+ {
+  "i": 1851,
+  "tr": "Seviye yükseltilemez, en büyük seviyede"
+ },
+ {
+  "i": 1852,
+  "tr": "Yetenek tekrar kuşanılamaz"
+ },
+ {
+  "i": 1853,
+  "tr": "Sayı yetersiz, satın almak istediğinden emin misin?"
+ },
+ {
+  "i": 1854,
+  "tr": "Binek {0} seviye {1} yıldız bu yeteneği elde edebilir"
+ },
+ {
+  "i": 1855,
+  "tr": "Yetenek yetersiz, 28. seviyede binek yeteneği açılır"
+ },
+ {
+  "i": 1856,
+  "tr": "Lütfen önce \"binek elde et\" görevini tamamla"
+ },
+ {
+  "i": 1857,
+  "tr": "Mühürlenen durumda yetenek kullanılamaz"
+ },
+ {
+  "i": 1858,
+  "tr": "Görev toplama sahnesi"
+ },
+ {
+  "i": 1859,
+  "tr": "Görev aşaması"
+ },
+ {
+  "i": 1860,
+  "tr": "Ben {0} değilim!"
+ },
+ {
+  "i": 1861,
+  "tr": "Görev tamamlanmadı, toplama sahnesinden ayrılmak istediğinden emin misin?"
+ },
+ {
+  "i": 1862,
+  "tr": "Ekstrem Bombom Egemenlik Maçı"
+ },
+ {
+  "i": 1863,
+  "tr": "Sıralamam: {0}"
+ },
+ {
+  "i": 1864,
+  "tr": "Sıralamam: Listede yok"
+ },
+ {
+  "i": 1865,
+  "tr": "Puanım:  {0}"
+ },
+ {
+  "i": 1866,
+  "tr": "Sonraki maçın başlama zamanı: {0}"
+ },
+ {
+  "i": 1867,
+  "tr": "Maç zamanı: Her ay ilk üç {0} akşamı {1} açılır"
+ },
+ {
+  "i": 1868,
+  "tr": "Ön eleme maçı"
+ },
+ {
+  "i": 1869,
+  "tr": "Sıralama               üncan                     hepsi           bölgede puan"
+ },
+ {
+  "i": 1870,
+  "tr": "Sıralama                                            puan"
+ },
+ {
+  "i": 1871,
+  "tr": "<b>[{0}]</b> <FONT  COLOR='#ffeb0c'>{1}</FONT> Savaşa karşı <FONT COLOR='#ffeb0c'>{2}</FONT> ,"
+ },
+ {
+  "i": 1872,
+  "tr": "<a href=\"event:{0}\">[Savaş raporuna bak]</a>"
+ },
+ {
+  "i": 1873,
+  "tr": "Oylama"
+ },
+ {
+  "i": 1874,
+  "tr": "100, 16'ya girer"
+ },
+ {
+  "i": 1875,
+  "tr": "16, 8'e girer"
+ },
+ {
+  "i": 1876,
+  "tr": "8, 4'e gider"
+ },
+ {
+  "i": 1877,
+  "tr": "4, 2'ye girer"
+ },
+ {
+  "i": 1878,
+  "tr": "Şampiyonluk maçı"
+ },
+ {
+  "i": 1879,
+  "tr": "İkincilik maçı"
+ },
+ {
+  "i": 1880,
+  "tr": "Arayüzden çıkmak maçı iptal eder, devam edilsin mi?"
+ },
+ {
+  "i": 1881,
+  "tr": "Maç kuralları"
+ },
+ {
+  "i": 1882,
+  "tr": "Ödüle bak"
+ },
+ {
+  "i": 1883,
+  "tr": "1inci：\n2inci：\n3üncü：\n4-8 kişi：\nKatılım ödülü：Binek Yükseltme Paketi、Yonca、Savaş \nruhu tozu、Eğitim İksiri"
+ },
+ {
+  "i": 1884,
+  "tr": "1-16ıncı: Binek Yükseltme Paketi, Yonca, Savaş ruhu \ntozu, Eğitim İksiri\n Katılım ödülü: Binek Yükseltme Paketi, Yonca, Savaş \nruhu tozu, Eğitim İksiri"
+ },
+ {
+  "i": 1885,
+  "tr": "1-100üncü: Binek Yükseltme Paketi, Yonca, Savaş ruhu \ntozu, Eğitim İksiri \n Katılım ödülü: Binek Yükseltme Paketi,  Yonca, Savaş \nruhu tozu, Eğitim İksiri"
+ },
+ {
+  "i": 1886,
+  "tr": "Maç ünvanı:"
+ },
+ {
+  "i": 1887,
+  "tr": "Elde etme koşulu: \n Başlık etkisi:"
+ },
+ {
+  "i": 1888,
+  "tr": "Ekstrem Bombom Kralı Egemenliği Maçı 4-8inci\n Şans +10"
+ },
+ {
+  "i": 1889,
+  "tr": "Ekstrem Bombom Kralı Egemenliği Maçı Şampiyonu \n Çeviklik+30"
+ },
+ {
+  "i": 1890,
+  "tr": "Ekstrem Bombom Kralı Egemenliği Maçı İkincisi \n Çeviklik+20"
+ },
+ {
+  "i": 1891,
+  "tr": "Ekstrem Bombom Kralı Egemenliği Maçı üçüncüsü\n Çeviklik+10"
+ },
+ {
+  "i": 1892,
+  "tr": "Ekstrem Bombom Kralı Egemenliği Maçı şu anda başladı!"
+ },
+ {
+  "i": 1893,
+  "tr": "Bu savaşın bitmesine kalan: {0}:{1} ({2})"
+ },
+ {
+  "i": 1894,
+  "tr": "30. seviye maça katılabilir"
+ },
+ {
+  "i": 1895,
+  "tr": "(Zafer)"
+ },
+ {
+  "i": 1896,
+  "tr": "(Mağbuliyet)"
+ },
+ {
+  "i": 1897,
+  "tr": "<P ALIGN=\"LEFT\"><FONT FACE=\"Times New Roman\" SIZE=\"14\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\"><BR><CT5><B><U><a href=\"event:1\\\">iptal ederek bak&gt;&gt;</a></U></B></CT5><BR></FONT></P>"
+ },
+ {
+  "i": 1898,
+  "tr": "Savaş başlamak üzere, savaş raporuna bakılamaz"
+ },
+ {
+  "i": 1899,
+  "tr": "Can：{0}/{1}"
+ },
+ {
+  "i": 1900,
+  "tr": "Sv {0}-{1}"
+ },
+ {
+  "i": 1901,
+  "tr": "{0} tamamlandı"
+ },
+ {
+  "i": 1902,
+  "tr": "Görevi gönder"
+ },
+ {
+  "i": 1903,
+  "tr": "Neye bakıyorsun, sunucular arası şampiyonu anladın mı?"
+ },
+ {
+  "i": 1904,
+  "tr": "Hergün harika etkinlikler var, zengin ödüller durmadan gönderilir."
+ },
+ {
+  "i": 1905,
+  "tr": "Ben Nicole, sen kimsin?"
+ },
+ {
+  "i": 1906,
+  "tr": "Gruptan çıkma, birlik sıcak yuvandın."
+ },
+ {
+  "i": 1907,
+  "tr": "Size hizmet etmekten çok memnunuz, Ben Demirci patron."
+ },
+ {
+  "i": 1908,
+  "tr": "İyi şeyleri satmaya kıyamamazlık yapma."
+ },
+ {
+  "i": 1909,
+  "tr": "Hayatta olmamın nedeni  sevgiye sadık olmayı  kanıt etmektır."
+ },
+ {
+  "i": 1910,
+  "tr": "11. seviye ile posta açma özelliği açıldı, seviye atlamada bol şans!"
+ },
+ {
+  "i": 1911,
+  "tr": "Korsanları ortadan kaldır"
+ },
+ {
+  "i": 1912,
+  "tr": "Şimdiki tüm zamanı dolan çizimler hergün<FONT COLOR='#FF0000'>{0}</FONT>Onur harcanarak devam ettirilebilir"
+ },
+ {
+  "i": 1913,
+  "tr": "Otomatik açma sayısı"
+ },
+ {
+  "i": 1914,
+  "tr": "Dikkat: Zirvedeki ödülü bir defa açarsın, Kupon yetersiz olduğunda açma sayısı durur"
+ },
+ {
+  "i": 1915,
+  "tr": "7 günlük Bombom sözleşmesini açmak istediğinden emin misin? (Bu seferki açmada {0} kupon kesilecek )"
+ },
+ {
+  "i": 1916,
+  "tr": "Bombom sözleşmesinde kalan zaman {0}, \nsatın almaya devam edilsin m? \n(satın alındıktan sonra otomatik zaman uzar,{1} Kupon harcar)"
+ },
+ {
+  "i": 1917,
+  "tr": "Açılmadı"
+ },
+ {
+  "i": 1918,
+  "tr": "Tıklayarak aç"
+ },
+ {
+  "i": 1919,
+  "tr": "Şimdiki kullanılabilen"
+ },
+ {
+  "i": 1920,
+  "tr": "Etkinleştirmenin tadını çıkar"
+ },
+ {
+  "i": 1921,
+  "tr": "Evcil hayvanın ücretsiz yıldız yükseltmesi: {0} defa"
+ },
+ {
+  "i": 1922,
+  "tr": "Evcil hayvanın ücretsiz evrilmesi: {0} defa"
+ },
+ {
+  "i": 1923,
+  "tr": "Bineğin ücretsiz yıldız yükseltmesi: {0} defa"
+ },
+ {
+  "i": 1924,
+  "tr": "Binek yeteneğinin ücretsiz yıldız yükseltmesi: {0} defa"
+ },
+ {
+  "i": 1925,
+  "tr": "Kalan zaman:"
+ },
+ {
+  "i": 1926,
+  "tr": "Ejderha Botuna arkadaşın yüklenmesi başarısız!"
+ },
+ {
+  "i": 1927,
+  "tr": "Binek çizim mesajı başarısız"
+ },
+ {
+  "i": 1928,
+  "tr": "Yeni ünvan mesajının yüklenmesi başarısız"
+ },
+ {
+  "i": 1929,
+  "tr": "Çiftlik boss mesajının yüklenme hatası"
+ },
+ {
+  "i": 1930,
+  "tr": "Binicilik"
+ },
+ {
+  "i": 1931,
+  "tr": "Binek ünvanı"
+ },
+ {
+  "i": 1932,
+  "tr": "seviyesi"
+ },
+ {
+  "i": 1933,
+  "tr": "Bineğin sahibi"
+ },
+ {
+  "i": 1934,
+  "tr": "Savaş ruhu tozunun sayısını gir"
+ },
+ {
+  "i": 1935,
+  "tr": "Lütfen koyulacak Savaş ruhu tozunun sayısını girin:"
+ },
+ {
+  "i": 1936,
+  "tr": "Hazine aranıyor"
+ },
+ {
+  "i": 1937,
+  "tr": "Çizim açıklaması"
+ },
+ {
+  "i": 1938,
+  "tr": "Çizim niteliğin başarısız. |Hemen etkinleştir"
+ },
+ {
+  "i": 1939,
+  "tr": "Lütfen meydana yürüyerek işlemi yapın!"
+ },
+ {
+  "i": 1940,
+  "tr": "Güdümlü füze"
+ },
+ {
+  "i": 1941,
+  "tr": "Bu sihirli taş kilitli, sentezlenemez"
+ },
+ {
+  "i": 1942,
+  "tr": "Sentezlenen sihirli taş son seviyede, sentezlenemez."
+ },
+ {
+  "i": 1943,
+  "tr": "Sihirli taşın büyüme materyalleri ile seviye atlama oluğunda sihirli taş Tecrübe sağlar."
+ },
+ {
+  "i": 1944,
+  "tr": "Sihirli taş materyalleri nin Tecrübesi çok fazla, sentezlemek istediğinden emin misin?"
+ },
+ {
+  "i": 1945,
+  "tr": "Binek gezgini"
+ },
+ {
+  "i": 1946,
+  "tr": "Binek çizimi"
+ },
+ {
+  "i": 1947,
+  "tr": "Kullan"
+ },
+ {
+  "i": 1948,
+  "tr": "Etkinleştir"
+ },
+ {
+  "i": 1949,
+  "tr": "Şu anda bu Binek çizim kartı yok"
+ },
+ {
+  "i": 1950,
+  "tr": "Hasar+,Zırh+,Can+,Sihir saldırısı+,Sihir savunması+"
+ },
+ {
+  "i": 1951,
+  "tr": "Çizim zaten etkinleştirildi"
+ },
+ {
+  "i": 1952,
+  "tr": "Etkinleştirme ücreti:"
+ },
+ {
+  "i": 1953,
+  "tr": "Etkinleştirme niteliği:"
+ },
+ {
+  "i": 1954,
+  "tr": "Elde etme yaklaşımı:"
+ },
+ {
+  "i": 1955,
+  "tr": "Etkinlik, Çiftlik BOSS'u"
+ },
+ {
+  "i": 1956,
+  "tr": "Dekorun türünü seç"
+ },
+ {
+  "i": 1957,
+  "tr": "Dekor yok"
+ },
+ {
+  "i": 1958,
+  "tr": "Yüksek seviye dekor"
+ },
+ {
+  "i": 1959,
+  "tr": "Lüks dekorasyon"
+ },
+ {
+  "i": 1960,
+  "tr": "{0} {1} tane"
+ },
+ {
+  "i": 1961,
+  "tr": "Ejderha Botu Maçı"
+ },
+ {
+  "i": 1962,
+  "tr": "1.Ejderha Botu Maçının etkinlik zaman içersinde, maça katıllan ve \n destinasyona ulaşan,  büyük ödül kazan.\n2, Hergün 13:00-14:00、18:00-19:00'da \n maça katılarak çifte fayda kazanabilirsin. \n3, Maç sırasında Barov takım liderini fethet ve 1 Barov hediye paketi kazan (çifte faydadan etkilenmez) \n4, Oyuncunun hergün 3 defa amaça katılma şansı vardır. \n5 Maç sırasında alınan araçlar bir sonraki maça aktarılabilir\nMaçta tekrar kullanılır, etkinlik bittikten sonra kullanılamaz. \n6, Her pozisyondaki oyuncu hergün sadece Ejderha Botu lüksünde\n bir defa dekor yapabilir."
+ },
+ {
+  "i": 1963,
+  "tr": "Füze at"
+ },
+ {
+  "i": 1964,
+  "tr": "Seç"
+ },
+ {
+  "i": 1965,
+  "tr": "Lütfen saldırmak istediğin rakibi seç"
+ },
+ {
+  "i": 1966,
+  "tr": "Destinasyona ulaşmak için kalan zaman:"
+ },
+ {
+  "i": 1967,
+  "tr": "[{0}] Temel Ejderha Botu"
+ },
+ {
+  "i": 1968,
+  "tr": "[{0}] Orta seviye Ejderha Botu"
+ },
+ {
+  "i": 1969,
+  "tr": "[{0}] Gelişmiş Ejderha Botu"
+ },
+ {
+  "i": 1970,
+  "tr": "Barov Ejderha Botu"
+ },
+ {
+  "i": 1971,
+  "tr": "Büyütme"
+ },
+ {
+  "i": 1972,
+  "tr": "Ejderha Botu"
+ },
+ {
+  "i": 1973,
+  "tr": "Tamamlanma aşaması {0}"
+ },
+ {
+  "i": 1974,
+  "tr": "· Materyalleri tamamladıktan sonra arkadaşlarını Ejderha Botunu inşa etmeye yardım etmek için arkadaşlarını davet et；\n· Ejderha Botunu inşa etmek için aynı güçte 30 kişinin olması gerekir."
+ },
+ {
+  "i": 1975,
+  "tr": "Ejderha Botunu tamamlamak için {0} araç öğesini toplamak gerekir."
+ },
+ {
+  "i": 1976,
+  "tr": "·Ejderha için Ejderha Yuva sürümünün dördüncü aşamasını geçmek gerekir\n·Çin Köknarını çiftlik dikiminden elde edebilirsin."
+ },
+ {
+  "i": 1977,
+  "tr": "Bu aşamada küçük dostları inşa yardımına davet etmen gerekir."
+ },
+ {
+  "i": 1978,
+  "tr": "Ürünün ilk aşaması"
+ },
+ {
+  "i": 1979,
+  "tr": "Ürünün ikinci aşaması"
+ }
+]

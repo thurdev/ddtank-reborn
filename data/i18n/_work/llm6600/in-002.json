@@ -1,0 +1,722 @@
+[
+ {
+  "i": 360,
+  "tr": "Üstat ve çırak avantajı"
+ },
+ {
+  "i": 361,
+  "tr": "Karizma"
+ },
+ {
+  "i": 362,
+  "tr": "Çiçek"
+ },
+ {
+  "i": 363,
+  "tr": "Tatlı"
+ },
+ {
+  "i": 364,
+  "tr": "Oyuncak"
+ },
+ {
+  "i": 365,
+  "tr": "Nadir"
+ },
+ {
+  "i": 366,
+  "tr": "Bayram"
+ },
+ {
+  "i": 367,
+  "tr": "Düğün"
+ },
+ {
+  "i": 368,
+  "tr": "Sahip olmak"
+ },
+ {
+  "i": 369,
+  "tr": "Tane"
+ },
+ {
+  "i": 370,
+  "tr": "Hediye deposu"
+ },
+ {
+  "i": 371,
+  "tr": "Hediye kütüğü"
+ },
+ {
+  "i": 372,
+  "tr": "{0} / {1}"
+ },
+ {
+  "i": 373,
+  "tr": "Kart koyulduktan sonra başlatılabilir"
+ },
+ {
+  "i": 374,
+  "tr": "Ruh değeri yaz"
+ },
+ {
+  "i": 375,
+  "tr": "Ruh değeri"
+ },
+ {
+  "i": 376,
+  "tr": "Lütfen ruh değeri miktarı yaz"
+ },
+ {
+  "i": 377,
+  "tr": "Ruh değeri yetersiz"
+ },
+ {
+  "i": 378,
+  "tr": "Kart yuvası yükseltmek için ruh değeri daha gerekli"
+ },
+ {
+  "i": 379,
+  "tr": "Sv."
+ },
+ {
+  "i": 380,
+  "tr": "Mühür kaldır"
+ },
+ {
+  "i": 381,
+  "tr": "Açıklama: Her sefer yıkamak için 3 kart harcanır. Kart sayısı yetersiz olduğunda 30 kupon harcayarak bir kez yıkayabilirsin."
+ },
+ {
+  "i": 382,
+  "tr": "Kart seti değiştir"
+ },
+ {
+  "i": 383,
+  "tr": "Kart kutusu satın al"
+ },
+ {
+  "i": 384,
+  "tr": "Kart albümü"
+ },
+ {
+  "i": 385,
+  "tr": "Kart ruhu sıfırla"
+ },
+ {
+  "i": 386,
+  "tr": "Tecrübe  {0}"
+ },
+ {
+  "i": 387,
+  "tr": "Saldır"
+ },
+ {
+  "i": 388,
+  "tr": "Savunma"
+ },
+ {
+  "i": 389,
+  "tr": "Çeviklik"
+ },
+ {
+  "i": 390,
+  "tr": "Şans"
+ },
+ {
+  "i": 391,
+  "tr": "Hasar"
+ },
+ {
+  "i": 392,
+  "tr": "Zırh"
+ },
+ {
+  "i": 393,
+  "tr": "Kalite"
+ },
+ {
+  "i": 394,
+  "tr": "Altın"
+ },
+ {
+  "i": 395,
+  "tr": "Gümüş"
+ },
+ {
+  "i": 396,
+  "tr": "Bakır"
+ },
+ {
+  "i": 397,
+  "tr": "Platin"
+ },
+ {
+  "i": 398,
+  "tr": "Kart"
+ },
+ {
+  "i": 399,
+  "tr": "Ruh değeri \ntüketimi:"
+ },
+ {
+  "i": 400,
+  "tr": "Toplam ruh \ndeğeri:"
+ },
+ {
+  "i": 401,
+  "tr": "{0} {1} birlik becerisi {2} açtı!"
+ },
+ {
+  "i": 402,
+  "tr": "Kart sistemi daha açılmadı"
+ },
+ {
+  "i": 403,
+  "tr": "Birlik postası gönderme başarılı."
+ },
+ {
+  "i": 404,
+  "tr": "<FONT COLOR='#f6dc8f'><B>{0}</B></FONT>.<FONT COLOR='#ffd633'><B>{1}</B></FONT>bağlı kupon elde etti!<br/>"
+ },
+ {
+  "i": 405,
+  "tr": "Bilgisayarımdaki Koleksiyon dosyasına ekle"
+ },
+ {
+  "i": 406,
+  "tr": "tane satmak istediğine emin misin?Fiyat"
+ },
+ {
+  "i": 407,
+  "tr": "Hayat"
+ },
+ {
+  "i": 408,
+  "tr": "Kart açıklaması"
+ },
+ {
+  "i": 409,
+  "tr": "Pozisyon"
+ },
+ {
+  "i": 410,
+  "tr": "Savaşma \ngücü"
+ },
+ {
+  "i": 411,
+  "tr": "Çevrimdışı \nzamanı"
+ },
+ {
+  "i": 412,
+  "tr": "Başkan"
+ },
+ {
+  "i": 413,
+  "tr": "Bakım ücreti"
+ },
+ {
+  "i": 414,
+  "tr": "Birlik adı"
+ },
+ {
+  "i": 415,
+  "tr": "Kişi \nsayısı"
+ },
+ {
+  "i": 416,
+  "tr": "Birlik \nmükafatı"
+ },
+ {
+  "i": 417,
+  "tr": "Takas et"
+ },
+ {
+  "i": 418,
+  "tr": "Elitler yarışması ödülü listesi yükleme başarısız!"
+ },
+ {
+  "i": 419,
+  "tr": "Yasa dışı sohbet mesajı teslim etmek"
+ },
+ {
+  "i": 420,
+  "tr": "Sıralamam"
+ },
+ {
+  "i": 421,
+  "tr": "Elit maç"
+ },
+ {
+  "i": 422,
+  "tr": "Güçlendirme taşı sayısı yaz"
+ },
+ {
+  "i": 423,
+  "tr": "Dilek incisi sayısı yetersiz"
+ },
+ {
+  "i": 424,
+  "tr": "<FONT SIZE='14' COLOR='#FF0000'>6680 kupon</FONT>harcayarak VIP büyük hediye paketi satın almak istediğine emin misin?"
+ },
+ {
+  "i": 425,
+  "tr": "Savaşta yenildiğinde mükafat kesilmeyecek;"
+ },
+ {
+  "i": 426,
+  "tr": "VIP parası günde {0} kez açılır;"
+ },
+ {
+  "i": 427,
+  "tr": "Milanda dileği {0} ücretsiz şekilde açılır"
+ },
+ {
+  "i": 428,
+  "tr": "Her gün {0}.seviye VIP hediye paketi: {1} alınır;"
+ },
+ {
+  "i": 429,
+  "tr": "1. Tüm sunucular duyurusu çevrimiçi olacak, zaman aralığı 1 saattir;"
+ },
+ {
+  "i": 430,
+  "tr": "2. Boss savaş aç;"
+ },
+ {
+  "i": 431,
+  "tr": "3. Ekme yardımcısı ücretsiz şekilde kullanılır;"
+ },
+ {
+  "i": 432,
+  "tr": "4. Evcil hayvanın beşinci becerisi açılabilir;"
+ },
+ {
+  "i": 433,
+  "tr": "5. Gübre tanrısı satın alınabilir;"
+ },
+ {
+  "i": 434,
+  "tr": "Görev ödülü {0} yıldızdan başlar"
+ },
+ {
+  "i": 435,
+  "tr": "<FONT SIZE='14px' COLOR='#fef7d4'>1, Görev ödülü 2.yıldızdan başlıyor"
+ },
+ {
+  "i": 436,
+  "tr": "Güçlendirme taşı, Sentezleme taşı , Tecrübe iksiri. <FONT>"
+ },
+ {
+  "i": 437,
+  "tr": "Güçlendirme taşı, Sentezleme taşı , Tecrübe iksiri.<FONT>"
+ },
+ {
+  "i": 438,
+  "tr": "<FONT SIZE='14px' COLOR='#fef7d4'>1 Görev ödülü 2.yıldızdan başlıyor"
+ },
+ {
+  "i": 439,
+  "tr": "Etap uzatma hediyesi</FONT><FONT SIZE='14px' COLOR='#fef7d4'>"
+ },
+ {
+  "i": 440,
+  "tr": "Etap uzatma hediyesi,Kurtarma samanı,Kart çekme hediyesi, İyileştirme rüzgarı, İlahi güç,Eğitim ustası,Kap açma süpermeni</FONT><FONT SIZE='14px' COLOR='#fef7d4'>"
+ },
+ {
+  "i": 441,
+  "tr": "Güçlendirme taşı, Sentezleme taşı , Tecrübe iksiri, takı, Kutsal taş </FONT>"
+ },
+ {
+  "i": 442,
+  "tr": "Güçlendirme taşı, Sentezleme taşı , Tecrübe iksiri, takı, Kutsal taş</FONT><FONT SIZE='14px' COLOR='#FF0000'> Matkap, Eğitim iksiri</FONT>"
+ },
+ {
+  "i": 443,
+  "tr": "güçlendirme taşı, sentezleme taşı , tecrübe iksiri, matkap, eğitim iksiri, takı, kutsal taş.</FONT>"
+ },
+ {
+  "i": 444,
+  "tr": "<FONT SIZE='14px' COLOR='#fef7d4'>1, Görev ödülü</FONT><FONT SIZE='14px' COLOR='#FF0000'>3</FONT><FONT SIZE='14px' COLOR='#fef7d4'>.yıldızdan başlıyor"
+ },
+ {
+  "i": 445,
+  "tr": "matkap, eğitim iksiri, takı, </FONT><FONT SIZE='14px' COLOR='#FF0000'>kart kutusu, inci, ilahi silah parçası</FONT>"
+ },
+ {
+  "i": 446,
+  "tr": "<FONT SIZE='14px' COLOR='#fef7d4'>1, Görev ödülü 3.yıldızdan başlıyor"
+ },
+ {
+  "i": 447,
+  "tr": "matkap, eğitim iksiri, kart kutusu, takı, inci, ilahi silah parçası</FONT>"
+ },
+ {
+  "i": 448,
+  "tr": "<FONT SIZE='14px' COLOR='#fef7d4'>1, Görev ödülü</FONT><FONT SIZE='14px' COLOR='#FF0000'>4</FONT><FONT SIZE='14px' COLOR='#fef7d4'>.yıldızdan başlıyor"
+ },
+ {
+  "i": 449,
+  "tr": "matkap, eğitim iksiri, kart kutusu, takı, inci, ilahi salah parçası</FONT>"
+ },
+ {
+  "i": 450,
+  "tr": "VIP'nin zaten tam seviye."
+ },
+ {
+  "i": 451,
+  "tr": "Bağlı kupon, güçlendirme taşı, sentezleme taşı, tecrübe iksiri, kutsal taşı, matkap, kart, takı."
+ },
+ {
+  "i": 452,
+  "tr": "Bağlı kupon, matkap, eğitim iksiri, takı, kart kutusu, inci, ilahi silah parçası, tohum"
+ },
+ {
+  "i": 453,
+  "tr": "Evcil hayvan panosu bilgisi yükleme başarısız"
+ },
+ {
+  "i": 454,
+  "tr": "Evcil hayvan beceri panosu bilgisi yükleme başarısız"
+ },
+ {
+  "i": 455,
+  "tr": "Evcil hayvan için tüm beceriler panosu bilgisi yükleme başarısız"
+ },
+ {
+  "i": 456,
+  "tr": "Gıda oluşturma panosu bilgisi yükleme başarısız"
+ },
+ {
+  "i": 457,
+  "tr": "Evcil hayvan sistemi yapılandırma panosu bilgisi yükleme başarısız"
+ },
+ {
+  "i": 458,
+  "tr": "Kart yuvası bilgisi yükleme başarısız"
+ },
+ {
+  "i": 459,
+  "tr": "Kart panosu veri bilgisi yükleme başarısız"
+ },
+ {
+  "i": 460,
+  "tr": "Teçhizatın tüm güçlendirme tecrübesi için pano bilgileri yükleme başarısız"
+ },
+ {
+  "i": 461,
+  "tr": "Teçhizatın seviye eklentisi panosu bilgisi yükleme başarısız"
+ },
+ {
+  "i": 462,
+  "tr": "Ana arayüz simge bilgisi yükleme başarısız"
+ },
+ {
+  "i": 463,
+  "tr": "Merhaba!"
+ },
+ {
+  "i": 464,
+  "tr": "Hemşeri arkadaşı"
+ },
+ {
+  "i": 465,
+  "tr": "Arkadaş olalım!"
+ },
+ {
+  "i": 466,
+  "tr": "Teçhizat görüntüle"
+ },
+ {
+  "i": 467,
+  "tr": "Teçhizat \ngörüntüle"
+ },
+ {
+  "i": 468,
+  "tr": "Başarı görüntüle"
+ },
+ {
+  "i": 469,
+  "tr": "Özel \nsohbet"
+ },
+ {
+  "i": 470,
+  "tr": "Arkadaş \nolarak ekle"
+ },
+ {
+  "i": 471,
+  "tr": "Ekle"
+ },
+ {
+  "i": 472,
+  "tr": "Teklif et"
+ },
+ {
+  "i": 473,
+  "tr": "Birlik"
+ },
+ {
+  "i": 474,
+  "tr": "Medeni durum"
+ },
+ {
+  "i": 475,
+  "tr": "Savaşma gücü {0}"
+ },
+ {
+  "i": 476,
+  "tr": "Durum"
+ },
+ {
+  "i": 477,
+  "tr": "Çevrimdışı \n    zamanı"
+ },
+ {
+  "i": 478,
+  "tr": "İletişim kur"
+ },
+ {
+  "i": 479,
+  "tr": "Posta"
+ },
+ {
+  "i": 480,
+  "tr": "Bilgiyi düzenle"
+ },
+ {
+  "i": 481,
+  "tr": "Çiftlikte ekinler olgunlaşmış, toplamaya git!"
+ },
+ {
+  "i": 482,
+  "tr": "Güc"
+ },
+ {
+  "i": 483,
+  "tr": "Başarı"
+ },
+ {
+  "i": 484,
+  "tr": "Turnuva"
+ },
+ {
+  "i": 485,
+  "tr": "Hafta"
+ },
+ {
+  "i": 486,
+  "tr": "Birik"
+ },
+ {
+  "i": 487,
+  "tr": "Kişisel"
+ },
+ {
+  "i": 488,
+  "tr": "Çekici \nseviyesi"
+ },
+ {
+  "i": 489,
+  "tr": "Bu haftaki puan"
+ },
+ {
+  "i": 490,
+  "tr": "Başarı puanı"
+ },
+ {
+  "i": 491,
+  "tr": "Toplam"
+ },
+ {
+  "i": 492,
+  "tr": "Bulund\nuğnun"
+ },
+ {
+  "i": 493,
+  "tr": "Birliğe katıl"
+ },
+ {
+  "i": 494,
+  "tr": "{0} madalya harcayarak {1} açmak istediğine emin misin?"
+ },
+ {
+  "i": 495,
+  "tr": "Madalya {0}'dan daha az."
+ },
+ {
+  "i": 496,
+  "tr": "Cinsiyet"
+ },
+ {
+  "i": 497,
+  "tr": "Şifre"
+ },
+ {
+  "i": 498,
+  "tr": "Lütfen oda ID'i yaz"
+ },
+ {
+  "i": 499,
+  "tr": "Oyun \nSalonu"
+ },
+ {
+  "i": 500,
+  "tr": "Arkadaş"
+ },
+ {
+  "i": 501,
+  "tr": "Toplam\nödeyeceğin:"
+ },
+ {
+  "i": 502,
+  "tr": "Toplam ödeyeceğin:"
+ },
+ {
+  "i": 503,
+  "tr": "Temas \nkişisi"
+ },
+ {
+  "i": 504,
+  "tr": "Atletizm"
+ },
+ {
+  "i": 505,
+  "tr": "Oda zorluk seviyesi"
+ },
+ {
+  "i": 506,
+  "tr": "Oda modu"
+ },
+ {
+  "i": 507,
+  "tr": "Önerilen seviye"
+ },
+ {
+  "i": 508,
+  "tr": "Kolay"
+ },
+ {
+  "i": 509,
+  "tr": "Normal"
+ },
+ {
+  "i": 510,
+  "tr": "Zor"
+ },
+ {
+  "i": 511,
+  "tr": "Kahraman"
+ },
+ {
+  "i": 512,
+  "tr": "Yüksek yıldız seviyesindeki evcil hayvan serbest bırakılamaz."
+ },
+ {
+  "i": 513,
+  "tr": "sonra yenilenir"
+ },
+ {
+  "i": 514,
+  "tr": "Uzak sunucu modu"
+ },
+ {
+  "i": 515,
+  "tr": "Normal\nuzak"
+ },
+ {
+  "i": 516,
+  "tr": "Özel uzak"
+ },
+ {
+  "i": 517,
+  "tr": "Posta listesi"
+ },
+ {
+  "i": 518,
+  "tr": "Okunmayan \ne-posta"
+ },
+ {
+  "i": 519,
+  "tr": "Gönderilmiş \npostalar"
+ },
+ {
+  "i": 520,
+  "tr": "Sil"
+ },
+ {
+  "i": 521,
+  "tr": "E-posta al"
+ },
+ {
+  "i": 522,
+  "tr": "Arkadaş olarak ekle"
+ },
+ {
+  "i": 523,
+  "tr": "Rapor ver"
+ },
+ {
+  "i": 524,
+  "tr": "Gönderici"
+ },
+ {
+  "i": 525,
+  "tr": "Karşılık olarak hediye vermek"
+ },
+ {
+  "i": 526,
+  "tr": "Hediye gönder"
+ },
+ {
+  "i": 527,
+  "tr": "İpucu: Bu e-posta oyuncu tarafından gönderilen normal bir \ne-posta. Lütfen kontrol edin ve dolandırıcılığa karşı koyun."
+ },
+ {
+  "i": 528,
+  "tr": "Arkadaş listesi"
+ },
+ {
+  "i": 529,
+  "tr": "Posta yaz"
+ },
+ {
+  "i": 530,
+  "tr": "Ücret"
+ },
+ {
+  "i": 531,
+  "tr": "100 altın"
+ },
+ {
+  "i": 532,
+  "tr": "1 saat"
+ },
+ {
+  "i": 533,
+  "tr": "6 saat"
+ },
+ {
+  "i": 534,
+  "tr": "Topluluk"
+ },
+ {
+  "i": 535,
+  "tr": "Weibo"
+ },
+ {
+  "i": 536,
+  "tr": "Hemşeri"
+ },
+ {
+  "i": 537,
+  "tr": "Kara \nliste"
+ },
+ {
+  "i": 538,
+  "tr": "Usta ve \nÇırak"
+ },
+ {
+  "i": 539,
+  "tr": "Önceki sayfa"
+ }
+]

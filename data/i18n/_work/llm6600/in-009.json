@@ -1,0 +1,722 @@
+[
+ {
+  "i": 1620,
+  "tr": "Sihirli Taş paneli yüklenemiyor"
+ },
+ {
+  "i": 1621,
+  "tr": "Kullanımdaki kıyafet rengi değiştirilemez"
+ },
+ {
+  "i": 1622,
+  "tr": "Bombom Kral Heykeli"
+ },
+ {
+  "i": 1623,
+  "tr": "(Bombom Kral Heykeli kurarak Yıldönümü puanı kazanabilir ve takas yapabilirsiniz)"
+ },
+ {
+  "i": 1624,
+  "tr": "(Ödül sıralama listesine gönderilir.Puan>=90000"
+ },
+ {
+  "i": 1625,
+  "tr": "Mevcut Kupon:     ,Bağlı kupon:"
+ },
+ {
+  "i": 1626,
+  "tr": "Kaliteli İnşa       kez"
+ },
+ {
+  "i": 1627,
+  "tr": "Kaliteli Aksesuar    kez"
+ },
+ {
+  "i": 1628,
+  "tr": "Dikkat:Her Kaliteli Aksesuar 100 Kupon /Bağlı Kupon tüketir, 10 exchange puanı kazandırır."
+ },
+ {
+  "i": 1629,
+  "tr": "Dikkat:Her Kaliteli İnşa 100 Kupon /Bağlı Kupon tüketir, 10 exchange puanı kazandırır."
+ },
+ {
+  "i": 1630,
+  "tr": "Konulan Düşük Parça Sayısı"
+ },
+ {
+  "i": 1631,
+  "tr": "Konulan Yüksek Parça Sayısı"
+ },
+ {
+  "i": 1632,
+  "tr": "Dikkat: 1 Düşük Parça=10 Sıralama Puanı,1 Yüksek Parça=10 Exchange Puanı"
+ },
+ {
+  "i": 1633,
+  "tr": "Böcek"
+ },
+ {
+  "i": 1634,
+  "tr": "Vagon"
+ },
+ {
+  "i": 1635,
+  "tr": "Taşıma Ödülü"
+ },
+ {
+  "i": 1636,
+  "tr": "Varsayılan Taşıma"
+ },
+ {
+  "i": 1637,
+  "tr": "Çağrıldı"
+ },
+ {
+  "i": 1638,
+  "tr": "Kalan Taşıma Süresi:"
+ },
+ {
+  "i": 1639,
+  "tr": "Kalan Sürat Süresi:"
+ },
+ {
+  "i": 1640,
+  "tr": "Etkinlik sırasında sürpriz ödüller kazanılabilir \n ,finale daha erken varan oyuncuların ödülleri artar \n."
+ },
+ {
+  "i": 1641,
+  "tr": "1.Yıldönümü etkinliği süresi içinde Vagon \n final noktasına ulaştırılmalıdır.Büyük ödül ve \n adet Bombom Kral Heykeli Parçası kazanılabilir.\n2,Bombom Kral Heykeli parçası Bombom Heykeli \n inşa tamamlama derecesi arttırır.\n3,Her gün 13：00~14:00, 18:00~19:00 \n aralığında vagon finale taşınırsa Çift kat \n ödül kazandırır! \n4,Sürat süresi bitmeden finale ulaşan vagon sahibi \n Sürat Hediye Paketi kazanabilir.\n5,Oyuncular her gün 3 kez taşıma hakkına sahiptir."
+ },
+ {
+  "i": 1642,
+  "tr": "Savaş Ruhu Hapı:"
+ },
+ {
+  "i": 1643,
+  "tr": "(Vagon Kaldırma Hızı:{0})"
+ },
+ {
+  "i": 1644,
+  "tr": "Bombom Kral Heykeli Kaliteli Parça:"
+ },
+ {
+  "i": 1645,
+  "tr": "[{0}] Küçük Vagon"
+ },
+ {
+  "i": 1646,
+  "tr": "[{0}] Orta Vagon"
+ },
+ {
+  "i": 1647,
+  "tr": "[{0}] Büyük Vagon"
+ },
+ {
+  "i": 1648,
+  "tr": "Adı"
+ },
+ {
+  "i": 1649,
+  "tr": "Sürat Ödülü"
+ },
+ {
+  "i": 1650,
+  "tr": "{0} Kupon karşılığında çağırmak istiyor musunuz?"
+ },
+ {
+  "i": 1651,
+  "tr": "{0} Kupon ile taşımaya başlamak istiyor musunuz?(Kupon başarılı olduğunda düşülür)"
+ },
+ {
+  "i": 1652,
+  "tr": "{0} Kupon/Bağlı Kupon karşılığında mesafe azaltmak istiyor musunuz?"
+ },
+ {
+  "i": 1653,
+  "tr": "{0} Kupon/Bağlı Kupon karşılığında \n Vagonunuzu 30 sn gizlemek istiyor musunuz?"
+ },
+ {
+  "i": 1654,
+  "tr": "{0} Kupon/Bağlı Kupon ile yavaşlatma etkisini kaldırmak istiyor musunuz?"
+ },
+ {
+  "i": 1655,
+  "tr": "Hızlandır"
+ },
+ {
+  "i": 1656,
+  "tr": "Yavaşlat"
+ },
+ {
+  "i": 1657,
+  "tr": "Taşıma başarılı"
+ },
+ {
+  "i": 1658,
+  "tr": "Taşıma başarısız"
+ },
+ {
+  "i": 1659,
+  "tr": "Taşıma sahnesinden çıkmak ilerlemeyi geçici olarak durdurur"
+ },
+ {
+  "i": 1660,
+  "tr": "Bugünkü Taşıma sayınız tükendi!"
+ },
+ {
+  "i": 1661,
+  "tr": "Bir mesafe azaltarak tuzak ve canavarları geçebilirsiniz.(Bekleme süresi 5 sn)"
+ },
+ {
+  "i": 1662,
+  "tr": "30 sn gizleyerek soygundan kaçınabilirsiniz.(Bekleme süresi 5 sn)"
+ },
+ {
+  "i": 1663,
+  "tr": "Yavaşlatma etkisini siler (Bekleme süresi 5 sn)"
+ },
+ {
+  "i": 1664,
+  "tr": "Bağlı kupon yetersiz,kupon kullanmak ister misin?"
+ },
+ {
+  "i": 1665,
+  "tr": "Yıldönümü Taşıma Çift Kat Ödül Etkinliği başladı,hemen sen de katıl!"
+ },
+ {
+  "i": 1666,
+  "tr": "Yıldönümü Taşıma Çift Kat Ödül Etkinliği sona erdi!"
+ },
+ {
+  "i": 1667,
+  "tr": "Yıldönümü Etkinliği kalan {0} saat"
+ },
+ {
+  "i": 1668,
+  "tr": "Keşif"
+ },
+ {
+  "i": 1669,
+  "tr": "Birim Keşfi"
+ },
+ {
+  "i": 1670,
+  "tr": "Kalan Puan"
+ },
+ {
+  "i": 1671,
+  "tr": "Sihirli Taş Exchange"
+ },
+ {
+  "i": 1672,
+  "tr": "Tek sefer satın almak <font color='#ff0000'>{0}</font> kupon harcar, devam edilsin mi?"
+ },
+ {
+  "i": 1673,
+  "tr": "Sihirli Taş\nKeşif Sayısı:"
+ },
+ {
+  "i": 1674,
+  "tr": "Puan:{0}"
+ },
+ {
+  "i": 1675,
+  "tr": "VIP4 satın alamaz"
+ },
+ {
+  "i": 1676,
+  "tr": "Hala {0} adet satın alınabilir"
+ },
+ {
+  "i": 1677,
+  "tr": "<FONT COLOR='#FF0000'> {0} </FONT> Sihirli Taş Deneyimi kazanabilirsin"
+ },
+ {
+  "i": 1678,
+  "tr": "Birleştirilecek Sihirli Taş yok!"
+ },
+ {
+  "i": 1679,
+  "tr": "Sihirli Taş kaldırılamaz!"
+ },
+ {
+  "i": 1680,
+  "tr": "Kilitlendikten sonra donatılabilir,\n Lv yükseltilebilir fakat birleştirilemez"
+ },
+ {
+  "i": 1681,
+  "tr": "Çantadaki tüm geliştirilebilir Sihirli Taşlar \n Sihirli Taş Yuvasına yerleştirilerek Deneyime dönüşür"
+ },
+ {
+  "i": 1682,
+  "tr": "Sihirli Taş Tanım"
+ },
+ {
+  "i": 1683,
+  "tr": "Sihirli Taş yuvaya konulduktan sonra geliştirilebilir"
+ },
+ {
+  "i": 1684,
+  "tr": "Sihirli Taş zaten max seviye"
+ },
+ {
+  "i": 1685,
+  "tr": "Birleştirilebilir Sihirli Taş yok"
+ },
+ {
+  "i": 1686,
+  "tr": "Evet\"\"e tıllayarak birleştirmeyi onayla"
+ },
+ {
+  "i": 1687,
+  "tr": "Birim Satın Al"
+ },
+ {
+  "i": 1688,
+  "tr": "Satın Alım Sayısı:"
+ },
+ {
+  "i": 1689,
+  "tr": "Sihirli Taş çantası dolu"
+ },
+ {
+  "i": 1690,
+  "tr": "Fiyat:{0} Kupon,kaba üretim,normal kalite Sihirli Taş"
+ },
+ {
+  "i": 1691,
+  "tr": "Fiyat:{0} Kupon,kaba üretim,normal veya üstün kalite Sihirli Taş"
+ },
+ {
+  "i": 1692,
+  "tr": "Fiyat:{0} Kupon,normal üretim,üstün veya elit kalite Sihirli Taş"
+ },
+ {
+  "i": 1693,
+  "tr": "Yukarıdaki özelliklerden herhangi 2sini kazandırır"
+ },
+ {
+  "i": 1694,
+  "tr": "Yukarıdaki özelliklerden herhangi 3ünü kazandırır"
+ },
+ {
+  "i": 1695,
+  "tr": "Yukarıdaki özelliklerden herhangi 4ünü kazandırır"
+ },
+ {
+  "i": 1696,
+  "tr": "Dikkat:Sihirli Taş Marketindeki araçlar bağlı haldedir."
+ },
+ {
+  "i": 1697,
+  "tr": "Sıralamam:listede değilsin"
+ },
+ {
+  "i": 1698,
+  "tr": "{0}Kupon tüketildi,{1} Kupon daha tüket \nsıralamada yer al"
+ },
+ {
+  "i": 1699,
+  "tr": "Sıralamam:"
+ },
+ {
+  "i": 1700,
+  "tr": "{0} Kupon daha tüket sıralamanı yükselt"
+ },
+ {
+  "i": 1701,
+  "tr": "Geçerli tüketimi gör"
+ },
+ {
+  "i": 1702,
+  "tr": "1.Market dışında ekstra Kupon tüketmek de geçerli bir tüketimdir.\n2.Ancak sıralamada ilk 10'a giren ve tüketim miktarı \n{0} üzeri olan oyuncular ödül kazanabilir."
+ },
+ {
+  "i": 1703,
+  "tr": "Pratik+{0}\nKart+{1}\nEvcil Hayvan+{2}\nTotem+{3}\nElmas+{4}\nÇizim+{5}\nBüyü Taşı+{6}"
+ },
+ {
+  "i": 1704,
+  "tr": "Pratik+{0}\nEvcil Hayvan+{1}\nTotem+{2}"
+ },
+ {
+  "i": 1705,
+  "tr": "Sınırlı"
+ },
+ {
+  "i": 1706,
+  "tr": "Heykel Parçaları yetersiz, bu işlem yapılamaz"
+ },
+ {
+  "i": 1707,
+  "tr": "Bunu bana tekrar söyleme"
+ },
+ {
+  "i": 1708,
+  "tr": "Geri dönülemez."
+ },
+ {
+  "i": 1709,
+  "tr": "Fener Bilmecesi"
+ },
+ {
+  "i": 1710,
+  "tr": "Mevcut Soru #: Soru Geri sayımı:"
+ },
+ {
+  "i": 1711,
+  "tr": "{0} saniye"
+ },
+ {
+  "i": 1712,
+  "tr": "(Ücretsiz{0})"
+ },
+ {
+  "i": 1713,
+  "tr": "lanternRiddles.view.questionText:{0}\n A.{1}\n B.{2}\n C.{3}\n D.{4}"
+ },
+ {
+  "i": 1714,
+  "tr": "Not: Her bir soruya verilen doğru cevap için cevap ödülü al. Puan sıralamasında ilk 8'e giren Tankerler her gün a/n bonus ödülü alacaklar. Puanların eşit olması halinde zamana göre sıralama yapılacaktır."
+ },
+ {
+  "i": 1715,
+  "tr": "Doğru Cevaplarım: {0}"
+ },
+ {
+  "i": 1716,
+  "tr": "{0} kupon harca ve iki kat puan satın al"
+ },
+ {
+  "i": 1717,
+  "tr": "{0} kupon harca ve kesin atış satın al"
+ },
+ {
+  "i": 1718,
+  "tr": "Lütfen bir cevap seçin!"
+ },
+ {
+  "i": 1719,
+  "tr": "Lütfen Oyun Alanına geri dönün"
+ },
+ {
+  "i": 1720,
+  "tr": "Fener Bilmecesi etkinliğinin süresi doldu!"
+ },
+ {
+  "i": 1721,
+  "tr": "Fener Bilmecesi soru bilgisi hatalı."
+ },
+ {
+  "i": 1722,
+  "tr": "Fener Bilmecesi etkinliği başladı! Hadi katıl!"
+ },
+ {
+  "i": 1723,
+  "tr": "Yardım"
+ },
+ {
+  "i": 1724,
+  "tr": "Temel Paket"
+ },
+ {
+  "i": 1725,
+  "tr": "Süper Paket"
+ },
+ {
+  "i": 1726,
+  "tr": "ActivitySystemItems.xml load error!"
+ },
+ {
+  "i": 1727,
+  "tr": "Resimdeki elbise satılmaz"
+ },
+ {
+  "i": 1728,
+  "tr": "Altını harcamayı kabul ediyor musunuz?"
+ },
+ {
+  "i": 1729,
+  "tr": "Bir telafi tüketir           kuponu"
+ },
+ {
+  "i": 1730,
+  "tr": "Makyaj Girişi"
+ },
+ {
+  "i": 1731,
+  "tr": "Telafi atılan imza{0}ile o ay içerisinde {1}telafi hakkı kazanılır"
+ },
+ {
+  "i": 1732,
+  "tr": "İpucu"
+ },
+ {
+  "i": 1733,
+  "tr": "Telafi imza hakkın doldu"
+ },
+ {
+  "i": 1734,
+  "tr": "Her altın kullanımında, <FONT COLOR=\"#ff0000\">10</FONT>kazanılır,kazanılan neşe parası ile kredi exchange yapılabilir."
+ },
+ {
+  "i": 1735,
+  "tr": "Exchange kredi"
+ },
+ {
+  "i": 1736,
+  "tr": "Güncel kredi"
+ },
+ {
+  "i": 1737,
+  "tr": "Neşe parası"
+ },
+ {
+  "i": 1738,
+  "tr": "Kredi yetersiz"
+ },
+ {
+  "i": 1739,
+  "tr": "Tebrikler{0}kez ödil kazandınız, ödül postana gönderildi, Lütfen kontrol ediniz!"
+ },
+ {
+  "i": 1740,
+  "tr": "Ödenecek miktar"
+ },
+ {
+  "i": 1741,
+  "tr": "Otomatik aç"
+ },
+ {
+  "i": 1742,
+  "tr": "Otomatik aç dedikten sonra maliyet otomatik olarak düşecektir, devam edilsin mi?"
+ },
+ {
+  "i": 1743,
+  "tr": "Mükemmel bir bitiş yapıldı, oyuna tekrar başlanabilir!"
+ },
+ {
+  "i": 1744,
+  "tr": "Can değeri yetersiz, aktivite risk taşıyor!"
+ },
+ {
+  "i": 1745,
+  "tr": "Not: Kutucukları tekrardan açma başarısız"
+ },
+ {
+  "i": 1746,
+  "tr": "{0}Kutucukları açmayı başardın"
+ },
+ {
+  "i": 1747,
+  "tr": "Açılan kutucukların sayısı şartlara uymuyor!"
+ },
+ {
+  "i": 1748,
+  "tr": "Bu turdaki tüm ödülleri elde ettin!"
+ },
+ {
+  "i": 1749,
+  "tr": "Hediye paketi açmak onaylansın mı?"
+ },
+ {
+  "i": 1750,
+  "tr": "Can değeri yetersiz,yaşamak için {0}kuponlar kullanılsın mı?"
+ },
+ {
+  "i": 1751,
+  "tr": "Hala ödül mevcut, işleme devam edilsin mi?"
+ },
+ {
+  "i": 1752,
+  "tr": "Tekrar başlamak için {0}kupon gerek! Devam edilsin mi?"
+ },
+ {
+  "i": 1753,
+  "tr": "Dedektör için {0}kupon gerek! Devam edilsin mi?"
+ },
+ {
+  "i": 1754,
+  "tr": "Önceden açılan kutucuklar tekrar açılamaz!"
+ },
+ {
+  "i": 1755,
+  "tr": "Hareket edemiyor!"
+ },
+ {
+  "i": 1756,
+  "tr": "Önceden işaretlendi, tekrar denenmesi gerek!"
+ },
+ {
+  "i": 1757,
+  "tr": "Bu turdaki ödüllerin hepsini elde ettin! Tekrar oyuna başlaman gerek!"
+ },
+ {
+  "i": 1758,
+  "tr": "İşaretlenen kutularda hareket yok,kutucukları tekrardan tıklaman gerek(Kısa yol için F)"
+ },
+ {
+  "i": 1759,
+  "tr": "Boo Goo'nun çevresinde bombalar mevcut"
+ },
+ {
+  "i": 1760,
+  "tr": "Can değeri dolduktan sonra maceraya devam edilebilir"
+ },
+ {
+  "i": 1761,
+  "tr": "Yeni maceraya başlansın"
+ },
+ {
+  "i": 1762,
+  "tr": "Bu aktivitede yer alan yeniden başlama sona erdi"
+ },
+ {
+  "i": 1763,
+  "tr": "Var       Tekrar başlama fırs"
+ },
+ {
+  "i": 1764,
+  "tr": "Etrafta mayın yok"
+ },
+ {
+  "i": 1765,
+  "tr": "Maceralara daha başlamadın mı!"
+ },
+ {
+  "i": 1766,
+  "tr": "Bogo Macerası sona erdi!"
+ },
+ {
+  "i": 1767,
+  "tr": "①Günlük ücretsiz yenileme süreleri0\n②Boo Goo için ödüller kutucuklar \ndoldurulsun Sırt Çantası，Hediyel\ner gönderilirPosta kutusu\n③Boo Goo için kutuları işaretlekut\nuları işaretle，iptal et\n④Boo Goo konumu merkezi çevre\nsindeki mayınlar\n⑤Boo Goo'nun can değerinde art\nma var，önceki maceraya deva\nm\n⑥Boo Goo'nun kafasındaki sayı ç\nevresindeki kutucukları gösterir8 \nmayın bulunmaktadır"
+ },
+ {
+  "i": 1768,
+  "tr": "Maceraya daha başlamadın, tekrar başlatması mümküm değil"
+ },
+ {
+  "i": 1769,
+  "tr": "Tekrar başlatma süresi çoktan sona erdi"
+ },
+ {
+  "i": 1770,
+  "tr": "Boo Goo hareket halinde tekrar başlat yapılamaz"
+ },
+ {
+  "i": 1771,
+  "tr": "Boo Goo harket halinde çıkış yapılamaz"
+ },
+ {
+  "i": 1772,
+  "tr": "Başlık niteliği yüklemedi"
+ },
+ {
+  "i": 1773,
+  "tr": "Gizlenen değerlerde daha iyi ödüller seni bekliyor!"
+ },
+ {
+  "i": 1774,
+  "tr": "Tüketici ödülleri seni bekliyor!"
+ },
+ {
+  "i": 1775,
+  "tr": "Evlenen çift ödülleri bekliyor!"
+ },
+ {
+  "i": 1776,
+  "tr": "Toplam birikim {0} kupon"
+ },
+ {
+  "i": 1777,
+  "tr": "Toplam tüketim {0} kupon"
+ },
+ {
+  "i": 1778,
+  "tr": "Düğün organizasyonu"
+ },
+ {
+  "i": 1779,
+  "tr": "Kalan Süre:"
+ },
+ {
+  "i": 1780,
+  "tr": "Bonus"
+ },
+ {
+  "i": 1781,
+  "tr": "Arena'da soğutma süresi"
+ },
+ {
+  "i": 1782,
+  "tr": "Kendin yükselip {0} rütbesin eriştikten sonra ancak{1}ödülünü alırsın"
+ },
+ {
+  "i": 1783,
+  "tr": "sıfırla"
+ },
+ {
+  "i": 1784,
+  "tr": "{0}yılı{1}ayı{2}günü {3}:{4}"
+ },
+ {
+  "i": 1785,
+  "tr": "Her türlü öğe satın alabilirsin, \nkendi kendine güzelce dekor et"
+ },
+ {
+  "i": 1786,
+  "tr": "Sürüm macerasına gir, \ncanavara meydan okuyarak hazineyi elde et"
+ },
+ {
+  "i": 1787,
+  "tr": "Keşfedilmemiş yeri ara, \n kayıp hazineyi bul."
+ },
+ {
+  "i": 1788,
+  "tr": "Atletik, meydan okuma, birlik savaşı, \nher çeşit savaş burada yapılır!"
+ },
+ {
+  "i": 1789,
+  "tr": "Yarışma Şampiyonu sahnesi, \nKim  son lord olacak."
+ },
+ {
+  "i": 1790,
+  "tr": "Bu oturum açmada tekrar"
+ },
+ {
+  "i": 1791,
+  "tr": "Binek(M)"
+ },
+ {
+  "i": 1792,
+  "tr": "[Gizli Hazine]"
+ },
+ {
+  "i": 1793,
+  "tr": "Aynı şehirdeki arkadaşın yüklenmesi başarısız!"
+ },
+ {
+  "i": 1794,
+  "tr": "Binek tablo bilgisi başarısız"
+ },
+ {
+  "i": 1795,
+  "tr": "Binek yetenek öğrenme tablo bilgisi başarısız"
+ },
+ {
+  "i": 1796,
+  "tr": "Binek yetenek tablo bilgisi başarısız"
+ },
+ {
+  "i": 1797,
+  "tr": "Binek yetenek eleman tablo bilgisi başarısız"
+ },
+ {
+  "i": 1798,
+  "tr": "Sahne bilgisini toplayan robot mesajının eklenmesi başarısız"
+ },
+ {
+  "i": 1799,
+  "tr": "Oyun Salonu"
+ }
+]

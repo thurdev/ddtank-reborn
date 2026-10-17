@@ -1,0 +1,722 @@
+[
+ {
+  "i": 1080,
+  "tr": "Hazine labirenti aktivitesi kapandı!"
+ },
+ {
+  "i": 1081,
+  "tr": "{0} kupon harcayarak {1} sefer \nhazine avına çıkmak istiyor musun?"
+ },
+ {
+  "i": 1082,
+  "tr": "Tüm ürünleri satmayı onayla"
+ },
+ {
+  "i": 1083,
+  "tr": "Tüm ürünleri sırt çantasına koymayı onayla"
+ },
+ {
+  "i": 1084,
+  "tr": "Hazine avı şu an devam ediliyor, kapatılamaz"
+ },
+ {
+  "i": 1085,
+  "tr": "Kazandınız"
+ },
+ {
+  "i": 1086,
+  "tr": "Hazine toplanıyor..."
+ },
+ {
+  "i": 1087,
+  "tr": "Güçlenmek"
+ },
+ {
+  "i": 1088,
+  "tr": "Seviye yükseltmek"
+ },
+ {
+  "i": 1089,
+  "tr": "Para kazanmak"
+ },
+ {
+  "i": 1090,
+  "tr": "Kutsal silah"
+ },
+ {
+  "i": 1091,
+  "tr": "Geri almak"
+ },
+ {
+  "i": 1092,
+  "tr": "Ücretsiz geri al"
+ },
+ {
+  "i": 1093,
+  "tr": "Ücretsiz %10 ödülü geri almayı onayla"
+ },
+ {
+  "i": 1094,
+  "tr": "Hepsini geri al"
+ },
+ {
+  "i": 1095,
+  "tr": "{0} kupon harcayarak %100 ödül geri almayı onayla"
+ },
+ {
+  "i": 1096,
+  "tr": "Onur"
+ },
+ {
+  "i": 1097,
+  "tr": "Prestij"
+ },
+ {
+  "i": 1098,
+  "tr": "Eğitime başlama"
+ },
+ {
+  "i": 1099,
+  "tr": "Eğitim, figüranın temel niteliklerini büyük miktarda yükseltir, savaşma gücünü artırır. Eğitim iksiri alışveriş merkezinden satın alınabilinir ya da oyun aktivitelerinden kazanılabilinir."
+ },
+ {
+  "i": 1100,
+  "tr": "Totemi yükseltmek figüranın temel niteliklerini büyük miktarda yükseltir, savaşma gücünü artırır. Totem yükseltmek için gereken tüm \"Onur\"lar Dünya BOSS'u öldürerek kazanılabilir."
+ },
+ {
+  "i": 1101,
+  "tr": "Savaş ruhunu yükseltme"
+ },
+ {
+  "i": 1102,
+  "tr": "Savaş ruhunu yükseltmek, figüranın temel niteliklerini büyük miktarda yükseltir, savaşma gücünü artırır. Savaş ruhunu yükseltmek için gereken\"Savaş Ruhu Tozu\" savaşçının gizli yerinden kazanılabilinir."
+ },
+ {
+  "i": 1103,
+  "tr": "Kart toplama"
+ },
+ {
+  "i": 1104,
+  "tr": "Kart toplama, figüranın temel niteliklerini  büyük miktarda yükselttiği gibi savaş BUFF'ını da yükseltir. Kart, portal kart çevirmeden kazanılabilir ya da doğrudan alışveriş merkezinden \"Gizemli Kart Kutusu\" satın alınabilir."
+ },
+ {
+  "i": 1105,
+  "tr": "Evcil hayvan kazanma"
+ },
+ {
+  "i": 1106,
+  "tr": "Evcil hayvan figüranın temel niteliklerini yükseltmekle kalmayıp, ayrıca savaşta size çok daha fazla yardım eder. Yüksek seviyeli evcil hayvanların etkisi daha güçlüdür, tarladaki \"Kabul Merkezi\"nden evcil hayvan kazanılabilir."
+ },
+ {
+  "i": 1107,
+  "tr": "Ekipman güçlendirme"
+ },
+ {
+  "i": 1108,
+  "tr": "Silah, giysi, şapka, yardımcılar güçlendirme işlemine tabi tutulabilir, doğrudan savaş gücü yükseltilebilir. Güçlendirme taşı portaldan kazanılabilir, VIP kullanıcılar hergün ücretsiz güçlendirme taşı kazanırlar."
+ },
+ {
+  "i": 1109,
+  "tr": "Takı erit"
+ },
+ {
+  "i": 1110,
+  "tr": "Benzer türdeki Bilezik, Yüzük ve Düğün Yüzüğü eritilebilir, eritmeyle takının seviyesini yükseltebilirsin, karşılık gelen temel nitelik te yükselir"
+ },
+ {
+  "i": 1111,
+  "tr": "Sentezleme"
+ },
+ {
+  "i": 1112,
+  "tr": "Sentezleme silahların, giysilerin, şapkaların, gözlüklerin ve mücevherlerin niteliklerini sentezler, temel nitelikleri büyük miktarlarda yükseltir. Sentezleme taşı portaldan kart çevirme ile kazanılacağı gibi doğrudan alışveriş merkezinden de satın alınabilir."
+ },
+ {
+  "i": 1113,
+  "tr": "İnci yerleştirme"
+ },
+ {
+  "i": 1114,
+  "tr": "İnci yerleştirme savaşma gücünü yükseltmekle kalmayıp, aynı zamanda savaşta özel etkiler de kazandırır. İnci seviyesi daha yüksek olanların etkisi de daha güçlü olur."
+ },
+ {
+  "i": 1115,
+  "tr": "Hazine haritası hazine avı kara canavar gemi kazandırabilir, yeterli miktardaki kara canavar gemi Gem alışveriş merkezinden evcil hayvan ekipmanlarıyla takas edilebilir. Evcil hayvan ekipmanı doğrudan figüranın niteliklerine etki ederç"
+ },
+ {
+  "i": 1116,
+  "tr": "Ekipman yaldızlama"
+ },
+ {
+  "i": 1117,
+  "tr": "Yaldızlama inciniz yok, şu anda yaldızlama yapamazsınız!"
+ },
+ {
+  "i": 1118,
+  "tr": "Yaldızlama, savaşma gücünü, giysileri, şapkaları, silahları büyük oranda yükseltir. Kutsama incisi kullanılarak yaldızlama yapılabilir. Kutsama incisi son derece değerlidir, şu anda sadece resmi aktivitelere katılarak kazanılabilir."
+ },
+ {
+  "i": 1119,
+  "tr": "Etkinleştirme potansiyeli"
+ },
+ {
+  "i": 1120,
+  "tr": "Enerji taşınız yok, ekipmanın potansiyeli etkinleştiremezsiniz!"
+ },
+ {
+  "i": 1121,
+  "tr": "Ekipmanlar etkinleştirme potansiyelinden sonra daha güçlü bir performans sergilerler. Gizli yerin alışveriş merkezinden satılan enerji taşı ekipmanların potasiyellerini etkinleştirebilir."
+ },
+ {
+  "i": 1122,
+  "tr": "Savaşçının gizli yeri"
+ },
+ {
+  "i": 1123,
+  "tr": "Savaşçının gizli yeri büyük miktarlarda tecrübe, savaş ruhu tozu, gizli yer parası kazandırır."
+ },
+ {
+  "i": 1124,
+  "tr": "Günlük görevler"
+ },
+ {
+  "i": 1125,
+  "tr": "Günlük görevleri tamamlayarak büyük miktarlarda tecrübe, madalya ve altın kazanılabilir"
+ },
+ {
+  "i": 1126,
+  "tr": "Arena mücadelesi"
+ },
+ {
+  "i": 1127,
+  "tr": "Arena mücadelesi savaş tekniklerini eğitmekle kalmayıp, aynı zamanda büyük miktarlarda tecrübe kazandırır."
+ },
+ {
+  "i": 1128,
+  "tr": "Bogu kahramanlar savaşı"
+ },
+ {
+  "i": 1129,
+  "tr": "Bu aktivite henüz açılmamıştır, açılış zamanı saat 15:00-15:30 arasındadır."
+ },
+ {
+  "i": 1130,
+  "tr": "Bogu kahramanlar savaşı aktivitesi hergün saat 15:00-15:30 arasında açılır. Aktiveteden bogu puanları alınır, tecrübe iksiri ve oyun ürünleriyle takas edilebilir."
+ },
+ {
+  "i": 1131,
+  "tr": "Günlük giriş"
+ },
+ {
+  "i": 1132,
+  "tr": "Her gün giriş sayın istenilen rakama ulaştıgında bolca ödül kazanma şansın var!"
+ },
+ {
+  "i": 1133,
+  "tr": "Portal hazine avı"
+ },
+ {
+  "i": 1134,
+  "tr": "Portalları geçmek bağlı olmayan ürünleri kazanma şansını sağlar. Bağlı olmayan ürünler açık artırma yerinden satılarak bağlı kupon kazanılabilir."
+ },
+ {
+  "i": 1135,
+  "tr": "Kahramanlar portalı"
+ },
+ {
+  "i": 1136,
+  "tr": "Kahramanlar zorlu portalının en sonuncu kontrol noktası geçilerek çeşitli kutsal silah ve yüksek seviyeli ekipmanları kazanma şansı elde edilebilir. Bombom kralı anlaşması açılarak doğrudan portalın en sonuncu kontrol noktası açılarak mücadele edilir."
+ },
+ {
+  "i": 1137,
+  "tr": "Antik dev"
+ },
+ {
+  "i": 1138,
+  "tr": "Tüm geri çağırmalar XX puanlık onur kazandırır. Onur, Bombom kralı totem seviyesini yükseltebilir."
+ },
+ {
+  "i": 1139,
+  "tr": "Gece kontu"
+ },
+ {
+  "i": 1140,
+  "tr": "Futbol takımı kaptanı"
+ },
+ {
+  "i": 1141,
+  "tr": "Savaş alanı"
+ },
+ {
+  "i": 1142,
+  "tr": "Tüm geri çağırmalar XX puanlık prestij kazandırır. Prejstij rütbeleri yükseltebilir. Rütbe ne kadar yüksek olursa, lig alışveriş merkezinden satın alınabilecek ürün o kadar fazla olur."
+ },
+ {
+  "i": 1143,
+  "tr": "Lig"
+ },
+ {
+  "i": 1144,
+  "tr": "Tüm geri çağırmalar XX puanlık oyun kartı kazandırır. Oyun kartı doğrudan lig alışveriş merkezinde özel ürünleri satın aldırabilir."
+ },
+ {
+  "i": 1145,
+  "tr": "Kurtar"
+ },
+ {
+  "i": 1146,
+  "tr": "30 gün içinde silinmiş figüranı kurtar"
+ },
+ {
+  "i": 1147,
+  "tr": "40. seviye üzeri figüranlar ve hesapta sadece bir tane figüran bulunan figüranlar silinemez."
+ },
+ {
+  "i": 1148,
+  "tr": "Seçtiğiniz figüranı kurtarmak istediğinizden emin misiniz?"
+ },
+ {
+  "i": 1149,
+  "tr": "Sildikten sonra figüran sizin için 30 gün boyunca saklı kalır, figüranı silmek istediğinizden emin misiniz?"
+ },
+ {
+  "i": 1150,
+  "tr": "Mataryel"
+ },
+ {
+  "i": 1151,
+  "tr": "Başarı oranı"
+ },
+ {
+  "i": 1152,
+  "tr": "Tek  sefer"
+ },
+ {
+  "i": 1153,
+  "tr": "Bu seferki füzyon bağlı öğe içeriyor, füzyondan çıkan ürün bağlı konumda olacak."
+ },
+ {
+  "i": 1154,
+  "tr": "Satın almaya tıkla"
+ },
+ {
+  "i": 1155,
+  "tr": "Güncel en yüksek iade"
+ },
+ {
+  "i": 1156,
+  "tr": "(İstenen toplam satın alım {0} vardı)"
+ },
+ {
+  "i": 1157,
+  "tr": "Dikkat: Sıralama ödülleri, kişisel satın alma {0} miktarını bulduğunda kazanılabilir"
+ },
+ {
+  "i": 1158,
+  "tr": "Tanrı sureti işgalcileri"
+ },
+ {
+  "i": 1159,
+  "tr": "Rakip takımı püskürtme sayısı"
+ },
+ {
+  "i": 1160,
+  "tr": "Ejder"
+ },
+ {
+  "i": 1161,
+  "tr": "Kaplan"
+ },
+ {
+  "i": 1162,
+  "tr": "Saka"
+ },
+ {
+  "i": 1163,
+  "tr": "Kaplumbağa"
+ },
+ {
+  "i": 1164,
+  "tr": "Grup savaşı açıldı!"
+ },
+ {
+  "i": 1165,
+  "tr": "Grup savaşı kapandı!"
+ },
+ {
+  "i": 1166,
+  "tr": "Grup savaşı"
+ },
+ {
+  "i": 1167,
+  "tr": "Yarı yolda çıkmanın sonuncu ödüle etkisi olacaktır ve çıktıktan ancak \n5 dakika sonra bir daha giriş yapılabilir. Çıkmak istediğinizden emin misiniz?"
+ },
+ {
+  "i": 1168,
+  "tr": "Tanrı sureti koruma bölgesinden çıkmak, işgali kesecektir."
+ },
+ {
+  "i": 1169,
+  "tr": "Grup savaşının bitmesine hala {0} dakika var."
+ },
+ {
+  "i": 1170,
+  "tr": "Tanrı sureti grup oyuncuları tarafından işgal edildi!"
+ },
+ {
+  "i": 1171,
+  "tr": "Karşı taraf sizin arkadaşınız değil."
+ },
+ {
+  "i": 1172,
+  "tr": "Vega'ya eşlik et"
+ },
+ {
+  "i": 1173,
+  "tr": "Eşlik etme ödülü"
+ },
+ {
+  "i": 1174,
+  "tr": "Kuponunuz yetersiz"
+ },
+ {
+  "i": 1175,
+  "tr": "Eşlik etmeyi kabul et"
+ },
+ {
+  "i": 1176,
+  "tr": "Çağır"
+ },
+ {
+  "i": 1177,
+  "tr": "Çağırıldı"
+ },
+ {
+  "i": 1178,
+  "tr": "Kalan eşlik etme süresi:"
+ },
+ {
+  "i": 1179,
+  "tr": "Yedi ay aşkı"
+ },
+ {
+  "i": 1180,
+  "tr": "Aktivite süresince çeşitli ani olaylarla \nkarşılaşılır, bitiş noktasına ne kadar önce \nvarılırsa, ödül artımı o kadar fazla olur."
+ },
+ {
+  "i": 1181,
+  "tr": "Prestij:"
+ },
+ {
+  "i": 1182,
+  "tr": "Savaş ruhu tozu: {0} tane"
+ },
+ {
+  "i": 1183,
+  "tr": "（Eşlik etme aracı hareket hızı:{0}）"
+ },
+ {
+  "i": 1184,
+  "tr": "[{0}] temel seviye eşlik etme aracı"
+ },
+ {
+  "i": 1185,
+  "tr": "[{0}] orta seviye eşlik etme aracı"
+ },
+ {
+  "i": 1186,
+  "tr": "[{0}] yüksek seviye eşlik etme aracı"
+ },
+ {
+  "i": 1187,
+  "tr": "Rumuz"
+ },
+ {
+  "i": 1188,
+  "tr": "{0} kupon harcayarak çağırma yapmayı onaylıyor musun?"
+ },
+ {
+  "i": 1189,
+  "tr": "{0} kupon harcayarak eşlik etmeyi açmayı onaylıyor musun? (Eşleşme sonrasında düşme gerçekleşir)"
+ },
+ {
+  "i": 1190,
+  "tr": "{0} kupon harcayarak bir anda mesafe atlamayı onayla."
+ },
+ {
+  "i": 1191,
+  "tr": "{0} kupon harcayarak kendi eşlik ettiğin \n hedefi 30 sn görünmez kılmayı onayla, saldırı alınmaz."
+ },
+ {
+  "i": 1192,
+  "tr": "{0} kupon harcayarak kendi hız düşürme etkisini temizlemeyi onayla."
+ },
+ {
+  "i": 1193,
+  "tr": "Hız artır"
+ },
+ {
+  "i": 1194,
+  "tr": "Hız düşür"
+ },
+ {
+  "i": 1195,
+  "tr": "Görünmez ol"
+ },
+ {
+  "i": 1196,
+  "tr": "Eşlik etme başarılı"
+ },
+ {
+  "i": 1197,
+  "tr": "Eşlik etme başarısız"
+ },
+ {
+  "i": 1198,
+  "tr": "Eşlik etme yerinden çıkmak, eşlik etme aracının ilerleyişini durduracaktır."
+ },
+ {
+  "i": 1199,
+  "tr": "Bugün eşlik etme sayısının hepsi kullanıldı!"
+ },
+ {
+  "i": 1200,
+  "tr": "Mesafe atlanır, canavar tuzaklarından kurtulunabilir (CD süresi 5 sn)"
+ },
+ {
+  "i": 1201,
+  "tr": "Kendi eşlik ettiğin hedefi 30 sn gizler, saldır alınmaz (CD süresi 5 sn)"
+ },
+ {
+  "i": 1202,
+  "tr": "Kendi hız düşürme etkisini temizle (CD süresi 5 sn)"
+ },
+ {
+  "i": 1203,
+  "tr": "Kalan eşlik etme mesafesi:"
+ },
+ {
+  "i": 1204,
+  "tr": "Bağlı kupon yetersiz, kupon kullanmak istiyor musunuz?"
+ },
+ {
+  "i": 1205,
+  "tr": "Yedi ay aşkı eşlik etme aktivitesi çift kat ödül açıldı, hemen katıl!"
+ },
+ {
+  "i": 1206,
+  "tr": "Yedi ay aşkı eşlik etme aktivitesi çift kat ödül kapandı!"
+ },
+ {
+  "i": 1207,
+  "tr": "{0}. seviye birlik BOSS"
+ },
+ {
+  "i": 1208,
+  "tr": "{0}. seviye birlik görevi"
+ },
+ {
+  "i": 1209,
+  "tr": "YY üyeliği özel öncelikleri"
+ },
+ {
+  "i": 1210,
+  "tr": "VIP {0} alabilir"
+ },
+ {
+  "i": 1211,
+  "tr": "Alım başarılı"
+ },
+ {
+  "i": 1212,
+  "tr": "Alım başarısız"
+ },
+ {
+  "i": 1213,
+  "tr": "Bugün alındı"
+ },
+ {
+  "i": 1214,
+  "tr": "Üyelik açtıktan sonra alınabilir, açmak istediğinizden emin misiniz?"
+ },
+ {
+  "i": 1215,
+  "tr": "Yıllık üyelik açıtıktan sonra alınabilir, açmak istediğinizden emin misiniz?"
+ },
+ {
+  "i": 1216,
+  "tr": "Üye bilgileri alımı başarısız"
+ },
+ {
+  "i": 1217,
+  "tr": "YY üyeliği bilgileri kontrol ediliyor, lütfen {0} sn sonra tekrar deneyin."
+ },
+ {
+  "i": 1218,
+  "tr": "Bu arayüzde YY üyeliği açıldığı takdirde geri bildirim ödülü alınabilir."
+ },
+ {
+  "i": 1219,
+  "tr": "Kabus"
+ },
+ {
+  "i": 1220,
+  "tr": "Destan Seviyesi"
+ },
+ {
+  "i": 1221,
+  "tr": "Kart+{0}"
+ },
+ {
+  "i": 1222,
+  "tr": "<FONT COLOR='#f6dc8f'><B>{0}</B></FONT>. Bugün katkı kazandınız<FONT COLOR='#ffd633'><B>{1}</B></FONT>！<br/>"
+ },
+ {
+  "i": 1223,
+  "tr": "Ejderha kayığı festivali aktivite bilgisi başarısız"
+ },
+ {
+  "i": 1224,
+  "tr": "Ejderha kayığı festivali ejderha kayığı bilgisi başarısız"
+ },
+ {
+  "i": 1225,
+  "tr": "Ejderha kayığı festivali ödül bilgisi başarısız"
+ },
+ {
+  "i": 1226,
+  "tr": "Şu an kullanılabilir"
+ },
+ {
+  "i": 1227,
+  "tr": "Evcil hayvan yenileme: Sınırsız"
+ },
+ {
+  "i": 1228,
+  "tr": "Usta inci: {0} kez"
+ },
+ {
+  "i": 1229,
+  "tr": "Saman ruhu: {0} kez"
+ },
+ {
+  "i": 1230,
+  "tr": "Keşifçi savaşçısı: {0} kez"
+ },
+ {
+  "i": 1231,
+  "tr": "Tanrısal koruma gücü: Sınırsız"
+ },
+ {
+  "i": 1232,
+  "tr": "Enerji tanırısı: Sınırsız"
+ },
+ {
+  "i": 1233,
+  "tr": "Ejderha kayığı"
+ },
+ {
+  "i": 1234,
+  "tr": "Aktivite zamanı:  {2}.{1}.{0}-{5}.{4}.{3}"
+ },
+ {
+  "i": 1235,
+  "tr": "Tamamlanma derecesi %{0}"
+ },
+ {
+  "i": 1236,
+  "tr": "Normal yaratma"
+ },
+ {
+  "i": 1237,
+  "tr": "Normal süsleme"
+ },
+ {
+  "i": 1238,
+  "tr": "Parça boşaltna sayısı"
+ },
+ {
+  "i": 1239,
+  "tr": "Dikkat: 1 ejder kayığı parçası = 10 puan"
+ },
+ {
+  "i": 1240,
+  "tr": "Yüksek seviye yaratma"
+ },
+ {
+  "i": 1241,
+  "tr": "Yüksek seviye süsleme"
+ },
+ {
+  "i": 1242,
+  "tr": "Şu an                     kuponunuz var."
+ },
+ {
+  "i": 1243,
+  "tr": "Yüksek seviye \nyaratma sayısı"
+ },
+ {
+  "i": 1244,
+  "tr": "Yüksek seviye \nsüsleme sayısı"
+ },
+ {
+  "i": 1245,
+  "tr": "Dikkat: 100 kuponla 1 kez yüksek seviye yaratma yapmak = 10 puna"
+ },
+ {
+  "i": 1246,
+  "tr": "Dikkat: 100 kuponla 1 kez yüksek seviye süsleme yapmak = 10 puna"
+ },
+ {
+  "i": 1247,
+  "tr": "Puan takası"
+ },
+ {
+  "i": 1248,
+  "tr": "Dikkat: Puanla alışveriş merkezinden takas yapılan ürünlerin her biri bağlıdır"
+ },
+ {
+  "i": 1249,
+  "tr": "Takas edebilme puanı:"
+ },
+ {
+  "i": 1250,
+  "tr": "Puan"
+ },
+ {
+  "i": 1251,
+  "tr": "Puan yetersiz"
+ },
+ {
+  "i": 1252,
+  "tr": "(Ejderha kayığı yaratma/süsleme puan kazandırabilir, ejderha kayığı puanı puan alışveriş merkezinde kullanılır)"
+ },
+ {
+  "i": 1253,
+  "tr": "Bu bölge {0} puandan büyük olduğu zaman sıralama ödülü kazanılabilir/sunucular arası {1} puandan yüksek olduğu zaman sıralama ödülü kazanılabilir."
+ },
+ {
+  "i": 1254,
+  "tr": "Takas Etme"
+ },
+ {
+  "i": 1255,
+  "tr": "Sırlamada yok"
+ },
+ {
+  "i": 1256,
+  "tr": "Ejderha kayığı parçası yetersiz, bu işlemi yapamazsınız"
+ },
+ {
+  "i": 1257,
+  "tr": "Kupon 100 puan eksik, bu işlemi yapamazsınız"
+ },
+ {
+  "i": 1258,
+  "tr": "15. seviyeye varılmadı, bu aktiviteye katılamazsınız"
+ },
+ {
+  "i": 1259,
+  "tr": "Not: 1 Heykel Parçası = 10 Puan"
+ }
+]
