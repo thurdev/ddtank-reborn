@@ -42,30 +42,33 @@ export const userOf = (req: FastifyRequest) => (req as FastifyRequest & { user: 
 const publicUser = (acc: { ID: number; UserName: string; Email: string | null }, role: string) => ({ id: acc.ID, username: acc.UserName, email: acc.Email ?? "", role });
 
 /** Everything the page / launcher needs to start the Flash client for `userName` (issues a fresh one-time key). */
-export async function playConfig(ctx: AppCtx, acc: { ID: number; UserName: string } | null, ip?: string) {
+export async function playConfig(ctx: AppCtx, acc: { ID: number; UserName: string } | null, ip?: string, client?: string) {
   const c = ctx.cfg;
   const base = c.PUBLIC_URL;
-  let flashvars: Record<string, string> = { user: "", key: "", config: `${base}/flash/config.xml` };
+  // ?client=6600: cliente DDT-6600 em paralelo (migração M1); padrão continua o 4.1
+  const fl = client === "6600" ? "flash6600" : "flash";
+  let flashvars: Record<string, string> = { user: "", key: "", config: `${base}/${fl}/config.xml` };
   let expiresAt: string | undefined;
   if (acc) {
     const t = await issueWebKey(ctx.h, acc.UserName, { accountId: acc.ID, ttlMinutes: c.LOGIN_KEY_TTL_MIN, ip });
-    flashvars = { user: acc.UserName.toLowerCase(), key: t.key, config: `${base}/flash/config.xml` };
+    flashvars = { user: acc.UserName.toLowerCase(), key: t.key, config: `${base}/${fl}/config.xml` };
     expiresAt = t.expiresAt.toISOString();
   }
   const proxy = [{ host: c.GAME_HOST, port: c.GAME_PORT, proxyUrl: c.GAME_WS_URL }];
   if (c.GAME_HOST === "127.0.0.1") proxy.push({ host: "localhost", port: c.GAME_PORT, proxyUrl: c.GAME_WS_URL });
   return {
     rufflePath: c.RUFFLE_URL || `${base}/ruffle/ruffle.js`,
-    swfUrl: `${base}/flash/Loading.swf`,
-    base: `${base}/flash/`,
+    swfUrl: `${base}/${fl}/Loading.swf`,
+    base: `${base}/${fl}/`,
     flashvars,
     socketProxy: proxy,
     socket: { host: c.GAME_HOST, port: c.GAME_PORT, policyPort: c.POLICY_PORT },
     wsUrl: c.GAME_WS_URL,
     requestUrl: `${base}/request/`,
     resourceUrl: `${base}/resource/`,
-    flashUrl: `${base}/flash/`,
-    configUrl: `${base}/flash/config.xml`,
+    flashUrl: `${base}/${fl}/`,
+    client: fl === "flash6600" ? "6600" : "41",
+    configUrl: `${base}/${fl}/config.xml`,
     expiresAt,
   };
 }
@@ -147,7 +150,7 @@ export async function authRoutes(f: FastifyInstance, ctx: AppCtx) {
   f.get("/api/play/config", { preHandler: requireUser(ctx) }, async (req, reply) => {
     const acc = await findAccount(ctx.h, userOf(req).name);
     if (!acc || acc.IsBanned) return reply.code(401).send({ message: "Não autenticado" });
-    return playConfig(ctx, acc, req.ip);
+    return playConfig(ctx, acc, req.ip, (req.query as { client?: string }).client);
   });
 }
 

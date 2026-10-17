@@ -8,6 +8,7 @@ import type { AppCtx } from "../context.js";
 import { CiTree, EMPTY_SWF, mimeOf, placeholder } from "../lib/resources.js";
 import { crc32, inflateSync } from "node:zlib";
 import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
 import { aliasBombSwf } from "../lib/bomb-alias.js";
 
 export const CROSSDOMAIN = `<?xml version="1.0"?>
@@ -20,19 +21,20 @@ export const CROSSDOMAIN = `<?xml version="1.0"?>
 `;
 
 /** config.xml with every URL pointed at this deployment (template: FLASH_DIR/config.xml, research/client/01-client-map.md §3). */
-export function buildConfigXml(ctx: AppCtx, template: string): string {
+export function buildConfigXml(ctx: AppCtx, template: string, flashPath = "flash"): string {
   const b = ctx.cfg.PUBLIC_URL;
   const set: Record<string, string> = {
-    FLASHSITE: `${b}/flash/`,
-    BACKUP_FLASHSITE: `${b}/flash/`,
-    USE_MD5: "true",
+    FLASHSITE: `${b}/${flashPath}/`,
+    BACKUP_FLASHSITE: `${b}/${flashPath}/`,
+    // 4.1: 1.png/2.png têm cabeçalho "road"+md5 conferido com md5.xml; o pack 6600 é CWS puro (USE_MD5 false)
+    USE_MD5: flashPath === "flash" ? "true" : "false",
     SITE: `${b}/resource/`,
     FIRSTPAGE: `${ctx.cfg.SITE_URL}/`,
     REGISTER: `${ctx.cfg.SITE_URL}/register`,
     REQUEST_PATH: `${b}/request/`,
     LOGIN_PATH: `${ctx.cfg.SITE_URL}/login`,
     FILL_PATH: `${ctx.cfg.SITE_URL}/account`,
-    WEEKLYSITE: `${b}/flash/`,
+    WEEKLYSITE: `${b}/${flashPath}/`,
     COUNT_PATH: "",
     STATISTIC: "false",
     OFFICIAL_SITE: `${ctx.cfg.SITE_URL}/`,
@@ -141,6 +143,28 @@ export async function staticRoutes(f: FastifyInstance, ctx: AppCtx) {
       if (low === "config.xml") return reply.type("text/xml; charset=utf-8").header("Cache-Control", "no-cache").send(buildConfigXml(ctx, cfgTemplate()));
       if (low === "crossdomain.xml") return reply.type("text/xml").send(CROSSDOMAIN);
       const file = flashFix.resolve(rel) ?? flash.resolve(rel);
+      if (!file) return reply.code(404).send("not found");
+      return sendFile(req, reply, file);
+    },
+  });
+
+  // cliente DDT-6600 em paralelo (migração M1): mesmo esquema do /flash/, pack e config.xml do vendor 6600
+  const flash6600 = existsSync(ctx.cfg.FLASH6600_DIR) ? new CiTree(ctx.cfg.FLASH6600_DIR) : null;
+  const flash6600Fix = new CiTree(fileURLToPath(new URL("../../assets/flash6600", import.meta.url)));
+  f.route({
+    method: ["GET", "HEAD"],
+    url: "/flash6600/*",
+    handler: (req, reply) => {
+      const rel = relOf(req, /^\/flash6600\//i);
+      const low = rel.toLowerCase();
+      if (low === "config.xml") {
+        const tpl = existsSync(ctx.cfg.CONFIG6600_FILE) ? readFileSync(ctx.cfg.CONFIG6600_FILE, "utf8") : cfgTemplate();
+        return reply.type("text/xml; charset=utf-8").header("Cache-Control", "no-cache").send(buildConfigXml(ctx, tpl, "flash6600"));
+      }
+      if (low === "crossdomain.xml") return reply.type("text/xml").send(CROSSDOMAIN);
+      // md5.xml/characterDefine.xml ficam na raiz do site (WebSimple/), um nível acima do pack
+      const top = !rel.includes("/") ? join(dirname(ctx.cfg.FLASH6600_DIR), rel) : "";
+      const file = flash6600Fix.resolve(rel) ?? flash6600?.resolve(rel) ?? (top && existsSync(top) ? top : null);
       if (!file) return reply.code(404).send("not found");
       return sendFile(req, reply, file);
     },

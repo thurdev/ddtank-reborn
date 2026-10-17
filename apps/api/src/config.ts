@@ -46,6 +46,12 @@ const schema = z.object({
 
   /** Compiled Flash client (Loading.swf, 2.png, ui/...). Served at /flash/. */
   FLASH_DIR: z.string().default(resolve(VENDOR, "Source Flash", "FlashSV1")),
+  /** Migração 6600 (docs/plan/MIGRACAO-6600.md M1): cliente DDT-6600 servido em paralelo em /flash6600/, o 4.1
+   *  continua o padrão. config.xml do 6600 fica um nível acima do pack (WebSimple/config.xml). */
+  FLASH6600_DIR: z.string().default(resolve(REPO_ROOT, "vendor", "DDT-6600", "WebSimple", "Flash_6600_v040")),
+  /** XMLs do Tank.Request do 6600 (snapshot do vendor): fallback de /request/*.xml que ainda não geramos (M1). */
+  REQUEST6600_SNAPSHOT_DIR: z.string().default(resolve(REPO_ROOT, "vendor", "DDT-6600", "Request")),
+  CONFIG6600_FILE: z.string().default(resolve(REPO_ROOT, "vendor", "DDT-6600", "WebSimple", "config.xml")),
   /** Resource pack (image/, sound/, flash/characterdefine.xml). Served at /resource/. */
   RESOURCE_DIR: z.string().default(resolve(REPO_ROOT, "vendor", "_assets", "merged")),
   /** Snapshot XML shipped with DDTank41 (static-only files with no builder). */
@@ -93,7 +99,7 @@ export type Config = z.infer<typeof schema> & { rsaKeyText: string; rsaKeySource
 export function loadConfig(env: Record<string, string | undefined> = process.env, overrides: Partial<Config> = {}): Config {
   const parsed = schema.parse({ ...env, ...overrides });
   const c = { ...parsed, ...overrides } as Config;
-  for (const k of ["FLASH_DIR", "RESOURCE_DIR", "REQUEST_SNAPSHOT_DIR", "RUFFLE_DIR", "UPLOAD_DIR"] as const) {
+  for (const k of ["FLASH_DIR", "FLASH6600_DIR", "CONFIG6600_FILE", "REQUEST6600_SNAPSHOT_DIR", "RESOURCE_DIR", "REQUEST_SNAPSHOT_DIR", "RUFFLE_DIR", "UPLOAD_DIR"] as const) {
     const v = c[k];
     if (v && !isAbsolute(v)) c[k] = resolve(APP_ROOT, v);
   }

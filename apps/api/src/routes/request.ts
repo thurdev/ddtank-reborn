@@ -3,12 +3,14 @@
  * Paths are case-insensitive (the client lowercases URLs), query parsing tolerates the client's `?rnd=Xrnd=X` bug,
  * and GET/POST form values are merged like `context.Request["x"]`.
  */
+import { readFileSync } from "node:fs";
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import type { AppCtx } from "../context.js";
 import { result, zlibXml } from "../lib/flash-xml.js";
 import { ENDPOINTS } from "../request/registry.js";
 import type { Output, ReqCtx } from "../request/types.js";
 import { authOf } from "./auth.js";
+import { CiTree } from "../lib/resources.js";
 
 export function paramsOf(req: FastifyRequest): Map<string, string> {
   const m = new Map<string, string>();
@@ -36,6 +38,9 @@ export function send(reply: FastifyReply, out: Output) {
 }
 
 export async function requestRoutes(f: FastifyInstance, ctx: AppCtx) {
+  // migração 6600 (M1): XMLs que o cliente 6600 pede e nós ainda não geramos saem do snapshot do vendor, byte a byte
+  // (uns são zlib, outros texto puro — igual o IIS servia). Os que já geramos continuam vindo do banco.
+  const snap6600 = new CiTree(ctx.cfg.REQUEST6600_SNAPSHOT_DIR);
   const handler = async (req: FastifyRequest, reply: FastifyReply, override?: string) => {
     const url = new URL(req.url, "http://x");
     let rel = (override ?? safeDecode(url.pathname)).replace(/^\/request\//i, "/");
@@ -54,6 +59,11 @@ export async function requestRoutes(f: FastifyInstance, ctx: AppCtx) {
       if (/celeb/.test(base)) {
         // Cross-area / not-built rankings (spec §3.2): an empty, valid list.
         return reply.type("application/octet-stream").send(zlibXml(result(true, "Success!", [], [["date", new Date().toISOString().slice(0, 10)]]).toString()));
+      }
+      const snap = snap6600.resolve(rel.replace(/^\//, ""));
+      if (snap) {
+        const body = readFileSync(snap);
+        return reply.type(body[0] === 0x78 ? "application/octet-stream" : "text/xml; charset=utf-8").header("X-Snapshot", "6600").send(body);
       }
       ctx.log.warn(`request: missing template ${rel}`);
       return reply.code(404).type("text/plain").send("not found");

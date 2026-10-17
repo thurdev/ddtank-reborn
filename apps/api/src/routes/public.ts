@@ -89,7 +89,7 @@ export async function publicRoutes(f: FastifyInstance, ctx: AppCtx) {
     return {
       serverName: ctx.cfg.SERVER_NAME,
       launcherUrl: ctx.cfg.LAUNCHER_DOWNLOAD_URL || null,
-      game: await playConfig(ctx, acc && !acc.IsBanned ? acc : null, req.ip),
+      game: await playConfig(ctx, acc && !acc.IsBanned ? acc : null, req.ip, (req.query as { client?: string }).client),
     };
   });
 

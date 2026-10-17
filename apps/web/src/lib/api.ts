@@ -96,9 +96,12 @@ export interface AimTableResult {
 
 // ---- Query options ----
 
+/** ?client=6600 na URL da página abre o cliente DDT-6600 (migração M1); sem nada, o 4.1. */
+const clientParam = typeof window === "undefined" ? null : new URLSearchParams(window.location.search).get("client");
+
 export const configQuery = queryOptions({
-  queryKey: ["public", "config"],
-  queryFn: () => api.get<PublicConfig>("/api/public/config"),
+  queryKey: ["public", "config", clientParam],
+  queryFn: () => api.get<PublicConfig>(clientParam ? `/api/public/config?client=${encodeURIComponent(clientParam)}` : "/api/public/config"),
   staleTime: 5 * 60_000,
 });
 
