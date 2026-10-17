@@ -19,8 +19,9 @@
 - [~] **m1-socket** (cliente já conecta e passa do login; faltam formatos de pacote: LOGIN reply, UPDATE_PLAYER_INFO/PRIVATE_INFO, boss mundial, roleta, ranking de consumo) — — cliente 6600 conecta no `apps/game` (handshake igual à 4.1) e entra no hall: logar os pacotes
   recebidos/enviados (`PACKET_TRACE`), corrigir os que mudaram de formato no login/hall (`LOGIN`, info do
   jogador, bolsa inicial). Pronto quando: lobby 6600 aparece com o personagem.
-- [~] **m1-loading-brand** — tela de carregamento/logo sem "Bombom"/"DEVELOP BY ASUNA" (overlay de imagem em
+- [x] **m1-loading-brand** — tela de carregamento/logo sem "Bombom"/"DEVELOP BY ASUNA" (overlay de imagem em
   `apps/api/assets/flash6600`), logo DDTank Reborn.
+- [ ] **m1-brand-polish** — `ui/turkey/swf/loading.swf` (chid 18 e 34): sobra um fantasma do "Bombom II" atrás do logo; refazer o fundo com inpaint (IA unlimited ou local) em vez de blur. Ver `research/6600/brand-review.jpg`.
 - [ ] **m1-ruffle-report** — refazer `research/client/02-ruffle-report.md` pro 6600 (o que quebra no Ruffle).
 - [ ] **m1-regressao** — garantir que o 4.1 segue igual (`/play` sem parâmetro), checklist das telas principais.
 - [ ] **m1-schema** — tabelas novas do 6600 (Montaria, Treino, Casa Mágica, RingStation, Tesouro, Relíquias,
