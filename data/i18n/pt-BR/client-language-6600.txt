@@ -3890,7 +3890,7 @@ dice.alert.nextPrompt:Não me avisar novamente hoje
 dice.type.prompt:Você selecionou {0}, {1} cupons serão descontados.
 dice.type.common:Dado normal
 dice.type.double:Dado duplo
-dice.type.big:Dado pequeno
+dice.type.big:Dado grande
 dice.type.small:Dado pequeno
 dice.treasureBoxTip.script:Você completou o baú de nível {0}, vai receber os seguintes itens:
 dice.reward.title:Itens que você obteve:
@@ -5910,7 +5910,7 @@ task.taskView.quickUse.titleText:Uso rápido
 farm.tree.callPoultry.titleText:Chamar Árvore Sagrada
 farm.tree.callPoultry.infoText:Selecione o nível\ndo monstro:
 farm.friendListPanel.poultryText:Monstro
-farm.friendListPanel.stealBtnText:Vegetal
+farm.friendListPanel.stealBtnText:Roubar
 quickUseFrame.tipsInfoText:Energia insuficiente, usar poção de energia?
 foodActivity.frame.title:Arte Culinária DDTank
 foodActivity.noCookingCount:A quantidade de cozimentos foi usada!
