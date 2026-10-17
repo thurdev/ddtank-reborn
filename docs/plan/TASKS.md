@@ -16,9 +16,10 @@
   Pronto quando: carregamento passa de 13/13 sem erro AVM2; testes da API verdes.
 - [x] **m1-lang-ptbr** — `language.txt` PT-BR pro pack 6600 (`tools/i18n/lang-6600.mjs`): reaproveita as chaves
   iguais da 4.1, traduz as novas, troca a marca "Bombom". Pronto quando: 0 chaves em turco.
-- [~] **m1-socket** (cliente já conecta e passa do login; faltam formatos de pacote: LOGIN reply, UPDATE_PLAYER_INFO/PRIVATE_INFO, boss mundial, roleta, ranking de consumo) — — cliente 6600 conecta no `apps/game` (handshake igual à 4.1) e entra no hall: logar os pacotes
-  recebidos/enviados (`PACKET_TRACE`), corrigir os que mudaram de formato no login/hall (`LOGIN`, info do
-  jogador, bolsa inicial). Pronto quando: lobby 6600 aparece com o personagem.
+- [x] **m1-socket** — cliente identificado no login (Login.ashx → LoginSessions.Client), layouts 6600 dos pacotes do burst de login/hall (LOGIN, 38, 67, 64 GRID_GOODS, 142 KING_BLESS, 216 CARDS, 178 QUEST, 259, 102, 137), API zlib por cliente. **Lobby 6600 abre** (2026-10-18). Ver `research/6600/packets-m1.md`.
+- [ ] **m1-swf-text** — textos turcos fixos dentro dos SWF do 6600 ("Savaşma Gücü", "VIP aç", "Şu anki", popup "Lig Maçı"…): auditar `ui/turkey/swf/*.swf` (DefineText/EditText) e traduzir com o pipeline `research/i18n/swf-text-pt.json` + `build-client-art` (overlay em `apps/api/assets/flash6600`).
+- [ ] **m1-stage** — tamanho/posição do palco 6600 na página /play (o jogo passa da moldura à direita).
+- [ ] **m1-pacotes-acao** — pacotes 6600 disparados por ação (74 ITEM_EQUIP ver equipamento de outro jogador, 195 AUCTION_REFRESH, BEAD_HOLE_INFO…) — `research/6600/packets-m1.md`.
 - [x] **m1-loading-brand** — tela de carregamento/logo sem "Bombom"/"DEVELOP BY ASUNA" (overlay de imagem em
   `apps/api/assets/flash6600`), logo DDTank Reborn.
 - [ ] **m1-brand-polish** — `ui/turkey/swf/loading.swf` (chid 18 e 34): sobra um fantasma do "Bombom II" atrás do logo; refazer o fundo com inpaint (IA unlimited ou local) em vez de blur. Ver `research/6600/brand-review.jpg`.
