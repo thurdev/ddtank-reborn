@@ -308,6 +308,20 @@ describe("static + public", () => {
     expect(x).toContain("<DailyLogList ");
   });
 
+  it("/request6600/ wraps COMPRESS_ASHX_6600 endpoints in zlib even when we have a real (plain-XML) handler", async () => {
+    // IMListLoad.ashx is an implemented endpoint (not the "unknown endpoint" 404 path) that answers plain
+    // XML for 4.1's loader; the 6600 client loads it with COMPRESS_REQUEST_LOADER and throws #2058 right
+    // after the request if the body isn't zlib (routes/request.ts, right after ep.handle()).
+    const plain = await app.inject({ url: "/request/IMListLoad.ashx?id=1" });
+    expect(plain.body).toContain("<customList");
+    const compressed = await app.inject({ url: "/request6600/IMListLoad.ashx?id=1" });
+    expect(inflate(compressed.rawPayload)).toContain("<customList");
+    // dailyloglist.ashx already zlibs its own output (xml(..., true)) for every client — the 6600 wrap must
+    // not double-compress it.
+    const r6600 = await app.inject({ url: "/request6600/dailyloglist.ashx?selfid=1&key=x" });
+    expect(inflate(r6600.rawPayload)).toContain("<DailyLogList ");
+  });
+
   it("launcher manifest + public config", async () => {
     const l = (await app.inject({ url: "/api/public/launcher" })).json();
     expect(l.servers.length).toBeGreaterThan(0);

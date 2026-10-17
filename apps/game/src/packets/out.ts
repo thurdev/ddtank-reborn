@@ -221,8 +221,23 @@ export function playerProperty(id: number): PacketOut {
   return p;
 }
 
+/**
+ * 6600-only per-item tail (magic-stone damage system, not implemented -> zero/false). Shared by every
+ * item-info writer below so a future one (shop/mail attachment) picks it up the same way.
+ * - GRID_GOODS (64): PlayerManager.as __updateInventorySlot (6600 line ~366-383 vs 4.1, which stops at
+ *   latentEnergyEndTime): MagicAttack/MagicDefence (2 ints, read unconditionally — EquipType.isMagicStone
+ *   decides only where the client STORES them, not whether it reads them), goodsLock (bool), MagicExp (int),
+ *   MagicLevel (int).
+ * - ITEM_EQUIP (74): PlayerManager.as __itemEquip (6600 line 615 vs 4.1): +1 int, MagicLevel only.
+ * See research/6600/packets-m1.md packet 64/74.
+ */
+function writeItemMagicTail(p: PacketOut, full: boolean): void {
+  if (full) { p.writeInt(0); p.writeInt(0); p.writeBoolean(false); p.writeInt(0); } // MagicAttack/MagicDefence, goodsLock, MagicExp
+  p.writeInt(0); // MagicLevel
+}
+
 /** 64 GRID_GOODS (SendUpdateInventorySlot, :1538). */
-export function inventorySlots(ownerId: number, bag: PlayerInventory, slots: number[], now = new Date()): PacketOut {
+export function inventorySlots(ownerId: number, bag: PlayerInventory, slots: number[], now = new Date(), clientKind: ClientKind = "41"): PacketOut {
   const p = new PacketOut(64, ownerId);
   p.writeInt(bag.bagType);
   p.writeInt(slots.length);
@@ -251,12 +266,21 @@ export function inventorySlots(ownerId: number, bag: PlayerInventory, slots: num
     }
     // C# writes latentEnergyCurStr twice (sic).
     p.writeString(it.latentEnergyCurStr); p.writeString(it.latentEnergyCurStr); wd(p, it.latentEnergyEndTime);
+    if (clientKind === "6600") writeItemMagicTail(p, true);
   }
   return p;
 }
 
 /** 178 quest list (SendUpdateQuests, :1672). */
-export function updateQuests(id: number, states: Uint8Array, quests: QuestDataRow[]): PacketOut {
+/**
+ * 178 quest list (SendUpdateQuests, :1672; TaskManager.as __updateAcceptedTask).
+ * 6600 reads +3 fields per quest after IsExist (4.1 line 599 vs 6600 line 807-817): QuestLevel (int, not
+ * tracked -> 0), a Condition5-8 array (always length 4 in the C# itself — `new int[4]` — written as
+ * index/value pairs; we don't track Condition5-8 either -> 0), isGet/IsAccept (bool — true: by the time we
+ * send a quest here the player already has it). The trailing `states` byte array is unchanged in both.
+ * See research/6600/packets-m1.md.
+ */
+export function updateQuests(id: number, states: Uint8Array, quests: QuestDataRow[], clientKind: ClientKind = "41"): PacketOut {
   const p = new PacketOut(178, id);
   p.writeInt(quests.length);
   for (const q of quests) {
@@ -265,6 +289,12 @@ export function updateQuests(id: number, states: Uint8Array, quests: QuestDataRo
     const d = wireDate(q.CompletedDate);
     wd(p, new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())));
     p.writeInt(q.RepeatFinish); p.writeInt(q.RandDobule); p.writeBoolean(q.IsExist);
+    if (clientKind === "6600") {
+      p.writeInt(0); // QuestLevel (not implemented)
+      p.writeInt(4); // Condition5-8 array length (fixed at 4 in the C# itself)
+      for (let i = 0; i < 4; i++) { p.writeInt(i + 4); p.writeInt(0); } // Condition5-8 (not tracked)
+      p.writeBoolean(true); // isGet/IsAccept
+    }
   }
   p.write(states);
   return p;
@@ -357,6 +387,21 @@ export function firstRecharge(isRecharged: boolean, isGetAward: boolean): Packet
 export function consumeRankClosed(): PacketOut {
   const p = new PacketOut(259);
   p.writeString(""); p.writeBoolean(false);
+  return p;
+}
+
+/**
+ * 142 KING_BLESS_MAIN closed (6600-only code, no collision with 4.1 — the value doesn't exist in the 4.1
+ * enum at all, see research/6600/packets-m1.md). SendKingBlessMain (AbstractPacketLib.cs:2299-2315): int
+ * KingBlessIndex, date KingBlessEnddate, and only if KingBlessIndex>0 an int count + count*(int,int) buff
+ * map. Never sent before (not a 4.1 feature) -> AS3 KingBlessManager._endTime stayed null forever ->
+ * TypeError #1009 in getRemainTimeTxt() the first time HallStateView/PlayerTool reads it. KingBlessIndex=0
+ * takes the same "not open" early return as a real closed blessing (KingBlessManager.as:173).
+ */
+export function kingBlessClosed(): PacketOut {
+  const p = new PacketOut(142);
+  p.writeInt(0);
+  wd(p, MIN_DATE);
   return p;
 }
 
@@ -773,16 +818,34 @@ export interface CardView {
   CardID: number; UserID: number; Count: number; Place: number; TemplateID: number; Attack: number; Defence: number; Agility: number; Luck: number;
   AttackReset: number; DefenceReset: number; AgilityReset: number; LuckReset: number; Damage: number; Guard: number; Level: number; CardGP: number; isFirstGet: boolean;
 }
-/** 216 CARDS_DATA (SendUpdateCardData(bag, slots) :1602): Total* = rolled + reset values. */
-export function cardData(userId: number, slots: { place: number; card: CardView | null }[]): PacketOut {
+/**
+ * 216 CARDS_DATA (SendUpdateCardData(bag, slots) :1602): Total* = rolled + reset values.
+ * 6600 (AbstractPacketLib.cs:1731-1757 vs 4.1): header gains `player.ZoneID` (+1 int, right after userId);
+ * per-card the field SET actually shrinks (14 fields -> 12) and reorders: CardID, CardType (new; we don't
+ * track it -> 0), UserID, Place, TemplateID, isFirstGet (moved right after TemplateID instead of last),
+ * Attack, Defence, Agility, Luck, Damage, Guard — `Count` and `Level`/`CardGP` are dropped entirely for
+ * this packet in 6600 (PlayerManager.as __getCards, 4.1 line 1110 vs 6600 line 1475). See
+ * research/6600/packets-m1.md.
+ */
+export function cardData(userId: number, slots: { place: number; card: CardView | null }[], clientKind: ClientKind = "41", zoneId = 0): PacketOut {
   const p = new PacketOut(216, userId);
-  p.writeInt(userId); p.writeInt(slots.length);
+  p.writeInt(userId);
+  if (clientKind === "6600") p.writeInt(zoneId);
+  p.writeInt(slots.length);
   for (const { place, card: c } of slots) {
     p.writeInt(place);
     if (!c || c.TemplateID === 0) { p.writeBoolean(false); continue; }
-    p.writeBoolean(true); p.writeInt(c.CardID); p.writeInt(c.UserID); p.writeInt(c.Count); p.writeInt(c.Place); p.writeInt(c.TemplateID);
-    p.writeInt(c.Attack + c.AttackReset); p.writeInt(c.Defence + c.DefenceReset); p.writeInt(c.Agility + c.AgilityReset); p.writeInt(c.Luck + c.LuckReset);
-    p.writeInt(c.Damage); p.writeInt(c.Guard); p.writeInt(c.Level); p.writeInt(c.CardGP); p.writeBoolean(c.isFirstGet);
+    p.writeBoolean(true);
+    if (clientKind === "6600") {
+      p.writeInt(c.CardID); p.writeInt(0) /* CardType, not tracked */; p.writeInt(c.UserID); p.writeInt(c.Place); p.writeInt(c.TemplateID);
+      p.writeBoolean(c.isFirstGet);
+      p.writeInt(c.Attack + c.AttackReset); p.writeInt(c.Defence + c.DefenceReset); p.writeInt(c.Agility + c.AgilityReset); p.writeInt(c.Luck + c.LuckReset);
+      p.writeInt(c.Damage); p.writeInt(c.Guard);
+    } else {
+      p.writeInt(c.CardID); p.writeInt(c.UserID); p.writeInt(c.Count); p.writeInt(c.Place); p.writeInt(c.TemplateID);
+      p.writeInt(c.Attack + c.AttackReset); p.writeInt(c.Defence + c.DefenceReset); p.writeInt(c.Agility + c.AgilityReset); p.writeInt(c.Luck + c.LuckReset);
+      p.writeInt(c.Damage); p.writeInt(c.Guard); p.writeInt(c.Level); p.writeInt(c.CardGP); p.writeBoolean(c.isFirstGet);
+    }
   }
   return p;
 }
@@ -874,15 +937,30 @@ export function insufficientMoney(userId: number, type: number): PacketOut {
   p.writeByte(type); p.writeBoolean(false);
   return p;
 }
-/** 216 CARDS_DATA, GET_PLAYER_CARD (18) reply (SendUpdateCardData(PlayerInfo,List<UsersCardInfo>), :1641): same
- *  item layout as `cardData` but keyed by the viewed player's id, not the viewer's, and always `true`. */
-export function playerCardData(targetId: number, cards: CardView[]): PacketOut {
+/**
+ * 216 CARDS_DATA, GET_PLAYER_CARD (18) reply (SendUpdateCardData(PlayerInfo,List<UsersCardInfo>), :1641): same
+ * item layout as `cardData` but keyed by the viewed player's id, not the viewer's, and always `true`.
+ * `clientKind`/`zoneId` here are the REQUESTING player's (`p` in cartas-do-jogador.ts) — same header shape
+ * as 6600's `SendPlayerCardInfo` (AbstractPacketLib.cs:1766-1768: `m_gameClient.Player...ZoneId`, i.e. the
+ * sender's own zone, not the viewed target's). See `cardData` above and research/6600/packets-m1.md.
+ */
+export function playerCardData(targetId: number, cards: CardView[], clientKind: ClientKind = "41", zoneId = 0): PacketOut {
   const p = new PacketOut(216, targetId);
-  p.writeInt(targetId); p.writeInt(cards.length);
+  p.writeInt(targetId);
+  if (clientKind === "6600") p.writeInt(zoneId);
+  p.writeInt(cards.length);
   for (const c of cards) {
-    p.writeInt(c.Place); p.writeBoolean(true); p.writeInt(c.CardID); p.writeInt(c.UserID); p.writeInt(c.Count); p.writeInt(c.Place); p.writeInt(c.TemplateID);
-    p.writeInt(c.Attack + c.AttackReset); p.writeInt(c.Defence + c.DefenceReset); p.writeInt(c.Agility + c.AgilityReset); p.writeInt(c.Luck + c.LuckReset);
-    p.writeInt(c.Damage); p.writeInt(c.Guard); p.writeInt(c.Level); p.writeInt(c.CardGP); p.writeBoolean(c.isFirstGet);
+    p.writeInt(c.Place); p.writeBoolean(true);
+    if (clientKind === "6600") {
+      p.writeInt(c.CardID); p.writeInt(0) /* CardType, not tracked */; p.writeInt(c.UserID); p.writeInt(c.Place); p.writeInt(c.TemplateID);
+      p.writeBoolean(c.isFirstGet);
+      p.writeInt(c.Attack + c.AttackReset); p.writeInt(c.Defence + c.DefenceReset); p.writeInt(c.Agility + c.AgilityReset); p.writeInt(c.Luck + c.LuckReset);
+      p.writeInt(c.Damage); p.writeInt(c.Guard);
+    } else {
+      p.writeInt(c.CardID); p.writeInt(c.UserID); p.writeInt(c.Count); p.writeInt(c.Place); p.writeInt(c.TemplateID);
+      p.writeInt(c.Attack + c.AttackReset); p.writeInt(c.Defence + c.DefenceReset); p.writeInt(c.Agility + c.AgilityReset); p.writeInt(c.Luck + c.LuckReset);
+      p.writeInt(c.Damage); p.writeInt(c.Guard); p.writeInt(c.Level); p.writeInt(c.CardGP); p.writeBoolean(c.isFirstGet);
+    }
   }
   return p;
 }

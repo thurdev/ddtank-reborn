@@ -66,7 +66,7 @@ export class QuestInventory {
 
   /** First 178 of the session: always sent (also empty) so the client's TaskManager marks its quest data ready. */
   sendAll(): void {
-    this.p.send(Out.updateQuests(this.p.id, this.states, [...this.list.values()].map((q) => q.data)));
+    this.p.send(Out.updateQuests(this.p.id, this.states, [...this.list.values()].map((q) => q.data), this.p.clientKind));
   }
 
   isQuestFinish(id: number): boolean {
@@ -114,7 +114,7 @@ export class QuestInventory {
     if (!this.changed.size) return;
     const rows = [...this.changed].map((id) => this.list.get(id)?.data ?? this.rows.get(id)).filter((r): r is QuestDataRow => !!r);
     this.changed.clear();
-    this.p.send(Out.updateQuests(this.p.id, this.states, rows));
+    this.p.send(Out.updateQuests(this.p.id, this.states, rows, this.p.clientKind));
   }
 
   private checkRepeat(q: ActiveQuest): void {
