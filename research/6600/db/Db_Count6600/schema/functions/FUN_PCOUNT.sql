@@ -1,0 +1,18 @@
+-- SQL_SCALAR_FUNCTION dbo.FUN_PCOUNT (modified 2025-11-03T04:46:08.190)
+CREATE FUNCTION [dbo].[FUN_PCOUNT]
+(
+	@Price	INT,
+	@Value	INT,
+	@Type	INT
+)
+RETURNS INT
+AS
+BEGIN
+
+IF (@Price=@Type)
+RETURN @Value
+RETURN 0
+
+END
+
+GO

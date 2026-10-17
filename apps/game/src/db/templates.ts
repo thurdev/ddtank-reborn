@@ -3,7 +3,7 @@
  * "Shop_Goods" = item templates, "Shop" = listings, "ShopGoodsShowList" = goods on sale (ShopMgr.IsOnShop).
  */
 import { eq, sql } from "drizzle-orm";
-import { applyTranslations, game, loadTranslations, player, type Database } from "@ddt/db";
+import { app, applyTranslations, game, loadTranslations, player, type Database } from "@ddt/db";
 import type { ItemTemplate } from "../game/item.js";
 import { emptyPetTables, type PetTables, type PetTemplate } from "../game/pets.js";
 import type { CardUpdateCond, CardUpdateRowFull } from "../game/cards.js";
@@ -11,10 +11,18 @@ import type { StatTables, ExerciseRow, TotemRow, GoldEquipRow, CardUpdateRow, Pe
 
 export type StrengthenRow = typeof game.Item_Strengthen.$inferSelect;
 export type StrengthenGoodsRow = typeof game.Item_Strengthen_Goods.$inferSelect;
+export type StrengthenExpRow = typeof game.StrengThenExp.$inferSelect;
 export type FusionRow = typeof game.Item_Fusion.$inferSelect;
 export type ItemBoxRow = typeof game.Shop_Goods_Box.$inferSelect;
 
 export type ShopRow = typeof game.Shop.$inferSelect;
+
+/** app."SpiritInfo" — "Espírito do equipamento" (391 EQUIP_GHOST), ver schema/app.ts. */
+export type SpiritInfoRow = typeof app.SpiritInfo.$inferSelect;
+/** game."Sets_Build_Temp" — "Refinar conjunto" (295 STORE_FINE_SUIT). JÁ existia no catálogo original
+ * (70 linhas reais no `.bak`, seed em `packages/db/seed/game/Sets_Build_Temp.json.gz`) — nunca tinha sido
+ * carregada por `apps/game` nem ligada a um handler até esta sessão. */
+export type SetsBuildTempRow = typeof game.Sets_Build_Temp.$inferSelect;
 
 /** ShopItemInfo with the double-typed columns of game."Shop" truncated to the C# int fields. */
 export interface ShopItemInfo {
@@ -55,6 +63,10 @@ export class Templates {
   levelGp: { grade: number; gp: number }[] = [];
   dropConditions: (typeof game.Drop_Condiction.$inferSelect)[] = [];
   dropItems = new Map<number, (typeof game.Drop_Item.$inferSelect)[]>();
+  /** ActiveMgr (Bussiness/Managers/ActiveMgr.cs): calendar "Active" events + their Active_Convert_Item cost/award
+   *  rows (GoodsExchangeHandler, 31 GOODS_EXCHANGE). 0 rows in the source .bak (admin fills it later). */
+  actives = new Map<number, typeof game.Active.$inferSelect>();
+  activeConvertItems = new Map<number, (typeof game.Active_Convert_Item.$inferSelect)[]>();
   server: ServerRow | null = null;
   /** PvE (PveInfoMgr / MissionInfoMgr / NPCInfoMgr) */
   pveInfos = new Map<number, typeof game.Pve_Info.$inferSelect>();
@@ -71,6 +83,8 @@ export class Templates {
     findItem: (id) => this.items.get(id),
     exercise: [], totems: new Map(), goldEquip: () => undefined, cardUpdate: () => undefined, petFight: () => undefined, petMoe: () => undefined,
     suitParts: new Map(), suits: new Map(),
+    clothProperty: (id) => this.clothProperties.get(id),
+    countClothGroupWithID: (id) => this.countClothGroupWithID(id),
   };
 
   /** game."Server_Config" (GameProperties overrides). */
@@ -106,7 +120,9 @@ export class Templates {
     ]);
     const [pveI, missI, npcI] = await Promise.all([db.select().from(game.Pve_Info), db.select().from(game.Mission_Info), db.select().from(game.NPC_Info)]);
     await this.loadForge(db);
+    await this.loadActiveExchange(db);
     await this.loadPetsCards(db, lang);
+    await this.loadProgression(db);
     const [pveOverlay, missionOverlay, npcOverlay, shopGoodsOverlay, questOverlay] = await Promise.all([
       loadTranslations(db, "Pve_Info", lang),
       loadTranslations(db, "Mission_Info", lang),
@@ -151,6 +167,48 @@ export class Templates {
   /** PetMgr.GetEvolutionMax: Pet_Fight_Property row count. */
   petFightMax = 0;
 
+  /** SpiritMgr (391 EQUIP_GHOST, `espirito-do-equipamento.ts`): 10 níveis × 3 categorias (1/5/7). */
+  spirits: SpiritInfoRow[] = [];
+  /** SpiritMgr.GetSpiritInfo (Game.Server/Managers/SpiritMgr.cs:87): match por Level+CategoryId. */
+  findSpiritInfo(categoryId: number, level: number): SpiritInfoRow | undefined {
+    return this.spirits.find((s) => s.CategoryId === categoryId && s.Level === level);
+  }
+
+  /** SetsBuildTempMgr (295 STORE_FINE_SUIT, `refinar-conjunto.ts`): Level 1..70 ordenado crescente. */
+  setsBuildTemp: SetsBuildTempRow[] = [];
+  /** SetsBuildTempMgr.FindNextSetsBuildExp (Bussiness/Managers/SetsBuildTempMgr.cs:72): 1ª linha com Exp > exp. */
+  findNextSetsBuild(exp: number): SetsBuildTempRow | undefined {
+    return this.setsBuildTemp.find((row) => exp < row.Exp) ?? this.setsBuildTemp.at(-1);
+  }
+  /** SetsBuildTempMgr.SetsBuildMax: Exp da última linha (nível máximo = tabela cheia). */
+  setsBuildMaxExp(): number {
+    return this.setsBuildTemp.at(-1)?.Exp ?? 0;
+  }
+
+  /**
+   * ActiveMgr.LoadActiveCondictionDb (ActiveMgr.cs:155-169): one calendar "Active" event = cost rows (what the
+   * player hands in, `ItemType = 0`) + award rows (what it gets back, `ItemType = 1`) in the same table, keyed by
+   * ActiveID. DDTank41's client (GoodsExchangeView.sendGoods) never sends the later-version's `index` tier field —
+   * this server only supports ONE cost/award pair per Active event, hence the fixed 0/1 split instead of
+   * ActiveMgr.GetGoodsAward's 1→3/2→5/3→7 bucket switch (31 GOODS_EXCHANGE, handlers/pve-misc.ts).
+   */
+  async loadActiveExchange(db: Database): Promise<void> {
+    const [actives, convert] = await Promise.all([db.select().from(game.Active), db.select().from(game.Active_Convert_Item)]);
+    this.actives = new Map(actives.map((a) => [a.ActiveID, a]));
+    this.activeConvertItems = new Map();
+    for (const c of convert) this.activeConvertItems.set(c.ActiveID, [...(this.activeConvertItems.get(c.ActiveID) ?? []), c]);
+  }
+
+  /** ActiveMgr.GetActiveConvertItem(id, templateID, index) (ActiveMgr.cs:54): the cost row for one submitted item. */
+  activeConvertItem(activeId: number, templateId: number): (typeof game.Active_Convert_Item.$inferSelect) | undefined {
+    return this.activeConvertItems.get(activeId)?.find((c) => c.TemplateID === templateId && c.ItemType === 0);
+  }
+
+  /** ActiveMgr.GetActiveConvertItemAward(id, index) (ActiveMgr.cs:67): the award rows handed back for this event. */
+  activeConvertAward(activeId: number): (typeof game.Active_Convert_Item.$inferSelect)[] {
+    return (this.activeConvertItems.get(activeId) ?? []).filter((c) => c.ItemType === 1);
+  }
+
   /** RefineryMgr.RefineryTrend: find a row whose reward list contains `templateId`, then the entry two slots
    * after `operation` in that same (Material,Operate,Reward) triple list. */
   refineryTrend(operation: number, templateId: number): number | null {
@@ -163,14 +221,18 @@ export class Templates {
   }
 
   async loadForge(db: Database): Promise<void> {
-    const [str, strG, fus, box, ex, tot, gold, cardU, petF, suitI, suitT, cfg, refinery] = await Promise.all([
+    const [str, strG, fus, box, ex, tot, gold, cardU, petF, suitI, suitT, cfg, refinery, strExp, spirits, setsBuildTemp] = await Promise.all([
       db.select().from(game.Item_Strengthen), db.select().from(game.Item_Strengthen_Goods), db.select().from(game.Item_Fusion),
       db.select().from(game.Shop_Goods_Box), db.select().from(game.ExerciseInfo), db.select().from(game.Totem_Info),
       db.select().from(game.GoldEquipTemplateLoad), db.select().from(game.CardUpdateInfo), db.select().from(game.Pet_Fight_Property),
       db.select().from(game.SuitTemplateInfo), db.select().from(game.Suit_TemplateID), db.select().from(game.Server_Config),
-      db.select().from(game.Item_Refinery),
+      db.select().from(game.Item_Refinery), db.select().from(game.StrengThenExp),
+      db.select().from(app.SpiritInfo), db.select().from(game.Sets_Build_Temp),
     ]);
     this.refinery = refinery;
+    this.spirits = spirits;
+    this.setsBuildTemp = setsBuildTemp.slice().sort((a, b) => a.Level - b.Level);
+    this.strengthenExp = new Map(strExp.map((r) => [r.Level, r]));
     this.serverConfig = new Map(cfg.map((c) => [String(c.Name), String(c.Value ?? "")]));
     this.strengthen = new Map(str.map((r) => [r.StrengthenLevel, r]));
     this.strengthenGoods = strG;
@@ -202,6 +264,9 @@ export class Templates {
       petMoe: (level) => this.pets.moe.get(level),
       suitParts: parts,
       suits: new Map((suitI as SuitInfoRow[]).map((s) => [s.SuitId, s])),
+      // loadProgression() (not yet run when this.stats is built here) fills clothProperties/clothGroups; read lazily.
+      clothProperty: (id) => this.clothProperties.get(id),
+      countClothGroupWithID: (id) => this.countClothGroupWithID(id),
     };
   }
 
@@ -264,6 +329,28 @@ export class Templates {
   findRealStrengthenGoods(level: number, templateId: number): StrengthenGoodsRow | undefined {
     const t = this.strengthenGoods.find((g) => g.GainEquip === templateId || g.CurrentEquip === templateId);
     return t ? this.findStrengthenGoods(level, t.OrginEquip) : undefined;
+  }
+
+  /** game."StrengThenExp" by Level (StrengthenMgr._Strengthens_Exps): usado só pelo colar (NECKLACE_STRENGTH). */
+  strengthenExp = new Map<number, StrengthenExpRow>();
+  /** StrengthenMgr.NECKLACE_MAX_LEVEL (StrengthenMgr.cs:27). */
+  static readonly NECKLACE_MAX_LEVEL = 12;
+  /** StrengthenMgr.GetNecklaceLevelByGP (StrengthenMgr.cs:400-411): maior nível cujo NecklaceStrengthExp <= gp. */
+  necklaceLevelByGP(gp: number): number {
+    for (let level = Templates.NECKLACE_MAX_LEVEL; level > -1; level--) {
+      const row = this.strengthenExp.get(level);
+      if (row && row.NecklaceStrengthExp <= gp) return level;
+    }
+    return 1;
+  }
+  /** StrengthenMgr.GetNecklaceMaxExp (StrengthenMgr.cs:413-420). */
+  necklaceMaxExp(): number {
+    return this.strengthenExp.get(Templates.NECKLACE_MAX_LEVEL)?.NecklaceStrengthExp ?? 0;
+  }
+  /** StrengthenMgr.GetNecklaceExpAdd (StrengthenMgr.cs:391-398): bônus (Plus) do nível atingido por `gp`. */
+  necklaceExpAdd(gp: number, currentPlus: number): number {
+    const row = this.strengthenExp.get(this.necklaceLevelByGP(gp));
+    return row ? row.NecklaceStrengthPlus : currentPlus;
   }
   /** ItemMgr.GetGoodsbyFusionTypeandLevel. */
   goodsByFusionTypeAndLevel(fusionType: number, level: number): ItemTemplate | undefined {
@@ -342,6 +429,41 @@ export class Templates {
     if (mapId !== 0 && this.maps.has(mapId)) return mapId;
     const list = this.serverMaps.get(serverId) ?? this.serverMaps.get(1) ?? [...this.maps];
     return list.length ? list[Math.floor(rnd() * list.length)]! : 1001;
+  }
+
+  // ---------------------------------------------------------------- progression (TOTEM / HONOR_UP / AVATAR_COLLECTION)
+  /**
+   * TotemMgr/TotemHonorMgr (Bussiness/Managers/TotemMgr.cs, TotemHonorMgr.cs): full rows, including ConsumeExp/
+   * ConsumeHonor/NeedMoney/AddHonor that `stats.totems` (game/stats.ts TotemRow) drops because it only keeps the
+   * attribute-bonus columns FightPower needs. ClothGroupTemplateInfoMgr/ClothPropertyTemplateInfoMgr (Game.Server/
+   * Managers/*.cs): AVATAR_COLLECTION (402) item sets.
+   */
+  totemInfos = new Map<number, typeof game.Totem_Info.$inferSelect>();
+  totemHonor = new Map<number, typeof game.Totem_Honor_Template.$inferSelect>();
+  clothGroups = new Map<number, (typeof game.ClothGroupTemplateInfo.$inferSelect)[]>();
+  clothProperties = new Map<number, typeof game.ClothPropertyTemplateInfo.$inferSelect>();
+
+  async loadProgression(db: Database): Promise<void> {
+    const [totem, honor, groups, props] = await Promise.all([
+      db.select().from(game.Totem_Info),
+      db.select().from(game.Totem_Honor_Template),
+      db.select().from(game.ClothGroupTemplateInfo),
+      db.select().from(game.ClothPropertyTemplateInfo),
+    ]);
+    this.totemInfos = new Map(totem.map((t) => [t.ID, t]));
+    this.totemHonor = new Map(honor.map((h) => [h.ID, h]));
+    this.clothGroups = new Map();
+    for (const g of groups) this.clothGroups.set(g.ID, [...(this.clothGroups.get(g.ID) ?? []), g]);
+    this.clothProperties = new Map(props.map((p) => [p.ID, p]));
+  }
+
+  /** ClothGroupTemplateInfoMgr.GetClothGroup(ID, TemplateID, Sex) (ClothGroupTemplateInfoMgr.cs:29). */
+  getClothGroup(id: number, templateId: number, sex: number): (typeof game.ClothGroupTemplateInfo.$inferSelect) | undefined {
+    return this.clothGroups.get(id)?.find((g) => g.TemplateID === templateId && g.Sex === sex);
+  }
+  /** ClothGroupTemplateInfoMgr.CountClothGroupWithID(ID) (ClothGroupTemplateInfoMgr.cs:19). */
+  countClothGroupWithID(id: number): number {
+    return this.clothGroups.get(id)?.length ?? 0;
   }
 }
 

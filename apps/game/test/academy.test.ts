@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { sql } from "drizzle-orm";
 import type { GameServer } from "../src/server.js";
-import { parseRel, writeRel } from "../src/handlers/academy.js";
+import { parseRel, writeRel } from "../src/handlers/academia/index.js";
 import { loggedIn, sharedDb, sleep, startServer } from "./helpers.js";
 
 describe("academy relation string (PlayerInfo.ConvertMasterOrApprentices)", () => {

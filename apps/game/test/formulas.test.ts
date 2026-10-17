@@ -1,8 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { ItemInfo, type ItemTemplate } from "../src/game/item.js";
-import { computeStats, emptyStatTables, fightPower, getExercise, getHertAddition, getTotemProp, roundHalfEven } from "../src/game/stats.js";
-import { composeChance, strengthenChance } from "../src/handlers/forge.js";
-import { createItemBox } from "../src/handlers/use.js";
+import { computeStats, emptyStatTables, fightPower, getAvatarCollectionBonus, getExercise, getHertAddition, getTotemProp, roundHalfEven } from "../src/game/stats.js";
+import { composeChance } from "../src/handlers/forja/compor.js";
+import { strengthenChance } from "../src/handlers/forja/fortalecer.js";
+import { createItemBox } from "../src/handlers/bolsa/abrir-caixa.js";
 import type { ItemBoxRow } from "../src/db/templates.js";
 
 const tpl = (o: Partial<ItemTemplate>): ItemTemplate => ({
@@ -64,6 +65,27 @@ describe("FightPower (GamePlayer.UpdateFightPower / GetBaseAttack)", () => {
     const totems = new Map([[10001, { ID: 10001, AddAttack: 3, AddDefence: 0, AddAgility: 0, AddLuck: 0, AddBlood: 0, AddDamage: 0, AddGuard: 0 }], [10002, { ID: 10002, AddAttack: 4, AddDefence: 0, AddAgility: 0, AddLuck: 0, AddBlood: 0, AddDamage: 0, AddGuard: 0 }]]);
     expect(getTotemProp(totems, 10002, "AddAttack")).toBe(7);
     expect(getTotemProp(totems, 0, "AddAttack")).toBe(0);
+  });
+
+  it("Álbum (avatar collection): half-collected set adds Damage/Guard once, fully collected adds it x2", () => {
+    const t = emptyStatTables();
+    t.clothProperty = (id) => (id === 970042 ? { Damage: 10, Guard: 5 } : undefined);
+    t.countClothGroupWithID = (id) => (id === 970042 ? 4 : 0);
+    // below half (1 of 4): no bonus yet
+    expect(getAvatarCollectionBonus([{ AvatarID: 970042, itemCount: 1 }], t, "Damage")).toBe(0);
+    // half (2 of 4): +Damage once
+    expect(getAvatarCollectionBonus([{ AvatarID: 970042, itemCount: 2 }], t, "Damage")).toBe(10);
+    expect(getAvatarCollectionBonus([{ AvatarID: 970042, itemCount: 2 }], t, "Guard")).toBe(5);
+    // full (4 of 4): +Damage x2
+    expect(getAvatarCollectionBonus([{ AvatarID: 970042, itemCount: 4 }], t, "Damage")).toBe(20);
+    // unknown AvatarID (no ClothPropertyTemplateInfo row): ignored, not an error
+    expect(getAvatarCollectionBonus([{ AvatarID: 1, itemCount: 4 }], t, "Damage")).toBe(0);
+    // wired into baseAttack/baseDefence via computeStats (GamePlayer.GetBaseAttack/GetBaseDefence)
+    const equip: (ItemInfo | null)[] = new Array(31).fill(null);
+    const base = { equip, grade: 1, levelBlood: 0, necklaceExpAdd: 0, totemId: 0, texp: { attTexpExp: 0, defTexpExp: 0, spdTexpExp: 0, lukTexpExp: 0, hpTexpExp: 0 }, cards: [], pet: null, evolutionGrade: 0, avatarCollect: [{ AvatarID: 970042, itemCount: 2 }] };
+    const r = computeStats(base, t);
+    expect(r.baseAttack).toBe(10);
+    expect(r.baseDefence).toBe(5);
   });
 });
 

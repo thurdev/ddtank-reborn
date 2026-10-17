@@ -2,18 +2,22 @@
  * LOGIN (code 1): UserLoginHandler.cs + center ALLOW_USER_LOGIN round trip + GamePlayer.Login/LoadFromDatabase,
  * and logout (GamePlayer.Quit, GamePlayer.cs:3780).
  */
-import { updateAwardApp } from "../handlers/academy.js";
-import { hotSpringOnQuit } from "../handlers/hotspring.js";
+import { updateAwardApp } from "../handlers/academia/index.js";
+import { hotSpringOnQuit } from "../handlers/termas/index.js";
+import { littleGameOnQuit } from "../handlers/minigame-termas/index.js";
 import { initFightLabPermission } from "../game/fightlab.js";
-import { eventsOnLogin, eventsOnQuit, eventsRuntime, worldBossOpen } from "../handlers/events.js";
+import { eventsOnLogin, eventsRuntime } from "../handlers/eventos/agendador.js";
+import { eventsOnQuit, worldBossOpen } from "../handlers/eventos/boss-mundial.js";
 import { loadUserCardBag, loadUserPets, loadEatPets } from "../db/pets-cards.js";
+import { loadAvatarCollection } from "../db/avatar-collection.js";
 import { validateGameLogin } from "@ddt/auth";
-import { consortiaOnLogin } from "../handlers/consortia.js";
-import { activityOpen } from "../handlers/activities.js";
+import { consortiaOnLogin } from "../handlers/sociedade/index.js";
+import { activityOpen } from "../handlers/eventos/agendador.js";
+import { sendNoviceActivityOpen } from "../handlers/eventos/novato.js";
 import { findCharacterByUserName, loadMatchInfo, loadPlayerInfo, setOnlineState } from "../db/characters.js";
 import { loadUserItems } from "../db/items.js";
 import { loadFriends, loadProgress } from "../db/social.js";
-import { inviteLoginPacket } from "../handlers/social.js";
+import { inviteLoginPacket } from "../handlers/amigos/index.js";
 import { GamePlayer } from "../game/player.js";
 import { QuestInventory } from "../game/quests.js";
 import { BagType } from "../game/item.js";
@@ -136,10 +140,11 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
     [p.bankBag, BagType.BankBag],
     [p.storeBag, BagType.Store],
   ] as const) bag.loadItems(items.get(type) ?? []);
-  // CardBag (equipped cards) and the equipped pet only feed the stats (no card/pet modules yet); farm/avatar: TODO.
+  // CardBag (equipped cards) and the equipped pet only feed the stats (no card/pet modules yet); farm: TODO.
   p.statTables = ctx.templates.stats;
   // CardInventory / PetInventory.LoadFromDatabase (GamePlayer.LoadFromDatabase); their CommitChanges sends 216 / 68 below
-  const [cardRows, petRows, eatPets] = await Promise.all([loadUserCardBag(db, userId), loadUserPets(db, userId), loadEatPets(db, userId)]);
+  const [cardRows, petRows, eatPets, avatarRows] = await Promise.all([loadUserCardBag(db, userId), loadUserPets(db, userId), loadEatPets(db, userId), loadAvatarCollection(db, userId)]);
+  p.avatarCollect = avatarRows;
   p.cardBag.load(cardRows);
   p.petBag.load(petRows);
   p.petBag.eat = eatPets;
@@ -172,7 +177,7 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   p.flushPets(true);
   p.updatePlayerProperties();
   p.send(Out.enthrallLight());
-  p.send(Out.avatarCollect());
+  p.flushAvatarCollect();
   p.playerState = 1; // ePlayerState.Manual
   await consortiaOnLogin(ctx, p).catch((e) => ctx.log.warn(`consortia login: ${e}`)); // guild buffers + 129/26
   p.send(Out.bufferList(p.id, p.buffs));
@@ -212,6 +217,7 @@ async function doQuit(ctx: ServerContext, p: GamePlayer): Promise<void> {
   p.info.State = 0;
   eventsOnQuit(ctx, p);
   await hotSpringOnQuit(ctx, p).catch(() => {});
+  littleGameOnQuit(ctx, p);
   try {
     await p.saveIntoDatabase(ctx.db.db);
   } catch (err) {
@@ -223,17 +229,35 @@ async function doQuit(ctx: ServerContext, p: GamePlayer): Promise<void> {
 }
 
 /** Hall activity icons (PlayerActives.SendEvent :550 + the managers that toggle HallIconManager). Each follows its
- *  scheduler event (enabled flag); EVENTS_ALL_OPEN=true opens every one of them (QA: every icon visible). */
+ *  scheduler event (enabled flag); EVENTS_ALL_OPEN=true (or the broader ALL_OPEN=true, cfg.ALL_OPEN) opens every
+ *  one of them (QA: every icon visible).
+ *  Full enumeration of the ~60 `hallIcon.HallIconType` constants (which ones the 4.1 client can actually turn
+ *  on, which have no activation path left in this client build at all) is in `research/qa/hall-icons.md`.
+ *  Of those, only two were previously dark for a missing SERVER packet rather than a missing client module —
+ *  both fixed here: littlegame note (packet 80, `Out.littleGameActived`) and novato/newbie tabs (packet
+ *  258/0, `sendNoviceActivityOpen`) — see `research/qa/feature-designs.md`. */
 function sendActivityIcons(ctx: ServerContext, p: GamePlayer): void {
-  const all = process.env.EVENTS_ALL_OPEN === "true";
+  const all = ctx.cfg.ALL_OPEN || process.env.EVENTS_ALL_OPEN === "true";
   const on = (kind: string) => all || activityOpen(ctx, kind);
+  // Caminho da luz / Semana da sociedade (design próprio, ver eventos/caminho-da-luz.ts e
+  // sociedade/semana-da-sociedade.ts): diferente de `on()`, só abre com uma linha admin EXPLÍCITA
+  // (`app."ScheduledEvents"` kind "lightroad"/"guildmemberweek") ou `EVENTS_ALL_OPEN=true` — sem linha
+  // nenhuma fica fechado por padrão (ao contrário do resto de `isOpen`, que abre sem config; aqui isso
+  // mandaria 2 pacotes 145 extras pra todo login sem o dono ter pedido).
+  const explicit = (kind: string) => eventsRuntime(ctx).scheduler.events.some((e) => e.kind === kind && e.enabled !== false);
   const end = new Date(Date.now() + 7 * 864e5);
   const fmt = (d: Date) => d.toISOString().slice(0, 19).replace("T", " ");
   if (on("chickenbox")) p.send(Out.chickenBoxOpen(p.id, [100, 200, 300, 500, 800], [50, 100, 150, 250, 400], 500, end));
   if (on("luckystar")) p.send(Out.luckStarOpen(p.id));
-  if (all) {
-    p.send(Out.leftGunRouletteOpen(p.id, true));
-    p.send(Out.lightRoadOpen(p.id, true));
-    p.send(Out.guildMemberWeekOpen(p.id, fmt(new Date()), fmt(end)));
-  }
+  if (all || explicit("lightroad")) p.send(Out.lightRoadOpen(p.id, true));
+  if (all || explicit("guildmemberweek")) p.send(Out.guildMemberWeekOpen(p.id, fmt(new Date()), fmt(end)));
+  if (all) p.send(Out.leftGunRouletteOpen(p.id, true));
+  // littlegamenote (termas/minigame-termas): real feature has no hour-based schedule yet (mgr.ts note), so
+  // this is QA-only (ALL_OPEN) rather than routed through littleGameMgr(ctx) -- avoids spinning up the Bogu
+  // world/timers for every login when the feature is untouched.
+  if (all) p.send(Out.littleGameActived(p.id, true));
+  // novato/newbie activity tabs (LIMITACTIVITY): default-open like chickenbox/luckystar above, not an
+  // ALL_OPEN-only QA reveal -- the feature itself was always there (claim handler in novato.ts), it just
+  // never sent the 258/0 packet the client needs to compute checkTime()==true.
+  if (on("novato")) sendNoviceActivityOpen(p, ctx.now());
 }

@@ -9,6 +9,7 @@ export function listQuery(def: ResourceDef, p: ListParams) {
   const qs = new URLSearchParams({ page: String(p.page), pageSize: String(p.pageSize) });
   if (p.q) qs.set("q", p.q);
   if (p.sort) qs.set("sort", p.sort);
+  for (const [k, v] of Object.entries(p.extra ?? {})) if (v) qs.set(k, v);
   return queryOptions({
     queryKey: ["resource", def.name, "list", p],
     queryFn: () => api.get<ListResult>(`${resourcePath(def)}?${qs}`),

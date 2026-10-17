@@ -106,6 +106,8 @@ export class ContinueReduceBloodEffect extends AbstractEffect {
       this.stop();
       return;
     }
+    // ContinueReduceBloodEffect.cs:55-58: congelar o chefe aliado suspende o dano, mas o contador avança.
+    if (l.kind === "boss" && l.config.IsHelper && l.isFrost) return;
     l.addBlood(-this.blood, 1);
   };
   override start(living: Living): boolean {
@@ -285,21 +287,22 @@ export class AddDamageEffect extends ProcEffect {
     super(T.AddDamage, count, probability, "attack");
   }
   private readonly onShoot = (p: Player) => {
-    if (this.tryProc(p)) msg(p, PROC_MSG.attack);
+    if (this.tryProc(p)) { p.flyingPartical = 65; msg(p, PROC_MSG.attack); }
   };
+  private readonly afterShot = (p: Player) => { p.flyingPartical = 0; };
   private readonly onBeforeTakeDamage = (_l: Living, _s: Living, d: { damage: number; critical: number }) => {
     if (this.isTrigger) d.damage += this.count;
   };
   protected override onAttachedToPlayer(p: Player): void {
     p.hooks.on("playerShoot", this.onShoot);
-    // TakePlayerDamage fires on the attacker's own living (acting on the eventual victim's `d`), same site as
-    // BeforeTakeDamage in this port: a shared hook fired from the victim's takeDamage(). We subscribe through the
-    // victim side instead (next shot's target), handled centrally by effectList lookup in game.ts bombImp.
-    p.hooks.on("beforeTakeDamage", this.onBeforeTakeDamage);
+    // AddDamageEffect.cs:32-42: o bônus é no tiro do dono, nunca no dano recebido por ele.
+    p.hooks.on("takePlayerDamage", this.onBeforeTakeDamage);
+    p.hooks.on("afterPlayerShooted", this.afterShot);
   }
   protected override onRemovedFromPlayer(p: Player): void {
     p.hooks.off("playerShoot", this.onShoot);
-    p.hooks.off("beforeTakeDamage", this.onBeforeTakeDamage);
+    p.hooks.off("takePlayerDamage", this.onBeforeTakeDamage);
+    p.hooks.off("afterPlayerShooted", this.afterShot);
   }
 }
 
@@ -310,7 +313,8 @@ export class ReduceDamageEffect extends ProcEffect {
   }
   private readonly onBeforeTakeDamage = (l: Living, _s: Living, d: { damage: number; critical: number }) => {
     if (this.tryProc(l as Player)) {
-      d.damage = Math.max(1, d.damage - this.count);
+      // ReduceDamageEffect.cs:48-51 subtrai duas vezes (inclusive dentro do if); mantém o resultado do C#.
+      d.damage = Math.max(1, d.damage - 2 * this.count);
       msg(l, PROC_MSG.defend);
     }
   };

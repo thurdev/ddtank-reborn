@@ -189,6 +189,15 @@ for (const c of complex) {
   const pt = spec.elements.map((e) => e.pt).join(" ");
   jobs.push({ id: c.id, ...m, vn: "", pt, custom: spec.prompt, complex: true, out: join(ROOT, "remaster", m.category, "outputs", c.id + ".png"), prio: ORDER.indexOf(m.category) + 0.5 });
 }
+// Slots the SkelletonX BR client already covers (research/i18n/skelleton-map.json) are overridden by the build
+// anyway: never spend generations on them.
+{
+  const SKF = join(ROOT, "research", "i18n", "skelleton-map.json");
+  const SK = existsSync(SKF) ? new Set(JSON.parse(readFileSync(SKF, "utf8")).map((e) => e.swf.replace(/\.swf$/i, "") + "__" + e.sourceFile.replace(/\.(png|jpe?g)$/i, ""))) : new Set();
+  let n = 0;
+  for (let i = jobs.length - 1; i >= 0; i--) if (SK.has(jobs[i].id)) { jobs.splice(i, 1); n++; }
+  console.log(`skelleton covers ${n} job(s): skipped`);
+}
 // Big multi-text windows: the model garbles every element -> deferred to the end phase (AI erases the text, each
 // PT-BR element is then rendered in SVG at its original box)
 for (const j of jobs) {

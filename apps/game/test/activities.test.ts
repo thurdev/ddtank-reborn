@@ -3,8 +3,11 @@ import { eq } from "drizzle-orm";
 import { game, player } from "@ddt/db";
 import type { GameServer } from "../src/server.js";
 import type { ServerContext } from "../src/session/context.js";
-import { eventsRuntime } from "../src/handlers/events.js";
-import { drawDistinct, labyrinthTryAgainMoney, luckyDraw, pickLotteryBoard, type Card, type LabyrinthRow } from "../src/handlers/activities.js";
+import { eventsRuntime } from "../src/handlers/eventos/agendador.js";
+import { drawDistinct, type Card } from "../src/handlers/eventos/bau-da-galinha.js";
+import { luckyDraw } from "../src/handlers/eventos/estrela-da-sorte.js";
+import { pickLotteryBoard } from "../src/handlers/eventos/roleta.js";
+import { labyrinthTryAgainMoney, type LabyrinthRow } from "../src/handlers/eventos/labirinto.js";
 import { loggedIn, sharedDb, startServer } from "./helpers.js";
 
 let server: GameServer;
@@ -124,6 +127,57 @@ describe("258 NOVICEACTIVITY idempotency", () => {
     c.out(258, (o) => { o.writeInt(9002); o.writeInt(5); });
     await new Promise((r) => setTimeout(r, 200));
     expect(gp.info.Gold).toBe(goldBefore);
+    c.close();
+  });
+});
+
+describe("84 ACTIVITY_PACKAGE ChickActivation", () => {
+  it("OPENKEY: wrong code -> NotExit message, no key opened", async () => {
+    const { c } = await loggedIn(server, { grade: 10 });
+    const m = c.mark();
+    c.out(84, (o) => { o.writeInt(2); o.writeInt(1); o.writeUTF("WRONGCODE12345"); }); // 14 chars, not in the default pool
+    await c.code(3, undefined, m); // GM_NOTICE "ActivityPackageHandler.ChickActivation.NotExit"
+    c.close();
+  });
+
+  it("OPENKEY: the built-in default code activates once; a second player reusing it gets IsUsed", async () => {
+    const { c: a } = await loggedIn(server, { grade: 10 }); // Grade<=15 -> KeyOpenedType 1
+    const m = a.mark();
+    a.out(84, (o) => { o.writeInt(2); o.writeInt(1); o.writeUTF("DDTANKREBORN01"); });
+    const r = await a.code(84, undefined, m);
+    expect(r.pkt.readInt()).toBe(2); // CHICKACTIVATION
+    expect(r.pkt.readInt()).toBe(2); // CHICKACTIVATION_UPDATE
+    expect(r.pkt.readInt()).toBe(1); // IsKeyOpened
+    a.close();
+
+    const { c: b } = await loggedIn(server, { grade: 10 });
+    const m2 = b.mark();
+    b.out(84, (o) => { o.writeInt(2); o.writeInt(1); o.writeUTF("DDTANKREBORN01"); });
+    await b.code(3, undefined, m2); // "IsUsed" — claimOnce refuses the already-consumed code
+    b.close();
+  });
+
+  it("GETAWARD without an opened key refuses with NotActive; opening then claiming the daily tier mails the reward once", async () => {
+    const h = await sharedDb();
+    const { c, ch: p } = await loggedIn(server, { grade: 10 });
+    const m0 = c.mark();
+    c.out(84, (o) => { o.writeInt(2); o.writeInt(2); o.writeInt(1); o.writeInt(0); }); // GETAWARD daily, no key yet
+    await c.code(3, undefined, m0); // NotActive
+
+    const openCode = `OPENCODE${Date.now() % 1000000}`.padEnd(14, "0").slice(0, 14);
+    const m1 = c.mark();
+    eventsRuntime(ctx).scheduler.setEvents([{ id: 50, kind: "chickactivation", title: "", enabled: true, weekdays: "", startTime: "00:00", durationMin: 0, startDate: null, endDate: null, params: { codes: [openCode] } }]);
+    c.out(84, (o) => { o.writeInt(2); o.writeInt(1); o.writeUTF(openCode); });
+    await c.code(84, undefined, m1);
+
+    const before = (await h.db.select().from(player.User_Messages).where(eq(player.User_Messages.ReceiverID, p.userId))).length;
+    const m2 = c.mark();
+    c.out(84, (o) => { o.writeInt(2); o.writeInt(2); o.writeInt(1); o.writeInt(0); }); // GETAWARD daily
+    await c.code(84, undefined, m2); // CHICKACTIVATION_UPDATE reply
+    const after = (await h.db.select().from(player.User_Messages).where(eq(player.User_Messages.ReceiverID, p.userId))).length;
+    expect(after).toBeGreaterThan(before); // mailed, not put in the bag (matches WorldEventMgr.SendItemsToMails)
+
+    eventsRuntime(ctx).scheduler.setEvents([]);
     c.close();
   });
 });

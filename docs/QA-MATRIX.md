@@ -13,51 +13,51 @@
 
 | Área | Linhas | ok | partial | stub | missing | broken | verificado no cliente |
 |---|---|---|---|---|---|---|---|
-| Amigos | 12 | 6 | 0 | 0 | 6 | 0 | 0 |
-| Bolsa/Inventário | 27 | 18 | 2 | 7 | 0 | 0 | 8 |
-| Boss mundial/Minigames | 7 | 0 | 6 | 0 | 1 | 0 | 4 |
-| Cartas | 8 | 4 | 0 | 0 | 4 | 0 | 2 |
-| Casamento | 24 | 10 | 13 | 0 | 1 | 0 | 4 |
+| Amigos | 12 | 12 | 0 | 0 | 0 | 0 | 0 |
+| Bolsa/Inventário | 27 | 21 | 4 | 2 | 0 | 0 | 8 |
+| Boss mundial/Minigames | 7 | 0 | 6 | 1 | 0 | 0 | 4 |
+| Cartas | 8 | 5 | 2 | 1 | 0 | 0 | 2 |
+| Casamento | 24 | 10 | 13 | 1 | 0 | 0 | 4 |
 | Combate (GAME_CMD) | 39 | 32 | 1 | 6 | 0 | 0 | 4 |
-| Configurações | 2 | 1 | 0 | 0 | 1 | 0 | 0 |
-| Conta/Login | 6 | 4 | 0 | 0 | 2 | 0 | 0 |
-| Correio | 7 | 6 | 0 | 0 | 1 | 0 | 0 |
+| Configurações | 2 | 1 | 0 | 1 | 0 | 0 | 0 |
+| Conta/Login | 6 | 5 | 1 | 0 | 0 | 0 | 0 |
+| Correio | 7 | 6 | 0 | 1 | 0 | 0 | 0 |
 | Escola/Aprendiz | 4 | 4 | 0 | 0 | 0 | 0 | 0 |
-| Eventos/Atividades | 37 | 12 | 10 | 9 | 6 | 0 | 2 |
+| Eventos/Atividades | 37 | 13 | 14 | 10 | 0 | 0 | 2 |
 | Fazenda | 14 | 1 | 13 | 0 | 0 | 0 | 4 |
-| Ferreiro | 16 | 6 | 2 | 8 | 0 | 0 | 1 |
+| Ferreiro | 16 | 12 | 2 | 2 | 0 | 0 | 1 |
 | GvG/Liga | 4 | 0 | 4 | 0 | 0 | 0 | 0 |
-| Leilão | 3 | 1 | 2 | 0 | 0 | 0 | 0 |
-| Lobby/Chat/Bugle | 10 | 9 | 0 | 0 | 1 | 0 | 0 |
-| Loja | 7 | 2 | 1 | 0 | 4 | 0 | 1 |
-| Missões | 23 | 15 | 2 | 1 | 5 | 0 | 5 |
-| Outros | 16 | 6 | 2 | 1 | 7 | 0 | 1 |
-| Personagem/FC | 3 | 1 | 0 | 0 | 2 | 0 | 0 |
+| Leilão | 3 | 3 | 0 | 0 | 0 | 0 | 0 |
+| Lobby/Chat/Bugle | 10 | 10 | 0 | 0 | 0 | 0 | 0 |
+| Loja | 7 | 5 | 1 | 0 | 1 | 0 | 1 |
+| Missões | 23 | 17 | 3 | 3 | 0 | 0 | 5 |
+| Outros | 16 | 8 | 2 | 4 | 2 | 0 | 1 |
+| Personagem/FC | 3 | 3 | 0 | 0 | 0 | 0 | 0 |
 | Pets | 17 | 13 | 0 | 4 | 0 | 0 | 2 |
-| PvE/Masmorras | 9 | 1 | 7 | 0 | 1 | 0 | 0 |
-| Salas PvP | 21 | 17 | 0 | 0 | 4 | 0 | 0 |
+| PvE/Masmorras | 9 | 1 | 7 | 1 | 0 | 0 | 0 |
+| Salas PvP | 21 | 21 | 0 | 0 | 0 | 0 | 0 |
 | Sociedade/Guilda | 28 | 25 | 1 | 2 | 0 | 0 | 12 |
 | Spa/Fonte termal | 14 | 13 | 0 | 1 | 0 | 0 | 5 |
-| Totem/Honra | 2 | 0 | 0 | 0 | 2 | 0 | 0 |
+| Totem/Honra | 2 | 2 | 0 | 0 | 0 | 0 | 0 |
 | VIP | 1 | 1 | 0 | 0 | 0 | 0 | 1 |
-| **Total** | 361 | 208 | 66 | 39 | 48 | 0 | 56 |
+| **Total** | 361 | 244 | 74 | 40 | 3 | 0 | 56 |
 
 ## Amigos
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `sendSnsMsg` | `ddt/manager/DynamicManager.as`<br>`ddt/view/SNSFrame.as` | 40 SNS_MSG_RECEIVE |  | missing | no |  |
+| `sendSnsMsg` | `ddt/manager/DynamicManager.as`<br>`ddt/view/SNSFrame.as` | 40 SNS_MSG_RECEIVE |  | ok | no |  |
 | `sendGameLogin` | `invite/ResponseInviteFrame.as`<br>`roomList/LookupRoomFrame.as`<br>`roomList/PassInputFrame.as` (+2) | 94 GAME_ROOM | GAME_ROOM_LOGIN=1 | ok | no |  |
-| `enterInviteFriendView` | — | 107 INVITE_FRIEND | INVITE_FRIEND_OPENVIEW=2 | missing | no |  |
-| `inviteFriendFBBntClick` | — | 107 INVITE_FRIEND | INVITE_FRIEND_FBCLICK=6 | missing | no |  |
-| `inviteFriendOkClick` | — | 107 INVITE_FRIEND |  | missing | no |  |
-| `inviteFriendRewardBntClick` | — | 107 INVITE_FRIEND | INVITE_FRIEND_GETREWARD=4 | missing | no |  |
+| `enterInviteFriendView` | — | 107 INVITE_FRIEND | INVITE_FRIEND_OPENVIEW=2 | ok | no |  |
+| `inviteFriendFBBntClick` | — | 107 INVITE_FRIEND | INVITE_FRIEND_FBCLICK=6 | ok | no |  |
+| `inviteFriendOkClick` | — | 107 INVITE_FRIEND |  | ok | no |  |
+| `inviteFriendRewardBntClick` | — | 107 INVITE_FRIEND | INVITE_FRIEND_GETREWARD=4 | ok | no |  |
 | `sendAddFriend` | `cityWide/CityWideManager.as`<br>`ddt/view/tips/FriendGroupTItem.as`<br>`im/FriendGroupFrame.as` (+2) | 160 IM_CMD | FRIEND_ADD=160 | ok | partial | Varredura do básico pt.2: painel Bạn bè(F) abriu, diálogo 'Thêm bạn' aceitou o nickname 'Bob' com autocomplete e fechou sem erro. Não deu pra confirmar um ADD novo no banco porque Bob já era amigo do Thur antes desta sessão (Sys_Users_Friends AddDate antigo, não mudou) — fluxo de UI ok, mas não isola o caso de amigo novo. |
 | `sendCustomFriends` | `im/IMController.as`<br>`im/IMListItemView.as` | 160 IM_CMD | ADD_CUSTOM_FRIENDS=208 | ok | no |  |
 | `sendDelFriend` | `im/IMController.as` | 160 IM_CMD | FRIEND_REMOVE=161 | ok | no |  |
 | `sendOneOnOneTalk` | `im/IMController.as`<br>`im/chatFrame/PrivateChatFrame.as` | 160 IM_CMD | ONE_ON_ONE_TALK=51 | ok | no |  |
 | `sendOns` | `cityWide/CityWideManager.as` | 160 IM_CMD | ONS_EQUIP=45 | ok | no |  |
-| `sendWithBrithday` | `socialContact/friendBirthday/FriendBirthdayManager.as` | 223 FRIEND_BRITHDAY |  | missing | no |  |
+| `sendWithBrithday` | `socialContact/friendBirthday/FriendBirthdayManager.as` | 223 FRIEND_BRITHDAY |  | ok | no |  |
 
 ## Bolsa/Inventário
 
@@ -68,17 +68,17 @@
 | `sendHideLayer` | `bagAndInfo/info/PlayerInfoView.as` | 60 ITEM_HIDE |  | ok | no |  |
 | `sendGoodsContinue` | `ddt/view/goods/AddPricePanel.as`<br>`equipDebt/view/EquipAddMoneyFrame.as`<br>`shop/view/ShopRechargeEquipView.as` | 62 ITEM_CONTINUE |  | ok | no | ITEM_CONTINUE implementado (UserItemContineueHandler.cs): estende o ValidDate do item usando o preço da loja (tiers A/B/C, igual BUY_GOODS via setItemType). Testado por código/typecheck, não clicado. |
 | `sendItemOpenUp` | `bagAndInfo/bag/BagView.as`<br>`bagAndInfo/bag/OpenBatchView.as` | 63 ITEM_OPENUP |  | ok | yes | Caixa (Túi quà mũi khoan) aberta: itens chegam e empilham na bolsa, caixa consumida antes de dar (sem dupe). — evidência: research/e2e/qa/b14-box-opened.png, b15-after-box.png |
-| `sendUseProp` | `bagAndInfo/bag/BagView.as` | 66 PROP_USE |  | stub | no | PROP_USE (código 66, fora de luta): morto no próprio original — nenhum [PacketHandler(66,...)] registrado (não confundir com 91/PROP=32, usado em luta, esse sim implementado). |
+| `sendUseProp` | `bagAndInfo/bag/BagView.as` | 66 PROP_USE |  | ok | no | PropUseHandler portado em shop-prop.ts: valida tipo, quantidade e pacote inteiro; 11963 concede cupons e 201316 ativa o estado persistido de ACTIVITY_PACKAGE. Testes: apps/game/test/economy-validation.test.ts. |
 | `sendAddPet` | `bagAndInfo/bag/BagView.as` | 68 PET | ADD_PET=2 | ok | yes | Ovo de pet (cat. 35) chocado: CreatePet + 68/2 (janela de pet recebido), pet aparece na aba Thú cưng. — evidência: research/e2e/batch4/07-hatch.png, research/e2e/batch4/08-pet-bag.png |
 | `sendItemEquip` | `bagAndInfo/info/PlayerInfoViewControl.as`<br>`eliteGame/view/EliteGamePaarungFrame.as`<br>`email/view/ReadingView.as` (+2) | 74 ITEM_EQUIP |  | ok | no | FC (Lực chiến) calculado pela fórmula original (apps/game/src/game/stats.ts) e enviado em 67/login/ranking: 2091 no Thur conferido à mão. — evidência: research/e2e/qa/b2-bag.png |
-| `sendItemOverDue` | `ddt/data/goods/InventoryItemInfo.as`<br>`ddt/data/player/SelfInfo.as` | 77 ITEM_OVERDUE |  | stub | no | ITEM_OVERDUE: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(77,...)] registrado. |
+| `sendItemOverDue` | `ddt/data/goods/InventoryItemInfo.as`<br>`ddt/data/player/SelfInfo.as` | 77 ITEM_OVERDUE |  | ok | no | ItemOverdueHandler implementado em items.ts; coberto por apps/game/test/shop-prop-misc.test.ts. Removida nota obsoleta de ausência no C#. |
 | `sendUseProp` | `bagAndInfo/bag/BagView.as` | 91 GAME_CMD | PROP=32 | ok | yes | Props 1/2/3 (+1 tiro / x3 / +2) usados na luta e aplicados ao tiro. — evidência: research/e2e/batch4/20-props.png, research/e2e/batch4/22-shot2.png |
 | `sendTexp` | `bagAndInfo/bag/BagView.as`<br>`texpSystem/view/TexpView.as` | 99 TEXP |  | ok | yes | Tu luyện: poção na StoreBag[0] → exp Tấn công 100/250, nível 4, stats atualizados. — evidência: research/e2e/batch4/17-texp-a.png, research/e2e/batch4/17-texp-done.png |
 | `sendClearStoreBag` | `bagAndInfo/BagAndGiftFrame.as`<br>`bagAndInfo/BagAndInfoManager.as`<br>`ddt/bagStore/BagStoreFrame.as` (+6) | 122 CLEAR_STORE_BAG |  | ok | no |  |
 | `sendMoveGoodsAll` | `ddt/data/BagInfo.as` | 124 CHANGE_PLACE_GOODS_ALL |  | ok | no |  |
 | `reclaimGoods` | — | 127 REClAIM_GOODS |  | ok | yes | Varredura do básico pt.2: clicado item (Mũi khoan cấp 1 x5) então 'Bán' → confirmação 'Bạn muốn bán 5 cái, giá 200 Vàng' → OK → 'Bạn nhận được 200 vàng', Gold +200, item removido da bolsa. |
 | `sendUpdateGoodsCount` | `bagAndInfo/BagAndGiftFrame.as`<br>`shop/ShopController.as` | 168 GOODS_COUNT |  | partial | no | GOODS_COUNT implementado (GoodsCountHandler.cs) respondendo lista vazia: o estoque diário global (WorldMgr.GetAllShopFreeCount) não é rastreado neste port — o ShopID 20 já é limitado por jogador (ver 44 BUY_GOODS), não por estoque global, então não há nada pra reportar. Mesmo desvio documentado em HANDLERS.md. |
-| `sendUseReworkName` | `bagAndInfo/ReworkName/ReworkNameFrame.as` | 171 USE_REWORK_NAME |  | stub | no | USE_REWORK_NAME: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(171,...)] registrado. |
+| `sendUseReworkName` | `bagAndInfo/ReworkName/ReworkNameFrame.as` | 171 USE_REWORK_NAME |  | ok | no | UseReworkName implementado em items.ts; coberto por apps/game/test/shop-prop-misc.test.ts. Removida nota obsoleta de ausência no C#. |
 | `sendChangeColor` | `changeColor/view/ChangeColorRightView.as` | 182 USE_COLOR_CARD |  | ok | no | USE_COLOR_CARD implementado (UserChangeItemColorHandler.cs): recolore um slot do EquipBag usando um item de cor do PropBag ou Xu (preço do Shop pelo templateId, APrice1=-1). |
 | `sendUseCard` | `bagAndInfo/bag/BagView.as`<br>`ddt/view/buff/buffButton/BuffButton.as`<br>`game/view/propContainer/RightPropView.as` (+1) | 183 CARD_USE |  | ok | yes | Cartão VIP (P1 23) agora ativa VIP (ícone VIP 1 no perfil); EXP x2 (13) e GP pill (21) como antes. — evidência: research/e2e/batch4/15-vipcard.png |
 | `sendUseConsortiaReworkName` | `bagAndInfo/ReworkName/ReworkNameConsortia.as` | 188 USE_CONSORTIA_REWORK_NAME |  | stub | no | USE_CONSORTIA_REWORK_NAME: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(188,...)] registrado. |
@@ -87,9 +87,9 @@
 | `sendChangeColorShellTimeOver` | `ddt/data/goods/InventoryItemInfo.as` | 206 CHANGE_COLOR_OVER_DUE |  | ok | no |  |
 | `sendFirstGetCards` | `bagAndInfo/bag/BagView.as` | 216 CARDS_DATA |  | ok | no |  |
 | `sendPlayerGift` | `bagAndInfo/info/PlayerInfoFrame.as`<br>`ddt/manager/PlayerManager.as`<br>`ddt/manager/ServerManager.as` | 218 USER_GET_GIFTS |  | ok | no | USER_GET_GIFTS implementado (UserGetGiftHandler.cs): lista todos os presentes já recebidos, somados por TemplateID. Achado: o original registra DUAS classes no código 218 (PlayerGiftHandler, um no-op de 1 int, e UserGetGiftHandler, o de verdade) — a reflexão do dicionário do C# favorece uma delas; este port implementa a significativa (UserGetGiftHandler), que bate com o nome do pacote USER_GET_GIFTS. |
-| `sendEquipRetrieve` | `equipretrieve/view/RetrieveBgView.as` | 222 EQUIP_RECYCLE_ITEM |  | stub | no | EQUIP_RECYCLE_ITEM: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(222,...)] registrado. |
+| `sendEquipRetrieve` | `equipretrieve/view/RetrieveBgView.as` | 222 EQUIP_RECYCLE_ITEM |  | partial | no | EquipRecycleItem implementado em items.ts; coberto por apps/game/test/shop-prop-misc.test.ts. Removida nota obsoleta de ausência no C#. |
 | `sendChangeSex` | `bagAndInfo/bag/BagView.as` | 252 USE_CHANGE_SEX |  | ok | yes | Varredura pt.3 (2026-10-02): a pista da pt.2 (double-click só em `_equiplist`) era incompleta — o gatilho real é `__cellUse` (BagView.as:1385-1451), ligado ao evento `CellMenu.USE`, que `_proplist` alcança via single-click → `__cellClick` (BagView.as:1102) → `CellMenu.instance.show()` quando `EquipType.canBeUsed()` é true (é, para CategoryID==CHANGE_SEX). Confirmado no cliente real: item 11569 (Đạo cụ) → clique único abre CellMenu com 'Sử dụng'/'Di chuyển' → 'Sử dụng' abre o `ChangeSexAlertFrame` ('Bạn muốn chuyển giới?...') → 'Đồng ý' → `Sex` false→true no banco, item consumido (`IsExist=false`). Nenhum patch de cliente foi necessário — é um gesto normal de jogo (como qualquer item 'usável' da Đạo cụ), só não documentado antes. Também corrigido: o handler só salvava no autosave de 10 min (`SAVE_INTERVAL_MIN`); agora chama `saveIntoDatabase` direto após o uso (`apps/game/src/handlers/items.ts` 252), como 179/mail/consortia. |
-| `sendNewTitleCard` | `bagAndInfo/bag/BagView.as` | 265 NEWTITLE_CARD |  | stub | no | NEWTITLE_CARD: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(265,...)] registrado. |
+| `sendNewTitleCard` | `bagAndInfo/bag/BagView.as` | 265 NEWTITLE_CARD |  | partial | no | NewTitleCard parcialmente implementado em items.ts (tabela de títulos/configuração ainda requer validação). O registro efetivo determina o status. |
 
 ## Boss mundial/Minigames
 
@@ -101,16 +101,16 @@
 | `sendBuyWorldBossBuff` | `worldboss/WorldBossManager.as`<br>`worldboss/view/BuffCartItem.as` | 102 WORLDBOSS_CMD | BUFF_BUY=38 | partial | yes | 30 Xu cobrados uma vez (o original cobrava duas). — evidência: research/e2e/events/e20-buff.png |
 | `sendLeaveBossRoom` | `worldboss/view/RoomMenuView.as` | 102 WORLDBOSS_CMD | LEAVE_ROOM=33 | partial | no | Sai da sala (102/4). |
 | `sendWorldBossRoomMove` | `worldboss/view/WorldBossScneneMap.as` | 102 WORLDBOSS_CMD | MOVE=35 | partial | yes | Movimento repassado a todos na sala (102/6). — evidência: research/e2e/events/e17-worldboss-move.png |
-| `createPackageOut` | `littleGame/LittleGameManager.as` | 166 LITTLEGAME_COMMAND |  | missing | no | Real no original, não lacuna de fidelidade — subsistema inteiro não portado ainda (orçamento): LITTLEGAME_COMMAND (código 166) é só um relay fino (LittleGameHandler.cs, 13 linhas: client.Player.LittleGame?.ProcessData(...)) para um minigame completo da fonte termal em vendor/DDTank41/Game.Server/LittleGame/* (22 arquivos: LittleGameWorldMgr, LittleGameLogicProcessor, handlers de EnterWorld/LeaveWorld/Move/Click/CancelClick/PosSync/ReportScore — um jogo de posição/clique em tempo real dentro da sala de spa, Source Flash/src/littleGame/LittleGameManager.as no cliente). Nenhuma parte foi portada; nenhuma tabela/estado equivalente existe em apps/game. Tamanho comparável ao chick activation (84) — fora do orçamento desta sessão. |
+| `createPackageOut` | `littleGame/LittleGameManager.as` | 166 LITTLEGAME_COMMAND |  | stub | no | Real no original, não lacuna de fidelidade — subsistema inteiro não portado ainda (orçamento): LITTLEGAME_COMMAND (código 166) é só um relay fino (LittleGameHandler.cs, 13 linhas: client.Player.LittleGame?.ProcessData(...)) para um minigame completo da fonte termal em vendor/DDTank41/Game.Server/LittleGame/* (22 arquivos: LittleGameWorldMgr, LittleGameLogicProcessor, handlers de EnterWorld/LeaveWorld/Move/Click/CancelClick/PosSync/ReportScore — um jogo de posição/clique em tempo real dentro da sala de spa, Source Flash/src/littleGame/LittleGameManager.as no cliente). Nenhuma parte foi portada; nenhuma tabela/estado equivalente existe em apps/game. Tamanho comparável ao chick activation (84) — fora do orçamento desta sessão. |
 
 ## Cartas
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `sendActivePullDown` | `ddt/view/NovicePlatinumCard.as` | 11 ACTIVE_PULLDOWN |  | missing | no |  |
-| `getPlayerCardInfo` | — | 18 GET_PLAYER_CARD |  | missing | no |  |
-| `sendCardReset` | `cardSystem/view/PropResetFrame.as` | 196 CARD_RESET |  | missing | no |  |
-| `sendReplaceCardProp` | `cardSystem/view/PropResetFrame.as` | 196 CARD_RESET |  | missing | no |  |
+| `sendActivePullDown` | `ddt/view/NovicePlatinumCard.as` | 11 ACTIVE_PULLDOWN |  | stub | no |  |
+| `getPlayerCardInfo` | — | 18 GET_PLAYER_CARD |  | ok | no |  |
+| `sendCardReset` | `cardSystem/view/PropResetFrame.as` | 196 CARD_RESET |  | partial | no |  |
+| `sendReplaceCardProp` | `cardSystem/view/PropResetFrame.as` | 196 CARD_RESET |  | partial | no |  |
 | `sendMoveCards` | `cardSystem/elements/CardCell.as`<br>`cardSystem/view/CardSelect.as`<br>`cardSystem/view/cardBag/CardBagListItem.as` (+2) | 216 CARDS_DATA |  | ok | yes | Equipar carta (cópia no slot 0..4), FC sobe; desequipar remove a cópia. — evidência: research/e2e/batch4/13-card-equip.png |
 | `sendOpenViceCard` | `cardSystem/view/cardEquip/CardEquipView.as` | 216 CARDS_DATA |  | ok | no |  |
 | `sendSortCards` | `cardSystem/view/cardBag/CardBagView.as`<br>`ddt/data/BagInfo.as` | 216 CARDS_DATA |  | ok | no |  |
@@ -123,7 +123,7 @@
 | `sendExitMarryRoom` | `church/controller/ChurchRoomListController.as` | 21 SCENE_REMOVE_USER |  | ok | no |  |
 | `sendMateTime` | `church/view/weddingRoomList/DivorcePromptFrame.as`<br>`church/view/weddingRoomList/WeddingRoomListNavView.as` | 85 MATE_ONLINE_TIME |  | ok | no | MATE_ONLINE_TIME implementado (MateTimeHandler.cs, apps/game/src/handlers/marriage.ts): int userId -> responde com o LastDate daquele jogador (online: valor em memória; offline: linha de Sys_Users_Detail; desconhecido: agora). Usado pela capela pra mostrar 'visto por último' do cônjuge offline. Testado em apps/game/test/marriage-farm-auction.test.ts (online, offline via DB, userId inexistente), não clicado no cliente real. |
 | `sendCreateRoom` | `church/controller/ChurchRoomListController.as` | 94 GAME_ROOM | GAME_ROOM_CREATE=0 | ok | no |  |
-| `sendChurchMovieOver` | — | 167 CHURCH_MOVIE_OVER |  | missing | no | Morto no original dos dois lados: GameSocketOut.as define sendChurchMovieOver() (PackageOut(CHURCH_MOVIE_OVER=167)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e nenhum [PacketHandler(167,...)] existe em Game.Server. Status 'missing' aqui é fidelidade, não lacuna. |
+| `sendChurchMovieOver` | — | 167 CHURCH_MOVIE_OVER |  | stub | no | Morto no original dos dois lados: GameSocketOut.as define sendChurchMovieOver() (PackageOut(CHURCH_MOVIE_OVER=167)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e nenhum [PacketHandler(167,...)] existe em Game.Server. Status 'missing' aqui é fidelidade, não lacuna. |
 | `sendSceneChange` | `church/controller/ChurchRoomController.as` | 233 MARRY_SCENE_CHANGE |  | partial | no |  |
 | `sendForMarryInfo` | `civil/view/CivilRegisterFrame.as` | 235 MARRYINFO_GET |  | ok | no |  |
 | `sendMarryRoomLogin` | `church/view/ChurchMainView.as` | 240 MARRY_SCENE_LOGIN |  | ok | no |  |
@@ -194,7 +194,7 @@
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
 | `sendOpition` | `setting/view/SettingView.as` | 64 OPTION_UPDATE |  | ok | no |  |
-| `sendCIDInfo` | `ddt/view/enthrall/ValidateFrame.as` | 224 CID_CHECK |  | missing | no |  |
+| `sendCIDInfo` | `ddt/view/enthrall/ValidateFrame.as` | 224 CID_CHECK |  | stub | no |  |
 
 ## Conta/Login
 
@@ -202,8 +202,8 @@
 |---|---|---|---|---|---|---|
 | `sendLogin` | `ddt/manager/SocketManager.as` | 1 LOGIN | Version.Build=5498628 | ok | no |  |
 | `sendPint` | `ddt/manager/SocketManager.as` | 4 PING |  | ok | no |  |
-| `sendBagLocked` | `baglocked/BagLockedController.as`<br>`ddt/manager/ServerManager.as` | 25 BAG_LOCKED |  | missing | no |  |
-| `sendCheckCode` | `ddt/view/CheckCodeFrame.as` | 200 CHECK_CODE |  | missing | no |  |
+| `sendBagLocked` | `baglocked/BagLockedController.as`<br>`ddt/manager/ServerManager.as` | 25 BAG_LOCKED |  | ok | no |  |
+| `sendCheckCode` | `ddt/view/CheckCodeFrame.as` | 200 CHECK_CODE |  | partial | no |  |
 | `sendEnterRoom` | `church/controller/ChurchRoomListController.as`<br>`church/view/weddingRoomList/WeddingRoomListNavView.as`<br>`church/view/weddingRoomList/frame/WeddingRoomEnterConfirmView.as` (+2) | 242 MARRY_ROOM_LOGIN |  | ok | no |  |
 | `sendpkgCheckHack` | `ddt/manager/CheckSpeedManager.as` | 300 300 |  | ok | no |  |
 
@@ -217,7 +217,7 @@
 | `sendEmail` | `email/manager/MailManager.as` | 116 SEND_MAIL |  | ok | no |  |
 | `untreadEmail` | — | 118 MAIL_CANCEL |  | ok | no |  |
 | `sendConsortionMail` | `consortion/view/selfConsortia/ConsortionMailFrame.as` | 129 CONSORTIA_CMD | CONSORTION_MAIL=29 | ok | no |  |
-| `sendReloadGift` | `email/manager/MailManager.as` | 214 USER_RELOAD_GIFT |  | missing | no |  |
+| `sendReloadGift` | `email/manager/MailManager.as` | 214 USER_RELOAD_GIFT |  | stub | no |  |
 
 ## Escola/Aprendiz
 
@@ -238,9 +238,9 @@
 | `sendFinishRoulette` | `ddt/view/caddyII/CaddyFrame.as`<br>`ddt/view/caddyII/CardBoxFrame.as`<br>`ddt/view/roulette/RouletteView.as` (+1) | 28 LOTTERY_FINISH |  | ok | no | LOTTERY_FINISH implementado: move CaddyBag + LotteryAwardList pras bolsas reais (sobra por correio), ResetLottery. Testado por código, não clicado. |
 | `sendQequestBadLuck` | `ddt/view/caddyII/badLuck/CaddyBadLuckView.as` | 45 CADDY_GET_BADLUCK |  | ok | no | CADDY_GET_BADLUCK implementado: ranking top 20 por Sys_Users_Extra.TotalCaddyOpen (WorldMgr.CaddyRank). Testado por código, não clicado. |
 | `sendGetTimeBox` | `ddt/manager/BossBoxManager.as`<br>`ddt/view/bossbox/BossBoxView.as` | 53 GET_TIME_BOX |  | ok | no | Caixa de tempo online: minutos contados no servidor desde o login/última caixa (o original confiava no relatório do cliente), 1x por caixa/dia; caixa de nível 1x por nível. Coberto por events.test.ts. No cliente o contador do hall (00:15:00) aparece; prêmio vem de Shop_Goods_Box. |
-| `sendChickActivationGetAward` | `chickActivation/view/ChickActivationViewFrame.as` | 84 ACTIVITY_PACKAGE | ChickActivationType.CHICKACTIVATION=2 | missing | no | Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:198+), prêmio por faixa de Grade dentro de 60 dias do resgate (chickInfo.KeyOpenedTime.AddDays(60)). |
-| `sendChickActivationOpenKey` | `chickActivation/view/ChickActivationViewFrame.as` | 84 ACTIVITY_PACKAGE | ChickActivationType.CHICKACTIVATION=2 | missing | no | Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:171-197), código de 14 caracteres resgatado uma vez (IsKeyOpened). |
-| `sendChickActivationQuery` | `chickActivation/ChickActivationManager.as` | 84 ACTIVITY_PACKAGE | ChickActivationType.CHICKACTIVATION=2 | missing | no | Real no original (não é lacuna de fidelidade, é feature grande não portada ainda por orçamento): ActivityPackageHandler.cs (668 linhas, sub ACTIVITY_PACKAGE=84) trata ChickActivationType.CHICKACTIVATION (linhas 135-250ish) como um sistema de 'código de ativação' de 14 caracteres (QUERY consulta UserChickActiveInfo/IsKeyOpened; OPENKEY resgata o código; GETAWARD paga um prêmio por faixa de nível — m_gradeList {10,20,30,40,45,50,55,60,65} — dentro de 60 dias do resgate). A tabela Activity_System_Item já foi migrada para Postgres, mas falta o UserChickActiveInfo/handler em apps/game e a UI admin pra cadastrar códigos. Ver BACKLOG.md 'Não portado nesta batch'. |
+| `sendChickActivationGetAward` | `chickActivation/view/ChickActivationViewFrame.as` | 84 ACTIVITY_PACKAGE | ChickActivationType.CHICKACTIVATION=2 | partial | no | Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:198+), prêmio por faixa de Grade dentro de 60 dias do resgate (chickInfo.KeyOpenedTime.AddDays(60)). |
+| `sendChickActivationOpenKey` | `chickActivation/view/ChickActivationViewFrame.as` | 84 ACTIVITY_PACKAGE | ChickActivationType.CHICKACTIVATION=2 | partial | no | Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:171-197), código de 14 caracteres resgatado uma vez (IsKeyOpened). |
+| `sendChickActivationQuery` | `chickActivation/ChickActivationManager.as` | 84 ACTIVITY_PACKAGE | ChickActivationType.CHICKACTIVATION=2 | partial | no | Real no original (não é lacuna de fidelidade, é feature grande não portada ainda por orçamento): ActivityPackageHandler.cs (668 linhas, sub ACTIVITY_PACKAGE=84) trata ChickActivationType.CHICKACTIVATION (linhas 135-250ish) como um sistema de 'código de ativação' de 14 caracteres (QUERY consulta UserChickActiveInfo/IsKeyOpened; OPENKEY resgata o código; GETAWARD paga um prêmio por faixa de nível — m_gradeList {10,20,30,40,45,50,55,60,65} — dentro de 60 dias do resgate). A tabela Activity_System_Item já foi migrada para Postgres, mas falta o UserChickActiveInfo/handler em apps/game e a UI admin pra cadastrar códigos. Ver BACKLOG.md 'Não portado nesta batch'. |
 | `sendChickenBoxTakeOverCard` | `newChickenBox/view/NewChickenBoxView.as` | 87 NEWCHICKENBOX_SYS | TAKEOVERCARD=13 | partial | no | Ver 87:sendNewChickenBox. TAKEOVERCARD: custo escalonado (openCardPrice[canOpenCounts-1]), item entregue, 5 usos. |
 | `sendChickenBoxUseEagleEye` | `newChickenBox/view/NewChickenBoxView.as` | 87 NEWCHICKENBOX_SYS | USEEAGLEEYE=11 | partial | no | Ver 87:sendNewChickenBox. USEEAGLEEYE: custo escalonado (eagleEyePrice), revela a carta sem consumir. |
 | `sendClickStartBntNewChickenBox` | `newChickenBox/view/NewChickenBoxFrame.as` | 87 NEWCHICKENBOX_SYS | CLICKSTARTBNT=15 | partial | no | Ver 87:sendNewChickenBox. CLICKSTARTBNT: embaralha as posições do tabuleiro (RandomPosition portado). |
@@ -251,10 +251,10 @@
 | `sendLuckyStarTurnComplete` | `luckStar/view/LuckStarFrame.as` | 87 NEWCHICKENBOX_SYS | TURN_COMPLETE=34 | partial | no | TURN_COMPLETE: entrega o prêmio sorteado (moeda credita Xu acumulado; outros itens vão pra bolsa, sobra por correio). |
 | `sendNewChickenBox` | `newChickenBox/controller/NewChickenBoxManager.as` | 87 NEWCHICKENBOX_SYS | ENTERCHICKENVIEW=10 | partial | no | NEWCHICKENBOX_SYS implementado (apps/game/src/handlers/activities.ts): tabuleiro de 18 cartas (ChickenBoxHandler.cs portado), pool configurável via app."ScheduledEvents" kind="chickenbox" (admin Events page) com defaults embutidos. Estado em memória (não persistido em New_ChickenBox_Data — desvio documentado em HANDLERS.md). Testado por código, não clicado. |
 | `sendOverShowItems` | `newChickenBox/controller/NewChickenBoxManager.as` | 87 NEWCHICKENBOX_SYS | AllITEMSHOW=12 | partial | no | Ver 87:sendNewChickenBox. ALLITEMSHOW: reenvia a lista atual do tabuleiro. |
-| `sendCardLotteryIds` | `lottery/view/CardChooseRightView.as` | 104 CARD_LOTTERY |  | missing | no | Morto no original: ePackageType.CARD_LOTTERY=104 existe mas nenhuma classe [PacketHandler] assina esse código (grep em vendor/DDTank41/Game.Server/Packets/Client) — pacote é descartado pelo servidor original. Status 'missing' aqui é fidelidade, não lacuna. |
-| `sendLuckLottery` | `lottery/LotteryContorller.as` | 105 LUCK_LOTTERY |  | missing | no | Morto no original: mesma situação de 104 (ePackageType.LUCK_LOTTERY=105 sem handler registrado). |
-| `sendStartTurn_LeftGun` | `roulette/RouletteFrame.as` | 128 LEFT_GUN_ROULETTE_SOCKET |  | stub | no | Morto no próprio original: LeftGunHandler.cs está registrado (PacketHandler 128) mas todo o corpo está comentado — o recurso 'roleta esquerda' foi desativado pelo time original, não processa nada. Port: sem handler (mesmo efeito observável). |
-| `sendEndTurn_LeftGun` | `roulette/RouletteFrame.as` | 130 LEFT_GUN_ROULETTE_COMPLETTE |  | stub | no | Mesma desativação do original que 128 (LeftGunCompleteHandler.cs só envia um aviso se LeftRoutteRate>0, campo nunca setado porque 128 está morto). |
+| `sendCardLotteryIds` | `lottery/view/CardChooseRightView.as` | 104 CARD_LOTTERY |  | stub | no | Morto no original: ePackageType.CARD_LOTTERY=104 existe mas nenhuma classe [PacketHandler] assina esse código (grep em vendor/DDTank41/Game.Server/Packets/Client) — pacote é descartado pelo servidor original. Status 'missing' aqui é fidelidade, não lacuna. |
+| `sendLuckLottery` | `lottery/LotteryContorller.as` | 105 LUCK_LOTTERY |  | stub | no | Morto no original: mesma situação de 104 (ePackageType.LUCK_LOTTERY=105 sem handler registrado). |
+| `sendStartTurn_LeftGun` | `roulette/RouletteFrame.as` | 128 LEFT_GUN_ROULETTE_SOCKET |  | partial | no | LeftGunHandler tem código ativo no vendor atual e está portado em items.ts. A nota antiga dizendo que tudo estava comentado foi invalidada em research/qa/port-C.md. |
+| `sendEndTurn_LeftGun` | `roulette/RouletteFrame.as` | 130 LEFT_GUN_ROULETTE_COMPLETTE |  | ok | no | LeftGunCompleteHandler está portado em items.ts. A nota antiga de código morto foi invalidada em research/qa/port-C.md. |
 | `sendGuildMemberWeekAddRanking` | `guildMemberWeek/controller/GuildMemberWeekController.as` | 145 GUILDMEMBERWEEK_SYSTEM | SEND_ADDRUNKING=10 | stub | no | Morto no próprio original: ActiveSystemHandler.cs (código 145 ACTIVITY_SYSTEM) só trata sub==8 (monta um pacote PLAYERTOP10 e NUNCA chama SendTCP — o cliente nunca recebe resposta); subs 9/10 (GuildMemberWeek) e os de LanternRiddles/LightRoad caem no 'return 0' default sem nenhum efeito. Confirmado lendo o arquivo inteiro (18 linhas). |
 | `sendGuildMemberWeekStarClose` | `guildMemberWeek/manager/GuildMemberWeekManager.as` | 145 GUILDMEMBERWEEK_SYSTEM | CLOSE=9 | stub | no | Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original. |
 | `sendGuildMemberWeekStarEnter` | `guildMemberWeek/manager/GuildMemberWeekManager.as` | 145 GUILDMEMBERWEEK_SYSTEM | ENTER_GAME=8 | stub | no | Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original. |
@@ -267,7 +267,7 @@
 | `sendWeeklyClick` | `times/TimesManager.as` | 219 WEEKLY_CLICK_CNT |  | ok | no | Como o original (LastGetEgg). |
 | `sendBuyGift` | `giftSystem/view/ClearingInterface.as` | 221 USER_SEND_GIFTS |  | ok | yes | Varredura do básico pt.2 (2026-10-02): 221 USER_SEND_GIFTS implementado (apps/game/src/handlers/items.ts sendGift, UserSendGiftHandler.cs). Verificado no cliente real: Thur (grade temporariamente 20 via qa-setup para liberar a aba Hộp quà, nível mínimo 16) comprou 'Hoa Mẫu đơn' (100 Xu) e enviou pra Bob pelo fluxo giftSystem (ClearingInterface, campo Tặng cho + autocomplete). Confirmado: Xu de Thur caiu exatamente 100 (99900), Bob.charmGP 0→10, linha em Sys_Users_Gift (SenderID 1, ReceiverID 34, TemplateID 325203, Count 1), mail tipo 55 'Bạn gửi tặng...' entregue pra Bob. Teste automatizado também em test/handlers.test.ts "shop" > "221 USER_SEND_GIFTS". |
 | `sendSellAll` | `ddt/view/caddyII/CaddyBagView.as`<br>`ddt/view/caddyII/CaddyFrame.as`<br>`ddt/view/caddyII/CardBoxFrame.as` | 232 CADDY_SELL_ALL_GOODS |  | ok | no | Código 232 = CaddyClearAllHandler.cs no original (nome do pacote no cliente não corresponde ao nome da classe). Implementado: resgata cada item da CaddyBag por Ouro/Lễ kim via Item.ReclaimType/ReclaimValue, esvazia a bolsa. Testado por código, não clicado. |
-| `gotoCardLottery` | — | 239 GOTO_CARD_LOTTERY |  | missing | no | Morto no original: ePackageType.GOTO_CARD_LOTTERY=239 sem handler registrado (mesma varredura de 104/105). |
+| `gotoCardLottery` | — | 239 GOTO_CARD_LOTTERY |  | stub | no | Morto no original: ePackageType.GOTO_CARD_LOTTERY=239 sem handler registrado (mesma varredura de 104/105). |
 | `sendRequestAwards` | `ddt/view/caddyII/reader/ReadAwardsView.as` | 245 CADDY_GET_AWARDS |  | ok | no |  |
 
 ## Fazenda
@@ -295,17 +295,17 @@
 |---|---|---|---|---|---|---|
 | `sendItemCompose` | `store/view/Compose/StoreIIComposeBG.as` | 58 ITEM_COMPOSE |  | partial | no | Implementado: taxa {80,50,30,10,5}% por qualidade (+1% sem amuleto), PRICE_COMPOSE_GOLD (1600). |
 | `sendItemStrength` | `store/view/strength/StoreIIStrengthBG.as` | 59 ITEM_STRENGTHEN |  | partial | yes | Pedras nv 4/5 em arma: sucesso, +1 por clique, 1 pedra consumida por slot (desvio: C# consumia a pilha inteira), furo 1 abre no +3. — evidência: research/e2e/qa/b7-strengthen-tip.png, b8-weapon-tip.png, b11-inlay2.png |
-| `sendItemTransfer` | `store/view/transfer/StoreIITransferBG.as` | 61 ITEM_TRANSFER |  | stub | no | ITEM_TRANSFER: morto no próprio original — nenhum [PacketHandler(61,...)] em todo vendor/DDTank41 (grep completo nos projetos Game.Server/Fighting.Server/Center.Server). |
+| `sendItemTransfer` | `store/view/transfer/StoreIITransferBG.as` | 61 ITEM_TRANSFER |  | ok | no | Transferência implementada em forge.ts; persistência de atributos/fortalecimento coberta por apps/game/test/forge-persist.test.ts. A nota antiga de ausência no C# estava obsoleta. |
 | `sendItemFusion` | `store/view/fusion/StoreIIFusionBG.as` | 78 ITEM_FUSION |  | ok | no | Implementado: prévia 76 + fusão 400 ouro (FusionMgr). |
-| `necklaceStrength` | — | 95 NECKLACE_STRENGTH |  | stub | no | NECKLACE_STRENGTH: mesma varredura de sendItemTransfer — nenhum [PacketHandler(95,...)] registrado. |
-| `sendWishBeadEquip` | `store/forge/wishBead/WishBeadMainView.as` | 106 WISHBEADEQUIP |  | stub | no | WISHBEADEQUIP: mesma varredura de sendItemTransfer — nenhum [PacketHandler(106,...)] registrado. |
+| `necklaceStrength` | — | 95 NECKLACE_STRENGTH |  | ok | no | Handler 95 em forge-extra.ts; byte type + int place + int count. Consumo e necklaceExp no banco verificados em apps/game/test/persist-all.test.ts; sem teste visual novo. |
+| `sendWishBeadEquip` | `store/forge/wishBead/WishBeadMainView.as` | 106 WISHBEADEQUIP |  | ok | no | WishBeadEquip implementado em forge.ts. Removido override antigo que ocultava o estado do registro atual; validação visual pendente. |
 | `sendItemTrend` | — | 120 ITEM_TREND |  | ok | no | ITEM_TREND implementado (ItemTrendHandle.cs + RefineryMgr.RefineryTrend, Templates.refineryTrend): converte um equip entre variantes de "tendência" listadas no Item_Refinery, ou compra o item 34101 direto (num=-1). A tabela game."Item_Refinery" tem 0 linhas no .bak de origem (nunca configurada neste servidor, no original também) — handler vivo, porém sempre no-op até alguém popular a tabela; mesmo comportamento observável do original com a config vazia. Testado em apps/game/test/forge-advanced.test.ts (lógica de busca na lista achatada), não clicado. |
 | `sendItemEmbed` | `store/view/embed/StoreEmbedBG.as` | 121 ITEM_INLAY |  | ok | no | Implementado (furo precisa estar aberto e tipo igual ao Property2 da gema); sem gema no personagem de teste para verificar no cliente. Varredura pt.3 (2026-10-02): agora chama `p.questInv?.onItemInsert()` em sucesso (`forge.ts` `inlay`), ligando a missão tipo 25 ItemInsertCondition (antes não portada) — testado por código/typecheck, não clicado (sem gema compatível com furo aberto no personagem de teste nesta sessão; furo tipo 0 na arma do Thur, única gema na bolsa era tipo 3). |
 | `sendItemEmbedBackout` | `store/view/embed/StoreEmbedBG.as` | 125 ITEM_EMBED_BACKOUT |  | ok | no | Implementado: 500 Xu, gema volta vinculada, devolve itens do ferreiro. |
-| `sendLatentEnergy` | `latentEnergy/LatentEnergyMainView.as` | 133 LATENT_ENERGY |  | stub | no | LATENT_ENERGY: mesma varredura de sendItemTransfer — nenhum [PacketHandler(133,...)] registrado. |
-| `sendItemExalt` | `store/view/exalt/StoreExaltBG.as` | 138 ITEM_ADVANCE |  | stub | no | ITEM_ADVANCE: mesma varredura de sendItemTransfer — nenhum [PacketHandler(138,...)] registrado. |
+| `sendLatentEnergy` | `latentEnergy/LatentEnergyMainView.as` | 133 LATENT_ENERGY |  | ok | no | LatentEnergyHandler portado em forge-extra.ts; validade corrigida e testada em apps/game/test/latent-energy.test.ts. Validação visual pendente. |
+| `sendItemExalt` | `store/view/exalt/StoreExaltBG.as` | 138 ITEM_ADVANCE |  | ok | no | ItemAdvanceHandler portado em forge-extra.ts. Removido override antigo de handler ausente; validação visual pendente. |
 | `sendSaveDB` | `store/StoreMainView.as` | 172 SAVE_DB |  | ok | no |  |
-| `fightSpiritRequest` | — | 209 FIGHT_SPIRIT | FIGHT_SPIRIT_INIT=1 | stub | no | FIGHT_SPIRIT_INIT: mesma varredura de sendItemTransfer — nenhum [PacketHandler(209,...)] registrado. |
+| `fightSpiritRequest` | — | 209 FIGHT_SPIRIT | FIGHT_SPIRIT_INIT=1 | ok | no | FightSpiritHandler portado em forge-extra.ts, persistido em db/gemstone.ts. Removido override antigo de handler ausente; validação visual pendente. |
 | `sendItemOpenFiveSixHole` | `store/view/embed/StoreEmbedBG.as` | 217 OPEN_FIVE_SIX_HOLE |  | ok | no | OPEN_FIVE_SIX_HOLE implementado (OpenFiveSixHoleHandler.cs): broca (PropBag, ItemInfo.isDrill) gasta no furo 5/6 do equip no StoreBag[slot], exp Property7..8 aleatória, cooldown de 100ms (LastOpenHole). Testado em apps/game/test/forge-advanced.test.ts (isDrill por nível), não clicado. |
 | `sendForgeSuit` | `store/fineStore/view/FineForgeView.as` | 295 STORE_FINE_SUIT | FORGE_SUIT=1 | stub | no | FORGE_SUIT: mesma varredura de sendItemTransfer — nenhum [PacketHandler(295,...)] registrado. |
 | `sendEquipGhost` | `store/equipGhost/EquipGhostManager.as` | 391 EQUIP_GHOST |  | stub | no | EQUIP_GHOST: mesma varredura de sendItemTransfer — nenhum [PacketHandler(391,...)] registrado. |
@@ -323,8 +323,8 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `auctionGood` | — | 192 AUCTION_ADD |  | partial | no |  |
-| `auctionBid` | — | 193 AUCTION_UPDATE |  | partial | no |  |
+| `auctionGood` | — | 192 AUCTION_ADD |  | ok | no |  |
+| `auctionBid` | — | 193 AUCTION_UPDATE |  | ok | no |  |
 | `auctionCancelSell` | — | 194 AUCTION_DELETE |  | ok | no |  |
 
 ## Lobby/Chat/Bugle
@@ -339,7 +339,7 @@
 | `sendSBugle` | `ddt/manager/ChatManager.as` | 71 S_BUGLE |  | ok | no |  |
 | `sendBBugle` | `ddt/manager/ChatManager.as`<br>`ddt/view/chat/ChatBugleInputFrame.as` | 72 B_BUGLE |  | ok | no |  |
 | `sendCBugle` | `ddt/manager/ChatManager.as` | 73 C_BUGLE |  | ok | no |  |
-| `sendGetLinkGoodsInfo` | `ddt/view/chat/ChatOutputField.as` | 119 LINKREQUEST_GOODS |  | missing | no |  |
+| `sendGetLinkGoodsInfo` | `ddt/view/chat/ChatOutputField.as` | 119 LINKREQUEST_GOODS |  | ok | no |  |
 | `sendQuestCheck` | `auctionHouse/controller/AuctionHouseController.as`<br>`ddt/manager/ChatManager.as`<br>`ddt/manager/TaskManager.as` (+3) | 181 QUEST_CHECK |  | ok | no |  |
 
 ## Loja
@@ -347,10 +347,10 @@
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
 | `sendBuyGoods` | `AvatarCollection/view/AvatarCollectionItemCell.as`<br>`chickActivation/view/ChickActivationViewFrame.as`<br>`consortion/view/selfConsortia/ConsortionShopItem.as` (+16) | 44 BUY_GOODS |  | ok | yes | Xu (money) e Lễ kim (giftToken) debitados e saldo atualiza na loja (corrigido pacote 38 sem petScore). Ouro/medalha/itens exigidos pelo mesmo caminho (GetItemPrice). Loja da guilda (ShopID 11-15): nível da loja + contribuição ≥ Consortia_Equip_Control verificados (compra ok). Varredura básico pt.1 (2026-10-02, só testes automatizados contra packets reais, não clicado no Ruffle): tiers A/B/C, duração (ValidDate dias) vs quantidade (Count) por BuyType, carrinho multi-linha sem falha parcial — `test/handlers.test.ts` "shop". Achado não corrigido: presente pra amigo (221 USER_SEND_GIFTS) não está registrado em handler nenhum. — evidência: research/e2e/qa/c6-shop-balance.png, research/e2e/guild/g43-shop-buy.png |
-| `sendBuyGiftBag` | `store/view/strength/BuyGiftBagButton.as` | 46 BUY_GIFTBAG |  | missing | no |  |
+| `sendBuyGiftBag` | `store/view/strength/BuyGiftBagButton.as` | 46 BUY_GIFTBAG |  | ok | no |  |
 | `sendSellGoods` | — | 48 SEll_GOODS |  | missing | no |  |
-| `sendPresentGoods` | `shop/ShopController.as`<br>`shop/manager/ShopGiftsManager.as` | 57 GOODS_PRESENT |  | missing | no |  |
-| `sendQuickBuyGoldBox` | `ddt/command/QuickBuyFrame.as` | 126 BUY_QUICK_GOLDBOX |  | missing | no |  |
+| `sendPresentGoods` | `shop/ShopController.as`<br>`shop/manager/ShopGiftsManager.as` | 57 GOODS_PRESENT |  | ok | no |  |
+| `sendQuickBuyGoldBox` | `ddt/command/QuickBuyFrame.as` | 126 BUY_QUICK_GOLDBOX |  | ok | no |  |
 | `sendFriendState` | `ddt/manager/PlayerStateManager.as`<br>`im/StateIconButton.as`<br>`labyrinth/view/CleanOutFrame.as` (+1) | 160 IM_CMD | FRIEND_STATE=165 | ok | no |  |
 | `sendCurrentState` | `church/controller/ChurchRoomController.as`<br>`civil/CivilController.as`<br>`consortion/ConsortionControl.as` (+3) | 251 SCENE_STATE |  | partial | no |  |
 
@@ -360,12 +360,12 @@
 |---|---|---|---|---|---|---|
 | `sendErrorMsg` | `calendar/CalendarManager.as`<br>`calendar/view/goodsExchange/GoodsExchangeView.as`<br>`ddt/bagStore/BagStoreFrame.as` (+13) | 8 CLIENT_LOG |  | ok | no |  |
 | `sendDailyAward` | `calendar/CalendarManager.as`<br>`hall/HallStateView.as`<br>`times/TimesManager.as` (+1) | 13 DAILY_AWARD |  | ok | yes | Tipo 5 (presença no calendário) marca o dia em DailyLogList uma vez por dia (o original aceitava várias); tipo 0 "Nhận mỗi ngày" dá o buff Daily_Award tipo 0 uma vez por dia; 2 ovo e 3 caixa VIP também com claim diário (app."EventClaims"). — evidência: research/e2e/events/e3-signed.png, e5-daily-claimed.png |
-| `syncStep` | — | 15 USER_ANSWER |  | missing | no | Real no original, não lacuna de fidelidade — feature de tutorial não portada ainda (orçamento): UserAnswerHandler.cs (código 15 USER_ANSWER) recebe byte b, int step (enum Step em SqlDataProvider/Step.cs, ~90 marcos tipo POP_WELCOME/BAG_OPEN_SHOW/POP_WIN_I), opcionalmente paga um prêmio via DropInventory.AnswerDrop(step) e sempre grava UpdateAnswerSite(step) (bitmask de progresso, pra retomar o tutorial sem repetir popups). O campo PlayerInfo.AnswerSite já existe (apps/game/src/game/player-info.ts, persistido) mas nada escreve nele ainda — nenhum handler para o código 15. Baixo impacto de gameplay (é bookkeeping de UI do tutorial Freshman, que já funciona via outros meios nesta port — packages/fight/test/pve.test.ts 'freshman 6-2'); mapear as ~90 constantes de Step com precisão ficou fora do orçamento desta sessão. |
-| `syncWeakStep` | — | 15 USER_ANSWER |  | missing | no | Ver 15:syncStep — mesmo handler/código 15 (variante 'weak' = sem o prêmio automático, só grava progresso). |
+| `syncStep` | — | 15 USER_ANSWER |  | ok | no | Real no original, não lacuna de fidelidade — feature de tutorial não portada ainda (orçamento): UserAnswerHandler.cs (código 15 USER_ANSWER) recebe byte b, int step (enum Step em SqlDataProvider/Step.cs, ~90 marcos tipo POP_WELCOME/BAG_OPEN_SHOW/POP_WIN_I), opcionalmente paga um prêmio via DropInventory.AnswerDrop(step) e sempre grava UpdateAnswerSite(step) (bitmask de progresso, pra retomar o tutorial sem repetir popups). O campo PlayerInfo.AnswerSite já existe (apps/game/src/game/player-info.ts, persistido) mas nada escreve nele ainda — nenhum handler para o código 15. Baixo impacto de gameplay (é bookkeeping de UI do tutorial Freshman, que já funciona via outros meios nesta port — packages/fight/test/pve.test.ts 'freshman 6-2'); mapear as ~90 constantes de Step com precisão ficou fora do orçamento desta sessão. |
+| `syncWeakStep` | — | 15 USER_ANSWER |  | ok | no | Ver 15:syncStep — mesmo handler/código 15 (variante 'weak' = sem o prêmio automático, só grava progresso). |
 | `sendPicc` | `calendar/view/ActivityState.as` | 30 PICC |  | ok | no |  |
-| `sendGoodsExchange` | `calendar/view/goodsExchange/GoodsExchangeView.as` | 31 GOODS_EXCHANGE |  | missing | no | Chamado pelo cliente (calendar/view/goodsExchange/GoodsExchangeView.as:177) mas sem [PacketHandler(31,...)] em Game.Server — o pedido de troca de itens do calendário é descartado silenciosamente no próprio original (não é um no-op registrado como 128/130, é ausência total de handler, igual 104/105/239). Status 'missing' aqui é fidelidade, não lacuna. |
-| `sendCollectInfoValidate` | `quest/InfoCollectView.as` | 32 COLLECTINFO |  | missing | no | Chamado pelo cliente (quest/InfoCollectView.as:200) mas sem [PacketHandler(32,...)] em Game.Server — o formulário de 'coleta de informação' (CPF/telefone etc. de alguma campanha) nunca foi implementado no servidor original; o cliente envia e nada responde. Status 'missing' aqui é fidelidade, não lacuna. |
-| `sendQuestionReply` | `ddt/manager/QuestionInfoMannager.as` | 89 QUESTION_REPLY |  | missing | no | Chamado pelo cliente (ddt/manager/QuestionInfoMannager.as:85) mas sem [PacketHandler(89,...)] em Game.Server — resposta a uma pergunta (survey/quiz de evento) nunca implementada no original. Status 'missing' aqui é fidelidade, não lacuna. |
+| `sendGoodsExchange` | `calendar/view/goodsExchange/GoodsExchangeView.as` | 31 GOODS_EXCHANGE |  | partial | no | Troca exige receita completa, evento vigente, bolsa destrancada, slots únicos e prêmio válido antes do consumo. Testado via pacote e banco em apps/game/test/economy-validation.test.ts. Mantém partial: receita 4.1 sem tiers; não verificado no cliente. |
+| `sendCollectInfoValidate` | `quest/InfoCollectView.as` | 32 COLLECTINFO |  | stub | no | Chamado pelo cliente (quest/InfoCollectView.as:200) mas sem [PacketHandler(32,...)] em Game.Server — o formulário de 'coleta de informação' (CPF/telefone etc. de alguma campanha) nunca foi implementado no servidor original; o cliente envia e nada responde. Status 'missing' aqui é fidelidade, não lacuna. |
+| `sendQuestionReply` | `ddt/manager/QuestionInfoMannager.as` | 89 QUESTION_REPLY |  | stub | no | Chamado pelo cliente (ddt/manager/QuestionInfoMannager.as:85) mas sem [PacketHandler(89,...)] em Game.Server — resposta a uma pergunta (survey/quiz de evento) nunca implementada no original. Status 'missing' aqui é fidelidade, não lacuna. |
 | `sendSignAward` | `calendar/CalendarManager.as` | 90 GET_SIGNAWARD |  | ok | no | Prêmio por N presenças no mês (Daily_Award tipos 1/7 com AwardDays=N): exige N dias marcados e paga uma vez por mês+tier (o C# duplicava itens no loop). Coberto por apps/game/test/events.test.ts; no cliente só dispara ao atingir 3/6/12/18 presenças. |
 | `labyrinthRequestUpdate` | — | 131 LABYRINTH | REQUEST_UPDATE=2 | partial | no | LABYRINTH implementado como camada administrativa/econômica (apps/game/src/handlers/activities.ts + Sys_Users_Labyrinth): sub 1 DOUBLE_REWARD, 2 REQUEST_UPDATE, 3 CLEAN_OUT, 4 SPEEDED_UP, 5 STOP, 6 RESET, 9 TRY_AGAIN. Desvio documentado: o contador de andar por tempo real (Timer de 1s do original) é liquidado instantaneamente no CLEAN_OUT em vez de um timer por jogador; `myProgress` (andares vencidos em combate real) fica em 0 pra todo mundo até o tipo de sala PvE do labirinto ser portado — ver HANDLERS.md. Testado por código (activities.test.ts), não clicado. |
 | `sendAcademyApprentice` | `ddt/view/academyCommon/academyRequest/AcademyRequestMasterFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | ACADEMY_FOR_APPRENTICE=4 | ok | yes | Pedido de aprendiz → mestre recebe 141/4 (AcademyMgr em memória, 1 h). — evidência: research/e2e/batch3/23-bob-academy.png, research/e2e/batch3/24-bob-ask.png, research/e2e/batch3/25-thur-request.png |
@@ -387,29 +387,29 @@
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
 | `sendDailyRecord` | `ddt/dailyRecord/DailyRecordControl.as` | 103 DAILYRECORD |  | ok | no | Devolve e apaga as linhas de DailyRecordInfo (como o original). |
-| `sendItemLianhua` | — | 110 ITEM_REFINERY |  | missing | no |  |
+| `sendItemLianhua` | — | 110 ITEM_REFINERY |  | stub | no |  |
 | `arrange` | — | 135 135 |  | missing | no |  |
 | `lightRoadPointWork` | — | 145 LIGHTROAD_SYSTEM | BECHOOSE_POINT=66 | missing | no |  |
-| `sendLookupEffort` | `ddt/manager/EffortManager.as` | 203 LOOKUP_EFFORT |  | missing | no |  |
-| `figSpiritUpGrade` | — | 209 FIGHT_SPIRIT | FIGHT_SPIRIT_LEVELUP=3 | stub | no |  |
+| `sendLookupEffort` | `ddt/manager/EffortManager.as` | 203 LOOKUP_EFFORT |  | ok | no |  |
+| `figSpiritUpGrade` | — | 209 FIGHT_SPIRIT | FIGHT_SPIRIT_LEVELUP=3 | ok | no |  |
 | `sendUseLog` | — | 213 USE_LOG |  | ok | no |  |
-| `sendCIDCheck` | — | 224 CID_CHECK |  | missing | no |  |
+| `sendCIDCheck` | — | 224 CID_CHECK |  | stub | no |  |
 | `sendForSwitch` | — | 225 ENTHRALL_SWITCH |  | ok | no |  |
 | `sendRegisterInfo` | `civil/view/CivilRegisterFrame.as`<br>`civil/view/CivilRightView.as` | 236 MARRYINFO_ADD |  | ok | no |  |
 | `sendModifyInfo` | `civil/view/CivilRegisterFrame.as` | 237 MARRYINFO_UPDATE |  | ok | no |  |
 | `refund` | — | 249 MARRY_CMD | MARRYROOMSENDGIFT=12 | partial | no |  |
 | `sendNoviceActivityGetAward` | `ddt/manager/GameInSocketOut.as` | 258 NOVICEACTIVITY |  | partial | no | NOVICEACTIVITY implementado simplificado: usa as mesmas tabelas Event_Reward_Info/Goods do 259 (firstRecharge), elegibilidade = Grade do jogador >= Condition (o contador de progresso por PlayerExtra — nível/fortalecimento/recarga/VIP/FC — não foi portado; ver HANDLERS.md). Claim idempotente por (ActivityType, Condition) via app."EventClaims". Testado por código, não clicado. |
 | `sendFirstRechargeGetAward` | `ddt/manager/GameInSocketOut.as` | 259 FIRSTRECHARGE |  | ok | yes | Sem pagamentos reais: o presente de primeira recarga é grátis e único (FIRST_RECHARGE_FREE=false volta ao original). Itens em Event_Reward_Goods tipo 7/1 (editáveis no admin); o ícone some após resgatar. — evidência: research/e2e/events/e11-firstrecharge.png, e12-firstrecharge-claimed.png |
-| `sendBringUpEat` | `ddt/manager/GameInSocketOut.as` | 308 EQUIP_BRING_UP |  | missing | no |  |
-| `sendBringUpLockStatusUpdate` | `ddt/manager/GameInSocketOut.as` | 313 ITEM_CELL_IS_LOCKED |  | missing | no |  |
+| `sendBringUpEat` | `ddt/manager/GameInSocketOut.as` | 308 EQUIP_BRING_UP |  | stub | no |  |
+| `sendBringUpLockStatusUpdate` | `ddt/manager/GameInSocketOut.as` | 313 ITEM_CELL_IS_LOCKED |  | stub | no |  |
 
 ## Personagem/FC
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
 | `showHideTitleState` | — | 279 279 |  | ok | no |  |
-| `sendAvatarCollectionActive` | `AvatarCollection/view/AvatarCollectionItemCell.as` | 402 AVATAR_COLLECTION | ACTIVE=3 | missing | no |  |
-| `sendAvatarCollectionDelayTime` | `AvatarCollection/view/AvatarCollectionTimeView.as` | 402 AVATAR_COLLECTION | DELAY_TIME=4 | missing | no |  |
+| `sendAvatarCollectionActive` | `AvatarCollection/view/AvatarCollectionItemCell.as` | 402 AVATAR_COLLECTION | ACTIVE=3 | ok | no |  |
+| `sendAvatarCollectionDelayTime` | `AvatarCollection/view/AvatarCollectionTimeView.as` | 402 AVATAR_COLLECTION | DELAY_TIME=4 | ok | no |  |
 
 ## Pets
 
@@ -437,7 +437,7 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `sendBeginFightNpc` | — | 50 FIGHT_NPC |  | missing | no | Morto no original dos dois lados: GameSocketOut.as define sendBeginFightNpc() (PackageOut(FIGHT_NPC=50)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e o servidor não registra [PacketHandler(50,...)] em Game.Server/Fighting.Server (o 'FIGHT_NPC=88' de Game.Logic/Protocol/eFightPackageType.cs é um protocolo interno Center<->Fighting diferente, não o pacote de cliente). Status 'missing' aqui é fidelidade, não lacuna. |
+| `sendBeginFightNpc` | — | 50 FIGHT_NPC |  | stub | no | Morto no original dos dois lados: GameSocketOut.as define sendBeginFightNpc() (PackageOut(FIGHT_NPC=50)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e o servidor não registra [PacketHandler(50,...)] em Game.Server/Fighting.Server (o 'FIGHT_NPC=88' de Game.Logic/Protocol/eFightPackageType.cs é um protocolo interno Center<->Fighting diferente, não o pacote de cliente). Status 'missing' aqui é fidelidade, não lacuna. |
 | `sendGameMissionStart` | `ddt/manager/GameInSocketOut.as` | 82 CrazyTankPackageType.GAME_MISSION_START |  | ok | no | GAME_MISSION_START implementado (GameUserStartHandler.cs, apps/game/src/handlers/rooms.ts + Fight.missionStart em apps/game/src/fight/ddt.ts): bool flag; se true, força Ready=true em todo jogador do jogo PvE da sala atual e chama checkState(0) (sem checagem de host no original). É isto que o MissionRoomView.as do cliente envia, no lugar de 94/7 GAME_START, ao clicar 'Iniciar' entre sessões de uma masmorra multi-andar tipo FightLab (roomType 5) já em andamento — sem este handler o jogo ficava parado em SessionPrepared/GameOver a partir do 2º andar. Reusa a semântica de 137 DELIVER (só liga Ready, sem eco). Testado em apps/game/test/fight.test.ts ('82 GAME_MISSION_START ... forwarded to the room's active game.missionStart()'), não clicado no cliente real. |
 | `labyrinthCleanOut` | — | 131 LABYRINTH | CLEAN_OUT=3 | partial | no |  |
 | `labyrinthCleanOutTimerComplete` | — | 131 LABYRINTH | CLEAN_OUT_COMPLETE=8 | partial | no |  |
@@ -452,10 +452,10 @@
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
 | `sendSceneLogin` | `hall/HallStateView.as`<br>`roomList/pveRoomList/DungeonListController.as`<br>`roomList/pvpRoomList/RoomListController.as` | 16 SCENE_LOGIN |  | ok | no |  |
-| `sendBuyProp` | `room/view/RoomPropCell.as`<br>`room/view/states/FreshmanRoomState.as` | 54 PROP_BUY |  | missing | no |  |
-| `sendBuyProp` | `room/view/RoomPropCell.as`<br>`room/view/states/FreshmanRoomState.as` | 54 PROP_BUY |  | missing | no |  |
-| `sendSellProp` | `room/view/RoomPropCell.as` | 55 PROP_SELL |  | missing | no |  |
-| `sendSellProp` | `room/view/RoomPropCell.as` | 55 PROP_SELL |  | missing | no |  |
+| `sendBuyProp` | `room/view/RoomPropCell.as`<br>`room/view/states/FreshmanRoomState.as` | 54 PROP_BUY |  | ok | no |  |
+| `sendBuyProp` | `room/view/RoomPropCell.as`<br>`room/view/states/FreshmanRoomState.as` | 54 PROP_BUY |  | ok | no |  |
+| `sendSellProp` | `room/view/RoomPropCell.as` | 55 PROP_SELL |  | ok | no |  |
+| `sendSellProp` | `room/view/RoomPropCell.as` | 55 PROP_SELL |  | ok | no |  |
 | `sendInviteGame` | `ddt/manager/GameInSocketOut.as` | 70 GAME_INVITE |  | ok | no |  |
 | `createUserGuide` | — | 94 GAME_ROOM | GAME_ROOM_CREATE=0 | ok | no |  |
 | `enterUserGuide` | — | 94 GAME_ROOM | GAME_ROOM_SETUP_CHANGE=2 | ok | no |  |
@@ -529,8 +529,8 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `sendHonorUp` | `totem/view/HonorUpFrame.as`<br>`totem/view/HonorUpIcon.as` | 96 HONOR_UP_COUNT |  | missing | no |  |
-| `sendOpenOneTotem` | `totem/view/TotemLeftWindowView.as` | 136 TOTEM |  | missing | no |  |
+| `sendHonorUp` | `totem/view/HonorUpFrame.as`<br>`totem/view/HonorUpIcon.as` | 96 HONOR_UP_COUNT |  | ok | no |  |
+| `sendOpenOneTotem` | `totem/view/TotemLeftWindowView.as` | 136 TOTEM |  | ok | no |  |
 
 ## VIP
 

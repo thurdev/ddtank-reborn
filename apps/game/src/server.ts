@@ -13,16 +13,18 @@ import { Templates, heartbeat, upsertServer } from "./db/templates.js";
 import { resetAllOnline } from "./db/characters.js";
 import { createRegistry } from "./handlers/index.js";
 import type { HandlerRegistry } from "./handlers/registry.js";
-import { checkMissingHeartbeat } from "./handlers/basic.js";
+import { checkMissingHeartbeat } from "./handlers/basico/index.js";
 import { GameClient, type Transport } from "./session/client.js";
 import { World, type ServerContext, type TicketValidator } from "./session/context.js";
 import { dbTicketValidator, quitPlayer } from "./session/login.js";
-import { consortiaGameOver } from "./handlers/consortia.js";
+import { consortiaGameOver } from "./handlers/sociedade/index.js";
 import { consortiaMgr } from "./game/consortia-mgr.js";
 import { RoomMgr } from "./rooms/room-mgr.js";
+import { RoomType } from "./rooms/room.js";
 import { StubFightEngine } from "./fight/stub.js";
 import { DdtFightEngine } from "./fight/ddt.js";
 import type { FightEngine } from "./fight/types.js";
+import { updateLabyrinthFloor, outLabyrinth } from "./handlers/eventos/labirinto.js";
 import type { BotProvider, VirtualPlayer } from "./bots/bot.js";
 import { DbBotProvider } from "./bots/provider.js";
 import { ItemInfo } from "./game/item.js";
@@ -30,8 +32,10 @@ import { fightLabDrop, setFightLabPermission } from "./game/fightlab.js";
 import type { GamePlayer, RoomMember } from "./game/player.js";
 import { startPolicy, startTcp, startWs, type ConnectionGate } from "./net/transports.js";
 import { startAdmin } from "./admin/http.js";
-import { eventsRuntime, pushRecords, worldBossDamage } from "./handlers/events.js";
-import { scanExpiredAuctions } from "./handlers/auction.js";
+import { eventsRuntime } from "./handlers/eventos/agendador.js";
+import { pushRecords } from "./handlers/eventos/completar-conquista.js";
+import { worldBossDamage } from "./handlers/eventos/boss-mundial.js";
+import { scanExpiredAuctions } from "./handlers/leilao/index.js";
 import * as Out from "./packets/out.js";
 import { LanguageMgr } from "./util/lang.js";
 import { createLogger, type Logger } from "./util/log.js";
@@ -174,6 +178,8 @@ export class GameServer {
               (m as GamePlayer).questInv?.onMissionOver(g.missionId, g.isWin, g.turnNum);
               // PVEGame.cs:802: a won fight-lab mission unlocks the next level; first clear pays FightLabUserDrop
               if (g.gameType === 8 && g.isWin && g.pveId !== undefined) applyFightLabWin(templates, m as GamePlayer, g.pveId, g.hardLevel ?? 0, g.missionId, (k, ...a) => lang.t(k, ...a));
+              // GamePlayer.UpdateLabyrinth via the gate-triggered ShowBigBox (PVEGame.cs:1495-1515): one floor won.
+              if (g.roomType === RoomType.Labyrinth && g.isWin && !(m as GamePlayer).isBot) void updateLabyrinthFloor(this.ctx, m as GamePlayer, g.missionId).catch((e) => log.warn(`labyrinth floor: ${(e as Error).message}`));
               if (this.ctx) void consortiaMgr(this.ctx).then((c) => c.onMission(m as GamePlayer, g.missionId, g.isWin));
             },
             worldBossBlood: () => (this.ctx ? eventsRuntime(this.ctx).boss.blood : 0),
@@ -207,7 +213,14 @@ export class GameServer {
     if (!bots && cfg.BOT_FALLBACK_SEC > 0) bots = await new DbBotProvider().load(db.db).catch((e) => (log.warn(`bots: ${e}`), new DbBotProvider()));
     const zoneId = templates.server?.ZoneId ?? 1;
     const zoneName = templates.server?.ZoneName ?? cfg.SERVER_NAME ?? "DDTank";
-    const rooms = new RoomMgr({ maxRooms: templates.server?.Room ?? cfg.MAX_ROOMS, fight, lang: (k, ...a) => lang.t(k, ...a), bots, botFallbackSec: cfg.BOT_FALLBACK_SEC });
+    const rooms = new RoomMgr({
+      maxRooms: templates.server?.Room ?? cfg.MAX_ROOMS, fight, lang: (k, ...a) => lang.t(k, ...a), bots, botFallbackSec: cfg.BOT_FALLBACK_SEC, allOpen: cfg.ALL_OPEN,
+      // GamePlayer.OutLabyrinth(isWin) (GamePlayer.cs:4315): Labyrinth rooms are solo (host only).
+      onLabyrinthFinished: (room, isWin) => {
+        const host = room.host;
+        if (this.ctx && host && !host.isBot) void outLabyrinth(this.ctx, host as GamePlayer, isWin).catch((e) => log.warn(`labyrinth finished: ${(e as Error).message}`));
+      },
+    });
     this.ctx = {
       cfg, db, templates, lang, log, rooms, fight, rsaKey, zoneId, zoneName,
       world: new World(),

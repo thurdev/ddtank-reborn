@@ -2,7 +2,7 @@
 
 Tudo que NÃO está 100% (servidor ok + verificado no cliente). Inclui itens "mortos no original" (sem handler nem no C#): decidir depois se implementamos do zero ou removemos o botão do cliente.
 
-Totais: 318 linhas — missing 48, stub 39, partial 66, ok-mas-não-verificado-no-cliente 165.
+Totais: 318 linhas — missing 3, stub 40, partial 74, ok-mas-não-verificado-no-cliente 201.
 
 ## Combate (GAME_CMD) (36)
 
@@ -49,14 +49,8 @@ Totais: 318 linhas — missing 48, stub 39, partial 66, ok-mas-não-verificado-n
 
 | status | código | pacote | função cliente | notas |
 |---|---|---|---|---|
-| missing | 84/ChickActivationType.CHICKACTIVATION=2 | ACTIVITY_PACKAGE | sendChickActivationGetAward | Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:198+), prêmio por faixa de Grade dentro de 60 dias do resgate (chickInfo.KeyOpenedTime.AddDays(60)). |
-| missing | 84/ChickActivationType.CHICKACTIVATION=2 | ACTIVITY_PACKAGE | sendChickActivationOpenKey | Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:171-197), código de 14 caracteres resgatado uma vez (IsKeyOpened). |
-| missing | 84/ChickActivationType.CHICKACTIVATION=2 | ACTIVITY_PACKAGE | sendChickActivationQuery | Real no original (não é lacuna de fidelidade, é feature grande não portada ainda por orçamento): ActivityPackageHandler.cs (668 linhas, sub ACTIVITY_PACKAGE=84) trata ChickActivationType.CHICKACTIVATION (linhas 135-250ish) como um sistema de 'código de ativação' de 14 caracteres (QUERY consulta UserChickActiveInfo/IsKeyOpened; OPENKEY resgata o código; GETAWARD paga um prêmio por faixa de nível — m_gradeList {10,20,30,40,45,50,55,60,65} — dentro de 60 dias do resgate). A tabela Activity_System_Item já foi migrada para Postgres, mas falta o UserChickActiveInfo/handler em apps/game e a UI admin pra cadastrar códigos. Ver BACKLOG.md 'Não portado nesta batch'. |
-| missing | 104 | CARD_LOTTERY | sendCardLotteryIds | Morto no original: ePackageType.CARD_LOTTERY=104 existe mas nenhuma classe [PacketHandler] assina esse código (grep em vendor/DDTank41/Game.Server/Packets/Client) — pacote é descartado pelo servidor original. Status 'missing' aqui é fidelidade, não lacuna. |
-| missing | 105 | LUCK_LOTTERY | sendLuckLottery | Morto no original: mesma situação de 104 (ePackageType.LUCK_LOTTERY=105 sem handler registrado). |
-| missing | 239 | GOTO_CARD_LOTTERY | gotoCardLottery | Morto no original: ePackageType.GOTO_CARD_LOTTERY=239 sem handler registrado (mesma varredura de 104/105). |
-| stub | 128 | LEFT_GUN_ROULETTE_SOCKET | sendStartTurn_LeftGun | Morto no próprio original: LeftGunHandler.cs está registrado (PacketHandler 128) mas todo o corpo está comentado — o recurso 'roleta esquerda' foi desativado pelo time original, não processa nada. Port: sem handler (mesmo efeito observável). |
-| stub | 130 | LEFT_GUN_ROULETTE_COMPLETTE | sendEndTurn_LeftGun | Mesma desativação do original que 128 (LeftGunCompleteHandler.cs só envia um aviso se LeftRoutteRate>0, campo nunca setado porque 128 está morto). |
+| stub | 104 | CARD_LOTTERY | sendCardLotteryIds | Morto no original: ePackageType.CARD_LOTTERY=104 existe mas nenhuma classe [PacketHandler] assina esse código (grep em vendor/DDTank41/Game.Server/Packets/Client) — pacote é descartado pelo servidor original. Status 'missing' aqui é fidelidade, não lacuna. |
+| stub | 105 | LUCK_LOTTERY | sendLuckLottery | Morto no original: mesma situação de 104 (ePackageType.LUCK_LOTTERY=105 sem handler registrado). |
 | stub | 145/SEND_ADDRUNKING=10 | GUILDMEMBERWEEK_SYSTEM | sendGuildMemberWeekAddRanking | Morto no próprio original: ActiveSystemHandler.cs (código 145 ACTIVITY_SYSTEM) só trata sub==8 (monta um pacote PLAYERTOP10 e NUNCA chama SendTCP — o cliente nunca recebe resposta); subs 9/10 (GuildMemberWeek) e os de LanternRiddles/LightRoad caem no 'return 0' default sem nenhum efeito. Confirmado lendo o arquivo inteiro (18 linhas). |
 | stub | 145/CLOSE=9 | GUILDMEMBERWEEK_SYSTEM | sendGuildMemberWeekStarClose | Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original. |
 | stub | 145/ENTER_GAME=8 | GUILDMEMBERWEEK_SYSTEM | sendGuildMemberWeekStarEnter | Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original. |
@@ -64,6 +58,10 @@ Totais: 318 linhas — missing 48, stub 39, partial 66, ok-mas-não-verificado-n
 | stub | 145 | ACTIVITY_SYSTEM | sendLanternRiddlesRankInfo | Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original. |
 | stub | 145/LANTERNRIDDLES_SKILL=41 | ACTIVITY_SYSTEM | sendLanternRiddlesUseSkill | Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original. |
 | stub | 145/ENTER_GAME=64 | LIGHTROAD_SYSTEM | sendLightRoadStarEnter | Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original. |
+| stub | 239 | GOTO_CARD_LOTTERY | gotoCardLottery | Morto no original: ePackageType.GOTO_CARD_LOTTERY=239 sem handler registrado (mesma varredura de 104/105). |
+| partial | 84/ChickActivationType.CHICKACTIVATION=2 | ACTIVITY_PACKAGE | sendChickActivationGetAward | Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:198+), prêmio por faixa de Grade dentro de 60 dias do resgate (chickInfo.KeyOpenedTime.AddDays(60)). |
+| partial | 84/ChickActivationType.CHICKACTIVATION=2 | ACTIVITY_PACKAGE | sendChickActivationOpenKey | Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:171-197), código de 14 caracteres resgatado uma vez (IsKeyOpened). |
+| partial | 84/ChickActivationType.CHICKACTIVATION=2 | ACTIVITY_PACKAGE | sendChickActivationQuery | Real no original (não é lacuna de fidelidade, é feature grande não portada ainda por orçamento): ActivityPackageHandler.cs (668 linhas, sub ACTIVITY_PACKAGE=84) trata ChickActivationType.CHICKACTIVATION (linhas 135-250ish) como um sistema de 'código de ativação' de 14 caracteres (QUERY consulta UserChickActiveInfo/IsKeyOpened; OPENKEY resgata o código; GETAWARD paga um prêmio por faixa de nível — m_gradeList {10,20,30,40,45,50,55,60,65} — dentro de 60 dias do resgate). A tabela Activity_System_Item já foi migrada para Postgres, mas falta o UserChickActiveInfo/handler em apps/game e a UI admin pra cadastrar códigos. Ver BACKLOG.md 'Não portado nesta batch'. |
 | partial | 87/TAKEOVERCARD=13 | NEWCHICKENBOX_SYS | sendChickenBoxTakeOverCard | Ver 87:sendNewChickenBox. TAKEOVERCARD: custo escalonado (openCardPrice[canOpenCounts-1]), item entregue, 5 usos. |
 | partial | 87/USEEAGLEEYE=11 | NEWCHICKENBOX_SYS | sendChickenBoxUseEagleEye | Ver 87:sendNewChickenBox. USEEAGLEEYE: custo escalonado (eagleEyePrice), revela a carta sem consumir. |
 | partial | 87/CLICKSTARTBNT=15 | NEWCHICKENBOX_SYS | sendClickStartBntNewChickenBox | Ver 87:sendNewChickenBox. CLICKSTARTBNT: embaralha as posições do tabuleiro (RandomPosition portado). |
@@ -74,12 +72,14 @@ Totais: 318 linhas — missing 48, stub 39, partial 66, ok-mas-não-verificado-n
 | partial | 87/TURN_COMPLETE=34 | NEWCHICKENBOX_SYS | sendLuckyStarTurnComplete | TURN_COMPLETE: entrega o prêmio sorteado (moeda credita Xu acumulado; outros itens vão pra bolsa, sobra por correio). |
 | partial | 87/ENTERCHICKENVIEW=10 | NEWCHICKENBOX_SYS | sendNewChickenBox | NEWCHICKENBOX_SYS implementado (apps/game/src/handlers/activities.ts): tabuleiro de 18 cartas (ChickenBoxHandler.cs portado), pool configurável via app."ScheduledEvents" kind="chickenbox" (admin Events page) com defaults embutidos. Estado em memória (não persistido em New_ChickenBox_Data — desvio documentado em HANDLERS.md). Testado por código, não clicado. |
 | partial | 87/AllITEMSHOW=12 | NEWCHICKENBOX_SYS | sendOverShowItems | Ver 87:sendNewChickenBox. ALLITEMSHOW: reenvia a lista atual do tabuleiro. |
+| partial | 128 | LEFT_GUN_ROULETTE_SOCKET | sendStartTurn_LeftGun | LeftGunHandler tem código ativo no vendor atual e está portado em items.ts. A nota antiga dizendo que tudo estava comentado foi invalidada em research/qa/port-C.md. |
 | ok (não verificado) | 26 | LOTTERY_OPEN_BOX | sendOpenDead | LOTTERY_OPEN_BOX implementado (apps/game/src/handlers/activities.ts): num=-1 abre o tabuleiro de 18 slots (item 112019/190000, ItemBoxMgr.FindLotteryItemBoxByRand portado em pickLotteryBoard); num=templateId abre um rương direto via createItemBox (reuso de use.ts), chaves 11456×4 para 112047/112100/112101 (Sys_Users_Extra.TotalCaddyOpen incrementado). Testado por código (activities.test.ts), não clicado no cliente real (orçamento de tokens estrito desta sessão). |
 | ok (não verificado) | 26 | LOTTERY_OPEN_BOX | sendRouletteBox | Mesmo handler que sendOpenDead (código 26 LOTTERY_OPEN_BOX) — ver nota lá. |
 | ok (não verificado) | 27 | LOTTERY_RANDOM_SELECT | sendStartTurn | LOTTERY_RANDOM_SELECT implementado: 1 carta por sorteio do tabuleiro de 18, máx. 8 sorteios, custo de chave escalonado (sorteio N consome N chaves, igual ao original — LotteryRandomSelectHandler.cs). Testado por código, não clicado. |
 | ok (não verificado) | 28 | LOTTERY_FINISH | sendFinishRoulette | LOTTERY_FINISH implementado: move CaddyBag + LotteryAwardList pras bolsas reais (sobra por correio), ResetLottery. Testado por código, não clicado. |
 | ok (não verificado) | 45 | CADDY_GET_BADLUCK | sendQequestBadLuck | CADDY_GET_BADLUCK implementado: ranking top 20 por Sys_Users_Extra.TotalCaddyOpen (WorldMgr.CaddyRank). Testado por código, não clicado. |
 | ok (não verificado) | 53 | GET_TIME_BOX | sendGetTimeBox | Caixa de tempo online: minutos contados no servidor desde o login/última caixa (o original confiava no relatório do cliente), 1x por caixa/dia; caixa de nível 1x por nível. Coberto por events.test.ts. No cliente o contador do hall (00:15:00) aparece; prêmio vem de Shop_Goods_Box. |
+| ok (não verificado) | 130 | LEFT_GUN_ROULETTE_COMPLETTE | sendEndTurn_LeftGun | LeftGunCompleteHandler está portado em items.ts. A nota antiga de código morto foi invalidada em research/qa/port-C.md. |
 | ok (não verificado) | 204 | OPEN_ALL_CARDBOX | sendOpenAll | OPEN_ALL_CARDBOX implementado: cada item da CaddyBag -> CardBag.addCard(Property5, rand 1..2), igual ao original (OpenAllCardBoxHandler.cs). Testado por código, não clicado. |
 | ok (não verificado) | 219 | WEEKLY_CLICK_CNT | sendWeeklyClick | Como o original (LastGetEgg). |
 | ok (não verificado) | 232 | CADDY_SELL_ALL_GOODS | sendSellAll | Código 232 = CaddyClearAllHandler.cs no original (nome do pacote no cliente não corresponde ao nome da classe). Implementado: resgata cada item da CaddyBag por Ouro/Lễ kim via Item.ReclaimType/ReclaimValue, esvazia a bolsa. Testado por código, não clicado. |
@@ -89,7 +89,7 @@ Totais: 318 linhas — missing 48, stub 39, partial 66, ok-mas-não-verificado-n
 
 | status | código | pacote | função cliente | notas |
 |---|---|---|---|---|
-| missing | 167 | CHURCH_MOVIE_OVER | sendChurchMovieOver | Morto no original dos dois lados: GameSocketOut.as define sendChurchMovieOver() (PackageOut(CHURCH_MOVIE_OVER=167)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e nenhum [PacketHandler(167,...)] existe em Game.Server. Status 'missing' aqui é fidelidade, não lacuna. |
+| stub | 167 | CHURCH_MOVIE_OVER | sendChurchMovieOver | Morto no original dos dois lados: GameSocketOut.as define sendChurchMovieOver() (PackageOut(CHURCH_MOVIE_OVER=167)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e nenhum [PacketHandler(167,...)] existe em Game.Server. Status 'missing' aqui é fidelidade, não lacuna. |
 | partial | 233 | MARRY_SCENE_CHANGE | sendSceneChange |  |
 | partial | 241 | MARRY_ROOM_CREATE | sendCreateRoom | Fluxo completo testado de ponta a ponta com o layout real de pacotes (apps/game/test/marriage-farm-auction.test.ts '247/250 MARRY_APPLY...'): 247 propõe (anel consumido) -> 250 aceita (ambos IsMarried) -> 241 cria a capela (cobra PRICE_MARRY_ROOM, IsCreatedMarryRoom=true, SelfMarryRoomID setado) -> 242 noivo recebe o ack (roomInfoPacket + bool true) -> 242 noiva entra na mesma sala -> 249/2 HYMENEAL inicia o casamento, ambos os clientes recebem started=true. Não clicado no Ruffle real (orçamento de screenshots), mas verificado byte a byte contra o formato confirmado em ChurchManager.as. |
 | partial | 249/CONTINUATION=3 | MARRY_CMD | sendChurchContinuation |  |
@@ -116,11 +116,11 @@ Totais: 318 linhas — missing 48, stub 39, partial 66, ok-mas-não-verificado-n
 
 | status | código | pacote | função cliente | notas |
 |---|---|---|---|---|
-| missing | 54 | PROP_BUY | sendBuyProp |  |
-| missing | 54 | PROP_BUY | sendBuyProp |  |
-| missing | 55 | PROP_SELL | sendSellProp |  |
-| missing | 55 | PROP_SELL | sendSellProp |  |
 | ok (não verificado) | 16 | SCENE_LOGIN | sendSceneLogin |  |
+| ok (não verificado) | 54 | PROP_BUY | sendBuyProp |  |
+| ok (não verificado) | 54 | PROP_BUY | sendBuyProp |  |
+| ok (não verificado) | 55 | PROP_SELL | sendSellProp |  |
+| ok (não verificado) | 55 | PROP_SELL | sendSellProp |  |
 | ok (não verificado) | 70 | GAME_INVITE | sendInviteGame |  |
 | ok (não verificado) | 94/GAME_ROOM_CREATE=0 | GAME_ROOM | createUserGuide |  |
 | ok (não verificado) | 94/GAME_ROOM_SETUP_CHANGE=2 | GAME_ROOM | enterUserGuide |  |
@@ -142,21 +142,21 @@ Totais: 318 linhas — missing 48, stub 39, partial 66, ok-mas-não-verificado-n
 
 | status | código | pacote | função cliente | notas |
 |---|---|---|---|---|
-| stub | 66 | PROP_USE | sendUseProp | PROP_USE (código 66, fora de luta): morto no próprio original — nenhum [PacketHandler(66,...)] registrado (não confundir com 91/PROP=32, usado em luta, esse sim implementado). |
-| stub | 77 | ITEM_OVERDUE | sendItemOverDue | ITEM_OVERDUE: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(77,...)] registrado. |
-| stub | 171 | USE_REWORK_NAME | sendUseReworkName | USE_REWORK_NAME: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(171,...)] registrado. |
 | stub | 188 | USE_CONSORTIA_REWORK_NAME | sendUseConsortiaReworkName | USE_CONSORTIA_REWORK_NAME: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(188,...)] registrado. |
 | stub | 205 | USE_CHANGE_COLOR_SHELL | sendUseChangeColorShell | USE_CHANGE_COLOR_SHELL: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(205,...)] registrado. |
-| stub | 222 | EQUIP_RECYCLE_ITEM | sendEquipRetrieve | EQUIP_RECYCLE_ITEM: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(222,...)] registrado. |
-| stub | 265 | NEWTITLE_CARD | sendNewTitleCard | NEWTITLE_CARD: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(265,...)] registrado. |
 | partial | 49 | CHANGE_PLACE_GOODS | sendMoveGoods | Mover para o ferreiro/equipar. Banco da guilda (bolsa 11): StoreLevel × 10 espaços, depósito/retirada ok (research/e2e/guild/g40-bank-deposit.png). |
 | partial | 168 | GOODS_COUNT | sendUpdateGoodsCount | GOODS_COUNT implementado (GoodsCountHandler.cs) respondendo lista vazia: o estoque diário global (WorldMgr.GetAllShopFreeCount) não é rastreado neste port — o ShopID 20 já é limitado por jogador (ver 44 BUY_GOODS), não por estoque global, então não há nada pra reportar. Mesmo desvio documentado em HANDLERS.md. |
+| partial | 222 | EQUIP_RECYCLE_ITEM | sendEquipRetrieve | EquipRecycleItem implementado em items.ts; coberto por apps/game/test/shop-prop-misc.test.ts. Removida nota obsoleta de ausência no C#. |
+| partial | 265 | NEWTITLE_CARD | sendNewTitleCard | NewTitleCard parcialmente implementado em items.ts (tabela de títulos/configuração ainda requer validação). O registro efetivo determina o status. |
 | ok (não verificado) | 34 | USER_RANK | sendChangeDesignation | USER_RANK implementado (ChangeDesignationHandler.cs): mostra/esconde o selo da guilda sobre o personagem (IsShowConsortia). |
 | ok (não verificado) | 60 | ITEM_HIDE | sendHideLayer |  |
 | ok (não verificado) | 62 | ITEM_CONTINUE | sendGoodsContinue | ITEM_CONTINUE implementado (UserItemContineueHandler.cs): estende o ValidDate do item usando o preço da loja (tiers A/B/C, igual BUY_GOODS via setItemType). Testado por código/typecheck, não clicado. |
+| ok (não verificado) | 66 | PROP_USE | sendUseProp | PropUseHandler portado em shop-prop.ts: valida tipo, quantidade e pacote inteiro; 11963 concede cupons e 201316 ativa o estado persistido de ACTIVITY_PACKAGE. Testes: apps/game/test/economy-validation.test.ts. |
 | ok (não verificado) | 74 | ITEM_EQUIP | sendItemEquip | FC (Lực chiến) calculado pela fórmula original (apps/game/src/game/stats.ts) e enviado em 67/login/ranking: 2091 no Thur conferido à mão. |
+| ok (não verificado) | 77 | ITEM_OVERDUE | sendItemOverDue | ItemOverdueHandler implementado em items.ts; coberto por apps/game/test/shop-prop-misc.test.ts. Removida nota obsoleta de ausência no C#. |
 | ok (não verificado) | 122 | CLEAR_STORE_BAG | sendClearStoreBag |  |
 | ok (não verificado) | 124 | CHANGE_PLACE_GOODS_ALL | sendMoveGoodsAll |  |
+| ok (não verificado) | 171 | USE_REWORK_NAME | sendUseReworkName | UseReworkName implementado em items.ts; coberto por apps/game/test/shop-prop-misc.test.ts. Removida nota obsoleta de ausência no C#. |
 | ok (não verificado) | 182 | USE_COLOR_CARD | sendChangeColor | USE_COLOR_CARD implementado (UserChangeItemColorHandler.cs): recolore um slot do EquipBag usando um item de cor do PropBag ou Xu (preço do Shop pelo templateId, APrice1=-1). |
 | ok (não verificado) | 189 | USER_CHANGE_RANK | sendReworkRank | USER_CHANGE_RANK implementado (ReworkRankHandler.cs): troca o título exibido por um dos títulos que o jogador já possui (player."Sys_User_Rank"); NewTitleID continua 0 (tabela de definição de título nunca migrada, mesma lacuna documentada em HANDLERS.md "Player stats"). |
 | ok (não verificado) | 206 | CHANGE_COLOR_OVER_DUE | sendChangeColorShellTimeOver |  |
@@ -167,15 +167,15 @@ Totais: 318 linhas — missing 48, stub 39, partial 66, ok-mas-não-verificado-n
 
 | status | código | pacote | função cliente | notas |
 |---|---|---|---|---|
-| missing | 15 | USER_ANSWER | syncStep | Real no original, não lacuna de fidelidade — feature de tutorial não portada ainda (orçamento): UserAnswerHandler.cs (código 15 USER_ANSWER) recebe byte b, int step (enum Step em SqlDataProvider/Step.cs, ~90 marcos tipo POP_WELCOME/BAG_OPEN_SHOW/POP_WIN_I), opcionalmente paga um prêmio via DropInventory.AnswerDrop(step) e sempre grava UpdateAnswerSite(step) (bitmask de progresso, pra retomar o tutorial sem repetir popups). O campo PlayerInfo.AnswerSite já existe (apps/game/src/game/player-info.ts, persistido) mas nada escreve nele ainda — nenhum handler para o código 15. Baixo impacto de gameplay (é bookkeeping de UI do tutorial Freshman, que já funciona via outros meios nesta port — packages/fight/test/pve.test.ts 'freshman 6-2'); mapear as ~90 constantes de Step com precisão ficou fora do orçamento desta sessão. |
-| missing | 15 | USER_ANSWER | syncWeakStep | Ver 15:syncStep — mesmo handler/código 15 (variante 'weak' = sem o prêmio automático, só grava progresso). |
-| missing | 31 | GOODS_EXCHANGE | sendGoodsExchange | Chamado pelo cliente (calendar/view/goodsExchange/GoodsExchangeView.as:177) mas sem [PacketHandler(31,...)] em Game.Server — o pedido de troca de itens do calendário é descartado silenciosamente no próprio original (não é um no-op registrado como 128/130, é ausência total de handler, igual 104/105/239). Status 'missing' aqui é fidelidade, não lacuna. |
-| missing | 32 | COLLECTINFO | sendCollectInfoValidate | Chamado pelo cliente (quest/InfoCollectView.as:200) mas sem [PacketHandler(32,...)] em Game.Server — o formulário de 'coleta de informação' (CPF/telefone etc. de alguma campanha) nunca foi implementado no servidor original; o cliente envia e nada responde. Status 'missing' aqui é fidelidade, não lacuna. |
-| missing | 89 | QUESTION_REPLY | sendQuestionReply | Chamado pelo cliente (ddt/manager/QuestionInfoMannager.as:85) mas sem [PacketHandler(89,...)] em Game.Server — resposta a uma pergunta (survey/quiz de evento) nunca implementada no original. Status 'missing' aqui é fidelidade, não lacuna. |
+| stub | 32 | COLLECTINFO | sendCollectInfoValidate | Chamado pelo cliente (quest/InfoCollectView.as:200) mas sem [PacketHandler(32,...)] em Game.Server — o formulário de 'coleta de informação' (CPF/telefone etc. de alguma campanha) nunca foi implementado no servidor original; o cliente envia e nada responde. Status 'missing' aqui é fidelidade, não lacuna. |
+| stub | 89 | QUESTION_REPLY | sendQuestionReply | Chamado pelo cliente (ddt/manager/QuestionInfoMannager.as:85) mas sem [PacketHandler(89,...)] em Game.Server — resposta a uma pergunta (survey/quiz de evento) nunca implementada no original. Status 'missing' aqui é fidelidade, não lacuna. |
 | stub | 145/LANTERNRIDDLES_ANSWER=40 | ACTIVITY_SYSTEM | sendLanternRiddlesAnswer | Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original. |
+| partial | 31 | GOODS_EXCHANGE | sendGoodsExchange | Troca exige receita completa, evento vigente, bolsa destrancada, slots únicos e prêmio válido antes do consumo. Testado via pacote e banco em apps/game/test/economy-validation.test.ts. Mantém partial: receita 4.1 sem tiers; não verificado no cliente. |
 | partial | 131/REQUEST_UPDATE=2 | LABYRINTH | labyrinthRequestUpdate | LABYRINTH implementado como camada administrativa/econômica (apps/game/src/handlers/activities.ts + Sys_Users_Labyrinth): sub 1 DOUBLE_REWARD, 2 REQUEST_UPDATE, 3 CLEAN_OUT, 4 SPEEDED_UP, 5 STOP, 6 RESET, 9 TRY_AGAIN. Desvio documentado: o contador de andar por tempo real (Timer de 1s do original) é liquidado instantaneamente no CLEAN_OUT em vez de um timer por jogador; `myProgress` (andares vencidos em combate real) fica em 0 pra todo mundo até o tipo de sala PvE do labirinto ser portado — ver HANDLERS.md. Testado por código (activities.test.ts), não clicado. |
 | partial | 249/MARRYROOMSENDGIFT=12 | MARRY_CMD | requestRefund |  |
 | ok (não verificado) | 8 | CLIENT_LOG | sendErrorMsg |  |
+| ok (não verificado) | 15 | USER_ANSWER | syncStep | Real no original, não lacuna de fidelidade — feature de tutorial não portada ainda (orçamento): UserAnswerHandler.cs (código 15 USER_ANSWER) recebe byte b, int step (enum Step em SqlDataProvider/Step.cs, ~90 marcos tipo POP_WELCOME/BAG_OPEN_SHOW/POP_WIN_I), opcionalmente paga um prêmio via DropInventory.AnswerDrop(step) e sempre grava UpdateAnswerSite(step) (bitmask de progresso, pra retomar o tutorial sem repetir popups). O campo PlayerInfo.AnswerSite já existe (apps/game/src/game/player-info.ts, persistido) mas nada escreve nele ainda — nenhum handler para o código 15. Baixo impacto de gameplay (é bookkeeping de UI do tutorial Freshman, que já funciona via outros meios nesta port — packages/fight/test/pve.test.ts 'freshman 6-2'); mapear as ~90 constantes de Step com precisão ficou fora do orçamento desta sessão. |
+| ok (não verificado) | 15 | USER_ANSWER | syncWeakStep | Ver 15:syncStep — mesmo handler/código 15 (variante 'weak' = sem o prêmio automático, só grava progresso). |
 | ok (não verificado) | 30 | PICC | sendPicc |  |
 | ok (não verificado) | 90 | GET_SIGNAWARD | sendSignAward | Prêmio por N presenças no mês (Daily_Award tipos 1/7 com AwardDays=N): exige N dias marcados e paga uma vez por mês+tier (o C# duplicava itens no loop). Coberto por apps/game/test/events.test.ts; no cliente só dispara ao atingir 3/6/12/18 presenças. |
 | ok (não verificado) | 141/APPRENTICE_CONFIRM=7 | AcademyPackageType.ACADEMY_FATHER | sendAcademyApprenticeConfirm |  |
@@ -190,21 +190,21 @@ Totais: 318 linhas — missing 48, stub 39, partial 66, ok-mas-não-verificado-n
 
 | status | código | pacote | função cliente | notas |
 |---|---|---|---|---|
-| stub | 61 | ITEM_TRANSFER | sendItemTransfer | ITEM_TRANSFER: morto no próprio original — nenhum [PacketHandler(61,...)] em todo vendor/DDTank41 (grep completo nos projetos Game.Server/Fighting.Server/Center.Server). |
-| stub | 95 | NECKLACE_STRENGTH | necklaceStrength | NECKLACE_STRENGTH: mesma varredura de sendItemTransfer — nenhum [PacketHandler(95,...)] registrado. |
-| stub | 106 | WISHBEADEQUIP | sendWishBeadEquip | WISHBEADEQUIP: mesma varredura de sendItemTransfer — nenhum [PacketHandler(106,...)] registrado. |
-| stub | 133 | LATENT_ENERGY | sendLatentEnergy | LATENT_ENERGY: mesma varredura de sendItemTransfer — nenhum [PacketHandler(133,...)] registrado. |
-| stub | 138 | ITEM_ADVANCE | sendItemExalt | ITEM_ADVANCE: mesma varredura de sendItemTransfer — nenhum [PacketHandler(138,...)] registrado. |
-| stub | 209/FIGHT_SPIRIT_INIT=1 | FIGHT_SPIRIT | fightSpiritRequest | FIGHT_SPIRIT_INIT: mesma varredura de sendItemTransfer — nenhum [PacketHandler(209,...)] registrado. |
 | stub | 295/FORGE_SUIT=1 | STORE_FINE_SUIT | sendForgeSuit | FORGE_SUIT: mesma varredura de sendItemTransfer — nenhum [PacketHandler(295,...)] registrado. |
 | stub | 391 | EQUIP_GHOST | sendEquipGhost | EQUIP_GHOST: mesma varredura de sendItemTransfer — nenhum [PacketHandler(391,...)] registrado. |
 | partial | 58 | ITEM_COMPOSE | sendItemCompose | Implementado: taxa {80,50,30,10,5}% por qualidade (+1% sem amuleto), PRICE_COMPOSE_GOLD (1600). |
 | partial | 59 | ITEM_STRENGTHEN | sendItemStrength | Pedras nv 4/5 em arma: sucesso, +1 por clique, 1 pedra consumida por slot (desvio: C# consumia a pilha inteira), furo 1 abre no +3. |
+| ok (não verificado) | 61 | ITEM_TRANSFER | sendItemTransfer | Transferência implementada em forge.ts; persistência de atributos/fortalecimento coberta por apps/game/test/forge-persist.test.ts. A nota antiga de ausência no C# estava obsoleta. |
 | ok (não verificado) | 78 | ITEM_FUSION | sendItemFusion | Implementado: prévia 76 + fusão 400 ouro (FusionMgr). |
+| ok (não verificado) | 95 | NECKLACE_STRENGTH | necklaceStrength | Handler 95 em forge-extra.ts; byte type + int place + int count. Consumo e necklaceExp no banco verificados em apps/game/test/persist-all.test.ts; sem teste visual novo. |
+| ok (não verificado) | 106 | WISHBEADEQUIP | sendWishBeadEquip | WishBeadEquip implementado em forge.ts. Removido override antigo que ocultava o estado do registro atual; validação visual pendente. |
 | ok (não verificado) | 120 | ITEM_TREND | sendItemTrend | ITEM_TREND implementado (ItemTrendHandle.cs + RefineryMgr.RefineryTrend, Templates.refineryTrend): converte um equip entre variantes de "tendência" listadas no Item_Refinery, ou compra o item 34101 direto (num=-1). A tabela game."Item_Refinery" tem 0 linhas no .bak de origem (nunca configurada neste servidor, no original também) — handler vivo, porém sempre no-op até alguém popular a tabela; mesmo comportamento observável do original com a config vazia. Testado em apps/game/test/forge-advanced.test.ts (lógica de busca na lista achatada), não clicado. |
 | ok (não verificado) | 121 | ITEM_INLAY | sendItemEmbed | Implementado (furo precisa estar aberto e tipo igual ao Property2 da gema); sem gema no personagem de teste para verificar no cliente. Varredura pt.3 (2026-10-02): agora chama `p.questInv?.onItemInsert()` em sucesso (`forge.ts` `inlay`), ligando a missão tipo 25 ItemInsertCondition (antes não portada) — testado por código/typecheck, não clicado (sem gema compatível com furo aberto no personagem de teste nesta sessão; furo tipo 0 na arma do Thur, única gema na bolsa era tipo 3). |
 | ok (não verificado) | 125 | ITEM_EMBED_BACKOUT | sendItemEmbedBackout | Implementado: 500 Xu, gema volta vinculada, devolve itens do ferreiro. |
+| ok (não verificado) | 133 | LATENT_ENERGY | sendLatentEnergy | LatentEnergyHandler portado em forge-extra.ts; validade corrigida e testada em apps/game/test/latent-energy.test.ts. Validação visual pendente. |
+| ok (não verificado) | 138 | ITEM_ADVANCE | sendItemExalt | ItemAdvanceHandler portado em forge-extra.ts. Removido override antigo de handler ausente; validação visual pendente. |
 | ok (não verificado) | 172 | SAVE_DB | sendSaveDB |  |
+| ok (não verificado) | 209/FIGHT_SPIRIT_INIT=1 | FIGHT_SPIRIT | fightSpiritRequest | FightSpiritHandler portado em forge-extra.ts, persistido em db/gemstone.ts. Removido override antigo de handler ausente; validação visual pendente. |
 | ok (não verificado) | 217 | OPEN_FIVE_SIX_HOLE | sendItemOpenFiveSixHole | OPEN_FIVE_SIX_HOLE implementado (OpenFiveSixHoleHandler.cs): broca (PropBag, ItemInfo.isDrill) gasta no furo 5/6 do equip no StoreBag[slot], exp Property7..8 aleatória, cooldown de 100ms (LastOpenHole). Testado em apps/game/test/forge-advanced.test.ts (isDrill por nível), não clicado. |
 
 ## Sociedade/Guilda (16)
@@ -232,17 +232,17 @@ Totais: 318 linhas — missing 48, stub 39, partial 66, ok-mas-não-verificado-n
 
 | status | código | pacote | função cliente | notas |
 |---|---|---|---|---|
-| missing | 110 | ITEM_REFINERY | sendItemLianhua |  |
 | missing | 135 | 135 | arrange |  |
 | missing | 145/BECHOOSE_POINT=66 | LIGHTROAD_SYSTEM | lightRoadPointWork |  |
-| missing | 203 | LOOKUP_EFFORT | sendLookupEffort |  |
-| missing | 224 | CID_CHECK | sendCIDCheck |  |
-| missing | 308 | EQUIP_BRING_UP | sendBringUpEat |  |
-| missing | 313 | ITEM_CELL_IS_LOCKED | sendBringUpLockStatusUpdate |  |
-| stub | 209/FIGHT_SPIRIT_LEVELUP=3 | FIGHT_SPIRIT | figSpiritUpGrade |  |
+| stub | 110 | ITEM_REFINERY | sendItemLianhua |  |
+| stub | 224 | CID_CHECK | sendCIDCheck |  |
+| stub | 308 | EQUIP_BRING_UP | sendBringUpEat |  |
+| stub | 313 | ITEM_CELL_IS_LOCKED | sendBringUpLockStatusUpdate |  |
 | partial | 249/MARRYROOMSENDGIFT=12 | MARRY_CMD | refund |  |
 | partial | 258 | NOVICEACTIVITY | sendNoviceActivityGetAward | NOVICEACTIVITY implementado simplificado: usa as mesmas tabelas Event_Reward_Info/Goods do 259 (firstRecharge), elegibilidade = Grade do jogador >= Condition (o contador de progresso por PlayerExtra — nível/fortalecimento/recarga/VIP/FC — não foi portado; ver HANDLERS.md). Claim idempotente por (ActivityType, Condition) via app."EventClaims". Testado por código, não clicado. |
 | ok (não verificado) | 103 | DAILYRECORD | sendDailyRecord | Devolve e apaga as linhas de DailyRecordInfo (como o original). |
+| ok (não verificado) | 203 | LOOKUP_EFFORT | sendLookupEffort |  |
+| ok (não verificado) | 209/FIGHT_SPIRIT_LEVELUP=3 | FIGHT_SPIRIT | figSpiritUpGrade |  |
 | ok (não verificado) | 213 | USE_LOG | sendUseLog |  |
 | ok (não verificado) | 225 | ENTHRALL_SWITCH | sendForSwitch |  |
 | ok (não verificado) | 236 | MARRYINFO_ADD | sendRegisterInfo |  |
@@ -291,24 +291,23 @@ Totais: 318 linhas — missing 48, stub 39, partial 66, ok-mas-não-verificado-n
 
 | status | código | pacote | função cliente | notas |
 |---|---|---|---|---|
-| missing | 40 | SNS_MSG_RECEIVE | sendSnsMsg |  |
-| missing | 107/INVITE_FRIEND_OPENVIEW=2 | INVITE_FRIEND | enterInviteFriendView |  |
-| missing | 107/INVITE_FRIEND_FBCLICK=6 | INVITE_FRIEND | inviteFriendFBBntClick |  |
-| missing | 107 | INVITE_FRIEND | inviteFriendOkClick |  |
-| missing | 107/INVITE_FRIEND_GETREWARD=4 | INVITE_FRIEND | inviteFriendRewardBntClick |  |
-| missing | 223 | FRIEND_BRITHDAY | sendWithBrithday |  |
+| ok (não verificado) | 40 | SNS_MSG_RECEIVE | sendSnsMsg |  |
 | ok (não verificado) | 94/GAME_ROOM_LOGIN=1 | GAME_ROOM | sendGameLogin |  |
+| ok (não verificado) | 107/INVITE_FRIEND_OPENVIEW=2 | INVITE_FRIEND | enterInviteFriendView |  |
+| ok (não verificado) | 107/INVITE_FRIEND_FBCLICK=6 | INVITE_FRIEND | inviteFriendFBBntClick |  |
+| ok (não verificado) | 107 | INVITE_FRIEND | inviteFriendOkClick |  |
+| ok (não verificado) | 107/INVITE_FRIEND_GETREWARD=4 | INVITE_FRIEND | inviteFriendRewardBntClick |  |
 | ok (não verificado) | 160/FRIEND_ADD=160 | IM_CMD | sendAddFriend | Varredura do básico pt.2: painel Bạn bè(F) abriu, diálogo 'Thêm bạn' aceitou o nickname 'Bob' com autocomplete e fechou sem erro. Não deu pra confirmar um ADD novo no banco porque Bob já era amigo do Thur antes desta sessão (Sys_Users_Friends AddDate antigo, não mudou) — fluxo de UI ok, mas não isola o caso de amigo novo. |
 | ok (não verificado) | 160/ADD_CUSTOM_FRIENDS=208 | IM_CMD | sendCustomFriends |  |
 | ok (não verificado) | 160/FRIEND_REMOVE=161 | IM_CMD | sendDelFriend |  |
 | ok (não verificado) | 160/ONE_ON_ONE_TALK=51 | IM_CMD | sendOneOnOneTalk |  |
 | ok (não verificado) | 160/ONS_EQUIP=45 | IM_CMD | sendOns |  |
+| ok (não verificado) | 223 | FRIEND_BRITHDAY | sendWithBrithday |  |
 
 ## Lobby/Chat/Bugle (10)
 
 | status | código | pacote | função cliente | notas |
 |---|---|---|---|---|
-| missing | 119 | LINKREQUEST_GOODS | sendGetLinkGoodsInfo |  |
 | ok (não verificado) | 19 | SCENE_CHAT | sendMessage |  |
 | ok (não verificado) | 20 | SCENE_FACE | sendFace |  |
 | ok (não verificado) | 21 | SCENE_REMOVE_USER | sendExitScene |  |
@@ -317,13 +316,14 @@ Totais: 318 linhas — missing 48, stub 39, partial 66, ok-mas-não-verificado-n
 | ok (não verificado) | 71 | S_BUGLE | sendSBugle |  |
 | ok (não verificado) | 72 | B_BUGLE | sendBBugle |  |
 | ok (não verificado) | 73 | C_BUGLE | sendCBugle |  |
+| ok (não verificado) | 119 | LINKREQUEST_GOODS | sendGetLinkGoodsInfo |  |
 | ok (não verificado) | 181 | QUEST_CHECK | sendQuestCheck |  |
 
 ## PvE/Masmorras (9)
 
 | status | código | pacote | função cliente | notas |
 |---|---|---|---|---|
-| missing | 50 | FIGHT_NPC | sendBeginFightNpc | Morto no original dos dois lados: GameSocketOut.as define sendBeginFightNpc() (PackageOut(FIGHT_NPC=50)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e o servidor não registra [PacketHandler(50,...)] em Game.Server/Fighting.Server (o 'FIGHT_NPC=88' de Game.Logic/Protocol/eFightPackageType.cs é um protocolo interno Center<->Fighting diferente, não o pacote de cliente). Status 'missing' aqui é fidelidade, não lacuna. |
+| stub | 50 | FIGHT_NPC | sendBeginFightNpc | Morto no original dos dois lados: GameSocketOut.as define sendBeginFightNpc() (PackageOut(FIGHT_NPC=50)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e o servidor não registra [PacketHandler(50,...)] em Game.Server/Fighting.Server (o 'FIGHT_NPC=88' de Game.Logic/Protocol/eFightPackageType.cs é um protocolo interno Center<->Fighting diferente, não o pacote de cliente). Status 'missing' aqui é fidelidade, não lacuna. |
 | partial | 131/CLEAN_OUT=3 | LABYRINTH | labyrinthCleanOut |  |
 | partial | 131/CLEAN_OUT_COMPLETE=8 | LABYRINTH | labyrinthCleanOutTimerComplete |  |
 | partial | 131/DOUBLE_REWARD=1 | LABYRINTH | labyrinthDouble |  |
@@ -351,7 +351,7 @@ Totais: 318 linhas — missing 48, stub 39, partial 66, ok-mas-não-verificado-n
 
 | status | código | pacote | função cliente | notas |
 |---|---|---|---|---|
-| missing | 166 | LITTLEGAME_COMMAND | createPackageOut | Real no original, não lacuna de fidelidade — subsistema inteiro não portado ainda (orçamento): LITTLEGAME_COMMAND (código 166) é só um relay fino (LittleGameHandler.cs, 13 linhas: client.Player.LittleGame?.ProcessData(...)) para um minigame completo da fonte termal em vendor/DDTank41/Game.Server/LittleGame/* (22 arquivos: LittleGameWorldMgr, LittleGameLogicProcessor, handlers de EnterWorld/LeaveWorld/Move/Click/CancelClick/PosSync/ReportScore — um jogo de posição/clique em tempo real dentro da sala de spa, Source Flash/src/littleGame/LittleGameManager.as no cliente). Nenhuma parte foi portada; nenhuma tabela/estado equivalente existe em apps/game. Tamanho comparável ao chick activation (84) — fora do orçamento desta sessão. |
+| stub | 166 | LITTLEGAME_COMMAND | createPackageOut | Real no original, não lacuna de fidelidade — subsistema inteiro não portado ainda (orçamento): LITTLEGAME_COMMAND (código 166) é só um relay fino (LittleGameHandler.cs, 13 linhas: client.Player.LittleGame?.ProcessData(...)) para um minigame completo da fonte termal em vendor/DDTank41/Game.Server/LittleGame/* (22 arquivos: LittleGameWorldMgr, LittleGameLogicProcessor, handlers de EnterWorld/LeaveWorld/Move/Click/CancelClick/PosSync/ReportScore — um jogo de posição/clique em tempo real dentro da sala de spa, Source Flash/src/littleGame/LittleGameManager.as no cliente). Nenhuma parte foi portada; nenhuma tabela/estado equivalente existe em apps/game. Tamanho comparável ao chick activation (84) — fora do orçamento desta sessão. |
 | partial | 102/ENTER_WORLDBOSSROOM=32 | WORLDBOSS_CMD | enterWorldBossRoom | Boss mundial agendado (12:00/20:00 UTC, admin "Iniciar agora"): 102/0 OPEN com horários reais, ícone Thần thú no hall, sala com HP e ranking; fim = prêmio por posição (params.rankAwards, 1x por janela) + 102/1 OVER. |
 | partial | 102/REQUEST_REVIVE=37 | WORLDBOSS_CMD | requestRevive | Reviver 1000 / relutar 1200 Xu; não exige mais estar na lista (estado 3 removia). |
 | partial | 102/ADDPLAYERS=34 | WORLDBOSS_CMD | sendAddPlayer | Entra na sala do boss (102/3 para todos + ranking). |
@@ -363,7 +363,7 @@ Totais: 318 linhas — missing 48, stub 39, partial 66, ok-mas-não-verificado-n
 
 | status | código | pacote | função cliente | notas |
 |---|---|---|---|---|
-| missing | 214 | USER_RELOAD_GIFT | sendReloadGift |  |
+| stub | 214 | USER_RELOAD_GIFT | sendReloadGift |  |
 | ok (não verificado) | 112 | DELETE_MAIL | sendDeleteMail |  |
 | ok (não verificado) | 113 | GET_MAIL_ATTACHMENT | sendGetMail |  |
 | ok (não verificado) | 114 | UPDATE_MAIL | sendUpdateMail |  |
@@ -375,10 +375,10 @@ Totais: 318 linhas — missing 48, stub 39, partial 66, ok-mas-não-verificado-n
 
 | status | código | pacote | função cliente | notas |
 |---|---|---|---|---|
-| missing | 11 | ACTIVE_PULLDOWN | sendActivePullDown |  |
-| missing | 18 | GET_PLAYER_CARD | getPlayerCardInfo |  |
-| missing | 196 | CARD_RESET | sendCardReset |  |
-| missing | 196 | CARD_RESET | sendReplaceCardProp |  |
+| stub | 11 | ACTIVE_PULLDOWN | sendActivePullDown |  |
+| partial | 196 | CARD_RESET | sendCardReset |  |
+| partial | 196 | CARD_RESET | sendReplaceCardProp |  |
+| ok (não verificado) | 18 | GET_PLAYER_CARD | getPlayerCardInfo |  |
 | ok (não verificado) | 216 | CARDS_DATA | sendOpenViceCard |  |
 | ok (não verificado) | 216 | CARDS_DATA | sendSortCards |  |
 
@@ -386,10 +386,10 @@ Totais: 318 linhas — missing 48, stub 39, partial 66, ok-mas-não-verificado-n
 
 | status | código | pacote | função cliente | notas |
 |---|---|---|---|---|
-| missing | 25 | BAG_LOCKED | sendBagLocked |  |
-| missing | 200 | CHECK_CODE | sendCheckCode |  |
+| partial | 200 | CHECK_CODE | sendCheckCode |  |
 | ok (não verificado) | 1/Version.Build=5498628 | LOGIN | sendLogin |  |
 | ok (não verificado) | 4 | PING | sendPint |  |
+| ok (não verificado) | 25 | BAG_LOCKED | sendBagLocked |  |
 | ok (não verificado) | 242 | MARRY_ROOM_LOGIN | sendEnterRoom |  |
 | ok (não verificado) | 300 | 300 | sendpkgCheckHack |  |
 
@@ -397,11 +397,11 @@ Totais: 318 linhas — missing 48, stub 39, partial 66, ok-mas-não-verificado-n
 
 | status | código | pacote | função cliente | notas |
 |---|---|---|---|---|
-| missing | 46 | BUY_GIFTBAG | sendBuyGiftBag |  |
 | missing | 48 | SEll_GOODS | sendSellGoods |  |
-| missing | 57 | GOODS_PRESENT | sendPresentGoods |  |
-| missing | 126 | BUY_QUICK_GOLDBOX | sendQuickBuyGoldBox |  |
 | partial | 251 | SCENE_STATE | sendCurrentState |  |
+| ok (não verificado) | 46 | BUY_GIFTBAG | sendBuyGiftBag |  |
+| ok (não verificado) | 57 | GOODS_PRESENT | sendPresentGoods |  |
+| ok (não verificado) | 126 | BUY_QUICK_GOLDBOX | sendQuickBuyGoldBox |  |
 | ok (não verificado) | 160/FRIEND_STATE=165 | IM_CMD | sendFriendState |  |
 
 ## Escola/Aprendiz (4)
@@ -426,29 +426,29 @@ Totais: 318 linhas — missing 48, stub 39, partial 66, ok-mas-não-verificado-n
 
 | status | código | pacote | função cliente | notas |
 |---|---|---|---|---|
-| partial | 192 | AUCTION_ADD | auctionGood |  |
-| partial | 193 | AUCTION_UPDATE | auctionBid |  |
+| ok (não verificado) | 192 | AUCTION_ADD | auctionGood |  |
+| ok (não verificado) | 193 | AUCTION_UPDATE | auctionBid |  |
 | ok (não verificado) | 194 | AUCTION_DELETE | auctionCancelSell |  |
 
 ## Personagem/FC (3)
 
 | status | código | pacote | função cliente | notas |
 |---|---|---|---|---|
-| missing | 402/ACTIVE=3 | AVATAR_COLLECTION | sendAvatarCollectionActive |  |
-| missing | 402/DELAY_TIME=4 | AVATAR_COLLECTION | sendAvatarCollectionDelayTime |  |
 | ok (não verificado) | 279 | 279 | showHideTitleState |  |
+| ok (não verificado) | 402/ACTIVE=3 | AVATAR_COLLECTION | sendAvatarCollectionActive |  |
+| ok (não verificado) | 402/DELAY_TIME=4 | AVATAR_COLLECTION | sendAvatarCollectionDelayTime |  |
 
 ## Configurações (2)
 
 | status | código | pacote | função cliente | notas |
 |---|---|---|---|---|
-| missing | 224 | CID_CHECK | sendCIDInfo |  |
+| stub | 224 | CID_CHECK | sendCIDInfo |  |
 | ok (não verificado) | 64 | OPTION_UPDATE | sendOpition |  |
 
 ## Totem/Honra (2)
 
 | status | código | pacote | função cliente | notas |
 |---|---|---|---|---|
-| missing | 96 | HONOR_UP_COUNT | sendHonorUp |  |
-| missing | 136 | TOTEM | sendOpenOneTotem |  |
+| ok (não verificado) | 96 | HONOR_UP_COUNT | sendHonorUp |  |
+| ok (não verificado) | 136 | TOTEM | sendOpenOneTotem |  |
 

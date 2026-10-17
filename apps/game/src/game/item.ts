@@ -287,6 +287,34 @@ export class ItemInfo {
     }
   }
 
+  /**
+   * ItemInfo.CanLatentEnergy (ItemInfo.cs:1347-1371): só equipamento pode ter "potencial" (energia latente)
+   * ativado — categorias de arma/roupa/chapéu/calçado/anel/colar/asas etc, não pedras/consumíveis.
+   */
+  canLatentEnergy(): boolean {
+    return [1, 2, 3, 4, 5, 6, 7, 8, 9, 13, 14, 15, 16, 17, 40].includes(this.template.CategoryID);
+  }
+
+  /** ItemInfo.IsValidLatentEnergy (ItemInfo.cs:1342-1345): o rol atual ainda vale (prazo não passou do dia de hoje). */
+  isValidLatentEnergy(now = new Date()): boolean {
+    const end = new Date(this.latentEnergyEndTime);
+    end.setHours(0, 0, 0, 0);
+    const today = new Date(now);
+    today.setHours(0, 0, 0, 0);
+    return end.getTime() >= today.getTime();
+  }
+
+  /** ItemInfo.ResetLatentEnergy (ItemInfo.cs:1336-1340): zera os 7 campos do rol (3 atributo + 3 sorte + 1 sobra). */
+  resetLatentEnergy(): void {
+    this.latentEnergyCurStr = "0,0,0,0,0,0,0";
+    this.latentEnergyNewStr = "0,0,0,0,0,0,0";
+  }
+
+  /** ItemInfo.isGemStone (ItemInfo.cs:1143-1146): a "pedra de espírito de luta" é SEMPRE o template fixo 100100. */
+  isGemStone(): boolean {
+    return this.TemplateID === 100100;
+  }
+
   /** ItemInfo.Clone: new instance (ItemID 0), same properties. */
   clone(): ItemInfo {
     const c = new ItemInfo(this.template);

@@ -6,14 +6,20 @@ import { defineResource } from "@/crud/types";
 
 const KINDS = [
   { value: "worldboss", label: "Boss mundial", tone: "coral" as const },
-  { value: "league", label: "Liga (Chiến thần)", tone: "grape" as const },
+  { value: "league", label: "Liga (Deus da Guerra)", tone: "grape" as const },
   { value: "elite", label: "Campeonato de elite", tone: "sky" as const },
   { value: "weekly_reset", label: "Reset semanal", tone: "neutral" as const },
   { value: "double_exp", label: "EXP em dobro", tone: "mint" as const },
   { value: "double_gold", label: "Ouro em dobro", tone: "sun" as const },
-  { value: "chickenbox", label: "Rương Vua Gà (chicken box)", tone: "sun" as const },
+  { value: "chickenbox", label: "Baú do Rei Galinha", tone: "sun" as const },
   { value: "luckystar", label: "Lucky Star", tone: "grape" as const },
   { value: "labyrinth", label: "Mê cung (labyrinth)", tone: "coral" as const },
+  { value: "lottery", label: "Loteria de cartas (104/239)", tone: "sky" as const },
+  { value: "lottery-luck", label: "Loteria da sorte (105)", tone: "sky" as const },
+  { value: "lottery-novice", label: "Cartão platina de novato (11)", tone: "mint" as const },
+  { value: "lightroad", label: "Caminho da luz (145)", tone: "grape" as const },
+  { value: "guildmemberweek", label: "Semana da sociedade — aberto (145)", tone: "coral" as const },
+  { value: "guildweek", label: "Semana da sociedade — prêmios top 3", tone: "coral" as const },
 ];
 
 export const scheduledEvents = defineResource({
@@ -37,7 +43,7 @@ export const scheduledEvents = defineResource({
     { name: "durationMin", label: "Duração (min)", type: "number", min: 1, max: 10080, default: 60, list: true },
     { name: "startDate", label: "Válido a partir de", type: "datetime" },
     { name: "endDate", label: "Válido até", type: "datetime" },
-    { name: "params", label: "Parâmetros (JSON)", type: "json", span: 2, hint: 'worldboss: {"bossHp":20000000,"name":"Rồng","rankAwards":[{"rank":1,"giftToken":500}]} · double_*: {"rate":2} · league: {"maxCount":10} · chickenbox: {"pool":[{"templateId":11107,"count":500,"weight":10}],"openCardPrice":[100,200,300,500,800],"eagleEyePrice":[50,100,150,250,400],"flushPrice":500} · luckystar: {"pool":[...]} · labyrinth: {"priceBig":5000,"priceSmall":1000,"cleanOutGiftToken":100,"pricePerMin":10} — "enabled":false closes the feature without deleting the row.' },
+    { name: "params", label: "Parâmetros (JSON)", type: "json", span: 2, hint: 'worldboss: {"bossHp":20000000,"name":"Dragão","rankAwards":[{"rank":1,"giftToken":500}]} · double_*: {"rate":2} · league: {"maxCount":10} · chickenbox: {"pool":[{"templateId":11107,"count":500,"weight":10}],"openCardPrice":[100,200,300,500,800],"eagleEyePrice":[50,100,150,250,400],"flushPrice":500} · luckystar: {"pool":[...]} · labyrinth: {"priceBig":5000,"priceSmall":1000,"cleanOutGiftToken":100,"pricePerMin":10} · lottery: {"cardMinLevel":3,"cardCost":200,"cardDailyLimit":3,"pool":[...]} · lottery-luck: {"luckChance":30,"pool":[...]} · lottery-novice: {"noviceMaxLevel":10,"pool":[...]} · lightroad: {"spaces":12,"freePicks":1,"pickCost":100,"pool":[...]} · guildweek: {"rewards":[[{"templateId":-200,"count":20000}],[...tier2],[...tier3]]} · lightroad/guildmemberweek need an explicit row here (enabled:true) to open the icon — no row = closed by default — "enabled":false closes any other feature without deleting the row.' },
   ],
 });
 
@@ -54,7 +60,7 @@ export const eventAwards = defineResource({
   fields: [
     { name: "ID", label: "ID", type: "number", list: true, form: false },
     { name: "ActiveID", label: "ActiveID", type: "number", required: true, list: true, sortable: true },
-    { name: "ItemID", label: "Item (TemplateID)", type: "number", required: true, list: true },
+    { name: "ItemID", label: "Item", type: "item-picker", required: true, list: true },
     { name: "Count", label: "Quantidade", type: "number", min: 1, default: 1, list: true },
     { name: "ValidDate", label: "Validade (dias, 0 = permanente)", type: "number", min: 0, default: 0, list: true },
     { name: "Gold", label: "Ouro", type: "number", min: 0, default: 0 },
@@ -81,9 +87,16 @@ export const dailyAward = defineResource({
   defaultSort: "AwardDays",
   fields: [
     { name: "ID", label: "ID", type: "number", required: true, list: true, form: "create" },
-    { name: "Type", label: "Tipo", type: "select", required: true, list: true, options: [{ value: 0, label: "Login diário (buff)" }, { value: 1, label: "Presença: item" }, { value: 7, label: "Presença: lễ kim" }, { value: 6, label: "Outro (6)" }, { value: 2, label: "Outro (2)" }] },
+    { name: "Type", label: "Tipo", type: "select", required: true, list: true, options: [{ value: 0, label: "Login diário (buff)" }, { value: 1, label: "Presença: item" }, { value: 7, label: "Presença: Moedas grátis" }, { value: 6, label: "Outro (6)" }, { value: 2, label: "Outro (2)" }] },
     { name: "AwardDays", label: "Dias de presença (tier)", type: "number", min: 0, default: 0, list: true, sortable: true },
-    { name: "TemplateID", label: "Item (TemplateID; -1100 = lễ kim)", type: "number", required: true, list: true },
+    {
+      name: "TemplateID",
+      label: "Prêmio",
+      type: "item-picker",
+      required: true,
+      list: true,
+      pickerSpecial: [{ value: -1100, label: "Moedas grátis (sem item)" }],
+    },
     { name: "Count", label: "Quantidade", type: "number", min: 0, default: 1, list: true },
     { name: "ValidDate", label: "Validade (dias; tipo 0: minutos do buff)", type: "number", min: 0, default: 0 },
     { name: "IsBinds", label: "Vinculado", type: "boolean", default: true },
@@ -128,6 +141,6 @@ export const timeBoxes = defineResource({
     { name: "Type", label: "Tipo", type: "select", list: true, options: [{ value: 0, label: "Tempo online" }, { value: 1, label: "Nível" }, { value: 2, label: "VIP diário" }] },
     { name: "Level", label: "Nível (máx. / alvo / VIP)", type: "number", list: true },
     { name: "Condition", label: "Condição (min online / sexo)", type: "number", list: true },
-    { name: "TemplateID", label: "Caixa (TemplateID)", type: "number", list: true },
+    { name: "TemplateID", label: "Caixa (item)", type: "item-picker", list: true, pickerCategory: [18], hint: "Busca restrita a itens da categoria Caixa (CategoryID 18)." },
   ],
 });

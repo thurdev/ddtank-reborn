@@ -17,7 +17,11 @@ export type FieldType =
   | "json"
   | "password"
   | "color"
-  | "item-picker";
+  | "item-picker"
+  /** Array of TemplateIDs (e.g. bot equipment slots): chips w/ icon+name, add via the same search popup. */
+  | "item-picker-multi"
+  /** Array of `{ templateId, count, validDays }` (e.g. mail attachments): rows w/ item-picker + qty + validade. */
+  | "item-list";
 
 export type Tone = "sun" | "coral" | "mint" | "sky" | "grape" | "neutral";
 
@@ -62,6 +66,10 @@ export interface FieldDef {
   uploadFolder?: string;
   /** Nome do resource p/ picker por nome (ex. "items"); documenta intenção de lookup. */
   reference?: string;
+  /** item-picker(-multi): restringe a busca a estas `CategoryID` (ex. [7, 27] = armas). */
+  pickerCategory?: number[];
+  /** item-picker: valores sentinela sem item real (ex. -1100 "Moedas grátis"), exibidos como botão rápido no popup. */
+  pickerSpecial?: FieldOption[];
   /** Custom cell renderer. */
   render?: (value: unknown, row: Row) => ReactNode;
 }
@@ -83,6 +91,25 @@ export interface RowAction {
 }
 
 export type NavGroup = "overview" | "server" | "players" | "content" | "site" | "system";
+
+/** Extra server-side filter (query param) rendered in the list toolbar, on top of the free-text search. */
+export interface FilterDef {
+  /** Query param name sent to the list endpoint. */
+  name: string;
+  label: Text;
+  type: "select" | "number";
+  /** select only. */
+  options?: FieldOption[];
+  placeholder?: string;
+}
+
+/** Optional "grid of tiles" alternate view for a list (e.g. icon-heavy catalogs). */
+export interface GridViewDef {
+  /** Items per page while the grid view is active (default 120). */
+  pageSize?: number;
+  /** Tile content (icon + short label); the tile itself is wrapped in a button that opens the edit dialog. */
+  render: (row: Row) => ReactNode;
+}
 
 export interface ResourceDef {
   /** URL segment and REST name: /api/admin/<name>. */
@@ -106,6 +133,10 @@ export interface ResourceDef {
   searchPlaceholder?: Text;
   capabilities?: { create?: boolean; update?: boolean; delete?: boolean };
   rowActions?: RowAction[];
+  /** Extra server-side filters shown in the list toolbar (select/number, sent as query params). */
+  filters?: FilterDef[];
+  /** "Grade" toggle: dense icon-tile view alongside the default table. */
+  gridView?: GridViewDef;
 }
 
 export interface ListParams {
@@ -113,6 +144,8 @@ export interface ListParams {
   page: number;
   pageSize: number;
   sort?: string;
+  /** Extra query params (from `ResourceDef.filters`), only non-empty values are sent. */
+  extra?: Record<string, string | undefined>;
 }
 
 export interface ListResult<T = Row> {

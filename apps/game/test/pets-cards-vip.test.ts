@@ -53,7 +53,7 @@ describe("cards (CardDataHandler)", () => {
     expect(moveOrEquipCard(bag, slot, 0).changedStats).toBe(true);
     expect(bag.getItemAt(0)?.Count).toBe(0);
     expect(moveOrEquipCard(bag, slot, 1).msg).toBeDefined(); // already equipped
-    const r = upgradeCard(bag, slot, () => ({ Level: 1, Exp: 50, MinExp: 60, MaxExp: 61, UpdateCardCount: 3 }), () => ({ Id: 314101, Level: 1, Attack: 2, Defend: 1, Agility: 0, Lucky: 0, Guard: 0, Damage: 0 }), 30);
+    const r = upgradeCard(bag, slot, () => ({ Level: 1, Exp: 50, MinExp: 60, MaxExp: 61, UpdateCardCount: 3, ResetCardCount: 0, ResetMoney: 0 }), () => ({ Id: 314101, Level: 1, Attack: 2, Defend: 1, Agility: 0, Lucky: 0, Guard: 0, Damage: 0 }), 30);
     expect(r.levelUp).toBe(true);
     expect(bag.getItemAt(slot)!.Count).toBe(5);
     expect(bag.getItemAt(0)!.Level).toBe(1); // equipped copy follows (CopyProp)

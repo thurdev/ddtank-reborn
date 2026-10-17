@@ -5,7 +5,8 @@ import type { GameServer } from "../src/server.js";
 import type { ServerContext } from "../src/session/context.js";
 import { EventScheduler, nextStart, occurrenceAt, rateOf, windowsAt, type ScheduledEvent } from "../src/game/scheduler.js";
 import { claimOnce } from "../src/game/events.js";
-import { eventsRuntime, weeklyReset, worldBossDamage } from "../src/handlers/events.js";
+import { eventsRuntime, weeklyReset } from "../src/handlers/eventos/agendador.js";
+import { worldBossDamage } from "../src/handlers/eventos/boss-mundial.js";
 import { loggedIn, sharedDb, startServer } from "./helpers.js";
 
 const ev = (o: Partial<ScheduledEvent>): ScheduledEvent => ({
@@ -187,5 +188,40 @@ describe("event claims (idempotency)", () => {
     expect(rt.boss.window).toBeNull();
     expect(gp.info.GiftToken - g0).toBe(50);
     c.close();
+  });
+});
+
+describe("145 ACTIVITY_SYSTEM sub 64-66 (Caminho da Luz, design próprio, sem fonte C#)", () => {
+  it("entra, escolhe um espaço (1ª grátis), marca o bit, não deixa escolher 2x o mesmo espaço", async () => {
+    const server = await startServer();
+    const { c, player: p } = await loggedIn(server, { gold: 10_000 });
+    c.out(145, (x) => { x.writeByte(64); });
+    const open = await c.code(145, 65);
+    open.pkt.readByte();
+    expect(open.pkt.readInt()).toBe(0); // bitmask vazio
+
+    // 1ª escolha do dia é grátis (sem checar Gold: o prêmio sorteado pode incluir Gold, só a cobrança não deve
+    // acontecer — verificado em isolado abaixo via lightRoad.pickCost=0 não dar pra testar sem mexer no admin;
+    // aqui confere-se o que é determinístico: o bitmask).
+    let mark = c.mark();
+    c.out(145, (x) => { x.writeByte(66); x.writeInt(1); }); // espaço 1, grátis (1ª do dia)
+    const picked = await c.code(145, 66, mark);
+    picked.pkt.readByte();
+    const bits1 = picked.pkt.readInt();
+    expect(bits1 & 1).toBe(1);
+
+    mark = c.mark();
+    c.out(145, (x) => { x.writeByte(66); x.writeInt(1); }); // mesmo espaço de novo
+    await new Promise((r) => setTimeout(r, 150));
+    expect(c.received.slice(mark).some((r) => r.code === 145 && r.sub === 66)).toBe(false); // sem resposta (já revelado)
+
+    mark = c.mark();
+    c.out(145, (x) => { x.writeByte(66); x.writeInt(2); }); // 2º espaço (paga lightRoad.pickCost)
+    const picked2 = await c.code(145, 66, mark);
+    picked2.pkt.readByte();
+    expect(picked2.pkt.readInt() & 0b11).toBe(0b11); // espaços 1 e 2 revelados
+    expect(p().info.Gold).toBeLessThanOrEqual(10_000); // nunca sobe pra mais do que o prêmio do 1º giro poderia dar
+    c.close();
+    await server.stop();
   });
 });

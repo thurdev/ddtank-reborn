@@ -74,12 +74,16 @@ describe("gem/equip effects (Effects/*.cs via Player.InitBuffer)", () => {
     expect(a.defence).toBe(base + 50);
   });
 
-  it("ReduceDamageEffect subtracts a flat amount (min 1) from the incoming hit", () => {
+  it("ReduceDamageEffect matches the two C# subtractions and keeps at least one damage", () => {
     const { a } = twoPlayerGame();
     new ReduceDamageEffect(30, 100).start(a);
     const d = { damage: 100, critical: 0 };
     a.hooks.emit("beforeTakeDamage", a, a, d);
-    expect(d.damage).toBe(70);
+    expect(d.damage).toBe(40);
+    a.defendGemLimit = 0;
+    const small = { damage: 20, critical: 0 };
+    a.hooks.emit("beforeTakeDamage", a, a, small);
+    expect(small.damage).toBe(1);
   });
 
   it("RecoverBloodEffect heals on being hit", () => {

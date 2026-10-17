@@ -10,6 +10,23 @@ import { defaultMatch, defaultTexp, SAVED_DETAIL_COLUMNS, type DetailRow, type M
 
 const D = player.Sys_Users_Detail;
 
+/**
+ * Prende todo valor de coluna integer/smallint na faixa do tipo antes do UPDATE. O C# usa `int` (nunca passa de
+ * 2^31-1); aqui a soma em JS (número de 53 bits) estourava, o Postgres rejeitava ("out of range for type integer")
+ * e o save INTEIRO falhava — o jogador perdia tudo ao sair.
+ * Como lê esse código (cada variável): `table` tabela drizzle; `row` valores a gravar; `col` coluna da tabela;
+ * `v` valor; `max` limite do tipo.
+ */
+function clampInts<T extends Record<string, unknown>>(table: Record<string, unknown>, row: T): T {
+  for (const [k, v] of Object.entries(row)) {
+    if (typeof v !== "number" || !Number.isFinite(v)) continue;
+    const col = table[k] as { columnType?: string } | undefined;
+    const max = col?.columnType === "PgInteger" ? 2147483647 : col?.columnType === "PgSmallInt" ? 32767 : 0;
+    if (max && (v > max || v < -max - 1)) (row as Record<string, unknown>)[k] = v > max ? max : -max - 1;
+  }
+  return row;
+}
+
 export interface CharacterLookup {
   UserID: number;
   UserName: string;
@@ -157,8 +174,9 @@ export async function loadMatchInfo(db: Database, userId: number): Promise<Match
 export async function savePlayerInfo(db: Database, info: PlayerInfo, match?: MatchRow): Promise<void> {
   const set: Record<string, unknown> = {};
   for (const k of SAVED_DETAIL_COLUMNS) set[k] = info[k];
+  clampInts(D as unknown as Record<string, unknown>, set);
   await db.update(D).set(set as Partial<DetailRow>).where(eq(D.UserID, info.ID));
-  const t = info.Texp;
+  const t = clampInts(player.Sys_Users_Texp as unknown as Record<string, unknown>, { ...info.Texp });
   await db
     .insert(player.Sys_Users_Texp)
     .values({ ...t, UserID: info.ID })
@@ -197,4 +215,50 @@ export async function forbidPlayer(db: Database, userId: number, until: Date, is
 /** Online count for the server heartbeat. */
 export async function resetAllOnline(db: Database): Promise<void> {
   await db.update(D).set({ State: 0 }).where(eq(D.State, 1));
+}
+
+/**
+ * PlayerBussiness.GetPasswordInfo + the raw Sys_Users_Detail.PasswordTwo secret (25 BAG_LOCKED,
+ * PassWordTwoHandle.cs:863). `PlayerInfo` only exposes the derived `HasBagPassword`/`IsLocked` booleans + the
+ * question text (characters.ts:102-106); this reads the actual secret + answers needed to set/verify/reset it.
+ */
+export async function loadBagPassword(db: Database, userId: number): Promise<{ passwordTwo: string; q1: string; a1: string; q2: string; a2: string; count: number }> {
+  const [dRows, pwRows] = await Promise.all([
+    db.select({ PasswordTwo: D.PasswordTwo }).from(D).where(eq(D.UserID, userId)).limit(1),
+    db.select().from(player.Sys_Users_Password).where(eq(player.Sys_Users_Password.UserID, userId)).limit(1),
+  ]);
+  const pw = pwRows[0];
+  return {
+    passwordTwo: dRows[0]?.PasswordTwo ?? "",
+    q1: pw?.PasswordQuestion1 ?? "", a1: pw?.PasswordAnswer1 ?? "", q2: pw?.PasswordQuestion2 ?? "", a2: pw?.PasswordAnswer2 ?? "",
+    count: pw?.FailedPasswordAttemptCount ?? 5,
+  };
+}
+
+/** PlayerBussiness.UpdatePasswordTwo(userId, value) — sets/clears the bag's 2nd password (empty = unlocked forever). */
+export async function updatePasswordTwo(db: Database, userId: number, value: string): Promise<boolean> {
+  await db.update(D).set({ PasswordTwo: value }).where(eq(D.UserID, userId));
+  return true;
+}
+
+/** PlayerBussiness.UpdatePasswordInfo: upsert the security question/answer pair + remaining attempt `count`. */
+export async function updatePasswordInfo(db: Database, userId: number, q1: string, a1: string, q2: string, a2: string, count: number): Promise<boolean> {
+  const P = player.Sys_Users_Password;
+  const ex = await db.select({ UserID: P.UserID }).from(P).where(eq(P.UserID, userId)).limit(1);
+  const set = { PasswordQuestion1: q1, PasswordAnswer1: a1, PasswordQuestion2: q2, PasswordAnswer2: a2, FailedPasswordAttemptCount: count };
+  if (ex[0]) await db.update(P).set(set).where(eq(P.UserID, userId));
+  else await db.insert(P).values({ UserID: userId, ...set });
+  return true;
+}
+
+/**
+ * PlayerBussiness.RenameNick (171 USE_REWORK_NAME, UseReworkNameHandler.cs:403): atomic unique-nickname check +
+ * rename. The original takes (userName, oldNick, newNick) but only ever uses userId internally via a UserName
+ * lookup; this port is called with the id already in hand.
+ */
+export async function renameNick(db: Database, userId: number, newNick: string): Promise<boolean> {
+  const taken = await findUserIdByNickName(db, newNick);
+  if (taken && taken !== userId) return false;
+  await db.update(D).set({ NickName: newNick }).where(eq(D.UserID, userId));
+  return true;
 }

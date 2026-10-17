@@ -10,7 +10,7 @@
   "code": 40,
   "name": "SNS_MSG_RECEIVE",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -42,7 +42,7 @@
   "code": 107,
   "name": "INVITE_FRIEND",
   "sub": "INVITE_FRIEND_OPENVIEW=2",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -55,7 +55,7 @@
   "code": 107,
   "name": "INVITE_FRIEND",
   "sub": "INVITE_FRIEND_FBCLICK=6",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -68,7 +68,7 @@
   "code": 107,
   "name": "INVITE_FRIEND",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -81,7 +81,7 @@
   "code": 107,
   "name": "INVITE_FRIEND",
   "sub": "INVITE_FRIEND_GETREWARD=4",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -177,7 +177,7 @@
   "code": 223,
   "name": "FRIEND_BRITHDAY",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -305,9 +305,9 @@
   "code": 66,
   "name": "PROP_USE",
   "sub": "",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "PROP_USE (código 66, fora de luta): morto no próprio original — nenhum [PacketHandler(66,...)] registrado (não confundir com 91/PROP=32, usado em luta, esse sim implementado).",
+  "notes": "PropUseHandler portado em shop-prop.ts: valida tipo, quantidade e pacote inteiro; 11963 concede cupons e 201316 ativa o estado persistido de ACTIVITY_PACKAGE. Testes: apps/game/test/economy-validation.test.ts.",
   "evidence": ""
  },
  {
@@ -355,9 +355,9 @@
   "code": 77,
   "name": "ITEM_OVERDUE",
   "sub": "",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "ITEM_OVERDUE: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(77,...)] registrado.",
+  "notes": "ItemOverdueHandler implementado em items.ts; coberto por apps/game/test/shop-prop-misc.test.ts. Removida nota obsoleta de ausência no C#.",
   "evidence": ""
  },
  {
@@ -468,9 +468,9 @@
   "code": 171,
   "name": "USE_REWORK_NAME",
   "sub": "",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "USE_REWORK_NAME: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(171,...)] registrado.",
+  "notes": "UseReworkName implementado em items.ts; coberto por apps/game/test/shop-prop-misc.test.ts. Removida nota obsoleta de ausência no C#.",
   "evidence": ""
  },
  {
@@ -608,9 +608,9 @@
   "code": 222,
   "name": "EQUIP_RECYCLE_ITEM",
   "sub": "",
-  "server": "stub",
+  "server": "partial",
   "verified": "no",
-  "notes": "EQUIP_RECYCLE_ITEM: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(222,...)] registrado.",
+  "notes": "EquipRecycleItem implementado em items.ts; coberto por apps/game/test/shop-prop-misc.test.ts. Removida nota obsoleta de ausência no C#.",
   "evidence": ""
  },
  {
@@ -638,9 +638,9 @@
   "code": 265,
   "name": "NEWTITLE_CARD",
   "sub": "",
-  "server": "stub",
+  "server": "partial",
   "verified": "no",
-  "notes": "NEWTITLE_CARD: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(265,...)] registrado.",
+  "notes": "NewTitleCard parcialmente implementado em items.ts (tabela de títulos/configuração ainda requer validação). O registro efetivo determina o status.",
   "evidence": ""
  },
  {
@@ -742,7 +742,7 @@
   "code": 166,
   "name": "LITTLEGAME_COMMAND",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
   "notes": "Real no original, não lacuna de fidelidade — subsistema inteiro não portado ainda (orçamento): LITTLEGAME_COMMAND (código 166) é só um relay fino (LittleGameHandler.cs, 13 linhas: client.Player.LittleGame?.ProcessData(...)) para um minigame completo da fonte termal em vendor/DDTank41/Game.Server/LittleGame/* (22 arquivos: LittleGameWorldMgr, LittleGameLogicProcessor, handlers de EnterWorld/LeaveWorld/Move/Click/CancelClick/PosSync/ReportScore — um jogo de posição/clique em tempo real dentro da sala de spa, Source Flash/src/littleGame/LittleGameManager.as no cliente). Nenhuma parte foi portada; nenhuma tabela/estado equivalente existe em apps/game. Tamanho comparável ao chick activation (84) — fora do orçamento desta sessão.",
   "evidence": ""
@@ -757,7 +757,7 @@
   "code": 11,
   "name": "ACTIVE_PULLDOWN",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -770,7 +770,7 @@
   "code": 18,
   "name": "GET_PLAYER_CARD",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -785,7 +785,7 @@
   "code": 196,
   "name": "CARD_RESET",
   "sub": "",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -800,7 +800,7 @@
   "code": 196,
   "name": "CARD_RESET",
   "sub": "",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -924,7 +924,7 @@
   "code": 167,
   "name": "CHURCH_MOVIE_OVER",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
   "notes": "Morto no original dos dois lados: GameSocketOut.as define sendChurchMovieOver() (PackageOut(CHURCH_MOVIE_OVER=167)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e nenhum [PacketHandler(167,...)] existe em Game.Server. Status 'missing' aqui é fidelidade, não lacuna.",
   "evidence": ""
@@ -1834,7 +1834,7 @@
   "code": 224,
   "name": "CID_CHECK",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1880,7 +1880,7 @@
   "code": 25,
   "name": "BAG_LOCKED",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -1895,7 +1895,7 @@
   "code": 200,
   "name": "CHECK_CODE",
   "sub": "",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -2032,7 +2032,7 @@
   "code": 214,
   "name": "USER_RELOAD_GIFT",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -2202,7 +2202,7 @@
   "code": 84,
   "name": "ACTIVITY_PACKAGE",
   "sub": "ChickActivationType.CHICKACTIVATION=2",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:198+), prêmio por faixa de Grade dentro de 60 dias do resgate (chickInfo.KeyOpenedTime.AddDays(60)).",
   "evidence": ""
@@ -2217,7 +2217,7 @@
   "code": 84,
   "name": "ACTIVITY_PACKAGE",
   "sub": "ChickActivationType.CHICKACTIVATION=2",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:171-197), código de 14 caracteres resgatado uma vez (IsKeyOpened).",
   "evidence": ""
@@ -2232,7 +2232,7 @@
   "code": 84,
   "name": "ACTIVITY_PACKAGE",
   "sub": "ChickActivationType.CHICKACTIVATION=2",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
   "notes": "Real no original (não é lacuna de fidelidade, é feature grande não portada ainda por orçamento): ActivityPackageHandler.cs (668 linhas, sub ACTIVITY_PACKAGE=84) trata ChickActivationType.CHICKACTIVATION (linhas 135-250ish) como um sistema de 'código de ativação' de 14 caracteres (QUERY consulta UserChickActiveInfo/IsKeyOpened; OPENKEY resgata o código; GETAWARD paga um prêmio por faixa de nível — m_gradeList {10,20,30,40,45,50,55,60,65} — dentro de 60 dias do resgate). A tabela Activity_System_Item já foi migrada para Postgres, mas falta o UserChickActiveInfo/handler em apps/game e a UI admin pra cadastrar códigos. Ver BACKLOG.md 'Não portado nesta batch'.",
   "evidence": ""
@@ -2397,7 +2397,7 @@
   "code": 104,
   "name": "CARD_LOTTERY",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
   "notes": "Morto no original: ePackageType.CARD_LOTTERY=104 existe mas nenhuma classe [PacketHandler] assina esse código (grep em vendor/DDTank41/Game.Server/Packets/Client) — pacote é descartado pelo servidor original. Status 'missing' aqui é fidelidade, não lacuna.",
   "evidence": ""
@@ -2412,7 +2412,7 @@
   "code": 105,
   "name": "LUCK_LOTTERY",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
   "notes": "Morto no original: mesma situação de 104 (ePackageType.LUCK_LOTTERY=105 sem handler registrado).",
   "evidence": ""
@@ -2427,9 +2427,9 @@
   "code": 128,
   "name": "LEFT_GUN_ROULETTE_SOCKET",
   "sub": "",
-  "server": "stub",
+  "server": "partial",
   "verified": "no",
-  "notes": "Morto no próprio original: LeftGunHandler.cs está registrado (PacketHandler 128) mas todo o corpo está comentado — o recurso 'roleta esquerda' foi desativado pelo time original, não processa nada. Port: sem handler (mesmo efeito observável).",
+  "notes": "LeftGunHandler tem código ativo no vendor atual e está portado em items.ts. A nota antiga dizendo que tudo estava comentado foi invalidada em research/qa/port-C.md.",
   "evidence": ""
  },
  {
@@ -2442,9 +2442,9 @@
   "code": 130,
   "name": "LEFT_GUN_ROULETTE_COMPLETTE",
   "sub": "",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "Mesma desativação do original que 128 (LeftGunCompleteHandler.cs só envia um aviso se LeftRoutteRate>0, campo nunca setado porque 128 está morto).",
+  "notes": "LeftGunCompleteHandler está portado em items.ts. A nota antiga de código morto foi invalidada em research/qa/port-C.md.",
   "evidence": ""
  },
  {
@@ -2637,7 +2637,7 @@
   "code": 239,
   "name": "GOTO_CARD_LOTTERY",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
   "notes": "Morto no original: ePackageType.GOTO_CARD_LOTTERY=239 sem handler registrado (mesma varredura de 104/105).",
   "evidence": ""
@@ -2886,9 +2886,9 @@
   "code": 61,
   "name": "ITEM_TRANSFER",
   "sub": "",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "ITEM_TRANSFER: morto no próprio original — nenhum [PacketHandler(61,...)] em todo vendor/DDTank41 (grep completo nos projetos Game.Server/Fighting.Server/Center.Server).",
+  "notes": "Transferência implementada em forge.ts; persistência de atributos/fortalecimento coberta por apps/game/test/forge-persist.test.ts. A nota antiga de ausência no C# estava obsoleta.",
   "evidence": ""
  },
  {
@@ -2914,9 +2914,9 @@
   "code": 95,
   "name": "NECKLACE_STRENGTH",
   "sub": "",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "NECKLACE_STRENGTH: mesma varredura de sendItemTransfer — nenhum [PacketHandler(95,...)] registrado.",
+  "notes": "Handler 95 em forge-extra.ts; byte type + int place + int count. Consumo e necklaceExp no banco verificados em apps/game/test/persist-all.test.ts; sem teste visual novo.",
   "evidence": ""
  },
  {
@@ -2929,9 +2929,9 @@
   "code": 106,
   "name": "WISHBEADEQUIP",
   "sub": "",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "WISHBEADEQUIP: mesma varredura de sendItemTransfer — nenhum [PacketHandler(106,...)] registrado.",
+  "notes": "WishBeadEquip implementado em forge.ts. Removido override antigo que ocultava o estado do registro atual; validação visual pendente.",
   "evidence": ""
  },
  {
@@ -2987,9 +2987,9 @@
   "code": 133,
   "name": "LATENT_ENERGY",
   "sub": "",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "LATENT_ENERGY: mesma varredura de sendItemTransfer — nenhum [PacketHandler(133,...)] registrado.",
+  "notes": "LatentEnergyHandler portado em forge-extra.ts; validade corrigida e testada em apps/game/test/latent-energy.test.ts. Validação visual pendente.",
   "evidence": ""
  },
  {
@@ -3002,9 +3002,9 @@
   "code": 138,
   "name": "ITEM_ADVANCE",
   "sub": "",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "ITEM_ADVANCE: mesma varredura de sendItemTransfer — nenhum [PacketHandler(138,...)] registrado.",
+  "notes": "ItemAdvanceHandler portado em forge-extra.ts. Removido override antigo de handler ausente; validação visual pendente.",
   "evidence": ""
  },
  {
@@ -3030,9 +3030,9 @@
   "code": 209,
   "name": "FIGHT_SPIRIT",
   "sub": "FIGHT_SPIRIT_INIT=1",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "FIGHT_SPIRIT_INIT: mesma varredura de sendItemTransfer — nenhum [PacketHandler(209,...)] registrado.",
+  "notes": "FightSpiritHandler portado em forge-extra.ts, persistido em db/gemstone.ts. Removido override antigo de handler ausente; validação visual pendente.",
   "evidence": ""
  },
  {
@@ -3148,7 +3148,7 @@
   "code": 192,
   "name": "AUCTION_ADD",
   "sub": "",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3161,7 +3161,7 @@
   "code": 193,
   "name": "AUCTION_UPDATE",
   "sub": "",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3310,7 +3310,7 @@
   "code": 119,
   "name": "LINKREQUEST_GOODS",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3378,7 +3378,7 @@
   "code": 46,
   "name": "BUY_GIFTBAG",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3407,7 +3407,7 @@
   "code": 57,
   "name": "GOODS_PRESENT",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3422,7 +3422,7 @@
   "code": 126,
   "name": "BUY_QUICK_GOLDBOX",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3521,7 +3521,7 @@
   "code": 15,
   "name": "USER_ANSWER",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "Real no original, não lacuna de fidelidade — feature de tutorial não portada ainda (orçamento): UserAnswerHandler.cs (código 15 USER_ANSWER) recebe byte b, int step (enum Step em SqlDataProvider/Step.cs, ~90 marcos tipo POP_WELCOME/BAG_OPEN_SHOW/POP_WIN_I), opcionalmente paga um prêmio via DropInventory.AnswerDrop(step) e sempre grava UpdateAnswerSite(step) (bitmask de progresso, pra retomar o tutorial sem repetir popups). O campo PlayerInfo.AnswerSite já existe (apps/game/src/game/player-info.ts, persistido) mas nada escreve nele ainda — nenhum handler para o código 15. Baixo impacto de gameplay (é bookkeeping de UI do tutorial Freshman, que já funciona via outros meios nesta port — packages/fight/test/pve.test.ts 'freshman 6-2'); mapear as ~90 constantes de Step com precisão ficou fora do orçamento desta sessão.",
   "evidence": ""
@@ -3534,7 +3534,7 @@
   "code": 15,
   "name": "USER_ANSWER",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "Ver 15:syncStep — mesmo handler/código 15 (variante 'weak' = sem o prêmio automático, só grava progresso).",
   "evidence": ""
@@ -3564,9 +3564,9 @@
   "code": 31,
   "name": "GOODS_EXCHANGE",
   "sub": "",
-  "server": "missing",
+  "server": "partial",
   "verified": "no",
-  "notes": "Chamado pelo cliente (calendar/view/goodsExchange/GoodsExchangeView.as:177) mas sem [PacketHandler(31,...)] em Game.Server — o pedido de troca de itens do calendário é descartado silenciosamente no próprio original (não é um no-op registrado como 128/130, é ausência total de handler, igual 104/105/239). Status 'missing' aqui é fidelidade, não lacuna.",
+  "notes": "Troca exige receita completa, evento vigente, bolsa destrancada, slots únicos e prêmio válido antes do consumo. Testado via pacote e banco em apps/game/test/economy-validation.test.ts. Mantém partial: receita 4.1 sem tiers; não verificado no cliente.",
   "evidence": ""
  },
  {
@@ -3579,7 +3579,7 @@
   "code": 32,
   "name": "COLLECTINFO",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
   "notes": "Chamado pelo cliente (quest/InfoCollectView.as:200) mas sem [PacketHandler(32,...)] em Game.Server — o formulário de 'coleta de informação' (CPF/telefone etc. de alguma campanha) nunca foi implementado no servidor original; o cliente envia e nada responde. Status 'missing' aqui é fidelidade, não lacuna.",
   "evidence": ""
@@ -3594,7 +3594,7 @@
   "code": 89,
   "name": "QUESTION_REPLY",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
   "notes": "Chamado pelo cliente (ddt/manager/QuestionInfoMannager.as:85) mas sem [PacketHandler(89,...)] em Game.Server — resposta a uma pergunta (survey/quiz de evento) nunca implementada no original. Status 'missing' aqui é fidelidade, não lacuna.",
   "evidence": ""
@@ -3843,7 +3843,7 @@
   "code": 110,
   "name": "ITEM_REFINERY",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3884,7 +3884,7 @@
   "code": 203,
   "name": "LOOKUP_EFFORT",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3897,7 +3897,7 @@
   "code": 209,
   "name": "FIGHT_SPIRIT",
   "sub": "FIGHT_SPIRIT_LEVELUP=3",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -3923,7 +3923,7 @@
   "code": 224,
   "name": "CID_CHECK",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4025,7 +4025,7 @@
   "code": 308,
   "name": "EQUIP_BRING_UP",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4040,7 +4040,7 @@
   "code": 313,
   "name": "ITEM_CELL_IS_LOCKED",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4068,7 +4068,7 @@
   "code": 402,
   "name": "AVATAR_COLLECTION",
   "sub": "ACTIVE=3",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4083,7 +4083,7 @@
   "code": 402,
   "name": "AVATAR_COLLECTION",
   "sub": "DELAY_TIME=4",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4350,7 +4350,7 @@
   "code": 50,
   "name": "FIGHT_NPC",
   "sub": "",
-  "server": "missing",
+  "server": "stub",
   "verified": "no",
   "notes": "Morto no original dos dois lados: GameSocketOut.as define sendBeginFightNpc() (PackageOut(FIGHT_NPC=50)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e o servidor não registra [PacketHandler(50,...)] em Game.Server/Fighting.Server (o 'FIGHT_NPC=88' de Game.Logic/Protocol/eFightPackageType.cs é um protocolo interno Center<->Fighting diferente, não o pacote de cliente). Status 'missing' aqui é fidelidade, não lacuna.",
   "evidence": ""
@@ -4489,7 +4489,7 @@
   "code": 54,
   "name": "PROP_BUY",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4505,7 +4505,7 @@
   "code": 54,
   "name": "PROP_BUY",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4520,7 +4520,7 @@
   "code": 55,
   "name": "PROP_SELL",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -4535,7 +4535,7 @@
   "code": 55,
   "name": "PROP_SELL",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -5417,7 +5417,7 @@
   "code": 96,
   "name": "HONOR_UP_COUNT",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""
@@ -5432,7 +5432,7 @@
   "code": 136,
   "name": "TOTEM",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
   "notes": "",
   "evidence": ""

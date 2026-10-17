@@ -38,12 +38,13 @@ function petValues(p: UserPetRow) {
 export async function savePets(db: Database, pets: UserPetRow[]): Promise<void> {
   for (const p of pets) {
     if (!p.dirty) continue;
-    if (p.ID > 0) await db.update(P).set(petValues(p)).where(eq(P.ID, p.ID));
+    const values = petValues(p);
+    if (p.ID > 0) await db.update(P).set(values).where(eq(P.ID, p.ID));
     else {
-      const [r] = await db.insert(P).values(petValues(p)).returning({ ID: P.ID });
+      const [r] = await db.insert(P).values(values).returning({ ID: P.ID });
       if (r) p.ID = r.ID;
     }
-    p.dirty = false;
+    p.dirty = JSON.stringify(petValues(p)) !== JSON.stringify(values);
   }
 }
 
@@ -59,16 +60,21 @@ function cardValues(c: UserCardRow) {
 
 /** CardInventory.SaveToDatabase: insert/update dirty cards, delete removed ones. */
 export async function saveCards(db: Database, cards: UserCardRow[], removed: UserCardRow[]): Promise<void> {
-  const del = removed.filter((c) => c.CardID > 0 && !cards.includes(c)).map((c) => c.CardID);
+  const removedSnapshot = removed.slice();
+  const del = removedSnapshot.filter((c) => c.CardID > 0 && !cards.includes(c)).map((c) => c.CardID);
   if (del.length) await db.delete(C).where(inArray(C.CardID, del));
-  removed.length = 0;
+  for (const c of removedSnapshot) {
+    const i = removed.indexOf(c);
+    if (i >= 0) removed.splice(i, 1);
+  }
   for (const c of cards) {
     if (!c.dirty) continue;
-    if (c.CardID > 0) await db.update(C).set(cardValues(c)).where(eq(C.CardID, c.CardID));
+    const values = cardValues(c);
+    if (c.CardID > 0) await db.update(C).set(values).where(eq(C.CardID, c.CardID));
     else {
-      const [r] = await db.insert(C).values(cardValues(c)).returning({ CardID: C.CardID });
+      const [r] = await db.insert(C).values(values).returning({ CardID: C.CardID });
       if (r) c.CardID = r.CardID;
     }
-    c.dirty = false;
+    c.dirty = JSON.stringify(cardValues(c)) !== JSON.stringify(values);
   }
 }

@@ -486,6 +486,11 @@ export class QuestInventory {
     return out;
   }
 
+  /** Uma falha do banco não confirma a gravação; mantém essas missões para o próximo autosave. */
+  restoreDirty(rows: QuestDataRow[]): void {
+    for (const row of rows) this.dirty.add(row.QuestID);
+  }
+
   get all(): QuestDataRow[] {
     return [...this.rows.values()];
   }

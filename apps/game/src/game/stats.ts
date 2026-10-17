@@ -9,8 +9,9 @@
  *  - ExerciseMgr.GetExercise (Game.Logic/ExerciseMgr.cs:54), TotemMgr.GetTotemProp (TotemMgr.cs:104)
  *  - PropertySuit / Congthongso (PlayerEquipInventory.cs:470-690)
  * Pet equipment (eQPets) and pet "moe" properties (Pet_Moe_Property) are now wired in (PlayerEquipInventory.cs:
- * 368-394, see `petEquips`/`eat` below and game/pets.ts `petEquipMoeBonus`). Still not ported (no module in this
- * server yet): titles/rank (Sys_User_Rank), avatar collection, fight-spirit gem souls (Sys_User_Gemstone).
+ * 368-394, see `petEquips`/`eat` below and game/pets.ts `petEquipMoeBonus`). Avatar collection (Álbum) Damage/
+ * Guard bonus is wired in too (`getAvatarCollectionBonus` below, GamePlayer.cs:2538-2556/2626-2644). Still not
+ * ported (no module in this server yet): titles/rank (Sys_User_Rank), fight-spirit gem souls (Sys_User_Gemstone).
  */
 import type { ItemInfo, ItemTemplate } from "./item.js";
 
@@ -41,7 +42,14 @@ export interface StatTables {
   /** Suit_TemplateID rows (ID = suit id) -> ContainEquip strings. */
   suitParts: Map<number, string[]>;
   suits: Map<number, SuitInfoRow>;
+  /** ClothPropertyTemplateInfoMgr.GetClothPropertyWithID(avatarId) — only Damage/Guard matter for stats. */
+  clothProperty(avatarId: number): { Damage: number; Guard: number } | undefined;
+  /** ClothGroupTemplateInfoMgr.CountClothGroupWithID(avatarId): total pieces in that Álbum set. */
+  countClothGroupWithID(avatarId: number): number;
 }
+
+/** One Sys_Users_AvatarCollection row, trimmed to what the stat bonus needs (game/player.ts avatarCollect). */
+export interface AvatarCollectionInput { AvatarID: number; itemCount: number }
 
 export interface TexpExp { attTexpExp: number; defTexpExp: number; spdTexpExp: number; lukTexpExp: number; hpTexpExp: number }
 
@@ -62,6 +70,8 @@ export interface StatInput {
   /** Sys_Eat_Pets levels (per-player, not per-pet). */
   eat?: { weaponLevel: number; clothesLevel: number; hatLevel: number };
   now?: Date;
+  /** Sys_Users_AvatarCollection rows owned (any IsExit=true row; game/player.ts avatarCollect). */
+  avatarCollect?: AvatarCollectionInput[];
 }
 
 export interface StatResult {
@@ -156,6 +166,30 @@ export function propertySuit(items: ItemInfo[], t: StatTables): number[] {
   return out;
 }
 
+/**
+ * PlayerAvatarCollection.GetAvatarPropertyActived + the Damage/Guard loop inside GamePlayer.GetBaseAttack
+ * (:2538-2556) / GetBaseDefence (:2626-2644): a set that is half-collected (>= total/2 pieces, < total)
+ * adds `clothProperty[key]` once; fully collected (== total) adds it ×2.
+ *
+ * Not ported: the C# loop also does `current.IsActive = current.IsExit` as a side effect while building the
+ * "actived" list (PlayerAvatarCollection.cs:80) — an `=`/`==` typo that forces `IsActive` true on every
+ * existing (IsExit=true) row every time stats recalc, regardless of real completion. It doesn't change the
+ * Damage/Guard total computed here (that's gated by `itemCount` vs half/total directly, not by `IsActive`),
+ * and our `loadAvatarCollection` only ever loads IsExit=true rows anyway, so there is nothing to reproduce.
+ */
+export function getAvatarCollectionBonus(rows: AvatarCollectionInput[] | undefined, t: StatTables, key: "Damage" | "Guard"): number {
+  let v = 0;
+  for (const r of rows ?? []) {
+    const prop = t.clothProperty(r.AvatarID);
+    if (!prop) continue;
+    const total = t.countClothGroupWithID(r.AvatarID);
+    if (total <= 0) continue;
+    if (r.itemCount >= Math.floor(total / 2) && r.itemCount < total) v += prop[key];
+    else if (r.itemCount === total) v += prop[key] * 2;
+  }
+  return v;
+}
+
 /** GamePlayer.GetBaseAttack (GamePlayer.cs:2436). */
 export function getBaseAttack(inp: StatInput, t: StatTables): number {
   let v = 0;
@@ -167,6 +201,7 @@ export function getBaseAttack(inp: StatInput, t: StatTables): number {
   }
   for (const it of [w, inp.equip[0], inp.equip[4]]) if (it) for (const h of holes(it)) v += attrGem(t, h)?.Property7 ?? 0;
   v += getTotemProp(t.totems, inp.totemId, "AddDamage");
+  v += getAvatarCollectionBonus(inp.avatarCollect, t, "Damage");
   return v;
 }
 
@@ -181,6 +216,7 @@ export function getBaseDefence(inp: StatInput, t: StatTables): number {
   }
   for (const it of [inp.equip[0], inp.equip[4], inp.equip[6]]) if (it) for (const h of holes(it)) v += attrGem(t, h)?.Property8 ?? 0;
   v += getTotemProp(t.totems, inp.totemId, "AddGuard");
+  v += getAvatarCollectionBonus(inp.avatarCollect, t, "Guard");
   return v;
 }
 
@@ -284,7 +320,10 @@ export function computeStats(inp: StatInput, t: StatTables): StatResult {
 
 /** Empty tables (tests / before templates load). */
 export function emptyStatTables(findItem: (id: number) => ItemTemplate | undefined = () => undefined): StatTables {
-  return { findItem, exercise: [], totems: new Map(), goldEquip: () => undefined, cardUpdate: () => undefined, petFight: () => undefined, petMoe: () => undefined, suitParts: new Map(), suits: new Map() };
+  return {
+    findItem, exercise: [], totems: new Map(), goldEquip: () => undefined, cardUpdate: () => undefined, petFight: () => undefined, petMoe: () => undefined, suitParts: new Map(), suits: new Map(),
+    clothProperty: () => undefined, countClothGroupWithID: () => 0,
+  };
 }
 
 /**

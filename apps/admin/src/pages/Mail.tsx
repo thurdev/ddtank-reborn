@@ -33,9 +33,9 @@ const mailFields: FieldDef[] = [
   {
     name: "items",
     label: "Itens",
-    type: "json",
+    type: "item-list",
     default: [],
-    hint: 'Até 5: [{"templateId": 11020, "count": 1, "validDays": 0}]',
+    hint: "Até 5 itens; busque pelo nome, defina quantidade e validade (dias; 0 = permanente).",
     section: "Anexos",
   },
 ];

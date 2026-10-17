@@ -19,10 +19,10 @@ export interface DbBotSpec extends BotSpec {
 
 /** Sem linha no banco (DB novo): servidor continua com oponentes. */
 const FALLBACK: DbBotSpec[] = [
-  { id: 1, nickname: "Robo", sex: true, level: 5, weaponTemplateId: 7001, difficulty: "easy", equips: [], guild: null },
-  { id: 2, nickname: "Lina", sex: false, level: 10, weaponTemplateId: 7001, difficulty: "normal", equips: [], guild: null },
-  { id: 3, nickname: "Tank-X", sex: true, level: 20, weaponTemplateId: 7001, difficulty: "normal", equips: [], guild: null },
-  { id: 4, nickname: "Mira", sex: false, level: 30, weaponTemplateId: 7001, difficulty: "hard", equips: [], guild: null },
+  { id: 1, nickname: "Robozao", sex: true, level: 5, weaponTemplateId: 7001, difficulty: "easy", equips: [], guild: null },
+  { id: 2, nickname: "LinaFire", sex: false, level: 10, weaponTemplateId: 7001, difficulty: "normal", equips: [], guild: null },
+  { id: 3, nickname: "Tamnkench", sex: true, level: 20, weaponTemplateId: 7001, difficulty: "normal", equips: [], guild: null },
+  { id: 4, nickname: "Mira mais nub", sex: false, level: 30, weaponTemplateId: 7001, difficulty: "hard", equips: [], guild: null },
 ];
 
 export const DIFFICULTY: Record<string, number> = { easy: 25, normal: 50, hard: 80, expert: 95 };

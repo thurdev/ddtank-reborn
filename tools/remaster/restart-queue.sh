@@ -2,7 +2,7 @@
 # Stops the hf-queue server (port 7788), backs up state, applies tools/remaster/_pending-rejects.json, starts it again.
 # Run from the repo root between loop batches (never while a loop batch is running).
 set -e
-powershell -NoProfile -Command "Get-NetTCPConnection -LocalPort 7788 -State Listen -ErrorAction SilentlyContinue | % { Stop-Process -Id \$_.OwningProcess -Force }" || true
+for pid in $(netstat -ano | grep -E "127.0.0.1:7788 .*LISTENING" | awk '{print $NF}' | sort -u); do taskkill //PID $pid //F >/dev/null 2>&1; done || true
 sleep 1
 cp remaster/_auto/state.json remaster/_auto/state.backup.json
 node tools/remaster/apply-pending.mjs

@@ -1,5 +1,23 @@
+import { createElement } from "react";
 import { CalendarDays, Castle, Flag, ListChecks, Map, PackageOpen, ScrollText, ShoppingBag, Skull } from "lucide-react";
-import { defineResource } from "@/crud/types";
+import { defineResource, type Row } from "@/crud/types";
+
+/**
+ * Miniatura do mapa (`/api/admin/map-icons/:id.png`, lido direto do vendor via `ctx.resources`, sem mock):
+ * `image/map/<ID>/icon.png`, como o cliente resolve em `PathManager.as:136-141` (`solveMapIconPath`, param2=0).
+ * Coluna só-leitura (`form: false`): não existe no banco, então `pick()` no backend ignora na gravação.
+ */
+function MapPreview(_v: unknown, row: Row) {
+  return createElement("img", {
+    src: `/api/admin/map-icons/${row.ID}.png`,
+    alt: "",
+    loading: "lazy",
+    onError: (e: { currentTarget: HTMLImageElement }) => {
+      e.currentTarget.style.display = "none";
+    },
+    className: "size-10 rounded-lg border border-line bg-night-deep object-contain",
+  });
+}
 
 // Column names below are verbatim from packages/db/src/schema/game.ts so the API can expose the tables directly.
 
@@ -18,7 +36,7 @@ export const shop = defineResource({
     { name: "ID", label: "ID", type: "number", list: true, sortable: true, form: "create", required: true, min: 1 },
     { name: "ShopID", label: "ShopID (aba)", type: "number", required: true, list: true, sortable: true },
     { name: "GroupID", label: "GroupID", type: "number", default: 0 },
-    { name: "TemplateID", label: "TemplateID do item", type: "number", required: true, min: 1, list: true, sortable: true },
+    { name: "TemplateID", label: "Item vendido", type: "item-picker", required: true, list: true, sortable: true },
     { name: "BuyType", label: "BuyType", type: "number", default: 0, list: true, hint: "Tipo de moeda/compra, como no original" },
     { name: "AUnit", label: "AUnit", type: "number", default: 0, list: true, section: "Preços / validade" },
     { name: "BUnit", label: "BUnit", type: "number", default: 0, section: "Preços / validade" },
@@ -110,7 +128,7 @@ export const questGoods = defineResource({
   defaultSort: "QuestID",
   fields: [
     { name: "QuestID", label: "QuestID", type: "number", required: true, list: true, sortable: true, form: "create" },
-    { name: "RewardItemID", label: "Item (TemplateID)", type: "number", required: true, list: true, form: "create" },
+    { name: "RewardItemID", label: "Item", type: "item-picker", required: true, list: true, form: "create" },
     { name: "RewardItemCount", label: "Quantidade", type: "number", min: 1, default: 1, list: true },
     { name: "RewardItemValid", label: "Validade (dias)", type: "number", min: 0, default: 0, list: true },
     { name: "IsSelect", label: "Escolha do jogador", type: "boolean", list: true },
@@ -280,6 +298,7 @@ export const maps = defineResource({
   titleField: "Name",
   defaultSort: "ID",
   fields: [
+    { name: "_preview", label: "Prévia", type: "image", list: true, form: false, render: MapPreview },
     { name: "ID", label: "ID", type: "number", required: true, list: true, sortable: true, form: "create" },
     { name: "Name", label: "Nome", type: "text", required: true, list: true, sortable: true },
     { name: "Type", label: "Type", type: "number", default: 0, list: true },

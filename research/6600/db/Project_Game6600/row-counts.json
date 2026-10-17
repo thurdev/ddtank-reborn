@@ -1,0 +1,790 @@
+[
+ {
+  "table": "AASInfo",
+  "rows": 0
+ },
+ {
+  "table": "Achievement",
+  "rows": 333
+ },
+ {
+  "table": "AchievementCondition",
+  "rows": 341
+ },
+ {
+  "table": "AchievementData",
+  "rows": 362
+ },
+ {
+  "table": "AchievementReward",
+  "rows": 74
+ },
+ {
+  "table": "Active",
+  "rows": 1618
+ },
+ {
+  "table": "Active_Award",
+  "rows": 234
+ },
+ {
+  "table": "Active_Convert_Item",
+  "rows": 2916
+ },
+ {
+  "table": "Active_Number",
+  "rows": 12
+ },
+ {
+  "table": "Activity_Halloween_Items",
+  "rows": 24
+ },
+ {
+  "table": "Activity_Quest",
+  "rows": 0
+ },
+ {
+  "table": "Activity_System_Item",
+  "rows": 343
+ },
+ {
+  "table": "AdoptPetList",
+  "rows": 263
+ },
+ {
+  "table": "All_Questions",
+  "rows": 0
+ },
+ {
+  "table": "AreaConfig",
+  "rows": 1
+ },
+ {
+  "table": "Ativity_Quest_Condition",
+  "rows": 0
+ },
+ {
+  "table": "Auction",
+  "rows": 0
+ },
+ {
+  "table": "Bag_Init",
+  "rows": 0
+ },
+ {
+  "table": "Ball",
+  "rows": 1462
+ },
+ {
+  "table": "BallConfig",
+  "rows": 584
+ },
+ {
+  "table": "BoguAdventure_Data",
+  "rows": 3
+ },
+ {
+  "table": "BoguAdventure_Reward",
+  "rows": 51
+ },
+ {
+  "table": "Box_Temp",
+  "rows": 0
+ },
+ {
+  "table": "Button_Config",
+  "rows": 7
+ },
+ {
+  "table": "Card_Buff",
+  "rows": 0
+ },
+ {
+  "table": "Card_Groove_Update",
+  "rows": 92
+ },
+ {
+  "table": "Card_Info",
+  "rows": 0
+ },
+ {
+  "table": "Card_Template_Info",
+  "rows": 250
+ },
+ {
+  "table": "Charge_Active_Template",
+  "rows": 0
+ },
+ {
+  "table": "Charge_Money",
+  "rows": 0
+ },
+ {
+  "table": "Charge_Spend_Reward_Template",
+  "rows": 0
+ },
+ {
+  "table": "ChickActive_Number",
+  "rows": 4
+ },
+ {
+  "table": "Cloth_Group_Template",
+  "rows": 279
+ },
+ {
+  "table": "Cloth_Property_Template",
+  "rows": 24
+ },
+ {
+  "table": "Cloud_Buy_Log",
+  "rows": 4
+ },
+ {
+  "table": "Cloud_Buy_Lottery",
+  "rows": 6
+ },
+ {
+  "table": "Communal_Active",
+  "rows": 2
+ },
+ {
+  "table": "Communal_Active_Award",
+  "rows": 50
+ },
+ {
+  "table": "Communal_Active_Exp",
+  "rows": 12
+ },
+ {
+  "table": "Consortia",
+  "rows": 1
+ },
+ {
+  "table": "Consortia_Ally",
+  "rows": 0
+ },
+ {
+  "table": "Consortia_Apply_Ally",
+  "rows": 0
+ },
+ {
+  "table": "Consortia_Apply_Users",
+  "rows": 0
+ },
+ {
+  "table": "Consortia_Badge_Config",
+  "rows": 0
+ },
+ {
+  "table": "Consortia_Boss_Config",
+  "rows": 10
+ },
+ {
+  "table": "Consortia_Buff_Temp",
+  "rows": 34
+ },
+ {
+  "table": "Consortia_Buffer",
+  "rows": 6
+ },
+ {
+  "table": "Consortia_Duty",
+  "rows": 5
+ },
+ {
+  "table": "Consortia_Equip_Control",
+  "rows": 0
+ },
+ {
+  "table": "Consortia_Event",
+  "rows": 1
+ },
+ {
+  "table": "Consortia_Invite_Users",
+  "rows": 0
+ },
+ {
+  "table": "Consortia_Level",
+  "rows": 10
+ },
+ {
+  "table": "Consortia_Users",
+  "rows": 1
+ },
+ {
+  "table": "Daily_Award",
+  "rows": 15
+ },
+ {
+  "table": "Daily_League_Award",
+  "rows": 0
+ },
+ {
+  "table": "DailyLogList",
+  "rows": 88
+ },
+ {
+  "table": "Dice_Data",
+  "rows": 37
+ },
+ {
+  "table": "Dice_Game_Award",
+  "rows": 10
+ },
+ {
+  "table": "Dice_Level_Award",
+  "rows": 5
+ },
+ {
+  "table": "Drop_Condiction",
+  "rows": 120
+ },
+ {
+  "table": "Drop_Informação",
+  "rows": 38
+ },
+ {
+  "table": "Drop_Item",
+  "rows": 12394
+ },
+ {
+  "table": "Event_Award_Item",
+  "rows": 692
+ },
+ {
+  "table": "Every_Day_Active_Point_Template",
+  "rows": 0
+ },
+ {
+  "table": "Every_Day_Active_Progress",
+  "rows": 11
+ },
+ {
+  "table": "Every_Day_Active_Reward_Template",
+  "rows": 0
+ },
+ {
+  "table": "ExerciseInfo",
+  "rows": 75
+ },
+ {
+  "table": "Fair_Battle_Reward_Temp",
+  "rows": 16
+ },
+ {
+  "table": "Fight_Lab_Drop_Item",
+  "rows": 0
+ },
+ {
+  "table": "Fight_Rate",
+  "rows": 4
+ },
+ {
+  "table": "Fight_Record",
+  "rows": 0
+ },
+ {
+  "table": "Fight_Spirit_Templatelist",
+  "rows": 30
+ },
+ {
+  "table": "FoodComposeList",
+  "rows": 12
+ },
+ {
+  "table": "Game_Map",
+  "rows": 392
+ },
+ {
+  "table": "GM_Active_Condition",
+  "rows": 0
+ },
+ {
+  "table": "GM_Active_Reward",
+  "rows": 0
+ },
+ {
+  "table": "GM_Activity",
+  "rows": 0
+ },
+ {
+  "table": "GM_Gift",
+  "rows": 0
+ },
+ {
+  "table": "GoldEquipTemplateLoad",
+  "rows": 180
+ },
+ {
+  "table": "Goods_Collect",
+  "rows": 0
+ },
+ {
+  "table": "Gypsy_Item_Data",
+  "rows": 104
+ },
+ {
+  "table": "Halloween_Rank",
+  "rows": 15
+ },
+ {
+  "table": "Help_Game_Reward",
+  "rows": 0
+ },
+ {
+  "table": "HotSpringRoom",
+  "rows": 3
+ },
+ {
+  "table": "Item_Fusion",
+  "rows": 206
+ },
+ {
+  "table": "Item_Record",
+  "rows": 2434
+ },
+ {
+  "table": "Item_Refinery",
+  "rows": 0
+ },
+ {
+  "table": "Item_Refinery_Strengthen",
+  "rows": 15
+ },
+ {
+  "table": "Item_Streng_Then_Data",
+  "rows": 0
+ },
+ {
+  "table": "Item_Strengthen",
+  "rows": 15
+ },
+ {
+  "table": "Item_Strengthen_Goods",
+  "rows": 369
+ },
+ {
+  "table": "ItemRecordType",
+  "rows": 0
+ },
+ {
+  "table": "LevelInfo",
+  "rows": 70
+ },
+ {
+  "table": "Lightriddle_Quest",
+  "rows": 336
+ },
+ {
+  "table": "LoadUserBox",
+  "rows": 33
+ },
+ {
+  "table": "Login_Award_Item_Template",
+  "rows": 22
+ },
+ {
+  "table": "Lottery_Show_Template",
+  "rows": 0
+ },
+ {
+  "table": "LuckStarRankInfo",
+  "rows": 3
+ },
+ {
+  "table": "LuckyStart_Topten_Award",
+  "rows": 34
+ },
+ {
+  "table": "Magic_Item_Template",
+  "rows": 40
+ },
+ {
+  "table": "Magicstone_Template",
+  "rows": 542
+ },
+ {
+  "table": "Map_Server",
+  "rows": 12
+ },
+ {
+  "table": "Marry_Apply",
+  "rows": 2
+ },
+ {
+  "table": "Marry_Info",
+  "rows": 0
+ },
+ {
+  "table": "Marry_Room_Info",
+  "rows": 1
+ },
+ {
+  "table": "Mission_Info",
+  "rows": 311
+ },
+ {
+  "table": "MissionEnergyPrice",
+  "rows": 30
+ },
+ {
+  "table": "Mount_Data",
+  "rows": 9
+ },
+ {
+  "table": "Mount_Draw_Template",
+  "rows": 15
+ },
+ {
+  "table": "Mount_SKill_Element_Tempalate",
+  "rows": 135
+ },
+ {
+  "table": "Mount_SKill_Get_Template",
+  "rows": 90
+ },
+ {
+  "table": "Mount_Skill_Template",
+  "rows": 105
+ },
+ {
+  "table": "Mount_Template",
+  "rows": 81
+ },
+ {
+  "table": "Mystery_Shop_Items",
+  "rows": 188
+ },
+ {
+  "table": "New_ChickenBox_Data",
+  "rows": 90
+ },
+ {
+  "table": "New_Title",
+  "rows": 100
+ },
+ {
+  "table": "NPC_Info",
+  "rows": 830
+ },
+ {
+  "table": "NPC_Info2",
+  "rows": 1348
+ },
+ {
+  "table": "Pet_Config",
+  "rows": 49
+ },
+ {
+  "table": "Pet_Exp_Item_Price",
+  "rows": 20
+ },
+ {
+  "table": "Pet_Fight_Property",
+  "rows": 50
+ },
+ {
+  "table": "Pet_Form_Data",
+  "rows": 6
+ },
+ {
+  "table": "Pet_Level",
+  "rows": 60
+ },
+ {
+  "table": "Pet_Moe_Property",
+  "rows": 30
+ },
+ {
+  "table": "Pet_Skill_Element_Info",
+  "rows": 286
+ },
+ {
+  "table": "Pet_Skill_Info",
+  "rows": 216
+ },
+ {
+  "table": "Pet_Skill_Template_Info",
+  "rows": 160
+ },
+ {
+  "table": "Pet_Star_Exp",
+  "rows": 67
+ },
+ {
+  "table": "Pet_Template_Info",
+  "rows": 121
+ },
+ {
+  "table": "Pve_Info",
+  "rows": 154
+ },
+ {
+  "table": "Pyramid_Data",
+  "rows": 5
+ },
+ {
+  "table": "QQtips_Messages",
+  "rows": 7
+ },
+ {
+  "table": "Quest",
+  "rows": 1544
+ },
+ {
+  "table": "Quest_Condiction",
+  "rows": 1847
+ },
+ {
+  "table": "Quest_Goods",
+  "rows": 2763
+ },
+ {
+  "table": "Quest_Rate",
+  "rows": 1
+ },
+ {
+  "table": "QuestData",
+  "rows": 196
+ },
+ {
+  "table": "Rank_Template",
+  "rows": 0
+ },
+ {
+  "table": "Rate",
+  "rows": 19
+ },
+ {
+  "table": "Rename_Consortia",
+  "rows": 0
+ },
+ {
+  "table": "Rename_Nick",
+  "rows": 2
+ },
+ {
+  "table": "Ringstation_Battle_Field",
+  "rows": 89
+ },
+ {
+  "table": "Ringstation_Config",
+  "rows": 1
+ },
+ {
+  "table": "Rune_Template",
+  "rows": 456
+ },
+ {
+  "table": "Search_Goods_Pay_Money",
+  "rows": 0
+ },
+ {
+  "table": "Search_Goods_Temp",
+  "rows": 5
+ },
+ {
+  "table": "Server_Config",
+  "rows": 666
+ },
+ {
+  "table": "Server_List",
+  "rows": 2
+ },
+ {
+  "table": "Shop",
+  "rows": 3642
+ },
+ {
+  "table": "Shop_Cheap_Items",
+  "rows": 46
+ },
+ {
+  "table": "Shop_Goods",
+  "rows": 7980
+ },
+ {
+  "table": "Shop_Goods_Box",
+  "rows": 12616
+ },
+ {
+  "table": "Shop_Goods_Categorys",
+  "rows": 30
+ },
+ {
+  "table": "ShopGoodsShowList",
+  "rows": 1783
+ },
+ {
+  "table": "StrengThenExp",
+  "rows": 16
+ },
+ {
+  "table": "Sub_Active_Condition",
+  "rows": 16
+ },
+ {
+  "table": "Sub_Active_List",
+  "rows": 1
+ },
+ {
+  "table": "Suit_Part_Equip",
+  "rows": 0
+ },
+ {
+  "table": "Suit_Template",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Active_System_Data",
+  "rows": 9
+ },
+ {
+  "table": "Sys_Eat_Pets",
+  "rows": 9
+ },
+ {
+  "table": "Sys_User_Drills",
+  "rows": 54
+ },
+ {
+  "table": "Sys_User_Farm",
+  "rows": 7
+ },
+ {
+  "table": "Sys_User_Field",
+  "rows": 72
+ },
+ {
+  "table": "Sys_User_Gemstone",
+  "rows": 35
+ },
+ {
+  "table": "Sys_User_Info",
+  "rows": 0
+ },
+ {
+  "table": "Sys_User_MagicHouse",
+  "rows": 9
+ },
+ {
+  "table": "Sys_User_Match_Info",
+  "rows": 9
+ },
+ {
+  "table": "Sys_User_Pet_Form",
+  "rows": 9
+ },
+ {
+  "table": "Sys_User_Rank",
+  "rows": 16
+ },
+ {
+  "table": "Sys_User_RingStation",
+  "rows": 2
+ },
+ {
+  "table": "Sys_User_Treasure",
+  "rows": 9
+ },
+ {
+  "table": "Sys_Users_Card",
+  "rows": 100
+ },
+ {
+  "table": "Sys_Users_Christmas",
+  "rows": 7
+ },
+ {
+  "table": "Sys_Users_Detail",
+  "rows": 9
+ },
+ {
+  "table": "Sys_Users_Extra",
+  "rows": 9
+ },
+ {
+  "table": "Sys_Users_Fight",
+  "rows": 9
+ },
+ {
+  "table": "Sys_Users_Friends",
+  "rows": 4
+ },
+ {
+  "table": "Sys_Users_Goods",
+  "rows": 54
+ },
+ {
+  "table": "Sys_Users_Labyrinth",
+  "rows": 2
+ },
+ {
+  "table": "Sys_Users_Order",
+  "rows": 9
+ },
+ {
+  "table": "Sys_Users_Password",
+  "rows": 0
+ },
+ {
+  "table": "Sys_Users_Pet",
+  "rows": 20
+ },
+ {
+  "table": "Sys_Users_Rank_Date",
+  "rows": 9
+ },
+ {
+  "table": "Sys_Users_Texp",
+  "rows": 9
+ },
+ {
+  "table": "Sys_VIP_Info",
+  "rows": 9
+ },
+ {
+  "table": "TempTable",
+  "rows": 34
+ },
+ {
+  "table": "Totem_Honor_Template",
+  "rows": 20
+ },
+ {
+  "table": "Totem_Info",
+  "rows": 350
+ },
+ {
+  "table": "Treasure_Award",
+  "rows": 41
+ },
+ {
+  "table": "Treasure_Data",
+  "rows": 48
+ },
+ {
+  "table": "Treasure_Puzzle_Data",
+  "rows": 6
+ },
+ {
+  "table": "Treasure_Puzzle_Reward",
+  "rows": 6
+ },
+ {
+  "table": "Tree_Template",
+  "rows": 51
+ },
+ {
+  "table": "User_Avatar_Colection",
+  "rows": 216
+ },
+ {
+  "table": "User_Buff",
+  "rows": 15
+ },
+ {
+  "table": "User_Messages",
+  "rows": 12
+ }
+]

@@ -57,6 +57,34 @@
       "when": 1791495000000,
       "tag": "0007_bots_seed",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1791683671240,
+      "tag": "0008_empty_famine",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1791683762482,
+      "tag": "0009_jittery_thena",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1791683800000,
+      "tag": "0010_forja_specs_seed",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1791750000000,
+      "tag": "0011_labirinto_pve_seed",
+      "breakpoints": true
     }
   ]
 }

@@ -1,0 +1,10 @@
+latentenergy__3_asset.latentEnergyFrame.bg
+luckstar__20_luckyStar.view.RankBG
+oldTrainer__1_asset.trainer.Welcome.Background
+wonderfulactivity__11_wonderfulactivity.luck.backgroud
+wonderfulactivity__15_wonderfulactivity.newgamebenifit.back
+wonderfulactivity__16
+wonderfulactivity__4_wonderfulactivity.fighter.back
+wonderfulactivity__60_carnicalAct.bg
+wonderfulactivity__7_wonderfulactivity.hero.back
+core__266

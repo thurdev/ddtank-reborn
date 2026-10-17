@@ -1,0 +1,133 @@
+{
+ "ddthallicon__105_asset.hall.farmIcon": "Fazenda",
+ "ddthallicon__107_asset.hall.continueRechargeIcon": "Recarga 7 Dias",
+ "ddthallicon__108_assets.hallIcon.happyRecharge": "Recarga Feliz",
+ "ddthallicon__112_assets.hallIcon.luckyStarIcon": "Estrela da Sorte",
+ "ddthallicon__116_assets.hallIcon.newChickenBoxIcon": "Baú da Galinha",
+ "ddthallicon__117_assets.hallIcon.littleGameNoteIcon": {
+  "t": "Batalha\nde Galos",
+  "free": false
+ },
+ "ddthallicon__12_assets.hallIcon.entertainmentIcon": {
+  "t": "Arena\nGalo 18+",
+  "free": false
+ },
+ "ddthallicon__130": {
+  "t": "Quero\nFicar Forte",
+  "free": true
+ },
+ "ddthallicon__140": {
+  "t": "Recarga\nEspecial",
+  "free": false
+ },
+ "ddthallicon__146": {
+  "t": "Ranking",
+  "free": true
+ },
+ "ddthallicon__15_assets.hallIcon.braveDoor.icon": "Herói",
+ "ddthallicon__23_assets.hallIcon.oldPlayerIcon": "Velho Amigo",
+ "ddthallicon__24_assets.hallIcon.chickActivationIcon": "Código Galinha",
+ "ddthallicon__25_assets.hallIconl.sanxiaoBtn": "Combina 3",
+ "ddthallicon__28_asset.hall.consortia.task.btn": {
+  "t": "Missão",
+  "free": true
+ },
+ "ddthallicon__29_assets.hallIcon.kingDivisionIcon": {
+  "t": "Torneio de\nSociedade",
+  "free": false
+ },
+ "ddthallicon__30_assets.hallIcon.minesIcon": {
+  "t": "Cavar\nMinérios",
+  "free": false
+ },
+ "ddthallicon__31_assets.hallIcon.angelInvestmentIcon": "Investir",
+ "ddthallicon__32_assets.hallIcon.luckStoneIcon": {
+  "t": "Bênção\ndo Anjo",
+  "free": false
+ },
+ "ddthallicon__35_asset.ddthall.trialEnterIcon": {
+  "t": "Desafio\nEspacial",
+  "free": false
+ },
+ "ddthallicon__36_assets.hallIcon.tenYearAnniversaryIcon": {
+  "t": "Festa de\n11 Anos",
+  "free": true
+ },
+ "ddthallicon__386_asset.ddthall.cryptBoss": "Inferno",
+ "ddthallicon__4_assets.hallIcon.campIcon": {
+  "t": "Batalha\nde Campo",
+  "free": false
+ },
+ "ddthallicon__45_assets.hallIcon.redEnvelope": {
+  "t": "Todos pelo\nEnvelope",
+  "free": false
+ },
+ "ddthallicon__48_assets.hallIcon.prayIndianaIcon": "Caça ao Tesouro",
+ "ddthallicon__49_assets.hallIcon.magpiebridge": {
+  "t": "Ponte\nCeleste",
+  "free": false
+ },
+ "ddthallicon__5_assets.hallIcon.godOfWealthIcon": "Deus da Fortuna",
+ "ddthallicon__50_assets.hallIcon.sevendayIcon": {
+  "t": "Meta de\n7 Dias",
+  "free": false
+ },
+ "ddthallicon__51_assets.hallIcon.sevenDayTargetIcon": "Benefícios",
+ "ddthallicon__52_asset.hall.jigsawIcon": "Quebra-cabeça",
+ "ddthallicon__54_asset.hall.familyFoodIcon": {
+  "t": "Ceia de\nAno Novo",
+  "free": true
+ },
+ "ddthallicon__55_assets.hallIcon.newYearRiceIcon": {
+  "t": "Festa de\nAniversário",
+  "free": false
+ },
+ "ddthallicon__56_asset.hall.magicWardrobe": "Armário Mágico",
+ "ddthallicon__57_asset.hall.wheelOfFortuneIcon": {
+  "t": "Arena do\nDestino",
+  "free": false
+ },
+ "ddthallicon__58_assets.hallIcon.treasureHuntingIcon": {
+  "t": "Tesouro do\nLabirinto",
+  "free": false
+ },
+ "ddthallicon__59_assets.hallIcon.leagueIcon": "Deus da Guerra",
+ "ddthallicon__60_assets.hallIcon.signActivity": {
+  "t": "Presença\nDiária",
+  "free": false
+ },
+ "ddthallicon__61_assets.hallIcon.conRechargeIcon": "Recarga Seguida",
+ "ddthallicon__63_assets.hallIcon.ringStationIcon": "Ringue",
+ "ddthallicon__65_assets.hallIcon.oldPlayerRegressIcon": "Velho Amigo",
+ "ddthallicon__67_assets.hallIcon.fightFootballTimeIcon": "Batalha Decisiva",
+ "ddthallicon__68_assets.hallIcon.goldmineIcon": "Juntar Ouro",
+ "ddthallicon__70_assets.hallIcon.pyramidIcon": "Pirâmide",
+ "ddthallicon__72_assets.hallIcon.oldPlayerComeBack": "Retorno",
+ "ddthallicon__74_assets.hallIcon.dreamlandChallengeIcon": "Desafio",
+ "ddthallicon__75_assets.hallIcon.escortEntryIcon": "Escolta",
+ "ddthallicon__79_asset.hall.thanksGivingIcon": "Gratidão",
+ "ddthallicon__7_assets.hallIcon.battleIcon": {
+  "t": "Campo de\nBatalha",
+  "free": false
+ },
+ "ddthallicon__81_asset.hallIcon.welfareCenterIcon": "Benefícios",
+ "ddthallicon__83_asset.hall.reverseIcon": "Eu Sou o BOSS",
+ "ddthallicon__85_assets.hallIcon.devilTurnIcon": {
+  "t": "Tesouro\nSombrio",
+  "free": false
+ },
+ "ddthallicon__8_assets.hallIcon.zodiacIcon": "Astrologia",
+ "ddthallicon__92_asset.hall.bibleIcon": "Guia do Rei Galo",
+ "ddthallicon__93_assets.hallIcon.bombTurnTable.icon": {
+  "t": "Roleta\nDDTank",
+  "free": false
+ },
+ "ddthallicon__94_asset.hall.draftIcon": {
+  "t": "Desfile\nde Moda",
+  "free": false
+ },
+ "ddthallicon__98_assets.hallIcon.flowerGivingIcon": "Flores DDTank",
+ "ddthallicon__9_assets.hallIcon.cloudbuylotteryIcon": "Camarão Fresco",
+ "ddthallicon__1_assets.hallIcon.worldBossEntrance_4": "Boss Mundial",
+ "ddthallicon__10_assets.hallIcon.worldBossEntrance_1": "Boss Mundial"
+}

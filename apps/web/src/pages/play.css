@@ -15,13 +15,13 @@
 
 .play-page-bg {
   background-color: #0b0e1a;
-  background-image: url("/play/bg-2560.avif");
+  background-image: url("/play/ddreborn.jpg");
   background-size: cover;
   background-position: center;
 }
 @media (max-width: 1400px) {
   .play-page-bg {
-    background-image: url("/play/bg-1280.avif");
+    background-image: url("/play/ddreborn.jpg");
   }
 }
 
@@ -35,12 +35,12 @@
 }
 
 .play-stage {
-  --panel-w: 280px;
-  --gutter-w: 44px;
-  --post-w: 100px;
+  --panel-w: 374px;
+  --gutter-w: 76px;
+  --post-w: 122px;
   --mat: 24px;
-  --game-w: 1000px;
-  --game-h: 600px;
+  --game-w: 77rem;
+  --game-h: 746px;
   --frame-w: calc(var(--game-w) + var(--mat) * 2);
   --frame-h: calc(var(--game-h) + var(--mat) * 2);
 
@@ -52,6 +52,7 @@
   row-gap: 14px;
   justify-items: center;
   will-change: transform;
+  margin-top: -3rem;
 }
 
 /* ---- logo ---- */
@@ -123,16 +124,16 @@
   width: var(--frame-w);
   height: var(--frame-h);
   position: relative;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   padding: var(--mat);
-  background-color: #141225;
-  background-image: url("/play/fabric-tile.webp");
+  /* background-color: #141225; */
+  /* background-image: url("/play/fabric-tile.webp"); */
   background-repeat: repeat;
   background-size: 220px auto;
-  border-radius: 10px;
-  box-shadow:
+  /* border-radius: 10px; */
+  /* box-shadow:
     0 0 0 2px rgb(255 209 110 / 0.35) inset,
-    0 24px 60px -20px rgb(0 0 0 / 0.85);
+    0 24px 60px -20px rgb(0 0 0 / 0.85); */
 }
 .play-frame-hole {
   width: var(--game-w);

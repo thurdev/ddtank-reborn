@@ -1,6 +1,68 @@
+import { useEffect, useState } from "react";
 import { Badge } from "@ddtank/ui";
+import { getItemCached, type ItemResumo } from "@/resources/items";
 import { useI18n, useText } from "@/i18n";
 import type { FieldDef, Row } from "./types";
+
+/** Ícone+nome de um item na célula da lista; usa o cache compartilhado (`getItemCached`) e aceita sentinelas (`pickerSpecial`). */
+function ItemCellSingle({ templateId, field }: { templateId: number; field: FieldDef }) {
+  const text = useText();
+  const [item, setItem] = useState<ItemResumo | null>(null);
+  const special = field.pickerSpecial?.find((o) => Number(o.value) === templateId);
+  useEffect(() => {
+    if (special) return;
+    let vivo = true;
+    void getItemCached(templateId).then((r) => {
+      if (vivo) setItem(r);
+    });
+    return () => {
+      vivo = false;
+    };
+  }, [templateId, special]);
+  const nome = special ? text(special.label) : item?.Name;
+  return (
+    <span className="flex items-center gap-2">
+      {item?.iconUrl ? (
+        <img src={item.iconUrl} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.display = "none"; }} className="size-7 shrink-0 rounded-md border border-line bg-night-deep object-contain" />
+      ) : (
+        <span className="grid size-7 shrink-0 place-items-center rounded-md border border-line bg-night-deep font-mono text-[10px] text-muted">#</span>
+      )}
+      <span className="truncate font-mono text-xs text-ink">{nome ?? `#${templateId}`}</span>
+    </span>
+  );
+}
+
+/** Ícones em linha p/ múltiplos itens (ex. equipamentos de bot), com +N de overflow. */
+function ItemCellMulti({ templateIds }: { templateIds: number[] }) {
+  const [itens, setItens] = useState<Record<number, ItemResumo | null>>({});
+  const mostrados = templateIds.slice(0, 4);
+  useEffect(() => {
+    let vivo = true;
+    void Promise.all(mostrados.map(async (tid) => [tid, await getItemCached(tid)] as const)).then((pares) => {
+      if (vivo) setItens(Object.fromEntries(pares));
+    });
+    return () => {
+      vivo = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mostrados.join(",")]);
+  if (!templateIds.length) return <span className="text-muted/50">—</span>;
+  return (
+    <span className="flex items-center gap-1">
+      {mostrados.map((tid) => {
+        const item = itens[tid];
+        return item?.iconUrl ? (
+          <img key={tid} src={item.iconUrl} alt={item.Name} title={item.Name} loading="lazy" onError={(e) => { e.currentTarget.style.display = "none"; }} className="size-7 shrink-0 rounded-md border border-line bg-night-deep object-contain" />
+        ) : (
+          <span key={tid} title={item?.Name ?? `#${tid}`} className="grid size-7 shrink-0 place-items-center rounded-md border border-line bg-night-deep font-mono text-[10px] text-muted">
+            #
+          </span>
+        );
+      })}
+      {templateIds.length > 4 && <span className="text-xs text-muted">+{templateIds.length - 4}</span>}
+    </span>
+  );
+}
 
 /** Read-only table cell for a field, chosen by type. */
 export function Cell({ field: f, row }: { field: FieldDef; row: Row }) {
@@ -8,7 +70,12 @@ export function Cell({ field: f, row }: { field: FieldDef; row: Row }) {
   const text = useText();
   const v = row[f.name];
   if (f.render) return <>{f.render(v, row)}</>;
+  if ((f.type as string) === "item-picker-multi") {
+    const ids = Array.isArray(v) ? (v as unknown[]).map(Number).filter(Number.isFinite) : [];
+    return <ItemCellMulti templateIds={ids} />;
+  }
   if (v === null || v === undefined || v === "") return <span className="text-muted/50">—</span>;
+  if ((f.type as string) === "item-picker") return <ItemCellSingle templateId={Number(v)} field={f} />;
 
   switch (f.type) {
     case "boolean":

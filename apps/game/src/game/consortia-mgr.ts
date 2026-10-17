@@ -137,7 +137,7 @@ export class ConsortiaMgr {
     const items = p.consortiaBag.getItems();
     if (!items.length) return;
     for (const it of items) p.consortiaBag.takeOutItem(it);
-    const { mailItems } = await import("../handlers/items.js");
+    const { mailItems } = await import("../handlers/bolsa/correio-excedente.js");
     await mailItems(this.ctx, p, items, this.t("Game.Server.GameUtils.ConsortiaBag.Title", "Két Guild"), 13);
   }
 

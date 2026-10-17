@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { Button, Dialog, DialogContent, Input, NativeSelect, Spinner, Switch, Textarea, cn } from "@ddtank/ui";
-import { ImageUp, Search, X } from "lucide-react";
+import { ImageUp, Plus, Search, X } from "lucide-react";
 import { toast } from "sonner";
 import { uploadFile } from "@/lib/api";
-import { formataAtributosItem, getItemPorTemplateId, searchItensPorNome, type ItemResumo } from "@/resources/items";
+import { formataAtributosItem, getItemCached, searchItensPorNome, type ItemResumo } from "@/resources/items";
 import { useI18n, useText } from "@/i18n";
-import type { FieldDef } from "./types";
+import type { FieldDef, FieldOption } from "./types";
 
 interface Props {
   field: FieldDef;
@@ -95,21 +95,151 @@ function ImageInput({ id, value, onChange, folder, invalid }: { id: string; valu
   );
 }
 
+/** Ícone pequeno (ou placeholder `#`) de um `ItemResumo`, usado no campo fechado, na lista do popup e nos chips. */
+function ItemIcon({ item, className }: { item: ItemResumo; className?: string }) {
+  return item.iconUrl ? (
+    <img
+      src={item.iconUrl}
+      alt=""
+      loading="lazy"
+      onError={(e) => {
+        e.currentTarget.style.display = "none";
+      }}
+      className={cn("shrink-0 rounded-lg border-2 border-line bg-night-deep object-contain", className)}
+    />
+  ) : (
+    <span className={cn("grid shrink-0 place-items-center rounded-lg border-2 border-line bg-night-deep font-mono text-muted", className)}>#</span>
+  );
+}
+
 /**
- * Picker de item: busca por nome, exibe nome+atributos, popup no tema.
+ * Busca com debounce p/ o popup de item (compartilhada pelo picker simples e o múltiplo).
  * Como lê esse código (cada variável):
- * - `value`: `TemplateID` atual (ou `null` vazio).
- * - `atual`: resumo exibido no campo fechado.
- * - `aberto`: popup (`Dialog`) visível ou não.
- * - `busca`: texto digitado, enviado ao lookup com debounce.
- * - `lista`: resultados do `searchItensPorNome`.
- * - `carregando`: spinner durante a busca.
+ * - `aberto`: só busca enquanto o popup está visível.
+ * - `categoryIds`: filtro opcional por categoria (ex. picker de arma).
+ * - `busca`/`setBusca`: texto digitado; `lista`: resultados; `carregando`: spinner.
  */
-function ItemPickerInput({ id, value, onChange, invalid, disabled }: { id: string; value: number | null; onChange: (v: unknown) => void; invalid?: boolean; disabled?: boolean }) {
-  const [aberto, setAberto] = useState(false);
+function useItemBusca(aberto: boolean, categoryIds?: number[]) {
   const [busca, setBusca] = useState("");
   const [lista, setLista] = useState<ItemResumo[]>([]);
   const [carregando, setCarregando] = useState(false);
+  const cats = categoryIds?.join(",");
+  useEffect(() => {
+    if (!aberto) return;
+    const timer = setTimeout(() => {
+      setCarregando(true);
+      void searchItensPorNome(busca, 20, categoryIds)
+        .then(setLista)
+        .finally(() => setCarregando(false));
+    }, 250);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [busca, aberto, cats]);
+  useEffect(() => {
+    if (!aberto) {
+      setBusca("");
+      setLista([]);
+    }
+  }, [aberto]);
+  return { busca, setBusca, lista, carregando };
+}
+
+/**
+ * Popup de busca de item (ícone+nome+atributos), com botões rápidos p/ valores sentinela (`special`, ex. "Moedas
+ * grátis" sem item real). Reaproveitado pelo picker simples e pelo múltiplo.
+ */
+function ItemSearchDialog({
+  id,
+  open,
+  onOpenChange,
+  onPick,
+  categoryIds,
+  special,
+}: {
+  id: string;
+  open: boolean;
+  onOpenChange: (o: boolean) => void;
+  onPick: (item: ItemResumo) => void;
+  categoryIds?: number[];
+  special?: FieldOption[];
+}) {
+  const text = useText();
+  const { busca, setBusca, lista, carregando } = useItemBusca(open, categoryIds);
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent title="Selecionar item" description="Busque por nome e escolha na lista.">
+        {!!special?.length && (
+          <div className="mb-3 flex flex-wrap gap-2">
+            {special.map((o) => (
+              <Button
+                key={String(o.value)}
+                type="button"
+                variant="secondary"
+                size="sm"
+                onClick={() => onPick({ TemplateID: Number(o.value), Name: text(o.label) })}
+              >
+                {text(o.label)}
+              </Button>
+            ))}
+          </div>
+        )}
+        <Input id={`${id}-busca`} value={busca} onChange={(e) => setBusca(e.target.value)} placeholder="Ex.: Bazuca…" autoFocus />
+        <div className="mt-3 flex max-h-72 flex-col gap-1 overflow-y-auto">
+          {carregando ? (
+            <div className="grid place-items-center py-8">
+              <Spinner className="size-6" />
+            </div>
+          ) : lista.length === 0 ? (
+            <p className="py-8 text-center text-sm text-muted">{busca.trim() ? "Nenhum item encontrado." : "Digite o nome do item."}</p>
+          ) : (
+            lista.map((item) => (
+              <button
+                key={item.TemplateID}
+                type="button"
+                onClick={() => onPick(item)}
+                className="flex items-center gap-2 rounded-xl border-2 border-line bg-night-deep/60 px-3 py-2 text-left hover:border-sun"
+              >
+                <ItemIcon item={item} className="size-10" />
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-sm text-ink">{item.Name}</span>
+                  <span className="block truncate font-mono text-xs text-muted">{formataAtributosItem(item)}</span>
+                </span>
+              </button>
+            ))
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+/**
+ * Picker de item (um só): busca por nome, exibe ícone+nome+atributos, popup no tema.
+ * Como lê esse código (cada variável):
+ * - `value`: `TemplateID` atual (ou `null` vazio).
+ * - `atual`: resumo exibido no campo fechado (inclui `iconUrl`); resolvido via `special` (sentinela) ou lookup.
+ * - `aberto`: popup (`Dialog`) visível ou não.
+ * - `categoryIds`/`special`: repassados do `FieldDef` (`pickerCategory`/`pickerSpecial`).
+ */
+function ItemPickerInput({
+  id,
+  value,
+  onChange,
+  invalid,
+  disabled,
+  categoryIds,
+  special,
+}: {
+  id: string;
+  value: number | null;
+  onChange: (v: unknown) => void;
+  invalid?: boolean;
+  disabled?: boolean;
+  categoryIds?: number[];
+  special?: FieldOption[];
+}) {
+  const text = useText();
+  const [aberto, setAberto] = useState(false);
   const [atual, setAtual] = useState<ItemResumo | null>(null);
 
   useEffect(() => {
@@ -119,7 +249,12 @@ function ItemPickerInput({ id, value, onChange, invalid, disabled }: { id: strin
       return;
     }
     if (atual?.TemplateID === value) return;
-    void getItemPorTemplateId(value).then((item) => {
+    const hit = special?.find((o) => Number(o.value) === value);
+    if (hit) {
+      setAtual({ TemplateID: value, Name: text(hit.label) });
+      return;
+    }
+    void getItemCached(value).then((item) => {
       if (vivo) setAtual(item);
     });
     return () => {
@@ -127,17 +262,6 @@ function ItemPickerInput({ id, value, onChange, invalid, disabled }: { id: strin
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
-
-  useEffect(() => {
-    if (!aberto) return;
-    const timer = setTimeout(() => {
-      setCarregando(true);
-      void searchItensPorNome(busca)
-        .then(setLista)
-        .finally(() => setCarregando(false));
-    }, 250);
-    return () => clearTimeout(timer);
-  }, [busca, aberto]);
 
   const escolher = (item: ItemResumo) => {
     setAtual(item);
@@ -147,18 +271,16 @@ function ItemPickerInput({ id, value, onChange, invalid, disabled }: { id: strin
 
   return (
     <>
-      <div
-        className={cn(
-          "flex min-h-10 items-center gap-2 rounded-xl border-2 border-line bg-night-deep/60 px-2 py-1.5",
-          invalid && "border-coral",
-        )}
-      >
+      <div className={cn("flex min-h-10 items-center gap-2 rounded-xl border-2 border-line bg-night-deep/60 px-2 py-1.5", invalid && "border-coral")}>
         <div className="min-w-0 flex-1">
           {atual ? (
-            <>
-              <p className="truncate text-sm text-ink">{atual.Name}</p>
-              <p className="truncate font-mono text-xs text-muted">{formataAtributosItem(atual)}</p>
-            </>
+            <div className="flex items-center gap-2">
+              <ItemIcon item={atual} className="size-10" />
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm text-ink">{atual.Name}</p>
+                <p className="truncate font-mono text-xs text-muted">{formataAtributosItem(atual)}</p>
+              </div>
+            </div>
           ) : (
             <span className="text-sm text-muted/60">{value ? `#${value} (não encontrado)` : "Buscar item por nome…"}</span>
           )}
@@ -181,41 +303,125 @@ function ItemPickerInput({ id, value, onChange, invalid, disabled }: { id: strin
           <Search /> Buscar
         </Button>
       </div>
-      <Dialog open={aberto} onOpenChange={setAberto}>
-        <DialogContent title="Selecionar item" description="Busque por nome e escolha na lista.">
-          <Input
-            id={`${id}-busca`}
-            value={busca}
-            onChange={(e) => setBusca(e.target.value)}
-            placeholder="Ex.: Bazuca…"
-            autoFocus
-          />
-          <div className="mt-3 flex max-h-72 flex-col gap-1 overflow-y-auto">
-            {carregando ? (
-              <div className="grid place-items-center py-8">
-                <Spinner className="size-6" />
-              </div>
-            ) : lista.length === 0 ? (
-              <p className="py-8 text-center text-sm text-muted">
-                {busca.trim() ? "Nenhum item encontrado." : "Digite o nome do item."}
-              </p>
-            ) : (
-              lista.map((item) => (
-                <button
-                  key={item.TemplateID}
-                  type="button"
-                  onClick={() => escolher(item)}
-                  className="rounded-xl border-2 border-line bg-night-deep/60 px-3 py-2 text-left hover:border-sun"
-                >
-                  <span className="block truncate text-sm text-ink">{item.Name}</span>
-                  <span className="block truncate font-mono text-xs text-muted">{formataAtributosItem(item)}</span>
-                </button>
-              ))
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
+      <ItemSearchDialog id={id} open={aberto} onOpenChange={setAberto} onPick={escolher} categoryIds={categoryIds} special={special} />
     </>
+  );
+}
+
+/**
+ * Picker de vários itens (ex. equipamentos de um bot): chips com ícone+nome, "+" abre o mesmo popup de busca.
+ * Como lê esse código (cada variável):
+ * - `value`: lista de `TemplateID`s salvos; `itens`: resumos resolvidos (cache) p/ exibir os chips.
+ * - `aberto`: popup de busca aberto; `adicionar`/`remover`: mutam `value` via `onChange`.
+ */
+function ItemMultiPickerInput({
+  id,
+  value,
+  onChange,
+  disabled,
+  categoryIds,
+}: {
+  id: string;
+  value: number[];
+  onChange: (v: unknown) => void;
+  disabled?: boolean;
+  categoryIds?: number[];
+}) {
+  const [aberto, setAberto] = useState(false);
+  const [itens, setItens] = useState<Record<number, ItemResumo | null>>({});
+
+  useEffect(() => {
+    let vivo = true;
+    void Promise.all(value.map(async (tid) => [tid, await getItemCached(tid)] as const)).then((pares) => {
+      if (vivo) setItens(Object.fromEntries(pares));
+    });
+    return () => {
+      vivo = false;
+    };
+  }, [value]);
+
+  const adicionar = (item: ItemResumo) => {
+    if (!value.includes(item.TemplateID)) onChange([...value, item.TemplateID]);
+    setAberto(false);
+  };
+  const remover = (tid: number) => onChange(value.filter((v) => v !== tid));
+
+  return (
+    <>
+      <div id={id} className="flex min-h-10 flex-wrap items-center gap-1.5 rounded-xl border-2 border-line bg-night-deep/60 px-2 py-1.5">
+        {value.map((tid) => {
+          const item = itens[tid];
+          return (
+            <span key={tid} className="inline-flex items-center gap-1.5 rounded-lg bg-panel-2 px-2 py-1">
+              {item ? <ItemIcon item={item} className="size-6" /> : <span className="font-mono text-xs text-muted">#{tid}</span>}
+              <span className="max-w-32 truncate text-xs">{item?.Name ?? `#${tid}`}</span>
+              <button type="button" aria-label={`Remover item ${tid}`} disabled={disabled} onClick={() => remover(tid)}>
+                <X className="size-3" />
+              </button>
+            </span>
+          );
+        })}
+        <Button type="button" variant="secondary" size="sm" disabled={disabled} onClick={() => setAberto(true)}>
+          <Plus /> Adicionar
+        </Button>
+      </div>
+      <ItemSearchDialog id={id} open={aberto} onOpenChange={setAberto} onPick={adicionar} categoryIds={categoryIds} />
+    </>
+  );
+}
+
+/**
+ * Lista de itens anexados a uma carta (correio): linha = item-picker + quantidade + validade, até 5 (limite do
+ * servidor, `sendMail`/`give-item`). Guarda `{ templateId, count, validDays }[]`.
+ * Como lê esse código (cada variável):
+ * - `value`: linhas atuais; `atualizar(i, patch)`: mescla campos da linha `i`; `remover(i)`: tira a linha.
+ */
+function MailItemsInput({ id, value, onChange, disabled }: { id: string; value: { templateId?: number; count?: number; validDays?: number }[]; onChange: (v: unknown) => void; disabled?: boolean }) {
+  const atualizar = (i: number, patch: Record<string, unknown>) => onChange(value.map((row, idx) => (idx === i ? { ...row, ...patch } : row)));
+  const remover = (i: number) => onChange(value.filter((_, idx) => idx !== i));
+  const adicionarLinha = () => onChange([...value, { templateId: undefined, count: 1, validDays: 0 }]);
+
+  return (
+    <div id={id} className="flex flex-col gap-2">
+      {value.map((row, i) => (
+        <div key={i} className="flex flex-wrap items-center gap-2 rounded-xl border-2 border-line bg-night-deep/40 p-2">
+          <div className="min-w-56 flex-1">
+            <ItemPickerInput
+              id={`${id}-${i}`}
+              value={typeof row.templateId === "number" ? row.templateId : null}
+              onChange={(v) => atualizar(i, { templateId: v })}
+              disabled={disabled}
+            />
+          </div>
+          <Input
+            type="number"
+            min={1}
+            value={row.count ?? 1}
+            onChange={(e) => atualizar(i, { count: e.target.valueAsNumber || 1 })}
+            className="w-20 font-mono"
+            aria-label="Quantidade"
+            disabled={disabled}
+          />
+          <Input
+            type="number"
+            min={0}
+            value={row.validDays ?? 0}
+            onChange={(e) => atualizar(i, { validDays: e.target.valueAsNumber || 0 })}
+            className="w-24 font-mono"
+            aria-label="Validade (dias)"
+            disabled={disabled}
+          />
+          <button type="button" aria-label="Remover item" disabled={disabled} onClick={() => remover(i)} className="rounded-lg p-1.5 text-muted hover:bg-panel-2 hover:text-ink">
+            <X className="size-4" />
+          </button>
+        </div>
+      ))}
+      {value.length < 5 && (
+        <Button type="button" variant="secondary" size="sm" disabled={disabled} onClick={adicionarLinha}>
+          <Plus /> Adicionar item (máx. 5)
+        </Button>
+      )}
+    </div>
   );
 }
 
@@ -226,7 +432,15 @@ export function FieldInput({ field: f, id, value, onChange, onBlur, invalid, mod
 
   if ((f.type as string) === "item-picker") {
     const templateId = typeof value === "number" && Number.isFinite(value) ? value : null;
-    return <ItemPickerInput id={id} value={templateId} onChange={onChange} invalid={invalid} disabled={f.readOnly} />;
+    return <ItemPickerInput id={id} value={templateId} onChange={onChange} invalid={invalid} disabled={f.readOnly} categoryIds={f.pickerCategory} special={f.pickerSpecial} />;
+  }
+  if ((f.type as string) === "item-picker-multi") {
+    const ids = Array.isArray(value) ? (value as unknown[]).map(Number).filter(Number.isFinite) : [];
+    return <ItemMultiPickerInput id={id} value={ids} onChange={onChange} disabled={f.readOnly} categoryIds={f.pickerCategory} />;
+  }
+  if ((f.type as string) === "item-list") {
+    const rows = Array.isArray(value) ? (value as { templateId?: number; count?: number; validDays?: number }[]) : [];
+    return <MailItemsInput id={id} value={rows} onChange={onChange} disabled={f.readOnly} />;
   }
 
   switch (f.type) {

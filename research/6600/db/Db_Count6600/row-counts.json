@@ -1,0 +1,274 @@
+[
+ {
+  "table": "address",
+  "rows": 0
+ },
+ {
+  "table": "Agent_Charge",
+  "rows": 0
+ },
+ {
+  "table": "Count_ActiveCode",
+  "rows": 0
+ },
+ {
+  "table": "Count_Application",
+  "rows": 0
+ },
+ {
+  "table": "Count_Application_Line",
+  "rows": 0
+ },
+ {
+  "table": "Count_Application_Server",
+  "rows": 0
+ },
+ {
+  "table": "Count_Application_Sub",
+  "rows": 0
+ },
+ {
+  "table": "Count_ChargeRecord",
+  "rows": 0
+ },
+ {
+  "table": "Count_Code",
+  "rows": 0
+ },
+ {
+  "table": "Count_Config",
+  "rows": 0
+ },
+ {
+  "table": "Count_Content",
+  "rows": 0
+ },
+ {
+  "table": "Count_FightInfo",
+  "rows": 0
+ },
+ {
+  "table": "Count_HallofFame",
+  "rows": 0
+ },
+ {
+  "table": "Count_ItemContributionLog",
+  "rows": 0
+ },
+ {
+  "table": "Count_ItemDataLog",
+  "rows": 0
+ },
+ {
+  "table": "Count_ItemGiftTicketLog",
+  "rows": 0
+ },
+ {
+  "table": "Count_ItemGoldLog",
+  "rows": 0
+ },
+ {
+  "table": "Count_ItemInfo",
+  "rows": 0
+ },
+ {
+  "table": "Count_ItemMedalLog",
+  "rows": 0
+ },
+ {
+  "table": "Count_ItemMoneyLog",
+  "rows": 0
+ },
+ {
+  "table": "Count_Job",
+  "rows": 0
+ },
+ {
+  "table": "Count_JobRecord",
+  "rows": 0
+ },
+ {
+  "table": "Count_Login",
+  "rows": 0
+ },
+ {
+  "table": "Count_Money",
+  "rows": 0
+ },
+ {
+  "table": "Count_Money_C",
+  "rows": 0
+ },
+ {
+  "table": "Count_MoneyCount",
+  "rows": 0
+ },
+ {
+  "table": "Count_OnlineInfo",
+  "rows": 0
+ },
+ {
+  "table": "Count_OpHistory",
+  "rows": 0
+ },
+ {
+  "table": "Count_PaymentInfo",
+  "rows": 0
+ },
+ {
+  "table": "Count_RegAndLog_Site",
+  "rows": 0
+ },
+ {
+  "table": "Count_Register",
+  "rows": 0
+ },
+ {
+  "table": "Count_Shop",
+  "rows": 0
+ },
+ {
+  "table": "Count_Site",
+  "rows": 1
+ },
+ {
+  "table": "Count_StoneStock",
+  "rows": 0
+ },
+ {
+  "table": "Count_SystemPay",
+  "rows": 0
+ },
+ {
+  "table": "Count_UserConsumeLog",
+  "rows": 0
+ },
+ {
+  "table": "Count_UserLoginLog",
+  "rows": 0
+ },
+ {
+  "table": "Count_UserNameStop",
+  "rows": 0
+ },
+ {
+  "table": "Count_UserPointLog",
+  "rows": 0
+ },
+ {
+  "table": "Count_UserSite",
+  "rows": 8
+ },
+ {
+  "table": "Count_UserStopHistory",
+  "rows": 0
+ },
+ {
+  "table": "Count_UserStopHistory_B",
+  "rows": 0
+ },
+ {
+  "table": "Count_Way",
+  "rows": 0
+ },
+ {
+  "table": "Ddt_Send",
+  "rows": 0
+ },
+ {
+  "table": "Ddt_SendDetail",
+  "rows": 0
+ },
+ {
+  "table": "Ddtc_Shop_Goods",
+  "rows": 0
+ },
+ {
+  "table": "Ddtc_Users_Detail",
+  "rows": 0
+ },
+ {
+  "table": "Log_CollectDay",
+  "rows": 0
+ },
+ {
+  "table": "Log_CollectMinute",
+  "rows": 0
+ },
+ {
+  "table": "Log_Fight",
+  "rows": 2897
+ },
+ {
+  "table": "Log_Item",
+  "rows": 2896
+ },
+ {
+  "table": "Log_Money",
+  "rows": 0
+ },
+ {
+  "table": "Log_PayMent",
+  "rows": 0
+ },
+ {
+  "table": "Log_Server",
+  "rows": 0
+ },
+ {
+  "table": "Log_Shop",
+  "rows": 0
+ },
+ {
+  "table": "Log_UserDay",
+  "rows": 0
+ },
+ {
+  "table": "Log_UserInfo",
+  "rows": 0
+ },
+ {
+  "table": "Log_UserLoginLog",
+  "rows": 0
+ },
+ {
+  "table": "Log_Wealth",
+  "rows": 0
+ },
+ {
+  "table": "Notice",
+  "rows": 0
+ },
+ {
+  "table": "Record_Level",
+  "rows": 0
+ },
+ {
+  "table": "Record_Sort",
+  "rows": 0
+ },
+ {
+  "table": "Record_Strengthen",
+  "rows": 0
+ },
+ {
+  "table": "ServerInfo",
+  "rows": 0
+ },
+ {
+  "table": "sysdiagrams",
+  "rows": 0
+ },
+ {
+  "table": "Temp_Goods",
+  "rows": 0
+ },
+ {
+  "table": "testa",
+  "rows": 0
+ },
+ {
+  "table": "Vindicate",
+  "rows": 0
+ }
+]

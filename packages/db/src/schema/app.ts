@@ -213,3 +213,91 @@ export const InviteFriends = appSchema.table(
   },
   (t) => [index("InviteFriends_user_idx").on(t.UserID)],
 );
+
+/**
+ * app."LightRoadProgress" — "Caminho da Luz" (145 ACTIVITY_SYSTEM sub 64-66, `LightRoadPackageType`).
+ * Design novo (sem fonte C#, ver `research/qa/feature-designs.md`): tabuleiro semanal por jogador —
+ * `Bits` é o bitmask de espaços já revelados na semana (`Week` = `weekKey()`, segunda-feira UTC),
+ * `PicksToday`/`DayKey` limitam tentativas pagas por dia dentro da semana.
+ */
+export const LightRoadProgress = appSchema.table(
+  "LightRoadProgress",
+  {
+    UserID: integer("UserID").notNull(),
+    Week: varchar("Week", { length: 10 }).notNull(),
+    Bits: integer("Bits").notNull().default(0),
+    PicksToday: integer("PicksToday").notNull().default(0),
+    DayKey: varchar("DayKey", { length: 10 }).notNull().default(""),
+  },
+  (t) => [primaryKey({ name: "LightRoadProgress_pkey", columns: [t.UserID, t.Week] })],
+);
+
+/**
+ * app."GuildMemberWeekContribution" — "Semana da Sociedade" (145 ACTIVITY_SYSTEM sub 7-13,
+ * `GuildMemberWeekPackageType`). Design novo (sem fonte C#, ver `research/qa/feature-designs.md`):
+ * total de Moedas doado por membro na semana (`Week` = `weekKey()`), usado pro ranking/top10 e pro
+ * prêmio de fim de semana (`RewardedWeek` marca a última semana já premiada, evita prêmio em dobro).
+ */
+export const GuildMemberWeekContribution = appSchema.table(
+  "GuildMemberWeekContribution",
+  {
+    ConsortiaID: integer("ConsortiaID").notNull(),
+    UserID: integer("UserID").notNull(),
+    Week: varchar("Week", { length: 10 }).notNull(),
+    Total: integer("Total").notNull().default(0),
+    RewardedWeek: varchar("RewardedWeek", { length: 10 }).notNull().default(""),
+  },
+  (t) => [
+    primaryKey({ name: "GuildMemberWeekContribution_pkey", columns: [t.UserID, t.Week] }),
+    index("GMWC_guild_idx").on(t.ConsortiaID, t.Week),
+  ],
+);
+
+/**
+ * app."ConsortiaPollVotes" — Sociedade › votar candidato (129 CONSORTIA_CMD sub 25 POLL_CANDIDATE).
+ * Design novo (sem fonte C#, ver `research/qa/feature-designs.md`): 1 voto por membro por semana
+ * (`Week` = `weekKey()`), pode trocar o voto durante a semana (upsert por `VoterID`).
+ */
+export const ConsortiaPollVotes = appSchema.table(
+  "ConsortiaPollVotes",
+  {
+    ConsortiaID: integer("ConsortiaID").notNull(),
+    Week: varchar("Week", { length: 10 }).notNull(),
+    VoterID: integer("VoterID").notNull(),
+    TargetID: integer("TargetID").notNull(),
+    UpdatedAt: ts("UpdatedAt").notNull().defaultNow(),
+  },
+  (t) => [primaryKey({ name: "ConsortiaPollVotes_pkey", columns: [t.ConsortiaID, t.Week, t.VoterID] })],
+);
+
+/**
+ * app."SpiritInfo" — tabela de template pra Forja › Forno › "Espírito do equipamento" (391 EQUIP_GHOST).
+ * Não existe no catálogo original (`SpiritInfo`/`SpiritMgr` nunca foram implementados no servidor C# base
+ * deste projeto — ver `research/qa/feature-sources.md`); porte 1:1 dos dados reais de
+ * `barrydevp/ddt3.8` (`Tank.Request/spiritinfolist.xml`, decodificado nesta sessão — zlib inflate do
+ * XML comprimido do fork, mesmo formato de `apps/api/src/lib/flash-xml.ts:zlibXml`), servido ao cliente em
+ * `apps/api/src/templates/defs.ts` (`SpiritInfoList.xml`) e lido pelo jogo em `apps/game/src/db/templates.ts`.
+ * Chave de busca: `(CategoryId, Level)` — 3 categorias (1 arma, 5 chapéu, 7 roupa) × 10 níveis.
+ * NOTA (correção nesta sessão): a irmã `SetsBuildTemp` (295 STORE_FINE_SUIT) NÃO precisou de tabela nova
+ * — já existe no catálogo original como `game."Sets_Build_Temp"` (`packages/db/src/schema/game.ts`,
+ * 70 linhas reais no `.bak`, seed em `packages/db/seed/game/Sets_Build_Temp.json.gz`), só nunca tinha sido
+ * carregada pelo `apps/game` nem ligada a um handler — ver `apps/game/src/db/templates.ts:loadForge`.
+ */
+export const SpiritInfo = appSchema.table(
+  "SpiritInfo",
+  {
+    Level: integer("Level").notNull(),
+    MustGetTimes: integer("MustGetTimes").notNull().default(0),
+    BaseSuccessPro: integer("BaseSuccessPro").notNull().default(0),
+    RefrenceValue: integer("RefrenceValue").notNull().default(0),
+    SkillId: integer("SkillId").notNull().default(0),
+    AttackAdd: integer("AttackAdd").notNull().default(0),
+    LuckAdd: integer("LuckAdd").notNull().default(0),
+    DefendAdd: integer("DefendAdd").notNull().default(0),
+    AgilityAdd: integer("AgilityAdd").notNull().default(0),
+    BagType: integer("BagType").notNull().default(0),
+    BagPlace: integer("BagPlace").notNull().default(0),
+    CategoryId: integer("CategoryId").notNull(),
+  },
+  (t) => [primaryKey({ name: "SpiritInfo_pkey", columns: [t.CategoryId, t.Level] })],
+);

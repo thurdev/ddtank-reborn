@@ -17,6 +17,8 @@ const isEmpty = (v: unknown) => v === undefined || v === null || v === "" || (ty
 function fieldSchema(f: FieldDef, mode: FormMode, t: Tr, text: TextFn): z.ZodType {
   const req = f.required && !f.readOnly;
   switch (f.type) {
+    // Item picker guarda o TemplateID (número); sem este case caía no default z.string() ("expected string, received number").
+    case "item-picker":
     case "number": {
       let n = z.number({ error: t("field.number") });
       if (f.int !== false) n = n.int(t("field.int"));
@@ -46,6 +48,18 @@ function fieldSchema(f: FieldDef, mode: FormMode, t: Tr, text: TextFn): z.ZodTyp
       const arr = z.array(z.string());
       return req ? arr.min(1, t("field.required")) : arr;
     }
+    case "item-picker-multi": {
+      const arr = z.array(z.number().int());
+      return req ? arr.min(1, t("field.required")) : arr;
+    }
+    case "item-list":
+      return z.array(
+        z.object({
+          templateId: z.preprocess((v) => (v === undefined ? null : v), z.number({ error: t("field.number") }).int().nullable()),
+          count: z.number().int().min(1).default(1),
+          validDays: z.number().int().min(0).default(0),
+        }),
+      );
     case "json":
       return z.string().refine(
         (s) => {
@@ -107,8 +121,11 @@ export function defaultFor(f: FieldDef): unknown {
     case "boolean":
       return false;
     case "tags":
+    case "item-picker-multi":
+    case "item-list":
       return [];
     case "number":
+    case "item-picker":
       return null;
     case "select":
       return f.required ? (f.options?.[0]?.value ?? null) : null;

@@ -174,7 +174,7 @@ export function GameFrame({ rufflePath, swfUrl, flashvars, socketProxy, base, cl
   }, [phase]);
 
   return (
-    <div className={cn("relative h-full w-full overflow-hidden bg-night-deep", className)}>
+    <div className={cn("relative h-full w-full overflow-hidden bg-night-deep border-radius-[8px]", className)}>
       <div ref={hostRef} className="absolute inset-0" />
 
       {phase !== "ready" && (

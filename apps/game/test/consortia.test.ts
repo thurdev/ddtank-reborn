@@ -6,7 +6,7 @@ import {
   DEFAULT_DUTIES, Right, bankCapacity, buffTypeForGroup, canBuyGuildShop, checkCreate, checkRemoveMember, defaultByteCount, donationRiches, dutyMove, fightRewards, gradeChange,
   hasRight, kickBudget, missionRiches, skillCost, smithBonusLevel, upgrade, upgradeMsg, upgradeNoticeKey, userRemarkAllowed, type LevelRow,
 } from "../src/game/consortia.js";
-import { loggedIn, sharedDb, startServer } from "./helpers.js";
+import { loggedIn, sharedDb, sleep, startServer } from "./helpers.js";
 
 // player."Consortia_Level" as shipped (Project_Player34)
 const LEVELS: LevelRow[] = [
@@ -203,6 +203,16 @@ describe("129 CONSORTIA_CMD (end to end)", () => {
     const [c1] = await db.select().from(player.Consortia).where(eq(player.Consortia.ConsortiaID, cid));
     expect(c1!.Riches).toBe(1000);
 
+    // 23 DONATE: vendor/DDTank41/Game.Server/Consortia/Handle/Donate.cs não tinha lógica real no original.
+    // Design novo (sociedade/banco-riqueza.ts `donate`): só reage a itemType===11408 (Medalha, o único tipo
+    // que o cliente manda via `DonateFrame.sendDonate(EquipType.MEDAL, amount)`) — qualquer outro tipo (como
+    // 11019 aqui) é lido (pra não desalinhar o stream) e ignorado, igual ao `Console.WriteLine` original.
+    // Ver bloco "23 DONATE (Medalha real)" mais abaixo pro caminho que de fato doa.
+    const moneyBeforeDonate = b.player().info.Money;
+    b.c.out(129, (o) => { o.writeInt(23); o.writeInt(11019); o.writeInt(5); });
+    await sleep(100);
+    expect(b.player().info.Money).toBe(moneyBeforeDonate);
+
     // chairman cannot leave; kicking b works and clears his guild fields
     a.c.out(129, (o) => { o.writeInt(3); o.writeInt(a.ch.userId); });
     const leave = await a.c.code(129, 3);
@@ -225,5 +235,121 @@ describe("129 CONSORTIA_CMD (end to end)", () => {
     expect(a.player().info.ConsortiaID).toBe(0);
     const [c2] = await db.select().from(player.Consortia).where(eq(player.Consortia.ConsortiaID, cid));
     expect(c2!.IsExist).toBe(false);
+  });
+});
+
+/** Cria um clã com `a` (presidente) e põe `b` como membro — atalho repetido pelos testes abaixo. */
+async function createGuildWithMember(server: GameServer) {
+  const a = await loggedIn(server, { gold: 150000, money: 2000 });
+  const b = await loggedIn(server, { gold: 0, money: 3000 });
+  const name = `G${Date.now() % 1e6}${Math.floor(Math.random() * 1000)}`;
+  a.c.out(129, (o) => { o.writeInt(1); o.writeUTF(name); });
+  const cr = await a.c.code(129, 1);
+  cr.pkt.readByte(); cr.pkt.readString(); cr.pkt.readBoolean();
+  const cid = cr.pkt.readInt();
+  b.c.out(129, (o) => { o.writeInt(0); o.writeInt(cid); });
+  const ap = await b.c.code(129, 0);
+  ap.pkt.readByte(); ap.pkt.readInt(); ap.pkt.readBoolean();
+  const db = (await sharedDb()).db;
+  const [apply] = await db.select().from(player.Consortia_Apply_Users).where(eq(player.Consortia_Apply_Users.UserID, b.ch.userId));
+  const mark = b.c.mark();
+  a.c.out(129, (o) => { o.writeInt(4); o.writeInt(apply!.ID); });
+  await a.c.code(129, 4);
+  await b.c.code(128, 1, mark);
+  return { a, b, cid };
+}
+
+describe("23 DONATE (Medalha real, design próprio)", () => {
+  let server: GameServer;
+  beforeAll(async () => { server = await startServer(); });
+  afterAll(async () => { await server.stop(); });
+
+  it("doa Medalha (11408) pro clã: remove da bolsa, não quebra sem missão ativa", async () => {
+    const { a } = await createGuildWithMember(server);
+    const pl = a.player();
+    const medalT = server.ctx.templates.findItem(11408)!;
+    const { ItemInfo } = await import("../src/game/item.js");
+    const medal = ItemInfo.createFromTemplate(medalT, 10, 101);
+    pl.propBag.addItemTo(medal, 2);
+    expect(pl.getTemplateCount(11408, server.ctx.templates.findItem)).toBe(10);
+    a.c.out(129, (o) => { o.writeInt(23); o.writeInt(11408); o.writeInt(4); });
+    await sleep(100);
+    expect(pl.getTemplateCount(11408, server.ctx.templates.findItem)).toBe(6);
+  });
+
+  it("sem Medalha suficiente: não doa nada", async () => {
+    const { a } = await createGuildWithMember(server);
+    const pl = a.player();
+    expect(pl.getTemplateCount(11408, server.ctx.templates.findItem)).toBe(0);
+    a.c.out(129, (o) => { o.writeInt(23); o.writeInt(11408); o.writeInt(5); });
+    await sleep(100);
+    expect(pl.getTemplateCount(11408, server.ctx.templates.findItem)).toBe(0);
+  });
+});
+
+describe("25 POLL_CANDIDATE (votar candidato, design próprio)", () => {
+  let server: GameServer;
+  beforeAll(async () => { server = await startServer(); });
+  afterAll(async () => { await server.stop(); });
+
+  it("vota no colega do clã, troca o voto, apura no fim de semana", async () => {
+    const { a, b, cid } = await createGuildWithMember(server);
+    a.c.out(129, (o) => { o.writeInt(25); o.writeInt(b.ch.userId); });
+    const r1 = await a.c.code(129, 25);
+    r1.pkt.readByte();
+    expect(r1.pkt.readBoolean()).toBe(true);
+
+    // não pode votar em si mesmo
+    const mark = a.c.mark();
+    a.c.out(129, (o) => { o.writeInt(25); o.writeInt(a.ch.userId); });
+    const r2 = await a.c.code(129, 25, mark);
+    r2.pkt.readByte();
+    expect(r2.pkt.readBoolean()).toBe(false);
+
+    const { settlePollWeek } = await import("../src/handlers/sociedade/votacao.js");
+    const { weekKey } = await import("../src/game/events.js");
+    const markB = b.c.mark();
+    await settlePollWeek(server.ctx, weekKey(server.ctx.now()));
+    const chat = await b.c.code(129, 20, markB);
+    chat.pkt.readByte();
+    expect(chat.pkt.readByte()).toBe(3);
+    void cid;
+  });
+});
+
+describe("145 ACTIVITY_SYSTEM sub 7-13 (Semana da Sociedade, design próprio)", () => {
+  let server: GameServer;
+  beforeAll(async () => { server = await startServer(); });
+  afterAll(async () => { await server.stop(); });
+
+  it("entra na janela, doa pro livro de pontos, ranking atualiza", async () => {
+    const { a } = await createGuildWithMember(server);
+    a.c.out(145, (o) => { o.writeByte(8); });
+    const top10 = await a.c.code(145, 8);
+    top10.pkt.readByte(); top10.pkt.readString();
+    expect(top10.pkt.readInt()).toBe(0); // ninguém doou ainda essa semana
+
+    const pl = a.player();
+    const moneyBefore = pl.info.Money;
+    const mark = a.c.mark();
+    a.c.out(145, (o) => { o.writeByte(10); o.writeInt(10); for (let i = 0; i < 10; i++) o.writeInt(i === 0 ? 50 : 0); });
+    await a.c.code(145, 10, mark); // ADDPOINTBOOKRECORD (log pro clã)
+    expect(pl.info.Money).toBe(moneyBefore - 50);
+
+    const mark2 = a.c.mark();
+    a.c.out(145, (o) => { o.writeByte(8); });
+    const top10b = await a.c.code(145, 8, mark2);
+    top10b.pkt.readByte(); top10b.pkt.readString();
+    expect(top10b.pkt.readInt()).toBe(1);
+    expect(top10b.pkt.readInt()).toBe(a.ch.userId);
+  });
+
+  it("doação com slot entre 1 e 9 é rejeitada (só 0 ou >=10 por slot)", async () => {
+    const { a } = await createGuildWithMember(server);
+    const pl = a.player();
+    const moneyBefore = pl.info.Money;
+    a.c.out(145, (o) => { o.writeByte(10); o.writeInt(10); o.writeInt(5); for (let i = 1; i < 10; i++) o.writeInt(0); });
+    await sleep(100);
+    expect(pl.info.Money).toBe(moneyBefore);
   });
 });

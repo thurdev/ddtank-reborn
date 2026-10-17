@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type { GameServer } from "../src/server.js";
-import { hotSpringMgr, sanitizePath } from "../src/handlers/hotspring.js";
+import { hotSpringMgr, sanitizePath } from "../src/handlers/termas/index.js";
 import { sql } from "drizzle-orm";
 import { loggedIn, sharedDb, startServer } from "./helpers.js";
 

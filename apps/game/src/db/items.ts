@@ -29,10 +29,20 @@ export async function loadEquippedItems(db: Database, userId: number, findTempla
   return (all.get(0) ?? []).filter((i) => i.Place >= 0 && i.Place < 31);
 }
 
+/** PlayerBussiness.GetUserItemSingle: one item row by its raw ItemID, any owner (119 LINKREQUEST_GOODS "compare item" link in chat). */
+export async function loadItemById(db: Database, itemId: number, findTemplate: (id: number) => ItemTemplate | undefined): Promise<ItemInfo | null> {
+  const rows = (await db.select().from(G).where(eq(G.ItemID, itemId)).limit(1)) as GoodsRow[];
+  const r = rows[0];
+  if (!r) return null;
+  const t = findTemplate(r.TemplateID);
+  return t ? ItemInfo.fromRow(r, t) : null;
+}
+
 /** AddGoods / UpdateGoods. Inserts set item.ItemID. */
 export async function saveItem(db: Database, item: ItemInfo): Promise<void> {
   const { ItemID: _id, ...row } = item.toRow();
   if (item.ItemID > 0) await db.update(G).set(row).where(eq(G.ItemID, item.ItemID));
   else item.ItemID = (await db.insert(G).values(row).returning({ ItemID: G.ItemID }))[0]!.ItemID;
-  item.isDirty = false;
+  const { ItemID: _savedId, ...current } = item.toRow();
+  item.isDirty = JSON.stringify(current) !== JSON.stringify(row);
 }

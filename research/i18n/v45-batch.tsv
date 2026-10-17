@@ -1,0 +1,122 @@
+id	category	input_path	hasAlpha	notes
+wonderfulactivity__11_wonderfulactivity.luck.backgroud	03-janelas	remaster/03-janelas/inputs/wonderfulactivity__11_wonderfulactivity.luck.backgroud.jpg	no	(prompt ja existia de sessao anterior)
+awardsystem__232	04-botoes-titulos	remaster/04-botoes-titulos/inputs/awardsystem__232.png	yes	Tang qua
+awardsystem1__133	04-botoes-titulos	remaster/04-botoes-titulos/inputs/awardsystem1__133.png	yes	Tang qua
+chickactivation__11_assets.chickActivation.priceBitmap	04-botoes-titulos	remaster/04-botoes-titulos/inputs/chickactivation__11_assets.chickActivation.priceBitmap.png	yes	Gia tri:
+chickactivation__5_assets.chickActivation.selectWeekly	04-botoes-titulos	remaster/04-botoes-titulos/inputs/chickactivation__5_assets.chickActivation.selectWeekly.png	yes	Thuong hang tuan
+chickactivation__7_assets.chickActivation.selectEveryDay	04-botoes-titulos	remaster/04-botoes-titulos/inputs/chickactivation__7_assets.chickActivation.selectEveryDay.png	yes	Thuong hang ngay
+chickactivation__9_assets.chickActivation.receiveBtn	04-botoes-titulos	remaster/04-botoes-titulos/inputs/chickactivation__9_assets.chickActivation.receiveBtn.png	yes	Nhan
+guildmemberweek__11_asset.guildmemberweek.Main.AddPointBookText.png	04-botoes-titulos	remaster/04-botoes-titulos/inputs/guildmemberweek__11_asset.guildmemberweek.Main.AddPointBookText.png.png	yes	Thuong
+luckstar__11_luckyStar.view.AwardBtnBG	04-botoes-titulos	remaster/04-botoes-titulos/inputs/luckstar__11_luckyStar.view.AwardBtnBG.png	yes	Qua Xep Hang
+newchickenbox__3_asset.newChickenBox.eagleEyeBtnFree	05-icones	remaster/05-icones/inputs/newchickenbox__3_asset.newChickenBox.eagleEyeBtnFree.png	yes	M.Phi X.thau (abbreviation of Mien Phi Xuyen Thau, under eagle icon)
+newchickenbox__8_asset.newChickenBox.openCardBtn	05-icones	remaster/05-icones/inputs/newchickenbox__8_asset.newChickenBox.openCardBtn.png	yes	Lat bai
+newchickenbox1__3_asset.newChickenBox.eagleEyeBtnFree	05-icones	remaster/05-icones/inputs/newchickenbox1__3_asset.newChickenBox.eagleEyeBtnFree.png	yes	free X-ray label in Chinese characters under eagle icon, same meaning as Mien Ph
+totem__18_asset.totem.honorUpIcon.btn	05-icones	remaster/05-icones/inputs/totem__18_asset.totem.honorUpIcon.btn.png	yes	Vinh du
+totem__2_asset.totem.rightView.bg	03-janelas	remaster/03-janelas/inputs/totem__2_asset.totem.rightView.bg.png	yes	Vat To (window title at top)
+weekly__21_asset.weekly.DailyBtn	04-botoes-titulos	remaster/04-botoes-titulos/inputs/weekly__21_asset.weekly.DailyBtn.png	yes	Nhan moi ngay
+weekly__25_asset.weekly.DailyGoodInfo	04-botoes-titulos	remaster/04-botoes-titulos/inputs/weekly__25_asset.weekly.DailyGoodInfo.png	yes	The x2 EXP *60 phut
+wonderfulactivity__114_asset.wonderful.ActivityState.GetButtonBg	04-botoes-titulos	remaster/04-botoes-titulos/inputs/wonderfulactivity__114_asset.wonderful.ActivityState.GetButtonBg.png	yes	Nhan thuong
+wonderfulactivity__132	04-botoes-titulos	remaster/04-botoes-titulos/inputs/wonderfulactivity__132.png	yes	Gio Event
+wonderfulactivity__135	04-botoes-titulos	remaster/04-botoes-titulos/inputs/wonderfulactivity__135.png	yes	Gio Event
+wonderfulactivity__16_wonderfulactivity.conRank.bg	03-janelas	remaster/03-janelas/inputs/wonderfulactivity__16_wonderfulactivity.conRank.bg.jpg	no	Dua top tieu phi. Nhan qua tha ga (title banner at top) | Tieu phi top 10 nhan t
+wonderfulactivity__18_wonderful.accumulative.prizeBG	03-janelas	remaster/03-janelas/inputs/wonderfulactivity__18_wonderful.accumulative.prizeBG.png	yes	Mo qua nhan vat pham sau (title bar across the top)
+wonderfulactivity__26_wonderfulactivity.tuanjie.back	03-janelas	remaster/03-janelas/inputs/wonderfulactivity__26_wonderfulactivity.tuanjie.back.jpg	no	Doan Ket La Suc Manh (ribbon title at top) | Thoi gian : (icon label) | Mieu ta 
+wonderfulactivity__34_wonderfulactivity.gotoRecharge	04-botoes-titulos	remaster/04-botoes-titulos/inputs/wonderfulactivity__34_wonderfulactivity.gotoRecharge.png	yes	Nap
+wonderfulactivity__35_wonderfulactivity.rechargeTille3	04-botoes-titulos	remaster/04-botoes-titulos/inputs/wonderfulactivity__35_wonderfulactivity.rechargeTille3.png	yes	Den dap chien huu
+wonderfulactivity__3_carnicalAct.title4	04-botoes-titulos	remaster/04-botoes-titulos/inputs/wonderfulactivity__3_carnicalAct.title4.png	yes	Vua Chi Ton Moi
+wonderfulactivity__40_wonderful.accumulative.getPrize	04-botoes-titulos	remaster/04-botoes-titulos/inputs/wonderfulactivity__40_wonderful.accumulative.getPrize.png	yes	Nhan thuong
+wonderfulactivity__59_wonderfulactivity.limit	04-botoes-titulos	remaster/04-botoes-titulos/inputs/wonderfulactivity__59_wonderfulactivity.limit.png	yes	Thoi gian con :
+wonderfulactivity__60_carnicalAct.bg	03-janelas	remaster/03-janelas/inputs/wonderfulactivity__60_carnicalAct.bg.jpg	no	Yeu cau (table header column 1) | Nhan thuong (table header column 2) | Trang th
+wonderfulactivity__67_wonderfulactivity.rechargeTille2	04-botoes-titulos	remaster/04-botoes-titulos/inputs/wonderfulactivity__67_wonderfulactivity.rechargeTille2.png	yes	Shopping cuc da, lai duoc them qua
+wonderfulactivity__74_wonderful.sendGiftActivity.bg	03-janelas	remaster/03-janelas/inputs/wonderfulactivity__74_wonderful.sendGiftActivity.bg.png	yes	Tang qua (title at top)
+wonderfulactivity__78_wonderfulactivity.farme.btn	04-botoes-titulos	remaster/04-botoes-titulos/inputs/wonderfulactivity__78_wonderfulactivity.farme.btn.png	yes	Ruong Ga
+wonderfulactivity__83_wonderfulactivity.rechargeTille1	04-botoes-titulos	remaster/04-botoes-titulos/inputs/wonderfulactivity__83_wonderfulactivity.rechargeTille1.png	yes	Nap xu la co qua
+wonderfulactivity__87_wonderfulactivity.farme.backgroud	03-janelas	remaster/03-janelas/inputs/wonderfulactivity__87_wonderfulactivity.farme.backgroud.png	no	Dao kho bau nong trai, dau tu it loi nhieu! (two-line title at top) | Mo event: 
+core__183_asset.core.levelRewardGreenLevelTipAsset	04-botoes-titulos	remaster/04-botoes-titulos/inputs/core__183_asset.core.levelRewardGreenLevelTipAsset.png	yes	Cap tiep theo (green bold text, left side) | ban nhan duoc (black text, right si
+core__206_asset.core.levelRewardTitleAsset	04-botoes-titulos	remaster/04-botoes-titulos/inputs/core__206_asset.core.levelRewardTitleAsset.jpg	no	Gioi thieu phan thuong
+core__295	04-botoes-titulos	remaster/04-botoes-titulos/inputs/core__295.png	yes	Danh hieu
+core__66_asset.community.InviteBtn	04-botoes-titulos	remaster/04-botoes-titulos/inputs/core__66_asset.community.InviteBtn.png	yes	Ru choi
+core__77_asset.community.InviteBtnBlk	04-botoes-titulos	remaster/04-botoes-titulos/inputs/core__77_asset.community.InviteBtnBlk.png	yes	Ru choi
+core__84_asset.community.SendMsgBtn	04-botoes-titulos	remaster/04-botoes-titulos/inputs/core__84_asset.community.SendMsgBtn.png	yes	Nhan tin
+coreii__158	04-botoes-titulos	remaster/04-botoes-titulos/inputs/coreii__158.png	yes	Chuc mung ban thang cap roi!
+ddtstore__102_asset.ddtstore.embedTxt	04-botoes-titulos	remaster/04-botoes-titulos/inputs/ddtstore__102_asset.ddtstore.embedTxt.png	yes	Kham nam chau bau
+ddtstore__120_asset.ddtstore.ContinuousFusionBtn	04-botoes-titulos	remaster/04-botoes-titulos/inputs/ddtstore__120_asset.ddtstore.ContinuousFusionBtn.png	yes	Lien tuc
+ddtstore__121_asset.ddtstore.ComposeTitle	04-botoes-titulos	remaster/04-botoes-titulos/inputs/ddtstore__121_asset.ddtstore.ComposeTitle.png	yes	Hop thanh
+ddtstore__123_asset.ddtstore.ComposeTabBtnSelected	04-botoes-titulos	remaster/04-botoes-titulos/inputs/ddtstore__123_asset.ddtstore.ComposeTabBtnSelected.png	yes	Hop thanh (vertical tab text)
+ddtstore__125_asset.ddtstore.ComposeBtn	04-botoes-titulos	remaster/04-botoes-titulos/inputs/ddtstore__125_asset.ddtstore.ComposeBtn.png	yes	Hop thanh
+ddtstore__249	04-botoes-titulos	remaster/04-botoes-titulos/inputs/ddtstore__249.png	yes	Trang bi
+ddtstore__263	04-botoes-titulos	remaster/04-botoes-titulos/inputs/ddtstore__263.png	yes	Phu kien
+ddtstore__267	04-botoes-titulos	remaster/04-botoes-titulos/inputs/ddtstore__267.png	yes	Phu kien
+ddtstore__291	04-botoes-titulos	remaster/04-botoes-titulos/inputs/ddtstore__291.png	yes	Hop thanh
+ddtstore__36_asset.store.evolutionUnSelect	04-botoes-titulos	remaster/04-botoes-titulos/inputs/ddtstore__36_asset.store.evolutionUnSelect.png	yes	Tien hoa (vertical tab text)
+ddtstore__56_asset.newFusion.fusionBtn	04-botoes-titulos	remaster/04-botoes-titulos/inputs/ddtstore__56_asset.newFusion.fusionBtn.png	yes	Dung luyen
+ddtstore__7_asset.newStore.emblem.selectedBtn	04-botoes-titulos	remaster/04-botoes-titulos/inputs/ddtstore__7_asset.newStore.emblem.selectedBtn.png	yes	Phu Hieu
+store__2_asset.store.unFineBringUpBtn	04-botoes-titulos	remaster/04-botoes-titulos/inputs/store__2_asset.store.unFineBringUpBtn.png	yes	Boi Duong (vertical tab text)
+cardsystem__64	04-botoes-titulos	remaster/04-botoes-titulos/inputs/cardsystem__64.png	yes	Thuoc tinh moi
+farm__103_assets.petsBag.adoptTitle	04-botoes-titulos	remaster/04-botoes-titulos/inputs/farm__103_assets.petsBag.adoptTitle.png	yes	Nhan thu cung
+farm__104_assets.petsBag.adoptItem	04-botoes-titulos	remaster/04-botoes-titulos/inputs/farm__104_assets.petsBag.adoptItem.png	yes	Nhan
+farm__105_assets.petsBag.adopt1	04-botoes-titulos	remaster/04-botoes-titulos/inputs/farm__105_assets.petsBag.adopt1.png	yes	Nhan nuoi
+farm__194	04-botoes-titulos	remaster/04-botoes-titulos/inputs/farm__194.png	yes	Don
+farm__22_assets.farmShop.unSelectSeed	04-botoes-titulos	remaster/04-botoes-titulos/inputs/farm__22_assets.farmShop.unSelectSeed.png	yes	Hat giong
+farm__233	04-botoes-titulos	remaster/04-botoes-titulos/inputs/farm__233.png	yes	Gieo hat
+farm__236	04-botoes-titulos	remaster/04-botoes-titulos/inputs/farm__236.png	yes	Tang toc
+farm__239	04-botoes-titulos	remaster/04-botoes-titulos/inputs/farm__239.png	yes	Cuoc bo
+farm__23_assets.farmShop.unSelectPetEgg	04-botoes-titulos	remaster/04-botoes-titulos/inputs/farm__23_assets.farmShop.unSelectPetEgg.png	yes	Tich diem
+farm__245	04-botoes-titulos	remaster/04-botoes-titulos/inputs/farm__245.png	yes	Ve nha
+farm__248_asset.farm.petShop	05-icones	remaster/05-icones/inputs/farm__248_asset.farm.petShop.png	yes	Nhan thu cung (caption over building icon)
+farm__26_assets.farmHouse.unSelectCompose	04-botoes-titulos	remaster/04-botoes-titulos/inputs/farm__26_assets.farmHouse.unSelectCompose.png	yes	Hop thanh thuc an
+farm__271	05-icones	remaster/05-icones/inputs/farm__271.png	yes	Nhan thu cung (caption over building icon)
+farm__293_asset.farm.windHouse	05-icones	remaster/05-icones/inputs/farm__293_asset.farm.windHouse.png	yes	Kho cua toi (caption over building icon)
+farm__29_assets.farmHouse.title	04-botoes-titulos	remaster/04-botoes-titulos/inputs/farm__29_assets.farmHouse.title.png	yes	Nong trai cua toi
+farm__36_assets.farmShop.SelectSeed	04-botoes-titulos	remaster/04-botoes-titulos/inputs/farm__36_assets.farmShop.SelectSeed.png	yes	Hat giong
+farm__37_asset.farmShop.SelectPetEgg	04-botoes-titulos	remaster/04-botoes-titulos/inputs/farm__37_asset.farmShop.SelectPetEgg.png	yes	Tich diem
+farm__42_assets.farmHouse.SelectCompose	04-botoes-titulos	remaster/04-botoes-titulos/inputs/farm__42_assets.farmHouse.SelectCompose.png	yes	Hop thanh thuc an
+farm__68_assets.farmShop.titleFont	04-botoes-titulos	remaster/04-botoes-titulos/inputs/farm__68_assets.farmShop.titleFont.png	yes	Shop nong trai
+farm__71_assets.farm.farmHelperTitle	04-botoes-titulos	remaster/04-botoes-titulos/inputs/farm__71_assets.farm.farmHelperTitle.png	yes	Tro giup
+littlegame__6_asset.littleGame.ScoreBack	04-botoes-titulos	remaster/04-botoes-titulos/inputs/littlegame__6_asset.littleGame.ScoreBack.png	yes	Diem
+littlegame__8_asset.littleGame.rightTitle	04-botoes-titulos	remaster/04-botoes-titulos/inputs/littlegame__8_asset.littleGame.rightTitle.png	yes	Doi phan thuong
+consortia__10_asset.consortia.myConsortiaView.titleWord2	04-botoes-titulos	remaster/04-botoes-titulos/inputs/consortia__10_asset.consortia.myConsortiaView.titleWord2.png	yes	Chu guild
+consortia__11_asset.consortia.myConsortiaView.titleWord1	04-botoes-titulos	remaster/04-botoes-titulos/inputs/consortia__11_asset.consortia.myConsortiaView.titleWord1.png	yes	Cap Guild
+consortia__14_asset.consortia.myConsortiaView.taxBtn	05-icones	remaster/05-icones/inputs/consortia__14_asset.consortia.myConsortiaView.taxBtn.png	yes	Cong hien guild
+consortia__18_asset.consortia.myConsortiaView.storeBtn	05-icones	remaster/05-icones/inputs/consortia__18_asset.consortia.myConsortiaView.storeBtn.png	yes	Ket sat
+consortia__21_asset.consortia.memberList.profferDegree	04-botoes-titulos	remaster/04-botoes-titulos/inputs/consortia__21_asset.consortia.memberList.profferDegree.png	yes	Diem hien tang
+consortia__23_asset.consortia.memberList.offline	04-botoes-titulos	remaster/04-botoes-titulos/inputs/consortia__23_asset.consortia.memberList.offline.png	yes	Roi mang
+consortia__6_asset.consortia.myConsortiaView.titleWord6	04-botoes-titulos	remaster/04-botoes-titulos/inputs/consortia__6_asset.consortia.myConsortiaView.titleWord6.png	yes	Hang
+consortia__8_asset.consortia.myConsortiaView.titleWord4	04-botoes-titulos	remaster/04-botoes-titulos/inputs/consortia__8_asset.consortia.myConsortiaView.titleWord4.png	yes	Tai san
+consortiabattle__1_asset.consortiaBattle.infoView.bg	06-combate-outros	remaster/06-combate-outros/inputs/consortiabattle__1_asset.consortiaBattle.infoView.bg.png	yes	Tran thang: (label) | Lien thang ___ tran (label with blank value, means win str
+consortiabattle__48	06-combate-outros	remaster/06-combate-outros/inputs/consortiabattle__48.png	yes	Sat Thu
+consortiabattle__50	06-combate-outros	remaster/06-combate-outros/inputs/consortiabattle__50.png	yes	Cuong Bao
+consortiabattle__52	06-combate-outros	remaster/06-combate-outros/inputs/consortiabattle__52.png	yes	Huy Diet
+academy__36	04-botoes-titulos	remaster/04-botoes-titulos/inputs/academy__36.png	yes	Bai su
+academycommon__44	04-botoes-titulos	remaster/04-botoes-titulos/inputs/academycommon__44.png	yes	Nhan lam de tu
+academycommon__48	04-botoes-titulos	remaster/04-botoes-titulos/inputs/academycommon__48.png	yes	Bai lam su phu
+academycommon__51	04-botoes-titulos	remaster/04-botoes-titulos/inputs/academycommon__51.png	yes	Muon bai su
+academycommon__54	04-botoes-titulos	remaster/04-botoes-titulos/inputs/academycommon__54.png	yes	Muon nhan de tu
+academycommon__57	04-botoes-titulos	remaster/04-botoes-titulos/inputs/academycommon__57.png	yes	Su phu cua toi (column 1) | Cap (column 2) | Roi mang (column 3) | Huy quan he (
+academycommon__72	04-botoes-titulos	remaster/04-botoes-titulos/inputs/academycommon__72.png	yes	Dong mon cua toi (column 1) | Cap (column 2) | Roi mang (column 3) | Them ban (c
+academycommon__76	04-botoes-titulos	remaster/04-botoes-titulos/inputs/academycommon__76.png	yes	De tu cua toi (column 1) | Cap (column 2) | Roi mang (column 3) | Huy quan he (c
+choicefigure__2_asset.choicefigure.btnEnterGame_new	04-botoes-titulos	remaster/04-botoes-titulos/inputs/choicefigure__2_asset.choicefigure.btnEnterGame_new.png	yes	Tan Thu
+choicefigure__3_asset.choicefigure.btnEnterGame_old	04-botoes-titulos	remaster/04-botoes-titulos/inputs/choicefigure__3_asset.choicefigure.btnEnterGame_old.png	yes	Nguoi Choi Cu
+fightlib__198	06-combate-outros	remaster/06-combate-outros/inputs/fightlib__198.png	yes	1 man hinh = 10 don vi
+fightlib__218	06-combate-outros	remaster/06-combate-outros/inputs/fightlib__218.png	yes	Huy
+fightlib__221	06-combate-outros	remaster/06-combate-outros/inputs/fightlib__221.png	yes	Bat dau
+fightlib__223	06-combate-outros	remaster/06-combate-outros/inputs/fightlib__223.png	yes	Bat dau
+room__176	06-combate-outros	remaster/06-combate-outros/inputs/room__176.png	yes	Bat dau
+room__63_asset.ddtroom.dungeonChoose.boss	04-botoes-titulos	remaster/04-botoes-titulos/inputs/room__63_asset.ddtroom.dungeonChoose.boss.png	yes	Vao ai cuoi
+roulette__3_roulette.endDayBgTitle	04-botoes-titulos	remaster/04-botoes-titulos/inputs/roulette__3_roulette.endDayBgTitle.png	yes	Thoi gian con:
+trainer__114	05-icones	remaster/05-icones/inputs/trainer__114.png	yes	Ket ban (caption over house icon)
+trainer__99	05-icones	remaster/05-icones/inputs/trainer__99.png	yes	Ai Vien Chinh (caption over tower icon)
+trainerui__114	06-combate-outros	remaster/06-combate-outros/inputs/trainerui__114.png	yes	Si los ajustes no son optimos, puedes usar la trasnferencia. (Spanish text)
+trainerui__120	06-combate-outros	remaster/06-combate-outros/inputs/trainerui__120.png	yes	Demasiado suave, dale mas fuerte! (Spanish text)
+trainerui__26	06-combate-outros	remaster/06-combate-outros/inputs/trainerui__26.png	yes	Click Bat dau de bat dau game
+trainerui__32	06-combate-outros	remaster/06-combate-outros/inputs/trainerui__32.png	yes	Khi ranh roi khong biet lam gi thi click vao day nhe!
+trainerui__38	06-combate-outros	remaster/06-combate-outros/inputs/trainerui__38.png	yes	Phong game da mo! Click vao day de vao nao!
+trainerui__44	06-combate-outros	remaster/06-combate-outros/inputs/trainerui__44.png	yes	Chon 1 tam bat ky, click de lat bai nhan phan thuong
+trainerui__47	06-combate-outros	remaster/06-combate-outros/inputs/trainerui__47.png	yes	Click trai chuot de mang item vao tran dau
+trainerui__50	06-combate-outros	remaster/06-combate-outros/inputs/trainerui__50.png	yes	Ai vien chinh da mo! Click vao day de vao nao!
+trainerui__53	06-combate-outros	remaster/06-combate-outros/inputs/trainerui__53.png	yes	Click trai chuot vao da cuong hoa de cho vao o cung loai
+trainerui__68	06-combate-outros	remaster/06-combate-outros/inputs/trainerui__68.png	yes	Guild da mo! Click vao day de vao nao!
+trainerui__80	06-combate-outros	remaster/06-combate-outros/inputs/trainerui__80.png	yes	Nhap chon de vao khu doi huan chuong, le kim
+trainerui__95	06-combate-outros	remaster/06-combate-outros/inputs/trainerui__95.png	yes	Click Bat dau de tham gia nhung tran dau hap dan
+trainerui__98	06-combate-outros	remaster/06-combate-outros/inputs/trainerui__98.png	yes	Phong su do da mo! Click vao day de vao nao!
+worldboss__6_asset.worldbossRoom.resurrect	06-combate-outros	remaster/06-combate-outros/inputs/worldboss__6_asset.worldbossRoom.resurrect.png	yes	Hoi sinh

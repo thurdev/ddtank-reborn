@@ -172,7 +172,10 @@ export function inventorySlots(ownerId: number, bag: PlayerInventory, slots: num
   for (const s of slots) {
     p.writeInt(s);
     const it = bag.getItemAt(s);
-    if (!it) {
+    // Pedras de estrela/fantasma (CategoryID 11, Property1 117/118): o cliente 4.1 nunca inicializa
+    // StoreModel._canGhostPropList (StoreModel.as:137-158 vs :255) e dá null ref ao montar a Forja — que roda no
+    // HallStateView.enter (checkShowStoreFromShop) e deixa o lobby cinza/travado. O item fica no banco, só não vai pro cliente.
+    if (!it || (it.template.CategoryID === 11 && (Number(it.template.Property1) === 117 || Number(it.template.Property1) === 118))) {
       p.writeBoolean(false);
       continue;
     }
@@ -250,11 +253,29 @@ export function enthrallLight(): PacketOut {
   return p;
 }
 
-/** 402/5 avatar collection (SendAvatarCollect, :2552) — empty collection. */
-export function avatarCollect(): PacketOut {
+export interface AvatarCollectView { AvatarID: number; Sex: number; TimeEnd: Date; items: { TemplateID: number }[] }
+/** 402/5 AVATAR_COLLECTION GET_ALL_INFO (SendAvatarCollect, AbstractPacketLib.cs:2552): the full set dump. */
+export function avatarCollect(sets: AvatarCollectView[]): PacketOut {
   const p = new PacketOut(402);
   p.writeByte(5);
-  p.writeInt(0);
+  p.writeInt(sets.length);
+  for (const s of sets) {
+    p.writeInt(s.AvatarID); p.writeInt(s.Sex); p.writeInt(s.items.length);
+    for (const it of s.items) p.writeInt(it.TemplateID);
+    wd(p, s.TimeEnd);
+  }
+  return p;
+}
+/** 402/3 AVATAR_COLLECTION ACTIVE echo (AvatarCollectionHandler.cs case 3, :78-83): confirms the item just unlocked. */
+export function avatarCollectActive(id: number, templateId: number, sex: number): PacketOut {
+  const p = new PacketOut(402);
+  p.writeByte(3); p.writeInt(id); p.writeInt(templateId); p.writeInt(sex);
+  return p;
+}
+/** 402/4 AVATAR_COLLECTION DELAY_TIME (AvatarCollectionHandler.cs case 3, :69-77): set just reached half-collected. */
+export function avatarCollectDelay(avatarId: number, sex: number, timeEnd: Date): PacketOut {
+  const p = new PacketOut(402);
+  p.writeByte(4); p.writeInt(avatarId); p.writeInt(sex); wd(p, timeEnd);
   return p;
 }
 
@@ -719,5 +740,89 @@ export function lightRoadOpen(userId: number, open: boolean): PacketOut {
 export function guildMemberWeekOpen(userId: number, start: string, end: string): PacketOut {
   const p = new PacketOut(145, userId);
   p.writeByte(7); p.writeBoolean(true); p.writeString(start); p.writeString(end);
+  return p;
+}
+/** 80 LITTLEGAME_ACTIVED (ePackageType.as:482; LittleGameManager.__actived reads one bool). Toggles the
+ *  "littlegamenote" hall-icon badge for the Termas minigame ("Đại chiến Hút Gà" / littleGame.swf) — a
+ *  separate top-level packet, NOT part of 166 LITTLEGAME_COMMAND. See research/qa/hall-icons.md. */
+export function littleGameActived(userId: number, actived: boolean): PacketOut {
+  const p = new PacketOut(80, userId);
+  p.writeBoolean(actived);
+  return p;
+}
+/** 258/0 NOVICEACTIVITY_MESSAGE case 0 (NoviceActivityManager.__updateNovice, noviceactivity.swf): one
+ *  activity-tab row (1-based index) + the shared start/end window the client needs so
+ *  NoviceActivityManager.checkTime() returns true and HallStateView.addNoviceActivityAct() fires
+ *  updateSwitchHandler(LIMITACTIVITY, true). The original never shipped a C# sender for this (see
+ *  novato.ts header) — conditions/awardGot are intentionally always 0 (nothing locked/claimed) here;
+ *  the real gate for claiming stays in noviceActivity()/claimOnce. Design note: research/qa/feature-designs.md
+ *  §novato. The client does `endDate.date -= 1` after reading, so callers should pass `end` one day past
+ *  the window they actually want. */
+export function noviceActivityRow(userId: number, index: number, start: Date, end: Date): PacketOut {
+  const p = new PacketOut(258, userId);
+  p.writeInt(0); p.writeInt(index); p.writeInt(0); p.writeInt(0);
+  p.writeDateTime(start); p.writeDateTime(end);
+  return p;
+}
+
+// ---------------------------------------------------------------------------------------------- progression (handlers/progression.ts)
+/** 136 TOTEM (SendPlayerRefreshTotem, AbstractPacketLib.cs:2657): the 1st int is always 1 (unused flag — client
+ *  TotemMainView.refresh reads it and discards it), the 2nd is written into the client's `damageScores` field
+ *  (that's the field the totem UI happens to reuse to show current honor — not actually damage score). */
+export function totemRefresh(userId: number, myHonor: number, totemId: number): PacketOut {
+  const p = new PacketOut(136, userId);
+  p.writeInt(1); p.writeInt(myHonor); p.writeInt(totemId);
+  return p;
+}
+/** 96 HONOR_UP_COUNT (SendUpdateUpCount, AbstractPacketLib.cs:2667). */
+export function honorUpCount(userId: number, maxBuyHonor: number): PacketOut {
+  const p = new PacketOut(96, userId);
+  p.writeInt(maxBuyHonor);
+  return p;
+}
+/** 88 (SendInsufficientMoney, GamePlayer.cs:4629): type + a hardcoded `false` the client never reads meaningfully. */
+export function insufficientMoney(userId: number, type: number): PacketOut {
+  const p = new PacketOut(88, userId);
+  p.writeByte(type); p.writeBoolean(false);
+  return p;
+}
+/** 216 CARDS_DATA, GET_PLAYER_CARD (18) reply (SendUpdateCardData(PlayerInfo,List<UsersCardInfo>), :1641): same
+ *  item layout as `cardData` but keyed by the viewed player's id, not the viewer's, and always `true`. */
+export function playerCardData(targetId: number, cards: CardView[]): PacketOut {
+  const p = new PacketOut(216, targetId);
+  p.writeInt(targetId); p.writeInt(cards.length);
+  for (const c of cards) {
+    p.writeInt(c.Place); p.writeBoolean(true); p.writeInt(c.CardID); p.writeInt(c.UserID); p.writeInt(c.Count); p.writeInt(c.Place); p.writeInt(c.TemplateID);
+    p.writeInt(c.Attack + c.AttackReset); p.writeInt(c.Defence + c.DefenceReset); p.writeInt(c.Agility + c.AgilityReset); p.writeInt(c.Luck + c.LuckReset);
+    p.writeInt(c.Damage); p.writeInt(c.Guard); p.writeInt(c.Level); p.writeInt(c.CardGP); p.writeBoolean(c.isFirstGet);
+  }
+  return p;
+}
+/**
+ * 93 CAN_CARD_LOTTERY, GOTO_CARD_LOTTERY (239) reply (LotteryContorller.__onGotoCardLottery, SocketManager.as:679):
+ * no C# handler exists for the card/luck lottery screens in vendor/DDTank41 (confirmed: no PacketHandler for
+ * 104/105/239/93/11 anywhere in Game.Server) — client always navigates to the card-choosing screen regardless of
+ * `allow` (it only reads the bool, never branches on it), so this just feeds `LotteryModel.cardLotteryMoney`.
+ * See research/qa/port-B.md "CARD_LOTTERY/LUCK_LOTTERY/GOTO_CARD_LOTTERY/ACTIVE_PULLDOWN" for the full note.
+ */
+export function canCardLottery(userId: number, allow: boolean, money: number): PacketOut {
+  const p = new PacketOut(93, userId);
+  p.writeBoolean(allow); p.writeInt(money);
+  return p;
+}
+/** 251 LOTTERY_AWARD, LUCK_LOTTERY (105) reply (LotteryContorller.__onLuckyLottery): code 1 = won (TemplateId +
+ *  timeLimit), 2 = lost (no extra fields), 3 = message only (messageTip). No reward table exists server-side
+ *  (see canCardLottery's note) so handlers/progression.ts only ever sends code 3. */
+export function luckLotteryAward(userId: number, code: 1 | 2 | 3, extra?: { templateId: number; timeLimit: number } | { messageTip: string }): PacketOut {
+  const p = new PacketOut(251, userId);
+  p.writeInt(code);
+  if (code === 1 && extra && "templateId" in extra) { p.writeInt(extra.templateId); p.writeInt(extra.timeLimit); }
+  if (code === 3 && extra && "messageTip" in extra) p.writeString(extra.messageTip);
+  return p;
+}
+/** 11 ACTIVE_PULLDOWN (NovicePlatinumCard.__activeSocket) reply: `ok` closes the dialog, `false` re-enables the button. */
+export function activePullDownResult(userId: number, ok: boolean): PacketOut {
+  const p = new PacketOut(11, userId);
+  p.writeBoolean(ok);
   return p;
 }

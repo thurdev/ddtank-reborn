@@ -448,9 +448,11 @@
   "15:syncStep": {
     "notes": "Real no original, não lacuna de fidelidade — feature de tutorial não portada ainda (orçamento): UserAnswerHandler.cs (código 15 USER_ANSWER) recebe byte b, int step (enum Step em SqlDataProvider/Step.cs, ~90 marcos tipo POP_WELCOME/BAG_OPEN_SHOW/POP_WIN_I), opcionalmente paga um prêmio via DropInventory.AnswerDrop(step) e sempre grava UpdateAnswerSite(step) (bitmask de progresso, pra retomar o tutorial sem repetir popups). O campo PlayerInfo.AnswerSite já existe (apps/game/src/game/player-info.ts, persistido) mas nada escreve nele ainda — nenhum handler para o código 15. Baixo impacto de gameplay (é bookkeeping de UI do tutorial Freshman, que já funciona via outros meios nesta port — packages/fight/test/pve.test.ts 'freshman 6-2'); mapear as ~90 constantes de Step com precisão ficou fora do orçamento desta sessão."
   },
-  "15:syncWeakStep": { "notes": "Ver 15:syncStep — mesmo handler/código 15 (variante 'weak' = sem o prêmio automático, só grava progresso)." },
+  "15:syncWeakStep": {
+    "notes": "Ver 15:syncStep — mesmo handler/código 15 (variante 'weak' = sem o prêmio automático, só grava progresso)."
+  },
   "31:sendGoodsExchange": {
-    "notes": "Chamado pelo cliente (calendar/view/goodsExchange/GoodsExchangeView.as:177) mas sem [PacketHandler(31,...)] em Game.Server — o pedido de troca de itens do calendário é descartado silenciosamente no próprio original (não é um no-op registrado como 128/130, é ausência total de handler, igual 104/105/239). Status 'missing' aqui é fidelidade, não lacuna."
+    "notes": "Troca exige receita completa, evento vigente, bolsa destrancada, slots únicos e prêmio válido antes do consumo. Testado via pacote e banco em apps/game/test/economy-validation.test.ts. Mantém partial: receita 4.1 sem tiers; não verificado no cliente."
   },
   "32:sendCollectInfoValidate": {
     "notes": "Chamado pelo cliente (quest/InfoCollectView.as:200) mas sem [PacketHandler(32,...)] em Game.Server — o formulário de 'coleta de informação' (CPF/telefone etc. de alguma campanha) nunca foi implementado no servidor original; o cliente envia e nada responde. Status 'missing' aqui é fidelidade, não lacuna."
@@ -461,8 +463,12 @@
   "84:sendChickActivationQuery": {
     "notes": "Real no original (não é lacuna de fidelidade, é feature grande não portada ainda por orçamento): ActivityPackageHandler.cs (668 linhas, sub ACTIVITY_PACKAGE=84) trata ChickActivationType.CHICKACTIVATION (linhas 135-250ish) como um sistema de 'código de ativação' de 14 caracteres (QUERY consulta UserChickActiveInfo/IsKeyOpened; OPENKEY resgata o código; GETAWARD paga um prêmio por faixa de nível — m_gradeList {10,20,30,40,45,50,55,60,65} — dentro de 60 dias do resgate). A tabela Activity_System_Item já foi migrada para Postgres, mas falta o UserChickActiveInfo/handler em apps/game e a UI admin pra cadastrar códigos. Ver BACKLOG.md 'Não portado nesta batch'."
   },
-  "84:sendChickActivationOpenKey": { "notes": "Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:171-197), código de 14 caracteres resgatado uma vez (IsKeyOpened)." },
-  "84:sendChickActivationGetAward": { "notes": "Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:198+), prêmio por faixa de Grade dentro de 60 dias do resgate (chickInfo.KeyOpenedTime.AddDays(60))." },
+  "84:sendChickActivationOpenKey": {
+    "notes": "Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:171-197), código de 14 caracteres resgatado uma vez (IsKeyOpened)."
+  },
+  "84:sendChickActivationGetAward": {
+    "notes": "Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:198+), prêmio por faixa de Grade dentro de 60 dias do resgate (chickInfo.KeyOpenedTime.AddDays(60))."
+  },
   "104:sendCardLotteryIds": {
     "notes": "Morto no original: ePackageType.CARD_LOTTERY=104 existe mas nenhuma classe [PacketHandler] assina esse código (grep em vendor/DDTank41/Game.Server/Packets/Client) — pacote é descartado pelo servidor original. Status 'missing' aqui é fidelidade, não lacuna."
   },
@@ -473,40 +479,73 @@
     "notes": "Morto no original: ePackageType.GOTO_CARD_LOTTERY=239 sem handler registrado (mesma varredura de 104/105)."
   },
   "128:sendStartTurn_LeftGun": {
-    "status": "stub",
-    "notes": "Morto no próprio original: LeftGunHandler.cs está registrado (PacketHandler 128) mas todo o corpo está comentado — o recurso 'roleta esquerda' foi desativado pelo time original, não processa nada. Port: sem handler (mesmo efeito observável)."
+    "notes": "LeftGunHandler tem código ativo no vendor atual e está portado em items.ts. A nota antiga dizendo que tudo estava comentado foi invalidada em research/qa/port-C.md."
   },
   "130:sendEndTurn_LeftGun": {
-    "status": "stub",
-    "notes": "Mesma desativação do original que 128 (LeftGunCompleteHandler.cs só envia um aviso se LeftRoutteRate>0, campo nunca setado porque 128 está morto)."
+    "notes": "LeftGunCompleteHandler está portado em items.ts. A nota antiga de código morto foi invalidada em research/qa/port-C.md."
   },
   "87:sendNewChickenBox": {
     "notes": "NEWCHICKENBOX_SYS implementado (apps/game/src/handlers/activities.ts): tabuleiro de 18 cartas (ChickenBoxHandler.cs portado), pool configurável via app.\"ScheduledEvents\" kind=\"chickenbox\" (admin Events page) com defaults embutidos. Estado em memória (não persistido em New_ChickenBox_Data — desvio documentado em HANDLERS.md). Testado por código, não clicado."
   },
-  "87:sendChickenBoxTakeOverCard": { "notes": "Ver 87:sendNewChickenBox. TAKEOVERCARD: custo escalonado (openCardPrice[canOpenCounts-1]), item entregue, 5 usos." },
-  "87:sendChickenBoxUseEagleEye": { "notes": "Ver 87:sendNewChickenBox. USEEAGLEEYE: custo escalonado (eagleEyePrice), revela a carta sem consumir." },
-  "87:sendFlushNewChickenBox": { "notes": "Ver 87:sendNewChickenBox. FLUSHCHICKENVIEW: grátis se passaram 120 min desde o último flush (IsFreeFlushTime), senão cobra flushPrice." },
-  "87:sendOverShowItems": { "notes": "Ver 87:sendNewChickenBox. ALLITEMSHOW: reenvia a lista atual do tabuleiro." },
-  "87:sendClickStartBntNewChickenBox": { "notes": "Ver 87:sendNewChickenBox. CLICKSTARTBNT: embaralha as posições do tabuleiro (RandomPosition portado)." },
+  "87:sendChickenBoxTakeOverCard": {
+    "notes": "Ver 87:sendNewChickenBox. TAKEOVERCARD: custo escalonado (openCardPrice[canOpenCounts-1]), item entregue, 5 usos."
+  },
+  "87:sendChickenBoxUseEagleEye": {
+    "notes": "Ver 87:sendNewChickenBox. USEEAGLEEYE: custo escalonado (eagleEyePrice), revela a carta sem consumir."
+  },
+  "87:sendFlushNewChickenBox": {
+    "notes": "Ver 87:sendNewChickenBox. FLUSHCHICKENVIEW: grátis se passaram 120 min desde o último flush (IsFreeFlushTime), senão cobra flushPrice."
+  },
+  "87:sendOverShowItems": {
+    "notes": "Ver 87:sendNewChickenBox. ALLITEMSHOW: reenvia a lista atual do tabuleiro."
+  },
+  "87:sendClickStartBntNewChickenBox": {
+    "notes": "Ver 87:sendNewChickenBox. CLICKSTARTBNT: embaralha as posições do tabuleiro (RandomPosition portado)."
+  },
   "87:sendLuckyStarEnter": {
     "notes": "Lucky Star (mesmo código 87): ENTER_GAME cobra 2500 Xu, sorteia o tabuleiro de 14 (coinTemplateID 201193 forçado na posição 0, PlayerActives.CreateLuckyStartAward). Pool configurável via kind=\"luckystar\"."
   },
   "87:sendLuckyStarTurn": {
     "notes": "START_TURN: cooldown de 7s, consome item 201192 (LUCKYSTAR_ID), embaralha o tabuleiro e sorteia por peso (.Random); se cair na moeda, 97% de chance de re-sortear excluindo a moeda (GetAward portado)."
   },
-  "87:sendLuckyStarTurnComplete": { "notes": "TURN_COMPLETE: entrega o prêmio sorteado (moeda credita Xu acumulado; outros itens vão pra bolsa, sobra por correio)." },
-  "87:sendLuckyStarClose": { "notes": "CLOSE_GAME: no-op, igual ao original (ChickenBoxHandler.cs case CLOSE_GAME está vazio)." },
+  "87:sendLuckyStarTurnComplete": {
+    "notes": "TURN_COMPLETE: entrega o prêmio sorteado (moeda credita Xu acumulado; outros itens vão pra bolsa, sobra por correio)."
+  },
+  "87:sendLuckyStarClose": {
+    "notes": "CLOSE_GAME: no-op, igual ao original (ChickenBoxHandler.cs case CLOSE_GAME está vazio)."
+  },
   "145:sendGuildMemberWeekAddRanking": {
     "status": "stub",
     "notes": "Morto no próprio original: ActiveSystemHandler.cs (código 145 ACTIVITY_SYSTEM) só trata sub==8 (monta um pacote PLAYERTOP10 e NUNCA chama SendTCP — o cliente nunca recebe resposta); subs 9/10 (GuildMemberWeek) e os de LanternRiddles/LightRoad caem no 'return 0' default sem nenhum efeito. Confirmado lendo o arquivo inteiro (18 linhas)."
   },
-  "145:sendGuildMemberWeekStarClose": { "status": "stub", "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original." },
-  "145:sendGuildMemberWeekStarEnter": { "status": "stub", "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original." },
-  "145:sendLanternRiddlesQuestion": { "status": "stub", "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original." },
-  "145:sendLanternRiddlesRankInfo": { "status": "stub", "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original." },
-  "145:sendLanternRiddlesUseSkill": { "status": "stub", "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original." },
-  "145:sendLanternRiddlesAnswer": { "status": "stub", "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original." },
-  "145:sendLightRoadStarEnter": { "status": "stub", "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original." },
+  "145:sendGuildMemberWeekStarClose": {
+    "status": "stub",
+    "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original."
+  },
+  "145:sendGuildMemberWeekStarEnter": {
+    "status": "stub",
+    "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original."
+  },
+  "145:sendLanternRiddlesQuestion": {
+    "status": "stub",
+    "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original."
+  },
+  "145:sendLanternRiddlesRankInfo": {
+    "status": "stub",
+    "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original."
+  },
+  "145:sendLanternRiddlesUseSkill": {
+    "status": "stub",
+    "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original."
+  },
+  "145:sendLanternRiddlesAnswer": {
+    "status": "stub",
+    "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original."
+  },
+  "145:sendLightRoadStarEnter": {
+    "status": "stub",
+    "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original."
+  },
   "204:sendOpenAll": {
     "notes": "OPEN_ALL_CARDBOX implementado: cada item da CaddyBag -> CardBag.addCard(Property5, rand 1..2), igual ao original (OpenAllCardBoxHandler.cs). Testado por código, não clicado."
   },
@@ -519,7 +558,6 @@
   "258:sendNoviceActivityGetAward": {
     "notes": "NOVICEACTIVITY implementado simplificado: usa as mesmas tabelas Event_Reward_Info/Goods do 259 (firstRecharge), elegibilidade = Grade do jogador >= Condition (o contador de progresso por PlayerExtra — nível/fortalecimento/recarga/VIP/FC — não foi portado; ver HANDLERS.md). Claim idempotente por (ActivityType, Condition) via app.\"EventClaims\". Testado por código, não clicado."
   },
-
   "75:sendThrowProp": {
     "notes": "PROP_DELETE implementado (PropDeleteHandler.cs): descarta o item da FightBag (mão de props em luta). Testado por código, não clicado."
   },
@@ -560,7 +598,6 @@
     "status": "stub",
     "notes": "MOVESTOP (sub 10, MoveStopCommand.cs): mesmo caso de sendFlagMode — registrado, HandleCommand vazio, no-op confirmado no original."
   },
-
   "68:sendRefreshPet": {
     "notes": "REFRESH_PET (sub 5) implementado (RefereshPet.cs): reroll custa AdoptRefereshCost Xu (ou 1 item FreeRefereshID), senão só reenvia a oferta atual. Lista de adoção em memória (como lottery/chicken-box). Testado em apps/game/test/pets-advanced.test.ts, não clicado."
   },
@@ -601,22 +638,38 @@
     "status": "stub",
     "notes": "PET_WAKE (sub 32): mesma varredura de sendPaySkill — sem classe Handle registrada, morto no original."
   },
-
   "120:sendItemTrend": {
     "notes": "ITEM_TREND implementado (ItemTrendHandle.cs + RefineryMgr.RefineryTrend, Templates.refineryTrend): converte um equip entre variantes de \"tendência\" listadas no Item_Refinery, ou compra o item 34101 direto (num=-1). A tabela game.\"Item_Refinery\" tem 0 linhas no .bak de origem (nunca configurada neste servidor, no original também) — handler vivo, porém sempre no-op até alguém popular a tabela; mesmo comportamento observável do original com a config vazia. Testado em apps/game/test/forge-advanced.test.ts (lógica de busca na lista achatada), não clicado."
   },
   "217:sendItemOpenFiveSixHole": {
     "notes": "OPEN_FIVE_SIX_HOLE implementado (OpenFiveSixHoleHandler.cs): broca (PropBag, ItemInfo.isDrill) gasta no furo 5/6 do equip no StoreBag[slot], exp Property7..8 aleatória, cooldown de 100ms (LastOpenHole). Testado em apps/game/test/forge-advanced.test.ts (isDrill por nível), não clicado."
   },
-  "61:sendItemTransfer": { "status": "stub", "notes": "ITEM_TRANSFER: morto no próprio original — nenhum [PacketHandler(61,...)] em todo vendor/DDTank41 (grep completo nos projetos Game.Server/Fighting.Server/Center.Server)." },
-  "95:necklaceStrength": { "status": "stub", "notes": "NECKLACE_STRENGTH: mesma varredura de sendItemTransfer — nenhum [PacketHandler(95,...)] registrado." },
-  "106:sendWishBeadEquip": { "status": "stub", "notes": "WISHBEADEQUIP: mesma varredura de sendItemTransfer — nenhum [PacketHandler(106,...)] registrado." },
-  "133:sendLatentEnergy": { "status": "stub", "notes": "LATENT_ENERGY: mesma varredura de sendItemTransfer — nenhum [PacketHandler(133,...)] registrado." },
-  "138:sendItemExalt": { "status": "stub", "notes": "ITEM_ADVANCE: mesma varredura de sendItemTransfer — nenhum [PacketHandler(138,...)] registrado." },
-  "209:fightSpiritRequest": { "status": "stub", "notes": "FIGHT_SPIRIT_INIT: mesma varredura de sendItemTransfer — nenhum [PacketHandler(209,...)] registrado." },
-  "295:sendForgeSuit": { "status": "stub", "notes": "FORGE_SUIT: mesma varredura de sendItemTransfer — nenhum [PacketHandler(295,...)] registrado." },
-  "391:sendEquipGhost": { "status": "stub", "notes": "EQUIP_GHOST: mesma varredura de sendItemTransfer — nenhum [PacketHandler(391,...)] registrado." },
-
+  "61:sendItemTransfer": {
+    "notes": "Transferência implementada em forge.ts; persistência de atributos/fortalecimento coberta por apps/game/test/forge-persist.test.ts. A nota antiga de ausência no C# estava obsoleta."
+  },
+  "95:necklaceStrength": {
+    "notes": "Handler 95 em forge-extra.ts; byte type + int place + int count. Consumo e necklaceExp no banco verificados em apps/game/test/persist-all.test.ts; sem teste visual novo."
+  },
+  "106:sendWishBeadEquip": {
+    "notes": "WishBeadEquip implementado em forge.ts. Removido override antigo que ocultava o estado do registro atual; validação visual pendente."
+  },
+  "133:sendLatentEnergy": {
+    "notes": "LatentEnergyHandler portado em forge-extra.ts; validade corrigida e testada em apps/game/test/latent-energy.test.ts. Validação visual pendente."
+  },
+  "138:sendItemExalt": {
+    "notes": "ItemAdvanceHandler portado em forge-extra.ts. Removido override antigo de handler ausente; validação visual pendente."
+  },
+  "209:fightSpiritRequest": {
+    "notes": "FightSpiritHandler portado em forge-extra.ts, persistido em db/gemstone.ts. Removido override antigo de handler ausente; validação visual pendente."
+  },
+  "295:sendForgeSuit": {
+    "status": "stub",
+    "notes": "FORGE_SUIT: mesma varredura de sendItemTransfer — nenhum [PacketHandler(295,...)] registrado."
+  },
+  "391:sendEquipGhost": {
+    "status": "stub",
+    "notes": "EQUIP_GHOST: mesma varredura de sendItemTransfer — nenhum [PacketHandler(391,...)] registrado."
+  },
   "34:sendChangeDesignation": {
     "notes": "USER_RANK implementado (ChangeDesignationHandler.cs): mostra/esconde o selo da guilda sobre o personagem (IsShowConsortia)."
   },
@@ -636,11 +689,27 @@
   "218:sendPlayerGift": {
     "notes": "USER_GET_GIFTS implementado (UserGetGiftHandler.cs): lista todos os presentes já recebidos, somados por TemplateID. Achado: o original registra DUAS classes no código 218 (PlayerGiftHandler, um no-op de 1 int, e UserGetGiftHandler, o de verdade) — a reflexão do dicionário do C# favorece uma delas; este port implementa a significativa (UserGetGiftHandler), que bate com o nome do pacote USER_GET_GIFTS."
   },
-  "66:sendUseProp": { "status": "stub", "notes": "PROP_USE (código 66, fora de luta): morto no próprio original — nenhum [PacketHandler(66,...)] registrado (não confundir com 91/PROP=32, usado em luta, esse sim implementado)." },
-  "77:sendItemOverDue": { "status": "stub", "notes": "ITEM_OVERDUE: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(77,...)] registrado." },
-  "171:sendUseReworkName": { "status": "stub", "notes": "USE_REWORK_NAME: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(171,...)] registrado." },
-  "188:sendUseConsortiaReworkName": { "status": "stub", "notes": "USE_CONSORTIA_REWORK_NAME: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(188,...)] registrado." },
-  "205:sendUseChangeColorShell": { "status": "stub", "notes": "USE_CHANGE_COLOR_SHELL: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(205,...)] registrado." },
-  "222:sendEquipRetrieve": { "status": "stub", "notes": "EQUIP_RECYCLE_ITEM: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(222,...)] registrado." },
-  "265:sendNewTitleCard": { "status": "stub", "notes": "NEWTITLE_CARD: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(265,...)] registrado." }
+  "66:sendUseProp": {
+    "notes": "PropUseHandler portado em shop-prop.ts: valida tipo, quantidade e pacote inteiro; 11963 concede cupons e 201316 ativa o estado persistido de ACTIVITY_PACKAGE. Testes: apps/game/test/economy-validation.test.ts."
+  },
+  "77:sendItemOverDue": {
+    "notes": "ItemOverdueHandler implementado em items.ts; coberto por apps/game/test/shop-prop-misc.test.ts. Removida nota obsoleta de ausência no C#."
+  },
+  "171:sendUseReworkName": {
+    "notes": "UseReworkName implementado em items.ts; coberto por apps/game/test/shop-prop-misc.test.ts. Removida nota obsoleta de ausência no C#."
+  },
+  "188:sendUseConsortiaReworkName": {
+    "status": "stub",
+    "notes": "USE_CONSORTIA_REWORK_NAME: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(188,...)] registrado."
+  },
+  "205:sendUseChangeColorShell": {
+    "status": "stub",
+    "notes": "USE_CHANGE_COLOR_SHELL: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(205,...)] registrado."
+  },
+  "222:sendEquipRetrieve": {
+    "notes": "EquipRecycleItem implementado em items.ts; coberto por apps/game/test/shop-prop-misc.test.ts. Removida nota obsoleta de ausência no C#."
+  },
+  "265:sendNewTitleCard": {
+    "notes": "NewTitleCard parcialmente implementado em items.ts (tabela de títulos/configuração ainda requer validação). O registro efetivo determina o status."
+  }
 }

@@ -3976,6 +3976,139 @@
   "resized": true
  },
  {
+  "swf": "bank.swf",
+  "sourceFile": "10_asset.consortion.bank.§9core2§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/consortionii/151_asset.consortion.bank.§9core2§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "bank.swf",
+  "sourceFile": "11_asset.consortion.bank.§9core3§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/consortionii/150_asset.consortion.bank.§9core3§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "bank.swf",
+  "sourceFile": "12_asset.consortion.bank.§9core4§.jpg",
+  "from": "vendor/SkelletonX-DDTank4.1-images/consortionii/149_asset.consortion.bank.§9core4§.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "bank.swf",
+  "sourceFile": "14_asset.consortion.bank.§9core6§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/consortionii/147_asset.consortion.bank.§9core6§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "bank.swf",
+  "sourceFile": "15_asset.consortion.bank.§9core7§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/consortionii/146_asset.consortion.bank.§9core7§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "bank.swf",
+  "sourceFile": "16_asset.consortion.bank.§9core8§.jpg",
+  "from": "vendor/SkelletonX-DDTank4.1-images/consortionii/145_asset.consortion.bank.§9core8§.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "bank.swf",
+  "sourceFile": "17_asset.consortion.bank.§9core9§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/consortionii/144_asset.consortion.bank.§9core9§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "bank.swf",
+  "sourceFile": "18_asset.consortion.bank.cash.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/consortionii/137_asset.consortion.bank.cash.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "bank.swf",
+  "sourceFile": "19_asset.consortion.bankBag.equipTab.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/consortionii/122_asset.consortion.bankBag.equipTab.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "bank.swf",
+  "sourceFile": "1_asset.consortion.bank.gold.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/consortionii/118_asset.consortion.bank.gold.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "bank.swf",
+  "sourceFile": "20_asset.consortion.bankFrame.title.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/consortionii/12_asset.consortion.bankFrame.title.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "bank.swf",
+  "sourceFile": "2_asset.consortion.bank.item.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/consortionii/117_asset.consortion.bank.item.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "bank.swf",
+  "sourceFile": "3_asset.consortion.bank.model.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/consortionii/65_asset.consortion.bank.model.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "bank.swf",
+  "sourceFile": "4_asset.consortion.bank.money.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/consortionii/64_asset.consortion.bank.money.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "bank.swf",
+  "sourceFile": "5_asset.consortion.bankBag.propTab.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/consortionii/46_asset.consortion.bankBag.propTab.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "bank.swf",
+  "sourceFile": "6_asset.consortion.bank.§return§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/consortionii/40_asset.consortion.bank.§return§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "bank.swf",
+  "sourceFile": "7_asset.consortion.bank.smallBG.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/consortionii/16_asset.consortion.bank.smallBG.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "bank.swf",
+  "sourceFile": "8_asset.consortion.bank.§9core1§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/consortionii/152_asset.consortion.bank.§9core1§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "bank.swf",
+  "sourceFile": "9_asset.consortion.bank.title.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/consortionii/13_asset.consortion.bank.title.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
   "swf": "calendar.swf",
   "sourceFile": "10_Calendar.Activity.picc.png",
   "from": "vendor/SkelletonX-DDTank4.1-images/calendar/23_Calendar.Activity.picc.png",
@@ -8543,6 +8676,1119 @@
   "swf": "consortionii.swf",
   "sourceFile": "9_asset.chairmanChannel.transfer.png",
   "from": "vendor/SkelletonX-DDTank4.1-images/consortionii/9_asset.chairmanChannel.transfer.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "100_asset.church.roomCreateTime2Asset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/174_asset.church.roomCreateTime2Asset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "103_asset.church.roomCreateTime3AcAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/171_asset.church.roomCreateTime3AcAsset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "104_asset.church.roomCreateTime3Asset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/170_asset.church.roomCreateTime3Asset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "105_asset.trainer.question.a.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/140_asset.trainer.question.a.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "106_asset.core.nameInputDropListTarget.BG.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/139_asset.core.nameInputDropListTarget.BG.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "107_asset.core.nameInputDropListTarget.looK.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/138_asset.core.nameInputDropListTarget.looK.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "108_asset.core.nameInputDropListTarget.close.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/137_asset.core.nameInputDropListTarget.close.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "109_asset.core.nameInputDropListTarget.clear.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/136_asset.core.nameInputDropListTarget.clear.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "10_asset.church.ProposeSysMsgAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/6_asset.church.ProposeSysMsgAsset.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "110_asset.AddPricePanel.AddPricePanelBg.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/135_asset.AddPricePanel.AddPricePanelBg.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "111_asset.church.AgreeProposeAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/5_asset.church.AgreeProposeAsset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "112_asset.academyCommon.amademyIcon_big.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/158_asset.academyCommon.amademyIcon_big.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "114_asset.academyCommon.amademyIconII_big.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/157_asset.academyCommon.amademyIconII_big.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "115_asset.academyCommon.apprenticeIcon_simple.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/156_asset.academyCommon.apprenticeIcon_simple.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "116_asset.vote.awardWord.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/3_asset.vote.awardWord.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "117_asset.trainer.question.b.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/133_asset.trainer.question.b.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "118_asset.trainer.question.bg.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/131_asset.trainer.question.bg.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "119_asset.IM.BG_02.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/135_asset.IM.BG_02.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "120_asset.core.ConsortiaAssetManager.buttomWord.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/134_asset.core.ConsortiaAssetManager.buttomWord.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "121_asset.core.NovicePlatinumCard.blackStrip.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/130_asset.core.NovicePlatinumCard.blackStrip.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "122_asset.core.NovicePlatinumCard.activityCardPSWII.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/129_asset.core.NovicePlatinumCard.activityCardPSWII.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "123_asset.core.QuickNumberBtn.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/126_asset.core.QuickNumberBtn.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "125_asset.trainer.question.c.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/125_asset.trainer.question.c.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "126_asset.shop.CartItemCloseBtn.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/124_asset.shop.CartItemCloseBtn.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "127_asset.shop.CartItemSelectBtn0.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/123_asset.shop.CartItemSelectBtn0.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "128_asset.shop.CartItemSelectBtn1.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/122_asset.shop.CartItemSelectBtn1.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "129_core.checkBtn.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/118_core.checkBtn.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "12_asset.shop.PurchaseConfirmation.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/81_asset.shop.PurchaseConfirmation.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "130_asset.core.checkCodeBgAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/130_asset.core.checkCodeBgAsset.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "131_asset.core.checkCodeNO0Asset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/129_asset.core.checkCodeNO0Asset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "132_asset.core.checkCodeNO1Asset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/128_asset.core.checkCodeNO1Asset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "133_asset.core.checkCodeNO2Asset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/127_asset.core.checkCodeNO2Asset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "134_asset.core.checkCodeNO3Asset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/126_asset.core.checkCodeNO3Asset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "136_asset.core.checkCodeNO4Asset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/125_asset.core.checkCodeNO4Asset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "137_asset.core.checkCodeNO5Asset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/124_asset.core.checkCodeNO5Asset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "138_asset.core.checkCodeNO6Asset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/123_asset.core.checkCodeNO6Asset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "139_asset.core.checkCodeNO7Asset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/122_asset.core.checkCodeNO7Asset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "13_asset.core.QuickBuyCellBG.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/18_asset.core.QuickBuyCellBG.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "140_asset.core.checkCodeNO8Asset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/121_asset.core.checkCodeNO8Asset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "141_asset.core.checkCodeNO9Asset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/120_asset.core.checkCodeNO9Asset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "142_asset.core.checkCodeNOOutAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/119_asset.core.checkCodeNOOutAsset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "143_asset.core.checkCodeNOOverAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/118_asset.core.checkCodeNOOverAsset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "144_asset.shop.CheckOutViewBg.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/115_asset.shop.CheckOutViewBg.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "145_asset.shop.CheckOutViewBg1.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/114_asset.shop.CheckOutViewBg1.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "147_asset.tryon.chooseItemBgAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/113_asset.tryon.chooseItemBgAsset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "14_asset.core.QuickBuyMoneyTip.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/11_asset.core.QuickBuyMoneyTip.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "150_asset.core.ConsortiaAssetManager.offerBtn2.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/16_asset.core.ConsortiaAssetManager.offerBtn2.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "151_asset.core.ConsortiaAssetManager.offerBtn1.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/15_asset.core.ConsortiaAssetManager.offerBtn1.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "152_asset.core.ConsortiaAssetManager.BG2.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/17_asset.core.ConsortiaAssetManager.BG2.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "153_asset.trainer.question.D.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/112_asset.trainer.question.D.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "154_asset.IM.§delete§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/110_asset.IM.§delete§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "155_asset.church.UnmarriedAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/22_asset.church.UnmarriedAsset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "156_asset.church.UnmarryAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/12_asset.church.UnmarryAsset.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "158_asset.trainer.question.E.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/110_asset.trainer.question.E.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "159_asset.church.lookEquipAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/20_asset.church.lookEquipAsset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "15_asset.core.QuickNumberTextBG.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/7_asset.core.QuickNumberTextBG.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "161_asset.trainer.question.F.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/107_asset.trainer.question.F.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "162_asset.email.friendsImg1.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/2_asset.email.friendsImg1.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "163_asset.email.friendsImg2.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/1_asset.email.friendsImg2.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "164_asset.shop.GiftsBtn.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/106_asset.shop.GiftsBtn.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "165_asset.core.NovicePlatinumCard.iconGive.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/105_asset.core.NovicePlatinumCard.iconGive.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "166_asset.trainer.welcome.guideSubmit.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/97_asset.trainer.welcome.guideSubmit.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "167_asset.helpBtn.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/96_asset.helpBtn.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "169_asset.shop.HiddenControlsBg.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/4_asset.shop.HiddenControlsBg.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "16_asset.shop.ReductiveColorBtn.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/17_asset.shop.ReductiveColorBtn.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "170_asset.core.hideBgAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/103_asset.core.hideBgAsset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "171_asset.core.hideTxtAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/102_asset.core.hideTxtAsset.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "172_asset.vote.itemOverBG.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/6_asset.vote.itemOverBG.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "173_asset.IM.iconBg.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/94_asset.IM.iconBg.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "174_asset.expMovie.ExpUPAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/93_asset.expMovie.ExpUPAsset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "175_asset.church.churchInviteMsgAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/11_asset.church.churchInviteMsgAsset.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "176_asset.church.churchInviteTitleAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/21_asset.church.churchInviteTitleAsset.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "177_asset.shop.LabelIconFree.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/10_asset.shop.LabelIconFree.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "178_asset.shop.LabelIconFree2.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/9_asset.shop.LabelIconFree2.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "17_asset.church.RejectProposeAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/9_asset.church.RejectProposeAsset.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "18_asset.AddPricePanel.RenewalDianJuanDown.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/79_asset.AddPricePanel.RenewalDianJuanDown.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "19_asset.AddPricePanel.RenewalDianJuanUp.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/78_asset.AddPricePanel.RenewalDianJuanUp.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "1_asset.trainer.welcome.npc.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/82_asset.trainer.welcome.npc.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "205_asset.core.levelRewardSureBtnAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/88_asset.core.levelRewardSureBtnAsset.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "207_asset.core.NovicePlatinumCard.divisionLine.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/85_asset.core.NovicePlatinumCard.divisionLine.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "208_asset.IM.lookItem_bg.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/86_asset.IM.lookItem_bg.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "209_asset.church.MarryApplySuccessAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/4_asset.church.MarryApplySuccessAsset.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "20_asset.AddPricePanel.RenewalGiftDown.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/77_asset.AddPricePanel.RenewalGiftDown.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "210_asset.academyCommon.masterIcon_simple.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/85_asset.academyCommon.masterIcon_simple.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "211_asset.vote.mulAnswer.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/2_asset.vote.mulAnswer.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "214_asset.core.levelRewardBg2.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/99_asset.core.levelRewardBg2.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "21_asset.AddPricePanel.RenewalGiftUp.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/76_asset.AddPricePanel.RenewalGiftUp.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "23_asset.trainer.question.sel.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/75_asset.trainer.question.sel.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "24_asset.church.roomCreateTimeAcAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/44_asset.church.roomCreateTimeAcAsset.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "25_core.selectedCheckBtn.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/72_core.selectedCheckBtn.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "26_asset.shop.CartItemBg.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/68_asset.shop.CartItemBg.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "27_asset.shop.BtnAddToCart.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/67_asset.shop.BtnAddToCart.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "28_asset.shop.CartItem.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/65_asset.shop.CartItem.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "29_asset.shop.CartItemDeleteBtn.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/64_asset.shop.CartItemDeleteBtn.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "2_asset.trainer.question.npc.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/84_asset.trainer.question.npc.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "30_asset.shop.ColorBtnDown.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/63_asset.shop.ColorBtnDown.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "31_asset.shop.ColorBtnUp.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/62_asset.shop.ColorBtnUp.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "32_asset.shop.ColorChoosePanel.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/61_asset.shop.ColorChoosePanel.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "34_asset.shop.ColorItemNormal.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/60_asset.shop.ColorItemNormal.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "35_asset.shop.ColorItemOver.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/59_asset.shop.ColorItemOver.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "36_asset.shop.ColorItemSelected.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/58_asset.shop.ColorItemSelected.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "37_asset.shop.ColorMask.jpg",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/57_asset.shop.ColorMask.jpg",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "38_asset.shop.ShopDownButton.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/56_asset.shop.ShopDownButton.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "39_asset.shop.shopFriendsBtn.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/55_asset.shop.shopFriendsBtn.jpg",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "3_asset.vote.oneAnswer.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/1_asset.vote.oneAnswer.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "40_asset.shop.ShopGift.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/54_asset.shop.ShopGift.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "41_asset.shop.GoodItemBgGift.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/53_asset.shop.GoodItemBgGift.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "42_asset.shop.GoodItemBgMoney.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/52_asset.shop.GoodItemBgMoney.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "43_asset.shop.GoodItemBgSelected.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/51_asset.shop.GoodItemBgSelected.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "45_asset.shop.ShopItemSelectedBg.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/50_asset.shop.ShopItemSelectedBg.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "46_asset.shop.ShopItemUnselectedBg.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/49_asset.shop.ShopItemUnselectedBg.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "47_asset.shop.LabelIconDiscount.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/48_asset.shop.LabelIconDiscount.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "48_asset.shop.LabelIconHot.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/47_asset.shop.LabelIconHot.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "49_asset.shop.LabelIconLimitCount.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/46_asset.shop.LabelIconLimitCount.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "4_asset.equipDebt.point0.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/83_asset.equipDebt.point0.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "50_asset.shop.LabelIconLimitTime.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/45_asset.shop.LabelIconLimitTime.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "51_asset.shop.LabelIconNew.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/44_asset.shop.LabelIconNew.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "52_asset.shop.LabelIconRecommend.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/43_asset.shop.LabelIconRecommend.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "53_asset.shop.ShopMoney.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/42_asset.shop.ShopMoney.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "54_asset.shop.PayTypeLabelFree.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/41_asset.shop.PayTypeLabelFree.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "56_asset.shop.PayTypeLabelGift.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/40_asset.shop.PayTypeLabelGift.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "57_asset.shop.PayTypeLabelMedal.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/39_asset.shop.PayTypeLabelMedal.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "58_asset.shop.PayTypeLabelMoney.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/38_asset.shop.PayTypeLabelMoney.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "59_asset.shop.ShopPresentClearingFrameInputTextBg.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/37_asset.shop.ShopPresentClearingFrameInputTextBg.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "5_asset.equipDebt.point1.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/82_asset.equipDebt.point1.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "60_asset.shop.RechargeViewChargeBtn.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/36_asset.shop.RechargeViewChargeBtn.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "61_asset.shop.ShopRechargeEquipDescription.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/35_asset.shop.ShopRechargeEquipDescription.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "62_asset.shop.ShopRechargeEquipTitle.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/34_asset.shop.ShopRechargeEquipTitle.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "63_asset.shop.ShopRechargeGoodsBg.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/33_asset.shop.ShopRechargeGoodsBg.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "64_asset.shop.TextBg.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/32_asset.shop.TextBg.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "65_asset.shop.TextureBtnDown.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/31_asset.shop.TextureBtnDown.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "67_asset.shop.TextureBtnUp.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/30_asset.shop.TextureBtnUp.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "68_asset.shop.ShopUpButton.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/29_asset.shop.ShopUpButton.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "69_asset.core.shortCutSelect.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/12_asset.core.shortCutSelect.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "6_asset.IM.privateChat.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/76_asset.IM.privateChat.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "72_asset.core.switchImg1.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/16_asset.core.switchImg1.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "73_asset.core.switchImg2.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/15_asset.core.switchImg2.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "74_asset.core.switchImg3.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/14_asset.core.switchImg3.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "75_asset.core.switchImg4.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/13_asset.core.switchImg4.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "76_asset.core.MyConsortiaTax.taxBG.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/34_asset.core.MyConsortiaTax.taxBG.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "7_asset.church.ProposeAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/7_asset.church.ProposeAsset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "80_asset.core.tryonCharaterBgAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/22_asset.core.tryonCharaterBgAsset.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "81_asset.trainer.question.txtBg.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/coreii/21_asset.trainer.question.txtBg.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "82_asset.core.warningAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/26_asset.core.warningAsset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "86_asset.core.caddyBagAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/193_asset.core.caddyBagAsset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "87_asset.core.GuideBg_1.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/192_asset.core.GuideBg_1.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "88_asset.core.GuideBg_2.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/191_asset.core.GuideBg_2.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "89_asset.core.GuideBg_3.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/190_asset.core.GuideBg_3.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "8_asset.church.ProposeBuyRingAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/10_asset.church.ProposeBuyRingAsset.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "91_asset.core.GuideBg_4.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/189_asset.core.GuideBg_4.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "92_asset.core.GuideBg_5.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/188_asset.core.GuideBg_5.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "93_asset.core.GuideBg_6.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/187_asset.core.GuideBg_6.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "94_asset.core.GuideBg_7.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/186_asset.core.GuideBg_7.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "95_asset.core.GuideBg_8.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/185_asset.core.GuideBg_8.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "96_asset.core.GuideBg_9.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/184_asset.core.GuideBg_9.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "97_asset.church.roomCreateTime1AcAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/179_asset.church.roomCreateTime1AcAsset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "98_asset.church.roomCreateTime1Asset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/178_asset.church.roomCreateTime1Asset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "99_asset.church.roomCreateTime2AcAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/175_asset.church.roomCreateTime2AcAsset.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "core.swf",
+  "sourceFile": "9_asset.church.ProposeResponseAsset.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/8_asset.church.ProposeResponseAsset.png",
   "kind": "named",
   "resized": false
  },
@@ -15267,6 +16513,622 @@
   "resized": false
  },
  {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "101_asset.vip.BG5.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/39_asset.vip.BG5.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "102_asset.vip.BG6.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/38_asset.vip.BG6.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "103_asset.vip.BG7.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/37_asset.vip.BG7.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "104_asset.vip.BG8.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/36_asset.vip.BG8.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "105_asset.core.Scale9CornerImage.scale9CornerImage26_9.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/324_asset.core.Scale9CornerImage.scale9CornerImage26_9.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "106_asset.vip.BG9.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/35_asset.vip.BG9.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "11_asset.core.Scale9CornerImage.scale9CornerImage26_3.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/366_asset.core.Scale9CornerImage.scale9CornerImage26_3.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "164_asset.core.ddtScale9CornerImage16.§1§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/322_asset.core.ddtScale9CornerImage16.§1§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "188_asset.core.ddtScale9CornerImage16.§2§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/320_asset.core.ddtScale9CornerImage16.§2§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "206_asset.core.ddtScale9CornerImage16.§3§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/318_asset.core.ddtScale9CornerImage16.§3§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "213_asset.core.ddtScale9CornerImage16.§4§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/316_asset.core.ddtScale9CornerImage16.§4§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "225_asset.core.ddtScale9CornerImage16.§6§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/312_asset.core.ddtScale9CornerImage16.§6§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "22_asset.core.Scale9CornerImage.scale9CornerImage26_4.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/359_asset.core.Scale9CornerImage.scale9CornerImage26_4.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "231_asset.core.ddtScale9CornerImage16.§7§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/310_asset.core.ddtScale9CornerImage16.§7§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "236_asset.core.ddtScale9CornerImage16.§8§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/308_asset.core.ddtScale9CornerImage16.§8§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "238_asset.core.Scale9CornerImage.scale9CornerImage26_1.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/380_asset.core.Scale9CornerImage.scale9CornerImage26_1.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "242_asset.core.ddtScale9CornerImage16.§9§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/306_asset.core.ddtScale9CornerImage16.§9§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "249_asset.core.Scale9CornerImage.scale9CornerImage26_2.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/373_asset.core.Scale9CornerImage.scale9CornerImage26_2.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "39_asset.core.Scale9CornerImage.scale9CornerImage5.§1§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/88_asset.core.Scale9CornerImage.scale9CornerImage5.§1§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "40_asset.core.Scale9CornerImage.scale9CornerImage5.§2§.jpg",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/87_asset.core.Scale9CornerImage.scale9CornerImage5.§2§.jpg",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "41_asset.core.Scale9CornerImage.scale9CornerImage5.§3§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/86_asset.core.Scale9CornerImage.scale9CornerImage5.§3§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "42_asset.core.Scale9CornerImage.scale9CornerImage5.§4§.jpg",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/85_asset.core.Scale9CornerImage.scale9CornerImage5.§4§.jpg",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "43_asset.core.Scale9CornerImage.scale9CornerImage5.§5§.jpg",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/84_asset.core.Scale9CornerImage.scale9CornerImage5.§5§.jpg",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "44_asset.core.Scale9CornerImage.scale9CornerImage26_6.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/345_asset.core.Scale9CornerImage.scale9CornerImage26_6.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "45_asset.core.Scale9CornerImage.scale9CornerImage5.§6§.jpg",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/83_asset.core.Scale9CornerImage.scale9CornerImage5.§6§.jpg",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "46_asset.core.Scale9CornerImage.scale9CornerImage5.§7§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/82_asset.core.Scale9CornerImage.scale9CornerImage5.§7§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "47_asset.core.Scale9CornerImage.scale9CornerImage5.§8§.jpg",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/81_asset.core.Scale9CornerImage.scale9CornerImage5.§8§.jpg",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "48_asset.core.Scale9CornerImage.scale9CornerImage5.§9§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/80_asset.core.Scale9CornerImage.scale9CornerImage5.§9§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "49_asset.core.NewScale9CornerImage6.§1§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/79_asset.core.NewScale9CornerImage6.§1§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "50_asset.core.NewScale9CornerImage6.§2§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/77_asset.core.NewScale9CornerImage6.§2§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "51_asset.core.NewScale9CornerImage6.§3§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/75_asset.core.NewScale9CornerImage6.§3§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "52_asset.core.NewScale9CornerImage6.§4§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/73_asset.core.NewScale9CornerImage6.§4§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "53_asset.core.NewScale9CornerImage6.§5§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/71_asset.core.NewScale9CornerImage6.§5§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "54_asset.core.NewScale9CornerImage6.§6§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/69_asset.core.NewScale9CornerImage6.§6§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "55_asset.core.Scale9CornerImage.scale9CornerImage26_7.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/338_asset.core.Scale9CornerImage.scale9CornerImage26_7.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "56_asset.core.NewScale9CornerImage6.§7§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/67_asset.core.NewScale9CornerImage6.§7§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "57_asset.core.NewScale9CornerImage6.§8§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/65_asset.core.NewScale9CornerImage6.§8§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "58_asset.core.NewScale9CornerImage6.§9§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/63_asset.core.NewScale9CornerImage6.§9§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "60_asset.core.Scale9CornerImage.scale9CornerImage7.§1§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/61_asset.core.Scale9CornerImage.scale9CornerImage7.§1§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "61_asset.core.Scale9CornerImage.scale9CornerImage7.§2§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/60_asset.core.Scale9CornerImage.scale9CornerImage7.§2§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "62_asset.core.Scale9CornerImage.scale9CornerImage7.§3§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/59_asset.core.Scale9CornerImage.scale9CornerImage7.§3§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "66_asset.core.Scale9CornerImage.scale9CornerImage7.§4§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/58_asset.core.Scale9CornerImage.scale9CornerImage7.§4§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "70_asset.core.Scale9CornerImage.scale9CornerImage7.§5§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/57_asset.core.Scale9CornerImage.scale9CornerImage7.§5§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "74_asset.core.Scale9CornerImage.scale9CornerImage7.§6§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/56_asset.core.Scale9CornerImage.scale9CornerImage7.§6§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "77_asset.core.Scale9CornerImage.scale9CornerImage7.§7§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/55_asset.core.Scale9CornerImage.scale9CornerImage7.§7§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "78_asset.core.Scale9CornerImage.scale9CornerImage26_8.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/331_asset.core.Scale9CornerImage.scale9CornerImage26_8.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "82_asset.core.Scale9CornerImage.scale9CornerImage7.§8§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/54_asset.core.Scale9CornerImage.scale9CornerImage7.§8§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "85_asset.core.Scale9CornerImage.scale9CornerImage7.§9§.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/53_asset.core.Scale9CornerImage.scale9CornerImage7.§9§.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "88_asset.vip.BG1.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/43_asset.vip.BG1.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "92_asset.vip.BG2.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/42_asset.vip.BG2.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "96_asset.vip.BG3.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/41_asset.vip.BG3.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtcorescalebitmap.swf",
+  "sourceFile": "97_asset.vip.BG4.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corescalebitmap/40_asset.vip.BG4.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "10_asset.newStore.tabStore.selectedBtn.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/3_asset.newStore.tabStore.selectedBtn.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "119_asset.ddtstore.StrengthenCurrentLevelCell.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/112_asset.ddtstore.StrengthenCurrentLevelCell.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "12_asset.newStore.tabStore.unSelectedBtn.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/4_asset.newStore.tabStore.unSelectedBtn.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "130_asset.ddtstore.StrengthenAllInject.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/153_asset.ddtstore.StrengthenAllInject.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "19_asset.ddtstore.StrengthenColorStrip.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/5_asset.ddtstore.StrengthenColorStrip.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "1_asset.ddtstore.exalt.equipBG.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/1_asset.ddtstore.exalt.equipBG.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "26_asset.ddtstore.exalt.continuousText.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/6_asset.ddtstore.exalt.continuousText.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "29_asset.ddtstore.exalt.TitleText.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/7_asset.ddtstore.exalt.TitleText.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "30_asset.ddtstore.exaltTabBtnSelected.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/8_asset.ddtstore.exaltTabBtnSelected.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "31_asset.ddtstore.exaltTabBtnUnSelected.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/9_asset.ddtstore.exaltTabBtnUnSelected.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "32_asset.ddtstore.exaltRockNum.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/10_asset.ddtstore.exaltRockNum.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "33_asset.ddtstore.exalt.BuyRock.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/11_asset.ddtstore.exalt.BuyRock.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "34_asset.ddtstore.exalt.exalt.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/12_asset.ddtstore.exalt.exalt.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "42_asset.newStore.tabForge.selectedBtn.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/15_asset.newStore.tabForge.selectedBtn.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "43_asset.newStore.tabForge.unSelectedBtn.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/16_asset.newStore.tabForge.unSelectedBtn.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "55_asset.ddtstore.TotalSuccessRate.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/23_asset.ddtstore.TotalSuccessRate.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "62_asset.ddtstore.strengthNumTxt.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/28_asset.ddtstore.strengthNumTxt.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "64_asset.ddtstore.StrengthenTabBtnUnSelected.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/30_asset.ddtstore.StrengthenTabBtnUnSelected.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "65_asset.ddtstore.StrengthenTabBtnSelected.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/31_asset.ddtstore.StrengthenTabBtnSelected.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "66_asset.ddtstore.strengthenLevel9CornerImage9.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/32_asset.ddtstore.strengthenLevel9CornerImage9.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "67_asset.ddtstore.strengthenLevel9CornerImage8.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/33_asset.ddtstore.strengthenLevel9CornerImage8.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "68_asset.ddtstore.strengthenLevel9CornerImage7.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/34_asset.ddtstore.strengthenLevel9CornerImage7.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "69_asset.ddtstore.strengthenLevel9CornerImage6.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/35_asset.ddtstore.strengthenLevel9CornerImage6.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "6_asset.ddtstore.exalt.cellBG.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/2_asset.ddtstore.exalt.cellBG.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "70_asset.ddtstore.strengthenLevel9CornerImage5.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/36_asset.ddtstore.strengthenLevel9CornerImage5.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "71_asset.ddtstore.strengthenLevel9CornerImage4.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/37_asset.ddtstore.strengthenLevel9CornerImage4.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "72_asset.ddtstore.strengthenLevel9CornerImage3.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/38_asset.ddtstore.strengthenLevel9CornerImage3.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "73_asset.ddtstore.strengthenLevel9CornerImage2.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/39_asset.ddtstore.strengthenLevel9CornerImage2.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "74_asset.ddtstore.strengthenLevel9CornerImage1.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/40_asset.ddtstore.strengthenLevel9CornerImage1.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "76_asset.ddtstore.strengthenEquipmentTxt.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/41_asset.ddtstore.strengthenEquipmentTxt.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "78_asset.ddtstore.StrengthenBtn.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/43_asset.ddtstore.StrengthenBtn.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "80_asset.ddtstore.StoneImage.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/50_asset.ddtstore.StoneImage.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "81_asset.ddtstore.StrengthenSpaceProgress.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/52_asset.ddtstore.StrengthenSpaceProgress.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "84_asset.store.SelectMoneyBG.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/59_asset.store.SelectMoneyBG.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "85_asset.ddtstore.rightArrows.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/63_asset.ddtstore.rightArrows.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "ddtstore.swf",
+  "sourceFile": "86_asset.store.SelectMoneyTip.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/store/67_asset.store.SelectMoneyTip.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
   "swf": "effort.swf",
   "sourceFile": "10_asset.Effort.RewardBtn.png",
   "from": "vendor/SkelletonX-DDTank4.1-images/effort/10_asset.Effort.RewardBtn.png",
@@ -15970,6 +17832,13 @@
   "swf": "enthrall.swf",
   "sourceFile": "9_asset.core.view.enthrall.InfoBall0.png",
   "from": "vendor/SkelletonX-DDTank4.1-images/enthrall/9_asset.core.view.enthrall.InfoBall0.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "farm.swf",
+  "sourceFile": "102_asset.core.btmc003.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/corei/152_asset.core.btmc003.png",
   "kind": "named",
   "resized": false
  },
@@ -20328,6 +22197,69 @@
   "resized": false
  },
  {
+  "swf": "hall_old.swf",
+  "sourceFile": "10_asset.hallSaveFile.okBtn.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/hall/9_asset.hallSaveFile.okBtn.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "hall_old.swf",
+  "sourceFile": "1_asset.serverlist.roomListBtnHover.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/hall/1_asset.serverlist.roomListBtnHover.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "hall_old.swf",
+  "sourceFile": "2_asset.serverlist.roomListBtn.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/hall/2_asset.serverlist.roomListBtn.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "hall_old.swf",
+  "sourceFile": "3_asset.serverlist.RoomListBG.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/hall/3_asset.serverlist.RoomListBG.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "hall_old.swf",
+  "sourceFile": "4_asset.hallSaveFile.noviceBG.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/hall/4_asset.hallSaveFile.noviceBG.png",
+  "kind": "named",
+  "resized": true
+ },
+ {
+  "swf": "hall_old.swf",
+  "sourceFile": "5_asset.serverlist.hallBtnHover.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/hall/5_asset.serverlist.hallBtnHover.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "hall_old.swf",
+  "sourceFile": "6_asset.serverlist.hallBtn.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/hall/6_asset.serverlist.hallBtn.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "hall_old.swf",
+  "sourceFile": "7_asset.hall.battleLABS.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/hall/7_asset.hall.battleLABS.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "hall_old.swf",
+  "sourceFile": "8_asset.serverlist.hallBG.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/hall/8_asset.serverlist.hallBG.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
   "swf": "hotspringroom.swf",
   "sourceFile": "1_asset.hotSpring.menu.continu.png",
   "from": "vendor/SkelletonX-DDTank4.1-images/hotspringroom/1_asset.hotSpring.menu.continu.png",
@@ -20907,6 +22839,20 @@
   "from": "vendor/SkelletonX-DDTank4.1-images/noviceactivity/9_asset.novice.frame.titlebitmap.png",
   "kind": "named",
   "resized": false
+ },
+ {
+  "swf": "oldTrainer.swf",
+  "sourceFile": "5_asset.trainer.ghostTip.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/trainer/4_asset.trainer.ghostTip.png",
+  "kind": "named",
+  "resized": false
+ },
+ {
+  "swf": "oldTrainer.swf",
+  "sourceFile": "7_asset.trainer.question.answer.png",
+  "from": "vendor/SkelletonX-DDTank4.1-images/trainer/5_asset.trainer.question.answer.png",
+  "kind": "named",
+  "resized": true
  },
  {
   "swf": "petsbag.swf",

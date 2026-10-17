@@ -68,7 +68,7 @@ async (page) => {
       const btnTexts = await p.$$eval('button', (bs) => bs.map((b) => b.textContent.trim()));
       const modelOk = engine === 'gpt'
         ? p.url().includes('model=gpt') && btnTexts.includes('ChatGPT') && btnTexts.includes('1:1')
-        : p.url().includes('seedream_v5_lite') && btnTexts.some((t) => /^Seedream 5\.0 lite$/i.test(t));
+        : (p.url().includes('seedream_v4_5') || p.url().includes('seedream_v5_lite')) && btnTexts.some((t) => /^Seedream (5\.0 lite|4\.5)$/i.test(t)); // 4.5 escreve texto melhor (teste 2026-10-17); ambos Unlimited
       if (!modelOk) { log.push(`ABORT: page is not on the expected model for ${engine} (url ${p.url()})`); await p.request.post(`${Q}/fail?id=${encodeURIComponent(job.id)}&why=${encodeURIComponent('upload dialog: model guard')}`); break; }
       const before = new Set(await ids());
       const errRe = /(too small|smaller than|minimum|at least \d+|resolution|failed|error|not supported|try again)/i;

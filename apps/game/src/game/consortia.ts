@@ -1,7 +1,7 @@
 /**
  * Guild (consortia) rules that lived inside the Project_Player34 stored procedures (permission bits, costs, level
  * thresholds) — pure functions so they can be unit-tested. The DB side is `src/db/consortia.ts`, the 129 handlers
- * `src/handlers/consortia.ts`. Each function cites the proc / C# file it mirrors.
+ * `src/handlers/sociedade/`. Each function cites the proc / C# file it mirrors.
  */
 
 /** Consortia_Duty.Right bitmask (client ddt/data/ConsortiaDutyType.as). */

@@ -1,7 +1,7 @@
 /**
  * Pets (lobby side): PetMgr (Game.Logic/PetMgr.cs), UsersPetInfo.BuildProp / ReduceProp / MaxLevel
  * (SqlDataProvider/Data/UsersPetInfo.cs) and PetAbstractInventory / PetInventory (Game.Server/GameUtils). Pure logic: the
- * handler (handlers/pets.ts) sends packets, db/pets.ts persists.
+ * handler (handlers/mascote/) sends packets, db/pets.ts persists.
  */
 import type { game } from "@ddt/db";
 

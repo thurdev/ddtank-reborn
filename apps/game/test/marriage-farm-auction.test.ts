@@ -1,14 +1,15 @@
 /**
- * State/cost logic for the three systems added this pass: marriage (handlers/marriage.ts), farm
- * (handlers/farm.ts), auction (handlers/auction.ts). Focuses on the money/state paths the task called out:
+ * State/cost logic for the three systems added this pass: marriage (handlers/casamento/), farm
+ * (handlers/fazenda/), auction (handlers/leilao/). Focuses on the money/state paths the task called out:
  * divorce charged once, the farm-helper price exploit, and auction fee/bid/refund/settlement.
  */
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { eq } from "drizzle-orm";
 import { player } from "@ddt/db";
+import { uncompressPacket } from "@ddt/protocol";
 import type { GameServer } from "../src/server.js";
 import { BagType, ItemInfo } from "../src/game/item.js";
-import { scanExpiredAuctions } from "../src/handlers/auction.js";
+import { scanExpiredAuctions } from "../src/handlers/leilao/index.js";
 import { loggedIn, sharedDb, sleep, startServer } from "./helpers.js";
 
 let server: GameServer;
@@ -219,9 +220,12 @@ describe("192/193/194 Auction", () => {
     const goldBefore = seller.player().info.Gold;
 
     seller.c.out(192, (o) => { o.writeByte(1); o.writeInt(place); o.writeByte(1); o.writeInt(1000); o.writeInt(0); o.writeInt(0); o.writeInt(2); });
-    const added = await seller.c.code(192);
-    expect(added.pkt.readBoolean()).toBe(true);
+    // Real reply is 195 AUCTION_REFRESH (zlib-compressed, AuctionHouseController.__updateAuction) — the client has
+    // no case for inbound 192 at all. int AuctionID, bool isExist, ...
+    const added = await seller.c.code(195);
+    uncompressPacket(added.pkt);
     const auctionId = added.pkt.readInt();
+    expect(added.pkt.readBoolean()).toBe(true);
     expect(goldBefore - seller.player().info.Gold).toBe(Math.max(1, Math.trunc(1000 * 0.03))); // duration 0 = 8h = x1
     expect(seller.player().propBag.getItemCount(11101)).toBe(3);
 
@@ -249,5 +253,45 @@ describe("192/193/194 Auction", () => {
     const n = await scanExpiredAuctions(server.ctx); // not expired yet (ValidDate 8h), should settle nothing
     expect(n).toBe(0);
     seller.c.close(); bidder1.c.close(); bidder2.c.close();
+  });
+
+  it("add clones IsJudge/IsUsed/Hole5-6 Level+Exp onto the listed item (ItemInfo.CloneFromTemplate field list)", async () => {
+    // Como lê esse teste (cada variável): monta um item já "julgado"/usado com buracos 5 e 6 abertos (nível+exp
+    // diferentes de zero), lista no leilão e decodifica o 195 AUCTION_REFRESH byte a byte — campos que
+    // cloneForAuction esquecesse de copiar voltariam no valor padrão do ItemInfo (IsJudge=true, IsUsed=false),
+    // não no valor do item original, e o teste pegaria a divergência.
+    const seller = await loggedIn(server, { grade: 30, gold: 100_000 });
+    const t = server.ctx.templates.findItem(11101)!;
+    const it = ItemInfo.createFromTemplate(t, 1, 0);
+    it.IsBinds = false;
+    it.IsJudge = false; // "não julgado" — CloneFromTemplate (ItemInfo.cs:833) copia isso, não reseta pra true
+    it.IsUsed = true;
+    it.Hole5Level = 3; it.Hole5Exp = 1234; it.Hole6Level = 2; it.Hole6Exp = 5678;
+    expect(seller.player().propBag.addItem(it)).toBe(true);
+    const place = it.Place;
+
+    seller.c.out(192, (o) => { o.writeByte(1); o.writeInt(place); o.writeByte(1); o.writeInt(100); o.writeInt(0); o.writeInt(0); o.writeInt(1); });
+    const added = await seller.c.code(195);
+    uncompressPacket(added.pkt);
+    added.pkt.readInt(); // AuctionID
+    expect(added.pkt.readBoolean()).toBe(true); // isExist
+    added.pkt.readInt(); added.pkt.readString(); added.pkt.readDateTime(); // AuctioneerID, AuctioneerName, BeginDate
+    added.pkt.readInt(); added.pkt.readString(); added.pkt.readInt(); // BuyerID, BuyerName, ItemID
+    added.pkt.readInt(); added.pkt.readInt(); added.pkt.readInt(); added.pkt.readInt(); added.pkt.readInt(); // Mouthful, PayType, Price, Rise, ValidDate
+    expect(added.pkt.readBoolean()).toBe(true); // has-item
+    added.pkt.readInt(); added.pkt.readInt(); // Count, TemplateID
+    added.pkt.readInt(); added.pkt.readInt(); added.pkt.readInt(); added.pkt.readInt(); // Attack/Defend/Agility/LuckCompose
+    added.pkt.readInt(); // StrengthenLevel
+    added.pkt.readBoolean(); // IsBinds
+    expect(added.pkt.readBoolean()).toBe(false); // IsJudge — must be the source item's false, not ItemInfo's default true
+    added.pkt.readDateTime(); added.pkt.readInt(); added.pkt.readString(); added.pkt.readString(); // BeginDate, ValidDate, Color, Skin
+    expect(added.pkt.readBoolean()).toBe(true); // IsUsed — must be the source item's true, not the default false
+    added.pkt.readInt(); added.pkt.readInt(); added.pkt.readInt(); added.pkt.readInt(); added.pkt.readInt(); added.pkt.readInt(); // Hole1-6
+    added.pkt.readString(); added.pkt.readInt(); added.pkt.readDateTime(); // Pic, RefineryLevel, DiscolorValidDate slot
+    expect(added.pkt.readByte()).toBe(3); // Hole5Level
+    expect(added.pkt.readInt()).toBe(1234); // Hole5Exp
+    expect(added.pkt.readByte()).toBe(2); // Hole6Level
+    expect(added.pkt.readInt()).toBe(5678); // Hole6Exp
+    seller.c.close();
   });
 });

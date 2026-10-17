@@ -9,7 +9,18 @@ export interface UserCardRow {
   Level: number; CardGP: number; isFirstGet: boolean;
   dirty?: boolean;
 }
-export interface CardUpdateCond { Level: number; Exp: number; MinExp: number; MaxExp: number; UpdateCardCount: number }
+/** ResetCardCount/ResetMoney are CardResetHandler.cs:572's reroll cost (pay in copies or Money), unused by upgradeCard. */
+export interface CardUpdateCond { Level: number; Exp: number; MinExp: number; MaxExp: number; UpdateCardCount: number; ResetCardCount: number; ResetMoney: number }
+
+/** RandomSafe.NextSmallValue (Bussiness/RandomSafe.cs:24): the base class's re-roll loop (Next(min,max) called
+ * 1..49 times) doesn't change the uniform distribution, so this collapses to one draw in [min, max). */
+export function nextSmallValue(min: number, max: number, rnd: () => number = Math.random): number {
+  const r = min + Math.floor(rnd() * (max - min));
+  let num = Math.abs(r - max);
+  if (num > max) num = max;
+  else if (num < min) num = min;
+  return num;
+}
 export interface CardUpdateRowFull { Id: number; Level: number; Attack: number; Defend: number; Agility: number; Lucky: number; Guard: number; Damage: number }
 
 export const CARD_EQUIP_SLOTS = 5;

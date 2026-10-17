@@ -113,4 +113,9 @@ export const SAVED_DETAIL_COLUMNS = [
   "LastRefreshPet", "petScore", "accumulativeLoginDays", "accumulativeAwardDays", "honorId", "Repute", "damageScores",
   "totemId", "myHonor", "MaxBuyHonor", "necklaceExp", "necklaceExpAdd", "OnlineTime", "LastDate", "BoxGetDate",
   "AlreadyGetBox", "BoxProgression", "GetBoxLevel", "charmGP", "Sex", "NickName",
+  // Forja › Forno: "Refinar conjunto" (295 STORE_FINE_SUIT) e "Espírito do equipamento" (391 EQUIP_GHOST) —
+  // colunas que já existiam no catálogo original (reservadas pra features nunca ligadas no servidor base,
+  // ver research/qa/feature-sources.md), agora escritas por apps/game/src/handlers/forja/refinar-conjunto.ts
+  // e espirito-do-equipamento.ts. GhostEquipList: "categoryId,level,totalGhost|..." (3 categorias).
+  "fineSuitExp", "GhostEquipList",
 ] as const satisfies readonly (keyof DetailRow)[];

@@ -24,11 +24,24 @@ for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (data[(y * W + x) * 4
 const bw = x1 - x0 + 1, bh = y1 - y0 + 1, cx = x0 + bw / 2, cy = y0 + bh / 2;
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-const render = (size, sx = 1) => {
+// Measurement/render canvas is wider than the final W: an unsqueezed long caption at the big starting
+// font size can be wider than the final box, and SVG clips anything outside its own width/height -- a
+// clipped bbox can look "narrow enough" by accident (a cropped chunk of glyphs), which made the shrink
+// loop below exit on its very first (too-large) size instead of actually shrinking. WW gives it room to
+// draw the whole string so the measured width is real; only the horizontal squeeze/crop at the end brings
+// it back down to W.
+const WW = W * 6;
+// IMPORTANT: resvg (sharp's SVG renderer) mis-scales text-anchor="middle" under a non-uniform `scale()` group
+// transform - it keeps the glyph run's left edge pinned to its UNSCALED anchor position instead of scaling around
+// the anchor point, which silently pushes squeezed text off-centre (and for a big squeeze, clean off the crop
+// window - verified empirically). Workaround: always anchor="start" at local x=0 (which resvg places exactly where
+// asked, scaled or not), measure the unscaled bbox once, then compute the group's translate so the SCALED bbox
+// lands centred, instead of relying on text-anchor="middle" plus scale.
+const render = (size, sx = 1, offsetX = WW / 2) => {
   const pad = sw + rw;
-  const t = (extra) => `<text x="${W / 2}" y="${H * 1.5}" text-anchor="middle" dominant-baseline="central" font-family="${font}" font-size="${size}" ${extra}>${esc(pt)}</text>`;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H * 3}"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0.15" stop-color="${top}"/><stop offset="0.9" stop-color="${bottom}"/></linearGradient></defs>
-  <g transform="translate(${W / 2} 0) scale(${sx} 1) translate(${-W / 2} 0)">
+  const t = (extra) => `<text x="0" y="${H * 1.5}" text-anchor="start" dominant-baseline="central" font-family="${font}" font-size="${size}" ${extra}>${esc(pt)}</text>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${WW}" height="${H * 3}"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0.15" stop-color="${top}"/><stop offset="0.9" stop-color="${bottom}"/></linearGradient></defs>
+  <g transform="translate(${offsetX} 0) scale(${sx} 1)">
   ${t(`fill="${rim}" stroke="${rim}" stroke-width="${(pad) * 2}" stroke-linejoin="round"`)}
   ${t(`fill="${stroke}" stroke="${stroke}" stroke-width="${sw * 2}" stroke-linejoin="round"`)}
   ${t(`fill="url(#g)"`)}</g></svg>`;
@@ -36,15 +49,19 @@ const render = (size, sx = 1) => {
 };
 const bbox = ({ data: d, info: i }) => { let a = i.width, b = -1, c = i.height, e = -1; for (let y = 0; y < i.height; y++) for (let x = 0; x < i.width; x++) if (d[(y * i.width + x) * 4 + 3] > 100) { a = Math.min(a, x); b = Math.max(b, x); c = Math.min(c, y); e = Math.max(e, y); } return { a, b, c, e }; };
 
-// largest size whose rendered height fits the original box height; then squeeze horizontally if wider than the box
+// Shrink by HEIGHT only (never below ~85% of the natural fit just to satisfy width) - width overflow is handled
+// afterwards by a horizontal squeeze instead, per the "squeeze, don't shrink height" rule.
 let size = Number(opt("--size", Math.round(H * 0.58 * 2) / 2)), r, bb;
-for (; size > 6; size -= 0.5) { r = await render(size); bb = bbox(r); if (bb.e - bb.c + 1 <= H - 2 && bb.b - bb.a + 1 <= W - 2) break; }
-const sx = Math.min(1, (W - 2) / (bb.b - bb.a + 1));
-r = await render(size, sx); bb = bbox(r);
+for (; size > 6; size -= 0.5) { r = await render(size, 1, 0); bb = bbox(r); if (bb.e - bb.c + 1 <= H - 2) break; }
+const unscaledW = bb.b - bb.a + 1, unscaledCx = (bb.a + bb.b + 1) / 2;
+const sx = Math.min(1, (W - 2) / unscaledW);
+const offsetX = WW / 2 - sx * unscaledCx;
+r = await render(size, sx, offsetX); bb = bbox(r);
 // text is centred horizontally; crop vertically so its box centre matches the original's
 const top0 = Math.max(0, Math.min(H * 3 - H, Math.round((bb.c + bb.e + 1) / 2 - cy)));
 const cropTop = Math.min(bb.c - 1, Math.max(bb.e + 2 - H, top0)); // keep the whole word inside the canvas
-const crop = await sharp(r.data, { raw: { width: W, height: H * 3, channels: 4 } }).extract({ left: 0, top: cropTop, width: W, height: H }).png().toBuffer();
+const left = Math.round((WW - W) / 2); // text is centred on WW/2; take the central W-wide strip
+const crop = await sharp(r.data, { raw: { width: WW, height: H * 3, channels: 4 } }).extract({ left, top: cropTop, width: W, height: H }).png().toBuffer();
 await sharp({ create: { width: W, height: H, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
   .composite([{ input: crop, left: 0, top: 0 }]).png().toFile(out);
 console.log(id, `${W}x${H}`, "box", `${bw}x${bh}`, "size", size, "squeeze", sx.toFixed(2), "->", out);

@@ -1,0 +1,4 @@
+consortiabattle__1_asset.consortiaBattle.infoView.bg
+choicefigure__2_asset.choicefigure.btnEnterGame_new
+choicefigure__3_asset.choicefigure.btnEnterGame_old
+fightlib__198

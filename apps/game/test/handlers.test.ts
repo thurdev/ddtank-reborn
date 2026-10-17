@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 import { player } from "@ddt/db";
 import type { GameServer } from "../src/server.js";
 import { FakeClient, createCharacter, loggedIn, sharedDb, sleep, startServer } from "./helpers.js";
-import { getItemPrice, setItemType } from "../src/handlers/items.js";
+import { getItemPrice, setItemType } from "../src/handlers/loja/preco.js";
 import { toShopItem } from "../src/db/templates.js";
 
 let server: GameServer;
@@ -29,9 +29,10 @@ describe("login", () => {
     expect(codes.indexOf(1)).toBeGreaterThan(0);
     const after = codes.slice(codes.indexOf(1));
     expect(after.slice(0, 7)).toEqual([1, 67, 15, 5, 13, 34, 92]);
-    // Tail: ...enthrall(227)/avatar(402)... + activity icons (87,87) + necklace (95)
-    // + invite state (107/5). 87s = sendActivityIcons, 107 = inviteLoginPacket.
-    expect(after.slice(-10)).toEqual([402, 186, 231, 259, 102, 42, 145, 87, 87, 95]);
+    // Tail: ...enthrall(227)/avatar(402)... + activity icons (87,87) + novato tabs (258 x10, default-open
+    // like chickenbox/luckystar -- research/qa/hall-icons.md) + necklace (95) + invite state (107/5).
+    // littlegame badge (80) is NOT here: it's ALL_OPEN-only (sendActivityIcons), stock server has it off.
+    expect(after.slice(-20)).toEqual([402, 186, 231, 259, 102, 42, 145, 87, 87, 258, 258, 258, 258, 258, 258, 258, 258, 258, 258, 95]);
     // Invite state (107/5) chega logo depois do 95 (inviteLoginPacket).
     const inv = await c.code(107, undefined);
     expect(inv.pkt.readInt()).toBe(5);
@@ -249,6 +250,32 @@ describe("shop", () => {
     expect(gift.find((g) => g.SenderID === a().id && g.TemplateID === shop!.TemplateID && g.Count === 3)).toBeDefined();
     const mail = await sharedDb().then((h) => h.db.select().from(player.User_Messages).where(eq(player.User_Messages.ReceiverID, b.userId)));
     expect(mail.find((mm) => mm.Type === 55)).toBeDefined();
+    sender.close();
+    friendC.close();
+  });
+
+  it("218 USER_GET_GIFTS: lists every gift ever received, summed by TemplateID, with current charmGP", async () => {
+    const tpl = server.ctx.templates;
+    const shop = [...tpl.shop.values()].find((s) => s.AValue1 > 0 && tpl.findItem(s.TemplateID) && (tpl.findItem(s.TemplateID)!.Property2 ?? 0) > 0);
+    expect(shop).toBeDefined();
+    const { c: sender, player: a } = await loggedIn(server, { money: 1_000_000 });
+    const { c: friendC, ch: b, player: bp } = await loggedIn(server, { money: 0 });
+    // sends the same gift twice -> 218 must sum them into one TemplateID/Count entry, not two rows
+    let m = sender.mark();
+    sender.out(221, (x) => { x.writeUTF(b.nick); x.writeInt(shop!.ID); x.writeInt(2); x.writeInt(0); });
+    await sender.code(221, undefined, m);
+    m = sender.mark();
+    sender.out(221, (x) => { x.writeUTF(b.nick); x.writeInt(shop!.ID); x.writeInt(1); x.writeInt(0); });
+    await sender.code(221, undefined, m);
+    const m2 = friendC.mark();
+    friendC.out(218, (x) => { x.writeInt(b.userId); });
+    const r = await friendC.code(218, undefined, m2);
+    expect(r.pkt.readInt()).toBe(b.userId);
+    expect(r.pkt.readInt()).toBe(bp().info.charmGP);
+    const count = r.pkt.readInt();
+    const gifts: { TemplateID: number; Count: number }[] = [];
+    for (let i = 0; i < count; i++) gifts.push({ TemplateID: r.pkt.readInt(), Count: r.pkt.readInt() });
+    expect(gifts.find((g) => g.TemplateID === shop!.TemplateID)?.Count).toBe(3);
     sender.close();
     friendC.close();
   });

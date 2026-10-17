@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { autoSplitFusionSlots } from "../src/handlers/forge.js";
+import { autoSplitFusionSlots } from "../src/handlers/forja/bancada.js";
 import { PlayerInventory } from "../src/game/inventory.js";
 import { ItemInfo, type ItemTemplate } from "../src/game/item.js";
 
@@ -13,11 +13,11 @@ const put = (store: PlayerInventory, slot: number, id: number, count: number) =>
 const counts = (store: PlayerInventory) => [1, 2, 3, 4].map((s) => store.getItemAt(s)?.Count ?? 0);
 
 describe("autoSplitFusionSlots (Reborn: pilha inteira num slot só)", () => {
-  it("pilha de 6 vira 3/1/1/1 nos slots 1-4", () => {
+  it("pilha de 6 divide igual 2/2/1/1 nos slots 1-4", () => {
     const store = bag();
     put(store, 1, 5001, 6);
     autoSplitFusionSlots(store);
-    expect(counts(store)).toEqual([3, 1, 1, 1]);
+    expect(counts(store)).toEqual([2, 2, 1, 1]);
   });
   it("pilha de 2 preenche só slots 1-2", () => {
     const store = bag();
@@ -41,7 +41,13 @@ describe("autoSplitFusionSlots (Reborn: pilha inteira num slot só)", () => {
     autoSplitFusionSlots(store);
     expect(store.getItemAt(2)?.TemplateID).toBe(6001);
     expect(store.getItemAt(2)?.Count).toBe(5);
-    expect(counts(store)).toEqual([3, 5, 1, 1]);
+    expect(counts(store)).toEqual([2, 5, 2, 1]);
+  });
+  it("9000 divide 2250 em cada slot", () => {
+    const store = bag();
+    put(store, 1, 5001, 9000);
+    autoSplitFusionSlots(store);
+    expect(counts(store)).toEqual([2250, 2250, 2250, 2250]);
   });
   it("item único avulso não mexe", () => {
     const store = bag();

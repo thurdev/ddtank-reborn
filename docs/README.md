@@ -7,6 +7,8 @@
 ## Trabalhar no repo
 | Preciso… | Lê |
 |---|---|
+| **Achar no código uma tela/botão do jogo** (ex.: Forja › Forno › Dourar) | [MAPA-DO-JOGO.md](./MAPA-DO-JOGO.md) — tela → cliente → pacote → servidor → C# (`node tools/docs/game-map.mjs` regenera) |
+| **Aprender a modificar uma feature** (o que é, onde mexe, fluxo, "quero mudar X", testes) | [features/README.md](./features/README.md) — um doc por feature/menu do jogo + [features/COMO-FUNCIONA.md](./features/COMO-FUNCIONA.md) (arquitetura + glossário) |
 | Subir branch, PR, review, deploy | [BRANCH-FLOW.md](./BRANCH-FLOW.md) |
 | Checklist de PR, licença, conduta | [CONTRIBUTING.md](../CONTRIBUTING.md) |
 | O que falta migrar do C# (ordem) | [MIGRATION-GAP.md](./MIGRATION-GAP.md) |

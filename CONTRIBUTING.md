@@ -1,7 +1,7 @@
-# Contributing — DDTank Reborn (fase privada)
+# Contributing — DDTank Reborn
 
-> Fase atual: repo PRIVADO, só convidados. Este arquivo já vale e já prepara
-> a fase comunidade.
+> Repo aberto pra comunidade: qualquer pessoa pode abrir issue e PR. A ideia é a
+> comunidade ajudar a balancear, corrigir, traduzir e adicionar funcionalidades.
 
 ## 1. Regra de ouro
 Nada vai pra `main` direto. Ordem obrigatória:
@@ -21,17 +21,20 @@ merge → `develop` roda no servidor de teste → PR `develop` → `main` →
 - [ ] Sem segredo no código (usa `.env.example`)
 - [ ] Migração de banco em `packages/db` com rollback descrito
 - [ ] Teste Playwright da feature na matriz (`docs/qa-matrix.json`) marcado
+- [ ] Usou código/arte de outro projeto? Crédito em `THIRD_PARTY_NOTICES.md`
 
 ## 4. Review
 1. Check automático (typecheck/test).
 2. Review IA (`.github/workflows/pr-check.yml`) — aponta risco, não aprova sozinho.
-3. Review humano (thurdev). Merge só após os 3.
+3. Review humano (@thurdev). Merge só após os 3.
 
-## 5. Licença
-Licença: MIT (ver LICENSE). Ao contribuir você concorda que sua contribuição
-entra sob a mesma licença. Material de terceiros: THIRD_PARTY_NOTICES.md.
+## 5. Licença e transparência
+Projeto sem fins lucrativos, mantido só por doação voluntária (nunca pay-to-win).
+A licença definitiva ainda vai ser escolhida pelo mantenedor (@thurdev); até lá vale
+o arquivo `LICENSE`. Ao contribuir você concorda que sua contribuição entra sob a
+licença do projeto. Tudo que vem de terceiros fica creditado em `THIRD_PARTY_NOTICES.md`.
 
-## 6. Fase comunidade (dormindo, já preparada)
-Quando abrir: `CODE_OF_CONDUCT.md` + `SECURITY.md` entram em vigor,
-issues com labels `good-first-issue`, PRs externos seguem o mesmo fluxo
-`feature → develop → main`. Servidor live roda sempre o `main`.
+## 6. Comunidade
+`CODE_OF_CONDUCT.md` + `SECURITY.md` valem pra todo mundo. Issues `good-first-issue`
+são o ponto de entrada. PRs externos seguem o mesmo fluxo `feature → develop → main`.
+Cada um pode subir o próprio servidor com este código; o servidor oficial roda o `main`.

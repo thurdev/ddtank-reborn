@@ -1,0 +1,6 @@
+consortia__10_asset.consortia.myConsortiaView.titleWord2
+consortia__11_asset.consortia.myConsortiaView.titleWord1
+consortiabattle__1_asset.consortiaBattle.infoView.bg
+fightlib__198
+choicefigure__2_asset.choicefigure.btnEnterGame_new
+choicefigure__3_asset.choicefigure.btnEnterGame_old

@@ -98,6 +98,17 @@ export const ConfigSchema = z.object({
   DEV_ALLOW_ANY_TICKET: bool(false),
   /** Write heartbeat/online count to app."Servers" (shared with apps/api ServerList.ashx). */
   SERVER_HEARTBEAT: bool(true),
+  /**
+   * QA dev switch: "open everything" so a tester can reach any content without waiting on a schedule or
+   * leveling up. Never flips a default — every gate stays `cfg.ALL_OPEN || <original rule>`, so flipping
+   * this back off restores stock behavior exactly. Covers: every hall activity icon (sendActivityIcons),
+   * chickenbox/luckystar/labyrinth (isOpen), lightroad/guildmemberweek (login.ts explicit()), world boss +
+   * league + elite windows (forced open by EventsRuntime.reload), the Dungeon room LevelLimits check
+   * (RoomMgr.enterRoom) so any level can enter any dungeon room, and the Totem level-20 requirement
+   * (totemOpenOne, progressao/totem.ts) so QA can test totem without leveling up. Refused in production
+   * like DEV_ALLOW_ANY_TICKET (see loadConfig below).
+   */
+  ALL_OPEN: bool(false),
 });
 
 export type Config = z.infer<typeof ConfigSchema>;
@@ -106,6 +117,9 @@ export function loadConfig(env: Record<string, string | undefined> = process.env
   const cfg = ConfigSchema.parse(env);
   if (cfg.NODE_ENV === "production" && cfg.DEV_ALLOW_ANY_TICKET) {
     throw new Error("DEV_ALLOW_ANY_TICKET must not be enabled in production");
+  }
+  if (cfg.NODE_ENV === "production" && cfg.ALL_OPEN) {
+    throw new Error("ALL_OPEN must not be enabled in production");
   }
   return cfg;
 }

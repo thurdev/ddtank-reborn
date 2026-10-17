@@ -8,6 +8,7 @@ import {
   DialogContent,
   EmptyState,
   Input,
+  NativeSelect,
   PageHeader,
   Skeleton,
   Spinner,
@@ -15,13 +16,17 @@ import {
   TBody,
   THead,
   Table,
+  Tabs,
+  TabsList,
+  TabsTrigger,
   Td,
   Th,
   Tr,
   cn,
 } from "@ddtank/ui";
-import { ArrowDown, ArrowUp, ChevronLeft, ChevronRight, Pencil, Plus, Search, Trash2 } from "lucide-react";
+import { ArrowDown, ArrowUp, ChevronLeft, ChevronRight, LayoutGrid, List, Pencil, Plus, Search, Trash2 } from "lucide-react";
 import { useI18n, useText } from "@/i18n";
+import { ItemIconGenerator } from "@/resources/ItemIconGenerator";
 import { getQuery, listQuery, useResourceMutations } from "./api";
 import { Cell } from "./Cell";
 import { SchemaForm } from "./SchemaForm";
@@ -51,22 +56,26 @@ function EditDialogBody({ def, row, onDone }: { def: ResourceDef; row: Row; onDo
   const { data, isLoading } = useQuery({ ...getQuery(def, id), placeholderData: row });
   const { update } = useResourceMutations(def);
   if (isLoading && !data) return <Skeleton className="h-64" />;
+  const current = data ?? row;
   return (
-    <SchemaForm
-      fields={def.fields}
-      mode="edit"
-      initial={data ?? row}
-      onCancel={onDone}
-      onSubmit={async (body) => {
-        try {
-          await update.mutateAsync({ id, body });
-          toast.success(t("crud.saved"));
-          onDone();
-        } catch (e) {
-          toast.error(errMsg(e, t("common.error")));
-        }
-      }}
-    />
+    <div className="flex flex-col gap-6">
+      {def.name === "items" && <ItemIconGenerator templateId={Number(current.TemplateID)} iconUrlAtual={String(current.iconUrl ?? "")} />}
+      <SchemaForm
+        fields={def.fields}
+        mode="edit"
+        initial={current}
+        onCancel={onDone}
+        onSubmit={async (body) => {
+          try {
+            await update.mutateAsync({ id, body });
+            toast.success(t("crud.saved"));
+            onDone();
+          } catch (e) {
+            toast.error(errMsg(e, t("common.error")));
+          }
+        }}
+      />
+    </div>
   );
 }
 
@@ -88,7 +97,10 @@ export function ResourcePage({ def, embedded, headerActions }: ResourcePageProps
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState<string | undefined>(def.defaultSort);
   const [dialog, setDialog] = useState<DialogState>(null);
+  const [filters, setFilters] = useState<Record<string, string>>({});
+  const [view, setView] = useState<"table" | "grid">("table");
   const dq = useDebounced(q);
+  const filtersKey = JSON.stringify(filters);
 
   // Reset paging when switching resources or searching.
   useEffect(() => {
@@ -96,10 +108,15 @@ export function ResourcePage({ def, embedded, headerActions }: ResourcePageProps
     setPage(1);
     setSort(def.defaultSort);
     setDialog(null);
+    setFilters({});
+    setView("table");
   }, [def]);
   useEffect(() => setPage(1), [dq]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => setPage(1), [filtersKey, view]);
 
-  const params = { q: dq || undefined, page, pageSize, sort };
+  const effectivePageSize = view === "grid" ? def.gridView?.pageSize ?? 120 : pageSize;
+  const params = { q: dq || undefined, page, pageSize: effectivePageSize, sort, extra: filters };
   const { data, isLoading, isFetching, error, refetch } = useQuery(listQuery(def, params));
   const m = useResourceMutations(def);
 
@@ -113,9 +130,17 @@ export function ResourcePage({ def, embedded, headerActions }: ResourcePageProps
   };
 
   const total = data?.total ?? 0;
-  const from = total ? (page - 1) * pageSize + 1 : 0;
-  const to = Math.min(total, page * pageSize);
-  const lastPage = Math.max(1, Math.ceil(total / pageSize));
+  const from = total ? (page - 1) * effectivePageSize + 1 : 0;
+  const to = Math.min(total, page * effectivePageSize);
+  const lastPage = Math.max(1, Math.ceil(total / effectivePageSize));
+
+  const setFilter = (name: string, value: string) =>
+    setFilters((s) => {
+      const next = { ...s };
+      if (value) next[name] = value;
+      else delete next[name];
+      return next;
+    });
 
   const header = (
     <div className="flex flex-wrap items-center gap-2">
@@ -129,7 +154,47 @@ export function ResourcePage({ def, embedded, headerActions }: ResourcePageProps
           aria-label={t("crud.search")}
         />
       </div>
+      {def.filters?.map((f) =>
+        f.type === "select" ? (
+          <NativeSelect
+            key={f.name}
+            value={filters[f.name] ?? ""}
+            onChange={(e) => setFilter(f.name, e.target.value)}
+            aria-label={text(f.label)}
+            className="w-auto"
+          >
+            <option value="">{text(f.label)}</option>
+            {(f.options ?? []).map((o) => (
+              <option key={String(o.value)} value={String(o.value)}>
+                {text(o.label)}
+              </option>
+            ))}
+          </NativeSelect>
+        ) : (
+          <Input
+            key={f.name}
+            type="number"
+            value={filters[f.name] ?? ""}
+            onChange={(e) => setFilter(f.name, e.target.value)}
+            placeholder={f.placeholder ?? text(f.label)}
+            aria-label={text(f.label)}
+            className="w-28 font-mono"
+          />
+        ),
+      )}
       {isFetching && !isLoading && <Spinner className="size-4" />}
+      {def.gridView && (
+        <Tabs value={view} onValueChange={(v) => setView(v as "table" | "grid")}>
+          <TabsList>
+            <TabsTrigger value="table" aria-label={t("crud.viewTable")}>
+              <List className="size-4" />
+            </TabsTrigger>
+            <TabsTrigger value="grid" aria-label={t("crud.viewGrid")}>
+              <LayoutGrid className="size-4" />
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
+      )}
       {headerActions}
       {can.create && (
         <Button onClick={() => setDialog({ kind: "create" })}>
@@ -166,6 +231,45 @@ export function ResourcePage({ def, embedded, headerActions }: ResourcePageProps
           <EmptyState title={t("crud.empty")} className="m-4 border-0">
             {t("crud.emptyHint")}
           </EmptyState>
+        ) : view === "grid" && def.gridView ? (
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(104px,1fr))] gap-3 p-4">
+            {data.items.map((row) => {
+              const id = rowId(def, row);
+              return (
+                <div key={id} className="flex flex-col items-center gap-1 rounded-xl border border-line bg-night-deep/40 p-2">
+                  <button
+                    type="button"
+                    title={`${rowTitle(row)} · #${String(row[Array.isArray(def.idField) ? def.idField[0]! : def.idField] ?? "")}`}
+                    onClick={() => setDialog({ kind: "edit", row })}
+                    className="flex w-full flex-col items-center gap-1 rounded-lg p-1 hover:bg-panel-2"
+                  >
+                    {def.gridView!.render(row)}
+                  </button>
+                  {!!def.rowActions?.length && (
+                    <div className="flex flex-wrap justify-center gap-1">
+                      {def.rowActions
+                        .filter((a) => !a.visible || a.visible(row))
+                        .map((a) => {
+                          const Icon = a.icon;
+                          return (
+                            <Button
+                              key={a.id}
+                              size="icon"
+                              variant="ghost"
+                              aria-label={text(a.label)}
+                              title={text(a.label)}
+                              onClick={() => setDialog({ kind: "action", row, action: a })}
+                            >
+                              {Icon && <Icon className="size-4" />}
+                            </Button>
+                          );
+                        })}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         ) : (
           <Table>
             <THead>

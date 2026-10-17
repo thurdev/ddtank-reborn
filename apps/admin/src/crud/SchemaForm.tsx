@@ -68,7 +68,7 @@ export function SchemaForm({ fields, mode = "create", initial, submitLabel, onSu
                   htmlFor={id}
                   hint={text(f.hint)}
                   error={typeof error === "string" ? error : undefined}
-                  className={cn((f.span === 2 || ["textarea", "json", "tags", "image"].includes(f.type)) && "sm:col-span-2")}
+                  className={cn((f.span === 2 || ["textarea", "json", "tags", "image", "item-picker-multi", "item-list"].includes(f.type)) && "sm:col-span-2")}
                 >
                   <Controller
                     control={control}

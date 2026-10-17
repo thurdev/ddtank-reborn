@@ -2952,8 +2952,6 @@ Game.Server.Packets.SenBuildAppshipRequestSuccess:Ação realizada com sucesso, 
 SendActiveKeySystem.PhoneFail:Número incorreto
 Game.Server.PrivateChat.TypeTooFast:Mais calma
 Game.Server.AppSystem.TakeApprenticeMail.Content:"Parabéns, você tem um discípulo! Quando ele alcançar o nível 10, 15 ou 18, você receberá um baú correspondente ao nível. Dentro do baú há muitas coisas boas, como pedras de fortalecimento, pedras de combinação, gemas preciosas e uma grande quantidade de ouro e experiência."
-“当学生毕业的20级，就可以Nhận được 学习的豪华光洁度胸部，已经赢得学徒低于11级X7更多奖品，包括徽章，石楼5级X1，每天进步X3片段，设定完学习（365天的限制），这样就可以在随机以下中的一个来获得prêmios":Pedra de combinação nível 5 x1, Pérola de Ataque preciosa nível 3 x1, Melhoria Diária (limitada a 365 dias) x1, Pérola de Ataque preciosa nível 4 x1, Pérola de Defesa preciosa nível 4 x1, Pérola de Atributo preciosa nível 4 x1.
- 你还在等什么还在？可能有三个徒弟在同一时间！ “你还在等待？可能有三个徒弟在同一时间！”,你还在等什么还？可能有三个徒弟在同一时间！ “
 PasswordTwo.FailedPasswordAttemptLimitReached:Limite de tentativas de senha incorreta atingido!
 
 Divine.Wealth.Leavel.Limite:Para usar o Tarô é preciso ter pelo menos nível 3!

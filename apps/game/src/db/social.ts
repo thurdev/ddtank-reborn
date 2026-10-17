@@ -48,6 +48,12 @@ export async function getAllUserReceivedGifts(db: Database, userId: number): Pro
   return [...sums].map(([TemplateID, Count]) => ({ TemplateID, Count }));
 }
 
+/** LookupEffortHandler.cs (203 LOOKUP_EFFORT): achievement IDs of an arbitrary user (online or not, self or other). */
+export async function loadAchievementIds(db: Database, userId: number): Promise<number[]> {
+  const rows = await db.select({ AchievementID: player.AchievementData.AchievementID }).from(player.AchievementData).where(eq(player.AchievementData.UserID, userId));
+  return rows.map((r) => r.AchievementID);
+}
+
 export type QuestDataRow = typeof player.QuestData.$inferSelect;
 export type BuffRow = typeof player.User_Buff.$inferSelect;
 export type AchievementDataRow = typeof player.AchievementData.$inferSelect;

@@ -92,36 +92,11 @@ export class StringBuilder {
   toString(): string { return this.s; }
 }
 
-/** Effects (Game.Logic/Effects/*.cs) — only the simple turn-counted ones change state; the rest are accepted no-ops. */
-export class AbstractEffect {
-  constructor(public count = 1, public value = 0, ..._r: unknown[]) {}
-  apply(_l: Living): void {}
-}
-export class ContinueReduceBloodEffect extends AbstractEffect {
-  override apply(l: Living): void { l.addBlood(-Math.abs(this.value), 1); }
-}
-export class ContinueReduceGreenBloodEffect extends ContinueReduceBloodEffect {}
-export class ReduceStrengthEffect extends AbstractEffect {
-  override apply(l: Living): void { if (l instanceof Player) l.energy = Math.max(0, l.energy - this.value); }
-}
-export class LockDirectionEffect extends AbstractEffect {}
-export class GuardEffect extends AbstractEffect {}
-export class DamageEffect extends AbstractEffect {}
-export class NoHoleEffect extends AbstractEffect {
-  override apply(l: Living): void { l.startEffect("nohole", this.count); }
-}
-export class IceFronzeEffect extends AbstractEffect {
-  override apply(l: Living): void { l.startEffect("ice", this.count); }
-}
-export class HideEffect extends AbstractEffect {
-  override apply(l: Living): void { l.startEffect("hide", this.count); }
-}
-export class SealEffect extends AbstractEffect {
-  override apply(l: Living): void { l.startEffect("seal", this.count); }
-}
-export class AddDamageEffect extends AbstractEffect {}
-export class ReduceDamageEffect extends AbstractEffect {}
-export class InvinciblyEffect extends AbstractEffect {}
+export {
+  AbstractEffect, ContinueReduceBloodEffect, ContinueReduceGreenBloodEffect, ReduceStrengthEffect,
+  LockDirectionEffect, GuardEffect, DamageEffect, NoHoleEffect, IceFronzeEffect, HideEffect, SealEffect,
+  AddDamageEffect, ReduceDamageEffect, InvinciblyEffect,
+} from "../effects.js";
 
 /** DropInventory (Game.Logic/DropInventory.cs): drops are applied by the server via PveGame events; scripts that roll
  * their own boxes (SpecialDrop) get "no drop". */

@@ -7,8 +7,8 @@ import * as Out from "../packets/out.js";
 import type { RoomMember } from "../game/player.js";
 import type { FightGame } from "../fight/types.js";
 
-export const RoomType = { Match: 0, Freedom: 1, Boss: 3, Dungeon: 4, FightLab: 5, Freshman: 10, Academy: 11, WordBossFight: 14 } as const;
-export const GameType = { Free: 0, Guild: 1, ALL: 4, Dungeon: 7, FightLab: 8, Freshman: 10 } as const;
+export const RoomType = { Match: 0, Freedom: 1, Boss: 3, Dungeon: 4, FightLab: 5, Freshman: 10, Academy: 11, WordBossFight: 14, Labyrinth: 15 } as const;
+export const GameType = { Free: 0, Guild: 1, ALL: 4, Dungeon: 7, FightLab: 8, Freshman: 10, Labyrinth: 15 } as const;
 export const HardLevel = { Easy: 0, Normal: 1, Hard: 2, Terror: 3, Epic: 4, Simple: 5 } as const;
 
 export interface RoomHost {
@@ -107,6 +107,7 @@ export class BaseRoom implements Out.RoomView {
       case RoomType.FightLab: this.GameType = GameType.FightLab; break;
       case RoomType.Boss: case RoomType.Dungeon: case RoomType.Academy: this.GameType = GameType.Dungeon; break;
       case RoomType.Freshman: this.GameType = GameType.Freshman; break;
+      case RoomType.Labyrinth: this.GameType = GameType.Labyrinth; break;
       case RoomType.Match: case RoomType.Freedom: this.GameType = GameType.Free; break;
       default: this.GameType = GameType.ALL;
     }

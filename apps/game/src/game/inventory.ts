@@ -329,12 +329,15 @@ export class PlayerInventory {
     const to = this.items[toSlot];
     if (itemCount === 0) itemCount = from.Count > 0 ? from.Count : 1;
     if (to && to.TemplateID === from.TemplateID && to.canStackedTo(from)) {
-      if (from.Count + to.Count > from.template.MaxCount) {
+      // n = quanto mover de fato (antes movia itemCount mas apagava a pilha de origem inteira — perdia o resto)
+      const n = Math.min(itemCount, from.Count);
+      if (n + to.Count > from.template.MaxCount) {
         from.Count -= to.template.MaxCount - to.Count;
         to.Count = to.template.MaxCount;
       } else {
-        to.Count += itemCount;
-        this.removeItem(from);
+        to.Count += n;
+        if (n >= from.Count) this.removeItem(from);
+        else from.Count -= n;
       }
       from.isDirty = true;
       to.isDirty = true;

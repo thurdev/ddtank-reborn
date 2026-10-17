@@ -1,229 +1,362 @@
 code	name	clientFn	firstWrite	server	file
-1	LOGIN	sendLogin		implemented	basic.ts
-4	PING	sendPint		implemented	basic.ts
-8	CLIENT_LOG	sendErrorMsg		implemented	basic.ts
-11	ACTIVE_PULLDOWN	sendActivePullDown		MISSING	
-12	HOTSPRING_CMD_B	sendHotAddTime	CONTINU_BY_MONEY	implemented	hotspring.ts
-13	DAILY_AWARD	sendDailyAward		implemented	events.ts
-16	SCENE_LOGIN	sendSceneLogin		implemented	basic.ts
-25	BAG_LOCKED	sendBagLocked		MISSING	
-40	SNS_MSG_RECEIVE	sendSnsMsg		implemented	social.ts
-44	BUY_GOODS	sendBuyGoods		implemented	items.ts
-46	BUY_GIFTBAG	sendBuyGiftBag		MISSING	
-50	FIGHT_NPC	sendBeginFightNpc		MISSING	
-53	GET_TIME_BOX	sendGetTimeBox		implemented	events.ts
-54	PROP_BUY	sendBuyProp		MISSING	
-55	PROP_SELL	sendSellProp		MISSING	
-57	GOODS_PRESENT	sendPresentGoods		MISSING	
-58	ITEM_COMPOSE	sendItemCompose		partial	forge.ts
-59	ITEM_STRENGTHEN	sendItemStrength		partial	forge.ts
-60	ITEM_HIDE	sendHideLayer		implemented	use.ts
-61	ITEM_TRANSFER	sendItemTransfer		MISSING	
-62	ITEM_CONTINUE	sendGoodsContinue		implemented	items.ts
-63	ITEM_OPENUP	sendItemOpenUp		implemented	use.ts
-71	S_BUGLE	sendSBugle		implemented	chat.ts
-72	B_BUGLE	sendBBugle		implemented	chat.ts
-73	C_BUGLE	sendCBugle		implemented	chat.ts
-74	ITEM_EQUIP	sendItemEquip		implemented	items.ts
-77	ITEM_OVERDUE	sendItemOverDue		MISSING	
-78	ITEM_FUSION	sendItemFusion		implemented	forge.ts
-85	MATE_ONLINE_TIME	sendMateTime		implemented	marriage.ts
-89	QUESTION_REPLY	sendQuestionReply		MISSING	
-90	GET_SIGNAWARD	sendSignAward		implemented	events.ts
-91	GAME_CMD	sendSuicide	SUICIDE	implemented	rooms.ts
-91	GAME_CMD	sendKillSelf	KILLSELF	implemented	rooms.ts
-92	VIP_RENEWAL	sendOpenVip		implemented	use.ts
-94	GAME_ROOM	sendGameLogin	GAME_ROOM_LOGIN	implemented	rooms.ts
-94	GAME_ROOM	sendGameStyle	GAME_PICKUP_STYLE	implemented	rooms.ts
-94	GAME_ROOM	sendGameMode	GAME_PICKUP_STYLE	implemented	rooms.ts
-108	GAME_TAKE_TEMP	sendGetTropToBag		implemented	items.ts
-110	ITEM_REFINERY	sendItemLianhua		MISSING	
-112	DELETE_MAIL	sendDeleteMail		implemented	mail.ts
-113	GET_MAIL_ATTACHMENT	sendGetMail		implemented	mail.ts
-114	UPDATE_MAIL	sendUpdateMail		implemented	mail.ts
-116	SEND_MAIL	sendEmail	0	implemented	mail.ts
-119	LINKREQUEST_GOODS	sendGetLinkGoodsInfo		MISSING	
-120	ITEM_TREND	sendItemTrend		implemented	forge.ts
-121	ITEM_INLAY	sendItemEmbed		implemented	forge.ts
-122	CLEAR_STORE_BAG	sendClearStoreBag		implemented	forge.ts
-125	ITEM_EMBED_BACKOUT	sendItemEmbedBackout		implemented	forge.ts
-126	BUY_QUICK_GOLDBOX	sendQuickBuyGoldBox		MISSING	
-167	CHURCH_MOVIE_OVER	sendChurchMovieOver		MISSING	
-168	GOODS_COUNT	sendUpdateGoodsCount		implemented	items.ts
-169	HOTSPRING_ROOM_PLAYER_REMOVE	sendHotSpringRoomPlayerRemove		implemented	hotspring.ts
-172	SAVE_DB	sendSaveDB		implemented	basic.ts
-175	HOTSPRING_ROOM_CREATE	sendHotSpringRoomCreate		stub	hotspring.ts
-179	QUEST_FINISH	sendQuestFinish		implemented	quests.ts
-187	HOTSPRING_ENTER	sendHotSpringEnter		implemented	hotspring.ts
-189	USER_CHANGE_RANK	sendReworkRank		implemented	items.ts
-190	HOTSPRING_ROOM_QUICK_ENTER	sendHotSpringRoomQuickEnter		implemented	hotspring.ts
-191	HOTSPRING_CMD	sendHotSpringRoomEdit	HOTSPRING_ROOM_EDIT	implemented	hotspring.ts
-191	HOTSPRING_CMD	sendHotSpringRoomPlayerTargetPoint	TARGET_POINT	implemented	hotspring.ts
-191	HOTSPRING_CMD	sendHotSpringRoomRenewalFee	HOTSPRING_ROOM_RENEWAL_FEE	implemented	hotspring.ts
-191	HOTSPRING_CMD	sendHotSpringRoomInvite	HOTSPRING_ROOM_INVITE	implemented	hotspring.ts
-191	HOTSPRING_CMD	sendHotSpringRoomAdminRemovePlayer	HOTSPRING_ROOM_ADMIN_REMOVE_PLAYER	implemented	hotspring.ts
-191	HOTSPRING_CMD	sendHotSpringRoomPlayerContinue	HOTSPRING_ROOM_PLAYER_CONTINUE	implemented	hotspring.ts
-196	CARD_RESET	sendCardReset	0	MISSING	
-196	CARD_RESET	sendReplaceCardProp	1	MISSING	
-201	HOTSPRING_ROOM_ENTER_VIEW	sendHotSpringRoomEnterView		implemented	hotspring.ts
-202	HOTSPRING_ROOM_ENTER	sendHotSpringRoomEnter		implemented	hotspring.ts
-203	LOOKUP_EFFORT	sendLookupEffort		MISSING	
-212	HOTSPRING_ROOM_ENTER_CONFIRM	sendHotSpringRoomEnterConfirm		implemented	hotspring.ts
-213	USE_LOG	sendUseLog		MISSING	
-214	USER_RELOAD_GIFT	sendReloadGift		MISSING	
-216	CARDS_DATA	sendMoveCards	0	implemented	pets.ts
-216	CARDS_DATA	sendOpenViceCard	1	implemented	pets.ts
-216	CARDS_DATA	sendOpenCardBox	2	implemented	pets.ts
-216	CARDS_DATA	sendUpGradeCard	3	implemented	pets.ts
-219	WEEKLY_CLICK_CNT	sendWeeklyClick		implemented	events.ts
-	SE	sendSellGoods		MISSING	
-21	SCENE_REMOVE_USER	sendExitMarryRoom		implemented	basic.ts
-26	LOTTERY_OPEN_BOX	sendRouletteBox		implemented	activities.ts
-26	LOTTERY_OPEN_BOX	sendOpenDead		implemented	activities.ts
-27	LOTTERY_RANDOM_SELECT	sendStartTurn		implemented	activities.ts
-28	LOTTERY_FINISH	sendFinishRoulette		implemented	activities.ts
-45	CADDY_GET_BADLUCK	sendQequestBadLuck		implemented	activities.ts
-49	CHANGE_PLACE_GOODS	sendMoveGoods		implemented	items.ts
-66	PROP_USE	sendUseProp		MISSING	
-91	GAME_CMD	sendAirPlane	AIRPLANE	implemented	rooms.ts
-91	GAME_CMD	sendGamePick	PICK	implemented	rooms.ts
-94	GAME_ROOM	sendUpdateRoomList	ROOMLIST_UPDATE	implemented	rooms.ts
-123	DEFY_AFFICHE	sendDefyAffiche		implemented	chat.ts
-124	CHANGE_PLACE_GOODS_ALL	sendMoveGoodsAll		implemented	use.ts
-129	CONSORTIA_CMD	sendConsortiaEquipConstrol	CONSORTIA_EQUIP_CONTROL	implemented	consortia.ts
-129	CONSORTIA_CMD	sendCreateConsortia	CONSORTIA_CREATE	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsortiaTryIn	CONSORTIA_TRYIN	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsortiaCancelTryIn	CONSORTIA_TRYIN	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsortiaInvate	CONSORTIA_INVITE	implemented	consortia.ts
-129	CONSORTIA_CMD	sendReleaseConsortiaTask	CONSORTIA_TASK_RELEASE	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsortiaInvatePass	CONSORTIA_INVITE_PASS	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsortiaInvateDelete	CONSORTIA_INVITE_DELETE	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsortiaUpdateDescription	CONSORTIA_DESCRIPTION_UPDATE	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsortiaUpdatePlacard	CONSORTIA_PLACARD_UPDATE	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsortiaUpdateDuty	CONSORTIA_DUTY_UPDATE	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsortiaUpgradeDuty	CONSORTIA_DUTY_UPDATE	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsoritaApplyStatusOut	CONSORTIA_APPLY_STATE	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsortiaOut	CONSORTIA_RENEGADE	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsortiaMemberGrade	CONSORTIA_USER_GRADE_UPDATE	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsortiaUserRemarkUpdate	CONSORTIA_USER_REMARK_UPDATE	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsortiaDutyDelete	CONSORTIA_DUTY_DELETE	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsortiaTryinPass	CONSORTIA_TRYIN_PASS	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsortiaTryinDelete	CONSORTIA_TRYIN_DEL	implemented	consortia.ts
-129	CONSORTIA_CMD	sendForbidSpeak	CONSORTIA_BANCHAT_UPDATE	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsortiaDismiss	CONSORTIA_DISBAND	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsortiaChangeChairman	CONSORTIA_CHAIRMAN_CHAHGE	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsortiaRichOffer	CONSORTIA_RICHES_OFFER	implemented	consortia.ts
-129	CONSORTIA_CMD	sendDonate	DONATE	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsortiaLevelUp	CONSORTIA_LEVEL_UP	implemented	consortia.ts
-160	IM_CMD	sendAddFriend	FRIEND_ADD	implemented	social.ts
-160	IM_CMD	sendDelFriend	FRIEND_REMOVE	implemented	social.ts
-160	IM_CMD	sendFriendState	FRIEND_STATE	implemented	social.ts
-171	USE_REWORK_NAME	sendUseReworkName		MISSING	
-176	QUEST_ADD	sendQuestAdd		implemented	quests.ts
-177	QUEST_REMOVE	sendQuestRemove		implemented	quests.ts
-181	QUEST_CHECK	sendQuestCheck		implemented	quests.ts
-182	USE_COLOR_CARD	sendChangeColor		implemented	items.ts
-183	CARD_USE	sendUseCard		implemented	use.ts
-200	CHECK_CODE	sendCheckCode		MISSING	
-204	OPEN_ALL_CARDBOX	sendOpenAll		implemented	activities.ts
-205	USE_CHANGE_COLOR_SHELL	sendUseChangeColorShell		MISSING	
-206	CHANGE_COLOR_OVER_DUE	sendChangeColorShellTimeOver		MISSING	
-217	OPEN_FIVE_SIX_HOLE	sendItemOpenFiveSixHole		implemented	forge.ts
-218	USER_GET_GIFTS	sendPlayerGift		implemented	items.ts
-221	USER_SEND_GIFTS	sendBuyGift		implemented	items.ts
-222	EQUIP_RECYCLE_ITEM	sendEquipRetrieve		MISSING	
-224	CID_CHECK	sendCIDCheck		MISSING	
-224	CID_CHECK	sendCIDInfo		MISSING	
-225	ENTHRALL_SWITCH	sendForSwitch		implemented	basic.ts
-225	REQUEST_UPDATE	sendRequestUpdate		implemented	basic.ts
-230	ACHIEVEMENT_FINISH	sendAchievementFinish		implemented	events.ts
-232	CADDY_SELL_ALL_GOODS	sendSellAll		implemented	activities.ts
-233	MARRY_SCENE_CHANGE	sendSceneChange		implemented	marriage.ts
-235	MARRYINFO_GET	sendForMarryInfo		implemented	marriage.ts
-236	MARRYINFO_ADD	sendRegisterInfo		implemented	marriage.ts
-237	MARRYINFO_UPDATE	sendModifyInfo		implemented	marriage.ts
-240	MARRY_SCENE_LOGIN	sendMarryRoomLogin		implemented	marriage.ts
-241	MARRY_ROOM_CREATE	sendCreateRoom	100	implemented	marriage.ts
-242	MARRY_ROOM_LOGIN	sendEnterRoom		implemented	marriage.ts
-244	PLAYER_EXIT_MARRY_ROOM	sendExitRoom		implemented	marriage.ts
-245	CADDY_GET_AWARDS	sendRequestAwards		MISSING	
-247	MARRY_APPLY	sendPropose		implemented	marriage.ts
-248	DIVORCE_APPLY	sendUnmarry		implemented	marriage.ts
-249	MARRY_CMD	sendChurchMove	MOVE	partial	marriage.ts
-249	MARRY_CMD	sendStartWedding	HYMENEAL	partial	marriage.ts
-249	MARRY_CMD	sendChurchContinuation	CONTINUATION	partial	marriage.ts
-249	MARRY_CMD	sendChurchInvite	INVITE	partial	marriage.ts
-249	MARRY_CMD	sendChurchLargess	LARGESS	partial	marriage.ts
-249	MARRY_CMD	sendUseFire	USEFIRECRACKERS	partial	marriage.ts
-249	MARRY_CMD	sendChurchKick	KICK	partial	marriage.ts
-249	MARRY_CMD	sendChurchForbid	FORBID	partial	marriage.ts
-249	MARRY_CMD	sendPosition	POSITION	partial	marriage.ts
-249	MARRY_CMD	sendGunSalute	GUNSALUTE	partial	marriage.ts
-250	MARRY_APPLY_REPLY	sendProposeRespose		implemented	marriage.ts
-253	MARRY_ROOM_INFO_UPDATE	sendModifyChurchDiscription		implemented	marriage.ts
-	A	sendAcademyRegister	ACADEMY_REGISTER	MISSING	
-	A	sendAcademyRemoveRegister	ACADEMY_REMOVE	MISSING	
-	A	sendAcademyApprentice	ACADEMY_FOR_APPRENTICE	MISSING	
-	A	sendAcademyMaster	ACADEMY_FOR_MASTER	MISSING	
-	A	sendAcademyMasterConfirm	MASTER_CONFIRM	MISSING	
-	A	sendAcademyApprenticeConfirm	APPRENTICE_CONFIRM	MISSING	
-	A	sendAcademyFireMaster	FIRE_MASTER	MISSING	
-	A	sendAcademyFireApprentice	FIRE_APPRENTICE	MISSING	
-20	SCENE_FACE	sendFace	0	implemented	chat.ts
-30	PICC	sendPicc		MISSING	
-31	GOODS_EXCHANGE	sendGoodsExchange		MISSING	
-32	COLLECTINFO	sendCollectInfoValidate		MISSING	
-34	USER_RANK	sendChangeDesignation		implemented	items.ts
-64	OPTION_UPDATE	sendOpition		MISSING	
-68	PET	sendEquipPetSkill	EQUIP_PET_SKILL	implemented	pets.ts
-68	PET	sendRefreshPet	REFRESH_PET	implemented	pets.ts
-68	PET	sendAdoptPet	ADOPT_PET	implemented	pets.ts
-68	PET	sendPetFollowOrCall	PET_FOLLOW	implemented	pets.ts
-68	PET	sendPetWake	PET_WAKE	implemented	pets.ts
-68	PET	sendPetFormInfo	PET_FORMINFO	implemented	pets.ts
-68	PET	sendPaySkill	PAY_SKILL	implemented	pets.ts
-68	PET	sendPetFightUnFight	FIGHT_PET	implemented	pets.ts
-68	PET	sendPetRisingStar	PET_RISINGSTAR	implemented	pets.ts
-68	PET	sendPetEvolution	PET_EVOLUTION	implemented	pets.ts
-68	PET	sendPetFeed	FEED_PET	implemented	pets.ts
-68	PET	sendPetRename	RENAME_PET	implemented	pets.ts
-68	PET	sendReleasePet	RELEASE_PET	implemented	pets.ts
-68	PET	sendRevertPet	REVER_PET	implemented	pets.ts
-68	PET	sendAddPet	ADD_PET	implemented	pets.ts
-68	PET	sendBuyPetExpItem	BUY_PET_EXP_ITEM	implemented	pets.ts
-81	FARM	sendCompose	COMPOSE_FOOD	implemented	farm.ts
-81	FARM	sendBeginHelper	HELPER_SWITCH_FIELD	implemented	farm.ts
-87	NEWCHICKENBOX_SYS	sendChickenBoxUseEagleEye	USEEAGLEEYE	partial	activities.ts
-87	NEWCHICKENBOX_SYS	sendChickenBoxTakeOverCard	TAKEOVERCARD	partial	activities.ts
-87	NEWCHICKENBOX_SYS	sendOverShowItems		partial	activities.ts
-87	NEWCHICKENBOX_SYS	sendFlushNewChickenBox	FLUSHCHICKENVIEW	partial	activities.ts
-87	NEWCHICKENBOX_SYS	sendClickStartBntNewChickenBox	CLICKSTARTBNT	partial	activities.ts
-87	NEWCHICKENBOX_SYS	sendNewChickenBox	ENTERCHICKENVIEW	partial	activities.ts
-91	GAME_CMD	sendPetSkill	PET_SKILL	implemented	rooms.ts
-99	TEXP	sendTexp		implemented	use.ts
-103	DAILYRECORD	sendDailyRecord		implemented	events.ts
-104	CARD_LOTTERY	sendCardLotteryIds		MISSING	
-105	LUCK_LOTTERY	sendLuckLottery		MISSING	
-106	WISHBEADEQUIP	sendWishBeadEquip		MISSING	
-128	LEFT_GUN_ROULETTE_SOCKET	sendStartTurn_LeftGun	1	MISSING	
-129	CONSORTIA_CMD	sendConsortionMail	CONSORTION_MAIL	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsortionPoll	POLL_CANDIDATE	implemented	consortia.ts
-129	CONSORTIA_CMD	sendConsortionSkill	SKILL_SOCKET	implemented	consortia.ts
-129	CONSORTIA_CMD	sendBuyBadge	BUY_BADGE	implemented	consortia.ts
-130	LEFT_GUN_ROULETTE_COMPLETTE	sendEndTurn_LeftGun	1	MISSING	
-138	ITEM_ADVANCE	sendItemExalt		MISSING	
-160	IM_CMD	sendOns	ONS_EQUIP	implemented	social.ts
-160	IM_CMD	sendCustomFriends	ADD_CUSTOM_FRIENDS	implemented	social.ts
-160	IM_CMD	sendOneOnOneTalk	ONE_ON_ONE_TALK	implemented	social.ts
-161	USER_LUCKYNUM	sendUserLuckyNum		MISSING	
-162	ELITEGAME	sendGetEliteGameState	ELITE_MATCH_TYPE	implemented	events.ts
-162	ELITEGAME	sendGetSelfRankSroce	ELITE_MATCH_PLAYER_RANK	implemented	events.ts
-162	ELITEGAME	sendGetPaarungDetail	ELITE_MATCH_RANK_DETAIL	implemented	events.ts
-162	ELITEGAME	sendEliteGameStart	ELITE_MATCH_RANK_START	implemented	events.ts
-216	CARDS_DATA	sendSortCards	4	implemented	pets.ts
-216	CARDS_DATA	sendFirstGetCards	5	implemented	pets.ts
-223	FRIEND_BRITHDAY	sendWithBrithday		implemented	social.ts
-251	SCENE_STATE	sendCurrentState		implemented	marriage.ts
-252	USE_CHANGE_SEX	sendChangeSex		implemented	items.ts
-265	NEWTITLE_CARD	sendNewTitleCard		MISSING	
-338	ACCUMULATIVELOGIN_AWARD	sendAccumulativeLoginAward		implemented	events.ts
+1	LOGIN	sendLogin	Int(Version.Build=5498628)	implemented	
+4	PING	sendPint		implemented	
+8	CLIENT_LOG	sendErrorMsg	UTF(param1)	implemented	
+11	ACTIVE_PULLDOWN	sendActivePullDown	Int(param1)	implemented	
+12	HOTSPRING_CMD_B	sendHotAddTime	Byte(HotSpringPackageType.CONTINU_BY_MONEY=11)	implemented	
+13	DAILY_AWARD	sendDailyAward	Int(param1)	implemented	
+15	USER_ANSWER	syncStep	Byte(1)	implemented	
+15	USER_ANSWER	syncWeakStep	Byte(2)	implemented	
+16	SCENE_LOGIN	sendSceneLogin	Int(param1)	implemented	
+18	GET_PLAYER_CARD	getPlayerCardInfo	Int(param1)	implemented	
+19	SCENE_CHAT	sendMessage	Byte(param1)	implemented	
+20	SCENE_FACE	sendFace	Int(param1)	implemented	
+21	SCENE_REMOVE_USER	sendExitMarryRoom		implemented	
+21	SCENE_REMOVE_USER	sendExitScene		implemented	
+25	BAG_LOCKED	sendBagLocked	UTF(param1)	implemented	
+26	LOTTERY_OPEN_BOX	sendOpenDead	Byte(param1)	implemented	
+26	LOTTERY_OPEN_BOX	sendRouletteBox	Byte(param1)	implemented	
+27	LOTTERY_RANDOM_SELECT	sendStartTurn		implemented	
+28	LOTTERY_FINISH	sendFinishRoulette		implemented	
+30	PICC	sendPicc	Int(param1)	implemented	
+31	GOODS_EXCHANGE	sendGoodsExchange	Int(param2)	partial	
+32	COLLECTINFO	sendCollectInfoValidate	Byte(param1)	stub	
+34	USER_RANK	sendChangeDesignation	Boolean(param1)	implemented	
+37	CHAT_PERSONAL	sendPrivateMessage	Int(param3)	implemented	
+40	SNS_MSG_RECEIVE	sendSnsMsg	Int(param1)	implemented	
+44	BUY_GOODS	sendBuyGoods	Int(_loc11_)	implemented	
+45	CADDY_GET_BADLUCK	sendQequestBadLuck		implemented	
+46	BUY_GIFTBAG	sendBuyGiftBag	Int(param1)	implemented	
+48	SEll_GOODS	sendSellGoods	Int(param1)	MISSING	
+49	CHANGE_PLACE_GOODS	sendMoveGoods	Byte(param1)	partial	
+50	FIGHT_NPC	sendBeginFightNpc		stub	
+53	GET_TIME_BOX	sendGetTimeBox	Int(param1)	implemented	
+54	PROP_BUY	sendBuyProp	Int(param1)	implemented	
+54	PROP_BUY	sendBuyProp	Int(param1)	implemented	
+55	PROP_SELL	sendSellProp	Int(param1)	implemented	
+55	PROP_SELL	sendSellProp	Int(param1)	implemented	
+57	GOODS_PRESENT	sendPresentGoods	UTF(param4)	implemented	
+58	ITEM_COMPOSE	sendItemCompose	Boolean(param1)	partial	
+59	ITEM_STRENGTHEN	sendItemStrength	Boolean(param1)	partial	
+60	ITEM_HIDE	sendHideLayer	Boolean(param2)	implemented	
+61	ITEM_TRANSFER	sendItemTransfer	Boolean(param1)	implemented	
+62	ITEM_CONTINUE	sendGoodsContinue	Int(_loc2_)	implemented	
+63	ITEM_OPENUP	sendItemOpenUp	Byte(param1)	implemented	
+64	OPTION_UPDATE	sendOpition	Int(param1)	implemented	
+66	PROP_USE	sendUseProp	Int(param1)	implemented	
+68	PET	addPetEquip	Byte(CrazyTankPackageType.ADD_PET_EQUIP=20)	implemented	
+68	PET	delPetEquip	Byte(CrazyTankPackageType.DEL_PET_EQUIP=21)	implemented	
+68	PET	eatPetsHandler	Byte(CrazyTankPackageType.EAT_PETS=33)	implemented	
+68	PET	sendAddPet	Byte(CrazyTankPackageType.ADD_PET=2)	implemented	
+68	PET	sendAdoptPet	Byte(CrazyTankPackageType.ADOPT_PET=6)	implemented	
+68	PET	sendBuyPetExpItem	Byte(FarmPackageType.BUY_PET_EXP_ITEM=19)	implemented	
+68	PET	sendEquipPetSkill	Byte(CrazyTankPackageType.EQUIP_PET_SKILL=7)	implemented	
+68	PET	sendPaySkill	Byte(CrazyTankPackageType.PAY_SKILL=16)	implemented	
+68	PET	sendPetEvolution	Byte(CrazyTankPackageType.PET_EVOLUTION=23)	implemented	
+68	PET	sendPetFeed	Byte(CrazyTankPackageType.FEED_PET=4)	implemented	
+68	PET	sendPetFightUnFight	Byte(CrazyTankPackageType.FIGHT_PET=17)	implemented	
+68	PET	sendPetFollowOrCall	Byte(CrazyTankPackageType.PET_FOLLOW=25)	implemented	
+68	PET	sendPetFormInfo	Byte(CrazyTankPackageType.PET_FORMINFO=24)	implemented	
+68	PET	sendPetRename	Byte(CrazyTankPackageType.RENAME_PET=9)	implemented	
+68	PET	sendPetRisingStar	Byte(CrazyTankPackageType.PET_RISINGSTAR=22)	implemented	
+68	PET	sendPetWake	Byte(CrazyTankPackageType.PET_WAKE=32)	implemented	
+68	PET	sendRefreshPet	Byte(CrazyTankPackageType.REFRESH_PET=5)	implemented	
+68	PET	sendReleasePet	Byte(CrazyTankPackageType.RELEASE_PET=8)	implemented	
+68	PET	sendRevertPet	Byte(CrazyTankPackageType.REVER_PET=18)	implemented	
+69	SCENE_USERS_LIST	sendGetScenePlayer	Byte(param1)	implemented	
+70	GAME_INVITE	sendInviteGame	Int(param1)	implemented	
+71	S_BUGLE	sendSBugle	Int(PlayerManager.Instance.Self.ID)	implemented	
+72	B_BUGLE	sendBBugle	Int(param2)	implemented	
+73	C_BUGLE	sendCBugle	Int(PlayerManager.Instance.Self.ID)	implemented	
+74	ITEM_EQUIP	sendItemEquip	Boolean(true)	implemented	
+75	CrazyTankPackageType.PROP_DELETE	sendThrowProp	Int(param1)	implemented	
+77	ITEM_OVERDUE	sendItemOverDue	Byte(param1)	implemented	
+78	ITEM_FUSION	sendItemFusion	Byte(param1)	implemented	
+81	FARM	doMature	Byte(FarmPackageType.ACCELERATE_FIELD=3)	partial	
+81	FARM	enterFarm	Byte(FarmPackageType.ENTER_FARM=1)	partial	
+81	FARM	exitFarm	Byte(FarmPackageType.EXIT_FARM=16)	partial	
+81	FARM	fastForwardGrop	Byte(FarmPackageType.FRAM_GROP_FASTFORWARD=18)	partial	
+81	FARM	giftPacks	Byte(FarmPackageType.FARM_GIFTPACKS=20)	partial	
+81	FARM	seeding	Byte(FarmPackageType.GROW_FIELD=2)	partial	
+81	FARM	sendBeginHelper	Byte(FarmPackageType.HELPER_SWITCH_FIELD=9)	partial	
+81	FARM	sendCompose	Byte(FarmPackageType.COMPOSE_FOOD=5)	partial	
+81	FARM	toFarmHelper	Byte(FarmPackageType.HELPER_SWITCH_FIELD=9)	partial	
+81	FARM	toGather	Byte(FarmPackageType.GAIN_FIELD=4)	partial	
+81	FARM	toHelperRenewMoney	Byte(FarmPackageType.HELPER_PAY_FIELD=8)	partial	
+81	FARM	toKillCrop	Byte(FarmPackageType.KILLCROP_FIELD=7)	partial	
+81	FARM	toSpread	Byte(FarmPackageType.PAY_FIELD=6)	partial	
+82	CrazyTankPackageType.GAME_MISSION_START	sendGameMissionStart	Boolean(param1)	implemented	
+84	ACTIVITY_PACKAGE	sendChickActivationGetAward	Int(ChickActivationType.CHICKACTIVATION=2)	partial	
+84	ACTIVITY_PACKAGE	sendChickActivationOpenKey	Int(ChickActivationType.CHICKACTIVATION=2)	partial	
+84	ACTIVITY_PACKAGE	sendChickActivationQuery	Int(ChickActivationType.CHICKACTIVATION=2)	partial	
+85	MATE_ONLINE_TIME	sendMateTime	Int(param1)	implemented	
+87	NEWCHICKENBOX_SYS	sendChickenBoxTakeOverCard	Int(NewChickenBoxPackageType.TAKEOVERCARD=13)	partial	
+87	NEWCHICKENBOX_SYS	sendChickenBoxUseEagleEye	Int(NewChickenBoxPackageType.USEEAGLEEYE=11)	partial	
+87	NEWCHICKENBOX_SYS	sendClickStartBntNewChickenBox	Int(NewChickenBoxPackageType.CLICKSTARTBNT=15)	partial	
+87	NEWCHICKENBOX_SYS	sendFlushNewChickenBox	Int(NewChickenBoxPackageType.FLUSHCHICKENVIEW=14)	partial	
+87	NEWCHICKENBOX_SYS	sendLuckyStarClose	Int(NewChickenBoxPackageType.CLOSE_GAME=32)	partial	
+87	NEWCHICKENBOX_SYS	sendLuckyStarEnter	Int(NewChickenBoxPackageType.ENTER_GAME=31)	partial	
+87	NEWCHICKENBOX_SYS	sendLuckyStarTurn	Int(NewChickenBoxPackageType.START_TURN=33)	partial	
+87	NEWCHICKENBOX_SYS	sendLuckyStarTurnComplete	Int(NewChickenBoxPackageType.TURN_COMPLETE=34)	partial	
+87	NEWCHICKENBOX_SYS	sendNewChickenBox	Int(NewChickenBoxPackageType.ENTERCHICKENVIEW=10)	partial	
+87	NEWCHICKENBOX_SYS	sendOverShowItems	Int(NewChickenBoxPackageType.AllITEMSHOW=12)	partial	
+89	QUESTION_REPLY	sendQuestionReply	Int(param1)	stub	
+90	GET_SIGNAWARD	sendSignAward	Int(param1)	implemented	
+91	GAME_CMD	createMonster	Byte(CrazyTankPackageType.GENERAL_COMMAND=23)	implemented	
+91	GAME_CMD	deleteMonster	Byte(CrazyTankPackageType.GENERAL_COMMAND=23)	implemented	
+91	GAME_CMD	sendAirPlane	Byte(CrazyTankPackageType.AIRPLANE=40)	implemented	
+91	GAME_CMD	sendBeat	Byte(CrazyTankPackageType.BEAT=22)	implemented	
+91	GAME_CMD	sendBossTakeOut	Byte(CrazyTankPackageType.BOSS_TAKE_CARD=130)	implemented	
+91	GAME_CMD	sendClientScriptEnd	Byte(CrazyTankPackageType.GENERAL_COMMAND=23)	implemented	
+91	GAME_CMD	sendClientScriptStart	Byte(CrazyTankPackageType.GENERAL_COMMAND=23)	implemented	
+91	GAME_CMD	sendFightLibAnswer	Byte(CrazyTankPackageType.GENERAL_COMMAND=23)	implemented	
+91	GAME_CMD	sendFightLibInfoChange	Byte(CrazyTankPackageType.FIGHT_LIB_INFO_CHANGE=-1)	implemented	
+91	GAME_CMD	sendFightLibReanswer	Byte(CrazyTankPackageType.GENERAL_COMMAND=23)	implemented	
+91	GAME_CMD	sendFlagMode	Byte(CrazyTankPackageType.WANNA_LEADER=97)	implemented	
+91	GAME_CMD	sendGameCMDBlast	Byte(CrazyTankPackageType.BLAST=3)	implemented	
+91	GAME_CMD	sendGameCMDChange	Byte(CrazyTankPackageType.CHANGEBALL=19)	implemented	
+91	GAME_CMD	sendGameCMDDirection	Byte(CrazyTankPackageType.DIRECTION=7)	implemented	
+91	GAME_CMD	sendGameCMDShoot	Byte(CrazyTankPackageType.FIRE=2)	implemented	
+91	GAME_CMD	sendGameCMDStunt	Byte(CrazyTankPackageType.STUNT=15)	implemented	
+91	GAME_CMD	sendGameMissionPrepare	Byte(CrazyTankPackageType.GAME_MISSION_PREPARE=116)	implemented	
+91	GAME_CMD	sendGamePick	Byte(CrazyTankPackageType.PICK=49)	implemented	
+91	GAME_CMD	sendGameSkipNext	Byte(CrazyTankPackageType.SKIPNEXT=12)	implemented	
+91	GAME_CMD	sendGameStartMove	Byte(CrazyTankPackageType.MOVESTART=9)	implemented	
+91	GAME_CMD	sendGameStopMove	Byte(CrazyTankPackageType.MOVESTOP=10)	implemented	
+91	GAME_CMD	sendGameTakeOut	Byte(CrazyTankPackageType.TAKE_CARD=98)	implemented	
+91	GAME_CMD	sendGhostTarget	Byte(CrazyTankPackageType.GHOST_TARGET=54)	implemented	
+91	GAME_CMD	sendKillSelf	Byte(CrazyTankPackageType.KILLSELF=21)	implemented	
+91	GAME_CMD	sendLoadingProgress	Byte(CrazyTankPackageType.LOAD=16)	implemented	
+91	91	sendMissionTryAgain	Byte(119)	implemented	
+91	GAME_CMD	sendPassStory	Byte(CrazyTankPackageType.PASS_STORY=133)	implemented	
+91	GAME_CMD	sendPaymentTakeCard	Byte(CrazyTankPackageType.PAYMENT_TAKE_CARD=114)	implemented	
+91	GAME_CMD	sendPetSkill	Byte(CrazyTankPackageType.PET_SKILL=144)	implemented	
+91	GAME_CMD	sendShootTag	Byte(CrazyTankPackageType.FIRE_TAG=96)	implemented	
+91	GAME_CMD	sendSuicide	Byte(CrazyTankPackageType.SUICIDE=17)	implemented	
+91	GAME_CMD	sendTransmissionGate	Byte(CrazyTankPackageType.DELIVER=137)	implemented	
+91	GAME_CMD	sendUpdatePlayStep	Byte(CrazyTankPackageType.MISSION_CMD=25)	implemented	
+91	GAME_CMD	sendUseProp	Byte(CrazyTankPackageType.PROP=32)	implemented	
+91	GAME_CMD	useDeputyWeapon	Byte(CrazyTankPackageType.USE_DEPUTY_WEAPON=84)	implemented	
+92	VIP_RENEWAL	sendOpenVip	UTF(param1)	implemented	
+94	GAME_ROOM	createUserGuide	Int(GameRoomPackageType.GAME_ROOM_CREATE=0)	implemented	
+94	GAME_ROOM	enterUserGuide	Int(GameRoomPackageType.GAME_ROOM_SETUP_CHANGE=2)	implemented	
+94	GAME_ROOM	sendCancelWait	Int(GameRoomPackageType.GAME_PICKUP_CANCEL=11)	implemented	
+94	GAME_ROOM	sendCreateRoom	Int(GameRoomPackageType.GAME_ROOM_CREATE=0)	implemented	
+94	GAME_ROOM	sendGameLogin	Int(GameRoomPackageType.GAME_ROOM_LOGIN=1)	implemented	
+94	GAME_ROOM	sendGameMode	Int(GameRoomPackageType.GAME_PICKUP_STYLE=12)	implemented	
+94	GAME_ROOM	sendGamePlayerExit	Int(GameRoomPackageType.GAME_ROOM_REMOVEPLAYER=5)	implemented	
+94	GAME_ROOM	sendGameRoomKick	Int(GameRoomPackageType.GAME_ROOM_KICK=3)	implemented	
+94	GAME_ROOM	sendGameRoomPlaceState	Int(GameRoomPackageType.GAME_ROOM_UPDATE_PLACE=10)	implemented	
+94	GAME_ROOM	sendGameRoomSetUp	Int(GameRoomPackageType.GAME_ROOM_SETUP_CHANGE=2)	implemented	
+94	GAME_ROOM	sendGameStart	Int(GameRoomPackageType.GAME_START=7)	implemented	
+94	GAME_ROOM	sendGameStyle	Int(GameRoomPackageType.GAME_PICKUP_STYLE=12)	implemented	
+94	GAME_ROOM	sendGameStyle	Int(GameRoomPackageType.GAME_PICKUP_STYLE=12)	implemented	
+94	GAME_ROOM	sendGameTeam	Int(GameRoomPackageType.GAME_TEAM=6)	implemented	
+94	GAME_ROOM	sendPlayerState	Int(GameRoomPackageType.GAME_PLAYER_STATE_CHANGE=15)	implemented	
+94	GAME_ROOM	sendUpdateRoomList	Int(GameRoomPackageType.ROOMLIST_UPDATE=9)	implemented	
+94	GAME_ROOM	userGuideStart	Int(GameRoomPackageType.GAME_START=7)	implemented	
+95	NECKLACE_STRENGTH	necklaceStrength	Byte(param3)	implemented	
+96	HONOR_UP_COUNT	sendHonorUp	Byte(param1)	implemented	
+99	TEXP	sendTexp	Int(param1)	implemented	
+102	WORLDBOSS_CMD	enterWorldBossRoom	Byte(WorldBossGamePackageType.ENTER_WORLDBOSSROOM=32)	partial	
+102	WORLDBOSS_CMD	requestRevive	Byte(WorldBossGamePackageType.REQUEST_REVIVE=37)	partial	
+102	WORLDBOSS_CMD	sendAddPlayer	Byte(WorldBossGamePackageType.ADDPLAYERS=34)	partial	
+102	WORLDBOSS_CMD	sendBuyWorldBossBuff	Byte(WorldBossGamePackageType.BUFF_BUY=38)	partial	
+102	WORLDBOSS_CMD	sendLeaveBossRoom	Byte(WorldBossGamePackageType.LEAVE_ROOM=33)	partial	
+102	WORLDBOSS_CMD	sendWorldBossRoomMove	Byte(WorldBossGamePackageType.MOVE=35)	partial	
+102	WORLDBOSS_CMD	sendWorldBossRoomStauts	Byte(WorldBossGamePackageType.STAUTS=36)	partial	
+103	DAILYRECORD	sendDailyRecord		implemented	
+104	CARD_LOTTERY	sendCardLotteryIds	Int(param1.length)	implemented	
+105	LUCK_LOTTERY	sendLuckLottery		implemented	
+106	WISHBEADEQUIP	sendWishBeadEquip	Int(param1)	implemented	
+107	INVITE_FRIEND	enterInviteFriendView	Int(InviteFriendPackageType.INVITE_FRIEND_OPENVIEW=2)	implemented	
+107	INVITE_FRIEND	inviteFriendFBBntClick	Int(InviteFriendPackageType.INVITE_FRIEND_FBCLICK=6)	implemented	
+107	INVITE_FRIEND	inviteFriendOkClick	Int(InviteFriendPackageType.INVITE_FRIEND_FRIENDREWARD)	implemented	
+107	INVITE_FRIEND	inviteFriendRewardBntClick	Int(InviteFriendPackageType.INVITE_FRIEND_GETREWARD=4)	implemented	
+108	GAME_TAKE_TEMP	sendGetTropToBag	Int(param1)	implemented	
+108	GAME_TAKE_TEMP	sendGetTropToBag	Int(param1)	implemented	
+110	ITEM_REFINERY	sendItemLianhua	Int(param1)	implemented	
+112	DELETE_MAIL	sendDeleteMail	Int(param1)	implemented	
+113	GET_MAIL_ATTACHMENT	sendGetMail	Int(param1)	implemented	
+114	UPDATE_MAIL	sendUpdateMail	Int(param1)	implemented	
+116	SEND_MAIL	sendEmail	UTF(param1.NickName)	implemented	
+118	MAIL_CANCEL	untreadEmail	Int(param1)	implemented	
+119	LINKREQUEST_GOODS	sendGetLinkGoodsInfo	Int(param1)	implemented	
+120	ITEM_TREND	sendItemTrend	Int(param1)	implemented	
+121	ITEM_INLAY	sendItemEmbed	Int(param1)	implemented	
+122	CLEAR_STORE_BAG	sendClearStoreBag		implemented	
+123	DEFY_AFFICHE	sendDefyAffiche	UTF(param1)	implemented	
+124	CHANGE_PLACE_GOODS_ALL	sendMoveGoodsAll	Boolean(param4)	implemented	
+125	ITEM_EMBED_BACKOUT	sendItemEmbedBackout	Int(param1)	implemented	
+126	BUY_QUICK_GOLDBOX	sendQuickBuyGoldBox	Int(param1)	implemented	
+127	REClAIM_GOODS	reclaimGoods	Byte(param1)	implemented	
+128	LEFT_GUN_ROULETTE_SOCKET	sendStartTurn_LeftGun	Int(1)	partial	
+129	CONSORTIA_CMD	sendBuyBadge	Int(ConsortiaPackageType.BUY_BADGE=28)	implemented	
+129	CONSORTIA_CMD	sendConsoritaApplyStatusOut	Int(ConsortiaPackageType.CONSORTIA_APPLY_STATE=7)	implemented	
+129	CONSORTIA_CMD	sendConsortiaCancelTryIn	Int(ConsortiaPackageType.CONSORTIA_TRYIN=0)	implemented	
+129	CONSORTIA_CMD	sendConsortiaChangeChairman	Int(ConsortiaPackageType.CONSORTIA_CHAIRMAN_CHAHGE=19)	implemented	
+129	CONSORTIA_CMD	sendConsortiaDismiss	Int(ConsortiaPackageType.CONSORTIA_DISBAND=2)	implemented	
+129	CONSORTIA_CMD	sendConsortiaDutyDelete	Int(ConsortiaPackageType.CONSORTIA_DUTY_DELETE=9)	implemented	
+129	CONSORTIA_CMD	sendConsortiaEquipConstrol	Int(ConsortiaPackageType.CONSORTIA_EQUIP_CONTROL=24)	implemented	
+129	CONSORTIA_CMD	sendConsortiaInvate	Int(ConsortiaPackageType.CONSORTIA_INVITE=11)	implemented	
+129	CONSORTIA_CMD	sendConsortiaInvateDelete	Int(ConsortiaPackageType.CONSORTIA_INVITE_DELETE=13)	implemented	
+129	CONSORTIA_CMD	sendConsortiaInvatePass	Int(ConsortiaPackageType.CONSORTIA_INVITE_PASS=12)	implemented	
+129	CONSORTIA_CMD	sendConsortiaLevelUp	Int(ConsortiaPackageType.CONSORTIA_LEVEL_UP=21)	implemented	
+129	CONSORTIA_CMD	sendConsortiaMemberGrade	Int(ConsortiaPackageType.CONSORTIA_USER_GRADE_UPDATE=1)	implemented	
+129	CONSORTIA_CMD	sendConsortiaOut	Int(ConsortiaPackageType.CONSORTIA_RENEGADE=3)	implemented	
+129	CONSORTIA_CMD	sendConsortiaRichOffer	Int(ConsortiaPackageType.CONSORTIA_RICHES_OFFER=6)	implemented	
+129	CONSORTIA_CMD	sendConsortiaTryIn	Int(ConsortiaPackageType.CONSORTIA_TRYIN=0)	implemented	
+129	CONSORTIA_CMD	sendConsortiaTryinDelete	Int(ConsortiaPackageType.CONSORTIA_TRYIN_DEL=5)	implemented	
+129	CONSORTIA_CMD	sendConsortiaTryinPass	Int(ConsortiaPackageType.CONSORTIA_TRYIN_PASS=4)	implemented	
+129	CONSORTIA_CMD	sendConsortiaUpdateDescription	Int(ConsortiaPackageType.CONSORTIA_DESCRIPTION_UPDATE=)	implemented	
+129	CONSORTIA_CMD	sendConsortiaUpdateDuty	Int(ConsortiaPackageType.CONSORTIA_DUTY_UPDATE=10)	implemented	
+129	CONSORTIA_CMD	sendConsortiaUpdatePlacard	Int(ConsortiaPackageType.CONSORTIA_PLACARD_UPDATE=15)	implemented	
+129	CONSORTIA_CMD	sendConsortiaUpgradeDuty	Int(ConsortiaPackageType.CONSORTIA_DUTY_UPDATE=10)	implemented	
+129	CONSORTIA_CMD	sendConsortiaUserRemarkUpdate	Int(ConsortiaPackageType.CONSORTIA_USER_REMARK_UPDATE=)	implemented	
+129	CONSORTIA_CMD	sendConsortionMail	Int(ConsortiaPackageType.CONSORTION_MAIL=29)	implemented	
+129	CONSORTIA_CMD	sendConsortionPoll	Int(ConsortiaPackageType.POLL_CANDIDATE=25)	implemented	
+129	CONSORTIA_CMD	sendConsortionSkill	Int(ConsortiaPackageType.SKILL_SOCKET=26)	implemented	
+129	CONSORTIA_CMD	sendCreateConsortia	Int(ConsortiaPackageType.CONSORTIA_CREATE=1)	implemented	
+129	CONSORTIA_CMD	sendDonate	Int(ConsortiaPackageType.DONATE=23)	implemented	
+129	CONSORTIA_CMD	sendForbidSpeak	Int(ConsortiaPackageType.CONSORTIA_BANCHAT_UPDATE=16)	implemented	
+129	CONSORTIA_CMD	sendReleaseConsortiaTask	Int(ConsortiaPackageType.CONSORTIA_TASK_RELEASE=22)	implemented	
+130	LEFT_GUN_ROULETTE_COMPLETTE	sendEndTurn_LeftGun	Int(1)	implemented	
+131	LABYRINTH	labyrinthCleanOut	Int(LabyrinthPackageType.CLEAN_OUT=3)	partial	
+131	LABYRINTH	labyrinthCleanOutTimerComplete	Int(LabyrinthPackageType.CLEAN_OUT_COMPLETE=8)	partial	
+131	LABYRINTH	labyrinthDouble	Int(LabyrinthPackageType.DOUBLE_REWARD=1)	partial	
+131	LABYRINTH	labyrinthRequestUpdate	Int(LabyrinthPackageType.REQUEST_UPDATE=2)	partial	
+131	LABYRINTH	labyrinthReset	Int(LabyrinthPackageType.RESET_LABYRINTH=6)	partial	
+131	LABYRINTH	labyrinthSpeededUpCleanOut	Int(LabyrinthPackageType.SPEEDED_UP_CLEAN_OUT=4)	partial	
+131	LABYRINTH	labyrinthStopCleanOut	Int(LabyrinthPackageType.STOP_CLEAN_OUT=5)	partial	
+131	LABYRINTH	labyrinthTryAgain	Int(LabyrinthPackageType.TRY_AGAIN=9)	partial	
+133	LATENT_ENERGY	sendLatentEnergy	Byte(param1)	implemented	
+135	135	arrange	Int(1)	implemented	
+136	TOTEM	sendOpenOneTotem	Boolean(param1)	implemented	
+138	ITEM_ADVANCE	sendItemExalt		implemented	
+141	AcademyPackageType.ACADEMY_FATHER	sendAcademyApprentice	Byte(AcademyPackageType.ACADEMY_FOR_APPRENTICE=4)	implemented	
+141	AcademyPackageType.ACADEMY_FATHER	sendAcademyApprenticeConfirm	Byte(AcademyPackageType.APPRENTICE_CONFIRM=7)	implemented	
+141	AcademyPackageType.ACADEMY_FATHER	sendAcademyFireApprentice	Byte(AcademyPackageType.FIRE_APPRENTICE=13)	implemented	
+141	AcademyPackageType.ACADEMY_FATHER	sendAcademyFireMaster	Byte(AcademyPackageType.FIRE_MASTER=12)	implemented	
+141	AcademyPackageType.ACADEMY_FATHER	sendAcademyMaster	Byte(AcademyPackageType.ACADEMY_FOR_MASTER=5)	implemented	
+141	AcademyPackageType.ACADEMY_FATHER	sendAcademyMasterConfirm	Byte(AcademyPackageType.MASTER_CONFIRM=6)	implemented	
+141	AcademyPackageType.ACADEMY_FATHER	sendAcademyRegister	Byte(AcademyPackageType.ACADEMY_REGISTER=1)	implemented	
+141	AcademyPackageType.ACADEMY_FATHER	sendAcademyRemoveRegister	Byte(AcademyPackageType.ACADEMY_REMOVE=3)	implemented	
+145	LIGHTROAD_SYSTEM	lightRoadPointWork	Byte(LightRoadPackageType.BECHOOSE_POINT=66)	partial	
+145	GUILDMEMBERWEEK_SYSTEM	sendGuildMemberWeekAddRanking	Byte(GuildMemberWeekPackageType.SEND_ADDRUNKING=10)	partial	
+145	GUILDMEMBERWEEK_SYSTEM	sendGuildMemberWeekStarClose	Byte(GuildMemberWeekPackageType.CLOSE=9)	partial	
+145	GUILDMEMBERWEEK_SYSTEM	sendGuildMemberWeekStarEnter	Byte(GuildMemberWeekPackageType.ENTER_GAME=8)	partial	
+145	ACTIVITY_SYSTEM	sendLanternRiddlesAnswer	Byte(LanternriddlesPackageType.LANTERNRIDDLES_ANSWER=40)	partial	
+145	ACTIVITY_SYSTEM	sendLanternRiddlesQuestion	Byte(LanternriddlesPackageType.LANTERNRIDDLES_QUESTION=)	partial	
+145	ACTIVITY_SYSTEM	sendLanternRiddlesRankInfo	Byte(LanternriddlesPackageType.LANTERNRIDDLES_RANKINFO=)	partial	
+145	ACTIVITY_SYSTEM	sendLanternRiddlesUseSkill	Byte(LanternriddlesPackageType.LANTERNRIDDLES_SKILL=41)	partial	
+145	LIGHTROAD_SYSTEM	sendLightRoadStarEnter	Byte(LightRoadPackageType.ENTER_GAME=64)	partial	
+160	IM_CMD	sendAddFriend	Byte(IMPackageType.FRIEND_ADD=160)	implemented	
+160	IM_CMD	sendCustomFriends	Byte(IMPackageType.ADD_CUSTOM_FRIENDS=208)	implemented	
+160	IM_CMD	sendDelFriend	Byte(IMPackageType.FRIEND_REMOVE=161)	implemented	
+160	IM_CMD	sendFriendState	Byte(IMPackageType.FRIEND_STATE=165)	implemented	
+160	IM_CMD	sendOneOnOneTalk	Byte(IMPackageType.ONE_ON_ONE_TALK=51)	implemented	
+160	IM_CMD	sendOns	Byte(IMPackageType.ONS_EQUIP=45)	implemented	
+161	USER_LUCKYNUM	sendUserLuckyNum	Boolean(param2)	implemented	
+162	ELITEGAME	sendEliteGameStart	Byte(EliteGamePackageType.ELITE_MATCH_RANK_START=2)	partial	
+162	ELITEGAME	sendGetEliteGameState	Byte(EliteGamePackageType.ELITE_MATCH_TYPE=1)	partial	
+162	ELITEGAME	sendGetPaarungDetail	Byte(EliteGamePackageType.ELITE_MATCH_RANK_DETAIL=4)	partial	
+162	ELITEGAME	sendGetSelfRankSroce	Byte(EliteGamePackageType.ELITE_MATCH_PLAYER_RANK=3)	partial	
+166	LITTLEGAME_COMMAND	createPackageOut		implemented	
+167	CHURCH_MOVIE_OVER	sendChurchMovieOver	Int(param1)	stub	
+168	GOODS_COUNT	sendUpdateGoodsCount		partial	
+169	HOTSPRING_ROOM_PLAYER_REMOVE	sendHotSpringRoomPlayerRemove		implemented	
+171	USE_REWORK_NAME	sendUseReworkName	Byte(param1)	implemented	
+172	SAVE_DB	sendSaveDB		implemented	
+175	HOTSPRING_ROOM_CREATE	sendHotSpringRoomCreate	UTF(param1.roomName)	implemented	
+176	QUEST_ADD	sendQuestAdd	Int(param1.length)	implemented	
+177	QUEST_REMOVE	sendQuestRemove	Int(param1)	implemented	
+179	QUEST_FINISH	sendQuestFinish	Int(param1)	implemented	
+181	QUEST_CHECK	sendQuestCheck	Int(param1)	implemented	
+182	USE_COLOR_CARD	sendChangeColor	Int(param1)	implemented	
+183	CARD_USE	sendUseCard	Int(param1)	implemented	
+187	HOTSPRING_ENTER	sendHotSpringEnter		implemented	
+188	USE_CONSORTIA_REWORK_NAME	sendUseConsortiaReworkName	Int(param1)	stub	
+189	USER_CHANGE_RANK	sendReworkRank	UTF(param1)	implemented	
+190	HOTSPRING_ROOM_QUICK_ENTER	sendHotSpringRoomQuickEnter		implemented	
+191	HOTSPRING_CMD	sendHotSpringRoomAdminRemovePlayer	Byte(HotSpringPackageType.HOTSPRING_ROOM_ADMIN_REMOVE_P)	implemented	
+191	HOTSPRING_CMD	sendHotSpringRoomEdit	Byte(HotSpringPackageType.HOTSPRING_ROOM_EDIT=6)	implemented	
+191	HOTSPRING_CMD	sendHotSpringRoomInvite	Byte(HotSpringPackageType.HOTSPRING_ROOM_INVITE=4)	implemented	
+191	HOTSPRING_CMD	sendHotSpringRoomPlayerContinue	Byte(HotSpringPackageType.HOTSPRING_ROOM_PLAYER_CONTINU)	implemented	
+191	HOTSPRING_CMD	sendHotSpringRoomPlayerTargetPoint	Byte(HotSpringPackageType.TARGET_POINT=1)	implemented	
+191	HOTSPRING_CMD	sendHotSpringRoomRenewalFee	Byte(HotSpringPackageType.HOTSPRING_ROOM_RENEWAL_FEE=3)	implemented	
+192	AUCTION_ADD	auctionGood	Byte(param1)	implemented	
+193	AUCTION_UPDATE	auctionBid	Int(param1)	implemented	
+194	AUCTION_DELETE	auctionCancelSell	Int(param1)	implemented	
+196	CARD_RESET	sendCardReset	Int(0)	partial	
+196	CARD_RESET	sendReplaceCardProp	Int(1)	partial	
+200	CHECK_CODE	sendCheckCode	UTF(param1)	partial	
+201	HOTSPRING_ROOM_ENTER_VIEW	sendHotSpringRoomEnterView	Int(param1)	implemented	
+202	HOTSPRING_ROOM_ENTER	sendHotSpringRoomEnter	Int(param1)	implemented	
+203	LOOKUP_EFFORT	sendLookupEffort	Int(param1)	implemented	
+204	OPEN_ALL_CARDBOX	sendOpenAll		implemented	
+205	USE_CHANGE_COLOR_SHELL	sendUseChangeColorShell	Byte(param1)	stub	
+206	CHANGE_COLOR_OVER_DUE	sendChangeColorShellTimeOver	Byte(param1)	implemented	
+209	FIGHT_SPIRIT	figSpiritUpGrade	Byte(FightSpiritPackageType.FIGHT_SPIRIT_LEVELUP=3)	implemented	
+209	FIGHT_SPIRIT	fightSpiritRequest	Byte(FightSpiritPackageType.FIGHT_SPIRIT_INIT=1)	implemented	
+212	HOTSPRING_ROOM_ENTER_CONFIRM	sendHotSpringRoomEnterConfirm	Int(param1)	implemented	
+213	USE_LOG	sendUseLog	Int(param1)	implemented	
+214	USER_RELOAD_GIFT	sendReloadGift		stub	
+216	CARDS_DATA	sendFirstGetCards	Int(5)	implemented	
+216	CARDS_DATA	sendMoveCards	Int(0)	implemented	
+216	CARDS_DATA	sendOpenCardBox	Int(2)	implemented	
+216	CARDS_DATA	sendOpenViceCard	Int(1)	implemented	
+216	CARDS_DATA	sendSortCards	Int(4)	implemented	
+216	CARDS_DATA	sendUpGradeCard	Int(3)	implemented	
+217	OPEN_FIVE_SIX_HOLE	sendItemOpenFiveSixHole	Int(param1)	implemented	
+218	USER_GET_GIFTS	sendPlayerGift	Int(param1)	implemented	
+219	WEEKLY_CLICK_CNT	sendWeeklyClick		implemented	
+221	USER_SEND_GIFTS	sendBuyGift	UTF(param1)	implemented	
+222	EQUIP_RECYCLE_ITEM	sendEquipRetrieve		partial	
+223	FRIEND_BRITHDAY	sendWithBrithday	Int(param1.length)	implemented	
+224	CID_CHECK	sendCIDCheck		stub	
+224	CID_CHECK	sendCIDInfo	Boolean(false)	stub	
+225	ENTHRALL_SWITCH	sendForSwitch		implemented	
+225	REQUEST_UPDATE	sendRequestUpdate		implemented	
+230	ACHIEVEMENT_FINISH	sendAchievementFinish	Int(param1)	implemented	
+232	CADDY_SELL_ALL_GOODS	sendSellAll		implemented	
+233	MARRY_SCENE_CHANGE	sendSceneChange	Int(param1)	partial	
+235	MARRYINFO_GET	sendForMarryInfo	Int(param1)	implemented	
+236	MARRYINFO_ADD	sendRegisterInfo	Boolean(param2)	implemented	
+237	MARRYINFO_UPDATE	sendModifyInfo	Boolean(param1)	implemented	
+239	GOTO_CARD_LOTTERY	gotoCardLottery		implemented	
+240	MARRY_SCENE_LOGIN	sendMarryRoomLogin		implemented	
+241	MARRY_ROOM_CREATE	sendCreateRoom	UTF(param1)	partial	
+242	MARRY_ROOM_LOGIN	sendEnterRoom	Int(param1)	implemented	
+244	PLAYER_EXIT_MARRY_ROOM	sendExitRoom		implemented	
+245	CADDY_GET_AWARDS	sendRequestAwards	Int(param1)	implemented	
+246	MARRY_STATUS	sendValidateMarry	Int(param1)	implemented	
+247	MARRY_APPLY	sendPropose	Int(param1)	implemented	
+248	DIVORCE_APPLY	sendUnmarry	Boolean(param1)	implemented	
+249	MARRY_CMD	refund	Byte(ChurchPackageType.MARRYROOMSENDGIFT=12)	partial	
+249	MARRY_CMD	requestRefund	Byte(ChurchPackageType.MARRYROOMSENDGIFT=12)	partial	
+249	MARRY_CMD	sendChurchContinuation	Byte(ChurchPackageType.CONTINUATION=3)	partial	
+249	MARRY_CMD	sendChurchForbid	Byte(ChurchPackageType.FORBID=8)	partial	
+249	MARRY_CMD	sendChurchInvite	Byte(ChurchPackageType.INVITE=4)	partial	
+249	MARRY_CMD	sendChurchKick	Byte(ChurchPackageType.KICK=7)	partial	
+249	MARRY_CMD	sendChurchLargess	Byte(ChurchPackageType.LARGESS=5)	partial	
+249	MARRY_CMD	sendChurchMove	Byte(ChurchPackageType.MOVE=1)	partial	
+249	MARRY_CMD	sendGunSalute	Byte(ChurchPackageType.GUNSALUTE=11)	partial	
+249	MARRY_CMD	sendPosition	Byte(ChurchPackageType.POSITION=10)	partial	
+249	MARRY_CMD	sendStartWedding	Byte(ChurchPackageType.HYMENEAL=2)	partial	
+249	MARRY_CMD	sendUseFire	Byte(ChurchPackageType.USEFIRECRACKERS=6)	partial	
+250	MARRY_APPLY_REPLY	sendProposeRespose	Boolean(param1)	implemented	
+251	SCENE_STATE	sendCurrentState	Int(param1)	partial	
+252	USE_CHANGE_SEX	sendChangeSex	Byte(param1)	implemented	
+253	MARRY_ROOM_INFO_UPDATE	sendModifyChurchDiscription	UTF(param1)	partial	
+258	NOVICEACTIVITY	sendNoviceActivityGetAward	Int(param1)	partial	
+259	FIRSTRECHARGE	sendFirstRechargeGetAward	Int(param1)	implemented	
+265	NEWTITLE_CARD	sendNewTitleCard	Byte(param2)	partial	
+279	279	showHideTitleState	Boolean(flag)	implemented	
+295	STORE_FINE_SUIT	sendForgeSuit	Byte(FineStorePackageType.FORGE_SUIT=1)	implemented	
+300	300	sendpkgCheckHack	Int(0)	implemented	
+308	EQUIP_BRING_UP	sendBringUpEat	Int(param1)	implemented	
+313	ITEM_CELL_IS_LOCKED	sendBringUpLockStatusUpdate	Int(param1)	implemented	
+338	ACCUMULATIVELOGIN_AWARD	sendAccumulativeLoginAward	Int(param1)	implemented	
+391	EQUIP_GHOST	sendEquipGhost		implemented	
+402	AVATAR_COLLECTION	sendAvatarCollectionActive	Byte(AvatarCollectionPackageType.ACTIVE=3)	implemented	
+402	AVATAR_COLLECTION	sendAvatarCollectionDelayTime	Byte(AvatarCollectionPackageType.DELAY_TIME=4)	implemented	

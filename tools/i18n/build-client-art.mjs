@@ -72,6 +72,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, cop
 import { join, dirname, isAbsolute } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createRequire } from "node:module";
+import { listFonts, renameFonts } from "./swf-font-rename.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, "..", "..");
@@ -142,7 +143,9 @@ function runFfdecNativeTextReplace(inSwf, outSwf, replacements, label) {
     const raw = existsSync(exported) ? readFileSync(exported, "utf8") : null;
     const got = raw === null ? null : text.includes("--- RECORDSEPARATOR ---") ? recs(raw).join("|") : recs(raw)[0];
     const want = text.includes("--- RECORDSEPARATOR ---") ? recs(text).join("|") : text;
-    if (got !== want) {
+    // FFDec pode juntar registros vazios/quebrados num só (ddtstore chid 396): compara o texto sem separadores
+    const flat = (s) => s.replace(/\|/g, " ").replace(/\s+/g, " ").trim();
+    if (got === null || (got !== want && flat(got) !== flat(want))) {
       failed++;
       log(label ?? "native-text", `VERIFY FAILED chid ${charId}: expected ${JSON.stringify(text)}, got ${JSON.stringify(got)}`);
     }
@@ -612,7 +615,7 @@ async function runApprovedAssetsStep() {
     }
 
     if (!bySwf.has(swf)) bySwf.set(swf, []);
-    bySwf.get(swf).push({ sourceFile, buffer, outExt, label: `${category}/${file}` });
+    bySwf.get(swf).push({ sourceFile, buffer, outExt, label: `${category}/${file}`, hd: !!entry.hd });
     log(
       "approved",
       `${category}/${file} -> ${swf}::${sourceFile} (${row.width}x${row.height}, fit=${fit ?? "cover"}${anchor ? ", anchor=" + JSON.stringify(anchor.rect) : ""}, encoded .${outExt})`
@@ -630,6 +633,8 @@ async function runApprovedAssetsStep() {
       const outExt = e.sourceFile.slice(e.sourceFile.lastIndexOf(".") + 1).toLowerCase() === "png" ? "png" : "jpg";
       const buffer = outExt === "png" ? readFileSync(from) : await sharp(from).jpeg({ quality: 95 }).toBuffer();
       const list = bySwf.get(e.swf) ?? [];
+      // remaster HD nosso (approved.json "hd": true) ganha do Skelleton — é arte nova, não só tradução
+      if (list.some((x) => x.sourceFile === e.sourceFile && x.hd)) continue;
       const keep = list.filter((x) => x.sourceFile !== e.sourceFile);
       keep.push({ sourceFile: e.sourceFile, buffer, outExt, label: `skelleton/${e.swf}/${e.sourceFile}` });
       bySwf.set(e.swf, keep);
@@ -725,6 +730,17 @@ stages before night-grade, into the same stage root).
  *  ({ "<swf>": { "<charId>": { vi: [records], pt: [records] } } }, built by tools/qa/swf-text-audit.sh +
  *  tools/qa/swf-text-merge.mjs). Runs AFTER the image import so it patches the final overlay copy (or the vendor
  *  file when no overlay exists), one -replace call per SWF, verified by runFfdecNativeTextReplace. */
+/** Famílias de fonte instaladas (minúsculas), lidas uma vez via .NET; o FFDec só vetoriza glifos dessas. */
+let fontFamilies = null;
+function installedFontFamilies() {
+  if (fontFamilies) return fontFamilies;
+  try {
+    const out = execFileSync("powershell", ["-NoProfile", "-Command", "Add-Type -AssemblyName System.Drawing; (New-Object System.Drawing.Text.InstalledFontCollection).Families | ForEach-Object { $_.Name }"], { encoding: "utf8" });
+    fontFamilies = new Set(out.split(/\r?\n/).map((s) => s.trim().toLowerCase()).filter(Boolean));
+  } catch { fontFamilies = new Set(["arial", "tahoma", "verdana", "times new roman"]); }
+  return fontFamilies;
+}
+
 function runSwfTextStep() {
   const f = join(ROOT, "research", "i18n", "swf-text-pt.json");
   if (!existsSync(f)) { log("swf-text", "no research/i18n/swf-text-pt.json -- skipping"); return; }
@@ -746,6 +762,12 @@ function runSwfTextStep() {
     mkdirSync(SCRATCH, { recursive: true });
     copyFileSync(src, tmp);
     swfs++;
+    // fonte embutida cuja família não está instalada ("UVN Van", "Arial Unicode MS"...): o -replace não consegue
+    // criar os glifos novos e falha. Vira "Arial" durante o import e volta ao nome original no fim (por id).
+    const installed = installedFontFamilies();
+    const alias = Object.fromEntries(listFonts(tmp).filter((f) => !installed.has(f.name.toLowerCase())).map((f) => [f.id, "Arial"]));
+    const fontNames = Object.keys(alias).length ? renameFonts(tmp, tmp, alias) : {};
+    if (Object.keys(fontNames).length) log("swf-text", `${swf}: fontes ${Object.values(fontNames).join(", ")} -> Arial durante o import`);
     // FFDec -replace on multi-record DefineText needs its "formatted" text (per-record [x/y/font] blocks): plain
     // record lists get appended instead of replacing. Export formatted, swap only the text runs, keep every block.
     const cnt = join(SCRATCH, "swf-text-count");
@@ -778,7 +800,7 @@ function runSwfTextStep() {
         let cur = join(SCRATCH, `swf-text.${swf}.retry.swf`), good = 0;
         copyFileSync(overlayPath, cur);
         for (const r of reps) {
-          const out = `${cur}.${r.charId}.swf`;
+          const out = join(SCRATCH, `swf-text.${swf}.retry.${r.charId}.swf`); // flat name: chaining hit Windows MAX_PATH
           try { if (runFfdecNativeTextReplace(cur, out, [r], `swf-text-retry:${swf}`)) good++; cur = out; } catch { log("swf-text", `${swf}: retry SKIP chid ${r.charId}`); }
         }
         copyFileSync(cur, overlayPath);
@@ -790,12 +812,13 @@ function runSwfTextStep() {
       log("swf-text", `${swf}: batch -replace failed (${e.message.split("\n")[0].slice(0, 80)}...), retrying one text at a time`);
       let cur = tmp, good = 0;
       for (const r of reps) {
-        const out = `${tmp}.${r.charId}.swf`;
+        const out = join(SCRATCH, `swf-text.${swf}.one.${r.charId}.swf`);
         try { runFfdecNativeTextReplace(cur, out, [r], `swf-text:${swf}`); cur = out; good++; } catch { log("swf-text", `${swf}: SKIP chid ${r.charId} (ffdec -replace failed)`); }
       }
       copyFileSync(cur, overlayPath);
       log("swf-text", `${swf}: ${good}/${reps.length} text(s) applied one by one`);
     }
+    if (Object.keys(fontNames).length && existsSync(overlayPath)) renameFonts(overlayPath, overlayPath, fontNames);
   }
   log("swf-text", `${ok}/${swfs} SWF(s) fully verified`);
 }
@@ -803,6 +826,14 @@ function runSwfTextStep() {
 async function main() {
   log("build", `flags: images=${OPT_IMAGES} night=${OPT_NIGHT} dark=${OPT_DARK} prod=${PROD} approved=${OPT_APPROVED}`);
   if (has("--only-swf-text")) { runSwfTextStep(); return; } // re-patch static texts on the current overlay, nothing else
+  // Valida ANTES de apagar o pack atual: uma linha do manifest com largura/altura inválida derrubava o build no meio
+  // (depois do revert) e deixava o cliente sem nenhum SWF de UI.
+  const approvedFiles = new Set((existsSync(join(ROOT, "remaster", "approved.json")) ? JSON.parse(readFileSync(join(ROOT, "remaster", "approved.json"), "utf8")) : []).map((e) => `${e.swf}::${e.sourceFile}`));
+  const badRows = [...loadManifestIndex().values()].filter((r) => approvedFiles.has(`${r.swf}::${r.sourceFile}`) && !(r.width > 0 && r.height > 0));
+  if (badRows.length) {
+    for (const r of badRows) log("build", `ABORT: remaster/manifest.csv linha sem tamanho: ${r.swf}::${r.sourceFile}`);
+    process.exit(1);
+  }
   const removed = revertImageOnlyOverlays();
   buildCoreChain();
   if (OPT_APPROVED) {

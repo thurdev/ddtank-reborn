@@ -613,6 +613,70 @@ import { TwelveTankNpc as C608 } from "./NPC/TwelveTankNpc.js";
 import { TwelveTerrorFlyFristBoss as C609 } from "./NPC/TwelveTerrorFlyFristBoss.js";
 import { TwelveTerrorFlySecondBoss as C610 } from "./NPC/TwelveTerrorFlySecondBoss.js";
 
+import { Aiga4002 as C611 } from "./Messions/Aiga4002.js";
+import { Aiga4003 as C612 } from "./Messions/Aiga4003.js";
+import { CBS600 as C613 } from "./Messions/CBS600.js";
+import { CBS601 as C614 } from "./Messions/CBS601.js";
+import { DCNM2401 as C615 } from "./Messions/DCNM2401.js";
+import { DCNM2402 as C616 } from "./Messions/DCNM2402.js";
+import { DCNM2501 as C617 } from "./Messions/DCNM2501.js";
+import { DCNM2502 as C618 } from "./Messions/DCNM2502.js";
+import { DCNM2601 as C619 } from "./Messions/DCNM2601.js";
+import { DCNM2602 as C620 } from "./Messions/DCNM2602.js";
+import { DCNM2701 as C621 } from "./Messions/DCNM2701.js";
+import { DCNM2702 as C622 } from "./Messions/DCNM2702.js";
+import { DCSM4001 as C623 } from "./Messions/DCSM4001.js";
+import { DTGK1166 as C624 } from "./Messions/DTGK1166.js";
+import { DTGT1166 as C625 } from "./Messions/DTGT1166.js";
+import { DTS700 as C626 } from "./Messions/DTS700.js";
+import { DTS701 as C627 } from "./Messions/DTS701.js";
+import { GAH1371 as C628 } from "./Messions/GAH1371.js";
+import { GAH1372 as C629 } from "./Messions/GAH1372.js";
+import { GAH1373 as C630 } from "./Messions/GAH1373.js";
+import { GAH1374 as C631 } from "./Messions/GAH1374.js";
+import { GAH1375 as C632 } from "./Messions/GAH1375.js";
+import { GD1071 as C633 } from "./Messions/GD1071.js";
+import { GK1271 as C634 } from "./Messions/GK1271.js";
+import { GK1272 as C635 } from "./Messions/GK1272.js";
+import { GK1273 as C636 } from "./Messions/GK1273.js";
+import { GK1274 as C637 } from "./Messions/GK1274.js";
+import { GT1171 as C638 } from "./Messions/GT1171.js";
+import { GT1172 as C639 } from "./Messions/GT1172.js";
+import { GT1173 as C640 } from "./Messions/GT1173.js";
+import { GZS800 as C641 } from "./Messions/GZS800.js";
+import { GZS801 as C642 } from "./Messions/GZS801.js";
+import { LauDaiPhepThuatH71059 as C643 } from "./Messions/LauDaiPhepThuatH71059.js";
+import { LauDaiPhepThuatH71060 as C644 } from "./Messions/LauDaiPhepThuatH71060.js";
+import { RRCNM7401 as C645 } from "./Messions/RRCNM7401.js";
+import { RRCNM7402 as C646 } from "./Messions/RRCNM7402.js";
+import { RRCNM7403 as C647 } from "./Messions/RRCNM7403.js";
+import { RRCNM7404 as C648 } from "./Messions/RRCNM7404.js";
+import { RRCNM7501 as C649 } from "./Messions/RRCNM7501.js";
+import { RRCNM7502 as C650 } from "./Messions/RRCNM7502.js";
+import { RRCNM7503 as C651 } from "./Messions/RRCNM7503.js";
+import { RRCNM7504 as C652 } from "./Messions/RRCNM7504.js";
+import { RRCNM7601 as C653 } from "./Messions/RRCNM7601.js";
+import { RRCNM7602 as C654 } from "./Messions/RRCNM7602.js";
+import { RRCNM7603 as C655 } from "./Messions/RRCNM7603.js";
+import { RRCNM7604 as C656 } from "./Messions/RRCNM7604.js";
+import { RRCNM7701 as C657 } from "./Messions/RRCNM7701.js";
+import { RRCNM7702 as C658 } from "./Messions/RRCNM7702.js";
+import { RRCNM7703 as C659 } from "./Messions/RRCNM7703.js";
+import { RRCNM7704 as C660 } from "./Messions/RRCNM7704.js";
+import { TVH12001 as C661 } from "./Messions/TVH12001.js";
+import { TVH12002 as C662 } from "./Messions/TVH12002.js";
+import { TVH12003 as C663 } from "./Messions/TVH12003.js";
+import { TVH12004 as C664 } from "./Messions/TVH12004.js";
+import { TVN12001 as C665 } from "./Messions/TVN12001.js";
+import { TVN12002 as C666 } from "./Messions/TVN12002.js";
+import { TVN12003 as C667 } from "./Messions/TVN12003.js";
+import { TVN12004 as C668 } from "./Messions/TVN12004.js";
+import { TVT12001 as C669 } from "./Messions/TVT12001.js";
+import { TVT12002 as C670 } from "./Messions/TVT12002.js";
+import { TVT12003 as C671 } from "./Messions/TVT12003.js";
+import { TVT12004 as C672 } from "./Messions/TVT12004.js";
+import { XDS900 as C673 } from "./Messions/XDS900.js";
+import { XDS901 as C674 } from "./Messions/XDS901.js";
 export const GENERATED_SCRIPTS: [string, unknown][] = [
   ["GameServerScript.AI.Game.AntCaveNormalGame", C0],
   ["GameServerScript.AI.Game.AntCaveSimpleGame", C1],
@@ -1225,5 +1289,69 @@ export const GENERATED_SCRIPTS: [string, unknown][] = [
   ["GameServerScript.AI.NPC.TwelveTankNpc", C608],
   ["GameServerScript.AI.NPC.TwelveTerrorFlyFristBoss", C609],
   ["GameServerScript.AI.NPC.TwelveTerrorFlySecondBoss", C610],
+  ["GameServerScript.AI.Messions.Aiga4002", C611],
+  ["GameServerScript.AI.Messions.Aiga4003", C612],
+  ["GameServerScript.AI.Messions.CBS600", C613],
+  ["GameServerScript.AI.Messions.CBS601", C614],
+  ["GameServerScript.AI.Messions.DCNM2401", C615],
+  ["GameServerScript.AI.Messions.DCNM2402", C616],
+  ["GameServerScript.AI.Messions.DCNM2501", C617],
+  ["GameServerScript.AI.Messions.DCNM2502", C618],
+  ["GameServerScript.AI.Messions.DCNM2601", C619],
+  ["GameServerScript.AI.Messions.DCNM2602", C620],
+  ["GameServerScript.AI.Messions.DCNM2701", C621],
+  ["GameServerScript.AI.Messions.DCNM2702", C622],
+  ["GameServerScript.AI.Messions.DCSM4001", C623],
+  ["GameServerScript.AI.Messions.DTGK1166", C624],
+  ["GameServerScript.AI.Messions.DTGT1166", C625],
+  ["GameServerScript.AI.Messions.DTS700", C626],
+  ["GameServerScript.AI.Messions.DTS701", C627],
+  ["GameServerScript.AI.Messions.GAH1371", C628],
+  ["GameServerScript.AI.Messions.GAH1372", C629],
+  ["GameServerScript.AI.Messions.GAH1373", C630],
+  ["GameServerScript.AI.Messions.GAH1374", C631],
+  ["GameServerScript.AI.Messions.GAH1375", C632],
+  ["GameServerScript.AI.Messions.GD1071", C633],
+  ["GameServerScript.AI.Messions.GK1271", C634],
+  ["GameServerScript.AI.Messions.GK1272", C635],
+  ["GameServerScript.AI.Messions.GK1273", C636],
+  ["GameServerScript.AI.Messions.GK1274", C637],
+  ["GameServerScript.AI.Messions.GT1171", C638],
+  ["GameServerScript.AI.Messions.GT1172", C639],
+  ["GameServerScript.AI.Messions.GT1173", C640],
+  ["GameServerScript.AI.Messions.GZS800", C641],
+  ["GameServerScript.AI.Messions.GZS801", C642],
+  ["GameServerScript.AI.Messions.LauDaiPhepThuatH71059", C643],
+  ["GameServerScript.AI.Messions.LauDaiPhepThuatH71060", C644],
+  ["GameServerScript.AI.Messions.RRCNM7401", C645],
+  ["GameServerScript.AI.Messions.RRCNM7402", C646],
+  ["GameServerScript.AI.Messions.RRCNM7403", C647],
+  ["GameServerScript.AI.Messions.RRCNM7404", C648],
+  ["GameServerScript.AI.Messions.RRCNM7501", C649],
+  ["GameServerScript.AI.Messions.RRCNM7502", C650],
+  ["GameServerScript.AI.Messions.RRCNM7503", C651],
+  ["GameServerScript.AI.Messions.RRCNM7504", C652],
+  ["GameServerScript.AI.Messions.RRCNM7601", C653],
+  ["GameServerScript.AI.Messions.RRCNM7602", C654],
+  ["GameServerScript.AI.Messions.RRCNM7603", C655],
+  ["GameServerScript.AI.Messions.RRCNM7604", C656],
+  ["GameServerScript.AI.Messions.RRCNM7701", C657],
+  ["GameServerScript.AI.Messions.RRCNM7702", C658],
+  ["GameServerScript.AI.Messions.RRCNM7703", C659],
+  ["GameServerScript.AI.Messions.RRCNM7704", C660],
+  ["GameServerScript.AI.Messions.TVH12001", C661],
+  ["GameServerScript.AI.Messions.TVH12002", C662],
+  ["GameServerScript.AI.Messions.TVH12003", C663],
+  ["GameServerScript.AI.Messions.TVH12004", C664],
+  ["GameServerScript.AI.Messions.TVN12001", C665],
+  ["GameServerScript.AI.Messions.TVN12002", C666],
+  ["GameServerScript.AI.Messions.TVN12003", C667],
+  ["GameServerScript.AI.Messions.TVN12004", C668],
+  ["GameServerScript.AI.Messions.TVT12001", C669],
+  ["GameServerScript.AI.Messions.TVT12002", C670],
+  ["GameServerScript.AI.Messions.TVT12003", C671],
+  ["GameServerScript.AI.Messions.TVT12004", C672],
+  ["GameServerScript.AI.Messions.XDS900", C673],
+  ["GameServerScript.AI.Messions.XDS901", C674],
 ];
 for (const [n, c] of GENERATED_SCRIPTS) registerScript(n, c as never, undefined, "generated");

@@ -17,6 +17,13 @@ export interface RoomMgrOptions {
   /** Seconds before an unmatched Match room is paired with bots (if a provider exists). */
   botFallbackSec?: number;
   random?: () => number;
+  /** QA dev switch (cfg.ALL_OPEN): any player level may enter any Dungeon room, ignoring room.LevelLimits
+   *  (EnterRoomAction.cs level check). Never changes what CreateRoomAction sets LevelLimits to — only the
+   *  entry check below is bypassed, so the original rule still runs (and still applies) when this is off. */
+  allOpen?: boolean;
+  /** PVEGame.Stop → PlayerDetail.OutLabyrinth(isWin) for a RoomType.Labyrinth room (GamePlayer.cs:4315); every
+   *  other PVE room type ignores this (only Dungeon resets itself, inline below). */
+  onLabyrinthFinished?(room: BaseRoom, isWin: boolean): void;
 }
 
 type Action = () => void;
@@ -224,7 +231,7 @@ export class RoomMgr {
         return;
       }
       if (room.NeedPassword && room.Password !== pwd) return fail(pwd ? "EnterRoomAction.passworderror" : "EnterRoomAction.EnterPassword");
-      if (room.RoomType === RoomType.Dungeon && room.LevelLimits > BaseRoom.levelLimit(p.info.Grade)) return fail("EnterRoomAction.level");
+      if (!this.o.allOpen && room.RoomType === RoomType.Dungeon && room.LevelLimits > BaseRoom.levelLimit(p.info.Grade)) return fail("EnterRoomAction.level");
       this.waitingRemove(p);
       p.send(Out.roomLoginResult(true));
       p.send(Out.roomCreate(room));
@@ -266,8 +273,8 @@ export class RoomMgr {
     });
   }
 
-  /** RoomSetupChangeAction (subset: map, type, password, name, time mode, hardness, level limit). */
-  setupChange(room: BaseRoom, s: { mapId: number; roomType: number; password: string; name: string; timeMode: number; hardLevel: number; levelLimits: number; isCrosszone: boolean; isOpenBoss: boolean }): void {
+  /** RoomSetupChangeAction (subset: map, type, password, name, time mode, hardness, level limit, Labyrinth floor). */
+  setupChange(room: BaseRoom, s: { mapId: number; roomType: number; password: string; name: string; timeMode: number; hardLevel: number; levelLimits: number; isCrosszone: boolean; isOpenBoss: boolean; currentFloor?: number }): void {
     this.addAction(() => {
       room.MapId = s.mapId;
       room.RoomType = s.roomType;
@@ -278,6 +285,7 @@ export class RoomMgr {
       room.LevelLimits = s.levelLimits;
       room.isCrosszone = s.isCrosszone;
       room.isOpenBoss = s.isOpenBoss;
+      if (s.currentFloor !== undefined) room.currentFloor = s.currentFloor;
       room.updateRoomGameType();
       room.sendRoomSetupChange();
       this.sendUpdateCurrentRoom(room);
@@ -356,13 +364,15 @@ export class RoomMgr {
       hardLevel: room.HardLevel, levelLimits: room.LevelLimits, currentFloor: room.currentFloor, players,
       onStopped: () => room.onGameStopped(),
       // PlayerDetail.ResetRoom (GamePlayer.cs): a dungeon room goes back to "choose a dungeon"
-      onFinished: () => {
+      onFinished: (isWin: boolean) => {
         if (room.RoomType === RoomType.Dungeon) {
           room.Pic = "";
           room.MapId = 10000;
           room.currentFloor = 0;
           room.isOpenBoss = false;
           room.sendRoomSetupChange();
+        } else if (room.RoomType === RoomType.Labyrinth) {
+          this.o.onLabyrinthFinished?.(room, isWin);
         }
       },
     }) ?? null;

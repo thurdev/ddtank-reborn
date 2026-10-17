@@ -8,6 +8,7 @@ import { int } from "../math/num.js";
 import { CsList, Point, Rectangle } from "./cs.js";
 import type { PveGame } from "./game.js";
 import { type NpcInfo, PhysicalObj, SimpleBoss, SimpleNpc } from "./livings.js";
+import { scriptEffectList, startScriptEffect } from "./effects.js";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type Cb = (() => void) | null | undefined;
@@ -132,8 +133,7 @@ def(L, "Type", function () { return this.livingType; });
 def(L, "LastLifeTimeShoot", function () { return this.lastLifeTimeShoot; });
 def(L, "TotalKill", function () { return this.totalKill; });
 def(L, "TotalHurt", function () { return this.totalHurt; });
-const effectList = { StopAllEffect() {}, StopEffect() {}, GetOfType() { return null; }, Add() { return true; } };
-def(L, "EffectList", function () { return effectList; });
+def(L, "EffectList", function () { return scriptEffectList(this); });
 
 fn(L, "MoveTo", function (x: number, y: number, action: string, ...r: any[]) {
   // overloads (Living.cs:1173-1213): (delay) (delay,speed) (delay,cb) (delay,cb,speed) (delay,sAction,speed) (delay,sAction,speed,cb)
@@ -211,7 +211,7 @@ fn(L, "IsFriendly", function (l) { return this.isFriendly(l); });
 fn(L, "MakeDamage", function (t) { return G(this).livingMakeDamage(this, t); });
 fn(L, "GetShootPoint", function () { const p = this.getShootPoint(); return new Point(p.x, p.y); });
 fn(L, "AddEffect", function (e: any, delay = 0) {
-  if (e && typeof e.apply === "function") G(this).addStepAction?.(delay, 0, () => (e.apply(this), true));
+  if (e) G(this).addStepAction?.(delay, 0, () => (startScriptEffect(this, e), true));
   return true;
 });
 for (const n of ["AddPetEffect", "Seal", "OffSeal", "SetHidden", "SetVisible", "SetSeal", "OnSmallMap", "NoFly", "SetSystemState", "SetIndian", "SetNiutou", "ShowImprisonment", "IconPicture", "SendAfterShootedAction", "SendAfterShootedFrozen", "AddRemoveEnergy", "ChangeDamage"])

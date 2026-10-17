@@ -8134,5 +8134,2261 @@
   "fit": "cover",
   "auto": true,
   "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__105_asset.hall.farmIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "105_asset.hall.farmIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__15_assets.hallIcon.braveDoor.icon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "15_assets.hallIcon.braveDoor.icon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__23_assets.hallIcon.oldPlayerIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "23_assets.hallIcon.oldPlayerIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__24_assets.hallIcon.chickActivationIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "24_assets.hallIcon.chickActivationIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__25_assets.hallIconl.sanxiaoBtn.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "25_assets.hallIconl.sanxiaoBtn.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__29_assets.hallIcon.kingDivisionIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "29_assets.hallIcon.kingDivisionIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__31_assets.hallIcon.angelInvestmentIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "31_assets.hallIcon.angelInvestmentIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__32_assets.hallIcon.luckStoneIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "32_assets.hallIcon.luckStoneIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__4_assets.hallIcon.campIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "4_assets.hallIcon.campIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__45_assets.hallIcon.redEnvelope.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "45_assets.hallIcon.redEnvelope.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__52_asset.hall.jigsawIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "52_asset.hall.jigsawIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__54_asset.hall.familyFoodIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "54_asset.hall.familyFoodIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__56_asset.hall.magicWardrobe.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "56_asset.hall.magicWardrobe.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__58_assets.hallIcon.treasureHuntingIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "58_assets.hallIcon.treasureHuntingIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__59_assets.hallIcon.leagueIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "59_assets.hallIcon.leagueIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__61_assets.hallIcon.conRechargeIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "61_assets.hallIcon.conRechargeIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__63_assets.hallIcon.ringStationIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "63_assets.hallIcon.ringStationIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__65_assets.hallIcon.oldPlayerRegressIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "65_assets.hallIcon.oldPlayerRegressIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__68_assets.hallIcon.goldmineIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "68_assets.hallIcon.goldmineIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__70_assets.hallIcon.pyramidIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "70_assets.hallIcon.pyramidIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__74_assets.hallIcon.dreamlandChallengeIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "74_assets.hallIcon.dreamlandChallengeIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__79_asset.hall.thanksGivingIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "79_asset.hall.thanksGivingIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__8_assets.hallIcon.zodiacIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "8_assets.hallIcon.zodiacIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__81_asset.hallIcon.welfareCenterIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "81_asset.hallIcon.welfareCenterIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__83_asset.hall.reverseIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "83_asset.hall.reverseIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__85_assets.hallIcon.devilTurnIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "85_assets.hallIcon.devilTurnIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__9_assets.hallIcon.cloudbuylotteryIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "9_assets.hallIcon.cloudbuylotteryIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__92_asset.hall.bibleIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "92_asset.hall.bibleIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__93_assets.hallIcon.bombTurnTable.icon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "93_assets.hallIcon.bombTurnTable.icon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__94_asset.hall.draftIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "94_asset.hall.draftIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__98_assets.hallIcon.flowerGivingIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "98_assets.hallIcon.flowerGivingIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__107_asset.hall.continueRechargeIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "107_asset.hall.continueRechargeIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__108_assets.hallIcon.happyRecharge.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "108_assets.hallIcon.happyRecharge.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__112_assets.hallIcon.luckyStarIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "112_assets.hallIcon.luckyStarIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__116_assets.hallIcon.newChickenBoxIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "116_assets.hallIcon.newChickenBoxIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__117_assets.hallIcon.littleGameNoteIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "117_assets.hallIcon.littleGameNoteIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__12_assets.hallIcon.entertainmentIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "12_assets.hallIcon.entertainmentIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__130.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "130.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__140.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "140.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__146.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "146.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__28_asset.hall.consortia.task.btn.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "28_asset.hall.consortia.task.btn.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__30_assets.hallIcon.minesIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "30_assets.hallIcon.minesIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__35_asset.ddthall.trialEnterIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "35_asset.ddthall.trialEnterIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__36_assets.hallIcon.tenYearAnniversaryIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "36_assets.hallIcon.tenYearAnniversaryIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__386_asset.ddthall.cryptBoss.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "386_asset.ddthall.cryptBoss.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__48_assets.hallIcon.prayIndianaIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "48_assets.hallIcon.prayIndianaIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__49_assets.hallIcon.magpiebridge.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "49_assets.hallIcon.magpiebridge.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__5_assets.hallIcon.godOfWealthIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "5_assets.hallIcon.godOfWealthIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__50_assets.hallIcon.sevendayIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "50_assets.hallIcon.sevendayIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__51_assets.hallIcon.sevenDayTargetIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "51_assets.hallIcon.sevenDayTargetIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__55_assets.hallIcon.newYearRiceIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "55_assets.hallIcon.newYearRiceIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__57_asset.hall.wheelOfFortuneIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "57_asset.hall.wheelOfFortuneIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__60_assets.hallIcon.signActivity.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "60_assets.hallIcon.signActivity.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__67_assets.hallIcon.fightFootballTimeIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "67_assets.hallIcon.fightFootballTimeIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__7_assets.hallIcon.battleIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "7_assets.hallIcon.battleIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__72_assets.hallIcon.oldPlayerComeBack.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "72_assets.hallIcon.oldPlayerComeBack.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__75_assets.hallIcon.escortEntryIcon.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "75_assets.hallIcon.escortEntryIcon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__1_assets.hallIcon.worldBossEntrance_4.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "1_assets.hallIcon.worldBossEntrance_4.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__10_assets.hallIcon.worldBossEntrance_1.png",
+  "swf": "ddthallicon.swf",
+  "sourceFile": "10_assets.hallIcon.worldBossEntrance_1.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "trainer1__51.png",
+  "swf": "trainer1.swf",
+  "sourceFile": "51.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "firsttainer__133.png",
+  "swf": "firsttainer.swf",
+  "sourceFile": "133.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "game__748.png",
+  "swf": "game.swf",
+  "sourceFile": "748.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddtstore__75_asset.ddtstore.StrengthenHole.png",
+  "swf": "ddtstore.swf",
+  "sourceFile": "75_asset.ddtstore.StrengthenHole.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__27_carnicalAct.title6.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "27_carnicalAct.title6.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "cardsystem__63.png",
+  "swf": "cardsystem.swf",
+  "sourceFile": "63.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__77_carnicalAct.title8.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "77_carnicalAct.title8.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "game__345.png",
+  "swf": "game.swf",
+  "sourceFile": "345.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__81_carnicalAct.title9.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "81_carnicalAct.title9.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "worldboss__4_asset.worldbossAwardRoom.rightBg1.png",
+  "swf": "worldboss.swf",
+  "sourceFile": "4_asset.worldbossAwardRoom.rightBg1.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddtstore__129_asset.ddtstore.AutoSplit.png",
+  "swf": "ddtstore.swf",
+  "sourceFile": "129_asset.ddtstore.AutoSplit.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__36_carnicalAct.title18.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "36_carnicalAct.title18.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__33_carnicalAct.title2.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "33_carnicalAct.title2.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "academy__39.png",
+  "swf": "academy.swf",
+  "sourceFile": "39.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddtstore__92_asset.ddtstore.FusionTitle.png",
+  "swf": "ddtstore.swf",
+  "sourceFile": "92_asset.ddtstore.FusionTitle.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "farm__35_asset.farm.selectViewTitle.png",
+  "swf": "farm.swf",
+  "sourceFile": "35_asset.farm.selectViewTitle.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__141.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "141.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddtstore__83_asset.ddtstore.FusionSpiltTextrBg.png",
+  "swf": "ddtstore.swf",
+  "sourceFile": "83_asset.ddtstore.FusionSpiltTextrBg.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "farm__38_assets.farmShop.SelectManure.png",
+  "swf": "farm.swf",
+  "sourceFile": "38_assets.farmShop.SelectManure.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "farm__57_asset.farm.manureselectViewTitle.png",
+  "swf": "farm.swf",
+  "sourceFile": "57_asset.farm.manureselectViewTitle.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddtstore__271.png",
+  "swf": "ddtstore.swf",
+  "sourceFile": "271.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddtstore__49_asset.ddtstore.TransferTitleSmall.png",
+  "swf": "ddtstore.swf",
+  "sourceFile": "49_asset.ddtstore.TransferTitleSmall.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddtstore__50_asset.ddtstore.TransferTitleLarge.png",
+  "swf": "ddtstore.swf",
+  "sourceFile": "50_asset.ddtstore.TransferTitleLarge.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "farm__5_assets.farmShop.petCreditTxt.png",
+  "swf": "farm.swf",
+  "sourceFile": "5_assets.farmShop.petCreditTxt.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "oldTrainer__3_asset.trainer.guide.newHand.png",
+  "swf": "oldTrainer.swf",
+  "sourceFile": "3_asset.trainer.guide.newHand.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "academy__45.png",
+  "swf": "academy.swf",
+  "sourceFile": "45.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "consortia__1_asset.consortia.ExitConsortiaFrame.word.png",
+  "swf": "consortia.swf",
+  "sourceFile": "1_asset.consortia.ExitConsortiaFrame.word.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "game__364.png",
+  "swf": "game.swf",
+  "sourceFile": "364.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__138.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "138.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__44_carnicalAct.title10.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "44_carnicalAct.title10.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "consortia__46_asset.consortia.memberList.fightPower.png",
+  "swf": "consortia.swf",
+  "sourceFile": "46_asset.consortia.memberList.fightPower.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__86_carnicalAct.title5.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "86_carnicalAct.title5.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__68_carnicalAct.title1.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "68_carnicalAct.title1.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__75_carnicalAct.title11.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "75_carnicalAct.title11.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__31_carnicalAct.title16.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "31_carnicalAct.title16.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "03-janelas",
+  "file": "consortia__44_asset.consortia.myConsortiaView.helpExplain.png",
+  "swf": "consortia.swf",
+  "sourceFile": "44_asset.consortia.myConsortiaView.helpExplain.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "core__266.png",
+  "swf": "core.swf",
+  "sourceFile": "266.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok"
+ },
+ {
+  "category": "03-janelas",
+  "file": "texpsystem__25.png",
+  "swf": "texpsystem.swf",
+  "sourceFile": "25.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "03-janelas",
+  "file": "store__241.png",
+  "swf": "store.swf",
+  "sourceFile": "241.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "03-janelas",
+  "file": "latentenergy__3_asset.latentEnergyFrame.bg.png",
+  "swf": "latentenergy.swf",
+  "sourceFile": "3_asset.latentEnergyFrame.bg.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok"
+ },
+ {
+  "category": "03-janelas",
+  "file": "luckstar__20_luckyStar.view.RankBG.png",
+  "swf": "luckstar.swf",
+  "sourceFile": "20_luckyStar.view.RankBG.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "03-janelas",
+  "file": "firsttainer__157.png",
+  "swf": "firsttainer.swf",
+  "sourceFile": "157.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "03-janelas",
+  "file": "oldTrainer__1_asset.trainer.Welcome.Background.png",
+  "swf": "oldTrainer.swf",
+  "sourceFile": "1_asset.trainer.Welcome.Background.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__11_wonderfulactivity.luck.backgroud.jpg",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "11_wonderfulactivity.luck.backgroud.jpg",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__15_wonderfulactivity.newgamebenifit.back.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "15_wonderfulactivity.newgamebenifit.back.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__16_wonderfulactivity.conRank.bg.jpg",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "16_wonderfulactivity.conRank.bg.jpg",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__18_wonderful.accumulative.prizeBG.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "18_wonderful.accumulative.prizeBG.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__4_wonderfulactivity.fighter.back.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "4_wonderfulactivity.fighter.back.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__60_carnicalAct.bg.jpg",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "60_carnicalAct.bg.jpg",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__7_wonderfulactivity.hero.back.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "7_wonderfulactivity.hero.back.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok"
+ },
+ {
+  "category": "03-janelas",
+  "file": "newchickenbox__32.png",
+  "swf": "newchickenbox.swf",
+  "sourceFile": "32.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "03-janelas",
+  "file": "newchickenbox__33.png",
+  "swf": "newchickenbox.swf",
+  "sourceFile": "33.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "03-janelas",
+  "file": "newchickenbox__34.png",
+  "swf": "newchickenbox.swf",
+  "sourceFile": "34.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "03-janelas",
+  "file": "newchickenbox1__32.png",
+  "swf": "newchickenbox1.swf",
+  "sourceFile": "32.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "03-janelas",
+  "file": "newchickenbox1__33.png",
+  "swf": "newchickenbox1.swf",
+  "sourceFile": "33.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "03-janelas",
+  "file": "newchickenbox1__34.png",
+  "swf": "newchickenbox1.swf",
+  "sourceFile": "34.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "pending"
+ },
+ {
+  "category": "02-lobby-hall",
+  "file": "hall__198.png",
+  "swf": "hall.swf",
+  "sourceFile": "198.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok",
+  "hd": true
+ },
+ {
+  "category": "02-lobby-hall",
+  "file": "hall__203.png",
+  "swf": "hall.swf",
+  "sourceFile": "203.jpg",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok",
+  "hd": true
+ },
+ {
+  "category": "02-lobby-hall",
+  "file": "hall__207.png",
+  "swf": "hall.swf",
+  "sourceFile": "207.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok",
+  "hd": true
+ },
+ {
+  "category": "02-lobby-hall",
+  "file": "hall__216.png",
+  "swf": "hall.swf",
+  "sourceFile": "216.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok",
+  "hd": true
+ },
+ {
+  "category": "02-lobby-hall",
+  "file": "hall__220.png",
+  "swf": "hall.swf",
+  "sourceFile": "220.jpg",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok",
+  "hd": true
+ },
+ {
+  "category": "02-lobby-hall",
+  "file": "hall__224.png",
+  "swf": "hall.swf",
+  "sourceFile": "224.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok",
+  "hd": true
+ },
+ {
+  "category": "02-lobby-hall",
+  "file": "hall__229.png",
+  "swf": "hall.swf",
+  "sourceFile": "229.jpg",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok",
+  "hd": true
+ },
+ {
+  "category": "02-lobby-hall",
+  "file": "hall__233.png",
+  "swf": "hall.swf",
+  "sourceFile": "233.jpg",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok",
+  "hd": true
+ },
+ {
+  "category": "02-lobby-hall",
+  "file": "hall__237.png",
+  "swf": "hall.swf",
+  "sourceFile": "237.jpg",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok",
+  "hd": true
+ },
+ {
+  "category": "02-lobby-hall",
+  "file": "hall__241.png",
+  "swf": "hall.swf",
+  "sourceFile": "241.jpg",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok",
+  "hd": true
+ },
+ {
+  "category": "02-lobby-hall",
+  "file": "hall__12.png",
+  "swf": "hall.swf",
+  "sourceFile": "12.jpg",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok",
+  "hd": true
+ },
+ {
+  "category": "02-lobby-hall",
+  "file": "hall__16.png",
+  "swf": "hall.swf",
+  "sourceFile": "16.jpg",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok",
+  "hd": true
+ },
+ {
+  "category": "02-lobby-hall",
+  "file": "hall__212.png",
+  "swf": "hall.swf",
+  "sourceFile": "212.jpg",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok",
+  "hd": true
+ },
+ {
+  "category": "02-lobby-hall",
+  "file": "hall__42.png",
+  "swf": "hall.swf",
+  "sourceFile": "42.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok",
+  "hd": true
+ },
+ {
+  "category": "02-lobby-hall",
+  "file": "hall__18.png",
+  "swf": "hall.swf",
+  "sourceFile": "18.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok",
+  "hd": true
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__11_wonderfulactivity.luck.backgroud.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "11_wonderfulactivity.luck.backgroud.jpg",
+  "fit": "cover",
+  "auto": true,
+  "review": "ok"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "awardsystem__232.png",
+  "swf": "awardsystem.swf",
+  "sourceFile": "232.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "awardsystem1__133.png",
+  "swf": "awardsystem1.swf",
+  "sourceFile": "133.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "chickactivation__11_assets.chickActivation.priceBitmap.png",
+  "swf": "chickactivation.swf",
+  "sourceFile": "11_assets.chickActivation.priceBitmap.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "chickactivation__5_assets.chickActivation.selectWeekly.png",
+  "swf": "chickactivation.swf",
+  "sourceFile": "5_assets.chickActivation.selectWeekly.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "chickactivation__7_assets.chickActivation.selectEveryDay.png",
+  "swf": "chickactivation.swf",
+  "sourceFile": "7_assets.chickActivation.selectEveryDay.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "chickactivation__9_assets.chickActivation.receiveBtn.png",
+  "swf": "chickactivation.swf",
+  "sourceFile": "9_assets.chickActivation.receiveBtn.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "guildmemberweek__11_asset.guildmemberweek.Main.AddPointBookText.png.png",
+  "swf": "guildmemberweek.swf",
+  "sourceFile": "11_asset.guildmemberweek.Main.AddPointBookText.png.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "luckstar__11_luckyStar.view.AwardBtnBG.png",
+  "swf": "luckstar.swf",
+  "sourceFile": "11_luckyStar.view.AwardBtnBG.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "05-icones",
+  "file": "newchickenbox__3_asset.newChickenBox.eagleEyeBtnFree.png",
+  "swf": "newchickenbox.swf",
+  "sourceFile": "3_asset.newChickenBox.eagleEyeBtnFree.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "05-icones",
+  "file": "newchickenbox__8_asset.newChickenBox.openCardBtn.png",
+  "swf": "newchickenbox.swf",
+  "sourceFile": "8_asset.newChickenBox.openCardBtn.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "05-icones",
+  "file": "newchickenbox1__3_asset.newChickenBox.eagleEyeBtnFree.png",
+  "swf": "newchickenbox1.swf",
+  "sourceFile": "3_asset.newChickenBox.eagleEyeBtnFree.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "05-icones",
+  "file": "totem__18_asset.totem.honorUpIcon.btn.png",
+  "swf": "totem.swf",
+  "sourceFile": "18_asset.totem.honorUpIcon.btn.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "03-janelas",
+  "file": "totem__2_asset.totem.rightView.bg.png",
+  "swf": "totem.swf",
+  "sourceFile": "2_asset.totem.rightView.bg.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "weekly__21_asset.weekly.DailyBtn.png",
+  "swf": "weekly.swf",
+  "sourceFile": "21_asset.weekly.DailyBtn.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "weekly__25_asset.weekly.DailyGoodInfo.png",
+  "swf": "weekly.swf",
+  "sourceFile": "25_asset.weekly.DailyGoodInfo.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__132.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "132.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__135.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "135.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__16_wonderfulactivity.conRank.bg.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "16_wonderfulactivity.conRank.bg.jpg",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__26_wonderfulactivity.tuanjie.back.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "26_wonderfulactivity.tuanjie.back.jpg",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__34_wonderfulactivity.gotoRecharge.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "34_wonderfulactivity.gotoRecharge.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__35_wonderfulactivity.rechargeTille3.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "35_wonderfulactivity.rechargeTille3.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__114_asset.wonderful.ActivityState.GetButtonBg.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "114_asset.wonderful.ActivityState.GetButtonBg.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__3_carnicalAct.title4.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "3_carnicalAct.title4.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__40_wonderful.accumulative.getPrize.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "40_wonderful.accumulative.getPrize.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__59_wonderfulactivity.limit.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "59_wonderfulactivity.limit.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__67_wonderfulactivity.rechargeTille2.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "67_wonderfulactivity.rechargeTille2.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__74_wonderful.sendGiftActivity.bg.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "74_wonderful.sendGiftActivity.bg.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__78_wonderfulactivity.farme.btn.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "78_wonderfulactivity.farme.btn.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__83_wonderfulactivity.rechargeTille1.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "83_wonderfulactivity.rechargeTille1.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__87_wonderfulactivity.farme.backgroud.png",
+  "swf": "wonderfulactivity.swf",
+  "sourceFile": "87_wonderfulactivity.farme.backgroud.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "core__183_asset.core.levelRewardGreenLevelTipAsset.png",
+  "swf": "core.swf",
+  "sourceFile": "183_asset.core.levelRewardGreenLevelTipAsset.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "core__206_asset.core.levelRewardTitleAsset.png",
+  "swf": "core.swf",
+  "sourceFile": "206_asset.core.levelRewardTitleAsset.jpg",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "core__295.png",
+  "swf": "core.swf",
+  "sourceFile": "295.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddtstore__102_asset.ddtstore.embedTxt.png",
+  "swf": "ddtstore.swf",
+  "sourceFile": "102_asset.ddtstore.embedTxt.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddtstore__123_asset.ddtstore.ComposeTabBtnSelected.png",
+  "swf": "ddtstore.swf",
+  "sourceFile": "123_asset.ddtstore.ComposeTabBtnSelected.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddtstore__36_asset.store.evolutionUnSelect.png",
+  "swf": "ddtstore.swf",
+  "sourceFile": "36_asset.store.evolutionUnSelect.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddtstore__56_asset.newFusion.fusionBtn.png",
+  "swf": "ddtstore.swf",
+  "sourceFile": "56_asset.newFusion.fusionBtn.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddtstore__7_asset.newStore.emblem.selectedBtn.png",
+  "swf": "ddtstore.swf",
+  "sourceFile": "7_asset.newStore.emblem.selectedBtn.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "store__2_asset.store.unFineBringUpBtn.png",
+  "swf": "store.swf",
+  "sourceFile": "2_asset.store.unFineBringUpBtn.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "05-icones",
+  "file": "farm__248_asset.farm.petShop.png",
+  "swf": "farm.swf",
+  "sourceFile": "248_asset.farm.petShop.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "05-icones",
+  "file": "farm__271.png",
+  "swf": "farm.swf",
+  "sourceFile": "271.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "core__66_asset.community.InviteBtn.png",
+  "swf": "core.swf",
+  "sourceFile": "66_asset.community.InviteBtn.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "core__77_asset.community.InviteBtnBlk.png",
+  "swf": "core.swf",
+  "sourceFile": "77_asset.community.InviteBtnBlk.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "core__84_asset.community.SendMsgBtn.png",
+  "swf": "core.swf",
+  "sourceFile": "84_asset.community.SendMsgBtn.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "coreii__158.png",
+  "swf": "coreii.swf",
+  "sourceFile": "158.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddtstore__120_asset.ddtstore.ContinuousFusionBtn.png",
+  "swf": "ddtstore.swf",
+  "sourceFile": "120_asset.ddtstore.ContinuousFusionBtn.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddtstore__121_asset.ddtstore.ComposeTitle.png",
+  "swf": "ddtstore.swf",
+  "sourceFile": "121_asset.ddtstore.ComposeTitle.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddtstore__125_asset.ddtstore.ComposeBtn.png",
+  "swf": "ddtstore.swf",
+  "sourceFile": "125_asset.ddtstore.ComposeBtn.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddtstore__249.png",
+  "swf": "ddtstore.swf",
+  "sourceFile": "249.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddtstore__263.png",
+  "swf": "ddtstore.swf",
+  "sourceFile": "263.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddtstore__267.png",
+  "swf": "ddtstore.swf",
+  "sourceFile": "267.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddtstore__291.png",
+  "swf": "ddtstore.swf",
+  "sourceFile": "291.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "cardsystem__64.png",
+  "swf": "cardsystem.swf",
+  "sourceFile": "64.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "farm__103_assets.petsBag.adoptTitle.png",
+  "swf": "farm.swf",
+  "sourceFile": "103_assets.petsBag.adoptTitle.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "farm__104_assets.petsBag.adoptItem.png",
+  "swf": "farm.swf",
+  "sourceFile": "104_assets.petsBag.adoptItem.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "farm__105_assets.petsBag.adopt1.png",
+  "swf": "farm.swf",
+  "sourceFile": "105_assets.petsBag.adopt1.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "farm__194.png",
+  "swf": "farm.swf",
+  "sourceFile": "194.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "farm__22_assets.farmShop.unSelectSeed.png",
+  "swf": "farm.swf",
+  "sourceFile": "22_assets.farmShop.unSelectSeed.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "farm__233.png",
+  "swf": "farm.swf",
+  "sourceFile": "233.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "farm__236.png",
+  "swf": "farm.swf",
+  "sourceFile": "236.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "farm__239.png",
+  "swf": "farm.swf",
+  "sourceFile": "239.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "farm__23_assets.farmShop.unSelectPetEgg.png",
+  "swf": "farm.swf",
+  "sourceFile": "23_assets.farmShop.unSelectPetEgg.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "farm__245.png",
+  "swf": "farm.swf",
+  "sourceFile": "245.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "farm__26_assets.farmHouse.unSelectCompose.png",
+  "swf": "farm.swf",
+  "sourceFile": "26_assets.farmHouse.unSelectCompose.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "farm__29_assets.farmHouse.title.png",
+  "swf": "farm.swf",
+  "sourceFile": "29_assets.farmHouse.title.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "farm__36_assets.farmShop.SelectSeed.png",
+  "swf": "farm.swf",
+  "sourceFile": "36_assets.farmShop.SelectSeed.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "farm__37_asset.farmShop.SelectPetEgg.png",
+  "swf": "farm.swf",
+  "sourceFile": "37_asset.farmShop.SelectPetEgg.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "farm__42_assets.farmHouse.SelectCompose.png",
+  "swf": "farm.swf",
+  "sourceFile": "42_assets.farmHouse.SelectCompose.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "farm__68_assets.farmShop.titleFont.png",
+  "swf": "farm.swf",
+  "sourceFile": "68_assets.farmShop.titleFont.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "farm__71_assets.farm.farmHelperTitle.png",
+  "swf": "farm.swf",
+  "sourceFile": "71_assets.farm.farmHelperTitle.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "littlegame__8_asset.littleGame.rightTitle.png",
+  "swf": "littlegame.swf",
+  "sourceFile": "8_asset.littleGame.rightTitle.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "consortia__21_asset.consortia.memberList.profferDegree.png",
+  "swf": "consortia.swf",
+  "sourceFile": "21_asset.consortia.memberList.profferDegree.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "consortia__23_asset.consortia.memberList.offline.png",
+  "swf": "consortia.swf",
+  "sourceFile": "23_asset.consortia.memberList.offline.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "consortia__6_asset.consortia.myConsortiaView.titleWord6.png",
+  "swf": "consortia.swf",
+  "sourceFile": "6_asset.consortia.myConsortiaView.titleWord6.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "consortia__8_asset.consortia.myConsortiaView.titleWord4.png",
+  "swf": "consortia.swf",
+  "sourceFile": "8_asset.consortia.myConsortiaView.titleWord4.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "consortiabattle__48.png",
+  "swf": "consortiabattle.swf",
+  "sourceFile": "48.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "consortiabattle__50.png",
+  "swf": "consortiabattle.swf",
+  "sourceFile": "50.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "consortiabattle__52.png",
+  "swf": "consortiabattle.swf",
+  "sourceFile": "52.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "academy__36.png",
+  "swf": "academy.swf",
+  "sourceFile": "36.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "academycommon__44.png",
+  "swf": "academycommon.swf",
+  "sourceFile": "44.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "academycommon__48.png",
+  "swf": "academycommon.swf",
+  "sourceFile": "48.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "academycommon__51.png",
+  "swf": "academycommon.swf",
+  "sourceFile": "51.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "academycommon__54.png",
+  "swf": "academycommon.swf",
+  "sourceFile": "54.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "academycommon__57.png",
+  "swf": "academycommon.swf",
+  "sourceFile": "57.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "academycommon__72.png",
+  "swf": "academycommon.swf",
+  "sourceFile": "72.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "academycommon__76.png",
+  "swf": "academycommon.swf",
+  "sourceFile": "76.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "room__63_asset.ddtroom.dungeonChoose.boss.png",
+  "swf": "room.swf",
+  "sourceFile": "63_asset.ddtroom.dungeonChoose.boss.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "roulette__3_roulette.endDayBgTitle.png",
+  "swf": "roulette.swf",
+  "sourceFile": "3_roulette.endDayBgTitle.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "trainerui__114.png",
+  "swf": "trainerui.swf",
+  "sourceFile": "114.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "trainerui__120.png",
+  "swf": "trainerui.swf",
+  "sourceFile": "120.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "trainerui__26.png",
+  "swf": "trainerui.swf",
+  "sourceFile": "26.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "trainerui__32.png",
+  "swf": "trainerui.swf",
+  "sourceFile": "32.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "trainerui__38.png",
+  "swf": "trainerui.swf",
+  "sourceFile": "38.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "trainerui__44.png",
+  "swf": "trainerui.swf",
+  "sourceFile": "44.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "trainerui__47.png",
+  "swf": "trainerui.swf",
+  "sourceFile": "47.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "trainerui__50.png",
+  "swf": "trainerui.swf",
+  "sourceFile": "50.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "trainerui__53.png",
+  "swf": "trainerui.swf",
+  "sourceFile": "53.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "trainerui__68.png",
+  "swf": "trainerui.swf",
+  "sourceFile": "68.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "trainerui__80.png",
+  "swf": "trainerui.swf",
+  "sourceFile": "80.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "trainerui__95.png",
+  "swf": "trainerui.swf",
+  "sourceFile": "95.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "trainerui__98.png",
+  "swf": "trainerui.swf",
+  "sourceFile": "98.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "worldboss__6_asset.worldbossRoom.resurrect.png",
+  "swf": "worldboss.swf",
+  "sourceFile": "6_asset.worldbossRoom.resurrect.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "05-icones",
+  "file": "farm__293_asset.farm.windHouse.png",
+  "swf": "farm.swf",
+  "sourceFile": "293_asset.farm.windHouse.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "littlegame__6_asset.littleGame.ScoreBack.png",
+  "swf": "littlegame.swf",
+  "sourceFile": "6_asset.littleGame.ScoreBack.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "consortia__10_asset.consortia.myConsortiaView.titleWord2.png",
+  "swf": "consortia.swf",
+  "sourceFile": "10_asset.consortia.myConsortiaView.titleWord2.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "consortia__11_asset.consortia.myConsortiaView.titleWord1.png",
+  "swf": "consortia.swf",
+  "sourceFile": "11_asset.consortia.myConsortiaView.titleWord1.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "05-icones",
+  "file": "consortia__14_asset.consortia.myConsortiaView.taxBtn.png",
+  "swf": "consortia.swf",
+  "sourceFile": "14_asset.consortia.myConsortiaView.taxBtn.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "05-icones",
+  "file": "consortia__18_asset.consortia.myConsortiaView.storeBtn.png",
+  "swf": "consortia.swf",
+  "sourceFile": "18_asset.consortia.myConsortiaView.storeBtn.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "fightlib__221.png",
+  "swf": "fightlib.swf",
+  "sourceFile": "221.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "fightlib__223.png",
+  "swf": "fightlib.swf",
+  "sourceFile": "223.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "room__176.png",
+  "swf": "room.swf",
+  "sourceFile": "176.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "fightlib__218.png",
+  "swf": "fightlib.swf",
+  "sourceFile": "218.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "05-icones",
+  "file": "trainer__114.png",
+  "swf": "trainer.swf",
+  "sourceFile": "114.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "05-icones",
+  "file": "trainer__99.png",
+  "swf": "trainer.swf",
+  "sourceFile": "99.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "v45"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "consortiabattle__1_asset.consortiaBattle.infoView.bg.png",
+  "swf": "consortiabattle.swf",
+  "sourceFile": "1_asset.consortiaBattle.infoView.bg.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "fightlib__198.png",
+  "swf": "fightlib.swf",
+  "sourceFile": "198.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "choicefigure__2_asset.choicefigure.btnEnterGame_new.png",
+  "swf": "choicefigure.swf",
+  "sourceFile": "2_asset.choicefigure.btnEnterGame_new.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "choicefigure__3_asset.choicefigure.btnEnterGame_old.png",
+  "swf": "choicefigure.swf",
+  "sourceFile": "3_asset.choicefigure.btnEnterGame_old.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local"
  }
 ]

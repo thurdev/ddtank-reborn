@@ -51,6 +51,8 @@ const ptBR = {
   "crud.done": "Concluído",
   "crud.yes": "Sim",
   "crud.no": "Não",
+  "crud.viewTable": "Lista",
+  "crud.viewGrid": "Grade de ícones",
 
   "field.required": "Campo obrigatório",
   "field.min": "Mínimo {min}",
@@ -160,6 +162,8 @@ const en: Partial<Record<Key, string>> = {
   "crud.done": "Done",
   "crud.yes": "Yes",
   "crud.no": "No",
+  "crud.viewTable": "List",
+  "crud.viewGrid": "Icon grid",
   "field.required": "Required",
   "field.min": "Minimum {min}",
   "field.max": "Maximum {max}",

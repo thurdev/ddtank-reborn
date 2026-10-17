@@ -1,11 +1,15 @@
 /** Admin REST (role admin): generic CRUD over the RESOURCES whitelist + server-config, stats, assets, mail, templates. */
-import { app as appTables, Accounts, findAccount, hashPassword } from "@ddt/db";
-import { and, asc, count, desc, eq, getTableColumns, ilike, inArray, or, sql, type SQL } from "drizzle-orm";
+import { app as appTables, game as gameTables, Accounts, applyTranslations, findAccount, hashPassword, loadTranslations } from "@ddt/db";
+import { and, asc, count, desc, eq, getTableColumns, gte, inArray, lte, or, sql, type SQL } from "drizzle-orm";
 import { getTableConfig, type PgColumn, type PgTable } from "drizzle-orm/pg-core";
-import type { FastifyInstance, FastifyRequest } from "fastify";
+import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { existsSync, readFileSync } from "node:fs";
 import os from "node:os";
+import { join, resolve as resolvePath } from "node:path";
 import type { AppCtx } from "../context.js";
 import { q } from "../lib/db.js";
+import { buildIconPrompt, generateIconPng, iconSizeFor, recraftApiKey, resizePng } from "../lib/icon-style.js";
+import { itemIconRel } from "../lib/item-icon.js";
 import { wallNow } from "../lib/flash-xml.js";
 import { safeKey } from "../lib/storage.js";
 import { RESOURCES, type ResourceDef } from "./admin-resources.js";
@@ -58,6 +62,94 @@ function strip(def: ResourceDef, r: Row): Row {
   const o = { ...r };
   for (const h of def.hidden) delete o[h];
   return o;
+}
+
+/**
+ * Overlay PT-BR dos itens (`game.Shop_Goods` + `app.Translations`).
+ * Como lê esse código (cada variável): `linhas` itens do banco; `overlay` traduções pt-BR; `tid` TemplateID atual;
+ * `emLoja` TemplateIDs desta página que têm pelo menos 1 oferta em `game."Shop"` (tabela que o jogo lê pra
+ * `ShopItemList.ashx` — ver `defs.ts:478`), usado pro filtro/coluna "Na loja?"; `o` item com Name/Description
+ * traduzidos + iconUrl + inShop.
+ */
+async function withItemOverlay(ctx: AppCtx, linhas: Row[]): Promise<Row[]> {
+  if (!linhas.length) return linhas;
+  const overlay = await loadTranslations(ctx.h.db, "Shop_Goods", "pt-BR");
+  const tids = [...new Set(linhas.map((r) => Number(r.TemplateID)).filter(Number.isFinite))];
+  const emLoja = tids.length
+    ? new Set(
+        (await q(ctx.h, sql`SELECT DISTINCT "TemplateID" FROM game."Shop" WHERE "TemplateID" IN (${sql.join(tids.map((t) => sql`${t}`), sql`, `)})`)).map((r) =>
+          Number(r.TemplateID),
+        ),
+      )
+    : new Set<number>();
+  return linhas.map((r) => {
+    const tid = String(r.TemplateID);
+    const o = { ...applyTranslations(r, "TemplateID", overlay) } as Row;
+    (o as Row).iconUrl = `/api/admin/item-icons/${tid}.png`;
+    (o as Row).inShop = emLoja.has(Number(r.TemplateID));
+    return o;
+  });
+}
+
+/**
+ * Busca sem acento ("pédra"/"pedra" acham "Pedra"): usa `translate()` puro do Postgres (sem extensão `unaccent`,
+ * que pode não estar disponível/habilitada no Neon), comparando a coluna em minúsculo sem os acentos comuns do
+ * PT-BR contra a agulha já normalizada em JS (`agulha.normalize("NFD")` remove os diacríticos combinantes).
+ * Como lê esse código (cada variável): `UNACCENT_FROM`/`UNACCENT_TO` mapa 1:1 de acentuado -> simples (mesmo
+ * tamanho, exigido pelo `translate`); `semAcento(s)` normaliza uma string; `colSemAcento(col, agulha)` monta a
+ * condição `SQL` reaproveitada pela busca genérica e pela busca de traduções.
+ */
+const UNACCENT_FROM = "áàâãäéèêëíìîïóòôõöúùûüçñ";
+const UNACCENT_TO = "aaaaaeeeeiiiiooooouuuucn";
+const semAcento = (s: string) =>
+  s
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase();
+function colSemAcento(col: PgColumn | ReturnType<typeof sql>, agulha: string): SQL {
+  const esc = semAcento(agulha).replace(/[%_\\]/g, (x) => "\\" + x);
+  return sql`translate(lower(${col}), ${UNACCENT_FROM}, ${UNACCENT_TO}) LIKE ${"%" + esc + "%"}`;
+}
+
+/**
+ * TemplateIDs cuja tradução PT-BR casa com a busca (sem acento, ver `colSemAcento`).
+ * Como lê esse código (cada variável): `agulha` texto buscado; `achados` linhas `rowId` da tradução.
+ */
+async function itemTraducaoIds(ctx: AppCtx, agulha: string): Promise<number[]> {
+  const achados = await ctx.h.db
+    .select({ rowId: appTables.Translations.rowId })
+    .from(appTables.Translations)
+    .where(and(eq(appTables.Translations.table, "Shop_Goods"), eq(appTables.Translations.lang, "pt-BR"), colSemAcento(appTables.Translations.text, agulha)))
+    .limit(500);
+  return [...new Set(achados.map((r) => Number(r.rowId)).filter((n) => Number.isFinite(n)))];
+}
+
+/**
+ * Resolve o ícone do item no disco pelo template (`game.Shop_Goods`): as pastas são nomeadas pelo `Pic`, não pelo
+ * TemplateID — caminhos de `itemIconRel` (porte de PathManager.as:194 `solveGoodsPath`, param4 "icon").
+ * Como lê esse código (cada variável): `iconCache` TemplateID -> arquivo absoluto (ou null = sem ícone); `tid` TemplateID;
+ * `g` tabela Shop_Goods; `row` linha do template (CategoryID/Pic/NeedSex); `rel` caminho candidato; `abs` arquivo absoluto no disco.
+ */
+const iconCache = new Map<number, string | null>();
+async function resolveItemIcon(ctx: AppCtx, tid: number): Promise<string | undefined> {
+  const hit = iconCache.get(tid);
+  // Um hit cujo arquivo não existe mais (ex. alguém apagou o upload em /api/admin/assets por fora do fluxo de
+  // ícone) não é confiável — resolve de novo em vez de 404 até o próximo /icon/accept ou reinício.
+  if (hit !== undefined && (hit === null || existsSync(hit))) return hit ?? undefined;
+  const g = gameTables.Shop_Goods;
+  const [row] = await ctx.h.db
+    .select({ CategoryID: g.CategoryID, Pic: g.Pic, NeedSex: g.NeedSex })
+    .from(g)
+    .where(eq(g.TemplateID, tid))
+    .limit(1);
+  if (!row) return undefined; // item inexistente: não cacheia (pode ser criado depois)
+  let abs: string | undefined;
+  for (const rel of itemIconRel(row.CategoryID, row.Pic ?? "", row.NeedSex)) {
+    abs = ctx.resources.resolve(rel);
+    if (abs) break;
+  }
+  iconCache.set(tid, abs ?? null);
+  return abs;
 }
 
 export async function audit(ctx: AppCtx, actor: string | null, category: string, message: string, data?: unknown, level = "info") {
@@ -289,27 +381,59 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
       await ctx.h.db.execute(sql`UPDATE player."Sys_Users_Detail" SET "ForbidDate" = ${new Date(Date.UTC(2000, 0, 1))}, "ForbidReason" = '', "IsExist" = true WHERE "UserID" = ${id}`);
     } else if (req.params.action === "give-item") {
       /**
-       * Entrega item ao jogador: tenta mochila direto, cai para correio.
-       * Como lê esse código (cada variável): `tid` id do template; `count` quantidade pedida; `validDays` dias validade; `u` jogador dono; `tpl` template achado; `livre` slot vago BagType 0; `now` hora atual.
+       * Entrega item ao jogador: `viaMail` true manda sempre por correio (GM); false tenta mochila direto
+       * (online: game server em memória; offline: insert direto no banco), só cai pro correio se a mochila falhar.
+       * Como lê esse código (cada variável): `tid` id do template; `count` quantidade pedida; `validDays` dias
+       * validade (repassado ao anexo do correio); `viaMail` checkbox "Enviar por correio" do picker; `u` jogador
+       * dono; `tpl` template achado; `livre` slot vago BagType 0; `now` hora atual.
        */
       const tid = Number(b.templateId ?? b.TemplateID);
       const count = Number(b.count ?? 1);
       const validDays = Number(b.validDays ?? 0);
+      const viaMail = b.viaMail === true;
       if (!tid) return reply.code(400).send({ message: "templateId é obrigatório" });
       if (!Number.isFinite(count) || count <= 0) return reply.code(400).send({ message: "count deve ser maior que zero" });
       const tpl = await q(ctx.h, sql`SELECT "TemplateID" FROM game."Shop_Goods" WHERE "TemplateID" = ${tid} LIMIT 1`);
       if (!tpl.length) return reply.code(404).send({ message: "Template não encontrado" });
-      try {
-        const now = wallNow();
-        const ocup = await q(ctx.h, sql`SELECT "Place" FROM player."Sys_Users_Goods" WHERE "UserID" = ${id} AND "BagType" = 0 AND "IsExist" = true ORDER BY "Place"`);
-        const usados = new Set((ocup as Row[]).map((r) => Number(r.Place)));
-        let livre = -1;
-        for (let p = 31; p <= 49; p++) if (!usados.has(p)) { livre = p; break; }
-        if (livre < 0) throw new Error("bag cheia");
-        await ctx.h.db.execute(sql`INSERT INTO player."Sys_Users_Goods" ("UserID","BagType","TemplateID","Place","Count","IsJudge","Color","IsExist","StrengthenLevel","AttackCompose","DefendCompose","LuckCompose","AgilityCompose","IsBinds","BeginDate","ValidDate","IsUsed")
-          VALUES (${id}, 0, ${tid}, ${livre}, ${count}, true, '', true, 0, 0, 0, 0, 0, true, ${now}, ${validDays}, false)`);
-      } catch {
+      if (viaMail) {
+        // Correio sempre (mesmo online): grava Sys_Users_Goods + User_Messages; avisa o game pra acender o ícone na hora.
         await sendMail(ctx, id, String(u.NickName), "GM", "Item", { items: [{ templateId: tid, count, validDays }] });
+        try {
+          await fetch(`${ctx.cfg.GAME_INTERNAL_URL}/mail-notice`, {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ userId: id }),
+            signal: AbortSignal.timeout(3000),
+          });
+        } catch {
+          // best-effort: sem aviso em tempo real, o jogador recebe a carta no próximo refresh/login.
+        }
+      } else {
+        // Online: entrega pelo game server (bolsa em memória); insert direto no banco seria sobrescrito no próximo save.
+        let online = false;
+        try {
+          const r = await fetch(`${ctx.cfg.GAME_INTERNAL_URL}/give-item`, {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ userId: id, templateId: tid, count }),
+            signal: AbortSignal.timeout(3000),
+          });
+          online = r.ok;
+        } catch {
+          online = false;
+        }
+        if (!online) try {
+          const now = wallNow();
+          const ocup = await q(ctx.h, sql`SELECT "Place" FROM player."Sys_Users_Goods" WHERE "UserID" = ${id} AND "BagType" = 0 AND "IsExist" = true ORDER BY "Place"`);
+          const usados = new Set((ocup as Row[]).map((r) => Number(r.Place)));
+          let livre = -1;
+          for (let p = 31; p <= 49; p++) if (!usados.has(p)) { livre = p; break; }
+          if (livre < 0) throw new Error("bag cheia");
+          await ctx.h.db.execute(sql`INSERT INTO player."Sys_Users_Goods" ("UserID","BagType","TemplateID","Place","Count","IsJudge","Color","IsExist","StrengthenLevel","AttackCompose","DefendCompose","LuckCompose","AgilityCompose","IsBinds","BeginDate","ValidDate","IsUsed")
+            VALUES (${id}, 0, ${tid}, ${livre}, ${count}, true, '', true, 0, 0, 0, 0, 0, true, ${now}, ${validDays}, false)`);
+        } catch {
+          await sendMail(ctx, id, String(u.NickName), "GM", "Item", { items: [{ templateId: tid, count, validDays }] });
+        }
       }
     } else return reply.code(404).send({ message: "Ação desconhecida" });
     await audit(ctx, actor(req), "players", `${req.params.action} ${u.NickName} (${id})`, b);
@@ -374,7 +498,23 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
   // ---- generic CRUD ----
   const resolve = (name: string) => RESOURCES[name];
 
-  f.get<{ Params: { resource: string }; Querystring: { q?: string; page?: string; pageSize?: string; sort?: string } }>(
+  f.get<{
+    Params: { resource: string };
+    Querystring: {
+      q?: string;
+      page?: string;
+      pageSize?: string;
+      sort?: string;
+      category?: string;
+      sex?: string;
+      quality?: string;
+      inShop?: string;
+      levelMin?: string;
+      levelMax?: string;
+      idMin?: string;
+      idMax?: string;
+    };
+  }>(
     "/api/admin/:resource",
     { preHandler: guard },
     async (req, reply) => {
@@ -384,13 +524,36 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
       const page = Math.max(1, Number(req.query.page) || 1);
       const pageSize = Math.min(500, Math.max(1, Number(req.query.pageSize) || 20));
       const conds: SQL[] = [];
+      // Picker de item (ex. arma de bot) + filtro "Categoria" da Grade de ícones: restringe por CategoryID, só no resource "items".
+      if (req.params.resource === "items" && req.query.category && c.CategoryID) {
+        const ids = req.query.category.split(",").map(Number).filter(Number.isFinite);
+        if (ids.length) conds.push(inArray(c.CategoryID, ids));
+      }
+      // Filtros extras da página Itens (Sexo/Qualidade/Nível/faixa de TemplateID/"Na loja?") — só no resource "items".
+      if (req.params.resource === "items") {
+        const qy = req.query;
+        if (c.NeedSex && qy.sex !== undefined && qy.sex !== "") conds.push(eq(c.NeedSex, Number(qy.sex)));
+        if (c.Quality && qy.quality !== undefined && qy.quality !== "") conds.push(eq(c.Quality, Number(qy.quality)));
+        if (c.NeedLevel && qy.levelMin !== undefined && qy.levelMin !== "") conds.push(gte(c.NeedLevel, Number(qy.levelMin)));
+        if (c.NeedLevel && qy.levelMax !== undefined && qy.levelMax !== "") conds.push(lte(c.NeedLevel, Number(qy.levelMax)));
+        if (c.TemplateID && qy.idMin !== undefined && qy.idMin !== "") conds.push(gte(c.TemplateID, Number(qy.idMin)));
+        if (c.TemplateID && qy.idMax !== undefined && qy.idMax !== "") conds.push(lte(c.TemplateID, Number(qy.idMax)));
+        if (c.TemplateID && (qy.inShop === "1" || qy.inShop === "0")) {
+          const existsEmLoja = sql`EXISTS (SELECT 1 FROM game."Shop" s WHERE s."TemplateID" = ${c.TemplateID})`;
+          conds.push(qy.inShop === "1" ? existsEmLoja : sql`NOT ${existsEmLoja}`);
+        }
+      }
       const needle = (req.query.q ?? "").trim();
       if (needle) {
         const ors: SQL[] = [];
         for (const [k, col] of Object.entries(c)) {
           if (def.hidden?.includes(k)) continue;
-          if (col.dataType === "string" && !col.columnType.includes("Json")) ors.push(ilike(col, `%${needle.replace(/[%_\\]/g, (x) => "\\" + x)}%`));
+          if (col.dataType === "string" && !col.columnType.includes("Json")) ors.push(colSemAcento(col, needle));
           else if (col.dataType === "number" && /^-?\d+$/.test(needle)) ors.push(eq(col, Number(needle)));
+        }
+        if (req.params.resource === "items" && c.TemplateID) {
+          const tids = await itemTraducaoIds(ctx, needle);
+          if (tids.length) ors.push(inArray(c.TemplateID, tids));
         }
         if (ors.length) conds.push(or(...ors)!);
       }
@@ -404,16 +567,141 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
       const where = conds.length ? and(...conds) : undefined;
       const [tot] = await ctx.h.db.select({ n: count() }).from(def.table).where(where);
       const rows = await ctx.h.db.select().from(def.table).where(where).orderBy(...order).limit(pageSize).offset((page - 1) * pageSize);
-      return { items: (rows as Row[]).map((r) => strip(def, r)), total: Number(tot?.n ?? 0), page, pageSize };
+      const items = (rows as Row[]).map((r) => strip(def, r));
+      return { items: req.params.resource === "items" ? await withItemOverlay(ctx, items) : items, total: Number(tot?.n ?? 0), page, pageSize };
     },
   );
+
+  /**
+   * Ícone do item por TemplateID (só leitura do vendor, nunca commita asset). Público: `<img>` não manda o Bearer do admin.
+   * Como lê esse código (cada variável): `tid` TemplateID da URL; `abs` arquivo resolvido; `buf` bytes servidos (png, ou jpg p/ cartas).
+   */
+  f.get<{ Params: { templateId: string } }>("/api/admin/item-icons/:templateId", async (req, reply) => {
+    const tid = String(req.params.templateId).replace(/\.png$/i, "");
+    if (!/^\d{1,10}$/.test(tid)) return reply.code(404).send({ message: "Não encontrado" });
+    const abs = await resolveItemIcon(ctx, Number(tid));
+    if (!abs || !existsSync(abs)) return reply.code(404).send({ message: "Não encontrado" });
+    try {
+      const buf = readFileSync(abs);
+      return reply.type(/\.jpe?g$/i.test(abs) ? "image/jpeg" : "image/png").header("Cache-Control", "public, max-age=31536000, immutable").header("Content-Length", buf.length).send(buf);
+    } catch {
+      return reply.code(404).send({ message: "Não encontrado" });
+    }
+  });
+
+  /**
+   * Gera um ícone de item com IA (Recraft) a partir do nome/categoria/descrição atuais — devolve só uma prévia
+   * (`previewUrl`, servida por `/uploads/...` como qualquer upload), nada é aceito no caminho real do ícone até
+   * `POST .../icon/accept`. `b.prompt` troca o prompt default (ainda assim passa por `semAcento`/`buildIconPrompt`
+   * se vazio); "Regenerar" no admin é só chamar de novo (o rascunho antigo fica órfão em `icon-drafts/`, sem custo
+   * de limpar agora). Repo root calculado a partir do cwd do processo (`tsx watch` roda com cwd = apps/api).
+   */
+  const repoRoot = resolvePath(process.cwd(), "../..");
+  f.post<{ Params: { templateId: string } }>("/api/admin/items/:templateId/icon/generate", { preHandler: guard }, async (req, reply) => {
+    const tid = Number(req.params.templateId);
+    if (!Number.isFinite(tid) || tid <= 0) return reply.code(400).send({ message: "templateId inválido" });
+    const [raw] = await ctx.h.db
+      .select({ TemplateID: gameTables.Shop_Goods.TemplateID, Name: gameTables.Shop_Goods.Name, CategoryID: gameTables.Shop_Goods.CategoryID, Pic: gameTables.Shop_Goods.Pic, NeedSex: gameTables.Shop_Goods.NeedSex, Description: gameTables.Shop_Goods.Description })
+      .from(gameTables.Shop_Goods)
+      .where(eq(gameTables.Shop_Goods.TemplateID, tid))
+      .limit(1);
+    if (!raw) return reply.code(404).send({ message: "Item não encontrado" });
+    // Prompt a partir do nome/descrição em PT-BR (overlay), não do texto original do vendor (vietnamita/chinês).
+    const [row] = await withItemOverlay(ctx, [raw as Row]);
+    const b = (req.body ?? {}) as Row;
+    const prompt = typeof b.prompt === "string" && b.prompt.trim() ? b.prompt.trim() : buildIconPrompt({ name: String(row?.Name ?? raw.Name ?? `#${tid}`), categoryId: raw.CategoryID, description: (row?.Description as string | null) ?? raw.Description });
+    let apiKey: string;
+    try {
+      apiKey = recraftApiKey(repoRoot);
+    } catch (e) {
+      return reply.code(503).send({ message: (e as Error).message });
+    }
+    try {
+      const gerado = await generateIconPng(apiKey, prompt);
+      let amostraAbs: string | undefined;
+      for (const rel of itemIconRel(raw.CategoryID, raw.Pic ?? "", raw.NeedSex)) {
+        amostraAbs = ctx.resources.resolve(rel);
+        if (amostraAbs) break;
+      }
+      const resized = await resizePng(gerado, iconSizeFor(amostraAbs));
+      const draftKey = `icon-drafts/${tid}-${Date.now()}.png`;
+      const asset = await ctx.storage.put(draftKey, resized, "image/png");
+      if (ctx.storage.kind === "local" && ctx.storage.dir) ctx.resources.trees[0]?.add(asset.key, `${ctx.storage.dir}/${asset.key}`);
+      await audit(ctx, actor(req), "items", `icon generate #${tid}`, { prompt });
+      return { draftKey: asset.key, previewUrl: asset.url, prompt };
+    } catch (e) {
+      return reply.code(502).send({ message: `Falha ao gerar ícone: ${(e as Error).message}` });
+    }
+  });
+
+  /**
+   * Aceita um rascunho gerado por `.../icon/generate`: copia pro caminho real que o cliente espera
+   * (`itemIconRel`, igual `resolveItemIcon`), nunca em `vendor/` — só no overlay de upload (`ctx.storage`/
+   * `ctx.resources` como no handler de upload de assets). Limpa o cache de ícone e o rascunho depois.
+   */
+  f.post<{ Params: { templateId: string } }>("/api/admin/items/:templateId/icon/accept", { preHandler: guard }, async (req, reply) => {
+    const tid = Number(req.params.templateId);
+    const b = (req.body ?? {}) as Row;
+    const draftKey = String(b.draftKey ?? "");
+    if (!Number.isFinite(tid) || tid <= 0 || !draftKey.startsWith(`icon-drafts/${tid}-`)) return reply.code(400).send({ message: "draftKey inválido" });
+    const [row] = await ctx.h.db
+      .select({ CategoryID: gameTables.Shop_Goods.CategoryID, Pic: gameTables.Shop_Goods.Pic, NeedSex: gameTables.Shop_Goods.NeedSex })
+      .from(gameTables.Shop_Goods)
+      .where(eq(gameTables.Shop_Goods.TemplateID, tid))
+      .limit(1);
+    if (!row) return reply.code(404).send({ message: "Item não encontrado" });
+    const finalRel = itemIconRel(row.CategoryID, row.Pic ?? "", row.NeedSex)[0];
+    if (!finalRel) return reply.code(400).send({ message: "Categoria sem caminho de ícone conhecido (defina Pic antes)" });
+    let bytes: Buffer;
+    if (ctx.storage.kind === "local" && ctx.storage.dir) {
+      const abs = ctx.resources.resolve(draftKey) ?? join(ctx.storage.dir, draftKey);
+      if (!existsSync(abs)) return reply.code(404).send({ message: "Rascunho não encontrado (expirou?)" });
+      bytes = readFileSync(abs);
+    } else {
+      const found = (await ctx.storage.list("icon-drafts")).find((a) => a.key === draftKey);
+      if (!found) return reply.code(404).send({ message: "Rascunho não encontrado (expirou?)" });
+      bytes = Buffer.from(await (await fetch(found.url)).arrayBuffer());
+    }
+    const asset = await ctx.storage.put(finalRel, bytes, "image/png");
+    if (ctx.storage.kind === "local" && ctx.storage.dir) ctx.resources.trees[0]?.add(asset.key, `${ctx.storage.dir}/${asset.key}`);
+    iconCache.delete(tid);
+    try {
+      await ctx.storage.remove(draftKey);
+      ctx.resources.trees[0]?.remove(draftKey);
+    } catch {
+      // rascunho órfão não é grave, só sobra em icon-drafts/
+    }
+    await audit(ctx, actor(req), "items", `icon accept #${tid}`, { finalRel });
+    return { ok: true, iconUrl: `/api/admin/item-icons/${tid}.png` };
+  });
+
+  /**
+   * Prévia de mapa por `ID` (`game."Game_Map"`), só leitura: `image/map/<ID>/icon.png` (fallback `small.png`), como
+   * o cliente resolve em `PathManager.as:136-156` (`solveMapIconPath` param2=0) / `:121-124` (`solveMapSmallView`).
+   * Público como `item-icons` (o `<img>` não manda Bearer).
+   * Como lê esse código (cada variável): `id` Game_Map.ID da URL; `abs` arquivo resolvido no overlay/vendor.
+   */
+  f.get<{ Params: { mapId: string } }>("/api/admin/map-icons/:mapId", async (req, reply) => {
+    const id = String(req.params.mapId).replace(/\.png$/i, "");
+    if (!/^\d{1,10}$/.test(id)) return reply.code(404).send({ message: "Não encontrado" });
+    const abs = ctx.resources.resolve(`image/map/${id}/icon.png`) ?? ctx.resources.resolve(`image/map/${id}/small.png`);
+    if (!abs || !existsSync(abs)) return reply.code(404).send({ message: "Não encontrado" });
+    try {
+      const buf = readFileSync(abs);
+      return reply.type("image/png").header("Cache-Control", "public, max-age=31536000, immutable").header("Content-Length", buf.length).send(buf);
+    } catch {
+      return reply.code(404).send({ message: "Não encontrado" });
+    }
+  });
 
   f.get<{ Params: { resource: string; id: string } }>("/api/admin/:resource/:id", { preHandler: guard }, async (req, reply) => {
     const def = resolve(req.params.resource);
     const w = def && pkWhere(def, req.params.id);
     if (!def || !w) return reply.code(404).send({ message: "Não encontrado" });
     const [row] = await ctx.h.db.select().from(def.table).where(w).limit(1);
-    return row ? strip(def, row as Row) : reply.code(404).send({ message: "Não encontrado" });
+    if (!row) return reply.code(404).send({ message: "Não encontrado" });
+    const item = strip(def, row as Row);
+    return req.params.resource === "items" ? (await withItemOverlay(ctx, [item]))[0] : item;
   });
 
   const afterWrite = async (req: FastifyRequest, def: ResourceDef, what: string, data?: unknown) => {
@@ -424,11 +712,16 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
     await audit(ctx, actor(req), "crud", `${what} ${tableKey(def.table)}${files.length ? ` (rebuilt ${files.join(", ")})` : ""}`, data);
   };
 
-  f.post<{ Params: { resource: string } }>("/api/admin/:resource", { preHandler: guard }, async (req, reply) => {
-    const def = resolve(req.params.resource);
-    if (!def) return reply.code(404).send({ message: "Recurso desconhecido" });
-    if (def.readOnly || def.noCreate) return reply.code(405).send({ message: "Criação não permitida" });
-    const values = pick(def, req.body as Row, { allowPk: true });
+  /**
+   * Insere `values` em `def.table` (preenche colunas NOT NULL sem default/FieldDef, checa PK duplicada, invalida
+   * cache + avisa o game) — cauda comum da criação genérica (`POST /api/admin/:resource`) e de criações "de atalho"
+   * feitas a partir de outro resource (ex. "Adicionar à loja" a partir de um item cria uma linha em `game."Shop"`).
+   */
+  async function insertRow(req: FastifyRequest, def: ResourceDef, values: Row, reply: FastifyReply) {
+    for (const [k, col] of Object.entries(cols(def.table))) {
+      if (values[k] !== undefined || def.pk.includes(k) || !col.notNull || col.hasDefault) continue;
+      values[k] = col.dataType === "boolean" ? false : col.dataType === "number" ? 0 : col.dataType === "string" ? "" : null;
+    }
     const w = def.pk.every((k) => values[k] !== undefined && values[k] !== null) ? pkWhere(def, def.pk.map((k) => String(values[k])).join(ID_SEP)) : undefined;
     if (w) {
       const [dup] = await ctx.h.db.select().from(def.table).where(w).limit(1);
@@ -441,6 +734,46 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
     } catch (e) {
       return reply.code(400).send({ message: (e as Error).message.split("\n")[0] });
     }
+  }
+
+  f.post<{ Params: { resource: string } }>("/api/admin/:resource", { preHandler: guard }, async (req, reply) => {
+    const def = resolve(req.params.resource);
+    if (!def) return reply.code(404).send({ message: "Recurso desconhecido" });
+    if (def.readOnly || def.noCreate) return reply.code(405).send({ message: "Criação não permitida" });
+    const values = pick(def, req.body as Row, { allowPk: true });
+    // Editor de item: TemplateID em branco (ou 0/negativo) ganha o próximo livre na faixa 90000000-99999998, reservada
+    // pra itens criados no admin (já usada por "Pacote de..." existentes) — fora da faixa do catálogo do vendor e
+    // do sentinela de QA 999999999, pra não pular pra um ID gigante.
+    if (req.params.resource === "items" && (values.TemplateID === null || values.TemplateID === undefined || Number(values.TemplateID) <= 0)) {
+      const [next] = await q(
+        ctx.h,
+        sql`SELECT COALESCE(MAX("TemplateID"), 89999999) + 1 AS "nextId" FROM game."Shop_Goods" WHERE "TemplateID" >= 90000000 AND "TemplateID" < 99999999`,
+      );
+      values.TemplateID = Number(next?.nextId ?? 90000000);
+    }
+    return insertRow(req, def, values, reply);
+  });
+
+  /**
+   * "Adicionar à loja" (botão da página Itens): cria uma linha em `game."Shop"` pro `TemplateID` da URL, com o
+   * `ID` (heap sem PK real) gerado como `MAX(ID)+1` igual ao TemplateID de `items` acima. `insertRow` já invalida
+   * o cache de `game."Shop"` e avisa o game (`afterWrite` -> `gameInternalPost(.../reload-templates)`) pelo
+   * mesmo caminho da criação genérica do resource "shop".
+   */
+  f.post<{ Params: { templateId: string } }>("/api/admin/items/:templateId/add-to-shop", { preHandler: guard }, async (req, reply) => {
+    const tid = Number(req.params.templateId);
+    if (!Number.isFinite(tid) || tid <= 0) return reply.code(400).send({ message: "templateId inválido" });
+    const [item] = await ctx.h.db.select({ TemplateID: gameTables.Shop_Goods.TemplateID }).from(gameTables.Shop_Goods).where(eq(gameTables.Shop_Goods.TemplateID, tid)).limit(1);
+    if (!item) return reply.code(404).send({ message: "Item não encontrado" });
+    const shopDef = RESOURCES.shop;
+    if (!shopDef) return reply.code(503).send({ message: "Recurso 'shop' indisponível" });
+    const values = pick(shopDef, (req.body as Row) ?? {}, { allowPk: true });
+    values.TemplateID = tid;
+    if (values.ID === null || values.ID === undefined || Number(values.ID) <= 0) {
+      const [next] = await q(ctx.h, sql`SELECT COALESCE(MAX("ID"), 0) + 1 AS "nextId" FROM game."Shop"`);
+      values.ID = Number(next?.nextId ?? 1);
+    }
+    return insertRow(req, shopDef, values, reply);
   });
 
   f.patch<{ Params: { resource: string; id: string } }>("/api/admin/:resource/:id", { preHandler: guard }, async (req, reply) => {

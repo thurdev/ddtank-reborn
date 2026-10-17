@@ -557,6 +557,9 @@ export const TEMPLATES: TemplateDef[] = [
   flat({ files: [p("petlevelinfo")], table: "Pet_Level", order: `"Level"`, elem: "item", attrs: "GP Level" }),
   flat({ files: [z("petexpitemprice")], table: "Pet_Exp_Item_Price", order: `"ID"`, attrs: "Count Money ItemCount" }),
   flat({ files: [z("SetsBuildTemp")], table: "Sets_Build_Temp", order: `"SetsType", "Level"`, elem: "SetsBuildTemp", attrs: "Level SetsType UseItemTemplate Exp DefenceGrow BloodGrow LuckGrow AgilityGrow MagicDefenceGrow=DamageGrow GuardGrow" }),
+  // SpiritInfoList.xml: "Espírito do equipamento" (391 EQUIP_GHOST) — tabela nova (sem equivalente no catálogo
+  // original), ver packages/db/src/schema/app.ts e apps/game/src/handlers/forja/espirito-do-equipamento.ts.
+  flat({ schema: "app", files: [z("SpiritInfoList")], table: "SpiritInfo", order: `"CategoryId", "Level"`, attrs: "Level MustGetTimes BaseSuccessPro RefrenceValue SkillId AttackAdd LuckAdd DefendAdd AgilityAdd BagType BagPlace CategoryId" }),
   flat({ files: [z("toteminfo")], table: "Totem_Info", order: `"ID"`, elem: "item", attrs: "ID ConsumeExp ConsumeHonor AddAttack AddDefence AddAgility AddLuck AddBlood AddDamage AddGuard Random Page Layers Location Point DiscountMoney" }),
   {
     // petconfiginfo.xml: one <item Name="Value"/> per Pet_Config row (attribute name = config key).
