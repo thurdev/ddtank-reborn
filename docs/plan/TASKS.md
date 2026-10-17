@@ -11,12 +11,12 @@
 - [x] **m1-serve** — servir o pack 6600 em `/flash6600/` em paralelo (4.1 continua padrão), `?client=6600` na
   página `/play`, `config.xml` reescrito, fallback de `/request/*.xml` pro snapshot do vendor.
   Resultado: login + criar personagem funcionam; carregamento trava em 6/13.
-- [~] **m1-xml-compat** — ferramenta `tools/qa/xml-diff-6600.mjs` (nosso XML × snapshot 6600, só o que o
+- [x] **m1-xml-compat** — ferramenta `tools/qa/xml-diff-6600.mjs` (nosso XML × snapshot 6600, só o que o
   analisador AS3 lê) + completar geradores (`QuestList` `<Rate>`, `TemplateAllList`, `ShopItemList`…).
   Pronto quando: carregamento passa de 13/13 sem erro AVM2; testes da API verdes.
 - [~] **m1-lang-ptbr** — `language.txt` PT-BR pro pack 6600 (`tools/i18n/lang-6600.mjs`): reaproveita as chaves
   iguais da 4.1, traduz as novas, troca a marca "Bombom". Pronto quando: 0 chaves em turco.
-- [ ] **m1-socket** — cliente 6600 conecta no `apps/game` (handshake igual à 4.1) e entra no hall: logar os pacotes
+- [~] **m1-socket** (cliente já conecta e passa do login; faltam formatos de pacote: LOGIN reply, UPDATE_PLAYER_INFO/PRIVATE_INFO, boss mundial, roleta, ranking de consumo) — — cliente 6600 conecta no `apps/game` (handshake igual à 4.1) e entra no hall: logar os pacotes
   recebidos/enviados (`PACKET_TRACE`), corrigir os que mudaram de formato no login/hall (`LOGIN`, info do
   jogador, bolsa inicial). Pronto quando: lobby 6600 aparece com o personagem.
 - [ ] **m1-loading-brand** — tela de carregamento/logo sem "Bombom"/"DEVELOP BY ASUNA" (overlay de imagem em
