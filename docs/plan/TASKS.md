@@ -143,18 +143,36 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
   `analyzer`) — registrado aqui pra não reabrir: o barato já tinha sido feito no `m3-ashx`.
 
 **Bolsa/Loja/Missões (core, maior valor — todo jogador passa por aqui):**
-- [ ] **m3-sell-goods** — `48 SEll_GOODS` (`sendSellGoods`, `ddt/manager/GameSocketOut.as`): vender item
-  direto da bolsa por ouro (distinto de `55 PROP_SELL`, já em `loja/props-de-luta.ts`). MISSING na 4.1 e no
-  6600 (gap cross-version, não introduzido por esta migração) — achar o dispatch de `SEll_GOODS` no C#
-  original (`vendor/DDTank41/Game.Server`, código idêntico nas duas versões) antes de implementar.
-- [ ] **m3-item-refinery** — `210 ITEM_REFINERY` (6600; era `110` na 4.1 — **valor trocado**, não portar o
-  enum igual, `MIGRACAO-6600.md` §1.1). `sendItemLianhua` (`GameSocketOut.as`) — "refinaria"/lapidação de
-  item. Achar o handler 4.1 que trata `110` hoje em `apps/game/src/handlers/forja/*` e branchar por
-  `clientKind` pro código novo.
-- [ ] **m3-baglock-recovery** — `403 BAGLOCK_PWD` sub-ações `getBackLockPwdByPhone`/`getBackLockPwdByQuestion`/
-  `deletePwdQuestion`/`deletePwdByPhone`/`checkPhoneBind` (`GameSocketOut.as`) — recuperação de senha da
-  bolsa por telefone/pergunta secreta. MISSING nos dois clientes (código idêntico). Validar
-  telefone/pergunta cadastrados antes de liberar (não é bypass, é recuperação — não enfraquecer a senha).
+- [x] **m3-sell-goods** (2026-10-18) — `48 SEll_GOODS` (`sendSellGoods`, `ddt/manager/GameSocketOut.as`):
+  achado o dispatch original — NÃO EXISTE (`BaglockedHandle.cs` foi checado por engano no pedido original;
+  o real é que nenhum `[PacketHandler(ePackageType.SEll_GOODS)]` existe em `vendor/DDTank41`/`vendor/DDT-6600`
+  nenhum, e `sendSellGoods` nunca é chamado por NENHUMA view AS3 nos 4 vendors — 100% código morto nos dois
+  lados, mesma categoria do `110/111 ITEM_REFINERY`). `handlers/bolsa/vender-item.ts` (design próprio): vende
+  a pilha toda da `PropBag` (único bag endereçável pelo único int do pacote — equipamentos ficam
+  estruturalmente inalcançáveis, "nunca vender equipado" sai de graça) usando
+  `ItemTemplateInfo.ReclaimValue`/`ReclaimType` (mesma fonte do `127 REClAIM_GOODS`). Recusa `ReclaimType===3`,
+  item `cellLocked`, bolsa com BAGLOCK ativo. Exploit evitado: nenhum campo `count` no pacote (vende sempre
+  `item.Count` real) — dupe por count manipulado é impossível por construção.
+- [x] **m3-item-refinery** (2026-10-18) — `210 ITEM_REFINERY` no 6600 (era `110` na 4.1 — valor trocado
+  confirmado: 6600 reaproveita `110` pra `GAME_CAPTAIN_CHOICE`/`SEPARATE_ACTIVITY`; `111
+  ITEM_REFINERY_PREVIEW` não mudou). `handlers/forja/refinaria.ts` ganhou um `outCode` opcional;
+  `handlers/forja/index.ts` registra `210` só pra `clientKind==="6600"` (e `110` só pra `!=="6600"`, defesa
+  simétrica) chamando a MESMA `refinery()`/`refineryPreview()` já existente — sem duplicar lógica. Confirmado
+  de novo que o sistema é código morto nos dois clientes (nenhuma view chama `sendItemLianhua`), inclusive o
+  layout mais elaborado que o `sendItemLianhua` do 6600 escreve (`operation/count/matieria[]/...`) — mantido
+  o formato simples `[bagType, place]` de sempre, documentado por que não tentamos honrar o layout morto.
+- [x] **m3-baglock-recovery** (2026-10-18) — `403 BAGLOCK_PWD` sub-ações `getBackLockPwdByPhone`(1)/
+  `getBackLockPwdByQuestion`(2)/`deletePwdQuestion`(3)/`deletePwdByPhone`(4)/`checkPhoneBind`(5).
+  `handlers/bolsa/recuperar-senha.ts`: original (`BaglockedHandle.cs`) só implementa o sub-caso 5
+  (hardcoded `true`, sem checagem real) — os outros 4 nunca funcionaram no jogo original (dependiam de SMS
+  do portal 4399 chinês, que não temos). Portado de verdade: sub 2 (recuperar por pergunta secreta), 100%
+  viável com os dados que `25 BAG_LOCKED` já grava (`q1/a1/q2/a2`/`count`) — SEM migração nova. Valida as 2
+  respostas exatas, rate-limit de 3s por conexão + `count` com chão em 0 (nunca negativo, diferente do
+  original), sucesso só LIMPA a senha (mesma ação que o tipo 4 de BAG_LOCKED já fazia) — nunca enfraquece,
+  nunca define senha nova, nunca revela a resposta salva. Sub 1/3/4 (telefone) e sub 5: sem dado de telefone
+  nenhum no banco (nunca existiu) — recusa honesta (`flag=false`) em vez de chutar um fluxo de SMS que nunca
+  existiu; sub 5 corrige o `true` hardcoded do original (mentira inofensiva lá, relevante aqui porque a UI
+  usa o flag). Nenhuma migração Drizzle precisou ser criada.
 - [ ] **m3-everyday-active** — `155 EVERYDAY_ACTIVEPOINT` (`addSpeed`/`sendGetGoods`/`enterDayActivity`/
   `sendExpBlessedData`, `GameSocketOut.as`) — aba "Sist. Treino" da bolsa nova (`MIGRACAO-6600.md` §4,
   tabelas `game.Every_Day_Active_*` já existem desde `m1-schema`/`m3-ashx`, só falta o handler de
