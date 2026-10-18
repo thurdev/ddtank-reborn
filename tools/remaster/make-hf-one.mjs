@@ -11,7 +11,7 @@ import { resolve } from "node:path";
 const [img, promptFile, outArg, model = "seedream_v5_lite"] = process.argv.slice(2);
 const upload = resolve(img).replace(/\\/g, "/");
 const prompt = readFileSync(promptFile, "utf8").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/\s+/g, " ").trim();
-let loop = readFileSync("tools/remaster/hf-loop.js", "utf8");
+let loop = readFileSync("tools/remaster/hf-loop.js", "utf8").replace(/\r\n/g, "\n"); // checkout no Windows pode trazer CRLF
 loop = loop.replace("const N = 10;", "const N = 1;");
 loop = loop.replace(/const job = await \(await p\.request\.get\(Q \+ '\/next\?engine=' \+ engine\)\)\.json\(\);/,
   () => `const job = ${JSON.stringify({ id: "one", upload, prompt })};`);
