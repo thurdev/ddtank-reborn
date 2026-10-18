@@ -92,7 +92,12 @@ export function loginSuccess(v: PlayerView, extra: ExtraRow | null, now = new Da
   p.writeInt(t.texpTaskCount); p.writeInt(t.texpCount); wd(p, t.texpTaskDate);
   p.writeBoolean(false); p.writeInt(c.badLuckNumber); p.writeInt(0); wd(p, now); p.writeInt(0);
   if (is6600) {
-    p.writeBoolean(false); // isOld / IsOldPlayer (6600-only card-soul system, not implemented)
+    // isOld / IsOldPlayer (m3-eventos-b): NOT part of the card-soul system despite sitting next to it in the
+    // wire layout — it is `Sys_Users_Detail.IsOldPlayer` (SqlDataProvider/Data/PlayerInfo.cs), read by
+    // `ServerManager.as:398 self.isOld = pkg.readBoolean()` and gates the "old player" hall button
+    // (`PlayerTool.as` `_selfInfo.isOld`) — see game/old-player.ts `applyOldPlayerEligibility`, called at
+    // login (session/login.ts) BEFORE this packet is built.
+    p.writeBoolean(c.IsOldPlayer);
     p.writeInt(0); p.writeInt(0); p.writeInt(0); // CardSoul, GetSoulCount, uesedFinishTime
     p.writeInt(c.totemId); p.writeInt(c.necklaceExp);
     p.writeInt(c.accumulativeLoginDays); p.writeInt(c.accumulativeAwardDays);
@@ -647,7 +652,8 @@ export function newHallPlayerHid(hide: boolean): PacketOut {
 /**
  * 18 SCENE_ADD_USER (SendSceneAddPlayer, :1196) — broadcast in the hall waiting room, where 4.1 and 6600
  * clients can be mixed (see room-mgr.ts `sendToWaitingByKind`). 6600 reads the same fields plus +1 bool
- * `isOld` at the very end (card-soul stub, same as `loginSuccess`'s `isOld` — not implemented -> `false`).
+ * `isOld` at the very end — real `Sys_Users_Detail.IsOldPlayer` (m3-eventos-b, see `loginSuccess` above and
+ * `game/old-player.ts`), not a card-soul field.
  * `RoomListController.as __addWaitingPlayer` (4.1:166-194 vs 6600:200-229). See research/6600/packets-m1.md.
  */
 export function sceneAddPlayer(c: PlayerInfo, clientKind: ClientKind = "41"): PacketOut {
@@ -660,7 +666,7 @@ export function sceneAddPlayer(c: PlayerInfo, clientKind: ClientKind = "41"): Pa
     p.writeString(c.SpouseName ?? "");
   }
   p.writeString(c.UserName ?? ""); p.writeInt(c.FightPower); p.writeInt(c.apprenticeshipState);
-  if (clientKind === "6600") p.writeBoolean(false); // isOld (card-soul stub, not implemented)
+  if (clientKind === "6600") p.writeBoolean(c.IsOldPlayer); // isOld (real value, m3-eventos-b)
   return p;
 }
 
@@ -736,8 +742,8 @@ export function roomSetupChange(r: RoomView): PacketOut {
  * `AbstractPacketLib.cs` `SendRoomPlayerAdd` on both sides — m2-salas, research/6600/packets-m1.md "M2 salas"):
  * +1 int `activityTanabataNum` (6600 `player.Actives.Info.activityTanabataNum`, read right after `zoneID`
  * and before `ID`, 6600:679/6600 C# line WriteInt before player.ID — Coleta/Tanabata event, not ported -> 0)
- * and +1 bool `isOld` right after `DailyLeagueLastScore`, before the pet-count loop (card-soul stub, same as
- * `loginSuccess`'s `isOld` — not implemented -> `false`).
+ * and +1 bool `isOld` right after `DailyLeagueLastScore`, before the pet-count loop — real
+ * `Sys_Users_Detail.IsOldPlayer` (m3-eventos-b, see `loginSuccess` above and `game/old-player.ts`).
  */
 export function roomPlayerAdd(v: PlayerView, receiverKind: ClientKind = "41"): PacketOut {
   const c = v.info;
@@ -758,7 +764,7 @@ export function roomPlayerAdd(v: PlayerView, receiverKind: ClientKind = "41"): P
   p.writeString(c.UserName ?? ""); p.writeInt(c.Nimbus); p.writeInt(c.FightPower); p.writeInt(c.apprenticeshipState);
   p.writeInt(c.masterID); p.writeString(c.masterOrApprentices ?? ""); p.writeInt(c.graduatesCount); p.writeString(c.honourOfMaster ?? "");
   p.writeBoolean(v.match.DailyLeagueFirst); p.writeInt(v.match.DailyLeagueLastScore);
-  if (receiverKind === "6600") p.writeBoolean(false); // isOld (card-soul stub, not implemented)
+  if (receiverKind === "6600") p.writeBoolean(c.IsOldPlayer); // isOld (real value, m3-eventos-b)
   p.writeInt(0);
   return p;
 }
@@ -806,9 +812,10 @@ export function roomByte(sub: number, extra?: number): PacketOut {
 
 /**
  * 160/160 (SendAddFriend, :502).
- * 6600 reads the same fields plus +1 bool `isOld` (card-soul stub, not implemented -> `false`) and +1 date
- * `LastLoginDate` (real value, we track it as `PlayerInfo.LastDate`) right after `IsMarried` — PlayerManager.as
- * __friendAdd (4.1:655-726 vs 6600:867-940). See research/6600/packets-m1.md.
+ * 6600 reads the same fields plus +1 bool `isOld` (real `Sys_Users_Detail.IsOldPlayer`, m3-eventos-b, see
+ * `loginSuccess` above and `game/old-player.ts`) and +1 date `LastLoginDate` (real value, we track it as
+ * `PlayerInfo.LastDate`) right after `IsMarried` — PlayerManager.as __friendAdd (4.1:655-726 vs 6600:867-940).
+ * See research/6600/packets-m1.md.
  */
 export function addFriend(u: PlayerInfo, relation: number, state: boolean, clientKind: ClientKind = "41"): PacketOut {
   const p = new PacketOut(160, u.ID);
@@ -820,7 +827,7 @@ export function addFriend(u: PlayerInfo, relation: number, state: boolean, clien
     p.writeInt(u.Repute); p.writeInt(relation); p.writeString(u.UserName ?? ""); p.writeInt(u.Nimbus); p.writeInt(u.FightPower);
     p.writeInt(u.apprenticeshipState); p.writeInt(u.masterID); p.writeString(u.masterOrApprentices ?? ""); p.writeInt(u.graduatesCount);
     p.writeString(u.honourOfMaster ?? ""); p.writeInt(u.AchievementPoint); p.writeString(u.Honor); p.writeBoolean(u.IsMarried);
-    if (clientKind === "6600") { p.writeBoolean(false); wd(p, u.LastDate); } // isOld (stub), LastLoginDate (real)
+    if (clientKind === "6600") { p.writeBoolean(u.IsOldPlayer); wd(p, u.LastDate); } // isOld (real), LastLoginDate (real)
   }
   return p;
 }

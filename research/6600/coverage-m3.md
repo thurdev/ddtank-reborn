@@ -14,9 +14,9 @@
 | Status | Total |
 |---|---|
 | handled | 0 |
-| partial | 22 |
-| stub | 12 |
-| MISSING | 39 |
+| partial | 23 |
+| stub | 16 |
+| MISSING | 34 |
 | **Total de códigos enviados pelo cliente** | **213** |
 
 ## Totais — endpoints (.ashx/.xml/.aspx)
@@ -37,7 +37,7 @@
 
 ## Pacotes por área
 
-### Outros (46 código(s) — implemented 26, partial 5, stub 4, MISSING 11)
+### Outros (46 código(s) — implemented 26, partial 6, stub 7, MISSING 7)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
@@ -54,10 +54,10 @@
 | 131 | `LABYRINTH` | labyrinthRequestUpdate (ddt/manager/GameSocketOut.as); labyrinthCleanOut (ddt/manager/GameSocketOut.as); labyrinthSpeededUpCleanOut (ddt/manager/GameSocketOut.as); labyrinthStopCleanOut (ddt/manager/GameSocketOut.as); labyrinthCleanOutTimerComplete (ddt/manager/GameSocketOut.as); labyrinthDouble (ddt/manager/GameSocketOut.as); labyrinthReset (ddt/manager/GameSocketOut.as); labyrinthTryAgain (ddt/manager/GameSocketOut.as) | partial | eventos/index.ts |
 | 133 | `LATENT_ENERGY` | sendLatentEnergy (ddt/manager/GameSocketOut.as) | implemented | forja/index.ts |
 | 147 | `FIND_BACK_INCOME` | sendWantStrongBack (ddt/manager/GameSocketOut.as) | MISSING |  |
-| 149 | `OLDPLAYER_REGRESS` | sendRegressPkg (ddt/manager/GameSocketOut.as); sendRegressGetAwardPkg (ddt/manager/GameSocketOut.as); sendRegressCheckPlayer (ddt/manager/GameSocketOut.as); sendRegressApplyEnable (ddt/manager/GameSocketOut.as); sendRegressApllyPacks (ddt/manager/GameSocketOut.as); sendRegressCall (ddt/manager/GameSocketOut.as); sendRegressRecvPacks (ddt/manager/GameSocketOut.as); sendRegressTicketInfo (ddt/manager/GameSocketOut.as); sendRegressTicket (ddt/manager/GameSocketOut.as); sendUpdateIntegral (ddt/manager/GameSocketOut.as); sendBuyRegressIntegralGoods (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 149 | `OLDPLAYER_REGRESS` | sendRegressPkg (ddt/manager/GameSocketOut.as); sendRegressGetAwardPkg (ddt/manager/GameSocketOut.as); sendRegressCheckPlayer (ddt/manager/GameSocketOut.as); sendRegressApplyEnable (ddt/manager/GameSocketOut.as); sendRegressApllyPacks (ddt/manager/GameSocketOut.as); sendRegressCall (ddt/manager/GameSocketOut.as); sendRegressRecvPacks (ddt/manager/GameSocketOut.as); sendRegressTicketInfo (ddt/manager/GameSocketOut.as); sendRegressTicket (ddt/manager/GameSocketOut.as); sendUpdateIntegral (ddt/manager/GameSocketOut.as); sendBuyRegressIntegralGoods (ddt/manager/GameSocketOut.as) | partial | eventos/index.ts |
 | 152 | `FIGHTFOOTBALLTIMETAKEOUT` | sendFightFootballTimeTakeOut (ddt/manager/GameInSocketOut.as) | MISSING |  |
 | 156 | `TRANSNATIONAL_BUYGOODS` | sendButTransnationalGoods (ddt/manager/GameSocketOut.as) | MISSING |  |
-| 159 | `WONDERFUL_ACTIVITY` | sendWonderfulActivity (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 159 | `WONDERFUL_ACTIVITY` | sendWonderfulActivity (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 | 161 | `USER_LUCKYNUM` | sendUserLuckyNum (ddt/manager/GameSocketOut.as) | implemented |  |
 | 162 | `ELITEGAME` | sendGetEliteGameState (ddt/manager/GameSocketOut.as); sendGetSelfRankSroce (ddt/manager/GameSocketOut.as); sendGetPaarungDetail (ddt/manager/GameSocketOut.as); sendEliteGameStart (ddt/manager/GameSocketOut.as) | partial | eventos/index.ts |
 | 164 | `UPDATE_PLAYER_PROPERTY` | getPlayerPropertyAddition (ddt/manager/GameSocketOut.as) | MISSING |  |
@@ -85,8 +85,8 @@
 | 279 | `SHOW_HIDE_TITLE` | showHideTitleState (ddt/manager/GameSocketOut.as) | implemented |  |
 | 327 | `FAST_AUCTION_SMALL_BUGLE` | sendFastAuctionBugle (ddt/manager/GameSocketOut.as) | MISSING |  |
 | 360 | `GET_CSM_BOX` | sendGetCSMTimeBox (ddt/manager/GameSocketOut.as) | MISSING |  |
-| 373 | `WONDERFUL_GETREWARD` | sendWonderfulActivityGetReward (ddt/manager/GameSocketOut.as) | MISSING |  |
-| 405 | `WONDERFUL_ACTIVITY_INIT` | requestWonderfulActInit (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 373 | `WONDERFUL_GETREWARD` | sendWonderfulActivityGetReward (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
+| 405 | `WONDERFUL_ACTIVITY_INIT` | requestWonderfulActInit (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 
 ### Bolsa/Itens (25 código(s) — implemented 20, partial 3, stub 0, MISSING 2)
 
@@ -397,11 +397,11 @@
 |---|---|---|---|---|
 | 140 | `TRUSTEESHIP` | sendTrusteeshipStart (ddt/manager/GameSocketOut.as); sendTrusteeshipCancel (ddt/manager/GameSocketOut.as); sendTrusteeshipSpeedUp (ddt/manager/GameSocketOut.as); sendTrusteeshipBuySpirit (ddt/manager/GameSocketOut.as); sendTrusteeshipUseSpiritItem (ddt/manager/GameSocketOut.as) | MISSING |  |
 
-### Compra em Grupo (1 código(s) — implemented 0, partial 0, stub 0, MISSING 1)
+### Compra em Grupo (1 código(s) — implemented 0, partial 0, stub 1, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
-| 144 | `GROUP_PURCHASE` | sendGroupPurchaseRefreshData (ddt/manager/GameSocketOut.as); sendGroupPurchaseRefreshRankData (ddt/manager/GameSocketOut.as); sendGroupPurchaseBuy (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 144 | `GROUP_PURCHASE` | sendGroupPurchaseRefreshData (ddt/manager/GameSocketOut.as); sendGroupPurchaseRefreshRankData (ddt/manager/GameSocketOut.as); sendGroupPurchaseBuy (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 
 ### Sete Dobrado (1 código(s) — implemented 0, partial 0, stub 0, MISSING 1)
 

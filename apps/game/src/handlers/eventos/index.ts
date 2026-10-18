@@ -26,6 +26,15 @@
  *   caminho-da-luz.ts         (ícone "Caminho da luz", design próprio) — 145 ACTIVITY_SYSTEM inteiro
  *                              (roteador único: sub 64-66 aqui, sub 7-13 despacha pra
  *                              `sociedade/semana-da-sociedade.ts`, sub 37-45 LanternRiddles sem handler)
+ *   jogador-antigo.ts         (botão "Jogador antigo" no hall, m3-eventos-b) — 149 OLDPLAYER_REGRESS (11
+ *                              sub-ações; C# original é um no-op total) + `applyOldPlayerLogin` (gancho de
+ *                              login que alimenta `IsOldPlayer`/`isOld`, usado também por `packets/out.ts`
+ *                              fora desta pasta: 1 LOGIN, 18 SCENE_ADD_USER, 94/4, 160/160)
+ *   atividade-maravilhosa.ts (ícone "GM Activity"/campanhas, m3-eventos-b) — 159 WONDERFUL_ACTIVITY, 405
+ *                              WONDERFUL_ACTIVITY_INIT (stubs do C# original portados byte a byte), 373
+ *                              WONDERFUL_GETREWARD (sem handler no original, no-op)
+ *   compra-em-grupo.ts        (ícone "Compra em Grupo", m3-eventos-b) — 144 GROUP_PURCHASE (sem handler nem
+ *                              sender no C# original — feature nunca ligada em produção, no-op)
  *
  * 104 CARD_LOTTERY / 105 LUCK_LOTTERY / 239 GOTO_CARD_LOTTERY / 11 ACTIVE_PULLDOWN: SAÍRAM de "morto" —
  * ver `progressao/loterias.ts` (design próprio, sem fonte C#). 37-45 LanternRiddles de 145 ACTIVITY_SYSTEM
@@ -52,6 +61,9 @@ import { firstRechargeHandler } from "./primeira-recarga.js";
 import { achievementFinishHandler } from "./completar-conquista.js";
 import { littleGameRouter } from "../minigame-termas/index.js";
 import { activitySystemRouter } from "./caminho-da-luz.js";
+import { oldPlayerRegressHandler } from "./jogador-antigo.js";
+import { wonderfulActivity, wonderfulActivityInit, wonderfulActivityGetReward } from "./atividade-maravilhosa.js";
+import { groupPurchase } from "./compra-em-grupo.js";
 
 /**
  * Tabela código → função → ícone do jogo. Cada linha é um pacote que o cliente manda; a ordem aqui não
@@ -107,4 +119,17 @@ export function registerEventos(r: HandlerRegistry): void {
 
   // Caminho da luz + Semana da sociedade (mesmo pacote 145, despachado pelo byte inicial)
   r.player(145, "ACTIVITY_SYSTEM", (ctx, p, pkt) => activitySystemRouter(ctx, p, pkt), "partial");
+
+  // Jogador antigo (m3-eventos-b) — C# original é um no-op total, portado do contrato AS3.
+  r.player(149, "OLDPLAYER_REGRESS", (ctx, p, pkt) => oldPlayerRegressHandler(ctx, p, pkt), "partial");
+
+  // GM Activity / campanhas (m3-eventos-b) — 159/405 stubs do original portados byte a byte; 373 sem
+  // handler no original (no-op). Ver atividade-maravilhosa.ts.
+  r.player(159, "WONDERFUL_ACTIVITY", (_ctx, p, pkt) => wonderfulActivity(p, pkt), "stub");
+  r.player(405, "WONDERFUL_ACTIVITY_INIT", (_ctx, p, pkt) => wonderfulActivityInit(p, pkt), "stub");
+  r.player(373, "WONDERFUL_GETREWARD", (ctx, p, pkt) => wonderfulActivityGetReward(ctx, p, pkt), "stub");
+
+  // Compra em Grupo (m3-eventos-b) — sem handler nem sender no C# original, feature nunca ligada em
+  // produção (ver compra-em-grupo.ts). No-op, mesma categoria de 211/215 em roleta.ts.
+  r.player(144, "GROUP_PURCHASE", (ctx, p, pkt) => groupPurchase(ctx, p, pkt), "stub");
 }
