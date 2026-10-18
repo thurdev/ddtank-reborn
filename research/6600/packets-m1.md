@@ -863,3 +863,129 @@ receptor decodifica com o PRÓPRIO layout, sem EOF nenhum lado).
 
 `pnpm --filter @ddt/game test`: 42 arquivos / 305 testes (293 + 12 novos). `pnpm -w typecheck`: limpo nos
 11 pacotes com script. Todos verdes.
+
+---
+
+## M2 newhall (`feature/m2-newhall`) — 262 NEW_HALL, o salão andável do 6600
+
+Tarefa `m2-newhall` (`docs/plan/TASKS.md`, P0 — bloqueava ir pras salas no navegador). Bug reportado:
+clicar num prédio do hall 6600 (ex. "Salão de Jogos") dava `TypeError #1009` em
+`hall.player::HallPlayerView/setSelfPlayerPos()` chamado por `hall::HallStateView/__btnClick()`, e o
+personagem não andava.
+
+### Causa raiz confirmada (não "provavelmente")
+
+`HallPlayerView` (AS3) nunca tinha o servidor respondendo o pacote `262 NEW_HALL` — `apps/game` não
+registrava nada nesse código. Rastreando o AS3:
+
+1. `HallStateView.initHall()` (:441-445) cria `this._playerView = new HallPlayerView(this._bgSprite, ...)`
+   **de forma síncrona**, antes de criar os botões dos prédios (`createBuildBtn()` logo depois, :452).
+2. O construtor de `HallPlayerView` (:93-112) chama `initView()` (monta o `_hallView`/`_meshLayer`, por
+   isso o FUNDO do hall aparece mesmo sem servidor) e então `sendPkg()` (:124-136), que manda
+   `SocketManager.Instance.out.sendOtherPlayerInfo()` — o pedido client→server **262/0 PLAYERINFO, sem
+   corpo** — e retorna. Sem resposta, `this._sceneScene` e `this._selfPlayer` **nunca são criados**: os
+   dois só nascem dentro de `__onFriendPlayerInfo` (:193-223, o handler do EVENTO `NewHallEvent.PLAYERINFO`,
+   disparado só quando o pacote `262/0` chega de volta do servidor) → `addSelfPlayer()` (:386-407) → `this.
+   _sceneScene = new SceneScene(); ...`.
+3. `__btnClick` (`HallStateView.as:2145-2152`) chama `this._playerView.setSelfPlayerPos(pos)` **direto**,
+   sem esperar nada. `setSelfPlayerPos` (:604-625) primeiro testa `this._sceneScene.hit(pos)` — com
+   `_sceneScene` ainda `null` (nunca criado, passo 2), isso é exatamente o acesso a propriedade/método de
+   referência nula que a AVM2 reporta como `TypeError #1009`, pelo MESMO método (`setSelfPlayerPos`) do
+   stack trace do dono. (Mesmo se `_sceneScene` não fosse nulo, `this._selfPlayer.playerPoint`/`.
+   playerVO.walkPath.shift()` logo depois também seriam null-ref pelo mesmo motivo — `_selfPlayer` nasce
+   no mesmo lugar.) Não é "searchPath retorna null por posição inválida": é a classe inteira
+   (`_sceneScene`) nunca ter sido instanciada, porque o evento que a cria nunca disparou.
+
+Confirma por que o hall "renderiza mas o personagem não anda": o FUNDO (`_hallView`/mesh) é montado no
+construtor sem depender do servidor; o AVATAR do próprio jogador só é criado dentro do fluxo que o 262/0
+dispara.
+
+### Servidor C# 6600 original — `Game.Server.NewHall` (módulo inteiro, decompilado completo)
+
+`vendor/DDT-6600/Source/Game.Server/Game.Server.NewHall*`: `NewHallRoom.cs` (registro em memória,
+`Dictionary<int,GamePlayer>` ÚNICO pro servidor inteiro — `WorldMgr.cs:38,50 NewHallRooms`, sem partição por
+mapa/grade: `NewHallRoom` nunca lê um id de mapa, então o hall grande (`mapID=0`, grade>10) e a "escola"
+(`mapID=1`, grade≤10) compartilham o MESMO dicionário no original — não "corrigido" aqui, replicado tal
+qual), `NewHallHandleMgr.cs` (dicionário `sub-code -> handler`, via reflexão + `[Attribute13(N)]`),
+`Game.Server.NewHall.Handle/*.cs` (um handler por sub-código), `Game.Server.Packets.Client/
+NewHallHandler.cs` (`[PacketHandler(262, ...)]`, delega pro processor do `GamePlayer`).
+
+Sub-códigos (`Game.Server.Packets.NewHallPackageType.cs` == AS3 `ddt/data/socket/NewHallPackageType.as`,
+valores idênticos): 0 PLAYERINFO, 1 OTHERPLAYERINFO, 2 PLAYEREXIT, 3 PLAYERMOVE, 4 ADDPLAYE,
+5 MODIFYDRESS, 6 PLAYERONLINE, 7 PLAYERHID, 8 PLAYERSHOW, 9 UPDATEPETS, 10 UPDATEPLAYERTITLE (só no enum
+AS3, nunca no `.cs`), 99 NEWHALL_BATTLE. **Confirmado morto nos dois lados** (nenhum `[Attribute13(6|10|99)]`
+em `Game.Server.NewHall.Handle`, nenhum `new GSPacketIn(262)` com esses sub-bytes em lugar nenhum do
+`Source`): 6 PLAYERONLINE, 10 UPDATEPLAYERTITLE, 99 NEWHALL_BATTLE — não implementados nesta tarefa, mesmo
+padrão "gap do original" dos Rounds anteriores (`NewHallLogicProcessor.cs:33-41`: sub-código sem handler
+cai no `catch`, loga erro, não quebra a conexão — replicado pelo log de debug do `SubRouter`).
+
+Ponto de spawn: `GamePlayer.cs` ctor (:1926-1927) `PosX = 1560; PosY = 500;` — fixo, sem coluna de banco,
+igual em TODO login (não varia por grade/mapa apesar da AS3 ter duas telas de hall). Usado tal qual
+(`GamePlayer.posX`/`posY` novos, default 1560/500, `apps/game/src/game/player.ts`).
+
+**GAP real do original, não introduzido por esta tarefa** (`GamePlayer.cs` ctor:1937 `bool_3 = true;`,
+getter/setter `HideAllFriend` :826-836, sem coluna de banco): `HideAllFriend` começa **`true`** em TODO
+login. `NewHallRoom.GetPlayersSafe(except)` (:218-234) devolve lista vazia se `except.HideAllFriend`;
+`NewHallRoom.PlayerInfo` (:132-151) só anuncia o próprio jogador pros outros (`SendOtherFriendPlayerInfo`)
+se `!player.HideAllFriend`. Ou seja: por padrão, NINGUÉM vê nem é visto por ninguém no hall até clicar o
+ícone do olho (`DailyButtunBar.as:122-131 __onEyeClick`, manda `262/7 PLAYERHID`) — e mesmo assim só o
+EFEITO muda na 2ª mudança de estado (a 1ª manda `true`, igual ao default, sem efeito visível; só a 2ª
+manda `false` e revela de fato), porque o ícone do cliente nasce mostrando "visível" (`_hideFlag:Boolean =
+false`, `DailyButtunBar.as:40`) **desincronizado** do servidor. Replicado tal qual (`GamePlayer.
+hideAllFriend = true` default) porque a regra da tarefa é bater com o C# original; documentado aqui pro
+dono decidir se quer inverter esse default num follow-up de balanceamento (ia contra "mirror the 6600 C#"
+mudar isso sem pedido explícito).
+
+Nenhum cap de jogadores visíveis encontrado em lugar nenhum do módulo (`GetPlayersSafe`/`method_1`
+percorrem o dicionário inteiro, sem `.Take()`/checagem de tamanho) — diferente do cap de paginação da lista
+de salas (8 vs 9, `m2-salas`). Documentado pra não reabrir a procura.
+
+### Port (`apps/game`)
+
+- `game/new-hall.ts` `NewHallRoom`: porta 1:1 `NewHallRoom.cs` (registro `Map<number,GamePlayer>`,
+  `playerInfo`/`hidePlayerInfo`/`sendPlayerInfo`/`sendOtherFriendPlayerInfo`/`sendAddPlayer`/`modifyDress`/
+  `playerMove`/`addPlayerInfo`/`updatePets`/`removePlayer`), instanciado uma vez em `server.ts`
+  (`ctx.newHall`, igual ao `WorldMgr.NewHallRooms` estático).
+- `game/player.ts` `GamePlayer`: campos novos `posX`/`posY` (default 1560/500), `hideAllFriend` (default
+  `true`), `hallPetsId` (default 0, session-only — ver abaixo). `session/login.ts` `doQuit()` ganhou
+  `ctx.newHall.removePlayer(p.id)` (mirror de `GamePlayer.Quit`, `GamePlayer.cs:4428` — só importa pra
+  desconexão abrupta de dentro do hall; a saída normal já manda `262/2` antes, ver abaixo).
+- `packets/out.ts`: `HallPlayerView` (interface, 16 campos de `readPlayerInfoPkg`) + 7 writers —
+  `newHallSelfInfo`(0), `newHallOtherPlayerInfo`(1), `newHallPlayerExit`(2), `newHallPlayerMove`(3),
+  `newHallAddPlayer`(4), `newHallModifyDress`(5), `newHallPlayerHid`(7). `MountsType` sempre `0` (Montaria,
+  m1-schema-only, mesmo stub de `loginSuccess`/`userEquip`); `PetsID` usa o `hallPetsId` em memória.
+- `handlers/hall-6600/`: `entrar-sair.ts` (0 PLAYERINFO, 2 PLAYEREXIT), `mover.ts` (3 PLAYERMOVE,
+  4 ADDPLAYE), `visual.ts` (5 MODIFYDRESS, 9 UPDATEPETS), `ocultar.ts` (7 PLAYERHID, 8 PLAYERSHOW),
+  `index.ts` (sub-roteador por byte + registro do 262 — guardado por `p.clientKind==="6600"`, defensivo
+  como os outros códigos colididos, embora 262 não colida com nada da 4.1).
+- Confirmado contra `StateManager.as:265-268` (`addNextToStage`): o cliente manda `262/2 PLAYEREXIT(Self.
+  ID)` toda vez que sai do estado `StateType.MAIN` (hall), inclusive pra ENTRAR numa sala — por isso o
+  servidor não precisa remover o jogador do hall sozinho ao entrar numa partida (replicando
+  `NewHallRoom.PlayerInfo`'s `player.CurrentRoom?.RemovePlayerUnsafe(player)` só cobre o caso defensivo de
+  uma referência de sala obsoleta, não o fluxo normal).
+- `262/4 ADDPLAYE`: a resposta (`SendAddPlayer`) broadcast pra "todo mundo exceto o jogador descrito", NÃO
+  só pra quem pediu — replicado exatamente assim (`NewHallRoom.sendAddPlayer`), não "corrigido".
+
+### Como testamos (M2 newhall)
+
+`apps/game/test/client-6600-hall.test.ts` (novo): `FakeClient` real (`loggedIn()`). Decodifica cada
+resposta campo a campo na ordem exata dos readers AS3 citados acima (`readByte()` do sub-code primeiro,
+igual ao padrão de `client-6600-rooms.test.ts`), `offset === length` no final. Cobre: spawn point
+1560/500 + `HideAllFriend` default `true` (a correção do crash #1009); `262/8 PLAYERSHOW` só atualiza o
+próprio jogador (sem broadcast); um cliente 4.1 mandando `262` não recebe nada de volta nem aparece em
+listas; e um cenário com 2 clientes 6600 (A, B) + 1 testemunha 4.1 (D) cobrindo entrar → ficar visível →
+sair → reentrar (anuncia pra quem já está no hall) → `262/1` OTHERPLAYERINFO → `262/3` PLAYERMOVE (ponto
+final, sem waypoints, posição gravada em `GamePlayer.posX/posY`) → `262/4` ADDPLAYE (não vai pra quem foi
+descrito) → `262/5` MODIFYDRESS (não vai pra quem mudou) → `262/9` UPDATEPETS (eco + anúncio) → `262/2`
+PLAYEREXIT — com D confirmando zero pacotes `262` em qualquer ponto do cenário.
+
+`pnpm --filter @ddt/game test`: 43 arquivos / 312 testes. `pnpm -w typecheck`: limpo nos 11 pacotes com
+script. Todos verdes.
+
+### Gaps conhecidos (não corrigidos nesta tarefa, documentados pra não reabrir)
+
+- `HideAllFriend` default `true` (ver acima) — quirk real do original, não um bug desta tarefa.
+- 6 PLAYERONLINE / 10 UPDATEPLAYERTITLE / 99 NEWHALL_BATTLE: protocolo morto no C# original, não portado.
+- `MountsType` (Montaria) continua sempre `0` — sistema inteiro ainda não implementado (m1-schema-only).
+- `262/4 ADDPLAYE` manda pra "todo mundo exceto o descrito" em vez de só pra quem pediu — comportamento do
+  original, não um bug de rede introduzido aqui.

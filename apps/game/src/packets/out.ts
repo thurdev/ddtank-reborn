@@ -447,6 +447,111 @@ export function necklace(c: PlayerInfo): PacketOut {
   return p;
 }
 
+// --------------------------------------------------------------------------------- hall (262 NEW_HALL, 6600-only)
+// m2-newhall (docs/plan/TASKS.md). 6600-exclusive: ePackageType.NEW_HALL=262 doesn't exist in the 4.1 enum at
+// all (no collision risk, never sent to clientKind "41" — see game/new-hall.ts). Sub-codes: NewHallPackageType
+// (ddt/data/socket/NewHallPackageType.as 6600 / Game.Server.Packets.NewHallPackageType.cs 6600):
+// 0 PLAYERINFO, 1 OTHERPLAYERINFO, 2 PLAYEREXIT, 3 PLAYERMOVE, 4 ADDPLAYE, 5 MODIFYDRESS, 7 PLAYERHID,
+// 8 PLAYERSHOW (client->server only, no dedicated reply besides 7+0 below), 9 UPDATEPETS (client->server
+// only). 6 PLAYERONLINE / 10 UPDATEPLAYERTITLE / 99 NEWHALL_BATTLE: confirmed the C# never sends/handles
+// them (no `[Attribute13(6|10|99)]` class in Game.Server.NewHall.Handle, no `new GSPacketIn(262)` with those
+// bytes anywhere) — dead protocol on both client and server, nothing to port (see research/6600/packets-m1.md
+// "M2 newhall").
+
+/** What the 262 NEW_HALL writers need about a player sharing the hall (HallPlayerView.readPlayerInfoPkg, 16
+ *  fields, AS3 :418-438). `MountsType` is always 0 (Montaria, m1-schema-only, no writer anywhere sets a real
+ *  value yet — same stub as `loginSuccess`/`userEquip`). */
+export interface HallPlayerView {
+  info: PlayerInfo;
+  /** GamePlayer.PosX/PosY (6600 C#, default 1560/500 — GamePlayer.cs ctor:1926-1927). */
+  posX: number;
+  posY: number;
+  /** GamePlayer.PlayerCharacter.PetsID: session-only "pet shown in the hall" toggle (9 UPDATEPETS), not a
+   *  persisted system (same Montaria/pet-display gap as MountsType). */
+  petsId: number;
+}
+
+function writeHallPlayerFields(p: PacketOut, v: HallPlayerView): void {
+  const c = v.info;
+  p.writeInt(c.ID); p.writeString(c.NickName ?? ""); p.writeInt(c.VIPLevel); p.writeInt(c.typeVIP);
+  p.writeBoolean(c.Sex); p.writeString(c.Style); p.writeString(c.Colors);
+  p.writeInt(0); // MountsType (Montaria, not implemented)
+  p.writeInt(v.petsId);
+  p.writeInt(v.posX); p.writeInt(v.posY);
+  p.writeInt(c.ConsortiaID); p.writeInt(c.badgeID); p.writeString(c.ConsortiaName); p.writeString(c.Honor); p.writeInt(c.honorId);
+}
+
+/** 262/0 PLAYERINFO reply (NewHallRoom.SendPlayerInfo, :33): own position + every other hall occupant the
+ *  requester can see (empty when `self` is hidden — NewHallRoom.GetPlayersSafe, :218). This is the packet
+ *  `HallPlayerView.__onFriendPlayerInfo` (AS3 :193-223) needs before it calls `addSelfPlayer()` — without it
+ *  `_selfPlayer`/`_sceneScene` are never created and `setSelfPlayerPos()` NPEs on `this._sceneScene.hit(pos)`
+ *  the moment a building is clicked (see research/6600/packets-m1.md "M2 newhall"). */
+export function newHallSelfInfo(self: HallPlayerView, others: HallPlayerView[]): PacketOut {
+  const p = new PacketOut(262);
+  p.writeByte(0);
+  p.writeInt(self.posX); p.writeInt(self.posY);
+  p.writeInt(others.length);
+  for (const v of others) writeHallPlayerFields(p, v);
+  return p;
+}
+
+/** 262/1 OTHERPLAYERINFO (NewHallRoom.SendOtherFriendPlayerInfo, :64): "a player just joined the hall",
+ *  broadcast to everyone else already registered. */
+export function newHallOtherPlayerInfo(v: HallPlayerView): PacketOut {
+  const p = new PacketOut(262);
+  p.writeByte(1);
+  writeHallPlayerFields(p, v);
+  return p;
+}
+
+/** 262/2 PLAYEREXIT (NewHallRoom.RemovePlayer, :175-189). */
+export function newHallPlayerExit(id: number): PacketOut {
+  const p = new PacketOut(262);
+  p.writeByte(2);
+  p.writeInt(id);
+  return p;
+}
+
+/** 262/3 PLAYERMOVE (NewHallRoom.PlayerMove, :110-121): broadcast of the final walk-target the mover sent
+ *  (the receiver re-runs its own mesh pathfinding from the last known point to this one, same as self-move
+ *  — `HallPlayerView.__onFriendPlayerMove`, AS3 :348-367). */
+export function newHallPlayerMove(id: number, x: number, y: number): PacketOut {
+  const p = new PacketOut(262);
+  p.writeByte(3);
+  p.writeInt(id); p.writeInt(x); p.writeInt(y);
+  return p;
+}
+
+/** 262/4 ADDPLAYE (NewHallRoom.SendAddPlayer, :87-108): reply to a client that saw an unknown ID move and
+ *  asked for its info (`sendAddNewPlayer`) — same body as OTHERPLAYERINFO, broadcast to everyone but the
+ *  described player (method_1(pkg, player)), not only to whoever asked (replicated as-is, not "fixed"). */
+export function newHallAddPlayer(v: HallPlayerView): PacketOut {
+  const p = new PacketOut(262);
+  p.writeByte(4);
+  writeHallPlayerFields(p, v);
+  return p;
+}
+
+/** 262/5 MODIFYDRESS (NewHallRoom via PlayerModifyDress.cs): "this player's look changed", broadcast to
+ *  everyone else. Same fields as OTHERPLAYERINFO/ADDPLAYE; `AS3 __onAddModifyPlayerDress` re-adds the
+ *  player sprite with the new Style/Colors. */
+export function newHallModifyDress(v: HallPlayerView): PacketOut {
+  const p = new PacketOut(262);
+  p.writeByte(5);
+  writeHallPlayerFields(p, v);
+  return p;
+}
+
+/** 262/7 PLAYERHID (NewHallRoom.HidePlayerInfo, :24-31): echoes the player's own hide flag back to them —
+ *  `AS3 __onPlayerHid` only reads this one boolean (DailyButtunBar eye icon). Always followed by
+ *  `newHallSelfInfo` (HidePlayerInfo always calls SendPlayerInfo right after). */
+export function newHallPlayerHid(hide: boolean): PacketOut {
+  const p = new PacketOut(262);
+  p.writeByte(7);
+  p.writeBoolean(hide);
+  return p;
+}
+
 // ---------------------------------------------------------------------------------------------- scene / rooms
 
 /**

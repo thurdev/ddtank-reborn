@@ -228,6 +228,10 @@ async function doQuit(ctx: ServerContext, p: GamePlayer): Promise<void> {
       if (r.IsEmpty) r.stop();
       ctx.rooms.sendUpdateRoom();
     } else ctx.rooms.waitingRemove(p);
+    // GamePlayer.Quit (GamePlayer.cs:4428): WorldMgr.NewHallRooms.RemovePlayer(PlayerId) — in practice the
+    // 6600 client already sent 262/2 PLAYEREXIT on its way out of StateType.MAIN (StateManager.as:265-268),
+    // so this only matters for a hard disconnect from inside the hall itself (no 4.1 client ever registers).
+    ctx.newHall.removePlayer(p.id);
   } catch (err) {
     ctx.log.error("quit: room cleanup failed", err);
   }

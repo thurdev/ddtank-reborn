@@ -16,6 +16,7 @@ import type { HandlerRegistry } from "./handlers/registry.js";
 import { checkMissingHeartbeat } from "./handlers/basico/index.js";
 import { GameClient, type Transport } from "./session/client.js";
 import { World, type ServerContext, type TicketValidator } from "./session/context.js";
+import { NewHallRoom } from "./game/new-hall.js";
 import { dbTicketValidator, quitPlayer } from "./session/login.js";
 import { consortiaGameOver } from "./handlers/sociedade/index.js";
 import { consortiaMgr } from "./game/consortia-mgr.js";
@@ -224,6 +225,7 @@ export class GameServer {
     this.ctx = {
       cfg, db, templates, lang, log, rooms, fight, rsaKey, zoneId, zoneName,
       world: new World(),
+      newHall: new NewHallRoom(),
       tickets: this.opts.tickets ?? dbTicketValidator(db, cfg.DEV_ALLOW_ANY_TICKET),
       now: () => new Date(),
     };
