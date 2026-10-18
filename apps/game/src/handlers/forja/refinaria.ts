@@ -12,6 +12,20 @@
  * de LEITURA do pacote aqui é um design NOSSO (não o do `sendItemLianhua`, que nem escreve o tamanho do array
  * antes do loop — inutilizável como está), documentado em `research/qa/feature-designs.md`.
  *
+ * m3-item-refinery (2026-10-18): no 6600 o enum reaproveitou `110` pra `GAME_CAPTAIN_CHOICE`/
+ * `SEPARATE_ACTIVITY` (ambos também `=110` no `ePackageType.as` do 6600 — dup no próprio enum deles) e moveu
+ * `ITEM_REFINERY` pro valor livre `210` (`docs/plan/MIGRACAO-6600.md` §1.1, confirmado em
+ * `vendor/DDT-6600/Flash_Project/DDT660/src/ddt/data/socket/ePackageType.as:268`). `111
+ * ITEM_REFINERY_PREVIEW` NÃO mudou de valor (igual nos dois clientes) — só a ação (110→210) trocou. Note
+ * que o `sendItemLianhua` do 6600 (`GameSocketOut.as:471`) escreve um layout bem mais elaborado
+ * (`operation, count, matieria[], equipBagType, equipPlace, luckyBagType, luckyPlace`, parecido com
+ * Fortalecer/Compor de verdade) do que o `[bagType, place]` da 4.1 — mas também não tem NENHUMA view
+ * chamando ele (mesma checagem de "código morto" acima, repetida pro 6600: zero resultado pra
+ * `sendItemLianhua(` fora de `GameSocketOut.as`). Como os dois lados continuam mortos, registramos `210`
+ * pro 6600 reusando o MESMO formato `[bagType, place]` de sempre (`refinery()`/`refineryPreview()` sem
+ * mudança de lógica, só o código de saída do pacote muda) em vez de tentar honrar um layout que nenhum
+ * cliente de verdade monta.
+ *
  * Design (resumo, detalhe completo no research/qa/feature-designs.md):
  * - Alvo: item com `template.CanStrengthen` (mesmo portão do Fortalecer) e `StrengthenRefineryLevel < 5`.
  * - `StrengthenRefineryLevel` é uma coluna que JÁ existe em `Sys_Users_Goods` (ver `game/item.ts`) e já é
@@ -24,7 +38,9 @@
  *   `compor.ts`) mas sem pedra/consumível — é um sink de Ouro puro (sem risco de perder o item), pensado
  *   como meta de longo prazo pro jogador rico. Falha só consome o Ouro, não derruba nível nem quebra o item
  *   (diferente do Fortalecer) — decisão de design pra manter baixo risco num sistema 100% cosmético.
- * Como testar: `apps/game/test/forge-advanced.test.ts` (bloco "110/111 ITEM_REFINERY").
+ * Como testar: `apps/game/test/forge-persist.test.ts` ("110/111 ITEM_REFINERY", 4.1) +
+ * `apps/game/test/client-6600-m3-item-refinery.test.ts` (210, 6600, m3-item-refinery — nome do arquivo
+ * corrigido aqui: a nota antiga apontava pra `forge-advanced.test.ts`, que nunca teve esse bloco).
  */
 import { GSPacket } from "@ddt/protocol";
 import type { GamePlayer } from "../../game/player.js";
@@ -64,10 +80,12 @@ export function refineryPreview(_ctx: ServerContext, p: GamePlayer, pkt: GSPacke
   p.send(out);
 }
 
-/** 110 ITEM_REFINERY: `[int bagType, int place]` → `[int bagType, int place, bool success, int newLevel, int chance, int cost]`. */
-export function refinery(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd = Math.random): void {
+/** 110 ITEM_REFINERY (210 no 6600, ver nota no topo do arquivo): `[int bagType, int place]` →
+ * `[int bagType, int place, bool success, int newLevel, int chance, int cost]`. `outCode` deixa o
+ * chamador escolher 110 (4.1, default) ou 210 (6600) sem duplicar a lógica. */
+export function refinery(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd = Math.random, outCode = 110): void {
   const { bagType, place, item } = readTarget(p, pkt);
-  const out = new GSPacket(110, p.id);
+  const out = new GSPacket(outCode, p.id);
   out.writeInt(bagType); out.writeInt(place);
   if (!item || !item.template.CanStrengthen) {
     out.writeBoolean(false); out.writeInt(0); out.writeInt(0); out.writeInt(0);

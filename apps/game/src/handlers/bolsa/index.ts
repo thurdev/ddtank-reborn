@@ -26,6 +26,8 @@
  *   organizar-bolsa.ts          (Bolsa › organizar)           — 124 CHANGE_PLACE_GOODS_ALL
  *   ocultar-visual.ts           (Equipamento › esconder)      — 60  ITEM_HIDE
  *   senha-da-bolsa.ts           (Login/conta › senha 2ª)      — 25  BAG_LOCKED (+ `bagLocked()` compartilhado)
+ *   recuperar-senha.ts          (Login/conta › recuperar senha)— 403 BAGLOCK_PWD
+ *   vender-item.ts              (Bolsa › vender item)         — 48  SEll_GOODS (design próprio, sem fonte C#)
  *   codigo-verificacao.ts       (sem tela própria, nunca emitido) — 200 CHECK_CODE
  *   correio-excedente.ts        (sem tela própria, usado por quase tudo acima) — `mailItems()`
  *   stubs.ts                    (sem tela própria)            — 42 DELETE_GOODS (vivo, no-op) + 188/205 (pendente)
@@ -60,6 +62,8 @@ import { registerTreinoDiario } from "./treino-diario.js";
 import { registerOrganizarBolsa } from "./organizar-bolsa.js";
 import { registerOcultarVisual } from "./ocultar-visual.js";
 import { registerSenhaDaBolsa } from "./senha-da-bolsa.js";
+import { registerRecuperarSenha } from "./recuperar-senha.js";
+import { registerVenderItem } from "./vender-item.js";
 import { registerCodigoVerificacao } from "./codigo-verificacao.js";
 import { registerStubsBolsa } from "./stubs.js";
 
@@ -88,6 +92,8 @@ export function registerBolsa(r: HandlerRegistry): void {
   registerOrganizarBolsa(r);
   registerOcultarVisual(r);
   registerSenhaDaBolsa(r);
+  registerRecuperarSenha(r);
+  registerVenderItem(r);
   registerCodigoVerificacao(r);
   registerStubsBolsa(r);
 }
