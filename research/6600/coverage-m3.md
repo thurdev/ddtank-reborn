@@ -16,7 +16,7 @@
 | handled | 0 |
 | partial | 22 |
 | stub | 8 |
-| MISSING | 49 |
+| MISSING | 46 |
 | **Total de códigos enviados pelo cliente** | **213** |
 
 ## Totais — endpoints (.ashx/.xml/.aspx)
@@ -88,12 +88,12 @@
 | 373 | `WONDERFUL_GETREWARD` | sendWonderfulActivityGetReward (ddt/manager/GameSocketOut.as) | MISSING |  |
 | 405 | `WONDERFUL_ACTIVITY_INIT` | requestWonderfulActInit (ddt/manager/GameSocketOut.as) | MISSING |  |
 
-### Bolsa/Itens (25 código(s) — implemented 17, partial 3, stub 0, MISSING 5)
+### Bolsa/Itens (25 código(s) — implemented 20, partial 3, stub 0, MISSING 2)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
 | 25 | `BAG_LOCKED` | sendBagLocked (ddt/manager/GameSocketOut.as) | implemented | bolsa/senha-da-bolsa.ts |
-| 48 | `SEll_GOODS` | sendSellGoods (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 48 | `SEll_GOODS` | sendSellGoods (ddt/manager/GameSocketOut.as) | implemented | bolsa/vender-item.ts |
 | 49 | `CHANGE_PLACE_GOODS` | sendMoveGoods (ddt/manager/GameSocketOut.as) | partial | bolsa/mover.ts |
 | 57 | `GOODS_PRESENT` | sendPresentGoods (ddt/manager/GameSocketOut.as) | implemented | loja/presentear-vitrine.ts |
 | 58 | `ITEM_COMPOSE` | sendItemCompose (ddt/manager/GameSocketOut.as) | partial | forja/index.ts |
@@ -114,9 +114,9 @@
 | 124 | `CHANGE_PLACE_GOODS_ALL` | sendMoveGoodsAll (ddt/manager/GameSocketOut.as) | implemented | bolsa/organizar-bolsa.ts |
 | 125 | `ITEM_EMBED_BACKOUT` | sendItemEmbedBackout (ddt/manager/GameSocketOut.as) | implemented | forja/index.ts |
 | 138 | `ITEM_ADVANCE` | sendItemExalt (ddt/manager/GameSocketOut.as) | implemented | forja/index.ts |
-| 210 | `ITEM_REFINERY` | sendItemLianhua (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 210 | `ITEM_REFINERY` | sendItemLianhua (ddt/manager/GameSocketOut.as) | implemented | forja/index.ts |
 | 280 | `ITEM_ENCHANT` | sendEnchant (ddt/manager/GameSocketOut.as) | MISSING |  |
-| 403 | `BAGLOCK_PWD` | getBackLockPwdByPhone (ddt/manager/GameSocketOut.as); getBackLockPwdByQuestion (ddt/manager/GameSocketOut.as); deletePwdQuestion (ddt/manager/GameSocketOut.as); deletePwdByPhone (ddt/manager/GameSocketOut.as); checkPhoneBind (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 403 | `BAGLOCK_PWD` | getBackLockPwdByPhone (ddt/manager/GameSocketOut.as); getBackLockPwdByQuestion (ddt/manager/GameSocketOut.as); deletePwdQuestion (ddt/manager/GameSocketOut.as); deletePwdByPhone (ddt/manager/GameSocketOut.as); checkPhoneBind (ddt/manager/GameSocketOut.as) | implemented | bolsa/recuperar-senha.ts |
 
 ### Casamento (14 código(s) — implemented 9, partial 4, stub 1, MISSING 0)
 

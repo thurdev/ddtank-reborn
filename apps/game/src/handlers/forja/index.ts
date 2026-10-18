@@ -15,7 +15,8 @@
  *   gemas.ts                (modelo de dados puro dos slots de Gemas, usado por espirito-de-luta.ts)
  *   colar.ts                (Forno › Colar)           — 95  NECKLACE_STRENGTH
  *   trava-slot.ts           (cadeado no slot do item) — 313 ITEM_CELL_IS_LOCKED
- *   refinaria.ts             (Forja › Refinaria, design próprio) — 110 ITEM_REFINERY, 111 ITEM_REFINERY_PREVIEW
+ *   refinaria.ts             (Forja › Refinaria, design próprio) — 110 ITEM_REFINERY (210 no 6600, valor
+ *                            trocado — m3-item-refinery), 111 ITEM_REFINERY_PREVIEW (igual nos dois)
  *   espirito-do-equipamento.ts (Forno › Espírito do equipamento) — 391 EQUIP_GHOST
  *   aprimorar.ts             (Forno › Aprimorar)       — 308 EQUIP_BRING_UP
  *   refinar-conjunto.ts      (Forno › Refinar conjunto) — 295 STORE_FINE_SUIT
@@ -66,8 +67,9 @@ export function registerForja(r: HandlerRegistry): void {
   r.player(209, "FIGHT_SPIRIT", (ctx, p, pkt) => figSpiritUpGrade(ctx, p, pkt)); // Gemas (espírito de luta)
   r.player(95, "NECKLACE_STRENGTH", (ctx, p, pkt) => necklaceStrength(ctx, p, pkt)); // Colar
   r.player(313, "ITEM_CELL_IS_LOCKED", (ctx, p, pkt) => itemCellIsLocked(ctx, p, pkt)); // Cadeado no slot
-  r.player(110, "ITEM_REFINERY", (ctx, p, pkt) => refinery(ctx, p, pkt)); // Refinaria (design próprio, sem fonte C#)
-  r.player(111, "ITEM_REFINERY_PREVIEW", (ctx, p, pkt) => refineryPreview(ctx, p, pkt)); // Refinaria (preview)
+  r.player(110, "ITEM_REFINERY", (ctx, p, pkt) => { if (p.clientKind !== "6600") refinery(ctx, p, pkt); }); // Refinaria (4.1, design próprio, sem fonte C#) — 110 é GAME_CAPTAIN_CHOICE/SEPARATE_ACTIVITY no enum 6600, nunca Refinaria lá
+  r.player(210, "ITEM_REFINERY_6600", (ctx, p, pkt) => { if (p.clientKind === "6600") refinery(ctx, p, pkt, Math.random, 210); }); // Refinaria (6600 — m3-item-refinery, valor de enum trocado, mesma lógica)
+  r.player(111, "ITEM_REFINERY_PREVIEW", (ctx, p, pkt) => refineryPreview(ctx, p, pkt)); // Refinaria (preview, mesmo código nos dois)
   r.player(391, "EQUIP_GHOST", (ctx, p) => equipGhost(ctx, p)); // Espírito do equipamento
   r.player(308, "EQUIP_BRING_UP", (ctx, p, pkt) => equipBringUp(ctx, p, pkt)); // Aprimorar
   r.player(295, "STORE_FINE_SUIT", (ctx, p, pkt) => forgeSuit(ctx, p, pkt)); // Refinar conjunto

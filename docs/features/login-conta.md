@@ -13,6 +13,7 @@ também entra aqui porque é o mesmo pacote de sessão.
 | `ddt/manager/SocketManager.as` → `sendPint` | 4 PING | [`basico/ping.ts:21`](../../apps/game/src/handlers/basico/ping.ts#L21) (código 5 SYS_DATE)/`:16` (4 PING) | `PingTimeCallBackHandler.cs` | — |
 | heartbeat anti-speedhack (cliente `CheckSpeedManager.as`) | 300 BAOLTFUNCTION | [`basico/ping.ts:26`](../../apps/game/src/handlers/basico/ping.ts#L26) `checkSpeedHack` | — | — |
 | `baglocked/BagLockedController.as` → `sendBagLocked` | 25 BAG_LOCKED | [`registerSenhaDaBolsa`](../../apps/game/src/handlers/bolsa/senha-da-bolsa.ts) `handlers/bolsa/senha-da-bolsa.ts` | — (Reborn-only; original não tinha) | `player."Sys_Users_Detail"` (`HasBagPassword`, `IsLocked`, `PasswordQuest1/2`) |
+| `baglocked/phoneServiceFrames/*.as` → `getBackLockPwdByPhone`/`getBackLockPwdByQuestion`/`deletePwdQuestion`/`deletePwdByPhone`/`checkPhoneBind` | 403 BAGLOCK_PWD | [`registerRecuperarSenha`](../../apps/game/src/handlers/bolsa/recuperar-senha.ts) `handlers/bolsa/recuperar-senha.ts` (m3-baglock-recovery) | `BaglockedHandle.cs` só implementa o sub 5 (hardcoded `true`); 1-4 nunca funcionavam (dependiam de SMS 4399) | mesmas tabelas de `25 BAG_LOCKED` (`player."Sys_Users_Password"` via `db/characters.ts loadBagPassword`), sem migração nova |
 | `ddt/view/CheckCodeFrame.as` → `sendCheckCode` | 200 CHECK_CODE | [`bolsa/codigo-verificacao.ts`](../../apps/game/src/handlers/bolsa/codigo-verificacao.ts) | `CheckCodeHandler.cs:782` | `player."Sys_Users_Detail".CheckCode` |
 | `setting/view/SettingView.as` → `sendOpition` | 64 OPTION_UPDATE | [`optionUpdate`](../../apps/game/src/handlers/basico/opcoes.ts#L23) `basico/opcoes.ts:23` | `OptionHandler.cs` | — |
 
@@ -29,6 +30,11 @@ também entra aqui porque é o mesmo pacote de sessão.
    cópia em `handlers/forja/bancada.ts`): se `HasBagPassword && IsLocked`,
    bloqueia a ação e manda a mensagem `"Bag.Locked"`.
    - Cooldown de 3s entre tentativas (`onCooldown`, `bolsa/senha-da-bolsa.ts`) contra brute-force.
+   - **Recuperar senha sem saber a atual**: `403 BAGLOCK_PWD` sub 2 `GET_BACK_BY_QUESTION`
+     (`recuperar-senha.ts`) — acerta as 2 respostas da pergunta secreta (mesmo cooldown de 3s, `count`
+     próprio com chão em 0, nunca negativo) e a senha é limpa (mesma ação do tipo `4` de BAG_LOCKED). Sub
+     1/3/4 (telefone) sempre recusam — nunca existiu bind de telefone, nem no original (que também nunca
+     funcionava, dependia de SMS do portal 4399 chinês).
 4. **Código anti-bot**: `200 CHECK_CODE` confere contra `PlayerInfo.CheckCode` — mas o
    lado que *emite* o desafio (tela aparecer pedindo pra digitar o texto) nunca foi
    portado, então `CheckCode` fica sempre vazio e a checagem sempre passa (`status:
@@ -49,4 +55,5 @@ também entra aqui porque é o mesmo pacote de sessão.
 - `apps/game/test/handlers.test.ts` — `describe("login")`, `describe("ping / sync / speed check")`.
 - `apps/game/test/session.test.ts` — `describe("single session per account")` (não deixa 2 sessões da mesma conta).
 - Senha da bolsa / check code: sem teste dedicado hoje (cobertura indireta via `forge-persist.test.ts` que testa `bagLocked`).
-- Status: **OK** login/ping/speedhack/sessão única; senha da bolsa **OK**; check code **parcial** (desafio nunca é emitido); `OPTION_UPDATE` é no-op intencional (configurações de vídeo/som são só do cliente).
+- Recuperar senha (403 BAGLOCK_PWD): `apps/game/test/client-6600-m3-baglock-recovery.test.ts`.
+- Status: **OK** login/ping/speedhack/sessão única; senha da bolsa **OK**; recuperar senha **OK** (só via pergunta secreta — telefone sempre recusa, sem dado pra validar); check code **parcial** (desafio nunca é emitido); `OPTION_UPDATE` é no-op intencional (configurações de vídeo/som são só do cliente).

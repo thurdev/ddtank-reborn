@@ -4117,3 +4117,10 @@ FigSpiritUpGradeHandler.Msg:Alma de Combate insuficiente!
 
 Game.Server.GameUtils.ConsortiaBag.Sender:  Devolução do Cofre do Clã
 Game.Server.GameUtils.ConsortiaBag.Title: Item do cofre
+
+#m3-sell-goods (2026-10-18) — 48 SEll_GOODS, design próprio (sem fonte C#, ver handlers/bolsa/vender-item.ts)
+SellGoodsHandler.NoSuccess:Falha na venda
+SellGoodsHandler.Locked:Este item está travado e não pode ser vendido
+SellGoodsHandler.NotSellable:Este item não pode ser vendido
+SellGoodsHandler.Success1:Você recebeu {0} Pontos de presente
+SellGoodsHandler.Success2:Você recebeu {0} de ouro
