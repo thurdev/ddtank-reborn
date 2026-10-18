@@ -18,6 +18,7 @@ import { registerLeilao } from "./leilao/index.js";
 import { registerLoja } from "./loja/index.js";
 import { registerProgressao } from "./progressao/index.js";
 import { registerHall6600 } from "./hall-6600/index.js";
+import { registerConsortiaBattle } from "./consortia-battle/index.js";
 
 export function createRegistry(): HandlerRegistry {
   const r = new HandlerRegistry();
@@ -40,5 +41,6 @@ export function createRegistry(): HandlerRegistry {
   registerLoja(r);
   registerProgressao(r);
   registerHall6600(r);
+  registerConsortiaBattle(r);
   return r;
 }

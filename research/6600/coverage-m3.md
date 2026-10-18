@@ -14,9 +14,9 @@
 | Status | Total |
 |---|---|
 | handled | 0 |
-| partial | 23 |
+| partial | 24 |
 | stub | 27 |
-| MISSING | 18 |
+| MISSING | 17 |
 | **Total de códigos enviados pelo cliente** | **213** |
 
 ## Totais — endpoints (.ashx/.xml/.aspx)
@@ -308,12 +308,12 @@
 | 110 | `SEPARATE_ACTIVITY` | sendInitTreasueHunting (ddt/manager/GameSocketOut.as); sendPayForHunting (ddt/manager/GameSocketOut.as); getAllTreasure (ddt/manager/GameSocketOut.as); updateTreasureBag (ddt/manager/GameSocketOut.as); sendHuntingByScore (ddt/manager/GameSocketOut.as); sendConvertScore (ddt/manager/GameSocketOut.as); sendRouletteRun (ddt/manager/GameSocketOut.as) | implemented | forja/index.ts |
 | 135 | `TREASURE_IN` | arrange (ddt/manager/GameSocketOut.as); enterTreasure (ddt/manager/GameSocketOut.as); startTreasure (ddt/manager/GameSocketOut.as); endTreasure (ddt/manager/GameSocketOut.as); doTreasure (ddt/manager/GameSocketOut.as) | implemented | fazenda/index.ts |
 
-### Sociedade/Guilda (2 código(s) — implemented 1, partial 0, stub 0, MISSING 1)
+### Sociedade/Guilda (2 código(s) — implemented 1, partial 1, stub 0, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
 | 129 | `CONSORTIA_CMD` | sendConsortiaEquipConstrol (ddt/manager/GameSocketOut.as); sendCreateConsortia (ddt/manager/GameSocketOut.as); sendConsortiaTryIn (ddt/manager/GameSocketOut.as); sendConsortiaCancelTryIn (ddt/manager/GameSocketOut.as); sendConsortiaInvate (ddt/manager/GameSocketOut.as); sendReleaseConsortiaTask (ddt/manager/GameSocketOut.as); sendConsortiaInvatePass (ddt/manager/GameSocketOut.as); sendConsortiaInvateDelete (ddt/manager/GameSocketOut.as); sendConsortiaUpdateDescription (ddt/manager/GameSocketOut.as); sendConsortiaUpdatePlacard (ddt/manager/GameSocketOut.as); sendConsortiaUpdateDuty (ddt/manager/GameSocketOut.as); sendConsortiaUpgradeDuty (ddt/manager/GameSocketOut.as); sendConsoritaApplyStatusOut (ddt/manager/GameSocketOut.as); sendConsortiaOut (ddt/manager/GameSocketOut.as); sendConsortiaMemberGrade (ddt/manager/GameSocketOut.as); sendConsortiaUserRemarkUpdate (ddt/manager/GameSocketOut.as); sendConsortiaDutyDelete (ddt/manager/GameSocketOut.as); sendConsortiaTryinPass (ddt/manager/GameSocketOut.as); sendConsortiaTryinDelete (ddt/manager/GameSocketOut.as); sendForbidSpeak (ddt/manager/GameSocketOut.as); sendConsortiaDismiss (ddt/manager/GameSocketOut.as); sendConsortiaChangeChairman (ddt/manager/GameSocketOut.as); sendConsortiaRichOffer (ddt/manager/GameSocketOut.as); sendDonate (ddt/manager/GameSocketOut.as); sendConsortiaLevelUp (ddt/manager/GameSocketOut.as); sendConsortionMail (ddt/manager/GameSocketOut.as); sendConsortionPoll (ddt/manager/GameSocketOut.as); sendConsortionSkill (ddt/manager/GameSocketOut.as); sendBuyBadge (ddt/manager/GameSocketOut.as); sendConsortiaBossInfo (ddt/manager/GameSocketOut.as) | implemented | sociedade/index.ts |
-| 153 | `CONSORTIA_BATTLE` | sendConsBatRequestPlayerInfo (ddt/manager/GameSocketOut.as); sendConsBatMove (ddt/manager/GameSocketOut.as); sendConsBatChallenge (ddt/manager/GameSocketOut.as); sendConsBatExit (ddt/manager/GameSocketOut.as); sendConsBatConsume (ddt/manager/GameSocketOut.as); sendConsBatUpdateScore (ddt/manager/GameSocketOut.as); sendConsBatConfirmEnter (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 153 | `CONSORTIA_BATTLE` | sendConsBatRequestPlayerInfo (ddt/manager/GameSocketOut.as); sendConsBatMove (ddt/manager/GameSocketOut.as); sendConsBatChallenge (ddt/manager/GameSocketOut.as); sendConsBatExit (ddt/manager/GameSocketOut.as); sendConsBatConsume (ddt/manager/GameSocketOut.as); sendConsBatUpdateScore (ddt/manager/GameSocketOut.as); sendConsBatConfirmEnter (ddt/manager/GameSocketOut.as) | partial | consortia-battle/index.ts |
 
 ### Campo de Batalha/Acampamento (2 código(s) — implemented 1, partial 0, stub 0, MISSING 1)
 
