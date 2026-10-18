@@ -127,6 +127,7 @@ function fusionExpiryDays(materials: ItemInfo[]): number {
  * Resposta fusão (78): 1 boolean (deu bom ou não) + mensagem de chat.
  */
 export async function fusion(ctx: ServerContext, player: GamePlayer, pkt: GSPacket, rnd = Math.random): Promise<void> {
+  if (player.clientKind === "6600") return fusion6600(ctx, player, pkt);
   const operation = pkt.readByte();
   if (bagLocked(ctx, player)) return;
   installFusionAutoSplitHook(player); // safety net: normally already installed by clearStoreBag (122)
@@ -186,4 +187,29 @@ export async function fusion(ctx: ServerContext, player: GamePlayer, pkt: GSPack
   const done = new GSPacket(78, player.id);
   done.writeBoolean(rolled.result);
   player.send(done);
+}
+
+/**
+ * 6600: a UI de Fundir foi SUBSTITUÍDA inteira (`store/newFusion/*`) por um sistema de RECEITA
+ * (`FusionID` + até 4 ingredientes DIFERENTES `Item1-4`/`Count1-4` + `Reward`, carregado de um XML que
+ * nosso `apps/api` não gera) — a tela antiga de 4 pedras iguais nos slots 1-4 (`store/view/fusion/
+ * StoreIIFusionBG.as`) é código morto no cliente 6600: só `FusionNewMainView` é instanciada
+ * (`store/StoreMainView.as:227`, confirmado — `StoreIIFusionBG` não aparece em nenhum `new`).
+ * `GameSocketOut.sendItemFusion` do 6600 (`store/newFusion/view/FusionNewRightView.as:295/305`) manda
+ * `[int fusionId, int count, boolean withoutComposeAttr]` — um corpo TOTALMENTE diferente do byte único
+ * `operation` da 4.1; ler como se fosse a 4.1 desalinharia o parser. E mesmo lendo certo, nossa tabela
+ * `game."Item_Fusion"` é indexada por `FusionType` de 4 pedras IDÊNTICAS (`fusionCandidates`), não por
+ * receita com ingredientes distintos — não dá pra resolver `fusionId` nela.
+ * Gap confirmado pra M3 (`research/6600/packets-m1.md` "M2 forja"): sem o XML/tabela de receita nova, o
+ * sistema não é portável sem desenho novo. Aqui só consumimos os 3 campos certos (não desalinha o próximo
+ * pacote do stream) e respondemos de forma seguro pro cliente real: `fusionCompleteHandler`
+ * (`FusionNewRightView.as:191`) NÃO lê nenhum campo do corpo de 78 — só reage à CHEGADA do evento (pra
+ * decidir se continua o auto-fundir ou para) — então um `GSPacket(78)` vazio é um ack válido, sem crash.
+ */
+async function fusion6600(ctx: ServerContext, player: GamePlayer, pkt: GSPacket): Promise<void> {
+  pkt.readInt(); // fusionId — sem tabela de receitas pra resolver (gap M3)
+  pkt.readInt(); // count
+  pkt.readBoolean(); // withoutComposeAttr
+  player.sendMessage(0, "A nova Fusão (receita) ainda não está disponível neste servidor.");
+  player.send(new GSPacket(78, player.id)); // fusionCompleteHandler não lê corpo nenhum — só reage ao evento
 }

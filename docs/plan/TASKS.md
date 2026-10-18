@@ -53,7 +53,13 @@
   broadcast por clientKind, Pesadelo/`eHardLevel.Nightmare` ligado ao `Pve_Info.NightmareGameScript`).
   Ver `research/6600/packets-m1.md` "M2 salas".
 - [x] **m2-batalha** — 91/2 FIRE, 91/6 TURN, 91/99 START_GAME, 91/100 GAME_OVER, 91/115 ALL_MISSION_OVER com layout 6600; todos os eventos de luta montados por tipo de quem recebe (partida mista 4.1×6600 ok); dano mágico do 6600 no motor (inerte até itens terem MagicAttack/Defence). Lacunas: somar stats mágicos dos itens no PlayerSpec, PvE ao vivo até MISSION_OVER.
-- [~] **m2-forja** — forja (fundir, compor, `ITEM_REFINERY`).
+- [x] **m2-forja** — fortalecer (59, sistema determinístico sem sorteio do 6600 + nível máx. 12),
+  transferir (61, +4 int de bagType/place, `MustTransferGold` configurável) e fundir (78, layout de
+  receita novo do 6600 lido sem crash) 6600-corretos; compor/incrustar/dourar/evolução/energia
+  latente/colar verificados campo a campo e já estavam idênticos; `EQUIP_BRING_UP`/`ITEM_CELL_IS_LOCKED`/
+  `EQUIP_GHOST`/`STORE_FINE_SUIT` confirmados ausentes do enum 6600 (N/A). Gap pra M3: sistema de fusão
+  por receita do 6600 (`FusionNewVo`/`FusionID`) não portado, sem tabela/XML equivalente ainda. Ver
+  `research/6600/packets-m1.md` "M2 forja".
 - [ ] **m2-cutover** — 6600 vira o padrão em `/play`; 4.1 fica em `?client=41` até ser removido.
 
 ### M3 / M4 / M5

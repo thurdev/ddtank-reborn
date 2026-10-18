@@ -863,3 +863,173 @@ receptor decodifica com o PRÓPRIO layout, sem EOF nenhum lado).
 
 `pnpm --filter @ddt/game test`: 42 arquivos / 305 testes (293 + 12 novos). `pnpm -w typecheck`: limpo nos
 11 pacotes com script. Todos verdes.
+
+## M2 forja (`feature/m2-forja`) — fortalecer, transferir, fundir pro 6600
+
+Tarefa `m2-forja` (`docs/plan/TASKS.md`, `docs/plan/MIGRACAO-6600.md` §1.1/§5 M2). Escopo: todo pacote de
+`apps/game/src/handlers/forja/*` (fortalecer, compor, fundir, montar/incrustar gema, transferir, dourar,
+evolução, energia latente, colar, gemas, trava-slot, refinaria, espírito do equipamento, aprimorar,
+refinar conjunto). Método igual aos Rounds anteriores — AS3 `GameSocketOut.as` (client→server) e os
+readers AS3 do lado servidor→cliente (`store/**`, `BaseStoreView.as`, `PlayerManager.as`) comparados campo
+a campo entre as duas árvores, cruzados com o C# do 6600 quando existe decompilado em
+`vendor/DDT-6600/Source/Game.Server/Game.Server.Packets.Client/*.cs` (bem mais handlers de forja vieram
+decompilados por completo aqui do que nos Rounds de loja/batalha — achado útil pra esta rodada).
+
+### 59 ITEM_STRENGTHEN — não é um layout novo, é um MECANISMO diferente
+
+`ItemStrengthenHandler.cs` do 6600 (decompilado por completo, sem obfuscação de nome de método) reescreveu
+o fortalecer inteiro, não só adicionou campo:
+- **Bancada**: `StoreBag.GetItemAt(0)` = pedra (1 única) e `GetItemAt(1)` = equipamento — a 4.1 usa slot 5
+  pro equipamento e 0-2/3/4 pra pedras/símbolo divino/sorte. O 6600 não tem pedra da sorte nem símbolo
+  divino nesse mecanismo.
+- **Sem sorteio**: `StrengthenMgr.canUpLv(exp, level)` compara EXP ACUMULADA (`game."StrengThenExp".Exp`
+  por nível) contra um limiar — mesmo padrão do Evolução/`itemAdvance` (138 ITEM_ADVANCE, que já era assim
+  nas duas versões), não uma chance comparada a um sorteio 0-9999 como a 4.1.
+  `GameSocketOut.sendItemStrength` ganhou **+1 boolean** (`isAllInject`, "injetar tudo"): quando `true`, o
+  handler calcula quantas pedras da pilha são necessárias pra fechar o limiar numa tacada só
+  (`vhteNogDaO` decompilado = `ceil(needExp/expPorPedra)`, capado pela pilha disponível); quando `false`,
+  consome só 1 pedra por tentativa (igual ao padrão de 1 clique = 1 chance de todo o resto da forja).
+- **Nível máximo rígido 12** (`if (strengthenLevel >= 12) { Max; return; }`, ANTES de mandar qualquer
+  pacote) — é o `STHRENTH_MAX` do pedido do dono.
+- **Bônus de ferreiro/VIP somam EXP, não multiplicam chance**: `GameProperties.ConsortiaStrengthenEx`
+  (`serverconfig_out.xml`: `"10|20|30|40|50|60|70|80|90|100"`, indexado por `SmithLevel-1`) e
+  `VIPStrengthenEx` (`"25|25|25|35|35|50|50|50|50|50|50|50"`, indexado por `VIPLevel-1`) são % somados ao
+  valor da pedra, não um `+10%/nível` fixo como `ItemStrengthenHandler.cs` da 4.1. **E negação de riqueza
+  da guilda (`Equip_Control` tipo 2) ABORTA a tentativa inteira** (`return 1`, sem gastar nada) — diferente
+  da 4.1, que só cancela o bônus e segue (mesmo padrão que `compor.ts` já documentava como diferença
+  deliberada entre os dois handlers da 4.1; aqui o 6600 alinhou fortalecer ao comportamento do compor).
+- **Bug real do C# decompilado, corrigido no porte pra não quebrar o cliente**: a resposta só escreve o
+  byte de resultado (`WriteByte(1)`) no caminho de SUCESSO; no caminho de falha só sobra
+  `WriteBoolean(false)` (1 campo, não 2). O leitor AS3 (`BaseStoreView.as:__showTip`) sempre faz
+  `readByte()` **depois** `readBoolean()`, incondicionalmente — replicar a omissão estouraria EOF em toda
+  tentativa que não upa (a maioria). Fix: sempre escrevemos os dois campos; byte `0` no lugar da omissão
+  (o cliente só reage a `1`/`2`/`3`, então `0` não muda nada visível — mesmo efeito da omissão, sem
+  quebrar o parser).
+- Mensagem de erro "ambos nulos" trocou de chave: `"ItemStrengthenHandler.Success"` (4.1) →
+  `"ItemAdvanceHandler.Msg1"` (6600, confirmado no C#).
+
+Fix: `forja/fortalecer.ts` `strengthen()` despacha pra `strengthen6600()` (novo, mesma assinatura) quando
+`p.clientKind === "6600"` — reimplementação completa do mecanismo acima, sem tocar no caminho 4.1
+existente (`strengthenChance`/sorteio intactos).
+
+### 61 ITEM_TRANSFER — +4 int, e o handler já é genérico (não fixo em StoreBag)
+
+`GameSocketOut.sendItemTransfer` ganhou `sBagType/sPlace/tBagType/tPlace` (4 int, defaults `12/0/12/1` =
+StoreBag[0]/[1], os mesmos slots fixos da 4.1) depois dos 2 booleans já existentes (`moveHole`,
+`moveFiveSixHole`). A única view que chama (`StoreIITransferBG.as:349`) só passa os 2 primeiros args, então
+na prática o cliente real SEMPRE manda os defaults — mas o `ItemTransferHandler.cs` do 6600 (decompilado
+por completo) já lê e usa esses 4 campos genericamente (`GetInventory(bageType)`), não hardcoded em
+`StoreBag`. Também troca o custo fixo `10000` (4.1, hardcoded no código) por
+`GameProperties.MustTransferGold` (config; valor real do `serverconfig_out.xml` do 6600 é **40000**, 4x o
+da 4.1). Achado extra, não portado (baixo risco): `StrengthenMgr.InheritTransferProperty` do 6600 também
+troca `MagicAttack`/`MagicDefence`/`Bless`/`AdvanceDate`/`AvatarActivity`/`goodsLock` entre os dois itens —
+os 2 primeiros já existem no nosso `ItemInfo` (dano mágico por item, `m2-batalha`) mas os outros 4 campos
+não têm coluna nenhuma no nosso schema (feature nova inteira, fora de escopo).
+
+Fix: `forja/transferir.ts` `transfer()` lê os 4 ints extras só quando `p.clientKind === "6600"` e troca
+`p.storeBag` fixo por `p.getInventory(bagType)` dos dois lados (genérico, igual ao C#); `mustGold` passou a
+ler `ctx.templates.cfgInt("MustTransferGold", 10000)` em vez do literal — configurável pros dois clientes
+sem mudar o padrão de 10000 já em produção (não seedamos `40000` por padrão: é uma mudança de economia, não
+só de protocolo, e fica a critério do dono via `Server_Config`).
+
+### 78 ITEM_FUSION — a UI de fundir foi SUBSTITUÍDA inteira no 6600 (gap confirmado pra M3)
+
+A 4.1 manda 1 byte `operation` (0 preview / 1 fundir) e a bancada usa 4 pedras IDÊNTICAS nos slots 1-4
+(`store/view/fusion/StoreIIFusionBG.as`, resolvido pela nossa `game."Item_Fusion"` indexada por
+`FusionType`). No 6600, essa tela é **código morto** — confirmado em `store/StoreMainView.as:227`, só
+`FusionNewMainView` é instanciada pro botão de Fundir, `StoreIIFusionBG` nunca aparece num `new`.
+`GameSocketOut.sendItemFusion` do 6600 (`store/newFusion/view/FusionNewRightView.as:295/305`) manda um
+corpo totalmente diferente: `[int fusionId, int count, boolean withoutComposeAttr]` — uma RECEITA
+(`FusionID` + até 4 ingredientes DIFERENTES `Item1-4`/`Count1-4` + `Reward`, carregada de um XML/analyzer
+novo, `store/newFusion/data/FusionNewDataAnalyzer.as`, que nosso `apps/api` não gera) escolhida numa lista,
+não "arrastar 4 pedras iguais". Não dá pra resolver `fusionId` na nossa `Item_Fusion` (indexada por
+`FusionType` de 4 pedras idênticas, formato incompatível) sem desenhar a tabela de receita nova — gap
+real, não só de layout, documentado pra M3 (precisa do XML/endpoint novo + tabela).
+Achado que evita um fix maior do que precisa: `fusionCompleteHandler` (leitor do ack 78 no
+`FusionNewRightView.as:191`) **não lê nenhum campo do corpo** — só reage à CHEGADA do evento (decide se
+continua o auto-fundir ou para), então um `GSPacket(78)` vazio é uma resposta válida e não quebra o
+cliente real.
+
+Fix: `forja/fundir.ts` `fusion()` despacha pra `fusion6600()` (novo) quando `player.clientKind === "6600"`
+— consome os 3 campos certos do pacote (não desalinha o stream), manda uma mensagem de chat "ainda não
+disponível" e um `GSPacket(78)` vazio (ack seguro). Caminho 4.1 (`fusionCandidates`/`fusionPreview`/
+`fusionRoll`, slots 1-4) intacto. **121 RUNE_COMMAND/ITEM_INLAY, o outro gap de sistema novo do 6600**
+(sistema de runas/beads) segue não portado — já coberto pelo Round 3 (`research/6600/packets-m1.md` acima,
+seção "Pacote 3 — BEAD_HOLE_INFO"), sem mudança nesta tarefa.
+
+### Confirmado IDÊNTICO nos dois clientes, sem fix
+
+Comparado campo a campo (AS3 `GameSocketOut.as` client→server e, quando existia, o `.cs` decompilado do
+6600 em `Game.Server.Packets.Client/*.cs`):
+- **58 ITEM_COMPOSE**: `sendItemCompose(consortiaState)` — mesmo 1 boolean nos dois. `ItemComposeHandler.cs`
+  do 6600 (decompilado por completo) é FUNCIONALMENTE idêntico ao nosso port 4.1: mesmos slots (0 sorte, 1
+  item, 2 pedra), mesma tabela de taxa `[0.8, 0.5, 0.3, 0.1, 0.05]`, mesma fórmula de bônus de guilda/VIP
+  (`*(1+0.1*SmithLevel)`), mesma resposta `[byte]`. As variáveis `num`/`num2` (-1 fixo, nunca reatribuídas)
+  do C# decompilado confirmam que o "símbolo divino" nunca entra em jogo no compor também na 6600 — igual
+  à 4.1.
+- **125 ITEM_EMBED_BACKOUT**, **217 OPEN_FIVE_SIX_HOLE**, **120 ITEM_TREND**, **122 CLEAR_STORE_BAG**: mesma
+  contagem e ordem de campos nos dois `GameSocketOut.as` — confirmado, sem fix (121 ITEM_INLAY continua
+  colidindo com RUNE_COMMAND no 6600, já documentado no Round 3 acima; `montar.ts` já suprime a resposta
+  121 pra 6600).
+- **106 WISHBEADEQUIP** (dourar): `sendWishBeadEquip` manda os mesmos 6 int na mesma ordem
+  (`equipPlace, equipBagType, equipId, beadPlace, beadBagType, beadId`) nos dois clientes.
+- **138 ITEM_ADVANCE** (evolução): `sendItemExalt()` manda **0 bytes de corpo** nos dois clientes (nem a
+  4.1 nem o 6600 escrevem nada) — o `ItemAdvanceHandler.cs` do 6600 (decompilado por completo) é
+  FUNCIONALMENTE idêntico ao nosso port 4.1 (mesmo `EXALT_ROCK=11150`, mesma divisão inteira
+  `StrengthenExp/oldLevel` — o bug replicado de propósito por `itemAdvance.ts` também existe no C# do
+  6600, não é só da 4.1) — nosso handler já lê 2 booleans fantasmas nos dois casos (tolerado pelo
+  `GSPacket` sobre EOF, mesmo padrão já usado por pacotes sem corpo). Confirma que a nota antiga em
+  `evolucao.ts` ("lido e nunca usado no original") vale pras DUAS versões.
+- **133 LATENT_ENERGY** (energia latente): `sendLatentEnergy(type, equipBagType, equipPlace, [itemBagType,
+  itemPlace se type===1])` — mesmo formato condicional nos dois `GameSocketOut.as`.
+- **95 NECKLACE_STRENGTH** (colar): já confirmado idêntico no Round 2 (ver seção acima) — revalidado aqui
+  só pra fechar a lista de "transfer/dourar/latente/colar" do pedido desta tarefa.
+
+### Confirmado AUSENTE no 6600 (códigos que nem existem no enum do cliente) — N/A, não é gap
+
+`308 EQUIP_BRING_UP` (aprimorar), `313 ITEM_CELL_IS_LOCKED` (trava-slot), `391 EQUIP_GHOST` (espírito do
+equipamento), `295 STORE_FINE_SUIT` (refinar conjunto): confirmado em
+`vendor/DDT-6600/Flash_Project/DDT660/src/ddt/data/socket/ePackageType.as` que nenhum desses 4 valores
+existe no enum do 6600 (nem o nome, nem o número reaproveitado por outra coisa) — são adições exclusivas de
+forks posteriores da 4.1 (`barrydevp/ddt3.4server`/`ddt3.8`, já documentado em `docs/features/forja.md`
+como "sem C# original" no SERVIDOR; aqui confirmamos que também não têm tela/código CLIENTE no 6600). O
+cliente 6600 nunca manda esses códigos — zero risco de crash, zero trabalho necessário; `aprimorar.ts`/
+`trava-slot.ts`/`espirito-do-equipamento.ts`/`refinar-conjunto.ts` continuam servindo só clientes 4.1 (ou
+qualquer launcher que implemente esses códigos por fora do cliente oficial).
+
+### 110/111 ITEM_REFINERY — valor de enum mudou (110→210), mas as duas telas são código morto
+
+`docs/plan/MIGRACAO-6600.md` §1.1 já apontava `ITEM_REFINERY` 110→210 como "troca de valor, risco real".
+Confirmado: no enum do 6600 `ITEM_REFINERY=210` (110 está livre). Mas `GameSocketOut.sendItemLianhua`
+continua sem nenhuma view chamando em NENHUM dos dois clientes (`store/fineStore`/`BaseStoreView.as` só
+escutam a resposta pra um popup genérico) — mesma conclusão de `docs/features/forja.md` ("código morto do
+cliente"), confirmada agora pro 6600 também. Nossa Refinaria (110/111, design próprio, sem fonte C#) só é
+alcançável por um launcher/cliente que implemente os códigos por fora — o valor de enum reciclado no 6600
+não importa porque nenhum cliente real manda/espera isso em nenhuma das duas versões. Sem fix.
+
+### Fora de escopo nesta tarefa (não investigado a fundo)
+
+- **209 FIGHT_SPIRIT** (gemas/espírito de luta): não fazia parte do pedido explícito desta tarefa. Achado
+  de passagem: o 6600 TEM um `FigSpiritUpGradeHandler.cs` implementado (decompilado por completo,
+  diferente da 4.1 onde `ConsolePacketLib.cs` nunca implementou a resposta) — mas com semântica DIFERENTE
+  da nossa reconstrução baseada no leitor AS3 (atualiza os 3 slots de uma vez por `place` de CATEGORIA, não
+  1 slot por `place` dentro da gema). Não comparado campo a campo nem portado; registrar pra uma tarefa
+  futura dedicada a gemas, não reabrir aqui.
+- **Refinar conjunto/Aprimorar/Espírito do equipamento (295/308/391)**: como os códigos não existem no
+  6600 (seção acima), não há AS3 nem C# do 6600 pra comparar — nada a investigar além do que já foi
+  confirmado.
+
+### Como testamos (M2 forja)
+
+Novo arquivo `apps/game/test/client-6600-m2-forja.test.ts`: `FakeClient` real, pacotes montados no layout
+EXATO que cada `clientKind` escreve. Cobre: 59 nos 3 cenários do 6600 (upa cruzando o limiar com sobra
+exata 0, não upa e ainda recebe `[byte 0, boolean false]` sem EOF, `isAllInject=true` consumindo várias
+pedras da pilha, nível 12 bloqueando sem pacote nenhum — `StrengThenExp` injetada direto em
+`ctx.templates.strengthenExp` já que a tabela não é semeada no banco de teste, mesmo padrão do bloco
+NECKLACE_STRENGTH de `persist-all.test.ts`); 61 com os 4 ints extras do 6600 (defaults StoreBag[0]/[1],
+efeito idêntico à 4.1); 78 com o layout de receita novo (`fusionId/count/withoutComposeAttr`), confirmando
+que não desalinha e que a resposta vazia é um ack válido. `offset === length` em toda resposta onde o
+reader AS3 citado lê um corpo fixo.
+
+`pnpm --filter @ddt/game test`: 44 arquivos / 318 testes. `pnpm -w typecheck`: limpo nos 11 pacotes com
+script. Todos verdes.

@@ -6,14 +6,23 @@
  * C#: `ItemStrengthenHandler.cs` (chance em `StrengthenMgr.cs:29` `RateItems`/`VIPStrengthenEx`).
  * Como testar: `formulas.test.ts` (`strengthenChance`, fórmula pura). Manual: Forja → Ferraria →
  * Fortalecer → arrastar arma + pedra(s) → clicar fortalecer → nível "+N" sobe ou a arma quebra/regride.
+ *
+ * 6600 (`research/6600/packets-m1.md` "M2 forja"): o handler C# do 6600
+ * (`vendor/DDT-6600/Source/Game.Server/Game.Server.Packets.Client/ItemStrengthenHandler.cs`) NÃO é só um
+ * layout novo do mesmo mecanismo — é um sistema diferente: sem sorteio (`StrengthenMgr.canUpLv` compara
+ * EXP acumulada contra um limiar, igual ao `itemAdvance`/Evolução), bancada com `StoreBag.GetItemAt(0)` =
+ * pedra (1 única, não até 3) e `GetItemAt(1)` = equipamento (não mais o slot 5), sem pedra da sorte/símbolo
+ * divino, nível máximo rígido 12 (`STHRENTH_MAX`), e um 2º boolean novo (`isAllInject`, "injetar tudo") que
+ * consome várias pedras numa tacada só até upar (ou até a pilha acabar). Ver `strengthen6600` abaixo.
  */
 import { GSPacket } from "@ddt/protocol";
 import { ItemInfo } from "../../game/item.js";
 import type { GamePlayer } from "../../game/player.js";
 import type { ServerContext } from "../../session/context.js";
 import { getEquipControl } from "../../db/consortia.js";
-import { personalRiches, smithBonusLevel } from "../../game/consortia.js";
+import { DEFAULT_EQUIP_RICHES, personalRiches, smithBonusLevel } from "../../game/consortia.js";
 import { pushRecords } from "../eventos/completar-conquista.js";
+import * as Out from "../../packets/out.js";
 import { FORGE_SLOT, STRENGTHEN_STONE_SLOTS, forgeAutoArrange, installFusionAutoSplitHook, isWarrior } from "./bancada.js";
 
 /** StrengthenMgr.RateItems (StrengthenMgr.cs:29): rate per strengthen stone level 1..6. */
@@ -88,6 +97,7 @@ async function guildSmith(ctx: ServerContext, p: GamePlayer, useGuild: boolean):
  * - `newTemplate`: novo `ItemTemplate` de `strengthenGoodsRow.GainEquip` usado em `ItemInfo.cloneFromTemplate`.
  */
 export async function strengthen(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd = Math.random): Promise<void> {
+  if (p.clientKind === "6600") return strengthen6600(ctx, p, pkt);
   const useGuild = pkt.readBoolean();
   const store = p.storeBag;
   installFusionAutoSplitHook(p); // auto-split Reborn: pilha num slot só vira 1 pedra em cada slot 0-2 antes de calcular
@@ -161,4 +171,141 @@ export async function strengthen(ctx: ServerContext, p: GamePlayer, pkt: GSPacke
   }
   p.send(out);
   p.updatePlayerProperties();
+}
+
+// -----------------------------------------------------------------------------
+// 6600: sistema de fortalecer determinístico (sem sorteio) — ver nota no topo do arquivo.
+// -----------------------------------------------------------------------------
+
+/** GameProperties.ConsortiaStrengthenEx (serverconfig_out.xml 6600): % de EXP extra por nível de ferreiro (1..10). */
+const CONSORTIA_STRENGTHEN_EX_6600 = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+/** GameProperties.VIPStrengthenEx (serverconfig_out.xml 6600): % de EXP extra por nível de VIP (1..12). */
+const VIP_STRENGTHEN_EX_6600 = [25, 25, 25, 35, 35, 50, 50, 50, 50, 50, 50, 50];
+/** StrengthenMgr.cs:41 (6600): nível máximo rígido — acima disso nem tenta (STHRENTH_MAX do pedido do dono). */
+const STRENGTHEN_MAX_LEVEL_6600 = 12;
+
+/** DateTime.Date >= DateTime.Now.Date (C#): compara só o dia, ignora hora. */
+function isSameOrAfterDay(a: Date, b: Date): boolean {
+  const da = new Date(a.getFullYear(), a.getMonth(), a.getDate()).getTime();
+  const db_ = new Date(b.getFullYear(), b.getMonth(), b.getDate()).getTime();
+  return da >= db_;
+}
+
+/**
+ * Fortalecer no jogo (6600): sobe `StrengthenLevel` do equipamento do slot 1 da bancada acumulando EXP de
+ * uma única pedra do slot 0 — sem sorteio, sem pedra da sorte/símbolo divino, sem quebrar/regredir na falha
+ * (a EXP só acumula, igual ao Evolução/`itemAdvance`). Nível máximo rígido 12.
+ * Contrapartida C#: `ItemStrengthenHandler.cs` (6600, pacote 59 ITEM_STRENGTHEN) — ver nota no topo do arquivo.
+ * Pacote que lê: `[boolean consortiaState(useGuild), boolean isAllInject]`.
+ * Resposta `GSPacket(59)`: `[byte(1 se upou, OMITIDO no C# original na falha — ver nota), boolean(sempre false)]`.
+ * FIX de crash (não é comportamento do jogo, é proteção de protocolo): o C# decompilado só escreve o byte
+ * de resultado quando UPA (sempre omite na falha, deixando só o boolean) — mas o leitor AS3
+ * (`BaseStoreView.as:__showTip`) sempre lê `readByte()` DEPOIS `readBoolean()`, incondicionalmente. Replicar
+ * a omissão quebraria o cliente real (EOF) em toda tentativa que NÃO upa (a maioria). Aqui sempre escrevemos
+ * os dois campos; byte `0` (nunca lido como "upou" pelo `__showTip`, que só reage a 1/2/3) no lugar da
+ * omissão — mesmo efeito visual (sem animação de sucesso), sem estourar o parser.
+ * Como lê esse código (cada variável):
+ * - `stone`: material do slot 0 (NÃO precisa ser uma pedra válida — se não for, ainda é consumida 1 unidade
+ *   sem dar EXP nenhuma, replicando o `RemoveCountFromStack(ıtemAt, num=1)` incondicional do C#).
+ * - `equip`: equipamento do slot 1; precisa `CanStrengthen && CategoryID<18 && Count===1`.
+ * - `isAllInject`: quando `true`, consome quantas unidades da pedra forem necessárias pra upar de uma vez
+ *   (capado pela quantidade disponível); quando `false`, consome só 1 por tentativa.
+ * - `guildBonus`/`vipBonus`: % de `CONSORTIA_STRENGTHEN_EX_6600[SmithLevel-1]`/`VIP_STRENGTHEN_EX_6600[VIPLevel-1]`
+ *   somado ao valor da pedra (não multiplicando uma chance, como na 4.1) — negação de riqueza da guilda
+ *   (`Equip_Control` tipo 2) ABORTA a tentativa inteira (diferente da 4.1, que só cancela o bônus e segue).
+ */
+async function strengthen6600(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): Promise<void> {
+  const useGuild = pkt.readBoolean();
+  const isAllInject = pkt.readBoolean();
+  const store = p.storeBag;
+  const stone = store.getItemAt(0);
+  let equip = store.getItemAt(1);
+  if (!stone || !equip) return p.sendMessage(0, ctx.lang.t("ItemAdvanceHandler.Msg1"));
+
+  if (!(equip.template.CanStrengthen && equip.template.CategoryID < 18 && equip.Count === 1)) {
+    p.sendMessage(0, `${ctx.lang.t("ItemStrengthenHandler.Content1")}${stone.template.Name}${ctx.lang.t("ItemStrengthenHandler.Content2")}`);
+    if (equip.Place < 31) p.updatePlayerProperties();
+    return;
+  }
+
+  const strengthenLevel = equip.StrengthenLevel;
+  if (strengthenLevel >= STRENGTHEN_MAX_LEVEL_6600) return p.sendMessage(0, ctx.lang.t("ItemStrengthenHandler.Max"));
+
+  let isBinds = equip.IsBinds;
+  let consumeCount = 1;
+  let gainedExp = 0;
+
+  if (stone.template.CategoryID === 11 && (stone.template.Property1 === 2 || stone.template.Property1 === 35)) {
+    isBinds = isBinds || stone.IsBinds;
+    const perStoneExp = stone.template.Property2 < 10 ? 10 : stone.template.Property2;
+    let guildBonus = 0;
+    let vipBonus = 0;
+    if (useGuild) {
+      if (!p.info.ConsortiaID) {
+        p.sendMessage(0, ctx.lang.t("ItemStrengthenHandler.Fail"));
+      } else {
+        const threshold = await getEquipControl(ctx.db.db, p.info.ConsortiaID, 0, 2);
+        if (personalRiches(p.info) < (threshold ?? DEFAULT_EQUIP_RICHES)) {
+          return p.sendMessage(0, ctx.lang.t("ItemStrengthenHandler.FailbyPermission"));
+        }
+        guildBonus = ((CONSORTIA_STRENGTHEN_EX_6600[p.info.SmithLevel - 1] ?? 0) * perStoneExp) / 100;
+      }
+    }
+    if (isSameOrAfterDay(p.info.VIPExpireDay, ctx.now())) {
+      vipBonus = ((VIP_STRENGTHEN_EX_6600[p.info.VIPLevel - 1] ?? 0) * perStoneExp) / 100;
+    }
+    const perUnit = perStoneExp + Math.trunc(guildBonus) + Math.trunc(vipBonus);
+    if (isAllInject) {
+      const needExp = (ctx.templates.strengthenExp.get(strengthenLevel + 1)?.Exp ?? 0) - equip.StrengthenExp;
+      consumeCount = Math.max(1, Math.ceil(needExp / perUnit));
+      if (consumeCount > stone.Count) consumeCount = stone.Count;
+      gainedExp = perUnit * consumeCount;
+    } else {
+      gainedExp = perUnit;
+    }
+  }
+
+  const out = new GSPacket(59, p.id);
+  const newExp = gainedExp + equip.StrengthenExp;
+  const nextThreshold = ctx.templates.strengthenExp.get(strengthenLevel + 1)?.Exp;
+  let leveledUp = false;
+  store.beginChanges();
+  try {
+    if (nextThreshold != null && newExp >= nextThreshold) {
+      equip.IsBinds = isBinds;
+      equip.StrengthenLevel++;
+      equip.StrengthenExp = newExp - nextThreshold;
+      out.writeByte(1);
+      leveledUp = true;
+      const strengthenGoodsRow = ctx.templates.findStrengthenGoods(equip.StrengthenLevel, equip.TemplateID);
+      const newTemplate = strengthenGoodsRow && equip.template.CategoryID === 7 && strengthenGoodsRow.GainEquip > equip.TemplateID
+        ? ctx.templates.findItem(strengthenGoodsRow.GainEquip)
+        : undefined;
+      if (newTemplate) {
+        store.removeItemAt(1);
+        equip = ItemInfo.cloneFromTemplate(newTemplate, equip);
+        store.addItemTo(equip, 1);
+      } else {
+        store.updateItem(equip);
+      }
+    } else {
+      out.writeByte(0); // ver nota de fix de crash no cabeçalho desta função
+      equip.StrengthenExp = newExp;
+      store.updateItem(equip);
+    }
+    out.writeBoolean(false);
+    store.removeCountFromStack(stone, consumeCount);
+    p.questInv?.onItemStrengthen(equip.template.CategoryID, equip.StrengthenLevel);
+  } finally {
+    store.commitChanges();
+  }
+  p.send(out);
+  if (leveledUp && equip.StrengthenLevel > 9 && equip.ItemID > 0) {
+    const zone = ctx.templates.server?.ZoneName ?? "";
+    const msg = ctx.lang.t("ItemStrengthenHandler.congratulation", zone, p.info.NickName, equip.TemplateID, equip.StrengthenLevel);
+    const notice = Out.message(2, msg);
+    for (const onlinePlayer of ctx.world.all()) onlinePlayer.send(notice);
+    pushRecords(p, new Map([[32, 1]]));
+  }
+  if (equip.Place < 31) p.updatePlayerProperties();
 }

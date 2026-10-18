@@ -39,10 +39,23 @@ export async function transfer(ctx: ServerContext, p: GamePlayer, pkt: GSPacket)
   if (bagLocked(ctx, p)) return;
   const moveHole = pkt.readBoolean();
   const moveFiveSixHole = pkt.readBoolean();
-  const mustGold = 10000;
-  const store = p.storeBag;
-  const sourceItem = store.getItemAt(0), targetItem = store.getItemAt(1);
-  if (!sourceItem || !targetItem || sourceItem.template.CategoryID !== targetItem.template.CategoryID || targetItem.Count !== 1 || sourceItem.Count !== 1)
+  // 6600 (ItemTransferHandler.cs): GameSocketOut.as sendItemTransfer ganhou +4 int (sBagType/sPlace/tBagType/
+  // tPlace) — a view (StoreIITransferBG.as:349) só chama com os 2 primeiros args, então na prática sempre
+  // manda os defaults do AS3 (12/0/12/1 = StoreBag[0]/[1], igual ao hardcoded da 4.1), mas o handler C# do
+  // 6600 já é genérico (`GetInventory(bageType)`), não fixo em StoreBag — replicado aqui com `getInventory`.
+  let sourceBagType = 12, sourcePlace = 0, targetBagType = 12, targetPlace = 1;
+  if (p.clientKind === "6600") {
+    sourceBagType = pkt.readInt(); sourcePlace = pkt.readInt();
+    targetBagType = pkt.readInt(); targetPlace = pkt.readInt();
+  }
+  // GameProperties.MustTransferGold: 4.1 tem 10000 fixo no código; 6600 lê config (padrão real do
+  // serverconfig_out.xml é 40000) — configurável aqui pros dois clientes sem mudar o padrão existente.
+  const mustGold = ctx.templates.cfgInt("MustTransferGold", 10000);
+  const sourceInv = p.getInventory(sourceBagType);
+  const targetInv = p.getInventory(targetBagType);
+  const sourceItem = sourceInv?.getItemAt(sourcePlace) ?? null;
+  const targetItem = targetInv?.getItemAt(targetPlace) ?? null;
+  if (!sourceInv || !targetInv || !sourceItem || !targetItem || sourceItem.template.CategoryID !== targetItem.template.CategoryID || targetItem.Count !== 1 || sourceItem.Count !== 1)
     return p.sendMessage(0, ctx.lang.t("itemtransferhandler.nocondition"));
   if (p.info.Gold < mustGold) return p.sendMessage(0, ctx.lang.t("ItemTransferHandler.NoGold"));
   p.removeGold(mustGold);
@@ -67,14 +80,15 @@ export async function transfer(ctx: ServerContext, p: GamePlayer, pkt: GSPacket)
     if (targetItem.template.CategoryID === 7 && sourceItem.template.CategoryID === 7 && sourceRetemplate && targetRetemplate) {
       const sourceRetemplated = ItemInfo.cloneFromTemplate(sourceRetemplate, sourceItem); sourceRetemplated.openHole();
       const targetRetemplated = ItemInfo.cloneFromTemplate(targetRetemplate, targetItem); targetRetemplated.openHole();
-      store.removeItemAt(0); store.addItemTo(sourceRetemplated, 0);
-      store.removeItemAt(1); store.addItemTo(targetRetemplated, 1);
+      sourceInv.removeItemAt(sourcePlace); sourceInv.addItemTo(sourceRetemplated, sourcePlace);
+      targetInv.removeItemAt(targetPlace); targetInv.addItemTo(targetRetemplated, targetPlace);
     } else {
-      store.updateItem(sourceItem);
-      store.updateItem(targetItem);
+      sourceInv.updateItem(sourceItem);
+      targetInv.updateItem(targetItem);
     }
   } finally {
-    store.commitChanges();
+    sourceInv.commitChanges();
+    if (targetInv !== sourceInv) targetInv.commitChanges();
   }
   const out = new GSPacket(61, p.id);
   out.writeByte(0);
