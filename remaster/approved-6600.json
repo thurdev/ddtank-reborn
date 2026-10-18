@@ -729,15 +729,6 @@
   "note": "reuso direto do 4.1 (symbol, trainer.swf::4_asset.trainer.ghostTip.png)"
  },
  {
-  "category": "06-combate-outros",
-  "file": "enthrall__2_asset.core.view.enthrall.ValidateFrameBG.png",
-  "swf": "enthrall.swf",
-  "swfPath": "ui\\turkey\\swf\\enthrall.swf",
-  "sourceFile": "2_asset.core.view.enthrall.ValidateFrameBG.png",
-  "fit": "cover",
-  "note": "reuso direto do 4.1 (symbol, enthrall.swf::2_asset.core.view.enthrall.ValidateFrameBG.png)"
- },
- {
   "category": "04-botoes-titulos",
   "file": "coreiconandtip__32_asset.core.tip.hp.png",
   "swf": "firstcore.swf",
@@ -1258,5 +1249,68 @@
   "sourceFile": "14_asset.ddtroomlist.right.title.png",
   "fit": "cover",
   "review": "local"
+ },
+ {
+  "category": "03-sala-partida",
+  "file": "ddtroomlist__19_asset.ddtroomlist.quickLightAsset.png",
+  "swf": "ddtroomlist.swf",
+  "swfPath": "ui\\turkey\\swf\\ddtroomlist.swf",
+  "sourceFile": "19_asset.ddtroomlist.quickLightAsset.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "03-sala-partida",
+  "file": "ddtroomlist__2_asset.ddtroomlist.pvpBtn.encounter.png",
+  "swf": "ddtroomlist.swf",
+  "swfPath": "ui\\turkey\\swf\\ddtroomlist.swf",
+  "sourceFile": "2_asset.ddtroomlist.pvpBtn.encounter.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "03-sala-partida",
+  "file": "ddtroomlist__5_asset.ddtroomlist.fastMatch.png",
+  "swf": "ddtroomlist.swf",
+  "swfPath": "ui\\turkey\\swf\\ddtroomlist.swf",
+  "sourceFile": "5_asset.ddtroomlist.fastMatch.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "06-janelas-p1",
+  "file": "enthrall__10_asset.core.view.enthrall.Alert.png",
+  "swf": "enthrall.swf",
+  "swfPath": "ui\\turkey\\swf\\enthrall.swf",
+  "sourceFile": "10_asset.core.view.enthrall.Alert.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "04-batalha-resultado",
+  "file": "gameiii__176.png",
+  "swf": "gameiii.swf",
+  "swfPath": "ui\\turkey\\swf\\gameiii.swf",
+  "sourceFile": "176.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "04-batalha-resultado",
+  "file": "gameover__10_asset.core.survival.clearing.bg.png",
+  "swf": "gameover.swf",
+  "swfPath": "ui\\turkey\\swf\\gameover.swf",
+  "sourceFile": "10_asset.core.survival.clearing.bg.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "06-janelas-p1",
+  "file": "ringstation__16_ringStation.view.armory.close.png",
+  "swf": "ringstation.swf",
+  "swfPath": "ui\\turkey\\swf\\ringstation.swf",
+  "sourceFile": "16_ringStation.view.armory.close.png",
+  "fit": "cover",
+  "review": "v45"
  }
 ]
