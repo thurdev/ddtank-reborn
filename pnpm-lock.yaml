@@ -7,6 +7,13 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@ddt/db':
+        specifier: workspace:*
+        version: link:packages/db
+      drizzle-orm:
+        specifier: ^0.45.3
+        version: 0.45.3(@electric-sql/pglite@0.5.8)(pg@8.23.1)(postgres@3.4.9)
     devDependencies:
       '@types/node':
         specifier: ^26.6.3

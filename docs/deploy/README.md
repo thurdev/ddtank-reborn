@@ -202,7 +202,14 @@ dos limites) se isso acontecer, que é a correção mais citada.
 - Depois de qualquer mudança: `bash scripts/deploy/update.sh` faz `git pull` + rebuild + migração +
   restart em um comando.
 
-## 11. Fallback se a Oracle A1 não cooperar
+## 11. Vários canais (Canal 1, 2, 3…)
+
+Passo a passo completo e o que ainda não funciona entre canais: `docs/GAME-SERVER.md` "Canais". Resumo: criar
+o canal no admin, gerar o `docker-compose.channels.yml` com `scripts/channels-compose.mjs` (reaproveita o
+container `api` já de pé, sem imagem nova), `docker compose -f docker-compose.yml -f
+docker-compose.channels.yml up -d --build`. O `docker-compose.yml` base (canal único) não muda.
+
+## 12. Fallback se a Oracle A1 não cooperar
 
 Capacidade indisponível na sua região, ou a instância foi reclamada por ociosidade: o mesmo
 `docker-compose.yml` sobe sem alteração num Hetzner CX23 (~€5,49/mês) ou qualquer VM Ubuntu x86_64 — veja

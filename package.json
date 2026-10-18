@@ -10,6 +10,7 @@
     "test": "pnpm -r test",
     "dev:all": "node scripts/dev.mjs",
     "free-ports": "bash scripts/free-ports.sh",
+    "channels:compose": "tsx scripts/channels-compose.mjs",
     "client:art": "node tools/i18n/build-client-art.mjs",
     "lang:6600": "node tools/i18n/lang-6600.mjs",
     "swftext:6600": "node tools/i18n/build-client-art.mjs --only-swf-text-6600"
@@ -19,5 +20,9 @@
     "tsx": "^4.23.15",
     "typescript": "^5.9.3",
     "vitest": "^5.0.3"
+  },
+  "dependencies": {
+    "@ddt/db": "workspace:*",
+    "drizzle-orm": "^0.45.3"
   }
 }

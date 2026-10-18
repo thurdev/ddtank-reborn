@@ -95,7 +95,19 @@ Como rodar um 2º canal hoje (sem `ch-processo`/`ch-bus`): [GAME-SERVER.md §Can
   mín./máx., flags (canal novato, só PvP), URL interna (metadado pra `ch-processo`). CRUD genérico de
   `routes/admin.ts` reusado sem mudança; escrever na tabela agora dispara `/reload-templates` no canal local
   (`Room`/`Total`/`ZoneId`/`ZoneName` recarregam sem reiniciar o `apps/game`).
-- [~] **ch-processo** — `apps/game` sobe como canal N (`SERVER_ID`/porta via env); compose com 1 serviço por canal.
+- [x] **ch-processo** (2026-10-18) — produção: `scripts/channels-compose.mjs` lê `player."Server_List"` e gera
+  `docker-compose.channels.yml` com 1 serviço `game-<ID>` por canal habilitado (além do local, inalterado no
+  `docker-compose.yml` base), grava de volta `Port`/`InternalUrl`/`WsUrl` escolhidos (idempotente). Dev:
+  `scripts/dev.mjs CHANNELS=5,6` / `--channels 5,6` sobe processos locais extras em portas livres (9500+),
+  sem tocar no canal/portas padrão. `ServerList.ashx` agora consulta `/status` do `InternalUrl` de cada canal
+  remoto (cacheado ~5s) em vez de só mostrar o `Online` gravado; `auth.ts playConfig` monta 1 entrada de
+  `socketProxy` por canal (`WsUrl`, migração `0015_blue_frog_thor.sql`) pro Ruffle conectar em qualquer canal.
+  Bug real corrigido em `apps/game`: `resetAllOnline` no boot zerava o `State` online de TODO jogador no
+  Postgres, de qualquer canal — agora escopado por `OnlineServerID` (mesma migração). Teste de integração
+  `apps/game/test/ch-processo.test.ts` (2 `GameServer` em processo, `SERVER_ID` 4/5, mesmo PGlite). O que ainda
+  falta (`ch-bus`): login único entre canais, chat mundial, presença de amigos/sociedade cross-canal, eventos
+  globais coordenados, trocar de canal sem relogar, TLS no WS dos canais extras — ver
+  `docs/GAME-SERVER.md` "Canais" §"O que ainda não funciona com 2+ canais".
 - [ ] **ch-bus** — barramento entre canais (Redis pub/sub): login único, chat mundial/sussurro, presença de amigos/sociedade.
 - [ ] **ch-troca** — trocar de canal sem relogar.
 - [ ] **ch-eventos** — eventos globais (boss mundial, liga) coordenados entre canais.

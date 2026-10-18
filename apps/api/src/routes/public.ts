@@ -41,6 +41,34 @@ export async function gameInternal<T>(ctx: AppCtx, path: string): Promise<T | nu
   }
 }
 
+/**
+ * ch-processo: live `/status` of ANOTHER channel's `apps/game` (`player."Server_List"."InternalUrl"`, filled in
+ * by the admin once that channel runs as its own process) — same shape as `gameInternal`'s `/status` but
+ * against an arbitrary URL instead of this process' own `GAME_INTERNAL_URL`, and cached a few seconds (module-
+ * level, keyed by URL) so `ServerList.ashx` polling every other enabled channel on every request doesn't hammer
+ * N `apps/game` admin ports. Reuses this process' own `GAME_INTERNAL_TOKEN` (every channel's `apps/game` shares
+ * the same deploy secret today; a per-channel token is future work if that stops being true).
+ */
+const remoteStatusCache = new Map<string, { at: number; value: { online?: number; players?: number } | null }>();
+const REMOTE_STATUS_TTL_MS = 5000;
+
+export async function fetchRemoteStatus(ctx: AppCtx, internalUrl: string): Promise<{ online?: number; players?: number } | null> {
+  const cached = remoteStatusCache.get(internalUrl);
+  if (cached && Date.now() - cached.at < REMOTE_STATUS_TTL_MS) return cached.value;
+  let value: { online?: number; players?: number } | null = null;
+  try {
+    const res = await fetch(`${internalUrl.replace(/\/+$/, "")}/status`, {
+      signal: AbortSignal.timeout(1500),
+      headers: ctx.cfg.GAME_INTERNAL_TOKEN ? { authorization: `Bearer ${ctx.cfg.GAME_INTERNAL_TOKEN}` } : {},
+    });
+    if (res.ok) value = (await res.json()) as { online?: number; players?: number };
+  } catch {
+    value = null;
+  }
+  remoteStatusCache.set(internalUrl, { at: Date.now(), value });
+  return value;
+}
+
 /** POST to the apps/game internal channel (reload-templates, mail-notice, events/start|stop). null when unreachable. */
 export async function gameInternalPost<T>(ctx: AppCtx, path: string, body: unknown = {}): Promise<T | null> {
   if (!ctx.cfg.GAME_INTERNAL_URL) return null;

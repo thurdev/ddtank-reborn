@@ -9,7 +9,8 @@ import { defineResource } from "@/crud/types";
  *
  * `State` usa o enum original do cliente (`ddt/data/ServerInfo.as`): 1 manutenção, 2 aberto, 4 quase
  * cheio, 5 cheio. `Enabled`/`SortOrder`/`InternalUrl`/`PvpOnly` são colunas novas (migração
- * `0014_sad_cardiac.sql`, ver `packages/db/README.md`).
+ * `0014_sad_cardiac.sql`, ver `packages/db/README.md`); `WsUrl` é da migração `0015_blue_frog_thor.sql`
+ * (task `ch-processo`, ver `docs/GAME-SERVER.md` "Canais").
  */
 export const channels = defineResource({
   name: "server-list",
@@ -55,6 +56,7 @@ export const channels = defineResource({
     { name: "ZoneId", label: "ZoneId", type: "number", default: 1, required: true, section: "Avançado" },
     { name: "ZoneName", label: "ZoneName", type: "text", default: "Server S1", required: true, section: "Avançado" },
     { name: "InternalUrl", label: "URL interna (admin channel)", type: "text", section: "Avançado", placeholder: "http://127.0.0.1:9400", hint: "Vazio = este canal é servido por este próprio apps/api (GAME_INTERNAL_URL do .env). Preencher quando outro processo apps/game servir este canal (ch-processo)." },
+    { name: "WsUrl", label: "URL WebSocket (Ruffle)", type: "text", section: "Avançado", placeholder: "ws://127.0.0.1:9300/ws", hint: "Vazio = este canal é servido por este próprio apps/game (GAME_WS_URL do .env). Preencher quando outro processo apps/game servir este canal (ch-processo) — o navegador usa isso pra conectar nesse canal pelo Ruffle." },
     { name: "Remark", label: "Observação", type: "text", maxLength: 200, section: "Avançado" },
   ],
 });

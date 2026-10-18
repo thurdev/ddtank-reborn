@@ -961,6 +961,7 @@ export const Server_List = player.table(
     SortOrder: integer("SortOrder").notNull().default(0),
     InternalUrl: varchar("InternalUrl", { length: 255 }),
     PvpOnly: boolean("PvpOnly").notNull().default(false),
+    WsUrl: varchar("WsUrl", { length: 255 }),
   },
   (t) => [
     primaryKey({ name: "Server_List_pkey", columns: [t.ID] }),
@@ -1506,6 +1507,7 @@ export const Sys_Users_Detail = player.table(
     isFirstDivorce: integer("isFirstDivorce").notNull().default(1),
     PveEpicPermission: varchar("PveEpicPermission", { length: 50 }).notNull().default("0-0-0-0-0-0-0-0-0-0-0-0-0"),
     horseRaceCanRaceTime: integer("horseRaceCanRaceTime").notNull().default(1),
+    OnlineServerID: integer("OnlineServerID"),
   },
   (t) => [
     primaryKey({ name: "Sys_Users_Detail_pkey", columns: [t.UserID] }),
