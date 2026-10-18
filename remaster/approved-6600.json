@@ -1186,5 +1186,77 @@
   "sourceFile": "48_assets.hallIcon.guildmemberweekIcon.png",
   "fit": "cover",
   "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__4_assets.hallIcon.worshipTheMoon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "4_assets.hallIcon.worshipTheMoon.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__53_bombKing.hallEnterBtn.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "53_bombKing.hallEnterBtn.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__58_assets.hallIcon.DDPlayIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "58_assets.hallIcon.DDPlayIcon.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__68_assets.hallIcon.buriedIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "68_assets.hallIcon.buriedIcon.png",
+  "fit": "cover",
+  "review": "local"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__69_assets.hallIcon.newChickenBoxIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "69_assets.hallIcon.newChickenBoxIcon.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__72_assets.hallIcon.christmasIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "72_assets.hallIcon.christmasIcon.png",
+  "fit": "cover",
+  "review": "local"
+ },
+ {
+  "category": "03-sala-partida",
+  "file": "ddtroomlist__10_asset.ddtroomlist.createRoom.png",
+  "swf": "ddtroomlist.swf",
+  "swfPath": "ui\\turkey\\swf\\ddtroomlist.swf",
+  "sourceFile": "10_asset.ddtroomlist.createRoom.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "03-sala-partida",
+  "file": "ddtroomlist__14_asset.ddtroomlist.right.title.png",
+  "swf": "ddtroomlist.swf",
+  "swfPath": "ui\\turkey\\swf\\ddtroomlist.swf",
+  "sourceFile": "14_asset.ddtroomlist.right.title.png",
+  "fit": "cover",
+  "review": "local"
  }
 ]
