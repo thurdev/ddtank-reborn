@@ -57,7 +57,10 @@ export async function gameInternalPost<T>(ctx: AppCtx, path: string, body: unkno
 export async function serverStatus(ctx: AppCtx) {
   const g = await gameInternal<{ online?: number; players?: number; rooms?: number; capacity?: number }>(ctx, "/status");
   const m = await maintenance(ctx);
-  const [srv] = await q<{ n: number; cap: number }>(ctx.h, sql`SELECT COALESCE(sum("Online"),0)::int AS n, COALESCE(sum("Total"),0)::int AS cap FROM player."Server_List" WHERE "State" <> -1`);
+  const [srv] = await q<{ n: number; cap: number }>(
+    ctx.h,
+    sql`SELECT COALESCE(sum("Online"),0)::int AS n, COALESCE(sum("Total"),0)::int AS cap FROM player."Server_List" WHERE "Enabled" = true AND "State" <> -1`,
+  );
   const sc = (await setting<Record<string, unknown>>(ctx, "server-config")) ?? {};
   return {
     online: !!g,
@@ -126,7 +129,7 @@ export async function publicRoutes(f: FastifyInstance, ctx: AppCtx) {
   f.get("/api/public/launcher", async () => {
     const c = ctx.cfg;
     const st = await serverStatus(ctx);
-    const servers = await q(ctx.h, sql`SELECT * FROM player."Server_List" WHERE "State" <> -1 ORDER BY "ID"`);
+    const servers = await q(ctx.h, sql`SELECT * FROM player."Server_List" WHERE "Enabled" = true AND "State" <> -1 ORDER BY "SortOrder", "ID"`);
     const overrides = (await setting<Record<string, unknown>>(ctx, "launcher")) ?? {};
     return {
       launcher: {

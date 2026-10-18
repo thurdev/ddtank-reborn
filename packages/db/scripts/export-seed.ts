@@ -44,9 +44,15 @@ const PLAYER_CONFIG_TABLES = [
 
 /** Row rewrites applied at export time (documented in README). */
 const OVERRIDES: Record<string, (row: Record<string, unknown>) => void> = {
-  // The backup points the server list at a third-party public IP; ship a local default instead.
+  // The vendor backup has the original Vietnamese server name + a third-party public IP; ship our own branding
+  // (see docs/AI-HANDOFF.md) with IP/Port empty instead of a baked-in value — ServerList.ashx
+  // (apps/api/src/request/endpoints/ServerList.ts) falls back to GAME_HOST/GAME_PORT when a channel row has none
+  // set, so every dev env (whatever port it picks) keeps working without editing the seed.
   "player.Server_List": (r) => {
-    r.IP = "127.0.0.1";
+    r.Name = "Reborn";
+    r.ZoneName = "Reborn";
+    r.IP = null;
+    r.Port = null;
   },
 };
 

@@ -957,6 +957,10 @@ export const Server_List = player.table(
     NewerServer: boolean("NewerServer").notNull().default(false),
     ZoneId: integer("ZoneId").notNull().default(1),
     ZoneName: varchar("ZoneName", { length: 50 }).notNull().default("Server S1"),
+    Enabled: boolean("Enabled").notNull().default(true),
+    SortOrder: integer("SortOrder").notNull().default(0),
+    InternalUrl: varchar("InternalUrl", { length: 255 }),
+    PvpOnly: boolean("PvpOnly").notNull().default(false),
   },
   (t) => [
     primaryKey({ name: "Server_List_pkey", columns: [t.ID] }),

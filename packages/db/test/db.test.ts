@@ -74,7 +74,14 @@ describe("@ddt/db on PGlite", () => {
     const [r] = await h.db.select({ n: count() }).from(player.Sys_Users_Detail);
     expect(r!.n).toBe(0);
     const [s] = await h.db.select().from(player.Server_List);
-    expect(s!.IP).toBe("127.0.0.1");
+    // ch-tabela: IP/Port vêm nulos no seed (ServerList.ashx cai pro fallback GAME_HOST/GAME_PORT); colunas novas
+    // do canal (Enabled/SortOrder/PvpOnly) mantêm o default que preserva o comportamento do canal único "Reborn".
+    expect(s!.IP).toBeNull();
+    expect(s!.Port).toBeNull();
+    expect(s!.Enabled).toBe(true);
+    expect(s!.SortOrder).toBe(0);
+    expect(s!.PvpOnly).toBe(false);
+    expect(s!.InternalUrl).toBeNull();
   });
 
   it("m1-schema: DDT-6600 template tables are seeded, per-player tables stay empty", async () => {

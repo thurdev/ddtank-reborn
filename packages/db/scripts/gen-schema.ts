@@ -73,12 +73,15 @@ const EXTRA_INDEXES: Record<string, { cols: string[]; unique?: boolean }[]> = {
 const NATURAL_KEY_CANDIDATES = ["ID", "Id", "id", "TemplateID"];
 
 /**
- * New columns on EXISTING tables, found in DDT-6600 but missing from our 4.1-derived schema
- * (task `m1-schema`, see `research/6600/db-diff.md` "Colunas novas em tabelas que já existem").
- * Types/defaults copied verbatim from `research/6600/db/Project_Game6600/schema/catalog.json` so
- * `mapType`/`mapDefault` translate them exactly like any other column. Every NOT NULL column here
- * has a DEFAULT (matches the source), so existing rows and the 4.1 code paths that never read
- * these columns keep working unchanged; the 4 nullable text columns default to NULL.
+ * New columns on EXISTING tables. Two reasons a column ends up here instead of the vendor catalog.json:
+ *  1. Found in DDT-6600 but missing from our 4.1-derived schema (task `m1-schema`, see
+ *     `research/6600/db-diff.md` "Colunas novas em tabelas que já existem") — types/defaults copied
+ *     verbatim from `research/6600/db/Project_Game6600/schema/catalog.json`.
+ *  2. Pure new-stack additions with no vendor equivalent at all (e.g. `player.Server_List` below,
+ *     task `ch-tabela`) — made-up SQL Server-shaped defs (same `CatColumn` shape) just so
+ *     `mapType`/`mapDefault` translate them exactly like any other column; documented inline per entry.
+ * Either way, every NOT NULL column here has a DEFAULT, so existing rows and code paths that never read
+ * these columns keep working unchanged; nullable columns default to NULL.
  */
 const EXTRA_COLUMNS: Record<string, CatColumn[]> = {
   "game.Pve_Info": [
@@ -153,7 +156,18 @@ const EXTRA_COLUMNS: Record<string, CatColumn[]> = {
     { name: "MagicExp", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
     { name: "MagicLevel", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
   ],
+  // ch-tabela (vários canais): colunas novas em player."Server_List", sem equivalente em nenhum vendor — ver
+  // o comentário da própria tabela em src/schema/player.ts (gerado) pro que cada uma faz.
+  "player.Server_List": [
+    { name: "Enabled", type: "bit", nullable: false, identity: false, default: "((1))", computed: null },
+    { name: "SortOrder", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    { name: "InternalUrl", type: "nvarchar(255)", nullable: true, identity: false, default: null, computed: null },
+    { name: "PvpOnly", type: "bit", nullable: false, identity: false, default: "((0))", computed: null },
+  ],
 };
+
+/** EXTRA_COLUMNS keys that are reason (2) above (pure new-stack, no vendor source) — changes the auto README note. */
+const NEW_STACK_EXTRA_COLUMNS = new Set(["player.Server_List"]);
 
 // ---------------------------------------------------------------------------------------------------------------
 
@@ -405,8 +419,11 @@ for (const { db, schema } of DATABASES) {
     const extraCols = EXTRA_COLUMNS[`${schema}.${t.name}`];
     const cols = extraCols ? [...t.columns, ...extraCols] : t.columns;
     if (extraCols) {
+      const key = `${schema}.${t.name}`;
       notes.push(
-        `\`${schema}.${t.name}\` gains ${extraCols.length} column(s) from DDT-6600 (m1-schema, see research/6600/db-diff.md): ${extraCols.map((c) => c.name).join(", ")} — nullable or with an explicit DEFAULT, no behaviour change for existing rows/4.1 code paths.`,
+        NEW_STACK_EXTRA_COLUMNS.has(key)
+          ? `\`${key}\` gains ${extraCols.length} column(s) with no vendor equivalent (new-stack addition, see the EXTRA_COLUMNS comment for the task): ${extraCols.map((c) => c.name).join(", ")} — nullable or with an explicit DEFAULT, no behaviour change for existing rows.`
+          : `\`${key}\` gains ${extraCols.length} column(s) from DDT-6600 (m1-schema, see research/6600/db-diff.md): ${extraCols.map((c) => c.name).join(", ")} — nullable or with an explicit DEFAULT, no behaviour change for existing rows/4.1 code paths.`,
       );
     }
     if (!pk.length) {

@@ -706,9 +706,11 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
 
   const afterWrite = async (req: FastifyRequest, def: ResourceDef, what: string, data?: unknown) => {
     const files = await ctx.cache.invalidate([tableKey(def.table)]);
-    // game-side caches (items/shop/maps + event templates + app."ScheduledEvents"): reload on the internal channel
+    // game-side caches (items/shop/maps + event templates + app."ScheduledEvents" + o canal local em
+    // player."Server_List", ch-tabela: Room/Total/ZoneId/ZoneName só são lidos no boot/reload do apps/game):
+    // reload no internal channel
     const key = tableKey(def.table);
-    if (key.startsWith("game.") || key === "app.ScheduledEvents") void gameInternalPost(ctx, "/reload-templates");
+    if (key.startsWith("game.") || key === "app.ScheduledEvents" || key === "player.Server_List") void gameInternalPost(ctx, "/reload-templates");
     await audit(ctx, actor(req), "crud", `${what} ${tableKey(def.table)}${files.length ? ` (rebuilt ${files.join(", ")})` : ""}`, data);
   };
 

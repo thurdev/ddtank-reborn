@@ -94,6 +94,17 @@ Never edit the generated files.
 COLUMN` the new columns on `Pve_Info`/`Quest`/`Quest_Goods`/`Sys_Users_Detail`/`Sys_Users_Extra`/`Sys_Users_Fight`/
 `Sys_Users_Goods` — no data migration either way, every new `NOT NULL` column has a `DEFAULT`.
 
+**Migration `0014_sad_cardiac.sql`** (task `ch-tabela`, vários canais): 4 colunas novas em `player."Server_List"`,
+via `EXTRA_COLUMNS["player.Server_List"]` em `scripts/gen-schema.ts` (coluna sem equivalente em nenhum vendor —
+ver o comentário ali pro porquê) — `Enabled` (boolean, default `true`, liga/desliga o canal na listagem),
+`SortOrder` (integer, default `0`, ordem de exibição), `InternalUrl` (varchar 255, nullable, URL do admin channel
+do `apps/game` que serve o canal — NULL = este próprio processo) e `PvpOnly` (boolean, default `false`, metadado
+"só PvP"). Uso em `apps/api/src/request/endpoints/ServerList.ts` e na página "Canais" do admin
+(`apps/admin/src/resources/channels.ts`). 100% additive; a linha existente (ID 4 "Reborn") continua se
+comportando exatamente igual (`Enabled = true`, `SortOrder = 0`, `InternalUrl = NULL`, `PvpOnly = false` depois do
+`ALTER TABLE`). Rollback: `ALTER TABLE "player"."Server_List" DROP COLUMN "Enabled", DROP COLUMN "SortOrder", DROP
+COLUMN "InternalUrl", DROP COLUMN "PvpOnly";` — sem migração de dado nos dois sentidos.
+
 ## Dev mode (PGlite, no Postgres install)
 
 `DATABASE_URL` unset (or `pglite:<dir>`) -> [PGlite](https://pglite.dev) (Postgres 17 in WASM), persisted in
@@ -181,6 +192,7 @@ Other translation notes:
 - `game.Quest` gains 5 column(s) from DDT-6600 (m1-schema, see research/6600/db-diff.md): Level2NeedMoney, Level3NeedMoney, Level4NeedMoney, Level5NeedMoney, OneKeyFinishNeedMoney — nullable or with an explicit DEFAULT, no behaviour change for existing rows/4.1 code paths.
 - `game.Quest_Goods` gains 5 column(s) from DDT-6600 (m1-schema, see research/6600/db-diff.md): RewardItemCount1, RewardItemCount2, RewardItemCount3, RewardItemCount4, RewardItemCount5 — nullable or with an explicit DEFAULT, no behaviour change for existing rows/4.1 code paths.
 - `player.Consortia.KickDate` default `(((2009)-(1))-(1))` is integer arithmetic (= 2007 days after 1900-01-01 in SQL Server), translated literally to `1905-07-01 00:00:00`.
+- `player.Server_List` gains 4 column(s) with no vendor equivalent (new-stack addition, see the EXTRA_COLUMNS comment for the task): Enabled, SortOrder, InternalUrl, PvpOnly — nullable or with an explicit DEFAULT, no behaviour change for existing rows.
 - `player.Sys_Users_Detail` gains 12 column(s) from DDT-6600 (m1-schema, see research/6600/db-diff.md): GiftGp, GiftLevel, IsOpenGift, CardSoul, receiebox, receieGrade, needGetBoxTime, TimeBox, LeagueMoney, isFirstDivorce, PveEpicPermission, horseRaceCanRaceTime — nullable or with an explicit DEFAULT, no behaviour change for existing rows/4.1 code paths.
 - `player.Sys_Users_Detail.LastAward` default `(((2009)-(1))-(1))` is integer arithmetic (= 2007 days after 1900-01-01 in SQL Server), translated literally to `1905-07-01 00:00:00`.
 - `player.Sys_Users_Detail.LastAuncherAward` default `(((2009)-(1))-(1))` is integer arithmetic (= 2007 days after 1900-01-01 in SQL Server), translated literally to `1905-07-01 00:00:00`.
@@ -206,7 +218,9 @@ don't need `vendor/`. Contents:
 - `player`: config only: `Server_Config`, `Server_List`, `Server_Event`, `Item_Fusion`, `Items_Fusion_List`, `Consortia_Buff_Temp`,
   `Consortia_Level`, `Fight_Rate` (whitelist in `scripts/export-seed.ts`).
 - `member`: nothing. Real accounts, password hashes, 20,200 activation codes and 2,694 prepaid cards are not imported.
-- Override: `player.Server_List.IP` is rewritten from a third-party public IP to `127.0.0.1`.
+- Override: `player.Server_List` ships with `Name`/`ZoneName` = `"Reborn"` (the vendor backup had the original
+  Vietnamese name) and `IP`/`Port` = `NULL` instead of the vendor backup's third-party public IP — `ServerList.ashx`
+  falls back to `GAME_HOST`/`GAME_PORT` when a channel row has none set (task `ch-tabela`, vários canais).
 
 `db:seed` is idempotent. For each table, in one transaction, it runs `TRUNCATE ... RESTART IDENTITY`, batched inserts (<=30k params),
 then `setval` on each identity sequence to `MAX+1`. It takes about 7 s on PGlite.

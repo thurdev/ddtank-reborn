@@ -37,7 +37,10 @@ const schema = z.object({
   RSA_PRIVATE_KEY_FILE: z.string().default(""),
   /** Dev only: fall back to the (public!) key in vendor/DDTank41/Tank.Request/Web.config so the unpatched client works. */
   RSA_USE_VENDOR_KEY: bool.default(true),
-  /** Tank.Request Web.config ServerID / DefaultGold / DefaultMoney / BoyVisualizeItem / GrilVisualizeItem. */
+  /** Tank.Request Web.config ServerID / DefaultGold / DefaultMoney / BoyVisualizeItem / GrilVisualizeItem.
+   *  ch-tabela: também identifica qual linha de player."Server_List" é o canal "local" deste apps/api/apps/game
+   *  (deve bater com o SERVER_ID do apps/game que fica no mesmo par) — ServerList.ts usa isso pra saber de qual
+   *  canal mostrar o Online em tempo real (via GAME_INTERNAL_URL) em vez do valor gravado na linha. */
   SERVER_ID: z.coerce.number().int().default(4),
   DEFAULT_GOLD: z.coerce.number().int().default(0),
   DEFAULT_MONEY: z.coerce.number().int().default(0),

@@ -122,6 +122,27 @@ describe("auth + Login.ashx flow", () => {
     expect(r.body).toContain('IP="127.0.0.1" Port="9131"');
     expect(r.body).toMatch(/<Result value="true" message="Success!" total="\d+">/);
   });
+
+  // ch-tabela: 2 canais além do "Reborn" (ID 4, seed) — um com IP/Port próprios (admin preencheu), outro
+  // desligado (Enabled = false, não deve aparecer pra nenhum cliente).
+  it("ServerList with 2 extra channels: per-row IP/Port (4.1 -69 / 6600 direto), Enabled = false hidden", async () => {
+    const { sql } = await import("drizzle-orm");
+    await h.db.execute(sql`INSERT INTO player."Server_List"
+      ("ID","Name","IP","Port","State","Online","Total","Room","MustLevel","LowestLevel","NewerServer","ZoneId","ZoneName","Enabled","SortOrder","PvpOnly")
+      VALUES
+      (90, 'Canal 2', '10.0.0.5', 9333, 2, 7, 300, 50, 0, 0, false, 1002, 'Canal 2', true, 1, true),
+      (91, 'Canal desligado', '10.0.0.6', 9444, 2, 99, 300, 50, 0, 0, false, 1003, 'Canal desligado', false, 2, false)`);
+    try {
+      const r41 = await app.inject({ url: "/request/serverlist.ashx" });
+      expect(r41.body).toContain('ID="90" Name="Canal 2" IP="10.0.0.5" Port="9264"'); // 9333 - 69
+      expect(r41.body).not.toContain('ID="91"'); // Enabled = false
+      const r6600 = await app.inject({ url: "/request6600/serverlist.ashx" });
+      expect(r6600.body).toContain('ID="90" Name="Canal 2" IP="10.0.0.5" Port="9333"'); // cliente 6600 não soma 69
+      expect(r6600.body).not.toContain('ID="91"');
+    } finally {
+      await h.db.execute(sql`DELETE FROM player."Server_List" WHERE "ID" IN (90, 91)`);
+    }
+  });
 });
 
 describe("template XML (client boot files)", () => {
@@ -300,6 +321,27 @@ describe("admin CRUD", () => {
     expect((await app.inject({ url: "/request/ServerList.ashx" })).body).toContain('IP="game.example.com" Port="9431"');
     await app.inject({ method: "PUT", url: "/api/admin/server-config", headers: auth, payload: { tcpPort: 9200, publicHost: "127.0.0.1" } });
     expect((await app.inject({ url: "/api/admin/stats", headers: auth })).json().uptimeSec).toBeGreaterThanOrEqual(0);
+  });
+
+  // ch-admin: CRUD de canais (resource "server-list" -> player."Server_List") pela página "Canais" do admin.
+  it("server-list CRUD: create/edit a channel, disabling it hides it from ServerList.ashx", async () => {
+    const auth = { authorization: `Bearer ${adminToken}` };
+    const c = await app.inject({
+      method: "POST",
+      url: "/api/admin/server-list",
+      headers: auth,
+      payload: { ID: 95, Name: "Canal de teste", IP: "10.0.0.9", Port: 9222, State: 2, Total: 400, Room: 60 },
+    });
+    expect(c.statusCode).toBe(201);
+    expect(c.json()).toMatchObject({ ID: 95, Name: "Canal de teste", Enabled: true, SortOrder: 0, PvpOnly: false });
+    expect((await app.inject({ url: "/request/serverlist.ashx" })).body).toContain('ID="95" Name="Canal de teste" IP="10.0.0.9" Port="9153"');
+
+    const u = await app.inject({ method: "PATCH", url: "/api/admin/server-list/95", headers: auth, payload: { Enabled: false } });
+    expect(u.statusCode).toBe(200);
+    expect((await app.inject({ url: "/request/serverlist.ashx" })).body).not.toContain('ID="95"');
+
+    expect((await app.inject({ method: "DELETE", url: "/api/admin/server-list/95", headers: auth })).statusCode).toBe(204);
+    expect((await app.inject({ url: "/api/admin/server-list/95", headers: auth })).statusCode).toBe(404);
   });
 });
 

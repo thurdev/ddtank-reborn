@@ -505,6 +505,14 @@ export async function upsertServer(db: Database, s: { id: number; name: string; 
     ON CONFLICT ("id") DO UPDATE SET "host" = EXCLUDED."host", "port" = EXCLUDED."port", "wsUrl" = EXCLUDED."wsUrl", "lastSeenAt" = now()`);
 }
 
+/**
+ * ch-tabela: também grava em player."Server_List"."Online" (não só app."Servers") pra que o ServerList.ashx de
+ * QUALQUER canal (`apps/api` de outro processo, ainda não existe antes de `ch-processo`) consiga mostrar a
+ * contagem deste canal lendo só a própria linha — hoje é o mesmo processo, então é redundante com `upsertServer`
+ * (ver `ServerList.ts` do apps/api, que prefere o valor em tempo real via `GAME_INTERNAL_URL` quando é o canal
+ * local e cai nesta coluna pros demais).
+ */
 export async function heartbeat(db: Database, id: number, online: number): Promise<void> {
   await db.execute(sql`UPDATE "app"."Servers" SET "online" = ${online}, "lastSeenAt" = now() WHERE "id" = ${id}`);
+  await db.execute(sql`UPDATE "player"."Server_List" SET "Online" = ${online} WHERE "ID" = ${id}`);
 }

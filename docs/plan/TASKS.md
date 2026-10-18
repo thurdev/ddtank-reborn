@@ -78,8 +78,23 @@ aqui quando o M2 fechar.
 
 ## 2. Canais (Canal 1, 2, 3…)
 Desenho em [MIGRACAO-6600.md — Requisito futuro](./MIGRACAO-6600.md#requisito-futuro-vários-canais-decisão-do-dono-2026-10-17).
-- [~] **ch-tabela** — tabela de canais (nome, host/porta, capacidade, estado, ordem, flags) + `ServerList.ashx` lendo dela.
-- [~] **ch-admin** — CRUD de canais no admin.
+Como rodar um 2º canal hoje (sem `ch-processo`/`ch-bus`): [GAME-SERVER.md §Canais](../GAME-SERVER.md#canais-vários-servidores-ch-tabelach-admin).
+- [x] **ch-tabela** (2026-10-18) — 4 colunas novas em `player."Server_List"` (migração `0014_sad_cardiac.sql`,
+  additive, rollback em `packages/db/README.md`): `Enabled`, `SortOrder`, `InternalUrl`, `PvpOnly`.
+  `ServerList.ashx` (`apps/api/src/request/endpoints/ServerList.ts`) agora lista toda linha `Enabled`, na ordem
+  `SortOrder, ID`, com `IP`/`Port` da própria linha (fallback `GAME_HOST`/`GAME_PORT` quando a linha não tem —
+  o canal seed "Reborn" continua assim, seed exportado de novo com `IP`/`Port` nulos) e `Port` certo por
+  cliente (4.1 soma 69 fora, 6600 direto) nos dois casos. `Online`: canal local (`cfg.SERVER_ID`) em tempo
+  real via `GAME_INTERNAL_URL`; outros canais mostram o valor da própria linha, que `apps/game` grava a cada
+  heartbeat (`src/db/templates.ts heartbeat`, além do `app."Servers"` de sempre). `apps/game`/`apps/api` já
+  tinham `SERVER_ID` (default 4) selecionando o canal em tudo que precisa (templates/boot, login,
+  `upsertServer`/heartbeat) — não precisou renomear pra `CHANNEL_ID`, só documentar + usar no `apps/api`.
+- [x] **ch-admin** (2026-10-18) — página "Canais" (`apps/admin/src/resources/channels.ts`, resource
+  `server-list`, já existia no whitelist `apps/api/src/routes/admin-resources.ts`): nome, host/porta pública,
+  estado (select PT-BR do enum original: manutenção/aberto/quase cheio/cheio), ordem, capacidade, nível
+  mín./máx., flags (canal novato, só PvP), URL interna (metadado pra `ch-processo`). CRUD genérico de
+  `routes/admin.ts` reusado sem mudança; escrever na tabela agora dispara `/reload-templates` no canal local
+  (`Room`/`Total`/`ZoneId`/`ZoneName` recarregam sem reiniciar o `apps/game`).
 - [ ] **ch-processo** — `apps/game` sobe como canal N (`SERVER_ID`/porta via env); compose com 1 serviço por canal.
 - [ ] **ch-bus** — barramento entre canais (Redis pub/sub): login único, chat mundial/sussurro, presença de amigos/sociedade.
 - [ ] **ch-troca** — trocar de canal sem relogar.
