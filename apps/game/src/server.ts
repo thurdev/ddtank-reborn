@@ -173,7 +173,8 @@ export class GameServer {
             log: (m) => log.warn(m),
             gradeForGp: (gp) => templates.gradeForGp(gp),
             onWorldBossHurt: (m, hurt) => { if (this.ctx) worldBossDamage(this.ctx, m as GamePlayer, hurt); },
-            expRate: () => (this.ctx ? eventsRuntime(this.ctx).scheduler.rate("double_exp") : 1),
+            // admin-config: server-config's expRate (templates.rates.exp) multiplies with any active "double_exp" window.
+            expRate: () => templates.rates.exp * (this.ctx ? eventsRuntime(this.ctx).scheduler.rate("double_exp") : 1),
             takeCard: (m, roomType) => takeCardDrop(templates, m, roomType),
             payTakeCard: (m) => payTakeCard(m),
             onPlayerGameOver: (m, g) => {
@@ -190,7 +191,8 @@ export class GameServer {
               if (this.ctx) void consortiaMgr(this.ctx).then((c) => c.onMission(m as GamePlayer, g.missionId, g.isWin));
             },
             worldBossBlood: () => (this.ctx ? eventsRuntime(this.ctx).boss.blood : 0),
-            giveItems: (m, items, bag) => giveDropItems(templates, m, items, this.ctx ? eventsRuntime(this.ctx).scheduler.rate("double_gold") : 1, bag),
+            // admin-config: server-config's goldRate (templates.rates.gold) multiplies with any active "double_gold" window.
+            giveItems: (m, items, bag) => giveDropItems(templates, m, items, templates.rates.gold * (this.ctx ? eventsRuntime(this.ctx).scheduler.rate("double_gold") : 1), bag),
             // DropInventory.BoxDrop: eDropType.Box = 2, Para1 = room type
             boxDrop: (roomType) => {
               const id = templates.findDropCondition(2, String(roomType), "0");

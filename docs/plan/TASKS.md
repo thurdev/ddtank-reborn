@@ -173,15 +173,27 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
   nenhum no banco (nunca existiu) — recusa honesta (`flag=false`) em vez de chutar um fluxo de SMS que nunca
   existiu; sub 5 corrige o `true` hardcoded do original (mentira inofensiva lá, relevante aqui porque a UI
   usa o flag). Nenhuma migração Drizzle precisou ser criada.
-- [ ] **m3-everyday-active** — `155 EVERYDAY_ACTIVEPOINT` (`addSpeed`/`sendGetGoods`/`enterDayActivity`/
-  `sendExpBlessedData`, `GameSocketOut.as`) — aba "Sist. Treino" da bolsa nova (`MIGRACAO-6600.md` §4,
-  tabelas `game.Every_Day_Active_*` já existem desde `m1-schema`/`m3-ashx`, só falta o handler de
-  ação/pontos; os `.xml` de template já foram portados no `m3-ashx`).
-- [ ] **m3-mystery-shop** — `278 MYSTERY_SHOP` (`sendGypsyBuy`/`sendGypsyRefreshItemList`/
+- [x] **m3-everyday-active** (2026-10-18) — `155 EVERYDAY_ACTIVEPOINT` (`addSpeed`/`sendGetGoods`/`enterDayActivity`/
+  `sendExpBlessedData`, `GameSocketOut.as`) — aba "Sist. Treino" da bolsa nova (`MIGRACAO-6600.md` §4).
+  `EverydayActivePointHandler.cs` decompilado é um stub (só sub 8); motor de pontos/ação/recompensa novo
+  seguindo o contrato AS3, lendo `game.Every_Day_Active_*` (0 linhas na origem) + progresso diário em
+  `app."EveryDayActiveProgress"` (migração 0018); tiers 1-4 (30/60/80/100, hardcoded no cliente) com claim
+  único por dia (`claimOnce`). `apps/game/src/handlers/bolsa/treino-diario.ts`.
+- [x] **m3-mystery-shop** (2026-10-18) — `278 MYSTERY_SHOP` (`sendGypsyBuy`/`sendGypsyRefreshItemList`/
   `sendGypsyManualRefreshItemList`/`sendGypsyRefreshRareList`/`sendRequestGypsyNPCState`,
-  `GameInSocketOut.as`) — Loja Cigana (`gypsyshop.swf`, `src/gypsyShop/`). Sistema novo do 6600.
-- [ ] **m3-shop-buylimited** — `288 SHOP_BUYLIMITEDCOUNT` (`sendGetShopBuyLimitedCount`) — limite diário de
-  compra por item na loja. Pequeno, provavelmente só precisa de um contador por jogador+item+dia.
+  `GameInSocketOut.as`) — Loja Cigana (`gypsyshop.swf`, `src/gypsyShop/`). Sistema novo do 6600, C# real
+  (`GypsyShopBuy.cs`/`GypsyShopPlayerInfo.cs`/`GypsyShopRateItemInfo.cs`/`GypsyShopRefresh.cs`,
+  `GypsyShopMgr.cs` sorteio ponderado) — tabela fonte não está nos catalog.json extraídos, então
+  `app."MysteryShopTemplate"`/`app."GypsyShopState"` aditivas (migração 0018). Cobra antes de dar o item
+  (Money ou Honor), sem duplo-buy (CanBuy zera e persiste antes do próximo pacote). Reset grátis diário
+  (simplificação do reset por hora do original) + refresh manual pago em Honor.
+  `apps/game/src/handlers/loja/loja-cigana.ts`.
+- [x] **m3-shop-buylimited** (2026-10-18) — `288 SHOP_BUYLIMITEDCOUNT` (`sendGetShopBuyLimitedCount`) — limite
+  diário de compra por item na loja. `ShopBuyLimitedCountHandler.cs` original nunca lia `Shop.LimitCount`
+  (sempre respondia 0); contador por jogador+item+dia em `app."ShopBuyLimited"` (migração 0018), enforced
+  em `44 BUY_GOODS` (6600 only) — linha que passaria do limite é descartada (`continue`), incremento só
+  após cobrança confirmada. `apps/game/src/handlers/loja/compra-limitada.ts` +
+  `apps/game/src/handlers/loja/comprar.ts`.
 - [ ] **m3-caddy-loteria** — `97 LUCKSTONE_RANK_LIMIT`, `165 LUCKSTONE_CONFIG`, `211 CADDY_EXCHANGE_ALL`,
   `215 CADDY_CONVERTED_ALL` (`GameSocketOut.as`) — família "pedra da sorte"/loteria Caddy (distinta da
   `137 LEFT_GUN_ROULETTE`, já portada no M1). Agrupar numa tarefa só por serem a mesma tela.
@@ -397,5 +409,11 @@ Como rodar um 2º canal hoje (sem `ch-processo`/`ch-bus`): [GAME-SERVER.md §Can
   respeita reduced-motion), SEO por página (`lib/seo.ts`), code-split por rota, testes vitest no `apps/web`.
   Arte pendente (slots em `apps/web/README.md`): `public/art/hero-bg.webp`, `public/art/og-cover.jpg`.
 - [ ] **site-play** — página de jogo com seleção de canal e launcher (toggle 4.1/6600 beta já feito no `site-design`).
-- [ ] **admin-ux** — revisão geral do admin (navegação, busca, edição em massa).
-- [ ] **admin-config** — tudo configurável pelo admin (eventos, canais, taxas), sem editar arquivo.
+- [x] **admin-ux** (2026-10-18) — campo `ref`/`ref-multi` no CRUD (nome/ícone no lugar do id, picker com
+  busca, clique abre o registro; lookup em lote `GET /api/admin/<res>?ids=`), Ctrl+K (recursos, recentes,
+  busca jogador/item/guilda), seleção + edição/exclusão em massa. Bug corrigido: `keepPreviousData` vazava
+  linhas entre recursos.
+- [ ] **admin-ux-2** — escolher colunas, visões salvas, filtro por coluna, header fixo (a tentativa quebrou o
+  clique na linha), `/events` lendo `?edit=`, testes de componente no admin.
+- [x] **admin-config** (2026-10-18) — `expRate`/`goldRate` agora valem de verdade (`templates.rates`,
+  multiplica o x2 do evento, recarrega ao salvar). `dropRate`/`offerRate` ainda não ligados (aviso no admin).

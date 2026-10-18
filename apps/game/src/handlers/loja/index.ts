@@ -15,6 +15,8 @@
  *   usar-prop.ts          (Bolsa de props › usar)         — 66  PROP_USE
  *   vip.ts                (VIP › comprar/renovar dias)    — 92  VIP_RENEWAL
  *   roleta-canhao.ts      (Roleta do canhão esquerdo)      — 130 LEFT_GUN_COMPLETE, 128 LEFT_GUN_ROULETTE_SOCKET
+ *   loja-cigana.ts        (Loja Cigana, 6600)              — 278 MYSTERY_SHOP
+ *   compra-limitada.ts    (Loja › limite diário por item, 6600) — 288 SHOP_BUYLIMITEDCOUNT (+ enforced em comprar.ts)
  *
  * Pacotes: ver tabela acima.
  * C#: ver cabeçalho de cada arquivo listado.
@@ -33,6 +35,8 @@ import { registerPropsDeLuta } from "./props-de-luta.js";
 import { registerUsarProp } from "./usar-prop.js";
 import { registerVip } from "./vip.js";
 import { registerRoletaCanhao } from "./roleta-canhao.js";
+import { registerLojaCigana } from "./loja-cigana.js";
+import { registerCompraLimitada } from "./compra-limitada.js";
 
 export function registerLoja(r: HandlerRegistry): void {
   registerComprar(r);
@@ -46,4 +50,6 @@ export function registerLoja(r: HandlerRegistry): void {
   registerUsarProp(r);
   registerVip(r);
   registerRoletaCanhao(r);
+  registerLojaCigana(r);
+  registerCompraLimitada(r);
 }

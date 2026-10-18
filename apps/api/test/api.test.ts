@@ -447,6 +447,27 @@ describe("admin CRUD", () => {
     expect(b.pageSize).toBe(5);
   });
 
+  // admin-ux "ref" field (apps/admin/src/crud/refs.ts): ONE request resolves every row a table page needs for a
+  // given target resource (never N+1). `?ids=` bypasses pagination/search/sort and returns exactly those rows.
+  it("?ids= batched lookup: returns exactly the matching rows, ignores pagination, rejects composite-PK resources", async () => {
+    const auth = { authorization: `Bearer ${adminToken}` };
+    const r = await app.inject({ url: "/api/admin/items?ids=-900,888888888,999999999999", headers: auth });
+    expect(r.statusCode).toBe(200);
+    const b = r.json();
+    // 888888888 doesn't exist, 999999999999 overflows Postgres int4 — neither should 500, both are just a miss
+    expect(b.items.map((i: { TemplateID: number }) => i.TemplateID)).toEqual([-900]);
+    expect(b.total).toBe(1);
+    expect(b.page).toBe(1);
+
+    const empty = await app.inject({ url: "/api/admin/items?ids=", headers: auth });
+    expect(empty.json()).toEqual({ items: [], total: 0, page: 1, pageSize: 0 });
+
+    const composite = await app.inject({ url: "/api/admin/quest-conditions?ids=1", headers: auth });
+    expect(composite.statusCode).toBe(400);
+
+    expect((await app.inject({ url: "/api/admin/items?ids=-900" })).statusCode).toBe(401); // admin-only, same guard as the rest of the resource
+  });
+
   it("update rebuilds the template cache; composite ids work; delete", async () => {
     const auth = { authorization: `Bearer ${adminToken}` };
     const u = await app.inject({ method: "PATCH", url: "/api/admin/items/-900", headers: auth, payload: { Name: "Ouro do labirinto" } });

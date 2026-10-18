@@ -22,6 +22,7 @@ export type FusionRow6600 = typeof game.Item_Fusion_New.$inferSelect;
 export type ItemBoxRow = typeof game.Shop_Goods_Box.$inferSelect;
 
 export type ShopRow = typeof game.Shop.$inferSelect;
+export type MysteryShopRow = typeof app.MysteryShopTemplate.$inferSelect;
 
 /** app."SpiritInfo" — "Espírito do equipamento" (391 EQUIP_GHOST), ver schema/app.ts. */
 export type SpiritInfoRow = typeof app.SpiritInfo.$inferSelect;
@@ -86,6 +87,9 @@ export class Templates {
   /** game."Shop_Cheap_Items" (6600, m1-schema) — loja "barata"/desconto do 6600 (ShopMgr.GetShopItemDisCountById,
    * `goodsType===2` em 44 BUY_GOODS; ver `handlers/loja/comprar.ts`). Sem equivalente na 4.1. */
   shopCheap = new Map<number, ShopCheapRow>();
+  /** app."MysteryShopTemplate" (6600, m3-mystery-shop) — Loja Cigana, agrupado por LableType (1 pool normal, 2
+   *  rara), igual `GypsyShopMgr.LoadMysteryShops`. Sem equivalente na 4.1 (sistema novo do 6600). */
+  mysteryShop = new Map<number, MysteryShopRow[]>();
   showList = new Set<number>();
   maps = new Set<number>();
   serverMaps = new Map<number, number[]>();
@@ -123,6 +127,14 @@ export class Templates {
 
   /** game."Server_Config" (GameProperties overrides). */
   serverConfig = new Map<string, string>();
+  /**
+   * Base EXP/gold multipliers from the admin "Configuração do servidor" page (`app."Settings"` key
+   * "server-config", `expRate`/`goldRate` — apps/admin/src/pages/ServerConfig.tsx). Multiply with (not
+   * replace) the scheduled "double_exp"/"double_gold" event rate (`EventScheduler.rate`, game/scheduler.ts) at
+   * the call sites in server.ts. Reloaded by `/reload-templates` like every other template, so a PUT on
+   * server-config takes effect without restarting apps/game.
+   */
+  rates: { exp: number; gold: number } = { exp: 1, gold: 1 };
   /** GameProperties int value with the C# default when the row is missing. */
   cfgInt(name: string, def: number): number {
     const v = Number(this.serverConfig.get(name));
@@ -154,10 +166,15 @@ export class Templates {
       db.select().from(game.Quest_Goods),
     ]);
     const [pveI, missI, npcI] = await Promise.all([db.select().from(game.Pve_Info), db.select().from(game.Mission_Info), db.select().from(game.NPC_Info)]);
+    const [cfgSetting] = await db.select({ value: app.Settings.value }).from(app.Settings).where(eq(app.Settings.key, "server-config")).limit(1);
+    const rateOr1 = (v: unknown): number => (Number.isFinite(Number(v)) && Number(v) > 0 ? Number(v) : 1);
+    const cfgVal = (cfgSetting?.value ?? {}) as Record<string, unknown>;
+    this.rates = { exp: rateOr1(cfgVal.expRate), gold: rateOr1(cfgVal.goldRate) };
     await this.loadForge(db);
     await this.loadActiveExchange(db);
     await this.loadPetsCards(db, lang);
     await this.loadProgression(db);
+    await this.loadMysteryShop(db);
     const [pveOverlay, missionOverlay, npcOverlay, shopGoodsOverlay, questOverlay] = await Promise.all([
       loadTranslations(db, "Pve_Info", lang),
       loadTranslations(db, "Mission_Info", lang),
@@ -254,6 +271,13 @@ export class Templates {
       for (let i = 0; i < list.length; i++) if (list[i] === operation) return list[i + 2] ?? null;
     }
     return null;
+  }
+
+  /** GypsyShopMgr.LoadMysteryShops (vendor/DDT-6600 Game.Server.GypsyShop/GypsyShopMgr.cs:149-161): group by LableType. */
+  async loadMysteryShop(db: Database): Promise<void> {
+    const rows = await db.select().from(app.MysteryShopTemplate);
+    this.mysteryShop = new Map();
+    for (const r of rows) this.mysteryShop.set(r.LableType, [...(this.mysteryShop.get(r.LableType) ?? []), r]);
   }
 
   async loadForge(db: Database): Promise<void> {

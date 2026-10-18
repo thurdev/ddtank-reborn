@@ -21,10 +21,10 @@ export const serverConfigFields: FieldDef[] = [
   { name: "requestUrl", label: "URL de requisições", type: "text", required: true, pattern: URL_RE, patternMessage: "URL inválida", placeholder: "https://api.exemplo.com/", hint: "Base das chamadas .ashx (Tank.Request)", section: "Endereços do cliente" },
   { name: "flashUrl", label: "URL do cliente (SWF)", type: "text", pattern: URL_RE, patternMessage: "URL inválida", placeholder: "https://cdn.exemplo.com/flash/", section: "Endereços do cliente" },
   // Taxas
-  { name: "expRate", label: "Taxa de EXP", type: "number", int: false, step: 0.1, min: 0, max: 100, required: true, default: 1, section: "Taxas" },
-  { name: "goldRate", label: "Taxa de ouro", type: "number", int: false, step: 0.1, min: 0, max: 100, required: true, default: 1, section: "Taxas" },
-  { name: "dropRate", label: "Taxa de drop", type: "number", int: false, step: 0.1, min: 0, max: 100, required: true, default: 1, section: "Taxas" },
-  { name: "offerRate", label: "Taxa de mérito", type: "number", int: false, step: 0.1, min: 0, max: 100, default: 1, section: "Taxas" },
+  { name: "expRate", label: "Taxa de EXP", type: "number", int: false, step: 0.1, min: 0, max: 100, required: true, default: 1, hint: "Multiplica a EXP de toda partida; acumula com o evento \"EXP em dobro\" quando ativo. Aplicado ao vivo (sem reiniciar o servidor).", section: "Taxas" },
+  { name: "goldRate", label: "Taxa de ouro", type: "number", int: false, step: 0.1, min: 0, max: 100, required: true, default: 1, hint: "Multiplica o ouro de drop; acumula com o evento \"Ouro em dobro\" quando ativo. Aplicado ao vivo (sem reiniciar o servidor).", section: "Taxas" },
+  { name: "dropRate", label: "Taxa de drop", type: "number", int: false, step: 0.1, min: 0, max: 100, required: true, default: 1, hint: "Reservado: o servidor ainda não aplica este multiplicador (drop usa só as tabelas de Drop_Item/NPC).", section: "Taxas" },
+  { name: "offerRate", label: "Taxa de mérito", type: "number", int: false, step: 0.1, min: 0, max: 100, default: 1, hint: "Reservado: o servidor ainda não aplica este multiplicador.", section: "Taxas" },
   { name: "maxPlayers", label: "Limite de jogadores online", type: "number", min: 1, default: 1000, section: "Taxas" },
   // Jogo
   { name: "aimAngles", label: "Ângulos das tabelas de mira", type: "tags", default: ["20", "30", "50", "65"], hint: "Página Jogar: ângulos (graus) mostrados nos painéis de ângulo/força — GET /api/public/aim-tables", section: "Jogo" },

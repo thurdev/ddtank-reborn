@@ -19,6 +19,9 @@ export type AchievementCondRow = typeof game.AchievementCondition.$inferSelect;
 export type AchievementGoodsRow = typeof game.Achievement_Goods.$inferSelect;
 export type EventRewardGoodsRow = typeof game.Event_Reward_Goods.$inferSelect;
 export type LoginAwardRow = typeof game.Login_Award_Item_Template.$inferSelect;
+/** "Sist. Treino" (155 EVERYDAY_ACTIVEPOINT, handlers/bolsa/treino-diario.ts) — ver comentários do handler. */
+export type EveryDayActivePointRow = typeof game.Every_Day_Active_Point_Template.$inferSelect;
+export type EveryDayActiveRewardRow = typeof game.Every_Day_Active_Reward_Template.$inferSelect;
 
 /** Template caches of the event systems (AwardMgr, UserBoxMgr, AchievementMgr, EventRewardMgr). Reloaded by /reload-templates. */
 export class EventData {
@@ -29,9 +32,13 @@ export class EventData {
   achGoods = new Map<number, AchievementGoodsRow[]>();
   eventGoods: EventRewardGoodsRow[] = [];
   loginAward: LoginAwardRow[] = [];
+  /** game."Every_Day_Active_Point_Template" (m3-everyday-active) — 0 linhas na origem até o admin configurar. */
+  everyDayActivePoint: EveryDayActivePointRow[] = [];
+  /** game."Every_Day_Active_Reward_Template" agrupado por RewardID (FindEveryDayActiveRewardTemplate equivalente). */
+  everyDayActiveReward = new Map<number, EveryDayActiveRewardRow[]>();
 
   async load(db: Database): Promise<this> {
-    const [da, ub, ach, ac, ag, eg, la] = await Promise.all([
+    const [da, ub, ach, ac, ag, eg, la, eap, ear] = await Promise.all([
       db.select().from(game.Daily_Award),
       db.select().from(game.LoadUserBox),
       db.select().from(game.Achievement),
@@ -39,6 +46,8 @@ export class EventData {
       db.select().from(game.Achievement_Goods),
       db.select().from(game.Event_Reward_Goods),
       db.select().from(game.Login_Award_Item_Template),
+      db.select().from(game.Every_Day_Active_Point_Template),
+      db.select().from(game.Every_Day_Active_Reward_Template),
     ]);
     this.dailyAward = da;
     this.userBox = [...ub].sort((a, b) => a.ID - b.ID);
@@ -47,6 +56,8 @@ export class EventData {
     this.achGoods = group(ag, (g) => g.AchievementID);
     this.eventGoods = eg;
     this.loginAward = la;
+    this.everyDayActivePoint = [...eap].sort((a, b) => a.ID - b.ID);
+    this.everyDayActiveReward = group(ear, (r) => r.RewardID);
     return this;
   }
 

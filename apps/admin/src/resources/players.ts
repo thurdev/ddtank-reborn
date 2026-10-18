@@ -21,6 +21,8 @@ export const players = defineResource({
     { name: "NickName", label: "Apelido", type: "text", list: true, sortable: true, readOnly: true },
     { name: "UserName", label: "Conta", type: "text", list: true, readOnly: true },
     { name: "State", label: "Online", type: "select", list: true, readOnly: true, options: [{ value: 0, label: "Offline", tone: "neutral" }, { value: 1, label: "Online", tone: "mint" }] },
+    { name: "OnlineServerID", label: "Canal", type: "ref", refResource: "server-list", refLabel: "Name", list: true, readOnly: true, hint: "Canal onde o jogador está logado agora (0/vazio = offline)." },
+    { name: "ConsortiaID", label: "Sociedade", type: "ref", refResource: "guilds", refLabel: "ConsortiaName", list: true, sortable: true, readOnly: true },
     { name: "Grade", label: "Nível", type: "number", min: 1, max: 100, list: true, sortable: true, required: true },
     { name: "GP", label: "EXP (GP)", type: "number", min: 0 },
     { name: "Gold", label: "Ouro", type: "number", min: 0, list: true, sortable: true, required: true },

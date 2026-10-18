@@ -77,7 +77,7 @@ export const quests = defineResource({
     { name: "NeedMaxLevel", label: "Nível máx.", type: "number", min: 0, max: 100, default: 100 },
     { name: "PreQuestID", label: "PreQuestID", type: "text", hint: "IDs separados por vírgula" },
     { name: "NextQuestID", label: "NextQuestID", type: "text" },
-    { name: "MapID", label: "MapID", type: "number", default: 0 },
+    { name: "MapID", label: "Mapa", type: "ref", refResource: "maps", refLabel: "Name", list: true, default: 0 },
     { name: "CanRepeat", label: "Repetível", type: "boolean", list: true, section: "Repetição" },
     { name: "RepeatInterval", label: "Intervalo", type: "number", default: 1, section: "Repetição" },
     { name: "RepeatMax", label: "Máx. repetições", type: "number", default: 1, section: "Repetição" },
@@ -107,7 +107,7 @@ export const questConditions = defineResource({
   titleField: "CondictionTitle",
   defaultSort: "QuestID",
   fields: [
-    { name: "QuestID", label: "QuestID", type: "number", required: true, list: true, sortable: true, form: "create" },
+    { name: "QuestID", label: "Missão", type: "ref", refResource: "quests", refLabel: "Title", required: true, list: true, sortable: true, form: "create" },
     { name: "CondictionID", label: "CondictionID", type: "number", required: true, list: true, form: "create" },
     { name: "CondictionTitle", label: "Título", type: "text", required: true, list: true, span: 2 },
     { name: "CondictionType", label: "Tipo", type: "number", required: true, list: true },
@@ -127,7 +127,7 @@ export const questGoods = defineResource({
   idField: ["QuestID", "RewardItemID"],
   defaultSort: "QuestID",
   fields: [
-    { name: "QuestID", label: "QuestID", type: "number", required: true, list: true, sortable: true, form: "create" },
+    { name: "QuestID", label: "Missão", type: "ref", refResource: "quests", refLabel: "Title", required: true, list: true, sortable: true, form: "create" },
     { name: "RewardItemID", label: "Item", type: "item-picker", required: true, list: true, form: "create" },
     { name: "RewardItemCount", label: "Quantidade", type: "number", min: 1, default: 1, list: true },
     { name: "RewardItemValid", label: "Validade (dias)", type: "number", min: 0, default: 0, list: true },

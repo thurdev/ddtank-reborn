@@ -127,6 +127,13 @@
       "when": 1792331295070,
       "tag": "0017_yummy_shriek",
       "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1792345960426,
+      "tag": "0018_black_amphibian",
+      "breakpoints": true
     }
   ]
 }
