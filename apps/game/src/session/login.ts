@@ -246,6 +246,10 @@ async function doQuit(ctx: ServerContext, p: GamePlayer): Promise<void> {
     // 6600 client already sent 262/2 PLAYEREXIT on its way out of StateType.MAIN (StateManager.as:265-268),
     // so this only matters for a hard disconnect from inside the hall itself (no 4.1 client ever registers).
     ctx.newHall.removePlayer(p.id);
+    // BaseConsBatRoom.RemovePlayer isn't called from the original's GamePlayer.Quit either — same "the client
+    // already left the scene on its way out" reasoning as NewHallRoom above (153/5 DELETE_PLAYER sent on a
+    // normal exit); only matters here for a hard disconnect from inside the consortia-battle arena.
+    ctx.consBat.removePlayer(p);
   } catch (err) {
     ctx.log.error("quit: room cleanup failed", err);
   }

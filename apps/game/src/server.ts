@@ -20,6 +20,7 @@ import { checkMissingHeartbeat } from "./handlers/basico/index.js";
 import { GameClient, type Transport } from "./session/client.js";
 import { World, type ServerContext, type TicketValidator } from "./session/context.js";
 import { NewHallRoom } from "./game/new-hall.js";
+import { ConsBatRoom } from "./game/consortia-battle.js";
 import { dbTicketValidator, quitPlayer } from "./session/login.js";
 import { consortiaGameOver } from "./handlers/sociedade/index.js";
 import { consortiaMgr } from "./game/consortia-mgr.js";
@@ -235,6 +236,7 @@ export class GameServer {
       cfg, db, templates, lang, log, rooms, fight, rsaKey, zoneId, zoneName, bus,
       world: new World(),
       newHall: new NewHallRoom(),
+      consBat: new ConsBatRoom(),
       tickets: this.opts.tickets ?? dbTicketValidator(db, cfg.DEV_ALLOW_ANY_TICKET),
       now: () => new Date(),
       leader: undefined as never, // set right below: wireLeaderElection precisa do ctx já montado

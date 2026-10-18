@@ -9,7 +9,7 @@ import { PlayerState, type RoomMember } from "../game/player.js";
 import type { ClientKind } from "../game/player-info.js";
 import type { FightEngine } from "../fight/types.js";
 import type { BotProvider, VirtualPlayer } from "../bots/bot.js";
-import { BaseRoom, RoomType } from "./room.js";
+import { BaseRoom, RoomType, GameType } from "./room.js";
 
 export interface RoomMgrOptions {
   maxRooms: number;
@@ -323,6 +323,36 @@ export class RoomMgr {
         this.processMatchQueue(Date.now());
       } else this.launchPve(room, players);
       this.sendUpdateCurrentRoom(room);
+    });
+  }
+
+  /**
+   * CreateConsortiaBattleRoomAction (Rooms/CreateConsortiaBattleRoomAction.cs): both players join a free room
+   * directly (no lobby/ready step — same "jump straight to StartPVPGame once PlayerCount==2" as the original)
+   * at `RoomType.ConsortiaBattle`/`GameType.ConsortiaBattle`, timeMode 2, mapId 0 (`UpdateRoom(..., byte_0:
+   * 2, 0)`); `launch()`'s `DdtFightEngine.startPvp` falls back to a real map when 0 isn't one, same as every
+   * other 1v1 room already does. Deviation: the original's second removal (Execute():42-44) is
+   * `gamePlayer_1.CurrentRoom.RemovePlayerUnsafe(gamePlayer_0)` — the WRONG player passed to that call
+   * (harmless no-op there: removing a non-member does nothing) — fixed here to remove `b` from its own room.
+   * Called from `game/consortia-battle.ts ConsBatRoom.challenge()`.
+   */
+  createConsortiaBattleRoom(a: RoomMember, b: RoomMember): void {
+    this.addAction(() => {
+      a.currentRoom?.removePlayer(a);
+      b.currentRoom?.removePlayer(b);
+      const room = this.rooms.find((r) => !r.IsUsing);
+      if (!room) return;
+      this.waitingRemove(a);
+      room.start();
+      room.updateRoom("Consortia Battle", "12dasSda44", RoomType.ConsortiaBattle, 2, 0);
+      a.send(Out.roomCreate(room, a.clientKind));
+      if (room.addPlayer(a)) {
+        this.waitingRemove(b);
+        b.send(Out.roomLoginResult(true));
+        b.send(Out.roomCreate(room, b.clientKind));
+        room.addPlayer(b);
+      }
+      if (room.PlayerCount === 2) this.launch([room], [a], [b], RoomType.ConsortiaBattle, GameType.ConsortiaBattle, 2, 0);
     });
   }
 
