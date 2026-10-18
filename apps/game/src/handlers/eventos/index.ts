@@ -35,6 +35,17 @@
  *                              WONDERFUL_GETREWARD (sem handler no original, no-op)
  *   compra-em-grupo.ts        (ícone "Compra em Grupo", m3-eventos-b) — 144 GROUP_PURCHASE (sem handler nem
  *                              sender no C# original — feature nunca ligada em produção, no-op)
+ *   sete-dobrado.ts           (minijogo "Sete Dobrado", m3-seven-double) — 148 SEVEN_DOUBLE (tela nunca
+ *                              abre no original — START_OR_END nunca enviado, mesma categoria do
+ *                              compra-em-grupo.ts acima — no-op)
+ *   launcher-login.ts         (sem tela, m3-launcher-login) — 208 LAUNCHER_LOGIN (`sendDeskTopLogin`,
+ *                              flag de cliente puro via ExternalInterface; descartado também no
+ *                              servidor original — no-op, nunca dar recompensa por um flag de cliente)
+ *   sweep-diversos.ts         (sem tela, m3-misc-sweep) — 101 BATTLE_COMPANION_GIVE, 147 FIND_BACK_INCOME,
+ *                              157 RECHARGE, 164 UPDATE_PLAYER_PROPERTY, 207 REQUEST_FRIENDS_PAY, 327
+ *                              FAST_AUCTION_SMALL_BUGLE, 360 GET_CSM_BOX (100% mortos ou no-op funcional
+ *                              no original) + 152 FIGHTFOOTBALLTIMETAKEOUT/156 TRANSNATIONAL_BUYGOODS
+ *                              (reais no original, dependem de subsistema não portado — stub documentado)
  *
  * 104 CARD_LOTTERY / 105 LUCK_LOTTERY / 239 GOTO_CARD_LOTTERY / 11 ACTIVE_PULLDOWN: SAÍRAM de "morto" —
  * ver `progressao/loterias.ts` (design próprio, sem fonte C#). 37-45 LanternRiddles de 145 ACTIVITY_SYSTEM
@@ -64,6 +75,12 @@ import { activitySystemRouter } from "./caminho-da-luz.js";
 import { oldPlayerRegressHandler } from "./jogador-antigo.js";
 import { wonderfulActivity, wonderfulActivityInit, wonderfulActivityGetReward } from "./atividade-maravilhosa.js";
 import { groupPurchase } from "./compra-em-grupo.js";
+import { sevenDouble } from "./sete-dobrado.js";
+import { launcherLogin } from "./launcher-login.js";
+import {
+  battleCompanionGive, findBackIncome, rechargeGetSpree, updatePlayerProperty, requestFriendsPay,
+  fastAuctionSmallBugle, getCsmBox, fightFootballTimeTakeout, transnationalBuyGoods,
+} from "./sweep-diversos.js";
 
 /**
  * Tabela código → função → ícone do jogo. Cada linha é um pacote que o cliente manda; a ordem aqui não
@@ -132,4 +149,25 @@ export function registerEventos(r: HandlerRegistry): void {
   // Compra em Grupo (m3-eventos-b) — sem handler nem sender no C# original, feature nunca ligada em
   // produção (ver compra-em-grupo.ts). No-op, mesma categoria de 211/215 em roleta.ts.
   r.player(144, "GROUP_PURCHASE", (ctx, p, pkt) => groupPurchase(ctx, p, pkt), "stub");
+
+  // Sete Dobrado (m3-seven-double) — tela nunca abre no original (START_OR_END nunca enviado), mesma
+  // categoria de 144 acima. Ver sete-dobrado.ts.
+  r.player(148, "SEVEN_DOUBLE", (ctx, p, pkt) => sevenDouble(ctx, p, pkt), "stub");
+
+  // Launcher desktop (m3-launcher-login) — flag de cliente puro, descartado também no original. Ver
+  // launcher-login.ts. (208 colide com CARDS_SOUL no enum 6600 — CARDS_SOUL nunca é enviado por nenhum
+  // código do servidor original tampouco, sem conflito prático de dispatch.)
+  r.player(208, "LAUNCHER_LOGIN", (ctx, p, pkt) => launcherLogin(ctx, p, pkt), "stub");
+
+  // Varredura m3-misc-sweep (códigos pequenos restantes do relatório) — ver sweep-diversos.ts pro
+  // achado de cada um (100% morto / no-op funcional / depende de subsistema não portado).
+  r.player(101, "BATTLE_COMPANION_GIVE", (ctx, p, pkt) => battleCompanionGive(ctx, p, pkt), "stub");
+  r.player(147, "FIND_BACK_INCOME", (ctx, p, pkt) => findBackIncome(ctx, p, pkt), "stub");
+  r.player(152, "FIGHTFOOTBALLTIMETAKEOUT", (ctx, p, pkt) => fightFootballTimeTakeout(ctx, p, pkt), "stub");
+  r.player(156, "TRANSNATIONAL_BUYGOODS", (ctx, p, pkt) => transnationalBuyGoods(ctx, p, pkt), "stub");
+  r.player(157, "RECHARGE", (ctx, p, pkt) => rechargeGetSpree(ctx, p, pkt), "stub");
+  r.player(164, "UPDATE_PLAYER_PROPERTY", () => updatePlayerProperty(), "stub");
+  r.player(207, "REQUEST_FRIENDS_PAY", (ctx, p, pkt) => requestFriendsPay(ctx, p, pkt), "stub");
+  r.player(327, "FAST_AUCTION_SMALL_BUGLE", (ctx, p, pkt) => fastAuctionSmallBugle(ctx, p, pkt), "stub");
+  r.player(360, "GET_CSM_BOX", () => getCsmBox(), "stub");
 }
