@@ -2,12 +2,26 @@
  * Aba no jogo: "Roleta" / Caddy (caixa de presentes) — abrir um baú de 112019/190000 mostra um tabuleiro de
  * 18 cartas (`RouletteManager.as`/`RouletteView.as`/`surpriseRoulette`), vira carta por carta gastando chave
  * (custo crescente, até 8 vezes) e no fim move tudo pra bolsa real. Também cobre a bancada da Caddy (abrir
- * baú avulso direto, abrir todas as cartas de uma vez, vender tudo) e o ranking "pior sorte".
+ * baú avulso direto, abrir todas as cartas de uma vez, vender tudo), o ranking "pior sorte" e a família
+ * "Pedra da Sorte" do 6600 (m3-caddy-loteria, só client->server novos, mesma tela da Caddy).
  * Pacotes: 26 LOTTERY_OPEN_BOX, 27 LOTTERY_RANDOM_SELECT, 28 LOTTERY_FINISH, 45 CADDY_GET_BADLUCK,
- *   204 OPEN_ALL_CARDBOX, 232 CADDY_SELL_ALL_GOODS.
+ *   204 OPEN_ALL_CARDBOX, 232 CADDY_SELL_ALL_GOODS, 165 LUCKSTONE_CONFIG, 97 LUCKSTONE_RANK_LIMIT,
+ *   211 CADDY_EXCHANGE_ALL, 215 CADDY_CONVERTED_ALL (6600 only, "Pedra da Sorte").
  * C#: `LotteryOpenBoxHandler.cs`, `LotteryRandomSelectHandler.cs`, `LotteryFinishBoxHandler.cs`,
- *   `RequestBadLuckHandler.cs`, `OpenAllCardBoxHandler.cs`, `CaddyClearAllHandler.cs`.
- * Como testar: `apps/game/test/activities.test.ts` (`pickLotteryBoard`). Manual: `docs/features/eventos.md`.
+ *   `RequestBadLuckHandler.cs`, `OpenAllCardBoxHandler.cs`, `CaddyClearAllHandler.cs`,
+ *   `LuckStoneEnableHandler.cs` (165), `CaddyConvertedHandler.cs` (215) — 97/211 têm zero classe `Handle`
+ *   no servidor 6600 decompilado (ver `m3-caddy-loteria` nos builders `Out.luckStone*`/funções abaixo).
+ * Como testar: `apps/game/test/activities.test.ts` (`pickLotteryBoard`),
+ *   `apps/game/test/client-6600-m3-caddy-loteria.test.ts`. Manual: `docs/features/eventos.md`.
+ *
+ * m3-caddy-loteria (2026-10-18): a família "Pedra da Sorte" (97/165/211/215) troca de ouro/cartas por uma
+ * segunda moeda ("LuckStone") que NÃO existe em tabela nenhuma do `.bak` nem do schema atual, e cujo único
+ * builder proativo do C# (`SendLuckStoneEnable`) sempre manda `isOpen=false` — o recurso é um gancho de UI
+ * que o cliente 6600 ganhou mas o servidor original nunca abriu. Portar "de verdade" (inventar uma tabela de
+ * LuckStone/taxas de câmbio) seria criar uma economia nova que não existe no original — em vez disso, os 4
+ * códigos respondem exatamente como o original faria se alguém os disparasse (165/97 fechados, 211/215
+ * no-op sem resposta), o suficiente pra tirar os 4 de MISSING sem inventar comportamento nem abrir uma
+ * superfície de exploit nova.
  */
 import { sql } from "drizzle-orm";
 import { GSPacket } from "@ddt/protocol";
@@ -18,6 +32,7 @@ import type { ItemBoxRow } from "../../db/templates.js";
 import { grantRewards, type Reward } from "../../game/events.js";
 import { createItemBox } from "../bolsa/abrir-caixa.js";
 import { mailItems } from "../bolsa/correio-excedente.js";
+import * as Out from "../../packets/out.js";
 
 // ------------------------------------------------------------------ 26/27/28 tabuleiro de 18 cartas
 /** GamePlayer.Lottery/LotteryID/LotteryItems/LotteryAwardList (in-memory, same as the original). */
@@ -195,4 +210,33 @@ export function caddySellAll(p: GamePlayer): void {
   p.commitChanges();
   const msg = [gold ? `Você recebeu ${gold} de ouro` : "", giftToken ? `Você recebeu ${giftToken} Cupons` : ""].filter(Boolean).join(" ");
   if (msg) p.sendMessage(0, msg);
+}
+
+// ------------------------------------------------------------------ 97/165/211/215 "Pedra da Sorte" (6600)
+/** 165 LUCKSTONE_CONFIG: `requestForLuckStone()` sends zero fields; always closed, see `Out.luckStoneConfigClosed`. */
+export function luckStoneConfig(ctx: ServerContext, p: GamePlayer): void {
+  p.send(Out.luckStoneConfigClosed(ctx.now()));
+}
+
+/** 97 LUCKSTONE_RANK_LIMIT: `sendQequestLuckky(isOpen=false)` sends 1 bool the original never reads back (no
+ *  `PacketHandler(97)` exists) — always closed/empty, see `Out.luckStoneRankLimitClosed`. */
+export function luckStoneRankLimit(_ctx: ServerContext, p: GamePlayer, pkt: GSPacket): void {
+  pkt.readBoolean(); // isOpen (unused by the original — no server handler ever read it either)
+  p.send(Out.luckStoneRankLimitClosed());
+}
+
+/** 211 CADDY_EXCHANGE_ALL: `sendExchange()` sends zero fields. No `PacketHandler(211)` class exists in the
+ *  decompiled 6600 server (confirmed by grep across `Game.Server.Packets.Client`) — dead wire, no reply. */
+export function caddyExchangeAll(ctx: ServerContext, p: GamePlayer): void {
+  ctx.log.debug(`211 CADDY_EXCHANGE_ALL: noop (player=${p.id})`);
+}
+
+/** 215 CADDY_CONVERTED_ALL: `CaddyConvertedHandler.cs` (6600) reads 3 fields and returns 0 without ever
+ *  writing a reply — ported verbatim (dead feature, same "exchange lottery score" flow as 211 above, wired
+ *  client-side but never finished server-side). */
+export function caddyConvertedAll(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): void {
+  const isConver = pkt.readBoolean();
+  const totalScore = pkt.readInt();
+  const lotteryScore = pkt.readInt();
+  ctx.log.debug(`215 CADDY_CONVERTED_ALL: noop (player=${p.id}, isConver=${isConver}, totalScore=${totalScore}, lotteryScore=${lotteryScore})`);
 }
