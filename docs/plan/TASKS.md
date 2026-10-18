@@ -94,22 +94,194 @@
   `research/6600/packets-m1.md` "M2 forja".
 - [ ] **m2-cutover** — 6600 vira o padrão em `/play`; 4.1 fica em `?client=41` até ser removido.
 
-### M3 / M4 / M5
-Ver [MIGRACAO-6600.md §5](./MIGRACAO-6600.md#5-plano-por-fases): endpoints novos, sistemas novos, features da
-referência (Coleta, Resgate, Nian, Passe Clássico…), remaster HD/PT-BR das telas novas. Quebrar em tarefas
-aqui quando o M2 fechar.
+### M3 — resto dos handlers + endpoints novos
+Ver [MIGRACAO-6600.md §5](./MIGRACAO-6600.md#5-plano-por-fases). Inventário completo (pacotes por área +
+endpoints nativo/snapshot/vazio) em **`research/6600/coverage-m3.md`**, gerado por
+`node tools/qa/packet-coverage-6600.mjs` (reexecutar sempre que handlers/endpoints novos entrarem — é o
+termômetro de progresso citado no critério de saída do M3). Tarefas abaixo ordenadas por valor pra um
+servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada uma é ~1 família de handler
+(1 agente). C# a espelhar sempre em `vendor/DDT-6600/Source/Game.Server/Game.Server.*` (código 6600) +
+`vendor/DDT-6600/Flash_Project/DDT660/src` (cliente AS3, pra achar o `*SocketOut.as` que envia o pacote).
+
 - [x] **m3-figurino** (2026-10-18) — `PLAYER_DRESS` (237, 6600 "figurino"/dress room, GAP deixado pelo
   `m2-bolsa`): salvar/trocar/travar preset (sub 1/2/7) + mesclar validade de itens duplicados (sub 6)
   implementados por completo (`handlers/bolsa/vestir-6600.ts`), persistidos em `player."Sys_Users_Extra"`
   (`DressModelArr`/`CurentDressModel`, migration 0013 já tinha as colunas — nenhuma migração nova). Sem
   "renomear" preset (não existe no protocolo real, só 3 modelos de rótulo fixo) nem bag "Relíquias"/
-  "AvatarBag" separada (presets vivem em `p.equipBag`); bug original replicado (não corrigido): FOLD_DRESS
-  não remove o item de destino. Dano mágico por item (`MagicAttack`/`MagicDefence`, inerte desde
-  `m2-batalha`) ligado de verdade: `game/stats.ts computeStats()` soma os itens equipados ->
+  "AvatarBag" separada (presets vivem em `p.equipBag`). Dano mágico por item (`MagicAttack`/`MagicDefence`,
+  inerte desde `m2-batalha`) ligado de verdade: `game/stats.ts computeStats()` soma os itens equipados ->
   `GamePlayer.magicAttack`/`magicDefence` -> `fight/ddt.ts specOf()` -> `PlayerSpec` (fonte é a EquipBag
   normal, não a bag de Relíquias real do 6600 — ainda não portada, M4+) -> exposto em `67
   UPDATE_PLAYER_INFO`/`74 ITEM_EQUIP` (eram stub `0`/`0`). 4.1 inalterado (nunca manda 237 no login, nunca
-  ganha os campos de magic). Ver `research/6600/packets-m1.md` "M3 figurino".
+  ganha os campos de magic). Ver `research/6600/packets-m1.md` "M3 figurino". **Correção (commit
+  `f9e563b`):** o bug "FOLD_DRESS não remove o item de destino" era um exploit de duplicação de item —
+  corrigido depois (não deixado como estava).
+- [x] **m3-ashx** — 35 endpoints `.ashx`/`.xml` do 6600 portados de verdade (boot/hall) em vez de
+  stub/snapshot: 7 `.ashx` novos + 3 stubs promovidos (`AdvanceQuestTime`/`VoteSubmit`/`LogTime`) +
+  `SearchGoodsTemp` reaproveitado + 19 `.xml` novos (`templates/defs.ts`) + `ConsortiaBossConfigLoad`.
+  Detalhe completo, inclusive os 26 que ficaram de fora (precisam schema novo ou não têm fonte C# no
+  vendor) em `research/6600/ashx-missing.md`. Commit `36f75ec`.
+- [x] **m3-fusao** — fusão por receita do 6600 (`78 ITEM_FUSION`, `store/newFusion/*`,
+  `GameSocketOut.sendItemFusion`), substituindo a bancada de 4 pedras idênticas da 4.1 só pro
+  `clientKind==="6600"`. Tabela nova `game."Item_Fusion_New"` (nome 6600 colide com a `Item_Fusion` 4.1 já
+  existente, shape incompatível — renomeada via `RENAME_6600`), 206 receitas reais seedadas,
+  `FusionInfoLoad.xml` gerado do banco em vez do snapshot. Commit `011a1ee`.
+- [x] **m3-coverage** (esta tarefa) — `tools/qa/packet-coverage-6600.mjs` (pacotes: todo
+  `new PackageOut(ePackageType.X)` do AS3 6600 vs `ePackageType.cs` 6600 vs o registro vivo de
+  `apps/game/src/handlers`; endpoints: árvore real de `vendor/DDT-6600/Request` — 356 arquivos distintos,
+  não os "263+184+35" de `MIGRACAO-6600.md` §1.3, que conta duplicado de `obj/`/publish — vs
+  `apps/api/src/request/registry.ts` + `templates/defs.ts`) → `research/6600/coverage-m3.md` (tabelas por
+  área + totais: pacotes 213 códigos enviados pelo cliente, 131 implemented/22 partial/8 stub/52 MISSING;
+  endpoints 145 native/19 native-rebuild/44 snapshot/33+66+32 vazio por motivo/15+2 não roteado). Achado
+  notável: `48 SEll_GOODS` (vender item) é **MISSING tanto na 4.1 quanto no 6600** (único código ausente
+  no relatório da 4.1 também, `research/qa/packet-coverage.tsv`) — gap pré-existente, não específico do
+  6600, listado abaixo (`m3-sell-goods`). Pesquisa de "cheap win" de endpoint feita até o fim: nenhum
+  endpoint novo portado nesta tarefa — os candidatos óbvios da árvore completa (`nicknamerandom.ashx`,
+  `DropItemForNewRegister.ashx`, `SavePlayerAction.ashx`) não são chamados pelo cliente 6600 (grep vazio em
+  `vendor/DDT-6600/Flash_Project`, só existem no 4.1/ferramenta admin), e `CelebByTotalPrestige`/
+  `ActivitySystemItemsRate` são código morto no próprio C# 6600 original (lógica comentada / loader sem
+  `analyzer`) — registrado aqui pra não reabrir: o barato já tinha sido feito no `m3-ashx`.
+
+**Bolsa/Loja/Missões (core, maior valor — todo jogador passa por aqui):**
+- [ ] **m3-sell-goods** — `48 SEll_GOODS` (`sendSellGoods`, `ddt/manager/GameSocketOut.as`): vender item
+  direto da bolsa por ouro (distinto de `55 PROP_SELL`, já em `loja/props-de-luta.ts`). MISSING na 4.1 e no
+  6600 (gap cross-version, não introduzido por esta migração) — achar o dispatch de `SEll_GOODS` no C#
+  original (`vendor/DDTank41/Game.Server`, código idêntico nas duas versões) antes de implementar.
+- [ ] **m3-item-refinery** — `210 ITEM_REFINERY` (6600; era `110` na 4.1 — **valor trocado**, não portar o
+  enum igual, `MIGRACAO-6600.md` §1.1). `sendItemLianhua` (`GameSocketOut.as`) — "refinaria"/lapidação de
+  item. Achar o handler 4.1 que trata `110` hoje em `apps/game/src/handlers/forja/*` e branchar por
+  `clientKind` pro código novo.
+- [ ] **m3-baglock-recovery** — `403 BAGLOCK_PWD` sub-ações `getBackLockPwdByPhone`/`getBackLockPwdByQuestion`/
+  `deletePwdQuestion`/`deletePwdByPhone`/`checkPhoneBind` (`GameSocketOut.as`) — recuperação de senha da
+  bolsa por telefone/pergunta secreta. MISSING nos dois clientes (código idêntico). Validar
+  telefone/pergunta cadastrados antes de liberar (não é bypass, é recuperação — não enfraquecer a senha).
+- [ ] **m3-everyday-active** — `155 EVERYDAY_ACTIVEPOINT` (`addSpeed`/`sendGetGoods`/`enterDayActivity`/
+  `sendExpBlessedData`, `GameSocketOut.as`) — aba "Sist. Treino" da bolsa nova (`MIGRACAO-6600.md` §4,
+  tabelas `game.Every_Day_Active_*` já existem desde `m1-schema`/`m3-ashx`, só falta o handler de
+  ação/pontos; os `.xml` de template já foram portados no `m3-ashx`).
+- [ ] **m3-mystery-shop** — `278 MYSTERY_SHOP` (`sendGypsyBuy`/`sendGypsyRefreshItemList`/
+  `sendGypsyManualRefreshItemList`/`sendGypsyRefreshRareList`/`sendRequestGypsyNPCState`,
+  `GameInSocketOut.as`) — Loja Cigana (`gypsyshop.swf`, `src/gypsyShop/`). Sistema novo do 6600.
+- [ ] **m3-shop-buylimited** — `288 SHOP_BUYLIMITEDCOUNT` (`sendGetShopBuyLimitedCount`) — limite diário de
+  compra por item na loja. Pequeno, provavelmente só precisa de um contador por jogador+item+dia.
+- [ ] **m3-caddy-loteria** — `97 LUCKSTONE_RANK_LIMIT`, `165 LUCKSTONE_CONFIG`, `211 CADDY_EXCHANGE_ALL`,
+  `215 CADDY_CONVERTED_ALL` (`GameSocketOut.as`) — família "pedra da sorte"/loteria Caddy (distinta da
+  `137 LEFT_GUN_ROULETTE`, já portada no M1). Agrupar numa tarefa só por serem a mesma tela.
+- [ ] **m3-cards-slot** — `170 CARDS_SLOT` (`sendUpdateSLOT`/`sendResetCardSoul`) — gerenciar slot de
+  cartas/resetar "card soul" (sistema novo do 6600, relacionado ao `216 CARDS_DATA` já portado no M1/M2).
+- [ ] **m3-achievement-update** — `229 ACHIEVEMENT_UPDATE` (`sendModifyInfo`) — marcar progresso/visto de
+  conquista. Pequeno, `228`/`231` (lista/dados) já implementados.
+
+**Sistemas médios (guilda/GvG, eventos, automação):**
+- [ ] **m3-king-bless-deed** — `142 KING_BLESS_MAIN` (`sendOpenKingBless`/`sendOpenDeed`) e
+  `143 KING_BLESS_USE_ITEM` (`sendUseItemKingBless`/`sendUseItemDeed`) — "Juramento do Rei"
+  (`kingbless.swf`, `src/kingBless/`) + sistema "Deed"/escritura. Hoje só existe o stub fechado
+  (`Out.kingBlessClosed()`, M1 Round 2) — esta tarefa é a feature de verdade (abrir/usar item).
+- [ ] **m3-magic-stone-monster** — `284 MAGIC_STONE_MONSTER_INFO` (`sendCheckMagicStoneNumber`) — consulta
+  de monstro/Relíquias (`magicstone.swf`, `src/magicStone/`), parte do sistema maior de Relíquias (M4) mas
+  esta ação é uma consulta simples isolada.
+- [ ] **m3-consortia-battle** — `153 CONSORTIA_BATTLE` (`sendConsBatRequestPlayerInfo`/`sendConsBatMove`/
+  `sendConsBatChallenge`/`sendConsBatExit`/`sendConsBatConsume`/`sendConsBatUpdateScore`/
+  `sendConsBatConfirmEnter`, `GameSocketOut.as`) — arena de guerra de guildas (GvG). Sistema grande,
+  `Fighting.Server/Guild` já é quase idêntico entre versões (`MIGRACAO-6600.md` §2.1) — reaproveitar o
+  motor, só o protocolo de entrada/pontuação é novo.
+- [ ] **m3-trusteeship** — `140 TRUSTEESHIP` (`sendTrusteeshipStart`/`Cancel`/`SpeedUp`/`BuySpirit`/
+  `UseSpiritItem`) — modo automático/curadoria de personagem (sistema novo do 6600, sem equivalente 4.1).
+- [ ] **m3-dice-system** — `134 DICE_SYSTEM` (`sendDiceRefreshData`/`sendStartDiceInfo`/
+  `sendRequestEnterDiceSystem`, `GameInSocketOut.as`) — Sistema de Dados (`dice.swf`, `src/Dice/`).
+- [ ] **m3-campbattle** — `146 CAMPBATTLE` (`CampbattleEnterFight`/`RoleMove`/`changeMap`/`outCampBatttle`/
+  `captureMap`/`requestPRankList`/`requestCRankList`/`enterPTPFight`/`returnToPve`/`resurrect`) — Batalha de
+  Acampamento (`campbattle.swf`). Sistema maior, 10 sub-ações.
+- [ ] **m3-group-purchase** — `144 GROUP_PURCHASE` (`sendGroupPurchaseRefreshData`/`RefreshRankData`/`Buy`) —
+  Compra em Grupo (`grouppurchase.swf`). O `.cs` original (`teambuyactiveawardinfo.cs`, já portado no
+  `m3-ashx`) é sempre `value=false` — confirmar se este pacote de socket também é feature inacabada no
+  original antes de implementar lógica de verdade (não inventar comportamento).
+- [ ] **m3-seven-double** — `148 SEVEN_DOUBLE` (`sendSevenDoubleCallCar`/`StartGame`/`CancelGame`/`Ready`/
+  `Move`/`UseSkill`/`CanEnter`/`EnterOrLeaveScene`) — minijogo "Sete Dobrado" (`src/sevenDouble/`, SWF não
+  identificado por nome — ver `research/6600/swf-inventory.md`, candidato `church.swf`).
+- [ ] **m3-ringstation** — `404 RING_STATION` (`sendRingStationGetInfo`/`sendBuyBattleCountOrTime`/
+  `sendRingStationChallenge`/`sendRingStationArmory`/`sendRingStationBattleField`/`sendRingStationFightFlag`/
+  `sendSignMsg`/`receiveLandersAward`) — Arena Ranqueada (`ringstation.swf`). Sistema "bem mais elaborado"
+  que a 4.1 (`MIGRACAO-6600.md` §2.1, 4 pastas C#: `RingStation`/`.Battle`/`.RoomGamePkg`/
+  `.RoomGamePkg.TankHandle`) — maior tarefa única da lista; considerar quebrar em sub-tarefas (inscrição/
+  matchmaking, batalha, recompensa) quando for pegar.
+- [ ] **m3-oldplayer-regress** — `149 OLDPLAYER_REGRESS` (`sendRegressPkg`/`RegressGetAwardPkg`/
+  `RegressCheckPlayer`/`RegressApplyEnable`/`RegressApllyPacks`/`RegressCall`/`RegressRecvPacks`/
+  `RegressTicketInfo`/`RegressTicket`/`UpdateIntegral`/`BuyRegressIntegralGoods`) — sistema "jogador que
+  voltou" (retenção), 11 sub-ações, sistema novo do 6600.
+- [ ] **m3-wonderful-activity** — `159 WONDERFUL_ACTIVITY`, `373 WONDERFUL_GETREWARD`,
+  `405 WONDERFUL_ACTIVITY_INIT` — evento genérico (nome a confirmar jogando — não achei SWF nem
+  `*PackageType.as` dedicado pelo grep, procurar manualmente antes de implementar lógica).
+- [ ] **m3-accumulative-login** — `238 ACCUMULATIVELOGIN_AWARD` (`sendAccumulativeLoginAward`) —
+  recompensa por dias de login acumulados (distinto do `13 DAILY_AWARD`/calendário já portado).
+- [ ] **m3-launcher-login** — `208 LAUNCHER_LOGIN` (`sendDeskTopLogin`) — login alternativo vindo do
+  launcher desktop (`apps/launcher`). **Cuidado de valor**: `208` colide com `CARDS_SOUL` no próprio enum
+  6600 (`MIGRACAO-6600.md` §1.1/§1.4) — decidir manualmente qual mapear, não gerar dos dois automaticamente.
+
+**Sweep (vários códigos pequenos, investigar um a um na mesma tarefa):**
+- [ ] **m3-misc-sweep** — códigos pequenos restantes do relatório; confirmar se é feature morta no C#
+  original antes de implementar (igual `m3-group-purchase` acima): `101 BATTLE_COMPANION_GIVE`,
+  `147 FIND_BACK_INCOME`, `152 FIGHTFOOTBALLTIMETAKEOUT`, `156 TRANSNATIONAL_BUYGOODS`, `157 RECHARGE`
+  (`getspree`), `164 UPDATE_PLAYER_PROPERTY`, `207 REQUEST_FRIENDS_PAY`, `327 FAST_AUCTION_SMALL_BUGLE`,
+  `360 GET_CSM_BOX`. Ver `research/6600/coverage-m3.md` pra função cliente + arquivo exatos de cada um.
+- [ ] **m3-partial-sweep** — os 22 códigos com status `partial` no relatório (handler existe mas marcado
+  incompleto): revisar campo a campo 6600 vs 4.1, mesma metodologia dos Rounds 1-3 de
+  `research/6600/packets-m1.md` (ler o reader AS3 das duas versões, comparar byte a byte, `offset===length`
+  no teste). Lista completa em `research/6600/coverage-m3.md` (coluna "Status servidor" = `partial`).
+
+**Endpoints (.ashx/.xml) — resto do `research/6600/ashx-missing.md`, não feito no `m3-ashx`:**
+- [ ] **m3-endpoints-aninhados** — `CommunalActive.xml` (3 tabelas: `game.Communal_Active` + `_Award` +
+  `_Exp`) e `GmActivityInfo.xml` (4 tabelas: `game.GM_Activity`/`GM_Gift`/`GM_Active_Reward`/
+  `GM_Active_Condition`) — as tabelas já existem (`packages/db/src/schema/game.ts`), só falta ler o
+  analyzer AS3 certo (`ddt/loader/LoaderCreate.as`) pra montar o XML aninhado certo (mesmo padrão do builder
+  `achievementlist` em `apps/api/src/templates/defs.ts`, que já aninha `Item_Condiction`/`Item_Reward`).
+  Não é falta de schema, é complexidade de builder — por isso ficou de fora do `m3-ashx`.
+- [ ] **m3-endpoints-schema** — endpoints que precisam de tabela nova: `ButtonConfig.xml`,
+  `ChargeSpendRewardTemplateInfoList.xml`, `FoodComposeList.xml`, `ItemStrengthenData.xml`,
+  `LoadAllQuestions.xml`, `LoadChargeActiveTemplate.xml`, `LotteryShowTemplate.xml`, `MagicItemTemp.xml`,
+  `MissionEnergyPrice.xml`, `SearchGoodsPayMoney.xml`, `WarriorFamRankList.xml`, `GoodsCollect.xml`,
+  `HelpGameReward.xml`. Detalhe de cada um (por que não tem tabela, candidatos descartados) em
+  `research/6600/ashx-missing.md` §Pendências.
+- [ ] **m3-endpoints-sem-fonte** — `GetFightReport`, `ConsortiaMatchHistory`, `DragonBoatFriendInfos`,
+  `LoginRemoveSmallAccount`, `ProxyVIP`, `RecordSysInfo`, `RecordUserVersion`, `ResetPassword4399`: sem
+  `.cs` em nenhum vendor — só revisitar se aparecer outro dump do 6600; não implementar comportamento
+  adivinhado (regra do projeto: comportamento bate com o C# original, nunca chute).
+
+### M4 — features novas da referência DDClássico
+Ordem de confiança do mapa (`MIGRACAO-6600.md` §4): nome bate exato com a feature pedida primeiro, "a
+confirmar jogando" depois. Cada uma depende do pacote/sistema M3 correspondente quando citado.
+- [ ] **m4-coleta** — Coleta (`collectiontask.swf`, `261 COLLECTION_TASK` — já listado em M3 como pacote
+  faltante; esta tarefa é o polish de UI/remaster + ligar ao backend). Nome bate exato, baixo risco.
+- [ ] **m4-resgate** — Resgate (`rescue.swf`, `277 RESCUE`). Nome bate exato, baixo risco.
+- [ ] **m4-catchbeast** — Capturar Nian (`catchbeast.swf`, `src/catchbeast/date/CatchBeastPackageType.as`).
+  **Código de dispatch top-level não encontrado** em `ePackageType.cs` nem no scan de client-sends desta
+  tarefa — confirmar se usa um código existente (ex. dentro de `ACTIVE_SYSTEM`) antes de implementar.
+- [ ] **m4-passe-classico** — Passe Clássico / battle pass (`growthpackage.swf`,
+  `src/growthPackage/GrowthPackageType.as` — valores a extrair). Maior esforço de design (progressão +
+  loja de pontos), mas nome bate com o pedido do dono.
+- [ ] **m4-vestir-encanto-reliquias** — Vestir com Encanto (`enchant.swf` + `playerdress.swf`,
+  `280 ITEM_ENCHANT`, listado em M3 "Bolsa/Itens") + Relíquias de verdade (`magicstone.swf`, bag separada —
+  hoje o dano mágico usa a EquipBag normal, nota do `m3-figurino`). "A confirmar jogando"
+  (`MIGRACAO-6600.md` §4) antes de desenhar a UI.
+- [ ] **m4-liga-exploradores** — Liga dos Exploradores (`kingdivision.swf`, `328 KING_DIVISION`). Depende
+  de cross-server — decisão já tomada em `research/6600/crosszone.md` (**não** portar Crosszone de
+  verdade; implementar como matchmaking local).
+- [ ] **m4-eventos-sazonais** — escolher 1-2 de `christmas.swf`/`halloween.swf`/`newyearrice.swf`/
+  `worshipTheMoon.swf`/`dragonboat.swf`/`magpiebridge.swf`/`cryptBoss.swf`/`bombking.swf` (não os ~8 de
+  uma vez, `MIGRACAO-6600.md` §5 M4) — pedir ordem ao dono antes de começar.
+- [ ] **m4-montaria** — Montaria (`horse.swf` 2.1 MB, maior SWF novo + `horseRace.swf`). Feature grande,
+  tabelas já existem desde `m1-schema` (`Mount_Data`, `Mount_Template`, etc.).
+- [ ] **m4-ringstation-ui** — ligar a UI (`ringstation.swf`) ao backend de `m3-ringstation` quando pronto
+  (trabalho client-side/wiring, não lógica de servidor nova).
+
+### M5 — remaster HD + PT-BR (contínuo, em paralelo com M3/M4)
+- [ ] **m5-remaster-telas-novas** — toda tela 100% nova portada em M3/M4 (sem equivalente 4.1 pra reusar
+  remaster) precisa do pipeline completo `tools/remaster/*` (igual M1 `m1-bitmap-text`/`m1-swf-text`) antes
+  de ir pro ar — não é uma tarefa só, é um passo final de cada tarefa M3/M4 que adicionar SWF novo.
+- [ ] **m5-i18n-telas-novas** — `tools/i18n/skelleton-match.mjs` contra `language.txt` das telas novas
+  (mesmo método de `m1-lang-ptbr`, dado de entrada novo por tela).
+- Critério de saída do M5 igual ao descrito em `MIGRACAO-6600.md` §5: telas novas com texto PT-BR e visual
+  remasterizado, sem arte/branding do DDClássico.
 
 ## 2. Canais (Canal 1, 2, 3…)
 Desenho em [MIGRACAO-6600.md — Requisito futuro](./MIGRACAO-6600.md#requisito-futuro-vários-canais-decisão-do-dono-2026-10-17).
