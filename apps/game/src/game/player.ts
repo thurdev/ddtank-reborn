@@ -137,6 +137,22 @@ export class GamePlayer implements RoomMember {
   /** GamePlayer.GetBaseAttack / GetBaseDefence from the last recalcStats (fight specs). */
   baseAttack = 0;
   baseDefence = 0;
+  /** m3-figurino: sum of equipped items' MagicAttack/MagicDefence from the last recalcStats (fight specs,
+   *  67 UPDATE_PLAYER_INFO self-send) — see game/stats.ts StatResult.magicAttack doc. */
+  magicAttack = 0;
+  magicDefence = 0;
+  /**
+   * PLAYER_DRESS (6600 "figurino"/dress room, 237 — `handlers/bolsa/vestir-6600.ts`): up to 3 saved
+   * outfit presets (`PlayerDressType.DRESS_LEN`/combo box "model1/2/3"), keyed by slot 0-2, each a
+   * list of (itemId, templateId) pairs identifying items in `equipBag`. Decoded at login from
+   * `extra.DressModelArr` (player.Sys_Users_Extra, migration 0013) — PlayerAvataInventory.DressModelArr
+   * (`vendor/DDT-6600/Source/.../PlayerAvataInventory.cs:47`). 4.1 never reads/writes this.
+   */
+  dressModels = new Map<number, { itemId: number; templateId: number }[]>();
+  /** PLAYER_DRESS "modelo ativo" (extra.CurentDressModel) — campo próprio em vez de ler `extra?.CurentDressModel`
+   *  direto: uma conta nova não tem linha em Sys_Users_Extra ainda (`p.extra===null`), então o valor em memória
+   *  tem que sobreviver mesmo antes do primeiro upsert (`handlers/bolsa/vestir-6600.ts` saveDressExtra). */
+  currentDressModel = 0;
   private changeDepth = 0;
   private propsPending = false;
 
@@ -264,14 +280,14 @@ export class GamePlayer implements RoomMember {
     }
     this.propsPending = false;
     this.send(Out.privateInfo(this.info, this.medal, this.clientKind));
-    this.send(Out.publicPlayer(this.info, this.match, this.clientKind));
+    this.send(Out.publicPlayer(this.info, this.match, this.clientKind, this.magicAttack, this.magicDefence));
     // m2-bolsa: a sala pode misturar clientKind (M2 salas já suporta isso pra 94/4 etc. — ver room.ts
     // sendToAllByKind) e 67 UPDATE_PLAYER_INFO (Round 2/3, research/6600/packets-m1.md) tem layout
     // diferente por clientKind. O build antigo (`const pub = Out.publicPlayer(..., this.clientKind); send;
     // currentRoom?.sendToAll(pub, this)`) compartilhava UM buffer no layout de QUEM MUDOU DE STATUS, não de
     // cada espectador — mesma classe de bug que 18/94/4 já corrigiram. Agora constrói no máximo 2 variantes
     // (uma por clientKind realmente presente na sala), igual ao padrão de `roomPlayerAdd`.
-    this.currentRoom?.sendToAllByKind((k) => Out.publicPlayer(this.info, this.match, k), this);
+    this.currentRoom?.sendToAllByKind((k) => Out.publicPlayer(this.info, this.match, k, this.magicAttack, this.magicDefence), this);
   }
 
   /**
@@ -317,6 +333,8 @@ export class GamePlayer implements RoomMember {
     c.FightPower = r.fightPower;
     this.baseAttack = r.baseAttack;
     this.baseDefence = r.baseDefence;
+    this.magicAttack = r.magicAttack;
+    this.magicDefence = r.magicDefence;
     c.Nimbus = userNimbus(equip); // GetUserNimbus (strengthen / gilded aura tiers)
     c.Style = style; c.Colors = color; c.Skin = skin;
   }

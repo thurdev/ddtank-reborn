@@ -29,11 +29,11 @@
  *    original registrava o handler da sala (MarryRoomInfoUpdateHandler) no 237 — uma edição de mural do
  *    cliente era lida com o layout errado. Este port dá a cada um o seu próprio código: 237 = mural
  *    (`mural.ts`), 253 = sala (`capela.ts`).
- *  - NOVO (m2-bolsa): 237 COLIDE entre as versões — 4.1 `MARRYINFO_UPDATE=237` (mural, acima) vs 6600
- *    `PLAYER_DRESS=237` (figurino/dress room, feature nova sem equivalente na 4.1 — ver
- *    `handlers/bolsa/vestir-6600.ts`). O registro de 237 abaixo despacha por `p.clientKind`: "41" vai pro
- *    mural (`marryInfoUpdate`), "6600" vai pro stub documentado (não corrompe `Marry_Info` com o payload
- *    de dress). `research/6600/packets-m1.md` M2 bolsa tem o detalhe completo.
+ *  - 237 COLIDE entre as versões — 4.1 `MARRYINFO_UPDATE=237` (mural, acima) vs 6600 `PLAYER_DRESS=237`
+ *    (figurino/dress room, feature 6600-only portada em `m3-figurino` — ver `handlers/bolsa/vestir-6600.ts`).
+ *    O registro de 237 abaixo despacha por `p.clientKind`: "41" vai pro mural (`marryInfoUpdate`), "6600"
+ *    vai pro figurino (`playerDress`) — nunca corrompe `Marry_Info` com o payload de dress.
+ *    `research/6600/packets-m1.md` "M3 figurino" tem o detalhe completo (achado original em "M2 bolsa").
  *
  * Formatos de pacote confirmados contra o cliente Flash ao vivo (`Source Flash/src/ddt/manager/
  * ChurchManager.as`): 246/247/250/248/234/242/249(4) INVITE. As outras sub-respostas do 249 MARRY_CMD e
@@ -53,7 +53,7 @@ import { marryInfoAdd, marryInfoGet, marryInfoUpdate, marryInfoDelete } from "./
 import { marrySceneLogin, marryRoomCreate, marryRoomLogin, playerExitMarryRoom, marrySceneChange, sceneState, marryRoomInfoUpdate } from "./capela.js";
 import { marryCmdRouter } from "./cerimonia.js";
 import { churchMovieOver } from "./stubs.js";
-import { playerDressStub } from "../bolsa/vestir-6600.js";
+import { playerDress } from "../bolsa/vestir-6600.js";
 
 export function registerCasamento(r: HandlerRegistry): SubRouter {
   const cmd = marryCmdRouter();
@@ -69,7 +69,7 @@ export function registerCasamento(r: HandlerRegistry): SubRouter {
   r.player(236, "MARRYINFO_ADD", marryInfoAdd);
   r.player(235, "MARRYINFO_GET", marryInfoGet);
   // 237 colide: MARRYINFO_UPDATE (4.1, mural) vs PLAYER_DRESS (6600, figurino) — ver nota acima e vestir-6600.ts.
-  r.player(237, "MARRYINFO_UPDATE/PLAYER_DRESS", (ctx, p, pkt) => (p.clientKind === "6600" ? playerDressStub(ctx, p, pkt) : marryInfoUpdate(ctx, p, pkt)));
+  r.player(237, "MARRYINFO_UPDATE/PLAYER_DRESS", (ctx, p, pkt) => (p.clientKind === "6600" ? playerDress(ctx, p, pkt) : marryInfoUpdate(ctx, p, pkt)));
   r.player(234, "MARRYPROP_GET", marryInfoDelete);
 
   // ---- cenário/salas da igreja ----

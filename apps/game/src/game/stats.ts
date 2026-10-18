@@ -79,6 +79,23 @@ export interface StatResult {
   baseAttack: number; baseDefence: number; baseBlood: number; fightPower: number;
   /** Highest strengthen level among equipped items (ApertureEquip / Nimbus). */
   strengthenLevel: number;
+  /**
+   * m3-figurino (research/6600/packets-m1.md "M3 figurino" — magic stats aggregation): sum of
+   * `MagicAttack`/`MagicDefence` over every equipped item (`Sys_Users_Goods`, migration 0013).
+   *
+   * The REAL 6600 C# source (`Game.Server.GameUtils/PlayerProperty.cs:250-266,411`,
+   * `PlayerEquipInventory.cs`) sums the player's `MagicAttack`/`MagicDefence` from a SEPARATE
+   * "Relíquias" bag (`PlayerMagicStoneInventory`/`MagicStoneBag`, parallel equip slots 0..30) plus
+   * Horse/Mount and "Enchant"/`MagicItemTemplateInfo` contributions — none of which exist in this
+   * port (Relíquias/Montaria/MagicHouse are schema-only so far, `docs/plan/MIGRACAO-6600.md` §4/M4).
+   * Rather than leave the formula permanently inert (as `packages/fight` has since m2-batalha), we
+   * sum the SAME `Sys_Users_Goods.MagicAttack`/`MagicDefence` columns directly off the equipped
+   * EquipBag items (regular gear, not a separate reliquary bag) as a practical stand-in until the
+   * Relíquias bag is ported. For every item today (4.1 AND 6600, no writer sets a non-zero value
+   * yet) this sums to 0 -> identical fights, so it changes nothing observable until an item/feature
+   * actually writes a non-zero `MagicAttack`/`MagicDefence`.
+   */
+  magicAttack: number; magicDefence: number;
 }
 
 /** .NET Math.Round(double) = banker's rounding (MidpointRounding.ToEven). */
@@ -242,12 +259,13 @@ export function fightPower(s: { attack: number; defence: number; agility: number
 /** PlayerEquipInventory.UpdatePlayerProperties + UpdateBaseProperties + UpdateFightPower. */
 export function computeStats(inp: StatInput, t: StatTables): StatResult {
   const now = inp.now ?? new Date();
-  let attack = 0, defence = 0, agility = 0, luck = 0, hp = 0, strengthenLevel = 0;
+  let attack = 0, defence = 0, agility = 0, luck = 0, hp = 0, strengthenLevel = 0, magicAttack = 0, magicDefence = 0;
   const equipped: ItemInfo[] = [];
   for (let i = 0; i < 31; i++) {
     const it = inp.equip[i];
     if (!it) continue;
     equipped.push(it);
+    magicAttack += it.MagicAttack; magicDefence += it.MagicDefence; // m3-figurino (see StatResult.magicAttack doc)
     let a = it.AttackCompose + it.template.Attack, d = it.DefendCompose + it.template.Defence;
     let g = it.AgilityCompose + it.template.Agility, l = it.LuckCompose + it.template.Luck;
     const gold = it.isGold ? t.goldEquip(it.TemplateID, it.template.CategoryID) : undefined;
@@ -315,7 +333,7 @@ export function computeStats(inp: StatInput, t: StatTables): StatResult {
   const baseAttack = getBaseAttack(inp, t);
   const baseDefence = getBaseDefence(inp, t);
   const s = { attack, defence, agility, luck, hp: finalHp };
-  return { ...s, baseAttack, baseDefence, baseBlood, strengthenLevel, fightPower: fightPower(s, baseAttack, baseDefence, inp.equip[15] ?? null) };
+  return { ...s, baseAttack, baseDefence, baseBlood, strengthenLevel, magicAttack, magicDefence, fightPower: fightPower(s, baseAttack, baseDefence, inp.equip[15] ?? null) };
 }
 
 /** Empty tables (tests / before templates load). */

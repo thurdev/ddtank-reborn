@@ -41,6 +41,24 @@ describe("FightPower (GamePlayer.UpdateFightPower / GetBaseAttack)", () => {
     expect(r5.fightPower).toBeGreaterThan(r0.fightPower);
   });
 
+  it("m3-figurino: magicAttack/magicDefence sum the equipped items' MagicAttack/MagicDefence (Sys_Users_Goods, migration 0013)", () => {
+    const hat = new ItemInfo(tpl({ TemplateID: 1214, CategoryID: 1 }));
+    const cloth = new ItemInfo(tpl({ TemplateID: 5251, CategoryID: 5 }));
+    hat.MagicAttack = 30; hat.MagicDefence = 5;
+    cloth.MagicAttack = 20; cloth.MagicDefence = 15;
+    const equip: (ItemInfo | null)[] = new Array(31).fill(null);
+    equip[0] = hat; equip[4] = cloth;
+    const base = { equip, grade: 1, levelBlood: 0, necklaceExpAdd: 0, totemId: 0, texp: { attTexpExp: 0, defTexpExp: 0, spdTexpExp: 0, lukTexpExp: 0, hpTexpExp: 0 }, cards: [], pet: null, evolutionGrade: 0 };
+    const r = computeStats(base, emptyStatTables());
+    expect(r.magicAttack).toBe(50); // 30 + 20
+    expect(r.magicDefence).toBe(20); // 5 + 15
+    // today's default (migration 0013, every item 4.1 AND 6600): MagicAttack=MagicDefence=0 -> identity, no change.
+    hat.MagicAttack = 0; hat.MagicDefence = 0; cloth.MagicAttack = 0; cloth.MagicDefence = 0;
+    const r0 = computeStats(base, emptyStatTables());
+    expect(r0.magicAttack).toBe(0);
+    expect(r0.magicDefence).toBe(0);
+  });
+
   it("attribute gems (cat 11, P1 31, P2 3) add stats; compose adds to attack", () => {
     const gem = tpl({ TemplateID: 313101, CategoryID: 11, Property1: 31, Property2: 3, Property3: 5, Property7: 7, Property8: 9 });
     const w = new ItemInfo(tpl({ TemplateID: 7000, Property7: 100 }));

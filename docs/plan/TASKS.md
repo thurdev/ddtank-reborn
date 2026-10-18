@@ -97,6 +97,18 @@
 Ver [MIGRACAO-6600.md §5](./MIGRACAO-6600.md#5-plano-por-fases): endpoints novos, sistemas novos, features da
 referência (Coleta, Resgate, Nian, Passe Clássico…), remaster HD/PT-BR das telas novas. Quebrar em tarefas
 aqui quando o M2 fechar.
+- [x] **m3-figurino** (2026-10-18) — `PLAYER_DRESS` (237, 6600 "figurino"/dress room, GAP deixado pelo
+  `m2-bolsa`): salvar/trocar/travar preset (sub 1/2/7) + mesclar validade de itens duplicados (sub 6)
+  implementados por completo (`handlers/bolsa/vestir-6600.ts`), persistidos em `player."Sys_Users_Extra"`
+  (`DressModelArr`/`CurentDressModel`, migration 0013 já tinha as colunas — nenhuma migração nova). Sem
+  "renomear" preset (não existe no protocolo real, só 3 modelos de rótulo fixo) nem bag "Relíquias"/
+  "AvatarBag" separada (presets vivem em `p.equipBag`); bug original replicado (não corrigido): FOLD_DRESS
+  não remove o item de destino. Dano mágico por item (`MagicAttack`/`MagicDefence`, inerte desde
+  `m2-batalha`) ligado de verdade: `game/stats.ts computeStats()` soma os itens equipados ->
+  `GamePlayer.magicAttack`/`magicDefence` -> `fight/ddt.ts specOf()` -> `PlayerSpec` (fonte é a EquipBag
+  normal, não a bag de Relíquias real do 6600 — ainda não portada, M4+) -> exposto em `67
+  UPDATE_PLAYER_INFO`/`74 ITEM_EQUIP` (eram stub `0`/`0`). 4.1 inalterado (nunca manda 237 no login, nunca
+  ganha os campos de magic). Ver `research/6600/packets-m1.md` "M3 figurino".
 
 ## 2. Canais (Canal 1, 2, 3…)
 Desenho em [MIGRACAO-6600.md — Requisito futuro](./MIGRACAO-6600.md#requisito-futuro-vários-canais-decisão-do-dono-2026-10-17).

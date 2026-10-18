@@ -219,7 +219,7 @@ describe("237 colisão — MARRYINFO_UPDATE (4.1 mural) vs PLAYER_DRESS (6600 fi
     c.close();
   });
 
-  it("6600: 237 (PLAYER_DRESS, sub-byte+int) NÃO corrompe o mural — cai no stub documentado", async () => {
+  it("6600: 237 (PLAYER_DRESS, sub-byte+int) NÃO corrompe o mural — cai no figurino (m3-figurino)", async () => {
     const db = (await sharedDb()).db;
     const { c, player: p } = await loggedIn(server, { client: "6600", gold: 20000 });
     c.out(236);
@@ -231,11 +231,19 @@ describe("237 colisão — MARRYINFO_UPDATE (4.1 mural) vs PLAYER_DRESS (6600 fi
     expect(before!.Introduction).toBe("");
 
     // PLAYER_DRESS sub 2 CURRENT_MODEL: byte sub, int index — payload real do GameSocketOut.as 6600.
+    // Antes do m3-figurino isto caía num stub no-op; agora é o figurino de verdade (vestir-6600.ts) —
+    // ver client-6600-m3-figurino.test.ts pro resto da feature. O ponto deste teste é só a colisão: o
+    // mural (Marry_Info) continua intacto mesmo recebendo um 237 de sub-comando de dress.
+    const m = c.mark();
     c.out(237, (o) => { o.writeByte(2); o.writeInt(-1); });
-    await new Promise((res) => setTimeout(res, 150)); // sem resposta esperada (stub é no-op)
+    const r = await c.code(237, 2, m);
+    expect(r.pkt.readByte()).toBe(2);
+    expect(r.pkt.readInt()).toBe(-1); // ecoa o slot pedido (bookkeeping puro, ver vestir-6600.ts)
     const [after] = await db.select().from(player.Marry_Info).where(eq(player.Marry_Info.ID, infoId));
     expect(after!.IsPublishEquip).toBe(false); // intacto — não foi lido como bool/string do mural
     expect(after!.Introduction).toBe("");
+    const [extra] = await db.select().from(player.Sys_Users_Extra).where(eq(player.Sys_Users_Extra.UserID, p().id));
+    expect(extra!.CurentDressModel).toBe(-1); // persistido em Sys_Users_Extra, não no mural
     c.close();
   });
 });
