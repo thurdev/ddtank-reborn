@@ -5,19 +5,25 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
 import { ApiError, Button, Card, Field, Input, TrajectoryArc } from "@ddtank/ui";
 import { api, meQuery, type AuthResponse } from "@/lib/api";
 import { useI18n } from "@/i18n";
+import { useSeo } from "@/lib/seo";
+import { fadeUp } from "@/lib/motion";
 
 function AuthShell({ title, lead, children, footer }: { title: string; lead: string; children: ReactNode; footer: ReactNode }) {
+  useSeo({ title, description: lead });
   return (
     <div className="relative mx-auto flex max-w-md flex-col px-4 py-14">
       <TrajectoryArc className="absolute -top-2 left-0 w-full text-sun/20" />
-      <Card className="relative p-7">
-        <h1 className="title-plate text-3xl">{title}</h1>
-        <p className="mt-1 text-sm text-muted">{lead}</p>
-        <div className="mt-6">{children}</div>
-      </Card>
+      <motion.div variants={fadeUp} initial="hidden" animate="show">
+        <Card className="relative p-7">
+          <h1 className="title-plate text-3xl">{title}</h1>
+          <p className="mt-1 text-sm text-muted">{lead}</p>
+          <div className="mt-6">{children}</div>
+        </Card>
+      </motion.div>
       <p className="mt-5 text-center text-sm text-muted">{footer}</p>
     </div>
   );

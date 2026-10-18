@@ -1,14 +1,19 @@
-import { createRootRouteWithContext, createRoute, createRouter, Outlet, redirect } from "@tanstack/react-router";
+import { createRootRouteWithContext, createRoute, createRouter, lazyRouteComponent, Outlet, redirect } from "@tanstack/react-router";
+import type { RouterHistory } from "@tanstack/react-router";
 import type { QueryClient } from "@tanstack/react-query";
 import { SiteLayout } from "@/components/SiteLayout";
 import { HomePage } from "@/pages/Home";
-import { LoginPage, RegisterPage } from "@/pages/Auth";
-import { RankingPage } from "@/pages/Ranking";
-import { AccountPage } from "@/pages/Account";
-import { ApoiarPage } from "@/pages/Apoiar";
-import { TransparenciaPage } from "@/pages/Transparencia";
-import { PlayPage } from "@/pages/Play";
 import { meQuery } from "@/lib/api";
+
+// Code-split every page but Home: it's the critical-path bundle (first paint for most visits), the
+// rest loads on navigation/hover (`defaultPreload: "intent"` below prefetches on link hover/focus).
+const LoginPage = lazyRouteComponent(() => import("@/pages/Auth"), "LoginPage");
+const RegisterPage = lazyRouteComponent(() => import("@/pages/Auth"), "RegisterPage");
+const RankingPage = lazyRouteComponent(() => import("@/pages/Ranking"), "RankingPage");
+const AccountPage = lazyRouteComponent(() => import("@/pages/Account"), "AccountPage");
+const ApoiarPage = lazyRouteComponent(() => import("@/pages/Apoiar"), "ApoiarPage");
+const TransparenciaPage = lazyRouteComponent(() => import("@/pages/Transparencia"), "TransparenciaPage");
+const PlayPage = lazyRouteComponent(() => import("@/pages/Play"), "PlayPage");
 
 interface RouterContext {
   queryClient: QueryClient;
@@ -51,8 +56,15 @@ const routeTree = rootRoute.addChildren([
   playRoute,
 ]);
 
-export function createAppRouter(queryClient: QueryClient) {
-  return createRouter({ routeTree, context: { queryClient }, defaultPreload: "intent", scrollRestoration: true });
+/** `history` is only ever overridden in tests (memory history instead of the real browser URL). */
+export function createAppRouter(queryClient: QueryClient, opts?: { history?: RouterHistory }) {
+  return createRouter({
+    routeTree,
+    context: { queryClient },
+    defaultPreload: "intent",
+    scrollRestoration: true,
+    ...(opts?.history ? { history: opts.history } : {}),
+  });
 }
 
 declare module "@tanstack/react-router" {

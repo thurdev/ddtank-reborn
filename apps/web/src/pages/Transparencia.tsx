@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 import { Badge, Button, Card, CardContent, CardHeader, CardTitle, EmptyState, PageHeader, Skeleton } from "@ddtank/ui";
 import { Link } from "@tanstack/react-router";
 import { Heart } from "lucide-react";
 import { donationSummaryQuery } from "@/lib/api";
 import { useI18n } from "@/i18n";
+import { useSeo } from "@/lib/seo";
+import { fadeUp, stagger } from "@/lib/motion";
 
 const centsToBRL = (c: number) => (c / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
@@ -31,9 +34,10 @@ function CostBar({ totalCents, costCents }: { totalCents: number; costCents: num
 export function TransparenciaPage() {
   const { t } = useI18n();
   const { data: summary, isLoading } = useQuery(donationSummaryQuery);
+  useSeo({ title: t("transparencia.title"), description: t("transparencia.lead") });
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
+    <motion.div variants={stagger(0, 0.08)} initial="hidden" animate="show" className="mx-auto max-w-3xl px-4 py-12">
       <PageHeader title={t("transparencia.title")} description={t("transparencia.lead")} />
 
       {isLoading ? (
@@ -41,34 +45,38 @@ export function TransparenciaPage() {
       ) : !summary?.monthlyCostCents ? (
         <EmptyState title={t("transparencia.noCostTitle")}>{t("transparencia.noCostBody")}</EmptyState>
       ) : (
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("transparencia.costTitle")}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <CostBar totalCents={summary.monthTotalCents} costCents={summary.monthlyCostCents} />
-          </CardContent>
-        </Card>
+        <motion.div variants={fadeUp}>
+          <Card>
+            <CardHeader>
+              <CardTitle>{t("transparencia.costTitle")}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <CostBar totalCents={summary.monthTotalCents} costCents={summary.monthlyCostCents} />
+            </CardContent>
+          </Card>
+        </motion.div>
       )}
 
-      <Card className="mt-6 border-mint/40 bg-mint/5">
-        <CardContent className="flex flex-col gap-2 p-5 text-sm text-muted">
-          <p>
-            <Badge tone="mint" className="mr-2">
-              {t("transparencia.noP2wBadge")}
-            </Badge>
-            {t("transparencia.noP2wBody")}
-          </p>
-        </CardContent>
-      </Card>
+      <motion.div variants={fadeUp}>
+        <Card className="mt-6 border-mint/40 bg-mint/5">
+          <CardContent className="flex flex-col gap-2 p-5 text-sm text-muted">
+            <p>
+              <Badge tone="mint" className="mr-2">
+                {t("transparencia.noP2wBadge")}
+              </Badge>
+              {t("transparencia.noP2wBody")}
+            </p>
+          </CardContent>
+        </Card>
+      </motion.div>
 
-      <div className="mt-6 flex justify-center">
+      <motion.div variants={fadeUp} className="mt-6 flex justify-center">
         <Button asChild>
           <Link to="/apoiar">
             <Heart /> {t("transparencia.goSupport")}
           </Link>
         </Button>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
