@@ -227,3 +227,19 @@ describe("donations — static provider (no webhook, manual confirmation)", () =
     expect(r.json().status).toBe("paid");
   });
 });
+
+describe("donations — provedor fake em produção fica desligado", () => {
+  let prod: FastifyInstance;
+  beforeAll(async () => {
+    prod = await build({ NODE_ENV: "production", JWT_SECRET: "prod-test-secret-0123456789", PIX_PROVIDER: "fake" });
+  });
+  afterAll(async () => {
+    await prod?.close();
+  });
+  it("não cria doação nem aceita webhook com o segredo padrão", async () => {
+    const c = await prod.inject({ method: "POST", url: "/api/donations", payload: { amountCents: 1000 } });
+    expect(c.statusCode).toBe(503);
+    const w = await prod.inject({ method: "POST", url: "/api/pix/webhook", headers: { "x-fake-signature": "fake-webhook-secret" }, payload: { txid: "X", status: "paid" } });
+    expect(w.statusCode).toBe(404);
+  });
+});

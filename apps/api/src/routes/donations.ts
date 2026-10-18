@@ -60,10 +60,15 @@ function genTxid(): string {
 }
 
 export async function donationsRoutes(f: FastifyInstance, ctx: AppCtx, provider: PixProvider) {
+  // provedor "fake" é só dev/teste: segredo de webhook padrão conhecido + "pago" manual. Em produção sem
+  // PIX_PROVIDER configurado as doações ficam desligadas (senão qualquer um forjaria "pago" e o total público).
+  const fakeInProd = ctx.cfg.NODE_ENV === "production" && provider.name === "fake";
+  if (fakeInProd) ctx.log.warn("Pix: PIX_PROVIDER=fake em produção — doações desativadas (configure static ou mercadopago)");
   f.post(
     "/api/donations",
     { config: { rateLimit: { max: 6, timeWindow: "1 minute" } } },
     async (req, reply) => {
+      if (fakeInProd) return reply.code(503).send({ message: "Doações ainda não configuradas neste servidor." });
       const ds = await donationSettings(ctx);
       if (!ds.enabled) return reply.code(503).send({ message: "Doações desativadas no momento." });
       const b = z
@@ -154,7 +159,7 @@ export async function donationsRoutes(f: FastifyInstance, ctx: AppCtx, provider:
    * assinatura é válida, mesmo pra txid desconhecido, pra evitar o PSP ficar retentando pra sempre.
    */
   f.post("/api/pix/webhook", async (req, reply) => {
-    if (!provider.supportsWebhook) return reply.code(404).send({ message: "Provedor ativo não usa webhook" });
+    if (!provider.supportsWebhook || fakeInProd) return reply.code(404).send({ message: "Provedor ativo não usa webhook" });
     const whReq: WebhookRequest = {
       headers: req.headers as Record<string, string | string[] | undefined>,
       body: req.body,
