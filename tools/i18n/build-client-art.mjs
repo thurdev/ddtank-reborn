@@ -63,6 +63,10 @@
  *   node tools/i18n/build-client-art.mjs --prod --rsa-modulus <hex>  # also patch the RSA modulus into 2.png
  *   node tools/i18n/build-client-art.mjs --only-swf-text-6600    # 6600 pack only: patch apps/api/assets/flash6600
  *                                                                #   static texts from research/i18n/swf-text-pt-6600.json
+ *   node tools/i18n/build-client-art.mjs --only-approved-6600    # 6600 pack only: import remaster/approved-6600.json
+ *                                                                #   (bitmaps -- m1-bitmap-text) into apps/api/assets/flash6600,
+ *                                                                #   sizes from remaster/manifest-6600.csv. Does NOT touch the
+ *                                                                #   4.1 flow/files above (separate manifest/approved list).
  *
  * --prod is NOT a secret-rotation tool. Full production secret rotation (fresh RSA keypair + .env wiring
  * for apps/api and apps/game) is scripts/gen-secrets.mjs, which already runs this exact same core chain
@@ -286,8 +290,8 @@ function parseCsvLine(line) {
 /** remaster/manifest.csv -> Map("<swf>::<sourceFile>" -> {category,file,width,height,swf,sourceFile}).
  *  approved.json entries deliberately don't carry width/height themselves -- they're always taken from
  *  here, since an AI tool's output canvas size is arbitrary and never the real target. */
-function loadManifestIndex() {
-  const csvPath = join(ROOT, "remaster", "manifest.csv");
+function loadManifestIndex(csvRelPath = join("remaster", "manifest.csv")) {
+  const csvPath = join(ROOT, csvRelPath);
   const index = new Map();
   if (!existsSync(csvPath)) return index;
   const lines = readFileSync(csvPath, "utf8").split(/\r?\n/).filter((l) => l.length > 0);
@@ -862,8 +866,133 @@ function runSwfTextStep6600() {
   });
 }
 
+/** 6600 equivalent of resolveSwfLocation(): o pack 6600 (m0, ver swf-inventory.md) espalha os SWFs de UI só
+ *  em dois lugares -- raiz do pack ou ui/turkey/swf/ -- igual ao fallback que swf-text-audit-6600.sh já usa.
+ *  `swfPathHint` (campo `swfPath` opcional em remaster/approved-6600.json, gravado por tools/remaster/
+ *  reuse-6600.mjs) pula a busca quando já sabemos onde o SWF está; sem hint, procura nos dois lugares pelo
+ *  nome. Overlay (apps/api/assets/flash6600) tem prioridade de leitura sobre o vendor, igual ao 4.1 --
+ *  importante pros 3 SWFs de boot já patchados por brand-6600.mjs/runSwfTextStep6600 (Loading.swf,
+ *  DDT_Loading.swf, DDT_Loading1.swf), cujo patch anterior não pode se perder num import de bitmap depois. */
+/** *.swf/*.png/*.jpg são rastreados via Git LFS (.gitattributes) -- num checkout/worktree sem `git lfs
+ *  pull`, o arquivo no disco é só o ponteiro de texto ("version https://git-lfs.github.com/spec/v1\n...",
+ *  >=100 bytes mas sempre <200), não o binário real. Importar em cima disso corromperia o SWF (FFDec vê um
+ *  "SWF" de ~130 bytes de texto). Detecta isso pra cair pro vendor em vez de usar o ponteiro como se fosse
+ *  o overlay já patchado de verdade. */
+function isLfsPointer(path) {
+  try {
+    const head = readFileSync(path, { encoding: "utf8", flag: "r" }).slice(0, 200);
+    return head.startsWith("version https://git-lfs.github.com/spec/v1");
+  } catch {
+    return false;
+  }
+}
+
+function resolveSwfLocation6600(swfRel, swfPathHint) {
+  const VENDOR_6600 = join(ROOT, "vendor", "DDT-6600", "WebSimple", "Flash_6600_v040");
+  const OVERLAY_6600 = join(ROOT, "apps", "api", "assets", "flash6600");
+  const rel = swfPathHint ? swfPathHint.replace(/\\/g, "/") : null;
+  const candidates = rel ? [rel] : [swfRel, join("ui", "turkey", "swf", swfRel)];
+  for (const candidate of candidates) {
+    const vendorPath = join(VENDOR_6600, candidate);
+    if (existsSync(vendorPath)) {
+      const overlayPath = join(OVERLAY_6600, candidate);
+      const overlayUsable = existsSync(overlayPath) && !isLfsPointer(overlayPath);
+      if (existsSync(overlayPath) && !overlayUsable) {
+        log("approved-6600", `overlay ${candidate} é um ponteiro Git LFS não baixado ("git lfs pull" pendente) -- usando vendor em vez dele`);
+      }
+      const importSource = overlayUsable ? overlayPath : vendorPath;
+      return { vendorPath, overlayPath, importSource };
+    }
+  }
+  return null;
+}
+
+/** 6600 equivalent of runApprovedAssetsStep(): importa remaster/approved-6600.json (gerado por
+ *  tools/remaster/reuse-6600.mjs pro reuso direto de arte 4.1 já aprovada em símbolos/pixels iguais, e à
+ *  mão pros P0/P1 que passarem pelo lote de IA win45-6600) em apps/api/assets/flash6600. Tamanhos vêm de
+ *  remaster/manifest-6600.csv (mesmo formato do manifest.csv da 4.1). Sem skelleton/anchor/holes (nenhum
+ *  desses recursos tem equivalente 6600 ainda) -- reusa processApprovedImage() tal como está, que já é
+ *  genérico o bastante (recebe width/height/fit/srcExt/anchor por parâmetro, não assume o pack 4.1). */
+async function runApprovedAssetsStep6600() {
+  const OVERLAY_6600 = join(ROOT, "apps", "api", "assets", "flash6600");
+  const approvedPath = join(ROOT, "remaster", "approved-6600.json");
+  if (!existsSync(approvedPath)) {
+    log("approved-6600", "remaster/approved-6600.json not found -- skipping (roda tools/remaster/reuse-6600.mjs primeiro)");
+    return;
+  }
+  let entries;
+  try {
+    entries = JSON.parse(readFileSync(approvedPath, "utf8"));
+  } catch (e) {
+    log("approved-6600", `FAILED to parse remaster/approved-6600.json: ${e.message}`);
+    return;
+  }
+  if (!Array.isArray(entries) || entries.length === 0) {
+    log("approved-6600", "remaster/approved-6600.json has no entries -- skipping");
+    return;
+  }
+
+  const manifest = loadManifestIndex(join("remaster", "manifest-6600.csv"));
+  const require_ = createRequire(join(HERE, "images", "package.json"));
+  const sharp = require_("sharp");
+
+  const bySwf = new Map(); // swfRel resolvido -> [{ sourceFile, buffer, outExt, label }]
+  const bySwfLoc = new Map(); // swfRel -> resolveSwfLocation6600() já resolvido, pra não procurar 2x
+  for (const entry of entries) {
+    const { category, file, swf, swfPath, sourceFile } = entry;
+    if (!category || !file || !swf || !sourceFile) {
+      log("approved-6600", `SKIP invalid entry (missing category/file/swf/sourceFile): ${JSON.stringify(entry)}`);
+      continue;
+    }
+    const row = manifest.get(`${swf}::${sourceFile}`);
+    if (!row) {
+      log("approved-6600", `SKIP ${category}/${file} -- no remaster/manifest-6600.csv row for ${swf}::${sourceFile} (need its width/height)`);
+      continue;
+    }
+    const outputsPath = join(ROOT, "remaster", category, "outputs", file);
+    if (!existsSync(outputsPath)) {
+      log("approved-6600", `SKIP ${category}/${file} -- output not found at ${outputsPath} (reuso direto espera o PNG aprovado 4.1 ainda no disco -- ver junction de remaster/<cat>/outputs)`);
+      continue;
+    }
+    if (!bySwfLoc.has(swf)) bySwfLoc.set(swf, resolveSwfLocation6600(swf, swfPath));
+    const loc = bySwfLoc.get(swf);
+    if (!loc) {
+      log("approved-6600", `SKIP ${category}/${file} -- SWF ${swf} não encontrado no pack 6600 (raiz nem ui/turkey/swf)`);
+      continue;
+    }
+
+    const srcExt = sourceFile.slice(sourceFile.lastIndexOf(".") + 1).toLowerCase();
+    const { buffer, outExt } = await processApprovedImage(sharp, outputsPath, row.width, row.height, entry.fit, srcExt, entry.anchor, undefined);
+
+    if (!bySwf.has(swf)) bySwf.set(swf, []);
+    bySwf.get(swf).push({ sourceFile, buffer, outExt, label: `${category}/${file}` });
+    log("approved-6600", `${category}/${file} -> ${swf}::${sourceFile} (${row.width}x${row.height}, fit=${entry.fit ?? "cover"}, encoded .${outExt})`);
+  }
+
+  if (bySwf.size === 0) {
+    log("approved-6600", "nothing to import");
+    return;
+  }
+
+  for (const [swf, images] of bySwf) {
+    const { importSource, overlayPath } = bySwfLoc.get(swf);
+    const stageDir = join(SCRATCH, "approved-6600-stage", swf.replace(/[^A-Za-z0-9._-]/g, "_"));
+    rmSync(stageDir, { recursive: true, force: true });
+    mkdirSync(stageDir, { recursive: true });
+    for (const img of images) {
+      const stem = img.sourceFile.slice(0, img.sourceFile.lastIndexOf("."));
+      writeFileSync(join(stageDir, `${stem}.${img.outExt}`), img.buffer);
+    }
+    mkdirSync(dirname(overlayPath), { recursive: true });
+    log("approved-6600", `importing ${images.length} image(s) into ${swf} (source: ${importSource.startsWith(OVERLAY_6600) ? "overlay, já patchado" : "vendor"})`);
+    runFfdecImportImages(importSource, overlayPath, stageDir);
+    log("approved-6600", `-> apps/api/assets/flash6600/${overlayPath.slice(OVERLAY_6600.length + 1).replace(/\\/g, "/")}`);
+  }
+}
+
 async function main() {
   log("build", `flags: images=${OPT_IMAGES} night=${OPT_NIGHT} dark=${OPT_DARK} prod=${PROD} approved=${OPT_APPROVED}`);
+  if (has("--only-approved-6600")) { await runApprovedAssetsStep6600(); return; } // 6600 pack: import remaster/approved-6600.json only
   if (has("--only-swf-text-6600")) { runSwfTextStep6600(); return; } // 6600 pack: patch apps/api/assets/flash6600 only, nothing else
   if (has("--only-swf-text")) { runSwfTextStep(); return; } // re-patch static texts on the current overlay, nothing else
   // Valida ANTES de apagar o pack atual: uma linha do manifest com largura/altura inválida derrubava o build no meio

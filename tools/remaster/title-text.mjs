@@ -9,7 +9,10 @@ import { readFileSync } from "node:fs";
 const args = process.argv.slice(2);
 const id = args[0], pt = args[1];
 const opt = (n, d) => { const i = args.indexOf(n); return i < 0 ? d : args[i + 1]; };
-const manifest = readFileSync("remaster/manifest.csv", "utf8").trim().split("\n").slice(1).map((l) => { const [category, file] = l.split(","); return { category, file }; });
+// --manifest permite apontar pro remaster/manifest-6600.csv (tiras finas de texto do pack 6600, ver
+// research/6600/bitmap-turkish.tsv) sem duplicar o script -- resto do comportamento idêntico.
+const manifestPath = opt("--manifest", "remaster/manifest.csv");
+const manifest = readFileSync(manifestPath, "utf8").trim().split("\n").slice(1).map((l) => { const [category, file] = l.split(","); return { category, file }; });
 const m = manifest.find((x) => x.file.replace(/\.(png|jpe?g)$/i, "") === id);
 if (!m) throw new Error("no manifest row " + id);
 const inp = `remaster/${m.category}/inputs/${m.file}`;

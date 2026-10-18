@@ -1,0 +1,19 @@
+swf	image	w	h	category	tr	pt	priority	note
+login.swf	3_login.ChooseRole.btnEnterTextBG.png	128	36	01-boot-login	Oyuna girin	Entrar no jogo	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+login.swf	4_login.Rename.ModifyButtonbackgound.png	116	28	01-boot-login	Değiştir	Alterar	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+ddtroomloading.swf	34_asset.roomLoading.GameMode_0.png	136	38	03-sala-partida	Ozgur Savas	Guerra Livre	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+ddtroomloading.swf	5_asset.roomLoading.GameMode_26.png	149	34	03-sala-partida	Ring Savasi	Guerra do Ringue	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+ddtroomloading.swf	6_asset.roomLoading.GameMode_42.png	177	39	03-sala-partida	Bocek savasi	Guerra dos Insetos	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+ddtroomloading.swf	11_asset.roomLoading.GameMode_21.png	169	32	03-sala-partida	Birlik Yarismasi	Competicao da Sociedade	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+ddtroomloading.swf	27_asset.roomLoading.GameMode_7.png	130	38	03-sala-partida	Uzak sunucu	Instancia Remota	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+ddtroomloading.swf	29_asset.roomLoading.GameMode_2.png	126	38	03-sala-partida	duello yarisi	Disputa de Duelo	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+ddtroomloading.swf	31_asset.roomLoading.GameMode_14.png	90	38	03-sala-partida	Elit mac	Partida de Elite	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+ddtroomloading.swf	32_asset.roomLoading.GameMode_12.png	90	38	03-sala-partida	Turnuva	Torneio	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+ddtroomloading.swf	8_asset.roomLoading.GameMode_3.png	242	32	03-sala-partida	Sunucular Arasi Savas	Guerra Entre Servidores	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+gameover.swf	108_asset.experience.attachExpItemTxt_a0.png	103	25	04-batalha-resultado	VIP ayricaligi	Privilegio VIP	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+gameover.swf	76_asset.experience.exploitExpItemTxt_a2.png	105	25	04-batalha-resultado	VIP ayricaligi	Privilegio VIP	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+dayactivity.swf	11_day.activeBtn2.png	103	26	05-atividade-diaria	Gunluk aktivite	Atividade Diaria	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+dayactivity.swf	12_day.activeBtn1.png	98	24	05-atividade-diaria	Gunluk aktivite	Atividade Diaria	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+dayactivity.swf	13_day.activityBtn2.png	99	26	05-atividade-diaria	Gunluk etkinlik	Evento Diario	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+dayactivity.swf	15_day.activityBtn1.png	98	22	05-atividade-diaria	Gunluk etkinlik	Evento Diario	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+dayactivity.swf	3_day.receiveOver.png	76	31	05-atividade-diaria	Alinmis	Resgatado	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
