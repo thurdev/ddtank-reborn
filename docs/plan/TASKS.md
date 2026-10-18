@@ -34,8 +34,8 @@
 
 ### M2 — loop central no 6600
 - [ ] **m2-bolsa** — bolsa/equipar/vestir (`PLAYER_DRESS`, mudanças de valor do §1.1).
-- [ ] **m2-loja** — loja + correio.
-- [ ] **m2-salas** — criar/entrar sala, pronto, começar.
+- [~] **m2-loja** — loja + correio.
+- [~] **m2-salas** — criar/entrar sala, pronto, começar (até a tela de carregamento da batalha).
 - [ ] **m2-batalha** — partida PvP completa, pacotes novos de `eFightPackageType`, dano mágico por item.
 - [ ] **m2-forja** — forja (fundir, compor, `ITEM_REFINERY`).
 - [ ] **m2-cutover** — 6600 vira o padrão em `/play`; 4.1 fica em `?client=41` até ser removido.
