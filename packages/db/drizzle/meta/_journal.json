@@ -141,6 +141,13 @@
       "when": 1792348345765,
       "tag": "0019_cards-slot-type",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1792362629315,
+      "tag": "0020_cloudy_korath",
+      "breakpoints": true
     }
   ]
 }
