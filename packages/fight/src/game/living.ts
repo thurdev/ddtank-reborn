@@ -53,6 +53,10 @@ export class Living extends LivingBody {
   attack = 0;
   defence = 0;
   lucky = 0;
+  /** 6600-only "dano mágico por item" (MIGRACAO-6600.md §2.2); see `formulas.ts` `DamageTarget.magicAttack`/
+   * `magicDefence` for the formula and why `0` (today's value for every item, 4.1 and 6600 alike) is a no-op. */
+  magicAttack = 0;
+  magicDefence = 0;
   baseDamage = 0;
   baseGuard = 0;
   currentDamagePlus = 1;
@@ -347,6 +351,10 @@ export interface PlayerSpec {
   defence: number;
   agility: number;
   lucky: number;
+  /** 6600-only "dano mágico por item" (MIGRACAO-6600.md §2.2, `Sys_Users_Goods.MagicAttack`/`MagicDefence`).
+   * Every item today (4.1 and 6600) has these at `0` — see `formulas.ts` `DamageTarget` for the formula. */
+  magicAttack?: number;
+  magicDefence?: number;
   /** GamePlayer.GetBaseAttack() (+DameAddPlus) */
   baseAttack: number;
   /** GamePlayer.GetBaseDefence() (+GuardAddPlus) */
@@ -431,6 +439,8 @@ export class Player extends TurnedLiving {
     this.defence = s.defence;
     this.agility = s.agility;
     this.lucky = s.lucky;
+    this.magicAttack = s.magicAttack ?? 0;
+    this.magicDefence = s.magicDefence ?? 0;
     this.baseDamage = s.baseAttack;
     this.baseGuard = s.baseDefence;
     this.maxBlood = s.hp;

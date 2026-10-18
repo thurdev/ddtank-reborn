@@ -75,12 +75,27 @@ export interface DamageTarget {
   /** armor bonus H from the deputy weapon when AddArmor is active (0 otherwise) */
   armorBonus?: number;
   cancelGuard?: boolean;
+  /**
+   * 6600-only "dano mágico por item" (MIGRACAO-6600.md §2.2, `Sys_Users_Goods.MagicAttack`/`MagicDefence`,
+   * migration 0013). Only `SimpleBomb.MakeDamage` (6600 `Living.cs:1169-1313`, obfuscated) reads these — the
+   * attacker's effective attack gets the TARGET's `MagicAttack` added (not the attacker's own; a faithfully
+   * reproduced quirk of the original), and the target's `Defence` gets the target's own `MagicDefence` added.
+   * The melee path (`Living.MakeDamage`, 6600 `Living.cs:1014-1045`) does NOT read them — gated by `!melee`
+   * below. 4.1 never had this field (confirmed: zero occurrences in `vendor/DDTank41/Game.Logic`, except one
+   * commented-out copy of this exact formula in `PetEffects/Element/Actives/AE1436.cs:158-159`). Every item
+   * today (4.1 donor AND 6600, migration 0013's default) has `MagicAttack=MagicDefence=0`, so leaving these
+   * `undefined` (every call site except `specOf`'s 6600 wiring) is a mathematical no-op — proven by
+   * `golden-game.test.ts` (doesn't pass them, so defaults to `?? 0`) staying green.
+   */
+  magicAttack?: number;
+  magicDefence?: number;
 }
 
 /** core of SimpleBomb.MakeDamage (SimpleBomb.cs:478-548); `distance`/`radius` null → melee (Living.MakeDamage, no DR3). */
 export function shellDamage(a: DamageAttacker, t: DamageTarget, distance: number | null, radius: number, melee = false): number {
   let baseGuard = t.baseGuard;
-  let defence = t.defence;
+  let defence = t.defence + (melee ? 0 : (t.magicDefence ?? 0));
+  const attack = a.attack + (melee ? 0 : (t.magicAttack ?? 0));
   if (t.armorBonus) {
     const add = int(t.armorBonus);
     baseGuard += add;
@@ -93,7 +108,7 @@ export function shellDamage(a: DamageAttacker, t: DamageTarget, distance: number
   const dr1 = (0.95 * (baseGuard - 3 * a.grade)) / (500.0 + baseGuard - 3 * a.grade);
   const dr2 = defence - a.lucky >= 0 ? (0.95 * (defence - a.lucky)) / (600.0 + defence - a.lucky) : 0;
   const dr3 = melee ? 0 : (a.worldBossAddDamage ?? 0) * (1.0 - (baseGuard / 200.0 + defence * 0.003));
-  let dmg = (dr3 + a.baseDamage * (1.0 + a.attack * 0.001) * (1.0 - (dr1 + dr2 - dr1 * dr2))) * f32(a.currentDamagePlus) * f32(a.currentShootMinus);
+  let dmg = (dr3 + a.baseDamage * (1.0 + attack * 0.001) * (1.0 - (dr1 + dr2 - dr1 * dr2))) * f32(a.currentDamagePlus) * f32(a.currentShootMinus);
   if (melee) return dmg < 0 ? 1 : int(dmg);
   if (distance !== null && distance < radius) {
     dmg *= 1.0 - distance / radius / 4.0;

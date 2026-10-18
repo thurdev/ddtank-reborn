@@ -43,7 +43,7 @@
   nos dois sentidos (`94/0`/`94/4` corrigidos, `91/101 GAME_CREATE`/`91/103 GAME_LOAD` corrigidos e
   broadcast por clientKind, Pesadelo/`eHardLevel.Nightmare` ligado ao `Pve_Info.NightmareGameScript`).
   Ver `research/6600/packets-m1.md` "M2 salas".
-- [~] **m2-batalha** — partida PvP completa, pacotes novos de `eFightPackageType`, dano mágico por item.
+- [x] **m2-batalha** — 91/2 FIRE, 91/6 TURN, 91/99 START_GAME, 91/100 GAME_OVER, 91/115 ALL_MISSION_OVER com layout 6600; todos os eventos de luta montados por tipo de quem recebe (partida mista 4.1×6600 ok); dano mágico do 6600 no motor (inerte até itens terem MagicAttack/Defence). Lacunas: somar stats mágicos dos itens no PlayerSpec, PvE ao vivo até MISSION_OVER.
 - [ ] **m2-forja** — forja (fundir, compor, `ITEM_REFINERY`).
 - [ ] **m2-cutover** — 6600 vira o padrão em `/play`; 4.1 fica em `?client=41` até ser removido.
 

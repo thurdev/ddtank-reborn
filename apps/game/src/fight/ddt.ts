@@ -9,6 +9,7 @@ import { loadPackedAssets } from "@ddt/fight/node";
 import { type GSPacket, PacketOut } from "@ddt/protocol";
 import * as Out from "../packets/out.js";
 import type { RoomMember } from "../game/player.js";
+import type { ClientKind } from "../game/player-info.js";
 import type { FightEngine, FightGame, StartGameOptions, StartPveOptions } from "./types.js";
 
 export interface DdtFightOptions {
@@ -358,11 +359,23 @@ class DdtGame implements FightGame {
     this.s.onStopped();
   }
 
-  private send(e: FightEvent, pkt: GSPacket): void {
+  /**
+   * Builds at most 2 variants of a 91 GAME_CMD body — one per receiver `clientKind` actually present among this
+   * event's recipients — and sends each receiver its own layout (same pattern as `sendGameCreate`/
+   * `rooms/room.ts` `sendToAllByKind`). Most `FightEvent` cmds are byte-identical between 4.1 and 6600
+   * (research/6600/packets-m1.md "M2 batalha"), so `serialize()` only branches the handful that aren't; the
+   * other cmds just build the same packet twice (cheap, correctness > micro-optimizing a `Map` cache here).
+   */
+  private sendEvent(e: FightEvent): void {
     const target = e.to ? new Set(e.to) : null;
+    let p41: PacketOut | null | undefined;
+    let p6600: PacketOut | null | undefined;
     for (const p of this.game.players) {
       if (e.except === p.id || (target && !target.has(p.id))) continue;
-      this.members.get(p.spec.userId)?.send(pkt);
+      const m = this.members.get(p.spec.userId);
+      if (!m) continue;
+      const pkt = m.clientKind === "6600" ? (p6600 ??= this.serialize(e, "6600")) : (p41 ??= this.serialize(e, "41"));
+      if (pkt) m.send(pkt);
     }
   }
 
@@ -388,8 +401,7 @@ class DdtGame implements FightGame {
         this.sendGameCreate(e);
         continue;
       }
-      const pkt = this.serialize(e);
-      if (pkt) this.send(e, pkt);
+      this.sendEvent(e);
     }
   }
 
@@ -499,19 +511,27 @@ class DdtGame implements FightGame {
     }
   }
 
-  private serialize(e: FightEvent): PacketOut | null {
+  private serialize(e: FightEvent, clientKind: ClientKind = "41"): PacketOut | null {
     if (e.cmd === "GAME_LOAD") {
       // GameNeedPetSkill: skill effect assets (only those of the battle pets in this game; the original sent every one)
+      // 91/103: verified byte-identical 4.1/6600 (research/6600/packets-m1.md "M2 salas" — GameManager.as __beginLoad).
       const seen = new Set<string>();
       const pets = this.game.players.flatMap((x) => x.spec.pet?.skills ?? []).filter((k) => k.effectPic && !seen.has(k.effectPic) && seen.add(k.effectPic)).map((k) => ({ pic: k.pic ?? "", effect: k.effectPic! }));
       return Out.gameLoad(e.maxTime, e.mapId, e.files ?? [], pets);
     }
-    return serializeEvent(e);
+    return serializeEvent(e, clientKind);
   }
 }
 
-/** 91 GAME_CMD body writers for every engine event (C# file:line in packages/fight/src/game/events.ts). */
-export function serializeEvent(e: FightEvent): PacketOut | null {
+/**
+ * 91 GAME_CMD body writers for every engine event (C# file:line in packages/fight/src/game/events.ts).
+ * `clientKind` picks the receiver's layout — research/6600/packets-m1.md "M2 batalha": most cmds are
+ * byte-identical between 4.1 and 6600 (confirmed field-by-field against the obfuscated 6600
+ * `Game.Logic/BaseGame.cs`/`PVPGame.cs`/`PVEGame.cs` and the AS3 readers); FIRE/TURN/GAME_OVER/START_GAME/
+ * GAME_ALL_MISSION_OVER add filler fields (always `0`/`false` — dragon-boat/fight-football/RingStation
+ * stats we don't implement) that a 6600 client reads unconditionally and would otherwise EOF on.
+ */
+export function serializeEvent(e: FightEvent, clientKind: ClientKind = "41"): PacketOut | null {
   if (e.cmd === "PVE_AWARD" || e.cmd === "PVE_STOPPED") return null;
   // BaseGame.SendEquipEffect (BaseGame.cs:2146): not a GAME_CMD — its own packet (code 3: writeInt(3), writeString).
   if (e.cmd === "EQUIP_EFFECT_MSG") {
@@ -552,12 +572,16 @@ export function serializeEvent(e: FightEvent): PacketOut | null {
       }
       break;
     case "GAME_ALL_MISSION_OVER":
-      // PVEGame.cs:960-1001
+      // PVEGame.cs:960-1001 (4.1) / PVEGame.cs:1300-1354 (6600, obfuscated `GameOverAllSession`)
       p.writeInt(e.players.length);
       for (const r of e.players) {
         p.writeInt(r.userId); p.writeInt(r.totalKill); p.writeInt(r.totalHurt); p.writeInt(r.totalScore); p.writeInt(r.totalCure);
         for (let i = 0; i < 8; i++) p.writeInt(0);
-        p.writeInt(r.totalExp); p.writeBoolean(r.isWin);
+        p.writeInt(r.totalExp);
+        // 6600 inserts `gpCSMUser` (always 0 — Consortium/CSM bonus, not implemented) right before `isWin`;
+        // AS3 confirmed in GameManager.as __missionAllOver (6600:1574-1619) vs 4.1 (:1094-1138).
+        if (clientKind === "6600") p.writeInt(0);
+        p.writeBoolean(r.isWin);
       }
       p.writeInt(e.resources.length);
       for (const s of e.resources) p.writeString(s);
@@ -569,16 +593,29 @@ export function serializeEvent(e: FightEvent): PacketOut | null {
       p.writeInt(e.lifeTime);
       break;
     case "START_GAME":
+      // PVPGame.StartGame (PVPGame.cs:771-829, 4.1) vs 6600 (PVPGame.cs:132-184, obfuscated). 6600 inserts a
+      // `deputyWeaponCount` int (ammo of the 2nd weapon; stubbed 0 — not tracked by our engine) right before
+      // the hardcoded power-ratio int, and 2 filler zero ints after `dander` (before the fight-buff list) and
+      // 2 more before the trailing date — all always 0/unused outside eRoomType.FightFootballTime, which we
+      // never create.
       p.writeInt(e.players.length);
       for (const s of e.players) {
         p.writeInt(s.id); p.writeInt(s.x); p.writeInt(s.y); p.writeInt(s.direction); p.writeInt(s.blood); p.writeInt(s.maxBlood); p.writeInt(s.team);
-        p.writeInt(s.weaponRefineryLevel); p.writeInt(s.powerRatio); p.writeInt(s.dander); p.writeInt(s.buffs.length);
+        p.writeInt(s.weaponRefineryLevel);
+        if (clientKind === "6600") p.writeInt(0); // deputyWeaponCount
+        p.writeInt(s.powerRatio); p.writeInt(s.dander);
+        if (clientKind === "6600") { p.writeInt(0); p.writeInt(0); }
+        p.writeInt(s.buffs.length);
         for (const b of s.buffs) { p.writeInt(b.type); p.writeInt(b.value); }
         p.writeInt(0); p.writeBoolean(s.isFrost); p.writeBoolean(s.isHide); p.writeBoolean(s.isNoHole); p.writeBoolean(false); p.writeInt(0);
       }
+      if (clientKind === "6600") { p.writeInt(0); p.writeInt(0); }
       p.writeDateTime(new Date());
       break;
     case "TURN":
+      // BaseGame.SendGameNextTurn (BaseGame.cs:2190-2238, 4.1) vs 6600 `method_55` (BaseGame.cs:2066-2117,
+      // obfuscated): byte-identical up to `turnIndex`; 6600 then writes 1 extra bool (always `false` — only
+      // non-false/read further in eRoomType.FightFootballTime, which we never create).
       p.writeBoolean(e.windPositive); p.writeByte(e.vane1); p.writeByte(e.vane2); p.writeByte(e.vane3); p.writeBoolean(e.isHide); p.writeInt(e.turnTime);
       p.writeInt(e.boxes.length);
       for (const b of e.boxes) { p.writeInt(b.id); p.writeInt(b.x); p.writeInt(b.y); p.writeInt(b.type); }
@@ -588,8 +625,12 @@ export function serializeEvent(e: FightEvent): PacketOut | null {
         p.writeInt(t.psychic); p.writeInt(t.dander); p.writeInt(t.petMaxMP); p.writeInt(t.petMP); p.writeInt(t.shootCount); p.writeInt(t.flyCount);
       }
       p.writeInt(e.turnIndex);
+      if (clientKind === "6600") p.writeBoolean(false);
       break;
     case "FIRE":
+      // Living.ShootImp (Living.cs:1761-1870, 4.1) vs 6600 (Living.cs:1169-1313, Game.Logic/Phy/Object):
+      // byte-identical through the pet-action tail; 6600 then writes 1 extra bool (always `false` — only
+      // non-false/read further in eRoomType.FightFootballTime, which we never create).
       p.writeInt(e.wind10); p.writeBoolean(e.windPositive); p.writeByte(e.vane1); p.writeByte(e.vane2); p.writeByte(e.vane3);
       p.writeInt(e.bombs.length);
       for (const b of e.bombs) {
@@ -603,6 +644,7 @@ export function serializeEvent(e: FightEvent): PacketOut | null {
         for (const a of e.petActions) for (const v of a) p.writeInt(v);
         p.writeInt(1);
       } else { p.writeInt(0); p.writeInt(0); }
+      if (clientKind === "6600") p.writeBoolean(false);
       break;
     case "HEALTH":
       p.writeByte(e.type & 0xff); p.writeInt(e.blood); p.writeInt(e.value);
@@ -650,14 +692,26 @@ export function serializeEvent(e: FightEvent): PacketOut | null {
       p.writeString(e.type); p.writeString(e.state);
       break;
     case "GAME_OVER":
+      // PVPGame.GameOver (PVPGame.cs:329-558, 4.1) vs 6600 (PVPGame.cs:394-636, obfuscated): same field count
+      // per player (28), but 6600 adds `tieStatus` (always 0 — ConsortiaBattle tie flag, not a normal
+      // PvP/PvE match) before the player count, `gpCSMUser`/`offerCSMUser` (always 0 — Consortium/CSM bonus,
+      // not implemented) inside each player's block, and `redFinalScore`/`blueFinalScore` (always 0 — only
+      // non-zero in eRoomType.FightFootballTime, which we never create) after `riches`. Confirmed against the
+      // AS3 reader `game/actions/GameOverAction.as readInfo` (4.1 vs 6600).
+      if (clientKind === "6600") p.writeInt(0); // tieStatus
       p.writeInt(e.players.length);
       for (const r of e.players) {
         p.writeInt(r.id); p.writeBoolean(r.win); p.writeInt(r.grade); p.writeInt(r.gp); p.writeInt(r.totalKill); p.writeInt(r.gpGained); p.writeInt(r.hitCount);
         p.writeInt(r.psychic); p.writeInt(r.vipBonus); p.writeInt(0); p.writeInt(0); p.writeInt(0); p.writeInt(0); p.writeInt(0); p.writeInt(0); p.writeInt(r.reward);
-        p.writeInt(0); p.writeInt(0); p.writeInt(r.gpGained); p.writeInt(r.offer); p.writeInt(0); p.writeInt(r.isVip ? 1 : 0); p.writeInt(0); p.writeInt(0); p.writeInt(0);
-        p.writeInt(0); p.writeInt(r.offer); p.writeInt(r.canTakeOut);
+        p.writeInt(0); p.writeInt(0); p.writeInt(r.gpGained);
+        if (clientKind === "6600") p.writeInt(0); // gpCSMUser
+        p.writeInt(r.offer); p.writeInt(0); p.writeInt(r.isVip ? 1 : 0); p.writeInt(0); p.writeInt(0); p.writeInt(0);
+        p.writeInt(0); p.writeInt(r.offer);
+        if (clientKind === "6600") p.writeInt(0); // offerCSMUser
+        p.writeInt(r.canTakeOut);
       }
       p.writeInt(e.riches);
+      if (clientKind === "6600") { p.writeInt(0); p.writeInt(0); } // redFinalScore, blueFinalScore
       break;
     default:
       return null;
