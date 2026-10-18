@@ -1442,5 +1442,14 @@
   "fit": "cover",
   "review": "local",
   "note": "rodada 2: placa Acik Artirma Alani -> Casa de Leiloes (icone preservado), hallsign-icon-text.mjs"
+ },
+ {
+  "category": "05-atividade-diaria",
+  "file": "dayactivity__3_day.receiveOver.png",
+  "swf": "dayactivity.swf",
+  "swfPath": "ui\\turkey\\swf\\dayactivity.swf",
+  "sourceFile": "3_day.receiveOver.png",
+  "fit": "cover",
+  "review": "v45"
  }
 ]

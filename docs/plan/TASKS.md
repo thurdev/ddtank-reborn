@@ -48,6 +48,7 @@
   (`ui/turkey/swf/*.swf` + SWFs da raiz do pack) traduzidos pra PT-BR, reaproveitando o pipeline
   `tools/qa/swf-text-audit.sh` + `tools/qa/swf-text-merge.mjs` + `runSwfTextStep` do 4.1 (ver `docs/I18N-AUDIT.md`).
   Pronto quando: 0 textos estáticos em turco nos SWFs servidos (fora bitmap, catalogado no relatório).
+- [ ] **m1-bitmap-semitrans** — 7 imagens semitransparentes/finas que o Seedream estraga (fundo verde vaza no vidro/prata; tiras finas quebram em 2 linhas): abas selecionadas da atividade diária, "Clique aqui", "Clique para continuar", 2º "Falhou", "Status do evento". Prompts em `tools/remaster/prompts/win45-6600/*.txt.semitrans`; testar upload com fundo neutro (cinza médio) em vez de verde ou render local com borda/brilho copiados do original.
 - [ ] **m1-brand-polish** — `ui/turkey/swf/loading.swf` (chid 18 e 34): sobra um fantasma do "Bombom II" atrás do logo; refazer o fundo com inpaint (IA unlimited ou local) em vez de blur. Ver `research/6600/brand-review.jpg`.
 - [ ] **m1-ruffle-report** — refazer `research/client/02-ruffle-report.md` pro 6600 (o que quebra no Ruffle).
 - [x] **m1-regressao** — 4.1 em `/play` abre o lobby HD PT-BR normal depois de todo o M1 (2026-10-18). Pendente antigo: `/flash/weekly/weeklyinfo.xml` 404.
