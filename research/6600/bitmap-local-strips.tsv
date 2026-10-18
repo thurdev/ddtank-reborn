@@ -1,6 +1,7 @@
 swf	image	w	h	category	tr	pt	priority	note
 login.swf	3_login.ChooseRole.btnEnterTextBG.png	128	36	01-boot-login	Oyuna girin	Entrar no jogo	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
 login.swf	4_login.Rename.ModifyButtonbackgound.png	116	28	01-boot-login	Değiştir	Alterar	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+ddthallicon.swf	200.png	179	44	02-hall-icons	Buraya tikla	Clique aqui	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
 ddtroomloading.swf	34_asset.roomLoading.GameMode_0.png	136	38	03-sala-partida	Ozgur Savas	Guerra Livre	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
 ddtroomloading.swf	5_asset.roomLoading.GameMode_26.png	149	34	03-sala-partida	Ring Savasi	Guerra do Ringue	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
 ddtroomloading.swf	6_asset.roomLoading.GameMode_42.png	177	39	03-sala-partida	Bocek savasi	Guerra dos Insetos	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
@@ -10,6 +11,11 @@ ddtroomloading.swf	29_asset.roomLoading.GameMode_2.png	126	38	03-sala-partida	du
 ddtroomloading.swf	31_asset.roomLoading.GameMode_14.png	90	38	03-sala-partida	Elit mac	Partida de Elite	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
 ddtroomloading.swf	32_asset.roomLoading.GameMode_12.png	90	38	03-sala-partida	Turnuva	Torneio	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
 ddtroomloading.swf	8_asset.roomLoading.GameMode_3.png	242	32	03-sala-partida	Sunucular Arasi Savas	Guerra Entre Servidores	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+firstcore.swf	260.png	139	138	04-batalha-resultado	Tiklayarak isleme devam edin	Clique para continuar	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+gameiii.swf	225.png	203	57	04-batalha-resultado	Basarisiz	Falhou	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+gameover.swf	13_asset.takeoutCard.survival.InstructionBitmap.png	293	62	04-batalha-resultado	Hayatta kalma modunda, oldurmek ve sonuna kadar hayatta kalma cevirme sayisini arttiracaktir.	No modo sobrevivencia, matar e sobreviver ate o fim vai aumentar o numero de giros.	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+gameover.swf	31_asset.experience.TotalExploitTxt.png	147	47	04-batalha-resultado	Toplam mukafat puani	Pontos de recompensa total	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+gameover.swf	53_asset.takeoutCard.InstructionBitmap.png	352	53	04-batalha-resultado	Her oyuncu 2 kere ucretsiz olarak kupon kutusuna tiklayip hediye toplayabilir. Sonra kullanarak kutu acma sansini arttirabilirsin.	Cada jogador pode clicar na caixa de cupons de graca 2 vezes para ganhar um presente. Depois disso, use itens para aumentar a chance de abrir a caixa.	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
 gameover.swf	108_asset.experience.attachExpItemTxt_a0.png	103	25	04-batalha-resultado	VIP ayricaligi	Privilegio VIP	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
 gameover.swf	76_asset.experience.exploitExpItemTxt_a2.png	105	25	04-batalha-resultado	VIP ayricaligi	Privilegio VIP	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
 dayactivity.swf	11_day.activeBtn2.png	103	26	05-atividade-diaria	Gunluk aktivite	Atividade Diaria	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
@@ -17,3 +23,14 @@ dayactivity.swf	12_day.activeBtn1.png	98	24	05-atividade-diaria	Gunluk aktivite	
 dayactivity.swf	13_day.activityBtn2.png	99	26	05-atividade-diaria	Gunluk etkinlik	Evento Diario	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
 dayactivity.swf	15_day.activityBtn1.png	98	22	05-atividade-diaria	Gunluk etkinlik	Evento Diario	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
 dayactivity.swf	3_day.receiveOver.png	76	31	05-atividade-diaria	Alinmis	Resgatado	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+dayactivity.swf	6_day.timeViewBtn2.png	88	26	05-atividade-diaria	Zaman sinirli	Tempo Limitado	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+dayactivity.swf	7_day.timeViewBtn1.png	90	22	05-atividade-diaria	Zaman sinirli	Tempo Limitado	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+dayactivity.swf	23_day.activity.tiaojian.png	142	26	05-atividade-diaria	Etkinlik durumu:	Status do evento:	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+ddthallmain.swf	815.png	187	45	07-placas-salao	Oyun Salonu	Salao de Jogos	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+ddthallmain.swf	751.png	180	45	07-placas-salao	Kesif Rihtimi	Cais de Exploracao	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+ddthallmain.swf	853.png	258	45	07-placas-salao	savascinin gizli yeri	esconderijo do guerreiro	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+ddthallmain.swf	963.png	90	45	07-placas-salao	Ciftlik	Fazenda	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+ddthallmain.swf	892.png	175	45	07-placas-salao	Ring Savasi	Batalha no Ringue	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+ddthallmain.swf	306.png	126	32	07-placas-salao	Birlik kulubu	Clube da Sociedade	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+ddthallmain.swf	423.png	154	30	07-placas-salao	Demirci Atolyesi	Forja	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA
+ddthallmain.swf	596.png	164	29	07-placas-salao	Acik Artirma Alani	Casa de Leiloes	P0	tira fina de texto -- title-text.mjs --manifest remaster/manifest-6600.csv, nao IA

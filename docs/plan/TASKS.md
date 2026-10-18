@@ -19,7 +19,29 @@
 - [x] **m1-socket** — cliente identificado no login (Login.ashx → LoginSessions.Client), layouts 6600 dos pacotes do burst de login/hall (LOGIN, 38, 67, 64 GRID_GOODS, 142 KING_BLESS, 216 CARDS, 178 QUEST, 259, 102, 137), API zlib por cliente. **Lobby 6600 abre** (2026-10-18). Ver `research/6600/packets-m1.md`.
 - [ ] **m1-stage** — lobby 6600 ocupa a moldura certinho; só a tela de criar personagem sai menor (barra preta à direita/embaixo). Baixa prioridade.
 - [x] **m1-pacotes-acao** — 74 ITEM_EQUIP, 18 SCENE_ADD_USER, 94/4 sala, 160 amigo, colisão 121; broadcasts montados por tipo de cliente de quem recebe (`research/6600/packets-m1.md` Round 3). Falta: sistema de runas/BEAD_HOLE_INFO (não portado), resto da sociedade.
-- [~] **m1-bitmap-text** — rodada 1 feita (2026-10-18): 146 imagens importadas no overlay 6600 (106 reuso 4.1 + Seedream 4.5 + render local `icon-caption --in/--out/--text` / `title-text --manifest`). Rodada 2: placas dos prédios do hall ("Oyun Salonu", "Birlik kulübü", "Demirci Atölyesi"), painel do jogador ("Savaşma Gücü", "VIP aç"), "Her Gün Yapılmalı", abas de missão (Ana/Ek/Günlük/Etkinlik görevler), "m altın", e os rejeitados marcados `.local` em `tools/remaster/prompts/win45-6600/`.
+- [~] **m1-bitmap-text** — rodada 1 feita (2026-10-18): 146 imagens importadas no overlay 6600 (106 reuso 4.1 + Seedream 4.5 + render local `icon-caption --in/--out/--text` / `title-text --manifest`). Rodada 2 feita (2026-10-18, branch `feature/m1-bitmap-r2`): 22 imagens novas, todas render local (sem IA) —
+  8 placas do salão em `ddthallmain.swf` (bitmap puro, 0 `DefineText` nesse swf — achado varrendo manualmente,
+  não pelo OCR da rodada 1): "Oyun Salonu"→Salão de Jogos, "Birlik kulübü"→Clube da Sociedade, "Demirci
+  Atölyesi"→Forja, "Açık Artırma Alanı"→Casa de Leilões, "Keşif Rıhtımı"→Cais de Exploração, "savaşçının gizli
+  yeri"→esconderijo do guerreiro, "Çiftlik"→Fazenda, "Ring Savaşı"→Batalha no Ringue (as 3 com ícone colado no
+  bitmap usam `tools/remaster/hallsign-icon-text.mjs`, que recorta ícone/texto, só redesenha o texto e
+  recompõe — ícone intocado); 8 abas/legendas da janela `dayactivity.swf` que a rodada 1 não pegou
+  (`tools/remaster/badge-text.mjs`, novo — placa com fundo sólido, detecta a cor por moda de pixel opaco,
+  apaga só o texto e redesenha, pro caso "ícone redondo"/"tira fina transparente" dos scripts existentes não
+  servir); os 6 rejeitados da IA da rodada 1 (`tools/remaster/prompts/win45-6600/*.txt.local`, agora deletados):
+  "Buraya tıkla"→Clique aqui, "Tıklayarak işleme devam edin"→Clique para continuar, "Başarısız" (2ª ocorrência,
+  gameiii chid 225)→Falhou, e as 3 instruções do gameover (sobrevivência/pontuação/caixa de cupons) — multi-linha
+  via `tools/remaster/title-text-ml.mjs` (novo, variante do title-text.mjs com `\n`). **Savaşma Gücü/VIP
+  aç/abas de missão (Ana/Ek/Günlük/Etkinlik)/"...altın" do painel já estavam certos**: são chaves de
+  `language.txt` (`tank.menu.FightPower`, `tank.memberList.fightPowerText.text`,
+  `CryptBossMainFrame.NOvipNumberTxtLG`, `tank.view.quest.bubble.{TankLink,BranchLine,Daily,Act}`) já traduzidas
+  e confirmadas no zip servido (`apps/api/assets/flash6600/ui/turkey/language.png`) — o print do dono que gerou
+  a tarefa é de antes do `m1-lang-ptbr`/`m1-swf-text` fecharem no mesmo dia; nada a fazer aqui. OCR estendido pro
+  P2 (`node tools/remaster/ocr-turkish-6600.mjs --sample=4`, precisa `tur.traineddata` baixado em
+  `tools/remaster/_lang/`, não versionado): 2957 imagens escaneadas, 705 com turco
+  (P0 350, P1 92, P2 263 novos) em `research/6600/bitmap-turkish.tsv` — P2 só catalogado, não corrigido
+  (fora do escopo desta rodada; destaques: `chatii.swf`/`chatball.swf`/`churchroom.swf` com falas de casamento
+  e chat, `chickactivation.swf`). Sheet antes/depois: `research/6600/bitmap-r2-review.jpg`.
 - [x] **m1-loading-brand** — tela de carregamento/logo sem "Bombom"/"DEVELOP BY ASUNA" (overlay de imagem em
   `apps/api/assets/flash6600`), logo DDTank Reborn.
 - [x] **m1-swf-text** — textos estáticos (DefineText/DefineEditText) em turco dentro dos SWFs de UI do 6600
