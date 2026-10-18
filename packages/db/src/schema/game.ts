@@ -2085,6 +2085,8 @@ export const Quest = game.table(
     Level4NeedMoney: integer("Level4NeedMoney").notNull().default(-1),
     Level5NeedMoney: integer("Level5NeedMoney").notNull().default(-1),
     OneKeyFinishNeedMoney: integer("OneKeyFinishNeedMoney").notNull().default(0),
+    CollocationCost: integer("CollocationCost").notNull().default(20),
+    CollocationColdTime: integer("CollocationColdTime").notNull().default(60),
   },
   (t) => [
     primaryKey({ name: "Quest_pkey", columns: [t.ID] }),

@@ -35,6 +35,7 @@
  *                              WONDERFUL_GETREWARD (sem handler no original, no-op)
  *   compra-em-grupo.ts        (ícone "Compra em Grupo", m3-eventos-b) — 144 GROUP_PURCHASE (sem handler nem
  *                              sender no C# original — feature nunca ligada em produção, no-op)
+ *   dados.ts                  (ícone "Sistema de Dados", 6600 only) — 134 DICE_SYSTEM
  *
  * 104 CARD_LOTTERY / 105 LUCK_LOTTERY / 239 GOTO_CARD_LOTTERY / 11 ACTIVE_PULLDOWN: SAÍRAM de "morto" —
  * ver `progressao/loterias.ts` (design próprio, sem fonte C#). 37-45 LanternRiddles de 145 ACTIVITY_SYSTEM
@@ -64,6 +65,7 @@ import { activitySystemRouter } from "./caminho-da-luz.js";
 import { oldPlayerRegressHandler } from "./jogador-antigo.js";
 import { wonderfulActivity, wonderfulActivityInit, wonderfulActivityGetReward } from "./atividade-maravilhosa.js";
 import { groupPurchase } from "./compra-em-grupo.js";
+import { diceSystem } from "./dados.js";
 
 /**
  * Tabela código → função → ícone do jogo. Cada linha é um pacote que o cliente manda; a ordem aqui não
@@ -132,4 +134,6 @@ export function registerEventos(r: HandlerRegistry): void {
   // Compra em Grupo (m3-eventos-b) — sem handler nem sender no C# original, feature nunca ligada em
   // produção (ver compra-em-grupo.ts). No-op, mesma categoria de 211/215 em roleta.ts.
   r.player(144, "GROUP_PURCHASE", (ctx, p, pkt) => groupPurchase(ctx, p, pkt), "stub");
+  // Sistema de Dados (6600 only)
+  r.player(134, "DICE_SYSTEM", (ctx, p, pkt) => diceSystem(ctx, p, pkt));
 }

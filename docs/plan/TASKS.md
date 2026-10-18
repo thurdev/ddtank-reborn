@@ -225,22 +225,67 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
   padrão já usado pro 237 em `casamento/index.ts`. Sem migração.
 
 **Sistemas médios (guilda/GvG, eventos, automação):**
-- [ ] **m3-king-bless-deed** — `142 KING_BLESS_MAIN` (`sendOpenKingBless`/`sendOpenDeed`) e
-  `143 KING_BLESS_USE_ITEM` (`sendUseItemKingBless`/`sendUseItemDeed`) — "Juramento do Rei"
-  (`kingbless.swf`, `src/kingBless/`) + sistema "Deed"/escritura. Hoje só existe o stub fechado
-  (`Out.kingBlessClosed()`, M1 Round 2) — esta tarefa é a feature de verdade (abrir/usar item).
-- [ ] **m3-magic-stone-monster** — `284 MAGIC_STONE_MONSTER_INFO` (`sendCheckMagicStoneNumber`) — consulta
-  de monstro/Relíquias (`magicstone.swf`, `src/magicStone/`), parte do sistema maior de Relíquias (M4) mas
-  esta ação é uma consulta simples isolada.
+- [x] **m3-king-bless-deed** (2026-10-18) — `142 KING_BLESS_MAIN` (`sendOpenKingBless`/`sendOpenDeed`,
+  confirmados chamados em `KingBlessMainFrame.as:257/268`/`DeedIcon.as:101`) e `143 KING_BLESS_USE_ITEM`
+  (`sendUseItemKingBless`, `BagView.as:2669`). `sendUseItemDeed` (`BagView.as:2673`) é um `else if` cuja
+  condição é subconjunto do `else if` anterior no MESMO encadeamento — **morto por construção no cliente
+  real**, confirmado por leitura; não implementado (só o caminho King Bless do 143 é real). `KingBlessHandler.
+  cs` cobre 142 (type 10 = Escritura, 1-3 = Bênção do Rei por nível/dias); 143 não tem `[PacketHandler]` em
+  nenhum vendor — design Reborn a partir do contrato (item consumido = pagamento). Preços de
+  `GameProperties.DanDanBuffPrice`/`KingBuffPrice` via `Server_Config`/`cfgInt`. Downgrade (presentear nível
+  menor que o ativo) recusado sem cobrar. **Fixed vs o original**: `SendDeedMain` usa `KingBlessIndex>0`
+  (não `DeedIndex`) pra decidir se escreve o dicionário de efeitos — bug de copy-paste que desincronizaria a
+  leitura do cliente real quando só a Escritura está ativa; corrigido aqui (gate pelo índice certo).
+  **Não portado** (documentado): `AddExpVip`/`CreateSaveLifeBuff` (bônus colateral) e o dicionário de
+  efeitos por-atributo (`STRENGTH_ENCHANCE`/`PET_STAR`/...) — nunca consumido por `game/stats.ts`, sempre 0
+  entradas (mesma categoria de lacuna que os efeitos de combate não portados, HANDLERS.md linha 91); o ícone
+  do buff + contagem regressiva funcionam. `apps/game/src/handlers/progressao/juramento-do-rei.ts`. Migração
+  aditiva 0020 (`Sys_Users_Extra.NormalFightNum`/`HardFightNum`, ver próxima tarefa — reaproveitada aqui só
+  pra ler `Server_Config`, sem coluna nova específica desta). Testes:
+  `apps/game/test/client-6600-m3-king-bless-deed.test.ts` (8).
+- [x] **m3-magic-stone-monster** (2026-10-18) — `284 MAGIC_STONE_MONSTER_INFO` (`sendCheckMagicStoneNumber`,
+  confirmado chamado em `MagicStoneInfoView.as:607`) — consulta pura de `NormalFightNum`/`HardFightNum`
+  (`MagicStoneMonsterInfoHandler.cs:6-16`). Colunas não existiam em `player."Sys_Users_Extra"` (gap do
+  m1-schema, `PlayerExtra.CreateUsersExtra` default ambas 1) — adicionadas via migração aditiva 0020
+  (`EXTRA_COLUMNS["player.Sys_Users_Extra"]` em `packages/db/scripts/gen-schema.ts`, default 1/1). 6600 only.
+  `apps/game/src/handlers/progressao/reliquias-monstro-info.ts`. Teste:
+  `apps/game/test/client-6600-m3-magic-stone-monster.test.ts` (3). O sistema maior de Relíquias (board de
+  exploração, M4) continua fora de escopo — só esta consulta isolada.
 - [ ] **m3-consortia-battle** — `153 CONSORTIA_BATTLE` (`sendConsBatRequestPlayerInfo`/`sendConsBatMove`/
   `sendConsBatChallenge`/`sendConsBatExit`/`sendConsBatConsume`/`sendConsBatUpdateScore`/
   `sendConsBatConfirmEnter`, `GameSocketOut.as`) — arena de guerra de guildas (GvG). Sistema grande,
   `Fighting.Server/Guild` já é quase idêntico entre versões (`MIGRACAO-6600.md` §2.1) — reaproveitar o
   motor, só o protocolo de entrada/pontuação é novo.
-- [ ] **m3-trusteeship** — `140 TRUSTEESHIP` (`sendTrusteeshipStart`/`Cancel`/`SpeedUp`/`BuySpirit`/
-  `UseSpiritItem`) — modo automático/curadoria de personagem (sistema novo do 6600, sem equivalente 4.1).
-- [ ] **m3-dice-system** — `134 DICE_SYSTEM` (`sendDiceRefreshData`/`sendStartDiceInfo`/
-  `sendRequestEnterDiceSystem`, `GameInSocketOut.as`) — Sistema de Dados (`dice.swf`, `src/Dice/`).
+- [x] **m3-trusteeship** (2026-10-18) — `140 TRUSTEESHIP` (`sendTrusteeshipStart`/`Cancel`/`SpeedUp`/
+  `BuySpirit`/`UseSpiritItem`, confirmados chamados em `TrusteeshipView.as`/`TrusteeshipManager.as`/
+  `QuickUseFrame.as:127`) — "curadoria"/auto-piloto de missão. **Sem handler C# em nenhum vendor**
+  (`GameTrusteeshipCommand.cs` é outro código de pacote, stub puro; sem entidade de banco também) —
+  implementado 100% a partir do contrato do cliente. Paga energia espiritual (`Sys_Users_Extra.
+  TrusteeshipSpirit`, migração 0020) + `Quest.CollocationCost`/`CollocationColdTime` (colunas novas na mesma
+  migração, defaults 20/60) pra deixar uma missão se completando sozinha em N minutos;
+  "acelerar" paga Xu/minuto restante (GRÁTIS com uma Bênção do Rei ativa — efeito real confirmado em
+  `TrusteeshipView.as:225-229`, `KingBlessManager.openType>0` — é o único "efeito" do 142 que esta tarefa
+  conseguiu conectar de verdade). `EndTime` sempre `ctx.now()+minutos` (nunca lido do cliente); sem timer
+  por-jogador (igual Labirinto) — o prazo é varrido (`sweep`) na próxima ação 140 do jogador, que entrega a
+  recompensa reaproveitando `QuestInventory.finish` (nova `forceCompleteConditions`, `game/quests.ts`, zera
+  os contadores 0-3 pra simular o playthrough). Preços/limites sem default documentado em nenhum vendor
+  (escolhidos nesta tarefa, admin ajusta via `Server_Config`). Nova tabela (sem equivalente em NENHUM
+  vendor) `player."Sys_Users_Trusteeship"` — hand-added em `src/schema/player.ts` (não vem do
+  `gen-schema.ts`, ver comentário no próprio arquivo). `apps/game/src/handlers/missoes/curadoria.ts`. Teste:
+  `apps/game/test/client-6600-m3-trusteeship.test.ts` (4).
+- [x] **m3-dice-system** (2026-10-18) — `134 DICE_SYSTEM` (`sendDiceRefreshData`/`sendStartDiceInfo`/
+  `sendRequestEnterDiceSystem`, confirmados chamados em `Dice/DiceManager.as:66`/`DiceSystemPanel.as:208`/
+  `DiceToolBar.as:217`) — Sistema de Dados. `DiceHandler.cs` — único dos 4 sistemas desta tarefa com lógica
+  C# real (sem stub); preços/pontos espelhados exatamente (`DiceRefreshPrice`=40000, `CommonDicePrice`=30000,
+  `DoubleDicePrice`=40000, `BigDicePrice`=50000, `SmallDicePrice`=60000, `IntegralPoint`=[100,300,700,1500,
+  3100], `MAX_LEVEL`=5). Persistência **já existia** desde `m1-schema` sem nenhum writer (`player."Dice_
+  Data"`, 37 linhas reais na origem) — sem migração nova; nível usa `game."Dice_Level_Award"` (5 linhas
+  reais seedadas). Board de 19 casas (`EventAwardMgr.GetDiceAward`) usa a tabela genérica `Event_Reward_
+  Goods`, 0 linhas pro tipo DICE na origem — admin-configurável via `app."ScheduledEvents"` kind "dice"
+  (mesmo padrão do Baú da Galinha/Estrela da Sorte), default embutido. Bug do original replicado de
+  propósito (cosmético): `LuckIntegralLevel` é re-grampeado pra 3 ao passar do nível 4, mesmo já tendo
+  ganhado o prêmio do nível 5. `apps/game/src/handlers/eventos/dados.ts`. Sem migração nova. Teste:
+  `apps/game/test/client-6600-m3-dice-system.test.ts` (5).
 - [ ] **m3-campbattle** — `146 CAMPBATTLE` (`CampbattleEnterFight`/`RoleMove`/`changeMap`/`outCampBatttle`/
   `captureMap`/`requestPRankList`/`requestCRankList`/`enterPTPFight`/`returnToPve`/`resurrect`) — Batalha de
   Acampamento (`campbattle.swf`). Sistema maior, 10 sub-ações.

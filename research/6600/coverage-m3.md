@@ -16,7 +16,7 @@
 | handled | 0 |
 | partial | 23 |
 | stub | 16 |
-| MISSING | 34 |
+| MISSING | 29 |
 | **Total de códigos enviados pelo cliente** | **213** |
 
 ## Totais — endpoints (.ashx/.xml/.aspx)
@@ -322,12 +322,12 @@
 | 132 | `BATTLE_GROUND` | battleGroundUpdata (ddt/manager/GameSocketOut.as); battleGroundPlayerUpdata (ddt/manager/GameSocketOut.as) | implemented | eventos/index.ts |
 | 146 | `CAMPBATTLE` | CampbattleEnterFight (ddt/manager/GameSocketOut.as); CampbattleRoleMove (ddt/manager/GameSocketOut.as); changeMap (ddt/manager/GameSocketOut.as); outCampBatttle (ddt/manager/GameSocketOut.as); captureMap (ddt/manager/GameSocketOut.as); requestPRankList (ddt/manager/GameSocketOut.as); requestCRankList (ddt/manager/GameSocketOut.as); enterPTPFight (ddt/manager/GameSocketOut.as); returnToPve (ddt/manager/GameSocketOut.as); resurrect (ddt/manager/GameSocketOut.as) | MISSING |  |
 
-### Juramento do Rei (2 código(s) — implemented 0, partial 0, stub 0, MISSING 2)
+### Juramento do Rei (2 código(s) — implemented 2, partial 0, stub 0, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
-| 142 | `KING_BLESS_MAIN` | sendOpenKingBless (ddt/manager/GameSocketOut.as); sendOpenDeed (ddt/manager/GameSocketOut.as) | MISSING |  |
-| 143 | `KING_BLESS_USE_ITEM` | sendUseItemKingBless (ddt/manager/GameSocketOut.as); sendUseItemDeed (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 142 | `KING_BLESS_MAIN` | sendOpenKingBless (ddt/manager/GameSocketOut.as); sendOpenDeed (ddt/manager/GameSocketOut.as) | implemented | progressao/index.ts |
+| 143 | `KING_BLESS_USE_ITEM` | sendUseItemKingBless (ddt/manager/GameSocketOut.as); sendUseItemDeed (ddt/manager/GameSocketOut.as) | implemented | progressao/index.ts |
 
 ### Conquistas (2 código(s) — implemented 2, partial 0, stub 0, MISSING 0)
 
@@ -336,12 +336,12 @@
 | 229 | `ACHIEVEMENT_UPDATE` | sendModifyInfo (ddt/manager/GameSocketOut.as) | implemented | casamento/index.ts |
 | 230 | `ACHIEVEMENT_FINISH` | sendAchievementFinish (ddt/manager/GameSocketOut.as) | implemented | eventos/index.ts |
 
-### Relíquias (Magic Stone) (2 código(s) — implemented 0, partial 1, stub 0, MISSING 1)
+### Relíquias (Magic Stone) (2 código(s) — implemented 1, partial 1, stub 0, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
 | 258 | `MAGIC_STONE` | exploreMagicStone (ddt/manager/GameSocketOut.as); getMagicStoneScore (ddt/manager/GameSocketOut.as); convertMgStoneScore (ddt/manager/GameSocketOut.as); moveMagicStone (ddt/manager/GameSocketOut.as); lockMagicStone (ddt/manager/GameSocketOut.as); updateMagicStone (ddt/manager/GameSocketOut.as); sortMgStoneBag (ddt/manager/GameSocketOut.as); updateRemainCount (ddt/manager/GameSocketOut.as) | partial | eventos/index.ts |
-| 284 | `MAGIC_STONE_MONSTER_INFO` | sendCheckMagicStoneNumber (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 284 | `MAGIC_STONE_MONSTER_INFO` | sendCheckMagicStoneNumber (ddt/manager/GameSocketOut.as) | implemented | progressao/index.ts |
 
 ### Quiz/Caixa de Respostas (1 código(s) — implemented 1, partial 0, stub 0, MISSING 0)
 
@@ -379,11 +379,11 @@
 |---|---|---|---|---|
 | 102 | `WORLDBOSS_CMD` | enterWorldBossRoom (ddt/manager/GameSocketOut.as); openOrCloseWorldBossHelper (ddt/manager/GameSocketOut.as); quitWorldBossHelperView (ddt/manager/GameSocketOut.as); sendAddPlayer (ddt/manager/GameSocketOut.as); sendAddAllWorldBossPlayer (ddt/manager/GameSocketOut.as); sendWorldBossRoomMove (ddt/manager/GameSocketOut.as); sendWorldBossRoomStauts (ddt/manager/GameSocketOut.as); sendLeaveBossRoom (ddt/manager/GameSocketOut.as); sendBuyWorldBossBuff (ddt/manager/GameSocketOut.as); sendNewBuyWorldBossBuff (ddt/manager/GameSocketOut.as); requestRevive (worldboss/view/WorldBossResurrectView.as) | partial | eventos/index.ts |
 
-### Dados (1 código(s) — implemented 0, partial 0, stub 0, MISSING 1)
+### Dados (1 código(s) — implemented 1, partial 0, stub 0, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
-| 134 | `DICE_SYSTEM` | sendDiceRefreshData (ddt/manager/GameInSocketOut.as); sendStartDiceInfo (ddt/manager/GameInSocketOut.as); sendRequestEnterDiceSystem (ddt/manager/GameInSocketOut.as) | MISSING |  |
+| 134 | `DICE_SYSTEM` | sendDiceRefreshData (ddt/manager/GameInSocketOut.as); sendStartDiceInfo (ddt/manager/GameInSocketOut.as); sendRequestEnterDiceSystem (ddt/manager/GameInSocketOut.as) | implemented | eventos/index.ts |
 
 ### Totem (1 código(s) — implemented 1, partial 0, stub 0, MISSING 0)
 
@@ -391,11 +391,11 @@
 |---|---|---|---|---|
 | 136 | `TOTEM` | sendOpenOneTotem (ddt/manager/GameSocketOut.as) | implemented | progressao/index.ts |
 
-### Curadoria/Automação (1 código(s) — implemented 0, partial 0, stub 0, MISSING 1)
+### Curadoria/Automação (1 código(s) — implemented 1, partial 0, stub 0, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
-| 140 | `TRUSTEESHIP` | sendTrusteeshipStart (ddt/manager/GameSocketOut.as); sendTrusteeshipCancel (ddt/manager/GameSocketOut.as); sendTrusteeshipSpeedUp (ddt/manager/GameSocketOut.as); sendTrusteeshipBuySpirit (ddt/manager/GameSocketOut.as); sendTrusteeshipUseSpiritItem (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 140 | `TRUSTEESHIP` | sendTrusteeshipStart (ddt/manager/GameSocketOut.as); sendTrusteeshipCancel (ddt/manager/GameSocketOut.as); sendTrusteeshipSpeedUp (ddt/manager/GameSocketOut.as); sendTrusteeshipBuySpirit (ddt/manager/GameSocketOut.as); sendTrusteeshipUseSpiritItem (ddt/manager/GameSocketOut.as) | implemented | missoes/index.ts |
 
 ### Compra em Grupo (1 código(s) — implemented 0, partial 0, stub 1, MISSING 0)
 
