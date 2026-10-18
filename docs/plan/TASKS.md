@@ -33,6 +33,7 @@
   Dados…) em Drizzle + migration incremental (`research/6600/db-diff.md`); colunas novas nas tabelas existentes.
 
 ### M2 — loop central no 6600
+- [ ] **m2-newhall** (P0, bloqueia ir pras salas no navegador) — o hall do 6600 é andável (pacote `NEW_HALL`, `hall/player/HallPlayerView.as`): sem o servidor responder posição/lista de jogadores, clicar num prédio dá `#1009 em HallPlayerView.setSelfPlayerPos` e o personagem não anda até o prédio. Portar o NewHall do C# 6600 (posição, mover, entrar/sair, outros jogadores, título, roupa) pro `apps/game`.
 - [~] **m2-bolsa** — bolsa/equipar/vestir (`PLAYER_DRESS`, mudanças de valor do §1.1).
 - [x] **m2-loja** — loja + correio pro 6600. 44 BUY_GOODS (+goodsType/isBand por linha; loja barata/desconto
   via `Shop_Cheap_Items`, nunca lida até agora) e 116 SEND_MAIL (6600: 1 anexo só, com corte de pilha, não 4
