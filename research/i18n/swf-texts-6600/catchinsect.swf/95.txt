@@ -1,0 +1,5 @@
+3. Quando a fada do inseto captura o inseto, ela aparece com chance muito baixa. Não pode
+--- RECORDSEPARATOR ---
+ser capturada com a rede, mas você a captura usando a bola. A vida da fada do inseto é baixa,
+--- RECORDSEPARATOR ---
+a chance de captura é alta, mas se for morta não pode mais ser capturada.

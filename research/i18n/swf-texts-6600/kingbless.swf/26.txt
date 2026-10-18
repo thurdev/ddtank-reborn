@@ -1,0 +1,69 @@
+1
+--- RECORDSEPARATOR ---
+,
+--- RECORDSEPARATOR ---
+poder de proteção divina
+--- RECORDSEPARATOR ---
+:
+--- RECORDSEPARATOR ---
+Atributo de aprimoramento de atributo básico do personagem
+--- RECORDSEPARATOR ---
+100 pontos, efeito de portal e área secreta.
+--- RECORDSEPARATOR ---
+2
+--- RECORDSEPARATOR ---
+,
+--- RECORDSEPARATOR ---
+ renovação de animal de estimação
+--- RECORDSEPARATOR ---
+:
+--- RECORDSEPARATOR ---
+Ter um animal de estimação, 1 vez por dia
+--- RECORDSEPARATOR ---
+gratuita.
+--- RECORDSEPARATOR ---
+3
+--- RECORDSEPARATOR ---
+,
+--- RECORDSEPARATOR ---
+ pérola mestra
+--- RECORDSEPARATOR ---
+:
+--- RECORDSEPARATOR ---
+3 vezes por dia, obtenção gratuita de pérola.
+--- RECORDSEPARATOR ---
+4
+--- RECORDSEPARATOR ---
+,
+--- RECORDSEPARATOR ---
+espírito da vara
+--- RECORDSEPARATOR ---
+:
+--- RECORDSEPARATOR ---
+Aumenta mais 1 vez a quantidade de uso diário
+--- RECORDSEPARATOR ---
+das varas.
+--- RECORDSEPARATOR ---
+5
+--- RECORDSEPARATOR ---
+,
+--- RECORDSEPARATOR ---
+ guerreiro explorador
+--- RECORDSEPARATOR ---
+:
+--- RECORDSEPARATOR ---
+O portal de batalha do BOSS com muita gente.
+--- RECORDSEPARATOR ---
+abrir, além disso 1 chance gratuita de ganhar por dia.
+--- RECORDSEPARATOR ---
+6
+--- RECORDSEPARATOR ---
+,
+--- RECORDSEPARATOR ---
+ espírito de energia
+--- RECORDSEPARATOR ---
+:
+--- RECORDSEPARATOR ---
+Use no avatar da missão a poção de energia que você
+--- RECORDSEPARATOR ---
+comprou na interface de missões.

@@ -1,0 +1,5 @@
+3. Se o vencedor não for definido durante o evento, os pontos dos dados decidem quem será o
+--- RECORDSEPARATOR ---
+campeão, e o vencedor recebe os prêmios depois que o
+--- RECORDSEPARATOR ---
+evento terminar.

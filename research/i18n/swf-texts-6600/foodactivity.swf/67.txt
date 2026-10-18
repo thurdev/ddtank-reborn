@@ -1,0 +1,7 @@
+1. As regras de cálculo do grau de atividade
+--- RECORDSEPARATOR ---
+estão ligadas à atividade do sistema;
+--- RECORDSEPARATOR ---
+quem alcançar certa atividade ganha
+--- RECORDSEPARATOR ---
+quantidade de preparo.         

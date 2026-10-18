@@ -1,0 +1,3 @@
+3. O item resultante do refino de item
+--- RECORDSEPARATOR ---
+é aleatório.

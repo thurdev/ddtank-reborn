@@ -1,0 +1,7 @@
+3. Em cada batalha dentro da Sociedade, os pontos são dados conforme a situação
+--- RECORDSEPARATOR ---
+de vitória, a taxa de dano, o número de inimigos e a taxa de cura; além disso, todo dia nas
+--- RECORDSEPARATOR ---
+primeiras 10 batalhas da Partida da Sociedade
+--- RECORDSEPARATOR ---
+os pontos recebidos são maiores.

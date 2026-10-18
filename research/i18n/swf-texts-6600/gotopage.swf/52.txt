@@ -1,0 +1,7 @@
+5. Todo semana o sistema dá recompensas correspondentes aos pontos recebidos;
+--- RECORDSEPARATOR ---
+jogadores de níveis diferentes têm recompensas diferentes. A recompensa é
+--- RECORDSEPARATOR ---
+enviada por correio; toda semana o campeão da Sociedade recebe a
+--- RECORDSEPARATOR ---
+roupa especial "deus da guerra".

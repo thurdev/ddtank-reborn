@@ -1,0 +1,3 @@
+4. Se o evento da roleta for fechado no meio, a taxa de conversão da recompensa
+--- RECORDSEPARATOR ---
+é mantida até o evento terminar.

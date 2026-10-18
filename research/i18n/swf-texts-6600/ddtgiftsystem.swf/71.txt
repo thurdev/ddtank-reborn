@@ -1,0 +1,5 @@
+Nos registros de presentes ficam guardados no máximo 10 registros de presentes
+--- RECORDSEPARATOR ---
+dados/recebidos. Registros em excesso são adicionados excluindo a
+--- RECORDSEPARATOR ---
+mensagem mais antiga do final da página.

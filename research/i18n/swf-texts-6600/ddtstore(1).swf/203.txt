@@ -1,0 +1,5 @@
+Porém, a fusão só pode ser feita quando o anel e a identificação tiverem o mesmo nome e nível;
+--- RECORDSEPARATOR ---
+o anel e a identificação obtidos pela fusão
+--- RECORDSEPARATOR ---
+têm atributo de síntese 0.

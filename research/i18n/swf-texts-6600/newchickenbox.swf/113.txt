@@ -1,0 +1,41 @@
+1. Início: Abra a interface e clique em 
+--- RECORDSEPARATOR ---
+Iniciar para iniciar flop. A quantidade 
+--- RECORDSEPARATOR ---
+de cupons necessários para flop é 
+--- RECORDSEPARATOR ---
+variada. Quando a chance de flop for 
+--- RECORDSEPARATOR ---
+0, ele passará automaticamente para a 
+--- RECORDSEPARATOR ---
+próxima rodada da Aventura do 
+--- RECORDSEPARATOR ---
+tesouro. 
+--- RECORDSEPARATOR ---
+2. Atualização: se você não gostar das 
+--- RECORDSEPARATOR ---
+recompensas exibidas na interface, 
+--- RECORDSEPARATOR ---
+clique em Atualizar para substituí-las. 
+--- RECORDSEPARATOR ---
+Esta ação irá custar alguns cupons.
+--- RECORDSEPARATOR ---
+3.Atualização grátis: Quando a 
+--- RECORDSEPARATOR ---
+contagem regressiva para a 
+--- RECORDSEPARATOR ---
+atualização terminar, você terá uma 
+--- RECORDSEPARATOR ---
+chance de atualizar gratuitamente
+--- RECORDSEPARATOR ---
+4. Olhos de Águia:. Na fase de flop, 
+--- RECORDSEPARATOR ---
+você pode espiar as cartas com alguns 
+--- RECORDSEPARATOR ---
+cupons
+--- RECORDSEPARATOR ---
+5. Se você sair da Fazenda do 
+--- RECORDSEPARATOR ---
+Tesouro, o sistema irá salvar o flop 
+--- RECORDSEPARATOR ---
+para você. 

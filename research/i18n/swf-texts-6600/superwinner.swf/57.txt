@@ -1,0 +1,3 @@
+5.Quando todos os prêmios de classificação do evento forem recebidos, o vencedor do Prêmio de
+--- RECORDSEPARATOR ---
+Campeão é definido.

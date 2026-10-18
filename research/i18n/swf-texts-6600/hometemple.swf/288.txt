@@ -1,0 +1,7 @@
+2. A Oração Antiga pode ser elevada dando oferendas.
+--- RECORDSEPARATOR ---
+Oferendas de nível baixo têm chance de cair em
+--- RECORDSEPARATOR ---
+etapas; oferendas de nível alto podem ser
+--- RECORDSEPARATOR ---
+compradas diretamente.

@@ -1,0 +1,3 @@
+1. O tipo de item depende do tipo do item que você quer fundir. Depois que os 4 espaços
+--- RECORDSEPARATOR ---
+de fusão estiverem completamente preenchidos, você pode começar a fazer a fusão.

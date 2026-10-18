@@ -1,0 +1,5 @@
+   
+--- RECORDSEPARATOR ---
+熔煉系統可以幫助你把低級的物品轉變為
+--- RECORDSEPARATOR ---
+高級的物品，在熔煉時需要注意以下幾點：

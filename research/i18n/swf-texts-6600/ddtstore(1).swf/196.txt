@@ -1,0 +1,5 @@
+O prazo de validade do item resultante é o menor prazo de validade entre os itens da fusão.
+--- RECORDSEPARATOR ---
+(O prazo de validade do equipamento obtido pela fusão
+--- RECORDSEPARATOR ---
+é de 3 dias.)

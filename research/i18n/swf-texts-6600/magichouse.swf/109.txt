@@ -1,0 +1,3 @@
+3.Depois que a essência de um item for retirada, o item
+--- RECORDSEPARATOR ---
+desaparecerá. Tenha cuidado, por favor.

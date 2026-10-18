@@ -1,0 +1,9 @@
+3. Depois de dar a oferenda, a chance de golpe crítico
+--- RECORDSEPARATOR ---
+vai aumentar. Com golpe crítico pequeno a
+--- RECORDSEPARATOR ---
+experiência da oferenda aumenta 150%; com golpe
+--- RECORDSEPARATOR ---
+crítico grande a experiência da oferenda aumenta
+--- RECORDSEPARATOR ---
+200%.

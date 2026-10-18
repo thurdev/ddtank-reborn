@@ -1,0 +1,5 @@
+6. Depois que o tempo de leilão do item terminar, o sistema
+--- RECORDSEPARATOR ---
+enviará uma mensagem por e-mail. Verifique a tempo,
+--- RECORDSEPARATOR ---
+senão o item pode ser excluído pelo sistema.

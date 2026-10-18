@@ -1,0 +1,5 @@
+3. As missões acionadas dentro do mapa do tesouro escondido
+--- RECORDSEPARATOR ---
+aparecerão na coluna de missões do mapa do tesouro escondido na
+--- RECORDSEPARATOR ---
+lista de missões.

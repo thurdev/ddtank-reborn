@@ -1,0 +1,7 @@
+3. O valor de Prestígio também aumenta o
+--- RECORDSEPARATOR ---
+exército de batalha; quanto maior o valor do
+--- RECORDSEPARATOR ---
+exército de batalha, maiores os itens obtidos
+--- RECORDSEPARATOR ---
+no mercado da liga.

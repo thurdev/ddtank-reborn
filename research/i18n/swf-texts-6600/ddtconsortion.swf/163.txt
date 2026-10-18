@@ -1,0 +1,11 @@
+2
+--- RECORDSEPARATOR ---
+．会长候选人默认为
+--- RECORDSEPARATOR ---
+                          
+--- RECORDSEPARATOR ---
+的副会长，如果
+--- RECORDSEPARATOR ---
+    
+--- RECORDSEPARATOR ---
+没有符合条件的候选人，则降低职位继续查找。

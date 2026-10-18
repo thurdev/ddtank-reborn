@@ -1,0 +1,5 @@
+1. Na criação de conjunto você pode fazer o processamento de diversas unidades de
+--- RECORDSEPARATOR ---
+equipamento; tipos diferentes de conjunto gastam materiais diferentes;
+--- RECORDSEPARATOR ---
+quando a criação é concluída você recebe o efeito da criação.

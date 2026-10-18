@@ -1,0 +1,9 @@
+3. Conforme o nível de fortalecimento sobe, a quantidade de pedra de
+--- RECORDSEPARATOR ---
+fortalecimento necessária em cada nível também aumenta.
+--- RECORDSEPARATOR ---
+Virando VIP através de recarga ou aumentando o nível da forja
+--- RECORDSEPARATOR ---
+da sua Sociedade, você pode aumentar a experiência
+--- RECORDSEPARATOR ---
+que cada pedra de fortalecimento concede.

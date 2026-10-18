@@ -1,0 +1,7 @@
+卡牌升级需要成长值，当成长值的
+--- RECORDSEPARATOR ---
+经验条涨满时，则升级成功。卡牌
+--- RECORDSEPARATOR ---
+的等级越高，升级需要的成长值经
+--- RECORDSEPARATOR ---
+验越多。

@@ -1,0 +1,3 @@
+5. Para itens vendidos em leilão, é gasto apenas
+--- RECORDSEPARATOR ---
+uma pequena quantia de ouro como taxa de manutenção.

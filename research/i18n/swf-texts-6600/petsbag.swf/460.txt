@@ -1,0 +1,3 @@
+5. Com a planta cultivada na fazenda de animais de estimação, a ração do animal
+--- RECORDSEPARATOR ---
+de estimação pode ser criada.

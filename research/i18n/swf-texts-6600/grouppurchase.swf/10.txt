@@ -1,0 +1,5 @@
+4. Quando a compra em grupo terminar, a taxa de cupom devolvida
+--- RECORDSEPARATOR ---
+aumentará de acordo com a quantidade total de compras
+--- RECORDSEPARATOR ---
+daquela região.

@@ -1,0 +1,3 @@
+2. A conversão de recarga em cupom só é válida
+--- RECORDSEPARATOR ---
+durante o horário do evento.

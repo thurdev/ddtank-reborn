@@ -1,0 +1,7 @@
+3.4
+--- RECORDSEPARATOR ---
+個相同類型的合成石、戒指、手鐲或碎片熔煉可以
+--- RECORDSEPARATOR ---
+  
+--- RECORDSEPARATOR ---
+生成相應的高級物品。

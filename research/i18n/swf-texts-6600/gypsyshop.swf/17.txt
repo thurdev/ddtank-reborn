@@ -1,0 +1,5 @@
+1. A Cigana vende diversos itens e fragmentos de arma,
+--- RECORDSEPARATOR ---
+e também pode ter, com certa chance, cartas raras (Carta de totem
+--- RECORDSEPARATOR ---
+de montaria, carta de chamado de troca de montaria, carta de título)

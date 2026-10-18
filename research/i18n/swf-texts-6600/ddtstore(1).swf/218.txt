@@ -1,0 +1,3 @@
+2. Pedras de monstro sagrado de nível mais avançado têm
+--- RECORDSEPARATOR ---
+taxa de sucesso menor ao serem adicionadas ao equipamento.

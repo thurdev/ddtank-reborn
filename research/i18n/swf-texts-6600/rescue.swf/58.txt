@@ -1,0 +1,3 @@
+3. O ponto fraco da doninha é a cabeça; acertando a cabeça, ela pode ser morta
+--- RECORDSEPARATOR ---
+com um único golpe.

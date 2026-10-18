@@ -1,0 +1,1 @@
+2. Cada vez que uma ordem é emitida, o conteúdo é aleatório.

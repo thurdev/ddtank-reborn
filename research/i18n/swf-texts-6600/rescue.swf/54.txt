@@ -1,0 +1,3 @@
+8. O grau de nível de estrela afeta a recompensa fixa que o jogador obtém. Na recompensa de
+--- RECORDSEPARATOR ---
+alcançar a primeira estrela, você também recebe um pacote de presente de nível de estrela.

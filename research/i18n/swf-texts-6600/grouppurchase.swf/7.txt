@@ -1,0 +1,7 @@
+1. Durante o evento de compra em grupo, pela interface do evento você pode
+--- RECORDSEPARATOR ---
+comprar itens disponíveis para compra em grupo; comprando o mesmo item em
+--- RECORDSEPARATOR ---
+outros locais não é possível aproveitar o desconto de compra
+--- RECORDSEPARATOR ---
+em grupo.

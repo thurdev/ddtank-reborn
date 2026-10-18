@@ -1,0 +1,5 @@
+4. Quanto mais alto for o nível de treino,
+--- RECORDSEPARATOR ---
+maior será o aumento de atributo em
+--- RECORDSEPARATOR ---
+cada nível.

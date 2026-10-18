@@ -59,6 +59,42 @@ O pack 6600 (`vendor/DDT-6600/WebSimple/Flash_6600_v040/ui/turkey/`) é turco (`
 - Regerar tudo: `pnpm lang:6600` (ou `--dry` pra só ver as contagens antes de gravar). Depois de editar
   `lang-6600-extra.json` à mão, roda de novo pra reconstruir o `.txt` + o zip servido.
 
+### Textos estáticos em turco dentro dos SWF (DefineText/DefineEditText) — não passam pelo `language.txt`
+Além do `language.txt`, o pack 6600 tem texto turco embutido direto como `DefineText`/`DefineEditText`
+nos próprios SWFs (telas de regra/ajuda de evento, rótulos soltos, categorias da bolsa, diálogo de
+tutorial…) — mesmo mecanismo do 4.1 (`research/i18n/swf-text-pt.json`, ver `docs/I18N-AUDIT.md`), reaproveitado
+pro 6600 com `runSwfTextStepFor` (núcleo comum extraído de `runSwfTextStep` em `tools/i18n/build-client-art.mjs`):
+- `tools/qa/swf-text-audit-6600.sh` — exporta o texto (FFDec `-export text`) de todo SWF servido (overlay
+  primeiro, senão vendor) em `ui/turkey/swf/*.swf` + SWFs da raiz do pack, filtra por diacrítico turco
+  (ş/ç/ğ/ı/ö/ü) OU palavra turca comum sem diacrítico (lista fixa no script), grava
+  `research/i18n/swf-texts-6600/<swf>/<charId>.txt` + `research/i18n/swf-text-tr.tsv`.
+- `tools/qa/swf-text-seed-6600.mjs` — lê o `.tsv` + os `.txt` exportados e monta o esqueleto
+  `research/i18n/swf-text-pt-6600.json` (`{ "<swf>": { "<charId>": { tr: [registros], pt: ["", ...] } } }`,
+  mesmo formato do `swf-text-pt.json` do 4.1 trocando a chave `vi` por `tr`); não sobrescreve `pt` já
+  preenchido (seguro rodar de novo depois de editar à mão).
+- Tradução: preenche `pt` em `research/i18n/swf-text-pt-6600.json` (mesmo nº de registros que `tr`).
+- Aplicar: `node tools/i18n/build-client-art.mjs --only-swf-text-6600` (ou `pnpm swftext:6600`) — patcheia
+  `apps/api/assets/flash6600/...` (overlay existente tem prioridade sobre o vendor, ex. `ui/turkey/swf/loading.swf`
+  já patchado pelo `brand-6600.mjs`), com o mesmo `-replace` nativo formatado + retry + troca de fonte
+  (`swf-font-rename.mjs`) do 4.1. Não toca no pack 4.1 (`research/i18n/swf-text-pt.json`/`apps/api/assets/flash`
+  continuam no fluxo `runSwfTextStep()`/`pnpm client:art` de sempre).
+- Resultado da primeira leva (2026-10-18): **564 registros turcos** encontrados em **69 SWFs** (2 já estavam em
+  PT-BR no próprio vendor — `dice.swf` chid 427 e `newchickenbox.swf` chid 113, sobra de outro template,
+  ficaram intocados); **562 traduzidos**, aplicados em **67 SWFs** com `-replace`, **67/67 verificados** depois
+  de 2 ajustes manuais pontuais (ver abaixo). `-dumpSWF` ok nos 67.
+  - `guildmemberweek.swf` chid 21 (regra de aposta de contribuição semanal): `ValueTooLargeException` do FFDec
+    (`UI8` de índice de glifo da fonte embutida passa de 255 com o texto PT) tanto no lote quanto na reaplicação
+    registro a registro — reverteu pro turco original automaticamente (sem corrupção). Único texto que ficou em
+    turco; se quiser insistir, precisa de uma fonte do sistema com o nome certo pra virar vetor em vez de reusar
+    os glifos do turco (mesmo caso dos 5 SWFs do 4.1 com fonte "UVN Van").
+  - `labyrinth.swf` chid 51: a exportação "formatted" desse campo só tem 1 bloco de posição real (um "run"),
+    mas o `.txt` simples (`-export text`) separa o turco em 3 "registros" (`RECORDSEPARATOR`) — o código junta
+    os `pt` extras no último run com espaço, só que aqui ficou sem espaço (bug latente do `runSwfTextStepFor`:
+    no caminho de retry em lote, `cur` avança pro resultado mesmo quando a verificação falha). Corrigido à mão
+    (`ffdec -replace` com o texto já junto, 1 registro) + `research/i18n/swf-text-pt-6600.json` atualizado pra
+    não regredir num rerun.
+  - Rerodar: `node tools/i18n/build-client-art.mjs --only-swf-text-6600`.
+
 ### Marca da tela de boot/loading 6600 (logo "Bombom", "DEVELOP BY ASUNA")
 O boot do 6600 (antes do `language.txt` carregar) tinha a marca do servidor turco de origem — logo "Bombom"
 (com molde de barra de progresso) e a legenda solta "DEVELOP BY ASUNA". `tools/remaster/brand-6600.mjs`

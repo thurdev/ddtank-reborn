@@ -1,0 +1,9 @@
+4. Depois que a fundição de ouro for bem-sucedida, há efeito sobre a
+--- RECORDSEPARATOR ---
+chance de o equipamento sair
+--- RECORDSEPARATOR ---
+；
+--- RECORDSEPARATOR ---
+quer o equipamento seja usado ou não,
+--- RECORDSEPARATOR ---
+a chance mostra efeito automaticamente a tempo.

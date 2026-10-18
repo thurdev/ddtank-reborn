@@ -1,0 +1,5 @@
+2. A Cigana aparece todo dia por volta do meio-dia, às 12:00, e desaparece
+--- RECORDSEPARATOR ---
+à noite quando chega às 24:00
+--- RECORDSEPARATOR ---
+；

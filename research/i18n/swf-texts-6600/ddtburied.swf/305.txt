@@ -1,0 +1,5 @@
+5. No ponto inicial do mapa do Tesouro Escondido, apertando o botão
+--- RECORDSEPARATOR ---
+"aumentar estrela" a estrela do mapa do tesouro pode ser aumentada
+--- RECORDSEPARATOR ---
+diretamente.

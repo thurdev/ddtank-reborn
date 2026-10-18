@@ -1,0 +1,3 @@
+4. Depois de começar o plantio automático, a fazenda fica em estado bloqueado,
+--- RECORDSEPARATOR ---
+nenhuma operação pode ser feita.

@@ -1,0 +1,3 @@
+1. O jogador precisa acertar o pintinho com o arco e flecha sem que ele morra, assim
+--- RECORDSEPARATOR ---
+o pintinho se salva.

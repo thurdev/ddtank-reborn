@@ -1,0 +1,5 @@
+3.O atributo potencial tem efeito por tempo determinado,
+--- RECORDSEPARATOR ---
+depois que o tempo passa ele falha; ative de novo
+--- RECORDSEPARATOR ---
+com pedra de energia.

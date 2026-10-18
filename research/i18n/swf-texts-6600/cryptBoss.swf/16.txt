@@ -1,0 +1,7 @@
+4. Boss diferentes têm atributos diferentes de
+--- RECORDSEPARATOR ---
+ataque e defesa; o resultado final é afetado
+--- RECORDSEPARATOR ---
+pelos atributos de ataque e ataque mágico, etc.
+--- RECORDSEPARATOR ---
+do jogador.

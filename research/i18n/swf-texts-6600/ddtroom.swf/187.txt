@@ -1,0 +1,15 @@
+3. 
+--- RECORDSEPARATOR ---
+玩家根據自身等級不同，勝利所獲得的積分
+--- RECORDSEPARATOR ---
+                           
+--- RECORDSEPARATOR ---
+   
+--- RECORDSEPARATOR ---
+不同，失敗不獲得積分（玩家每天最多可獲得
+--- RECORDSEPARATOR ---
+             
+--- RECORDSEPARATOR ---
+   2000
+--- RECORDSEPARATOR ---
+積分）。

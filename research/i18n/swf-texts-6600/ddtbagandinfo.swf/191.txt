@@ -1,0 +1,7 @@
+5. Ao atingir Amor Nv10 a habilidade "Ouro Mais Forte Nv1"
+--- RECORDSEPARATOR ---
+é desbloqueada. Essa habilidade só fica ativa quando o casal
+--- RECORDSEPARATOR ---
+forma um conjunto. Ao atingir o próximo valor de Amor,
+--- RECORDSEPARATOR ---
+a habilidade do próximo Nv será desbloqueada.

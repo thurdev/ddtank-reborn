@@ -1,0 +1,17 @@
+1. Recompensa de missão começa a partir de 2 estrelas
+--- RECORDSEPARATOR ---
+2. Bônus de experiência de fortalecimento de 35%
+--- RECORDSEPARATOR ---
+3. O Desejo de Milanda é desbloqueado gratuitamente: Presente de extensão de etapa, Palha de resgate.
+--- RECORDSEPARATOR ---
+4. O limite máximo de cupom vinculado aumenta 19999
+--- RECORDSEPARATOR ---
+5. O bônus de experiência de batalha multiplica por 1.4.
+--- RECORDSEPARATOR ---
+6. Ao perder na batalha, a recompensa não será cortada.
+--- RECORDSEPARATOR ---
+7. Desconto de 10% para tirar carta em servidor remoto
+--- RECORDSEPARATOR ---
+8. Pacote de presente VIP de nível 4: Pedra de fortalecimento, Pedra de síntese, Poção de experiência,
+--- RECORDSEPARATOR ---
+Pedra sagrada, Broca.

@@ -1,0 +1,5 @@
+5. Quando itens de compra em grupo são comprados com cupom,
+--- RECORDSEPARATOR ---
+depois que o evento termina, a quantidade de cupom determinada
+--- RECORDSEPARATOR ---
+pode ser devolvida conforme a taxa.

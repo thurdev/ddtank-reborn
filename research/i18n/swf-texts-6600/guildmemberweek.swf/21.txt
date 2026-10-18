@@ -1,0 +1,9 @@
+4. Hiç bir sıranın bet arttırma kuponu sayısı                      
+--- RECORDSEPARATOR ---
+      'den az olamaz; bet arttırma sonrası bet 
+--- RECORDSEPARATOR ---
+arttırma kuponlarından %10 vergi düşülür. Ver
+--- RECORDSEPARATOR ---
+gi düşüldükten sonraki kupon sayısı bu sıranın 
+--- RECORDSEPARATOR ---
+kazanacağı kupon sayısıdır.

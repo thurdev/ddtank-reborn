@@ -1,0 +1,13 @@
+6. Depois que a batalha começa, quando o seu
+--- RECORDSEPARATOR ---
+lado tiver menos de 4 jogadores, outros jogadores
+--- RECORDSEPARATOR ---
+podem entrar na batalha e ajudar; no meio do PVP,
+--- RECORDSEPARATOR ---
+os jogadores que ajudam
+--- RECORDSEPARATOR ---
+caem em pontos de nascimento determinados,
+--- RECORDSEPARATOR ---
+e precisam escapar desses pontos de
+--- RECORDSEPARATOR ---
+nascimento determinados em até 2 rodadas.

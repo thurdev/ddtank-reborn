@@ -1,0 +1,7 @@
+4. Dos acessórios criados, o de validade mais baixa terá a sua validade
+--- RECORDSEPARATOR ---
+válida. Se você usar um acessório de curta duração para aumentar a experiência de um
+--- RECORDSEPARATOR ---
+acessório de longa duração, a validade do acessório de curta
+--- RECORDSEPARATOR ---
+duração será a válida.

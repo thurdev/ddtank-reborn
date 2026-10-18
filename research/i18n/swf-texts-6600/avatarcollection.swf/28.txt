@@ -1,0 +1,3 @@
+3. Depois que o tempo de coleta acabar,
+--- RECORDSEPARATOR ---
+pode ser estendido gastando Honra.

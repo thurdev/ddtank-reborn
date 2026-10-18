@@ -1,0 +1,9 @@
+1. Recompensa de missão começa a partir de 2 estrelas
+--- RECORDSEPARATOR ---
+2. Bônus de experiência de fortalecimento de 25%
+--- RECORDSEPARATOR ---
+3. O bônus de experiência de batalha multiplica por 1.1.
+--- RECORDSEPARATOR ---
+4. Ao perder na batalha, a recompensa não será cortada.
+--- RECORDSEPARATOR ---
+5. Pacote de presente VIP de nível 1: Pedra de fortalecimento, Pedra de síntese.

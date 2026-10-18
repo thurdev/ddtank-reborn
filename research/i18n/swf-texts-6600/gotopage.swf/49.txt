@@ -1,0 +1,7 @@
+2. No horário da Partida da Sociedade, quando a partida começa, pode-se lutar
+--- RECORDSEPARATOR ---
+livremente ou como Sociedade no formato 2 vs 2, recebendo pontos da partida
+--- RECORDSEPARATOR ---
+da Sociedade. O campo de batalha é ajustado por padrão para entre
+--- RECORDSEPARATOR ---
+servidores.

@@ -1,0 +1,5 @@
+2. Quando o grau de conclusão do sorteio da sorte atual se completar,
+--- RECORDSEPARATOR ---
+há recompensa para os jogadores que comprarem o item do pacote de presente
+--- RECORDSEPARATOR ---
+valioso

@@ -1,0 +1,3 @@
+2. O item do evento não pode ser obtido novamente; o progresso dos
+--- RECORDSEPARATOR ---
+itens a coletar deve ser acompanhado.

@@ -1,0 +1,9 @@
+2. Depois de ligar o assistente de batalha, nas batalhas contra o BOSS
+--- RECORDSEPARATOR ---
+mundial, ele entra automaticamente na batalha no horário
+--- RECORDSEPARATOR ---
+certo e usa o cupom correspondente. Se não houver cupom
+--- RECORDSEPARATOR ---
+suficiente, o assistente de batalha se desliga
+--- RECORDSEPARATOR ---
+automaticamente.

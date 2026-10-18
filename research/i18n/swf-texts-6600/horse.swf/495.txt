@@ -1,0 +1,7 @@
+4. No sistema de elevação de cada nível é gasta 1
+--- RECORDSEPARATOR ---
+ferramenta de elevação; marcando "elevar automaticamente para a próxima estrela"
+--- RECORDSEPARATOR ---
+de nível, use a ferramenta para elevar a montaria
+--- RECORDSEPARATOR ---
+para o próximo nível.

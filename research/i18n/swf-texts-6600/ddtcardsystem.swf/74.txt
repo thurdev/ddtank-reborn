@@ -1,0 +1,5 @@
+1. Toda vez que uma caixa de carta é aberta, uma quantidade
+--- RECORDSEPARATOR ---
+determinada de valor de espírito de carta é obtida; o valor de espírito
+--- RECORDSEPARATOR ---
+de carta aumenta o nível do slot de carta.

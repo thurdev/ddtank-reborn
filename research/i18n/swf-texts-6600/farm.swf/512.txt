@@ -1,0 +1,3 @@
+2. Quando o auxiliar é usado, todos os produtos atuais da fazenda
+--- RECORDSEPARATOR ---
+serão retirados.

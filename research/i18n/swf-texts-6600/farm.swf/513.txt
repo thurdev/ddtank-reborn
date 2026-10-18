@@ -1,0 +1,3 @@
+1 Ao usar o assistente de plantio, você precisa escolher a semente e selecionar
+--- RECORDSEPARATOR ---
+automaticamente o horário de plantio.

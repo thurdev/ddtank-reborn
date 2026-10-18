@@ -1,0 +1,9 @@
+1. De segunda a quinta-feira
+--- RECORDSEPARATOR ---
+o boss correspondente pode ser desafiado uma
+--- RECORDSEPARATOR ---
+vez; de sexta a domingo
+--- RECORDSEPARATOR ---
+os 2 boss correspondentes podem ser desafiados
+--- RECORDSEPARATOR ---
+uma vez.

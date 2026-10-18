@@ -1,0 +1,3 @@
+Os seguintes itens super podem ser
+--- RECORDSEPARATOR ---
+encontrados neste evento:

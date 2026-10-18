@@ -1,0 +1,9 @@
+1. A Árvore Brilhante pode subir de nível regando com amor,
+--- RECORDSEPARATOR ---
+a partir de um certo nível é necessário coletar luz,
+--- RECORDSEPARATOR ---
+depois que a Árvore Brilhante termina de coletar
+--- RECORDSEPARATOR ---
+luz ela avança para a próxima fase de
+--- RECORDSEPARATOR ---
+crescimento!

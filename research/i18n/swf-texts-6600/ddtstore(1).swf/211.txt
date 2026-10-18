@@ -1,0 +1,5 @@
+3. A pérola de ataque adiciona efeito de ataque; a pérola de defesa adiciona efeito especial ao
+--- RECORDSEPARATOR ---
+ser atacado; a pérola de atributo adiciona atributo ao seu
+--- RECORDSEPARATOR ---
+equipamento.

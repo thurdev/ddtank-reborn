@@ -1,0 +1,17 @@
+每消耗
+--- RECORDSEPARATOR ---
+        
+--- RECORDSEPARATOR ---
+卡牌，可使成长值的
+--- RECORDSEPARATOR ---
+ 
+--- RECORDSEPARATOR ---
+经验增长
+--- RECORDSEPARATOR ---
+        
+--- RECORDSEPARATOR ---
+，卡牌等级越高，
+--- RECORDSEPARATOR ---
+ 
+--- RECORDSEPARATOR ---
+每次增长的经验越多。

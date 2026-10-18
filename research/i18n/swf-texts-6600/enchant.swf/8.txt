@@ -1,0 +1,3 @@
+2. A fase de adição de magia tem no máximo 5 fases; conforme o nível de magia
+--- RECORDSEPARATOR ---
+sobe, o atributo que pode ser adicionado também sobe.

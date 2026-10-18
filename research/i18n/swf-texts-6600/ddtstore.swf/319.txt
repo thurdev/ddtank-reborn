@@ -1,0 +1,9 @@
+5
+--- RECORDSEPARATOR ---
+、碎片類物品的名稱和等級必須相同才可以進行熔
+--- RECORDSEPARATOR ---
+  
+--- RECORDSEPARATOR ---
+    
+--- RECORDSEPARATOR ---
+煉。

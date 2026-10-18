@@ -1,0 +1,3 @@
+3.Pedras Mágicas podem ser combinadas para melhorar,
+--- RECORDSEPARATOR ---
+combinar pedras de qualidade requer confirmação.

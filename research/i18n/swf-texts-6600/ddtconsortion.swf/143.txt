@@ -1,0 +1,3 @@
+7. Ordens não concluídas podem ser reiniciadas aleatoriamente,
+--- RECORDSEPARATOR ---
+o novo pagamento aleatório custa 500 cupons.

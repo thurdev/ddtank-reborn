@@ -1,0 +1,39 @@
+1.Começar: Abra a interface e clique no botão 
+--- RECORDSEPARATOR ---
+começar para começar a tirar cartas. 
+--- RECORDSEPARATOR ---
+A cada vez 
+--- RECORDSEPARATOR ---
+a quantidade de cupons pedida é diferente. Quando a chance de tirar carta 
+--- RECORDSEPARATOR ---
+chegar a zero, o sistema entrará automaticamente 
+--- RECORDSEPARATOR ---
+na próxima Caça ao Tesouro.
+--- RECORDSEPARATOR ---
+2.Renovar: Se você não gostar 
+--- RECORDSEPARATOR ---
+dos prêmios da interface, gaste cupons e clique no botão 
+--- RECORDSEPARATOR ---
+renovar para renová-los.
+--- RECORDSEPARATOR ---
+3.Renovar gratuitamente: Quando a contagem regressiva 
+--- RECORDSEPARATOR ---
+de renovação terminar, você recebe gratuitamente uma 
+--- RECORDSEPARATOR ---
+nova chance de renovar um item valioso 
+--- RECORDSEPARATOR ---
+.
+--- RECORDSEPARATOR ---
+4.Olho de falcão: Ao tirar carta, gastando 
+--- RECORDSEPARATOR ---
+cupons você pode espiar os prêmios 
+--- RECORDSEPARATOR ---
+escondidos na carta. Com a espiada não é possível tirar carta.
+--- RECORDSEPARATOR ---
+ 
+--- RECORDSEPARATOR ---
+5.Se você sair no meio da Fazenda do Tesouro, 
+--- RECORDSEPARATOR ---
+o sistema salvará automaticamente as informações 
+--- RECORDSEPARATOR ---
+atuais de tirar carta.

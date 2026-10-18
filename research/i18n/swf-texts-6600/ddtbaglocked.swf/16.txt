@@ -1,0 +1,3 @@
+Toda vez que entrar, clique no botão "abrir trava" e digite corretamente a segunda
+--- RECORDSEPARATOR ---
+senha para poder usar as funções acima.

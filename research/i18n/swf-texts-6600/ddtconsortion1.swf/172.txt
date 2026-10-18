@@ -1,0 +1,13 @@
+3
+--- RECORDSEPARATOR ---
+．当只有
+--- RECORDSEPARATOR ---
+1
+--- RECORDSEPARATOR ---
+位候选人，则此玩家成为新会长；而如果超过
+--- RECORDSEPARATOR ---
+1
+--- RECORDSEPARATOR ---
+    
+--- RECORDSEPARATOR ---
+位候选人，则需要公会成员投票产生。

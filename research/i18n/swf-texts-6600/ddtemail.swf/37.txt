@@ -1,0 +1,1 @@
+1.Cupons, dinheiro e itens vinculados não podem ser enviados pelo correio.

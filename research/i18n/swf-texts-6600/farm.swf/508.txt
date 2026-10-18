@@ -1,0 +1,3 @@
+4. Ao alimentar o animal de estimação, arraste a ração do animal de estimação até a tela
+--- RECORDSEPARATOR ---
+de alimentação e depois clique no botão alimentar.

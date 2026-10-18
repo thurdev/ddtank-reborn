@@ -1,0 +1,3 @@
+5. Melhorar aumenta a barra de atributo de equipamento do animal;
+--- RECORDSEPARATOR ---
+depois que o equipamento do animal é vestido, o efeito permanece

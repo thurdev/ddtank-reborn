@@ -1,0 +1,5 @@
+Jogadores de nível menor que 16 podem receber presentes; depois do nível 16
+--- RECORDSEPARATOR ---
+podem usar a caixa de presentes para visualizar os presentes
+--- RECORDSEPARATOR ---
+obtidos.

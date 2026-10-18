@@ -1,0 +1,7 @@
+    Usando o sistema de transferência, dois itens do mesmo tipo podem
+--- RECORDSEPARATOR ---
+transferir entre si o atributo de fortalecimento, o nível de fortalecimento,
+--- RECORDSEPARATOR ---
+o furo selado e a pérola. Ao transferir
+--- RECORDSEPARATOR ---
+você deve prestar atenção aos seguintes pontos:

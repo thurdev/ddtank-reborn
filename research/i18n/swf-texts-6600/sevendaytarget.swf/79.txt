@@ -1,0 +1,3 @@
+3. Todo dia a recompensa pode ser recebida uma vez de forma limitada; pode ser recebida
+--- RECORDSEPARATOR ---
+dentro de sete dias de login.

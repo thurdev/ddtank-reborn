@@ -1,0 +1,5 @@
+2. A cada fortalecimento bem-sucedido, o dano da arma
+--- RECORDSEPARATOR ---
+aumenta 10% em relação ao anterior; a defesa do chapéu e da roupa
+--- RECORDSEPARATOR ---
+aumenta 10% em relação ao anterior.

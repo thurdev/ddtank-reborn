@@ -1,0 +1,5 @@
+1. Ao fazer a ração do animal de estimação, a planta correspondente é gasta;
+--- RECORDSEPARATOR ---
+quando a quantidade de plantas for menor que uma, a ração do animal de estimação
+--- RECORDSEPARATOR ---
+não pode ser feita.

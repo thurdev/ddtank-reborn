@@ -1,0 +1,3 @@
+4. Os efeitos de chamado das formas de animais podem se acumular, e também
+--- RECORDSEPARATOR ---
+são adicionados automaticamente sobre o personagem.

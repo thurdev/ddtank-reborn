@@ -1,0 +1,5 @@
+2. O dinheiro disponível em cada evento de compra em grupo não é
+--- RECORDSEPARATOR ---
+fixo, mas pode ser verificado pela
+--- RECORDSEPARATOR ---
+interface de compra.

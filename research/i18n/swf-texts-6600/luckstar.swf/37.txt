@@ -1,0 +1,7 @@
+6. Depois que sua sorte sair o desconto de cupom,
+--- RECORDSEPARATOR ---
+a quantidade de cupom no Reservatório de
+--- RECORDSEPARATOR ---
+Acúmulo de Cupom será no mínimo
+--- RECORDSEPARATOR ---
+1000 cupons.

@@ -1,0 +1,9 @@
+6
+--- RECORDSEPARATOR ---
+、戒指、手鐲的名稱和等級必須相同才可以進行熔
+--- RECORDSEPARATOR ---
+    
+--- RECORDSEPARATOR ---
+煉，且熔煉得到的戒指和手鐲合成屬性為
+--- RECORDSEPARATOR ---
+0.

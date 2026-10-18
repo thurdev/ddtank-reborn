@@ -1,0 +1,7 @@
+4. No horário da Partida da Sociedade, cada batalha recebe uma certa taxa de
+--- RECORDSEPARATOR ---
+recompensa de experiência. (Todo dia há um limite máximo de recompensa de experiência)
+--- RECORDSEPARATOR ---
+Jogadores com nível máximo recebem recompensa
+--- RECORDSEPARATOR ---
+extra

@@ -1,0 +1,7 @@
+Clicando no "cadeado" e pressionando o botão de novo, você pode entrar
+--- RECORDSEPARATOR ---
+no modo sem trava/remover a trava. Enquanto estiver
+--- RECORDSEPARATOR ---
+trancado você pode aumentar o nível, mas não pode fazer síntese
+--- RECORDSEPARATOR ---
+nem formar lotes de síntese.

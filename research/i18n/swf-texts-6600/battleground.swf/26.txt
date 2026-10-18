@@ -1,0 +1,5 @@
+5. Quando os jogadores alcançam o nível do
+--- RECORDSEPARATOR ---
+adversário, obtêm o que o
+--- RECORDSEPARATOR ---
+adversário possui.

@@ -1,0 +1,5 @@
+  
+--- RECORDSEPARATOR ---
+战斗经验增加
+--- RECORDSEPARATOR ---
+10%

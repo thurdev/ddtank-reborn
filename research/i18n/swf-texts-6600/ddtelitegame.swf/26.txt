@@ -1,0 +1,13 @@
+Na corrida de entrada de 16 para 8, de 8 para 4, semifinal e
+--- RECORDSEPARATOR ---
+final, o horário de batalha do sistema é ajustado para
+--- RECORDSEPARATOR ---
+        . Antes da partida começar, o jogador deve
+--- RECORDSEPARATOR ---
+se preparar e ficar on-line esperando na área do jogo;
+--- RECORDSEPARATOR ---
+o sistema envia o convite para o jogo nesse horário
+--- RECORDSEPARATOR ---
+e entra na sala de batalha; jogadores que não entrarem a tempo
+--- RECORDSEPARATOR ---
+são automaticamente desistentes.

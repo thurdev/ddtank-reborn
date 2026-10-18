@@ -1,0 +1,5 @@
+3. Se o auxiliar for interrompido antes de terminar o horário automático de plantio, apenas
+--- RECORDSEPARATOR ---
+uma parte da ração do animal de estimação é obtida.
+--- RECORDSEPARATOR ---
+A semente restante não pode ser devolvida.

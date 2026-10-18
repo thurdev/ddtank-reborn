@@ -1,0 +1,3 @@
+2.Depois que o remetente envia, os pagamentos dentro do destinatário
+--- RECORDSEPARATOR ---
+são reenviados para você.

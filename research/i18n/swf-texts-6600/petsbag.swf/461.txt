@@ -1,0 +1,3 @@
+6. Apenas os animais de estimação que vão à batalha podem afetar o atributo de batalha,
+--- RECORDSEPARATOR ---
+ao mesmo tempo os animais de estimação que vão à batalha ganham experiência.

@@ -1,0 +1,7 @@
+2. Cada carta tem três tipos: ouro, prata e bronze;
+--- RECORDSEPARATOR ---
+toda vez que uma caixa de carta é aberta há uma chance
+--- RECORDSEPARATOR ---
+determinada de obter carta de cobre, e uma chance muito pequena
+--- RECORDSEPARATOR ---
+de melhorar a carta atual.

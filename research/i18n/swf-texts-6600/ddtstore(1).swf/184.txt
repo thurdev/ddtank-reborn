@@ -1,0 +1,5 @@
+4. Depois de transferir, o atributo de fortalecimento dos dois equipamentos,
+--- RECORDSEPARATOR ---
+o atributo de síntese e o furo selado são trocados entre si e
+--- RECORDSEPARATOR ---
+ficam vinculados.

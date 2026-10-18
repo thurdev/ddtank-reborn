@@ -1,0 +1,3 @@
+1. Quanto maior a estrela do mapa do tesouro escondido,
+--- RECORDSEPARATOR ---
+maior será a recompensa ganha.

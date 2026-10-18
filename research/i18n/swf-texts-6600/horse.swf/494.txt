@@ -1,0 +1,5 @@
+1. No sistema de elevação da montaria, o nível de estrela da montaria
+--- RECORDSEPARATOR ---
+pode ser elevado; conforme o nível de estrela sobe,
+--- RECORDSEPARATOR ---
+o atributo adicionado também aumenta.

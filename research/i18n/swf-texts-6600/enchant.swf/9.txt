@@ -1,0 +1,3 @@
+3. Depois que a adição de magia é bem-sucedida, o efeito da magia
+--- RECORDSEPARATOR ---
+mostra efeito a partir do nível 5 de fusão da roupa inicial.

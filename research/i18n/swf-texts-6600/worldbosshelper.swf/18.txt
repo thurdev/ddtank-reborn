@@ -1,0 +1,5 @@
+1. O assistente de batalha pode ajudar automaticamente os jogadores
+--- RECORDSEPARATOR ---
+a participar das batalhas contra o BOSS
+--- RECORDSEPARATOR ---
+mundial.

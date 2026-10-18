@@ -1,0 +1,5 @@
+3. Os pontos acumulados no evento devem ser trocados dentro de 48
+--- RECORDSEPARATOR ---
+horas após o fim do evento; depois desse tempo são trocados
+--- RECORDSEPARATOR ---
+automaticamente por experiência ou pontos de contribuição.

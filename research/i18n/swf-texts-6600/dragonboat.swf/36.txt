@@ -1,0 +1,7 @@
+2. Quando o nível de conclusão do barco-dragão atingir 80%, todo o
+--- RECORDSEPARATOR ---
+tempo de ganho em dobro de experiência da região recebe mais 24 horas
+--- RECORDSEPARATOR ---
+adicionadas; quando o nível de conclusão atingir 100%, todo o tempo de
+--- RECORDSEPARATOR ---
+ganho em triplo de experiência da região recebe mais 24 horas adicionadas.

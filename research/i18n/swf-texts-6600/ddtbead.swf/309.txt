@@ -1,0 +1,3 @@
+Os lotes de síntese na mochila podem ser mais numerosos do que
+--- RECORDSEPARATOR ---
+todas as sínteses de pérolas de nível mais baixo.

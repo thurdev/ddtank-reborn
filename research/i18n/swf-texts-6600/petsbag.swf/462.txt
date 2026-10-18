@@ -1,0 +1,3 @@
+7. O nível de estrela do animal de estimação afeta o atributo inicial e o desenvolvimento
+--- RECORDSEPARATOR ---
+de atributo do animal; quanto mais estrelas, mais o poder também aumenta.

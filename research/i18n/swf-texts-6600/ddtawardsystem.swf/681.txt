@@ -1,0 +1,3 @@
+2. Depois que cada fundição de ouro é bem-sucedida, o dano da arma e a defesa
+--- RECORDSEPARATOR ---
+da roupa e do chapéu aumentam, e a aparência também muda.

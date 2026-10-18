@@ -1,0 +1,11 @@
+O jogador pode fazer a criação de acessório pela interface; depois de colocar o
+--- RECORDSEPARATOR ---
+acessório que deseja obter no reservatório de criação, clicando em criar com um
+--- RECORDSEPARATOR ---
+toque, o acessório criado engole
+--- RECORDSEPARATOR ---
+todos os acessórios não trancados na mochila do jogador.
+--- RECORDSEPARATOR ---
+Ao criar com um toque é necessário prestar atenção aos
+--- RECORDSEPARATOR ---
+seguintes pontos:

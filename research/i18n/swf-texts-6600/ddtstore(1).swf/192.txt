@@ -1,0 +1,5 @@
+4. Ao selecionar "adicionar tudo", clicando no botão de fortalecer, todas as
+--- RECORDSEPARATOR ---
+pedras de fortalecimento se esgotam, ou a quantidade de pedras de fortalecimento necessária para
+--- RECORDSEPARATOR ---
+fortalecer o equipamento atual se esgota.

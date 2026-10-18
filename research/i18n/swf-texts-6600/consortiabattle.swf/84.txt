@@ -1,0 +1,5 @@
+2. Na Guerra de Sociedades, o jogador da sociedade que mata o
+--- RECORDSEPARATOR ---
+inimigo ganha pontos; esses pontos no final
+--- RECORDSEPARATOR ---
+determinam a classificação da Guerra de Sociedades.

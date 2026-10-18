@@ -1,0 +1,13 @@
+4.Quatro 
+--- RECORDSEPARATOR ---
+⑥
+--- RECORDSEPARATOR ---
+ganham o Prêmio de Primeiro Lugar. Se mais de um jogador tirar quatro 
+--- RECORDSEPARATOR ---
+⑥
+--- RECORDSEPARATOR ---
+ ao mesmo tempo, os pontos dos dados restantes serão somados. Quem tiver a maior pontuação ganha o Prêmio de 
+--- RECORDSEPARATOR ---
+Campeão. Se as pontuações forem iguais (quem jogou os dados primeiro
+--- RECORDSEPARATOR ---
+vence.)

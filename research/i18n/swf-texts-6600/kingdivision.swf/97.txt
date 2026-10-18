@@ -1,0 +1,3 @@
+4.O tempo de competição dura 1 hora por dia e cada
+--- RECORDSEPARATOR ---
+jogador tem direito a participar 10 vezes da batalha.

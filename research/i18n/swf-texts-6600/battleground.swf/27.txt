@@ -1,0 +1,9 @@
+6. Patentes do exército: soldado, alferes,
+--- RECORDSEPARATOR ---
+tenente, 1º tenente, cabo, capitão,
+--- RECORDSEPARATOR ---
+major, tenente-coronel, coronel, brigadeiro,
+--- RECORDSEPARATOR ---
+general de divisão, general de corpo, general de exército,
+--- RECORDSEPARATOR ---
+marechal, grande-almirante chefe do estado-maior.

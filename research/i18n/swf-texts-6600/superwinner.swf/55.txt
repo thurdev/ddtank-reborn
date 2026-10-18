@@ -1,0 +1,7 @@
+3. Seis pontos em sequência
+--- RECORDSEPARATOR ---
+①②③④⑤⑥
+--- RECORDSEPARATOR ---
+, ganha o Segundo Prêmio.
+--- RECORDSEPARATOR ---
+(Para ganhar, a ordem dos dados não importa.)

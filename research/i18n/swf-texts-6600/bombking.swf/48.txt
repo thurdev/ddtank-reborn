@@ -1,0 +1,5 @@
+2. A partida dura um mês, há 3 partidas no total, eliminatória
+--- RECORDSEPARATOR ---
+        , partida de promoção                , e partida
+--- RECORDSEPARATOR ---
+final                 .

@@ -1,0 +1,5 @@
+2. Em cada ponto de verificação do boss há dificuldade de cinco
+--- RECORDSEPARATOR ---
+estrelas; de uma estrela a cinco
+--- RECORDSEPARATOR ---
+estrelas, a dificuldade aumenta gradualmente.

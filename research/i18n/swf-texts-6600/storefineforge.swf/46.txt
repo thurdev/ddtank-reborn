@@ -1,0 +1,1 @@
+5. O nível de evolução inicial é 0. O máximo pode ser 20.

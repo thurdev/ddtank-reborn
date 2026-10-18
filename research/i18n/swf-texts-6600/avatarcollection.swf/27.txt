@@ -1,0 +1,7 @@
+2. Colete os desenhos para obter atributos,
+--- RECORDSEPARATOR ---
+ao atingir a metade da coleta você obtém
+--- RECORDSEPARATOR ---
+1/2 da habilidade, e ao completar a coleta
+--- RECORDSEPARATOR ---
+obtém todo o atributo.

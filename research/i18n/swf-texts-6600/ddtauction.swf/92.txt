@@ -1,0 +1,3 @@
+2. Preste atenção à diferença entre o valor do lance no leilão e o
+--- RECORDSEPARATOR ---
+preço fixo.

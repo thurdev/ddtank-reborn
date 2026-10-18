@@ -1,0 +1,5 @@
+1.                     A Partida é uma área entre servidores,
+--- RECORDSEPARATOR ---
+ocorre toda semana às         , personagens de nível .
+--- RECORDSEPARATOR ---
+podem participar da partida.

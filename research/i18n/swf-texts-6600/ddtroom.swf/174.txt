@@ -1,0 +1,3 @@
+2. Ao final da batalha apenas
+--- RECORDSEPARATOR ---
+os pontos são acumulados

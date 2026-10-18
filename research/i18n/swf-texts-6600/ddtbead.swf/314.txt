@@ -1,0 +1,7 @@
+Para abrir furos de selo de níveis diferentes, é necessário usar
+--- RECORDSEPARATOR ---
+pontas de broca de nível diferente. Furos de selo de
+--- RECORDSEPARATOR ---
+níveis diferentes exigem pérolas
+--- RECORDSEPARATOR ---
+com características diferentes.
