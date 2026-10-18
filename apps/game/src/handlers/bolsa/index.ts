@@ -22,6 +22,7 @@
  *   abrir-caixa.ts              (Bolsa › abrir caixa)         — 63  ITEM_OPENUP
  *   usar-carta.ts               (Bolsa › usar carta)          — 183 CARD_USE
  *   treino-atributos.ts         (texpSystem › usar pergaminho)— 99  TEXP
+ *   treino-diario.ts             (bolsa nova › Sist. Treino)   — 155 EVERYDAY_ACTIVEPOINT
  *   organizar-bolsa.ts          (Bolsa › organizar)           — 124 CHANGE_PLACE_GOODS_ALL
  *   ocultar-visual.ts           (Equipamento › esconder)      — 60  ITEM_HIDE
  *   senha-da-bolsa.ts           (Login/conta › senha 2ª)      — 25  BAG_LOCKED (+ `bagLocked()` compartilhado)
@@ -55,6 +56,7 @@ import { registerItemVencido } from "./item-vencido.js";
 import { registerAbrirCaixa } from "./abrir-caixa.js";
 import { registerUsarCarta } from "./usar-carta.js";
 import { registerTreinoAtributos } from "./treino-atributos.js";
+import { registerTreinoDiario } from "./treino-diario.js";
 import { registerOrganizarBolsa } from "./organizar-bolsa.js";
 import { registerOcultarVisual } from "./ocultar-visual.js";
 import { registerSenhaDaBolsa } from "./senha-da-bolsa.js";
@@ -82,6 +84,7 @@ export function registerBolsa(r: HandlerRegistry): void {
   registerAbrirCaixa(r);
   registerUsarCarta(r);
   registerTreinoAtributos(r);
+  registerTreinoDiario(r);
   registerOrganizarBolsa(r);
   registerOcultarVisual(r);
   registerSenhaDaBolsa(r);

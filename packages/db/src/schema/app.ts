@@ -344,3 +344,83 @@ export const Donations = appSchema.table(
   },
   (t) => [index("IX_Donations_status").on(t.status), index("IX_Donations_txid").on(t.txid), index("IX_Donations_createdAt").on(t.createdAt)],
 );
+
+/**
+ * app."EveryDayActiveProgress" — "Sist. Treino" da bolsa nova (`m3-everyday-active`, 155 EVERYDAY_ACTIVEPOINT).
+ * Uma linha por (jogador, dia, template de atividade): `Count` é quanto já foi cumprido hoje daquela
+ * `game."Every_Day_Active_Point_Template".Count` (capado pelo handler). O handler decompilado 6600
+ * (`EverydayActivePointHandler.cs`) é um stub (só trata o sub-byte 8/GET_EXPBLESSED_DATA; os demais só fazem
+ * `Console.WriteLine`) — sem contraparte C# pra pontos/recompensa real, esta tabela é o motor novo que lê as
+ * tabelas de template já existentes desde `m1-schema` (0 linhas na origem — vazio até o admin configurar).
+ */
+export const EveryDayActiveProgress = appSchema.table(
+  "EveryDayActiveProgress",
+  {
+    UserID: integer("UserID").notNull(),
+    Day: varchar("Day", { length: 10 }).notNull(),
+    ActivityID: integer("ActivityID").notNull(),
+    Count: integer("Count").notNull().default(0),
+  },
+  (t) => [primaryKey({ name: "EveryDayActiveProgress_pkey", columns: [t.UserID, t.Day, t.ActivityID] })],
+);
+
+/**
+ * app."MysteryShopTemplate" — item pool da Loja Cigana (`m3-mystery-shop`, 278 MYSTERY_SHOP, `gypsyshop.swf`).
+ * Mirrors `SqlDataProvider.Data.MysteryShopInfo` (vendor/DDT-6600 Source/SqlDataProvider) 1:1, mas a tabela
+ * fonte não aparece nos catalog.json extraídos em `research/6600/db` (banco não dumpado) —
+ * por isso aditiva aqui em `app` (não pelo gerador `game.ts`), e não `game.MysteryShop`. Sem linhas por
+ * padrão (admin/seed configura depois); `LableType` 1 = pool normal (sorteio ponderado por `Random`,
+ * `GypsyShopMgr.GetRateAward`), 2 = lista rara (6 primeiros, `GypsyShopMgr.GetRateMysteryShop`). `Unit` 1 =
+ * paga em Money, 2 = paga em Honor (`GypsyShopBuy.cs:22-29`). `Num` = ValidDate (dias) do item concedido.
+ */
+export const MysteryShopTemplate = appSchema.table(
+  "MysteryShopTemplate",
+  {
+    ID: integer("ID").notNull(),
+    LableType: integer("LableType").notNull().default(1),
+    InfoID: integer("InfoID").notNull(),
+    Unit: integer("Unit").notNull().default(1),
+    Num: integer("Num").notNull().default(1),
+    Price: integer("Price").notNull().default(0),
+    CanBuy: integer("CanBuy").notNull().default(1),
+    Random: integer("Random").notNull().default(1),
+  },
+  (t) => [primaryKey({ name: "MysteryShopTemplate_pkey", columns: [t.ID] })],
+);
+
+/**
+ * app."GypsyShopState" — rotação por jogador da Loja Cigana (278 MYSTERY_SHOP sub 2/3/5). Mirrors
+ * `GypsyItemDataInfo` (8 slots sorteados) + os 2 campos de `ActiveSystemInfo` que esse sistema usa
+ * (`CurRefreshedTimes`/`LastRefresh`, `PlayerActives.cs:1364-1423`) — não a tabela gigante multi-sistema
+ * inteira, só o que esta feature precisa. `Slots` guarda o array de 8 (ou menos, se o pool ainda não tem 8
+ * linhas) `{gypsyId,infoId,unit,price,num,canBuy}`, na mesma ordem enviada por `SendGypsyShopPlayerInfo`.
+ */
+export const GypsyShopState = appSchema.table(
+  "GypsyShopState",
+  {
+    UserID: integer("UserID").notNull(),
+    Slots: jsonb("Slots").$type<{ gypsyId: number; infoId: number; unit: number; price: number; num: number; canBuy: number }[]>().notNull().default(sql`'[]'::jsonb`),
+    CurRefreshedTimes: integer("CurRefreshedTimes").notNull().default(0),
+    LastRefresh: ts("LastRefresh"),
+  },
+  (t) => [primaryKey({ name: "GypsyShopState_pkey", columns: [t.UserID] })],
+);
+
+/**
+ * app."ShopBuyLimited" — contador diário de compra por item da loja principal (`m3-shop-buylimited`, 288
+ * SHOP_BUYLIMITEDCOUNT), enforced contra `game."Shop".LimitCount` no caminho de 44 BUY_GOODS (6600 only —
+ * `handlers/loja/comprar.ts`). O `ShopBuyLimitedCountHandler.cs` decompilado (288) nunca lê `LimitCount` nem
+ * grava nada; sempre responde `int(0)` — esta tabela completa a feature que ficou pela metade no 6600
+ * original (sem mudar o comportamento de quem já comprava sem limite configurado, já que `LimitCount` é
+ * `null`/0 em todo `Shop` existente). `GoodsID` = `Shop.ID` (o `goodsId` do pacote 44, não `Shop.ShopID`).
+ */
+export const ShopBuyLimited = appSchema.table(
+  "ShopBuyLimited",
+  {
+    UserID: integer("UserID").notNull(),
+    Day: varchar("Day", { length: 10 }).notNull(),
+    GoodsID: integer("GoodsID").notNull(),
+    Count: integer("Count").notNull().default(0),
+  },
+  (t) => [primaryKey({ name: "ShopBuyLimited_pkey", columns: [t.UserID, t.Day, t.GoodsID] })],
+);

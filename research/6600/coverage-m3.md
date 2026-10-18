@@ -16,7 +16,7 @@
 | handled | 0 |
 | partial | 22 |
 | stub | 8 |
-| MISSING | 52 |
+| MISSING | 49 |
 | **Total de códigos enviados pelo cliente** | **213** |
 
 ## Totais — endpoints (.ashx/.xml/.aspx)
@@ -171,7 +171,7 @@
 | 179 | `QUEST_FINISH` | sendQuestFinish (ddt/manager/GameSocketOut.as) | implemented | missoes/index.ts |
 | 181 | `QUEST_CHECK` | sendQuestCheck (ddt/manager/GameSocketOut.as) | implemented | missoes/index.ts |
 
-### Eventos/Atividades (9 código(s) — implemented 6, partial 2, stub 0, MISSING 1)
+### Eventos/Atividades (9 código(s) — implemented 7, partial 2, stub 0, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
@@ -182,7 +182,7 @@
 | 96 | `HONOR_UP_COUNT` | sendHonorUp (ddt/manager/GameSocketOut.as) | implemented | progressao/index.ts |
 | 103 | `DAILYRECORD` | sendDailyRecord (ddt/manager/GameSocketOut.as) | implemented | eventos/index.ts |
 | 145 | `ACTIVITY_SYSTEM/LIGHTROAD_SYSTEM/SEVENDAYTARGET_GODSROADS/TREASURELOST` | sendRequestEnterPyramidSystem (ddt/manager/GameInSocketOut.as); sendPyramidStartOrstop (ddt/manager/GameInSocketOut.as); sendPyramidTurnCard (ddt/manager/GameInSocketOut.as); sendPyramidRevive (ddt/manager/GameInSocketOut.as); enterGodsRoads (ddt/manager/GameSocketOut.as); getGodsRoadsAwards (ddt/manager/GameSocketOut.as); enterSuperWinner (ddt/manager/GameSocketOut.as); rollDiceInSuperWinner (ddt/manager/GameSocketOut.as); outSuperWinner (ddt/manager/GameSocketOut.as); sendButChristmasGoods (ddt/manager/GameSocketOut.as); enterChristmasRoomIsTrue (ddt/manager/GameSocketOut.as); enterChristmasRoom (ddt/manager/GameSocketOut.as); enterMakingSnowManRoom (ddt/manager/GameSocketOut.as); getPacksToPlayer (ddt/manager/GameSocketOut.as); sendLeaveChristmasRoom (ddt/manager/GameSocketOut.as); sendChristmasRoomMove (ddt/manager/GameSocketOut.as); sendChristmasUpGrade (ddt/manager/GameSocketOut.as); sendStartFightWithMonster (ddt/manager/GameSocketOut.as); sendBuyPlayingSnowmanVolumes (ddt/manager/GameSocketOut.as); sendLanternRiddlesQuestion (ddt/manager/GameSocketOut.as); sendLanternRiddlesAnswer (ddt/manager/GameSocketOut.as); sendLanternRiddlesUseSkill (ddt/manager/GameSocketOut.as); sendLanternRiddlesRankInfo (ddt/manager/GameSocketOut.as); sendCatchBeastBegin (ddt/manager/GameSocketOut.as); sendCatchBeastViewInfo (ddt/manager/GameSocketOut.as); sendCatchBeastChallenge (ddt/manager/GameSocketOut.as); sendCatchBeastBuyBuff (ddt/manager/GameSocketOut.as); sendCatchBeastGetAward (ddt/manager/GameSocketOut.as); sendEntertainment (ddt/manager/GameSocketOut.as); buyEntertainment (ddt/manager/GameSocketOut.as); sendLightRoadStarEnter (ddt/manager/GameSocketOut.as); lightRoadPointWork (ddt/manager/GameSocketOut.as); sevenDayTarget_enter (ddt/manager/GameSocketOut.as); newPlayerReward_enter (ddt/manager/GameSocketOut.as); sevenDayTarget_getReward (ddt/manager/GameSocketOut.as); newPlayerReward_getReward (ddt/manager/GameSocketOut.as); DDPlayEnter (ddt/manager/GameSocketOut.as); DDPlayStart (ddt/manager/GameSocketOut.as); DDPlayExchange (ddt/manager/GameSocketOut.as); sendBoguAdventureEnter (ddt/manager/GameSocketOut.as); sendBoguAdventureWalkInfo (ddt/manager/GameSocketOut.as); sendBoguAdventureUpdateGame (ddt/manager/GameSocketOut.as); sendBoguAdventureAcquireAward (ddt/manager/GameSocketOut.as); sendOutBoguAdventure (ddt/manager/GameSocketOut.as); halloweenInit (ddt/manager/GameSocketOut.as); enterOrLeaveInsectScene (ddt/manager/GameSocketOut.as); sendFightWithInsect (ddt/manager/GameSocketOut.as); sendInsectSceneMove (ddt/manager/GameSocketOut.as); updateInsectInfo (ddt/manager/GameSocketOut.as); updateInsectAreaRank (ddt/manager/GameSocketOut.as); updateInsectAreaSelfInfo (ddt/manager/GameSocketOut.as); updateInsectLocalRank (ddt/manager/GameSocketOut.as); updateInsectLocalSelfInfo (ddt/manager/GameSocketOut.as); getInsectPrize (ddt/manager/GameSocketOut.as); requestCakeStatus (ddt/manager/GameSocketOut.as); sendEnterGame (ddt/manager/GameSocketOut.as); sendYGBuyGoods (ddt/manager/GameSocketOut.as); sendLuckDrawGo (ddt/manager/GameSocketOut.as); enterTreasureLost (ddt/manager/GameSocketOut.as); treasureLostRollDice (ddt/manager/GameSocketOut.as); treasureLostRollGoldDice (ddt/manager/GameSocketOut.as); treasureLostSelcetDirection (ddt/manager/GameSocketOut.as); treasureLostMissBoss (ddt/manager/GameSocketOut.as); treasureLostEventDispatch (ddt/manager/GameSocketOut.as); treasureLostBuyItem (ddt/manager/GameSocketOut.as); treasureLostExit (ddt/manager/GameSocketOut.as); makeNewYearRice (ddt/manager/GameSocketOut.as); sendCheckNewYearRiceInfo (ddt/manager/GameSocketOut.as); sendCheckMakeNewYearFood (ddt/manager/GameSocketOut.as); sendNewYearRiceOpen (ddt/manager/GameSocketOut.as); sendExitYearFoodRoom (ddt/manager/GameSocketOut.as); sendInviteYearFoodRoom (ddt/manager/GameSocketOut.as); sendQuitNewYearRiceRoom (ddt/manager/GameSocketOut.as); getVipAndMerryInfo (ddt/manager/GameSocketOut.as) | partial | eventos/index.ts |
-| 155 | `EVERYDAY_ACTIVEPOINT` | addSpeed (ddt/manager/GameSocketOut.as); sendGetGoods (ddt/manager/GameSocketOut.as); enterDayActivity (ddt/manager/GameSocketOut.as); sendExpBlessedData (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 155 | `EVERYDAY_ACTIVEPOINT` | addSpeed (ddt/manager/GameSocketOut.as); sendGetGoods (ddt/manager/GameSocketOut.as); enterDayActivity (ddt/manager/GameSocketOut.as); sendExpBlessedData (ddt/manager/GameSocketOut.as) | implemented | bolsa/treino-diario.ts |
 | 219 | `WEEKLY_CLICK_CNT` | sendWeeklyClick (ddt/manager/GameSocketOut.as) | implemented | eventos/index.ts |
 
 ### Chat/Amigos (9 código(s) — implemented 9, partial 0, stub 0, MISSING 0)
@@ -223,7 +223,7 @@
 | 94 | `GAME_ROOM` | sendGameRoomSetUp (ddt/manager/GameInSocketOut.as); sendCreateRoom (ddt/manager/GameInSocketOut.as); sendGameRoomPlaceState (ddt/manager/GameInSocketOut.as); sendGameRoomKick (ddt/manager/GameInSocketOut.as); sendGamePlayerExit (ddt/manager/GameInSocketOut.as); sendGameTeam (ddt/manager/GameInSocketOut.as); sendGameStart (ddt/manager/GameInSocketOut.as); sendPlayerState (ddt/manager/GameInSocketOut.as); sendStartOrPreCheckEnergy (ddt/manager/GameInSocketOut.as); sendCancelWait (ddt/manager/GameInSocketOut.as); sendSingleRoomBegin (ddt/manager/GameInSocketOut.as); sendGameStyle (ddt/manager/GameInSocketOut.as); sendGameLogin (ddt/manager/GameSocketOut.as); sendFastInviteCall (ddt/manager/GameSocketOut.as); sendFastAuctionCall (ddt/manager/GameSocketOut.as); sendGameStyle (ddt/manager/GameSocketOut.as); sendGameMode (ddt/manager/GameSocketOut.as); sendUpdateRoomList (ddt/manager/GameSocketOut.as); createUserGuide (ddt/manager/GameSocketOut.as); enterUserGuide (ddt/manager/GameSocketOut.as); userGuideStart (ddt/manager/GameSocketOut.as) | implemented | salas/index.ts |
 | 251 | `SCENE_STATE` | sendCurrentState (ddt/manager/GameSocketOut.as) | partial | casamento/index.ts |
 
-### Loja (6 código(s) — implemented 4, partial 0, stub 0, MISSING 2)
+### Loja (6 código(s) — implemented 6, partial 0, stub 0, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
@@ -231,8 +231,8 @@
 | 46 | `BUY_GIFTBAG` | sendBuyGiftBag (ddt/manager/GameSocketOut.as) | implemented | loja/pacote-presente.ts |
 | 54 | `PROP_BUY` | sendBuyProp (ddt/manager/GameInSocketOut.as); sendBuyProp (ddt/manager/GameSocketOut.as) | implemented | loja/props-de-luta.ts |
 | 55 | `PROP_SELL` | sendSellProp (ddt/manager/GameInSocketOut.as); sendSellProp (ddt/manager/GameSocketOut.as) | implemented | loja/props-de-luta.ts |
-| 278 | `MYSTERY_SHOP` | sendGypsyBuy (ddt/manager/GameInSocketOut.as); sendGypsyRefreshItemList (ddt/manager/GameInSocketOut.as); sendGypsyManualRefreshItemList (ddt/manager/GameInSocketOut.as); sendGypsyRefreshRareList (ddt/manager/GameInSocketOut.as); sendRequestGypsyNPCState (ddt/manager/GameInSocketOut.as) | MISSING |  |
-| 288 | `SHOP_BUYLIMITEDCOUNT` | sendGetShopBuyLimitedCount (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 278 | `MYSTERY_SHOP` | sendGypsyBuy (ddt/manager/GameInSocketOut.as); sendGypsyRefreshItemList (ddt/manager/GameInSocketOut.as); sendGypsyManualRefreshItemList (ddt/manager/GameInSocketOut.as); sendGypsyRefreshRareList (ddt/manager/GameInSocketOut.as); sendRequestGypsyNPCState (ddt/manager/GameInSocketOut.as) | implemented | loja/loja-cigana.ts |
+| 288 | `SHOP_BUYLIMITEDCOUNT` | sendGetShopBuyLimitedCount (ddt/manager/GameSocketOut.as) | implemented | loja/compra-limitada.ts |
 
 ### Login/Rede/Handshake (5 código(s) — implemented 4, partial 0, stub 0, MISSING 1)
 
