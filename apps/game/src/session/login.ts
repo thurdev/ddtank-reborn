@@ -15,6 +15,7 @@ import type { ClientKind } from "../game/player-info.js";
 import { consortiaOnLogin } from "../handlers/sociedade/index.js";
 import { activityOpen } from "../handlers/eventos/agendador.js";
 import { sendNoviceActivityOpen } from "../handlers/eventos/novato.js";
+import { applyOldPlayerLogin } from "../handlers/eventos/jogador-antigo.js";
 import { findCharacterByUserName, loadMatchInfo, loadPlayerInfo, setOnlineState } from "../db/characters.js";
 import { loadUserItems } from "../db/items.js";
 import { loadFriends, loadProgress } from "../db/social.js";
@@ -182,6 +183,9 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
     info.AlreadyGetBox = 0;
     info.BoxProgression = 0;
   }
+  // m3-eventos-b: real "old player" eligibility from DB timestamps, BEFORE any packet that carries `isOld`
+  // (loginSuccess below, plus sceneAddPlayer/roomPlayerAdd/addFriend elsewhere) bumps LastDate to `now`.
+  applyOldPlayerLogin(ctx, p);
   p.send(Out.loginSuccess(p.view(), p.extra, now));
   p.send(Out.publicPlayer(info, match, p.clientKind, p.magicAttack, p.magicDefence));
   p.send(Out.weaklessGuild(info));

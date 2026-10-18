@@ -244,10 +244,18 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
 - [ ] **m3-campbattle** — `146 CAMPBATTLE` (`CampbattleEnterFight`/`RoleMove`/`changeMap`/`outCampBatttle`/
   `captureMap`/`requestPRankList`/`requestCRankList`/`enterPTPFight`/`returnToPve`/`resurrect`) — Batalha de
   Acampamento (`campbattle.swf`). Sistema maior, 10 sub-ações.
-- [ ] **m3-group-purchase** — `144 GROUP_PURCHASE` (`sendGroupPurchaseRefreshData`/`RefreshRankData`/`Buy`) —
-  Compra em Grupo (`grouppurchase.swf`). O `.cs` original (`teambuyactiveawardinfo.cs`, já portado no
-  `m3-ashx`) é sempre `value=false` — confirmar se este pacote de socket também é feature inacabada no
-  original antes de implementar lógica de verdade (não inventar comportamento).
+- [x] **m3-group-purchase** (2026-10-18, "código morto") — `144 GROUP_PURCHASE`
+  (`sendGroupPurchaseRefreshData`/`RefreshRankData`/`Buy`) — Compra em Grupo (`grouppurchase.swf`).
+  Confirmado: feature 100% inacabada no servidor original, não só o `.ashx` companheiro
+  (`teambuyactiveawardinfo.cs`, sempre `value=false`, já portado no `m3-ashx`). Nenhuma classe
+  `[PacketHandler(144)]`/`ePackageType.GROUP_PURCHASE` existe no `Game.Server.Packets.Client` decompilado
+  (grep vazio) E nenhum código do servidor jamais envia o sub-pacote `START_OR_END` que abriria o ícone do
+  hall (`GroupPurchaseManager.as openOrClose` → `HallIconManager.updateSwitchHandler(GROUPPURCHASE, true)`,
+  só chamado dentro desse handler de entrada que nunca dispara) — o jogador nunca consegue abrir a tela pra
+  disparar `REFRESH_DATA`/`REFRESH_RANK_DATA`/`BUY` em primeiro lugar. Registrado como no-op puro (lê e
+  descarta, sem resposta), mesma categoria de `211 CADDY_EXCHANGE_ALL`/`215 CADDY_CONVERTED_ALL`
+  (`handlers/eventos/roleta.ts`, m3-caddy-loteria) — sem inventar uma economia de desconto em grupo que
+  nunca existiu em produção. `apps/game/src/handlers/eventos/compra-em-grupo.ts`.
 - [ ] **m3-seven-double** — `148 SEVEN_DOUBLE` (`sendSevenDoubleCallCar`/`StartGame`/`CancelGame`/`Ready`/
   `Move`/`UseSkill`/`CanEnter`/`EnterOrLeaveScene`) — minijogo "Sete Dobrado" (`src/sevenDouble/`, SWF não
   identificado por nome — ver `research/6600/swf-inventory.md`, candidato `church.swf`).
@@ -257,13 +265,46 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
   que a 4.1 (`MIGRACAO-6600.md` §2.1, 4 pastas C#: `RingStation`/`.Battle`/`.RoomGamePkg`/
   `.RoomGamePkg.TankHandle`) — maior tarefa única da lista; considerar quebrar em sub-tarefas (inscrição/
   matchmaking, batalha, recompensa) quando for pegar.
-- [ ] **m3-oldplayer-regress** — `149 OLDPLAYER_REGRESS` (`sendRegressPkg`/`RegressGetAwardPkg`/
-  `RegressCheckPlayer`/`RegressApplyEnable`/`RegressApllyPacks`/`RegressCall`/`RegressRecvPacks`/
-  `RegressTicketInfo`/`RegressTicket`/`UpdateIntegral`/`BuyRegressIntegralGoods`) — sistema "jogador que
-  voltou" (retenção), 11 sub-ações, sistema novo do 6600.
-- [ ] **m3-wonderful-activity** — `159 WONDERFUL_ACTIVITY`, `373 WONDERFUL_GETREWARD`,
-  `405 WONDERFUL_ACTIVITY_INIT` — evento genérico (nome a confirmar jogando — não achei SWF nem
-  `*PackageType.as` dedicado pelo grep, procurar manualmente antes de implementar lógica).
+- [x] **m3-oldplayer-regress** (2026-10-18) — `149 OLDPLAYER_REGRESS` (botão "Jogador antigo" no hall,
+  `PlayerTool.as` `_oldPlayerBtn`/`_selfInfo.isOld`), 11 sub-ações. `OldPlayerRegressHandler.cs` original é
+  um no-op TOTAL pra qualquer sub-ação (só `packet.ReadByte()`, sem switch, sem resposta) — portado do
+  contrato AS3 (igual `m3-everyday-active`). Achado principal: `isOld`/`Sys_Users_Detail.IsOldPlayer` (coluna
+  real, já em `SAVED_DETAIL_COLUMNS`) estava stub `false` em 4 pacotes já existentes (`packets/out.ts`: 1
+  LOGIN, 18 SCENE_ADD_USER, 94/4, 160/160) com um comentário ERRADO ("card-soul system") de uma tarefa
+  anterior — corrigido pra ler o valor real; `LastDate` também nunca era regravado pra "agora" em lugar
+  nenhum do servidor TS (congelado desde a criação do personagem) — agora `applyOldPlayerLogin`
+  (`handlers/eventos/jogador-antigo.ts`, chamado no login antes de `Out.loginSuccess`) mede a inatividade
+  REAL = agora − `LastDate` de ANTES deste login, vira `IsOldPlayer=true` se >= `inactiveDays` (admin,
+  `app."ScheduledEvents"` kind `oldplayer-regress`, default 15 dias — duração configurável, sem data fixa),
+  e regrava `LastDate=agora`. Nunca aceita elegibilidade declarada pelo cliente.
+  Sub-ações implementadas de verdade, sem item/moeda nenhum (ver exploit evitado abaixo): 6 APPLY_ENABLE/3
+  APPLYPACKS (opt-in puro, `claimOnce` 1x por conta), 2 CHECK/4 CALL (1 chamada por conta pra sempre, alvo
+  precisa ser amigo aceito E `IsOldPlayer`; a notificação de verdade pro outro jogador é um `.ashx` externo
+  disparado pelo PRÓPRIO cliente, fora deste pacote), 5 REVCPACKS (mesmo cálculo, decide se mostra o botão).
+  0 PACKS/1 GETPACKS (calendário de 15 "dias" com bundle de item por dia, `PacksView.as`): envelope
+  byte-a-byte correto, mas SEM nenhum item configurado — `Old_Player_Award_Info` (27 linhas, existe no
+  banco) NUNCA é referenciada em nenhum `.cs` do vendor nem em nenhum catalog.json extraído, então usá-la
+  seria inventar uma correspondência dia→recompensa que não existe em lugar nenhum. 7/8/9/10 (ticket "volta"/
+  loja de pontos "Integral"): sem NENHUMA tabela de moeda/preço em todo o catálogo (grep vazio por
+  `Ticket`/`Integral`) e a UI consumidora também nunca lista nada real — no-op, igual ao original.
+  **Exploit evitado**: nenhuma das 11 sub-ações concede item/moeda/XP — zero superfície de dupe/bypass de
+  custo, mesmo com o eligibility flag real. Sem migração (`IsOldPlayer`/`LastDate` já existiam, só não eram
+  usados). `apps/game/src/handlers/eventos/jogador-antigo.ts`. Teste:
+  `apps/game/test/client-6600-m3-oldplayer-regress.test.ts`.
+- [x] **m3-wonderful-activity** (2026-10-18) — `159 WONDERFUL_ACTIVITY`, `373 WONDERFUL_GETREWARD`,
+  `405 WONDERFUL_ACTIVITY_INIT` — achado: é o sistema "GM Activity" (`wonderfulactivity.swf`,
+  `wonderfulActivity/`), vitrine de campanhas promocionais configuradas pelo admin (recarga acumulada,
+  consumo, "Carnaval" com ~10 subtipos, montaria, presente diário, VIP geral...). `WonderfulActivityHandler.cs`
+  (159) e `WonderfulActivityInitHandler.cs` (405) são stubs no C# original — 405 devolve 1 "ato" FIXO com
+  GUIDs chumbados (`4ac24166-...`/`03ff7e54-...`) idênticos pra qualquer jogador/requisição. A fonte REAL das
+  campanhas (`activityData`, XML `GmActivityInfo` — o MESMO endpoint listado em `m3-endpoints-schema`/
+  `m3-endpoints-aninhados` como SEM schema ainda) nunca passa por este socket; sem aquele endpoint, nenhuma
+  campanha real pode existir no cliente, e a entrada fake de 405 fica inerte (nunca casa com uma campanha
+  real em `activityData`). 159/405 portados BYTE A BYTE iguais ao C# original (determinístico, inofensivo,
+  sem item/moeda). 373 (sem `[PacketHandler(373)]` nenhum no original E inalcançável sem `activityData`
+  real) é no-op puro, mesma categoria de `211 CADDY_EXCHANGE_ALL` (m3-caddy-loteria). Sem migração.
+  `apps/game/src/handlers/eventos/atividade-maravilhosa.ts`. Teste:
+  `apps/game/test/client-6600-m3-oldplayer-regress.test.ts` (describe "GM Activity").
 - [x] **m3-accumulative-login** (2026-10-18) — `238 ACCUMULATIVELOGIN_AWARD` (`sendAccumulativeLoginAward`,
   6600 — era `338` na 4.1, `ePackageType.as` 6600:592 vs `Game.Server/Packets/ePackageType.cs` 4.1:248).
   Achado: a lógica já existia em `handlers/eventos/presenca.ts` (`accumulativeLogin`), idêntica ao
