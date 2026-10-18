@@ -4,6 +4,14 @@
  * C#: `MarryApplyHandler.cs` casos de proposta/resposta.
  * Como testar: `apps/game/test/marriage-farm-auction.test.ts`. Manual: Casamento → escolher alvo →
  * escrever declaração → pedir em casamento → o outro aceita/recusa.
+ *
+ * NOVO (m2-bolsa): código IDÊNTICO nas duas versões (confirmado `GameSocketOut.as`). 247 MARRY_APPLY:
+ * 6600 soma +1 bool (`sendPropose(id,text,useBugle,bool)`) no fim, depois do 3º campo (bool) que já lemos
+ * e descartamos — a posição dos 3 primeiros campos (`int,string,bool`) não muda, então o campo novo fica
+ * só sobrando, sem fix necessário (framed-by-length). 250 MARRY_APPLY_REPLY: idêntico nos dois, sem campo
+ * novo. `MarryApplyHandler.cs`/`DivorceApplyHandler.cs` do 6600 não foram decompilados no vendor (só a
+ * 4.1) — confirmado só pelo AS3 dos dois lados (sender E os dois readers `ChurchManager.as
+ * __marryApply`/`__showPropose`/`__marryApplyReply`, byte a byte iguais).
  */
 import { GSPacket } from "@ddt/protocol";
 import { and, eq } from "drizzle-orm";

@@ -5,6 +5,19 @@
  * C#: `MarryDataHandler.cs` (`SceneMarryRooms/*`).
  * Como testar: `apps/game/test/marriage-farm-auction.test.ts`. Manual: Casamento → dentro da sala → andar
  * / iniciar cerimônia / convidar / dar presente / fogos / expulsar / banir / salva de tiros.
+ *
+ * NOVO (m2-bolsa): código 249 e os sub-códigos (`ChurchPackageType.as`) são IDÊNTICOS entre 4.1 e 6600
+ * (confirmado campo a campo contra `GameSocketOut.as` dos dois). O 6600 só ACRESCENTA campos no FINAL de
+ * 3 sub-comandos, sempre depois de tudo que lemos, então são seguros de ignorar (framed-by-length, mesmo
+ * padrão de `94/0 isDouble`/`94/2 tempID` em `research/6600/packets-m1.md` M2 salas) — nenhum fix:
+ * - sub 2 HYMENEAL: 6600 manda +1 bool `isBind` no fim (`sendStartWedding(isBind=false)`). Achado também:
+ *   NENHUMA das duas versões manda um int extra pra "cancelar" — `flag = pkt.readInt()` neste porte lê
+ *   lixo/zero-pad de qualquer forma (gap pré-existente da própria 4.1, não é regressão desta tarefa; a UI
+ *   de cancelar provavelmente usa o sub 9 HYMENEAL_STOP, nunca registrado aqui — não tocado).
+ * - sub 3 CONTINUATION: 6600 manda +1 bool `merryActivity` no fim.
+ * - sub 6 USEFIRECRACKERS: 6600 manda +1 bool `isBind` no fim.
+ * `MARRY_ROOM_CREATE` (241, capela.ts) tem o mesmo padrão: 6600 soma +1 bool `merryActivity` no fim, não
+ * lido por nenhum handler.
  */
 import { PacketOut } from "@ddt/protocol";
 import { eq } from "drizzle-orm";

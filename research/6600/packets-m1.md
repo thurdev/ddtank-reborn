@@ -609,3 +609,125 @@ bolsa), item travado (sem anexo, carta ainda vai se tiver Money), `count` invál
 `apps/api/test/api.test.ts`: `shopcheapitemlist.ashx` com `client="41"` vs `client="6600"` confirma a fonte
 de dados certa por cliente. `pnpm --filter @ddt/game test`: 40 arquivos / 286 testes. `pnpm --filter
 @ddt/api test`: 40 testes. `pnpm typecheck`: limpo em todos os 11 pacotes. Todos verdes.
+
+## M2 bolsa (`feature/m2-bolsa`) — bag/equip/vestir + família MARRY_* pro 6600
+
+Tarefa `m2-bolsa` (`docs/plan/TASKS.md`, `docs/plan/MIGRACAO-6600.md` §1.1/§5 M2). Escopo: todo pacote de
+`apps/game/src/handlers/bolsa/*` (mover/trocar/split, equipar/desequipar, usar item, descartar, organizar,
+senha da bolsa, vencimento, bolsa temporária, comparar item no chat) + `apps/game/src/handlers/casamento/*`
+(família MARRY_*, porque §1.1 avisa que ela recicla um valor de código com `PLAYER_DRESS`). Método: comparar
+`GameSocketOut.as` (client→server) e os readers AS3 (`PlayerManager.as`/`ChurchManager.as`/`ChatManager.as`/
+`EffortManager.as`) 4.1 vs 6600 pra cada pacote, cruzando com o `.cs` real do 6600 (`vendor/DDT-6600/Source`)
+sempre que ele existe decompilado, igual aos Rounds anteriores.
+
+### Achado grande 1 — colisão de código 237: MARRYINFO_UPDATE (4.1, mural) vs PLAYER_DRESS (6600, figurino)
+
+`ePackageType.cs`: 4.1 `MARRYINFO_UPDATE=237` (editar seu pedido no mural de casamento — `casamento/
+mural.ts`); 6600 recicla o MESMO valor pra `PLAYER_DRESS=237` (sistema de "figurino"/dress room, feature
+NOVA do 6600, sem equivalente nenhum na 4.1 — `playerDress.swf`, `PlayerDressManager.as`,
+`PlayerDressType.as`: sub-comandos 1 GET_DRESS_MODEL, 2 CURRENT_MODEL, 6 FOLD_DRESS, 7 LOCK_DRESSBAG).
+Mesmo padrão de colisão do Detalhe D (259) e do 121/RUNE_COMMAND (Round 3) — nome antigo nem existe mais no
+enum 6600 (`vendor/DDT-6600/Source/.../ePackageType.cs:166` vs `vendor/DDTank41/.../ePackageType.cs:194`).
+Sem fix, um cliente 6600 mandando qualquer sub-comando de `PLAYER_DRESS` bateria direto em `marryInfoUpdate`
+(lê `bool,string`), interpretando o 1º byte do payload do 6600 como booleano aleatório e corrompendo
+`Marry_Info.IsPublishEquip/Introduction` do jogador com lixo.
+Fix: `handlers/casamento/index.ts` despacha 237 por `p.clientKind` — "41" vai pro mural (`marryInfoUpdate`,
+intacto), "6600" cai em `handlers/bolsa/vestir-6600.ts` `playerDressStub()` (lê e descarta o sub-byte, zero
+lógica de jogo). `MARRYINFO_DELETE=238` (4.1) não colide porque o valor 238 simplesmente não existe mais no
+enum 6600 (não é reciclado pra nada) e nosso servidor nunca registrou 238 mesmo na 4.1 (usa 234
+MARRYPROP_GET pra apagar, replicando o próprio "erro" do C# original — ver `mural.ts`).
+GAP pra M3: `PLAYER_DRESS` (salvar/trocar conjunto de roupa, até `DressModel.DRESS_LEN` modelos) não foi
+implementado — por instrução da tarefa ("wire the 6600 packets only if the 4.1 server logic already
+exists; otherwise document as gap"), já que não existe sistema de "modelo de figurino salvo" na
+`Game.Logic`/`Bussiness` da 4.1 nem tabela correspondente em `packages/db` hoje. Confirmado seguro deixar
+assim: `UIModuleTypes.PLAYER_DRESS` só é carregado quando o jogador abre a tela de Figurino
+(`PlayerDressManager.loadPlayerDressModule`, via `UIModuleLoader.addUIModuleImp`), NÃO faz parte do burst
+automático de login/hall — diferente do `KING_BLESS_MAIN`/142 (Round 2), que travava o hall com
+`TypeError #1009` por nunca ser inicializado. Não responder deixa a tela vazia/sem modelos salvos, sem
+crash em nenhum outro lugar do cliente.
+
+### Achado grande 2 — 67 UPDATE_PLAYER_INFO: broadcast de sala mista não branchava por clientKind
+
+`game/player.ts` `updateProperties()` (chamado por `updatePlayerProperties()`, por sua vez chamado pelo
+hook `onEquipChanged` toda vez que a bolsa muda um item equipado — mover.ts/49, organizar-bolsa.ts/124,
+troca de visual, etc.) construía UM `PacketOut` de 67 no layout de `this.clientKind` (o jogador que mudou
+de status) e mandava ele pra TODA a sala (`currentRoom.sendToAll(pub, this)`) — o próprio código já tinha
+uma NOTA deixada pelo autor avisando que isso só valia "até salas/M2 suportarem clientes mistos". Como
+`m2-salas` (task anterior) já ligou salas com `clientKind` misto (`sendToAllByKind` pra `94/4`/`91/101`),
+esse 67 ficou destrancado como bug real: um espectador 4.1 numa sala com um 6600 que equipou algo receberia
+o pacote 67 NO LAYOUT 6600 (ou vice-versa), descompassando os campos a partir de `GP..Luck` (Detalhe C,
+Round 1/2: +2 ints `MagicAttack`/`MagicDefence`, `honorId` em vez de nada, +1 int `leagueMoney`, +1 string
+`PveEpicPermission`) — mesma classe de bug que `18`/`94/4`/`91/101` já tinham corrigido nos Rounds
+anteriores, só que faltando aqui.
+Fix: `updateProperties()` agora usa `this.currentRoom?.sendToAllByKind((k) => Out.publicPlayer(this.info,
+this.match, k), this)` em vez de montar um buffer só — no máximo 2 variantes (uma por clientKind
+REALMENTE presente na sala), mesmo padrão de `rooms/room.ts` `sendToAllByKind` (já existia, só não era
+usado aqui). O self-send (`this.send(Out.publicPlayer(..., this.clientKind))`, pro próprio jogador) já
+estava certo, não mudou.
+
+### Pacotes corrigidos (client→server)
+
+| # | Código | Nome | Diff 6600 | Fix |
+|---|---|---|---|---|
+| 1 | 119 | LINKREQUEST_GOODS | Request: 4.1 lê `num(int), string(descartada), itemID(int)` (bate com o sender 4.1, só 2 campos — o 3º campo que o `.cs` 4.1 lê nem existe no sender, gap pré-existente da própria 4.1, não tocado); 6600 lê `num(int), key(string), templeteIDorItemID(string)` (bate com `sendGetLinkGoodsInfo(type,key,templeteIDorItemID="")`, 3 campos, os 2 últimos STRING) — o `.cs` 6600 real resolve `itemID = Convert.ToInt32(templeteIDorItemID != "" ? templeteIDorItemID : key)`. | `comparar-item.ts` `registerCompararItem` lê por `clientKind` antes do switch de `num` |
+| 2 | 119 | LINKREQUEST_GOODS (resposta, item achado) | 6600 insere +2 ints (`MagicAttack`/`MagicDefence`, lidos incondicionalmente pelo `ChatManager.as` 6600, dano mágico por item — mesmo sistema de sempre) entre `DefendCompose` e `ValidDate`; no fim, `isGold`/`goldValidDate`/`goldBeginTime` (o `.cs` 6600 ESCREVE isso — a 4.1 nunca escreveu, gap pré-existente da 4.1 preservado tal qual) + 1 int `MagicLevel` que o AS3 6600 lê mas o `.cs` 6600 NUNCA escreve (bug real do 6600 original — replicar o EOF não ajuda, mandamos `0`). | `comparar-item.ts`: +2 ints depois de `DefendCompose`, +`isGold`/cond./`MagicLevel=0` no fim, só `clientKind==="6600"` |
+| 3 | 63 | ITEM_OPENUP | Resposta (`OpenUpArkHandler.cs`, decompilado nos dois): 6600 soma +2 ints (`MagicAttack`/`MagicDefence`) por item mesclado, logo depois de `LuckCompose` — confirmado contra o `.cs` real dos dois lados (4.1 termina em `LuckCompose`; 6600 soma `WriteInt(value.MagicAttack); WriteInt(value.MagicDefence);`). Request (`sendItemOpenUp`) ganha +1 bool `isBand` no fim, não lido por nenhum dos dois `.cs` — sem fix. | `abrir-caixa.ts` `openBox()`: +2 ints por item mesclado, só `clientKind==="6600"` |
+| 4 | 99 | TEXP | Request MUDA DE FORMA: 4.1 `type,templateID,place` (3 ints); 6600 `type,templateID,count,place` (4 ints, `count` NOVO antes de `place` — ler como 4.1 desalinha `place` com o `count` do cliente). Lógica também muda: o `.cs` 6600 real (decompilado por completo) não tem multiplicador de VIP nem reset diário explícito — só teto simples `texpCount <= Grade`, e permite consumir VÁRIOS pergaminhos de uma vez (`count`, truncado pra não passar do teto); a 4.1 só consome 1 por pacote com limite `Grade×(VIP≤2?2:3)` e reset diário. | `treino-atributos.ts`: `texp()` (4.1, intacto) e `texp6600()` (novo) despachados por `clientKind` no `registerTreinoAtributos` |
+
+### Pacotes verificados idênticos, sem fix (bolsa)
+
+Código E layout confirmados iguais nos dois `GameSocketOut.as` (request) e/ou readers AS3 (resposta), sem
+nenhum campo a mais que mude posição de algo que lemos: **49** `CHANGE_PLACE_GOODS` (mover.ts, mover/
+trocar/split — inclui equipar/desequipar, que é só mover pra dentro/fora do `EquipBag`), **124**
+`CHANGE_PLACE_GOODS_ALL` (organizar-bolsa.ts), **127** `REClAIM_GOODS` (reciclar.ts), **47**
+`UNCHAIN_EQUIP` (desacorrentar-equipamento.ts), **60** `ITEM_HIDE` (ocultar-visual.ts), **34** `USER_RANK`
+(mostrar-guilda.ts), **25** `BAG_LOCKED` (senha-da-bolsa.ts — request E resposta de 8 campos idênticas;
+6600 só acrescenta uma tela nova de verificação por SMS/4399 que não manda este pacote), **200**
+`CHECK_CODE` (codigo-verificacao.ts, nunca emitido), **42** `DELETE_GOODS`/**188**
+`USE_CONSORTIA_REWORK_NAME`/**205** `USE_CHANGE_COLOR_SHELL` (stubs.ts), **252** `USE_CHANGE_SEX`
+(trocar-sexo.ts), **171** `USE_REWORK_NAME` (trocar-apelido.ts), **182** `USE_COLOR_CARD` (trocar-cor.ts),
+**189** `USER_CHANGE_RANK` / **265** `NEWTITLE_CARD` (titulos.ts), **218** `USER_GET_GIFTS` (request E
+resposta, `PlayerManager.as __getGifts` idêntico — presentes-recebidos.ts), **203** `LOOKUP_EFFORT`
+(request E resposta, `EffortManager.as __lookUpEffort` idêntico — conquistas.ts), **196** `CARD_RESET`
+(reroll-carta.ts), **222** `EQUIP_RECYCLE_ITEM` (reaproveitar-forja.ts, pacote sem corpo nos dois lados),
+**108** `GAME_TAKE_TEMP` (pegar-item-temporario.ts), **77** `ITEM_OVERDUE` (item-vencido.ts), **183**
+`CARD_USE` request pro caminho normal (place≠-1 — ver GAP no cabeçalho de `usar-carta.ts` pro caminho de
+compra rápida), **117** `MAIL_RESPONSE` (correio-excedente.ts `mailItems()`). Família MARRY_* inteira
+(`casamento/*`): **235** `MARRYINFO_GET`, **236** `MARRYINFO_ADD`, **234** `MARRYPROP_GET`, **239**
+`AMARRYINFO_REFRESH`, **246** `MARRY_STATUS`, **85** `MATE_ONLINE_TIME`, **247** `MARRY_APPLY`, **250**
+`MARRY_APPLY_REPLY`, **248** `DIVORCE_APPLY`, **240** `MARRY_SCENE_LOGIN`, **242** `MARRY_ROOM_LOGIN`,
+**244** `PLAYER_EXIT_MARRY_ROOM`, **233** `MARRY_SCENE_CHANGE`, **251** `SCENE_STATE`, **253**
+`MARRY_ROOM_INFO_UPDATE`, **249** `MARRY_CMD` (todos os 11 sub-códigos usados) — ver notas de campo extra
+trailing (sem fix, framed-by-length) nos cabeçalhos de `pedir-casamento.ts`/`divorcio.ts`/`capela.ts`/
+`cerimonia.ts`. **241** `MARRY_ROOM_CREATE` tem o mesmo padrão (+1 bool `merryActivity` no fim).
+
+### Gaps conhecidos (não corrigidos nesta tarefa, documentados pra não reabrir)
+
+- **PLAYER_DRESS (237, 6600)**: feature inteira não portada — ver "Achado grande 1" acima. Pra M3.
+- **183 CARD_USE, caminho de compra rápida (place=-1)**: o `.cs` 6600 decompilado deste handler lê um
+  formato (`num3,num4,num5` — 3 ints) que não bate com o que TODOS os 5 call-sites AS3 reais mandam (mesmo
+  array de IDs que a 4.1). Decompilação provavelmente incompleta/código morto superposto. Deixado com o
+  comportamento 4.1 pros dois clientKinds — ver GAP no cabeçalho de `usar-carta.ts`.
+- **249/2 HYMENEAL "cancelar"**: nenhuma das duas versões manda o int que nosso `flag===1` espera; gap
+  pré-existente da própria 4.1 (não introduzido por esta tarefa) — ver nota em `cerimonia.ts`. Sub 9
+  `HYMENEAL_STOP` (existe no enum, nunca registrado) é o candidato real, não investigado.
+- **25 BAG_LOCKED, fluxo "telefone"/4399**: o 6600 ganhou uma tela nova de verificação por SMS
+  (`baglocked/phone4399/*`, `baglocked/AppealFrame.as`) específica do portal chinês 4399 — não manda este
+  pacote (é um fluxo HTTP separado, fora do escopo deste porte, não aplicável ao BR).
+
+### Como testamos (M2 bolsa)
+
+Novo arquivo `apps/game/test/client-6600-m2-bolsa.test.ts`: mesmo método dos Rounds anteriores
+(`describe.each(["41","6600"])` quando o pacote é compartilhado, builder direto quando só um lado muda),
+`FakeClient` real, `offset === length` no final de cada resposta. Cobre: 119 request+resposta nos dois
+clientKinds (com item persistido via `saveIntoDatabase`, já que `loadItemById` lê da tabela, não da bolsa
+em memória) + os casos zerados `num===4`/`5`; 63 com `itemBoxes`/template sintéticos injetados direto nos
+maps de `ctx.templates` (mesmo padrão do `tpl.shopCheap.set(...)` de `client-6600-m2-loja.test.ts`); 99 nos
+dois clientKinds (4.1 1 poção por pacote, 6600 múltiplas de uma vez + truncamento no teto); a colisão 237
+(mural 4.1 intacto vs stub 6600 que NÃO corrompe o `Marry_Info` existente); e o broadcast 67 numa sala
+mista de verdade (host 4.1 + convidado 6600, equipar um item no convidado via `equipBag.addItemTo` +
+`beginChanges`/`commitChanges` — o mesmo hook `onEquipChanged` que `mover.ts` usa — confere que CADA
+receptor decodifica com o PRÓPRIO layout, sem EOF nenhum lado).
+
+`pnpm --filter @ddt/game test`: 42 arquivos / 305 testes (293 + 12 novos). `pnpm -w typecheck`: limpo nos
+11 pacotes com script. Todos verdes.

@@ -5,6 +5,11 @@
  * Fix vs o original: cobrava `PRICE_DIVORCED(_DISCOUNT)` duas vezes — `MoneyDirect` já deduz no sucesso,
  * e o handler chamava `RemoveMoney` de novo sem condição. Este port cobra uma única vez.
  * Como testar: `apps/game/test/marriage-farm-auction.test.ts`. Manual: Casamento → menu → Divorciar.
+ *
+ * NOVO (m2-bolsa): código IDÊNTICO nas duas versões. 4.1 manda 1 bool (`sendUnmarry(isPlayMovie)`); 6600
+ * soma +1 bool (`PlayerManager.Instance.merryActivity`) no fim. O 1º campo (o único que lemos, `discount`)
+ * fica na mesma posição nas duas — campo novo só sobra, sem fix. Resposta `divorceReplyPacket(ok,
+ * discount)` (2 bools) confirmada idêntica contra `ChurchManager.as __divorceApply` dos dois lados.
  */
 import { GSPacket } from "@ddt/protocol";
 import { player } from "@ddt/db";
