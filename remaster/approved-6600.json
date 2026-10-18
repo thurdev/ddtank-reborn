@@ -1314,51 +1314,11 @@
   "review": "v45"
  },
  {
-  "category": "02-hall-icons",
-  "file": "ddthallicon__200.png",
-  "swf": "ddthallicon.swf",
-  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-  "sourceFile": "200.png",
-  "fit": "cover",
-  "review": "local",
-  "note": "rodada 2: rejeitado pela IA na rodada 1, title-text.mjs agora"
- },
- {
-  "category": "04-batalha-resultado",
-  "file": "firstcore__260.png",
-  "swf": "firstcore.swf",
-  "swfPath": "ui\\turkey\\swf\\firstcore.swf",
-  "sourceFile": "260.png",
-  "fit": "cover",
-  "review": "local",
-  "note": "rodada 2: rejeitado pela IA, title-text-ml.mjs"
- },
- {
-  "category": "04-batalha-resultado",
-  "file": "gameiii__225.png",
-  "swf": "gameiii.swf",
-  "swfPath": "ui\\turkey\\swf\\gameiii.swf",
-  "sourceFile": "225.png",
-  "fit": "cover",
-  "review": "local",
-  "note": "rodada 2: rejeitado pela IA (2a ocorrencia de Falhou), title-text.mjs"
- },
- {
   "category": "04-batalha-resultado",
   "file": "gameover__13_asset.takeoutCard.survival.InstructionBitmap.png",
   "swf": "gameover.swf",
   "swfPath": "ui\\turkey\\swf\\gameover.swf",
   "sourceFile": "13_asset.takeoutCard.survival.InstructionBitmap.png",
-  "fit": "cover",
-  "review": "local",
-  "note": "rodada 2: rejeitado pela IA, title-text-ml.mjs"
- },
- {
-  "category": "04-batalha-resultado",
-  "file": "gameover__31_asset.experience.TotalExploitTxt.png",
-  "swf": "gameover.swf",
-  "swfPath": "ui\\turkey\\swf\\gameover.swf",
-  "sourceFile": "31_asset.experience.TotalExploitTxt.png",
   "fit": "cover",
   "review": "local",
   "note": "rodada 2: rejeitado pela IA, title-text-ml.mjs"
@@ -1385,16 +1345,6 @@
  },
  {
   "category": "05-atividade-diaria",
-  "file": "dayactivity__12_day.activeBtn1.png",
-  "swf": "dayactivity.swf",
-  "swfPath": "ui\\turkey\\swf\\dayactivity.swf",
-  "sourceFile": "12_day.activeBtn1.png",
-  "fit": "cover",
-  "review": "local",
-  "note": "rodada 2: badge-text.mjs"
- },
- {
-  "category": "05-atividade-diaria",
   "file": "dayactivity__13_day.activityBtn2.png",
   "swf": "dayactivity.swf",
   "swfPath": "ui\\turkey\\swf\\dayactivity.swf",
@@ -1405,50 +1355,10 @@
  },
  {
   "category": "05-atividade-diaria",
-  "file": "dayactivity__15_day.activityBtn1.png",
-  "swf": "dayactivity.swf",
-  "swfPath": "ui\\turkey\\swf\\dayactivity.swf",
-  "sourceFile": "15_day.activityBtn1.png",
-  "fit": "cover",
-  "review": "local",
-  "note": "rodada 2: badge-text.mjs"
- },
- {
-  "category": "05-atividade-diaria",
-  "file": "dayactivity__3_day.receiveOver.png",
-  "swf": "dayactivity.swf",
-  "swfPath": "ui\\turkey\\swf\\dayactivity.swf",
-  "sourceFile": "3_day.receiveOver.png",
-  "fit": "cover",
-  "review": "local",
-  "note": "rodada 2: badge-text.mjs"
- },
- {
-  "category": "05-atividade-diaria",
   "file": "dayactivity__6_day.timeViewBtn2.png",
   "swf": "dayactivity.swf",
   "swfPath": "ui\\turkey\\swf\\dayactivity.swf",
   "sourceFile": "6_day.timeViewBtn2.png",
-  "fit": "cover",
-  "review": "local",
-  "note": "rodada 2: badge-text.mjs"
- },
- {
-  "category": "05-atividade-diaria",
-  "file": "dayactivity__7_day.timeViewBtn1.png",
-  "swf": "dayactivity.swf",
-  "swfPath": "ui\\turkey\\swf\\dayactivity.swf",
-  "sourceFile": "7_day.timeViewBtn1.png",
-  "fit": "cover",
-  "review": "local",
-  "note": "rodada 2: badge-text.mjs"
- },
- {
-  "category": "05-atividade-diaria",
-  "file": "dayactivity__23_day.activity.tiaojian.png",
-  "swf": "dayactivity.swf",
-  "swfPath": "ui\\turkey\\swf\\dayactivity.swf",
-  "sourceFile": "23_day.activity.tiaojian.png",
   "fit": "cover",
   "review": "local",
   "note": "rodada 2: badge-text.mjs"
