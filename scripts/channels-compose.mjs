@@ -31,7 +31,13 @@
  * canal, então só o canal local precisa responder por ele no host.
  * `WsUrl` gerado aponta pro IP/host público (`CHANNELS_PUBLIC_HOST`/`GAME_HOST`) na porta WS publicada
  * diretamente (sem passar pelo Caddy, diferente do canal local) — ver docs/GAME-SERVER.md "O que falta" pra
- * por que isso é uma limitação conhecida (sem TLS no WS dos canais extras) até uma tarefa de polish/ch-bus.
+ * por que isso é uma limitação conhecida (sem TLS no WS dos canais extras), item de polish ainda não feito.
+ *
+ * ch-bus (barramento entre canais): cada serviço `game-<ID>` gerado aqui usa `env_file: apps/game/.env` —
+ * o mesmo arquivo do canal local. Setando `REDIS_URL=redis://redis:6379` UMA VEZ nesse `.env` (serviço
+ * `redis` do `docker-compose.yml` base) já liga todos os canais ao mesmo barramento; nada pra configurar
+ * por canal aqui. Sem `REDIS_URL`, cada `game-<ID>` roda com NoopBus (login único/chat mundial/sussurro/
+ * presença não atravessam canal — ver docs/GAME-SERVER.md "Canais").
  */
 import { createDb, player } from "@ddt/db";
 import { eq } from "drizzle-orm";

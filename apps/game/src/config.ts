@@ -51,6 +51,13 @@ export const ConfigSchema = z.object({
   /** Dev only (same as apps/api): fall back to the public pair in vendor/DDTank41/Tank.Request/Web.config. */
   RSA_USE_VENDOR_KEY: bool(true),
 
+  /**
+   * ch-bus: barramento entre canais (vários processos `apps/game` no mesmo Postgres — `ch-processo`).
+   * redis://host:6379[/db]. Vazio (padrão) = NoopBus: canal único se comporta exatamente como antes desta
+   * tarefa (login/chat mundial/sussurro/presença nunca saem deste processo). Ver docs/GAME-SERVER.md "Canais".
+   */
+  REDIS_URL: z.string().optional(),
+
   ADMIN_ENABLED: bool(true),
   ADMIN_HOST: z.string().default("127.0.0.1"),
   ADMIN_PORT: int(9400),

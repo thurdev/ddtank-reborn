@@ -10,6 +10,8 @@ import type { RoomMgr } from "../rooms/room-mgr.js";
 import type { FightEngine } from "../fight/types.js";
 import type { LanguageMgr } from "../util/lang.js";
 import type { Logger } from "../util/log.js";
+import type { Bus } from "../bus/index.js";
+import type { CrossChannel } from "../bus/cross-channel.js";
 
 /** Validates the socket LOGIN "user,password" (password = tempPwd issued by Login.ashx, see apps/api README). */
 export interface TicketValidator {
@@ -67,6 +69,11 @@ export interface ServerContext {
   /** ZoneId / ZoneName from Server_List (GameServer.Start). */
   zoneId: number;
   zoneName: string;
+  /** ch-bus: pub/sub entre canais (bus/index.ts). NoopBus (padrão) = nada atravessa processo. */
+  bus: Bus;
+  /** ch-bus: login único / chat mundial / sussurro / presença entre canais, construído sobre `bus`
+   *  (bus/cross-channel.ts wireCrossChannel, chamado 1x em GameServer.start()). */
+  crossChannel: CrossChannel;
   /** Optional hook (admin channel) to disconnect a client: returns true if kicked. */
   now(): Date;
 }

@@ -91,6 +91,10 @@ export async function handleLogin(ctx: ServerContext, client: GameClient): Promi
       await Promise.race([old.sink.idle?.(), new Promise((r) => setTimeout(r, 5000))]);
       await quitPlayer(ctx, old);
     }
+    // ch-bus: a sessão antiga pode estar logada em OUTRO canal/processo (mesmo Postgres) em vez deste — pede
+    // pros outros canais derrubarem a sessão local deles também (mesmo "LoginNext" acima, só que via barramento;
+    // sem REDIS_URL/NoopBus isto resolve na hora, comportamento idêntico a antes desta tarefa).
+    await ctx.crossChannel.kick(ch.UserID).catch((e) => ctx.log.warn(`ch-bus kick: ${(e as Error).message}`));
     if (client.closed) return;
     const clientKind = (await ctx.tickets.clientKindFor?.(user)) ?? "41";
     const player = await loadPlayer(ctx, client, ch.UserID, clientKind);
@@ -211,6 +215,10 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   // WorldMgr.OnPlayerOnline: friends see the online state (160/165).
   // ChangePlayerState also notifies the members of the same guild (online list of the guild screen)
   for (const f of ctx.world.all()) if (f !== p && (f.friends.has(p.id) || (info.ConsortiaID !== 0 && f.info.ConsortiaID === info.ConsortiaID))) f.send(Out.friendState(p.id, 1, info.typeVIP, info.VIPLevel));
+  // ch-bus: mesmo aviso pros amigos/sociedade que estão logados em OUTRO canal (a lista em si já é correta via
+  // Postgres compartilhado, IMListLoad.ashx/ConsortiaUsersList.ashx; isto é só o ping imediato de quem já tem
+  // a tela de amigos aberta agora).
+  ctx.crossChannel.friendState(p.id, 1, info.typeVIP, info.VIPLevel, info.ConsortiaID);
   return p;
 }
 
@@ -247,6 +255,8 @@ async function doQuit(ctx: ServerContext, p: GamePlayer): Promise<void> {
     ctx.world.remove(p);
   }
   for (const f of ctx.world.all()) if (f.friends.has(p.id) || (p.info.ConsortiaID !== 0 && f.info.ConsortiaID === p.info.ConsortiaID)) f.send(Out.friendState(p.id, 0, p.info.typeVIP, p.info.VIPLevel));
+  // ch-bus: mesmo aviso de "ficou offline" pros amigos/sociedade logados em OUTRO canal.
+  ctx.crossChannel.friendState(p.id, 0, p.info.typeVIP, p.info.VIPLevel, p.info.ConsortiaID);
 }
 
 /** Hall activity icons (PlayerActives.SendEvent :550 + the managers that toggle HallIconManager). Each follows its

@@ -49,4 +49,9 @@ export async function sceneChat(ctx: ServerContext, p: GamePlayer, pkt: GSPacket
   if (team) return;
   p.lastChatTime = now;
   for (const o of ctx.world.all()) if (!o.currentRoom && !o.isBlackFriend(p.id)) o.send(out);
+  // ch-bus: chat mundial/alto-falante (lobby, fora de sala) também chega em jogadores de OUTROS canais
+  // (docs/GAME-SERVER.md "Canais"); o layout do pacote 19 não depende de clientKind, então o mesmo pacote
+  // serve pra qualquer canal que reenviar — bloqueio por amigo é checado localmente em cada canal (quem
+  // bloqueia é uma relação da conta que recebe, não de onde o remetente está conectado).
+  ctx.crossChannel.world(out);
 }

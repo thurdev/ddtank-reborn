@@ -16,18 +16,21 @@ import type { ServerContext } from "../../session/context.js";
  * - target: ID do destinatário.
  * - msg: texto digitado.
  * - 3º valor do pacote (boolean) existe no cliente mas o servidor não usa pra nada (lido e descartado).
- * - o: destinatário online (`ctx.world.get(target)`); se não tiver, avisa o remetente que está offline.
+ * - o: destinatário online NESTE canal (`ctx.world.get(target)`); se não tiver, tenta entregar em outro canal
+ *   via barramento (ch-bus, `ctx.crossChannel.whisper`) antes de avisar o remetente que está offline — "jogador
+ *   offline" só quando ele está offline em QUALQUER canal, não só neste.
  * Manda a mesma mensagem de volta pro remetente (eco, pro balão aparecer na tela de quem escreveu) e pro
- * destinatário, se ele estiver online.
+ * destinatário, se ele estiver online (neste canal ou em outro).
  */
-export function oneOnOneTalk(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): void {
+export async function oneOnOneTalk(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): Promise<void> {
   const target = pkt.readInt();
   const msg = pkt.readString();
   pkt.readBoolean();
-  const o = ctx.world.get(target);
-  if (!o) return p.sendMessage(0, ctx.lang.t("FriendAddHandler.Ofline"));
   p.send(Out.oneOnOneTalk(target, p.info.NickName ?? "", msg, p.id, ctx.now()));
-  o.send(Out.oneOnOneTalk(p.id, p.info.NickName ?? "", msg, target, ctx.now()));
+  const o = ctx.world.get(target);
+  if (o) return o.send(Out.oneOnOneTalk(p.id, p.info.NickName ?? "", msg, target, ctx.now()));
+  const deliveredElsewhere = await ctx.crossChannel.whisper(p.id, p.info.NickName ?? "", target, msg);
+  if (!deliveredElsewhere) p.sendMessage(0, ctx.lang.t("FriendAddHandler.Ofline"));
 }
 
 /** 160/208 ADD_CUSTOM_FRIENDS — grupos customizados de amigos: nunca usado no Reborn, no-op. */
