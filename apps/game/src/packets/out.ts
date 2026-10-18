@@ -1281,3 +1281,99 @@ export function activePullDownResult(userId: number, ok: boolean): PacketOut {
   p.writeBoolean(ok);
   return p;
 }
+
+/**
+ * 284 MAGIC_STONE_MONSTER_INFO reply (m3-magic-stone-monster, 6600 only). `MagicStoneMonsterInfoHandler.cs:10-13`:
+ * int NormalFightNum, int HardFightNum (player."Sys_Users_Extra", columns added this task).
+ */
+export function magicStoneMonsterInfo(id: number, normalFightNum: number, hardFightNum: number): PacketOut {
+  const p = new PacketOut(284, id);
+  p.writeInt(normalFightNum);
+  p.writeInt(hardFightNum);
+  return p;
+}
+
+/**
+ * 142 KING_BLESS_MAIN / 2272 DEED_MAIN push (m3-king-bless-deed, 6600 only). `AbstractPacketLib.
+ * SendKingBlessMain`/`SendDeedMain`: int Index, DateTime Enddate, and — only when `index > 0` — int count +
+ * count*(int effectKey, int effectValue). The per-stat effect dictionary (`PlayerExtra.SetupKingBless`/
+ * `SetupDeed`: STRENGTH_ENCHANCE/PET_STAR/HORSE_LIGHT/HORSE_ANGER/... keyed by a numeric slot) is never
+ * consumed by this port's `game/stats.ts` (no FightPower hook for it, same unported-combat-effect-layer gap
+ * as GAME_CMD's card-set bonuses, HANDLERS.md row 91) — always sent with 0 entries here; the buff ICON +
+ * countdown (what `KingBlessManager`/`DeedManager` actually render) work correctly either way.
+ * FIXED vs the original: `SendDeedMain` gates its entries on `Extra.Info.KingBlessIndex > 0` (copy-paste bug,
+ * decompiled source) instead of `DeedIndex` — harmless for OUR 0-entry dictionary, but on the real server
+ * this would desync the client's read when a player has an active Deed but no active King's Blessing
+ * (`DeedManager.as:195` reads the extra bytes based on ITS OWN `DeedIndex` field, unconditionally). Gated on
+ * the right field here (`code` tells which packet: 142 reads `index`=KingBlessIndex, 2272 reads `index`=DeedIndex).
+ */
+export function kingBlessOrDeedMain(code: 142 | 2272, id: number, index: number, enddate: Date): PacketOut {
+  const p = new PacketOut(code, id);
+  p.writeInt(index);
+  p.writeDateTime(enddate);
+  if (index > 0) p.writeInt(0); // count — effect dictionary not reconstructed, see note above
+  return p;
+}
+
+/**
+ * 140 TRUSTEESHIP sub 1 (START_EVENT) reply (m3-trusteeship, 6600 only, no C# source — `GameTrusteeshipCommand.cs`
+ * is a pure stub). `TrusteeshipManager.updateData`: int spiritValue, int count, count*(int questId, Date endTime).
+ * Sent after START/CANCEL/SPEED_UP/USE_SPIRIT_ITEM (the client only wires sub 1 and sub 4 replies — `SocketManager.
+ * as:1472-1483` — so every mutating sub replies with the full refreshed list on sub 1, same as the original
+ * would have had to if it existed).
+ */
+export function trusteeshipData(id: number, spiritValue: number, active: { questId: number; endTime: Date }[]): PacketOut {
+  const p = new PacketOut(140, id);
+  p.writeByte(1);
+  p.writeInt(spiritValue);
+  p.writeInt(active.length);
+  for (const a of active) { p.writeInt(a.questId); p.writeDateTime(a.endTime); }
+  return p;
+}
+
+/** 140 TRUSTEESHIP sub 4 (BUY_SPIRIT_EVENT) reply: int spiritValue only (`TrusteeshipManager.updateSpiritValue`). */
+export function trusteeshipSpirit(id: number, spiritValue: number): PacketOut {
+  const p = new PacketOut(140, id);
+  p.writeByte(4);
+  p.writeInt(spiritValue);
+  return p;
+}
+
+/**
+ * 134 DICE_SYSTEM sub 3 (DICE_RECEIVE_DATA) reply (m3-dice-system, 6600 only). `AbstractPacketLib.
+ * SendDiceReceiveData`: bool UserFirstCell, int CurrentPosition, int LuckIntegralLevel, int LuckIntegral, int
+ * FreeCount, int count, count*(int TemplateID, int index, int StrengthenLevel, int Count, int ValidDate, bool
+ * IsBinds). Sent on sub 10 (enter/`ReceiveData`) and sub 12 (refresh/`CreateDiceAward`, same reply).
+ */
+export function diceReceiveData(id: number, userFirstCell: boolean, currentPosition: number, luckIntegralLevel: number, luckIntegral: number, freeCount: number, board: { templateId: number; strengthenLevel: number; count: number; validDate: number; isBind: boolean }[]): PacketOut {
+  const p = new PacketOut(134, id);
+  p.writeByte(3);
+  p.writeBoolean(userFirstCell);
+  p.writeInt(currentPosition);
+  p.writeInt(luckIntegralLevel);
+  p.writeInt(luckIntegral);
+  p.writeInt(freeCount);
+  p.writeInt(board.length);
+  board.forEach((it, i) => { p.writeInt(it.templateId); p.writeInt(i); p.writeInt(it.strengthenLevel); p.writeInt(it.count); p.writeInt(it.validDate); p.writeBoolean(it.isBind); });
+  return p;
+}
+
+/**
+ * 134 DICE_SYSTEM sub 4 (DICE_RECEIVE_RESULT) reply — raw inline packet in the original (`DiceHandler.
+ * method_0`, not one of `AbstractPacketLib`'s named writers): int positionBeforeRoll, int rollValue, int
+ * LuckIntegral, int LuckIntegralLevel, int FreeCount, string RewardName. `DiceController.__receiveResult`
+ * reads "position" then animates the dice moving `rollValue` steps from there — the server never sends the
+ * post-roll position, only these two (confirmed against the client reader, `Dice/Controller/DiceController.
+ * as:353-376`).
+ */
+export function diceRollResult(id: number, positionBeforeRoll: number, rollValue: number, luckIntegral: number, luckIntegralLevel: number, freeCount: number, rewardName: string): PacketOut {
+  const p = new PacketOut(134, id);
+  p.writeByte(4);
+  p.writeInt(positionBeforeRoll);
+  p.writeInt(rollValue);
+  p.writeInt(luckIntegral);
+  p.writeInt(luckIntegralLevel);
+  p.writeInt(freeCount);
+  p.writeString(rewardName);
+  return p;
+}

@@ -247,6 +247,22 @@ export class QuestInventory {
     return n <= 0;
   }
 
+  /**
+   * m3-trusteeship (140 TRUSTEESHIP): "curadoria" lets the player pay spirit + wait `Quest.CollocationColdTime`
+   * minutes instead of actually playing the quest's conditions out. The original has no server-side logic for
+   * this at all (`GameTrusteeshipCommand.cs` is a pure no-op stub) — this zeroes every counter-backed condition
+   * (slots 0-3, same storage `finish()`'s gate reads) so `canCompleted`/`finish` see the quest as done, same
+   * outcome a real playthrough would reach. Non-counter gates (grade, equipped item, direct...) are quests a
+   * player wouldn't need to "autopilot" through combat for anyway and are left alone — `finish()` can still
+   * refuse (bag full, already complete) exactly like a manual 179 QUEST_FINISH would.
+   */
+  forceCompleteConditions(questId: number): boolean {
+    const q = this.list.get(questId);
+    if (!q) return false;
+    for (let i = 0; i < q.tpl.conds.length && i <= 3; i++) this.setValue(q, i, 0);
+    return true;
+  }
+
   /** QuestRemoveHandler: abandon (repeatables are reset instead, QuestInventory.RemoveQuest). */
   remove(questId: number): boolean {
     const q = this.list.get(questId);

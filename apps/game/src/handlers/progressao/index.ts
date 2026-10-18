@@ -10,6 +10,9 @@
  *   cartas-do-jogador.ts    (ficha de outro jogador)        — 18  GET_PLAYER_CARD
  *   loterias.ts             (sala de sorteio/cartão platina, sem handler C# em nenhum servidor) — 239
  *                             GOTO_CARD_LOTTERY, 104 CARD_LOTTERY, 105 LUCK_LOTTERY, 11 ACTIVE_PULLDOWN
+ *   reliquias-monstro-info.ts (Relíquias › contador de lutas, 6600 only)  — 284 MAGIC_STONE_MONSTER_INFO
+ *   juramento-do-rei.ts     (Juramento do Rei/escritura "Deed", 6600 only) — 142 KING_BLESS_MAIN,
+ *                             143 KING_BLESS_USE_ITEM
  *
  * Pacotes: ver tabela acima.
  * C#: ver cabeçalho de cada arquivo listado.
@@ -22,6 +25,8 @@ import { honorUp } from "./honra.js";
 import { avatarCollection } from "./colecao-de-visuais.js";
 import { getPlayerCard } from "./cartas-do-jogador.js";
 import { registerLoterias } from "./loterias.js";
+import { magicStoneMonsterInfo } from "./reliquias-monstro-info.js";
+import { kingBlessMain, kingBlessUseItem } from "./juramento-do-rei.js";
 
 export function registerProgressao(r: HandlerRegistry): void {
   r.player(136, "TOTEM", (ctx, p) => totemOpenOne(ctx, p));
@@ -29,4 +34,8 @@ export function registerProgressao(r: HandlerRegistry): void {
   r.player(402, "AVATAR_COLLECTION", (ctx, p, pkt) => avatarCollection(ctx, p, pkt));
   r.player(18, "GET_PLAYER_CARD", (ctx, p, pkt) => getPlayerCard(ctx, p, pkt));
   registerLoterias(r);
+
+  r.player(284, "MAGIC_STONE_MONSTER_INFO", (_ctx, p) => magicStoneMonsterInfo(p));
+  r.player(142, "KING_BLESS_MAIN", (ctx, p, pkt) => kingBlessMain(ctx, p, pkt));
+  r.player(143, "KING_BLESS_USE_ITEM", (ctx, p, pkt) => kingBlessUseItem(ctx, p, pkt));
 }

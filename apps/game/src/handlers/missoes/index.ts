@@ -11,6 +11,7 @@
  *   troca-de-itens.ts      (evento de calendário)      — 31  GOODS_EXCHANGE
  *   stubs.ts                (sem tela própria)          — 50 FIGHT_NPC, 32 COLLECTINFO, 89 QUESTION_REPLY
  *                                                          (nunca disparados pelo cliente/servidor reais)
+ *   curadoria.ts            ("curadoria"/auto-piloto, 6600 only) — 140 TRUSTEESHIP
  *
  * Campo de treino/trainer e lutar com NPC de verdade (sala PvE) usam o pipeline de sala — ver
  * `handlers/salas/` e `docs/features/pve-masmorras.md`.
@@ -29,6 +30,7 @@ import { progressoMissao } from "./progresso-missao.js";
 import { perguntaResposta } from "./perguntas-respostas.js";
 import { trocarItens } from "./troca-de-itens.js";
 import { registerMissoesStubs } from "./stubs.js";
+import { trusteeship } from "./curadoria.js";
 
 export function registerMissoes(r: HandlerRegistry): void {
   r.player(176, "QUEST_ADD", (ctx, p, pkt) => aceitarMissoes(ctx, p, pkt));
@@ -53,4 +55,6 @@ export function registerMissoes(r: HandlerRegistry): void {
   }, "partial");
 
   registerMissoesStubs(r);
+
+  r.player(140, "TRUSTEESHIP", (ctx, p, pkt) => trusteeship(ctx, p, pkt));
 }

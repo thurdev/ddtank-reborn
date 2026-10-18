@@ -26,6 +26,7 @@
  *   caminho-da-luz.ts         (ícone "Caminho da luz", design próprio) — 145 ACTIVITY_SYSTEM inteiro
  *                              (roteador único: sub 64-66 aqui, sub 7-13 despacha pra
  *                              `sociedade/semana-da-sociedade.ts`, sub 37-45 LanternRiddles sem handler)
+ *   dados.ts                  (ícone "Sistema de Dados", 6600 only) — 134 DICE_SYSTEM
  *
  * 104 CARD_LOTTERY / 105 LUCK_LOTTERY / 239 GOTO_CARD_LOTTERY / 11 ACTIVE_PULLDOWN: SAÍRAM de "morto" —
  * ver `progressao/loterias.ts` (design próprio, sem fonte C#). 37-45 LanternRiddles de 145 ACTIVITY_SYSTEM
@@ -52,6 +53,7 @@ import { firstRechargeHandler } from "./primeira-recarga.js";
 import { achievementFinishHandler } from "./completar-conquista.js";
 import { littleGameRouter } from "../minigame-termas/index.js";
 import { activitySystemRouter } from "./caminho-da-luz.js";
+import { diceSystem } from "./dados.js";
 
 /**
  * Tabela código → função → ícone do jogo. Cada linha é um pacote que o cliente manda; a ordem aqui não
@@ -107,4 +109,7 @@ export function registerEventos(r: HandlerRegistry): void {
 
   // Caminho da luz + Semana da sociedade (mesmo pacote 145, despachado pelo byte inicial)
   r.player(145, "ACTIVITY_SYSTEM", (ctx, p, pkt) => activitySystemRouter(ctx, p, pkt), "partial");
+
+  // Sistema de Dados (6600 only)
+  r.player(134, "DICE_SYSTEM", (ctx, p, pkt) => diceSystem(ctx, p, pkt));
 }
