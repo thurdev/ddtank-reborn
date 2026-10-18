@@ -3,9 +3,17 @@
  * acumulado (7 dias seguidos). `signIn` é chamado pelo sub-tipo 5 de 13 DAILY_AWARD (ver `recompensa-diaria.ts`);
  * aqui moram o registro do dia marcado, o resgate por marco de dias do mês (90) e o resgate por dias de
  * login consecutivos (338).
- * Pacotes: 90 GET_SIGNAWARD, 338 ACCUMULATIVELOGIN_AWARD (13/5 marca o dia, sem pacote de resposta próprio).
+ * Pacotes: 90 GET_SIGNAWARD, 338 ACCUMULATIVELOGIN_AWARD (4.1) / 238 (6600, m3-accumulative-login) — 13/5
+ *   marca o dia, sem pacote de resposta próprio.
  * C#: `SignAwardHandler.cs`, `AccumulAtiveLoginAwardHandler.cs`.
- * Como testar: sem teste automatizado dedicado ainda. Manual: `docs/features/eventos.md`.
+ * Como testar: `apps/game/test/client-6600-m3-accumulative-login.test.ts`. Manual: `docs/features/eventos.md`.
+ *
+ * m3-accumulative-login (2026-10-18): `ACCUMULATIVELOGIN_AWARD` colide de VALOR entre as versões — 4.1
+ * `= 338` (`Game.Server/Packets/ePackageType.cs:248`), 6600 `= 238` (`ePackageType.as:592`, onde 238 é
+ * `MARRYINFO_DELETE` no 4.1 — não implementado nos dois lados, sem risco de corromper outra feature).
+ * `AccumulAtiveLoginAwardHandler.cs` (6600) é idêntico em lógica ao que já estava aqui (mesmo loop dia a
+ * dia, mesmo formato de resposta); o bug era só o código de saída fixo em 338, que nunca chegava num
+ * cliente 6600 porque ele manda 238. Ver `handlers/eventos/index.ts` pro registro dos dois códigos.
  */
 import { eq } from "drizzle-orm";
 import { GSPacket } from "@ddt/protocol";
@@ -54,7 +62,9 @@ export function signAwardHandler(ctx: ServerContext, p: GamePlayer, pkt: GSPacke
   void signAward(ctx, p, pkt.readInt());
 }
 
-/** 338 ACCUMULATIVELOGIN_AWARD: days 1..6 fixed lists, day 7 the selected template (Login_Award_Item_Template Type = day). */
+/** 338 (4.1) / 238 (6600) ACCUMULATIVELOGIN_AWARD: days 1..6 fixed lists, day 7 the selected template
+ *  (Login_Award_Item_Template Type = day). Reply code mirrors the request code (AccumulAtiveLoginAwardHandler.cs
+ *  always answers on the SAME code it was called on — 338 for 4.1, 238 for 6600, never cross-wired). */
 export async function accumulativeLogin(ctx: ServerContext, p: GamePlayer, selected: number): Promise<void> {
   const rt = eventsRuntime(ctx);
   const c = p.info;
@@ -66,7 +76,7 @@ export async function accumulativeLogin(ctx: ServerContext, p: GamePlayer, selec
     c.accumulativeAwardDays = day;
     p.sendMessage(0, `Presente de ${day} dia(s) de login: ${s}`);
   }
-  const out = new GSPacket(338, p.id);
+  const out = new GSPacket(p.clientKind === "6600" ? 238 : 338, p.id);
   out.writeInt(c.accumulativeLoginDays ?? 0);
   out.writeInt(c.accumulativeAwardDays ?? 0);
   p.send(out);
