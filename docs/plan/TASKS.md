@@ -39,7 +39,7 @@
   nos dois sentidos (`94/0`/`94/4` corrigidos, `91/101 GAME_CREATE`/`91/103 GAME_LOAD` corrigidos e
   broadcast por clientKind, Pesadelo/`eHardLevel.Nightmare` ligado ao `Pve_Info.NightmareGameScript`).
   Ver `research/6600/packets-m1.md` "M2 salas".
-- [ ] **m2-batalha** — partida PvP completa, pacotes novos de `eFightPackageType`, dano mágico por item.
+- [~] **m2-batalha** — partida PvP completa, pacotes novos de `eFightPackageType`, dano mágico por item.
 - [ ] **m2-forja** — forja (fundir, compor, `ITEM_REFINERY`).
 - [ ] **m2-cutover** — 6600 vira o padrão em `/play`; 4.1 fica em `?client=41` até ser removido.
 
