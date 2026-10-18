@@ -18,8 +18,7 @@ export const guilds = defineResource({
   fields: [
     { name: "ConsortiaID", label: "ID", type: "number", list: true, sortable: true, readOnly: true },
     { name: "ConsortiaName", label: "Nome", type: "text", list: true, sortable: true, required: true },
-    { name: "ChairmanName", label: "Líder", type: "text", list: true, readOnly: true },
-    { name: "ChairmanID", label: "Líder (UserID)", type: "number", readOnly: true },
+    { name: "ChairmanID", label: "Líder", type: "ref", refResource: "players", refLabel: "NickName", list: true, readOnly: true },
     { name: "Level", label: "Nível", type: "number", min: 1, max: 10, list: true, sortable: true, required: true },
     { name: "Count", label: "Membros", type: "number", list: true, sortable: true, readOnly: true },
     { name: "MaxCount", label: "Máx. membros", type: "number", min: 1 },
@@ -54,9 +53,9 @@ export const guildMembers = defineResource({
   capabilities: { create: false },
   fields: [
     { name: "ID", label: "ID", type: "number", list: true, sortable: true, readOnly: true },
-    { name: "ConsortiaID", label: "Sociedade (ID)", type: "number", list: true, sortable: true, readOnly: true },
-    { name: "UserID", label: "UserID", type: "number", list: true, readOnly: true },
-    { name: "UserName", label: "Apelido", type: "text", list: true, sortable: true, readOnly: true },
+    { name: "ConsortiaID", label: "Sociedade", type: "ref", refResource: "guilds", refLabel: "ConsortiaName", list: true, sortable: true, readOnly: true },
+    { name: "UserID", label: "Jogador", type: "ref", refResource: "players", refLabel: "NickName", list: true, readOnly: true },
+    { name: "UserName", label: "Apelido", type: "text", readOnly: true },
     { name: "DutyID", label: "Cargo (DutyID)", type: "number", list: true },
     { name: "RatifierName", label: "Aprovado por", type: "text", readOnly: true },
     { name: "IsBanChat", label: "Silenciado", type: "boolean", list: true },
@@ -79,7 +78,7 @@ export const guildDuties = defineResource({
   capabilities: { create: false, delete: false },
   fields: [
     { name: "DutyID", label: "ID", type: "number", list: true, sortable: true, readOnly: true },
-    { name: "ConsortiaID", label: "Sociedade (ID)", type: "number", list: true, sortable: true, readOnly: true },
+    { name: "ConsortiaID", label: "Sociedade", type: "ref", refResource: "guilds", refLabel: "ConsortiaName", list: true, sortable: true, readOnly: true },
     { name: "Level", label: "Nível", type: "number", min: 1, max: 10, list: true, sortable: true },
     { name: "DutyName", label: "Nome", type: "text", list: true, required: true },
     { name: "Right", label: "Permissões (bits)", type: "number", min: 0, list: true },
@@ -121,7 +120,7 @@ export const guildEvents = defineResource({
   capabilities: { create: false, update: false },
   fields: [
     { name: "ID", label: "ID", type: "number", list: true, readOnly: true },
-    { name: "ConsortiaID", label: "Sociedade (ID)", type: "number", list: true, sortable: true, readOnly: true },
+    { name: "ConsortiaID", label: "Sociedade", type: "ref", refResource: "guilds", refLabel: "ConsortiaName", list: true, sortable: true, readOnly: true },
     { name: "Date", label: "Data", type: "datetime", list: true, sortable: true, readOnly: true },
     { name: "Type", label: "Tipo", type: "select", list: true, readOnly: true, options: [{ value: 5, label: "Doação", tone: "sun" }, { value: 6, label: "Entrada", tone: "mint" }, { value: 7, label: "Expulsão", tone: "coral" }, { value: 8, label: "Saída", tone: "neutral" }] },
     { name: "NickName", label: "Jogador", type: "text", list: true, readOnly: true },
@@ -143,7 +142,7 @@ export const guildTasks = defineResource({
   capabilities: { create: false },
   fields: [
     { name: "ID", label: "ID", type: "number", list: true, readOnly: true },
-    { name: "ConsortiaID", label: "Sociedade (ID)", type: "number", list: true, readOnly: true },
+    { name: "ConsortiaID", label: "Sociedade", type: "ref", refResource: "guilds", refLabel: "ConsortiaName", list: true, readOnly: true },
     { name: "Level", label: "Nível", type: "number", list: true },
     { name: "BeginTime", label: "Início", type: "datetime", list: true },
     { name: "Time", label: "Duração (min)", type: "number", list: true },

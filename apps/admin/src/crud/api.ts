@@ -1,4 +1,4 @@
-import { keepPreviousData, queryOptions, useMutation, useQueryClient } from "@tanstack/react-query";
+import { queryOptions, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import type { ListParams, ListResult, ResourceDef, Row } from "./types";
 
@@ -13,7 +13,11 @@ export function listQuery(def: ResourceDef, p: ListParams) {
   return queryOptions({
     queryKey: ["resource", def.name, "list", p],
     queryFn: () => api.get<ListResult>(`${resourcePath(def)}?${qs}`),
-    placeholderData: keepPreviousData,
+    // Plain `keepPreviousData` reuses whatever query ran right before this one as placeholder data, even across
+    // a resource switch (e.g. clicking a `ref` chip from guild-members to players) — briefly rendering the OLD
+    // resource's rows under the NEW resource's columns/key field. Harmless-looking, but their ids can collide
+    // (duplicate React keys) and it's just wrong data on screen for a frame. Only reuse it within the SAME resource.
+    placeholderData: (prev, prevQuery) => (prevQuery?.queryKey[1] === def.name ? prev : undefined),
   });
 }
 

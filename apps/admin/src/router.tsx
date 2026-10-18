@@ -1,4 +1,4 @@
-import { createRootRouteWithContext, createRoute, createRouter, notFound, Outlet, redirect, useParams } from "@tanstack/react-router";
+import { createRootRouteWithContext, createRoute, createRouter, notFound, Outlet, redirect, useParams, useSearch } from "@tanstack/react-router";
 import type { QueryClient } from "@tanstack/react-query";
 import { EmptyState } from "@ddtank/ui";
 import { meQuery } from "@/lib/api";
@@ -58,14 +58,17 @@ const donationsRoute = createRoute({ getParentRoute: () => authedRoute, path: "/
 
 function GenericResource() {
   const { resource } = useParams({ from: "/authed/$resource" });
+  const { edit } = useSearch({ from: "/authed/$resource" });
   const def = resourceByName.get(resource)!;
-  return <ResourcePage def={def} />;
+  return <ResourcePage def={def} initialEditId={edit} />;
 }
 
-/** Any registered resource: /items, /bots, /texts ... (static routes above win). */
+/** Any registered resource: /items, /bots, /texts ... (static routes above win). `?edit=<id>` opens that row's
+ *  edit dialog on load — used by `ref` cells (crud/Cell.tsx) to jump to the related record. */
 const resourceRoute = createRoute({
   getParentRoute: () => authedRoute,
   path: "$resource",
+  validateSearch: (s: Record<string, unknown>): { edit?: string } => (typeof s.edit === "string" ? { edit: s.edit } : {}),
   beforeLoad: ({ params }) => {
     if (!resourceByName.has(params.resource)) throw notFound();
   },

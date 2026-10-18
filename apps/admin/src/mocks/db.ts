@@ -1,5 +1,5 @@
 import type { FieldDef, ResourceDef, Row } from "@/crud/types";
-import { resources } from "@/resources";
+import { resourceByName, resources } from "@/resources";
 
 /** In-memory tables for the dev mock API, one per ResourceDef. */
 
@@ -21,6 +21,17 @@ function autoRow(def: ResourceDef, i: number): Row {
   for (const f of def.fields) row[f.name] = autoValue(f, i, def);
   return row;
 }
+/** A random existing id from an already-generated resource table (`tables`, populated in `resources` array
+ * order — every `ref` target used by a later resource has already run through this same generator). `null`
+ * when the target isn't generated yet/empty, matching a real "no record" FK value. */
+function pickRefId(resource: string): number | null {
+  const rows = tables.get(resource);
+  if (!rows?.length) return null;
+  const targetDef = resourceByName.get(resource);
+  const pk = targetDef ? (Array.isArray(targetDef.idField) ? targetDef.idField[0]! : targetDef.idField) : "id";
+  return Number(pick(rows)[pk]) || null;
+}
+
 function autoValue(f: FieldDef, i: number, def: ResourceDef): unknown {
   if ((Array.isArray(def.idField) ? def.idField[0] : def.idField) === f.name && f.type === "number") return i + 1;
   if (f.default !== undefined && rand() < 0.5) return f.default;
@@ -44,6 +55,14 @@ function autoValue(f: FieldDef, i: number, def: ResourceDef): unknown {
       return undefined;
     case "color":
       return "#ffc531";
+    case "item-picker":
+      return pickRefId("items");
+    case "item-picker-multi":
+      return Array.from({ length: int(0, 2) }, () => pickRefId("items")).filter((x): x is number => x !== null);
+    case "ref":
+      return f.refResource ? pickRefId(f.refResource) : null;
+    case "ref-multi":
+      return f.refResource ? Array.from({ length: int(0, 2) }, () => pickRefId(f.refResource!)).filter((x): x is number => x !== null) : [];
     default:
       return `${typeof f.label === "string" ? f.label : f.label["pt-BR"]} ${i + 1}`;
   }

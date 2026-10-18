@@ -1,39 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button, LocaleToggle, cn } from "@ddtank/ui";
-import { CalendarDays, FolderOpen, Gauge, HeartHandshake, LogOut, Mail, Menu, Settings2, X, type LucideIcon } from "lucide-react";
+import { LogOut, Menu, Search, X } from "lucide-react";
 import { api, meQuery } from "@/lib/api";
-import { resources } from "@/resources";
-import type { NavGroup } from "@/crud/types";
-import { useI18n, useText, type TKey, type Text } from "@/i18n";
-
-interface NavItem {
-  to: string;
-  label: Text | { key: TKey };
-  icon: LucideIcon;
-  group: NavGroup;
-  order: number;
-}
-
-const GROUPS: NavGroup[] = ["overview", "server", "players", "content", "site", "system"];
-
-// Custom pages; resources are appended from the registry. `order` sorts inside a group.
-const CUSTOM: NavItem[] = [
-  { to: "/", label: { key: "nav.dashboard" }, icon: Gauge, group: "overview", order: 0 },
-  { to: "/config", label: { key: "nav.config" }, icon: Settings2, group: "server", order: 0 },
-  { to: "/assets", label: { key: "nav.assets" }, icon: FolderOpen, group: "server", order: 20 },
-  { to: "/mail", label: { key: "nav.mail" }, icon: Mail, group: "players", order: 5 },
-  { to: "/events", label: { key: "nav.events" }, icon: CalendarDays, group: "content", order: 45 },
-  { to: "/donations", label: { key: "nav.donations" }, icon: HeartHandshake, group: "site", order: 5 },
-];
-
-const NAV: NavItem[] = [
-  ...CUSTOM,
-  ...resources
-    .filter((r) => !r.hidden)
-    .map((r, i) => ({ to: `/${r.name}`, label: r.label, icon: r.icon, group: r.group, order: 10 + i * 10 })),
-].sort((a, b) => a.order - b.order);
+import { useI18n, useText, type TKey } from "@/i18n";
+import { CommandPalette } from "./CommandPalette";
+import { GROUPS, NAV, type NavItem } from "./nav";
 
 function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const { t } = useI18n();
@@ -97,6 +70,19 @@ export function AdminLayout() {
   const qc = useQueryClient();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [paletteOpen, setPaletteOpen] = useState(false);
+
+  // Global search (command palette): Ctrl+K / Cmd+K from anywhere in the admin.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setPaletteOpen((o) => !o);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   const logout = () => {
     api.setToken(null);
@@ -131,6 +117,15 @@ export function AdminLayout() {
           <Button variant="ghost" size="icon" className="lg:hidden" aria-label="Abrir menu" onClick={() => setOpen(true)}>
             <Menu />
           </Button>
+          <button
+            type="button"
+            onClick={() => setPaletteOpen(true)}
+            className="flex items-center gap-2 rounded-xl border border-line bg-panel-2/60 px-3 py-1.5 text-sm text-muted transition-colors hover:border-sun hover:text-ink"
+          >
+            <Search className="size-4" />
+            <span className="hidden sm:inline">{t("palette.trigger")}</span>
+            <kbd className="hidden rounded-md border border-line bg-night-deep px-1.5 py-0.5 font-mono text-[10px] text-muted sm:inline">Ctrl K</kbd>
+          </button>
           <div className="ml-auto flex items-center gap-3">
             <LocaleToggle locale={locale} onChange={setLocale} />
             {me && (
@@ -147,6 +142,7 @@ export function AdminLayout() {
           <Outlet />
         </main>
       </div>
+      <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
     </div>
   );
 }
