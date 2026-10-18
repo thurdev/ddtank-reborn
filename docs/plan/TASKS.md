@@ -34,7 +34,11 @@
 
 ### M2 — loop central no 6600
 - [ ] **m2-bolsa** — bolsa/equipar/vestir (`PLAYER_DRESS`, mudanças de valor do §1.1).
-- [~] **m2-loja** — loja + correio.
+- [x] **m2-loja** — loja + correio pro 6600. 44 BUY_GOODS (+goodsType/isBand por linha; loja barata/desconto
+  via `Shop_Cheap_Items`, nunca lida até agora) e 116 SEND_MAIL (6600: 1 anexo só, com corte de pilha, não 4
+  inteiros) corrigidos; `shopcheapitemlist.ashx` com fonte de dados por `rc.client`. Resto (presentear, sell/
+  renovar/VIP/baú, listas de correio) verificado campo a campo e já estava idêntico. Ver
+  `research/6600/packets-m1.md` "M2 loja/correio".
 - [~] **m2-salas** — criar/entrar sala, pronto, começar (até a tela de carregamento da batalha).
 - [ ] **m2-batalha** — partida PvP completa, pacotes novos de `eFightPackageType`, dano mágico por item.
 - [ ] **m2-forja** — forja (fundir, compor, `ITEM_REFINERY`).

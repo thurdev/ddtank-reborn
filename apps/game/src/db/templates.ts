@@ -43,6 +43,29 @@ export function toShopItem(r: ShopRow): ShopItemInfo {
   };
 }
 
+export type ShopCheapRow = typeof game.Shop_Cheap_Items.$inferSelect;
+
+/**
+ * ShopMgr.GetShopItemDisCountById (6600, Bussiness/Managers/ShopMgr.cs:169): a Shop_Cheap_Items row reshaped
+ * como um ShopItemInfo normal — ShopID forçado a 3. O C# original literalmente copia `APrice`/`AValue` pros
+ * "slots" 1, 2 E 3 do struct (idem B/C) — mas isso é um preenchimento DEFENSIVO do struct (não sabemos qual
+ * slot o `ShopMgr.SetItemType` real lê pra loja barata, código não decompilado no vendor), NÃO uma soma de 3
+ * custos iguais. Nosso `setItemType`/`getItemPrice` (preco.ts, mirror de `ItemInfo.SetItemType`) SOMA os 3
+ * slots de uma tier como custos combináveis (ex.: Money+Item+Gold de uma linha normal de `Shop_Goods`) — se a
+ * gente copiasse o preço pros 3 slots aqui, a compra cobraria o mesmo valor 3x (bug real, pego pelo teste
+ * "loja barata/desconto" em `client-6600-m2-loja.test.ts`). `Shop_Cheap_Items` só tem UM preço por tier
+ * (`APrice`/`BPrice`/`CPrice`, sem sufixo numérico) — então aqui só preenchemos o slot 1, deixando 2/3 em 0
+ * (sem custo adicional), que é a leitura correta sob o NOSSO modelo de preço.
+ */
+export function toShopItemFromCheap(r: ShopCheapRow): ShopItemInfo {
+  return {
+    ID: n(r.ID), ShopID: 3, TemplateID: n(r.TemplateID), BuyType: n(r.BuyType), IsBind: 1, Beat: 1, LimitCount: 0,
+    AUnit: n(r.AUnit), APrice1: n(r.APrice), AValue1: n(r.AValue), APrice2: 0, AValue2: 0, APrice3: 0, AValue3: 0,
+    BUnit: n(r.BUnit), BPrice1: n(r.BPrice), BValue1: n(r.BValue), BPrice2: 0, BValue2: 0, BPrice3: 0, BValue3: 0,
+    CUnit: n(r.CUnit), CPrice1: n(r.CPrice), CValue1: n(r.CValue), CPrice2: 0, CValue2: 0, CPrice3: 0, CValue3: 0,
+  };
+}
+
 export type QuestRow = typeof game.Quest.$inferSelect;
 export type QuestCondRow = typeof game.Quest_Condiction.$inferSelect;
 export type QuestGoodsRow = typeof game.Quest_Goods.$inferSelect;
@@ -54,6 +77,9 @@ export interface ServerRow { ID: number; Name: string; Room: number; Total: numb
 export class Templates {
   items = new Map<number, ItemTemplate>();
   shop = new Map<number, ShopItemInfo>();
+  /** game."Shop_Cheap_Items" (6600, m1-schema) — loja "barata"/desconto do 6600 (ShopMgr.GetShopItemDisCountById,
+   * `goodsType===2` em 44 BUY_GOODS; ver `handlers/loja/comprar.ts`). Sem equivalente na 4.1. */
+  shopCheap = new Map<number, ShopCheapRow>();
   showList = new Set<number>();
   maps = new Set<number>();
   serverMaps = new Map<number, number[]>();
@@ -104,9 +130,10 @@ export class Templates {
    * other table just keeps its original `game` schema text (Vietnamese/Chinese) when no row matches.
    */
   async load(db: Database, serverId: number, lang = "pt-BR"): Promise<this> {
-    const [items, shop, show, maps, mapServer, quests, levels, srv, dropC, dropI, qConds, qGoods] = await Promise.all([
+    const [items, shop, shopCheap, show, maps, mapServer, quests, levels, srv, dropC, dropI, qConds, qGoods] = await Promise.all([
       db.select().from(game.Shop_Goods),
       db.select().from(game.Shop),
+      db.select().from(game.Shop_Cheap_Items),
       db.select({ ShopId: game.ShopGoodsShowList.ShopId }).from(game.ShopGoodsShowList),
       db.select({ ID: game.Game_Map.ID }).from(game.Game_Map),
       db.select().from(game.Map_Server),
@@ -147,6 +174,7 @@ export class Templates {
       const s = toShopItem(r);
       if (!this.shop.has(s.ID)) this.shop.set(s.ID, s); // ShopMgr.LoadFromDatabase keeps the first row per ID
     }
+    this.shopCheap = new Map(shopCheap.map((r) => [r.ID, r]));
     this.showList = new Set(show.map((s) => s.ShopId));
     this.maps = new Set(maps.map((m) => m.ID));
     this.serverMaps = new Map(mapServer.map((m) => [m.ServerID, m.OpenMap.split(/[|,]/).map(Number).filter((x) => x > 0)]));

@@ -243,6 +243,24 @@ describe("6600 compat (research/6600/xml-diff.md, docs/plan/MIGRACAO-6600.md M1)
     const body = inflate(r.rawPayload);
     expect(body).toMatch(/<item Level="\d+" Class="\d+"/);
   });
+
+  // shopcheapitemlist.ashx (research/6600/packets-m1.md "M2 loja"): mesma URL pros dois clientes
+  // (ddt/manager/ShopManager.as loadDisCounts, 4.1 e 6600 idênticos), mas a FONTE muda — 4.1 lê game."Shop"
+  // (IsCheap/Label==4), 6600 lê a tabela nova game."Shop_Cheap_Items" (m1-schema, nunca lida até agora).
+  it("shopcheapitemlist.ashx: 4.1 reads game.Shop (IsCheap), 6600 reads the dedicated game.Shop_Cheap_Items table", async () => {
+    const { sql } = await import("drizzle-orm");
+    await h.db.execute(sql`INSERT INTO game."Shop_Cheap_Items"
+      ("ID","TemplateID","LableType","LimitGrade","AUnit","APrice","AValue","BUnit","BPrice","BValue","CUnit","CPrice","CValue","StartDate","EndDate","BuyType")
+      VALUES (900555, 11101, 2, 0, 1, -1, 777, 0, 0, 0, 0, 0, 0, now(), now() + interval '1 day', 0)
+      ON CONFLICT ("ID") DO NOTHING`);
+    // ShopManager.as:867 usa BaseLoader.REQUEST_LOADER (não COMPRESS_REQUEST_LOADER) nas duas versões — plain XML.
+    const r41 = (await app.inject({ url: "/request/shopcheapitemlist.ashx" })).body;
+    expect(r41).not.toContain('ID="900555"');
+    const r6600 = (await app.inject({ url: "/request6600/shopcheapitemlist.ashx" })).body;
+    expect(r6600).toContain('value="true"');
+    expect(r6600).toContain('ID="900555" TemplateID="11101" LableType="2"');
+    expect(r6600).toContain('AUnit="1" APrice="-1" AValue="777"');
+  });
 });
 
 describe("admin CRUD", () => {

@@ -384,3 +384,123 @@ length` no final) — mas chamando os builders DIRETO com um `GamePlayer` real (
 esperar o burst de login, já que estes pacotes só disparam sob ação. Cobre 74 (com `uncompressPacket`,
 igual ao `pkg.deCompress()` do AS3), 18, 94/4 e 160/160 nos dois clientKinds, mais 195 (um reader só, já que
 é idêntico nos dois lados). `pnpm --filter @ddt/game test`: 39 arquivos / 280 testes, todos verdes.
+
+---
+
+## M2 loja/correio (`feature/m2-loja`) — 44 BUY_GOODS, loja barata/desconto, 116 SEND_MAIL
+
+Tarefa `m2-loja` (`docs/plan/TASKS.md`). Depois do M1 (hall abre, ações básicas OK), verificado campo a
+campo tudo que a loja e o correio trocam com o cliente 6600: `GameSocketOut.as` (client→server) contra
+`UserBuyItemHandler.cs`/`UserSendMailHandler.cs` (6600, decompilados em `vendor/DDT-6600/Source`), e os
+analyzers AS3 do lado servidor→cliente (`ShopItemDisCountAnalyzer`, `AllEmailAnalyzer`/`SendedEmailAnalyze`).
+Metodologia extra usada aqui (além do "ler campo a campo"): toda vez que um pacote ganhava um campo NOVO no
+6600 cujo destino não era óbvio por nome, procuramos o `.cs` REAL do handler (quando existe decompilado no
+vendor) em vez de assumir — foi assim que achamos que o "extra" do 44 é um seletor de tabela (loja barata),
+não um flag solto, e que o "extra" do 116 é um limite de 1 anexo (não 4) com corte de pilha.
+
+### 44 BUY_GOODS — +2 campos por linha, 1 deles muda a FONTE do item (loja barata/desconto)
+
+`GameSocketOut.as sendBuyGoods` 4.1 (linhas 129-169) vs 6600 (linhas 203-264), confirmado contra
+`Game.Server.Packets.Client/UserBuyItemHandler.cs` (6600, decompilado por completo — raro, a maioria dos
+handlers de `Request`/`.ashx` do 6600 só tem o markup). Por linha do carrinho:
+- 4.1: `goodsId(int), type(int), color(UTF), dress(bool), skin(UTF), place(int)` — 6 campos, igual ao que
+  `handlers/loja/comprar.ts` já lia.
+- 6600: **+1 int ANTES de goodsId** (`goodsType`, 1=loja normal/2=loja barata — `num2` no C#, decide
+  `ShopMgr.GetShopItemInfoById` vs `ShopMgr.GetShopItemDisCountById`) e **+1 bool DEPOIS de place**
+  (`isBand`/"pagar com moeda vinculada" — `packet.ReadBoolean();` sem atribuição no C#, **lido e
+  descartado**: quem decide o vínculo é sempre o servidor, nunca o cliente). Depois do loop, `buyFrom(int)`
+  uma vez só — igual nas duas versões, não lido por nenhum dos dois lados do nosso handler (nem antes nem
+  depois desta tarefa) porque não é usado.
+- Sem o fix, um cliente 6600 comprando qualquer coisa desalinhava TODOS os campos a partir do 2º item do
+  carrinho (o 1º campo extra desloca goodsId pra type, type pra color via `readString()` de um int = lixo).
+
+**Loja barata/desconto (`goodsType===2`)**: `ShopMgr.GetShopItemDisCountById` (Bussiness/Managers/
+ShopMgr.cs:169) busca por ID numa tabela SEPARADA, `Shop_Cheap_Items` (46 linhas, confirmada no
+`research/6600/db-diff.md` desde `m1-schema`, já tinha schema Drizzle mas NUNCA tinha sido lida por nada —
+achado nesta tarefa). Reshape pro `ShopItemInfo` normal: `ShopID` forçado a `3`, `Beat=1`. Cuidado achado
+e corrigido durante o teste: o C# original copia o preço pros "slots" 1/2/3 de cada tier (`APrice3 =
+APrice2 = APrice1 = shopCheapItemsInfo.APrice`) — mas isso é preenchimento defensivo do struct pro
+`ShopMgr.SetItemType` real (não decompilado), e nosso `setItemType`/`getItemPrice` (`handlers/loja/
+preco.ts`, mirror de `ItemInfo.SetItemType`) SOMA os 3 slots como custos combináveis — copiar o preço nos
+3 daria cobrança 3x (pego pelo teste, ver abaixo). `toShopItemFromCheap` (`apps/game/src/db/templates.ts`)
+preenche só o slot 1 por tier, 2/3 em 0. `ShopMgr.IsOnShop` (mesmo arquivo) troca a checagem de `showList`
+por `EndDate > Now` quando o ID existe em `Shop_Cheap_Items` — replicado em `comprar.ts` (branch dedicado,
+sem passar por `tpl.isOnShop`/`showList` pra IDs de loja barata).
+
+Fix: `handlers/loja/comprar.ts` `buyGoods()` lê `goodsType` (só se `p.clientKind==="6600"`, senão fixo `1`)
+e o bool extra (descartado); roteia pro `tpl.shopCheap` (novo `Map` em `Templates`, carregado de
+`game.Shop_Cheap_Items`) quando `goodsType===2`, checando `EndDate` em vez de `isOnShop`.
+
+**Endpoint HTTP irmão, mesmo achado**: `shopcheapitemlist.ashx` (`apps/api/src/request/endpoints/
+social.ts`) já existia, mas lendo a tabela ERRADA pro 6600 — a implementação atual replica
+`Tank.Request/shopcheapitemlist.ashx.cs` (4.1, decompilado, confirmado byte a byte: `Shop` com
+`IsCheap && EndDate>Now && Label==4`). O 6600 chama a MESMA URL (`ddt/manager/ShopManager.as:867
+loadDisCounts`, `BaseLoader.REQUEST_LOADER` — plain XML, sem zlib, nas duas versões) com o MESMO analyzer
+(`ShopItemDisCountAnalyzer`, lê `@ID/@TemplateID/@LableType/@LimitGrade/@AUnit/@APrice/@AValue/@BUnit/
+@BPrice/@BValue/@CUnit/@CPrice/@CValue`) — não achamos o `.cs` desta `.ashx` específica pro 6600 no vendor
+(só markup, like a maioria dos 263 endpoints Request novos), mas os nomes de coluna batem 1:1 com
+`Shop_Cheap_Items`/`ShopCheapItemsInfo.cs`, então inferimos que o 6600 trocou a fonte pra essa tabela nova.
+Fix: branch por `rc.client` — "6600" lê `game."Shop_Cheap_Items"` (`EndDate > now`, sem rename de coluna
+precisa); "41" mantém o comportamento antigo intacto.
+
+### 116 SEND_MAIL — 6600 só manda/aceita 1 anexo (não 4), mas com corte de pilha (`Count`)
+
+`GameSocketOut.as sendEmail` 4.1 (linhas 257-282) vs 6600 (linhas 359-385): `NUM_OF_WRITING_DIAMONDS=4`
+igual nos dois (`email/manager/MailManager.as`), mas por slot o 6600 escreve **+1 int** (`Count`) depois do
+`ItemID` — `[bagType(byte), itemId(int)]` (4.1) vs `[bagType(byte), itemId(int), count(int)]` (6600), ×4
+slots sempre (mesmo os vazios, `[0,-1]`/`[0,-1,0]`).
+
+Achado real ao ler `Game.Server.Packets.Client/UserSendMailHandler.cs` (6600, decompilado por completo):
+o handler **não faz loop nenhum** nos 4 slots — lê só o 1º (`eBageType, int place, int count`) e segue
+direto pra validação/envio. Os outros 3 slots que o cliente ainda manda ficam sem ler (packet já é framed
+por tamanho — `GSPacket.parse`/`StreamProcessor`, zero-pad alem do length, então não precisa consumir o
+resto). Ou seja: **o 6600 reduziu o correio pra 1 anexo só**, mas esse 1 anexo pode ser uma FRAÇÃO de uma
+pilha (`Count`), não a pilha inteira como na 4.1 — item com `Count < requested` ou `requested < 0` =
+erro SEM mandar o 116 de volta (`return 0;` sem `SendTCP`, bem diferente dos outros erros do mesmo handler
+que mandam `WriteBoolean(false)` antes de sair). Item travado (`IsBinds`) = sem anexo, SEM erro (mesmo
+filtro silencioso da 4.1, já existia).
+
+Fix: `handlers/correio/enviar.ts` `sendMailPacket()` ganhou um branch `is6600`: lê 1 slot (com `Count`) em
+vez de 4; reaproveita a MESMA linha de `Sys_Users_Goods` como anexo (só com `Count` reduzido, igual ao
+padrão que a 4.1 já usava pra "destacar da bolsa"); se sobrar pilha (`leftover>0`), clona uma linha nova
+pra devolver o resto à bolsa (`ItemInfo.cloneFromTemplate` + `PlayerInventory.addTemplate`, igual ao
+`ItemInfo.CloneFromTemplate`+`AddTemplate` do C#). Os dois `return` sem reply do C# (item inexistente /
+`count` inválido) replicados tal qual — só manda mensagem de chat, sem o pacote 116.
+
+Não verificado nesta tarefa (fora do que o cliente consegue exercitar pela UI normal, baixo risco): o C#
+6600 tem um branch onde, SE `ıtemInfo.IsBinds` fosse true E `num7>0`, tentaria usar `ıtemInfo2` (nunca
+inicializado nesse caminho) — null-ref no original. Não replicado (replicar um crash não ajuda); nosso
+port trata item travado como "sem anexo" direto, sem tentar o caminho de sobra.
+
+Atributos novos que os analyzers de LISTA de correio leem no 6600 e não existem na 4.1 (sem fix — defaults
+seguros, mesmo padrão "stub zero" do resto do M1): `AllEmailAnalyzer.as` (`LoadUserMail.ashx`) lê
+`@MagicAttack`/`@MagicDefence` por item anexado (dano mágico por item, já documentado em outros pacotes no
+M1 Round 2/3); ausentes no XML = `int(undefined)` AS3 = `0`, não quebra. `EmailInfo.as` troca
+`GiftToken`/`Medal` (4.1) por `BindMoney` (6600) — nenhum dos dois lados emite esses atributos hoje (gap
+pré-existente da própria 4.1, não é regressão desta tarefa).
+
+### Verificado idêntico, sem fix (44/116 e vizinhos)
+
+`PROP_BUY(54)`/`PROP_SELL(55)`/`PROP_USE(66)`/`BUY_GIFTBAG(46)`/`USER_SEND_GIFTS(221)`/
+`LEFT_GUN_ROULETTE_SOCKET(128)`/`LEFT_GUN_ROULETTE_COMPLETTE(130)`/`GOODS_COUNT(168)` client→server: campo
+a campo idênticos nas duas versões (único detalhe: `BUY_QUICK_GOLDBOX(126)`, `VIP_RENEWAL(92)` e
+`ITEM_CONTINUE(62)` ganham 1-2 campos extras no FIM do pacote no 6600 — `bool`/`bool+bool`/`int` — mas são
+sempre o ÚLTIMO campo, nunca lidos por nós nem pelo C# de forma que afete lógica, e pacotes client→server
+são framed por tamanho fixo (zero-pad, `GSPacket.parse`) então não ler a sobra não quebra nada; não
+alterado). `LoadUserMail.ashx`/`MailSenderList.ashx` (listas, não o envio): mesmos campos lidos pelos
+analyzers 4.1/6600 (`SendedEmailAnalyze` idêntico; `AllEmailAnalyzer` só ganha os 2 atributos de dano
+mágico citados acima, sem quebrar).
+
+### Como testamos (M2 loja/correio)
+
+Novo arquivo `apps/game/test/client-6600-m2-loja.test.ts`: `FakeClient` real (`loggedIn()`), manda o 44 e o
+116 com o layout EXATO que cada `clientKind` escreve (goodsType/isBand extras pro 44; slot único+Count pro
+116 no 6600) e confere o efeito no estado do jogador/banco (dinheiro debitado, item entregue, carta
+criada, sobra de pilha devolvida) — não só "offset===length" como nos Rounds anteriores, porque aqui o que
+importa é o EFEITO (quanto foi cobrado, quantos itens voltaram), não só o parse. Cobre: loja normal 6600
+(campos extras não desalinham), loja barata 6600 (resolve via `tpl.shopCheap`, preço não cobra 3x), loja
+barata expirada (tratada como inexistente, sem cobrança), correio 6600 com corte de pilha (sobra volta pra
+bolsa), item travado (sem anexo, carta ainda vai se tiver Money), `count` inválido (erro sem reply). Mais
+`apps/api/test/api.test.ts`: `shopcheapitemlist.ashx` com `client="41"` vs `client="6600"` confirma a fonte
+de dados certa por cliente. `pnpm --filter @ddt/game test`: 40 arquivos / 286 testes. `pnpm --filter
+@ddt/api test`: 40 testes. `pnpm typecheck`: limpo em todos os 11 pacotes. Todos verdes.
