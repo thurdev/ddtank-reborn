@@ -31,7 +31,8 @@ const ROWS = [
   // ---- 02-hall-icons (ddthallicon.swf: ícone 70x70 + legenda de 1-2 linhas embaixo) --------------------
   ["ddthallicon.swf", "ui\\turkey\\swf\\ddthallicon.swf", "116.png", 75, 70, "02-hall-icons", "Harika oyun", "Jogo incrivel", "P0", false],
   ["ddthallicon.swf", "ui\\turkey\\swf\\ddthallicon.swf", "132.png", 70, 70, "02-hall-icons", "Etkinlik", "Evento", "P0", false],
-  ["ddthallicon.swf", "ui\\turkey\\swf\\ddthallicon.swf", "200.png", 179, 44, "02-hall-icons", "Buraya tikla", "Clique aqui", "P0", false],
+  // rodada 2: rejeitado pela IA (ver tools/remaster/prompts/win45-6600/ddthallicon__200.txt.local) -- local agora.
+  ["ddthallicon.swf", "ui\\turkey\\swf\\ddthallicon.swf", "200.png", 179, 44, "02-hall-icons", "Buraya tikla", "Clique aqui", "P0", true],
   ["ddthallicon.swf", "ui\\turkey\\swf\\ddthallicon.swf", "34_assets.hallIcon.newYearRiceIcon.png", 70, 70, "02-hall-icons", "Yil Donumu Kutla", "Celebre o Ano Novo", "P0", false],
   ["ddthallicon.swf", "ui\\turkey\\swf\\ddthallicon.swf", "53_bombKing.hallEnterBtn.png", 70, 70, "02-hall-icons", "Ekstrim Sampiyona", "Campeonato Extremo", "P0", false],
   ["ddthallicon.swf", "ui\\turkey\\swf\\ddthallicon.swf", "138.png", 70, 70, "02-hall-icons", "Sinirli satis paketi", "Oferta por tempo limitado", "P0", false],
@@ -75,13 +76,15 @@ const ROWS = [
   ["ddtroomloading.swf", "ui\\turkey\\swf\\ddtroomloading.swf", "8_asset.roomLoading.GameMode_3.png", 242, 32, "03-sala-partida", "Sunucular Arasi Savas", "Guerra Entre Servidores", "P0", true],
 
   // ---- 04-batalha-resultado (tela de derrota/sobrevivencia, popups do firstcore) ------------------------
-  ["firstcore.swf", "ui\\turkey\\swf\\firstcore.swf", "260.png", 139, 138, "04-batalha-resultado", "Tiklayarak isleme devam edin", "Clique para continuar", "P0", false],
+  // rodada 2: os 5 abaixo foram rejeitados pela IA na rodada 1 (ver tools/remaster/prompts/win45-6600/*.txt.local)
+  // -- local agora (title-text-ml.mjs pros multi-linha, title-text.mjs pro resto).
+  ["firstcore.swf", "ui\\turkey\\swf\\firstcore.swf", "260.png", 139, 138, "04-batalha-resultado", "Tiklayarak isleme devam edin", "Clique para continuar", "P0", true],
   ["gameiii.swf", "ui\\turkey\\swf\\gameiii.swf", "176.png", 274, 69, "04-batalha-resultado", "Basarisiz", "Falhou", "P0", false],
-  ["gameiii.swf", "ui\\turkey\\swf\\gameiii.swf", "225.png", 203, 57, "04-batalha-resultado", "Basarisiz", "Falhou", "P0", false],
+  ["gameiii.swf", "ui\\turkey\\swf\\gameiii.swf", "225.png", 203, 57, "04-batalha-resultado", "Basarisiz", "Falhou", "P0", true],
   ["gameover.swf", "ui\\turkey\\swf\\gameover.swf", "10_asset.core.survival.clearing.bg.png", 1000, 600, "04-batalha-resultado", "MULTI", "MULTI", "P0", false],
-  ["gameover.swf", "ui\\turkey\\swf\\gameover.swf", "13_asset.takeoutCard.survival.InstructionBitmap.png", 293, 62, "04-batalha-resultado", "Hayatta kalma modunda, oldurmek ve sonuna kadar hayatta kalma cevirme sayisini arttiracaktir.", "No modo sobrevivencia, matar e sobreviver ate o fim vai aumentar o numero de giros.", "P0", false],
-  ["gameover.swf", "ui\\turkey\\swf\\gameover.swf", "31_asset.experience.TotalExploitTxt.png", 147, 47, "04-batalha-resultado", "Toplam mukafat puani", "Pontos de recompensa total", "P0", false],
-  ["gameover.swf", "ui\\turkey\\swf\\gameover.swf", "53_asset.takeoutCard.InstructionBitmap.png", 352, 53, "04-batalha-resultado", "Her oyuncu 2 kere ucretsiz olarak kupon kutusuna tiklayip hediye toplayabilir. Sonra kullanarak kutu acma sansini arttirabilirsin.", "Cada jogador pode clicar na caixa de cupons de graca 2 vezes para ganhar um presente. Depois disso, use itens para aumentar a chance de abrir a caixa.", "P0", false],
+  ["gameover.swf", "ui\\turkey\\swf\\gameover.swf", "13_asset.takeoutCard.survival.InstructionBitmap.png", 293, 62, "04-batalha-resultado", "Hayatta kalma modunda, oldurmek ve sonuna kadar hayatta kalma cevirme sayisini arttiracaktir.", "No modo sobrevivencia, matar e sobreviver ate o fim vai aumentar o numero de giros.", "P0", true],
+  ["gameover.swf", "ui\\turkey\\swf\\gameover.swf", "31_asset.experience.TotalExploitTxt.png", 147, 47, "04-batalha-resultado", "Toplam mukafat puani", "Pontos de recompensa total", "P0", true],
+  ["gameover.swf", "ui\\turkey\\swf\\gameover.swf", "53_asset.takeoutCard.InstructionBitmap.png", 352, 53, "04-batalha-resultado", "Her oyuncu 2 kere ucretsiz olarak kupon kutusuna tiklayip hediye toplayabilir. Sonra kullanarak kutu acma sansini arttirabilirsin.", "Cada jogador pode clicar na caixa de cupons de graca 2 vezes para ganhar um presente. Depois disso, use itens para aumentar a chance de abrir a caixa.", "P0", true],
   ["gameover.swf", "ui\\turkey\\swf\\gameover.swf", "108_asset.experience.attachExpItemTxt_a0.png", 103, 25, "04-batalha-resultado", "VIP ayricaligi", "Privilegio VIP", "P0", true],
   ["gameover.swf", "ui\\turkey\\swf\\gameover.swf", "76_asset.experience.exploitExpItemTxt_a2.png", 105, 25, "04-batalha-resultado", "VIP ayricaligi", "Privilegio VIP", "P0", true],
 
@@ -92,6 +95,10 @@ const ROWS = [
   ["dayactivity.swf", "ui\\turkey\\swf\\dayactivity.swf", "15_day.activityBtn1.png", 98, 22, "05-atividade-diaria", "Gunluk etkinlik", "Evento Diario", "P0", true],
   ["dayactivity.swf", "ui\\turkey\\swf\\dayactivity.swf", "3_day.receiveOver.png", 76, 31, "05-atividade-diaria", "Alinmis", "Resgatado", "P0", true],
   ["dayactivity.swf", "ui\\turkey\\swf\\dayactivity.swf", "36.png", 76, 79, "05-atividade-diaria", "Gunluk kazanclar", "Ganhos Diarios", "P0", false],
+  // rodada 2: abas/legenda que a rodada 1 nao pegou na mesma janela (dayactivity.swf).
+  ["dayactivity.swf", "ui\\turkey\\swf\\dayactivity.swf", "6_day.timeViewBtn2.png", 88, 26, "05-atividade-diaria", "Zaman sinirli", "Tempo Limitado", "P0", true],
+  ["dayactivity.swf", "ui\\turkey\\swf\\dayactivity.swf", "7_day.timeViewBtn1.png", 90, 22, "05-atividade-diaria", "Zaman sinirli", "Tempo Limitado", "P0", true],
+  ["dayactivity.swf", "ui\\turkey\\swf\\dayactivity.swf", "23_day.activity.tiaojian.png", 142, 26, "05-atividade-diaria", "Etkinlik durumu:", "Status do evento:", "P0", true],
 
   // ---- 06-janelas-p1 (sociedade, verificacao de idade, ajuda) -----------------------------------------
   ["consortionii.swf", "ui\\turkey\\swf\\consortionii.swf", "33_asset.consortion.remainFrame.word.png", 295, 149, "06-janelas-p1", "Birligin serveti su anda yetersiz, servet arttirma yollari: 1.Birlik gorevini tamamlama 2.Birlik savasina katilma 3.Servet bagisinda bulunma. Bagista bulunmak istiyor musunuz?", "O tesouro da Sociedade esta insuficiente no momento, formas de aumentar o tesouro: 1.Completar missao da Sociedade 2.Participar da guerra da Sociedade 3.Fazer uma doacao. Deseja fazer uma doacao?", "P1", false],
@@ -102,6 +109,20 @@ const ROWS = [
   ["boguadventure.swf", "ui\\turkey\\swf\\boguadventure.swf", "1_boguAdventure.tool.reset.png", 190, 61, "06-janelas-p1", "Tekrar Baslat", "Reiniciar", "P1", false],
   ["boguadventure.swf", "ui\\turkey\\swf\\boguadventure.swf", "5_boguAdventure.tool.findMine.png", 82, 67, "06-janelas-p1", "Mayin Dedektoru", "Detector de Minas", "P1", false],
   ["ringstation.swf", "ui\\turkey\\swf\\ringstation.swf", "16_ringStation.view.armory.close.png", 164, 52, "06-janelas-p1", "Kapat", "Fechar", "P1", false],
+
+  // ---- 07-placas-salao (rodada 2: placas dos predios do salao, ddthallmain.swf -- bitmap puro, sem
+  // DefineText nenhum nesse swf; achado via varredura manual, nao pelo OCR da rodada 1) ------------------
+  // Puro texto (sem icone, fundo transparente) -- title-text.mjs direto.
+  ["ddthallmain.swf", "ui\\turkey\\swf\\ddthallmain.swf", "815.png", 187, 45, "07-placas-salao", "Oyun Salonu", "Salao de Jogos", "P0", true],
+  ["ddthallmain.swf", "ui\\turkey\\swf\\ddthallmain.swf", "751.png", 180, 45, "07-placas-salao", "Kesif Rihtimi", "Cais de Exploracao", "P0", true],
+  ["ddthallmain.swf", "ui\\turkey\\swf\\ddthallmain.swf", "853.png", 258, 45, "07-placas-salao", "savascinin gizli yeri", "esconderijo do guerreiro", "P0", true],
+  ["ddthallmain.swf", "ui\\turkey\\swf\\ddthallmain.swf", "963.png", 90, 45, "07-placas-salao", "Ciftlik", "Fazenda", "P0", true],
+  ["ddthallmain.swf", "ui\\turkey\\swf\\ddthallmain.swf", "892.png", 175, 45, "07-placas-salao", "Ring Savasi", "Batalha no Ringue", "P0", true],
+  // Icone + texto na mesma imagem (fundo transparente, icone a esquerda ~34px) -- crop icone/crop texto
+  // (title-text.mjs so no recorte do texto) + recompoe, ver tools/remaster/hallsign-icon-text.mjs.
+  ["ddthallmain.swf", "ui\\turkey\\swf\\ddthallmain.swf", "306.png", 126, 32, "07-placas-salao", "Birlik kulubu", "Clube da Sociedade", "P0", true],
+  ["ddthallmain.swf", "ui\\turkey\\swf\\ddthallmain.swf", "423.png", 154, 30, "07-placas-salao", "Demirci Atolyesi", "Forja", "P0", true],
+  ["ddthallmain.swf", "ui\\turkey\\swf\\ddthallmain.swf", "596.png", 164, 29, "07-placas-salao", "Acik Artirma Alani", "Casa de Leiloes", "P0", true],
 ];
 
 // win45-6600: template identico ao win45/ da 4.1, trocando Vietnamese->Turkish e sem a frase do fundo
