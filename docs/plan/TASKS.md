@@ -251,11 +251,32 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
   `apps/game/src/handlers/progressao/reliquias-monstro-info.ts`. Teste:
   `apps/game/test/client-6600-m3-magic-stone-monster.test.ts` (3). O sistema maior de Relíquias (board de
   exploração, M4) continua fora de escopo — só esta consulta isolada.
-- [ ] **m3-consortia-battle** — `153 CONSORTIA_BATTLE` (`sendConsBatRequestPlayerInfo`/`sendConsBatMove`/
-  `sendConsBatChallenge`/`sendConsBatExit`/`sendConsBatConsume`/`sendConsBatUpdateScore`/
-  `sendConsBatConfirmEnter`, `GameSocketOut.as`) — arena de guerra de guildas (GvG). Sistema grande,
-  `Fighting.Server/Guild` já é quase idêntico entre versões (`MIGRACAO-6600.md` §2.1) — reaproveitar o
-  motor, só o protocolo de entrada/pontuação é novo.
+- [x] **m3-consortia-battle** (2026-10-19) — `153 CONSORTIA_BATTLE` entrar/elenco/andar/desafiar/confirmar:
+  entrada real (94 GAME_ROOM sub 18 SINGLE_ROOM_BEGIN num=4, confirmado alcançável — botão do hall
+  `ConsortiaBattleEntryBtn.as:113`/`HallRightIconView.as:463` ligados a `sendSingleRoomBegin(4)`), elenco
+  (153/3 ADD_PLAYER, 153/21 CONFIRM_ENTER), andar (153/4 PLAYER_MOVE, broadcast pra todos igual ao original),
+  sair (153/5 DELETE_PLAYER) e desafiar (153/6 CHALLENGE → luta real, `rooms/room-mgr.ts
+  createConsortiaBattleRoom` → `FightEngine.startPvp`, igual todo outro 1v1 — sem resultado inventado pelo
+  cliente). Janela aberta/fechada por `app."ScheduledEvents"` kind `consortia_battle` (153/1 START_OR_CLOSE
+  nunca teve um remetente de verdade no C# vazado — mesma lacuna que boss mundial/liga/elite tinham antes do
+  scheduler; sem essa janela o botão do hall nunca habilita). Corrigido (não replicado): `BaseConsBatRoom.cs`
+  envia 10 campos no elenco/status mas o leitor AS3 lê 4 a mais (PetsID/Sex/Style/Colors pra desenhar o
+  sprite do outro jogador) — builders em `packets/out.ts` escrevem o corpo completo; `Challenge` original
+  deixa o alvo travado em "lutando" se o desafiante falhar a própria checagem depois — corrigido validando
+  os dois lados antes de mutar qualquer um. Cross-channel: fora de escopo por desenho (`docs/GAME-SERVER.md`
+  "O que ainda não funciona com 2+ canais" — King Division/GvG = M3/M4), fica por canal. Sem migração (estado
+  só em memória, como `NewHallRoom`). Resultado/pontuação/recompensa (`BattleWin`/`BattleLost`, 16
+  UPDATE_SCORE, 17 CONSUME — todos `Console.WriteLine` no C# original também) ficam pro follow-up abaixo.
+- [ ] **m3-consortia-battle-2** — resultado/pontuação/recompensa da arena GvG (`153 CONSORTIA_BATTLE`):
+  ligar o fim de uma luta `RoomType.ConsortiaBattle` (hook `onGameOver`, igual `handlers/sociedade/guerra-
+  gvg.ts`) em `BaseConsBatRoom.BattleWin`/`BattleLost` (:189-258 — fórmulas de pontuação por sequência de
+  vitórias já existem no C#, só nunca são chamadas de lugar nenhum; citar ao portar) + 153/9
+  UPDATE_SCENE_INFO (refresh do HUD próprio) + 153/7 PLAYER_STATUS pro resto da cena; 153/16 UPDATE_SCORE e
+  153/17 CONSUME (loja de pontos — dobro de pontuação / full-power, `isDoubleScoreUsed`/`isPowerFullUsed` já
+  rastreados em `game/consortia-battle.ts` mas sem efeito de combate ainda, camada de efeito que também não
+  existe no motor de luta — ver nota "fight-time effect layer" em `apps/game/HANDLERS.md`); claim-once se
+  as recompensas forem persistidas (ex. ranking semanal) — confirmar se o C# original tem UMA recompensa real
+  aqui ou se, como `m3-group-purchase`, é outra feature inacabada antes de inventar comportamento.
 - [x] **m3-trusteeship** (2026-10-18) — `140 TRUSTEESHIP` (`sendTrusteeshipStart`/`Cancel`/`SpeedUp`/
   `BuySpirit`/`UseSpiritItem`, confirmados chamados em `TrusteeshipView.as`/`TrusteeshipManager.as`/
   `QuickUseFrame.as:127`) — "curadoria"/auto-piloto de missão. **Sem handler C# em nenhum vendor**

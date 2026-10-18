@@ -647,6 +647,154 @@ export function newHallPlayerHid(hide: boolean): PacketOut {
   return p;
 }
 
+// --------------------------------------------------------------------------------- 153 CONSORTIA_BATTLE (6600-only)
+// m3-consortia-battle (docs/plan/TASKS.md). Guild-war walkable arena ("factionwarmap.swf", consortionBattle/*).
+// Entry: 94 GAME_ROOM sub 18 SINGLE_ROOM_BEGIN num=4 (handlers/salas/iniciar-cena-unica.ts), not this code.
+// Sub-codes (ConsBatPackageType.cs / ddt/data/socket/ConsBatPackageType.as): 1 START_OR_CLOSE, 2 ENTER_SELF_INFO,
+// 3 ADD_PLAYER (dual use: client "give me the roster" request AND this packet's list reply), 4 PLAYER_MOVE,
+// 5 DELETE_PLAYER, 6 CHALLENGE, 7 PLAYER_STATUS, 9 UPDATE_SCENE_INFO, 16 UPDATE_SCORE, 17 CONSUME, 21 CONFIRM_ENTER
+// (same list-reply body as 3). 16/17 are themselves `Console.WriteLine` stubs in the leaked C#
+// (`ConsortiaBattleHander.cs`) — scoring/rewards tracked as follow-up `m3-consortia-battle-2`.
+
+/** What the roster/status builders below need about one registered player: the room-tracked
+ *  `ConsortiaBattlePlayerInfo` fields (SqlDataProvider/Data/ConsortiaBattlePlayerInfo.cs) PLUS the live
+ *  appearance fields the AS3 reader also expects (see field-count note on `consBatPlayerView` below). */
+export interface ConsBatPlayerView {
+  id: number;
+  tombstoneEndTime: Date;
+  status: number;
+  posX: number;
+  posY: number;
+  sex: boolean;
+  consortiaId: number;
+  consortiaName: string;
+  winningStreak: number;
+  failBuffCount: number;
+  /** Session "pet shown" field (same one the 262 NEW_HALL writers use, `hallPetsId` — no persisted Montaria/pet-
+   *  display system yet, see `HallPlayerView.petsId` above). */
+  petsId: number;
+  style: string;
+  colors: string;
+}
+
+/**
+ * Shared body for 153/3 ADD_PLAYER (list reply) and 153/21 CONFIRM_ENTER (identical payload in the original —
+ * `BaseConsBatRoom.SendUpdateRoom`/`SendConfirmEnterRoom`, :108-128/:260-280) — one roster row.
+ *
+ * Field-count fix (not a replicated bug): the leaked `BaseConsBatRoom.cs` only writes the first 10 fields
+ * (through `failBuffCount`); the AS3 reader (`ConsortiaBattleManager.as addPlayerInfo`, :562-602) then
+ * unconditionally reads 4 MORE — a padding int (discarded, written 0 here), PetsID, Sex again and
+ * Style/Colors — needed to render the OTHER player's sprite (`ddt.data.player.PlayerInfo` base class the
+ * class extends). Sending the short C# body would desync every field after it for that peer (byte-buffer.ts:
+ * reads past the sent length return zeros, not a protocol error, so the client silently renders a
+ * garbled/default sprite instead of erroring) — written in full here since the client is fixed.
+ */
+function writeConsBatPlayerRow(p: PacketOut, v: ConsBatPlayerView): void {
+  p.writeInt(v.id);
+  p.writeDateTime(v.tombstoneEndTime);
+  p.writeByte(v.status);
+  p.writeInt(v.posX); p.writeInt(v.posY);
+  p.writeBoolean(v.sex);
+  p.writeInt(v.consortiaId); p.writeString(v.consortiaName);
+  p.writeInt(v.winningStreak); p.writeInt(v.failBuffCount);
+  p.writeInt(0); // padding int the AS3 reader discards (pkg.readInt() with no assignment)
+  p.writeInt(v.petsId);
+  p.writeBoolean(v.sex);
+  p.writeString(v.style); p.writeString(v.colors);
+}
+
+/** 153/3 ADD_PLAYER / 153/21 CONFIRM_ENTER roster reply. */
+export function consBatPlayerList(rows: ConsBatPlayerView[]): PacketOut {
+  const p = new PacketOut(153);
+  p.writeByte(3);
+  p.writeInt(rows.length);
+  for (const v of rows) writeConsBatPlayerRow(p, v);
+  return p;
+}
+
+/** What `consBatSelfInfo` needs (the scene totals carried on `ConsBatPlayerInfo`, see game/consortia-battle.ts). */
+export interface ConsBatSelfInfo {
+  tombstoneEndTime: Date;
+  posX: number;
+  posY: number;
+  curHp: number;
+  victoryCount: number;
+  winningStreak: number;
+  score: number;
+  isPowerFullUsed: boolean;
+  isDoubleScoreUsed: boolean;
+}
+
+/** 153/2 ENTER_SELF_INFO (BaseConsBatRoom.AddPlayer, :74-87): `isJump=true` is what makes the AS3 client call
+ *  `StateManager.setState(CONSORTIA_BATTLE_SCENE)` (ConsortiaBattleManager.as :370-377) — always true here,
+ *  the original never has a caller that passes `false` either. */
+export function consBatSelfInfo(isJump: boolean, v: ConsBatSelfInfo): PacketOut {
+  const p = new PacketOut(153);
+  p.writeByte(2);
+  p.writeBoolean(isJump);
+  p.writeDateTime(v.tombstoneEndTime);
+  p.writeInt(v.posX); p.writeInt(v.posY);
+  p.writeInt(v.curHp); p.writeInt(v.victoryCount); p.writeInt(v.winningStreak); p.writeInt(v.score);
+  p.writeBoolean(v.isDoubleScoreUsed); p.writeBoolean(v.isPowerFullUsed);
+  return p;
+}
+
+/** 153/4 PLAYER_MOVE (ConsortiaBattleHander.cs case 4, :21-35): broadcast to EVERY registered player including
+ *  the sender — replicated as-is (`method_0`/`method_1(pkg, null)`, no "except"); the AS3 `movePlayer` reader
+ *  ignores an echo of its own id (ConsortiaBattleManager.as :525-528), so this is harmless. */
+export function consBatPlayerMove(id: number, x: number, y: number, path: string): PacketOut {
+  const p = new PacketOut(153, id);
+  p.writeByte(4);
+  p.writeInt(id); p.writeInt(x); p.writeInt(y); p.writeString(path);
+  return p;
+}
+
+/** 153/5 DELETE_PLAYER (BaseConsBatRoom.RemovePlayer, :90-106). */
+export function consBatDeletePlayer(id: number): PacketOut {
+  const p = new PacketOut(153);
+  p.writeByte(5);
+  p.writeInt(id);
+  return p;
+}
+
+/** 153/7 PLAYER_STATUS (BaseConsBatRoom.SendUpdatePlayerStatus, :163-175), same field-count fix as the roster
+ *  row above — the AS3 `updatePlayerStatus` reader (:457-494) reads the identical padding/PetsID/Sex/Style/
+ *  Colors tail after `failBuffCount`, just without the consortia/initial-sex fields (those never change after
+ *  the player is created, so this update doesn't resend them). */
+export function consBatPlayerStatus(v: { id: number; tombstoneEndTime: Date; status: number; posX: number; posY: number; winningStreak: number; failBuffCount: number; petsId: number; sex: boolean; style: string; colors: string }): PacketOut {
+  const p = new PacketOut(153, v.id);
+  p.writeByte(7);
+  p.writeInt(v.id);
+  p.writeDateTime(v.tombstoneEndTime);
+  p.writeByte(v.status);
+  p.writeInt(v.posX); p.writeInt(v.posY);
+  p.writeInt(v.winningStreak); p.writeInt(v.failBuffCount);
+  p.writeInt(0);
+  p.writeInt(v.petsId);
+  p.writeBoolean(v.sex);
+  p.writeString(v.style); p.writeString(v.colors);
+  return p;
+}
+
+/** 153/1 START_OR_CLOSE (ConsBatPackageType.START_OR_CLOSE): never actually sent by the leaked 6600 server
+ *  (grepped every `new GSPacketIn(153` in vendor/DDT-6600/Source — no caller writes byte 1), same gap as
+ *  world-boss/league/elite had before this codebase's `app."ScheduledEvents"` scheduler (handlers/eventos/
+ *  agendador.ts) filled it in; the AS3 reader (`ConsortiaBattleManager.as openOrCloseHandler`, :646-667) is
+ *  fully intact and is what gates the hall entry button (`ConsortiaBattleManager.instance.isOpen`/`isCanEnter`
+ *  — `ConsortiaBattleEntryBtn.as:113`, `HallRightIconView.as:463`), so wiring this for real is what makes the
+ *  button (and therefore the whole feature) reachable at all. */
+export function consBatOpenClose(open: boolean, start?: Date, end?: Date, canEnter?: boolean): PacketOut {
+  const p = new PacketOut(153);
+  p.writeByte(1);
+  p.writeBoolean(open);
+  if (open) {
+    p.writeDateTime(start ?? new Date());
+    p.writeDateTime(end ?? new Date());
+    p.writeBoolean(!!canEnter);
+  }
+  return p;
+}
+
 // ---------------------------------------------------------------------------------------------- scene / rooms
 
 /**

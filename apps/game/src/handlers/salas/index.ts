@@ -15,6 +15,8 @@
  *   lista-de-salas.ts    (Lista de salas / de masmorras) — sub 9  ROOMLIST_UPDATE
  *   trocar-lugar.ts      (Sala › trocar de lugar)        — sub 10 GAME_ROOM_UPDATE_PLACE, 11/12 pickup
  *   ficar-pronto.ts       (Sala › ficar pronto)           — sub 15 GAME_PLAYER_STATE_CHANGE
+ *   iniciar-cena-unica.ts (Sala › entrar numa cena única) — sub 18 SINGLE_ROOM_BEGIN (só num===4 Consortia
+ *                           Battle, m3-consortia-battle; outras cenas = outras tarefas, ainda não existem)
  *   convidar.ts           (Sala › convidar amigo)         — 70  GAME_INVITE
  *   comando-de-jogo.ts    (dentro da luta, sem tela própria) — 91 GAME_CMD
  *
@@ -36,6 +38,7 @@ import { trocarLugar, cancelarPickup, escolherEstiloDePickup } from "./trocar-lu
 import { ficarPronto } from "./ficar-pronto.js";
 import { convidarJogador } from "./convidar.js";
 import { comandoDeJogo } from "./comando-de-jogo.js";
+import { iniciarCenaUnica } from "./iniciar-cena-unica.js";
 
 /**
  * Roteador do pacote `94 GAME_ROOM` — um `.on(subcode, nome, fn)` por ação.
@@ -54,7 +57,11 @@ export function roomRouter(): SubRouter {
     .on(10, "GAME_ROOM_UPDATE_PLACE", (ctx, p, pkt) => trocarLugar(ctx, p, pkt), "partial")
     .on(11, "GAME_PICKUP_CANCEL", (ctx, p) => cancelarPickup(ctx, p))
     .on(12, "GAME_PICKUP_STYLE", (ctx, p, pkt) => escolherEstiloDePickup(ctx, p, pkt), "partial")
-    .on(15, "GAME_PLAYER_STATE_CHANGE", (ctx, p, pkt) => ficarPronto(ctx, p, pkt));
+    .on(15, "GAME_PLAYER_STATE_CHANGE", (ctx, p, pkt) => ficarPronto(ctx, p, pkt))
+    // sub 18 SINGLE_ROOM_BEGIN: só num===4 (Consortia Battle, m3-consortia-battle) está portado — ver
+    // iniciar-cena-unica.ts. "partial" porque os outros `num` (Encounter/ConsortiaBoss/BattleRoom/
+    // GroupBattle/CampBattle/FightFootballTime/HorseRace) ainda não existem em apps/game.
+    .on(18, "SINGLE_ROOM_BEGIN", (ctx, p, pkt) => iniciarCenaUnica(ctx, p, pkt), "partial");
 }
 
 /**

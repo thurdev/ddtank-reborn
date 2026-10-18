@@ -134,6 +134,14 @@ export class EventsRuntime {
       case "double_gold":
         this.broadcast(Out.message(1, `${w.ev.title || w.ev.kind}: x${Number(prm.rate ?? 2)} até ${w.end.toISOString().slice(11, 16)} UTC.`));
         break;
+      case "consortia_battle":
+        // m3-consortia-battle: 153/1 START_OR_CLOSE never has a real sender in the leaked 6600 server (no
+        // `new GSPacketIn(153...WriteByte(1)` anywhere) — this is the admin-configurable window that makes
+        // the hall entry button (ConsortiaBattleManager.instance.isOpen/isCanEnter) reachable at all. No
+        // separate "announced but not enterable" phase like the AS3 reader supports: `canEnter` is always
+        // true while the window is open (one-phase window, same simplification as every other scheduler kind).
+        this.broadcast(Out.consBatOpenClose(true, w.start, w.end, true));
+        break;
     }
     this.note(`start ${w.ev.kind} #${w.ev.id} ${w.start.toISOString()} → ${w.end.toISOString()}`);
   }
@@ -158,6 +166,9 @@ export class EventsRuntime {
       case "elite":
         this.eliteStatus = 0;
         this.broadcast(eliteStatusPkt(0));
+        break;
+      case "consortia_battle":
+        this.broadcast(Out.consBatOpenClose(false));
         break;
     }
     this.note(`end ${w.ev.kind} #${w.ev.id}`);
@@ -294,4 +305,9 @@ export async function eventsOnLogin(ctx: ServerContext, p: GamePlayer): Promise<
   p.send(Out.achievementRecords(228, p.id, all));
   if (rt.leagueOpen) p.send(Out.leagueNotice(p.id, p.match.restCount ?? 0, Number(rt.scheduler.isOpen("league")?.ev.params.maxCount ?? 10), 1));
   if (rt.eliteStatus) p.send(eliteStatusPkt(rt.eliteStatus));
+  // m3-consortia-battle: a player who logs in while the window is already open still needs 153/1 to light
+  // up the hall entry button (same reasoning as league/elite above — the broadcast at onStart only reaches
+  // whoever was already online).
+  const consBatWindow = rt.scheduler.isOpen("consortia_battle");
+  if (consBatWindow) p.send(Out.consBatOpenClose(true, consBatWindow.start, consBatWindow.end, true));
 }
