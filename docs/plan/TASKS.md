@@ -17,9 +17,9 @@
 - [x] **m1-lang-ptbr** — `language.txt` PT-BR pro pack 6600 (`tools/i18n/lang-6600.mjs`): reaproveita as chaves
   iguais da 4.1, traduz as novas, troca a marca "Bombom". Pronto quando: 0 chaves em turco.
 - [x] **m1-socket** — cliente identificado no login (Login.ashx → LoginSessions.Client), layouts 6600 dos pacotes do burst de login/hall (LOGIN, 38, 67, 64 GRID_GOODS, 142 KING_BLESS, 216 CARDS, 178 QUEST, 259, 102, 137), API zlib por cliente. **Lobby 6600 abre** (2026-10-18). Ver `research/6600/packets-m1.md`.
-- [~] **m1-swf-text** — textos turcos fixos dentro dos SWF do 6600 ("Savaşma Gücü", "VIP aç", "Şu anki", popup "Lig Maçı"…): auditar `ui/turkey/swf/*.swf` (DefineText/EditText) e traduzir com o pipeline `research/i18n/swf-text-pt.json` + `build-client-art` (overlay em `apps/api/assets/flash6600`).
 - [ ] **m1-stage** — lobby 6600 ocupa a moldura certinho; só a tela de criar personagem sai menor (barra preta à direita/embaixo). Baixa prioridade.
-- [~] **m1-pacotes-acao** — pacotes 6600 disparados por ação (74 ITEM_EQUIP ver equipamento de outro jogador, 195 AUCTION_REFRESH, BEAD_HOLE_INFO…) — `research/6600/packets-m1.md`.
+- [x] **m1-pacotes-acao** — 74 ITEM_EQUIP, 18 SCENE_ADD_USER, 94/4 sala, 160 amigo, colisão 121; broadcasts montados por tipo de cliente de quem recebe (`research/6600/packets-m1.md` Round 3). Falta: sistema de runas/BEAD_HOLE_INFO (não portado), resto da sociedade.
+- [ ] **m1-bitmap-text** — textos turcos que são imagem no 6600 ("Savaşma Gücü", "VIP aç", aba "Etkinlik", "Harika oyun", "Her Gün Yapılmalı", "Ana görevler", popup "Bugünkü Lig Maçı…", tela de criar personagem "Karakter seçin"/"Oyuna girin"/"Ad:") — pipeline de remaster (Seedream 4.5 unlimited / render local) com manifesto do pack 6600.
 - [x] **m1-loading-brand** — tela de carregamento/logo sem "Bombom"/"DEVELOP BY ASUNA" (overlay de imagem em
   `apps/api/assets/flash6600`), logo DDTank Reborn.
 - [x] **m1-swf-text** — textos estáticos (DefineText/DefineEditText) em turco dentro dos SWFs de UI do 6600
