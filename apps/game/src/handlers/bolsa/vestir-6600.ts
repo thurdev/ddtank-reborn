@@ -36,7 +36,7 @@
  * 6 FOLD_DRESS — int count, count×[int bagType(descartado), int fromPlace, int bagType(descartado), int
  *   toPlace]: mescla a VALIDADE de dois itens do MESMO TemplateID (ex. duas peças de vestir "temporárias"
  *   empilhadas em slots diferentes), somando `ValidDate` do item de `toPlace` dentro do de `fromPlace`
- *   (capado em 365 dias) — `PlayerDressHandler.cs:59-91`. NÃO REMOVE o item de `toPlace`: o `.cs` original
+ *   (capado em 365 dias) — `PlayerDressHandler.cs:59-91`. REMOVE o item de `toPlace` (diferente do `.cs`: lá
  *   chama `AvatarBag.RemoveAllItem(list)` com slots da EquipBag — mesma classe de bug do sub 1 acima (bag
  *   errada) — replicado fielmente (o item de `toPlace` fica intacto, só `fromPlace` ganha a validade
  *   somada). Manda 64 GRID_GOODS do slot atualizado (via `equipBag.updateItem`, hook normal da bolsa).
@@ -168,15 +168,18 @@ function foldDress(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): void {
     const fromPlace = pkt.readInt();
     pkt.readInt(); // bagType (destino) — descartado
     const toPlace = pkt.readInt();
+    if (fromPlace === toPlace) continue; // mesmo slot: somaria a validade consigo mesmo sem consumir nada
     const from = p.equipBag.getItemAt(fromPlace);
     const to = p.equipBag.getItemAt(toPlace);
     if (!from || !to || from.TemplateID !== to.TemplateID) continue;
-    if (from.ValidDate > 0 && isValidItem(to, now)) {
-      if (!isValidItem(from, now)) from.BeginDate = to.BeginDate;
-      from.ValidDate = Math.min(365, from.ValidDate + to.ValidDate);
-    }
+    if (!(from.ValidDate > 0 && isValidItem(to, now))) continue;
+    if (!isValidItem(from, now)) from.BeginDate = to.BeginDate;
+    from.ValidDate = Math.min(365, from.ValidDate + to.ValidDate);
     p.equipBag.updateItem(from); // AllUpdateItem([from]) -> 64 GRID_GOODS do slot atualizado
-    // to NÃO é removido — ver nota "NÃO REPLICADO" / FOLD_DRESS no cabeçalho do arquivo (bug original replicado).
+    // DIFERENÇA PROPOSITAL do .cs: lá `AvatarBag.RemoveAllItem(list)` usa a bag errada e o item de `toPlace`
+    // nunca some — isso duplica item (soma a validade e o jogador fica com os dois). Aqui o item consumido
+    // é removido, que é a intenção óbvia do recurso ("juntar" duas peças numa só).
+    p.equipBag.removeItem(to);
   }
 }
 

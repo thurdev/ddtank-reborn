@@ -166,7 +166,7 @@ describe("237/7 LOCK_DRESSBAG (6600)", () => {
 
 // ----------------------------------------------------------------------------------------- sub 6 FOLD_DRESS
 describe("237/6 FOLD_DRESS — mesclar validade de itens duplicados (6600)", () => {
-  it("soma ValidDate no item de origem, destino fica intacto (bug original replicado, ver vestir-6600.ts)", async () => {
+  it("soma ValidDate no item de origem e remove o de destino (sem duplicar item, ver vestir-6600.ts)", async () => {
     const tplStore = server.ctx.templates;
     const dupId = 960010;
     tplStore.items.set(dupId, tpl({ TemplateID: dupId, CategoryID: 1 }));
@@ -194,9 +194,8 @@ describe("237/6 FOLD_DRESS — mesclar validade de itens duplicados (6600)", () 
     expect(n).toBe(1);
     expect(r.pkt.readInt()).toBe(40);
     expect(from.ValidDate).toBe(15); // 10 + 5, somado em memória antes do pacote sair
-    expect(p().equipBag.getItemAt(41)).toBe(to); // destino NÃO removido — bug original (AvatarBag.RemoveAllItem
-    // usava slots da EquipBag, não a própria EquipBag; replicado fielmente, ver cabeçalho de vestir-6600.ts).
-    expect(to.ValidDate).toBe(5); // intacto
+    // destino consumido: o .cs original não removia (bag errada em AvatarBag.RemoveAllItem) e duplicava o item
+    expect(p().equipBag.getItemAt(41)).toBeFalsy();
     c.close();
   });
 
