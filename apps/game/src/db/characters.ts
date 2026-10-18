@@ -4,7 +4,7 @@
  *  SP_GetSingleUserMatchInfo, SP_Users_Update, SP_UserTexp_Update, SP_UpdateUserMatch, SP_Users_SingleByNickName,
  *  ManageBussiness.ForbidPlayerByUserID.
  */
-import { and, eq, sql } from "drizzle-orm";
+import { and, eq, isNull, or, sql } from "drizzle-orm";
 import { player, type Database } from "@ddt/db";
 import { defaultMatch, defaultTexp, SAVED_DETAIL_COLUMNS, type DetailRow, type MatchRow, type PlayerInfo, type TexpInfo } from "../game/player-info.js";
 
@@ -202,9 +202,17 @@ export async function addCharmGP(db: Database, userId: number, delta: number): P
   await db.update(D).set({ charmGP: sql`${D.charmGP} + ${delta}` }).where(eq(D.UserID, userId));
 }
 
-/** Only the online flag (PlayerInfo.State) — used on login/logout without a full save. */
-export async function setOnlineState(db: Database, userId: number, state: number): Promise<void> {
-  await db.update(D).set({ State: state }).where(eq(D.UserID, userId));
+/**
+ * Only the online flag (PlayerInfo.State) — used on login/logout without a full save.
+ * `serverId` (ch-processo): which `apps/game` SERVER_ID set this player online, stamped into
+ * `OnlineServerID` so that this process' `resetAllOnline` at boot never touches a player who is
+ * actually online on a DIFFERENT channel/process sharing the same Postgres. Pass it on login
+ * (state=1); on logout (state=0) it's left as-is — `resetAllOnline` only matches `State = 1` rows.
+ */
+export async function setOnlineState(db: Database, userId: number, state: number, serverId?: number): Promise<void> {
+  const set: Partial<typeof D.$inferInsert> = { State: state };
+  if (state === 1 && serverId != null) set.OnlineServerID = serverId;
+  await db.update(D).set(set).where(eq(D.UserID, userId));
 }
 
 /** ManageBussiness.ForbidPlayerByUserID(id, forbidDate, isExist, reason). */
@@ -212,9 +220,25 @@ export async function forbidPlayer(db: Database, userId: number, until: Date, is
   await db.update(D).set({ ForbidDate: until, IsExist: isExist, ForbidReason: reason }).where(eq(D.UserID, userId));
 }
 
-/** Online count for the server heartbeat. */
-export async function resetAllOnline(db: Database): Promise<void> {
-  await db.update(D).set({ State: 0 }).where(eq(D.State, 1));
+/**
+ * Project_Player34's original SERVER_ID (`apps/game/src/config.ts` default, `player."Server_List"` seed row
+ * "Reborn") — the one and only channel that existed before `ch-processo`. Used only to decide who inherits
+ * pre-migration `OnlineServerID IS NULL` rows below.
+ */
+const LEGACY_DEFAULT_SERVER_ID = 4;
+
+/**
+ * Boot-time crash recovery: clears stale `State = 1` rows left by an unclean shutdown of THIS process.
+ * ch-processo: scoped to `OnlineServerID = serverId` — without the filter this would also zero out players
+ * genuinely online right now on a DIFFERENT `apps/game` process/channel sharing the same Postgres (e.g.
+ * restarting channel 2 would have kicked everyone's "online" flag on channel 1 too). Rows stamped before this
+ * task existed (`OnlineServerID` NULL, migration `0015_blue_frog_thor.sql`) are treated as belonging to the
+ * legacy default channel (`LEGACY_DEFAULT_SERVER_ID`, the only channel before `ch-processo`) so a single-channel
+ * deployment upgrading straight into this migration keeps clearing its own stale state exactly like before.
+ */
+export async function resetAllOnline(db: Database, serverId: number): Promise<void> {
+  const ownsRow = serverId === LEGACY_DEFAULT_SERVER_ID ? or(eq(D.OnlineServerID, serverId), isNull(D.OnlineServerID)) : eq(D.OnlineServerID, serverId);
+  await db.update(D).set({ State: 0 }).where(and(eq(D.State, 1), ownsRow));
 }
 
 /**

@@ -7,13 +7,16 @@
 // diferente); linha sem IP/Port (o canal "Reborn" seed, histórico) cai no fallback GAME_HOST/GAME_PORT de sempre —
 // dev local sem configurar nada continua idêntico a antes desta tarefa. "Enabled = false" tira o canal da lista
 // (`"State" <> -1` continua filtrando também, pela convenção antiga, por segurança/retrocompat).
-// Online: só o canal local (ID = cfg.SERVER_ID, servido por ESTE apps/api/apps/game) pega a contagem em tempo real
-// via GAME_INTERNAL_URL (/status do apps/game, mesma fonte de GET /api/public/status); os demais canais (rodando
-// noutro processo, ch-processo ainda não implementado) mostram o "Online" gravado na própria linha.
+// Online: canal local (ID = cfg.SERVER_ID, servido por ESTE apps/api/apps/game) pega a contagem em tempo real via
+// GAME_INTERNAL_URL (/status do apps/game, mesma fonte de GET /api/public/status). ch-processo: os demais canais
+// (rodando noutro processo apps/game) pegam a contagem em tempo real via "InternalUrl" da própria linha (/status
+// desse OUTRO apps/game, cacheado alguns segundos — fetchRemoteStatus) quando preenchida; sem "InternalUrl"
+// (canal ainda não tem processo próprio, ou está fora do ar) cai no "Online" gravado na própria linha (o que esse
+// outro apps/game grava a cada heartbeat, db/templates.ts).
 import { sql } from "drizzle-orm";
 import { q } from "../../lib/db.js";
 import { el, result, type XEl } from "../../lib/flash-xml.js";
-import { gameInternal } from "../../routes/public.js";
+import { fetchRemoteStatus, gameInternal } from "../../routes/public.js";
 import { define, xml } from "../types.js";
 
 export default define(
@@ -31,7 +34,11 @@ export default define(
       const local = await gameInternal<{ online?: number; players?: number }>(app, "/status");
       for (const s of rows) {
         const isLocal = Number(s.ID) === app.cfg.SERVER_ID;
-        const online = isLocal && local ? Number(local.players ?? local.online ?? s.Online ?? 0) : Number(s.Online ?? 0);
+        const internalUrl = (s.InternalUrl as string | null) || "";
+        const remote = !isLocal && internalUrl ? await fetchRemoteStatus(app, internalUrl) : null;
+        const online = isLocal
+          ? Number(local?.players ?? local?.online ?? s.Online ?? 0)
+          : Number(remote?.players ?? remote?.online ?? s.Online ?? 0);
         total += online;
         const rowIp = (s.IP as string | null) || "";
         const rowPort = Number(s.Port ?? 0);

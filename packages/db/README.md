@@ -105,6 +105,18 @@ comportando exatamente igual (`Enabled = true`, `SortOrder = 0`, `InternalUrl = 
 `ALTER TABLE`). Rollback: `ALTER TABLE "player"."Server_List" DROP COLUMN "Enabled", DROP COLUMN "SortOrder", DROP
 COLUMN "InternalUrl", DROP COLUMN "PvpOnly";` — sem migração de dado nos dois sentidos.
 
+**Migração `0015_blue_frog_thor.sql`** (task `ch-processo`, 1 processo `apps/game` por canal): 2 colunas novas,
+100% additive. `player."Server_List"."WsUrl"` (varchar 255, nullable, sem equivalente em nenhum vendor) — URL
+WebSocket do canal (`apps/game` `GAME_WS_URL`/`WS_PUBLIC_URL` do processo que o serve); `NULL` = este canal é
+servido por ESTE próprio par apps/api+apps/game (igual convenção de `IP`/`Port`/`InternalUrl`), cai no
+`GAME_WS_URL` do `.env` de quem está respondendo. Usada por `apps/api/src/routes/auth.ts` `playConfig` pra montar
+uma entrada de `socketProxy` por canal (Ruffle). `player."Sys_Users_Detail"."OnlineServerID"` (integer, nullable)
+— qual `SERVER_ID` marcou este personagem como online (`setOnlineState`, `apps/game/src/db/characters.ts`); sem
+isso, `resetAllOnline` (chamado no boot de cada processo `apps/game`) zerava o `State` de TODO jogador com
+`State = 1` no Postgres inteiro, incluindo jogadores online em OUTRO canal/processo — agora o `UPDATE` filtra por
+`OnlineServerID = <SERVER_ID deste processo>`. Rollback: `ALTER TABLE "player"."Server_List" DROP COLUMN "WsUrl";
+ALTER TABLE "player"."Sys_Users_Detail" DROP COLUMN "OnlineServerID";` — sem migração de dado nos dois sentidos.
+
 ## Dev mode (PGlite, no Postgres install)
 
 `DATABASE_URL` unset (or `pglite:<dir>`) -> [PGlite](https://pglite.dev) (Postgres 17 in WASM), persisted in
@@ -192,8 +204,9 @@ Other translation notes:
 - `game.Quest` gains 5 column(s) from DDT-6600 (m1-schema, see research/6600/db-diff.md): Level2NeedMoney, Level3NeedMoney, Level4NeedMoney, Level5NeedMoney, OneKeyFinishNeedMoney — nullable or with an explicit DEFAULT, no behaviour change for existing rows/4.1 code paths.
 - `game.Quest_Goods` gains 5 column(s) from DDT-6600 (m1-schema, see research/6600/db-diff.md): RewardItemCount1, RewardItemCount2, RewardItemCount3, RewardItemCount4, RewardItemCount5 — nullable or with an explicit DEFAULT, no behaviour change for existing rows/4.1 code paths.
 - `player.Consortia.KickDate` default `(((2009)-(1))-(1))` is integer arithmetic (= 2007 days after 1900-01-01 in SQL Server), translated literally to `1905-07-01 00:00:00`.
-- `player.Server_List` gains 4 column(s) with no vendor equivalent (new-stack addition, see the EXTRA_COLUMNS comment for the task): Enabled, SortOrder, InternalUrl, PvpOnly — nullable or with an explicit DEFAULT, no behaviour change for existing rows.
+- `player.Server_List` gains 5 column(s) with no vendor equivalent (new-stack addition, see the EXTRA_COLUMNS comment for the task): Enabled, SortOrder, InternalUrl, PvpOnly, WsUrl — nullable or with an explicit DEFAULT, no behaviour change for existing rows.
 - `player.Sys_Users_Detail` gains 12 column(s) from DDT-6600 (m1-schema, see research/6600/db-diff.md): GiftGp, GiftLevel, IsOpenGift, CardSoul, receiebox, receieGrade, needGetBoxTime, TimeBox, LeagueMoney, isFirstDivorce, PveEpicPermission, horseRaceCanRaceTime — nullable or with an explicit DEFAULT, no behaviour change for existing rows/4.1 code paths.
+- `player.Sys_Users_Detail` also gains 1 column(s) with no vendor equivalent (new-stack addition, see the EXTRA_COLUMNS comment for the task): OnlineServerID — nullable or with an explicit DEFAULT, no behaviour change for existing rows.
 - `player.Sys_Users_Detail.LastAward` default `(((2009)-(1))-(1))` is integer arithmetic (= 2007 days after 1900-01-01 in SQL Server), translated literally to `1905-07-01 00:00:00`.
 - `player.Sys_Users_Detail.LastAuncherAward` default `(((2009)-(1))-(1))` is integer arithmetic (= 2007 days after 1900-01-01 in SQL Server), translated literally to `1905-07-01 00:00:00`.
 - `player.Sys_Users_Detail.LastGetEgg` default `(((2009)-(1))-(1))` is integer arithmetic (= 2007 days after 1900-01-01 in SQL Server), translated literally to `1905-07-01 00:00:00`.

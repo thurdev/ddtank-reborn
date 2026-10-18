@@ -8,6 +8,45 @@ import type { AppCtx } from "../context.js";
 import { q } from "../lib/db.js";
 import { signJwt, verifyJwt, type Claims } from "../lib/jwt.js";
 
+/**
+ * ch-processo: one Ruffle `socketProxy` entry per ENABLED channel (`player."Server_List"`, same filter as
+ * `ServerList.ashx`), so the browser client can open a socket to WHICHEVER channel's host:port the player picks
+ * in the in-game channel selector, not just the one this `apps/api` happens to pair with locally. Each entry's
+ * `host`/`port` is the REAL TCP endpoint the Flash client ultimately connects to (`ServerListAnalyzer.as`: the
+ * 4.1 client re-adds the 69 `ServerList.ashx` subtracted; the 6600 client never subtracts it) — i.e. the row's
+ * own `Port` when set, else this process' `GAME_PORT` fallback (same convention as `IP`/`Port` in
+ * `ServerList.ts`). `proxyUrl` is the target channel's own `apps/game` WebSocket endpoint: `WsUrl` on the row
+ * (migration `0015_blue_frog_thor.sql`) when an admin filled it in for a channel served by ANOTHER
+ * apps/api+apps/game pair (`ch-processo`), else this process' own `GAME_WS_URL` — identical to the single-row
+ * fallback this function replaces, so the current/local channel's mapping is byte-for-byte the same as before.
+ */
+async function channelSocketProxies(ctx: AppCtx): Promise<{ host: string; port: number; proxyUrl: string }[]> {
+  const c = ctx.cfg;
+  const proxies: { host: string; port: number; proxyUrl: string }[] = [];
+  try {
+    const rows = await q<{ IP: string | null; Port: number | null; WsUrl: string | null }>(
+      ctx.h,
+      sql`SELECT "IP", "Port", "WsUrl" FROM player."Server_List" WHERE "Enabled" = true AND "State" <> -1`,
+    );
+    for (const r of rows) {
+      const rowPort = Number(r.Port ?? 0);
+      const host = r.IP || c.GAME_HOST;
+      const port = rowPort > 0 ? rowPort : c.GAME_PORT;
+      const proxyUrl = r.WsUrl || c.GAME_WS_URL;
+      proxies.push({ host, port, proxyUrl });
+      if (host === "127.0.0.1") proxies.push({ host: "localhost", port, proxyUrl });
+    }
+  } catch (e) {
+    ctx.log.warn(`channelSocketProxies: ${(e as Error).message}`);
+  }
+  // player."Server_List" unreachable/empty (fresh DB not migrated/seeded yet): today's single-row fallback.
+  if (!proxies.length) {
+    proxies.push({ host: c.GAME_HOST, port: c.GAME_PORT, proxyUrl: c.GAME_WS_URL });
+    if (c.GAME_HOST === "127.0.0.1") proxies.push({ host: "localhost", port: c.GAME_PORT, proxyUrl: c.GAME_WS_URL });
+  }
+  return proxies;
+}
+
 export async function roleOf(ctx: AppCtx, acc: { ID: number; IsAdmin: boolean }): Promise<string> {
   const [r] = await ctx.h.db.select().from(appTables.AccountRoles).where(eq(appTables.AccountRoles.AccountID, acc.ID)).limit(1);
   if (r && r.active) return r.role;
@@ -54,8 +93,7 @@ export async function playConfig(ctx: AppCtx, acc: { ID: number; UserName: strin
     flashvars = { user: acc.UserName.toLowerCase(), key: t.key, config: `${base}/${fl}/config.xml` };
     expiresAt = t.expiresAt.toISOString();
   }
-  const proxy = [{ host: c.GAME_HOST, port: c.GAME_PORT, proxyUrl: c.GAME_WS_URL }];
-  if (c.GAME_HOST === "127.0.0.1") proxy.push({ host: "localhost", port: c.GAME_PORT, proxyUrl: c.GAME_WS_URL });
+  const proxy = await channelSocketProxies(ctx);
   return {
     rufflePath: c.RUFFLE_URL || `${base}/ruffle/ruffle.js`,
     swfUrl: `${base}/${fl}/Loading.swf`,

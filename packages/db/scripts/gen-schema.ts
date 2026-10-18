@@ -124,6 +124,11 @@ const EXTRA_COLUMNS: Record<string, CatColumn[]> = {
       computed: null,
     },
     { name: "horseRaceCanRaceTime", type: "int", nullable: false, identity: false, default: "((1))", computed: null },
+    // ch-processo (vários canais, processo por canal): qual SERVER_ID marcou este jogador online (setOnlineState).
+    // Sem equivalente em nenhum vendor (lá cada canal tinha o próprio banco inteiro) — nullable, NULL = nunca
+    // logou neste stack ou offline. Único jeito de `resetAllOnline` (boot do apps/game) não zerar o "State" de
+    // jogadores online NUM OUTRO canal/processo que compartilha este mesmo Postgres (db/characters.ts).
+    { name: "OnlineServerID", type: "int", nullable: true, identity: false, default: null, computed: null },
   ],
   "player.Sys_Users_Extra": [
     { name: "KingBlessInfo", type: "varchar(250)", nullable: true, identity: false, default: null, computed: null },
@@ -163,11 +168,22 @@ const EXTRA_COLUMNS: Record<string, CatColumn[]> = {
     { name: "SortOrder", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
     { name: "InternalUrl", type: "nvarchar(255)", nullable: true, identity: false, default: null, computed: null },
     { name: "PvpOnly", type: "bit", nullable: false, identity: false, default: "((0))", computed: null },
+    // ch-processo: URL WebSocket deste canal (apps/game GAME_WS_URL do processo que o serve), pro apps/api
+    // (auth.ts playConfig) montar o socketProxy do Ruffle com uma entrada por canal. NULL = este canal é
+    // servido por ESTE próprio par apps/api+apps/game (igual IP/Port/InternalUrl acima) -> cai no GAME_WS_URL
+    // do .env de quem está respondendo.
+    { name: "WsUrl", type: "nvarchar(255)", nullable: true, identity: false, default: null, computed: null },
   ],
 };
 
 /** EXTRA_COLUMNS keys that are reason (2) above (pure new-stack, no vendor source) — changes the auto README note. */
 const NEW_STACK_EXTRA_COLUMNS = new Set(["player.Server_List"]);
+/**
+ * Individual EXTRA_COLUMNS columns (as "schema.table.Column") that are new-stack additions on a table that ALSO
+ * has DDT-6600-derived extra columns (so the table key above isn't all-or-nothing) — ch-processo's
+ * `Sys_Users_Detail.OnlineServerID` on top of m1-schema's Gift/receiebox/etc. columns.
+ */
+const NEW_STACK_EXTRA_COLUMN_NAMES = new Set(["player.Sys_Users_Detail.OnlineServerID"]);
 
 // ---------------------------------------------------------------------------------------------------------------
 
@@ -420,11 +436,24 @@ for (const { db, schema } of DATABASES) {
     const cols = extraCols ? [...t.columns, ...extraCols] : t.columns;
     if (extraCols) {
       const key = `${schema}.${t.name}`;
-      notes.push(
-        NEW_STACK_EXTRA_COLUMNS.has(key)
-          ? `\`${key}\` gains ${extraCols.length} column(s) with no vendor equivalent (new-stack addition, see the EXTRA_COLUMNS comment for the task): ${extraCols.map((c) => c.name).join(", ")} — nullable or with an explicit DEFAULT, no behaviour change for existing rows.`
-          : `\`${key}\` gains ${extraCols.length} column(s) from DDT-6600 (m1-schema, see research/6600/db-diff.md): ${extraCols.map((c) => c.name).join(", ")} — nullable or with an explicit DEFAULT, no behaviour change for existing rows/4.1 code paths.`,
-      );
+      if (NEW_STACK_EXTRA_COLUMNS.has(key)) {
+        notes.push(
+          `\`${key}\` gains ${extraCols.length} column(s) with no vendor equivalent (new-stack addition, see the EXTRA_COLUMNS comment for the task): ${extraCols.map((c) => c.name).join(", ")} — nullable or with an explicit DEFAULT, no behaviour change for existing rows.`,
+        );
+      } else {
+        const newStack = extraCols.filter((c) => NEW_STACK_EXTRA_COLUMN_NAMES.has(`${key}.${c.name}`));
+        const vendor = extraCols.filter((c) => !NEW_STACK_EXTRA_COLUMN_NAMES.has(`${key}.${c.name}`));
+        if (vendor.length) {
+          notes.push(
+            `\`${key}\` gains ${vendor.length} column(s) from DDT-6600 (m1-schema, see research/6600/db-diff.md): ${vendor.map((c) => c.name).join(", ")} — nullable or with an explicit DEFAULT, no behaviour change for existing rows/4.1 code paths.`,
+          );
+        }
+        if (newStack.length) {
+          notes.push(
+            `\`${key}\` also gains ${newStack.length} column(s) with no vendor equivalent (new-stack addition, see the EXTRA_COLUMNS comment for the task): ${newStack.map((c) => c.name).join(", ")} — nullable or with an explicit DEFAULT, no behaviour change for existing rows.`,
+          );
+        }
+      }
     }
     if (!pk.length) {
       const k = pickSyntheticKey(schema, t);

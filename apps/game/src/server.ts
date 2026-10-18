@@ -230,7 +230,7 @@ export class GameServer {
       now: () => new Date(),
     };
     this.handlers = createRegistry();
-    await resetAllOnline(db.db).catch(() => {});
+    await resetAllOnline(db.db, cfg.SERVER_ID).catch(() => {});
     rooms.start();
     // events / activities: template caches + EventScheduler (app."ScheduledEvents"; world boss, league, elite, weekly reset, x2 windows)
     const events = eventsRuntime(this.ctx);

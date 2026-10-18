@@ -123,7 +123,7 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   p.clientKind = clientKind;
   if (!ctx.world.add(p)) return null; // WorldMgr.AddPlayer
   client.player = p; // before the burst: the client may answer while we are still sending
-  await setOnlineState(db, userId, 1);
+  await setOnlineState(db, userId, 1, ctx.cfg.SERVER_ID);
   p.friends = friends;
   p.quests = progress.quests.filter((q) => ctx.templates.quests.has(q.QuestID));
   p.gradeForGp = (gp) => ctx.templates.gradeForGp(gp);
