@@ -1060,5 +1060,131 @@
   "sourceFile": "16_assets.hallIconl.sanxiaoBtn.png",
   "fit": "cover",
   "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__24_assets.hallIcon.mysteriousRouletteIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "24_assets.hallIcon.mysteriousRouletteIcon.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__25_assets.hallIcon.syahIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "25_assets.hallIcon.syahIcon.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__27_assets.hallIcon.petIsland.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "27_assets.hallIcon.petIsland.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__2_assets.hallIcon.catchInsect.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "2_assets.hallIcon.catchInsect.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__31_assets.hallIcon.magpiebridge.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "31_assets.hallIcon.magpiebridge.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__34_assets.hallIcon.newYearRiceIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "34_assets.hallIcon.newYearRiceIcon.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__39_assets.hallIcon.oldPlayerRegressIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "39_assets.hallIcon.oldPlayerRegressIcon.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__19_asset.hall.consortia.task.btn.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "19_asset.hall.consortia.task.btn.png",
+  "fit": "cover",
+  "review": "local"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__21_assets.hallIcon.luckStoneIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "21_assets.hallIcon.luckStoneIcon.png",
+  "fit": "cover",
+  "review": "local"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__23_assets.hallIcon.survivalIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "23_assets.hallIcon.survivalIcon.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__26_assets.hallIcon.horseRace.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "26_assets.hallIcon.horseRace.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__41_assets.hallIcon.fightFootballTimeIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "41_assets.hallIcon.fightFootballTimeIcon.png",
+  "fit": "cover",
+  "review": "local"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__44_assets.hallIcon.groupPurchaseIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "44_assets.hallIcon.groupPurchaseIcon.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__48_assets.hallIcon.guildmemberweekIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "48_assets.hallIcon.guildmemberweekIcon.png",
+  "fit": "cover",
+  "review": "v45"
  }
 ]

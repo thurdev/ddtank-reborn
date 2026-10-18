@@ -11,8 +11,12 @@
 import sharp from "sharp";
 import { readFileSync } from "node:fs";
 
-const CAP = JSON.parse(readFileSync("tools/remaster/icon-captions.json", "utf8"));
-const ids = process.argv.slice(2).length ? process.argv.slice(2) : Object.keys(CAP);
+// modo avulso (pack 6600 e afins): --in <png> --out <png> --text "Legenda" [--free]
+const argv = process.argv.slice(2);
+const opt = (n) => { const i = argv.indexOf(n); return i < 0 ? undefined : argv[i + 1]; };
+const single = opt("--in") ? { inp: opt("--in"), out: opt("--out"), spec: { t: opt("--text")?.replace(/\\n/g, "\n"), free: argv.includes("--free") } } : null;
+const CAP = single ? { single: single.spec } : JSON.parse(readFileSync("tools/remaster/icon-captions.json", "utf8"));
+const ids = single ? ["single"] : argv.length ? argv : Object.keys(CAP);
 const DIR = "remaster/04-botoes-titulos";
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
@@ -36,7 +40,7 @@ for (const id of ids) {
   const spec = typeof CAP[id] === "string" ? { t: CAP[id] } : CAP[id];
   if (!spec?.t) { console.log("sem legenda:", id); continue; }
   const pt = spec.t, nLines = pt.split(/\n/).length;
-  const inp = `${DIR}/inputs/${id}.png`;
+  const inp = single ? single.inp : `${DIR}/inputs/${id}.png`;
   const { data: src, info } = await sharp(inp).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   const W = info.width, H = info.height;
   let last = -1;
@@ -63,6 +67,6 @@ for (const id of ids) {
   const left = Math.round(t.box.a + t.box.w / 2 - W / 2), top = t.box.c - (y0 + Math.max(0, Math.floor((bandH - t.box.h) / 2)));
   const crop = await sharp(t.r.data, { raw: { width: t.WW, height: t.HH, channels: 4 } })
     .extract({ left: Math.max(0, left), top: Math.max(0, top), width: W, height: H }).png().toBuffer();
-  await sharp(out, { raw: { width: W, height: H, channels: 4 } }).composite([{ input: crop, left: 0, top: 0 }]).png().toFile(`${DIR}/outputs/${id}.png`);
+  await sharp(out, { raw: { width: W, height: H, channels: 4 } }).composite([{ input: crop, left: 0, top: 0 }]).png().toFile(single ? single.out : `${DIR}/outputs/${id}.png`);
   console.log(id, `${W}x${H}`, "faixa", y0, "fonte", size, "aperto", sx.toFixed(2));
 }
