@@ -23,27 +23,46 @@ import type { HandlerRegistry } from "../registry.js";
 import type { ServerContext } from "../../session/context.js";
 import { bagLocked } from "../bolsa/senha-da-bolsa.js";
 import { mailItems } from "../bolsa/correio-excedente.js";
+import { toShopItemFromCheap, type ShopItemInfo } from "../../db/templates.js";
 import { type PriceTotals, canBuyShop, setItemType } from "./preco.js";
 
 /** UserBuyItemHandler.cs:22 (44 BUY_GOODS): carrinho multi-linha em 1 pacote.
- * Pacote: int count (1..99); por linha [goodsId, type A/B/C, color, dress, skin, place].
+ * Pacote 4.1: int count (1..99); por linha [goodsId, type A/B/C, color, dress, skin, place].
+ * Pacote 6600 (`GameSocketOut.as:203 sendBuyGoods`, confirmado contra `UserBuyItemHandler.cs` 6600): por
+ * linha o 6600 acrescenta +2 campos — [goodsType, goodsId, type, color, dress, skin, place, isBand] —
+ * `goodsType` ANTES do goodsId (1 = loja normal, 2 = loja barata/desconto via `ShopMgr.GetShopItemDisCountById`
+ * → `Shop_Cheap_Items`/`tpl.shopCheap`, ver `db/templates.ts` `toShopItemFromCheap`) e um bool `isBand` no
+ * fim de cada linha que o C# 6600 lê e DESCARTA (`packet.ReadBoolean();` sem atribuição, linha 38) — quem
+ * decide o vínculo é o servidor (`canBuyShop`/our hardcoded `IsBinds = true`), não o cliente; por isso só
+ * precisamos consumir o byte pra não desalinhar o resto do pacote, sem usar o valor.
  */
 export async function buyGoods(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): Promise<void> {
   const tpl = ctx.templates;
+  const is6600 = p.clientKind === "6600";
   const totals: PriceTotals = { gold: 0, money: 0, offer: 0, gifttoken: 0, petScore: 0, score: 0, dmgScore: 0 };
   const need = new Map<number, number>();
   const buy: { item: ItemInfo; dress: boolean; place: number }[] = [];
   const count = pkt.readInt();
   if (count <= 0 || count > 99) return p.sendMessage(0, "Erro do sistema. O problema foi enviado ao administrador.");
   for (let i = 0; i < count; i++) {
+    const goodsType = is6600 ? pkt.readInt() : 1;
     const goodsId = pkt.readInt();
     const type = pkt.readInt();
     const color = pkt.readString();
     const dress = pkt.readBoolean();
     const skin = pkt.readString();
     const place = pkt.readInt();
-    const shop = tpl.shop.get(goodsId);
-    if (!shop || !tpl.isOnShop(shop.ID)) continue;
+    if (is6600) pkt.readBoolean(); // isBand: descartado (ver comentário acima)
+    let shop: ShopItemInfo | undefined;
+    if (goodsType === 2) {
+      // ShopMgr.GetShopItemDisCountById: só a loja barata 6600; IsOnShop ali vira EndDate > now (sem `showList`).
+      const cheap = tpl.shopCheap.get(goodsId);
+      if (cheap && cheap.EndDate.getTime() > ctx.now().getTime()) shop = toShopItemFromCheap(cheap);
+    } else {
+      const s = tpl.shop.get(goodsId);
+      shop = s && tpl.isOnShop(s.ID) ? s : undefined;
+    }
+    if (!shop) continue;
     let guildOk = false;
     if (shop.ShopID >= 11 && shop.ShopID <= 15 && p.info.ConsortiaID) {
       const th = await getEquipControl(ctx.db.db, p.info.ConsortiaID, shop.ShopID - 10, 1);

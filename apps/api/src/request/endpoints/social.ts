@@ -143,10 +143,27 @@ export const ConsortiaNameCheck = define("/ConsortiaNameCheck.ashx", async ({ ap
 /** AdvanceQuestionRead.ashx: the original only parses useid and answers Success. Plain (client REQUEST_LOADER, spec §3.3). */
 export const AdvanceQuestionRead = define("/AdvanceQuestionRead.ashx", async () => xml(result(true, "Success!")));
 
-/** shopcheapitemlist.ashx: Shop rows with IsCheap && EndDate > now && Label == 4 (FlashUtils.CreateShopCheapItems). */
-export const shopcheapitemlist = define("/shopcheapitemlist.ashx", async ({ app }) => {
+/**
+ * shopcheapitemlist.ashx: AMBOS os clientes chamam a mesma URL (`ddt/manager/ShopManager.as` `loadDisCounts`,
+ * 4.1 e 6600 idênticos, `ShopItemDisCountAnalyzer` lê @ID/@TemplateID/@LableType/@LimitGrade/@AUnit/@APrice/
+ * @AValue/@BUnit/@BPrice/@BValue/@CUnit/@CPrice/@CValue), mas a FONTE dos dados muda de versão pra versão:
+ * - 4.1: Shop rows com IsCheap && EndDate > now && Label == 4 (FlashUtils.CreateShopCheapItems) — como já
+ *   estava implementado aqui.
+ * - 6600: tabela NOVA e dedicada `game."Shop_Cheap_Items"` (46 linhas, `m1-schema`; `ShopMgr.
+ *   GetAllShopCheapItems`/`ShopCheapItemsInfo`, `Bussiness/Managers/ShopMgr.cs:55-84`) — essa tabela já
+ *   existia no schema desde m1-schema mas nunca tinha sido lida por nada até agora (mesmos nomes de coluna
+ *   do atributo XML, sem precisar de rename). Não achamos o `.cs` decompilado do handler 6600 desta .ashx
+ *   específica no vendor (só os `.ashx` de markup, sem code-behind pra maioria dos 263 endpoints do 6600) —
+ *   a inferência vem de bater 1:1 os nomes de coluna/atributo entre `ShopCheapItemsInfo.cs` e o analyzer.
+ */
+export const shopcheapitemlist = define("/shopcheapitemlist.ashx", async ({ app, client }) => {
   try {
     const now = wallNow();
+    if (client === "6600") {
+      const rows = (await all(app.h, "game", "Shop_Cheap_Items", `"ID"`)).filter((s) => (s.EndDate as Date) > now);
+      const spec6600 = "ID TemplateID LableType LimitGrade AUnit APrice AValue BUnit BPrice BValue CUnit CPrice CValue StartDate EndDate BuyType";
+      return xml(result(true, "Success!", rows.map((r) => item("Item", spec6600, r))));
+    }
     const rows = (await all(app.h, "game", "Shop", `"Sort" DESC, "ID"`)).filter((s) => s.IsCheap && (s.EndDate as Date) > now && Number(s.Label) === 4);
     const spec = "ID TemplateID AUnit APrice=APrice1 AValue=AValue1 BUnit BPrice=BPrice1 BValue=BValue1 CUnit CPrice=CPrice1 CValue=CValue1 StartDate EndDate BuyType";
     return xml(result(true, "Success!", rows.map((r) => item("Item", spec, r))));
