@@ -858,7 +858,7 @@ export class BaseGame implements BombHost {
   makeDamage(bomb: SimpleBomb, owner: Living, target: Living): number {
     return shellDamage(
       { baseDamage: owner.baseDamage, attack: owner.attack, grade: owner.grade, lucky: owner.lucky, currentDamagePlus: owner.currentDamagePlus, currentShootMinus: owner.currentShootMinus, ignoreArmor: owner.ignoreArmor || target.config.CancelGuard },
-      { baseGuard: target.baseGuard, defence: target.defence, armorBonus: target instanceof Player ? target.armorBonus() : 0 },
+      { baseGuard: target.baseGuard, defence: target.defence, armorBonus: target instanceof Player ? target.armorBonus() : 0, magicAttack: target.magicAttack, magicDefence: target.magicDefence },
       target.damageDistance({ x: bomb.x, y: bomb.y }),
       bomb.radius,
     );

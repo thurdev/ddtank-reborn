@@ -491,3 +491,135 @@ testes. `pnpm -w typecheck`: 11/12 projetos (todos exceto um sem script), limpo.
 - Sistema de "sala dupla" (`isDouble` do `94/0 GAME_ROOM_CREATE`) e o campo morto `tempID` (`94/2
   GAME_ROOM_SETUP_CHANGE`) são lidos e descartados, sem funcionalidade nova — nenhum dos dois é usado pelo
   C# 6600 original tampouco.
+
+---
+
+## M2 batalha (`feature/m2-batalha`) — stream de combate (`eFightPackageType`/91 GAME_CMD) completo
+
+Tarefa `m2-batalha` (`docs/plan/TASKS.md`, `docs/plan/MIGRACAO-6600.md` §5 M2). Escopo: todo pacote 91 GAME_CMD
+trocado DURANTE uma partida (depois de `91/103 GAME_LOAD`, que `m2-salas` já fechou) — turno, tiro, dano,
+GAME_OVER, START_GAME, pacotes de missão PvE — nos dois sentidos, nos dois clientKinds, com broadcast por
+destinatário quando a partida mistura 4.1/6600. Método: comparar `apps/game/src/fight/ddt.ts`
+`serializeEvent()`/`parseCommand()`/`parsePveCommand()` contra os WRITERS C# citados em
+`packages/fight/src/game/events.ts` (`Game.Logic/BaseGame.cs`, `PVPGame.cs`, `PVEGame.cs`, `Living.cs`) nas
+duas árvores (`vendor/DDTank41/Game.Logic` com nomes reais; `vendor/DDT-6600/Source/Game.Logic` **decompilado
+e obfuscado** — `method_NN`/nomes aleatórios tipo `vrgYhrgvPg` — identificado por **valor do `WriteByte`**, não
+por nome de método) e contra os READERS AS3 (`game/view/GameView.as` e `game/GameManager.as`, função por
+função, ambos os clientes).
+
+Achado estrutural (bate com `MIGRACAO-6600.md` §2.1 "Fighting.Server quase idêntico"): o sub-código do byte
+inicial de cada pacote 91 (`ddt/data/socket/CrazyTankPackageType.as`) é **idêntico nas duas versões para todo
+código que já usávamos** (2,6,7,9,11,12,14,16,20,32,33,38,41,46,84,96,98,99,100,101,103,112,113,114,115,116,
+119,128,130,131,132,133,137) — o 6600 só ACRESCENTA códigos novos em slots livres (74 SINGLEBATTLE_STARTMATCH,
+76 FIGHT_STATUS, 79 ADD_ANIMATION, 86/87 ADD_NEW_PLAYER/ADD_TERRACE, 92 SINGBATTLE_FORCED_EXIT, 93/94/95
+RESCUE/boat, 136 PICK_BOX, 138 SELECT_OBJECT, 139/141/142 FIGHTFOOTBALL\*, 148/149/150 WISHOFDD/TRUSTEESHIP/
+SKILL_INFO_INIT, 160 IS_LAST_MISSION — nenhum dos quais colide com os já usados). Então **nenhum pacote de
+combate muda de código** entre as versões — só o LAYOUT (campos) de alguns.
+
+### Pacotes corrigidos (server→client, `serializeEvent` em `apps/game/src/fight/ddt.ts`)
+
+| # | Código | Nome | Diff 6600 | Fix |
+|---|---|---|---|---|
+| 1 | 91/2 | FIRE | `Living.ShootImp` (4.1 `Game.Logic/Living.cs:1761-1870`; 6600 `Game.Logic/Phy/Object/Living.cs:1169-1313`): byte-idêntico até o bloco de pet; 6600 escreve **+1 bool** (sempre `false`) no final — só não-`false`/lido mais pra frente em `eRoomType.FightFootballTime`, modo que não criamos. Sem o bool, o cliente 6600 estoura EOF em TODO tiro da partida. | `serializeEvent` case `FIRE`: `if (clientKind === "6600") p.writeBoolean(false);` no final |
+| 2 | 91/6 | TURN (SendGameNextTurn) | 4.1 `BaseGame.cs:2190-2238`; 6600 `method_55` (`BaseGame.cs:2066-2117`, obfuscado): byte-idêntico até `turnIndex`; 6600 escreve **+1 bool** (sempre `false`, mesmo padrão FightFootballTime) no final. Sem fix, o cliente 6600 estoura EOF em toda virada de turno. | `serializeEvent` case `TURN`: mesmo `if (clientKind === "6600") p.writeBoolean(false);` |
+| 3 | 91/100 | GAME_OVER | `PVPGame.GameOver` (4.1 `PVPGame.cs:329-558`; 6600 `PVPGame.cs:394-636`, obfuscado): mesma contagem de campo por jogador na 4.1 (28) só que o 6600 tem **30** — `+1 int` `tieStatus` (sempre 0 — flag de empate do ConsortiaBattle, não é uma partida normal) ANTES do player count; por jogador, `+1 int` `gpCSMUser` depois do 2º `gainGP` e `+1 int` `offerCSMUser` depois do 2º `offer` (ambos sempre 0 — bônus de "Consortium/CSM", não implementado); `+2 int` `redFinalScore`/`blueFinalScore` (sempre 0 — só não-zero em FightFootballTime) depois de `riches`. Confirmado campo a campo contra `game/actions/GameOverAction.as readInfo` (4.1 vs 6600). | `serializeEvent` case `GAME_OVER`: os 4 pontos de inserção, todos `if (clientKind === "6600")` |
+| 4 | 91/99 | START_GAME (PVPGame.StartGame) | 4.1 `PVPGame.cs:771-829`; 6600 `PVPGame.cs:132-184` (nome de método real, não obfuscado — só o corpo mudou): por jogador, 6600 insere `+1 int` `deputyWeaponCount` (munição da 2ª arma; nós não rastreamos → `0`) antes do `powerRatio` hardcoded, e `+2 int` zero depois de `Dander` antes da lista de `FightBuffs`; depois do loop de jogadores, `+2 int` zero antes do `DateTime` final. Todos os campos novos são sempre 0/não-lidos fora de `FightFootballTime`. | `serializeEvent` case `START_GAME`: 3 pontos de inserção `if (clientKind === "6600")` |
+| 5 | 91/115 | GAME_ALL_MISSION_OVER | `PVEGame.GameOverAllSession` (4.1 `PVEGame.cs:960-1001`; 6600 `PVEGame.cs:1300-1354`): por jogador, 6600 insere `+1 int` `gpCSMUser` (sempre 0) entre `gainGP`/`totalExp` e `isWin` — confirmado contra `GameManager.as __missionAllOver` (4.1:1094-1138 vs 6600:1574-1619, campo `obj.gpCSMUser`). | `serializeEvent` case `GAME_ALL_MISSION_OVER`: `if (clientKind === "6600") p.writeInt(0);` antes do `writeBoolean(isWin)` |
+
+### Pacotes verificados byte-idênticos (sem fix) — 91 GAME_CMD
+
+Comparados campo a campo contra o C# obfuscado do 6600 (achado pelo VALOR do `WriteByte`, não pelo nome do
+método — `BaseGame.cs` 6600 é um dump decompilado, `method_28`...`method_61`) e, quando havia dúvida, contra o
+reader AS3 dos dois clientes: **HEALTH(11)**, **DANDER(14)**, **DIRECTION(7)**, **MOVESTART(9)** (incl. o ramo
+`type===2` com a lista de caixas), **PROP(32)**, **CHANGE_BALL(20)**, **FROST(33)**, **HIDE(35)**,
+**NONOLE(82)**, **VANE(38)**, **ADDATTACK(46)**, **FIRE_TAG(96)** (é um re-broadcast do próprio pacote do
+cliente — `FireTagCommand.cs` idêntico nos dois, só `SendSyncLifeTime`/`method_64` trocando de nome),
+**USE_DEPUTY_WEAPON(84)**, **PLAYER_PROPERTY(41)**, **SEND_PICTURE(128)**, **SYNC_LIFETIME(131)**, **LOAD(16)**
+(`LoadCommand.cs`, re-broadcast igual), **SKIPNEXT(12)** (sem corpo nos dois), **GAME_MISSION_OVER/MISSION_OVE
+(112)** (`PVEGame.GameOver`, 4.1 `:773-877` vs 6600 `:1092-1207` — cabeçalho, 9 campos por jogador e cauda de
+recursos idênticos). `EQUIP_EFFECT_MSG` (pacote 3, não é GAME_CMD) também confirmado idêntico.
+
+Colisão de valor JÁ EXISTENTE no próprio enum do cliente (não é bug nosso, documentado aqui pra não reabrir a
+investigação): `CrazyTankPackageType.GAME_MISSION_START` e `.NONOLE` valem **82 nos dois**
+(`ddt/data/socket/CrazyTankPackageType.as`); no `switch` de `createGameEvent` (`SocketManager.as`,
+`GAME_MISSION_START` vem primeiro), então um `91/82` sempre vira `GAME_MISSION_START` pro cliente, nunca
+`NONOLE` — já documentado como alias conhecido em `packages/protocol/src/codes/client.ts:96`. Como nosso
+servidor nunca manda `NONOLE` fora do fluxo normal de "sem buraco" (`SendGameUpdateNoHoleState`, idêntico nos
+dois C#), isso não é um bloqueador novo, só um registro.
+
+### Client→server (`parseCommand`/`parsePveCommand`) — verificados idênticos
+
+Comparados os `[GameCommand(N, ...)]` (`Game.Logic/Cmd/*.cs`) dos dois lados: **FireCommand(2)**,
+**FireTagCommand(96)**, **LoadCommand(16)**, **PropUseCommand(32)**, **MoveStartCommand(9)**,
+**DirectionCommand(7)**, **TakeCardCommand(98)**, **PetKillCommand(144)** — mesma contagem e tipo de campo
+lido nos dois. Pela amostra (8 de ~15 comandos ativos, cobrindo os de corpo mais rico) e pela caracterização do
+próprio `MIGRACAO-6600.md` §2.1 ("Fighting.Server quase idêntico"), não há indício de que os comandos restantes
+(STUNT, AIRPLANE, SUICIDE, GHOST_TARGET, PICK, BOSS_TAKE_CARD, MISSION_PREPARE, PASS_DRAMA, TRY_AGAIN, DELIVER,
+MISSION_EVENT — todos de corpo simples/vazio) tenham diff; não auditados campo a campo nesta rodada.
+
+### 4 pacotes novos de `eFightPackageType` (barco-dragão/RingStation) — não aplicável
+
+`Game.Logic/Protocol/eFightPackageType.cs` (4.1: 55 valores; 6600: 59 — `PLAYER_RINGSTATION_RESULT=90`,
+`PLAYER_ADD_BOATSCORE=91`, `PLAYER_ADD_ENTERMODE_POINT=92`, `CREATE_ENTERMODE_ITEMS=93`) é o protocolo INTERNO
+entre `Fighting.Server` e `Game.Server` (RPC por `GSPacketIn` cru entre dois processos C#) — **não é o
+protocolo cliente↔servidor** (esse é `ddt/data/socket/CrazyTankPackageType.as`/91 GAME_CMD, auditado acima).
+Nosso `apps/game` colapsa Fighting.Server + Game.Server num processo só (`docs/GAME-SERVER.md`), então esse
+RPC interno não existe na nossa arquitetura — não há "porta" a fazer. As features de GAMEPLAY que motivariam
+esses 4 códigos (pontuação de barco-dragão, resultado de RingStation) são telas/sistemas 6600-only inteiros
+(`dragonboat.swf`, `ringstation.swf`) fora do escopo de uma partida PvP/PvE normal — gap já registrado em
+`docs/plan/MIGRACAO-6600.md` §4 (RingStation = "Liga dos Exploradores", M4).
+
+### Dano mágico por item (`MagicAttack`/`MagicDefence`) — decisão: motor atualizado, dado ainda não populado
+
+`Game.Logic/Phy/Object/Living.cs` (6600) tem campos `MagicAttack`/`MagicDefence` (default `10.0` no
+construtor de `Living`, mas **sobrescrito** por `Player.Reset()` com `PlayerCharacter.MagicAttack`/
+`MagicDefence` reais antes de qualquer partida — o default de `Living` nunca é usado por um `Player`). Só
+`SimpleBomb.MakeDamage` (dano de bomba/tiro, `Living.cs:1169-1313`) lê esses campos:
+`num2 = target.Defence + target.MagicDefence` (defesa efetiva do alvo) e `num3 = living_0.Attack +
+target.MagicAttack` (ataque efetivo do atirador ganha o `MagicAttack` do ALVO, não o seu próprio — bug/quirk
+do jogo original, replicado fielmente). `Living.MakeDamage` (dano corpo-a-corpo, `Living.cs:1014-1045`) **não**
+lê nenhum dos dois campos — só a bomba usa.
+
+A 4.1 nunca teve esse campo: zero ocorrências em `vendor/DDTank41/Game.Logic`, exceto uma cópia COMENTADA da
+mesma fórmula em `PetEffects/Element/Actives/AE1436.cs:158-159`
+(`double defence = p.Defence;//+ p.MagicDefence;` / `double attack = m_living.Attack;//+ m_living.MagicAttack;`)
+— confirma que a fórmula existe no código-fonte da 4.1 também, só desativada (provável herança de merge com
+uma base mais nova, nunca ligada).
+
+Como `Sys_Users_Goods.MagicAttack`/`MagicDefence` (migration 0013) tem default `0` e **nenhum item hoje** (nem
+doador 4.1 nem 6600) tem valor não-zero, somar `+0` é uma identidade matemática — não uma coincidência
+empírica — então dava pra ligar a fórmula no motor sem mudar nenhum resultado existente. Fiz isso:
+`packages/fight/src/game/formulas.ts` `DamageTarget` ganhou `magicAttack?`/`magicDefence?` (opcionais, `?? 0`),
+`shellDamage()` soma os dois só quando `!melee` (replica a divisão real bomba-vs-corpo-a-corpo do C#);
+`packages/fight/src/game/living.ts` `Living` ganhou os campos (`= 0`) e `PlayerSpec` ganhou os dois opcionais,
+lidos em `Player.reset()`; `game.ts` `makeDamage()` passa `target.magicAttack`/`magicDefence` pro `DamageTarget`.
+**Não fiz**: nenhum lugar em `apps/game` popula esses campos com dado real ainda (exigiria o equivalente de
+`GamePlayer.UpdateProperties` somando os itens equipados, que não existe pra essa stat) — ou seja, o motor
+sabe a fórmula, mas ela fica inerte (sempre `+0`) até uma tarefa futura de itemização ligar o dado real; 0 em
+todo item é garantido continuar dando o mesmo resultado de antes (prova: teste abaixo).
+
+Prova (`packages/fight/test/golden-game.test.ts`): 1) todo vetor de `golden/vectors.json` (dano real do jogo
+original, capturado antes desta mudança) recalculado com `magicAttack: 0, magicDefence: 0` explícitos bate
+exatamente com o valor gravado; 2) com valores não-zero sintéticos, o dano de bomba muda mas o de corpo-a-corpo
+(`melee: true`) não muda nada — confirma o gate `!melee`.
+
+### Como testamos (M2 batalha)
+
+`apps/game/test/client-6600-battle.test.ts` (novo): mesmo método dos Rounds anteriores — `FakeClient` real
+(PGlite + protocolo de verdade) + `DdtFightEngine` (`manualClock`), uma partida PvP 1x1 completa (jogador vs
+bot de fallback) jogada até o fim com o mesmo "solver" de mira que `fight.test.ts` já usa, decodificando
+START_GAME/TURN/FIRE/GAME_OVER campo a campo na ordem exata do writer C#/reader AS3 citados acima, com
+`offset === length` no final, nos dois `clientKind`s (`describe.each`). Mais um teste de partida MISTA (host
+4.1 + convidado 6600, parear automático via sala `Match`): confirma que CADA lado recebe o layout certo do
+MESMO evento de motor (`TURN`/`FIRE`/`GAME_OVER`), provando o novo `sendEvent()` (substituiu `send()`/
+`serialize()` compartilhado por `fight/ddt.ts`, mesmo padrão `sendToAllByKind` de `rooms/room.ts` e
+`sendGameCreate` de `m2-salas`). PvE (`112`/`115`): mesmo precedente do Round 2 pra pacotes que uma partida
+normal não exercita sempre (aqui, o fim de missão PvE de verdade exigiria semear `Pve_Info`/`Mission_Info`/
+`NPC_Info` + rodar um script de masmorra real só pra isso) — chamada direta do builder (`serializeEvent`) com
+uma fixture sintética, lida de volta campo a campo na ordem exata do reader AS3 (`__missionOver`/
+`__missionAllOver`), `offset === length`. Gap registrado: não há, nesta tarefa, um teste de PvE ponta a ponta
+via socket (criar masmorra → matar NPC → `GAME_MISSION_OVER` real); o caminho de sala→`GAME_CREATE` PvE já é
+testado em `apps/game/test/labirinto.test.ts`.
+
+`pnpm --filter @ddt/game test`: 41 arquivos / 294 testes. `pnpm --filter @ddt/fight test`: 9 arquivos / 199
+testes. `pnpm -w typecheck`: limpo. Todos verdes.
