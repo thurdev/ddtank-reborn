@@ -12,6 +12,11 @@
  * - goodsId/type: linha da Shop_Goods; type 1/2/3 = tripla de preço A/B/C (setItemType).
  * - unit: validade (BuyType 0, dias) ou quantidade (BuyType != 0) da unidade comprada.
  * - eMsg/msg: 0=ok, 1=erro (texto vai pro chat); reply 44 sempre [1,3] no fim.
+ *
+ * m3-shop-buylimited (6600 only): `Shop.LimitCount` agora é enforced aqui contra `app."ShopBuyLimited"`
+ * (contador por jogador+item+dia, ver `compra-limitada.ts`) — linha reprovada vira `continue` (mesma linha de
+ * código do item "não encontrado na loja"), sem abortar o resto do carrinho; incremento só acontece DEPOIS da
+ * cobrança confirmada (branch de sucesso), nunca em compra reprovada.
  */
 import { ItemInfo, templateBagType } from "../../game/item.js";
 import { getEquipControl } from "../../db/consortia.js";
@@ -25,6 +30,7 @@ import { bagLocked } from "../bolsa/senha-da-bolsa.js";
 import { mailItems } from "../bolsa/correio-excedente.js";
 import { toShopItemFromCheap, type ShopItemInfo } from "../../db/templates.js";
 import { type PriceTotals, canBuyShop, setItemType } from "./preco.js";
+import { incrementBuyCount, todaysBuyCounts } from "./compra-limitada.js";
 
 /** UserBuyItemHandler.cs:22 (44 BUY_GOODS): carrinho multi-linha em 1 pacote.
  * Pacote 4.1: int count (1..99); por linha [goodsId, type A/B/C, color, dress, skin, place].
@@ -42,6 +48,10 @@ export async function buyGoods(ctx: ServerContext, p: GamePlayer, pkt: GSPacket)
   const totals: PriceTotals = { gold: 0, money: 0, offer: 0, gifttoken: 0, petScore: 0, score: 0, dmgScore: 0 };
   const need = new Map<number, number>();
   const buy: { item: ItemInfo; dress: boolean; place: number }[] = [];
+  // 288 SHOP_BUYLIMITEDCOUNT (m3-shop-buylimited, 6600 only — ver compra-limitada.ts): contagem de hoje +
+  // pendente neste mesmo carrinho, por `Shop.ID`, pra não deixar passar do `LimitCount` configurado.
+  const limitCounts = is6600 ? await todaysBuyCounts(ctx, p) : new Map<number, number>();
+  const limitedLines: number[] = [];
   const count = pkt.readInt();
   if (count <= 0 || count > 99) return p.sendMessage(0, "Erro do sistema. O problema foi enviado ao administrador.");
   for (let i = 0; i < count; i++) {
@@ -72,6 +82,12 @@ export async function buyGoods(ctx: ServerContext, p: GamePlayer, pkt: GSPacket)
     if (shop.ShopID === 2 || !can.ok) return p.sendMessage(1, ctx.lang.t("UserBuyItemHandler.FailByPermission"));
     const t = tpl.findItem(shop.TemplateID);
     if (!t) continue;
+    if (is6600 && shop.LimitCount > 0) {
+      const already = limitCounts.get(shop.ID) ?? 0;
+      if (already >= shop.LimitCount) { p.sendMessage(1, ctx.lang.t("UserBuyItemHandler.FailByPermission2")); continue; }
+      limitCounts.set(shop.ID, already + 1); // reserva localmente (carrinho multi-linha do mesmo item)
+      limitedLines.push(shop.ID);
+    }
     if (shop.ShopID === 20) {
       // Limited free daily goods (WorldMgr.UpdateShopFreeCount): one per day.
       const last = p.info.ShopFinallyGottenTime;
@@ -129,6 +145,7 @@ export async function buyGoods(ctx: ServerContext, p: GamePlayer, pkt: GSPacket)
       eMsg = 1;
       msg = "UserBuyItemHandler.Mail";
     }
+    if (limitedLines.length) await Promise.all(limitedLines.map((goodsId) => incrementBuyCount(ctx, p, goodsId)));
   } else {
     if (money > c.Money && money > 0) msg = "UserBuyItemHandler.NoMoney";
     if (gold > c.Gold) msg = "UserBuyItemHandler.NoGold";
