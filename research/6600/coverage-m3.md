@@ -15,8 +15,8 @@
 |---|---|
 | handled | 0 |
 | partial | 22 |
-| stub | 8 |
-| MISSING | 46 |
+| stub | 12 |
+| MISSING | 39 |
 | **Total de códigos enviados pelo cliente** | **213** |
 
 ## Totais — endpoints (.ashx/.xml/.aspx)
@@ -37,7 +37,7 @@
 
 ## Pacotes por área
 
-### Outros (46 código(s) — implemented 25, partial 5, stub 4, MISSING 12)
+### Outros (46 código(s) — implemented 26, partial 5, stub 4, MISSING 11)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
@@ -79,7 +79,7 @@
 | 222 | `EQUIP_RECYCLE_ITEM` | sendEquipRetrieve (ddt/manager/GameSocketOut.as) | partial | bolsa/reaproveitar-forja.ts |
 | 224 | `CID_CHECK` | sendCIDCheck (ddt/manager/GameSocketOut.as); sendCIDInfo (ddt/manager/GameSocketOut.as) | stub | basico/index.ts |
 | 225 | `ENTHRALL_SWITCH/REQUEST_UPDATE` | sendForSwitch (ddt/manager/GameSocketOut.as); sendRequestUpdate (ddt/manager/GameSocketOut.as) | implemented | basico/index.ts |
-| 238 | `ACCUMULATIVELOGIN_AWARD` | sendAccumulativeLoginAward (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 238 | `ACCUMULATIVELOGIN_AWARD` | sendAccumulativeLoginAward (ddt/manager/GameSocketOut.as) | implemented | eventos/index.ts |
 | 244 | `PLAYER_EXIT_MARRY_ROOM` | sendExitRoom (ddt/manager/GameSocketOut.as) | implemented | casamento/index.ts |
 | 252 | `USE_CHANGE_SEX` | sendChangeSex (ddt/manager/GameSocketOut.as) | implemented | bolsa/trocar-sexo.ts |
 | 279 | `SHOW_HIDE_TITLE` | showHideTitleState (ddt/manager/GameSocketOut.as) | implemented |  |
@@ -137,7 +137,7 @@
 | 250 | `MARRY_APPLY_REPLY` | sendProposeRespose (ddt/manager/GameSocketOut.as) | implemented | casamento/index.ts |
 | 253 | `MARRY_ROOM_INFO_UPDATE` | sendModifyChurchDiscription (ddt/manager/GameSocketOut.as) | partial | casamento/index.ts |
 
-### Loteria/Roleta (13 código(s) — implemented 7, partial 2, stub 0, MISSING 4)
+### Loteria/Roleta (13 código(s) — implemented 7, partial 2, stub 4, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
@@ -146,12 +146,12 @@
 | 28 | `LOTTERY_FINISH` | sendFinishRoulette (ddt/manager/GameSocketOut.as) | implemented | eventos/index.ts |
 | 45 | `CADDY_GET_BADLUCK` | sendQequestBadLuck (ddt/manager/GameSocketOut.as) | implemented | eventos/index.ts |
 | 87 | `NEWCHICKENBOX_SYS` | sendChickenBoxUseEagleEye (ddt/manager/GameSocketOut.as); sendChickenBoxTakeOverCard (ddt/manager/GameSocketOut.as); sendOverShowItems (ddt/manager/GameSocketOut.as); sendFlushNewChickenBox (ddt/manager/GameSocketOut.as); sendClickStartBntNewChickenBox (ddt/manager/GameSocketOut.as); sendNewChickenBox (ddt/manager/GameSocketOut.as); sendLuckyStarEnter (ddt/manager/GameSocketOut.as); sendLuckyStarClose (ddt/manager/GameSocketOut.as); sendLuckyStarTurnComplete (ddt/manager/GameSocketOut.as); sendLuckyStarTurn (ddt/manager/GameSocketOut.as) | partial | eventos/index.ts |
-| 97 | `LUCKSTONE_RANK_LIMIT` | sendQequestLuckky (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 97 | `LUCKSTONE_RANK_LIMIT` | sendQequestLuckky (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 | 128 | `LEFT_GUN_ROULETTE_SOCKET` | sendStartTurn_LeftGun (ddt/manager/GameSocketOut.as) | partial | loja/roleta-canhao.ts |
 | 130 | `LEFT_GUN_ROULETTE_COMPLETTE` | sendEndTurn_LeftGun (ddt/manager/GameSocketOut.as) | implemented | loja/roleta-canhao.ts |
-| 165 | `LUCKSTONE_CONFIG` | requestForLuckStone (ddt/manager/GameSocketOut.as) | MISSING |  |
-| 211 | `CADDY_EXCHANGE_ALL` | sendExchange (ddt/manager/GameSocketOut.as) | MISSING |  |
-| 215 | `CADDY_CONVERTED_ALL` | sendconverted (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 165 | `LUCKSTONE_CONFIG` | requestForLuckStone (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
+| 211 | `CADDY_EXCHANGE_ALL` | sendExchange (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
+| 215 | `CADDY_CONVERTED_ALL` | sendconverted (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 | 232 | `CADDY_SELL_ALL_GOODS` | sendSellAll (ddt/manager/GameSocketOut.as) | implemented | eventos/index.ts |
 | 245 | `CADDY_GET_AWARDS` | sendRequestAwards (ddt/manager/GameSocketOut.as) | implemented |  |
 
@@ -253,11 +253,11 @@
 | 218 | `USER_GET_GIFTS` | sendPlayerGift (ddt/manager/GameSocketOut.as) | implemented | bolsa/presentes-recebidos.ts |
 | 221 | `USER_SEND_GIFTS` | sendBuyGift (ddt/manager/GameSocketOut.as) | implemented | loja/presentear.ts |
 
-### Cartas (4 código(s) — implemented 2, partial 1, stub 0, MISSING 1)
+### Cartas (4 código(s) — implemented 3, partial 1, stub 0, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
-| 170 | `CARDS_SLOT` | sendUpdateSLOT (ddt/manager/GameSocketOut.as); sendResetCardSoul (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 170 | `CARDS_SLOT` | sendUpdateSLOT (ddt/manager/GameSocketOut.as); sendResetCardSoul (ddt/manager/GameSocketOut.as) | implemented | mascote/index.ts |
 | 183 | `CARD_USE` | sendUseCard (ddt/manager/GameSocketOut.as) | implemented | bolsa/usar-carta.ts |
 | 196 | `CARD_RESET` | sendCardReset (ddt/manager/GameSocketOut.as); sendReplaceCardProp (ddt/manager/GameSocketOut.as) | partial | bolsa/reroll-carta.ts |
 | 216 | `CARDS_DATA` | sendMoveCards (ddt/manager/GameSocketOut.as); sendOpenViceCard (ddt/manager/GameSocketOut.as); sendOpenCardBox (ddt/manager/GameSocketOut.as); sendOpenRandomBox (ddt/manager/GameSocketOut.as); sendUpGradeCard (ddt/manager/GameSocketOut.as); sendSortCards (ddt/manager/GameSocketOut.as); sendFirstGetCards (ddt/manager/GameSocketOut.as); sendGetCardSoul (ddt/manager/GameSocketOut.as) | implemented | mascote/index.ts |
@@ -329,11 +329,11 @@
 | 142 | `KING_BLESS_MAIN` | sendOpenKingBless (ddt/manager/GameSocketOut.as); sendOpenDeed (ddt/manager/GameSocketOut.as) | MISSING |  |
 | 143 | `KING_BLESS_USE_ITEM` | sendUseItemKingBless (ddt/manager/GameSocketOut.as); sendUseItemDeed (ddt/manager/GameSocketOut.as) | MISSING |  |
 
-### Conquistas (2 código(s) — implemented 1, partial 0, stub 0, MISSING 1)
+### Conquistas (2 código(s) — implemented 2, partial 0, stub 0, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
-| 229 | `ACHIEVEMENT_UPDATE` | sendModifyInfo (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 229 | `ACHIEVEMENT_UPDATE` | sendModifyInfo (ddt/manager/GameSocketOut.as) | implemented | casamento/index.ts |
 | 230 | `ACHIEVEMENT_FINISH` | sendAchievementFinish (ddt/manager/GameSocketOut.as) | implemented | eventos/index.ts |
 
 ### Relíquias (Magic Stone) (2 código(s) — implemented 0, partial 1, stub 0, MISSING 1)

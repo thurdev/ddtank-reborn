@@ -6,7 +6,7 @@ import { eq, sql } from "drizzle-orm";
 import { app, applyTranslations, game, loadTranslations, player, type Database } from "@ddt/db";
 import type { ItemTemplate } from "../game/item.js";
 import { emptyPetTables, type PetTables, type PetTemplate } from "../game/pets.js";
-import type { CardUpdateCond, CardUpdateRowFull } from "../game/cards.js";
+import type { CardUpdateCond, CardUpdateRowFull, CardGrooveRow } from "../game/cards.js";
 import type { StatTables, ExerciseRow, TotemRow, GoldEquipRow, CardUpdateRow, PetFightRow, SuitInfoRow } from "../game/stats.js";
 
 export type StrengthenRow = typeof game.Item_Strengthen.$inferSelect;
@@ -341,13 +341,17 @@ export class Templates {
   get cardMaxLevel(): number {
     return Math.max(0, ...this.cardConditions.keys());
   }
+  /** CardMgr.FindCardGrooveUpdate(type): game."Card_Groove_Update" rows grouped by Type, sorted ascending by
+   *  Level (170 CARDS_SLOT "soul slot" leveling, m3-cards-slot). */
+  cardGrooveUpdates = new Map<number, CardGrooveRow[]>();
 
   async loadPetsCards(db: Database, lang = "pt-BR"): Promise<void> {
-    const [tpl, lv, cfg, sk, skt, cc, cu, starExp, moe] = await Promise.all([
+    const [tpl, lv, cfg, sk, skt, cc, cu, starExp, moe, groove] = await Promise.all([
       db.select().from(game.Pet_Template_Info), db.select().from(game.Pet_Level), db.select().from(game.Pet_Config),
       db.select().from(game.Pet_Skill_Info), db.select().from(game.Pet_Skill_Template_Info),
       db.select().from(game.CardUpdateCondition), db.select().from(game.CardUpdateInfo),
       db.select().from(game.Pet_Star_Exp), db.select().from(game.Pet_Moe_Property),
+      db.select().from(game.Card_Groove_Update),
     ]);
     const [petTplOverlay, petSkillOverlay] = await Promise.all([
       loadTranslations(db, "Pet_Template_Info", lang),
@@ -364,6 +368,14 @@ export class Templates {
     };
     this.cardConditions = new Map((cc as unknown as CardUpdateCond[]).map((c) => [c.Level, c]));
     this.cardUpdates = new Map((cu as unknown as CardUpdateRowFull[]).map((c) => [`${c.Id}:${c.Level}`, c]));
+    const grooveByType = new Map<number, CardGrooveRow[]>();
+    for (const g of groove as CardGrooveRow[]) {
+      const list = grooveByType.get(g.Type) ?? [];
+      list.push(g);
+      grooveByType.set(g.Type, list);
+    }
+    for (const list of grooveByType.values()) list.sort((a, b) => a.Level - b.Level);
+    this.cardGrooveUpdates = grooveByType;
   }
 
   /** StrengthenMgr.GetNeedRate (StrengthenMgr.cs:360): rock column by category of the NEXT level. */

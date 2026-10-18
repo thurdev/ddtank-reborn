@@ -122,6 +122,10 @@ export const SAVED_DETAIL_COLUMNS = [
   "IsShowConsortia", "NewDay", "Medal", "Honor", "IsRecharged", "IsGetAward", "evolutionGrade", "evolutionExp",
   "hardCurrency", "EliteScore", "UseOffer", "ShopFinallyGottenTime", "MoneyLock", "LastGetEgg", "IsFistGetPet",
   "LastRefreshPet", "petScore", "accumulativeLoginDays", "accumulativeAwardDays", "honorId", "Repute", "damageScores",
+  // 170 CARDS_SLOT (m3-cards-slot, 6600): moeda "CardSoul" gasta pra subir o nível das 5 "grooves" de carta
+  // equipadas (CardSlotHandler.cs sub 0) ou recebida de volta ao resetar (sub 1) — coluna já existia desde
+  // m1-schema (migration 0013), só não estava na lista de colunas persistidas.
+  "CardSoul",
   "totemId", "myHonor", "MaxBuyHonor", "necklaceExp", "necklaceExpAdd", "OnlineTime", "LastDate", "BoxGetDate",
   "AlreadyGetBox", "BoxProgression", "GetBoxLevel", "charmGP", "Sex", "NickName",
   // Forja › Forno: "Refinar conjunto" (295 STORE_FINE_SUIT) e "Espírito do equipamento" (391 EQUIP_GHOST) —

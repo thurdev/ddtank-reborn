@@ -18,10 +18,12 @@
  *   evolucao.ts           (Mascote › evolução)              — sub 23 PetEvolution
  *   devorar.ts            (Mascote › devorar)               — sub 33 EatPet
  *   cartas.ts             (Cartas, tela separada)           — 216 CARDS_DATA
+ *   cartas-slot.ts        (Cartas › slot/alma da carta)     — 170 CARDS_SLOT (6600 only, m3-cards-slot)
  *
  * Pacotes: ver tabela acima. C#: `Game.Server/Pet/Handle/*.cs` (ver cabeçalho de cada arquivo listado).
  * Lógica pura: `game/pets.ts`, `game/cards.ts`.
- * Como testar: `apps/game/test/pets-advanced.test.ts`, `apps/game/test/pets-cards-vip.test.ts`.
+ * Como testar: `apps/game/test/pets-advanced.test.ts`, `apps/game/test/pets-cards-vip.test.ts`,
+ *   `apps/game/test/client-6600-m3-cards-slot.test.ts`.
  * Manual: `docs/features/mascote.md`.
  */
 import type { GSPacket } from "@ddt/protocol";
@@ -43,6 +45,7 @@ import { evolution } from "./evolucao.js";
 import { eat } from "./devorar.js";
 import { updatePet } from "./listar.js";
 import { cardCommand } from "./cartas.js";
+import { cardsSlot } from "./cartas-slot.js";
 
 /** 68 PET: byte sub (PetPackageType) — PetHandler.HandlePacket. */
 export async function petCommand(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): Promise<void> {
@@ -81,4 +84,6 @@ export function registerMascote(r: HandlerRegistry): void {
   // confirmado morto no cliente.
   r.player(68, "PET", (ctx, p, pkt) => petCommand(ctx, p, pkt));
   r.player(216, "CARDS_DATA", (ctx, p, pkt) => cardCommand(ctx, p, pkt));
+  // 170 CARDS_SLOT: sem equivalente no enum 4.1 — um cliente 4.1 nunca manda esse código (m3-cards-slot).
+  r.player(170, "CARDS_SLOT", (ctx, p, pkt) => cardsSlot(ctx, p, pkt));
 }

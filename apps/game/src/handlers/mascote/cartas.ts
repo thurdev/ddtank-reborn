@@ -26,7 +26,7 @@ export function cardCommand(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): v
       // abrir um slot vice: carta placeholder 314101 com Count −1 (CardDataHandler case 1)
       const place = pkt.readInt();
       if (place < 0 || place >= 5 || bag.getItemAt(place)) break;
-      bag.addCardTo({ CardID: 0, UserID: p.id, TemplateID: 314101, Place: place, Count: -1, Attack: 0, Defence: 0, Agility: 0, Luck: 0, Guard: 0, Damage: 0, AttackReset: 0, DefenceReset: 0, AgilityReset: 0, LuckReset: 0, Level: 0, CardGP: 0, isFirstGet: true }, place);
+      bag.addCardTo({ CardID: 0, UserID: p.id, TemplateID: 314101, Place: place, Count: -1, Attack: 0, Defence: 0, Agility: 0, Luck: 0, Guard: 0, Damage: 0, AttackReset: 0, DefenceReset: 0, AgilityReset: 0, LuckReset: 0, Level: 0, CardGP: 0, isFirstGet: true, Type: 0 }, place);
       break;
     }
     case 2: {

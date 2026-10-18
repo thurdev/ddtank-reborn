@@ -407,6 +407,55 @@ export function kingBlessClosed(): PacketOut {
 }
 
 /**
+ * 165 LUCKSTONE_CONFIG closed ("Pedra da Sorte"/Luck Stone caddy exchange — m3-caddy-loteria). Mirrors
+ * `LuckStoneEnableHandler.cs` (6600, `PacketHandler(165)`): clones the client's own (empty) request, clears
+ * its context and appends 2 dates + a bool. The PROACTIVE push builder in the same codebase,
+ * `AbstractPacketLib.SendLuckStoneEnable` (:2504-2512), always writes `isOpen=false` too — the feature is
+ * permanently closed in the decompiled 6600 server, not just slow to open. `requestForLuckStone()`
+ * (`GameSocketOut.as:2786`) sends code 165 with zero fields.
+ */
+export function luckStoneConfigClosed(now: Date): PacketOut {
+  const p = new PacketOut(165);
+  wd(p, now);
+  wd(p, addDays(now, 7));
+  p.writeBoolean(false);
+  return p;
+}
+
+/**
+ * 97 LUCKSTONE_RANK_LIMIT closed (m3-caddy-loteria). Unlike 165 above, no `PacketHandler(97)` class exists
+ * anywhere in the decompiled 6600 server (confirmed by grep across `Game.Server.Packets.Client` and
+ * `ePackageType.cs` — the constant is only ever declared, never handled) — genuinely dead server-side,
+ * consistent with 165's permanently-closed signal (the rank screen is only reachable once Luck Stone is
+ * open). Reply format from the AS3 reader contract (`RouletteManager.luckStoneRankLimit`,
+ * `RouletteManager.as:115-159`): bool isStart; isStart=false branch then reads str lastTime, bool isOpen,
+ * int count, count*(int Rank, int UserID, int LuckStone, int TemplateID, str Nickname). This takes that
+ * branch with an empty list so a client that ever asks doesn't hang forever waiting for a reply that the
+ * original would never send.
+ */
+export function luckStoneRankLimitClosed(): PacketOut {
+  const p = new PacketOut(97);
+  p.writeBoolean(false);
+  p.writeString("");
+  p.writeBoolean(false);
+  p.writeInt(0);
+  return p;
+}
+
+/**
+ * 170 CARDS_SLOT reply (m3-cards-slot). `AbstractPacketLib.SendPlayerCardSlot` has 2 overloads (single card /
+ * `List<UsersCardInfo>`) that write the EXACT same shape, just a different `count` — this builder takes an
+ * array and covers both (`cards.length` becomes `count`):
+ * int PlayerID, int ZoneID, int CardSoul, int count, count*(int Place, int Type, int Level, int CardGP).
+ */
+export function playerCardSlot(id: number, zoneId: number, cardSoul: number, cards: { Place: number; Type: number; Level: number; CardGP: number }[]): PacketOut {
+  const p = new PacketOut(170, id);
+  p.writeInt(id); p.writeInt(zoneId); p.writeInt(cardSoul); p.writeInt(cards.length);
+  for (const c of cards) { p.writeInt(c.Place); p.writeInt(c.Type); p.writeInt(c.Level); p.writeInt(c.CardGP); }
+  return p;
+}
+
+/**
  * 237 PLAYER_DRESS (6600-only "figurino"/dress room — collides with 4.1's MARRYINFO_UPDATE, see
  * `handlers/casamento/index.ts` and research/6600/packets-m1.md "M3 figurino"). 3 builders, one per
  * sub-command the server sends (`PlayerDressType.as`):
