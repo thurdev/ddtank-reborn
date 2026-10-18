@@ -9,6 +9,7 @@ import { ServerConfigPage } from "@/pages/ServerConfig";
 import { EventsPage } from "@/pages/Events";
 import { AssetsPage } from "@/pages/Assets";
 import { MailPage } from "@/pages/Mail";
+import { DonationsPage } from "@/pages/Donations";
 import { ResourcePage } from "@/crud/ResourcePage";
 import { resourceByName } from "@/resources";
 
@@ -53,6 +54,7 @@ const configRoute = createRoute({ getParentRoute: () => authedRoute, path: "/con
 const eventsRoute = createRoute({ getParentRoute: () => authedRoute, path: "/events", component: EventsPage });
 const assetsRoute = createRoute({ getParentRoute: () => authedRoute, path: "/assets", component: AssetsPage });
 const mailRoute = createRoute({ getParentRoute: () => authedRoute, path: "/mail", component: MailPage });
+const donationsRoute = createRoute({ getParentRoute: () => authedRoute, path: "/donations", component: DonationsPage });
 
 function GenericResource() {
   const { resource } = useParams({ from: "/authed/$resource" });
@@ -72,7 +74,7 @@ const resourceRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([
   loginRoute,
-  authedRoute.addChildren([dashboardRoute, configRoute, eventsRoute, assetsRoute, mailRoute, resourceRoute]),
+  authedRoute.addChildren([dashboardRoute, configRoute, eventsRoute, assetsRoute, mailRoute, donationsRoute, resourceRoute]),
 ]);
 
 export function createAppRouter(queryClient: QueryClient) {

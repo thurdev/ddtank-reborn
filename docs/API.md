@@ -13,6 +13,7 @@ mesmo XML, mesmo zlib. Cliente Flash não muda. Catálogo completo gerado do C#:
 | Público (serverlist pro site) | `src/routes/public.ts` | novo |
 | Admin REST | `src/routes/admin.ts`, `admin-resources.ts` | `GameAdmin` (parcial) |
 | Rank | `src/rank.ts` | `Road.Service` (ver gap) |
+| Doação via Pix (nunca vantagem de jogo) | `src/routes/donations.ts`, `src/pix/*` | novo — [docs/features/doacao-pix.md](./features/doacao-pix.md) |
 | Estáticos/flash | `src/routes/static.ts`, `assets/flash/` | compilados originais |
 | Players/helpers XML | `src/request/players.ts`, `lib/`, `templates/` | `Bussiness/*` managers |
 

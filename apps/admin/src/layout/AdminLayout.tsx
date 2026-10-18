@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, Outlet, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button, LocaleToggle, cn } from "@ddtank/ui";
-import { CalendarDays, FolderOpen, Gauge, LogOut, Mail, Menu, Settings2, X, type LucideIcon } from "lucide-react";
+import { CalendarDays, FolderOpen, Gauge, HeartHandshake, LogOut, Mail, Menu, Settings2, X, type LucideIcon } from "lucide-react";
 import { api, meQuery } from "@/lib/api";
 import { resources } from "@/resources";
 import type { NavGroup } from "@/crud/types";
@@ -25,6 +25,7 @@ const CUSTOM: NavItem[] = [
   { to: "/assets", label: { key: "nav.assets" }, icon: FolderOpen, group: "server", order: 20 },
   { to: "/mail", label: { key: "nav.mail" }, icon: Mail, group: "players", order: 5 },
   { to: "/events", label: { key: "nav.events" }, icon: CalendarDays, group: "content", order: 45 },
+  { to: "/donations", label: { key: "nav.donations" }, icon: HeartHandshake, group: "site", order: 5 },
 ];
 
 const NAV: NavItem[] = [
