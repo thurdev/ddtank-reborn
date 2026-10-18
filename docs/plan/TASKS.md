@@ -379,5 +379,11 @@ Como rodar um 2º canal hoje (sem `ch-processo`/`ch-bus`): [GAME-SERVER.md §Can
   respeita reduced-motion), SEO por página (`lib/seo.ts`), code-split por rota, testes vitest no `apps/web`.
   Arte pendente (slots em `apps/web/README.md`): `public/art/hero-bg.webp`, `public/art/og-cover.jpg`.
 - [ ] **site-play** — página de jogo com seleção de canal e launcher (toggle 4.1/6600 beta já feito no `site-design`).
-- [ ] **admin-ux** — revisão geral do admin (navegação, busca, edição em massa).
-- [ ] **admin-config** — tudo configurável pelo admin (eventos, canais, taxas), sem editar arquivo.
+- [x] **admin-ux** (2026-10-18) — campo `ref`/`ref-multi` no CRUD (nome/ícone no lugar do id, picker com
+  busca, clique abre o registro; lookup em lote `GET /api/admin/<res>?ids=`), Ctrl+K (recursos, recentes,
+  busca jogador/item/guilda), seleção + edição/exclusão em massa. Bug corrigido: `keepPreviousData` vazava
+  linhas entre recursos.
+- [ ] **admin-ux-2** — escolher colunas, visões salvas, filtro por coluna, header fixo (a tentativa quebrou o
+  clique na linha), `/events` lendo `?edit=`, testes de componente no admin.
+- [x] **admin-config** (2026-10-18) — `expRate`/`goldRate` agora valem de verdade (`templates.rates`,
+  multiplica o x2 do evento, recarrega ao salvar). `dropRate`/`offerRate` ainda não ligados (aviso no admin).
