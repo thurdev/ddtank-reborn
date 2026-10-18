@@ -1,0 +1,3 @@
+4. Para o Demônio Borboleta entre servidores é necessário
+--- RECORDSEPARATOR ---
+estar casado para formar o par.

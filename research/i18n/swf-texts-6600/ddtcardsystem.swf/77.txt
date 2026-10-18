@@ -1,0 +1,3 @@
+4. O atributo de um slot de carta sem carta
+--- RECORDSEPARATOR ---
+não pode ser ativado.

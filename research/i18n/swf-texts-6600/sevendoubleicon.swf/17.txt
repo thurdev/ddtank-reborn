@@ -1,0 +1,3 @@
+6. Os 4 primeiros jogadores a chegar ao destino
+--- RECORDSEPARATOR ---
+aumentam a recompensa que vão ganhar.

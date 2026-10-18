@@ -1,0 +1,5 @@
+4. Enquanto o assistente de batalha estiver ativado,
+--- RECORDSEPARATOR ---
+as configurações não podem ser mudadas; para poder mudar as configurações
+--- RECORDSEPARATOR ---
+é necessário desligar o assistente primeiro.

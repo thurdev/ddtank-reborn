@@ -1,0 +1,5 @@
+2. Cada vez que uma Estrela da Sorte é gasta,
+--- RECORDSEPARATOR ---
+50 cupons se acumulam no Reservatório de
+--- RECORDSEPARATOR ---
+Acúmulo de Cupom.

@@ -1,0 +1,3 @@
+4. Quando o evento do oitavo dia terminar, as recompensas não recebidas
+--- RECORDSEPARATOR ---
+não podem mais ser recebidas.

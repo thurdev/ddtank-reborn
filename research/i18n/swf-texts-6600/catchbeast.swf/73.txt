@@ -1,0 +1,5 @@
+3. Depois que a atividade diária é concluída,
+--- RECORDSEPARATOR ---
+pela interface pode-se solicitar a taxa de dano
+--- RECORDSEPARATOR ---
+dos prêmios do tesouro.

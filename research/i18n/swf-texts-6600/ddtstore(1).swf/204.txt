@@ -1,0 +1,3 @@
+Porém, a fusão só pode ser feita quando o item do tipo fragmento tiver o mesmo nome e nível
+--- RECORDSEPARATOR ---
+.

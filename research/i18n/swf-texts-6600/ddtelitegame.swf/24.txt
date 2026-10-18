@@ -1,0 +1,9 @@
+A partida por pontos começa com 1000 pontos; a vitória soma 10 pontos,
+--- RECORDSEPARATOR ---
+a derrota reduz 10 pontos. Ao mesmo tempo, o lado vencedor
+--- RECORDSEPARATOR ---
+recebe ponto de bônus de tempo; o ponto de bônus de tempo soma
+--- RECORDSEPARATOR ---
+no máximo 5 pontos de uma vez. Se o jogador perder a conexão
+--- RECORDSEPARATOR ---
+ou saia de propósito, é considerado como derrota.

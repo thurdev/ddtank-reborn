@@ -1,0 +1,3 @@
+5. Depois que o tempo de desejo atual expirar, o equipamento volta a ser o
+--- RECORDSEPARATOR ---
+equipamento fortalecido para 12 antigo.

@@ -1,0 +1,3 @@
+4. Conforme o grau de felicidade sobe, o atributo do animal de estimação também
+--- RECORDSEPARATOR ---
+aumenta; quando está muito baixo o animal de estimação não pode ir à batalha.

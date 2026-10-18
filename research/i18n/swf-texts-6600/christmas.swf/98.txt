@@ -1,0 +1,7 @@
+4. Se um certo número de bonecos de neve for feito todo dia, você pode
+--- RECORDSEPARATOR ---
+receber as recompensas do Papai Noel do lugar nevado. Cada pessoa, por
+--- RECORDSEPARATOR ---
+dia, pode receber no máximo 2 vezes. É limitado, quem chega
+--- RECORDSEPARATOR ---
+primeiro recebe primeiro.

@@ -1,0 +1,11 @@
+1. Jogadores de nível podem participar
+--- RECORDSEPARATOR ---
+da batalha; depois de entrar na batalha,
+--- RECORDSEPARATOR ---
+o sistema, de acordo com os atributos do
+--- RECORDSEPARATOR ---
+personagem, distribui automaticamente
+--- RECORDSEPARATOR ---
+as missões; equipamentos não obtidos
+--- RECORDSEPARATOR ---
+afetam isso.

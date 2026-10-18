@@ -1,0 +1,9 @@
+1
+--- RECORDSEPARATOR ---
+、熔煉物品的類型決定了你能夠熔煉出的物品類
+--- RECORDSEPARATOR ---
+ 
+--- RECORDSEPARATOR ---
+    
+--- RECORDSEPARATOR ---
+型，符合條件的物品才可以進行熔煉。

@@ -1,0 +1,5 @@
+4. A pessoa cuja sorte sair o desconto de cupom
+--- RECORDSEPARATOR ---
+ganha todos os cupons no Reservatório de
+--- RECORDSEPARATOR ---
+Acúmulo de Cupom.

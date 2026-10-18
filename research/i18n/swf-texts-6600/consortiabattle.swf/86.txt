@@ -1,0 +1,3 @@
+5. O personagem que vencer consecutivamente entra
+--- RECORDSEPARATOR ---
+na próxima batalha com a quantidade de sangue atual.

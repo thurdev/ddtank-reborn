@@ -1,0 +1,3 @@
+2. Monstros mortos podem soltar itens; itens que caem podem ser
+--- RECORDSEPARATOR ---
+trocados

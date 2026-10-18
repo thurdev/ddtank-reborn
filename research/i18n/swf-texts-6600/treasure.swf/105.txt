@@ -1,0 +1,1 @@
+Todo dia, na primeira entrada no jogo, há 1 chance de fazer a busca de tesouro;

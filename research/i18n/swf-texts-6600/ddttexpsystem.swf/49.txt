@@ -1,0 +1,5 @@
+3. O aumento de atributo obtido pelo treino
+--- RECORDSEPARATOR ---
+é permanente, e não desaparecerá mesmo que
+--- RECORDSEPARATOR ---
+o nível do equipamento mude.

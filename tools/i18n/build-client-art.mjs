@@ -61,6 +61,8 @@
  *   node tools/i18n/build-client-art.mjs --no-approved         # skip the approved AI asset import step
  *   node tools/i18n/build-client-art.mjs --images --night --dark   # also run the opt-in (currently unused) image batch
  *   node tools/i18n/build-client-art.mjs --prod --rsa-modulus <hex>  # also patch the RSA modulus into 2.png
+ *   node tools/i18n/build-client-art.mjs --only-swf-text-6600    # 6600 pack only: patch apps/api/assets/flash6600
+ *                                                                #   static texts from research/i18n/swf-text-pt-6600.json
  *
  * --prod is NOT a secret-rotation tool. Full production secret rotation (fresh RSA keypair + .env wiring
  * for apps/api and apps/game) is scripts/gen-secrets.mjs, which already runs this exact same core chain
@@ -741,24 +743,30 @@ function installedFontFamilies() {
   return fontFamilies;
 }
 
-function runSwfTextStep() {
-  const f = join(ROOT, "research", "i18n", "swf-text-pt.json");
-  if (!existsSync(f)) { log("swf-text", "no research/i18n/swf-text-pt.json -- skipping"); return; }
+/** Reusable core of runSwfTextStep(): patches the static DefineText/DefineEditText strings of every SWF
+ *  listed in `jsonFile` ({ "<swf>": { "<charId>": { [origKey]: [records], pt: [records] } } }). `origKey`
+ *  names the field holding the original-language records ("vi" for the 4.1/Vietnamese json, "tr" for the
+ *  6600/Turkish one) so both packs share this single implementation. `vendorRoot`/`overlayRoot` pick the
+ *  source pack + served overlay dir, `fallbackSubdir` is where a SWF lives when it's not directly under
+ *  vendorRoot's top level (e.g. "ui/vietnam/swf" or "ui/turkey/swf"). `scratchTag` keeps each pack's scratch
+ *  filenames from colliding when both run in the same process. */
+function runSwfTextStepFor({ jsonFile, origKey, vendorRoot, overlayRoot, fallbackSubdir, label, scratchTag }) {
+  const f = join(ROOT, jsonFile);
+  if (!existsSync(f)) { log(label, `no ${jsonFile} -- skipping`); return; }
   const db = JSON.parse(readFileSync(f, "utf8"));
-  const vendorRoot = join(ROOT, "vendor", "DDTank41", "Source Flash", "FlashSV1");
   let swfs = 0, ok = 0;
   for (const [swf, entries] of Object.entries(db)) {
     const reps = Object.entries(entries)
-      .filter(([, e]) => e.pt.every((l, i) => l || !e.vi[i].trim()))
-      // fewer PT records than the original leave the trailing Vietnamese records in place: pad with blank records
-      .map(([charId, e]) => ({ charId: Number(charId), text: [...e.pt, ...Array(Math.max(0, e.vi.length - e.pt.length)).fill(" ")].join("\n--- RECORDSEPARATOR ---\n") }));
+      .filter(([, e]) => e.pt.every((l, i) => l || !e[origKey][i].trim()))
+      // fewer PT records than the original leave the trailing original-language records in place: pad with blanks
+      .map(([charId, e]) => ({ charId: Number(charId), text: [...e.pt, ...Array(Math.max(0, e[origKey].length - e.pt.length)).fill(" ")].join("\n--- RECORDSEPARATOR ---\n") }));
     if (!reps.length) continue;
-    const rel = existsSync(join(vendorRoot, swf)) ? swf : join("ui", "vietnam", "swf", swf);
-    const overlayPath = join(OVERLAY, rel);
+    const rel = existsSync(join(vendorRoot, swf)) ? swf : join(fallbackSubdir, swf);
+    const overlayPath = join(overlayRoot, rel);
     const src = existsSync(overlayPath) ? overlayPath : join(vendorRoot, rel);
-    if (!existsSync(src)) { log("swf-text", `SKIP ${swf}: not found`); continue; }
+    if (!existsSync(src)) { log(label, `SKIP ${swf}: not found`); continue; }
     mkdirSync(dirname(overlayPath), { recursive: true });
-    const tmp = join(SCRATCH, `swf-text.${swf}`);
+    const tmp = join(SCRATCH, `swf-text${scratchTag}.${swf}`);
     mkdirSync(SCRATCH, { recursive: true });
     copyFileSync(src, tmp);
     swfs++;
@@ -767,10 +775,10 @@ function runSwfTextStep() {
     const installed = installedFontFamilies();
     const alias = Object.fromEntries(listFonts(tmp).filter((f) => !installed.has(f.name.toLowerCase())).map((f) => [f.id, "Arial"]));
     const fontNames = Object.keys(alias).length ? renameFonts(tmp, tmp, alias) : {};
-    if (Object.keys(fontNames).length) log("swf-text", `${swf}: fontes ${Object.values(fontNames).join(", ")} -> Arial durante o import`);
+    if (Object.keys(fontNames).length) log(label, `${swf}: fontes ${Object.values(fontNames).join(", ")} -> Arial durante o import`);
     // FFDec -replace on multi-record DefineText needs its "formatted" text (per-record [x/y/font] blocks): plain
     // record lists get appended instead of replacing. Export formatted, swap only the text runs, keep every block.
-    const cnt = join(SCRATCH, "swf-text-count");
+    const cnt = join(SCRATCH, `swf-text-count${scratchTag}`);
     rmSync(cnt, { recursive: true, force: true });
     execFileSync("java", ["-jar", FFDEC_JAR, "-format", "text:formatted", "-export", "text", cnt, tmp], { stdio: "pipe", cwd: ROOT });
     for (const r of reps) {
@@ -788,43 +796,75 @@ function runSwfTextStep() {
       const recs = pt.length > runs ? [...pt.slice(0, runs - 1), pt.slice(runs - 1).join(" ")] : [...pt, ...Array(runs - pt.length).fill("")];
       let k = 0;
       // blocks keep position/font/colour; their per-glyph kerning lines (spacing/spacingpair) describe the
-      // Vietnamese glyphs and some break FFDec's parser (`spacing """`, empty chars): dropped
+      // original glyphs and some break FFDec's parser (`spacing """`, empty chars): dropped
       const block = (p) => p.replace(/^(?:spacing|spacingpair) .*\r?\n/gm, "");
       r.text = parts.map((p) => (!p ? p : p.startsWith("[") ? block(p) : esc(recs[k++]))).join("");
       r.expect = recs.join(SEP);
     }
     try {
-      if (runFfdecNativeTextReplace(tmp, overlayPath, reps, `swf-text:${swf}`)) ok++;
+      if (runFfdecNativeTextReplace(tmp, overlayPath, reps, `${label}:${swf}`)) ok++;
       else {
         // ~20% of replacements fail silently in a batch: re-apply each text alone on top of the batch result
-        let cur = join(SCRATCH, `swf-text.${swf}.retry.swf`), good = 0;
+        let cur = join(SCRATCH, `swf-text${scratchTag}.${swf}.retry.swf`), good = 0;
         copyFileSync(overlayPath, cur);
         for (const r of reps) {
-          const out = join(SCRATCH, `swf-text.${swf}.retry.${r.charId}.swf`); // flat name: chaining hit Windows MAX_PATH
-          try { if (runFfdecNativeTextReplace(cur, out, [r], `swf-text-retry:${swf}`)) good++; cur = out; } catch { log("swf-text", `${swf}: retry SKIP chid ${r.charId}`); }
+          const out = join(SCRATCH, `swf-text${scratchTag}.${swf}.retry.${r.charId}.swf`); // flat name: chaining hit Windows MAX_PATH
+          try { if (runFfdecNativeTextReplace(cur, out, [r], `${label}-retry:${swf}`)) good++; cur = out; } catch { log(label, `${swf}: retry SKIP chid ${r.charId}`); }
         }
         copyFileSync(cur, overlayPath);
-        log("swf-text", `${swf}: retry pass ${good}/${reps.length} verified`);
+        log(label, `${swf}: retry pass ${good}/${reps.length} verified`);
         if (good === reps.length) ok++;
       }
     } catch (e) {
       // one bad record makes FFDec exit 1 for the whole batch: apply the texts one at a time, skipping the failures
-      log("swf-text", `${swf}: batch -replace failed (${e.message.split("\n")[0].slice(0, 80)}...), retrying one text at a time`);
+      log(label, `${swf}: batch -replace failed (${e.message.split("\n")[0].slice(0, 80)}...), retrying one text at a time`);
       let cur = tmp, good = 0;
       for (const r of reps) {
-        const out = join(SCRATCH, `swf-text.${swf}.one.${r.charId}.swf`);
-        try { runFfdecNativeTextReplace(cur, out, [r], `swf-text:${swf}`); cur = out; good++; } catch { log("swf-text", `${swf}: SKIP chid ${r.charId} (ffdec -replace failed)`); }
+        const out = join(SCRATCH, `swf-text${scratchTag}.${swf}.one.${r.charId}.swf`);
+        try { runFfdecNativeTextReplace(cur, out, [r], `${label}:${swf}`); cur = out; good++; } catch { log(label, `${swf}: SKIP chid ${r.charId} (ffdec -replace failed)`); }
       }
       copyFileSync(cur, overlayPath);
-      log("swf-text", `${swf}: ${good}/${reps.length} text(s) applied one by one`);
+      log(label, `${swf}: ${good}/${reps.length} text(s) applied one by one`);
     }
     if (Object.keys(fontNames).length && existsSync(overlayPath)) renameFonts(overlayPath, overlayPath, fontNames);
   }
-  log("swf-text", `${ok}/${swfs} SWF(s) fully verified`);
+  log(label, `${ok}/${swfs} SWF(s) fully verified`);
+}
+
+function runSwfTextStep() {
+  runSwfTextStepFor({
+    jsonFile: join("research", "i18n", "swf-text-pt.json"),
+    origKey: "vi",
+    vendorRoot: VENDOR,
+    overlayRoot: OVERLAY,
+    fallbackSubdir: join("ui", "vietnam", "swf"),
+    label: "swf-text",
+    scratchTag: "",
+  });
+}
+
+/** 6600 equivalent: research/i18n/swf-text-pt-6600.json ({ "<swf>": { "<charId>": { tr: [...], pt: [...] } } }),
+ *  built by tools/qa/swf-text-audit-6600.sh + tools/qa/swf-text-merge.mjs (same merge script, pass the 6600
+ *  json as the 3rd positional arg isn't supported -- it reads the 4.1 path hardcoded, so merges for this pack
+ *  are done by hand or via a small inline edit; see docs/CLIENT.md). Patches apps/api/assets/flash6600/... ,
+ *  preferring the overlay copy when one already exists (brand-6600.mjs output etc.) over the vendor pack. */
+function runSwfTextStep6600() {
+  const VENDOR_6600 = join(ROOT, "vendor", "DDT-6600", "WebSimple", "Flash_6600_v040");
+  const OVERLAY_6600 = join(ROOT, "apps", "api", "assets", "flash6600");
+  runSwfTextStepFor({
+    jsonFile: join("research", "i18n", "swf-text-pt-6600.json"),
+    origKey: "tr",
+    vendorRoot: VENDOR_6600,
+    overlayRoot: OVERLAY_6600,
+    fallbackSubdir: join("ui", "turkey", "swf"),
+    label: "swf-text-6600",
+    scratchTag: "-6600",
+  });
 }
 
 async function main() {
   log("build", `flags: images=${OPT_IMAGES} night=${OPT_NIGHT} dark=${OPT_DARK} prod=${PROD} approved=${OPT_APPROVED}`);
+  if (has("--only-swf-text-6600")) { runSwfTextStep6600(); return; } // 6600 pack: patch apps/api/assets/flash6600 only, nothing else
   if (has("--only-swf-text")) { runSwfTextStep(); return; } // re-patch static texts on the current overlay, nothing else
   // Valida ANTES de apagar o pack atual: uma linha do manifest com largura/altura inválida derrubava o build no meio
   // (depois do revert) e deixava o cliente sem nenhum SWF de UI.

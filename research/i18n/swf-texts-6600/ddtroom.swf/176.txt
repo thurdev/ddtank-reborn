@@ -1,0 +1,9 @@
+4. A recompensa é enviada por
+--- RECORDSEPARATOR ---
+correio depois que o evento termina,
+--- RECORDSEPARATOR ---
+apenas a recompensa correspondente
+--- RECORDSEPARATOR ---
+à maior pontuação pode ser
+--- RECORDSEPARATOR ---
+recebida

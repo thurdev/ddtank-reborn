@@ -1,0 +1,3 @@
+4.As mensagens são válidas por     dias, depois
+--- RECORDSEPARATOR ---
+são excluídas.

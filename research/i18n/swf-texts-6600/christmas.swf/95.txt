@@ -1,0 +1,5 @@
+1. Durante o evento, a arena de gelo fica aberta o dia todo. Todos os
+--- RECORDSEPARATOR ---
+dias é possível entrar 1 vez gratuitamente. A duração é de 30 minutos.
+--- RECORDSEPARATOR ---
+Tempos não usados no mesmo dia não se acumulam.

@@ -1,0 +1,7 @@
+3. O nível de cada slot de carta pode subir; depois que o nível
+--- RECORDSEPARATOR ---
+sobe, o atributo base do slot de carta
+--- RECORDSEPARATOR ---
+aumenta; ao subir de nível, o valor de
+--- RECORDSEPARATOR ---
+espírito é gasto.

@@ -1,0 +1,7 @@
+3. Se a contagem regressiva terminar sem completar o grau do
+--- RECORDSEPARATOR ---
+sorteio, o jogador recebe um grande prêmio de sorte; ao mesmo tempo
+--- RECORDSEPARATOR ---
+o número de chances de sorte do jogador, a porcentagem do prêmio médio e as chances de compra
+--- RECORDSEPARATOR ---
+restantes no pacote de presente valioso são zeradas

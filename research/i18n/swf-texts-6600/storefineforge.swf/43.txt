@@ -1,0 +1,3 @@
+2. Você só pode usar equipamentos de nível de evolução menor que o
+--- RECORDSEPARATOR ---
+seu próprio para a evolução.

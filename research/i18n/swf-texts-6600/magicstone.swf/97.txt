@@ -1,0 +1,3 @@
+4.A Pedra Mágica pode chegar no máximo ao Nv 10 e, conforme
+--- RECORDSEPARATOR ---
+o nível sobe, os atributos das pedras também aumentam.

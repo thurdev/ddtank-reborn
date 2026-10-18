@@ -1,0 +1,5 @@
+6. Se o tempo da moda expirar ou faltar dinheiro, os
+--- RECORDSEPARATOR ---
+atributos não podem ser transferidos durante a troca,
+--- RECORDSEPARATOR ---
+é necessário transferir manualmente na forja.

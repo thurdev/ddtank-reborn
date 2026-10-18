@@ -1,0 +1,5 @@
+1. O jogador pode receber diariamente o item do pacote de presente valioso,
+--- RECORDSEPARATOR ---
+o grau de conclusão do sorteio da sorte atual
+--- RECORDSEPARATOR ---
+aumenta 1 ponto.

@@ -1,0 +1,3 @@
+3. Todos os itens coletados precisam ser feitos todo dia dentro
+--- RECORDSEPARATOR ---
+do horário do evento do jogo.

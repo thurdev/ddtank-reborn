@@ -1,0 +1,3 @@
+4. Pedra de monstro sagrado de nível baixo não pode
+--- RECORDSEPARATOR ---
+sobrepor o efeito de uma de nível mais avançado.

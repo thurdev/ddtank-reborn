@@ -1,0 +1,3 @@
+5. No início, se a semente estiver em falta, uma mensagem aparece no mercado, e por
+--- RECORDSEPARATOR ---
+conta própria também pode ser comprada no mercado.

@@ -1,0 +1,17 @@
+可获得道具
+--- RECORDSEPARATOR ---
+ 
+--- RECORDSEPARATOR ---
+     
+--- RECORDSEPARATOR ---
+(
+--- RECORDSEPARATOR ---
+增加
+--- RECORDSEPARATOR ---
+1
+--- RECORDSEPARATOR ---
+次攻击
+--- RECORDSEPARATOR ---
+)
+--- RECORDSEPARATOR ---
+ 

@@ -1,0 +1,5 @@
+    Pelo sistema de refino de itens, itens em excesso podem ser
+--- RECORDSEPARATOR ---
+reciclados. Os pontos a serem observados ao
+--- RECORDSEPARATOR ---
+reciclar são os seguintes:

@@ -1,0 +1,9 @@
+3. Você pode elevar o encanto do equipamento com a Conta de Sabedoria.
+--- RECORDSEPARATOR ---
+A Conta de Sabedoria de nível baixo pode ser fundida
+--- RECORDSEPARATOR ---
+para níveis mais altos.
+--- RECORDSEPARATOR ---
+Conforme o nível aumenta, a taxa de sucesso
+--- RECORDSEPARATOR ---
+do encanto também aumenta.

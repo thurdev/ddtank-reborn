@@ -1,0 +1,7 @@
+8.
+--- RECORDSEPARATOR ---
+護送過程中部分道具可拾取，拾取到的道具可以即
+--- RECORDSEPARATOR ---
+  
+--- RECORDSEPARATOR ---
+時使用或者累積起來下次護送使用。

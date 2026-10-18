@@ -1,0 +1,5 @@
+1.O equipamento ativado pode ganhar atributo potencial,
+--- RECORDSEPARATOR ---
+o atributo potencial pode mudar na
+--- RECORDSEPARATOR ---
+forja.       

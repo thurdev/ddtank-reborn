@@ -1,0 +1,9 @@
+2. A Árvore Brilhante pode invocar o Demônio Borboleta;
+--- RECORDSEPARATOR ---
+depois que o Demônio Borboleta é despertado, pode entrar em estado
+--- RECORDSEPARATOR ---
+de alimentação; depois que a alimentação termina, o Demônio
+--- RECORDSEPARATOR ---
+Borboleta pode ser morto e a recompensa
+--- RECORDSEPARATOR ---
+pode ser recebida!

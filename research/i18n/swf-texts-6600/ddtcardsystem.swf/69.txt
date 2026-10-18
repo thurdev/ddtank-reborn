@@ -1,0 +1,1 @@
+Lavagem: Toda vez que o processo de lavagem é concluído, o valor de todos os atributos da carta atual pode ser alterado aleatoriamente 1 vez, mas o atributo não pode ser trocado. Ao fazer a lavagem, o valor de espírito indicado é gasto.

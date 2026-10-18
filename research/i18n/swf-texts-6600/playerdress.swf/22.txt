@@ -1,0 +1,7 @@
+4. Você pode trocar a aparência aleatoriamente;
+--- RECORDSEPARATOR ---
+depois de trocar, todos os fortalecimentos, sínteses etc. que
+--- RECORDSEPARATOR ---
+estavam na moda anterior e todos os atributos transferidos são
+--- RECORDSEPARATOR ---
+transferidos para a nova moda.

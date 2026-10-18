@@ -1,0 +1,5 @@
+5. Quando o nível de contribuição dos jogadores for igual,
+--- RECORDSEPARATOR ---
+a classificação é feita conforme quem alcançar esse
+--- RECORDSEPARATOR ---
+nível de contribuição primeiro.

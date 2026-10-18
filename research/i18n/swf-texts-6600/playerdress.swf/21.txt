@@ -1,0 +1,5 @@
+3. Depois de salvo, a cor atual e todos os itens de moda que estão
+--- RECORDSEPARATOR ---
+nela não podem ser trocados; além disso a aparência
+--- RECORDSEPARATOR ---
+atual é salva.

@@ -1,0 +1,7 @@
+4.
+--- RECORDSEPARATOR ---
+在護送過程中，離開場景將暫停護送，護送倒計時
+--- RECORDSEPARATOR ---
+  
+--- RECORDSEPARATOR ---
+結束後未到達終點則護送失敗。

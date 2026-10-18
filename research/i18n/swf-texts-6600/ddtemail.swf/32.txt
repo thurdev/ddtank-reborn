@@ -1,0 +1,15 @@
+4. 
+--- RECORDSEPARATOR ---
+未查看的邮件有效期为
+--- RECORDSEPARATOR ---
+      
+--- RECORDSEPARATOR ---
+天，查看后的邮件有效
+--- RECORDSEPARATOR ---
+   
+--- RECORDSEPARATOR ---
+期为
+--- RECORDSEPARATOR ---
+     
+--- RECORDSEPARATOR ---
+天；邮件过期后会被系统删除。

@@ -1,0 +1,5 @@
+1. Equipamentos podem receber encanto. Armas com
+--- RECORDSEPARATOR ---
+dano mais alto podem receber
+--- RECORDSEPARATOR ---
+mais efeito.

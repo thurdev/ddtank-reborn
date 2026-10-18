@@ -1,0 +1,3 @@
+3. A recompensa mínima do Reservatório de
+--- RECORDSEPARATOR ---
+Acúmulo de Cupom é de 1000 cupons.

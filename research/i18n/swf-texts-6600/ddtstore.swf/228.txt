@@ -1,0 +1,9 @@
+Com o slot de fortalecimento, fortalecendo você pode chegar ao nível mais alto,
+--- RECORDSEPARATOR ---
+e pode encaixar pérola de qualquer nível;
+--- RECORDSEPARATOR ---
+no furo selado, usando a broca o nível
+--- RECORDSEPARATOR ---
+pode ser elevado; pérola que exceda o nível
+--- RECORDSEPARATOR ---
+do slot atual não pode ser encaixada.

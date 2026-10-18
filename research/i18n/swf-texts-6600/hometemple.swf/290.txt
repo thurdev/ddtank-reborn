@@ -1,0 +1,7 @@
+4. A oferenda na sua mochila será usada
+--- RECORDSEPARATOR ---
+por padrão. Se houver dois tipos diferentes de oferenda,
+--- RECORDSEPARATOR ---
+a oferenda de nível mais baixo será
+--- RECORDSEPARATOR ---
+usada primeiro.

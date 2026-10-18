@@ -1,0 +1,7 @@
+Jogadores com classificação         de pontos podem participar da
+--- RECORDSEPARATOR ---
+Partida dos 16 Mais Fortes. A Partida dos 16 Mais Fortes é feita por eliminação individual,
+--- RECORDSEPARATOR ---
+cada partida dura 10 minutos, e quando os 10 minutos terminam,
+--- RECORDSEPARATOR ---
+o resultado é decidido pelo dano total.

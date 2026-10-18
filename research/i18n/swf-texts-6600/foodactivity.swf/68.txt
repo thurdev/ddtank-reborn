@@ -1,0 +1,13 @@
+2. O jogador pode usar o grau de atividade acumulado em todas as
+--- RECORDSEPARATOR ---
+quantidades de preparo. Por exemplo:
+--- RECORDSEPARATOR ---
+o jogador A, com grau de atividade 60, obtém
+--- RECORDSEPARATOR ---
+certa quantidade de preparo; o jogador B,
+--- RECORDSEPARATOR ---
+com grau de atividade 80, obtém certa quantidade de preparo; a
+--- RECORDSEPARATOR ---
+quantidade de preparo obtida por jogadores com
+--- RECORDSEPARATOR ---
+grau de atividade 80 é A+B.

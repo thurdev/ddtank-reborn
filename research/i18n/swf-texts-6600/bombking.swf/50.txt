@@ -1,0 +1,5 @@
+4. Na fase final, forma-se a tabela de batalha dos
+--- RECORDSEPARATOR ---
+selecionados; eliminando os grupos menores na batalha,
+--- RECORDSEPARATOR ---
+restam os 3 primeiros.

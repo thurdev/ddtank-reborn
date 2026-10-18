@@ -1,0 +1,5 @@
+3. A pérola do desejo de ataque só pode fazer fundição de ouro na arma.
+--- RECORDSEPARATOR ---
+A pérola do desejo de defesa só pode fazer fundição de ouro nas roupas.
+--- RECORDSEPARATOR ---
+A pérola do desejo de atributo só pode fazer fundição de ouro no chapéu.

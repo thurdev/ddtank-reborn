@@ -1,0 +1,5 @@
+6. O aumento de vida obtido pelo treino de vida
+--- RECORDSEPARATOR ---
+é a vida base do avatar. Pode ser afetado por colares e
+--- RECORDSEPARATOR ---
+habilidades da Sociedade.

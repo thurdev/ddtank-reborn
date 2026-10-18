@@ -1,0 +1,11 @@
+1. O tempo acumulado on-line é medido em
+--- RECORDSEPARATOR ---
+minutos; depois de entrar na sessão
+--- RECORDSEPARATOR ---
+do jogo começa a ser calculado,
+--- RECORDSEPARATOR ---
+quem acumular uma certa
+--- RECORDSEPARATOR ---
+quantidade on-line
+--- RECORDSEPARATOR ---
+recebe uma certa quantidade de preparo.

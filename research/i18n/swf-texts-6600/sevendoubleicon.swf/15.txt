@@ -1,0 +1,7 @@
+4. Durante a escolta você não pode sair
+--- RECORDSEPARATOR ---
+da cena; se a contagem regressiva de escolta terminar
+--- RECORDSEPARATOR ---
+sem que você chegue ao destino, a escolta
+--- RECORDSEPARATOR ---
+fica incompleta.

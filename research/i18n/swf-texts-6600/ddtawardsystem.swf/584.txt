@@ -1,0 +1,27 @@
+1. De acordo com os pontos obtidos no dado lançado, o avatar
+--- RECORDSEPARATOR ---
+vai até a célula indicada, e o item é obtido
+--- RECORDSEPARATOR ---
+automaticamente. Depois do evento o item não vai desaparecer,
+--- RECORDSEPARATOR ---
+o item de cada célula pode ser obtido novamente.
+--- RECORDSEPARATOR ---
+2. A cada passo você obtém pontos de sorte. Quando o ponto
+--- RECORDSEPARATOR ---
+de sorte atingir o estágio indicado, como recompensa
+--- RECORDSEPARATOR ---
+o ponto de sorte será obtido automaticamente.
+--- RECORDSEPARATOR ---
+3. O ponto de sorte está sempre disponível. Depois de obter
+--- RECORDSEPARATOR ---
+o prêmio do ponto de sorte do último estágio,
+--- RECORDSEPARATOR ---
+a barra de pontos é totalmente zerada. Os pontos excedentes obtidos
+--- RECORDSEPARATOR ---
+na última vez são adicionados ao primeiro estágio.
+--- RECORDSEPARATOR ---
+4. Ao sair do jogo ou ficar offline,
+--- RECORDSEPARATOR ---
+os pontos não são zerados. Depois que o evento termina, os pontos
+--- RECORDSEPARATOR ---
+serão zerados.

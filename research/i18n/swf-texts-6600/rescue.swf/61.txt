@@ -1,0 +1,5 @@
+6. Toda vez que o evento for aberto, todos têm 3 chances de pular a contagem regressiva ao falhar
+--- RECORDSEPARATOR ---
+em cada passagem. Quando a batalha for bem-sucedida, pode aparecer a carta de pular a contagem
+--- RECORDSEPARATOR ---
+regressiva. Depois que a contagem regressiva terminar, pode-se batalhar de novo.

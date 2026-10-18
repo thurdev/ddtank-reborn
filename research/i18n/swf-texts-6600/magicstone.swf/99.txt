@@ -1,0 +1,3 @@
+6.Pedras Mágicas com o mesmo atributo não podem ser
+--- RECORDSEPARATOR ---
+combinadas de novo. (Atributo único e pedra de dois cantos)

@@ -1,0 +1,7 @@
+3. Quando o desafio à batalha for bem-sucedido,
+--- RECORDSEPARATOR ---
+você recebe uma recompensa extra; todo dia
+--- RECORDSEPARATOR ---
+quando o desafio falhar,
+--- RECORDSEPARATOR ---
+ele não é contado no número de desafios.

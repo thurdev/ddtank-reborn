@@ -1,0 +1,9 @@
+6. A coluna de classificação aparecerá em pouco tempo;
+--- RECORDSEPARATOR ---
+se houver problema de sincronização na exibição da quantidade de
+--- RECORDSEPARATOR ---
+compras, você pode resolver fechando a interface,
+--- RECORDSEPARATOR ---
+abrindo de novo e atualizando as
+--- RECORDSEPARATOR ---
+informações.

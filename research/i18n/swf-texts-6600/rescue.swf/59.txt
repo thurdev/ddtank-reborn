@@ -1,0 +1,3 @@
+4. Depois que todas as flechas forem usadas, ou se um pintinho morrer na missão, a batalha
+--- RECORDSEPARATOR ---
+falha.

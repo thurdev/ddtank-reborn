@@ -1,0 +1,7 @@
+5.A Sociedade vencedora ganha 10 pontos, a Sociedade perdedora
+--- RECORDSEPARATOR ---
+perde 3 pontos. Se o período de pareamento passar de 60
+--- RECORDSEPARATOR ---
+segundos, o jogador vence por padrão e usa 1
+--- RECORDSEPARATOR ---
+chance de competição.

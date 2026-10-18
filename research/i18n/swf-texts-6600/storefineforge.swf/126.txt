@@ -1,0 +1,7 @@
+2. Os tipos de conjunto são cinco: pedra, cobre, prata, ouro e jade.
+--- RECORDSEPARATOR ---
+É necessário criar em ordem; cada vez que a criação de conjunto
+--- RECORDSEPARATOR ---
+atingir uma quantidade determinada, o efeito de atributo
+--- RECORDSEPARATOR ---
+correspondente é adicionado.

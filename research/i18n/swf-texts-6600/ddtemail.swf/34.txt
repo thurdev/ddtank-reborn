@@ -1,0 +1,7 @@
+2. 
+--- RECORDSEPARATOR ---
+发送付款取信的邮件后，对方未在邮件时效内付费，
+--- RECORDSEPARATOR ---
+   
+--- RECORDSEPARATOR ---
+邮件将会返回给您。

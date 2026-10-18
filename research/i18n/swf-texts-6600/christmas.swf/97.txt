@@ -1,0 +1,9 @@
+2. Para fazer o Boneco de Neve é preciso consumir
+--- RECORDSEPARATOR ---
+bolas de neve. Atacar o monstro do lugar nevado pode
+--- RECORDSEPARATOR ---
+dar bolas de neve; ao fazer o Boneco de Neve, usando o "acréscimo
+--- RECORDSEPARATOR ---
+em dobro" você pode ganhar o dobro de
+--- RECORDSEPARATOR ---
+bolas de neve.

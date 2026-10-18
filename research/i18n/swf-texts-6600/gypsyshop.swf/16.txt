@@ -1,0 +1,3 @@
+3. A loja se renova automaticamente uma vez todo dia ao meio-dia, às 18:00,
+--- RECORDSEPARATOR ---
+o jogador pode renovar manualmente gastando cupom.

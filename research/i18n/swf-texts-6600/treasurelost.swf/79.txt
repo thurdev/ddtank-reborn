@@ -1,0 +1,3 @@
+3. Todo dia às 00:00 o evento é zerado; o jogador volta ao ponto
+--- RECORDSEPARATOR ---
+inicial e recupera vida e energia

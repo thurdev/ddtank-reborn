@@ -1,0 +1,3 @@
+2. Armas normais não atingem o inseto. Mas você pode capturá-lo com a rede. Além disso, o inseto voa após 3
+--- RECORDSEPARATOR ---
+turnos.

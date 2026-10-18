@@ -1,0 +1,3 @@
+5. O limite máximo de nível de treino de cada atributo é
+--- RECORDSEPARATOR ---
+o nível do avatar + 5.

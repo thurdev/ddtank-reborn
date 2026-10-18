@@ -1,0 +1,3 @@
+1. Para procurar itens você pode usar a visualização da interface à esquerda e a busca
+--- RECORDSEPARATOR ---
+aproximada.

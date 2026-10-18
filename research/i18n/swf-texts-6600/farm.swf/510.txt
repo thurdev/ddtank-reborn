@@ -1,0 +1,3 @@
+5. Quando a saciedade do animal de estimação for menor que um coração, o animal
+--- RECORDSEPARATOR ---
+de estimação não pode batalhar.

@@ -1,0 +1,3 @@
+4. O dano causado ao matar a fera pode acumular,
+--- RECORDSEPARATOR ---
+e depois disso os prêmios são obtidos.

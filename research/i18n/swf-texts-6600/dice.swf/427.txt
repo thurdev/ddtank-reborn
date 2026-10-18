@@ -1,0 +1,35 @@
+1. Quando o jogador jogar os dados, os número
+--- RECORDSEPARATOR ---
+   s correspondentes, será o item que o jogador 
+--- RECORDSEPARATOR ---
+   obterá. Após o Evento, o item não irá 
+--- RECORDSEPARATOR ---
+   desaparecer, cada item de dado pode ser 
+--- RECORDSEPARATOR ---
+    obtidos novamente
+--- RECORDSEPARATOR ---
+.
+--- RECORDSEPARATOR ---
+2. Cada vez que você andar, você obterá Pontos 
+--- RECORDSEPARATOR ---
+    de Sorte, quando os Pontos de Sorte chegarem 
+--- RECORDSEPARATOR ---
+    a uma certa pontuação,o jogador ganhará 
+--- RECORDSEPARATOR ---
+    aGrande Recompensa da Sorte.
+--- RECORDSEPARATOR ---
+3. Os Pontos de Sorte sempre estarão, após você 
+--- RECORDSEPARATOR ---
+    obter a Recompensa da Sorte, os pontos de 
+--- RECORDSEPARATOR ---
+    Sorte serão zerados, os últimos pontos 
+--- RECORDSEPARATOR ---
+    redundantes serão adicionadas ao primeiro 
+--- RECORDSEPARATOR ---
+    estágio.
+--- RECORDSEPARATOR ---
+4. Se você sair ou ficar off-line, os seus pontos não
+--- RECORDSEPARATOR ---
+    serão zerados, mas quando  o Evento terminar, 
+--- RECORDSEPARATOR ---
+    os pontos serão zerados.

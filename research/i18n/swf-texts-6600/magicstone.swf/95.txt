@@ -1,0 +1,3 @@
+2.Pedras Mágicas de cores diferentes representam qualidades diferentes,
+--- RECORDSEPARATOR ---
+Pedras Mágicas de tipos diferentes têm atributos diferentes.

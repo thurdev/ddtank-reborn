@@ -1,0 +1,5 @@
+2. Depois que a montaria sobe de nível e alcança 10 estrelas,
+--- RECORDSEPARATOR ---
+ao mesmo tempo que recebe a elevação de nível de montaria também
+--- RECORDSEPARATOR ---
+há mudança de estado.

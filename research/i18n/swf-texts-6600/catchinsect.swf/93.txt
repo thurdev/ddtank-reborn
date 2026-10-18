@@ -1,0 +1,3 @@
+1. Há 3 tipos de inseto na floresta: Libélula, Borboleta e Cigarra; depois de capturar
+--- RECORDSEPARATOR ---
+com sucesso, você obtém os pontos de férias de verão correspondentes.

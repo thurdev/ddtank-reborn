@@ -1,0 +1,23 @@
+成长值由开通
+--- RECORDSEPARATOR ---
+/
+--- RECORDSEPARATOR ---
+续费成长值与非
+--- RECORDSEPARATOR ---
+VIP
+--- RECORDSEPARATOR ---
+成长值两部分组成：
+--- RECORDSEPARATOR ---
+成长值
+--- RECORDSEPARATOR ---
+=
+--- RECORDSEPARATOR ---
+开通或续费成长值
+--- RECORDSEPARATOR ---
++
+--- RECORDSEPARATOR ---
+非
+--- RECORDSEPARATOR ---
+VIP
+--- RECORDSEPARATOR ---
+成长值

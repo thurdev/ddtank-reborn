@@ -1,0 +1,5 @@
+6. Durante a partida, o sistema faz o pareamento no
+--- RECORDSEPARATOR ---
+horário determinado em cada partida; os competidores devem
+--- RECORDSEPARATOR ---
+completar a partida na fase de classificação de pontos da eliminatória/promoção.

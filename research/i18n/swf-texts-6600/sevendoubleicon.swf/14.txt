@@ -1,0 +1,7 @@
+2. Quanto mais avançado for o veículo de escolta
+--- RECORDSEPARATOR ---
+que você chamar, maior será a recompensa ao chegar
+--- RECORDSEPARATOR ---
+ao último destino, e também
+--- RECORDSEPARATOR ---
+maior será a velocidade de movimento.

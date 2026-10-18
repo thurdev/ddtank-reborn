@@ -1,0 +1,9 @@
+2.Se o jogador não morrer, pode ser puxado de volta
+--- RECORDSEPARATOR ---
+ao limite novamente, voltar ao ponto de controle e
+--- RECORDSEPARATOR ---
+continuar o desafio, clicando em carregar de novo
+--- RECORDSEPARATOR ---
+você pode começar
+--- RECORDSEPARATOR ---
+o desafio.

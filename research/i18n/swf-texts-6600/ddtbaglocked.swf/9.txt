@@ -1,0 +1,7 @@
+Depois que a função de segunda senha é ativada, o avatar
+--- RECORDSEPARATOR ---
+desta conta entra automaticamente em estado
+--- RECORDSEPARATOR ---
+bloqueado todas as vezes que entrar no jogo. O avatar bloqueado
+--- RECORDSEPARATOR ---
+não pode realizar as seguintes ações:

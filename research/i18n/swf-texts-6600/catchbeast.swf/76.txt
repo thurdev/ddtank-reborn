@@ -1,0 +1,5 @@
+2. Antes do início da atividade, junto com o BUFF
+--- RECORDSEPARATOR ---
+a taxa de dano de 30000 e 30000
+--- RECORDSEPARATOR ---
+de HP aumentam; o BUFF tem efeito crítico aqui.

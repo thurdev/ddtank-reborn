@@ -1,0 +1,7 @@
+2. Cada vez que a evolução falha, um certo
+--- RECORDSEPARATOR ---
+valor de sorte é obtido; quanto mais alto for o valor
+--- RECORDSEPARATOR ---
+de sorte, maior também
+--- RECORDSEPARATOR ---
+será a chance de evolução.

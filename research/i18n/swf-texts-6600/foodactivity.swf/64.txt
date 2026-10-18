@@ -1,0 +1,7 @@
+2. Depois que o jogador obtém a quantidade de preparo,
+--- RECORDSEPARATOR ---
+deve usar e terminar a quantidade de preparo da fase anterior,
+--- RECORDSEPARATOR ---
+mas assim o acúmulo on-line da fase
+--- RECORDSEPARATOR ---
+seguinte pode ser feito.

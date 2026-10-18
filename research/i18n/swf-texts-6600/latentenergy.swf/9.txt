@@ -1,0 +1,3 @@
+5.Ativar o atributo potencial pode dar um novo
+--- RECORDSEPARATOR ---
+atributo.

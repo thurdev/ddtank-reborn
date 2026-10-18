@@ -1,0 +1,9 @@
+3. Depois de configurar e ligar o assistente de batalha, é necessário
+--- RECORDSEPARATOR ---
+ir para a área principal; mas o assistente de batalha,
+--- RECORDSEPARATOR ---
+nas condições que aparecerem na interface, entra
+--- RECORDSEPARATOR ---
+automaticamente na batalha; offline ou em
+--- RECORDSEPARATOR ---
+outra área o assistente de batalha não pode ser usado.

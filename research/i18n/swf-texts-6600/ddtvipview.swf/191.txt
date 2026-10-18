@@ -1,0 +1,21 @@
+1. Recompensa de missão começa a partir de 2 estrelas
+--- RECORDSEPARATOR ---
+2. Bônus de experiência de fortalecimento de 25%
+--- RECORDSEPARATOR ---
+3. O limite máximo de cupom vinculado aumenta 999
+--- RECORDSEPARATOR ---
+4. A conclusão de missão com um toque aumenta 1 vez
+--- RECORDSEPARATOR ---
+5. O bônus de experiência de batalha multiplica por 1.2.
+--- RECORDSEPARATOR ---
+6. O dinheiro VIP pode ser aberto 4 vezes por dia.
+--- RECORDSEPARATOR ---
+7. Ao perder na batalha, a recompensa cortada é reduzida à metade.
+--- RECORDSEPARATOR ---
+8. Desconto de 10% para tirar carta em servidor remoto
+--- RECORDSEPARATOR ---
+9. Pacote de presente VIP de nível 2: Pedra de fortalecimento, Pedra de síntese,
+--- RECORDSEPARATOR ---
+Poção de experiência.
+--- RECORDSEPARATOR ---
+ 

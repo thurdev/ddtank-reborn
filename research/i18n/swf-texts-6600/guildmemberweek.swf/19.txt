@@ -1,0 +1,7 @@
+2. Depois que o evento termina, os dez primeiros jogadores na
+--- RECORDSEPARATOR ---
+classificação de nível de contribuição recebem as recompensas
+--- RECORDSEPARATOR ---
+correspondentes às suas classificações, e também recebem extra a
+--- RECORDSEPARATOR ---
+recompensa de aumento de aposta.

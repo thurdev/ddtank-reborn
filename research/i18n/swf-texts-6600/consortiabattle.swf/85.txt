@@ -1,0 +1,5 @@
+4. Encerrar uma sequência de mortes e comprar o dobro de
+--- RECORDSEPARATOR ---
+pontos pode ser obtido, aumentando o
+--- RECORDSEPARATOR ---
+ponto extra.

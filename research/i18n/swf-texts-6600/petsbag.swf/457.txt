@@ -1,0 +1,5 @@
+2. Depois que o animal de estimação é alimentado, ele ganha limite de experiência. Ao mesmo
+--- RECORDSEPARATOR ---
+tempo, depois que a ração do animal de estimação é dada, o grau de
+--- RECORDSEPARATOR ---
+felicidade do animal de estimação aumenta.

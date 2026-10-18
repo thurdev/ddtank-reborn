@@ -1,0 +1,5 @@
+1.Para ativar as estatísticas relacionadas, você deve coletar armas.
+--- RECORDSEPARATOR ---
+Depois de ativar, complete uma elevação mágica para
+--- RECORDSEPARATOR ---
+aumentar as estatísticas de ativação base.

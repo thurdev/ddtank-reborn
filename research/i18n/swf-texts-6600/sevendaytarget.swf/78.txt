@@ -1,0 +1,3 @@
+2. Tem efeito enquanto o evento durar, ou enquanto os sete dias de login
+--- RECORDSEPARATOR ---
+se acumularem.

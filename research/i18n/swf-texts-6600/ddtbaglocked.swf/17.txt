@@ -1,0 +1,9 @@
+Obs.: Para proteger sua conta, recomendamos que clique no botão "configurar senha"
+--- RECORDSEPARATOR ---
+para definir sua segunda senha.
+--- RECORDSEPARATOR ---
+    * A segunda senha não deve ser igual à senha de login.
+--- RECORDSEPARATOR ---
+    * Depois de escrita a pergunta e a resposta de segurança da senha,
+--- RECORDSEPARATOR ---
+não podem mais ser alteradas ou excluídas.

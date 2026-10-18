@@ -1,0 +1,3 @@
+5. Se os competidores perderem a partida na hora da final,
+--- RECORDSEPARATOR ---
+são desclassificados automaticamente e o adversário avança direto.

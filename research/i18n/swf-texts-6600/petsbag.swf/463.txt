@@ -1,0 +1,1 @@
+8. O nível do animal de estimação não pode passar do nível atual do jogador.

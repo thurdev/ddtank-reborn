@@ -1,0 +1,11 @@
+生成物品的有效期為熔煉物品中最短的有效期
+--- RECORDSEPARATOR ---
+（熔煉獲得的
+--- RECORDSEPARATOR ---
+ 
+--- RECORDSEPARATOR ---
+裝備有效期為
+--- RECORDSEPARATOR ---
+3
+--- RECORDSEPARATOR ---
+天）。

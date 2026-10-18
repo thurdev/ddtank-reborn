@@ -1,0 +1,13 @@
+1. Os jogadores podem procurar, na pista do caminho, a Ponte da Pega
+--- RECORDSEPARATOR ---
+que a Tecelã construiu com a ajuda do pastor da Pega.
+--- RECORDSEPARATOR ---
+Cada vez que encontrar uma pega, o grau da ponte
+--- RECORDSEPARATOR ---
+da pega sobe um ponto; depois que a construção
+--- RECORDSEPARATOR ---
+terminar, o pacote do festival das estrelas pode ser
+--- RECORDSEPARATOR ---
+comprado
+--- RECORDSEPARATOR ---
+；
