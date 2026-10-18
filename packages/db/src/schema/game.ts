@@ -1224,6 +1224,29 @@ export const Item_Fusion = game.table(
   ],
 );
 
+/** DDT-6600 Db_Tank.dbo.Item_Fusion_New — 206 rows in source (new, m1-schema); PK (FusionID) */
+export const Item_Fusion_New = game.table(
+  "Item_Fusion_New",
+  {
+    FusionID: integer("FusionID").notNull(),
+    Item1: integer("Item1").notNull().default(0),
+    Item2: integer("Item2").notNull().default(-1),
+    Item3: integer("Item3").notNull().default(-1),
+    Item4: integer("Item4").notNull().default(-1),
+    Count1: integer("Count1").notNull().default(0),
+    Count2: integer("Count2").notNull().default(0),
+    Count3: integer("Count3").notNull().default(0),
+    Count4: integer("Count4").notNull().default(0),
+    Formula: integer("Formula").notNull().default(0),
+    FusionRate: integer("FusionRate").notNull().default(0),
+    FusionType: integer("FusionType").notNull().default(0),
+    Reward: integer("Reward").notNull().default(0),
+  },
+  (t) => [
+    primaryKey({ name: "Item_Fusion_New_pkey", columns: [t.FusionID] }),
+  ],
+);
+
 /** Project_Game34.dbo.Item_Record — 0 rows in source; PK (Id) */
 export const Item_Record = game.table(
   "Item_Record",

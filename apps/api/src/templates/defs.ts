@@ -587,6 +587,12 @@ export const TEMPLATES: TemplateDef[] = [
   flat({ files: [z("consortiabadgeconfig"), p("consortiabadgeconfig_out")], table: "Consortia_Badge", order: `"BadgeID"`, elem: "item", attrs: "BadgeID BadgeName Cost LimitLevel ValidDate" }),
   flat({ files: [z("exerciseinfolist")], table: "ExerciseInfo", order: `"Grage"`, attrs: "Grage GP ExerciseA ExerciseAG ExerciseD ExerciseH ExerciseL" }),
   flat({ files: [z("fightspirittemplatelist")], table: "Fight_Spirit_Templatelist", order: `"ID"`, elem: "item", attrs: "FightSpiritID FightSpiritIcon Level Exp Attack Defence Agility Lucky Blood" }),
+  // FusionInfoLoad.xml: fusão por receita do 6600 (m3-fusao, store/newFusion/data/FusionNewDataAnalyzer.as +
+  // FusionNewVo.as — só esses 13 atributos são lidos via ObjectUtils.copyPorpertiesByXML). Antes caía no
+  // fallback do snapshot do vendor (research/6600/xml-diff.md "FusionInfoLoad.xml"); agora vem do banco
+  // (game."Item_Fusion_New", ver packages/db/scripts/schema-6600-tables.ts RENAME_6600) com as receitas reais
+  // usadas por apps/game/src/handlers/forja/fundir.ts fusion6600().
+  flat({ files: [z("fusioninfoload")], table: "Item_Fusion_New", order: `"FusionID"`, attrs: "FusionID Item1 Item2 Item3 Item4 Count1 Count2 Count3 Count4 Formula FusionRate FusionType Reward" }),
   flat({ files: [z("goldequiptemplateload"), p("goldequiptemplateload_out")], table: "GoldEquipTemplateLoad", order: `"ID"`, elem: "item", attrs: "ID OldTemplateId NewTemplateId CategoryID Strengthen Attack Defence Agility Luck Damage Guard Boold BlessID Pic" }),
   flat({ files: [z("itemstrengthengoodsinfo"), p("itemstrengthengoodsinfo_out")], table: "Item_Strengthen_Goods", order: `"ID"`, attrs: "ID CurrentEquip Level GainEquip OriginalEquip=OrginEquip" }),
   flat({ files: [z("levellist")], table: "LevelInfo", order: `"Grade"`, attrs: "Grade GP Blood" }),

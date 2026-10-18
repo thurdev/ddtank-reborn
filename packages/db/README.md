@@ -105,6 +105,15 @@ comportando exatamente igual (`Enabled = true`, `SortOrder = 0`, `InternalUrl = 
 `ALTER TABLE`). Rollback: `ALTER TABLE "player"."Server_List" DROP COLUMN "Enabled", DROP COLUMN "SortOrder", DROP
 COLUMN "InternalUrl", DROP COLUMN "PvpOnly";` — sem migração de dado nos dois sentidos.
 
+**Migration `0015_cute_fabian_cortez.sql`** (task `m3-fusao`): `CREATE TABLE "game"."Item_Fusion_New"` — fusão por
+receita do 6600 (`FusionID`/`Item1-4`/`Count1-4`/`Formula`/`FusionRate`/`FusionType`/`Reward`, 206 linhas reais
+seedadas de `Project_Game6600`). A fonte no `.bak` do 6600 tem o MESMO NOME `Item_Fusion` que a tabela 4.1 já
+existente (4 pedras idênticas, só `Item1-4`/`Formula`/`Reward`) mas um shape incompatível — renomeada via
+`RENAME_6600` em `scripts/schema-6600-tables.ts` (usado tanto por `gen-schema.ts` quanto por `export-seed.ts`,
+pra nunca colidir/mesclar com a `game."Item_Fusion"` da 4.1 nem sobrescrever o seed dela). 100% additive (só
+`CREATE TABLE`, nenhuma tabela existente tocada). Rollback: `DROP TABLE "game"."Item_Fusion_New";` — sem dado
+de jogador nenhum na tabela (é só catálogo/config).
+
 ## Dev mode (PGlite, no Postgres install)
 
 `DATABASE_URL` unset (or `pglite:<dir>`) -> [PGlite](https://pglite.dev) (Postgres 17 in WASM), persisted in

@@ -13,6 +13,12 @@ export type StrengthenRow = typeof game.Item_Strengthen.$inferSelect;
 export type StrengthenGoodsRow = typeof game.Item_Strengthen_Goods.$inferSelect;
 export type StrengthenExpRow = typeof game.StrengThenExp.$inferSelect;
 export type FusionRow = typeof game.Item_Fusion.$inferSelect;
+/** game."Item_Fusion_New" — fusão por receita do 6600 (m3-fusao), ver research/6600/packets-m1.md "M2 forja" 78
+ * ITEM_FUSION. Shape diferente da `Item_Fusion` da 4.1 acima (mesmo nome na origem, ver RENAME_6600 em
+ * packages/db/scripts/schema-6600-tables.ts): FusionID -> {Item1,Count1,FusionRate,FusionType,Reward}, só o
+ * ingrediente 1 é usado de fato pelo C# decompilado (ItemFusionHandler.cs: Item2-4/Count2-4/Formula nunca lidos,
+ * confirmado nas 206 linhas de dados — Item2-4 sempre -1). */
+export type FusionRow6600 = typeof game.Item_Fusion_New.$inferSelect;
 export type ItemBoxRow = typeof game.Shop_Goods_Box.$inferSelect;
 
 export type ShopRow = typeof game.Shop.$inferSelect;
@@ -103,6 +109,8 @@ export class Templates {
   strengthen = new Map<number, StrengthenRow>();
   strengthenGoods: StrengthenGoodsRow[] = [];
   fusions = new Map<string, FusionRow>();
+  /** FusionMgr.FindItemFusion do 6600 (`FusionMgr.cs`): dictionary direto por FusionID, sem key composta. */
+  fusions6600 = new Map<number, FusionRow6600>();
   itemBoxes = new Map<number, ItemBoxRow[]>();
   /** Attribute tables used by UpdatePlayerProperties / FightPower (game/stats.ts). */
   stats: StatTables = {
@@ -249,13 +257,14 @@ export class Templates {
   }
 
   async loadForge(db: Database): Promise<void> {
-    const [str, strG, fus, box, ex, tot, gold, cardU, petF, suitI, suitT, cfg, refinery, strExp, spirits, setsBuildTemp] = await Promise.all([
+    const [str, strG, fus, box, ex, tot, gold, cardU, petF, suitI, suitT, cfg, refinery, strExp, spirits, setsBuildTemp, fus6600] = await Promise.all([
       db.select().from(game.Item_Strengthen), db.select().from(game.Item_Strengthen_Goods), db.select().from(game.Item_Fusion),
       db.select().from(game.Shop_Goods_Box), db.select().from(game.ExerciseInfo), db.select().from(game.Totem_Info),
       db.select().from(game.GoldEquipTemplateLoad), db.select().from(game.CardUpdateInfo), db.select().from(game.Pet_Fight_Property),
       db.select().from(game.SuitTemplateInfo), db.select().from(game.Suit_TemplateID), db.select().from(game.Server_Config),
       db.select().from(game.Item_Refinery), db.select().from(game.StrengThenExp),
       db.select().from(app.SpiritInfo), db.select().from(game.Sets_Build_Temp),
+      db.select().from(game.Item_Fusion_New),
     ]);
     this.refinery = refinery;
     this.spirits = spirits;
@@ -270,6 +279,8 @@ export class Templates {
       const key = [f.Item1, f.Item2, f.Item3, f.Item4].sort((a, b) => a - b).filter((x) => x !== 0).join("");
       if (!this.fusions.has(key)) this.fusions.set(key, f);
     }
+    // FusionMgr.FindItemFusion (6600): dictionary direto por FusionID (research/6600/packets-m1.md "M2 forja").
+    this.fusions6600 = new Map(fus6600.map((f) => [f.FusionID, f]));
     this.itemBoxes = new Map();
     for (const b of box) this.itemBoxes.set(b.ID, [...(this.itemBoxes.get(b.ID) ?? []), b]);
     const golds = gold as GoldEquipRow[];

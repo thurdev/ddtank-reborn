@@ -13,6 +13,21 @@
  * db-diff (`Button_Config`, `Box_Temp`, `All_Questions`, ...) — ficam pra confirmar jogando o
  * 6600, como o próprio db-diff recomenda.
  */
+/**
+ * Source table name (as it is in the 6600 `.bak`) -> target Drizzle/Postgres name, only for the rare case where
+ * it collides with an EXISTING 4.1 table of the same name but an incompatible shape. Used by both `gen-schema.ts`
+ * (so the 6600 catalog entry is pushed under the renamed name instead of colliding/merging with the 4.1 table
+ * already generated from `Project_Game34`) and `export-seed.ts` (so the renamed seed file/manifest entry never
+ * touches the unrelated, already-committed 4.1 seed of the same source name).
+ *
+ * `Item_Fusion` (m3-fusao): 4.1's is the 4-identical-stones mechanism (`FusionID` keyed by sorted FusionType,
+ * only `Item1-4`/`Formula`/`Reward` columns). 6600's is the recipe system the client's `FusionNewDataAnalyzer`/
+ * `FusionNewVo` read (`FusionID`/`Item1-4`/`Count1-4`/`FusionRate`/`FusionType`/`Reward`) — same table name in the
+ * source `.bak`, different columns/semantics (research/6600/packets-m1.md "M2 forja" 78 ITEM_FUSION). Renamed to
+ * `Item_Fusion_New`, matching the client's own `store/newFusion/*` naming.
+ */
+export const RENAME_6600: Record<string, string> = { Item_Fusion: "Item_Fusion_New" };
+
 export const GAMEPLAY_6600_TABLES: Record<string, "game" | "player"> = {
   // Montaria (horse.swf / horseRace.swf)
   Mount_Template: "game",
@@ -105,4 +120,9 @@ export const GAMEPLAY_6600_TABLES: Record<string, "game" | "player"> = {
   // Conjunto/visual de equipamento
   Suit_Template: "game",
   Suit_Part_Equip: "game",
+
+  // Fusão por receita (m3-fusao): mesmo nome `Item_Fusion` que a 4.1 já usa pro sistema antigo (4 pedras
+  // idênticas, Formula/Reward só), mas shape DIFERENTE (Item1-4/Count1-4/FusionRate/FusionType) — exportado como
+  // `Item_Fusion_New` via RENAME_6600 em `export-seed.ts` pra não colidir com o seed 4.1 já committado.
+  Item_Fusion: "game",
 };

@@ -10,6 +10,13 @@
  *           GAMEPLAY_6600_TABLES (see research/6600/db-diff.md) — never the "player" ones, which are real
  *           per-player state from the 6600 source server, not seed data.
  *
+ * Rename on export (RENAME_6600): a few DDT-6600 source tables have the SAME NAME as an existing 4.1 table but a
+ * DIFFERENT shape (`Item_Fusion`: 4.1 is 4-identical-stones keyed by FusionType, 6600 is the recipe system keyed
+ * by FusionID with Item1-4/Count1-4/FusionRate — research/6600/packets-m1.md "M2 forja" 78 ITEM_FUSION; m3-fusao).
+ * Those get a dedicated Drizzle table (`Item_Fusion_New`, matching the client's own `FusionNew*` naming) instead
+ * of colliding with the 4.1 one; `only`/the manifest key use the RENAMED name so re-exporting it never touches
+ * the unrelated, already-committed `game/Item_Fusion.json.gz` (4.1, Project_Game34).
+ *
  * ⚠️ DANGER re-running this wholesale: `vendor/_dbexport/Project_Game34/data` on disk is a raw re-export of the
  * LocalDB backup and does NOT carry any later edits (e.g. PT-BR text applied some other way than
  * `scripts/import-translations.ts`, which writes to `app."Translations"` and never touches these JSON files).
@@ -28,7 +35,7 @@ import { join } from "node:path";
 import { gzipSync } from "node:zlib";
 import { SEED_DIR, VENDOR_EXPORT } from "../src/paths.js";
 import type { SeedManifest } from "../src/seed.js";
-import { GAMEPLAY_6600_TABLES } from "./schema-6600-tables.js";
+import { GAMEPLAY_6600_TABLES, RENAME_6600 } from "./schema-6600-tables.js";
 
 const PLAYER_CONFIG_TABLES = [
   "Server_Config",
@@ -59,8 +66,8 @@ const OVERRIDES: Record<string, (row: Record<string, unknown>) => void> = {
 const sources = [
   { db: "Project_Game34", schema: "game", include: (_t: string) => true },
   { db: "Project_Player34", schema: "player", include: (t: string) => PLAYER_CONFIG_TABLES.includes(t) },
-  // m1-schema: new DDT-6600 template/config tables (never the "player" ones in GAMEPLAY_6600_TABLES).
-  { db: "Project_Game6600", schema: "game", include: (t: string) => GAMEPLAY_6600_TABLES[t] === "game" },
+  // m1-schema/m3-fusao: new DDT-6600 template/config tables (never the "player" ones in GAMEPLAY_6600_TABLES).
+  { db: "Project_Game6600", schema: "game", include: (t: string) => GAMEPLAY_6600_TABLES[t] === "game", rename: (t: string) => RENAME_6600[t] ?? t },
 ] as const;
 
 // Positional args = table names to (re)export in place, WITHOUT touching anything else already committed
@@ -92,19 +99,22 @@ for (const s of sources) {
   for (const f of readdirSync(dataDir).filter((f) => f.endsWith(".json")).sort()) {
     const table = f.slice(0, -5);
     if (!s.include(table)) continue;
-    if (only.size && !only.has(table)) continue;
+    // renamed tables are matched/written by their TARGET name (RENAME_6600 above), never the source name, so
+    // `only` never accidentally re-touches an unrelated same-named table from another source.
+    const targetTable = "rename" in s && s.rename ? s.rename(table) : table;
+    if (only.size && !only.has(targetTable)) continue;
     const raw = readFileSync(join(dataDir, f), "utf8");
     const rows = JSON.parse(raw.charCodeAt(0) === 0xfeff ? raw.slice(1) : raw) as Record<string, unknown>[];
-    const ov = OVERRIDES[`${s.schema}.${table}`];
+    const ov = OVERRIDES[`${s.schema}.${targetTable}`];
     if (ov) rows.forEach(ov);
     // one row per line keeps it greppable after gunzip
     const text = "[\n" + rows.map((r) => JSON.stringify(r)).join(",\n") + "\n]\n";
     const gz = gzipSync(Buffer.from(text, "utf8"), { level: 9 });
-    const file = `${s.schema}/${table}.json.gz`;
+    const file = `${s.schema}/${targetTable}.json.gz`;
     writeFileSync(join(SEED_DIR, file), gz);
-    const entry = { schema: s.schema, table, rows: rows.length, file };
+    const entry = { schema: s.schema, table: targetTable, rows: rows.length, file };
     if (only.size) {
-      const i = manifest.tables.findIndex((e) => e.schema === s.schema && e.table === table);
+      const i = manifest.tables.findIndex((e) => e.schema === s.schema && e.table === targetTable);
       if (i >= 0) manifest.tables[i] = entry;
       else manifest.tables.push(entry);
     } else {

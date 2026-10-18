@@ -3,9 +3,15 @@
  * e aperta fundir; o resultado cai no slot 0. Pedras empilhadas num slot só se auto-dividem
  * (ver `bancada.ts`) porque o cliente Flash não tem seletor de quantidade.
  * Pacotes: 76 (preview, operação 0) / 78 ITEM_FUSION (fundir de fato, operação 1).
- * C#: `FusionMgr.cs` (regras de receita/prêmio), `ItemFusionHandler.cs` (pacote).
+ * C# (4.1, `vendor/DDTank41`): `FusionMgr.cs` (regras de receita/prêmio), `ItemFusionHandler.cs` (pacote).
  * Como testar: `fusion-autosplit.test.ts` (dividir pilha nos slots 1-4). Manual: Forja → Ferraria →
  * Fundir → arrastar 4 pedras do mesmo tipo (ou 1 pilha de 4+) → ver preview de % → confirmar.
+ *
+ * 6600 (`fusion6600`, ver comentário dela abaixo): tela/protocolo TOTALMENTE diferentes — sem bancada, o
+ * cliente manda `[fusionId, count, withoutComposeAttr]` direto (`store/newFusion/*`). C# (`vendor/DDT-6600`,
+ * MESMOS nomes de classe que a 4.1 mas lógica diferente): `Bussiness/Managers/FusionMgr.cs`,
+ * `Game.Server.Packets.Client/ItemFusionHandler.cs`. Como testar: `test/client-6600-m2-forja.test.ts`
+ * (describe "78 ITEM_FUSION").
  */
 import { GSPacket } from "@ddt/protocol";
 import { ItemInfo, BagType, templateBagType, type ItemTemplate } from "../../game/item.js";
@@ -127,7 +133,7 @@ function fusionExpiryDays(materials: ItemInfo[]): number {
  * Resposta fusão (78): 1 boolean (deu bom ou não) + mensagem de chat.
  */
 export async function fusion(ctx: ServerContext, player: GamePlayer, pkt: GSPacket, rnd = Math.random): Promise<void> {
-  if (player.clientKind === "6600") return fusion6600(ctx, player, pkt);
+  if (player.clientKind === "6600") return fusion6600(ctx, player, pkt, rnd);
   const operation = pkt.readByte();
   if (bagLocked(ctx, player)) return;
   installFusionAutoSplitHook(player); // safety net: normally already installed by clearStoreBag (122)
@@ -189,27 +195,106 @@ export async function fusion(ctx: ServerContext, player: GamePlayer, pkt: GSPack
   player.send(done);
 }
 
+/** GamePlayer.GetItemCount do 6600 (`GamePlayer.cs:2018-2020`): soma PropBag + EquipBag + ConsortiaBag. Não
+ * inclui a Casa Mágica (`playerMagicHouse_0`, feature não portada — gap documentado, ver m3-fusao). */
+function fusionMaterialCount6600(player: GamePlayer, templateId: number): number {
+  return player.propBag.getItemCount(templateId) + player.equipBag.getItemCount(templateId) + player.consortiaBag.getItemCount(templateId);
+}
+
+/** GamePlayer.RemoveTemplate do 6600 (`GamePlayer.cs:2354-2390`): consome nessa ordem — EquipBag, PropBag,
+ * ConsortiaBag (-> MagicHouseBag no original; não portada, mesmo gap de `fusionMaterialCount6600`). `total` já
+ * foi validado como disponível pelo chamador, então cada `removeTemplate` abaixo sempre tem o suficiente. */
+function removeFusionMaterial6600(player: GamePlayer, templateId: number, total: number): void {
+  let left = total;
+  for (const bag of [player.equipBag, player.propBag, player.consortiaBag]) {
+    if (left <= 0) break;
+    const have = bag.getItemCount(templateId);
+    if (have <= 0) continue;
+    const take = Math.min(have, left);
+    bag.removeTemplate(templateId, take);
+    left -= take;
+  }
+}
+
 /**
- * 6600: a UI de Fundir foi SUBSTITUÍDA inteira (`store/newFusion/*`) por um sistema de RECEITA
- * (`FusionID` + até 4 ingredientes DIFERENTES `Item1-4`/`Count1-4` + `Reward`, carregado de um XML que
- * nosso `apps/api` não gera) — a tela antiga de 4 pedras iguais nos slots 1-4 (`store/view/fusion/
- * StoreIIFusionBG.as`) é código morto no cliente 6600: só `FusionNewMainView` é instanciada
- * (`store/StoreMainView.as:227`, confirmado — `StoreIIFusionBG` não aparece em nenhum `new`).
- * `GameSocketOut.sendItemFusion` do 6600 (`store/newFusion/view/FusionNewRightView.as:295/305`) manda
- * `[int fusionId, int count, boolean withoutComposeAttr]` — um corpo TOTALMENTE diferente do byte único
- * `operation` da 4.1; ler como se fosse a 4.1 desalinharia o parser. E mesmo lendo certo, nossa tabela
- * `game."Item_Fusion"` é indexada por `FusionType` de 4 pedras IDÊNTICAS (`fusionCandidates`), não por
- * receita com ingredientes distintos — não dá pra resolver `fusionId` nela.
- * Gap confirmado pra M3 (`research/6600/packets-m1.md` "M2 forja"): sem o XML/tabela de receita nova, o
- * sistema não é portável sem desenho novo. Aqui só consumimos os 3 campos certos (não desalinha o próximo
- * pacote do stream) e respondemos de forma seguro pro cliente real: `fusionCompleteHandler`
- * (`FusionNewRightView.as:191`) NÃO lê nenhum campo do corpo de 78 — só reage à CHEGADA do evento (pra
- * decidir se continua o auto-fundir ou para) — então um `GSPacket(78)` vazio é um ack válido, sem crash.
+ * 6600: fusão por RECEITA (`ItemFusionHandler.cs`, decompilado por completo em
+ * `vendor/DDT-6600/Source/Game.Server/Game.Server.Packets.Client/ItemFusionHandler.cs`) — substitui inteira a
+ * tela de 4 pedras idênticas da 4.1 (`store/newFusion/*`, `FusionNewDataAnalyzer`/`FusionNewVo`; a tela antiga
+ * `store/view/fusion/StoreIIFusionBG.as` é código morto no 6600, confirmado em `store/StoreMainView.as:227`).
+ * `GameSocketOut.sendItemFusion` (`store/newFusion/view/FusionNewRightView.as:295/305`) manda
+ * `[int fusionId, int count, boolean withoutComposeAttr]` — a receita (`game."Item_Fusion_New"`, m3-fusao;
+ * mesmo nome de tabela da 4.1 na origem mas shape diferente, renomeada via `RENAME_6600` em
+ * `packages/db/scripts/schema-6600-tables.ts`) tem só 1 ingrediente de fato USADO pelo handler
+ * (`Item1`/`Count1`; `Item2-4`/`Count2-4`/`Formula` nunca são lidos no C#, confirmado nas 206 linhas reais de
+ * dados — `Item2-4` sempre `-1`). `withoutComposeAttr` também nunca é lido pelo servidor (só consumido pra não
+ * desalinhar o stream, igual o C# faz com `packet.ReadBoolean()` sem guardar o valor).
+ *
+ * Fluxo (ItemFusionHandler.cs:19-131): acha a receita por `fusionId` -> acha o template do `Reward` -> se o bag
+ * de destino (Equip ou Prop, conforme o `BagType` do Reward) não tem 1 slot livre, rejeita sem consumir nada ->
+ * clampa `count` pelo que o jogador realmente tem (`itemCount/Count1`) -> cobra ouro (`MustFusionGold` *
+ * `Count1` * `count`) e consome os materiais ANTES de rolar -> rola `count` vezes (`FusionRate`/100000 de chance
+ * cada) -> cada sucesso de item NÃO-empilhável (equipamento) entra separado na lista; pra item empilhável, só a
+ * PRIMEIRA rolagem de sucesso cria o `ItemInfo` e ao final seu `Count` é sobrescrito pro total de tentativas
+ * `count` (não pro nº de sucessos) — replicando fielmente essa particularidade do C# original (`ıtemInfo.Count =
+ * num`, fora do loop). Se a lista ficou vazia (nenhum sucesso), falha — mas ouro/material já foram gastos.
+ *
+ * Resposta (78, `AbstractPacketLib.cs:1611-1617` do 6600): só 1 boolean (resultado) — `fusionCompleteHandler`
+ * (`FusionNewRightView.as:191`) não lê nada do corpo, só reage à chegada do evento, mas escrevemos o boolean de
+ * qualquer forma pra ficar fiel ao server original.
  */
-async function fusion6600(ctx: ServerContext, player: GamePlayer, pkt: GSPacket): Promise<void> {
-  pkt.readInt(); // fusionId — sem tabela de receitas pra resolver (gap M3)
-  pkt.readInt(); // count
-  pkt.readBoolean(); // withoutComposeAttr
-  player.sendMessage(0, "A nova Fusão (receita) ainda não está disponível neste servidor.");
-  player.send(new GSPacket(78, player.id)); // fusionCompleteHandler não lê corpo nenhum — só reage ao evento
+async function fusion6600(ctx: ServerContext, player: GamePlayer, pkt: GSPacket, rnd = Math.random): Promise<void> {
+  const fusionId = pkt.readInt();
+  let count = pkt.readInt();
+  pkt.readBoolean(); // withoutComposeAttr — lido pro servidor 6600 real também nunca usa (ItemFusionHandler.cs:28)
+  if (bagLocked(ctx, player)) return;
+
+  const recipe = ctx.templates.fusions6600.get(fusionId);
+  if (!recipe) return player.sendMessage(0, ctx.lang.t("ItemFusionHandler.NoCondition"));
+  const rewardTemplate = ctx.templates.findItem(recipe.Reward);
+  if (!rewardTemplate) return player.sendMessage(0, ctx.lang.t("ItemFusionHandler.NoCondition"));
+
+  const rewardBagType = templateBagType(rewardTemplate);
+  if (rewardBagType === BagType.EquipBag && player.equipBag.findFirstEmptySlot() === -1) return player.sendMessage(0, ctx.lang.t("UserChangeItemPlaceHandler.full"));
+  if (rewardBagType === BagType.PropBag && player.propBag.findFirstEmptySlot() === -1) return player.sendMessage(0, ctx.lang.t("UserChangeItemPlaceHandler.full"));
+
+  const itemCount = fusionMaterialCount6600(player, recipe.Item1);
+  const maxPossible = Math.floor(itemCount / recipe.Count1);
+  if (count > maxPossible) count = maxPossible;
+  const enough = count > 1 ? itemCount >= recipe.Count1 * count : itemCount >= recipe.Count1;
+  if (!enough) return player.sendMessage(0, ctx.lang.t("ItemFusionHandler.NoCondition"));
+
+  const goldCost = ctx.templates.cfgInt("MustFusionGold", FUSION_COST_GOLD) * recipe.Count1 * count;
+  if (player.info.Gold < goldCost) return player.sendMessage(1, ctx.lang.t("ItemFusionHandler.NoMoney"));
+
+  player.removeGold(goldCost);
+  removeFusionMaterial6600(player, recipe.Item1, recipe.Count1 * count);
+
+  const validDate = rewardBagType === BagType.PropBag ? 0 : 30;
+  const equipmentResults: ItemInfo[] = [];
+  let stackableResult: ItemInfo | null = null;
+  for (let i = 0; i < count; i++) {
+    if (Math.floor(rnd() * 100000) > recipe.FusionRate) continue;
+    const won = ItemInfo.createFromTemplate(rewardTemplate, 1, 105, ctx.now());
+    won.IsBinds = true;
+    won.ValidDate = validDate;
+    if (rewardTemplate.MaxCount === 1) equipmentResults.push(won);
+    else if (!stackableResult) stackableResult = won;
+  }
+  // ItemFusionHandler.cs:111: Count sobrescrito pro total de TENTATIVAS, não pro nº de sucessos — bug/feature
+  // original replicado de propósito (ver comentário da função acima).
+  if (stackableResult) stackableResult.Count = count;
+  const results = stackableResult ? [...equipmentResults, stackableResult] : equipmentResults;
+
+  if (results.length) {
+    const overflowToMail: ItemInfo[] = [];
+    for (const item of results) if (!player.addTemplateToBag(item, rewardBagType, item.Count)) overflowToMail.push(item);
+    if (overflowToMail.length) await mailItems(ctx, player, overflowToMail);
+    player.questInv?.onItemFusion(recipe.FusionType);
+    player.sendMessage(0, ctx.lang.t("ItemFusionHandler.Succeed1") + (rewardTemplate.Name ?? "") + " x" + count);
+  } else {
+    player.sendMessage(0, ctx.lang.t("ItemFusionHandler.Failed"));
+  }
+  const done = new GSPacket(78, player.id);
+  done.writeBoolean(results.length > 0);
+  player.send(done);
 }
