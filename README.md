@@ -103,8 +103,11 @@ Ajuda bem-vinda em tudo: balanceamento, bugs, tradução, arte, novas funcionali
 ## ☕ Apoiar
 
 O projeto é mantido sem fins lucrativos. Se quiser ajudar a manter o desenvolvimento e o
-servidor oficial (sem pay-to-win), dá pra pagar um café — link em breve aqui.
-Doação é sempre opcional e não dá vantagem nenhuma no jogo.
+servidor oficial (sem pay-to-win), tem uma página de doação via Pix: **[Apoiar](http://localhost:5173/apoiar)**
+(no servidor oficial, a URL real fica no menu do site). Doação é sempre opcional, voluntária
+e **não dá vantagem nenhuma no jogo** — no máximo um selo cosmético no perfil do site.
+Transparência (custo do servidor × doações do mês): página **[Transparência](http://localhost:5173/transparencia)**.
+Detalhes de como funciona (provedores Pix, segurança): [docs/features/doacao-pix.md](./docs/features/doacao-pix.md).
 
 ## 👤 Mantenedor
 

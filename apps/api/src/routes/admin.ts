@@ -14,6 +14,7 @@ import { wallNow } from "../lib/flash-xml.js";
 import { safeKey } from "../lib/storage.js";
 import { RESOURCES, type ResourceDef } from "./admin-resources.js";
 import { requireAdmin, userOf } from "./auth.js";
+import { donationSettings, putDonationSettings } from "./donations.js";
 import { gameInternal, gameInternalPost, setting } from "./public.js";
 
 type Row = Record<string, unknown>;
@@ -258,6 +259,52 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
     applyServerConfig(ctx, v);
     await audit(ctx, actor(req), "config", "server-config updated", v);
     return v;
+  });
+
+  // ---- doações (Pix) ----
+  f.get("/api/admin/donation-settings", { preHandler: guard }, async () => donationSettings(ctx));
+  f.put("/api/admin/donation-settings", { preHandler: guard }, async (req) => {
+    const v = await putDonationSettings(ctx, (req.body ?? {}) as Row);
+    await audit(ctx, actor(req), "donations", "donation-settings updated", v);
+    return v;
+  });
+  /**
+   * Confirmação manual: só pra "fake" (teste) e "static" (Pix sem PSP/webhook — o dono confere o extrato do
+   * banco por fora e marca aqui). "mercadopago" (e qualquer outro PSP real) é sempre confirmado pelo
+   * `POST /api/pix/webhook`, nunca por aqui — evita marcar uma doação "paga" sem o dinheiro ter de fato caído.
+   */
+  f.post<{ Params: { id: string } }>("/api/admin/donations/:id/mark-paid", { preHandler: guard }, async (req, reply) => {
+    const id = Number(req.params.id);
+    const [row] = await ctx.h.db.select().from(appTables.Donations).where(eq(appTables.Donations.id, id)).limit(1);
+    if (!row) return reply.code(404).send({ message: "Doação não encontrada" });
+    if (row.provider !== "fake" && row.provider !== "static") return reply.code(400).send({ message: `Doações do provedor "${row.provider}" só são confirmadas pelo webhook.` });
+    if (row.status === "paid") return reply.code(200).send(row);
+    const [updated] = await ctx.h.db.update(appTables.Donations).set({ status: "paid", paidAt: new Date() }).where(eq(appTables.Donations.id, id)).returning();
+    await audit(ctx, actor(req), "donations", `donation #${id} marked paid`, { amountCents: row.amountCents, provider: row.provider });
+    return updated;
+  });
+  /** CSV das doações (conciliação/contabilidade). Filtros opcionais iguais à listagem (status/provider). */
+  f.get<{ Querystring: { status?: string; provider?: string } }>("/api/admin/donations/export", { preHandler: guard }, async (req, reply) => {
+    const c = cols(appTables.Donations);
+    const conds: SQL[] = [];
+    if (req.query.status) conds.push(eq(c.status!, req.query.status));
+    if (req.query.provider) conds.push(eq(c.provider!, req.query.provider));
+    const rows = await ctx.h.db
+      .select()
+      .from(appTables.Donations)
+      .where(conds.length ? and(...conds) : undefined)
+      .orderBy(desc(appTables.Donations.createdAt));
+    const csvCell = (v: unknown) => {
+      if (v === null || v === undefined) return "";
+      const s = v instanceof Date ? v.toISOString() : String(v);
+      return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+    };
+    const header = ["id", "amountCents", "status", "provider", "txid", "providerChargeId", "payerName", "message", "optIn", "accountId", "createdAt", "paidAt", "expiresAt"];
+    const lines = [header.join(","), ...rows.map((r) => header.map((k) => csvCell((r as Row)[k])).join(","))];
+    return reply
+      .header("Content-Type", "text/csv; charset=utf-8")
+      .header("Content-Disposition", `attachment; filename="doacoes-${new Date().toISOString().slice(0, 10)}.csv"`)
+      .send(lines.join("\r\n"));
   });
 
   // ---- assets / uploads ----
@@ -527,6 +574,8 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
       levelMax?: string;
       idMin?: string;
       idMax?: string;
+      status?: string;
+      provider?: string;
     };
   }>(
     "/api/admin/:resource",
@@ -538,6 +587,11 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
       const page = Math.max(1, Number(req.query.page) || 1);
       const pageSize = Math.min(500, Math.max(1, Number(req.query.pageSize) || 20));
       const conds: SQL[] = [];
+      // Página Doações: filtro por status/provedor (ver apps/admin/src/resources/donations.ts "filters").
+      if (req.params.resource === "donations") {
+        if (req.query.status && c.status) conds.push(eq(c.status, req.query.status));
+        if (req.query.provider && c.provider) conds.push(eq(c.provider, req.query.provider));
+      }
       // Picker de item (ex. arma de bot) + filtro "Categoria" da Grade de ícones: restringe por CategoryID, só no resource "items".
       if (req.params.resource === "items" && req.query.category && c.CategoryID) {
         const ids = req.query.category.split(",").map(Number).filter(Number.isFinite);

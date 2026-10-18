@@ -1,7 +1,7 @@
 import { Link, Outlet, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button, LocaleToggle } from "@ddtank/ui";
-import { Play } from "lucide-react";
+import { Heart, Play } from "lucide-react";
 import { api, meQuery } from "@/lib/api";
 import { useI18n } from "@/i18n";
 
@@ -46,6 +46,9 @@ export function SiteLayout() {
             <Link to="/ranking" className={navLink}>
               {t("nav.ranking")}
             </Link>
+            <Link to="/apoiar" className={navLink}>
+              {t("nav.support")}
+            </Link>
             {me && (
               <Link to="/account" className={navLink}>
                 {t("nav.account")}
@@ -63,6 +66,11 @@ export function SiteLayout() {
                 <Link to="/login">{t("nav.login")}</Link>
               </Button>
             )}
+            <Button variant="secondary" size="sm" asChild>
+              <Link to="/apoiar">
+                <Heart /> {t("nav.support")}
+              </Link>
+            </Button>
             <Button size="sm" asChild>
               <Link to="/play">
                 <Play /> {t("nav.play")}
@@ -77,6 +85,9 @@ export function SiteLayout() {
           <Link to="/ranking" className={navLink}>
             {t("nav.ranking")}
           </Link>
+          <Link to="/apoiar" className={navLink}>
+            {t("nav.support")}
+          </Link>
           {me && (
             <Link to="/account" className={navLink}>
               {t("nav.account")}
@@ -89,6 +100,9 @@ export function SiteLayout() {
       </main>
       <footer className="border-t border-line/60 py-8 text-center text-xs text-muted">
         <p>{t("footer.note")}</p>
+        <Link to="/transparencia" className="mt-1 inline-block underline hover:text-ink">
+          {t("footer.transparency")}
+        </Link>
       </footer>
     </div>
   );

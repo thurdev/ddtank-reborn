@@ -120,6 +120,13 @@
       "when": 1792315041898,
       "tag": "0016_natural_gargoyle",
       "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1792331295070,
+      "tag": "0017_yummy_shriek",
+      "breakpoints": true
     }
   ]
 }

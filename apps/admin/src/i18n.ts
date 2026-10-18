@@ -14,6 +14,7 @@ const ptBR = {
   "nav.assets": "Arquivos e imagens",
   "nav.mail": "Correio em massa",
   "nav.events": "Eventos",
+  "nav.donations": "Doações",
   "nav.logout": "Sair",
 
   "login.title": "Painel administrativo",
@@ -110,6 +111,14 @@ const ptBR = {
   "mail.sent": "Correio enviado para {n} jogador(es)",
   "mail.history": "Envios anteriores",
 
+  "donations.title": "Doações",
+  "donations.lead": "Configuração da página \"Apoiar\" (meta do mês, limites) e conciliação das doações via Pix.",
+  "donations.settingsSaved": "Configuração salva",
+  "donations.list": "Doações",
+  "donations.exportCsv": "Exportar CSV",
+  "donations.noP2wBadge": "Sem vantagem no jogo",
+  "donations.noP2wBody": "Doação nunca dá item, cupom ou VIP. No máximo um selo cosmético no site — regra do projeto, não deste painel.",
+
   "common.error": "Algo deu errado.",
 } as const;
 
@@ -127,6 +136,7 @@ const en: Partial<Record<Key, string>> = {
   "nav.assets": "Files & images",
   "nav.mail": "Mass mail",
   "nav.events": "Events",
+  "nav.donations": "Donations",
   "nav.logout": "Log out",
   "login.title": "Admin panel",
   "login.lead": "Restricted to accounts with the admin role.",
@@ -214,6 +224,15 @@ const en: Partial<Record<Key, string>> = {
   "mail.send": "Send mail",
   "mail.sent": "Mail sent to {n} player(s)",
   "mail.history": "Previous sends",
+
+  "donations.title": "Donations",
+  "donations.lead": "\"Support\" page settings (monthly goal, limits) and Pix donation reconciliation.",
+  "donations.settingsSaved": "Settings saved",
+  "donations.list": "Donations",
+  "donations.exportCsv": "Export CSV",
+  "donations.noP2wBadge": "No in-game advantage",
+  "donations.noP2wBody": "Donations never give items, coupons or VIP. At most a cosmetic site badge — a project rule, not a setting of this panel.",
+
   "common.error": "Something went wrong.",
 };
 

@@ -163,11 +163,24 @@ Como rodar um 2º canal hoje (sem `ch-processo`/`ch-bus`): [GAME-SERVER.md §Can
   líder, caminho síncrono de antes). Ver `docs/GAME-SERVER.md` "Canais" § `ch-eventos`. Falta: `ch-troca`.
 
 ## 3. Pix (doação, sem pay-to-win)
-- [ ] **pix-provedor** — escolher provedor (Pix direto via PSP com webhook) e documentar; chaves só em `.env`.
-- [ ] **pix-api** — criar cobrança (QR + copia-e-cola), webhook de confirmação, registro da doação.
-- [ ] **pix-site** — página "Apoiar" no site com QR; agradecimento/selo cosmético opcional, nunca vantagem de jogo.
-- [ ] **pix-admin** — lista de doações e conciliação no admin.
-- [ ] **pix-transparencia** — página pública opcional com custo do servidor × doações do mês.
+- [x] **pix-provedor** — provider-agnostic (`apps/api/src/pix/`, interface `PixProvider`): `fake` (dev/teste,
+  default), `static` (Pix estático, BR Code EMV gerado localmente, sem PSP/webhook) e `mercadopago` (PSP real,
+  escolhido entre Efí/Mercado Pago/Asaas — ver trade-offs em `docs/features/doacao-pix.md`). Chaves só em `.env`
+  (`apps/api/.env.example`), nunca chamado em teste.
+- [x] **pix-api** — `app."Donations"` (migration `0017_yummy_shriek.sql`); `POST /api/donations` (rate limit),
+  `GET /api/donations/:id` (polling), `GET /api/donations/summary` (público), `POST /api/pix/webhook`
+  (assinatura verificada por provedor, idempotente). BR Code + CRC16-CCITT com testes de vetor conhecido
+  (`apps/api/test/pix-brcode.test.ts`); fluxo completo testado com o provedor fake
+  (`apps/api/test/donations.test.ts`).
+- [x] **pix-site** — página `/apoiar` (`apps/web/src/pages/Apoiar.tsx`): explica não-P2W/sem fins lucrativos,
+  escolhe valor, mostra QR + copia-e-cola, faz polling do status, tela de agradecimento, meta do mês e lista
+  de apoiadores opt-in. Link no menu do site.
+- [x] **pix-admin** — página "Doações" (`apps/admin/src/pages/Donations.tsx`): settings (meta/min/max/enabled),
+  lista com filtro por status/provedor (`apps/admin/src/resources/donations.tsx`), "Marcar como pago"
+  (fake/static só), exportar CSV.
+- [x] **pix-transparencia** — página pública `/transparencia` (`apps/web/src/pages/Transparencia.tsx`): custo
+  mensal do servidor (campo opcional novo em donation-settings, admin) × total doado no mês; link no rodapé do
+  site. Sem custo preenchido, mostra um aviso em vez do comparativo (não força o dono a divulgar um número).
 
 ## 4. Site + admin premium
 - [ ] **site-design** — visual "Reborn" high-tech mantendo os botões 3D (ver memória do dono), home, ranking, notícias.

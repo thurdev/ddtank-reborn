@@ -66,4 +66,7 @@ export const RESOURCES: Record<string, ResourceDef> = {
   news: { table: app.News, pk: ["id"] },
   logs: { table: app.Logs, pk: ["id"], readOnly: true },
   "mail-broadcasts": { table: app.MailBroadcasts, pk: ["id"], readOnly: true },
+  // pix-admin: doações via Pix (docs/features/doacao-pix.md). Criação só pelo fluxo público (POST /api/donations),
+  // nunca pelo CRUD genérico — mark-paid tem sua própria rota (/api/admin/donations/:id/mark-paid).
+  donations: { table: app.Donations, pk: ["id"], noCreate: true },
 };

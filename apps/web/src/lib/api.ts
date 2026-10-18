@@ -128,6 +128,57 @@ export const aimTablesQuery = queryOptions({
   staleTime: 10 * 60_000,
 });
 
+// ---- Doações via Pix (docs/features/doacao-pix.md) — nunca dá vantagem de jogo ----
+
+export interface DonationCharge {
+  id: number;
+  status: "pending" | "paid" | "expired" | "canceled";
+  amountCents: number;
+  brCode: string;
+  qrCodePngBase64: string;
+  expiresAt: string;
+}
+export interface DonationStatus {
+  id: number;
+  status: DonationCharge["status"];
+  amountCents: number;
+  paidAt: string | null;
+  expiresAt: string | null;
+}
+export interface Donor {
+  name: string;
+  amountCents: number;
+  message?: string;
+  paidAt: string;
+}
+export interface DonationSummary {
+  enabled: boolean;
+  monthTotalCents: number;
+  goalCents: number;
+  minAmountCents: number;
+  maxAmountCents: number;
+  /** pix-transparencia: custo mensal estimado do servidor, em centavos. 0 = dono não preencheu ainda. */
+  monthlyCostCents: number;
+  donors: Donor[];
+}
+
+export const donationSummaryQuery = queryOptions({
+  queryKey: ["public", "donations", "summary"],
+  queryFn: () => api.get<DonationSummary>("/api/donations/summary"),
+  staleTime: 60_000,
+});
+
+export function createDonation(body: { amountCents: number; payerName?: string; message?: string; optIn?: boolean }) {
+  return api.post<DonationCharge>("/api/donations", body);
+}
+
+export function donationStatusQuery(id: number) {
+  return queryOptions({
+    queryKey: ["donation", id],
+    queryFn: () => api.get<DonationStatus>(`/api/donations/${id}`),
+  });
+}
+
 export const meQuery = queryOptions({
   queryKey: ["account", "me"],
   queryFn: async () => {

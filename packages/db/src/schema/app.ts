@@ -305,3 +305,42 @@ export const SpiritInfo = appSchema.table(
   },
   (t) => [primaryKey({ name: "SpiritInfo_pkey", columns: [t.CategoryId, t.Level] })],
 );
+
+/**
+ * app."Donations" — doações voluntárias via Pix (`docs/features/doacao-pix.md`, `docs/plan/TASKS.md` "3. Pix").
+ * Design novo, sem fonte C# (o 4.1 original não tinha doação). Regra inegociável: doação nunca dá vantagem de
+ * jogo — esta tabela só alimenta a página "Apoiar" do site e a conciliação no admin, nunca `apps/game`.
+ * `provider` é o backend que gerou a cobrança ("fake" dev/teste, "static" Pix estático sem PSP/webhook — admin
+ * confirma manualmente, ou o nome do PSP real, ex. "mercadopago"). `txid` é o identificador que correlaciona a
+ * cobrança com o webhook (gerado por nós; o `providerChargeId` é o id que o PSP usa do lado dele, ex. payment id
+ * do Mercado Pago). `brCode` guarda o Pix "copia e cola" (EMV) pra responder o polling sem recalcular; o PNG do
+ * QR é gerado on-the-fly a partir dele (não persiste imagem). NUNCA guardar CPF/CNPJ ou dado bancário aqui —
+ * `payerName`/`message` são o que o doador digitou (opt-in, `optIn` controla exibição pública em `/apoiar`).
+ */
+export const Donations = appSchema.table(
+  "Donations",
+  {
+    id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
+    /** Valor em centavos (evita ponto flutuante). */
+    amountCents: integer("amountCents").notNull(),
+    status: varchar("status", { length: 16 }).notNull().default("pending"), // pending | paid | expired | canceled
+    provider: varchar("provider", { length: 24 }).notNull(),
+    /** Nosso identificador, usado pra correlacionar o webhook (UUID). */
+    txid: varchar("txid", { length: 64 }).notNull(),
+    /** Id da cobrança do lado do PSP (ex. payment id do Mercado Pago), quando houver. */
+    providerChargeId: varchar("providerChargeId", { length: 120 }),
+    /** Pix "copia e cola" (EMV BR Code) devolvido na criação, reusado no polling. */
+    brCode: text("brCode"),
+    /** Nome exibido publicamente se `optIn` — nunca o nome de conta/login. */
+    payerName: varchar("payerName", { length: 80 }),
+    message: text("message"),
+    /** Opt-in: aparece na lista pública de apoiadores (`GET /api/donations/summary`). */
+    optIn: boolean("optIn").notNull().default(false),
+    /** Conta do site, se o doador estava logado (opcional — doação funciona sem conta). */
+    accountId: integer("accountId"),
+    createdAt: ts("createdAt").notNull().defaultNow(),
+    paidAt: ts("paidAt"),
+    expiresAt: ts("expiresAt"),
+  },
+  (t) => [index("IX_Donations_status").on(t.status), index("IX_Donations_txid").on(t.txid), index("IX_Donations_createdAt").on(t.createdAt)],
+);

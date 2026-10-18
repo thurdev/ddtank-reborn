@@ -95,6 +95,27 @@ const schema = z.object({
   MAX_UPLOAD_MB: z.coerce.number().default(50),
   /** Minutes between CelebList (ranking) rebuilds. 0 disables. */
   CELEB_REBUILD_MIN: z.coerce.number().default(10),
+
+  // --- Pix (doação voluntária, docs/features/doacao-pix.md) ---
+  /** "fake" (dev/teste, default), "static" (Pix estático, uma chave, sem webhook) ou "mercadopago" (PSP real). */
+  PIX_PROVIDER: z.enum(["fake", "static", "mercadopago"]).default("fake"),
+  /** Minutos até uma cobrança Pix expirar (QR/copia-e-cola). */
+  PIX_CHARGE_TTL_MIN: z.coerce.number().int().default(30),
+  /** Valor mínimo/máximo de uma doação, em reais (não centavos — mais legível no .env). */
+  PIX_MIN_AMOUNT: z.coerce.number().default(5),
+  PIX_MAX_AMOUNT: z.coerce.number().default(5000),
+  /** PIX_PROVIDER=static: chave Pix do recebedor (e-mail, telefone +55DDDNUMERO, CPF/CNPJ ou chave aleatória). */
+  PIX_STATIC_KEY: z.string().default(""),
+  PIX_MERCHANT_NAME: z.string().default("DDTANK REBORN"),
+  PIX_MERCHANT_CITY: z.string().default("BRASIL"),
+  /** PIX_PROVIDER=fake: segredo do webhook de teste (header x-fake-signature). Só usado em dev/teste. */
+  PIX_FAKE_WEBHOOK_SECRET: z.string().default("fake-webhook-secret"),
+  /** PIX_PROVIDER=mercadopago: Access Token de produção (painel Mercado Pago > Suas integrações > Credenciais). */
+  PIX_MP_ACCESS_TOKEN: z.string().default(""),
+  /** PIX_PROVIDER=mercadopago: Secret key do webhook (mesma tela, aba "Webhooks"). */
+  PIX_MP_WEBHOOK_SECRET: z.string().default(""),
+  /** PIX_PROVIDER=mercadopago: e-mail exigido pela API de pagamentos; não coletamos e-mail do doador. */
+  PIX_MP_PAYER_EMAIL: z.string().default("doacao@ddtank.local"),
 });
 
 export type Config = z.infer<typeof schema> & { rsaKeyText: string; rsaKeySource: string };

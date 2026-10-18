@@ -5,6 +5,8 @@ import { HomePage } from "@/pages/Home";
 import { LoginPage, RegisterPage } from "@/pages/Auth";
 import { RankingPage } from "@/pages/Ranking";
 import { AccountPage } from "@/pages/Account";
+import { ApoiarPage } from "@/pages/Apoiar";
+import { TransparenciaPage } from "@/pages/Transparencia";
 import { PlayPage } from "@/pages/Play";
 import { meQuery } from "@/lib/api";
 
@@ -32,6 +34,8 @@ const loginRoute = createRoute({
 });
 const registerRoute = createRoute({ getParentRoute: () => siteRoute, path: "/register", component: RegisterPage });
 const rankingRoute = createRoute({ getParentRoute: () => siteRoute, path: "/ranking", component: RankingPage });
+const apoiarRoute = createRoute({ getParentRoute: () => siteRoute, path: "/apoiar", component: ApoiarPage });
+const transparenciaRoute = createRoute({ getParentRoute: () => siteRoute, path: "/transparencia", component: TransparenciaPage });
 const accountRoute = createRoute({
   getParentRoute: () => siteRoute,
   path: "/account",
@@ -43,7 +47,7 @@ const accountRoute = createRoute({
 const playRoute = createRoute({ getParentRoute: () => rootRoute, path: "/play", beforeLoad: requireAuth, component: PlayPage });
 
 const routeTree = rootRoute.addChildren([
-  siteRoute.addChildren([homeRoute, loginRoute, registerRoute, rankingRoute, accountRoute]),
+  siteRoute.addChildren([homeRoute, loginRoute, registerRoute, rankingRoute, apoiarRoute, transparenciaRoute, accountRoute]),
   playRoute,
 ]);
 

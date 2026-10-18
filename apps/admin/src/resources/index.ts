@@ -6,6 +6,7 @@ import { bots, players } from "./players";
 import { guildApplications, guildDuties, guildEvents, guildLevels, guildMembers, guilds, guildTasks } from "./guilds";
 import { adminUsers, edicts, logs, mailBroadcasts, news, texts } from "./system";
 import { channels } from "./channels";
+import { donations } from "./donations";
 
 /**
  * Registry of every CRUD resource. Adding a game table = add a ResourceDef and list it here;
@@ -44,8 +45,9 @@ export const resources: ResourceDef[] = [
   logs,
   adminUsers,
   mailBroadcasts,
+  donations,
 ];
 
 export const resourceByName = new Map(resources.map((r) => [r.name, r]));
 export { guildApplications, guildDuties, guildEvents, guildLevels, guildMembers, guilds, guildTasks };
-export { adminUsers, bots, channels, dungeons, edicts, events, items, logs, mailBroadcasts, maps, missions, news, npcs, players, questConditions, questGoods, quests, shop, texts };
+export { adminUsers, bots, channels, donations, dungeons, edicts, events, items, logs, mailBroadcasts, maps, missions, news, npcs, players, questConditions, questGoods, quests, shop, texts };

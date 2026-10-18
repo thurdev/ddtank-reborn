@@ -2,6 +2,7 @@ import { updateRank } from "./rank.js";
 import cors from "@fastify/cors";
 import formbody from "@fastify/formbody";
 import multipart from "@fastify/multipart";
+import rateLimit from "@fastify/rate-limit";
 import { app as appTables, createDb, game, migrateDb, seedDatabase, type DbHandle } from "@ddt/db";
 import { parseDotNetRsaXml, rsaKeyFromPem, type RsaPrivateKey } from "@ddt/protocol";
 import { count, eq } from "drizzle-orm";
@@ -10,8 +11,10 @@ import { loadConfig, type Config } from "./config.js";
 import type { AppCtx } from "./context.js";
 import { CiTree, ResourceIndex } from "./lib/resources.js";
 import { createStorage } from "./lib/storage.js";
+import { createPixProvider } from "./pix/index.js";
 import { adminRoutes, applyServerConfig, sampleProcess } from "./routes/admin.js";
 import { authRoutes } from "./routes/auth.js";
+import { donationsRoutes } from "./routes/donations.js";
 import { publicRoutes } from "./routes/public.js";
 import { requestRoutes } from "./routes/request.js";
 import { staticRoutes } from "./routes/static.js";
@@ -80,12 +83,15 @@ export async function buildApp(o: BuildOptions = {}): Promise<{ app: FastifyInst
   await f.register(cors, { origin: cfg.CORS_ORIGINS === "*" ? true : cfg.CORS_ORIGINS.split(",").map((s) => s.trim()), credentials: true });
   await f.register(formbody);
   await f.register(multipart, { limits: { fileSize: cfg.MAX_UPLOAD_MB * 1024 * 1024 } });
+  // global: false — só limita rotas que optam via `{ config: { rateLimit: {...} } }` (ex. POST /api/donations).
+  await f.register(rateLimit, { global: false });
   // Flash sends GET with odd queries; accept any content-type for POSTs to .ashx
   f.addContentTypeParser("*", { parseAs: "string" }, (_req, body, done) => done(null, body));
 
   f.get("/healthz", async () => ({ ok: true }));
   await authRoutes(f, ctx);
   await publicRoutes(f, ctx);
+  await donationsRoutes(f, ctx, createPixProvider(cfg));
   await adminRoutes(f, ctx);
   await requestRoutes(f, ctx);
   await staticRoutes(f, ctx);
