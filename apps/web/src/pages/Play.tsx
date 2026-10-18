@@ -1,12 +1,43 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Button, Spinner } from "@ddtank/ui";
+import { Badge, Button, Spinner, Switch } from "@ddtank/ui";
 import { ArrowLeft, Maximize } from "lucide-react";
 import { GameFrame } from "@/components/GameFrame";
 import { configQuery } from "@/lib/api";
 import { useI18n } from "@/i18n";
+import { useSeo } from "@/lib/seo";
 import "./play.css";
+
+/** `configQuery`'s cache key already bakes in the `?client=` search param read at module load
+ *  (apps/web/src/lib/api.ts), so switching clients needs a real navigation — not just React state —
+ *  for every query/asset path downstream to re-resolve against the new client. A full reload is the
+ *  simplest correct way to do that. */
+function ClientToggle() {
+  const { t } = useI18n();
+  const is6600 = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("client") === "6600";
+
+  const setClient = (next6600: boolean) => {
+    const url = new URL(window.location.href);
+    if (next6600) url.searchParams.set("client", "6600");
+    else url.searchParams.delete("client");
+    window.location.href = url.toString();
+  };
+
+  return (
+    <label className="ml-2 flex items-center gap-2 text-sm text-muted" title={t("play.client.betaHint")}>
+      <span className="hidden sm:inline">{t("play.client.label")}</span>
+      <span className={is6600 ? "text-muted" : "text-ink font-semibold"}>{t("play.client.41")}</span>
+      <Switch checked={is6600} onCheckedChange={setClient} aria-label={t("play.client.label")} />
+      <span className={is6600 ? "text-ink font-semibold" : "text-muted"}>{t("play.client.6600")}</span>
+      {is6600 && (
+        <Badge tone="sky" className="uppercase">
+          {t("play.client.betaBadge")}
+        </Badge>
+      )}
+    </label>
+  );
+}
 
 /** Unscaled "design" size of .play-stage (apps/web/src/pages/play.css) — kept in sync by hand (no layout
  *  measurement round-trip needed before the first paint). */
@@ -52,6 +83,7 @@ export function PlayPage() {
   const viewportRef = useRef<HTMLDivElement>(null);
   const { data, error, isLoading, refetch } = useQuery({ ...configQuery, staleTime: 0 });
   const scale = useStageScale(viewportRef);
+  useSeo({ title: t("nav.play"), description: t("play.needLogin") });
 
   const fullscreen = () => {
     void fullscreenRef.current?.requestFullscreen?.();
@@ -66,6 +98,7 @@ export function PlayPage() {
           </Link>
         </Button>
         <span className="font-display text-muted">{data?.serverName}</span>
+        <ClientToggle />
         <Button variant="ghost" size="sm" className="ml-auto" onClick={fullscreen}>
           <Maximize /> {t("play.fullscreen")}
         </Button>

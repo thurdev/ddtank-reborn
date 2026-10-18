@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
 import { ApiError, Badge, Button, Card, CardContent, CardHeader, CardTitle, EmptyState, Field, Input, PageHeader, Skeleton, Switch, Textarea, cn } from "@ddtank/ui";
 import { Check, Copy, Heart } from "lucide-react";
 import { createDonation, donationStatusQuery, donationSummaryQuery, type DonationCharge } from "@/lib/api";
 import { useI18n } from "@/i18n";
+import { useSeo } from "@/lib/seo";
+import { fadeUp, stagger } from "@/lib/motion";
 
 const PRESETS_CENTS = [1000, 2000, 5000, 10000];
 const centsToBRL = (c: number) => (c / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -166,67 +169,76 @@ export function ApoiarPage() {
   const { t } = useI18n();
   const [charge, setCharge] = useState<DonationCharge | null>(null);
   const { data: summary, isLoading } = useQuery(donationSummaryQuery);
+  useSeo({ title: t("apoiar.title"), description: t("apoiar.lead") });
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
+    <motion.div variants={stagger(0, 0.08)} initial="hidden" animate="show" className="mx-auto max-w-3xl px-4 py-12">
       <PageHeader title={t("apoiar.title")} description={t("apoiar.lead")} />
 
-      <Card className="mb-6 border-mint/40 bg-mint/5">
-        <CardContent className="flex flex-col gap-2 p-5 text-sm text-muted">
-          <p>
-            <Badge tone="mint" className="mr-2">
-              {t("apoiar.noP2wBadge")}
-            </Badge>
-            {t("apoiar.noP2wBody")}
-          </p>
-          <p>{t("apoiar.nonProfitBody")}</p>
-        </CardContent>
-      </Card>
+      <motion.div variants={fadeUp}>
+        <Card className="mb-6 border-mint/40 bg-mint/5">
+          <CardContent className="flex flex-col gap-2 p-5 text-sm text-muted">
+            <p>
+              <Badge tone="mint" className="mr-2">
+                {t("apoiar.noP2wBadge")}
+              </Badge>
+              {t("apoiar.noP2wBody")}
+            </p>
+            <p>{t("apoiar.nonProfitBody")}</p>
+          </CardContent>
+        </Card>
+      </motion.div>
 
       {isLoading ? (
         <Skeleton className="mb-6 h-16" />
       ) : summary?.goalCents ? (
-        <Card className="mb-6">
-          <CardContent className="p-5">
-            <GoalBar totalCents={summary.monthTotalCents} goalCents={summary.goalCents} />
-          </CardContent>
-        </Card>
+        <motion.div variants={fadeUp}>
+          <Card className="mb-6">
+            <CardContent className="p-5">
+              <GoalBar totalCents={summary.monthTotalCents} goalCents={summary.goalCents} />
+            </CardContent>
+          </Card>
+        </motion.div>
       ) : null}
 
       {summary && !summary.enabled ? (
         <EmptyState title={t("apoiar.disabledTitle")}>{t("apoiar.disabledBody")}</EmptyState>
       ) : (
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("apoiar.formTitle")}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {charge ? (
-              <ChargeView charge={charge} onReset={() => setCharge(null)} />
-            ) : (
-              <DonateForm minCents={summary?.minAmountCents ?? 500} maxCents={summary?.maxAmountCents ?? 500_000} onCreated={setCharge} />
-            )}
-          </CardContent>
-        </Card>
+        <motion.div variants={fadeUp}>
+          <Card>
+            <CardHeader>
+              <CardTitle>{t("apoiar.formTitle")}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {charge ? (
+                <ChargeView charge={charge} onReset={() => setCharge(null)} />
+              ) : (
+                <DonateForm minCents={summary?.minAmountCents ?? 500} maxCents={summary?.maxAmountCents ?? 500_000} onCreated={setCharge} />
+              )}
+            </CardContent>
+          </Card>
+        </motion.div>
       )}
 
       {!!summary?.donors.length && (
-        <Card className="mt-6">
-          <CardHeader>
-            <CardTitle>{t("apoiar.donorsTitle")}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="flex flex-col gap-2">
-              {summary.donors.map((d, i) => (
-                <li key={i} className="flex items-center justify-between gap-3 rounded-xl border border-line bg-night-deep/30 px-3 py-2 text-sm">
-                  <span className="font-medium text-ink">{d.name}</span>
-                  <span className="font-mono text-sun">{centsToBRL(d.amountCents)}</span>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
+        <motion.div variants={fadeUp}>
+          <Card className="mt-6">
+            <CardHeader>
+              <CardTitle>{t("apoiar.donorsTitle")}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="flex flex-col gap-2">
+                {summary.donors.map((d, i) => (
+                  <li key={i} className="flex items-center justify-between gap-3 rounded-xl border border-line bg-night-deep/30 px-3 py-2 text-sm">
+                    <span className="font-medium text-ink">{d.name}</span>
+                    <span className="font-mono text-sun">{centsToBRL(d.amountCents)}</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+        </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 }

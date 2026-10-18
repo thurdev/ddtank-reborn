@@ -3,9 +3,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
 import { ApiError, Badge, Button, Card, CardContent, CardHeader, CardTitle, EmptyState, Field, Input, PageHeader, Skeleton } from "@ddtank/ui";
 import { api, meQuery } from "@/lib/api";
 import { useI18n } from "@/i18n";
+import { useSeo } from "@/lib/seo";
+import { fadeUp, stagger } from "@/lib/motion";
 
 function Characters() {
   const { t } = useI18n();
@@ -14,9 +17,9 @@ function Characters() {
   const chars = data?.characters ?? [];
   if (!chars.length) return <EmptyState title={t("account.noCharacters")} />;
   return (
-    <ul className="grid gap-3 sm:grid-cols-2">
+    <motion.ul variants={stagger()} initial="hidden" animate="show" className="grid gap-3 sm:grid-cols-2">
       {chars.map((c) => (
-        <li key={c.id} className="rounded-2xl border border-line bg-night-deep/50 p-4">
+        <motion.li variants={fadeUp} key={c.id} className="rounded-2xl border border-line bg-night-deep/50 p-4">
           <div className="flex items-center justify-between gap-2">
             <p className="font-display text-xl">{c.nickname}</p>
             <Badge tone="sun">{t("account.level", { level: c.level })}</Badge>
@@ -32,9 +35,9 @@ function Characters() {
               <dd className="font-mono text-sky">{c.money.toLocaleString()}</dd>
             </div>
           </dl>
-        </li>
+        </motion.li>
       ))}
-    </ul>
+    </motion.ul>
   );
 }
 
@@ -82,27 +85,32 @@ function ChangePassword() {
 export function AccountPage() {
   const { t } = useI18n();
   const { data } = useQuery(meQuery);
+  useSeo({ title: t("account.title"), description: t("account.seoDescription") });
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
       <PageHeader title={t("account.title")} description={data ? `${data.user.username} · ${data.user.email}` : undefined} />
-      <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("account.characters")}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Characters />
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("account.changePassword")}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ChangePassword />
-          </CardContent>
-        </Card>
-      </div>
+      <motion.div variants={stagger(0, 0.1)} initial="hidden" animate="show" className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
+        <motion.div variants={fadeUp}>
+          <Card>
+            <CardHeader>
+              <CardTitle>{t("account.characters")}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Characters />
+            </CardContent>
+          </Card>
+        </motion.div>
+        <motion.div variants={fadeUp}>
+          <Card>
+            <CardHeader>
+              <CardTitle>{t("account.changePassword")}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ChangePassword />
+            </CardContent>
+          </Card>
+        </motion.div>
+      </motion.div>
     </div>
   );
 }
