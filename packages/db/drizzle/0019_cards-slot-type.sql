@@ -1,0 +1,1 @@
+ALTER TABLE "player"."Sys_Users_Card" ADD COLUMN "Type" integer DEFAULT 0 NOT NULL;

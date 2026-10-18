@@ -7,7 +7,40 @@ export interface UserCardRow {
   Attack: number; Defence: number; Agility: number; Luck: number; Guard: number; Damage: number;
   AttackReset: number; DefenceReset: number; AgilityReset: number; LuckReset: number;
   Level: number; CardGP: number; isFirstGet: boolean;
+  /** UsersCardInfo.Type (6600, int_4 — distinct from CardType/int_1): which `Card_Groove_Update` curve the
+   *  170 CARDS_SLOT "soul slot" upgrade (below) uses for this card. The seed data only has 2 distinct curves
+   *  (0 and 1, +4 vs +5 stat per level); the decompiled C# never shows where a new card gets assigned 1
+   *  instead of 0, so every card this port creates defaults to 0 (m3-cards-slot gap, documented instead of
+   *  guessed — see `cardGrooveLevelForGP`/registerCardsSlot). */
+  Type: number;
   dirty?: boolean;
+}
+
+/** game."Card_Groove_Update" row (CardGrooveUpdateInfo). */
+export interface CardGrooveRow { ID: number; Level: number; Type: number; Exp: number; Attack: number; Defend: number; Agility: number; Lucky: number; Damage: number; Guard: number }
+
+/** CardMgr.MaxLv(type): FindCardGrooveUpdate(type).Count - 1. `rows` must already be filtered to one Type and
+ *  sorted ascending by Level (index 0 = Level 0 row), as `ctx.templates.cardGrooveUpdates` stores them. */
+export function cardGrooveMaxLv(rows: CardGrooveRow[]): number {
+  return rows.length - 1;
+}
+
+/** CardMgr.GetLevel(GP, type) (CardMgr.cs:290-305). */
+export function cardGrooveLevelForGP(rows: CardGrooveRow[], gp: number): number {
+  const maxLv = cardGrooveMaxLv(rows);
+  if (maxLv < 0) return 0;
+  if (gp >= rows[maxLv]!.Exp) return rows[maxLv]!.Level;
+  for (let i = 1; i <= maxLv; i++) {
+    if (gp < rows[i]!.Exp) return rows[i - 1]!.Level;
+  }
+  return 0;
+}
+
+/** CardMgr.GetGP(level, type) (CardMgr.cs:375-385). */
+export function cardGrooveGPForLevel(rows: CardGrooveRow[], level: number): number {
+  const maxLv = cardGrooveMaxLv(rows);
+  for (let i = 1; i <= maxLv; i++) if (rows[i]!.Level === level) return rows[i]!.Exp;
+  return 0;
 }
 /** ResetCardCount/ResetMoney are CardResetHandler.cs:572's reroll cost (pay in copies or Money), unused by upgradeCard. */
 export interface CardUpdateCond { Level: number; Exp: number; MinExp: number; MaxExp: number; UpdateCardCount: number; ResetCardCount: number; ResetMoney: number }
@@ -28,7 +61,7 @@ export const CARD_EQUIP_SLOTS = 5;
 export function newCard(userId: number, templateId: number, count: number): UserCardRow {
   return {
     CardID: 0, UserID: userId, TemplateID: templateId, Place: -1, Count: count, Attack: 0, Defence: 0, Agility: 0, Luck: 0, Guard: 0, Damage: 0,
-    AttackReset: 0, DefenceReset: 0, AgilityReset: 0, LuckReset: 0, Level: 0, CardGP: 0, isFirstGet: false, dirty: true,
+    AttackReset: 0, DefenceReset: 0, AgilityReset: 0, LuckReset: 0, Level: 0, CardGP: 0, isFirstGet: false, Type: 0, dirty: true,
   };
 }
 
