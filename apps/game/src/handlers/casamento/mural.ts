@@ -2,7 +2,9 @@
  * Aba no jogo: Casamento › mural de pedidos (matchmaking board) — publicar, ver detalhe, editar e apagar
  * seu próprio pedido.
  * Pacotes: 236 MARRYINFO_ADD (publicar), 235 MARRYINFO_GET (ver detalhe), 237 MARRYINFO_UPDATE (editar o
- * seu), 234 MARRYPROP_GET (apagar o seu — nome do pacote é reaproveitado do `MarryInfoDeleteHandler`).
+ * seu, 4.1) / 229 ACHIEVEMENT_UPDATE (editar o seu, 6600 — nome colidido, ver `casamento/index.ts`
+ * "m3-achievement-update"), 234 MARRYPROP_GET (apagar o seu — nome do pacote é reaproveitado do
+ * `MarryInfoDeleteHandler`).
  * C#: `MarryInfoAddHandler.cs`/`MarryInfoUpdateHandler.cs`/`MarryInfoDeleteHandler.cs`.
  * Atenção (ver `casamento/index.ts`): o cliente usa 237 pra editar o MURAL e 253 pra editar a SALA da
  * capela — formatos diferentes. O C# original registrava os dois no mesmo handler por engano; este port

@@ -8,7 +8,8 @@
  *   divorcio.ts         (Casamento › divórcio)            — 248 DIVORCE_APPLY
  *   status.ts           (sem tela própria, consultas)     — 246 MARRY_STATUS, 85 MATE_ONLINE_TIME
  *   mural.ts            (Casamento › mural de pedidos)    — 236 MARRYINFO_ADD, 235 MARRYINFO_GET, 237
- *                                                            MARRYINFO_UPDATE, 234 MARRYPROP_GET
+ *                                                            MARRYINFO_UPDATE (4.1) / 229 (6600,
+ *                                                            m3-achievement-update), 234 MARRYPROP_GET
  *   capela.ts           (Casamento › Igreja/capela)       — 240 MARRY_SCENE_LOGIN, 241
  *                                                            MARRY_ROOM_CREATE, 242 MARRY_ROOM_LOGIN,
  *                                                            244 PLAYER_EXIT_MARRY_ROOM, 233
@@ -34,6 +35,15 @@
  *    O registro de 237 abaixo despacha por `p.clientKind`: "41" vai pro mural (`marryInfoUpdate`), "6600"
  *    vai pro figurino (`playerDress`) — nunca corrompe `Marry_Info` com o payload de dress.
  *    `research/6600/packets-m1.md` "M3 figurino" tem o detalhe completo (achado original em "M2 bolsa").
+ *  - 229 (m3-achievement-update, 2026-10-18): como o 6600 tirou a edição do mural do 237 (tomado pelo
+ *    figurino acima), o cliente 6600 reaproveita o código `ACHIEVEMENT_UPDATE=229` pra `sendModifyInfo`
+ *    (`CivilRegisterFrame.as:274` — mesma função de edição do mural, nada a ver com conquistas; confirmado
+ *    lendo `GameSocketOut.as:1593-1599` no 6600: `new PackageOut(ePackageType.ACHIEVEMENT_UPDATE)` com o
+ *    MESMO payload bool+UTF de `sendModifyInfo` no 4.1, que usa `MARRYINFO_UPDATE=237`). O 229 "de verdade"
+ *    (progresso de conquista) é só push servidor->cliente, `eventos/completar-conquista.ts pushRecords` —
+ *    nenhum cliente manda 229 pedindo progresso. Sem `PacketHandler(229)` nenhum no C# 6600 decompilado (a
+ *    mesma lacuna do 237 original); o 229 abaixo despacha pro MESMO `marryInfoUpdate` do mural, só pra
+ *    clientKind "6600" (um 4.1 nunca manda 229 pra isto).
  *
  * Formatos de pacote confirmados contra o cliente Flash ao vivo (`Source Flash/src/ddt/manager/
  * ChurchManager.as`): 246/247/250/248/234/242/249(4) INVITE. As outras sub-respostas do 249 MARRY_CMD e
@@ -71,6 +81,8 @@ export function registerCasamento(r: HandlerRegistry): SubRouter {
   // 237 colide: MARRYINFO_UPDATE (4.1, mural) vs PLAYER_DRESS (6600, figurino) — ver nota acima e vestir-6600.ts.
   r.player(237, "MARRYINFO_UPDATE/PLAYER_DRESS", (ctx, p, pkt) => (p.clientKind === "6600" ? playerDress(ctx, p, pkt) : marryInfoUpdate(ctx, p, pkt)));
   r.player(234, "MARRYPROP_GET", marryInfoDelete);
+  // 229 reaproveitado pelo 6600 pra editar o mural (sendModifyInfo) — ver nota "m3-achievement-update" acima.
+  r.player(229, "ACHIEVEMENT_UPDATE/MARRYINFO_UPDATE(6600)", (ctx, p, pkt) => { if (p.clientKind === "6600") return marryInfoUpdate(ctx, p, pkt); });
 
   // ---- cenário/salas da igreja ----
   r.player(240, "MARRY_SCENE_LOGIN", marrySceneLogin);

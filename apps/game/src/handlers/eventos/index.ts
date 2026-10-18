@@ -8,13 +8,15 @@
  *   liga-elite.ts            (ícones "Liga"/"Liga de elite") — 132 BATTLEGROUND, 162 ELITEGAME
  *   bau-da-galinha.ts        (ícone "Baú do Rei Galo")    — 87 NEWCHICKENBOX_SYS cmds 10-15 (despacha 31-34)
  *   estrela-da-sorte.ts      (ícone "Estrela da Sorte")   — 87 NEWCHICKENBOX_SYS cmds 31-34 (via bau-da-galinha)
- *   roleta.ts                (ícone "Roleta"/Caddy)       — 26/27/28/45/204/232
+ *   roleta.ts                (ícone "Roleta"/Caddy)       — 26/27/28/45/204/232, 97/165/211/215 "Pedra da
+ *                              Sorte" (6600, fechada no original — ver roleta.ts)
  *   labirinto.ts             (ícone "Labirinto")          — 131 LABYRINTH
  *   novato.ts                (ícone "Atividades de novato") — 258 NOVICEACTIVITY
  *   ativacao-pintinho.ts     (ícone "Ativação do pintinho") — 84 ACTIVITY_PACKAGE
  *   recompensa-diaria.ts     (calendário › diária/caixa de tempo) — 13 DAILY_AWARD, 53 GET_TIME_BOX,
  *                              219 WEEKLY_CLICK_CNT, 103 DAILYRECORD
- *   presenca.ts               (calendário › presença/login acumulado) — 90 GET_SIGNAWARD, 338 ACCUMULATIVELOGIN_AWARD
+ *   presenca.ts               (calendário › presença/login acumulado) — 90 GET_SIGNAWARD, 338 (4.1) / 238
+ *                              (6600, m3-accumulative-login) ACCUMULATIVELOGIN_AWARD
  *   primeira-recarga.ts       (VIP › primeira recarga)    — 259 FIRSTRECHARGE
  *   completar-conquista.ts    (ícone "Conquistas")        — 230 ACHIEVEMENT_FINISH
  *                              (distinto de `bolsa/conquistas.ts`, que é a FICHA/lista de conquistas — 203 LOOKUP_EFFORT)
@@ -40,7 +42,7 @@ import type { HandlerRegistry } from "../registry.js";
 import { worldBossCmd } from "./boss-mundial.js";
 import { battleGroundHandler, eliteGameHandler } from "./liga-elite.js";
 import { newChickenBoxDispatch } from "./bau-da-galinha.js";
-import { lotteryOpenBox, lotteryRandomSelect, lotteryFinish, caddyBadLuck, openAllCardBox, caddySellAll } from "./roleta.js";
+import { lotteryOpenBox, lotteryRandomSelect, lotteryFinish, caddyBadLuck, openAllCardBox, caddySellAll, luckStoneConfig, luckStoneRankLimit, caddyExchangeAll, caddyConvertedAll } from "./roleta.js";
 import { labyrinthHandler } from "./labirinto.js";
 import { noviceActivityHandler } from "./novato.js";
 import { activityPackageHandler } from "./ativacao-pintinho.js";
@@ -62,7 +64,9 @@ export function registerEventos(r: HandlerRegistry): void {
   r.player(219, "WEEKLY_CLICK_CNT", (ctx, p) => weeklyClickCnt(ctx, p));
   r.player(103, "DAILYRECORD", (ctx, p) => dailyRecordHandler(ctx, p));
   r.player(90, "GET_SIGNAWARD", (ctx, p, pkt) => signAwardHandler(ctx, p, pkt));
-  r.player(338, "ACCUMULATIVELOGIN_AWARD", (ctx, p, pkt) => accumulativeLoginHandler(ctx, p, pkt));
+  r.player(338, "ACCUMULATIVELOGIN_AWARD (41)", (ctx, p, pkt) => accumulativeLoginHandler(ctx, p, pkt));
+  // 238 colide: ACCUMULATIVELOGIN_AWARD (6600) vs MARRYINFO_DELETE (4.1, nunca implementado) — ver presenca.ts.
+  r.player(238, "ACCUMULATIVELOGIN_AWARD (6600)/MARRYINFO_DELETE", (ctx, p, pkt) => { if (p.clientKind === "6600") return accumulativeLoginHandler(ctx, p, pkt); });
   r.player(259, "FIRSTRECHARGE", (ctx, p, pkt) => firstRechargeHandler(ctx, p, pkt));
 
   // Conquistas
@@ -78,6 +82,12 @@ export function registerEventos(r: HandlerRegistry): void {
   r.player(45, "CADDY_GET_BADLUCK", (ctx, p) => caddyBadLuck(ctx, p));
   r.player(204, "OPEN_ALL_CARDBOX", (_ctx, p) => openAllCardBox(p));
   r.player(232, "CADDY_SELL_ALL_GOODS", (_ctx, p) => caddySellAll(p));
+
+  // "Pedra da Sorte" (6600 only, m3-caddy-loteria) — fechada no original, ver roleta.ts.
+  r.player(165, "LUCKSTONE_CONFIG", (ctx, p) => luckStoneConfig(ctx, p), "stub");
+  r.player(97, "LUCKSTONE_RANK_LIMIT", (ctx, p, pkt) => luckStoneRankLimit(ctx, p, pkt), "stub");
+  r.player(211, "CADDY_EXCHANGE_ALL", (ctx, p) => caddyExchangeAll(ctx, p), "stub");
+  r.player(215, "CADDY_CONVERTED_ALL", (ctx, p, pkt) => caddyConvertedAll(ctx, p, pkt), "stub");
 
   // Labirinto
   r.player(131, "LABYRINTH", (ctx, p, pkt) => labyrinthHandler(ctx, p, pkt), "partial");

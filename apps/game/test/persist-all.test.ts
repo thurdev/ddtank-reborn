@@ -56,7 +56,7 @@ function rawPet(templateId: number, place: number, userId: number): UserPetRow {
 function rawCard(templateId: number, place: number, count: number): UserCardRow {
   return {
     CardID: 0, UserID: 0, TemplateID: templateId, Place: place, Count: count, Attack: 0, Defence: 0, Agility: 0, Luck: 0, Guard: 0, Damage: 0,
-    AttackReset: 0, DefenceReset: 0, AgilityReset: 0, LuckReset: 0, Level: 0, CardGP: 0, isFirstGet: false, dirty: true,
+    AttackReset: 0, DefenceReset: 0, AgilityReset: 0, LuckReset: 0, Level: 0, CardGP: 0, isFirstGet: false, Type: 0, dirty: true,
   };
 }
 

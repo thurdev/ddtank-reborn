@@ -1306,6 +1306,10 @@ export const Sys_Users_Card = player.table(
     Level: integer("Level").notNull().default(0),
     CardGP: integer("CardGP").notNull().default(0),
     isFirstGet: boolean("isFirstGet").notNull().default(false),
+    // UsersCardInfo.Type (6600 int_4, distinct from the existing columns above which mirror int_0..int_3/
+    // int_6..int_13) — which Card_Groove_Update curve 170 CARDS_SLOT (m3-cards-slot) uses to level this
+    // card's "soul slot". Not in the 4.1 base table; added here, not in original.
+    Type: integer("Type").notNull().default(0),
   },
   (t) => [
     primaryKey({ name: "Sys_Users_Card_pkey", columns: [t.CardID] }),
