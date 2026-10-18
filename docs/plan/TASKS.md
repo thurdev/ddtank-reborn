@@ -95,7 +95,7 @@ Como rodar um 2º canal hoje (sem `ch-processo`/`ch-bus`): [GAME-SERVER.md §Can
   mín./máx., flags (canal novato, só PvP), URL interna (metadado pra `ch-processo`). CRUD genérico de
   `routes/admin.ts` reusado sem mudança; escrever na tabela agora dispara `/reload-templates` no canal local
   (`Room`/`Total`/`ZoneId`/`ZoneName` recarregam sem reiniciar o `apps/game`).
-- [ ] **ch-processo** — `apps/game` sobe como canal N (`SERVER_ID`/porta via env); compose com 1 serviço por canal.
+- [~] **ch-processo** — `apps/game` sobe como canal N (`SERVER_ID`/porta via env); compose com 1 serviço por canal.
 - [ ] **ch-bus** — barramento entre canais (Redis pub/sub): login único, chat mundial/sussurro, presença de amigos/sociedade.
 - [ ] **ch-troca** — trocar de canal sem relogar.
 - [ ] **ch-eventos** — eventos globais (boss mundial, liga) coordenados entre canais.
