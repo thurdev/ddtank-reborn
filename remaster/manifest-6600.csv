@@ -1,0 +1,174 @@
+category,file,source_swf,source_file,width,height,pt_br
+01-boot-login,login__3_login.ChooseRole.btnEnterTextBG.png,login.swf,3_login.ChooseRole.btnEnterTextBG.png,128,36,Entrar no jogo
+01-boot-login,login__4_login.Rename.ModifyButtonbackgound.png,login.swf,4_login.Rename.ModifyButtonbackgound.png,116,28,Alterar
+02-hall-icons,ddthallicon__116.png,ddthallicon.swf,116.png,75,70,Jogo incrivel
+02-hall-icons,ddthallicon__132.png,ddthallicon.swf,132.png,70,70,Evento
+02-hall-icons,ddthallicon__200.png,ddthallicon.swf,200.png,179,44,Clique aqui
+02-hall-icons,ddthallicon__34_assets.hallIcon.newYearRiceIcon.png,ddthallicon.swf,34_assets.hallIcon.newYearRiceIcon.png,70,70,Celebre o Ano Novo
+02-hall-icons,ddthallicon__53_bombKing.hallEnterBtn.png,ddthallicon.swf,53_bombKing.hallEnterBtn.png,70,70,Campeonato Extremo
+02-hall-icons,ddthallicon__138.png,ddthallicon.swf,138.png,70,70,Oferta por tempo limitado
+02-hall-icons,ddthallicon__72_assets.hallIcon.christmasIcon.png,ddthallicon.swf,72_assets.hallIcon.christmasIcon.png,70,70,Natal gelado e nevado
+02-hall-icons,ddthallicon__31_assets.hallIcon.magpiebridge.png,ddthallicon.swf,31_assets.hallIcon.magpiebridge.png,70,70,Fada da Pega
+02-hall-icons,ddthallicon__4_assets.hallIcon.worshipTheMoon.png,ddthallicon.swf,4_assets.hallIcon.worshipTheMoon.png,70,70,Festival da Lua
+02-hall-icons,ddthallicon__13_assets.hallIcon.treasureLostIcon.png,ddthallicon.swf,13_assets.hallIcon.treasureLostIcon.png,70,70,Guerra da Caca ao Tesouro
+02-hall-icons,ddthallicon__21_assets.hallIcon.luckStoneIcon.png,ddthallicon.swf,21_assets.hallIcon.luckStoneIcon.png,70,70,Oracao do Anjo
+02-hall-icons,ddthallicon__39_assets.hallIcon.oldPlayerRegressIcon.png,ddthallicon.swf,39_assets.hallIcon.oldPlayerRegressIcon.png,70,70,Retorno do Jogador Veterano
+02-hall-icons,ddthallicon__16_assets.hallIconl.sanxiaoBtn.png,ddthallicon.swf,16_assets.hallIconl.sanxiaoBtn.png,70,70,Mestre da Eliminacao
+02-hall-icons,ddthallicon__19_asset.hall.consortia.task.btn.png,ddthallicon.swf,19_asset.hall.consortia.task.btn.png,70,70,Missao da Sociedade
+02-hall-icons,ddthallicon__69_assets.hallIcon.newChickenBoxIcon.png,ddthallicon.swf,69_assets.hallIcon.newChickenBoxIcon.png,70,70,Campo do Tesouro
+02-hall-icons,ddthallicon__41_assets.hallIcon.fightFootballTimeIcon.png,ddthallicon.swf,41_assets.hallIcon.fightFootballTimeIcon.png,70,70,Momento de Garra
+02-hall-icons,ddthallicon__25_assets.hallIcon.syahIcon.png,ddthallicon.swf,25_assets.hallIcon.syahIcon.png,70,70,Deus da Guerra
+02-hall-icons,ddthallicon__68_assets.hallIcon.buriedIcon.png,ddthallicon.swf,68_assets.hallIcon.buriedIcon.png,70,70,Zona Dimensional
+02-hall-icons,ddthallicon__23_assets.hallIcon.survivalIcon.png,ddthallicon.swf,23_assets.hallIcon.survivalIcon.png,70,70,Sobrevivencia
+02-hall-icons,ddthallicon__27_assets.hallIcon.petIsland.png,ddthallicon.swf,27_assets.hallIcon.petIsland.png,70,70,Aventura na Ilha dos Pets
+02-hall-icons,ddthallicon__48_assets.hallIcon.guildmemberweekIcon.png,ddthallicon.swf,48_assets.hallIcon.guildmemberweekIcon.png,70,70,Contribuicao da Sociedade
+02-hall-icons,ddthallicon__58_assets.hallIcon.DDPlayIcon.png,ddthallicon.swf,58_assets.hallIcon.DDPlayIcon.png,70,69,Diversao DDT
+02-hall-icons,ddthallicon__14_assets.hallIcon.rouletteGunIcon.png,ddthallicon.swf,14_assets.hallIcon.rouletteGunIcon.png,70,70,Roleta da Sorte
+02-hall-icons,ddthallicon__24_assets.hallIcon.mysteriousRouletteIcon.png,ddthallicon.swf,24_assets.hallIcon.mysteriousRouletteIcon.png,70,70,Roda Misteriosa
+02-hall-icons,ddthallicon__26_assets.hallIcon.horseRace.png,ddthallicon.swf,26_assets.hallIcon.horseRace.png,70,70,Corrida de Cavalos
+02-hall-icons,ddthallicon__11_assets.hallIcon.entertainmentIcon.png,ddthallicon.swf,11_assets.hallIcon.entertainmentIcon.png,70,70,Atletismo Divertido
+02-hall-icons,ddthallicon__2_assets.hallIcon.catchInsect.png,ddthallicon.swf,2_assets.hallIcon.catchInsect.png,70,70,Captura de Insetos
+02-hall-icons,ddthallicon__44_assets.hallIcon.groupPurchaseIcon.png,ddthallicon.swf,44_assets.hallIcon.groupPurchaseIcon.png,70,70,Paixao pela Compra em Grupo
+03-sala-partida,ddtroomlist__10_asset.ddtroomlist.createRoom.png,ddtroomlist.swf,10_asset.ddtroomlist.createRoom.png,124,55,Criar sala
+03-sala-partida,ddtroomlist__19_asset.ddtroomlist.quickLightAsset.png,ddtroomlist.swf,19_asset.ddtroomlist.quickLightAsset.png,94,96,Criar grupo rapido
+03-sala-partida,ddtroomlist__2_asset.ddtroomlist.pvpBtn.encounter.png,ddtroomlist.swf,2_asset.ddtroomlist.pvpBtn.encounter.png,124,55,Partida rapida
+03-sala-partida,ddtroomlist__5_asset.ddtroomlist.fastMatch.png,ddtroomlist.swf,5_asset.ddtroomlist.fastMatch.png,124,55,Partida rapida
+03-sala-partida,ddtroomlist__14_asset.ddtroomlist.right.title.png,ddtroomlist.swf,14_asset.ddtroomlist.right.title.png,204,44,Salao de Jogos
+03-sala-partida,ddtroomloading__34_asset.roomLoading.GameMode_0.png,ddtroomloading.swf,34_asset.roomLoading.GameMode_0.png,136,38,Guerra Livre
+03-sala-partida,ddtroomloading__5_asset.roomLoading.GameMode_26.png,ddtroomloading.swf,5_asset.roomLoading.GameMode_26.png,149,34,Guerra do Ringue
+03-sala-partida,ddtroomloading__6_asset.roomLoading.GameMode_42.png,ddtroomloading.swf,6_asset.roomLoading.GameMode_42.png,177,39,Guerra dos Insetos
+03-sala-partida,ddtroomloading__11_asset.roomLoading.GameMode_21.png,ddtroomloading.swf,11_asset.roomLoading.GameMode_21.png,169,32,Competicao da Sociedade
+03-sala-partida,ddtroomloading__27_asset.roomLoading.GameMode_7.png,ddtroomloading.swf,27_asset.roomLoading.GameMode_7.png,130,38,Instancia Remota
+03-sala-partida,ddtroomloading__29_asset.roomLoading.GameMode_2.png,ddtroomloading.swf,29_asset.roomLoading.GameMode_2.png,126,38,Disputa de Duelo
+03-sala-partida,ddtroomloading__31_asset.roomLoading.GameMode_14.png,ddtroomloading.swf,31_asset.roomLoading.GameMode_14.png,90,38,Partida de Elite
+03-sala-partida,ddtroomloading__32_asset.roomLoading.GameMode_12.png,ddtroomloading.swf,32_asset.roomLoading.GameMode_12.png,90,38,Torneio
+03-sala-partida,ddtroomloading__8_asset.roomLoading.GameMode_3.png,ddtroomloading.swf,8_asset.roomLoading.GameMode_3.png,242,32,Guerra Entre Servidores
+04-batalha-resultado,firstcore__260.png,firstcore.swf,260.png,139,138,Clique para continuar
+04-batalha-resultado,gameiii__176.png,gameiii.swf,176.png,274,69,Falhou
+04-batalha-resultado,gameiii__225.png,gameiii.swf,225.png,203,57,Falhou
+04-batalha-resultado,gameover__10_asset.core.survival.clearing.bg.png,gameover.swf,10_asset.core.survival.clearing.bg.png,1000,600,"(multi-texto, ver prompt dedicado)"
+04-batalha-resultado,gameover__13_asset.takeoutCard.survival.InstructionBitmap.png,gameover.swf,13_asset.takeoutCard.survival.InstructionBitmap.png,293,62,"No modo sobrevivencia, matar e sobreviver ate o fim vai aumentar o numero de giros."
+04-batalha-resultado,gameover__31_asset.experience.TotalExploitTxt.png,gameover.swf,31_asset.experience.TotalExploitTxt.png,147,47,Pontos de recompensa total
+04-batalha-resultado,gameover__53_asset.takeoutCard.InstructionBitmap.png,gameover.swf,53_asset.takeoutCard.InstructionBitmap.png,352,53,"Cada jogador pode clicar na caixa de cupons de graca 2 vezes para ganhar um presente. Depois disso, use itens para aumentar a chance de abrir a caixa."
+04-batalha-resultado,gameover__108_asset.experience.attachExpItemTxt_a0.png,gameover.swf,108_asset.experience.attachExpItemTxt_a0.png,103,25,Privilegio VIP
+04-batalha-resultado,gameover__76_asset.experience.exploitExpItemTxt_a2.png,gameover.swf,76_asset.experience.exploitExpItemTxt_a2.png,105,25,Privilegio VIP
+05-atividade-diaria,dayactivity__11_day.activeBtn2.png,dayactivity.swf,11_day.activeBtn2.png,103,26,Atividade Diaria
+05-atividade-diaria,dayactivity__12_day.activeBtn1.png,dayactivity.swf,12_day.activeBtn1.png,98,24,Atividade Diaria
+05-atividade-diaria,dayactivity__13_day.activityBtn2.png,dayactivity.swf,13_day.activityBtn2.png,99,26,Evento Diario
+05-atividade-diaria,dayactivity__15_day.activityBtn1.png,dayactivity.swf,15_day.activityBtn1.png,98,22,Evento Diario
+05-atividade-diaria,dayactivity__3_day.receiveOver.png,dayactivity.swf,3_day.receiveOver.png,76,31,Resgatado
+05-atividade-diaria,dayactivity__36.png,dayactivity.swf,36.png,76,79,Ganhos Diarios
+06-janelas-p1,consortionii__33_asset.consortion.remainFrame.word.png,consortionii.swf,33_asset.consortion.remainFrame.word.png,295,149,"O tesouro da Sociedade esta insuficiente no momento, formas de aumentar o tesouro: 1.Completar missao da Sociedade 2.Participar da guerra da Sociedade 3.Fazer uma doacao. Deseja fazer uma doacao?"
+06-janelas-p1,consortionii__2_magichouse.treasure.stateChangeBtn.png,consortionii.swf,2_magichouse.treasure.stateChangeBtn.png,106,41,Deposito do Tesouro / Cofre de Aco
+06-janelas-p1,enthrall__10_asset.core.view.enthrall.Alert.png,enthrall.swf,10_asset.core.view.enthrall.Alert.png,358,124,"Seus dados de identidade nao foram completados, pelas regras o acesso de criancas e restrito, por favor acesse o site oficial do jogo e preencha seus dados de identidade."
+06-janelas-p1,enthrall__2_asset.core.view.enthrall.ValidateFrameBG.png,enthrall.swf,2_asset.core.view.enthrall.ValidateFrameBG.png,420,237,Apos concluir a verificacao voce podera receber um item de recompensa. Nome completo: Numero de identidade:
+06-janelas-p1,enthrall__3_asset.core.view.enthrall.TipBG.png,enthrall.swf,3_asset.core.view.enthrall.TipBG.png,232,122,Nas primeiras 3 horas o ganho de experiencia e ouro e 100%. De 3 a 5 horas o ganho de experiencia e ouro e 50%. Apos 5 horas voce nao ganha experiencia nem ouro. Organize horarios de jogo razoaveis.
+06-janelas-p1,boguadventure__1_boguAdventure.tool.reset.png,boguadventure.swf,1_boguAdventure.tool.reset.png,190,61,Reiniciar
+06-janelas-p1,boguadventure__5_boguAdventure.tool.findMine.png,boguadventure.swf,5_boguAdventure.tool.findMine.png,82,67,Detector de Minas
+06-janelas-p1,ringstation__16_ringStation.view.armory.close.png,ringstation.swf,16_ringStation.view.armory.close.png,164,52,Fechar
+99-reuso-4.1,academycommon__21_asset.academyCommon.RecommendPlayerCellView.masterHonor4.png,academycommon.swf,21_asset.academyCommon.RecommendPlayerCellView.masterHonor4.png,154,30,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,activeevents__5_asset.activeEvents.iconGive.png,activeevents.swf,5_asset.activeEvents.iconGive.png,97,34,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,activeevents__6_asset.activeEvents.iconContent.png,activeevents.swf,6_asset.activeEvents.iconContent.png,96,43,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,chat__51_asset.chat.ChannelState_Team.png,chat.swf,51_asset.chat.ChannelState_Team.png,56,22,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,chat__53_asset.chat.ChannelState_Private.png,chat.swf,53_asset.chat.ChannelState_Private.png,56,22,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,chat__54_asset.chat.ChannelState_Current.png,chat.swf,54_asset.chat.ChannelState_Current.png,56,22,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,chat__57_asset.chat.ChannelState_BigBuggle.png,chat.swf,57_asset.chat.ChannelState_BigBuggle.png,56,22,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,chickactivation__14_assets.chickActivation.frameBtnSelected2.png,chickactivation.swf,14_assets.chickActivation.frameBtnSelected2.png,149,39,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,chickactivation__1_assets.chickActivation.selectAfterThreeDays.png,chickactivation.swf,1_assets.chickActivation.selectAfterThreeDays.png,106,36,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,chickactivation__20_assets.chickActivation.unSelectLevelPacks.png,chickactivation.swf,20_assets.chickActivation.unSelectLevelPacks.png,106,36,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,chickactivation__2_assets.chickActivation.unSelectAfterThreeDays.png,chickactivation.swf,2_assets.chickActivation.unSelectAfterThreeDays.png,106,36,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,chickactivation__5_assets.chickActivation.selectWeekly.png,chickactivation.swf,5_assets.chickActivation.selectWeekly.png,106,36,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,chickactivation__7_assets.chickActivation.selectEveryDay.png,chickactivation.swf,7_assets.chickActivation.selectEveryDay.png,106,36,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,chickactivation__9_assets.chickActivation.receiveBtn.png,chickactivation.swf,9_assets.chickActivation.receiveBtn.png,100,42,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,churchroom__49_asset.church.room.fireBgAsset.png,churchroom.swf,49_asset.church.room.fireBgAsset.png,147,221,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,churchroom__67_asset.church.room.FatherPaopao3.png,churchroom.swf,67_asset.church.room.FatherPaopao3.png,173,71,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,churchroom__74_asset.church.room.FatherPaopao18.png,churchroom.swf,74_asset.church.room.FatherPaopao18.png,415,39,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,churchroom__76_asset.church.room.FatherPaopao16.png,churchroom.swf,76_asset.church.room.FatherPaopao16.png,415,39,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,churchroom__78_asset.church.room.FatherPaopao14.png,churchroom.swf,78_asset.church.room.FatherPaopao14.png,152,71,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,consortionii__33_asset.consortion.remainFrame.word.png,consortionii.swf,33_asset.consortion.remainFrame.word.png,295,149,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddtcorei__79_asset.church.lookEquipAsset.png,ddtcorei.swf,79_asset.church.lookEquipAsset.png,101,24,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddtcoreii__1_asset.vote.oneAnswer.png,ddtcoreii.swf,1_asset.vote.oneAnswer.png,87,32,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddtcoreii__211_microBlog.IssueBt.png,ddtcoreii.swf,211_microBlog.IssueBt.png,104,42,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddtcoreii__2_asset.vote.mulAnswer.png,ddtcoreii.swf,2_asset.vote.mulAnswer.png,87,32,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddtcoreii__92_asset.church.lookEquipAsset.png,ddtcoreii.swf,92_asset.church.lookEquipAsset.png,101,24,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddteffort__15_asset.Effort.item_03.png,ddteffort.swf,15_asset.Effort.item_03.png,98,18,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddteffort__16_asset.Effort.item_02.png,ddteffort.swf,16_asset.Effort.item_02.png,98,18,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddteffort__17_asset.Effort.item_01.png,ddteffort.swf,17_asset.Effort.item_01.png,98,18,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__10_assets.hallIcon.lanternriddlesIcon.png,ddthallicon.swf,10_assets.hallIcon.lanternriddlesIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__11_assets.hallIcon.entertainmentIcon.png,ddthallicon.swf,11_assets.hallIcon.entertainmentIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__13_assets.hallIcon.treasureLostIcon.png,ddthallicon.swf,13_assets.hallIcon.treasureLostIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__14_assets.hallIcon.rouletteGunIcon.png,ddthallicon.swf,14_assets.hallIcon.rouletteGunIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__15_assets.hallIcon.chickActivationIcon.png,ddthallicon.swf,15_assets.hallIcon.chickActivationIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__16_assets.hallIconl.sanxiaoBtn.png,ddthallicon.swf,16_assets.hallIconl.sanxiaoBtn.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__17_assets.hallIcon.limitActivityIcon.png,ddthallicon.swf,17_assets.hallIcon.limitActivityIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__19_asset.hall.consortia.task.btn.png,ddthallicon.swf,19_asset.hall.consortia.task.btn.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__1_assets.hallIcon.worldBossEntrance_4.png,ddthallicon.swf,1_assets.hallIcon.worldBossEntrance_4.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__20_assets.hallIcon.kingDivisionIcon.png,ddthallicon.swf,20_assets.hallIcon.kingDivisionIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__21_assets.hallIcon.luckStoneIcon.png,ddthallicon.swf,21_assets.hallIcon.luckStoneIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__24_assets.hallIcon.mysteriousRouletteIcon.png,ddthallicon.swf,24_assets.hallIcon.mysteriousRouletteIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__25_assets.hallIcon.syahIcon.png,ddthallicon.swf,25_assets.hallIcon.syahIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__26_assets.hallIcon.horseRace.png,ddthallicon.swf,26_assets.hallIcon.horseRace.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__27_assets.hallIcon.petIsland.png,ddthallicon.swf,27_assets.hallIcon.petIsland.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__28_assets.hallIcon.redEnvelope.png,ddthallicon.swf,28_assets.hallIcon.redEnvelope.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__2_assets.hallIcon.catchInsect.png,ddthallicon.swf,2_assets.hallIcon.catchInsect.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__30_assets.hallIcon.prayIndianaIcon.png,ddthallicon.swf,30_assets.hallIcon.prayIndianaIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__31_assets.hallIcon.magpiebridge.png,ddthallicon.swf,31_assets.hallIcon.magpiebridge.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__32_assets.hallIcon.sevenDayTargetIcon.png,ddthallicon.swf,32_assets.hallIcon.sevenDayTargetIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__34_assets.hallIcon.newYearRiceIcon.png,ddthallicon.swf,34_assets.hallIcon.newYearRiceIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__35_assets.hallIcon.treasureHuntingIcon.png,ddthallicon.swf,35_assets.hallIcon.treasureHuntingIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__36_assets.hallIcon.leagueIcon.png,ddthallicon.swf,36_assets.hallIcon.leagueIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__37_assets.hallIcon.ringStationIcon.png,ddthallicon.swf,37_assets.hallIcon.ringStationIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__38_assets.hallIcon.accumulativeLoginIcon.png,ddthallicon.swf,38_assets.hallIcon.accumulativeLoginIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__39_assets.hallIcon.oldPlayerRegressIcon.png,ddthallicon.swf,39_assets.hallIcon.oldPlayerRegressIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__41_assets.hallIcon.fightFootballTimeIcon.png,ddthallicon.swf,41_assets.hallIcon.fightFootballTimeIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__42_assets.hallIcon.rescue.png,ddthallicon.swf,42_assets.hallIcon.rescue.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__43_assets.hallIcon.pyramidIcon.png,ddthallicon.swf,43_assets.hallIcon.pyramidIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__45_assets.hallIcon.escortEntryIcon.png,ddthallicon.swf,45_assets.hallIcon.escortEntryIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__46_assets.hallIcon.lightRoadIcon.png,ddthallicon.swf,46_assets.hallIcon.lightRoadIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__48_assets.hallIcon.guildmemberweekIcon.png,ddthallicon.swf,48_assets.hallIcon.guildmemberweekIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__4_assets.hallIcon.worshipTheMoon.png,ddthallicon.swf,4_assets.hallIcon.worshipTheMoon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__54_assets.hallIcon.DDTMatch.png,ddthallicon.swf,54_assets.hallIcon.DDTMatch.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__56_asset.hall.draftIcon.png,ddthallicon.swf,56_asset.hall.draftIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__57_assets.hallIcon.panicBuyingIcon.png,ddthallicon.swf,57_assets.hallIcon.panicBuyingIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__58_assets.hallIcon.DDPlayIcon.png,ddthallicon.swf,58_assets.hallIcon.DDPlayIcon.png,70,69,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__5_assets.hallIcon.campIcon.png,ddthallicon.swf,5_assets.hallIcon.campIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__60_assets.hallIcon.godsRoadsIcon.png,ddthallicon.swf,60_assets.hallIcon.godsRoadsIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__63_assets.hallIcon.happyRecharge.png,ddthallicon.swf,63_assets.hallIcon.happyRecharge.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__64_assets.hallIcon.growthPachageIcon.png,ddthallicon.swf,64_assets.hallIcon.growthPachageIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__65_assets.hallIcon.MemoryGameIcon.png,ddthallicon.swf,65_assets.hallIcon.MemoryGameIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__66_assets.hallIcon.luckyStarIcon.png,ddthallicon.swf,66_assets.hallIcon.luckyStarIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__67_assets.hallIcon.superWinnerEntryIcon.png,ddthallicon.swf,67_assets.hallIcon.superWinnerEntryIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__68_assets.hallIcon.buriedIcon.png,ddthallicon.swf,68_assets.hallIcon.buriedIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__69_assets.hallIcon.newChickenBoxIcon.png,ddthallicon.swf,69_assets.hallIcon.newChickenBoxIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__6_assets.hallIcon.battleIcon.png,ddthallicon.swf,6_assets.hallIcon.battleIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__70_assets.hallIcon.littleGameNoteIcon.png,ddthallicon.swf,70_assets.hallIcon.littleGameNoteIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__71_assets.hallIcon.boguAdventureIcon.png,ddthallicon.swf,71_assets.hallIcon.boguAdventureIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__7_assets.hallIcon.zodiacIcon.png,ddthallicon.swf,7_assets.hallIcon.zodiacIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__8_assets.hallIcon.cloudbuylotteryIcon.png,ddthallicon.swf,8_assets.hallIcon.cloudbuylotteryIcon.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddthallicon__9_assets.hallIcon.worldBossEntrance_1.png,ddthallicon.swf,9_assets.hallIcon.worldBossEntrance_1.png,70,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,ddttrainer__4_asset.trainer.ghostTip.png,ddttrainer.swf,4_asset.trainer.ghostTip.png,555,140,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,enthrall__2_asset.core.view.enthrall.ValidateFrameBG.png,enthrall.swf,2_asset.core.view.enthrall.ValidateFrameBG.png,420,237,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,firstcore__81_asset.core.tip.hp.png,firstcore.swf,81_asset.core.tip.hp.png,86,18,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,firstcore__82_asset.core.tip.GoodsType.png,firstcore.swf,82_asset.core.tip.GoodsType.png,82,16,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,gameover__78_asset.experience.exploitExpItemTxt_a0.png,gameover.swf,78_asset.experience.exploitExpItemTxt_a0.png,121,25,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,newtitle__2_asset.newTitle.useBtn.png,newtitle.swf,2_asset.newTitle.useBtn.png,122,48,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,toolbar__48_asset.toolbar.dailyBtnAsset.png,toolbar.swf,48_asset.toolbar.dailyBtnAsset.png,115,70,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,totem__8_asset.totem.infoView.levelBg.png,totem.swf,8_asset.totem.infoView.levelBg.png,441,38,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,trainer__2_asset.trainer.ghostTip.png,trainer.swf,2_asset.trainer.ghostTip.png,555,140,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,wonderfulactivity__16_wonderfulactivity.newgamebenifit.back.png,wonderfulactivity.swf,16_wonderfulactivity.newgamebenifit.back.png,496,480,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,wonderfulactivity__17_wonderfulactivity.conRank.bg.jpg,wonderfulactivity.swf,17_wonderfulactivity.conRank.bg.jpg,499,485,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,wonderfulactivity__19_wonderful.accumulative.prizeBG.png,wonderfulactivity.swf,19_wonderful.accumulative.prizeBG.png,440,85,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,wonderfulactivity__23_wonderfulactivity.getover.png,wonderfulactivity.swf,23_wonderfulactivity.getover.png,106,41,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,wonderfulactivity__27_wonderfulactivity.tuanjie.back.jpg,wonderfulactivity.swf,27_wonderfulactivity.tuanjie.back.jpg,496,480,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,wonderfulactivity__31_wonderfulactivity.GodSyah.syahView.bg.jpg,wonderfulactivity.swf,31_wonderfulactivity.GodSyah.syahView.bg.jpg,494,477,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,wonderfulactivity__37_wonderfulactivity.rechargeTille3.png,wonderfulactivity.swf,37_wonderfulactivity.rechargeTille3.png,437,60,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,wonderfulactivity__43_wonderful.accumulative.getPrize.png,wonderfulactivity.swf,43_wonderful.accumulative.getPrize.png,153,49,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,wonderfulactivity__4_wonderfulactivity.fighter.back.png,wonderfulactivity.swf,4_wonderfulactivity.fighter.back.png,483,341,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,wonderfulactivity__5_wonderfulactivity.powerBitmap.png,wonderfulactivity.swf,5_wonderfulactivity.powerBitmap.png,108,221,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,wonderfulactivity__66_carnicalAct.bg.jpg,wonderfulactivity.swf,66_carnicalAct.bg.jpg,496,480,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,wonderfulactivity__78_wonderfulactivity.levelBitmap.png,wonderfulactivity.swf,78_wonderfulactivity.levelBitmap.png,108,221,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,wonderfulactivity__7_wonderfulactivity.hero.back.png,wonderfulactivity.swf,7_wonderfulactivity.hero.back.png,496,480,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,wonderfulactivity__80_wonderful.sendGiftActivity.bg.png,wonderfulactivity.swf,80_wonderful.sendGiftActivity.bg.png,466,356,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,wonderfulactivity__85_wonderfulactivity.farme.btn.png,wonderfulactivity.swf,85_wonderfulactivity.farme.btn.png,187,84,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,wonderfulactivity__92_wonderful.accumulative.title.png,wonderfulactivity.swf,92_wonderful.accumulative.title.png,470,129,"(reuso direto 4.1, ver remaster/approved-6600.json)"
+99-reuso-4.1,wonderfulactivity__95_wonderfulactivity.farme.backgroud.jpg,wonderfulactivity.swf,95_wonderfulactivity.farme.backgroud.jpg,494,478,"(reuso direto 4.1, ver remaster/approved-6600.json)"

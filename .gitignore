@@ -12,6 +12,9 @@ packages/protocol/csharp-oracle/original/
 remaster/*/inputs/
 remaster/*/outputs/
 remaster/_auto/
+remaster/_6600/inputs/
+remaster/_6600/*/inputs/
+remaster/_6600/*/outputs/
 
 # intermediários do remaster/IA (grandes, regeneráveis) e capturas de outros servidores
 remaster/_hd/
@@ -19,4 +22,5 @@ remaster/_hd/
 research/ddclassico/
 research/i18n/model-test/
 tools/remaster/*.traineddata
+tools/remaster/_lang/
 .claude/worktrees/
