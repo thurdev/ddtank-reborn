@@ -3,7 +3,7 @@ import { count, eq, sql } from "drizzle-orm";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { checkLogin, createDb, createDevAccounts, game, migrateDb, player, readManifest, seedDatabase, type DbHandle } from "../src/index.js";
 import { rowCountsPath, rowCountsPath6600 } from "../src/paths.js";
-import { GAMEPLAY_6600_TABLES } from "../scripts/schema-6600-tables.js";
+import { GAMEPLAY_6600_TABLES, RENAME_6600 } from "../scripts/schema-6600-tables.js";
 
 const rowCounts = (db: string) =>
   Object.fromEntries((JSON.parse(readFileSync(rowCountsPath(db), "utf8")) as { table: string; rows: number }[]).map((r) => [r.table, r.rows]));
@@ -34,11 +34,14 @@ describe("@ddt/db on PGlite", () => {
     // NOT seeded from 6600 (export-seed.ts only includes GAMEPLAY_6600_TABLES entries) so must not
     // override the 4.1 counts here.
     const sixGameCounts = Object.fromEntries(
-      Object.entries(rowCounts6600("Project_Game6600")).filter(([table]) => GAMEPLAY_6600_TABLES[table] === "game"),
+      Object.entries(rowCounts6600("Project_Game6600"))
+        .filter(([table]) => GAMEPLAY_6600_TABLES[table] === "game")
+        // Item_Fusion do 6600 é seedado como Item_Fusion_New (não pode sobrescrever a contagem da Item_Fusion 4.1)
+        .map(([table, n]) => [RENAME_6600[table] ?? table, n]),
     );
     const src = { game: { ...rowCounts("Project_Game34"), ...sixGameCounts }, player: rowCounts("Project_Player34") };
     const m = readManifest();
-    expect(m.tables.length).toBe(129);
+    expect(m.tables.length).toBe(130);
     for (const t of m.tables) {
       const res = await h.db.execute(sql.raw(`SELECT count(*)::int AS n FROM "${t.schema}"."${t.table}"`));
       const n = ((res as unknown as { rows: { n: number }[] }).rows ?? (res as unknown as { n: number }[]))[0]!.n;
