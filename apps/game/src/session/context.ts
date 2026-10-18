@@ -5,6 +5,7 @@ import type { Config } from "../config.js";
 import type { Templates } from "../db/templates.js";
 import type { GamePlayer } from "../game/player.js";
 import type { ClientKind } from "../game/player-info.js";
+import type { NewHallRoom } from "../game/new-hall.js";
 import type { RoomMgr } from "../rooms/room-mgr.js";
 import type { FightEngine } from "../fight/types.js";
 import type { LanguageMgr } from "../util/lang.js";
@@ -58,6 +59,8 @@ export interface ServerContext {
   log: Logger;
   world: World;
   rooms: RoomMgr;
+  /** WorldMgr.NewHallRooms (6600-only walkable hall, m2-newhall): game/new-hall.ts. */
+  newHall: NewHallRoom;
   fight: FightEngine;
   tickets: TicketValidator;
   rsaKey: RsaPrivateKey;

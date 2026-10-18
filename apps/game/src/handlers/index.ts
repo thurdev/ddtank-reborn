@@ -17,6 +17,7 @@ import { registerFazenda } from "./fazenda/index.js";
 import { registerLeilao } from "./leilao/index.js";
 import { registerLoja } from "./loja/index.js";
 import { registerProgressao } from "./progressao/index.js";
+import { registerHall6600 } from "./hall-6600/index.js";
 
 export function createRegistry(): HandlerRegistry {
   const r = new HandlerRegistry();
@@ -38,5 +39,6 @@ export function createRegistry(): HandlerRegistry {
   registerLeilao(r);
   registerLoja(r);
   registerProgressao(r);
+  registerHall6600(r);
   return r;
 }

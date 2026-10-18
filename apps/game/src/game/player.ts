@@ -95,6 +95,31 @@ export class GamePlayer implements RoomMember {
   pingTime = 0;
   /** GamePlayer.m_showPP: ViewCurrent only sends 167 after the login burst. */
   showPP = false;
+  /**
+   * GamePlayer.PosX/PosY (6600-only, `GamePlayer.cs` ctor:1926-1927 — set unconditionally on every
+   * GamePlayer construction, no DB column, no per-grade/map variant despite the AS3 hall having two maps
+   * — `vendor/DDT-6600/Source/Game.Server/Game.Server.NewHall/NewHallRoom.cs` never reads a map id).
+   * Walkable-hall position in server memory; 262/0 NEW_HALL PLAYERINFO reads it back as the self spawn
+   * point `HallPlayerView.__onFriendPlayerInfo` needs before it creates `_selfPlayer`/`_sceneScene`
+   * (m2-newhall, research/6600/packets-m1.md). 4.1 never reads these (no hall-NewHall system there).
+   */
+  posX = 1560;
+  posY = 500;
+  /**
+   * GamePlayer.HideAllFriend (6600-only, `GamePlayer.cs` ctor:1937 — defaults to `true` on every
+   * construction, same as `posX`/`posY`: no DB column, reset every login). Gates both directions in
+   * `game/new-hall.ts` (NewHallRoom.GetPlayersSafe/method_1): a hidden player sees nobody and announces
+   * nobody; toggled by the eye icon (262/7 PLAYERHID, 262/8 PLAYERSHOW) — `DailyButtunBar.as:129`. This is
+   * a verified quirk of the *original* 6600 server (every fresh login starts "hidden" until the eye icon
+   * is clicked an even number of times), not something introduced by this port — see m2-newhall gaps.
+   */
+  hideAllFriend = true;
+  /**
+   * GamePlayer.PlayerCharacter.PetsID as read by the hall writers (262/0,1,4,5) — "which pet is shown
+   * walking next to me". Session-only: 9 UPDATEPETS (`handlers/hall-6600/visual.ts`) is the only writer,
+   * there is no persisted pet-display system yet (same Montaria/`MountsType` gap, M1-schema-only).
+   */
+  hallPetsId = 0;
   readonly tempProperties = new Map<string, number>();
   isActive = true;
   /** Set by quitPlayer: every caller awaits the same quit (and its final save). */

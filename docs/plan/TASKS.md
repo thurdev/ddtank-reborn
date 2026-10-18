@@ -33,7 +33,15 @@
   Dados…) em Drizzle + migration incremental (`research/6600/db-diff.md`); colunas novas nas tabelas existentes.
 
 ### M2 — loop central no 6600
-- [~] **m2-newhall** (P0, bloqueia ir pras salas no navegador) — o hall do 6600 é andável (pacote `NEW_HALL`, `hall/player/HallPlayerView.as`): sem o servidor responder posição/lista de jogadores, clicar num prédio dá `#1009 em HallPlayerView.setSelfPlayerPos` e o personagem não anda até o prédio. Portar o NewHall do C# 6600 (posição, mover, entrar/sair, outros jogadores, título, roupa) pro `apps/game`.
+- [x] **m2-newhall** (P0, bloqueia ir pras salas no navegador) — causa raiz confirmada: `_sceneScene`/
+  `_selfPlayer` só nascem dentro do handler do `262/0 PLAYERINFO` (`HallPlayerView.__onFriendPlayerInfo`),
+  que nunca disparava sem o servidor responder; `setSelfPlayerPos` acessa `_sceneScene` (null) ->
+  `TypeError #1009`. Portado `262 NEW_HALL` inteiro (`game/new-hall.ts` `NewHallRoom`, registro global —
+  igual ao `WorldMgr.NewHallRooms` estático do C#): 0 PLAYERINFO (spawn 1560/500, `GamePlayer.cs`
+  ctor:1926-1927), 1 OTHERPLAYERINFO, 2 PLAYEREXIT, 3 PLAYERMOVE, 4 ADDPLAYE, 5 MODIFYDRESS, 7 PLAYERHID,
+  8 PLAYERSHOW, 9 UPDATEPETS nos dois sentidos. 6/10/99 confirmados mortos no C# original (não portados).
+  GAP do original (não desta tarefa): `HideAllFriend` default `true` em todo login — ninguém se vê até
+  clicar o olho. Ver `research/6600/packets-m1.md` "M2 newhall".
 - [x] **m2-bolsa** — bolsa/equipar/vestir + família MARRY_* pro 6600. Colisão de código 237
   (`MARRYINFO_UPDATE` 4.1 vs `PLAYER_DRESS` 6600) resolvida por `clientKind` sem corromper o mural;
   `PLAYER_DRESS` (figurino, feature nova sem equivalente 4.1) documentado como gap pra M3. 119
