@@ -141,11 +141,9 @@ Como rodar um 2º canal hoje (sem `ch-processo`/`ch-bus`): [GAME-SERVER.md §Can
   compartilhado desde `ch-processo` — isto só adiciona o ping imediato pra quem já tem a tela aberta).
   `docker-compose.yml` ganhou um serviço `redis` opcional (`apps/game/.env` `REDIS_URL`, compartilhado por
   todo `game`/`game-<ID>` via `env_file`). Teste `apps/game/test/ch-bus.test.ts` (2 `GameServer` em processo
-  ligados por `createMemoryBus`). Falta: `ch-eventos` (boss mundial/liga cross-canal), `ch-troca` (mudar de
-  canal sem relogar), TLS no WS dos canais extras (polish de deploy), chat de clã cross-canal (fora do escopo
-  pedido — mesmo padrão de `ctx.crossChannel`, só um tópico novo, se vier a ser pedido). Ver
-  `docs/GAME-SERVER.md` "Canais" §"ch-bus".
-- [ ] **ch-troca** — trocar de canal sem relogar.
+  ligados por `createMemoryBus`). `ch-eventos` e `ch-troca` (abaixo) fecharam o resto da lista; falta só TLS
+  no WS dos canais extras (polish de deploy) e chat de clã cross-canal (fora do escopo pedido — mesmo padrão
+  de `ctx.crossChannel`, só um tópico novo, se vier a ser pedido). Ver `docs/GAME-SERVER.md` "Canais" §"ch-bus".
 - [x] **ch-eventos** (2026-10-18) — boss mundial com HP/ranking COMPARTILHADO entre canais: líder = menor
   `SERVER_ID` entre os canais vistos vivos (`apps/game/src/bus/leader.ts wireLeaderElection`, gossip por
   "hello", sem lock no Postgres — `claimOnce` já cobre o split-brain curto); só o líder decrementa `blood`/
@@ -160,7 +158,16 @@ Como rodar um 2º canal hoje (sem `ch-processo`/`ch-bus`): [GAME-SERVER.md §Can
   `apps/game/test/ch-eventos.test.ts` (2 `GameServer` em processo com `createMemoryBus`, igual `ch-bus.test.ts`):
   dano nos dois canais reduz o MESMO HP e paga uma vez só mesmo com o ganhador no seguidor; liga abre a mesma
   janela nos dois; aviso de admin chega nos dois. Testes de 1 canal só continuam iguais (NoopBus = sempre
-  líder, caminho síncrono de antes). Ver `docs/GAME-SERVER.md` "Canais" § `ch-eventos`. Falta: `ch-troca`.
+  líder, caminho síncrono de antes). Ver `docs/GAME-SERVER.md` "Canais" § `ch-eventos`.
+- [x] **ch-troca** (2026-10-18) — trocar de canal sem relogar. O cliente (4.1 e 6600, mesmo mecanismo) já
+  faz isso pelo dropdown do hall fechando o socket atual e reabrindo um novo pro canal escolhido, reenviando
+  LOGIN com a MESMA conta+tempPwd do 1º login (sem `.ashx` novo) — `research/client/channel-switch.md`
+  (file:line do AS3 nos dois clientes). As 3 peças que esse fluxo precisa já existiam: ticket reutilizável
+  dentro do TTL (`validateGameLogin`, não invalida GameKey), canal antigo salva/libera sem brigar com o login
+  novo (`ch-bus` kick cross-canal, mesmo `quitPlayer` idempotente do close local do cliente) e Ruffle com 1
+  `socketProxy` por canal (`ch-processo`). Nenhum código de produção mudou; o que faltava era nomear/testar o
+  cenário explicitamente — `apps/game/test/ch-troca.test.ts` (troca 4→5 com o mesmo ticket, dado salvo antes
+  da troca completar, online só no destino, `clientKind` sobrevive, 3 trocas seguidas sem loop de kick).
 
 ## 3. Pix (doação, sem pay-to-win)
 - [ ] **pix-provedor** — escolher provedor (Pix direto via PSP com webhook) e documentar; chaves só em `.env`.
