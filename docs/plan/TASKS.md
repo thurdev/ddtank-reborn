@@ -19,7 +19,7 @@
 - [x] **m1-socket** — cliente identificado no login (Login.ashx → LoginSessions.Client), layouts 6600 dos pacotes do burst de login/hall (LOGIN, 38, 67, 64 GRID_GOODS, 142 KING_BLESS, 216 CARDS, 178 QUEST, 259, 102, 137), API zlib por cliente. **Lobby 6600 abre** (2026-10-18). Ver `research/6600/packets-m1.md`.
 - [ ] **m1-stage** — lobby 6600 ocupa a moldura certinho; só a tela de criar personagem sai menor (barra preta à direita/embaixo). Baixa prioridade.
 - [x] **m1-pacotes-acao** — 74 ITEM_EQUIP, 18 SCENE_ADD_USER, 94/4 sala, 160 amigo, colisão 121; broadcasts montados por tipo de cliente de quem recebe (`research/6600/packets-m1.md` Round 3). Falta: sistema de runas/BEAD_HOLE_INFO (não portado), resto da sociedade.
-- [ ] **m1-bitmap-text** — textos turcos que são imagem no 6600 ("Savaşma Gücü", "VIP aç", aba "Etkinlik", "Harika oyun", "Her Gün Yapılmalı", "Ana görevler", popup "Bugünkü Lig Maçı…", tela de criar personagem "Karakter seçin"/"Oyuna girin"/"Ad:") — pipeline de remaster (Seedream 4.5 unlimited / render local) com manifesto do pack 6600.
+- [~] **m1-bitmap-text** (manifesto/reuso em andamento; passe de imagem IA depois) — textos turcos que são imagem no 6600 ("Savaşma Gücü", "VIP aç", aba "Etkinlik", "Harika oyun", "Her Gün Yapılmalı", "Ana görevler", popup "Bugünkü Lig Maçı…", tela de criar personagem "Karakter seçin"/"Oyuna girin"/"Ad:") — pipeline de remaster (Seedream 4.5 unlimited / render local) com manifesto do pack 6600.
 - [x] **m1-loading-brand** — tela de carregamento/logo sem "Bombom"/"DEVELOP BY ASUNA" (overlay de imagem em
   `apps/api/assets/flash6600`), logo DDTank Reborn.
 - [x] **m1-swf-text** — textos estáticos (DefineText/DefineEditText) em turco dentro dos SWFs de UI do 6600
@@ -34,6 +34,7 @@
 
 ### M2 — loop central no 6600
 - [x] **m2-newhall** (P0, bloqueia ir pras salas no navegador) — causa raiz confirmada: `_sceneScene`/
+  **Testado ao vivo 2026-10-18:** hall → Salão de Jogos → criar sala → partida contra bot no 6600 (tiros, turnos, vento), sem erro de cliente.
   `_selfPlayer` só nascem dentro do handler do `262/0 PLAYERINFO` (`HallPlayerView.__onFriendPlayerInfo`),
   que nunca disparava sem o servidor responder; `setSelfPlayerPos` acessa `_sceneScene` (null) ->
   `TypeError #1009`. Portado `262 NEW_HALL` inteiro (`game/new-hall.ts` `NewHallRoom`, registro global —
@@ -77,8 +78,8 @@ aqui quando o M2 fechar.
 
 ## 2. Canais (Canal 1, 2, 3…)
 Desenho em [MIGRACAO-6600.md — Requisito futuro](./MIGRACAO-6600.md#requisito-futuro-vários-canais-decisão-do-dono-2026-10-17).
-- [ ] **ch-tabela** — tabela de canais (nome, host/porta, capacidade, estado, ordem, flags) + `ServerList.ashx` lendo dela.
-- [ ] **ch-admin** — CRUD de canais no admin.
+- [~] **ch-tabela** — tabela de canais (nome, host/porta, capacidade, estado, ordem, flags) + `ServerList.ashx` lendo dela.
+- [~] **ch-admin** — CRUD de canais no admin.
 - [ ] **ch-processo** — `apps/game` sobe como canal N (`SERVER_ID`/porta via env); compose com 1 serviço por canal.
 - [ ] **ch-bus** — barramento entre canais (Redis pub/sub): login único, chat mundial/sussurro, presença de amigos/sociedade.
 - [ ] **ch-troca** — trocar de canal sem relogar.
