@@ -34,7 +34,15 @@
 
 ### M2 — loop central no 6600
 - [ ] **m2-newhall** (P0, bloqueia ir pras salas no navegador) — o hall do 6600 é andável (pacote `NEW_HALL`, `hall/player/HallPlayerView.as`): sem o servidor responder posição/lista de jogadores, clicar num prédio dá `#1009 em HallPlayerView.setSelfPlayerPos` e o personagem não anda até o prédio. Portar o NewHall do C# 6600 (posição, mover, entrar/sair, outros jogadores, título, roupa) pro `apps/game`.
-- [~] **m2-bolsa** — bolsa/equipar/vestir (`PLAYER_DRESS`, mudanças de valor do §1.1).
+- [x] **m2-bolsa** — bolsa/equipar/vestir + família MARRY_* pro 6600. Colisão de código 237
+  (`MARRYINFO_UPDATE` 4.1 vs `PLAYER_DRESS` 6600) resolvida por `clientKind` sem corromper o mural;
+  `PLAYER_DRESS` (figurino, feature nova sem equivalente 4.1) documentado como gap pra M3. 119
+  `LINKREQUEST_GOODS`, 63 `ITEM_OPENUP` e 99 `TEXP` corrigidos (dano mágico por item / request com `count`
+  novo). Achado um bug real pré-existente (não só do 6600): broadcast de 67 `UPDATE_PLAYER_INFO` numa sala
+  mista usava um buffer só no layout de quem mudou de equipamento — corrigido com `sendToAllByKind`.
+  Resto da bolsa (mover/organizar/reciclar/desacorrentar/ocultar/senha/cartões/presentes/conquistas) e o
+  resto da família MARRY_* verificados campo a campo e já estavam idênticos. Ver
+  `research/6600/packets-m1.md` "M2 bolsa".
 - [x] **m2-loja** — loja + correio pro 6600. 44 BUY_GOODS (+goodsType/isBand por linha; loja barata/desconto
   via `Shop_Cheap_Items`, nunca lida até agora) e 116 SEND_MAIL (6600: 1 anexo só, com corte de pilha, não 4
   inteiros) corrigidos; `shopcheapitemlist.ashx` com fonte de dados por `rc.client`. Resto (presentear, sell/

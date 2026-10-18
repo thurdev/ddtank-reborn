@@ -238,13 +238,15 @@ export class GamePlayer implements RoomMember {
       return;
     }
     this.propsPending = false;
-    // NOTE: `pub` is built once in this.clientKind's layout and broadcast as-is to the whole room (M1 scope:
-    // a lobby of one client version). A room mixing 4.1 and 6600 viewers would need one 67 build per viewer
-    // client — not needed until salas/M2 support mixed clients (docs/plan/MIGRACAO-6600.md).
     this.send(Out.privateInfo(this.info, this.medal, this.clientKind));
-    const pub = Out.publicPlayer(this.info, this.match, this.clientKind);
-    this.send(pub);
-    this.currentRoom?.sendToAll(pub, this);
+    this.send(Out.publicPlayer(this.info, this.match, this.clientKind));
+    // m2-bolsa: a sala pode misturar clientKind (M2 salas já suporta isso pra 94/4 etc. — ver room.ts
+    // sendToAllByKind) e 67 UPDATE_PLAYER_INFO (Round 2/3, research/6600/packets-m1.md) tem layout
+    // diferente por clientKind. O build antigo (`const pub = Out.publicPlayer(..., this.clientKind); send;
+    // currentRoom?.sendToAll(pub, this)`) compartilhava UM buffer no layout de QUEM MUDOU DE STATUS, não de
+    // cada espectador — mesma classe de bug que 18/94/4 já corrigiram. Agora constrói no máximo 2 variantes
+    // (uma por clientKind realmente presente na sala), igual ao padrão de `roomPlayerAdd`.
+    this.currentRoom?.sendToAllByKind((k) => Out.publicPlayer(this.info, this.match, k), this);
   }
 
   /**

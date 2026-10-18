@@ -10,6 +10,12 @@
  * pedido no MURAL — são formatos diferentes que o C# original misturava (ver cabeçalho de `mural.ts`).
  * Como testar: `apps/game/test/marriage-farm-auction.test.ts`. Manual: Casamento → Igreja → criar sala →
  * convidar → trocar cenário → editar descrição → sair.
+ *
+ * NOVO (m2-bolsa): todos os 7 códigos deste arquivo são IDÊNTICOS entre 4.1 e 6600 (confirmado campo a
+ * campo contra `GameSocketOut.as`/os readers `ChurchManager.as` dos dois lados). Único achado: 241
+ * MARRY_ROOM_CREATE no 6600 soma +1 bool `merryActivity` no final (`sendCreateRoom(...)`, depois dos 7
+ * campos que já lemos) — não lido por nenhum handler nosso nem pelo `.cs` original, framed-by-length,
+ * sem fix (mesmo padrão do resto do arquivo `cerimonia.ts`).
  */
 import { GSPacket, PacketOut } from "@ddt/protocol";
 import { eq } from "drizzle-orm";

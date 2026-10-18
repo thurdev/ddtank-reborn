@@ -3,8 +3,20 @@
  * por "compra rápida" (place -1, lista de IDs de loja). Idempotente: cada carta é consumida antes de dar
  * qualquer efeito, então repetir o pacote encontra o slot vazio/pilha menor e não duplica.
  * Pacote: 183 CARD_USE.
- * C#: `CardUseHandler.cs`.
+ * C#: `CardUseHandler.cs` (4.1), `Game.Server.Packets.Client/CardUseHandler.cs` (6600, decompilado).
  * Como testar: sem teste dedicado hoje. Manual: Bolsa → usar carta de buff/GP/VIP.
+ *
+ * GAP conhecido (m2-bolsa): `GameSocketOut.as sendUseCard` é IDÊNTICO nas duas versões pro caminho normal
+ * (place≠-1, usar carta da bolsa — `writeInt(bagType,place,count=1,[ids],type,ignoreBagLock)`, o 6600 só
+ * soma +1 bool +1 int no FINAL que ninguém lê, framed-by-length, sem fix). O caminho de "compra rápida"
+ * (bagType=-1,place=-1, `[ShopManager...GoodsID]`) tem o MESMO wire format nos dois AS3 (confirmado pelos
+ * 5 call-sites reais: `BagView.as`, `BuffButton.as`, `RightPropView.as`, `SetsShopView.as`,
+ * `OpenBatchView.as`), mas o `.cs` 6600 decompilado deste handler lê um formato DIFERENTE pro mesmo caso
+ * (`num3,num4,num5` — 3 ints crus, não um array de IDs) que não bate com o que o AS3 realmente manda —
+ * decompilação provavelmente incompleta/código morto superposto, não dá pra confirmar o formato real do
+ * 6600 sem rodar o servidor original. Deixado com o comportamento 4.1 (trata `ids` como ID de loja, igual
+ * ao `.cs` 4.1) pros dois clientKinds — se um jogador 6600 reportar bug na compra rápida de carta
+ * (ex. botão "comprar e usar" de buff), comece aqui.
  */
 import { consortiaMgr } from "../../game/consortia-mgr.js";
 import { ItemInfo } from "../../game/item.js";

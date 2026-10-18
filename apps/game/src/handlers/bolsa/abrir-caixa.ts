@@ -5,7 +5,16 @@
  * (eventos, atividades) que também abrem caixas de recompensa.
  * C#: `OpenUpArkHandler.cs` (handler), `ItemBoxMgr.CreateItemBox` (`Bussiness/Managers/ItemBoxMgr.cs:186`,
  * o sorteio: toda linha `IsSelect`, + UMA linha aleatória entre as não-selecionadas cujo `Random >= rand(max Random)`).
- * Como testar: `apps/game/test/formulas.test.ts` (`createItemBox`). Manual: Bolsa → abrir caixa.
+ * Como testar: `apps/game/test/formulas.test.ts` (`createItemBox`), `apps/game/test/client-6600-m2-bolsa.test.ts`.
+ * Manual: Bolsa → abrir caixa.
+ *
+ * NOVO (m2-bolsa): request `sendItemOpenUp` (6600, `GameSocketOut.as`) ganha +1 bool `isBand` no final —
+ * nem o `OpenUpArkHandler.cs` 6600 (decompilado por completo) lê esse campo de volta, e pacotes
+ * client→server são framed por tamanho (zero-pad), então não ler a sobra não quebra nada — não lido nos
+ * dois lados, igual ao precedente de `94/0 isDouble`/`94/2 tempID` (`research/6600/packets-m1.md` M2 salas).
+ * Resposta: 6600 insere +2 ints (`MagicAttack`/`MagicDefence`, dano mágico por item, não implementado) por
+ * item, logo depois de `LuckCompose` — confirmado campo a campo contra os dois `.cs` reais (`WriteInt`
+ * termina em `LuckCompose` na 4.1; o 6600 soma `WriteInt(value.MagicAttack); WriteInt(value.MagicDefence);`).
  */
 import { consortiaMgr } from "../../game/consortia-mgr.js";
 import { GSPacket } from "@ddt/protocol";
@@ -96,6 +105,7 @@ export function openBox(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd = 
       out.writeInt(row.TemplateId); out.writeInt(count); out.writeBoolean(row.IsBind); out.writeInt(row.ItemValid);
       out.writeInt(row.StrengthenLevel); out.writeInt(row.AttackCompose); out.writeInt(row.DefendCompose);
       out.writeInt(row.AgilityCompose); out.writeInt(row.LuckCompose);
+      if (p.clientKind === "6600") { out.writeInt(0); out.writeInt(0); } // MagicAttack/MagicDefence — não implementado
       const t = tpl.findItem(row.TemplateId);
       if (!t) continue;
       const make = (n: number) => {
