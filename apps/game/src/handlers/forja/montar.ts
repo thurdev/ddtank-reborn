@@ -6,6 +6,17 @@
  * C#: `ItemInlayHandle.cs`, `ItemEmbedBackOutHandler.cs`, `OpenFiveSixHoleHandler.cs`.
  * Como testar: sem teste automatizado dedicado (ver `apps/game/test/forge-*.test.ts` pra bancada geral).
  * Manual: Forja → Ferraria → Montar → arrastar joia pro furo certo → ouro desconta e furo preenche.
+ *
+ * NOVO (m1-pacotes-acao): o 6600 reaproveita o código 121 pra `RUNE_COMMAND` (sistema de "beads"/runas —
+ * `ddt/data/socket/ePackageType.as`: 4.1 `ITEM_INLAY=121`, 6600 `RUNE_COMMAND=121`; `ITEM_INLAY` nem existe
+ * mais no enum 6600). É uma colisão de CÓDIGO, igual à do 259 FIRSTRECHARGE/CONSUME_RANK
+ * (research/6600/packets-m1.md Detalhe D) — mandar nossa resposta `GSPacket(121)` pra um cliente 6600 faz
+ * `SocketManager.handleBeadPkg` ler o primeiro byte como sub-comando de bead/rune (`RUNE_SENDINFO_TOCLIENT`/
+ * `RUNE_OPENPACKAGE`), não como o ack de inlay. O sistema de beads/runas não foi portado (fora do escopo
+ * desta rodada — ver `BEAD_HOLE_INFO` em packets-m1.md), então `inlay()` só SUPRIME o envio da resposta 121
+ * pra clientKind 6600 (o estado do servidor muda normalmente; só o ack visual pro cliente não vai).
+ * `embedBackout()` (125) e `openFiveSixHole()` (217) não colidem — confirmado mesmo valor numérico nos dois
+ * enums.
  */
 import { GSPacket } from "@ddt/protocol";
 import { ItemInfo } from "../../game/item.js";
@@ -42,7 +53,11 @@ export async function inlay(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): P
   if (!(hole > 0 && hole < 7)) {
     out.writeByte(1);
     p.sendMessage(0, ctx.lang.t("ItemInlayHandle.NoPlace"));
-    return p.send(out);
+    // 6600 reassigns code 121 to RUNE_COMMAND (ePackageType.as: ITEM_INLAY=121 na 4.1, RUNE_COMMAND=121 no
+    // 6600 — colisão real de código, não só de layout; `ITEM_INLAY` nem existe mais no enum 6600). Ver nota
+    // abaixo e research/6600/packets-m1.md.
+    if (p.clientKind !== "6600") p.send(out);
+    return;
   }
   p.removeGold(price); // C#: charged even when the hole type does not match
   const holeField = `Hole${hole}` as "Hole1";
@@ -70,7 +85,7 @@ export async function inlay(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): P
     p.sendMessage(0, ctx.lang.t("GameServer.InlayItem.Msg1"));
     out.writeByte(1);
   }
-  p.send(out);
+  if (p.clientKind !== "6600") p.send(out); // see 121/RUNE_COMMAND collision note above
   if (equipInventory === p.equipBag && item.Place < 31) p.updatePlayerProperties();
 }
 

@@ -25,6 +25,7 @@ export function registerVerEquipamento(r: HandlerRegistry): void {
       if (info) items = await loadEquippedItems(ctx.db.db, info.ID, ctx.templates.findItem);
     }
     if (!info || !items) return p.sendMessage(3, "Informações do jogador inválidas!");
-    p.send(Out.userEquip(info, items, ctx.now()));
+    // Layout vai no clientKind de QUEM PEDIU (`p`, o viewer) — não do jogador visto. Ver research/6600/packets-m1.md packet 74.
+    p.send(Out.userEquip(info, items, ctx.now(), p.clientKind, online?.zoneId ?? 0));
   });
 }

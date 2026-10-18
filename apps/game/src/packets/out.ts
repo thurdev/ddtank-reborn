@@ -449,8 +449,13 @@ export function necklace(c: PlayerInfo): PacketOut {
 
 // ---------------------------------------------------------------------------------------------- scene / rooms
 
-/** 18 SCENE_ADD_USER (SendSceneAddPlayer, :1196). */
-export function sceneAddPlayer(c: PlayerInfo): PacketOut {
+/**
+ * 18 SCENE_ADD_USER (SendSceneAddPlayer, :1196) — broadcast in the hall waiting room, where 4.1 and 6600
+ * clients can be mixed (see room-mgr.ts `sendToWaitingByKind`). 6600 reads the same fields plus +1 bool
+ * `isOld` at the very end (card-soul stub, same as `loginSuccess`'s `isOld` — not implemented -> `false`).
+ * `RoomListController.as __addWaitingPlayer` (4.1:166-194 vs 6600:200-229). See research/6600/packets-m1.md.
+ */
+export function sceneAddPlayer(c: PlayerInfo, clientKind: ClientKind = "41"): PacketOut {
   const p = new PacketOut(18, c.ID);
   p.writeInt(c.Grade); p.writeBoolean(c.Sex); p.writeString(c.NickName ?? ""); p.writeByte(c.typeVIP); p.writeInt(c.VIPLevel);
   p.writeString(c.ConsortiaName); p.writeInt(c.Offer); p.writeInt(c.Win); p.writeInt(c.Total); p.writeInt(c.Escape);
@@ -460,6 +465,7 @@ export function sceneAddPlayer(c: PlayerInfo): PacketOut {
     p.writeString(c.SpouseName ?? "");
   }
   p.writeString(c.UserName ?? ""); p.writeInt(c.FightPower); p.writeInt(c.apprenticeshipState);
+  if (clientKind === "6600") p.writeBoolean(false); // isOld (card-soul stub, not implemented)
   return p;
 }
 
@@ -518,8 +524,17 @@ export function roomSetupChange(r: RoomView): PacketOut {
   return p;
 }
 
-/** 94/4 (SendRoomPlayerAdd, :1231). Pets not ported: pet count 0. */
-export function roomPlayerAdd(v: PlayerView): PacketOut {
+/**
+ * 94/4 (SendRoomPlayerAdd, :1231). Pets not ported: pet count 0.
+ * Broadcast to the whole room (`rooms/room.ts`), which can mix 4.1 and 6600 players — the layout here
+ * depends on the RECEIVER's client, not the entering player's (`v`), so `receiverKind` is a separate
+ * param; callers must build one `PacketOut` per receiver clientKind (see `room.ts` broadcast call sites).
+ * 6600 reads the same fields plus +1 bool `isOld` right after `DailyLeagueLastScore`, before the pet-count
+ * loop (card-soul stub, same as `loginSuccess`'s `isOld` — not implemented -> `false`).
+ * `RoomManager.as __addPlayerInRoom` (4.1:333-453 vs 6600:637-754 — the `isOld` read sits at 6600:726).
+ * See research/6600/packets-m1.md.
+ */
+export function roomPlayerAdd(v: PlayerView, receiverKind: ClientKind = "41"): PacketOut {
   const c = v.info;
   const p = new PacketOut(94, v.id);
   p.writeByte(4); p.writeBoolean(v.inRoom); p.writeByte(v.roomIndex); p.writeByte(v.roomTeam); p.writeBoolean(false);
@@ -536,6 +551,7 @@ export function roomPlayerAdd(v: PlayerView): PacketOut {
   p.writeString(c.UserName ?? ""); p.writeInt(c.Nimbus); p.writeInt(c.FightPower); p.writeInt(c.apprenticeshipState);
   p.writeInt(c.masterID); p.writeString(c.masterOrApprentices ?? ""); p.writeInt(c.graduatesCount); p.writeString(c.honourOfMaster ?? "");
   p.writeBoolean(v.match.DailyLeagueFirst); p.writeInt(v.match.DailyLeagueLastScore);
+  if (receiverKind === "6600") p.writeBoolean(false); // isOld (card-soul stub, not implemented)
   p.writeInt(0);
   return p;
 }
@@ -581,8 +597,13 @@ export function roomByte(sub: number, extra?: number): PacketOut {
 
 // ---------------------------------------------------------------------------------------------- social
 
-/** 160/160 (SendAddFriend, :502). */
-export function addFriend(u: PlayerInfo, relation: number, state: boolean): PacketOut {
+/**
+ * 160/160 (SendAddFriend, :502).
+ * 6600 reads the same fields plus +1 bool `isOld` (card-soul stub, not implemented -> `false`) and +1 date
+ * `LastLoginDate` (real value, we track it as `PlayerInfo.LastDate`) right after `IsMarried` — PlayerManager.as
+ * __friendAdd (4.1:655-726 vs 6600:867-940). See research/6600/packets-m1.md.
+ */
+export function addFriend(u: PlayerInfo, relation: number, state: boolean, clientKind: ClientKind = "41"): PacketOut {
   const p = new PacketOut(160, u.ID);
   p.writeByte(160); p.writeBoolean(state);
   if (state) {
@@ -592,6 +613,7 @@ export function addFriend(u: PlayerInfo, relation: number, state: boolean): Pack
     p.writeInt(u.Repute); p.writeInt(relation); p.writeString(u.UserName ?? ""); p.writeInt(u.Nimbus); p.writeInt(u.FightPower);
     p.writeInt(u.apprenticeshipState); p.writeInt(u.masterID); p.writeString(u.masterOrApprentices ?? ""); p.writeInt(u.graduatesCount);
     p.writeString(u.honourOfMaster ?? ""); p.writeInt(u.AchievementPoint); p.writeString(u.Honor); p.writeBoolean(u.IsMarried);
+    if (clientKind === "6600") { p.writeBoolean(false); wd(p, u.LastDate); } // isOld (stub), LastLoginDate (real)
   }
   return p;
 }
@@ -617,12 +639,39 @@ export function oneOnOneTalk(receiverId: number, senderNick: string, msg: string
   return p;
 }
 
-/** 74 ITEM_EQUIP (SendUserEquip, :1035) — zlib-compressed body. Gem souls not ported (count 0). */
-export function userEquip(c: PlayerInfo, items: ItemInfo[], now = new Date()): PacketOut {
+/**
+ * 74 ITEM_EQUIP (SendUserEquip, :1035 4.1 / :952 6600) — zlib-compressed body. Gem souls not ported (count 0).
+ * 6600 reads the same code with a ~15-field header diff (PlayerManager.as __itemEquip 4.1:321-515 vs
+ * 6600:452-717, confirmed against `AbstractPacketLib.cs:952-1114` SendUserEquip):
+ * - +1 int `player.ZoneID` right after `player.ID`, before NickName (channel disambiguator — we don't have
+ *   channels yet, see docs/plan/TASKS.md `ch-*`, so defaults to 0, same stub `cardData`/`playerCardData` use).
+ * - +1 bool `isOpenKingBless` between VIPLevel and Win (6600-only king-bless system — see `kingBlessClosed()`,
+ *   always sent closed -> `false` here too).
+ * - +1 int `curHorseLevel`/`MountLv` right after necklaceExp (Montaria, M1-schema-only so far -> `0`).
+ * - Per item: +1 int `MagicLevel` at the very end (same `writeItemMagicTail` tail as 64 GRID_GOODS, `full:
+ *   false` — 6600 only reads this one extra field here, not the other four).
+ * - New tail after the item list, replacing the 4.1 bare `gemSoul count=0`: `beadItems.Count`(0, BeadBag not
+ *   ported), `UserGemStone.Count`(0, same shape 4.1 ends with), `player.evolutionGrade`/`evolutionExp` (real
+ *   values, already tracked — see `publicPlayer`), `player.MagicAttack`/`MagicDefence` (0, not implemented),
+ *   `magicStones.Count`(0), `player.MountsType`(0, Montaria again).
+ * Checked against the real C#: `LastLoginDate` (`DateTime.Now.AddDays(-2)`) and `DailyLeagueFirst`/
+ * `DailyLeagueLastScore` (`false`/`0`) are hardcoded THE SAME WAY in the 6600 source too — no diff there
+ * despite an earlier note in research/6600/packets-m1.md Round 2 saying otherwise; corrected in this round.
+ * `apprenticeshipState`/`masterID`/`masterOrApprentices`/`graduatesCount`/`honourOfMaster` are also sent as
+ * dummy `0`/`0`/""`/0`/""` by the 6600 C# itself, same precedent as Detalhe A (loginSuccess) — we keep the
+ * REAL values since the client only cares about the field's type, not a specific value. See
+ * research/6600/packets-m1.md packet 74.
+ */
+export function userEquip(c: PlayerInfo, items: ItemInfo[], now = new Date(), clientKind: ClientKind = "41", zoneId = 0): PacketOut {
   const p = new PacketOut(74, c.ID);
-  p.writeInt(c.ID); p.writeString(c.NickName ?? ""); p.writeInt(c.Agility); p.writeInt(c.Attack); p.writeString(c.Colors); p.writeString(c.Skin);
+  const is6600 = clientKind === "6600";
+  p.writeInt(c.ID);
+  if (is6600) p.writeInt(zoneId); // player.ZoneID (channels not implemented yet -> 0)
+  p.writeString(c.NickName ?? ""); p.writeInt(c.Agility); p.writeInt(c.Attack); p.writeString(c.Colors); p.writeString(c.Skin);
   p.writeInt(c.Defence); p.writeInt(c.GP); p.writeInt(c.Grade); p.writeInt(c.Luck); p.writeInt(c.hp); p.writeInt(c.Hide); p.writeInt(c.Repute);
-  p.writeBoolean(c.Sex); p.writeString(c.Style); p.writeInt(c.Offer); p.writeByte(c.typeVIP); p.writeInt(c.VIPLevel); p.writeInt(c.Win);
+  p.writeBoolean(c.Sex); p.writeString(c.Style); p.writeInt(c.Offer); p.writeByte(c.typeVIP); p.writeInt(c.VIPLevel);
+  if (is6600) p.writeBoolean(false); // isOpenKingBless (6600-only, always closed — see kingBlessClosed())
+  p.writeInt(c.Win);
   p.writeInt(c.Total); p.writeInt(c.Escape); p.writeInt(c.ConsortiaID); p.writeString(c.ConsortiaName); p.writeInt(c.badgeID);
   p.writeInt(c.RichesOffer); p.writeInt(c.RichesRob); p.writeBoolean(c.IsMarried); p.writeInt(c.SpouseID); p.writeString(c.SpouseName ?? "");
   p.writeString(c.DutyName); p.writeInt(c.Nimbus); p.writeInt(c.FightPower); p.writeInt(c.apprenticeshipState); p.writeInt(c.masterID);
@@ -631,6 +680,7 @@ export function userEquip(c: PlayerInfo, items: ItemInfo[], now = new Date()): P
   const t = c.Texp;
   p.writeInt(t.spdTexpExp); p.writeInt(t.attTexpExp); p.writeInt(t.defTexpExp); p.writeInt(t.hpTexpExp); p.writeInt(t.lukTexpExp);
   p.writeBoolean(false); p.writeInt(0); p.writeInt(c.totemId); p.writeInt(c.necklaceExp);
+  if (is6600) p.writeInt(0); // curHorseLevel/MountLv (Montaria, not implemented)
   p.writeInt(items.length);
   for (const it of items) {
     p.writeByte(it.BagType); p.writeInt(it.UserID); p.writeInt(it.ItemID); p.writeInt(it.Count); p.writeInt(it.Place); p.writeInt(it.TemplateID);
@@ -645,8 +695,18 @@ export function userEquip(c: PlayerInfo, items: ItemInfo[], now = new Date()): P
       wd(p, it.goldBeginTime);
     }
     p.writeString(it.latentEnergyCurStr); p.writeString(it.latentEnergyNewStr); wd(p, it.latentEnergyEndTime);
+    if (is6600) writeItemMagicTail(p, false); // +1 int MagicLevel
   }
-  p.writeInt(0);
+  if (is6600) {
+    p.writeInt(0); // beadItems.Count (BeadBag system not ported)
+    p.writeInt(0); // UserGemStone.Count (same shape as the 4.1 tail below, still empty)
+    p.writeInt(c.evolutionGrade); p.writeInt(c.evolutionExp);
+    p.writeInt(0); p.writeInt(0); // player.MagicAttack/MagicDefence (not implemented)
+    p.writeInt(0); // magicStones.Count
+    p.writeInt(0); // player.MountsType (Montaria, not implemented)
+  } else {
+    p.writeInt(0); // gem souls (GemstonInitInfo list), always empty today
+  }
   compressPacket(p);
   return p;
 }

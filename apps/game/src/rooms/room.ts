@@ -5,6 +5,7 @@
 import type { GSPacket } from "@ddt/protocol";
 import * as Out from "../packets/out.js";
 import type { RoomMember } from "../game/player.js";
+import type { ClientKind } from "../game/player-info.js";
 import type { FightGame } from "../fight/types.js";
 
 export const RoomType = { Match: 0, Freedom: 1, Boss: 3, Dungeon: 4, FightLab: 5, Freshman: 10, Academy: 11, WordBossFight: 14, Labyrinth: 15 } as const;
@@ -140,6 +141,20 @@ export class BaseRoom implements Out.RoomView {
     for (const p of this.places) if (p && p !== except) p.send(pkt);
   }
 
+  /**
+   * Same broadcast as `sendToAll`, but for a packet whose LAYOUT depends on the receiver's clientKind (94/4
+   * SendRoomPlayerAdd — see `Out.roomPlayerAdd`, research/6600/packets-m1.md "Mixed rooms"): builds at most
+   * 2 variants (one per kind actually present in the room) instead of sharing a single buffer.
+   */
+  sendToAllByKind(build: (k: ClientKind) => GSPacket, except?: RoomMember | null): void {
+    let p41: GSPacket | undefined;
+    let p6600: GSPacket | undefined;
+    for (const p of this.places) {
+      if (!p || p === except) continue;
+      p.send(p.clientKind === "6600" ? (p6600 ??= build("6600")) : (p41 ??= build("41")));
+    }
+  }
+
   sendToTeam(pkt: GSPacket, team: number, except?: RoomMember | null): void {
     for (const p of this.places) if (p && p.roomTeam === team && p !== except) p.send(pkt);
   }
@@ -202,10 +217,9 @@ export class BaseRoom implements Out.RoomView {
       p.isViewer = true;
       p.roomTeam = 99;
     }
-    const add = Out.roomPlayerAdd(p.view());
-    p.send(add);
-    this.sendToAll(add, p);
-    for (const o of this.getPlayers()) if (o !== p) p.send(Out.roomPlayerAdd(o.view()));
+    p.send(Out.roomPlayerAdd(p.view(), p.clientKind));
+    this.sendToAllByKind((k) => Out.roomPlayerAdd(p.view(), k), p);
+    for (const o of this.getPlayers()) if (o !== p) p.send(Out.roomPlayerAdd(o.view(), p.clientKind));
     if (this.host == null) {
       this.host = p;
       this.updatePlayerState(p, 2, true);
