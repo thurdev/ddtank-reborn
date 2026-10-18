@@ -41,6 +41,10 @@ export function send(reply: FastifyReply, out: Output) {
 /** XMLs que o 4.1 carrega como texto puro e o 6600 com COMPRESS_TEXT_LOADER (vendor/DDT-6600/Flash_Project/DDT660/src/ddt/
  *  loader/LoaderCreate.as:631 ServerConfig). Levantado comparando todos os solveRequestPath do 6600 com o que servimos. */
 const COMPRESS_6600 = new Set(["serverconfig"]);
+/** O contrário: geramos em zlib mas o 6600 carrega com TEXT_LOADER (texto puro) → sai descomprimido pro 6600.
+ *  Levantado comparando todos os solveRequestPath(...TEXT_LOADER) do 6600 com o que servimos (SearchGoodsTemp →
+ *  UpdateStarAnalyer "#1090 XML malformed", LoaderCreate.as:828). */
+const PLAIN_6600 = new Set(["searchgoodstemp", "activeconvertiteminfo"]);
 /** XMLs cujo conteúdo (não só formato) o 6600 interpreta diferente: o cliente 6600 recebe o snapshot do 6600.
  *  loaduserbox: UserBoxInfoAnalyzer.as separa caixas por Level<=20 e BossBoxManager.currentGrade exige o ID 1
  *  (nosso dado 4.1 começa no ID 2 com Level 60 → "#1010 accessing field: Level"). Lado servidor (prêmio das caixas)
@@ -96,6 +100,7 @@ export async function requestRoutes(f: FastifyInstance, ctx: AppCtx) {
           const ours = file.compressed ? inflateSync(file.body).toString("utf8") : file.body.toString("utf8");
           return reply.type("application/octet-stream").send(zlibXml(mergeServerConfig6600(ours, snap6600.resolve("serverconfig.xml"))));
         }
+        if (is6600 && file.compressed && PLAIN_6600.has(base)) return reply.type("text/xml; charset=utf-8").send(inflateSync(file.body));
         if (is6600 && !file.compressed && COMPRESS_6600.has(base)) return reply.type("application/octet-stream").send(zlibXml(file.body.toString("utf8")));
         return reply.type(file.compressed ? "application/octet-stream" : "text/xml; charset=utf-8").send(file.body);
       }
