@@ -206,12 +206,38 @@ precisar de líder nenhum:
   espelhado (`rt.boss` populado pelo último `ch:boss:sync`/`ch:boss:open` do líder antigo) como ponto de
   partida — pode ficar levemente desatualizado no instante da troca, mas converge no próximo dano/sync.
 
-### O que ainda não funciona com 2+ canais (depois de `ch-bus`/`ch-eventos`)
+### `ch-troca`: trocar de canal sem relogar no site
+
+Desenho completo + citações de arquivo:linha do cliente: `research/client/channel-switch.md`. Resumo: o
+cliente (4.1 e 6600, mesmo mecanismo nos dois) troca de canal pelo dropdown do hall
+(`ServerDropList`/`ServerManager.connentServer`) **fechando o socket atual e abrindo um novo** pro host:porta
+do canal escolhido, reenviando o pacote LOGIN com a MESMA conta + `tempPwd` (GameKey) já usada no primeiro
+login — nenhum `.ashx` novo, nenhum pacote de "troca" dedicado, é um login comum só que pro canal 2.
+
+Isso já funciona sem nenhum código novo, porque as 3 peças que ele precisa já existiam antes desta tarefa:
+
+1. **Ticket reutilizável** — `validateGameLogin` (`packages/auth/src/index.ts`) só confere
+   `GameKeyExpiresAt > now`, nunca apaga nem marca o GameKey como "já usado". TTL padrão 24h
+   (`GAME_KEY_TTL_MIN`), então o mesmo `user,tempPwd` emitido no 1º login é aceito de novo por QUALQUER
+   canal dentro da janela.
+2. **Canal antigo salva e libera sem brigar com o login novo** — `handleLogin` já chama
+   `ctx.crossChannel.kick(ch.UserID)` (`ch-bus`) em todo login, que derruba a sessão do mesmo usuário em
+   outro canal (kitoff + `quitPlayer`, salva + `World.remove`) antes de responder o ack; o cliente também já
+   fecha o próprio socket antigo ao reconectar, então o `c.onClosed` local chega no mesmo `quitPlayer`
+   (idempotente, `p.quitting ??= doQuit(...)` — não importa qual caminho chega primeiro).
+3. **Ruffle sabe abrir socket pra qualquer canal** — `channelSocketProxies` (`apps/api/src/routes/auth.ts`)
+   já manda 1 entrada de `socketProxy` por canal habilitado em `playConfig`, servido 1x no load da página
+   (todos os canais já mapeados antes de o jogador escolher qualquer um).
+
+Testado em `apps/game/test/ch-troca.test.ts` (2 `GameServer` em processo com `createMemoryBus`, igual
+`ch-bus.test.ts`): troca 4→5 com o MESMO ticket (sem reemitir webKey/GameKey), dado mutado em memória no
+canal de origem persistido no Postgres antes da troca completar, online só no canal de destino, `clientKind`
+sobrevive à troca, e 3 trocas seguidas (4→5→4→5) sem loop de kick nem jogador duplicado.
+
+### O que ainda não funciona com 2+ canais (depois de `ch-bus`/`ch-eventos`/`ch-troca`)
 
 - **King Division / GvG entre canais** — fora de escopo (decisão em `research/6600/crosszone.md`: matchmaking
-  local normal quando chegar a vez, M3/M4), não é "boss mundial" nem precisa do líder desta tarefa.
-- **Trocar de canal sem relogar** — cada canal é uma conexão TCP/WS separada; hoje é sempre reconectar. Fila:
-  `ch-troca`.
+  local normal quando chegar a vez, M3/M4), não é "boss mundial" nem precisa do líder de `ch-eventos`.
 - **WebSocket dos canais extras sem TLS/Caddy** — o canal local continua `wss://` via Caddy; o `WsUrl` que
   `scripts/channels-compose.mjs` gera pros canais extras é `ws://` direto na porta publicada (sem proxy
   reverso/TLS) — funciona, mas é uma regressão de polish até alguém estender o Caddyfile pra rotear `/ws`
