@@ -11,6 +11,8 @@ import { parseDotNetRsaXml, rsaKeyFromPem, type RsaPrivateKey } from "@ddt/proto
 import { readRsaKeyText, type Config } from "./config.js";
 import { Templates, heartbeat, upsertServer } from "./db/templates.js";
 import { resetAllOnline } from "./db/characters.js";
+import { createBus, type Bus } from "./bus/index.js";
+import { wireCrossChannel } from "./bus/cross-channel.js";
 import { createRegistry } from "./handlers/index.js";
 import type { HandlerRegistry } from "./handlers/registry.js";
 import { checkMissingHeartbeat } from "./handlers/basico/index.js";
@@ -49,6 +51,9 @@ export interface GameServerOptions {
   fight?: FightEngine;
   bots?: BotProvider;
   logger?: Logger;
+  /** ch-bus: barramento entre canais. Default: createBus(cfg, ...) (NoopBus sem REDIS_URL). Tests link 2+
+   *  GameServer com um `createMemoryBus(hub)` compartilhado (ver bus/memory.ts, test/ch-bus.test.ts). */
+  bus?: Bus;
 }
 
 export function parseRsaKey(text: string): RsaPrivateKey {
@@ -222,13 +227,16 @@ export class GameServer {
         if (this.ctx && host && !host.isBot) void outLabyrinth(this.ctx, host as GamePlayer, isWin).catch((e) => log.warn(`labyrinth finished: ${(e as Error).message}`));
       },
     });
+    const bus = this.opts.bus ?? createBus(cfg, (m) => log.warn(m));
     this.ctx = {
-      cfg, db, templates, lang, log, rooms, fight, rsaKey, zoneId, zoneName,
+      cfg, db, templates, lang, log, rooms, fight, rsaKey, zoneId, zoneName, bus,
       world: new World(),
       newHall: new NewHallRoom(),
       tickets: this.opts.tickets ?? dbTicketValidator(db, cfg.DEV_ALLOW_ANY_TICKET),
       now: () => new Date(),
+      crossChannel: undefined as never, // set right below: wireCrossChannel precisa do ctx já montado
     };
+    this.ctx.crossChannel = wireCrossChannel(this.ctx);
     this.handlers = createRegistry();
     await resetAllOnline(db.db, cfg.SERVER_ID).catch(() => {});
     rooms.start();
@@ -400,6 +408,9 @@ export class GameServer {
       new Promise((r) => (this.policy ? this.policy.close(r) : r(null))),
       new Promise((r) => (this.admin ? this.admin.close(r) : r(null))),
     ]);
+    this.ctx?.crossChannel.close();
+    // Só fecha o bus se este GameServer criou (não é um bus de teste compartilhado entre vários GameServer).
+    if (this.ctx && !this.opts.bus) await this.ctx.bus.close().catch(() => {});
     if (this.ownsDb) await this.ctx.db.close();
   }
 }

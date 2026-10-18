@@ -35,11 +35,12 @@ Toda mudança de schema vai em migração com rollback descrito no PR.
 3. Teste `test/helpers.ts` (`loggedIn()`/`FakeClient`), atualiza HANDLERS.md.
 4. Marca item correspondente em `docs/qa-matrix.json` (`server`, `notes`).
 
-## Canais (vários servidores, `ch-tabela`/`ch-admin`/`ch-processo`)
+## Canais (vários servidores, `ch-tabela`/`ch-admin`/`ch-processo`/`ch-bus`)
 Desenho completo: [MIGRACAO-6600.md — Requisito futuro](./plan/MIGRACAO-6600.md#requisito-futuro-vários-canais-decisão-do-dono-2026-10-17).
-Hoje já dá pra rodar vários canais = vários processos `apps/game` reais no mesmo Postgres (`ch-processo`);
-só falta o barramento entre eles (`ch-bus`, login único/chat mundial/presença cross-canal — ver "O que ainda
-não funciona" no fim desta seção).
+Hoje já dá pra rodar vários canais = vários processos `apps/game` reais no mesmo Postgres (`ch-processo`) com
+um barramento Redis opcional entre eles (`ch-bus`, §"ch-bus" abaixo) pra login único, chat mundial/sussurro e
+presença de amigo/sociedade em tempo real — o que ainda falta (eventos globais, trocar de canal sem relogar)
+está em "O que ainda não funciona com 2+ canais" no fim desta seção.
 
 - **1 canal = 1 linha** de `player."Server_List"` (editável no admin, página "Canais") **+ 1 processo
   `apps/game`** com `SERVER_ID` apontando pra essa linha (`Room`/`Total`/`ZoneId`/`ZoneName` vêm dela no boot
@@ -107,21 +108,59 @@ mesmo dado. O que já era seguro (cada processo tem seu próprio `World` em mem�
 - Login/mundo em memória, `app."Servers"` e `player."Server_List"."Online"` já eram escritos só com `WHERE id =
   <SERVER_ID deste processo>` — nenhuma mudança necessária, só documentado.
 
-### O que ainda não funciona com 2+ canais (fila: `ch-bus`)
+### `ch-bus`: barramento entre canais (login único, chat mundial/sussurro, presença)
 
-- **Login simultâneo na mesma conta em 2 canais** — cada canal valida a sessão (`app."LoginSessions"`)
-  independente; não existe "derrubar a sessão no outro canal" (`Center.Server`/`LoginMgr` do C# original)
-  sem um barramento entre processos.
-- **Chat mundial / sussurro entre canais** — cada canal só vê os jogadores no seu próprio `World` em memória.
-- **Amigos/sociedade online "em qualquer canal"** — `WorldMgr.OnPlayerOnline`/`friendState` (session/login.ts)
-  só notifica jogadores no MESMO processo; um amigo em outro canal aparece sempre offline pro canal que não é
-  o dele.
+Pub/sub mínimo entre processos `apps/game` ("canais"), em `apps/game/src/bus/`:
+
+- **`Bus`** (`bus/index.ts`): `publish(topic, msg)` / `subscribe(topic, fn)`. `createBus(cfg, log)` escolhe a
+  implementação: `REDIS_URL` setado (`apps/game/.env`, ver `.env.example`) -> `createRedisBus` (`bus/redis.ts`,
+  `ioredis`, 2 conexões PUB/SUB, JSON por tópico); vazio (padrão) -> `createNoopBus` — `publish` não faz nada,
+  `subscribe` nunca dispara, e **o comportamento de um canal sozinho continua idêntico a antes desta tarefa**
+  (nada atravessa processo). Uma 3ª implementação só de teste, `createMemoryBus` (`bus/memory.ts`), liga 2+
+  `GameServer` em processo no mesmo "hub" sem precisar de Redis de verdade.
+- **Coordenação** (`bus/cross-channel.ts` `wireCrossChannel(ctx)`, 1x por `GameServer.start()` — `ctx.bus` /
+  `ctx.crossChannel`):
+  1. **Login único entre canais** — login valida a sessão localmente (igual sempre); depois disso,
+     `session/login.ts handleLogin` chama `ctx.crossChannel.kick(userId)`: publica um pedido, qualquer OUTRO
+     canal que tenha esse `userId` no seu `World` manda o mesmo `Game.Server.LoginNext` + `quitPlayer` (salva
+     e remove) e responde um ack; o novo login espera até 5 s por esse ack antes de seguir (mesma janela que
+     o kick local já usava) — sem bus real (NoopBus) isso resolve na hora, zero atraso extra no login.
+  2. **Sussurro (160/51 ONE_ON_ONE_TALK)** — quando o alvo não está neste canal, `chat-privado.ts` pergunta
+     `ctx.crossChannel.whisper(...)` pros outros canais (até 1.5 s); "jogador offline"
+     (`FriendAddHandler.Ofline`) só quando NINGUÉM em canal nenhum entregou.
+  3. **Chat mundial/alto-falante (19 SCENE_CHAT, lobby sem sala)** — `scene-chat.ts` repassa o MESMO pacote
+     (bytes crus via `GSPacket.encode()`/`GSPacket.parse()`, já que o layout não depende de `clientKind`) pros
+     outros canais reenviarem aos seus jogadores locais fora de sala (bloqueio por amigo é checado em cada
+     canal, é relação da conta que recebe). Chat de clã/termas/capela/sala continua só local (igual o C#
+     original só relaying SCENE_CHAT/sussurro pelo Crosszone, nunca esses).
+  4. **Presença de amigo/sociedade (160/165 FRIEND_STATE)** — a LISTA em si (`IMListLoad.ashx`/
+     `ConsortiaUsersList.ashx` em `apps/api`) já lê `State` direto do Postgres compartilhado — já estava
+     correta entre canais desde `ch-processo`, nada mudou aí. O que faltava era o PING em tempo real pra quem
+     já está com a tela de amigos aberta: login/logout (`session/login.ts`) e troca manual de status
+     (`status-amigo.ts`) agora também chamam `ctx.crossChannel.friendState(...)`, que avisa os outros canais
+     pra notificarem localmente quem tem esse jogador como amigo/é da mesma sociedade.
+- Testado em `apps/game/test/ch-bus.test.ts` (2 `GameServer` em processo com `createMemoryBus` ligando os
+  dois — mesmo padrão de `ch-processo.test.ts`, só que com o barramento também "ligado" entre eles): kick
+  cross-canal, sussurro entregue/offline, chat mundial cross-canal, aviso de amigo online cross-canal. Testes
+  de 1 canal só (resto da suíte) continuam passando sem mudança — NoopBus por padrão.
+- `docker-compose.yml` tem um serviço `redis` (imagem `redis:7-alpine`, sem persistência — é só coordenação,
+  não dado) **opcional**: só é usado se `REDIS_URL` estiver setado em `apps/game/.env`. Todo serviço `game`/
+  `game-<ID>` (gerado por `scripts/channels-compose.mjs`) usa o MESMO `env_file: apps/game/.env`, então setar
+  `REDIS_URL=redis://redis:6379` uma vez já liga todos os canais ao mesmo barramento — nada por canal pra
+  configurar. Dev local (`scripts/dev.mjs CHANNELS=...`): os processos extras herdam `process.env`, então um
+  `REDIS_URL` no `.env` carregado pelo processo principal também propaga.
+
+### O que ainda não funciona com 2+ canais (depois de `ch-bus`)
+
 - **Eventos globais coordenados (boss mundial, liga, King Division entre canais)** — cada canal roda seu
-  próprio `EventScheduler`/`EventsRuntime` independente.
-- **Trocar de canal sem relogar** — cada canal é uma conexão TCP/WS separada; hoje é sempre reconectar.
+  próprio `EventScheduler`/`EventsRuntime` independente. Fila: `ch-eventos`.
+- **Trocar de canal sem relogar** — cada canal é uma conexão TCP/WS separada; hoje é sempre reconectar. Fila:
+  `ch-troca`.
 - **WebSocket dos canais extras sem TLS/Caddy** — o canal local continua `wss://` via Caddy; o `WsUrl` que
   `scripts/channels-compose.mjs` gera pros canais extras é `ws://` direto na porta publicada (sem proxy
   reverso/TLS) — funciona, mas é uma regressão de polish até alguém estender o Caddyfile pra rotear `/ws`
-  por canal (fora do escopo desta tarefa).
-
-Todos resolvidos por `ch-bus` (barramento Redis pub/sub entre processos) exceto o último (polish de deploy).
+  por canal (fora do escopo de `ch-bus`, item de deploy).
+- **Chat de clã (sociedade) entre canais** — por desenho desta tarefa, só chat mundial/sussurro atravessam
+  canal (ver acima); membros de uma sociedade espalhados em canais diferentes não recebem o chat do clã um do
+  outro ainda (o C# original fazia isso via Crosszone `CONSORTIA_CHAT`) — se vier a ser pedido, é o mesmo
+  padrão do chat mundial (`ctx.crossChannel`), só um tópico novo.

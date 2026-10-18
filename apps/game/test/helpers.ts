@@ -53,10 +53,12 @@ export async function createCharacter(h: DbHandle, o: { gold?: number; money?: n
   return { userId, user, nick, pass };
 }
 
-export async function startServer(over: Record<string, string> = {}): Promise<GameServer> {
+/** 2º parâmetro: opções extras do GameServer (ch-bus: `{ bus: createMemoryBus(hub) }` pra ligar 2+ servidores
+ *  de teste no mesmo barramento, igual `ch-processo.test.ts` liga 2 servidores no mesmo Postgres). */
+export async function startServer(over: Record<string, string> = {}, opts: Partial<import("../src/server.js").GameServerOptions> = {}): Promise<GameServer> {
   const db = await sharedDb();
   const cfg = testConfig({ GAME_PORT: "0", WS_PORT: "0", POLICY_PORT: "0", ADMIN_PORT: "0", BIND_HOST: "127.0.0.1", LOG_LEVEL: process.env.TEST_LOG ?? "silent", PACKET_RATE_BURST: "1000", PACKET_RATE_PER_SEC: "1000", ...over } as never);
-  return new GameServer(cfg, { db, rsaKey: testKey() }).start();
+  return new GameServer(cfg, { db, rsaKey: testKey(), ...opts }).start();
 }
 
 export interface Received {

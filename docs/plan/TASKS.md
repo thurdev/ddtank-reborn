@@ -108,7 +108,21 @@ Como rodar um 2º canal hoje (sem `ch-processo`/`ch-bus`): [GAME-SERVER.md §Can
   falta (`ch-bus`): login único entre canais, chat mundial, presença de amigos/sociedade cross-canal, eventos
   globais coordenados, trocar de canal sem relogar, TLS no WS dos canais extras — ver
   `docs/GAME-SERVER.md` "Canais" §"O que ainda não funciona com 2+ canais".
-- [~] **ch-bus** — barramento entre canais (Redis pub/sub): login único, chat mundial/sussurro, presença de amigos/sociedade.
+- [x] **ch-bus** (2026-10-18) — barramento entre canais em `apps/game/src/bus/` (`Bus` pub/sub: `createRedisBus`
+  via `ioredis` quando `REDIS_URL` setado, `createNoopBus` padrão — canal único idêntico a antes desta tarefa —
+  e `createMemoryBus` só de teste) + coordenação em `bus/cross-channel.ts` (`wireCrossChannel`, 1x por
+  `GameServer.start()`): login único entre canais (`session/login.ts` pede kick cross-canal, espera até 5 s
+  por ack, igual o kick local já fazia), sussurro (160/51) entregue em outro canal antes de responder
+  "offline", chat mundial/alto-falante (19 SCENE_CHAT, lobby sem sala) repassado pros outros canais (chat de
+  clã/termas/capela/sala continua só local, por desenho), presença de amigo/sociedade (160/165 FRIEND_STATE)
+  em tempo real entre canais (a lista em si, `IMListLoad.ashx`/`ConsortiaUsersList.ashx`, já lia o Postgres
+  compartilhado desde `ch-processo` — isto só adiciona o ping imediato pra quem já tem a tela aberta).
+  `docker-compose.yml` ganhou um serviço `redis` opcional (`apps/game/.env` `REDIS_URL`, compartilhado por
+  todo `game`/`game-<ID>` via `env_file`). Teste `apps/game/test/ch-bus.test.ts` (2 `GameServer` em processo
+  ligados por `createMemoryBus`). Falta: `ch-eventos` (boss mundial/liga cross-canal), `ch-troca` (mudar de
+  canal sem relogar), TLS no WS dos canais extras (polish de deploy), chat de clã cross-canal (fora do escopo
+  pedido — mesmo padrão de `ctx.crossChannel`, só um tópico novo, se vier a ser pedido). Ver
+  `docs/GAME-SERVER.md` "Canais" §"ch-bus".
 - [ ] **ch-troca** — trocar de canal sem relogar.
 - [ ] **ch-eventos** — eventos globais (boss mundial, liga) coordenados entre canais.
 

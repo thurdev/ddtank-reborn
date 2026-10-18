@@ -17,4 +17,6 @@ import type { ServerContext } from "../../session/context.js";
 export function changeFriendState(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): void {
   const state = pkt.readInt();
   for (const o of ctx.world.all()) if (o !== p && o.friends.has(p.id)) o.send(Out.friendState(p.id, state, p.info.typeVIP, p.info.VIPLevel));
+  // ch-bus: mesmo aviso pros amigos logados em outro canal.
+  ctx.crossChannel.friendState(p.id, state, p.info.typeVIP, p.info.VIPLevel, p.info.ConsortiaID);
 }

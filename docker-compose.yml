@@ -56,6 +56,15 @@ services:
       - "843:843"     # Flash socket policy file
     expose: ["9300"]  # WebSocket; only reached through Caddy's /ws proxy, never published directly
 
+  # ch-bus (vários canais): barramento Redis pub/sub entre processos apps/game. Opcional — só é usado quando
+  # REDIS_URL está setado em apps/game/.env (docs/GAME-SERVER.md "Canais"). Com 1 canal só, não precisa dele
+  # (NoopBus, comportamento idêntico a antes desta tarefa) — pode deixar o serviço comentado/removido.
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--save", "", "--appendonly", "no"] # cache de coordenação, não precisa persistir
+    expose: ["6379"]
+
   caddy:
     build:
       context: .
