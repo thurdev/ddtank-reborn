@@ -183,6 +183,26 @@ const S = {
   itemTemplate:
     "AddTime:D Agility Attack CanCompose CanDelete CanDrop CanEquip CanStrengthen CanUse CategoryID Colors Defence Description Level Luck MaxCount Name NeedLevel NeedSex Pic Data Property1 Property2 Property3 Property4 Property5 Property6 Property7 Property8 Quality Script BindType FusionType FusionRate FusionNeedRate TemplateID RefineryLevel Hole ReclaimValue ReclaimType CanRecycle SuitId FloorPrice",
   totemHonor: "ID Type NeedMoney AddHonor",
+  // ---- M3 (research/6600/ashx-missing.md): specs ported for the first time against DDT-6600 tables ----
+  activeConvertItem: "ActiveID TemplateID ItemType ItemCount LimitValue IsBind ValidDate",
+  cardGrooveUpdate: "Level Type Exp Attack Defend Agility Lucky Damage Guard",
+  cardTemplateInfo: "CardID CardType probability AttackRate AddAttack DefendRate AddDefend AgilityRate AddAgility LuckyRate AddLucky DamageRate AddDamage GuardRate AddGuard",
+  consortiaBossConfig: "Level NpcID MissionID AwardID CostRich ProlongRich",
+  diceGameAward: "rank=Rank template count",
+  everyDayActivePoint: "ID MinLevel MaxLevel ActivityType JumpType Description Count ActivePoint MoneyPoint",
+  everyDayActiveProgress: "ID ActiveName ActiveTime Count Description JumpType LevelLimit DayOfWeek",
+  everyDayActiveReward: "ID RewardID RewardItemID IsSelect RewardItemValid RewardItemCount StrengthenLevel AttackCompose DefendCompose AgilityCompose LuckCompose IsBind",
+  fairBattleRewardTemp: "Prestige Level Name PrestigeForWin PrestigeForLose Title",
+  lightriddleQuest: "QuestionID QuestionContent Option1 Option2 Option3 Option4",
+  magicstoneTemplate: "TemplateID Level Exp Attack Defence Agility Luck MagicAttack MagicDefence",
+  mountDrawTemplate: "ID TemplateId AddHurt AddGuard MagicAttack MagicDefence AddBlood Name",
+  mountSkillElementTemplate: "ID Name EffectPic Description Pic",
+  mountSkillGetTemplate: "ID Level NextID SkillID Type Exp",
+  mountSkillTemplate: "ID Name ElementIDs Description BallType NewBallID CostMP Pic Action EffectPic Delay ColdDown GameType Probability CostEnergy UseCount",
+  mountTemplate: "Grade Experience SkillID AddDamage AddGuard MagicAttack MagicDefence AddBlood",
+  petFormData: "Appearance DamageReduce HeathUp Name Resource TemplateID",
+  searchGoodsTemp: "StarID NeedMoney DestinationReward VIPLevel ExtractNumber",
+  treeTemplate: "Level AwardID CostExp MonsterExp MonsterID MonsterName Exp",
   strengthExp: "Level Exp NecklaceStrengthExp NecklaceStrengthPlus",
   rune: "TemplateID NextTemplateID Name BaseLevel MaxLevel Type1 Attribute1 Turn1 Rate1 Type2 Attribute2 Turn2 Rate2 Type3 Attribute3 Turn3 Rate3",
   /** FlashUtils.CreateCelebInfo(PlayerInfo) over V_Sys_Users_Detail. */
@@ -578,6 +598,72 @@ export const TEMPLATES: TemplateDef[] = [
               ORDER BY g."StrengthenLevel" DESC, d."GP" DESC LIMIT 20`,
         );
         return rows.map((r) => item("Item", "Date:d GP Grade ItemName NickName Sex Strengthenlevel Type=UserName", r));
+      }),
+  },
+
+  // ---- M3 (research/6600/ashx-missing.md): first real port of templates the 6600 client requests that we only
+  // served from the frozen vendor snapshot until now. Tables are the ones added by migration 0013 (m1-schema) or
+  // pre-existing 4.1 tables that were never wired to a builder. Element names/attribute order/elem casing verified
+  // byte-for-byte against vendor/DDT-6600/Request/<file>.xml (zlib-inflated) — see the research doc for each diff.
+  flat({ files: [z("activeconvertiteminfo")], table: "Active_Convert_Item", order: `"ActiveID", "TemplateID"`, attrs: S.activeConvertItem }),
+  flat({ files: [z("cardgrooveupdatelist")], table: "Card_Groove_Update", order: `"Level"`, attrs: S.cardGrooveUpdate }),
+  flat({ files: [z("cardtemplateinfo")], table: "Card_Template_Info", order: `"CardID", "CardType"`, attrs: S.cardTemplateInfo }),
+  // player.Consortia_Boss_Config (4.1-era table, never wired) -> ConsortiaBossDataAnalyzer (6600, consortion/analyze/
+  // ConsortiaBossDataAnalyzer.as:29-31) reads Level/CostRich/ProlongRich; BossLevel exists in the column but the C#
+  // builder (Bussiness/ConsortiaBussiness.cs:735-764 GetConsortiaBossConfigAll) never emits it either.
+  flat({ schema: "player", files: [z("consortiabossconfigload")], table: "Consortia_Boss_Config", order: `"Level"`, elem: "item", attrs: S.consortiaBossConfig }),
+  flat({ files: [z("dicegameawarditem")], table: "Dice_Game_Award", order: `"Rank"`, attrs: S.diceGameAward }),
+  flat({ files: [z("everydayactivepointtemplateinfolist")], table: "Every_Day_Active_Point_Template", order: `"ID"`, elem: "item", attrs: S.everyDayActivePoint }),
+  flat({ files: [z("everydayactiveprogressinfolist")], table: "Every_Day_Active_Progress", order: `"ID"`, elem: "item", attrs: S.everyDayActiveProgress }),
+  flat({ files: [z("everydayactiverewardtemplateinfolist")], table: "Every_Day_Active_Reward_Template", order: `"ID"`, elem: "item", attrs: S.everyDayActiveReward }),
+  // Fair_Battle_Reward_Temp is already built for DailyLeagueLevelList.ashx (S.fairBattle, 3 attrs) above; this is a
+  // *second* file over the same table with the FairBattleRewardAnalyzer attribute set (6 attrs) the 6600 "combate
+  // justo" ranking window reads — two different FlashUtils builders over one table, same as the original.
+  flat({ files: [z("fairbattlerewardtemp")], table: "Fair_Battle_Reward_Temp", order: `"Prestige"`, elem: "item", attrs: S.fairBattleRewardTemp }),
+  flat({ files: [z("lightriddlequest")], table: "Lightriddle_Quest", order: `"QuestionID"`, attrs: S.lightriddleQuest }),
+  flat({ files: [z("magicstonetemplate")], table: "Magicstone_Template", order: `"TemplateID", "Level"`, attrs: S.magicstoneTemplate }),
+  flat({ files: [z("mountdrawtemplate")], table: "Mount_Draw_Template", order: `"ID"`, elem: "item", attrs: S.mountDrawTemplate }),
+  flat({ files: [z("mountskillelementtemplate")], table: "Mount_SKill_Element_Tempalate", order: `"ID"`, elem: "item", attrs: S.mountSkillElementTemplate }),
+  flat({ files: [z("mountskillgettemplate")], table: "Mount_SKill_Get_Template", order: `"ID"`, elem: "item", attrs: S.mountSkillGetTemplate }),
+  flat({ files: [z("mountskilltemplate")], table: "Mount_Skill_Template", order: `"ID"`, elem: "item", attrs: S.mountSkillTemplate }),
+  flat({ files: [z("mounttemplate")], table: "Mount_Template", order: `"Grade"`, elem: "item", attrs: S.mountTemplate }),
+  flat({ files: [z("loadpetformdata")], table: "Pet_Form_Data", order: `"TemplateID"`, elem: "item", attrs: S.petFormData }),
+  flat({ endpoint: "/searchgoodstemp.ashx", files: [z("searchgoodstemp")], table: "Search_Goods_Temp", order: `"StarID"`, elem: "item", attrs: S.searchGoodsTemp }),
+  flat({ files: [z("treetemplatelist")], table: "Tree_Template", order: `"Level"`, elem: "item", attrs: S.treeTemplate }),
+  {
+    // activityhalloweenitems.xml: rows grouped by rewardLevel (<items rewardLevel="N"><item .../>...</items>), each
+    // <item> sorted by templateId DESC inside the group (HalloweenDataAnalyzer, research/6600/xml-diff.md "ok" via
+    // snapshot fallback until now; this replaces the fallback with the real game.Activity_Halloween_Items table).
+    files: [z("activityhalloweenitems")],
+    deps: ["game.Activity_Halloween_Items"],
+    build: (h) =>
+      wrap(async () => {
+        const rows = await all(h, "game", "Activity_Halloween_Items", `"rewardLevel", "templateId" DESC`);
+        const groups = groupBy(rows, "rewardLevel");
+        return [...groups].map(([lvl, rs]) =>
+          el("items", [["rewardLevel", lvl]]).add(...rs.map((r) => item("item", "templateId count validate strenthLevel attack defend luck agility isBind", r))),
+        );
+      }),
+  },
+  {
+    // cardinfolist.xml (same table/shape in 4.1 and 6600, no .ashx.cs found in either vendor — shipped as a static
+    // snapshot, generated offline by GameAdmin's export). Each Card_Info suit lists its Card_Group rows (CardID =
+    // suit ID, TemplateID = card item) sorted by TemplateID DESC, always padded/truncated to exactly 5 <Card>
+    // children (ID=0 for empty slots) — pattern confirmed against vendor/DDTank41/Tank.Request/cardinfolist.xml
+    // (identical shape in vendor/DDT-6600/Request/cardinfolist.xml).
+    files: [z("cardinfolist")],
+    deps: ["game.Card_Info", "game.Card_Group"],
+    build: (h) =>
+      wrap(async () => {
+        const [infos, groups] = await Promise.all([all(h, "game", "Card_Info", `"ID"`), all(h, "game", "Card_Group")]);
+        const bySuit = groupBy(groups, "CardID");
+        return infos.map((x) => {
+          const e = item("Item", "ID SuitID Name Description", x);
+          const slots = (bySuit.get(Number(x.ID)) ?? []).map((g) => Number(g.TemplateID)).sort((a, b) => b - a);
+          while (slots.length < 5) slots.push(0);
+          for (const id of slots.slice(0, 5)) e.add(el("Card", [["ID", id]]));
+          return e;
+        });
       }),
   },
 

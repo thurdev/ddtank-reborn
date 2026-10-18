@@ -9,10 +9,12 @@ import type { FastifyInstance } from "fastify";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { buildApp } from "../src/app.js";
 import { REPO_ROOT } from "../src/config.js";
+import type { AppCtx } from "../src/context.js";
 
 const VENDOR_REQ = join(REPO_ROOT, "vendor", "DDTank41", "Tank.Request");
 let h: DbHandle;
 let app: FastifyInstance;
+let ctx: AppCtx;
 let key: RsaPrivateKey;
 let adminToken = "";
 
@@ -31,7 +33,7 @@ beforeAll(async () => {
   await migrateDb(h);
   await seedDatabase(h);
   await createDevAccounts(h);
-  ({ app } = await buildApp({
+  ({ app, ctx } = await buildApp({
     db: h,
     logger: false,
     env: {},
@@ -282,6 +284,136 @@ describe("6600 compat (research/6600/xml-diff.md, docs/plan/MIGRACAO-6600.md M1)
     expect(r6600).toContain('ID="900555" TemplateID="11101" LableType="2"');
     expect(r6600).toContain('AUnit="1" APrice="-1" AValue="777"');
   });
+});
+
+describe("M3 ashx + templates (research/6600/ashx-missing.md)", () => {
+  it("SceneCollecRandomNpc.ashx: hardcoded decoy NPC, zlib (scenecollecrandomnpc.cs)", async () => {
+    const body = inflate((await app.inject({ url: "/request6600/SceneCollecRandomNpc.ashx" })).rawPayload);
+    expect(body).toContain('<item NickName="Hime Chibi" Sex="1" Hair="3251" Glass="2213" Face="6224" Eye="4240" />');
+    expect(body).toContain('value="true"');
+  });
+
+  it("SubActiveList.ashx: plain text (not zlib), real seeded Active + nested Condition rows (subactivelist.cs)", async () => {
+    // seeded (packages/db/seed): game.Sub_Active_List has 1 row (ActiveID=1), game.Sub_Active_Condition has 11
+    // rows all for that same ActiveID.
+    const r = await app.inject({ url: "/request/SubActiveList.ashx" });
+    expect(r.rawPayload.subarray(0, 2).toString("hex")).not.toBe("78da"); // plain, not zlib (Response.Write, not BinaryWrite(Compress))
+    expect(r.body).toContain('<Active ActiveID="1" SubID="1" IsOpen="true" StartDate="2022-08-17 00:00:00"');
+    expect(r.body).toContain('<Condition ActiveID="1" SubID="1" ConditionID="15136"');
+    expect((r.body.match(/<Condition /g) ?? []).length).toBe(11);
+    expect(r.body).toMatch(/nowTime="\d{1,2}\/\d{1,2}\/\d{4}/);
+  });
+
+  it("UpdateVersion.ashx: literal \"1\", no XML (UpdateVersion.cs)", async () => {
+    const r = await app.inject({ url: "/request6600/UpdateVersion.ashx" });
+    expect(r.body).toBe("1");
+  });
+
+  it("VoteSubmit.ashx / LogTime.ashx: \"1\" for the 6600 client, 4.1 keeps the old stub (VoteSubmit.cs/LogTime.cs)", async () => {
+    expect((await app.inject({ url: "/request6600/VoteSubmit.ashx" })).body).toBe("1");
+    expect((await app.inject({ url: "/request/VoteSubmit.ashx" })).body).toContain("Not supported");
+    expect((await app.inject({ url: "/request6600/LogTime.ashx" })).body).toBe("1");
+    expect((await app.inject({ url: "/request/LogTime.ashx" })).body).toContain("Not supported");
+  });
+
+  it("AdvanceQuestTime.ashx: \"0,<now>,0\" plain text for 6600 (the XML it builds is discarded in the original)", async () => {
+    const r = await app.inject({ url: "/request6600/AdvanceQuestTime.ashx?userid=1&selfid=1&key=x" });
+    expect(r.body).toMatch(/^0,\d{1,2}\/\d{1,2}\/\d{4} \d{1,2}:\d{2}:\d{2} [AP]M,0$/);
+    expect((await app.inject({ url: "/request/AdvanceQuestTime.ashx" })).body).toContain("Not supported");
+  });
+
+  it("TeamBuyActiveAwardInfo.ashx / ConsortiaWarConsortiaRank.ashx: always-false placeholders (unfinished in the original)", async () => {
+    expect((await app.inject({ url: "/request6600/TeamBuyActiveAwardInfo.ashx" })).body).toBe('<Result value="false" message="Success!" />');
+    expect((await app.inject({ url: "/request6600/ConsortiaWarConsortiaRank.ashx" })).body).toContain('<Item />');
+  });
+
+  it("ConsortiaWarPlayerRank.ashx: hardcoded Item only when ConsortiaID+UserID are both present (consortiawarplayerrank.cs)", async () => {
+    const empty = await app.inject({ url: "/request6600/ConsortiaWarPlayerRank.ashx" });
+    expect(empty.body).toBe('<Result value="true" message="sucess!" />');
+    const full = await app.inject({ url: "/request6600/ConsortiaWarPlayerRank.ashx?ConsortiaID=5&UserID=9" });
+    expect(full.body).toContain('<Item Rank="1" ConsortiaID="5" Name="Sociedade" Score="99" UserID="9" ZoneName="Canal" ZoneID="4" />');
+  });
+
+  it("ConsortiaBossConfigLoad.xml: player.Consortia_Boss_Config, lowercase <item>, BossLevel never emitted", async () => {
+    // table is empty in the seeded DB (research/6600/db-diff.md); insert + invalidate the template cache the same
+    // way apps/api/src/routes/admin.ts does after a write (TemplateCache.invalidate, not picked up automatically
+    // since this def has no `endpoint` admin-rebuild trigger — it only ships as a static snapshot upstream).
+    const { sql } = await import("drizzle-orm");
+    await h.db.execute(sql`INSERT INTO player."Consortia_Boss_Config" ("Level","NpcID","MissionID","AwardID","CostRich","ProlongRich","BossLevel")
+      VALUES (3, 50001, 1291, 1001, 2000, 700, 1)`);
+    try {
+      await ctx.cache.invalidate(["player.Consortia_Boss_Config"]);
+      const body = inflate((await app.inject({ url: "/request/consortiabossconfigload.xml" })).rawPayload);
+      expect(body).toContain('<item Level="3" NpcID="50001" MissionID="1291" AwardID="1001" CostRich="2000" ProlongRich="700" />');
+      expect(body).not.toContain("BossLevel");
+    } finally {
+      await h.db.execute(sql`DELETE FROM player."Consortia_Boss_Config" WHERE "Level" = 3`);
+      await ctx.cache.invalidate(["player.Consortia_Boss_Config"]);
+    }
+  });
+
+  it("ActivityHalloweenItems.xml: rows grouped by rewardLevel, <item> sorted by templateId DESC inside the group", async () => {
+    // seeded: rewardLevel=1 has templateIds [8515, 9526, 11978, 71292, 1120110] (24 rows total, 6 groups).
+    const body = inflate((await app.inject({ url: "/request/activityhalloweenitems.xml" })).rawPayload);
+    const group1 = /<items rewardLevel="1">([\s\S]*?)<\/items>/.exec(body)?.[1] ?? "";
+    expect(group1.indexOf('templateId="1120110"')).toBeLessThan(group1.indexOf('templateId="71292"'));
+    expect(group1.indexOf('templateId="71292"')).toBeLessThan(group1.indexOf('templateId="8515"'));
+    expect(body).toMatch(/<items rewardLevel="\d+">/);
+  });
+
+  it("CardInfoList.xml: each suit always lists exactly 5 <Card> children (TemplateID DESC, ID=0 padding)", async () => {
+    // seeded: Card_Info ID=1 ("Bộ thẻ huyệt ma kiến") has 4 Card_Group rows (314103, 314102, 314101, 0) — the
+    // builder still pads to exactly 5, matching vendor/DDTank41/Tank.Request/cardinfolist.xml byte-for-byte.
+    const body = inflate((await app.inject({ url: "/request/cardinfolist.xml" })).rawPayload);
+    const it = firstTag(body, "Item");
+    expect(it).toContain('ID="1" SuitID="1" Name="Bộ thẻ huyệt ma kiến"');
+    const suitBlock = /<Item ID="1" [\s\S]*?<\/Item>/.exec(body)?.[0] ?? "";
+    const cards = [...suitBlock.matchAll(/<Card ID="(\d+)" \/>/g)].map((m) => m[1]);
+    expect(cards).toEqual(["314103", "314102", "314101", "0", "0"]);
+  });
+
+  it("DiceGameAwardItem.xml: lowercase rank/template/count attrs (table columns Rank/template/count)", async () => {
+    // seeded: game.Dice_Game_Award has (Rank=1, template=11035, count=5) among its 10 rows.
+    const body = inflate((await app.inject({ url: "/request/dicegameawarditem.xml" })).rawPayload);
+    expect(body).toContain('<Item rank="1" template="11035" count="5" />');
+  });
+
+  it("MountTemplate.xml: m1-schema game.Mount_Template, elem <item>, attrs in FlashUtils order", async () => {
+    // seeded: Grade=0 row.
+    const body = inflate((await app.inject({ url: "/request/mounttemplate.xml" })).rawPayload);
+    expect(body).toContain('<item Grade="0" Experience="0" SkillID="0" AddDamage="7" AddGuard="15" MagicAttack="30" MagicDefence="30" AddBlood="260" />');
+  });
+
+  // Remaining new flat() templates (research/6600/ashx-missing.md P1) that ship with real rows in the seeded test
+  // DB (packages/db/seed, loaded by seedDatabase in beforeAll): the attribute name/order/elem-casing for each was
+  // verified by hand against the vendor/DDT-6600/Request/<file>.xml snapshot when writing defs.ts (see the
+  // comments there) and spot-checked with real rows in the dedicated tests above — this is the wiring smoke test
+  // (right file name resolves, valid zlib, well-formed non-empty <Result>).
+  const seeded = [
+    "mountdrawtemplate", "mountskillelementtemplate", "mountskillgettemplate", "mountskilltemplate",
+    "searchgoodstemp", "treetemplatelist", "loadpetformdata", "magicstonetemplate", "lightriddlequest",
+    "fairbattlerewardtemp", "cardgrooveupdatelist", "cardtemplateinfo", "everydayactiveprogressinfolist",
+  ];
+  for (const file of seeded) {
+    it(`${file}.xml resolves to a valid, non-empty Result (table has seeded rows)`, async () => {
+      const r = await app.inject({ url: `/request/${file}.xml` });
+      expect(r.statusCode).toBe(200);
+      const body = inflate(r.rawPayload);
+      expect(body.startsWith('<Result value="true" message="Success!">')).toBe(true);
+      expect(body).toMatch(/<\w+ [^>]+\/>/);
+    });
+  }
+
+  // These three have no rows anywhere (research/6600/db-diff.md scrape never saw them either): a plain empty
+  // Result is the correct, byte-compatible answer until the table is populated.
+  const empty = ["activeconvertiteminfo", "everydayactivepointtemplateinfolist", "everydayactiverewardtemplateinfolist"];
+  for (const file of empty) {
+    it(`${file}.xml resolves to a valid empty Result (table has no rows)`, async () => {
+      const r = await app.inject({ url: `/request/${file}.xml` });
+      expect(r.statusCode).toBe(200);
+      expect(inflate(r.rawPayload)).toBe('<Result value="true" message="Success!" />');
+    });
+  }
 });
 
 describe("admin CRUD", () => {

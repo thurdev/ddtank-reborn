@@ -15,6 +15,7 @@ import VisualizeRegister from "./endpoints/VisualizeRegister.js";
 import CreateLogin from "./endpoints/CreateLogin.js";
 import * as social from "./endpoints/social.js";
 import * as consortia from "./endpoints/consortia.js";
+import * as m3 from "./endpoints/m3.js";
 import { stub, type Endpoint } from "./types.js";
 
 /** Client calls these with COMPRESS_REQUEST_LOADER (inflate). Everything else is plain. */
@@ -22,14 +23,14 @@ const ZLIB_STUBS = ["/UserQuestList.ashx", "/CheckRegistration.ashx"];
 
 /** Known endpoints not ported yet (or broken in DDTank41, spec §3.2). */
 const STUBS = [
-  "/AccountRegister.ashx", "/AdvanceQuestTime.ashx", "/API/Login.ashx", "/API/Register.ashx",
-  "/AuctionPageList.ashx", 
+  "/AccountRegister.ashx", "/API/Login.ashx", "/API/Register.ashx",
+  "/AuctionPageList.ashx",
   "/ChargeTest.ashx", "/CheckRegistration.ashx",
   "/CreatShortCut.ashx",
   "/ExitGameTransit.ashx", "/FarmGetUserFieldInfos.ashx", "/FarmGetUserFieldInfosSingle.ashx",
   "/FavoriteTransit.ashx", "/GetSID.ashx", "/GiftRecieveLog.ashx", "/giftsendlog.ashx", "/giftsendlog1.ashx",
   "/gmtipallbyids.ashx", "/IMFriendsBbs.ashx", "/IMFriendsGood.ashx", "/IMRecentContactsList.ashx", "/KeyGenerator.ashx",
-  "/LoadUserEquip.ashx", "/LoadUserItems.ashx", "/LoadUsersSort.ashx", "/LogTime.ashx", "/luckstaractivityrank.ashx",
+  "/LoadUserEquip.ashx", "/LoadUserItems.ashx", "/LoadUsersSort.ashx", "/luckstaractivityrank.ashx",
   "/MapWeekList.ashx", "/PayTransit.ashx", "/RenameConsortiaName.ashx", "/RenameNick.ashx",
   "/SentReward.ashx", "/shopcheapitemlist2.ashx", "/UserGoodsInfo.ashx", "/UserQuestList.ashx", "/VisualizeItemLoad.ashx",
   "/CelebList/celebbyweekleaguescore.ashx",
@@ -37,7 +38,12 @@ const STUBS = [
   "/AdvanceQuestion.ashx", "/AdvanceQuestionAppraisal.ashx", "/AdvanceReply.ashx", "/ChargeMoneyForTest.ashx",
   "/CommitWeeklyUserRecord.ashx", "/ConsortiaCandidateList.ashx", "/GetWorldWealth.ashx", "/LogClickTip.ashx",
   "/LogInviteFriends.ashx", "/QueryWealthDivineNum.ashx", "/SameCityIMLoad.ashx", "/SendActiveKeySystem.ashx",
-  "/SendMailGameUrl.ashx", "/UserGetActiveState.ashx", "/VoteSubmit.ashx", "/VoteSubmitResult.ashx",
+  "/SendMailGameUrl.ashx", "/UserGetActiveState.ashx", "/VoteSubmitResult.ashx",
+  // DDT-6600 only, no C# handler found anywhere in the vendor dump (research/6600/ashx-missing.md P2 "no source"):
+  // kept as a graceful stub rather than guessed logic. GetFightReport/DragonBoatFriendInfos/RecordSysInfo/
+  // RecordUserVersion/ResetPassword4399/ProxyVIP/LoginRemoveSmallAccount/ConsortiaMatchHistory already fall back
+  // to the zlib-empty-Result path via COMPRESS_ASHX_6600 (GetFightReport) or the generic unknown-endpoint path
+  // (the rest; none of them are in COMPRESS_ASHX_6600 so they don't need the zlib wrapper here).
 ];
 
 const PORTED: Endpoint[] = [
@@ -62,6 +68,15 @@ const PORTED: Endpoint[] = [
   social.MailSenderList,
   social.DailyLogList,
   events.ActivePullDown,
+  m3.SceneCollecRandomNpc,
+  m3.SubActiveList,
+  m3.UpdateVersion,
+  m3.VoteSubmit,
+  m3.LogTime,
+  m3.AdvanceQuestTime,
+  m3.TeamBuyActiveAwardInfo,
+  m3.ConsortiaWarConsortiaRank,
+  m3.ConsortiaWarPlayerRank,
 ];
 
 export const ENDPOINTS = new Map<string, Endpoint>();
