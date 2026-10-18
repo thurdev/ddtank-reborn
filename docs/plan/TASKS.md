@@ -203,7 +203,9 @@ Como rodar um 2º canal hoje (sem `ch-processo`/`ch-bus`): [GAME-SERVER.md §Can
   site. Sem custo preenchido, mostra um aviso em vez do comparativo (não força o dono a divulgar um número).
 
 ## 4. Site + admin premium
-- [ ] **site-design** — visual "Reborn" high-tech mantendo os botões 3D (ver memória do dono), home, ranking, notícias.
-- [ ] **site-play** — página de jogo com seleção de canal e launcher.
+- [x] **site-design** (2026-10-18) — hero parallax, features, pódio no ranking, motion (framer-motion,
+  respeita reduced-motion), SEO por página (`lib/seo.ts`), code-split por rota, testes vitest no `apps/web`.
+  Arte pendente (slots em `apps/web/README.md`): `public/art/hero-bg.webp`, `public/art/og-cover.jpg`.
+- [ ] **site-play** — página de jogo com seleção de canal e launcher (toggle 4.1/6600 beta já feito no `site-design`).
 - [ ] **admin-ux** — revisão geral do admin (navegação, busca, edição em massa).
 - [ ] **admin-config** — tudo configurável pelo admin (eventos, canais, taxas), sem editar arquivo.
