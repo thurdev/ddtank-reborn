@@ -123,6 +123,14 @@ export class Templates {
 
   /** game."Server_Config" (GameProperties overrides). */
   serverConfig = new Map<string, string>();
+  /**
+   * Base EXP/gold multipliers from the admin "Configuração do servidor" page (`app."Settings"` key
+   * "server-config", `expRate`/`goldRate` — apps/admin/src/pages/ServerConfig.tsx). Multiply with (not
+   * replace) the scheduled "double_exp"/"double_gold" event rate (`EventScheduler.rate`, game/scheduler.ts) at
+   * the call sites in server.ts. Reloaded by `/reload-templates` like every other template, so a PUT on
+   * server-config takes effect without restarting apps/game.
+   */
+  rates: { exp: number; gold: number } = { exp: 1, gold: 1 };
   /** GameProperties int value with the C# default when the row is missing. */
   cfgInt(name: string, def: number): number {
     const v = Number(this.serverConfig.get(name));
@@ -154,6 +162,10 @@ export class Templates {
       db.select().from(game.Quest_Goods),
     ]);
     const [pveI, missI, npcI] = await Promise.all([db.select().from(game.Pve_Info), db.select().from(game.Mission_Info), db.select().from(game.NPC_Info)]);
+    const [cfgSetting] = await db.select({ value: app.Settings.value }).from(app.Settings).where(eq(app.Settings.key, "server-config")).limit(1);
+    const rateOr1 = (v: unknown): number => (Number.isFinite(Number(v)) && Number(v) > 0 ? Number(v) : 1);
+    const cfgVal = (cfgSetting?.value ?? {}) as Record<string, unknown>;
+    this.rates = { exp: rateOr1(cfgVal.expRate), gold: rateOr1(cfgVal.goldRate) };
     await this.loadForge(db);
     await this.loadActiveExchange(db);
     await this.loadPetsCards(db, lang);

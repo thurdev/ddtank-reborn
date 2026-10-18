@@ -24,13 +24,21 @@ import {
   Tr,
   cn,
 } from "@ddtank/ui";
-import { ArrowDown, ArrowUp, ChevronLeft, ChevronRight, LayoutGrid, List, Pencil, Plus, Search, Trash2 } from "lucide-react";
+import { ArrowDown, ArrowUp, CheckSquare, ChevronLeft, ChevronRight, LayoutGrid, List, Pencil, Plus, Search, SquarePen, Trash2 } from "lucide-react";
 import { useI18n, useText } from "@/i18n";
 import { ItemIconGenerator } from "@/resources/ItemIconGenerator";
-import { getQuery, listQuery, useResourceMutations } from "./api";
+import { getQuery, listQuery, resourcePath, useResourceMutations } from "./api";
+import { api } from "@/lib/api";
+import { addRecent } from "@/lib/recent";
 import { Cell } from "./Cell";
+import { FieldInput } from "./FieldInput";
+import { useRefRows } from "./refs";
 import { SchemaForm } from "./SchemaForm";
-import { caps, rowId, type ResourceDef, type Row, type RowAction } from "./types";
+import { defaultFor } from "./schema";
+import { caps, rowId, type FieldDef, type ResourceDef, type Row, type RowAction } from "./types";
+
+/** Fields eligible for the bulk-edit dialog: simple scalar types only (no pickers/relations/arrays). */
+const bulkEditableTypes = new Set<FieldDef["type"]>(["boolean", "select", "number", "text"]);
 
 function useDebounced<T>(value: T, ms = 300): T {
   const [v, setV] = useState(value);
@@ -48,7 +56,78 @@ type DialogState =
   | { kind: "edit"; row: Row }
   | { kind: "delete"; row: Row }
   | { kind: "action"; row: Row; action: RowAction }
+  | { kind: "bulk-delete" }
+  | { kind: "bulk-edit" }
   | null;
+
+/** Bulk-edit body: pick one simple field, set a value, PATCH it into every selected row. */
+function BulkEditBody({ def, ids, onDone }: { def: ResourceDef; ids: string[]; onDone: () => void }) {
+  const { t } = useI18n();
+  const text = useText();
+  const options = def.fields.filter((f) => f.list && !f.readOnly && bulkEditableTypes.has(f.type));
+  const [fieldName, setFieldName] = useState(options[0]?.name ?? "");
+  const field = options.find((f) => f.name === fieldName);
+  const [value, setValue] = useState<unknown>(field ? defaultFor(field) : null);
+  const { update } = useResourceMutations(def);
+  const [busy, setBusy] = useState(false);
+
+  if (!options.length) return <p className="text-sm text-muted">{t("crud.bulkEditNone")}</p>;
+
+  const run = async () => {
+    setBusy(true);
+    let ok = 0;
+    let fail = 0;
+    for (const id of ids) {
+      try {
+        await update.mutateAsync({ id, body: { [fieldName]: value } });
+        ok++;
+      } catch {
+        fail++;
+      }
+    }
+    setBusy(false);
+    if (fail) toast.error(t("crud.bulkEditPartial", { ok, fail }));
+    else toast.success(t("crud.bulkEditDone", { n: ok }));
+    onDone();
+  };
+
+  return (
+    <div className="flex flex-col gap-4">
+      <p className="text-sm text-muted">{t("crud.bulkEditLead", { n: ids.length })}</p>
+      <div>
+        <label className="mb-1.5 block text-sm font-medium text-ink">{t("crud.bulkEditField")}</label>
+        <NativeSelect
+          value={fieldName}
+          onChange={(e) => {
+            setFieldName(e.target.value);
+            const f = options.find((x) => x.name === e.target.value);
+            setValue(f ? defaultFor(f) : null);
+          }}
+        >
+          {options.map((f) => (
+            <option key={f.name} value={f.name}>
+              {text(f.label)}
+            </option>
+          ))}
+        </NativeSelect>
+      </div>
+      {field && (
+        <div>
+          <label className="mb-1.5 block text-sm font-medium text-ink">{t("crud.bulkEditValue")}</label>
+          <FieldInput field={field} id="bulk-edit-value" value={value} onChange={setValue} mode="edit" />
+        </div>
+      )}
+      <div className="flex justify-end gap-2">
+        <Button variant="ghost" onClick={onDone} disabled={busy}>
+          {t("crud.cancel")}
+        </Button>
+        <Button onClick={() => void run()} disabled={busy || !fieldName}>
+          {busy ? <Spinner className="size-4" /> : <SquarePen />} {t("crud.bulkEditApply", { n: ids.length })}
+        </Button>
+      </div>
+    </div>
+  );
+}
 
 function EditDialogBody({ def, row, onDone }: { def: ResourceDef; row: Row; onDone: () => void }) {
   const { t } = useI18n();
@@ -84,10 +163,12 @@ export interface ResourcePageProps {
   /** Render without the page header (when embedded in a custom page). */
   embedded?: boolean;
   headerActions?: ReactNode;
+  /** id to open the edit dialog for on mount (from `?edit=`, e.g. clicking a `ref` cell on another resource). */
+  initialEditId?: string;
 }
 
 /** Generic list + create/edit/delete + row actions for a ResourceDef. */
-export function ResourcePage({ def, embedded, headerActions }: ResourcePageProps) {
+export function ResourcePage({ def, embedded, headerActions, initialEditId }: ResourcePageProps) {
   const { t } = useI18n();
   const text = useText();
   const can = caps(def);
@@ -99,6 +180,8 @@ export function ResourcePage({ def, embedded, headerActions }: ResourcePageProps
   const [dialog, setDialog] = useState<DialogState>(null);
   const [filters, setFilters] = useState<Record<string, string>>({});
   const [view, setView] = useState<"table" | "grid">("table");
+  /** Bulk edit/delete: row ids checked in the current page. Cleared whenever the page's rows change. */
+  const [selected, setSelected] = useState<Set<string>>(new Set());
   const dq = useDebounced(q);
   const filtersKey = JSON.stringify(filters);
 
@@ -110,10 +193,37 @@ export function ResourcePage({ def, embedded, headerActions }: ResourcePageProps
     setDialog(null);
     setFilters({});
     setView("table");
+    setSelected(new Set());
   }, [def]);
   useEffect(() => setPage(1), [dq]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => setPage(1), [filtersKey, view]);
+  useEffect(() => setSelected(new Set()), [page, dq, filtersKey, sort]);
+
+  // Deep link from a `ref` cell clicked on another resource (`/<resource>?edit=<id>`): fetch that one row and
+  // open its edit dialog, then drop `edit` from the URL so a refresh/back doesn't reopen it.
+  useEffect(() => {
+    if (!initialEditId) return;
+    let vivo = true;
+    void api.get<Row>(resourcePath(def, initialEditId)).then(
+      (row) => {
+        if (vivo) {
+          setDialog({ kind: "edit", row });
+          addRecent({ resource: def.name, id: rowId(def, row), label: rowTitle(row) || singular, resourceLabel: text(def.label) });
+        }
+      },
+      () => {
+        if (vivo) toast.error(t("crud.loadError"));
+      },
+    );
+    const url = new URL(window.location.href);
+    url.searchParams.delete("edit");
+    window.history.replaceState(window.history.state, "", url.pathname + url.search);
+    return () => {
+      vivo = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [def, initialEditId]);
 
   const effectivePageSize = view === "grid" ? def.gridView?.pageSize ?? 120 : pageSize;
   const params = { q: dq || undefined, page, pageSize: effectivePageSize, sort, extra: filters };
@@ -121,9 +231,12 @@ export function ResourcePage({ def, embedded, headerActions }: ResourcePageProps
   const m = useResourceMutations(def);
 
   const columns = useMemo(() => def.fields.filter((f) => f.list), [def]);
+  const refRows = useRefRows(columns, data?.items ?? []);
   const singular = text(def.singular);
   const rowTitle = (row: Row) => (def.titleField ? String(row[def.titleField] ?? "") : rowId(def, row));
   const hasRowButtons = can.update || can.delete || (def.rowActions?.length ?? 0) > 0;
+  const canBulk = view === "table" && (can.update || can.delete);
+  const pageIds = useMemo(() => (data?.items ?? []).map((row) => rowId(def, row)), [def, data]);
 
   const toggleSort = (name: string) => {
     setSort((s) => (s === name ? `-${name}` : s === `-${name}` ? undefined : name));
@@ -213,6 +326,27 @@ export function ResourcePage({ def, embedded, headerActions }: ResourcePageProps
       )}
 
       <div className="rounded-2xl border border-line bg-panel">
+        {selected.size > 0 && (can.update || can.delete) && (
+          <div className="flex items-center gap-2 border-b border-line bg-panel-2/60 px-4 py-2.5 text-sm">
+            <CheckSquare className="size-4 text-sun" />
+            <span>{t("crud.bulkSelected", { n: selected.size })}</span>
+            <div className="ml-auto flex gap-2">
+              {can.update && (
+                <Button size="sm" variant="secondary" onClick={() => setDialog({ kind: "bulk-edit" })}>
+                  <SquarePen /> {t("crud.bulkEdit")}
+                </Button>
+              )}
+              {can.delete && (
+                <Button size="sm" variant="danger" onClick={() => setDialog({ kind: "bulk-delete" })}>
+                  <Trash2 /> {t("crud.bulkDelete")}
+                </Button>
+              )}
+              <Button size="sm" variant="ghost" onClick={() => setSelected(new Set())}>
+                {t("crud.bulkClear")}
+              </Button>
+            </div>
+          </div>
+        )}
         {error ? (
           <div className="flex flex-col items-center gap-3 p-10 text-center">
             <p className="text-coral">{t("crud.loadError")}</p>
@@ -240,7 +374,10 @@ export function ResourcePage({ def, embedded, headerActions }: ResourcePageProps
                   <button
                     type="button"
                     title={`${rowTitle(row)} · #${String(row[Array.isArray(def.idField) ? def.idField[0]! : def.idField] ?? "")}`}
-                    onClick={() => setDialog({ kind: "edit", row })}
+                    onClick={() => {
+                      setDialog({ kind: "edit", row });
+                      addRecent({ resource: def.name, id, label: rowTitle(row) || singular, resourceLabel: text(def.label) });
+                    }}
                     className="flex w-full flex-col items-center gap-1 rounded-lg p-1 hover:bg-panel-2"
                   >
                     {def.gridView!.render(row)}
@@ -274,6 +411,17 @@ export function ResourcePage({ def, embedded, headerActions }: ResourcePageProps
           <Table>
             <THead>
               <Tr className="hover:bg-transparent">
+                {canBulk && (
+                  <Th className="w-10">
+                    <input
+                      type="checkbox"
+                      aria-label={t("crud.bulkSelectAll")}
+                      checked={selected.size > 0 && pageIds.every((i) => selected.has(i))}
+                      onChange={(e) => setSelected(e.target.checked ? new Set(pageIds) : new Set())}
+                      className="size-4 accent-sun"
+                    />
+                  </Th>
+                )}
                 {columns.map((f) => {
                   const active = sort === f.name ? "asc" : sort === `-${f.name}` ? "desc" : null;
                   return (
@@ -302,6 +450,24 @@ export function ResourcePage({ def, embedded, headerActions }: ResourcePageProps
                 const id = rowId(def, row);
                 return (
                   <Tr key={id}>
+                    {canBulk && (
+                      <Td>
+                        <input
+                          type="checkbox"
+                          aria-label={t("crud.bulkSelectRow", { name: rowTitle(row) || id })}
+                          checked={selected.has(id)}
+                          onChange={(e) =>
+                            setSelected((s) => {
+                              const next = new Set(s);
+                              if (e.target.checked) next.add(id);
+                              else next.delete(id);
+                              return next;
+                            })
+                          }
+                          className="size-4 accent-sun"
+                        />
+                      </Td>
+                    )}
                     {columns.map((f) => (
                       <Td key={f.name}>
                         {f.type === "boolean" && f.inlineToggle && can.update ? (
@@ -316,7 +482,7 @@ export function ResourcePage({ def, embedded, headerActions }: ResourcePageProps
                             }
                           />
                         ) : (
-                          <Cell field={f} row={row} />
+                          <Cell field={f} row={row} refRows={refRows} />
                         )}
                       </Td>
                     ))}
@@ -339,7 +505,15 @@ export function ResourcePage({ def, embedded, headerActions }: ResourcePageProps
                               );
                             })}
                           {can.update && (
-                            <Button size="icon" variant="ghost" aria-label={t("crud.edit")} onClick={() => setDialog({ kind: "edit", row })}>
+                            <Button
+                              size="icon"
+                              variant="ghost"
+                              aria-label={t("crud.edit")}
+                              onClick={() => {
+                                setDialog({ kind: "edit", row });
+                                addRecent({ resource: def.name, id, label: rowTitle(row) || singular, resourceLabel: text(def.label) });
+                              }}
+                            >
                               <Pencil />
                             </Button>
                           )}
@@ -425,6 +599,50 @@ export function ResourcePage({ def, embedded, headerActions }: ResourcePageProps
                 <Trash2 /> {t("crud.delete")}
               </Button>
             </div>
+          </DialogContent>
+        )}
+        {dialog?.kind === "bulk-delete" && (
+          <DialogContent title={t("crud.bulkDeleteTitle", { n: selected.size })} description={t("crud.deleteBody")}>
+            <div className="flex justify-end gap-2">
+              <Button variant="ghost" onClick={() => setDialog(null)}>
+                {t("crud.cancel")}
+              </Button>
+              <Button
+                variant="danger"
+                disabled={m.remove.isPending}
+                onClick={async () => {
+                  const ids = [...selected];
+                  let ok = 0;
+                  let fail = 0;
+                  for (const id of ids) {
+                    try {
+                      await m.remove.mutateAsync(id);
+                      ok++;
+                    } catch {
+                      fail++;
+                    }
+                  }
+                  if (fail) toast.error(t("crud.bulkDeletePartial", { ok, fail }));
+                  else toast.success(t("crud.bulkDeleteDone", { n: ok }));
+                  setSelected(new Set());
+                  setDialog(null);
+                }}
+              >
+                <Trash2 /> {t("crud.bulkDelete")}
+              </Button>
+            </div>
+          </DialogContent>
+        )}
+        {dialog?.kind === "bulk-edit" && (
+          <DialogContent title={t("crud.bulkEditTitle", { n: selected.size })} size="md">
+            <BulkEditBody
+              def={def}
+              ids={[...selected]}
+              onDone={() => {
+                setSelected(new Set());
+                setDialog(null);
+              }}
+            />
           </DialogContent>
         )}
         {dialog?.kind === "action" && (

@@ -59,7 +59,7 @@ export const eventAwards = defineResource({
   defaultSort: "ActiveID",
   fields: [
     { name: "ID", label: "ID", type: "number", list: true, form: false },
-    { name: "ActiveID", label: "ActiveID", type: "number", required: true, list: true, sortable: true },
+    { name: "ActiveID", label: "Evento", type: "ref", refResource: "events", refLabel: "Title", required: true, list: true, sortable: true },
     { name: "ItemID", label: "Item", type: "item-picker", required: true, list: true },
     { name: "Count", label: "Quantidade", type: "number", min: 1, default: 1, list: true },
     { name: "ValidDate", label: "Validade (dias, 0 = permanente)", type: "number", min: 0, default: 0, list: true },
@@ -118,9 +118,9 @@ export const eventCodes = defineResource({
   defaultSort: "ActiveID",
   fields: [
     { name: "AwardID", label: "Código", type: "text", required: true, list: true, form: "create" },
-    { name: "ActiveID", label: "ActiveID", type: "number", required: true, list: true, sortable: true },
+    { name: "ActiveID", label: "Evento", type: "ref", refResource: "events", refLabel: "Title", required: true, list: true, sortable: true },
     { name: "PullDown", label: "Usado", type: "boolean", list: true },
-    { name: "UserID", label: "UserID", type: "number", default: 0, list: true },
+    { name: "UserID", label: "Usado por", type: "ref", refResource: "players", refLabel: "NickName", default: 0, list: true },
     { name: "Mark", label: "Mark", type: "number", default: 0 },
     { name: "GetDate", label: "Data", type: "datetime", list: true, form: false },
   ],

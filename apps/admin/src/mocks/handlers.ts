@@ -199,6 +199,16 @@ export const handlers = [
     if (!def) return HttpResponse.json({ message: "Recurso desconhecido" }, { status: 404 });
     await delay(150);
     const sp = new URL(request.url).searchParams;
+    // Mirrors the real API's batched "ref" lookup (apps/api/src/routes/admin.ts `?ids=`): exact PK match,
+    // ignores pagination/search/sort — same contract so the admin looks/behaves the same under VITE_USE_MOCKS.
+    const idsParam = sp.get("ids");
+    if (idsParam !== null) {
+      const keys = idFields(def);
+      if (keys.length !== 1) return HttpResponse.json({ message: "Recurso com chave composta não suporta ?ids=" }, { status: 400 });
+      const wanted = new Set(idsParam.split(",").map((s) => s.trim()).filter(Boolean));
+      const rows = (tables.get(def.name) ?? []).filter((r) => wanted.has(String(r[keys[0]!])));
+      return HttpResponse.json({ items: rows, total: rows.length, page: 1, pageSize: rows.length });
+    }
     const q = sp.get("q") ?? "";
     const page = Math.max(1, Number(sp.get("page") ?? 1));
     const pageSize = Math.min(500, Math.max(1, Number(sp.get("pageSize") ?? 20)));

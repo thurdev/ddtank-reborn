@@ -21,7 +21,16 @@ export type FieldType =
   /** Array of TemplateIDs (e.g. bot equipment slots): chips w/ icon+name, add via the same search popup. */
   | "item-picker-multi"
   /** Array of `{ templateId, count, validDays }` (e.g. mail attachments): rows w/ item-picker + qty + validade. */
-  | "item-list";
+  | "item-list"
+  /**
+   * Foreign key to another registered resource (e.g. UserID -> players, ConsortiaID -> guilds, MapID -> maps):
+   * shows the target's name (+icon when `refIcon` is set) instead of the raw id, searchable picker in the form,
+   * click opens the target record. Table cells are resolved with ONE batched request per target resource per
+   * page (`crud/refs.ts` `useRefRows`), never N+1. See `refResource`/`refLabel`/`refIcon` below.
+   */
+  | "ref"
+  /** Array of ids, same target resource for all of them (e.g. a list of player ids): chips, same batching as `ref`. */
+  | "ref-multi";
 
 export type Tone = "sun" | "coral" | "mint" | "sky" | "grape" | "neutral";
 
@@ -70,6 +79,12 @@ export interface FieldDef {
   pickerCategory?: number[];
   /** item-picker: valores sentinela sem item real (ex. -1100 "Moedas grátis"), exibidos como botão rápido no popup. */
   pickerSpecial?: FieldOption[];
+  /** ref/ref-multi: target resource name, as registered in `resources/index.ts` (e.g. "players", "guilds", "maps"). */
+  refResource?: string;
+  /** ref/ref-multi: field on the target row shown as the label. Default: the target resource's `titleField`. */
+  refLabel?: string;
+  /** ref/ref-multi: field on the target row holding an icon/image URL, if the target resource has one (e.g. "iconUrl"). */
+  refIcon?: string;
   /** Custom cell renderer. */
   render?: (value: unknown, row: Row) => ReactNode;
 }

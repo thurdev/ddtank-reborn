@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { uploadFile } from "@/lib/api";
 import { formataAtributosItem, getItemCached, searchItensPorNome, type ItemResumo } from "@/resources/items";
 import { useI18n, useText } from "@/i18n";
+import { getRefCached, searchRef, type RefResumo } from "./refs";
 import type { FieldDef, FieldOption } from "./types";
 
 interface Props {
@@ -370,6 +371,235 @@ function ItemMultiPickerInput({
   );
 }
 
+/** Ícone pequeno (ou placeholder `#`) de um `RefResumo`, igual `ItemIcon` mas pro picker genérico de `ref`. */
+function RefIcon({ resumo, className }: { resumo: RefResumo; className?: string }) {
+  return resumo.iconUrl ? (
+    <img
+      src={resumo.iconUrl}
+      alt=""
+      loading="lazy"
+      onError={(e) => {
+        e.currentTarget.style.display = "none";
+      }}
+      className={cn("shrink-0 rounded-lg border-2 border-line bg-night-deep object-contain", className)}
+    />
+  ) : (
+    <span className={cn("grid shrink-0 place-items-center rounded-lg border-2 border-line bg-night-deep font-mono text-muted", className)}>#</span>
+  );
+}
+
+/** Busca com debounce p/ o popup de `ref` (genérico — mesma UX do picker de item, outro resource). */
+function useRefBusca(resource: string, aberto: boolean, field?: FieldDef) {
+  const [busca, setBusca] = useState("");
+  const [lista, setLista] = useState<RefResumo[]>([]);
+  const [carregando, setCarregando] = useState(false);
+  useEffect(() => {
+    if (!aberto) return;
+    const timer = setTimeout(() => {
+      setCarregando(true);
+      void searchRef(resource, busca, 20, field)
+        .then(setLista)
+        .finally(() => setCarregando(false));
+    }, 250);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [busca, aberto, resource]);
+  useEffect(() => {
+    if (!aberto) {
+      setBusca("");
+      setLista([]);
+    }
+  }, [aberto]);
+  return { busca, setBusca, lista, carregando };
+}
+
+/** Popup de busca de `ref` (nome + ícone quando houver), reaproveitado pelo picker simples e pelo múltiplo. */
+function RefSearchDialog({
+  id,
+  resource,
+  field,
+  open,
+  onOpenChange,
+  onPick,
+}: {
+  id: string;
+  resource: string;
+  field?: FieldDef;
+  open: boolean;
+  onOpenChange: (o: boolean) => void;
+  onPick: (r: RefResumo) => void;
+}) {
+  const { busca, setBusca, lista, carregando } = useRefBusca(resource, open, field);
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent title="Selecionar registro" description="Busque por nome e escolha na lista.">
+        <Input id={`${id}-busca`} value={busca} onChange={(e) => setBusca(e.target.value)} placeholder="Buscar…" autoFocus />
+        <div className="mt-3 flex max-h-72 flex-col gap-1 overflow-y-auto">
+          {carregando ? (
+            <div className="grid place-items-center py-8">
+              <Spinner className="size-6" />
+            </div>
+          ) : lista.length === 0 ? (
+            <p className="py-8 text-center text-sm text-muted">{busca.trim() ? "Nenhum registro encontrado." : "Digite para buscar."}</p>
+          ) : (
+            lista.map((r) => (
+              <button
+                key={r.id}
+                type="button"
+                onClick={() => onPick(r)}
+                className="flex items-center gap-2 rounded-xl border-2 border-line bg-night-deep/60 px-3 py-2 text-left hover:border-sun"
+              >
+                <RefIcon resumo={r} className="size-9" />
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-sm text-ink">{r.label}</span>
+                  <span className="block truncate font-mono text-xs text-muted">#{r.id}</span>
+                </span>
+              </button>
+            ))
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+/** Picker de `ref` único: busca por nome no resource alvo, mostra ícone+nome (sem digitar o id cru). */
+function RefPickerInput({
+  id,
+  field,
+  value,
+  onChange,
+  invalid,
+  disabled,
+}: {
+  id: string;
+  field: FieldDef;
+  value: number | null;
+  onChange: (v: unknown) => void;
+  invalid?: boolean;
+  disabled?: boolean;
+}) {
+  const resource = field.refResource!;
+  const [aberto, setAberto] = useState(false);
+  const [atual, setAtual] = useState<RefResumo | null>(null);
+
+  useEffect(() => {
+    let vivo = true;
+    if (value === null) {
+      setAtual(null);
+      return;
+    }
+    if (atual?.id === String(value)) return;
+    void getRefCached(resource, value, field).then((r) => {
+      if (vivo) setAtual(r);
+    });
+    return () => {
+      vivo = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value, resource]);
+
+  const escolher = (r: RefResumo) => {
+    setAtual(r);
+    onChange(Number(r.id));
+    setAberto(false);
+  };
+
+  return (
+    <>
+      <div className={cn("flex min-h-10 items-center gap-2 rounded-xl border-2 border-line bg-night-deep/60 px-2 py-1.5", invalid && "border-coral")}>
+        <div className="min-w-0 flex-1">
+          {atual ? (
+            <div className="flex items-center gap-2">
+              <RefIcon resumo={atual} className="size-9" />
+              <p className="truncate text-sm text-ink">{atual.label}</p>
+            </div>
+          ) : (
+            <span className="text-sm text-muted/60">{value ? `#${value} (não encontrado)` : "Buscar por nome…"}</span>
+          )}
+        </div>
+        {value !== null && (
+          <button
+            type="button"
+            aria-label="Limpar"
+            disabled={disabled}
+            onClick={() => {
+              setAtual(null);
+              onChange(null);
+            }}
+            className="rounded-lg p-1 text-muted hover:bg-panel-2 hover:text-ink"
+          >
+            <X className="size-4" />
+          </button>
+        )}
+        <Button type="button" variant="secondary" size="sm" disabled={disabled} onClick={() => setAberto(true)}>
+          <Search /> Buscar
+        </Button>
+      </div>
+      <RefSearchDialog id={id} resource={resource} field={field} open={aberto} onOpenChange={setAberto} onPick={escolher} />
+    </>
+  );
+}
+
+/** Picker de vários `ref` (ex. lista de UserIDs): chips com nome, "+" abre o mesmo popup de busca. */
+function RefMultiPickerInput({
+  id,
+  field,
+  value,
+  onChange,
+  disabled,
+}: {
+  id: string;
+  field: FieldDef;
+  value: number[];
+  onChange: (v: unknown) => void;
+  disabled?: boolean;
+}) {
+  const resource = field.refResource!;
+  const [aberto, setAberto] = useState(false);
+  const [itens, setItens] = useState<Record<number, RefResumo | null>>({});
+
+  useEffect(() => {
+    let vivo = true;
+    void Promise.all(value.map(async (v) => [v, await getRefCached(resource, v, field)] as const)).then((pares) => {
+      if (vivo) setItens(Object.fromEntries(pares));
+    });
+    return () => {
+      vivo = false;
+    };
+  }, [value, resource, field]);
+
+  const adicionar = (r: RefResumo) => {
+    const n = Number(r.id);
+    if (!value.includes(n)) onChange([...value, n]);
+    setAberto(false);
+  };
+  const remover = (v: number) => onChange(value.filter((x) => x !== v));
+
+  return (
+    <>
+      <div id={id} className="flex min-h-10 flex-wrap items-center gap-1.5 rounded-xl border-2 border-line bg-night-deep/60 px-2 py-1.5">
+        {value.map((v) => {
+          const r = itens[v];
+          return (
+            <span key={v} className="inline-flex items-center gap-1.5 rounded-lg bg-panel-2 px-2 py-1">
+              {r ? <RefIcon resumo={r} className="size-6" /> : <span className="font-mono text-xs text-muted">#{v}</span>}
+              <span className="max-w-32 truncate text-xs">{r?.label ?? `#${v}`}</span>
+              <button type="button" aria-label={`Remover ${v}`} disabled={disabled} onClick={() => remover(v)}>
+                <X className="size-3" />
+              </button>
+            </span>
+          );
+        })}
+        <Button type="button" variant="secondary" size="sm" disabled={disabled} onClick={() => setAberto(true)}>
+          <Plus /> Adicionar
+        </Button>
+      </div>
+      <RefSearchDialog id={id} resource={resource} field={field} open={aberto} onOpenChange={setAberto} onPick={adicionar} />
+    </>
+  );
+}
+
 /**
  * Lista de itens anexados a uma carta (correio): linha = item-picker + quantidade + validade, até 5 (limite do
  * servidor, `sendMail`/`give-item`). Guarda `{ templateId, count, validDays }[]`.
@@ -441,6 +671,14 @@ export function FieldInput({ field: f, id, value, onChange, onBlur, invalid, mod
   if ((f.type as string) === "item-list") {
     const rows = Array.isArray(value) ? (value as { templateId?: number; count?: number; validDays?: number }[]) : [];
     return <MailItemsInput id={id} value={rows} onChange={onChange} disabled={f.readOnly} />;
+  }
+  if (f.type === "ref") {
+    const refId = typeof value === "number" && Number.isFinite(value) ? value : null;
+    return <RefPickerInput id={id} field={f} value={refId} onChange={onChange} invalid={invalid} disabled={f.readOnly} />;
+  }
+  if (f.type === "ref-multi") {
+    const ids = Array.isArray(value) ? (value as unknown[]).map(Number).filter(Number.isFinite) : [];
+    return <RefMultiPickerInput id={id} field={f} value={ids} onChange={onChange} disabled={f.readOnly} />;
   }
 
   switch (f.type) {

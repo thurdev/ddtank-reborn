@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
 import { Badge } from "@ddtank/ui";
+import { ExternalLink } from "lucide-react";
 import { getItemCached, type ItemResumo } from "@/resources/items";
 import { useI18n, useText } from "@/i18n";
+import { resumoFromBatch, type RefResumo } from "./refs";
 import type { FieldDef, Row } from "./types";
 
 /** Ícone+nome de um item na célula da lista; usa o cache compartilhado (`getItemCached`) e aceita sentinelas (`pickerSpecial`). */
@@ -64,8 +67,49 @@ function ItemCellMulti({ templateIds }: { templateIds: number[] }) {
   );
 }
 
-/** Read-only table cell for a field, chosen by type. */
-export function Cell({ field: f, row }: { field: FieldDef; row: Row }) {
+/** Nome+ícone de um "ref" (FK pra outro resource); clique abre o registro alvo (`/<resource>?edit=<id>`). */
+function RefChip({ resumo, onOpen }: { resumo: RefResumo; onOpen: () => void }) {
+  return (
+    <button type="button" onClick={onOpen} className="group flex items-center gap-1.5 rounded-md text-left hover:underline">
+      {resumo.iconUrl ? (
+        <img src={resumo.iconUrl} alt="" loading="lazy" onError={(e) => { e.currentTarget.style.display = "none"; }} className="size-6 shrink-0 rounded-md border border-line bg-night-deep object-contain" />
+      ) : null}
+      <span className="truncate text-ink">{resumo.label}</span>
+      <ExternalLink className="size-3 shrink-0 text-muted opacity-0 group-hover:opacity-100" />
+    </button>
+  );
+}
+
+/** Célula de um `ref` único: resolvido a partir do mapa já buscado em lote pelo `ResourcePage` (1 request/página). */
+function RefCellSingle({ field, value, refRows }: { field: FieldDef; value: unknown; refRows: Map<string, Map<string, Row>> }) {
+  const navigate = useNavigate();
+  const resumo = resumoFromBatch(refRows, field, value);
+  if (!resumo) return <span className="text-muted/50">{Number(value) > 0 ? `#${String(value)} —` : "—"}</span>;
+  return <RefChip resumo={resumo} onOpen={() => void navigate({ to: "/$resource", params: { resource: field.refResource! }, search: { edit: resumo.id } })} />;
+}
+
+/** Célula de `ref-multi`: mesmos dados em lote, até 4 chips + "+N". */
+function RefCellMulti({ field, ids, refRows }: { field: FieldDef; ids: string[]; refRows: Map<string, Map<string, Row>> }) {
+  const navigate = useNavigate();
+  const mostrados = ids.slice(0, 4);
+  if (!mostrados.length) return <span className="text-muted/50">—</span>;
+  return (
+    <span className="flex flex-wrap items-center gap-2">
+      {mostrados.map((id) => {
+        const resumo = resumoFromBatch(refRows, field, id);
+        return resumo ? (
+          <RefChip key={id} resumo={resumo} onOpen={() => void navigate({ to: "/$resource", params: { resource: field.refResource! }, search: { edit: resumo.id } })} />
+        ) : (
+          <span key={id} className="font-mono text-xs text-muted">#{id}</span>
+        );
+      })}
+      {ids.length > 4 && <span className="text-xs text-muted">+{ids.length - 4}</span>}
+    </span>
+  );
+}
+
+/** Read-only table cell for a field, chosen by type. `refRows`: batched lookup data for `ref`/`ref-multi` columns (see `refs.ts`). */
+export function Cell({ field: f, row, refRows }: { field: FieldDef; row: Row; refRows?: Map<string, Map<string, Row>> }) {
   const { t, locale } = useI18n();
   const text = useText();
   const v = row[f.name];
@@ -74,6 +118,11 @@ export function Cell({ field: f, row }: { field: FieldDef; row: Row }) {
     const ids = Array.isArray(v) ? (v as unknown[]).map(Number).filter(Number.isFinite) : [];
     return <ItemCellMulti templateIds={ids} />;
   }
+  if (f.type === "ref-multi" && refRows) {
+    const ids = Array.isArray(v) ? (v as unknown[]).map(String) : [];
+    return <RefCellMulti field={f} ids={ids} refRows={refRows} />;
+  }
+  if (f.type === "ref" && refRows) return <RefCellSingle field={f} value={v} refRows={refRows} />;
   if (v === null || v === undefined || v === "") return <span className="text-muted/50">—</span>;
   if ((f.type as string) === "item-picker") return <ItemCellSingle templateId={Number(v)} field={f} />;
 

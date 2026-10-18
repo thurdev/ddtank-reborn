@@ -257,6 +257,9 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
       .values({ key: "server-config", value: v })
       .onConflictDoUpdate({ target: appTables.Settings.key, set: { value: v, updatedAt: new Date() } });
     applyServerConfig(ctx, v);
+    // expRate/goldRate are cached in apps/game's Templates (templates.rates, db/templates.ts) — reload now so a
+    // rate change applies live instead of only after the next restart.
+    void gameInternalPost(ctx, "/reload-templates");
     await audit(ctx, actor(req), "config", "server-config updated", v);
     return v;
   });
@@ -576,6 +579,7 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
       idMax?: string;
       status?: string;
       provider?: string;
+      ids?: string;
     };
   }>(
     "/api/admin/:resource",
@@ -584,6 +588,28 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
       const def = resolve(req.params.resource);
       if (!def) return reply.code(404).send({ message: "Recurso desconhecido" });
       const c = cols(def.table);
+      /**
+       * Batched lookup for the admin "ref" field (apps/admin/src/crud/refs.ts): `?ids=1,2,3` returns exactly
+       * those rows (by PK), ignoring pagination/search/sort — ONE request resolves every row a table page
+       * needs for a given target resource, instead of one request per cell. Single-column PK only (every
+       * current ref target has one); a composite-PK resource 400s instead of silently matching nothing.
+       */
+      if (req.query.ids !== undefined) {
+        if (def.pk.length !== 1) return reply.code(400).send({ message: "Recurso com chave composta não suporta ?ids=" });
+        const pkCol = c[def.pk[0]!]!;
+        // A stray out-of-range id (e.g. a number past Postgres' int4, pasted/typed by mistake) must never 500 —
+        // it just can't match anything, same as any other id this resource doesn't have.
+        const PG_INT4_MAX = 2147483647;
+        const idVals = [...new Set(req.query.ids.split(",").map((s) => s.trim()).filter(Boolean))]
+          .slice(0, 500)
+          .map((v) => coerce(pkCol, v))
+          .filter((v) => typeof v !== "number" || (Number.isFinite(v) && Math.abs(v) <= PG_INT4_MAX));
+        if (!idVals.length) return { items: [], total: 0, page: 1, pageSize: 0 };
+        const rows = (await ctx.h.db.select().from(def.table).where(inArray(pkCol, idVals)).limit(500)) as Row[];
+        const items = rows.map((r) => strip(def, r));
+        const withOverlay = req.params.resource === "items" ? await withItemOverlay(ctx, items) : items;
+        return { items: withOverlay, total: withOverlay.length, page: 1, pageSize: withOverlay.length };
+      }
       const page = Math.max(1, Number(req.query.page) || 1);
       const pageSize = Math.min(500, Math.max(1, Number(req.query.pageSize) || 20));
       const conds: SQL[] = [];
