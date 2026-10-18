@@ -96,6 +96,11 @@ const EXTRA_COLUMNS: Record<string, CatColumn[]> = {
     { name: "Level4NeedMoney", type: "int", nullable: false, identity: false, default: "((-1))", computed: null },
     { name: "Level5NeedMoney", type: "int", nullable: false, identity: false, default: "((-1))", computed: null },
     { name: "OneKeyFinishNeedMoney", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    // m3-trusteeship: DDT-6600 QuestInfo.TrusteeshipCost/TrusteeshipNeedTime (ddt/data/quest/QuestInfo.as:89-91,
+    // XML attrs @CollocationCost/@CollocationColdTime) — missed in the m1-schema EXTRA_COLUMNS batch. Cost in
+    // "spirit" points to start auto-completing this quest; cold time in minutes until it finishes.
+    { name: "CollocationCost", type: "int", nullable: false, identity: false, default: "((20))", computed: null },
+    { name: "CollocationColdTime", type: "int", nullable: false, identity: false, default: "((60))", computed: null },
   ],
   "game.Quest_Goods": [
     { name: "RewardItemCount1", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
@@ -146,6 +151,14 @@ const EXTRA_COLUMNS: Record<string, CatColumn[]> = {
     { name: "MagpieBridgeItems", type: "nvarchar(max)", nullable: false, identity: false, default: "(N'')", computed: null },
     { name: "NowPositionMB", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
     { name: "MagpieNum", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
+    // m3-magic-stone-monster: DDT-6600 UsersExtraInfo.NormalFightNum/HardFightNum (PlayerExtra.CreateUsersExtra
+    // default both to 1) — read-only counters shown by 284 MAGIC_STONE_MONSTER_INFO; missed in m1-schema.
+    { name: "NormalFightNum", type: "int", nullable: false, identity: false, default: "((1))", computed: null },
+    { name: "HardFightNum", type: "int", nullable: false, identity: false, default: "((1))", computed: null },
+    // m3-trusteeship: new-stack, no vendor equivalent (140 TRUSTEESHIP has no DB-backed entity in any vendor
+    // snapshot either) — "spirit" energy spent to start/keep an auto-complete quest running, refilled by
+    // sendTrusteeshipBuySpirit (Money) or sendTrusteeshipUseSpiritItem (bag item). Cap QuestCollocationEnergyMaxCount.
+    { name: "TrusteeshipSpirit", type: "int", nullable: false, identity: false, default: "((100))", computed: null },
   ],
   "player.Sys_Users_Fight": [
     { name: "MagicAttack", type: "int", nullable: false, identity: false, default: "((0))", computed: null },
@@ -183,7 +196,7 @@ const NEW_STACK_EXTRA_COLUMNS = new Set(["player.Server_List"]);
  * has DDT-6600-derived extra columns (so the table key above isn't all-or-nothing) — ch-processo's
  * `Sys_Users_Detail.OnlineServerID` on top of m1-schema's Gift/receiebox/etc. columns.
  */
-const NEW_STACK_EXTRA_COLUMN_NAMES = new Set(["player.Sys_Users_Detail.OnlineServerID"]);
+const NEW_STACK_EXTRA_COLUMN_NAMES = new Set(["player.Sys_Users_Detail.OnlineServerID", "player.Sys_Users_Extra.TrusteeshipSpirit"]);
 
 // ---------------------------------------------------------------------------------------------------------------
 

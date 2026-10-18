@@ -46,6 +46,7 @@
  *                              FAST_AUCTION_SMALL_BUGLE, 360 GET_CSM_BOX (100% mortos ou no-op funcional
  *                              no original) + 152 FIGHTFOOTBALLTIMETAKEOUT/156 TRANSNATIONAL_BUYGOODS
  *                              (reais no original, dependem de subsistema não portado — stub documentado)
+ *   dados.ts                  (ícone "Sistema de Dados", 6600 only) — 134 DICE_SYSTEM
  *
  * 104 CARD_LOTTERY / 105 LUCK_LOTTERY / 239 GOTO_CARD_LOTTERY / 11 ACTIVE_PULLDOWN: SAÍRAM de "morto" —
  * ver `progressao/loterias.ts` (design próprio, sem fonte C#). 37-45 LanternRiddles de 145 ACTIVITY_SYSTEM
@@ -81,6 +82,7 @@ import {
   battleCompanionGive, findBackIncome, rechargeGetSpree, updatePlayerProperty, requestFriendsPay,
   fastAuctionSmallBugle, getCsmBox, fightFootballTimeTakeout, transnationalBuyGoods,
 } from "./sweep-diversos.js";
+import { diceSystem } from "./dados.js";
 
 /**
  * Tabela código → função → ícone do jogo. Cada linha é um pacote que o cliente manda; a ordem aqui não
@@ -170,4 +172,6 @@ export function registerEventos(r: HandlerRegistry): void {
   r.player(207, "REQUEST_FRIENDS_PAY", (ctx, p, pkt) => requestFriendsPay(ctx, p, pkt), "stub");
   r.player(327, "FAST_AUCTION_SMALL_BUGLE", (ctx, p, pkt) => fastAuctionSmallBugle(ctx, p, pkt), "stub");
   r.player(360, "GET_CSM_BOX", () => getCsmBox(), "stub");
+  // Sistema de Dados (6600 only)
+  r.player(134, "DICE_SYSTEM", (ctx, p, pkt) => diceSystem(ctx, p, pkt));
 }

@@ -78,22 +78,29 @@ describe("Loteria de cartas/sorte + cartão platina (design próprio, sem fonte 
 
   it("104 CARD_LOTTERY: cobra o custo do giro e respeita o limite diário", async () => {
     const { c, player: p } = await loggedIn(server, { money: 5_000 });
-    await new Promise((r) => setTimeout(r, 400)); // deixa o burst de login (avisos código 3) terminar antes de marcar
     const moneyBefore = p().info.Money;
-    let mark = c.mark();
+    // Sob carga (suíte inteira) avisos código 3 do burst de login chegam atrasados e se confundiam com a resposta
+    // do giro — espera pelo efeito real (saldo) em vez de "o próximo código 3".
+    const moneyIs = async (v: number) => {
+      const deadline = Date.now() + 4000;
+      while (p().info.Money !== v && Date.now() < deadline) await new Promise((r) => setTimeout(r, 20));
+      expect(p().info.Money).toBe(v);
+    };
     c.out(104, (x) => { x.writeInt(2); x.writeInt(1); x.writeInt(2); });
-    await c.code(3, undefined, mark);
-    expect(p().info.Money).toBe(moneyBefore - 200);
+    await moneyIs(moneyBefore - 200);
     // esgota o limite diário (3 giros/dia default) e confere a mensagem de limite
-    mark = c.mark();
     c.out(104, (x) => { x.writeInt(1); x.writeInt(1); });
-    await c.code(3, undefined, mark);
-    mark = c.mark();
+    await moneyIs(moneyBefore - 400);
     c.out(104, (x) => { x.writeInt(1); x.writeInt(1); });
-    await c.code(3, undefined, mark);
-    mark = c.mark();
+    await moneyIs(moneyBefore - 600);
+    const mark = c.mark();
     c.out(104, (x) => { x.writeInt(1); x.writeInt(1); }); // 4º giro: acima do limite
-    const limitMsg = await c.code(3, undefined, mark);
+    const limitMsg = await c.waitFor((r) => {
+      if (r.code !== 3) return false;
+      r.pkt.offset = 20;
+      r.pkt.readInt();
+      return r.pkt.readString().includes("giros de hoje");
+    }, 4000, mark);
     expect(limitMsg.pkt.readInt()).toBe(0);
     expect(limitMsg.pkt.readString()).toContain("giros de hoje");
     expect(p().info.Money).toBe(moneyBefore - 600); // só 3 giros cobrados

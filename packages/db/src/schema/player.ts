@@ -1570,9 +1570,33 @@ export const Sys_Users_Extra = player.table(
     MagpieBridgeItems: text("MagpieBridgeItems").notNull().default(""),
     NowPositionMB: integer("NowPositionMB").notNull().default(0),
     MagpieNum: integer("MagpieNum").notNull().default(0),
+    NormalFightNum: integer("NormalFightNum").notNull().default(1),
+    HardFightNum: integer("HardFightNum").notNull().default(1),
+    TrusteeshipSpirit: integer("TrusteeshipSpirit").notNull().default(100),
   },
   (t) => [
     primaryKey({ name: "Sys_Users_Extra_pkey", columns: [t.UserID] }),
+  ],
+);
+
+/**
+ * HAND-ADDED, not from gen-schema.ts (task m3-trusteeship): no vendor equivalent in any snapshot — 140
+ * TRUSTEESHIP has no `[PacketHandler]` class and no persistence entity in either vendor C# source (confirmed
+ * by full-tree grep), so there is no catalog.json row to extend via EXTRA_COLUMNS the way every other table in
+ * this file is. Active "auto-complete this quest" entries (`sendTrusteeshipStart`); `EndTime` is always computed
+ * from server time (`ctx.now() + Quest.CollocationColdTime minutes`), never trusted from the client. A future
+ * `pnpm db:gen-schema` run will NOT regenerate this block (it only emits catalog-driven tables) — re-add it by
+ * hand if that script's output ever fully overwrites this file again.
+ */
+export const Sys_Users_Trusteeship = player.table(
+  "Sys_Users_Trusteeship",
+  {
+    UserID: integer("UserID").notNull(),
+    QuestID: integer("QuestID").notNull(),
+    EndTime: timestamp("EndTime", { precision: 3, mode: "date" }).notNull(),
+  },
+  (t) => [
+    primaryKey({ name: "Sys_Users_Trusteeship_pkey", columns: [t.UserID, t.QuestID] }),
   ],
 );
 
