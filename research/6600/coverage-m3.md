@@ -15,8 +15,8 @@
 |---|---|
 | handled | 0 |
 | partial | 23 |
-| stub | 16 |
-| MISSING | 29 |
+| stub | 27 |
+| MISSING | 18 |
 | **Total de códigos enviados pelo cliente** | **213** |
 
 ## Totais — endpoints (.ashx/.xml/.aspx)
@@ -37,7 +37,7 @@
 
 ## Pacotes por área
 
-### Outros (46 código(s) — implemented 26, partial 6, stub 7, MISSING 7)
+### Outros (46 código(s) — implemented 26, partial 6, stub 14, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
@@ -53,14 +53,14 @@
 | 127 | `REClAIM_GOODS` | reclaimGoods (ddt/manager/GameSocketOut.as) | implemented | bolsa/reciclar.ts |
 | 131 | `LABYRINTH` | labyrinthRequestUpdate (ddt/manager/GameSocketOut.as); labyrinthCleanOut (ddt/manager/GameSocketOut.as); labyrinthSpeededUpCleanOut (ddt/manager/GameSocketOut.as); labyrinthStopCleanOut (ddt/manager/GameSocketOut.as); labyrinthCleanOutTimerComplete (ddt/manager/GameSocketOut.as); labyrinthDouble (ddt/manager/GameSocketOut.as); labyrinthReset (ddt/manager/GameSocketOut.as); labyrinthTryAgain (ddt/manager/GameSocketOut.as) | partial | eventos/index.ts |
 | 133 | `LATENT_ENERGY` | sendLatentEnergy (ddt/manager/GameSocketOut.as) | implemented | forja/index.ts |
-| 147 | `FIND_BACK_INCOME` | sendWantStrongBack (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 147 | `FIND_BACK_INCOME` | sendWantStrongBack (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 | 149 | `OLDPLAYER_REGRESS` | sendRegressPkg (ddt/manager/GameSocketOut.as); sendRegressGetAwardPkg (ddt/manager/GameSocketOut.as); sendRegressCheckPlayer (ddt/manager/GameSocketOut.as); sendRegressApplyEnable (ddt/manager/GameSocketOut.as); sendRegressApllyPacks (ddt/manager/GameSocketOut.as); sendRegressCall (ddt/manager/GameSocketOut.as); sendRegressRecvPacks (ddt/manager/GameSocketOut.as); sendRegressTicketInfo (ddt/manager/GameSocketOut.as); sendRegressTicket (ddt/manager/GameSocketOut.as); sendUpdateIntegral (ddt/manager/GameSocketOut.as); sendBuyRegressIntegralGoods (ddt/manager/GameSocketOut.as) | partial | eventos/index.ts |
-| 152 | `FIGHTFOOTBALLTIMETAKEOUT` | sendFightFootballTimeTakeOut (ddt/manager/GameInSocketOut.as) | MISSING |  |
-| 156 | `TRANSNATIONAL_BUYGOODS` | sendButTransnationalGoods (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 152 | `FIGHTFOOTBALLTIMETAKEOUT` | sendFightFootballTimeTakeOut (ddt/manager/GameInSocketOut.as) | stub | eventos/index.ts |
+| 156 | `TRANSNATIONAL_BUYGOODS` | sendButTransnationalGoods (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 | 159 | `WONDERFUL_ACTIVITY` | sendWonderfulActivity (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 | 161 | `USER_LUCKYNUM` | sendUserLuckyNum (ddt/manager/GameSocketOut.as) | implemented |  |
 | 162 | `ELITEGAME` | sendGetEliteGameState (ddt/manager/GameSocketOut.as); sendGetSelfRankSroce (ddt/manager/GameSocketOut.as); sendGetPaarungDetail (ddt/manager/GameSocketOut.as); sendEliteGameStart (ddt/manager/GameSocketOut.as) | partial | eventos/index.ts |
-| 164 | `UPDATE_PLAYER_PROPERTY` | getPlayerPropertyAddition (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 164 | `UPDATE_PLAYER_PROPERTY` | getPlayerPropertyAddition (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 | 166 | `LITTLEGAME_COMMAND` | createPackageOut (littleGame/LittleGameManager.as) | implemented | eventos/index.ts |
 | 168 | `GOODS_COUNT` | sendUpdateGoodsCount (ddt/manager/GameSocketOut.as) | partial | loja/estoque-diario.ts |
 | 171 | `USE_REWORK_NAME` | sendUseReworkName (ddt/manager/GameSocketOut.as) | implemented | bolsa/trocar-apelido.ts |
@@ -71,7 +71,7 @@
 | 203 | `LOOKUP_EFFORT` | sendLookupEffort (ddt/manager/GameSocketOut.as) | implemented | bolsa/conquistas.ts |
 | 205 | `USE_CHANGE_COLOR_SHELL` | sendUseChangeColorShell (ddt/manager/GameSocketOut.as) | stub |  |
 | 206 | `CHANGE_COLOR_OVER_DUE` | sendChangeColorShellTimeOver (ddt/manager/GameSocketOut.as) | implemented |  |
-| 207 | `REQUEST_FRIENDS_PAY` | requestUnWeddingPay (ddt/manager/GameSocketOut.as); requestShopPay (ddt/manager/GameSocketOut.as); requestAuctionPay (ddt/manager/GameSocketOut.as); isAcceptPayShop (ddt/manager/GameSocketOut.as); isAcceptPayAuc (ddt/manager/GameSocketOut.as); sendForAuction (ddt/manager/GameSocketOut.as); isAcceptPay (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 207 | `REQUEST_FRIENDS_PAY` | requestUnWeddingPay (ddt/manager/GameSocketOut.as); requestShopPay (ddt/manager/GameSocketOut.as); requestAuctionPay (ddt/manager/GameSocketOut.as); isAcceptPayShop (ddt/manager/GameSocketOut.as); isAcceptPayAuc (ddt/manager/GameSocketOut.as); sendForAuction (ddt/manager/GameSocketOut.as); isAcceptPay (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 | 209 | `FIGHT_SPIRIT` | figSpiritUpGrade (ddt/manager/GameSocketOut.as); fightSpiritRequest (ddt/manager/GameSocketOut.as) | implemented | forja/index.ts |
 | 213 | `USE_LOG` | sendUseLog (ddt/manager/GameSocketOut.as) | implemented |  |
 | 214 | `USER_RELOAD_GIFT` | sendReloadGift (ddt/manager/GameSocketOut.as) | stub | correio/index.ts |
@@ -83,8 +83,8 @@
 | 244 | `PLAYER_EXIT_MARRY_ROOM` | sendExitRoom (ddt/manager/GameSocketOut.as) | implemented | casamento/index.ts |
 | 252 | `USE_CHANGE_SEX` | sendChangeSex (ddt/manager/GameSocketOut.as) | implemented | bolsa/trocar-sexo.ts |
 | 279 | `SHOW_HIDE_TITLE` | showHideTitleState (ddt/manager/GameSocketOut.as) | implemented |  |
-| 327 | `FAST_AUCTION_SMALL_BUGLE` | sendFastAuctionBugle (ddt/manager/GameSocketOut.as) | MISSING |  |
-| 360 | `GET_CSM_BOX` | sendGetCSMTimeBox (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 327 | `FAST_AUCTION_SMALL_BUGLE` | sendFastAuctionBugle (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
+| 360 | `GET_CSM_BOX` | sendGetCSMTimeBox (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 | 373 | `WONDERFUL_GETREWARD` | sendWonderfulActivityGetReward (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 | 405 | `WONDERFUL_ACTIVITY_INIT` | requestWonderfulActInit (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 
@@ -234,7 +234,7 @@
 | 278 | `MYSTERY_SHOP` | sendGypsyBuy (ddt/manager/GameInSocketOut.as); sendGypsyRefreshItemList (ddt/manager/GameInSocketOut.as); sendGypsyManualRefreshItemList (ddt/manager/GameInSocketOut.as); sendGypsyRefreshRareList (ddt/manager/GameInSocketOut.as); sendRequestGypsyNPCState (ddt/manager/GameInSocketOut.as) | implemented | loja/loja-cigana.ts |
 | 288 | `SHOP_BUYLIMITEDCOUNT` | sendGetShopBuyLimitedCount (ddt/manager/GameSocketOut.as) | implemented | loja/compra-limitada.ts |
 
-### Login/Rede/Handshake (5 código(s) — implemented 4, partial 0, stub 0, MISSING 1)
+### Login/Rede/Handshake (5 código(s) — implemented 4, partial 0, stub 1, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
@@ -242,7 +242,7 @@
 | 4 | `PING` | sendPint (ddt/manager/GameSocketOut.as) | implemented | basico/index.ts |
 | 5 | `SYS_DATE` | sendUpdateSysDate (ddt/manager/GameSocketOut.as) | implemented | basico/index.ts |
 | 8 | `CLIENT_LOG` | sendErrorMsg (ddt/manager/GameSocketOut.as) | implemented | basico/index.ts |
-| 208 | `LAUNCHER_LOGIN` | sendDeskTopLogin (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 208 | `LAUNCHER_LOGIN` | sendDeskTopLogin (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 
 ### Correio/Presentes (4 código(s) — implemented 4, partial 0, stub 0, MISSING 0)
 
@@ -270,20 +270,20 @@
 | 18 | `GET_PLAYER_CARD` | getPlayerCardInfo (ddt/manager/GameSocketOut.as) | implemented | progressao/index.ts |
 | 34 | `USER_RANK` | sendChangeDesignation (ddt/manager/GameSocketOut.as) | implemented | bolsa/mostrar-guilda.ts |
 
-### Batalha (3 código(s) — implemented 2, partial 0, stub 0, MISSING 1)
+### Batalha (3 código(s) — implemented 2, partial 0, stub 1, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
 | 82 | `GAME_MISSION_START` | sendGameMissionStart (ddt/manager/GameInSocketOut.as) | implemented | salas/index.ts |
 | 91 | `GAME_CMD` | sendFlagMode (ddt/manager/GameInSocketOut.as); sendGameMissionPrepare (ddt/manager/GameInSocketOut.as); sendLoadingProgress (ddt/manager/GameInSocketOut.as); sendGameCMDBlast (ddt/manager/GameInSocketOut.as); sendGameCMDChange (ddt/manager/GameInSocketOut.as); sendGameCMDDirection (ddt/manager/GameInSocketOut.as); sendGameCMDStunt (ddt/manager/GameInSocketOut.as); sendGameCMDShoot (ddt/manager/GameInSocketOut.as); sendGameSkipNext (ddt/manager/GameInSocketOut.as); sendTransmissionGate (ddt/manager/GameInSocketOut.as); sendGameStartMove (ddt/manager/GameInSocketOut.as); sendGameStopMove (ddt/manager/GameInSocketOut.as); sendGameTakeOut (ddt/manager/GameInSocketOut.as); sendBossTakeOut (ddt/manager/GameInSocketOut.as); sendShootTag (ddt/manager/GameInSocketOut.as); sendBeat (ddt/manager/GameInSocketOut.as); sendUseProp (ddt/manager/GameInSocketOut.as); sendGhostTarget (ddt/manager/GameInSocketOut.as); sendPaymentTakeCard (ddt/manager/GameInSocketOut.as); sendMissionTryAgain (ddt/manager/GameInSocketOut.as); sendFightLibInfoChange (ddt/manager/GameInSocketOut.as); sendPassStory (ddt/manager/GameInSocketOut.as); sendClientScriptStart (ddt/manager/GameInSocketOut.as); sendClientScriptEnd (ddt/manager/GameInSocketOut.as); sendFightLibAnswer (ddt/manager/GameInSocketOut.as); sendFightLibReanswer (ddt/manager/GameInSocketOut.as); sendUpdatePlayStep (ddt/manager/GameInSocketOut.as); sendSelectObject (ddt/manager/GameInSocketOut.as); sendSuicide (ddt/manager/GameSocketOut.as); sendKillSelf (ddt/manager/GameSocketOut.as); sendAirPlane (ddt/manager/GameSocketOut.as); useDeputyWeapon (ddt/manager/GameSocketOut.as); sendGamePick (ddt/manager/GameSocketOut.as); sendPetSkill (ddt/manager/GameSocketOut.as); createMonster (ddt/manager/GameSocketOut.as); deleteMonster (ddt/manager/GameSocketOut.as); sendWish (ddt/manager/GameSocketOut.as); sendGameTrusteeship (ddt/manager/GameSocketOut.as); sendActivityDungeonNextPoints (ddt/manager/GameSocketOut.as); useRescueKingBless (ddt/manager/GameSocketOut.as) | implemented | salas/index.ts |
-| 101 | `BATTLE_COMPANION_GIVE` | sendBattleCompanionGive (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 101 | `BATTLE_COMPANION_GIVE` | sendBattleCompanionGive (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 
-### VIP/Recarga (3 código(s) — implemented 2, partial 0, stub 0, MISSING 1)
+### VIP/Recarga (3 código(s) — implemented 2, partial 0, stub 1, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
 | 92 | `VIP_RENEWAL` | sendOpenVip (ddt/manager/GameSocketOut.as) | implemented | loja/vip.ts |
-| 157 | `RECHARGE` | getspree (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 157 | `RECHARGE` | getspree (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 | 259 | `CONSUME_RANK` | updateConsumeRank (ddt/manager/GameSocketOut.as) | implemented | eventos/index.ts |
 
 ### Leilão (3 código(s) — implemented 3, partial 0, stub 0, MISSING 0)
@@ -403,11 +403,11 @@
 |---|---|---|---|---|
 | 144 | `GROUP_PURCHASE` | sendGroupPurchaseRefreshData (ddt/manager/GameSocketOut.as); sendGroupPurchaseRefreshRankData (ddt/manager/GameSocketOut.as); sendGroupPurchaseBuy (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 
-### Sete Dobrado (1 código(s) — implemented 0, partial 0, stub 0, MISSING 1)
+### Sete Dobrado (1 código(s) — implemented 0, partial 0, stub 1, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
-| 148 | `SEVEN_DOUBLE` | sendSevenDoubleCallCar (ddt/manager/GameSocketOut.as); sendSevenDoubleStartGame (ddt/manager/GameSocketOut.as); sendSevenDoubleCancelGame (ddt/manager/GameSocketOut.as); sendSevenDoubleReady (ddt/manager/GameSocketOut.as); sendSevenDoubleMove (ddt/manager/GameSocketOut.as); sendSevenDoubleUseSkill (ddt/manager/GameSocketOut.as); sendSevenDoubleCanEnter (ddt/manager/GameSocketOut.as); sendSevenDoubleEnterOrLeaveScene (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 148 | `SEVEN_DOUBLE` | sendSevenDoubleCallCar (ddt/manager/GameSocketOut.as); sendSevenDoubleStartGame (ddt/manager/GameSocketOut.as); sendSevenDoubleCancelGame (ddt/manager/GameSocketOut.as); sendSevenDoubleReady (ddt/manager/GameSocketOut.as); sendSevenDoubleMove (ddt/manager/GameSocketOut.as); sendSevenDoubleUseSkill (ddt/manager/GameSocketOut.as); sendSevenDoubleCanEnter (ddt/manager/GameSocketOut.as); sendSevenDoubleEnterOrLeaveScene (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 
 ### Cross-zone/GvG (1 código(s) — implemented 0, partial 0, stub 0, MISSING 1)
 
