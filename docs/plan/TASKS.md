@@ -33,7 +33,7 @@
   Dados…) em Drizzle + migration incremental (`research/6600/db-diff.md`); colunas novas nas tabelas existentes.
 
 ### M2 — loop central no 6600
-- [ ] **m2-newhall** (P0, bloqueia ir pras salas no navegador) — o hall do 6600 é andável (pacote `NEW_HALL`, `hall/player/HallPlayerView.as`): sem o servidor responder posição/lista de jogadores, clicar num prédio dá `#1009 em HallPlayerView.setSelfPlayerPos` e o personagem não anda até o prédio. Portar o NewHall do C# 6600 (posição, mover, entrar/sair, outros jogadores, título, roupa) pro `apps/game`.
+- [~] **m2-newhall** (P0, bloqueia ir pras salas no navegador) — o hall do 6600 é andável (pacote `NEW_HALL`, `hall/player/HallPlayerView.as`): sem o servidor responder posição/lista de jogadores, clicar num prédio dá `#1009 em HallPlayerView.setSelfPlayerPos` e o personagem não anda até o prédio. Portar o NewHall do C# 6600 (posição, mover, entrar/sair, outros jogadores, título, roupa) pro `apps/game`.
 - [x] **m2-bolsa** — bolsa/equipar/vestir + família MARRY_* pro 6600. Colisão de código 237
   (`MARRYINFO_UPDATE` 4.1 vs `PLAYER_DRESS` 6600) resolvida por `clientKind` sem corromper o mural;
   `PLAYER_DRESS` (figurino, feature nova sem equivalente 4.1) documentado como gap pra M3. 119
