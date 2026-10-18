@@ -108,7 +108,7 @@ Como rodar um 2º canal hoje (sem `ch-processo`/`ch-bus`): [GAME-SERVER.md §Can
   falta (`ch-bus`): login único entre canais, chat mundial, presença de amigos/sociedade cross-canal, eventos
   globais coordenados, trocar de canal sem relogar, TLS no WS dos canais extras — ver
   `docs/GAME-SERVER.md` "Canais" §"O que ainda não funciona com 2+ canais".
-- [ ] **ch-bus** — barramento entre canais (Redis pub/sub): login único, chat mundial/sussurro, presença de amigos/sociedade.
+- [~] **ch-bus** — barramento entre canais (Redis pub/sub): login único, chat mundial/sussurro, presença de amigos/sociedade.
 - [ ] **ch-troca** — trocar de canal sem relogar.
 - [ ] **ch-eventos** — eventos globais (boss mundial, liga) coordenados entre canais.
 
