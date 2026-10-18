@@ -176,13 +176,35 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
   em `44 BUY_GOODS` (6600 only) — linha que passaria do limite é descartada (`continue`), incremento só
   após cobrança confirmada. `apps/game/src/handlers/loja/compra-limitada.ts` +
   `apps/game/src/handlers/loja/comprar.ts`.
-- [ ] **m3-caddy-loteria** — `97 LUCKSTONE_RANK_LIMIT`, `165 LUCKSTONE_CONFIG`, `211 CADDY_EXCHANGE_ALL`,
-  `215 CADDY_CONVERTED_ALL` (`GameSocketOut.as`) — família "pedra da sorte"/loteria Caddy (distinta da
-  `137 LEFT_GUN_ROULETTE`, já portada no M1). Agrupar numa tarefa só por serem a mesma tela.
-- [ ] **m3-cards-slot** — `170 CARDS_SLOT` (`sendUpdateSLOT`/`sendResetCardSoul`) — gerenciar slot de
-  cartas/resetar "card soul" (sistema novo do 6600, relacionado ao `216 CARDS_DATA` já portado no M1/M2).
-- [ ] **m3-achievement-update** — `229 ACHIEVEMENT_UPDATE` (`sendModifyInfo`) — marcar progresso/visto de
-  conquista. Pequeno, `228`/`231` (lista/dados) já implementados.
+- [x] **m3-caddy-loteria** (2026-10-18) — `97 LUCKSTONE_RANK_LIMIT`, `165 LUCKSTONE_CONFIG`,
+  `211 CADDY_EXCHANGE_ALL`, `215 CADDY_CONVERTED_ALL` (`GameSocketOut.as`) — família "Pedra da Sorte"
+  (distinta da `137 LEFT_GUN_ROULETTE`, já portada no M1). Achado: a feature é permanentemente FECHADA no
+  servidor 6600 decompilado — `AbstractPacketLib.SendLuckStoneEnable` sempre manda `isOpen=false`, e `97`/
+  `211` não têm `PacketHandler` nenhum (confirmado por grep; `165` tem `LuckStoneEnableHandler.cs`, `215` tem
+  `CaddyConvertedHandler.cs` que só lê e descarta). Nenhuma tabela de moeda "LuckStone" existe no `.bak` nem
+  no schema — portar "de verdade" seria inventar uma economia nova. Os 4 códigos respondem exatamente como o
+  original responderia (165/97 fechados/vazios, 211/215 sem resposta, igual ao C#), sem inventar taxa de
+  câmbio nem abrir superfície de exploit. `apps/game/src/handlers/eventos/roleta.ts` (funções
+  `luckStoneConfig`/`luckStoneRankLimit`/`caddyExchangeAll`/`caddyConvertedAll`) +
+  `apps/game/src/packets/out.ts` (`luckStoneConfigClosed`/`luckStoneRankLimitClosed`). Sem migração.
+- [x] **m3-cards-slot** (2026-10-18) — `170 CARDS_SLOT` (`sendUpdateSLOT`/`sendResetCardSoul`) — sub 0 sobe o
+  nível do "soul slot" de uma carta equipada gastando `CardSoul` pela curva `Card_Groove_Update` (custo
+  limitado ao teto do nível máximo, nunca desperdiça), sub 1 reseta os 5 slots equipados devolvendo o
+  `CardGP` acumulado como `CardSoul` (cobra 300 de Money antes, igual `CardSlotHandler.cs`). `CardSoul`
+  (coluna já existia desde `m1-schema`, só não estava persistida — adicionada a `SAVED_DETAIL_COLUMNS`).
+  Migração aditiva nova: `packages/db/drizzle/0019_cards-slot-type.sql` (`player."Sys_Users_Card"."Type"`,
+  default 0 — `UsersCardInfo.Type` do 6600, que escolhe a curva; a origem decompilada não mostra onde um
+  cartão novo ganharia `Type=1` em vez de `0`, gap documentado em `game/cards.ts`, não um palpite). Sem
+  equivalente no enum 4.1 (confirmado, código nunca existiu lá). `apps/game/src/handlers/mascote/
+  cartas-slot.ts`.
+- [x] **m3-achievement-update** (2026-10-18) — `229 ACHIEVEMENT_UPDATE` (`sendModifyInfo`). Achado: isto NÃO
+  é progresso de conquista — `sendModifyInfo` (`CivilRegisterFrame.as:274`) é a mesma ação de EDITAR o
+  próprio pedido do mural de casamento que o 4.1 manda em `237 MARRYINFO_UPDATE` (já portada em
+  `casamento/mural.ts`); o 6600 reaproveita o código 229 porque 237 virou `PLAYER_DRESS` (figurino) nessa
+  versão (confirmado lendo `GameSocketOut.as` dos dois clientes: mesmo payload bool+UTF, nomes de enum
+  diferentes). `229` "de verdade" (push de progresso) é só servidor→cliente (`pushRecords`); nenhum cliente
+  pede isso. `228`/`231` (lista/dados) já implementados, intocados. Dispatch por `clientKind` igual ao
+  padrão já usado pro 237 em `casamento/index.ts`. Sem migração.
 
 **Sistemas médios (guilda/GvG, eventos, automação):**
 - [ ] **m3-king-bless-deed** — `142 KING_BLESS_MAIN` (`sendOpenKingBless`/`sendOpenDeed`) e
@@ -224,8 +246,15 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
 - [ ] **m3-wonderful-activity** — `159 WONDERFUL_ACTIVITY`, `373 WONDERFUL_GETREWARD`,
   `405 WONDERFUL_ACTIVITY_INIT` — evento genérico (nome a confirmar jogando — não achei SWF nem
   `*PackageType.as` dedicado pelo grep, procurar manualmente antes de implementar lógica).
-- [ ] **m3-accumulative-login** — `238 ACCUMULATIVELOGIN_AWARD` (`sendAccumulativeLoginAward`) —
-  recompensa por dias de login acumulados (distinto do `13 DAILY_AWARD`/calendário já portado).
+- [x] **m3-accumulative-login** (2026-10-18) — `238 ACCUMULATIVELOGIN_AWARD` (`sendAccumulativeLoginAward`,
+  6600 — era `338` na 4.1, `ePackageType.as` 6600:592 vs `Game.Server/Packets/ePackageType.cs` 4.1:248).
+  Achado: a lógica já existia em `handlers/eventos/presenca.ts` (`accumulativeLogin`), idêntica ao
+  `AccumulAtiveLoginAwardHandler.cs` decompilado — o bug era o código de saída e o registro ficarem fixos em
+  338, que um cliente 6600 nunca manda (ele manda 238). `238` no 4.1 é `MARRYINFO_DELETE` (nunca
+  implementado dos dois lados — sem risco de corromper outra feature). Corrigido: resposta no MESMO código
+  da requisição (238 ou 338, por `clientKind`), registro novo de 238 em `eventos/index.ts` restrito a
+  `clientKind === "6600"`. Sem migração (colunas `accumulativeLoginDays`/`accumulativeAwardDays` já
+  existiam).
 - [ ] **m3-launcher-login** — `208 LAUNCHER_LOGIN` (`sendDeskTopLogin`) — login alternativo vindo do
   launcher desktop (`apps/launcher`). **Cuidado de valor**: `208` colide com `CARDS_SOUL` no próprio enum
   6600 (`MIGRACAO-6600.md` §1.1/§1.4) — decidir manualmente qual mapear, não gerar dos dois automaticamente.
