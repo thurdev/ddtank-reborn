@@ -1,956 +1,1064 @@
 [
-  {
-    "category": "03-janelas",
-    "file": "academycommon__17_asset.academyCommon.RecommendPlayerCellView.masterHonor4.png",
-    "swf": "academycommon.swf",
-    "swfPath": "ui\\turkey\\swf\\academycommon.swf",
-    "sourceFile": "21_asset.academyCommon.RecommendPlayerCellView.masterHonor4.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, academycommon.swf::17_asset.academyCommon.RecommendPlayerCellView.masterHonor4.png)"
-  },
-  {
-    "category": "03-janelas",
-    "file": "activeevents__5_asset.activeEvents.iconGive.png",
-    "swf": "activeevents.swf",
-    "swfPath": "ui\\turkey\\swf\\activeevents.swf",
-    "sourceFile": "5_asset.activeEvents.iconGive.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, activeevents.swf::5_asset.activeEvents.iconGive.png)"
-  },
-  {
-    "category": "03-janelas",
-    "file": "activeevents__6_asset.activeEvents.iconContent.png",
-    "swf": "activeevents.swf",
-    "swfPath": "ui\\turkey\\swf\\activeevents.swf",
-    "sourceFile": "6_asset.activeEvents.iconContent.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, activeevents.swf::6_asset.activeEvents.iconContent.png)"
-  },
-  {
-    "category": "06-combate-outros",
-    "file": "chat1__22_asset.chat.ChannelState_Team.png",
-    "swf": "chat.swf",
-    "swfPath": "ui\\turkey\\swf\\chat.swf",
-    "sourceFile": "51_asset.chat.ChannelState_Team.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, chat1.swf::22_asset.chat.ChannelState_Team.png)"
-  },
-  {
-    "category": "06-combate-outros",
-    "file": "chat1__20_asset.chat.ChannelState_Private.png",
-    "swf": "chat.swf",
-    "swfPath": "ui\\turkey\\swf\\chat.swf",
-    "sourceFile": "53_asset.chat.ChannelState_Private.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, chat1.swf::20_asset.chat.ChannelState_Private.png)"
-  },
-  {
-    "category": "06-combate-outros",
-    "file": "chat1__19_asset.chat.ChannelState_Current.png",
-    "swf": "chat.swf",
-    "swfPath": "ui\\turkey\\swf\\chat.swf",
-    "sourceFile": "54_asset.chat.ChannelState_Current.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, chat1.swf::19_asset.chat.ChannelState_Current.png)"
-  },
-  {
-    "category": "06-combate-outros",
-    "file": "chat__63_asset.chat.ChannelState_BigBuggle.png",
-    "swf": "chat.swf",
-    "swfPath": "ui\\turkey\\swf\\chat.swf",
-    "sourceFile": "57_asset.chat.ChannelState_BigBuggle.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, chat.swf::63_asset.chat.ChannelState_BigBuggle.png)"
-  },
-  {
-    "category": "06-combate-outros",
-    "file": "chickactivation__14_assets.chickActivation.frameBtnSelected2.png",
-    "swf": "chickactivation.swf",
-    "swfPath": "ui\\turkey\\swf\\chickactivation.swf",
-    "sourceFile": "14_assets.chickActivation.frameBtnSelected2.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, chickactivation.swf::14_assets.chickActivation.frameBtnSelected2.png)"
-  },
-  {
-    "category": "06-combate-outros",
-    "file": "chickactivation__1_assets.chickActivation.selectAfterThreeDays.png",
-    "swf": "chickactivation.swf",
-    "swfPath": "ui\\turkey\\swf\\chickactivation.swf",
-    "sourceFile": "1_assets.chickActivation.selectAfterThreeDays.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, chickactivation.swf::1_assets.chickActivation.selectAfterThreeDays.png)"
-  },
-  {
-    "category": "06-combate-outros",
-    "file": "chickactivation__20_assets.chickActivation.unSelectLevelPacks.png",
-    "swf": "chickactivation.swf",
-    "swfPath": "ui\\turkey\\swf\\chickactivation.swf",
-    "sourceFile": "20_assets.chickActivation.unSelectLevelPacks.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, chickactivation.swf::20_assets.chickActivation.unSelectLevelPacks.png)"
-  },
-  {
-    "category": "06-combate-outros",
-    "file": "chickactivation__2_assets.chickActivation.unSelectAfterThreeDays.png",
-    "swf": "chickactivation.swf",
-    "swfPath": "ui\\turkey\\swf\\chickactivation.swf",
-    "sourceFile": "2_assets.chickActivation.unSelectAfterThreeDays.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, chickactivation.swf::2_assets.chickActivation.unSelectAfterThreeDays.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "chickactivation__5_assets.chickActivation.selectWeekly.png",
-    "swf": "chickactivation.swf",
-    "swfPath": "ui\\turkey\\swf\\chickactivation.swf",
-    "sourceFile": "5_assets.chickActivation.selectWeekly.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, chickactivation.swf::5_assets.chickActivation.selectWeekly.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "chickactivation__7_assets.chickActivation.selectEveryDay.png",
-    "swf": "chickactivation.swf",
-    "swfPath": "ui\\turkey\\swf\\chickactivation.swf",
-    "sourceFile": "7_assets.chickActivation.selectEveryDay.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, chickactivation.swf::7_assets.chickActivation.selectEveryDay.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "chickactivation__9_assets.chickActivation.receiveBtn.png",
-    "swf": "chickactivation.swf",
-    "swfPath": "ui\\turkey\\swf\\chickactivation.swf",
-    "sourceFile": "9_assets.chickActivation.receiveBtn.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, chickactivation.swf::9_assets.chickActivation.receiveBtn.png)"
-  },
-  {
-    "category": "05-icones",
-    "file": "churchroom__60_asset.church.room.fireBgAsset.png",
-    "swf": "churchroom.swf",
-    "swfPath": "ui\\turkey\\swf\\churchroom.swf",
-    "sourceFile": "49_asset.church.room.fireBgAsset.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, churchroom.swf::60_asset.church.room.fireBgAsset.png)"
-  },
-  {
-    "category": "05-icones",
-    "file": "churchroom__78_asset.church.room.FatherPaopao3.png",
-    "swf": "churchroom.swf",
-    "swfPath": "ui\\turkey\\swf\\churchroom.swf",
-    "sourceFile": "67_asset.church.room.FatherPaopao3.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, churchroom.swf::78_asset.church.room.FatherPaopao3.png)"
-  },
-  {
-    "category": "05-icones",
-    "file": "churchroom__85_asset.church.room.FatherPaopao18.png",
-    "swf": "churchroom.swf",
-    "swfPath": "ui\\turkey\\swf\\churchroom.swf",
-    "sourceFile": "74_asset.church.room.FatherPaopao18.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, churchroom.swf::85_asset.church.room.FatherPaopao18.png)"
-  },
-  {
-    "category": "05-icones",
-    "file": "churchroom__87_asset.church.room.FatherPaopao16.png",
-    "swf": "churchroom.swf",
-    "swfPath": "ui\\turkey\\swf\\churchroom.swf",
-    "sourceFile": "76_asset.church.room.FatherPaopao16.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, churchroom.swf::87_asset.church.room.FatherPaopao16.png)"
-  },
-  {
-    "category": "05-icones",
-    "file": "churchroom__89_asset.church.room.FatherPaopao14.png",
-    "swf": "churchroom.swf",
-    "swfPath": "ui\\turkey\\swf\\churchroom.swf",
-    "sourceFile": "78_asset.church.room.FatherPaopao14.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, churchroom.swf::89_asset.church.room.FatherPaopao14.png)"
-  },
-  {
-    "category": "03-janelas",
-    "file": "consortionii__130_asset.consortion.remainFrame.word.png",
-    "swf": "consortionii.swf",
-    "swfPath": "ui\\turkey\\swf\\consortionii.swf",
-    "sourceFile": "33_asset.consortion.remainFrame.word.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, consortionii.swf::130_asset.consortion.remainFrame.word.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "corei__196_asset.church.lookEquipAsset.png",
-    "swf": "ddtcorei.swf",
-    "swfPath": "ui\\turkey\\swf\\ddtcorei.swf",
-    "sourceFile": "79_asset.church.lookEquipAsset.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, corei.swf::196_asset.church.lookEquipAsset.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "core__3_asset.vote.oneAnswer.png",
-    "swf": "ddtcoreii.swf",
-    "swfPath": "ui\\turkey\\swf\\ddtcoreii.swf",
-    "sourceFile": "1_asset.vote.oneAnswer.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, core.swf::3_asset.vote.oneAnswer.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "coreii__96_microBlog.IssueBt.png",
-    "swf": "ddtcoreii.swf",
-    "swfPath": "ui\\turkey\\swf\\ddtcoreii.swf",
-    "sourceFile": "211_microBlog.IssueBt.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, coreii.swf::96_microBlog.IssueBt.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "core__211_asset.vote.mulAnswer.png",
-    "swf": "ddtcoreii.swf",
-    "swfPath": "ui\\turkey\\swf\\ddtcoreii.swf",
-    "sourceFile": "2_asset.vote.mulAnswer.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, core.swf::211_asset.vote.mulAnswer.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "corei__196_asset.church.lookEquipAsset.png",
-    "swf": "ddtcoreii.swf",
-    "swfPath": "ui\\turkey\\swf\\ddtcoreii.swf",
-    "sourceFile": "92_asset.church.lookEquipAsset.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, corei.swf::196_asset.church.lookEquipAsset.png)"
-  },
-  {
-    "category": "06-combate-outros",
-    "file": "effort__12_asset.Effort.item_03.png",
-    "swf": "ddteffort.swf",
-    "swfPath": "ui\\turkey\\swf\\ddteffort.swf",
-    "sourceFile": "15_asset.Effort.item_03.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, effort.swf::12_asset.Effort.item_03.png)"
-  },
-  {
-    "category": "06-combate-outros",
-    "file": "effort__13_asset.Effort.item_02.png",
-    "swf": "ddteffort.swf",
-    "swfPath": "ui\\turkey\\swf\\ddteffort.swf",
-    "sourceFile": "16_asset.Effort.item_02.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, effort.swf::13_asset.Effort.item_02.png)"
-  },
-  {
-    "category": "06-combate-outros",
-    "file": "effort__14_asset.Effort.item_01.png",
-    "swf": "ddteffort.swf",
-    "swfPath": "ui\\turkey\\swf\\ddteffort.swf",
-    "sourceFile": "17_asset.Effort.item_01.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, effort.swf::14_asset.Effort.item_01.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__11_assets.hallIcon.lanternriddlesIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "10_assets.hallIcon.lanternriddlesIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::11_assets.hallIcon.lanternriddlesIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__12_assets.hallIcon.entertainmentIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "11_assets.hallIcon.entertainmentIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::12_assets.hallIcon.entertainmentIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__18_assets.hallIcon.treasureLostIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "13_assets.hallIcon.treasureLostIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::18_assets.hallIcon.treasureLostIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__21_assets.hallIcon.rouletteGunIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "14_assets.hallIcon.rouletteGunIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::21_assets.hallIcon.rouletteGunIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__24_assets.hallIcon.chickActivationIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "15_assets.hallIcon.chickActivationIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::24_assets.hallIcon.chickActivationIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__25_assets.hallIconl.sanxiaoBtn.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "16_assets.hallIconl.sanxiaoBtn.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::25_assets.hallIconl.sanxiaoBtn.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__26_assets.hallIcon.limitActivityIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "17_assets.hallIcon.limitActivityIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::26_assets.hallIcon.limitActivityIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__28_asset.hall.consortia.task.btn.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "19_asset.hall.consortia.task.btn.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::28_asset.hall.consortia.task.btn.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__1_assets.hallIcon.worldBossEntrance_4.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "1_assets.hallIcon.worldBossEntrance_4.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::1_assets.hallIcon.worldBossEntrance_4.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__29_assets.hallIcon.kingDivisionIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "20_assets.hallIcon.kingDivisionIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::29_assets.hallIcon.kingDivisionIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__32_assets.hallIcon.luckStoneIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "21_assets.hallIcon.luckStoneIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::32_assets.hallIcon.luckStoneIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__39_assets.hallIcon.mysteriousRouletteIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "24_assets.hallIcon.mysteriousRouletteIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::39_assets.hallIcon.mysteriousRouletteIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__41_assets.hallIcon.syahIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "25_assets.hallIcon.syahIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::41_assets.hallIcon.syahIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__42_assets.hallIcon.horseRace.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "26_assets.hallIcon.horseRace.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::42_assets.hallIcon.horseRace.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__43_assets.hallIcon.petIsland.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "27_assets.hallIcon.petIsland.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::43_assets.hallIcon.petIsland.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__45_assets.hallIcon.redEnvelope.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "28_assets.hallIcon.redEnvelope.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::45_assets.hallIcon.redEnvelope.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__2_assets.hallIcon.catchInsect.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "2_assets.hallIcon.catchInsect.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::2_assets.hallIcon.catchInsect.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__48_assets.hallIcon.prayIndianaIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "30_assets.hallIcon.prayIndianaIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::48_assets.hallIcon.prayIndianaIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__49_assets.hallIcon.magpiebridge.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "31_assets.hallIcon.magpiebridge.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::49_assets.hallIcon.magpiebridge.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__51_assets.hallIcon.sevenDayTargetIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "32_assets.hallIcon.sevenDayTargetIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::51_assets.hallIcon.sevenDayTargetIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__55_assets.hallIcon.newYearRiceIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "34_assets.hallIcon.newYearRiceIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::55_assets.hallIcon.newYearRiceIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__58_assets.hallIcon.treasureHuntingIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "35_assets.hallIcon.treasureHuntingIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::58_assets.hallIcon.treasureHuntingIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__59_assets.hallIcon.leagueIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "36_assets.hallIcon.leagueIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::59_assets.hallIcon.leagueIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__63_assets.hallIcon.ringStationIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "37_assets.hallIcon.ringStationIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::63_assets.hallIcon.ringStationIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__64_assets.hallIcon.accumulativeLoginIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "38_assets.hallIcon.accumulativeLoginIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::64_assets.hallIcon.accumulativeLoginIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__65_assets.hallIcon.oldPlayerRegressIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "39_assets.hallIcon.oldPlayerRegressIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::65_assets.hallIcon.oldPlayerRegressIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__67_assets.hallIcon.fightFootballTimeIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "41_assets.hallIcon.fightFootballTimeIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::67_assets.hallIcon.fightFootballTimeIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__69_assets.hallIcon.rescue.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "42_assets.hallIcon.rescue.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::69_assets.hallIcon.rescue.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__70_assets.hallIcon.pyramidIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "43_assets.hallIcon.pyramidIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::70_assets.hallIcon.pyramidIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__75_assets.hallIcon.escortEntryIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "45_assets.hallIcon.escortEntryIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::75_assets.hallIcon.escortEntryIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__76_assets.hallIcon.lightRoadIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "46_assets.hallIcon.lightRoadIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::76_assets.hallIcon.lightRoadIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__78_assets.hallIcon.guildmemberweekIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "48_assets.hallIcon.guildmemberweekIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::78_assets.hallIcon.guildmemberweekIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__3_assets.hallIcon.worshipTheMoon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "4_assets.hallIcon.worshipTheMoon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::3_assets.hallIcon.worshipTheMoon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__91_assets.hallIcon.DDTMatch.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "54_assets.hallIcon.DDTMatch.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::91_assets.hallIcon.DDTMatch.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__94_asset.hall.draftIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "56_asset.hall.draftIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::94_asset.hall.draftIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__95_assets.hallIcon.panicBuyingIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "57_assets.hallIcon.panicBuyingIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::95_assets.hallIcon.panicBuyingIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__97_assets.hallIcon.DDPlayIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "58_assets.hallIcon.DDPlayIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::97_assets.hallIcon.DDPlayIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__4_assets.hallIcon.campIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "5_assets.hallIcon.campIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::4_assets.hallIcon.campIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__101_assets.hallIcon.godsRoadsIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "60_assets.hallIcon.godsRoadsIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::101_assets.hallIcon.godsRoadsIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__108_assets.hallIcon.happyRecharge.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "63_assets.hallIcon.happyRecharge.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::108_assets.hallIcon.happyRecharge.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__110_assets.hallIcon.growthPachageIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "64_assets.hallIcon.growthPachageIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::110_assets.hallIcon.growthPachageIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__111_assets.hallIcon.MemoryGameIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "65_assets.hallIcon.MemoryGameIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::111_assets.hallIcon.MemoryGameIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__112_assets.hallIcon.luckyStarIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "66_assets.hallIcon.luckyStarIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::112_assets.hallIcon.luckyStarIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__113_assets.hallIcon.superWinnerEntryIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "67_assets.hallIcon.superWinnerEntryIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::113_assets.hallIcon.superWinnerEntryIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__115_assets.hallIcon.buriedIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "68_assets.hallIcon.buriedIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::115_assets.hallIcon.buriedIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__116_assets.hallIcon.newChickenBoxIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "69_assets.hallIcon.newChickenBoxIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::116_assets.hallIcon.newChickenBoxIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__7_assets.hallIcon.battleIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "6_assets.hallIcon.battleIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::7_assets.hallIcon.battleIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__117_assets.hallIcon.littleGameNoteIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "70_assets.hallIcon.littleGameNoteIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::117_assets.hallIcon.littleGameNoteIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__118_assets.hallIcon.boguAdventureIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "71_assets.hallIcon.boguAdventureIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::118_assets.hallIcon.boguAdventureIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__8_assets.hallIcon.zodiacIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "7_assets.hallIcon.zodiacIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::8_assets.hallIcon.zodiacIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__9_assets.hallIcon.cloudbuylotteryIcon.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "8_assets.hallIcon.cloudbuylotteryIcon.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::9_assets.hallIcon.cloudbuylotteryIcon.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "ddthallicon__10_assets.hallIcon.worldBossEntrance_1.png",
-    "swf": "ddthallicon.swf",
-    "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
-    "sourceFile": "9_assets.hallIcon.worldBossEntrance_1.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::10_assets.hallIcon.worldBossEntrance_1.png)"
-  },
-  {
-    "category": "06-combate-outros",
-    "file": "trainer__4_asset.trainer.ghostTip.png",
-    "swf": "ddttrainer.swf",
-    "swfPath": "ui\\turkey\\swf\\ddttrainer.swf",
-    "sourceFile": "4_asset.trainer.ghostTip.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, trainer.swf::4_asset.trainer.ghostTip.png)"
-  },
-  {
-    "category": "06-combate-outros",
-    "file": "enthrall__2_asset.core.view.enthrall.ValidateFrameBG.png",
-    "swf": "enthrall.swf",
-    "swfPath": "ui\\turkey\\swf\\enthrall.swf",
-    "sourceFile": "2_asset.core.view.enthrall.ValidateFrameBG.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, enthrall.swf::2_asset.core.view.enthrall.ValidateFrameBG.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "coreiconandtip__32_asset.core.tip.hp.png",
-    "swf": "firstcore.swf",
-    "swfPath": "ui\\turkey\\swf\\firstcore.swf",
-    "sourceFile": "81_asset.core.tip.hp.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, coreiconandtip.swf::32_asset.core.tip.hp.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "coreiconandtip__28_asset.core.tip.GoodsType.png",
-    "swf": "firstcore.swf",
-    "swfPath": "ui\\turkey\\swf\\firstcore.swf",
-    "sourceFile": "82_asset.core.tip.GoodsType.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, coreiconandtip.swf::28_asset.core.tip.GoodsType.png)"
-  },
-  {
-    "category": "03-janelas",
-    "file": "gameover__63_asset.experience.exploitExpItemTxt_a0.png",
-    "swf": "gameover.swf",
-    "swfPath": "ui\\turkey\\swf\\gameover.swf",
-    "sourceFile": "78_asset.experience.exploitExpItemTxt_a0.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, gameover.swf::63_asset.experience.exploitExpItemTxt_a0.png)"
-  },
-  {
-    "category": "03-janelas",
-    "file": "newtitle__2_asset.newTitle.useBtn.png",
-    "swf": "newtitle.swf",
-    "swfPath": "ui\\turkey\\swf\\newtitle.swf",
-    "sourceFile": "2_asset.newTitle.useBtn.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, newtitle.swf::2_asset.newTitle.useBtn.png)"
-  },
-  {
-    "category": "02-lobby-hall",
-    "file": "toolbar__12_asset.toolbar.dailyBtnAsset.png",
-    "swf": "toolbar.swf",
-    "swfPath": "ui\\turkey\\swf\\toolbar.swf",
-    "sourceFile": "48_asset.toolbar.dailyBtnAsset.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, toolbar.swf::12_asset.toolbar.dailyBtnAsset.png)"
-  },
-  {
-    "category": "06-combate-outros",
-    "file": "totem__8_asset.totem.infoView.levelBg.png",
-    "swf": "totem.swf",
-    "swfPath": "ui\\turkey\\swf\\totem.swf",
-    "sourceFile": "8_asset.totem.infoView.levelBg.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, totem.swf::8_asset.totem.infoView.levelBg.png)"
-  },
-  {
-    "category": "06-combate-outros",
-    "file": "trainer__4_asset.trainer.ghostTip.png",
-    "swf": "trainer.swf",
-    "swfPath": "ui\\turkey\\swf\\trainer.swf",
-    "sourceFile": "2_asset.trainer.ghostTip.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, trainer.swf::4_asset.trainer.ghostTip.png)"
-  },
-  {
-    "category": "03-janelas",
-    "file": "wonderfulactivity__15_wonderfulactivity.newgamebenifit.back.png",
-    "swf": "wonderfulactivity.swf",
-    "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
-    "sourceFile": "16_wonderfulactivity.newgamebenifit.back.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::15_wonderfulactivity.newgamebenifit.back.png)"
-  },
-  {
-    "category": "03-janelas",
-    "file": "wonderfulactivity__16_wonderfulactivity.conRank.bg.png",
-    "swf": "wonderfulactivity.swf",
-    "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
-    "sourceFile": "17_wonderfulactivity.conRank.bg.jpg",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::16_wonderfulactivity.conRank.bg.jpg)"
-  },
-  {
-    "category": "03-janelas",
-    "file": "wonderfulactivity__18_wonderful.accumulative.prizeBG.png",
-    "swf": "wonderfulactivity.swf",
-    "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
-    "sourceFile": "19_wonderful.accumulative.prizeBG.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::18_wonderful.accumulative.prizeBG.png)"
-  },
-  {
-    "category": "03-janelas",
-    "file": "wonderfulactivity__22_wonderfulactivity.getover.png",
-    "swf": "wonderfulactivity.swf",
-    "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
-    "sourceFile": "23_wonderfulactivity.getover.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::22_wonderfulactivity.getover.png)"
-  },
-  {
-    "category": "03-janelas",
-    "file": "wonderfulactivity__26_wonderfulactivity.tuanjie.back.png",
-    "swf": "wonderfulactivity.swf",
-    "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
-    "sourceFile": "27_wonderfulactivity.tuanjie.back.jpg",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::26_wonderfulactivity.tuanjie.back.jpg)"
-  },
-  {
-    "category": "03-janelas",
-    "file": "wonderfulactivity__29_wonderfulactivity.GodSyah.syahView.bg.png",
-    "swf": "wonderfulactivity.swf",
-    "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
-    "sourceFile": "31_wonderfulactivity.GodSyah.syahView.bg.jpg",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::29_wonderfulactivity.GodSyah.syahView.bg.jpg)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "wonderfulactivity__35_wonderfulactivity.rechargeTille3.png",
-    "swf": "wonderfulactivity.swf",
-    "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
-    "sourceFile": "37_wonderfulactivity.rechargeTille3.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::35_wonderfulactivity.rechargeTille3.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "wonderfulactivity__40_wonderful.accumulative.getPrize.png",
-    "swf": "wonderfulactivity.swf",
-    "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
-    "sourceFile": "43_wonderful.accumulative.getPrize.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::40_wonderful.accumulative.getPrize.png)"
-  },
-  {
-    "category": "03-janelas",
-    "file": "wonderfulactivity__4_wonderfulactivity.fighter.back.png",
-    "swf": "wonderfulactivity.swf",
-    "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
-    "sourceFile": "4_wonderfulactivity.fighter.back.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::4_wonderfulactivity.fighter.back.png)"
-  },
-  {
-    "category": "03-janelas",
-    "file": "wonderfulactivity__5_wonderfulactivity.powerBitmap.png",
-    "swf": "wonderfulactivity.swf",
-    "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
-    "sourceFile": "5_wonderfulactivity.powerBitmap.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::5_wonderfulactivity.powerBitmap.png)"
-  },
-  {
-    "category": "03-janelas",
-    "file": "wonderfulactivity__60_carnicalAct.bg.jpg",
-    "swf": "wonderfulactivity.swf",
-    "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
-    "sourceFile": "66_carnicalAct.bg.jpg",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::60_carnicalAct.bg.jpg)"
-  },
-  {
-    "category": "03-janelas",
-    "file": "wonderfulactivity__72_wonderfulactivity.levelBitmap.png",
-    "swf": "wonderfulactivity.swf",
-    "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
-    "sourceFile": "78_wonderfulactivity.levelBitmap.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::72_wonderfulactivity.levelBitmap.png)"
-  },
-  {
-    "category": "03-janelas",
-    "file": "wonderfulactivity__7_wonderfulactivity.hero.back.png",
-    "swf": "wonderfulactivity.swf",
-    "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
-    "sourceFile": "7_wonderfulactivity.hero.back.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::7_wonderfulactivity.hero.back.png)"
-  },
-  {
-    "category": "03-janelas",
-    "file": "wonderfulactivity__74_wonderful.sendGiftActivity.bg.png",
-    "swf": "wonderfulactivity.swf",
-    "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
-    "sourceFile": "80_wonderful.sendGiftActivity.bg.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::74_wonderful.sendGiftActivity.bg.png)"
-  },
-  {
-    "category": "04-botoes-titulos",
-    "file": "wonderfulactivity__78_wonderfulactivity.farme.btn.png",
-    "swf": "wonderfulactivity.swf",
-    "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
-    "sourceFile": "85_wonderfulactivity.farme.btn.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::78_wonderfulactivity.farme.btn.png)"
-  },
-  {
-    "category": "03-janelas",
-    "file": "wonderfulactivity__84_wonderful.accumulative.title.png",
-    "swf": "wonderfulactivity.swf",
-    "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
-    "sourceFile": "92_wonderful.accumulative.title.png",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::84_wonderful.accumulative.title.png)"
-  },
-  {
-    "category": "03-janelas",
-    "file": "wonderfulactivity__87_wonderfulactivity.farme.backgroud.png",
-    "swf": "wonderfulactivity.swf",
-    "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
-    "sourceFile": "95_wonderfulactivity.farme.backgroud.jpg",
-    "fit": "cover",
-    "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::87_wonderfulactivity.farme.backgroud.png)"
-  }
+ {
+  "category": "03-janelas",
+  "file": "academycommon__17_asset.academyCommon.RecommendPlayerCellView.masterHonor4.png",
+  "swf": "academycommon.swf",
+  "swfPath": "ui\\turkey\\swf\\academycommon.swf",
+  "sourceFile": "21_asset.academyCommon.RecommendPlayerCellView.masterHonor4.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, academycommon.swf::17_asset.academyCommon.RecommendPlayerCellView.masterHonor4.png)"
+ },
+ {
+  "category": "03-janelas",
+  "file": "activeevents__5_asset.activeEvents.iconGive.png",
+  "swf": "activeevents.swf",
+  "swfPath": "ui\\turkey\\swf\\activeevents.swf",
+  "sourceFile": "5_asset.activeEvents.iconGive.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, activeevents.swf::5_asset.activeEvents.iconGive.png)"
+ },
+ {
+  "category": "03-janelas",
+  "file": "activeevents__6_asset.activeEvents.iconContent.png",
+  "swf": "activeevents.swf",
+  "swfPath": "ui\\turkey\\swf\\activeevents.swf",
+  "sourceFile": "6_asset.activeEvents.iconContent.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, activeevents.swf::6_asset.activeEvents.iconContent.png)"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "chat1__22_asset.chat.ChannelState_Team.png",
+  "swf": "chat.swf",
+  "swfPath": "ui\\turkey\\swf\\chat.swf",
+  "sourceFile": "51_asset.chat.ChannelState_Team.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, chat1.swf::22_asset.chat.ChannelState_Team.png)"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "chat1__20_asset.chat.ChannelState_Private.png",
+  "swf": "chat.swf",
+  "swfPath": "ui\\turkey\\swf\\chat.swf",
+  "sourceFile": "53_asset.chat.ChannelState_Private.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, chat1.swf::20_asset.chat.ChannelState_Private.png)"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "chat1__19_asset.chat.ChannelState_Current.png",
+  "swf": "chat.swf",
+  "swfPath": "ui\\turkey\\swf\\chat.swf",
+  "sourceFile": "54_asset.chat.ChannelState_Current.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, chat1.swf::19_asset.chat.ChannelState_Current.png)"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "chat__63_asset.chat.ChannelState_BigBuggle.png",
+  "swf": "chat.swf",
+  "swfPath": "ui\\turkey\\swf\\chat.swf",
+  "sourceFile": "57_asset.chat.ChannelState_BigBuggle.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, chat.swf::63_asset.chat.ChannelState_BigBuggle.png)"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "chickactivation__14_assets.chickActivation.frameBtnSelected2.png",
+  "swf": "chickactivation.swf",
+  "swfPath": "ui\\turkey\\swf\\chickactivation.swf",
+  "sourceFile": "14_assets.chickActivation.frameBtnSelected2.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, chickactivation.swf::14_assets.chickActivation.frameBtnSelected2.png)"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "chickactivation__1_assets.chickActivation.selectAfterThreeDays.png",
+  "swf": "chickactivation.swf",
+  "swfPath": "ui\\turkey\\swf\\chickactivation.swf",
+  "sourceFile": "1_assets.chickActivation.selectAfterThreeDays.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, chickactivation.swf::1_assets.chickActivation.selectAfterThreeDays.png)"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "chickactivation__20_assets.chickActivation.unSelectLevelPacks.png",
+  "swf": "chickactivation.swf",
+  "swfPath": "ui\\turkey\\swf\\chickactivation.swf",
+  "sourceFile": "20_assets.chickActivation.unSelectLevelPacks.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, chickactivation.swf::20_assets.chickActivation.unSelectLevelPacks.png)"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "chickactivation__2_assets.chickActivation.unSelectAfterThreeDays.png",
+  "swf": "chickactivation.swf",
+  "swfPath": "ui\\turkey\\swf\\chickactivation.swf",
+  "sourceFile": "2_assets.chickActivation.unSelectAfterThreeDays.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, chickactivation.swf::2_assets.chickActivation.unSelectAfterThreeDays.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "chickactivation__5_assets.chickActivation.selectWeekly.png",
+  "swf": "chickactivation.swf",
+  "swfPath": "ui\\turkey\\swf\\chickactivation.swf",
+  "sourceFile": "5_assets.chickActivation.selectWeekly.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, chickactivation.swf::5_assets.chickActivation.selectWeekly.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "chickactivation__7_assets.chickActivation.selectEveryDay.png",
+  "swf": "chickactivation.swf",
+  "swfPath": "ui\\turkey\\swf\\chickactivation.swf",
+  "sourceFile": "7_assets.chickActivation.selectEveryDay.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, chickactivation.swf::7_assets.chickActivation.selectEveryDay.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "chickactivation__9_assets.chickActivation.receiveBtn.png",
+  "swf": "chickactivation.swf",
+  "swfPath": "ui\\turkey\\swf\\chickactivation.swf",
+  "sourceFile": "9_assets.chickActivation.receiveBtn.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, chickactivation.swf::9_assets.chickActivation.receiveBtn.png)"
+ },
+ {
+  "category": "05-icones",
+  "file": "churchroom__60_asset.church.room.fireBgAsset.png",
+  "swf": "churchroom.swf",
+  "swfPath": "ui\\turkey\\swf\\churchroom.swf",
+  "sourceFile": "49_asset.church.room.fireBgAsset.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, churchroom.swf::60_asset.church.room.fireBgAsset.png)"
+ },
+ {
+  "category": "05-icones",
+  "file": "churchroom__78_asset.church.room.FatherPaopao3.png",
+  "swf": "churchroom.swf",
+  "swfPath": "ui\\turkey\\swf\\churchroom.swf",
+  "sourceFile": "67_asset.church.room.FatherPaopao3.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, churchroom.swf::78_asset.church.room.FatherPaopao3.png)"
+ },
+ {
+  "category": "05-icones",
+  "file": "churchroom__85_asset.church.room.FatherPaopao18.png",
+  "swf": "churchroom.swf",
+  "swfPath": "ui\\turkey\\swf\\churchroom.swf",
+  "sourceFile": "74_asset.church.room.FatherPaopao18.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, churchroom.swf::85_asset.church.room.FatherPaopao18.png)"
+ },
+ {
+  "category": "05-icones",
+  "file": "churchroom__87_asset.church.room.FatherPaopao16.png",
+  "swf": "churchroom.swf",
+  "swfPath": "ui\\turkey\\swf\\churchroom.swf",
+  "sourceFile": "76_asset.church.room.FatherPaopao16.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, churchroom.swf::87_asset.church.room.FatherPaopao16.png)"
+ },
+ {
+  "category": "05-icones",
+  "file": "churchroom__89_asset.church.room.FatherPaopao14.png",
+  "swf": "churchroom.swf",
+  "swfPath": "ui\\turkey\\swf\\churchroom.swf",
+  "sourceFile": "78_asset.church.room.FatherPaopao14.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, churchroom.swf::89_asset.church.room.FatherPaopao14.png)"
+ },
+ {
+  "category": "03-janelas",
+  "file": "consortionii__130_asset.consortion.remainFrame.word.png",
+  "swf": "consortionii.swf",
+  "swfPath": "ui\\turkey\\swf\\consortionii.swf",
+  "sourceFile": "33_asset.consortion.remainFrame.word.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, consortionii.swf::130_asset.consortion.remainFrame.word.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "corei__196_asset.church.lookEquipAsset.png",
+  "swf": "ddtcorei.swf",
+  "swfPath": "ui\\turkey\\swf\\ddtcorei.swf",
+  "sourceFile": "79_asset.church.lookEquipAsset.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, corei.swf::196_asset.church.lookEquipAsset.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "core__3_asset.vote.oneAnswer.png",
+  "swf": "ddtcoreii.swf",
+  "swfPath": "ui\\turkey\\swf\\ddtcoreii.swf",
+  "sourceFile": "1_asset.vote.oneAnswer.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, core.swf::3_asset.vote.oneAnswer.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "coreii__96_microBlog.IssueBt.png",
+  "swf": "ddtcoreii.swf",
+  "swfPath": "ui\\turkey\\swf\\ddtcoreii.swf",
+  "sourceFile": "211_microBlog.IssueBt.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, coreii.swf::96_microBlog.IssueBt.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "core__211_asset.vote.mulAnswer.png",
+  "swf": "ddtcoreii.swf",
+  "swfPath": "ui\\turkey\\swf\\ddtcoreii.swf",
+  "sourceFile": "2_asset.vote.mulAnswer.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, core.swf::211_asset.vote.mulAnswer.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "corei__196_asset.church.lookEquipAsset.png",
+  "swf": "ddtcoreii.swf",
+  "swfPath": "ui\\turkey\\swf\\ddtcoreii.swf",
+  "sourceFile": "92_asset.church.lookEquipAsset.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, corei.swf::196_asset.church.lookEquipAsset.png)"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "effort__12_asset.Effort.item_03.png",
+  "swf": "ddteffort.swf",
+  "swfPath": "ui\\turkey\\swf\\ddteffort.swf",
+  "sourceFile": "15_asset.Effort.item_03.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, effort.swf::12_asset.Effort.item_03.png)"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "effort__13_asset.Effort.item_02.png",
+  "swf": "ddteffort.swf",
+  "swfPath": "ui\\turkey\\swf\\ddteffort.swf",
+  "sourceFile": "16_asset.Effort.item_02.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, effort.swf::13_asset.Effort.item_02.png)"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "effort__14_asset.Effort.item_01.png",
+  "swf": "ddteffort.swf",
+  "swfPath": "ui\\turkey\\swf\\ddteffort.swf",
+  "sourceFile": "17_asset.Effort.item_01.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, effort.swf::14_asset.Effort.item_01.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__11_assets.hallIcon.lanternriddlesIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "10_assets.hallIcon.lanternriddlesIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::11_assets.hallIcon.lanternriddlesIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__12_assets.hallIcon.entertainmentIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "11_assets.hallIcon.entertainmentIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::12_assets.hallIcon.entertainmentIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__18_assets.hallIcon.treasureLostIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "13_assets.hallIcon.treasureLostIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::18_assets.hallIcon.treasureLostIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__21_assets.hallIcon.rouletteGunIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "14_assets.hallIcon.rouletteGunIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::21_assets.hallIcon.rouletteGunIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__24_assets.hallIcon.chickActivationIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "15_assets.hallIcon.chickActivationIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::24_assets.hallIcon.chickActivationIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__25_assets.hallIconl.sanxiaoBtn.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "16_assets.hallIconl.sanxiaoBtn.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::25_assets.hallIconl.sanxiaoBtn.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__26_assets.hallIcon.limitActivityIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "17_assets.hallIcon.limitActivityIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::26_assets.hallIcon.limitActivityIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__28_asset.hall.consortia.task.btn.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "19_asset.hall.consortia.task.btn.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::28_asset.hall.consortia.task.btn.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__1_assets.hallIcon.worldBossEntrance_4.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "1_assets.hallIcon.worldBossEntrance_4.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::1_assets.hallIcon.worldBossEntrance_4.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__29_assets.hallIcon.kingDivisionIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "20_assets.hallIcon.kingDivisionIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::29_assets.hallIcon.kingDivisionIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__32_assets.hallIcon.luckStoneIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "21_assets.hallIcon.luckStoneIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::32_assets.hallIcon.luckStoneIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__39_assets.hallIcon.mysteriousRouletteIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "24_assets.hallIcon.mysteriousRouletteIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::39_assets.hallIcon.mysteriousRouletteIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__41_assets.hallIcon.syahIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "25_assets.hallIcon.syahIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::41_assets.hallIcon.syahIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__42_assets.hallIcon.horseRace.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "26_assets.hallIcon.horseRace.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::42_assets.hallIcon.horseRace.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__43_assets.hallIcon.petIsland.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "27_assets.hallIcon.petIsland.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::43_assets.hallIcon.petIsland.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__45_assets.hallIcon.redEnvelope.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "28_assets.hallIcon.redEnvelope.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::45_assets.hallIcon.redEnvelope.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__2_assets.hallIcon.catchInsect.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "2_assets.hallIcon.catchInsect.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::2_assets.hallIcon.catchInsect.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__48_assets.hallIcon.prayIndianaIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "30_assets.hallIcon.prayIndianaIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::48_assets.hallIcon.prayIndianaIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__49_assets.hallIcon.magpiebridge.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "31_assets.hallIcon.magpiebridge.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::49_assets.hallIcon.magpiebridge.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__51_assets.hallIcon.sevenDayTargetIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "32_assets.hallIcon.sevenDayTargetIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::51_assets.hallIcon.sevenDayTargetIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__55_assets.hallIcon.newYearRiceIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "34_assets.hallIcon.newYearRiceIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::55_assets.hallIcon.newYearRiceIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__58_assets.hallIcon.treasureHuntingIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "35_assets.hallIcon.treasureHuntingIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::58_assets.hallIcon.treasureHuntingIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__59_assets.hallIcon.leagueIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "36_assets.hallIcon.leagueIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::59_assets.hallIcon.leagueIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__63_assets.hallIcon.ringStationIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "37_assets.hallIcon.ringStationIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::63_assets.hallIcon.ringStationIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__64_assets.hallIcon.accumulativeLoginIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "38_assets.hallIcon.accumulativeLoginIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::64_assets.hallIcon.accumulativeLoginIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__65_assets.hallIcon.oldPlayerRegressIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "39_assets.hallIcon.oldPlayerRegressIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::65_assets.hallIcon.oldPlayerRegressIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__67_assets.hallIcon.fightFootballTimeIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "41_assets.hallIcon.fightFootballTimeIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::67_assets.hallIcon.fightFootballTimeIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__69_assets.hallIcon.rescue.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "42_assets.hallIcon.rescue.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::69_assets.hallIcon.rescue.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__70_assets.hallIcon.pyramidIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "43_assets.hallIcon.pyramidIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::70_assets.hallIcon.pyramidIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__75_assets.hallIcon.escortEntryIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "45_assets.hallIcon.escortEntryIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::75_assets.hallIcon.escortEntryIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__76_assets.hallIcon.lightRoadIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "46_assets.hallIcon.lightRoadIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::76_assets.hallIcon.lightRoadIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__78_assets.hallIcon.guildmemberweekIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "48_assets.hallIcon.guildmemberweekIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::78_assets.hallIcon.guildmemberweekIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__3_assets.hallIcon.worshipTheMoon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "4_assets.hallIcon.worshipTheMoon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::3_assets.hallIcon.worshipTheMoon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__91_assets.hallIcon.DDTMatch.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "54_assets.hallIcon.DDTMatch.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::91_assets.hallIcon.DDTMatch.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__94_asset.hall.draftIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "56_asset.hall.draftIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::94_asset.hall.draftIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__95_assets.hallIcon.panicBuyingIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "57_assets.hallIcon.panicBuyingIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::95_assets.hallIcon.panicBuyingIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__97_assets.hallIcon.DDPlayIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "58_assets.hallIcon.DDPlayIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::97_assets.hallIcon.DDPlayIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__4_assets.hallIcon.campIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "5_assets.hallIcon.campIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::4_assets.hallIcon.campIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__101_assets.hallIcon.godsRoadsIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "60_assets.hallIcon.godsRoadsIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::101_assets.hallIcon.godsRoadsIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__108_assets.hallIcon.happyRecharge.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "63_assets.hallIcon.happyRecharge.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::108_assets.hallIcon.happyRecharge.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__110_assets.hallIcon.growthPachageIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "64_assets.hallIcon.growthPachageIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::110_assets.hallIcon.growthPachageIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__111_assets.hallIcon.MemoryGameIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "65_assets.hallIcon.MemoryGameIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::111_assets.hallIcon.MemoryGameIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__112_assets.hallIcon.luckyStarIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "66_assets.hallIcon.luckyStarIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::112_assets.hallIcon.luckyStarIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__113_assets.hallIcon.superWinnerEntryIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "67_assets.hallIcon.superWinnerEntryIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::113_assets.hallIcon.superWinnerEntryIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__115_assets.hallIcon.buriedIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "68_assets.hallIcon.buriedIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::115_assets.hallIcon.buriedIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__116_assets.hallIcon.newChickenBoxIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "69_assets.hallIcon.newChickenBoxIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::116_assets.hallIcon.newChickenBoxIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__7_assets.hallIcon.battleIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "6_assets.hallIcon.battleIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::7_assets.hallIcon.battleIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__117_assets.hallIcon.littleGameNoteIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "70_assets.hallIcon.littleGameNoteIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::117_assets.hallIcon.littleGameNoteIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__118_assets.hallIcon.boguAdventureIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "71_assets.hallIcon.boguAdventureIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::118_assets.hallIcon.boguAdventureIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__8_assets.hallIcon.zodiacIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "7_assets.hallIcon.zodiacIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::8_assets.hallIcon.zodiacIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__9_assets.hallIcon.cloudbuylotteryIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "8_assets.hallIcon.cloudbuylotteryIcon.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::9_assets.hallIcon.cloudbuylotteryIcon.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "ddthallicon__10_assets.hallIcon.worldBossEntrance_1.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "9_assets.hallIcon.worldBossEntrance_1.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, ddthallicon.swf::10_assets.hallIcon.worldBossEntrance_1.png)"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "trainer__4_asset.trainer.ghostTip.png",
+  "swf": "ddttrainer.swf",
+  "swfPath": "ui\\turkey\\swf\\ddttrainer.swf",
+  "sourceFile": "4_asset.trainer.ghostTip.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, trainer.swf::4_asset.trainer.ghostTip.png)"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "enthrall__2_asset.core.view.enthrall.ValidateFrameBG.png",
+  "swf": "enthrall.swf",
+  "swfPath": "ui\\turkey\\swf\\enthrall.swf",
+  "sourceFile": "2_asset.core.view.enthrall.ValidateFrameBG.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, enthrall.swf::2_asset.core.view.enthrall.ValidateFrameBG.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "coreiconandtip__32_asset.core.tip.hp.png",
+  "swf": "firstcore.swf",
+  "swfPath": "ui\\turkey\\swf\\firstcore.swf",
+  "sourceFile": "81_asset.core.tip.hp.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, coreiconandtip.swf::32_asset.core.tip.hp.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "coreiconandtip__28_asset.core.tip.GoodsType.png",
+  "swf": "firstcore.swf",
+  "swfPath": "ui\\turkey\\swf\\firstcore.swf",
+  "sourceFile": "82_asset.core.tip.GoodsType.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, coreiconandtip.swf::28_asset.core.tip.GoodsType.png)"
+ },
+ {
+  "category": "03-janelas",
+  "file": "gameover__63_asset.experience.exploitExpItemTxt_a0.png",
+  "swf": "gameover.swf",
+  "swfPath": "ui\\turkey\\swf\\gameover.swf",
+  "sourceFile": "78_asset.experience.exploitExpItemTxt_a0.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, gameover.swf::63_asset.experience.exploitExpItemTxt_a0.png)"
+ },
+ {
+  "category": "03-janelas",
+  "file": "newtitle__2_asset.newTitle.useBtn.png",
+  "swf": "newtitle.swf",
+  "swfPath": "ui\\turkey\\swf\\newtitle.swf",
+  "sourceFile": "2_asset.newTitle.useBtn.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, newtitle.swf::2_asset.newTitle.useBtn.png)"
+ },
+ {
+  "category": "02-lobby-hall",
+  "file": "toolbar__12_asset.toolbar.dailyBtnAsset.png",
+  "swf": "toolbar.swf",
+  "swfPath": "ui\\turkey\\swf\\toolbar.swf",
+  "sourceFile": "48_asset.toolbar.dailyBtnAsset.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, toolbar.swf::12_asset.toolbar.dailyBtnAsset.png)"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "totem__8_asset.totem.infoView.levelBg.png",
+  "swf": "totem.swf",
+  "swfPath": "ui\\turkey\\swf\\totem.swf",
+  "sourceFile": "8_asset.totem.infoView.levelBg.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, totem.swf::8_asset.totem.infoView.levelBg.png)"
+ },
+ {
+  "category": "06-combate-outros",
+  "file": "trainer__4_asset.trainer.ghostTip.png",
+  "swf": "trainer.swf",
+  "swfPath": "ui\\turkey\\swf\\trainer.swf",
+  "sourceFile": "2_asset.trainer.ghostTip.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, trainer.swf::4_asset.trainer.ghostTip.png)"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__15_wonderfulactivity.newgamebenifit.back.png",
+  "swf": "wonderfulactivity.swf",
+  "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
+  "sourceFile": "16_wonderfulactivity.newgamebenifit.back.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::15_wonderfulactivity.newgamebenifit.back.png)"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__16_wonderfulactivity.conRank.bg.png",
+  "swf": "wonderfulactivity.swf",
+  "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
+  "sourceFile": "17_wonderfulactivity.conRank.bg.jpg",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::16_wonderfulactivity.conRank.bg.jpg)"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__18_wonderful.accumulative.prizeBG.png",
+  "swf": "wonderfulactivity.swf",
+  "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
+  "sourceFile": "19_wonderful.accumulative.prizeBG.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::18_wonderful.accumulative.prizeBG.png)"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__22_wonderfulactivity.getover.png",
+  "swf": "wonderfulactivity.swf",
+  "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
+  "sourceFile": "23_wonderfulactivity.getover.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::22_wonderfulactivity.getover.png)"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__26_wonderfulactivity.tuanjie.back.png",
+  "swf": "wonderfulactivity.swf",
+  "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
+  "sourceFile": "27_wonderfulactivity.tuanjie.back.jpg",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::26_wonderfulactivity.tuanjie.back.jpg)"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__29_wonderfulactivity.GodSyah.syahView.bg.png",
+  "swf": "wonderfulactivity.swf",
+  "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
+  "sourceFile": "31_wonderfulactivity.GodSyah.syahView.bg.jpg",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::29_wonderfulactivity.GodSyah.syahView.bg.jpg)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__35_wonderfulactivity.rechargeTille3.png",
+  "swf": "wonderfulactivity.swf",
+  "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
+  "sourceFile": "37_wonderfulactivity.rechargeTille3.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::35_wonderfulactivity.rechargeTille3.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__40_wonderful.accumulative.getPrize.png",
+  "swf": "wonderfulactivity.swf",
+  "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
+  "sourceFile": "43_wonderful.accumulative.getPrize.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::40_wonderful.accumulative.getPrize.png)"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__4_wonderfulactivity.fighter.back.png",
+  "swf": "wonderfulactivity.swf",
+  "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
+  "sourceFile": "4_wonderfulactivity.fighter.back.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::4_wonderfulactivity.fighter.back.png)"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__5_wonderfulactivity.powerBitmap.png",
+  "swf": "wonderfulactivity.swf",
+  "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
+  "sourceFile": "5_wonderfulactivity.powerBitmap.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::5_wonderfulactivity.powerBitmap.png)"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__60_carnicalAct.bg.jpg",
+  "swf": "wonderfulactivity.swf",
+  "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
+  "sourceFile": "66_carnicalAct.bg.jpg",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::60_carnicalAct.bg.jpg)"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__72_wonderfulactivity.levelBitmap.png",
+  "swf": "wonderfulactivity.swf",
+  "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
+  "sourceFile": "78_wonderfulactivity.levelBitmap.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::72_wonderfulactivity.levelBitmap.png)"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__7_wonderfulactivity.hero.back.png",
+  "swf": "wonderfulactivity.swf",
+  "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
+  "sourceFile": "7_wonderfulactivity.hero.back.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::7_wonderfulactivity.hero.back.png)"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__74_wonderful.sendGiftActivity.bg.png",
+  "swf": "wonderfulactivity.swf",
+  "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
+  "sourceFile": "80_wonderful.sendGiftActivity.bg.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::74_wonderful.sendGiftActivity.bg.png)"
+ },
+ {
+  "category": "04-botoes-titulos",
+  "file": "wonderfulactivity__78_wonderfulactivity.farme.btn.png",
+  "swf": "wonderfulactivity.swf",
+  "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
+  "sourceFile": "85_wonderfulactivity.farme.btn.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::78_wonderfulactivity.farme.btn.png)"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__84_wonderful.accumulative.title.png",
+  "swf": "wonderfulactivity.swf",
+  "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
+  "sourceFile": "92_wonderful.accumulative.title.png",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::84_wonderful.accumulative.title.png)"
+ },
+ {
+  "category": "03-janelas",
+  "file": "wonderfulactivity__87_wonderfulactivity.farme.backgroud.png",
+  "swf": "wonderfulactivity.swf",
+  "swfPath": "ui\\turkey\\swf\\wonderfulactivity.swf",
+  "sourceFile": "95_wonderfulactivity.farme.backgroud.jpg",
+  "fit": "cover",
+  "note": "reuso direto do 4.1 (symbol, wonderfulactivity.swf::87_wonderfulactivity.farme.backgroud.png)"
+ },
+ {
+  "category": "06-janelas-p1",
+  "file": "boguadventure__1_boguAdventure.tool.reset.png",
+  "swf": "boguadventure.swf",
+  "swfPath": "ui\\turkey\\swf\\boguadventure.swf",
+  "sourceFile": "1_boguAdventure.tool.reset.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "06-janelas-p1",
+  "file": "boguadventure__5_boguAdventure.tool.findMine.png",
+  "swf": "boguadventure.swf",
+  "swfPath": "ui\\turkey\\swf\\boguadventure.swf",
+  "sourceFile": "5_boguAdventure.tool.findMine.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "06-janelas-p1",
+  "file": "consortionii__2_magichouse.treasure.stateChangeBtn.png",
+  "swf": "consortionii.swf",
+  "swfPath": "ui\\turkey\\swf\\consortionii.swf",
+  "sourceFile": "2_magichouse.treasure.stateChangeBtn.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "06-janelas-p1",
+  "file": "consortionii__33_asset.consortion.remainFrame.word.png",
+  "swf": "consortionii.swf",
+  "swfPath": "ui\\turkey\\swf\\consortionii.swf",
+  "sourceFile": "33_asset.consortion.remainFrame.word.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "05-atividade-diaria",
+  "file": "dayactivity__36.png",
+  "swf": "dayactivity.swf",
+  "swfPath": "ui\\turkey\\swf\\dayactivity.swf",
+  "sourceFile": "36.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__116.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "116.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__11_assets.hallIcon.entertainmentIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "11_assets.hallIcon.entertainmentIcon.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__132.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "132.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__138.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "138.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__13_assets.hallIcon.treasureLostIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "13_assets.hallIcon.treasureLostIcon.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__14_assets.hallIcon.rouletteGunIcon.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "14_assets.hallIcon.rouletteGunIcon.png",
+  "fit": "cover",
+  "review": "v45"
+ },
+ {
+  "category": "02-hall-icons",
+  "file": "ddthallicon__16_assets.hallIconl.sanxiaoBtn.png",
+  "swf": "ddthallicon.swf",
+  "swfPath": "ui\\turkey\\swf\\ddthallicon.swf",
+  "sourceFile": "16_assets.hallIconl.sanxiaoBtn.png",
+  "fit": "cover",
+  "review": "v45"
+ }
 ]
