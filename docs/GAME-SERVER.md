@@ -150,10 +150,66 @@ Pub/sub mínimo entre processos `apps/game` ("canais"), em `apps/game/src/bus/`:
   configurar. Dev local (`scripts/dev.mjs CHANNELS=...`): os processos extras herdam `process.env`, então um
   `REDIS_URL` no `.env` carregado pelo processo principal também propaga.
 
-### O que ainda não funciona com 2+ canais (depois de `ch-bus`)
+### `ch-eventos`: boss mundial compartilhado + liga/eventos agendados + aviso de admin entre canais
 
-- **Eventos globais coordenados (boss mundial, liga, King Division entre canais)** — cada canal roda seu
-  próprio `EventScheduler`/`EventsRuntime` independente. Fila: `ch-eventos`.
+Em cima do `ch-bus` acima, falta coordenar o que o `Center.Crosszone.Server` original fazia como
+`ActiveEvent`/`SystemNotice`/broadcast administrativo (`research/6600/crosszone.md`) — mas só onde existe
+estado MUTÁVEL de verdade compartilhado entre canais; onde não existe, cada canal já resolve sozinho sem
+precisar de líder nenhum:
+
+- **Boss mundial (HP/ranking compartilhado)** — o único sistema desta tarefa com um contador mutável que
+  TODOS os canais precisam ver igual (HP restante, ranking de dano). `bus/leader.ts` (`wireLeaderElection`)
+  elege uma autoridade por gossip ("hello" a cada canal anuncia o próprio `SERVER_ID`; quem recebe um hello
+  novo responde na hora, convergindo em 1-2 saltos do barramento): **líder = menor `SERVER_ID` entre os
+  canais vistos vivos nos últimos 15s** — a opção simples que o dono pediu em vez de lock distribuído no
+  Postgres, porque `claimOnce` (`game/events.ts`, chave única no Postgres) já garante que o prêmio/kill nunca
+  duplica mesmo que por um instante 2 canais se considerem líder ao mesmo tempo; esta eleição só precisa ser
+  "boa o suficiente", não um consenso rígido.
+  - Só o LÍDER decrementa `blood`/atualiza `rank` de verdade (`handlers/eventos/boss-mundial.ts
+    applyBossDamage`, chamado por `worldBossDamage` quando `ctx.leader.isLeader()`); um canal SEGUIDOR nunca
+    decrementa o próprio HP — `worldBossDamage` só repassa o dano pro líder via barramento
+    (`ctx.crossChannel.bossDamage`, `ch:boss:damage`) e espera o líder replicar o novo estado de volta
+    (`ctx.crossChannel.bossSync`, `ch:boss:sync` → `mirrorBossSync`).
+  - `handlers/eventos/agendador.ts` (`EventsRuntime.onStart`/`onEnd`, kind `worldboss`) só executa a abertura
+    (HP cheio, limpa ranking) e o fechamento (paga ranking, uma vez — `finishWorldBoss`) de verdade quando
+    `ctx.leader.isLeader()`; um seguidor pula esse bloco (o próprio `EventScheduler` dele continua tickando a
+    MESMA janela, computada do mesmo `app."ScheduledEvents"` + relógio, só que o corpo do hook não faz nada) e
+    espelha via `ch:boss:open`/`ch:boss:close` (`mirrorBossOpen`/`mirrorBossClose`) quando a mensagem do líder
+    chegar.
+  - **Prêmio pro ganhador que está logado num canal diferente do líder**: `finishWorldBoss` tenta
+    `ctx.world.get(userId)` local primeiro (igual sempre); se não achar, tenta
+    `ctx.crossChannel.deliverReward(userId, rewards, title)` (mesmo padrão do `whisper` — pergunta pros outros
+    canais, espera um ack curto) antes de cair no fallback só-moeda direto no banco (`offlineCurrency`, pra
+    quando o jogador não está online em canal nenhum).
+  - Teste: `test/ch-eventos.test.ts` ("boss mundial compartilhado entre canais") — dano em AMBOS os canais
+    reduz o MESMO HP, e o ranking só paga uma vez mesmo com o 1º lugar logado no canal seguidor.
+- **Liga / outros eventos agendados sem contador mutável (double exp/gold, elite, weekly_reset)** — **não
+  precisam de líder**: cada canal continua tickando o PRÓPRIO `EventScheduler` contra o mesmo
+  `app."ScheduledEvents"` + o mesmo relógio (sem mudança nesta tarefa), então todos abrem a MESMA janela (mesma
+  chave determinística `<eventId>@<startISO>`) e notificam os PRÓPRIOS jogadores locais ao mesmo tempo — é
+  assim que "um evento só" já aparecia pro jogador antes desta tarefa. O que precisa ser "uma vez só" por
+  jogador (ex. `weekly_reset`: zera semana da sociedade/liga) já era garantido por `claimOnce`
+  (Postgres compartilhado) mesmo com N canais tickando ao mesmo tempo — testado em `events.test.ts` (1 canal)
+  e de novo entre 2 canais em `test/ch-eventos.test.ts` ("evento agendado comum (liga)"). Forçar isto por um
+  líder também traria uma regressão real: `expRate()`/`scheduler.rate()` são lidos LOCALMENTE em todo fight
+  (XP/ouro em dobro) — um seguidor sem o próprio scheduler tickando perderia o bônus x2 pros jogadores dele.
+- **Aviso de admin (`POST /broadcast` no canal interno, `admin/http.ts`)** — o canal que recebeu o POST já
+  manda local (igual sempre) e agora também replica pros outros via `ctx.crossChannel.systemNotice`
+  (`ch:system-notice`, no-op sem barramento ativo). `apps/api` ganhou `POST /api/admin/broadcast`
+  (`apps/api/src/routes/admin.ts`) que só precisa falar com o canal LOCAL (`GAME_INTERNAL_URL`) — alcançar os
+  outros é responsabilidade do `apps/game`, não do `apps/api` (diferente de `events/start`/`events/stop`/
+  `reload-templates`, que ainda só atingem o canal local — gap não resolvido por esta tarefa). Teste:
+  `test/ch-eventos.test.ts` ("aviso de admin").
+- **Failover do líder do boss mundial**: se o canal líder cair, os outros só reclassificam depois de ~15s sem
+  ver o "hello" dele (`bus/leader.ts`) — até lá, dano repassado por um seguidor fica sem resposta (sem travar
+  nada, só sem efeito) até o timeout da eleição. Quando o novo líder assume, ele usa o estado que já tinha
+  espelhado (`rt.boss` populado pelo último `ch:boss:sync`/`ch:boss:open` do líder antigo) como ponto de
+  partida — pode ficar levemente desatualizado no instante da troca, mas converge no próximo dano/sync.
+
+### O que ainda não funciona com 2+ canais (depois de `ch-bus`/`ch-eventos`)
+
+- **King Division / GvG entre canais** — fora de escopo (decisão em `research/6600/crosszone.md`: matchmaking
+  local normal quando chegar a vez, M3/M4), não é "boss mundial" nem precisa do líder desta tarefa.
 - **Trocar de canal sem relogar** — cada canal é uma conexão TCP/WS separada; hoje é sempre reconectar. Fila:
   `ch-troca`.
 - **WebSocket dos canais extras sem TLS/Caddy** — o canal local continua `wss://` via Caddy; o `WsUrl` que

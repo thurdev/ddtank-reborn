@@ -16,7 +16,7 @@ import { EventData, claimOnce, dayKey, grantRewards, updateRecords, weekKey, typ
 import { EventScheduler, loadScheduledEvents, nextStart, type ActiveWindow, type ScheduledEvent } from "../../game/scheduler.js";
 import * as Out from "../../packets/out.js";
 import { mailItems } from "../bolsa/correio-excedente.js";
-import { finishWorldBoss, worldBossOpen, type WorldBossState } from "./boss-mundial.js";
+import { finishWorldBoss, rankList, worldBossOpen, type WorldBossState } from "./boss-mundial.js";
 import { eliteStatusPkt } from "./liga-elite.js";
 import { settleGuildWeek, settlePollWeek } from "../sociedade/index.js";
 
@@ -97,6 +97,12 @@ export class EventsRuntime {
     const prm = w.ev.params;
     switch (w.ev.kind) {
       case "worldboss": {
+        // ch-eventos: só o líder abre a janela de verdade — o HP/ranking compartilhado é autoridade dele
+        // (handlers/eventos/boss-mundial.ts worldBossDamage/applyBossDamage, bus/leader.ts). Um canal seguidor
+        // nunca entra aqui (espelha via `ch:boss:open`/`mirrorBossOpen` quando a mensagem do líder chegar,
+        // bus/cross-channel.ts) — mesmo que o seguidor também tenha essa MESMA janela "aberta" no próprio
+        // scheduler local (computada do mesmo app.ScheduledEvents+relógio, só pra bookkeeping de start/end).
+        if (!this.ctx.leader.isLeader()) break;
         const b = this.boss;
         b.window = w;
         b.name = String(prm.name ?? "Dragão Divino");
@@ -106,8 +112,10 @@ export class EventsRuntime {
         b.blood = b.maxBlood;
         b.players.clear();
         b.rank.clear();
+        const notice = String(prm.notice ?? `Boss mundial ${b.name} apareceu! Entre pelo ícone no hall.`);
         this.broadcast((p) => worldBossOpen(this, p));
-        this.broadcast(Out.message(1, String(prm.notice ?? `Boss mundial ${b.name} apareceu! Entre pelo ícone no hall.`)));
+        this.broadcast(Out.message(1, notice));
+        this.ctx.crossChannel.bossOpen({ name: b.name, resourceId: b.resourceId, pveId: b.pveId, maxBlood: b.maxBlood, blood: b.blood, startMs: w.start.getTime(), endMs: w.end.getTime(), key: w.key, notice });
         break;
       }
       case "league":
@@ -132,9 +140,17 @@ export class EventsRuntime {
 
   async onEnd(w: ActiveWindow): Promise<void> {
     switch (w.ev.kind) {
-      case "worldboss":
+      case "worldboss": {
+        // ch-eventos: só o líder fecha/paga de verdade (uma vez só, ver finishWorldBoss); um seguidor nunca
+        // chegou a abrir localmente (break acima no onStart), então não tem nada seu pra fechar — o
+        // `ch:boss:close`/`mirrorBossClose` (bus/cross-channel.ts) é quem limpa o espelho dele quando a
+        // mensagem do líder chegar.
+        if (!this.ctx.leader.isLeader()) break;
+        const rankTop = rankList(this).slice(0, 10);
         await finishWorldBoss(this.ctx, this, w);
+        this.ctx.crossChannel.bossClose(rankTop);
         break;
+      }
       case "league":
         this.leagueOpen = false;
         this.broadcast((p) => Out.leagueNotice(p.id, p.match.restCount ?? 0, 0, 2));

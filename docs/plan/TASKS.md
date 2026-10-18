@@ -124,7 +124,21 @@ Como rodar um 2º canal hoje (sem `ch-processo`/`ch-bus`): [GAME-SERVER.md §Can
   pedido — mesmo padrão de `ctx.crossChannel`, só um tópico novo, se vier a ser pedido). Ver
   `docs/GAME-SERVER.md` "Canais" §"ch-bus".
 - [ ] **ch-troca** — trocar de canal sem relogar.
-- [ ] **ch-eventos** — eventos globais (boss mundial, liga) coordenados entre canais.
+- [x] **ch-eventos** (2026-10-18) — boss mundial com HP/ranking COMPARTILHADO entre canais: líder = menor
+  `SERVER_ID` entre os canais vistos vivos (`apps/game/src/bus/leader.ts wireLeaderElection`, gossip por
+  "hello", sem lock no Postgres — `claimOnce` já cobre o split-brain curto); só o líder decrementa `blood`/
+  ranking de verdade (`handlers/eventos/boss-mundial.ts applyBossDamage`), um seguidor repassa o dano
+  (`ctx.crossChannel.bossDamage`) e espelha o estado que o líder replica (`bossSync`/`bossOpen`/`bossClose`);
+  prêmio pro ganhador logado num canal diferente do líder atravessa canal (`ctx.crossChannel.deliverReward`,
+  mesmo padrão do `whisper` do `ch-bus`). Liga/elite/double exp-gold/weekly_reset NÃO precisam de líder — cada
+  canal já tickava o próprio `EventScheduler` contra o mesmo `app."ScheduledEvents"` + relógio (mesma janela,
+  mesma chave) e `claimOnce` já garantia "uma vez por jogador"; forçar um líder ali regrediria o x2 local
+  (`scheduler.rate()` lido por fight em cada canal). Aviso de admin (`POST /broadcast`) agora replica pros
+  outros canais (`ctx.crossChannel.systemNotice`) + `apps/api` ganhou `POST /api/admin/broadcast`. Teste:
+  `apps/game/test/ch-eventos.test.ts` (2 `GameServer` em processo com `createMemoryBus`, igual `ch-bus.test.ts`):
+  dano nos dois canais reduz o MESMO HP e paga uma vez só mesmo com o ganhador no seguidor; liga abre a mesma
+  janela nos dois; aviso de admin chega nos dois. Testes de 1 canal só continuam iguais (NoopBus = sempre
+  líder, caminho síncrono de antes). Ver `docs/GAME-SERVER.md` "Canais" § `ch-eventos`. Falta: `ch-troca`.
 
 ## 3. Pix (doação, sem pay-to-win)
 - [ ] **pix-provedor** — escolher provedor (Pix direto via PSP com webhook) e documentar; chaves só em `.env`.

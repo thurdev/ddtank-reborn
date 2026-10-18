@@ -12,6 +12,7 @@ import type { LanguageMgr } from "../util/lang.js";
 import type { Logger } from "../util/log.js";
 import type { Bus } from "../bus/index.js";
 import type { CrossChannel } from "../bus/cross-channel.js";
+import type { LeaderElection } from "../bus/leader.js";
 
 /** Validates the socket LOGIN "user,password" (password = tempPwd issued by Login.ashx, see apps/api README). */
 export interface TicketValidator {
@@ -74,6 +75,9 @@ export interface ServerContext {
   /** ch-bus: login único / chat mundial / sussurro / presença entre canais, construído sobre `bus`
    *  (bus/cross-channel.ts wireCrossChannel, chamado 1x em GameServer.start()). */
   crossChannel: CrossChannel;
+  /** ch-eventos: qual canal é a autoridade do boss mundial agora (bus/leader.ts wireLeaderElection, chamado
+   *  1x em GameServer.start() antes de wireCrossChannel). Sem barramento ativo é sempre true (canal único). */
+  leader: LeaderElection;
   /** Optional hook (admin channel) to disconnect a client: returns true if kicked. */
   now(): Date;
 }

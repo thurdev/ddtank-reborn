@@ -13,6 +13,7 @@ import { Templates, heartbeat, upsertServer } from "./db/templates.js";
 import { resetAllOnline } from "./db/characters.js";
 import { createBus, type Bus } from "./bus/index.js";
 import { wireCrossChannel } from "./bus/cross-channel.js";
+import { wireLeaderElection } from "./bus/leader.js";
 import { createRegistry } from "./handlers/index.js";
 import type { HandlerRegistry } from "./handlers/registry.js";
 import { checkMissingHeartbeat } from "./handlers/basico/index.js";
@@ -234,8 +235,10 @@ export class GameServer {
       newHall: new NewHallRoom(),
       tickets: this.opts.tickets ?? dbTicketValidator(db, cfg.DEV_ALLOW_ANY_TICKET),
       now: () => new Date(),
-      crossChannel: undefined as never, // set right below: wireCrossChannel precisa do ctx já montado
+      leader: undefined as never, // set right below: wireLeaderElection precisa do ctx já montado
+      crossChannel: undefined as never, // idem: wireCrossChannel usa ctx.leader (ch-eventos: boss mundial)
     };
+    this.ctx.leader = wireLeaderElection(this.ctx);
     this.ctx.crossChannel = wireCrossChannel(this.ctx);
     this.handlers = createRegistry();
     await resetAllOnline(db.db, cfg.SERVER_ID).catch(() => {});
@@ -352,6 +355,9 @@ export class GameServer {
         const pkt = Out.message(type, msg);
         const all = this.ctx.world.all();
         for (const p of all) p.send(pkt);
+        // ch-eventos: replica pros outros canais (bus/cross-channel.ts systemNotice, no-op sem barramento
+        // ativo) — apps/api só precisa falar com o canal LOCAL (GAME_INTERNAL_URL), o resto é aqui.
+        this.ctx.crossChannel.systemNotice(msg, type);
         return all.length;
       },
       kick: async (tgt: { userId?: number; nick?: string }, msg: string) => {
@@ -409,6 +415,7 @@ export class GameServer {
       new Promise((r) => (this.admin ? this.admin.close(r) : r(null))),
     ]);
     this.ctx?.crossChannel.close();
+    this.ctx?.leader.close();
     // Só fecha o bus se este GameServer criou (não é um bus de teste compartilhado entre vários GameServer).
     if (this.ctx && !this.opts.bus) await this.ctx.bus.close().catch(() => {});
     if (this.ownsDb) await this.ctx.db.close();

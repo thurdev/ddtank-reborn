@@ -63,7 +63,7 @@ export function worldBossOpen(rt: EventsRuntime, p_: GamePlayer): GSPacket {
   return p;
 }
 
-function rankList(rt: EventsRuntime): { id: number; nick: string; damage: number }[] {
+export function rankList(rt: EventsRuntime): { id: number; nick: string; damage: number }[] {
   return [...rt.boss.rank.entries()].map(([id, r]) => ({ id, nick: r.nick, damage: r.damage })).sort((a, b) => b.damage - a.damage);
 }
 
@@ -77,25 +77,113 @@ function worldBossRanking(rt: EventsRuntime, final: boolean): GSPacket {
   return p;
 }
 
-/** Called by the fight layer (or tests) with the damage a player dealt to the world boss (BaseWorldBossRoom.ReduceBlood + UpdateRank). */
+/**
+ * Called by the fight layer (or tests) with the damage a player dealt to the world boss (BaseWorldBossRoom.ReduceBlood
+ * + UpdateRank). ch-eventos: a autoridade do HP/ranking compartilhado é o canal LÍDER (`ctx.leader`,
+ * `bus/leader.ts`) — um canal seguidor nunca decrementa o próprio `blood` direto, só repassa o pedido pro líder
+ * via barramento (`ctx.crossChannel.bossDamage`) e espera o `ch:boss:sync` (bus/cross-channel.ts) espelhar o
+ * valor novo de volta (`mirrorBossSync` abaixo). Sem barramento ativo (NoopBus/canal único) este canal É o
+ * líder sempre (`bus/leader.ts wireLeaderElection`), então o caminho é idêntico a antes desta tarefa: aplica
+ * direto, síncrono, sem round-trip nenhum.
+ */
 export function worldBossDamage(ctx: ServerContext, p: GamePlayer, damage: number): void {
+  if (!ctx.leader.isLeader()) {
+    ctx.crossChannel.bossDamage(p.id, p.info.NickName ?? "", damage);
+    return;
+  }
+  applyBossDamage(ctx, p.id, p.info.NickName ?? "", damage);
+}
+
+/**
+ * Aplicação autoritativa do dano — só roda no líder (direto, ou atendendo um `ch:boss:damage` repassado por um
+ * seguidor, ver `bus/cross-channel.ts`). Único lugar que de fato decrementa `blood`/atualiza `rank`; notifica os
+ * jogadores da sala NESTE canal (igual sempre) e replica o estado novo pros outros canais
+ * (`ctx.crossChannel.bossSync`, no-op sem barramento ativo — single-channel continua idêntico a antes).
+ */
+export function applyBossDamage(ctx: ServerContext, userId: number, nick: string, damage: number): void {
   const rt = eventsRuntime(ctx);
   const b = rt.boss;
   if (!b.window || damage <= 0 || b.blood <= 0) return;
   const dealt = Math.min(damage, b.blood);
   b.blood -= dealt;
-  const r = b.rank.get(p.id) ?? { nick: p.info.NickName ?? "", damage: 0, honor: 0 };
+  const r = b.rank.get(userId) ?? { nick, damage: 0, honor: 0 };
   r.damage += dealt;
   r.honor += Math.floor(dealt / 1000);
-  b.rank.set(p.id, r);
+  b.rank.set(userId, r);
   const up = new GSPacket(102);
   up.writeByte(5); up.writeBoolean(false); up.writeInt(b.maxBlood); up.writeInt(b.blood);
   for (const id of b.players.keys()) ctx.world.get(id)?.send(up);
-  if (b.blood <= 0) {
+  const defeated = b.blood <= 0;
+  if (defeated) {
     const over = new GSPacket(102);
     over.writeByte(8); over.writeBoolean(true);
     for (const pl of ctx.world.all()) pl.send(over);
   }
+  ctx.crossChannel.bossSync({ blood: b.blood, maxBlood: b.maxBlood, defeated, rankTop: rankList(rt).slice(0, 10) });
+}
+
+/** ch-eventos: snapshot que o líder manda pra um canal seguidor espelhar a abertura da janela (`ch:boss:open`). */
+export interface BossOpenSnapshot {
+  name: string; resourceId: string; pveId: number; maxBlood: number; blood: number;
+  startMs: number; endMs: number; key: string; notice: string;
+}
+/** ch-eventos: snapshot que o líder manda depois de aplicar um dano (seu ou repassado) — `ch:boss:sync`. */
+export interface BossSyncSnapshot {
+  blood: number; maxBlood: number; defeated: boolean;
+  rankTop: { id: number; nick: string; damage: number }[];
+}
+
+/** ch-eventos: espelha num canal SEGUIDOR o estado que o líder acabou de replicar (`ch:boss:sync`). */
+export function mirrorBossSync(ctx: ServerContext, snap: BossSyncSnapshot): void {
+  const rt = eventsRuntime(ctx);
+  const b = rt.boss;
+  if (!b.window) return; // ainda não espelhamos o open (corrida bem rara) — o próximo ch:boss:open já traz o estado certo
+  b.blood = snap.blood;
+  b.maxBlood = snap.maxBlood;
+  b.rank = new Map(snap.rankTop.map((r) => [r.id, { nick: r.nick, damage: r.damage, honor: 0 }]));
+  const up = new GSPacket(102);
+  up.writeByte(5); up.writeBoolean(false); up.writeInt(b.maxBlood); up.writeInt(b.blood);
+  for (const id of b.players.keys()) ctx.world.get(id)?.send(up);
+  if (snap.defeated) {
+    const over = new GSPacket(102);
+    over.writeByte(8); over.writeBoolean(true);
+    for (const pl of ctx.world.all()) pl.send(over);
+  }
+}
+
+/** ch-eventos: espelha num canal SEGUIDOR a abertura que o líder decidiu de verdade (`ch:boss:open`). */
+export function mirrorBossOpen(ctx: ServerContext, snap: BossOpenSnapshot): void {
+  const rt = eventsRuntime(ctx);
+  const b = rt.boss;
+  b.name = snap.name; b.resourceId = snap.resourceId; b.pveId = snap.pveId;
+  b.maxBlood = snap.maxBlood; b.blood = snap.blood;
+  b.players.clear(); b.rank.clear();
+  // Janela sintética: só pro `!!b.window`/datas do pacote 0 OPEN (worldBossOpen) e pro status() — quem de fato
+  // tickou o scheduler contra app.ScheduledEvents foi o líder; este canal só espelha o resultado.
+  b.window = {
+    ev: { id: 0, kind: "worldboss", title: "", enabled: true, weekdays: "", startTime: "", durationMin: Math.max(1, Math.round((snap.endMs - snap.startMs) / 60_000)), startDate: null, endDate: null, params: {} },
+    start: new Date(snap.startMs), end: new Date(snap.endMs), key: snap.key,
+  };
+  for (const p of ctx.world.all()) p.send(worldBossOpen(rt, p));
+  if (snap.notice) for (const p of ctx.world.all()) p.send(Out.message(1, snap.notice));
+}
+
+/**
+ * ch-eventos: espelha num canal SEGUIDOR o fechamento (`ch:boss:close`) — o líder já pagou os prêmios (uma vez
+ * só, `finishWorldBoss` abaixo); aqui só limpa o estado local e manda a MESMA ranking final (sub 10) + "fim de
+ * luta" (sub 1 OVER) pra sala local, igual o líder manda pra sala dele em `finishWorldBoss`.
+ */
+export function mirrorBossClose(ctx: ServerContext, rankTop: { id: number; nick: string; damage: number }[]): void {
+  const rt = eventsRuntime(ctx);
+  const members = rt.boss.players;
+  const final = new GSPacket(102);
+  final.writeByte(10); final.writeBoolean(true); final.writeInt(rankTop.length);
+  for (const r of rankTop) { final.writeInt(r.id); final.writeString(r.nick); final.writeInt(r.damage); }
+  const over = new GSPacket(102);
+  over.writeByte(1);
+  for (const pl of ctx.world.all()) { if (members.has(pl.id)) pl.send(final); pl.send(over); }
+  rt.boss.window = null;
+  rt.boss.players.clear();
 }
 
 /** World boss end: ranking rewards (params.rankAwards [{rank, giftToken?, gold?, items?}], claim per window) + 102/1 OVER. */
@@ -113,7 +201,10 @@ export async function finishWorldBoss(ctx: ServerContext, rt: EventsRuntime, w: 
       const g = grantRewards(pl, rewards, ctx.templates.findItem, ctx.now());
       if (g.overflow.length) await mailItems(ctx, pl, g.overflow, "Boss mundial", 12);
       pl.sendMessage(0, `Boss mundial: ${i + 1}º lugar (${r.damage} de dano). Prêmio: ${g.summary.join(", ")}.`);
-    } else {
+    } else if (!(await ctx.crossChannel.deliverReward(r.id, rewards, `Boss mundial: ${i + 1}º lugar (${r.damage} de dano)`))) {
+      // ch-eventos: tentou achar o ganhador em outro canal (bus/cross-channel.ts deliverReward) antes de
+      // desistir — nenhum canal tinha ele online (ou barramento inativo/canal único): moeda direto no banco,
+      // igual sempre (itens de recompensa ficam só pra quando dá pra entregar na bolsa de alguém online).
       await offlineCurrency(ctx, r.id, rewards);
     }
   }

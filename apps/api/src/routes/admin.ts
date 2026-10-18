@@ -332,6 +332,20 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
     await audit(ctx, actor(req), "events", `codes ${req.params.id} x${n}`);
     return { codes };
   });
+  /**
+   * ch-eventos: aviso ao vivo pra quem está online AGORA (center SYS_NOTICE -> 3 SYS_MESSAGE), diferente de
+   * `/api/admin/mail/broadcast` (correio assíncrono, alcança até os offline). `gameInternalPost` só fala com o
+   * canal LOCAL (`GAME_INTERNAL_URL`) — alcançar os OUTROS canais é responsabilidade do próprio `apps/game`
+   * (`bus/cross-channel.ts` `ctx.crossChannel.systemNotice`, relay automático quando o barramento está ativo;
+   * sem barramento/canal único o aviso já cobre todo mundo, igual sempre).
+   */
+  f.post("/api/admin/broadcast", { preHandler: guard }, async (req, reply) => {
+    const b = (req.body ?? {}) as Row;
+    if (typeof b.msg !== "string" || !b.msg.trim()) return reply.code(400).send({ message: "Mensagem é obrigatória" });
+    const r = await gameInternalPost(ctx, "/broadcast", { msg: b.msg.slice(0, 1000), type: typeof b.type === "number" ? b.type : 3 });
+    await audit(ctx, actor(req), "broadcast", `"${b.msg.slice(0, 80)}"`);
+    return r ?? reply.code(503).send({ message: "Servidor de jogo indisponível" });
+  });
 
   // ---- templates (XML cache) ----
   f.get("/api/admin/templates", { preHandler: guard }, async () =>
