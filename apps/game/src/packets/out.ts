@@ -131,16 +131,17 @@ export function privateInfo(c: PlayerInfo, medal: number, clientKind: ClientKind
 
 /**
  * 67 UPDATE_PLAYER_INFO (SendUpdatePublicPlayer, :958).
- * 6600 reads the same code with +2 ints after Luck (MagicAttack/MagicDefence — "dano mágico por item", not
- * implemented yet, see docs/plan/MIGRACAO-6600.md §2.2), +1 int after honor (honorId), +1 int after
- * weeklyGameCount (leagueMoney), +1 string before evolutionGrade (PveEpicPermission) — PlayerManager.as
- * __updatePlayerInfo (4.1 line 1658 vs 6600 line 2088). See research/6600/packets-m1.md.
+ * 6600 reads the same code with +2 ints after Luck (MagicAttack/MagicDefence — "dano mágico por item",
+ * m3-figurino: sum of the equipped items' MagicAttack/MagicDefence, see game/stats.ts StatResult.magicAttack
+ * doc and docs/plan/MIGRACAO-6600.md §2.2), +1 int after honor (honorId), +1 int after weeklyGameCount
+ * (leagueMoney), +1 string before evolutionGrade (PveEpicPermission) — PlayerManager.as __updatePlayerInfo
+ * (4.1 line 1658 vs 6600 line 2088). See research/6600/packets-m1.md.
  */
-export function publicPlayer(c: PlayerInfo, m: MatchRow, clientKind: ClientKind = "41"): PacketOut {
+export function publicPlayer(c: PlayerInfo, m: MatchRow, clientKind: ClientKind = "41", magicAttack = 0, magicDefence = 0): PacketOut {
   const p = new PacketOut(67, c.ID);
   for (const x of [c.GP, c.Offer, c.RichesOffer, c.RichesRob, c.Win, c.Total, c.Escape, c.Attack, c.Defence, c.Agility, c.Luck]) p.writeInt(x);
   const is6600 = clientKind === "6600";
-  if (is6600) { p.writeInt(0); p.writeInt(0); } // MagicAttack, MagicDefence (not implemented)
+  if (is6600) { p.writeInt(magicAttack); p.writeInt(magicDefence); }
   p.writeInt(c.hp); p.writeInt(c.Hide);
   p.writeString(c.Style); p.writeString(c.Colors); p.writeString(c.Skin); p.writeBoolean(c.IsShowConsortia);
   p.writeInt(c.ConsortiaID); p.writeString(c.ConsortiaName); p.writeInt(c.badgeID); p.writeInt(0); p.writeInt(0);
@@ -402,6 +403,46 @@ export function kingBlessClosed(): PacketOut {
   const p = new PacketOut(142);
   p.writeInt(0);
   wd(p, MIN_DATE);
+  return p;
+}
+
+/**
+ * 237 PLAYER_DRESS (6600-only "figurino"/dress room — collides with 4.1's MARRYINFO_UPDATE, see
+ * `handlers/casamento/index.ts` and research/6600/packets-m1.md "M3 figurino"). 3 builders, one per
+ * sub-command the server sends (`PlayerDressType.as`):
+ *
+ * - sub 1 GET_DRESS_MODEL (SendSetDressModelArr, AbstractPacketLib.cs:1544): int model count (always 3 —
+ *   `dictionary_0` keys 0/1/2, `DressModel.DRESS_LEN`/combo box "model1/2/3"), then per model int slot, int
+ *   item count, count*(int ItemID, int TemplateID). Sent at login (GamePlayer.cs:3644 AvatarBag.UpdateInfo)
+ *   and after every save (sub 1 request, `vestir-6600.ts`).
+ * - sub 2 CURRENT_MODEL (SendCurentDressModel, :1564): int current slot. Sent at login and after a switch
+ *   (sub 2 request) or a save (echoes the slot that was ALREADY current, saving to a slot doesn't switch
+ *   to it — PlayerAvataInventory.SaveDressModel never touches CurrentModel).
+ * - sub 7 LOCK_DRESSBAG (PlayerDressHandler.cs:93-95): bare ack, no payload beyond the sub-byte itself.
+ */
+export function dressModelArr(id: number, models: Map<number, { itemId: number; templateId: number }[]>): PacketOut {
+  const p = new PacketOut(237, id);
+  p.writeByte(1);
+  p.writeInt(3);
+  for (let slot = 0; slot < 3; slot++) {
+    const list = models.get(slot) ?? [];
+    p.writeInt(slot);
+    p.writeInt(list.length);
+    for (const e of list) { p.writeInt(e.itemId); p.writeInt(e.templateId); }
+  }
+  return p;
+}
+
+export function currentDressModel(id: number, slot: number): PacketOut {
+  const p = new PacketOut(237, id);
+  p.writeByte(2);
+  p.writeInt(slot);
+  return p;
+}
+
+export function playerDressLockAck(id: number): PacketOut {
+  const p = new PacketOut(237, id);
+  p.writeByte(7);
   return p;
 }
 
@@ -769,8 +810,10 @@ export function oneOnOneTalk(receiverId: number, senderNick: string, msg: string
  *   false` — 6600 only reads this one extra field here, not the other four).
  * - New tail after the item list, replacing the 4.1 bare `gemSoul count=0`: `beadItems.Count`(0, BeadBag not
  *   ported), `UserGemStone.Count`(0, same shape 4.1 ends with), `player.evolutionGrade`/`evolutionExp` (real
- *   values, already tracked — see `publicPlayer`), `player.MagicAttack`/`MagicDefence` (0, not implemented),
- *   `magicStones.Count`(0), `player.MountsType`(0, Montaria again).
+ *   values, already tracked — see `publicPlayer`), `player.MagicAttack`/`MagicDefence` (m3-figurino: sum of
+ *   the `items` passed in — same equip-slot-only list the caller already filters to, see
+ *   `handlers/bolsa/ver-equipamento.ts` — not a separate reliquary bag, see game/stats.ts
+ *   StatResult.magicAttack doc), `magicStones.Count`(0), `player.MountsType`(0, Montaria again).
  * Checked against the real C#: `LastLoginDate` (`DateTime.Now.AddDays(-2)`) and `DailyLeagueFirst`/
  * `DailyLeagueLastScore` (`false`/`0`) are hardcoded THE SAME WAY in the 6600 source too — no diff there
  * despite an earlier note in research/6600/packets-m1.md Round 2 saying otherwise; corrected in this round.
@@ -818,7 +861,9 @@ export function userEquip(c: PlayerInfo, items: ItemInfo[], now = new Date(), cl
     p.writeInt(0); // beadItems.Count (BeadBag system not ported)
     p.writeInt(0); // UserGemStone.Count (same shape as the 4.1 tail below, still empty)
     p.writeInt(c.evolutionGrade); p.writeInt(c.evolutionExp);
-    p.writeInt(0); p.writeInt(0); // player.MagicAttack/MagicDefence (not implemented)
+    // m3-figurino: sum of `items`' MagicAttack/MagicDefence (equip slots only, see doc above).
+    p.writeInt(items.reduce((s, it) => s + it.MagicAttack, 0));
+    p.writeInt(items.reduce((s, it) => s + it.MagicDefence, 0));
     p.writeInt(0); // magicStones.Count
     p.writeInt(0); // player.MountsType (Montaria, not implemented)
   } else {

@@ -19,6 +19,7 @@ import { findCharacterByUserName, loadMatchInfo, loadPlayerInfo, setOnlineState 
 import { loadUserItems } from "../db/items.js";
 import { loadFriends, loadProgress } from "../db/social.js";
 import { inviteLoginPacket } from "../handlers/amigos/index.js";
+import { decodeDressModelArr } from "../handlers/bolsa/vestir-6600.js";
 import { GamePlayer } from "../game/player.js";
 import { QuestInventory } from "../game/quests.js";
 import { BagType } from "../game/item.js";
@@ -166,6 +167,9 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   p.cards = p.cardBag.equipped();
   p.pet = p.petBag.equipped();
   p.recalcStats(); // FightPower/attributes are part of the login packet
+  // m3-figurino: PLAYER_DRESS presets (equipBag already loaded above, needed to validate itemId/templateId pairs).
+  p.dressModels = decodeDressModelArr(p, p.extra?.DressModelArr);
+  p.currentDressModel = p.extra?.CurentDressModel ?? 0;
   // QuestInventory.LoadFromDatabase -> 178. Sent even when empty: the client's TaskManager only answers with
   // QUEST_ADD (176) for the quests it can accept once its quest data is initialised.
   p.questInv.sendAll();
@@ -179,7 +183,7 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
     info.BoxProgression = 0;
   }
   p.send(Out.loginSuccess(p.view(), p.extra, now));
-  p.send(Out.publicPlayer(info, match, p.clientKind));
+  p.send(Out.publicPlayer(info, match, p.clientKind, p.magicAttack, p.magicDefence));
   p.send(Out.weaklessGuild(info));
   p.send(Out.dateTime(now));
   p.send(Out.dailyAward(info.LastAward, now));
@@ -208,6 +212,8 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   // all). Without it KingBlessManager._endTime stays null forever -> TypeError #1009 in getRemainTimeTxt()
   // the first time the hall player-info panel reads it (research/6600/packets-m1.md).
   if (p.clientKind === "6600") p.send(Out.kingBlessClosed());
+  // PLAYER_DRESS (237, m3-figurino): GamePlayer.cs:3644 AvatarBag.UpdateInfo() sends both at every login.
+  if (p.clientKind === "6600") { p.send(Out.dressModelArr(p.id, p.dressModels)); p.send(Out.currentDressModel(p.id, p.currentDressModel)); }
   p.send(Out.guildMemberWeek(p.id));
   sendActivityIcons(ctx, p);
   p.send(Out.necklace(info));

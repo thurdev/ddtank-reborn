@@ -125,8 +125,11 @@ export class ItemInfo {
   cellLocked = false;
 
   // DDT-6600 (m1-schema, player.Sys_Users_Goods): dano mágico por item + nível de runa ("bead").
-  // Sem lógica de combate própria ainda (packages/fight não lê estes campos) — só plumbing pro
-  // round-trip de banco não perder dados quando essas colunas forem usadas por handlers futuros.
+  // m3-figurino: MagicAttack/MagicDefence agora SOMADOS por item equipado em game/stats.ts
+  // computeStats() -> GamePlayer.recalcStats() -> fight/ddt.ts specOf() -> PlayerSpec.magicAttack/
+  // magicDefence (packages/fight/src/game/formulas.ts shellDamage já lia esses campos desde
+  // m2-batalha, só ficavam inertes em 0 — ver research/6600/packets-m1.md "M3 figurino"). MagicExp/
+  // MagicLevel (nível de runa/"bead") seguem só plumbing, sem lógica de combate própria ainda.
   MagicAttack = 0;
   MagicDefence = 0;
   MagicExp = 0;

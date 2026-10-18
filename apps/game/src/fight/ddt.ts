@@ -73,6 +73,9 @@ type LobbyLike = RoomMember & {
   /** GamePlayer.GetBaseAttack / GetBaseDefence (game/stats.ts) */
   baseAttack?: number;
   baseDefence?: number;
+  /** m3-figurino: sum of equipped items' MagicAttack/MagicDefence (game/stats.ts StatResult.magicAttack doc). */
+  magicAttack?: number;
+  magicDefence?: number;
   petBag?: { equipped(): PetLike | null; reduceHunger(): void };
   flushPets?(): void;
 };
@@ -184,6 +187,8 @@ function specOf(m: LobbyLike, team: number, assets: FightAssets, petSkill?: DdtF
   return {
     userId: m.id, nickname: c.NickName ?? `p${m.id}`, team, grade: c.Grade, attack: c.Attack, defence: c.Defence, agility: c.Agility, lucky: c.Luck,
     baseAttack: Math.max(1, baseAttack), baseDefence, hp: Math.max(1, c.hp),
+    // m3-figurino: GamePlayer.recalcStats already summed the equipped items (game/stats.ts); bots have no bags -> 0.
+    magicAttack: m.magicAttack ?? 0, magicDefence: m.magicDefence ?? 0,
     weapon: { templateId: weaponTemplateId, property8: wTpl?.property8 ?? w?.template.Property8 ?? 0, refineryLevel: w?.RefineryLevel ?? 0 },
     deputyWeapon: dep && depTpl ? { template: depTpl, strengthenLevel: dep.StrengthenLevel ?? 0 } : null,
     isBot: m.isBot, isVip: (c.typeVIP ?? 0) > 0, inGuild: (c.ConsortiaID ?? 0) > 0,

@@ -711,10 +711,13 @@ empírica — então dava pra ligar a fórmula no motor sem mudar nenhum resulta
 `shellDamage()` soma os dois só quando `!melee` (replica a divisão real bomba-vs-corpo-a-corpo do C#);
 `packages/fight/src/game/living.ts` `Living` ganhou os campos (`= 0`) e `PlayerSpec` ganhou os dois opcionais,
 lidos em `Player.reset()`; `game.ts` `makeDamage()` passa `target.magicAttack`/`magicDefence` pro `DamageTarget`.
-**Não fiz**: nenhum lugar em `apps/game` popula esses campos com dado real ainda (exigiria o equivalente de
-`GamePlayer.UpdateProperties` somando os itens equipados, que não existe pra essa stat) — ou seja, o motor
-sabe a fórmula, mas ela fica inerte (sempre `+0`) até uma tarefa futura de itemização ligar o dado real; 0 em
-todo item é garantido continuar dando o mesmo resultado de antes (prova: teste abaixo).
+**Não fiz** (nesta tarefa): nenhum lugar em `apps/game` populava esses campos com dado real ainda (exigiria
+o equivalente de `GamePlayer.UpdateProperties` somando os itens equipados, que não existia pra essa stat) —
+ou seja, o motor sabia a fórmula, mas ela ficava inerte (sempre `+0`). **Ligado em `m3-figurino`** (ver
+seção "M3 figurino" mais abaixo): `game/stats.ts computeStats()` soma `MagicAttack`/`MagicDefence` dos
+itens equipados, `GamePlayer.recalcStats()` copia pra `magicAttack`/`magicDefence`, `fight/ddt.ts specOf()`
+lê de lá pro `PlayerSpec`. 0 em todo item (o caso de hoje, nenhum sistema escreve valor não-zero ainda) é
+garantido continuar dando o mesmo resultado de antes (prova: teste abaixo, inalterado).
 
 Prova (`packages/fight/test/golden-game.test.ts`): 1) todo vetor de `golden/vectors.json` (dano real do jogo
 original, capturado antes desta mudança) recalculado com `magicAttack: 0, magicDefence: 0` explícitos bate
@@ -835,7 +838,8 @@ trailing (sem fix, framed-by-length) nos cabeçalhos de `pedir-casamento.ts`/`di
 
 ### Gaps conhecidos (não corrigidos nesta tarefa, documentados pra não reabrir)
 
-- **PLAYER_DRESS (237, 6600)**: feature inteira não portada — ver "Achado grande 1" acima. Pra M3.
+- **PLAYER_DRESS (237, 6600)**: feature inteira não portada — ver "Achado grande 1" acima. **RESOLVIDO em
+  `m3-figurino`** (ver seção "M3 figurino" mais abaixo).
 - **183 CARD_USE, caminho de compra rápida (place=-1)**: o `.cs` 6600 decompilado deste handler lê um
   formato (`num3,num4,num5` — 3 ints) que não bate com o que TODOS os 5 call-sites AS3 reais mandam (mesmo
   array de IDs que a 4.1). Decompilação provavelmente incompleta/código morto superposto. Deixado com o
@@ -1159,3 +1163,152 @@ script. Todos verdes.
 - `MountsType` (Montaria) continua sempre `0` — sistema inteiro ainda não implementado (m1-schema-only).
 - `262/4 ADDPLAYE` manda pra "todo mundo exceto o descrito" em vez de só pra quem pediu — comportamento do
   original, não um bug de rede introduzido aqui.
+
+## M3 figurino (`feature/m3-figurino`) — PLAYER_DRESS (237, 6600) + dano mágico agregado no motor
+
+Tarefa `m3-figurino` (`docs/plan/TASKS.md` M3). Escopo: a feature `PLAYER_DRESS` deixada como GAP pelo
+`m2-bolsa` (achado grande 1, colisão de código 237: `MARRYINFO_UPDATE` 4.1 vs `PLAYER_DRESS` 6600 — ver
+seção "M2 bolsa" acima) agora portada por completo, e a soma dos stats mágicos por item (`MagicAttack`/
+`MagicDefence`, `Sys_Users_Goods`, migration 0013) ligada de verdade no `GamePlayer`/`packages/fight`
+(a fórmula já existia inerte desde `m2-batalha`, ver seção "M2 batalha" acima).
+
+### PLAYER_DRESS — sub-comandos (`playerDress/data/PlayerDressType.as`, confirmado contra
+`Game.Server.Packets.Client/PlayerDressHandler.cs:10-102` e `Game.Server.GameUtils/
+PlayerAvataInventory.cs`)
+
+| Sub | Nome | Sentido | Campos | Servidor |
+|---|---|---|---|---|
+| 1 | GET_DRESS_MODEL | cliente→servidor (salvar) | int slot, int count, count×[int bagType, int place] | `handlers/bolsa/vestir-6600.ts` `saveDressModel` |
+| 1 | GET_DRESS_MODEL | servidor→cliente (modelo cheio) | int count(sempre 3), count×[int slot, int itemCount, itemCount×[int itemId, int templateId]] | `packets/out.ts` `dressModelArr` |
+| 2 | CURRENT_MODEL | cliente→servidor (trocar) / servidor→cliente (eco/anúncio) | int slot | `vestir-6600.ts` `setCurrentDressModel` / `out.ts` `currentDressModel` |
+| 6 | FOLD_DRESS | cliente→servidor | int count, count×[int bagType(descartado), int fromPlace, int bagType(descartado), int toPlace] | `vestir-6600.ts` `foldDress` |
+| 7 | LOCK_DRESSBAG | cliente→servidor / servidor→cliente (ack) | sem payload | `vestir-6600.ts` (sub 7) / `out.ts` `playerDressLockAck` |
+
+`PlayerDressManager.setCurrentModel` (AS3, reação a um sub 2 recebido) tem um ramo pra `currentIndex===-1`
+que o CLIENTE resolve sozinho (manda `setCurrentModel(0)` + `saveDressModel(0, <itens vestidos>)` sem
+esperar nada do servidor) — nunca exercitado na prática porque o servidor sempre manda um índice real
+(`CurentDressModel`, default `0`), nunca `-1`.
+
+### Decisões de porte (fieis ao C# onde dava, documentadas onde não)
+
+1. **Sem "AvatarBag" separada**: o `.cs` 6600 guarda presets de figurino numa bag de 392 slots
+   (`PlayerAvataInventory`/`AvatarBag`) distinta da `EquipBag` — mas este servidor já guarda TODO item do
+   jogador por `BagType` numa bag só (`p.equipBag` pra `BagType.EquipBag`, equipado OU em estoque, slots
+   0-126). `FindEquipDressModel`/`GetEquipDressModel` (que escolheriam EquipBag OU AvatarBag conforme o
+   slot) aqui procuram só em `p.equipBag` (busca completa, não restrita a slots equipados — mesmo range do
+   `GetEquipDressModel` original).
+2. **Bug replicado, não corrigido — `AvatarBag.DressEquip`/`RemoveAllItem` com índice da EquipBag**: o
+   `.cs` original (`PlayerDressHandler.cs:39,90`) chama `client.Player.AvatarBag.DressEquip(item.Place)`
+   (sub 1) e `AvatarBag.RemoveAllItem(list)` (sub 6) usando PLACES que vieram da `EquipBag` — mas
+   `AvatarBag` é uma bag DIFERENTE (392 slots próprios). Isso ou é lixo do decompilador ou um bug real do
+   jogo original (mesma classe de achado que `SetCurrentModel`'s branch morto, `PlayerAvataInventory.cs:
+   530-539`, e `LastLoginDate`/`DailyLeagueFirst` hardcoded idêntico nas duas versões, achados nos Rounds
+   anteriores). Efeito observável SE fosse uma bag de verdade portada: sub 1 marcaria `IsBinds=true` num
+   item aleatório/null da AvatarBag (sem efeito aqui, AvatarBag não existe); sub 6 NÃO removeria o item de
+   `toPlace` da EquipBag. Replicamos o efeito observável: sub 1 não faz nada equivalente (omitido, zero
+   efeito mesmo no original); sub 6 mescla a validade no item de `fromPlace` e **deixa o item de `toPlace`
+   intacto** (testado explicitamente em `client-6600-m3-figurino.test.ts`).
+3. **Sem "renomear" preset**: o enum `PlayerDressType` só tem 4 sub-códigos (1/2/6/7) — nenhum de
+   "renomear". Os 3 modelos (`DressModel.DRESS_LEN`) são rotulados por chave de idioma fixa
+   (`playerDress.model1/2/3`), não editável pelo jogador no cliente original. Não implementado (não existe
+   no protocolo real).
+4. **Sem "seed" automático do modelo 0 numa conta nova**: `PlayerAvataInventory.UpdateCurrentDressModels()`
+   tem um branch (`LoadDefaulModelArr`) que populariam o modelo 0 a partir da roupa vestida — mas a flag
+   nunca é desligada no `.cs` decompilado, então ela reconstruiria o modelo 0 a CADA chamada de
+   `UpdateCurrentDressModels` (login E toda vez que QUALQUER modelo é salvo), sobrescrevendo silenciosamente
+   uma customização do jogador no slot 0. Decidimos não reproduzir esse efeito (pareceu pior que a
+   alternativa): uma conta nova simplesmente começa com os 3 modelos vazios — confirmado seguro no "Achado
+   grande 1" do `m2-bolsa` (a tela de Figurino só é carregada sob ação do jogador, não no burst de
+   login/hall; vazio não é crash).
+5. **"Trocar/vestir" preset NÃO re-equipa nada no servidor**: o sub 2 (`CURRENT_MODEL`) é só bookkeeping
+   (`CurentDressModel`/`p.currentDressModel`) — quem de fato re-equipa os itens é o CLIENTE
+   (`PlayerDressView.exchangeProperty`, AS3), via `sendMoveGoods`/`sendItemTransfer` NORMAIS (código 49
+   CHANGE_PLACE_GOODS/item transfer, já implementados desde `m2-bolsa`/`mover.ts`) ANTES de mandar o sub 2.
+   Isso bate com o `.cs` original: `PlayerDressHandler.cs` case 2 só grava `CurrentModel`, não toca em
+   nenhum item.
+
+### Persistência
+
+`player."Sys_Users_Extra"` (migration `0013_dear_mimic.sql`, já existia — nenhuma migração nova precisou
+ser criada pra esta tarefa, confirmado contra `research/6600/db-diff.md` linha 113 e
+`packages/db/README.md`): `DressModelArr` (text, formato `"<m0>,<m1>,<m2>"`, cada modelo não-vazio
+`itemId|templateId;itemId|templateId;...` — `PlayerAvataInventory.DressModelArrToString`/
+`StringToDressModelArr`, replicado em `encodeDressModelArr`/`decodeDressModelArr`), `CurentDressModel`
+(int, default `0`). Upsert via `sql` cru (mesmo padrão de `handlers/loja/roleta-canhao.ts`, a tabela ainda
+não tem helper `db/*.ts` próprio). `GamePlayer.dressModels`/`currentDressModel` são a fonte de verdade em
+memória durante a sessão (não `p.extra?.CurentDressModel` direto — uma conta nova não tem linha em
+`Sys_Users_Extra` até o primeiro upsert, então `p.extra` fica `null` até lá).
+
+Enviado no burst de login (`session/login.ts`, só `clientKind==="6600"`, logo depois do `142
+KING_BLESS_MAIN` — `GamePlayer.cs:3644` `AvatarBag.UpdateInfo()`): sub 1 (modelo cheio, decodificado de
+`DressModelArr`) + sub 2 (índice atual). Decodificação re-valida cada par (itemId,templateId) contra
+`p.equipBag` (igual `FindEquipDressModel`): um item vendido/perdido some do preset sem travar nada.
+
+### Dano mágico agregado (`MagicAttack`/`MagicDefence`) — motor ligado de verdade
+
+`m2-batalha` já tinha ligado a FÓRMULA no motor (`packages/fight/src/game/formulas.ts` `shellDamage`,
+`DamageTarget.magicAttack`/`magicDefence`) mas deixado o DADO inerte (nenhum lugar populava os campos com
+valor real). Esta tarefa fecha o resto do caminho:
+
+- **Fonte escolhida**: soma de `MagicAttack`/`MagicDefence` (`ItemInfo`, `Sys_Users_Goods`, migration 0013)
+  de cada item EQUIPADO (`p.equipBag.getItemAt(0..30)`) — `packages/game/stats.ts` `computeStats()`
+  (mesmo loop que já soma `AttackCompose`/`DefendCompose`/etc.), resultado em `StatResult.magicAttack`/
+  `magicDefence`, copiado pra `GamePlayer.magicAttack`/`magicDefence` em `recalcStats()` (chamado por
+  `updatePlayerProperties()`, o MESMO hook que `onEquipChanged` já disparava — equipar/desequipar/mover um
+  item já recalcula tudo de novo, nenhum gatilho novo precisou ser adicionado).
+- **Por que EquipBag e não a fonte real do C#**: o `.cs` 6600 real (`Game.Server.GameUtils/
+  PlayerProperty.cs:250-266,411`) soma `PlayerCharacter.MagicAttack`/`MagicDefence` de uma bag SEPARADA
+  ("Relíquias"/`PlayerMagicStoneInventory`/`MagicStoneBag`, 32 slots próprios, parallel aos slots da
+  EquipBag) MAIS contribuições de Montaria (`MountTemplateInfo.MagicAttack`/`MagicDefence`) e "Enchant"
+  (`MagicItemTemplateInfo`, nível de runa via `ItemInfo.MagicLevel`) — nenhum dos três sistemas existe
+  neste servidor ainda (Relíquias/Montaria/MagicHouse são schema-only, `docs/plan/MIGRACAO-6600.md` §4,
+  M4/M5). Resolvemos somar os MESMOS campos `Sys_Users_Goods.MagicAttack`/`MagicDefence` direto dos itens
+  de equipamento normal (não uma bag de relíquias separada) como um stand-in prático — pra não deixar a
+  fórmula permanentemente inerte — documentado aqui como GAP conhecido, não um achado "a fórmula real é
+  essa": quando a bag de Relíquias for portada (M4+), este ponto precisa migrar a soma pra lá.
+- **Identidade pro que já existia**: hoje (4.1 E 6600, nenhum item/sistema escreve valor não-zero ainda)
+  a soma é sempre `0` -> nenhuma mudança de resultado em partida nenhuma. Prova: `packages/fight/test/
+  golden-game.test.ts` (não alterado nesta tarefa) continua batendo os vetores dourados exatamente —
+  cobre tanto "4.1 fica em 0" quanto "a fórmula muda o dano com valores sintéticos não-zero" (feito em
+  `m2-batalha`, reaproveitado aqui sem mudança).
+- **Exposto nos pacotes de informação do jogador** (eram stub `0`/`0` desde `m2-bolsa`/`m2-batalha`):
+  `67 UPDATE_PLAYER_INFO` (`packets/out.ts` `publicPlayer`, ganhou os parâmetros `magicAttack`/
+  `magicDefence`, lidos de `GamePlayer.magicAttack`/`magicDefence` nos 3 call-sites — `session/login.ts`,
+  `game/player.ts` `updateProperties()` ×2, incl. o broadcast de sala mista por `clientKind`) e `74
+  ITEM_EQUIP` (`userEquip()`, soma direto da lista `items` que o chamador já filtra pros slots equipados —
+  `handlers/bolsa/ver-equipamento.ts`, funciona pro jogador online OU offline sem precisar de um
+  `GamePlayer` em memória).
+
+### Como testamos (M3 figurino)
+
+Novo arquivo `apps/game/test/client-6600-m3-figurino.test.ts`: mesmo método dos Rounds anteriores
+(`FakeClient` real, decodificação campo a campo na ordem exata do reader AS3/`.cs` citado acima, `offset
+=== length` no final). Cobre: burst de login (sub 1 com 3 modelos vazios + sub 2 índice 0, logo depois do
+142, posição exata checada; 4.1 nunca manda 237 no login); sub 1 salvando 2 itens equipados num preset
+(incluindo um item com `ItemID===0` que ganha ID real via `saveItem`, igual ao `AddGoods` do `.cs`),
+confirma o `DressModelArr` persistido byte a byte; sub 1 com lista vazia/sem item válido não manda resposta
+(`SaveDressModel` no-op); sub 2 trocando de modelo (eco + persistência, `p().currentDressModel`); sub 7 ack
+puro; sub 6 mesclando validade de 2 itens duplicados (confirma a VALIDADE soma 15=10+5 E que o item de
+destino NÃO é removido — bug original replicado, ver decisão 2 acima) e o caso TemplateID diferente (sem
+efeito, sem pacote); agregação de dano mágico via equipar um item com `MagicAttack`/`MagicDefence`
+sintéticos — `GamePlayer.magicAttack`/`magicDefence` E o pacote `67` refletem a soma pro 6600, e o mesmo
+item equipado num jogador 4.1 soma igual em `GamePlayer` mas o PACOTE `67` não ganha os campos extras
+(layout 4.1 inalterado, decodificado por completo até `offset===length`). Unit test complementar em
+`apps/game/test/formulas.test.ts` (`computeStats` soma `MagicAttack`/`MagicDefence`, incl. o caso
+identidade-zero). A colisão 237 (mural 4.1 intacto vs figurino 6600) já tinha um teste desde `m2-bolsa`
+(`client-6600-m2-bolsa.test.ts`) — atualizado aqui pra refletir que o sub 2 agora responde de verdade (não
+é mais um no-op) sem nunca tocar no mural.
+
+`pnpm --filter @ddt/game test`: todos os arquivos verdes (ver contagem exata no commit). `pnpm --filter
+@ddt/fight test`: 9 arquivos / 199 testes, nenhum alterado, todos verdes (prova "4.1/zero inalterado" e "a
+fórmula muda com valor não-zero" ao mesmo tempo, ambos já cobertos por `golden-game.test.ts` desde
+`m2-batalha`). `pnpm -w typecheck`: limpo.
+
+### Gaps conhecidos (não corrigidos nesta tarefa, documentados pra não reabrir)
+
+- Fonte real do dano mágico agregado é a bag de Relíquias (`PlayerMagicStoneInventory`) + Montaria +
+  Enchant, nenhuma portada ainda — ver decisão acima; migrar a soma quando essas features chegarem (M4+).
+- Sem bag "AvatarBag"/Relíquias/BeadBag — presets de figurino vivem inteiramente dentro de `p.equipBag`.
+- Sem "renomear" preset (não existe no protocolo real).
+- Sem seed automático do modelo 0 numa conta nova (decisão deliberada, ver acima).
+- FOLD_DRESS não remove o item de `toPlace` — bug original replicado fielmente (ver decisão 2).
