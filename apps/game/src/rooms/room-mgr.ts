@@ -3,8 +3,10 @@
  * 40 ms tick (RoomMgr.THREAD_INTERVAL); empty rooms are stopped every 400 ms (CLEAR_ROOM_INTERVAL).
  * Match rooms (type 0) go to the auto-match queue (replaces BattleMgr.AddRoom -> Fighting.Server matchmaking).
  */
+import type { PacketOut } from "@ddt/protocol";
 import * as Out from "../packets/out.js";
 import { PlayerState, type RoomMember } from "../game/player.js";
+import type { ClientKind } from "../game/player-info.js";
 import type { FightEngine } from "../fight/types.js";
 import type { BotProvider, VirtualPlayer } from "../bots/bot.js";
 import { BaseRoom, RoomType } from "./room.js";
@@ -100,12 +102,25 @@ export class RoomMgr {
     for (const p of this.waiting.values()) if (p !== except) p.send(pkt);
   }
 
+  /**
+   * Same broadcast as `sendToWaiting`, but for a packet whose LAYOUT depends on the receiver's clientKind
+   * (18 SCENE_ADD_USER — see `Out.sceneAddPlayer`, research/6600/packets-m1.md): builds at most 2 variants
+   * (one per kind actually present) instead of sharing a single buffer.
+   */
+  private sendToWaitingByKind(build: (k: ClientKind) => PacketOut, except?: RoomMember): void {
+    let p41: PacketOut | undefined;
+    let p6600: PacketOut | undefined;
+    for (const p of this.waiting.values()) {
+      if (p === except) continue;
+      p.send(p.clientKind === "6600" ? (p6600 ??= build("6600")) : (p41 ??= build("41")));
+    }
+  }
+
   waitingAdd(p: RoomMember): boolean {
     if (this.waiting.has(p.id)) return false;
     this.waiting.set(p.id, p);
-    const pkt = Out.sceneAddPlayer(p.info);
-    p.send(pkt);
-    this.sendToWaiting(pkt, p);
+    p.send(Out.sceneAddPlayer(p.info, p.clientKind));
+    this.sendToWaitingByKind((k) => Out.sceneAddPlayer(p.info, k), p);
     return true;
   }
 
@@ -152,13 +167,12 @@ export class RoomMgr {
       p.currentRoom?.removePlayer(p);
       if (this.waitingAdd(p)) {
         p.send(Out.roomList(this.getAllRooms()));
-        for (const o of this.waiting.values()) if (o !== p) p.send(Out.sceneAddPlayer(o.info));
+        for (const o of this.waiting.values()) if (o !== p) p.send(Out.sceneAddPlayer(o.info, p.clientKind));
       } else {
         this.sendRoomListTo(p);
-        const pkt = Out.sceneAddPlayer(p.info);
-        p.send(pkt);
-        this.sendToWaiting(pkt, p);
-        for (const o of this.waiting.values()) if (o !== p) p.send(Out.sceneAddPlayer(o.info));
+        p.send(Out.sceneAddPlayer(p.info, p.clientKind));
+        this.sendToWaitingByKind((k) => Out.sceneAddPlayer(p.info, k), p);
+        for (const o of this.waiting.values()) if (o !== p) p.send(Out.sceneAddPlayer(o.info, p.clientKind));
       }
     });
   }

@@ -35,6 +35,9 @@ export interface PacketSink {
 export interface RoomMember {
   readonly id: number;
   readonly isBot: boolean;
+  /** M1 client detection (research/6600/packets-m1.md) — needed so mixed-clientKind broadcasts (hall, room)
+   *  can build one PacketOut variant per receiver kind instead of sharing a single buffer. */
+  readonly clientKind: ClientKind;
   view(): Out.PlayerView;
   send(pkt: GSPacket): void;
   sendMessage(type: number, msg: string): void;

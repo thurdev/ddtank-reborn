@@ -41,6 +41,6 @@ export async function addFriendOrBlock(ctx: ServerContext, p: GamePlayer, pkt: G
     n.writeBoolean(false);
     online.send(n);
   }
-  p.send(Out.addFriend(info, relation, true));
+  p.send(Out.addFriend(info, relation, true, p.clientKind));
   p.sendMessage(0, ctx.lang.t("FriendAddHandler.Success2"));
 }

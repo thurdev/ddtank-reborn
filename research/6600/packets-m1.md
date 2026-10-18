@@ -248,3 +248,139 @@ próprio — tanto `readBytes()` do nosso protocolo quanto o `readByteArray()` d
 pacote"), a asserção real não é só "ofereceu tudo" (isso seria verdade mesmo com um campo errado no meio,
 só deslocando a fronteira) — é conferir que **sobram exatamente os 200 bytes** de `QuestInventory.states`
 antes de consumir o tail, aí sim qualquer campo a mais/menos no loop por quest estoura essa checagem.
+
+---
+
+## Round 3 (`feature/m1-pacotes-acao`) — pacotes disparados por ação do jogador + fix de broadcast misto
+
+Tarefa `m1-pacotes-acao` (`docs/plan/TASKS.md`): depois do Round 2 (hall abre), agora os pacotes que só
+disparam quando o jogador FAZ algo (ver equipamento de outro, leilão, amigos, sala) — e o bug de fundo que
+os Rounds 1/2 não tinham: **pacotes broadcast pra vários jogadores com clientKind diferente compartilhavam
+o mesmo buffer**, construído no layout de quem disparou a ação, não de cada destinatário.
+
+### Pacote 1 — 74 ITEM_EQUIP (`userEquip()`, ver equipamento de outro jogador)
+
+`PlayerManager.as __itemEquip` (4.1:321-515 vs 6600:452-754), confirmado contra
+`AbstractPacketLib.cs:952-1114` `SendUserEquip` (6600). Igual ao suspeitado no Round 2, mas o diff real é
+maior que "~15 campos": o 6600 adiciona um **novo bloco "BeadBag" inteiro** depois da lista de itens, que a
+4.1 não tem.
+1. Cabeçalho: +1 int `player.ZoneID` logo depois de `player.ID`, antes do `NickName` (mesmo stub `zoneId=0`
+   que `cardData`/`playerCardData` já usam — sem canais ainda).
+2. +1 bool `isOpenKingBless` entre `VIPLevel` e `Win` (6600-only, sempre fechado — mesmo estado de
+   `kingBlessClosed()` → `false`).
+3. +1 int `curHorseLevel`/`MountLv` depois de `necklaceExp`, antes da contagem de itens (Montaria,
+   `m1-schema`-only por enquanto → `0`).
+4. Por item: +1 int `MagicLevel` no fim (mesma cauda `writeItemMagicTail(p, false)` que o 64 já usa, mas só
+   o campo sozinho — confirma o que o Round 2 já tinha achado).
+5. Cauda nova depois da lista de itens (4.1 só tem `gemSoul count=0` ali): `beadItems.Count`(0 — BeadBag,
+   sistema de runas/beads não portado), `UserGemStone.Count`(0 — mesmo formato do fim da 4.1),
+   `player.evolutionGrade`/`evolutionExp` (valores REAIS, já rastreados — ver `publicPlayer`),
+   `player.MagicAttack`/`MagicDefence` (0, não implementado), `magicStones.Count`(0),
+   `player.MountsType`(0, Montaria de novo).
+6. **Checado contra o C# e CORRIGIDO um engano do Round 2**: `LastLoginDate` (`DateTime.Now.AddDays(-2)`) e
+   `DailyLeagueFirst`/`DailyLeagueLastScore` (`false`/`0`) são hardcoded **exatamente igual** no C# 6600
+   também — a nota do Round 2 dizendo que esses campos "ficam reais" no 6600 estava errada (lia só o AS3
+   sem cruzar com o C#); não mudar esses dois campos.
+7. `apprenticeshipState`/`masterID`/`masterOrApprentices`/`graduatesCount`/`honourOfMaster` também são
+   enviados como dummy (`0`/`0`/`""`/`0`/`""`) pelo C# 6600 — mesmo precedente do Detalhe A (`loginSuccess`):
+   mantivemos os valores REAIS, o cliente só olha o tipo do campo.
+
+Fix: `userEquip()` ganhou `clientKind`/`zoneId`; chamador (`handlers/bolsa/ver-equipamento.ts`) passa o
+clientKind de QUEM PEDIU (o viewer, `p`), não do jogador visto — o layout da resposta depende de quem lê.
+
+### Pacote 2 — 195 AUCTION_REFRESH — VERIFICADO IDÊNTICO, sem fix
+
+`AuctionHouseController.as __updateAuction` (4.1:266-330 vs 6600:330-392): comparado campo a campo, byte a
+byte — **sem nenhuma diferença**. O bloco de item aqui é o mesmo "truncado" nos dois lados (termina em
+`Hole6Exp`, nunca lê `isGold`/`latentEnergy`/`MagicLevel`). `handlers/leilao/comum.ts` `auctionRefresh()`
+não precisou de `clientKind`.
+
+### Pacote 3 — BEAD_HOLE_INFO — confirmado não-bloqueante, sistema fora de escopo
+
+`CrazyTankSocketEvent.BEAD_HOLE_INFO` (6600-only, `ddt/events/CrazyTankSocketEvent.as:785`) chega via
+código 121 `RUNE_COMMAND` → sub-byte `RUNE_SENDINFO_TOCLIENT` (`beadSystemManager.as handleBeadPkg`) → lido
+em `PlayerManager.as __onOpenHole` (6600:1305-1323), que só preenche `BeadModel.drillInfo`. Esse campo já
+nasce inicializado (`static var drillInfo:DictionaryData = new DictionaryData()`,
+`beadSystem/model/BeadModel.as:21`) — diferente do `KingBlessManager._endTime` (que nascia `null` e
+estourava `TypeError #1009`), nunca mandar `BEAD_HOLE_INFO` não deixa nada null-ref. Sistema de
+runas/beads inteiro não portado (fora do escopo desta rodada); nenhum fix necessário pro hall/ações atuais.
+
+**Achado novo, não documentado nos Rounds anteriores**: código **121 colide entre as duas versões** —
+4.1 `ITEM_INLAY=121` vs 6600 `RUNE_COMMAND=121` (`ddt/data/socket/ePackageType.as`; `ITEM_INLAY` nem existe
+mais no enum 6600). Mesmo tipo de colisão do Detalhe D (259). Fix: `handlers/forja/montar.ts` `inlay()`
+agora SUPRIME o envio da resposta 121 quando `p.clientKind === "6600"` (o estado do servidor muda igual; só
+o ack visual não vai, pra não alimentar `handleBeadPkg` com bytes de outro protocolo). `embedBackout()`
+(125) e `openFiveSixHole()` (217) não colidem — confirmado mesmo valor numérico nos dois enums e reader
+idêntico.
+
+### Pacote 4 — 18 SCENE_ADD_USER (hall, lista de espera)
+
+`RoomListController.as __addWaitingPlayer` (4.1:166-194 vs 6600:200-229): 6600 lê +1 bool `isOld` no fim
+(mesmo stub card-soul do `loginSuccess`). Fix: `sceneAddPlayer()` ganhou `clientKind`.
+
+### Pacote 5 — 94/4 SendRoomPlayerAdd (entrar numa sala)
+
+`RoomManager.as __addPlayerInRoom` (4.1:333-453 vs 6600:637-754): 6600 lê +1 bool `isOld` logo depois de
+`DailyLeagueLastScore`, antes do loop de pets (mesmo stub). Fix: `roomPlayerAdd()` ganhou `receiverKind`
+(nome diferente de propósito — o campo que varia é do RECEPTOR do pacote, não do jogador descrito por `v`).
+
+### Pacote 6 — 94/9 ROOMLIST_UPDATE (lista de salas) e 21 SCENE_REMOVE_USER — VERIFICADOS IDÊNTICOS
+
+`RoomListController.as __addRoom` e `RoomManager`/sub-dispatch de remoção: comparados campo a campo —
+sem diferença nos dois. `GameRoomPackageType`/`IMPackageType` (sub-códigos) também batem nos dois enums
+(0-15 idênticos; o 6600 só ACRESCENTA sub-códigos novos 17-20, sem colidir). Nenhum fix.
+
+### Pacote 7 — 160/160 SendAddFriend (pedido de amizade aceito)
+
+`PlayerManager.as __friendAdd` (4.1:655-726 vs 6600:867-940): 6600 lê +1 bool `isOld` e +1 date
+`LastLoginDate` (valor REAL — usamos `PlayerInfo.LastDate`, mesmo campo do `loginSuccess`/`openVip`) logo
+depois de `IsMarried`. Fix: `addFriend()` ganhou `clientKind`. `160/165 FRIEND_STATE` seguiu verificado
+idêntico (já estava na lista "OK" do Round 1, agora confirmado também pelo código do sub-dispatch).
+
+### Pacote 8 — 128/1 SendConsortiaUserPass (entrar numa sociedade) — VERIFICADO IDÊNTICO, sem fix
+
+`ConsortionModelControl.as __consortiaResponse` case 1 (4.1:179-230 vs 6600:197-258): campo a campo —
+sem diferença. `handlers/sociedade/comum.ts` `userPassPacket()` não precisou de `clientKind` (mas o
+broadcast `for (const o of m.online(...)) o.send(pkt)` continua compartilhando um buffer — como o layout é
+idêntico nos dois clientKinds isso não é bug, só registrado aqui pra não reabrir a investigação se outro
+campo 128/* divergir no futuro).
+
+### Fix de fiação — broadcasts mistos (o pedido explícito do dono: "at most 2 variants per broadcast")
+
+Os pacotes 4 e 5 acima (18 e 94/4) são mandados em BROADCAST pra vários jogadores ao mesmo tempo
+(`rooms/room-mgr.ts` sala de espera do hall; `rooms/room.ts` sala de partida) — se a sala/hall tiver uma
+mistura de clientes 4.1 e 6600, reusar o MESMO `PacketOut` pra todo mundo manda o layout errado pra quem não
+é do clientKind de quem disparou a ação.
+- `game/player.ts` `RoomMember`: ganhou `readonly clientKind: ClientKind` (GamePlayer já tinha o campo;
+  `bots/bot.ts` `Bot` ganhou um getter fixo `"41"` — bot nunca passa por `session/login.ts`/
+  `app.LoginSessions.Client`).
+- `rooms/room-mgr.ts`: novo `sendToWaitingByKind(build, except?)` (constrói no máximo 2 variantes, uma por
+  clientKind REALMENTE presente na sala de espera) substitui `sendToWaiting` nos 3 pontos que mandam
+  `sceneAddPlayer` em broadcast (`waitingAdd`, os dois ramos de `enterWaitingRoom`).
+- `rooms/room.ts`: novo `sendToAllByKind(build, except?)` (mesma ideia) substitui o `sendToAll(add, p)` do
+  `roomPlayerAdd` em `addPlayer`. `roomPlayerRemove`/`roomSetupChange`/`roomList`/etc. seguem num buffer só
+  — confirmados sem campo sensível a clientKind.
+- Pacotes PlayerInfo/ItemInfo que SÃO sempre mandados 1-a-1 pro próprio solicitante (não broadcast) só
+  ganharam o parâmetro `clientKind` no chamador (74 ver-equipamento, 160/160 adicionar-amigo) — não
+  precisam do helper de broadcast.
+
+### Escopo verificado vs fora de escopo
+
+- **Confirmado**: nenhum outro writer de `ItemInfo` existe fora de `packets/out.ts` (`inventorySlots`/
+  `userEquip`) e `handlers/leilao/comum.ts` (`auctionRefresh`) — bolsa/loja/correio usam exclusivamente o
+  64 GRID_GOODS (já com fix 6600 desde o Round 2) quando um item entra na mochila; loja (`44 BUY_GOODS`) e
+  correio (`112`/`113`/`114`/`116`/`117`/`118`) só mandam acks simples (int/bool), sem bloco de `ItemInfo`
+  ou `PlayerInfo` — não verificados campo a campo nesta rodada por não carregarem esse tipo de dado (risco
+  baixo, mesmo padrão observado em toda colisão real encontrada até agora).
+- **Fora de escopo** (registrar pra não reabrir): `91/101 GAME_CREATE`/`91/103 GAME_LOAD` (partida em si,
+  `eFightPackageType`) pertence à tarefa `m2-batalha`, não a esta; sistema de beads/runas (`BEAD_HOLE_INFO`,
+  `RUNE_COMMAND`) seguem não portados.
+
+### Como testamos (Round 3)
+
+Novo arquivo `apps/game/test/client-6600-actions.test.ts`, mesmo método dos Rounds 1/2
+(`describe.each(["41","6600"])`, ler campo a campo na ordem exata do reader AS3 citado acima, `offset ===
+length` no final) — mas chamando os builders DIRETO com um `GamePlayer` real (via `loggedIn()`) em vez de
+esperar o burst de login, já que estes pacotes só disparam sob ação. Cobre 74 (com `uncompressPacket`,
+igual ao `pkg.deCompress()` do AS3), 18, 94/4 e 160/160 nos dois clientKinds, mais 195 (um reader só, já que
+é idêntico nos dois lados). `pnpm --filter @ddt/game test`: 39 arquivos / 280 testes, todos verdes.

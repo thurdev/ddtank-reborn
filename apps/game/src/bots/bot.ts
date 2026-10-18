@@ -12,7 +12,7 @@
 import type { GSPacket } from "@ddt/protocol";
 import type { RoomMember } from "../game/player.js";
 import type { BaseRoom } from "../rooms/room.js";
-import type { PlayerInfo } from "../game/player-info.js";
+import type { ClientKind, PlayerInfo } from "../game/player-info.js";
 import { defaultMatch, defaultTexp } from "../game/player-info.js";
 import type { PlayerView } from "../packets/out.js";
 
@@ -80,6 +80,10 @@ export class VirtualPlayer implements RoomMember {
   }
   get hasMainWeapon(): boolean {
     return true;
+  }
+  /** Bots never log in through `session/login.ts`, so there's no `app.LoginSessions.Client` row to read — always 4.1. */
+  get clientKind(): ClientKind {
+    return "41";
   }
 
   view(): PlayerView {
