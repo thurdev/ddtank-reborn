@@ -113,6 +113,13 @@
       "when": 1792310707355,
       "tag": "0015_blue_frog_thor",
       "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1792315041898,
+      "tag": "0016_natural_gargoyle",
+      "breakpoints": true
     }
   ]
 }

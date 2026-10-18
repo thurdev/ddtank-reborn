@@ -159,13 +159,60 @@ describe("61 ITEM_TRANSFER — client 6600 (+4 int de bagType/place, research/66
   });
 });
 
-describe("78 ITEM_FUSION — client 6600 (layout de receita novo, sem crash — gap M3)", () => {
-  it("lê [int fusionId, int count, boolean withoutComposeAttr] sem desalinhar e responde sem corpo", async () => {
-    const { c } = await loggedIn(server, { client: "6600" });
+describe("78 ITEM_FUSION — client 6600 (fusão por receita, research/6600/packets-m1.md M2 forja + m3-fusao)", () => {
+  // FusionID 1 real do 6600 (vendor/_dbexport/Project_Game6600/data/Item_Fusion.json): 4x "Đá Chu Tước 1"
+  // (TemplateID 11001, CategoryID 11 -> PropBag) funde em 1 "Đá Chu Tước 2" (11002), FusionRate 100000 = 100%.
+  // Ambos TemplateIDs já existem no nosso game."Shop_Goods" (itens compartilhados com a 4.1).
+  function seedRecipe(fusionId: number, item1: number, count1: number, fusionRate: number, reward: number, fusionType = 5) {
+    server.ctx.templates.fusions6600.set(fusionId, {
+      FusionID: fusionId, Item1: item1, Item2: -1, Item3: -1, Item4: -1,
+      Count1: count1, Count2: 0, Count3: 0, Count4: 0, Formula: 0, FusionRate: fusionRate, FusionType: fusionType, Reward: reward,
+    });
+  }
+
+  it("sucesso (FusionRate 100%): consome ouro + material, entrega count unidades do Reward", async () => {
+    seedRecipe(1, 11001, 4, 100_000, 11002);
+    const { c, player: p } = await loggedIn(server, { client: "6600", gold: 1_000_000 });
+    const pl = p();
+    pl.propBag.addItem(ItemInfo.createFromTemplate(server.ctx.templates.findItem(11001)!, 12, 101)); // 3 tentativas x Count1=4
+    const goldBefore = pl.info.Gold;
     const m = c.mark();
-    c.out(78, (x) => { x.writeInt(4242); x.writeInt(3); x.writeBoolean(true); });
+    c.out(78, (x) => { x.writeInt(1); x.writeInt(3); x.writeBoolean(false); }); // fusionId=1, count=3, withoutComposeAttr=false
     const r = await c.code(78, undefined, m);
-    expect(r.pkt.offset).toBe(r.pkt.length); // ack vazio — fusionCompleteHandler (6600) não lê corpo nenhum
+    expect(r.pkt.readBoolean()).toBe(true);
+    expect(r.pkt.offset).toBe(r.pkt.length); // só 1 boolean no corpo (AbstractPacketLib.cs SendFusionResult)
+    expect(pl.propBag.getItemCount(11001)).toBe(0); // 12 unidades consumidas (Count1=4 x count=3)
+    expect(pl.propBag.getItemCount(11002)).toBe(3); // 3 sucessos (FusionRate 100%)
+    expect(pl.info.Gold).toBe(goldBefore - 400 * 4 * 3); // MustFusionGold (default 400) * Count1 * count
+    c.close();
+  });
+
+  it("falha (FusionRate 0%): ainda consome ouro + material, mas não entrega o Reward", async () => {
+    seedRecipe(9999, 11003, 4, 0, 11004);
+    const { c, player: p } = await loggedIn(server, { client: "6600", gold: 1_000_000 });
+    const pl = p();
+    pl.propBag.addItem(ItemInfo.createFromTemplate(server.ctx.templates.findItem(11003)!, 8, 101)); // 2 tentativas x Count1=4
+    const goldBefore = pl.info.Gold;
+    const m = c.mark();
+    c.out(78, (x) => { x.writeInt(9999); x.writeInt(2); x.writeBoolean(false); });
+    const r = await c.code(78, undefined, m);
+    expect(r.pkt.readBoolean()).toBe(false);
+    expect(r.pkt.offset).toBe(r.pkt.length);
+    expect(pl.propBag.getItemCount(11003)).toBe(0); // material gasto mesmo sem sucesso (ItemFusionHandler.cs: RemoveTemplate antes do loop de sorteio)
+    expect(pl.propBag.getItemCount(11004)).toBe(0); // nenhum sucesso
+    expect(pl.info.Gold).toBe(goldBefore - 400 * 4 * 2);
+    c.close();
+  });
+
+  it("receita inexistente: NoCondition, sem gastar nada", async () => {
+    const { c, player: p } = await loggedIn(server, { client: "6600", gold: 1_000 });
+    const pl = p();
+    const goldBefore = pl.info.Gold;
+    const m = c.mark();
+    c.out(78, (x) => { x.writeInt(777_777); x.writeInt(1); x.writeBoolean(false); }); // fusionId que não existe em fusions6600
+    await new Promise((res) => setTimeout(res, 200));
+    expect(c.received.slice(m).some((r) => r.code === 78)).toBe(false); // sem GSPacket(78) — igual ao C# original (return antes do SendFusionResult)
+    expect(pl.info.Gold).toBe(goldBefore);
     c.close();
   });
 });

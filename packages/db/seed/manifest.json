@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-18T07:13:10.260Z",
+ "generatedAt": "2026-10-18T08:49:06.868Z",
  "tables": [
   {
    "schema": "game",
@@ -330,6 +330,12 @@
    "table": "Item_Fusion",
    "rows": 326,
    "file": "game/Item_Fusion.json.gz"
+  },
+  {
+   "schema": "game",
+   "table": "Item_Fusion_New",
+   "rows": 206,
+   "file": "game/Item_Fusion_New.json.gz"
   },
   {
    "schema": "game",

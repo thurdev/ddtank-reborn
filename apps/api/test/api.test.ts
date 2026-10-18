@@ -284,6 +284,22 @@ describe("6600 compat (research/6600/xml-diff.md, docs/plan/MIGRACAO-6600.md M1)
     expect(r6600).toContain('ID="900555" TemplateID="11101" LableType="2"');
     expect(r6600).toContain('AUnit="1" APrice="-1" AValue="777"');
   });
+
+  // FusionInfoLoad.xml (m3-fusao, research/6600/packets-m1.md "M2 forja" 78 ITEM_FUSION): antes vinha do
+  // snapshot do vendor (X-Snapshot: 6600, research/6600/xml-diff.md "FusionInfoLoad.xml" ok/ok só porque
+  // ambos eram o mesmo snapshot); agora vem do banco (game."Item_Fusion_New", seed real de 206 receitas, ver
+  // packages/db/scripts/schema-6600-tables.ts RENAME_6600) com os 13 atributos que
+  // store/newFusion/data/FusionNewDataAnalyzer.as + FusionNewVo.as leem via ObjectUtils.copyPorpertiesByXML.
+  it("fusioninfoload.xml comes from game.Item_Fusion_New now, not the vendor snapshot", async () => {
+    const r = await app.inject({ url: "/request6600/fusioninfoload.xml" });
+    expect(r.headers["x-snapshot"]).toBeUndefined();
+    expect(r.rawPayload.subarray(0, 2).toString("hex")).toBe("78da"); // COMPRESS_TEXT_LOADER (LoaderCreate.as)
+    const body = inflate(r.rawPayload);
+    expect(body.startsWith('<Result value="true" message="Success!"')).toBe(true);
+    // FusionID=1 real (vendor/_dbexport/Project_Game6600/data/Item_Fusion.json): 4x 11001 -> 1x 11002, 100%.
+    expect(body).toContain('<Item FusionID="1" Item1="11001" Item2="-1" Item3="-1" Item4="-1" Count1="4" Count2="0" Count3="0" Count4="0" Formula="0" FusionRate="100000" FusionType="5" Reward="11002" />');
+    expect((body.match(/<Item /g) ?? []).length).toBe(206);
+  });
 });
 
 describe("M3 ashx + templates (research/6600/ashx-missing.md)", () => {

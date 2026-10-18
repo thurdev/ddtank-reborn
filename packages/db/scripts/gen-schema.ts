@@ -15,7 +15,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { gunzipSync } from "node:zlib";
 import { DATABASES, PKG_ROOT, SCHEMA_DIR, SEED_DIR, VENDOR_EXPORT, catalogPath, catalogPath6600 } from "../src/paths.js";
-import { GAMEPLAY_6600_TABLES } from "./schema-6600-tables.js";
+import { GAMEPLAY_6600_TABLES, RENAME_6600 } from "./schema-6600-tables.js";
 
 interface CatColumn {
   name: string;
@@ -410,7 +410,9 @@ const generated: { schema: string; file: string }[] = [];
 const synthetic: string[] = [];
 const heaps: string[] = [];
 
-const sixNames = new Set(Object.keys(GAMEPLAY_6600_TABLES));
+// Renamed tables (RENAME_6600) label by their TARGET name only — the SOURCE name is also a real,
+// differently-shaped 4.1 table (e.g. "Item_Fusion") that must keep its own "Project_Game34" label.
+const sixNames = new Set([...Object.keys(GAMEPLAY_6600_TABLES).filter((n) => !RENAME_6600[n]), ...Object.values(RENAME_6600)]);
 let cat6600Cache: { tables: CatTable[] } | null = null;
 function load6600Catalog(): { tables: CatTable[] } {
   if (!cat6600Cache) cat6600Cache = JSON.parse(readFileSync(catalogPath6600("Project_Game6600"), "utf8")) as { tables: CatTable[] };
@@ -424,8 +426,15 @@ for (const { db, schema } of DATABASES) {
   const out: string[] = [];
   const tables: CatTable[] = [...cat.tables];
   if (schema === "game" || schema === "player") {
-    // m1-schema: append the new DDT-6600 gameplay tables that belong to this Postgres schema.
-    for (const t of load6600Catalog().tables) if (GAMEPLAY_6600_TABLES[t.name] === schema) tables.push(t);
+    // m1-schema: append the new DDT-6600 gameplay tables that belong to this Postgres schema. RENAME_6600: a
+    // few source names collide with an existing 4.1 table of a DIFFERENT shape (`Item_Fusion`, m3-fusao) — push
+    // those under the renamed name so they land as a brand-new table instead of merging/clashing with the 4.1
+    // one already in `tables` (from Project_Game34/Player34 above).
+    for (const t of load6600Catalog().tables) {
+      if (GAMEPLAY_6600_TABLES[t.name] !== schema) continue;
+      const renamed = RENAME_6600[t.name];
+      tables.push(renamed ? { ...t, name: renamed } : t);
+    }
   }
   tables.sort((a, b) => a.name.localeCompare(b.name));
   for (const t of tables) {
