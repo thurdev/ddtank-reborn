@@ -25,6 +25,8 @@ export interface PveInfo {
   ID: number; Name: string; Type: number; LevelLimits: number;
   SimpleTemplateIds?: string | null; NormalTemplateIds?: string | null; HardTemplateIds?: string | null; TerrorTemplateIds?: string | null;
   SimpleGameScript?: string | null; NormalGameScript?: string | null; HardGameScript?: string | null; TerrorGameScript?: string | null; EpicGameScript?: string | null;
+  /** 6600 Pve_Info column, "Pesadelo" difficulty (m2-salas, docs/plan/MIGRACAO-6600.md §2.2). */
+  NightmareGameScript?: string | null;
   Pic?: string | null; Description?: string | null; BossFightNeedMoney?: string | null;
 }
 

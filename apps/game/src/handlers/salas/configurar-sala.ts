@@ -26,6 +26,14 @@ import { currentLabyrinthFloor } from "../eventos/labirinto.js";
  * (`LabyrinthManager.enterGame` → `enterUserGuide(0, LANBYRINTH_ROOM)`, disparado automaticamente pelo
  * `RoomManager` ao notar que entrou numa sala tipo Labirinto) — aí o servidor resolve o `Pve_Info.ID` fixo
  * (401) e o andar atual do jogador (`player."Sys_Users_Labyrinth".currentFloor`), nunca o que vem do pacote.
+ *
+ * 6600 (`GameInSocketOut.as sendGameRoomSetUp`, m2-salas): mesmos 9 campos (`id/type/isOpenBoss/pass/name/
+ * secondType/permission/levelLimits/allowCrossZone` = `mapId/roomType/isOpenBoss/password/name/timeMode/
+ * hardLevel/levelLimits/isCrosszone`), +1 int `tempID` no final. Confirmado contra o C# 6600
+ * (`GameRoomSetupChange.cs:28`): o próprio servidor original faz `packet.ReadInt();` e DESCARTA o valor sem
+ * usar em nada (não afeta preço/dificuldade/mapa) — não é a dificuldade Épico/Pesadelo (isso é o campo
+ * `hardLevel`/`permission` de sempre, `eHardLevel.Nightmare=5`, ver `packages/fight/src/pve/game.ts`), só um
+ * campo morto no protocolo deles. Lemos e descartamos pra bater com o original campo a campo.
  */
 export async function configurarSala(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): Promise<void> {
   const room = p.currentRoom;
@@ -39,6 +47,7 @@ export async function configurarSala(ctx: ServerContext, p: GamePlayer, pkt: GSP
   const hardLevel = pkt.readByte();
   const levelLimits = pkt.readInt();
   const isCrosszone = pkt.readBoolean();
+  if (p.clientKind === "6600") pkt.readInt(); // tempID (descartado pelo próprio C# 6600, GameRoomSetupChange.cs:28)
   let currentFloor: number | undefined;
   if (mapId === 0 && roomType === RoomType.Labyrinth) {
     mapId = 401;

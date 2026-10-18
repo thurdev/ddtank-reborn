@@ -35,7 +35,10 @@
 ### M2 — loop central no 6600
 - [ ] **m2-bolsa** — bolsa/equipar/vestir (`PLAYER_DRESS`, mudanças de valor do §1.1).
 - [~] **m2-loja** — loja + correio.
-- [~] **m2-salas** — criar/entrar sala, pronto, começar (até a tela de carregamento da batalha).
+- [x] **m2-salas** — criar/entrar sala, pronto, começar (até a tela de carregamento da batalha) 6600-correto
+  nos dois sentidos (`94/0`/`94/4` corrigidos, `91/101 GAME_CREATE`/`91/103 GAME_LOAD` corrigidos e
+  broadcast por clientKind, Pesadelo/`eHardLevel.Nightmare` ligado ao `Pve_Info.NightmareGameScript`).
+  Ver `research/6600/packets-m1.md` "M2 salas".
 - [ ] **m2-batalha** — partida PvP completa, pacotes novos de `eFightPackageType`, dano mágico por item.
 - [ ] **m2-forja** — forja (fundir, compor, `ITEM_REFINERY`).
 - [ ] **m2-cutover** — 6600 vira o padrão em `/play`; 4.1 fica em `?client=41` até ser removido.

@@ -496,13 +496,21 @@ export function roomList(rooms: RoomView[]): PacketOut {
   return p;
 }
 
-/** 94/0 room create (SendRoomCreate, :1366). */
-export function roomCreate(r: RoomView): PacketOut {
+/**
+ * 94/0 room create (SendRoomCreate, 4.1 :1366 / 6600 :1436). 6600 adds +1 trailing bool `isShowGameLoading`
+ * (6600 C# always writes `false` here too — `RoomManager.as __createRoom` 4.1:285-308 vs 6600:529-569, the
+ * extra field is 6600:550 `_isShowGameLoading = evt.pkg.readBoolean()`; confirmed against the 6600
+ * `AbstractPacketLib.SendRoomCreate` which hardcodes `WriteBoolean(false)` — m2-salas,
+ * research/6600/packets-m1.md "M2 salas"). Not reading it would EOF the 6600 client on every room
+ * creation/entry, since this packet is sent right after `GAME_ROOM_CREATE`/`GAME_ROOM_LOGIN`.
+ */
+export function roomCreate(r: RoomView, clientKind: ClientKind = "41"): PacketOut {
   const p = new PacketOut(94);
   p.writeByte(0); p.writeInt(r.RoomId); p.writeByte(r.RoomType); p.writeByte(r.HardLevel); p.writeByte(r.TimeMode);
   p.writeByte(r.PlayerCount); p.writeByte(r.viewerCnt); p.writeByte(r.PlacesCount); p.writeBoolean(!!r.Password);
   p.writeInt(r.MapId); p.writeBoolean(r.IsPlaying); p.writeString(r.Name); p.writeByte(r.GameType); p.writeInt(r.LevelLimits);
   p.writeBoolean(r.isCrosszone); p.writeBoolean(r.isWithinLeageTime); p.writeBoolean(r.isOpenBoss); p.writeString(r.Pic);
+  if (clientKind === "6600") p.writeBoolean(false); // isShowGameLoading (6600-only UI flag, server always sends false)
   return p;
 }
 
@@ -525,21 +533,25 @@ export function roomSetupChange(r: RoomView): PacketOut {
 }
 
 /**
- * 94/4 (SendRoomPlayerAdd, :1231). Pets not ported: pet count 0.
+ * 94/4 (SendRoomPlayerAdd, :1231 4.1 / :1305 6600). Pets not ported: pet count 0.
  * Broadcast to the whole room (`rooms/room.ts`), which can mix 4.1 and 6600 players — the layout here
  * depends on the RECEIVER's client, not the entering player's (`v`), so `receiverKind` is a separate
  * param; callers must build one `PacketOut` per receiver clientKind (see `room.ts` broadcast call sites).
- * 6600 reads the same fields plus +1 bool `isOld` right after `DailyLeagueLastScore`, before the pet-count
- * loop (card-soul stub, same as `loginSuccess`'s `isOld` — not implemented -> `false`).
- * `RoomManager.as __addPlayerInRoom` (4.1:333-453 vs 6600:637-754 — the `isOld` read sits at 6600:726).
- * See research/6600/packets-m1.md.
+ * 6600 diffs vs 4.1 (`RoomManager.as __addPlayerInRoom` 4.1:333-453 vs 6600:637-754, confirmed against
+ * `AbstractPacketLib.cs` `SendRoomPlayerAdd` on both sides — m2-salas, research/6600/packets-m1.md "M2 salas"):
+ * +1 int `activityTanabataNum` (6600 `player.Actives.Info.activityTanabataNum`, read right after `zoneID`
+ * and before `ID`, 6600:679/6600 C# line WriteInt before player.ID — Coleta/Tanabata event, not ported -> 0)
+ * and +1 bool `isOld` right after `DailyLeagueLastScore`, before the pet-count loop (card-soul stub, same as
+ * `loginSuccess`'s `isOld` — not implemented -> `false`).
  */
 export function roomPlayerAdd(v: PlayerView, receiverKind: ClientKind = "41"): PacketOut {
   const c = v.info;
   const p = new PacketOut(94, v.id);
   p.writeByte(4); p.writeBoolean(v.inRoom); p.writeByte(v.roomIndex); p.writeByte(v.roomTeam); p.writeBoolean(false);
   p.writeInt(c.Grade); p.writeInt(c.Offer); p.writeInt(c.Hide); p.writeInt(c.Repute); p.writeInt(Math.trunc(v.pingTime / 1000 / 10));
-  p.writeInt(v.zoneId); p.writeInt(c.ID); p.writeString(c.NickName ?? ""); p.writeByte(c.typeVIP); p.writeInt(c.VIPLevel);
+  p.writeInt(v.zoneId);
+  if (receiverKind === "6600") p.writeInt(0); // activityTanabataNum (Coleta/Tanabata, not implemented)
+  p.writeInt(c.ID); p.writeString(c.NickName ?? ""); p.writeByte(c.typeVIP); p.writeInt(c.VIPLevel);
   p.writeBoolean(c.Sex); p.writeString(c.Style); p.writeString(c.Colors); p.writeString(c.Skin);
   p.writeInt(v.weaponTemplateId); p.writeInt(v.secondWeaponTemplateId);
   p.writeInt(c.ConsortiaID); p.writeString(c.ConsortiaName); p.writeInt(c.badgeID); p.writeInt(c.Win); p.writeInt(c.Total);
@@ -731,8 +743,23 @@ export interface FightPlayerView extends PlayerView {
   pet?: { place: number; templateId: number; id: number; name: string; userId: number; level: number; skillEquip: [number, number][] } | null;
 }
 
-/** 91/101 GAME_CREATE (Game.Logic/BaseGame.cs:2037 SendCreateGame). */
-export function gameCreate(roomType: number, gameType: number, timeType: number, players: FightPlayerView[]): PacketOut {
+/**
+ * 91/101 GAME_CREATE (Game.Logic/BaseGame.cs:2037 `SendCreateGame`, 4.1 and 6600 share this file almost
+ * verbatim — 6600's is decompiled/obfuscated but the diff is confirmed field-by-field against
+ * `GameManager.as createGameInfo` 4.1:505-692 vs 6600:893-1141, m2-salas, research/6600/packets-m1.md
+ * "M2 salas"). 6600 diffs, per player:
+ * - +1 int `pvpBadgeId` right after the 2nd weapon id, before `Nimbus` (6600 C# writes a hardcoded 0 here
+ *   too — not a tracked feature, always 0).
+ * - the 6 "addition" ints (GM/Auncher Experience/Offer/Riches addition, read as `/100` percentages) are
+ *   hardcoded `5` (5%) in 6600's C# instead of 4.1's `0` — a real server-sent VALUE difference, not a
+ *   layout one, but worth matching since it's free.
+ * - +1 trailing int-count `HorseSkillEquip.Length` (+N ints) per player, after the pet block (Montaria
+ *   skills, 6600-only, not ported -> always 0 equipped skills).
+ * Broadcast to the whole match (mixed 4.1/6600 possible in a Match-queue pairing) — callers must build one
+ * `PacketOut` per receiver clientKind, same pattern as `roomPlayerAdd`/`sceneAddPlayer` (see `fight/ddt.ts`).
+ */
+export function gameCreate(roomType: number, gameType: number, timeType: number, players: FightPlayerView[], clientKind: ClientKind = "41"): PacketOut {
+  const is6600 = clientKind === "6600";
   const p = new PacketOut(91);
   p.writeByte(101); p.writeInt(roomType); p.writeInt(gameType); p.writeInt(timeType); p.writeInt(players.length);
   for (const f of players) {
@@ -745,6 +772,7 @@ export function gameCreate(roomType: number, gameType: number, timeType: number,
       p.writeInt(f.weaponTemplateId); p.writeInt(f.weaponRefineryLevel); p.writeString(f.weaponName); wd(p, MIN_DATE);
     }
     p.writeInt(f.secondWeaponTemplateId > 0 ? f.secondWeaponTemplateId : 0);
+    if (is6600) p.writeInt(0); // pvpBadgeId (not tracked, 6600 server itself always sends 0)
     p.writeInt(c.Nimbus); p.writeBoolean(c.IsShowConsortia); p.writeInt(c.ConsortiaID); p.writeString(c.ConsortiaName);
     p.writeInt(c.badgeID); p.writeInt(c.ConsortiaLevel); p.writeInt(c.ConsortiaRepute); p.writeInt(c.Win); p.writeInt(c.Total);
     p.writeInt(c.FightPower); p.writeInt(c.apprenticeshipState); p.writeInt(c.masterID); p.writeString(c.masterOrApprentices ?? "");
@@ -754,7 +782,8 @@ export function gameCreate(roomType: number, gameType: number, timeType: number,
       p.writeInt(c.SpouseID);
       p.writeString(c.SpouseName ?? "");
     }
-    for (let i = 0; i < 6; i++) p.writeInt(0);
+    const addition = is6600 ? 5 : 0;
+    for (let i = 0; i < 6; i++) p.writeInt(addition);
     p.writeInt(f.team); p.writeInt(f.livingId); p.writeInt(f.maxBlood);
     if (!f.pet) p.writeInt(0);
     else {
@@ -763,6 +792,7 @@ export function gameCreate(roomType: number, gameType: number, timeType: number,
       p.writeInt(pt.skillEquip.length);
       for (const [slot, id] of pt.skillEquip) { p.writeInt(slot); p.writeInt(id); }
     }
+    if (is6600) p.writeInt(0); // HorseSkillEquip.Length (Montaria, not ported)
   }
   return p;
 }

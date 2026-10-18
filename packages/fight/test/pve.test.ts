@@ -166,3 +166,23 @@ describe("transpiled donor missions (smoke)", () => {
     expect(after).toContain("RAW64"); // CreateNpc → ADD_LIVING
   });
 });
+
+/**
+ * m2-salas (docs/plan/TASKS.md, DDT-6600 PvE dungeon selection): `eHardLevel` value 5 means "Simple" (Campo de
+ * treino) in 4.1 but "Nightmare"/"Pesadelo" (a PvE dungeon difficulty above Epic) in 6600 — `Pve_Info` already
+ * has the `NightmareGameScript` column (`packages/db/src/schema/game.ts`). `scriptFor` must pick that column
+ * for a Dungeon room at hardLevel 5, not silently fall back to `SimpleGameScript` (the old `default:` branch).
+ */
+describe("PvE engine — 6600 Nightmare difficulty (eHardLevel 5, Dungeon rooms only)", () => {
+  it("picks Pve_Info.NightmareGameScript for a Dungeon room at hardLevel 5", () => {
+    const info = { ID: 9001, Name: "test", Type: 4, LevelLimits: 0, SimpleGameScript: "GameServerScript.AI.Game.Wrong", NightmareGameScript: "GameServerScript.AI.Game.FakeNightmare" };
+    const game = new PveGame({ id: 5, roomType: 4, gameType: 7, timeType: 3, assets, players: [spec(1)], seed: 1, pveInfo: info, hardLevel: 5, data });
+    expect(game.missingScripts).toEqual([{ kind: "game", name: "GameServerScript.AI.Game.FakeNightmare" }]);
+  });
+
+  it("still picks Pve_Info.SimpleGameScript for a non-Dungeon room at hardLevel 5 (FightLab 'Simple' mode, 4.1 meaning)", () => {
+    const info = { ID: 9002, Name: "test", Type: 5, LevelLimits: 0, SimpleGameScript: "GameServerScript.AI.Game.FakeSimple", NightmareGameScript: "GameServerScript.AI.Game.Wrong" };
+    const game = new PveGame({ id: 6, roomType: 5, gameType: 8, timeType: 3, assets, players: [spec(1)], seed: 1, pveInfo: info, hardLevel: 5, data });
+    expect(game.missingScripts).toEqual([{ kind: "game", name: "GameServerScript.AI.Game.FakeSimple" }]);
+  });
+});

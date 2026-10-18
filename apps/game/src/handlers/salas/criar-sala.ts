@@ -24,12 +24,20 @@ const NO_WEAPON = "Sem arma equipada, não é possível participar.";
  * criar sala PvP/masmorra normal — o `Pve_Info`/andar reais só são resolvidos depois, em
  * `configurar-sala.ts` (ver nota ali). Aqui só confere o evento (`cfg.ALL_OPEN` bypassa, igual
  * `131 LABYRINTH` em `eventos/labirinto.ts`).
+ *
+ * 6600 (`GameInSocketOut.as sendCreateRoom`, m2-salas): mesmos 4 campos, +1 bool `isDouble` no final
+ * (confirmado contra 4.1 `GameInSocketOut.as sendCreateRoom`, que não tem esse parâmetro — a sala desafio
+ * criada por `RoomListController.__onChanllengeClick` usa esse pacote sem o campo extra). É o último campo
+ * do pacote — não ler não quebra nada (framing é por pacote, não por campo), mas lemos e descartamos pra
+ * documentar: nenhum fluxo de "sala dupla" dedicado foi encontrado server-side (`GameRoomCreate.cs`/
+ * `CreateRoomAction.cs` no C# 6600 não leem esse bit), então não é usado hoje.
  */
 export function criarSala(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): void {
   const roomType = pkt.readByte();
   const timeType = pkt.readByte();
   const name = pkt.readString();
   const pwd = pkt.readString();
+  if (p.clientKind === "6600") pkt.readBoolean(); // isDouble (sem efeito no servidor 6600 original)
   if (!p.hasMainWeapon) return p.sendMessage(1, NO_WEAPON);
   if (roomType === RoomType.Labyrinth && !isOpen(ctx, "labyrinth")) return p.sendMessage(0, "O Labirinto está fechado.");
   ctx.rooms.createRoom(p, name, pwd, roomType, timeType);

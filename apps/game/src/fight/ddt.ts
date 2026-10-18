@@ -384,6 +384,10 @@ class DdtGame implements FightGame {
         this.pve?.onFinished?.(e.isWin);
         continue;
       }
+      if (e.cmd === "GAME_CREATE") {
+        this.sendGameCreate(e);
+        continue;
+      }
       const pkt = this.serialize(e);
       if (pkt) this.send(e, pkt);
     }
@@ -464,17 +468,38 @@ class DdtGame implements FightGame {
     }
   }
 
-  private serialize(e: FightEvent): PacketOut | null {
-    if (e.cmd === "GAME_CREATE") {
-      const views: Out.FightPlayerView[] = e.players.map((pl) => {
-        const m = this.members.get(pl.userId)!;
-        const v = m.view();
-        const w = m.mainWeapon ?? null;
-        const pet = this.game.players.find((x) => x.spec.userId === pl.userId)?.spec.pet ?? null;
-        return { ...v, team: pl.team, livingId: pl.livingId, maxBlood: pl.maxBlood, weaponRefineryLevel: w?.RefineryLevel ?? 0, weaponName: w?.template.Name ?? "", pet };
-      }).filter(Boolean);
-      return Out.gameCreate(e.roomType, e.gameType, e.timeType, views);
+  /** Player roster for GAME_CREATE (BaseGame.cs:2037 SendCreateGame) — same for every receiver clientKind. */
+  private gameCreateViews(e: Extract<FightEvent, { cmd: "GAME_CREATE" }>): Out.FightPlayerView[] {
+    return e.players.map((pl) => {
+      const m = this.members.get(pl.userId)!;
+      const v = m.view();
+      const w = m.mainWeapon ?? null;
+      const pet = this.game.players.find((x) => x.spec.userId === pl.userId)?.spec.pet ?? null;
+      return { ...v, team: pl.team, livingId: pl.livingId, maxBlood: pl.maxBlood, weaponRefineryLevel: w?.RefineryLevel ?? 0, weaponName: w?.template.Name ?? "", pet };
+    }).filter(Boolean);
+  }
+
+  /**
+   * 91/101 GAME_CREATE, sent once at the start of a match. `Out.gameCreate`'s layout depends on the
+   * RECEIVER's clientKind (research/6600/packets-m1.md "M2 salas") — a Match-queue pairing can mix 4.1
+   * and 6600 players, so this builds at most 2 variants instead of sharing one buffer (same pattern as
+   * `rooms/room.ts` `sendToAllByKind`).
+   */
+  private sendGameCreate(e: Extract<FightEvent, { cmd: "GAME_CREATE" }>): void {
+    const views = this.gameCreateViews(e);
+    let p41: PacketOut | undefined;
+    let p6600: PacketOut | undefined;
+    const target = e.to ? new Set(e.to) : null;
+    for (const p of this.game.players) {
+      if (e.except === p.id || (target && !target.has(p.id))) continue;
+      const m = this.members.get(p.spec.userId);
+      if (!m) continue;
+      const pkt = m.clientKind === "6600" ? (p6600 ??= Out.gameCreate(e.roomType, e.gameType, e.timeType, views, "6600")) : (p41 ??= Out.gameCreate(e.roomType, e.gameType, e.timeType, views, "41"));
+      m.send(pkt);
     }
+  }
+
+  private serialize(e: FightEvent): PacketOut | null {
     if (e.cmd === "GAME_LOAD") {
       // GameNeedPetSkill: skill effect assets (only those of the battle pets in this game; the original sent every one)
       const seen = new Set<string>();

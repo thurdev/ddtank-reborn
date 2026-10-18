@@ -207,7 +207,7 @@ export class RoomMgr {
         room.maxViewerCnt = 1;
       }
       room.updateRoom(name, password, roomType, timeType, 0);
-      p.send(Out.roomCreate(room));
+      p.send(Out.roomCreate(room, p.clientKind));
       room.addPlayer(p);
       this.sendUpdateCurrentRoom(room);
       this.sendUpdateRoom();
@@ -237,7 +237,7 @@ export class RoomMgr {
         if (!room.canAddViewPlayer()) return fail("EnterRoomAction.full");
         this.waitingRemove(p);
         p.send(Out.roomLoginResult(true));
-        p.send(Out.roomCreate(room));
+        p.send(Out.roomCreate(room, p.clientKind));
         room.addPlayer(p);
         this.sendUpdateCurrentRoom(room);
         p.send(Out.roomSetupChange(room));
@@ -248,7 +248,7 @@ export class RoomMgr {
       if (!this.o.allOpen && room.RoomType === RoomType.Dungeon && room.LevelLimits > BaseRoom.levelLimit(p.info.Grade)) return fail("EnterRoomAction.level");
       this.waitingRemove(p);
       p.send(Out.roomLoginResult(true));
-      p.send(Out.roomCreate(room));
+      p.send(Out.roomCreate(room, p.clientKind));
       room.addPlayer(p);
       this.sendRoomListTo(p);
       p.send(Out.roomSetupChange(room));

@@ -93,7 +93,9 @@ function readRoomPlayerAdd(p: GSPacket, clientKind: "41" | "6600"): void {
   expect(p.readByte()).toBe(4);
   p.readBoolean(); p.readByte(); p.readByte(); p.readBoolean(); // inRoom, roomIndex, roomTeam, hasPet
   p.readInt(); p.readInt(); p.readInt(); p.readInt(); p.readInt(); // Grade, Offer, Hide, Repute, pingTime
-  p.readInt(); p.readInt(); p.readString(); p.readByte(); p.readInt(); // zoneId, ID, NickName, typeVIP, VIPLevel
+  p.readInt(); // zoneId
+  if (clientKind === "6600") p.readInt(); // activityTanabataNum
+  p.readInt(); p.readString(); p.readByte(); p.readInt(); // ID, NickName, typeVIP, VIPLevel
   p.readBoolean(); p.readString(); p.readString(); p.readString(); // Sex, Style, Colors, Skin
   p.readInt(); p.readInt(); // weaponTemplateId, secondWeaponTemplateId
   p.readInt(); p.readString(); p.readInt(); p.readInt(); p.readInt(); // ConsortiaID, ConsortiaName, badgeID, Win, Total

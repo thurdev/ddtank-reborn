@@ -384,3 +384,110 @@ length` no final) — mas chamando os builders DIRETO com um `GamePlayer` real (
 esperar o burst de login, já que estes pacotes só disparam sob ação. Cobre 74 (com `uncompressPacket`,
 igual ao `pkg.deCompress()` do AS3), 18, 94/4 e 160/160 nos dois clientKinds, mais 195 (um reader só, já que
 é idêntico nos dois lados). `pnpm --filter @ddt/game test`: 39 arquivos / 280 testes, todos verdes.
+
+---
+
+## M2 salas (`feature/m2-salas`) — fluxo de sala completo até a tela de carregamento da batalha
+
+Tarefa `m2-salas` (`docs/plan/TASKS.md`, `docs/plan/MIGRACAO-6600.md` §5 M2). Escopo: hall → criar/entrar sala
+→ pronto/time/lugar/expulsar/convidar → iniciar → `91/101 GAME_CREATE` + `91/103 GAME_LOAD` (ponto exato onde
+o cliente troca pra tela de carregamento da batalha — a luta em si, `eFightPackageType`, é `m2-batalha`).
+Método: comparar `apps/game/src/handlers/salas/*`/`rooms/room.ts`/`rooms/room-mgr.ts`/`packets/out.ts` contra
+`ddt/manager/GameInSocketOut.as` + `GameSocketOut.as` (client→server) e `room/RoomManager.as` +
+`roomList/pvpRoomList/RoomListController.as` + `game/GameManager.as` (server→client) dos dois clientes, cada
+diff confirmado contra o C# 6600 (`Game.Server.GameRoom.Handle/*.cs`, `Game.Logic/BaseGame.cs`,
+`Game.Server.Packets.Packets/AbstractPacketLib.cs`).
+
+### Pacotes corrigidos (server→client)
+
+| # | Código | Nome | Diff 6600 | Fix |
+|---|---|---|---|---|
+| 1 | 94/4 | SendRoomPlayerAdd | +1 int `activityTanabataNum` (`player.Actives.Info.activityTanabataNum`) entre `zoneID` e `ID` — Coleta/Tanabata, não portado → `0`. Confirmado contra `AbstractPacketLib.cs` `SendRoomPlayerAdd`: `WriteInt(player.Actives.Info.activityTanabataNum)` logo depois de `WriteInt(player.ZoneId)`. O Round 3 já tinha achado o `isOld` deste pacote mas não este campo (estava escondido mais acima no corpo, não no final). | `Out.roomPlayerAdd` ganhou o campo condicional, mesmo parâmetro `receiverKind` de antes |
+| 2 | 94/0 | SendRoomCreate | +1 bool `isShowGameLoading` no final (6600 C# manda sempre `false` — `AbstractPacketLib.SendRoomCreate` `WriteBoolean(false)`). Sem o campo, o cliente 6600 estoura EOF (`Error #2030`) em TODO create/enter de sala, porque é mandado logo depois do `94/1`/`94/0` de criar/entrar — bloqueador real pro hall. | `Out.roomCreate` ganhou `clientKind`; chamadores em `rooms/room-mgr.ts` (`createRoom`, `enterRoom` ×2) passam `p.clientKind` |
+| 3 | 91/101 | GAME_CREATE | Por jogador: **(a)** +1 int `pvpBadgeId` (sempre `0` no C# 6600 também) entre o 2º arma e `Nimbus`; **(b)** os 6 ints de "addition" (GM/Auncher Exp/Offer/Riches, lidos como `/100`) são `5` no C# 6600 em vez de `0` da 4.1 — diferença de VALOR, não de layout, mas de graça pra bater; **(c)** +1 int `HorseSkillEquip.Length` (+N ints) no final de cada jogador (Montaria, não portado → `0`). Confirmado campo a campo contra `GameManager.as createGameInfo` (4.1:505-692 vs 6600:893-1141) e contra `Game.Logic/BaseGame.cs` (`SendCreateGame`/`method_?`, obfuscado mas com os mesmos literais `WriteInt(0)`/`WriteInt(5)×6`/`WriteInt(player.HorseSkillEquip.Length)`). | `Out.gameCreate` ganhou `clientKind`; é mandado em BROADCAST pra uma partida (pode misturar 4.1/6600 num pareamento de Match) — `fight/ddt.ts` ganhou `sendGameCreate()` (mesmo padrão `sendToAllByKind` de `rooms/room.ts`), chamado no lugar do `serialize()`/`send()` genérico só pra este evento |
+| 4 | 91/103 | GAME_LOAD | **Verificado idêntico** — `GameManager.as __beginLoad` 4.1:771-810 vs 6600:1241-1275, mesmos campos (`maxTime, mapIndex, count+[type,path,classPath], petSkillCount+[pic,effect]`). Sem fix, mas agora coberto por teste nos dois clientKinds. | — |
+
+### Pacotes verificados idênticos (sem fix)
+
+- **94/9** `SendUpdateRoomList` (lista de salas): layout idêntico; única diferença é o CAP de entradas por página
+  (4.1 até 9, 6600 até 8, `AbstractPacketLib.cs` `SendUpdateRoomList`) — não é bug de protocolo (o `count`
+  mandado é sempre o mesmo que o loop usa), só uma diferença de UX/paginação. Decidido não portar o cap: essa
+  lista é compartilhada entre clientKinds misturados no hall (`sendUpdateRoom`/`sendUpdateCurrentRoom`) e
+  diferenciar o cap exigiria o mesmo padrão `sendToWaitingByKind` só por esse detalhe cosmético — não vale o
+  custo. Registrado como gap conhecido, não bloqueador.
+- **94/1** `SendRoomLoginResult`, **94/2** `SendGameRoomSetupChange`, **94/5** `SendRoomPlayerRemove`, **94/6**
+  `SendRoomPlayerChangedTeam`, **94/10** `SendRoomUpdatePlacesStates`, **94/11/13** pickup cancel/start,
+  **70** `GAME_INVITE` (convite recebido) — comparados campo a campo contra `AbstractPacketLib.cs` 4.1 e 6600
+  e contra os readers AS3 citados acima: sem diferença nenhuma.
+- **94/12** `SendRoomType` (troca de estilo da sala pra Guilda): o C# 6600 manda `game.GameStyle` onde o 4.1
+  manda `game.GameType` — nomes diferentes, mas no nosso `BaseRoom.updateGameStyle()` os dois campos são
+  sempre setados em lockstep com o MESMO valor numérico (`GameStyle=1,GameType=Guild=1` ou `GameStyle=0,
+  GameType=Free=0`), então o byte mandado é idêntico na prática. Não alterado (ver `room.ts` `updateGameStyle`).
+
+### Pacotes client→server verificados (criar/entrar/configurar sala)
+
+- **94/0** `GAME_ROOM_CREATE` (`sendCreateRoom`): 6600 adiciona +1 bool `isDouble` no final — nem o C# 6600
+  (`GameRoomCreate.cs`) lê esse campo de volta (só lê os 4 de sempre: `roomType, timeType, name, password`).
+  `criar-sala.ts` agora lê e descarta esse bool quando `clientKind==="6600"` (documentação/paridade, não
+  muda comportamento — é o último campo do pacote, framing não depende disso).
+- **94/2** `GAME_ROOM_SETUP_CHANGE` (`sendGameRoomSetUp`): 6600 adiciona +1 int `tempID` no final. Confirmado
+  contra `Game.Server.GameRoom.Handle/GameRoomSetupChange.cs:28`: o PRÓPRIO servidor 6600 original faz
+  `packet.ReadInt();` e descarta — não afeta preço/dificuldade/mapa. `configurar-sala.ts` lê e descarta
+  quando `clientKind==="6600"`.
+- **94/1** `GAME_ROOM_LOGIN` (`sendGameLogin`/entrar sala): verificado idêntico (`GameSocketOut.as` é o mesmo
+  arquivo/método nos dois clientes pra esse pacote) — `bool isInvite, int hall, int isRnd, [int roomId, str
+  pass]`. Sem fix.
+- **94/6** `GAME_TEAM`, **94/3** `GAME_ROOM_KICK`, **94/10** `GAME_ROOM_UPDATE_PLACE`, **94/5**
+  `GAME_ROOM_REMOVEPLAYER`, **94/15** `GAME_PLAYER_STATE_CHANGE`, **94/7** `GAME_START`, **82**
+  `GAME_MISSION_START`, **94/9** `ROOMLIST_UPDATE` (request): todos verificados idênticos campo a campo
+  contra `GameInSocketOut.as`/`GameSocketOut.as` 4.1 vs 6600. Sem fix.
+
+### PvE: dificuldade Épico/Pesadelo (`game.Pve_Info`)
+
+`Game.Logic/eHardLevel.cs`: o valor numérico `5` é o MESMO slot do enum nas duas versões, mas com nome
+diferente — 4.1 chama de `Simple` (Campo de treino/FightLab), 6600 renomeia pra `Nightmare`
+("Pesadelo", nova dificuldade de masmorra PvE acima de `Epic=4`). `game."Pve_Info"` já tem a coluna
+`NightmareGameScript` desde a migration do `m1-schema`, mas `packages/fight/src/pve/game.ts`
+`PveGame.scriptFor()` não tinha o `case` pra ela — caía no `default` e rodava `SimpleGameScript` (dificuldade
+errada) pra uma masmorra Pesadelo. Fix: `eHardLevel.Nightmare=5` (alias do mesmo número) + `case
+eHardLevel.Nightmare` que só usa `NightmareGameScript` quando `roomType===Dungeon` (Freshman/FightLab
+continuam lendo `Simple` no mesmo valor 5, igual ao C# original — não há ambiguidade real porque nenhuma
+masmorra chega em `hardLevel=5` fora do tipo Dungeon). O pacote de rede (`94/2 GAME_ROOM_SETUP_CHANGE`,
+campo `hardLevel`/`permission`, 1 byte) não muda — é só um valor 0-5 que já passava sem validação; o gap era
+inteiramente dentro do motor PvE, não no protocolo. Preço de entrada da masmorra (`GetPrice(hardLevel)` +
+`RemoveTemplate(201531, ...)`, `GameRoomSetupChange.cs:38-50`) **não está implementado** em nenhuma das
+duas versões do nosso servidor (gap pré-existente, não específico do 6600) — dungeons são de graça hoje;
+registrado como gap conhecido, não bloqueador pro hall/battle-loading.
+
+### Como testamos (M2 salas)
+
+Dois arquivos novos:
+- `apps/game/test/client-6600-rooms.test.ts`: `FakeClient` real (PGlite + protocolo de verdade) +
+  `DdtFightEngine` (`manualClock`, `botFallbackSec=0`) — fluxo completo **criar sala → `94/0` → `94/4` →
+  `GAME_START` → (pareamento com bot) → `91/101 GAME_CREATE` → `91/103 GAME_LOAD`**, decodificado campo a
+  campo na ordem exata dos readers AS3 citados acima, `offset === length` no final, nos dois clientKinds
+  (`describe.each`). Mais um teste de sala MISTA (host 4.1 + convidado 6600 numa sala `Freedom`, os dois
+  ficam prontos e o anfitrião inicia): confirma que `GAME_CREATE` chega com o layout certo pra CADA
+  receptor, não um buffer compartilhado errado (mesmo tipo de bug que os Rounds 1-3 já tinham achado em
+  `18`/`94/4`).
+- `packages/fight/test/pve.test.ts`: 2 testes novos (`eHardLevel` Nightmare) — `Pve_Info.NightmareGameScript`
+  escolhido pra uma sala Dungeon em `hardLevel=5`, e `SimpleGameScript` mantido pra uma sala não-Dungeon no
+  mesmo `hardLevel=5` (confirma que o valor reciclado do enum não quebra o comportamento 4.1 original).
+
+`pnpm --filter @ddt/game test`: 40 arquivos / 287 testes. `pnpm --filter @ddt/fight test`: 9 arquivos / 197
+testes. `pnpm -w typecheck`: 11/12 projetos (todos exceto um sem script), limpo. Todos verdes.
+
+### Gaps conhecidos pra `m2-batalha`
+
+- `91/101`/`91/103` em si estão corrigidos (é o limite deste task), mas TODO o resto do stream de
+  `eFightPackageType` (turnos, tiro, dano, cartas, GAME_OVER...) ainda usa um `PacketOut` ÚNICO compartilhado
+  pra toda a partida (`fight/ddt.ts` `serialize()`/`send()`) — se algum desses pacotes divergir entre 4.1 e
+  6600 (não auditado nesta tarefa, propositalmente fora de escopo), vai precisar do mesmo padrão
+  `sendToAllByKind`/`sendGameCreate` aplicado aqui.
+- Preço de entrada de masmorra (`GetPrice`/`RemoveTemplate(201531,...)`) não implementado (ver seção PvE
+  acima) — afeta 4.1 e 6600 igualmente, não é regressão desta tarefa.
+- Cap de paginação da lista de salas (8 no 6600 vs 9 na 4.1, `94/9`) não replicado — cosmético, documentado
+  acima.
+- Sistema de "sala dupla" (`isDouble` do `94/0 GAME_ROOM_CREATE`) e o campo morto `tempID` (`94/2
+  GAME_ROOM_SETUP_CHANGE`) são lidos e descartados, sem funcionalidade nova — nenhum dos dois é usado pelo
+  C# 6600 original tampouco.

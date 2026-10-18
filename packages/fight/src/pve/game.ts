@@ -15,7 +15,14 @@ import { CsList, rngNext, setScriptRng } from "./cs.js";
 import { Ball, Layer, LayerTop, type MissionInfo, type NpcInfo, PhysicalObj, type PveInfo, SimpleBoss, SimpleNpc, TransmissionGate, resetRectWithDir } from "./livings.js";
 import { AMissionControl, APVEGameControl, GenericGameControl, GenericMission, createScript } from "./script.js";
 
-export const eHardLevel = { Easy: 0, Normal: 1, Hard: 2, Terror: 3, Epic: 4, Simple: 5 } as const;
+/**
+ * eHardLevel (Game.Logic/eHardLevel.cs): value 5 is the same enum slot reused for two different meanings
+ * between versions — 4.1 names it `Simple` (Campo de treino / FightLab's "simple" mode, `roomType ===
+ * Freshman`), 6600 renames it `Nightmare` ("Pesadelo", a new PvE dungeon difficulty tier above `Epic`,
+ * `Pve_Info.NightmareGameScript` — m2-salas). Both are kept as aliases of the same number; which one
+ * applies is decided by context (room type), exactly like the original C#, not by the enum itself.
+ */
+export const eHardLevel = { Easy: 0, Normal: 1, Hard: 2, Terror: 3, Epic: 4, Simple: 5, Nightmare: 5 } as const;
 export const eRoomType = { Match: 0, Freedom: 1, Exploration: 2, Boss: 3, Dungeon: 4, FightLab: 5, Freshman: 10, Academy: 11, WordBossFight: 14, Labyrinth: 15, ConsortiaBoss: 17, FightGround: 18, CoupleBoss: 20, ActivityDungeon: 21, SpecialActivityDungeon: 23, FightFootballTime: 30, Christmas: 40 } as const;
 export const eGameType = { Free: 0, Guild: 1, Training: 2, ALL: 4, Exploration: 5, Boss: 6, Dungeon: 7, FightLab: 8, Freshman: 10 } as const;
 
@@ -172,6 +179,9 @@ export class PveGame extends BaseGame {
   override pveIncrementDelay(): number | null {
     return this.missionInfo?.IncrementDelay ?? 0;
   }
+  /** m2-salas: `Nightmare` only applies to Dungeon rooms (Freshman/FightLab never reach hardLevel 5 via a
+   *  Pve_Info lookup — Fight lab resolves its own script elsewhere), so there is no ambiguity in practice
+   *  even though `Nightmare` and `Simple` share the same numeric value (see `eHardLevel` above). */
   private scriptFor(info: PveInfo, hard: number): string {
     switch (hard) {
       case eHardLevel.Easy: return info.SimpleGameScript ?? "";
@@ -179,6 +189,7 @@ export class PveGame extends BaseGame {
       case eHardLevel.Hard: return info.HardGameScript ?? "";
       case eHardLevel.Terror: return info.TerrorGameScript ?? "";
       case eHardLevel.Epic: return info.EpicGameScript ?? "";
+      case eHardLevel.Nightmare: return this.roomType === eRoomType.Dungeon ? (info.NightmareGameScript ?? "") : (info.SimpleGameScript ?? "");
       default: return info.SimpleGameScript ?? "";
     }
   }
