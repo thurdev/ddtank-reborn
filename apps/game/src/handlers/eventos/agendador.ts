@@ -156,6 +156,11 @@ export class EventsRuntime {
         // as consortia_battle above.
         this.broadcast(Out.rescueOpenClose(true));
         break;
+      case "catchbeast":
+        // m4-catchbeast: real sender exists (GamePlayer.cs:3714-3716) but gated by a hardcoded 2014 date —
+        // replaced by this admin window (task requirement), same substitution every M4 window made.
+        this.broadcast(Out.catchBeastOpen(true));
+        break;
     }
     this.note(`start ${w.ev.kind} #${w.ev.id} ${w.start.toISOString()} → ${w.end.toISOString()}`);
   }
@@ -189,6 +194,9 @@ export class EventsRuntime {
         break;
       case "rescue":
         this.broadcast(Out.rescueOpenClose(false));
+        break;
+      case "catchbeast":
+        this.broadcast(Out.catchBeastOpen(false));
         break;
     }
     this.note(`end ${w.ev.kind} #${w.ev.id}`);
@@ -333,4 +341,7 @@ export async function eventsOnLogin(ctx: ServerContext, p: GamePlayer): Promise<
   // m4-resgate: same reasoning — a player logging in while the window is already open still needs 277/1 to
   // light up the hall icon (the broadcast at onStart only reaches whoever was already online).
   if (rt.scheduler.isOpen("rescue")) p.send(Out.rescueOpenClose(true));
+  // m4-catchbeast: same reasoning — see this function's header + game/catchbeast.ts for the real-sender
+  // citation this admin window replaces.
+  if (rt.scheduler.isOpen("catchbeast")) p.send(Out.catchBeastOpen(true));
 }

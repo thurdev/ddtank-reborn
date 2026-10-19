@@ -34,6 +34,7 @@ import type { FightEngine } from "./fight/types.js";
 import { updateLabyrinthFloor, outLabyrinth } from "./handlers/eventos/labirinto.js";
 import { eliteChampionFlee, eliteChampionGameOver, updateEliteScore } from "./handlers/eventos/liga-elite.js";
 import { onRescueGameOver } from "./handlers/eventos/resgate.js";
+import { onCatchBeastHurt } from "./game/catchbeast.js";
 import type { BotProvider, VirtualPlayer } from "./bots/bot.js";
 import { DbBotProvider } from "./bots/provider.js";
 import { ItemInfo } from "./game/item.js";
@@ -178,6 +179,8 @@ export class GameServer {
             log: (m) => log.warn(m),
             gradeForGp: (gp) => templates.gradeForGp(gp),
             onWorldBossHurt: (m, hurt) => { if (this.ctx) worldBossDamage(this.ctx, m as GamePlayer, hurt); },
+            // m4-catchbeast: unconditional overwrite (win or lose) — see game/catchbeast.ts header.
+            onCatchBeastHurt: (m, hurt) => { if (this.ctx && !(m as GamePlayer).isBot) void onCatchBeastHurt(this.ctx, m as GamePlayer, hurt).catch((e) => log.warn(`catchbeast hurt: ${(e as Error).message}`)); },
             // admin-config: server-config's expRate (templates.rates.exp) multiplies with any active "double_exp" window.
             expRate: () => templates.rates.exp * (this.ctx ? eventsRuntime(this.ctx).scheduler.rate("double_exp") : 1),
             takeCard: (m, roomType) => takeCardDrop(templates, m, roomType),

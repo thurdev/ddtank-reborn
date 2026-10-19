@@ -1787,3 +1787,54 @@ export function rescueGetPrizeResult(sceneId: number, index: number, ok: boolean
   p.writeInt(sceneId); p.writeInt(index); p.writeBoolean(ok);
   return p;
 }
+
+// --------------------------------------------- 145/32-36 CATCHBEAST (Capturar Nian, m4-catchbeast)
+// Real C# logic exists (`Game.Server.ActiveSystem.Handle.Catchbeast{ViewInfo,Challenge,Buybuff,GetAward}.cs`,
+// sub-codes of the shared `145 ACTIVITY_SYSTEM` dispatch) — see `game/catchbeast.ts` header for the full
+// citation trail. `new PacketOut(145, playerId)` matches every `new GSPacketIn(145, Player.PlayerCharacter.ID)`
+// in the C# source (`caminho-da-luz.ts reply145` already does the same for this same top-level code).
+
+/** 145/32 CATCHBEAST_BEGIN (`AbstractPacketLib.SendCatchBeastOpen`, :710-716): gates the hall icon
+ *  (`CatchBeastManager.createCatchBeastBtn`/`HallIconType.CATCHBEAST`). Real sender exists
+ *  (`GamePlayer.cs:3714-3716`, sent on login behind `Actives.IsYearMonsterOpen()` — a hardcoded 2014 date
+ *  range) but is replaced here by the admin-configurable window (task requirement): `isOpen(ctx,"catchbeast")`
+ *  via `app."ScheduledEvents"`, same substitution every other M4 window made. */
+export function catchBeastOpen(open: boolean, playerId = 0): PacketOut {
+  const p = new PacketOut(145, playerId);
+  p.writeByte(32);
+  p.writeBoolean(open);
+  return p;
+}
+
+export interface CatchBeastTierView { templateId: number; damageNeeded: number; state: number }
+
+/** 145/33 CATCHBEAST_VIEWINFO reply (`CatchbeastViewInfo.cs:14-30` / `CatchBeastView.as:226-251`):
+ *  challengeNum, buyBuffNum, buffPrice (`GameProperties.YearMonsterBuffMoney`), damageNum, then
+ *  `tiers.length` (always 5) blocks of (templateId, damageNeeded, state — 1 locked/2 claimable/3 claimed). */
+export function catchBeastViewInfo(challengeNum: number, buyBuffNum: number, buffPrice: number, damageNum: number, tiers: CatchBeastTierView[], playerId = 0): PacketOut {
+  const p = new PacketOut(145, playerId);
+  p.writeByte(33);
+  p.writeInt(challengeNum); p.writeInt(buyBuffNum); p.writeInt(buffPrice); p.writeInt(damageNum);
+  p.writeInt(tiers.length);
+  for (const t of tiers) { p.writeInt(t.templateId); p.writeInt(t.damageNeeded); p.writeInt(t.state); }
+  return p;
+}
+
+/** 145/35 CATCHBEAST_BUYBUFF ack (`CatchbeastBuybuff.cs:21-23` / `CatchBeastView.as:316-322`): new
+ *  `buyBuffNum` (display-only counter, clamped at 0 — see `game/catchbeast.ts` header re the buff's own
+ *  gap). */
+export function catchBeastBuyBuffAck(buyBuffNum: number, playerId = 0): PacketOut {
+  const p = new PacketOut(145, playerId);
+  p.writeByte(35);
+  p.writeInt(buyBuffNum);
+  return p;
+}
+
+/** 145/36 CATCHBEAST_GETAWARD ack (`CatchbeastGetAward.cs:24-27` / `CatchBeastView.as:280-290`): ok, tier
+ *  index — the client only animates the box to "claimed" when `ok=true`. */
+export function catchBeastGetAwardAck(ok: boolean, tier: number, playerId = 0): PacketOut {
+  const p = new PacketOut(145, playerId);
+  p.writeByte(36);
+  p.writeBoolean(ok); p.writeInt(tier);
+  return p;
+}

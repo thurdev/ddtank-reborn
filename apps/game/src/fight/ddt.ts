@@ -25,6 +25,10 @@ export interface DdtFightOptions {
   expRate?: () => number;
   /** World boss (room type 14, BaseWorldBossRoom.ReduceBlood/UpdateRank): damage a player dealt in the fight. */
   onWorldBossHurt?: (member: RoomMember, hurt: number) => void;
+  /** Capturar Nian (room type 26, RoomType.CatchBeast, m4-catchbeast): `GamePlayer.UpdatePveResult("yearmonter",
+   *  TotalDameLiving, _)` (`YearMonster1347.OnGameOver`) — total damage dealt in the single fight, unconditional
+   *  (win or lose), same shape as `onWorldBossHurt` above. */
+  onCatchBeastHurt?: (member: RoomMember, hurt: number) => void;
   /** PVPGame.TakeCard drop (DropInventory.CardDrop + AddTemplate TempBag); returns the card face shown to everyone */
   takeCard?: (member: RoomMember, roomType: number) => { templateId: number; count: number };
   /** PaymentTakeCardCommand.cs (GAME_CMD sub 114): charge for an extra card flip; false = too poor, nothing happens. */
@@ -434,6 +438,9 @@ class DdtGame implements FightGame {
       const m = this.members.get(r.userId);
       if (!m || m.isBot) continue;
       if (e.roomType === 14 && r.totalHurt > 0) this.engine.o.onWorldBossHurt?.(m, r.totalHurt);
+      // m4-catchbeast: 26 = RoomType.CatchBeast — `>= 0` (not `> 0`) matches `GamePlayer.UpdatePveResult`
+      // exactly: the C# OVERWRITES DamageNum unconditionally every fight, even a 0-damage loss.
+      if (e.roomType === 26) this.engine.o.onCatchBeastHurt?.(m, r.totalHurt);
       try {
         this.engine.o.onPlayerGameOver?.(m, { roomType: e.roomType, gameType: e.gameType, isWin: r.isWin, kills: r.totalKill, playerCount: e.players.length });
       } catch (err) {

@@ -434,6 +434,37 @@ export class RoomMgr {
     });
   }
 
+  /**
+   * 145/34 CATCHBEAST_CHALLENGE (m4-catchbeast): mirror of `CreateCatchBeastAction.cs` (`Rooms/
+   * CreateCatchBeastAction.cs:35-94`) — fixed map `eMap.CatchBeast=1347` (== the `Pve_Info.ID` this room's
+   * `pveId` becomes, `room.MapId` below, same convention `createRescueRoom` above uses), `eRoomType.
+   * CatchBeast=26` (`RoomType.CatchBeast`), `TimeMode=2` (`byte_0` in the C#), `currentFloor=1`
+   * (`IfXpyQuZdU` in the C#), `HardLevel.Normal`. Solo, no-lobby, disposable room — same shape as
+   * `createRescueRoom`, no special `onFinished` needed in `launchPve` (only Dungeon/Labyrinth need one).
+   */
+  createCatchBeastRoom(p: RoomMember, onNoRoom?: () => void): void {
+    this.addAction(() => {
+      p.currentRoom?.removePlayer(p);
+      const room = this.rooms.find((r) => !r.IsUsing);
+      if (!room) {
+        p.sendMessage(1, this.o.lang("CreateRoomAction.MaxRoom"));
+        onNoRoom?.();
+        return;
+      }
+      this.waitingRemove(p);
+      room.start();
+      room.updateRoom("CatchBeast", "12dasSda44C@tchBe@st", RoomType.CatchBeast, 2, 1347);
+      room.currentFloor = 1;
+      room.LevelLimits = 0;
+      room.HardLevel = HardLevel.Normal;
+      room.isCrosszone = false;
+      room.isOpenBoss = false;
+      p.send(Out.roomCreate(room, p.clientKind));
+      room.addPlayer(p);
+      this.launchPve(room, [p]);
+    });
+  }
+
   /** GamePickupCancel (GameRoom/Handle/GamePickupCancel.cs). */
   cancelPickup(p: RoomMember): void {
     this.addAction(() => {

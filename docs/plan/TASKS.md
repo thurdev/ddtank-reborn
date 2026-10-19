@@ -672,9 +672,44 @@ confirmar jogando" depois. Cada uma depende do pacote/sistema M3 correspondente 
   Data/HelpGameRewardInfo.cs` + `Bussiness/Managers/HelpGameRewardMgr.cs` existem no vendor, mas sem SP/linha
   real — mesma categoria "0 linhas na origem" do baú da galinha/dados). Testes:
   `apps/game/test/client-6600-m4-resgate.test.ts` (11), `apps/api/test/api.test.ts` (+2).
-- [ ] **m4-catchbeast** — Capturar Nian (`catchbeast.swf`, `src/catchbeast/date/CatchBeastPackageType.as`).
-  **Código de dispatch top-level não encontrado** em `ePackageType.cs` nem no scan de client-sends desta
-  tarefa — confirmar se usa um código existente (ex. dentro de `ACTIVE_SYSTEM`) antes de implementar.
+- [x] **m4-catchbeast** (2026-10-19) — Capturar Nian (`catchbeast.swf`, `CatchBeastPackageType`). **Dispatch
+  confirmado**: sub-códigos 32 BEGIN/33 VIEWINFO/34 CHALLENGE/35 BUYBUFF/36 GETAWARD do `CatchBeastPackageType`
+  são o MESMO enum (`ActiveSystemPackageType`) do `145 ACTIVITY_SYSTEM` já roteado — despachados por
+  `caminho-da-luz.ts activitySystemRouter` (`eventos/captura-nian.ts`), sem código novo no registro de 145.
+  **Alcançável**: sim — real sender existe (`GamePlayer.cs:3714-3716`, `Out.SendCatchBeastOpen` no login, só
+  trocado o gate de uma data hardcoded de 2014 pro admin `app."ScheduledEvents"` kind "catchbeast", igual
+  todo outro item M4). **REAL lógica C#** (diferente de `m4-coleta`/`m4-resgate`, que não tinham ou tinham
+  design próprio): `Game.Server.ActiveSystem.Handle.Catchbeast{ViewInfo,Challenge,Buybuff,GetAward}.cs`
+  portados fielmente em `apps/game/src/game/catchbeast.ts` + `handlers/eventos/captura-nian.ts`. Luta REAL
+  via o motor de PvE de verdade (`RoomMgr.createCatchBeastRoom` → `FightEngine.startPve`, `eRoomType.
+  CatchBeast=26`/`eMap.CatchBeast=1347` — valores REAIS do enum, diferente do `RoomType.Rescue=70`
+  fabricado): NPC 73000 "Nian" já existia nos dois snapshots de seed (`NPC_Info`/`NPC_Info2`,
+  `Script: GameServerScript.AI.NPC.YearMonster`, `Blood=3000000` batendo com `YearMonsterHP`) — só faltavam
+  as linhas `Pve_Info`/`Mission_Info` ligando ele a uma sessão jogável (mesma categoria do gap do Labirinto,
+  migração 0011). Script transpilado a mão (`packages/fight/src/pve/scripts/manual/catchbeast.ts`, sem
+  `generated/` equivalente pra esse caminho do donor): `Game/YearMonster.cs` + `Messions/YearMonster1347.cs`
+  + `NPC/YearMonster.cs` (4 padrões de ataque A/B/C/D do Nian). Dano total vira o hook `onCatchBeastHurt`
+  (`fight/ddt.ts`, 2 linhas — mesmo formato de `onWorldBossHurt`, `GAME_ALL_MISSION_OVER.totalHurt`,
+  incondicional vencer/perder igual o `UpdatePveResult("yearmonter",...)` original). **Exploit evitado (bug
+  real do original)**: `CatchbeastGetAward.cs` só confere o threshold de dano (`method_0`) antes de conceder
+  — NUNCA confere se o tier já está "3" (claimed), então reenviar `GETAWARD` com o mesmo índice reclamava a
+  recompensa de novo pra sempre; `tierStatus !== 2` (claimable, nunca já reclamado) é o guard adicionado.
+  **Gap documentado, não corrigido (fora do escopo)**: `CatchbeastBuybuff.cs` aplica `BufferList.
+  CreatePayBuffer(400/406,...)` (`FightBuffs` genéricos) além de cobrar Xu — nenhum mecanismo de "buff de
+  stat temporário" existe em `packages/fight`/`apps/game` ainda, nem pro Boss Mundial usar o MESMO buff na
+  entrada da sala dele (`GameRoomCreate.cs:46-47`, também não portado) — comprar cobra o ouro certo mas não
+  concede bônus na luta (mesmo gap do Boss Mundial, tocaria código compartilhado, fora desta tarefa). Prêmios
+  dos 5 tiers de dano (templateIds 112370-112374, `GameProperties.YearMonsterBoxInfo`) não têm dado de
+  loot-table em nenhum vendor — `rewardsFor` dá um prêmio próprio (ouro, documentado, admin-configurável),
+  mesma categoria do `game/rescue.ts`. Migração: `packages/db/drizzle/0022_bright_rogue.sql` (tabela nova
+  `player."Sys_Users_CatchBeast"`, hand-added — `ActiveSystemInfo` do C# é 1 linha com ~25 colunas de
+  eventos não relacionados, só as 5 colunas do Capturar Nian foram portadas — + as linhas `Pve_Info`/
+  `Mission_Info` ID 1347, idempotentes). `git fetch` antes de gerar: develop ainda em 0021 (outro agente não
+  tomou 0022 ainda). Testes: `apps/game/test/client-6600-m4-catchbeast.test.ts` (8) — `pnpm --filter @ddt/game
+  test` e `pnpm --filter @ddt/api test` verdes antes e depois. `research/6600/coverage-m3.md` reexecutado.
+  Trabalho PT-BR/arte pendente (tela nova, sem remaster/i18n ainda): ver `m5-remaster-telas-novas`/
+  `m5-i18n-telas-novas` abaixo (`catchbeast.swf` acrescentado às duas listas — nenhuma task nova precisa, o
+  padrão já é "toda tela 100% nova entra nessas duas").
 - [ ] **m4-passe-classico** — Passe Clássico / battle pass (`growthpackage.swf`,
   `src/growthPackage/GrowthPackageType.as` — valores a extrair). Maior esforço de design (progressão +
   loja de pontos), mas nome bate com o pedido do dono.
@@ -697,8 +732,9 @@ confirmar jogando" depois. Cada uma depende do pacote/sistema M3 correspondente 
 - [ ] **m5-remaster-telas-novas** — toda tela 100% nova portada em M3/M4 (sem equivalente 4.1 pra reusar
   remaster) precisa do pipeline completo `tools/remaster/*` (igual M1 `m1-bitmap-text`/`m1-swf-text`) antes
   de ir pro ar — não é uma tarefa só, é um passo final de cada tarefa M3/M4 que adicionar SWF novo. Inclui
-  agora `collectiontask.swf` (m4-coleta) e `rescue.swf` (m4-resgate) — nenhum texto/imagem revisado ainda
-  (fora do escopo das tarefas de backend, só pacote/persistência/motor de PvE).
+  agora `collectiontask.swf` (m4-coleta), `rescue.swf` (m4-resgate) e `catchbeast.swf` (m4-catchbeast) —
+  nenhum texto/imagem revisado ainda (fora do escopo das tarefas de backend, só pacote/persistência/motor de
+  PvE).
 - [ ] **m5-i18n-telas-novas** — `tools/i18n/skelleton-match.mjs` contra `language.txt` das telas novas
   (mesmo método de `m1-lang-ptbr`, dado de entrada novo por tela).
 - Critério de saída do M5 igual ao descrito em `MIGRACAO-6600.md` §5: telas novas com texto PT-BR e visual
