@@ -65,7 +65,7 @@ import { battleGroundHandler, eliteGameHandler } from "./liga-elite.js";
 import { newChickenBoxDispatch } from "./bau-da-galinha.js";
 import { lotteryOpenBox, lotteryRandomSelect, lotteryFinish, caddyBadLuck, openAllCardBox, caddySellAll, luckStoneConfig, luckStoneRankLimit, caddyExchangeAll, caddyConvertedAll } from "./roleta.js";
 import { labyrinthHandler } from "./labirinto.js";
-import { noviceActivityHandler } from "./novato.js";
+import { noviceActivityHandler, magicStoneNoOp } from "./novato.js";
 import { activityPackageHandler } from "./ativacao-pintinho.js";
 import { dailyAwardHandler, timeBox, weeklyClickCnt, dailyRecordHandler } from "./recompensa-diaria.js";
 import { signAwardHandler, accumulativeLoginHandler } from "./presenca.js";
@@ -128,8 +128,10 @@ export function registerEventos(r: HandlerRegistry): void {
   r.player(162, "ELITEGAME", (ctx, p, pkt) => eliteGameHandler(ctx, p, pkt), "partial");
   r.player(102, "WORLDBOSS_CMD", (ctx, p, pkt) => worldBossCmd(ctx, p, pkt), "partial");
 
-  // Atividades de novato / Ativação do pintinho
-  r.player(258, "NOVICEACTIVITY", (ctx, p, pkt) => noviceActivityHandler(ctx, p, pkt), "partial");
+  // Atividades de novato / Ativação do pintinho — 258 colide com MAGIC_STONE no 6600, ver nota em
+  // novato.ts (m3-partial-sweep): sem o guard por clientKind, um pacote 6600 real seria lido como
+  // noviceActivityHandler (2 ints) e podia casar por acidente com uma recompensa de novato indevida.
+  r.player(258, "NOVICEACTIVITY/MAGIC_STONE(6600)", (ctx, p, pkt) => { if (p.clientKind === "6600") return magicStoneNoOp(ctx, p, pkt); return noviceActivityHandler(ctx, p, pkt); }, "partial");
   r.player(84, "ACTIVITY_PACKAGE", (ctx, p, pkt) => activityPackageHandler(ctx, p, pkt), "partial");
 
   // Minigame das Termas ("Đại chiến Hút Gà") — roteador próprio, ver handlers/minigame-termas/

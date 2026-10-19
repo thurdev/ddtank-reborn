@@ -45,14 +45,22 @@ export function registerMissoes(r: HandlerRegistry): void {
     perguntaResposta(ctx, p, sub, id, flag);
   });
 
+  // m3-partial-sweep (2026-10-19): 6600 manda um layout diferente do 4.1 (ver cabeçalho de
+  // troca-de-itens.ts) — multiplicador antes da lista + índice de receita no final. Sem o branch por
+  // clientKind, a checagem estrita de tamanho sempre falhava pra qualquer pacote 6600 real. Flipped
+  // partial -> implemented.
   r.player(31, "GOODS_EXCHANGE", (ctx, p, pkt: GSPacket) => {
     const activeId = pkt.readInt();
+    const multiplier = p.clientKind === "6600" ? pkt.readInt() : 1;
     const count = pkt.readInt();
-    if (count <= 0 || count > Math.floor((pkt.length - pkt.offset) / 12) || pkt.length - pkt.offset !== count * 12) return;
+    const itemsBytes = count * 12;
+    const trailingBytes = p.clientKind === "6600" ? 4 : 0; // tierIndex (int), framed but unused — see header note
+    if (count <= 0 || count > Math.floor((pkt.length - pkt.offset) / 12) || pkt.length - pkt.offset !== itemsBytes + trailingBytes) return;
     const offered: { templateId: number; place: number; bagType: number }[] = [];
     for (let i = 0; i < count; i++) offered.push({ templateId: pkt.readInt(), place: pkt.readInt(), bagType: pkt.readInt() });
-    return trocarItens(ctx, p, activeId, offered);
-  }, "partial");
+    if (p.clientKind === "6600") pkt.readInt(); // tierIndex — consumed for framing, not modeled (see header note)
+    return trocarItens(ctx, p, activeId, offered, multiplier);
+  });
 
   registerMissoesStubs(r);
 

@@ -429,10 +429,65 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
   | 360 | GET_CSM_BOX | Nenhuma classe `[PacketHandler(360)]` — 100% morto. | No-op (sem corpo). |
 
   `apps/game/src/handlers/eventos/sweep-diversos.ts`. Teste: `apps/game/test/client-6600-m3-misc-sweep.test.ts`.
-- [ ] **m3-partial-sweep** — os 22 códigos com status `partial` no relatório (handler existe mas marcado
-  incompleto): revisar campo a campo 6600 vs 4.1, mesma metodologia dos Rounds 1-3 de
-  `research/6600/packets-m1.md` (ler o reader AS3 das duas versões, comparar byte a byte, `offset===length`
-  no teste). Lista completa em `research/6600/coverage-m3.md` (coluna "Status servidor" = `partial`).
+- [x] **m3-partial-sweep** (2026-10-19) — os 24 códigos com status `partial` do relatório (156 era stale —
+  muitos já tinham sido corrigidos por tarefas anteriores sem o status ser atualizado), revisados campo a
+  campo contra 6600/4.1. 10 tinham bug real (achado lendo o reader AS3 real, não só "melhor esforço") e
+  foram corrigidos + flipped `implemented`; 9 já estavam corretos (só desvio documentado) e só precisaram
+  do flip; 1 (249) teve 1 sub corrigido mas continua `partial` (os outros subs não foram reauditados); 4
+  precisam de subsistema inteiro novo e foram desmembrados em tarefas próprias (abaixo); 1 (153) já tinha
+  desmembramento (`m3-consortia-battle-2`); 2 (145/84) têm o gap já coberto por tarefas M4/HANDLERS.md
+  existentes, sem split novo.
+
+  | Código | O que faltava | O que foi feito |
+  |---|---|---|
+  | 233 MARRY_SCENE_CHANGE | Só avisava quem ficou no mapa antigo (244); nunca avisava quem já estava no mapa novo (243) — trocar de cenário na capela deixava o jogador invisível pra quem já estava lá. Faltavam guardas (`MarryMap!=0`, no-op se mesmo mapa). | Troca de presença 243 completa + guardas, igual `Class20.cs`. **implemented**. |
+  | 241 MARRY_ROOM_CREATE | Mandava 242 (layout "você entrou nesta sala") pra quem só navega a LISTA, e um 2º pacote 242 TRUNCADO (só 1 bool) sobrescrevia `ChurchManager.currentRoom` do criador com lixo. | Broadcast 241 certo (`chapelRoomScenePacket`) pra `chapelBrowsers`; removido o 2º pacote malformado. **implemented**. |
+  | 251 SCENE_STATE | Ignorava o sub-byte, só reenviava 242. Sub 0 (resync de presença na capela) e sub 1 (sair pra sala de espera do hall — usado por loja/consórcio/lista de salas/etc, não só casamento) nunca faziam nada. | Sub 0 = troca de presença 243 igual 233; sub 1 = `ctx.rooms.enterWaitingRoom` (mesmo caminho do 21 SCENE_REMOVE_USER). **implemented**. |
+  | 253 MARRY_ROOM_INFO_UPDATE | Broadcast pra `ChapelRoom.members` (242) em vez de pra `chapelBrowsers` (255) — quem edita a sala avisava as pessoas DENTRO da sala, não quem vê a LISTA de fora. | Broadcast 255 certo pra `chapelBrowsers`. **implemented**. |
+  | 240 MARRY_SCENE_LOGIN | (não tinha status próprio, mas alimentava o mesmo bug): listava salas existentes com o layout 242 errado. | Lista com `chapelRoomScenePacket(241, ...)`; registra o jogador em `chapelBrowsers`. |
+  | 249 MARRY_CMD (sub 3 CONTINUATION) | Preço dividido 50/50 com o cônjuge (original cobra só de quem pede); resposta 242 pra sala toda (original: `SendContinuation`, 249/3 + horas, só pro pedinte + cônjuge). | Cobrança single-payer + resposta/audiência corrigidas. **249 continua partial** (subs 1/4/5/6/7/8/10/11 não reauditados). |
+  | 58 ITEM_COMPOSE | Nada — reauditado contra `ItemComposeHandler.cs` (6600 e 4.1, mesmo arquivo), só desvios já documentados (pedra sempre validada, mais seguro que o original). | Flip `implemented`. |
+  | 59 ITEM_STRENGTHEN | Nada — `strengthen6600` já cobre a reescrita determinística do 6600; `openHole` não chamado no caminho 6600 é esperado (6600 não usa furos 5/6 aqui). | Flip `implemented`. |
+  | 222 EQUIP_RECYCLE_ITEM | Nada — já fiel a `EquipRetrieveHandler.cs` (6600 e 4.1). | Flip `implemented`. |
+  | 196 CARD_RESET | Nada — `sendCardReset`(mode 0)/`sendReplaceCardProp`(mode 1) do 6600 são a mesma ação que o `if/else` já cobre. | Flip `implemented`. |
+  | 128 LEFT_GUN_ROULETTE_SOCKET | Bug real: depois do 1º prêmio ganho, toda rodada PERDIDA seguinte reportava errado (`SendLeftRouleteResult` lê `LeftRoutteRate` DEPOIS da mutação — perdas não zeram esse campo, igual ao original, mas o porte usava `result` da rodada atual pros dois campos da resposta). | Resposta agora lê o campo persistido como o original. **implemented**. |
+  | 31 GOODS_EXCHANGE | 6600 manda um layout diferente (`activeId, multiplier, itemsLen, itens..., tierIndex`) do 4.1 (`activeId, itemsLen, itens...`); sem branch por `clientKind`, TODO pacote 6600 real falhava a checagem estrita de tamanho — feature 100% inutilizável nesse cliente. | Parse por `clientKind` + multiplicador escala custo/prêmio (tier index só framed, receita única por `activeId` como já era). **implemented**. |
+  | 258 NOVICEACTIVITY/MAGIC_STONE | Colisão de enum (258 = NOVICEACTIVITY na 4.1, MAGIC_STONE no 6600, board de Relíquias) sem guard — um 6600 real caía no `noviceActivityHandler` (2 ints), com risco de casar por acidente numa recompensa de novato indevida (bypass de `claimOnce` por código errado). | Guard por `clientKind` + `magicStoneNoOp` (lê os 8 sub-tipos corretos, sem responder). Feature de verdade (board de Relíquias) continua fora de escopo (`m4-vestir-encanto-reliquias`). **Continua partial** (bug de segurança fechado, feature não portada). |
+  | 49 CHANGE_PLACE_GOODS | Store-bag captcha (depende do 200 CHECK_CODE, anti-bot nunca portado) + "temp_place restore" (4.1, não achado no 6600) + gesto de split-drag não confirmado ao vivo (não é bug de servidor). | Nenhuma mudança — gaps documentados, nenhum reachável/barato de fechar. Continua `partial`. |
+  | 168 GOODS_COUNT | Desvio JÁ aceito no projeto (mesmo desvio do 44 BUY_GOODS: limite por jogador, não estoque global compartilhado `WorldMgr.GetAllShopFreeCount`). Retrofit pro pool global mudaria um desenho já decidido, não é "sub-ação faltando". | Nenhuma mudança — continua `partial`, documentado. |
+  | 200 CHECK_CODE | Lado que EMITE o desafio anti-bot nunca foi portado (sistema CAPTCHA inteiro, fora de escopo). | Nenhuma mudança — continua `partial`, documentado (já listado em HANDLERS.md "Missing"). |
+  | 87 NEWCHICKENBOX_SYS | Board só em memória (não persiste em `New_ChickenBox_Data` através de restart do processo) — desvio documentado, não sub-ação faltando (todas as 15 sub-ações funcionam). | Nenhuma mudança — continua `partial`, documentado. |
+  | 81 FARM | 3 sub-ações reais não portadas: poultry (subs 20-25/33), compose-food (5), gift packs (20) — mesma categoria da lista "missing" pré-existente, não uma regressão. | Nenhuma mudança — continua `partial`; poultry é grande o suficiente pra cogitar tarefa própria no futuro, não desmembrado aqui por orçamento. |
+  | 153 CONSORTIA_BATTLE | Resultado/pontuação/recompensa da arena GvG (`BattleWin`/`BattleLost`, 153/16/17) — já desmembrado. | Nenhuma mudança — já tem `m3-consortia-battle-2` abaixo. |
+  | 145 ACTIVITY_SYSTEM | Dezenas de subsistemas de evento sazonal (pyramid/godsroads/superwinner/christmas/catchbeast/treasurelost/newyearrice/boguadventure/halloween/insect/cake...) sem fonte real ou não portados. | Nenhuma mudança — gap já coberto por `m4-eventos-sazonais`/`m4-catchbeast`/`m4-passe-classico`/Tesouro (já implementado), sem split novo. |
+  | 84 ACTIVITY_PACKAGE | "Chick activation" (`ActivityPackageHandler.cs`, 668 linhas) não portado — já listado em HANDLERS.md "Missing". | Desmembrado em `m3-chick-activation` (abaixo). |
+  | 131 LABYRINTH | `myProgress` nunca avança — não existe sala PvE do tipo Labirinto nesta porta (admin/economia já portados). | Desmembrado em `m3-labyrinth-pve` (abaixo). |
+  | 162 ELITEGAME | Chaveamento/torneio real (brackets) não existe — só status/entrada/rank/score. | Desmembrado em `m3-elite-brackets` (abaixo). |
+  | 102 WORLDBOSS_CMD | Script de missão do dragão (`ACDragon`) não existe em `@ddt/fight` — mapa abre sem o chefe. | Desmembrado em `m3-worldboss-dragon` (abaixo). |
+
+  Exploits evitados: 258's guard fecha um bypass real de `claimOnce` (código 258 misparseado podia casar
+  com uma recompensa de novato por acidente); 31's fix não abre superfície nova (multiplicador escala os
+  DOIS lados simétricamente, validado contra overflow). Sem migração nova. Testes: `apps/game/test/
+  marriage-farm-auction.test.ts` (+7), `apps/game/test/economy-validation.test.ts` (+3). Commits
+  `0f7c860` (casamento) + seguintes (bolsa/loja/missões). `research/6600/coverage-m3.md` reexecutado ao
+  final da tarefa (ver rodapé do arquivo pro total novo de `partial`).
+
+- [ ] **m3-worldboss-dragon** — `102 WORLDBOSS_CMD`: portar o script de missão do dragão (`ACDragon`,
+  nome exato a confirmar no C# decompilado) em `@ddt/fight` pro Boss Mundial — hoje o mapa (PvE 14, `Pve_Info`
+  1243) abre mas o chefe nunca aparece/age. Mesma categoria de "camada de efeito de combate não portada"
+  citada em `apps/game/HANDLERS.md`. Lobby/open-close/dano já funcionam (`handlers/eventos/boss-mundial.ts`).
+- [ ] **m3-elite-brackets** — `162 ELITEGAME` sub 2 (`EliteGamePaarungFrame.as`, chaveamento/lista de
+  campeões): hoje só status/entrada por nível/rank/score existem (`eventos/elite.ts`); falta o motor de
+  chaveamento/torneio de verdade (quem joga contra quem, avanço de fase). Ver `apps/game/HANDLERS.md`
+  "Guild extras".
+- [ ] **m3-labyrinth-pve** — `131 LABYRINTH`: criar o tipo de sala PvE "Labirinto" de verdade (andares que
+  o jogador sobe jogando, não só o avanço instantâneo do CLEAN_OUT administrativo já portado) — hoje
+  `myProgress` nunca avança porque não existe esse room type. Ver `apps/game/HANDLERS.md` "PvE extras" +
+  nota "Gap" em `eventos/activities.ts`.
+- [ ] **m3-chick-activation** — `84 ACTIVITY_PACKAGE` sub "chick activation" (`ActivityPackageHandler.cs`,
+  668 linhas): tiers de recompensa diária/cada-3-dias/semanal + nível, não portados nesta porta (só os
+  outros sub-sistemas do mesmo código — growth package/magic lib/zodiac/everyday gift — já funcionam). Ver
+  `apps/game/HANDLERS.md` "Achievements / daily / events".
 
 **Endpoints (.ashx/.xml) — resto do `research/6600/ashx-missing.md`, não feito no `m3-ashx`:**
 - [ ] **m3-endpoints-aninhados** — `CommunalActive.xml` (3 tabelas: `game.Communal_Active` + `_Award` +
