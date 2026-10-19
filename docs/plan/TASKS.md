@@ -429,14 +429,16 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
   | 360 | GET_CSM_BOX | Nenhuma classe `[PacketHandler(360)]` — 100% morto. | No-op (sem corpo). |
 
   `apps/game/src/handlers/eventos/sweep-diversos.ts`. Teste: `apps/game/test/client-6600-m3-misc-sweep.test.ts`.
-- [x] **m3-partial-sweep** (2026-10-19) — os 24 códigos com status `partial` do relatório (156 era stale —
-  muitos já tinham sido corrigidos por tarefas anteriores sem o status ser atualizado), revisados campo a
-  campo contra 6600/4.1. 10 tinham bug real (achado lendo o reader AS3 real, não só "melhor esforço") e
-  foram corrigidos + flipped `implemented`; 9 já estavam corretos (só desvio documentado) e só precisaram
-  do flip; 1 (249) teve 1 sub corrigido mas continua `partial` (os outros subs não foram reauditados); 4
-  precisam de subsistema inteiro novo e foram desmembrados em tarefas próprias (abaixo); 1 (153) já tinha
-  desmembramento (`m3-consortia-battle-2`); 2 (145/84) têm o gap já coberto por tarefas M4/HANDLERS.md
-  existentes, sem split novo.
+- [x] **m3-partial-sweep** (2026-10-19) — os 24 códigos com status `partial` do relatório (o relatório em
+  si estava stale — vários já tinham sido corrigidos por tarefas anteriores sem o status do registro ser
+  atualizado), revisados campo a campo contra 6600/4.1. 6 tinham bug real (achado lendo o reader AS3 real,
+  não só "melhor esforço") e foram corrigidos + flipped `implemented`; 5 já estavam corretos (só desvio
+  documentado, status nunca atualizado) e só precisaram do flip; 1 (249) teve 1 sub corrigido mas continua
+  `partial` (os outros subs não foram reauditados); 1 (258) teve um bug de segurança (colisão de enum)
+  corrigido mas continua `partial` (feature de verdade fora de escopo); 4 precisam de subsistema inteiro
+  novo e foram desmembrados em tarefas próprias (abaixo); 1 (153) já tinha desmembramento
+  (`m3-consortia-battle-2`); 1 (145) tem o gap já coberto por tarefas M4/HANDLERS.md existentes, sem split
+  novo; 5 ficaram documentados sem mudança (gap real mas não-reachable/fora de orçamento).
 
   | Código | O que faltava | O que foi feito |
   |---|---|---|
@@ -446,6 +448,7 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
   | 253 MARRY_ROOM_INFO_UPDATE | Broadcast pra `ChapelRoom.members` (242) em vez de pra `chapelBrowsers` (255) — quem edita a sala avisava as pessoas DENTRO da sala, não quem vê a LISTA de fora. | Broadcast 255 certo pra `chapelBrowsers`. **implemented**. |
   | 240 MARRY_SCENE_LOGIN | (não tinha status próprio, mas alimentava o mesmo bug): listava salas existentes com o layout 242 errado. | Lista com `chapelRoomScenePacket(241, ...)`; registra o jogador em `chapelBrowsers`. |
   | 249 MARRY_CMD (sub 3 CONTINUATION) | Preço dividido 50/50 com o cônjuge (original cobra só de quem pede); resposta 242 pra sala toda (original: `SendContinuation`, 249/3 + horas, só pro pedinte + cônjuge). | Cobrança single-payer + resposta/audiência corrigidas. **249 continua partial** (subs 1/4/5/6/7/8/10/11 não reauditados). |
+  | 149 OLDPLAYER_REGRESS | Nada reachable — `m3-oldplayer-regress` (2026-10-18) já tinha portado as 11 sub-ações honestamente (0-6 reais, 7-10 no-op IGUAL ao `OldPlayerRegressHandler.cs` original, que nunca fez nada pra nenhuma sub-ação); status só nunca foi atualizado. | Flip `implemented`. |
   | 58 ITEM_COMPOSE | Nada — reauditado contra `ItemComposeHandler.cs` (6600 e 4.1, mesmo arquivo), só desvios já documentados (pedra sempre validada, mais seguro que o original). | Flip `implemented`. |
   | 59 ITEM_STRENGTHEN | Nada — `strengthen6600` já cobre a reescrita determinística do 6600; `openHole` não chamado no caminho 6600 é esperado (6600 não usa furos 5/6 aqui). | Flip `implemented`. |
   | 222 EQUIP_RECYCLE_ITEM | Nada — já fiel a `EquipRetrieveHandler.cs` (6600 e 4.1). | Flip `implemented`. |

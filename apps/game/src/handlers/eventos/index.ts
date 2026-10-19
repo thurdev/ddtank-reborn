@@ -142,7 +142,10 @@ export function registerEventos(r: HandlerRegistry): void {
   r.player(145, "ACTIVITY_SYSTEM", (ctx, p, pkt) => activitySystemRouter(ctx, p, pkt), "partial");
 
   // Jogador antigo (m3-eventos-b) — C# original é um no-op total, portado do contrato AS3.
-  r.player(149, "OLDPLAYER_REGRESS", (ctx, p, pkt) => oldPlayerRegressHandler(ctx, p, pkt), "partial");
+  // m3-partial-sweep (2026-10-19): todas as 11 sub-ações já tratadas honestamente (0-6 reais, 7-10 no-op
+  // IGUAL ao `OldPlayerRegressHandler.cs` original, que nunca fez nada pra NENHUMA sub-ação) — nada
+  // reachable faltando. Flipped partial -> implemented (status estava stale desde m3-oldplayer-regress).
+  r.player(149, "OLDPLAYER_REGRESS", (ctx, p, pkt) => oldPlayerRegressHandler(ctx, p, pkt));
 
   // GM Activity / campanhas (m3-eventos-b) — 159/405 stubs do original portados byte a byte; 373 sem
   // handler no original (no-op). Ver atividade-maravilhosa.ts.

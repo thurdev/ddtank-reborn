@@ -14,7 +14,7 @@
 | Status | Total |
 |---|---|
 | handled | 0 |
-| partial | 14 |
+| partial | 13 |
 | stub | 27 |
 | MISSING | 17 |
 | **Total de códigos enviados pelo cliente** | **213** |
@@ -37,7 +37,7 @@
 
 ## Pacotes por área
 
-### Outros (46 código(s) — implemented 27, partial 5, stub 14, MISSING 0)
+### Outros (46 código(s) — implemented 28, partial 4, stub 14, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
@@ -54,7 +54,7 @@
 | 131 | `LABYRINTH` | labyrinthRequestUpdate (ddt/manager/GameSocketOut.as); labyrinthCleanOut (ddt/manager/GameSocketOut.as); labyrinthSpeededUpCleanOut (ddt/manager/GameSocketOut.as); labyrinthStopCleanOut (ddt/manager/GameSocketOut.as); labyrinthCleanOutTimerComplete (ddt/manager/GameSocketOut.as); labyrinthDouble (ddt/manager/GameSocketOut.as); labyrinthReset (ddt/manager/GameSocketOut.as); labyrinthTryAgain (ddt/manager/GameSocketOut.as) | partial | eventos/index.ts |
 | 133 | `LATENT_ENERGY` | sendLatentEnergy (ddt/manager/GameSocketOut.as) | implemented | forja/index.ts |
 | 147 | `FIND_BACK_INCOME` | sendWantStrongBack (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
-| 149 | `OLDPLAYER_REGRESS` | sendRegressPkg (ddt/manager/GameSocketOut.as); sendRegressGetAwardPkg (ddt/manager/GameSocketOut.as); sendRegressCheckPlayer (ddt/manager/GameSocketOut.as); sendRegressApplyEnable (ddt/manager/GameSocketOut.as); sendRegressApllyPacks (ddt/manager/GameSocketOut.as); sendRegressCall (ddt/manager/GameSocketOut.as); sendRegressRecvPacks (ddt/manager/GameSocketOut.as); sendRegressTicketInfo (ddt/manager/GameSocketOut.as); sendRegressTicket (ddt/manager/GameSocketOut.as); sendUpdateIntegral (ddt/manager/GameSocketOut.as); sendBuyRegressIntegralGoods (ddt/manager/GameSocketOut.as) | partial | eventos/index.ts |
+| 149 | `OLDPLAYER_REGRESS` | sendRegressPkg (ddt/manager/GameSocketOut.as); sendRegressGetAwardPkg (ddt/manager/GameSocketOut.as); sendRegressCheckPlayer (ddt/manager/GameSocketOut.as); sendRegressApplyEnable (ddt/manager/GameSocketOut.as); sendRegressApllyPacks (ddt/manager/GameSocketOut.as); sendRegressCall (ddt/manager/GameSocketOut.as); sendRegressRecvPacks (ddt/manager/GameSocketOut.as); sendRegressTicketInfo (ddt/manager/GameSocketOut.as); sendRegressTicket (ddt/manager/GameSocketOut.as); sendUpdateIntegral (ddt/manager/GameSocketOut.as); sendBuyRegressIntegralGoods (ddt/manager/GameSocketOut.as) | implemented | eventos/index.ts |
 | 152 | `FIGHTFOOTBALLTIMETAKEOUT` | sendFightFootballTimeTakeOut (ddt/manager/GameInSocketOut.as) | stub | eventos/index.ts |
 | 156 | `TRANSNATIONAL_BUYGOODS` | sendButTransnationalGoods (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 | 159 | `WONDERFUL_ACTIVITY` | sendWonderfulActivity (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
