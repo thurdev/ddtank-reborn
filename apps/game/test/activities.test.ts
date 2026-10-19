@@ -8,6 +8,7 @@ import { drawDistinct, type Card } from "../src/handlers/eventos/bau-da-galinha.
 import { luckyDraw } from "../src/handlers/eventos/estrela-da-sorte.js";
 import { pickLotteryBoard } from "../src/handlers/eventos/roleta.js";
 import { labyrinthTryAgainMoney, type LabyrinthRow } from "../src/handlers/eventos/labirinto.js";
+import { ItemInfo } from "../src/game/item.js";
 import { loggedIn, sharedDb, startServer } from "./helpers.js";
 
 let server: GameServer;
@@ -178,6 +179,55 @@ describe("84 ACTIVITY_PACKAGE ChickActivation", () => {
     expect(after).toBeGreaterThan(before); // mailed, not put in the bag (matches WorldEventMgr.SendItemsToMails)
 
     eventsRuntime(ctx).scheduler.setEvents([]);
+    c.close();
+  });
+
+  it("GETAWARD daily tier: claim-once — a second claim the same day gets NotFoundAward, no second mail", async () => {
+    const h = await sharedDb();
+    const { c, ch: p } = await loggedIn(server, { grade: 10 });
+    const openCode = `OPENCODE${Date.now() % 1000000}`.padEnd(14, "0").slice(0, 14);
+    eventsRuntime(ctx).scheduler.setEvents([{ id: 51, kind: "chickactivation", title: "", enabled: true, weekdays: "", startTime: "00:00", durationMin: 0, startDate: null, endDate: null, params: { codes: [openCode] } }]);
+    const m0 = c.mark();
+    c.out(84, (o) => { o.writeInt(2); o.writeInt(1); o.writeUTF(openCode); });
+    await c.code(84, undefined, m0);
+
+    const m1 = c.mark();
+    c.out(84, (o) => { o.writeInt(2); o.writeInt(2); o.writeInt(1); o.writeInt(0); }); // 1st GETAWARD daily -> mails
+    await c.code(84, undefined, m1);
+    const afterFirst = (await h.db.select().from(player.User_Messages).where(eq(player.User_Messages.ReceiverID, p.userId))).length;
+
+    const m2 = c.mark();
+    c.out(84, (o) => { o.writeInt(2); o.writeInt(2); o.writeInt(1); o.writeInt(0); }); // 2nd GETAWARD daily, same UTC day
+    await c.code(3, undefined, m2); // NotFoundAward — chickStatusInts already flags the day as claimed
+    const afterSecond = (await h.db.select().from(player.User_Messages).where(eq(player.User_Messages.ReceiverID, p.userId))).length;
+    expect(afterSecond).toBe(afterFirst); // no duplicate mail — same-day reuse refused
+
+    eventsRuntime(ctx).scheduler.setEvents([]);
+    c.close();
+  });
+
+  it("item 201316 (PropUseHandler.cs:31-43, 66 PROP_USE) opens the same key as OPENKEY — one unit consumed, not re-openable", async () => {
+    const { c, player } = await loggedIn(server, { grade: 10 });
+    const p = player();
+    const t = ctx.templates.findItem(201316);
+    expect(t).toBeTruthy();
+    const item = ItemInfo.createFromTemplate(t!, 2, 0, ctx.now());
+    p.propBag.addItem(item);
+    const place = item.Place;
+
+    const m0 = c.mark();
+    c.out(66, (o) => { o.writeInt(1 /* bagType PropBag, BagType.PropBag=1 */); o.writeInt(place); o.writeInt(1 /* count */); o.writeInt(201316); o.writeInt(0 /* payType */); o.writeBoolean(false); });
+    await c.code(84, undefined, m0); // CHICKACTIVATION_UPDATE (chickReplyPkt type 2) — isKeyOpened=1
+    expect(p.propBag.getItemAt(place)?.Count).toBe(1); // exactly 1 unit consumed
+
+    // reusing the item once the key is already open is refused (activateChickItem's data.isKeyOpened guard) —
+    // no reply packet at all (ctx.lang message only), matching ActivityPackageHandler's silent-ignore style.
+    const m1 = c.mark();
+    c.out(66, (o) => { o.writeInt(1); o.writeInt(place); o.writeInt(1); o.writeInt(201316); o.writeInt(0); o.writeBoolean(false); });
+    await new Promise((r) => setTimeout(r, 100));
+    expect(c.received.slice(m1).some((r) => r.code === 84)).toBe(false);
+    expect(p.propBag.getItemAt(place)?.Count).toBe(1); // second unit NOT consumed (refused before removeCountFromStack)
+
     c.close();
   });
 });

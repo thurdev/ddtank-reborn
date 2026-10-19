@@ -145,7 +145,7 @@ export function registerEventos(r: HandlerRegistry): void {
 
   // Liga / Liga de elite / Boss mundial
   r.player(132, "BATTLEGROUND", (ctx, p, pkt) => battleGroundHandler(ctx, p, pkt));
-  r.player(162, "ELITEGAME", (ctx, p, pkt) => eliteGameHandler(ctx, p, pkt), "partial");
+  r.player(162, "ELITEGAME", (ctx, p, pkt) => eliteGameHandler(ctx, p, pkt));
   r.player(102, "WORLDBOSS_CMD", (ctx, p, pkt) => worldBossCmd(ctx, p, pkt), "partial");
 
   // Atividades de novato / Ativação do pintinho — 258 colide com MAGIC_STONE no 6600, ver nota em

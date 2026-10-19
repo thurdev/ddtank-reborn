@@ -8,7 +8,8 @@ import type { GSPacket } from "@ddt/protocol";
 import type { GamePlayer } from "../../game/player.js";
 import type { ServerContext } from "../../session/context.js";
 import { RoomType } from "../../rooms/room.js";
-import { isOpen } from "../eventos/agendador.js";
+import { eventsRuntime, isOpen } from "../eventos/agendador.js";
+import { eliteScoreOpenFor } from "../eventos/liga-elite.js";
 
 const NO_WEAPON = "Sem arma equipada, não é possível participar.";
 
@@ -40,5 +41,9 @@ export function criarSala(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): voi
   if (p.clientKind === "6600") pkt.readBoolean(); // isDouble (sem efeito no servidor 6600 original)
   if (!p.hasMainWeapon) return p.sendMessage(1, NO_WEAPON);
   if (roomType === RoomType.Labyrinth && !isOpen(ctx, "labyrinth")) return p.sendMessage(0, "O Labirinto está fechado.");
+  // m3-elite-brackets: joinEliteGame() (EliteGameController.as) manda este MESMO pacote direto, roomType=12,
+  // SEM passar pelo 162 — a fase de pontuação da Liga de Elite é uma sala PvP normal, só com o gate de janela
+  // aqui (bit 1|4 do bitmask, por faixa de nível do jogador, `handlers/eventos/liga-elite.ts`).
+  if (roomType === RoomType.EliteGameScore && !eliteScoreOpenFor(eventsRuntime(ctx), p.info.Grade)) return p.sendMessage(0, "A Liga de Elite não está aberta pra sua faixa de nível agora.");
   ctx.rooms.createRoom(p, name, pwd, roomType, timeType);
 }

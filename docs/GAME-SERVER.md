@@ -190,6 +190,12 @@ precisar de líder nenhum:
   assim que "um evento só" já aparecia pro jogador antes desta tarefa. O que precisa ser "uma vez só" por
   jogador (ex. `weekly_reset`: zera semana da sociedade/liga) já era garantido por `claimOnce`
   (Postgres compartilhado) mesmo com N canais tickando ao mesmo tempo — testado em `events.test.ts` (1 canal)
+  — **excessão parcial (m3-elite-brackets, 2026-10-19)**: a janela `elite_champion` (fase de campeão,
+  `handlers/eventos/liga-elite.ts`) monta um bracket por CANAL a partir do `EliteScore` global (Postgres), mas
+  o avanço de rodada/pareamento em si fica só na memória daquele canal — mesmo "fica por canal" já aceito pra
+  `m3-consortia-battle`/`m3-ringstation` (ver tabela de pacotes). Jogadores de canais diferentes podem acabar
+  em brackets DIFERENTES do mesmo grupo de nível simultaneamente; não replicado via `ctx.crossChannel`
+  (follow-up se vier a ser pedido, mesma categoria do `m3-consortia-battle-2`).
   e de novo entre 2 canais em `test/ch-eventos.test.ts` ("evento agendado comum (liga)"). Forçar isto por um
   líder também traria uma regressão real: `expRate()`/`scheduler.rate()` são lidos LOCALMENTE em todo fight
   (XP/ouro em dobro) — um seguidor sem o próprio scheduler tickando perderia o bônus x2 pros jogadores dele.
