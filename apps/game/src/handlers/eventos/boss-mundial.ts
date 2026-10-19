@@ -306,12 +306,12 @@ export function worldBossCmd(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): 
       toRoom(o);
       return;
     }
-    case 38: { // BuyBuff: 30 money, charged once (the original charged twice)
-      if (!b.players.has(p.id) || p.info.Money < 30) return p.sendMessage(0, ctx.lang.t("UserBuyItemHandler.NoMoney"));
-      p.info.Money -= 30; p.updateProperties();
-      const o = new GSPacket(102);
-      o.writeByte(12); o.writeBoolean(true); o.writeInt(1);
-      p.send(o);
+    case 38: {
+      // BuyBuff: no original cobra 30 Money e o buff vira CreatePayBuffer dentro da luta (GameRoomCreate.cs:46-47) —
+      // camada de efeito que o nosso motor de luta ainda não tem. Cobrar sem entregar nada seria vender vento:
+      // recusa SEM cobrar até o efeito existir (task m4-catchbeast-buff, mesma lacuna do buff da Captura do Nian).
+      if (!b.players.has(p.id)) return;
+      p.sendMessage(0, "O reforço de dano do boss mundial ainda não está disponível neste servidor.");
       return;
     }
   }

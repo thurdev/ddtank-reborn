@@ -38,20 +38,14 @@ async function challenge(ctx: ServerContext, p: GamePlayer): Promise<void> {
   ctx.rooms.createCatchBeastRoom(p);
 }
 
-/** 145/35 CATCHBEAST_BUYBUFF (`CatchbeastBuybuff.cs:11-29`): `packet.ReadBoolean()` é lido e descartado (o
- *  original sempre cobra `Money` sem bind, nunca olha esse flag). Cobra ANTES de conceder (ordem já segura no
- *  original) — `BuyBuffNum` só decrementa display, nunca bloqueia a compra (ver `game/catchbeast.ts`). */
+/** 145/35 CATCHBEAST_BUYBUFF (`CatchbeastBuybuff.cs:11-29`). No original cobra `Money` e o buff vira
+ *  `CreatePayBuffer(400/406)` dentro da luta — camada de efeito que o nosso motor de luta ainda NÃO tem (mesma
+ *  lacuna do buff pago do boss mundial). Cobrar sem entregar nada seria vender vento, então RECUSA sem cobrar
+ *  até o efeito existir (task `m4-catchbeast-buff`). `buffMoney`/`buyBuff` antigo ficam no histórico do git. */
 async function buyBuff(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): Promise<void> {
   pkt.readBoolean(); // isBind do cliente — lido e descartado, igual ao original
-  const price = buffMoney(ctx);
-  if (p.info.Money < price) return p.sendMessage(0, ctx.lang.t("UserBuyItemHandler.NoMoney"));
-  p.info.Money -= price;
-  p.updateProperties();
-  const row = await getOrCreate(ctx, p);
-  const newBuyBuffNum = Math.max(0, row.BuyBuffNum - 1);
-  await persist(ctx, p, { ...row, BuyBuffNum: newBuyBuffNum });
-  p.send(Out.catchBeastBuyBuffAck(newBuyBuffNum));
-  p.sendMessage(0, ctx.lang.t("ActiveSystemHandler.Msg2"));
+  void ctx;
+  p.sendMessage(0, "O reforço de batalha da Captura do Nian ainda não está disponível neste servidor.");
 }
 
 /**

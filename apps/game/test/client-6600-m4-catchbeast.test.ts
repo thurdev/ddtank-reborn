@@ -84,35 +84,16 @@ describe("145 ACTIVITY_SYSTEM sub 32-36 CATCHBEAST", () => {
     c.close();
   });
 
-  it("sub 35 BUYBUFF: cobra YearMonsterBuffMoney em Money e devolve buyBuffNum novo (clamp em 0)", async () => {
+  it("sub 35 BUYBUFF: recusa SEM cobrar enquanto o motor de luta não tem o efeito do buff (m4-catchbeast-buff)", async () => {
     const { c, player: p, ch } = await loggedIn(server, { client: "6600", grade: 25, money: 10_000 });
     const before = p().info.Money;
     const m = c.mark();
     c.out(145, (pk) => { pk.writeByte(35); pk.writeBoolean(false); });
-    const r = await c.code(145, 35, m);
-    r.pkt.readByte();
-    expect(r.pkt.readInt()).toBe(0); // 1 -> 0
-    expect(p().info.Money).toBe(before - 300);
-    // Comprar de novo: já em 0, não desce de 0 (mas a compra em si continua cobrando — ver game/catchbeast.ts)
-    const m2 = c.mark();
-    c.out(145, (pk) => { pk.writeByte(35); pk.writeBoolean(false); });
-    const r2 = await c.code(145, 35, m2);
-    r2.pkt.readByte();
-    expect(r2.pkt.readInt()).toBe(0);
-    expect(p().info.Money).toBe(before - 600);
-    const gp = ctx.world.get(ch.userId)!;
-    const row = await getOrCreate(ctx, gp);
-    expect(row.BuyBuffNum).toBe(0);
-    c.close();
-  });
-
-  it("sub 35 BUYBUFF: Money insuficiente não cobra nem responde", async () => {
-    const { c, player: p } = await loggedIn(server, { client: "6600", grade: 25, money: 100 });
-    const m = c.mark();
-    c.out(145, (pk) => { pk.writeByte(35); pk.writeBoolean(false); });
-    await new Promise((res) => setTimeout(res, 150));
+    await new Promise((res) => setTimeout(res, 200));
     expect(c.received.slice(m).some((r) => r.code === 145 && r.sub === 35)).toBe(false);
-    expect(p().info.Money).toBe(100);
+    expect(p().info.Money).toBe(before);
+    const row = await getOrCreate(ctx, ctx.world.get(ch.userId)!);
+    expect(row.BuyBuffNum).toBe(1);
     c.close();
   });
 

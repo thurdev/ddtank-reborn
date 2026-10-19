@@ -710,6 +710,11 @@ confirmar jogando" depois. Cada uma depende do pacote/sistema M3 correspondente 
   Trabalho PT-BR/arte pendente (tela nova, sem remaster/i18n ainda): ver `m5-remaster-telas-novas`/
   `m5-i18n-telas-novas` abaixo (`catchbeast.swf` acrescentado às duas listas — nenhuma task nova precisa, o
   padrão já é "toda tela 100% nova entra nessas duas").
+- [ ] **m4-catchbeast-buff** — camada de "buff pago dentro da luta" (`CreatePayBuffer`, ids 400/406) no
+  `packages/fight`: hoje o BuyBuff da Captura do Nian (145/35) e do boss mundial (102/38) RECUSAM sem cobrar
+  (2026-10-19), porque cobrar sem efeito seria vender vento. Ao portar o efeito, voltar a cobrar (preço de
+  `YearMonsterBuffMoney`/30 Money) e só depois aplicar. Pensar no anti-P2W: buff comprado com Money (cupom) é
+  vantagem paga — considerar ouro/moeda de evento no servidor oficial, configurável no admin.
 - [ ] **m4-passe-classico** — Passe Clássico / battle pass (`growthpackage.swf`,
   `src/growthPackage/GrowthPackageType.as` — valores a extrair). Maior esforço de design (progressão +
   loja de pontos), mas nome bate com o pedido do dono.
