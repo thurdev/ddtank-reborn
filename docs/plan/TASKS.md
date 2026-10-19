@@ -576,9 +576,12 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
   igual ao padrão de ladder já usado pro 132 BATTLEGROUND); fase de campeão = chaveamento eliminatório real
   top-16 por grupo de nível (nome bate com `EliteGameTopSixteenInfo`/`topSixteen30_40`/`paarungRound30_40`
   do cliente — forte confirmação do desenho), gerado quando a janela admin (`app."ScheduledEvents"` kind novo
-  `elite_champion`, back-to-back com `elite`, mesmo padrão aditivo de boss mundial/liga) abre; `162/2` só
-  libera a sala quando os dois lados do round estão prontos (fallback bot depois de um tempo, mesmo padrão
-  do resto do projeto); vencedor avança, luta real via `room-mgr.ts createEliteChampionRoom` →
+  `elite_champion`, back-to-back com `elite`, mesmo padrão aditivo de boss mundial/liga) abre; `162/2` libera
+  a sala de verdade quando o adversário do round também está online (pareamento imediato, igual
+  `createConsortiaBattleRoom`: sem passo de "pronto"/lobby); adversário OFFLINE no momento do clique é W.O.
+  (walkover) imediato pro lado presente — decisão nossa, documentada (sem motor de bot-snapshot construído
+  pra esta reconstrução, ao contrário do `m3-ringstation`); vencedor avança, luta real via
+  `room-mgr.ts createEliteChampionRoom` →
   `FightEngine.startPvp` (mesmo padrão de `createConsortiaBattleRoom`/`createRingStationBattle` — luta de
   verdade, sem resultado inventado pelo cliente); `162/4` (lista de campeões) devolve o layout real que o
   AS3 lê (`EliteGameController.__detailHandler`: id/nome/rank/roundsReached/eliminated por jogador). Prêmios

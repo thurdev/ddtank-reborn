@@ -14,7 +14,7 @@
 | Status | Total |
 |---|---|
 | handled | 0 |
-| partial | 13 |
+| partial | 12 |
 | stub | 28 |
 | MISSING | 15 |
 | **Total de códigos enviados pelo cliente** | **213** |
@@ -37,7 +37,7 @@
 
 ## Pacotes por área
 
-### Outros (46 código(s) — implemented 29, partial 3, stub 14, MISSING 0)
+### Outros (46 código(s) — implemented 30, partial 2, stub 14, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
@@ -59,7 +59,7 @@
 | 156 | `TRANSNATIONAL_BUYGOODS` | sendButTransnationalGoods (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 | 159 | `WONDERFUL_ACTIVITY` | sendWonderfulActivity (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 | 161 | `USER_LUCKYNUM` | sendUserLuckyNum (ddt/manager/GameSocketOut.as) | implemented |  |
-| 162 | `ELITEGAME` | sendGetEliteGameState (ddt/manager/GameSocketOut.as); sendGetSelfRankSroce (ddt/manager/GameSocketOut.as); sendGetPaarungDetail (ddt/manager/GameSocketOut.as); sendEliteGameStart (ddt/manager/GameSocketOut.as) | partial | eventos/index.ts |
+| 162 | `ELITEGAME` | sendGetEliteGameState (ddt/manager/GameSocketOut.as); sendGetSelfRankSroce (ddt/manager/GameSocketOut.as); sendGetPaarungDetail (ddt/manager/GameSocketOut.as); sendEliteGameStart (ddt/manager/GameSocketOut.as) | implemented | eventos/index.ts |
 | 164 | `UPDATE_PLAYER_PROPERTY` | getPlayerPropertyAddition (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 | 166 | `LITTLEGAME_COMMAND` | createPackageOut (littleGame/LittleGameManager.as) | implemented | eventos/index.ts |
 | 168 | `GOODS_COUNT` | sendUpdateGoodsCount (ddt/manager/GameSocketOut.as) | partial | loja/estoque-diario.ts |

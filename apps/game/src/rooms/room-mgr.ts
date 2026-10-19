@@ -380,6 +380,33 @@ export class RoomMgr {
     });
   }
 
+  /**
+   * m3-elite-brackets: real 1v1 for one champion-bracket round (`162 ELITEGAME`). Same "both players join a
+   * free room directly, no lobby/ready step" shape as `createConsortiaBattleRoom` above — the pairing itself
+   * (who plays who) is decided by `handlers/eventos/liga-elite.ts` (bracket state), this just launches the
+   * fight once both sides are known and online. `RoomType.EliteGameChampion`/`GameType.EliteGameChampion`,
+   * timeMode 2, mapId 0 (falls back to a real PvP map, same as every other 1v1 room).
+   */
+  createEliteChampionRoom(a: RoomMember, b: RoomMember): void {
+    this.addAction(() => {
+      a.currentRoom?.removePlayer(a);
+      b.currentRoom?.removePlayer(b);
+      const room = this.rooms.find((r) => !r.IsUsing);
+      if (!room) return;
+      this.waitingRemove(a);
+      room.start();
+      room.updateRoom("Elite Champion", "12dasSda44", RoomType.EliteGameChampion, 2, 0);
+      a.send(Out.roomCreate(room, a.clientKind));
+      if (room.addPlayer(a)) {
+        this.waitingRemove(b);
+        b.send(Out.roomLoginResult(true));
+        b.send(Out.roomCreate(room, b.clientKind));
+        room.addPlayer(b);
+      }
+      if (room.PlayerCount === 2) this.launch([room], [a], [b], RoomType.EliteGameChampion, GameType.EliteGameChampion, 2, 0);
+    });
+  }
+
   /** GamePickupCancel (GameRoom/Handle/GamePickupCancel.cs). */
   cancelPickup(p: RoomMember): void {
     this.addAction(() => {

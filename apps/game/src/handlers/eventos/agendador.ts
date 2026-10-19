@@ -17,7 +17,7 @@ import { EventScheduler, loadScheduledEvents, nextStart, type ActiveWindow, type
 import * as Out from "../../packets/out.js";
 import { mailItems } from "../bolsa/correio-excedente.js";
 import { finishWorldBoss, rankList, worldBossOpen, type WorldBossState } from "./boss-mundial.js";
-import { eliteStatusPkt } from "./liga-elite.js";
+import { defaultEliteBracket, eliteStatusPkt, finishEliteChampion, startEliteChampion, type EliteBracketState } from "./liga-elite.js";
 import { settleGuildWeek, settlePollWeek } from "../sociedade/index.js";
 
 // ------------------------------------------------------------------ config de evento agendado (admin)
@@ -58,6 +58,8 @@ export class EventsRuntime {
   boss: WorldBossState = { window: null, name: "boss", resourceId: "0", pveId: 0, maxBlood: 0, blood: 0, players: new Map(), rank: new Map() };
   /** EliteGameController bitmask: 1 score 30-40, 2 champion 30-40, 4 score 41-50, 8 champion 41-50. 0 = closed. */
   eliteStatus = 0;
+  /** m3-elite-brackets: motor de chaveamento real por trás dos bits 2|8 acima (liga-elite.ts). */
+  elite: EliteBracketState = defaultEliteBracket();
   leagueOpen = false;
   log: string[] = [];
   /** ALL_OPEN: force-open world boss/league/elite exactly once (not every reload() — re-forcing would
@@ -78,7 +80,7 @@ export class EventsRuntime {
     // the window and spuriously end+restart it (e.g. re-paying world-boss rank rewards).
     if (this.ctx.cfg.ALL_OPEN && !this.allOpenForced) {
       this.allOpenForced = true;
-      for (const kind of ["worldboss", "league", "elite"]) this.scheduler.force(kind, 36_500 * 24 * 60);
+      for (const kind of ["worldboss", "league", "elite", "elite_champion"]) this.scheduler.force(kind, 36_500 * 24 * 60);
     }
     await this.scheduler.tick();
   }
@@ -124,8 +126,14 @@ export class EventsRuntime {
         this.broadcast(Out.message(1, "O Deus da Guerra começou, entre logo na sala para lutar!"));
         break;
       case "elite":
-        this.eliteStatus = Number(prm.status ?? 5);
+        // m3-elite-brackets: só os bits de PONTUAÇÃO (1|4) — os bits de CAMPEÃO (2|8) são da janela
+        // "elite_champion" abaixo; os dois se combinam sem se atropelar mesmo que as janelas se sobreponham
+        // num mesmo tick do scheduler (&~5/&~10 em vez de sobrescrever o inteiro inteiro).
+        this.eliteStatus = (this.eliteStatus & ~5) | (Number(prm.status ?? 5) & 5);
         this.broadcast(eliteStatusPkt(this.eliteStatus));
+        break;
+      case "elite_champion":
+        await startEliteChampion(this.ctx, this);
         break;
       case "weekly_reset":
         await weeklyReset(this.ctx, w.key);
@@ -164,8 +172,11 @@ export class EventsRuntime {
         this.broadcast((p) => Out.leagueNotice(p.id, p.match.restCount ?? 0, 0, 2));
         break;
       case "elite":
-        this.eliteStatus = 0;
-        this.broadcast(eliteStatusPkt(0));
+        this.eliteStatus &= ~5; // só os bits de pontuação — ver nota em onStart
+        this.broadcast(eliteStatusPkt(this.eliteStatus));
+        break;
+      case "elite_champion":
+        await finishEliteChampion(this.ctx, this, w);
         break;
       case "consortia_battle":
         this.broadcast(Out.consBatOpenClose(false));
