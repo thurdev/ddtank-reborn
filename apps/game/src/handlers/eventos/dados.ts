@@ -119,7 +119,7 @@ export async function diceSystem(ctx: ServerContext, p: GamePlayer, pkt: GSPacke
     } else if (p.info.Money + p.info.MoneyLock >= price) {
       p.removeMoney(price);
     } else {
-      return p.sendMessage(0, "Xu insuficiente para rolar o dado.");
+      return p.sendMessage(0, "Moedas insuficientes para rolar o dado.");
     }
     const oldPosition = row.CurrentPosition;
     let newPosition = oldPosition + rollValue;
@@ -150,7 +150,7 @@ export async function diceSystem(ctx: ServerContext, p: GamePlayer, pkt: GSPacke
   if (sub === 12) {
     const { row } = await getOrCreate(ctx, p);
     const price = ctx.templates.cfgInt("DiceRefreshPrice", 40_000);
-    if (!(p.info.Money + p.info.MoneyLock >= price)) return p.sendMessage(0, "Xu insuficiente para atualizar o tabuleiro.");
+    if (!(p.info.Money + p.info.MoneyLock >= price)) return p.sendMessage(0, "Moedas insuficientes para atualizar o tabuleiro.");
     p.removeMoney(price);
     const board = createBoard(ctx);
     const saved = await saveDiceData(ctx.db.db, { ...row, AwardArray: encodeBoard(board) });

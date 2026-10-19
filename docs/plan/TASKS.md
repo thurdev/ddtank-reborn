@@ -322,9 +322,22 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
   descarta, sem resposta), mesma categoria de `211 CADDY_EXCHANGE_ALL`/`215 CADDY_CONVERTED_ALL`
   (`handlers/eventos/roleta.ts`, m3-caddy-loteria) — sem inventar uma economia de desconto em grupo que
   nunca existiu em produção. `apps/game/src/handlers/eventos/compra-em-grupo.ts`.
-- [ ] **m3-seven-double** — `148 SEVEN_DOUBLE` (`sendSevenDoubleCallCar`/`StartGame`/`CancelGame`/`Ready`/
-  `Move`/`UseSkill`/`CanEnter`/`EnterOrLeaveScene`) — minijogo "Sete Dobrado" (`src/sevenDouble/`, SWF não
-  identificado por nome — ver `research/6600/swf-inventory.md`, candidato `church.swf`).
+- [x] **m3-seven-double** (2026-10-19, "código morto") — `148 SEVEN_DOUBLE` (`sendSevenDoubleCallCar`/
+  `StartGame`/`CancelGame`/`Ready`/`Move`/`UseSkill`/`CanEnter`/`EnterOrLeaveScene`) — minijogo "Sete
+  Dobrado" (cliente real e completo: `src/sevenDouble/*`, `SevenDoubleManager.as` + várias views).
+  Confirmado morto no servidor original, mesma categoria do `144 GROUP_PURCHASE`: a tela só abre quando o
+  cliente recebe o sub-pacote `START_OR_END=1` (`SevenDoubleManager.pkgHandler` → `openOrCloseHandler` →
+  `this.open()`), e o envio desse sub-pacote (`SendSevenDoubleOpenClose`) só existe como assinatura em
+  `IPacketLib`/`AbstractPacketLib` — a única implementação, `ConsolePacketLib.SendSevenDoubleOpenClose`
+  (`Game.Server.Packets.Server/ConsolePacketLib.cs:172`), é `throw new NotImplementedException();`, e
+  **nenhum código em `vendor/DDT-6600/Source` chama esse método** (grep vazio). `SevenDoubleHandler.cs`
+  (`[PacketHandler(148)]`) existe e responde trivialmente a 3 CALL/6 START_GAME/9 READY/35 IS_CAN_ENTER,
+  mas como a tela nunca abre o jogador nunca dispara nada; `RoomMgr.SevenDoubleRoom`/`BaseSevenDoubleRoom`
+  (engine de sala/monstros) ficam alocados no boot mas nunca são atribuídos a nenhum
+  `GamePlayer.CurrentSevenDoubleRoom`. Registrado como no-op puro (lê o sub-byte e os campos simples de
+  CALL, descarta o resto), sem inventar uma corrida/aposta que nunca existiu em produção.
+  `apps/game/src/handlers/eventos/sete-dobrado.ts`. Teste:
+  `apps/game/test/client-6600-m3-misc-sweep.test.ts`.
 - [x] **m3-ringstation** (2026-10-19) — `404 RING_STATION` sub 1-7 (`sendRingStationGetInfo`/
   `sendBuyBattleCountOrTime`/`sendRingStationChallenge`/`sendRingStationArmory`/
   `sendRingStationBattleField`/`sendRingStationFightFlag`/`sendSignMsg`) — Arena Ranqueada (`ringstation.swf`).
@@ -428,16 +441,42 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
   da requisição (238 ou 338, por `clientKind`), registro novo de 238 em `eventos/index.ts` restrito a
   `clientKind === "6600"`. Sem migração (colunas `accumulativeLoginDays`/`accumulativeAwardDays` já
   existiam).
-- [ ] **m3-launcher-login** — `208 LAUNCHER_LOGIN` (`sendDeskTopLogin`) — login alternativo vindo do
-  launcher desktop (`apps/launcher`). **Cuidado de valor**: `208` colide com `CARDS_SOUL` no próprio enum
-  6600 (`MIGRACAO-6600.md` §1.1/§1.4) — decidir manualmente qual mapear, não gerar dos dois automaticamente.
+- [x] **m3-launcher-login** (2026-10-19) — `208 LAUNCHER_LOGIN` (`sendDeskTopLogin`, `DesktopManager.
+  deskTopLogin()`) — NÃO é um "login alternativo vindo do launcher"; é um aviso opcional pós-login ("estou
+  rodando dentro do launcher desktop original"), decidido por um flag 100% client-side
+  (`flash.external.ExternalInterface.call("IsDesktop")`/callback `SetIsDesktop` — o PROCESSO NATIVO que
+  hospeda o SWF responde, nunca o servidor). O servidor 6600 original **descarta esse pacote**: nenhuma
+  classe `[PacketHandler(208)]` existe pra nenhum dos dois significados colididos no enum
+  (`LAUNCHER_LOGIN=208` vs `CARDS_SOUL=208`, `ePackageType.cs:215`/`:258` — colisão do PRÓPRIO jogo
+  original, confirmada também no enum do cliente, não um erro desta porta); o lado `CARDS_SOUL`
+  (servidor→cliente) também nunca é enviado por nenhum código do servidor (grep vazio por `CardsSoul`).
+  Nosso `apps/launcher` (runner Ruffle/Flash Projector) nem implementa a ponte `ExternalInterface`
+  `IsDesktop`/`SetIsDesktop` do launcher original, então o flag nunca fica true pra disparar o envio de
+  qualquer forma. Decisão (regra do projeto: nunca recompensa por flag de cliente): registrado como no-op
+  puro (lê e descarta, sem resposta), idêntico ao comportamento do original; nenhuma recompensa
+  implementada por falta de uma verificação real do lado do servidor (ex. token de sessão do launcher via
+  `apps/api`, não existente hoje). `apps/game/src/handlers/eventos/launcher-login.ts`. Teste:
+  `apps/game/test/client-6600-m3-misc-sweep.test.ts`.
 
 **Sweep (vários códigos pequenos, investigar um a um na mesma tarefa):**
-- [ ] **m3-misc-sweep** — códigos pequenos restantes do relatório; confirmar se é feature morta no C#
-  original antes de implementar (igual `m3-group-purchase` acima): `101 BATTLE_COMPANION_GIVE`,
-  `147 FIND_BACK_INCOME`, `152 FIGHTFOOTBALLTIMETAKEOUT`, `156 TRANSNATIONAL_BUYGOODS`, `157 RECHARGE`
-  (`getspree`), `164 UPDATE_PLAYER_PROPERTY`, `207 REQUEST_FRIENDS_PAY`, `327 FAST_AUCTION_SMALL_BUGLE`,
-  `360 GET_CSM_BOX`. Ver `research/6600/coverage-m3.md` pra função cliente + arquivo exatos de cada um.
+- [x] **m3-misc-sweep** (2026-10-19) — códigos pequenos restantes do relatório, cada um investigado contra
+  o C# original (grep de `[PacketHandler(code...)]` em `Game.Server.Packets.Client`) antes de decidir,
+  igual `m3-group-purchase`. Todos registrados como no-op (`apps/game/src/handlers/eventos/
+  sweep-diversos.ts`), nenhum concede item/moeda/XP. Tabela código → decisão:
+
+  | Código | Nome | Achado | Decisão |
+  |---|---|---|---|
+  | 101 | BATTLE_COMPANION_GIVE | Nenhuma classe `[PacketHandler(101)]` em todo o vendor — 100% morto. | No-op (3 int descartados). |
+  | 147 | FIND_BACK_INCOME | Nenhuma classe `[PacketHandler(147)]` — 100% morto. | No-op (int+bool+bool descartados). |
+  | 152 | FIGHTFOOTBALLTIMETAKEOUT | `FightFootballTimeTakeoutHandler.cs` é REAL (minigame sazonal "futebol", `src/fightFootballTime/*`), mas depende de `EventAwardMgr.GetFightFootballTimeAward` + campos `GamePlayer.Card`/`takeoutCount`/`CardsTakeOut` inexistentes nesta porta — sistema grande (mesma categoria de 404 ringstation/146 campbattle), não "pequeno". | Stub fiel (lê `place` byte, descarta); fora de escopo desta varredura, candidato a tarefa própria. |
+  | 156 | TRANSNATIONAL_BUYGOODS | `BuyTransnationalGoodsHandler.cs` é REAL (compra com pontos de `Actives.Pyramid`, sistema "Guerra das Nações" com room type próprio, `room/transnational/*`), subsistema inteiro não portado. | Stub fiel (lê `id` int, descarta); mesma categoria de 152. |
+  | 157 | RECHARGE (`getspree`) | Nenhuma classe `[PacketHandler(157)]`; nenhum `SendTCP`/`GSPacketIn(157,...)` em lugar nenhum — 100% morto nos dois sentidos. | No-op (5 int descartados). |
+  | 164 | UPDATE_PLAYER_PROPERTY | Nenhuma classe `[PacketHandler(164)]` — 100% morto. | No-op (sem corpo). |
+  | 207 | REQUEST_FRIENDS_PAY | `RequestPayHander.cs` EXISTE e está registrado, mas só `packet.ReadByte()` + variável local não usada + `return 0` — nunca olha pro resto do pacote (friendsID/goodsIds/auctionID/nome/msg) nem chama `SendTCP`. Funcionalmente idêntico a um morto. | No-op fiel (lê 1 byte, descarta o resto sem parsear — igual ao original). |
+  | 327 | FAST_AUCTION_SMALL_BUGLE | Alcançável pelo cliente de verdade (`AuctionSellView.as` → `ChatManager.sendFastAuctionBugle` → `SocketManager.Instance.out.sendFastAuctionBugle`), mas nenhuma classe `[PacketHandler(327)]` — o `SmallBugleHandler.cs` existente está em `[PacketHandler(71)]` (megafone normal, já implementado), não em 327. 100% morto no servidor. | No-op (1 int `auctionId` descartado). |
+  | 360 | GET_CSM_BOX | Nenhuma classe `[PacketHandler(360)]` — 100% morto. | No-op (sem corpo). |
+
+  `apps/game/src/handlers/eventos/sweep-diversos.ts`. Teste: `apps/game/test/client-6600-m3-misc-sweep.test.ts`.
 - [ ] **m3-partial-sweep** — os 22 códigos com status `partial` no relatório (handler existe mas marcado
   incompleto): revisar campo a campo 6600 vs 4.1, mesma metodologia dos Rounds 1-3 de
   `research/6600/packets-m1.md` (ler o reader AS3 das duas versões, comparar byte a byte, `offset===length`
