@@ -1,0 +1,1 @@
+ALTER TABLE "player"."Sys_Active_System_Data" ADD COLUMN "AvailTime" integer DEFAULT 0 NOT NULL;

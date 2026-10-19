@@ -12,7 +12,9 @@
  *                              Sorte" (6600, fechada no original — ver roleta.ts)
  *   labirinto.ts             (ícone "Labirinto")          — 131 LABYRINTH
  *   novato.ts                (ícone "Atividades de novato") — 258 NOVICEACTIVITY
- *   ativacao-pintinho.ts     (ícone "Ativação do pintinho") — 84 ACTIVITY_PACKAGE
+ *   ativacao-pintinho.ts     (ícone "Ativação do pintinho") — 84 ACTIVITY_PACKAGE sub-cmd 2
+ *   passe-classico.ts        (ícone "Passe Clássico", 6600 only, m4-passe-classico) — 84 ACTIVITY_PACKAGE
+ *                              sub-cmd 1 (mesmo pacote de cima, despachado pelo 1º int aqui no index)
  *   recompensa-diaria.ts     (calendário › diária/caixa de tempo) — 13 DAILY_AWARD, 53 GET_TIME_BOX,
  *                              219 WEEKLY_CLICK_CNT, 103 DAILYRECORD
  *   presenca.ts               (calendário › presença/login acumulado) — 90 GET_SIGNAWARD, 338 (4.1) / 238
@@ -80,6 +82,7 @@ import { lotteryOpenBox, lotteryRandomSelect, lotteryFinish, caddyBadLuck, openA
 import { labyrinthHandler } from "./labirinto.js";
 import { noviceActivityHandler, magicStoneNoOp } from "./novato.js";
 import { activityPackageHandler } from "./ativacao-pintinho.js";
+import { growthPackageHandler } from "./passe-classico.js";
 import { dailyAwardHandler, timeBox, weeklyClickCnt, dailyRecordHandler } from "./recompensa-diaria.js";
 import { signAwardHandler, accumulativeLoginHandler } from "./presenca.js";
 import { firstRechargeHandler } from "./primeira-recarga.js";
@@ -152,7 +155,14 @@ export function registerEventos(r: HandlerRegistry): void {
   // novato.ts (m3-partial-sweep): sem o guard por clientKind, um pacote 6600 real seria lido como
   // noviceActivityHandler (2 ints) e podia casar por acidente com uma recompensa de novato indevida.
   r.player(258, "NOVICEACTIVITY/MAGIC_STONE(6600)", (ctx, p, pkt) => { if (p.clientKind === "6600") return magicStoneNoOp(ctx, p, pkt); return noviceActivityHandler(ctx, p, pkt); }, "partial");
-  r.player(84, "ACTIVITY_PACKAGE", (ctx, p, pkt) => activityPackageHandler(ctx, p, pkt), "partial");
+  // 84 ACTIVITY_PACKAGE multiplexes by its 1st int: 1 GrowthPackageType.GROWTHPACKAGE (m4-passe-classico,
+  // 6600 only — passe-classico.ts) / 2 ChickActivationType.CHICKACTIVATION (ativacao-pintinho.ts) / 4
+  // MagicHouse (not ported) / anything else matches the original's `default: Console.WriteLine(...)` no-op.
+  r.player(84, "ACTIVITY_PACKAGE", (ctx, p, pkt) => {
+    const family = pkt.readInt();
+    if (family === 1) return growthPackageHandler(ctx, p, pkt);
+    return activityPackageHandler(ctx, p, pkt, family);
+  }, "partial");
 
   // Minigame das Termas ("Đại chiến Hút Gà") — roteador próprio, ver handlers/minigame-termas/
   const littleGame = littleGameRouter();

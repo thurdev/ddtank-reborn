@@ -162,6 +162,13 @@
       "when": 1792392028721,
       "tag": "0022_bright_rogue",
       "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1792413192603,
+      "tag": "0023_glamorous_magma",
+      "breakpoints": true
     }
   ]
 }

@@ -715,9 +715,42 @@ confirmar jogando" depois. Cada uma depende do pacote/sistema M3 correspondente 
   (2026-10-19), porque cobrar sem efeito seria vender vento. Ao portar o efeito, voltar a cobrar (preço de
   `YearMonsterBuffMoney`/30 Money) e só depois aplicar. Pensar no anti-P2W: buff comprado com Money (cupom) é
   vantagem paga — considerar ouro/moeda de evento no servidor oficial, configurável no admin.
-- [ ] **m4-passe-classico** — Passe Clássico / battle pass (`growthpackage.swf`,
-  `src/growthPackage/GrowthPackageType.as` — valores a extrair). Maior esforço de design (progressão +
-  loja de pontos), mas nome bate com o pedido do dono.
+- [x] **m4-passe-classico** (2026-10-19) — Passe Clássico / battle pass (`growthpackage.swf`,
+  `GrowthPackageType.as`). **C# real**: `ActivityPackageHandler.cs` case `GROWTHPACKAGE` existe nas duas
+  versões, mas só está ligado na 6600 (`vendor/DDT-6600/.../ActivityPackageHandler.cs:23-117`) — no 4.1
+  (`vendor/DDTank41/.../ActivityPackageHandler.cs:31-134`) o case inteiro está dentro de um `#region`
+  comentado, nunca rodou em produção. **Alcançável**: NÃO no cliente 4.1 (dispatch também comentado em
+  `SocketManager.as:1032-1035`, sem pasta `growthPackage`/`growthpackage.swf` em `vendor/DDTank41` nem em
+  `apps/api/assets/flash` — dead dos dois lados); SIM no cliente 6600 (`?client=6600`,
+  `GrowthPackageManager.instance.setup()` no boot + ícone real no hall), servido pelo fallback genérico
+  `/flash6600/*` sem precisar copiar nada (sem overlay próprio ainda, texto turco original — remaster/PT-BR
+  listado como `m5-growthpackage` abaixo). 9 marcos por NÍVEL (Grade >= 10/20/30/40/45/50/55/60/65, mesmos
+  números do `GrowthPackageModel.gradeList`), recompensa real (`game."Activity_System_Item"`
+  `ActivityType=20`, 58 linhas reais na origem, já servidas ao cliente por `/activitysystemitems.ashx` sem
+  trabalho novo — só precisou ler server-side, `ctx.templates.growthPackage(tier)` em `db/templates.ts`).
+  **Design sem pay-to-win** (pedido do dono, `README.md`): o original debita Money (cupom/real) no 1º
+  marco; aqui debita **Gold** (ganhável jogando — escolhido sobre Honra/`myHonor` porque Honra é só
+  PvP/ranqueado e excluiria quem joga só PvE), preço default **0** (free-by-level), configurável via
+  `Server_Config` `PromotePackagePrice` (mesma chave do original, só reinterpretada em Gold) +
+  `IsPromotePackageOpen` (liga/desliga, default fechado igual ao C#). Do 2º marco em diante nunca cobra
+  nada, igual ao design original (só o 1º resgate paga). **Bug corrigido** (dano ao jogador, não exploit
+  que beneficia — AGENTS.md "nunca replicar"): original debitava a moeda ANTES de checar o nível, perdendo
+  a moeda do jogador sem entregar nada se o nível não batesse; aqui checa nível e saldo ANTES de debitar.
+  **Limitação conhecida** (documentada, não corrigida — exigiria remendar o AS3, fora de escopo): o cliente
+  6600 compara `Self.Money` (não Gold) antes de mandar o pacote de compra — com preço `0` (default) isso
+  nunca trava ninguém; se o admin configurar preço > 0 em Gold, jogadores com Money baixo (quase todo
+  mundo, servidor sem pay-to-win) caem na tela de recarga sem mandar o pacote, mesmo tendo Gold de sobra.
+  Migração aditiva `packages/db/drizzle/0022_third_queen_noir.sql` → **renumerada pra
+  `0023_<nome>.sql` no merge final** (0022 já foi usado por `m4-catchbeast` em paralelo — ver nota do
+  orquestrador): 1 coluna nova em `player."Sys_Active_System_Data"` (`AvailTime`, sem equivalente na nossa
+  captura de schema 4.1 — 6600 nunca teve o player DB dumpado — mesma categoria "additive, no vendor DDL"
+  do `Sys_Users_Rescue` de `m4-resgate`). Implementado: `apps/game/src/handlers/eventos/passe-classico.ts`
+  (packet 84 ACTIVITY_PACKAGE sub-cmd 1, despachado em `eventos/index.ts` ANTES de `ativacao-pintinho.ts`,
+  que só recebe sub-cmd 2 agora — assinatura ajustada pra receber o 1º int já lido, sem reler), 2 builders
+  novos em `packets/out.ts` (`growthPackageIsOpen`/`growthPackageState`), 1 campo novo em `GamePlayer`
+  (`lastGrowthPackageClaim`, espelha `LastOpenGrowthPackage`, em memória, não persiste — igual ao original),
+  hook de login em `session/login.ts` (6600 only). Testes:
+  `apps/game/test/client-6600-m4-passe-classico.test.ts` (6). Doc: `docs/features/passe-classico.md`.
 - [ ] **m4-vestir-encanto-reliquias** — Vestir com Encanto (`enchant.swf` + `playerdress.swf`,
   `280 ITEM_ENCHANT`, listado em M3 "Bolsa/Itens") + Relíquias de verdade (`magicstone.swf`, bag separada —
   hoje o dano mágico usa a EquipBag normal, nota do `m3-figurino`). "A confirmar jogando"
@@ -742,6 +775,13 @@ confirmar jogando" depois. Cada uma depende do pacote/sistema M3 correspondente 
   PvE).
 - [ ] **m5-i18n-telas-novas** — `tools/i18n/skelleton-match.mjs` contra `language.txt` das telas novas
   (mesmo método de `m1-lang-ptbr`, dado de entrada novo por tela).
+- [ ] **m5-growthpackage** (`growthpackage.swf`, m4-passe-classico): (a) remendar
+  `growthPackage/GrowthPackageManager.as:173-192` pra comparar Gold em vez de Money antes de mandar
+  `sendGrowthPackageOpen` (hoje, com preço > 0 configurado, jogadores com Money baixo caem na tela de
+  recarga mesmo tendo Gold de sobra — ver `docs/features/passe-classico.md` §7, sem impacto com o preço
+  default `0`); (b) remaster HD + tradução PT-BR do SWF (hoje serve o original em turco, sem overlay —
+  mesma pendência de `m5-remaster-telas-novas`/`m5-i18n-telas-novas` acima, só que esta tela nem estava
+  listada ainda porque não tinha SWF nenhum portado antes desta tarefa).
 - Critério de saída do M5 igual ao descrito em `MIGRACAO-6600.md` §5: telas novas com texto PT-BR e visual
   remasterizado, sem arte/branding do DDClássico.
 

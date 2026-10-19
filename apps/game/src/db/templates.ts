@@ -103,6 +103,11 @@ export class Templates {
    *  rows (GoodsExchangeHandler, 31 GOODS_EXCHANGE). 0 rows in the source .bak (admin fills it later). */
   actives = new Map<number, typeof game.Active.$inferSelect>();
   activeConvertItems = new Map<number, (typeof game.Active_Convert_Item.$inferSelect)[]>();
+  /** ActiveMgr.GetGrowthPackage (ActiveMgr.cs:141): `game."Activity_System_Item"` rows with `ActivityType=20`
+   *  (Passe Clássico / growth package), keyed by `Quality` (the tier index, 0-8 — 58 real rows in the source
+   *  seed, `packages/db/seed/game/Activity_System_Item.json.gz`, already served as-is to the client by the
+   *  existing `/activitysystemitems.ashx` — m4-passe-classico only needed the server-side read). */
+  growthPackageItems = new Map<number, (typeof game.Activity_System_Item.$inferSelect)[]>();
   server: ServerRow | null = null;
   /** PvE (PveInfoMgr / MissionInfoMgr / NPCInfoMgr) */
   pveInfos = new Map<number, typeof game.Pve_Info.$inferSelect>();
@@ -172,6 +177,7 @@ export class Templates {
     this.rates = { exp: rateOr1(cfgVal.expRate), gold: rateOr1(cfgVal.goldRate) };
     await this.loadForge(db);
     await this.loadActiveExchange(db);
+    await this.loadGrowthPackage(db);
     await this.loadPetsCards(db, lang);
     await this.loadProgression(db);
     await this.loadMysteryShop(db);
@@ -260,6 +266,19 @@ export class Templates {
   /** ActiveMgr.GetActiveConvertItemAward(id, index) (ActiveMgr.cs:67): the award rows handed back for this event. */
   activeConvertAward(activeId: number): (typeof game.Active_Convert_Item.$inferSelect)[] {
     return (this.activeConvertItems.get(activeId) ?? []).filter((c) => c.ItemType === 1);
+  }
+
+  /** ActiveMgr.GetGrowthPackage(layer) (ActiveMgr.cs:141): rows for one Passe Clássico tier (`ActivityType=20`
+   *  in `Activity_System_Item`, filtered by `Quality=layer`). */
+  async loadGrowthPackage(db: Database): Promise<void> {
+    const rows = await db.select().from(game.Activity_System_Item).where(eq(game.Activity_System_Item.ActivityType, 20));
+    this.growthPackageItems = new Map();
+    for (const r of rows) this.growthPackageItems.set(r.Quality, [...(this.growthPackageItems.get(r.Quality) ?? []), r]);
+  }
+
+  /** ActiveMgr.GetGrowthPackage(layer) — same lookup, Map read instead of a scan. */
+  growthPackage(layer: number): (typeof game.Activity_System_Item.$inferSelect)[] {
+    return this.growthPackageItems.get(layer) ?? [];
   }
 
   /** RefineryMgr.RefineryTrend: find a row whose reward list contains `templateId`, then the entry two slots

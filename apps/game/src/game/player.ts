@@ -89,6 +89,9 @@ export class GamePlayer implements RoomMember {
   lastChatTime = 0;
   /** GamePlayer.LastOpenHole (OpenFiveSixHoleHandler.cs throttle). */
   lastOpenHole = 0;
+  /** GamePlayer.LastOpenGrowthPackage (`ActivityPackageHandler.cs:30`, 6600 only): 500ms throttle between
+   *  Passe Clássico claims, same in-memory (not persisted) field as the original. */
+  lastGrowthPackageClaim = 0;
   /** GamePlayer.TimeCheckHack (unix seconds of the last 300 heartbeat). */
   timeCheckHack = 0;
   pingStart = 0;

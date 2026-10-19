@@ -5,11 +5,16 @@
  * hoje" uma vez), fim de semana (sex/sáb/dom), semanal (só sábado) e 10 marcos de nível.
  *
  * `ActivityPackageHandler.cs:20-282`: todo `case` exceto `ChickActivationType.CHICKACTIVATION` (=2, mesmo
- * valor nos enums C# e AS3) é código morto comentado no original (GROWTHPACKAGE, casa da magia, zodíaco,
- * pool de bilhete de loteria, PvePowerBuff) — nada disso foi portado. Recompensas sempre vão por CORREIO
- * (`WorldEventMgr.SendItemsToMails`), nunca pra bolsa, igual ao original. Estado vive em
- * `Sys_Active_System_Data.ChickActiveData` (CSV no original — mantido CSV, mesma coluna, mesmos 7 campos;
- * só timestamps ISO em vez de formatados por locale).
+ * valor nos enums C# e AS3) é código morto comentado NO 4.1 (`vendor/DDTank41/Game.Server/Packets/Client/
+ * ActivityPackageHandler.cs:31-134` — `#region GROWTHPACKAGE` inteiro comentado; casa da magia/zodíaco/
+ * bilhete de loteria/PvePowerBuff continuam mortos nas duas versões) — nada disso foi portado aqui.
+ * CORREÇÃO (m4-passe-classico): no 6600 o MESMO case (`GrowthPackageType.GROWTHPACKAGE`=1) está DESCOMENTADO
+ * e com lógica real (`vendor/DDT-6600/Source/Game.Server/Game.Server.Packets.Client/
+ * ActivityPackageHandler.cs:23-117`) — portado em `passe-classico.ts` (packet 84 sub-cmd 1, despachado por
+ * `eventos/index.ts` ANTES de chegar aqui; este arquivo só vê sub-cmd 2 CHICKACTIVATION e 4 MagicHouse, que
+ * continuam exatamente como antes). Recompensas sempre vão por CORREIO (`WorldEventMgr.SendItemsToMails`),
+ * nunca pra bolsa, igual ao original. Estado vive em `Sys_Active_System_Data.ChickActiveData` (CSV no
+ * original — mantido CSV, mesma coluna, mesmos 7 campos; só timestamps ISO em vez de formatados por locale).
  *
  * Pool de recompensa (`ActivitySystemItemInfo` ActivityType 40) e tabela de código de ativação
  * (`PlayerBussiness.ActiveChickCode`) nunca foram migradas do .bak (nenhuma tabela existe neste port) —
@@ -165,9 +170,10 @@ async function mailChickAward(ctx: ServerContext, p: GamePlayer, quality: number
   return true;
 }
 
-export async function activityPackageHandler(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): Promise<void> {
-  const cmd = pkt.readInt();
-  if (cmd !== 2) return; // ChickActivationType.CHICKACTIVATION=2 is the only live case; see header note
+/** `family` is packet 84's first int, already consumed by the `eventos/index.ts` dispatcher (it has to
+ *  read it first to route 1 GROWTHPACKAGE vs 2 CHICKACTIVATION vs 4 MagicHouse — see `passe-classico.ts`). */
+export async function activityPackageHandler(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, family: number): Promise<void> {
+  if (family !== 2) return; // ChickActivationType.CHICKACTIVATION=2 is the only live case here; see header note
   const type = pkt.readInt();
   const now = ctx.now();
   const t = (k: string, fb: string, ...args: unknown[]) => { const v = ctx.lang.t(k, ...args); return v === k ? fb : v; };

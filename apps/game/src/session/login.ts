@@ -16,6 +16,7 @@ import { consortiaOnLogin } from "../handlers/sociedade/index.js";
 import { activityOpen } from "../handlers/eventos/agendador.js";
 import { sendNoviceActivityOpen } from "../handlers/eventos/novato.js";
 import { applyOldPlayerLogin } from "../handlers/eventos/jogador-antigo.js";
+import { sendGrowthPackageLoginState } from "../handlers/eventos/passe-classico.js";
 import { findCharacterByUserName, loadMatchInfo, loadPlayerInfo, setOnlineState } from "../db/characters.js";
 import { loadUserItems } from "../db/items.js";
 import { loadFriends, loadProgress } from "../db/social.js";
@@ -218,6 +219,9 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   if (p.clientKind === "6600") p.send(Out.kingBlessClosed());
   // PLAYER_DRESS (237, m3-figurino): GamePlayer.cs:3644 AvatarBag.UpdateInfo() sends both at every login.
   if (p.clientKind === "6600") { p.send(Out.dressModelArr(p.id, p.dressModels)); p.send(Out.currentDressModel(p.id, p.currentDressModel)); }
+  // Passe Clássico (84 ACTIVITY_PACKAGE sub-cmd 1, m4-passe-classico, 6600 only — dead client-side on 4.1,
+  // SocketManager.as:1032-1035): GamePlayer.cs:3635-3639, only when Server_Config IsPromotePackageOpen is on.
+  if (p.clientKind === "6600") await sendGrowthPackageLoginState(ctx, p);
   p.send(Out.guildMemberWeek(p.id));
   sendActivityIcons(ctx, p);
   p.send(Out.necklace(info));

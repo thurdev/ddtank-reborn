@@ -1806,6 +1806,17 @@ export function catchBeastOpen(open: boolean, playerId = 0): PacketOut {
   return p;
 }
 
+/** 84/1/3 GROWTHPACKAGE_ISOPEN (`SendGrowthPackageIsOpen`, `AbstractPacketLib.cs:2353`, 6600 only): pushed
+ *  once at login when `Server_Config` `IsPromotePackageOpen` is truthy — gates the Passe Clássico hall icon
+ *  client-side (`GrowthPackageManager.showEnterIcon`). See `handlers/eventos/passe-classico.ts`. */
+export function growthPackageIsOpen(open: boolean): PacketOut {
+  const p = new PacketOut(84);
+  p.writeInt(1); // GrowthPackageType.GROWTHPACKAGE (packet-84 family selector, same value as GROWTHPACKAGE_OPEN)
+  p.writeInt(3); // GrowthPackageType.GROWTHPACKAGE_ISOPEN
+  p.writeBoolean(open);
+  return p;
+}
+
 export interface CatchBeastTierView { templateId: number; damageNeeded: number; state: number }
 
 /** 145/33 CATCHBEAST_VIEWINFO reply (`CatchbeastViewInfo.cs:14-30` / `CatchBeastView.as:226-251`):
@@ -1836,5 +1847,18 @@ export function catchBeastGetAwardAck(ok: boolean, tier: number, playerId = 0): 
   const p = new PacketOut(145, playerId);
   p.writeByte(36);
   p.writeBoolean(ok); p.writeInt(tier);
+  return p;
+}
+
+/** 84/1/(1 or 2) GROWTHPACKAGE_OPEN (at login) / GROWTHPACKAGE_UPDATEDATA (after a claim) reply
+ *  (`SendGrowthPackageOpen`/`SendGrowthPackageUpadte`, `AbstractPacketLib.cs:2363-2403`, 6600 only):
+ *  `availTime` (tiers claimed so far, 0-9) + 9 completion flags (`i < availTime`) — same byte layout for
+ *  both, only the sub-opcode differs (`GrowthPackageModel.updateData` reads them identically). */
+export function growthPackageState(kind: "open" | "update", availTime: number): PacketOut {
+  const p = new PacketOut(84);
+  p.writeInt(1); // GrowthPackageType.GROWTHPACKAGE
+  p.writeInt(kind === "open" ? 1 : 2); // GROWTHPACKAGE_OPEN / GROWTHPACKAGE_UPDATEDATA
+  p.writeInt(availTime);
+  for (let i = 0; i < 9; i++) p.writeInt(i < availTime ? 1 : 0);
   return p;
 }
