@@ -1600,6 +1600,33 @@ export const Sys_Users_Trusteeship = player.table(
   ],
 );
 
+/**
+ * HAND-ADDED, not from gen-schema.ts (task m4-resgate): no vendor equivalent in any snapshot — `277 RESCUE`
+ * has NO `[PacketHandler]` class, no persistence entity and no sender anywhere in either vendor C# source
+ * (confirmed by a full-tree grep for `RESCUE`/`Rescue` outside the bare `ePackageType.RESCUE = 277` enum
+ * entry) — "Resgate" is designed entirely from the AS3 contract (`rescue/` client sources), same category as
+ * `Sys_Users_Trusteeship` above. One row per player: `Arrow`/`BloodPack`/`KingBless` are the 3 buyable
+ * consumables (`RescueShopItem` rows 0/1/2); `SceneData` packs the 6 fixed scenes' per-scene state
+ * (`sceneId:starCount:freeCount:cleanCDcount:rewardStatus:nextChallengeAtMs`, '|'-joined, same encoding style
+ * as `Dice_Data.AwardArray`); `LastFreeDay` is the `dayKey()` the free-challenge counts were last reset for.
+ * A future `pnpm db:gen-schema` run will NOT regenerate this block — re-add it by hand if that script's
+ * output ever fully overwrites this file again.
+ */
+export const Sys_Users_Rescue = player.table(
+  "Sys_Users_Rescue",
+  {
+    UserID: integer("UserID").notNull(),
+    Arrow: integer("Arrow").notNull().default(0),
+    BloodPack: integer("BloodPack").notNull().default(0),
+    KingBless: integer("KingBless").notNull().default(0),
+    SceneData: varchar("SceneData", { length: 600 }).notNull().default(""),
+    LastFreeDay: varchar("LastFreeDay", { length: 10 }).notNull().default(""),
+  },
+  (t) => [
+    primaryKey({ name: "Sys_Users_Rescue_pkey", columns: [t.UserID] }),
+  ],
+);
+
 /** Project_Player34.dbo.Sys_Users_Fight — 0 rows in source; PK (UserID) */
 export const Sys_Users_Fight = player.table(
   "Sys_Users_Fight",

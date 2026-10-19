@@ -569,9 +569,10 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
 - [ ] **m3-endpoints-schema** — endpoints que precisam de tabela nova: `ButtonConfig.xml`,
   `ChargeSpendRewardTemplateInfoList.xml`, `FoodComposeList.xml`, `ItemStrengthenData.xml`,
   `LoadAllQuestions.xml`, `LoadChargeActiveTemplate.xml`, `LotteryShowTemplate.xml`, `MagicItemTemp.xml`,
-  `MissionEnergyPrice.xml`, `SearchGoodsPayMoney.xml`, `WarriorFamRankList.xml`, `GoodsCollect.xml`,
-  `HelpGameReward.xml`. Detalhe de cada um (por que não tem tabela, candidatos descartados) em
-  `research/6600/ashx-missing.md` §Pendências.
+  `MissionEnergyPrice.xml`, `SearchGoodsPayMoney.xml`, `WarriorFamRankList.xml`, `GoodsCollect.xml`.
+  `HelpGameReward.xml` SAIU desta lista: feito no `m4-resgate` sem tabela nova (servido de
+  `app."ScheduledEvents"`, ver abaixo). Detalhe de cada um (por que não tem tabela, candidatos descartados)
+  em `research/6600/ashx-missing.md` §Pendências.
 - [ ] **m3-endpoints-sem-fonte** — `GetFightReport`, `ConsortiaMatchHistory`, `DragonBoatFriendInfos`,
   `LoginRemoveSmallAccount`, `ProxyVIP`, `RecordSysInfo`, `RecordUserVersion`, `ResetPassword4399`: sem
   `.cs` em nenhum vendor — só revisitar se aparecer outro dump do 6600; não implementar comportamento
@@ -580,9 +581,50 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
 ### M4 — features novas da referência DDClássico
 Ordem de confiança do mapa (`MIGRACAO-6600.md` §4): nome bate exato com a feature pedida primeiro, "a
 confirmar jogando" depois. Cada uma depende do pacote/sistema M3 correspondente quando citado.
-- [ ] **m4-coleta** — Coleta (`collectiontask.swf`, `261 COLLECTION_TASK` — já listado em M3 como pacote
-  faltante; esta tarefa é o polish de UI/remaster + ligar ao backend). Nome bate exato, baixo risco.
-- [ ] **m4-resgate** — Resgate (`rescue.swf`, `277 RESCUE`). Nome bate exato, baixo risco.
+- [x] **m4-coleta** (2026-10-19) — Coleta (`collectiontask.swf`, `261 COLLECTION_TASK`). **Alcançável**:
+  sim, mas sem ícone de hall próprio — só pelo botão "ir até o local" de uma missão ativa cuja 1ª condição
+  seja `CondictionType===64` (`quest/TaskMainFrame.as:953-956`/`hall/tasktrack/HallTaskTrackListCell.as:389-391`).
+  C# original tem lógica real de verdade (`Game.Server.CollectionTask.*`, sala global + `CollectionTaskCondition`
+  nas Quests) — portado fielmente: sala global (`apps/game/src/game/collection-task.ts`, mirror de
+  `CollectionTaskRoom.cs`) pros sub-códigos 2 WALK/4 QUIT/5 INIT_PLAYERS, mais a condição de missão 64
+  (`apps/game/src/game/quests.ts onCollectionTaskCollect`, conta PRA CIMA até Para2 — oposto do padrão
+  countdown do resto do arquivo) pro 3 COLLECT. Handler: `apps/game/src/handlers/eventos/coleta.ts`.
+  **Fixed vs original**: WALK broadcast só escrevia 3 campos mas o leitor AS3 espera 4 (id/x/y/path) — todo
+  andar remoto de outro jogador quebrava (ponto NaN) no servidor real; aqui manda um path de 1 ponto real.
+  **Exploit evitado (não existe no original)**: COLLECT confiava no `collectedId` do cliente sem limite de
+  frequência — span = terminar a missão instantaneamente sem jogar o minigame; cooldown de 4s por jogador
+  (replica os ~117 frames reais da animação de progresso) fecha isso sem afetar um cliente real. Gap mantido
+  (documentado, não corrigido): `ADD_ONE_PLAYER` nunca é emitido no original (sem caller) — um jogador que
+  entra depois nunca é anunciado pros que já estavam lá; replicado como está. Admin gate novo (pedido pela
+  tarefa, sem equivalente no original): `isOpen(ctx,"collection_task")` via `app."ScheduledEvents"`. Sem
+  migração (progresso vive em `QuestData.ConditionN`, mecanismo já existente). Testes:
+  `apps/game/test/client-6600-m4-coleta.test.ts` (6).
+- [x] **m4-resgate** (2026-10-19) — Resgate (`rescue.swf`, `277 RESCUE`). **Alcançável**: a tela abre
+  (`RescueManager.show()`, limite Grade>=20), mas o ÍCONE do hall só aparece com `IS_OPEN=true`
+  (`createRescueBtn`) e **zero C# em qualquer vendor** implementa/envia isso (confirmado por grep completo:
+  nenhum `PacketHandler(277`, nenhum hit de `RESCUE`/`Rescue` fora do enum `ePackageType.RESCUE=277`) — o
+  ícone nunca aparece em produção original. Desenhado 100% do contrato AS3 (mesma categoria do
+  `m3-trusteeship`): `apps/game/src/game/rescue.ts` (lógica + persistência) + `apps/game/src/handlers/
+  eventos/resgate.ts` (pacote). 6 cenas fixas (sceneId 1-6), cada uma uma missão PvE REAL reaproveitando o
+  `Pve_Info` clássico (id 7 = "Resgate do Pintinho", achado temático bom), configurável por cena via
+  `Server_Config`. CHALLENGE(3) passa pelo motor de PvE de verdade (`RoomMgr.createRescueRoom` → novo método,
+  mesmo padrão de `createRingStationBattle` → `FightEngine.startPve`; novo `RoomType.Rescue=70`, fora do
+  range real do enum `eRoomType`/`eGameType` mas ainda dentro de 1 byte — todo pacote de sala escreve
+  RoomType/GameType como `writeByte`, achado testando: `900` dava overflow silencioso igual ao original faria,
+  mas corrompia o valor lido de volta no teste); score/estrela vêm do kill count real da luta
+  (`onPlayerGameOver` em `server.ts`), nunca de um pacote do cliente. GET_PRIZE(8) é claim-once (status de
+  2 bits por tier, 3 tiers, persistido); CLEAN_CD(5)/BUY_ITEM(4) cobram de EXATAMENTE um pool de moeda (bound
+  OU livre, nunca os dois — replica o `isBand` do `RescueMainFrame.as`) ANTES de aplicar qualquer efeito.
+  Admin on/off: `app."ScheduledEvents"` kind "rescue" (mesmo padrão `consortia_battle` — a janela é quem
+  torna o ícone alcançável, já que o original nunca ligou isso). Migração aditiva
+  `packages/db/drizzle/0021_messy_warlock.sql` (`player."Sys_Users_Rescue"`, hand-added, sem equivalente em
+  nenhum vendor — ver cabeçalho em `packages/db/src/schema/player.ts`). `HelpGameReward.xml` (lista de
+  recompensa que a TELA também carrega, antes em `m3-endpoints-schema` como "precisa schema novo") servido
+  nativamente de `apps/api/src/templates/defs.ts`, lendo o MESMO `app."ScheduledEvents"` que o grant real usa
+  — display do cliente e recompensa do servidor nunca desincronizam, sem tabela nova (achado: `SqlDataProvider.
+  Data/HelpGameRewardInfo.cs` + `Bussiness/Managers/HelpGameRewardMgr.cs` existem no vendor, mas sem SP/linha
+  real — mesma categoria "0 linhas na origem" do baú da galinha/dados). Testes:
+  `apps/game/test/client-6600-m4-resgate.test.ts` (11), `apps/api/test/api.test.ts` (+2).
 - [ ] **m4-catchbeast** — Capturar Nian (`catchbeast.swf`, `src/catchbeast/date/CatchBeastPackageType.as`).
   **Código de dispatch top-level não encontrado** em `ePackageType.cs` nem no scan de client-sends desta
   tarefa — confirmar se usa um código existente (ex. dentro de `ACTIVE_SYSTEM`) antes de implementar.
@@ -607,7 +649,9 @@ confirmar jogando" depois. Cada uma depende do pacote/sistema M3 correspondente 
 ### M5 — remaster HD + PT-BR (contínuo, em paralelo com M3/M4)
 - [ ] **m5-remaster-telas-novas** — toda tela 100% nova portada em M3/M4 (sem equivalente 4.1 pra reusar
   remaster) precisa do pipeline completo `tools/remaster/*` (igual M1 `m1-bitmap-text`/`m1-swf-text`) antes
-  de ir pro ar — não é uma tarefa só, é um passo final de cada tarefa M3/M4 que adicionar SWF novo.
+  de ir pro ar — não é uma tarefa só, é um passo final de cada tarefa M3/M4 que adicionar SWF novo. Inclui
+  agora `collectiontask.swf` (m4-coleta) e `rescue.swf` (m4-resgate) — nenhum texto/imagem revisado ainda
+  (fora do escopo das tarefas de backend, só pacote/persistência/motor de PvE).
 - [ ] **m5-i18n-telas-novas** — `tools/i18n/skelleton-match.mjs` contra `language.txt` das telas novas
   (mesmo método de `m1-lang-ptbr`, dado de entrada novo por tela).
 - Critério de saída do M5 igual ao descrito em `MIGRACAO-6600.md` §5: telas novas com texto PT-BR e visual

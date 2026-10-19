@@ -22,6 +22,7 @@ import { World, type ServerContext, type TicketValidator } from "./session/conte
 import { NewHallRoom } from "./game/new-hall.js";
 import { ConsBatRoom } from "./game/consortia-battle.js";
 import { RingStationRoom, onFightOver as ringStationGameOver } from "./game/ringstation.js";
+import { CollectionTaskRoom } from "./game/collection-task.js";
 import { dbTicketValidator, quitPlayer } from "./session/login.js";
 import { consortiaGameOver } from "./handlers/sociedade/index.js";
 import { consortiaMgr } from "./game/consortia-mgr.js";
@@ -31,6 +32,7 @@ import { StubFightEngine } from "./fight/stub.js";
 import { DdtFightEngine } from "./fight/ddt.js";
 import type { FightEngine } from "./fight/types.js";
 import { updateLabyrinthFloor, outLabyrinth } from "./handlers/eventos/labirinto.js";
+import { onRescueGameOver } from "./handlers/eventos/resgate.js";
 import type { BotProvider, VirtualPlayer } from "./bots/bot.js";
 import { DbBotProvider } from "./bots/provider.js";
 import { ItemInfo } from "./game/item.js";
@@ -184,6 +186,8 @@ export class GameServer {
               pushRecords(m as GamePlayer); // ChangeWin/ChangeTotal/ChangeGrade achievement records (229)
               // GamePlayer.AddPrestige + RingstationResult (only the real challenger seat; the bot never reaches here)
               if (g.roomType === RoomType.RingStation && !(m as GamePlayer).isBot) void ringStationGameOver(this.ctx!, m as GamePlayer, g.isWin).catch((e) => log.warn(`ringstation game over: ${(e as Error).message}`));
+              // m4-resgate: score/star come from this real fight's own kill count — see game/rescue.ts header.
+              if (g.roomType === RoomType.Rescue && !(m as GamePlayer).isBot) void onRescueGameOver(this.ctx!, m as GamePlayer, g).catch((e) => log.warn(`rescue game over: ${(e as Error).message}`));
             },
             onGameOver: (g) => void consortiaGameOver(this.ctx!, g).catch((e) => log.warn(`consortia game over: ${e}`)),
             onMissionOver: (m, g) => {
@@ -245,6 +249,7 @@ export class GameServer {
       newHall: new NewHallRoom(),
       consBat: new ConsBatRoom(),
       ringStation: new RingStationRoom(),
+      collectionTask: new CollectionTaskRoom(),
       tickets: this.opts.tickets ?? dbTicketValidator(db, cfg.DEV_ALLOW_ANY_TICKET),
       now: () => new Date(),
       leader: undefined as never, // set right below: wireLeaderElection precisa do ctx já montado

@@ -254,6 +254,10 @@ async function doQuit(ctx: ServerContext, p: GamePlayer): Promise<void> {
     // already left the scene on its way out" reasoning as NewHallRoom above (153/5 DELETE_PLAYER sent on a
     // normal exit); only matters here for a hard disconnect from inside the consortia-battle arena.
     ctx.consBat.removePlayer(p);
+    // WorldMgr.CollectionTaskRooms.RemovePlayer(PlayerId) (GamePlayer.cs:4429, m4-coleta) — same reasoning:
+    // the client's own 261/4 QUIT on a normal exit already removed them (see collection-task.ts's note on
+    // why that path trusts the sender's own id); only matters for a hard disconnect from inside the scene.
+    ctx.collectionTask.removePlayer(p.id);
   } catch (err) {
     ctx.log.error("quit: room cleanup failed", err);
   }

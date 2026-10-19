@@ -8,6 +8,7 @@ import type { ClientKind } from "../game/player-info.js";
 import type { NewHallRoom } from "../game/new-hall.js";
 import type { ConsBatRoom } from "../game/consortia-battle.js";
 import type { RingStationRoom } from "../game/ringstation.js";
+import type { CollectionTaskRoom } from "../game/collection-task.js";
 import type { RoomMgr } from "../rooms/room-mgr.js";
 import type { FightEngine } from "../fight/types.js";
 import type { LanguageMgr } from "../util/lang.js";
@@ -70,6 +71,8 @@ export interface ServerContext {
   consBat: ConsBatRoom;
   /** RingStationMgr-equivalent runtime (404 RING_STATION, m3-ringstation): game/ringstation.ts. */
   ringStation: RingStationRoom;
+  /** WorldMgr.CollectionTaskRooms (261 COLLECTION_TASK "Coleta", m4-coleta): game/collection-task.ts. */
+  collectionTask: CollectionTaskRoom;
   fight: FightEngine;
   tickets: TicketValidator;
   rsaKey: RsaPrivateKey;

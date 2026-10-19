@@ -9,7 +9,7 @@ import { PlayerState, type RoomMember } from "../game/player.js";
 import type { ClientKind } from "../game/player-info.js";
 import type { FightEngine } from "../fight/types.js";
 import type { BotProvider, VirtualPlayer } from "../bots/bot.js";
-import { BaseRoom, RoomType, GameType } from "./room.js";
+import { BaseRoom, RoomType, GameType, HardLevel } from "./room.js";
 
 export interface RoomMgrOptions {
   maxRooms: number;
@@ -377,6 +377,33 @@ export class RoomMgr {
       challenger.send(Out.roomCreate(room, challenger.clientKind));
       room.addPlayer(challenger);
       this.launch([room], [challenger], [bot], RoomType.RingStation, GameType.RingStation, 2, 0);
+    });
+  }
+
+  /**
+   * 277 RESCUE `CHALLENGE` (m4-resgate): solo, no-lobby PvE launch — same shape as `createRingStationBattle`
+   * above but calling `launchPve` (private, below) instead of `launch` (no PvP side). Satisfies the task's
+   * "fights must go through the real PvE engine" requirement with zero new plumbing in `launchPve` itself:
+   * `RoomType.Rescue` isn't special-cased there (no "reset to dungeon select" behavior needed for a
+   * disposable solo room), and the score/star hook lives in `onPlayerGameOver` (`server.ts`), not here.
+   */
+  createRescueRoom(p: RoomMember, pveId: number, onNoRoom?: () => void): void {
+    this.addAction(() => {
+      p.currentRoom?.removePlayer(p);
+      const room = this.rooms.find((r) => !r.IsUsing);
+      if (!room) {
+        p.sendMessage(1, this.o.lang("CreateRoomAction.MaxRoom"));
+        onNoRoom?.();
+        return;
+      }
+      this.waitingRemove(p);
+      room.start();
+      room.updateRoom("Rescue", "", RoomType.Rescue, 1, pveId);
+      room.LevelLimits = 0;
+      room.HardLevel = HardLevel.Normal;
+      p.send(Out.roomCreate(room, p.clientKind));
+      room.addPlayer(p);
+      this.launchPve(room, [p]);
     });
   }
 
