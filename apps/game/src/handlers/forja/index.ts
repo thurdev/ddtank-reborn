@@ -52,8 +52,13 @@ import { itemTrend, STUB_PACKETS } from "./stubs.js";
  */
 export function registerForja(r: HandlerRegistry): void {
   // Ferraria
-  r.player(59, "ITEM_STRENGTHEN", (ctx, p, pkt) => strengthen(ctx, p, pkt), "partial"); // Fortalecer
-  r.player(58, "ITEM_COMPOSE", (ctx, p, pkt) => compose(ctx, p, pkt), "partial"); // Compor
+  // m3-partial-sweep (2026-10-19): reauditados campo a campo contra `ItemStrengthenHandler.cs`/
+  // `ItemComposeHandler.cs` (4.1 e 6600, `strengthen6600` já cobria a reescrita 6600) — nenhuma sub-ação
+  // alcançável faltando (as únicas diferenças achadas são desvios já documentados nos cabeçalhos dos
+  // arquivos: validação extra da pedra em `compose`, `openHole` não chamado no caminho 6600 de
+  // `strengthen` porque o 6600 não usa furos 5/6 nesse fluxo). Flipped partial -> implemented.
+  r.player(59, "ITEM_STRENGTHEN", (ctx, p, pkt) => strengthen(ctx, p, pkt)); // Fortalecer
+  r.player(58, "ITEM_COMPOSE", (ctx, p, pkt) => compose(ctx, p, pkt)); // Compor
   r.player(121, "ITEM_INLAY", (ctx, p, pkt) => inlay(ctx, p, pkt)); // Montar (incrustar gema)
   r.player(125, "ITEM_EMBED_BACKOUT", (ctx, p, pkt) => embedBackout(ctx, p, pkt)); // Montar (remover gema)
   r.player(217, "OPEN_FIVE_SIX_HOLE", (ctx, p, pkt) => openFiveSixHole(ctx, p, pkt)); // Montar (broca, furos 5/6)

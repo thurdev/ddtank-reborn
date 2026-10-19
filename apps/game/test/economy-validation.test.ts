@@ -92,6 +92,43 @@ describe("GOODS_EXCHANGE: receita autoritativa", () => {
   });
 });
 
+describe("GOODS_EXCHANGE (6600): layout com multiplicador + índice de receita", () => {
+  // m3-partial-sweep: o 6600 manda [activeId, multiplier, itemsLen, itens..., tierIndex] — diferente do
+  // 4.1 ([activeId, itemsLen, itens...]). offer6600 monta o layout real do `sendGoodsExchange` 6600
+  // (GameSocketOut.as:2168).
+  const offer6600 = (pkt: PacketOut, slots: [number, number][], multiplier: number, count = slots.length) => {
+    pkt.writeInt(ACTIVE_ID); pkt.writeInt(multiplier); pkt.writeInt(count);
+    for (const [id, slot] of slots) { pkt.writeInt(id); pkt.writeInt(slot); pkt.writeInt(1); }
+    pkt.writeInt(0); // tierIndex — framed, not modeled (see troca-de-itens.ts header)
+  };
+  it("escala custo e prêmio pelo multiplicador, consumindo exatamente o necessário", async () => {
+    const { c, player } = await loggedIn(server, { client: "6600" });
+    const p = player();
+    put(p, 11023, 0, 10); put(p, 11024, 1, 10);
+    await send(c, 31, (pkt) => offer6600(pkt, [[11023, 0], [11024, 1]], 2));
+    expect(p.propBag.getItemCount(11023)).toBe(10 - 2 * 2); // ItemCount=2 × multiplier=2
+    expect(p.propBag.getItemCount(11024)).toBe(10 - 3 * 2); // ItemCount=3 × multiplier=2
+    expect(p.propBag.getItemCount(11025)).toBe(2); // prêmio ItemCount=1 × multiplier=2
+  });
+  it("recusa multiplicador que furaria a oferta (nº de ingredientes não casa mais)", async () => {
+    const { c, player } = await loggedIn(server, { client: "6600" });
+    const p = player();
+    const a = put(p, 11023, 0, 2), b = put(p, 11024, 1, 3); // só o suficiente pro multiplicador 1
+    await send(c, 31, (pkt) => offer6600(pkt, [[11023, 0], [11024, 1]], 2)); // pede 2x, mas só tem pra 1x
+    expect([a.Count, b.Count]).toEqual([2, 3]); // nada cobrado
+    expect(p.propBag.getItemCount(11025)).toBe(0);
+  });
+  it("um pacote 4.1 (sem multiplier/tierIndex) continua tratado como multiplicador 1", async () => {
+    const { c, player } = await loggedIn(server, { client: "41" });
+    const p = player();
+    put(p, 11023, 0, 2); put(p, 11024, 1, 3);
+    await send(c, 31, (pkt) => offer(pkt, [[11023, 0], [11024, 1]]));
+    expect(p.propBag.getItemCount(11023)).toBe(0);
+    expect(p.propBag.getItemCount(11024)).toBe(0);
+    expect(p.propBag.getItemCount(11025)).toBe(1);
+  });
+});
+
 describe("PROP_USE: não confia no tipo/quantidade do cliente", () => {
   it.each([
     ["tipo forjado", 11023, 1, [11963], true],

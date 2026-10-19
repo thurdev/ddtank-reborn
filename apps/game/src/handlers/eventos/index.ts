@@ -70,7 +70,7 @@ import { battleGroundHandler, eliteGameHandler } from "./liga-elite.js";
 import { newChickenBoxDispatch } from "./bau-da-galinha.js";
 import { lotteryOpenBox, lotteryRandomSelect, lotteryFinish, caddyBadLuck, openAllCardBox, caddySellAll, luckStoneConfig, luckStoneRankLimit, caddyExchangeAll, caddyConvertedAll } from "./roleta.js";
 import { labyrinthHandler } from "./labirinto.js";
-import { noviceActivityHandler } from "./novato.js";
+import { noviceActivityHandler, magicStoneNoOp } from "./novato.js";
 import { activityPackageHandler } from "./ativacao-pintinho.js";
 import { dailyAwardHandler, timeBox, weeklyClickCnt, dailyRecordHandler } from "./recompensa-diaria.js";
 import { signAwardHandler, accumulativeLoginHandler } from "./presenca.js";
@@ -127,15 +127,21 @@ export function registerEventos(r: HandlerRegistry): void {
   r.player(215, "CADDY_CONVERTED_ALL", (ctx, p, pkt) => caddyConvertedAll(ctx, p, pkt), "stub");
 
   // Labirinto
-  r.player(131, "LABYRINTH", (ctx, p, pkt) => labyrinthHandler(ctx, p, pkt), "partial");
+  // m3-partial-sweep (2026-10-19): a sala PvE real do Labirinto (migração 0011 + packages/fight scripts)
+  // chegou via merge de outra tarefa (concorrente) depois do status "partial" ter sido lido — `myProgress`
+  // avança de verdade agora (updateLabyrinthFloor/outLabyrinth acima), gap que motivaria um split próprio
+  // já foi fechado por outro agente. Flipped partial -> implemented (status stale, não trabalho desta tarefa).
+  r.player(131, "LABYRINTH", (ctx, p, pkt) => labyrinthHandler(ctx, p, pkt));
 
   // Liga / Liga de elite / Boss mundial
   r.player(132, "BATTLEGROUND", (ctx, p, pkt) => battleGroundHandler(ctx, p, pkt));
   r.player(162, "ELITEGAME", (ctx, p, pkt) => eliteGameHandler(ctx, p, pkt), "partial");
   r.player(102, "WORLDBOSS_CMD", (ctx, p, pkt) => worldBossCmd(ctx, p, pkt), "partial");
 
-  // Atividades de novato / Ativação do pintinho
-  r.player(258, "NOVICEACTIVITY", (ctx, p, pkt) => noviceActivityHandler(ctx, p, pkt), "partial");
+  // Atividades de novato / Ativação do pintinho — 258 colide com MAGIC_STONE no 6600, ver nota em
+  // novato.ts (m3-partial-sweep): sem o guard por clientKind, um pacote 6600 real seria lido como
+  // noviceActivityHandler (2 ints) e podia casar por acidente com uma recompensa de novato indevida.
+  r.player(258, "NOVICEACTIVITY/MAGIC_STONE(6600)", (ctx, p, pkt) => { if (p.clientKind === "6600") return magicStoneNoOp(ctx, p, pkt); return noviceActivityHandler(ctx, p, pkt); }, "partial");
   r.player(84, "ACTIVITY_PACKAGE", (ctx, p, pkt) => activityPackageHandler(ctx, p, pkt), "partial");
 
   // Minigame das Termas ("Đại chiến Hút Gà") — roteador próprio, ver handlers/minigame-termas/
@@ -146,7 +152,10 @@ export function registerEventos(r: HandlerRegistry): void {
   r.player(145, "ACTIVITY_SYSTEM", (ctx, p, pkt) => activitySystemRouter(ctx, p, pkt), "partial");
 
   // Jogador antigo (m3-eventos-b) — C# original é um no-op total, portado do contrato AS3.
-  r.player(149, "OLDPLAYER_REGRESS", (ctx, p, pkt) => oldPlayerRegressHandler(ctx, p, pkt), "partial");
+  // m3-partial-sweep (2026-10-19): todas as 11 sub-ações já tratadas honestamente (0-6 reais, 7-10 no-op
+  // IGUAL ao `OldPlayerRegressHandler.cs` original, que nunca fez nada pra NENHUMA sub-ação) — nada
+  // reachable faltando. Flipped partial -> implemented (status estava stale desde m3-oldplayer-regress).
+  r.player(149, "OLDPLAYER_REGRESS", (ctx, p, pkt) => oldPlayerRegressHandler(ctx, p, pkt));
 
   // GM Activity / campanhas (m3-eventos-b) — 159/405 stubs do original portados byte a byte; 373 sem
   // handler no original (no-op). Ver atividade-maravilhosa.ts.

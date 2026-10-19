@@ -43,5 +43,5 @@ export function registerReaproveitarForja(r: HandlerRegistry): void {
     if (t.CategoryID !== 11) recycled.ValidDate = 30;
     recycled.IsBinds = true; // EquipRetrieveHandler.cs:481 — unconditionally true at the end regardless of the branch above
     inv.addItemTo(recycled, 0);
-  }, "partial");
+  }); // m3-partial-sweep (2026-10-19): reaudited against EquipRetrieveHandler.cs (6600 e 4.1, mesmo arquivo/linhas) — nenhuma sub-ação faltando, só o limite de somas com drop configurado (igual ao original). Flipped partial -> implemented.
 }
