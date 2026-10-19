@@ -21,9 +21,9 @@ beforeAll(async () => {
 afterAll(async () => h?.close());
 
 describe("@ddt/db on PGlite", () => {
-  it("Shop_Goods has 7640 item templates", async () => {
+  it("Shop_Goods has 7657 item templates (7640 from the 4.1 export + 17 6600-only Montaria items)", async () => {
     const [r] = await h.db.select({ n: count() }).from(game.Shop_Goods);
-    expect(r!.n).toBe(7640);
+    expect(r!.n).toBe(7657);
   });
 
   it("every seeded table matches the SQL Server row-counts.json", async () => {
@@ -39,7 +39,16 @@ describe("@ddt/db on PGlite", () => {
         // Item_Fusion do 6600 é seedado como Item_Fusion_New (não pode sobrescrever a contagem da Item_Fusion 4.1)
         .map(([table, n]) => [RENAME_6600[table] ?? table, n]),
     );
-    const src = { game: { ...rowCounts("Project_Game34"), ...sixGameCounts }, player: rowCounts("Project_Player34") };
+    // m4-montaria: Shop_Goods (an EXISTING 4.1 table, deliberately NOT merged wholesale from the 6600
+    // export above — same "don't override the 4.1 counts" rule the comment at the top of this test
+    // describes) was still missing 17 real item templates the Montaria feature needs (TemplateID
+    // 11164/11165 feed items + the 15 Mount_Draw_Template.TemplateId "cherished mount" unlock items) —
+    // confirmed missing by `findItem()` returning `undefined` in `apps/game` tests, not present under
+    // ANY TemplateID in the curated seed. Added those 17 rows (and only those) straight from the raw
+    // 6600 export (`vendor/_dbexport/Project_Game6600/data/Shop_Goods.json`) into
+    // `packages/db/seed/game/Shop_Goods.json.gz` — static seed data, no schema/migration change.
+    const sixShopGoodsExtra = 17;
+    const src = { game: { ...rowCounts("Project_Game34"), ...sixGameCounts, Shop_Goods: rowCounts("Project_Game34").Shop_Goods + sixShopGoodsExtra }, player: rowCounts("Project_Player34") };
     const m = readManifest();
     expect(m.tables.length).toBe(130);
     for (const t of m.tables) {

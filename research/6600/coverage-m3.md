@@ -16,7 +16,7 @@
 | handled | 0 |
 | partial | 12 |
 | stub | 28 |
-| MISSING | 13 |
+| MISSING | 12 |
 | **Total de códigos enviados pelo cliente** | **213** |
 
 ## Totais — endpoints (.ashx/.xml/.aspx)
@@ -433,11 +433,11 @@
 |---|---|---|---|---|
 | 257 | `FLOWER_GIVING` | getFlowerRankInfo (ddt/manager/GameSocketOut.as); sendGetFlowerReward (ddt/manager/GameSocketOut.as); getFlowerRewardStatus (ddt/manager/GameSocketOut.as); sendFlower (ddt/manager/GameSocketOut.as); sendFlowerRecord (ddt/manager/GameSocketOut.as) | MISSING |  |
 
-### Montaria (1 código(s) — implemented 0, partial 0, stub 0, MISSING 1)
+### Montaria (1 código(s) — implemented 1, partial 0, stub 0, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
-| 260 | `HORSE` | sendHorseChangeHorse (ddt/manager/GameSocketOut.as); sendActiveHorsePicCherish (ddt/manager/GameSocketOut.as); sendHorseUpHorse (ddt/manager/GameSocketOut.as); sendHorseUpSkill (ddt/manager/GameSocketOut.as); sendHorseTakeUpDownSkill (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 260 | `HORSE` | sendHorseChangeHorse (ddt/manager/GameSocketOut.as); sendActiveHorsePicCherish (ddt/manager/GameSocketOut.as); sendHorseUpHorse (ddt/manager/GameSocketOut.as); sendHorseUpSkill (ddt/manager/GameSocketOut.as); sendHorseTakeUpDownSkill (ddt/manager/GameSocketOut.as) | implemented | montaria/montaria.ts |
 
 ### Coleta (1 código(s) — implemented 1, partial 0, stub 0, MISSING 0)
 
