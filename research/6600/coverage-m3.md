@@ -15,8 +15,8 @@
 |---|---|
 | handled | 0 |
 | partial | 25 |
-| stub | 27 |
-| MISSING | 16 |
+| stub | 28 |
+| MISSING | 15 |
 | **Total de códigos enviados pelo cliente** | **213** |
 
 ## Totais — endpoints (.ashx/.xml/.aspx)
@@ -315,12 +315,12 @@
 | 129 | `CONSORTIA_CMD` | sendConsortiaEquipConstrol (ddt/manager/GameSocketOut.as); sendCreateConsortia (ddt/manager/GameSocketOut.as); sendConsortiaTryIn (ddt/manager/GameSocketOut.as); sendConsortiaCancelTryIn (ddt/manager/GameSocketOut.as); sendConsortiaInvate (ddt/manager/GameSocketOut.as); sendReleaseConsortiaTask (ddt/manager/GameSocketOut.as); sendConsortiaInvatePass (ddt/manager/GameSocketOut.as); sendConsortiaInvateDelete (ddt/manager/GameSocketOut.as); sendConsortiaUpdateDescription (ddt/manager/GameSocketOut.as); sendConsortiaUpdatePlacard (ddt/manager/GameSocketOut.as); sendConsortiaUpdateDuty (ddt/manager/GameSocketOut.as); sendConsortiaUpgradeDuty (ddt/manager/GameSocketOut.as); sendConsoritaApplyStatusOut (ddt/manager/GameSocketOut.as); sendConsortiaOut (ddt/manager/GameSocketOut.as); sendConsortiaMemberGrade (ddt/manager/GameSocketOut.as); sendConsortiaUserRemarkUpdate (ddt/manager/GameSocketOut.as); sendConsortiaDutyDelete (ddt/manager/GameSocketOut.as); sendConsortiaTryinPass (ddt/manager/GameSocketOut.as); sendConsortiaTryinDelete (ddt/manager/GameSocketOut.as); sendForbidSpeak (ddt/manager/GameSocketOut.as); sendConsortiaDismiss (ddt/manager/GameSocketOut.as); sendConsortiaChangeChairman (ddt/manager/GameSocketOut.as); sendConsortiaRichOffer (ddt/manager/GameSocketOut.as); sendDonate (ddt/manager/GameSocketOut.as); sendConsortiaLevelUp (ddt/manager/GameSocketOut.as); sendConsortionMail (ddt/manager/GameSocketOut.as); sendConsortionPoll (ddt/manager/GameSocketOut.as); sendConsortionSkill (ddt/manager/GameSocketOut.as); sendBuyBadge (ddt/manager/GameSocketOut.as); sendConsortiaBossInfo (ddt/manager/GameSocketOut.as) | implemented | sociedade/index.ts |
 | 153 | `CONSORTIA_BATTLE` | sendConsBatRequestPlayerInfo (ddt/manager/GameSocketOut.as); sendConsBatMove (ddt/manager/GameSocketOut.as); sendConsBatChallenge (ddt/manager/GameSocketOut.as); sendConsBatExit (ddt/manager/GameSocketOut.as); sendConsBatConsume (ddt/manager/GameSocketOut.as); sendConsBatUpdateScore (ddt/manager/GameSocketOut.as); sendConsBatConfirmEnter (ddt/manager/GameSocketOut.as) | partial | consortia-battle/index.ts |
 
-### Campo de Batalha/Acampamento (2 código(s) — implemented 1, partial 0, stub 0, MISSING 1)
+### Campo de Batalha/Acampamento (2 código(s) — implemented 1, partial 0, stub 1, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
 | 132 | `BATTLE_GROUND` | battleGroundUpdata (ddt/manager/GameSocketOut.as); battleGroundPlayerUpdata (ddt/manager/GameSocketOut.as) | implemented | eventos/index.ts |
-| 146 | `CAMPBATTLE` | CampbattleEnterFight (ddt/manager/GameSocketOut.as); CampbattleRoleMove (ddt/manager/GameSocketOut.as); changeMap (ddt/manager/GameSocketOut.as); outCampBatttle (ddt/manager/GameSocketOut.as); captureMap (ddt/manager/GameSocketOut.as); requestPRankList (ddt/manager/GameSocketOut.as); requestCRankList (ddt/manager/GameSocketOut.as); enterPTPFight (ddt/manager/GameSocketOut.as); returnToPve (ddt/manager/GameSocketOut.as); resurrect (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 146 | `CAMPBATTLE` | CampbattleEnterFight (ddt/manager/GameSocketOut.as); CampbattleRoleMove (ddt/manager/GameSocketOut.as); changeMap (ddt/manager/GameSocketOut.as); outCampBatttle (ddt/manager/GameSocketOut.as); captureMap (ddt/manager/GameSocketOut.as); requestPRankList (ddt/manager/GameSocketOut.as); requestCRankList (ddt/manager/GameSocketOut.as); enterPTPFight (ddt/manager/GameSocketOut.as); returnToPve (ddt/manager/GameSocketOut.as); resurrect (ddt/manager/GameSocketOut.as) | stub | eventos/index.ts |
 
 ### Juramento do Rei (2 código(s) — implemented 2, partial 0, stub 0, MISSING 0)
 

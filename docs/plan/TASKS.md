@@ -307,9 +307,29 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
   propósito (cosmético): `LuckIntegralLevel` é re-grampeado pra 3 ao passar do nível 4, mesmo já tendo
   ganhado o prêmio do nível 5. `apps/game/src/handlers/eventos/dados.ts`. Sem migração nova. Teste:
   `apps/game/test/client-6600-m3-dice-system.test.ts` (5).
-- [ ] **m3-campbattle** — `146 CAMPBATTLE` (`CampbattleEnterFight`/`RoleMove`/`changeMap`/`outCampBatttle`/
-  `captureMap`/`requestPRankList`/`requestCRankList`/`enterPTPFight`/`returnToPve`/`resurrect`) — Batalha de
-  Acampamento (`campbattle.swf`). Sistema maior, 10 sub-ações.
+- [x] **m3-campbattle** (2026-10-19, "código morto") — `146 CAMPBATTLE` (`CampbattleEnterFight`/`RoleMove`/
+  `changeMap`/`outCampBatttle`/`captureMap`/`requestPRankList`/`requestCRankList`/`enterPTPFight`/
+  `returnToPve`/`resurrect`) — Batalha de Acampamento (`campbattle.swf`, 6600). Confirmado **morto no
+  servidor original — 3 elos independentes, cada um sozinho já bastaria**: (1) o ícone do hall
+  (`HallIconType.CAMP`) só aparece com `ACTION_ISOPEN=true`, enviado por `SendCampBattleOpenClose` — a
+  implementação real usada em produção, `ConsolePacketLib.SendCampBattleOpenClose`
+  (`Game.Server.Packets.Server/ConsolePacketLib.cs:167`), é `throw new NotImplementedException();`, igual
+  ao `SendSevenDoubleOpenClose` 3 linhas abaixo (mesma categoria do `148 SEVEN_DOUBLE`/`m3-seven-double`);
+  (2) mesmo ignorando (1), **nenhum código em `vendor/DDT-6600/Source` chama `SendCampBattleOpenClose(`**
+  (grep vazio) — nenhum scheduler/comando de admin jamais abre o ícone; (3) mesmo ignorando (1)-(2), o
+  clique (`CampBattleManager.onCampBtnHander`) manda `sendSingleRoomBegin(RoomManager.CAMP_BATTLE_ROOM)` —
+  `CAMP_BATTLE_ROOM = 5` (`room/RoomManager.as:74`, confirmado o único valor que os 6 call-sites do
+  cliente usam) — mas o switch de `SingleRoomBegin.cs` (`Game.Server.GameRoom.Handle/
+  SingleRoomBegin.cs:23-97`) não tem `case 5` (só um `case 17` morto, que nada no cliente manda), caindo
+  no `default: Console.WriteLine(...)`. As classes de sala/cena (`BaseCampBattleRoom.cs` — sala global,
+  cena hardcoded com 1 monstro fixo "Tà Linh Kate"/`Living225` independente do `monsterCount=18` que
+  escreve, boss fight sempre na mission 60018 ignorando o `id` do cliente) e o `CampBattleHandler.cs`
+  (`[PacketHandler(146)]`, só sub 2/3/5/6/21 têm `case`; 9/16/17/18/20 caem no `default` mesmo dentro da
+  cena) são código real, mas 100% inalcançável — mesma categoria de `144 GROUP_PURCHASE`/
+  `148 SEVEN_DOUBLE`. Registrado como no-op puro (lê o sub-byte + os campos fixos de cada sub-ação,
+  descarta, sem resposta) — sem inventar captura-de-mapa/PvP/ressurreição que nunca existiu em produção.
+  `apps/game/src/handlers/eventos/campbattle.ts`. Sem migração. Teste:
+  `apps/game/test/client-6600-m3-campbattle.test.ts` (8).
 - [x] **m3-group-purchase** (2026-10-18, "código morto") — `144 GROUP_PURCHASE`
   (`sendGroupPurchaseRefreshData`/`RefreshRankData`/`Buy`) — Compra em Grupo (`grouppurchase.swf`).
   Confirmado: feature 100% inacabada no servidor original, não só o `.ashx` companheiro
