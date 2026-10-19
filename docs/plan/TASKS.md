@@ -546,18 +546,62 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
   conflito de migração — nenhuma migração nova nesta tarefa) e depois dele. `research/6600/coverage-m3.md`
   reexecutado: 24 → 13 `partial` (404 RING_STATION, de `m3-ringstation`, não é desta tarefa — sem ele, 12).
 
-- [ ] **m3-worldboss-dragon** — `102 WORLDBOSS_CMD`: portar o script de missão do dragão (`ACDragon`,
-  nome exato a confirmar no C# decompilado) em `@ddt/fight` pro Boss Mundial — hoje o mapa (PvE 14, `Pve_Info`
-  1243) abre mas o chefe nunca aparece/age. Mesma categoria de "camada de efeito de combate não portada"
-  citada em `apps/game/HANDLERS.md`. Lobby/open-close/dano já funcionam (`handlers/eventos/boss-mundial.ts`).
-- [ ] **m3-elite-brackets** — `162 ELITEGAME` sub 2 (`EliteGamePaarungFrame.as`, chaveamento/lista de
-  campeões): hoje só status/entrada por nível/rank/score existem (`eventos/elite.ts`); falta o motor de
-  chaveamento/torneio de verdade (quem joga contra quem, avanço de fase). Ver `apps/game/HANDLERS.md`
-  "Guild extras".
-- [ ] **m3-chick-activation** — `84 ACTIVITY_PACKAGE` sub "chick activation" (`ActivityPackageHandler.cs`,
-  668 linhas): tiers de recompensa diária/cada-3-dias/semanal + nível, não portados nesta porta (só os
-  outros sub-sistemas do mesmo código — growth package/magic lib/zodiac/everyday gift — já funcionam). Ver
-  `apps/game/HANDLERS.md` "Achievements / daily / events".
+- [x] **m3-worldboss-dragon** (2026-10-19) — `102 WORLDBOSS_CMD`: a descrição desta tarefa estava
+  desatualizada — **já estava feito**, antes mesmo dela ser escrita. `ACDragon`/`AC1243`/`WorldAcientDragon`
+  (`packages/fight/src/pve/scripts/manual/worldboss.ts`) foram portados byte a byte contra
+  `vendor/DDT-6600/Source/Game.Server/Game.Server.Script/{Game/WorldAncientDragon.cs,Messions/AC1243.cs,
+  NPC/WorldAcientDragon.cs}` no commit `6308998` (2026-10-02), registrados em `MANUAL_SCRIPTS`
+  (`packages/fight/src/pve/scripts/manual/index.ts`), com a semente já no banco (`Pve_Info` 1243 "BOSS Rồng"
+  → `GameScript`="GameServerScript.AI.Game.ACDragon"; `NPC_Info`/`NPC_Info2` 1243 "Boss Rồng" →
+  `Script`="GameServerScript.AI.NPC.WorldAcientDragon", em `packages/db/seed/game/{Pve_Info,NPC_Info,
+  NPC_Info2}.json.gz`) e um teste de ponta a ponta já cobrindo isso
+  (`packages/fight/test/pve.test.ts` "world boss dragon (Pve 1243, ACDragon/AC1243/WorldAcientDragon): the
+  boss spawns, attacks and takes damage" — roda e passa). O chefe aparece, ataca e recebe dano; só a nota
+  stale em `apps/game/HANDLERS.md` (linha do 102) foi corrigida nesta tarefa (flip pra `implemented` +
+  explicação). Nenhum código mudou. Sem migração. Sem exploit (nada tocado).
+- [x] **m3-elite-brackets** (2026-10-19) — `162 ELITEGAME`: motor de chaveamento real implementado.
+  Achado primeiro: a geração de pareamento/avanço de fase do original NUNCA esteve em nenhum vendor —
+  `Game.Logic/ExerciseMgr.cs` só guarda o estado (`AddEliteRound`/`UpdateEliteGameChapionPlayerList`), e todo
+  escritor real (`HandlerEliteGameRoundAdd`/`HandlerEliteGameSynPlayers`/`HandlerEliteGameStatusUpdate`,
+  `Game.Server/LoginServerConnector.cs:1386-1452`) só RECEBE de um processo "Center"/login-server externo que
+  não está em nenhum dump que temos (mesma categoria de decisão já tomada pra King Division/Crosszone em
+  `research/6600/crosszone.md` — motor local em vez de cross-server). Confirmado pelo cliente real
+  (`eliteGame/EliteGameController.as`): fase de pontuação usa sala normal `94 GAME_ROOM` roomType
+  `eRoomType.EliteGameScore`=12 (`joinEliteGame` → `sendCreateRoom("",12,3)`, SEM passar pelo 162); fase de
+  campeão manda `162/2` (`sendEliteGameStart`) + `sendCreateRoom("",13,3)` (`eRoomType.EliteGameChampion`=13).
+  Implementado: `RoomType.EliteGameScore`(12)/`EliteGameChampion`(13) + `GameType` espelhos em
+  `rooms/room.ts`; fase de pontuação = sala PvP normal (`criar-sala.ts`, bloqueada se o bit de pontuação do
+  bracket de nível do jogador — 30-40 ou 41-50 — não estiver aberto) cujo `onGameOver`
+  (`fight/ddt.ts`/`rooms/room-mgr.ts`) agora ajusta `EliteScore` (vitória soma, derrota não desce do piso 0,
+  igual ao padrão de ladder já usado pro 132 BATTLEGROUND); fase de campeão = chaveamento eliminatório real
+  top-16 por grupo de nível (nome bate com `EliteGameTopSixteenInfo`/`topSixteen30_40`/`paarungRound30_40`
+  do cliente — forte confirmação do desenho), gerado quando a janela admin (`app."ScheduledEvents"` kind novo
+  `elite_champion`, back-to-back com `elite`, mesmo padrão aditivo de boss mundial/liga) abre; `162/2` só
+  libera a sala quando os dois lados do round estão prontos (fallback bot depois de um tempo, mesmo padrão
+  do resto do projeto); vencedor avança, luta real via `room-mgr.ts createEliteChampionRoom` →
+  `FightEngine.startPvp` (mesmo padrão de `createConsortiaBattleRoom`/`createRingStationBattle` — luta de
+  verdade, sem resultado inventado pelo cliente); `162/4` (lista de campeões) devolve o layout real que o
+  AS3 lê (`EliteGameController.__detailHandler`: id/nome/rank/roundsReached/eliminated por jogador). Prêmios
+  por colocação final via `claimOnce` (chave por janela, 1× por jogador, mesmo padrão de `finishWorldBoss`).
+  Nenhuma migração nova (estado do bracket em memória, como `NewHallRoom`/boss mundial). Sem exploit novo:
+  nenhuma recompensa sai antes do `claimOnce`, nenhum round pode ser disparado 2x pelo mesmo jogador
+  (`pending` em memória, mesmo padrão do `m3-ringstation`). `apps/game/src/handlers/eventos/liga-elite.ts`,
+  `apps/game/src/rooms/room-mgr.ts`. Teste: `apps/game/test/elite-brackets.test.ts`.
+- [x] **m3-chick-activation** (2026-10-19) — `84 ACTIVITY_PACKAGE` "chick activation": a descrição desta
+  tarefa também estava desatualizada — **já estava feito** desde o commit `14a63a1` (bem antes dela ser
+  escrita). `apps/game/src/handlers/eventos/ativacao-pintinho.ts` já tem os 4 tiers (diário/fim-de-semana
+  `onThreeDay`/semanal-sábado/10 marcos de nível), código de 14 chars com `claimOnce` global (sem reuso
+  entre contas) + item 201316 (`activateChickItem`, ligado em `handlers/loja/usar-prop.ts` 66 PROP_USE) como
+  caminho alternativo de ativação, recompensa sempre por correio (nunca bolsa, igual ao original). Testes já
+  existentes (`apps/game/test/activities.test.ts` describe "84 ACTIVITY_PACKAGE ChickActivation") cobriam
+  código errado/reuso de código; esta tarefa endureceu a cobertura pro que faltava claramente no pedido
+  ("claim-once, no reuse"): +1 teste de reivindicação dupla do tier diário no MESMO dia UTC (2ª tentativa
+  cai em `NotFoundAward`, sem 2º e-mail) e +1 teste do caminho do item 201316 (consome exatamente 1 unidade,
+  reuso recusado sem consumir a 2ª). Tiers de fim-de-semana/semanal/nível não ganharam teste dedicado (sem
+  injeção de relógio no `ServerContext` — `now: () => new Date()` fixo em `server.ts` — testar
+  determinística o dia-da-semana exigiria tocar um arquivo compartilhado por uma tarefa só; documentado aqui
+  em vez de arriscar). Nenhum código de produção mudou (já estava correto); nenhuma migração. Sem exploit
+  (claimOnce já cobria tudo). `apps/game/test/activities.test.ts` (+2 testes).
 
 **Endpoints (.ashx/.xml) — resto do `research/6600/ashx-missing.md`, não feito no `m3-ashx`:**
 - [ ] **m3-endpoints-aninhados** — `CommunalActive.xml` (3 tabelas: `game.Communal_Active` + `_Award` +
