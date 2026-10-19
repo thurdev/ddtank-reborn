@@ -4,7 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { Badge, Button, Spinner, Switch } from "@ddtank/ui";
 import { ArrowLeft, Maximize } from "lucide-react";
 import { GameFrame } from "@/components/GameFrame";
-import { configQuery } from "@/lib/api";
+import { aimTablesQuery, configQuery } from "@/lib/api";
+import { AimTableCard } from "@/components/AimTablePanel";
 import { useI18n } from "@/i18n";
 import { useSeo } from "@/lib/seo";
 import "./play.css";
@@ -39,40 +40,36 @@ function ClientToggle() {
   );
 }
 
-/** Unscaled "design" size of .play-stage (apps/web/src/pages/play.css) — kept in sync by hand (no layout
- *  measurement round-trip needed before the first paint). */
-const STAGE_W = 1932;
-const STAGE_H = 836;
-/** Breathing room so the composition never touches the viewport edges. */
-const STAGE_MARGIN = 24;
+/** Design size of `public/play/ddreborn.jpg` — `.play-stage` is exactly this box, scaled as a whole (CSS transform)
+ *  so the game hole and the angle-table overlays stay glued to the painted frame at any viewport size. */
+const STAGE_W = 2560;
+const STAGE_H = 1429;
+/** Part of the art that must stay visible (logo, both table panels, frame, ruler, mascots' heads); the rest is
+ *  scenery that may be cropped so the game itself gets as big as possible. Image pixels. */
+const FOCUS = { x: 280, y: 150, w: 2000, h: 1080 };
+/** Shift (pre-scale px) that moves the focus box's center onto the stage's center. */
+const FOCUS_DX = STAGE_W / 2 - (FOCUS.x + FOCUS.w / 2);
+const FOCUS_DY = STAGE_H / 2 - (FOCUS.y + FOCUS.h / 2);
 
-/** Scales `.play-stage` to fit the viewport via CSS transform (GPU compositing — crisp at any factor, unlike
- *  resizing the 1000x600 game canvas itself, which the frame never does: GameFrame always renders at its real
- *  1000x600 CSS size). Snapped to the nearest 0.01 so the composition's hairline borders don't shimmer between
- *  renders while the window is actively being resized. */
-function useStageScale(availRef: React.RefObject<HTMLElement | null>): number {
-  const [scale, setScale] = useState(1);
+/** Scales `.play-stage` so the FOCUS box fits ("contain") the available area. Snapped to 0.005 so hairline borders don't
+ *  shimmer while the window is being resized. */
+function useStageScale(availRef: React.RefObject<HTMLElement | null>, ready: boolean): number {
+  const [scale, setScale] = useState(0.5);
   useEffect(() => {
     const el = availRef.current;
     if (!el) return;
     const compute = () => {
-      const w = el.clientWidth - STAGE_MARGIN * 2;
-      const h = el.clientHeight - STAGE_MARGIN * 2;
-      const s = Math.min(1, w / STAGE_W, h / STAGE_H);
-      setScale(Math.max(0.2, Math.round(s * 100) / 100));
+      const s = Math.min(el.clientWidth / FOCUS.w, el.clientHeight / FOCUS.h);
+      setScale(Math.max(0.1, Math.round(s * 200) / 200));
     };
     compute();
     const ro = new ResizeObserver(compute);
     ro.observe(el);
-    window.addEventListener("resize", compute);
-    return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", compute);
-    };
-  }, [availRef]);
+    return () => ro.disconnect();
+    // `ready`: the viewport div only mounts once the play config has loaded — re-run then, not just on mount.
+  }, [availRef, ready]);
   return scale;
 }
-
 
 /** Full-page game page: parchment/gold "DD Clássico" composition (background, logo, ornamental frame, angle/force
  *  reference tables, distance ruler) hosting the real Ruffle client in an exact 1000x600 hole. Auth/config fetch
@@ -82,7 +79,15 @@ export function PlayPage() {
   const fullscreenRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const { data, error, isLoading, refetch } = useQuery({ ...configQuery, staleTime: 0 });
-  const scale = useStageScale(viewportRef);
+  const scale = useStageScale(viewportRef, !!data);
+  const aim = useQuery(aimTablesQuery);
+  const distances = (aim.data?.distances ?? []).slice(0, 20);
+  const byAngle = (a: number) => aim.data?.rows.find((r) => r.angle === a);
+  // Same placement as the painted tables in ddreborn.jpg: 30/50 on the left, 20/65 on the right.
+  const sides: { side: "left" | "right"; angles: number[] }[] = [
+    { side: "left", angles: [30, 50] },
+    { side: "right", angles: [20, 65] },
+  ];
   useSeo({ title: t("nav.play"), description: t("play.needLogin") });
 
   const fullscreen = () => {
@@ -121,20 +126,19 @@ export function PlayPage() {
 
         {data && (
           <div ref={viewportRef} className="play-stage-viewport">
-            <div className="play-stage" style={{ transform: `scale(${scale})` }}>
-
-
-
-
-              <div className="play-frame">
-                <div className="play-frame-hole">
-                  <GameFrame {...data.game} />
-                </div>
+            <div className="play-stage" style={{ transform: `translate(-50%, -50%) scale(${scale}) translate(${FOCUS_DX}px, ${FOCUS_DY}px)` }}>
+              {aim.data &&
+                sides.map(({ side, angles }) => (
+                  <div key={side} className={`play-aim ${side}`}>
+                    {angles.map((a) => {
+                      const row = byAngle(a);
+                      return row ? <AimTableCard key={a} row={row} distances={distances} /> : null;
+                    })}
+                  </div>
+                ))}
+              <div className="play-frame-hole">
+                <GameFrame {...data.game} />
               </div>
-
-
-
-
             </div>
           </div>
         )}
