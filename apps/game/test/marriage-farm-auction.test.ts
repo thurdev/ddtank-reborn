@@ -105,6 +105,145 @@ describe("247/250 MARRY_APPLY / MARRY_APPLY_REPLY", () => {
   });
 });
 
+/** Marries two logged-in players in memory (same `.info` shortcut as the "248 DIVORCE_APPLY" test above). */
+function marryPair(a: Awaited<ReturnType<typeof loggedIn>>, b: Awaited<ReturnType<typeof loggedIn>>): void {
+  for (const [me, spouse] of [[a, b], [b, a]] as const) {
+    me.player().info.IsMarried = true;
+    me.player().info.SpouseID = spouse.ch.userId;
+    me.player().info.SpouseName = spouse.ch.nick;
+  }
+}
+
+describe("240/241/255 MARRY_SCENE_LOGIN / MARRY_ROOM_CREATE / MARRY_ROOM_INFO_UPDATE (chapel room-list audience)", () => {
+  it("240 lists existing rooms as 241 (not 242); 241/create broadcasts 241 to other browsers, not a malformed 2nd 242", async () => {
+    const groom = await loggedIn(server, { grade: 10, money: 10_000 });
+    const bride = await loggedIn(server, { grade: 10 });
+    marryPair(groom, bride);
+    const browser = await loggedIn(server, { grade: 10 }); // a 3rd player just browsing the chapel room list
+
+    browser.c.out(240);
+    await browser.c.code(240);
+
+    const markBrowser = browser.c.mark();
+    const markGroom = groom.c.mark();
+    groom.c.out(241, (o) => { o.writeUTF("Sala do teste"); o.writeUTF(""); o.writeInt(0); o.writeInt(4); o.writeInt(8); o.writeBoolean(true); o.writeUTF("oi"); });
+    const selfLogin = await groom.c.code(242, undefined, markGroom); // roomInfoPacket — self only, exactly once
+    expect(selfLogin.pkt.readBoolean()).toBe(true);
+    expect(groom.c.received.slice(markGroom).filter((r) => r.code === 242)).toHaveLength(1); // no 2nd malformed 242
+
+    const created = await browser.c.code(241, undefined, markBrowser); // the OTHER browser hears about the new room as 241
+    expect(created.pkt.readBoolean()).toBe(true);
+    const roomId = created.pkt.readInt();
+    expect(roomId).toBe(groom.player().info.SelfMarryRoomID);
+    expect(created.pkt.readBoolean()).toBe(false); // isHymeneal
+    expect(created.pkt.readString()).toBe("Sala do teste");
+
+    // a 4th player entering the list now gets the existing room as 241 (not 242's "you're inside" layout).
+    // (earlier tests in this file may have left other rooms in the same in-memory `rooms(ctx)` map, so scan
+    // every 241 the late joiner got for the one that matches this test's room, instead of assuming it's first.)
+    const late = await loggedIn(server, { grade: 10 });
+    const markLate = late.c.mark();
+    late.c.out(240);
+    await sleep(80);
+    const listings = late.c.received.slice(markLate).filter((r) => r.code === 241);
+    expect(listings.length).toBeGreaterThan(0);
+    const mine = listings.find((r) => { r.pkt.offset = 20; r.pkt.readBoolean(); return r.pkt.readInt() === roomId; });
+    expect(mine).toBeDefined();
+
+    // 253 MARRY_ROOM_INFO_UPDATE: broadcasts 255 to the room-list audience (not 242 to the room's own members).
+    const markBrowser2 = browser.c.mark();
+    groom.c.out(253, (o) => { o.writeUTF("Sala renomeada"); o.writeBoolean(false); o.writeUTF(""); o.writeUTF("nova desc"); });
+    const updated = await browser.c.code(255, undefined, markBrowser2);
+    expect(updated.pkt.readBoolean()).toBe(true);
+    expect(updated.pkt.readInt()).toBe(roomId);
+
+    groom.c.close(); bride.c.close(); browser.c.close(); late.c.close();
+  });
+});
+
+describe("233 MARRY_SCENE_CHANGE / 251 SCENE_STATE (chapel scene presence)", () => {
+  it("233 exchanges 243 player-enter with whoever is already in the destination map, and 244 with who stays behind", async () => {
+    const groom = await loggedIn(server, { grade: 10, money: 10_000 });
+    const bride = await loggedIn(server, { grade: 10 });
+    marryPair(groom, bride);
+
+    groom.c.out(241, (o) => { o.writeUTF("Sala 233"); o.writeUTF(""); o.writeInt(0); o.writeInt(4); o.writeInt(8); o.writeBoolean(true); o.writeUTF(""); });
+    await groom.c.code(242);
+    const roomId = groom.player().info.SelfMarryRoomID;
+    bride.c.out(242, (o) => { o.writeInt(roomId); o.writeUTF(""); o.writeInt(0); });
+    await bride.c.code(242);
+    // both start on map 1 (MarryRoom.AddPlayer default) — bride switches to map 2 alone first (no-op: no one else there).
+    bride.c.out(233, (o) => o.writeInt(2));
+    await sleep(80);
+
+    const markGroom = groom.c.mark(), markBride = bride.c.mark();
+    groom.c.out(233, (o) => o.writeInt(2)); // groom follows the bride into map 2
+    await sleep(100);
+    // Match on the embedded player ID (4th int field, after Grade/Hide/Repute) instead of assuming the
+    // next 243 in the buffer is the right one — the shared test server also ticks background broadcasts
+    // (scheduled events) that can interleave unrelated packets in either client's queue.
+    const findSheetFor = (c: typeof groom.c, from: number, targetId: number) =>
+      c.received.slice(from).find((r) => {
+        if (r.code !== 243) return false;
+        r.pkt.offset = 20; r.pkt.readInt(); r.pkt.readInt(); r.pkt.readInt();
+        return r.pkt.readInt() === targetId;
+      });
+    expect(findSheetFor(bride.c, markBride, groom.ch.userId)).toBeDefined(); // bride (already in map 2) sees the groom arrive
+    expect(findSheetFor(groom.c, markGroom, bride.ch.userId)).toBeDefined(); // groom's own client gets the bride's sheet too
+
+    groom.c.close(); bride.c.close();
+  });
+
+  it("251/0 resyncs presence in the current map; 251/1 does not throw (generic enterWaitingRoom)", async () => {
+    const groom = await loggedIn(server, { grade: 10, money: 10_000 });
+    const bride = await loggedIn(server, { grade: 10 });
+    marryPair(groom, bride);
+    groom.c.out(241, (o) => { o.writeUTF("Sala 251"); o.writeUTF(""); o.writeInt(0); o.writeInt(4); o.writeInt(8); o.writeBoolean(true); o.writeUTF(""); });
+    await groom.c.code(242);
+    const roomId = groom.player().info.SelfMarryRoomID;
+    bride.c.out(242, (o) => { o.writeInt(roomId); o.writeUTF(""); o.writeInt(0); });
+    await bride.c.code(242);
+
+    const markGroom = groom.c.mark(), markBride = bride.c.mark();
+    groom.c.out(251, (o) => o.writeInt(0));
+    const brideSees = await bride.c.code(243, undefined, markBride);
+    expect(brideSees.pkt.readInt()).toBeGreaterThan(0);
+    const groomSeesSelfAck = await groom.c.code(243, undefined, markGroom);
+    expect(groomSeesSelfAck.pkt.readInt()).toBeGreaterThan(0);
+
+    expect(() => bride.c.out(251, (o) => o.writeInt(1))).not.toThrow();
+    await sleep(50); // 251/1 -> ctx.rooms.enterWaitingRoom, async action queue — just must not crash the server
+    groom.c.close(); bride.c.close();
+  });
+});
+
+describe("249/3 MARRY_CMD CONTINUATION (room-time extension)", () => {
+  it("charges only the requester (not split with the spouse) and forwards 249/3 to the spouse, not the whole room", async () => {
+    const groom = await loggedIn(server, { grade: 10, money: 10_000 });
+    const bride = await loggedIn(server, { grade: 10, money: 10_000 });
+    marryPair(groom, bride);
+    groom.c.out(241, (o) => { o.writeUTF("Sala continuation"); o.writeUTF(""); o.writeInt(0); o.writeInt(4); o.writeInt(8); o.writeBoolean(true); o.writeUTF(""); });
+    await groom.c.code(242);
+    const roomId = groom.player().info.SelfMarryRoomID;
+    bride.c.out(242, (o) => { o.writeInt(roomId); o.writeUTF(""); o.writeInt(0); });
+    await bride.c.code(242);
+
+    const groomMoneyBefore = groom.player().info.Money, brideMoneyBefore = bride.player().info.Money;
+    const markGroom = groom.c.mark(), markBride = bride.c.mark();
+    groom.c.out(249, (o) => { o.writeByte(3); o.writeInt(3); }); // 3 hours
+    const selfReply = await groom.c.code(249, undefined, markGroom);
+    expect(selfReply.pkt.readByte()).toBe(3);
+    expect(selfReply.pkt.readInt()).toBe(3);
+    const spouseReply = await bride.c.code(249, undefined, markBride);
+    expect(spouseReply.pkt.readByte()).toBe(3);
+    expect(spouseReply.pkt.readInt()).toBe(3);
+
+    expect(groom.player().info.Money).toBeLessThan(groomMoneyBefore); // requester pays in full
+    expect(bride.player().info.Money).toBe(brideMoneyBefore); // spouse pays nothing (deviation fixed this pass)
+    groom.c.close(); bride.c.close();
+  });
+});
+
 describe("85 MATE_ONLINE_TIME", () => {
   it("answers an online target with their live LastDate", async () => {
     const a = await loggedIn(server, { grade: 10 });

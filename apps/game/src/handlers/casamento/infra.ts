@@ -53,6 +53,21 @@ export function roomOf(ctx: ServerContext, p: GamePlayer): ChapelRoom | undefine
   for (const r of rooms(ctx).values()) if (r.members.has(p)) return r;
   return undefined;
 }
+
+/**
+ * WorldMgr.MarryScene (m3-partial-sweep, 2026-10-19): jogadores que estão olhando a LISTA de salas da
+ * capela (entraram via 240 MARRY_SCENE_LOGIN, ainda não entraram numa sala específica) — plateia que
+ * recebe os broadcasts 241 (sala criada)/255 (sala atualizada) de `AbstractPacketLib.SendMarryRoomInfo`/
+ * `MarryRoom.SendMarryRoomInfoUpdateToScenePlayers`. Distinto de `ChapelRoom.members` (quem já ENTROU
+ * numa sala específica, recebe 244/243 da cena 3D). Igual a `rooms()`: só em memória, mesmo padrão do
+ * resto do arquivo (sem limpeza em desconexão — `broadcast`-like sends num socket morto são inofensivos).
+ */
+const chapelBrowsersByCtx = new WeakMap<ServerContext, Set<GamePlayer>>();
+export function chapelBrowsers(ctx: ServerContext): Set<GamePlayer> {
+  let s = chapelBrowsersByCtx.get(ctx);
+  if (!s) chapelBrowsersByCtx.set(ctx, (s = new Set()));
+  return s;
+}
 export function isCouple(r: ChapelRoom, id: number): boolean { return id === r.groomID || id === r.brideID; }
 export function broadcast(r: ChapelRoom, pkt: PacketOut, except?: GamePlayer): void {
   for (const m of r.members) if (m !== except) m.send(pkt);
@@ -97,6 +112,57 @@ export function marryInfoRefreshPacket(row: { ID: number; IsPublishEquip: boolea
 }
 export function hymenealPacket(r: ChapelRoom, started: boolean): PacketOut {
   const p = new PacketOut(249); p.writeByte(2); p.writeInt(r.id); p.writeBoolean(started); return p;
+}
+
+/**
+ * AbstractPacketLib.SendMarryRoomInfo (241, "sala criada" — broadcast pra quem está vendo a LISTA) e
+ * MarryRoom.SendMarryRoomInfoUpdateToScenePlayers (255, "sala atualizada" — mesmo layout, mesma
+ * audiência): `[bool true, int id, bool isHymeneal, str name, bool hasPwd, int mapIndex, int availHours,
+ * int count, int creatorId, str creatorName, int groomID, str groomName, int brideID, str brideName,
+ * date createTime, byte roomState(1=FREE/2=Hymeneal), str introduction]` — confirmado campo a campo
+ * contra `AbstractPacketLib.cs:2850-2876`/`:387-413`. DIFERENTE do layout de 242 (`roomInfoPacket`, "você
+ * entrou na sua sala"): sem `guestInvite`/`sceneIndex`/`isGunsaluteUsed`, com `isHymeneal` bool extra no
+ * início e `hasPwd` em vez do nome da senha. Usado por: `marrySceneLogin` (lista inicial, 241),
+ * `marryRoomCreate` (sala nova, 241) e `marryRoomInfoUpdate` (sala editada, 255) — achado do
+ * m3-partial-sweep: o porte anterior confundia os três com 242 (formato errado pra quem só está
+ * navegando a lista; corrigia campo nenhum e corrompia `ChurchManager.currentRoom` de quem via a lista).
+ */
+export function chapelRoomScenePacket(code: 241 | 255, r: ChapelRoom): PacketOut {
+  const p = new PacketOut(code);
+  p.writeBoolean(true); p.writeInt(r.id); p.writeBoolean(r.isHymeneal); p.writeString(r.name);
+  p.writeBoolean(!!r.pwd); p.writeInt(r.mapIndex); p.writeInt(r.availHours); p.writeInt(r.members.size);
+  p.writeInt(r.creatorId); p.writeString(r.creatorName); p.writeInt(r.groomID); p.writeString(r.groomName);
+  p.writeInt(r.brideID); p.writeString(r.brideName); Out.wd(p, r.createTime); p.writeByte(r.isHymeneal ? 2 : 1);
+  p.writeString(r.introduction);
+  return p;
+}
+
+/**
+ * AbstractPacketLib.SendPlayerEnterMarryRoom (243) — troca de presença entre dois jogadores no MESMO
+ * mapa (1/2) da cena 3D da capela: `[int Grade, int Hide, int Repute, int ID, str NickName, byte typeVIP,
+ * int VIPLevel, bool Sex, str Style, str Colors, str Skin, int X, int Y, int FightPower, int Win,
+ * int Total, int Offer, bool IsOldPlayer]` — confirmado campo a campo contra `church.controller.
+ * ChurchRoomController.__addPlayer` (6600). Quem recebe desenha o sprite do outro na posição X/Y; cada
+ * lado manda a própria ficha pro outro (ver `marrySceneChange`/`sceneState`).
+ */
+export function playerEnterMarryRoomPacket(p: GamePlayer, x: number, y: number): PacketOut {
+  const c = p.info;
+  const o = new PacketOut(243);
+  o.writeInt(c.Grade); o.writeInt(c.Hide); o.writeInt(c.Repute); o.writeInt(c.ID); o.writeString(c.NickName ?? "");
+  o.writeByte(c.typeVIP); o.writeInt(c.VIPLevel); o.writeBoolean(c.Sex); o.writeString(c.Style ?? "");
+  o.writeString(c.Colors ?? ""); o.writeString(c.Skin ?? ""); o.writeInt(x); o.writeInt(y); o.writeInt(c.FightPower);
+  o.writeInt(c.Win); o.writeInt(c.Total); o.writeInt(c.Offer); o.writeBoolean(c.IsOldPlayer);
+  return o;
+}
+
+/**
+ * Posição fixa de espera por mapa da capela (1/2) — igual nos dois lados pro mapa 2, diferente pro mapa
+ * 1 (decompilado assim nos dois handlers, replicado sem "corrigir": `Class20.cs` 233 troca de cenário,
+ * `Class21.cs` 251/0 entrada/resync). `fromSwitch=true` usa as coordenadas de `Class20` (233).
+ */
+export function marryMapSpawn(map: number, fromSwitch: boolean): { x: number; y: number } {
+  if (map === 2) return { x: 800, y: 763 };
+  return fromSwitch ? { x: 514, y: 637 } : { x: 646, y: 1241 };
 }
 
 export async function setMarried(ctx: ServerContext, userId: number, v: { IsMarried: boolean; SpouseID: number; SpouseName: string; IsCreatedMarryRoom?: boolean; SelfMarryRoomID?: number; IsGotRing?: boolean }): Promise<void> {

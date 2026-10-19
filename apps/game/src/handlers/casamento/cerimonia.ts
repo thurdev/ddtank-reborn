@@ -14,7 +14,12 @@
  *   NENHUMA das duas versões manda um int extra pra "cancelar" — `flag = pkt.readInt()` neste porte lê
  *   lixo/zero-pad de qualquer forma (gap pré-existente da própria 4.1, não é regressão desta tarefa; a UI
  *   de cancelar provavelmente usa o sub 9 HYMENEAL_STOP, nunca registrado aqui — não tocado).
- * - sub 3 CONTINUATION: 6600 manda +1 bool `merryActivity` no fim.
+ * - sub 3 CONTINUATION: 6600 manda +1 bool `merryActivity` no fim. m3-partial-sweep (2026-10-19):
+ *   reauditado contra `ContinuationCommand.cs` — achados 2 bugs reais (não de layout): o preço era
+ *   dividido 50/50 entre os cônjuges (original cobra só de quem PEDE, `player.RemoveMoney` — mesma regra
+ *   já usada pela criação da sala, `MarryRoomCreateHandler.cs`, ver comentário em `marryRoomCreate`) e a
+ *   resposta usava 242 `roomInfoPacket` pra TODA a sala (layout errado — o original é `SendContinuation`,
+ *   249/3 + só o int de horas, mandado pro pedinte e reenviado só pro OUTRO cônjuge, não pros convidados).
  * - sub 6 USEFIRECRACKERS: 6600 manda +1 bool `isBind` no fim.
  * `MARRY_ROOM_CREATE` (241, capela.ts) tem o mesmo padrão: 6600 soma +1 bool `merryActivity` no fim, não
  * lido por nenhum handler.
@@ -23,7 +28,7 @@ import { PacketOut } from "@ddt/protocol";
 import { eq } from "drizzle-orm";
 import { ItemInfo } from "../../game/item.js";
 import { SubRouter } from "../registry.js";
-import { broadcast, findShop, hymenealPacket, isCouple, limitLevel, mailItem, MARRY_ROOM, PRICE_MARRY_ROOM, PRICE_PROPOSE, roomInfoPacket, roomOf, setMarried, WEDDING_RING_TEMPLATE } from "./infra.js";
+import { broadcast, findShop, hymenealPacket, isCouple, limitLevel, mailItem, MARRY_ROOM, PRICE_MARRY_ROOM, PRICE_PROPOSE, roomOf, setMarried, WEDDING_RING_TEMPLATE } from "./infra.js";
 
 /** Roteador do pacote 249 MARRY_CMD: um `.on(subcode, nome, fn)` por ação dentro da sala. */
 export function marryCmdRouter(): SubRouter {
@@ -68,17 +73,23 @@ export function marryCmdRouter(): SubRouter {
       setTimeout(() => { r.isHymeneal = false; broadcast(r, hymenealPacket(r, false)); }, 170_000);
     })
     .on(3, "CONTINUATION", async (ctx, p, pkt) => { // int hours (2/3/4)
+      // ContinuationCommand.cs:16-66 (m3-partial-sweep fix): quem PEDE paga o preço INTEIRO (não split
+      // 50/50 com o cônjuge, deviation não documentada do porte anterior) e o pacote de resposta é
+      // `SendContinuation` (249/3, só `int AvailTime` — não 242 `roomInfoPacket`, formato errado e
+      // audiência errada), mandado pro próprio pedinte e encaminhado só pro OUTRO cônjuge (não pra sala
+      // toda — convidados não recebem isto no original).
       const hours = pkt.readInt();
       const r = roomOf(ctx, p);
       if (!r || !isCouple(r, p.id)) return;
       const price = PRICE_MARRY_ROOM(hours);
-      const half = Math.ceil(price / 2);
-      const groom = ctx.world.get(r.groomID), bride = ctx.world.get(r.brideID);
-      if (((groom?.info.Money ?? 0) + (groom?.info.MoneyLock ?? 0)) < half || ((bride?.info.Money ?? 0) + (bride?.info.MoneyLock ?? 0)) < (price - half)) return p.sendMessage(0, ctx.lang.t("Farm.NotEnough"));
-      groom?.removeMoney(half); bride?.removeMoney(price - half);
+      if (p.info.Money + p.info.MoneyLock < price) return p.sendMessage(0, ctx.lang.t("MarryApplyHandler.Msg1"));
+      p.removeMoney(price);
       r.availHours = hours; r.breakTime = new Date(r.breakTime.getTime() + hours * 3_600_000);
       await ctx.db.db.update(MARRY_ROOM).set({ AvailTime: hours, BreakTime: r.breakTime }).where(eq(MARRY_ROOM.ID, r.id));
-      broadcast(r, roomInfoPacket(r));
+      const out = () => { const o = new PacketOut(249, p.id); o.writeByte(3); o.writeInt(hours); return o; };
+      p.send(out());
+      const spouseId = p.id === r.groomID ? r.brideID : r.groomID;
+      ctx.world.get(spouseId)?.send(out());
     })
     .on(4, "INVITE", (ctx, p, pkt) => { // int targetId
       const targetId = pkt.readInt();
