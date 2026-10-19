@@ -7,6 +7,7 @@
 import { GSPacket } from "@ddt/protocol";
 import type { GamePlayer } from "../../game/player.js";
 import type { ServerContext } from "../../session/context.js";
+import { chapelBrowsers } from "../casamento/infra.js";
 
 /** 16 SCENE_LOGIN: UserEnterSceneHandler (hall 1 -> Manual, 2 -> Away), entra na sala de espera. */
 export function sceneLogin(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): void {
@@ -17,10 +18,15 @@ export function sceneLogin(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): vo
   ctx.rooms.enterWaitingRoom(p);
 }
 
-/** 21 SCENE_REMOVE_USER: UserLeaveSceneHandler. */
+/**
+ * 21 SCENE_REMOVE_USER: UserLeaveSceneHandler. Mesmo código numérico que `ddt.manager.ChurchManager.
+ * sendExitMarryRoom` manda ao sair da LISTA da capela (m3-partial-sweep) — `chapelBrowsers.delete` é
+ * sempre seguro (no-op pra quem nunca mandou 240 MARRY_SCENE_LOGIN).
+ */
 export function sceneRemoveUser(ctx: ServerContext, p: GamePlayer): void {
   p.playerState = 1;
   ctx.rooms.exitWaitingRoom(p);
+  chapelBrowsers(ctx).delete(p);
 }
 
 /** 69 SCENE_USERS_LIST: SceneUsersListHandler (page, pageSize; roda em módulo). */

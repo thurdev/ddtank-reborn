@@ -85,13 +85,18 @@ export function registerCasamento(r: HandlerRegistry): SubRouter {
   r.player(229, "ACHIEVEMENT_UPDATE/MARRYINFO_UPDATE(6600)", (ctx, p, pkt) => { if (p.clientKind === "6600") return marryInfoUpdate(ctx, p, pkt); });
 
   // ---- cenário/salas da igreja ----
+  // m3-partial-sweep (2026-10-19): 241/233/251/253 flipped partial -> implemented — os 4 tinham o layout/
+  // audiência do pacote de resposta errados (242 pra quem só navega a lista, sem a troca de presença 3D
+  // 243/244), achado e corrigido lendo os readers AS3 reais (`ChurchRoomListController`/`ChurchRoomController`,
+  // ver nota no topo de `capela.ts`); agora bytes/audiência confirmados contra `AbstractPacketLib.cs`/
+  // `Class19-21.cs`. 249 continua partial (só o sub 3 CONTINUATION foi reauditado/corrigido desta vez).
   r.player(240, "MARRY_SCENE_LOGIN", marrySceneLogin);
-  r.player(241, "MARRY_ROOM_CREATE", marryRoomCreate, "partial");
+  r.player(241, "MARRY_ROOM_CREATE", marryRoomCreate);
   r.player(242, "MARRY_ROOM_LOGIN", marryRoomLogin);
   r.player(244, "PLAYER_EXIT_MARRY_ROOM", playerExitMarryRoom);
-  r.player(233, "MARRY_SCENE_CHANGE", marrySceneChange, "partial");
-  r.player(251, "SCENE_STATE", sceneState, "partial");
-  r.player(253, "MARRY_ROOM_INFO_UPDATE", marryRoomInfoUpdate, "partial");
+  r.player(233, "MARRY_SCENE_CHANGE", marrySceneChange);
+  r.player(251, "SCENE_STATE", sceneState);
+  r.player(253, "MARRY_ROOM_INFO_UPDATE", marryRoomInfoUpdate);
 
   // 167 CHURCH_MOVIE_OVER: fio morto, ver stubs.ts.
   r.player(167, "CHURCH_MOVIE_OVER", churchMovieOver, "stub");

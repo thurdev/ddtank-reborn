@@ -40,9 +40,15 @@ export function registerRoletaCanhao(r: HandlerRegistry): void {
         ON CONFLICT ("UserID") DO UPDATE SET "LeftRoutteCount" = EXCLUDED."LeftRoutteCount", "LeftRoutteRate" = EXCLUDED."LeftRoutteRate"`);
       if (p.extra) { p.extra.LeftRoutteCount = count; p.extra.LeftRoutteRate = result; }
     }
+    // SendLeftRouleteResult (AbstractPacketLib.cs:405-411) reads `info.LeftRoutteRate` AFTER the mutation above —
+    // m3-partial-sweep fix: a losing spin (result<=0) leaves LeftRoutteRate untouched, so once a player has ever
+    // won once (rate persisted >0) every LATER losing spin still reports count=0 and the stale rate string, not
+    // this spin's `result`/count. The previous port used `result` for both fields, which only matched before a
+    // player's first-ever win.
+    const rateForReply = result > 0 ? result : p.extra?.LeftRoutteRate ?? 0;
     const out = new GSPacket(163, p.id);
-    out.writeInt(result > 0 ? 0 : p.extra?.LeftRoutteCount ?? 0);
-    out.writeString(result.toFixed(1)); // original formats "{0:N1}" — every configured rate is < 0.01, so this is always "0.0", kept as-is
+    out.writeInt(rateForReply > 0 ? 0 : p.extra?.LeftRoutteCount ?? 0);
+    out.writeString(rateForReply.toFixed(1)); // original formats "{0:N1}" — every configured rate is < 0.01, so this is usually "0.0"
     p.send(out);
-  }, "partial");
+  }); // m3-partial-sweep (2026-10-19): reaudited field-by-field against LeftGunHandler.cs/SendLeftRouleteResult (4.1 — no 6600-specific layout, confirmed identical in both AS3 clients), 1 real bug fixed above. Flipped partial -> implemented.
 }

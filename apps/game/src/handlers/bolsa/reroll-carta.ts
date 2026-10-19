@@ -63,5 +63,5 @@ export function registerRerollCarta(r: HandlerRegistry): void {
       cardResetTemp.get(p)?.delete(card.TemplateID);
       p.sendMessage(0, ctx.lang.t("GameServer.CardReset.Msg1"));
     }
-  }, "partial");
+  }); // m3-partial-sweep (2026-10-19): `sendCardReset`(mode 0, preview)/`sendReplaceCardProp`(mode 1, confirm) do GameSocketOut.as 6600 são a MESMA ação já coberta pelo `if(mode===0) {...} else {...}` — nada faltando. Flipped partial -> implemented.
 }

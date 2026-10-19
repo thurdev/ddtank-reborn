@@ -38,6 +38,58 @@ export function noviceActivityHandler(ctx: ServerContext, p: GamePlayer, pkt: GS
   return noviceActivity(ctx, p, pkt.readInt(), pkt.readInt());
 }
 
+/**
+ * Colisão de enum confirmada no m3-partial-sweep (2026-10-19): 258 é `NOVICEACTIVITY` na 4.1
+ * (`Game.Server/Packets/ePackageType.cs` 4.1:12) mas `MAGIC_STONE` no 6600 (`ePackageType.cs` 6600:291,
+ * `ddt/data/socket/ePackageType.as` 6600:598) — board de exploração de Relíquias (`magicstone.swf`), 8
+ * sub-ações (`MagicStoneType` em `GameSocketOut.as:4479-4556`: EXPLORE/SCORE/CONVERT/MOVE_PLACE/LOCK/
+ * LEVEL_UP/SORT_BAG/UPDATE_REMAIN_COUNT, cada uma com um byte de sub-código próprio + campos variáveis).
+ * Sem o guard por `clientKind`, um 6600 real que abrisse essa tela teria seu pacote lido como se fosse
+ * `noviceActivityHandler` (2 ints) — risco real, não só de misparse: os 2 ints mal-lidos cairiam em
+ * `activityType`/`subActivityType` de `noviceActivity`, podendo casar por acidente com uma linha de
+ * `Event_Reward_Info` e disparar um resgate indevido (bypass de `claimOnce` por código errado, não por
+ * dado forjado — mesma categoria de risco que `01 §13` cobre pra outros pacotes).
+ * A feature de verdade (bag de Relíquias separada, board de exploração) é trabalho de subsistema — fora
+ * do escopo desta varredura, já tracked em `docs/plan/TASKS.md` `m4-vestir-encanto-reliquias` ("Relíquias
+ * de verdade... hoje o dano mágico usa a EquipBag normal"). Aqui só a FRAMING seguro: lê o sub-byte +
+ * os campos certos de cada sub-ação (pra não deixar lixo no meio do stream mesmo sob o protocolo
+ * framed-by-length) e não responde nada — nenhum item/moeda/XP concedido, mesma categoria de
+ * `211 CADDY_EXCHANGE_ALL` (m3-caddy-loteria).
+ */
+export function magicStoneNoOp(_ctx: ServerContext, _p: GamePlayer, pkt: GSPacket): void {
+  const sub = pkt.readByte(); // magicStone/data/MagicStoneType.as — valores NÃO sequenciais, ver abaixo
+  switch (sub) {
+    case 1: // EXPLORE_MAGIC_STONE: int type, bool isBind, int count
+      pkt.readInt(); pkt.readBoolean(); pkt.readInt();
+      break;
+    case 2: { // LEVEL_UP: int len, len×int
+      const len = pkt.readInt();
+      for (let i = 0; i < len; i++) pkt.readInt();
+      break;
+    }
+    case 3: // MOVE_PLACE: int sourcePlace, int targetPlace
+      pkt.readInt(); pkt.readInt();
+      break;
+    case 4: // MAGIC_STONE_SCORE: sem campos
+      break;
+    case 5: // CONVERT_SCORE: int goodsId, bool bind, int count
+      pkt.readInt(); pkt.readBoolean(); pkt.readInt();
+      break;
+    case 6: // LOCK_MAGIC_STONE: int place
+      pkt.readInt();
+      break;
+    case 9: { // SORT_BAG: int len, len×(int,int)
+      const len = pkt.readInt();
+      for (let i = 0; i < len; i++) { pkt.readInt(); pkt.readInt(); }
+      break;
+    }
+    case 16: // UPDATE_REMAIN_COUNT: sem campos
+      break;
+    default:
+      break; // 7 UPDATE_BAG/8 LEVEL_UP_COMPLETE: sem sender AS3 encontrado (nunca mandados pelo cliente) + sub desconhecido — não tenta ler mais nada (evita estourar o pacote)
+  }
+}
+
 /** 10 abas fixas do painel novato/newbie (`NoviceActivityFrame`/`recordList`, sempre 10 no cliente).
  *  `session/login.ts` chama isto no login (gate `activityOpen(ctx,"novato")`, igual bau-da-galinha/
  *  estrela-da-sorte: aberto por padrão sem precisar configurar nada em `app."ScheduledEvents"`). */
