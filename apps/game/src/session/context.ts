@@ -7,6 +7,7 @@ import type { GamePlayer } from "../game/player.js";
 import type { ClientKind } from "../game/player-info.js";
 import type { NewHallRoom } from "../game/new-hall.js";
 import type { ConsBatRoom } from "../game/consortia-battle.js";
+import type { RingStationRoom } from "../game/ringstation.js";
 import type { RoomMgr } from "../rooms/room-mgr.js";
 import type { FightEngine } from "../fight/types.js";
 import type { LanguageMgr } from "../util/lang.js";
@@ -67,6 +68,8 @@ export interface ServerContext {
   newHall: NewHallRoom;
   /** RoomMgr.ConsBatRoom (153 CONSORTIA_BATTLE guild-war arena, m3-consortia-battle): game/consortia-battle.ts. */
   consBat: ConsBatRoom;
+  /** RingStationMgr-equivalent runtime (404 RING_STATION, m3-ringstation): game/ringstation.ts. */
+  ringStation: RingStationRoom;
   fight: FightEngine;
   tickets: TicketValidator;
   rsaKey: RsaPrivateKey;

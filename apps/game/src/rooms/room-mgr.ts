@@ -356,6 +356,30 @@ export class RoomMgr {
     });
   }
 
+  /**
+   * CreateRingStationRoomAction (Rooms/CreateRingStationRoomAction.cs): the opponent never sits in a room seat
+   * (`PickUpNpcId`/`StartWithNpc` fed the bot straight into `BattleMgr.AddRoom` in the original, same as the
+   * Match-queue bot fallback above) — `bot` is a snapshot of the real defender's stats, built by
+   * `game/ringstation.ts`, passed straight to `launch` as the lone "blue" seat.
+   */
+  createRingStationBattle(challenger: RoomMember, bot: RoomMember, onNoRoom?: () => void): void {
+    this.addAction(() => {
+      challenger.currentRoom?.removePlayer(challenger);
+      const room = this.rooms.find((r) => !r.IsUsing);
+      if (!room) {
+        challenger.sendMessage(1, this.o.lang("CreateRoomAction.MaxRoom"));
+        onNoRoom?.();
+        return;
+      }
+      this.waitingRemove(challenger);
+      room.start();
+      room.updateRoom("RingStation Battle", "12dasSda44", RoomType.RingStation, 2, 0);
+      challenger.send(Out.roomCreate(room, challenger.clientKind));
+      room.addPlayer(challenger);
+      this.launch([room], [challenger], [bot], RoomType.RingStation, GameType.RingStation, 2, 0);
+    });
+  }
+
   /** GamePickupCancel (GameRoom/Handle/GamePickupCancel.cs). */
   cancelPickup(p: RoomMember): void {
     this.addAction(() => {

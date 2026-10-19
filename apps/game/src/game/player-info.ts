@@ -133,4 +133,7 @@ export const SAVED_DETAIL_COLUMNS = [
   // ver research/qa/feature-sources.md), agora escritas por apps/game/src/handlers/forja/refinar-conjunto.ts
   // e espirito-do-equipamento.ts. GhostEquipList: "categoryId,level,totalGhost|..." (3 categorias).
   "fineSuitExp", "GhostEquipList",
+  // 404 RING_STATION (m3-ringstation, 6600): coluna já existia desde m1-schema (migration 0013), só não
+  // estava na lista de colunas persistidas — "distintivo" ganho em vitória/derrota na Arena (AddLeagueMoney).
+  "LeagueMoney",
 ] as const satisfies readonly (keyof DetailRow)[];

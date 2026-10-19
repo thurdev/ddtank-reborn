@@ -47,6 +47,11 @@
  *                              no original) + 152 FIGHTFOOTBALLTIMETAKEOUT/156 TRANSNATIONAL_BUYGOODS
  *                              (reais no original, dependem de subsistema não portado — stub documentado)
  *   dados.ts                  (ícone "Sistema de Dados", 6600 only) — 134 DICE_SYSTEM
+ *   campbattle.ts              (ícone "Camp", 6600 only, m3-campbattle) — 146 CAMPBATTLE (10 sub-ações;
+ *                              morto no original: ACTION_ISOPEN nunca enviado [SendCampBattleOpenClose é
+ *                              NotImplementedException + zero call-sites] E o clique no ícone usa
+ *                              SINGLE_ROOM_BEGIN(5), que não tem `case` no switch do servidor original —
+ *                              mesma categoria de 148/144 acima, no-op)
  *
  * 104 CARD_LOTTERY / 105 LUCK_LOTTERY / 239 GOTO_CARD_LOTTERY / 11 ACTIVE_PULLDOWN: SAÍRAM de "morto" —
  * ver `progressao/loterias.ts` (design próprio, sem fonte C#). 37-45 LanternRiddles de 145 ACTIVITY_SYSTEM
@@ -83,6 +88,7 @@ import {
   fastAuctionSmallBugle, getCsmBox, fightFootballTimeTakeout, transnationalBuyGoods,
 } from "./sweep-diversos.js";
 import { diceSystem } from "./dados.js";
+import { campBattle } from "./campbattle.js";
 
 /**
  * Tabela código → função → ícone do jogo. Cada linha é um pacote que o cliente manda; a ordem aqui não
@@ -179,4 +185,8 @@ export function registerEventos(r: HandlerRegistry): void {
   r.player(360, "GET_CSM_BOX", () => getCsmBox(), "stub");
   // Sistema de Dados (6600 only)
   r.player(134, "DICE_SYSTEM", (ctx, p, pkt) => diceSystem(ctx, p, pkt));
+
+  // Batalha de Acampamento (6600 only, m3-campbattle) — morto no original (ícone nunca abre + clique sem
+  // case no switch de SINGLE_ROOM_BEGIN), mesma categoria de 144/148 acima. Ver campbattle.ts.
+  r.player(146, "CAMPBATTLE", (ctx, p, pkt) => campBattle(ctx, p, pkt), "stub");
 }
