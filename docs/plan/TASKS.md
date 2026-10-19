@@ -325,12 +325,60 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
 - [ ] **m3-seven-double** — `148 SEVEN_DOUBLE` (`sendSevenDoubleCallCar`/`StartGame`/`CancelGame`/`Ready`/
   `Move`/`UseSkill`/`CanEnter`/`EnterOrLeaveScene`) — minijogo "Sete Dobrado" (`src/sevenDouble/`, SWF não
   identificado por nome — ver `research/6600/swf-inventory.md`, candidato `church.swf`).
-- [ ] **m3-ringstation** — `404 RING_STATION` (`sendRingStationGetInfo`/`sendBuyBattleCountOrTime`/
-  `sendRingStationChallenge`/`sendRingStationArmory`/`sendRingStationBattleField`/`sendRingStationFightFlag`/
-  `sendSignMsg`/`receiveLandersAward`) — Arena Ranqueada (`ringstation.swf`). Sistema "bem mais elaborado"
-  que a 4.1 (`MIGRACAO-6600.md` §2.1, 4 pastas C#: `RingStation`/`.Battle`/`.RoomGamePkg`/
-  `.RoomGamePkg.TankHandle`) — maior tarefa única da lista; considerar quebrar em sub-tarefas (inscrição/
-  matchmaking, batalha, recompensa) quando for pegar.
+- [x] **m3-ringstation** (2026-10-19) — `404 RING_STATION` sub 1-7 (`sendRingStationGetInfo`/
+  `sendBuyBattleCountOrTime`/`sendRingStationChallenge`/`sendRingStationArmory`/
+  `sendRingStationBattleField`/`sendRingStationFightFlag`/`sendSignMsg`) — Arena Ranqueada (`ringstation.swf`).
+  `apps/game/src/handlers/arena-ranqueada/*`, `game/ringstation.ts`, `db/ringstation.ts`. Achado principal:
+  o sistema "bem mais elaborado" (4 pastas C#: `RingStation`/`.Battle`/`.RoomGamePkg`/
+  `.RoomGamePkg.TankHandle`) é quase todo infraestrutura de relay pra um SEGUNDO servidor TCP separado
+  (`RingStationBattleServer`/`Fighting.Server ProxyRoomMgr.StartWithNpcUnsafe`) que não existe mais aqui — o
+  motor de combate em si (`eRoomType.RingStation`/`eGameType.RingStation`, `ArenaPK()`/`GameOverArenaMode`)
+  é o MESMO motor normal de PvP 1v1, só com o oponente sendo um snapshot real (stats/equipamento cacheados
+  do próprio adversário, `RingStationBot`/`resolveChallengeTarget`) em vez de um humano — reaproveitado via
+  `rooms/room-mgr.ts createRingStationBattle` -> `FightEngine.startPvp`, igual o fallback de bot da fila de
+  Match e `createConsortiaBattleRoom`. Sem migração nova: as 3 tabelas (`Sys_User_RingStation`,
+  `Ringstation_Battle_Field`, `game."Ringstation_Config"`) já existiam desde a migração 0013 (m1-schema),
+  só sem nenhum escritor até agora.
+  Exploit CORRIGIDO: `RingStationBuyBattleCountOrTime.cs` cobra `buyPrice` ANTES de checar o limite diário
+  `buyCount` no ramo "comprar desafio extra" — um jogador já no limite é cobrado mesmo assim, sem receber
+  nada (só a mensagem "Limit"); agora só cobra quando ainda há saldo de compras do dia.
+  Exploit EVITADO (novo, não existe no original): nada no C# original impede disparar `CHALLENGE` repetidas
+  vezes antes da primeira luta terminar (`ChallengeNum`/cooldown só mudam no FIM da luta, em
+  `UpdateRingBattleFields`) — um `pending` em memória (`ctx.ringStation`) agora recusa um segundo desafio
+  do mesmo jogador enquanto o primeiro ainda não resolveu, sem mudar quando a recompensa/contagem realmente
+  muda (ainda no fim da luta, byte a byte igual ao original). `onFightOver` roda tanto no `onPlayerGameOver`
+  quanto no `onPlayerFlee` do motor de luta (fugir não pode deixar o `pending`/o lock `OnFight` do
+  adversário travados pra sempre).
+  Nota (não é exploit, é bug do original replicado de propósito): `UserRingStationInfo.CanChallenge` faz 3
+  divisões inteiras em cascata (`(600000-decorridoMs)/10/60/1000 <= 0`) em vez de uma só por 600000 — o
+  truncamento em cascata faz o "cooldown de 10 minutos" valer de verdade só pro mesmo milissegundo exato do
+  último `ChallengeTime`; qualquer `decorridoMs >= 1` já libera. Replicado literal (ver comentário em
+  `game/ringstation.ts`) — quem trava a taxa de desafios de verdade é o `pending` acima, não essa conta.
+  Gap compartilhado com `m3-consortia-battle` (mesma `ArenaPK()`/`GameOverArenaMode` no C# original): nosso
+  motor de luta (`fight/ddt.ts applyRewards`) sempre dá GP/Offer/Money normais de PvP, mesmo pra
+  RingStation/ConsortiaBattle (que no original NÃO dão — só `AddPrestige`/`RingstationResult`/
+  `BattleWin`/`BattleLost`); mesma decisão do agente de `m3-consortia-battle` (ver nota em
+  `game/consortia-battle.ts`): não tocar em `packages/fight`/`fight/ddt.ts` por uma feature só, registrado
+  aqui pra quando alguém for arrumar as duas de uma vez.
+  Deixado pro `m3-ringstation-2` abaixo: Landers Award e a mala de recompensa periódica por ranking.
+  Teste: `apps/game/test/ringstation.test.ts` (8).
+- [ ] **m3-ringstation-2** — resto do `404 RING_STATION`: (1) Landers Award (sub 48 `LANDERSAWARD_RECEIVE`/
+  49 `LANDERSAWARD_GET`/64 `DUNGEON_UPDATEEXP`) — confirmar antes de implementar: grep em
+  `Game.Server.RingStation.Handle` não acha NENHUM handler C# pra esses sub-códigos (só o enum existe,
+  `RingStationPackageType.cs`), e o cliente (`LandersAwardManager.as`) só manda `receiveLandersAward` quando
+  `LANDERS_AWARD_4399`/`LANDERS_AWARD_OFFICIAL` E `DesktopManager.Instance.isDesktop` — parece ser recompensa
+  de "baixar o launcher desktop" de uma plataforma específica (4399/oficial), não ranking da Arena; se for
+  mesmo código morto (como `m3-group-purchase`), registrar como no-op e não inventar uma economia que nunca
+  existiu. (2) a mala de recompensa periódica por ranking de verdade: `RingStationMgr.StatusScan` (timer de
+  60s no original) faz 2 coisas que `m3-ringstation` deixou de fora por serem "scheduled", não packet —
+  recalcular `ChampionText` (hoje lido on-the-fly do rank #1 em `onFightOver`/`ver-info.ts`, então já
+  funciona sem o timer) e, a cada ciclo de `Ringstation_Config.AwardTime` (3 dias por padrão), mandar por
+  correio `AwardNumByRank(rank)` de um item fixo (`ItemTemplate -1000`) pra TODO jogador ranqueado (não é
+  "claim" — automático e incondicional no original) + avançar `AwardTime` +3 dias. Portar via
+  `app."ScheduledEvents"` (mesmo padrão de boss mundial/liga/dobro de exp — `docs/GAME-SERVER.md`), kind
+  novo tipo "ringstation-award". Confirmar se `IsFirstUpdateRank` (bootstrap de rank em massa só relevante
+  pra base de dados LEGADA com jogadores sem rank) se aplica aqui — provavelmente não, nosso banco já nasce
+  vazio e `onFightOver` já assinala rank na primeira vitória de cada jogador.
 - [x] **m3-oldplayer-regress** (2026-10-18) — `149 OLDPLAYER_REGRESS` (botão "Jogador antigo" no hall,
   `PlayerTool.as` `_oldPlayerBtn`/`_selfInfo.isOld`), 11 sub-ações. `OldPlayerRegressHandler.cs` original é
   um no-op TOTAL pra qualquer sub-ação (só `packet.ReadByte()`, sem switch, sem resposta) — portado do

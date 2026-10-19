@@ -21,6 +21,7 @@ import { GameClient, type Transport } from "./session/client.js";
 import { World, type ServerContext, type TicketValidator } from "./session/context.js";
 import { NewHallRoom } from "./game/new-hall.js";
 import { ConsBatRoom } from "./game/consortia-battle.js";
+import { RingStationRoom, onFightOver as ringStationGameOver } from "./game/ringstation.js";
 import { dbTicketValidator, quitPlayer } from "./session/login.js";
 import { consortiaGameOver } from "./handlers/sociedade/index.js";
 import { consortiaMgr } from "./game/consortia-mgr.js";
@@ -181,6 +182,8 @@ export class GameServer {
             onPlayerGameOver: (m, g) => {
               (m as GamePlayer).questInv?.onGameOver(g);
               pushRecords(m as GamePlayer); // ChangeWin/ChangeTotal/ChangeGrade achievement records (229)
+              // GamePlayer.AddPrestige + RingstationResult (only the real challenger seat; the bot never reaches here)
+              if (g.roomType === RoomType.RingStation && !(m as GamePlayer).isBot) void ringStationGameOver(this.ctx!, m as GamePlayer, g.isWin).catch((e) => log.warn(`ringstation game over: ${(e as Error).message}`));
             },
             onGameOver: (g) => void consortiaGameOver(this.ctx!, g).catch((e) => log.warn(`consortia game over: ${e}`)),
             onMissionOver: (m, g) => {
@@ -210,6 +213,10 @@ export class GameServer {
               if (offer) p.info.Offer = Math.max(0, p.info.Offer - offer);
               p.updateProperties?.();
               p.sendMessage?.(3, offer ? lang.t("AbstractPacketLib.SendGamePlayerLeave.Msg6", gp, offer) : lang.t("AbstractPacketLib.SendGamePlayerLeave.Msg4", gp));
+              // m3-ringstation: fleeing never reaches onPlayerGameOver — without this, `ctx.ringStation`'s
+              // pending-challenge guard (game/ringstation.ts) and the defender's OnFight lock would leak
+              // forever. Counts as a loss (no client-reported result involved either way).
+              if (g.roomType === RoomType.RingStation) void ringStationGameOver(this.ctx!, p, false).catch((e) => log.warn(`ringstation flee: ${(e as Error).message}`));
             },
             pve: {
               data: { npc: (id) => templates.npcs.get(id) as never, mission: (id) => templates.missions.get(id) as never },
@@ -237,6 +244,7 @@ export class GameServer {
       world: new World(),
       newHall: new NewHallRoom(),
       consBat: new ConsBatRoom(),
+      ringStation: new RingStationRoom(),
       tickets: this.opts.tickets ?? dbTicketValidator(db, cfg.DEV_ALLOW_ANY_TICKET),
       now: () => new Date(),
       leader: undefined as never, // set right below: wireLeaderElection precisa do ctx já montado

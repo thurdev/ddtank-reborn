@@ -14,9 +14,9 @@
 | Status | Total |
 |---|---|
 | handled | 0 |
-| partial | 24 |
+| partial | 25 |
 | stub | 16 |
-| MISSING | 28 |
+| MISSING | 27 |
 | **Total de códigos enviados pelo cliente** | **213** |
 
 ## Totais — endpoints (.ashx/.xml/.aspx)
@@ -499,11 +499,11 @@
 |---|---|---|---|---|
 | 402 | `AVATAR_COLLECTION` | sendAvatarCollectionActive (ddt/manager/GameSocketOut.as); sendAvatarCollectionDelayTime (ddt/manager/GameSocketOut.as) | implemented | progressao/index.ts |
 
-### Arena Ranqueada (RingStation) (1 código(s) — implemented 0, partial 0, stub 0, MISSING 1)
+### Arena Ranqueada (RingStation) (1 código(s) — implemented 0, partial 1, stub 0, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
-| 404 | `RING_STATION` | sendRingStationGetInfo (ddt/manager/GameSocketOut.as); sendBuyBattleCountOrTime (ddt/manager/GameSocketOut.as); sendRingStationChallenge (ddt/manager/GameSocketOut.as); sendRingStationArmory (ddt/manager/GameSocketOut.as); sendRingStationBattleField (ddt/manager/GameSocketOut.as); sendRingStationFightFlag (ddt/manager/GameSocketOut.as); sendSignMsg (ddt/manager/GameSocketOut.as); receiveLandersAward (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 404 | `RING_STATION` | sendRingStationGetInfo (ddt/manager/GameSocketOut.as); sendBuyBattleCountOrTime (ddt/manager/GameSocketOut.as); sendRingStationChallenge (ddt/manager/GameSocketOut.as); sendRingStationArmory (ddt/manager/GameSocketOut.as); sendRingStationBattleField (ddt/manager/GameSocketOut.as); sendRingStationFightFlag (ddt/manager/GameSocketOut.as); sendSignMsg (ddt/manager/GameSocketOut.as); receiveLandersAward (ddt/manager/GameSocketOut.as) | partial | arena-ranqueada/index.ts |
 
 ## Endpoints — detalhe completo
 
