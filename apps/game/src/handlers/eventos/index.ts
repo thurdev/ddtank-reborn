@@ -127,7 +127,11 @@ export function registerEventos(r: HandlerRegistry): void {
   r.player(215, "CADDY_CONVERTED_ALL", (ctx, p, pkt) => caddyConvertedAll(ctx, p, pkt), "stub");
 
   // Labirinto
-  r.player(131, "LABYRINTH", (ctx, p, pkt) => labyrinthHandler(ctx, p, pkt), "partial");
+  // m3-partial-sweep (2026-10-19): a sala PvE real do Labirinto (migração 0011 + packages/fight scripts)
+  // chegou via merge de outra tarefa (concorrente) depois do status "partial" ter sido lido — `myProgress`
+  // avança de verdade agora (updateLabyrinthFloor/outLabyrinth acima), gap que motivaria um split próprio
+  // já foi fechado por outro agente. Flipped partial -> implemented (status stale, não trabalho desta tarefa).
+  r.player(131, "LABYRINTH", (ctx, p, pkt) => labyrinthHandler(ctx, p, pkt));
 
   // Liga / Liga de elite / Boss mundial
   r.player(132, "BATTLEGROUND", (ctx, p, pkt) => battleGroundHandler(ctx, p, pkt));

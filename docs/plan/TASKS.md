@@ -500,11 +500,12 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
 - [x] **m3-partial-sweep** (2026-10-19) — os 24 códigos com status `partial` do relatório (o relatório em
   si estava stale — vários já tinham sido corrigidos por tarefas anteriores sem o status do registro ser
   atualizado), revisados campo a campo contra 6600/4.1. 6 tinham bug real (achado lendo o reader AS3 real,
-  não só "melhor esforço") e foram corrigidos + flipped `implemented`; 5 já estavam corretos (só desvio
-  documentado, status nunca atualizado) e só precisaram do flip; 1 (249) teve 1 sub corrigido mas continua
-  `partial` (os outros subs não foram reauditados); 1 (258) teve um bug de segurança (colisão de enum)
-  corrigido mas continua `partial` (feature de verdade fora de escopo); 4 precisam de subsistema inteiro
-  novo e foram desmembrados em tarefas próprias (abaixo); 1 (153) já tinha desmembramento
+  não só "melhor esforço") e foram corrigidos + flipped `implemented`; 6 já estavam corretos (status nunca
+  atualizado — 4 só desvio documentado, 1 porque uma tarefa concorrente já tinha fechado o gap de verdade
+  antes do `git fetch` final, ver 131 abaixo) e só precisaram do flip; 1 (249) teve 1 sub corrigido mas
+  continua `partial` (os outros subs não foram reauditados); 1 (258) teve um bug de segurança (colisão de
+  enum) corrigido mas continua `partial` (feature de verdade fora de escopo); 3 precisam de subsistema
+  inteiro novo e foram desmembrados em tarefas próprias (abaixo); 1 (153) já tinha desmembramento
   (`m3-consortia-battle-2`); 1 (145) tem o gap já coberto por tarefas M4/HANDLERS.md existentes, sem split
   novo; 5 ficaram documentados sem mudança (gap real mas não-reachable/fora de orçamento).
 
@@ -532,16 +533,18 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
   | 153 CONSORTIA_BATTLE | Resultado/pontuação/recompensa da arena GvG (`BattleWin`/`BattleLost`, 153/16/17) — já desmembrado. | Nenhuma mudança — já tem `m3-consortia-battle-2` abaixo. |
   | 145 ACTIVITY_SYSTEM | Dezenas de subsistemas de evento sazonal (pyramid/godsroads/superwinner/christmas/catchbeast/treasurelost/newyearrice/boguadventure/halloween/insect/cake...) sem fonte real ou não portados. | Nenhuma mudança — gap já coberto por `m4-eventos-sazonais`/`m4-catchbeast`/`m4-passe-classico`/Tesouro (já implementado), sem split novo. |
   | 84 ACTIVITY_PACKAGE | "Chick activation" (`ActivityPackageHandler.cs`, 668 linhas) não portado — já listado em HANDLERS.md "Missing". | Desmembrado em `m3-chick-activation` (abaixo). |
-  | 131 LABYRINTH | `myProgress` nunca avança — não existe sala PvE do tipo Labirinto nesta porta (admin/economia já portados). | Desmembrado em `m3-labyrinth-pve` (abaixo). |
+  | 131 LABYRINTH | `myProgress` nunca avançava — não existia sala PvE do tipo Labirinto nesta porta (admin/economia já portados). Fechado por uma tarefa concorrente ANTES deste `git fetch`/merge final (migração `0011_labirinto_pve_seed.sql` + `handlers/eventos/labirinto.ts` já com a luta real via `@ddt/fight`, `updateLabyrinthFloor`/`outLabyrinth`) — só o status do registro ficou stale. | Flip `implemented` (trabalho de outra tarefa, só o flip foi feito aqui). |
   | 162 ELITEGAME | Chaveamento/torneio real (brackets) não existe — só status/entrada/rank/score. | Desmembrado em `m3-elite-brackets` (abaixo). |
   | 102 WORLDBOSS_CMD | Script de missão do dragão (`ACDragon`) não existe em `@ddt/fight` — mapa abre sem o chefe. | Desmembrado em `m3-worldboss-dragon` (abaixo). |
 
   Exploits evitados: 258's guard fecha um bypass real de `claimOnce` (código 258 misparseado podia casar
   com uma recompensa de novato por acidente); 31's fix não abre superfície nova (multiplicador escala os
   DOIS lados simétricamente, validado contra overflow). Sem migração nova. Testes: `apps/game/test/
-  marriage-farm-auction.test.ts` (+7), `apps/game/test/economy-validation.test.ts` (+3). Commits
-  `0f7c860` (casamento) + seguintes (bolsa/loja/missões). `research/6600/coverage-m3.md` reexecutado ao
-  final da tarefa (ver rodapé do arquivo pro total novo de `partial`).
+  marriage-farm-auction.test.ts` (+7), `apps/game/test/economy-validation.test.ts` (+3) —
+  `pnpm --filter @ddt/game test` (68 arquivos/458 testes) e `pnpm --filter @ddt/api test` (3/101) verdes
+  antes do `git fetch`+merge final de `origin/develop` (trouxe `m3-ringstation`/`m3-campbattle`, sem
+  conflito de migração — nenhuma migração nova nesta tarefa) e depois dele. `research/6600/coverage-m3.md`
+  reexecutado: 24 → 13 `partial` (404 RING_STATION, de `m3-ringstation`, não é desta tarefa — sem ele, 12).
 
 - [ ] **m3-worldboss-dragon** — `102 WORLDBOSS_CMD`: portar o script de missão do dragão (`ACDragon`,
   nome exato a confirmar no C# decompilado) em `@ddt/fight` pro Boss Mundial — hoje o mapa (PvE 14, `Pve_Info`
@@ -551,10 +554,6 @@ servidor jogável: bolsa/loja/missões primeiro, sistemas maiores depois. Cada u
   campeões): hoje só status/entrada por nível/rank/score existem (`eventos/elite.ts`); falta o motor de
   chaveamento/torneio de verdade (quem joga contra quem, avanço de fase). Ver `apps/game/HANDLERS.md`
   "Guild extras".
-- [ ] **m3-labyrinth-pve** — `131 LABYRINTH`: criar o tipo de sala PvE "Labirinto" de verdade (andares que
-  o jogador sobe jogando, não só o avanço instantâneo do CLEAN_OUT administrativo já portado) — hoje
-  `myProgress` nunca avança porque não existe esse room type. Ver `apps/game/HANDLERS.md` "PvE extras" +
-  nota "Gap" em `eventos/activities.ts`.
 - [ ] **m3-chick-activation** — `84 ACTIVITY_PACKAGE` sub "chick activation" (`ActivityPackageHandler.cs`,
   668 linhas): tiers de recompensa diária/cada-3-dias/semanal + nível, não portados nesta porta (só os
   outros sub-sistemas do mesmo código — growth package/magic lib/zodiac/everyday gift — já funcionam). Ver
