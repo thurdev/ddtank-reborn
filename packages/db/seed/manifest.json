@@ -634,7 +634,7 @@
   {
    "schema": "game",
    "table": "Shop_Goods",
-   "rows": 7640,
+   "rows": 7657,
    "file": "game/Shop_Goods.json.gz"
   },
   {

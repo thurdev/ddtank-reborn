@@ -12,7 +12,9 @@ import { testConfig } from "../src/config.js";
 import { GameServer } from "../src/server.js";
 import type { Transport } from "../src/session/client.js";
 
-const SEED_TABLES = ["Shop_Goods", "Shop", "ShopGoodsShowList", "Game_Map", "Map_Server", "Quest", "Quest_Condiction", "Quest_Goods", "LevelInfo", "Server_List", "Sets_Build_Temp"];
+const SEED_TABLES = ["Shop_Goods", "Shop", "ShopGoodsShowList", "Game_Map", "Map_Server", "Quest", "Quest_Condiction", "Quest_Goods", "LevelInfo", "Server_List", "Sets_Build_Temp",
+  // m4-montaria: MountMgr template tables (db/templates.ts loadMontaria).
+  "Mount_Template", "Mount_Draw_Template", "Mount_Skill_Template", "Mount_SKill_Get_Template"];
 
 let shared: Promise<DbHandle> | null = null;
 export function sharedDb(): Promise<DbHandle> {

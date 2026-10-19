@@ -761,8 +761,44 @@ confirmar jogando" depois. Cada uma depende do pacote/sistema M3 correspondente 
 - [ ] **m4-eventos-sazonais** — escolher 1-2 de `christmas.swf`/`halloween.swf`/`newyearrice.swf`/
   `worshipTheMoon.swf`/`dragonboat.swf`/`magpiebridge.swf`/`cryptBoss.swf`/`bombking.swf` (não os ~8 de
   uma vez, `MIGRACAO-6600.md` §5 M4) — pedir ordem ao dono antes de começar.
-- [ ] **m4-montaria** — Montaria (`horse.swf` 2.1 MB, maior SWF novo + `horseRace.swf`). Feature grande,
-  tabelas já existem desde `m1-schema` (`Mount_Data`, `Mount_Template`, etc.).
+- [x] **m4-montaria** (2026-10-19, parte 1) — Montaria (`horse.swf` 2.1 MB, maior SWF novo), `260 HORSE`
+  (`HorsePackageType.cs`/`horse/HorseManager.as`): posse/trocar/equipar (sub 2), subir de nível/alimentar
+  (sub 3), subir skill (sub 5), equipar/desequipar skill (sub 6), ativar montaria "especial"/cherish (sub 7)
+  + os 2 pushes só-servidor (sub 1 GET_ALL_DATA, sub 8 HORSE_PICCHERISH_INFO, no login). Bônus de stat
+  aplicado de verdade: `Mount_Template` (nível, `curUseHorse>0`) + TODO `Mount_Draw_Template` já desbloqueado
+  (soma incondicional, não só o "ativo" — confirmado lendo `PlayerHorse.GetPicCherishs`) entram em
+  `game/stats.ts computeStats`/`getBaseAttack`/`getBaseDefence` (igual `m3-figurino` fez pro dano mágico).
+  Tabelas já existiam desde `m1-schema` (`Mount_Data`, `Mount_Template`, `Mount_Draw_Template`,
+  `Mount_Skill_Template`, `Mount_SKill_Get_Template`) e já estavam seedadas — **achado**: os ITENS reais do
+  sistema (`Shop_Goods` TemplateID 11164/11165 "pílula"/"esfera" de melhoria + os 15 TemplateId de
+  `Mount_Draw_Template`) estavam faltando no `packages/db/seed/game/Shop_Goods.json.gz` curado (achado
+  rodando os testes: `findItem` voltava `undefined`) — adicionadas as 17 linhas reais faltantes a partir do
+  dump bruto `vendor/_dbexport/Project_Game6600/data/Shop_Goods.json` (não é migração, é dado estático; sem
+  tocar schema). **Fixed vs o original**: `GamePlayer.GetBaseDefence` (6600, decompilado) reusa
+  `mountTemplate.AddDamage` em vez de `.AddGuard` (bug de copy-paste que soma o Dano da montaria na Armadura
+  e deixa `AddGuard` morto) — corrigido pra ler `AddGuard`; `ActiveHorsePicCherish.cs` nunca recomputa stats
+  na borda desmontado->montado quando o "cherish" já era dono antigo (só a adição de um NOVO reconhece) —
+  sempre recomputa aqui (mesma régua do `docs/features/passe-classico.md` §5: nunca repetir um comportamento
+  ruim do original, só exploit real ou não). Anti-P2W: o custo é 100% item (nunca Money/Gold direto no
+  handler), itens `CanDrop=true` na origem (ganháveis por drop, não só comprados); a única linha viva de
+  `game."Shop"` que vende o item 11164 por Money (`ShopID=1`, loja principal) é dado em massa do dump
+  original, não introduzido por esta tarefa — fora de escopo re-precificar uma tabela grande e compartilhada
+  por isso só (análise completa em `docs/features/montaria.md` §5). Não portado (gap documentado): a
+  "Escritura" (Deed) dar 2-3 usos grátis de feed/skill-up (`UseDeed(12/13)`) — mesma categoria do gap já
+  registrado em `m3-king-bless-deed` (dicionário de efeito por-atributo nunca ligado); sincronizar
+  `MountsType`/visual da montaria pros OUTROS jogadores no hall (sem coluna `Sys_Users_Detail.MountsType`
+  portada, mesmo gap já citado em `game/player.ts hallPetsId`) — só o próprio jogador vê/sente o bônus real
+  hoje. `apps/game/src/handlers/montaria/montaria.ts`, `game/montaria.ts`, `db/montaria.ts`. Testes:
+  `apps/game/test/client-6600-m4-montaria.test.ts` (12). Sem migração nova (tabelas já existiam; seed de
+  item é dado estático). Deixado pro `m4-montaria-2`: Corrida de Montaria (`horseRace.swf`, `282 HORSERACE`).
+- [ ] **m4-montaria-2** — Corrida de Montaria (`horseRace.swf`, `282 HORSERACE` — `sendHorseRaceItemUse`/
+  `sendHorseRaceItemUse2`/`sendHorseRaceEnd`/`buyHorseRaceCount`, `horseRace/data/HorseRacePackageType.as`).
+  C#: `Game.Server.Rooms/BaseHorseRaceRoom.cs`/`CreateHorseRaceRoomAction.cs`/`eStepHorseRace.cs`,
+  `Game.Server.BuffHorseRace/*` (buffs de corrida), `Game.Server.Packets.Client/HorseRaceHandler.cs`. Ainda
+  não investigado a fundo por esta tarefa (fora do tempo da parte 1) — confirmar reachability (ícone do hall
+  aberto por algum `SendXxxOpenClose` de verdade ou morto, igual várias features do M3) antes de portar
+  lógica. `Mount_Data.horseracecanracetime` (`Sys_Users_Detail`, achado em `research/6600/db-diff.md` §2.2)
+  é o gate de "pode correr"; conferir se existe de verdade no nosso schema antes de usar.
 - [ ] **m4-ringstation-ui** — ligar a UI (`ringstation.swf`) ao backend de `m3-ringstation` quando pronto
   (trabalho client-side/wiring, não lógica de servidor nova).
 
@@ -770,9 +806,10 @@ confirmar jogando" depois. Cada uma depende do pacote/sistema M3 correspondente 
 - [ ] **m5-remaster-telas-novas** — toda tela 100% nova portada em M3/M4 (sem equivalente 4.1 pra reusar
   remaster) precisa do pipeline completo `tools/remaster/*` (igual M1 `m1-bitmap-text`/`m1-swf-text`) antes
   de ir pro ar — não é uma tarefa só, é um passo final de cada tarefa M3/M4 que adicionar SWF novo. Inclui
-  agora `collectiontask.swf` (m4-coleta), `rescue.swf` (m4-resgate) e `catchbeast.swf` (m4-catchbeast) —
-  nenhum texto/imagem revisado ainda (fora do escopo das tarefas de backend, só pacote/persistência/motor de
-  PvE).
+  agora `collectiontask.swf` (m4-coleta), `rescue.swf` (m4-resgate), `catchbeast.swf` (m4-catchbeast) e
+  `horse.swf`/`horseRace.swf` (m4-montaria, parte 1 — só o backend/pacotes; a UI de Montaria continua 100%
+  turca, sem overlay) — nenhum texto/imagem revisado ainda (fora do escopo das tarefas de backend, só
+  pacote/persistência/motor de PvE).
 - [ ] **m5-i18n-telas-novas** — `tools/i18n/skelleton-match.mjs` contra `language.txt` das telas novas
   (mesmo método de `m1-lang-ptbr`, dado de entrada novo por tela).
 - [ ] **m5-growthpackage** (`growthpackage.swf`, m4-passe-classico): (a) remendar

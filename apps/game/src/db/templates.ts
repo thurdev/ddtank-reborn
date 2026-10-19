@@ -128,6 +128,8 @@ export class Templates {
     suitParts: new Map(), suits: new Map(),
     clothProperty: (id) => this.clothProperties.get(id),
     countClothGroupWithID: (id) => this.countClothGroupWithID(id),
+    mountTemplate: (grade) => this.mountTemplates.get(grade),
+    mountDraw: (id) => this.mountDraws.get(id),
   };
 
   /** game."Server_Config" (GameProperties overrides). */
@@ -181,6 +183,7 @@ export class Templates {
     await this.loadPetsCards(db, lang);
     await this.loadProgression(db);
     await this.loadMysteryShop(db);
+    await this.loadMontaria(db);
     const [pveOverlay, missionOverlay, npcOverlay, shopGoodsOverlay, questOverlay] = await Promise.all([
       loadTranslations(db, "Pve_Info", lang),
       loadTranslations(db, "Mission_Info", lang),
@@ -299,6 +302,58 @@ export class Templates {
     for (const r of rows) this.mysteryShop.set(r.LableType, [...(this.mysteryShop.get(r.LableType) ?? []), r]);
   }
 
+  /** MountMgr.ReLoad (Game.Logic/MountMgr.cs:46-79): m4-montaria, 6600 only. 5 template tables, all keyed as
+   *  the real `MountMgr` dictionaries are (`Mount_Template` by Grade, the rest by their own `ID`). */
+  mountTemplates = new Map<number, typeof game.Mount_Template.$inferSelect>();
+  mountSkillTemplates = new Map<number, typeof game.Mount_Skill_Template.$inferSelect>();
+  mountSkillGetRows = new Map<number, typeof game.Mount_SKill_Get_Template.$inferSelect>();
+  mountDraws = new Map<number, typeof game.Mount_Draw_Template.$inferSelect>();
+  /** MountMgr.FindMountDrawByTemplate: the inventory item that unlocks each "cherished" mount skin. */
+  mountDrawsByTemplate = new Map<number, typeof game.Mount_Draw_Template.$inferSelect>();
+
+  async loadMontaria(db: Database): Promise<void> {
+    const [tpl, skillTpl, skillGet, draws] = await Promise.all([
+      db.select().from(game.Mount_Template),
+      db.select().from(game.Mount_Skill_Template),
+      db.select().from(game.Mount_SKill_Get_Template),
+      db.select().from(game.Mount_Draw_Template),
+    ]);
+    this.mountTemplates = new Map(tpl.map((r) => [r.Grade, r]));
+    this.mountSkillTemplates = new Map(skillTpl.map((r) => [r.ID, r]));
+    this.mountSkillGetRows = new Map(skillGet.map((r) => [r.ID, r]));
+    this.mountDraws = new Map(draws.map((r) => [r.ID, r]));
+    this.mountDrawsByTemplate = new Map(draws.map((r) => [r.TemplateId, r]));
+  }
+
+  /** MountMgr.GetMountTemplate(grade). */
+  mountTemplate(grade: number): (typeof game.Mount_Template.$inferSelect) | undefined {
+    return this.mountTemplates.get(grade);
+  }
+
+  /** MountMgr.GetMountSkillTemplate(id). */
+  mountSkillTemplate(id: number): (typeof game.Mount_Skill_Template.$inferSelect) | undefined {
+    return this.mountSkillTemplates.get(id);
+  }
+
+  /** MountMgr.FindMountDrawInfo(id) — "cherished" mount skin stat bonus by its own id (not the item template). */
+  mountDraw(id: number): (typeof game.Mount_Draw_Template.$inferSelect) | undefined {
+    return this.mountDraws.get(id);
+  }
+
+  /**
+   * MountMgr.GetSkillGetTemplates(skillId) (MountMgr.cs:189-193): `FindMountSkillGetTemplate` first finds
+   * ANY row whose `SkillID` matches (to read that row's `Type`), then returns every row sharing that `Type`
+   * — i.e. the skill's own evolution ladder, in table order (insertion order here, same as a C# Dictionary
+   * enumeration for a table that was never resorted after load).
+   */
+  mountSkillGetTemplates(skillId: number): (typeof game.Mount_SKill_Get_Template.$inferSelect)[] {
+    let type: number | null | undefined;
+    let found = false;
+    for (const row of this.mountSkillGetRows.values()) if (row.SkillID === skillId) { type = row.Type; found = true; break; }
+    if (!found) return [];
+    return [...this.mountSkillGetRows.values()].filter((r) => r.Type === type);
+  }
+
   async loadForge(db: Database): Promise<void> {
     const [str, strG, fus, box, ex, tot, gold, cardU, petF, suitI, suitT, cfg, refinery, strExp, spirits, setsBuildTemp, fus6600] = await Promise.all([
       db.select().from(game.Item_Strengthen), db.select().from(game.Item_Strengthen_Goods), db.select().from(game.Item_Fusion),
@@ -349,6 +404,9 @@ export class Templates {
       // loadProgression() (not yet run when this.stats is built here) fills clothProperties/clothGroups; read lazily.
       clothProperty: (id) => this.clothProperties.get(id),
       countClothGroupWithID: (id) => this.countClothGroupWithID(id),
+      // loadMontaria() (not yet run when this.stats is built here) fills mountTemplates/mountDraws; read lazily.
+      mountTemplate: (grade) => this.mountTemplates.get(grade),
+      mountDraw: (id) => this.mountDraws.get(id),
     };
   }
 

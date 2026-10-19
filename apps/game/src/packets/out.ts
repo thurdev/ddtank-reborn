@@ -1862,3 +1862,84 @@ export function growthPackageState(kind: "open" | "update", availTime: number): 
   for (let i = 0; i < 9; i++) p.writeInt(i < availTime ? 1 : 0);
   return p;
 }
+
+/**
+ * 260 HORSE (Montaria, `horse.swf`, 6600 only) — `HorsePackageType.cs`/`HorseManager.as`. Every builder below
+ * mirrors a `AbstractPacketLib.Send*` method 1:1 (byte sub-code first, same order the client reads).
+ * m4-montaria part 1 (`docs/plan/TASKS.md`): ownership/level-up/feed/skills/equip.
+ */
+
+/** 260/1 GET_ALL_DATA (`SendHorseInitAllData`, `AbstractPacketLib.cs:1171`): pushed unconditionally at login
+ *  (`GamePlayer.Login` -> `Horse.UpdateHorsePacket()`), never requested by the client. */
+export function horseInitAllData(id: number, curUseHorse: number, curLevel: number, curExp: number, skills: { SKillID: number; Exp: number; IsUse: number }[]): PacketOut {
+  const p = new PacketOut(260, id);
+  p.writeByte(1);
+  p.writeInt(curUseHorse); p.writeInt(curLevel); p.writeInt(curExp);
+  p.writeInt(skills.length);
+  for (const s of skills) { p.writeInt(s.SKillID); p.writeInt(s.Exp); p.writeInt(s.IsUse); }
+  return p;
+}
+
+/** 260/2 CHANGE_HORSE ack (`SendchangeHorse`, `AbstractPacketLib.cs:1150`) — also pushed at login when
+ *  `MountsType != 0` (`GamePlayer.Login`). */
+export function horseChange(id: number, curIndex: number): PacketOut {
+  const p = new PacketOut(260, id);
+  p.writeByte(2);
+  p.writeInt(curIndex);
+  return p;
+}
+
+/** 260/3 UP_HORSE ack (`SendUpHorse`, `AbstractPacketLib.cs:1188`). */
+export function horseUpResult(id: number, isHasLevelUp: boolean, grade: number, exp: number): PacketOut {
+  const p = new PacketOut(260, id);
+  p.writeByte(3);
+  p.writeBoolean(isHasLevelUp); p.writeInt(grade); p.writeInt(exp);
+  return p;
+}
+
+/** 260/4 GET_SKILL push (`UpHorse.cs:48-52`): sent right after a level-up that grants a brand-new mount
+ *  skill (`Horse.AddHorseSkill`), separate from the 260/3 ack above. */
+export function horseGetSkill(id: number, skillId: number, exp: number): PacketOut {
+  const p = new PacketOut(260, id);
+  p.writeByte(4);
+  p.writeInt(skillId); p.writeInt(exp);
+  return p;
+}
+
+/** 260/5 UP_SKILL ack (`UpSkill.cs:56-61`): old skill id (the one the client asked to train), the resulting
+ *  skill id (same id unless it evolved into `newSkillId` via `Mount_SKill_Get_Template`), and the new Exp. */
+export function horseUpSkillResult(id: number, oldSkillId: number, newSkillId: number, exp: number): PacketOut {
+  const p = new PacketOut(260, id);
+  p.writeByte(5);
+  p.writeInt(oldSkillId); p.writeInt(newSkillId); p.writeInt(exp);
+  return p;
+}
+
+/** 260/6 TAKE_UP_DOWN_SKILL ack (`TakeUpDownSkill.cs:14-18`): echoes skillId + status (0 = unequip, 1-3 =
+ *  equip slot) verbatim, same as the original. */
+export function horseTakeUpDownSkill(id: number, skillId: number, status: number): PacketOut {
+  const p = new PacketOut(260, id);
+  p.writeByte(6);
+  p.writeInt(skillId); p.writeInt(status);
+  return p;
+}
+
+/** 260/7 ACTIVE_HORSEPICCHERISH ack (`ActiveHorsePicCherish.cs:28-31` / `ChangeHorse.cs` sub-write — both
+ *  C# paths funnel into `PlayerHorse.ActiveHorsePicCherish` and write the same `(id, used)` pair). */
+export function horseActivePicCherish(id: number, mountId: number, used: boolean): PacketOut {
+  const p = new PacketOut(260, id);
+  p.writeByte(7);
+  p.writeInt(mountId); p.writeInt(used ? 1 : 0);
+  return p;
+}
+
+/** 260/8 HORSE_PICCHERISH_INFO (`SendPicCherishInfo`, `AbstractPacketLib.cs:1158`): every "cherished" mount
+ *  skin the player has ever unlocked (ALL of them, not filtered by which one is currently active — see
+ *  `PlayerHorse.GetPicCherishs`/`horse/montaria.ts` header), pushed unconditionally at login. */
+export function horsePicCherishInfo(id: number, draws: { ID: number; Active: number }[]): PacketOut {
+  const p = new PacketOut(260, id);
+  p.writeByte(8);
+  p.writeInt(draws.length);
+  for (const d of draws) { p.writeInt(d.ID); p.writeInt(d.Active); }
+  return p;
+}

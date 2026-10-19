@@ -46,6 +46,10 @@ export interface StatTables {
   clothProperty(avatarId: number): { Damage: number; Guard: number } | undefined;
   /** ClothGroupTemplateInfoMgr.CountClothGroupWithID(avatarId): total pieces in that Álbum set. */
   countClothGroupWithID(avatarId: number): number;
+  /** MountMgr.GetMountTemplate(grade) (m4-montaria, 6600 only). */
+  mountTemplate(grade: number): { AddDamage: number; AddGuard: number; MagicAttack: number; MagicDefence: number; AddBlood: number } | undefined;
+  /** MountMgr.FindMountDrawInfo(id) — "cherished" mount skin bonus (m4-montaria). */
+  mountDraw(id: number): { AddHurt: number; AddGuard: number; MagicAttack: number; MagicDefence: number; AddBlood: number } | undefined;
 }
 
 /** One Sys_Users_AvatarCollection row, trimmed to what the stat bonus needs (game/player.ts avatarCollect). */
@@ -72,6 +76,13 @@ export interface StatInput {
   now?: Date;
   /** Sys_Users_AvatarCollection rows owned (any IsExit=true row; game/player.ts avatarCollect). */
   avatarCollect?: AvatarCollectionInput[];
+  /**
+   * m4-montaria (6600 only): `player."Mount_Data"` (curUseHorse/curLevel) + every "cherished" mount skin
+   * ever unlocked (`PlayerHorse.horsePicCherish` keys — ALL of them, not filtered by which one is `Active`,
+   * see `PlayerHorse.GetPicCherishs`/`game/montaria.ts` header). `undefined` = no mount module loaded yet
+   * (4.1, or a 6600 player before their first login burst) -> identical to today (no bonus).
+   */
+  mount?: { curUseHorse: number; curLevel: number; picCherishIds: number[] };
 }
 
 export interface StatResult {
@@ -207,7 +218,23 @@ export function getAvatarCollectionBonus(rows: AvatarCollectionInput[] | undefin
   return v;
 }
 
-/** GamePlayer.GetBaseAttack (GamePlayer.cs:2436). */
+/**
+ * m4-montaria (6600 only): sum of `AddDamage`/`AddGuard`/`AddHurt` over the equipped mount's level template
+ * (`curUseHorse > 0` gate) plus EVERY unlocked "cherished" skin (unconditional, see `StatInput.mount` doc).
+ * `key` picks which attack-side field each caller needs (`getBaseAttack` wants `AddDamage`/`AddHurt`,
+ * `getBaseDefence` wants `AddGuard`/`AddGuard` — see the bug note on `getBaseDefence` below).
+ */
+function mountBonus(inp: StatInput, t: StatTables, key: "AddDamage" | "AddGuard"): number {
+  const m = inp.mount;
+  if (!m) return 0;
+  let v = 0;
+  if (m.curUseHorse > 0) v += t.mountTemplate(m.curLevel)?.[key] ?? 0;
+  const drawKey = key === "AddDamage" ? "AddHurt" : "AddGuard";
+  for (const id of m.picCherishIds) v += t.mountDraw(id)?.[drawKey] ?? 0;
+  return v;
+}
+
+/** GamePlayer.GetBaseAttack (GamePlayer.cs:2436, 6600: :4620-4692 — mount bonus added there too). */
 export function getBaseAttack(inp: StatInput, t: StatTables): number {
   let v = 0;
   for (const c of equippedCards(inp.cards)) v += (t.findItem(c.TemplateID)?.Property4 ?? 0) + c.Damage;
@@ -219,10 +246,21 @@ export function getBaseAttack(inp: StatInput, t: StatTables): number {
   for (const it of [w, inp.equip[0], inp.equip[4]]) if (it) for (const h of holes(it)) v += attrGem(t, h)?.Property7 ?? 0;
   v += getTotemProp(t.totems, inp.totemId, "AddDamage");
   v += getAvatarCollectionBonus(inp.avatarCollect, t, "Damage");
+  v += mountBonus(inp, t, "AddDamage");
   return v;
 }
 
-/** GamePlayer.GetBaseDefence (GamePlayer.cs:2588). */
+/**
+ * GamePlayer.GetBaseDefence (GamePlayer.cs:2588, 6600: :4694-4780).
+ *
+ * **Fixed vs the original**: the decompiled 6600 `GetBaseDefence` reuses `mountTemplate.AddDamage` for its
+ * mount contribution (`num3 += mountTemplate.AddDamage;`, GamePlayer.cs:4732) — the exact same expression as
+ * `GetBaseAttack`'s own mount line — instead of `mountTemplate.AddGuard`, a copy-paste bug that double-counts
+ * the mount's Damage stat into the player's Armor and leaves `Mount_Template.AddGuard` completely dead (the
+ * "cherished" skin's own split — `mountDrawTemplateInfo.AddHurt` for attack, `.AddGuard` for defence, :4661/
+ * :4741 — shows the field split the authors clearly intended). `AGENTS.md`/orchestrator guidance is to never
+ * replicate a bug like this; fixed here to read `AddGuard`.
+ */
 export function getBaseDefence(inp: StatInput, t: StatTables): number {
   let v = 0;
   for (const c of equippedCards(inp.cards)) v += (t.findItem(c.TemplateID)?.Property5 ?? 0) + c.Guard;
@@ -234,6 +272,7 @@ export function getBaseDefence(inp: StatInput, t: StatTables): number {
   for (const it of [inp.equip[0], inp.equip[4], inp.equip[6]]) if (it) for (const h of holes(it)) v += attrGem(t, h)?.Property8 ?? 0;
   v += getTotemProp(t.totems, inp.totemId, "AddGuard");
   v += getAvatarCollectionBonus(inp.avatarCollect, t, "Guard");
+  v += mountBonus(inp, t, "AddGuard");
   return v;
 }
 
@@ -328,6 +367,20 @@ export function computeStats(inp: StatInput, t: StatTables): StatResult {
   hp += getTotemProp(t.totems, inp.totemId, "AddBlood");
 
   attack += tA + cA + pA; defence += tD + cD + pD; agility += tG + cG + pG; luck += tL + cL + pL; hp += tH + pH;
+  // m4-montaria (6600 only, PlayerEquipInventory.cs:385-404/436-443): mount level (curUseHorse>0 gate) +
+  // every unlocked "cherished" skin (unconditional sum, see StatInput.mount doc) add Magic/HP, same bucket
+  // as Relíquias ("MagicStone") above — never Attack/Defence here, that's mountBonus() in getBaseAttack/Defence.
+  if (inp.mount) {
+    const m = inp.mount;
+    if (m.curUseHorse > 0) {
+      const mt = t.mountTemplate(m.curLevel);
+      if (mt) { magicAttack += mt.MagicAttack; magicDefence += mt.MagicDefence; hp += mt.AddBlood; }
+    }
+    for (const id of m.picCherishIds) {
+      const d = t.mountDraw(id);
+      if (d) { magicAttack += d.MagicAttack; magicDefence += d.MagicDefence; hp += d.AddBlood; }
+    }
+  }
   const baseBlood = getBaseBlood(inp);
   const finalHp = Math.trunc((hp + inp.levelBlood + Math.trunc(defence / 10)) * baseBlood);
   const baseAttack = getBaseAttack(inp, t);
@@ -341,6 +394,7 @@ export function emptyStatTables(findItem: (id: number) => ItemTemplate | undefin
   return {
     findItem, exercise: [], totems: new Map(), goldEquip: () => undefined, cardUpdate: () => undefined, petFight: () => undefined, petMoe: () => undefined, suitParts: new Map(), suits: new Map(),
     clothProperty: () => undefined, countClothGroupWithID: () => 0,
+    mountTemplate: () => undefined, mountDraw: () => undefined,
   };
 }
 

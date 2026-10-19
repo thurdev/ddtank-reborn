@@ -17,6 +17,8 @@ import { activityOpen } from "../handlers/eventos/agendador.js";
 import { sendNoviceActivityOpen } from "../handlers/eventos/novato.js";
 import { applyOldPlayerLogin } from "../handlers/eventos/jogador-antigo.js";
 import { sendGrowthPackageLoginState } from "../handlers/eventos/passe-classico.js";
+import { loadMountData, saveMountData } from "../db/montaria.js";
+import { parseMountSkills, parseMountPicCherish } from "../game/montaria.js";
 import { findCharacterByUserName, loadMatchInfo, loadPlayerInfo, setOnlineState } from "../db/characters.js";
 import { loadUserItems } from "../db/items.js";
 import { loadFriends, loadProgress } from "../db/social.js";
@@ -168,6 +170,20 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   p.petBag.eat = eatPets;
   p.cards = p.cardBag.equipped();
   p.pet = p.petBag.equipped();
+  // m4-montaria (6600 only, `PlayerHorse.LoadFromDatabase` -> `CreateHorse` when no row exists yet):
+  // 4.1 never gets a Mount_Data row (packet 260 isn't in its enum, same "4.1 inalterado" boundary as 237
+  // PLAYER_DRESS/m3-figurino) — must happen before recalcStats() below, which reads p.mount for the level's
+  // stat bonus (game/stats.ts).
+  if (p.clientKind === "6600") {
+    let mount = await loadMountData(db, userId);
+    if (!mount) {
+      const t0 = ctx.templates.mountTemplate(0);
+      mount = await saveMountData(db, { ID: 0, UserID: userId, curUseHorse: 0, curLevel: t0?.Grade ?? 0, curExp: t0?.Experience ?? 0, curHasSkill: "", horsePicCherish: "" });
+    }
+    p.mount = mount;
+    p.mountSkills = parseMountSkills(mount.curHasSkill);
+    p.mountPicCherish = parseMountPicCherish(mount.horsePicCherish);
+  }
   p.recalcStats(); // FightPower/attributes are part of the login packet
   // m3-figurino: PLAYER_DRESS presets (equipBag already loaded above, needed to validate itemId/templateId pairs).
   p.dressModels = decodeDressModelArr(p, p.extra?.DressModelArr);
@@ -222,6 +238,15 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   // Passe Clássico (84 ACTIVITY_PACKAGE sub-cmd 1, m4-passe-classico, 6600 only — dead client-side on 4.1,
   // SocketManager.as:1032-1035): GamePlayer.cs:3635-3639, only when Server_Config IsPromotePackageOpen is on.
   if (p.clientKind === "6600") await sendGrowthPackageLoginState(ctx, p);
+  // 260 HORSE (m4-montaria, 6600 only): `Horse.UpdateHorsePacket()` (GamePlayer.cs:3646, unconditional) sends
+  // 1 GET_ALL_DATA + 8 HORSE_PICCHERISH_INFO every login; 2 CHANGE_HORSE only `if (MountsType != 0)`
+  // (GamePlayer.cs:3625-3628) — mirrored off `curUseHorse` (always kept equal to MountsType by every writer,
+  // see game/montaria.ts header re: the MountsType column gap).
+  if (p.clientKind === "6600" && p.mount) {
+    p.send(Out.horseInitAllData(p.id, p.mount.curUseHorse, p.mount.curLevel, p.mount.curExp, [...p.mountSkills.values()]));
+    p.send(Out.horsePicCherishInfo(p.id, [...p.mountPicCherish.entries()].map(([ID, Active]) => ({ ID, Active }))));
+    if (p.mount.curUseHorse !== 0) p.send(Out.horseChange(p.id, p.mount.curUseHorse));
+  }
   p.send(Out.guildMemberWeek(p.id));
   sendActivityIcons(ctx, p);
   p.send(Out.necklace(info));

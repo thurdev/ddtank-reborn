@@ -20,6 +20,8 @@ import { PetInventory, reduceProp, getPetEquips } from "./pets.js";
 import { CardInventory } from "./cards.js";
 import { savePets, saveCards, saveEatPets } from "../db/pets-cards.js";
 import { saveAvatarCollection, type UserAvatarCollectionRow } from "../db/avatar-collection.js";
+import { saveMountData } from "../db/montaria.js";
+import { stringifyMountSkills, stringifyMountPicCherish, type MountDataRow, type MountSkillState } from "./montaria.js";
 
 /** ePlayerState. */
 export const PlayerState = { Offline: 0, Manual: 1, Online: 1, Away: 2 } as const;
@@ -137,6 +139,18 @@ export class GamePlayer implements RoomMember {
   cardBag: CardInventory;
   /** PlayerAvatarCollection.AvatarCollect (AVATAR_COLLECTION 402): loaded at login (session/login.ts), db/avatar-collection.ts. */
   avatarCollect: UserAvatarCollectionRow[] = [];
+  /**
+   * m4-montaria (6600 only, `PlayerHorse` — `game/montaria.ts`): `player."Mount_Data"` row, lazily created at
+   * first login (session/login.ts, mirrors `PlayerHorse.LoadFromDatabase` -> `CreateHorse`). `mountSkills`/
+   * `mountPicCherish` are the parsed form of `mount.curHasSkill`/`mount.horsePicCherish` (JSON columns) —
+   * kept in sync by `handlers/montaria/montaria.ts`, re-serialized back into `mount` only on save (mirrors
+   * `PlayerHorse.SerializeMount`, called from `SaveToDatabase`, not on every mutation).
+   */
+  mount: MountDataRow | null = null;
+  mountSkills: Map<number, MountSkillState> = new Map();
+  mountPicCherish: Map<number, number> = new Map();
+  /** PlayerHorse's own `IsDirty` (MountDataInfo extends DataObject) — sidesteps re-diffing JSON every save. */
+  mountDirty = false;
   /** GamePlayer.GetBaseAttack / GetBaseDefence from the last recalcStats (fight specs). */
   baseAttack = 0;
   baseDefence = 0;
@@ -331,6 +345,7 @@ export class GamePlayer implements RoomMember {
       // PlayerAvatarCollection.GetAvatarPropertyActived (ver getAvatarCollectionBonus em stats.ts): todo set
       // que o jogador possui entra, o corte half/full é feito lá dentro por itemCount vs CountClothGroupWithID.
       avatarCollect: this.avatarCollect.map((a) => ({ AvatarID: a.AvatarID, itemCount: a.items.length })),
+      mount: this.mount ? { curUseHorse: this.mount.curUseHorse, curLevel: this.mount.curLevel, picCherishIds: [...this.mountPicCherish.keys()] } : undefined,
     }, this.statTables);
     c.Attack = r.attack; c.Defence = r.defence; c.Agility = r.agility; c.Luck = r.luck; c.hp = r.hp;
     c.FightPower = r.fightPower;
@@ -530,6 +545,18 @@ export class GamePlayer implements RoomMember {
     if (this.petBag.eatDirty) await step("eatPets", async () => { await saveEatPets(db, this.id, this.petBag.eat); this.petBag.eatDirty = false; });
     await step("cards", () => saveCards(db, this.cardBag.all(), this.cardBag.removed));
     await step("avatarCollect", () => saveAvatarCollection(db, this.avatarCollect));
+    // PlayerHorse.SaveToDatabase (`if (Info != null && Info.IsDirty)`): re-serialize curHasSkill/horsePicCherish
+    // from the live maps only on save, same as the original's SerializeMount call right before the write.
+    if (this.mount && this.mountDirty) {
+      await step("mount", async () => {
+        this.mount = await saveMountData(db, {
+          ...this.mount!,
+          curHasSkill: stringifyMountSkills(this.mountSkills),
+          horsePicCherish: stringifyMountPicCherish(this.mountPicCherish),
+        });
+        this.mountDirty = false;
+      });
+    }
     if (this.buffs.length) await step("buffs", () => saveBuffs(db, this.buffs));
     await step("records", () => saveRecords(db, this));
     if (errs.length) throw errs[0];

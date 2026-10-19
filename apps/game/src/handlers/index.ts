@@ -20,6 +20,7 @@ import { registerProgressao } from "./progressao/index.js";
 import { registerHall6600 } from "./hall-6600/index.js";
 import { registerConsortiaBattle } from "./consortia-battle/index.js";
 import { registerRingStation } from "./arena-ranqueada/index.js";
+import { registerMontaria } from "./montaria/index.js";
 
 export function createRegistry(): HandlerRegistry {
   const r = new HandlerRegistry();
@@ -44,5 +45,6 @@ export function createRegistry(): HandlerRegistry {
   registerHall6600(r);
   registerConsortiaBattle(r);
   registerRingStation(r);
+  registerMontaria(r);
   return r;
 }
