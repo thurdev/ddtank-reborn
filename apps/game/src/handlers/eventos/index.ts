@@ -25,7 +25,10 @@
  *                              a sala de relaxar da Fonte Termal — mesmo menu, mundos diferentes)
  *   caminho-da-luz.ts         (ícone "Caminho da luz", design próprio) — 145 ACTIVITY_SYSTEM inteiro
  *                              (roteador único: sub 64-66 aqui, sub 7-13 despacha pra
- *                              `sociedade/semana-da-sociedade.ts`, sub 37-45 LanternRiddles sem handler)
+ *                              `sociedade/semana-da-sociedade.ts`, sub 32-36 despacha pra
+ *                              `captura-nian.ts` (m4-catchbeast), sub 37-45 LanternRiddles sem handler)
+ *   captura-nian.ts            (tela "Capturar Nian", m4-catchbeast) — 145 ACTIVITY_SYSTEM sub 32-36
+ *                              (`CatchBeastPackageType`; REAL lógica C# existe — ver `game/catchbeast.ts`)
  *   jogador-antigo.ts         (botão "Jogador antigo" no hall, m3-eventos-b) — 149 OLDPLAYER_REGRESS (11
  *                              sub-ações; C# original é um no-op total) + `applyOldPlayerLogin` (gancho de
  *                              login que alimenta `IsOldPlayer`/`isOld`, usado também por `packets/out.ts`

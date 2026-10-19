@@ -13,7 +13,11 @@ import type { FightGame } from "../fight/types.js";
  *  around 56, `vendor/DDT-6600/Source/Game.Logic/eRoomType.cs`) so it can never collide with a real value
  *  this codebase hasn't ported yet, while still fitting the single BYTE every room packet writes it as
  *  (`Out.roomCreate`/`Out.roomSync` etc. — `RoomType`/`GameType` are always `writeByte`, never `writeInt`). */
-export const RoomType = { Match: 0, Freedom: 1, Boss: 3, Dungeon: 4, FightLab: 5, Freshman: 10, Academy: 11, WordBossFight: 14, Labyrinth: 15, ConsortiaBattle: 19, RingStation: 24, Rescue: 70 } as const;
+/** `CatchBeast: 26` IS the real `eRoomType.CatchBeast` (`Game.Logic/eRoomType.cs:34`, m4-catchbeast) — unlike
+ *  `Rescue: 70` above, this one needed no fabricated id. The real `BaseRoom.UpdateRoomGameType` switch
+ *  (`BaseRoom.cs:281-336`) has NO `case eRoomType.CatchBeast`, so it falls through to `default: GameType =
+ *  eGameType.ALL` — `updateRoomGameType` below already does the same via ITS `default`, no new case needed. */
+export const RoomType = { Match: 0, Freedom: 1, Boss: 3, Dungeon: 4, FightLab: 5, Freshman: 10, Academy: 11, WordBossFight: 14, Labyrinth: 15, ConsortiaBattle: 19, RingStation: 24, CatchBeast: 26, Rescue: 70 } as const;
 export const GameType = { Free: 0, Guild: 1, ALL: 4, Dungeon: 7, FightLab: 8, Freshman: 10, Labyrinth: 15, ConsortiaBattle: 19, RingStation: 26, Rescue: 70 } as const;
 export const HardLevel = { Easy: 0, Normal: 1, Hard: 2, Terror: 3, Epic: 4, Simple: 5 } as const;
 

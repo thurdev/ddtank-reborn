@@ -41,9 +41,11 @@ registerScript("GameServerScript.AI.Messions.GCGCK1161", wrapSpawns(GCGCK1161), 
 import "./worldboss.js";
 import "./ancient-castle.js";
 import "./coupleboss15002.js";
+import "./catchbeast.js";
 
 export const MANUAL_SCRIPTS = [
   "TVS12004", "GCGCT1161", "GCGCK1161", "ACDragon", "AC1243", "WorldAcientDragon",
   "CrosairBoss", "WorldSimpleBat", "WorldBatKing", "WorldBatKingSecond", "WorldSoccerCaptain",
   "AC30001", "AC30002", "AC30004", "SixTerrorSecondNpc", "CoupleBoss15002",
+  "YearMonster", "YearMonster1347",
 ];

@@ -1627,6 +1627,36 @@ export const Sys_Users_Rescue = player.table(
   ],
 );
 
+/**
+ * HAND-ADDED, not from gen-schema.ts (task m4-catchbeast): mirror of `SqlDataProvider.Data.ActiveSystemInfo`'s
+ * Capturar Nian columns (`ChallengeNum`/`BuyBuffNum`/`DamageNum`/`BoxState`, `vendor/DDT-6600/Source/
+ * SqlDataProvider/SqlDataProvider/Data/ActiveSystemInfo.cs:235-293`) — REAL C# logic exists for this feature
+ * (`Game.Server.ActiveSystem.Handle.Catchbeast{ViewInfo,Challenge,Buybuff,GetAward}.cs`) but `ActiveSystemInfo`
+ * itself is ONE ROW per player packing ~25 unrelated event columns (Pyramid/Christmas/WorshipTheMoon/Chick...),
+ * most never ported — splitting out just the 5 Capturar Nian fields into their own table (same shape as
+ * `Sys_Users_Rescue` above) avoids reviving the other ~20 dead columns. One row per player: `ChallengeNum`/
+ * `BuyBuffNum` reset to `YearMonsterFightNum` (admin `Server_Config`, C# default 1) once per day
+ * (`PlayerActives.YearMonterValidate`, `lastEnterYearMonter.Date < Now.Date`) — `LastEnterDay` is the
+ * `dayKey()` that reset last ran for; `DamageNum` is OVERWRITTEN (not accumulated) by the total damage dealt
+ * in the player's most recent Capturar Nian fight (`GamePlayer.UpdatePveResult("yearmonter", value, _)` ←
+ * `YearMonster1347.OnGameOver`, `TotalDameLiving`); `BoxState` packs the 5 reward-tier states '-'-joined
+ * (`PlayerActives.CreateYearMonterBoxState`/`SetYearMonterBoxState`: "1" locked, "2" claimable, "3" claimed).
+ */
+export const Sys_Users_CatchBeast = player.table(
+  "Sys_Users_CatchBeast",
+  {
+    UserID: integer("UserID").notNull(),
+    ChallengeNum: integer("ChallengeNum").notNull().default(0),
+    BuyBuffNum: integer("BuyBuffNum").notNull().default(0),
+    DamageNum: integer("DamageNum").notNull().default(0),
+    BoxState: varchar("BoxState", { length: 20 }).notNull().default("1-1-1-1-1"),
+    LastEnterDay: varchar("LastEnterDay", { length: 10 }).notNull().default(""),
+  },
+  (t) => [
+    primaryKey({ name: "Sys_Users_CatchBeast_pkey", columns: [t.UserID] }),
+  ],
+);
+
 /** Project_Player34.dbo.Sys_Users_Fight — 0 rows in source; PK (UserID) */
 export const Sys_Users_Fight = player.table(
   "Sys_Users_Fight",

@@ -3,8 +3,9 @@
  * em `session/login.ts`, `Out.lightRoadOpen`), nenhuma regra real no servidor original nem em nenhum fork
  * pesquisado (`research/qa/pendencias-sem-fonte.md`, `research/qa/feature-sources.md`).
  * Pacotes: 145 ACTIVITY_SYSTEM — um byte inicial decide o sub-sistema, igual ao cliente
- * (`SocketManager.activitySystem`): 7-13 = Semana da Sociedade (`sociedade/semana-da-sociedade.ts`), 37-45 =
- * LanternRiddles (sem handler aqui, não pedido), 64-66 = Caminho da Luz (`LightRoadPackageType`, este arquivo).
+ * (`SocketManager.activitySystem`): 7-13 = Semana da Sociedade (`sociedade/semana-da-sociedade.ts`), 32-36 =
+ * Capturar Nian (`CatchBeastPackageType`, `eventos/captura-nian.ts`, m4-catchbeast), 37-45 = LanternRiddles
+ * (sem handler aqui, não pedido), 64-66 = Caminho da Luz (`LightRoadPackageType`, este arquivo).
  * Este arquivo também é o ÚNICO ponto de registro do pacote 145 (`activitySystemRouter`, chamado por
  * `eventos/index.ts`) — decide pra onde o byte vai.
  *
@@ -25,6 +26,7 @@ import type { GamePlayer } from "../../game/player.js";
 import type { ServerContext } from "../../session/context.js";
 import { mailItems } from "../bolsa/correio-excedente.js";
 import { guildMemberWeekRouter } from "../sociedade/semana-da-sociedade.js";
+import { catchBeastRouter } from "./captura-nian.js";
 
 function reply145(sub: number, playerId = 0): PacketOut {
   const p = new PacketOut(145, playerId);
@@ -95,6 +97,7 @@ async function choosePoint(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, wee
 export async function activitySystemRouter(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, rnd: () => number = Math.random): Promise<void> {
   const sub = pkt.readByte();
   if (sub >= 7 && sub <= 13) return guildMemberWeekRouter(ctx, p, sub, pkt);
+  if (sub >= 32 && sub <= 36) return catchBeastRouter(ctx, p, sub, pkt);
   if (sub < 64 || sub > 66) return; // LanternRiddles (37-45) ou lixo — sem handler, igual ao original
   const week = weekKey(ctx.now());
   if (sub === 64) return enterGame(ctx, p, week);
