@@ -32,6 +32,7 @@ import { StubFightEngine } from "./fight/stub.js";
 import { DdtFightEngine } from "./fight/ddt.js";
 import type { FightEngine } from "./fight/types.js";
 import { updateLabyrinthFloor, outLabyrinth } from "./handlers/eventos/labirinto.js";
+import { eliteChampionFlee, eliteChampionGameOver, updateEliteScore } from "./handlers/eventos/liga-elite.js";
 import { onRescueGameOver } from "./handlers/eventos/resgate.js";
 import type { BotProvider, VirtualPlayer } from "./bots/bot.js";
 import { DbBotProvider } from "./bots/provider.js";
@@ -186,10 +187,18 @@ export class GameServer {
               pushRecords(m as GamePlayer); // ChangeWin/ChangeTotal/ChangeGrade achievement records (229)
               // GamePlayer.AddPrestige + RingstationResult (only the real challenger seat; the bot never reaches here)
               if (g.roomType === RoomType.RingStation && !(m as GamePlayer).isBot) void ringStationGameOver(this.ctx!, m as GamePlayer, g.isWin).catch((e) => log.warn(`ringstation game over: ${(e as Error).message}`));
+              // m3-elite-brackets: score-phase ladder (162 ELITEGAME) — real PvP room, same shape as a normal
+              // Match room, just tagged RoomType.EliteGameScore so this hook can update EliteScore.
+              if (g.roomType === RoomType.EliteGameScore && !(m as GamePlayer).isBot) updateEliteScore(m as GamePlayer, g.isWin);
               // m4-resgate: score/star come from this real fight's own kill count — see game/rescue.ts header.
               if (g.roomType === RoomType.Rescue && !(m as GamePlayer).isBot) void onRescueGameOver(this.ctx!, m as GamePlayer, g).catch((e) => log.warn(`rescue game over: ${(e as Error).message}`));
             },
-            onGameOver: (g) => void consortiaGameOver(this.ctx!, g).catch((e) => log.warn(`consortia game over: ${e}`)),
+            onGameOver: (g) => {
+              void consortiaGameOver(this.ctx!, g).catch((e) => log.warn(`consortia game over: ${e}`));
+              // m3-elite-brackets: champion-phase bracket round result (162 ELITEGAME) — advances the winner,
+              // closes out the bracket when it's the final.
+              if (g.roomType === RoomType.EliteGameChampion) eliteChampionGameOver(this.ctx!, g);
+            },
             onMissionOver: (m, g) => {
               (m as GamePlayer).questInv?.onMissionOver(g.missionId, g.isWin, g.turnNum);
               // PVEGame.cs:802: a won fight-lab mission unlocks the next level; first clear pays FightLabUserDrop
@@ -221,6 +230,9 @@ export class GameServer {
               // pending-challenge guard (game/ringstation.ts) and the defender's OnFight lock would leak
               // forever. Counts as a loss (no client-reported result involved either way).
               if (g.roomType === RoomType.RingStation) void ringStationGameOver(this.ctx!, p, false).catch((e) => log.warn(`ringstation flee: ${(e as Error).message}`));
+              // m3-elite-brackets: fleeing a champion-bracket fight never reaches onPlayerGameOver — without
+              // this, the opponent's `inProgress` round would never resolve (same leak class as m3-ringstation's flee fix).
+              if (g.roomType === RoomType.EliteGameChampion) eliteChampionFlee(this.ctx!, p);
             },
             pve: {
               data: { npc: (id) => templates.npcs.get(id) as never, mission: (id) => templates.missions.get(id) as never },
