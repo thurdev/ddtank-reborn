@@ -3,7 +3,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { inflateSync } from "node:zlib";
 import { validateGameLogin } from "@ddt/auth";
-import { createDb, createDevAccounts, migrateDb, seedDatabase, type DbHandle } from "@ddt/db";
+import { app as appSchema, createDb, createDevAccounts, migrateDb, seedDatabase, type DbHandle } from "@ddt/db";
 import { buildLoginPayload, bytesToBase64, generateRsaKey, rsaEncryptPkcs1, toDotNetRsaXml, type RsaPrivateKey } from "@ddt/protocol";
 import type { FastifyInstance } from "fastify";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
@@ -307,6 +307,22 @@ describe("M3 ashx + templates (research/6600/ashx-missing.md)", () => {
     const body = inflate((await app.inject({ url: "/request6600/SceneCollecRandomNpc.ashx" })).rawPayload);
     expect(body).toContain('<item NickName="Hime Chibi" Sex="1" Hair="3251" Glass="2213" Face="6224" Eye="4240" />');
     expect(body).toContain('value="true"');
+  });
+
+  it("HelpGameReward.xml (m4-resgate): 6 cenas x 3 tiers com o default embutido quando o admin não configurou nada", async () => {
+    const body = inflate((await app.inject({ url: "/request6600/HelpGameReward.xml" })).rawPayload);
+    expect(body.startsWith('<Result value="true" message="Success!"')).toBe(true);
+    expect((body.match(/<Item /g) ?? []).length).toBe(18); // 6 cenas * 3 tiers
+    expect(body).toContain('<Item MissionID="1" Star="11" TemplateID="11107" StrengthenLevel="0" AttackCompose="0" DefendCompose="0" AgilityCompose="0" LuckCompose="0" Count="200" IsBind="true" IsTime="false" ValidDate="0" />');
+  });
+
+  it("HelpGameReward.xml: admin configura app.ScheduledEvents kind=rescue params.rewards e o XML reflete", async () => {
+    await h.db.insert(appSchema.ScheduledEvents).values({ kind: "rescue", title: "", params: { rewards: { "1": [{ templateId: 99001, count: 7, isBind: false }, { templateId: 99002, count: 8 }, { templateId: 99003, count: 9 }] } } });
+    await ctx.cache.invalidate(["app.ScheduledEvents"]); // same invalidation an admin edit triggers (routes/admin.ts)
+    const body = inflate((await app.inject({ url: "/request6600/HelpGameReward.xml" })).rawPayload);
+    expect(body).toContain('<Item MissionID="1" Star="11" TemplateID="99001" StrengthenLevel="0" AttackCompose="0" DefendCompose="0" AgilityCompose="0" LuckCompose="0" Count="7" IsBind="false" IsTime="false" ValidDate="0" />');
+    // cena 2 não foi configurada: continua no default.
+    expect(body).toContain('<Item MissionID="2" Star="11" TemplateID="11107" StrengthenLevel="0"');
   });
 
   it("SubActiveList.ashx: plain text (not zlib), real seeded Active + nested Condition rows (subactivelist.cs)", async () => {

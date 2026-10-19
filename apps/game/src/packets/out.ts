@@ -1649,3 +1649,141 @@ export function ringStationFightFlag(id: number): PacketOut {
   wd(p, new Date());
   return p;
 }
+
+// ------------------------------------------------------------------------- 261 COLLECTION_TASK (Coleta, m4-coleta)
+/** What `CollectionTaskRoom.SendPlayerInfos`/`SendAddPlayer` write per occupant (ID, NickName, VIPLevel, typeVIP,
+ *  Sex, Style, Colors, MountsType, CollectionTaskPosX/PosY, ConsortiaID, badgeID, ConsortiaName, Honor) — a
+ *  shorter block than `HallPlayerView` (no petsId/honorId, the 6600 enum for this scene never had them). */
+export interface CollectionTaskPlayerView {
+  info: PlayerInfo;
+  x: number;
+  y: number;
+}
+
+function writeCollectionTaskFields(p: PacketOut, v: CollectionTaskPlayerView): void {
+  const c = v.info;
+  p.writeInt(c.ID); p.writeString(c.NickName ?? ""); p.writeInt(c.VIPLevel); p.writeInt(c.typeVIP);
+  p.writeBoolean(c.Sex); p.writeString(c.Style); p.writeString(c.Colors);
+  p.writeInt(0); // MountsType (Montaria, not implemented — same gap as the hall's HallPlayerView)
+  p.writeInt(v.x); p.writeInt(v.y);
+  p.writeInt(c.ConsortiaID); p.writeInt(c.badgeID); p.writeString(c.ConsortiaName); p.writeString(c.Honor);
+}
+
+/** 261/5 INIT_PLAYERS (CollectionTaskRoom.SendPlayerInfos, :24-50): writes the REAL occupant count even though
+ *  only the first 20 bodies follow (`num = min(20, length)`) — a 21st+ occupant's id/x/y would make the AS3
+ *  reader (`CollectionTaskMainView.initPlayers`, :92-107) under-read past this packet's end; replicated as-is
+ *  (same "no cap in the real client math" category as other M3 room caps, not fixed here). */
+export function collectionTaskInit(players: CollectionTaskPlayerView[]): PacketOut {
+  const p = new PacketOut(261);
+  p.writeByte(5);
+  p.writeInt(players.length);
+  for (const v of players.slice(0, 20)) writeCollectionTaskFields(p, v);
+  return p;
+}
+
+/**
+ * 261/2 WALK (CollectionTaskRoom.PlayerMove, :73-84), broadcast to everyone but the mover. **Fixed vs the
+ * original**: the real `PlayerMove.CommandHandler` (`Game.Server.CollectionTask.Handle/PlayerMove.cs:8-16`)
+ * only writes byte+id+x+y — THREE fields — but the AS3 reader (`CollectionTaskMainView.movePlayer`, :150-178)
+ * unconditionally also calls `pkg.readUTF()` for a path string, then `pathStr.split(",")`. Every other player's
+ * remote walk in the real 6600 server reads one phantom empty string as the whole path (`[""]`), builds a
+ * `Point(undefined, NaN)` and asks the renderer to walk there — a visible glitch, not a deliberate design
+ * (nothing downstream depends on the broken path, so there is no "faithful bug" worth keeping). This builder
+ * writes a real 1-point path ("x,y") so the receiving client's own pathfinder walks straight to the same spot
+ * the sender did, same end position either way.
+ */
+export function collectionTaskWalk(id: number, x: number, y: number): PacketOut {
+  const p = new PacketOut(261);
+  p.writeByte(2);
+  p.writeInt(id); p.writeInt(x); p.writeInt(y);
+  p.writeString(`${x},${y}`);
+  return p;
+}
+
+/** 261/4 QUIT (CollectionTaskRoom.RemovePlayer, :112-126): broadcast to everyone still in the room (no
+ *  "except" — the removed player is already out of the dictionary by the time this is built). */
+export function collectionTaskQuit(id: number): PacketOut {
+  const p = new PacketOut(261);
+  p.writeByte(4);
+  p.writeInt(id);
+  return p;
+}
+
+// ------------------------------------------------------------------------- 277 RESCUE (Resgate, m4-resgate)
+// No C# implementation exists anywhere in vendor/DDT-6600/Source (confirmed: no `PacketHandler(277`, no
+// `RESCUE`/`Rescue` hit outside the bare `ePackageType.RESCUE = 277` enum entry) — this whole feature, 6
+// fixed "scenes" (sceneId 1-6), 3 star-tier rewards each, 3 buyable consumables (arrow/bloodPack/kingBless),
+// is designed from the AS3 contract only (`rescue/` client sources), same category as `m3-trusteeship`.
+export interface RescueSceneView { sceneId: number; starCount: number; rewardStatus: number; freeCount: number; remainSecond: number; cleanCDcount: number }
+
+/** 277/1 IS_OPEN (`RescueManager.__addRescueBtn`): gates the hall icon (`HallIconType.RESCUE`), admin-controlled
+ *  via `app."ScheduledEvents"` kind "rescue" (agendador.ts) — the original never had a real sender for this at
+ *  all (same "feature nobody ever turned on" category as consortia_battle before the scheduler wired it). */
+export function rescueOpenClose(open: boolean): PacketOut {
+  const p = new PacketOut(277);
+  p.writeByte(1);
+  p.writeBoolean(open);
+  return p;
+}
+
+/** 277/7 FRAME_INFO reply (`RescueMainFrame.__updateView`, :317-350): one block per requested scene —
+ *  sceneId, starCount (best stars ever earned, drives the star icons), rewardStatus (2 bits per tier, tier 0
+ *  in the low bits — `status & 3` then `status >>= 2`, 0 locked/1 unlocked/2 claimed), freeCount (free
+ *  challenges left today), remainSecond (cooldown left), cleanCDcount (times paid to skip today, feeds the
+ *  increasing price). */
+export function rescueFrameInfo(scenes: RescueSceneView[]): PacketOut {
+  const p = new PacketOut(277);
+  p.writeByte(7);
+  p.writeInt(scenes.length);
+  for (const s of scenes) {
+    p.writeInt(s.sceneId); p.writeInt(s.starCount); p.writeInt(s.rewardStatus); p.writeInt(s.freeCount);
+    p.writeInt(s.remainSecond); p.writeInt(s.cleanCDcount);
+  }
+  return p;
+}
+
+/** 277/2 ITEM_INFO reply (`RescueMainFrame.__updateItem`, :204-210): arrow / bloodPack / kingBless counts, in
+ *  that exact order (matches the 3 `RescueShopItem` rows, `type` 0/1/2). */
+export function rescueItemInfo(arrow: number, bloodPack: number, kingBless: number): PacketOut {
+  const p = new PacketOut(277);
+  p.writeByte(2);
+  p.writeInt(arrow); p.writeInt(bloodPack); p.writeInt(kingBless);
+  return p;
+}
+
+/** 277/4 BUY_ITEM ack (`RescueMainFrame.__buyItem`, :212-215): the client's only reaction is to immediately
+ *  re-request ITEM_INFO — no payload needed, same "ack that triggers a re-query" shape as 277/5 below. */
+export function rescueBuyItemAck(): PacketOut {
+  const p = new PacketOut(277);
+  p.writeByte(4);
+  return p;
+}
+
+/** 277/5 CLEAN_CD ack (`RescueMainFrame.__cleanCD`, :217-220): same shape as BUY_ITEM — the client reacts by
+ *  re-requesting FRAME_INFO for the current scene, so no payload is needed here either. */
+export function rescueCleanCdAck(): PacketOut {
+  const p = new PacketOut(277);
+  p.writeByte(5);
+  return p;
+}
+
+/** 277/6 FIGHT_RESULT (`RescueManager.__fightResultHandler`, :71-82), sent when a Rescue PvE mission ends:
+ *  score, star (this run's tier, 0-3), sceneId, isWin. Computed server-side from the real fight outcome
+ *  (`GamePlayer.OnGameOver`'s kill count) — never trusted from the client (no original data defines a
+ *  score/star formula; see `game/rescue.ts` for ours). */
+export function rescueFightResult(score: number, star: number, sceneId: number, isWin: boolean): PacketOut {
+  const p = new PacketOut(277);
+  p.writeByte(6);
+  p.writeInt(score); p.writeInt(star); p.writeInt(sceneId); p.writeBoolean(isWin);
+  return p;
+}
+
+/** 277/8 GET_PRIZE ack (`RescuePrizeItem` claim click): `ok=false` covers "not unlocked yet" and "already
+ *  claimed" alike (`rewardStatus` already told the client which tiers are claimable, so the original never
+ *  needed a distinct error reason here). */
+export function rescueGetPrizeResult(sceneId: number, index: number, ok: boolean): PacketOut {
+  const p = new PacketOut(277);
+  p.writeByte(8);
+  p.writeInt(sceneId); p.writeInt(index); p.writeBoolean(ok);
+  return p;
+}

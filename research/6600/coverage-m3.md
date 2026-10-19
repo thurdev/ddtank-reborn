@@ -16,7 +16,7 @@
 | handled | 0 |
 | partial | 25 |
 | stub | 28 |
-| MISSING | 15 |
+| MISSING | 13 |
 | **Total de códigos enviados pelo cliente** | **213** |
 
 ## Totais — endpoints (.ashx/.xml/.aspx)
@@ -25,9 +25,9 @@
 
 | Status | Total |
 |---|---|
-| native | 145 |
+| native | 146 |
 | empty (desconhecido) | 66 |
-| snapshot | 44 |
+| snapshot | 43 |
 | empty (stub gracioso) | 33 |
 | empty (ranking vazio, sem tabela cross-area) | 32 |
 | native (template rebuild) | 19 |
@@ -439,11 +439,11 @@
 |---|---|---|---|---|
 | 260 | `HORSE` | sendHorseChangeHorse (ddt/manager/GameSocketOut.as); sendActiveHorsePicCherish (ddt/manager/GameSocketOut.as); sendHorseUpHorse (ddt/manager/GameSocketOut.as); sendHorseUpSkill (ddt/manager/GameSocketOut.as); sendHorseTakeUpDownSkill (ddt/manager/GameSocketOut.as) | MISSING |  |
 
-### Coleta (1 código(s) — implemented 0, partial 0, stub 0, MISSING 1)
+### Coleta (1 código(s) — implemented 1, partial 0, stub 0, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
-| 261 | `COLLECTION_TASK` | sendCollectionSceneEnter (ddt/manager/GameSocketOut.as); sendCollectionSceneMove (ddt/manager/GameSocketOut.as); sendCollectionComplete (ddt/manager/GameSocketOut.as); sendLeaveCollectionScene (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 261 | `COLLECTION_TASK` | sendCollectionSceneEnter (ddt/manager/GameSocketOut.as); sendCollectionSceneMove (ddt/manager/GameSocketOut.as); sendCollectionComplete (ddt/manager/GameSocketOut.as); sendLeaveCollectionScene (ddt/manager/GameSocketOut.as) | implemented | eventos/index.ts |
 
 ### Hall Novo (NewHall) (1 código(s) — implemented 1, partial 0, stub 0, MISSING 0)
 
@@ -469,11 +469,11 @@
 |---|---|---|---|---|
 | 276 | `MAGPIE_BRIDGE` | enterMagpieBridge (ddt/manager/GameSocketOut.as); magpieRollDice (ddt/manager/GameSocketOut.as); buyMagpieCount (ddt/manager/GameSocketOut.as); refreshMagpieView (ddt/manager/GameSocketOut.as); exitMagpieView (ddt/manager/GameSocketOut.as) | MISSING |  |
 
-### Resgate (1 código(s) — implemented 0, partial 0, stub 0, MISSING 1)
+### Resgate (1 código(s) — implemented 1, partial 0, stub 0, MISSING 0)
 
 | Código | Nome(s) ePackageType | Função cliente (arquivo) | Status servidor | Handler |
 |---|---|---|---|---|
-| 277 | `RESCUE` | requestRescueItemInfo (ddt/manager/GameSocketOut.as); requestRescueFrameInfo (ddt/manager/GameSocketOut.as); sendRescueChallenge (ddt/manager/GameSocketOut.as); sendRescueCleanCD (ddt/manager/GameSocketOut.as); sendRescueBuyBuff (ddt/manager/GameSocketOut.as); getRescuePrize (ddt/manager/GameSocketOut.as) | MISSING |  |
+| 277 | `RESCUE` | requestRescueItemInfo (ddt/manager/GameSocketOut.as); requestRescueFrameInfo (ddt/manager/GameSocketOut.as); sendRescueChallenge (ddt/manager/GameSocketOut.as); sendRescueCleanCD (ddt/manager/GameSocketOut.as); sendRescueBuyBuff (ddt/manager/GameSocketOut.as); getRescuePrize (ddt/manager/GameSocketOut.as) | implemented | eventos/index.ts |
 
 ### Festival da Lua (1 código(s) — implemented 0, partial 0, stub 0, MISSING 1)
 
@@ -724,7 +724,7 @@
 | `/goldequiptemplateload.xml` | xml | native |  |
 | `/goodscollect_out.xml` | xml | snapshot |  |
 | `/goodscollect.xml` | xml | snapshot |  |
-| `/helpgamereward.xml` | xml | snapshot |  |
+| `/helpgamereward.xml` | xml | native |  |
 | `/IMFriendsBbs.ashx` | ashx | empty (stub gracioso) |  |
 | `/IMFriendsGood.ashx` | ashx | empty (stub gracioso) |  |
 | `/IMListLoad.ashx` | ashx | native |  |
