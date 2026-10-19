@@ -393,6 +393,8 @@ export class GamePlayer implements RoomMember {
   }
   addGold(v: number): void { if (v > 0) { this.info.Gold = Math.min(I32_MAX, this.info.Gold + v); this.updateProperties(); } }
   removeGold(v: number): void { if (v > 0) { this.info.Gold -= v; this.updateProperties(); } }
+  /** GamePlayer.AddLeagueMoney (GamePlayer.cs:2873): RingStation's "distintivo" reward currency (67 UPDATE_PLAYER_INFO). */
+  addLeagueMoney(v: number): void { if (v > 0) { this.info.LeagueMoney = Math.min(I32_MAX, this.info.LeagueMoney + v); this.updateProperties(); } }
   addGiftToken(v: number): void { if (v > 0) { this.info.GiftToken = Math.min(I32_MAX, this.info.GiftToken + v); this.updateProperties(); } }
   removeGiftToken(v: number): void { if (v > 0) { this.info.GiftToken -= v; this.updateProperties(); } }
   removeOffer(v: number): void { if (v > 0) { this.info.Offer -= v; this.updateProperties(); } }

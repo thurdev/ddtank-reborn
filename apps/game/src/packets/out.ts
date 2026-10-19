@@ -157,7 +157,7 @@ export function publicPlayer(c: PlayerInfo, m: MatchRow, clientKind: ClientKind 
   wd(p, c.LastSpaDate);
   p.writeInt(c.charmGP); p.writeInt(0); wd(p, c.ShopFinallyGottenTime); p.writeInt(c.RichesRob + c.RichesOffer);
   p.writeInt(m.addDayPrestge); p.writeInt(m.dailyWinCount); p.writeInt(m.dailyGameCount); p.writeInt(m.totalPrestige); p.writeInt(m.weeklyGameCount);
-  if (is6600) p.writeInt(0); // leagueMoney (not implemented)
+  if (is6600) p.writeInt(c.LeagueMoney); // m3-ringstation: AddLeagueMoney (arena "distintivo")
   const t = c.Texp;
   p.writeInt(t.spdTexpExp); p.writeInt(t.attTexpExp); p.writeInt(t.defTexpExp); p.writeInt(t.hpTexpExp); p.writeInt(t.lukTexpExp);
   p.writeInt(t.texpTaskCount); p.writeInt(t.texpCount); wd(p, t.texpTaskDate);
@@ -1530,5 +1530,122 @@ export function diceRollResult(id: number, positionBeforeRoll: number, rollValue
   p.writeInt(luckIntegralLevel);
   p.writeInt(freeCount);
   p.writeString(rewardName);
+  return p;
+}
+
+// ---------------------------------------------------------------------- 404 RING_STATION (Arena Ranqueada)
+// Sub-codes (RingStationPackageType.as): 1 VIEWINFO, 2 BUYCOUNTORTIME, 3 ARMORY, 4 NEWBATTLEFIELD, 5 CHALLENGE,
+// 6 FIGHTFLAG, 7 SENDSIGNMSG. 48 LANDERSAWARD_RECEIVE / 49 LANDERSAWARD_GET / 64 DUNGEON_UPDATEEXP are a
+// SEPARATE, unrelated "microend download reward" feature with no server handler in the leaked C# at all
+// (`Game.Server.RingStation.Handle` only registers codes 1-7, `Attribute15(1..7)`) — not RingStation ranking,
+// tracked as `m3-ringstation-2`.
+
+/** One row of the challenge list GetInfo shows (`RingStationView.as readPersonInfo`) — a ranked neighbor or
+ *  the baseline practice bot (rank 0). */
+export interface RingStationChallengeView {
+  info: PlayerInfo;
+  weaponId: number;
+  rank: number;
+  signMsg: string;
+}
+
+function writeRingStationPerson(p: PacketOut, v: RingStationChallengeView): void {
+  const c = v.info;
+  p.writeInt(c.ID);
+  p.writeString(c.UserName ?? "");
+  p.writeString(c.NickName ?? "");
+  p.writeByte(c.typeVIP);
+  p.writeInt(c.VIPLevel);
+  p.writeInt(c.Grade);
+  p.writeBoolean(c.Sex);
+  p.writeString(c.Style ?? "");
+  p.writeString(c.Colors ?? "");
+  p.writeString(c.Skin ?? "");
+  p.writeString(c.ConsortiaName ?? "");
+  p.writeInt(c.Hide);
+  p.writeInt(c.Offer);
+  p.writeInt(c.Win);
+  p.writeInt(c.Total);
+  p.writeInt(c.Escape);
+  p.writeInt(c.Repute);
+  p.writeInt(c.Nimbus);
+  p.writeInt(c.GP);
+  p.writeInt(c.FightPower);
+  p.writeInt(c.AchievementPoint);
+  p.writeInt(v.rank);
+  p.writeInt(v.weaponId);
+  p.writeString(v.signMsg);
+}
+
+/** 404/1 VIEWINFO (RingStationViewInfo.cs): own rank/counts/sign/award info + up to 4 challenge candidates. */
+export function ringStationInfo(id: number, self: {
+  rank: number; challengeNum: number; buyCount: number; buyPrice: number; challengeTime: Date; cdPrice: number;
+  signMsg: string; awardNum: number; awardTime: Date; championText: string;
+}, candidates: RingStationChallengeView[]): PacketOut {
+  const p = new PacketOut(404, id);
+  p.writeByte(1);
+  p.writeInt(self.rank);
+  p.writeInt(self.challengeNum);
+  p.writeInt(self.buyCount);
+  p.writeInt(self.buyPrice);
+  wd(p, self.challengeTime);
+  p.writeInt(self.cdPrice);
+  p.writeInt(0);
+  p.writeString(self.signMsg);
+  p.writeInt(self.awardNum);
+  wd(p, self.awardTime);
+  p.writeString(self.championText);
+  p.writeInt(candidates.length);
+  for (const v of candidates) writeRingStationPerson(p, v);
+  return p;
+}
+
+/** 404/2 BUYCOUNTORTIME, "buy time" branch (RingStationBuyBattleCountOrTime.cs, `flag=true`): cooldown cleared. */
+export function ringStationBuyTimeResult(id: number, ok: boolean): PacketOut {
+  const p = new PacketOut(404, id);
+  p.writeByte(2);
+  p.writeBoolean(true);
+  p.writeBoolean(ok);
+  return p;
+}
+
+/** 404/2 BUYCOUNTORTIME, "buy extra challenge count" branch (`flag=false`): new buyCount/challengeNum totals. */
+export function ringStationBuyCountResult(id: number, buyCount: number, challengeNum: number): PacketOut {
+  const p = new PacketOut(404, id);
+  p.writeByte(2);
+  p.writeBoolean(false);
+  p.writeInt(buyCount);
+  p.writeInt(challengeNum);
+  return p;
+}
+
+/** 404/3 ARMORY (RingStationArmory.cs): top-50 ranking list. */
+export function ringStationArmory(id: number, rows: { rank: number; grade: number; nickName: string; fightPower: number; total: number }[]): PacketOut {
+  const p = new PacketOut(404, id);
+  p.writeByte(3);
+  p.writeInt(rows.length);
+  for (const r of rows) {
+    p.writeInt(r.rank); p.writeInt(r.grade); p.writeString(r.nickName); p.writeInt(r.fightPower); p.writeInt(r.total);
+  }
+  return p;
+}
+
+/** 404/4 NEWBATTLEFIELD (RingStationBattleField.cs): last 10 fight-log entries for this player. */
+export function ringStationBattleField(id: number, rows: { dareFlag: boolean; userName: string; successFlag: boolean; level: number }[]): PacketOut {
+  const p = new PacketOut(404, id);
+  p.writeByte(4);
+  p.writeInt(rows.length);
+  for (const r of rows) {
+    p.writeBoolean(r.dareFlag); p.writeString(r.userName); p.writeBoolean(r.successFlag); p.writeInt(r.level);
+  }
+  return p;
+}
+
+/** 404/6 FIGHTFLAG (RingStationFightFlag.cs): the original writes a hardcoded `0`/`now` with no real state. */
+export function ringStationFightFlag(id: number): PacketOut {
+  const p = new PacketOut(404, id);
+  p.writeByte(6);
+  p.writeInt(0);
+  wd(p, new Date());
   return p;
 }
