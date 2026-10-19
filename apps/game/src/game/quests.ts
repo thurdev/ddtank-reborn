@@ -5,7 +5,8 @@
  * Ported triggers: grade (1), equipped item (2), used item (3), kills (4/22), games played (5/23/31), games won
  * (6/24), strengthen (9), shop spending (10), fusion (11), item owned (14/15), direct (16), guild/riches/smith/
  * shop/store (18), compose (19), client modify (20, QUEST_CHECK), PvE mission (21), gem inlay (25), 2v2 (30/34),
- * new gear (39). Varredura pt.2 (2026-10-02): types 3/9/11/19 had dec() logic (onUsingItem/onItemStrengthen/
+ * new gear (39), collection task (64, m4-coleta — counts UP, not down, see `reset()`/`onCollectionTaskCollect`).
+ * Varredura pt.2 (2026-10-02): types 3/9/11/19 had dec() logic (onUsingItem/onItemStrengthen/
  * onItemFusion/onItemCompose) but were missing from the "done at value<=0" bucket in `condCompleted`, so the
  * counter reached 0 but claim never saw it complete; 18 (OwnConsortiaCondition, e.g. "join 1 guild") wasn't
  * ported at all. All fixed below; 25 newly wired to the forge inlay handler.
@@ -171,9 +172,10 @@ export class QuestInventory {
     return "";
   }
 
-  /** BaseCondition.Reset (Para2) / ClientModifyCondition.Reset (1). */
+  /** BaseCondition.Reset (Para2) / ClientModifyCondition.Reset (1) / CollectionTaskCondition (0, counts UP —
+   *  type 64 falls in `BaseCondition.Reset`'s `default: int_0 = 0` branch, NOT the explicit Para2 list). */
   private reset(q: ActiveQuest): void {
-    q.tpl.conds.forEach((c, i) => this.setValue(q, i, c.CondictionType === 20 ? 1 : c.Para2));
+    q.tpl.conds.forEach((c, i) => this.setValue(q, i, c.CondictionType === 20 ? 1 : c.CondictionType === 64 ? 0 : c.Para2));
     this.refreshOwned(q);
   }
 
@@ -225,6 +227,10 @@ export class QuestInventory {
       // below; were missing from this "done when counted down to 0" bucket (dec happened but canCompleted never saw it).
       case 3: case 4: case 5: case 6: case 9: case 10: case 11: case 19: case 20: case 21: case 22: case 23: case 24: case 25: case 26: case 30: case 31: case 34: case 39:
         return this.value(q, i) <= 0;
+      // 64 CollectionTaskCondition (m4-coleta): counts UP from 0, done at >= Para2 (opposite direction from the
+      // bucket above — see `reset()`'s comment). Incremented by `onCollectionTaskCollect` below.
+      case 64:
+        return this.value(q, i) >= c.Para2;
       default:
         return false; // UnknowQuestCondition / module not ported
     }
@@ -423,6 +429,26 @@ export class QuestInventory {
     if (!isWin) return;
     this.each((q, c, i) => {
       if (c.CondictionType === 21 && (c.Para1 === missionId || c.Para1 === -1) && turnNum <= c.Para2 && this.value(q, i) > 0) this.setValue(q, i, 0);
+    });
+  }
+
+  /**
+   * CollectionTaskCondition.method_0 (Quests/CollectionTaskCondition.cs:18-24, m4-coleta): `261/3 COLLECT`
+   * handler calls `Player.OnCollectionTaskEvent(type)` → every active quest's condition with
+   * `CondictionType===64 && Para1===type` gets `Value++`. **Deviation from the original's cap, not a bug
+   * replicated on purpose**: the real guard is `base.Value < m_info.Para1` — comparing the small progress
+   * counter against the COLLECTIBLE TEMPLATE ID (always far bigger than any real target), so it never
+   * actually limits anything; a spamming client could grow `Value` arbitrarily past `Para2` with zero
+   * functional difference (completion already triggers once at `>=Para2`, `finish()` is still claim-once).
+   * We cap at `Para2` instead — strictly safer, identical game-visible outcome, and avoids an unboundedly
+   * growing DB column for no reason. The real exploit this task asked to close (server-authoritative
+   * progress, never a client-sent count) is handled one layer up, in `handlers/eventos/coleta.ts`'s
+   * per-player cooldown — the client here only ever sends "I collected thing X", we decide by how much. */
+  onCollectionTaskCollect(templateId: number): void {
+    this.each((q, c, i) => {
+      if (c.CondictionType !== 64 || c.Para1 !== templateId) return;
+      const v = this.value(q, i);
+      if (v < c.Para2) this.setValue(q, i, v + 1);
     });
   }
 

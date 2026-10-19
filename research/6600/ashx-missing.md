@@ -73,7 +73,7 @@ dedicado + `ConsortiaBossConfigLoad` — ver `apps/api/src/templates/defs.ts` e
 | `FusionInfoLoad.xml` | boot | sem `.cs` dedicado | `game.Fusion`/`game.Item_Fusion` existem mas **nenhuma bate** com as colunas do XML (`Count1-4`, `FusionRate`, `FusionType` não existem em nenhuma das duas) | não implementado — precisa schema novo (ou achar a tabela certa) |
 | `GmActivityInfo.xml` | boot | sem `.cs` dedicado | `game.GM_Activity` + `game.GM_Gift` + `game.GM_Active_Reward` + `game.GM_Active_Condition` (4 tabelas aninhadas) | não implementado — builder de 4 tabelas aninhadas, fora do orçamento desta tarefa |
 | `GoodsCollect.xml` | boot (`LightRoadDataAnalyzer`, confirmado em `research/6600/xml-diff.md` como "ok" via fallback) | sem `.cs`/tabela encontrada | — | não implementado — precisa schema novo |
-| `HelpGameReward.xml` | boot | sem `.cs`/tabela encontrada (nome sugere `Rescue`, sistema novo do 6600) | — | não implementado — precisa schema novo |
+| `HelpGameReward.xml` | boot (`rescue/data/RescueRewardAnalyzer.as`, 277 RESCUE) | **implementado (m4-resgate, 2026-10-19)** — `SqlDataProvider.Data/HelpGameRewardInfo.cs` + `Bussiness/Managers/HelpGameRewardMgr.cs` existem (achados numa busca mais ampla, fora de `Tank.Request`/`Game.Server`), mas sem SP/`.ashx` real e 0 linhas em qualquer dump — mesma categoria "0 linhas na origem" do baú da galinha/dados | — | servido de `app."ScheduledEvents"` kind "rescue" (`apps/api/src/templates/defs.ts helpGameReward`), mesma fonte que `apps/game/src/game/rescue.ts rewardTiersFor` usa pra dar o prêmio de verdade — sem tabela nova |
 | `ItemStrengthenPlusData.xml` | boot | — | — | **ausente até no snapshot vendor do 6600** (confirmado em `research/6600/xml-diff.md`) — referência morta no cliente, nada a portar |
 | `LoadAllQuestions.xml` | boot | sem `.cs` dedicado | sem tabela própria (parecido com `game.Lightriddle_Quest` mas tem `QuestionCatalogID` extra e já existe só como snapshot estático) | não implementado — precisa schema novo (coluna de catálogo) |
 | `LoadChargeActiveTemplate.xml` | boot | sem `.cs`/tabela encontrada | — | não implementado — precisa schema novo |
@@ -138,7 +138,7 @@ dedicado + `ConsortiaBossConfigLoad` — ver `apps/api/src/templates/defs.ts` e
 1. **Schema novo** (M1 tarefa 1 do `docs/plan/MIGRACAO-6600.md`, não desta tarefa): `ButtonConfig`,
    `ChargeSpendRewardTemplateInfoList`, `FoodComposeList`, `FusionInfoLoad` (colunas
    `Count1-4`/`FusionRate`/`FusionType` não existem em `Fusion`/`Item_Fusion`), `GoodsCollect`,
-   `HelpGameReward`, `ItemStrengthenData`, `LoadAllQuestions`, `LoadChargeActiveTemplate`,
+   `ItemStrengthenData`, `LoadAllQuestions`, `LoadChargeActiveTemplate`,
    `LotteryShowTemplate`, `MagicItemTemp`, `MissionEnergyPrice`, `SearchGoodsPayMoney`,
    `WarriorFamRankList`, `ActivitySystemItemsRate` (confirmar se é mesma tabela com coluna
    renomeada antes de criar schema novo).

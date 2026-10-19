@@ -22,6 +22,7 @@ import { World, type ServerContext, type TicketValidator } from "./session/conte
 import { NewHallRoom } from "./game/new-hall.js";
 import { ConsBatRoom } from "./game/consortia-battle.js";
 import { RingStationRoom, onFightOver as ringStationGameOver } from "./game/ringstation.js";
+import { CollectionTaskRoom } from "./game/collection-task.js";
 import { dbTicketValidator, quitPlayer } from "./session/login.js";
 import { consortiaGameOver } from "./handlers/sociedade/index.js";
 import { consortiaMgr } from "./game/consortia-mgr.js";
@@ -32,6 +33,7 @@ import { DdtFightEngine } from "./fight/ddt.js";
 import type { FightEngine } from "./fight/types.js";
 import { updateLabyrinthFloor, outLabyrinth } from "./handlers/eventos/labirinto.js";
 import { eliteChampionFlee, eliteChampionGameOver, updateEliteScore } from "./handlers/eventos/liga-elite.js";
+import { onRescueGameOver } from "./handlers/eventos/resgate.js";
 import type { BotProvider, VirtualPlayer } from "./bots/bot.js";
 import { DbBotProvider } from "./bots/provider.js";
 import { ItemInfo } from "./game/item.js";
@@ -188,6 +190,8 @@ export class GameServer {
               // m3-elite-brackets: score-phase ladder (162 ELITEGAME) — real PvP room, same shape as a normal
               // Match room, just tagged RoomType.EliteGameScore so this hook can update EliteScore.
               if (g.roomType === RoomType.EliteGameScore && !(m as GamePlayer).isBot) updateEliteScore(m as GamePlayer, g.isWin);
+              // m4-resgate: score/star come from this real fight's own kill count — see game/rescue.ts header.
+              if (g.roomType === RoomType.Rescue && !(m as GamePlayer).isBot) void onRescueGameOver(this.ctx!, m as GamePlayer, g).catch((e) => log.warn(`rescue game over: ${(e as Error).message}`));
             },
             onGameOver: (g) => {
               void consortiaGameOver(this.ctx!, g).catch((e) => log.warn(`consortia game over: ${e}`));
@@ -257,6 +261,7 @@ export class GameServer {
       newHall: new NewHallRoom(),
       consBat: new ConsBatRoom(),
       ringStation: new RingStationRoom(),
+      collectionTask: new CollectionTaskRoom(),
       tickets: this.opts.tickets ?? dbTicketValidator(db, cfg.DEV_ALLOW_ANY_TICKET),
       now: () => new Date(),
       leader: undefined as never, // set right below: wireLeaderElection precisa do ctx já montado

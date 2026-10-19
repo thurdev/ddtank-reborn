@@ -8,8 +8,13 @@ import type { RoomMember } from "../game/player.js";
 import type { ClientKind } from "../game/player-info.js";
 import type { FightGame } from "../fight/types.js";
 
-export const RoomType = { Match: 0, Freedom: 1, Boss: 3, Dungeon: 4, FightLab: 5, Freshman: 10, Academy: 11, EliteGameScore: 12, EliteGameChampion: 13, WordBossFight: 14, Labyrinth: 15, ConsortiaBattle: 19, RingStation: 24 } as const;
-export const GameType = { Free: 0, Guild: 1, ALL: 4, Dungeon: 7, FightLab: 8, Freshman: 10, EliteGameScore: 12, EliteGameChampion: 13, Labyrinth: 15, ConsortiaBattle: 19, RingStation: 26 } as const;
+/** `Rescue: 70` has NO equivalent in the real `eRoomType`/`eGameType` C# enums (m4-resgate: 277 RESCUE has
+ *  zero C# source at all — see `game/rescue.ts` header) — picked outside the real range (which tops out
+ *  around 56, `vendor/DDT-6600/Source/Game.Logic/eRoomType.cs`) so it can never collide with a real value
+ *  this codebase hasn't ported yet, while still fitting the single BYTE every room packet writes it as
+ *  (`Out.roomCreate`/`Out.roomSync` etc. — `RoomType`/`GameType` are always `writeByte`, never `writeInt`). */
+export const RoomType = { Match: 0, Freedom: 1, Boss: 3, Dungeon: 4, FightLab: 5, Freshman: 10, Academy: 11, EliteGameScore: 12, EliteGameChampion: 13, WordBossFight: 14, Labyrinth: 15, ConsortiaBattle: 19, RingStation: 24, Rescue: 70 } as const;
+export const GameType = { Free: 0, Guild: 1, ALL: 4, Dungeon: 7, FightLab: 8, Freshman: 10, EliteGameScore: 12, EliteGameChampion: 13, Labyrinth: 15, ConsortiaBattle: 19, RingStation: 26, Rescue: 70 } as const;
 export const HardLevel = { Easy: 0, Normal: 1, Hard: 2, Terror: 3, Epic: 4, Simple: 5 } as const;
 
 export interface RoomHost {
@@ -112,6 +117,7 @@ export class BaseRoom implements Out.RoomView {
       case RoomType.Match: case RoomType.Freedom: this.GameType = GameType.Free; break;
       case RoomType.ConsortiaBattle: this.GameType = GameType.ConsortiaBattle; break;
       case RoomType.RingStation: this.GameType = GameType.RingStation; break;
+      case RoomType.Rescue: this.GameType = GameType.Rescue; break;
       default: this.GameType = GameType.ALL;
     }
   }

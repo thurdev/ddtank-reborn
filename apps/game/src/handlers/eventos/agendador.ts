@@ -150,6 +150,12 @@ export class EventsRuntime {
         // true while the window is open (one-phase window, same simplification as every other scheduler kind).
         this.broadcast(Out.consBatOpenClose(true, w.start, w.end, true));
         break;
+      case "rescue":
+        // m4-resgate: 277/1 IS_OPEN has no sender at all in the leaked 6600 server (no C# source for 277
+        // whatsoever — see game/rescue.ts header) — same "admin window makes the hall icon reachable" shape
+        // as consortia_battle above.
+        this.broadcast(Out.rescueOpenClose(true));
+        break;
     }
     this.note(`start ${w.ev.kind} #${w.ev.id} ${w.start.toISOString()} → ${w.end.toISOString()}`);
   }
@@ -180,6 +186,9 @@ export class EventsRuntime {
         break;
       case "consortia_battle":
         this.broadcast(Out.consBatOpenClose(false));
+        break;
+      case "rescue":
+        this.broadcast(Out.rescueOpenClose(false));
         break;
     }
     this.note(`end ${w.ev.kind} #${w.ev.id}`);
@@ -321,4 +330,7 @@ export async function eventsOnLogin(ctx: ServerContext, p: GamePlayer): Promise<
   // whoever was already online).
   const consBatWindow = rt.scheduler.isOpen("consortia_battle");
   if (consBatWindow) p.send(Out.consBatOpenClose(true, consBatWindow.start, consBatWindow.end, true));
+  // m4-resgate: same reasoning — a player logging in while the window is already open still needs 277/1 to
+  // light up the hall icon (the broadcast at onStart only reaches whoever was already online).
+  if (rt.scheduler.isOpen("rescue")) p.send(Out.rescueOpenClose(true));
 }

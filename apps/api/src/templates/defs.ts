@@ -321,6 +321,53 @@ function withRootOrder(d: TemplateDef, names: string[]): TemplateDef {
   return { ...d, build: async (h) => rootFirst(await d.build(h), names) };
 }
 
+/**
+ * HelpGameReward.xml ("Resgate" / Rescue, m4-resgate, `rescue/data/RescueRewardAnalyzer.as`
+ * `<Item MissionID Star TemplateID StrengthenLevel AttackCompose DefendCompose AgilityCompose LuckCompose
+ * Count IsBind IsTime ValidDate/>`, field order matches `SqlDataProvider.Data.HelpGameRewardInfo.cs`). The
+ * table (`Bussiness/Managers/HelpGameRewardMgr.cs`, `ProduceBussiness.GetAllHelpGameReward`) and the `.ashx`
+ * that would rebuild this file both exist only as names in the decompiled vendor dump — no SP, no row, no
+ * `.ashx`/`.aspx` source anywhere in `Tank.Request` (confirmed by a full-tree search), i.e. the exact same
+ * "0 rows in the origin" situation as the chicken-box/dice reward pools (`research/6600/packets-m1.md`).
+ * Rather than add a whole new table with nothing real to seed, this reads the SAME admin-configurable source
+ * `apps/game` already uses for the actual grant (`app."ScheduledEvents"` kind "rescue", `params.rewards`,
+ * see `apps/game/src/game/rescue.ts rewardTiersFor`) — client display and server grant stay in sync without
+ * duplicating the data in two places. The 2 defaults below are kept in sync BY HAND with that file's
+ * `rewardTiersFor` defaults; a mismatch only matters cosmetically (tier icon shown vs item actually granted)
+ * since the real grant always reads the live `apps/game` side, never this XML.
+ */
+const HELP_GAME_REWARD_SCENES = 6;
+function defaultHelpGameReward(sceneId: number): { templateId: number; count: number; validDate: number; isBind: boolean }[] {
+  return [
+    { templateId: 11107, count: 200 * sceneId, validDate: 0, isBind: true },
+    { templateId: 11456, count: sceneId, validDate: 0, isBind: true },
+    { templateId: 11408, count: sceneId + 2, validDate: 0, isBind: true },
+  ];
+}
+const helpGameReward: TemplateDef = {
+  files: [z("helpgamereward")],
+  deps: ["app.ScheduledEvents"],
+  build: (h) =>
+    wrap(async () => {
+      const rows = await all(h, "app", "ScheduledEvents", `"id"`);
+      const row = rows.find((r) => r.kind === "rescue");
+      const params = row ? (typeof row.params === "string" ? (JSON.parse(row.params) as Record<string, unknown>) : (row.params as Record<string, unknown> | null)) : null;
+      const configured = (params?.rewards ?? null) as Record<string, { templateId: number; count: number; validDate?: number; isBind?: boolean }[]> | null;
+      const items: XEl[] = [];
+      for (let sceneId = 1; sceneId <= HELP_GAME_REWARD_SCENES; sceneId++) {
+        const tiers = configured?.[String(sceneId)] ?? defaultHelpGameReward(sceneId);
+        tiers.slice(0, 3).forEach((tier, i) => {
+          items.push(el("Item", [
+            ["MissionID", sceneId], ["Star", 11 + i], ["TemplateID", tier.templateId], ["StrengthenLevel", 0],
+            ["AttackCompose", 0], ["DefendCompose", 0], ["AgilityCompose", 0], ["LuckCompose", 0],
+            ["Count", tier.count], ["IsBind", tier.isBind ?? true], ["IsTime", false], ["ValidDate", tier.validDate ?? 0],
+          ]));
+        });
+      }
+      return items;
+    }),
+};
+
 // ---- definitions ------------------------------------------------------------------------------------------------
 
 export const TEMPLATES: TemplateDef[] = [
@@ -709,6 +756,7 @@ export const TEMPLATES: TemplateDef[] = [
         );
       }),
   },
+  helpGameReward,
 ];
 
 function groupBy(rows: Row[], key: string): Map<number, Row[]> {
