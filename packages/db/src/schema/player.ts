@@ -990,6 +990,14 @@ export const Sys_Active_System_Data = player.table(
     ChickActiveData: text("ChickActiveData").notNull().default("0"),
     LuckystarCoins: integer("LuckystarCoins").notNull().default(0),
     ActiveMoney: integer("ActiveMoney").notNull().default(0),
+    /**
+     * m4-passe-classico: `ActiveSystemInfo.AvailTime` (`vendor/DDT-6600/Source/SqlDataProvider/.../
+     * ActiveSystemInfo.cs:155`) — Passe Clássico (growth package) tier counter, 0-9, same row as
+     * `ChickActiveData` in the 6600 C#. No equivalent column in our captured Project_Player34 catalog
+     * (6600's player DB was never dumped, `vendor/_dbexport` has no `*346600` schema) — hand-added,
+     * same category as `m4-resgate`'s `Sys_Users_Rescue` (additive, no vendor DDL to regenerate from).
+     */
+    AvailTime: integer("AvailTime").notNull().default(0),
   },
   (t) => [
     primaryKey({ name: "Sys_Active_System_Data_pkey", columns: [t.ID] }),

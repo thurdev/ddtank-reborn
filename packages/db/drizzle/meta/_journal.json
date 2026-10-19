@@ -155,6 +155,13 @@
       "when": 1792388485787,
       "tag": "0021_messy_warlock",
       "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1792411306463,
+      "tag": "0022_third_queen_noir",
+      "breakpoints": true
     }
   ]
 }
