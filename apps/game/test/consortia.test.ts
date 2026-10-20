@@ -3,8 +3,8 @@ import { eq } from "drizzle-orm";
 import { player } from "@ddt/db";
 import type { GameServer } from "../src/server.js";
 import {
-  DEFAULT_DUTIES, Right, bankCapacity, buffTypeForGroup, canBuyGuildShop, checkCreate, checkRemoveMember, defaultByteCount, donationRiches, dutyMove, fightRewards, gradeChange,
-  hasRight, kickBudget, missionRiches, skillCost, smithBonusLevel, upgrade, upgradeMsg, upgradeNoticeKey, userRemarkAllowed, type LevelRow,
+  DEFAULT_DUTIES, Right, applyGuildGpBonus, bankCapacity, buffTypeForGroup, canBuyGuildShop, checkCreate, checkRemoveMember, defaultByteCount, donationRiches, dutyMove, fightRewards, gradeChange,
+  guildFightBonus, hasRight, kickBudget, missionRiches, skillCost, smithBonusLevel, upgrade, upgradeMsg, upgradeNoticeKey, userRemarkAllowed, type LevelRow,
 } from "../src/game/consortia.js";
 import { loggedIn, sharedDb, sleep, startServer } from "./helpers.js";
 
@@ -128,6 +128,35 @@ describe("consortia rules (procedures re-implemented)", () => {
     expect(buffTypeForGroup(1)).toEqual({ type: 101, guildWide: false });
     expect(buffTypeForGroup(2)).toEqual({ type: 102, guildWide: true });
     expect(buffTypeForGroup(8)).toBeNull();
+  });
+
+  // 41-guilda-skill-combate: `guildFightBonus` is what `apps/game/src/fight/ddt.ts` feeds the fight engine's
+  // `PlayerSpec.guildBuffs` + the GP reward step — see `Phy/Object/Player.cs:1422-1464` (InitFightBuffer).
+  it("guildFightBonus: maps Type 101-112 to flat deltas, skips expired/not-yet-started/IsExist=false rows", () => {
+    const now = new Date("2026-10-20T12:00:00Z");
+    const row = (over: Partial<{ Type: number; Value: number; BeginDate: Date; ValidDate: number; IsExist: boolean }>) =>
+      ({ Type: 0, Value: 0, BeginDate: now, ValidDate: 60, IsExist: true, ...over });
+    expect(guildFightBonus([
+      row({ Type: 105, Value: 30 }), // attack/defence/agility/lucky
+      row({ Type: 104, Value: 10 }), // maxBloodPercent
+      row({ Type: 103, Value: 5 }), // critical
+      row({ Type: 102, Value: 40 }), // damage
+      row({ Type: 107, Value: 20 }), // energy
+      row({ Type: 110, Value: 15 }), // percentGoldOrGp
+      row({ Type: 101, Value: 999 }), // bomb blast count: not ported, ignored
+    ], now)).toEqual({ attack: 30, defence: 30, agility: 30, lucky: 30, maxBloodPercent: 10, critical: 5, damage: 40, energy: 20, percentGoldOrGp: 15 });
+    // expired (BeginDate + ValidDate minutes <= now)
+    expect(guildFightBonus([row({ Type: 105, Value: 30, BeginDate: new Date(now.getTime() - 61 * 60_000), ValidDate: 60 })], now).attack).toBe(0);
+    // IsExist: false (stopped buff still in the array)
+    expect(guildFightBonus([row({ Type: 105, Value: 30, IsExist: false })], now).attack).toBe(0);
+    // no buffs at all -> every field 0 (non-guild player / bot)
+    expect(guildFightBonus([], now)).toEqual({ attack: 0, defence: 0, agility: 0, lucky: 0, maxBloodPercent: 0, critical: 0, damage: 0, energy: 0, percentGoldOrGp: 0 });
+  });
+
+  it("applyGuildGpBonus: PVEGame.cs:839-841/PVPGame.cs:406-408 int-truncated percent add, no-op at 0", () => {
+    expect(applyGuildGpBonus(660, 15)).toBe(759); // 660 + trunc(99) = 759
+    expect(applyGuildGpBonus(100, 0)).toBe(100);
+    expect(applyGuildGpBonus(7, 50)).toBe(10); // 7 + trunc(3.5) = 10
   });
 });
 

@@ -1,11 +1,14 @@
 # Gap C# → TS + protocolo de verificação (fonte: `docs/qa-matrix.json`)
 
-Panorama 2026-10-20 — 361 itens (cliente 4.1; 6600 em stand-by, ver AGENTS.md): servidor `ok` 315 ·
-`partial` 33 · `stub` 4 · `missing` 0 · `wontfix` 9.
+Panorama 2026-10-20 (pós feature/41-partial-a + feature/41-partial-b) — 361 itens (cliente 4.1; 6600 em
+stand-by, ver AGENTS.md): servidor `ok` 324 · `partial` 24 · `stub` 4 · `missing` 0 · `wontfix` 9.
 Verificado em jogo: `yes` 56 · resto `no`. **Nada conta como pronto sem `verified:yes` + evidência.**
-Atualizado por `feature/41-partial-b` (41-loja-estoque-global, 41-titulo-por-cartao, 41-capela-reembolso —
-ver seção própria abaixo): 168/265 saem de `partial` pra `ok`, os 2 `missing` (249/12) somem (zero `missing`
-restando no 4.1 agora).
+
+`feature/41-partial-a` fechou **41-labirinto-combate** (131 LABYRINTH, 8 subs) e **41-guilda-skill-combate**
+(129 CONSORTIA_CMD sub 26 SKILL_SOCKET) — ver seção "Prioridade" abaixo (itens agora `server:ok`, riscados).
+`feature/41-partial-b` fechou **41-loja-estoque-global** (168 GOODS_COUNT), **41-titulo-por-cartao**
+(265 NEWTITLE_CARD) e **41-capela-reembolso** (249/12 MARRYROOMSENDGIFT) — os 2 `missing` que restavam no
+4.1 somem (zero `missing` agora).
 
 A matriz estava defasada (lote anterior, 2026-10-08, media `partial` 66/`missing` 48/`stub` 39 — números
 que o próprio `AGENTS.md`/orientação desta tarefa ainda citava): muita coisa foi implementada desde então
@@ -40,13 +43,14 @@ matriz, com a citação do arquivo/linha no próprio `notes`.
    handler no original nenhum; candidato a feature nova (mesmo molde de "Semana da Sociedade"/"Caminho da
    Luz", que começaram exatamente assim). Os outros 8 `stub` antigos (32/50/89/167/188/205/214/224) foram
    confirmados mortos e viraram `wontfix` nesta rodada — não sobra `stub` "fácil" nenhum.
-3. **`partial` (33)**: completa e testa — ver lista priorizada abaixo.
+3. **`partial` (24)**: completa e testa — ver lista priorizada abaixo.
 4. **`ok` + `verified:no` (maioria)**: só Playwright, sem código novo.
 
-Áreas com mais dívida agora (contando só `partial`/`stub`/`missing`, não `wontfix`; 37 itens no total —
-atualizado em `feature/41-partial-b`, que fechou 168/265 (Bolsa/Inventário) e as 2 linhas de 249 sub 12
-(Missões/Outros)): Eventos/Atividades (16), PvE/Masmorras (7), Boss mundial/Minigames (6), Missões (2),
-Bolsa/Inventário (1), Combate/GAME_CMD (1), Conta/Login (1), Loja (1), Outros (1), Sociedade/Guilda (1).
+Áreas com mais dívida agora (contando só `partial`/`stub`/`missing`, não `wontfix`; 28 itens no total —
+`feature/41-partial-a` zerou PvE/Masmorras e Sociedade/Guilda; `feature/41-partial-b` fechou 168/265
+(Bolsa/Inventário) e as 2 linhas de 249 sub 12 (Missões/Outros), ambas listas já refletidas aqui):
+Eventos/Atividades (16), Boss mundial/Minigames (6), Bolsa/Inventário (1), Missões (1), Outros (1),
+Combate/GAME_CMD (1), Conta/Login (1), Loja (1).
 
 ## Prioridade dos `partial`/`stub`/`missing` restantes (2026-10-20, por impacto no jogador)
 
@@ -54,14 +58,24 @@ Cada linha é uma tarefa do tamanho de um agente. Ordem: battle/PvE core loop pr
 depois guilda/social, depois eventos secundários (board games/minigames que não bloqueiam a progressão
 principal).
 
-- **41-labirinto-combate** — 131 LABYRINTH (`CLEAN_OUT=3`, `CLEAN_OUT_COMPLETE=8`, `DOUBLE_REWARD=1`,
-  `REQUEST_UPDATE=2`, `RESET_LABYRINTH=6`, `SPEEDED_UP_CLEAN_OUT=4`, `STOP_CLEAN_OUT=5`, `TRY_AGAIN=9`):
-  falta a sala PvE de labirinto — `myProgress` (andares vencidos em combate real) nunca avança, fica em 0
-  pra todo mundo; CLEAN_OUT/SPEEDED_UP liquidam o progresso instantaneamente em vez de via Timer real (o
-  original roda um `Timer` de 1s por jogador). `vendor/DDTank41/Game.Server/Packets/Client/LabyrinthHandler.cs`.
-- **41-guilda-skill-combate** — 129 CONSORTIA_CMD sub 26 `SKILL_SOCKET`: habilidade de guilda (buff
-  101-112) é comprada, salva e ecoada, mas o efeito nunca entra no cálculo de dano/defesa em combate
-  (`apps/game/src/game/stats.ts` não lê o buff). `vendor/DDTank41/Game.Server/Consortia/SkillSocket.cs`.
+- ~~**41-labirinto-combate** — 131 LABYRINTH~~ **feito** (`feature/41-partial-a`, 2026-10-20): a sala PvE
+  real (`RoomType.Labyrinth=15`, `Pve_Info.ID=401` fixo) já tinha chegado via merge concorrente
+  (`feature/41-instancias`) — `myProgress` avança de verdade via combate real (`updateLabyrinthFloor`/
+  `outLabyrinth`, server-authoritative, nunca o cliente). Esta rodada confirmou charge-before-grant e
+  claim-once em CLEAN_OUT/SPEEDED_UP (já existiam) e atualizou `qa-matrix.json` (estava `partial` por um
+  reaudit defasado). Timer real de 1s/jogador do CLEAN_OUT original não foi portado (liquidação é
+  instantânea) — deviation de baixo impacto, documentada no header de `labirinto.ts` e em
+  `docs/features/labirinto.md`. `vendor/DDTank41/Game.Server/Packets/Client/LabyrinthHandler.cs`.
+- ~~**41-guilda-skill-combate** — 129 CONSORTIA_CMD sub 26 `SKILL_SOCKET`~~ **feito**
+  (`feature/41-partial-a`, 2026-10-20): os buffs de guilda (Type 101-112) agora entram em combate pelo
+  mesmo caminho do stat de equipamento — `apps/game/src/fight/ddt.ts` `specOf` lê `GamePlayer.buffs` ativos
+  (`game/consortia.ts` `guildFightBonus`) pro `PlayerSpec.guildBuffs` do `@ddt/fight`, que `Player.reset()`/
+  `prepareNewTurn()` aplicam: Type 102 dano, 103 crítico, 104 HP%, 105 ataque/defesa/agilidade/sorte, 107
+  energia (todo turno); Type 110 (bônus de GP/"gold") aplicado no reward de PvE/PvP
+  (`applyGuildGpBonus`, `fight/ddt.ts`). Sem stacking (Value sempre substitui, nunca soma); charge-before-
+  grant já existia (`loja-habilidades.ts`), confirmado. Gap residual documentado (mecânica de bomba/feitiço
+  que `@ddt/fight` não tem): Type 101/106/109/111/112. `vendor/DDTank41/Game.Server/Consortia/Handle/SkillSocket.cs`,
+  `Game.Logic/Phy/Object/Player.cs:1422-1464`.
 - **41-boss-mundial-revisao** — 102 WORLDBOSS_CMD (`ENTER_WORLDBOSSROOM=32`, `ADDPLAYERS=34`,
   `LEAVE_ROOM=33`, `MOVE=35`, `STAUTS=36`, `REQUEST_REVIVE=37`, `BUFF_BUY=38`): desvios documentados —
   jogador age antes do dragão (original: dragão agia primeiro, one-shot), buff cobrado 1× em vez de 2×.

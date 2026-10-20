@@ -313,3 +313,41 @@ export function buffTypeForGroup(group: number): { type: number; guildWide: bool
   if (guild[group]) return { type: guild[group]!, guildWide: true };
   return null; // group 8: "Consortia.Msg2" (not supported)
 }
+
+/** Fight-side resolution of the `BufferInfo` rows SkillSocket writes to `GamePlayer.buffs` (Type 101-112) —
+ *  port of `GamePlayer.InitFightBuffer`/`FightBuffers` (Phy/Object/Player.cs:1422-1464) that the TS engine
+ *  (`@ddt/fight`) consumes as flat deltas (`Player.reset()`, `living.ts` doc on `PlayerSpec.guildBuffs`),
+ *  plus the `ConsortionAddPercentGoldOrGP` (110) GP% bonus applied outside the pure engine at reward time
+ *  (PVEGame.cs:839-841 / PVPGame.cs:406-408 — "Gold" in the name is DDTank's GP currency, not `Money`). */
+export interface GuildFightBonus {
+  attack: number; defence: number; agility: number; lucky: number;
+  maxBloodPercent: number; critical: number; damage: number; energy: number; percentGoldOrGp: number;
+}
+export interface GuildBuffRow { Type: number; Value: number; BeginDate: Date; ValidDate: number; IsExist: boolean }
+export function guildFightBonus(buffs: GuildBuffRow[], now: Date): GuildFightBonus {
+  const out: GuildFightBonus = { attack: 0, defence: 0, agility: 0, lucky: 0, maxBloodPercent: 0, critical: 0, damage: 0, energy: 0, percentGoldOrGp: 0 };
+  for (const b of buffs) {
+    if (!b.IsExist || b.BeginDate.getTime() + b.ValidDate * 60_000 <= now.getTime()) continue;
+    switch (b.Type) {
+      case 102: out.damage += b.Value; break; // ConsortionAddDamageBuffer -> Player.BaseDamage
+      case 103: out.critical += b.Value; break; // ConsortionAddCriticalBuffer -> Living.GetCritical
+      case 104: out.maxBloodPercent += b.Value; break; // ConsortionAddMaxBloodBuffer -> Player.m_maxBlood %
+      case 105: out.attack += b.Value; out.defence += b.Value; out.agility += b.Value; out.lucky += b.Value; break; // ConsortionAddPropertyBuffer
+      case 107: out.energy += b.Value; break; // ConsortionAddEnergyBuffer -> Player.m_energy
+      case 110: out.percentGoldOrGp += b.Value; break; // ConsortionAddPercentGoldOrGPBuffer
+      // 101 (bomb blast count), 106 (energy use reduction), 109 (GvG riches multiplier), 111 (heal-spell
+      // bonus), 112 (bomb "dander" reduction): bought/stored the same way, but their C# consumers
+      // (SimpleBomb.cs, AddLifeSpell.cs, PVPGame.CalculateGuildMatchResult's per-player riches loop) touch
+      // bomb/spell mechanics @ddt/fight hasn't ported yet — left inert like before, not a regression.
+      default: break;
+    }
+  }
+  return out;
+}
+
+/** PVEGame.cs:839-841 / PVPGame.cs:406-408: `if (pct > 0) amount += amount * pct / 100` (int truncation, same
+ *  sign as `amount` for the positive amounts this game ever grants). Applied once per reward (`r.gainGP`/
+ *  `r.gpGained` in `fight/ddt.ts`), after the admin double-exp `expRate` multiplier. */
+export function applyGuildGpBonus(amount: number, pct: number): number {
+  return pct > 0 ? amount + Math.trunc((amount * pct) / 100) : amount;
+}

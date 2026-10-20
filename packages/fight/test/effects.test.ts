@@ -216,15 +216,35 @@ describe("pet skill elements (PetEffects/**/*.cs)", () => {
 });
 
 describe("guild skill fight buffs (GamePlayer.FightBuffers, resolved outside the pure engine)", () => {
-  it("Player.reset() applies additive stat/maxBlood/critical deltas from guildBuffs", () => {
+  it("Player.reset() applies additive stat/maxBlood/critical/damage deltas from guildBuffs", () => {
     const p = new PvpGame({
       id: 2, roomType: 0, gameType: 0, timeType: 3, mapId: 1001, assets,
-      players: [spec(1, 1, { guildBuffs: { attack: 10, defence: 5, maxBloodPercent: 10, critical: 7 } }), spec(2, 2)], seed: 3,
+      players: [spec(1, 1, { guildBuffs: { attack: 10, defence: 5, maxBloodPercent: 10, critical: 7, damage: 20 } }), spec(2, 2)], seed: 3,
     }).players[0]!;
     p.reset();
     expect(p.attack).toBe(300 + 10);
     expect(p.defence).toBe(200 + 5);
     expect(p.maxBlood).toBe(1650); // 1500 + 10%
     expect(p.guildAddCritical).toBe(7);
+    expect(p.baseDamage).toBe(250 + 20); // Player.cs:2250-2252 ConsortionAddDamage
+  });
+
+  it("Player.cs:2112-2117 ConsortionAddEnergy: added at reset() and re-applied every prepareNewTurn()", () => {
+    const p = new PvpGame({
+      id: 3, roomType: 0, gameType: 0, timeType: 3, mapId: 1001, assets,
+      players: [spec(1, 1, { agility: 300, guildBuffs: { energy: 50 } }), spec(2, 2)], seed: 3,
+    }).players[0]!;
+    p.reset();
+    const base = Math.floor(300 / 30) + 240; // turnEnergy(agility) without the buff
+    expect(p.energy).toBe(base + 50);
+    p.prepareNewTurn();
+    expect(p.energy).toBe(base + 50); // not lost on the next turn
+  });
+
+  it("no guildBuffs (non-guild player / bot): behaves exactly as before (no deltas, no crash)", () => {
+    const { a } = twoPlayerGame();
+    expect(a.attack).toBe(300);
+    expect(a.guildAddCritical).toBe(0);
+    expect(a.guildAddEnergy).toBe(0);
   });
 });

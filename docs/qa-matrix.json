@@ -3622,9 +3622,9 @@
   "code": 131,
   "name": "LABYRINTH",
   "sub": "REQUEST_UPDATE=2",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "LABYRINTH implementado como camada administrativa/econômica (apps/game/src/handlers/activities.ts + Sys_Users_Labyrinth): sub 1 DOUBLE_REWARD, 2 REQUEST_UPDATE, 3 CLEAN_OUT, 4 SPEEDED_UP, 5 STOP, 6 RESET, 9 TRY_AGAIN. Gap real documentado: sem sala PvE de labirinto, myProgress (andares vencidos em combate real) fica em 0 pra todo mundo; CLEAN_OUT/SPEEDED_UP liquidam o progresso administrativo instantaneamente em vez de via Timer real (o original roda um Timer de 1s por jogador). Ver HANDLERS.md.",
+  "notes": "LABYRINTH: a sala PvE real (RoomType.Labyrinth=15, Pve_Info.ID=401 fixo, SetupChange.cs:26-29) chegou via merge concorrente (feature/41-instancias) + 41-guilda-skill-combate/41-labirinto-combate (2026-10-20) fechou o gap: REQUEST_UPDATE calcula remainTime pelos andares pendentes (currentFloor..myProgress); myProgress agora avança de verdade (updateLabyrinthFloor, onMissionOver). Combate real via @ddt/fight (PveGame), server-authoritative (onMissionOver/onLabyrinthFinished em server.ts, nunca o cliente). Testes: apps/game/test/labirinto.test.ts.",
   "evidence": ""
  },
  {
@@ -4378,9 +4378,9 @@
   "code": 131,
   "name": "LABYRINTH",
   "sub": "CLEAN_OUT=3",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "CLEAN_OUT(3) implementado na camada administrativa/econômica (ver 131:labyrinthRequestUpdate). Gap real: sem sala PvE de labirinto, não há andar vencido em combate real pra liquidar — CLEAN_OUT paga o avanço instantaneamente em vez de ao longo do tempo (sem Timer por jogador como o original). HANDLERS.md \"131 LABYRINTH\".",
+  "notes": "LABYRINTH: a sala PvE real (RoomType.Labyrinth=15, Pve_Info.ID=401 fixo, SetupChange.cs:26-29) chegou via merge concorrente (feature/41-instancias) + 41-guilda-skill-combate/41-labirinto-combate (2026-10-20) fechou o gap: CLEAN_OUT cobra cleanOutGiftToken ANTES de liquidar (settleCleanOut: charge-before-grant); soma só os andares currentFloor..myProgress já vencidos em combate real (claim-once: currentFloor avança pro myProgress, uma segunda chamada não re-paga). Timer real de 1s/jogador do original (CleantOutLabyrinth) não portado — liquidação é instantânea; deviation de baixo impacto, documentada no header de labirinto.ts. Combate real via @ddt/fight (PveGame), server-authoritative (onMissionOver/onLabyrinthFinished em server.ts, nunca o cliente). Testes: apps/game/test/labirinto.test.ts.",
   "evidence": ""
  },
  {
@@ -4391,9 +4391,9 @@
   "code": 131,
   "name": "LABYRINTH",
   "sub": "CLEAN_OUT_COMPLETE=8",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "CLEAN_OUT_COMPLETE(8): mesmo gap de labyrinthCleanOut — camada administrativa ok, sem avanço de andar via combate real.",
+  "notes": "LABYRINTH: a sala PvE real (RoomType.Labyrinth=15, Pve_Info.ID=401 fixo, SetupChange.cs:26-29) chegou via merge concorrente (feature/41-instancias) + 41-guilda-skill-combate/41-labirinto-combate (2026-10-20) fechou o gap: CLEAN_OUT_COMPLETE(8): mesmo fluxo de labyrinthCleanOut, sem o Timer real do original (ver nota em labyrinthCleanOut). Combate real via @ddt/fight (PveGame), server-authoritative (onMissionOver/onLabyrinthFinished em server.ts, nunca o cliente). Testes: apps/game/test/labirinto.test.ts.",
   "evidence": ""
  },
  {
@@ -4404,9 +4404,9 @@
   "code": 131,
   "name": "LABYRINTH",
   "sub": "DOUBLE_REWARD=1",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "DOUBLE_REWARD(1) implementado (item 11916 dobra o próximo prêmio). Mesmo gap estrutural do labirinto (sem sala PvE) não afeta este sub específico, mas o código 131 como um todo fica partial por causa dos subs que dependem de progresso real.",
+  "notes": "LABYRINTH: a sala PvE real (RoomType.Labyrinth=15, Pve_Info.ID=401 fixo, SetupChange.cs:26-29) chegou via merge concorrente (feature/41-instancias) + 41-guilda-skill-combate/41-labirinto-combate (2026-10-20) fechou o gap: DOUBLE_REWARD(1): consome 1 item 11916 por ANDAR VENCIDO EM COMBATE (updateLabyrinthFloor, GamePlayer.cs:4396-4399), não mais um gap estrutural — dobra exp + moeda forte de verdade. Combate real via @ddt/fight (PveGame), server-authoritative (onMissionOver/onLabyrinthFinished em server.ts, nunca o cliente). Testes: apps/game/test/labirinto.test.ts.",
   "evidence": ""
  },
  {
@@ -4417,9 +4417,9 @@
   "code": 131,
   "name": "LABYRINTH",
   "sub": "RESET_LABYRINTH=6",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "RESET_LABYRINTH(6): mesmo gap de labyrinthCleanOut — camada administrativa ok.",
+  "notes": "LABYRINTH: a sala PvE real (RoomType.Labyrinth=15, Pve_Info.ID=401 fixo, SetupChange.cs:26-29) chegou via merge concorrente (feature/41-instancias) + 41-guilda-skill-combate/41-labirinto-combate (2026-10-20) fechou o gap: RESET_LABYRINTH(6): volta pro andar 1 só se tryAgainComplete; o novo RoomType.Labyrinth real usa currentFloor salvo (currentLabyrinthFloor), não mais hardcoded. Combate real via @ddt/fight (PveGame), server-authoritative (onMissionOver/onLabyrinthFinished em server.ts, nunca o cliente). Testes: apps/game/test/labirinto.test.ts.",
   "evidence": ""
  },
  {
@@ -4430,9 +4430,9 @@
   "code": 131,
   "name": "LABYRINTH",
   "sub": "SPEEDED_UP_CLEAN_OUT=4",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "SPEEDED_UP_CLEAN_OUT(4): mesmo gap de labyrinthCleanOut — liquida instantaneamente em vez de via Timer real.",
+  "notes": "LABYRINTH: a sala PvE real (RoomType.Labyrinth=15, Pve_Info.ID=401 fixo, SetupChange.cs:26-29) chegou via merge concorrente (feature/41-instancias) + 41-guilda-skill-combate/41-labirinto-combate (2026-10-20) fechou o gap: SPEEDED_UP_CLEAN_OUT(4): cobra pricePerMin × minutos ANTES de settleCleanOut (charge-before-grant); mesma deviation do Timer real documentada em labyrinthCleanOut. Combate real via @ddt/fight (PveGame), server-authoritative (onMissionOver/onLabyrinthFinished em server.ts, nunca o cliente). Testes: apps/game/test/labirinto.test.ts.",
   "evidence": ""
  },
  {
@@ -4443,9 +4443,9 @@
   "code": 131,
   "name": "LABYRINTH",
   "sub": "STOP_CLEAN_OUT=5",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "STOP_CLEAN_OUT(5): mesmo gap de labyrinthCleanOut — camada administrativa ok.",
+  "notes": "LABYRINTH: a sala PvE real (RoomType.Labyrinth=15, Pve_Info.ID=401 fixo, SetupChange.cs:26-29) chegou via merge concorrente (feature/41-instancias) + 41-guilda-skill-combate/41-labirinto-combate (2026-10-20) fechou o gap: STOP_CLEAN_OUT(5): só desliga isCleanOut, sem gap estrutural. Combate real via @ddt/fight (PveGame), server-authoritative (onMissionOver/onLabyrinthFinished em server.ts, nunca o cliente). Testes: apps/game/test/labirinto.test.ts.",
   "evidence": ""
  },
  {
@@ -4456,9 +4456,9 @@
   "code": 131,
   "name": "LABYRINTH",
   "sub": "TRY_AGAIN=9",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "TRY_AGAIN(9) implementado (preço big/small por andar, labyrinthTryAgainMoney). Mesmo gap estrutural do labirinto (sem sala PvE) documentado no código 131 como um todo.",
+  "notes": "LABYRINTH: a sala PvE real (RoomType.Labyrinth=15, Pve_Info.ID=401 fixo, SetupChange.cs:26-29) chegou via merge concorrente (feature/41-instancias) + 41-guilda-skill-combate/41-labirinto-combate (2026-10-20) fechou o gap: TRY_AGAIN(9): cobra labyrinthTryAgainMoney ANTES de religar isInGame; outLabyrinth (onLabyrinthFinished) dispara esse mesmo pacote numa derrota real (andar>1), fail -> currentFloor/myProgress não avançam. Combate real via @ddt/fight (PveGame), server-authoritative (onMissionOver/onLabyrinthFinished em server.ts, nunca o cliente). Testes: apps/game/test/labirinto.test.ts.",
   "evidence": ""
  },
  {
@@ -5131,9 +5131,9 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "SKILL_SOCKET=26",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "SKILL_SOCKET (sub 26) implementado (compra de habilidade por fundos/contribuição/medalhas, buff 101-112 salvo e ecoado em 129/26; fix: buff tipo 1 não dava mais de graça). Gap real documentado em HANDLERS.md \"129 CONSORTIA_CMD\": os efeitos desses buffs de guilda NÃO são aplicados em combate (FightPower/dano/defesa não lêem o buff 101-112) — fica partial por esse motivo, não pela compra em si.",
+  "notes": "SKILL_SOCKET (sub 26) implementado (compra de habilidade por fundos/contribuição/medalhas, buff 101-112 salvo e ecoado em 129/26; fix: buff tipo 1 não dava mais de graça; charge-before-grant confirmado — custo debitado antes do buff ser aplicado). 41-guilda-skill-combate (2026-10-20) fechou o gap real: os buffs agora entram em combate pelo mesmo caminho do stat de equipamento (fight/ddt.ts specOf -> @ddt/fight PlayerSpec.guildBuffs -> Player.reset()/prepareNewTurn()) — Type 102 dano, 103 crítico, 104 HP%, 105 ataque/defesa/agilidade/sorte, 107 energia (todo turno), e 110 bônus de GP (exp/\"gold\") aplicado no reward de PvE (PVEGame.cs:839-841) e PvP (PVPGame.cs:406-408). Sem stacking: reaplicar um buff do mesmo Type sempre SUBSTITUI o Value (nunca soma), igual ConsortionAddPropertyBuffer.Start. Gap residual documentado (não portado, baixo impacto): Type 101 (contagem de bombas), 106 (redução de custo de energia), 109 (multiplicador de riqueza de GvG), 111 (bônus de feitiço de cura), 112 (redução de \"dander\") — mecânicas de bomba/feitiço que @ddt/fight ainda não tem (SimpleBomb.cs/AddLifeSpell.cs). Testes: apps/game/test/consortia.test.ts (guildFightBonus/applyGuildGpBonus), apps/game/test/fight.test.ts (129 SKILL_SOCKET buffs apply to live fight stats), packages/fight/test/effects.test.ts (guild skill fight buffs).",
   "evidence": ""
  },
  {

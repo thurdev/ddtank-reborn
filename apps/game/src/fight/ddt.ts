@@ -10,6 +10,7 @@ import { type GSPacket, PacketOut } from "@ddt/protocol";
 import * as Out from "../packets/out.js";
 import type { RoomMember } from "../game/player.js";
 import type { ClientKind } from "../game/player-info.js";
+import { applyGuildGpBonus, guildFightBonus, type GuildBuffRow } from "../game/consortia.js";
 import type { FightEngine, FightGame, StartGameOptions, StartPveOptions } from "./types.js";
 
 export interface DdtFightOptions {
@@ -87,7 +88,15 @@ type LobbyLike = RoomMember & {
   magicDefence?: number;
   petBag?: { equipped(): PetLike | null; reduceHunger(): void };
   flushPets?(): void;
+  /** `GamePlayer.buffs` (player."User_Buff") — guild-skill fight buffs (131 SKILL_SOCKET, Type 101-112)
+   *  live here; bots never have this. See `game/consortia.ts` `guildFightBonus`. */
+  buffs?: GuildBuffRow[];
 };
+
+/** `GamePlayer.FightBuffers` for the fight spec + reward calc (`guildFightBonus` over `m.buffs`, "now"). */
+function guildBonusOf(m: LobbyLike, now: Date) {
+  return guildFightBonus(m.buffs ?? [], now);
+}
 
 /** "id,slot|…" of UsersPetInfo.SkillEquip → [slot, id] with an id > 0 */
 function petSkillEquip(s: string): [number, number][] {
@@ -238,9 +247,14 @@ function specOf(m: LobbyLike, team: number, assets: FightAssets, petSkill?: DdtF
   const hs = m.equipBag?.getItemAt(18) ?? null; // healstone slot (Player.m_Healstone = GamePlayer.Healstone)
   const pet = m.petBag?.equipped() ?? null;
   const equip = pet ? petSkillEquip(pet.SkillEquip) : [];
+  // 129 CONSORTIA_CMD sub 26 SKILL_SOCKET (41-guilda-skill-combate): guild buffs purchased in `loja-habilidades.ts`
+  // (`m.buffs` Type 101-112) resolved to the same flat deltas `GamePlayer.FightBuffers` would — bots never
+  // have `buffs`, so `gb` is all-zero for them (matches the original: bot seats aren't guild members).
+  const gb = guildBonusOf(m, new Date());
   return {
     userId: m.id, nickname: c.NickName ?? `p${m.id}`, team, grade: c.Grade, attack: c.Attack, defence: c.Defence, agility: c.Agility, lucky: c.Luck,
     baseAttack: Math.max(1, baseAttack), baseDefence, hp: Math.max(1, c.hp),
+    guildBuffs: { attack: gb.attack, defence: gb.defence, agility: gb.agility, lucky: gb.lucky, maxBloodPercent: gb.maxBloodPercent, critical: gb.critical, damage: gb.damage, energy: gb.energy },
     // m3-figurino: GamePlayer.recalcStats already summed the equipped items (game/stats.ts); bots have no bags -> 0.
     magicAttack: m.magicAttack ?? 0, magicDefence: m.magicDefence ?? 0,
     weapon: { templateId: weaponTemplateId, property8: wTpl?.property8 ?? w?.template.Property8 ?? 0, refineryLevel: w?.RefineryLevel ?? 0 },
@@ -471,6 +485,8 @@ class DdtGame implements FightGame {
       if (!m || m.isBot) continue;
       const xr = this.engine.o.expRate?.() ?? 1;
       if (xr > 1) r.gainGP = Math.trunc(r.gainGP * xr);
+      // PVEGame.cs:839-841: `if (ConsortionAddPercentGoldOrGP > 0) num += num * ConsortionAddPercentGoldOrGP / 100`
+      r.gainGP = applyGuildGpBonus(r.gainGP, guildBonusOf(m, new Date()).percentGoldOrGp);
       const lp = m as LobbyLike & { addGP?(v: number): void };
       if (lp.addGP) lp.addGP(r.gainGP);
       else (m.info as unknown as Record<string, number>).GP += r.gainGP;
@@ -507,6 +523,8 @@ class DdtGame implements FightGame {
       if (r.canTakeOut > 0) this.canTakeOut.set(r.userId, r.canTakeOut);
       const xr = this.engine.o.expRate?.() ?? 1;
       if (xr > 1) r.gpGained = Math.trunc(r.gpGained * xr);
+      // PVPGame.cs:406-408: same guild GP% bonus as the PvE path above.
+      r.gpGained = applyGuildGpBonus(r.gpGained, guildBonusOf(m, new Date()).percentGoldOrGp);
       const c = m.info as unknown as Record<string, number>;
       c.GP = (c.GP ?? 0) + r.gpGained;
       const g = this.engine.o.gradeForGp?.(c.GP);
