@@ -81,6 +81,9 @@ export interface QuestTemplate { info: QuestRow; conds: QuestCondRow[]; goods: Q
 
 export interface ServerRow { ID: number; Name: string; Room: number; Total: number; ZoneId: number; ZoneName: string }
 
+/** NewTitleInfo (SqlDataProvider/Data/NewTitleInfo.cs) — game."New_Title" row as-is. */
+export type NewTitleRow = typeof game.New_Title.$inferSelect;
+
 export class Templates {
   items = new Map<number, ItemTemplate>();
   shop = new Map<number, ShopItemInfo>();
@@ -154,13 +157,30 @@ export class Templates {
   findItem = (id: number): ItemTemplate | undefined => this.items.get(id);
 
   /**
+   * 41-titulo-por-cartao: `NewTitleMgr` (Bussiness/Managers/NewTitleMgr.cs) — tabela de definição de título
+   * (`game."New_Title"`: ID = valor de `ItemTemplate.Property1` nos cartões de título, Name/Att/Def/Agi/Luck
+   * pros bônus somados em `PlayerRank.AddBaseRankProperty`). A TABELA + SEED (325 linhas reais) já existiam
+   * no Postgres desde a geração inicial do schema (`packages/db/seed/game/New_Title.json.gz`) — o gap real
+   * era só este `Templates` nunca carregar a linha pra memória, então `findNewTitle`/`findNewTitleByName`
+   * sempre voltavam vazio pra qualquer handler (265 NEWTITLE_CARD, 189 USER_CHANGE_RANK). Sem migração nova.
+   */
+  newTitles = new Map<number, NewTitleRow>();
+  findNewTitle = (id: number): NewTitleRow | undefined => this.newTitles.get(id);
+  /** NewTitleMgr.FindNewTitleByName: case-insensitive, first match (used by AddAchievementRank). */
+  findNewTitleByName(name: string): NewTitleRow | undefined {
+    const lower = name.toLowerCase();
+    for (const t of this.newTitles.values()) if (t.Name.toLowerCase() === lower) return t;
+    return undefined;
+  }
+
+  /**
    * `lang`: pt-BR overlay for `game` schema text (see packages/db/src/translations.ts +
    * data/i18n/pt-BR/db/*.jsonl, built by scripts/export-texts.ts + import-translations.ts). Only tables that
    * have been translated so far (Game_Map, Pve_Info — see docs/BACKLOG.md for the rest) get an overlay; every
    * other table just keeps its original `game` schema text (Vietnamese/Chinese) when no row matches.
    */
   async load(db: Database, serverId: number, lang = "pt-BR"): Promise<this> {
-    const [items, shop, shopCheap, show, maps, mapServer, quests, levels, srv, dropC, dropI, qConds, qGoods] = await Promise.all([
+    const [items, shop, shopCheap, show, maps, mapServer, quests, levels, srv, dropC, dropI, qConds, qGoods, newTitles] = await Promise.all([
       db.select().from(game.Shop_Goods),
       db.select().from(game.Shop),
       db.select().from(game.Shop_Cheap_Items),
@@ -174,7 +194,9 @@ export class Templates {
       db.select().from(game.Drop_Item),
       db.select().from(game.Quest_Condiction),
       db.select().from(game.Quest_Goods),
+      db.select().from(game.New_Title),
     ]);
+    this.newTitles = new Map(newTitles.map((t) => [t.ID, t]));
     const [pveI, missI, npcI] = await Promise.all([db.select().from(game.Pve_Info), db.select().from(game.Mission_Info), db.select().from(game.NPC_Info)]);
     const [cfgSetting] = await db.select({ value: app.Settings.value }).from(app.Settings).where(eq(app.Settings.key, "server-config")).limit(1);
     const rateOr1 = (v: unknown): number => (Number.isFinite(Number(v)) && Number(v) > 0 ? Number(v) : 1);

@@ -31,6 +31,7 @@ import { mailItems } from "../bolsa/correio-excedente.js";
 import { toShopItemFromCheap, type ShopItemInfo } from "../../db/templates.js";
 import { type PriceTotals, canBuyShop, setItemType } from "./preco.js";
 import { incrementBuyCount, todaysBuyCounts } from "./compra-limitada.js";
+import { peekShopFreeCount, shopGoodsCountPacket, updateShopFreeCount } from "./estoque-diario.js";
 
 /** UserBuyItemHandler.cs:22 (44 BUY_GOODS): carrinho multi-linha em 1 pacote.
  * Pacote 4.1: int count (1..99); por linha [goodsId, type A/B/C, color, dress, skin, place].
@@ -52,6 +53,10 @@ export async function buyGoods(ctx: ServerContext, p: GamePlayer, pkt: GSPacket)
   // pendente neste mesmo carrinho, por `Shop.ID`, pra não deixar passar do `LimitCount` configurado.
   const limitCounts = is6600 ? await todaysBuyCounts(ctx, p) : new Map<number, number>();
   const limitedLines: number[] = [];
+  // 41-loja-estoque-global (168 GOODS_COUNT): linhas de ShopID 20 a confirmar no estoque global SÓ depois
+  // que o carrinho inteiro passar a checagem de dinheiro (ver comentário no branch de sucesso abaixo) —
+  // evita gastar vaga global de um carrinho que no fim é recusado por falta de saldo.
+  const shop20Lines: { shopItemId: number; limit: number }[] = [];
   const count = pkt.readInt();
   if (count <= 0 || count > 99) return p.sendMessage(0, "Erro do sistema. O problema foi enviado ao administrador.");
   for (let i = 0; i < count; i++) {
@@ -89,10 +94,19 @@ export async function buyGoods(ctx: ServerContext, p: GamePlayer, pkt: GSPacket)
       limitedLines.push(shop.ID);
     }
     if (shop.ShopID === 20) {
-      // Limited free daily goods (WorldMgr.UpdateShopFreeCount): one per day.
+      // Limited free daily goods: per-player once-a-day gate (ShopFinallyGottenTime, pre-existing) PLUS
+      // the real global daily stock (WorldMgr.UpdateShopFreeCount, 41-loja-estoque-global — previously
+      // untracked, this packet always answered an empty list before). Only a PEEK here (no mutation): the
+      // original decrements WorldMgr's counter in this same per-line loop, before the aggregate money
+      // check further down — same two-phase shape as this port — so a cart that fails the funds check at
+      // the end would still have burned a global stock slot for nothing (griefable: a cart pairing a free
+      // ShopID 20 line with an item the player can't afford would silently drain the shared daily pool for
+      // everyone). Not a dupe/cost-bypass, but still worth not replicating — commit the real decrement only
+      // in the success branch below, once money is actually being charged.
       const last = p.info.ShopFinallyGottenTime;
       if (last && last.toISOString().slice(0, 10) === ctx.now().toISOString().slice(0, 10)) return p.sendMessage(1, ctx.lang.t("UserBuyItemHandler.FailByPermission2"));
-      p.info.ShopFinallyGottenTime = ctx.now();
+      if (peekShopFreeCount(ctx, shop.ID, shop.LimitCount) <= 0) return p.sendMessage(1, ctx.lang.t("UserBuyItemHandler.FailByPermission2"));
+      shop20Lines.push({ shopItemId: shop.ID, limit: shop.LimitCount });
       need.set(-9999, 1);
     }
     const item = ItemInfo.createFromTemplate(t, 1, 102, ctx.now());
@@ -125,6 +139,13 @@ export async function buyGoods(ctx: ServerContext, p: GamePlayer, pkt: GSPacket)
     p.removePetScore(petScore); p.removeScore(score); p.removeDamageScores(dmgScore);
     for (const [k, v] of need) if (k !== -9999) p.removeTemplateInShop(k, v, tpl.findItem);
     p.commitChanges();
+    if (shop20Lines.length) {
+      // Commit do estoque global só agora que a compra foi mesmo confirmada (ver comentário na checagem
+      // acima); também é a hora certa de marcar o flag por jogador, junto com o débito real do dinheiro.
+      p.info.ShopFinallyGottenTime = ctx.now();
+      for (const { shopItemId, limit } of shop20Lines) updateShopFreeCount(ctx, shopItemId, limit);
+      p.send(shopGoodsCountPacket(ctx, p.id)); // UserBuyItemHandler.cs:74-75 — o próprio comprador vê o estoque atualizar na hora
+    }
     p.questInv?.onPaid(money, gold, offer, gifttoken, buy.map((b) => b.item.TemplateID)); // GamePlayer.OnPaid -> ShopCondition
     const overflow: ItemInfo[] = [];
     for (const b of buy) {

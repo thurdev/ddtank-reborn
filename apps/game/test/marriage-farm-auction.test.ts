@@ -244,6 +244,72 @@ describe("249/3 MARRY_CMD CONTINUATION (room-time extension)", () => {
   });
 });
 
+describe("249/5 LARGESS + 249/12 MARRYROOMSENDGIFT (41-capela-reembolso: chapel gift escrow + refund)", () => {
+  it("LARGESS accumulates into the room's pool (not mailed instantly); only the couple can query/claim it; claim splits 50/50, never pays out more than was paid in, and is idempotent", async () => {
+    const db = (await sharedDb()).db;
+    const groom = await loggedIn(server, { grade: 10, money: 10_000 });
+    const bride = await loggedIn(server, { grade: 10, money: 10_000 });
+    const guest = await loggedIn(server, { grade: 10, money: 10_000 });
+    guest.player().info.Grade = 999; // above whatever Server_Config.CustomLimit[3] is, same mutation style as other tests in this file
+    marryPair(groom, bride);
+    groom.c.out(241, (o) => { o.writeUTF("Sala gift"); o.writeUTF(""); o.writeInt(0); o.writeInt(4); o.writeInt(8); o.writeBoolean(true); o.writeUTF(""); });
+    await groom.c.code(242);
+    const roomId = groom.player().info.SelfMarryRoomID;
+    bride.c.out(242, (o) => { o.writeInt(roomId); o.writeUTF(""); o.writeInt(0); });
+    await bride.c.code(242);
+    guest.c.out(242, (o) => { o.writeInt(roomId); o.writeUTF(""); o.writeInt(0); });
+    await guest.c.code(242);
+
+    // LARGESS: the guest's cash gift is deducted immediately but held in the room's pool, not mailed yet.
+    const guestMoneyBefore = guest.player().info.Money;
+    guest.c.out(249, (o) => { o.writeByte(5); o.writeInt(1000); });
+    await guest.c.code(249);
+    expect(guest.player().info.Money).toBe(guestMoneyBefore - 1000);
+    const groomMailBefore = await db.select().from(player.User_Messages).where(eq(player.User_Messages.ReceiverID, groom.ch.userId));
+    const brideMailBefore = await db.select().from(player.User_Messages).where(eq(player.User_Messages.ReceiverID, bride.ch.userId));
+
+    // a 2nd gift adds to the SAME pool.
+    const markGuest2 = guest.c.mark();
+    guest.c.out(249, (o) => { o.writeByte(5); o.writeInt(500); });
+    await guest.c.code(249, 5, markGuest2);
+
+    // non-couple (guest) querying/claiming the pool is silently ignored — no reply, no payout.
+    const markGuest = guest.c.mark();
+    guest.c.out(249, (o) => { o.writeByte(12); o.writeByte(1); });
+    await sleep(80);
+    expect(guest.c.received.slice(markGuest).some((r) => r.code === 249 && r.sub === 12)).toBe(false);
+
+    // the couple queries the pool (249/12 BEGINSENDGIFT=1): total of both gifts, 1500.
+    const markGroom = groom.c.mark();
+    groom.c.out(249, (o) => { o.writeByte(12); o.writeByte(1); });
+    const query = await groom.c.code(249, 12, markGroom);
+    expect(query.pkt.readByte()).toBe(12);
+    expect(query.pkt.readByte()).toBe(1);
+    expect(query.pkt.readInt()).toBe(1500);
+
+    // claim (249/12 CLIENTCONFIRM=4): mails half (750) to each spouse, exactly what was paid in — never more.
+    groom.c.out(249, (o) => { o.writeByte(12); o.writeByte(4); });
+    await sleep(120);
+    const groomMailAfter = await db.select().from(player.User_Messages).where(eq(player.User_Messages.ReceiverID, groom.ch.userId));
+    const brideMailAfter = await db.select().from(player.User_Messages).where(eq(player.User_Messages.ReceiverID, bride.ch.userId));
+    const newGroomMail = groomMailAfter.slice(groomMailBefore.length);
+    const newBrideMail = brideMailAfter.slice(brideMailBefore.length);
+    expect(newGroomMail.some((m) => m.Money === 750)).toBe(true);
+    expect(newBrideMail.some((m) => m.Money === 750)).toBe(true);
+    expect(newGroomMail.reduce((s, m) => s + (m.Money ?? 0), 0) + newBrideMail.reduce((s, m) => s + (m.Money ?? 0), 0)).toBe(1500); // total payout == total paid in
+
+    // idempotent: a 2nd claim with an empty pool mails nothing new.
+    groom.c.out(249, (o) => { o.writeByte(12); o.writeByte(4); });
+    await sleep(100);
+    const groomMailAfter2 = await db.select().from(player.User_Messages).where(eq(player.User_Messages.ReceiverID, groom.ch.userId));
+    const brideMailAfter2 = await db.select().from(player.User_Messages).where(eq(player.User_Messages.ReceiverID, bride.ch.userId));
+    expect(groomMailAfter2.length).toBe(groomMailAfter.length);
+    expect(brideMailAfter2.length).toBe(brideMailAfter.length);
+
+    groom.c.close(); bride.c.close(); guest.c.close();
+  });
+});
+
 describe("85 MATE_ONLINE_TIME", () => {
   it("answers an online target with their live LastDate", async () => {
     const a = await loggedIn(server, { grade: 10 });
