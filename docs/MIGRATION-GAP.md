@@ -106,10 +106,16 @@ principal).
   `requestRefund`): sem `case 12` no SubRouter (`apps/game/src/handlers/casamento/cerimonia.ts`) —
   reembolso de presente em dinheiro enviado à capela nunca é tratado (único `missing` real que resta no
   4.1). `vendor/DDTank41/Game.Server/SceneMarryRooms/TankMarryLogicProcessor.cs`.
-- **41-scene-state-cobertura** — 251 SCENE_STATE: só a parte da capela (sub 0 reposiciona casal, sub 1
-  sala de espera) está implementada; cobertura de loja/consórcio/lista de salas (outros usos do mesmo
-  código, ver `files` no `qa-matrix.json`) não foi auditada. Sem handler C# único (pacote genérico usado
-  por vários controllers AS3).
+- ~~**41-scene-state-cobertura** — 251 SCENE_STATE~~ **feito** (`feature/41-partial-c`, 2026-10-20):
+  auditoria completa, sem gap real nenhum pra fechar. `MarryStateHandler.cs` (único handler C# do código
+  251) só tem 2 `case` (0/1), sem `default` — nada a mais existe pra portar. O sender AS3 é a função
+  genérica `GameSocketOut.sendCurrentState(sub)`; os 5 outros controllers (loja, consórcio, lista PvP/PvE,
+  civil) mandam TODOS sub 1 (confirmado grep nos arquivos), o MESMO pacote que a capela manda ao sair da
+  lista — já tratado de forma genérica (`ctx.rooms.enterWaitingRoom` = `RoomMgr.EnterWaitingRoom`,
+  `RoomMgr.cs:221`, reusado também pelo 21 SCENE_REMOVE_USER/`basico/cena.ts`). Loja/consórcio/lista de
+  salas já funcionavam de verdade antes desta tarefa; só faltava confirmar via teste a partir de um jogador
+  que nunca tocou na capela — adicionado em `apps/game/test/marriage-farm-auction.test.ts`.
+  `vendor/DDTank41/Game.Server/Packets/Client/MarryStateHandler.cs`.
 - ~~**41-novato-progresso** — 258 NOVICEACTIVITY~~ **feito** (`feature/41-partial-c`, 2026-10-20): contador
   real por `ActivityType` portado (`app."NoviceActivityProgress"`, migração additive `0025`,
   `apps/game/src/game/novice-activity.ts`), substituindo a elegibilidade simplificada (comparava o ÍNDICE do

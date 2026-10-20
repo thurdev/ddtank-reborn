@@ -215,6 +215,31 @@ describe("233 MARRY_SCENE_CHANGE / 251 SCENE_STATE (chapel scene presence)", () 
     await sleep(50); // 251/1 -> ctx.rooms.enterWaitingRoom, async action queue — just must not crash the server
     groom.c.close(); bride.c.close();
   });
+
+  /**
+   * 41-scene-state-cobertura: `MarryStateHandler.cs` (the ONLY C# source for 251) has exactly 2 cases, 0 and
+   * 1 — no `default`, nothing else to port. The AS3 sender is a single generic function
+   * (`GameSocketOut.sendCurrentState`), and EVERY non-chapel call site (`shop.ShopController`,
+   * `consortion.ConsortionControl`, `roomList.pvpRoomList.RoomListController`,
+   * `roomList.pveRoomList.DungeonListController`, `civil.CivilController`) sends sub 1 — the exact same
+   * packet `ChurchRoomController` sends when leaving the chapel's room list. Sub 1 is already generic
+   * (`ctx.rooms.enterWaitingRoom`, the same `RoomMgr.EnterWaitingRoom` the original also reuses for 21
+   * SCENE_REMOVE_USER / `UserEnterSceneHandler.cs`), so shop/consortion/room-list coverage was never a gap —
+   * this test proves it from a player who never touched the chapel at all.
+   */
+  it("251/1 from a player who never touched the chapel (simulating shop/consortion/room-list) still works via the generic enterWaitingRoom", async () => {
+    const hallPlayer = await loggedIn(server, { grade: 33 });
+    hallPlayer.c.out(16, (o) => o.writeInt(1)); // 16 SCENE_LOGIN: already sitting in the waiting room (hall)
+    await sleep(50);
+
+    const shopPlayer = await loggedIn(server, { grade: 44 }); // never sent 240 MARRY_SCENE_LOGIN, never married, never in a ChapelRoom
+    const mark = hallPlayer.c.mark();
+    shopPlayer.c.out(251, (o) => o.writeInt(1)); // same packet ShopController/ConsortionControl/RoomListController send
+    const seen = await hallPlayer.c.code(18, undefined, mark); // sceneAddPlayer (18): hall sees the new arrival
+    expect(seen.pkt.readInt()).toBe(44); // Grade field confirms it's the shop player's sheet, not a coincidence
+
+    hallPlayer.c.close(); shopPlayer.c.close();
+  });
 });
 
 describe("249/3 MARRY_CMD CONTINUATION (room-time extension)", () => {

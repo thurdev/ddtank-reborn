@@ -137,11 +137,20 @@ export function marrySceneChange(ctx: ServerContext, p: GamePlayer, pkt: GSPacke
 }
 
 /**
- * 251 SCENE_STATE: sub-roteador por int (`Class21.cs`). Fix (m3-partial-sweep): o porte anterior ignorava
- * o sub e só reenviava `roomInfoPacket` (242) — nem a sincronia 3D de entrada (sub 0) nem a saída pra sala
- * de espera do hall (sub 1, usada por telas sem nenhuma relação com casamento: loja/consórcio/lista de
- * salas/dungeon/boss mundial — `ctx.rooms.enterWaitingRoom` já é o mesmo caminho genérico do 21
- * SCENE_REMOVE_USER, `EnterWaitingRoomAction.cs`) existiam.
+ * 251 SCENE_STATE: sub-roteador por int (`MarryStateHandler.cs`). Fix (m3-partial-sweep): o porte anterior
+ * ignorava o sub e só reenviava `roomInfoPacket` (242) — nem a sincronia 3D de entrada (sub 0) nem a saída
+ * pra sala de espera do hall (sub 1) existiam.
+ * 41-scene-state-cobertura (auditoria completa, 2026-10-20): `MarryStateHandler.cs` só tem os 2 `case`
+ * abaixo — SEM `default`, não existe mais nada pra portar no lado servidor. O sender AS3 é uma função
+ * genérica única (`GameSocketOut.sendCurrentState(sub:uint)`); os OUTROS controllers que o chamam —
+ * `shop.ShopController`, `consortion.ConsortionControl`, `roomList.pvpRoomList.RoomListController`,
+ * `roomList.pveRoomList.DungeonListController`, `civil.CivilController` — mandam TODOS sub 1 (confirmado
+ * grep nos 5 arquivos), o MESMO pacote que `church.controller.ChurchRoomController` manda ao sair da lista
+ * da capela. Sub 1 já era genérico (`ctx.rooms.enterWaitingRoom` = `RoomMgr.EnterWaitingRoom`,
+ * `RoomMgr.cs:221`, o MESMO método que `UserEnterSceneHandler.cs` usa pro 21 SCENE_REMOVE_USER / `basico/
+ * cena.ts`), então loja/consórcio/lista de salas nunca foi um gap de verdade — já funcionava, só não tinha
+ * sido auditado/testado explicitamente a partir de um jogador fora da capela (ver
+ * `apps/game/test/marriage-farm-auction.test.ts`).
  */
 export function sceneState(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): void {
   const sub = pkt.readInt();

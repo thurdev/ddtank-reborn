@@ -3460,9 +3460,9 @@
   "code": 251,
   "name": "SCENE_STATE",
   "sub": "",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "SCENE_STATE é um pedido genérico usado por várias telas (shop/consortion/room list/chapel — ver \"files\"). Só a parte da capela (sub 0 reposiciona casal no mesmo mapa, sub 1 entra na sala de espera) está implementada em apps/game/src/handlers/casamento/capela.ts sceneState; os outros controllers (loja, consórcio, listas de sala) resolvem seu próprio estado por outros pacotes, não foi auditado se algum deles depende deste código especificamente.",
+  "notes": "41-scene-state-cobertura: auditoria completa confirmou que não havia gap nenhum. MarryStateHandler.cs (único handler C# do código 251) só tem 2 case (0/1), sem default — nada a mais pra portar no servidor. O sender AS3 é a função genérica única GameSocketOut.sendCurrentState(sub); os 5 outros controllers (shop/consortion/room list/civil, ver \"files\" menos church) mandam TODOS sub 1 — o MESMO pacote que ChurchRoomController manda ao sair da lista da capela, já tratado de forma genérica (ctx.rooms.enterWaitingRoom = RoomMgr.EnterWaitingRoom, RoomMgr.cs:221, igual ao 21 SCENE_REMOVE_USER). Loja/consórcio/lista de salas já funcionavam; só faltava o teste provando a partir de um jogador fora da capela (apps/game/test/marriage-farm-auction.test.ts).",
   "evidence": ""
  },
  {
