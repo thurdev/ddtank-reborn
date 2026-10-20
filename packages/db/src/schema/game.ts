@@ -2689,3 +2689,257 @@ export const User_Box = game.table(
     primaryKey({ name: "User_Box_pkey", columns: [t.ID] }),
   ],
 );
+
+/**
+ * HAND-ADDED, not from gen-schema.ts (task m3-endpoints-schema): no vendor SP/table dump anywhere
+ * (SqlDataProvider.Data.ButtonConfigInfo.cs exists as a data-class shell, no `GetAllButtonConfig` in
+ * Bussiness) — ButtonConfig.xml (boot, hall toolbar button visibility/labels). Seed = the 6600 vendor
+ * snapshot verbatim (vendor/DDT-6600/Request/buttonconfig.xml), including the original Simplified Chinese
+ * `Text` values (never localized upstream; admin can retext per docs/plan/TASKS.md m3-endpoints-schema).
+ */
+export const ButtonConfig = game.table(
+  "ButtonConfig",
+  {
+    ID: integer("ID").notNull(),
+    Name: varchar("Name", { length: 50 }).notNull().default(""),
+    Text: varchar("Text", { length: 50 }).notNull().default(""),
+    IsShow: boolean("IsShow").notNull().default(true),
+    IsClose: boolean("IsClose").notNull().default(true),
+  },
+  (t) => [
+    primaryKey({ name: "ButtonConfig_pkey", columns: [t.ID] }),
+  ],
+);
+
+/**
+ * HAND-ADDED, not from gen-schema.ts (task m3-endpoints-schema): no vendor SP/table dump anywhere.
+ * ChargeSpendRewardTemplateInfoList.xml — reward tiers for `LoadChargeActiveTemplate`'s cumulative-spend
+ * campaigns (`Condition`), keyed by `RewardID` matching `LoadChargeActiveTemplate.ID`. `ID` is per-RewardID
+ * (resets at 1 for each group, same as the vendor snapshot), hence the composite PK. Seed = the 6600 vendor
+ * snapshot verbatim (vendor/DDT-6600/Request/chargespendrewardtemplateinfolist.xml).
+ */
+export const ChargeSpendRewardTemplateInfoList = game.table(
+  "ChargeSpendRewardTemplateInfoList",
+  {
+    ID: integer("ID").notNull(),
+    RewardID: integer("RewardID").notNull(),
+    RewardItemID: integer("RewardItemID").notNull(),
+    IsSelect: boolean("IsSelect").notNull().default(true),
+    IsBind: boolean("IsBind").notNull().default(true),
+    RewardItemValid: integer("RewardItemValid").notNull(),
+    RewardItemCount: integer("RewardItemCount").notNull(),
+    StrengthenLevel: integer("StrengthenLevel").notNull(),
+    AttackCompose: integer("AttackCompose").notNull(),
+    DefendCompose: integer("DefendCompose").notNull(),
+    AgilityCompose: integer("AgilityCompose").notNull(),
+    LuckCompose: integer("LuckCompose").notNull(),
+  },
+  (t) => [
+    primaryKey({ name: "ChargeSpendRewardTemplateInfoList_pkey", columns: [t.RewardID, t.ID] }),
+  ],
+);
+
+/**
+ * HAND-ADDED, not from gen-schema.ts (task m3-endpoints-schema): no vendor SP/table dump anywhere.
+ * FoodComposeList.xml (`foodActivity/FoodActivityManager.as`) — recipe table: how many of each
+ * `VegetableID` item a `FoodID` item needs to be cooked. Seed = the 6600 vendor snapshot verbatim
+ * (vendor/DDT-6600/Request/foodcomposelist.xml).
+ */
+export const FoodComposeList = game.table(
+  "FoodComposeList",
+  {
+    FoodID: integer("FoodID").notNull(),
+    VegetableID: integer("VegetableID").notNull(),
+    NeedCount: integer("NeedCount").notNull(),
+  },
+  (t) => [
+    primaryKey({ name: "FoodComposeList_pkey", columns: [t.FoodID, t.VegetableID] }),
+  ],
+);
+
+/**
+ * HAND-ADDED, not from gen-schema.ts (task m3-endpoints-schema): no vendor SP/table dump anywhere
+ * (distinct from `game.Item_Strengthen`, which is keyed by `StrengthenLevel` alone with a different attribute
+ * set — `store/StrengthDataManager.as` reads THIS table per-item). ItemStrengthenData.xml — `Data` cost (to
+ * strengthen `TemplateID` from `StrengthenLevel`-1 to `StrengthenLevel`). Seed = the 6600 vendor snapshot
+ * verbatim (vendor/DDT-6600/Request/itemstrengthendata.xml).
+ */
+export const ItemStrengthenData = game.table(
+  "ItemStrengthenData",
+  {
+    TemplateID: integer("TemplateID").notNull(),
+    StrengthenLevel: integer("StrengthenLevel").notNull(),
+    Data: integer("Data").notNull(),
+  },
+  (t) => [
+    primaryKey({ name: "ItemStrengthenData_pkey", columns: [t.TemplateID, t.StrengthenLevel] }),
+  ],
+);
+
+/**
+ * HAND-ADDED, not from gen-schema.ts (task m3-endpoints-schema): no vendor SP/table dump anywhere.
+ * LoadAllQuestions.xml (`lightriddle`-style trivia bank — distinct from `game.Lightriddle_Quest`, which is
+ * the lantern-riddle minigame; this one backs a general knowledge-quiz feature whose AS3 caller wasn't
+ * pinned down, same `QuestionCatalogID`/`QuestionID`/`Option1-4` shape as the shipped snapshot). Seed = the
+ * 6600 vendor snapshot verbatim (vendor/DDT-6600/Request/loadallquestions.xml), including the original
+ * Simplified Chinese trivia text (never localized upstream; translating 98 quiz questions with verified
+ * correct answers is out of scope here — same `api.test.ts` smoke check as before, now backed by a real
+ * table instead of the frozen snapshot).
+ */
+export const LoadAllQuestions = game.table(
+  "LoadAllQuestions",
+  {
+    QuestionCatalogID: integer("QuestionCatalogID").notNull(),
+    QuestionID: integer("QuestionID").notNull(),
+    QuestionContent: varchar("QuestionContent", { length: 200 }).notNull().default(""),
+    Option1: varchar("Option1", { length: 100 }).notNull().default(""),
+    Option2: varchar("Option2", { length: 100 }).notNull().default(""),
+    Option3: varchar("Option3", { length: 100 }).notNull().default(""),
+    Option4: varchar("Option4", { length: 100 }).notNull().default(""),
+  },
+  (t) => [
+    primaryKey({ name: "LoadAllQuestions_pkey", columns: [t.QuestionCatalogID, t.QuestionID] }),
+  ],
+);
+
+/**
+ * HAND-ADDED, not from gen-schema.ts (task m3-endpoints-schema): no vendor SP/table dump anywhere.
+ * LoadChargeActiveTemplate.xml — cumulative-spend campaign tiers (`Condition` = Xu threshold), reward items
+ * live in `game.ChargeSpendRewardTemplateInfoList` keyed by `RewardID` = this `ID`. `Description` is
+ * varchar(50) because the vendor snapshot itself ships every row truncated mid-word at 50 chars (original
+ * SQL Server column width bug, replicated verbatim rather than silently "fixed"). Seed = the 6600 vendor
+ * snapshot verbatim (vendor/DDT-6600/Request/loadchargeactivetemplate.xml).
+ */
+export const LoadChargeActiveTemplate = game.table(
+  "LoadChargeActiveTemplate",
+  {
+    ID: integer("ID").notNull(),
+    Condition: integer("Condition").notNull(),
+    Description: varchar("Description", { length: 50 }).notNull().default(""),
+    RegetType: integer("RegetType").notNull(),
+    TypeID: integer("TypeID").notNull(),
+  },
+  (t) => [
+    primaryKey({ name: "LoadChargeActiveTemplate_pkey", columns: [t.ID] }),
+  ],
+);
+
+/**
+ * HAND-ADDED, not from gen-schema.ts (task m3-endpoints-schema): no vendor SP/table dump anywhere.
+ * LotteryShowTemplate.xml — the fixed, admin-visible "what's in box BoxType" display list (SortID = display
+ * order), separate from the real weighted-drop tables that decide what a roulette/box actually pays out.
+ * Seed = the 6600 vendor snapshot verbatim (vendor/DDT-6600/Request/lotteryshowtemplate.xml).
+ */
+export const LotteryShowTemplate = game.table(
+  "LotteryShowTemplate",
+  {
+    BoxType: integer("BoxType").notNull(),
+    SortID: integer("SortID").notNull(),
+    TemplateID: integer("TemplateID").notNull(),
+    Count: integer("Count").notNull(),
+  },
+  (t) => [
+    primaryKey({ name: "LotteryShowTemplate_pkey", columns: [t.BoxType, t.SortID] }),
+  ],
+);
+
+/**
+ * HAND-ADDED, not from gen-schema.ts (task m3-endpoints-schema): no vendor SP/table dump anywhere
+ * (distinct from `game.Magicstone_Template`, which is keyed by `TemplateID`+`Level` with a different
+ * attribute set). MagicItemTemp.xml — level -> Exp-to-next-level + MagicAttack/MagicDefence curve for a
+ * "magic item"/equipment-spirit leveling feature. Seed = the 6600 vendor snapshot verbatim
+ * (vendor/DDT-6600/Request/magicitemtemp.xml).
+ */
+export const MagicItemTemp = game.table(
+  "MagicItemTemp",
+  {
+    Lv: integer("Lv").notNull(),
+    Exp: integer("Exp").notNull(),
+    MagicAttack: integer("MagicAttack").notNull(),
+    MagicDefence: integer("MagicDefence").notNull(),
+  },
+  (t) => [
+    primaryKey({ name: "MagicItemTemp_pkey", columns: [t.Lv] }),
+  ],
+);
+
+/**
+ * HAND-ADDED, not from gen-schema.ts (task m3-endpoints-schema): `Tank.Request/missionenergyprice.cs:30-55`
+ * (builder, admin-rebuild) -> `ProduceBussiness.GetAllMissionEnergyInfo` -> `SP_MissionEnergyInfo_All`, but
+ * no `Mission_Energy_*` table exists in any dumped DB (research/6600/ashx-missing.md). MissionEnergyPrice.xml
+ * — Money cost to refill `Energy`, by purchase `Count` (how many times already bought that day). Seed = the
+ * 6600 vendor snapshot verbatim (vendor/DDT-6600/Request/missionenergyprice.xml).
+ */
+export const MissionEnergyPrice = game.table(
+  "MissionEnergyPrice",
+  {
+    Count: integer("Count").notNull(),
+    Money: integer("Money").notNull(),
+    Energy: integer("Energy").notNull(),
+  },
+  (t) => [
+    primaryKey({ name: "MissionEnergyPrice_pkey", columns: [t.Count] }),
+  ],
+);
+
+/**
+ * HAND-ADDED, not from gen-schema.ts (task m3-endpoints-schema): no vendor SP/table dump anywhere
+ * (distinct from `game.Search_Goods_Temp`, the dig-spot reward table). SearchGoodsPayMoney.xml — Money cost
+ * to dig again, by `Number` (how many digs already done). Seed = the 6600 vendor snapshot verbatim
+ * (vendor/DDT-6600/Request/searchgoodspaymoney.xml).
+ */
+export const SearchGoodsPayMoney = game.table(
+  "SearchGoodsPayMoney",
+  {
+    Number: integer("Number").notNull(),
+    NeedMoney: integer("NeedMoney").notNull(),
+  },
+  (t) => [
+    primaryKey({ name: "SearchGoodsPayMoney_pkey", columns: [t.Number] }),
+  ],
+);
+
+/**
+ * HAND-ADDED, not from gen-schema.ts (task m3-endpoints-schema): no vendor SP/table dump anywhere.
+ * WarriorFamRankList.xml (`labyrinth/LabyrinthManager.as`, PvE labyrinth "fame" hall-of-fame window) — a
+ * fixed admin-curated list, not a live player ranking (no `UserID`/consortia FK in the original snapshot
+ * shape, just a name string). Seed = the 6600 vendor snapshot verbatim
+ * (vendor/DDT-6600/Request/warriorfamranklist.xml, 2 rows).
+ */
+export const WarriorFamRankList = game.table(
+  "WarriorFamRankList",
+  {
+    PlayerRank: integer("PlayerRank").notNull(),
+    PlayerName: varchar("PlayerName", { length: 50 }).notNull().default(""),
+    FamLevel: integer("FamLevel").notNull(),
+  },
+  (t) => [
+    primaryKey({ name: "WarriorFamRankList_pkey", columns: [t.PlayerRank] }),
+  ],
+);
+
+/**
+ * HAND-ADDED, not from gen-schema.ts (task m3-endpoints-schema): no vendor SP/table dump anywhere.
+ * GoodsCollect.xml (`LightRoadDataAnalyzer`, `research/6600/xml-diff.md`) — "item encyclopedia" entries:
+ * where to get `TemplateID` (`GetFrom`, free text) and which collection-book nodes it fills (`SondNode`,
+ * `|`-delimited node ids, read as a raw string by the client). Seed = the 6600 vendor snapshot verbatim
+ * (vendor/DDT-6600/Request/goodscollect.xml, already PT-leaning text in this particular dump — unlike the
+ * sibling goodscollect_out.xml snapshot, which is a stale Vietnamese-localized capture; both files now serve
+ * the SAME table, same as every other `files: [z(...), p(...)]` template here).
+ */
+export const GoodsCollect = game.table(
+  "GoodsCollect",
+  {
+    ID: integer("ID").notNull(),
+    Type: integer("Type").notNull(),
+    TemplateID: integer("TemplateID").notNull(),
+    Count: integer("Count").notNull(),
+    ValidDate: integer("ValidDate").notNull(),
+    IsBind: boolean("IsBind").notNull().default(true),
+    GetFrom: varchar("GetFrom", { length: 200 }).notNull().default(""),
+    SondNode: varchar("SondNode", { length: 100 }).notNull().default(""),
+  },
+  (t) => [
+    primaryKey({ name: "GoodsCollect_pkey", columns: [t.ID] }),
+  ],
+);

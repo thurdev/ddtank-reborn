@@ -448,6 +448,155 @@ describe("M3 ashx + templates (research/6600/ashx-missing.md)", () => {
   }
 });
 
+describe("M3 endpoints: aninhados / schema / sem-fonte (docs/plan/TASKS.md)", () => {
+  // m3-endpoints-aninhados: CommunalActive.xml — 3 flat sibling tables (dragonBoat/dataAnalyzer/
+  // DragonBoatActiveDataAnalyzer.as), seeded (packages/db/seed): Communal_Active has 4 rows (ActiveID 1-4),
+  // but Communal_Active_Award/_Exp only have rows for ActiveID=1 — the client reads only the FIRST <Active>,
+  // so ascending order (ActiveID=1 first) is the one that actually lines up with the seeded exp/award data.
+  it("communalactive.xml: Active/ActiveExp/ActiveAward as flat siblings, ActiveID=1 first", async () => {
+    const body = inflate((await app.inject({ url: "/request/communalactive.xml" })).rawPayload);
+    expect(body.startsWith('<Result value="true" message="Success!">')).toBe(true);
+    const firstActive = /<Active ([^>]*)\/>/.exec(body)?.[1] ?? "";
+    expect(firstActive).toContain('ActiveID="1"');
+    expect(firstActive).toMatch(/BeginTime="\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}"/); // isoDate(), not fmtDate's space separator
+    expect((body.match(/<ActiveExp /g) ?? []).length).toBe(6);
+    expect((body.match(/<ActiveAward /g) ?? []).length).toBe(25);
+    expect(body).toContain('<ActiveAward ActiveID="1" IsArea="2" RandID="1" TemplateID="9526"');
+  });
+
+  // m3-endpoints-aninhados: GmActivityInfo.xml — TRUE nesting, but both source tables are 0 rows (never
+  // populated in any dump): empty Result is the correct byte-compatible answer until an admin creates a
+  // campaign (replaces the frozen, dead 2014 vendor snapshot).
+  it("gmactivityinfo.xml: empty Result (GM_Activity has 0 rows until an admin creates a campaign)", async () => {
+    const r = await app.inject({ url: "/request/gmactivityinfo.xml" });
+    expect(r.headers["x-snapshot"]).toBeUndefined();
+    expect(inflate(r.rawPayload)).toBe('<Result value="true" message="Success!" />');
+  });
+
+  it("gmactivityinfo.xml: nested Activity/ActiveGiftBag/Gift/ActiveCondition/ActiveReward tree once an admin seeds a campaign", async () => {
+    const { sql } = await import("drizzle-orm");
+    await h.db.execute(sql`INSERT INTO "game"."GM_Activity"
+      ("activityId","activityName","activityType","activityChildType","getWay","desc","rewardDesc","beginTime","beginShowTime","endTime","endShowTime","icon","isContinue","status","remain1","remain2")
+      VALUES ('act-1','Campanha de teste',2,0,0,'desc','rewardDesc','2026-01-01 00:00:00','2026-01-01 00:00:00','2026-01-10 23:59:59','2026-01-10 23:59:59',2,0,1,0,'')`);
+    await h.db.execute(sql`INSERT INTO "game"."GM_Gift" ("giftbagId","activityId","rewardMark","giftbagOrder") VALUES ('gift-1','act-1',1,0)`);
+    await h.db.execute(sql`INSERT INTO "game"."GM_Active_Condition" ("giftbagId","conditionIndex","conditionValue","remain1","remain2") VALUES ('gift-1',0,3000,0,'')`);
+    await h.db.execute(sql`INSERT INTO "game"."GM_Active_Reward" ("giftId","templateId","count","isBind","occupationOrSex","rewardType","validDate","property","remain1") VALUES ('gift-1',11608,100,true,0,0,0,'0,0,0,0,0,0,0,0,0','item')`);
+    try {
+      await ctx.cache.invalidate(["game.GM_Activity", "game.GM_Gift", "game.GM_Active_Reward", "game.GM_Active_Condition"]);
+      const body = inflate((await app.inject({ url: "/request/gmactivityinfo.xml" })).rawPayload);
+      expect(body).toContain('<Activity activityId="act-1" activityName="Campanha de teste" activityType="2" activityChildType="0" getWay="0" desc="desc" rewardDesc="rewardDesc" beginTime="2026/01/01 00:00:00" beginShowTime="2026/01/01 00:00:00" endTime="2026/01/10 23:59:59" endShowTime="2026/01/10 23:59:59" icon="2" isContinue="0" status="1" remain1="0" remain2="" />');
+      expect(body).toContain('<Gift giftbagId="gift-1" activityId="act-1" rewardMark="1" giftbagOrder="0" />');
+      expect(body).toContain('<Condition giftbagId="gift-1" conditionIndex="0" conditionValue="3000" remain1="0" remain2="" />');
+      // isBind is the literal "1", not "true" (WonderfulGMActAnalyer.as:88 re-parses it with int(...))
+      expect(body).toContain('<Reward giftId="gift-1" templateId="11608" count="100" isBind="1" occupationOrSex="0" rewardType="0" validDate="0" property="0,0,0,0,0,0,0,0,0" remain1="item" />');
+    } finally {
+      await h.db.execute(sql`DELETE FROM "game"."GM_Active_Reward" WHERE "giftId" = 'gift-1'`);
+      await h.db.execute(sql`DELETE FROM "game"."GM_Active_Condition" WHERE "giftbagId" = 'gift-1'`);
+      await h.db.execute(sql`DELETE FROM "game"."GM_Gift" WHERE "giftbagId" = 'gift-1'`);
+      await h.db.execute(sql`DELETE FROM "game"."GM_Activity" WHERE "activityId" = 'act-1'`);
+      await ctx.cache.invalidate(["game.GM_Activity", "game.GM_Gift", "game.GM_Active_Reward", "game.GM_Active_Condition"]);
+    }
+  });
+
+  // m3-endpoints-schema: 12 new tables (migration 0023), seeded verbatim from the 6600 vendor snapshot — the
+  // only data that ever existed for them (no C# source). Compression/elem-casing verified against each
+  // vendor/DDT-6600/Request/<file>.xml.
+  it("buttonconfig.xml: zlib, <Item>, vendor snapshot text verbatim (incl. untranslated Chinese Text)", async () => {
+    const body = inflate((await app.inject({ url: "/request/buttonconfig.xml" })).rawPayload);
+    expect(body).toContain('<Item ID="1" Name="TimeActiveBtn" Text="限时活动" IsShow="true" IsClose="true" />');
+    expect((body.match(/<Item /g) ?? []).length).toBe(7);
+  });
+
+  it("chargespendrewardtemplateinfolist.xml: lowercase <item>, composite RewardID+ID key", async () => {
+    const body = inflate((await app.inject({ url: "/request/chargespendrewardtemplateinfolist.xml" })).rawPayload);
+    expect(body).toContain('<item ID="1" RewardID="1001" RewardItemID="70246" IsSelect="false" IsBind="true" RewardItemValid="1" RewardItemCount="1" StrengthenLevel="12" AttackCompose="50" DefendCompose="50" AgilityCompose="50" LuckCompose="50" />');
+    expect((body.match(/<item /g) ?? []).length).toBe(27);
+  });
+
+  it("foodcomposelist.xml / itemstrengthendata.xml: zlib <Item>, real seeded rows", async () => {
+    const food = inflate((await app.inject({ url: "/request/foodcomposelist.xml" })).rawPayload);
+    expect(food).toContain('<Item FoodID="334101" VegetableID="336101" NeedCount="10" />');
+    const strengthen = inflate((await app.inject({ url: "/request/itemstrengthendata.xml" })).rawPayload);
+    expect(strengthen).toContain('<Item TemplateID="17004" StrengthenLevel="0" Data="0" />');
+  });
+
+  it("loadallquestions.xml now comes from game.LoadAllQuestions (not the vendor snapshot anymore)", async () => {
+    const r = await app.inject({ url: "/request/loadallquestions.xml" });
+    expect(r.headers["x-snapshot"]).toBeUndefined();
+    const body = inflate(r.rawPayload);
+    expect(body).toContain('<Item QuestionCatalogID="1" QuestionID="1" QuestionContent="属于国家一类保护动物的是："');
+    expect((body.match(/<Item /g) ?? []).length).toBe(98);
+  });
+
+  it("loadchargeactivetemplate.xml: Description truncated at 50 chars same as the original SQL Server column", async () => {
+    const body = inflate((await app.inject({ url: "/request/loadchargeactivetemplate.xml" })).rawPayload);
+    expect(body).toContain('<Item ID="4001" Condition="1000" Description="Valor de consumo acumulada de {0} Cupons recebe pr" RegetType="1" TypeID="3" />');
+  });
+
+  it("lotteryshowtemplate.xml: lowercase <item>, composite BoxType+SortID key", async () => {
+    const body = inflate((await app.inject({ url: "/request/lotteryshowtemplate.xml" })).rawPayload);
+    expect(body).toContain('<item BoxType="1" SortID="1" TemplateID="7024" Count="1" />');
+    expect((body.match(/<item /g) ?? []).length).toBe(133);
+  });
+
+  it("magicitemtemp.xml / missionenergyprice.xml / searchgoodspaymoney.xml / warriorfamranklist.xml: plain text (TEXT_LOADER, not COMPRESS_TEXT_LOADER)", async () => {
+    const magic = await app.inject({ url: "/request/magicitemtemp.xml" });
+    expect(magic.rawPayload.subarray(0, 2).toString("hex")).not.toBe("78da");
+    expect(magic.body).toContain('<Item Lv="1" Exp="1000" MagicAttack="30" MagicDefence="30" />');
+    const mission = await app.inject({ url: "/request/missionenergyprice.xml" });
+    expect(mission.rawPayload.subarray(0, 2).toString("hex")).not.toBe("78da");
+    expect(mission.body).toContain('<Item Count="1" Money="100" Energy="50" />');
+    const search = await app.inject({ url: "/request/searchgoodspaymoney.xml" });
+    expect(search.rawPayload.subarray(0, 2).toString("hex")).not.toBe("78da");
+    expect(search.body).toContain('<item Number="1" NeedMoney="50" />');
+    const warrior = await app.inject({ url: "/request/warriorfamranklist.xml" });
+    expect(warrior.rawPayload.subarray(0, 2).toString("hex")).not.toBe("78da");
+    expect(warrior.body).toBe('<Result value="true" message="Success!">\r\n  <Item PlayerRank="1" PlayerName="Asuna" FamLevel="38" />\r\n  <Item PlayerRank="2" PlayerName="Tohru" FamLevel="16" />\r\n</Result>');
+  });
+
+  it("goodscollect.xml / goodscollect_out.xml: same table, zlib + plain pair", async () => {
+    const z = await app.inject({ url: "/request/goodscollect.xml" });
+    expect(z.rawPayload.subarray(0, 2).toString("hex")).toBe("78da");
+    expect(inflate(z.rawPayload)).toContain('<Item ID="1" Type="0" TemplateID="201233" Count="10" ValidDate="0" IsBind="false" GetFrom="Instâncias,Eventos" SondNode="0|0" />');
+    const plain = await app.inject({ url: "/request/goodscollect_out.xml" });
+    expect(plain.rawPayload.subarray(0, 2).toString("hex")).not.toBe("78da");
+    expect(plain.body).toContain('<Item ID="1" Type="0" TemplateID="201233" Count="10" ValidDate="0" IsBind="false" GetFrom="Instâncias,Eventos" SondNode="0|0" />');
+  });
+
+  // admin CRUD whitelist (apps/api/src/routes/admin-resources.ts) for the 12 new tables: trivial flat CRUD,
+  // same TemplateCache rebuild-on-write as every other content resource.
+  it("admin CRUD: button-config create rebuilds buttonconfig.xml", async () => {
+    const auth = { authorization: `Bearer ${adminToken}` };
+    const c = await app.inject({ method: "POST", url: "/api/admin/button-config", headers: auth, payload: { ID: 900, Name: "testBtn", Text: "Teste", IsShow: true, IsClose: false } });
+    expect(c.statusCode).toBe(201);
+    try {
+      const body = inflate((await app.inject({ url: "/request/buttonconfig.xml" })).rawPayload);
+      expect(body).toContain('<Item ID="900" Name="testBtn" Text="Teste" IsShow="true" IsClose="false" />');
+    } finally {
+      await app.inject({ method: "DELETE", url: "/api/admin/button-config/900", headers: auth });
+    }
+  });
+
+  // m3-endpoints-sem-fonte: 8 endpoints with no .cs in any vendor (GetFightReport, ConsortiaMatchHistory,
+  // DragonBoatFriendInfos, LoginRemoveSmallAccount, ProxyVIP, RecordSysInfo, RecordUserVersion,
+  // ResetPassword4399). Confirmed (vendor/DDT-6600/Flash_Project grep) only GetFightReport uses
+  // COMPRESS_REQUEST_LOADER — already in COMPRESS_ASHX_6600 (routes/request.ts); the other 7 use the PLAIN
+  // BaseLoader.REQUEST_LOADER (ConsortiaMatchHistory/DragonBoatFriendInfos/LoginRemoveSmallAccount/ProxyVIP/
+  // ResetPassword4399) or a raw fire-and-forget URLRequest (RecordSysInfo/RecordUserVersion, response never
+  // parsed), so the existing generic "unknown endpoint" plain-text fallback is already byte-correct — nothing
+  // to change (docs/plan/TASKS.md m3-endpoints-sem-fonte: "não implementar comportamento adivinhado").
+  it("sem-fonte endpoints: generic plain fallback (REQUEST_LOADER) / zlib-empty fallback (COMPRESS_REQUEST_LOADER)", async () => {
+    for (const ep of ["ConsortiaMatchHistory", "DragonBoatFriendInfos", "LoginRemoveSmallAccount", "ProxyVIP", "RecordSysInfo", "RecordUserVersion", "ResetPassword4399"]) {
+      const r = await app.inject({ url: `/request6600/${ep}.ashx` });
+      expect(r.rawPayload.subarray(0, 2).toString("hex")).not.toBe("78da"); // plain, matches BaseLoader.REQUEST_LOADER / raw URLRequest
+      expect(r.body).toContain("Not supported");
+    }
+    const report = await app.inject({ url: "/request6600/GetFightReport.ashx" });
+    expect(report.rawPayload.subarray(0, 2).toString("hex")).toBe("78da"); // COMPRESS_REQUEST_LOADER (LoaderCreate.as:1042)
+    expect(inflate(report.rawPayload)).toBe('<Result value="true" message="Success!" />');
+  });
+});
+
 describe("admin CRUD", () => {
   it("requires an admin token", async () => {
     expect((await app.inject({ url: "/api/admin/items" })).statusCode).toBe(401);

@@ -69,4 +69,19 @@ export const RESOURCES: Record<string, ResourceDef> = {
   // pix-admin: doações via Pix (docs/features/doacao-pix.md). Criação só pelo fluxo público (POST /api/donations),
   // nunca pelo CRUD genérico — mark-paid tem sua própria rota (/api/admin/donations/:id/mark-paid).
   donations: { table: app.Donations, pk: ["id"], noCreate: true },
+  // m3-endpoints-schema: 12 tables hand-added straight from the 6600 vendor snapshot (no C# source, no admin
+  // tool ever existed for them) — trivial flat CRUD, same TemplateCache rebuild-on-write as every other
+  // `flat()` table above (routes/admin.ts invalidates `deps` after write).
+  "button-config": { table: game.ButtonConfig, pk: ["ID"] },
+  "charge-spend-reward": { table: game.ChargeSpendRewardTemplateInfoList, pk: ["RewardID", "ID"] },
+  "food-compose": { table: game.FoodComposeList, pk: ["FoodID", "VegetableID"] },
+  "item-strengthen-data": { table: game.ItemStrengthenData, pk: ["TemplateID", "StrengthenLevel"] },
+  "load-all-questions": { table: game.LoadAllQuestions, pk: ["QuestionCatalogID", "QuestionID"] },
+  "load-charge-active-template": { table: game.LoadChargeActiveTemplate, pk: ["ID"] },
+  "lottery-show-template": { table: game.LotteryShowTemplate, pk: ["BoxType", "SortID"] },
+  "magic-item-temp": { table: game.MagicItemTemp, pk: ["Lv"] },
+  "mission-energy-price": { table: game.MissionEnergyPrice, pk: ["Count"] },
+  "search-goods-pay-money": { table: game.SearchGoodsPayMoney, pk: ["Number"] },
+  "warrior-fam-rank-list": { table: game.WarriorFamRankList, pk: ["PlayerRank"] },
+  "goods-collect": { table: game.GoodsCollect, pk: ["ID"] },
 };

@@ -98,6 +98,17 @@ export function fmtDate(d: Date | null | undefined): string {
   return `${d.getUTCFullYear()}-${p2(d.getUTCMonth() + 1)}-${p2(d.getUTCDate())} ${p2(d.getUTCHours())}:${p2(d.getUTCMinutes())}:${p2(d.getUTCSeconds())}`;
 }
 
+/**
+ * DateTime.ToString("yyyy/MM/dd HH:mm:ss") — the format vendor/DDT-6600/Request/gmactivityinfo.xml ships
+ * (wonderfulActivity/data/GmActivityInfo.as beginTime/endTime etc. are plain String properties; the client's
+ * `.replace(/-/g,"/")` in WonderfulGMActAnalyer.as:49-52 is a no-op against this format, confirming the server
+ * always wrote slashes directly rather than the usual XmlConvert "yyyy-MM-ddTHH:mm:ss").
+ */
+export function fmtDateSlash(d: Date | null | undefined): string {
+  if (!d) return "";
+  return `${d.getUTCFullYear()}/${p2(d.getUTCMonth() + 1)}/${p2(d.getUTCDate())} ${p2(d.getUTCHours())}:${p2(d.getUTCMinutes())}:${p2(d.getUTCSeconds())}`;
+}
+
 /** DateTime.ToString() with en-US culture ("1/24/2013 11:39:32 PM"), as seen in the shipped TemplateAlllist.xml. */
 export function fmtDateDefault(d: Date | null | undefined): string {
   if (!d) return "";

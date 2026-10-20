@@ -7,7 +7,7 @@
  */
 import { sql } from "drizzle-orm";
 import { applyTranslations, loadTranslations, type DbHandle } from "@ddt/db";
-import { el, fmtDateDefault, result, wallNow, XEl, type XValue } from "../lib/flash-xml.js";
+import { el, fmtDateDefault, fmtDateSlash, result, wallNow, XEl, type XValue } from "../lib/flash-xml.js";
 import { all, q } from "../lib/db.js";
 import { item, spec, type Row } from "../lib/spec.js";
 
@@ -205,6 +205,21 @@ const S = {
   treeTemplate: "Level AwardID CostExp MonsterExp MonsterID MonsterName Exp",
   strengthExp: "Level Exp NecklaceStrengthExp NecklaceStrengthPlus",
   rune: "TemplateID NextTemplateID Name BaseLevel MaxLevel Type1 Attribute1 Turn1 Rate1 Type2 Attribute2 Turn2 Rate2 Type3 Attribute3 Turn3 Rate3",
+  // ---- m3-endpoints-schema (research/6600/ashx-missing.md Pendências 1): 12 tables with no vendor SP/row
+  // dump anywhere — schema + seed are HAND-ADDED straight from the 6600 vendor snapshot XML itself (the only
+  // source that ever existed for them), see packages/db/src/schema/game.ts for the per-table provenance comment.
+  buttonConfig: "ID Name Text IsShow IsClose",
+  chargeSpendReward: "ID RewardID RewardItemID IsSelect IsBind RewardItemValid RewardItemCount StrengthenLevel AttackCompose DefendCompose AgilityCompose LuckCompose",
+  foodCompose: "FoodID VegetableID NeedCount",
+  itemStrengthenData: "TemplateID StrengthenLevel Data",
+  loadAllQuestions: "QuestionCatalogID QuestionID QuestionContent Option1 Option2 Option3 Option4",
+  loadChargeActiveTemplate: "ID Condition Description RegetType TypeID",
+  lotteryShowTemplate: "BoxType SortID TemplateID Count",
+  magicItemTemp: "Lv Exp MagicAttack MagicDefence",
+  missionEnergyPrice: "Count Money Energy",
+  searchGoodsPayMoney: "Number NeedMoney",
+  warriorFamRankList: "PlayerRank PlayerName FamLevel",
+  goodsCollect: "ID Type TemplateID Count ValidDate IsBind GetFrom SondNode",
   /** FlashUtils.CreateCelebInfo(PlayerInfo) over V_Sys_Users_Detail. */
   celeb:
     "ID=UserID UserName NickName typeVIP:0 VIPLevel:0 Grade Colors Skin Sex Style ConsortiaName Hide Offer ReputeOffer ConsortiaHonor ConsortiaLevel StoreLevel ShopLevel SmithLevel ConsortiaRepute WinCount=Win TotalCount=Total EscapeCount=Escape Repute AddDayGP AddDayOffer AddWeekGP AddWeekOffer ConsortiaRiches Nimbus GP FightPower AchievementPoint Rank='' AddDayAchievementPoint='0' AddWeekAchievementPoint='0' GiftGp='0' GiftLevel='1' AddDayGiftGp='0' AddWeekGiftGp='0' ApprenticeshipState='0' AddWeekLeagueScore",
@@ -757,12 +772,159 @@ export const TEMPLATES: TemplateDef[] = [
       }),
   },
   helpGameReward,
+
+  // ---- m3-endpoints-schema (research/6600/ashx-missing.md Pendências 1): 12 tables with no vendor SP/row
+  // dump anywhere — additive migration 0023, seed = the 6600 vendor snapshot itself (the only data that ever
+  // existed for them). Compression (z/p) matches each endpoint's LoaderCreate.as/*Manager.as call site exactly
+  // (ddt/loader/LoaderCreate.as, store/StrengthDataManager.as, labyrinth/LabyrinthManager.as).
+  flat({ files: [z("buttonconfig")], table: "ButtonConfig", order: `"ID"`, attrs: S.buttonConfig }),
+  flat({ files: [z("chargespendrewardtemplateinfolist")], elem: "item", table: "ChargeSpendRewardTemplateInfoList", order: `"RewardID", "ID"`, attrs: S.chargeSpendReward }),
+  flat({ files: [z("foodcomposelist")], table: "FoodComposeList", order: `"FoodID", "VegetableID"`, attrs: S.foodCompose }),
+  flat({ files: [z("itemstrengthendata")], table: "ItemStrengthenData", order: `"TemplateID", "StrengthenLevel"`, attrs: S.itemStrengthenData }),
+  flat({ files: [z("loadallquestions")], table: "LoadAllQuestions", order: `"QuestionCatalogID", "QuestionID"`, attrs: S.loadAllQuestions }),
+  flat({ files: [z("loadchargeactivetemplate")], table: "LoadChargeActiveTemplate", order: `"ID"`, attrs: S.loadChargeActiveTemplate }),
+  flat({ files: [z("lotteryshowtemplate")], elem: "item", table: "LotteryShowTemplate", order: `"BoxType", "SortID"`, attrs: S.lotteryShowTemplate }),
+  flat({ files: [p("magicitemtemp")], table: "MagicItemTemp", order: `"Lv"`, attrs: S.magicItemTemp }),
+  flat({ files: [p("missionenergyprice")], table: "MissionEnergyPrice", order: `"Count"`, attrs: S.missionEnergyPrice }),
+  flat({ files: [p("searchgoodspaymoney")], elem: "item", table: "SearchGoodsPayMoney", order: `"Number"`, attrs: S.searchGoodsPayMoney }),
+  flat({ files: [p("warriorfamranklist")], table: "WarriorFamRankList", order: `"PlayerRank"`, attrs: S.warriorFamRankList }),
+  // GoodsCollect.xml ships from `?type=LightRoadPath` (LightRoadDataAnalyzer, ddt/loader/LoaderCreate.as:1207,
+  // COMPRESS_TEXT_LOADER) but request.ts resolves by path only — the query string never reaches TemplateDef
+  // lookup. goodscollect_out (plain-text sibling, csFunction.CreateCompressXml's usual zlib+plain pair) is the
+  // SAME table (a stale Vietnamese-text vendor capture existed for that filename, discarded — see the
+  // schema.ts comment on GoodsCollect), not a second data source.
+  flat({ files: [z("goodscollect"), p("goodscollect_out")], table: "GoodsCollect", order: `"ID"`, attrs: S.goodsCollect }),
+
+  {
+    // CommunalActive.xml (dragonBoat/dataAnalyzer/DragonBoatActiveDataAnalyzer.as, boot COMPRESS_TEXT_LOADER
+    // ddt/loader/LoaderCreate.as:879): 3 flat tables as SIBLING children of <Result> (NOT truly nested — the
+    // client reads only the FIRST <Active> (xmllist[0]), then filters <ActiveExp>/<ActiveAward> client-side by
+    // matching ActiveID == that first Active's id, :36-67). We emit every row of all 3 tables (same "dump the
+    // whole table, let the client filter" approach as every other multi-row template here) ordered by ActiveID
+    // ascending, so the lowest ID is read first — matches the seeded data (Communal_Active_Award/_Exp only
+    // have rows for ActiveID=1). Attribute order/date format (bare Date -> isoDate() "yyyy-MM-ddTHH:mm:ss",
+    // no timezone suffix) verified byte-for-byte against vendor/DDT-6600/Request/communalactive.xml.
+    files: [z("communalactive")],
+    deps: ["game.Communal_Active", "game.Communal_Active_Award", "game.Communal_Active_Exp"],
+    build: (h) =>
+      wrap(async () => {
+        const [acts, exps, awards] = await Promise.all([
+          all(h, "game", "Communal_Active", `"ActiveID"`),
+          all(h, "game", "Communal_Active_Exp", `"ActiveID", "Grade"`),
+          all(h, "game", "Communal_Active_Award", `"ActiveID", "IsArea" DESC, "RandID"`),
+        ]);
+        return [
+          ...acts.map((r) => item("Active", "ActiveID BeginTime EndTime LimitGrade DayMaxScore MinScore AddPropertyByMoney AddPropertyByProp", r)),
+          ...exps.map((r) => item("ActiveExp", "ActiveID Grade Exp AddExpPlus", r)),
+          ...awards.map((r) => item("ActiveAward", "ActiveID IsArea RandID TemplateID StrengthenLevel AttackCompose DefendCompose AgilityCompose LuckCompose Count IsBind IsTime ValidDate", r)),
+        ];
+      }),
+  },
+  {
+    // GmActivityInfo.xml (wonderfulActivity/WonderfulGMActAnalyer.as:42-110 + data/{GmActivityInfo,GiftBagInfo,
+    // GiftConditionInfo,GiftRewardInfo}.as) — TRUE nesting: Result > ActiveInfo* > Activity + ActiveGiftBag >
+    // Gift* + ActiveCondition* + ActiveReward*. ActiveCondition/ActiveReward wrappers are emitted ONE PER <Gift>
+    // (index-aligned: the client reads `giftXml.ActiveCondition[j]`/`ActiveReward[j]` positionally, :73/:83 —
+    // NOT matched by giftbagId) and the whole wrapper group for a bag is omitted when NO gift in that bag has
+    // any row at all (mirrors the `.length() > 0` gate at :71/:81 exactly; emitting empty-but-present wrappers
+    // would also work since the client still ends up with empty arrays, but omitting matches the snapshot: 89
+    // Gifts / 85 ActiveCondition wrappers in vendor/DDT-6600/Request/gmactivityinfo.xml, i.e. some bags have 0).
+    // All 4 tables are 0 rows in every source dump (m1-schema, never populated) — this replaces the frozen 2014
+    // vendor snapshot (dead/partial-translated Chinese event data) with a real, admin-editable builder reading
+    // game.GM_Activity/_Gift/_Active_Reward/_Active_Condition; empty until an admin creates a campaign, same as
+    // Consortia_Boss_Config before m3-ashx. Reward.isBind is the LITERAL "1"/"0" the client re-parses with
+    // `int(...)` (:88) instead of the XmlConvert true/false every other bool in these 4 tables uses (isContinue/
+    // status are real int columns, not bools) — the one special case, built by hand instead of via item()/spec().
+    files: [z("gmactivityinfo"), p("gmactivityinfo_out")],
+    deps: ["game.GM_Activity", "game.GM_Gift", "game.GM_Active_Reward", "game.GM_Active_Condition"],
+    build: (h) =>
+      wrap(async () => {
+        const [acts, gifts, rewards, conds] = await Promise.all([
+          all(h, "game", "GM_Activity", `"activityId"`),
+          all(h, "game", "GM_Gift", `"activityId", "giftbagOrder"`),
+          all(h, "game", "GM_Active_Reward"),
+          all(h, "game", "GM_Active_Condition", `"giftbagId", "conditionIndex"`),
+        ]);
+        const giftsByActivity = groupByStr(gifts, "activityId");
+        const rewardsByGift = groupByStr(rewards, "giftId");
+        const condsByGift = groupByStr(conds, "giftbagId");
+        return acts.map((a) => {
+          const activeInfo = el("ActiveInfo", []).add(
+            el("Activity", [
+              ["activityId", a.activityId as XValue],
+              ["activityName", a.activityName as XValue],
+              ["activityType", a.activityType as XValue],
+              ["activityChildType", a.activityChildType as XValue],
+              ["getWay", a.getWay as XValue],
+              ["desc", a.desc as XValue],
+              ["rewardDesc", a.rewardDesc as XValue],
+              ["beginTime", fmtDateSlash(a.beginTime as Date)],
+              ["beginShowTime", fmtDateSlash(a.beginShowTime as Date)],
+              ["endTime", fmtDateSlash(a.endTime as Date)],
+              ["endShowTime", fmtDateSlash(a.endShowTime as Date)],
+              ["icon", a.icon as XValue],
+              ["isContinue", a.isContinue as XValue],
+              ["status", a.status as XValue],
+              ["remain1", a.remain1 as XValue],
+              ["remain2", a.remain2 as XValue],
+            ]),
+          );
+          const bagGifts = giftsByActivity.get(String(a.activityId)) ?? [];
+          if (bagGifts.length) {
+            const bag = el("ActiveGiftBag", []);
+            for (const g of bagGifts) bag.add(item("Gift", "giftbagId activityId rewardMark giftbagOrder", g));
+            if (bagGifts.some((g) => (condsByGift.get(String(g.giftbagId)) ?? []).length)) {
+              for (const g of bagGifts) {
+                const cs = condsByGift.get(String(g.giftbagId)) ?? [];
+                bag.add(el("ActiveCondition", []).add(...cs.map((c) => item("Condition", "giftbagId conditionIndex conditionValue remain1 remain2", c))));
+              }
+            }
+            if (bagGifts.some((g) => (rewardsByGift.get(String(g.giftbagId)) ?? []).length)) {
+              for (const g of bagGifts) {
+                const rs = rewardsByGift.get(String(g.giftbagId)) ?? [];
+                bag.add(
+                  el("ActiveReward", []).add(
+                    ...rs.map((r) =>
+                      el("Reward", [
+                        ["giftId", r.giftId as XValue],
+                        ["templateId", r.templateId as XValue],
+                        ["count", r.count as XValue],
+                        ["isBind", r.isBind ? "1" : "0"],
+                        ["occupationOrSex", r.occupationOrSex as XValue],
+                        ["rewardType", r.rewardType as XValue],
+                        ["validDate", r.validDate as XValue],
+                        ["property", r.property as XValue],
+                        ["remain1", r.remain1 as XValue],
+                      ]),
+                    ),
+                  ),
+                );
+              }
+            }
+            activeInfo.add(bag);
+          }
+          return activeInfo;
+        });
+      }),
+  },
 ];
 
 function groupBy(rows: Row[], key: string): Map<number, Row[]> {
   const m = new Map<number, Row[]>();
   for (const r of rows) {
     const k = Number(r[key]);
+    let a = m.get(k);
+    if (!a) m.set(k, (a = []));
+    a.push(r);
+  }
+  return m;
+}
+
+/** Same as groupBy but for string-keyed (uuid) columns — GM_Activity/_Gift/_Active_Reward/_Active_Condition. */
+function groupByStr(rows: Row[], key: string): Map<string, Row[]> {
+  const m = new Map<string, Row[]>();
+  for (const r of rows) {
+    const k = String(r[key]);
     let a = m.get(k);
     if (!a) m.set(k, (a = []));
     a.push(r);
