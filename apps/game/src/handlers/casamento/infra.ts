@@ -41,20 +41,9 @@ export interface ChapelRoom {
   creatorId: number; creatorName: string; groomID: number; groomName: string; brideID: number; brideName: string;
   createTime: Date; availHours: number; breakTime: Date; isHymeneal: boolean; isGunsaluteUsed: boolean; started: boolean;
   members: Set<GamePlayer>; forbidden: Set<number>; mapByPlayer: Map<number, number>;
-  /**
-   * 41-capela-reembolso (249/12 MARRYROOMSENDGIFT): saldo em dinheiro dado por convidados via 249/5
-   * LARGESS, ainda não coletado pelo casal. Nenhum vendor (4.1 nem 6600) registra um handler pro código 12
-   * — `TankMarryLogicProcessor.cs`/`MarryCommandMgr.cs` fazem `handles[12]` (Dictionary sem essa chave,
-   * exceção silenciosa pro log) e o enum `MarryCmdType` do 6600 nem declara o valor 12 — mas o botão
-   * "_toolSendCashBtn" + `GameSocketOut.as requestRefund/refund` + `ChurchManager.as __showGiftView` são
-   * código de cliente real e alcançável (só pro casal, nunca pro convidado — ver `WeddingRoomToolView.as
-   * GiftToolVisible`). Design próprio (nenhuma fonte C# faz isso): 249/5 LARGESS passa a acumular aqui em
-   * vez de mandar por correio na hora (era `mailItem` imediato, 50/50); o casal consulta o saldo com
-   * BEGINSENDGIFT=1 e resgata com CLIENTCONFIRM=4 (mailItem 50/50 + zera o saldo ANTES de mandar o correio,
-   * então nunca paga mais do que foi dado nem paga 2x o mesmo saldo). Em memória, igual todo o resto de
-   * `ChapelRoom` — sala fechada sem resgate perde o saldo não reclamado (mesmo comportamento do `OnTick`
-   * original, que também não paga nada de volta ao fechar a sala).
-   */
+  /** Total de presentes em dinheiro (249/5 LARGESS) recebido nesta sala — só exibição no diálogo do casal
+   *  (249/12 BEGINSENDGIFT). O dinheiro em si já vai por correio na hora (LargessCommand.cs), nunca fica
+   *  retido aqui. */
   giftPool: number;
 }
 const roomsByCtx = new WeakMap<ServerContext, Map<number, ChapelRoom>>();
