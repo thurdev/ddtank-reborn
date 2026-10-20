@@ -453,9 +453,9 @@
   "code": 168,
   "name": "GOODS_COUNT",
   "sub": "",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "GOODS_COUNT implementado (GoodsCountHandler.cs) respondendo lista vazia: o estoque diário global (WorldMgr.GetAllShopFreeCount) não é rastreado neste port — o ShopID 20 já é limitado por jogador (ver 44 BUY_GOODS), não por estoque global, então não há nada pra reportar. Mesmo desvio documentado em HANDLERS.md.",
+  "notes": "41-loja-estoque-global: WorldMgr.GetAllShopFreeCount/UpdateShopFreeCount agora rastreados de verdade (estoque diário GLOBAL por Shop.ID, não mais por jogador) — handlers/loja/estoque-diario.ts, chamado em 44 BUY_GOODS (ShopID 20) e aqui. Reset por chave (mais preciso que o ScanShopFreeVaildDate original, que zerava tudo junto). Fix: o decremento global só comita DEPOIS que o carrinho passa a checagem de dinheiro (comprar.ts), pra um carrinho recusado por falta de saldo não gastar vaga global de ninguém. Testes: apps/game/test/shop-estoque-global.test.ts.",
   "evidence": ""
  },
  {
@@ -638,9 +638,9 @@
   "code": 265,
   "name": "NEWTITLE_CARD",
   "sub": "",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "NewTitleCardHandler.cs:500: lê o pacote corretamente e dá o feedback certo, mas a tabela de definição de título por Property1 (NewTitleMgr) nunca foi migrada — mesmo gap do 189 USER_CHANGE_RANK (NewTitleID fica 0). Um título nunca pode ser encontrado, igual o original faria pra qualquer Property1 desconhecido. apps/game/src/handlers/bolsa/titulos.ts.",
+  "notes": "41-titulo-por-cartao: game.\"New_Title\" já tinha schema + seed (325 linhas reais) no Postgres desde a geração inicial — o gap era só Templates nunca carregar pra memória (sem migração nova, só db/templates.ts newTitles/findNewTitle). NewTitleCardHandler.cs:500 agora completo: resolve o título pelo Property1 do cartão, consome 1 unidade só depois de confirmar que o título existe, concede via PlayerRank.AddNewRank (Sys_User_Rank, por NewTitleID — reusar um 2º cartão do mesmo título refresca a validade em vez de duplicar linha), persiste na hora (saveIntoDatabase) e avisa o servidor todo (packet 10 tipo 3). 189 USER_CHANGE_RANK também ganhou o NewTitleID real (era sempre 0). apps/game/src/handlers/bolsa/titulos.ts. Testes: apps/game/test/titulos.test.ts.",
   "evidence": ""
  },
  {
@@ -1123,7 +1123,7 @@
   "sub": "LARGESS=5",
   "server": "ok",
   "verified": "no",
-  "notes": "LARGESS(5) implementado: presente em dinheiro pro casal. apps/game/src/handlers/casamento/cerimonia.ts.",
+  "notes": "LARGESS(5) implementado: presente em dinheiro de um convidado. 41-capela-reembolso (2026-10-20): deixou de mandar por correio na hora — agora acumula num saldo por sala (ChapelRoom.giftPool) que o casal consulta/resgata via 249/12 MARRYROOMSENDGIFT (ver aquela entrada), já que esse é o único jeito de dar sentido real ao botão de resgate do casal (sem isso, LARGESS mandava na hora e o resgate nunca teria saldo nenhum pra mostrar). apps/game/src/handlers/casamento/cerimonia.ts.",
   "evidence": ""
  },
  {
@@ -3800,9 +3800,9 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "MARRYROOMSENDGIFT=12",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "MARRYROOMSENDGIFT(12), variante \"requestRefund\" (Byte BEGINSENDGIFT=1): mesmo caso de 249:refund — sub 12 não tem case no SubRouter de cerimonia.ts, cai no default sem handler.",
+  "notes": "41-capela-reembolso: sub 12 agora tem case no SubRouter de cerimonia.ts. Nenhum vendor (4.1 nem 6600) tinha handler real pro código 12 (MarryCmdType do 6600 nem declara o valor; o 4.1 faz handles[12] num Dictionary sem essa chave — exceção pega e logada, nunca respondia nada), então o design é próprio: 249/5 LARGESS passa a acumular num saldo por sala (ChapelRoom.giftPool, infra.ts) em vez de mandar por correio na hora; \"requestRefund\" (byte BEGINSENDGIFT=1) consulta esse saldo (só o casal, isCouple) e responde [byte 12, byte 1, int saldo] — formato confirmado contra ChurchManager.as __showGiftView.",
   "evidence": ""
  },
  {
@@ -3980,9 +3980,9 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "MARRYROOMSENDGIFT=12",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "MARRYROOMSENDGIFT(12), variante \"refund\" (Byte CLIENTCONFIRM=4): código real e alcançável no cliente (GameSocketOut.as), mas o SubRouter de 249 MARRY_CMD (apps/game/src/handlers/casamento/cerimonia.ts) só registra os subs 1/2/3/4/5/6/7/8/10/11 — sub 12 cai no default sem handler. Reembolso de presente em dinheiro enviado à capela nunca é tratado.",
+  "notes": "41-capela-reembolso: \"refund\" (byte CLIENTCONFIRM=4) agora resgata o saldo acumulado por 249/5 LARGESS (ChapelRoom.giftPool) — zera o saldo ANTES de mandar o correio (idempotente: 2ª confirmação com saldo 0 não manda nada), reparte 50/50 pro casal igual LargessCommand.cs fazia, nunca paga mais do que foi dado (saldo é a única fonte, nunca excede o total de LARGESS recebido). Só o casal pode consultar/resgatar (isCouple). Testes: apps/game/test/marriage-farm-auction.test.ts \"249/5 LARGESS + 249/12 MARRYROOMSENDGIFT\".",
   "evidence": ""
  },
  {

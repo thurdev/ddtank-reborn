@@ -210,6 +210,16 @@ export function userRanks(id: number, ranks: { NewTitleID: number; Name: string 
   return p;
 }
 
+/** WorldMgr.SendSysNotice(string) (WorldMgr.cs:626): packet 10, type 3, plain string — broadcast via
+ *  `SendToAll` in the original (cross-server Center); single process here = every online player, same
+ *  substitution already used for `SendSysTipNotice` (type 2, `handlers/sociedade/evolucao.ts`). */
+export function sysNoticeToAll(msg: string): PacketOut {
+  const p = new PacketOut(10);
+  p.writeInt(3);
+  p.writeString(msg);
+  return p;
+}
+
 /** 92 VIP (SendOpenVIP, :2140). */
 export function openVip(c: PlayerInfo): PacketOut {
   const p = new PacketOut(92, c.ID);
