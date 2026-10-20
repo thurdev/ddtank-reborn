@@ -3,7 +3,7 @@ import { DotNetRandom, type Rng, gaussian } from "../math/random.js";
 import type { FightCommand, FightEvent } from "../game/events.js";
 import { type BaseGame, GameState } from "../game/game.js";
 import { Player } from "../game/living.js";
-import { solveAim } from "./aim.js";
+import { muzzlePoint, solveAim } from "./aim.js";
 
 /** Bot tuning (02-bots.md §2.3/2.4 `bot_profile` subset). */
 export interface BotProfile {
@@ -89,14 +89,15 @@ export function planBotTurn(game: BaseGame, bot: Player, profile: BotProfile, rn
     bodies: game.bodiesFor(bot).map((p) => ({ id: p.id, x: p.x, y: p.y, team: p.team, bound: p.bound })),
   });
   const at = Math.max(t + 300, fireAt);
-  if (!sol) {
-    plan.push({ at, cmd: { cmd: "SKIPNEXT", spendTime: Math.round(at / 1000) } });
-    return plan;
-  }
-  const force = Math.max(0, Math.min(2000, Math.round(sol.force + gaussian(rng, P.forceSigma))));
-  const angle = Math.round(sol.angle + gaussian(rng, P.angleSigma));
+  // m1-bot-pvp: never just skip a turn the solver couldn't aim (obstructed line, out of range, map edge
+  // case...) — fire a crude 45° lob at whatever force gets closest to the target's distance instead. A bad
+  // shot (often a miss) is still a shot; a turn that always resolves to nothing would let a human opponent
+  // "wait out" a bot forever on an unsolved map and never close the fight (the actual bug this guards).
+  const muzzle = sol?.muzzle ?? muzzlePoint({ x: bot.x, y: bot.y, team: bot.team, bound: bot.bound }, dir);
+  const force = sol ? Math.max(0, Math.min(2000, Math.round(sol.force + gaussian(rng, P.forceSigma)))) : Math.max(0, Math.min(2000, Math.round(Math.abs(target.x - bot.x) * 1.1)));
+  const angle = sol ? Math.round(sol.angle + gaussian(rng, P.angleSigma)) : dir > 0 ? 45 : 135;
   plan.push({ at: at - 100, cmd: { cmd: "FIRE_TAG", hasTime: true, speedTime: Math.min(game.timeType, Math.round(at / 1000)) } });
-  plan.push({ at, cmd: { cmd: "FIRE", x: sol.muzzle.x, y: sol.muzzle.y, force, angle } });
+  plan.push({ at, cmd: { cmd: "FIRE", x: muzzle.x, y: muzzle.y, force, angle } });
   return plan;
 }
 

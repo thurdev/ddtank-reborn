@@ -15,7 +15,7 @@ import type { ClientKind, MatchRow, PlayerInfo } from "./player-info.js";
 import type { BaseRoom } from "../rooms/room.js";
 import type { QuestInventory } from "./quests.js";
 import { saveBuffs, saveQuests } from "../db/social.js";
-import { computeStats, emptyStatTables, userNimbus, type StatTables, type UserCard, type UserPet } from "./stats.js";
+import { computeStats, emptyStatTables, styleFromEquip, userNimbus, type StatTables, type UserCard, type UserPet } from "./stats.js";
 import { PetInventory, reduceProp, getPetEquips } from "./pets.js";
 import { CardInventory } from "./cards.js";
 import { savePets, saveCards, saveEatPets } from "../db/pets-cards.js";
@@ -320,20 +320,6 @@ export class GamePlayer implements RoomMember {
 
   /** The computation half of UpdatePlayerProperties (no packets): used before the login burst too. */
   recalcStats(): void {
-    const styleIndex = [1, 2, 3, 4, 5, 6, 11, 13, 14, 15, 16, 17, 18, 19, 20];
-    const s0 = this.equipBag.getItemAt(0);
-    let style = s0 ? `${s0.TemplateID}|${s0.Pic}` : "";
-    let color = s0 ? s0.Color : "";
-    const skin = this.equipBag.getItemAt(5)?.Skin ?? "";
-    for (const idx of styleIndex) {
-      style += ",";
-      color += ",";
-      const it = this.equipBag.getItemAt(idx);
-      if (it) {
-        style += `${it.TemplateID}|${it.Pic}`;
-        color += it.Color;
-      }
-    }
     const c = this.info;
     const equip: (ItemInfo | null)[] = [];
     for (let i = 0; i < 31; i++) equip.push(this.equipBag.getItemAt(i));
@@ -354,6 +340,7 @@ export class GamePlayer implements RoomMember {
     this.magicAttack = r.magicAttack;
     this.magicDefence = r.magicDefence;
     c.Nimbus = userNimbus(equip); // GetUserNimbus (strengthen / gilded aura tiers)
+    const { style, color, skin } = styleFromEquip(equip);
     c.Style = style; c.Colors = color; c.Skin = skin;
   }
 

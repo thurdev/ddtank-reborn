@@ -8,9 +8,12 @@
  * - db: conexão Drizzle; rows/list: linhas brutas/fichas filtradas; r: linha app.Bots.
  * - level: nível do humano (bot joga nesse nível p/ dano/HP justos); free/s: bots livres/candidato.
  * - bot: VirtualPlayer criado; difficulty: mira numérica derivada do texto (DIFFICULTY).
+ * - stats: BotStatSource (server.ts passa `ctx.templates`) usado por `view.ts buildBotView()` pra montar
+ *   Attack/Defence/Agility/Luck/hp/Style/Colors/Skin reais a partir de weaponTemplateId/equips (m1-bot-pvp).
  */
 import { app, type Database } from "@ddt/db";
 import { VirtualPlayer, type BotProvider, type BotSpec } from "./bot.js";
+import { buildBotView, type BotStatSource } from "./view.js";
 
 /** Ficha do banco: BotSpec + dificuldade textual (easy/normal/hard/expert). */
 export interface DbBotSpec extends BotSpec {
@@ -30,6 +33,15 @@ export const DIFFICULTY: Record<string, number> = { easy: 25, normal: 50, hard: 
 export class DbBotProvider implements BotProvider {
   private specs: DbBotSpec[] = FALLBACK;
   private readonly busy = new Set<number>();
+
+  /**
+   * m1-bot-pvp: optional `BotStatSource` (server.ts passes `ctx.templates`) to build the bot's real
+   * Attack/Defence/Agility/Luck/hp/Style/Colors/Skin from its `weaponTemplateId`/`equips` via `view.ts
+   * buildBotView()` — the same `computeStats()` path real players use. Omitted (e.g. older call sites, or
+   * tests that don't care about stats) keeps the old placeholder `VirtualPlayer` (Attack/Defence/.../Style
+   * all 0/empty), same as before this task.
+   */
+  constructor(private readonly stats?: BotStatSource) {}
 
   /** Carrega só bots enabled (equips/guild inclusos); vazio mantém anterior. */
   async load(db: Database): Promise<this> {
@@ -57,7 +69,8 @@ export class DbBotProvider implements BotProvider {
     free.sort((a, b) => Math.abs(a.level - level) - Math.abs(b.level - level) || Math.random() - 0.5);
     const s = free[0]!;
     this.busy.add(s.id);
-    const bot = new VirtualPlayer({ ...s, level: Math.max(1, level) });
+    const spec: DbBotSpec = { ...s, level: Math.max(1, level) };
+    const bot = new VirtualPlayer(spec, null, 0, "", this.stats && buildBotView(spec, this.stats));
     bot.difficulty = DIFFICULTY[s.difficulty] ?? 50;
     return bot;
   }
