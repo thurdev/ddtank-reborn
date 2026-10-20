@@ -5,7 +5,24 @@
 > Até 2 agentes em paralelo, cada um na sua branch/worktree. Status: `[ ]` fila, `[~]` andando, `[x]` feito.
 > Plano detalhado da migração: [MIGRACAO-6600.md](./MIGRACAO-6600.md).
 
-## 1. Migração 6600
+## 0. Cliente 4.1 (FOCO — decisão do dono 2026-10-20: 6600 em stand-by)
+Ordem: QA/sync → bot PvP → instâncias → hot-update → testar TUDO no jogo.
+- [ ] **41-qa-sync** — sincronizar `docs/qa-matrix.json` com o código + resolver os 9 stubs do
+  `tools/qa/packet-coverage.mjs` + lista priorizada dos `partial` em `docs/MIGRATION-GAP.md` (agente rodando).
+- [ ] **41-bot-pvp** — bot do PvP quando não acha jogador: (1) não joga (fica parado no turno); (2) não usa
+  roupa/equipamento/atributos configurados no admin, só vem com nível parecido. Bot tem que jogar o turno
+  inteiro (mirar/força/atirar, usar item) e montar o boneco a partir do cadastro do admin.
+- [ ] **41-instancias** — instâncias (PvE): sistema de desbloqueio por nível/conclusão da anterior,
+  instâncias por faixa de nível e FC (poder de combate) recomendado, balanceamento (HP/dano dos NPCs por
+  dificuldade vs FC típico da faixa). Tabela de referência + configurável no admin.
+- [ ] **41-hot-update** — atualizar coisas do jogo sem o jogador sair: templates/loja/eventos/config
+  recarregam no servidor (já existe `/reload-templates`) E o cliente conectado recebe por socket o que
+  mudou (pacotes de atualização que o próprio 4.1 já entende: loja, itens, avisos), sem relogar.
+- [ ] **41-qa-tudo** — testar TODAS as features no jogo de verdade (matriz QA `verified:yes` + evidência),
+  área por área, abrindo fix pra cada falha.
+- [ ] **pixi-estudo** — estudo de viabilidade do cliente novo (PixiJS, 60fps+) — ver `docs/plan/PIXI.md`.
+
+## 1. Migração 6600 (STAND-BY desde 2026-10-20)
 
 ### M1 — cliente 6600 até o lobby
 - [x] **m1-serve** — servir o pack 6600 em `/flash6600/` em paralelo (4.1 continua padrão), `?client=6600` na
