@@ -528,6 +528,29 @@ describe("admin CRUD", () => {
     expect((await app.inject({ method: "DELETE", url: "/api/admin/server-list/95", headers: auth })).statusCode).toBe(204);
     expect((await app.inject({ url: "/api/admin/server-list/95", headers: auth })).statusCode).toBe(404);
   });
+
+  // 41-hot-update: POST /api/admin/hot-update ("Aplicar agora" do ServerConfig.tsx) — admin-only, delega pro
+  // canal interno do apps/game (GAME_INTERNAL_URL vazio neste teste, igual /broadcast: sem servidor de jogo de
+  // verdade escutando, a rota responde 503 em vez de travar; o round-trip real com pacotes de refresh é
+  // `apps/game/test/hot-update.test.ts`, que tem um GameServer de verdade).
+  describe("hot-update (41-hot-update)", () => {
+    it("requires an admin token", async () => {
+      expect((await app.inject({ method: "POST", url: "/api/admin/hot-update", payload: { kinds: ["config"] } })).statusCode).toBe(401);
+      const p = await app.inject({ method: "POST", url: "/api/auth/login", payload: { username: "test", password: "test" } });
+      expect((await app.inject({ method: "POST", url: "/api/admin/hot-update", headers: { authorization: `Bearer ${p.json().token}` }, payload: {} })).statusCode).toBe(403);
+    });
+
+    it("admin-authenticated: 503 quando o apps/game não está acessível (GAME_INTERNAL_URL vazio neste teste)", async () => {
+      const auth = { authorization: `Bearer ${adminToken}` };
+      const r = await app.inject({ method: "POST", url: "/api/admin/hot-update", headers: auth, payload: { kinds: ["items", "events"], notice: "manutencao em 10 min" } });
+      expect(r.statusCode).toBe(503);
+    });
+
+    it("aceita corpo vazio (kinds/notice opcionais) sem quebrar antes de tentar falar com o game", async () => {
+      const auth = { authorization: `Bearer ${adminToken}` };
+      expect((await app.inject({ method: "POST", url: "/api/admin/hot-update", headers: auth, payload: {} })).statusCode).toBe(503);
+    });
+  });
 });
 
 describe("static + public", () => {

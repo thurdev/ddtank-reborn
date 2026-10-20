@@ -396,6 +396,22 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
     await audit(ctx, actor(req), "broadcast", `"${b.msg.slice(0, 80)}"`);
     return r ?? reply.code(503).send({ message: "Servidor de jogo indisponível" });
   });
+  /**
+   * 41-hot-update: botão "Aplicar agora"/"Atualizar jogo ao vivo" (apps/admin ServerConfig.tsx) — reloada os
+   * templates/eventos no `apps/game` E empurra pros jogadores já conectados os pacotes de refresh que o
+   * cliente entende sem relogar (`admin/hot-update.ts applyHotUpdate`, docs/features/hot-update.md tem o mapa
+   * completo). `kinds` vazio/ausente = tudo que o módulo sabe empurrar (items/shop/quests/events/config);
+   * `notice` opcional manda um aviso (3 SYS_MESSAGE) junto. `gameInternalPost` só fala com o canal LOCAL — os
+   * OUTROS canais são alcançados pelo próprio `apps/game` (`ctx.crossChannel.hotUpdate`, igual `/broadcast`).
+   */
+  f.post("/api/admin/hot-update", { preHandler: guard }, async (req, reply) => {
+    const b = (req.body ?? {}) as Row;
+    const kinds = Array.isArray(b.kinds) ? b.kinds.filter((k): k is string => typeof k === "string") : [];
+    const notice = typeof b.notice === "string" && b.notice.trim() ? b.notice.slice(0, 1000) : undefined;
+    const r = await gameInternalPost(ctx, "/hot-update", { kinds, notice });
+    await audit(ctx, actor(req), "hot-update", `kinds=${kinds.length ? kinds.join(",") : "all"}${notice ? ` notice="${notice.slice(0, 80)}"` : ""}`, { kinds, notice });
+    return r ?? reply.code(503).send({ message: "Servidor de jogo indisponível" });
+  });
 
   // ---- templates (XML cache) ----
   f.get("/api/admin/templates", { preHandler: guard }, async () =>

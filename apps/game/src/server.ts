@@ -43,6 +43,7 @@ import { fightLabDrop, setFightLabPermission } from "./game/fightlab.js";
 import type { GamePlayer, RoomMember } from "./game/player.js";
 import { startPolicy, startTcp, startWs, type ConnectionGate } from "./net/transports.js";
 import { startAdmin } from "./admin/http.js";
+import { applyHotUpdate } from "./admin/hot-update.js";
 import { eventsRuntime } from "./handlers/eventos/agendador.js";
 import { pushRecords } from "./handlers/eventos/completar-conquista.js";
 import { worldBossDamage } from "./handlers/eventos/boss-mundial.js";
@@ -417,6 +418,16 @@ export class GameServer {
         const ev = eventsRuntime(this.ctx);
         await ev.reload();
         return { items: this.ctx.templates.items.size, shop: this.ctx.templates.shop.size, maps: this.ctx.templates.maps.size, scheduledEvents: ev.scheduler.events.length, achievements: ev.data.achievements.size };
+      },
+      // 41-hot-update: "Aplicar agora" do admin (POST /api/admin/hot-update) — reloada igual acima E empurra
+      // pros jogadores já conectados os pacotes que o cliente 4.1/6600 sabe processar sem relogar
+      // (admin/hot-update.ts applyHotUpdate), depois replica pros OUTROS canais via ctx.crossChannel.hotUpdate
+      // (bus/cross-channel.ts, no-op sem barramento ativo) — cada canal só reloada + empurra pros SEUS
+      // próprios jogadores locais, igual systemNotice/broadcast acima.
+      hotUpdate: async (kinds: string[], notice?: string) => {
+        const stats = await applyHotUpdate(this.ctx, kinds, notice);
+        this.ctx.crossChannel.hotUpdate(kinds, notice);
+        return stats;
       },
       events: () => eventsRuntime(this.ctx).status(),
       eventsForce: async (kind: string, minutes: number) => {
