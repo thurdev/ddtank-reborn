@@ -72,11 +72,25 @@ principal).
   grant já existia (`loja-habilidades.ts`), confirmado. Gap residual documentado (mecânica de bomba/feitiço
   que `@ddt/fight` não tem): Type 101/106/109/111/112. `vendor/DDTank41/Game.Server/Consortia/Handle/SkillSocket.cs`,
   `Game.Logic/Phy/Object/Player.cs:1422-1464`.
-- **41-boss-mundial-revisao** — 102 WORLDBOSS_CMD (`ENTER_WORLDBOSSROOM=32`, `ADDPLAYERS=34`,
-  `LEAVE_ROOM=33`, `MOVE=35`, `STAUTS=36`, `REQUEST_REVIVE=37`, `BUFF_BUY=38`): desvios documentados —
-  jogador age antes do dragão (original: dragão agia primeiro, one-shot), buff cobrado 1× em vez de 2×.
-  Funcional, revisar se os desvios são aceitáveis ou merecem fix.
-  `vendor/DDTank41/Game.Server/WorldBoss/Handle/{AddPlayer,BuyBuff,Move,RequestRevive,Status}.cs`.
+- ~~**41-boss-mundial-revisao** — 102 WORLDBOSS_CMD~~ **feito** (`feature/41-partial-c`, 2026-10-20): revisados
+  os 4 pontos pedidos contra `vendor/DDTank41/Game.Server/WorldBoss/Handle/*.cs` + `Rooms/BaseWorldBossRoom.cs`.
+  Achado e corrigido um desvio real de cobrança: `REQUEST_REVIVE=37` (reviver 1000 / relutar 1200 Xu) só
+  olhava `Money` livre; o original (`RequestRevive.cs:32-37` via `GamePlayer.MoneyDirect`/`RemoveMoney`,
+  `GamePlayer.cs:3427-3444`) checa e gasta o POOL COMBINADO `Money+MoneyLock` (dinheiro vinculado primeiro) —
+  um jogador com Xu vinculado suficiente mas livre insuficiente era recusado errado. `apps/game/src/handlers/
+  eventos/boss-mundial.ts` agora usa `p.removeMoney()` (já existia, espelha `RemoveMoney` certinho) com o
+  check combinado; teste novo em `apps/game/test/events.test.ts`. Ranking por dano (`UpdateRank`/
+  `RankPlayerCommit`, ordenado por `TotalDamage` desc) e prêmios pagos uma vez só (`claimOnce`) já
+  conferiam com o original — sem mudança. HP compartilhado entre canais (líder/seguidor via barramento,
+  `ctx.leader`/`ctx.crossChannel`) seguiu correto (`apps/game/test/ch-eventos.test.ts`, sem mudança).
+  Os 2 desvios documentados antes foram revisados e MANTIDOS de propósito (decisão desta tarefa, não
+  regressão): (1) jogador age antes do dragão em vez do dragão one-shotar primeiro — o 6600 doador do
+  script é mais forte que o nível 4.1 alvo; dragão one-shotando sem turno nenhum do jogador tornaria o
+  boss mundial infuturável pro público 4.1 (documentado em `packages/fight/src/pve/scripts/manual/
+  worldboss.ts:58-62`); (2) `BUFF_BUY=38` continua recusando SEM cobrar nada (nem a cobrança simples que a
+  nota antiga da matriz dizia) até o motor de luta ter camada de buff pago (task `m4-catchbeast-buff`) —
+  cobrar 2× replicaria um bug de duplo-débito do próprio original (`BuyBuff.cs:19-26`: `MoneyDirect` já
+  deduz, e chama `RemoveMoney` de novo por cima) que nunca replicamos.
 - **41-loja-estoque-global** — 168 GOODS_COUNT: estoque diário global por ShopID
   (`WorldMgr.GetAllShopFreeCount`) não é rastreado — responde lista sempre vazia (ShopID 20 já é limitado
   por jogador em vez de por estoque global, ver 44 BUY_GOODS). `vendor/DDTank41/Game.Server/Packets/Client/GoodsCountHandler.cs`.

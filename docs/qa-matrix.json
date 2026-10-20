@@ -666,9 +666,9 @@
   "code": 102,
   "name": "WORLDBOSS_CMD",
   "sub": "REQUEST_REVIVE=37",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "Reviver 1000 / relutar 1200 Xu; não exige mais estar na lista (estado 3 removia).",
+  "notes": "Reviver 1000 / relutar 1200 Xu; não exige mais estar na lista (estado 3 removia). 41-boss-mundial-revisao: corrigido o desvio de cobrança — agora checa/gasta o POOL COMBINADO Money+MoneyLock (dinheiro vinculado primeiro), igual GamePlayer.MoneyDirect+RemoveMoney (GamePlayer.cs:3427-3444, RequestRevive.cs:32-37); antes só olhava Money livre.",
   "evidence": ""
  },
  {
@@ -699,7 +699,7 @@
   "sub": "BUFF_BUY=38",
   "server": "partial",
   "verified": "yes",
-  "notes": "30 Xu cobrados uma vez (o original cobrava duas).",
+  "notes": "Nota desatualizada vs. código atual (verified:yes/evidence são de antes desta rodada — não re-testado em jogo): a nota antiga dizia '30 Xu cobrados uma vez (o original cobrava duas)', mas `boss-mundial.ts` case 38 hoje RECUSA sem cobrar nada (sem resposta de pacote, só sendMessage) até o motor de luta ter uma camada de buff pago (task m4-catchbeast-buff, mesma lacuna do buff da Captura do Nian) — mantido assim de propósito nesta rodada (41-boss-mundial-revisao), não é regressão desta tarefa. Cobrar 2x seria replicar um bug de duplo-débito do original (BuyBuff.cs:19-26: MoneyDirect já deduz, depois chama RemoveMoney de novo) — exploit/bug que nunca replicamos.",
   "evidence": "research/e2e/events/e20-buff.png"
  },
  {
@@ -1761,7 +1761,7 @@
   "sub": "STAUTS=36",
   "server": "partial",
   "verified": "yes",
-  "notes": "Luta PvE tipo 14 com o script do dragão portado (ACDragon/AC1243/WorldAcientDragon do DDT-6600 em packages/fight/src/pve/scripts/manual/worldboss.ts): o dragão aparece, fala e ataca (71087 de dano), HP inicial = HP global restante. Desvio: o jogador age antes do dragão (no 6600 o dragão one-shotava antes). Estado 3 não tira mais o jogador da sala do boss (corrigido: reviver dava 'Xu insuficiente').",
+  "notes": "Luta PvE tipo 14 com o script do dragão portado (ACDragon/AC1243/WorldAcientDragon do DDT-6600 em packages/fight/src/pve/scripts/manual/worldboss.ts): o dragão aparece, fala e ataca (71087 de dano), HP inicial = HP global restante. Desvio revisado nesta rodada (41-boss-mundial-revisao): jogador age antes do dragão (no 6600 o dragão one-shotava antes de qualquer turno do jogador) — MANTIDO de propósito (decisão desta tarefa): o 6600 doador é mais forte que o nível 4.1 alvo, e deixar o dragão one-shotar sem nenhum turno do jogador tornaria o boss mundial infuturável pro público 4.1 (ninguém chegaria a causar dano no HP compartilhado); já documentado no header de worldboss.ts:58-62. Estado 3 não tira mais o jogador da sala do boss (corrigido: reviver dava 'Xu insuficiente'). Revive/refight (sub 37) agora cobra o pool combinado Money+MoneyLock igual o original (ver nota de 102:requestRevive).",
   "evidence": "research/e2e/batch3/39-wb1.png, research/e2e/batch3/40-wb-myturn.png, research/e2e/batch3/45-wb-shot2.png"
  },
  {

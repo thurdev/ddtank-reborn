@@ -299,8 +299,12 @@ export function worldBossCmd(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): 
       const type = pkt.readInt(); pkt.readBoolean();
       const cost = type === 2 ? 1200 : 1000;
       if (!b.window) return;
-      if (p.info.Money < cost) return p.sendMessage(0, ctx.lang.t("UserBuyItemHandler.NoMoney"));
-      p.info.Money -= cost; p.updateProperties();
+      // RequestRevive.cs:32-37 charges via Player.MoneyDirect (GamePlayer.cs:3427-3444): eligibility checks the
+      // COMBINED pool (Money + MoneyLock), and the deduction (RemoveMoney, GamePlayer.cs:414 here) spends bound
+      // money first. Deviation fixed: this used to check/deduct only p.info.Money, so a player sitting on
+      // enough locked (bound) Xu but short on free Xu was wrongly refused instead of being charged from the lock.
+      if (p.info.Money + p.info.MoneyLock < cost) return p.sendMessage(0, ctx.lang.t("UserBuyItemHandler.NoMoney"));
+      p.removeMoney(cost);
       const o = new GSPacket(102);
       o.writeByte(11); o.writeInt(p.id);
       toRoom(o);

@@ -189,6 +189,30 @@ describe("event claims (idempotency)", () => {
     expect(gp.info.GiftToken - g0).toBe(50);
     c.close();
   });
+
+  it("102/37 RequestRevive charges the COMBINED pool (Money+MoneyLock), bound money first — RequestRevive.cs:32-37 via MoneyDirect/RemoveMoney", async () => {
+    const { c, ch: p } = await loggedIn(server, { money: 500 });
+    const gp = ctx.world.get(p.userId)!;
+    gp.info.MoneyLock = 800; // free Money (500) alone is short of the 1000 revive cost, but Money+MoneyLock covers it
+    const rt = eventsRuntime(ctx);
+    rt.scheduler.setEvents([{ id: 79, kind: "worldboss", title: "t3", enabled: false, weekdays: "", startTime: "00:00", durationMin: 1, startDate: null, endDate: null, params: { bossHp: 1000 } }]);
+    rt.scheduler.force("worldboss", 5);
+    await rt.scheduler.tick();
+    expect(rt.boss.window).toBeTruthy();
+    // RequestRevive's echo (sub 11) only reaches players already in the boss room list (toRoom/SendToAll in the
+    // original) — join first (sub 34 AddPlayer), same as the real client does before ever showing the revive UI.
+    const joinMark = c.mark();
+    c.out(102, (o) => { o.writeByte(34); o.writeInt(0); o.writeInt(0); });
+    await c.code(102, 5, joinMark); // WORLDBOSS_BLOOD_UPDATE sent back on join confirms AddPlayer landed
+    const mark = c.mark();
+    c.out(102, (o) => { o.writeByte(37); o.writeInt(1); o.writeBoolean(false); }); // type 1 = revive (1000 Xu)
+    await c.code(102, 11, mark); // WORLDBOSS_PLAYER_REVIVE echo confirms the charge went through
+    expect(gp.info.MoneyLock).toBe(0); // RemoveMoney spends bound money first: 800 of the 1000 cost
+    expect(gp.info.Money).toBe(300); // remaining 200 (1000-800) comes out of free Money (500-200)
+    rt.scheduler.stop("worldboss");
+    await rt.scheduler.tick();
+    c.close();
+  });
 });
 
 describe("145 ACTIVITY_SYSTEM sub 64-66 (Caminho da Luz, design próprio, sem fonte C#)", () => {
