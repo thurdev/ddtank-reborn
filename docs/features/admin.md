@@ -51,7 +51,10 @@ de qual recurso controla qual regra de jogo.
    `apps/game` recarregar o cache de templates em memória (ver
    `COMO-FUNCIONA.md` seção 2, "`Templates` (runtime cache)") **automaticamente**,
    sem precisar reiniciar o servidor de jogo à mão. Também grava uma linha de
-   auditoria (`audit()`, `admin.ts:155`).
+   auditoria (`audit()`, `admin.ts:155`). Isto só atualiza o CACHE do servidor
+   (silencioso, sem pacote pro cliente) — pra empurrar de verdade pros jogadores
+   já conectados (41-hot-update), o admin usa o botão dedicado "Aplicar agora" na
+   página de Configuração do servidor, ver [hot-update.md](./hot-update.md).
 5. Alguns recursos têm atalhos de criação a partir de outro (ex. botão "Adicionar
    à loja" na página de Itens → `POST /api/admin/items/:templateId/add-to-shop`,
    `admin.ts` perto da linha 740 — cria uma linha em `game."Shop"` reaproveitando

@@ -33,6 +33,9 @@
  *     `handlers/eventos/boss-mundial.ts` e `handlers/eventos/agendador.ts` (onStart/onEnd "worldboss").
  *  7. `deliverReward` (ch-eventos) — o líder tenta entregar a recompensa de ranking do boss mundial pra um
  *     ganhador que não está neste canal; funciona igual `whisper` (pergunta pros outros, espera um ack curto).
+ *  8. `hotUpdate` (41-hot-update) — "Aplicar agora" de admin (POST /hot-update, server.ts adminApi) pros
+ *     OUTROS canais; este canal já reloadou + empurrou pros seus próprios jogadores ANTES de chamar isto
+ *     (admin/hot-update.ts applyHotUpdate), igual systemNotice faz pro broadcast local.
  */
 import { GSPacket } from "@ddt/protocol";
 import * as Out from "../packets/out.js";
@@ -41,6 +44,7 @@ import { quitPlayer } from "../session/login.js";
 import { give } from "../handlers/eventos/agendador.js";
 import { applyBossDamage, mirrorBossClose, mirrorBossOpen, mirrorBossSync, type BossOpenSnapshot, type BossSyncSnapshot } from "../handlers/eventos/boss-mundial.js";
 import type { Reward } from "../game/events.js";
+import { applyHotUpdate } from "../admin/hot-update.js";
 
 export interface CrossChannel {
   /** Derruba a sessão de `userId` em QUALQUER outro canal (login único). */
@@ -64,6 +68,9 @@ export interface CrossChannel {
   /** ch-eventos: líder tenta entregar uma recompensa de boss mundial pra um ganhador que não está neste canal;
    *  true = algum outro canal tinha o jogador online e entregou (itens completos, não só moeda). */
   deliverReward(userId: number, rewards: Reward[], title: string, timeoutMs?: number): Promise<boolean>;
+  /** 41-hot-update: avisa os OUTROS canais que o admin aplicou um "Aplicar agora" — cada um reloada os
+   *  próprios templates e empurra os mesmos pacotes de refresh (+ notice, se houver) pros SEUS jogadores. */
+  hotUpdate(kinds: string[], notice?: string): void;
   /** Desliga as subscriptions deste canal (GameServer.stop). */
   close(): void;
 }
@@ -167,6 +174,11 @@ export function wireCrossChannel(ctx: ServerContext): CrossChannel {
           const m = raw as { corr: string };
           pendingReward.get(m.corr)?.();
         }),
+        bus.subscribe("ch:hot-update", (raw) => {
+          const m = raw as { kinds: string[]; notice?: string; fromServerId: number };
+          if (m.fromServerId === serverId) return;
+          void applyHotUpdate(ctx, m.kinds, m.notice).catch((e) => ctx.log.error("ch-bus: hot-update remoto falhou", e));
+        }),
       ]
     : [];
 
@@ -235,6 +247,10 @@ export function wireCrossChannel(ctx: ServerContext): CrossChannel {
       await Promise.race([done, new Promise((r) => setTimeout(r, timeoutMs))]);
       pendingReward.delete(corr);
       return delivered;
+    },
+    hotUpdate(kinds, notice) {
+      if (!enabled) return;
+      bus.publish("ch:hot-update", { kinds, notice, fromServerId: serverId });
     },
     close() {
       for (const u of unsubs) u();

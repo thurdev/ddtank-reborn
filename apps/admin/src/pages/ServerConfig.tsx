@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { ApiError, Card, PageHeader, Skeleton } from "@ddtank/ui";
+import { ApiError, Button, Card, Input, PageHeader, Skeleton } from "@ddtank/ui";
 import { api } from "@/lib/api";
 import { SchemaForm } from "@/crud/SchemaForm";
 import type { FieldDef, Row } from "@/crud/types";
@@ -34,6 +35,46 @@ export const serverConfigFields: FieldDef[] = [
   { name: "motd", label: "Mensagem do dia (MOTD)", type: "textarea", hint: "Exibida no site e no chat do sistema ao entrar", section: "Operação" },
 ];
 
+/**
+ * 41-hot-update: "Aplicar agora" — reloada templates/loja/eventos/config no apps/game E empurra pros
+ * jogadores JÁ CONECTADOS os pacotes que o cliente 4.1/6600 sabe processar sem relogar (POST
+ * /api/admin/hot-update, docs/features/hot-update.md tem o mapa completo do que atualiza ao vivo vs o que
+ * precisa relogar). Sem campo de "kinds" aqui — o botão sempre aplica tudo que o módulo sabe empurrar; só o
+ * aviso (notice) é opcional.
+ */
+function HotUpdateCard() {
+  const { t } = useI18n();
+  const [notice, setNotice] = useState("");
+  const apply = useMutation({
+    mutationFn: () => api.post<{ notified: number }>("/api/admin/hot-update", { notice: notice.trim() || undefined }),
+    onSuccess: (res) => {
+      toast.success(t("config.hotUpdate.done", { count: res.notified }));
+      setNotice("");
+    },
+    onError: (e) => toast.error(e instanceof ApiError ? e.message : t("common.error")),
+  });
+
+  return (
+    <Card className="p-6 mt-6">
+      <h2 className="font-semibold text-lg">{t("config.hotUpdate.title")}</h2>
+      <p className="text-sm text-muted-foreground mt-1">{t("config.hotUpdate.lead")}</p>
+      <div className="flex flex-col sm:flex-row gap-3 mt-4">
+        <Input
+          value={notice}
+          onChange={(e) => setNotice(e.target.value)}
+          placeholder={t("config.hotUpdate.noticePlaceholder")}
+          maxLength={1000}
+          className="flex-1"
+          aria-label={t("config.hotUpdate.noticePlaceholder")}
+        />
+        <Button onClick={() => apply.mutate()} disabled={apply.isPending}>
+          {apply.isPending ? t("common.saving") : t("config.hotUpdate.apply")}
+        </Button>
+      </div>
+    </Card>
+  );
+}
+
 export function ServerConfigPage() {
   const { t } = useI18n();
   const qc = useQueryClient();
@@ -65,6 +106,7 @@ export function ServerConfigPage() {
           />
         )}
       </Card>
+      <HotUpdateCard />
     </div>
   );
 }

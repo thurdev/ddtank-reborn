@@ -204,8 +204,15 @@ precisar de líder nenhum:
   (`ch:system-notice`, no-op sem barramento ativo). `apps/api` ganhou `POST /api/admin/broadcast`
   (`apps/api/src/routes/admin.ts`) que só precisa falar com o canal LOCAL (`GAME_INTERNAL_URL`) — alcançar os
   outros é responsabilidade do `apps/game`, não do `apps/api` (diferente de `events/start`/`events/stop`/
-  `reload-templates`, que ainda só atingem o canal local — gap não resolvido por esta tarefa). Teste:
+  `reload-templates` puros, que ainda só atingem o canal local — gap não resolvido por esta tarefa). Teste:
   `test/ch-eventos.test.ts` ("aviso de admin").
+- **41-hot-update** (`POST /hot-update`, `admin/http.ts`) — ferramenta NOVA e deliberada pra fechar o gap
+  acima sem mudar o comportamento (silencioso, cache-only) do `/reload-templates` automático que todo CRUD do
+  admin já dispara: reloada igual `/reload-templates` E empurra pros jogadores já conectados os pacotes que o
+  cliente 4.1/6600 sabe processar sem relogar (stats/propriedades, progresso de missão, ícones de evento, aviso
+  opcional — mapa completo em `docs/features/hot-update.md`), replicando pros OUTROS canais via
+  `ctx.crossChannel.hotUpdate` (`ch:hot-update`, mesmo padrão do `systemNotice` acima). Chamado pelo botão
+  "Aplicar agora" do painel (`ServerConfig.tsx`), não pelo CRUD genérico. Teste: `test/hot-update.test.ts`.
 - **Failover do líder do boss mundial**: se o canal líder cair, os outros só reclassificam depois de ~15s sem
   ver o "hello" dele (`bus/leader.ts`) — até lá, dano repassado por um seguidor fica sem resposta (sem travar
   nada, só sem efeito) até o timeout da eleição. Quando o novo líder assume, ele usa o estado que já tinha

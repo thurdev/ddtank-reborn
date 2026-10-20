@@ -15,9 +15,17 @@ Ordem: QA/sync → bot PvP → instâncias → hot-update → testar TUDO no jog
 - [ ] **41-instancias** — instâncias (PvE): sistema de desbloqueio por nível/conclusão da anterior,
   instâncias por faixa de nível e FC (poder de combate) recomendado, balanceamento (HP/dano dos NPCs por
   dificuldade vs FC típico da faixa). Tabela de referência + configurável no admin.
-- [ ] **41-hot-update** — atualizar coisas do jogo sem o jogador sair: templates/loja/eventos/config
-  recarregam no servidor (já existe `/reload-templates`) E o cliente conectado recebe por socket o que
-  mudou (pacotes de atualização que o próprio 4.1 já entende: loja, itens, avisos), sem relogar.
+- [x] **41-hot-update** (2026-10-20) — `POST /hot-update` (`apps/game/src/admin/http.ts` + `admin/hot-update.ts
+  applyHotUpdate`) reloada templates/eventos (igual `/reload-templates`) E empurra pros jogadores já conectados
+  os pacotes que o 4.1/6600 sabem processar sem relogar: `updatePlayerProperties()` (38/67/167, stats/
+  itens/config), `questInv.sendAll()` (178, progresso de missão), `pushEventIcons`+boss mundial (ícones do hall
+  liga/elite/sociedade/resgate/captura/boss), `notice` opcional (3 SYS_MESSAGE) — replica pros OUTROS canais via
+  `ctx.crossChannel.hotUpdate` (`ch:hot-update`, `bus/cross-channel.ts`). `POST /api/admin/hot-update
+  {kinds?, notice?}` (admin-only, audita) + botão "Aplicar agora" em `apps/admin/src/pages/ServerConfig.tsx`.
+  Mapa honesto do que atualiza ao vivo vs precisa relogar (cliente 4.1 cacheia item/loja/missão/canal 1x no
+  boot, `StartupResourceLoader.as`, sem pacote de refresh no protocolo original) em
+  [hot-update.md](../features/hot-update.md). Testes: `apps/game/test/hot-update.test.ts` (4, inclui cenário
+  entre 2 canais com `createMemoryBus`), `apps/api/test/api.test.ts` ("hot-update (41-hot-update)", 3).
 - [ ] **41-qa-tudo** — testar TODAS as features no jogo de verdade (matriz QA `verified:yes` + evidência),
   área por área, abrindo fix pra cada falha.
 - [ ] **pixi-estudo** — estudo de viabilidade do cliente novo (PixiJS, 60fps+) — ver `docs/plan/PIXI.md`.

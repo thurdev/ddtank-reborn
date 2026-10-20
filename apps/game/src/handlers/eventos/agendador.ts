@@ -331,6 +331,23 @@ export async function eventsOnLogin(ctx: ServerContext, p: GamePlayer): Promise<
   const all = [...p.records];
   for (const t of types) if (!all.some((r) => r.RecordID === t)) all.push({ UserID: p.id, RecordID: t, Total: 0 });
   p.send(Out.achievementRecords(228, p.id, all));
+  pushEventIcons(ctx, p);
+}
+
+/**
+ * 41-hot-update: estado ATUAL dos ícones/janelas de evento pra UM jogador — mundo boss, liga, elite, batalha
+ * da sociedade, resgate, captura de monstro. Extraído de `eventsOnLogin` (mesma lógica de "quem loga com a
+ * janela já aberta precisa do pacote, porque o broadcast do `onStart` só alcançou quem já estava online na
+ * hora") pra ser reaproveitado também pelo "Aplicar agora" do admin (`admin/hot-update.ts applyHotUpdate`):
+ * empurra de novo o estado atual pra quem JÁ está online, cobrindo o caso de o admin habilitar/mudar uma
+ * janela cujo horário já estava em curso (reload() só dispara onStart/onEnd em TRANSIÇÃO — EventScheduler.tick,
+ * game/scheduler.ts — então um reload no meio de uma janela já aberta não repete o broadcast por conta própria).
+ * Boss mundial FICA DE FORA daqui de propósito: `session/login.ts:230` já manda `worldBossOpen`/`openWorldBoss`
+ * (aberto/fechado) incondicionalmente logo depois de chamar `eventsOnLogin` — incluir aqui duplicaria o
+ * pacote no login. `admin/hot-update.ts applyHotUpdate` reenvia o boss separadamente, só quando há janela.
+ */
+export function pushEventIcons(ctx: ServerContext, p: GamePlayer): void {
+  const rt = eventsRuntime(ctx);
   if (rt.leagueOpen) p.send(Out.leagueNotice(p.id, p.match.restCount ?? 0, Number(rt.scheduler.isOpen("league")?.ev.params.maxCount ?? 10), 1));
   if (rt.eliteStatus) p.send(eliteStatusPkt(rt.eliteStatus));
   // m3-consortia-battle: a player who logs in while the window is already open still needs 153/1 to light

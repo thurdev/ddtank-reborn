@@ -62,6 +62,7 @@
 | Feature | Doc |
 |---|---|
 | Admin (painel, CRUD de tabelas do jogo) | [admin.md](./admin.md) |
+| Atualização ao vivo ("Aplicar agora" — o que atualiza sem relogar e o que não) | [hot-update.md](./hot-update.md) |
 
 ---
 Status de porte C#→TS citado em cada doc vem de `research/qa/packet-coverage.tsv` (tabela

@@ -113,6 +113,11 @@ const ptBR = {
   "config.title": "Configuração do servidor",
   "config.lead": "Endereços, portas, taxas e manutenção. Alterações de rede exigem reiniciar o servidor de jogo.",
   "config.saved": "Configuração salva",
+  "config.hotUpdate.title": "Aplicar agora / Atualizar jogo ao vivo",
+  "config.hotUpdate.lead": "Recarrega itens, loja, missões e eventos no servidor e avisa quem já está no jogo — sem ninguém precisar sair. Nem tudo atualiza na tela sem reabrir a janela (nome/ícone/descrição de item vêm do arquivo carregado no início da sessão) — ver docs/features/hot-update.md.",
+  "config.hotUpdate.noticePlaceholder": "Aviso opcional pra quem está online agora (ex.: atualização aplicada, algumas telas atualizam ao reabrir)",
+  "config.hotUpdate.apply": "Aplicar agora",
+  "config.hotUpdate.done": "Aplicado — {count} jogador(es) avisado(s) neste canal",
 
   "events.title": "Eventos",
   "events.lead": "Calendário de eventos e bônus. Ative ou desative sem apagar.",
@@ -146,6 +151,7 @@ const ptBR = {
   "donations.noP2wBody": "Doação nunca dá item, cupom ou VIP. No máximo um selo cosmético no site — regra do projeto, não deste painel.",
 
   "common.error": "Algo deu errado.",
+  "common.saving": "Salvando…",
 } as const;
 
 type Key = keyof typeof ptBR;
@@ -256,6 +262,12 @@ const en: Partial<Record<Key, string>> = {
   "config.title": "Server config",
   "config.lead": "Addresses, ports, rates and maintenance. Network changes require a game server restart.",
   "config.saved": "Config saved",
+  "config.hotUpdate.title": "Apply now / Update the game live",
+  "config.hotUpdate.lead": "Reloads items, shop, quests and events on the server and tells whoever is already in the game — no one needs to log out. Not everything refreshes on screen without reopening the window (item name/icon/description come from a file loaded once at session start) — see docs/features/hot-update.md.",
+  "config.hotUpdate.noticePlaceholder": "Optional notice for whoever is online now (e.g.: update applied, some screens refresh when reopened)",
+  "config.hotUpdate.apply": "Apply now",
+  "config.hotUpdate.done": "Applied — {count} player(s) notified on this channel",
+
   "events.title": "Events",
   "events.lead": "Event and bonus calendar. Toggle without deleting.",
   "events.calendar": "Calendar",
@@ -286,6 +298,7 @@ const en: Partial<Record<Key, string>> = {
   "donations.noP2wBody": "Donations never give items, coupons or VIP. At most a cosmetic site badge — a project rule, not a setting of this panel.",
 
   "common.error": "Something went wrong.",
+  "common.saving": "Saving…",
 };
 
 export const { I18nProvider, useI18n } = createI18n<Key>({ "pt-BR": ptBR, en });

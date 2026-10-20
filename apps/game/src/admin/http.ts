@@ -5,6 +5,9 @@
  *   POST /broadcast {msg, type?}       system notice to everyone (center SYS_NOTICE 10 -> 3 SYS_MESSAGE)
  *   POST /kick {userId | nick, msg?}   KITOFF_USER
  *   POST /reload-templates             reload item/shop/map caches + event templates + app."ScheduledEvents"
+ *   POST /hot-update {kinds?, notice?}  41-hot-update "Aplicar agora": reload (igual acima) + empurra pros
+ *                                        jogadores já conectados (e pros outros canais) os pacotes que o
+ *                                        cliente 4.1/6600 já entende sem relogar (admin/hot-update.ts)
  *   GET  /events                       scheduler status (open windows, next starts, x2 rates, world boss ranking)
  *   GET  /events/upcoming?limit=N     próximos de app.ScheduledEvents com nextStart (só leitura)
  *   POST /events/start {kind, minutes} force-open a scheduled system now (admin "start now")
@@ -22,6 +25,7 @@ export interface AdminApi {
   broadcast(msg: string, type: number): number;
   kick(target: { userId?: number; nick?: string }, msg: string): Promise<boolean>;
   reloadTemplates(): Promise<Record<string, number>>;
+  hotUpdate(kinds: string[], notice?: string): Promise<Record<string, number>>;
   events(): Record<string, unknown>;
   eventsUpcoming?(limit: number): unknown;
   eventsForce(kind: string, minutes: number): Promise<Record<string, unknown>>;
@@ -89,6 +93,12 @@ export function startAdmin(host: string, port: number, token: string | undefined
         return send(ok ? 200 : 404, { kicked: ok });
       }
       if (req.method === "POST" && url.pathname === "/reload-templates") return send(200, await api.reloadTemplates());
+      if (req.method === "POST" && url.pathname === "/hot-update") {
+        const b = await readJson(req);
+        const kinds = Array.isArray(b.kinds) ? b.kinds.filter((k): k is string => typeof k === "string") : [];
+        const notice = typeof b.notice === "string" && b.notice.trim() ? b.notice.slice(0, 1000) : undefined;
+        return send(200, await api.hotUpdate(kinds, notice));
+      }
       if (req.method === "GET" && url.pathname === "/events") return send(200, api.events());
       if (req.method === "GET" && url.pathname === "/events/upcoming") {
         const limit = Math.max(1, Math.min(100, Number(url.searchParams.get("limit")) || 20));
