@@ -126,6 +126,16 @@ pra nunca colidir/mesclar com a `game."Item_Fusion"` da 4.1 nem sobrescrever o s
 `CREATE TABLE`, nenhuma tabela existente tocada). Rollback: `DROP TABLE "game"."Item_Fusion_New";` — sem dado
 de jogador nenhum na tabela (é só catálogo/config).
 
+**Migration `0024_regular_oracle.sql`** (task `41-instancias`): 2 tabelas novas, 100% additive (só
+`CREATE TABLE`, nenhuma tabela existente tocada). `app."PveInstanceClear"` (`UserID`/`PveId`/`HardLevel` PK,
+`ClearCount`/`FirstClearedAt`/`LastClearedAt`) — progresso de desbloqueio de dificuldade por jogador (sem
+equivalente em nenhum vendor; o C# original só travava por nível, nunca por clear anterior). `app."PveBalance"`
+(`PveId`/`HardLevel` PK, `NpcHpMult`/`NpcDamageMult`/`NpcDefenceMult`/`RewardMult` todos `double precision`
+default `1`, `UpdatedAt`) — multiplicadores de balanceamento aplicados pelo motor de luta ao instanciar NPCs de
+uma masmorra (`apps/game/src/fight/ddt.ts`); ausência de linha = 1.0 em tudo. Ver
+[`docs/features/instancias.md`](../../docs/features/instancias.md). Rollback: `DROP TABLE
+"app"."PveInstanceClear"; DROP TABLE "app"."PveBalance";` — sem dado nenhum perdido fora dessas 2 tabelas.
+
 ## Dev mode (PGlite, no Postgres install)
 
 `DATABASE_URL` unset (or `pglite:<dir>`) -> [PGlite](https://pglite.dev) (Postgres 17 in WASM), persisted in

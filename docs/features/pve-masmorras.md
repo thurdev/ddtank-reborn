@@ -68,10 +68,15 @@ jogador contra jogador).
   lógica fixa em `setFightLabPermission` (`game/fightlab.ts:35-47`), não é
   dado de tabela — mudar exige editar essa função (e citar o C#
   `GamePlayer.cs:3110-3213` que ela espelha).
-- Nenhum recurso dedicado no admin pra `Pve_Info`/`NPC_Info`/`Mission_Info`
-  ainda — editar via SQL direto nas tabelas `game.*` ou criar um `ResourceDef`
-  novo em `apps/admin/src/resources/`. Depois de editar, reinicie `apps/game`
-  pra recarregar o cache de templates (`Templates`, ver COMO-FUNCIONA.md).
+- Resources no admin: `dungeons` (`Pve_Info`), `missions` (`Mission_Info`), `npcs`
+  (`NPC_Info`) — já existiam. Depois de editar, chame `/reload-templates` (ou
+  qualquer escrita no admin que comece com `game.` já dispara isso sozinha) pra
+  recarregar o cache de templates (`Templates`, ver COMO-FUNCIONA.md).
+- **Desbloqueio de dificuldade por nível + clear anterior, FC recomendado e
+  multiplicadores de balanceamento por masmorra/dificuldade**: task `41-instancias`,
+  ver [instancias.md](./instancias.md) — não é a mesma coisa que `LevelLimits`
+  (nível mínimo de entrada, já documentado acima) nem que o Campo de treino
+  (que já tinha seu próprio desbloqueio, `setFightLabPermission`).
 
 ## 5. Testes + status
 - `apps/game/test/fightlab.test.ts` (`describe("fight lab permissions
@@ -86,9 +91,15 @@ jogador contra jogador).
   cards (PVEGame.GameOver / GameOverAllSession / Stop)")` — cobrem a lógica de
   luta/recompensa do `PveGame` em si (pacote `@ddt/fight`, fora de
   `apps/game`).
+- `apps/game/test/pve-instancias.test.ts` (task `41-instancias`) — **fecha o
+  gap abaixo** pra `RoomType.Dungeon`: sala real (`Pve_Info` ID 2) → setup →
+  `GAME_START` → `startPve` → `91 GAME_CMD` chegando de verdade, nos dois
+  sentidos (recusado quando trancado, liberado quando não). Ver
+  [instancias.md](./instancias.md) seção 4.
 - Status: **OK** o motor de luta PvE (NPC, dano, drop, recompensa) via
-  `@ddt/fight`; **OK** criar/entrar em sala PvE e disparar `startPve`; **sem
-  teste de integração** cobrindo `apps/game` ponta-a-ponta (sala → `startPve`
-  → fim de jogo → save) especificamente para `RoomType.Dungeon` — só pra Fight
-  Lab (`fightlab.test.ts`) e PvP (`fight.test.ts`). `50 FIGHT_NPC` é stub
-  **intencional** (código morto no cliente original, não é um gap).
+  `@ddt/fight`; **OK** criar/entrar em sala PvE e disparar `startPve`; **OK**
+  teste de integração cobrindo `apps/game` ponta-a-ponta (sala → `startPve` →
+  `91 GAME_CMD`) para `RoomType.Dungeon` (antes só tinha pra Fight Lab/PvP —
+  `fightlab.test.ts`/`fight.test.ts` — ainda sem cobertura de save/fim de jogo
+  completo, só do início). `50 FIGHT_NPC` é stub **intencional** (código morto
+  no cliente original, não é um gap).

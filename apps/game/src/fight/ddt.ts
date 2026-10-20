@@ -3,7 +3,7 @@
  * (GameMgr.THREAD_INTERVAL); engine events are serialized to 91 GAME_CMD packets exactly as the C# writers cited in
  * packages/fight/src/game/events.ts. Bots (VirtualPlayer seats) are played server-side by @ddt/fight's BotRunner.
  */
-import { type BaseGame, type FightAssets, type FightCommand, type FightEvent, GameState, type PlayerSpec, PvpGame, PveGame, type PveData, type PveInfo, type DropItem, BotRunner, type BotProfile, hertAddition, setTranslator } from "@ddt/fight";
+import { type BaseGame, type FightAssets, type FightCommand, type FightEvent, GameState, type PlayerSpec, PvpGame, PveGame, type PveData, type PveInfo, type NpcInfo, type DropItem, BotRunner, type BotProfile, hertAddition, setTranslator } from "@ddt/fight";
 import "@ddt/fight/pve-scripts";
 import { loadPackedAssets } from "@ddt/fight/node";
 import { type GSPacket, PacketOut } from "@ddt/protocol";
@@ -41,6 +41,11 @@ export interface DdtFightOptions {
     pveInfo(pveId: number, roomType: number, levelLimits: number): PveInfo | undefined;
     drop(kind: "copy" | "npc", id: number, user?: number): DropItem[] | null;
     translate?(key: string, args: unknown[]): string;
+    /** Task 41-instancias: `Templates.pveBalance(pveId, hardLevel)` — the 1.0 "no override" default when no
+     *  `app."PveBalance"` row exists. Applied in `startPve` below (scalePveNpc/scalePveDrop), never inside
+     *  `@ddt/fight` itself, so the multiplier is resolved once per fight session from the exact
+     *  (pveId, hardLevel) the room is playing. */
+    balance?(pveId: number, hardLevel: number): { hp: number; damage: number; defence: number; reward: number };
   };
   /** Remaining server-wide world-boss HP (room type 14 fights start the dragon at this blood). */
   worldBossBlood?: () => number;
@@ -89,6 +94,40 @@ function petSkillEquip(s: string): [number, number][] {
   return (s || "").split("|").map((x) => x.split(",").map(Number)).filter((a) => a.length >= 2 && a[0]! > 0).map((a) => [a[1]!, a[0]!]);
 }
 
+export type PveBalance = { hp: number; damage: number; defence: number; reward: number };
+
+/** 1.0/1.0/1.0/1.0 — no `app."PveBalance"` row for this (pveId, hardLevel), i.e. unscaled original data. */
+export function isNeutralBalance(b: PveBalance): boolean {
+  return b.hp === 1 && b.damage === 1 && b.defence === 1 && b.reward === 1;
+}
+
+/**
+ * Task 41-instancias: scale one `NPC_Info` row's combat fields by the dungeon/difficulty's
+ * `app."PveBalance"` multipliers. `Blood` = HP, `BaseDamage`/`Attack` = the damage side (mirrors
+ * `GamePlayer.UpdateFightPower`'s `baseAttack`/`attack` split — see `game/stats.ts`), `BaseGuard`/
+ * `Defence` = the defence side, `Experience` = reward (item drop counts are scaled separately below,
+ * `scalePveDrop`). A neutral balance (the default — no `app."PveBalance"` row for this
+ * `(pveId, hardLevel)`) returns `n` unchanged (same object, no allocation on the hot path).
+ */
+export function scalePveNpc(n: NpcInfo, b: PveBalance): NpcInfo {
+  if (isNeutralBalance(b)) return n;
+  return {
+    ...n,
+    Blood: Math.max(1, Math.round(n.Blood * b.hp)),
+    BaseDamage: Math.round(n.BaseDamage * b.damage),
+    Attack: Math.round(n.Attack * b.damage),
+    BaseGuard: Math.round(n.BaseGuard * b.defence),
+    Defence: Math.round(n.Defence * b.defence),
+    Experience: Math.round(n.Experience * b.reward),
+  };
+}
+
+/** Task 41-instancias: `RewardMult` also scales drop item counts (min 1, so a reward is never zeroed out). */
+export function scalePveDrop(items: DropItem[] | null, mult: number): DropItem[] | null {
+  if (!items || mult === 1) return items;
+  return items.map((d) => ({ ...d, count: Math.max(1, Math.round(d.count * mult)) }));
+}
+
 export class DdtFightEngine implements FightEngine {
   readonly name = "ddt-fight";
   readonly games = new Map<number, DdtGame>();
@@ -111,13 +150,24 @@ export class DdtFightEngine implements FightEngine {
     }
     try {
       const id = gameIdSeq++;
+      const bal = pv.balance?.(s.pveId, s.hardLevel) ?? { hp: 1, damage: 1, defence: 1, reward: 1 };
+      const data: PveData = isNeutralBalance(bal) ? pv.data : {
+        ...pv.data,
+        npc: (nid) => {
+          const n = pv.data.npc(nid);
+          return n ? scalePveNpc(n, bal) : n;
+        },
+      };
       const specs = s.players.map((m) => specOf(m as LobbyLike, 1, this.assets, this.o.petSkill));
       const members = new Map(s.players.map((m) => [m.id, m as LobbyLike]));
       const game = new PveGame({
         id, roomType: s.roomType, gameType: s.gameType, timeType: s.timeType, assets: this.assets, players: specs, seed: this.o.seed?.() ?? (Date.now() ^ (id * 7919)) | 0, now: Date.now(),
-        pveInfo: info, hardLevel: s.hardLevel, currentFloor: s.currentFloor, data: pv.data,
+        pveInfo: info, hardLevel: s.hardLevel, currentFloor: s.currentFloor, data,
         worldBossBlood: s.roomType === 14 ? this.o.worldBossBlood?.() : undefined,
-        drops: { copyDrop: (mid, user) => pv.drop("copy", mid, user), npcDrop: (did) => pv.drop("npc", did) },
+        drops: {
+          copyDrop: (mid, user) => scalePveDrop(pv.drop("copy", mid, user), bal.reward),
+          npcDrop: (did) => scalePveDrop(pv.drop("npc", did), bal.reward),
+        },
         log: (m) => this.o.log?.(m),
         ...gameHooks(this, s.roomType, members),
       });

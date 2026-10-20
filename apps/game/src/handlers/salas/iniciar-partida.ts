@@ -4,19 +4,45 @@
  * Pacotes: 94 GAME_ROOM sub 7 GAME_START, 82 GAME_MISSION_START, 86 (atalho "iniciar" sem nome oficial,
  * reaproveita o código de QUEST_ONE_KEY_FINISH).
  * C#: `StartGameAction.cs`, `GameUserStartHandler.cs` em `vendor/DDTank41/Game.Server`.
- * Como testar: `apps/game/test/farm-compose-hotspring-rooms.test.ts`. Manual: `docs/features/salas-batalha.md`,
- * `docs/features/pve-masmorras.md`.
+ * Como testar: `apps/game/test/farm-compose-hotspring-rooms.test.ts`; o gate de desbloqueio de masmorra
+ * (task 41-instancias, `dungeonLockedMessage` abaixo) em `apps/game/test/pve-instancias.test.ts`. Manual:
+ * `docs/features/salas-batalha.md`, `docs/features/pve-masmorras.md`, `docs/features/instancias.md`.
  */
 import type { GSPacket } from "@ddt/protocol";
 import type { GamePlayer } from "../../game/player.js";
 import type { ServerContext } from "../../session/context.js";
+import { RoomType } from "../../rooms/room.js";
+import { isDungeonUnlocked } from "../../game/pve-unlock.js";
+import { loadClearedDifficulties } from "../../db/pve-progress.js";
+
+/**
+ * Task `41-instancias` (owner request 2026-10-20): server-authoritative re-check of the dungeon the room is
+ * currently set up to play (`room.MapId`/`room.HardLevel`, both fully client-chosen in `94/2
+ * GAME_ROOM_SETUP_CHANGE` — `configurar-sala.ts`). The lobby/setup screen never refuses a selection (same as
+ * the original, which the Flash UI greys out client-side), but a locked dungeon can never actually START a
+ * fight, no matter what the client sent — this is the one real enforcement point (`docs/features/
+ * instancias.md` section 1). Only `RoomType.Dungeon` is gated; Fight Lab has its own unlock system
+ * (`game/fightlab.ts`) and every other PvE room type (Labyrinth, Rescue, CatchBeast, …) has a fixed
+ * `MapId`/no difficulty picker, so neither needs this check.
+ */
+async function dungeonLockedMessage(ctx: ServerContext, p: GamePlayer, room: { RoomType: number; MapId: number; HardLevel: number }): Promise<string | null> {
+  if (room.RoomType !== RoomType.Dungeon) return null;
+  const info = ctx.templates.pveInfos.get(room.MapId);
+  if (!info) return null; // not a real Pve_Info row (e.g. the 10000 "choose a dungeon" placeholder) — nothing to fight yet
+  const cleared = await loadClearedDifficulties(ctx, p.id, room.MapId);
+  const r = isDungeonUnlocked(info, room.HardLevel, p.info.Grade, cleared, { allOpen: ctx.cfg.ALL_OPEN, requireClear: ctx.templates.cfgInt("pveRequireClear", 1) !== 0 });
+  if (r.unlocked) return null;
+  return r.reason === "clear"
+    ? "Você precisa vencer a dificuldade anterior desta masmorra antes de jogar esta."
+    : "Seu nível ainda não é suficiente para esta masmorra.";
+}
 
 /**
  * GameStart.cs: só o anfitrião, exige arma em todo mundo (captcha / permissão de PvE / tickets não portados).
  * Como lê esse código (cada variável): `room` = sala do anfitrião; `m` = cada membro da sala, checado um a um
  * antes de deixar começar (se faltar arma em alguém, cancela o "pickup" e avisa em vez de iniciar).
  */
-export function iniciarPartida(ctx: ServerContext, p: GamePlayer): void {
+export async function iniciarPartida(ctx: ServerContext, p: GamePlayer): Promise<void> {
   const room = p.currentRoom;
   if (!room || room.host !== p) return;
   for (const m of room.getPlayers()) {
@@ -26,6 +52,13 @@ export function iniciarPartida(ctx: ServerContext, p: GamePlayer): void {
       room.sendCancelPickUp();
       return;
     }
+  }
+  const locked = await dungeonLockedMessage(ctx, p, room);
+  if (locked) {
+    room.IsPlaying = false;
+    room.sendCancelPickUp();
+    p.sendMessage(3, locked);
+    return;
   }
   ctx.rooms.startGame(room);
 }
@@ -44,6 +77,15 @@ export function destravarAndarFightLab(_ctx: ServerContext, p: GamePlayer, pkt: 
 }
 
 /** 86: atalho de "iniciar" do anfitrião (sem nome oficial no cliente, reaproveita o código de QUEST_ONE_KEY_FINISH). */
-export function atalhoIniciarAnfitriao(ctx: ServerContext, p: GamePlayer): void {
-  if (p.currentRoom && p.currentRoom.host === p) ctx.rooms.startGame(p.currentRoom);
+export async function atalhoIniciarAnfitriao(ctx: ServerContext, p: GamePlayer): Promise<void> {
+  const room = p.currentRoom;
+  if (!room || room.host !== p) return;
+  const locked = await dungeonLockedMessage(ctx, p, room);
+  if (locked) {
+    room.IsPlaying = false;
+    room.sendCancelPickUp();
+    p.sendMessage(3, locked);
+    return;
+  }
+  ctx.rooms.startGame(room);
 }

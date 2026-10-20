@@ -12,9 +12,21 @@ Ordem: QA/sync → bot PvP → instâncias → hot-update → testar TUDO no jog
 - [ ] **41-bot-pvp** — bot do PvP quando não acha jogador: (1) não joga (fica parado no turno); (2) não usa
   roupa/equipamento/atributos configurados no admin, só vem com nível parecido. Bot tem que jogar o turno
   inteiro (mirar/força/atirar, usar item) e montar o boneco a partir do cadastro do admin.
-- [ ] **41-instancias** — instâncias (PvE): sistema de desbloqueio por nível/conclusão da anterior,
-  instâncias por faixa de nível e FC (poder de combate) recomendado, balanceamento (HP/dano dos NPCs por
-  dificuldade vs FC típico da faixa). Tabela de referência + configurável no admin.
+- [x] **41-instancias** (2026-10-20) — desbloqueio de dificuldade de masmorra por nível (`Pve_Info.LevelLimits`,
+  já existia mas só na entrada da sala) **+ dificuldade anterior vencida** (novo, `app."PveInstanceClear"`,
+  migração `0024`), aplicado de verdade no `GAME_START` (`handlers/salas/iniciar-partida.ts`
+  `dungeonLockedMessage`) — nunca no `GAME_ROOM_SETUP_CHANGE` (igual ao cliente original, que também nunca
+  recusava a seleção ali). Configurável (`game."Server_Config"` `pveRequireClear`, `cfg.ALL_OPEN` já
+  bypassava o check de nível, documentado). FC recomendado: reaproveitada a fórmula real
+  `GamePlayer.UpdateFightPower` (`game/stats.ts fightPower()`) aplicada aos campos de `NPC_Info` — tabela +
+  método completos em `docs/features/instancias.md` (achado: equipamento não é travado por nível no 4.1,
+  então "FC por nível" não existe como curva — FC do NPC é o número comparável, não uma curva de jogador).
+  Balanceamento: camada `app."PveBalance"` (multiplicador HP/dano/defesa/recompensa por masmorra+dificuldade,
+  padrão 1.0, aplicada em `fight/ddt.ts scalePveNpc`/`scalePveDrop`) + admin (`pve-balance`/`pve-clears` em
+  `apps/admin/src/resources/pve-balance.ts`). 3 inversões de curva achadas nos dados reais (masmorra 5/6/13)
+  documentadas como recomendação pro dono revisar — não "corrigidas" às cegas (amostra de NPCs encontrados é
+  pequena pra maioria das masmorras, ver seção 2 do doc). Testes: `apps/game/test/pve-instancias.test.ts` (13,
+  unit + integração real de sala/`startPve`/`91 GAME_CMD`).
 - [ ] **41-hot-update** — atualizar coisas do jogo sem o jogador sair: templates/loja/eventos/config
   recarregam no servidor (já existe `/reload-templates`) E o cliente conectado recebe por socket o que
   mudou (pacotes de atualização que o próprio 4.1 já entende: loja, itens, avisos), sem relogar.

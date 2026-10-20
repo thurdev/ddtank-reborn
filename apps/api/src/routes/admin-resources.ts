@@ -52,6 +52,10 @@ export const RESOURCES: Record<string, ResourceDef> = {
   dungeons: { table: game.Pve_Info, pk: ["ID"] },
   missions: { table: game.Mission_Info, pk: ["Id"] },
   npcs: { table: game.NPC_Info, pk: ["ID"] },
+  // task 41-instancias: balanceamento de masmorra (NPC HP/dano/defesa + recompensa) por (dungeon, dificuldade);
+  // progresso de desbloqueio (quem já zerou qual dificuldade) só pra suporte/depuração, nunca criado pelo admin.
+  "pve-balance": { table: app.PveBalance, pk: ["PveId", "HardLevel"] },
+  "pve-clears": { table: app.PveInstanceClear, pk: ["UserID", "PveId", "HardLevel"], noCreate: true },
   maps: { table: game.Game_Map, pk: ["ID"] },
   balls: { table: game.Ball, pk: ["ID"] },
   "drop-items": { table: game.Drop_Item, pk: ["Id"] },

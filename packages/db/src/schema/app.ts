@@ -1,7 +1,7 @@
 // Hand-written (not generated). New tables for DDTank Reborn that have no equivalent in the original SQL Server DBs.
 // Owner: apps/api (written by the API/admin, read by apps/game). See apps/api/README.md "Login tickets".
 import { sql } from "drizzle-orm";
-import { bigint, boolean, index, integer, jsonb, pgSchema, primaryKey, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { bigint, boolean, doublePrecision, index, integer, jsonb, pgSchema, primaryKey, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
 /** Postgres schema for the new stack's own tables. */
 export const appSchema = pgSchema("app");
@@ -423,4 +423,54 @@ export const ShopBuyLimited = appSchema.table(
     Count: integer("Count").notNull().default(0),
   },
   (t) => [primaryKey({ name: "ShopBuyLimited_pkey", columns: [t.UserID, t.Day, t.GoodsID] })],
+);
+
+/**
+ * app."PveInstanceClear" — task `41-instancias`: per-player, per-dungeon, per-difficulty clear record.
+ * `HardLevel` uses the same numbering as `apps/game/src/rooms/room.ts` `HardLevel`/`packages/fight`
+ * `eHardLevel` (0 Simple, 1 Normal, 2 Hard, 3 Terror, 4 Epic, 5 Nightmare — see `game/pve-unlock.ts`).
+ * Written once per dungeon COMPLETION (room's `onFinished(isWin=true)` for `RoomType.Dungeon`, not per
+ * floor/mission), read by `isPveUnlocked` to gate the NEXT difficulty in the ladder (`game/pve-unlock.ts`).
+ * No vendor equivalent: the original C# (`GamePlayer.cs`) never gated dungeon difficulty by a previous
+ * clear — only by `Pve_Info.LevelLimits` (see `EnterRoomAction.cs`) — this is a Reborn addition (owner
+ * request, 2026-10-20: "sistema de desbloqueio de níveis de instâncias"). `ClearCount` lets the admin see
+ * how many times a player has beaten that difficulty (not just the first time).
+ */
+export const PveInstanceClear = appSchema.table(
+  "PveInstanceClear",
+  {
+    UserID: integer("UserID").notNull(),
+    PveId: integer("PveId").notNull(),
+    HardLevel: integer("HardLevel").notNull(),
+    ClearCount: integer("ClearCount").notNull().default(0),
+    FirstClearedAt: ts("FirstClearedAt").notNull().defaultNow(),
+    LastClearedAt: ts("LastClearedAt").notNull().defaultNow(),
+  },
+  (t) => [primaryKey({ name: "PveInstanceClear_pkey", columns: [t.UserID, t.PveId, t.HardLevel] })],
+);
+
+/**
+ * app."PveBalance" — task `41-instancias`: per-dungeon (`game."Pve_Info".ID`), per-difficulty (`HardLevel`,
+ * same numbering as `PveInstanceClear` above) multiplier layer applied when the fight engine instantiates
+ * that encounter's NPCs (`apps/game/src/fight/ddt.ts` `startPve`, see `scalePveNpc`/`scalePveDrop`).
+ * Absence of a row for a (PveId, HardLevel) pair means "no override" — every multiplier defaults to `1.0`
+ * (identical to the original, unscaled `game."NPC_Info"`/drop data), so the table only needs rows for the
+ * handful of dungeon/difficulty combos an admin actually wants to retune — see `docs/features/instancias.md`
+ * section 3 for the method + the specific combos this task's own analysis flagged for review (none were
+ * auto-applied: the analysis sample is too sparse — most `NPC_Info` ids a `Pve_Info` row lists are missing
+ * from the imported 4.1 snapshot — to ship as a silent default; the doc gives the owner the numbers instead).
+ * `RewardMult` scales both the NPC's `Experience` and every drop's item `count` (min 1) for that encounter.
+ */
+export const PveBalance = appSchema.table(
+  "PveBalance",
+  {
+    PveId: integer("PveId").notNull(),
+    HardLevel: integer("HardLevel").notNull(),
+    NpcHpMult: doublePrecision("NpcHpMult").notNull().default(1),
+    NpcDamageMult: doublePrecision("NpcDamageMult").notNull().default(1),
+    NpcDefenceMult: doublePrecision("NpcDefenceMult").notNull().default(1),
+    RewardMult: doublePrecision("RewardMult").notNull().default(1),
+    UpdatedAt: ts("UpdatedAt").notNull().defaultNow(),
+  },
+  (t) => [primaryKey({ name: "PveBalance_pkey", columns: [t.PveId, t.HardLevel] })],
 );
