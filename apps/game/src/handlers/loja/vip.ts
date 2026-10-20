@@ -8,6 +8,7 @@
  * Como testar: sem teste automatizado dedicado hoje. Manual: tela VIP → comprar dias.
  */
 import { addExpVip, applyVipDays, vipExpTable, vipNextLevelDays, vipPrice } from "../../game/vip.js";
+import { bumpNoviceActivity, NoviceActiveType } from "../../game/novice-activity.js";
 import type { GamePlayer } from "../../game/player.js";
 import type { ServerContext } from "../../session/context.js";
 import * as Out from "../../packets/out.js";
@@ -26,6 +27,8 @@ export function openVip(ctx: ServerContext, p: GamePlayer, nick: string, days: n
   const table = vipExpTable(ctx.templates.serverConfig.get("VIPExpForEachLv"));
   const { opened } = applyVipDays(target.info, days, ctx.now());
   addExpVip(target.info, money, table);
+  // GamePlayer.OpenVIP/ContinuousVIP (GamePlayer.cs:3728-3730, 3752-3754): UPGRADE_VIP_ACTIVE high-water mark.
+  bumpNoviceActivity(target, NoviceActiveType.UPGRADE_VIP, target.info.VIPLevel, false, ctx.now());
   if (target.info.typeVIP > 0) target.info.VIPNextLevelDaysNeeded = vipNextLevelDays(target.info, table, card);
   target.send(Out.openVip(target.info));
   target.updateProperties();

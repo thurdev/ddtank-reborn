@@ -4,6 +4,7 @@ import { game, player } from "@ddt/db";
 import type { GameServer } from "../src/server.js";
 import type { ServerContext } from "../src/session/context.js";
 import { eventsRuntime } from "../src/handlers/eventos/agendador.js";
+import { getNoviceCondition } from "../src/game/novice-activity.js";
 import { drawDistinct, type Card } from "../src/handlers/eventos/bau-da-galinha.js";
 import { luckyDraw } from "../src/handlers/eventos/estrela-da-sorte.js";
 import { pickLotteryBoard } from "../src/handlers/eventos/roleta.js";
@@ -95,14 +96,18 @@ describe("132 league battleground stats", () => {
   });
 });
 
-describe("258 NOVICEACTIVITY idempotency", () => {
-  it("grants once per (ActivityType, Condition) at grade >= Condition, a repeat claims nothing more", async () => {
+describe("258 NOVICEACTIVITY: real progress counter (not Grade), sequential tiers (anti-skip), claim-once", () => {
+  it("grants tier 1 once real progress reaches its Condition; a repeat claims nothing more", async () => {
     const h = await sharedDb();
     await h.db.delete(game.Event_Reward_Goods).where(eq(game.Event_Reward_Goods.ActivityType, 9001));
+    await h.db.delete(game.Event_Reward_Info).where(eq(game.Event_Reward_Info.ActivityType, 9001));
     await h.db.insert(game.Event_Reward_Goods).values({ ActivityType: 9001, SubActivityType: 1, TemplateId: -100, Count: 777, IsBind: true, ValidDate: 0 } as never);
+    await h.db.insert(game.Event_Reward_Info).values({ ActivityType: 9001, SubActivityType: 1, Condition: 5 } as never);
     await eventsRuntime(ctx).reload();
-    const { c, ch: p } = await loggedIn(server, { grade: 1, gold: 0 });
+    const { c, ch: p } = await loggedIn(server, { gold: 0 });
     const gp = ctx.world.get(p.userId)!;
+    // Real progress counter (game/novice-activity.ts), not Grade — reached the tier-1 threshold (5).
+    gp.noviceProgress.set(9001, { UserID: p.userId, ActivityType: 9001, Conditions: 5, AwardGot: 0, PeriodKey: "" });
     const goldBefore = gp.info.Gold;
     const m = c.mark();
     c.out(258, (o) => { o.writeInt(9001); o.writeInt(1); });
@@ -115,19 +120,76 @@ describe("258 NOVICEACTIVITY idempotency", () => {
     c.close();
   });
 
-  it("refuses when the player's grade is below the condition", async () => {
+  it("refuses when real progress hasn't reached the Condition yet — Grade alone no longer decides it", async () => {
     const h = await sharedDb();
     await h.db.delete(game.Event_Reward_Goods).where(eq(game.Event_Reward_Goods.ActivityType, 9002));
+    await h.db.delete(game.Event_Reward_Info).where(eq(game.Event_Reward_Info.ActivityType, 9002));
     await h.db.insert(game.Event_Reward_Goods).values({ ActivityType: 9002, SubActivityType: 1, TemplateId: -100, Count: 999, IsBind: true, ValidDate: 0 } as never);
-    await h.db.insert(game.Event_Reward_Goods).values({ ActivityType: 9002, SubActivityType: 5, TemplateId: -100, Count: 999, IsBind: true, ValidDate: 0 } as never);
+    await h.db.insert(game.Event_Reward_Info).values({ ActivityType: 9002, SubActivityType: 1, Condition: 5 } as never);
     await eventsRuntime(ctx).reload();
-    const { c, ch: p } = await loggedIn(server, { grade: 1, gold: 0 });
+    // High Grade on purpose: the pre-41-novato-progresso code compared the tier index against Grade directly,
+    // so this would have wrongly passed before. Real progress for ActivityType 9002 was never touched (stays 0).
+    const { c, ch: p } = await loggedIn(server, { grade: 99, gold: 0 });
     const gp = ctx.world.get(p.userId)!;
     const goldBefore = gp.info.Gold;
-    // Condition 5 > player's Grade 1: "Điều kiện không đủ" — refused before claimOnce, nothing granted.
-    c.out(258, (o) => { o.writeInt(9002); o.writeInt(5); });
+    c.out(258, (o) => { o.writeInt(9002); o.writeInt(1); });
     await new Promise((r) => setTimeout(r, 200));
     expect(gp.info.Gold).toBe(goldBefore);
+    c.close();
+  });
+
+  it("anti-skip: a client SubActivityType past tier 1 is ignored — the real next tier comes from AwardGot, never jumps ahead", async () => {
+    const h = await sharedDb();
+    await h.db.delete(game.Event_Reward_Goods).where(eq(game.Event_Reward_Goods.ActivityType, 9003));
+    await h.db.delete(game.Event_Reward_Info).where(eq(game.Event_Reward_Info.ActivityType, 9003));
+    await h.db.insert(game.Event_Reward_Goods).values([
+      { ActivityType: 9003, SubActivityType: 1, TemplateId: -100, Count: 100, IsBind: true, ValidDate: 0 },
+      { ActivityType: 9003, SubActivityType: 2, TemplateId: -100, Count: 200, IsBind: true, ValidDate: 0 },
+    ] as never);
+    await h.db.insert(game.Event_Reward_Info).values([
+      { ActivityType: 9003, SubActivityType: 1, Condition: 5 },
+      { ActivityType: 9003, SubActivityType: 2, Condition: 10 },
+    ] as never);
+    await eventsRuntime(ctx).reload();
+    const { c, ch: p } = await loggedIn(server, { gold: 0 });
+    const gp = ctx.world.get(p.userId)!;
+    // Progress already past BOTH thresholds, but tier 1 (AwardGot=0) was never claimed yet.
+    gp.noviceProgress.set(9003, { UserID: p.userId, ActivityType: 9003, Conditions: 10, AwardGot: 0, PeriodKey: "" });
+    const goldBefore = gp.info.Gold;
+    // Client asks straight for tier 2 (SubActivityType=2): NoviceActivityGetAward.cs:22-28 ignores it (only "==1" matters)
+    // and computes the real tier from AwardGot (0*2+1=1 -> tier 1).
+    c.out(258, (o) => { o.writeInt(9003); o.writeInt(2); });
+    await new Promise((r) => setTimeout(r, 200));
+    expect(gp.info.Gold).toBe(goldBefore + 100); // tier 1's reward, not tier 2's
+    // AwardGot is now 1: the SAME request (still SubActivityType=2) correctly advances to the real tier 2 next (1*2+1=3 -> tier 2).
+    c.out(258, (o) => { o.writeInt(9003); o.writeInt(2); });
+    await new Promise((r) => setTimeout(r, 200));
+    expect(gp.info.Gold).toBe(goldBefore + 100 + 200);
+    c.close();
+  });
+});
+
+describe("258 NOVICEACTIVITY: real server-side triggers feed the counter (not client-trusted)", () => {
+  it("GamePlayer.addGP bumps GRADE_UP_ACTIVE (1) to the new Grade on level-up (high-water mark)", async () => {
+    const { c, ch: p } = await loggedIn(server, { grade: 1 });
+    const gp = ctx.world.get(p.userId)!;
+    gp.gradeForGp = (v) => (v >= 100 ? 5 : undefined); // force a level-up to Grade 5 once enough GP accrues
+    expect(getNoviceCondition(gp, 1, ctx.now())).toBe(1); // already backfilled at login (UpdateLevel, GamePlayer.cs:2969) to the starting Grade
+    gp.addGP(100, false);
+    expect(gp.info.Grade).toBe(5);
+    expect(getNoviceCondition(gp, 1, ctx.now())).toBe(5);
+    c.close();
+  });
+
+  it("GamePlayer.removeMoney bumps USE_MONEY_ACTIVE (3) and its weekly twin (5) by the amount spent (running total)", async () => {
+    const { c, ch: p } = await loggedIn(server, { money: 1000 });
+    const gp = ctx.world.get(p.userId)!;
+    expect(getNoviceCondition(gp, 3, ctx.now())).toBe(0);
+    gp.removeMoney(300);
+    expect(getNoviceCondition(gp, 3, ctx.now())).toBe(300);
+    expect(getNoviceCondition(gp, 5, ctx.now())).toBe(300);
+    gp.removeMoney(50);
+    expect(getNoviceCondition(gp, 3, ctx.now())).toBe(350); // running total, not a high-water mark
     c.close();
   });
 });

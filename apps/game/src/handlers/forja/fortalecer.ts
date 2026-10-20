@@ -22,6 +22,7 @@ import type { ServerContext } from "../../session/context.js";
 import { getEquipControl } from "../../db/consortia.js";
 import { DEFAULT_EQUIP_RICHES, personalRiches, smithBonusLevel } from "../../game/consortia.js";
 import { pushRecords } from "../eventos/completar-conquista.js";
+import { bumpNoviceActivity, NoviceActiveType } from "../../game/novice-activity.js";
 import * as Out from "../../packets/out.js";
 import { FORGE_SLOT, STRENGTHEN_STONE_SLOTS, forgeAutoArrange, installFusionAutoSplitHook, isWarrior } from "./bancada.js";
 
@@ -145,6 +146,8 @@ export async function strengthen(ctx: ServerContext, p: GamePlayer, pkt: GSPacke
       store.addItemTo(item, FORGE_SLOT.strengthenItem);
       p.questInv?.onItemStrengthen(item.template.CategoryID, item.StrengthenLevel);
       pushRecords(p, new Map([[32, 1]])); // AchievementCondition type 32 ItemStrengthenCondition: successful-strengthen counter
+      // ItemStrengthenHandler.cs:145-147: STRENGTHEN_WEAPON_ACTIVE only for CategoryID 7 (weapon), high-water mark.
+      if (item.template.CategoryID === 7) bumpNoviceActivity(p, NoviceActiveType.STRENGTHEN_WEAPON, item.StrengthenLevel, false, ctx.now());
     } else {
       out.writeByte(1); out.writeBoolean(false);
       if (!godStone) {

@@ -3,6 +3,7 @@
  * Bags constructed as in the GamePlayer ctor (GamePlayer.cs:1126-1137).
  */
 import { saveRecords } from "./events.js";
+import { bumpNoviceActivity, saveNoviceActivity, NoviceActiveType, type NoviceProgressRow } from "./novice-activity.js";
 import type { GSPacket } from "@ddt/protocol";
 import type { Database } from "@ddt/db";
 import { savePlayerInfo } from "../db/characters.js";
@@ -83,6 +84,8 @@ export class GamePlayer implements RoomMember {
   records: RecordRow[] = [];
   buffs: BuffRow[] = [];
   extra: ExtraRow | null = null;
+  /** PlayerExtra's m_eventInfo (258 NOVICEACTIVITY progress per ActivityType), loaded at login. See game/novice-activity.ts. */
+  noviceProgress: Map<number, NoviceProgressRow> = new Map();
   currentRoom: BaseRoom | null = null;
   roomIndex = -1;
   roomTeam = 1;
@@ -360,6 +363,9 @@ export class GamePlayer implements RoomMember {
       this.info.Grade = g;
       this.updatePlayerProperties();
       this.questInv?.refresh();
+      // PlayerExtra.UpdateEventCondition(GRADE_UP_ACTIVE, value) on the Grade setter (GamePlayer.cs:775) —
+      // high-water mark, never resets. See game/novice-activity.ts header for the documented UpdateLevel deviation.
+      bumpNoviceActivity(this, NoviceActiveType.GRADE_UP, this.info.Grade, false, new Date());
       this.onGradeUp?.(old);
     } else this.updateProperties();
   }
@@ -418,6 +424,12 @@ export class GamePlayer implements RoomMember {
     this.info.MoneyLock -= fromLock;
     this.info.Money -= v - fromLock;
     this.updateProperties();
+    // PlayerExtra.UpdateEventCondition(USE_MONEY_ACTIVE/_OFWEEK, v, isPlus: true) — GamePlayer.cs:4017-4050 bumps
+    // both on EVERY RemoveMoney call (documented deviation from the original's 2 isNoviceActive opt-outs: see
+    // game/novice-activity.ts header).
+    const now = new Date();
+    bumpNoviceActivity(this, NoviceActiveType.USE_MONEY, v, true, now);
+    bumpNoviceActivity(this, NoviceActiveType.USE_MONEY_OFWEEK, v, true, now);
   }
   removeMedal(count: number): void {
     this.propBag.removeTemplate(11408, count);
@@ -546,6 +558,7 @@ export class GamePlayer implements RoomMember {
     }
     if (this.buffs.length) await step("buffs", () => saveBuffs(db, this.buffs));
     await step("records", () => saveRecords(db, this));
+    await step("noviceActivity", () => saveNoviceActivity(db, this));
     if (errs.length) throw errs[0];
   }
 }

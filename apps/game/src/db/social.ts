@@ -60,16 +60,18 @@ export type AchievementDataRow = typeof player.AchievementData.$inferSelect;
 export type RecordRow = typeof player.Sys_Users_Record.$inferSelect;
 export type ExtraRow = typeof player.Sys_Users_Extra.$inferSelect;
 
-/** SP_QuestData_All, SP_Achievement_Data_All, SP_Users_Record_All, SP_User_Buff_All, SP_GetSingleUsersExtra. */
+/** SP_QuestData_All, SP_Achievement_Data_All, SP_Users_Record_All, SP_User_Buff_All, SP_GetSingleUsersExtra,
+ *  SP_Get_User_EventProcess (app."NoviceActivityProgress" — see `game/novice-activity.ts`). */
 export async function loadProgress(db: Database, userId: number) {
-  const [quests, achievements, records, buffs, extra] = await Promise.all([
+  const [quests, achievements, records, buffs, extra, noviceProgress] = await Promise.all([
     db.select().from(player.QuestData).where(and(eq(player.QuestData.UserID, userId), eq(player.QuestData.IsExist, true))),
     db.select().from(player.AchievementData).where(eq(player.AchievementData.UserID, userId)),
     db.select().from(player.Sys_Users_Record).where(eq(player.Sys_Users_Record.UserID, userId)),
     db.select().from(player.User_Buff).where(and(eq(player.User_Buff.UserID, userId), eq(player.User_Buff.IsExist, true))),
     db.select().from(player.Sys_Users_Extra).where(eq(player.Sys_Users_Extra.UserID, userId)).limit(1),
+    db.select().from(app.NoviceActivityProgress).where(eq(app.NoviceActivityProgress.UserID, userId)),
   ]);
-  return { quests, achievements, records, buffs, extra: (extra[0] ?? null) as ExtraRow | null };
+  return { quests, achievements, records, buffs, extra: (extra[0] ?? null) as ExtraRow | null, noviceProgress };
 }
 
 /** PlayerBussiness.UpdateDbQuestDataInfo (SP_QuestData_Add): upsert by (UserID, QuestID). */

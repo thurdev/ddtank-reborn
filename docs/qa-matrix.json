@@ -3995,9 +3995,9 @@
   "code": 258,
   "name": "NOVICEACTIVITY",
   "sub": "",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "NOVICEACTIVITY implementado simplificado: usa as mesmas tabelas Event_Reward_Info/Goods do 259 (firstRecharge), elegibilidade = Grade do jogador >= Condition (o contador de progresso por PlayerExtra — nível/fortalecimento/recarga/VIP/FC — não foi portado; ver HANDLERS.md). Claim idempotente por (ActivityType, Condition) via app.\"EventClaims\". Testado por código, não clicado.",
+  "notes": "41-novato-progresso: contador real por ActivityType portado (app.\"NoviceActivityProgress\", migração 0025 + game/novice-activity.ts), substituindo a elegibilidade simplificada (Grade do jogador >= índice do SubActivityType, nem olhava Event_Reward_Info.Condition de verdade). Gatilhos reais: GRADE_UP (1, GamePlayer.addGP + backfill no login), STRENGTHEN_WEAPON (2, forja/fortalecer.ts, só CategoryID 7), USE_MONEY/_OFWEEK (3/5, GamePlayer.removeMoney, toda cobrança — pequeno desvio documentado: o original tem 2 call-sites com opt-out via isNoviceActive que este port não replica), UPGRADE_VIP (8, loja/vip.ts + bolsa/usar-carta.ts). Sequência anti-skip do original replicada (SubActivityType do cliente só importa como \"é o 1 ou não\"; o tier real vem do AwardGot). RECHANGE_MONEY/_OFWEEK (4/6) e UPDATE_FIGHTPOWER (9) ficam sem gatilho de propósito — o 1º depende de um webhook de recarga/Pix que apps/game ainda não tem (mesma lacuna de `primeira-recarga.ts`), o 2º é morto no próprio original (GamePlayer.cs:5234, chamada comentada). Claim idempotente por (ActivityType, Condition) via app.\"EventClaims\" (sem mudança). Testado por código (apps/game/test/activities.test.ts), não clicado.",
   "evidence": ""
  },
  {

@@ -27,6 +27,7 @@ import * as Out from "../../packets/out.js";
 import { GSPacket } from "@ddt/protocol";
 import type { HandlerRegistry } from "../registry.js";
 import { applyVipDays } from "../../game/vip.js";
+import { bumpNoviceActivity, NoviceActiveType } from "../../game/novice-activity.js";
 
 /** BufferList.CreateBuffer(template, validDate) + the per-type Start (GPMultipleBuffer etc.: same type extends time). */
 export function addItemBuff(p: GamePlayer, t: { Property1: number; Property2: number; Property3: number; TemplateID: number }, validDays: number, now: Date): BuffRow {
@@ -82,6 +83,8 @@ export function cardUse(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): void 
       // CardUseHandler case 23: VIPRenewal(ValidDate days) + OpenVIP / ContinuousVIP, 92 SendOpenVIP, consume when CanDelete
       const days = item.ValidDate || 1;
       const { opened } = applyVipDays(p.info, days, ctx.now());
+      // GamePlayer.OpenVIP/ContinuousVIP (GamePlayer.cs:3728-3730, 3752-3754): UPGRADE_VIP_ACTIVE high-water mark.
+      bumpNoviceActivity(p, NoviceActiveType.UPGRADE_VIP, p.info.VIPLevel, false, ctx.now());
       if (bag && t.CanDelete) bag.removeCountFromStack(item, 1);
       p.send(Out.openVip(p.info));
       p.updateProperties();

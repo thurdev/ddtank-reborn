@@ -1,33 +1,51 @@
 /**
  * Aba no jogo: ícone do hall "Atividades de novato" (noviceactivity) — presente liberado quando o jogador
- * atinge um nível (Grade) configurado; cada (tipo, condição) só pode ser resgatado uma vez.
- * Simplificação assumida: `NoviceActivityGetAward.cs` rastreia um contador de condição por `ActivityType`
- * (subir de nível / fortalecer / recarregar / subir VIP / força de luta...) via `PlayerExtra`, que este port
- * ainda não construiu; aqui a elegibilidade usa só o `Grade` atual do jogador contra `Event_Reward_Info.Condition`
- * (o gatilho "subir de nível", o único realmente usado pelo painel novato/newbie do cliente 4.1).
+ * atinge um marco real (subir de grade, fortalecer uma arma, gastar Xu, subir VIP — ver `game/novice-activity.ts`
+ * pros gatilhos reais e o que ainda falta, RECHANGE_MONEY/_OFWEEK e UPDATE_FIGHTPOWER); cada (ActivityType,
+ * Condition) só pode ser resgatado uma vez (`claimOnce`).
+ * 41-novato-progresso (41): antes desta tarefa a elegibilidade comparava o SubActivityType (1..5, o índice
+ * da faixa) direto contra o `Grade` do jogador — nem usava o `Condition` real da tabela (5/10/15/20/25 pra
+ * GRADE_UP, por ex.) nem fazia sentido pras faixas de USE_MONEY (Condition 10000..200000, comparado contra
+ * Grade???). Portado pra valer: `Event_Reward_Info.Condition` contra o contador real por `ActivityType`
+ * (`game/novice-activity.ts`), e a sequência anti-skip do original (ver abaixo).
  * Pacotes: 258 NOVICEACTIVITY (inbound), 258/0 NOVICEACTIVITY_MESSAGE (outbound, `sendNoviceActivityOpen`
  * abaixo — nunca existiu um sender C# pra isso, ver design em `research/qa/feature-designs.md` §novato;
  * sem o pacote de abertura o ícone "Atividades de novato" (LIMITACTIVITY) nunca aparecia, mesmo com
  * `ALL_OPEN=true` — `NoviceActivityManager.checkTime()` do cliente só vira `true` depois de receber
  * `startDate`/`endDate` por esse pacote).
  * C#: `NoviceActivityGetAward.cs` (tabelas `Event_Reward_Info`/`Event_Reward_Goods`, admin-editáveis).
- * Como testar: `apps/game/test/all-open.test.ts` (258/0 ao logar). Manual: `docs/features/eventos.md`.
+ * Como testar: `apps/game/test/all-open.test.ts` (258/0 ao logar); `apps/game/test/events.test.ts`
+ * (progresso real + anti-skip). Manual: `docs/features/eventos.md`.
  */
 import { GSPacket } from "@ddt/protocol";
 import type { GamePlayer } from "../../game/player.js";
 import type { ServerContext } from "../../session/context.js";
 import { claimOnce, grantRewards, type Reward } from "../../game/events.js";
+import { getNoviceCondition, markNoviceAward } from "../../game/novice-activity.js";
 import { mailItems } from "../bolsa/correio-excedente.js";
 import { eventsRuntime } from "./agendador.js";
 import * as Out from "../../packets/out.js";
 
+/** NoviceActivityGetAward.cs:29-58: awardGot (1,3,7,15,31,63,127,255,511) -> SubActivityType real (1..9). */
+const TIER_BY_AWARD_GOT: Record<number, number> = { 1: 1, 3: 2, 7: 3, 15: 4, 31: 5, 63: 6, 127: 7, 255: 8, 511: 9 };
+
 export async function noviceActivity(ctx: ServerContext, p: GamePlayer, activityType: number, subActivityType: number): Promise<void> {
   const rt = eventsRuntime(ctx);
-  const condition = subActivityType <= 1 ? 1 : subActivityType;
-  const goods = rt.data.eventGoods.filter((g) => g.ActivityType === activityType && g.SubActivityType === condition);
+  const now = ctx.now();
+  // NoviceActivityGetAward.cs:22-28: SubActivityType==1 always targets tier 1; any other value is just "not
+  // tier 1" — the REAL next tier is derived from the player's own AwardGot sequence, never from whatever the
+  // client sent, so a client can never skip ahead to a tier it hasn't earned yet by sending a higher number.
+  const prevAwardGot = p.noviceProgress.get(activityType)?.AwardGot ?? 0;
+  const awardGot = subActivityType === 1 ? 1 : prevAwardGot * 2 + 1;
+  const tier = TIER_BY_AWARD_GOT[awardGot] ?? subActivityType; // no match: dead end, same as the original (no row, no reward)
+  const goods = rt.data.eventGoods.filter((g) => g.ActivityType === activityType && g.SubActivityType === tier);
   if (!goods.length) return p.sendMessage(0, "Sem recompensa.");
-  if (condition > p.info.Grade) return p.sendMessage(0, "Condições insuficientes! A operação falhou.");
+  const info = rt.data.eventInfo.find((i) => i.ActivityType === activityType && i.SubActivityType === tier);
+  const condition = info?.Condition ?? 0;
+  const progress = getNoviceCondition(p, activityType, now);
+  if (condition > progress) return p.sendMessage(0, "Condições insuficientes! A operação falhou.");
   if (!(await claimOnce(ctx.db.db, p.id, "novice", `${activityType}:${condition}`))) return p.sendMessage(0, "Você já recebeu esta recompensa.");
+  markNoviceAward(p, activityType, awardGot); // UpdateEventCondition's awardGot side effect (Conditions itself doesn't change: condition <= progress already)
   const rewards: Reward[] = goods.map((g) => ({ templateId: g.TemplateId, count: g.Count ?? 1, validDate: g.ValidDate ?? 0, isBind: g.IsBind ?? true }));
   const g = grantRewards(p, rewards, ctx.templates.findItem, ctx.now());
   if (g.overflow.length) await mailItems(ctx, p, g.overflow, "Presente de Abertura do Servidor", 51);

@@ -1,11 +1,12 @@
 # Gap C# → TS + protocolo de verificação (fonte: `docs/qa-matrix.json`)
 
-Panorama 2026-10-20 (pós feature/41-partial-a) — 361 itens (cliente 4.1; 6600 em stand-by, ver AGENTS.md):
-servidor `ok` 320 · `partial` 26 · `stub` 4 · `missing` 2 · `wontfix` 9.
+Panorama 2026-10-20 (pós feature/41-partial-c) — 361 itens (cliente 4.1; 6600 em stand-by, ver AGENTS.md):
+servidor `ok` 322 · `partial` 24 · `stub` 4 · `missing` 2 · `wontfix` 9.
 Verificado em jogo: `yes` 56 · resto `no`. **Nada conta como pronto sem `verified:yes` + evidência.**
 
 `feature/41-partial-a` fechou **41-labirinto-combate** (131 LABYRINTH, 8 subs) e **41-guilda-skill-combate**
-(129 CONSORTIA_CMD sub 26 SKILL_SOCKET) — ver seção "Prioridade" abaixo (itens agora `server:ok`, riscados).
+(129 CONSORTIA_CMD sub 26 SKILL_SOCKET). `feature/41-partial-c` fechou **41-boss-mundial-revisao** (102
+REQUEST_REVIVE) e **41-novato-progresso** (258) — ver seção "Prioridade" abaixo (itens agora `server:ok`, riscados).
 
 A matriz estava defasada (lote anterior, 2026-10-08, media `partial` 66/`missing` 48/`stub` 39 — números
 que o próprio `AGENTS.md`/orientação desta tarefa ainda citava): muita coisa foi implementada desde então
@@ -109,9 +110,25 @@ principal).
   sala de espera) está implementada; cobertura de loja/consórcio/lista de salas (outros usos do mesmo
   código, ver `files` no `qa-matrix.json`) não foi auditada. Sem handler C# único (pacote genérico usado
   por vários controllers AS3).
-- **41-novato-progresso** — 258 NOVICEACTIVITY: elegibilidade simplificada pra `Grade >= Condition`; o
-  contador de progresso real por `ActivityType` (grade-up/fortalecimento/recarga/VIP/FightPower via
-  `PlayerExtra`) não foi portado. `vendor/DDTank41/Game.Server/Packets/Client/NoviceActivityGetAward.cs`.
+- ~~**41-novato-progresso** — 258 NOVICEACTIVITY~~ **feito** (`feature/41-partial-c`, 2026-10-20): contador
+  real por `ActivityType` portado (`app."NoviceActivityProgress"`, migração additive `0025`,
+  `apps/game/src/game/novice-activity.ts`), substituindo a elegibilidade simplificada (comparava o ÍNDICE do
+  `SubActivityType` direto contra `Grade` — nem lia `Event_Reward_Info.Condition` de verdade; pras faixas de
+  USE_MONEY, Condition 10000-200000, isso não tinha sentido nenhum). Gatilhos reais ligados: GRADE_UP (1,
+  `GamePlayer.addGP` + backfill no login, `GamePlayer.cs:775,2969`), STRENGTHEN_WEAPON (2,
+  `forja/fortalecer.ts`, só armas CategoryID 7, `ItemStrengthenHandler.cs:145-147`), USE_MONEY/_OFWEEK (3/5,
+  `GamePlayer.removeMoney`, toda cobrança — `GamePlayer.cs:4017-4050`), UPGRADE_VIP (8, `loja/vip.ts` +
+  `bolsa/usar-carta.ts`, `GamePlayer.cs:3728-3730,3752-3754`). Sequência anti-skip do original replicada
+  (`NoviceActivityGetAward.cs:22-58`): o `SubActivityType` que o cliente manda só importa como "é o 1 ou
+  não" — o tier real avança sozinho pela sequência `AwardGot` (1,3,7,15,31...), então um cliente nunca pula
+  pra um tier que ainda não alcançou. RECHANGE_MONEY/_OFWEEK (4/6) e UPDATE_FIGHTPOWER (9) ficam sem gatilho
+  DE PROPÓSITO: o 1º depende de um webhook de recarga/Pix que `apps/game` ainda não tem (mesma lacuna
+  documentada em `handlers/eventos/primeira-recarga.ts`), o 2º é código morto no próprio original
+  (`GamePlayer.cs:5234`, chamada comentada — nunca dispara lá também). Desvio documentado: o original tem 2
+  call-sites de `RemoveMoney` com um opt-out (`isNoviceActive`) que este port não replica (conta TODA
+  cobrança) — efeito pequeno e sempre a favor do jogador (progresso um pouco mais fácil de alcançar, nunca
+  mais difícil). `vendor/DDTank41/Game.Server/Packets/Client/NoviceActivityGetAward.cs`,
+  `Game.Server/GameUtils/PlayerExtra.cs`.
 - **41-captcha-anti-bot** — 200 CHECK_CODE: o lado que EMITE o desafio anti-bot (`ShowCheckCode`) nunca
   foi portado, então `CheckCode` fica sempre vazio (a verificação em si reproduz o early-out correto do
   original). Não bloqueia gameplay, mas é a única defesa anti-bot do 4.1 que falta.

@@ -176,6 +176,13 @@
       "when": 1792496130149,
       "tag": "0024_regular_oracle",
       "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1792533048920,
+      "tag": "0025_modern_supreme_intelligence",
+      "breakpoints": true
     }
   ]
 }

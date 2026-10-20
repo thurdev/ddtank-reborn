@@ -18,6 +18,7 @@ export type AchievementRow = typeof game.Achievement.$inferSelect;
 export type AchievementCondRow = typeof game.AchievementCondition.$inferSelect;
 export type AchievementGoodsRow = typeof game.Achievement_Goods.$inferSelect;
 export type EventRewardGoodsRow = typeof game.Event_Reward_Goods.$inferSelect;
+export type EventRewardInfoRow = typeof game.Event_Reward_Info.$inferSelect;
 export type LoginAwardRow = typeof game.Login_Award_Item_Template.$inferSelect;
 /** "Sist. Treino" (155 EVERYDAY_ACTIVEPOINT, handlers/bolsa/treino-diario.ts) — ver comentários do handler. */
 export type EveryDayActivePointRow = typeof game.Every_Day_Active_Point_Template.$inferSelect;
@@ -31,6 +32,8 @@ export class EventData {
   achConds = new Map<number, AchievementCondRow[]>();
   achGoods = new Map<number, AchievementGoodsRow[]>();
   eventGoods: EventRewardGoodsRow[] = [];
+  /** NoviceActivityGetAward.cs: Condition threshold per (ActivityType, SubActivityType) — see handlers/eventos/novato.ts. */
+  eventInfo: EventRewardInfoRow[] = [];
   loginAward: LoginAwardRow[] = [];
   /** game."Every_Day_Active_Point_Template" (m3-everyday-active) — 0 linhas na origem até o admin configurar. */
   everyDayActivePoint: EveryDayActivePointRow[] = [];
@@ -38,13 +41,14 @@ export class EventData {
   everyDayActiveReward = new Map<number, EveryDayActiveRewardRow[]>();
 
   async load(db: Database): Promise<this> {
-    const [da, ub, ach, ac, ag, eg, la, eap, ear] = await Promise.all([
+    const [da, ub, ach, ac, ag, eg, ei, la, eap, ear] = await Promise.all([
       db.select().from(game.Daily_Award),
       db.select().from(game.LoadUserBox),
       db.select().from(game.Achievement),
       db.select().from(game.AchievementCondition),
       db.select().from(game.Achievement_Goods),
       db.select().from(game.Event_Reward_Goods),
+      db.select().from(game.Event_Reward_Info),
       db.select().from(game.Login_Award_Item_Template),
       db.select().from(game.Every_Day_Active_Point_Template),
       db.select().from(game.Every_Day_Active_Reward_Template),
@@ -55,6 +59,7 @@ export class EventData {
     this.achConds = group(ac, (c) => c.AchievementID);
     this.achGoods = group(ag, (g) => g.AchievementID);
     this.eventGoods = eg;
+    this.eventInfo = ei;
     this.loginAward = la;
     this.everyDayActivePoint = [...eap].sort((a, b) => a.ID - b.ID);
     this.everyDayActiveReward = group(ear, (r) => r.RewardID);

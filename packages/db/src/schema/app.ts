@@ -474,3 +474,30 @@ export const PveBalance = appSchema.table(
   },
   (t) => [primaryKey({ name: "PveBalance_pkey", columns: [t.PveId, t.HardLevel] })],
 );
+
+/**
+ * app."NoviceActivityProgress" — task `41-novato-progresso`: real per-`ActivityType` progress counter behind
+ * 258 NOVICEACTIVITY (`vendor/DDTank41/Game.Server/Packets/Client/NoviceActivityGetAward.cs`), mirroring the
+ * original's `GameUtils/PlayerExtra.cs` `GetEventProcess`/`UpdateEventCondition` (backed there by its own
+ * `SP_Get_User_EventProcess`/`SP_UpdateUsersEventProcess` table — not `Sys_Users_Extra`, no 1:1 table existed
+ * to reuse, hence this new one). `ActivityType` follows the original `NoviceActiveType` enum (1 GRADE_UP, 2
+ * STRENGTHEN_WEAPON, 3 USE_MONEY, 4 RECHANGE_MONEY, 5 USE_MONEY_OFWEEK, 6 RECHANGE_MONEY_OFWEEK, 8 UPGRADE_VIP;
+ * 9 UPDATE_FIGHTPOWER is intentionally never written — the original's own sender is commented out,
+ * GamePlayer.cs:5234). `Conditions` is either a running total (types 3-6, "spend/recharge X today/this week")
+ * or a high-water mark (types 1/2/8, "reached grade/strengthen-level/VIP-level N at least once").
+ * Daily (3/4) and weekly (5/6) types reset lazily by comparing `PeriodKey` to the current `dayKey()`/`weekKey()`
+ * on next read/write instead of the original's explicit GameServer "new day" sweep (`GamePlayer.cs:2975-2996`,
+ * not ported in full) — same lazy-reset idiom as `LightRoadProgress` above. Non-resetting types (1/2/8) always
+ * store `PeriodKey=""`. `apps/game/src/db/novice-activity.ts` / `apps/game/src/game/novice-activity.ts`.
+ */
+export const NoviceActivityProgress = appSchema.table(
+  "NoviceActivityProgress",
+  {
+    UserID: integer("UserID").notNull(),
+    ActivityType: integer("ActivityType").notNull(),
+    Conditions: integer("Conditions").notNull().default(0),
+    AwardGot: integer("AwardGot").notNull().default(0),
+    PeriodKey: varchar("PeriodKey", { length: 10 }).notNull().default(""),
+  },
+  (t) => [primaryKey({ name: "NoviceActivityProgress_pkey", columns: [t.UserID, t.ActivityType] })],
+);

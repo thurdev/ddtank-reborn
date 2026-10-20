@@ -15,6 +15,7 @@ import type { ClientKind } from "../game/player-info.js";
 import { consortiaOnLogin } from "../handlers/sociedade/index.js";
 import { activityOpen } from "../handlers/eventos/agendador.js";
 import { sendNoviceActivityOpen } from "../handlers/eventos/novato.js";
+import { bumpNoviceActivity, NoviceActiveType } from "../game/novice-activity.js";
 import { applyOldPlayerLogin } from "../handlers/eventos/jogador-antigo.js";
 import { sendGrowthPackageLoginState } from "../handlers/eventos/passe-classico.js";
 import { loadMountData, saveMountData } from "../db/montaria.js";
@@ -143,7 +144,12 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   p.records = progress.records;
   p.buffs = progress.buffs;
   p.extra = progress.extra;
+  p.noviceProgress = new Map(progress.noviceProgress.map((r) => [r.ActivityType, r]));
   const now = ctx.now();
+  // GamePlayer.cs:2969 UpdateLevel() runs on every login (login-time backfill, e.g. a character that reached
+  // Grade before this tracking existed, or across a restart): same high-water-mark bump as every other
+  // GRADE_UP_ACTIVE call site (addGP), see game/novice-activity.ts header.
+  bumpNoviceActivity(p, NoviceActiveType.GRADE_UP, p.info.Grade, false, now);
   p.timeCheckHack = unixSeconds(now);
   info.State = 1;
   // GamePlayer.LoadFromDatabase (GamePlayer.cs:3004): empty fight-lab permission -> "1" + 49 x "0"
