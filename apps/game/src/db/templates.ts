@@ -113,6 +113,9 @@ export class Templates {
   pveInfos = new Map<number, typeof game.Pve_Info.$inferSelect>();
   missions = new Map<number, typeof game.Mission_Info.$inferSelect>();
   npcs = new Map<number, typeof game.NPC_Info.$inferSelect>();
+  /** app."PveBalance" (task 41-instancias): admin-tunable NPC HP/damage/defence/reward multipliers per
+   *  (Pve_Info.ID, HardLevel). Keyed by "pveId:hardLevel"; see `pveBalance()` below for the 1.0 default. */
+  pveBalances = new Map<string, typeof app.PveBalance.$inferSelect>();
 
   /** StrengthenMgr (Item_Strengthen by level, Item_Strengthen_Goods), FusionMgr (Item_Fusion by sorted item key), ItemBoxMgr. */
   strengthen = new Map<number, StrengthenRow>();
@@ -184,6 +187,7 @@ export class Templates {
     await this.loadProgression(db);
     await this.loadMysteryShop(db);
     await this.loadMontaria(db);
+    await this.loadPveBalance(db);
     const [pveOverlay, missionOverlay, npcOverlay, shopGoodsOverlay, questOverlay] = await Promise.all([
       loadTranslations(db, "Pve_Info", lang),
       loadTranslations(db, "Mission_Info", lang),
@@ -300,6 +304,14 @@ export class Templates {
     const rows = await db.select().from(app.MysteryShopTemplate);
     this.mysteryShop = new Map();
     for (const r of rows) this.mysteryShop.set(r.LableType, [...(this.mysteryShop.get(r.LableType) ?? []), r]);
+  }
+
+  /** app."PveBalance" (task 41-instancias): admin-edited rows only (one per retuned dungeon/difficulty combo);
+   *  see `pveBalance()` above for the 1.0 "no row" default. Reloaded by `/reload-templates` like every other
+   *  template, so an admin edit takes effect without restarting apps/game. */
+  async loadPveBalance(db: Database): Promise<void> {
+    const rows = await db.select().from(app.PveBalance);
+    this.pveBalances = new Map(rows.map((r) => [`${r.PveId}:${r.HardLevel}`, r]));
   }
 
   /** MountMgr.ReLoad (Game.Logic/MountMgr.cs:46-79): m4-montaria, 6600 only. 5 template tables, all keyed as
@@ -550,6 +562,16 @@ export class Templates {
     if (!dropId) return null;
     const d = this.dropOne(dropId);
     return d ? [d] : null;
+  }
+
+  /**
+   * app."PveBalance" (task 41-instancias): multiplier row for one (dungeon, difficulty) pair, or the 1.0
+   * "no override" default when no admin row exists yet. `fight/ddt.ts startPve` uses this to scale the
+   * encounter's NPCs/drops; see `docs/features/instancias.md` section 3.
+   */
+  pveBalance(pveId: number, hardLevel: number): { hp: number; damage: number; defence: number; reward: number } {
+    const r = this.pveBalances.get(`${pveId}:${hardLevel}`);
+    return { hp: r?.NpcHpMult ?? 1, damage: r?.NpcDamageMult ?? 1, defence: r?.NpcDefenceMult ?? 1, reward: r?.RewardMult ?? 1 };
   }
 
   /** DropInventory.GetPetDrop(613, 1) (Game.Logic/DropInventory.cs:83): one pet template off the Trminhpc(13) drop

@@ -1,6 +1,7 @@
 import type { ResourceDef } from "@/crud/types";
 import { items } from "./items";
 import { dungeons, events, maps, missions, npcs, questConditions, questGoods, quests, shop } from "./content";
+import { pveBalance, pveClears } from "./pve-balance";
 import { dailyAward, eventAwards, eventCodes, scheduledEvents, timeBoxes } from "./event-systems";
 import { bots, players } from "./players";
 import { guildApplications, guildDuties, guildEvents, guildLevels, guildMembers, guilds, guildTasks } from "./guilds";
@@ -37,6 +38,8 @@ export const resources: ResourceDef[] = [
   dungeons,
   missions,
   npcs,
+  pveBalance,
+  pveClears,
   maps,
   channels,
   texts,
@@ -50,4 +53,4 @@ export const resources: ResourceDef[] = [
 
 export const resourceByName = new Map(resources.map((r) => [r.name, r]));
 export { guildApplications, guildDuties, guildEvents, guildLevels, guildMembers, guilds, guildTasks };
-export { adminUsers, bots, channels, donations, dungeons, edicts, events, items, logs, mailBroadcasts, maps, missions, news, npcs, players, questConditions, questGoods, quests, shop, texts };
+export { adminUsers, bots, channels, donations, dungeons, edicts, events, items, logs, mailBroadcasts, maps, missions, news, npcs, players, pveBalance, pveClears, questConditions, questGoods, quests, shop, texts };

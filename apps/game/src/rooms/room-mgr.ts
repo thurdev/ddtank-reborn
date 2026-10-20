@@ -21,11 +21,17 @@ export interface RoomMgrOptions {
   random?: () => number;
   /** QA dev switch (cfg.ALL_OPEN): any player level may enter any Dungeon room, ignoring room.LevelLimits
    *  (EnterRoomAction.cs level check). Never changes what CreateRoomAction sets LevelLimits to — only the
-   *  entry check below is bypassed, so the original rule still runs (and still applies) when this is off. */
+   *  entry check below is bypassed, so the original rule still runs (and still applies) when this is off.
+   *  Also read by `handlers/salas/iniciar-partida.ts` `dungeonLockedMessage` (task 41-instancias) to bypass
+   *  BOTH the real per-dungeon level gate (`Pve_Info.LevelLimits`) and the previous-difficulty-clear gate. */
   allOpen?: boolean;
   /** PVEGame.Stop → PlayerDetail.OutLabyrinth(isWin) for a RoomType.Labyrinth room (GamePlayer.cs:4315); every
    *  other PVE room type ignores this (only Dungeon resets itself, inline below). */
   onLabyrinthFinished?(room: BaseRoom, isWin: boolean): void;
+  /** Task 41-instancias (Reborn addition, no vendor equivalent): a `RoomType.Dungeon` run just stopped —
+   *  `pveId`/`hardLevel` are the room's MapId/HardLevel BEFORE the Dungeon-only reset below clears them.
+   *  Only called for `RoomType.Dungeon` (every other PVE room type has its own unlock system, or none). */
+  onDungeonCleared?(room: BaseRoom, pveId: number, hardLevel: number, isWin: boolean): void;
 }
 
 type Action = () => void;
@@ -519,6 +525,7 @@ export class RoomMgr {
       // PlayerDetail.ResetRoom (GamePlayer.cs): a dungeon room goes back to "choose a dungeon"
       onFinished: (isWin: boolean) => {
         if (room.RoomType === RoomType.Dungeon) {
+          this.o.onDungeonCleared?.(room, room.MapId, room.HardLevel, isWin);
           room.Pic = "";
           room.MapId = 10000;
           room.currentFloor = 0;
