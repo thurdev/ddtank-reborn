@@ -955,3 +955,26 @@ Como rodar um 2º canal hoje (sem `ch-processo`/`ch-bus`): [GAME-SERVER.md §Can
   clique na linha), `/events` lendo `?edit=`, testes de componente no admin.
 - [x] **admin-config** (2026-10-18) — `expRate`/`goldRate` agora valem de verdade (`templates.rates`,
   multiplica o x2 do evento, recarrega ao salvar). `dropRate`/`offerRate` ainda não ligados (aviso no admin).
+
+## 5. Bots PvP (4.1)
+- [x] **41-bot-pvp** (2026-10-20) — 2 bugs do dono: (1) bot da fila Match (fallback de `rooms/room-mgr.ts`
+  `processMatchQueue`) jogava de verdade (`@ddt/fight` `BotRunner`/`bot/brain.ts` já existiam e já estavam
+  ligados em `fight/ddt.ts DdtGame` desde antes desta tarefa, confirmado por teste e2e já verde) — só
+  endurecido: `planBotTurn` nunca mais só pula o turno quando `solveAim` falha (linha sem solução/obstruída),
+  agora chuta um lob 45° cru em vez de passar (`packages/fight/src/bot/brain.ts`). (2) bug real: o bot NUNCA
+  saía com o equipamento/atributos do admin — `app."Bots".equips`/`weaponTemplateId` eram lidos do banco e
+  nunca usados em nada observável (`Attack/Defence/Agility/Luck=0`, `hp=1000`, Style/Colors vazios, hardcoded
+  em `bots/bot.ts`). Corrigido com `bots/view.ts` (novo): monta o `EquipBag` do bot a partir da `CategoryID`
+  de cada item (`game/item.ts placeForCategory`, porta de `EquipType.CategeryIdToPlace`,
+  `vendor/DDTank41/Source Flash/src/ddt/data/EquipType.as:699-727`) e chama o MESMO `game/stats.ts
+  computeStats()` que `GamePlayer.recalcStats()` usa pra jogador real — `game/stats.ts styleFromEquip()`
+  extraído de `player.ts` pra gerar Style/Colors idêntico. Sem migração nem mudança no admin: o
+  `item-picker-multi` existente em `apps/admin/src/resources/players.ts` "equips" já deixava escolher
+  qualquer categoria — só o servidor nunca lia certo (hint do campo atualizado pra documentar). Sem
+  equipamento, nível próximo ao do jogador vem de `levelBlood` real (LevelInfo); piso mínimo de
+  Attack/Defence/Agility/Luck/baseAttack/baseDefence escalado por nível documentado em `view.ts
+  withLevelFloor` pra nunca deixar um bot literalmente zerado. Guilda exibida já funcionava. Testes:
+  `apps/game/test/bots.test.ts` (7, novo — `placeForCategory`, `buildBotEquip`/`buildBotView` puros + 3
+  integração com `DbBotProvider` real através de um `GameServer` completo: bot plays every turn to a winner,
+  stats/Style reais do equipamento do admin, humano fugindo no meio da luta não trava a sala) +
+  `packages/fight/test/game.test.ts` (bot vs bot, já verde, confirma determinismo do fallback novo).

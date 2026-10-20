@@ -15,6 +15,7 @@ import type { BaseRoom } from "../rooms/room.js";
 import type { ClientKind, PlayerInfo } from "../game/player-info.js";
 import { defaultMatch, defaultTexp } from "../game/player-info.js";
 import type { PlayerView } from "../packets/out.js";
+import type { BotView } from "./view.js";
 
 /** Reação a cada pacote que o assento do bot receberia. */
 export interface BotBrain {
@@ -52,14 +53,28 @@ export class VirtualPlayer implements RoomMember {
   readonly info: PlayerInfo;
   /** Mira da IA (0-100, padrão 50); preenchido pelo provider via DIFFICULTY. */
   public difficulty = 50;
+  /**
+   * GamePlayer.GetBaseAttack/GetBaseDefence equivalent (fight/ddt.ts specOf() reads these directly, same as a
+   * real player's `baseAttack`/`baseDefence` fields) — m1-bot-pvp: computed by `bots/view.ts buildBotView()`
+   * from the admin's `weaponTemplateId`/`equips` via the SAME `game/stats.ts computeStats()` real players use,
+   * when the provider has a `BotStatSource` (DbBotProvider does); 0 otherwise (e.g. tests building a bare
+   * `VirtualPlayer` directly, same as before this task — specOf() then falls back to its own weapon-only
+   * approximation, unchanged behaviour).
+   */
+  baseAttack = 0;
+  baseDefence = 0;
+  magicAttack = 0;
+  magicDefence = 0;
 
-  constructor(readonly spec: BotSpec, public brain: BotBrain | null = null, readonly zoneId = 0, readonly zoneName = "") {
+  constructor(readonly spec: BotSpec, public brain: BotBrain | null = null, readonly zoneId = 0, readonly zoneName = "", view?: BotView) {
     const now = new Date();
     this.info = {
       ID: -spec.id, UserID: -spec.id, UserName: `bot${spec.id}`, NickName: spec.nickname, Sex: spec.sex, Grade: spec.level,
-      Style: ",,,,,,", Colors: ",,,,,,", Skin: "", Hide: 1111111111, Honor: "", Attack: 0, Defence: 0, Agility: 0, Luck: 0, hp: 1000,
+      Style: view?.style ?? ",,,,,,", Colors: view?.colors ?? ",,,,,,", Skin: view?.skin ?? "", Hide: 1111111111, Honor: "",
+      Attack: view?.attack ?? 0, Defence: view?.defence ?? 0, Agility: view?.agility ?? 0, Luck: view?.luck ?? 0, hp: view?.hp ?? 1000,
       ConsortiaID: 0, ConsortiaName: spec.guild ?? "", ConsortiaLevel: 0, ConsortiaRepute: 0, Texp: defaultTexp(-spec.id, now), typeVIP: 0, VIPLevel: 0,
     } as unknown as PlayerInfo;
+    if (view) { this.baseAttack = view.baseAttack; this.baseDefence = view.baseDefence; this.magicAttack = view.magicAttack; this.magicDefence = view.magicDefence; }
   }
 
   /** Nível efetivo do bot (espelha spec.level). */
