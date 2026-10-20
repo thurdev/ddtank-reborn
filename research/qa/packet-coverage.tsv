@@ -19,7 +19,7 @@ code	name	clientFn	firstWrite	server	file
 27	LOTTERY_RANDOM_SELECT	sendStartTurn		implemented	
 28	LOTTERY_FINISH	sendFinishRoulette		implemented	
 30	PICC	sendPicc	Int(param1)	implemented	
-31	GOODS_EXCHANGE	sendGoodsExchange	Int(param2)	partial	
+31	GOODS_EXCHANGE	sendGoodsExchange	Int(param2)	implemented	
 32	COLLECTINFO	sendCollectInfoValidate	Byte(param1)	stub	
 34	USER_RANK	sendChangeDesignation	Boolean(param1)	implemented	
 37	CHAT_PERSONAL	sendPrivateMessage	Int(param3)	implemented	
@@ -27,7 +27,7 @@ code	name	clientFn	firstWrite	server	file
 44	BUY_GOODS	sendBuyGoods	Int(_loc11_)	implemented	
 45	CADDY_GET_BADLUCK	sendQequestBadLuck		implemented	
 46	BUY_GIFTBAG	sendBuyGiftBag	Int(param1)	implemented	
-48	SEll_GOODS	sendSellGoods	Int(param1)	MISSING	
+48	SEll_GOODS	sendSellGoods	Int(param1)	implemented	
 49	CHANGE_PLACE_GOODS	sendMoveGoods	Byte(param1)	partial	
 50	FIGHT_NPC	sendBeginFightNpc		stub	
 53	GET_TIME_BOX	sendGetTimeBox	Int(param1)	implemented	
@@ -36,8 +36,8 @@ code	name	clientFn	firstWrite	server	file
 55	PROP_SELL	sendSellProp	Int(param1)	implemented	
 55	PROP_SELL	sendSellProp	Int(param1)	implemented	
 57	GOODS_PRESENT	sendPresentGoods	UTF(param4)	implemented	
-58	ITEM_COMPOSE	sendItemCompose	Boolean(param1)	partial	
-59	ITEM_STRENGTHEN	sendItemStrength	Boolean(param1)	partial	
+58	ITEM_COMPOSE	sendItemCompose	Boolean(param1)	implemented	
+59	ITEM_STRENGTHEN	sendItemStrength	Boolean(param1)	implemented	
 60	ITEM_HIDE	sendHideLayer	Boolean(param2)	implemented	
 61	ITEM_TRANSFER	sendItemTransfer	Boolean(param1)	implemented	
 62	ITEM_CONTINUE	sendGoodsContinue	Int(_loc2_)	implemented	
@@ -190,7 +190,7 @@ code	name	clientFn	firstWrite	server	file
 125	ITEM_EMBED_BACKOUT	sendItemEmbedBackout	Int(param1)	implemented	
 126	BUY_QUICK_GOLDBOX	sendQuickBuyGoldBox	Int(param1)	implemented	
 127	REClAIM_GOODS	reclaimGoods	Byte(param1)	implemented	
-128	LEFT_GUN_ROULETTE_SOCKET	sendStartTurn_LeftGun	Int(1)	partial	
+128	LEFT_GUN_ROULETTE_SOCKET	sendStartTurn_LeftGun	Int(1)	implemented	
 129	CONSORTIA_CMD	sendBuyBadge	Int(ConsortiaPackageType.BUY_BADGE=28)	implemented	
 129	CONSORTIA_CMD	sendConsoritaApplyStatusOut	Int(ConsortiaPackageType.CONSORTIA_APPLY_STATE=7)	implemented	
 129	CONSORTIA_CMD	sendConsortiaCancelTryIn	Int(ConsortiaPackageType.CONSORTIA_TRYIN=0)	implemented	
@@ -221,14 +221,14 @@ code	name	clientFn	firstWrite	server	file
 129	CONSORTIA_CMD	sendForbidSpeak	Int(ConsortiaPackageType.CONSORTIA_BANCHAT_UPDATE=16)	implemented	
 129	CONSORTIA_CMD	sendReleaseConsortiaTask	Int(ConsortiaPackageType.CONSORTIA_TASK_RELEASE=22)	implemented	
 130	LEFT_GUN_ROULETTE_COMPLETTE	sendEndTurn_LeftGun	Int(1)	implemented	
-131	LABYRINTH	labyrinthCleanOut	Int(LabyrinthPackageType.CLEAN_OUT=3)	partial	
-131	LABYRINTH	labyrinthCleanOutTimerComplete	Int(LabyrinthPackageType.CLEAN_OUT_COMPLETE=8)	partial	
-131	LABYRINTH	labyrinthDouble	Int(LabyrinthPackageType.DOUBLE_REWARD=1)	partial	
-131	LABYRINTH	labyrinthRequestUpdate	Int(LabyrinthPackageType.REQUEST_UPDATE=2)	partial	
-131	LABYRINTH	labyrinthReset	Int(LabyrinthPackageType.RESET_LABYRINTH=6)	partial	
-131	LABYRINTH	labyrinthSpeededUpCleanOut	Int(LabyrinthPackageType.SPEEDED_UP_CLEAN_OUT=4)	partial	
-131	LABYRINTH	labyrinthStopCleanOut	Int(LabyrinthPackageType.STOP_CLEAN_OUT=5)	partial	
-131	LABYRINTH	labyrinthTryAgain	Int(LabyrinthPackageType.TRY_AGAIN=9)	partial	
+131	LABYRINTH	labyrinthCleanOut	Int(LabyrinthPackageType.CLEAN_OUT=3)	implemented	
+131	LABYRINTH	labyrinthCleanOutTimerComplete	Int(LabyrinthPackageType.CLEAN_OUT_COMPLETE=8)	implemented	
+131	LABYRINTH	labyrinthDouble	Int(LabyrinthPackageType.DOUBLE_REWARD=1)	implemented	
+131	LABYRINTH	labyrinthRequestUpdate	Int(LabyrinthPackageType.REQUEST_UPDATE=2)	implemented	
+131	LABYRINTH	labyrinthReset	Int(LabyrinthPackageType.RESET_LABYRINTH=6)	implemented	
+131	LABYRINTH	labyrinthSpeededUpCleanOut	Int(LabyrinthPackageType.SPEEDED_UP_CLEAN_OUT=4)	implemented	
+131	LABYRINTH	labyrinthStopCleanOut	Int(LabyrinthPackageType.STOP_CLEAN_OUT=5)	implemented	
+131	LABYRINTH	labyrinthTryAgain	Int(LabyrinthPackageType.TRY_AGAIN=9)	implemented	
 133	LATENT_ENERGY	sendLatentEnergy	Byte(param1)	implemented	
 135	135	arrange	Int(1)	implemented	
 136	TOTEM	sendOpenOneTotem	Boolean(param1)	implemented	
@@ -257,10 +257,10 @@ code	name	clientFn	firstWrite	server	file
 160	IM_CMD	sendOneOnOneTalk	Byte(IMPackageType.ONE_ON_ONE_TALK=51)	implemented	
 160	IM_CMD	sendOns	Byte(IMPackageType.ONS_EQUIP=45)	implemented	
 161	USER_LUCKYNUM	sendUserLuckyNum	Boolean(param2)	implemented	
-162	ELITEGAME	sendEliteGameStart	Byte(EliteGamePackageType.ELITE_MATCH_RANK_START=2)	partial	
-162	ELITEGAME	sendGetEliteGameState	Byte(EliteGamePackageType.ELITE_MATCH_TYPE=1)	partial	
-162	ELITEGAME	sendGetPaarungDetail	Byte(EliteGamePackageType.ELITE_MATCH_RANK_DETAIL=4)	partial	
-162	ELITEGAME	sendGetSelfRankSroce	Byte(EliteGamePackageType.ELITE_MATCH_PLAYER_RANK=3)	partial	
+162	ELITEGAME	sendEliteGameStart	Byte(EliteGamePackageType.ELITE_MATCH_RANK_START=2)	implemented	
+162	ELITEGAME	sendGetEliteGameState	Byte(EliteGamePackageType.ELITE_MATCH_TYPE=1)	implemented	
+162	ELITEGAME	sendGetPaarungDetail	Byte(EliteGamePackageType.ELITE_MATCH_RANK_DETAIL=4)	implemented	
+162	ELITEGAME	sendGetSelfRankSroce	Byte(EliteGamePackageType.ELITE_MATCH_PLAYER_RANK=3)	implemented	
 166	LITTLEGAME_COMMAND	createPackageOut		implemented	
 167	CHURCH_MOVIE_OVER	sendChurchMovieOver	Int(param1)	stub	
 168	GOODS_COUNT	sendUpdateGoodsCount		partial	
@@ -287,8 +287,8 @@ code	name	clientFn	firstWrite	server	file
 192	AUCTION_ADD	auctionGood	Byte(param1)	implemented	
 193	AUCTION_UPDATE	auctionBid	Int(param1)	implemented	
 194	AUCTION_DELETE	auctionCancelSell	Int(param1)	implemented	
-196	CARD_RESET	sendCardReset	Int(0)	partial	
-196	CARD_RESET	sendReplaceCardProp	Int(1)	partial	
+196	CARD_RESET	sendCardReset	Int(0)	implemented	
+196	CARD_RESET	sendReplaceCardProp	Int(1)	implemented	
 200	CHECK_CODE	sendCheckCode	UTF(param1)	partial	
 201	HOTSPRING_ROOM_ENTER_VIEW	sendHotSpringRoomEnterView	Int(param1)	implemented	
 202	HOTSPRING_ROOM_ENTER	sendHotSpringRoomEnter	Int(param1)	implemented	
@@ -311,7 +311,7 @@ code	name	clientFn	firstWrite	server	file
 218	USER_GET_GIFTS	sendPlayerGift	Int(param1)	implemented	
 219	WEEKLY_CLICK_CNT	sendWeeklyClick		implemented	
 221	USER_SEND_GIFTS	sendBuyGift	UTF(param1)	implemented	
-222	EQUIP_RECYCLE_ITEM	sendEquipRetrieve		partial	
+222	EQUIP_RECYCLE_ITEM	sendEquipRetrieve		implemented	
 223	FRIEND_BRITHDAY	sendWithBrithday	Int(param1.length)	implemented	
 224	CID_CHECK	sendCIDCheck		stub	
 224	CID_CHECK	sendCIDInfo	Boolean(false)	stub	
@@ -319,13 +319,13 @@ code	name	clientFn	firstWrite	server	file
 225	REQUEST_UPDATE	sendRequestUpdate		implemented	
 230	ACHIEVEMENT_FINISH	sendAchievementFinish	Int(param1)	implemented	
 232	CADDY_SELL_ALL_GOODS	sendSellAll		implemented	
-233	MARRY_SCENE_CHANGE	sendSceneChange	Int(param1)	partial	
+233	MARRY_SCENE_CHANGE	sendSceneChange	Int(param1)	implemented	
 235	MARRYINFO_GET	sendForMarryInfo	Int(param1)	implemented	
 236	MARRYINFO_ADD	sendRegisterInfo	Boolean(param2)	implemented	
 237	MARRYINFO_UPDATE	sendModifyInfo	Boolean(param1)	implemented	
 239	GOTO_CARD_LOTTERY	gotoCardLottery		implemented	
 240	MARRY_SCENE_LOGIN	sendMarryRoomLogin		implemented	
-241	MARRY_ROOM_CREATE	sendCreateRoom	UTF(param1)	partial	
+241	MARRY_ROOM_CREATE	sendCreateRoom	UTF(param1)	implemented	
 242	MARRY_ROOM_LOGIN	sendEnterRoom	Int(param1)	implemented	
 244	PLAYER_EXIT_MARRY_ROOM	sendExitRoom		implemented	
 245	CADDY_GET_AWARDS	sendRequestAwards	Int(param1)	implemented	
@@ -345,9 +345,9 @@ code	name	clientFn	firstWrite	server	file
 249	MARRY_CMD	sendStartWedding	Byte(ChurchPackageType.HYMENEAL=2)	partial	
 249	MARRY_CMD	sendUseFire	Byte(ChurchPackageType.USEFIRECRACKERS=6)	partial	
 250	MARRY_APPLY_REPLY	sendProposeRespose	Boolean(param1)	implemented	
-251	SCENE_STATE	sendCurrentState	Int(param1)	partial	
+251	SCENE_STATE	sendCurrentState	Int(param1)	implemented	
 252	USE_CHANGE_SEX	sendChangeSex	Byte(param1)	implemented	
-253	MARRY_ROOM_INFO_UPDATE	sendModifyChurchDiscription	UTF(param1)	partial	
+253	MARRY_ROOM_INFO_UPDATE	sendModifyChurchDiscription	UTF(param1)	implemented	
 258	NOVICEACTIVITY	sendNoviceActivityGetAward	Int(param1)	partial	
 259	FIRSTRECHARGE	sendFirstRechargeGetAward	Int(param1)	implemented	
 265	NEWTITLE_CARD	sendNewTitleCard	Byte(param2)	partial	

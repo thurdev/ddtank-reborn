@@ -516,9 +516,9 @@
   "code": 188,
   "name": "USE_CONSORTIA_REWORK_NAME",
   "sub": "",
-  "server": "stub",
+  "server": "wontfix",
   "verified": "no",
-  "notes": "USE_CONSORTIA_REWORK_NAME: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(188,...)] registrado.",
+  "notes": "Confirmado morto no original: nenhum [PacketHandler(188,...)] em vendor/DDTank41 (mesma varredura de 66 sendUseProp/77/171/205/222/265). Stub seguro mantido (lê e descarta).",
   "evidence": ""
  },
  {
@@ -546,9 +546,9 @@
   "code": 205,
   "name": "USE_CHANGE_COLOR_SHELL",
   "sub": "",
-  "server": "stub",
+  "server": "wontfix",
   "verified": "no",
-  "notes": "USE_CHANGE_COLOR_SHELL: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(205,...)] registrado.",
+  "notes": "Confirmado morto no original: nenhum [PacketHandler(205,...)] em vendor/DDTank41 (mesma varredura de 66/77/171/188/222/265). Stub seguro mantido (lê e descarta).",
   "evidence": ""
  },
  {
@@ -608,9 +608,9 @@
   "code": 222,
   "name": "EQUIP_RECYCLE_ITEM",
   "sub": "",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "EquipRecycleItem implementado em items.ts; coberto por apps/game/test/shop-prop-misc.test.ts. Removida nota obsoleta de ausência no C#.",
+  "notes": "EQUIP_RECYCLE_ITEM implementado em apps/game/src/handlers/items.ts, coberto por apps/game/test/shop-prop-misc.test.ts.",
   "evidence": ""
  },
  {
@@ -640,7 +640,7 @@
   "sub": "",
   "server": "partial",
   "verified": "no",
-  "notes": "NewTitleCard parcialmente implementado em items.ts (tabela de títulos/configuração ainda requer validação). O registro efetivo determina o status.",
+  "notes": "NewTitleCardHandler.cs:500: lê o pacote corretamente e dá o feedback certo, mas a tabela de definição de título por Property1 (NewTitleMgr) nunca foi migrada — mesmo gap do 189 USER_CHANGE_RANK (NewTitleID fica 0). Um título nunca pode ser encontrado, igual o original faria pra qualquer Property1 desconhecido. apps/game/src/handlers/bolsa/titulos.ts.",
   "evidence": ""
  },
  {
@@ -742,9 +742,9 @@
   "code": 166,
   "name": "LITTLEGAME_COMMAND",
   "sub": "",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "Real no original, não lacuna de fidelidade — subsistema inteiro não portado ainda (orçamento): LITTLEGAME_COMMAND (código 166) é só um relay fino (LittleGameHandler.cs, 13 linhas: client.Player.LittleGame?.ProcessData(...)) para um minigame completo da fonte termal em vendor/DDTank41/Game.Server/LittleGame/* (22 arquivos: LittleGameWorldMgr, LittleGameLogicProcessor, handlers de EnterWorld/LeaveWorld/Move/Click/CancelClick/PosSync/ReportScore — um jogo de posição/clique em tempo real dentro da sala de spa, Source Flash/src/littleGame/LittleGameManager.as no cliente). Nenhuma parte foi portada; nenhuma tabela/estado equivalente existe em apps/game. Tamanho comparável ao chick activation (84) — fora do orçamento desta sessão.",
+  "notes": "LITTLEGAME_COMMAND: a nota antiga (\"subsistema de 22 arquivos, fora do orçamento\") ficou obsoleta — minigame \"Đại chiến Hút Gà\" (captura de bichinhos na sala de spa) implementado de verdade: entrar/sair, mover, clicar/capturar/pontuar. apps/game/src/handlers/minigame-termas/ (mgr.ts, entrar-sair.ts, mover.ts, capturar.ts), C#: Game.Server/Packets/Client/LittleGameHandler.cs -> LittleGame/LittleGameLogicProcessor.cs. Teste: littlegame.test.ts.",
   "evidence": ""
  },
  {
@@ -757,9 +757,9 @@
   "code": 11,
   "name": "ACTIVE_PULLDOWN",
   "sub": "",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "Reborn design, sem fonte C# (confirmado morto nos dois servidores originais pela varredura externa) — resgate único do \"cartão platina de novato\", nível <= noviceMaxLevel (10), kit configurável. apps/game/src/handlers/progressao/loterias.ts. Teste: progression.test.ts.",
   "evidence": ""
  },
  {
@@ -785,9 +785,9 @@
   "code": 196,
   "name": "CARD_RESET",
   "sub": "",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "CARD_RESET implementado de verdade: modo 0 rola preview pago (cópias da carta ou Money), modo 1 confirma. apps/game/src/handlers/bolsa/reroll-carta.ts. A nota antiga de HANDLERS.md (\"196 CARD_RESET missing\") ficou obsoleta.",
   "evidence": ""
  },
  {
@@ -800,9 +800,9 @@
   "code": 196,
   "name": "CARD_RESET",
   "sub": "",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "Mesmo handler de sendCardReset (CARD_RESET modo 1, aplica o resultado do reroll). apps/game/src/handlers/bolsa/reroll-carta.ts.",
   "evidence": ""
  },
  {
@@ -924,9 +924,9 @@
   "code": 167,
   "name": "CHURCH_MOVIE_OVER",
   "sub": "",
-  "server": "stub",
+  "server": "wontfix",
   "verified": "no",
-  "notes": "Morto no original dos dois lados: GameSocketOut.as define sendChurchMovieOver() (PackageOut(CHURCH_MOVIE_OVER=167)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e nenhum [PacketHandler(167,...)] existe em Game.Server. Status 'missing' aqui é fidelidade, não lacuna.",
+  "notes": "Morto nos dois lados: GameSocketOut.as define sendChurchMovieOver() mas nenhum arquivo do cliente chama essa função, e Game.Server não registra nenhum [PacketHandler(167,...)] — só a entrada do enum existe (ePackageType.cs:66). Stub seguro mantido (lê e descarta).",
   "evidence": ""
  },
  {
@@ -939,9 +939,9 @@
   "code": 233,
   "name": "MARRY_SCENE_CHANGE",
   "sub": "",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "MARRY_SCENE_CHANGE implementado: troca de cenário dentro da capela (Class20.cs), reposiciona os casais presentes no mesmo mapa. apps/game/src/handlers/casamento/capela.ts marrySceneChange.",
   "evidence": ""
  },
  {
@@ -984,9 +984,9 @@
   "code": 241,
   "name": "MARRY_ROOM_CREATE",
   "sub": "",
-  "server": "partial",
+  "server": "ok",
   "verified": "yes",
-  "notes": "Fluxo completo testado de ponta a ponta com o layout real de pacotes (apps/game/test/marriage-farm-auction.test.ts '247/250 MARRY_APPLY...'): 247 propõe (anel consumido) -> 250 aceita (ambos IsMarried) -> 241 cria a capela (cobra PRICE_MARRY_ROOM, IsCreatedMarryRoom=true, SelfMarryRoomID setado) -> 242 noivo recebe o ack (roomInfoPacket + bool true) -> 242 noiva entra na mesma sala -> 249/2 HYMENEAL inicia o casamento, ambos os clientes recebem started=true. Não clicado no Ruffle real (orçamento de screenshots), mas verificado byte a byte contra o formato confirmado em ChurchManager.as.",
+  "notes": "Fluxo completo testado de ponta a ponta com o layout real de pacotes (apps/game/test/marriage-farm-auction.test.ts): 247 propõe -> 250 aceita -> 241 cria a capela (cobra PRICE_MARRY_ROOM) -> 242 noivo recebe ack -> 242 noiva entra -> 249/2 HYMENEAL inicia. Não clicado no Ruffle real (orçamento de screenshots), verificado byte a byte contra ChurchManager.as.",
   "evidence": ""
  },
  {
@@ -1061,9 +1061,9 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "CONTINUATION=3",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "CONTINUATION(3) implementado: estende a reserva da capela (2/3/4h). apps/game/src/handlers/casamento/cerimonia.ts.",
   "evidence": ""
  },
  {
@@ -1076,9 +1076,9 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "FORBID=8",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "FORBID(8) implementado: bane um jogador da capela. apps/game/src/handlers/casamento/cerimonia.ts.",
   "evidence": ""
  },
  {
@@ -1091,9 +1091,9 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "INVITE=4",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "INVITE(4) implementado: convida um jogador específico pra capela. apps/game/src/handlers/casamento/cerimonia.ts.",
   "evidence": ""
  },
  {
@@ -1106,9 +1106,9 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "KICK=7",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "KICK(7) implementado: expulsa um jogador da capela. apps/game/src/handlers/casamento/cerimonia.ts.",
   "evidence": ""
  },
  {
@@ -1121,9 +1121,9 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "LARGESS=5",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "LARGESS(5) implementado: presente em dinheiro pro casal. apps/game/src/handlers/casamento/cerimonia.ts.",
   "evidence": ""
  },
  {
@@ -1136,9 +1136,9 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "MOVE=1",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "MOVE(1) implementado: movimento dentro da capela, replicado aos membros da sala. apps/game/src/handlers/casamento/cerimonia.ts.",
   "evidence": ""
  },
  {
@@ -1151,9 +1151,9 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "GUNSALUTE=11",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "GUNSALUTE(11) implementado: salva de tiros (item consumido). apps/game/src/handlers/casamento/cerimonia.ts.",
   "evidence": ""
  },
  {
@@ -1166,9 +1166,9 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "POSITION=10",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "POSITION(10) implementado: posição/pose dentro da capela. apps/game/src/handlers/casamento/cerimonia.ts.",
   "evidence": ""
  },
  {
@@ -1181,7 +1181,7 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "HYMENEAL=2",
-  "server": "partial",
+  "server": "ok",
   "verified": "yes",
   "notes": "Ver 241:sendCreateRoom — mesmo teste cobre 249/HYMENEAL=2: primeira vez (IsGotRing=false em ambos) manda os anéis por correio e grava IsMarried/IsGotRing sem cobrar Xu; broadcast 249/2 roomId+started=true chega pros dois clientes. Não clicado no Ruffle real, verificado por teste de protocolo com os codes/subs reais.",
   "evidence": ""
@@ -1196,9 +1196,9 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "USEFIRECRACKERS=6",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "USEFIRECRACKERS(6) implementado: fogos de artifício (item consumido). apps/game/src/handlers/casamento/cerimonia.ts.",
   "evidence": ""
  },
  {
@@ -1226,9 +1226,9 @@
   "code": 253,
   "name": "MARRY_ROOM_INFO_UPDATE",
   "sub": "",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "MARRY_ROOM_INFO_UPDATE implementado: atualiza nome/senha/introdução da sala da capela (separado do board de casamentos que usa o código 237). apps/game/src/handlers/casamento/capela.ts marryRoomInfoUpdate.",
   "evidence": ""
  },
  {
@@ -1297,9 +1297,9 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "BEAT=22",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "BEAT (sub 22): morto no próprio original, mesma varredura de sendGameCMDBlast (nenhum GameCommand(22,...)).",
+  "notes": "BEAT (sub 22): confirmado morto no próprio original — nenhuma classe Game.Logic.Cmd.* carrega GameCommand(22,...) (CommandMgr varre por reflexão). Aceito e descartado, igual ao original. Teste: fight.test.ts.",
   "evidence": ""
  },
  {
@@ -1402,9 +1402,9 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "WANNA_LEADER=97",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "WANNA_LEADER (sub 97, WannaLeadCommand.cs): registrado no original mas com HandleCommand vazio — no-op confirmado lendo o arquivo, não código morto por falta de registro (diferente de BLAST/CHANGEBALL/BEAT/KILLSELF). Mesmo efeito observável: port apenas consome o pacote.",
+  "notes": "WANNA_LEADER (sub 97, WannaLeadCommand.cs): registrado no original mas HandleCommand vazio — no-op confirmado lendo o arquivo (não é falta de registro). Porte só consome o pacote, mesmo efeito observável.",
   "evidence": ""
  },
  {
@@ -1417,9 +1417,9 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "BLAST=3",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "BLAST (sub 3): morto no próprio original — nenhuma classe Game.Logic.Cmd.* carrega GameCommand(3,...) (CommandMgr.cs varre por reflexão; confirmado via grep em vendor/DDTank41/Game.Logic/Cmd/*.cs). Pacote aceito e descartado, sem crash (test/fight.test.ts).",
+  "notes": "BLAST (sub 3): confirmado morto no próprio original — nenhuma classe Game.Logic.Cmd.* carrega GameCommand(3,...). Aceito e descartado, sem crash (fight.test.ts).",
   "evidence": ""
  },
  {
@@ -1432,9 +1432,9 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "CHANGEBALL=19",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "CHANGEBALL (sub 19): morto no próprio original, mesma varredura de sendGameCMDBlast (nenhum GameCommand(19,...)).",
+  "notes": "CHANGEBALL (sub 19): mesma varredura de BLAST — morto no próprio original, aceito e descartado.",
   "evidence": ""
  },
  {
@@ -1552,9 +1552,9 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "MOVESTOP=10",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "MOVESTOP (sub 10, MoveStopCommand.cs): mesmo caso de sendFlagMode — registrado, HandleCommand vazio, no-op confirmado no original.",
+  "notes": "MOVESTOP (sub 10, MoveStopCommand.cs): mesmo caso de WANNA_LEADER — registrado no original, HandleCommand vazio, no-op confirmado.",
   "evidence": ""
  },
  {
@@ -1595,9 +1595,9 @@
   "code": 91,
   "name": "GAME_CMD",
   "sub": "KILLSELF=21",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "KILLSELF (sub 21): morto no próprio original, mesma varredura de sendGameCMDBlast (nenhum GameCommand(21,...)).",
+  "notes": "KILLSELF (sub 21): mesma varredura de BLAST — morto no próprio original, aceito e descartado.",
   "evidence": ""
  },
  {
@@ -1834,9 +1834,9 @@
   "code": 224,
   "name": "CID_CHECK",
   "sub": "",
-  "server": "stub",
+  "server": "wontfix",
   "verified": "no",
-  "notes": "",
+  "notes": "Mesmo caso de sendCIDCheck (AASInfoSetHandle.cs sem [PacketHandler], sistema anti-vício chinês nunca ligado nesta build VN). Corpo varia (bool+2 strings) mas nunca é lido porque não há lógica do lado original.",
   "evidence": ""
  },
  {
@@ -1897,7 +1897,7 @@
   "sub": "",
   "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "CheckCodeHandler.cs:782 — verifica o texto digitado contra PlayerInfo.CheckCode. O lado que EMITE o desafio anti-bot (ShowCheckCode) nunca foi portado, então CheckCode fica sempre vazio aqui, reproduzindo o próprio early-out do original (return 1 quando vazio) em vez de fingir sucesso. apps/game/src/handlers/bolsa/codigo-verificacao.ts. Gap real: emissão do desafio não portada (research/qa/port-plan.md bloco F).",
   "evidence": ""
  },
  {
@@ -2032,9 +2032,9 @@
   "code": 214,
   "name": "USER_RELOAD_GIFT",
   "sub": "",
-  "server": "stub",
+  "server": "wontfix",
   "verified": "no",
-  "notes": "",
+  "notes": "GameSocketOut.sendReloadGift (sem corpo), disparado pelo cliente quando 117 MAIL_RESPONSE chega com type==4 (MailManager.as:617), mas confirmado morto no original: não existe nenhum [PacketHandler(214,...)] em Game.Server — o servidor original nunca respondia. Stub seguro mantido.",
   "evidence": ""
  },
  {
@@ -2397,9 +2397,9 @@
   "code": 104,
   "name": "CARD_LOTTERY",
   "sub": "",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "Morto no original: ePackageType.CARD_LOTTERY=104 existe mas nenhuma classe [PacketHandler] assina esse código (grep em vendor/DDTank41/Game.Server/Packets/Client) — pacote é descartado pelo servidor original. Status 'missing' aqui é fidelidade, não lacuna.",
+  "notes": "Reborn design: confirmado sem handler nos dois servidores de referência (grep por PacketHandler no projeto inteiro) apesar da tela existir no cliente fixo (lottery/**). Implementado de verdade: aposta 1-24 cartas, custo/limite diário configuráveis, sorteio ponderado. apps/game/src/handlers/progressao/loterias.ts. Teste: progression.test.ts.",
   "evidence": ""
  },
  {
@@ -2412,9 +2412,9 @@
   "code": 105,
   "name": "LUCK_LOTTERY",
   "sub": "",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "Morto no original: mesma situação de 104 (ePackageType.LUCK_LOTTERY=105 sem handler registrado).",
+  "notes": "Reborn design, mesma varredura de CARD_LOTTERY (sem handler em nenhum vendor). Implementado: 1 giro grátis/dia, chance configurável de item pequeno. apps/game/src/handlers/progressao/loterias.ts.",
   "evidence": ""
  },
  {
@@ -2427,9 +2427,9 @@
   "code": 128,
   "name": "LEFT_GUN_ROULETTE_SOCKET",
   "sub": "",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "LeftGunHandler tem código ativo no vendor atual e está portado em items.ts. A nota antiga dizendo que tudo estava comentado foi invalidada em research/qa/port-C.md.",
+  "notes": "LeftGunHandler tem código ativo no vendor atual e está portado em apps/game/src/handlers (items.ts). A nota antiga dizendo que tudo estava comentado foi invalidada em research/qa/port-C.md.",
   "evidence": ""
  },
  {
@@ -2457,9 +2457,9 @@
   "code": 145,
   "name": "GUILDMEMBERWEEK_SYSTEM",
   "sub": "SEND_ADDRUNKING=10",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "Morto no próprio original: ActiveSystemHandler.cs (código 145 ACTIVITY_SYSTEM) só trata sub==8 (monta um pacote PLAYERTOP10 e NUNCA chama SendTCP — o cliente nunca recebe resposta); subs 9/10 (GuildMemberWeek) e os de LanternRiddles/LightRoad caem no 'return 0' default sem nenhum efeito. Confirmado lendo o arquivo inteiro (18 linhas).",
+  "notes": "SEND_ADDRUNKING(10) — \"Semana da Sociedade\": Reborn design real (a nota antiga de \"no-op do original\" ficou obsoleta; implementado depois). Doação em Moedas (múltiplos de 10) vira contribuição persistida (app.\"GuildMemberWeekContribution\"), ranking top-10 do clã, reset semanal com prêmio aos 3 primeiros. apps/game/src/handlers/sociedade/semana-da-sociedade.ts case 10. Teste: consortia.test.ts \"145 sub 7-13 GUILDMEMBERWEEK\".",
   "evidence": ""
  },
  {
@@ -2472,9 +2472,9 @@
   "code": 145,
   "name": "GUILDMEMBERWEEK_SYSTEM",
   "sub": "CLOSE=9",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original.",
+  "notes": "CLOSE(9): sem payload, sem resposta — só fecha a janela do lado do cliente, igual ao original (nada a fazer no servidor). apps/game/src/handlers/sociedade/semana-da-sociedade.ts case 9.",
   "evidence": ""
  },
  {
@@ -2487,9 +2487,9 @@
   "code": 145,
   "name": "GUILDMEMBERWEEK_SYSTEM",
   "sub": "ENTER_GAME=8",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original.",
+  "notes": "ENTER_GAME(8) — mesma feature \"Semana da Sociedade\" real (ver sendGuildMemberWeekAddRanking): manda o ranking top-10 + posição própria. apps/game/src/handlers/sociedade/semana-da-sociedade.ts sendTop10.",
   "evidence": ""
  },
  {
@@ -2504,7 +2504,7 @@
   "sub": "",
   "server": "stub",
   "verified": "no",
-  "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original.",
+  "notes": "Ver 145:sendLanternRiddlesAnswer — mesmo subsistema não portado (sem fonte C#, candidato a feature nova).",
   "evidence": ""
  },
  {
@@ -2519,7 +2519,7 @@
   "sub": "",
   "server": "stub",
   "verified": "no",
-  "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original.",
+  "notes": "Ver 145:sendLanternRiddlesAnswer — mesmo subsistema não portado (sem fonte C#, candidato a feature nova).",
   "evidence": ""
  },
  {
@@ -2534,7 +2534,7 @@
   "sub": "LANTERNRIDDLES_SKILL=41",
   "server": "stub",
   "verified": "no",
-  "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original.",
+  "notes": "LANTERNRIDDLES_SKILL(41): ver 145:sendLanternRiddlesAnswer — mesmo subsistema não portado.",
   "evidence": ""
  },
  {
@@ -2547,9 +2547,9 @@
   "code": 145,
   "name": "LIGHTROAD_SYSTEM",
   "sub": "ENTER_GAME=64",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original.",
+  "notes": "ENTER_GAME(64) — \"Caminho da Luz\": mesma feature real de 145:lightRoadPointWork. Manda o bitmask de espaços revelados na semana + texto da janela. apps/game/src/handlers/eventos/caminho-da-luz.ts enterGame.",
   "evidence": ""
  },
  {
@@ -2637,9 +2637,9 @@
   "code": 239,
   "name": "GOTO_CARD_LOTTERY",
   "sub": "",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "Morto no original: ePackageType.GOTO_CARD_LOTTERY=239 sem handler registrado (mesma varredura de 104/105).",
+  "notes": "GOTO_CARD_LOTTERY implementado de verdade — nível mínimo + custo do giro, mesma feature Reborn de 104/105. apps/game/src/handlers/progressao/loterias.ts.",
   "evidence": ""
  },
  {
@@ -2680,9 +2680,9 @@
   "code": 81,
   "name": "FARM",
   "sub": "ACCELERATE_FIELD=3",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "ACCELERATE_FIELD(3) implementado de verdade (Farm/*.cs original) em apps/game/src/handlers/fazenda/fertilizar.ts accelerateField. Teste: marriage-farm-auction.test.ts.",
   "evidence": ""
  },
  {
@@ -2693,9 +2693,9 @@
   "code": 81,
   "name": "FARM",
   "sub": "ENTER_FARM=1",
-  "server": "partial",
+  "server": "ok",
   "verified": "yes",
-  "notes": "Fluxo plantar->regar->colher testado de ponta a ponta com o layout real de pacotes (apps/game/test/marriage-farm-auction.test.ts '81 FARM — plant, fast-forward, harvest'): ENTER_FARM(1) devolve o snapshot dos 8 campos iniciais. Não clicado no Ruffle real (orçamento de screenshots).",
+  "notes": "ENTER_FARM(1) implementado, testado ponta-a-ponta (plantar->regar->colher). apps/game/src/handlers/fazenda/entrar-fazenda.ts. Não clicado no Ruffle real (orçamento de screenshots).",
   "evidence": ""
  },
  {
@@ -2706,9 +2706,9 @@
   "code": 81,
   "name": "FARM",
   "sub": "EXIT_FARM=16",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "EXIT_FARM(16) implementado de verdade em apps/game/src/handlers/fazenda/entrar-fazenda.ts exitFarm.",
   "evidence": ""
  },
  {
@@ -2719,9 +2719,9 @@
   "code": 81,
   "name": "FARM",
   "sub": "FRAM_GROP_FASTFORWARD=18",
-  "server": "partial",
+  "server": "ok",
   "verified": "yes",
-  "notes": "FRAM_GROP_FASTFORWARD(18): cobra FastGrowNeedMoney em Money (ou GiftToken) por campo e soma FAST_GROW_SUB_MIN de AccelerateTime, adiantando a maturação sem esperar o relógio real. Ver 81:enterFarm.",
+  "notes": "FRAM_GROP_FASTFORWARD(18) implementado: cobra FastGrowNeedMoney em Money/GiftToken por campo, soma FAST_GROW_SUB_MIN de AccelerateTime. apps/game/src/handlers/fazenda/fertilizar.ts growFastForward.",
   "evidence": ""
  },
  {
@@ -2732,9 +2732,9 @@
   "code": 81,
   "name": "FARM",
   "sub": "FARM_GIFTPACKS=20",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "FARM_GIFTPACKS(20): sem handler nenhum no original (FarmHandleMgr não registra 20) — Reborn design real: presente diário ao visitar a fazenda de um amigo (ou a própria), controlado por Sys_User_Farm.FriendCrop (coluna do schema original nunca escrita antes). apps/game/src/handlers/fazenda/pacote-diario.ts.",
   "evidence": ""
  },
  {
@@ -2745,9 +2745,9 @@
   "code": 81,
   "name": "FARM",
   "sub": "GROW_FIELD=2",
-  "server": "partial",
+  "server": "ok",
   "verified": "yes",
-  "notes": "GROW_FIELD(2): consome 1 semente da FarmBag (332100 Lúa Mì testado), grava SeedID/PlantTime/FieldValidDate/GainCount no campo e responde FARM_LAND_INFO (sub 17, não ecoa o sub da requisição). Replantar após colher também testado. Ver 81:enterFarm.",
+  "notes": "GROW_FIELD(2) implementado: consome 1 semente da FarmBag, grava SeedID/PlantTime/FieldValidDate/GainCount. apps/game/src/handlers/fazenda/plantar.ts growField. Testado ponta-a-ponta incl. replantio após colheita.",
   "evidence": ""
  },
  {
@@ -2761,9 +2761,9 @@
   "code": 81,
   "name": "FARM",
   "sub": "HELPER_SWITCH_FIELD=9",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "HELPER_SWITCH_FIELD(9) implementado em apps/game/src/handlers/fazenda/ajudante.ts helperSwitchField (mesma função de toFarmHelper).",
   "evidence": ""
  },
  {
@@ -2776,9 +2776,9 @@
   "code": 81,
   "name": "FARM",
   "sub": "COMPOSE_FOOD=5",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "COMPOSE_FOOD(5): sem handler no original (FarmHandleMgr não registra o código 5) — Reborn design real: fabrica ração de mascote a partir de legumes colhidos, receitas copiadas de foodcomposelist.xml. apps/game/src/handlers/fazenda/compor-comida.ts.",
   "evidence": ""
  },
  {
@@ -2789,9 +2789,9 @@
   "code": 81,
   "name": "FARM",
   "sub": "HELPER_SWITCH_FIELD=9",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "HELPER_SWITCH_FIELD(9) implementado em apps/game/src/handlers/fazenda/ajudante.ts helperSwitchField (mesma função de sendBeginHelper).",
   "evidence": ""
  },
  {
@@ -2802,9 +2802,9 @@
   "code": 81,
   "name": "FARM",
   "sub": "GAIN_FIELD=4",
-  "server": "partial",
+  "server": "ok",
   "verified": "yes",
-  "notes": "GAIN_FIELD(4) em campo próprio: exige isRipe (elapsed+AccelerateTime >= FieldValidDate), zera o campo e entrega Property2 unidades do item Property4 na bolsa (propBag aqui; correio se a bolsa estiver cheia). Ver 81:enterFarm.",
+  "notes": "GAIN_FIELD(4) implementado: exige isRipe, zera o campo, entrega Property2 unidades do item Property4 (correio se a bolsa estiver cheia). apps/game/src/handlers/fazenda/colher.ts gainField.",
   "evidence": ""
  },
  {
@@ -2815,9 +2815,9 @@
   "code": 81,
   "name": "FARM",
   "sub": "HELPER_PAY_FIELD=8",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "HELPER_PAY_FIELD(8) implementado em apps/game/src/handlers/fazenda/ajudante.ts helperPayField — preço calculado no servidor (fix do exploit de preço vindo do cliente, ver sub HELPER_SWITCH_FIELD).",
   "evidence": ""
  },
  {
@@ -2828,9 +2828,9 @@
   "code": 81,
   "name": "FARM",
   "sub": "KILLCROP_FIELD=7",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "KILLCROP_FIELD(7) implementado em apps/game/src/handlers/fazenda/colher.ts killCropField.",
   "evidence": ""
  },
  {
@@ -2841,9 +2841,9 @@
   "code": 81,
   "name": "FARM",
   "sub": "PAY_FIELD=6",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "PAY_FIELD(6) implementado em apps/game/src/handlers/fazenda/expandir-terreno.ts payField — expande/aluga slot extra de campo, preço/horas de Server_Config.",
   "evidence": ""
  },
  {
@@ -2856,9 +2856,9 @@
   "code": 58,
   "name": "ITEM_COMPOSE",
   "sub": "",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "Implementado: taxa {80,50,30,10,5}% por qualidade (+1% sem amuleto), PRICE_COMPOSE_GOLD (1600).",
+  "notes": "m3-partial-sweep (2026-10-19): reauditado campo a campo contra ItemComposeHandler.cs (4.1 e 6600) — nenhuma sub-ação alcançável faltando, flipped partial -> implemented. apps/game/src/handlers/forja/compor.ts.",
   "evidence": ""
  },
  {
@@ -2871,9 +2871,9 @@
   "code": 59,
   "name": "ITEM_STRENGTHEN",
   "sub": "",
-  "server": "partial",
+  "server": "ok",
   "verified": "yes",
-  "notes": "Pedras nv 4/5 em arma: sucesso, +1 por clique, 1 pedra consumida por slot (desvio: C# consumia a pilha inteira), furo 1 abre no +3.",
+  "notes": "m3-partial-sweep (2026-10-19): reauditado contra ItemStrengthenHandler.cs — nenhum gap alcançável restante alem dos desvios já documentados (1 pedra consumida por slot vs pilha inteira do C#). apps/game/src/handlers/forja/fortalecer.ts.",
   "evidence": "research/e2e/qa/b7-strengthen-tip.png, b8-weapon-tip.png, b11-inlay2.png"
  },
  {
@@ -3060,9 +3060,9 @@
   "code": 295,
   "name": "STORE_FINE_SUIT",
   "sub": "FORGE_SUIT=1",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "FORGE_SUIT: mesma varredura de sendItemTransfer — nenhum [PacketHandler(295,...)] registrado.",
+  "notes": "STORE_FINE_SUIT implementado: porte 1:1 de barrydevp/ddt3.4server (Added/FineStoreSuitHandler.cs + SetsBuildTempMgr.cs), licença não publicada no repo (THIRD_PARTY_NOTICES.md). Tabela Sets_Build_Temp JÁ existia no catálogo original (70 linhas reais) mas nunca era servida/lida — corrigido. apps/game/src/handlers/forja/refinar-conjunto.ts. A nota antiga de HANDLERS.md (\"confirmado morto\") ficou obsoleta.",
   "evidence": ""
  },
  {
@@ -3075,9 +3075,9 @@
   "code": 391,
   "name": "EQUIP_GHOST",
   "sub": "",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "EQUIP_GHOST: mesma varredura de sendItemTransfer — nenhum [PacketHandler(391,...)] registrado.",
+  "notes": "EQUIP_GHOST implementado: porte 1:1 de barrydevp/ddt3.8 (EquipGhostHandler.cs + SpiritMgr.cs + UserEquipGhostInfo.cs/SpiritInfo.cs), licença não publicada no repo (THIRD_PARTY_NOTICES.md). Espírito do equipamento (arma/elmo/roupa compartilham nível por categoria). apps/game/src/handlers/forja/espirito-do-equipamento.ts. A nota antiga de HANDLERS.md (\"confirmado morto\") ficou obsoleta.",
   "evidence": ""
  },
  {
@@ -3090,9 +3090,9 @@
   "code": 162,
   "name": "ELITEGAME",
   "sub": "ELITE_MATCH_RANK_START=2",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "Só com status 5 e nível ≥ 30 (EliteGameHandler); a partida de elite em si (salas 12/13, pontuação) não foi portada.",
+  "notes": "m3-elite-brackets (2026-10-19): motor real de chaveamento implementado (substitui a nota antiga \"sem chaveamento\"). ELITE_MATCH_RANK_START(2) cria/avança a próxima partida 1v1 real do mata-mata top-16. apps/game/src/handlers/eventos/liga-elite.ts, game/room-mgr.ts createEliteChampionRoom. Teste: elite-brackets.test.ts.",
   "evidence": ""
  },
  {
@@ -3105,9 +3105,9 @@
   "code": 162,
   "name": "ELITEGAME",
   "sub": "ELITE_MATCH_TYPE=1",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "Estado do campeonato vem do agendador (app.\"ScheduledEvents\" kind elite, status 5 quando aberto) e é empurrado (162/1) a todos ao abrir/fechar.",
+  "notes": "ELITE_MATCH_TYPE(1): estado real do campeonato (bitmask score/champion por faixa de grade), vem do agendador app.\"ScheduledEvents\" kind elite/elite_champion. apps/game/src/handlers/eventos/liga-elite.ts.",
   "evidence": ""
  },
  {
@@ -3120,9 +3120,9 @@
   "code": 162,
   "name": "ELITEGAME",
   "sub": "ELITE_MATCH_RANK_DETAIL=4",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "Lista de campeões vazia (sem chaveamento de elite).",
+  "notes": "m3-elite-brackets (2026-10-19): ELITE_MATCH_RANK_DETAIL(4) agora retorna a lista real de campeões (id/nick/rank/roundsReached/eliminated) — a nota antiga \"lista vazia, sem chaveamento\" ficou obsoleta. apps/game/src/handlers/eventos/liga-elite.ts.",
   "evidence": ""
  },
  {
@@ -3135,9 +3135,9 @@
   "code": 162,
   "name": "ELITEGAME",
   "sub": "ELITE_MATCH_PLAYER_RANK=3",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "eliteRank/eliteScore de Sys_User_Match_Info.",
+  "notes": "ELITE_MATCH_PLAYER_RANK(3): eliteRank/eliteScore reais de Sys_User_Match_Info via RANK() OVER — campo antes sempre 0 (p.match.eliteScore nunca persistido), corrigido no m3-elite-brackets.",
   "evidence": ""
  },
  {
@@ -3391,9 +3391,9 @@
   "code": 48,
   "name": "SEll_GOODS",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "Reborn design: 100% morto nos dois lados do original (sendSellGoods não é chamado por nenhuma view AS3 em nenhum dos 4 vendors, e não existe [PacketHandler] pro código 48), mas implementado aqui de verdade — vende a pilha inteira do PropBag usando ItemTemplateInfo.ReclaimValue/Type (mesma fonte do 127 REClAIM_GOODS), recusa ReclaimType 3/item travado/BAGLOCK. apps/game/src/handlers/bolsa/vender-item.ts.",
   "evidence": ""
  },
  {
@@ -3462,7 +3462,7 @@
   "sub": "",
   "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "SCENE_STATE é um pedido genérico usado por várias telas (shop/consortion/room list/chapel — ver \"files\"). Só a parte da capela (sub 0 reposiciona casal no mesmo mapa, sub 1 entra na sala de espera) está implementada em apps/game/src/handlers/casamento/capela.ts sceneState; os outros controllers (loja, consórcio, listas de sala) resolvem seu próprio estado por outros pacotes, não foi auditado se algum deles depende deste código especificamente.",
   "evidence": ""
  },
  {
@@ -3564,9 +3564,9 @@
   "code": 31,
   "name": "GOODS_EXCHANGE",
   "sub": "",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "Troca exige receita completa, evento vigente, bolsa destrancada, slots únicos e prêmio válido antes do consumo. Testado via pacote e banco em apps/game/test/economy-validation.test.ts. Mantém partial: receita 4.1 sem tiers; não verificado no cliente.",
+  "notes": "Implementado de verdade a partir de vendor/DDT-6600 GoodsExchangeHandler.cs (DDTank41 nunca publicou esse handler). m3-partial-sweep corrigiu o layout do pacote 6600 (multiplier/tierIndex lidos errado antes, feature inutilizável nesse cliente); 4.1 não tem tiers (layout do próprio cliente 4.1 não manda tierIndex). apps/game/src/handlers/missoes/troca-de-itens.ts.",
   "evidence": ""
  },
  {
@@ -3579,9 +3579,9 @@
   "code": 32,
   "name": "COLLECTINFO",
   "sub": "",
-  "server": "stub",
+  "server": "wontfix",
   "verified": "no",
-  "notes": "Chamado pelo cliente (quest/InfoCollectView.as:200) mas sem [PacketHandler(32,...)] em Game.Server — o formulário de 'coleta de informação' (CPF/telefone etc. de alguma campanha) nunca foi implementado no servidor original; o cliente envia e nada responde. Status 'missing' aqui é fidelidade, não lacuna.",
+  "notes": "Anti-vício/verificação de SMS — chamado pelo cliente (quest/InfoCollectView.as:200) mas sem [PacketHandler(32,...)] em vendor/DDTank41/Game.Server; a validação real do original ia por HTTP (SendActiveKeySystem.ashx, nunca portado) e nunca lia resposta deste socket. Precisaria de um gateway de SMS real — fora do escopo do projeto. Stub seguro mantido (lê e descarta).",
   "evidence": ""
  },
  {
@@ -3594,9 +3594,9 @@
   "code": 89,
   "name": "QUESTION_REPLY",
   "sub": "",
-  "server": "stub",
+  "server": "wontfix",
   "verified": "no",
-  "notes": "Chamado pelo cliente (ddt/manager/QuestionInfoMannager.as:85) mas sem [PacketHandler(89,...)] em Game.Server — resposta a uma pergunta (survey/quiz de evento) nunca implementada no original. Status 'missing' aqui é fidelidade, não lacuna.",
+  "notes": "Chamado pelo cliente (ddt/manager/QuestionInfoMannager.as:85) só a partir de um ANSWERBOX_QUESTIN (código 31, colide no enum com GOODS_EXCHANGE) que nenhum handler C# do DDTank41 ou DDT-6600 manda — ou seja, o próprio gatilho que faria o cliente mandar essa resposta nunca pode disparar no servidor real. Sem [PacketHandler(89,...)] em Game.Server.",
   "evidence": ""
  },
  {
@@ -3624,7 +3624,7 @@
   "sub": "REQUEST_UPDATE=2",
   "server": "partial",
   "verified": "no",
-  "notes": "LABYRINTH implementado como camada administrativa/econômica (apps/game/src/handlers/activities.ts + Sys_Users_Labyrinth): sub 1 DOUBLE_REWARD, 2 REQUEST_UPDATE, 3 CLEAN_OUT, 4 SPEEDED_UP, 5 STOP, 6 RESET, 9 TRY_AGAIN. Desvio documentado: o contador de andar por tempo real (Timer de 1s do original) é liquidado instantaneamente no CLEAN_OUT em vez de um timer por jogador; `myProgress` (andares vencidos em combate real) fica em 0 pra todo mundo até o tipo de sala PvE do labirinto ser portado — ver HANDLERS.md. Testado por código (activities.test.ts), não clicado.",
+  "notes": "LABYRINTH implementado como camada administrativa/econômica (apps/game/src/handlers/activities.ts + Sys_Users_Labyrinth): sub 1 DOUBLE_REWARD, 2 REQUEST_UPDATE, 3 CLEAN_OUT, 4 SPEEDED_UP, 5 STOP, 6 RESET, 9 TRY_AGAIN. Gap real documentado: sem sala PvE de labirinto, myProgress (andares vencidos em combate real) fica em 0 pra todo mundo; CLEAN_OUT/SPEEDED_UP liquidam o progresso administrativo instantaneamente em vez de via Timer real (o original roda um Timer de 1s por jogador). Ver HANDLERS.md.",
   "evidence": ""
  },
  {
@@ -3699,7 +3699,7 @@
   "sub": "LANTERNRIDDLES_ANSWER=40",
   "server": "stub",
   "verified": "no",
-  "notes": "Ver 145:sendGuildMemberWeekAddRanking — mesmo no-op do original.",
+  "notes": "LANTERNRIDDLES_ANSWER(40): sem fonte C# em nenhum vendor (ActiveSystemHandler.cs só monta um pacote pro sub 8 e nunca chama SendTCP — todo o resto, incl. LanternRiddles, cai no default sem efeito). Subsistema real do cliente (37-45) nunca portado nesta sessão — candidato a feature nova tipo \"Semana da Sociedade\"/\"Caminho da Luz\", não dead-end técnico. apps/game/src/handlers/eventos/caminho-da-luz.ts: sub < 64 || sub > 66 cai no default sem handler.",
   "evidence": ""
  },
  {
@@ -3800,9 +3800,9 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "MARRYROOMSENDGIFT=12",
-  "server": "partial",
+  "server": "missing",
   "verified": "no",
-  "notes": "",
+  "notes": "MARRYROOMSENDGIFT(12), variante \"requestRefund\" (Byte BEGINSENDGIFT=1): mesmo caso de 249:refund — sub 12 não tem case no SubRouter de cerimonia.ts, cai no default sem handler.",
   "evidence": ""
  },
  {
@@ -3843,9 +3843,9 @@
   "code": 110,
   "name": "ITEM_REFINERY",
   "sub": "",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "ITEM_REFINERY implementado (design próprio Reborn, sem fonte C# em nenhum dos dois vendors para este código no 4.1). apps/game/src/handlers/forja/refinaria.ts. HANDLERS.md linha \"110 (4.1) ITEM_REFINERY\".",
   "evidence": ""
  },
  {
@@ -3856,9 +3856,9 @@
   "code": 135,
   "name": "135",
   "sub": "",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "Pacote próprio 135 (não é sub do 81 FARM), registrado explicitamente \"implemented\". \"Dọn đất\" do amigo. apps/game/src/handlers/fazenda/arrumar.ts arrangeFriendFarm.",
   "evidence": ""
  },
  {
@@ -3869,9 +3869,9 @@
   "code": 145,
   "name": "LIGHTROAD_SYSTEM",
   "sub": "BECHOOSE_POINT=66",
-  "server": "missing",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "BECHOOSE_POINT(66) — \"Caminho da Luz\": Reborn design real (sem fonte C# em nenhum vendor, janela só decorativa no original). Tabuleiro semanal de 12 espaços, 1ª escolha do dia grátis, prêmio sorteado do pool configurável, persistido por semana (app.\"LightRoadProgress\"). apps/game/src/handlers/eventos/caminho-da-luz.ts choosePoint. Teste: events.test.ts \"145 sub 64-66 LIGHTROAD\".",
   "evidence": ""
  },
  {
@@ -3923,9 +3923,9 @@
   "code": 224,
   "name": "CID_CHECK",
   "sub": "",
-  "server": "stub",
+  "server": "wontfix",
   "verified": "no",
-  "notes": "",
+  "notes": "Sistema anti-vício chinês (\"AAS\"), nunca ligado nesta build VN. AASInfoSetHandle.cs (vendor/DDTank41/Game.Server/Packets/Client/AASInfoSetHandle.cs:11) não tem [PacketHandler(...)] — confirmado morto, nunca registrado no dispatcher original. Resposta real (SendAASState) só mandada a partir de AntiAddictionMgr/login, nunca em reação a este pacote. Stub seguro (não responde).",
   "evidence": ""
  },
  {
@@ -3980,9 +3980,9 @@
   "code": 249,
   "name": "MARRY_CMD",
   "sub": "MARRYROOMSENDGIFT=12",
-  "server": "partial",
+  "server": "missing",
   "verified": "no",
-  "notes": "",
+  "notes": "MARRYROOMSENDGIFT(12), variante \"refund\" (Byte CLIENTCONFIRM=4): código real e alcançável no cliente (GameSocketOut.as), mas o SubRouter de 249 MARRY_CMD (apps/game/src/handlers/casamento/cerimonia.ts) só registra os subs 1/2/3/4/5/6/7/8/10/11 — sub 12 cai no default sem handler. Reembolso de presente em dinheiro enviado à capela nunca é tratado.",
   "evidence": ""
  },
  {
@@ -4025,9 +4025,9 @@
   "code": 308,
   "name": "EQUIP_BRING_UP",
   "sub": "",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "EQUIP_BRING_UP implementado (\"saiu de stub\", ver forja/stubs.ts cabeçalho) — aprimorar equipamento. apps/game/src/handlers/forja/aprimorar.ts equipBringUp.",
   "evidence": ""
  },
  {
@@ -4040,9 +4040,9 @@
   "code": 313,
   "name": "ITEM_CELL_IS_LOCKED",
   "sub": "",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "ITEM_CELL_IS_LOCKED implementado (\"saiu de stub\") — trava/destrava um slot de item, sem resposta. apps/game/src/handlers/forja/trava-slot.ts.",
   "evidence": ""
  },
  {
@@ -4170,9 +4170,9 @@
   "code": 68,
   "name": "PET",
   "sub": "PAY_SKILL=16",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "PAY_SKILL (sub 16): sem classe Handle no original (grep em vendor/DDTank41/Game.Server/Pet/Handle/*.cs — nenhum arquivo com PetHandleAttbute(PAY_SKILL)); PetHandleMgr.LoadCommandHandler loga erro e descarta. Morto no original.",
+  "notes": "PAY_SKILL (sub 16): confirmado morto no original (nenhuma classe PetHandleAttbute(PAY_SKILL) em vendor/DDTank41/Game.Server/Pet/Handle/*.cs) — o default do dispatcher (apps/game/src/handlers/mascote/index.ts) loga e descarta, reproduzindo PetHandleMgr.LoadCommandHandler byte a byte (loga erro, descarta o pacote).",
   "evidence": ""
  },
  {
@@ -4231,9 +4231,9 @@
   "code": 68,
   "name": "PET",
   "sub": "PET_FOLLOW=25",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "PET_FOLLOW (sub 25): mesma varredura de sendPaySkill — sem classe Handle registrada, morto no original.",
+  "notes": "PET_FOLLOW (sub 25): mesma varredura de PAY_SKILL — sem classe Handle no original, default do dispatcher loga+descarta, igual ao original.",
   "evidence": ""
  },
  {
@@ -4246,9 +4246,9 @@
   "code": 68,
   "name": "PET",
   "sub": "PET_FORMINFO=24",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "PET_FORMINFO (sub 24): mesma varredura de sendPaySkill — sem classe Handle registrada, morto no original.",
+  "notes": "PET_FORMINFO (sub 24): mesma varredura de PAY_SKILL — sem classe Handle no original, default do dispatcher loga+descarta, igual ao original.",
   "evidence": ""
  },
  {
@@ -4291,9 +4291,9 @@
   "code": 68,
   "name": "PET",
   "sub": "PET_WAKE=32",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "PET_WAKE (sub 32): mesma varredura de sendPaySkill — sem classe Handle registrada, morto no original.",
+  "notes": "PET_WAKE (sub 32): mesma varredura de PAY_SKILL — sem classe Handle no original, default do dispatcher loga+descarta, igual ao original.",
   "evidence": ""
  },
  {
@@ -4350,9 +4350,9 @@
   "code": 50,
   "name": "FIGHT_NPC",
   "sub": "",
-  "server": "stub",
+  "server": "wontfix",
   "verified": "no",
-  "notes": "Morto no original dos dois lados: GameSocketOut.as define sendBeginFightNpc() (PackageOut(FIGHT_NPC=50)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e o servidor não registra [PacketHandler(50,...)] em Game.Server/Fighting.Server (o 'FIGHT_NPC=88' de Game.Logic/Protocol/eFightPackageType.cs é um protocolo interno Center<->Fighting diferente, não o pacote de cliente). Status 'missing' aqui é fidelidade, não lacuna.",
+  "notes": "Morto nos dois lados: GameSocketOut.as define sendBeginFightNpc() mas nenhuma tela do cliente chama (MatchRoomView.as:60 MATCH_NPC_ENABLE=false, permanente), e Game.Server/Fighting.Server não registra [PacketHandler(50,...)] (o FIGHT_NPC=88 de Game.Logic/Protocol/eFightPackageType.cs é um protocolo interno Center<->Fighting diferente).",
   "evidence": ""
  },
  {
@@ -4380,7 +4380,7 @@
   "sub": "CLEAN_OUT=3",
   "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "CLEAN_OUT(3) implementado na camada administrativa/econômica (ver 131:labyrinthRequestUpdate). Gap real: sem sala PvE de labirinto, não há andar vencido em combate real pra liquidar — CLEAN_OUT paga o avanço instantaneamente em vez de ao longo do tempo (sem Timer por jogador como o original). HANDLERS.md \"131 LABYRINTH\".",
   "evidence": ""
  },
  {
@@ -4393,7 +4393,7 @@
   "sub": "CLEAN_OUT_COMPLETE=8",
   "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "CLEAN_OUT_COMPLETE(8): mesmo gap de labyrinthCleanOut — camada administrativa ok, sem avanço de andar via combate real.",
   "evidence": ""
  },
  {
@@ -4406,7 +4406,7 @@
   "sub": "DOUBLE_REWARD=1",
   "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "DOUBLE_REWARD(1) implementado (item 11916 dobra o próximo prêmio). Mesmo gap estrutural do labirinto (sem sala PvE) não afeta este sub específico, mas o código 131 como um todo fica partial por causa dos subs que dependem de progresso real.",
   "evidence": ""
  },
  {
@@ -4419,7 +4419,7 @@
   "sub": "RESET_LABYRINTH=6",
   "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "RESET_LABYRINTH(6): mesmo gap de labyrinthCleanOut — camada administrativa ok.",
   "evidence": ""
  },
  {
@@ -4432,7 +4432,7 @@
   "sub": "SPEEDED_UP_CLEAN_OUT=4",
   "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "SPEEDED_UP_CLEAN_OUT(4): mesmo gap de labyrinthCleanOut — liquida instantaneamente em vez de via Timer real.",
   "evidence": ""
  },
  {
@@ -4445,7 +4445,7 @@
   "sub": "STOP_CLEAN_OUT=5",
   "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "STOP_CLEAN_OUT(5): mesmo gap de labyrinthCleanOut — camada administrativa ok.",
   "evidence": ""
  },
  {
@@ -4458,7 +4458,7 @@
   "sub": "TRY_AGAIN=9",
   "server": "partial",
   "verified": "no",
-  "notes": "",
+  "notes": "TRY_AGAIN(9) implementado (preço big/small por andar, labyrinthTryAgainMoney). Mesmo gap estrutural do labirinto (sem sala PvE) documentado no código 131 como um todo.",
   "evidence": ""
  },
  {
@@ -5115,9 +5115,9 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "POLL_CANDIDATE=25",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "Sem handler no servidor original.",
+  "notes": "POLL_CANDIDATE (sub 25): stub no próprio original também (HANDLERS.md \"129 CONSORTIA_CMD\": \"23 DONATE / 25 POLL stubs as in the original\") — nosso stub reproduz o do C#, não é lacuna.",
   "evidence": ""
  },
  {
@@ -5133,7 +5133,7 @@
   "sub": "SKILL_SOCKET=26",
   "server": "partial",
   "verified": "no",
-  "notes": "Compra de habilidade (fundos/contribuição/medalhas), buff 101-112 salvo e 129/26; efeitos dos buffs no combate ainda não aplicados. Correção: buff tipo 1 era dado sem a guilda pagar.",
+  "notes": "SKILL_SOCKET (sub 26) implementado (compra de habilidade por fundos/contribuição/medalhas, buff 101-112 salvo e ecoado em 129/26; fix: buff tipo 1 não dava mais de graça). Gap real documentado em HANDLERS.md \"129 CONSORTIA_CMD\": os efeitos desses buffs de guilda NÃO são aplicados em combate (FightPower/dano/defesa não lêem o buff 101-112) — fica partial por esse motivo, não pela compra em si.",
   "evidence": ""
  },
  {
@@ -5161,9 +5161,9 @@
   "code": 129,
   "name": "CONSORTIA_CMD",
   "sub": "DONATE=23",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "Sem implementação no original (só loga o tipo de item).",
+  "notes": "DONATE (sub 23): stub no próprio original também (HANDLERS.md: \"23 DONATE / 25 POLL stubs as in the original\", o C# só loga o tipo de item) — nosso stub reproduz o do C#, não é lacuna.",
   "evidence": ""
  },
  {
@@ -5240,9 +5240,9 @@
   "code": 175,
   "name": "HOTSPRING_ROOM_CREATE",
   "sub": "",
-  "server": "stub",
+  "server": "ok",
   "verified": "no",
-  "notes": "",
+  "notes": "HOTSPRING_ROOM_CREATE implementado de verdade: sala privada paga com nome/senha/introdução/limite de jogadores. apps/game/src/handlers/termas/salas-privadas.ts hotSpringRoomCreate. A nota de HANDLERS.md (\"175 create / 6 edit / 9 kick / 10 continue stub\") ficou obsoleta — os quatro (create=175, e 6 EDIT/9 ADMIN_REMOVE_PLAYER/10 PLAYER_CONTINUE do sub-roteador 191 HOTSPRING_CMD) estão todos implementados de verdade em termas/salas-privadas.ts.",
   "evidence": ""
  },
  {
