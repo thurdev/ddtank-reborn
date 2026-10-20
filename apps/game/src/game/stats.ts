@@ -399,6 +399,32 @@ export function emptyStatTables(findItem: (id: number) => ItemTemplate | undefin
 }
 
 /**
+ * `PlayerInfo.Style`/`Colors`/`Skin` strings sent to the client (`GamePlayer.recalcStats`, extracted here so
+ * `bots/view.ts` builds the exact same strings for a `VirtualPlayer` from its own `equip` array). Order is
+ * EquipBag place 0 first (no leading comma), then places [1,2,3,4,5,6,11,13,14,15,16,17,18,19,20] each
+ * prefixed with a comma (empty slot = just the comma) — same order the AS3 `PlayerAvatarManager` expects.
+ * `Skin` only comes from place 5 (Face, `EquipType.hasSkin`: Face/Cloth draw a skin tint — Cloth's skin isn't
+ * read here, matching the original which only ever sets it from this one slot).
+ */
+export function styleFromEquip(equip: (ItemInfo | null)[]): { style: string; color: string; skin: string } {
+  const styleIndex = [1, 2, 3, 4, 5, 6, 11, 13, 14, 15, 16, 17, 18, 19, 20];
+  const s0 = equip[0];
+  let style = s0 ? `${s0.TemplateID}|${s0.Pic}` : "";
+  let color = s0 ? s0.Color : "";
+  const skin = equip[5]?.Skin ?? "";
+  for (const idx of styleIndex) {
+    style += ",";
+    color += ",";
+    const it = equip[idx];
+    if (it) {
+      style += `${it.TemplateID}|${it.Pic}`;
+      color += it.Color;
+    }
+  }
+  return { style, color, skin };
+}
+
+/**
  * PlayerEquipInventory.GetUserNimbus (PlayerEquipInventory.cs:823): aura tiers of the character — hundreds = clothes/hat
  * (category 1/5), units = weapon (category 7/27). +5..8 → 1, +9..11 → 2, +12..14 → 3, +15 → 4, gilded (isGold) → 5. The
  * client (PlayerInfo.Nimbus) draws the strengthen glow/halo from it.

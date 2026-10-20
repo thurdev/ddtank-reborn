@@ -246,7 +246,7 @@ export class GameServer {
             botProfile: (b) => ({ difficulty: (b as VirtualPlayer & { difficulty?: number }).difficulty ?? 50 }),
           }));
     let bots = this.opts.bots;
-    if (!bots && cfg.BOT_FALLBACK_SEC > 0) bots = await new DbBotProvider().load(db.db).catch((e) => (log.warn(`bots: ${e}`), new DbBotProvider()));
+    if (!bots && cfg.BOT_FALLBACK_SEC > 0) bots = await new DbBotProvider(templates).load(db.db).catch((e) => (log.warn(`bots: ${e}`), new DbBotProvider(templates)));
     const zoneId = templates.server?.ZoneId ?? 1;
     const zoneName = templates.server?.ZoneName ?? cfg.SERVER_NAME ?? "DDTank";
     const rooms = new RoomMgr({

@@ -26,6 +26,32 @@ export const BagType = {
   BankBag: 51,
 } as const;
 
+/**
+ * EquipType.CategeryIdToPlace (Source Flash/src/ddt/data/EquipType.as:699-727): which `EquipBag` place(s) a
+ * CategoryID is allowed to occupy — the client decides placement when the player clicks "equip" (the server
+ * normally just trusts the place the client sends, `handlers/bolsa/mover.ts`). Bots have no client, so
+ * `bots/view.ts` uses this to auto-place each admin-picked item (`m1-bot-pvp`). Confirmed against our own
+ * slot usage elsewhere: 6=weapon (`GamePlayer.mainWeapon`), 12=necklace (`getBaseBlood`), 15=second weapon
+ * (`GamePlayer.secondWeapon`), 18=healstone (`fight/ddt.ts`), 0/4=hat/clothes armour (`userNimbus` "category
+ * 1/5"). Returns candidate places in preference order (first free wins); [] = no EquipBag slot (prop/task/...).
+ */
+export function placeForCategory(categoryId: number): number[] {
+  switch (categoryId) {
+    case 8: case 28: return [7, 8]; // Armlet / TempArmlet
+    case 9: case 29: return [9, 10]; // Ring / TempRing
+    case 13: return [11]; // Suits
+    case 14: return [12]; // Necklace
+    case 15: return [13]; // Wing
+    case 16: return [14]; // ChatBall
+    case 17: case 31: return [15]; // OffHand / TempOffHand (second weapon)
+    case 27: return [6]; // TempWeapon (shares the weapon slot)
+    case 40: return [17]; // Badge
+    default:
+      // Hat=1->0, Glass=2->1, Hair=3->2, Eff=4->3, Cloth=5->4, Face=6->5, Weapon(Arm)=7->6, ... Healstone=19->18.
+      return categoryId >= 1 && categoryId <= 20 ? [categoryId - 1] : [];
+  }
+}
+
 /** ItemTemplateInfo.BagType (ItemTemplateInfo.cs:11). */
 export function templateBagType(t: ItemTemplate): number {
   switch (t.CategoryID) {

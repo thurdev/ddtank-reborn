@@ -107,7 +107,7 @@ export const bots = defineResource({
       hint: "Controla a precisão de ângulo/força e o uso de itens.",
     },
     { name: "weaponTemplateId", label: "Arma", type: "item-picker", required: true, list: true, reference: "items", pickerCategory: [7, 17], hint: "Busca restrita a armas (categorias 7 e 17)." },
-    { name: "equips", label: "Equipamentos", type: "item-picker-multi", list: true, reference: "items", hint: "Chapéu, roupa, asas, etc. — qualquer categoria de equipamento." },
+    { name: "equips", label: "Equipamentos", type: "item-picker-multi", list: true, reference: "items", hint: "Chapéu, roupa, asas, etc. — qualquer categoria de equipamento. O servidor descobre o slot certo pela categoria do item (igual o jogo real) e já soma Ataque/Defesa/Agilidade/Sorte/vida e o visual (Style/Colors) do bot a partir daqui — m1-bot-pvp." },
     { name: "guild", label: "Guilda exibida", type: "text" },
     { name: "enabled", label: "Ativo", type: "boolean", default: true, list: true, inlineToggle: true },
   ],
