@@ -32,6 +32,7 @@ import { StubFightEngine } from "./fight/stub.js";
 import { DdtFightEngine } from "./fight/ddt.js";
 import type { FightEngine } from "./fight/types.js";
 import { updateLabyrinthFloor, outLabyrinth } from "./handlers/eventos/labirinto.js";
+import { recordPveClear } from "./db/pve-progress.js";
 import { eliteChampionFlee, eliteChampionGameOver, updateEliteScore } from "./handlers/eventos/liga-elite.js";
 import { onRescueGameOver } from "./handlers/eventos/resgate.js";
 import { onCatchBeastHurt } from "./game/catchbeast.js";
@@ -243,6 +244,8 @@ export class GameServer {
               pveInfo: (id, roomType, levelLimits) => (id !== 0 && id !== 100000 ? templates.pveInfos.get(id) : templates.pveByType(roomType, levelLimits)) as never,
               drop: (kind, id, user) => templates.pveDrop(kind, id, user),
               translate: (key, args) => lang.t(key, ...args),
+              // Task 41-instancias: admin-config NPC HP/damage/defence/reward multipliers per dungeon+difficulty.
+              balance: (pveId, hardLevel) => templates.pveBalance(pveId, hardLevel),
             },
             botProfile: (b) => ({ difficulty: (b as VirtualPlayer & { difficulty?: number }).difficulty ?? 50 }),
           }));
@@ -256,6 +259,15 @@ export class GameServer {
       onLabyrinthFinished: (room, isWin) => {
         const host = room.host;
         if (this.ctx && host && !host.isBot) void outLabyrinth(this.ctx, host as GamePlayer, isWin).catch((e) => log.warn(`labyrinth finished: ${(e as Error).message}`));
+      },
+      // Task 41-instancias (Reborn addition): a won Dungeon run unlocks the next difficulty for every human
+      // seat that was in the room (bots never persist progress — same convention as giveItems/giveDropItems).
+      onDungeonCleared: (room, pveId, hardLevel, isWin) => {
+        if (!isWin || !this.ctx) return;
+        for (const m of room.getPlayers()) {
+          if (m.isBot) continue;
+          void recordPveClear(this.ctx, m.id, pveId, hardLevel).catch((e) => log.warn(`pve clear: ${(e as Error).message}`));
+        }
       },
     });
     const bus = this.opts.bus ?? createBus(cfg, (m) => log.warn(m));

@@ -169,6 +169,13 @@
       "when": 1792413192603,
       "tag": "0023_glamorous_magma",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1792496130149,
+      "tag": "0024_regular_oracle",
+      "breakpoints": true
     }
   ]
 }

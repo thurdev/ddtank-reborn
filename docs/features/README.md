@@ -41,6 +41,7 @@
 | Missões | [missoes.md](./missoes.md) |
 | Salas e batalha (PvP) | [salas-batalha.md](./salas-batalha.md) |
 | PvE / Masmorras | [pve-masmorras.md](./pve-masmorras.md) |
+| Instâncias: desbloqueio, FC e balanceamento | [instancias.md](./instancias.md) |
 | Labirinto | [labirinto.md](./labirinto.md) |
 | Boss mundial | [boss-mundial.md](./boss-mundial.md) |
 
