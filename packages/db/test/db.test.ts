@@ -48,7 +48,7 @@ describe("@ddt/db on PGlite", () => {
     // 6600 export (`vendor/_dbexport/Project_Game6600/data/Shop_Goods.json`) into
     // `packages/db/seed/game/Shop_Goods.json.gz` — static seed data, no schema/migration change.
     const sixShopGoodsExtra = 17;
-    const src = { game: { ...rowCounts("Project_Game34"), ...sixGameCounts, Shop_Goods: rowCounts("Project_Game34").Shop_Goods + sixShopGoodsExtra }, player: rowCounts("Project_Player34") };
+    const src: Record<string, Record<string, number>> = { game: { ...rowCounts("Project_Game34"), ...sixGameCounts, Shop_Goods: rowCounts("Project_Game34").Shop_Goods + sixShopGoodsExtra }, player: rowCounts("Project_Player34") };
     const m = readManifest();
     expect(m.tables.length).toBe(130);
     for (const t of m.tables) {
