@@ -116,6 +116,42 @@ describe("@ddt/fight adapter", () => {
     b.c.close();
   }, 60000);
 
+  // 41-guilda-skill-combate: `apps/game/src/fight/ddt.ts` `specOf` must read `GamePlayer.buffs` (131 SKILL_SOCKET,
+  // `loja-habilidades.ts`) into the fight spec's `guildBuffs`, same path real equipment stats use. Checked right
+  // after START_GAME (91/99) — `reset()` already ran (PVPGame.cs:771-829) — not a full `playToEnd` (expensive, and
+  // RNG-dependent damage would make the maxBlood/attack deltas noisy to assert on).
+  it("129 SKILL_SOCKET buffs (Type 105 property + 104 maxBlood%) apply to the live fight stats, not just the echoed packet", async () => {
+    const a = await lobby();
+    const b = await lobby();
+    (server.ctx.rooms as unknown as { o: { botFallbackSec: number } }).o.botFallbackSec = 9999;
+    const gp = a.player();
+    const now = new Date();
+    gp.buffs = [
+      { UserID: gp.id, Type: 105, Value: 30, BeginDate: now, ValidDate: 60, TemplateID: 0, ValidCount: 1, Data: "1", IsExist: true },
+      { UserID: gp.id, Type: 104, Value: 20, BeginDate: now, ValidDate: 60, TemplateID: 0, ValidCount: 1, Data: "2", IsExist: true },
+    ];
+    const before = { attack: gp.info.Attack, defence: gp.info.Defence, hp: gp.info.hp };
+    roomCmd(a.c, 7);
+    await a.c.code(94, 13);
+    roomCmd(b.c, 7);
+    for (let i = 0; i < 500 && !(a.c.received.some((r) => r.code === 91 && r.sub === 99) && b.c.received.some((r) => r.code === 91 && r.sub === 99)); i++) {
+      if (a.c.received.some((r) => r.code === 91 && r.sub === 103) && !a.c.received.some((r) => r.code === 91 && r.sub === 99)) gameCmd(a.c, 16, (p) => p.writeInt(100));
+      if (b.c.received.some((r) => r.code === 91 && r.sub === 103) && !b.c.received.some((r) => r.code === 91 && r.sub === 99)) gameCmd(b.c, 16, (p) => p.writeInt(100));
+      engine.tick((clock += 40));
+      await new Promise((r) => setTimeout(r, 2));
+    }
+    const g = [...engine.games.values()][0]!;
+    const live = g.game.findByUser(a.ch.userId)!;
+    expect(live.attack).toBe(before.attack + 30); // ConsortionAddPropertyBuffer (105)
+    expect(live.defence).toBe(before.defence + 30);
+    expect(live.maxBlood).toBe(before.hp + Math.trunc((before.hp * 20) / 100)); // ConsortionAddMaxBloodBuffer (104)
+    // b (no buffs bought) is unaffected — proves the bonus is per-player, not leaked onto the opponent.
+    const liveB = g.game.findByUser(b.ch.userId)!;
+    expect(liveB.attack).toBe(b.player().info.Attack);
+    a.c.close();
+    b.c.close();
+  }, 30000);
+
   it("1v1 vs bot (VirtualPlayer) is played to the end", async () => {
     (server.ctx.rooms as unknown as { o: { botFallbackSec: number } }).o.botFallbackSec = 0;
     const a = await lobby();

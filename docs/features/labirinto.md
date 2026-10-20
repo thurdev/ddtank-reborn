@@ -15,15 +15,18 @@ o jogador sobe "andares" do Labirinto lutando, acumula EXP/moeda, e pode:
   mesmo fluxo de compra da [loja.md](./loja.md) (pacote `44 BUY_GOODS`), não
   documentado de novo aqui.
 
-> Importante: a parte "subir de andar lutando contra NPC" ainda **não está
-> ligada a uma sala PvE real** — ver seção 5. O que existe hoje é só a camada
-> administrativa/econômica (dobrar prêmio, limpar, acelerar, tentar de novo).
+> Atualização (41-labirinto-combate, 2026-10-20): "subir de andar lutando
+> contra NPC" **já está ligada a uma sala PvE real** — ver seção 5. A nota
+> abaixo (parágrafo antigo) ficou obsoleta: a camada administrativa/econômica
+> (dobrar prêmio, limpar, acelerar, tentar de novo) e o combate real andam
+> juntos agora.
 
 ## 2. Onde fica no código
 | Ação | Cliente (AS3) | Pacote | Servidor TS | C# original | Tabelas |
 |---|---|---|---|---|---|
-| Entrar na tela do Labirinto | `labyrinth/LabyrinthManager.as`, `labyrinth/view/LabyrinthFrame.as` | 94 GAME_ROOM | [`rr`](../../apps/game/src/handlers/rooms.ts#L151) `handlers/rooms.ts:151` | `GameRoomHandler.cs` | — |
-| Dobrar recompensa / atualizar / limpar / acelerar / reiniciar / tentar de novo | `labyrinth/LabyrinthManager.as` (`labyrinthDouble`, `labyrinthRequestUpdate`, `labyrinthCleanOut`/`labyrinthStopCleanOut`/`labyrinthSpeededUpCleanOut`/`labyrinthCleanOutTimerComplete`), `labyrinth/view/LabyrinthFrame.as`/`CleanOutFrame.as` | 131 LABYRINTH (sub 1/2/3/4/5/6/9) | [`labyrinthHandler`](../../apps/game/src/handlers/eventos/labirinto.ts#L67) `handlers/eventos/labirinto.ts:67`, registrado `"partial"` em `eventos/index.ts:76` | `LabyrinthHandler.cs` | `player."Sys_Users_Labyrinth"` |
+| Entrar na tela do Labirinto / criar a sala PvE real | `labyrinth/LabyrinthManager.as`, `labyrinth/view/LabyrinthFrame.as` | 94 GAME_ROOM (`RoomType.Labyrinth`=15) | [`currentLabyrinthFloor`](../../apps/game/src/handlers/eventos/labirinto.ts#L173) `handlers/eventos/labirinto.ts:173`, chamado por `handlers/salas/configurar-sala.ts:54` | `GameRoomHandler.cs`, `GameRoom/Handle/SetupChange.cs:26-29` | `player."Sys_Users_Labyrinth"`, `game."Pve_Info".ID=401` |
+| Combate real (subir andar) | scripts `GameServerScript.AI.Messions.Labyrinth40001..40030` (`@ddt/fight`) | 91 GAME_CMD (via `@ddt/fight` `PveGame`) | [`updateLabyrinthFloor`](../../apps/game/src/handlers/eventos/labirinto.ts#L192)/[`outLabyrinth`](../../apps/game/src/handlers/eventos/labirinto.ts#L220), ligados a `onMissionOver`/`onLabyrinthFinished` em `server.ts` | `GamePlayer.UpdateLabyrinth`/`OutLabyrinth` (GamePlayer.cs:4315-4435) | `player."Sys_Users_Labyrinth"` |
+| Dobrar recompensa / atualizar / limpar / acelerar / reiniciar / tentar de novo | `labyrinth/LabyrinthManager.as` (`labyrinthDouble`, `labyrinthRequestUpdate`, `labyrinthCleanOut`/`labyrinthStopCleanOut`/`labyrinthSpeededUpCleanOut`/`labyrinthCleanOutTimerComplete`), `labyrinth/view/LabyrinthFrame.as`/`CleanOutFrame.as` | 131 LABYRINTH (sub 1/2/3/4/5/6/9) | [`labyrinthHandler`](../../apps/game/src/handlers/eventos/labirinto.ts#L107) `handlers/eventos/labirinto.ts:107`, registrado em `eventos/index.ts` | `LabyrinthHandler.cs` | `player."Sys_Users_Labyrinth"` |
 | Comprar na loja do Labirinto | `labyrinth/view/LabyrinthShopItem.as` | 44 BUY_GOODS | mesmo fluxo de [loja.md](./loja.md) | — | `game."Shop_Goods"` |
 | Convidar amigo de dentro do Labirinto | `labyrinth/view/CleanOutFrame.as` | 160 IM_CMD | [`im`](../../apps/game/src/handlers/social.ts#L115) `handlers/social.ts:115` | `IMHandler.cs` | — |
 
@@ -78,14 +81,20 @@ o jogador sobe "andares" do Labirinto lutando, acumula EXP/moeda, e pode:
 ## 5. Testes + status
 - `apps/game/test/activities.test.ts` → `describe("131 LABYRINTH economy")`
   cobre dobrar/limpar/acelerar/reiniciar/tentar de novo (a camada econômica).
-- Status: **OK** a camada administrativa (dobrar prêmio, limpar andares,
-  acelerar, reiniciar, tentar de novo, loja) — rota real, com teste.
-  **Falta portar**: subir de andar *lutando* contra NPC de verdade. Hoje
-  `myProgress` (quantos andares o jogador já venceu) só é lido, nunca
-  incrementado por uma luta — não existe ainda uma sala PvE tipo "Labirinto"
-  equivalente a `RoomType.Dungeon` (ver o cabeçalho de
-  `handlers/eventos/labirinto.ts`: "`myProgress` ... tem nada a resolver até
-  o tipo de sala PvE do Labirinto ser ligado"). Pra portar: criar um
-  `RoomType` novo pro Labirinto (mesmo padrão de
-  [pve-masmorras.md](./pve-masmorras.md) seção 2/3) que, ao vencer um andar,
-  incremente `myProgress` nessa mesma tabela `player."Sys_Users_Labyrinth"`.
+- `apps/game/test/labirinto.test.ts` cobre a sala PvE real (`94 GAME_ROOM`
+  `RoomType.Labyrinth`=15 resolve `Pve_Info.ID`=401 + andar salvo, `GAME_START`
+  cria um `PveGame` de verdade) e `updateLabyrinthFloor`/`outLabyrinth`
+  (avanço de andar, recompensa, dobro, persistência, "tentar de novo" na
+  derrota).
+- Status (41-labirinto-combate, 2026-10-20): **OK** — a sala PvE real está
+  ligada (via `@ddt/fight` `PveGame`, mesmo motor das masmorras normais, ver
+  [pve-masmorras.md](./pve-masmorras.md)); `myProgress` avança só quando o
+  jogador vence o andar em combate real, server-authoritative
+  (`onMissionOver`/`onLabyrinthFinished` em `server.ts`, nunca um pacote do
+  cliente alegando vitória). CLEAN_OUT/SPEEDED_UP_CLEAN_OUT cobram ANTES de
+  liquidar (charge-before-grant) e só somam os andares ainda não resgatados
+  (`currentFloor..myProgress`, claim-once — `settleCleanOut` avança
+  `currentFloor` pro `myProgress`, uma segunda chamada não re-paga).
+  **Deviation documentada** (baixo impacto): o `Timer` real de 1s/jogador do
+  CLEAN_OUT original (`LabyrinthHandler.cs` → `Actives.CleantOutLabyrinth`)
+  não foi portado — a liquidação é instantânea em vez de progressiva.

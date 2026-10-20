@@ -78,6 +78,8 @@ export class Living extends LivingBody {
   reduceCrit = 0;
   critRate = 0;
   guildAddCritical = 0;
+  /** Player.FightBuffers.ConsortionAddEnergy — re-applied every `prepareNewTurn()`, see there. */
+  guildAddEnergy = 0;
   turnNum = 0;
   /** PvE fields (Living.cs): config, NPC fire offset, melee range, say flag, exp given when killed */
   config = new LivingConfig();
@@ -375,8 +377,12 @@ export interface PlayerSpec {
   pet?: PetSpec | null;
   /** Guild-skill fight buffs resolved to flat deltas by the caller (Game.Server/Buffer/Consortion*Buffer.cs via
    * GamePlayer.FightBuffers) — e.g. ConsortionAddPropertyBuffer → attack/defence/agility/lucky,
-   * ConsortionAddMaxBloodBuffer → maxBloodPercent, ConsortionAddCriticalBuffer → critical. */
-  guildBuffs?: { attack?: number; defence?: number; agility?: number; lucky?: number; maxBloodPercent?: number; critical?: number };
+   * ConsortionAddMaxBloodBuffer → maxBloodPercent, ConsortionAddCriticalBuffer → critical,
+   * ConsortionAddDamageBuffer → damage (flat `BaseDamage`), ConsortionAddEnergyBuffer → energy (re-applied
+   * every turn, see `prepareNewTurn()`). `ConsortionAddPercentGoldOrGPBuffer` (type 110) isn't here — it
+   * scales the GP reward at game-over time, outside the pure engine (apps/game applies it, same as the
+   * original PVEGame.cs:839-841/PVPGame.cs:406-408). */
+  guildBuffs?: { attack?: number; defence?: number; agility?: number; lucky?: number; maxBloodPercent?: number; critical?: number; damage?: number; energy?: number };
 }
 
 export interface PetSkillSpec { id: number; costMP: number; coldDown: number; newBallId: number; ballType: number; delay: number; pic?: string; effectPic?: string }
@@ -451,6 +457,9 @@ export class Player extends TurnedLiving {
       this.agility += gb.agility ?? 0;
       this.lucky += gb.lucky ?? 0;
       this.guildAddCritical = gb.critical ?? 0;
+      this.guildAddEnergy = gb.energy ?? 0;
+      // Player.cs:2250-2252: `if (ConsortionAddDamage > 0) BaseDamage += ConsortionAddDamage`
+      if (gb.damage) this.baseDamage += gb.damage;
       // Player.cs:489/2264-2266: `m_maxBlood += m_maxBlood * FightBuffers.ConsortionAddMaxBlood / 100`
       if (gb.maxBloodPercent) this.maxBlood += int((this.maxBlood * gb.maxBloodPercent) / 100);
     }
@@ -459,7 +468,7 @@ export class Player extends TurnedLiving {
     this.delay = this.getTurnDelay();
     this.setDanderQuiet(0);
     this.setCurrentWeapon(s.weapon.templateId, false);
-    this.energy = turnEnergy(this.agility);
+    this.energy = turnEnergy(this.agility, this.guildAddEnergy);
     this.psychic = 0; // Player.cs:2220
     this.petSkillTurn.clear();
     this.hooks.emit("playerAfterReset", this); // Player.PlayerAfterReset (Player.cs:2232-ish)
@@ -596,7 +605,9 @@ export class Player extends TurnedLiving {
   override prepareNewTurn(): void {
     this.itemFightBag.clear();
     if (this.currentIsHitTarget) this.totalHitTargetCount++;
-    this.energy = turnEnergy(this.agility);
+    // Player.cs:2112-2117: `m_energy = Agility/30+240; if (ConsortionAddEnergy > 0) m_energy += ...` — the
+    // guild energy buff is re-applied every turn, not just at Reset (reset() above sets guildAddEnergy once).
+    this.energy = turnEnergy(this.agility, this.guildAddEnergy);
     this.shootCount = 1;
     this.ballCount = 1;
     this.isSpecialSkill = false;
