@@ -1,0 +1,12 @@
+{
+  "name": "swf-export",
+  "private": true,
+  "type": "module",
+  "description": "Conversor único SWF -> PNG + JSON + TS (tools/swf-export). Não faz parte do jogo em runtime; ver docs/client-pixi/ASSETS.md.",
+  "scripts": {
+    "export": "tsx src/main.ts"
+  },
+  "dependencies": {
+    "sharp": "^0.33.5"
+  }
+}

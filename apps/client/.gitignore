@@ -1,4 +1,4 @@
-# código gerado pelo transpilador — versionado só depois do congelamento (docs/client-pixi/TRANSPILADOR.md)
-src/game/
 node_modules/
 dist/
+src/game/
+public/assets/

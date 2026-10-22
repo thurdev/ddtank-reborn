@@ -1,0 +1,23 @@
+{
+  "name": "@ddt/flash",
+  "version": "0.1.0",
+  "private": true,
+  "description": "API do Flash Player (flash.display, flash.events, flash.text, flash.net...) reimplementada em TypeScript sobre PixiJS v8, pro cliente DDTank transpilado rodar sem Flash/Ruffle.",
+  "type": "module",
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "fflate": "^0.8.3",
+    "pixi-filters": "^6.1.5",
+    "pixi.js": "^8.22.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.3"
+  }
+}

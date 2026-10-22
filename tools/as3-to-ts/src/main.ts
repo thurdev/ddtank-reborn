@@ -19,6 +19,8 @@ import { Project, type ClassInfo, type FunctionInfo } from "./project.js";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const PG_ROOT = join(HERE, "../playerglobal");
 const OUT_ROOT = join(HERE, "../../../apps/client/src/game");
+/** AS3 descompilado dos SWFs de boot/registro/tutorial (ver extra-src/README.md) */
+const EXTRA_ROOT = join(HERE, "../extra-src");
 
 function rel(root: string, p: string): string {
   return p.slice(root.length).replace(/^[\\/]/, "").replace(/\\/g, "/");
@@ -30,6 +32,7 @@ function main(): void {
   for (const f of listAs(PG_ROOT)) project.addFile(rel(PG_ROOT, f), readFileSync(f, "utf8"), true);
   const gameFiles = listAs(AS3_ROOT).filter((f) => !/_flash_display_Sprite\.as$/.test(f));
   for (const f of gameFiles) project.addFile(rel(AS3_ROOT, f), readFileSync(f, "utf8"), false);
+  for (const f of listAs(EXTRA_ROOT)) project.addFile(rel(EXTRA_ROOT, f), readFileSync(f, "utf8"), false);
   project.link();
   console.log(`parse+link: ${Date.now() - t0}ms, ${project.classes.size} classes`);
 

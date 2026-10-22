@@ -27,6 +27,8 @@ export interface MemberInfo {
   type?: TypeRef;
   hasGet?: boolean;
   hasSet?: boolean;
+  /** tipos dos parâmetros (métodos/setter) — pra coerção no ponto de chamada */
+  params?: (TypeRef | undefined)[];
   owner: ClassInfo;
 }
 
@@ -44,6 +46,8 @@ export interface ClassInfo {
   instance: Map<string, MemberInfo>;
   statics: Map<string, MemberInfo>;
   decl?: ClassDecl | InterfaceDecl;
+  /** tipos dos parâmetros do construtor */
+  ctorParams?: (TypeRef | undefined)[];
   file?: FileInfo;
   dynamic: boolean;
 }
@@ -121,7 +125,7 @@ export class Project {
         map.set(m.name, { name: m.name, emitName: m.name, kind: m.isConst ? "const" : "field", isStatic: m.mods.isStatic, access: m.mods.access, type: m.type, owner: ci });
       } else {
         const mm = m as MethodMember;
-        if (mm.fn.name === d.name && !mm.accessor && !m.mods.isStatic && d.kind === "class") continue; // construtor
+        if (mm.fn.name === d.name && !mm.accessor && !m.mods.isStatic && d.kind === "class") { ci.ctorParams = mm.fn.params.map((x) => (x.rest ? undefined : x.type)); continue; } // construtor
         const prev = map.get(m.name);
         if (mm.accessor) {
           const type = mm.accessor === "get" ? mm.fn.returnType : mm.fn.params[0]?.type;
@@ -130,7 +134,7 @@ export class Project {
           else info.hasSet = true;
           map.set(m.name, info);
         } else {
-          map.set(m.name, { name: m.name, emitName: m.name, kind: "method", isStatic: m.mods.isStatic, access: m.mods.access, type: mm.fn.returnType, owner: ci });
+          map.set(m.name, { name: m.name, emitName: m.name, kind: "method", isStatic: m.mods.isStatic, access: m.mods.access, type: mm.fn.returnType, params: mm.fn.params.map((x) => (x.rest ? undefined : x.type)), owner: ci });
         }
       }
     }

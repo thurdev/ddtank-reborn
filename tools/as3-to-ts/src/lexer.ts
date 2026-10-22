@@ -132,9 +132,9 @@ export class Lexer {
     const mk = (kind: TokKind, value: string): Token => ({ kind, value, pos: start, end: this.i, line: this.line, nlBefore: nl });
 
     // identificador / palavra-chave
-    if (/[A-Za-z_$À-￿]/.test(c)) {
+    if (/[A-Za-z_$§À-￿]/.test(c)) {
       let j = this.i + 1;
-      while (j < s.length && /[A-Za-z0-9_$À-￿]/.test(s[j]!)) j++;
+      while (j < s.length && /[A-Za-z0-9_$§À-￿]/.test(s[j]!)) j++;
       this.i = j;
       return mk("id", s.slice(start, j));
     }

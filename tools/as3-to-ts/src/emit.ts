@@ -360,7 +360,9 @@ class FileEmitter {
       for (const f of instFields) {
         const info = ci.instance.get(f.name)!;
         const t = this.resolveType(f.type);
-        const val = f.init ? this.withScope(() => this.coerceTo(t, f.init!)) : defaultValue(t);
+        // sem inicializador: não sobrescreve valor já posto (filho de timeline, método virtual chamado pelo construtor da mãe)
+        if (!f.init) { body.push(`this.${info.emitName} ??= ${defaultValue(t)};`); continue; }
+        const val = this.withScope(() => this.coerceTo(t, f.init!));
         body.push(`this.${info.emitName} = ${val};`);
       }
       if (movedInits.length) {
@@ -373,6 +375,16 @@ class FileEmitter {
       opts.push(`fields(this: ${d.name}) {\n${body.map((b) => "  " + b).join("\n")}\n}`);
     }
     if (d.mods.isDynamic) opts.push("dynamic: true");
+    // metadados pro describeType (ObjectUtils.copyProperties do pickgliss aplica estilos por eles)
+    const desc: string[] = [];
+    for (const m of ci.instance.values()) {
+      if (m.access !== "public") continue;
+      const tn = m.type ? describeTypeName(this.resolveType(m.type)) : "*";
+      if (m.kind === "field") desc.push(`v:${m.emitName}:${tn}`);
+      else if (m.kind === "const") desc.push(`c:${m.emitName}:${tn}`);
+      else if (m.kind === "accessor") desc.push(`a:${m.emitName}:${tn}:${m.hasGet && m.hasSet ? "readwrite" : m.hasGet ? "readonly" : "writeonly"}`);
+    }
+    if (desc.length) opts.push(`describe: ${JSON.stringify(desc.join(";"))}`);
     const fqn = ci.isFilePrivate ? `${ci.pkg ? ci.pkg + "." : ""}${d.name}` : ci.fqn;
     this.line(`${this.rt("$class")}(${d.name}, ${JSON.stringify(fqn)}${opts.length ? `, {\n${opts.map((o) => indent(o) + ",").join("\n")}\n}` : ""});`);
 
@@ -383,6 +395,40 @@ class FileEmitter {
       this.staticCtx = false;
     }
     this.cls = undefined;
+  }
+
+  /** `this.f = E` / `f = E` (f campo de instância)? devolve f */
+  private preSuperFieldAssign(st: Stmt): string | undefined {
+    if (st.kind !== "expr" || st.expr.kind !== "assign" || st.expr.op !== "=") return undefined;
+    const l = st.expr.left;
+    if (l.kind === "member" && l.obj.kind === "this") return l.name;
+    if (l.kind === "id" && !this.lookupLocal(l.name) && this.cls && this.project.findInstance(this.cls, l.name)) return l.name;
+    return undefined;
+  }
+
+  /**
+   * argumentos do super(): `this.f` vira a temporária `$pre_f`; outras leituras
+   * de membro antes do super valem o default (no AS3 o objeto já existe "vazio")
+   */
+  private rewritePreSuper(e: Expr, temps: Map<string, string>): Expr {
+    const visit = (n: any): any => {
+      if (!n || typeof n !== "object") return n;
+      if (Array.isArray(n)) return n.map(visit);
+      if (n.kind === "func") return n;
+      if (n.kind === "member" && n.obj?.kind === "this") {
+        const t = temps.get(n.name);
+        return t ? { kind: "id", name: t, pos: n.pos } : { kind: "undefined", pos: n.pos };
+      }
+      if (n.kind === "id" && !this.lookupLocal(n.name) && this.cls && this.project.findInstance(this.cls, n.name)) {
+        const t = temps.get(n.name);
+        return t ? { kind: "id", name: t, pos: n.pos } : { kind: "undefined", pos: n.pos };
+      }
+      if (n.kind === "this") return { kind: "undefined", pos: n.pos };
+      const out: any = {};
+      for (const [k, v] of Object.entries(n)) out[k] = typeof v === "object" ? visit(v) : v;
+      return out;
+    };
+    return visit(e);
   }
 
   /** o comando usa `this` (explícito ou membro de instância implícito)? */
@@ -516,21 +562,40 @@ class FileEmitter {
       // atribuição simples de campo já foi pra fields() (emitClass); o resto que
       // usa `this` vai pra logo depois do super().
       const deferred: Stmt[] = [];
+      const deferredLines: string[] = [];
       if (o.ctor.hasSuper) {
         if (idx < 0) this.line("super();");
         else {
+          // `this.f = E` antes do super(): vira local temporária (`$pre_f`), usada nos
+          // argumentos do super e atribuída ao campo logo depois do super()
+          const temps = new Map<string, string>();
+          const after: string[] = [];
           for (let i = 0; i < idx; i++) {
             const st = body[i]!;
-            if (this.usesThis(st)) deferred.push(st);
+            const fieldName = this.preSuperFieldAssign(st);
+            if (fieldName && !this.usesThis((st as any).expr.right)) {
+              const tmp = `$pre_${fieldName}`;
+              const m = this.cls && this.project.findInstance(this.cls, fieldName);
+              const t = m ? this.memberType(m) : ANY;
+              this.declareLocal(tmp, t);
+              this.line(`var ${tmp} = ${this.coerceTo(t, (st as any).expr.right)};`);
+              temps.set(fieldName, tmp);
+              after.push(`this.${m?.emitName ?? fieldName} = ${tmp};`);
+            } else if (this.usesThis(st)) deferred.push(st);
             else this.stmt(st);
           }
-          this.stmt(body[idx]!);
+          const sup = body[idx]! as Stmt & { kind: "expr" };
+          const call = sup.expr as Expr & { kind: "call" };
+          const args = call.args.map((a) => this.rewritePreSuper(a, temps));
+          this.line(`super(${args.map((a) => this.expr(a, 2)).join(", ")});`);
+          if (after.length) deferredLines.push(...after);
         }
         body = idx < 0 ? body : body.slice(idx + 1);
       } else if (idx >= 0) {
         body = body.filter((_, i) => i !== idx); // `super()` de classe raiz (extends Object)
       }
       if (o.ctor.isRoot) this.line(`${this.rt("$init")}(this);`);
+      for (const l of deferredLines) this.line(l);
       for (const st of deferred) this.stmt(st);
     }
     for (const nf of nestedFns) {
@@ -784,6 +849,11 @@ class FileEmitter {
   // ------------------------------------------------------------ coerção
   /** expressão convertida pro tipo de destino (int/uint truncam, como no AS3) */
   coerceTo(t: RType, e: Expr): string {
+    const et0 = this.typeOf(e);
+    // XML/XMLList/número atribuído a String (e XML a Number) converte no AS3
+    if (t.fqn === "String" && (isXmlT(et0) || isNumT(et0) || et0.fqn === "Boolean")) return `String(${this.expr(e)})`;
+    if (t.fqn === "Number" && (isXmlT(et0) || et0.fqn === "String")) return `Number(${this.expr(e)})`;
+    if (t.fqn === "Boolean" && et0.fqn === "XMLList") return `(${this.expr(e)}.toString() != "")`;
     if (t.fqn === "int" && !isIntT(this.typeOf(e)) && !isIntLiteral(e)) return `${this.rt("int")}(${this.expr(e)})`;
     if (t.fqn === "uint") {
       const et = this.typeOf(e);
@@ -970,6 +1040,10 @@ class FileEmitter {
       return { code: this.ref(fn.fqn, true), type: fn.isVar ? t : ({ fqn: "Function", ret: t } as RType) };
     }
     if (AS3_RUNTIME_GLOBALS.has(name)) return { code: this.rt(name), type: { fqn: "Function" } };
+    // classe importada que não existe no fonte: é classe de asset de SWF (linkage),
+    // resolvida em runtime depois que a biblioteca exportada carrega
+    const imp = [...this.fi.prog.imports, ...this.fi.prog.privateImports].find((i) => i.endsWith("." + name));
+    if (imp) return { code: `${this.rt("$cls")}(${JSON.stringify(imp)})`, type: { fqn: imp, classRef: true } };
     return undefined;
   }
 
@@ -1043,6 +1117,7 @@ class FileEmitter {
       case "index": {
         const ot = this.typeOf(e.obj);
         if (isDictT(ot)) return [`${this.expr(e.obj, 18)}.get(${this.expr(e.index)})`, 18];
+        if (this.isByteArray(ot)) return [`${this.expr(e.obj, 18)}.$get(${this.expr(e.index)})`, 18];
         return [`${this.expr(e.obj, 18)}[${this.expr(e.index)}]`, 18];
       }
       case "attr": {
@@ -1134,6 +1209,10 @@ class FileEmitter {
     return `${obj}.${e.name}`;
   }
 
+  private isByteArray(t: RType): boolean {
+    return !t.classRef && this.project.isSubclass(this.project.classes.get(t.fqn), "flash.utils.ByteArray");
+  }
+
   private superMemberName(name: string): string {
     const s = this.cls && this.project.superOf(this.cls);
     const m = s && this.project.findInstance(s, name);
@@ -1177,13 +1256,35 @@ class FileEmitter {
         return `${this.rt(c.name === "sort" ? "$sort" : "$sortOn")}(${this.expr(c.obj, 2)}${e.args.length ? ", " + args() : ""})`;
       }
     }
+    // dentro de xml.(pred): name(), attribute()... são métodos do item
+    if (c.kind === "id" && this.filterDepth > 0 && XML_METHODS.has(c.name) && !this.lookupLocal(c.name) && !this.resolveIdNoLocal(c.name)) {
+      return `$filterItem.${c.name}(${args()})`;
+    }
     let callee: string;
-    if (c.kind === "member") callee = this.memberExpr(c, true);
-    else if (c.kind === "id") {
+    let member: MemberInfo | undefined;
+    if (c.kind === "member") {
+      callee = this.memberExpr(c, true);
+      const ot = this.typeOf(c.obj);
+      const ci = this.project.classes.get(ot.fqn);
+      member = ot.classRef ? this.project.findStatic(ci, c.name) : this.project.findInstance(ci, c.name);
+    } else if (c.kind === "id") {
       const r = this.resolveId(c.name);
       callee = r.code;
+      member = r.member;
     } else callee = this.expr(c, 18);
-    return `${callee}(${args()})`;
+    return `${callee}(${this.argList(e.args, member?.params, member?.owner.file)})`;
+  }
+
+  /** argumentos com a conversão implícita do AS3 pro tipo do parâmetro (XML → String/Number) */
+  private argList(args: Expr[], params: (TypeRef | undefined)[] | undefined, fi: FileInfo | undefined): string {
+    return args.map((a, i) => {
+      const pt = params?.[i];
+      if (pt && (pt.name === "String" || pt.name === "Number")) {
+        const at = this.typeOf(a);
+        if (isXmlT(at) || (pt.name === "String" && isNumT(at))) return this.coerceTo(this.resolveType(pt, fi), a);
+      }
+      return this.expr(a, 2);
+    }).join(", ");
   }
 
   private tsTypeOfR(t: RType): string {
@@ -1209,6 +1310,11 @@ class FileEmitter {
     else if (c.kind === "member") callee = this.memberExpr(c, true);
     else callee = this.expr(c, 18);
     if (/[^\w$.]/.test(callee)) callee = `(${callee})`;
+    // parâmetros do construtor (sobe a hierarquia até achar um declarado)
+    const ct = c.kind === "id" || c.kind === "member" ? this.typeOf(c) : undefined;
+    let cls = ct?.classRef ? this.project.classes.get(ct.fqn) : undefined;
+    while (cls && !cls.ctorParams) cls = this.project.superOf(cls);
+    if (cls?.ctorParams && e.args) return `new ${callee}(${this.argList(e.args, cls.ctorParams, cls.file)})`;
     return `new ${callee}(${args})`;
   }
 
@@ -1242,6 +1348,11 @@ class FileEmitter {
       const obj = this.expr(l.obj, 18);
       if (op === "=") return `${obj}.setChild(${JSON.stringify(l.name)}, ${this.expr(e.right, 2)})`;
     }
+    if (l.kind === "index" && this.isByteArray(this.typeOf(l.obj))) {
+      const o = this.expr(l.obj, 18), k = this.expr(l.index);
+      if (op === "=") return `${o}.$setAt(${k}, ${this.expr(e.right, 2)})`;
+      return `${o}.$setAt(${k}, ${o}.$get(${k}) ${op.slice(0, -1)} ${this.expr(e.right, 13)})`;
+    }
     if (l.kind === "index" && isDictT(this.typeOf(l.obj))) {
       const obj = this.expr(l.obj, 18);
       const k = this.expr(l.index);
@@ -1250,6 +1361,7 @@ class FileEmitter {
     }
     const lt = this.typeOf(l);
     const left = this.expr(l, 18);
+    if (op === "=" && !lt.classRef && (lt.fqn === "String" || lt.fqn === "Number")) return `${left} = ${this.coerceTo(lt, e.right)}`;
     if (isIntT(lt) && !lt.classRef) {
       const fn = lt.fqn === "uint" ? "uint" : "int";
       if (op === "=") return `${left} = ${this.coerceTo(lt, e.right)}`;
@@ -1267,6 +1379,13 @@ class FileEmitter {
 function isIntLiteral(e: Expr): e is Expr & { kind: "num" } {
   if (e.kind === "unary" && e.op === "-" && e.arg.kind === "num") return isIntLiteral(e.arg);
   return e.kind === "num" && /^(0x[0-9a-f]+|\d+)$/i.test(e.value) && Number(e.value) <= 0x7fffffff;
+}
+
+/** nome de tipo no formato do describeType (`flash.display::Sprite`) */
+function describeTypeName(t: RType): string {
+  if (t.fqn === "Vector") return "__AS3__.vec::Vector.<" + (t.params?.[0] ? describeTypeName(t.params[0]) : "*") + ">";
+  const i = t.fqn.lastIndexOf(".");
+  return i < 0 ? t.fqn : t.fqn.slice(0, i) + "::" + t.fqn.slice(i + 1);
 }
 
 export function defaultValue(t: RType): string {

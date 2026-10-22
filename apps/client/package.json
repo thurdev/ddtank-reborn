@@ -1,0 +1,20 @@
+{
+  "name": "@ddt/client",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Cliente DDTank 4.1 em TypeScript + PixiJS (sem Flash). Código do jogo em src/game (gerado do AS3 original, agora editável), runtime do Flash em @ddt/flash.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@ddt/flash": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vite": "^7.3.7"
+  }
+}
