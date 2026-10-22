@@ -70,7 +70,7 @@ export interface SourceInfo {
 
 function fqnOf(obj: any): string | undefined {
   for (let c = obj?.constructor; c && c !== Object; c = Object.getPrototypeOf(c)) {
-    const n = classNames.get(c) ?? (Object.prototype.hasOwnProperty.call(c, "$fqn") ? c.$fqn : undefined);
+    const n = classNames.get(c) ?? (Object.hasOwn(c, "$fqn") ? c.$fqn : undefined);
     if (n) return n;
   }
   return obj?.constructor?.name;
@@ -86,7 +86,7 @@ export function filesOf(fqn: string): { ts?: string; as3?: string } {
 /** classe do jogo mais próxima na hierarquia (pula as do Flash) */
 function gameClassOf(obj: any): string | undefined {
   for (let c = obj?.constructor; c && c !== Object; c = Object.getPrototypeOf(c)) {
-    const n = Object.prototype.hasOwnProperty.call(c, "$fqn") ? (c.$fqn as string) : undefined;
+    const n = Object.hasOwn(c, "$fqn") ? (c.$fqn as string) : undefined;
     if (n && !n.startsWith("flash.")) return n;
   }
   return undefined;

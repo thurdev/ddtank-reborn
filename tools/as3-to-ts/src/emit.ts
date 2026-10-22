@@ -303,12 +303,22 @@ class FileEmitter {
     // estáticos
     const statFields = d.members.filter((m): m is FieldMember => m.kind === "field" && m.mods.isStatic);
     this.staticCtx = true;
+    // No AS3 os estáticos de uma classe são inicializados no 1º uso da classe, não
+    // ao carregar o script. Literais ficam como campo normal; o resto vira
+    // inicialização preguiçosa (`$statics`, depois da classe).
+    const lazyStatics: FieldMember[] = [];
     for (const f of statFields) {
       this.comments(f.comments);
       const t = this.resolveType(f.type);
+      if (f.init && !isLiteral(f.init)) {
+        lazyStatics.push(f);
+        this.line(`declare static ${f.name}: ${this.tsType(f.type)};`);
+        continue;
+      }
       const init = this.withHard(true, () => (f.init ? this.coerceTo(t, f.init) : defaultValue(t)));
       this.line(`static ${f.isConst ? "readonly " : ""}${f.name}: ${this.tsType(f.type)} = ${init};`);
     }
+    this.$lazyStatics = lazyStatics;
     if (statFields.length) this.line("");
     this.staticCtx = false;
 
@@ -388,8 +398,24 @@ class FileEmitter {
     const fqn = ci.isFilePrivate ? `${ci.pkg ? ci.pkg + "." : ""}${d.name}` : ci.fqn;
     this.line(`${this.rt("$class")}(${d.name}, ${JSON.stringify(fqn)}${opts.length ? `, {\n${opts.map((o) => indent(o) + ",").join("\n")}\n}` : ""});`);
 
-    // inicializador estático solto no corpo da classe
-    if (d.staticInit.length) {
+    // estáticos preguiçosos (+ código solto no corpo da classe, que roda junto)
+    const lazy = this.$lazyStatics;
+    if (lazy.length) {
+      this.staticCtx = true;
+      this.line(`${this.rt("$statics")}(${d.name}, ${JSON.stringify(lazy.map((f) => f.name))}, () => {`);
+      this.ind++;
+      this.withScope(() => {
+        for (const f of lazy) {
+          this.comments(f.comments);
+          this.line(`${d.name}.${f.name} = ${this.coerceTo(this.resolveType(f.type), f.init!)};`);
+        }
+        for (const s of d.staticInit) this.stmt(s);
+      });
+      this.ind--;
+      this.line("});");
+      this.staticCtx = false;
+    } else if (d.staticInit.length) {
+      // inicializador estático solto no corpo da classe (sem campos preguiçosos: roda na carga)
       this.staticCtx = true;
       this.withHard(true, () => { for (const s of d.staticInit) this.stmt(s); });
       this.staticCtx = false;
@@ -796,6 +822,7 @@ class FileEmitter {
   }
 
   private loopDepth = 0;
+  private $lazyStatics: FieldMember[] = [];
 
   private declareLocalBlock(name: string, t: RType): string {
     this.scope.vars.set(name, t);
@@ -887,7 +914,7 @@ class FileEmitter {
       case "index": {
         const ot = this.typeOf(e.obj);
         if (isVectorT(ot)) return ot.params?.[0] ?? ANY;
-        if (ot.fqn === "XMLList") return XML_T;
+        if (ot.fqn === "XMLList" || ot.fqn === "XML") return XML_T;
         return ANY;
       }
       case "call": {
@@ -1376,6 +1403,18 @@ class FileEmitter {
 }
 
 // ------------------------------------------------------------ utilidades
+/** valor constante (não depende de outras classes): pode inicializar na carga */
+function isLiteral(e: Expr): boolean {
+  switch (e.kind) {
+    case "num": case "str": case "bool": case "null": case "undefined": case "regex": return true;
+    case "unary": return (e.op === "-" || e.op === "+" || e.op === "~" || e.op === "!") && isLiteral(e.arg);
+    case "paren": return isLiteral(e.expr);
+    case "binary": return !["is", "as", "in", "instanceof"].includes(e.op) && isLiteral(e.left) && isLiteral(e.right);
+    case "array": return e.items.every((i) => i === null || isLiteral(i));
+    default: return false;
+  }
+}
+
 function isIntLiteral(e: Expr): e is Expr & { kind: "num" } {
   if (e.kind === "unary" && e.op === "-" && e.arg.kind === "num") return isIntLiteral(e.arg);
   return e.kind === "num" && /^(0x[0-9a-f]+|\d+)$/i.test(e.value) && Number(e.value) <= 0x7fffffff;

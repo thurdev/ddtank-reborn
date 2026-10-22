@@ -8,7 +8,7 @@
  * `apps/client/src/game/all.ts` (carrega todos os módulos na ordem certa).
  * Relatório de avisos em `apps/client/src/game/TRANSPILE-REPORT.md`.
  */
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, posix } from "node:path";
 import { fileURLToPath } from "node:url";
 import { resolveCycles } from "./cycles.js";
@@ -61,15 +61,29 @@ function main(): void {
   const lazy = resolveCycles(project, emitted, entryOrder);
   console.log(`ciclos: ${lazy} arestas tardias, ${Date.now() - t0}ms`);
 
-  rmSync(OUT_ROOT, { recursive: true, force: true });
   const warnings: string[] = [];
+  const files = new Map<string, string>();
   for (const ef of emitted) {
-    const code = renderModule(project, ef);
-    const out = join(OUT_ROOT, ef.outRel + ".ts");
-    mkdirSync(dirname(out), { recursive: true });
-    writeFileSync(out, code);
+    files.set(ef.outRel + ".ts", renderModule(project, ef));
     warnings.push(...ef.warnings);
   }
+  const patched = applyPatches(files);
+  // grava só o que mudou (o Vite recarrega menos) e apaga o que sobrou de rodadas antigas
+  let changed = 0;
+  for (const [rel, code] of files) {
+    const out = join(OUT_ROOT, rel);
+    if (existsSync(out) && readFileSync(out, "utf8") === code) continue;
+    mkdirSync(dirname(out), { recursive: true });
+    writeFileSync(out, code);
+    changed++;
+  }
+  const keep = new Set([...files.keys(), "all.ts", "TRANSPILE-REPORT.md"].map((k) => k.toLowerCase()));
+  const walkOut = (d: string): string[] => (existsSync(d) ? readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walkOut(join(d, e.name)) : [join(d, e.name)])) : []);
+  for (const f of walkOut(OUT_ROOT)) {
+    if (!keep.has(f.slice(OUT_ROOT.length + 1).replace(/\\/g, "/").toLowerCase())) rmSync(f, { force: true });
+  }
+  console.log(`arquivos alterados: ${changed}`);
+  console.log(`patches: ${patched.ok} aplicados${patched.fail.length ? `, FALHARAM: ${patched.fail.join("; ")}` : ""}`);
   const all = [
     "// GERADO por tools/as3-to-ts — não edite. Carrega todos os módulos do jogo na ordem certa",
     "// e resolve as referências tardias (ciclos de import). Ver docs/client-pixi/TRANSPILADOR.md.",
@@ -153,6 +167,33 @@ function renderModule(project: Project, ef: EmittedFile): string {
   lines.push("");
   lines.push(ef.body);
   return lines.join("\n");
+}
+
+/**
+ * Edições manuais no TS gerado (enquanto o transpilador ainda é rodado de novo):
+ * `tools/as3-to-ts/patches/<caminho do .ts>.json` = [{ why, find, replace }].
+ * `find` tem que existir exatamente uma vez — se o gerado mudar, avisa.
+ */
+function applyPatches(files: Map<string, string>): { ok: number; fail: string[] } {
+  const dir = join(HERE, "../patches");
+  const fail: string[] = [];
+  let ok = 0;
+  const walk = (d: string): string[] => readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(join(d, e.name)) : e.name.endsWith(".json") ? [join(d, e.name)] : []));
+  if (!existsSync(dir)) return { ok, fail };
+  for (const pf of walk(dir)) {
+    const rel = pf.slice(dir.length + 1).replace(/\\/g, "/").replace(/\.json$/, "");
+    let code = files.get(rel);
+    if (code === undefined) { fail.push(`${rel}: arquivo não existe`); continue; }
+    const hunks = JSON.parse(readFileSync(pf, "utf8")) as { why: string; find: string; replace: string }[];
+    for (const h of hunks) {
+      const n = code.split(h.find).length - 1;
+      if (n !== 1) { fail.push(`${rel}: trecho achado ${n}x (${h.why})`); continue; }
+      code = code.replace(h.find, () => h.replace);
+      ok++;
+    }
+    files.set(rel, code);
+  }
+  return { ok, fail };
 }
 
 main();

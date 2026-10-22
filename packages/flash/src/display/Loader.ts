@@ -14,6 +14,7 @@ import { Event } from "../events/Event";
 import { IOErrorEvent } from "../events/IOErrorEvent";
 import { ProgressEvent } from "../events/ProgressEvent";
 import { httpRequest, rewriteUrl } from "../net/http";
+import { SWF_MARK } from "../net/URLLoader";
 import type { URLRequest } from "../net/URLRequest";
 import { safe } from "../player-safe";
 import { isExportedSwf } from "../swf/index-of-assets";
@@ -47,7 +48,11 @@ export class Loader extends DisplayObjectContainer {
   }
 
   loadBytes(bytes: ByteArray, context: any = null): void {
-    const url = (bytes as any)?.$sourceUrl;
+    let url: string | undefined = (bytes as any)?.$sourceUrl;
+    if (!url && bytes && bytes.length > SWF_MARK.length) {
+      const head = new TextDecoder().decode(bytes.$bytes().subarray(0, Math.min(bytes.length, 2048)));
+      if (head.startsWith(SWF_MARK)) url = head.slice(SWF_MARK.length);
+    }
     if (!url) {
       dlog("error", "Loader.loadBytes sem URL de origem (bytes de SWF não são suportados — só bibliotecas exportadas)");
       queueMicrotask(() => safe(() => this.$info.dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR, false, false, "loadBytes sem origem")), "Loader.IO_ERROR"));
@@ -61,6 +66,7 @@ export class Loader extends DisplayObjectContainer {
     this.unload();
     const info = this.$info;
     info.$url = url;
+    dlog("load", `Loader ${url}`);
     info.$applicationDomain = context?.applicationDomain ?? ApplicationDomain.currentDomain;
     queueMicrotask(() => safe(() => info.dispatchEvent(new Event(Event.OPEN)), "Loader.OPEN"));
     const fail = (msg: string) => {

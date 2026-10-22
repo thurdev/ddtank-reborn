@@ -47,7 +47,7 @@ export function getQualifiedClassName(v: any): string {
   if (typeof v === "boolean") return "Boolean";
   if (Array.isArray(v)) return "Array";
   const c = classOf(v);
-  if (c && Object.prototype.hasOwnProperty.call(c, "$fqn")) return qn(c.$fqn);
+  if (c && Object.hasOwn(c, "$fqn")) return qn(c.$fqn);
   if (c === Object) return "Object";
   return c?.name ?? "Object";
 }
@@ -70,8 +70,8 @@ export function describeType(v: any): XML {
   const chain: any[] = [];
   for (let k = c; k && k !== Object && k !== Function.prototype; k = Object.getPrototypeOf(k)) chain.unshift(k);
   for (const k of chain) {
-    const own = Object.prototype.hasOwnProperty.call(k, "$fqn") ? (k.$fqn as string) : "";
-    const desc: string | undefined = Object.prototype.hasOwnProperty.call(k, "$describe") ? k.$describe : NATIVE_DESCRIBE[own];
+    const own = Object.hasOwn(k, "$fqn") ? (k.$fqn as string) : "";
+    const desc: string | undefined = Object.hasOwn(k, "$describe") ? k.$describe : NATIVE_DESCRIBE[own];
     if (!desc) continue;
     for (const part of desc.split(";")) {
       const [kind, n, type, access] = part.split(":") as [string, string, string, string | undefined];
@@ -81,12 +81,18 @@ export function describeType(v: any): XML {
     }
   }
   const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
-  const lines = [`<type name="${esc(name)}" base="${esc(getQualifiedSuperclassName(v) ?? "")}" isDynamic="false" isFinal="false" isStatic="${typeof v === "function"}">`];
+  const body: string[] = [];
   for (const [n, m] of members) {
-    if (m.kind === "v") lines.push(`<variable name="${esc(n)}" type="${esc(m.type)}"/>`);
-    else if (m.kind === "c") lines.push(`<constant name="${esc(n)}" type="${esc(m.type)}"/>`);
-    else lines.push(`<accessor name="${esc(n)}" access="${m.access}" type="${esc(m.type)}" declaredBy="${esc(name)}"/>`);
+    if (m.kind === "v") body.push(`<variable name="${esc(n)}" type="${esc(m.type)}"/>`);
+    else if (m.kind === "c") body.push(`<constant name="${esc(n)}" type="${esc(m.type)}"/>`);
+    else if (m.kind === "m") body.push(`<method name="${esc(n)}" declaredBy="${esc(name)}" returnType="${esc(m.type)}">${Array.from({ length: Number(m.access ?? 0) }, (_, i) => `<parameter index="${i + 1}" type="*" optional="false"/>`).join("")}</method>`);
+    else body.push(`<accessor name="${esc(n)}" access="${m.access}" type="${esc(m.type)}" declaredBy="${esc(name)}"/>`);
   }
+  const isClass = typeof v === "function";
+  const lines = [`<type name="${esc(name)}" base="${esc(isClass ? "Class" : getQualifiedSuperclassName(v) ?? "")}" isDynamic="${isClass}" isFinal="${isClass}" isStatic="${isClass}">`];
+  // describeType(Classe): membros de instância ficam dentro de <factory>
+  if (isClass) lines.push(`<factory type="${esc(name)}">`, ...body, "</factory>");
+  else lines.push(...body);
   lines.push("</type>");
   return new XML(lines.join(""));
 }

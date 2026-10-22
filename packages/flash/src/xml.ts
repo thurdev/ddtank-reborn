@@ -230,6 +230,7 @@ export class XML {
   static prettyIndent = 2;
 
   declare $node: XNode;
+  declare $proxy: XML;
 
   constructor(src?: unknown) {
     let node: XNode;
@@ -245,7 +246,10 @@ export class XML {
       node.parent = null;
     }
     Object.defineProperty(this, "$node", { value: node, writable: true, enumerable: false });
-    return makeProxy(this);
+    const proxy = makeProxy(this);
+    // métodos rodam no objeto "cru"; quando devolvem o próprio XML, devolvem o proxy
+    Object.defineProperty(this, "$proxy", { value: proxy, enumerable: false });
+    return proxy;
   }
 
   // --- navegação
@@ -297,10 +301,10 @@ export class XML {
   namespace(): Namespace { return new Namespace(); }
   inScopeNamespaces(): Namespace[] { return []; }
   namespaceDeclarations(): Namespace[] { return []; }
-  addNamespace(_ns: unknown): XML { return this; }
-  removeNamespace(_ns: unknown): XML { return this; }
+  addNamespace(_ns: unknown): XML { return this.$proxy; }
+  removeNamespace(_ns: unknown): XML { return this.$proxy; }
   setNamespace(_ns: unknown): void {}
-  normalize(): XML { return this; }
+  normalize(): XML { return this.$proxy; }
 
   // --- edição
   setAttribute(name: string, v: unknown): void {
@@ -333,19 +337,19 @@ export class XML {
   }
   appendChild(v: unknown): XML {
     for (const x of toNodes(v)) { const c = x.parent ? x.clone() : x; c.parent = this.$node; this.$node.children.push(c); }
-    return this;
+    return this.$proxy;
   }
   prependChild(v: unknown): XML {
     const ns = toNodes(v).map((x) => { const c = x.parent ? x.clone() : x; c.parent = this.$node; return c; });
     this.$node.children.unshift(...ns);
-    return this;
+    return this.$proxy;
   }
   insertChildAfter(ref: unknown, v: unknown): XML {
     const r = ref instanceof XML ? ref.$node : ref instanceof XMLList ? ref.$nodes[0] : null;
     const i = r ? this.$node.children.indexOf(r) : -1;
     const ns = toNodes(v).map((x) => { const c = x.parent ? x.clone() : x; c.parent = this.$node; return c; });
     this.$node.children.splice(i + 1, 0, ...ns);
-    return this;
+    return this.$proxy;
   }
   insertChildBefore(ref: unknown, v: unknown): XML {
     const r = ref instanceof XML ? ref.$node : ref instanceof XMLList ? ref.$nodes[0] : null;
@@ -353,7 +357,7 @@ export class XML {
     if (i < 0) i = this.$node.children.length;
     const ns = toNodes(v).map((x) => { const c = x.parent ? x.clone() : x; c.parent = this.$node; return c; });
     this.$node.children.splice(i, 0, ...ns);
-    return this;
+    return this.$proxy;
   }
   setChildren(v: unknown): XML {
     this.$node.children = [];
@@ -364,13 +368,13 @@ export class XML {
       const ns = toNodes(v).map((x) => { const c = x.clone(); c.parent = this.$node; return c; });
       this.$node.children.splice(name, 1, ...ns);
     } else this.setChild(name, v);
-    return this;
+    return this.$proxy;
   }
   setName(n: string): void { this.$node.name = String(n); }
   setLocalName(n: string): void { this.$node.name = String(n); }
   copy(): XML { return new XML(this.$node.clone()); }
 
-  $item(i: number): XML | undefined { return i === 0 ? this : undefined; }
+  $item(i: number): XML | undefined { return i === 0 ? this.$proxy : undefined; }
 
   // --- conversão
   toString(): string {
@@ -380,10 +384,10 @@ export class XML {
     return toXMLString(n);
   }
   toXMLString(): string { return toXMLString(this.$node); }
-  valueOf(): XML { return this; }
+  valueOf(): XML { return this.$proxy; }
   [Symbol.toPrimitive](): string { return this.toString(); }
   toJSON(): string { return this.toXMLString(); }
-  *[Symbol.iterator](): Iterator<XML> { yield this; }
+  *[Symbol.iterator](): Iterator<XML> { yield this.$proxy; }
 }
 
 // ------------------------------------------------------------------ XMLList
@@ -392,6 +396,7 @@ export class XMLList {
   /** de onde veio (pra `lista.foo = x` / atribuição em XMLList vazio) */
   declare $target: XNode | null;
   declare $targetName: string | null;
+  declare $proxy: XMLList;
 
   constructor(src?: unknown, target: XNode | null = null, targetName: string | null = null) {
     let nodes: XNode[];
@@ -403,7 +408,9 @@ export class XMLList {
     Object.defineProperty(this, "$nodes", { value: nodes, writable: true, enumerable: false });
     Object.defineProperty(this, "$target", { value: target, writable: true, enumerable: false });
     Object.defineProperty(this, "$targetName", { value: targetName, writable: true, enumerable: false });
-    return makeProxy(this);
+    const proxy = makeProxy(this);
+    Object.defineProperty(this, "$proxy", { value: proxy, enumerable: false });
+    return proxy;
   }
 
   length(): number { return this.$nodes.length; }
@@ -462,7 +469,7 @@ export class XMLList {
   localName(): string | null { return this.$nodes.length === 1 ? new XML(this.$nodes[0]!).localName() : null; }
   nodeKind(): string { return this.$nodes.length === 1 ? this.$nodes[0]!.kind : "list"; }
   childIndex(): number { return this.$nodes.length === 1 ? new XML(this.$nodes[0]!).childIndex() : -1; }
-  normalize(): XMLList { return this; }
+  normalize(): XMLList { return this.$proxy; }
 
   // edição (delegam pro único item, ou criam no alvo)
   private one(): XML {
@@ -495,7 +502,7 @@ export class XMLList {
     return this.toXMLString();
   }
   toXMLString(): string { return this.$nodes.map((n) => toXMLString(n)).join("\n"); }
-  valueOf(): XMLList { return this; }
+  valueOf(): XMLList { return this.$proxy; }
   [Symbol.toPrimitive](): string { return this.toString(); }
   toJSON(): string { return this.toXMLString(); }
   *[Symbol.iterator](): Iterator<XML> { for (const n of this.$nodes) yield new XML(n); }

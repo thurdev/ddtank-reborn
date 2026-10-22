@@ -112,28 +112,32 @@ export class ByteArray {
   }
 
   // ---- escrita
-  writeBoolean(v: boolean): void { this.$buf[this.$w(1)] = v ? 1 : 0; }
-  writeByte(v: number): void { this.$view.setInt8(this.$w(1), (v << 24) >> 24); }
-  writeShort(v: number): void { this.$view.setInt16(this.$w(2), (v << 16) >> 16, this.$little); }
-  writeInt(v: number): void { this.$view.setInt32(this.$w(4), v | 0, this.$little); }
-  writeUnsignedInt(v: number): void { this.$view.setUint32(this.$w(4), v >>> 0, this.$little); }
-  writeFloat(v: number): void { this.$view.setFloat32(this.$w(4), v, this.$little); }
-  writeDouble(v: number): void { this.$view.setFloat64(this.$w(8), v, this.$little); }
+  writeBoolean(v: boolean): void { const p = this.$w(1); this.$buf[p] = v ? 1 : 0; }
+  writeByte(v: number): void { const p = this.$w(1); this.$view.setInt8(p, (v << 24) >> 24); }
+  writeShort(v: number): void { const p = this.$w(2); this.$view.setInt16(p, (v << 16) >> 16, this.$little); }
+  writeInt(v: number): void { const p = this.$w(4); this.$view.setInt32(p, v | 0, this.$little); }
+  writeUnsignedInt(v: number): void { const p = this.$w(4); this.$view.setUint32(p, v >>> 0, this.$little); }
+  writeFloat(v: number): void { const p = this.$w(4); this.$view.setFloat32(p, v, this.$little); }
+  writeDouble(v: number): void { { const p = this.$w(8); this.$view.setFloat64(p, v, this.$little); } }
   writeUTF(v: string): void {
     const b = enc.encode(v ?? "");
     if (b.length > 65535) throw new RangeError("Error #2006: The supplied index is out of bounds.");
     this.writeShort(b.length);
-    this.$buf.set(b, this.$w(b.length));
+    const p = this.$w(b.length);
+    this.$buf.set(b, p);
   }
   writeUTFBytes(v: string): void {
     const b = enc.encode(v ?? "");
-    this.$buf.set(b, this.$w(b.length));
+    const p = this.$w(b.length);
+    this.$buf.set(b, p);
   }
   writeMultiByte(v: string, _charSet: string): void { this.writeUTFBytes(v); }
   writeBytes(bytes: ByteArray, offset = 0, length = 0): void {
     const n = length || bytes.$len - offset;
     if (n <= 0) return;
-    this.$buf.set(bytes.$buf.subarray(offset, offset + n), this.$w(n));
+    const src = bytes.$buf.subarray(offset, offset + n).slice(); // cópia: bytes pode ser o próprio this
+    const p = this.$w(n);
+    this.$buf.set(src, p);
   }
   writeObject(v: unknown): void {
     (this.$objects ??= []).push(deepClone(v));

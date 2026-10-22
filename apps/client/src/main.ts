@@ -15,9 +15,11 @@ import { $cls } from "@ddt/flash/as3";
 import { startPlayer } from "@ddt/flash/player";
 import { LoaderInfo } from "@ddt/flash/display/LoaderInfo";
 import { setSocketResolver } from "@ddt/flash/net/Socket";
-import { setUrlRewriter } from "@ddt/flash/net/http";
+import { setResponseFilter, setUrlRewriter } from "@ddt/flash/net/http";
 import { loadAssetIndex } from "@ddt/flash/swf/index-of-assets";
 import { setAssetBase } from "@ddt/flash/swf/paths";
+import { SwfLibrary } from "@ddt/flash/swf/SwfLibrary";
+import { withSymbol } from "@ddt/flash/swf/symbol";
 import { dlog } from "@ddt/flash/debug";
 import "./game/all";
 
@@ -48,12 +50,17 @@ async function boot(): Promise<void> {
   await loadAssetIndex();
   // o jogo pede tudo em minúsculas (LoaderManager); URLs relativas vão pra API
   setUrlRewriter((url) => (/^[a-z]+:\/\//i.test(url) ? url : `${API}/flash/${url.replace(/^\/+/, "")}`));
+  // md5.xml listava o md5 dos SWFs (cabeçalho "road7"). Sem SWF não há o que conferir:
+  // devolve a lista vazia (o código original segue o caminho "sem md5" normalmente)
+  setResponseFilter((url, bytes) => (/\/md5\.xml/i.test(url) ? new TextEncoder().encode("<Result/>") : bytes));
   // socket do jogo → WebSocket do apps/game
   setSocketResolver((host, port) => q.get("ws") ?? `ws://${host}:${port + 100}/ws`);
 
   dlog("info", `boot: user=${info.$parameters.user || "(vazio)"} api=${API}`);
+  // Loading.swf era o SWF de entrada: carrega a arte dele (tela/botões) e cria a classe de documento
+  const lib = await SwfLibrary.load("flash/loading");
   const Loading = $cls("Loading");
-  stage.addChild(new Loading());
+  stage.addChild(withSymbol({ lib, id: 0, char: { k: "sprite", tl: lib.data.main } }, () => new Loading()));
 }
 
 boot().catch((e) => {

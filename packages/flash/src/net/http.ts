@@ -12,6 +12,10 @@ let rewriter: ((url: string) => string) | null = null;
 export function setUrlRewriter(f: ((url: string) => string) | null): void { rewriter = f; }
 export function rewriteUrl(url: string): string { return rewriter ? rewriter(url) : url; }
 
+let responseFilter: ((url: string, bytes: Uint8Array) => Uint8Array) | null = null;
+/** permite ajustar respostas (o boot usa pra desligar USE_MD5 no config.xml: não existe mais SWF pra conferir) */
+export function setResponseFilter(f: ((url: string, bytes: Uint8Array) => Uint8Array) | null): void { responseFilter = f; }
+
 export interface HttpResult {
   status: number;
   bytes: Uint8Array;
@@ -38,7 +42,8 @@ export async function httpRequest(req: { url: string; method?: string; data?: an
   }
   const t0 = performance.now();
   const r = await fetch(url, { method, body, headers });
-  const bytes = new Uint8Array(await r.arrayBuffer());
+  let bytes = new Uint8Array(await r.arrayBuffer());
+  if (responseFilter) bytes = responseFilter(url, bytes);
   dlog("http", `${method} ${url} → ${r.status} (${bytes.length} bytes, ${Math.round(performance.now() - t0)}ms)`);
   return { status: r.status, bytes, url };
 }

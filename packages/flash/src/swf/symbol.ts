@@ -17,7 +17,7 @@ export interface SymbolBinding {
 /** símbolo da classe mais próxima na hierarquia */
 export function symbolOf(ctor: any): SymbolBinding | undefined {
   for (let c = ctor; c && c !== Object; c = Object.getPrototypeOf(c)) {
-    if (Object.prototype.hasOwnProperty.call(c, "$symbol")) return c.$symbol;
+    if (Object.hasOwn(c, "$symbol")) return c.$symbol;
   }
   return undefined;
 }

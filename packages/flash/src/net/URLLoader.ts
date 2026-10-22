@@ -8,6 +8,7 @@
  * `Loader.loadBytes` carrega a biblioteca exportada correspondente.
  */
 import { $class } from "../as3";
+import { dlog } from "../debug";
 import { Event } from "../events/Event";
 import { EventDispatcher } from "../events/EventDispatcher";
 import { HTTPStatusEvent } from "../events/HTTPStatusEvent";
@@ -21,6 +22,9 @@ import type { URLRequest } from "./URLRequest";
 import { URLVariables } from "./URLVariables";
 
 const dec = new TextDecoder("utf-8");
+
+/** começo dos bytes "falsos" de SWF exportado (ver Loader.loadBytes) */
+export const SWF_MARK = "CWS:ddt-asset:";
 
 export class URLLoader extends EventDispatcher {
   data: any = null;
@@ -37,11 +41,16 @@ export class URLLoader extends EventDispatcher {
   load(request: URLRequest): void {
     this.$closed = false;
     const url = request.url;
+    dlog("load", `URLLoader(${this.dataFormat}) ${url}`);
     queueMicrotask(() => safe(() => this.dispatchEvent(new Event(Event.OPEN)), "URLLoader.OPEN"));
     if (this.dataFormat === "binary" && isExportedSwf(url)) {
       setTimeout(() => {
         if (this.$closed) return;
+        // "SWF" exportado: em vez dos bytes do SWF, um marcador com a URL ("CWS" pro
+        // ModuleLoader aceitar como SWF; a URL vai junto caso o jogo guarde em cache)
         const b = new ByteArray();
+        b.writeUTFBytes(SWF_MARK + url);
+        b.position = 0;
         b.$sourceUrl = url;
         this.data = b;
         safe(() => this.dispatchEvent(new Event(Event.COMPLETE)), "URLLoader.COMPLETE");

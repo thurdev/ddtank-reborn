@@ -28,7 +28,7 @@ export class Dictionary {
 
   get(k: unknown): any {
     const n = Dictionary.norm(k);
-    if (Dictionary.own(n) && Object.prototype.hasOwnProperty.call(this, n)) return (this as any)[n];
+    if (Dictionary.own(n) && Object.hasOwn(this, n)) return (this as any)[n];
     return this.$map.get(n);
   }
 
@@ -44,7 +44,7 @@ export class Dictionary {
   delete(k: unknown): boolean {
     const n = Dictionary.norm(k);
     if (Dictionary.own(n)) {
-      const had = Object.prototype.hasOwnProperty.call(this, n);
+      const had = Object.hasOwn(this, n);
       delete (this as any)[n];
       return had;
     }
@@ -53,7 +53,7 @@ export class Dictionary {
 
   has(k: unknown): boolean {
     const n = Dictionary.norm(k);
-    if (Dictionary.own(n)) return Object.prototype.hasOwnProperty.call(this, n);
+    if (Dictionary.own(n)) return Object.hasOwn(this, n);
     return this.$map.has(n);
   }
 

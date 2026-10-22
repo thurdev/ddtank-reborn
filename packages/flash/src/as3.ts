@@ -87,7 +87,7 @@ export function $init(obj: any): void {
   if (!chain) {
     chain = [];
     for (let c: any = ctor; c && c !== Object && c !== Function.prototype; c = Object.getPrototypeOf(c)) {
-      if (Object.prototype.hasOwnProperty.call(c, "$iinit")) chain.unshift(c.$iinit);
+      if (Object.hasOwn(c, "$iinit")) chain.unshift(c.$iinit);
     }
     iinitChains.set(ctor, chain);
   }
@@ -119,6 +119,37 @@ export function $m(obj: any, name: string): any {
   return b;
 }
 
+// ------------------------------------------------------------------ estáticos preguiçosos
+/**
+ * Estáticos com inicializador não-constante (`static var x = Outra.coisa()`).
+ * No AS3 a classe só é inicializada quando é usada pela 1ª vez; aqui a 1ª
+ * leitura/escrita de qualquer um desses nomes roda `init` (uma vez, na ordem
+ * do fonte) e daí em diante viram propriedades normais.
+ */
+export function $statics(cls: any, names: string[], init: () => void): void {
+  let state = 0; // 0 = não iniciado, 1 = iniciando, 2 = pronto
+  const store: Record<string, unknown> = Object.create(null);
+  const run = () => {
+    if (state !== 0) return;
+    state = 1;
+    try {
+      init();
+    } finally {
+      state = 2;
+      // troca os acessores por valores comuns (mais rápido daqui pra frente)
+      for (const n of names) Object.defineProperty(cls, n, { value: store[n], writable: true, enumerable: true, configurable: true });
+    }
+  };
+  for (const n of names) {
+    Object.defineProperty(cls, n, {
+      get() { run(); return state === 2 ? cls[n] : store[n]; },
+      set(v) { if (state === 2) Object.defineProperty(cls, n, { value: v, writable: true, enumerable: true, configurable: true }); else { if (state === 0) run(); store[n] = v; if (state === 2) cls[n] = v; } },
+      enumerable: true,
+      configurable: true,
+    });
+  }
+}
+
 // ------------------------------------------------------------------ late (ciclos)
 const lateFns: (() => void)[] = [];
 let lateDone = false;
@@ -146,7 +177,7 @@ export const uint: IntFn = Object.assign((v: unknown) => Number(v) >>> 0, { MAX_
 // ------------------------------------------------------------------ is / as
 function implementsIface(cls: any, iface: AS3Interface): boolean {
   for (let c = cls; c && c !== Object; c = Object.getPrototypeOf(c)) {
-    const list: AS3Interface[] | undefined = Object.prototype.hasOwnProperty.call(c, "$interfaces") ? c.$interfaces : undefined;
+    const list: AS3Interface[] | undefined = Object.hasOwn(c, "$interfaces") ? c.$interfaces : undefined;
     if (list) for (const i of list) if (ifaceExtends(i, iface)) return true;
   }
   return false;
@@ -342,6 +373,30 @@ export class DefinitionError extends Error {
 }
 export class UninitializedError extends Error {
   constructor(message = "", public errorID = 0) { super(message); this.name = "UninitializedError"; }
+}
+
+// ------------------------------------------------------------------ hasOwnProperty do AS3
+/**
+ * No AS3, `obj.hasOwnProperty("x")` é true também pra propriedades/métodos
+ * DECLARADOS na classe (getter/setter, var). O pickgliss depende disso pra
+ * aplicar os estilos do XML de layout (ObjectUtils.copyPorpertiesByXML).
+ * Só muda o comportamento pra objetos de classes AS3 (registradas com $class);
+ * o resto do JS continua igual. Código interno usa `Object.hasOwn`.
+ */
+{
+  const native = Object.prototype.hasOwnProperty;
+  Object.defineProperty(Object.prototype, "hasOwnProperty", {
+    value: function hasOwnProperty(this: any, name: PropertyKey): boolean {
+      if (native.call(this, name)) return true;
+      if (this === null || this === undefined || typeof name !== "string") return false;
+      const c = this.constructor;
+      if (typeof c !== "function" || !("$fqn" in c) || name.startsWith("$")) return false;
+      return name in this && !(name in Object.prototype);
+    },
+    writable: true,
+    configurable: true,
+    enumerable: false,
+  });
 }
 
 // ------------------------------------------------------------------ polyfills (Error, Date)

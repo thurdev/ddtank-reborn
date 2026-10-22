@@ -37,6 +37,7 @@ for (const ci of project.classes.values()) {
     if (m.access !== "public") continue;
     if (m.kind === "field") parts.push(`v:${m.name}:${tn(m.type?.name)}`);
     else if (m.kind === "const") parts.push(`c:${m.name}:${tn(m.type?.name)}`);
+    else if (m.kind === "method") parts.push(`m:${m.name}:${tn(m.type?.name)}:${m.params?.length ?? 0}`);
     else if (m.kind === "accessor") parts.push(`a:${m.name}:${tn(m.type?.name)}:${m.hasGet && m.hasSet ? "readwrite" : m.hasGet ? "readonly" : "writeonly"}`);
   }
   if (parts.length) out[ci.fqn] = parts.join(";");

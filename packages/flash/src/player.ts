@@ -57,9 +57,11 @@ export async function startPlayer(opts: PlayerOptions): Promise<Stage> {
   await app.init({
     width: W, height: H, background: opts.background ?? 0x000000, antialias: true,
     resolution: Math.min(2, globalThis.devicePixelRatio || 1), autoDensity: true, preference: "webgl",
+    // deixa prints/captura de tela funcionarem (custo pequeno)
+    preserveDrawingBuffer: true,
   });
   const host = opts.container;
-  host.style.position ||= "relative";
+  if (getComputedStyle(host).position === "static") host.style.position = "relative";
   host.style.overflow = "hidden";
   const canvas = app.canvas as HTMLCanvasElement;
   canvas.style.position = "absolute";
