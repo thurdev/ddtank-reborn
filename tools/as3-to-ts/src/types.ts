@@ -58,3 +58,9 @@ export const RESERVED_LOCALS = new Set([
   "enum", "await", "yield", "let", "static", "implements", "interface", "package", "private", "protected",
   "public", "arguments", "eval",
 ]);
+
+/** métodos de String (chamados em XML de conteúdo simples viram chamada na string) */
+export const STRING_METHODS = new Set([
+  "split", "indexOf", "lastIndexOf", "replace", "substr", "substring", "slice", "toLowerCase", "toUpperCase",
+  "charAt", "charCodeAt", "search", "match", "concat", "localeCompare", "toLocaleLowerCase", "toLocaleUpperCase",
+]);

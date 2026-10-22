@@ -20,6 +20,13 @@ export async function loadAssetIndex(): Promise<void> {
 
 export function isExportedSwf(url: string): boolean {
   const k = libraryKey(url);
+  if (virtualSwfs.has(k)) return true;
   if (keys) return keys.has(k);
   return /\.swf(\?|$)/i.test(url);
+}
+
+/** "SWFs" que não têm arte, só código que já foi convertido (ex.: núcleo `2.png`) */
+export const virtualSwfs = new Set<string>();
+export function registerVirtualSwf(key: string): void {
+  virtualSwfs.add(key.toLowerCase());
 }

@@ -3,7 +3,10 @@ import { $class } from "../as3";
 import { Point } from "./Point";
 
 export class Matrix {
-  constructor(public a = 1, public b = 0, public c = 0, public d = 1, public tx = 0, public ty = 0) {}
+  a: number; b: number; c: number; d: number; tx: number; ty: number;
+  constructor(a: number = 1, b: number = 0, c: number = 0, d: number = 1, tx: number = 0, ty: number = 0) {
+    this.a = +a; this.b = +b; this.c = +c; this.d = +d; this.tx = +tx; this.ty = +ty;
+  }
 
   clone(): Matrix { return new Matrix(this.a, this.b, this.c, this.d, this.tx, this.ty); }
   copyFrom(m: Matrix): void { this.a = m.a; this.b = m.b; this.c = m.c; this.d = m.d; this.tx = m.tx; this.ty = m.ty; }

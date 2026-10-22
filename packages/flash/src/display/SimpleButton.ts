@@ -50,10 +50,12 @@ export class SimpleButton extends InteractiveObject {
       hitTestState = build(sym.char.hit);
       this.trackAsMenu = !!sym.char.menu;
     }
-    this.upState = upState;
-    this.overState = overState;
-    this.downState = downState;
-    this.hitTestState = hitTestState;
+    // campos internos (não chama setters que subclasse pode sobrescrever)
+    this.$up = upState; this.$adopt(upState);
+    this.$over = overState; this.$adopt(overState);
+    this.$down = downState; this.$adopt(downState);
+    this.$hit = hitTestState; this.$adopt(hitTestState);
+    this.$show();
   }
 
   private $adopt(o: DisplayObject | null): void {

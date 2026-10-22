@@ -8,7 +8,7 @@ package loading
    import flash.display.Shape;
    import flash.display.Sprite;
    import flash.events.Event;
-   import game.GameMainState;
+   import hamster.GameMainState;
    
    [Event(name="complete",type="flash.events.Event")]
    public class MainLoading extends Sprite implements Disposeable

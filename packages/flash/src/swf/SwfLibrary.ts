@@ -14,6 +14,7 @@ import { Rectangle } from "../geom/Rectangle";
 import type { CharT, LibraryT } from "./library-types";
 import { withSymbol, type SymbolBinding } from "./symbol";
 import { assetUrl } from "./paths";
+import { virtualSwfs } from "./index-of-assets";
 import { Shape } from "../display/Shape";
 import { MovieClip } from "../display/MovieClip";
 import { Sprite } from "../display/Sprite";
@@ -80,6 +81,10 @@ export class SwfLibrary {
   }
 
   private static async $load(key: string): Promise<SwfLibrary> {
+    if (virtualSwfs.has(key)) {
+      dlog("load", `${key} → só código (já convertido pra TS)`);
+      return new SwfLibrary(key, { version: 1, swf: key, frameRate: 25, width: 1000, height: 600, chars: {}, classes: {}, main: { n: 1, f: [[]] } });
+    }
     const base = assetUrl(key) + "/";
     const r = await fetch(base + "library.json");
     if (!r.ok) throw new Error(`asset não exportado: ${key} (${r.status}) — rode tools/swf-export`);

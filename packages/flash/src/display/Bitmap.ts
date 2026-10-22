@@ -20,11 +20,16 @@ export class Bitmap extends DisplayObject {
     this.$node.addChild(this.$sprite);
     this.pixelSnapping = pixelSnapping;
     this.$smoothing = smoothing;
-    this.bitmapData = bitmapData;
+    // interno: o construtor do Flash não chama setter sobrescrito por subclasse
+    this.$setBitmapData(bitmapData);
   }
 
   get bitmapData(): BitmapData | null { return this.$bitmapData; }
   set bitmapData(bd: BitmapData | null) {
+    this.$setBitmapData(bd);
+  }
+
+  $setBitmapData(bd: BitmapData | null): void {
     this.$bitmapData = bd;
     if (bd && !bd.$disposed && bd.width > 0 && bd.height > 0) {
       this.$sprite.texture = bd.$texture();

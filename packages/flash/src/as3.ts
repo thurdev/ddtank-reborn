@@ -331,6 +331,27 @@ export function $sortOn(arr: any[], names: string | string[], options: number | 
   return arr;
 }
 
+/**
+ * Arrays do AS3 têm `sortOn` e `sort(flags)`. O transpilador já converte
+ * quando sabe o tipo; aqui cobre o resto (variáveis sem tipo). `sort(fn)` e
+ * `sort()` continuam o nativo.
+ */
+{
+  const AP = Array.prototype as any;
+  const nativeSort = AP.sort;
+  if (!AP.sortOn) {
+    Object.defineProperty(AP, "sortOn", { value: function (this: any[], names: any, options: any = 0) { return $sortOn(this, names, options); }, writable: true, configurable: true });
+    Object.defineProperty(AP, "sort", {
+      value: function (this: any[], ...args: any[]) {
+        if (args.length > 1 || (args.length === 1 && typeof args[0] === "number")) return $sort(this, ...args);
+        return nativeSort.apply(this, args);
+      },
+      writable: true,
+      configurable: true,
+    });
+  }
+}
+
 /** `new Vector.<T>(n)` — n posições com o default do tipo */
 export function $vector<T>(length: number, def: T): T[] {
   return new Array<T>(Math.max(0, Number(length) | 0)).fill(def);

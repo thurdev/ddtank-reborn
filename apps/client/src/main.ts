@@ -16,7 +16,7 @@ import { startPlayer } from "@ddt/flash/player";
 import { LoaderInfo } from "@ddt/flash/display/LoaderInfo";
 import { setSocketResolver } from "@ddt/flash/net/Socket";
 import { setResponseFilter, setUrlRewriter } from "@ddt/flash/net/http";
-import { loadAssetIndex } from "@ddt/flash/swf/index-of-assets";
+import { loadAssetIndex, registerVirtualSwf } from "@ddt/flash/swf/index-of-assets";
 import { setAssetBase } from "@ddt/flash/swf/paths";
 import { SwfLibrary } from "@ddt/flash/swf/SwfLibrary";
 import { withSymbol } from "@ddt/flash/swf/symbol";
@@ -48,6 +48,8 @@ async function boot(): Promise<void> {
   // assets exportados (PNG + library.json) moram no próprio cliente
   setAssetBase(`${import.meta.env.BASE_URL}assets/`);
   await loadAssetIndex();
+  // núcleo do jogo (2.png no Flash) = src/game, já carregado
+  registerVirtualSwf("flash/2");
   // o jogo pede tudo em minúsculas (LoaderManager); URLs relativas vão pra API
   setUrlRewriter((url) => (/^[a-z]+:\/\//i.test(url) ? url : `${API}/flash/${url.replace(/^\/+/, "")}`));
   // md5.xml listava o md5 dos SWFs (cabeçalho "road7"). Sem SWF não há o que conferir:

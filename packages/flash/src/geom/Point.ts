@@ -2,7 +2,10 @@
 import { $class } from "../as3";
 
 export class Point {
-  constructor(public x = 0, public y = 0) {}
+  x: number; y: number;
+  constructor(x: number = 0, y: number = 0) {
+    this.x = +x; this.y = +y;
+  }
 
   get length(): number { return Math.sqrt(this.x * this.x + this.y * this.y); }
 

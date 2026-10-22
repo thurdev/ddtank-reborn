@@ -26,7 +26,7 @@ import type {
 import type { ClassInfo, FileInfo, MemberInfo, Project } from "./project.js";
 import {
   ANY, ARRAY_T, AS3_RUNTIME_GLOBALS, BOOLEAN, INT, isDictT, isIntT, isNumT, isVectorT, isXmlT, JS_GLOBALS, NUMBER,
-  RESERVED_LOCALS, STRING, UINT, XML_METHODS, XML_T, XMLLIST_T, type RType,
+  RESERVED_LOCALS, STRING, STRING_METHODS, UINT, XML_METHODS, XML_T, XMLLIST_T, type RType,
 } from "./types.js";
 
 export const RUNTIME_MODULE = "@ddt/flash/as3";
@@ -563,6 +563,7 @@ class FileEmitter {
       params.push(s);
       if (p.type?.name === "int") coerce.push(`${n} |= 0;`);
       else if (p.type?.name === "uint") coerce.push(`${n} >>>= 0;`);
+      else if (p.type?.name === "Number") coerce.push(`${n} = +${n};`);
     }
     if (o.accessor === "set" && params.length === 0) params.push("value: any");
     const ret = o.ctor || o.accessor === "set" ? "" : `: ${this.tsType(fn.returnType)}`;
@@ -930,6 +931,9 @@ class FileEmitter {
               if (["toString", "toXMLString", "localName", "nodeKind"].includes(c.name)) return STRING;
               if (["parent", "copy"].includes(c.name)) return XML_T;
               if (["hasOwnProperty", "contains", "hasComplexContent", "hasSimpleContent"].includes(c.name)) return BOOLEAN;
+              if (c.name === "split" || c.name === "match") return ARRAY_T;
+              if (["indexOf", "lastIndexOf", "charCodeAt", "search", "localeCompare"].includes(c.name)) return INT;
+              if (STRING_METHODS.has(c.name)) return STRING;
               return XMLLIST_T;
             }
             if (ot.fqn === "String" && ["indexOf", "lastIndexOf", "charCodeAt", "search", "localeCompare"].includes(c.name)) return INT;
@@ -1222,6 +1226,8 @@ class FileEmitter {
     }
     if (isXmlT(ot)) {
       if (called && XML_METHODS.has(e.name)) return `${obj}.${e.name}`;
+      // método de String num XML/XMLList de conteúdo simples (`xml.@a.split(",")`): o AS3 converte pra string
+      if (called && STRING_METHODS.has(e.name)) return `String(${this.expr(e.obj)}).${e.name}`;
       if (e.name === "*") return `${obj}.children()`;
       return `${obj}.child(${JSON.stringify(e.name)})`;
     }

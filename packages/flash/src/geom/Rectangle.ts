@@ -3,7 +3,11 @@ import { $class } from "../as3";
 import { Point } from "./Point";
 
 export class Rectangle {
-  constructor(public x = 0, public y = 0, public width = 0, public height = 0) {}
+  x: number; y: number; width: number; height: number;
+  constructor(x: number = 0, y: number = 0, width: number = 0, height: number = 0) {
+    // AS3 converte argumento pra Number (o jogo passa strings vindas do XML)
+    this.x = +x; this.y = +y; this.width = +width; this.height = +height;
+  }
 
   get left(): number { return this.x; }
   set left(v: number) { this.width += this.x - v; this.x = v; }

@@ -18,7 +18,7 @@
  * - `$depths` profundidade → filho colocado pela timeline
  * - `$scripts` índice do frame (0-based) → função
  */
-import { Sprite as PSprite } from "pixi.js";
+import { Matrix as PMatrix, Sprite as PSprite } from "pixi.js";
 import { $class } from "../as3";
 import { dlog } from "../debug";
 import { ColorTransform } from "../geom/ColorTransform";
@@ -330,7 +330,7 @@ export class MovieClip extends Sprite {
       const r = (maskObj as any).$imgRect;
       const local = new Matrix(r.width / img.texture.width, 0, 0, r.height / img.texture.height, r.x, r.y);
       local.concat(rel);
-      mk.setFromMatrix(local as any);
+      mk.setFromMatrix(new PMatrix(local.a, local.b, local.c, local.d, local.tx, local.ty));
     }
   }
   $hasClipMasks = false;
