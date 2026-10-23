@@ -20,6 +20,13 @@ import { GlowFilter } from "./GlowFilter";
 import { GradientGlowFilter } from "./GradientGlowFilter";
 
 const clampDist = (b: number) => Math.max(1, Math.min(20, Math.round(b / 2)));
+/** filtros criados pelo XML do pickgliss trazem números como string ("0x0", "4"): o Flash converte */
+const n = (v: unknown, d = 0): number => {
+  if (typeof v === "number") return Number.isFinite(v) ? v : d;
+  if (typeof v === "string" && /^\s*0x/i.test(v)) return parseInt(v, 16) || 0;
+  const x = Number(v);
+  return Number.isFinite(x) ? x : d;
+};
 
 /** matriz 4x5 do Flash (offsets 0..255) → Pixi (offsets 0..1) */
 function pixiMatrix(m: number[]): any {
@@ -35,50 +42,53 @@ function pixiMatrix(m: number[]): any {
 export function toPixiFilter(f: unknown, prev?: Filter): Filter | null {
   if (f instanceof ColorMatrixFilter) {
     const out = prev instanceof PColorMatrix ? prev : new PColorMatrix();
-    out.matrix = pixiMatrix(f.matrix ?? []);
+    out.matrix = pixiMatrix((f.matrix ?? []).map((v: unknown) => n(v)));
     return out;
   }
   if (f instanceof GlowFilter || f instanceof GradientGlowFilter) {
     const isG = f instanceof GradientGlowFilter;
-    const color = isG ? f.colors?.[f.colors.length - 1] ?? 0xffffff : (f as GlowFilter).color;
-    const alpha = isG ? f.alphas?.[f.alphas.length - 1] ?? 1 : (f as GlowFilter).alpha;
-    const inner = !isG && (f as GlowFilter).inner;
-    const d = clampDist(Math.max(f.blurX, f.blurY));
+    const color = n(isG ? f.colors?.[f.colors.length - 1] ?? 0xffffff : (f as GlowFilter).color);
+    const alpha = n(isG ? f.alphas?.[f.alphas.length - 1] ?? 1 : (f as GlowFilter).alpha, 1);
+    const inner = !isG && !!(f as GlowFilter).inner && String((f as GlowFilter).inner) !== "false";
+    const strength = n(f.strength, 1);
+    const d = clampDist(Math.max(n(f.blurX), n(f.blurY)));
     if (prev instanceof PGlow) {
       prev.distance = d;
-      prev.outerStrength = inner ? 0 : f.strength;
-      prev.innerStrength = inner ? f.strength : 0;
+      prev.outerStrength = inner ? 0 : strength;
+      prev.innerStrength = inner ? strength : 0;
       prev.color = color;
       prev.alpha = alpha;
       return prev;
     }
-    return new PGlow({ distance: d, outerStrength: inner ? 0 : f.strength, innerStrength: inner ? f.strength : 0, color, alpha, quality: 0.2, knockout: !isG && (f as GlowFilter).knockout });
+    return new PGlow({ distance: d, outerStrength: inner ? 0 : strength, innerStrength: inner ? strength : 0, color, alpha, quality: 0.2, knockout: !isG && !!(f as GlowFilter).knockout && String((f as GlowFilter).knockout) !== "false" });
   }
   if (f instanceof DropShadowFilter) {
-    const rad = (f.angle * Math.PI) / 180;
-    const offset = { x: Math.cos(rad) * f.distance, y: Math.sin(rad) * f.distance };
-    const alpha = Math.min(1, f.alpha * f.strength);
-    const blur = Math.max(f.blurX, f.blurY) / 4;
+    const rad = (n(f.angle, 45) * Math.PI) / 180;
+    const dist = n(f.distance, 4);
+    const offset = { x: Math.cos(rad) * dist, y: Math.sin(rad) * dist };
+    const alpha = Math.min(1, n(f.alpha, 1) * n(f.strength, 1));
+    const blur = Math.max(n(f.blurX), n(f.blurY)) / 4;
+    const color = n(f.color);
     if (prev instanceof PDropShadow) {
       prev.offset = offset;
-      prev.color = f.color;
+      prev.color = color;
       prev.alpha = alpha;
       prev.blur = blur;
       return prev;
     }
-    return new PDropShadow({ offset, color: f.color, alpha, blur, quality: 3, shadowOnly: f.hideObject });
+    return new PDropShadow({ offset, color, alpha, blur, quality: 3, shadowOnly: !!f.hideObject && String(f.hideObject) !== "false" });
   }
   if (f instanceof BevelFilter) {
     if (prev instanceof PBevel) return prev;
-    return new PBevel({ rotation: f.angle, thickness: f.distance / 2, lightColor: f.highlightColor, lightAlpha: f.highlightAlpha, shadowColor: f.shadowColor, shadowAlpha: f.shadowAlpha });
+    return new PBevel({ rotation: n(f.angle, 45), thickness: n(f.distance, 4) / 2, lightColor: n(f.highlightColor, 0xffffff), lightAlpha: n(f.highlightAlpha, 1), shadowColor: n(f.shadowColor), shadowAlpha: n(f.shadowAlpha, 1) });
   }
   if (f instanceof BlurFilter) {
     if (prev instanceof PBlur) {
-      prev.strengthX = f.blurX / 2;
-      prev.strengthY = f.blurY / 2;
+      prev.strengthX = n(f.blurX, 4) / 2;
+      prev.strengthY = n(f.blurY, 4) / 2;
       return prev;
     }
-    return new PBlur({ strengthX: f.blurX / 2, strengthY: f.blurY / 2, quality: Math.max(1, f.quality) });
+    return new PBlur({ strengthX: n(f.blurX, 4) / 2, strengthY: n(f.blurY, 4) / 2, quality: Math.max(1, n(f.quality, 1)) });
   }
   return null;
 }
