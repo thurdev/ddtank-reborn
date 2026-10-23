@@ -19,8 +19,6 @@ export interface IDataOutput {
   writeUTFBytes(...args: any[]): void;
   writeObject(...args: any[]): void;
   objectEncoding: number;
-  objectEncoding: number;
-  endian: string;
   endian: string;
 }
 export const IDataOutput = $interface("flash.utils.IDataOutput");

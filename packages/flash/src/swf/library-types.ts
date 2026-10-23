@@ -112,3 +112,6 @@ export interface LibraryT {
   /** timeline principal */
   main: TimelineT;
 }
+
+/** operação de colocar/mover (não-remoção) */
+export type PlaceOp = Extract<Op, { d: number }>;

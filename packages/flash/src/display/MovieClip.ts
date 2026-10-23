@@ -23,7 +23,7 @@ import { $class } from "../as3";
 import { dlog } from "../debug";
 import { ColorTransform } from "../geom/ColorTransform";
 import { Matrix } from "../geom/Matrix";
-import type { FilterT, Op, TimelineT } from "../swf/library-types";
+import type { FilterT, Op, PlaceOp, TimelineT } from "../swf/library-types";
 import { BevelFilter } from "../filters/BevelFilter";
 import { BlurFilter } from "../filters/BlurFilter";
 import { ColorMatrixFilter } from "../filters/ColorMatrixFilter";
@@ -208,13 +208,13 @@ export class MovieClip extends Sprite {
   /** volta: calcula o estado do frame alvo do zero e reaproveita o que dá */
   private $rebuild(target: number): void {
     const tl = this.$tl!;
-    const state = new Map<number, { op: Op & { d: number }; id: number; at: number }>();
+    const state = new Map<number, { op: PlaceOp; id: number; at: number }>();
     for (let f = 1; f <= target; f++) {
       for (const op of tl.f[f - 1] ?? []) {
         if ("rm" in op) { state.delete(op.rm); continue; }
         const prev = state.get(op.d);
         if (op.mv && prev) {
-          const merged = { ...prev.op, ...op } as Op & { d: number };
+          const merged = { ...prev.op, ...op } as PlaceOp;
           if (op.id !== undefined && op.id !== prev.id) state.set(op.d, { op: merged, id: op.id, at: f });
           else state.set(op.d, { op: merged, id: prev.id, at: prev.at });
         } else if (op.id !== undefined) {
@@ -253,7 +253,7 @@ export class MovieClip extends Sprite {
     }
   }
 
-  private $place(op: Op & { d: number }, frame: number): void {
+  private $place(op: PlaceOp, frame: number): void {
     const obj = this.$lib?.create(op.id!);
     if (!obj) return;
     (obj as any).$depth = op.d;
@@ -270,7 +270,7 @@ export class MovieClip extends Sprite {
     if (op.nm) (this as any)[op.nm] = obj;
   }
 
-  private $applyProps(obj: DisplayObject, op: Op & { d: number }, full: boolean): void {
+  private $applyProps(obj: DisplayObject, op: PlaceOp, full: boolean): void {
     if (op.m) obj.$setMatrix(new Matrix(...op.m));
     else if (full) obj.$setMatrix(new Matrix());
     if (op.ct) {

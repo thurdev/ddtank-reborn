@@ -154,7 +154,7 @@ export class Graphics {
       },
       stroke: (s) => {
         if (s.t === "line") g.stroke({ width: s.width, color: s.color, alpha: s.alpha });
-        else g.stroke({ width: 1, fill: makeGradient({ ...s, t: "gfill" }) } as any);
+        else g.stroke({ width: 1, fill: makeGradient(s as any) } as any);
       },
     });
     return g;

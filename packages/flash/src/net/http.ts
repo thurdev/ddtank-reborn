@@ -42,7 +42,7 @@ export async function httpRequest(req: { url: string; method?: string; data?: an
   }
   const t0 = performance.now();
   const r = await fetch(url, { method, body, headers });
-  let bytes = new Uint8Array(await r.arrayBuffer());
+  let bytes: Uint8Array = new Uint8Array(await r.arrayBuffer());
   if (responseFilter) bytes = responseFilter(url, bytes);
   dlog("http", `${method} ${url} → ${r.status} (${bytes.length} bytes, ${Math.round(performance.now() - t0)}ms)`);
   return { status: r.status, bytes, url };

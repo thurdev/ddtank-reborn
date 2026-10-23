@@ -22,8 +22,6 @@ export interface IDataInput {
   bytesAvailable: number;
   readObject(...args: any[]): any;
   objectEncoding: number;
-  objectEncoding: number;
-  endian: string;
   endian: string;
 }
 export const IDataInput = $interface("flash.utils.IDataInput");

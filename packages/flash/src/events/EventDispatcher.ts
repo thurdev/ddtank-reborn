@@ -42,7 +42,7 @@ export class EventDispatcher {
   addEventListener(type: string, listener: (e: any) => void, useCapture = false, priority = 0, _useWeakReference = false): void {
     if (typeof listener !== "function") return;
     const map = useCapture ? (this.$captures ??= new Map()) : (this.$listeners ??= new Map());
-    const arr = map.get(type) ?? [];
+    const arr: Listener[] = map.get(type) ?? [];
     if (arr.some((l) => l.fn === listener)) return;
     // lista nova (dispatch em andamento itera a antiga); prioridade maior primeiro, empate = ordem de inscrição
     const next = arr.slice();
