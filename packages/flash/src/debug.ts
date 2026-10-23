@@ -233,6 +233,7 @@ export function packetName(code: number): string {
 const SUB_TABLES: Record<number, string> = {
   94: "ddt.data.socket.GameRoomPackageType",
   91: "ddt.data.socket.CrazyTankPackageType",
+  81: "ddt.data.socket.FarmPackageType",
 };
 function subName(code: number, pkg: any): string {
   const fqn = SUB_TABLES[code];

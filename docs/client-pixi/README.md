@@ -22,6 +22,7 @@ JSON, a música é MP3.
 5. [PACOTES.md](PACOTES.md) — protocolo cliente ↔ servidor, como ver e criar pacotes.
 6. [FLASH-RUNTIME.md](FLASH-RUNTIME.md) — o `packages/flash`: o que existe, como completar API que falta.
 7. [TRANSPILADOR.md](TRANSPILADOR.md) — como o AS3 virou TS, patches, congelamento.
+8. [BUGS-SERVIDOR.md](BUGS-SERVIDOR.md) — pacotes do `apps/game` fora do formato que o cliente 4.1 lê (achados com `?debug=true`).
 
 ## Situação (2026-10-23)
 
