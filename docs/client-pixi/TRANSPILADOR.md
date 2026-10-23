@@ -34,7 +34,8 @@ npx tsx tools/as3-to-ts/src/main.ts      # ~10 s; relatório em src/game/TRANSPI
 | campos com valor inicial | `$class(..., { fields() { ... } })` | rodam **antes** do construtor da mãe, como no AS3 |
 | `static var x = Algo.f()` | `$statics(...)` | inicializa no 1º uso da classe, como no AS3 |
 | `private var _x` repetido na hierarquia | `_x$Classe` | em AS3 cada classe tem o seu |
-| `this.x = ...; super(...)` | temporária `$pre_x` | JS não deixa usar `this` antes do `super` |
+| `this.x = ...; super(...)` | temporária `$pre_x` + `super(...$pre(new.target, { x: $pre_x }, [args]))` | JS não deixa usar `this` antes do `super`; o `$init` da raiz grava `x` antes dos construtores (igual ao AS3) |
+| `"Đồng ý"` (texto fixo no código) | `"Confirmar"` | literais exatos de `tools/as3-to-ts/i18n/strings.pt-BR.json` são traduzidos na geração |
 
 ## Patches
 

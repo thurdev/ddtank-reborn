@@ -41,6 +41,18 @@ Parâmetros opcionais: `api=<url da API>` (padrão: mesmo host, porta 8080),
 `ws=<url websocket>` (padrão: `ws://<ip do servidor>:<porta+100>/ws`),
 `config=<config.xml>`, `debug=true`.
 
+## Pelo site (página Jogar)
+
+Defina no `apps/api/.env` a URL do cliente:
+
+```
+PIXI_CLIENT_URL=http://localhost:5180/
+```
+
+Com isso a página **Jogar** do `apps/web` abre o cliente PixiJS num iframe
+(passando `user`, `key` e `api`; `?debug=true` na página do site também passa
+pro jogo). Sem a variável continua o Ruffle.
+
 ## Build de produção
 
 ```bash

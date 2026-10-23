@@ -11,10 +11,11 @@ Tudo que o jogo importa de `flash.*` vem de `@ddt/flash/<pacote>/<Classe>`
 | `debug.ts` | modo debug (`?debug=true`) e `ddtDebug` |
 | `player.ts` | cria o palco no canvas, loop de frames, mouse, teclado, foco, fullscreen |
 | `display/` | `DisplayObject` (matriz/bounds/hit-test próprios), containers, `Sprite`, `MovieClip` (timeline), `Graphics`, `Bitmap`/`BitmapData` (canvas + GPU), `Loader`, `Stage`, `SimpleButton` |
-| `text/` | `TextField` (desenho em canvas, HTML do Flash, `<input>` real pra digitar), `TextFormat` |
+| `text/` | `TextField` (desenho em canvas, HTML do Flash, `<input>` real pra digitar), `TextFormat` (converte "14"/"0xFFF" vindos do XML), `StyleSheet` (CSS do `htmlText`) |
+| `external/` | `ExternalInterface`: chama funções JS da página (ou da página pai, se o cliente estiver num iframe do site; senão `postMessage({type:"ddt-external"})`); aceita código `"function(){...}"` como o Flash |
 | `events/` | `EventDispatcher` (prioridade, captura, bolha), eventos |
-| `net/` | `URLLoader` (fetch), `Socket` (WebSocket), `SharedObject` (localStorage), `NetStream` (música) |
-| `swf/` | `SwfLibrary` (carrega `library.json` + PNG e cria símbolos), tipos do formato |
+| `net/` | `URLLoader` (fetch), `Socket` (WebSocket), `SharedObject` (localStorage), `NetStream` (música), `FileReference` (salvar print / abrir arquivo pelo navegador) |
+| `swf/` | `SwfLibrary` (carrega `library.json` + PNG e cria símbolos; fila de no máx. 24 downloads ao mesmo tempo), tipos do formato |
 | `filters/` | filtros do Flash → filtros Pixi (`convert.ts`) |
 | `media/` | `Sound`/`SoundChannel` em WebAudio |
 | `gen/` | metadados gerados (membros públicos das classes do Flash pro `describeType`) |
@@ -42,3 +43,10 @@ Gerar esqueleto de classe nova que o jogo passou a usar:
 - Texturas de `ImageBitmap` são pré-multiplicadas (`premultiplied-alpha`).
 - Eventos de "broadcast" (`ENTER_FRAME`, `EXIT_FRAME`, `ACTIVATE`...) vão pra
   todo mundo que escuta, mesmo fora do palco (`broadcastTargets`).
+- AS3 deixa gravar campo **antes do `super()`** e o construtor da mãe pode
+  chamar método sobrescrito que lê esse campo (`Player._info` → `Living` →
+  `reset()`). O transpilador emite `super(...$pre(new.target, {campos}, [args]))`
+  e o `$init` da classe raiz grava os campos antes de qualquer construtor.
+- Erro dentro de handler de pacote não some mais: `ByteSocket` e
+  `QueueManager` mostram no console qual pacote/evento quebrou (no original
+  ia calado pro servidor e o jogo "travava").
