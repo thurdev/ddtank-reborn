@@ -3,7 +3,7 @@
 # 🎯 DDTank Reborn
 
 **O clássico DDTank 4.1, reescrito numa stack moderna — aberto pra comunidade.
-Cliente Flash original + servidor 100% TypeScript + remaster HD em PT-BR.**
+Servidor 100% TypeScript + cliente novo em PixiJS (sem Flash) + remaster HD em PT-BR.**
 
 [![PR Check](https://github.com/thurdev/ddtank-reborn/actions/workflows/pr-check.yml/badge.svg)](https://github.com/thurdev/ddtank-reborn/actions/workflows/pr-check.yml)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?logo=typescript)](./tsconfig.base.json)
@@ -37,9 +37,10 @@ funcionalidades, tudo aberto aqui no repositório.
 ## O que é
 
 Port completo do servidor privado **DDTank 4.1** (originalmente C#/.NET + SQL Server + ASP.NET `.ashx`)
-para **Node 24 + TypeScript + Postgres**. O cliente Flash AS3 original continua funcionando
-(via Ruffle no navegador + launcher desktop) — o protocolo binário é mantido byte-a-byte,
-então o jogo é o mesmo, o motor por trás é novo.
+para **Node 24 + TypeScript + Postgres**. O cliente Flash AS3 original foi convertido inteiro pra
+**TypeScript + PixiJS (WebGL)** — roda no navegador sem Flash nem Ruffle. O protocolo binário é mantido
+byte-a-byte, então o jogo é o mesmo, o motor por trás é novo. O SWF original via Ruffle/launcher
+continua funcionando como alternativa.
 
 **Status atual (out/2026):** jogável — lobby, salas PvP, PvE com bots, loja, itens, missões, guilda,
 fazenda e painel admin. Lobby remasterizado em HD e boa parte das imagens do cliente traduzidas pra PT-BR.
@@ -71,9 +72,12 @@ Issues `good-first-issue` são o melhor ponto de entrada.
 | API HTTP | `apps/api` — Fastify (substitui `Tank.Request` .ashx) |
 | Banco | `packages/db` — Drizzle ORM + Postgres (Neon prod / Postgres embutido em dev) |
 | Protocolo | `packages/protocol` — codec binário, crypto, framing TCP + WebSocket |
-| Física/combate | `packages/fight` — compartilhado servidor ↔ cliente futuro |
-| Site / Admin | `apps/web`, `apps/admin` — React + Vite |
-| Cliente | `apps/client` — TS + PixiJS convertido do AS3 (`packages/flash` = API do Flash sobre Pixi); SWF original via Ruffle como alternativa |
+| Física/combate | `packages/fight` — motor de batalha determinístico (física, turnos, dano, bots) |
+| Login | `packages/auth` — ticket de login compartilhado entre API e servidor |
+| Site / Admin | `apps/web`, `apps/admin` — React + Vite (componentes comuns em `packages/ui`) |
+| Cliente | `apps/client` — TS + PixiJS convertido do AS3; `packages/flash` = API do Flash reimplementada sobre PixiJS |
+| Conversores | `tools/as3-to-ts` (AS3 → TS) e `tools/swf-export` (SWF → PNG/JSON, FLV → MP3) |
+| Cliente legado | SWF original via Ruffle (`apps/client-harness`) e launcher desktop (`apps/launcher`) |
 
 ## 🚀 Começar
 
@@ -81,10 +85,13 @@ Issues `good-first-issue` são o melhor ponto de entrada.
 # requisitos: Node 24 + pnpm 11 + Java (só pro build de arte do cliente)
 pnpm install
 cp .env.example .env        # ou por app: apps/game/.env.example etc.
-pnpm dev                    # sobe tudo (banco + game + api + web + admin)
+pnpm dev:all                # banco + api + game + web + admin
+pnpm --filter @ddt/client dev   # cliente PixiJS em http://localhost:5180
 ```
 
-Site em `http://localhost:5173`, admin em `http://localhost:5174`. Detalhes por app em
+Site em `http://localhost:5173`, admin em `http://localhost:5174`. O código do jogo
+(`apps/client/src/game`) e a arte (`apps/client/public/assets`) são gerados localmente pelos
+conversores e não vão pro git — passo a passo em [`docs/client-pixi/COMO-RODAR.md`](./docs/client-pixi/COMO-RODAR.md). Detalhes por app em
 `apps/*/README.md` e índice geral em [`docs/README.md`](./docs/README.md).
 
 ```bash

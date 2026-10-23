@@ -1,6 +1,6 @@
 # Site jogador — `apps/web` (React + Vite, porta 5173)
 
-Cadastro/login, home, ranking, conta, Apoiar/Transparência, página Jogar (Ruffle embarcado).
+Cadastro/login, home, ranking, conta, Apoiar/Transparência, página Jogar (abre o cliente PixiJS quando `PIXI_CLIENT_URL` está definido — padrão em dev; senão Ruffle embarcado).
 Stack: React 19, TanStack Router + Query, Hook Form + Zod, Tailwind 4, Framer Motion, MSW (`public/`) pra mocks.
 
 - Rotas: `src/router.tsx` (toda página exceto Home é `lazyRouteComponent`, code-split por rota) ·

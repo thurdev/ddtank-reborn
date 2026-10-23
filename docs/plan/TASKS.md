@@ -1,6 +1,7 @@
 # Tarefas — fila de trabalho (ordem do dono, 2026-10-17)
 
-> Ordem: **1. Migração 6600 → 2. Canais → 3. Pix (doação) → 4. Site + admin premium.**
+> **Atual (2026-10-23): foco no cliente 4.1 — seção 0 + cliente PixiJS ([client-pixi/STATUS.md](../client-pixi/STATUS.md)); 6600 em espera.**
+> Ordem original (2026-10-17): 1. Migração 6600 → 2. Canais → 3. Pix (doação) → 4. Site + admin premium.
 > Cada tarefa é pequena, tem branch própria (`feature/<id>`), critério de pronto e vira PR pra `develop`.
 > Até 2 agentes em paralelo, cada um na sua branch/worktree. Status: `[ ]` fila, `[~]` andando, `[x]` feito.
 > Plano detalhado da migração: [MIGRACAO-6600.md](./MIGRACAO-6600.md).

@@ -1,6 +1,10 @@
 # Cliente + assets — Flash original, Ruffle, launcher, remaster
 
-O cliente é FIXO (AS3 compilado). Servidor se adapta a ele, nunca o contrário.
+> **Cliente principal agora é o PixiJS** (`apps/client`, sem Flash) — guia em
+> [client-pixi/README.md](./client-pixi/README.md). Este doc cobre o cliente Flash legado (Ruffle/launcher)
+> e o pipeline de assets/remaster, que continuam valendo.
+
+O protocolo é FIXO (mesmo do AS3 original). Servidor se adapta ao cliente, nunca o contrário.
 Specs: `research/client/01-client-map.md`, `02-ruffle-report.md`.
 
 ## Execução

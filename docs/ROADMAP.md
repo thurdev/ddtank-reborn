@@ -1,12 +1,21 @@
 # Roadmap
 
-## Fase 1 — Flash original + stack nova (ATUAL)
+> **Situação em 2026-10-23:** Fase 1 concluída (servidor TS, API, banco, site, admin, remaster PT-BR).
+> **Fase 2 em andamento** — cliente PixiJS já roda boot, login, hall, batalha PvP/PvE e quase todas as
+> janelas; em dev a página Jogar abre ele (ver [client-pixi/STATUS.md](./client-pixi/STATUS.md)).
+> Foco só na 4.1; migração 6600 em espera (decisão 2026-10-20). Seções abaixo = histórico das decisões.
+
+## Fase 1 — Flash original + stack nova (CONCLUÍDA)
 - Cliente: SWF original (DDTank 4.1) rodando via launcher desktop (Flash projector / Ruffle desktop) e no navegador via Ruffle.
 - Servidor reescrito em Node/TS (`apps/game`, `apps/api`), Postgres (Neon), site React (`apps/web`), painel admin (`apps/admin`).
 - Protocolo binário original mantido byte-a-byte (o cliente Flash não muda, salvo patches mínimos).
 - Meta: eu + amigo jogando PvP, PvE, GvG, bots, tudo configurável no admin, hospedado de graça.
 
-## Fase 2 — Cliente novo em PixiJS (PLANEJADO)
+## Fase 2 — Cliente novo em PixiJS (EM ANDAMENTO)
+Como foi feito (2026-10-22): em vez de reescrever as telas na mão, o AS3 inteiro foi convertido pra TS
+(`tools/as3-to-ts`) rodando sobre uma API do Flash reimplementada em PixiJS (`packages/flash`), com a
+arte exportada dos SWFs (`tools/swf-export`). Detalhes: [client-pixi/README.md](./client-pixi/README.md).
+Plano original (mantido como referência):
 Motivo: Flash/Ruffle laga muito; objetivo é FPS alto e estável (60 fps), rodar em qualquer navegador e no celular.
 - Stack: PixiJS v8 (WebGL 2D) + TypeScript. Não three.js (3D desnecessário), não Unity (build web pesado, C#).
 - Mesmo protocolo da Fase 1 → servidor não muda; cliente Flash serve de referência 1:1.
