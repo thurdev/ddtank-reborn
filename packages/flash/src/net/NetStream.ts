@@ -64,7 +64,8 @@ export class NetStream extends EventDispatcher {
   togglePause(): void { if (this.$audio?.paused) this.resume(); else this.pause(); }
   seek(offset: number): void { if (this.$audio) this.$audio.currentTime = offset; }
   close(): void {
-    if (this.$audio) { this.$audio.pause(); this.$audio.src = ""; this.$audio = null; }
+    // removeAttribute + load() solta o arquivo; `src = ""` faria o navegador pedir a própria página
+    if (this.$audio) { this.$audio.pause(); this.$audio.removeAttribute("src"); this.$audio.load(); this.$audio = null; }
   }
   dispose(): void { this.close(); }
   attach(_c: any): void {}
