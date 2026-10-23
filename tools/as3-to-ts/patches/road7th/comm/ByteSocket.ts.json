@@ -1,0 +1,22 @@
+[
+  {
+    "why": "Modo debug (?debug=true): loga todo pacote enviado/recebido com nome (ePackageType).",
+    "find": "/* eslint-disable */\n",
+    "replace": "/* eslint-disable */\nimport { debugGamePacket, dlog } from \"@ddt/flash/debug\";\n"
+  },
+  {
+    "why": "log do pacote enviado",
+    "find": "    if (this._socket && this._socket.connected) {\n      param1.pack();\n",
+    "replace": "    if (this._socket && this._socket.connected) {\n      param1.pack();\n      debugGamePacket(\"out\", param1.code, param1.length, param1);\n"
+  },
+  {
+    "why": "log do pacote recebido",
+    "find": "  handlePackage(param1: PackageIn): void {\n",
+    "replace": "  handlePackage(param1: PackageIn): void {\n    debugGamePacket(\"in\", param1.code, param1.length, param1);\n"
+  },
+  {
+    "why": "O original engolia qualquer erro ao tratar pacote (o jogo só 'não fazia nada'). Agora mostra no console qual pacote quebrou.",
+    "find": "      return;\n    } catch (err: any) {\n      return;\n    }",
+    "replace": "      return;\n    } catch (err: any) {\n      console.error(`[pacote] erro tratando pacote ${param1.code}:`, err);\n      dlog(\"error\", `erro tratando pacote ${param1.code}: ${err?.message ?? err}`, err);\n      return;\n    }"
+  }
+]

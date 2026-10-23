@@ -61,6 +61,9 @@ export function $tryCls(fqn: string): any {
   return registry.get(fqn.replace("::", "."));
 }
 
+// debug.ts acha classes por nome sem importar este módulo (evita ciclo)
+(globalThis as any).$ddtClass = $tryCls;
+
 /** registra classes vindas de SWF de assets (linkage) em tempo de execução */
 export function $registerDynamic(fqn: string, cls: any): void {
   Object.defineProperty(cls, "$fqn", { value: fqn, enumerable: false, configurable: true });

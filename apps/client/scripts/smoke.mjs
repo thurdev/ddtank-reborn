@@ -45,7 +45,7 @@ const errs = logs.filter(isErr);
 console.log(`--- ${logs.length} logs, ${errs.length} erros/avisos ---`);
 for (const l of errs.slice(0, 80)) console.log(l.slice(0, 700));
 console.log("--- últimos logs ---");
-for (const l of logs.filter((l) => !isErr(l)).slice(-40)) console.log(l.replace(/%c/g, "").replace(/ color:#\w+;font-weight:bold ?/g, "").slice(0, 300));
+for (const l of logs.filter((l) => !isErr(l)).slice(process.env.SMOKE_ALL ? 0 : -40)) console.log(l.replace(/%c/g, "").replace(/ color:#\w+;font-weight:bold ?/g, "").slice(0, 300));
 try {
   await page.screenshot({ path: shot, timeout: 8000 });
 } catch (e) {

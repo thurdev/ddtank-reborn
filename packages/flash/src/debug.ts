@@ -205,3 +205,21 @@ if (DEBUG && typeof globalThis !== "undefined") {
   (globalThis as any).ddtDebug = tools;
   console.log("%c[debug] modo debug ligado — digite ddtDebug no console pra ver as ferramentas", "color:#ffb300;font-weight:bold");
 }
+
+// ------------------------------------------------------------------ pacotes do jogo
+let packetNames: Map<number, string> | null = null;
+/** nome do pacote pelo código (constantes de ddt.data.socket.ePackageType) */
+export function packetName(code: number): string {
+  if (!packetNames) {
+    packetNames = new Map();
+    const reg = (globalThis as any).$ddtClass?.("ddt.data.socket.ePackageType");
+    if (reg) for (const k of Object.getOwnPropertyNames(reg)) { const v = reg[k]; if (typeof v === "number" && !packetNames.has(v)) packetNames.set(v, k); }
+  }
+  return packetNames.get(code) ?? "?";
+}
+
+/** ByteSocket do jogo chama em todo pacote enviado/recebido (só loga com ?debug=true) */
+export function debugGamePacket(dir: "in" | "out", code: number, size: number, pkg?: unknown): void {
+  if (!DEBUG || !enabled.has("packet")) return;
+  debugPacket(dir, code, packetName(code), size, pkg);
+}
