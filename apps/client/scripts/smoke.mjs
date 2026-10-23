@@ -30,6 +30,17 @@ page.on("requestfailed", (r) => logs.push(`[reqfail] ${r.url()} ${r.failure()?.e
 page.on("response", (r) => { if (r.status() >= 400) logs.push(`[http ${r.status()}] ${r.url()}`); });
 const cdp = await page.context().newCDPSession(page);
 await cdp.send("Debugger.enable");
+// SMOKE_TRACE_URL="<regex>": mostra a pilha JS que pediu cada URL que bate (acha quem faz um 404)
+if (process.env.SMOKE_TRACE_URL) {
+  const re = new RegExp(process.env.SMOKE_TRACE_URL);
+  await cdp.send("Network.enable");
+  cdp.on("Network.requestWillBeSent", (e) => {
+    if (!re.test(e.request.url)) return;
+    const frames = [];
+    for (let st = e.initiator?.stack; st && frames.length < 14; st = st.parent) for (const f of st.callFrames) frames.push(`  ${f.functionName || "(anon)"} @ ${f.url.replace(/^.*\/src\//, "src/").replace(/\?.*$/, "")}:${f.lineNumber + 1}`);
+    logs.push(`[trace] ${e.request.url} (${e.initiator?.type})\n${frames.slice(0, 14).join("\n")}`);
+  });
+}
 await page.goto(url);
 // SMOKE_WAIT_FOR="<expressão JS>": espera até ela ser verdadeira (máx. `secs`); senão espera `secs`
 if (process.env.SMOKE_WAIT_FOR) {

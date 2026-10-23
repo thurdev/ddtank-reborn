@@ -453,13 +453,16 @@ export class TextField extends InteractiveObject {
     ctx.clearRect(0, 0, w, h);
     if (!this.$editing) this.$drawText(ctx);
     else this.$drawBox(ctx);
-    if (!this.$tex) {
-      this.$tex = new Texture({ source: new CanvasSource({ resource: c, resolution: RES }) });
+    if (!this.$tex || this.$tex.width !== w || this.$tex.height !== h) {
+      // tamanho mudou: Texture nova sobre a mesma fonte. `source.resize()` sozinho não
+      // atualiza frame/orig da Texture e o Sprite espremia o canvas no tamanho antigo
+      // (descrição das instâncias saía achatada)
+      const source = this.$tex?.source ?? new CanvasSource({ resource: c, resolution: RES });
+      if (this.$tex) { source.resize(w, h, RES); this.$tex.destroy(false); }
+      this.$tex = new Texture({ source });
       this.$sprite.texture = this.$tex;
-    } else {
-      this.$tex.source.resize(w, h, RES);
-      this.$tex.source.update();
     }
+    this.$tex.source.update();
     this.$sprite.position.set(this.$offX, this.$offY);
   }
 
