@@ -1,6 +1,6 @@
 # DDTank Reborn — shared context for all agents
 
-MEMÓRIA VIVA: leia `docs/AI-HANDOFF.md` PRIMEIRO e ATUALIZE-O no mesmo commit
+MEMÓRIA VIVA (local, fora do git): se existir `docs/AI-HANDOFF.md`, leia PRIMEIRO e mantenha atualizado
 (move feito pra histórico, apaga obsoleto, acrescenta regra nova). Arquivo limpo sempre.
 
 Docs index (start here): `docs/README.md` — workflow (`CONTRIBUTING.md`,
