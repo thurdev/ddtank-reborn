@@ -5,10 +5,21 @@
  *   SMOKE_CHROME=<chrome.exe opcional> node scripts/smoke.mjs "<url>" [segundos] [print.png]
  *
  * Também aceita SMOKE_CLICKS="x,y;x,y" pra clicar em pontos (coordenadas do jogo 1000x600).
+ * `key=auto` na URL faz login na API e usa uma chave nova.
  */
 import { chromium } from "playwright";
 
-const [url, secs = "20", shot = "smoke.png"] = process.argv.slice(2);
+let [url, secs = "20", shot = "smoke.png"] = process.argv.slice(2);
+// "key=auto": faz login na API (SMOKE_USER/SMOKE_PASS, padrão pixitest) e usa a chave nova (é de uso único)
+if (url.includes("key=auto")) {
+  const user = process.env.SMOKE_USER ?? "pixitest", password = process.env.SMOKE_PASS ?? "pixitest123";
+  const r = await fetch(process.env.SMOKE_API ?? "http://127.0.0.1:8080/api/auth/login", {
+    method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ username: user, password }),
+  });
+  const key = (await r.json())?.play?.flashvars?.key;
+  if (!key) throw new Error(`login falhou (${r.status})`);
+  url = url.replace("key=auto", `key=${key}`);
+}
 const executablePath = process.env.SMOKE_CHROME || undefined;
 const browser = await chromium.launch({ executablePath, args: ["--use-gl=angle", "--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--autoplay-policy=no-user-gesture-required"] });
 const page = await browser.newPage({ viewport: { width: 1000, height: 600 } });
@@ -49,6 +60,8 @@ if (!alive) {
   await cdp.send("Debugger.resume").catch(() => {});
 }
 for (const pair of (process.env.SMOKE_CLICKS ?? "").split(";").filter(Boolean)) {
+  // "wait:10" = espera 10s entre cliques
+  if (pair.startsWith("wait:")) { await page.waitForTimeout(Number(pair.slice(5)) * 1000); continue; }
   const [x, y] = pair.split(",").map(Number);
   try {
     // SMOKE_PAUSE_MS: pausa o JS esse tempo depois do clique e mostra a pilha (acha loop que derruba a aba)

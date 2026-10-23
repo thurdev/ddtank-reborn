@@ -6,6 +6,7 @@
  * `tools/as3-to-ts/src/emit.ts` e `docs/client-pixi/TRANSPILADOR.md`.
  */
 import { debugClassRegistered } from "./debug";
+import { NATIVE_DESCRIBE } from "./gen/native-describe";
 import { $toXML, $toXMLList, isXMLName, Namespace, QName, XML, XMLList } from "./xml";
 
 export { $toXML, $toXMLList, isXMLName, Namespace, QName, XML, XMLList };
@@ -408,7 +409,8 @@ function typesOf(ctor: any): Map<string, string> {
     const chain: any[] = [];
     for (let c = ctor; c && c !== Object && c !== Function.prototype; c = Object.getPrototypeOf(c)) chain.unshift(c);
     for (const c of chain) {
-      const d: string | undefined = Object.hasOwn(c, "$describe") ? c.$describe : undefined;
+      const own = Object.hasOwn(c, "$fqn") ? (c.$fqn as string) : "";
+      const d: string | undefined = Object.hasOwn(c, "$describe") ? c.$describe : NATIVE_DESCRIBE[own];
       if (!d) continue;
       for (const part of d.split(";")) {
         const [kind, name, type] = part.split(":");

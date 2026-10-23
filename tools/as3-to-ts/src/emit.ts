@@ -20,6 +20,8 @@
  * quais classes cada módulo usa em tempo de execução; (2) depois da análise
  * de ciclos (cycles.ts) escreve os imports.
  */
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import type {
   ClassDecl, Expr, FieldMember, FunctionNode, InterfaceDecl, MethodMember, Param, Stmt, TypeRef, VarDeclarator,
 } from "./ast.js";
@@ -30,6 +32,25 @@ import {
 } from "./types.js";
 
 export const RUNTIME_MODULE = "@ddt/flash/as3";
+
+/**
+ * Textos fixos no código AS3 (vietnamita) → PT-BR. Só literais string que
+ * batem EXATAMENTE com uma chave de `i18n/strings.pt-BR.json` são trocados.
+ * Textos que vêm do `language.txt` não passam por aqui (já são traduzidos lá).
+ */
+const STRINGS_PT: Record<string, string> = JSON.parse(
+  readFileSync(fileURLToPath(new URL("../i18n/strings.pt-BR.json", import.meta.url)), "utf8"),
+);
+
+/** literal AS3 cru ('x' ou "x") → texto; troca pela tradução se houver */
+function translateLiteral(raw: string): string {
+  const q = raw[0];
+  if (q !== '"' && q !== "'") return raw;
+  let text: string;
+  try { text = new Function(`return ${raw}`)() as string; } catch { return raw; }
+  const pt = STRINGS_PT[text];
+  return pt === undefined ? raw : JSON.stringify(pt);
+}
 
 export interface RefInfo {
   /** usado como valor (não só tipo) */
@@ -1179,7 +1200,7 @@ class FileEmitter {
   private exprP(e: Expr, stmtCtx = false): [string, number] {
     switch (e.kind) {
       case "num": return [e.value, 20];
-      case "str": return [e.value.replace(/\r?\n/g, "\\n"), 20];
+      case "str": return [translateLiteral(e.value).replace(/\r?\n/g, "\\n"), 20];
       case "regex": return [fixRegex(e.value), 20];
       case "xml": {
         if (e.value.includes("{")) {
