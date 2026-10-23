@@ -71,11 +71,34 @@ node scripts/smoke.mjs "http://localhost:5180/?user=pixitest&key=auto&debug=true
 `key=auto` faz login na API (`SMOKE_USER`/`SMOKE_PASS`, padrão `pixitest`) e usa
 uma chave nova a cada execução.
 
-Variáveis: `SMOKE_CHROME` (caminho do chrome.exe), `SMOKE_EVAL` (expressão JS
-pra avaliar na página, ex.: `ddtDebug.find("okBtn").length`), `SMOKE_ALL=1`
-(todos os logs), `SMOKE_CLICKS="500,300;wait:5;key:Space:1200"` (clica, espera
-5 s, segura Espaço 1,2 s — atirar). Se a
-página travar (loop infinito), ele pausa o JS e mostra a pilha de onde travou.
+Variáveis:
+
+| Variável | Para quê |
+|---|---|
+| `SMOKE_CHROME` | caminho do Chrome/Chromium (senão usa o do Playwright) |
+| `SMOKE_CLICKS` | roteiro, passos separados por `;` (tabela abaixo) |
+| `SMOKE_EVAL` | expressão JS avaliada no fim (ex.: `ddtDebug.find("okBtn").length`) |
+| `SMOKE_EVAL_<nome>` | expressão usada pelo passo `eval:<nome>` no meio do roteiro |
+| `SMOKE_WAIT_FOR` | espera essa expressão JS ficar verdadeira antes do roteiro |
+| `SMOKE_TRACE_URL` | regex: mostra a pilha JS de quem pediu cada URL que bate (acha 404) |
+| `SMOKE_ALL=1` | mostra todos os logs (não só os últimos) |
+| `SMOKE_PAUSE_MS` / `SMOKE_SAMPLE_S` | pausa/amostra a pilha depois de cada clique (acha travamento) |
+| `SMOKE_USER` / `SMOKE_PASS` | conta usada no `key=auto` |
+
+Passos do roteiro (`SMOKE_CLICKS`):
+
+| Passo | Faz |
+|---|---|
+| `x,y` | clique (coordenadas do jogo 1000×600) |
+| `dbl:x,y` | duplo clique (equipar item) |
+| `drag:x1,y1,x2,y2` | arrasta com o botão apertado |
+| `wait:N` | espera N segundos |
+| `key:Tecla:ms` | segura a tecla (ex.: `key:Space:1200` = atirar com 1,2 s de força) |
+| `type:texto` | digita no campo com foco (chat, nome...) |
+| `shot:arquivo.png` | print nesse ponto |
+| `eval:nome` | avalia `SMOKE_EVAL_nome` nesse ponto |
+
+Se a página travar (loop infinito), ele pausa o JS e mostra a pilha de onde travou.
 
 ### Roteiro até a batalha (conta nova, sem tutorial)
 
