@@ -11,6 +11,7 @@ import { DisplayObject } from "./DisplayObject";
 export class Bitmap extends DisplayObject {
   $bitmapData: BitmapData | null = null;
   $sprite: PSprite;
+  override $maskNode(): any { return this.$sprite; }
   $smoothing = false;
   pixelSnapping = "auto";
 

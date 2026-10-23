@@ -17,6 +17,7 @@ export class Shape extends DisplayObject {
   $graphics: Graphics | null = null;
   /** imagem rasterizada (forma de SWF) */
   $img: PSprite | null = null;
+  override $maskNode(): any { return this.$img ?? this.$node; }
   $imgRect: Rectangle | null = null;
   $imgAlpha: AlphaSource | null = null;
 

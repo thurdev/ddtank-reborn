@@ -92,6 +92,7 @@ export class TextField extends InteractiveObject {
   $lines: Line[] = [];
   $dirty = true;
   $sprite: PSprite;
+  override $maskNode(): any { return this.$sprite; }
   $canvas: HTMLCanvasElement | null = null;
   $tex: Texture | null = null;
   $editing = false;

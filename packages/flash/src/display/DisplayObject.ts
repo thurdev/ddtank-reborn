@@ -211,13 +211,22 @@ export class DisplayObject extends EventDispatcher {
     this.$applyFilters();
   }
 
+  /**
+   * Nó Pixi usado quando ESTE objeto é máscara de outro. No Flash a máscara
+   * recorta pelo desenho (texto = forma das letras, bitmap = pixels). No Pixi
+   * só `Sprite` vira máscara de alfa; outro Container vira stencil (retângulo).
+   * TextField/Bitmap/Shape-imagem devolvem o Sprite interno (ex.: GradientText
+   * do pickgliss = degradê recortado pelo texto — leilão, títulos).
+   */
+  $maskNode(): Container { return this.$node; }
+
   get mask(): DisplayObject | null { return this.$mask; }
   set mask(v: DisplayObject | null) {
     if (this.$mask) this.$mask.$maskOf = null;
     this.$mask = v;
     if (v) {
       v.$maskOf = this;
-      this.$node.mask = v.$node;
+      this.$node.mask = v.$maskNode();
     } else {
       this.$node.mask = this.$scrollRect ? this.$scrollMaskNode() : null;
     }
