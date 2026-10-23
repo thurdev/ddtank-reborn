@@ -16,7 +16,10 @@ funciona sem erro no console; detalhes visuais anotados.
 | Lista de salas PvP / criar sala / sala | OK | |
 | Fila automática → batalha PvP contra bot | OK | turnos, tiro, vento, minimapa, balões de fala |
 | Expedição (lista, criar sala, escolher instância) | OK | |
-| Batalha PvE + tela de derrota (LOSE) | OK | |
+| Batalha PvE + tela de derrota (LOSE) | OK | balões de fala dos monstros |
+| Chat (digitar, enviar, cores por canal, acentos) | OK | |
+| Loja: comprar item | OK | moeda desconta na hora |
+| Bolsa: item comprado, menu (Abrir/Mover), tooltip, abrir pacote | OK | |
 
 ## Prédios e janelas do hall
 
