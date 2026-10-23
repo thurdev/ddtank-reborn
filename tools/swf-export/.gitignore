@@ -3,3 +3,4 @@ node_modules/
 .as3/
 .export-ui.log
 .export-resource.log
+.tmp-hit/

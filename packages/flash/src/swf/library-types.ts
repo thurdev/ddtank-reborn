@@ -62,7 +62,8 @@ export interface TimelineT {
 }
 
 export type CharT =
-  | { k: "shape"; img: string; r: RectT }
+  /** hit = máscara de clique (forma invisível no Flash que recebe clique — ver tools/swf-export/src/hitmasks.ts) */
+  | { k: "shape"; img: string; r: RectT; hit?: string }
   | { k: "morph"; img: string; r: RectT }
   | { k: "bitmap"; img: string; w: number; h: number }
   | { k: "sprite"; tl: TimelineT; grid?: RectT }

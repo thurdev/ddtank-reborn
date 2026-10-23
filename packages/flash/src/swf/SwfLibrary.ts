@@ -50,6 +50,8 @@ export class SwfLibrary {
   key: string;
   data: LibraryT;
   private imgs = new Map<number, Img>();
+  /** máscaras de clique (formas invisíveis) */
+  private hits = new Map<number, Img>();
   private texs = new Map<number, Texture>();
   private bitmapDatas = new Map<number, BitmapData>();
   private binaries = new Map<number, Uint8Array>();
@@ -103,6 +105,9 @@ export class SwfLibrary {
       const file = c.k === "shape" || c.k === "morph" || c.k === "bitmap" ? c.img : c.k === "text" ? c.img : undefined;
       if (file) {
         jobs.push(loadImage(base + file).then((im) => { this.imgs.set(id, im); }, (e) => dlog("error", `imagem falhou: ${e.message}`)));
+      }
+      if (c.k === "shape" && c.hit) {
+        jobs.push(loadImage(base + c.hit).then((im) => { this.hits.set(id, im); }, () => {}));
       }
       if (c.k === "binary" && c.file) {
         jobs.push(fetch(base + c.file).then((x) => x.arrayBuffer()).then((b) => { this.binaries.set(id, new Uint8Array(b)); }, () => {}));
@@ -225,7 +230,8 @@ export class SwfLibrary {
         const s = new Shape();
         const tex = this.texture(id);
         const im = this.imgs.get(id);
-        if (tex && im) s.$setImage(tex, new Rectangle(c.r[0], c.r[1], c.r[2], c.r[3]), { image: im as any });
+        // hit-test usa a máscara de clique se a forma for invisível (área de clique do Flash)
+        if (tex && im) s.$setImage(tex, new Rectangle(c.r[0], c.r[1], c.r[2], c.r[3]), { image: (this.hits.get(id) ?? im) as any });
         o = s;
         break;
       }

@@ -463,6 +463,7 @@ export class XMLList {
   hasComplexContent(): boolean { return !this.hasSimpleContent(); }
   hasOwnProperty(p: string): boolean {
     if (isIndex(p)) return Number(p) < this.$nodes.length;
+    if (p.startsWith("@")) return this.attribute(p.slice(1)).length() > 0;
     return this.child(p).length() > 0;
   }
   name(): QName | null { return this.$nodes.length === 1 ? new XML(this.$nodes[0]!).name() : null; }

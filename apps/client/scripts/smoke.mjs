@@ -20,7 +20,18 @@ page.on("response", (r) => { if (r.status() >= 400) logs.push(`[http ${r.status(
 const cdp = await page.context().newCDPSession(page);
 await cdp.send("Debugger.enable");
 await page.goto(url);
-await page.waitForTimeout(Number(secs) * 1000);
+// SMOKE_WAIT_FOR="<expressão JS>": espera até ela ser verdadeira (máx. `secs`); senão espera `secs`
+if (process.env.SMOKE_WAIT_FOR) {
+  const t0 = Date.now();
+  while (Date.now() - t0 < Number(secs) * 1000) {
+    const ok = await page.evaluate(`(() => { try { return !!(${process.env.SMOKE_WAIT_FOR}); } catch { return false; } })()`).catch(() => false);
+    if (ok) { console.log(`--- condição ok em ${Math.round((Date.now() - t0) / 1000)}s`); break; }
+    await page.waitForTimeout(1000);
+  }
+  await page.waitForTimeout(3000);
+} else {
+  await page.waitForTimeout(Number(secs) * 1000);
+}
 // página travada (loop infinito)? pausa o JS e mostra onde está
 const alive = await Promise.race([page.evaluate(() => 1).then(() => true), new Promise((r) => setTimeout(() => r(false), 3000))]);
 if (!alive) {
@@ -40,6 +51,7 @@ if (process.env.SMOKE_EVAL && alive) {
   try { console.log("=== SMOKE_EVAL ===\n" + JSON.stringify(await page.evaluate(process.env.SMOKE_EVAL), null, 1)); }
   catch (e) { console.log("SMOKE_EVAL falhou:", e.message); }
 }
+await page.waitForTimeout(Number(process.env.SMOKE_AFTER ?? 0) * 1000);
 const isErr = (l) => /^\[(error|pageerror|reqfail|warning|http)/.test(l);
 const errs = logs.filter(isErr);
 console.log(`--- ${logs.length} logs, ${errs.length} erros/avisos ---`);
