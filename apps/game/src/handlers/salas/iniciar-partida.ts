@@ -14,6 +14,15 @@ import type { ServerContext } from "../../session/context.js";
 import { RoomType } from "../../rooms/room.js";
 import { isDungeonUnlocked } from "../../game/pve-unlock.js";
 import { loadClearedDifficulties } from "../../db/pve-progress.js";
+import { isPassCheckCode, showCheckCode } from "../../game/anti-bot.js";
+
+/** GameStart.cs: `currentRoom.AvgLevel` (updated lazily by `UpdateAvgLevel()`) — ported as a direct average
+ *  over the room's current members, same number the original caches. */
+function avgLevel(room: { getPlayers(): { info: { Grade: number } }[] }): number {
+  const players = room.getPlayers();
+  if (!players.length) return 0;
+  return players.reduce((s, m) => s + m.info.Grade, 0) / players.length;
+}
 
 /**
  * Task `41-instancias` (owner request 2026-10-20): server-authoritative re-check of the dungeon the room is
@@ -38,7 +47,8 @@ async function dungeonLockedMessage(ctx: ServerContext, p: GamePlayer, room: { R
 }
 
 /**
- * GameStart.cs: só o anfitrião, exige arma em todo mundo (captcha / permissão de PvE / tickets não portados).
+ * GameStart.cs: só o anfitrião, exige arma em todo mundo (captcha portado em 41-captcha-anti-bot,
+ * desligado por padrão; permissão de PvE/tickets ainda não portados).
  * Como lê esse código (cada variável): `room` = sala do anfitrião; `m` = cada membro da sala, checado um a um
  * antes de deixar começar (se faltar arma em alguém, cancela o "pickup" e avisa em vez de iniciar).
  */
@@ -52,6 +62,14 @@ export async function iniciarPartida(ctx: ServerContext, p: GamePlayer): Promise
       room.sendCancelPickUp();
       return;
     }
+  }
+  // GameStart.cs:44-50: captcha gate, only for ranked matches with AvgLevel>14 (off by default,
+  // Server_Config AntiBotCheckCodeEnabled) — game/anti-bot.ts.
+  if (room.RoomType === RoomType.Match && avgLevel(room) > 14 && !isPassCheckCode(ctx, p)) {
+    room.IsPlaying = false;
+    room.sendCancelPickUp();
+    showCheckCode(p);
+    return;
   }
   const locked = await dungeonLockedMessage(ctx, p, room);
   if (locked) {

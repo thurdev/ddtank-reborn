@@ -20,7 +20,7 @@
 | Casamento | 24 | 10 | 13 | 1 | 0 | 0 | 4 |
 | Combate (GAME_CMD) | 39 | 32 | 1 | 6 | 0 | 0 | 4 |
 | Configurações | 2 | 1 | 0 | 1 | 0 | 0 | 0 |
-| Conta/Login | 6 | 5 | 1 | 0 | 0 | 0 | 0 |
+| Conta/Login | 6 | 6 | 0 | 0 | 0 | 0 | 0 |
 | Correio | 7 | 6 | 0 | 1 | 0 | 0 | 0 |
 | Escola/Aprendiz | 4 | 4 | 0 | 0 | 0 | 0 | 0 |
 | Eventos/Atividades | 37 | 13 | 14 | 10 | 0 | 0 | 2 |
@@ -40,7 +40,7 @@
 | Spa/Fonte termal | 14 | 13 | 0 | 1 | 0 | 0 | 5 |
 | Totem/Honra | 2 | 2 | 0 | 0 | 0 | 0 | 0 |
 | VIP | 1 | 1 | 0 | 0 | 0 | 0 | 1 |
-| **Total** | 361 | 244 | 74 | 40 | 3 | 0 | 56 |
+| **Total** | 361 | 245 | 73 | 40 | 3 | 0 | 56 |
 
 ## Amigos
 
@@ -203,7 +203,7 @@
 | `sendLogin` | `ddt/manager/SocketManager.as` | 1 LOGIN | Version.Build=5498628 | ok | no |  |
 | `sendPint` | `ddt/manager/SocketManager.as` | 4 PING |  | ok | no |  |
 | `sendBagLocked` | `baglocked/BagLockedController.as`<br>`ddt/manager/ServerManager.as` | 25 BAG_LOCKED |  | ok | no |  |
-| `sendCheckCode` | `ddt/view/CheckCodeFrame.as` | 200 CHECK_CODE |  | partial | no |  |
+| `sendCheckCode` | `ddt/view/CheckCodeFrame.as` | 200 CHECK_CODE |  | ok | no | 41-captcha-anti-bot (2026-10-24): emissão + validação do desafio anti-bot portadas, off por padrão (Server_Config.AntiBotCheckCodeEnabled). Ver docs/qa-matrix.json / docs/features/login-conta.md. |
 | `sendEnterRoom` | `church/controller/ChurchRoomListController.as`<br>`church/view/weddingRoomList/WeddingRoomListNavView.as`<br>`church/view/weddingRoomList/frame/WeddingRoomEnterConfirmView.as` (+2) | 242 MARRY_ROOM_LOGIN |  | ok | no |  |
 | `sendpkgCheckHack` | `ddt/manager/CheckSpeedManager.as` | 300 300 |  | ok | no |  |
 

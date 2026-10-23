@@ -10,6 +10,7 @@ import { bankCapacity } from "../../game/consortia.js";
 import type { GamePlayer } from "../../game/player.js";
 import type { ServerContext } from "../../session/context.js";
 import type { HandlerRegistry } from "../registry.js";
+import { isPassCheckCode, showCheckCode } from "../../game/anti-bot.js";
 
 /** UserChangeItemPlaceHandler.cs:19 (Store/Bank/Consortia helper paths simplified to direct moves).
  *
@@ -32,6 +33,12 @@ export function changeItemPlace(ctx: ServerContext, p: GamePlayer, bagType: numb
     return;
   }
   if (toPlace !== -1 && (toPlace < 0 || toPlace >= toBag.capacity)) return; // port: validate slot range
+  if (toBagType === BagType.Store) {
+    // UserChangeItemPlaceHandler.cs:49-55: captcha gate on every move INTO the workbench (off by default,
+    // Server_Config AntiBotCheckCodeEnabled) — game/anti-bot.ts.
+    if (!isPassCheckCode(ctx, p)) { showCheckCode(p); return; }
+    p.countFunction2++; // UserChangeItemPlaceHandler.cs:54 Player.CountFunction2++
+  }
   if (toBagType === BagType.Consortia) {
     // guild bank: only for members, StoreLevel × 10 slots (ConsortiaBag capacity follows the bank level)
     const cap = p.info.ConsortiaID ? bankCapacity(p.info.StoreLevel) : 0;

@@ -114,7 +114,7 @@ export function defaultMatch(userId: number): MatchRow {
 /** Columns of Sys_Users_Detail written back by SavePlayer (subset of SP_Users_Update's 86 parameters that are columns). */
 export const SAVED_DETAIL_COLUMNS = [
   "Colors", "ConsortiaID", "Gold", "GP", "Grade", "Money", "Style", "State", "Hide", "ExpendDate", "Win", "Total",
-  "Escape", "Skin", "Offer", "AntiAddiction", "RichesOffer", "RichesRob", "CheckCount", "MarryInfoID", "DayLoginCount",
+  "Escape", "Skin", "Offer", "AntiAddiction", "RichesOffer", "RichesRob", "CheckCount", "CheckError", "MarryInfoID", "DayLoginCount",
   "Nimbus", "LastAward", "GiftToken", "QuestSite", "PvePermission", "FightPower", "AnswerSite", "LastAuncherAward",
   "ChatCount", "SpaPubGoldRoomLimit", "LastSpaDate", "FightLabPermission", "SpaPubMoneyRoomLimit", "IsInSpaPubGoldToday",
   "IsInSpaPubMoneyToday", "AchievementPoint", "LastWeekly", "LastWeeklyVersion", "WeaklessGuildProgressStr", "IsOldPlayer",

@@ -27,6 +27,9 @@
     "verified": "yes",
     "notes": "Mover para o ferreiro/equipar. Banco da guilda (bolsa 11): StoreLevel × 10 espaços, depósito/retirada ok (research/e2e/guild/g40-bank-deposit.png)."
   },
+  "200:sendCheckCode": {
+    "notes": "41-captcha-anti-bot (2026-10-24): lado que EMITE o desafio portado (game/anti-bot.ts isPassCheckCode/showCheckCode, GamePlayer.cs:1198-1237) + imagem PNG real desenhada à mão (check-code-image.ts, 7-segmentos + ruído em vez do GDI+ original — cliente só decodifica, sem efeito de jogo). 3 gatilhos reais: disbandConsortia (sociedade/criar.ts, ConsortiaDisband.cs:22-26), GAME_START ranqueado AvgLevel>14 (salas/iniciar-partida.ts, GameStart.cs:44-50), mover item pro Store (bolsa/mover.ts, UserChangeItemPlaceHandler.cs:49-55). Desligado por padrão (game.\"Server_Config\" AntiBotCheckCodeEnabled, chave nova — original não tinha toggle). Não verificado num cliente real com a flag ligada. Teste: apps/game/test/anti-bot.test.ts."
+  },
   "121:sendItemEmbed": {
     "notes": "Implementado (furo precisa estar aberto e tipo igual ao Property2 da gema); sem gema no personagem de teste para verificar no cliente. Varredura pt.3 (2026-10-02): agora chama `p.questInv?.onItemInsert()` em sucesso (`forge.ts` `inlay`), ligando a missão tipo 25 ItemInsertCondition (antes não portada) — testado por código/typecheck, não clicado (sem gema compatível com furo aberto no personagem de teste nesta sessão; furo tipo 0 na arma do Thur, única gema na bolsa era tipo 3)."
   },

@@ -1,17 +1,20 @@
 /**
- * Aba no jogo: nenhuma (desafio anti-bot que apareceria sobre a tela, nunca chega a aparecer aqui — ver nota).
- * Pacote: 200 CHECK_CODE.
- * C#: `CheckCodeHandler.cs:782` — verifica o texto digitado contra `PlayerInfo.CheckCode`.
- * O lado que EMITE o desafio (`ShowCheckCode`/`client.Player.PlayerCharacter.CheckCode`) nunca foi portado,
- * então `CheckCode` fica sempre vazio aqui — isso reproduz o próprio early-out do original (`return 1`
- * quando `CheckCode` é nulo/vazio) em vez de fingir sucesso.
- * Como testar: sem teste dedicado (nada pra testar enquanto o desafio nunca é emitido).
- * Manual: não aplicável — ver `research/qa/port-plan.md` bloco F pra portar o lado que falta.
+ * Aba no jogo: nenhuma própria — desafio anti-bot que aparece sobre a tela atual quando o servidor empurra
+ * 200 CHECK_CODE (`game/anti-bot.ts` `showCheckCode`, gatilhos em `sociedade/criar.ts`,
+ * `salas/iniciar-partida.ts`, `bolsa/mover.ts`; desligado por padrão, `Server_Config
+ * AntiBotCheckCodeEnabled`).
+ * Pacote: 200 CHECK_CODE (inbound = resposta digitada pelo jogador).
+ * C#: `CheckCodeHandler.cs` — verifica o texto digitado contra `PlayerInfo.CheckCode`.
+ * 41-captcha-anti-bot: lado que EMITE o desafio portado (`game/anti-bot.ts`
+ * `isPassCheckCode`/`showCheckCode`); este handler agora valida de verdade via `handleCheckCodeAnswer`.
+ * Como testar: `apps/game/test/anti-bot.test.ts`. Manual: `docs/features/anti-bot.md`.
  */
+import { handleCheckCodeAnswer } from "../../game/anti-bot.js";
 import type { HandlerRegistry } from "../registry.js";
 
 export function registerCodigoVerificacao(r: HandlerRegistry): void {
-  r.player(200, "CHECK_CODE", (_ctx, _p, pkt) => {
-    pkt.readString();
-  }, "partial");
+  r.player(200, "CHECK_CODE", (ctx, p, pkt) => {
+    const answer = pkt.readString();
+    handleCheckCodeAnswer(ctx, p, answer);
+  });
 }

@@ -1,12 +1,13 @@
 # Gap C# → TS + protocolo de verificação (fonte: `docs/qa-matrix.json`)
 
-Panorama 2026-10-20 (pós feature/41-partial-c) — 361 itens (cliente 4.1; 6600 em stand-by, ver AGENTS.md):
-servidor `ok` 322 · `partial` 24 · `stub` 4 · `missing` 2 · `wontfix` 9.
+Panorama 2026-10-24 (pós feature/41-partial-c) — 361 itens (cliente 4.1; 6600 em stand-by, ver AGENTS.md):
+servidor `ok` 324 · `partial` 22 · `stub` 4 · `missing` 2 · `wontfix` 9.
 Verificado em jogo: `yes` 56 · resto `no`. **Nada conta como pronto sem `verified:yes` + evidência.**
 
 `feature/41-partial-a` fechou **41-labirinto-combate** (131 LABYRINTH, 8 subs) e **41-guilda-skill-combate**
 (129 CONSORTIA_CMD sub 26 SKILL_SOCKET). `feature/41-partial-c` fechou **41-boss-mundial-revisao** (102
-REQUEST_REVIVE) e **41-novato-progresso** (258) — ver seção "Prioridade" abaixo (itens agora `server:ok`, riscados).
+REQUEST_REVIVE), **41-novato-progresso** (258) e **41-captcha-anti-bot** (200 CHECK_CODE) — ver seção
+"Prioridade" abaixo (itens agora `server:ok`, riscados).
 
 A matriz estava defasada (lote anterior, 2026-10-08, media `partial` 66/`missing` 48/`stub` 39 — números
 que o próprio `AGENTS.md`/orientação desta tarefa ainda citava): muita coisa foi implementada desde então
@@ -135,10 +136,21 @@ principal).
   cobrança) — efeito pequeno e sempre a favor do jogador (progresso um pouco mais fácil de alcançar, nunca
   mais difícil). `vendor/DDTank41/Game.Server/Packets/Client/NoviceActivityGetAward.cs`,
   `Game.Server/GameUtils/PlayerExtra.cs`.
-- **41-captcha-anti-bot** — 200 CHECK_CODE: o lado que EMITE o desafio anti-bot (`ShowCheckCode`) nunca
-  foi portado, então `CheckCode` fica sempre vazio (a verificação em si reproduz o early-out correto do
-  original). Não bloqueia gameplay, mas é a única defesa anti-bot do 4.1 que falta.
-  `vendor/DDTank41/Game.Server/Packets/Client/CheckCodeHandler.cs:782`.
+- ~~**41-captcha-anti-bot** — 200 CHECK_CODE~~ **feito** (`feature/41-partial-c`, 2026-10-24): lado que
+  EMITE o desafio anti-bot portado (`game/anti-bot.ts` `isPassCheckCode`/`showCheckCode`,
+  `GamePlayer.cs:1198-1237`), imagem PNG real desenhada à mão (`game/check-code-image.ts`, 7-segmentos +
+  ruído em vez do GDI+ original — cliente só decodifica, nunca re-deriva a resposta dos pixels, sem efeito
+  de jogo). 3 gatilhos reais ligados: dissolver sociedade (`ConsortiaDisband.cs:22-26`), `GAME_START`
+  ranqueado com `AvgLevel>14` (`GameStart.cs:44-50`), mover item pro Store/ferreiro
+  (`UserChangeItemPlaceHandler.cs:49-55`). Desligado por padrão (`game."Server_Config"
+  AntiBotCheckCodeEnabled`, chave nova — o original não tinha toggle nenhum; adicionada aqui porque o
+  desafio é intrusivo pro jogador real e o servidor padrão deve continuar como está hoje). Desvio
+  documentado NÃO portado: o kick automático do autosave do original (`GamePlayer.cs:4485-4489`) tem
+  condição que parece invertida (kickaria quase todo desafiado em 20 min) — replicar tornaria a feature
+  hostil, ficou de fora de propósito. `CheckCode` em si fica só em memória (nunca persiste no original —
+  setter não marca `_isDirty`); só `CheckError` (persiste de verdade, nunca reseta) ganhou coluna nova
+  (migração `0026`). Teste: `apps/game/test/anti-bot.test.ts`. Manual: `docs/features/login-conta.md`.
+  `vendor/DDTank41/Game.Server/Packets/Client/CheckCodeHandler.cs`, `Bussiness/CheckCode.cs`.
 - **41-chick-activation** — 84 ACTIVITY_PACKAGE family 2 (`ChickActivationType.CHICKACTIVATION`, subs
   QUERY/OPENKEY/GETAWARD): sistema de "código de ativação" de 14 caracteres inteiro não portado (falta
   `UserChickActiveInfo` + handler + UI admin pra cadastrar códigos). Feature grande, orçamento próprio.

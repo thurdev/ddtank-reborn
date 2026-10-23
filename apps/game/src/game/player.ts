@@ -97,6 +97,17 @@ export class GamePlayer implements RoomMember {
   /** GamePlayer.LastOpenGrowthPackage (`ActivityPackageHandler.cs:30`, 6600 only): 500ms throttle between
    *  Passe Clássico claims, same in-memory (not persisted) field as the original. */
   lastGrowthPackageClaim = 0;
+  /**
+   * 200 CHECK_CODE anti-bot (GamePlayer.cs:1070-1237, GameUtils/PlayerExtra none — these 5 live directly on
+   * GamePlayer, in-memory only, reset every login same as the constructor; see game/anti-bot.ts). `checkCode`
+   * mirrors `PlayerInfo.CheckCode`'s "baodeptrai" sentinel (no challenge pending); the 4 counters are the
+   * random-threshold triggers (money/GP gained, guild-disband count, workbench-move count).
+   */
+  checkCode = "baodeptrai";
+  countAddMoney = 0;
+  countAddGP = 0;
+  countFunction = 0;
+  countFunction2 = 0;
   /** GamePlayer.TimeCheckHack (unix seconds of the last 300 heartbeat). */
   timeCheckHack = 0;
   pingStart = 0;
@@ -356,6 +367,7 @@ export class GamePlayer implements RoomMember {
     if (v <= 0) return;
     // GamePlayer.AddGP (GamePlayer.cs:1357): GPAddPlus (type 13 GP buff, e.g. x2 exp card) multiplies; AddGP(gp, false) does not.
     if (useMultiple && this.gpAddPlus > 0) v = Math.trunc(v * this.gpAddPlus);
+    this.countAddGP++; // GamePlayer.cs:1391 count_addgp++ — anti-bot CHECK_CODE trigger counter, game/anti-bot.ts
     this.info.GP = Math.min(I32_MAX, this.info.GP + v);
     const g = this.gradeForGp(this.info.GP);
     if (g && g > this.info.Grade) {
@@ -376,7 +388,7 @@ export class GamePlayer implements RoomMember {
     for (const b of this.buffs) if (b.Type === 13 && b.IsExist && b.BeginDate.getTime() + b.ValidDate * 60_000 > now) m *= b.Value || 1;
     return m;
   }
-  addMoney(v: number): void { if (v > 0) { this.info.Money = Math.min(I32_MAX, this.info.Money + v); this.updateProperties(); } }
+  addMoney(v: number): void { if (v > 0) { this.countAddMoney++; this.info.Money = Math.min(I32_MAX, this.info.Money + v); this.updateProperties(); } } // GamePlayer.cs:1565 count_addmoney++
   addOffer(v: number): void { if (v > 0) { this.info.Offer = Math.min(I32_MAX, this.info.Offer + v); this.updateProperties(); } }
   addHonor(v: number): void { if (v > 0) { this.info.myHonor = Math.min(I32_MAX, this.info.myHonor + v); this.updateProperties(); } }
   /** GamePlayer.RemovemyHonor (GamePlayer.cs:6037): only spends when `v` fits in the current balance. */

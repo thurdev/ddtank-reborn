@@ -1,8 +1,9 @@
 /**
  * Aba no jogo: Sociedade › criar sociedade / dissolver sociedade.
  * Pacotes: 129 CONSORTIA_CMD sub 1 CONSORTIA_CREATE, sub 2 CONSORTIA_DISBAND.
- * C#: `ConsortiaCreate.cs`, `ConsortiaDisband.cs` (`Game.Server/Consortia/Handle/`). O check de captcha do
- * C# não foi portado (não existe sistema de CHECK_CODE); fix: a resposta de falha do disband não tinha bool,
+ * C#: `ConsortiaCreate.cs`, `ConsortiaDisband.cs` (`Game.Server/Consortia/Handle/`). O check de captcha
+ * (`isPassCheckCode`/`ShowCheckCode`, `ConsortiaDisband.cs:22-26`) está em `game/anti-bot.ts`
+ * (41-captcha-anti-bot), desligado por padrão. Fix: a resposta de falha do disband não tinha bool,
  * então o cliente lia o id do jogador como se fosse o resultado — corrigido aqui.
  * Como testar: `apps/game/test/consortia.test.ts`. Manual: Sociedade (fora de clã) → Criar / Sociedade → Dissolver.
  */
@@ -13,6 +14,7 @@ import { ConsortiaMgr, consortiaMgr } from "../../game/consortia-mgr.js";
 import type { GamePlayer } from "../../game/player.js";
 import type { ServerContext } from "../../session/context.js";
 import { GM_NOTICE, pick, reply } from "./comum.js";
+import { isPassCheckCode, showCheckCode } from "../../game/anti-bot.js";
 
 const MSG_DISBAND = { 2: "ConsortiaBussiness.DeleteConsortia.Msg2", 3: "ConsortiaBussiness.DeleteConsortia.Msg3" };
 
@@ -61,6 +63,9 @@ export async function createConsortia(ctx: ServerContext, p: GamePlayer, pkt: GS
  */
 export async function disbandConsortia(ctx: ServerContext, p: GamePlayer): Promise<void> {
   if (p.info.ConsortiaID === 0) return;
+  // ConsortiaDisband.cs:22-26: captcha gate (off by default, Server_Config AntiBotCheckCodeEnabled).
+  if (!isPassCheckCode(ctx, p)) return showCheckCode(p);
+  p.countFunction++; // ConsortiaDisband.cs:27 Player.CountFunction++
   const m = await consortiaMgr(ctx);
   const cid = p.info.ConsortiaID;
   const name = p.info.ConsortiaName;

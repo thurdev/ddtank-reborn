@@ -1423,6 +1423,13 @@ export const Sys_Users_Detail = player.table(
     LastWeekOffer: integer("LastWeekOffer").notNull().default(0),
     AddWeekOffer: integer("AddWeekOffer").notNull().default(0),
     CheckCount: integer("CheckCount").notNull().default(0),
+    /** 41-captcha-anti-bot: PlayerInfo.CheckError (never resets; 9+ wrong answers in the account's whole
+     *  history disconnects on the next attempt, CheckCodeHandler.cs:37-49). Missing from the original
+     *  Drizzle schema (never ported before this task) — CheckCode itself is NOT added: its setter never
+     *  sets `_isDirty` in the original (PlayerInfo.cs:680-685), so it's never actually persisted there
+     *  either, and it always resets to the "baodeptrai" sentinel on every login (GamePlayer.cs:1186) — an
+     *  in-memory-only field is enough, see game/player.ts `checkCode`. */
+    CheckError: integer("CheckError").notNull().default(0),
     Site: varchar("Site", { length: 200 }),
     IsMarried: boolean("IsMarried").notNull().default(false),
     SpouseID: integer("SpouseID").notNull().default(0),

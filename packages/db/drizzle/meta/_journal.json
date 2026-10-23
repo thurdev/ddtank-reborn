@@ -183,6 +183,13 @@
       "when": 1792533048920,
       "tag": "0025_modern_supreme_intelligence",
       "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "7",
+      "when": 1792534951203,
+      "tag": "0026_melodic_guardian",
+      "breakpoints": true
     }
   ]
 }

@@ -1,0 +1,1 @@
+ALTER TABLE "player"."Sys_Users_Detail" ADD COLUMN "CheckError" integer DEFAULT 0 NOT NULL;

@@ -38,6 +38,27 @@ Ordem: QA/sync → bot PvP → instâncias → hot-update → testar TUDO no jog
   boot, `StartupResourceLoader.as`, sem pacote de refresh no protocolo original) em
   [hot-update.md](../features/hot-update.md). Testes: `apps/game/test/hot-update.test.ts` (4, inclui cenário
   entre 2 canais com `createMemoryBus`), `apps/api/test/api.test.ts` ("hot-update (41-hot-update)", 3).
+- [x] **41-captcha-anti-bot** (2026-10-24) — `200 CHECK_CODE`: lado que EMITE o desafio anti-bot portado
+  (`apps/game/src/game/anti-bot.ts` `isPassCheckCode`/`showCheckCode`, `GamePlayer.cs:1198-1237`); o
+  handler só validava, nunca emitia. Imagem é um PNG real desenhado à mão (`check-code-image.ts`,
+  7-segmentos + ruído em vez do GDI+ do original — o cliente só decodifica a imagem, nunca re-deriva a
+  resposta dos pixels, sem efeito de jogo). 3 gatilhos reais ligados: dissolver sociedade
+  (`ConsortiaDisband.cs:22-26` → `sociedade/criar.ts`), `GAME_START` ranqueado com `AvgLevel>14`
+  (`GameStart.cs:44-50` → `salas/iniciar-partida.ts`), mover item pro Store/ferreiro
+  (`UserChangeItemPlaceHandler.cs:49-55` → `bolsa/mover.ts`, fecha o gap de **49 CHANGE_PLACE_GOODS**
+  listado nos dois outros gaps do código — "temp_place restore" e o gesto de split-drag não confirmado ao
+  vivo continuam de fora, `49` continua `partial` por esses dois). **Desligado por padrão**
+  (`game."Server_Config" AntiBotCheckCodeEnabled`, chave nova — o original não tinha toggle nenhum;
+  adicionada porque o desafio é intrusivo pro jogador real e o servidor padrão deve continuar como está
+  hoje). Desvio documentado NÃO portado: o kick automático do autosave do original
+  (`GamePlayer.cs:4485-4489`) tem condição que lê como invertida (kickaria quase todo desafiado nos
+  primeiros 20 min) — replicar isso tornaria a feature hostil em vez de discreta. `CheckCode` em si fica só
+  em memória (o setter original nunca marca `_isDirty`, nunca persiste de verdade, sempre reseta no
+  login); só `CheckError` (persiste, nunca reseta no original) ganhou coluna nova (`player."Sys_Users_Detail".CheckError`,
+  migração `0026_melodic_guardian.sql`). Status da matriz: `200 CHECK_CODE` passa de `partial` pra `ok`
+  (`verified` continua `no` — nunca testado num cliente real com a flag ligada). Testes:
+  `apps/game/test/anti-bot.test.ts` (10, novo). Docs: `docs/features/login-conta.md`,
+  `apps/game/HANDLERS.md`, `docs/MIGRATION-GAP.md`, `docs/qa-matrix.json`/`docs/QA-MATRIX.md`.
 - [ ] **41-qa-tudo** — testar TODAS as features no jogo de verdade (matriz QA `verified:yes` + evidência),
   área por área, abrindo fix pra cada falha.
 - [ ] **pixi-estudo** — estudo de viabilidade do cliente novo (PixiJS, 60fps+) — ver `docs/plan/PIXI.md`.
