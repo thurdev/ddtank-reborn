@@ -20,6 +20,7 @@ funciona sem erro no console; detalhes visuais anotados.
 | Chat (digitar, enviar, cores por canal, acentos) | OK | |
 | Loja: comprar item | OK | moeda desconta na hora |
 | Bolsa: item comprado, menu (Abrir/Mover), tooltip, abrir pacote | OK | |
+| Equipar (duplo clique) e trocar arrastando (clica pega, clica solta) | OK | atributos e avatar atualizam |
 
 ## Prédios e janelas do hall
 

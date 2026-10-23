@@ -80,6 +80,13 @@ for (const pair of (process.env.SMOKE_CLICKS ?? "").split(";").filter(Boolean)) 
     catch (e) { console.log(`eval:${pair.slice(5)} falhou: ${String(e.message).split("\n")[0]}`); }
     continue;
   }
+  // "dbl:x,y" = duplo clique; "drag:x1,y1,x2,y2" = arrasta
+  if (pair.startsWith("dbl:")) { const [x, y] = pair.slice(4).split(",").map(Number); await page.mouse.dblclick(x, y); console.log(`--- duplo clique (${x}, ${y})`); await page.waitForTimeout(500); continue; }
+  if (pair.startsWith("drag:")) {
+    const [x1, y1, x2, y2] = pair.slice(5).split(",").map(Number);
+    await page.mouse.move(x1, y1); await page.mouse.down(); await page.mouse.move(x2, y2, { steps: 12 }); await page.mouse.up();
+    console.log(`--- arrastou (${x1}, ${y1}) → (${x2}, ${y2})`); await page.waitForTimeout(500); continue;
+  }
   // "type:texto" = digita no campo com foco (o <input> real que o TextField abre)
   if (pair.startsWith("type:")) { await page.keyboard.type(pair.slice(5), { delay: 40 }); console.log(`--- digitou ${pair.slice(5)}`); continue; }
   // "shot:a.png" = print no meio do roteiro
