@@ -27,11 +27,11 @@ JSON, a música é MP3.
 
 ## Situação (2026-10-23)
 
-- Boot completo: config, login (HTTP + socket WebSocket), criação de personagem,
-  tela de carregamento (com o minijogo do hamster), **saguão funcionando**.
-- Modo debug, log de pacotes, teste automático (`apps/client/scripts/smoke.mjs`).
-- Em andamento: exportação dos SWFs de recurso (bombas, monstros, efeitos,
-  asas) e revisão tela a tela (batalha, loja, bolsa, guilda...).
+- Boot, login, hall, **batalha PvP e PvE funcionando**, e quase todos os
+  prédios/janelas do hall abrem — lista completa em [STATUS.md](STATUS.md).
+- Toda a arte (UI + recursos: bombas, monstros, efeitos, asas) exportada pra PNG/JSON.
+- Página **Jogar** do site abre este cliente com `PIXI_CLIENT_URL` (ver COMO-RODAR).
+- Modo debug, log de pacotes com subtipo, teste automático (`apps/client/scripts/smoke.mjs`).
 - Ainda não congelado: `apps/client/src/game` é regenerado pelo transpilador
   (edições manuais vão como patch — ver TRANSPILADOR.md). Depois do
   congelamento o TS gerado vira o código-fonte normal e o AS3 sai de cena.
