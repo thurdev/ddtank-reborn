@@ -3,10 +3,10 @@ import { readFileSync, writeFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { buildTranslator } from "./lookup.mjs";
 
-const SP = "C:/Users/<user>/AppData/Local/Temp/claude/C--Users-user-Documents-Projects-DDTank/c048f152-a1c9-45a2-b674-36b413e8f4d9/scratchpad";
+const SP = (process.env.DDT_SCRATCH ?? ".tmp_scratch");
 const NDJSON = `${SP}/i18n/ocr-full.ndjson`;
 const EXPORT_ROOT = `${SP}/i18n/ffdec_out`;
-const ROOT = ".";
+const ROOT = process.cwd();
 const OUT_JSON = `${ROOT}/research/i18n/image-inventory.json`;
 const OUT_MD = `${ROOT}/research/i18n/image-inventory.md`;
 

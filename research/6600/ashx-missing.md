@@ -4,7 +4,7 @@
 > `vendor/DDT-6600/Flash_Project/DDT660/src` (grep, 155 strings únicas) contra
 > `apps/api/src/request/registry.ts` (PORTED + STUBS) e os nomes de arquivo em
 > `apps/api/src/templates/defs.ts` (`TEMPLATES[].files[].name`). **61 endpoints** ficaram de fora
-> dessa comparação (script em `C:\Users\<user>\AppData\Local\Temp\claude\...\scratchpad\diff.mjs`, não
+> dessa comparação (script em `<scratch>\diff.mjs`, não
 > commitado — refazível com o mesmo grep). Antes desta tarefa, todos os 61 caíam no fallback
 > genérico de `apps/api/src/routes/request.ts`: `.xml` desconhecido → snapshot do vendor (ou
 > `Result` vazio em zlib se nem o snapshot existir) e `.ashx` desconhecido → `Result value="false"`

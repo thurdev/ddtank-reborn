@@ -30,7 +30,7 @@ surfaced two distinct pipeline bugs (now fixed, see "Root causes fixed" below) p
    unreadable painted art / partial glossary substitution leaving a mixed VN+PT mess — not salvageable
    programmatically; logged for the AI inpainting batch instead of shipping broken art). 87 SWFs repacked via
    `pack.sh`. See `research/i18n/before-after.html` for a visual sample and
-   `C:/Users/<user>/AppData/Local/Temp/.../scratchpad/i18n/fix-garbled-{improved,revert}-log.json` for the full lists.
+   `<scratch>/i18n/fix-garbled-{improved,revert}-log.json` for the full lists.
 4. One manual layout nudge: `shop.swf`'s "Conjunto de roupas" checkbox caption shortened to "Conjunto" (curated
    caption) to give it more breathing room next to the "Asas" checkbox — see "Not fixed" below, this did **not**
    fully resolve the visual overlap (root cause is a display-list position issue, not text length).

@@ -14,7 +14,7 @@ import { GlobalFonts, createCanvas } from "@napi-rs/canvas";
 import { mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 
-const ROOT = ".";
+const ROOT = process.cwd();
 const FONT_DIR = join(ROOT, "tools/i18n/images/fonts");
 const EXTRACTED_DIR = join(ROOT, "tools/i18n/fonts/extracted");
 

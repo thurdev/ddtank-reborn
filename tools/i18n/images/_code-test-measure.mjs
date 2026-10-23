@@ -2,7 +2,7 @@
 // Scratch script for the code-text-test quality check (see research/i18n/code-text-test.html).
 import sharp from "sharp";
 
-const ROOT = ".";
+const ROOT = process.cwd();
 
 const targets = [
   {

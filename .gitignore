@@ -29,3 +29,6 @@ tools/remaster/_lang/
 /*.png
 /*.jpg
 /*.traineddata
+
+# logs de conversa com IA (pessoais)
+research/qa/*-requests.md

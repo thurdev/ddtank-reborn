@@ -24,7 +24,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
-const ROOT = ".";
+const ROOT = process.cwd();
 const OUT_DIR = join(ROOT, "research/i18n/ai-out");
 const API_BASE = "https://external.api.recraft.ai/v1/images";
 
@@ -67,7 +67,7 @@ const TARGETS = {
 };
 
 const EXPORT_ROOT =
-  "C:/Users/<user>/AppData/Local/Temp/claude/C--Users-user-Documents-Projects-DDTank/c048f152-a1c9-45a2-b674-36b413e8f4d9/scratchpad/i18n/ffdec_out";
+  (process.env.DDT_SCRATCH ?? ".tmp_scratch") + "/i18n/ffdec_out";
 
 async function callRecraft(apiKey, { mode, imagePath, maskPath, prompt, strength }) {
   const endpoint = mode === "inpaint" ? `${API_BASE}/inpaint` : `${API_BASE}/imageToImage`;
