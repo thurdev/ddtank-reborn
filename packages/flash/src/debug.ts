@@ -207,19 +207,43 @@ if (DEBUG && typeof globalThis !== "undefined") {
 }
 
 // ------------------------------------------------------------------ pacotes do jogo
-let packetNames: Map<number, string> | null = null;
+const nameTables = new Map<string, Map<number, string>>();
+/** constantes numéricas de uma classe do jogo → nome (1º nome vence) */
+function constName(fqn: string, value: number): string | undefined {
+  let t = nameTables.get(fqn);
+  if (!t) {
+    t = new Map();
+    const reg = (globalThis as any).$ddtClass?.(fqn);
+    if (reg) for (const k of Object.getOwnPropertyNames(reg)) { const v = reg[k]; if (typeof v === "number" && k !== "length" && !t.has(v)) t.set(v, k); }
+    if (reg) nameTables.set(fqn, t);
+  }
+  return t.get(value);
+}
+
 /** nome do pacote pelo código (constantes de ddt.data.socket.ePackageType) */
 export function packetName(code: number): string {
-  if (!packetNames) {
-    packetNames = new Map();
-    const reg = (globalThis as any).$ddtClass?.("ddt.data.socket.ePackageType");
-    if (reg) for (const k of Object.getOwnPropertyNames(reg)) { const v = reg[k]; if (typeof v === "number" && !packetNames.has(v)) packetNames.set(v, k); }
-  }
-  return packetNames.get(code) ?? "?";
+  return constName("ddt.data.socket.ePackageType", code) ?? "?";
+}
+
+/**
+ * Pacotes "guarda-chuva" levam o subtipo no 1º byte do corpo (depois do
+ * cabeçalho de 20 bytes): GAME_ROOM (94) → GameRoomPackageType, GAME_CMD (91)
+ * → CrazyTankPackageType. Mostra "GAME_CMD/START_GAME" no log.
+ */
+const SUB_TABLES: Record<number, string> = {
+  94: "ddt.data.socket.GameRoomPackageType",
+  91: "ddt.data.socket.CrazyTankPackageType",
+};
+function subName(code: number, pkg: any): string {
+  const fqn = SUB_TABLES[code];
+  if (!fqn || typeof pkg?.$bytes !== "function") return "";
+  const b: Uint8Array = pkg.$bytes();
+  if (b.length <= 20) return "";
+  return `/${constName(fqn, b[20]!) ?? b[20]}`;
 }
 
 /** ByteSocket do jogo chama em todo pacote enviado/recebido (só loga com ?debug=true) */
 export function debugGamePacket(dir: "in" | "out", code: number, size: number, pkg?: unknown): void {
   if (!DEBUG || !enabled.has("packet")) return;
-  debugPacket(dir, code, packetName(code), size, pkg);
+  debugPacket(dir, code, packetName(code) + subName(code, pkg), size, pkg);
 }

@@ -96,6 +96,25 @@ export function $init(obj: any): void {
     iinitChains.set(ctor, chain);
   }
   for (const f of chain) f.call(obj);
+  // campos gravados antes do super() (ver $pre), na ordem em que o AS3 os gravou
+  let n = preStack.length;
+  while (n > 0 && preStack[n - 1]!.target === ctor) n--;
+  if (n < preStack.length) for (const p of preStack.splice(n)) Object.assign(obj, p.fields);
+}
+
+const preStack: { target: Function; fields: Record<string, unknown> }[] = [];
+
+/**
+ * AS3 deixa gravar campos ANTES do `super()` (`this._info = p; super(...)`), e
+ * o construtor pai pode chamar método sobrescrito que já lê esse campo
+ * (Player → Living → reset() → playerInfo). Em JS não dá pra usar `this` antes
+ * do super, então o transpilador emite `super(...$pre(new.target, {campos}, [args]))`:
+ * os campos ficam guardados e o `$init` da classe raiz (1ª coisa que roda com
+ * `this` pronto) aplica antes de qualquer código dos construtores.
+ */
+export function $pre(target: Function, fields: Record<string, unknown>, args: unknown[]): any[] {
+  preStack.push({ target, fields });
+  return args;
 }
 
 // ------------------------------------------------------------------ closures de método

@@ -657,14 +657,12 @@ class FileEmitter {
       // atribuição simples de campo já foi pra fields() (emitClass); o resto que
       // usa `this` vai pra logo depois do super().
       const deferred: Stmt[] = [];
-      const deferredLines: string[] = [];
       if (o.ctor.hasSuper) {
         if (idx < 0) this.line("super();");
         else {
-          // `this.f = E` antes do super(): vira local temporária (`$pre_f`), usada nos
-          // argumentos do super e atribuída ao campo logo depois do super()
           // Campos lidos/gravados antes do super() (inclusive dentro de if/else)
-          // viram variáveis `$pre_campo`; depois do super() os gravados são copiados.
+          // viram variáveis `$pre_campo`; os gravados vão pro super via $pre e o
+          // $init da classe raiz grava no objeto antes de qualquer construtor rodar.
           const temps = new Map<string, string>();
           const written = new Set<string>();
           const tempFor = (name: string): string => {
@@ -685,23 +683,25 @@ class FileEmitter {
             if (this.usesThis(rewritten)) deferred.push(st);
             else this.stmt(rewritten);
           }
-          const after: string[] = [];
-          for (const name of written) {
-            const m = this.cls && this.project.findInstance(this.cls, name);
-            after.push(`this.${m?.emitName ?? name} = ${temps.get(name)};`);
-          }
           const sup = body[idx]! as Stmt & { kind: "expr" };
           const call = sup.expr as Expr & { kind: "call" };
-          const args = call.args.map((a) => this.rewritePreSuper(a, temps));
-          this.line(`super(${args.map((a) => this.expr(a, 2)).join(", ")});`);
-          if (after.length) deferredLines.push(...after);
+          const args = call.args.map((a) => this.rewritePreSuper(a, temps)).map((a) => this.expr(a, 2));
+          if (written.size) {
+            // campos gravados antes do super(): o $init da raiz aplica antes dos construtores (ver $pre)
+            const fields = [...written].map((name) => {
+              const m = this.cls && this.project.findInstance(this.cls, name);
+              return `${JSON.stringify(m?.emitName ?? name)}: ${temps.get(name)}`;
+            });
+            this.line(`super(...${this.rt("$pre")}(new.target, { ${fields.join(", ")} }, [${args.join(", ")}]) as [${args.map(() => "any").join(", ")}]);`);
+          } else {
+            this.line(`super(${args.join(", ")});`);
+          }
         }
         body = idx < 0 ? body : body.slice(idx + 1);
       } else if (idx >= 0) {
         body = body.filter((_, i) => i !== idx); // `super()` de classe raiz (extends Object)
       }
       if (o.ctor.isRoot) this.line(`${this.rt("$init")}(this);`);
-      for (const l of deferredLines) this.line(l);
       for (const st of deferred) this.stmt(st);
     }
     for (const nf of nestedFns) {

@@ -1,0 +1,7 @@
+[
+  {
+    "why": "O original só mandava o erro pro servidor (sendErrorMsg) e o jogo travava calado. Agora também mostra no console qual evento quebrou.",
+    "find": "    } catch (err: any) {\n      SocketManager.Instance.out.sendErrorMsg(",
+    "replace": "    } catch (err: any) {\n      console.error(`[QueueManager] erro tratando ${event.type}:`, err);\n      SocketManager.Instance.out.sendErrorMsg("
+  }
+]
