@@ -22,6 +22,8 @@ export interface GameConfig {
   socketProxy: SocketProxy[];
   /** Optional base URL used to resolve relative URLs inside the SWF. */
   base?: string;
+  /** Cliente PixiJS (sem Flash). Quando vem, o GameFrame abre ele num iframe em vez do Ruffle. */
+  pixiUrl?: string;
 }
 
 export interface PublicConfig {

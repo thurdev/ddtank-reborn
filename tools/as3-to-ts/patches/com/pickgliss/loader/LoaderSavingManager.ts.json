@@ -1,0 +1,12 @@
+[
+  {
+    "why": "Sem Flash não existe 'armazenamento local do Flash Player' nem SWF pra cachear: considera sempre liberado (some o aviso 'Sugestões Oficiais').",
+    "find": "  static get cacheAble(): boolean {\n    return LoaderSavingManager._cacheFile;\n  }",
+    "replace": "  static get cacheAble(): boolean {\n    return true;\n  }"
+  },
+  {
+    "why": "Não guarda bytes de módulos no SharedObject (localStorage): o navegador já faz cache HTTP dos assets.",
+    "find": "  static cacheFile(param1: string, param2: ByteArray, param3: boolean): void {\n",
+    "replace": "  static cacheFile(param1: string, param2: ByteArray, param3: boolean): void {\n    return;\n"
+  }
+]

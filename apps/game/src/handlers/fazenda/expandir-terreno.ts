@@ -8,7 +8,7 @@
 import type { GSPacket } from "@ddt/protocol";
 import type { GamePlayer } from "../../game/player.js";
 import type { ServerContext } from "../../session/context.js";
-import { farmSnapshot, FIELD_CAPACITY, saveField, STARTER_FIELDS, type FarmState, type FieldRow } from "./estado.js";
+import { FIELD_CAPACITY, payFieldsPacket, saveField, STARTER_FIELDS, type FarmState, type FieldRow } from "./estado.js";
 
 /** sub 6 PAY_FIELD: int n, n*int fieldId, int months (0 = semana, senão mês — mesma convenção do AUnit da
  * loja). */
@@ -22,6 +22,7 @@ export async function payField(ctx: ServerContext, p: GamePlayer, pkt: GSPacket,
   const total = price * ids.length;
   if (p.info.Gold < total) return p.sendMessage(0, ctx.lang.t("Farm.NotEnough"));
   const now = ctx.now();
+  const paid: FieldRow[] = [];
   for (const id of ids) {
     if (id < STARTER_FIELDS || id >= FIELD_CAPACITY) continue;
     let f = s.fields.get(id);
@@ -31,7 +32,9 @@ export async function payField(ctx: ServerContext, p: GamePlayer, pkt: GSPacket,
     else { f.PayTime = payTime; f.payFieldTime = hours; }
     await saveField(ctx, p.id, f);
     s.fields.set(id, f);
+    paid.push(f);
   }
   p.removeGold(total);
-  p.send(farmSnapshot(6, p.id, p.info.NickName ?? "", s.farm.isFarmHelper, [...s.fields.values()]));
+  // AbstractPacketLib.SendPayFields (~2391-2409): só os terrenos pagos nessa chamada, não a fazenda inteira.
+  p.send(payFieldsPacket(p.id, paid));
 }

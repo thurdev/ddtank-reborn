@@ -1,0 +1,10 @@
+{
+  "name": "@ddt/as3-to-ts",
+  "private": true,
+  "type": "module",
+  "description": "Transpilador AS3 -> TypeScript do cliente DDTank 4.1 (gera apps/client/src/game).",
+  "scripts": {
+    "parse-all": "tsx src/parse-all.ts",
+    "build-client": "tsx src/main.ts"
+  }
+}

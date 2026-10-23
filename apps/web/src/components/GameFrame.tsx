@@ -65,11 +65,11 @@ export interface GameFrameProps extends GameConfig {
 }
 
 /**
- * Embeds the original DDTank Flash client through Ruffle.
+ * Embeds the DDTank client: the PixiJS port (`pixiUrl`, iframe) or the original Flash client through Ruffle.
  * Socket connections from the SWF (raw TCP host:port) are tunnelled through the
  * WebSocket URLs in `socketProxy`.
  */
-export function GameFrame({ rufflePath, swfUrl, flashvars, socketProxy, base, className, onReady, onError }: GameFrameProps) {
+export function GameFrame({ rufflePath, swfUrl, flashvars, socketProxy, base, pixiUrl, className, onReady, onError }: GameFrameProps) {
   const { t } = useI18n();
   const hostRef = useRef<HTMLDivElement>(null);
   const [phase, setPhase] = useState<Phase>("ruffle");
@@ -78,7 +78,7 @@ export function GameFrame({ rufflePath, swfUrl, flashvars, socketProxy, base, cl
   const [progress, setProgress] = useState(0.08);
 
   // Stable key so a new object with the same values doesn't remount the player.
-  const configKey = JSON.stringify({ rufflePath, swfUrl, flashvars, socketProxy, base });
+  const configKey = JSON.stringify({ rufflePath, swfUrl, flashvars, socketProxy, base, pixiUrl });
 
   useEffect(() => {
     const host = hostRef.current;
@@ -87,6 +87,47 @@ export function GameFrame({ rufflePath, swfUrl, flashvars, socketProxy, base, cl
     let player: RufflePlayerElement | null = null;
     setPhase("ruffle");
     setError(null);
+
+    // Cliente PixiJS (apps/client, sem Flash): iframe com os mesmos flashvars + URL da API
+    if (pixiUrl) {
+      const src = new URL(pixiUrl, window.location.href);
+      src.searchParams.set("user", flashvars.user ?? "");
+      src.searchParams.set("key", flashvars.key ?? "");
+      if (flashvars.config) src.searchParams.set("api", new URL(flashvars.config).origin);
+      if (new URLSearchParams(window.location.search).get("debug") === "true") src.searchParams.set("debug", "true");
+      const frame = document.createElement("iframe");
+      frame.src = src.toString();
+      frame.allow = "autoplay; fullscreen; clipboard-write";
+      frame.style.cssText = "width:100%;height:100%;border:0;display:block";
+      frame.addEventListener("load", () => {
+        if (cancelled) return;
+        setPhase("ready");
+        onReady?.();
+      });
+      // o cliente avisa queda/kick por postMessage quando a página é de outra origem (ver ExternalInterface)
+      const onMessage = (e: MessageEvent) => {
+        const d = e.data as { type?: string; name?: string; args?: unknown[] } | null;
+        if (e.source !== frame.contentWindow || d?.type !== "ddt-external" || d.name !== "game_interruption") return;
+        setError(String(d.args?.[1] ?? ""));
+        setPhase("kicked");
+        frame.remove();
+      };
+      window.addEventListener("message", onMessage);
+      window.game_interruption = (_loginUrl, msg) => {
+        if (cancelled) return;
+        setError(String(msg ?? ""));
+        setPhase("kicked");
+        frame.remove();
+      };
+      host.appendChild(frame);
+      setPhase("swf");
+      return () => {
+        cancelled = true;
+        window.removeEventListener("message", onMessage);
+        frame.remove();
+        delete window.game_interruption;
+      };
+    }
 
     (async () => {
       try {

@@ -13,10 +13,13 @@
 import type { GSPacket } from "@ddt/protocol";
 import type { GamePlayer } from "../../game/player.js";
 import type { ServerContext } from "../../session/context.js";
-import { helperPacket, saveFarm, saveField, type FarmState } from "./estado.js";
+import { MIN_DATE } from "../../util/time.js";
+import { helperSwitchPacket, saveFarm, saveField, type FarmState } from "./estado.js";
 
 /** sub 8 HELPER_PAY_FIELD: int validity (dias) — renova o próprio slot do ajudante (não o contrato da
- * semente). */
+ * semente). C#: `Farm/Handle/HelperPayField.cs` responde com um `new UserFarmInfo()` em branco (só
+ * `AutoValidDate` setado) — `SendHelperSwitchField` escreve sub 9 fixo, então quem realmente trata essa
+ * resposta no cliente é `__onHelperSwitch` (não `__onHelperPay`, que nenhum writer C# aciona de verdade). */
 export async function helperPayField(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, s: FarmState): Promise<void> {
   const validity = pkt.readInt();
   const price = validity > 1 ? ctx.templates.cfgInt("FarmHelperMonthPrice", 300) : ctx.templates.cfgInt("FarmHelperWeekPrice", 100);
@@ -24,7 +27,7 @@ export async function helperPayField(ctx: ServerContext, p: GamePlayer, pkt: GSP
   p.removeMoney(price);
   s.farm.VipLimitLevel = validity;
   await saveFarm(ctx, s.farm);
-  p.send(helperPacket(s.farm));
+  p.send(helperSwitchPacket({ isFarmHelper: false, isAutoId: 0, AutoPayTime: MIN_DATE, AutoValidDate: validity, GainFieldId: 0, KillCropId: 0 }));
 }
 
 /** sub 9 HELPER_SWITCH_FIELD: bool on, int seedId, int seedTime, int seedCount, int getCount, int
@@ -51,5 +54,5 @@ export async function helperSwitchField(ctx: ServerContext, p: GamePlayer, pkt: 
   s.farm.GainFieldId = on ? Math.trunc(getCount / 10) : 0;
   s.farm.KillCropId = on ? getCount : 0;
   await saveFarm(ctx, s.farm);
-  p.send(helperPacket(s.farm));
+  p.send(helperSwitchPacket(s.farm));
 }

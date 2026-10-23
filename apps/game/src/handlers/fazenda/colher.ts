@@ -9,7 +9,7 @@
 import type { GSPacket } from "@ddt/protocol";
 import type { GamePlayer } from "../../game/player.js";
 import type { ServerContext } from "../../session/context.js";
-import { fieldPacket, giveOrMail, isRipe, loadFarm, saveField, stateOf, type FarmState } from "./estado.js";
+import { gatherPacket, giveOrMail, isRipe, killCropPacket, loadFarm, saveField, stateOf, type FarmState } from "./estado.js";
 
 /** sub 4 GAIN_FIELD: int ownerId, int fieldId. ownerId 0/você = colheita normal; outro = roubo (1
  * unidade, só se `GainCount > 9`, espelha `PlayerFarm.GainFriendFields`). */
@@ -26,7 +26,7 @@ export async function gainField(ctx: ServerContext, p: GamePlayer, pkt: GSPacket
     f.SeedID = 0; f.FieldValidDate = 1; f.AccelerateTime = 0; f.GainCount = 0;
     await saveField(ctx, p.id, f);
     if (goodsT && count > 0) await giveOrMail(ctx, p, goodsT, count);
-    p.send(fieldPacket(f));
+    p.send(gatherPacket(f));
     return;
   }
   const other = ctx.world.get(ownerId);
@@ -39,8 +39,8 @@ export async function gainField(ctx: ServerContext, p: GamePlayer, pkt: GSPacket
   f.GainCount -= 1;
   await saveField(ctx, ownerId, f);
   if (goodsT) await giveOrMail(ctx, p, goodsT, 1);
-  p.send(fieldPacket(f));
-  other?.send(fieldPacket(f));
+  p.send(gatherPacket(f));
+  other?.send(gatherPacket(f));
 }
 
 /** sub 7 KILLCROP_FIELD: int fieldId — limpa um terreno (praga/plantação morta). */
@@ -50,5 +50,5 @@ export async function killCropField(ctx: ServerContext, p: GamePlayer, pkt: GSPa
   if (!f) return;
   f.SeedID = 0; f.FieldValidDate = 1; f.AccelerateTime = 0; f.GainCount = 0;
   await saveField(ctx, p.id, f);
-  p.send(fieldPacket(f));
+  p.send(killCropPacket(f));
 }

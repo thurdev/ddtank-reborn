@@ -30,6 +30,7 @@
 | Banco (Drizzle/Postgres) | [GAME-SERVER.md](./GAME-SERVER.md#banco) | `packages/db/` ([README](../packages/db/README.md)) | `research/db/00-summary.md`, `research/db/HOWTO-restore.md` |
 | Site jogador | [apps/web](../apps/web/README.md) | `apps/web/src/` (React Router + Query + MSW) | — |
 | Admin | [apps/admin](../apps/admin/README.md) | `apps/admin/src/` (CRUD + resources) | — |
+| **Cliente novo PixiJS (sem Flash)** | [client-pixi/README.md](./client-pixi/README.md) | `apps/client/`, `packages/flash/`, `tools/as3-to-ts/`, `tools/swf-export/` | `docs/plan/PIXI.md` |
 | Cliente Flash/Ruffle/launcher | [CLIENT.md](./CLIENT.md) | `apps/launcher/`, `apps/client-harness/` | `research/client/01-client-map.md`, `02-ruffle-report.md`, `research/launcher/` |
 | Assets / remaster IA / PT-BR texto | [CLIENT.md](./CLIENT.md#assets) | `tools/remaster/`, `tools/i18n/` | `research/i18n/`, `research/assets/00-assets.md` |
 | Deploy / infra | [deploy/README](./deploy/README.md) | `docker/`, `docker-compose.yml` | `research/03-hosting.md`, `deploy/tailscale.md` |
