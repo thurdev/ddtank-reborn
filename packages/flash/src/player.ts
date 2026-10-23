@@ -16,6 +16,8 @@
  *   - modo debug (`?debug=true`): cada clique é logado com classe/arquivo/arte.
  */
 import { Application } from "pixi.js";
+// overlay, hard-light, difference, lighten, darken... (efeitos de luz das batalhas); sem isso viram "normal"
+import "pixi.js/advanced-blend-modes";
 import { debugAttachStage, debugClick, dlog, DEBUG } from "./debug";
 import { Event } from "./events/Event";
 import { broadcastTargets } from "./events/EventDispatcher";
@@ -59,6 +61,8 @@ export async function startPlayer(opts: PlayerOptions): Promise<Stage> {
     resolution: Math.min(2, globalThis.devicePixelRatio || 1), autoDensity: true, preference: "webgl",
     // deixa prints/captura de tela funcionarem (custo pequeno)
     preserveDrawingBuffer: true,
+    // blend modes avançados (overlay, hard-light...) leem o que já foi desenhado
+    useBackBuffer: true,
   });
   const host = opts.container;
   if (getComputedStyle(host).position === "static") host.style.position = "relative";

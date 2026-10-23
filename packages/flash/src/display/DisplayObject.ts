@@ -138,13 +138,18 @@ export class DisplayObject extends EventDispatcher {
   get rotationZ(): number { return this.rotation; }
   set rotationZ(v: number) { this.rotation = v; }
 
-  get width(): number { return this.getBounds(this.$parent ?? this).width; }
+  /**
+   * Largura no espaço do pai = caixa local × matriz do próprio objeto. Vale
+   * também fora da lista de exibição (o Flash não perde a escala ao
+   * `removeChild`; o balão de fala media o retângulo depois de remover).
+   */
+  get width(): number { return this.$boundsIn(this.$m.clone())?.width ?? 0; }
   set width(v: number) {
     const w = this.$localBounds().width;
     if (!w) return;
     this.scaleX = Number(v) / w;
   }
-  get height(): number { return this.getBounds(this.$parent ?? this).height; }
+  get height(): number { return this.$boundsIn(this.$m.clone())?.height ?? 0; }
   set height(v: number) {
     const h = this.$localBounds().height;
     if (!h) return;

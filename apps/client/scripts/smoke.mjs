@@ -73,6 +73,13 @@ if (!alive) {
 for (const pair of (process.env.SMOKE_CLICKS ?? "").split(";").filter(Boolean)) {
   // "wait:10" = espera 10s entre cliques
   if (pair.startsWith("wait:")) { await page.waitForTimeout(Number(pair.slice(5)) * 1000); continue; }
+  // "eval:<nome>" = avalia a expressão da variável de ambiente SMOKE_EVAL_<nome> nesse ponto do roteiro
+  if (pair.startsWith("eval:")) {
+    const expr = process.env[`SMOKE_EVAL_${pair.slice(5)}`] ?? "null";
+    try { console.log(`=== eval:${pair.slice(5)} ===\n` + JSON.stringify(await page.evaluate(expr), null, 1)); }
+    catch (e) { console.log(`eval:${pair.slice(5)} falhou: ${String(e.message).split("\n")[0]}`); }
+    continue;
+  }
   // "shot:a.png" = print no meio do roteiro
   if (pair.startsWith("shot:")) { await page.screenshot({ path: pair.slice(5), timeout: 8000 }).catch(() => {}); console.log(`--- print ${pair.slice(5)}`); continue; }
   // "key:Space:1200" = segura a tecla 1,2s (atirar); "key:ArrowLeft:500" = anda
