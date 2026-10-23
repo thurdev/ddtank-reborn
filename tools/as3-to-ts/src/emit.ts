@@ -1250,7 +1250,12 @@ class FileEmitter {
         return [`${this.expr(e.obj, 18)}.filter(($filterItem: any) => ${pred})`, 18];
       }
       case "vectorType": return [this.rt("Vector"), 20];
-      case "call": return [this.callExpr(e), 18];
+      case "call": {
+        // String.match do AS3 devolve [] quando não acha; o do JS devolve null
+        // (ChatFormats.creatBracketsTag quebrava em toda mensagem de sistema)
+        if (e.callee.kind === "member" && e.callee.name === "match" && e.args.length === 1) return [`(${this.callExpr(e)} ?? [])`, 20];
+        return [this.callExpr(e), 18];
+      }
       case "new": return [this.newExpr(e), 18];
       case "vectorLit": return [`${this.rt("$vectorOf")}([${e.items.map((i) => this.expr(i, 2)).join(", ")}])`, 18];
       case "unary": {
