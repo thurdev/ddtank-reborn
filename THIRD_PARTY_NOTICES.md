@@ -98,12 +98,6 @@ The self-hosted Ruffle build in `apps/client-harness/public/ruffle/` (Flash Play
 in the browser) is dual-licensed MIT / Apache-2.0; its license files ship next to it (`LICENSE_MIT`,
 `LICENSE_APACHE`).
 
-## DDTank Reborn's own art and brand
-
-Not third-party, listed here for completeness: the "DDTank Reborn" name/logo/key art are reserved and the project's
-own HD remaster art, translated images and PT-BR texts are CC BY-NC-SA 4.0 — see [BRAND.md](./BRAND.md).
-AI tools used to make them: Higgsfield, Recraft.
-
 ## DDTank
 
 DDTank and its original client assets belong to their respective owners (7Road and licensed publishers). This is a

@@ -9,7 +9,7 @@ Cliente Flash original + servidor 100% TypeScript + remaster HD em PT-BR.**
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?logo=typescript)](./tsconfig.base.json)
 [![Node 24 + pnpm 11](https://img.shields.io/badge/Node-24%20%7C%20pnpm-11-green?logo=node.js)](./package.json)
 
-[Vídeo](#-vídeo) • [Ideia](#-a-ideia) • [Começar](#-começar) • [Stack](#-stack) • [Contribuir](./CONTRIBUTING.md) • [Apoiar](#-apoiar) • [Créditos](#-créditos) • [Marca e arte](./BRAND.md)
+[Vídeo](#-vídeo) • [Ideia](#-a-ideia) • [Começar](#-começar) • [Stack](#-stack) • [Contribuir](./CONTRIBUTING.md) • [Apoiar](#-apoiar) • [Créditos](#-créditos)
 
 </div>
 
@@ -142,12 +142,8 @@ Este projeto só existe por causa do trabalho da comunidade DDTank:
 Arte do projeto: o remaster HD, as imagens traduzidas, o logo e os fundos do site foram feitos pelo
 mantenedor com IA (**Higgsfield** e **Recraft**) a partir da arte original.
 
-### ⚖️ Licença, marca e arte
-
-- **Código:** MIT ([LICENSE](./LICENSE)) — use, modifique e suba seu próprio servidor.
-- **Nome "DDTank Reborn", logo e fundos:** reservados ao @thurdev. Servidor de terceiros precisa de
-  **nome e logo próprios** e não pode se dizer oficial. Detalhes em **[BRAND.md](./BRAND.md)**.
-- **Remaster HD, imagens traduzidas e textos PT-BR do projeto:** CC BY-NC-SA 4.0 (com crédito, sem uso comercial).
+100% open source ([LICENSE](./LICENSE)): use, modifique e suba seu próprio servidor. Se usar a arte ou
+as traduções do projeto, um crédito ao DDTank Reborn é bem-vindo.
 
 Licenças e avisos de terceiros: [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).
 DDTank, seu nome, cliente e arte originais pertencem aos respectivos donos — este é um projeto

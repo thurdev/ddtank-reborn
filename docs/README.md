@@ -19,7 +19,6 @@
 | Plano da migração 6600 | [plan/MIGRACAO-6600.md](./plan/MIGRACAO-6600.md) |
 | Backlog/feedback jogando | [BACKLOG.md](./BACKLOG.md), [REVISIT.md](./REVISIT.md) |
 | Segurança / conduta / licença | [SECURITY.md](../SECURITY.md), [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md), [LICENSE](../LICENSE) |
-| Marca, logo, arte e textos (o que forks podem usar) | [BRAND.md](../BRAND.md) |
 
 ## Por área do jogo
 | Área | Guia | Código | Spec gerada do C# |

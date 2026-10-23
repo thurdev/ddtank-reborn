@@ -32,10 +32,9 @@ merge → `develop` roda no servidor de teste → PR `develop` → `main` →
 Projeto sem fins lucrativos, mantido só por doação voluntária (nunca pay-to-win).
 A licença definitiva ainda vai ser escolhida pelo mantenedor (@thurdev); até lá vale
 o arquivo `LICENSE`. Ao contribuir você concorda que sua contribuição entra sob a
-licença do projeto: código em MIT, arte/tradução/texto em CC BY-NC-SA 4.0 (ver `BRAND.md`). Tudo que vem de terceiros fica creditado em `THIRD_PARTY_NOTICES.md`.
+licença do projeto. Tudo que vem de terceiros fica creditado em `THIRD_PARTY_NOTICES.md`.
 
 ## 6. Comunidade
 `CODE_OF_CONDUCT.md` + `SECURITY.md` valem pra todo mundo. Issues `good-first-issue`
 são o ponto de entrada. PRs externos seguem o mesmo fluxo `feature → develop → main`.
-Cada um pode subir o próprio servidor com este código, **com nome e logo próprios** (o nome
-"DDTank Reborn", logo e fundos são reservados — ver `BRAND.md`); o servidor oficial roda o `main`.
+Cada um pode subir o próprio servidor com este código; o servidor oficial roda o `main`.
