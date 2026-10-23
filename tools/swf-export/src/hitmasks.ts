@@ -10,7 +10,9 @@
  * FFDec, força o preenchimento opaco e grava `shapes/<id>.hit.png`; o
  * `library.json` ganha `hit` no caractere e o cliente testa o clique nele.
  *
- *   cd tools/swf-export && npx tsx src/hitmasks.ts [--only swf/hall]
+ *   cd tools/swf-export && npx tsx src/hitmasks.ts [--only swf/hall] [--force]
+ *
+ * Retoma de onde parou: biblioteca já vista ganha `hitChecked: true`.
  */
 import { execFile } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -28,6 +30,8 @@ const TMP = join(REPO, "tools/swf-export/.tmp-hit");
 
 const run = (args: string[]) => new Promise<void>((res, rej) => execFile("java", ["-Xmx1g", "-jar", FFDEC, ...args], { maxBuffer: 64 << 20 }, (e) => (e ? rej(e) : res())));
 
+const FORCE = process.argv.includes("--force");
+
 async function maxAlpha(file: string): Promise<number> {
   const s = await sharp(file).stats();
   return s.channels[3]?.max ?? 255;
@@ -36,14 +40,17 @@ async function maxAlpha(file: string): Promise<number> {
 async function one(key: string): Promise<number> {
   const dir = join(OUT, key);
   const libFile = join(dir, "library.json");
-  const lib = JSON.parse(readFileSync(libFile, "utf8")) as LibraryT;
+  const lib = JSON.parse(readFileSync(libFile, "utf8")) as LibraryT & { hitChecked?: boolean };
+  // já processada numa rodada anterior (o exportador reescreve o library.json, o que zera a marca)
+  if (lib.hitChecked && !FORCE) return 0;
+  const done = (): void => { lib.hitChecked = true; writeFileSync(libFile, JSON.stringify(lib)); };
   const invisible: number[] = [];
   for (const [id, c] of Object.entries(lib.chars)) {
     if (c.k !== "shape" || !c.img || (c as any).hit) continue;
     const f = join(dir, c.img);
     if (existsSync(f) && (await maxAlpha(f)) === 0) invisible.push(Number(id));
   }
-  if (!invisible.length) return 0;
+  if (!invisible.length) { done(); return 0; }
   let swf = join(MAIN_REPO, lib.swf);
   if (!existsSync(swf)) swf = join(REPO, lib.swf);
   if (!existsSync(swf)) { console.warn(`${key}: SWF de origem não achado (${lib.swf})`); return 0; }
@@ -73,7 +80,7 @@ async function one(key: string): Promise<number> {
     c.hit = png;
     n++;
   }
-  writeFileSync(libFile, JSON.stringify(lib));
+  done();
   rmSync(tmp, { recursive: true, force: true });
   return n;
 }
