@@ -28,9 +28,12 @@ function parseColor(c: string): number | null {
   return Number.isNaN(n) ? null : n;
 }
 
-export function parseFlashHtml(html: string, base: TextFormat, condenseWhite: boolean, _multiline: boolean): Run[] {
+export function parseFlashHtml(html: string, base: TextFormat, condenseWhite: boolean, _multiline: boolean,
+  sheet: { $formatFor(tag: string, cls: string | undefined): TextFormat | null } | null = null): Run[] {
   const runs: Run[] = [];
   const stack: TextFormat[] = [base.$clone()];
+  /** nome da tag de cada nível de `stack` (índice 0 = formato base) */
+  const tags: string[] = [""];
   const top = () => stack[stack.length - 1]!;
   const push = (text: string) => {
     if (!text) return;
@@ -58,13 +61,18 @@ export function parseFlashHtml(html: string, base: TextFormat, condenseWhite: bo
     const selfClose = m[4] === "/" || tag === "br" || tag === "img";
     if (tag === "br") { push("\n"); continue; }
     if (closing) {
-      if (["font", "b", "i", "u", "a", "textformat", "li", "span", "p"].includes(tag) && stack.length > 1) stack.pop();
+      // fecha até a tag aberta correspondente (HTML mal fechado não desalinha a pilha)
+      const at = tags.lastIndexOf(tag);
+      if (at > 0) { stack.length = at; tags.length = at; }
       if (tag === "p" || tag === "li") { inP = false; afterP = true; }
       continue;
     }
     if (selfClose) continue;
     if (afterP) { push("\n"); afterP = false; }
-    const f = top().$clone();
+    let f = top().$clone();
+    // estilos do StyleSheet (tag e .classe) valem antes dos atributos da própria tag
+    const styled = sheet?.$formatFor(tag, attrs.class);
+    if (styled) f = f.$merge(styled);
     switch (tag) {
       case "p":
         if (attrs.align) f.align = attrs.align.toLowerCase();
@@ -101,9 +109,10 @@ export function parseFlashHtml(html: string, base: TextFormat, condenseWhite: bo
       case "span":
         break;
       default:
-        continue; // tag desconhecida: ignora (não empilha)
+        if (!styled) continue; // tag desconhecida sem estilo: ignora (não empilha)
     }
     stack.push(f);
+    tags.push(tag);
   }
   void inP;
   return runs;

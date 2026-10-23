@@ -156,7 +156,7 @@ export class TextField extends InteractiveObject {
   }
   get htmlText(): string { return runsToHtml(this.$runs, this.$defaultFormat); }
   set htmlText(v: string) {
-    this.$runs = parseFlashHtml(v == null ? "" : String(v), this.$defaultFormat, this.$condenseWhite, this.$multiline);
+    this.$runs = parseFlashHtml(v == null ? "" : String(v), this.$defaultFormat, this.$condenseWhite, this.$multiline, this.styleSheet);
     this.$html = true;
     this.$invalidate();
   }
