@@ -13,7 +13,11 @@ cliente (`apps/client/src/game/...`) com o C# original
 
 ## Abertos
 
-### Fazenda — `81 FARM/ENTER_FARM` (e `PAY_FIELD`, `FARM_LAND_INFO`)
+(nenhum no momento)
+
+## Resolvidos
+
+### Fazenda — `81 FARM/ENTER_FARM` (e `PAY_FIELD`, `FARM_LAND_INFO`) — corrigido em `f594c379`
 
 - Sintoma: clicar no ícone da Fazenda no hall não faz nada (nível ≥ 25).
 - Cliente lê (`farm/FarmModelController.__onEnterFarm`):

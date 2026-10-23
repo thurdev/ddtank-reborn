@@ -42,7 +42,7 @@ funciona sem erro no console; detalhes visuais anotados.
 | Academia (Escola) | OK | botão "Aceitar Discípulo": o próprio PNG traduzido (`academy/shapes/46.png`) tem o meio claro — arte |
 | Centro de Namoro (Amizades) | OK | |
 | Laboratório de Combate (Campo de Treino) | OK | alguns nomes de curso se sobrepõem (texto longo do `language.txt`) |
-| Fazenda | NÃO ABRE | bug do servidor, ver [BUGS-SERVIDOR.md](BUGS-SERVIDOR.md) |
+| Fazenda | ABRE (testar em jogo) | pacotes 81 corrigidos no servidor; célula de "matar praga" corrigida no transpilador |
 | Ícones do hall: EVENT (presentes do servidor, explicação, roleta da sorte, código) | OK | "Caixa da galinha" quebra se o servidor não manda a lista do evento (igual ao Flash) |
 | Ícones do hall: Destaques (Guerra das Galinhas, Guerra do Deus Dragão) | OK | |
 | Calendário / recompensas por cadastro, 1ª recarga, área de sugestões | OK | |
