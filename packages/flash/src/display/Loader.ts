@@ -106,7 +106,7 @@ export class Loader extends DisplayObjectContainer {
     httpRequest({ url }).then(async (res) => {
       if (res.status >= 400) return fail(String(res.status));
       try {
-        const img = await createImageBitmap(new Blob([res.bytes as BlobPart]), { premultiplyAlpha: "none" });
+        const img = await createImageBitmap(new Blob([res.bytes as BlobPart]), { premultiplyAlpha: "premultiply" });
         const bd = BitmapData.$fromImage(img as any, rewriteUrl(url));
         done(new Bitmap(bd), img.width, img.height);
       } catch (e) {

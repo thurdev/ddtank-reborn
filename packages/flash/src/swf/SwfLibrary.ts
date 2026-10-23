@@ -7,7 +7,7 @@
  * SWF (`asset.hall.xxx`) ficam registradas e `getDefinitionByName` /
  * `ClassUtils.CreatInstance` funcionam sincronamente, como no Flash.
  */
-import { Texture } from "pixi.js";
+import { ImageSource, Texture } from "pixi.js";
 import { $registerDynamic, $tryCls } from "../as3";
 import { dlog } from "../debug";
 import { Rectangle } from "../geom/Rectangle";
@@ -35,7 +35,7 @@ async function loadImage(url: string): Promise<Img> {
   if (typeof createImageBitmap !== "undefined" && typeof fetch !== "undefined") {
     const r = await fetch(url);
     if (!r.ok) throw new Error(`${r.status} ${url}`);
-    return await createImageBitmap(await r.blob(), { premultiplyAlpha: "none" });
+    return await createImageBitmap(await r.blob(), { premultiplyAlpha: "premultiply" });
   }
   return await new Promise((res, rej) => {
     const im = new Image();
@@ -124,7 +124,8 @@ export class SwfLibrary {
     if (!t) {
       const im = this.imgs.get(id);
       if (!im) return undefined;
-      t = Texture.from(im as any);
+      // ImageBitmap já vem pré-multiplicado (createImageBitmap premultiply)
+      t = new Texture({ source: new ImageSource({ resource: im as any, alphaMode: "premultiplied-alpha" }) });
       this.texs.set(id, t);
     }
     return t;

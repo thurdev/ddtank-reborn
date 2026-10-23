@@ -135,7 +135,7 @@ export class BitmapData {
         this.$ensureCanvas();
         this.$tex = new Texture({ source: new CanvasSource({ resource: this.$canvas as HTMLCanvasElement }) });
       } else {
-        this.$tex = new Texture({ source: new ImageSource({ resource: this.$img as any }) });
+        this.$tex = new Texture({ source: new ImageSource({ resource: this.$img as any, alphaMode: typeof ImageBitmap !== "undefined" && this.$img instanceof ImageBitmap ? "premultiplied-alpha" : "premultiply-alpha-on-upload" }) });
       }
     }
     return this.$tex;
