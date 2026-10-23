@@ -9,6 +9,8 @@ const api = process.env.DDT_API ?? "http://127.0.0.1:8080";
 export default defineConfig({
   server: {
     port: 5180,
+    // dezenas de milhares de PNG exportados: não vigia (o exportador reescreve tudo e travava o dev server)
+    watch: { ignored: ["**/public/assets/**"] },
     proxy: {
       "/request": { target: api, changeOrigin: true },
       "/Request": { target: api, changeOrigin: true },
