@@ -111,6 +111,10 @@ function main(): void {
     "",
     ...top.map(([k, n]) => `- ${n}× ${k}`),
     "",
+    "## Todos os avisos (arquivo AS3:linha)",
+    "",
+    ...warnings.map((w) => `- ${w}`),
+    "",
   ].join("\n"));
   console.log(`ok: ${emitted.length} arquivos, ${warnings.length} avisos, ${Date.now() - t0}ms`);
 }

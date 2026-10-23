@@ -551,7 +551,9 @@ class FileEmitter {
     if (!body) return [];
     const idx = body.findIndex((s) => s.kind === "expr" && s.expr.kind === "call" && s.expr.callee.kind === "super");
     if (idx <= 0) return [];
+    // parâmetros e variáveis locais do construtor não existem em fields(): quem usa fica onde está
     const params = new Set(ctor!.fn.params.map((p) => p.name));
+    for (const s of body) if (s.kind === "var") for (const d of s.decls) params.add(d.name);
     const moved: Stmt[] = [];
     for (let i = 0; i < idx; i++) {
       const st = body[i]!;
