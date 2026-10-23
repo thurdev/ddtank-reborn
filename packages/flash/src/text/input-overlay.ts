@@ -70,6 +70,13 @@ export const InputOverlay = {
     el.remove();
   },
 
+  /** o jogo mudou o texto por código com o campo em edição (ex.: chat limpa depois do Enter) */
+  syncValue(tf: TextField): void {
+    if (active?.tf !== tf) return;
+    const v = tf.text.replace(/\r/g, "\n");
+    if (active.el.value !== v) active.el.value = v;
+  },
+
   setSelection(tf: TextField, b: number, e: number): void {
     if (active?.tf === tf) try { active.el.setSelectionRange(b, e); } catch { /* ok */ }
   },

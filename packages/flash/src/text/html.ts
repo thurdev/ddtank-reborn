@@ -44,7 +44,8 @@ export function parseFlashHtml(html: string, base: TextFormat, condenseWhite: bo
   };
   let inP = false;
   let afterP = false;
-  const re = /<(\/?)([a-zA-Z]+)([^>]*?)(\/?)>|([^<]+)/g;
+  // nome de tag aceita dígitos: o chat usa tags próprias do StyleSheet (<CT0>, <QT3>)
+  const re = /<(\/?)([a-zA-Z][\w:-]*)([^>]*?)(\/?)>|([^<]+)/g;
   let m: RegExpExecArray | null;
   while ((m = re.exec(html))) {
     if (m[5] !== undefined) {

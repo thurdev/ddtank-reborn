@@ -80,6 +80,8 @@ for (const pair of (process.env.SMOKE_CLICKS ?? "").split(";").filter(Boolean)) 
     catch (e) { console.log(`eval:${pair.slice(5)} falhou: ${String(e.message).split("\n")[0]}`); }
     continue;
   }
+  // "type:texto" = digita no campo com foco (o <input> real que o TextField abre)
+  if (pair.startsWith("type:")) { await page.keyboard.type(pair.slice(5), { delay: 40 }); console.log(`--- digitou ${pair.slice(5)}`); continue; }
   // "shot:a.png" = print no meio do roteiro
   if (pair.startsWith("shot:")) { await page.screenshot({ path: pair.slice(5), timeout: 8000 }).catch(() => {}); console.log(`--- print ${pair.slice(5)}`); continue; }
   // "key:Space:1200" = segura a tecla 1,2s (atirar); "key:ArrowLeft:500" = anda

@@ -154,12 +154,14 @@ export class TextField extends InteractiveObject {
     this.$html = false;
     this.$clampScroll();
     this.$invalidate();
+    if (this.$editing) InputOverlay.syncValue(this);
   }
   get htmlText(): string { return runsToHtml(this.$runs, this.$defaultFormat); }
   set htmlText(v: string) {
     this.$runs = parseFlashHtml(v == null ? "" : String(v), this.$defaultFormat, this.$condenseWhite, this.$multiline, this.styleSheet);
     this.$html = true;
     this.$invalidate();
+    if (this.$editing) InputOverlay.syncValue(this);
   }
   get length(): number { return this.text.length; }
   appendText(s: string): void {
@@ -168,6 +170,7 @@ export class TextField extends InteractiveObject {
     if (last) last.text += s;
     else this.$runs.push({ text: s, fmt: this.$defaultFormat.$clone() });
     this.$invalidate();
+    if (this.$editing) InputOverlay.syncValue(this);
   }
   replaceText(begin: number, end: number, s: string): void {
     const t = this.text;
@@ -175,6 +178,7 @@ export class TextField extends InteractiveObject {
     const before = this.$slice(0, begin), after = this.$slice(end, t.length);
     this.$runs = [...before, { text: s.replace(/\r\n?/g, "\n"), fmt: this.$defaultFormat.$merge(fmt) }, ...after].filter((r) => r.text);
     this.$invalidate();
+    if (this.$editing) InputOverlay.syncValue(this);
   }
   replaceSelectedText(s: string): void { this.replaceText(this.$selBegin, this.$selEnd, s); }
 

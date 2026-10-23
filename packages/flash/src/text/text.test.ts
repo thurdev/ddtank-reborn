@@ -36,6 +36,13 @@ describe("parseFlashHtml", () => {
     ]);
     expect(css.getStyle(".big")).toEqual({ fontSize: "20px", fontWeight: "bold" });
   });
+
+  it("aceita tags próprias com dígito (chat: <CT0>)", () => {
+    const css = new StyleSheet();
+    css.setStyle("CT0", { color: "#ffcc00", fontSize: "13" });
+    const runs = parseFlashHtml("<CT0>[Atual]</CT0> oi", new TextFormat(), false, true, css);
+    expect(runs.map((r) => [r.text, r.fmt.color, r.fmt.size])).toEqual([["[Atual]", 0xffcc00, 13], [" oi", null, null]]);
+  });
 });
 
 describe("decodeText", () => {
