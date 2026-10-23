@@ -43,6 +43,9 @@ funciona sem erro no console; detalhes visuais anotados.
 | Centro de Namoro (Amizades) | OK | |
 | Laboratório de Combate (Campo de Treino) | OK | alguns nomes de curso se sobrepõem (texto longo do `language.txt`) |
 | Fazenda | NÃO ABRE | bug do servidor, ver [BUGS-SERVIDOR.md](BUGS-SERVIDOR.md) |
+| Ícones do hall: EVENT (presentes do servidor, explicação, roleta da sorte, código) | OK | "Caixa da galinha" quebra se o servidor não manda a lista do evento (igual ao Flash) |
+| Ícones do hall: Destaques (Guerra das Galinhas, Guerra do Deus Dragão) | OK | |
+| Calendário / recompensas por cadastro, 1ª recarga, área de sugestões | OK | |
 
 ## Pendências conhecidas
 
