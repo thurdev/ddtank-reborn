@@ -2,8 +2,8 @@
 # Exports images from every client SWF (ui/vietnam/swf/*.swf + Loading/DDT_Loading/1-3.png-as-swf) via FFDec.
 # Skips SWFs whose output dir already exists and is non-empty (resumable).
 set -u
-ROOT="."
-SP="C:/Users/<user>/AppData/Local/Temp/claude/C--Users-user-Documents-Projects-DDTank/c048f152-a1c9-45a2-b674-36b413e8f4d9/scratchpad"
+ROOT="$(pwd)"
+SP="${DDT_SCRATCH:-.tmp_scratch}"
 FFDEC="$ROOT/vendor/_tools/ffdec/ffdec-cli.jar"
 OUT="$SP/i18n/ffdec_out"
 SWFDIR="$ROOT/vendor/DDTank41/Source Flash/FlashSV1/ui/vietnam/swf"

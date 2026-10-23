@@ -103,6 +103,9 @@ export function marryCmdRouter(): SubRouter {
       target.send(out);
     })
     .on(5, "LARGESS", async (ctx, p, pkt) => { // int amount
+      // LargessCommand.cs: manda por correio (50/50) NA HORA — nunca segura dinheiro de convidado em memória
+      // (sala fechando/servidor reiniciando perderia o presente). `r.giftPool` só soma o total recebido nesta
+      // sala, pra o diálogo do casal (249/12) mostrar quanto já chegou pelo correio.
       const amount = pkt.readInt();
       const r = roomOf(ctx, p);
       if (!r || amount <= 0) return;
@@ -113,6 +116,7 @@ export function marryCmdRouter(): SubRouter {
       const half = Math.trunc(amount / 2);
       if (r.groomID) await mailItem(ctx, r.groomID, r.groomName, ctx.lang.t("MarryCmd.Largess.Title"), ctx.lang.t("MarryCmd.Largess.Content", p.info.NickName ?? ""), undefined, half);
       if (r.brideID) await mailItem(ctx, r.brideID, r.brideName, ctx.lang.t("MarryCmd.Largess.Title"), ctx.lang.t("MarryCmd.Largess.Content", p.info.NickName ?? ""), undefined, half);
+      r.giftPool += amount;
       broadcast(r, (() => { const o = new PacketOut(249, p.id); o.writeByte(5); o.writeInt(amount); return o; })());
     })
     .on(6, "USEFIRECRACKERS", (ctx, p, pkt) => { // int count, int templateId
@@ -149,5 +153,24 @@ export function marryCmdRouter(): SubRouter {
       if (!r || r.isGunsaluteUsed) return;
       r.isGunsaluteUsed = true;
       broadcast(r, (() => { const o = new PacketOut(249, p.id); o.writeByte(11); o.writeInt(templateId); return o; })());
+    })
+    .on(12, "MARRYROOMSENDGIFT", async (ctx, p, pkt) => { // byte action: BEGINSENDGIFT=1 (query) | CLIENTCONFIRM=4 (claim)
+      // 41-capela-reembolso: sem case 12 em nenhum vendor (`MarryCmdType` nem declara o valor 12 no 6600;
+      // no 4.1 `MarryCommandMgr.LoadCommandHandler` faz `handles[12]` — chave ausente, exceção pega e
+      // logada, nada responde). Código de cliente real (`GameSocketOut.as requestRefund/refund`, só pro
+      // casal — `WeddingRoomToolView.as GiftToolVisible`), implementado aqui por design próprio: saldo
+      // vem só de 249/5 LARGESS (`r.giftPool`, ver infra.ts), nunca excede o que foi de fato dado.
+      const action = pkt.readByte();
+      const r = roomOf(ctx, p);
+      if (!r || !isCouple(r, p.id)) return;
+      if (action === 1) { // BEGINSENDGIFT: ChurchManager.as __showGiftView lê [byte, int saldo]
+        const out = new PacketOut(249, p.id); out.writeByte(12); out.writeByte(1); out.writeInt(r.giftPool);
+        p.send(out);
+        return;
+      }
+      if (action === 4) { // CLIENTCONFIRM: os presentes já foram pelo correio na hora (LARGESS) — nada a pagar
+        // aqui (pagar de novo seria duplicar dinheiro); só confirma pro casal.
+        p.sendMessage(0, ctx.lang.t("MarryCmd.Refund.Succeed"));
+      }
     });
 }

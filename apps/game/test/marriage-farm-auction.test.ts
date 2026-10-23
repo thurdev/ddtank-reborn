@@ -269,6 +269,65 @@ describe("249/3 MARRY_CMD CONTINUATION (room-time extension)", () => {
   });
 });
 
+describe("249/5 LARGESS + 249/12 MARRYROOMSENDGIFT (chapel cash gifts)", () => {
+  it("LARGESS mails 50/50 to the couple immediately (never held in memory); 249/12 shows the room total; claim never pays again", async () => {
+    const db = (await sharedDb()).db;
+    const groom = await loggedIn(server, { grade: 10, money: 10_000 });
+    const bride = await loggedIn(server, { grade: 10, money: 10_000 });
+    const guest = await loggedIn(server, { grade: 10, money: 10_000 });
+    guest.player().info.Grade = 999;
+    marryPair(groom, bride);
+    groom.c.out(241, (o) => { o.writeUTF("Sala gift"); o.writeUTF(""); o.writeInt(0); o.writeInt(4); o.writeInt(8); o.writeBoolean(true); o.writeUTF(""); });
+    await groom.c.code(242);
+    const roomId = groom.player().info.SelfMarryRoomID;
+    bride.c.out(242, (o) => { o.writeInt(roomId); o.writeUTF(""); o.writeInt(0); });
+    await bride.c.code(242);
+    guest.c.out(242, (o) => { o.writeInt(roomId); o.writeUTF(""); o.writeInt(0); });
+    await guest.c.code(242);
+
+    const mails = async (id: number) => db.select().from(player.User_Messages).where(eq(player.User_Messages.ReceiverID, id));
+    const groomBefore = (await mails(groom.ch.userId)).length;
+    const brideBefore = (await mails(bride.ch.userId)).length;
+    const guestMoneyBefore = guest.player().info.Money;
+    let m = guest.c.mark();
+    guest.c.out(249, (o) => { o.writeByte(5); o.writeInt(1000); });
+    await guest.c.code(249, 5, m);
+    m = guest.c.mark();
+    guest.c.out(249, (o) => { o.writeByte(5); o.writeInt(500); });
+    await guest.c.code(249, 5, m);
+    expect(guest.player().info.Money).toBe(guestMoneyBefore - 1500);
+    await sleep(120);
+    const groomNew = (await mails(groom.ch.userId)).slice(groomBefore);
+    const brideNew = (await mails(bride.ch.userId)).slice(brideBefore);
+    const total = groomNew.reduce((s, x) => s + (x.Money ?? 0), 0) + brideNew.reduce((s, x) => s + (x.Money ?? 0), 0);
+    expect(total).toBe(1500); // already delivered, exactly what was paid
+
+    // non-couple can't query
+    const mg = guest.c.mark();
+    guest.c.out(249, (o) => { o.writeByte(12); o.writeByte(1); });
+    await sleep(80);
+    expect(guest.c.received.slice(mg).some((r) => r.code === 249 && r.sub === 12)).toBe(false);
+
+    // couple sees the room total
+    const mq = groom.c.mark();
+    groom.c.out(249, (o) => { o.writeByte(12); o.writeByte(1); });
+    const query = await groom.c.code(249, 12, mq);
+    expect(query.pkt.readByte()).toBe(12);
+    expect(query.pkt.readByte()).toBe(1);
+    expect(query.pkt.readInt()).toBe(1500);
+
+    // "claim" pays nothing extra (would duplicate money)
+    const gBefore = (await mails(groom.ch.userId)).length;
+    const bBefore = (await mails(bride.ch.userId)).length;
+    groom.c.out(249, (o) => { o.writeByte(12); o.writeByte(4); });
+    await sleep(120);
+    expect((await mails(groom.ch.userId)).length).toBe(gBefore);
+    expect((await mails(bride.ch.userId)).length).toBe(bBefore);
+
+    groom.c.close(); bride.c.close(); guest.c.close();
+  });
+});
+
 describe("85 MATE_ONLINE_TIME", () => {
   it("answers an online target with their live LastDate", async () => {
     const a = await loggedIn(server, { grade: 10 });
@@ -302,6 +361,41 @@ describe("85 MATE_ONLINE_TIME", () => {
 });
 
 describe("81 FARM — plant, fast-forward, harvest (main flow)", () => {
+  it("ENTER_FARM echoes the exact AbstractPacketLib.SendEnterFarm layout (FarmModelController.__onEnterFarm)", async () => {
+    const p = await loggedIn(server, { grade: 30, money: 100_000 });
+    p.c.out(81, (o) => { o.writeByte(1); o.writeInt(0); }); // ENTER_FARM self
+    const entered = await p.c.code(81, 1);
+    const pkt = entered.pkt;
+    expect(pkt.readByte()).toBe(1); // sub
+    expect(pkt.readInt()).toBe(p.ch.userId); // FarmID
+    expect(pkt.readBoolean()).toBe(false); // isFarmHelper
+    expect(pkt.readInt()).toBe(0); // isAutoId
+    pkt.readDateTime(true); // AutoPayTime
+    pkt.readInt(); // AutoValidDate
+    expect(pkt.readInt()).toBe(0); // GainFieldId
+    expect(pkt.readInt()).toBe(0); // KillCropId
+    const count = pkt.readInt();
+    expect(count).toBe(8); // STARTER_FIELDS, fresh farm
+    for (let i = 0; i < count; i++) {
+      expect(pkt.readInt()).toBe(i); // FieldID, in slot order
+      expect(pkt.readInt()).toBe(0); // SeedID
+      pkt.readDateTime(true); // PayTime
+      pkt.readDateTime(true); // PlantTime
+      expect(pkt.readInt()).toBe(0); // GainCount
+      expect(pkt.readInt()).toBe(1); // FieldValidDate
+      expect(pkt.readInt()).toBe(0); // AccelerateTime
+    }
+    // own farm: extra block (SendEnterFarm's `farm.FarmID == Player.ID` branch)
+    expect(pkt.readInt()).toBe(server.ctx.templates.cfgInt("FastGrowNeedMoney", 10)); // FastGrowNeedMoney
+    pkt.readString(); // PayFieldMoney
+    pkt.readString(); // PayAutoMoney
+    pkt.readDateTime(true); // AutoPayTime (again)
+    pkt.readInt(); // AutoValidDate (again)
+    expect(pkt.readInt()).toBe(p.player().info.VIPLevel); // VIPLevel
+    expect(pkt.readInt()).toBe(20); // buyExpRemainNum default
+    p.c.close();
+  });
+
   it("GROW_FIELD plants from the FarmBag seed, FRAM_GROP_FASTFORWARD ripens it, GAIN_FIELD harvests into the bag", async () => {
     const p = await loggedIn(server, { grade: 30, money: 100_000 });
     const seedTpl = server.ctx.templates.findItem(332100)!; // Lúa Mì: Property2=10 yield, Property3=1 min, Property4=334104 goods
@@ -310,31 +404,45 @@ describe("81 FARM — plant, fast-forward, harvest (main flow)", () => {
     expect(p.player().getInventory(BagType.FarmBag)!.addItem(seed)).toBe(true);
 
     p.c.out(81, (o) => { o.writeByte(1); o.writeInt(0); }); // ENTER_FARM self
-    await p.c.code(81, 1); // farmSnapshot echoes sub=1
+    await p.c.code(81, 1);
 
-    // GROW_FIELD(2)/FRAM_GROP_FASTFORWARD(18)/GAIN_FIELD(4) all reply via fieldPacket, which always writes sub=17
-    // (FARM_LAND_INFO) regardless of the request's sub — not an echo of the request type.
+    // GROW_FIELD(2) replies with AbstractPacketLib.SendSeeding: sub 2, FieldID, SeedID, PlantTime, PayTime,
+    // GainCount, FieldValidDate (an echo of the request's own sub, not sub 17 FARM_LAND_INFO — nothing in
+    // C# ever writes sub 17 for packet 81).
     let mark = p.c.mark();
     p.c.out(81, (o) => { o.writeByte(2); o.writeByte(0); o.writeInt(332100); o.writeInt(0); }); // GROW_FIELD on starter field 0
-    const planted = await p.c.code(81, 17, mark);
-    planted.pkt.readByte(); // sub (17)
+    const planted = await p.c.code(81, 2, mark);
+    planted.pkt.readByte(); // sub (2)
     expect(planted.pkt.readInt()).toBe(0); // FieldID
     expect(planted.pkt.readInt()).toBe(332100); // SeedID
     expect(p.player().getInventory(BagType.FarmBag)!.getItemByTemplateID(0, 332100)).toBeNull(); // seed consumed
 
+    // FRAM_GROP_FASTFORWARD(18) replies with AbstractPacketLib.SenddoMature: sub 3, int count (=
+    // FIELD_CAPACITY slots), per slot bool ok (+ FieldID/GainCount/AccelerateTime when ok) — the batched
+    // "regar tudo" report, not an echo of sub 18.
     const moneyBeforeFF = p.player().info.Money;
     mark = p.c.mark();
     p.c.out(81, (o) => { o.writeByte(18); o.writeBoolean(false); o.writeBoolean(false); o.writeInt(0); }); // FRAM_GROP_FASTFORWARD, paid in Money
-    const ff = await p.c.code(81, 17, mark);
-    ff.pkt.readByte(); // sub (17)
-    ff.pkt.readInt(); // FieldID
-    ff.pkt.readInt(); // SeedID
+    const ff = await p.c.code(81, 3, mark);
+    ff.pkt.readByte(); // sub (3)
+    const slotCount = ff.pkt.readInt();
+    let sawField0 = false;
+    for (let i = 0; i < slotCount; i++) {
+      if (ff.pkt.readBoolean()) {
+        const fid = ff.pkt.readInt(); ff.pkt.readInt(); const acc = ff.pkt.readInt();
+        if (fid === 0) { sawField0 = true; expect(acc).toBeGreaterThan(0); }
+      }
+    }
+    expect(sawField0).toBe(true);
     expect(p.player().info.Money).toBeLessThan(moneyBeforeFF); // FastGrowNeedMoney charged
 
+    // GAIN_FIELD(4) replies with AbstractPacketLib.SendtoGather: sub 4, bool true, FieldID, SeedID,
+    // PlantTime, GainCount, AccelerateTime.
     mark = p.c.mark();
     p.c.out(81, (o) => { o.writeByte(4); o.writeInt(0); o.writeInt(0); }); // GAIN_FIELD self, field 0
-    const harvested = await p.c.code(81, 17, mark);
-    harvested.pkt.readByte(); // sub (17)
+    const harvested = await p.c.code(81, 4, mark);
+    harvested.pkt.readByte(); // sub (4)
+    expect(harvested.pkt.readBoolean()).toBe(true);
     expect(harvested.pkt.readInt()).toBe(0); // FieldID
     expect(harvested.pkt.readInt()).toBe(0); // SeedID back to 0: field is empty again
 
@@ -347,8 +455,8 @@ describe("81 FARM — plant, fast-forward, harvest (main flow)", () => {
     expect(p.player().getInventory(BagType.FarmBag)!.addItem(seed2)).toBe(true);
     mark = p.c.mark();
     p.c.out(81, (o) => { o.writeByte(2); o.writeByte(0); o.writeInt(332100); o.writeInt(0); });
-    const replanted = await p.c.code(81, 17, mark);
-    replanted.pkt.readByte(); // sub (17)
+    const replanted = await p.c.code(81, 2, mark);
+    replanted.pkt.readByte(); // sub (2)
     expect(replanted.pkt.readInt()).toBe(0);
     expect(replanted.pkt.readInt()).toBe(332100);
     p.c.close();

@@ -62,6 +62,8 @@ const schema = z.object({
   /** Ruffle self-hosted build (ruffle.js + wasm). Served at /ruffle/. */
   RUFFLE_DIR: z.string().default(resolve(REPO_ROOT, "apps", "client-harness", "public", "ruffle")),
   RUFFLE_URL: z.string().default(""),
+  /** Cliente PixiJS (apps/client), ex.: http://localhost:5180/. Definido = o site abre ele num iframe em vez do Ruffle (só cliente 4.1). Em dev o padrão é http://localhost:5180/; "off" desliga. */
+  PIXI_CLIENT_URL: z.string().default(""),
 
   /** Game server (apps/game) as seen by the client. */
   GAME_HOST: z.string().default("127.0.0.1"),
@@ -139,6 +141,10 @@ export function loadConfig(env: Record<string, string | undefined> = process.env
     c.rsaKeyText = readFileSync(resolve(APP_ROOT, c.RSA_PRIVATE_KEY_FILE), "utf8");
     c.rsaKeySource = c.RSA_PRIVATE_KEY_FILE;
   }
+  // dev: a página Jogar abre o cliente PixiJS (apps/client, `pnpm --filter @ddt/client dev`) por padrão;
+  // PIXI_CLIENT_URL=off volta pro Ruffle
+  if (!c.PIXI_CLIENT_URL && c.NODE_ENV === "development") c.PIXI_CLIENT_URL = "http://localhost:5180/";
+  if (c.PIXI_CLIENT_URL === "off") c.PIXI_CLIENT_URL = "";
   if (!c.rsaKeyText && c.RSA_USE_VENDOR_KEY && c.NODE_ENV !== "production") {
     const wc = resolve(VENDOR, "Tank.Request", "Web.config");
     if (existsSync(wc)) {

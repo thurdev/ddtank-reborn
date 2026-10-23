@@ -1,6 +1,6 @@
 # DDTank Reborn — shared context for all agents
 
-MEMÓRIA VIVA: leia `docs/AI-HANDOFF.md` PRIMEIRO e ATUALIZE-O no mesmo commit
+MEMÓRIA VIVA (local, fora do git): se existir `docs/AI-HANDOFF.md`, leia PRIMEIRO e mantenha atualizado
 (move feito pra histórico, apaga obsoleto, acrescenta regra nova). Arquivo limpo sempre.
 
 Docs index (start here): `docs/README.md` — workflow (`CONTRIBUTING.md`,
@@ -26,10 +26,16 @@ guild/GvG, shop, items, quests, events, bots (AI opponents with editable names).
 - pnpm monorepo (pnpm 11, Node 24, TypeScript strict, ESM, `tsconfig.base.json`). Tests: vitest.
 - `packages/protocol` — binary packet codec, crypto, framing (TCP + WebSocket stream), packet codes.
 - `packages/db` — Drizzle ORM schema for Postgres (Neon in prod, local Postgres/PGlite in dev), migrations, seed data.
-- `packages/game-data` — loaders for templates (items, maps, quests, drops...) shared by servers.
+- `packages/fight` — deterministic fight engine (physics, turns, damage, bots, PvE scripts).
+- `packages/auth` — shared login-ticket logic (api ↔ game).
+- `packages/flash` — Flash Player API reimplemented on PixiJS v8 for the transpiled client.
+- `packages/ui` — shared React components for web/admin.
+- `apps/client` — DDTank 4.1 client in TypeScript + PixiJS (no Flash), transpiled from AS3 by `tools/as3-to-ts`,
+  art from `tools/swf-export`. Guide: `docs/client-pixi/README.md`.
 - `apps/game` — game server (replaces Center + Game/Road + Fighting) — TCP + WS on same protocol, policy server 843.
 - `apps/api` — HTTP API (Fastify): replaces Tank.Request .ashx endpoints byte-compatible (same URLs/XML/zlib) + REST for site/admin.
-- `apps/web` — React (Vite) player website: register/login, play page embedding Ruffle.
+- `apps/web` — React (Vite) player website: register/login, play page (PixiJS client; Ruffle fallback).
+- `apps/client-harness`, `apps/launcher` — legacy Flash runtime (Ruffle / desktop launcher).
 - `apps/admin` — React (Vite) admin panel.
 - `docs/` — documentation (Portuguese PT-BR for user-facing guides, code identifiers in English).
 

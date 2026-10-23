@@ -1,7 +1,7 @@
 /**
  * Aba no jogo: Bolsa — usar o "cartão de troca de sexo" (item 11569) no personagem.
  * Pacote: 252 USE_CHANGE_SEX (mesmo código de pacote de MARRY_ROOM_STATE; ChangeSexHandler vence no
- * original — ver `research/qa/claude-requests.md` / spec 01-packet-handlers.md:125).
+ * original — ver spec 01-packet-handlers.md:125).
  * C#: `ChangeSexHandler.cs:12`.
  * Como testar: sem teste dedicado hoje. Manual: usar o cartão → sexo muda, casamento hétero-only desfaz,
  * equipamento com restrição de sexo é desequipado.

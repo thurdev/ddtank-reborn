@@ -1,0 +1,1 @@
+[{ "why": "Sem SWF não há cabeçalho road7/md5 pra conferir: carrega direto (o original exigia md5.xml + bytes do SWF).", "find": "  analyMd5(param1: ByteArray): void {\n", "replace": "  analyMd5(param1: ByteArray): void {\n    this.handleModule(param1);\n    return;\n" }]

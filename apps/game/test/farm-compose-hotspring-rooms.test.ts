@@ -28,7 +28,7 @@ describe("81 FARM — ACCELERATE_FIELD(3), no C# handler, new port", () => {
     const seed = ItemInfo.createFromTemplate(seedTpl, 1, 0);
     expect(p.player().getInventory(BagType.FarmBag)!.addItem(seed)).toBe(true);
     p.c.out(81, (o) => { o.writeByte(2); o.writeByte(0); o.writeInt(332100); o.writeInt(0); }); // GROW_FIELD on starter field 0
-    await p.c.code(81, 17);
+    await p.c.code(81, 2); // SendSeeding echoes sub 2 (not 17 — no C# writer ever sends sub 17 for packet 81)
 
     const fertTpl = server.ctx.templates.findItem(333101)!; // Phân Bón Thường: Property1=60 minutes
     expect(fertTpl.Property1).toBe(60);
@@ -195,9 +195,9 @@ describe("135 (farm arrange), no C# handler anywhere, new feature (research/qa/f
     owner.c.out(81, (o) => { o.writeByte(1); o.writeInt(0); }); // ENTER_FARM self
     await owner.c.code(81, 1);
     owner.c.out(81, (o) => { o.writeByte(2); o.writeByte(0); o.writeInt(332100); o.writeInt(0); }); // GROW_FIELD field 0
-    await owner.c.code(81, 17);
+    await owner.c.code(81, 2); // SendSeeding
     owner.c.out(81, (o) => { o.writeByte(18); o.writeBoolean(false); o.writeBoolean(false); o.writeInt(0); }); // FRAM_GROP_FASTFORWARD -> ripe now
-    await owner.c.code(81, 17);
+    await owner.c.code(81, 3); // SenddoMature (batched slots report, not an echo of sub 18)
 
     visitor.c.out(81, (o) => { o.writeByte(1); o.writeInt(owner.ch.userId); }); // ENTER_FARM on owner's farm
     await visitor.c.code(81, 1);

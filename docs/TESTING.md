@@ -7,7 +7,9 @@
 - Novo handler/sistema = novo teste junto no mesmo PR. Sem teste, sem merge.
 
 ## Playwright (cliente de verdade, botão por botão)
-- Harness: `apps/client-harness/` ([README](../apps/client-harness/README.md)).
+- Cliente PixiJS: `apps/client/scripts/smoke.mjs` (roteiro automático login → hall → batalha → janelas),
+  ver [client-pixi/COMO-RODAR.md](./client-pixi/COMO-RODAR.md) e [client-pixi/STATUS.md](./client-pixi/STATUS.md).
+- Cliente Flash legado — harness: `apps/client-harness/` ([README](../apps/client-harness/README.md)).
   Sobe servidor local + cliente e executa ações reais no Flash/Ruffle.
 - Gestos Flash são `startDrag` nativo (click-move-click), não press-and-hold —
   detalhe documentado em `apps/game/HANDLERS.md` (caso `BreakGoodsView`).

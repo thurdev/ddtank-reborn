@@ -14,7 +14,9 @@ import type { Transport } from "../src/session/client.js";
 
 const SEED_TABLES = ["Shop_Goods", "Shop", "ShopGoodsShowList", "Game_Map", "Map_Server", "Quest", "Quest_Condiction", "Quest_Goods", "LevelInfo", "Server_List", "Sets_Build_Temp",
   // m4-montaria: MountMgr template tables (db/templates.ts loadMontaria).
-  "Mount_Template", "Mount_Draw_Template", "Mount_Skill_Template", "Mount_SKill_Get_Template"];
+  "Mount_Template", "Mount_Draw_Template", "Mount_Skill_Template", "Mount_SKill_Get_Template",
+  // 41-titulo-por-cartao: NewTitleMgr (db/templates.ts newTitles) — 325 real rows, needed by 265 NEWTITLE_CARD.
+  "New_Title"];
 
 let shared: Promise<DbHandle> | null = null;
 export function sharedDb(): Promise<DbHandle> {

@@ -7,7 +7,7 @@ async (page) => {
   const box = await p.evaluate(() => { const r = document.querySelector('ruffle-player, ruffle-embed, canvas')?.getBoundingClientRect(); return r ? { x: r.x, y: r.y, w: r.width, h: r.height } : null; });
   const sx = box.w / 1000, sy = box.h / 600;
   const g = async (x, y, wait = 1500) => { await p.mouse.click(box.x + x * sx, box.y + y * sy); await p.waitForTimeout(wait); };
-  const shot = async (name) => { await p.screenshot({ path: `./research/i18n/audit/${name}.png`, clip: { x: box.x, y: box.y, width: box.w, height: box.h } }); return name; };
+  const shot = async (name) => { await p.screenshot({ path: `${process.cwd()}/research/i18n/audit/${name}.png`, clip: { x: box.x, y: box.y, width: box.w, height: box.h } }); return name; };
   const esc = async () => { await p.keyboard.press('Escape'); await p.waitForTimeout(800); };
   const out = [];
   // STEPS

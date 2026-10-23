@@ -1,6 +1,6 @@
 {
   "packs": [
-    "<repo>\\vendor\\_assets\\merged"
+    "vendor\\_assets\\merged"
   ],
   "stats": {
     "boot [core]": {

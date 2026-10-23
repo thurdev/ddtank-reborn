@@ -41,6 +41,10 @@ export interface ChapelRoom {
   creatorId: number; creatorName: string; groomID: number; groomName: string; brideID: number; brideName: string;
   createTime: Date; availHours: number; breakTime: Date; isHymeneal: boolean; isGunsaluteUsed: boolean; started: boolean;
   members: Set<GamePlayer>; forbidden: Set<number>; mapByPlayer: Map<number, number>;
+  /** Total de presentes em dinheiro (249/5 LARGESS) recebido nesta sala — só exibição no diálogo do casal
+   *  (249/12 BEGINSENDGIFT). O dinheiro em si já vai por correio na hora (LargessCommand.cs), nunca fica
+   *  retido aqui. */
+  giftPool: number;
 }
 const roomsByCtx = new WeakMap<ServerContext, Map<number, ChapelRoom>>();
 let roomSeq = 1;

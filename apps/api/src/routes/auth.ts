@@ -96,6 +96,8 @@ export async function playConfig(ctx: AppCtx, acc: { ID: number; UserName: strin
   const proxy = await channelSocketProxies(ctx);
   return {
     rufflePath: c.RUFFLE_URL || `${base}/ruffle/ruffle.js`,
+    // cliente PixiJS (TypeScript, sem SWF): a página abre num iframe com user/key/api
+    pixiUrl: fl === "flash" && c.PIXI_CLIENT_URL ? c.PIXI_CLIENT_URL : undefined,
     swfUrl: `${base}/${fl}/Loading.swf`,
     base: `${base}/${fl}/`,
     flashvars,
@@ -121,7 +123,8 @@ export async function authRoutes(f: FastifyInstance, ctx: AppCtx) {
     return { token, user: publicUser(acc, role), play: { flashvars: play.flashvars, swfUrl: play.swfUrl, expiresAt: play.expiresAt }, game: play };
   };
 
-  f.post("/api/auth/register", async (req, reply) => {
+  // limite por IP contra força bruta / criação em massa de contas (mesmo plugin do POST /api/donations)
+  f.post("/api/auth/register", { config: { rateLimit: { max: 5, timeWindow: "1 minute" } } }, async (req, reply) => {
     const b = z.object({ username: z.string(), email: z.string().optional().default(""), password: z.string() }).safeParse(req.body);
     if (!b.success) return reply.code(400).send({ message: "Dados inválidos" });
     const { username, email, password } = b.data;
@@ -133,7 +136,7 @@ export async function authRoutes(f: FastifyInstance, ctx: AppCtx) {
     return reply.code(201).send(await issue(acc!, req.ip));
   });
 
-  f.post("/api/auth/login", async (req, reply) => {
+  f.post("/api/auth/login", { config: { rateLimit: { max: 10, timeWindow: "1 minute" } } }, async (req, reply) => {
     const b = z.object({ username: z.string().min(1), password: z.string().min(1) }).passthrough().safeParse(req.body);
     if (!b.success) return reply.code(400).send({ message: "Informe usuário e senha" });
     const existing = await findAccount(ctx.h, b.data.username);

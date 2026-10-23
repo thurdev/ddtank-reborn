@@ -78,6 +78,7 @@ export async function marryRoomCreate(ctx: ServerContext, p: GamePlayer, pkt: GS
     creatorId: p.id, creatorName: p.info.NickName ?? "", groomID, groomName, brideID, brideName, createTime: now,
     availHours: hours, breakTime: row!.BreakTime, isHymeneal: false, isGunsaluteUsed: false, started: false,
     members: new Set([p]), forbidden: new Set(), mapByPlayer: new Map([[p.id, 1]]), // MarryRoom.AddPlayer: MarryMap defaults to 1
+    giftPool: 0, // 41-capela-reembolso (249/12), ver ChapelRoom.giftPool em infra.ts
   };
   rooms(ctx).set(room.id, room);
   await setMarried(ctx, p.id, { IsMarried: true, SpouseID: p.info.SpouseID, SpouseName: p.info.SpouseName ?? "", IsCreatedMarryRoom: true, SelfMarryRoomID: room.id });

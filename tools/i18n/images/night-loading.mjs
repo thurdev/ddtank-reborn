@@ -11,7 +11,7 @@ import {
   loadRaw, encode, extForFile, nightGradePixel, paintStars, paintVignette, addWindowGlow, seedFromString,
 } from "./night-grade.mjs";
 
-const SP = "C:/Users/<user>/AppData/Local/Temp/claude/C--Users-user-Documents-Projects-DDTank/c048f152-a1c9-45a2-b674-36b413e8f4d9/scratchpad";
+const SP = (process.env.DDT_SCRATCH ?? ".tmp_scratch");
 const EXPORT_ROOT = `${SP}/i18n/ffdec_out`;
 const NIGHT_STAGE = `${SP}/i18n/staged_loading`;
 const TINT = 230; // same night-blue/purple target hue as night-hall.mjs

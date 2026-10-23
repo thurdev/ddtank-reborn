@@ -2,7 +2,7 @@ import sharp from "sharp";
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
-const SP = "C:/Users/<user>/AppData/Local/Temp/claude/C--Users-user-Documents-Projects-DDTank/c048f152-a1c9-45a2-b674-36b413e8f4d9/scratchpad";
+const SP = (process.env.DDT_SCRATCH ?? ".tmp_scratch");
 const EXPORT_ROOT = `${SP}/i18n/ffdec_out`;
 const STAGE_ROOT = `${SP}/i18n/staged`;
 const LOADING_STAGE = `${SP}/i18n/staged_loading`;

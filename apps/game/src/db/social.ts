@@ -33,9 +33,11 @@ export async function addUserGift(db: Database, senderId: number, receiverId: nu
   await db.insert(player.Sys_Users_Gift).values({ SenderID: senderId, ReceiverID: receiverId, TemplateID: templateId, Count: count });
 }
 
-/** PlayerRank: the player's own earned titles (Sys_User_Rank, IsExit rows), used by 189 USER_CHANGE_RANK. */
-export async function loadUserRanks(db: Database, userId: number): Promise<{ Name: string | null; Validate: number; BeginDate: Date }[]> {
-  return db.select({ Name: player.Sys_User_Rank.Name, Validate: player.Sys_User_Rank.Validate, BeginDate: player.Sys_User_Rank.BeginDate })
+/** PlayerRank: the player's own earned titles (Sys_User_Rank, IsExit rows), used by 189 USER_CHANGE_RANK and
+ *  265 NEWTITLE_CARD (`handlers/bolsa/titulos.ts`). `NewTitleID` added for 41-titulo-por-cartao (was unused
+ *  by 189 while every title was granted by Name only, `NewTitleID` always 0; now real IDs exist). */
+export async function loadUserRanks(db: Database, userId: number): Promise<{ Name: string | null; Validate: number; BeginDate: Date; NewTitleID: number }[]> {
+  return db.select({ Name: player.Sys_User_Rank.Name, Validate: player.Sys_User_Rank.Validate, BeginDate: player.Sys_User_Rank.BeginDate, NewTitleID: player.Sys_User_Rank.NewTitleID })
     .from(player.Sys_User_Rank).where(and(eq(player.Sys_User_Rank.UserID, userId), eq(player.Sys_User_Rank.IsExit, true)));
 }
 

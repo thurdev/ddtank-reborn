@@ -7,7 +7,7 @@ import { join } from "node:path";
 
 const EXPORT_DIR =
   process.env.FFDEC_EXPORT ??
-  "C:/Users/<user>/AppData/Local/Temp/claude/C--Users-user-Documents-Projects-DDTank/c048f152-a1c9-45a2-b674-36b413e8f4d9/scratchpad/i18n/ffdec_out";
+  (process.env.DDT_SCRATCH ?? ".tmp_scratch") + "/i18n/ffdec_out";
 const OUT = "remaster";
 const inv = JSON.parse(readFileSync("research/i18n/image-inventory.json", "utf8")).rows;
 

@@ -1,0 +1,7 @@
+[
+  {
+    "why": "O original só mandava o erro pro servidor (sendErrorMsg) e o jogo ficava parado sem aviso. Agora também mostra no console qual pacote quebrou.",
+    "find": "    } catch (err: any) {\n      SocketManager.Instance.out.sendErrorMsg(err.message",
+    "replace": "    } catch (err: any) {\n      console.error(`[SocketManager] erro tratando pacote ${pkg?.code}:`, err);\n      SocketManager.Instance.out.sendErrorMsg(err.message"
+  }
+]
