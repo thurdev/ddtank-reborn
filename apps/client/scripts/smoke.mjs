@@ -30,6 +30,14 @@ page.on("requestfailed", (r) => logs.push(`[reqfail] ${r.url()} ${r.failure()?.e
 page.on("response", (r) => { if (r.status() >= 400) logs.push(`[http ${r.status()}] ${r.url()}`); });
 const cdp = await page.context().newCDPSession(page);
 await cdp.send("Debugger.enable");
+// SMOKE_WS=1: loga cada frame do WebSocket do jogo com o tempo (ms) — mede latência real
+if (process.env.SMOKE_WS) {
+  await cdp.send("Network.enable");
+  const t0 = Date.now();
+  const len = (p) => { try { return Buffer.from(p, "base64").length; } catch { return 0; } };
+  cdp.on("Network.webSocketFrameSent", (e) => logs.push(`[ws] +${Date.now() - t0}ms ↑ ${len(e.response.payloadData)} bytes`));
+  cdp.on("Network.webSocketFrameReceived", (e) => logs.push(`[ws] +${Date.now() - t0}ms ↓ ${len(e.response.payloadData)} bytes`));
+}
 // SMOKE_TRACE_URL="<regex>": mostra a pilha JS que pediu cada URL que bate (acha quem faz um 404)
 if (process.env.SMOKE_TRACE_URL) {
   const re = new RegExp(process.env.SMOKE_TRACE_URL);

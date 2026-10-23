@@ -15,10 +15,12 @@
  *   - teclado: KEY_DOWN/KEY_UP no objeto com foco (ou no palco);
  *   - modo debug (`?debug=true`): cada clique é logado com classe/arquivo/arte.
  */
-import { Application } from "pixi.js";
+import { Application, type Container } from "pixi.js";
 // overlay, hard-light, difference, lighten, darken... (efeitos de luz das batalhas); sem isso viram "normal"
 import "pixi.js/advanced-blend-modes";
 import { debugAttachStage, debugClick, dlog, DEBUG } from "./debug";
+import { applyInterp, restoreInterp, snapshot } from "./interp";
+import { startStats, Stats } from "./stats";
 import { Event } from "./events/Event";
 import { broadcastTargets } from "./events/EventDispatcher";
 import { KeyboardEvent } from "./events/KeyboardEvent";
@@ -127,19 +129,30 @@ export async function startPlayer(opts: PlayerOptions): Promise<Stage> {
     acc += now - last;
     last = now;
     if (acc > frameMs * 6) acc = frameMs * 6; // aba voltou do segundo plano: não tenta recuperar tudo
+    let ran = false;
     while (acc >= frameMs) {
       acc -= frameMs;
+      const t0 = performance.now();
       logicFrame();
+      Stats.logic(performance.now() - t0);
+      ran = true;
     }
     // loop nunca pode morrer: erro aqui congelaria a tela no último frame
     requestAnimationFrame(loop);
+    const t1 = performance.now();
     safe(() => flushRenderQueue(), "flushRenderQueue");
+    if (ran) safe(() => snapshot(app.stage), "interp");
     safe(() => InputOverlay.reposition(), "InputOverlay");
+    // lógica a 25 fps, desenho na taxa do monitor misturando o quadro anterior com o atual (interp.ts)
+    safe(() => applyInterp(app.stage, acc / frameMs), "interp");
     safe(() => app.renderer.render(app.stage), "render");
+    restoreInterp();
+    Stats.render(performance.now() - t1);
     Player.frames++;
   };
   app.ticker.stop();
   requestAnimationFrame(loop);
+  startStats(host, () => { let n = 0; const c = (o: Container) => { n++; for (const k of o.children) c(k as Container); }; c(app.stage); return n; });
 
   // ---------------------------------------------------- mouse
   const toStage = (e: PointerEvent | WheelEvent): Point => {

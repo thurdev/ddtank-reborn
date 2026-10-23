@@ -21,6 +21,8 @@
  *   ddtDebug.source(obj)    → arquivos de código/arte de um objeto
  */
 
+import { Stats } from "./stats";
+
 export const DEBUG: boolean = (() => {
   try {
     const q = new URLSearchParams(globalThis.location?.search ?? "");
@@ -245,6 +247,7 @@ function subName(code: number, pkg: any): string {
 
 /** ByteSocket do jogo chama em todo pacote enviado/recebido (só loga com ?debug=true) */
 export function debugGamePacket(dir: "in" | "out", code: number, size: number, pkg?: unknown): void {
+  Stats.packet(dir, code);
   if (!DEBUG || !enabled.has("packet")) return;
   debugPacket(dir, code, packetName(code) + subName(code, pkg), size, pkg);
 }
