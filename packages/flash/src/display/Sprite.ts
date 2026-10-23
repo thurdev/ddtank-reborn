@@ -39,7 +39,7 @@ export class Sprite extends DisplayObjectContainer {
       if (op.m) o.$setMatrix(new Matrix(...op.m));
       if (op.nm) { o.name = op.nm; (this as any)[op.nm] = o; }
       (o as any).$depth = op.d;
-      this.addChild(o);
+      this.$addAt(o, this.$children.length);
     }
     if (sym.char.grid) this.scale9Grid = new Rectangle(...sym.char.grid);
   }

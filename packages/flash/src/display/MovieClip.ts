@@ -266,7 +266,7 @@ export class MovieClip extends Sprite {
       if (d !== undefined && d > op.d) { idx = i; break; }
       if (d === undefined) { idx = i; break; }
     }
-    this.addChildAt(obj, idx);
+    this.$addAt(obj, idx);
     if (op.nm) (this as any)[op.nm] = obj;
   }
 
@@ -293,7 +293,7 @@ export class MovieClip extends Sprite {
     const p = this.$depths.get(d);
     if (!p) return;
     this.$depths.delete(d);
-    if (p.obj.$parent === this) this.removeChild(p.obj);
+    if (p.obj.$parent === this) this.$detach(p.obj);
     const nm = p.obj.$name;
     if (nm && (this as any)[nm] === p.obj) (this as any)[nm] = null;
   }

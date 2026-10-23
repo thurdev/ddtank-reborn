@@ -326,6 +326,11 @@ class FileEmitter {
     const ctor = d.members.find((m): m is MethodMember => m.kind === "method" && !m.accessor && !m.mods.isStatic && m.name === d.name);
     const isRootGameClass = !sup || sup.isNative;
     const movedInits = this.takePreSuperFieldInits(ctor, ci);
+    // campos que já têm valor por fields() (inicializador ou atribuição movida): não viram temporária
+    this.$initializedFields = new Set([
+      ...d.members.filter((m): m is FieldMember => m.kind === "field" && !m.mods.isStatic && !!m.init).map((m) => m.name),
+      ...movedInits.map((st: any) => (st.expr.left.kind === "member" ? st.expr.left.name : st.expr.left.name) as string),
+    ]);
     if (ctor || isRootGameClass) this.emitConstructor(d, ci, ctor, !!sup, isRootGameClass);
 
     // métodos e accessors
@@ -421,6 +426,48 @@ class FileEmitter {
       this.staticCtx = false;
     }
     this.cls = undefined;
+  }
+
+  /**
+   * Troca leituras/escritas de CAMPOS de instância (var, não getter/método) por
+   * variáveis temporárias, num comando antes do super(). Anota quais foram gravados.
+   */
+  private rewriteFieldsToTemps(st: Stmt, tempFor: (name: string) => string, written: Set<string>): Stmt {
+    const isField = (name: string) => {
+      const m = this.cls && this.project.findInstance(this.cls, name);
+      return !!m && (m.kind === "field" || m.kind === "const") && m.owner === this.cls;
+    };
+    const fieldName = (n: any): string | undefined => {
+      if (n?.kind === "member" && n.obj?.kind === "this" && isField(n.name)) return n.name;
+      if (n?.kind === "id" && !this.lookupLocal(n.name) && isField(n.name)) return n.name;
+      return undefined;
+    };
+    // campo com valor inicial (fields()) lido aqui: não dá pra adiantar — o comando fica pra depois do super
+    let abort = false;
+    const check = (n: any): void => {
+      if (abort || !n || typeof n !== "object") return;
+      if (Array.isArray(n)) { n.forEach(check); return; }
+      const f = fieldName(n);
+      if (f && this.$initializedFields.has(f)) { abort = true; return; }
+      for (const v of Object.values(n)) if (typeof v === "object") check(v);
+    };
+    check(st);
+    if (abort) return st;
+    const visit = (n: any): any => {
+      if (!n || typeof n !== "object") return n;
+      if (Array.isArray(n)) return n.map(visit);
+      if (n.kind === "func") return n;
+      if ((n.kind === "assign" || n.kind === "update") && fieldName(n.kind === "assign" ? n.left : n.arg)) {
+        const f = fieldName(n.kind === "assign" ? n.left : n.arg)!;
+        written.add(f);
+      }
+      const f = fieldName(n);
+      if (f) return { kind: "id", name: tempFor(f), pos: n.pos };
+      const out: any = {};
+      for (const [k, v] of Object.entries(n)) out[k] = typeof v === "object" ? visit(v) : v;
+      return out;
+    };
+    return visit(st);
   }
 
   /** `this.f = E` / `f = E` (f campo de instância)? devolve f */
@@ -595,21 +642,32 @@ class FileEmitter {
         else {
           // `this.f = E` antes do super(): vira local temporária (`$pre_f`), usada nos
           // argumentos do super e atribuída ao campo logo depois do super()
+          // Campos lidos/gravados antes do super() (inclusive dentro de if/else)
+          // viram variáveis `$pre_campo`; depois do super() os gravados são copiados.
           const temps = new Map<string, string>();
-          const after: string[] = [];
-          for (let i = 0; i < idx; i++) {
-            const st = body[i]!;
-            const fieldName = this.preSuperFieldAssign(st);
-            if (fieldName && !this.usesThis((st as any).expr.right)) {
-              const tmp = `$pre_${fieldName}`;
-              const m = this.cls && this.project.findInstance(this.cls, fieldName);
+          const written = new Set<string>();
+          const tempFor = (name: string): string => {
+            let tmp = temps.get(name);
+            if (!tmp) {
+              tmp = `$pre_${name}`;
+              const m = this.cls && this.project.findInstance(this.cls, name);
               const t = m ? this.memberType(m) : ANY;
               this.declareLocal(tmp, t);
-              this.line(`var ${tmp} = ${this.coerceTo(t, (st as any).expr.right)};`);
-              temps.set(fieldName, tmp);
-              after.push(`this.${m?.emitName ?? fieldName} = ${tmp};`);
-            } else if (this.usesThis(st)) deferred.push(st);
-            else this.stmt(st);
+              this.line(`var ${tmp}: ${this.tsType(m?.type)} = ${defaultValue(t)};`);
+              temps.set(name, tmp);
+            }
+            return tmp;
+          };
+          for (let i = 0; i < idx; i++) {
+            const st = body[i]!;
+            const rewritten = this.rewriteFieldsToTemps(st, tempFor, written);
+            if (this.usesThis(rewritten)) deferred.push(st);
+            else this.stmt(rewritten);
+          }
+          const after: string[] = [];
+          for (const name of written) {
+            const m = this.cls && this.project.findInstance(this.cls, name);
+            after.push(`this.${m?.emitName ?? name} = ${temps.get(name)};`);
           }
           const sup = body[idx]! as Stmt & { kind: "expr" };
           const call = sup.expr as Expr & { kind: "call" };
@@ -824,6 +882,7 @@ class FileEmitter {
 
   private loopDepth = 0;
   private $lazyStatics: FieldMember[] = [];
+  private $initializedFields = new Set<string>();
 
   private declareLocalBlock(name: string, t: RType): string {
     this.scope.vars.set(name, t);

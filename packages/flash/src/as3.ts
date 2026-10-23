@@ -58,7 +58,7 @@ export function $cls<T = any>(fqn: string): T {
 }
 
 export function $tryCls(fqn: string): any {
-  return registry.get(fqn.replace("::", "."));
+  return fqn ? registry.get(String(fqn).replace("::", ".")) : undefined;
 }
 
 // debug.ts acha classes por nome sem importar este módulo (evita ciclo)

@@ -31,12 +31,12 @@ const cache = new Map<string, Promise<SwfLibrary>>();
 
 type Img = HTMLImageElement | ImageBitmap;
 
+/**
+ * `<img>` em vez de ImageBitmap: o navegador só decodifica quando desenha e
+ * pode descartar a versão decodificada sob pressão de memória (com centenas
+ * de PNGs por "SWF" isso faz diferença grande).
+ */
 async function loadImage(url: string): Promise<Img> {
-  if (typeof createImageBitmap !== "undefined" && typeof fetch !== "undefined") {
-    const r = await fetch(url);
-    if (!r.ok) throw new Error(`${r.status} ${url}`);
-    return await createImageBitmap(await r.blob(), { premultiplyAlpha: "premultiply" });
-  }
   return await new Promise((res, rej) => {
     const im = new Image();
     im.onload = () => res(im);
@@ -129,8 +129,8 @@ export class SwfLibrary {
     if (!t) {
       const im = this.imgs.get(id);
       if (!im) return undefined;
-      // ImageBitmap já vem pré-multiplicado (createImageBitmap premultiply)
-      t = new Texture({ source: new ImageSource({ resource: im as any, alphaMode: "premultiplied-alpha" }) });
+      // <img>: o Pixi pré-multiplica no upload; ImageBitmap já vem pré-multiplicado
+      t = new Texture({ source: new ImageSource({ resource: im as any, alphaMode: im instanceof HTMLImageElement ? "premultiply-alpha-on-upload" : "premultiplied-alpha" }) });
       this.texs.set(id, t);
     }
     return t;

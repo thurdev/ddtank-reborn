@@ -34,6 +34,12 @@ if (process.env.SMOKE_WAIT_FOR) {
 }
 // página travada (loop infinito)? pausa o JS e mostra onde está
 const alive = await Promise.race([page.evaluate(() => 1).then(() => true), new Promise((r) => setTimeout(() => r(false), 3000))]);
+if (alive) {
+  await cdp.send("Performance.enable").catch(() => {});
+  const m = await cdp.send("Performance.getMetrics").catch(() => ({ metrics: [] }));
+  const get = (n) => Math.round((m.metrics.find((x) => x.name === n)?.value ?? 0) / 1048576);
+  console.log(`--- memória JS: ${get("JSHeapUsedSize")} MB usados / ${get("JSHeapTotalSize")} MB`);
+}
 if (!alive) {
   const paused = new Promise((r) => cdp.once("Debugger.paused", r));
   await cdp.send("Debugger.pause");
@@ -44,8 +50,39 @@ if (!alive) {
 }
 for (const pair of (process.env.SMOKE_CLICKS ?? "").split(";").filter(Boolean)) {
   const [x, y] = pair.split(",").map(Number);
-  await page.mouse.click(x, y);
-  await page.waitForTimeout(3000);
+  try {
+    // SMOKE_PAUSE_MS: pausa o JS esse tempo depois do clique e mostra a pilha (acha loop que derruba a aba)
+    const pauseMs = Number(process.env.SMOKE_PAUSE_MS ?? 0);
+    const clickP = page.mouse.click(x, y);
+    if (pauseMs) {
+      await new Promise((r) => setTimeout(r, pauseMs));
+      const paused = new Promise((r) => cdp.once("Debugger.paused", r));
+      await cdp.send("Debugger.pause");
+      const ev = await Promise.race([paused, new Promise((r) => setTimeout(() => r(null), 5000))]);
+      console.log(`=== pilha ${pauseMs}ms depois do clique (${x}, ${y}) ===`);
+      for (const f of ev?.callFrames?.slice(0, 25) ?? []) console.log(`  ${f.functionName || "(anon)"} @ ${f.url.replace(/^.*\/src\//, "src/").replace(/\?.*$/, "")}:${f.location.lineNumber + 1}`);
+      await cdp.send("Debugger.resume").catch(() => {});
+    }
+    await clickP;
+    console.log(`--- clique (${x}, ${y})`);
+    // SMOKE_SAMPLE_S: amostra a pilha a cada 0,4s por N segundos (pega loop que derruba a aba)
+    const sampleS = Number(process.env.SMOKE_SAMPLE_S ?? 0);
+    let last = "";
+    for (let t = 0; t < sampleS * 1000; t += 400) {
+      const paused = new Promise((r) => cdp.once("Debugger.paused", r));
+      await cdp.send("Debugger.pause");
+      const ev = await Promise.race([paused, new Promise((r) => setTimeout(() => r(null), 3000))]);
+      const st = (ev?.callFrames ?? []).slice(0, 12).map((f) => `  ${f.functionName || "(anon)"} @ ${f.url.replace(/^.*\/src\//, "src/").replace(/\?.*$/, "")}:${f.location.lineNumber + 1}`).join("\n");
+      if (st && st !== last) { console.log(`=== pilha t=${t}ms ===\n${st}`); last = st; }
+      await cdp.send("Debugger.resume");
+      await new Promise((r) => setTimeout(r, 400));
+    }
+    await page.waitForTimeout(3000);
+  } catch (e) {
+    console.log(`--- clique (${x}, ${y}) FALHOU: ${String(e.message).split(/\r?\n/)[0]}`);
+    logs.forEach((l) => console.log(l.slice(0, 300)));
+    process.exit(1);
+  }
 }
 if (process.env.SMOKE_EVAL && alive) {
   try { console.log("=== SMOKE_EVAL ===\n" + JSON.stringify(await page.evaluate(process.env.SMOKE_EVAL), null, 1)); }

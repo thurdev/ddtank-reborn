@@ -30,23 +30,38 @@ export class DisplayObjectContainer extends InteractiveObject {
   set mouseChildren(v: boolean) { this.$mouseChildren = !!v; }
   get textSnapshot(): any { return null; }
 
+  // Regra: métodos públicos do Flash NUNCA chamam outros métodos públicos (classes do
+  // jogo sobrescrevem addChild/removeChildAt... pra redirecionar pra um container
+  // interno; no Flash nativo um não passava pelo outro). Tudo vai pelos $internos.
+
   addChild<T extends DisplayObject>(child: T): T {
     if (!child) throw new TypeError("Error #2007: Parameter child must be non-null.");
     const at = child.$parent === this ? this.$children.length - 1 : this.$children.length;
-    return this.addChildAt(child, at);
+    return this.$addAt(child, at);
   }
 
   addChildAt<T extends DisplayObject>(child: T, index: number): T {
+    return this.$addAt(child, index);
+  }
+
+  /** inserção de verdade (não sobrescrevível) */
+  $addAt<T extends DisplayObject>(child: T, index: number): T {
     if (!child) throw new TypeError("Error #2007: Parameter child must be non-null.");
     if ((child as unknown) === this) throw new Error("Error #2024: An object cannot be added as a child of itself.");
     for (let p: any = this.$parent; p; p = p.$parent) if (p === child) throw new Error("Error #2150: An object cannot be added as a child to one of it's children (or children's children, etc.).");
     if (child.$parent === this) {
       if (index < 0 || index >= this.$children.length) throw rangeError();
-      this.setChildIndex(child, index);
+      this.$setIndex(child, index);
       return child;
     }
     if (index < 0 || index > this.$children.length) throw rangeError();
-    if (child.$parent) child.$parent.removeChild(child);
+    // tira do pai antigo pelo caminho interno
+    if (child.$parent) {
+      const old = child.$parent as any;
+      if (typeof old.$detach === "function") old.$detach(child);
+      else child.$parent = null; // pai "virtual" (estado de SimpleButton)
+    }
+    index = Math.min(index, this.$children.length);
     this.$children.splice(index, 0, child);
     this.$childLayer.addChildAt(child.$node, index);
     child.$parent = this;
@@ -57,19 +72,26 @@ export class DisplayObjectContainer extends InteractiveObject {
   }
 
   removeChild<T extends DisplayObject>(child: T): T {
-    const i = this.$children.indexOf(child);
-    if (i < 0) throw new ArgumentError2025();
-    return this.removeChildAt(i) as T;
+    if (this.$children.indexOf(child) < 0) throw new ArgumentError2025();
+    return this.$detach(child) as T;
   }
 
   removeChildAt(index: number): DisplayObject {
     const child = this.$children[index];
     if (!child) throw rangeError();
+    return this.$detach(child);
+  }
+
+  /** remoção de verdade (não sobrescrevível): eventos REMOVED/REMOVED_FROM_STAGE e tira da lista */
+  $detach(child: DisplayObject): DisplayObject {
+    if (this.$children.indexOf(child) < 0) return child;
     child.dispatchEvent(new Event(Event.REMOVED, true));
-    // listener do REMOVED pode ter mexido na lista
+    // listeners de REMOVED / REMOVED_FROM_STAGE podem mexer na lista (o SpriteLayer do
+    // pickgliss reinsere a camada de bloqueio): o índice é calculado só no fim
+    if (this.$children.indexOf(child) < 0) return child;
+    if (child.$stage) propagateStage(child, null);
     const i = this.$children.indexOf(child);
     if (i < 0) return child;
-    if (child.$stage) propagateStage(child, null);
     this.$children.splice(i, 1);
     this.$childLayer.removeChild(child.$node);
     child.$parent = null;
@@ -79,7 +101,7 @@ export class DisplayObjectContainer extends InteractiveObject {
 
   removeChildren(begin = 0, end = 0x7fffffff): void {
     const last = Math.min(end, this.$children.length - 1);
-    for (let i = last; i >= begin; i--) this.removeChildAt(i);
+    for (let i = last; i >= begin; i--) { const c = this.$children[i]; if (c) this.$detach(c); }
   }
 
   getChildAt(index: number): DisplayObject {
@@ -99,7 +121,12 @@ export class DisplayObjectContainer extends InteractiveObject {
   }
 
   setChildIndex(child: DisplayObject, index: number): void {
-    const i = this.getChildIndex(child);
+    this.$setIndex(child, index);
+  }
+
+  $setIndex(child: DisplayObject, index: number): void {
+    const i = this.$children.indexOf(child);
+    if (i < 0) throw new ArgumentError2025();
     if (index < 0 || index >= this.$children.length) throw rangeError();
     if (i === index) return;
     this.$children.splice(i, 1);
@@ -108,12 +135,19 @@ export class DisplayObjectContainer extends InteractiveObject {
   }
 
   swapChildren(a: DisplayObject, b: DisplayObject): void {
-    this.swapChildrenAt(this.getChildIndex(a), this.getChildIndex(b));
+    const i = this.$children.indexOf(a), j = this.$children.indexOf(b);
+    if (i < 0 || j < 0) throw new ArgumentError2025();
+    this.$swap(i, j);
   }
 
   swapChildrenAt(i: number, j: number): void {
-    const a = this.getChildAt(i), b = this.getChildAt(j);
+    if (!this.$children[i] || !this.$children[j]) throw rangeError();
+    this.$swap(i, j);
+  }
+
+  $swap(i: number, j: number): void {
     if (i === j) return;
+    const a = this.$children[i]!, b = this.$children[j]!;
     this.$children[i] = b;
     this.$children[j] = a;
     this.$childLayer.swapChildren(a.$node, b.$node);

@@ -127,10 +127,12 @@ export async function startPlayer(opts: PlayerOptions): Promise<Stage> {
       acc -= frameMs;
       logicFrame();
     }
-    flushRenderQueue();
-    InputOverlay.reposition();
-    app.renderer.render(app.stage);
+    // loop nunca pode morrer: erro aqui congelaria a tela no último frame
     requestAnimationFrame(loop);
+    safe(() => flushRenderQueue(), "flushRenderQueue");
+    safe(() => InputOverlay.reposition(), "InputOverlay");
+    safe(() => app.renderer.render(app.stage), "render");
+    Player.frames++;
   };
   app.ticker.stop();
   requestAnimationFrame(loop);

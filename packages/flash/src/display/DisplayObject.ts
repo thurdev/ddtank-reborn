@@ -260,10 +260,13 @@ export class DisplayObject extends EventDispatcher {
     this.$applyFilters();
   }
 
+  /** filtros Pixi atuais (reaproveitados entre frames — ver filters/convert.ts) */
+  $pfilters: Filter[] = [];
   $applyFilters(): void {
+    this.$pfilters = toPixiFilters(this.$filters, this.$pfilters);
     const list: Filter[] = [];
     if (this.$colorFilter) list.push(this.$colorFilter);
-    list.push(...toPixiFilters(this.$filters));
+    list.push(...this.$pfilters);
     this.$node.filters = list.length ? list : null;
   }
 
@@ -408,5 +411,5 @@ export function transformRect(r: Rectangle, m: Matrix): Rectangle {
 }
 
 /** estado global do "player" que o display precisa (posição do mouse) */
-export const Player = { mouseX: 0, mouseY: 0 };
+export const Player = { mouseX: 0, mouseY: 0, /** frames desenhados (debug: ddtDebug.stage + Player.frames) */ frames: 0 };
 

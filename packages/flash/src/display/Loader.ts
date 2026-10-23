@@ -83,7 +83,7 @@ export class Loader extends DisplayObjectContainer {
       info.$frameRate = fps;
       info.$bytesLoaded = info.$bytesTotal = 1;
       content.$loaderInfo = info;
-      this.addChild(content);
+      this.$addAt(content, this.$children.length);
       safe(() => info.dispatchEvent(new ProgressEvent(ProgressEvent.PROGRESS, false, false, 1, 1)), "Loader.PROGRESS");
       safe(() => info.dispatchEvent(new Event(Event.INIT)), "Loader.INIT");
       safe(() => info.dispatchEvent(new Event(Event.COMPLETE)), "Loader.COMPLETE");
@@ -106,7 +106,13 @@ export class Loader extends DisplayObjectContainer {
     httpRequest({ url }).then(async (res) => {
       if (res.status >= 400) return fail(String(res.status));
       try {
-        const img = await createImageBitmap(new Blob([res.bytes as BlobPart]), { premultiplyAlpha: "premultiply" });
+        // <img> (decodifica sob demanda) a partir dos bytes já baixados
+        const img = await new Promise<HTMLImageElement>((ok, bad) => {
+          const im = new Image();
+          im.onload = () => ok(im);
+          im.onerror = () => bad(new Error("The source image could not be decoded."));
+          im.src = URL.createObjectURL(new Blob([res.bytes as BlobPart]));
+        });
         const bd = BitmapData.$fromImage(img as any, rewriteUrl(url));
         done(new Bitmap(bd), img.width, img.height);
       } catch (e) {
@@ -116,7 +122,7 @@ export class Loader extends DisplayObjectContainer {
   }
 
   unload(): void {
-    if (this.$content && this.$content.$parent === this) this.removeChild(this.$content);
+    if (this.$content && this.$content.$parent === this) this.$detach(this.$content);
     this.$content = null;
     this.$info.$content = null;
   }

@@ -54,6 +54,11 @@ export class BitmapData {
   constructor(width: number, height: number, transparent = true, fillColor = 0xffffffff) {
     this.$w = Math.max(0, Math.floor(width));
     this.$h = Math.max(0, Math.floor(height));
+    // limite do Flash Player 11+ (8191 de lado, 16.777.215 pixels): acima disso o Flash lança
+    // ArgumentError #2015 — sem isso o navegador tenta alocar e a aba cai
+    if (!(this.$w <= 8191 && this.$h <= 8191 && this.$w * this.$h <= 16777215)) {
+      throw Object.assign(new Error(`Error #2015: Invalid BitmapData (${width}x${height}).`), { name: "ArgumentError", errorID: 2015 });
+    }
     this.$transparent = transparent;
     if (this.$w > 0 && this.$h > 0) {
       this.$ensureCanvas();
