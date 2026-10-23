@@ -396,6 +396,49 @@ export class UninitializedError extends Error {
   constructor(message = "", public errorID = 0) { super(message); this.name = "UninitializedError"; }
 }
 
+// ------------------------------------------------------------------ escrita dinâmica tipada
+const fieldTypes = new WeakMap<Function, Map<string, string>>();
+function typesOf(ctor: any): Map<string, string> {
+  let m = fieldTypes.get(ctor);
+  if (!m) {
+    m = new Map();
+    const chain: any[] = [];
+    for (let c = ctor; c && c !== Object && c !== Function.prototype; c = Object.getPrototypeOf(c)) chain.unshift(c);
+    for (const c of chain) {
+      const d: string | undefined = Object.hasOwn(c, "$describe") ? c.$describe : undefined;
+      if (!d) continue;
+      for (const part of d.split(";")) {
+        const [kind, name, type] = part.split(":");
+        if ((kind === "v" || kind === "a") && name && type) m.set(name, type);
+      }
+    }
+    fieldTypes.set(ctor, m);
+  }
+  return m;
+}
+
+/**
+ * `obj[nome] = v` dinâmico. No AS3, gravar num campo declarado converte o
+ * valor pro tipo do campo (string "9131" em `Port:Number` vira 9131). Aqui
+ * usamos os tipos dos metadados de `$class` pra fazer o mesmo.
+ */
+export function $dset(obj: any, key: any, v: any): any {
+  if (obj !== null && typeof obj === "object" && typeof key === "string") {
+    const c = obj.constructor;
+    if (c && "$fqn" in c) {
+      switch (typesOf(c).get(key)) {
+        case "int": v = Number(v) | 0; break;
+        case "uint": v = Number(v) >>> 0; break;
+        case "Number": v = Number(v); break;
+        case "String": v = v == null ? null : String(v); break;
+        case "Boolean": v = Boolean(v); break;
+      }
+    }
+  }
+  obj[key] = v;
+  return v;
+}
+
 // ------------------------------------------------------------------ hasOwnProperty do AS3
 /**
  * No AS3, `obj.hasOwnProperty("x")` é true também pra propriedades/métodos

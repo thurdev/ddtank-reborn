@@ -25,7 +25,7 @@ import type {
 } from "./ast.js";
 import type { ClassInfo, FileInfo, MemberInfo, Project } from "./project.js";
 import {
-  ANY, ARRAY_T, AS3_RUNTIME_GLOBALS, BOOLEAN, INT, isDictT, isIntT, isNumT, isVectorT, isXmlT, JS_GLOBALS, NUMBER,
+  ANY, ARRAY_T, AS3_RUNTIME_GLOBALS, BOOLEAN, INT, isIntT, isNumT, isVectorT, isXmlT, JS_GLOBALS, NUMBER,
   RESERVED_LOCALS, STRING, STRING_METHODS, UINT, XML_METHODS, XML_T, XMLLIST_T, type RType,
 } from "./types.js";
 
@@ -880,7 +880,8 @@ class FileEmitter {
     const et0 = this.typeOf(e);
     // XML/XMLList/número atribuído a String (e XML a Number) converte no AS3
     if (t.fqn === "String" && (isXmlT(et0) || isNumT(et0) || et0.fqn === "Boolean")) return `String(${this.expr(e)})`;
-    if (t.fqn === "Number" && (isXmlT(et0) || et0.fqn === "String")) return `Number(${this.expr(e)})`;
+    // AS3 converte pra Number na atribuição (ex.: string vinda do XML em `rect.left = args[0]`)
+    if (t.fqn === "Number" && !isNumT(et0) && e.kind !== "num") return `Number(${this.expr(e)})`;
     if (t.fqn === "Boolean" && et0.fqn === "XMLList") return `(${this.expr(e)}.toString() != "")`;
     if (t.fqn === "int" && !isIntT(this.typeOf(e)) && !isIntLiteral(e)) return `${this.rt("int")}(${this.expr(e)})`;
     if (t.fqn === "uint") {
@@ -1147,7 +1148,7 @@ class FileEmitter {
       case "member": return [this.memberExpr(e, false), 18];
       case "index": {
         const ot = this.typeOf(e.obj);
-        if (isDictT(ot)) return [`${this.expr(e.obj, 18)}.get(${this.expr(e.index)})`, 18];
+        if (this.isDict(ot)) return [`${this.expr(e.obj, 18)}.get(${this.expr(e.index)})`, 18];
         if (this.isByteArray(ot)) return [`${this.expr(e.obj, 18)}.$get(${this.expr(e.index)})`, 18];
         return [`${this.expr(e.obj, 18)}[${this.expr(e.index)}]`, 18];
       }
@@ -1173,7 +1174,7 @@ class FileEmitter {
       case "unary": {
         if (e.op === "delete") {
           const a = e.arg;
-          if (a.kind === "index" && isDictT(this.typeOf(a.obj))) return [`${this.expr(a.obj, 18)}.delete(${this.expr(a.index)})`, 18];
+          if (a.kind === "index" && this.isDict(this.typeOf(a.obj))) return [`${this.expr(a.obj, 18)}.delete(${this.expr(a.index)})`, 18];
           if (a.kind === "attr" && typeof a.name === "string") return [`${this.expr(a.obj, 18)}.deleteAttribute(${JSON.stringify(a.name)})`, 18];
           return [`delete ${this.expr(a, 15)}`, 15];
         }
@@ -1186,7 +1187,7 @@ class FileEmitter {
       }
       case "update": {
         const a = e.arg;
-        if (a.kind === "index" && isDictT(this.typeOf(a.obj))) {
+        if (a.kind === "index" && this.isDict(this.typeOf(a.obj))) {
           const o = this.expr(a.obj, 18);
           const k = this.expr(a.index);
           return [`${o}.set(${k}, ${o}.get(${k}) ${e.op === "++" ? "+" : "-"} 1)`, 18];
@@ -1240,6 +1241,11 @@ class FileEmitter {
       }
     }
     return `${obj}.${e.name}`;
+  }
+
+  /** Dictionary ou subclasse (ex.: road7th.data.DictionaryData) */
+  private isDict(t: RType): boolean {
+    return !t.classRef && this.project.isSubclass(this.project.classes.get(t.fqn), "flash.utils.Dictionary");
   }
 
   private isByteArray(t: RType): boolean {
@@ -1360,7 +1366,7 @@ class FileEmitter {
     }
     if (op === "in") {
       const rt = this.typeOf(e.right);
-      if (isDictT(rt)) return [`${this.expr(e.right, 18)}.has(${this.expr(e.left)})`, 18];
+      if (this.isDict(rt)) return [`${this.expr(e.right, 18)}.has(${this.expr(e.left)})`, 18];
       return [`${this.rt("$in")}(${this.expr(e.left, 2)}, ${this.expr(e.right, 2)})`, 18];
     }
     const p = PREC[op] ?? 10;
@@ -1386,11 +1392,18 @@ class FileEmitter {
       if (op === "=") return `${o}.$setAt(${k}, ${this.expr(e.right, 2)})`;
       return `${o}.$setAt(${k}, ${o}.$get(${k}) ${op.slice(0, -1)} ${this.expr(e.right, 13)})`;
     }
-    if (l.kind === "index" && isDictT(this.typeOf(l.obj))) {
+    if (l.kind === "index" && this.isDict(this.typeOf(l.obj))) {
       const obj = this.expr(l.obj, 18);
       const k = this.expr(l.index);
       if (op === "=") return `${obj}.set(${k}, ${this.expr(e.right, 2)})`;
       return `${obj}.set(${k}, ${obj}.get(${k}) ${op.slice(0, -1)} ${this.expr(e.right, 13)})`;
+    }
+    // `obj[nome] = v` em objeto sem tipo/classe: o AS3 converte pro tipo do campo
+    // declarado (ex.: ObjectUtils.copyPorpertiesByXML grava string em campo Number)
+    if (l.kind === "index" && op === "=") {
+      const ot = this.typeOf(l.obj);
+      const plain = isVectorT(ot) || ot.fqn === "Array" || this.isByteArray(ot) || isXmlT(ot);
+      if (!plain) return `${this.rt("$dset")}(${this.expr(l.obj, 2)}, ${this.expr(l.index, 2)}, ${this.expr(e.right, 2)})`;
     }
     const lt = this.typeOf(l);
     const left = this.expr(l, 18);
