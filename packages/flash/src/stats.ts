@@ -26,10 +26,21 @@ export const Stats = {
   /** chamado pelo ByteSocket (via debugGamePacket) a cada pacote */
   packet(dir: "in" | "out", code: number): void {
     const now = performance.now();
-    if (dir === "out") { pout++; pendingOut.set(code, now); return; }
+    if (dir === "out") {
+      pout++;
+      // 4 = PING (responde ao ping do servidor, não é pedido) — não mede
+      if (code !== 4) pendingOut.set(code, now);
+      return;
+    }
     pin++;
+    // só conta resposta a um pedido recente com o mesmo código (ping do servidor, avisos e
+    // pacotes "empurrados" não têm pedido e ficavam com RTT de segundos)
     const t = pendingOut.get(code);
-    if (t !== undefined) { rtt = rtt < 0 ? now - t : rtt * 0.7 + (now - t) * 0.3; pendingOut.delete(code); }
+    if (t !== undefined) {
+      pendingOut.delete(code);
+      const d = now - t;
+      if (d < 5000) rtt = rtt < 0 ? d : rtt * 0.7 + d * 0.3;
+    }
   },
 };
 
