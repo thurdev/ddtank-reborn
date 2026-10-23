@@ -14,7 +14,7 @@ funciona sem erro no console; detalhes visuais anotados.
 | Login (HTTP + WebSocket) | OK | |
 | Hall (prédios, tooltips, ícones) | OK | |
 | Lista de salas PvP / criar sala / sala | OK | |
-| Fila automática → batalha PvP contra bot | OK | turnos, tiro, vento, minimapa |
+| Fila automática → batalha PvP contra bot | OK | turnos, tiro, vento, minimapa, balões de fala |
 | Expedição (lista, criar sala, escolher instância) | OK | |
 | Batalha PvE + tela de derrota (LOSE) | OK | |
 
@@ -35,7 +35,7 @@ funciona sem erro no console; detalhes visuais anotados.
 | Sociedade | OK | |
 | Igreja (casamento) | OK | |
 | Leilão | OK | |
-| Academia (Escola) | OK | faixas brancas no botão "Aceitar Discípulo" |
+| Academia (Escola) | OK | botão "Aceitar Discípulo": o próprio PNG traduzido (`academy/shapes/46.png`) tem o meio claro — arte |
 | Centro de Namoro (Amizades) | OK | |
 | Laboratório de Combate (Campo de Treino) | OK | alguns nomes de curso se sobrepõem (texto longo do `language.txt`) |
 | Fazenda | NÃO ABRE | bug do servidor, ver [BUGS-SERVIDOR.md](BUGS-SERVIDOR.md) |
