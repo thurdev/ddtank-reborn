@@ -24,3 +24,8 @@ research/i18n/model-test/
 tools/remaster/*.traineddata
 tools/remaster/_lang/
 .claude/worktrees/
+
+# capturas/modelos soltos na raiz (prints de teste, OCR) — não versionar
+/*.png
+/*.jpg
+/*.traineddata

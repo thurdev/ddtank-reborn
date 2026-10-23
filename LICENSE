@@ -22,7 +22,10 @@ SOFTWARE.
 
 ---
 
-This license covers the DDTank Reborn source code. Third-party material (the
+This license covers the DDTank Reborn source code only. The "DDTank Reborn"
+name, logo and site key art are reserved, and the project's original HD
+remaster art, translated images and PT-BR texts are licensed CC BY-NC-SA 4.0
+-- see BRAND.md. Third-party material (the
 SkelletonX/DDTank4.1 PT-BR translation and art, the original C# reference
 servers) keeps its own license/credits, listed in THIRD_PARTY_NOTICES.md.
 DDTank, its name, original client and game art belong to their respective
