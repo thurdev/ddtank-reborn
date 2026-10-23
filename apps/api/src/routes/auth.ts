@@ -96,6 +96,8 @@ export async function playConfig(ctx: AppCtx, acc: { ID: number; UserName: strin
   const proxy = await channelSocketProxies(ctx);
   return {
     rufflePath: c.RUFFLE_URL || `${base}/ruffle/ruffle.js`,
+    // cliente PixiJS (TypeScript, sem SWF): a página abre num iframe com user/key/api
+    pixiUrl: fl === "flash" && c.PIXI_CLIENT_URL ? c.PIXI_CLIENT_URL : undefined,
     swfUrl: `${base}/${fl}/Loading.swf`,
     base: `${base}/${fl}/`,
     flashvars,

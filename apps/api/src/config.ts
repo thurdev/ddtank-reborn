@@ -62,6 +62,8 @@ const schema = z.object({
   /** Ruffle self-hosted build (ruffle.js + wasm). Served at /ruffle/. */
   RUFFLE_DIR: z.string().default(resolve(REPO_ROOT, "apps", "client-harness", "public", "ruffle")),
   RUFFLE_URL: z.string().default(""),
+  /** Cliente PixiJS (apps/client), ex.: http://localhost:5180/. Definido = o site abre ele num iframe em vez do Ruffle (só cliente 4.1). */
+  PIXI_CLIENT_URL: z.string().default(""),
 
   /** Game server (apps/game) as seen by the client. */
   GAME_HOST: z.string().default("127.0.0.1"),
