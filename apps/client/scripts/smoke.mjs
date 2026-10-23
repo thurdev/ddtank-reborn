@@ -62,6 +62,8 @@ if (!alive) {
 for (const pair of (process.env.SMOKE_CLICKS ?? "").split(";").filter(Boolean)) {
   // "wait:10" = espera 10s entre cliques
   if (pair.startsWith("wait:")) { await page.waitForTimeout(Number(pair.slice(5)) * 1000); continue; }
+  // "shot:a.png" = print no meio do roteiro
+  if (pair.startsWith("shot:")) { await page.screenshot({ path: pair.slice(5), timeout: 8000 }).catch(() => {}); console.log(`--- print ${pair.slice(5)}`); continue; }
   // "key:Space:1200" = segura a tecla 1,2s (atirar); "key:ArrowLeft:500" = anda
   if (pair.startsWith("key:")) {
     const [, key, ms = "80"] = pair.split(":");
