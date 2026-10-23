@@ -336,6 +336,41 @@ describe("85 MATE_ONLINE_TIME", () => {
 });
 
 describe("81 FARM — plant, fast-forward, harvest (main flow)", () => {
+  it("ENTER_FARM echoes the exact AbstractPacketLib.SendEnterFarm layout (FarmModelController.__onEnterFarm)", async () => {
+    const p = await loggedIn(server, { grade: 30, money: 100_000 });
+    p.c.out(81, (o) => { o.writeByte(1); o.writeInt(0); }); // ENTER_FARM self
+    const entered = await p.c.code(81, 1);
+    const pkt = entered.pkt;
+    expect(pkt.readByte()).toBe(1); // sub
+    expect(pkt.readInt()).toBe(p.ch.userId); // FarmID
+    expect(pkt.readBoolean()).toBe(false); // isFarmHelper
+    expect(pkt.readInt()).toBe(0); // isAutoId
+    pkt.readDateTime(true); // AutoPayTime
+    pkt.readInt(); // AutoValidDate
+    expect(pkt.readInt()).toBe(0); // GainFieldId
+    expect(pkt.readInt()).toBe(0); // KillCropId
+    const count = pkt.readInt();
+    expect(count).toBe(8); // STARTER_FIELDS, fresh farm
+    for (let i = 0; i < count; i++) {
+      expect(pkt.readInt()).toBe(i); // FieldID, in slot order
+      expect(pkt.readInt()).toBe(0); // SeedID
+      pkt.readDateTime(true); // PayTime
+      pkt.readDateTime(true); // PlantTime
+      expect(pkt.readInt()).toBe(0); // GainCount
+      expect(pkt.readInt()).toBe(1); // FieldValidDate
+      expect(pkt.readInt()).toBe(0); // AccelerateTime
+    }
+    // own farm: extra block (SendEnterFarm's `farm.FarmID == Player.ID` branch)
+    expect(pkt.readInt()).toBe(server.ctx.templates.cfgInt("FastGrowNeedMoney", 10)); // FastGrowNeedMoney
+    pkt.readString(); // PayFieldMoney
+    pkt.readString(); // PayAutoMoney
+    pkt.readDateTime(true); // AutoPayTime (again)
+    pkt.readInt(); // AutoValidDate (again)
+    expect(pkt.readInt()).toBe(p.player().info.VIPLevel); // VIPLevel
+    expect(pkt.readInt()).toBe(20); // buyExpRemainNum default
+    p.c.close();
+  });
+
   it("GROW_FIELD plants from the FarmBag seed, FRAM_GROP_FASTFORWARD ripens it, GAIN_FIELD harvests into the bag", async () => {
     const p = await loggedIn(server, { grade: 30, money: 100_000 });
     const seedTpl = server.ctx.templates.findItem(332100)!; // Lúa Mì: Property2=10 yield, Property3=1 min, Property4=334104 goods
@@ -344,31 +379,45 @@ describe("81 FARM — plant, fast-forward, harvest (main flow)", () => {
     expect(p.player().getInventory(BagType.FarmBag)!.addItem(seed)).toBe(true);
 
     p.c.out(81, (o) => { o.writeByte(1); o.writeInt(0); }); // ENTER_FARM self
-    await p.c.code(81, 1); // farmSnapshot echoes sub=1
+    await p.c.code(81, 1);
 
-    // GROW_FIELD(2)/FRAM_GROP_FASTFORWARD(18)/GAIN_FIELD(4) all reply via fieldPacket, which always writes sub=17
-    // (FARM_LAND_INFO) regardless of the request's sub — not an echo of the request type.
+    // GROW_FIELD(2) replies with AbstractPacketLib.SendSeeding: sub 2, FieldID, SeedID, PlantTime, PayTime,
+    // GainCount, FieldValidDate (an echo of the request's own sub, not sub 17 FARM_LAND_INFO — nothing in
+    // C# ever writes sub 17 for packet 81).
     let mark = p.c.mark();
     p.c.out(81, (o) => { o.writeByte(2); o.writeByte(0); o.writeInt(332100); o.writeInt(0); }); // GROW_FIELD on starter field 0
-    const planted = await p.c.code(81, 17, mark);
-    planted.pkt.readByte(); // sub (17)
+    const planted = await p.c.code(81, 2, mark);
+    planted.pkt.readByte(); // sub (2)
     expect(planted.pkt.readInt()).toBe(0); // FieldID
     expect(planted.pkt.readInt()).toBe(332100); // SeedID
     expect(p.player().getInventory(BagType.FarmBag)!.getItemByTemplateID(0, 332100)).toBeNull(); // seed consumed
 
+    // FRAM_GROP_FASTFORWARD(18) replies with AbstractPacketLib.SenddoMature: sub 3, int count (=
+    // FIELD_CAPACITY slots), per slot bool ok (+ FieldID/GainCount/AccelerateTime when ok) — the batched
+    // "regar tudo" report, not an echo of sub 18.
     const moneyBeforeFF = p.player().info.Money;
     mark = p.c.mark();
     p.c.out(81, (o) => { o.writeByte(18); o.writeBoolean(false); o.writeBoolean(false); o.writeInt(0); }); // FRAM_GROP_FASTFORWARD, paid in Money
-    const ff = await p.c.code(81, 17, mark);
-    ff.pkt.readByte(); // sub (17)
-    ff.pkt.readInt(); // FieldID
-    ff.pkt.readInt(); // SeedID
+    const ff = await p.c.code(81, 3, mark);
+    ff.pkt.readByte(); // sub (3)
+    const slotCount = ff.pkt.readInt();
+    let sawField0 = false;
+    for (let i = 0; i < slotCount; i++) {
+      if (ff.pkt.readBoolean()) {
+        const fid = ff.pkt.readInt(); ff.pkt.readInt(); const acc = ff.pkt.readInt();
+        if (fid === 0) { sawField0 = true; expect(acc).toBeGreaterThan(0); }
+      }
+    }
+    expect(sawField0).toBe(true);
     expect(p.player().info.Money).toBeLessThan(moneyBeforeFF); // FastGrowNeedMoney charged
 
+    // GAIN_FIELD(4) replies with AbstractPacketLib.SendtoGather: sub 4, bool true, FieldID, SeedID,
+    // PlantTime, GainCount, AccelerateTime.
     mark = p.c.mark();
     p.c.out(81, (o) => { o.writeByte(4); o.writeInt(0); o.writeInt(0); }); // GAIN_FIELD self, field 0
-    const harvested = await p.c.code(81, 17, mark);
-    harvested.pkt.readByte(); // sub (17)
+    const harvested = await p.c.code(81, 4, mark);
+    harvested.pkt.readByte(); // sub (4)
+    expect(harvested.pkt.readBoolean()).toBe(true);
     expect(harvested.pkt.readInt()).toBe(0); // FieldID
     expect(harvested.pkt.readInt()).toBe(0); // SeedID back to 0: field is empty again
 
@@ -381,8 +430,8 @@ describe("81 FARM — plant, fast-forward, harvest (main flow)", () => {
     expect(p.player().getInventory(BagType.FarmBag)!.addItem(seed2)).toBe(true);
     mark = p.c.mark();
     p.c.out(81, (o) => { o.writeByte(2); o.writeByte(0); o.writeInt(332100); o.writeInt(0); });
-    const replanted = await p.c.code(81, 17, mark);
-    replanted.pkt.readByte(); // sub (17)
+    const replanted = await p.c.code(81, 2, mark);
+    replanted.pkt.readByte(); // sub (2)
     expect(replanted.pkt.readInt()).toBe(0);
     expect(replanted.pkt.readInt()).toBe(332100);
     p.c.close();

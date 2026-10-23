@@ -285,6 +285,7 @@ export async function startPlayer(opts: PlayerOptions): Promise<Stage> {
   overlay.appendChild(outlineBox);
   debugAttachStage(stage, {
     under: () => hitTarget(stage, Player.mouseX, Player.mouseY),
+    hit: (x: number, y: number) => hitTarget(stage, x, y),
     outline: (on) => { outline = on; outlineBox.style.display = on ? "block" : "none"; },
   });
   if (DEBUG) {
@@ -330,16 +331,21 @@ export function hitTarget(o: DisplayObject, gx: number, gy: number): Interactive
       if (c.$hitGlobal(gx, gy, true)) return c.$mouseEnabled ? c : null;
       return null;
     }
+    // Desenho não interativo (Bitmap/Shape) por cima de um botão irmão: o clique
+    // continua procurando um objeto interativo embaixo antes de ficar com o pai.
+    // Ex.: brilho do botão de Tarefas (AddMovieEffect põe um Bitmap em cima dele).
+    let decorHit = false;
     for (let i = c.$children.length - 1; i >= 0; i--) {
       const ch = c.$children[i]!;
       if (!ch.$visible || ch.$maskOf) continue;
       if (ch instanceof InteractiveObject) {
         const r = hitTarget(ch, gx, gy);
         if (r) return r;
-      } else if (ch.$hitGlobal(gx, gy, true)) {
-        if (c.$mouseEnabled && !(c instanceof Stage)) return c;
+      } else if (!decorHit && ch.$hitGlobal(gx, gy, true)) {
+        decorHit = true;
       }
     }
+    if (decorHit && c.$mouseEnabled && !(c instanceof Stage)) return c;
     const p = c.globalToLocal(new Point(gx, gy));
     if (c.$hitLocal(p.x, p.y, true) && c.$mouseEnabled && !(c instanceof Stage)) return c;
     return null;

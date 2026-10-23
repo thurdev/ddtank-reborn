@@ -11,12 +11,14 @@
  * Como testar: `apps/game/test/farm-compose-hotspring-rooms.test.ts`. Manual: Fazenda → botão "regar
  * tudo" / arrastar adubo num terreno plantado.
  */
-import { PacketOut, type GSPacket } from "@ddt/protocol";
+import type { GSPacket } from "@ddt/protocol";
 import type { GamePlayer } from "../../game/player.js";
 import type { ServerContext } from "../../session/context.js";
-import { FAST_GROW_SUB_MIN, fieldPacket, isRipe, saveField, type FarmState, type FieldRow } from "./estado.js";
+import { doMaturePacket, FAST_GROW_SUB_MIN, FIELD_CAPACITY, isRipe, saveField, type FarmState, type FieldRow } from "./estado.js";
 
-/** sub 18 FRAM_GROP_FASTFORWARD: bool useGiftToken, bool all, int fieldId. */
+/** sub 18 FRAM_GROP_FASTFORWARD: bool useGiftToken, bool all, int fieldId. Resposta: `PlayerFarm.
+ * GropFastforward` (C#:128) chama `Out.SenddoMature(this)` — NÃO um echo do sub 18, é o mesmo pacote
+ * sub 3 batizado abaixo em `doMaturePacket`, cobrindo todos os slots da fazenda (0..FIELD_CAPACITY). */
 export async function growFastForward(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, s: FarmState): Promise<void> {
   const useGiftToken = pkt.readBoolean();
   const all = pkt.readBoolean();
@@ -28,7 +30,9 @@ export async function growFastForward(ctx: ServerContext, p: GamePlayer, pkt: GS
   const cost = unit * targets.length;
   if (useGiftToken) { if (p.info.GiftToken < cost) return p.sendMessage(0, ctx.lang.t("Farm.NotEnough")); p.removeGiftToken(cost); }
   else { if (p.info.Money + p.info.MoneyLock < cost) return p.sendMessage(0, ctx.lang.t("Farm.NotEnough")); p.removeMoney(cost); }
-  for (const f of targets) { f.AccelerateTime += FAST_GROW_SUB_MIN; await saveField(ctx, p.id, f); p.send(fieldPacket(f)); }
+  for (const f of targets) { f.AccelerateTime += FAST_GROW_SUB_MIN; await saveField(ctx, p.id, f); }
+  const slots: (FieldRow | null)[] = Array.from({ length: FIELD_CAPACITY }, (_, i) => s.fields.get(i) ?? null);
+  p.send(doMaturePacket(slots));
 }
 
 /** sub 3 ACCELERATE_FIELD ("doMature"): byte 13 (marcador constante, igual ao de GROW_FIELD), int 0
@@ -41,18 +45,11 @@ export async function accelerateField(ctx: ServerContext, p: GamePlayer, pkt: GS
   const now = ctx.now();
   const f = s.fields.get(fieldId);
   const fert = ctx.templates.findItem(fertTpl);
-  const reply = new PacketOut(81);
-  reply.writeByte(3);
-  if (!f || f.SeedID === 0 || isRipe(f, now) || !fert) { reply.writeInt(0); p.send(reply); return; }
+  if (!f || f.SeedID === 0 || isRipe(f, now) || !fert) { p.send(doMaturePacket([])); return; }
   if (!p.removeTemplateInShop(fertTpl, 1, (id) => ctx.templates.findItem(id))) {
-    reply.writeInt(0); p.send(reply); return;
+    p.send(doMaturePacket([])); return;
   }
   f.AccelerateTime += Math.max(1, fert.Property1);
   await saveField(ctx, p.id, f);
-  reply.writeInt(1);
-  reply.writeBoolean(true);
-  reply.writeInt(fieldId);
-  reply.writeInt(f.GainCount);
-  reply.writeInt(f.AccelerateTime);
-  p.send(reply);
+  p.send(doMaturePacket([f]));
 }

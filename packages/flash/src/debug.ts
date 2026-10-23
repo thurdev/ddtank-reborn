@@ -15,6 +15,7 @@
  *
  * No console também fica `ddtDebug` com ferramentas:
  *   ddtDebug.under()        → o que está debaixo do mouse agora
+ *   ddtDebug.hit(x, y)      → quem recebe o clique nesse ponto do palco
  *   ddtDebug.find("okBtn")  → objetos com esse nome
  *   ddtDebug.only("click", "packet") / ddtDebug.all() → filtra categorias
  *   ddtDebug.outline(true)  → desenha a caixa do objeto sob o mouse
@@ -161,6 +162,8 @@ export function debugPacket(dir: "in" | "out", code: number, name: string, size:
 // ------------------------------------------------------------------ ferramentas no console
 interface DebugTools {
   under(): unknown;
+  /** quem recebe o clique no ponto (x, y) do palco */
+  hit(x: number, y: number): unknown;
   find(name: string): unknown[];
   only(...cats: DebugCategory[]): void;
   all(): void;
@@ -171,12 +174,14 @@ interface DebugTools {
 
 let outlineHook: ((on: boolean) => void) | undefined;
 let underHook: (() => unknown) | undefined;
+let hitHook: ((x: number, y: number) => unknown) | undefined;
 let stageRef: any;
 
 /** o Stage se registra aqui pra `ddtDebug` funcionar */
-export function debugAttachStage(stage: any, hooks: { under: () => unknown; outline: (on: boolean) => void }): void {
+export function debugAttachStage(stage: any, hooks: { under: () => unknown; hit: (x: number, y: number) => unknown; outline: (on: boolean) => void }): void {
   stageRef = stage;
   underHook = hooks.under;
+  hitHook = hooks.hit;
   outlineHook = hooks.outline;
 }
 
@@ -185,6 +190,11 @@ if (DEBUG && typeof globalThis !== "undefined") {
     under: () => {
       const o = underHook?.();
       if (o) { const s = sourceOf(o); console.log(displayPath(o), s, symbolsInside(o)); }
+      return o;
+    },
+    hit: (x: number, y: number) => {
+      const o = hitHook?.(x, y);
+      if (o) console.log(displayPath(o), sourceOf(o));
       return o;
     },
     find: (name: string) => {

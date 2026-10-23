@@ -8,16 +8,19 @@
 import type { GSPacket } from "@ddt/protocol";
 import type { GamePlayer } from "../../game/player.js";
 import type { ServerContext } from "../../session/context.js";
-import { farmSnapshot, loadFarm, st, stateOf, type FarmState } from "./estado.js";
+import { enterFarmPacket, loadFarm, st, stateOf, type FarmState, type FieldRow } from "./estado.js";
+
+/** Ordem de slot, igual a `PlayerFarmInventory.GetFields`/`GetOtherFields` (0..capacidade). */
+function sortedFields(fields: Map<number, FieldRow>): FieldRow[] { return [...fields.values()].sort((a, b) => a.FieldID - b.FieldID); }
 
 /** sub 1 ENTER_FARM: int ownerId (0 = você mesmo). */
 export async function enterFarm(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, s: FarmState): Promise<void> {
   const ownerId = pkt.readInt();
-  if (!ownerId || ownerId === p.id) { s.viewing = null; p.send(farmSnapshot(1, p.id, p.info.NickName ?? "", s.farm.isFarmHelper, [...s.fields.values()])); return; }
+  if (!ownerId || ownerId === p.id) { s.viewing = null; p.send(enterFarmPacket(ctx, s.farm, sortedFields(s.fields), p.id, p.info.VIPLevel)); return; }
   const other = ctx.world.get(ownerId);
   const { farm, fields } = other ? (stateOf(other) ?? (await st(ctx, other))) : await loadFarm(ctx, ownerId, "");
   s.viewing = ownerId;
-  p.send(farmSnapshot(1, ownerId, farm.FarmerName ?? other?.info.NickName ?? "", farm.isFarmHelper, [...fields.values()]));
+  p.send(enterFarmPacket(ctx, farm, sortedFields(fields), p.id, p.info.VIPLevel));
 }
 
 /** sub 16 EXIT_FARM: volta a ver a própria fazenda. */

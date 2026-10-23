@@ -83,25 +83,124 @@ export function st(ctx: ServerContext, p: GamePlayer): Promise<FarmState> {
 /** Estado de fazenda de outro jogador (visita/roubo), sem ligar ao WeakMap do visitante. */
 export function stateOf(other: GamePlayer): FarmState | undefined { return stateByPlayer.get(other); }
 
-export function fieldPacket(f: FieldRow): PacketOut {
-  const p = new PacketOut(81);
-  p.writeByte(17); // FARM_LAND_INFO: single-field echo
-  p.writeInt(f.FieldID); p.writeInt(f.SeedID); Out.wd(p, f.PlantTime); p.writeInt(f.FieldValidDate);
-  p.writeInt(f.AccelerateTime); p.writeInt(f.GainCount); Out.wd(p, f.PayTime);
-  return p;
+/**
+ * Bloco de campo compartilhado por `SendEnterFarm` (C#: AbstractPacketLib.cs:2309-2317) e
+ * `SendPayFields` (C#: AbstractPacketLib.cs:2411-2417) — mesma ordem nos dois: FieldID, SeedID,
+ * PayTime, PlantTime, GainCount, FieldValidDate, AccelerateTime. Lido por
+ * `FarmModelController.__onEnterFarm`/`__payField` nessa mesma ordem.
+ */
+function writeFieldBlock(p: PacketOut, f: FieldRow): void {
+  p.writeInt(f.FieldID); p.writeInt(f.SeedID); Out.wd(p, f.PayTime); Out.wd(p, f.PlantTime);
+  p.writeInt(f.GainCount); p.writeInt(f.FieldValidDate); p.writeInt(f.AccelerateTime);
 }
-export function farmSnapshot(sub: number, ownerId: number, ownerName: string, isHelper: boolean, fields: FieldRow[]): PacketOut {
+
+/**
+ * sub 1 ENTER_FARM. C#: `AbstractPacketLib.SendEnterFarm` (~2299-2331). Lido por
+ * `FarmModelController.__onEnterFarm`. `viewerId`/`viewerVipLevel` são sempre o jogador que pediu pra
+ * entrar (não necessariamente o dono do terreno) — o bloco extra (preço/VIP/buyExpRemainNum) só sai
+ * quando `farm.FarmID === viewerId` (própria fazenda); senão só o bool `isArrange`.
+ */
+export function enterFarmPacket(ctx: ServerContext, farm: FarmRow, fields: FieldRow[], viewerId: number, viewerVipLevel: number): PacketOut {
   const p = new PacketOut(81);
-  p.writeByte(sub); p.writeInt(ownerId); p.writeString(ownerName); p.writeBoolean(isHelper); p.writeInt(fields.length);
-  for (const f of fields) {
-    p.writeInt(f.FieldID); p.writeInt(f.SeedID); Out.wd(p, f.PlantTime); p.writeInt(f.FieldValidDate);
-    p.writeInt(f.AccelerateTime); p.writeInt(f.GainCount); Out.wd(p, f.PayTime);
+  p.writeByte(1);
+  p.writeInt(farm.FarmID);
+  p.writeBoolean(farm.isFarmHelper);
+  p.writeInt(farm.isAutoId);
+  Out.wd(p, farm.AutoPayTime);
+  p.writeInt(farm.AutoValidDate);
+  p.writeInt(farm.GainFieldId);
+  p.writeInt(farm.KillCropId);
+  p.writeInt(fields.length);
+  for (const f of fields) writeFieldBlock(p, f);
+  if (farm.FarmID === viewerId) {
+    p.writeInt(ctx.templates.cfgInt("FastGrowNeedMoney", 10));
+    p.writeString(farm.PayFieldMoney ?? "");
+    p.writeString(farm.PayAutoMoney ?? "");
+    Out.wd(p, farm.AutoPayTime);
+    p.writeInt(farm.AutoValidDate);
+    p.writeInt(viewerVipLevel);
+    p.writeInt(farm.buyExpRemainNum);
+  } else {
+    p.writeBoolean(farm.isArrange);
   }
   return p;
 }
-export function helperPacket(farm: FarmRow): PacketOut {
+
+/** sub 6 PAY_FIELD reply. C#: `AbstractPacketLib.SendPayFields` (~2391-2409). Lido por `__payField`. Só
+ * os terrenos que acabaram de ser pagos (não a fazenda inteira). */
+export function payFieldsPacket(playerId: number, fields: FieldRow[]): PacketOut {
   const p = new PacketOut(81);
-  p.writeByte(9); p.writeBoolean(farm.isFarmHelper); p.writeInt(farm.isAutoId); p.writeInt(farm.AutoValidDate); p.writeInt(farm.KillCropId);
+  p.writeByte(6);
+  p.writeInt(playerId);
+  p.writeInt(fields.length);
+  for (const f of fields) writeFieldBlock(p, f);
+  return p;
+}
+
+/** sub 2 GROW_FIELD reply ("seeding"). C#: `AbstractPacketLib.SendSeeding` (~2339-2349). Lido por
+ * `__onSeeding` (que ignora PayTime/FieldValidDate, mas eles têm que estar no pacote do mesmo jeito). */
+export function seedingPacket(f: FieldRow): PacketOut {
+  const p = new PacketOut(81);
+  p.writeByte(2);
+  p.writeInt(f.FieldID); p.writeInt(f.SeedID); Out.wd(p, f.PlantTime); Out.wd(p, f.PayTime);
+  p.writeInt(f.GainCount); p.writeInt(f.FieldValidDate);
+  return p;
+}
+
+/** sub 4 GAIN_FIELD reply ("toGather"). C#: `AbstractPacketLib.SendtoGather` (~2379-2389). Lido por
+ * `__gainFieldHandler`. Mesmo pacote serve colheita própria e roubo de amigo (ambos chamam SendtoGather
+ * com o mesmo `UserFieldInfo`). */
+export function gatherPacket(f: FieldRow): PacketOut {
+  const p = new PacketOut(81);
+  p.writeByte(4);
+  p.writeBoolean(true);
+  p.writeInt(f.FieldID); p.writeInt(f.SeedID); Out.wd(p, f.PlantTime);
+  p.writeInt(f.GainCount); p.writeInt(f.AccelerateTime);
+  return p;
+}
+
+/** sub 7 KILLCROP_FIELD reply. C#: `AbstractPacketLib.SendKillCropField` (~2420-2430). Lido por
+ * `__onKillCrop`. Só 2 campos depois do bool (sem data, sem GainCount). */
+export function killCropPacket(f: FieldRow): PacketOut {
+  const p = new PacketOut(81);
+  p.writeByte(7);
+  p.writeBoolean(true);
+  p.writeInt(f.FieldID); p.writeInt(f.SeedID); p.writeInt(f.AccelerateTime);
+  return p;
+}
+
+/**
+ * sub 3 reply ("doMature"). C#: `AbstractPacketLib.SenddoMature` (~2353-2369). Lido por `__onDoMature`:
+ * int count, por entrada bool ok (+ se ok: FieldID, GainCount, AccelerateTime). Usado em dois lugares:
+ * - sub 18 FRAM_GROP_FASTFORWARD ("regar tudo"): `PlayerFarm.GropFastforward` chama `SenddoMature`, NÃO
+ *   um echo do sub 18 — `slots` aqui tem que ser o array de capacidade fixa inteiro (null nos slots sem
+ *   terreno alugado/plantado), não só os campos que mudaram.
+ * - sub 3 ACCELERATE_FIELD (adubo manual, feature nova do Reborn — ver `fertilizar.ts`): `slots` é
+ *   `[f]` (sucesso, count 1) ou `[]` (falha, count 0).
+ */
+export function doMaturePacket(slots: (FieldRow | null)[]): PacketOut {
+  const p = new PacketOut(81);
+  p.writeByte(3);
+  p.writeInt(slots.length);
+  for (const f of slots) {
+    if (f) { p.writeBoolean(true); p.writeInt(f.FieldID); p.writeInt(f.GainCount); p.writeInt(f.AccelerateTime); }
+    else p.writeBoolean(false);
+  }
+  return p;
+}
+
+/** sub 9 HELPER_SWITCH_FIELD reply. C#: `AbstractPacketLib.SendHelperSwitchField` (~2420-2432). Lido por
+ * `__onHelperSwitch`. Também reaproveitado (com valores em branco) pela resposta do sub 8
+ * HELPER_PAY_FIELD — ver comentário em `ajudante.ts:helperPayField`. */
+export function helperSwitchPacket(farm: Pick<FarmRow, "isFarmHelper" | "isAutoId" | "AutoPayTime" | "AutoValidDate" | "GainFieldId" | "KillCropId">): PacketOut {
+  const p = new PacketOut(81);
+  p.writeByte(9);
+  p.writeBoolean(farm.isFarmHelper);
+  p.writeInt(farm.isAutoId);
+  Out.wd(p, farm.AutoPayTime);
+  p.writeInt(farm.AutoValidDate);
+  p.writeInt(farm.GainFieldId);
+  p.writeInt(farm.KillCropId);
   return p;
 }
 

@@ -555,12 +555,17 @@ class FileEmitter {
     const params = new Set(ctor!.fn.params.map((p) => p.name));
     for (const s of body) if (s.kind === "var") for (const d of s.decls) params.add(d.name);
     const moved: Stmt[] = [];
+    // campo usado nos argumentos do super() fica no construtor (vira $pre_campo): em fields()
+    // o valor não chegaria no super (ex.: FarmKillCropCell: `super(this._bgbmp)`)
+    const superJson = JSON.stringify((body[idx] as any).expr.args);
+    const inSuperArgs = (name: string) => superJson.includes(`"name":"${name}"`);
     for (let i = 0; i < idx; i++) {
       const st = body[i]!;
       if (st.kind !== "expr" || st.expr.kind !== "assign" || st.expr.op !== "=") continue;
       const l = st.expr.left;
       const isField = (l.kind === "member" && l.obj.kind === "this" && ci.instance.has(l.name)) || (l.kind === "id" && ci.instance.has(l.name));
       if (!isField) continue;
+      if (inSuperArgs((l as any).name)) continue;
       const json = JSON.stringify(st.expr.right);
       if ([...params].some((p) => json.includes(`"name":"${p}"`))) continue;
       moved.push(st);
