@@ -121,11 +121,15 @@ Ajuda bem-vinda em tudo: balanceamento, bugs, tradução, arte, novas funcionali
 ## ☕ Apoiar
 
 O projeto é mantido sem fins lucrativos. Se quiser ajudar a manter o desenvolvimento e o
-servidor oficial (sem pay-to-win), tem uma página de doação via Pix: **[Apoiar](http://localhost:5173/apoiar)**
-(no servidor oficial, a URL real fica no menu do site). Doação é sempre opcional, voluntária
-e **não dá vantagem nenhuma no jogo** — no máximo um selo cosmético no perfil do site.
-Transparência (custo do servidor × doações do mês): página **[Transparência](http://localhost:5173/transparencia)**.
-Detalhes de como funciona (provedores Pix, segurança): [docs/features/doacao-pix.md](./docs/features/doacao-pix.md).
+servidor oficial (sem pay-to-win):
+
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-apoiar-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/3vdopcs)
+
+**[buymeacoffee.com/3vdopcs](https://buymeacoffee.com/3vdopcs)** — doação é sempre opcional, voluntária
+e **não dá vantagem nenhuma no jogo**.
+
+Pra quem sobe o próprio servidor: o site já vem com página de doação via Pix e página de transparência
+(custo do servidor × doações do mês), configuráveis no admin. Detalhes de como funciona (provedores Pix, segurança): [docs/features/doacao-pix.md](./docs/features/doacao-pix.md).
 
 ## 👤 Mantenedor
 

@@ -194,7 +194,16 @@ describe("84 ACTIVITY_PACKAGE ChickActivation", () => {
     const m1 = c.mark();
     c.out(84, (o) => { o.writeInt(2); o.writeInt(2); o.writeInt(1); o.writeInt(0); }); // 1st GETAWARD daily -> mails
     await c.code(84, undefined, m1);
-    const afterFirst = (await h.db.select().from(player.User_Messages).where(eq(player.User_Messages.ReceiverID, p.userId))).length;
+    let afterFirst = (await h.db.select().from(player.User_Messages).where(eq(player.User_Messages.ReceiverID, p.userId))).length;
+
+    // Fri/Sat/Sun: a 2nd click on a daily slot (awardType <= 7) falls through to the weekend tier
+    // (`AwardType <= 10`, ActivityPackageHandler.cs:214) — same as C#. Claim it, then the next click is refused.
+    if ([0, 5, 6].includes(new Date().getUTCDay())) {
+      const mw = c.mark();
+      c.out(84, (o) => { o.writeInt(2); o.writeInt(2); o.writeInt(1); o.writeInt(0); });
+      await c.code(84, undefined, mw);
+      afterFirst = (await h.db.select().from(player.User_Messages).where(eq(player.User_Messages.ReceiverID, p.userId))).length;
+    }
 
     const m2 = c.mark();
     c.out(84, (o) => { o.writeInt(2); o.writeInt(2); o.writeInt(1); o.writeInt(0); }); // 2nd GETAWARD daily, same UTC day
