@@ -16,6 +16,10 @@ pnpm install
 pnpm --filter @ddt/client dev        # http://localhost:5180
 ```
 
+> O Vite **não vigia** `public/assets` (são dezenas de milhares de arquivos).
+> Depois de exportar arte nova, reinicie o dev server (ou salve
+> `apps/client/vite.config.ts`), senão os arquivos novos voltam como HTML.
+
 ## Entrar no jogo
 
 O cliente lê os mesmos parâmetros que a página do Flash recebia:
@@ -49,10 +53,23 @@ Abre o jogo num Chromium invisível, espera, mostra erros do console e tira prin
 
 ```bash
 cd apps/client
-node scripts/smoke.mjs "http://localhost:5180/?user=x&key=y&debug=true" 60 print.png
+node scripts/smoke.mjs "http://localhost:5180/?user=pixitest&key=auto&debug=true" 60 print.png
 ```
+
+`key=auto` faz login na API (`SMOKE_USER`/`SMOKE_PASS`, padrão `pixitest`) e usa
+uma chave nova a cada execução.
 
 Variáveis: `SMOKE_CHROME` (caminho do chrome.exe), `SMOKE_EVAL` (expressão JS
 pra avaliar na página, ex.: `ddtDebug.find("okBtn").length`), `SMOKE_ALL=1`
-(todos os logs), `SMOKE_CLICKS="500,300;100,50"` (clica nesses pontos). Se a
+(todos os logs), `SMOKE_CLICKS="500,300;wait:5;key:Space:1200"` (clica, espera
+5 s, segura Espaço 1,2 s — atirar). Se a
 página travar (loop infinito), ele pausa o JS e mostra a pilha de onde travou.
+
+### Roteiro até a batalha (conta nova, sem tutorial)
+
+```bash
+SMOKE_CLICKS="590,373;wait:3;480,300;wait:25;695,495;wait:5;380,476;wait:20;950,480;wait:70;500,300;key:ArrowUp:500;key:Space:1300;wait:8"   node scripts/smoke.mjs "http://localhost:5180/?user=pixitest&key=auto&debug=true" 80 batalha.png
+```
+
+Fecha o aviso do torneio → Salão de jogos → Criar sala → Confirmar → Começar
+(depois de ~25 s sozinho na fila o servidor coloca um bot) → mira e atira.

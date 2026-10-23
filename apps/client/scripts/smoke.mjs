@@ -62,6 +62,15 @@ if (!alive) {
 for (const pair of (process.env.SMOKE_CLICKS ?? "").split(";").filter(Boolean)) {
   // "wait:10" = espera 10s entre cliques
   if (pair.startsWith("wait:")) { await page.waitForTimeout(Number(pair.slice(5)) * 1000); continue; }
+  // "key:Space:1200" = segura a tecla 1,2s (atirar); "key:ArrowLeft:500" = anda
+  if (pair.startsWith("key:")) {
+    const [, key, ms = "80"] = pair.split(":");
+    await page.keyboard.down(key);
+    await page.waitForTimeout(Number(ms));
+    await page.keyboard.up(key);
+    console.log(`--- tecla ${key} ${ms}ms`);
+    continue;
+  }
   const [x, y] = pair.split(",").map(Number);
   try {
     // SMOKE_PAUSE_MS: pausa o JS esse tempo depois do clique e mostra a pilha (acha loop que derruba a aba)
