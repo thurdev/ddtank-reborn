@@ -51,7 +51,12 @@ async function boot(): Promise<void> {
   // núcleo do jogo (2.png no Flash) = src/game, já carregado
   registerVirtualSwf("flash/2");
   // o jogo pede tudo em minúsculas (LoaderManager); URLs relativas vão pra API
-  setUrlRewriter((url) => (/^[a-z]+:\/\//i.test(url) ? url : `${API}/flash/${url.replace(/^\/+/, "")}`));
+  setUrlRewriter((url) => {
+    // música de fundo: sound/<id>.flv virou assets/resource/sound/<id>.mp3 (tools/swf-export/src/sounds.ts)
+    const snd = /\/resource\/sound\/([^/?#]+)\.(flv|mp3)/i.exec(url);
+    if (snd) return `${import.meta.env.BASE_URL}assets/resource/sound/${snd[1]!.toLowerCase()}.mp3`;
+    return /^[a-z]+:\/\//i.test(url) ? url : `${API}/flash/${url.replace(/^\/+/, "")}`;
+  });
   // md5.xml listava o md5 dos SWFs (cabeçalho "road7"). Sem SWF não há o que conferir:
   // devolve a lista vazia (o código original segue o caminho "sem md5" normalmente)
   setResponseFilter((url, bytes) => (/\/md5\.xml/i.test(url) ? new TextEncoder().encode("<Result/>") : bytes));

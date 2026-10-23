@@ -18,8 +18,15 @@ interface Listener {
 
 type ListenerMap = Map<string, Listener[]>;
 
-/** objetos que escutam ENTER_FRAME (o Flash entrega pra todos, mesmo fora do palco) */
-export const enterFrameTargets = new Set<EventDispatcher>();
+/**
+ * Eventos de "broadcast": o Flash entrega pra TODOS os objetos que escutam,
+ * mesmo fora do palco (ENTER_FRAME, EXIT_FRAME, ACTIVATE...). O Player usa
+ * estas listas a cada frame.
+ */
+export const BROADCAST_EVENTS = ["enterFrame", "exitFrame", "frameConstructed", "activate", "deactivate"] as const;
+export const broadcastTargets = new Map<string, Set<EventDispatcher>>(BROADCAST_EVENTS.map((t) => [t, new Set()]));
+/** atalho: quem escuta ENTER_FRAME */
+export const enterFrameTargets = broadcastTargets.get("enterFrame")!;
 
 export class EventDispatcher {
   /** listeners de bolha/alvo */
@@ -43,7 +50,7 @@ export class EventDispatcher {
     while (i > 0 && next[i - 1]!.priority < priority) i--;
     next.splice(i, 0, { fn: listener, priority });
     map.set(type, next);
-    if (type === Event.ENTER_FRAME && !useCapture) enterFrameTargets.add(this);
+    if (!useCapture) broadcastTargets.get(type)?.add(this);
   }
 
   removeEventListener(type: string, listener: (e: any) => void, useCapture = false): void {
@@ -57,7 +64,7 @@ export class EventDispatcher {
       if (next.length) map!.set(type, next);
       else map!.delete(type);
     }
-    if (type === Event.ENTER_FRAME && !this.$listeners?.get(type)?.length) enterFrameTargets.delete(this);
+    if (!this.$listeners?.get(type)?.length) broadcastTargets.get(type)?.delete(this);
   }
 
   hasEventListener(type: string): boolean {

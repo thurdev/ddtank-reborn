@@ -18,7 +18,7 @@
 import { Application } from "pixi.js";
 import { debugAttachStage, debugClick, dlog, DEBUG } from "./debug";
 import { Event } from "./events/Event";
-import { enterFrameTargets } from "./events/EventDispatcher";
+import { broadcastTargets } from "./events/EventDispatcher";
 import { KeyboardEvent } from "./events/KeyboardEvent";
 import { MouseEvent } from "./events/MouseEvent";
 import { Point } from "./geom/Point";
@@ -108,10 +108,15 @@ export async function startPlayer(opts: PlayerOptions): Promise<Stage> {
   stage.$onFrameRate = (fps) => { frameMs = 1000 / fps; };
   let acc = 0;
   let last = performance.now();
+  const broadcast = (type: string) => {
+    for (const t of [...broadcastTargets.get(type)!]) safe(() => t.dispatchEvent(new Event(type)), type);
+  };
   const logicFrame = () => {
     for (const mc of [...playingClips]) safe(() => mc.$advance(), "timeline");
-    for (const t of [...enterFrameTargets]) safe(() => t.dispatchEvent(new Event(Event.ENTER_FRAME)), "ENTER_FRAME");
+    broadcast(Event.ENTER_FRAME);
+    broadcast(Event.FRAME_CONSTRUCTED);
     runPendingFrameScripts();
+    broadcast(Event.EXIT_FRAME);
     safe(() => stage.$dispatchRender(), "RENDER");
   };
   const loop = (now: number) => {
@@ -251,8 +256,8 @@ export async function startPlayer(opts: PlayerOptions): Promise<Stage> {
     const ke = new KeyboardEvent(KeyboardEvent.KEY_UP, true, false, e.key.length === 1 ? e.key.charCodeAt(0) : 0, flashKeyCode(e), e.location, e.ctrlKey, e.altKey, e.shiftKey);
     safe(() => keyTarget().dispatchEvent(ke), "KEY_UP");
   });
-  window.addEventListener("blur", () => stage.dispatchEvent(new Event(Event.DEACTIVATE)));
-  window.addEventListener("focus", () => stage.dispatchEvent(new Event(Event.ACTIVATE)));
+  window.addEventListener("blur", () => broadcast(Event.DEACTIVATE));
+  window.addEventListener("focus", () => broadcast(Event.ACTIVATE));
 
   // ---------------------------------------------------- debug
   let outline = false;

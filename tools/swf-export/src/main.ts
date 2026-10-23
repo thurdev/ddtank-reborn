@@ -15,7 +15,7 @@
  *   - UI/core:  apps/api/assets/flash/**  >  vendor/DDTank41/Source Flash/FlashSV1/**
  *   - recursos: vendor/_assets/merged/**   (image/game/living, bombas, efeitos...)
  */
-import { execFileSync } from "node:child_process";
+import { execFile } from "node:child_process";
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -77,8 +77,11 @@ function resourceSources(): Source[] {
   }));
 }
 
-function ffdec(args: string[]): void {
-  execFileSync("java", ["-Xmx2g", "-jar", FFDEC, ...args], { stdio: ["ignore", "ignore", "pipe"], maxBuffer: 64 << 20 });
+/** roda o FFDec (assíncrono: vários SWFs em paralelo com --jobs) */
+function ffdec(args: string[]): Promise<void> {
+  return new Promise((res, rej) => {
+    execFile("java", ["-Xmx1g", "-jar", FFDEC, ...args], { maxBuffer: 64 << 20 }, (err) => (err ? rej(err) : res()));
+  });
 }
 
 /** id numérico no começo do nome do arquivo exportado (`13.png`, `10_asset.x.png`) */
@@ -110,9 +113,9 @@ async function exportOne(src: Source, force: boolean, warnings: string[]): Promi
     writeFileSync(swfFile, buf.subarray(start));
   }
 
-  ffdec(["-swf2xml", swfFile, join(tmp, "swf.xml")]);
-  ffdec(["-format", "shape:png,image:png_gif_jpeg,text:svg,morphshape:svg,sound:mp3_wav_flv,binaryData:raw", "-export", "shape,image,text,morphshape,sound,binaryData", tmp, swfFile]);
-  try { ffdec(["-export", "script", join(tmp, "scripts"), swfFile]); } catch { /* sem ABC */ }
+  await ffdec(["-swf2xml", swfFile, join(tmp, "swf.xml")]);
+  await ffdec(["-format", "shape:png,image:png_gif_jpeg,text:svg,morphshape:svg,sound:mp3_wav_flv,binaryData:raw", "-export", "shape,image,text,morphshape,sound,binaryData", tmp, swfFile]);
+  try { await ffdec(["-export", "script", join(tmp, "scripts"), swfFile]); } catch { /* sem ABC */ }
 
   mkdirSync(out, { recursive: true });
   for (const d of ["shapes", "images", "sounds", "binaryData"]) {
@@ -189,7 +192,14 @@ async function main(): Promise<void> {
   const warnings: string[] = [];
   let done = 0, fail = 0;
   const t0 = Date.now();
-  for (const s of sources) {
+  const jobs = args.includes("--jobs") ? Number(args[args.indexOf("--jobs") + 1]) : 4;
+  const queue = [...sources];
+  const worker = async () => {
+    for (let s = queue.shift(); s; s = queue.shift()) {
+      await one(s);
+    }
+  };
+  const one = async (s: Source) => {
     try {
       const lib = await exportOne(s, force, warnings);
       done++;
@@ -199,7 +209,8 @@ async function main(): Promise<void> {
       warnings.push(`${s.key}: FALHOU ${(e as Error).message.split("\n")[0]}`);
       console.error(`FALHOU ${s.key}: ${(e as Error).message.split("\n")[0]}`);
     }
-  }
+  };
+  await Promise.all(Array.from({ length: Math.max(1, jobs) }, worker));
   mkdirSync(OUT, { recursive: true });
   // índice de todas as bibliotecas exportadas (o cliente decide se URL é "SWF" ou imagem)
   const keys = walk(OUT, (f) => f.endsWith("library.json")).map((f) => relative(OUT, dirname(f)).split(sep).join("/")).sort();

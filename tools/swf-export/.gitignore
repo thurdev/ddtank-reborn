@@ -2,3 +2,4 @@ node_modules/
 .tmp/
 .as3/
 .export-ui.log
+.export-resource.log
