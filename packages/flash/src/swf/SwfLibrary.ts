@@ -36,13 +36,32 @@ type Img = HTMLImageElement | ImageBitmap;
  * pode descartar a versão decodificada sob pressão de memória (com centenas
  * de PNGs por "SWF" isso faz diferença grande).
  */
-async function loadImage(url: string): Promise<Img> {
-  return await new Promise((res, rej) => {
+/**
+ * Fila global de downloads: bibliotecas grandes (gameover, campo de treino)
+ * têm centenas de PNGs e o Chrome recusa tudo de uma vez
+ * (net::ERR_INSUFFICIENT_RESOURCES). No máximo MAX_PARALLEL ao mesmo tempo.
+ */
+const MAX_PARALLEL = 24;
+let running = 0;
+const waiting: (() => void)[] = [];
+async function limited<T>(job: () => Promise<T>): Promise<T> {
+  if (running >= MAX_PARALLEL) await new Promise<void>((r) => waiting.push(r));
+  running++;
+  try { return await job(); } finally { running--; waiting.shift()?.(); }
+}
+
+function loadImageOnce(url: string): Promise<Img> {
+  return new Promise((res, rej) => {
     const im = new Image();
     im.onload = () => res(im);
     im.onerror = () => rej(new Error(url));
     im.src = url;
   });
+}
+
+/** baixa uma imagem pela fila (tenta de novo uma vez se falhar) */
+function loadImage(url: string): Promise<Img> {
+  return limited(() => loadImageOnce(url).catch(() => loadImageOnce(url)));
 }
 
 export class SwfLibrary {
@@ -110,7 +129,7 @@ export class SwfLibrary {
         jobs.push(loadImage(base + c.hit).then((im) => { this.hits.set(id, im); }, () => {}));
       }
       if (c.k === "binary" && c.file) {
-        jobs.push(fetch(base + c.file).then((x) => x.arrayBuffer()).then((b) => { this.binaries.set(id, new Uint8Array(b)); }, () => {}));
+        jobs.push(limited(() => fetch(base + c.file!).then((x) => x.arrayBuffer())).then((b) => { this.binaries.set(id, new Uint8Array(b)); }, () => {}));
       }
     }
     await Promise.all(jobs);
