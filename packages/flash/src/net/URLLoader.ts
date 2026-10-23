@@ -16,12 +16,11 @@ import { IOErrorEvent } from "../events/IOErrorEvent";
 import { ProgressEvent } from "../events/ProgressEvent";
 import { safe } from "../player-safe";
 import { isExportedSwf } from "../swf/index-of-assets";
-import { ByteArray } from "../utils/ByteArray";
+import { ByteArray, decodeText } from "../utils/ByteArray";
 import { httpRequest } from "./http";
 import type { URLRequest } from "./URLRequest";
 import { URLVariables } from "./URLVariables";
 
-const dec = new TextDecoder("utf-8");
 
 /** começo dos bytes "falsos" de SWF exportado (ver Loader.loadBytes) */
 export const SWF_MARK = "CWS:ddt-asset:";
@@ -69,8 +68,7 @@ export class URLLoader extends EventDispatcher {
         safe(() => this.dispatchEvent(new ProgressEvent(ProgressEvent.PROGRESS, false, false, res.bytes.length, res.bytes.length)), "URLLoader.PROGRESS");
         if (this.dataFormat === "binary") this.data = ByteArray.fromBytes(res.bytes, url);
         else {
-          let text = dec.decode(res.bytes);
-          if (text.charCodeAt(0) === 0xfeff) text = text.slice(1);
+          const text = decodeText(res.bytes);
           this.data = this.dataFormat === "variables" ? new URLVariables(text) : text;
         }
         safe(() => this.dispatchEvent(new Event(Event.COMPLETE)), "URLLoader.COMPLETE");

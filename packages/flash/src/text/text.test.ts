@@ -37,3 +37,12 @@ describe("parseFlashHtml", () => {
     expect(css.getStyle(".big")).toEqual({ fontSize: "20px", fontWeight: "bold" });
   });
 });
+
+describe("decodeText", () => {
+  it("respeita BOM UTF-16 como o Flash", async () => {
+    const { decodeText } = await import("../utils/ByteArray");
+    const le = new Uint8Array([0xff, 0xfe, 0x4f, 0, 0xe9, 0]);
+    expect(decodeText(le)).toBe("Oé");
+    expect(decodeText(new TextEncoder().encode("﻿abc"))).toBe("abc");
+  });
+});

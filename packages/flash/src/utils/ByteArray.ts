@@ -175,10 +175,20 @@ export class ByteArray {
   }
 
   toString(): string {
-    let s = dec.decode(this.$bytes());
-    if (s.charCodeAt(0) === 0xfeff) s = s.slice(1);
-    return s;
+    return decodeText(this.$bytes());
   }
+}
+
+/**
+ * Bytes → texto como o Flash (`URLLoader` texto, `ByteArray.toString`):
+ * respeita o BOM (UTF-16 LE/BE ou UTF-8); sem BOM é UTF-8. Ex.: o
+ * `movingNotification.txt` do jogo é UTF-16LE (antes saía "a□e□n□...").
+ */
+export function decodeText(b: Uint8Array): string {
+  if (b[0] === 0xff && b[1] === 0xfe) return new TextDecoder("utf-16le").decode(b.subarray(2));
+  if (b[0] === 0xfe && b[1] === 0xff) return new TextDecoder("utf-16be").decode(b.subarray(2));
+  const s = dec.decode(b);
+  return s.charCodeAt(0) === 0xfeff ? s.slice(1) : s;
 }
 $class(ByteArray, "flash.utils.ByteArray", { implements: [IDataInput, IDataOutput] });
 
