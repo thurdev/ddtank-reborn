@@ -1413,7 +1413,7 @@ class FileEmitter {
   private argList(args: Expr[], params: (TypeRef | undefined)[] | undefined, fi: FileInfo | undefined): string {
     return args.map((a, i) => {
       const pt = params?.[i];
-      if (pt && (pt.name === "String" || pt.name === "Number")) {
+      if (pt && (pt.name === "String" || pt.name === "Number" || pt.name === "int" || pt.name === "uint")) {
         const at = this.typeOf(a);
         if (isXmlT(at) || (pt.name === "String" && isNumT(at))) return this.coerceTo(this.resolveType(pt, fi), a);
       }
