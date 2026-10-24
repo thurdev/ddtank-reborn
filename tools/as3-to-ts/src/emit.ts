@@ -1469,7 +1469,10 @@ class FileEmitter {
     // conteúdo simples como texto antes de comparar — é como o Flash faz
     // (idioma comum: checar flag de atributo). XML comparado com XML usa
     // igualdade de verdade, não mexe.
-    if (op === "==" || op === "!=") {
+    // `xml == null` (checagem de "não achou"/XML vazio, idioma comum) não é E4X
+    // de coerção pra texto — é comparação de verdade com null/undefined. Não mexe.
+    const isNullish = (x: Expr) => x.kind === "null" || x.kind === "undefined";
+    if ((op === "==" || op === "!=") && !isNullish(e.left) && !isNullish(e.right)) {
       const lx = isXmlT(this.typeOf(e.left)), rx = isXmlT(this.typeOf(e.right));
       if (lx !== rx) {
         const left = lx ? `${this.expr(e.left, 18)}.toString()` : this.expr(e.left, p);
