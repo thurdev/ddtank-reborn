@@ -5,6 +5,7 @@
  * (tools/as3-to-ts) gera chamadas pra estas funções — ver a tabela em
  * `tools/as3-to-ts/src/emit.ts` e `docs/client-pixi/TRANSPILADOR.md`.
  */
+import "./as3-date";
 import { debugClassRegistered } from "./debug";
 import { NATIVE_DESCRIBE } from "./gen/native-describe";
 import { $toXML, $toXMLList, isXMLName, Namespace, QName, XML, XMLList } from "./xml";
@@ -298,6 +299,21 @@ export const DESCENDING = 2;
 export const UNIQUESORT = 4;
 export const RETURNINDEXEDARRAY = 8;
 export const NUMERIC = 16;
+
+// o runtime (abaixo) já define `Array.NUMERIC`/`Array.prototype.sortOn` etc. do
+// AS3; isso só avisa o tsc que eles existem de verdade.
+declare global {
+  interface ArrayConstructor {
+    readonly CASEINSENSITIVE: number;
+    readonly DESCENDING: number;
+    readonly UNIQUESORT: number;
+    readonly RETURNINDEXEDARRAY: number;
+    readonly NUMERIC: number;
+  }
+  interface Array<T> {
+    sortOn(fieldName: string | string[], options?: number | number[]): any;
+  }
+}
 
 for (const [k, v] of Object.entries({ CASEINSENSITIVE, DESCENDING, UNIQUESORT, RETURNINDEXEDARRAY, NUMERIC })) {
   if (!(k in Array)) Object.defineProperty(Array, k, { value: v, enumerable: false });
