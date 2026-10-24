@@ -311,6 +311,9 @@ class FileEmitter {
     }
     this.line(`${isPrivate ? "" : "export "}class ${d.name}${ext} {`);
     this.ind++;
+    // `dynamic class` no AS3 aceita qualquer propriedade (ex. instância nomeada
+    // de timeline, bag de chave/valor) — sem isso o tsc rejeita esse acesso.
+    if (d.mods.isDynamic) this.line(`[$dynamicKey: string]: any;`);
 
     // declarações de campos de instância (sem runtime; valores vão em fields())
     const instFields = d.members.filter((m): m is FieldMember => m.kind === "field" && !m.mods.isStatic);
