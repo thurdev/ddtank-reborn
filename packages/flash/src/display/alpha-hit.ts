@@ -10,6 +10,8 @@ export interface AlphaSource {
   data?: Uint8Array;
   w?: number;
   h?: number;
+  /** PNG 100% transparente (ver nota em `alphaAt`) */
+  allTransparent?: boolean;
 }
 
 /** alfa (0..255) na posição normalizada (u, v) em 0..1 */
@@ -22,14 +24,24 @@ export function alphaAt(src: AlphaSource, u: number, v: number): number {
       ctx.drawImage(src.image, 0, 0);
       const px = ctx.getImageData(0, 0, w, h).data;
       const a = new Uint8Array(w * h);
-      for (let i = 0; i < a.length; i++) a[i] = px[i * 4 + 3]!;
+      let hasOpaque = false;
+      for (let i = 0; i < a.length; i++) { const v2 = px[i * 4 + 3]!; a[i] = v2; if (v2 > 0) hasOpaque = true; }
       src.data = a;
       src.w = w;
       src.h = h;
+      // No Flash original, uma forma com preenchimento 100% transparente (alfa 0)
+      // ainda registra clique em toda a área preenchida — é um truque comum pra
+      // criar "área de clique" invisível sobre a arte de fundo (ex.: os prédios
+      // do hall, que são bitmap de fundo com um hotspot vetorial por cima). O
+      // exportador rasteriza o preenchimento como está, então o PNG sai 100%
+      // transparente e um hit-test por alfa nunca acertaria nada. Sem o vetor
+      // original pra testar geometria, aproxima pelo retângulo inteiro da forma.
+      src.allTransparent = !hasOpaque;
     } catch {
       return 255;
     }
   }
+  if (src.allTransparent) return 255;
   const x = Math.min(src.w! - 1, Math.max(0, Math.floor(u * src.w!)));
   const y = Math.min(src.h! - 1, Math.max(0, Math.floor(v * src.h!)));
   return src.data![y * src.w! + x]!;

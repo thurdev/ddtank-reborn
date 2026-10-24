@@ -50,3 +50,8 @@ Gerar esqueleto de classe nova que o jogo passou a usar:
 - Erro dentro de handler de pacote não some mais: `ByteSocket` e
   `QueueManager` mostram no console qual pacote/evento quebrou (no original
   ia calado pro servidor e o jogo "travava").
+- `Shape` com preenchimento 100% transparente (técnica comum do Flash pra
+  criar área de clique invisível sobre a arte de fundo, ex. ícones do hall)
+  vira PNG 100% transparente no exportador; o hit-test por alfa (`alpha-hit.ts`)
+  nunca acertaria. Corrigido: imagem 100% transparente faz o hit-test cair pro
+  retângulo inteiro da forma em vez do alfa do pixel.

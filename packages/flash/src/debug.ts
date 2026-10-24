@@ -118,7 +118,10 @@ function symbolsInside(obj: any, max = 6): SymbolInfo[] {
     if (!o || out.length >= max || depth > 6) return;
     if (o.$symbol) out.push(o.$symbol);
     const n = typeof o.numChildren === "number" ? o.numChildren : 0;
-    for (let i = 0; i < n && out.length < max; i++) walk(o.getChildAt(i), depth + 1);
+    // numChildren/getChildAt podem ser inconsistentes em containers que redirecionam
+    // addChild pra um Sprite interno sem sobrescrever getChildAt (fiel ao AS3 original,
+    // ex. hallIcon/view/HallIconBox.as) — não deixa a ferramenta de debug quebrar nisso.
+    for (let i = 0; i < n && out.length < max; i++) { try { walk(o.getChildAt(i), depth + 1); } catch { /* ignora buraco */ } }
   };
   walk(obj, 0);
   return out;
@@ -203,7 +206,8 @@ if (DEBUG && typeof globalThis !== "undefined") {
         if (!o) return;
         if (o.name === name) out.push(o);
         const n = typeof o.numChildren === "number" ? o.numChildren : 0;
-        for (let i = 0; i < n; i++) walk(o.getChildAt(i));
+        // mesmo caso do `symbolsInside`: getChildAt pode não bater com numChildren.
+        for (let i = 0; i < n; i++) { try { walk(o.getChildAt(i)); } catch { /* ignora buraco */ } }
       };
       walk(stageRef);
       return out;
