@@ -589,7 +589,7 @@ class FileEmitter {
 
   private emitInterface(d: InterfaceDecl, isPrivate: boolean): void {
     const ci = isPrivate ? this.fi.privateClasses.get(d.name)! : this.fi.classes.find((c) => c.name === d.name)!;
-    const exts = ci.implementsFqn.map((f) => this.project.classes.get(f)).filter((c): c is ClassInfo => !!c && !c.isNative);
+    const exts = ci.implementsFqn.map((f) => this.project.classes.get(f)).filter((c): c is ClassInfo => !!c);
     const ex = exts.length ? ` extends ${exts.map((e) => this.ref(e.fqn, false)).join(", ")}` : "";
     const exp = isPrivate ? "" : "export ";
     this.line(`${exp}interface ${d.name}${ex} {`);
@@ -1462,6 +1462,18 @@ class FileEmitter {
       return [`${this.rt("$in")}(${this.expr(e.left, 2)}, ${this.expr(e.right, 2)})`, 18];
     }
     const p = PREC[op] ?? 10;
+    // E4X: `xml.@attr == "valor"` (ou `!=`) converte o lado XML/XMLList pro
+    // conteúdo simples como texto antes de comparar — é como o Flash faz
+    // (idioma comum: checar flag de atributo). XML comparado com XML usa
+    // igualdade de verdade, não mexe.
+    if (op === "==" || op === "!=") {
+      const lx = isXmlT(this.typeOf(e.left)), rx = isXmlT(this.typeOf(e.right));
+      if (lx !== rx) {
+        const left = lx ? `${this.expr(e.left, 18)}.toString()` : this.expr(e.left, p);
+        const right = rx ? `${this.expr(e.right, 18)}.toString()` : this.expr(e.right, p + 1);
+        return [`${left} ${op} ${right}`, p];
+      }
+    }
     // associatividade à esquerda: lado direito precisa de prec maior
     return [`${this.expr(e.left, p)} ${op} ${this.expr(e.right, p + 1)}`, p];
   }
