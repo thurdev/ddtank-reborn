@@ -39,21 +39,25 @@ export class EventDispatcher {
     this.$dispatchTarget = target ?? this;
   }
 
-  addEventListener(type: string, listener: (e: any) => void, useCapture = false, priority = 0, _useWeakReference = false): void {
+  // `listener: Function` (não `(e: any) => void`) pra bater com a assinatura
+  // real do Flash (`IEventDispatcher.as`): o AS3 também aceita `var f:Function`
+  // (closure forward-declarada sem assinatura) nesse parâmetro.
+  addEventListener(type: string, listener: Function, useCapture = false, priority = 0, _useWeakReference = false): void {
     if (typeof listener !== "function") return;
+    const fn = listener as (e: any) => void;
     const map = useCapture ? (this.$captures ??= new Map()) : (this.$listeners ??= new Map());
     const arr: Listener[] = map.get(type) ?? [];
-    if (arr.some((l) => l.fn === listener)) return;
+    if (arr.some((l) => l.fn === fn)) return;
     // lista nova (dispatch em andamento itera a antiga); prioridade maior primeiro, empate = ordem de inscrição
     const next = arr.slice();
     let i = next.length;
     while (i > 0 && next[i - 1]!.priority < priority) i--;
-    next.splice(i, 0, { fn: listener, priority });
+    next.splice(i, 0, { fn, priority });
     map.set(type, next);
     if (!useCapture) broadcastTargets.get(type)?.add(this);
   }
 
-  removeEventListener(type: string, listener: (e: any) => void, useCapture = false): void {
+  removeEventListener(type: string, listener: Function, useCapture = false): void {
     const map = useCapture ? this.$captures : this.$listeners;
     const arr = map?.get(type);
     if (!arr) return;

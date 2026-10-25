@@ -311,6 +311,9 @@ class FileEmitter {
     }
     this.line(`${isPrivate ? "" : "export "}class ${d.name}${ext} {`);
     this.ind++;
+    // `dynamic class` no AS3 aceita qualquer propriedade (ex. instância nomeada
+    // de timeline, bag de chave/valor) — sem isso o tsc rejeita esse acesso.
+    if (d.mods.isDynamic) this.line(`[$dynamicKey: string]: any;`);
 
     // declarações de campos de instância (sem runtime; valores vão em fields())
     const instFields = d.members.filter((m): m is FieldMember => m.kind === "field" && !m.mods.isStatic);
@@ -589,7 +592,7 @@ class FileEmitter {
 
   private emitInterface(d: InterfaceDecl, isPrivate: boolean): void {
     const ci = isPrivate ? this.fi.privateClasses.get(d.name)! : this.fi.classes.find((c) => c.name === d.name)!;
-    const exts = ci.implementsFqn.map((f) => this.project.classes.get(f)).filter((c): c is ClassInfo => !!c && !c.isNative);
+    const exts = ci.implementsFqn.map((f) => this.project.classes.get(f)).filter((c): c is ClassInfo => !!c);
     const ex = exts.length ? ` extends ${exts.map((e) => this.ref(e.fqn, false)).join(", ")}` : "";
     const exp = isPrivate ? "" : "export ";
     this.line(`${exp}interface ${d.name}${ex} {`);
@@ -1410,7 +1413,7 @@ class FileEmitter {
   private argList(args: Expr[], params: (TypeRef | undefined)[] | undefined, fi: FileInfo | undefined): string {
     return args.map((a, i) => {
       const pt = params?.[i];
-      if (pt && (pt.name === "String" || pt.name === "Number")) {
+      if (pt && (pt.name === "String" || pt.name === "Number" || pt.name === "int" || pt.name === "uint")) {
         const at = this.typeOf(a);
         if (isXmlT(at) || (pt.name === "String" && isNumT(at))) return this.coerceTo(this.resolveType(pt, fi), a);
       }
@@ -1462,6 +1465,21 @@ class FileEmitter {
       return [`${this.rt("$in")}(${this.expr(e.left, 2)}, ${this.expr(e.right, 2)})`, 18];
     }
     const p = PREC[op] ?? 10;
+    // E4X: `xml.@attr == "valor"` (ou `!=`) converte o lado XML/XMLList pro
+    // conteúdo simples como texto antes de comparar — é como o Flash faz
+    // (idioma comum: checar flag de atributo). XML comparado com XML usa
+    // igualdade de verdade, não mexe.
+    // `xml == null` (checagem de "não achou"/XML vazio, idioma comum) não é E4X
+    // de coerção pra texto — é comparação de verdade com null/undefined. Não mexe.
+    const isNullish = (x: Expr) => x.kind === "null" || x.kind === "undefined";
+    if ((op === "==" || op === "!=") && !isNullish(e.left) && !isNullish(e.right)) {
+      const lx = isXmlT(this.typeOf(e.left)), rx = isXmlT(this.typeOf(e.right));
+      if (lx !== rx) {
+        const left = lx ? `${this.expr(e.left, 18)}.toString()` : this.expr(e.left, p);
+        const right = rx ? `${this.expr(e.right, 18)}.toString()` : this.expr(e.right, p + 1);
+        return [`${left} ${op} ${right}`, p];
+      }
+    }
     // associatividade à esquerda: lado direito precisa de prec maior
     return [`${this.expr(e.left, p)} ${op} ${this.expr(e.right, p + 1)}`, p];
   }

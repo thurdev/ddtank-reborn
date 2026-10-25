@@ -5,6 +5,10 @@
 import { $class } from "../as3";
 
 export class URLVariables {
+  // `dynamic class` no AS3: cada par chave/valor vira propriedade direta
+  // (`v.username`, `v.key`...). Essa assinatura só avisa o tsc.
+  [name: string]: any;
+
   constructor(source: string | null = null) {
     if (source) this.decode(source);
   }

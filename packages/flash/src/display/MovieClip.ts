@@ -70,6 +70,10 @@ interface Placed {
 }
 
 export class MovieClip extends Sprite {
+  // `MovieClip` é `dynamic` no AS3: uma timeline com instâncias nomeadas (Flash
+  // IDE) expõe cada uma como propriedade direta (`mc.house`, `mc.tree`...).
+  // O código do jogo acessa assim; essa assinatura só avisa o tsc.
+  [name: string]: any;
   $tl: TimelineT | null = null;
   $lib: CharFactory | null = null;
   $frame = 1;
