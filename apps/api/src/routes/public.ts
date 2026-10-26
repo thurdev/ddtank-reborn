@@ -180,7 +180,7 @@ export async function publicRoutes(f: FastifyInstance, ctx: AppCtx) {
   f.get("/api/public/status", async () => serverStatus(ctx));
 
   // site-play: canais pro seletor da página Jogar (ver ChannelInfo acima)
-  f.get("/api/public/channels", async () => channelList(ctx));
+  f.get("/api/public/channels", { config: { rateLimit: { max: 30, timeWindow: "1 minute" } } }, async () => channelList(ctx));
 
   f.get("/api/public/aim-tables", async () => {
     const sc = (await setting<Record<string, unknown>>(ctx, "server-config")) ?? {};
