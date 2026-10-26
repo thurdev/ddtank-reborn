@@ -7,12 +7,10 @@
 > Plano detalhado da migração: [MIGRACAO-6600.md](./MIGRACAO-6600.md).
 
 ## 0. Cliente 4.1 (FOCO — decisão do dono 2026-10-20: 6600 em stand-by)
-Ordem: QA/sync → bot PvP → instâncias → hot-update → testar TUDO no jogo.
-- [ ] **41-qa-sync** — sincronizar `docs/qa-matrix.json` com o código + resolver os 9 stubs do
-  `tools/qa/packet-coverage.mjs` + lista priorizada dos `partial` em `docs/MIGRATION-GAP.md` (agente rodando).
-- [ ] **41-bot-pvp** — bot do PvP quando não acha jogador: (1) não joga (fica parado no turno); (2) não usa
-  roupa/equipamento/atributos configurados no admin, só vem com nível parecido. Bot tem que jogar o turno
-  inteiro (mirar/força/atirar, usar item) e montar o boneco a partir do cadastro do admin.
+Ordem (2026-10-26): stubs/rates do servidor → .ashx/Road.Service → site-play/admin-ux-2 → cliente PixiJS em produção + testar TUDO no jogo.
+- [~] **41-qa-sync** — matriz sincronizada e `partial` da MIGRATION-GAP zerados (41-partial-a…d, 2026-10-26:
+  345 ok · 3 partial intencionais · 4 stub só-6600). Falta: os stubs de `tools/qa/packet-coverage.mjs`
+  (32, 50, 89, 167, 188, 205, 214, 224) — tarefa **41-stubs-rates**.
 - [x] **41-instancias** (2026-10-20) — desbloqueio de dificuldade de masmorra por nível (`Pve_Info.LevelLimits`,
   já existia mas só na entrada da sala) **+ dificuldade anterior vencida** (novo, `app."PveInstanceClear"`,
   migração `0024`), aplicado de verdade no `GAME_START` (`handlers/salas/iniciar-partida.ts`
@@ -94,7 +92,6 @@ Ordem: QA/sync → bot PvP → instâncias → hot-update → testar TUDO no jog
   `tools/qa/overrides.json`.
 - [ ] **41-qa-tudo** — testar TODAS as features no jogo de verdade (matriz QA `verified:yes` + evidência),
   área por área, abrindo fix pra cada falha.
-- [ ] **pixi-estudo** — estudo de viabilidade do cliente novo (PixiJS, 60fps+) — ver `docs/plan/PIXI.md`.
 
 ## 1. Migração 6600 (STAND-BY desde 2026-10-20)
 
