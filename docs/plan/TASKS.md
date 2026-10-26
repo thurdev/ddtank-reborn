@@ -1064,8 +1064,7 @@ Como rodar um 2º canal hoje (sem `ch-processo`/`ch-bus`): [GAME-SERVER.md §Can
   `crud/ColumnFilters.test.ts`, `crud/ResourcePage.test.tsx`, `pages/Events.test.tsx`.
 - [x] **admin-config** (2026-10-18) — `expRate`/`goldRate` agora valem de verdade (`templates.rates`,
   multiplica o x2 do evento, recarrega ao salvar). `dropRate`/`offerRate` ligados em **41-stubs-rates**
-  (2026-10-26, ver sua entrada acima) — o aviso "ainda não ligados" que ficava em
-  `apps/admin/src/pages/ServerConfig.tsx:27-28` é de outro agente/diretório, não removido aqui.
+  (2026-10-26, ver sua entrada acima); os hints do admin (`ServerConfig.tsx`) já descrevem o efeito real.
 
 ## 5. Bots PvP (4.1)
 - [x] **41-bot-pvp** (2026-10-20) — 2 bugs do dono: (1) bot da fila Match (fallback de `rooms/room-mgr.ts`
