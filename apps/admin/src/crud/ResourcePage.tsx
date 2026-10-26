@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type MouseEvent, type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import {
   ApiError,
+  Badge,
   Button,
   Dialog,
   DialogContent,
@@ -24,18 +25,39 @@ import {
   Tr,
   cn,
 } from "@ddtank/ui";
-import { ArrowDown, ArrowUp, CheckSquare, ChevronLeft, ChevronRight, LayoutGrid, List, Pencil, Plus, Search, SquarePen, Trash2 } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowUp,
+  Bookmark,
+  CheckSquare,
+  ChevronLeft,
+  ChevronRight,
+  Columns3,
+  Filter,
+  LayoutGrid,
+  List,
+  Pencil,
+  Plus,
+  Search,
+  SquarePen,
+  Trash2,
+} from "lucide-react";
 import { useI18n, useText } from "@/i18n";
 import { ItemIconGenerator } from "@/resources/ItemIconGenerator";
 import { getQuery, listQuery, resourcePath, useResourceMutations } from "./api";
 import { api } from "@/lib/api";
 import { addRecent } from "@/lib/recent";
 import { Cell } from "./Cell";
+import { buildColFilterParams, ColumnFilterBar, FILTERABLE_TYPES } from "./ColumnFilters";
 import { FieldInput } from "./FieldInput";
 import { useRefRows } from "./refs";
 import { SchemaForm } from "./SchemaForm";
 import { defaultFor } from "./schema";
 import { caps, rowId, type FieldDef, type ResourceDef, type Row, type RowAction } from "./types";
+import { loadViews, loadVisibleCols, saveViews, saveVisibleCols, type ColFilterValue, type SavedView } from "./viewPrefs";
+
+/** Short random id for a new saved view (localStorage only, no collisions across viewers needed). */
+const newViewId = () => `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
 
 /** Fields eligible for the bulk-edit dialog: simple scalar types only (no pickers/relations/arrays). */
 const bulkEditableTypes = new Set<FieldDef["type"]>(["boolean", "select", "number", "text"]);
@@ -58,6 +80,8 @@ type DialogState =
   | { kind: "action"; row: Row; action: RowAction }
   | { kind: "bulk-delete" }
   | { kind: "bulk-edit" }
+  | { kind: "columns" }
+  | { kind: "views" }
   | null;
 
 /** Bulk-edit body: pick one simple field, set a value, PATCH it into every selected row. */
@@ -129,6 +153,62 @@ function BulkEditBody({ def, ids, onDone }: { def: ResourceDef; ids: string[]; o
   );
 }
 
+/** "Visões" dialog body: name + save the current column set/filters/sort as a new view, list + delete existing ones. */
+function ViewsDialogBody({
+  views,
+  onSave,
+  onDelete,
+  onDone,
+}: {
+  views: SavedView[];
+  onSave: (name: string) => void;
+  onDelete: (id: string) => void;
+  onDone: () => void;
+}) {
+  const { t } = useI18n();
+  const [name, setName] = useState("");
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="flex gap-2">
+        <Input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder={t("crud.viewsNamePlaceholder")}
+          aria-label={t("crud.viewsNamePlaceholder")}
+        />
+        <Button
+          disabled={!name.trim()}
+          onClick={() => {
+            onSave(name.trim());
+            setName("");
+          }}
+        >
+          <Bookmark /> {t("crud.viewsSave")}
+        </Button>
+      </div>
+      {views.length === 0 ? (
+        <p className="text-sm text-muted">{t("crud.viewsEmpty")}</p>
+      ) : (
+        <ul className="flex flex-col gap-1">
+          {views.map((v) => (
+            <li key={v.id} className="flex items-center justify-between gap-2 rounded-lg border border-line/60 px-3 py-2 text-sm">
+              <span className="truncate">{v.name}</span>
+              <Button size="icon" variant="ghost" className="text-coral" aria-label={t("crud.delete")} onClick={() => onDelete(v.id)}>
+                <Trash2 className="size-4" />
+              </Button>
+            </li>
+          ))}
+        </ul>
+      )}
+      <div className="flex justify-end">
+        <Button variant="ghost" onClick={onDone}>
+          {t("crud.done")}
+        </Button>
+      </div>
+    </div>
+  );
+}
+
 function EditDialogBody({ def, row, onDone }: { def: ResourceDef; row: Row; onDone: () => void }) {
   const { t } = useI18n();
   const id = rowId(def, row);
@@ -182,8 +262,17 @@ export function ResourcePage({ def, embedded, headerActions, initialEditId }: Re
   const [view, setView] = useState<"table" | "grid">("table");
   /** Bulk edit/delete: row ids checked in the current page. Cleared whenever the page's rows change. */
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  /** Visible columns (admin-ux-2): `null` = every `list` field (default), else the set of field names to show.
+   *  Persisted per resource in localStorage (`crud/viewPrefs.ts`), never sent to the server. */
+  const [visibleColNames, setVisibleColNames] = useState<string[] | null>(() => loadVisibleCols(def.name));
+  /** Per-column filters (admin-ux-2): see `crud/ColumnFilters.tsx`. Turned into `cf_*` query params below. */
+  const [colFilters, setColFilters] = useState<Record<string, ColFilterValue>>({});
+  const [showFilters, setShowFilters] = useState(false);
+  /** Saved views (admin-ux-2): named column set + filters + sort, per resource, localStorage-only. */
+  const [views, setViews] = useState<SavedView[]>(() => loadViews(def.name));
+  const [viewId, setViewId] = useState("");
   const dq = useDebounced(q);
-  const filtersKey = JSON.stringify(filters);
+  const filtersKey = JSON.stringify({ filters, colFilters });
 
   // Reset paging when switching resources or searching.
   useEffect(() => {
@@ -194,6 +283,11 @@ export function ResourcePage({ def, embedded, headerActions, initialEditId }: Re
     setFilters({});
     setView("table");
     setSelected(new Set());
+    setVisibleColNames(loadVisibleCols(def.name));
+    setColFilters({});
+    setShowFilters(false);
+    setViews(loadViews(def.name));
+    setViewId("");
   }, [def]);
   useEffect(() => setPage(1), [dq]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -225,12 +319,19 @@ export function ResourcePage({ def, embedded, headerActions, initialEditId }: Re
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [def, initialEditId]);
 
+  const colFilterParams = useMemo(() => buildColFilterParams(colFilters), [colFilters]);
   const effectivePageSize = view === "grid" ? def.gridView?.pageSize ?? 120 : pageSize;
-  const params = { q: dq || undefined, page, pageSize: effectivePageSize, sort, extra: filters };
+  const params = { q: dq || undefined, page, pageSize: effectivePageSize, sort, extra: { ...filters, ...colFilterParams } };
   const { data, isLoading, isFetching, error, refetch } = useQuery(listQuery(def, params));
   const m = useResourceMutations(def);
 
-  const columns = useMemo(() => def.fields.filter((f) => f.list), [def]);
+  const allColumns = useMemo(() => def.fields.filter((f) => f.list), [def]);
+  /** Columns actually rendered, after the "Colunas" picker (admin-ux-2). `null` prefs = show every column. */
+  const columns = useMemo(
+    () => (visibleColNames ? allColumns.filter((f) => visibleColNames.includes(f.name)) : allColumns),
+    [allColumns, visibleColNames],
+  );
+  const filterableFields = useMemo(() => allColumns.filter((f) => FILTERABLE_TYPES.has(f.type)), [allColumns]);
   const refRows = useRefRows(columns, data?.items ?? []);
   const singular = text(def.singular);
   const rowTitle = (row: Row) => (def.titleField ? String(row[def.titleField] ?? "") : rowId(def, row));
@@ -254,6 +355,52 @@ export function ResourcePage({ def, embedded, headerActions, initialEditId }: Re
       else delete next[name];
       return next;
     });
+
+  const setColFilter = (name: string, value: ColFilterValue | null) =>
+    setColFilters((s) => {
+      const next = { ...s };
+      if (value) next[name] = value;
+      else delete next[name];
+      return next;
+    });
+
+  /** Toggle one column's visibility, never letting the last visible column be unchecked. */
+  const toggleCol = (name: string) => {
+    const base = visibleColNames ?? allColumns.map((f) => f.name);
+    const isVisible = base.includes(name);
+    if (isVisible && base.length <= 1) return;
+    const next = isVisible ? base.filter((n) => n !== name) : [...base, name];
+    const normalized = next.length === allColumns.length ? null : next;
+    setVisibleColNames(normalized);
+    saveVisibleCols(def.name, normalized);
+  };
+  const resetCols = () => {
+    setVisibleColNames(null);
+    saveVisibleCols(def.name, null);
+  };
+
+  const applyView = (v: SavedView | null) => {
+    setViewId(v?.id ?? "");
+    setVisibleColNames(v?.columns ?? null);
+    setColFilters(v?.colFilters ?? {});
+    setSort(v?.sort ?? def.defaultSort);
+    setShowFilters(!!v && Object.keys(v.colFilters).length > 0);
+  };
+  const saveCurrentView = (name: string) => {
+    const nv: SavedView = { id: newViewId(), name, columns: visibleColNames, colFilters, sort };
+    const next = [...views, nv];
+    setViews(next);
+    saveViews(def.name, next);
+    setViewId(nv.id);
+    toast.success(t("crud.viewsSaved", { name }));
+  };
+  const deleteView = (id: string) => {
+    const next = views.filter((v) => v.id !== id);
+    setViews(next);
+    saveViews(def.name, next);
+    if (viewId === id) setViewId("");
+    toast.success(t("crud.viewsDeleted"));
+  };
 
   const header = (
     <div className="flex flex-wrap items-center gap-2">
@@ -308,6 +455,38 @@ export function ResourcePage({ def, embedded, headerActions, initialEditId }: Re
           </TabsList>
         </Tabs>
       )}
+      {views.length > 0 && (
+        <NativeSelect
+          value={viewId}
+          aria-label={t("crud.viewsApplyLabel")}
+          className="w-40"
+          onChange={(e) => applyView(views.find((v) => v.id === e.target.value) ?? null)}
+        >
+          <option value="">{t("crud.viewsNone")}</option>
+          {views.map((v) => (
+            <option key={v.id} value={v.id}>
+              {v.name}
+            </option>
+          ))}
+        </NativeSelect>
+      )}
+      <Button variant="secondary" size="sm" onClick={() => setDialog({ kind: "views" })} title={t("crud.viewsManage")}>
+        <Bookmark className="size-4" /> {t("crud.views")}
+      </Button>
+      {filterableFields.length > 0 && (
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={() => setShowFilters((s) => !s)}
+          className={cn(Object.keys(colFilters).length > 0 && "border-sun text-sun")}
+        >
+          <Filter className="size-4" /> {t("crud.filters")}
+          {Object.keys(colFilters).length > 0 && <Badge tone="sun">{Object.keys(colFilters).length}</Badge>}
+        </Button>
+      )}
+      <Button variant="secondary" size="sm" onClick={() => setDialog({ kind: "columns" })}>
+        <Columns3 className="size-4" /> {t("crud.columns")}
+      </Button>
       {headerActions}
       {can.create && (
         <Button onClick={() => setDialog({ kind: "create" })}>
@@ -347,6 +526,7 @@ export function ResourcePage({ def, embedded, headerActions, initialEditId }: Re
             </div>
           </div>
         )}
+        {showFilters && <ColumnFilterBar fields={filterableFields} values={colFilters} onChange={setColFilter} />}
         {error ? (
           <div className="flex flex-col items-center gap-3 p-10 text-center">
             <p className="text-coral">{t("crud.loadError")}</p>
@@ -409,10 +589,13 @@ export function ResourcePage({ def, embedded, headerActions, initialEditId }: Re
           </div>
         ) : (
           <Table>
+            {/* Sticky header (admin-ux-2): `sticky` on each `Th` (not the `thead`) for cross-browser support,
+                pinned just under AdminLayout's own sticky top bar (`h-14` there -> `top-14` here). An opaque
+                `bg-panel` is required or the scrolling body would show through the sticky cells. */}
             <THead>
               <Tr className="hover:bg-transparent">
                 {canBulk && (
-                  <Th className="w-10">
+                  <Th className="sticky top-14 z-20 w-10 bg-panel">
                     <input
                       type="checkbox"
                       aria-label={t("crud.bulkSelectAll")}
@@ -425,7 +608,11 @@ export function ResourcePage({ def, embedded, headerActions, initialEditId }: Re
                 {columns.map((f) => {
                   const active = sort === f.name ? "asc" : sort === `-${f.name}` ? "desc" : null;
                   return (
-                    <Th key={f.name} aria-sort={active === "asc" ? "ascending" : active === "desc" ? "descending" : undefined}>
+                    <Th
+                      key={f.name}
+                      className="sticky top-14 z-20 bg-panel"
+                      aria-sort={active === "asc" ? "ascending" : active === "desc" ? "descending" : undefined}
+                    >
                       {f.sortable ? (
                         <button
                           type="button"
@@ -442,14 +629,28 @@ export function ResourcePage({ def, embedded, headerActions, initialEditId }: Re
                     </Th>
                   );
                 })}
-                {hasRowButtons && <Th className="text-right">{t("crud.actions")}</Th>}
+                {hasRowButtons && <Th className="sticky top-14 z-20 bg-panel text-right">{t("crud.actions")}</Th>}
               </Tr>
             </THead>
             <TBody>
               {data.items.map((row) => {
                 const id = rowId(def, row);
+                /**
+                 * Clicking a row opens its edit record — except when the click lands on (or inside) an
+                 * interactive control of the row itself: the bulk checkbox, an inline-toggle switch, a `ref`
+                 * chip (navigates instead) or a row-action/edit/delete button. `closest()` on the event target
+                 * covers all of those without needing `stopPropagation()` scattered across every cell. This is
+                 * the piece a prior sticky-header attempt broke (see docs/plan/TASKS.md admin-ux-2) — covered by
+                 * a component test (`ResourcePage.test.tsx`).
+                 */
+                const openRow = (e: MouseEvent) => {
+                  if (!can.update) return;
+                  if ((e.target as HTMLElement).closest('button, input, select, textarea, a, [role="button"]')) return;
+                  setDialog({ kind: "edit", row });
+                  addRecent({ resource: def.name, id, label: rowTitle(row) || singular, resourceLabel: text(def.label) });
+                };
                 return (
-                  <Tr key={id}>
+                  <Tr key={id} onClick={openRow} className={cn(can.update && "cursor-pointer")}>
                     {canBulk && (
                       <Td>
                         <input
@@ -643,6 +844,34 @@ export function ResourcePage({ def, embedded, headerActions, initialEditId }: Re
                 setDialog(null);
               }}
             />
+          </DialogContent>
+        )}
+        {dialog?.kind === "columns" && (
+          <DialogContent title={t("crud.columns")} description={t("crud.columnsLead")} size="md">
+            <div className="flex flex-col gap-4">
+              <ul className="flex max-h-80 flex-col gap-1 overflow-y-auto">
+                {allColumns.map((f) => (
+                  <li key={f.name}>
+                    <label className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm hover:bg-panel-2">
+                      <input type="checkbox" className="size-4 accent-sun" checked={columns.includes(f)} onChange={() => toggleCol(f.name)} />
+                      {text(f.label)}
+                    </label>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-xs text-muted">{t("crud.columnsMinHint")}</p>
+              <div className="flex justify-end gap-2">
+                <Button variant="ghost" onClick={resetCols}>
+                  {t("crud.columnsReset")}
+                </Button>
+                <Button onClick={() => setDialog(null)}>{t("crud.done")}</Button>
+              </div>
+            </div>
+          </DialogContent>
+        )}
+        {dialog?.kind === "views" && (
+          <DialogContent title={t("crud.viewsManage")} size="md">
+            <ViewsDialogBody views={views} onSave={saveCurrentView} onDelete={deleteView} onDone={() => setDialog(null)} />
           </DialogContent>
         )}
         {dialog?.kind === "action" && (

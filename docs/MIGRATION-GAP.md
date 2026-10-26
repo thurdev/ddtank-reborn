@@ -52,14 +52,14 @@ startPve`, ao lado do multiplicador por instância `PveBalance.reward`); `offerR
 
 | Subsistema C# (`vendor/DDTank41`) | Destino TS | Situação |
 |---|---|---|
-| `Tank.Request` (.ashx: login, serverlist, nickname…) | `apps/api/src/request/endpoints/` (9 arquivos) | Base ok, faltam endpoints menores |
+| `Tank.Request` (.ashx: login, serverlist, nickname…) | `apps/api/src/request/endpoints/` (14 arquivos) | **`api-ashx` (2026-10-26): fechado.** Cobertura completa em `docs/spec/request/01-cobertura-41.md` — todo `.ashx` que o cliente 4.1 chama está portado ou documentado como fora de escopo (admin-only/legado/sem handler no DDTank41 também) |
 | `Game.Server` + `Center.Server` (handlers de pacote) | `apps/game/src/handlers/` (20 arquivos) | Maioria ok; ver tabela por área |
 | `Game.Logic` (Player, Bag, Quest, Pet, Fight…) | `apps/game/src/game/` (14 arquivos) | Núcleo ok |
 | `Game.Logic` PvE/AI + `DDTank4.1` scripts missão/NPC | `packages/fight` (646 arquivos) | Maior parte gerada; validar em jogo |
 | `SqlDataProvider` + `.bak` | `packages/db` (Drizzle, 15 arquivos) | Schema/migrações em andamento |
 | Protocolo binário/crypto | `packages/protocol` (16 arquivos) | Ok (cliente conecta) |
 | `GameAdmin` | `apps/admin` | Parcial (joins/filtros pendentes — ver ROADMAP) |
-| `Road.Service` / ranking e serviços auxiliares | — | **Gap: mapear quais endpoints faltam** |
+| `Road.Service` / ranking e serviços auxiliares | `apps/game` (processo Node direto) + `apps/api/src/rank.ts` + templates `CelebBy*` | **Gap resolvido (`api-ashx`, 2026-10-26): `Road.Service` não expõe nenhum `.ashx`/HTTP — é só o host de Windows Service (`GameServerService.cs`, `ServiceName="ROAD"`) que chama `GameServer.CreateInstance().Start()`, o mesmo `Game.Server` que virou `apps/game`; sem HTTP, não há endpoint pra portar aqui (`apps/game` já roda como processo Node comum, sem precisar de wrapper de serviço). O "ranking" do nome da linha é as `CelebBy*.xml` (builders já cobertos pelos 55 templates em `apps/api/src/templates/defs.ts`, rebuild periódico `CELEB_REBUILD_MIN`) + `src/rank.ts`/`UserRankDate.ashx` (ported) — nada pendente |
 | `Center.Server` cross-server (GvG inter-server) | — | **Gap: checar se entra no escopo Fase 1** |
 
 ## Por área (matriz QA) — ordem de ataque

@@ -1,6 +1,16 @@
 /**
  * Whitelist: REST resource name -> Drizzle table (apps/admin/src/resources/*.ts names). Only these tables are reachable
  * through /api/admin/:resource. Composite keys are joined with "~" in URL ids.
+ *
+ * Generic per-column filter (admin-ux-2): `GET /api/admin/:resource` also accepts `cf_<field>` /
+ * `cf_<field>_min` / `cf_<field>_max` query params, one per filterable column of `apps/admin/src/crud/types.ts`
+ * `FieldDef` — built by the admin's `crud/ColumnFilters.tsx` `buildColFilterParams`. No table list here needs
+ * updating when a new column is added to a resource; the generic block in `admin.ts`'s list route resolves the
+ * column by name against this `table` and applies, by its Drizzle `dataType`: `_min`/`_max` -> numeric range,
+ * boolean column -> exact true/false (`"1"`/`"true"` = true), number column -> exact match (covers `ref`/`select`
+ * fields, whose underlying column is always numeric), anything else -> accent-insensitive "contains" (same
+ * `colSemAcento` helper the free-text `?q=` search already uses). The dev mock (`apps/admin/src/mocks/handlers.ts`)
+ * mirrors this using the `FieldDef.type` instead of a Drizzle column, so `VITE_USE_MOCKS=true` behaves the same.
  */
 import { app, game, player, Accounts } from "@ddt/db";
 import type { PgTable } from "drizzle-orm/pg-core";

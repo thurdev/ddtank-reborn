@@ -3,7 +3,9 @@
 Substitui `Tank.Request` (.ashx). Regra nº 1: **byte-compatível** — mesmas URLs,
 mesmo XML, mesmo zlib. Cliente Flash não muda. Catálogo completo gerado do C#:
 [`spec/request/00a-endpoint-catalog.md`](./spec/request/00a-endpoint-catalog.md)
-(resumo em `00-endpoints.md`).
+(resumo em `00-endpoints.md`). Cobertura 4.1 (o que está portado × template × fora
+de escopo, com motivo linha a linha):
+[`spec/request/01-cobertura-41.md`](./spec/request/01-cobertura-41.md).
 
 ## Mapa
 | Rota | Código | Origem C# |

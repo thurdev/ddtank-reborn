@@ -20,6 +20,7 @@
  * - `EventsPage`: abas; cada aba `ResourcePage embedded` = CRUD real do resource.
  */
 import { useMemo, useState } from "react";
+import { useSearch } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Button, Card, Dialog, DialogContent, Input, PageHeader, Switch, Tabs, TabsContent, TabsList, TabsTrigger, cn } from "@ddtank/ui";
@@ -338,10 +339,17 @@ function CodesPanel() {
 
 export function EventsPage() {
   const { t } = useI18n();
+  // `?edit=<ActiveID>` (from a `ref` cell on another resource pointing at `events`, or a bookmarked link):
+  // jump straight to the "Tabela" tab with that event's edit dialog open, same contract as the generic
+  // resource route (`router.tsx` `resourceRoute`/`GenericResource`). `strict: false` (not `from: "..."`):
+  // this component only needs the search params of whichever route rendered it, without hard-coding that
+  // route's exact TanStack Router id.
+  const { edit } = useSearch({ strict: false }) as { edit?: string };
+  const [tab, setTab] = useState(edit ? "table" : "calendar");
   return (
     <div>
       <PageHeader title={t("events.title")} description={t("events.lead")} />
-      <Tabs defaultValue="calendar">
+      <Tabs value={tab} onValueChange={setTab}>
         <TabsList>
           <TabsTrigger value="calendar">{t("events.calendar")}</TabsTrigger>
           <TabsTrigger value="table">{t("events.table")}</TabsTrigger>
@@ -355,7 +363,7 @@ export function EventsPage() {
           <Calendar />
         </TabsContent>
         <TabsContent value="table">
-          <ResourcePage def={events} embedded />
+          <ResourcePage def={events} embedded initialEditId={edit} />
         </TabsContent>
         <TabsContent value="scheduled">
           <SchedulerPanel />

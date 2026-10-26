@@ -1,4 +1,5 @@
 import { createRootRouteWithContext, createRoute, createRouter, notFound, Outlet, redirect, useParams, useSearch } from "@tanstack/react-router";
+import type { RouterHistory } from "@tanstack/react-router";
 import type { QueryClient } from "@tanstack/react-query";
 import { EmptyState } from "@ddtank/ui";
 import { meQuery } from "@/lib/api";
@@ -51,7 +52,14 @@ const authedRoute = createRoute({
 
 const dashboardRoute = createRoute({ getParentRoute: () => authedRoute, path: "/", component: DashboardPage });
 const configRoute = createRoute({ getParentRoute: () => authedRoute, path: "/config", component: ServerConfigPage });
-const eventsRoute = createRoute({ getParentRoute: () => authedRoute, path: "/events", component: EventsPage });
+/** `?edit=<ActiveID>` jumps straight to that event's edit dialog in the "Tabela" tab (same deep-link contract as
+ *  the generic `resourceRoute` below, used by `ref` cells pointing at `events`). */
+const eventsRoute = createRoute({
+  getParentRoute: () => authedRoute,
+  path: "/events",
+  validateSearch: (s: Record<string, unknown>): { edit?: string } => (typeof s.edit === "string" ? { edit: s.edit } : {}),
+  component: EventsPage,
+});
 const assetsRoute = createRoute({ getParentRoute: () => authedRoute, path: "/assets", component: AssetsPage });
 const mailRoute = createRoute({ getParentRoute: () => authedRoute, path: "/mail", component: MailPage });
 const donationsRoute = createRoute({ getParentRoute: () => authedRoute, path: "/donations", component: DonationsPage });
@@ -80,8 +88,14 @@ const routeTree = rootRoute.addChildren([
   authedRoute.addChildren([dashboardRoute, configRoute, eventsRoute, assetsRoute, mailRoute, donationsRoute, resourceRoute]),
 ]);
 
-export function createAppRouter(queryClient: QueryClient) {
-  return createRouter({ routeTree, context: { queryClient }, defaultPreload: "intent" });
+/** `history` is only ever overridden in tests (memory history instead of the real browser URL). */
+export function createAppRouter(queryClient: QueryClient, opts?: { history?: RouterHistory }) {
+  return createRouter({
+    routeTree,
+    context: { queryClient },
+    defaultPreload: "intent",
+    ...(opts?.history ? { history: opts.history } : {}),
+  });
 }
 
 declare module "@tanstack/react-router" {
