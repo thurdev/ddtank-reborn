@@ -102,7 +102,7 @@ export function buildBotView(spec: BotSpec, t: BotStatSource, now = new Date()):
   // DEV_BOT_HP (dev-only, unset in prod): overrides every bot's hp with a fixed low value so a PvP fight
   // against a bot can be finished deterministically in a test/smoke run (ver docs/client-pixi/STATUS.md
   // "achados" — mirar às cegas contra o hp real do bot não fecha KO de propósito em N tentativas).
-  const devHp = process.env.DEV_BOT_HP ? Number(process.env.DEV_BOT_HP) : undefined;
+  const devHp = process.env.NODE_ENV !== "production" && process.env.DEV_BOT_HP ? Number(process.env.DEV_BOT_HP) : undefined;
   if (devHp && Number.isFinite(devHp) && devHp > 0) r.hp = devHp;
   const { style, color, skin } = styleFromEquip(equip);
   return {
