@@ -1005,7 +1005,17 @@ Como rodar um 2º canal hoje (sem `ch-processo`/`ch-bus`): [GAME-SERVER.md §Can
 - [x] **site-design** (2026-10-18) — hero parallax, features, pódio no ranking, motion (framer-motion,
   respeita reduced-motion), SEO por página (`lib/seo.ts`), code-split por rota, testes vitest no `apps/web`.
   Arte pendente (slots em `apps/web/README.md`): `public/art/hero-bg.webp`, `public/art/og-cover.jpg`.
-- [ ] **site-play** — página de jogo com seleção de canal e launcher (toggle 4.1/6600 beta já feito no `site-design`).
+- [x] **site-play** (2026-10-26) — página Jogar (`apps/web/src/pages/Play.tsx`) ganhou um seletor de canal
+  antes de abrir o cliente: `GET /api/public/channels` (novo, `apps/api/src/routes/public.ts` `channelList`,
+  mesma fonte/filtro do `ServerList.ashx`) lista nome/online/capacidade/estado/`PvpOnly`/faixa de nível;
+  escolher um canal revela o jogo — cliente PixiJS recebe `?ws=<WsUrl do canal>` (parâmetro já existente,
+  `docs/client-pixi/COMO-RODAR.md`), Ruffle mostra um aviso porque o canal inicial dele vem do próprio SWF
+  (`ServerList.ashx` interno, sem flashvar de canal — ver `research/client/01-client-map.md`); o seletor
+  dentro do hall já troca sem relogar (`ch-troca`), não foi preciso tocar nisso. Toggle 4.1/6600 (`site-design`)
+  escondido por padrão (`SHOW_6600_TOGGLE = false`) — 6600 em stand-by, código intacto (`?client=6600`
+  continua funcionando). Botão de launcher reaproveita `launcherUrl` já exposto (sem link falso quando não
+  configurado). Testes: `apps/web/src/pages/Play.test.tsx` (6) + `apps/api/test/api.test.ts` (1 novo, 78 no
+  total) verdes; `pnpm --filter web typecheck`/`pnpm --filter @ddt/api typecheck` limpos.
 - [x] **admin-ux** (2026-10-18) — campo `ref`/`ref-multi` no CRUD (nome/ícone no lugar do id, picker com
   busca, clique abre o registro; lookup em lote `GET /api/admin/<res>?ids=`), Ctrl+K (recursos, recentes,
   busca jogador/item/guilda), seleção + edição/exclusão em massa. Bug corrigido: `keepPreviousData` vazava
