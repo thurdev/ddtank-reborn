@@ -106,6 +106,59 @@ export async function setting<T>(ctx: AppCtx, key: string): Promise<T | undefine
   return s?.value as T | undefined;
 }
 
+export interface ChannelInfo {
+  id: number;
+  name: string;
+  /** `ddt/data/ServerInfo.as` enum: 1 manutenção, 2 aberto, 4 quase cheio, 5 cheio. */
+  state: number;
+  online: number;
+  capacity: number;
+  mustLevel: number;
+  lowestLevel: number;
+  pvpOnly: boolean;
+  newerServer: boolean;
+  /** WebSocket endpoint this channel's `apps/game` answers on — same resolution as `channelSocketProxies`
+   *  (`routes/auth.ts`), exposed here so the web Play page's channel picker can target the PixiJS client
+   *  (`?ws=`) at the exact channel the player picked instead of whichever one this process defaults to. */
+  wsUrl: string;
+}
+
+/**
+ * site-play: channel list for the web Play page's channel picker — same source/filter as `ServerList.ashx`
+ * (`apps/api/src/request/endpoints/ServerList.ts`, owned by another task) and `channelSocketProxies`
+ * (`routes/auth.ts`), but as plain JSON (id/name/state/online/capacity/levels/pvpOnly) instead of the
+ * client's XML wire format. Read-only, no auth required (same visibility as `ServerList.ashx` itself).
+ */
+export async function channelList(ctx: AppCtx): Promise<ChannelInfo[]> {
+  const rows = await q(
+    ctx.h,
+    sql`SELECT * FROM player."Server_List" WHERE "Enabled" = true AND "State" <> -1 ORDER BY "SortOrder", "ID"`,
+  );
+  const local = await gameInternal<{ online?: number; players?: number }>(ctx, "/status");
+  const out: ChannelInfo[] = [];
+  for (const s of rows) {
+    const isLocal = Number(s.ID) === ctx.cfg.SERVER_ID;
+    const internalUrl = (s.InternalUrl as string | null) || "";
+    const remote = !isLocal && internalUrl ? await fetchRemoteStatus(ctx, internalUrl) : null;
+    const online = isLocal
+      ? Number(local?.players ?? local?.online ?? s.Online ?? 0)
+      : Number(remote?.players ?? remote?.online ?? s.Online ?? 0);
+    out.push({
+      id: Number(s.ID),
+      name: String(s.Name ?? ""),
+      state: Number(s.State ?? 2),
+      online,
+      capacity: Number(s.Total ?? 0),
+      mustLevel: Number(s.MustLevel ?? 0),
+      lowestLevel: Number(s.LowestLevel ?? 0),
+      pvpOnly: !!s.PvpOnly,
+      newerServer: !!s.NewerServer,
+      wsUrl: (s.WsUrl as string | null) || ctx.cfg.GAME_WS_URL,
+    });
+  }
+  return out;
+}
+
 const RANK_ORDER: Record<string, { order: number; value: string }> = {
   level: { order: 0, value: "Grade" },
   gp: { order: 0, value: "GP" },
@@ -125,6 +178,9 @@ export async function publicRoutes(f: FastifyInstance, ctx: AppCtx) {
   });
 
   f.get("/api/public/status", async () => serverStatus(ctx));
+
+  // site-play: canais pro seletor da página Jogar (ver ChannelInfo acima)
+  f.get("/api/public/channels", async () => channelList(ctx));
 
   f.get("/api/public/aim-tables", async () => {
     const sc = (await setting<Record<string, unknown>>(ctx, "server-config")) ?? {};

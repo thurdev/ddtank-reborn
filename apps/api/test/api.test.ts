@@ -590,6 +590,26 @@ describe("static + public", () => {
     expect(inflate(r6600.rawPayload)).toContain("<DailyLogList ");
   });
 
+  // site-play: a página Jogar (apps/web) usa isto pro seletor de canal — mesma fonte/filtro do ServerList.ashx,
+  // mas em JSON simples (id/name/state/online/capacity/níveis/pvpOnly/wsUrl) em vez do XML do cliente.
+  it("public/channels: same filter as ServerList.ashx, plain JSON with pvpOnly/wsUrl for the web channel picker", async () => {
+    const { sql } = await import("drizzle-orm");
+    await h.db.execute(sql`INSERT INTO player."Server_List"
+      ("ID","Name","IP","Port","State","Online","Total","Room","MustLevel","LowestLevel","NewerServer","ZoneId","ZoneName","Enabled","SortOrder","PvpOnly","WsUrl")
+      VALUES
+      (92, 'Canal PvP', '10.0.0.7', 9555, 2, 11, 300, 50, 0, 20, false, 1004, 'Canal PvP', true, 1, true, 'ws://10.0.0.7:9655/ws'),
+      (93, 'Canal desligado', '10.0.0.8', 9666, 2, 0, 300, 50, 0, 0, false, 1005, 'Canal desligado', false, 2, false, '')`);
+    try {
+      const body = (await app.inject({ url: "/api/public/channels" })).json();
+      expect(Array.isArray(body)).toBe(true);
+      expect(body.find((c: { id: number }) => c.id === 93)).toBeUndefined(); // Enabled = false
+      const pvp = body.find((c: { id: number }) => c.id === 92);
+      expect(pvp).toMatchObject({ name: "Canal PvP", state: 2, capacity: 300, pvpOnly: true, lowestLevel: 20, wsUrl: "ws://10.0.0.7:9655/ws" });
+    } finally {
+      await h.db.execute(sql`DELETE FROM player."Server_List" WHERE "ID" IN (92, 93)`);
+    }
+  });
+
   it("launcher manifest + public config", async () => {
     const l = (await app.inject({ url: "/api/public/launcher" })).json();
     expect(l.servers.length).toBeGreaterThan(0);
