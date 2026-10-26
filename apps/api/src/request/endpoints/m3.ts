@@ -79,19 +79,29 @@ export const UpdateVersion = define("/UpdateVersion.ashx", async () => text("1")
  *  behaviour doesn't change, since this endpoint was never exercised there. */
 export const VoteSubmit = define("/VoteSubmit.ashx", async ({ client }) => (client === "6600" ? text("1") : xml(result(false, "Not supported"))), "Tank.Request/VoteSubmit.cs");
 
-/** LogTime.ashx (Tank.Request/LogTime.cs:14-16): literal "1", plain text. Same 4.1-unchanged rule as VoteSubmit. */
-export const LogTime = define("/LogTime.ashx", async ({ client }) => (client === "6600" ? text("1") : xml(result(false, "Not supported"))), "Tank.Request/LogTime.cs");
+/**
+ * LogTime.ashx (vendor/DDTank41/Tank.Request/LogTime.ashx.cs:27-73): parses page/size/order/consortiaID/state/name
+ * and, on success, builds `<Result>` children from ConsortiaBussiness.GetConsortiaAllyPage — but the method has
+ * no `context.Response.Write` anywhere (unlike every sibling handler in this folder). task api-ashx: confirmed by
+ * reading the vendor .cs directly — this is a dead handler in DDTank41 itself, so the real HTTP body is always
+ * empty, for both clients, regardless of params or outcome. (The donor `Tank.Request/LogTime.cs` used for the
+ * 6600 client is the "1" literal from a different handler with the same name; 6600 keeps that behaviour here.)
+ */
+export const LogTime = define("/LogTime.ashx", async ({ client }) => (client === "6600" ? text("1") : text("")), "Tank.Request/LogTime.ashx.cs");
 
 /**
- * AdvanceQuestTime.ashx (Tank.Request/AdvanceQuestTime.cs:19-38): parses userid/selfid/key but the Bussiness block
- * is empty (`using (new PlayerBussiness()) { }` — no-op in the original too) and the handler always
- * `Response.Write($"0,{DateTime.Now},0")` regardless of the XElement it built: plain text "0,<now>,0", current
- * culture default DateTime format (M/d/yyyy h:mm:ss tt), not the XML/zlib it looks like it's building.
+ * AdvanceQuestTime.ashx (vendor/DDTank41/Tank.Request/AdvanceQuestTime.ashx.cs:25-53, same code in the donor
+ * Tank.Request/AdvanceQuestTime.cs): parses `useid` but the Bussiness block is empty
+ * (`using (PlayerBussiness db = new PlayerBussiness()) { }` — no-op) and the handler unconditionally
+ * `Response.Write(string.Format("0,{0},0", DateTime.Now))` — the XElement it builds (and the commented-out
+ * `BinaryWrite(Compress(...))`) is dead code. task api-ashx: this endpoint IS present in vendor/DDTank41 (`ls
+ * Tank.Request/AdvanceQuestTime.ashx*`), so the 4.1 client gets the exact same literal text as 6600, not the old
+ * "Not supported" stub.
  */
 export const AdvanceQuestTime = define(
   "/AdvanceQuestTime.ashx",
-  async ({ client }) => (client === "6600" ? text(`0,${fmtDateDefault(wallNow())},0`) : xml(result(false, "Not supported"))),
-  "Tank.Request/AdvanceQuestTime.cs",
+  async () => text(`0,${fmtDateDefault(wallNow())},0`),
+  "Tank.Request/AdvanceQuestTime.ashx.cs",
 );
 
 /**

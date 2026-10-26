@@ -16,6 +16,10 @@ import CreateLogin from "./endpoints/CreateLogin.js";
 import * as social from "./endpoints/social.js";
 import * as consortia from "./endpoints/consortia.js";
 import * as m3 from "./endpoints/m3.js";
+import * as rename from "./endpoints/rename.js";
+import * as gifts from "./endpoints/gifts.js";
+import { AuctionPageList } from "./endpoints/auction.js";
+import * as misc from "./endpoints/misc.js";
 import { stub, type Endpoint } from "./types.js";
 
 /** Client calls these with COMPRESS_REQUEST_LOADER (inflate). Everything else is plain. */
@@ -23,15 +27,13 @@ const ZLIB_STUBS = ["/UserQuestList.ashx", "/CheckRegistration.ashx"];
 
 /** Known endpoints not ported yet (or broken in DDTank41, spec §3.2). */
 const STUBS = [
-  "/AccountRegister.ashx", "/API/Login.ashx", "/API/Register.ashx",
-  "/AuctionPageList.ashx",
+  "/AccountRegister.ashx", "/API/Register.ashx",
   "/ChargeTest.ashx", "/CheckRegistration.ashx",
-  "/CreatShortCut.ashx",
-  "/ExitGameTransit.ashx", "/FarmGetUserFieldInfos.ashx", "/FarmGetUserFieldInfosSingle.ashx",
-  "/FavoriteTransit.ashx", "/GetSID.ashx", "/GiftRecieveLog.ashx", "/giftsendlog.ashx", "/giftsendlog1.ashx",
-  "/gmtipallbyids.ashx", "/IMFriendsBbs.ashx", "/IMFriendsGood.ashx", "/IMRecentContactsList.ashx", "/KeyGenerator.ashx",
-  "/LoadUserEquip.ashx", "/LoadUserItems.ashx", "/LoadUsersSort.ashx", "/luckstaractivityrank.ashx",
-  "/MapWeekList.ashx", "/PayTransit.ashx", "/RenameConsortiaName.ashx", "/RenameNick.ashx",
+  "/ExitGameTransit.ashx",
+  "/FavoriteTransit.ashx", "/GetSID.ashx", "/giftsendlog1.ashx",
+  "/IMFriendsBbs.ashx", "/IMFriendsGood.ashx", "/KeyGenerator.ashx",
+  "/LoadUserEquip.ashx", "/LoadUserItems.ashx", "/LoadUsersSort.ashx",
+  "/MapWeekList.ashx", "/PayTransit.ashx",
   "/SentReward.ashx", "/shopcheapitemlist2.ashx", "/UserGoodsInfo.ashx", "/UserQuestList.ashx", "/VisualizeItemLoad.ashx",
   "/CelebList/celebbyweekleaguescore.ashx",
   // requested by the client, no handler in DDTank41 either
@@ -77,6 +79,18 @@ const PORTED: Endpoint[] = [
   m3.TeamBuyActiveAwardInfo,
   m3.ConsortiaWarConsortiaRank,
   m3.ConsortiaWarPlayerRank,
+  rename.RenameNick,
+  rename.RenameConsortiaName,
+  gifts.GiftRecieveLog,
+  gifts.giftsendlog,
+  AuctionPageList,
+  misc.CreatShortCut,
+  misc.ApiLogin,
+  misc.IMRecentContactsList,
+  misc.gmtipallbyids,
+  misc.FarmGetUserFieldInfosSingle,
+  misc.FarmGetUserFieldInfos,
+  misc.luckstaractivityrank,
 ];
 
 export const ENDPOINTS = new Map<string, Endpoint>();
