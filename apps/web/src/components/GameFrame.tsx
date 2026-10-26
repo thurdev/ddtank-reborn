@@ -62,6 +62,12 @@ export interface GameFrameProps extends GameConfig {
   className?: string;
   onReady?: () => void;
   onError?: (err: Error) => void;
+  /** site-play: WebSocket endpoint of the channel picked on the Play page's channel selector (`?ws=` on the
+   *  PixiJS client, documented in `docs/client-pixi/COMO-RODAR.md`). Only affects the `pixiUrl` iframe path —
+   *  the Ruffle/SWF path has no equivalent flashvar (the client resolves its own channel from `ServerList.ashx`
+   *  internally, see `research/client/channel-switch.md`); its in-game channel dropdown already lists every
+   *  entry in `socketProxy`, so switching there always works regardless of this prop. */
+  channelWsUrl?: string;
 }
 
 /**
@@ -69,7 +75,7 @@ export interface GameFrameProps extends GameConfig {
  * Socket connections from the SWF (raw TCP host:port) are tunnelled through the
  * WebSocket URLs in `socketProxy`.
  */
-export function GameFrame({ rufflePath, swfUrl, flashvars, socketProxy, base, pixiUrl, className, onReady, onError }: GameFrameProps) {
+export function GameFrame({ rufflePath, swfUrl, flashvars, socketProxy, base, pixiUrl, channelWsUrl, className, onReady, onError }: GameFrameProps) {
   const { t } = useI18n();
   const hostRef = useRef<HTMLDivElement>(null);
   const [phase, setPhase] = useState<Phase>("ruffle");
@@ -78,7 +84,7 @@ export function GameFrame({ rufflePath, swfUrl, flashvars, socketProxy, base, pi
   const [progress, setProgress] = useState(0.08);
 
   // Stable key so a new object with the same values doesn't remount the player.
-  const configKey = JSON.stringify({ rufflePath, swfUrl, flashvars, socketProxy, base, pixiUrl });
+  const configKey = JSON.stringify({ rufflePath, swfUrl, flashvars, socketProxy, base, pixiUrl, channelWsUrl });
 
   useEffect(() => {
     const host = hostRef.current;
@@ -94,6 +100,7 @@ export function GameFrame({ rufflePath, swfUrl, flashvars, socketProxy, base, pi
       src.searchParams.set("user", flashvars.user ?? "");
       src.searchParams.set("key", flashvars.key ?? "");
       if (flashvars.config) src.searchParams.set("api", new URL(flashvars.config).origin);
+      if (channelWsUrl) src.searchParams.set("ws", channelWsUrl);
       if (new URLSearchParams(window.location.search).get("debug") === "true") src.searchParams.set("debug", "true");
       const frame = document.createElement("iframe");
       frame.src = src.toString();

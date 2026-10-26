@@ -10,6 +10,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { buildApp } from "../src/app.js";
 import { REPO_ROOT } from "../src/config.js";
 import type { AppCtx } from "../src/context.js";
+import { q1 } from "../src/lib/db.js";
 
 const VENDOR_REQ = join(REPO_ROOT, "vendor", "DDTank41", "Tank.Request");
 let h: DbHandle;
@@ -67,6 +68,14 @@ function loginBlob(user: string, pwd: string, temp: string, nick = ""): string {
   // LoginStateView.creatLoginLoader: 7 UTC date bytes + "user,key,tempPwd,nickname", RSA PKCS#1 v1.5, base64
   const payload = buildLoginPayload(`${user},${pwd},${temp}`, nick, new Array(8).fill(0)).subarray(0, 7);
   const body = Buffer.concat([Buffer.from(payload), Buffer.from(`${user},${pwd},${temp},${nick}`, "utf8")]);
+  return bytesToBase64(rsaEncryptPkcs1(key, body));
+}
+
+/** Same RSA envelope as loginBlob, but for the 5-field blobs RenameNick.ashx/RenameConsortiaName.ashx decrypt
+ * (`name,pwd,newPwd,nickname,newNickname` / `name,pass1,pass2,_,_`). */
+function blob5(a: string, b: string, c: string, d: string, e: string): string {
+  const payload = buildLoginPayload("x", "y", new Array(8).fill(0)).subarray(0, 7);
+  const body = Buffer.concat([Buffer.from(payload), Buffer.from(`${a},${b},${c},${d},${e}`, "utf8")]);
   return bytesToBase64(rsaEncryptPkcs1(key, body));
 }
 
@@ -341,17 +350,21 @@ describe("M3 ashx + templates (research/6600/ashx-missing.md)", () => {
     expect(r.body).toBe("1");
   });
 
-  it("VoteSubmit.ashx / LogTime.ashx: \"1\" for the 6600 client, 4.1 keeps the old stub (VoteSubmit.cs/LogTime.cs)", async () => {
+  it("VoteSubmit.ashx: \"1\" for the 6600 client, 4.1 keeps the old stub (no handler in DDTank41 either)", async () => {
     expect((await app.inject({ url: "/request6600/VoteSubmit.ashx" })).body).toBe("1");
     expect((await app.inject({ url: "/request/VoteSubmit.ashx" })).body).toContain("Not supported");
-    expect((await app.inject({ url: "/request6600/LogTime.ashx" })).body).toBe("1");
-    expect((await app.inject({ url: "/request/LogTime.ashx" })).body).toContain("Not supported");
   });
 
-  it("AdvanceQuestTime.ashx: \"0,<now>,0\" plain text for 6600 (the XML it builds is discarded in the original)", async () => {
-    const r = await app.inject({ url: "/request6600/AdvanceQuestTime.ashx?userid=1&selfid=1&key=x" });
-    expect(r.body).toMatch(/^0,\d{1,2}\/\d{1,2}\/\d{4} \d{1,2}:\d{2}:\d{2} [AP]M,0$/);
-    expect((await app.inject({ url: "/request/AdvanceQuestTime.ashx" })).body).toContain("Not supported");
+  it("LogTime.ashx: empty body for the 4.1 client too (api-ashx: LogTime.ashx.cs never calls Response.Write)", async () => {
+    expect((await app.inject({ url: "/request6600/LogTime.ashx" })).body).toBe("1");
+    expect((await app.inject({ url: "/request/LogTime.ashx" })).body).toBe("");
+  });
+
+  it("AdvanceQuestTime.ashx: \"0,<now>,0\" plain text for both clients (api-ashx: the XML it builds is discarded in the original AdvanceQuestTime.ashx.cs too)", async () => {
+    for (const url of ["/request6600/AdvanceQuestTime.ashx?userid=1&selfid=1&key=x", "/request/AdvanceQuestTime.ashx?useid=1"]) {
+      const r = await app.inject({ url });
+      expect(r.body).toMatch(/^0,\d{1,2}\/\d{1,2}\/\d{4} \d{1,2}:\d{2}:\d{2} [AP]M,0$/);
+    }
   });
 
   it("TeamBuyActiveAwardInfo.ashx / ConsortiaWarConsortiaRank.ashx: always-false placeholders (unfinished in the original)", async () => {
@@ -446,6 +459,106 @@ describe("M3 ashx + templates (research/6600/ashx-missing.md)", () => {
       expect(inflate(r.rawPayload)).toBe('<Result value="true" message="Success!" />');
     });
   }
+});
+
+describe("api-ashx: newly ported Tank.Request endpoints (4.1 coverage)", () => {
+  it("CreatShortCut.ashx / API/Login.ashx / IMRecentContactsList.ashx: literal/no-op handlers", async () => {
+    expect((await app.inject({ url: "/request/CreatShortCut.ashx?gameurl=x" })).body).toBe("Not support right now");
+    expect((await app.inject({ url: "/request/API/Login.ashx?username=a&password=b" })).body).toBe("1");
+    expect((await app.inject({ url: "/request/IMRecentContactsList.ashx?useid=1" })).body).toBe('<Result value="true" message="Success!" />');
+  });
+
+  it("luckstaractivityrank.ashx: <Ranks> root (not <Result>), empty rank list + myRank placeholder (no Luckstar table yet)", async () => {
+    const r = await app.inject({ url: "/request/luckstaractivityrank.ashx?selfid=1&key=x" });
+    expect(r.body).toMatch(/^<Ranks lastUpdateTime="\d{2}-\d{2} \d{2}:\d{2}" value="true" message="Success!">/);
+    expect(r.body).toContain('<myRank rank="0" useStarNum="0" nickName="" />');
+  });
+
+  it("gmtipallbyids.ashx: no ids -> value=false; with ids, every row's ID is overwritten by the FIRST id (bug kept for byte-compat)", async () => {
+    const noIds = await app.inject({ url: "/request/gmtipallbyids.ashx" });
+    expect(noIds.body).toBe('<Result value="false" message="Fail!" />');
+    const { sql } = await import("drizzle-orm");
+    const future = new Date(Date.now() + 365 * 86400000).toISOString().slice(0, 19).replace("T", " ");
+    const past = new Date(Date.now() - 365 * 86400000).toISOString().slice(0, 19).replace("T", " ");
+    await h.db.execute(sql`INSERT INTO game."Edictum_List" ("ID","Title","BeginDate","BeginTime","EndDate","EndTime","Text","IsExist")
+      VALUES (501, 'Aviso 1', ${past}, ${past}, ${future}, ${future}, 'texto', true),
+             (502, 'Aviso vencido', ${past}, ${past}, ${past}, ${past}, 'velho', true)`);
+    try {
+      const r = await app.inject({ url: "/request/gmtipallbyids.ashx?ids=999" });
+      expect(r.body).toContain('value="true"');
+      expect(r.body).toContain('<Item ID="999" Title="Aviso 1"');
+      expect(r.body).not.toContain("Aviso vencido"); // EndDate.Date <= today is dropped
+    } finally {
+      await h.db.execute(sql`DELETE FROM game."Edictum_List" WHERE "ID" IN (501, 502)`);
+    }
+  });
+
+  it("FarmGetUserFieldInfos.ashx / FarmGetUserFieldInfosSingle.ashx: real friend list, childless Items (no Farm table yet)", async () => {
+    const { sql } = await import("drizzle-orm");
+    const alice = await q1<{ UserID: number }>(ctx.h, sql`SELECT "UserID" FROM player."Sys_Users_Detail" WHERE "UserName" = 'alice' LIMIT 1`);
+    await h.db.execute(sql`INSERT INTO player."Sys_Users_Friends" ("UserID","FriendID","AddDate","IsExist") VALUES (${alice!.UserID}, 999001, now(), true)`);
+    try {
+      const r = await app.inject({ url: `/request/FarmGetUserFieldInfos.ashx?selfid=${alice!.UserID}&key=x` });
+      expect(r.body).toContain('<Item UserID="999001" />');
+      const single = await app.inject({ url: "/request/FarmGetUserFieldInfosSingle.ashx?friendID=999001" });
+      expect(single.body).toContain('<Item UserID="999001" isFeed="false" />');
+    } finally {
+      await h.db.execute(sql`DELETE FROM player."Sys_Users_Friends" WHERE "UserID" = ${alice!.UserID} AND "FriendID" = 999001`);
+    }
+  });
+
+  it("GiftRecieveLog.ashx / giftsendlog.ashx: zlib Sys_Users_Gift rows filtered by ReceiverID/SenderID, playerID always shows ReceiverID", async () => {
+    const { sql } = await import("drizzle-orm");
+    await h.db.execute(sql`INSERT INTO player."Sys_Users_Gift" ("SenderID","ReceiverID","TemplateID","Count") VALUES (910, 920, 11019, 3)`);
+    try {
+      const recv = inflate((await app.inject({ url: "/request/GiftRecieveLog.ashx?key=x&selfid=920&userID=920" })).rawPayload);
+      expect(recv).toContain('<Item playerID="920" TemplateID="11019" count="3" />');
+      const send = inflate((await app.inject({ url: "/request/giftsendlog.ashx?key=x&selfid=910&userID=910" })).rawPayload);
+      expect(send).toContain('<Item playerID="920" TemplateID="11019" count="3" />');
+    } finally {
+      await h.db.execute(sql`DELETE FROM player."Sys_Users_Gift" WHERE "SenderID" = 910`);
+    }
+  });
+
+  it("AuctionPageList.ashx: missing required int param -> Fail!/total=0; empty table -> Success!/total=0; plain (not zlib)", async () => {
+    const bad = await app.inject({ url: "/request/AuctionPageList.ashx?page=1" });
+    expect(bad.rawPayload.subarray(0, 2).toString("hex")).not.toBe("78da");
+    expect(bad.body).toBe('<Result total="0" value="false" message="Fail!" />');
+    const ok = await app.inject({ url: "/request/AuctionPageList.ashx?page=1&name=&type=-1&pay=-1&userID=-1&buyID=-1&order=0&sort=false&Auctions=" });
+    expect(ok.body).toBe('<Result total="0" value="true" message="Success!" />');
+  });
+
+  it("AuctionPageList.ashx: real row, filtered by category + name, with nested goods info", async () => {
+    const { sql } = await import("drizzle-orm");
+    await h.db.execute(sql`INSERT INTO player."Auction"
+      ("AuctionID","Name","Category","AuctioneerID","AuctioneerName","ItemID","PayType","Price","Rise","Mouthful","BeginDate","ValidDate","BuyerID","BuyerName","IsExist")
+      VALUES (1, 'Espada Dourada', 1, 5, 'Bob', 777001, 0, 1000, 100, 0, '2024-01-01 00:00:00', 7, -1, '', true)`);
+    try {
+      const r = await app.inject({ url: "/request/AuctionPageList.ashx?page=1&name=Dourada&type=1&pay=-1&userID=-1&buyID=-1&order=0&sort=false&Auctions=" });
+      expect(r.body).toContain('total="1"');
+      expect(r.body).toContain('<Item AuctionID="1" AuctioneerID="5" AuctioneerName="Bob" BeginDate="2024-01-01 00:00:00" BuyerID="-1" BuyerName="" ItemID="777001" Mouthful="0" PayType="0" Price="1000" Rise="100" ValidDate="7" />');
+      const other = await app.inject({ url: "/request/AuctionPageList.ashx?page=1&name=&type=2&pay=-1&userID=-1&buyID=-1&order=0&sort=false&Auctions=" });
+      expect(other.body).toContain('total="0"'); // wrong category -> filtered out
+    } finally {
+      await h.db.execute(sql`DELETE FROM player."Auction" WHERE "AuctionID" = 1`);
+    }
+  });
+
+  it("RenameNick.ashx: rotates nickname + game key when pwd matches the current session (bypass fixed, unlike the original)", async () => {
+    const wrong = await app.inject({ url: `/request/RenameNick.ashx?p=${encodeURIComponent(blob5("alice", "WRONG", "x", "Alice1", "Alice2"))}&site=` });
+    expect(wrong.body).toContain('value="false"');
+    const ok = await app.inject({ url: `/request/RenameNick.ashx?p=${encodeURIComponent(blob5("alice", "qwerty", "renamekey1", "Alice1", "Alice2"))}&site=` });
+    expect(ok.body).toContain('value="true"');
+    expect(await validateGameLogin(h, "alice", "renamekey1")).not.toBeNull();
+    const nick = await app.inject({ url: "/request/NickNameCheck.ashx?NickName=Alice2" });
+    expect(nick.body).toContain('value="false"'); // taken now
+  });
+
+  it("RenameConsortiaName.ashx: validates the session and rotates the key, but never renames any guild (no-op in DDTank41 itself)", async () => {
+    const r = await app.inject({ url: `/request/RenameConsortiaName.ashx?p=${encodeURIComponent(blob5("alice", "renamekey1", "renamekey2", "x", "y"))}&site=` });
+    expect(r.body).toContain('value="true"');
+    expect(await validateGameLogin(h, "alice", "renamekey2")).not.toBeNull();
+  });
 });
 
 describe("admin CRUD", () => {
@@ -588,6 +701,26 @@ describe("static + public", () => {
     // not double-compress it.
     const r6600 = await app.inject({ url: "/request6600/dailyloglist.ashx?selfid=1&key=x" });
     expect(inflate(r6600.rawPayload)).toContain("<DailyLogList ");
+  });
+
+  // site-play: a página Jogar (apps/web) usa isto pro seletor de canal — mesma fonte/filtro do ServerList.ashx,
+  // mas em JSON simples (id/name/state/online/capacity/níveis/pvpOnly/wsUrl) em vez do XML do cliente.
+  it("public/channels: same filter as ServerList.ashx, plain JSON with pvpOnly/wsUrl for the web channel picker", async () => {
+    const { sql } = await import("drizzle-orm");
+    await h.db.execute(sql`INSERT INTO player."Server_List"
+      ("ID","Name","IP","Port","State","Online","Total","Room","MustLevel","LowestLevel","NewerServer","ZoneId","ZoneName","Enabled","SortOrder","PvpOnly","WsUrl")
+      VALUES
+      (92, 'Canal PvP', '10.0.0.7', 9555, 2, 11, 300, 50, 0, 20, false, 1004, 'Canal PvP', true, 1, true, 'ws://10.0.0.7:9655/ws'),
+      (93, 'Canal desligado', '10.0.0.8', 9666, 2, 0, 300, 50, 0, 0, false, 1005, 'Canal desligado', false, 2, false, '')`);
+    try {
+      const body = (await app.inject({ url: "/api/public/channels" })).json();
+      expect(Array.isArray(body)).toBe(true);
+      expect(body.find((c: { id: number }) => c.id === 93)).toBeUndefined(); // Enabled = false
+      const pvp = body.find((c: { id: number }) => c.id === 92);
+      expect(pvp).toMatchObject({ name: "Canal PvP", state: 2, capacity: 300, pvpOnly: true, lowestLevel: 20, wsUrl: "ws://10.0.0.7:9655/ws" });
+    } finally {
+      await h.db.execute(sql`DELETE FROM player."Server_List" WHERE "ID" IN (92, 93)`);
+    }
   });
 
   it("launcher manifest + public config", async () => {

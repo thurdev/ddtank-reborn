@@ -90,8 +90,28 @@ Ordem (2026-10-26): stubs/rates do servidor → .ashx/Road.Service → site-play
   `BUFF_BUY=38`/`STAUTS=36` continuam `partial` de propósito (decisão já tomada em `41-boss-mundial-revisao`,
   não revisitada). Docs: `docs/MIGRATION-GAP.md`, `docs/qa-matrix.json`/`docs/QA-MATRIX.md`,
   `tools/qa/overrides.json`.
+- [x] **api-ashx** (2026-10-26) — inventário completo de `Tank.Request` (123 `.ashx`, já catalogado em
+  `docs/spec/request/00a-endpoint-catalog.md`) × `apps/api/src/request/endpoints/`; cobertura detalhada em
+  `docs/spec/request/01-cobertura-41.md`. Portados os 10 endpoints que o cliente 4.1 ainda chamava e
+  respondiam só `Not supported`: `RenameNick`/`RenameConsortiaName` (envelope RSA, mesma correção de
+  segurança do `Login.ts`), `AuctionPageList` (filtro completo de categoria/TemplateID do
+  `GetAuctionPage`), `GiftRecieveLog`/`giftsendlog` (zlib, `Sys_Users_Gift`), `gmtipallbyids`
+  (`Edictum_List`, bug de sobrescrever `ID` com o primeiro item mantido de propósito),
+  `FarmGetUserFieldInfos(Single)`, `luckstaractivityrank` (raiz `<Ranks>` correta, sem tabela Luckstar
+  ainda), `CreatShortCut`, `API/Login.ashx`, `IMRecentContactsList`. Corrigidos 2 endpoints que `m3.ts`
+  (tarefa `m3-ashx`) tinha assumido como exclusivos do 6600: `AdvanceQuestTime.ashx`/`LogTime.ashx` existem
+  de verdade no `vendor/DDTank41` com corpo próprio (texto literal `"0,<agora>,0"` / nenhum
+  `Response.Write` nunca chamado) — o cliente 4.1 agora recebe o mesmo byte-a-byte do servidor original em
+  vez do stub genérico. Endpoints fora de escopo (admin-only/legado, ou sem handler no DDTank41) listados
+  com motivo em `01-cobertura-41.md` — nenhum implementado. Testes: `apps/api/test/api.test.ts` (10 novos +
+  2 corrigidos). Docs: `docs/MIGRATION-GAP.md`, `docs/API.md`, `apps/api/README.md`.
 - [ ] **41-qa-tudo** — testar TODAS as features no jogo de verdade (matriz QA `verified:yes` + evidência),
   área por área, abrindo fix pra cada falha.
+
+- [ ] **sec-ashx-key** — endpoints .ashx só-leitura que recebem `userID`/`selfid` + `key` mas não validam a `key`
+  (igual ao C# original): `GiftRecieveLog.ashx`, `giftsendlog.ashx`, `FarmGetUserFieldInfos.ashx`, `dailyloglist`…
+  Qualquer um lê o histórico de presentes/lista de amigos de outro jogador. Validar a `key` contra a sessão
+  (`app."LoginSessions"`, ver `@ddt/auth`) sem quebrar o cliente 4.1 (conferir como o AS3 monta a `key`).
 
 ## 1. Migração 6600 (STAND-BY desde 2026-10-20)
 
@@ -1005,7 +1025,17 @@ Como rodar um 2º canal hoje (sem `ch-processo`/`ch-bus`): [GAME-SERVER.md §Can
 - [x] **site-design** (2026-10-18) — hero parallax, features, pódio no ranking, motion (framer-motion,
   respeita reduced-motion), SEO por página (`lib/seo.ts`), code-split por rota, testes vitest no `apps/web`.
   Arte pendente (slots em `apps/web/README.md`): `public/art/hero-bg.webp`, `public/art/og-cover.jpg`.
-- [ ] **site-play** — página de jogo com seleção de canal e launcher (toggle 4.1/6600 beta já feito no `site-design`).
+- [x] **site-play** (2026-10-26) — página Jogar (`apps/web/src/pages/Play.tsx`) ganhou um seletor de canal
+  antes de abrir o cliente: `GET /api/public/channels` (novo, `apps/api/src/routes/public.ts` `channelList`,
+  mesma fonte/filtro do `ServerList.ashx`) lista nome/online/capacidade/estado/`PvpOnly`/faixa de nível;
+  escolher um canal revela o jogo — cliente PixiJS recebe `?ws=<WsUrl do canal>` (parâmetro já existente,
+  `docs/client-pixi/COMO-RODAR.md`), Ruffle mostra um aviso porque o canal inicial dele vem do próprio SWF
+  (`ServerList.ashx` interno, sem flashvar de canal — ver `research/client/01-client-map.md`); o seletor
+  dentro do hall já troca sem relogar (`ch-troca`), não foi preciso tocar nisso. Toggle 4.1/6600 (`site-design`)
+  escondido por padrão (`SHOW_6600_TOGGLE = false`) — 6600 em stand-by, código intacto (`?client=6600`
+  continua funcionando). Botão de launcher reaproveita `launcherUrl` já exposto (sem link falso quando não
+  configurado). Testes: `apps/web/src/pages/Play.test.tsx` (6) + `apps/api/test/api.test.ts` (1 novo, 78 no
+  total) verdes; `pnpm --filter web typecheck`/`pnpm --filter @ddt/api typecheck` limpos.
 - [x] **admin-ux** (2026-10-18) — campo `ref`/`ref-multi` no CRUD (nome/ícone no lugar do id, picker com
   busca, clique abre o registro; lookup em lote `GET /api/admin/<res>?ids=`), Ctrl+K (recursos, recentes,
   busca jogador/item/guilda), seleção + edição/exclusão em massa. Bug corrigido: `keepPreviousData` vazava
