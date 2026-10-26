@@ -90,6 +90,21 @@ Ordem (2026-10-26): stubs/rates do servidor → .ashx/Road.Service → site-play
   `BUFF_BUY=38`/`STAUTS=36` continuam `partial` de propósito (decisão já tomada em `41-boss-mundial-revisao`,
   não revisitada). Docs: `docs/MIGRATION-GAP.md`, `docs/qa-matrix.json`/`docs/QA-MATRIX.md`,
   `tools/qa/overrides.json`.
+- [x] **api-ashx** (2026-10-26) — inventário completo de `Tank.Request` (123 `.ashx`, já catalogado em
+  `docs/spec/request/00a-endpoint-catalog.md`) × `apps/api/src/request/endpoints/`; cobertura detalhada em
+  `docs/spec/request/01-cobertura-41.md`. Portados os 10 endpoints que o cliente 4.1 ainda chamava e
+  respondiam só `Not supported`: `RenameNick`/`RenameConsortiaName` (envelope RSA, mesma correção de
+  segurança do `Login.ts`), `AuctionPageList` (filtro completo de categoria/TemplateID do
+  `GetAuctionPage`), `GiftRecieveLog`/`giftsendlog` (zlib, `Sys_Users_Gift`), `gmtipallbyids`
+  (`Edictum_List`, bug de sobrescrever `ID` com o primeiro item mantido de propósito),
+  `FarmGetUserFieldInfos(Single)`, `luckstaractivityrank` (raiz `<Ranks>` correta, sem tabela Luckstar
+  ainda), `CreatShortCut`, `API/Login.ashx`, `IMRecentContactsList`. Corrigidos 2 endpoints que `m3.ts`
+  (tarefa `m3-ashx`) tinha assumido como exclusivos do 6600: `AdvanceQuestTime.ashx`/`LogTime.ashx` existem
+  de verdade no `vendor/DDTank41` com corpo próprio (texto literal `"0,<agora>,0"` / nenhum
+  `Response.Write` nunca chamado) — o cliente 4.1 agora recebe o mesmo byte-a-byte do servidor original em
+  vez do stub genérico. Endpoints fora de escopo (admin-only/legado, ou sem handler no DDTank41) listados
+  com motivo em `01-cobertura-41.md` — nenhum implementado. Testes: `apps/api/test/api.test.ts` (10 novos +
+  2 corrigidos). Docs: `docs/MIGRATION-GAP.md`, `docs/API.md`, `apps/api/README.md`.
 - [ ] **41-qa-tudo** — testar TODAS as features no jogo de verdade (matriz QA `verified:yes` + evidência),
   área por área, abrindo fix pra cada falha.
 
