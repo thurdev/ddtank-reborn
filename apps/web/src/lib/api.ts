@@ -32,6 +32,23 @@ export interface PublicConfig {
   game: GameConfig;
 }
 
+/** site-play: one row of `player."Server_List"` (same filter/source as ServerList.ashx), as plain JSON for
+ *  the Play page's channel picker — see `apps/api/src/routes/public.ts` `ChannelInfo`/`channelList`. */
+export interface Channel {
+  id: number;
+  name: string;
+  /** `ddt/data/ServerInfo.as` enum: 1 manutenção, 2 aberto, 4 quase cheio, 5 cheio. */
+  state: number;
+  online: number;
+  capacity: number;
+  mustLevel: number;
+  lowestLevel: number;
+  pvpOnly: boolean;
+  newerServer: boolean;
+  /** WebSocket endpoint of this channel's `apps/game` — used as `?ws=` for the PixiJS client. */
+  wsUrl: string;
+}
+
 export interface ServerStatus {
   online: boolean;
   maintenance: boolean;
@@ -105,6 +122,12 @@ export const configQuery = queryOptions({
   queryKey: ["public", "config", clientParam],
   queryFn: () => api.get<PublicConfig>(clientParam ? `/api/public/config?client=${encodeURIComponent(clientParam)}` : "/api/public/config"),
   staleTime: 5 * 60_000,
+});
+
+export const channelsQuery = queryOptions({
+  queryKey: ["public", "channels"],
+  queryFn: () => api.get<Channel[]>("/api/public/channels"),
+  refetchInterval: 30_000,
 });
 
 export const statusQuery = queryOptions({

@@ -1,5 +1,5 @@
 import { http, HttpResponse, delay } from "msw";
-import type { AuthResponse, Me, NewsItem, PublicConfig, RankingRow, RankingType, ServerStatus, User } from "@/lib/api";
+import type { AuthResponse, Channel, Me, NewsItem, PublicConfig, RankingRow, RankingType, ServerStatus, User } from "@/lib/api";
 
 // Dev-only fake API (VITE_USE_MOCKS=true). Shapes mirror the contract in src/lib/api.ts.
 
@@ -29,6 +29,17 @@ export const handlers = [
         socketProxy: [{ host: "127.0.0.1", port: 9200, proxyUrl: "ws://localhost:8080/ws/game" }],
       },
     };
+    return HttpResponse.json(body);
+  }),
+
+  http.get("/api/public/channels", async () => {
+    await delay(200);
+    const body: Channel[] = [
+      { id: 1, name: "Canal 1", state: 2, online: 128, capacity: 1000, mustLevel: 0, lowestLevel: 0, pvpOnly: false, newerServer: true, wsUrl: "ws://localhost:8080/ws/game" },
+      { id: 2, name: "Canal 2", state: 4, online: 612, capacity: 700, mustLevel: 0, lowestLevel: 0, pvpOnly: false, newerServer: false, wsUrl: "ws://localhost:8080/ws/game2" },
+      { id: 3, name: "Canal PvP", state: 2, online: 41, capacity: 300, mustLevel: 0, lowestLevel: 20, pvpOnly: true, newerServer: false, wsUrl: "ws://localhost:8080/ws/game3" },
+      { id: 4, name: "Canal em manutenção", state: 1, online: 0, capacity: 1000, mustLevel: 0, lowestLevel: 0, pvpOnly: false, newerServer: false, wsUrl: "ws://localhost:8080/ws/game4" },
+    ];
     return HttpResponse.json(body);
   }),
 
