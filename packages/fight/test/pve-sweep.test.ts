@@ -13,7 +13,7 @@
  * hard failure. A maintainer closing one of those is a one-line migration, same as `0027_pve_cadeia_gulu_baron.sql`.
  */
 import { describe, expect, it } from "vitest";
-import { PveGame, eRoomType, eGameType, scriptInfo, type PlayerSpec, type PveInfo } from "../src/index.js";
+import { PveGame, eRoomType, eGameType, scriptInfo, type PlayerSpec } from "../src/index.js";
 import "../src/pve/scripts/index.js";
 import { loadPackedAssets } from "../src/node.js";
 import { data, pves } from "./pve-data.js";
@@ -24,7 +24,8 @@ const spec = (userId: number): PlayerSpec => ({
   weapon: { templateId: 7001, property8: 5 }, isBot: true,
 });
 
-const DIFFICULTIES: readonly [hardLevel: number, field: keyof PveInfo][] = [
+type GameScriptField = "SimpleGameScript" | "NormalGameScript" | "HardGameScript" | "TerrorGameScript" | "EpicGameScript";
+const DIFFICULTIES: readonly [hardLevel: number, field: GameScriptField][] = [
   [0, "SimpleGameScript"], [1, "NormalGameScript"], [2, "HardGameScript"], [3, "TerrorGameScript"], [4, "EpicGameScript"],
 ];
 

@@ -39,6 +39,31 @@ Ordem (2026-10-26): stubs/rates do servidor → .ashx/Road.Service → site-play
   documentadas como recomendação pro dono revisar — não "corrigidas" às cegas (amostra de NPCs encontrados é
   pequena pra maioria das masmorras, ver seção 2 do doc). Testes: `apps/game/test/pve-instancias.test.ts` (13,
   unit + integração real de sala/`startPve`/`91 GAME_CMD`).
+- [x] **pve-cadeia** (2026-10-26, relato do dono: "terminei o Castelo do Bugou no FÁCIL e acabou na hora,
+  nunca foi pra fase do Baron, e não desbloqueou o NORMAL automaticamente") — masmorra `Pve_Info` ID 1
+  ("Lâu đài Gà" / Gulu Kingdom): `GuluKingdomSimpleGame` chama `Game.SetupMissions("1072,1073")`
+  (`PVEGame.cs:1964-1978`) mas `game."Mission_Info"` nunca teve a linha `Id=1073` (a fase do Baron/Baroff,
+  NPC 1003) — confirmado ausente até no dump bruto do banco doador
+  (`vendor/_dbexport/Project_Game34/data/Mission_Info.json`), não bug de import; o script `GD1073`, os NPCs
+  e o mapa 1073 já existiam. `SetupMissions` nunca registrava a 2ª sessão, `hasNextSession()` retornava
+  `false` e a masmorra terminava depois da fase 1. Corrigido: migração aditiva
+  `packages/db/drizzle/0027_pve_cadeia_gulu_baron.sql` + seed gz (`Mission_Info.json.gz`) com a linha
+  restaurada (valores por analogia às linhas-irmãs 1172/1272/1372, mesmo chefe "Baroff"). Achado um 2º bug
+  no caminho: a IA do Baroff (`SimpleCaptainAi`) chama `Body.TowardsToPlayer(...)`
+  (`SimpleBoss.cs:326`, vendor/DDTank4.1) — método nunca portado (`packages/fight/src/pve/compat.ts`),
+  afetava também `NormalCaptainAi`/`HardCaptainAi`/`TerrorCaptainAi`/`PSMNpcAi`/`HardKingLast`/
+  `TerrorKingLast`/`TerrorKingZhen` (qualquer masmorra usando esses 8 scripts de chefe) — portado agora.
+  "Não desbloqueava Normal" não era bug separado: `recordPveClear`/`onDungeonCleared` só dependem de
+  `IsWin` no `PVE_STOPPED`, que já funcionava corretamente; uma vez a fase do Baron de fato jogada e
+  vencida, o desbloqueio (`41-instancias`) já funciona. Varredura de todo o catálogo
+  (`packages/fight/test/pve-sweep.test.ts`, 102 combinações masmorra×dificuldade com script): as ÚNICAS
+  outras cadeias quebradas são as outras 3 dificuldades da MESMA masmorra (Normal falta a sessão 3, Difícil
+  falta 3-4, Terror falta 4-5 — ids 1176/1276-1277/1376-1378; os scripts existem, só falta a linha
+  `Mission_Info`, mas sem uma linha-irmã segura o bastante pra copiar o texto com confiança) — documentado
+  em `docs/guides/pve.md` pro dono revisar/preencher via admin quando quiser, não inventado aqui. Testes:
+  `packages/fight/test/pve.test.ts` (joga a masmorra 1 fácil completa, 2 fases, sem erros de script),
+  `packages/fight/test/pve-sweep.test.ts` (varredura + guarda de regressão),
+  `apps/game/test/pve-instancias.test.ts` (dados reais do Pve 1 provando que Normal libera).
 - [x] **41-hot-update** (2026-10-20) — `POST /hot-update` (`apps/game/src/admin/http.ts` + `admin/hot-update.ts
   applyHotUpdate`) reloada templates/eventos (igual `/reload-templates`) E empurra pros jogadores já conectados
   os pacotes que o 4.1/6600 sabem processar sem relogar: `updatePlayerProperties()` (38/67/167, stats/

@@ -27,6 +27,36 @@ termina quando não houver NPC vivo; NPC sem script → IA genérica (vai até o
 `CurrentBallId` atira com o solucionador de mira). Erros de script são registrados no log (`pve script ... error`) e o
 jogo continua, como no C# original (cada chamada tem try/catch).
 
+## 1.1 Masmorra termina antes da hora / não chega na fase do chefe (cadeia de missões quebrada)
+
+Tarefa `pve-cadeia` (relato do dono, 2026-10-26): o `*GameScript` de uma masmorra chama
+`Game.SetupMissions("id1,id2,...")` (ex. `GuluKingdomSimpleGame` → `"1072,1073"`, fase 1073 = o chefe
+Baroff). Se **qualquer** `id` dessa lista não tiver linha em `game."Mission_Info"`, `SetupMissions`
+(`packages/fight/src/pve/game.ts`) não registra aquela sessão e `hasNextSession()` passa a retornar `false`
+assim que a sessão anterior é vencida — a masmorra termina ali, mesmo que o script da fase (`AMissionControl`)
+e os NPCs existam e funcionem perfeitamente. Foi exatamente o caso de `Pve_Info` ID 1 ("Lâu đài Gà"/Gulu
+Kingdom, "Castelo do Bugou" pro dono): fase 1073 (o Baron/Baroff) tinha script, NPCs e mapa prontos, só
+faltava a linha `Mission_Info` — ausente até no dump bruto do banco doador
+(`vendor/_dbexport/Project_Game34/data/Mission_Info.json`), não um bug de import. Corrigido com uma
+migração aditiva (`packages/db/drizzle/0027_pve_cadeia_gulu_baron.sql`, idempotente, mesmo padrão de
+`0011_labirinto_pve_seed.sql`) + o seed gz (`packages/db/seed/game/Mission_Info.json.gz`).
+
+**Para diagnosticar outro caso assim:** `packages/fight/test/pve-sweep.test.ts` constrói cada combinação
+`(Pve_Info, dificuldade)` que tem `*GameScript` preenchido e reporta (via `console.log`, não falha o teste —
+ver cabeçalho do arquivo) toda cadeia onde `Misssions.size < TotalMissionCount`. Na varredura de
+2026-10-26 (102 combinações), as únicas outras quebradas são as outras 3 dificuldades da MESMA masmorra
+(Pve 1): Normal falta a sessão 3 (`Mission_Info` id 1176, script `CNM1176` já existe), Difícil falta 3-4
+(1276/1277, scripts `CHM1276`/`CHM1277`), Terror falta 4-5 (1376/1378, scripts `CTM1376`/`CTM1378`) — não
+corrigidas nesta tarefa porque, diferente da 1073 (texto idêntico às irmãs 1172/1272/1372, "Derrote
+Baroff."), essas usam um prefixo de script diferente (`CNM`/`CHM`/`CTM`, não `GT`/`GK`/`GAH` das fases
+"Gà Thường/Khó/Anh Hùng" da mesma masmorra) — sinal de que são missões **reaproveitadas de outra
+masmorra/versão**, sem uma linha-irmã segura o bastante pra reconstruir `Name`/`Success`/`Failure` por
+analogia sem inventar texto. Pendente pro dono revisar e preencher via admin (**Fases PvE**) quando quiser;
+rode o sweep de novo depois — ele deve sair da lista de quebrados.
+
+Um script de FASE ausente (não a linha `Mission_Info`) é um problema diferente e já tem fallback: "fase sem
+script → termina quando não houver NPC vivo" (seção 1 acima) — não trava, só não roda a lógica customizada.
+
 ## 2. Adicionar uma masmorra (Pve_Info)
 
 1. Admin → **Masmorras PvE** → *Novo*. Campos principais:
