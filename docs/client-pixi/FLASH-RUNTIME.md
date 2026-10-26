@@ -55,3 +55,23 @@ Gerar esqueleto de classe nova que o jogo passou a usar:
   vira PNG 100% transparente no exportador; o hit-test por alfa (`alpha-hit.ts`)
   nunca acertaria. Corrigido: imagem 100% transparente faz o hit-test cair pro
   retângulo inteiro da forma em vez do alfa do pixel.
+- **Frame scripts da própria classe do símbolo** (`addFrameScript` compilado
+  dentro do ABC do SWF de asset — ex. um personagem/monstro cuja timeline tem
+  segmentos "stand/walk/attack/die" e cada um termina com `stop()` ou
+  `gotoAndPlay("stand")` pra não vazar pro próximo segmento): o exportador
+  (`tools/swf-export/src/swf-classes.ts`) decompila esse código via FFDec e
+  extrai os padrões simples (`stop/play/gotoAndPlay/gotoAndStop/nextFrame/prevFrame`)
+  pra `TimelineT.fs` no `library.json`; `MovieClip.$initSymbol` liga isso em
+  `$scripts` chamando os MÉTODOS da instância (`this.stop()`,
+  `this.gotoAndPlay(...)`), não a timeline direto — importante porque a
+  classe BASE real do símbolo (resolvida por `SwfLibrary.$makeClass` via
+  `$tryCls(base)`, ex. `road.game.resource.ActionMovie`) pode sobrescrever
+  esses métodos com uma máquina de estados própria, e despachar pelo método
+  deixa esse override valer, igual ao AS3 original. Sem isso, qualquer
+  MovieClip de asset com múltiplos segmentos na timeline nunca para sozinho:
+  `$advance()` sempre avança e dá a volta no fim, varrendo TODOS os
+  segmentos em sequência pra sempre (ex.: monstro "parado" cicla
+  stand→walk→attack→die→stand sem parar, corpo continua animando depois de
+  morrer). Bug "best-effort": statement do frame script que não é um desses
+  padrões simples é ignorado e vira aviso no `EXPORT-REPORT.txt` em vez de
+  quebrar o resto do frame script.

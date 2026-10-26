@@ -195,6 +195,104 @@ funciona sem erro no console; detalhes visuais anotados.
   desta sessão (todos OK) — não refeita aqui por falta de tempo após o
   investigação de HP/vitória.
 
+## Achados da sessão pixi-anim (animação: timing, interpolação, frame scripts)
+
+- **Bug corrigido — `ENTER_FRAME` disparava DEPOIS da timeline avançar**
+  (`packages/flash/src/frame-loop.ts`, extraído de `player.ts`): a ordem
+  documentada pela Adobe (`Event.FRAME_CONSTRUCTED`) é `enterFrame` → tags do
+  frame executam (timeline avança) → `frameConstructed` → frame scripts →
+  `exitFrame`. O loop avançava TODAS as timelines antes de disparar
+  `ENTER_FRAME`, então qualquer listener de `ENTER_FRAME` do jogo (comum no
+  AS3 convertido, pra ler `currentFrame`/posição antes de decidir o próximo
+  passo) via o frame já adiantado em 1 — deixava animação guiada por
+  `ENTER_FRAME` sistematicamente fora de sincronia com o Flash original.
+  Testes em `frame-loop.test.ts`.
+- **Bug corrigido — rotação/skew não eram suavizadas no desenho a 60fps**
+  (`packages/flash/src/interp.ts`): a interpolação de desenho (lógica 25fps →
+  desenho 60+fps) só cobria x/y/escala/alfa; qualquer objeto girando (bala,
+  explosão, roleta, mira) ficava com posição suave mas rotação "travando" a
+  25fps — pior que o Flash original. Agora interpola rotation/skew pelo
+  caminho angular mais curto (mod 360°). Testes em `interp.test.ts`.
+- **Bug corrigido (causa raiz de vários relatos do dono) — frame scripts do
+  próprio asset eram descartados pelo exportador**
+  (`tools/swf-export/src/swf-classes.ts` + `packages/flash/src/display/MovieClip.ts`):
+  confirmado com FFDec em `vendor/_assets/merged/image/game/living/Living007.swf`
+  — a classe embutida no SWF (`game.living.Living007 extends
+  road.game.resource.ActionMovie`) tem `addFrameScript(13,frame14,...)` no
+  construtor, com métodos que fazem `stop()`/`gotoAndPlay("stand")` no limite
+  de cada segmento labelado (stand/cry/walk/beatA/die/born/lost/win). O
+  exportador decompilava esse código só pra saber a classe base e JOGAVA FORA
+  os frame scripts — sem eles, a timeline nunca para: avança livre por TODOS
+  os segmentos em sequência pra sempre, mesmo o personagem parado (monstro
+  "cicla" stand→cry→walk→attack→die→born pra sempre), e o segmento "die"
+  nunca congela no último frame (corpo continua "vivo"/animando depois de
+  morrer, em vez de parar e sumir). Mesmo padrão confirmado em
+  `ui/vietnam/swf/gameover.swf` (tela de cartas/prêmios: `WinEffectLight`,
+  `TotalExpTxtLight`, `goForPowerMovieAsset`, símbolos do `LuckyCard` também
+  têm `addFrameScript`) — explica o "piscar" das cartas de recompensa. Fix:
+  `TimelineT.fs` (novo campo em `library-types.ts`) grava os frame scripts
+  extraídos (best-effort: `stop/play/gotoAndPlay/gotoAndStop/nextFrame/prevFrame`,
+  o resto vira aviso no `EXPORT-REPORT.txt`); `MovieClip.$initSymbol` os liga
+  em `$scripts` chamando os MÉTODOS da instância (não a timeline direto), o
+  que deixa valer um override de classe real (`ActionMovie` troca
+  `gotoAndPlay`/`gotoAndStop` por uma máquina de estados própria). Testes em
+  `display/MovieClip.test.ts`.
+  **Pendente**: precisa reexportar os assets pra esse fix valer (o
+  `library.json` já exportado não tem `tl.fs` — ver nota de re-export
+  abaixo). Weapon-level aura (glow de nível da arma) tem o mesmo "cheiro" de
+  bug (timeline multi-segmento sem stop) mas não achei o SWF exato nesta
+  sessão — deve ser coberto pelo mesmo fix, sem precisar de código extra.
+- **Investigado, NÃO corrigido — destaque de hover dos prédios do hall**
+  (Salão de Jogos/Academia/Loja: borda "azul" estranha no hover; Forja: a
+  imagem do prédio parece "trocar" no hover). Causa NÃO é filtro nem frame
+  script: `HallStateView.__btnOver/__btnOut` faz `_hallMainView.gotoAndStop(N)`
+  (N = 1..13, um frame por prédio) — confirmado ao vivo que o frame certo é
+  alcançado (`_hallMainView.currentFrame` bate com o prédio hovered). Cada
+  frame troca, na profundidade 3, um caractere "destaque" que é uma CÓPIA
+  inteira (recolorida/com brilho) do prédio real — não é uma borda fina, é o
+  prédio inteiro de novo, pra só a margem (fora da silhueta do prédio real,
+  desenhado por cima) aparecer como brilho. Achados:
+  - Alguns desses "destaque" (`shapes/199.png` = loja, `shapes/208.png` =
+    sala de jogos) saem do FFDec com uma franja de cor (vermelho/verde/azul
+    separados) na borda — confirmado que NÃO é anti-aliasing (persiste
+    idêntico exportando a 4× zoom); o preenchimento é um bitmap recortado por
+    padrão SVG (`<pattern>`+`<image>`), não gradiente. Provável limitação do
+    rasterizador de shape do FFDec pra esse bitmap específico — não
+    confirmado se é bug do FFDec ou do bitmap original.
+  - O destaque da Forja (`shapes/225.png`) exporta limpo (brilho suave, sem
+    franja) e a posição/alpha/visibilidade no palco batem com o esperado
+    (confirmado ao vivo via `ddtDebug`), mas ao vivo aparece como uma
+    "dupla-exposição" (silhueta de outro prédio vazando por cima do prédio
+    real) em vez de um brilho suave — o destaque está em alpha=1/blend normal
+    (sem `ct`/`fl`/`bl` em nenhum frame dumped), então se o PNG não tiver
+    opacidade decrescente na própria imagem (ou se a silhueta não bater
+    exatamente com o prédio real), dá exatamente essa "dupla-exposição".
+    Não confirmado se o Flash original usa blend/alpha que nosso exportador
+    não está capturando, ou se precisa comparar com Ruffle (não testado) pra
+    saber se é fidelidade de conteúdo (bug no SWF/arte) ou bug nosso.
+  - Reproduzido ao vivo com conta de teste nova (`pixianimtest`) em
+    `http://localhost:5181` — screenshots não versionados (`.tmp_hallcheck`,
+    apagados ao final da sessão).
+
+### Reexportar pra os fixes valerem
+
+O fix de frame scripts (`tl.fs`) só aparece em assets reexportados — os
+`library.json` já no `apps/client/public/assets` são de ANTES do fix e
+`exportOne()` só regenera quando o `.swf` fonte é mais novo que o
+`library.json` (nunca é o caso aqui), então precisa `--force`:
+
+```bash
+cd tools/swf-export
+npx tsx src/main.ts --set ui --force        # ~650 SWFs — cobre gameover.swf (cartas/prêmios) e UI em geral
+npx tsx src/main.ts --set resource --force  # ~3000 SWFs — cobre living/monstro (confirmado), bomba/blastout, provável aura de arma
+```
+
+Confirmado (`Living007.swf`, `gameover.swf`) que `addFrameScript` existe em
+pelo menos os dois sets — não dá pra saber de antemão quais dos ~3600 SWFs
+restantes têm o mesmo padrão sem reexportar tudo. `npm install` dentro de
+`tools/swf-export` primeiro se não tiver `node_modules` lá (`sharp` não é do
+workspace pnpm).
+
 ## Pendências conhecidas
 
 - **Arte com texto em vietnamita** (botão "Bắt đầu", abas, nomes das
