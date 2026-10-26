@@ -137,6 +137,64 @@ funciona sem erro no console; detalhes visuais anotados.
   que valha a pena generalizar) — ver `grep "error TS" <log do typecheck>`
   pra lista atual.
 
+## Achados da sessão 2026-10-26 parte 2 (GradeContainer + DEV_BOT_HP + hall sweep)
+
+- **Bug corrigido — `GradeContainer.ts:36` crash no timer de limpeza do level-up**
+  (`TypeError: Cannot read properties of undefined (reading 'clear')`). Causa raiz
+  rastreada até `SwfLibrary.create(id)`: o caractere id 371 (child nomeado "video"
+  da timeline de `lv_mc_init`, dentro de `asset.core.playerLevelUpFaileAsset`) não
+  existe em `library.json` — falta entre os ids 370 e 372, característico de um
+  `DefineVideoStream` (vídeo embutido no SWF original) que o exportador não tem
+  como rasterizar (sem desenho vetorial/bitmap pra virar PNG). `create()` devolvia
+  `null`; `MovieClip.$place` (e `SimpleButton`/`Sprite`, mesmo padrão) abortava a
+  colocação sem nunca setar a instância nomeada — qualquer código que depois
+  chamasse um método nela quebrava. Corrigido genericamente (`packages/flash/src/swf/SwfLibrary.ts`):
+  caractere ausente agora vira um `MovieClip` vazio envolto num `Proxy` (método
+  que não existir nele vira no-op em vez de `TypeError`); cobre qualquer SWF com
+  esse mesmo problema, não só este.
+- **Segundo bug achado e corrigido em batalha**: `RoomCharacter.initLoader` quebrava
+  com `Cannot read properties of null (reading 'createLoader')` quando
+  `__propertyChange` (listener de `PlayerPropertyEvent.PROPERTY_CHANGE`) rodava
+  num personagem já descartado (`_factory` zerado por `dispose()`) — o AS3 original
+  confia só no `removeEventListener` de `dispose()`, mas no shim um evento
+  disparado bem na hora da troca de sala/fim de batalha ainda pode chegar antes da
+  remoção surtir efeito. Patch em `tools/as3-to-ts/patches/ddt/view/character/BaseCharacter.ts.json`
+  guarda com `_disposed` (campo que já existia, só não era checado nesse método).
+- **`DEV_BOT_HP` (dev-only, `apps/game/src/bots/view.ts`)**: nova env var que,
+  quando setada (ex. `DEV_BOT_HP=1`), sobrescreve o hp computado de **todo** bot
+  de PvP — ausente (padrão) não muda nada. Pedido pra tornar a tela de vitória
+  testável sem precisar vencer um bot com hp real: os bots de PvP têm o nível
+  deliberadamente igualado ao do jogador humano pra ser justo
+  (`apps/game/src/bots/provider.ts acquire()`: `level: Math.max(1, level)`), então
+  `level`/`difficulty` de `app."Bots"` **não** servem pra criar um alvo fácil —
+  por isso a env var em vez de editar dado existente.
+  - Rastreado por leitura de código até `packages/fight/src/game/living.ts:452`
+    (`this.maxBlood = s.hp`) — o caminho parece correto.
+  - **Não confirmado empiricamente** dentro do timebox desta sessão: rodei a
+    batalha PvP completa várias vezes com `DEV_BOT_HP=1` e o servidor de jogo
+    reiniciado com a env var; turnos/pacotes `FIRE`/`DIRECTION`/`TURN` trocam
+    normalmente e "Parabéns, você aumentou de nível!" aparece no chat (sinal de
+    dano reconhecido), mas não fechei um `GAME_OVER` pra confirmar visualmente o
+    `ExpView`. Tentei inspecionar `blood`/`maxBlood` ao vivo varrendo a *display
+    list* (`ddtDebug.stage`) por um objeto com essas propriedades — não achei
+    nenhum: `GameLiving`/`GamePlayer` (o que fica na tela) parece ser só a parte
+    visual; o modelo com `_blood`/`_maxBlood` (`game/model/Living.ts`) não é um
+    `DisplayObject` e não aparece nessa varredura, então não dá pra confirmar o
+    valor em runtime por esse caminho.
+  - **Causa provável do "não fechei o KO"**: mirar às cegas com `ArrowUp`/`Space`
+    em tempos fixos depende de acertar a janela real do próprio turno (contador
+    "sua vez" do servidor); mesmo com hp=1 no bot, um tiro só mata se **acertar**,
+    e nem todo tiro do roteiro conecta. Não é um problema do hp override em si.
+  - **Próximo passo sugerido**: achar o caminho certo pra ler `blood`/`maxBlood`
+    em runtime (provavelmente via o modelo em `GameManager.Instance.Current.livings`,
+    que não é global — precisa expor via `ddtDebug` ou importar o módulo no eval
+    de outra forma) pra confirmar o valor ANTES de gastar tempo em mais tentativas
+    de tiro; ou simplesmente deixar um roteiro de vários tiros rodar mais tempo e
+    checar screenshots periódicos até pegar a tela de vitória.
+- Varredura de todos os 12 ícones de prédio do hall já tinha sido feita na parte 1
+  desta sessão (todos OK) — não refeita aqui por falta de tempo após o
+  investigação de HP/vitória.
+
 ## Pendências conhecidas
 
 - **Arte com texto em vietnamita** (botão "Bắt đầu", abas, nomes das
