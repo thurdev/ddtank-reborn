@@ -276,6 +276,8 @@ export function fightRewards(i: FightRewardInput): { riches: number; winOffer: n
     riches = Math.trunc(Math.trunc(((half + Math.trunc(i.totalHurt / 2000)) * 2) / 2) * i.richesRate);
   }
   if (riches <= 0) riches = 1;
+  // ConsortiaMgr.cs:81: `num2 = (int)RateMgr.GetRate(eRateType.Offer_Rate)` — truncated to int, so a 1.x admin
+  // offerRate (templates.rates.offer, 41-stubs-rates) has no effect until it reaches 2.0; faithful to the original.
   const rate = Math.trunc(i.offerRate) || 1;
   return { riches, winOffer: (half + base) * rate, loseOfferAdd: Math.round(half * 0.5) * rate, loseOfferRemove: base };
 }

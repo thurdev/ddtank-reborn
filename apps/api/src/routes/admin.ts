@@ -257,8 +257,9 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
       .values({ key: "server-config", value: v })
       .onConflictDoUpdate({ target: appTables.Settings.key, set: { value: v, updatedAt: new Date() } });
     applyServerConfig(ctx, v);
-    // expRate/goldRate are cached in apps/game's Templates (templates.rates, db/templates.ts) — reload now so a
-    // rate change applies live instead of only after the next restart.
+    // expRate/goldRate/dropRate/offerRate are all cached in apps/game's Templates (templates.rates,
+    // db/templates.ts; 41-stubs-rates wired dropRate/offerRate too) — reload now so a rate change applies
+    // live instead of only after the next restart.
     void gameInternalPost(ctx, "/reload-templates");
     await audit(ctx, actor(req), "config", "server-config updated", v);
     return v;

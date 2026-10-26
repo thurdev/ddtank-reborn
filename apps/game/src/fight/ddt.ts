@@ -24,6 +24,9 @@ export interface DdtFightOptions {
   gradeForGp?: (gp: number) => number | undefined;
   /** Double-exp window multiplier (EventScheduler "double_exp"); applied to the GP of PvP/PvE rewards. */
   expRate?: () => number;
+  /** 41-stubs-rates: admin server-config `dropRate` (`Templates.rates.drop`; `eRateType`-style flat multiplier,
+   *  no original equivalent — see `db/templates.ts`); applied to PvE drop item counts in `startPve` below. */
+  dropRate?: () => number;
   /** World boss (room type 14, BaseWorldBossRoom.ReduceBlood/UpdateRank): damage a player dealt in the fight. */
   onWorldBossHurt?: (member: RoomMember, hurt: number) => void;
   /** Capturar Nian (room type 26, RoomType.CatchBeast, m4-catchbeast): `GamePlayer.UpdatePveResult("yearmonter",
@@ -174,8 +177,8 @@ export class DdtFightEngine implements FightEngine {
         pveInfo: info, hardLevel: s.hardLevel, currentFloor: s.currentFloor, data,
         worldBossBlood: s.roomType === 14 ? this.o.worldBossBlood?.() : undefined,
         drops: {
-          copyDrop: (mid, user) => scalePveDrop(pv.drop("copy", mid, user), bal.reward),
-          npcDrop: (did) => scalePveDrop(pv.drop("npc", did), bal.reward),
+          copyDrop: (mid, user) => scalePveDrop(pv.drop("copy", mid, user), bal.reward * (this.o.dropRate?.() ?? 1)),
+          npcDrop: (did) => scalePveDrop(pv.drop("npc", did), bal.reward * (this.o.dropRate?.() ?? 1)),
         },
         log: (m) => this.o.log?.(m),
         ...gameHooks(this, s.roomType, members),

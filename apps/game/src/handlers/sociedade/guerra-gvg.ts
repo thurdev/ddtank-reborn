@@ -29,7 +29,10 @@ export async function consortiaGameOver(ctx: ServerContext, g: { roomType: numbe
   const winCid = winP.p.info.ConsortiaID;
   const loseCid = loseP.p.info.ConsortiaID;
   const lv = await Db.guildLevels(db, [winCid, loseCid].filter(Boolean));
-  const r = fightRewards({ gameType: g.gameType, roomType: g.roomType, playerCount: ps.length, totalHurt, offerRate: 1, richesRate: 1, winLevel: lv.get(winCid) ?? 0, loseLevel: lv.get(loseCid) ?? 0 });
+  // 41-stubs-rates: offerRate = RateMgr.GetRate(eRateType.Offer_Rate) (ConsortiaMgr.cs:81) = admin server-config's
+  // offerRate (templates.rates.offer; see db/templates.ts header); richesRate has no admin field (always 1, same
+  // as before).
+  const r = fightRewards({ gameType: g.gameType, roomType: g.roomType, playerCount: ps.length, totalHurt, offerRate: ctx.templates.rates.offer, richesRate: 1, winLevel: lv.get(winCid) ?? 0, loseLevel: lv.get(loseCid) ?? 0 });
   if (!r) return;
   if (winCid) await Db.addRiches(db, winCid, r.riches, 0, "", () => "");
   for (const x of ps) {

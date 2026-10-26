@@ -141,13 +141,22 @@ export class Templates {
   /** game."Server_Config" (GameProperties overrides). */
   serverConfig = new Map<string, string>();
   /**
-   * Base EXP/gold multipliers from the admin "Configuração do servidor" page (`app."Settings"` key
-   * "server-config", `expRate`/`goldRate` — apps/admin/src/pages/ServerConfig.tsx). Multiply with (not
-   * replace) the scheduled "double_exp"/"double_gold" event rate (`EventScheduler.rate`, game/scheduler.ts) at
-   * the call sites in server.ts. Reloaded by `/reload-templates` like every other template, so a PUT on
-   * server-config takes effect without restarting apps/game.
+   * Base EXP/gold/drop/offer multipliers from the admin "Configuração do servidor" page (`app."Settings"` key
+   * "server-config", `expRate`/`goldRate`/`dropRate`/`offerRate` — apps/admin/src/pages/ServerConfig.tsx).
+   * `exp`/`gold` multiply with (not replace) the scheduled "double_exp"/"double_gold" event rate
+   * (`EventScheduler.rate`, game/scheduler.ts) at the call sites in server.ts.
+   * 41-stubs-rates: `drop`/`offer` mirror the original `RateMgr.GetRate(eRateType.*)` (`Game.Server/Managers/
+   * RateMgr.cs`) the same way `exp`/`gold` already did for Experience_Rate — a flat always-on multiplier
+   * instead of the original's day/time-window `RateInfo` rows (that table was never ported; out of scope here).
+   * `drop` scales PvE drop item counts (`ConsortiaMgr`/`DropInventory` have no such original rate type —
+   * this one is a Reborn-only knob, applied next to the existing per-instance `PveBalance.reward` multiplier
+   * in `fight/ddt.ts:startPve`, never inside `@ddt/fight` itself). `offer` = `eRateType.Offer_Rate`
+   * (`ConsortiaMgr.ConsortiaFight`, `Game.Server/Managers/ConsortiaMgr.cs:81`) — multiplies the guild-war
+   * "mérito"/Offer reward in `handlers/sociedade/guerra-gvg.ts:consortiaGameOver` (was hardcoded `1`).
+   * Reloaded by `/reload-templates` like every other template, so a PUT on server-config takes effect without
+   * restarting apps/game.
    */
-  rates: { exp: number; gold: number } = { exp: 1, gold: 1 };
+  rates: { exp: number; gold: number; drop: number; offer: number } = { exp: 1, gold: 1, drop: 1, offer: 1 };
   /** GameProperties int value with the C# default when the row is missing. */
   cfgInt(name: string, def: number): number {
     const v = Number(this.serverConfig.get(name));
@@ -201,7 +210,7 @@ export class Templates {
     const [cfgSetting] = await db.select({ value: app.Settings.value }).from(app.Settings).where(eq(app.Settings.key, "server-config")).limit(1);
     const rateOr1 = (v: unknown): number => (Number.isFinite(Number(v)) && Number(v) > 0 ? Number(v) : 1);
     const cfgVal = (cfgSetting?.value ?? {}) as Record<string, unknown>;
-    this.rates = { exp: rateOr1(cfgVal.expRate), gold: rateOr1(cfgVal.goldRate) };
+    this.rates = { exp: rateOr1(cfgVal.expRate), gold: rateOr1(cfgVal.goldRate), drop: rateOr1(cfgVal.dropRate), offer: rateOr1(cfgVal.offerRate) };
     await this.loadForge(db);
     await this.loadActiveExchange(db);
     await this.loadGrowthPackage(db);

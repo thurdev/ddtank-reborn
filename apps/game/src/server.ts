@@ -185,6 +185,8 @@ export class GameServer {
             onCatchBeastHurt: (m, hurt) => { if (this.ctx && !(m as GamePlayer).isBot) void onCatchBeastHurt(this.ctx, m as GamePlayer, hurt).catch((e) => log.warn(`catchbeast hurt: ${(e as Error).message}`)); },
             // admin-config: server-config's expRate (templates.rates.exp) multiplies with any active "double_exp" window.
             expRate: () => templates.rates.exp * (this.ctx ? eventsRuntime(this.ctx).scheduler.rate("double_exp") : 1),
+            // 41-stubs-rates: server-config's dropRate (templates.rates.drop) — see db/templates.ts header.
+            dropRate: () => templates.rates.drop,
             takeCard: (m, roomType) => takeCardDrop(templates, m, roomType),
             payTakeCard: (m) => payTakeCard(m),
             onPlayerGameOver: (m, g) => {
