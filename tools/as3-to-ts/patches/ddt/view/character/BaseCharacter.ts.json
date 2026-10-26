@@ -1,0 +1,7 @@
+[
+  {
+    "why": "achado em batalha (RoomCharacter.initLoader -> TypeError: Cannot read properties of null (reading 'createLoader')): __propertyChange é o listener de PlayerPropertyEvent.PROPERTY_CHANGE no _info, removido em dispose() (que também zera _factory) - no AS3 original isso basta porque removeEventListener já impede o listener de rodar de novo. No shim, um evento disparado no mesmo instante em que o personagem está sendo descartado (fim de batalha/sala) ainda pode chamar __propertyChange antes da remoção surtir efeito, e initLoader() quebra com _factory nulo. Guarda com _disposed (campo que já existe, zerado em dispose(), só não era checado aqui).",
+    "find": "  __propertyChange(param1: PlayerPropertyEvent): void {\n    if (param1.changedProperties.get(PlayerInfo.STYLE) || param1.changedProperties.get(PlayerInfo.COLORS)) {",
+    "replace": "  __propertyChange(param1: PlayerPropertyEvent): void {\n    if (this._disposed) return;\n    if (param1.changedProperties.get(PlayerInfo.STYLE) || param1.changedProperties.get(PlayerInfo.COLORS)) {"
+  }
+]
