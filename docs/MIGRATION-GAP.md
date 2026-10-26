@@ -1,8 +1,8 @@
 # Gap C# → TS + protocolo de verificação (fonte: `docs/qa-matrix.json`)
 
-Panorama 2026-10-24 (pós feature/41-partial-a + feature/41-partial-b + feature/41-partial-c) — 361 itens
-(cliente 4.1; 6600 em stand-by, ver AGENTS.md): servidor `ok` 328 · `partial` 20 · `stub` 4 · `missing` 0 ·
-`wontfix` 9.
+Panorama 2026-10-26 (pós feature/41-partial-a + feature/41-partial-b + feature/41-partial-c +
+feature/41-partial-d) — 361 itens (cliente 4.1; 6600 em stand-by, ver AGENTS.md): servidor `ok` 345 ·
+`partial` 3 · `stub` 4 · `missing` 0 · `wontfix` 9.
 Verificado em jogo: `yes` 56 · resto `no`. **Nada conta como pronto sem `verified:yes` + evidência.**
 
 `feature/41-partial-a` fechou **41-labirinto-combate** (131 LABYRINTH, 8 subs) e **41-guilda-skill-combate**
@@ -10,7 +10,13 @@ Verificado em jogo: `yes` 56 · resto `no`. **Nada conta como pronto sem `verifi
 (168 GOODS_COUNT), **41-titulo-por-cartao** (265 NEWTITLE_CARD) e **41-capela-reembolso** (249/12
 MARRYROOMSENDGIFT) — os 2 `missing` que restavam no 4.1 somem (zero `missing` agora). `feature/41-partial-c`
 fechou **41-boss-mundial-revisao** (102 REQUEST_REVIVE), **41-novato-progresso** (258) e
-**41-captcha-anti-bot** (200 CHECK_CODE) — ver seção "Prioridade" abaixo (itens agora `server:ok`, riscados).
+**41-captcha-anti-bot** (200 CHECK_CODE). `feature/41-partial-d` fechou **41-chickenbox-persistencia**
+(87 NEWCHICKENBOX_SYS, 10 linhas — board do Baú da Galinha + moedas da Estrela da Sorte agora persistem de
+verdade) e corrigiu duas áreas da matriz que estavam desatualizadas por auditorias anteriores incompletas,
+não por trabalho desta tarefa: **41-chick-activation-qa-sync** (84 ACTIVITY_PACKAGE, 3 linhas — já estava
+100% portado desde `m4-passe-classico`, a matriz nunca foi atualizada) e **41-boss-mundial-sala-qa-sync**
+(102 WORLDBOSS_CMD, 4 linhas que `41-boss-mundial-revisao` não tinha revisado) — ver seção "Prioridade"
+abaixo (itens agora `server:ok`, riscados).
 
 A matriz estava defasada (lote anterior, 2026-10-08, media `partial` 66/`missing` 48/`stub` 39 — números
 que o próprio `AGENTS.md`/orientação desta tarefa ainda citava): muita coisa foi implementada desde então
@@ -45,15 +51,18 @@ matriz, com a citação do arquivo/linha no próprio `notes`.
    handler no original nenhum; candidato a feature nova (mesmo molde de "Semana da Sociedade"/"Caminho da
    Luz", que começaram exatamente assim). Os outros 8 `stub` antigos (32/50/89/167/188/205/214/224) foram
    confirmados mortos e viraram `wontfix` nesta rodada — não sobra `stub` "fácil" nenhum.
-3. **`partial` (20)**: completa e testa — ver lista priorizada abaixo.
+3. **`partial` (3)**: os 3 que restam são desvios INTENCIONAIS, não trabalho em aberto — ver seção
+   "Prioridade" abaixo (`49 CHANGE_PLACE_GOODS` — Playwright pendente, lógica já testada; `102
+   BUFF_BUY`/`STAUTS` — mantidos de propósito em `41-boss-mundial-revisao`).
 4. **`ok` + `verified:no` (maioria)**: só Playwright, sem código novo.
 
-Áreas com mais dívida agora (contando só `partial`/`stub`/`missing`, não `wontfix`; 24 itens no total —
-`feature/41-partial-a` zerou PvE/Masmorras e Sociedade/Guilda; `feature/41-partial-b` fechou 168/265
-(Bolsa/Inventário) e as 2 linhas de 249 sub 12 (Missões/Outros); `feature/41-partial-c` fechou Conta/Login
-(200 CHECK_CODE), ambas listas já refletidas aqui):
-Eventos/Atividades (16), Boss mundial/Minigames (5), Bolsa/Inventário (1), Missões (1),
-Combate/GAME_CMD (1).
+Áreas com mais dívida agora (contando só `partial`/`stub`/`missing`, não `wontfix`; 7 itens no total —
+`feature/41-partial-d` fechou 87 NEWCHICKENBOX_SYS inteiro (10 linhas, Eventos/Atividades) + corrigiu a
+matriz desatualizada de 84 ACTIVITY_PACKAGE (3 linhas, Eventos/Atividades) e 4 linhas de 102 WORLDBOSS_CMD
+— `feature/41-partial-a`/`-b`/`-c` já tinham fechado tudo mais, listas anteriores já refletidas aqui):
+Eventos/Atividades (3 — só LanternRiddles/145, candidato a feature nova com fonte só no 6600, em espera),
+Boss mundial/Minigames (1 — 102 BUFF_BUY, intencional), Bolsa/Inventário (1 — 49, Playwright pendente),
+Missões (1 — 145 sub LanternRiddles), Combate/GAME_CMD (1 — 102 STAUTS, intencional).
 
 ## Prioridade dos `partial`/`stub`/`missing` restantes (2026-10-20, por impacto no jogador)
 
