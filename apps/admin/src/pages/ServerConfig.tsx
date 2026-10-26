@@ -24,8 +24,8 @@ export const serverConfigFields: FieldDef[] = [
   // Taxas
   { name: "expRate", label: "Taxa de EXP", type: "number", int: false, step: 0.1, min: 0, max: 100, required: true, default: 1, hint: "Multiplica a EXP de toda partida; acumula com o evento \"EXP em dobro\" quando ativo. Aplicado ao vivo (sem reiniciar o servidor).", section: "Taxas" },
   { name: "goldRate", label: "Taxa de ouro", type: "number", int: false, step: 0.1, min: 0, max: 100, required: true, default: 1, hint: "Multiplica o ouro de drop; acumula com o evento \"Ouro em dobro\" quando ativo. Aplicado ao vivo (sem reiniciar o servidor).", section: "Taxas" },
-  { name: "dropRate", label: "Taxa de drop", type: "number", int: false, step: 0.1, min: 0, max: 100, required: true, default: 1, hint: "Reservado: o servidor ainda não aplica este multiplicador (drop usa só as tabelas de Drop_Item/NPC).", section: "Taxas" },
-  { name: "offerRate", label: "Taxa de mérito", type: "number", int: false, step: 0.1, min: 0, max: 100, default: 1, hint: "Reservado: o servidor ainda não aplica este multiplicador.", section: "Taxas" },
+  { name: "dropRate", label: "Taxa de drop", type: "number", int: false, step: 0.1, min: 0, max: 100, required: true, default: 1, hint: "Multiplica a quantidade dos itens de drop do PvE (por cima das tabelas de Drop_Item/NPC e do balanço por instância). Aplicado ao vivo.", section: "Taxas" },
+  { name: "offerRate", label: "Taxa de mérito", type: "number", int: false, step: 0.1, min: 0, max: 100, default: 1, hint: "Multiplica o mérito de guilda ganho na guerra de sociedade (RateMgr Offer_Rate do original). Aplicado ao vivo.", section: "Taxas" },
   { name: "maxPlayers", label: "Limite de jogadores online", type: "number", min: 1, default: 1000, section: "Taxas" },
   // Jogo
   { name: "aimAngles", label: "Ângulos das tabelas de mira", type: "tags", default: ["20", "30", "50", "65"], hint: "Página Jogar: ângulos (graus) mostrados nos painéis de ângulo/força — GET /api/public/aim-tables", section: "Jogo" },
