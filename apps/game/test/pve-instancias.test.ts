@@ -43,6 +43,22 @@ describe("pve-unlock (pure logic)", () => {
     expect(isDungeonUnlocked(info, 3, 0, new Set(), { allOpen: true })).toEqual({ unlocked: true });
     expect(isDungeonUnlocked(info, 3, 10, new Set(), { requireClear: false })).toEqual({ unlocked: true });
   });
+
+  // Task `pve-cadeia` (owner report: Gulu Kingdom/"Castelo do Bugou", game."Pve_Info" ID 1, never unlocked
+  // Normal after clearing Easy). This module's gate logic was never the bug — real data from that exact row
+  // (trimmed; see packages/db/seed/game/Pve_Info.json.gz) proves it unlocks Normal correctly once Easy is
+  // cleared. What was actually broken (the mission chain never reaching the Baron round, so the dungeon run
+  // may have felt like it "ended" before a clear was recorded) is fixed and tested in
+  // packages/fight/test/pve.test.ts ("Gulu Kingdom easy ... chains into the Baron round").
+  it("game.Pve_Info ID 1 (Lâu đài Gà / Gulu Kingdom, the reported dungeon): Normal unlocks once Easy is cleared", () => {
+    const gulu: PveInfoLike = {
+      ID: 1, LevelLimits: 14,
+      SimpleTemplateIds: "7015,7018,7023,11002", NormalTemplateIds: "1165,1265,2183,2283", HardTemplateIds: "1319,1419,1166,1266", TerrorTemplateIds: "11000039,12000144,5960",
+    };
+    expect(dungeonDifficultyLadder(gulu)).toEqual([0, 1, 2, 3]); // all 4 difficulties ship real NPCs
+    expect(isDungeonUnlocked(gulu, 1, 20, new Set())).toEqual({ unlocked: false, reason: "clear", requiresClearOf: 0 });
+    expect(isDungeonUnlocked(gulu, 1, 20, new Set([0]))).toEqual({ unlocked: true }); // <- this is "unlocks Normal"
+  });
 });
 
 describe("fight/ddt.ts scalePveNpc/scalePveDrop (app.PveBalance multipliers)", () => {
