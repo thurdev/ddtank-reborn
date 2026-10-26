@@ -28,10 +28,11 @@ import { MouseEvent } from "./events/MouseEvent";
 import { Point } from "./geom/Point";
 import { flushRenderQueue } from "./render-queue";
 import { safe } from "./player-safe";
+import { runLogicFrame } from "./frame-loop";
 import { DisplayObject, Player } from "./display/DisplayObject";
 import { DisplayObjectContainer } from "./display/DisplayObjectContainer";
 import { InteractiveObject } from "./display/InteractiveObject";
-import { MovieClip, playingClips, runPendingFrameScripts } from "./display/MovieClip";
+import { MovieClip, runPendingFrameScripts } from "./display/MovieClip";
 import { SimpleButton } from "./display/SimpleButton";
 import { Sprite } from "./display/Sprite";
 import { Stage } from "./display/Stage";
@@ -117,14 +118,7 @@ export async function startPlayer(opts: PlayerOptions): Promise<Stage> {
   const broadcast = (type: string) => {
     for (const t of [...broadcastTargets.get(type)!]) safe(() => t.dispatchEvent(new Event(type)), type);
   };
-  const logicFrame = () => {
-    for (const mc of [...playingClips]) safe(() => mc.$advance(), "timeline");
-    broadcast(Event.ENTER_FRAME);
-    broadcast(Event.FRAME_CONSTRUCTED);
-    runPendingFrameScripts();
-    broadcast(Event.EXIT_FRAME);
-    safe(() => stage.$dispatchRender(), "RENDER");
-  };
+  const logicFrame = () => runLogicFrame(() => stage.$dispatchRender());
   const loop = (now: number) => {
     acc += now - last;
     last = now;
