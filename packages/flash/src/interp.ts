@@ -10,7 +10,10 @@
  * nunca vê os valores interpolados).
  *
  * - Pulos grandes (> 150 px, troca de sinal da escala) não são interpolados
- *   (objeto reposicionado/teleportado).
+ *   (objeto reposicionado/teleportado). Rotação/skew sempre interpolam pelo
+ *   caminho mais curto (mod 360°) — sem isso, qualquer timeline/tween que
+ *   gire um objeto (bala, explosão, roleta...) fica suave em x/y/escala/alfa
+ *   mas "travando" a 25fps na rotação, inconsistência bem visível.
  * - Nó que não existia no quadro anterior aparece direto no lugar atual.
  * - Desliga com `?interp=0`.
  */
@@ -20,11 +23,20 @@ const params = typeof location !== "undefined" ? new URLSearchParams(location.se
 export const INTERP_ON = params.get("interp") !== "0";
 
 const MAX_JUMP = 150;
+const TAU = Math.PI * 2;
+
+/** menor diferença angular de `a` pra `b`, em (-PI, PI] */
+function angleDelta(a: number, b: number): number {
+  let d = (b - a) % TAU;
+  if (d > Math.PI) d -= TAU;
+  else if (d < -Math.PI) d += TAU;
+  return d;
+}
 
 interface Rec {
   frame: number;
-  px: number; py: number; psx: number; psy: number; pa: number;
-  cx: number; cy: number; csx: number; csy: number; ca: number;
+  px: number; py: number; psx: number; psy: number; pa: number; prot: number; pskx: number; psky: number;
+  cx: number; cy: number; csx: number; csy: number; ca: number; crot: number; cskx: number; csky: number;
 }
 
 const recs = new WeakMap<Container, Rec>();
@@ -42,14 +54,24 @@ export function snapshot(root: Container): void {
   frame++;
   walk(root, (n) => {
     const x = n.position.x, y = n.position.y, sx = n.scale.x, sy = n.scale.y, a = n.alpha;
+    const rot = n.rotation, skx = n.skew.x, sky = n.skew.y;
     let r = recs.get(n);
     if (!r) {
-      recs.set(n, { frame, px: x, py: y, psx: sx, psy: sy, pa: a, cx: x, cy: y, csx: sx, csy: sy, ca: a });
+      recs.set(n, {
+        frame, px: x, py: y, psx: sx, psy: sy, pa: a, prot: rot, pskx: skx, psky: sky,
+        cx: x, cy: y, csx: sx, csy: sy, ca: a, crot: rot, cskx: skx, csky: sky,
+      });
       return;
     }
-    if (r.frame === frame - 1) { r.px = r.cx; r.py = r.cy; r.psx = r.csx; r.psy = r.csy; r.pa = r.ca; }
-    else { r.px = x; r.py = y; r.psx = sx; r.psy = sy; r.pa = a; }
+    if (r.frame === frame - 1) {
+      r.px = r.cx; r.py = r.cy; r.psx = r.csx; r.psy = r.csy; r.pa = r.ca;
+      r.prot = r.crot; r.pskx = r.cskx; r.psky = r.csky;
+    } else {
+      r.px = x; r.py = y; r.psx = sx; r.psy = sy; r.pa = a;
+      r.prot = rot; r.pskx = skx; r.psky = sky;
+    }
     r.cx = x; r.cy = y; r.csx = sx; r.csy = sy; r.ca = a;
+    r.crot = rot; r.cskx = skx; r.csky = sky;
     r.frame = frame;
   });
 }
@@ -65,15 +87,22 @@ export function applyInterp(root: Container, t: number): void {
     const r = recs.get(n);
     if (!r || r.frame !== frame) return;
     // o jogo mexeu no nó depois do snapshot (ex.: mouse): não interpola
-    if (n.position.x !== r.cx || n.position.y !== r.cy || n.scale.x !== r.csx || n.scale.y !== r.csy || n.alpha !== r.ca) return;
+    if (
+      n.position.x !== r.cx || n.position.y !== r.cy || n.scale.x !== r.csx || n.scale.y !== r.csy ||
+      n.alpha !== r.ca || n.rotation !== r.crot || n.skew.x !== r.cskx || n.skew.y !== r.csky
+    ) return;
     const dx = r.cx - r.px, dy = r.cy - r.py;
+    const drot = angleDelta(r.prot, r.crot), dskx = angleDelta(r.pskx, r.cskx), dsky = angleDelta(r.psky, r.csky);
     const moved = dx !== 0 || dy !== 0, scaled = r.csx !== r.psx || r.csy !== r.psy, faded = r.ca !== r.pa;
-    if (!moved && !scaled && !faded) return;
+    const rotated = drot !== 0, skewed = dskx !== 0 || dsky !== 0;
+    if (!moved && !scaled && !faded && !rotated && !skewed) return;
     if (Math.abs(dx) > MAX_JUMP || Math.abs(dy) > MAX_JUMP) return;
     if (Math.sign(r.csx) !== Math.sign(r.psx) || Math.sign(r.csy) !== Math.sign(r.psy)) return;
     if (moved) n.position.set(r.px + dx * k, r.py + dy * k);
     if (scaled) n.scale.set(r.psx + (r.csx - r.psx) * k, r.psy + (r.csy - r.psy) * k);
     if (faded) n.alpha = r.pa + (r.ca - r.pa) * k;
+    if (rotated) n.rotation = r.prot + drot * k;
+    if (skewed) n.skew.set(r.pskx + dskx * k, r.psky + dsky * k);
     touched.push({ n, r });
   });
 }
@@ -84,6 +113,8 @@ export function restoreInterp(): void {
     n.position.set(r.cx, r.cy);
     n.scale.set(r.csx, r.csy);
     n.alpha = r.ca;
+    n.rotation = r.crot;
+    n.skew.set(r.cskx, r.csky);
   }
   touched.length = 0;
 }
