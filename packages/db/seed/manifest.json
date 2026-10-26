@@ -418,7 +418,7 @@
   {
    "schema": "game",
    "table": "Mission_Info",
-   "rows": 170,
+   "rows": 171,
    "file": "game/Mission_Info.json.gz"
   },
   {

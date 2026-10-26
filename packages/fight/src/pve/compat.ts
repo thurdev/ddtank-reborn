@@ -282,6 +282,16 @@ fn(B, "RandomSay", function (msgs: string[], type: number, delay: number, finish
   if (!msgs?.length) return;
   G(this).livingSay(this, msgs[G(this).Random.Next(0, msgs.length)]!, type, delay, finish);
 });
+/** SimpleBoss.TowardsToPlayer (vendor/DDTank4.1 Source Server/Game.Logic/Phy/Object/SimpleBoss.cs:326) —
+ * used by SimpleCaptainAi/NormalCaptainAi/HardCaptainAi/TerrorCaptainAi/PSMNpcAi/HardKingLast/TerrorKingLast/
+ * TerrorKingZhen (task pve-cadeia: was missing, threw and killed the Baron's (Baroff, NPC 1003) attack
+ * callback in Gulu Kingdom/"Castelo do Bugou" mission 1073; same bug would hit every other donor boss using
+ * these 8 scripts). Faces the boss towards the given player x — a one-off direction-only variant of
+ * ChangeDirection(dir, delay), not full ChangeDirection(livingTarget, delay) (no vertical component).
+ */
+fn(B, "TowardsToPlayer", function (playerX: number, delay: number) {
+  this.ChangeDirection(playerX > this.X ? 1 : -1, delay);
+});
 fn(B, "CreateBoss", function (id, x, y, dir, type) { const n = G(this).CreateNpc(id, x, y, type, dir); this.child.push(n); return n; });
 fn(B, "CreateChild", function (id: number, a: any, b: any, c: any, d: any, e?: any, f?: any) {
   const g = G(this);

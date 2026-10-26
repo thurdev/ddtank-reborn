@@ -95,6 +95,38 @@ describe("PvE engine", () => {
     expect(over, "DELIVER never readied players past the gate into floor 2").toBeDefined();
   });
 
+  /**
+   * Task `pve-cadeia` (owner report: "finished the Bugo Castle on EASY and it ended right away, it never
+   * went to the Baron round"). `game."Pve_Info"` ID 1 ("Lâu đài Gà" / Gulu Kingdom — the owner's "Castelo do
+   * Bugou") `SimpleGameScript` is `GuluKingdomSimpleGame`, which calls `Game.SetupMissions("1072,1073")`
+   * (donor `vendor/DDTank4.1 .../AI/Game/GuluKingdomSimpleGame.cs`) — mission 1073 is the Baron (NPC 1003
+   * "Baroff") fight, script `GD1073`. `game."Mission_Info"` never had a row for 1073 (missing even in the
+   * raw donor DB export, `vendor/_dbexport/Project_Game34/data/Mission_Info.json` — not an import bug),
+   * which made `SetupMissions` (`PVEGame.cs:1964-1978`, `packages/fight/src/pve/game.ts` `SetupMissions`)
+   * never register session key 2, so `HasNextSession()` (`PVEGame.cs:1213-1224`, `game.ts` `hasNextSession`)
+   * returned false right after mission 1 and the dungeon ended without the Baron round. Fixed by restoring
+   * the missing row (`packages/db/drizzle/0027_pve_cadeia_gulu_baron.sql` + the seed gz) — this test proves
+   * the chain now resolves and plays both missions.
+   */
+  it("Gulu Kingdom easy (Pve 1, \"Castelo do Bugou\"): chains into the Baron (Baroff) round instead of ending after mission 1", () => {
+    const strong = (userId: number) => spec(userId, { grade: 20, hp: 5000, attack: 400, defence: 300, agility: 300, lucky: 200, baseAttack: 500, baseDefence: 300 });
+    const { game, bots } = newGame(1, 4, [strong(1), strong(2)], 3, 0);
+    const { all } = play(game, bots, (e) => e.some((x) => x.cmd === "PVE_STOPPED"), 3_600_000);
+    expect(game.missingScripts).toEqual([]);
+    expect(game.scriptErrors).toEqual([]);
+    expect(game.Misssions.size).toBe(2); // 1072 (Gà Dễ S2) + 1073 (Baron/Baroff, Gà Dễ S3) — was 1 before the fix
+    const overs = all.filter((e) => e.cmd === "GAME_MISSION_OVER").map((e) => (e as { missionId: number; isWin: boolean }));
+    expect(overs.map((e) => e.missionId)).toEqual([1072, 1073]); // reached the Baron round, didn't stop after mission 1
+    expect(overs.every((e) => e.isWin)).toBe(true);
+    const allOver = all.find((e) => e.cmd === "GAME_ALL_MISSION_OVER");
+    expect(allOver?.cmd === "GAME_ALL_MISSION_OVER" && allOver.isWin).toBe(true);
+    const stopped = all.find((e) => e.cmd === "PVE_STOPPED");
+    // the clear-recording hook (apps/game server.ts onDungeonCleared) keys only off isWin here — proves the
+    // "didn't unlock NORMAL" half of the report was never a separate bug: once the Baron is actually
+    // reached and beaten, isWin is true and the next difficulty unlocks via the existing mechanism.
+    expect(stopped?.cmd === "PVE_STOPPED" && stopped.isWin).toBe(true);
+  }, 20000);
+
   it("missing scripts fall back to the generic AI and never freeze", () => {
     const pve = { ...pves.get(112)!, SimpleGameScript: "GameServerScript.AI.Game.DoesNotExist" };
     const game = new PveGame({ id: 2, roomType: 10, gameType: 10, timeType: 3, assets, players: [spec(1)], seed: 1, pveInfo: { ...pve, ID: 10 }, hardLevel: 0, data: { npc: data.npc, mission: (id) => (id === 1001 ? { ...data.mission(1085)!, Id: 1001, Script: "Nope" } : undefined) } });
