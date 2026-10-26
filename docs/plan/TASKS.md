@@ -1010,8 +1010,15 @@ Como rodar um 2º canal hoje (sem `ch-processo`/`ch-bus`): [GAME-SERVER.md §Can
   busca, clique abre o registro; lookup em lote `GET /api/admin/<res>?ids=`), Ctrl+K (recursos, recentes,
   busca jogador/item/guilda), seleção + edição/exclusão em massa. Bug corrigido: `keepPreviousData` vazava
   linhas entre recursos.
-- [ ] **admin-ux-2** — escolher colunas, visões salvas, filtro por coluna, header fixo (a tentativa quebrou o
-  clique na linha), `/events` lendo `?edit=`, testes de componente no admin.
+- [x] **admin-ux-2** (2026-10-26) — `ResourcePage`: picker de colunas visíveis + visões salvas (nome + colunas +
+  filtros + ordenação), ambos por recurso em `localStorage` (`crud/viewPrefs.ts`). Filtro por coluna (texto
+  contém / número faixa / boolean / `select` exato / `ref` via busca) virou query `cf_<campo>`/`_min`/`_max`,
+  resolvido num bloco genérico novo em `apps/api/src/routes/admin.ts` (doc em `admin-resources.ts`) + espelho no
+  mock (`mocks/handlers.ts`). Header fixo (`sticky` em cada `Th`, não no `thead`) sem quebrar o clique na linha
+  (abre o registro, exceto em controles da própria linha — via `closest()`, não `stopPropagation` espalhado).
+  `/events?edit=<ActiveID>` abre a aba Tabela já com o diálogo aberto. Vitest + Testing Library configurados em
+  `apps/admin` (não existia): `vitest.config.ts`, `src/test/setup.ts`/`render.tsx`, testes em
+  `crud/ColumnFilters.test.ts`, `crud/ResourcePage.test.tsx`, `pages/Events.test.tsx`.
 - [x] **admin-config** (2026-10-18) — `expRate`/`goldRate` agora valem de verdade (`templates.rates`,
   multiplica o x2 do evento, recarrega ao salvar). `dropRate`/`offerRate` ainda não ligados (aviso no admin).
 
