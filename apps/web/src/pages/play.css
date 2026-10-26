@@ -121,3 +121,16 @@
 .aim-pill {
   display: inline;
 }
+
+/* site-play: lembrete de canal pra quem caiu no cliente Ruffle (o canal inicial dele vem do próprio
+ * ServerList.ashx interno do cliente, não do site — ver GameFrame.tsx `channelWsUrl`). */
+.play-ruffle-hint {
+  position: absolute;
+  left: 614px;
+  top: 1122px;
+  width: 1333px;
+  text-align: center;
+  font-size: 13px;
+  color: #f3d9b0;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.6);
+}
