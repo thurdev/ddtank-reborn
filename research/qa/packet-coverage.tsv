@@ -20,7 +20,7 @@ code	name	clientFn	firstWrite	server	file
 28	LOTTERY_FINISH	sendFinishRoulette		implemented	
 30	PICC	sendPicc	Int(param1)	implemented	
 31	GOODS_EXCHANGE	sendGoodsExchange	Int(param2)	implemented	
-32	COLLECTINFO	sendCollectInfoValidate	Byte(param1)	stub	
+32	COLLECTINFO	sendCollectInfoValidate	Byte(param1)	implemented	
 34	USER_RANK	sendChangeDesignation	Boolean(param1)	implemented	
 37	CHAT_PERSONAL	sendPrivateMessage	Int(param3)	implemented	
 40	SNS_MSG_RECEIVE	sendSnsMsg	Int(param1)	implemented	
@@ -29,7 +29,7 @@ code	name	clientFn	firstWrite	server	file
 46	BUY_GIFTBAG	sendBuyGiftBag	Int(param1)	implemented	
 48	SEll_GOODS	sendSellGoods	Int(param1)	implemented	
 49	CHANGE_PLACE_GOODS	sendMoveGoods	Byte(param1)	partial	
-50	FIGHT_NPC	sendBeginFightNpc		stub	
+50	FIGHT_NPC	sendBeginFightNpc		implemented	
 53	GET_TIME_BOX	sendGetTimeBox	Int(param1)	implemented	
 54	PROP_BUY	sendBuyProp	Int(param1)	implemented	
 54	PROP_BUY	sendBuyProp	Int(param1)	implemented	
@@ -86,21 +86,21 @@ code	name	clientFn	firstWrite	server	file
 81	FARM	toKillCrop	Byte(FarmPackageType.KILLCROP_FIELD=7)	partial	
 81	FARM	toSpread	Byte(FarmPackageType.PAY_FIELD=6)	partial	
 82	CrazyTankPackageType.GAME_MISSION_START	sendGameMissionStart	Boolean(param1)	implemented	
-84	ACTIVITY_PACKAGE	sendChickActivationGetAward	Int(ChickActivationType.CHICKACTIVATION=2)	partial	
-84	ACTIVITY_PACKAGE	sendChickActivationOpenKey	Int(ChickActivationType.CHICKACTIVATION=2)	partial	
-84	ACTIVITY_PACKAGE	sendChickActivationQuery	Int(ChickActivationType.CHICKACTIVATION=2)	partial	
+84	ACTIVITY_PACKAGE	sendChickActivationGetAward	Int(ChickActivationType.CHICKACTIVATION=2)	implemented	
+84	ACTIVITY_PACKAGE	sendChickActivationOpenKey	Int(ChickActivationType.CHICKACTIVATION=2)	implemented	
+84	ACTIVITY_PACKAGE	sendChickActivationQuery	Int(ChickActivationType.CHICKACTIVATION=2)	implemented	
 85	MATE_ONLINE_TIME	sendMateTime	Int(param1)	implemented	
-87	NEWCHICKENBOX_SYS	sendChickenBoxTakeOverCard	Int(NewChickenBoxPackageType.TAKEOVERCARD=13)	partial	
-87	NEWCHICKENBOX_SYS	sendChickenBoxUseEagleEye	Int(NewChickenBoxPackageType.USEEAGLEEYE=11)	partial	
-87	NEWCHICKENBOX_SYS	sendClickStartBntNewChickenBox	Int(NewChickenBoxPackageType.CLICKSTARTBNT=15)	partial	
-87	NEWCHICKENBOX_SYS	sendFlushNewChickenBox	Int(NewChickenBoxPackageType.FLUSHCHICKENVIEW=14)	partial	
-87	NEWCHICKENBOX_SYS	sendLuckyStarClose	Int(NewChickenBoxPackageType.CLOSE_GAME=32)	partial	
-87	NEWCHICKENBOX_SYS	sendLuckyStarEnter	Int(NewChickenBoxPackageType.ENTER_GAME=31)	partial	
-87	NEWCHICKENBOX_SYS	sendLuckyStarTurn	Int(NewChickenBoxPackageType.START_TURN=33)	partial	
-87	NEWCHICKENBOX_SYS	sendLuckyStarTurnComplete	Int(NewChickenBoxPackageType.TURN_COMPLETE=34)	partial	
-87	NEWCHICKENBOX_SYS	sendNewChickenBox	Int(NewChickenBoxPackageType.ENTERCHICKENVIEW=10)	partial	
-87	NEWCHICKENBOX_SYS	sendOverShowItems	Int(NewChickenBoxPackageType.AllITEMSHOW=12)	partial	
-89	QUESTION_REPLY	sendQuestionReply	Int(param1)	stub	
+87	NEWCHICKENBOX_SYS	sendChickenBoxTakeOverCard	Int(NewChickenBoxPackageType.TAKEOVERCARD=13)	implemented	
+87	NEWCHICKENBOX_SYS	sendChickenBoxUseEagleEye	Int(NewChickenBoxPackageType.USEEAGLEEYE=11)	implemented	
+87	NEWCHICKENBOX_SYS	sendClickStartBntNewChickenBox	Int(NewChickenBoxPackageType.CLICKSTARTBNT=15)	implemented	
+87	NEWCHICKENBOX_SYS	sendFlushNewChickenBox	Int(NewChickenBoxPackageType.FLUSHCHICKENVIEW=14)	implemented	
+87	NEWCHICKENBOX_SYS	sendLuckyStarClose	Int(NewChickenBoxPackageType.CLOSE_GAME=32)	implemented	
+87	NEWCHICKENBOX_SYS	sendLuckyStarEnter	Int(NewChickenBoxPackageType.ENTER_GAME=31)	implemented	
+87	NEWCHICKENBOX_SYS	sendLuckyStarTurn	Int(NewChickenBoxPackageType.START_TURN=33)	implemented	
+87	NEWCHICKENBOX_SYS	sendLuckyStarTurnComplete	Int(NewChickenBoxPackageType.TURN_COMPLETE=34)	implemented	
+87	NEWCHICKENBOX_SYS	sendNewChickenBox	Int(NewChickenBoxPackageType.ENTERCHICKENVIEW=10)	implemented	
+87	NEWCHICKENBOX_SYS	sendOverShowItems	Int(NewChickenBoxPackageType.AllITEMSHOW=12)	implemented	
+89	QUESTION_REPLY	sendQuestionReply	Int(param1)	implemented	
 90	GET_SIGNAWARD	sendSignAward	Int(param1)	implemented	
 91	GAME_CMD	createMonster	Byte(CrazyTankPackageType.GENERAL_COMMAND=23)	implemented	
 91	GAME_CMD	deleteMonster	Byte(CrazyTankPackageType.GENERAL_COMMAND=23)	implemented	
@@ -262,8 +262,8 @@ code	name	clientFn	firstWrite	server	file
 162	ELITEGAME	sendGetPaarungDetail	Byte(EliteGamePackageType.ELITE_MATCH_RANK_DETAIL=4)	implemented	
 162	ELITEGAME	sendGetSelfRankSroce	Byte(EliteGamePackageType.ELITE_MATCH_PLAYER_RANK=3)	implemented	
 166	LITTLEGAME_COMMAND	createPackageOut		implemented	
-167	CHURCH_MOVIE_OVER	sendChurchMovieOver	Int(param1)	stub	
-168	GOODS_COUNT	sendUpdateGoodsCount		partial	
+167	CHURCH_MOVIE_OVER	sendChurchMovieOver	Int(param1)	implemented	
+168	GOODS_COUNT	sendUpdateGoodsCount		implemented	
 169	HOTSPRING_ROOM_PLAYER_REMOVE	sendHotSpringRoomPlayerRemove		implemented	
 171	USE_REWORK_NAME	sendUseReworkName	Byte(param1)	implemented	
 172	SAVE_DB	sendSaveDB		implemented	
@@ -275,7 +275,7 @@ code	name	clientFn	firstWrite	server	file
 182	USE_COLOR_CARD	sendChangeColor	Int(param1)	implemented	
 183	CARD_USE	sendUseCard	Int(param1)	implemented	
 187	HOTSPRING_ENTER	sendHotSpringEnter		implemented	
-188	USE_CONSORTIA_REWORK_NAME	sendUseConsortiaReworkName	Int(param1)	stub	
+188	USE_CONSORTIA_REWORK_NAME	sendUseConsortiaReworkName	Int(param1)	implemented	
 189	USER_CHANGE_RANK	sendReworkRank	UTF(param1)	implemented	
 190	HOTSPRING_ROOM_QUICK_ENTER	sendHotSpringRoomQuickEnter		implemented	
 191	HOTSPRING_CMD	sendHotSpringRoomAdminRemovePlayer	Byte(HotSpringPackageType.HOTSPRING_ROOM_ADMIN_REMOVE_P)	implemented	
@@ -289,18 +289,18 @@ code	name	clientFn	firstWrite	server	file
 194	AUCTION_DELETE	auctionCancelSell	Int(param1)	implemented	
 196	CARD_RESET	sendCardReset	Int(0)	implemented	
 196	CARD_RESET	sendReplaceCardProp	Int(1)	implemented	
-200	CHECK_CODE	sendCheckCode	UTF(param1)	partial	
+200	CHECK_CODE	sendCheckCode	UTF(param1)	implemented	
 201	HOTSPRING_ROOM_ENTER_VIEW	sendHotSpringRoomEnterView	Int(param1)	implemented	
 202	HOTSPRING_ROOM_ENTER	sendHotSpringRoomEnter	Int(param1)	implemented	
 203	LOOKUP_EFFORT	sendLookupEffort	Int(param1)	implemented	
 204	OPEN_ALL_CARDBOX	sendOpenAll		implemented	
-205	USE_CHANGE_COLOR_SHELL	sendUseChangeColorShell	Byte(param1)	stub	
+205	USE_CHANGE_COLOR_SHELL	sendUseChangeColorShell	Byte(param1)	implemented	
 206	CHANGE_COLOR_OVER_DUE	sendChangeColorShellTimeOver	Byte(param1)	implemented	
 209	FIGHT_SPIRIT	figSpiritUpGrade	Byte(FightSpiritPackageType.FIGHT_SPIRIT_LEVELUP=3)	implemented	
 209	FIGHT_SPIRIT	fightSpiritRequest	Byte(FightSpiritPackageType.FIGHT_SPIRIT_INIT=1)	implemented	
 212	HOTSPRING_ROOM_ENTER_CONFIRM	sendHotSpringRoomEnterConfirm	Int(param1)	implemented	
 213	USE_LOG	sendUseLog	Int(param1)	implemented	
-214	USER_RELOAD_GIFT	sendReloadGift		stub	
+214	USER_RELOAD_GIFT	sendReloadGift		implemented	
 216	CARDS_DATA	sendFirstGetCards	Int(5)	implemented	
 216	CARDS_DATA	sendMoveCards	Int(0)	implemented	
 216	CARDS_DATA	sendOpenCardBox	Int(2)	implemented	
@@ -313,8 +313,8 @@ code	name	clientFn	firstWrite	server	file
 221	USER_SEND_GIFTS	sendBuyGift	UTF(param1)	implemented	
 222	EQUIP_RECYCLE_ITEM	sendEquipRetrieve		implemented	
 223	FRIEND_BRITHDAY	sendWithBrithday	Int(param1.length)	implemented	
-224	CID_CHECK	sendCIDCheck		stub	
-224	CID_CHECK	sendCIDInfo	Boolean(false)	stub	
+224	CID_CHECK	sendCIDCheck		implemented	
+224	CID_CHECK	sendCIDInfo	Boolean(false)	implemented	
 225	ENTHRALL_SWITCH	sendForSwitch		implemented	
 225	REQUEST_UPDATE	sendRequestUpdate		implemented	
 230	ACHIEVEMENT_FINISH	sendAchievementFinish	Int(param1)	implemented	
@@ -350,7 +350,7 @@ code	name	clientFn	firstWrite	server	file
 253	MARRY_ROOM_INFO_UPDATE	sendModifyChurchDiscription	UTF(param1)	implemented	
 258	NOVICEACTIVITY	sendNoviceActivityGetAward	Int(param1)	partial	
 259	FIRSTRECHARGE	sendFirstRechargeGetAward	Int(param1)	implemented	
-265	NEWTITLE_CARD	sendNewTitleCard	Byte(param2)	partial	
+265	NEWTITLE_CARD	sendNewTitleCard	Byte(param2)	implemented	
 279	279	showHideTitleState	Boolean(flag)	implemented	
 295	STORE_FINE_SUIT	sendForgeSuit	Byte(FineStorePackageType.FORGE_SUIT=1)	implemented	
 300	300	sendpkgCheckHack	Int(0)	implemented	

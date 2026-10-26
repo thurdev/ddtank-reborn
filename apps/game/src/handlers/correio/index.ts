@@ -28,6 +28,8 @@ export function registerCorreio(r: HandlerRegistry): void {
   r.player(112, "DELETE_MAIL", deleteMail);
   r.player(113, "GET_MAIL_ATTACHMENT", getAttachment);
   r.player(116, "SEND_MAIL", sendMailPacket);
-  r.player(214, "USER_RELOAD_GIFT", userReloadGift, "stub");
+  // 214 USER_RELOAD_GIFT: pacote morto confirmado no C# original (ver stubs.ts) — noop é fiel, não pendência;
+  // "implemented" (41-stubs-rates), não "stub".
+  r.player(214, "USER_RELOAD_GIFT", userReloadGift);
   r.player(118, "MAIL_CANCEL", mailCancel);
 }

@@ -98,8 +98,9 @@ export function registerCasamento(r: HandlerRegistry): SubRouter {
   r.player(251, "SCENE_STATE", sceneState);
   r.player(253, "MARRY_ROOM_INFO_UPDATE", marryRoomInfoUpdate);
 
-  // 167 CHURCH_MOVIE_OVER: fio morto, ver stubs.ts.
-  r.player(167, "CHURCH_MOVIE_OVER", churchMovieOver, "stub");
+  // 167 CHURCH_MOVIE_OVER: fio morto confirmado dos dois lados (ver stubs.ts) — noop é o comportamento real,
+  // não pendência; por isso "implemented" (41-stubs-rates), não "stub".
+  r.player(167, "CHURCH_MOVIE_OVER", churchMovieOver);
 
   return cmd;
 }

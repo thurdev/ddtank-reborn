@@ -1,10 +1,17 @@
 /**
  * Aba no jogo: nenhuma — ações sem comportamento real (no-op explícito).
- * Pacotes: 42 DELETE_GOODS (deletar item: desabilitado também no original), 188 USE_CONSORTIA_REWORK_NAME e
- * 205 USE_CHANGE_COLOR_SHELL (fora do escopo deste porte: ambos têm handler C# de referência real —
- * `UseConsortiaReworkNameHandler.cs`/`UseChangeColorShellHandler.cs` em `vendor/DDTank41` — nunca
- * portados ainda; não é código morto, só pendente).
- * Como testar: não há o que testar (decisão documentada / pendência, não bug).
+ * Pacotes: 42 DELETE_GOODS (deletar item: desabilitado também no original) e 205 USE_CHANGE_COLOR_SHELL.
+ *
+ * Correção (41-stubs-rates): a nota antiga dizia que 205 tinha um `UseChangeColorShellHandler.cs` de
+ * referência real — isso está errado, não existe esse arquivo nem qualquer `[PacketHandler(205, ...)]` /
+ * `[PacketHandler((byte)ePackageType.USE_CHANGE_COLOR_SHELL, ...)]` em `vendor/DDTank41` (confirmado por
+ * grep em todo `Game.Server/Packets/Client/*.cs`; só a entrada no enum, `ePackageType.cs:185`). O cliente
+ * manda de verdade — `BagView.as:1467` (`CategoryID == 11 && Property1 == "37"`, arma no slot 6 com
+ * `StrengthenLevel >= 10`), `sendUseChangeColorShell(bagType, place)` = byte+int — mas o servidor original
+ * nunca respondia: pacote morto do lado servidor, igual a 214 USER_RELOAD_GIFT/224 CID_CHECK, não pendência.
+ * Noop fiel (lê byte+int, não responde) é o comportamento real; "implemented", não "stub".
+ * 188 USE_CONSORTIA_REWORK_NAME foi portado — ver `trocar-apelido-guilda.ts`.
+ * Como testar: não há o que testar pros dois acima (decisão documentada, não bug).
  */
 import type { HandlerRegistry } from "../registry.js";
 
@@ -12,10 +19,9 @@ export function registerStubsBolsa(r: HandlerRegistry): void {
   /** UserDeleteItemHandler.cs (42): delete disabled in the original. */
   r.player(42, "DELETE_GOODS", () => undefined, "stub");
 
-  // Out of this task's scope — left as documented stubs (both have a real [PacketHandler] class in vendor/DDTank41,
-  // UseConsortiaReworkNameHandler.cs / UseChangeColorShellHandler.cs, so "dead code" was never accurate; nobody has
-  // ported them yet).
-  for (const [code, name] of [[188, "USE_CONSORTIA_REWORK_NAME"], [205, "USE_CHANGE_COLOR_SHELL"]] as [number, string][]) {
-    r.player(code, name, () => undefined, "stub");
-  }
+  /** 205 USE_CHANGE_COLOR_SHELL: fio morto do lado servidor (ver comentário acima) — byte bagType, int place. */
+  r.player(205, "USE_CHANGE_COLOR_SHELL", (_ctx, _p, pkt) => {
+    pkt.readByte();
+    pkt.readInt();
+  });
 }

@@ -9,6 +9,7 @@
  *   mostrar-guilda.ts           (Personagem › tag de guilda)  — 34  USER_RANK
  *   trocar-sexo.ts              (Bolsa › usar cartão de sexo) — 252 USE_CHANGE_SEX
  *   trocar-apelido.ts           (Bolsa › usar cartão de nome) — 171 USE_REWORK_NAME
+ *   trocar-apelido-guilda.ts    (Bolsa › cartão de nome do clã)— 188 USE_CONSORTIA_REWORK_NAME
  *   trocar-cor.ts               (Equipamento › trocar cor)    — 182 USE_COLOR_CARD
  *   titulos.ts                  (Personagem › títulos)        — 189 USER_CHANGE_RANK, 265 NEWTITLE_CARD
  *   presentes-recebidos.ts      (Personagem › presentes)      — 218 USER_GET_GIFTS
@@ -30,7 +31,7 @@
  *   vender-item.ts              (Bolsa › vender item)         — 48  SEll_GOODS (design próprio, sem fonte C#)
  *   codigo-verificacao.ts       (sem tela própria, nunca emitido) — 200 CHECK_CODE
  *   correio-excedente.ts        (sem tela própria, usado por quase tudo acima) — `mailItems()`
- *   stubs.ts                    (sem tela própria)            — 42 DELETE_GOODS (vivo, no-op) + 188/205 (pendente)
+ *   stubs.ts                    (sem tela própria)            — 42 DELETE_GOODS (vivo, no-op) + 205 (morto, no-op)
  *
  * Pacotes: ver tabela acima.
  * C#: ver cabeçalho de cada arquivo listado.
@@ -45,6 +46,7 @@ import { registerVerEquipamento } from "./ver-equipamento.js";
 import { registerMostrarGuilda } from "./mostrar-guilda.js";
 import { registerTrocarSexo } from "./trocar-sexo.js";
 import { registerTrocarApelido } from "./trocar-apelido.js";
+import { registerTrocarApelidoGuilda } from "./trocar-apelido-guilda.js";
 import { registerTrocarCor } from "./trocar-cor.js";
 import { registerTitulos } from "./titulos.js";
 import { registerPresentesRecebidos } from "./presentes-recebidos.js";
@@ -75,6 +77,7 @@ export function registerBolsa(r: HandlerRegistry): void {
   registerMostrarGuilda(r);
   registerTrocarSexo(r);
   registerTrocarApelido(r);
+  registerTrocarApelidoGuilda(r);
   registerTrocarCor(r);
   registerTitulos(r);
   registerPresentesRecebidos(r);

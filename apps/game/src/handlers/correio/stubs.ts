@@ -6,8 +6,9 @@
  * MailManager.as:617`). Confirmado morto no original: não existe nenhuma classe `[PacketHandler(214, ...)]`
  * em `vendor/DDTank41/Game.Server/Packets/Client/*.cs` (só a entrada 214 em ePackageType.cs) — o servidor
  * de origem nunca respondia a esse pacote; o cliente só reenvia 218 USER_GET_GIFTS (já em bolsa/) se o
- * servidor responder true, o que nunca acontecia. Registrado como stub (consome, não responde) em vez de
- * deixar MISSING, igual a 25 POLL_CANDIDATE em sociedade/votacao.ts.
+ * servidor responder true, o que nunca acontecia. Registrado como noop fiel (consome, não responde) em vez
+ * de deixar MISSING, igual a 25 POLL_CANDIDATE em sociedade/votacao.ts — é comportamento confirmado do
+ * original, não pendência, por isso "implemented" (41-stubs-rates).
  */
 
 /** 214 USER_RELOAD_GIFT — sem corpo, nada pra ler. */

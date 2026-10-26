@@ -6,6 +6,7 @@
 import { and, desc, eq, inArray, max, sql } from "drizzle-orm";
 import { game, player, type Database } from "@ddt/db";
 import { DEFAULT_DUTIES, Right, checkRemoveMember, dutyMove, gradeChange, hasRight, kickBudget, upgrade, userRemarkAllowed, type GuildBuildings, type LevelRow, type UpgradeKind } from "../game/consortia.js";
+import { findUserIdByNickName } from "./characters.js";
 
 const C = player.Consortia;
 const U = player.Consortia_Users;
@@ -15,6 +16,7 @@ const I = player.Consortia_Invite_Users;
 const E = player.Consortia_Event;
 const EC = player.Consortia_Equip_Control;
 const D = player.Sys_Users_Detail;
+const RC = player.Rename_Consortia;
 
 export type ConsortiaRow = typeof C.$inferSelect;
 export type DutyRow = typeof Du.$inferSelect;
@@ -328,6 +330,30 @@ export async function changeChairman(db: Database, nick: string, consortiaId: nu
   });
   const di = (d: DutyRow): DutyInfo => ({ DutyID: d.DutyID, Level: d.Level, DutyName: d.DutyName, Right: d.Right });
   return { code: 0, target: { id: tm.UserID, name: tm.UserName }, chairDuty: di(chair), oldDuty: di(low) };
+}
+
+/**
+ * SP_Users_RenameConsortia (188 USE_CONSORTIA_REWORK_NAME, UseConsortiaReworkNameHandler.cs:44) — rename the
+ * guild the caller chairs. `nickName` is the chairman's own nickname (handler already checked it against
+ * `ConsortiaInfo.ChairmanID` before calling). Mirrors the SP's checks 1:1, including the apparent original
+ * quirk of only checking for a name clash scoped to `ChairmanID` (not a global unique check — the client's
+ * own `ConsortiaNameCheck.ashx` lookup, outside this port, is what the real client relies on for that) and the
+ * never-reuse-an-old-name history in `Rename_Consortia`. The handler itself only reads the boolean result, so
+ * the SP's internal 1/2/4/5 codes collapse to true/false here.
+ */
+export async function renameConsortia(db: Database, consortiaId: number, nickName: string, newNickName: string): Promise<boolean> {
+  const chairman = await findUserIdByNickName(db, nickName);
+  if (!chairman) return false;
+  const [clash, history] = await Promise.all([
+    db.select({ n: sql<number>`count(*)` }).from(C).where(and(eq(C.ConsortiaName, newNickName), eq(C.ChairmanID, chairman))),
+    db.select({ n: sql<number>`count(*)` }).from(RC).where(eq(RC.ConsortiaName, newNickName)),
+  ]);
+  if (Number(clash[0]?.n ?? 0) !== 0 || Number(history[0]?.n ?? 0) !== 0) return false;
+  await db.transaction(async (tx) => {
+    await tx.insert(RC).values({ ConsortiaID: consortiaId, ConsortiaName: newNickName, NickName: nickName, Date: new Date(), IsExist: false });
+    await tx.update(C).set({ ConsortiaName: newNickName }).where(eq(C.ChairmanID, chairman));
+  });
+  return true;
 }
 
 /** SP_ConsortiaUserGrade_Update: promote / demote one step (codes from gradeChange, 6 = duty missing). */
