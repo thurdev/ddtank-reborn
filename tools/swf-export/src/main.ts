@@ -28,7 +28,9 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 export const REPO = join(HERE, "../../..");
 const MAIN_REPO = existsSync(join(REPO, "vendor/_tools")) ? REPO : join(REPO, "../../..");
 const FFDEC = join(MAIN_REPO, "vendor/_tools/ffdec/ffdec-cli.jar");
-const OUT = join(REPO, "apps/client/public/assets");
+// SWF_EXPORT_OUT: pra testar sem escrever na junction de assets de verdade
+// (ex. `SWF_EXPORT_OUT=tools/swf-export/.verify-out` — ver docs/client-pixi/ASSETS.md).
+const OUT = process.env.SWF_EXPORT_OUT ? join(REPO, process.env.SWF_EXPORT_OUT) : join(REPO, "apps/client/public/assets");
 const TMP = join(REPO, "tools/swf-export/.tmp");
 
 interface Source {
@@ -159,7 +161,14 @@ async function exportOne(src: Source, force: boolean, warnings: string[]): Promi
   // classe base de cada linkage (pelo código exportado)
   const classes = readClasses(join(tmp, "scripts"), src.key, warn);
   for (const [name, info] of Object.entries(lib.classes)) {
-    info.base = classes.get(name)?.base ?? guessBase(lib, info.id);
+    const found = classes.get(name);
+    info.base = found?.base ?? guessBase(lib, info.id);
+    // frame scripts da própria classe do caractere (addFrameScript do ABC embutido,
+    // ex. "stand" com stop()/gotoAndPlay no fim do segmento) — ver swf-classes.ts
+    if (found?.frameScripts?.size) {
+      const ch = lib.chars[info.id];
+      if (ch?.k === "sprite") ch.tl.fs = Object.fromEntries(found.frameScripts);
+    }
   }
   writeFileSync(libFile, JSON.stringify(lib));
   rmSync(tmp, { recursive: true, force: true });

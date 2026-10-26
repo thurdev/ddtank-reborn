@@ -19,9 +19,9 @@ export class ThirteenHardNioBoss extends ABrain {
              "Provem do meu poder"
         ]);
   static ShootedChat = __arr([
-           "哎呀~~你们为什么要攻击我？<br/>我在干什么？",
-                   
-            "噢~~好痛!我为什么要战斗？<br/>我必须战斗…"
+           "Ai~~ por que vocês estão me atacando? <br/>O que eu fiz?",
+
+            "Ah~~ que dor! Por que eu tenho que lutar? <br/>Eu preciso lutar…"
 
         ]);
   static AddBooldChat = __arr([
@@ -33,7 +33,7 @@ export class ThirteenHardNioBoss extends ABrain {
          
         ]);
   static KillAttackChat = __arr([
-            "君临天下！！"
+            "Eu reino sobre todos!!"
         ]);
   m_attackTurn = 0;
   OnBeginSelfTurn() {

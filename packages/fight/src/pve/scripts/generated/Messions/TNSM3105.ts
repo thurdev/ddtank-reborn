@@ -39,7 +39,7 @@ export class TNSM3105 extends AMissionControl {
             this.Game.AddLoadingFile(2, "image/map/1125/Objects/eye.swf", "game.crazytank.assetmap.WeiredEye");
             this.Game.AddLoadingFile(2, "image/map/1125/Objects/gate.swf", "game.crazytank.assetmap.Gate");
             this.Game.SetMap(1125);
-            this.Game.IsBossWar = "邪神守卫";
+            this.Game.IsBossWar = "Guardião do Deus Maligno";
         }
   OnPrepareStartGame() {
             super.OnPrepareStartGame();

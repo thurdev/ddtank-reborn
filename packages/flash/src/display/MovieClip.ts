@@ -23,7 +23,7 @@ import { $class } from "../as3";
 import { dlog } from "../debug";
 import { ColorTransform } from "../geom/ColorTransform";
 import { Matrix } from "../geom/Matrix";
-import type { FilterT, Op, PlaceOp, TimelineT } from "../swf/library-types";
+import type { FilterT, FrameScriptOp, Op, PlaceOp, TimelineT } from "../swf/library-types";
 import { BevelFilter } from "../filters/BevelFilter";
 import { BlurFilter } from "../filters/BlurFilter";
 import { ColorMatrixFilter } from "../filters/ColorMatrixFilter";
@@ -46,6 +46,29 @@ export interface CharFactory {
 
 /** clips tocando no palco (Player avança todos a cada frame) */
 export const playingClips = new Set<MovieClip>();
+
+/**
+ * Executa os micro-ops de um frame script extraído do ABC do próprio
+ * caractere (ver `FrameScriptOp` em swf/library-types.ts). Chama os métodos
+ * normais da instância (`this.stop()`, `this.gotoAndPlay(...)`...) — não um
+ * acesso direto à timeline — porque a classe real do símbolo pode
+ * SOBRESCREVER esses métodos (ex. `road.game.resource.ActionMovie` troca
+ * `gotoAndPlay`/`gotoAndStop` por uma máquina de estados própria com
+ * `doAction`); despachar pelo método deixa esse override valer, igual ao
+ * AS3 original (o script do frame também chama só `gotoAndPlay(...)`, sem
+ * saber se há override).
+ */
+function runFrameScriptOps(mc: MovieClip, ops: FrameScriptOp[]): void {
+  for (const op of ops) {
+    switch (op.op) {
+      case "stop": mc.stop(); break;
+      case "play": mc.play(); break;
+      case "next": mc.nextFrame(); break;
+      case "prev": mc.prevFrame(); break;
+      case "goto": if (op.play) mc.gotoAndPlay(op.to); else mc.gotoAndStop(op.to); break;
+    }
+  }
+}
 
 export function filtersFromData(list: FilterT[] | undefined): any[] {
   if (!list) return [];
@@ -103,6 +126,12 @@ export class MovieClip extends Sprite {
     this.$apply(tl.f[0] ?? [], 1);
     this.$playing = tl.n > 1;
     this.$updateClipMasks();
+    // frame scripts da própria classe do símbolo (addFrameScript extraído pelo
+    // exportador, ver tools/swf-export/src/swf-classes.ts); corre ANTES de
+    // qualquer addFrameScript que o construtor da subclasse real ainda vá
+    // chamar (ele roda depois do super(), que é quem chama $initSymbol) —
+    // então o código real sempre pode sobrescrever um frame específico.
+    if (tl.fs) for (const [f, ops] of Object.entries(tl.fs)) this.$scripts.set(Number(f), () => runFrameScriptOps(this, ops));
     this.$scriptDone = false;
     queueFrameScript(this);
   }

@@ -21,6 +21,7 @@ import { item, spec, type Row } from "../lib/spec.js";
 const LANG = "pt-BR";
 const TRANSLATED_PK: Record<string, string> = {
   Game_Map: "ID",
+  Pve_Info: "ID",
   NPC_Info: "ID",
   Mission_Info: "Id",
   Mission_Info_Backup: "Id",

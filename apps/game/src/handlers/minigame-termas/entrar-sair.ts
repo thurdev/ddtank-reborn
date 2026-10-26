@@ -15,8 +15,8 @@ import { littleGameMgr, MIN_GRADE } from "./mgr.js";
 /** sub 2 ENTER_WORLD (`START_LOAD` do cliente): nível mínimo 20 + evento aberto (`EnterWorld.cs`). */
 export function enterWorld(ctx: ServerContext, p: GamePlayer): void {
   const m = littleGameMgr(ctx);
-  if (p.info.Grade < MIN_GRADE) return p.sendMessage(0, "Bạn cần đạt level 20 mới có thể vào.");
-  if (!m.isOpen) return p.sendMessage(0, "Sự kiện chưa mở.");
+  if (p.info.Grade < MIN_GRADE) return p.sendMessage(0, "Você precisa atingir o nível 20 para entrar.");
+  if (!m.isOpen) return p.sendMessage(0, "Evento ainda não está aberto.");
   if (m.inGame(p)) return; // já está dentro — o original também não protege, mas entrar 2x duplicaria o id no mapa
   m.addPlayer(p);
 }

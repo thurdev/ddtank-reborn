@@ -50,6 +50,21 @@ export type Op =
     }
   | { rm: number };
 
+/**
+ * Frame script simples da CLASSE do próprio símbolo (`addFrameScript` dentro
+ * do ABC embutido no SWF de asset, ex. `Living007.frame41(){ stop(); }`) —
+ * não é código do jogo (esse já é TS normal), é o script que o Flash
+ * compilava DENTRO do caractere pra ele mesmo parar/saltar em certos frames
+ * (ex. "stand" faz loop até outra ação pedir `gotoAndPlay`, "die" para no
+ * último frame). Ver `tools/swf-export/src/swf-classes.ts`.
+ */
+export type FrameScriptOp =
+  | { op: "stop" }
+  | { op: "play" }
+  | { op: "next" }
+  | { op: "prev" }
+  | { op: "goto"; to: number | string; play: boolean };
+
 export interface TimelineT {
   /** número de frames */
   n: number;
@@ -59,6 +74,8 @@ export interface TimelineT {
   f: Op[][];
   /** sons iniciados em cada frame: f index → ids */
   snd?: Record<number, number[]>;
+  /** frame (0-based, igual addFrameScript) → ops do frame script da própria classe do símbolo */
+  fs?: Record<number, FrameScriptOp[]>;
 }
 
 export type CharT =
