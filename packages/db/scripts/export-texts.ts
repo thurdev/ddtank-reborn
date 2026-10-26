@@ -20,8 +20,8 @@ import { REPO_ROOT, SEED_DIR } from "../src/paths.js";
 export const TARGETS: Record<string, { pk: string; cols: string[] }> = {
   Game_Map: { pk: "ID", cols: ["Name", "Description", "Remark"] },
   Pve_Info: { pk: "ID", cols: ["Name", "Description"] },
-  Mission_Info: { pk: "Id", cols: ["Name", "Title", "Description"] },
-  Mission_Info_Backup: { pk: "Id", cols: ["Name", "Title", "Description"] },
+  Mission_Info: { pk: "Id", cols: ["Name", "Title", "Description", "Success", "Failure"] },
+  Mission_Info_Backup: { pk: "Id", cols: ["Name", "Title", "Description", "Success", "Failure"] },
   Achievement: { pk: "ID", cols: ["Title", "Detail"] },
   NPC_Info: { pk: "ID", cols: ["Name"] },
   Quest: { pk: "ID", cols: ["Title", "Detail", "Objective"] },

@@ -118,6 +118,24 @@ Ordem (2026-10-26): stubs/rates do servidor → .ashx/Road.Service → site-play
   vez do stub genérico. Endpoints fora de escopo (admin-only/legado, ou sem handler no DDTank41) listados
   com motivo em `01-cobertura-41.md` — nenhum implementado. Testes: `apps/api/test/api.test.ts` (10 novos +
   2 corrigidos). Docs: `docs/MIGRATION-GAP.md`, `docs/API.md`, `apps/api/README.md`.
+- [x] **i18n-instancias** (2026-10-26) — varredura dedicada a tudo que o jogador vê em dungeons/PvE ainda em
+  chinês/vietnamita. Causa raiz da reclamação do dono: `apps/api/src/templates/defs.ts` servia
+  `/LoadPVEItems.ashx` (nomes/descrições das instâncias na tela de seleção) sem aplicar o overlay pt-BR —
+  `Pve_Info` não estava em `TRANSLATED_PK` (as outras tabelas, `Game_Map`/`NPC_Info`/`Mission_Info`/`Quest`,
+  já estavam); a tradução em si já existia 100% em `data/i18n/pt-BR/db/Pve_Info.*.jsonl`. Corrigido com uma
+  linha. Achado novo: chinês (Han) hardcoded em `packages/fight/src/pve/scripts/generated/**` (falas de
+  NPC/boss via `Say()`) que o `code-vn-scan.mjs` antigo nunca detectava (só cobre diacríticos vietnamitas) —
+  traduzidas ~15 arquivos (`MyNpcAi`, `Thirteen*Boss`, `ThirdSimple*Npc`, `FHSM400x`, `*SM3x0x`), string
+  literal apenas, lógica intocada. DB (Pve_Info/Mission_Info/Mission_Info_Backup/NPC_Info/Game_Map/Quest):
+  confirmado 100% traduzido, zero sobra. Script novo `tools/qa/pve-i18n-scan.mjs` (+ teste
+  `packages/fight/test/pve-i18n.test.ts`) varre tudo isso e reporta 0 achados (exceções documentadas = só
+  comentário/código morto). Bônus (achado na varredura geral, fora do escopo estrito mas trivial): 5 strings
+  VN hardcoded em `forja/energia-latente.ts` e `minigame-termas/entrar-sair.ts`. Fora de escopo, documentado
+  mas não corrigido: `minigame-termas/mgr.ts:440` (chinês, não é dungeon), `Quest_Condiction.CondictionTitle`
+  (10 linhas VN, quests de evento/colecionável — não dungeon — sem overlay de PK composta ainda), imagens de
+  UI da lista de dungeon pendentes de remaster (lista completa em `docs/I18N-AUDIT.md`). Docs:
+  `docs/I18N-AUDIT.md` ("Rodada 3"). Testes: `@ddt/fight` 202/202, `@ddt/api` 117/117, `@ddt/db` 8/8, PvE de
+  `@ddt/game` 42/42; `tsc --noEmit` limpo em `@ddt/db`/`@ddt/api`/`@ddt/game`/`@ddt/fight`.
 - [ ] **41-qa-tudo** — testar TODAS as features no jogo de verdade (matriz QA `verified:yes` + evidência),
   área por área, abrindo fix pra cada falha.
 

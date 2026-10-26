@@ -53,7 +53,7 @@ export class THSM3003 extends AMissionControl {
             this.Game.AddLoadingFile(2, "image/map/1124/object/1124object3.swf", "game.crazyTank.view.Focus");
             
             this.Game.SetMap(1124);
-            this.Game.IsBossWar = "萨满兄弟";
+            this.Game.IsBossWar = "Irmãos Xamãs";
         }
   OnPrepareStartGame() {
             super.OnPrepareStartGame();

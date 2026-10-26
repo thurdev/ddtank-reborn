@@ -5,13 +5,13 @@ import { registerScript, ABrain, CsMath, CsRandom, __arr, __int } from "../../ru
 
 export class ThirdSimpleLongNpc extends ABrain {
   static random = new CsRandom();
-  static BoguChat = __arr([ 
-            "想K我？你还嫩~！",
-            "丫的还真敢K我！",
+  static BoguChat = __arr([
+            "Quer brigar comigo? Ainda é cedo pra isso~!",
+            "Esse aí tem coragem de me atacar!",
         ]);
   static AntChat = __arr([
-            "东西抢了！人给我！",
-            "想跑？往哪跑？",
+            "Peguem as coisas! Deixem o resto pra mim!",
+            "Pensando em fugir? Pra onde?",
         ]);
   static GetOneChat(Body) {
             let index = 0;

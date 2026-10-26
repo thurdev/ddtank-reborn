@@ -117,3 +117,87 @@ Screenshots: `research/i18n/audit/*.png`.
   oldTrainer, times, weekly): a fonte embutida é "UVN Van" (subconjunto de glifos VN) e o FFDec só adiciona glifos
   novos a partir de uma fonte de sistema com o mesmo nome — instalar uma "UVN Van" (ou trocar a fonte do texto)
   resolve. Rodar só esse passo: `node tools/i18n/build-client-art.mjs --only-swf-text`.
+
+## Rodada 3 (2026-10-26) — `i18n-instancias`: varredura dedicada a dungeons/PvE
+
+Escopo: tudo que o jogador vê dentro de instâncias/PvE. Script de verificação novo:
+`node tools/qa/pve-i18n-scan.mjs` (varre o overlay `data/i18n/pt-BR/db/{Pve_Info,Mission_Info,
+Mission_Info_Backup,NPC_Info,Game_Map,Quest}.*.jsonl` + literais CJK/VN em código em
+`packages/fight/src/pve`, `apps/game/src/handlers/{salas,eventos,missoes}`, `apps/game/src/{game,rooms,fight}`)
+e teste `packages/fight/test/pve-i18n.test.ts` que roda o mesmo script em CI. Resultado atual: **0 achados**
+(ver lista de exceções justificadas no próprio script — todas são comentário/código morto, nunca renderizado).
+
+- **BUG real encontrado (causa principal da reclamação)**: `apps/api/src/templates/defs.ts` monta o XML de
+  `/LoadPVEItems.ashx` (nomes/descrições das instâncias na tela de seleção, `game.Pve_Info.Name`/`Description`)
+  a partir da tabela `game` crua — `Pve_Info` **não estava** na lista `TRANSLATED_PK` daquele arquivo (que já
+  tinha `Game_Map`, `NPC_Info`, `Mission_Info`, `Quest`, etc.), então o overlay pt-BR (que já existe 100% —
+  ver abaixo) nunca era aplicado nesse endpoint, mesmo com `apps/game/src/db/templates.ts` já aplicando o
+  mesmo overlay corretamente pro protocolo de socket. É por isso que o dono via os nomes/descrições das
+  instâncias ainda em vietnamita na tela "Chọn phó bản"/detalhe da instância (achados `52-pve-maps.png`,
+  `54-pve-picked.png` da rodada 1) mesmo a tradução já estando pronta. Corrigido: adicionada a entrada
+  `Pve_Info: "ID"` em `TRANSLATED_PK` (uma linha). Os nomes das instâncias no banner da lista ("Huyệt Ma Kiến",
+  "Giải cứu gà con", "时空旋涡"...) **não são imagem** — são texto de `Pve_Info.Name` desenhado sobre um fundo
+  genérico, então esse fix resolve tudo isso de uma vez (a hipótese "provavelmente imagem" da rodada 1 estava
+  errada).
+- **Cobertura do overlay DB (confirmada, 100%, zero sobra VN/CJK)**: `Pve_Info.{Name,Description}` (33+24
+  linhas), `Mission_Info.{Name,Title,Description}` (170 cada), `Mission_Info_Backup.*` (128 cada), `Game_Map.
+  {Name,Description}` (454+431), `NPC_Info.Name` (1005), `Quest.{Title,Detail}` (728 cada) — todas já traduzidas
+  em `data/i18n/pt-BR/db/*.jsonl` e, pelo uso em `apps/game/src/db/templates.ts`, já importadas em
+  `app."Translations"` no Postgres de dev. Adicionadas também `Mission_Info.{Success,Failure}` e
+  `Mission_Info_Backup.{Success,Failure}` à lista `TARGETS` de `packages/db/scripts/export-texts.ts` (não
+  tinha essas 2 colunas) — conferido: o seed já está 100% pt-BR nelas (os 3 "Đánh bại Baroff." sinalizados em
+  `data/i18n/_work/vn-scan/*.jsonl` de uma varredura anterior já tinham sido corrigidos no seed antes desta
+  rodada; esses `.jsonl` de `vn-scan` ficaram obsoletos — se o `db:texts:import` já rodou para essas tabelas,
+  não há nada a importar de novo).
+- **Chinês (Han) real em `packages/fight/src/pve/scripts/generated/**` — achado novo** (o `code-vn-scan.mjs` da
+  rodada 2 só cobre diacríticos vietnamitas, nunca detectou Han): falas de NPC/boss via `Say()` hardcoded em
+  chinês, visíveis como balão de chat durante o combate PvE. Corrigidas (string literal apenas, lógica
+  intocada): `NPC/MyNpcAi.ts` (`listChat`, 13 falas de monstro genérico "Bogu"), `NPC/Thirteen{Hard,Normal,
+  Terror}NioBoss.ts` (`ShootedChat`+`KillAttackChat`, os outros arrays desses 3 arquivos já estavam em pt-BR —
+  tradução parcial de uma rodada anterior que não chegou a esses 2 arrays), `NPC/Thirteen{Hard,Normal,
+  Terror}ThirdBoss.ts` (100% em chinês, 15 falas × 3 arquivos), `NPC/ThirdSimple{Short,Long}Npc.ts`
+  (`BoguChat`+`AntChat`, formiga/monstro genérico), `Messions/FHSM4002.ts`+`FHSM4003.ts` (`IsBossWar` + `Say()`
+  dos bosses "Águia/Lobo do Deserto"/"Touro Velho"), `Messions/{THSM3003,THSM3005,THSM3006,TNSM3105,TNSM3106,
+  TSSM3205,TSSM3206,TTSM3305,TTSM3306}.ts` (label `IsBossWar`, hoje não lido por nenhum código ainda — campo
+  existe só pra paridade com o C#, mas corrigido por completude). Essas classes são **auto-geradas** por
+  `packages/fight/scripts/transpile-pve.ts` a partir do donor C# — o transpiler não tem (e este task não
+  adicionou) um passo de tradução, então se alguém rodar a transpilação completa de novo essas strings voltam
+  ao chinês original; a correção ficou só no `.ts` gerado mesmo (convenção do cabeçalho "hand fixes go in
+  ../../manual/" é pra lógica, não serve pra isto — nenhuma ação de código foi além da troca da string).
+  Achados restantes (todos em comentário/código morto, nunca renderizado ao jogador — listados como exceção
+  em `tools/qa/pve-i18n-scan.mjs`): legenda de cor de baú ("黄色箱子"/"红色箱子") em 8 arquivos, uma chamada
+  `Say()` comentada em 2 arquivos, 1 doc-comment, 1 `Console.WriteLine` comentado.
+- **Strings VN hardcoded fora do PvE (achado durante a varredura geral, corrigidas por serem triviais e de
+  risco zero)**: `apps/game/src/handlers/forja/energia-latente.ts` (3 mensagens de Energia Latente, feature
+  de forja — não é dungeon) e `apps/game/src/handlers/minigame-termas/entrar-sair.ts` (2 mensagens do minigame
+  dos bichinhos "bogu" — não é dungeon). Fora do escopo estrito de "instâncias", mas sem risco e sem dono
+  claro em outro task, então corrigidas aqui.
+- **Achado fora de escopo, NÃO corrigido (não é dungeon)**: `apps/game/src/handlers/minigame-termas/mgr.ts:440`
+  — `pk.writeString("温泉小游戏")` ("minigame das termas") ainda em chinês, enviado no pacote `166` (LoadComplete
+  do minigame dos bichinhos "bogu"). Fica pra um task de i18n do minigame de termas/bichinhos.
+- **Item names referenciados por `Quest_Condiction` ainda em VN, fora de escopo**: `game.Quest_Condiction.
+  CondictionTitle` tem 10 linhas com nomes de medalha entre aspas em VN (`"Bất"`, `"Khả"`, `"Chiến"`, `"Bại"`,
+  `"Mừng"`, `"Quốc"` — os 4 primeiros formam o idioma "Bất Khả Chiến Bại" = "invencível", um quebra-cabeça de
+  colecionar medalhas; os 2 últimos são do evento de feriado nacional vietnamita). Os `Quest`s donos (`1023`
+  "Chúc mừng Quốc Khánh", `1645` "Gunny Vô Địch", `3050` "Ghép Chữ Nhận Ná Thần") **não são dungeon** — são
+  quests de evento/colecionável. Além disso `Quest_Condiction` não tem PK de coluna única (overlay de tradução
+  não está ligado pra essa tabela em `apps/game/src/db/templates.ts` nem em `apps/api/src/templates/defs.ts`;
+  o `(QuestID, CondictionID)` precisaria ser adicionado como chave composta). Também achados nessa varredura,
+  igualmente fora de escopo: `Quest.Title` id `1023` ("Điềm lành xuất hiện Chúc mừng Quốc Khánh") e itens
+  `Shop_Goods.Name` 11457-11460 ("Huy chương \"Bất/Khả/Chiến/Bại\"") e 11531-11532 ("Mừng"/"Quốc") sem tradução
+  no overlay. Fica pra um task de i18n geral de quests/eventos (fora de "instâncias").
+- **Imagens com texto de UI de dungeon pendentes de remaster** (achadas em `research/i18n/img-vn-missing.tsv`
+  e `img-vn-full.tsv`; arte é responsabilidade de outro pipeline, não gerada aqui): `roomlist.swf ::
+  72_asset.DungeonList.DungeonListBG.jpg` (banner "Ải viễn chinh" + aba "Danh sách phòng", já especificada em
+  `research/i18n/needs-ai.md`), `roomlist.swf :: 44_asset.DungeonList.map_PVE.png` ("Bản đồ"), `roomlist.swf ::
+  58_asset.DungeonList.hardLevel_PVE.png` ("Mức độ"), `roomlist.swf :: 20_asset.DungeonList.pre_PVE.png`
+  ("Trước"), `roomlist.swf :: 21_asset.DungeonList.boss.png` ("(Đánh) Boss"), `roomlist.swf ::
+  73_asset.DungeonList.dungeon.png` ("Phó bản"), `room.swf :: 63_asset.ddtroom.dungeonChoose.boss.png` ("Vào
+  ải cuối"), `ddthallicon.swf :: 387_asset.ddthall.dungeonExploration.png` ("Địa Cung"). O banner "时空旋涡"
+  (chinês, dungeon "Redemoinho do Tempo") citado na rodada 1 não foi localizado nas varreduras estáticas atuais
+  — reconferir visualmente no próximo tour (pode já ter sido corrigido num remaster posterior, ou estar num
+  asset ainda não catalogado).
+- Verificação: `node tools/qa/pve-i18n-scan.mjs` → 0 achados; teste `packages/fight/test/pve-i18n.test.ts`
+  roda o mesmo script. `tsc --noEmit` limpo em `@ddt/db`, `@ddt/api`, `@ddt/game`, `@ddt/fight`. Testes:
+  `@ddt/fight` 202/202, `@ddt/api` 117/117, `@ddt/db` 8/8, e os testes PvE de `@ddt/game`
+  (`pve-instancias`, `labirinto`, `client-6600-m4-catchbeast`, `client-6600-m4-resgate`) 42/42.

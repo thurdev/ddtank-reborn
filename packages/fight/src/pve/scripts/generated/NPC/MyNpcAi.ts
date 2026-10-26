@@ -6,20 +6,20 @@ import { SimpleNpcAi } from "./SimpleNpcAi.js";
 
 export class MyNpcAi extends ABrain {
   static random = new CsRandom();
-  static listChat = __arr([ 
-            "为了荣誉！为了胜利！！",
-            "握紧手中的武器，不要发抖呀～",
-            "为了国王而战！",
-            "敌人就在眼前，大家做好战斗准备！",
-            "感觉最近国王的行为举止越来越反常......",
-            "为了啵咕的胜利！！兄弟们冲啊！",
-            "快消灭敌人！",
-            "大家一起上,人多力量大！",
-            "大家一起速战速决！",
-            "包围敌人，歼灭他们。",
-            "增援！增援！我们需要更多的增援！！",
-            "就算牺牲自己，也不会让你们轻易得逞。",
-            "不要轻视啵咕的力量，否则你会为此付出代价。"
+  static listChat = __arr([
+            "Pela honra! Pela vitória!!",
+            "Segurem firme suas armas, não tremam~",
+            "Lutem pelo rei!",
+            "O inimigo está à nossa frente, preparem-se para a batalha!",
+            "Ultimamente o comportamento do rei tem andado cada vez mais estranho...",
+            "Pela vitória dos Bogu!! Avancem, irmãos!",
+            "Destruam o inimigo rápido!",
+            "Todos juntos, a união faz a força!",
+            "Vamos resolver isso rápido, juntos!",
+            "Cerquem o inimigo e aniquilem-no.",
+            "Reforços! Reforços! Precisamos de mais reforços!!",
+            "Mesmo que eu tenha que me sacrificar, não vou deixar vocês vencerem fácil.",
+            "Não subestimem o poder dos Bogu, ou vocês vão pagar caro por isso."
         ]);
   static GetOneChat() {
             let index = MyNpcAi.random.Next(0, MyNpcAi.listChat.length);
