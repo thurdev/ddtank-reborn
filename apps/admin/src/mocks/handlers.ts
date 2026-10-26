@@ -1,6 +1,6 @@
 import { delay, http, HttpResponse } from "msw";
 import { resourceByName } from "@/resources";
-import { idFields, rowId, type Row } from "@/crud/types";
+import { idFields, rowId, type ResourceDef, type Row } from "@/crud/types";
 import type { AdminStats, AdminUser } from "@/lib/api";
 import type { Asset } from "@/pages/Assets";
 import { nextId, tables } from "./db";
@@ -66,6 +66,38 @@ function tickSeries() {
 function matches(row: Row, q: string) {
   const needle = q.toLowerCase();
   return Object.values(row).some((v) => (typeof v === "string" || typeof v === "number") && String(v).toLowerCase().includes(needle));
+}
+/**
+ * Mock mirror of the generic `cf_*` per-column filter (admin-ux-2, real impl + doc comment: `admin.ts`'s list
+ * route + `admin-resources.ts`): `cf_<field>` (contains/exact, by `FieldDef.type`) and `cf_<field>_min`/`_max`
+ * (numeric range). Uses the resource's own field types since there's no real DB column to introspect here.
+ */
+function applyColFilters(rows: Row[], def: ResourceDef, sp: URLSearchParams): Row[] {
+  const byField = new Map(def.fields.map((f) => [f.name, f] as const));
+  let out = rows;
+  for (const [key, raw] of sp.entries()) {
+    if (!key.startsWith("cf_") || !raw) continue;
+    const range = /^cf_(.+)_(min|max)$/.exec(key);
+    if (range) {
+      const field = range[1]!;
+      const n = Number(raw);
+      const isMin = range[2] === "min";
+      out = out.filter((r) => {
+        const v = Number(r[field]);
+        return Number.isFinite(v) && (isMin ? v >= n : v <= n);
+      });
+      continue;
+    }
+    const field = key.slice(3);
+    const f = byField.get(field);
+    out = out.filter((r) => {
+      const v = r[field];
+      if (f?.type === "boolean") return !!v === (raw === "1" || raw === "true");
+      if (f?.type === "number" || f?.type === "ref" || f?.type === "select") return String(v ?? "") === raw;
+      return typeof v === "string" && v.toLowerCase().includes(raw.toLowerCase());
+    });
+  }
+  return out;
 }
 function compare(a: unknown, b: unknown) {
   if (typeof a === "number" && typeof b === "number") return a - b;
@@ -215,6 +247,7 @@ export const handlers = [
     const sort = sp.get("sort");
     let rows = tables.get(def.name) ?? [];
     if (q) rows = rows.filter((r) => matches(r, q));
+    rows = applyColFilters(rows, def, sp);
     if (sort) {
       const desc = sort.startsWith("-");
       const field = desc ? sort.slice(1) : sort;

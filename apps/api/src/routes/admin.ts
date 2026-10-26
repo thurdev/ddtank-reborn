@@ -653,6 +653,27 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
           conds.push(qy.inShop === "1" ? existsEmLoja : sql`NOT ${existsEmLoja}`);
         }
       }
+      /**
+       * Generic per-column filter (admin-ux-2, see the doc comment atop `admin-resources.ts`): `cf_<field>` /
+       * `cf_<field>_min` / `cf_<field>_max`, built client-side by `apps/admin/src/crud/ColumnFilters.tsx`
+       * `buildColFilterParams`. Cast needed because these keys aren't in the typed `Querystring` above —
+       * Fastify still parses every query param regardless, the interface only narrows the known ones.
+       */
+      for (const [key, raw] of Object.entries(req.query as unknown as Record<string, string | undefined>)) {
+        if (!key.startsWith("cf_") || raw === undefined || raw === "") continue;
+        const range = /^cf_(.+)_(min|max)$/.exec(key);
+        if (range) {
+          const col = c[range[1]!];
+          if (!col) continue;
+          conds.push(range[2] === "min" ? gte(col, Number(raw)) : lte(col, Number(raw)));
+          continue;
+        }
+        const col = c[key.slice(3)];
+        if (!col) continue;
+        if (col.dataType === "boolean") conds.push(eq(col, raw === "1" || raw === "true"));
+        else if (col.dataType === "number") conds.push(eq(col, Number(raw)));
+        else conds.push(colSemAcento(col, raw));
+      }
       const needle = (req.query.q ?? "").trim();
       if (needle) {
         const ors: SQL[] = [];
