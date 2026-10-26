@@ -60,6 +60,20 @@ Ordem: QA/sync → bot PvP → instâncias → hot-update → testar TUDO no jog
   (`verified` continua `no` — nunca testado num cliente real com a flag ligada). Testes:
   `apps/game/test/anti-bot.test.ts` (10, novo). Docs: `docs/features/login-conta.md`,
   `apps/game/HANDLERS.md`, `docs/MIGRATION-GAP.md`, `docs/qa-matrix.json`/`docs/QA-MATRIX.md`.
+- [x] **41-chickenbox-persistencia** (2026-10-26) — `87 NEWCHICKENBOX_SYS`: o board de 18 cartas do Baú do
+  Rei Galo (`NewChickenBoxItemInfo.cs`, `PlayerBussiness.cs:7905-8045`) ficava só numa `WeakMap` em
+  memória, perdido a cada restart do processo — agora persiste de verdade em `player."New_ChickenBox_Data"`.
+  Os contadores (`canOpenCounts`/`canEagleEyeCounts`/`isShowAll`/`lastFlushTime`, `PlayerActives.cs:357-368/
+  489-501`) persistem em `player."Sys_Active_System_Data"` — mesma linha por `UserID` que `84 ACTIVITY_PACKAGE`
+  já usava pra `ChickActiveData` (`ativacao-pintinho.ts`), cada subsistema só escrevendo nas próprias colunas.
+  Nenhuma migração nova: as duas tabelas já existiam no schema/migrações do `@ddt/db` (capturadas do `.bak`
+  original), ninguém nunca tinha lido/escrito nelas. Estrela da Sorte: o board de 14 cartas em si continua só
+  em memória, igual ao original (`PlayerActives.SetupLuckyStart`/`m_LuckyStartRewards`, recriado a cada
+  `ENTER_GAME`) — só as moedas acumuladas (`LuckystarCoins`, mesma linha compartilhada) passam a persistir,
+  o único desvio real que existia aí. Status da matriz: `87 NEWCHICKENBOX_SYS` (10 linhas) passa de
+  `partial` pra `ok`. Testes: `apps/game/test/chickenbox-persist.test.ts` (5, novo). Docs:
+  `apps/game/HANDLERS.md`, `docs/MIGRATION-GAP.md`, `docs/qa-matrix.json`/`docs/QA-MATRIX.md`,
+  `tools/qa/overrides.json`.
 - [ ] **41-qa-tudo** — testar TODAS as features no jogo de verdade (matriz QA `verified:yes` + evidência),
   área por área, abrindo fix pra cada falha.
 - [ ] **pixi-estudo** — estudo de viabilidade do cliente novo (PixiJS, 60fps+) — ver `docs/plan/PIXI.md`.

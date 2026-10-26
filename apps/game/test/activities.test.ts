@@ -38,7 +38,7 @@ describe("caddy/lottery pure helpers", () => {
       { templateId: 99, count: 1, strengthenLevel: 0, validDate: 0, atk: 0, def: 0, agi: 0, luck: 0, position: 1, isSelected: false, isSeeded: false, isBind: true, weight: 1 },
     ];
     let sawOther = false;
-    for (let i = 0; i < 50; i++) if (luckyDraw({ rewards, award: null, lastTurn: 0, coins: 500 }).templateId === 99) sawOther = true;
+    for (let i = 0; i < 50; i++) if (luckyDraw({ rewards, award: null, lastTurn: 0, coins: 500, rowId: null }).templateId === 99) sawOther = true;
     expect(sawOther).toBe(true); // the coin-reroll rule must occasionally land on the only other slot
   });
 });

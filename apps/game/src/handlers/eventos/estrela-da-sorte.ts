@@ -6,9 +6,20 @@
  * Pool de recompensa configurável via `app."ScheduledEvents"` kind "luckystar" (admin Events page).
  * Pacotes: 87 NEWCHICKENBOX_SYS (cmds 31 ENTER_GAME, 32 CLOSE_GAME, 33 START_TURN, 34 TURN_COMPLETE).
  * C#: `ChickenBoxHandler.cs` (mesma classe do Baú da Galinha), `PlayerActives.GetAward`.
- * Como testar: `apps/game/test/activities.test.ts` (`luckyDraw`). Manual: `docs/features/eventos.md`.
+ *
+ * 41-chickenbox-persistencia (2026-10-26): o board de 14 cartas em si NÃO persiste — igual ao original
+ * (`PlayerActives.SetupLuckyStart`/`m_LuckyStartRewards` é só em memória, recriado do zero a cada
+ * `ENTER_GAME`/`CreateLuckyStartAward`, `PlayerActives.cs:755-766`). Só as moedas acumuladas persistem de
+ * verdade agora (`m_activeInfo.LuckystarCoins`, `PlayerActives.cs:917-943`) — mesma linha `UserID` de
+ * `player."Sys_Active_System_Data"` que `ativacao-pintinho.ts` usa (`ChickActiveData`) e
+ * `bau-da-galinha.ts` usa (contadores do Baú), coluna própria aqui. Antes ficava só numa WeakMap em
+ * memória (perdida a cada reconexão/restart).
+ * Como testar: `apps/game/test/activities.test.ts` (`luckyDraw`), `apps/game/test/chickenbox-persist.test.ts`
+ * (41-chickenbox-persistencia). Manual: `docs/features/eventos.md`.
  */
+import { eq } from "drizzle-orm";
 import { GSPacket } from "@ddt/protocol";
+import { player as P } from "@ddt/db";
 import type { GamePlayer } from "../../game/player.js";
 import type { ServerContext } from "../../session/context.js";
 import { grantRewards } from "../../game/events.js";
@@ -22,7 +33,9 @@ const DEFAULT_LUCKYSTAR_POOL: PoolItem[] = [
   { templateId: 11023, count: 2, weight: 15 }, { templateId: 11444, count: 2, weight: 15 },
 ];
 
-interface LuckyState { rewards: Card[]; award: Card | null; lastTurn: number; coins: number }
+/** `rowId`: linha `Sys_Active_System_Data` por UserID (compartilhada com `ativacao-pintinho.ts`/
+ *  `bau-da-galinha.ts`, cada um só na própria coluna) — só pra persistir `coins` (ver header). */
+interface LuckyState { rewards: Card[]; award: Card | null; lastTurn: number; coins: number; rowId: number | null }
 const luckyOf = new WeakMap<GamePlayer, LuckyState>();
 
 const COIN_TEMPLATE = 201193;
@@ -30,14 +43,39 @@ const LUCKYSTAR_ITEM = 201192;
 const DEFAULT_COINS = 500;
 const FLUSH_COINS = 15;
 
-function setupLucky(ctx: ServerContext, p: GamePlayer): LuckyState {
+/** `CreateLuckyStartAward` (`PlayerActives.cs:755-766`): só recria o BOARD — nunca toca `LuckystarCoins`.
+ *  `coins`/`rowId` vêm de `loadCoins` (chamado pelo `ENTER_GAME` abaixo), carregados 1x e mantidos no
+ *  objeto em memória pro resto da sessão (igual ao original: `m_activeInfo` fica residente no `GamePlayer`
+ *  até o próximo save). */
+function setupLucky(ctx: ServerContext, p: GamePlayer, coins: number, rowId: number | null): LuckyState {
   const rows = pool(ctx, "luckystar", DEFAULT_LUCKYSTAR_POOL);
   const rewards = drawDistinct(rows, 14);
   if (rewards.length) rewards[0] = { templateId: COIN_TEMPLATE, count: 1, strengthenLevel: 0, validDate: 0, atk: 0, def: 0, agi: 0, luck: 0, position: 0, isSelected: false, isSeeded: false, isBind: true, weight: 1000 };
   for (let i = rewards.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [rewards[i], rewards[j]] = [rewards[j]!, rewards[i]!]; }
-  const s: LuckyState = { rewards, award: null, lastTurn: 0, coins: DEFAULT_COINS };
+  const s: LuckyState = { rewards, award: null, lastTurn: 0, coins, rowId };
   luckyOf.set(p, s);
   return s;
+}
+
+/** Lê `LuckystarCoins` da linha `Sys_Active_System_Data` do jogador (500 = `CreateActiveSystemInfo` default
+ *  se a linha ainda não existe). Exportado só pra `test/chickenbox-persist.test.ts` verificar o round-trip
+ *  sem precisar montar um item 201192 real na bolsa. */
+export async function loadCoins(ctx: ServerContext, p: GamePlayer): Promise<{ coins: number; rowId: number | null }> {
+  const [row] = await ctx.db.db.select({ ID: P.Sys_Active_System_Data.ID, LuckystarCoins: P.Sys_Active_System_Data.LuckystarCoins }).from(P.Sys_Active_System_Data).where(eq(P.Sys_Active_System_Data.UserID, p.id)).limit(1);
+  if (!row) return { coins: DEFAULT_COINS, rowId: null };
+  return { coins: row.LuckystarCoins, rowId: row.ID };
+}
+
+/** Grava `coins` de volta (update se a linha já existe; senão cria com os defaults de `CreateActiveSystemInfo`
+ *  — mesmo motivo de `bau-da-galinha.ts`'s `saveMisc`: qualquer um dos 3 arquivos pode criar a linha 1º).
+ *  Toma/retorna um `{coins, rowId}` solto (não o `LuckyState` inteiro) pra ficar testável sem montar board. */
+export async function saveCoins(ctx: ServerContext, p: GamePlayer, cr: { coins: number; rowId: number | null }): Promise<{ coins: number; rowId: number | null }> {
+  if (cr.rowId != null) {
+    await ctx.db.db.update(P.Sys_Active_System_Data).set({ LuckystarCoins: cr.coins }).where(eq(P.Sys_Active_System_Data.ID, cr.rowId));
+    return cr;
+  }
+  const [ins] = await ctx.db.db.insert(P.Sys_Active_System_Data).values({ UserID: p.id, canOpenCounts: 5, canEagleEyeCounts: 5, isShowAll: true, lastFlushTime: ctx.now(), LuckystarCoins: cr.coins }).returning({ ID: P.Sys_Active_System_Data.ID });
+  return { coins: cr.coins, rowId: ins!.ID };
 }
 
 /** PlayerActives.GetAward: weighted pick by `.weight`; if the coin slot wins and rand(100)>3, re-roll excluding coin. */
@@ -64,14 +102,15 @@ function sendLuckyAllGoods(p: GamePlayer, s: LuckyState): void {
 }
 
 /** Chamado por `bau-da-galinha.ts`'s `newChickenBoxDispatch` para os cmds 31-34 (gate "luckystar" já conferido ali). */
-export function luckyStarCmd(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, cmd: number): void {
+export async function luckyStarCmd(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, cmd: number): Promise<void> {
   switch (cmd) {
     case 31: { // ENTER_GAME (Lucky Star)
       const money = 2500;
       if (p.info.Money < money) return p.sendMessage(0, `São necessários ${money} Cupons para usar esta função!`);
       p.removeMoney(money);
       p.sendMessage(0, `${money} Cupons descontados ao abrir a função!`);
-      const s = setupLucky(ctx, p);
+      const { coins, rowId } = await loadCoins(ctx, p);
+      const s = setupLucky(ctx, p, coins, rowId);
       sendLuckyAllGoods(p, s);
       return;
     }
@@ -94,6 +133,7 @@ export function luckyStarCmd(ctx: ServerContext, p: GamePlayer, pkt: GSPacket, c
       out.writeInt(s.award.agi); out.writeInt(s.award.luck); out.writeBoolean(s.award.isBind);
       p.send(out);
       if (s.award.templateId === COIN_TEMPLATE) { p.addMoney(s.coins); s.coins = DEFAULT_COINS; }
+      s.rowId = (await saveCoins(ctx, p, { coins: s.coins, rowId: s.rowId })).rowId;
       return;
     }
     case 34: { // TURN_COMPLETE

@@ -488,33 +488,43 @@
     "notes": "LeftGunCompleteHandler está portado em items.ts. A nota antiga de código morto foi invalidada em research/qa/port-C.md."
   },
   "87:sendNewChickenBox": {
-    "notes": "NEWCHICKENBOX_SYS implementado (apps/game/src/handlers/activities.ts): tabuleiro de 18 cartas (ChickenBoxHandler.cs portado), pool configurável via app.\"ScheduledEvents\" kind=\"chickenbox\" (admin Events page) com defaults embutidos. Estado em memória (não persistido em New_ChickenBox_Data — desvio documentado em HANDLERS.md). Testado por código, não clicado."
+    "status": "ok",
+    "notes": "NEWCHICKENBOX_SYS implementado (apps/game/src/handlers/eventos/bau-da-galinha.ts + estrela-da-sorte.ts): tabuleiro de 18 cartas (ChickenBoxHandler.cs portado), pool configurável via app.\"ScheduledEvents\" kind=\"chickenbox\" (admin Events page) com defaults embutidos. 41-chickenbox-persistencia (2026-10-26): board agora persiste de verdade em player.\"New_ChickenBox_Data\" e os contadores (canOpenCounts/canEagleEyeCounts/isShowAll/lastFlushTime) em player.\"Sys_Active_System_Data\" (mesma linha por UserID que 84 ACTIVITY_PACKAGE usa para ChickActiveData) — antes ficavam só numa WeakMap em memória, perdidos a cada restart do processo. Ambas as tabelas já existiam no schema/migrações (@ddt/db), nunca tinham sido usadas. Testado por código (test/chickenbox-persist.test.ts), não clicado."
   },
   "87:sendChickenBoxTakeOverCard": {
+    "status": "ok",
     "notes": "Ver 87:sendNewChickenBox. TAKEOVERCARD: custo escalonado (openCardPrice[canOpenCounts-1]), item entregue, 5 usos."
   },
   "87:sendChickenBoxUseEagleEye": {
+    "status": "ok",
     "notes": "Ver 87:sendNewChickenBox. USEEAGLEEYE: custo escalonado (eagleEyePrice), revela a carta sem consumir."
   },
   "87:sendFlushNewChickenBox": {
+    "status": "ok",
     "notes": "Ver 87:sendNewChickenBox. FLUSHCHICKENVIEW: grátis se passaram 120 min desde o último flush (IsFreeFlushTime), senão cobra flushPrice."
   },
   "87:sendOverShowItems": {
+    "status": "ok",
     "notes": "Ver 87:sendNewChickenBox. ALLITEMSHOW: reenvia a lista atual do tabuleiro."
   },
   "87:sendClickStartBntNewChickenBox": {
+    "status": "ok",
     "notes": "Ver 87:sendNewChickenBox. CLICKSTARTBNT: embaralha as posições do tabuleiro (RandomPosition portado)."
   },
   "87:sendLuckyStarEnter": {
-    "notes": "Lucky Star (mesmo código 87): ENTER_GAME cobra 2500 Xu, sorteia o tabuleiro de 14 (coinTemplateID 201193 forçado na posição 0, PlayerActives.CreateLuckyStartAward). Pool configurável via kind=\"luckystar\"."
+    "status": "ok",
+    "notes": "Lucky Star (mesmo código 87): ENTER_GAME cobra 2500 Xu, sorteia o tabuleiro de 14 (coinTemplateID 201193 forçado na posição 0, PlayerActives.CreateLuckyStartAward). Pool configurável via kind=\"luckystar\". 41-chickenbox-persistencia (2026-10-26): o board em si continua só em memória (igual ao original, PlayerActives.SetupLuckyStart/m_LuckyStartRewards, recriado a cada ENTER_GAME) mas as moedas acumuladas (LuckystarCoins) agora persistem de verdade na mesma linha player.\"Sys_Active_System_Data\" usada pelo baú da galinha/ativação do pintinho."
   },
   "87:sendLuckyStarTurn": {
+    "status": "ok",
     "notes": "START_TURN: cooldown de 7s, consome item 201192 (LUCKYSTAR_ID), embaralha o tabuleiro e sorteia por peso (.Random); se cair na moeda, 97% de chance de re-sortear excluindo a moeda (GetAward portado)."
   },
   "87:sendLuckyStarTurnComplete": {
+    "status": "ok",
     "notes": "TURN_COMPLETE: entrega o prêmio sorteado (moeda credita Xu acumulado; outros itens vão pra bolsa, sobra por correio)."
   },
   "87:sendLuckyStarClose": {
+    "status": "ok",
     "notes": "CLOSE_GAME: no-op, igual ao original (ChickenBoxHandler.cs case CLOSE_GAME está vazio)."
   },
   "145:sendGuildMemberWeekAddRanking": {

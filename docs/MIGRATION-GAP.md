@@ -165,10 +165,20 @@ principal).
   QUERY/OPENKEY/GETAWARD): sistema de "código de ativação" de 14 caracteres inteiro não portado (falta
   `UserChickActiveInfo` + handler + UI admin pra cadastrar códigos). Feature grande, orçamento próprio.
   `vendor/DDTank41/Game.Server/Packets/Client/ActivityPackageHandler.cs` (linhas ~135-250).
-- **41-chickenbox-persistencia** — 87 NEWCHICKENBOX_SYS (10 subs, chicken box + lucky star): estado do
-  tabuleiro só em memória (não persiste em `New_ChickenBox_Data`) — sobrevive a reconexões mas não a um
-  restart do processo. Deviation documentada, baixo impacto.
-  `vendor/DDTank41/Game.Server/Packets/Client/ChickenBoxHandler.cs`.
+- ~~**41-chickenbox-persistencia** — 87 NEWCHICKENBOX_SYS (10 subs, chicken box + lucky star)~~ **feito**
+  (`feature/41-partial-d`, 2026-10-26): o board de 18 cartas do Baú da Galinha (`NewChickenBoxItemInfo.cs`,
+  `PlayerBussiness.cs:7905-8045` `SP_GetSingleNewChickenBox`/`SP_NewChickenBox_Add`/`SP_UpdateNewChickenBox`)
+  agora persiste de verdade em `player."New_ChickenBox_Data"`, e os contadores (`canOpenCounts`/
+  `canEagleEyeCounts`/`isShowAll`/`lastFlushTime`, `PlayerActives.cs:357-368/489-501`) em
+  `player."Sys_Active_System_Data"` — mesma linha por `UserID` que `ativacao-pintinho.ts` já usava pra
+  `ChickActiveData` (84 ACTIVITY_PACKAGE), cada subsistema só tocando as próprias colunas. Nenhuma migração
+  nova precisou: as duas tabelas já existiam no schema/migrações do `@ddt/db` (capturadas do `.bak`
+  original) — ninguém nunca tinha lido/escrito nelas. A Estrela da Sorte não ganhou persistência do próprio
+  board (14 cartas) de propósito: o original também não persiste (`PlayerActives.SetupLuckyStart`/
+  `m_LuckyStartRewards`, recriado a cada `ENTER_GAME`) — só as moedas acumuladas (`LuckystarCoins`, mesma
+  linha compartilhada) persistem agora, fechando o único desvio real que existia aí. Testes:
+  `apps/game/test/chickenbox-persist.test.ts`. `vendor/DDTank41/Game.Server/Packets/Client/
+  ChickenBoxHandler.cs`.
 - **41-lanternriddles** — 145 ACTIVITY_SYSTEM subs 37-45 (`LANTERNRIDDLES_ANSWER=40`,
   `LANTERNRIDDLES_SKILL=41`, QUESTION, RANKINFO): subsistema inteiro sem fonte C# real em nenhum vendor
   (`ActiveSystemHandler.cs` só monta um pacote pro sub 8 e nunca chama `SendTCP` — todo o resto cai no

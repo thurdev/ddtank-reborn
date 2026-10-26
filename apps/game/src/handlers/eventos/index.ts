@@ -123,7 +123,9 @@ export function registerEventos(r: HandlerRegistry): void {
   r.player(230, "ACHIEVEMENT_FINISH", (ctx, p, pkt) => achievementFinishHandler(ctx, p, pkt));
 
   // Baú do Rei Galo + Estrela da Sorte (mesmo pacote 87, despachado por cmd)
-  r.player(87, "NEWCHICKENBOX_SYS", (ctx, p, pkt) => newChickenBoxDispatch(ctx, p, pkt), "partial");
+  // 41-chickenbox-persistencia (2026-10-26): flipped partial -> implemented — board (New_ChickenBox_Data) +
+  // contadores (Sys_Active_System_Data) agora persistem de verdade; ver header de bau-da-galinha.ts.
+  r.player(87, "NEWCHICKENBOX_SYS", (ctx, p, pkt) => newChickenBoxDispatch(ctx, p, pkt));
 
   // Roleta / Caddy
   r.player(26, "LOTTERY_OPEN_BOX", (ctx, p, pkt) => lotteryOpenBox(ctx, p, pkt));

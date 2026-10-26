@@ -90,8 +90,13 @@ async function loadChickActive(ctx: ServerContext, p: GamePlayer): Promise<{ id:
 }
 async function saveChickActive(ctx: ServerContext, p: GamePlayer, id: number | null, data: ChickActive): Promise<void> {
   const packed = packChickActive(data);
-  if (id != null) await ctx.db.db.update(P.Sys_Active_System_Data).set({ ChickActiveData: packed }).where(eq(P.Sys_Active_System_Data.ID, id));
-  else await ctx.db.db.insert(P.Sys_Active_System_Data).values({ UserID: p.id, ChickActiveData: packed });
+  if (id != null) { await ctx.db.db.update(P.Sys_Active_System_Data).set({ ChickActiveData: packed }).where(eq(P.Sys_Active_System_Data.ID, id)); return; }
+  // 41-chickenbox-persistencia: linha nova gravada com os defaults de `CreateActiveSystemInfo`
+  // (`PlayerActives.cs:559-574`) completos, não só `ChickActiveData` — `canEagleEyeCounts`(5)/`LuckystarCoins`
+  // (500) divergiam do schema DEFAULT (3/0, igual a DDL original) antes de `bau-da-galinha.ts`/
+  // `estrela-da-sorte.ts` lerem essas colunas; agora qualquer um dos 3 arquivos que criar a linha 1º grava
+  // os mesmos valores iniciais, igual o construtor original faz tudo de uma vez.
+  await ctx.db.db.insert(P.Sys_Active_System_Data).values({ UserID: p.id, ChickActiveData: packed, canOpenCounts: 5, canEagleEyeCounts: 5, isShowAll: true, lastFlushTime: ctx.now(), LuckystarCoins: 500 });
 }
 
 const onThreeDay = (d: Date): boolean => [0, 5, 6].includes(d.getUTCDay()); // Fri/Sat/Sun
