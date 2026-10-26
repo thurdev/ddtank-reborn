@@ -4,7 +4,7 @@ Testado com o roteiro automático (`apps/client/scripts/smoke.mjs`, ver
 [COMO-RODAR.md](COMO-RODAR.md)) numa conta de teste nível 30. "OK" = abre e
 funciona sem erro no console; detalhes visuais anotados.
 
-Última atualização: 2026-10-24.
+Última atualização: 2026-10-26.
 
 ## Fluxo principal
 
@@ -86,6 +86,57 @@ funciona sem erro no console; detalhes visuais anotados.
   arquivo corrompido/duplicado no vendor (ex. caracteres cirílicos) são esperadas
   e não bloqueiam o resto do set.
 
+## Achados da sessão 2026-10-26 (resource completo + "até a vitória" + varredura do hall)
+
+- **Varredura de todos os 12 ícones de prédio do hall** (`church_mc`, `shop_mc`,
+  `dungeon_mc`, `roomList_mc`, `auction_mc`, `active_mc`, `civil_mc`, `store_mc`,
+  `campaignLab_mc`, `tofflist_mc`, `hotWell_mc`, `consortia_mc`): todos OK depois
+  do fix de hit-test de forma transparente (2026-10-24) — nenhum tem mais o bug.
+  Varredura genérica de todo objeto `*Button` visível também rodada; só 2 achados
+  (`SelectedButton` em `ChatOutputView` 355,407 e `BaseButton` 454,578, ambos de
+  rolagem/UI do chat) não respondem no centro do próprio bounds — baixo risco
+  (prov. coberto por outro elemento ali, não testado a fundo; reteste se notar
+  chat sem rolar).
+- **Resource (3017 SWFs) terminou**: 2946 ok, 71 falhas (nome de arquivo
+  corrompido/duplicado no vendor, ex. caracteres cirílicos/CJK — `apps/client/public/assets/EXPORT-REPORT.txt`).
+  Todo o set de assets agora completo (ui + resource + sons).
+- **Batalha PvP confirmada de ponta a ponta com o resource completo**: fila →
+  sala → bot entra → batalha roda com pacotes reais (`DIRECTION`, `FIRE_TAG`,
+  `FIRE`, `SYNC_LIFETIME`, `TURN`, `DANDER`) e o personagem **subiu de nível
+  de verdade** durante o combate ("Parabéns, você aumentou de nível!" no chat).
+  Não foi possível fechar um KO completo com o roteiro automático (mirar/atirar
+  às cegas contra um bot real é pouco confiável pra vencer de propósito em N
+  tentativas de teste) — a tela de cartas/prêmios (`ExpView`) continua **não
+  confirmada visualmente**, mas o caminho até ela (`GameOverAction` → vitória →
+  `GameView.showExpView`) é o mesmo código que já roda pra derrota (confirmado
+  antes) e não há mais nenhum bloqueio técnico conhecido na cadeia.
+- **Achado operacional (não é bug do jogo)**: subir `apps/api`/`apps/game` à
+  mão sem `DATABASE_URL` no ambiente faz cada processo abrir seu próprio
+  PGlite embutido isolado (ver nota em [COMO-RODAR.md](COMO-RODAR.md)) — o
+  socket do jogo nunca valida a chave e o cliente cai pra "sua sessão
+  expirou". Consumiu boa parte desta sessão até identificar; documentado pra
+  não repetir.
+- **Bug novo achado, não corrigido** (`ddt/view/common/GradeContainer.ts:36`):
+  `this._grade["lv_mc"]["lv_mc_init"]["video"].clear()` lança
+  `TypeError: Cannot read properties of undefined (reading 'clear')` ~6s depois
+  de mostrar a animação de "subiu de nível" (`playerGrade()`/`setGrade()`), no
+  timer que devia limpar a animação. `lv_mc.lv_mc_init.video` deu `undefined`
+  nessa instância — não investigado a fundo (pode ser nome de instância que só
+  existe em certas variações da arte, ou timing de carregamento). Não trava o
+  jogo (o erro é só logado, não interrompe o fluxo), mas a animação de level-up
+  pode ficar presa na tela sem o timer de limpeza funcionando. Vale revisitar.
+- `pnpm typecheck`: 763 → 119 erros nesta sessão (ver commits `5fe8449a`,
+  `4c6b608d`, `814a5509`, `7407a302`, `59922ca4`, `6659ca62`, `dca6b2e3` em
+  `packages/flash` e `tools/as3-to-ts`) — camada de compatibilidade
+  Date/Array do AS3, `MovieClip`/`URLVariables`/`dynamic class` como
+  assinatura de índice, `IDisplayObject extends IEventDispatcher` (o
+  transpilador tirava `extends` de interface nativa), comparação E4X
+  `XMLList == string` vira `.toString()`, `addEventListener` aceita
+  `Function` (não só `(e:any)=>void`), coerção XML→int/uint em argumento
+  de construtor. Os 119 restantes são heterogêneos (sem padrão único óbvio
+  que valha a pena generalizar) — ver `grep "error TS" <log do typecheck>`
+  pra lista atual.
+
 ## Pendências conhecidas
 
 - **Arte com texto em vietnamita** (botão "Bắt đầu", abas, nomes das
@@ -95,20 +146,21 @@ funciona sem erro no console; detalhes visuais anotados.
   vêm do banco/XML do `apps/api`, não do cliente.
 - Fonte padrão serifada quando o XML de layout não diz a fonte: é o mesmo
   comportamento do Flash (Times New Roman).
-- Ainda não testados a fundo: batalha até a vitória (tela de cartas/prêmios —
-  bloqueado nesta sessão pela reexportação incompleta do set `resource`, ver
-  achados acima), sociedade/guerra de sociedade, chefe mundial, minigames,
-  loteria, mascote, cartas, totem.
+- Ainda não confirmada visualmente: a tela de cartas/prêmios de vitória
+  (`ExpView`) — ver achados da sessão 2026-10-26 acima (batalha roda até o
+  fim com o resource completo, só não fechei um KO roteirizado). PvE até a
+  vitória também não testado (só a derrota, já confirmada). Sociedade/guerra
+  de sociedade (ver abaixo — não existe tela no 4.1), chefe mundial,
+  minigames, loteria, mascote, cartas, totem continuam sem teste de UI (não
+  deu tempo nesta sessão depois da varredura do hall).
 - Não existe tela de "guerra de sociedade" (GvG) no cliente 4.1: não há nenhuma
   classe `*War*`/`*GVG*` em `src/game` — é recurso só do servidor/versões
   posteriores (handler `apps/game/src/handlers/sociedade/guerra-gvg.ts`). Nada
   a testar no cliente até existir tela AS3 correspondente.
-- `typecheck` (`pnpm typecheck`) tem ~140 erros pré-existentes em `apps/client/src/game`
-  (não introduzidos nesta sessão), sobretudo getters de `Date` ao estilo AS3
-  (`.fullYear`/`.month`/`.date`/`.minutes`...) que não existem no `Date` do JS,
-  e alguns `XMLList`/`any[]` mal tipados. `@ddt/flash` typecheca limpo. Não
-  bloqueia a execução (o jogo roda via Vite/esbuild sem checar tipos), mas fica
-  como dívida técnica — ver se vale um `Date` shim AS3-compatível antes do
-  congelamento.
+- `typecheck` (`pnpm typecheck`): 119 erros heterogêneos em `apps/client/src/game`
+  (ver achados da sessão 2026-10-26 acima pro que já foi corrigido — era
+  763 no início desta sessão). `@ddt/flash` typecheca limpo. Não bloqueia a
+  execução (o jogo roda via Vite/esbuild sem checar tipos), mas fica como
+  dívida técnica.
 - `GET /flash/weekly/weeklyinfo.xml` sempre 404 (visto em toda sessão de
   smoke) — não investigado a fundo; não impediu nenhum fluxo testado.
