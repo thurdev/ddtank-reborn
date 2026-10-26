@@ -195,6 +195,106 @@ funciona sem erro no console; detalhes visuais anotados.
   desta sessão (todos OK) — não refeita aqui por falta de tempo após o
   investigação de HP/vitória.
 
+## Achados da sessão 2026-10-26 (pixi-net: latência de rede)
+
+Tarefa: investigar reclamação do dono de que pacotes demoram muito ("ações
+parecem travadas"). Medido ponta a ponta com um 2º processo `apps/game`
+isolado (canal próprio, mesmo Postgres) + `PACKET_TRACE=true` no servidor +
+o painel `rede` do cliente (`?fps=1`, já existente em `packages/flash/src/stats.ts`
+— mede o tempo entre mandar um pacote e receber a resposta do mesmo código)
++ Playwright pra automatizar login/chat.
+
+**Instrumentação usada (não é nova — já existia, só não documentada):**
+- Cliente: `?debug=true` já loga cada pacote ↑/↓; `?fps=1` mostra "rede N ms"
+  (RTT por código casado) no canto superior esquerdo e expõe
+  `window.ddtStats.rtt` no console.
+- Servidor: `PACKET_TRACE=true` (env, já existia em `session/client.ts`) loga
+  `[pkt] <- código` / `[pkt] -> código` com timestamp — dá pra ver exatamente
+  onde o servidor gasta tempo entre receber e responder.
+
+**O que NÃO era o problema** (descartado por leitura de código + medição):
+- Transporte: TCP já usa `setNoDelay(true)` (`apps/game/src/net/transports.ts`),
+  WS já desliga `perMessageDeflate` dos dois lados — sem Nagle, sem compressão.
+- Cliente: `Socket.ts`/`ByteSocket.ts` processam cada frame **no mesmo tick**
+  do evento `message` do WebSocket (sem `setTimeout`/fila por frame); o
+  `EventDispatcher` do shim (`packages/flash/src/events/EventDispatcher.ts`)
+  despacha tudo síncrono, sem microtask/macrotask no meio.
+  `flush()` manda na hora (`Socket.send` não espera nenhum timer).
+  `ByteArray` não tem cópia desnecessária perceptível pro tamanho de pacote
+  deste jogo (até ~800 bytes no burst de login).
+- Servidor, pacotes do dia a dia (chat, `QUEST_CHECK`, `QUEST_ADD`, `SCENE_LOGIN`):
+  medidos **< 5ms** entre receber e responder no `PACKET_TRACE` (ex.:
+  `QUEST_ADD` → `178` em 0–1ms). Não há handler lento no caminho comum de
+  jogo — bate com o código (nenhum handler de `rooms/`, `salas/comando-de-jogo.ts`
+  ou combate faz `await` de DB por pacote).
+
+**O que ERA o problema — `LOGIN` (código 1) faz uma cadeia de ~9-11 round
+trips sequenciais ao Postgres antes do 1º pacote de resposta:**
+`apps/game/src/session/login.ts` fazia, um atrás do outro: validar o
+ticket, achar o personagem, achar o `clientKind`, carregar `PlayerInfo`,
+*depois* (só então) um `Promise.all` de 4 queries, `setOnlineState`, outro
+`Promise.all` de 4 queries, `eventsOnLogin`, `consortiaOnLogin`,
+`inviteLoginPacket`. Cada round trip ao Postgres local (mesma máquina, mas
+com a stack inteira do dono + esta sessão rodando em paralelo) custou na
+prática **~20-25ms** — não é o Postgres em si (é nativo, não Docker), é o
+preço de um round trip TCP/loopback do Windows + overhead do driver
+(`postgres.js`)/Drizzle sob a carga de todos os processos Node do dev stack
+disputando CPU. Resultado: `LOGIN` sozinho respondia em **~225-260ms** antes
+do 1º pacote (medido 2x com o canal isolado, log abaixo), o que o painel
+`rede` do cliente mostrava como RTT de 120-220ms durante o boot/entrada no
+hall (ações de jogo propriamente ditas, após logado, continuam rápidas).
+
+**Fix** (`apps/game/src/session/login.ts`, sem mudar nenhum pacote/ordem
+visível ao cliente — só a ORDEM em que o servidor busca os dados no banco):
+1. `ctx.tickets.validate`, `findCharacterByUserName` e `clientKindFor` não
+   dependem um do outro (todos só precisam do `user`) — viram 1
+   `Promise.all` em vez de 3 `await` em sequência.
+2. `loadPlayerInfo` não dependia de nada que `loadMatchInfo`/`loadUserItems`/
+   `loadFriends`/`loadProgress` também precisassem — entrou no mesmo
+   `Promise.all` que já existia pra esses 4.
+3. `setOnlineState` (escrita, resultado não lido) não precisa terminar antes
+   do bloco de `loadUserCardBag`/`loadUserPets`/`loadEatPets`/
+   `loadAvatarCollection` — entrou nesse `Promise.all` em vez de ter sua
+   própria rodada.
+   Trade-off documentado no código: um login com ticket inválido agora paga
+   por `findCharacterByUserName`/`clientKindFor` também (antes falhava rápido
+   só com `validate`) — aceitável, não é o caminho quente e já tem rate limit.
+
+**Antes / depois** (mesmo processo `apps/game` isolado, canal próprio,
+`PACKET_TRACE=true`, tempo entre `<- 1 LOGIN` e o 1º `-> 64`):
+
+| Medição | Antes | Depois |
+|---|---|---|
+| Login 1 (pool frio) | 261ms | — |
+| Login 2 (pool quente) | 225ms | — |
+| Login 3 | — | 184ms |
+| Login 4 | — | 216ms |
+| **Média** | **~243ms** | **~200ms** (-18%) |
+
+Redução real mas parcial (~40-75ms por login) — o resto do tempo ainda é
+`eventsOnLogin`/`consortiaOnLogin`/`inviteLoginPacket` (não paralelizados
+nesta sessão: cada um mexe em estado do `GamePlayer` já construído e manda
+pacotes, então juntar os 3 exigiria olhar o que cada um lê do banco vs.
+escreve/envia — mais arriscado pro tempo disponível) e a variância inerente
+de rodar Postgres + ~8 processos Node na mesma máquina Windows ao mesmo
+tempo (ver run 3 vs. run 4 acima — mesma sessão, mesmo fix, 32ms de
+diferença só por contenção de CPU).
+
+`tsx watch` vs. build: não comparado empiricamente (buildar só
+`apps/game` falha por import ESM — `packages/db`/`auth`/`fight`/`protocol`
+também precisariam estar buildados; fora do orçamento desta sessão).
+Descartado por análise: a transformação do `tsx` acontece 1x na importação
+do módulo, não por pacote — os <5ms medidos por pacote comum (QUEST_ADD etc.)
+já rodam sob `tsx` e não mostram overhead por chamada.
+
+**Testes**: `pnpm --filter @ddt/game exec vitest run test/session.test.ts
+test/all-open.test.ts test/client-6600.test.ts test/persist-all.test.ts
+test/elite-brackets.test.ts --maxWorkers=2` — 44/44 passando (cobre sessão
+única, login/kick de sessão velha, cliente 6600, que são os testes que mais
+mexem em `session/login.ts`).
+
+**Commit**: `perf(game): pixi-net - paraleliza round trips de DB no LOGIN`.
+
 ## Pendências conhecidas
 
 - **Arte com texto em vietnamita** (botão "Bắt đầu", abas, nomes das
