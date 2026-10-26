@@ -74,6 +74,15 @@ Ordem: QA/sync → bot PvP → instâncias → hot-update → testar TUDO no jog
   `partial` pra `ok`. Testes: `apps/game/test/chickenbox-persist.test.ts` (5, novo). Docs:
   `apps/game/HANDLERS.md`, `docs/MIGRATION-GAP.md`, `docs/qa-matrix.json`/`docs/QA-MATRIX.md`,
   `tools/qa/overrides.json`.
+- [x] **41-chick-activation-qa-sync** (2026-10-26) — `84 ACTIVITY_PACKAGE` família 2 (ChickActivation): a
+  matriz dizia "feature grande não portada, falta `UserChickActiveInfo`/handler/UI admin" — isso já estava
+  errado desde a tarefa `m4-passe-classico` (commit `6319a2de`), que portou o sistema inteiro
+  (`apps/game/src/handlers/eventos/ativacao-pintinho.ts`: QUERY/OPENKEY/GETAWARD, estado persistido em
+  `Sys_Active_System_Data.ChickActiveData`, pool/códigos via `app."ScheduledEvents"` kind `chickactivation`,
+  testes em `test/activities.test.ts`) sem nunca sincronizar `docs/MIGRATION-GAP.md`/`qa-matrix.json`. Sem
+  código novo — só reauditoria + correção de status: `84 ACTIVITY_PACKAGE` (3 linhas) `partial` → `ok`.
+  Docs: `apps/game/HANDLERS.md` (linha nova pro código 84, não existia nenhuma), `docs/MIGRATION-GAP.md`,
+  `docs/qa-matrix.json`/`docs/QA-MATRIX.md`, `tools/qa/overrides.json`.
 - [ ] **41-qa-tudo** — testar TODAS as features no jogo de verdade (matriz QA `verified:yes` + evidência),
   área por área, abrindo fix pra cada falha.
 - [ ] **pixi-estudo** — estudo de viabilidade do cliente novo (PixiJS, 60fps+) — ver `docs/plan/PIXI.md`.

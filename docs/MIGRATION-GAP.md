@@ -161,9 +161,18 @@ principal).
   setter não marca `_isDirty`); só `CheckError` (persiste de verdade, nunca reseta) ganhou coluna nova
   (migração `0026`). Teste: `apps/game/test/anti-bot.test.ts`. Manual: `docs/features/login-conta.md`.
   `vendor/DDTank41/Game.Server/Packets/Client/CheckCodeHandler.cs`, `Bussiness/CheckCode.cs`.
-- **41-chick-activation** — 84 ACTIVITY_PACKAGE family 2 (`ChickActivationType.CHICKACTIVATION`, subs
-  QUERY/OPENKEY/GETAWARD): sistema de "código de ativação" de 14 caracteres inteiro não portado (falta
-  `UserChickActiveInfo` + handler + UI admin pra cadastrar códigos). Feature grande, orçamento próprio.
+- ~~**41-chick-activation** — 84 ACTIVITY_PACKAGE family 2 (`ChickActivationType.CHICKACTIVATION`, subs
+  QUERY/OPENKEY/GETAWARD)~~ **falso gap, matriz defasada** (`feature/41-partial-d`, 2026-10-26): a nota
+  original dizia "sistema de código de ativação não portado, falta `UserChickActiveInfo`/handler/UI admin,
+  feature grande, orçamento próprio" — isso já estava **100% errado** antes mesmo desta rodada começar: o
+  sistema inteiro (QUERY/OPENKEY/GETAWARD, estado persistido em `Sys_Active_System_Data.ChickActiveData`,
+  pool/códigos configuráveis via `app."ScheduledEvents"` kind `chickactivation`) foi portado na tarefa
+  `m4-passe-classico` (commit `6319a2de`, antes de `feature/41-partial-c`/`-d` existirem), com testes
+  próprios (`test/activities.test.ts` "84 ACTIVITY_PACKAGE ChickActivation") e doc (`docs/features/
+  eventos.md` §5) — só `docs/MIGRATION-GAP.md`/`qa-matrix.json` nunca foram atualizados pra refletir isso, e
+  a nota desatualizada acabou promovida a item "prioritário" da lista abaixo por engano. Reauditado nesta
+  rodada contra `ActivityPackageHandler.cs` + `apps/game/src/handlers/eventos/ativacao-pintinho.ts`: sem gap
+  real, matriz corrigida (`84 ACTIVITY_PACKAGE`, 3 linhas, `partial` → `ok`).
   `vendor/DDTank41/Game.Server/Packets/Client/ActivityPackageHandler.cs` (linhas ~135-250).
 - ~~**41-chickenbox-persistencia** — 87 NEWCHICKENBOX_SYS (10 subs, chicken box + lucky star)~~ **feito**
   (`feature/41-partial-d`, 2026-10-26): o board de 18 cartas do Baú da Galinha (`NewChickenBoxItemInfo.cs`,

@@ -2202,9 +2202,9 @@
   "code": 84,
   "name": "ACTIVITY_PACKAGE",
   "sub": "ChickActivationType.CHICKACTIVATION=2",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:198+), prêmio por faixa de Grade dentro de 60 dias do resgate (chickInfo.KeyOpenedTime.AddDays(60)).",
+  "notes": "Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:198+), prêmio por faixa de Grade dentro de 60 dias do resgate (chickInfo.KeyOpenedTime.AddDays(60)). Já estava totalmente portado (m4-passe-classico, commit 6319a2de) — status \"partial\" estava desatualizado desde então. 41-chick-activation-qa-sync (2026-10-26): reauditado contra ActivityPackageHandler.cs/apps/game/src/handlers/eventos/ativacao-pintinho.ts, sem gap real: QUERY/OPENKEY/GETAWARD completos, estado persistido (Sys_Active_System_Data.ChickActiveData), pool/códigos configuráveis via app.\"ScheduledEvents\" kind \"chickactivation\", testes existentes em test/activities.test.ts (\"84 ACTIVITY_PACKAGE ChickActivation\"). A nota antiga (\"falta UserChickActiveInfo/handler/UI admin\") estava errada — nunca refletia o estado real do código.",
   "evidence": ""
  },
  {
@@ -2217,9 +2217,9 @@
   "code": 84,
   "name": "ACTIVITY_PACKAGE",
   "sub": "ChickActivationType.CHICKACTIVATION=2",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:171-197), código de 14 caracteres resgatado uma vez (IsKeyOpened).",
+  "notes": "Ver 84:sendChickActivationQuery — mesmo handler (ActivityPackageHandler.cs:171-197), código de 14 caracteres resgatado uma vez (IsKeyOpened). Já estava totalmente portado (m4-passe-classico, commit 6319a2de) — status \"partial\" estava desatualizado desde então. 41-chick-activation-qa-sync (2026-10-26): reauditado contra ActivityPackageHandler.cs/apps/game/src/handlers/eventos/ativacao-pintinho.ts, sem gap real: QUERY/OPENKEY/GETAWARD completos, estado persistido (Sys_Active_System_Data.ChickActiveData), pool/códigos configuráveis via app.\"ScheduledEvents\" kind \"chickactivation\", testes existentes em test/activities.test.ts (\"84 ACTIVITY_PACKAGE ChickActivation\"). A nota antiga (\"falta UserChickActiveInfo/handler/UI admin\") estava errada — nunca refletia o estado real do código.",
   "evidence": ""
  },
  {
@@ -2232,9 +2232,9 @@
   "code": 84,
   "name": "ACTIVITY_PACKAGE",
   "sub": "ChickActivationType.CHICKACTIVATION=2",
-  "server": "partial",
+  "server": "ok",
   "verified": "no",
-  "notes": "Real no original (não é lacuna de fidelidade, é feature grande não portada ainda por orçamento): ActivityPackageHandler.cs (668 linhas, sub ACTIVITY_PACKAGE=84) trata ChickActivationType.CHICKACTIVATION (linhas 135-250ish) como um sistema de 'código de ativação' de 14 caracteres (QUERY consulta UserChickActiveInfo/IsKeyOpened; OPENKEY resgata o código; GETAWARD paga um prêmio por faixa de nível — m_gradeList {10,20,30,40,45,50,55,60,65} — dentro de 60 dias do resgate). A tabela Activity_System_Item já foi migrada para Postgres, mas falta o UserChickActiveInfo/handler em apps/game e a UI admin pra cadastrar códigos. Ver BACKLOG.md 'Não portado nesta batch'.",
+  "notes": "ActivityPackageHandler.cs (668 linhas, sub ACTIVITY_PACKAGE=84) trata ChickActivationType.CHICKACTIVATION (linhas 135-250ish) como um sistema de 'código de ativação' de 14 caracteres (QUERY consulta estado/IsKeyOpened; OPENKEY resgata o código; GETAWARD paga um prêmio por faixa de nível dentro de 60 dias do resgate). Já estava totalmente portado (m4-passe-classico, commit 6319a2de) — status \"partial\" estava desatualizado desde então. 41-chick-activation-qa-sync (2026-10-26): reauditado contra ActivityPackageHandler.cs/apps/game/src/handlers/eventos/ativacao-pintinho.ts, sem gap real: QUERY/OPENKEY/GETAWARD completos, estado persistido (Sys_Active_System_Data.ChickActiveData), pool/códigos configuráveis via app.\"ScheduledEvents\" kind \"chickactivation\", testes existentes em test/activities.test.ts (\"84 ACTIVITY_PACKAGE ChickActivation\"). A nota antiga (\"falta UserChickActiveInfo/handler/UI admin\") estava errada — nunca refletia o estado real do código.",
   "evidence": ""
  },
  {

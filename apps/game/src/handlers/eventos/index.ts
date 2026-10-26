@@ -160,11 +160,15 @@ export function registerEventos(r: HandlerRegistry): void {
   // 84 ACTIVITY_PACKAGE multiplexes by its 1st int: 1 GrowthPackageType.GROWTHPACKAGE (m4-passe-classico,
   // 6600 only — passe-classico.ts) / 2 ChickActivationType.CHICKACTIVATION (ativacao-pintinho.ts) / 4
   // MagicHouse (not ported) / anything else matches the original's `default: Console.WriteLine(...)` no-op.
+  // 41-chick-activation-qa-sync (2026-10-26): flipped partial -> implemented — for the 4.1 client (this
+  // registry's scope) family 2 (ChickActivation) is fully ported and tested, family 1 is unreachable (the
+  // 4.1 client's dispatch is commented out — ativacao-pintinho.ts header), and family 4 (MagicHouse) stays a
+  // no-op matching the original's own commented-out `#region` (dead code on both sides, both 4.1 and 6600).
   r.player(84, "ACTIVITY_PACKAGE", (ctx, p, pkt) => {
     const family = pkt.readInt();
     if (family === 1) return growthPackageHandler(ctx, p, pkt);
     return activityPackageHandler(ctx, p, pkt, family);
-  }, "partial");
+  });
 
   // Minigame das Termas ("Đại chiến Hút Gà") — roteador próprio, ver handlers/minigame-termas/
   const littleGame = littleGameRouter();
