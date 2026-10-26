@@ -36,14 +36,14 @@ export async function latentEnergy(ctx: ServerContext, p: GamePlayer, pkt: GSPac
   if (!inv || !equipCell || !equipCell.canLatentEnergy()) {
     return p.sendMessage(0, ctx.lang.t("LatentEnergyHandler.Msg1"));
   }
-  let msg = "Kích hoạt tiềm năng thành công!";
+  let msg = "Energia latente ativada com sucesso!";
   if (type === 1) {
     const catalystBagType = pkt.readInt();
     const catalystPlace = pkt.readInt();
     const catalystInv = p.getInventory(catalystBagType);
     const catalyst = catalystInv?.getItemAt(catalystPlace);
     if (!catalyst || catalyst.Count < 1 || catalyst.template.Property1 !== 101) {
-      return p.sendMessage(0, "Vật phẩm không đủ.");
+      return p.sendMessage(0, "Itens insuficientes.");
     }
     const curStrFirst = Number(equipCell.latentEnergyCurStr.split(",")[0]);
     const catalystTemplate = catalyst.template;
@@ -61,7 +61,7 @@ export async function latentEnergy(ctx: ServerContext, p: GamePlayer, pkt: GSPac
     catalystInv!.removeCountFromStack(catalyst, 1);
   } else {
     equipCell.latentEnergyCurStr = equipCell.latentEnergyNewStr;
-    msg = "Cập nhật tiềm năng thành công!";
+    msg = "Energia latente atualizada com sucesso!";
   }
   const out = new GSPacket(133, p.id);
   out.writeInt(equipCell.Place);
