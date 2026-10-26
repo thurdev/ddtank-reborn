@@ -155,10 +155,9 @@ const FOCUS_DY = STAGE_H / 2 - (FOCUS.y + FOCUS.h / 2);
 
 /** Scales `.play-stage` so the FOCUS box fits ("contain") the available area. Snapped to 0.005 so hairline borders don't
  *  shimmer while the window is being resized. */
-function useStageScale(availRef: React.RefObject<HTMLElement | null>, ready: boolean): number {
+function useStageScale(el: HTMLElement | null): number {
   const [scale, setScale] = useState(0.5);
   useEffect(() => {
-    const el = availRef.current;
     if (!el) return;
     const compute = () => {
       const s = Math.min(el.clientWidth / FOCUS.w, el.clientHeight / FOCUS.h);
@@ -168,8 +167,9 @@ function useStageScale(availRef: React.RefObject<HTMLElement | null>, ready: boo
     const ro = new ResizeObserver(compute);
     ro.observe(el);
     return () => ro.disconnect();
-    // `ready`: the viewport div only mounts once the play config has loaded — re-run then, not just on mount.
-  }, [availRef, ready]);
+    // `el` comes from a callback ref: the viewport div only mounts after the config loads AND the channel picker
+    // has exited (AnimatePresence mode="wait"), so measuring must follow the element itself, not a load flag.
+  }, [el]);
   return scale;
 }
 
@@ -180,11 +180,11 @@ function useStageScale(availRef: React.RefObject<HTMLElement | null>, ready: boo
 export function PlayPage() {
   const { t } = useI18n();
   const fullscreenRef = useRef<HTMLDivElement>(null);
-  const viewportRef = useRef<HTMLDivElement>(null);
+  const [viewportEl, setViewportEl] = useState<HTMLDivElement | null>(null);
   const { data, error, isLoading, refetch } = useQuery({ ...configQuery, staleTime: 0 });
   const channels = useQuery(channelsQuery);
   const [channel, setChannel] = useState<Channel | null>(null);
-  const scale = useStageScale(viewportRef, !!data);
+  const scale = useStageScale(viewportEl);
   const aim = useQuery(aimTablesQuery);
   const distances = (aim.data?.distances ?? []).slice(0, 20);
   const byAngle = (a: number) => aim.data?.rows.find((r) => r.angle === a);
@@ -261,7 +261,7 @@ export function PlayPage() {
               )}
 
               {data && (
-                <div ref={viewportRef} className="play-stage-viewport">
+                <div ref={setViewportEl} className="play-stage-viewport">
                   <div
                     className="play-stage"
                     style={{ transform: `translate(-50%, -50%) scale(${scale}) translate(${FOCUS_DX}px, ${FOCUS_DY}px)` }}

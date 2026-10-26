@@ -53,3 +53,12 @@ afterEach(() => {
   cleanup();
 });
 afterAll(() => server.close());
+
+// jsdom has no ResizeObserver; the Play page measures its stage with one (useStageScale).
+if (!("ResizeObserver" in globalThis)) {
+  (globalThis as unknown as { ResizeObserver: unknown }).ResizeObserver = class {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  };
+}
