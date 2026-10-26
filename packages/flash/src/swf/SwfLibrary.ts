@@ -29,6 +29,42 @@ import type { DisplayObject } from "../display/DisplayObject";
 
 const cache = new Map<string, Promise<SwfLibrary>>();
 
+/** ids de caractere já avisados por `$missingCharPlaceholder` (evita log repetido a cada frame/loop) */
+const warnedMissingChars = new Set<string>();
+
+/**
+ * Placeholder pra um caractere referenciado na timeline (por id) que o
+ * exportador não conseguiu rasterizar — hoje só acontece com `DefineVideoStream`
+ * (câmera/vídeo embutido no SWF original, ex. `asset.core.playerLevelUpFaileAsset`
+ * → `lv_mc.lv_mc_init.video`): não tem desenho pra exportar, então o id simplesmente
+ * não aparece em `chars`. Sem isso, `MovieClip.$place`/`SimpleButton`/`Sprite`
+ * recebiam `null` de `create()` e nunca colocavam o filho nem setavam a instância
+ * nomeada (`mc["video"]` ficava `undefined`), derrubando qualquer código que depois
+ * chamasse um método nela (ex. `.clear()` do Video real).
+ *
+ * Em vez de tentar imitar a classe real (não dá pra saber qual era só pelo id),
+ * devolve um `MovieClip` vazio (sem desenho, sem filhos) envolto num `Proxy`:
+ * qualquer método que não existir nele vira um no-op em vez de estourar
+ * `TypeError`. Propriedades/métodos reais de `DisplayObject` (posição, parent,
+ * adicionar/remover...) continuam funcionando normalmente.
+ */
+function $missingCharPlaceholder(libKey: string, id: number): DisplayObject {
+  const key = `${libKey}#${id}`;
+  if (!warnedMissingChars.has(key)) {
+    warnedMissingChars.add(key);
+    dlog("load", `[flash] caractere #${id} de "${libKey}" não existe no library.json exportado (provável DefineVideoStream/vídeo embutido) — usando placeholder vazio`);
+  }
+  const mc = new MovieClip();
+  mc.visible = false;
+  return new Proxy(mc, {
+    get(target, prop, receiver) {
+      const v = Reflect.get(target, prop, receiver);
+      if (v !== undefined || prop in target || typeof prop !== "string") return v;
+      return (..._args: unknown[]) => undefined;
+    },
+  }) as unknown as DisplayObject;
+}
+
 type Img = HTMLImageElement | ImageBitmap;
 
 /**
@@ -241,7 +277,7 @@ export class SwfLibrary {
       return typeof (o as any).$node === "object" ? o : new Bitmap(o);
     }
     const c = this.data.chars[id];
-    if (!c) return null;
+    if (!c) return $missingCharPlaceholder(this.key, id);
     const binding: SymbolBinding = { lib: this, id, char: c };
     let o: DisplayObject | null = null;
     switch (c.k) {
