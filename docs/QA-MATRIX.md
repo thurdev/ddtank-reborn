@@ -14,14 +14,14 @@
 | Área | Linhas | ok | partial | stub | missing | broken | verificado no cliente |
 |---|---|---|---|---|---|---|---|
 | Amigos | 12 | 12 | 0 | 0 | 0 | 0 | 0 |
-| Bolsa/Inventário | 27 | 21 | 4 | 2 | 0 | 0 | 8 |
+| Bolsa/Inventário | 27 | 23 | 4 | 0 | 0 | 0 | 8 |
 | Boss mundial/Minigames | 7 | 4 | 2 | 1 | 0 | 0 | 4 |
 | Cartas | 8 | 5 | 2 | 1 | 0 | 0 | 2 |
-| Casamento | 24 | 10 | 13 | 1 | 0 | 0 | 4 |
+| Casamento | 24 | 11 | 13 | 0 | 0 | 0 | 4 |
 | Combate (GAME_CMD) | 39 | 32 | 1 | 6 | 0 | 0 | 4 |
-| Configurações | 2 | 1 | 0 | 1 | 0 | 0 | 0 |
+| Configurações | 2 | 2 | 0 | 0 | 0 | 0 | 0 |
 | Conta/Login | 6 | 6 | 0 | 0 | 0 | 0 | 0 |
-| Correio | 7 | 6 | 0 | 1 | 0 | 0 | 0 |
+| Correio | 7 | 7 | 0 | 0 | 0 | 0 | 0 |
 | Escola/Aprendiz | 4 | 4 | 0 | 0 | 0 | 0 | 0 |
 | Eventos/Atividades | 37 | 26 | 1 | 10 | 0 | 0 | 2 |
 | Fazenda | 14 | 1 | 13 | 0 | 0 | 0 | 4 |
@@ -30,17 +30,17 @@
 | Leilão | 3 | 3 | 0 | 0 | 0 | 0 | 0 |
 | Lobby/Chat/Bugle | 10 | 10 | 0 | 0 | 0 | 0 | 0 |
 | Loja | 7 | 5 | 1 | 0 | 1 | 0 | 1 |
-| Missões | 23 | 17 | 3 | 3 | 0 | 0 | 5 |
-| Outros | 16 | 8 | 2 | 4 | 2 | 0 | 1 |
+| Missões | 23 | 19 | 3 | 1 | 0 | 0 | 5 |
+| Outros | 16 | 9 | 2 | 3 | 2 | 0 | 1 |
 | Personagem/FC | 3 | 3 | 0 | 0 | 0 | 0 | 0 |
 | Pets | 17 | 13 | 0 | 4 | 0 | 0 | 2 |
-| PvE/Masmorras | 9 | 1 | 7 | 1 | 0 | 0 | 0 |
+| PvE/Masmorras | 9 | 2 | 7 | 0 | 0 | 0 | 0 |
 | Salas PvP | 21 | 21 | 0 | 0 | 0 | 0 | 0 |
 | Sociedade/Guilda | 28 | 25 | 1 | 2 | 0 | 0 | 12 |
 | Spa/Fonte termal | 14 | 13 | 0 | 1 | 0 | 0 | 5 |
 | Totem/Honra | 2 | 2 | 0 | 0 | 0 | 0 | 0 |
 | VIP | 1 | 1 | 0 | 0 | 0 | 0 | 1 |
-| **Total** | 361 | 262 | 56 | 40 | 3 | 0 | 56 |
+| **Total** | 361 | 271 | 56 | 31 | 3 | 0 | 56 |
 
 ## Amigos
 
@@ -81,9 +81,9 @@
 | `sendUseReworkName` | `bagAndInfo/ReworkName/ReworkNameFrame.as` | 171 USE_REWORK_NAME |  | ok | no | UseReworkName implementado em items.ts; coberto por apps/game/test/shop-prop-misc.test.ts. Removida nota obsoleta de ausência no C#. |
 | `sendChangeColor` | `changeColor/view/ChangeColorRightView.as` | 182 USE_COLOR_CARD |  | ok | no | USE_COLOR_CARD implementado (UserChangeItemColorHandler.cs): recolore um slot do EquipBag usando um item de cor do PropBag ou Xu (preço do Shop pelo templateId, APrice1=-1). |
 | `sendUseCard` | `bagAndInfo/bag/BagView.as`<br>`ddt/view/buff/buffButton/BuffButton.as`<br>`game/view/propContainer/RightPropView.as` (+1) | 183 CARD_USE |  | ok | yes | Cartão VIP (P1 23) agora ativa VIP (ícone VIP 1 no perfil); EXP x2 (13) e GP pill (21) como antes. — evidência: research/e2e/batch4/15-vipcard.png |
-| `sendUseConsortiaReworkName` | `bagAndInfo/ReworkName/ReworkNameConsortia.as` | 188 USE_CONSORTIA_REWORK_NAME |  | stub | no | USE_CONSORTIA_REWORK_NAME: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(188,...)] registrado. |
+| `sendUseConsortiaReworkName` | `bagAndInfo/ReworkName/ReworkNameConsortia.as` | 188 USE_CONSORTIA_REWORK_NAME |  | ok | no | Correção (41-stubs-rates): varredura anterior errada — UseConsortiaReworkNameHandler.cs é um [PacketHandler] real. Portado: db/consortia.ts renameConsortia + handlers/bolsa/trocar-apelido-guilda.ts. |
 | `sendReworkRank` | `bagAndInfo/info/PlayerInfoEffortHonorView.as` | 189 USER_CHANGE_RANK |  | ok | no | USER_CHANGE_RANK implementado (ReworkRankHandler.cs): troca o título exibido por um dos títulos que o jogador já possui (player."Sys_User_Rank"); NewTitleID continua 0 (tabela de definição de título nunca migrada, mesma lacuna documentada em HANDLERS.md "Player stats"). |
-| `sendUseChangeColorShell` | `bagAndInfo/bag/BagView.as` | 205 USE_CHANGE_COLOR_SHELL |  | stub | no | USE_CHANGE_COLOR_SHELL: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(205,...)] registrado. |
+| `sendUseChangeColorShell` | `bagAndInfo/bag/BagView.as` | 205 USE_CHANGE_COLOR_SHELL |  | ok | no | Confirmado morto no original (nenhum [PacketHandler(205,...)]). Noop fiel (41-stubs-rates). |
 | `sendChangeColorShellTimeOver` | `ddt/data/goods/InventoryItemInfo.as` | 206 CHANGE_COLOR_OVER_DUE |  | ok | no |  |
 | `sendFirstGetCards` | `bagAndInfo/bag/BagView.as` | 216 CARDS_DATA |  | ok | no |  |
 | `sendPlayerGift` | `bagAndInfo/info/PlayerInfoFrame.as`<br>`ddt/manager/PlayerManager.as`<br>`ddt/manager/ServerManager.as` | 218 USER_GET_GIFTS |  | ok | no | USER_GET_GIFTS implementado (UserGetGiftHandler.cs): lista todos os presentes já recebidos, somados por TemplateID. Achado: o original registra DUAS classes no código 218 (PlayerGiftHandler, um no-op de 1 int, e UserGetGiftHandler, o de verdade) — a reflexão do dicionário do C# favorece uma delas; este port implementa a significativa (UserGetGiftHandler), que bate com o nome do pacote USER_GET_GIFTS. |
@@ -123,7 +123,7 @@
 | `sendExitMarryRoom` | `church/controller/ChurchRoomListController.as` | 21 SCENE_REMOVE_USER |  | ok | no |  |
 | `sendMateTime` | `church/view/weddingRoomList/DivorcePromptFrame.as`<br>`church/view/weddingRoomList/WeddingRoomListNavView.as` | 85 MATE_ONLINE_TIME |  | ok | no | MATE_ONLINE_TIME implementado (MateTimeHandler.cs, apps/game/src/handlers/marriage.ts): int userId -> responde com o LastDate daquele jogador (online: valor em memória; offline: linha de Sys_Users_Detail; desconhecido: agora). Usado pela capela pra mostrar 'visto por último' do cônjuge offline. Testado em apps/game/test/marriage-farm-auction.test.ts (online, offline via DB, userId inexistente), não clicado no cliente real. |
 | `sendCreateRoom` | `church/controller/ChurchRoomListController.as` | 94 GAME_ROOM | GAME_ROOM_CREATE=0 | ok | no |  |
-| `sendChurchMovieOver` | — | 167 CHURCH_MOVIE_OVER |  | stub | no | Morto no original dos dois lados: GameSocketOut.as define sendChurchMovieOver() (PackageOut(CHURCH_MOVIE_OVER=167)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e nenhum [PacketHandler(167,...)] existe em Game.Server. Status 'missing' aqui é fidelidade, não lacuna. |
+| `sendChurchMovieOver` | — | 167 CHURCH_MOVIE_OVER |  | ok | no | Morto no original dos dois lados: GameSocketOut.as define sendChurchMovieOver() (PackageOut(CHURCH_MOVIE_OVER=167)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e nenhum [PacketHandler(167,...)] existe em Game.Server. Noop fiel ao original (41-stubs-rates). |
 | `sendSceneChange` | `church/controller/ChurchRoomController.as` | 233 MARRY_SCENE_CHANGE |  | partial | no |  |
 | `sendForMarryInfo` | `civil/view/CivilRegisterFrame.as` | 235 MARRYINFO_GET |  | ok | no |  |
 | `sendMarryRoomLogin` | `church/view/ChurchMainView.as` | 240 MARRY_SCENE_LOGIN |  | ok | no |  |
@@ -194,7 +194,7 @@
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
 | `sendOpition` | `setting/view/SettingView.as` | 64 OPTION_UPDATE |  | ok | no |  |
-| `sendCIDInfo` | `ddt/view/enthrall/ValidateFrame.as` | 224 CID_CHECK |  | stub | no |  |
+| `sendCIDInfo` | `ddt/view/enthrall/ValidateFrame.as` | 224 CID_CHECK |  | ok | no | Mesmo caso de sendCIDCheck — AASInfoSetHandle.cs sem [PacketHandler], confirmado morto. Noop fiel ao original (41-stubs-rates). |
 
 ## Conta/Login
 
@@ -217,7 +217,7 @@
 | `sendEmail` | `email/manager/MailManager.as` | 116 SEND_MAIL |  | ok | no |  |
 | `untreadEmail` | — | 118 MAIL_CANCEL |  | ok | no |  |
 | `sendConsortionMail` | `consortion/view/selfConsortia/ConsortionMailFrame.as` | 129 CONSORTIA_CMD | CONSORTION_MAIL=29 | ok | no |  |
-| `sendReloadGift` | `email/manager/MailManager.as` | 214 USER_RELOAD_GIFT |  | stub | no |  |
+| `sendReloadGift` | `email/manager/MailManager.as` | 214 USER_RELOAD_GIFT |  | ok | no | Confirmado morto no original (nenhum [PacketHandler(214,...)]). Noop fiel ao original (41-stubs-rates). |
 
 ## Escola/Aprendiz
 
@@ -364,8 +364,8 @@
 | `syncWeakStep` | — | 15 USER_ANSWER |  | ok | no | Ver 15:syncStep — mesmo handler/código 15 (variante 'weak' = sem o prêmio automático, só grava progresso). |
 | `sendPicc` | `calendar/view/ActivityState.as` | 30 PICC |  | ok | no |  |
 | `sendGoodsExchange` | `calendar/view/goodsExchange/GoodsExchangeView.as` | 31 GOODS_EXCHANGE |  | partial | no | Troca exige receita completa, evento vigente, bolsa destrancada, slots únicos e prêmio válido antes do consumo. Testado via pacote e banco em apps/game/test/economy-validation.test.ts. Mantém partial: receita 4.1 sem tiers; não verificado no cliente. |
-| `sendCollectInfoValidate` | `quest/InfoCollectView.as` | 32 COLLECTINFO |  | stub | no | Chamado pelo cliente (quest/InfoCollectView.as:200) mas sem [PacketHandler(32,...)] em Game.Server — o formulário de 'coleta de informação' (CPF/telefone etc. de alguma campanha) nunca foi implementado no servidor original; o cliente envia e nada responde. Status 'missing' aqui é fidelidade, não lacuna. |
-| `sendQuestionReply` | `ddt/manager/QuestionInfoMannager.as` | 89 QUESTION_REPLY |  | stub | no | Chamado pelo cliente (ddt/manager/QuestionInfoMannager.as:85) mas sem [PacketHandler(89,...)] em Game.Server — resposta a uma pergunta (survey/quiz de evento) nunca implementada no original. Status 'missing' aqui é fidelidade, não lacuna. |
+| `sendCollectInfoValidate` | `quest/InfoCollectView.as` | 32 COLLECTINFO |  | ok | no | Chamado pelo cliente (quest/InfoCollectView.as:200) mas sem [PacketHandler(32,...)] em Game.Server — o formulário de 'coleta de informação' (CPF/telefone etc. de alguma campanha) nunca foi implementado no servidor original; o cliente envia e nada responde. Noop fiel ao original (41-stubs-rates). |
+| `sendQuestionReply` | `ddt/manager/QuestionInfoMannager.as` | 89 QUESTION_REPLY |  | ok | no | Chamado pelo cliente (ddt/manager/QuestionInfoMannager.as:85) mas sem [PacketHandler(89,...)] em Game.Server — resposta a uma pergunta (survey/quiz de evento) nunca implementada no original. Noop fiel ao original (41-stubs-rates). |
 | `sendSignAward` | `calendar/CalendarManager.as` | 90 GET_SIGNAWARD |  | ok | no | Prêmio por N presenças no mês (Daily_Award tipos 1/7 com AwardDays=N): exige N dias marcados e paga uma vez por mês+tier (o C# duplicava itens no loop). Coberto por apps/game/test/events.test.ts; no cliente só dispara ao atingir 3/6/12/18 presenças. |
 | `labyrinthRequestUpdate` | — | 131 LABYRINTH | REQUEST_UPDATE=2 | partial | no | LABYRINTH implementado como camada administrativa/econômica (apps/game/src/handlers/activities.ts + Sys_Users_Labyrinth): sub 1 DOUBLE_REWARD, 2 REQUEST_UPDATE, 3 CLEAN_OUT, 4 SPEEDED_UP, 5 STOP, 6 RESET, 9 TRY_AGAIN. Desvio documentado: o contador de andar por tempo real (Timer de 1s do original) é liquidado instantaneamente no CLEAN_OUT em vez de um timer por jogador; `myProgress` (andares vencidos em combate real) fica em 0 pra todo mundo até o tipo de sala PvE do labirinto ser portado — ver HANDLERS.md. Testado por código (activities.test.ts), não clicado. |
 | `sendAcademyApprentice` | `ddt/view/academyCommon/academyRequest/AcademyRequestMasterFrame.as` | 141 AcademyPackageType.ACADEMY_FATHER | ACADEMY_FOR_APPRENTICE=4 | ok | yes | Pedido de aprendiz → mestre recebe 141/4 (AcademyMgr em memória, 1 h). — evidência: research/e2e/batch3/23-bob-academy.png, research/e2e/batch3/24-bob-ask.png, research/e2e/batch3/25-thur-request.png |
@@ -393,7 +393,7 @@
 | `sendLookupEffort` | `ddt/manager/EffortManager.as` | 203 LOOKUP_EFFORT |  | ok | no |  |
 | `figSpiritUpGrade` | — | 209 FIGHT_SPIRIT | FIGHT_SPIRIT_LEVELUP=3 | ok | no |  |
 | `sendUseLog` | — | 213 USE_LOG |  | ok | no |  |
-| `sendCIDCheck` | — | 224 CID_CHECK |  | stub | no |  |
+| `sendCIDCheck` | — | 224 CID_CHECK |  | ok | no | AASInfoSetHandle.cs sem [PacketHandler], sistema anti-vício chinês nunca ligado nesta build VN. Noop fiel ao original (41-stubs-rates). |
 | `sendForSwitch` | — | 225 ENTHRALL_SWITCH |  | ok | no |  |
 | `sendRegisterInfo` | `civil/view/CivilRegisterFrame.as`<br>`civil/view/CivilRightView.as` | 236 MARRYINFO_ADD |  | ok | no |  |
 | `sendModifyInfo` | `civil/view/CivilRegisterFrame.as` | 237 MARRYINFO_UPDATE |  | ok | no |  |
@@ -437,7 +437,7 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `sendBeginFightNpc` | — | 50 FIGHT_NPC |  | stub | no | Morto no original dos dois lados: GameSocketOut.as define sendBeginFightNpc() (PackageOut(FIGHT_NPC=50)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e o servidor não registra [PacketHandler(50,...)] em Game.Server/Fighting.Server (o 'FIGHT_NPC=88' de Game.Logic/Protocol/eFightPackageType.cs é um protocolo interno Center<->Fighting diferente, não o pacote de cliente). Status 'missing' aqui é fidelidade, não lacuna. |
+| `sendBeginFightNpc` | — | 50 FIGHT_NPC |  | ok | no | Morto no original dos dois lados: GameSocketOut.as define sendBeginFightNpc() (PackageOut(FIGHT_NPC=50)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e o servidor não registra [PacketHandler(50,...)] em Game.Server/Fighting.Server (o 'FIGHT_NPC=88' de Game.Logic/Protocol/eFightPackageType.cs é um protocolo interno Center<->Fighting diferente, não o pacote de cliente). Noop fiel ao original (41-stubs-rates). |
 | `sendGameMissionStart` | `ddt/manager/GameInSocketOut.as` | 82 CrazyTankPackageType.GAME_MISSION_START |  | ok | no | GAME_MISSION_START implementado (GameUserStartHandler.cs, apps/game/src/handlers/rooms.ts + Fight.missionStart em apps/game/src/fight/ddt.ts): bool flag; se true, força Ready=true em todo jogador do jogo PvE da sala atual e chama checkState(0) (sem checagem de host no original). É isto que o MissionRoomView.as do cliente envia, no lugar de 94/7 GAME_START, ao clicar 'Iniciar' entre sessões de uma masmorra multi-andar tipo FightLab (roomType 5) já em andamento — sem este handler o jogo ficava parado em SessionPrepared/GameOver a partir do 2º andar. Reusa a semântica de 137 DELIVER (só liga Ready, sem eco). Testado em apps/game/test/fight.test.ts ('82 GAME_MISSION_START ... forwarded to the room's active game.missionStart()'), não clicado no cliente real. |
 | `labyrinthCleanOut` | — | 131 LABYRINTH | CLEAN_OUT=3 | partial | no |  |
 | `labyrinthCleanOutTimerComplete` | — | 131 LABYRINTH | CLEAN_OUT_COMPLETE=8 | partial | no |  |

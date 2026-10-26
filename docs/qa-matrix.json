@@ -516,9 +516,9 @@
   "code": 188,
   "name": "USE_CONSORTIA_REWORK_NAME",
   "sub": "",
-  "server": "wontfix",
+  "server": "ok",
   "verified": "no",
-  "notes": "Confirmado morto no original: nenhum [PacketHandler(188,...)] em vendor/DDTank41 (mesma varredura de 66 sendUseProp/77/171/205/222/265). Stub seguro mantido (lê e descarta).",
+  "notes": "Correção (41-stubs-rates): a varredura anterior estava errada — UseConsortiaReworkNameHandler.cs (vendor/DDTank41/Game.Server/Packets/Client/UseConsortiaReworkNameHandler.cs:11, [PacketHandler((byte)ePackageType.USE_CONSORTIA_REWORK_NAME,...)]) é um handler real, nunca estava morto. Portado agora: db/consortia.ts renameConsortia (mirror 1:1 de SP_Users_RenameConsortia, incluindo a checagem de colisão escopada por ChairmanID e o histórico anti-reuso em Rename_Consortia) + handlers/bolsa/trocar-apelido-guilda.ts. Testes em test/stubs-rates.test.ts.",
   "evidence": ""
  },
  {
@@ -546,9 +546,9 @@
   "code": 205,
   "name": "USE_CHANGE_COLOR_SHELL",
   "sub": "",
-  "server": "wontfix",
+  "server": "ok",
   "verified": "no",
-  "notes": "Confirmado morto no original: nenhum [PacketHandler(205,...)] em vendor/DDTank41 (mesma varredura de 66/77/171/188/222/265). Stub seguro mantido (lê e descarta).",
+  "notes": "Confirmado morto no original: nenhum [PacketHandler(205,...)] em vendor/DDTank41 (mesma varredura de 66/77/171/222/265 — 188 USE_CONSORTIA_REWORK_NAME foi removido desta lista no 41-stubs-rates por ter handler real, ver sua própria linha). Noop fiel ao original (41-stubs-rates; era reportado \"stub\" por tools/qa/packet-coverage.mjs, agora \"implemented\" no registro).",
   "evidence": ""
  },
  {
@@ -924,9 +924,9 @@
   "code": 167,
   "name": "CHURCH_MOVIE_OVER",
   "sub": "",
-  "server": "wontfix",
+  "server": "ok",
   "verified": "no",
-  "notes": "Morto nos dois lados: GameSocketOut.as define sendChurchMovieOver() mas nenhum arquivo do cliente chama essa função, e Game.Server não registra nenhum [PacketHandler(167,...)] — só a entrada do enum existe (ePackageType.cs:66). Stub seguro mantido (lê e descarta).",
+  "notes": "Morto nos dois lados: GameSocketOut.as define sendChurchMovieOver() mas nenhum arquivo do cliente chama essa função, e Game.Server não registra nenhum [PacketHandler(167,...)] — só a entrada do enum existe (ePackageType.cs:66). Noop fiel ao original (41-stubs-rates; era reportado \"stub\" por tools/qa/packet-coverage.mjs, agora \"implemented\" no registro).",
   "evidence": ""
  },
  {
@@ -1834,9 +1834,9 @@
   "code": 224,
   "name": "CID_CHECK",
   "sub": "",
-  "server": "wontfix",
+  "server": "ok",
   "verified": "no",
-  "notes": "Mesmo caso de sendCIDCheck (AASInfoSetHandle.cs sem [PacketHandler], sistema anti-vício chinês nunca ligado nesta build VN). Corpo varia (bool+2 strings) mas nunca é lido porque não há lógica do lado original.",
+  "notes": "Mesmo caso de sendCIDCheck (AASInfoSetHandle.cs sem [PacketHandler], sistema anti-vício chinês nunca ligado nesta build VN). Corpo varia (bool+2 strings) mas nunca é lido porque não há lógica do lado original. Noop fiel ao original (41-stubs-rates; era reportado \"stub\" por tools/qa/packet-coverage.mjs, agora \"implemented\" no registro).",
   "evidence": ""
  },
  {
@@ -2032,9 +2032,9 @@
   "code": 214,
   "name": "USER_RELOAD_GIFT",
   "sub": "",
-  "server": "wontfix",
+  "server": "ok",
   "verified": "no",
-  "notes": "GameSocketOut.sendReloadGift (sem corpo), disparado pelo cliente quando 117 MAIL_RESPONSE chega com type==4 (MailManager.as:617), mas confirmado morto no original: não existe nenhum [PacketHandler(214,...)] em Game.Server — o servidor original nunca respondia. Stub seguro mantido.",
+  "notes": "GameSocketOut.sendReloadGift (sem corpo), disparado pelo cliente quando 117 MAIL_RESPONSE chega com type==4 (MailManager.as:617), mas confirmado morto no original: não existe nenhum [PacketHandler(214,...)] em Game.Server — o servidor original nunca respondia. Noop fiel ao original (41-stubs-rates; era reportado \"stub\" por tools/qa/packet-coverage.mjs, agora \"implemented\" no registro).",
   "evidence": ""
  },
  {
@@ -3579,9 +3579,9 @@
   "code": 32,
   "name": "COLLECTINFO",
   "sub": "",
-  "server": "wontfix",
+  "server": "ok",
   "verified": "no",
-  "notes": "Anti-vício/verificação de SMS — chamado pelo cliente (quest/InfoCollectView.as:200) mas sem [PacketHandler(32,...)] em vendor/DDTank41/Game.Server; a validação real do original ia por HTTP (SendActiveKeySystem.ashx, nunca portado) e nunca lia resposta deste socket. Precisaria de um gateway de SMS real — fora do escopo do projeto. Stub seguro mantido (lê e descarta).",
+  "notes": "Anti-vício/verificação de SMS — chamado pelo cliente (quest/InfoCollectView.as:200) mas sem [PacketHandler(32,...)] em vendor/DDTank41/Game.Server; a validação real do original ia por HTTP (SendActiveKeySystem.ashx, nunca portado) e nunca lia resposta deste socket. Precisaria de um gateway de SMS real — fora do escopo do projeto. Noop fiel ao original (41-stubs-rates; era reportado \"stub\" por tools/qa/packet-coverage.mjs, agora \"implemented\" no registro).",
   "evidence": ""
  },
  {
@@ -3594,9 +3594,9 @@
   "code": 89,
   "name": "QUESTION_REPLY",
   "sub": "",
-  "server": "wontfix",
+  "server": "ok",
   "verified": "no",
-  "notes": "Chamado pelo cliente (ddt/manager/QuestionInfoMannager.as:85) só a partir de um ANSWERBOX_QUESTIN (código 31, colide no enum com GOODS_EXCHANGE) que nenhum handler C# do DDTank41 ou DDT-6600 manda — ou seja, o próprio gatilho que faria o cliente mandar essa resposta nunca pode disparar no servidor real. Sem [PacketHandler(89,...)] em Game.Server.",
+  "notes": "Chamado pelo cliente (ddt/manager/QuestionInfoMannager.as:85) só a partir de um ANSWERBOX_QUESTIN (código 31, colide no enum com GOODS_EXCHANGE) que nenhum handler C# do DDTank41 ou DDT-6600 manda — ou seja, o próprio gatilho que faria o cliente mandar essa resposta nunca pode disparar no servidor real. Sem [PacketHandler(89,...)] em Game.Server. Noop fiel ao original (41-stubs-rates; era reportado \"stub\" por tools/qa/packet-coverage.mjs, agora \"implemented\" no registro).",
   "evidence": ""
  },
  {
@@ -3923,9 +3923,9 @@
   "code": 224,
   "name": "CID_CHECK",
   "sub": "",
-  "server": "wontfix",
+  "server": "ok",
   "verified": "no",
-  "notes": "Sistema anti-vício chinês (\"AAS\"), nunca ligado nesta build VN. AASInfoSetHandle.cs (vendor/DDTank41/Game.Server/Packets/Client/AASInfoSetHandle.cs:11) não tem [PacketHandler(...)] — confirmado morto, nunca registrado no dispatcher original. Resposta real (SendAASState) só mandada a partir de AntiAddictionMgr/login, nunca em reação a este pacote. Stub seguro (não responde).",
+  "notes": "Sistema anti-vício chinês (\"AAS\"), nunca ligado nesta build VN. AASInfoSetHandle.cs (vendor/DDTank41/Game.Server/Packets/Client/AASInfoSetHandle.cs:11) não tem [PacketHandler(...)] — confirmado morto, nunca registrado no dispatcher original. Resposta real (SendAASState) só mandada a partir de AntiAddictionMgr/login, nunca em reação a este pacote. Noop fiel ao original (41-stubs-rates; era reportado \"stub\" por tools/qa/packet-coverage.mjs, agora \"implemented\" no registro).",
   "evidence": ""
  },
  {
@@ -4350,9 +4350,9 @@
   "code": 50,
   "name": "FIGHT_NPC",
   "sub": "",
-  "server": "wontfix",
+  "server": "ok",
   "verified": "no",
-  "notes": "Morto nos dois lados: GameSocketOut.as define sendBeginFightNpc() mas nenhuma tela do cliente chama (MatchRoomView.as:60 MATCH_NPC_ENABLE=false, permanente), e Game.Server/Fighting.Server não registra [PacketHandler(50,...)] (o FIGHT_NPC=88 de Game.Logic/Protocol/eFightPackageType.cs é um protocolo interno Center<->Fighting diferente).",
+  "notes": "Morto nos dois lados: GameSocketOut.as define sendBeginFightNpc() mas nenhuma tela do cliente chama (MatchRoomView.as:60 MATCH_NPC_ENABLE=false, permanente), e Game.Server/Fighting.Server não registra [PacketHandler(50,...)] (o FIGHT_NPC=88 de Game.Logic/Protocol/eFightPackageType.cs é um protocolo interno Center<->Fighting diferente). Noop fiel ao original (41-stubs-rates; era reportado \"stub\" por tools/qa/packet-coverage.mjs, agora \"implemented\" no registro).",
   "evidence": ""
  },
  {

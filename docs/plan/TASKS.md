@@ -8,9 +8,22 @@
 
 ## 0. Cliente 4.1 (FOCO — decisão do dono 2026-10-20: 6600 em stand-by)
 Ordem (2026-10-26): stubs/rates do servidor → .ashx/Road.Service → site-play/admin-ux-2 → cliente PixiJS em produção + testar TUDO no jogo.
-- [~] **41-qa-sync** — matriz sincronizada e `partial` da MIGRATION-GAP zerados (41-partial-a…d, 2026-10-26:
-  345 ok · 3 partial intencionais · 4 stub só-6600). Falta: os stubs de `tools/qa/packet-coverage.mjs`
-  (32, 50, 89, 167, 188, 205, 214, 224) — tarefa **41-stubs-rates**.
+- [x] **41-qa-sync** — matriz sincronizada e `partial` da MIGRATION-GAP zerados (41-partial-a…d, 2026-10-26:
+  345 ok · 3 partial intencionais · 4 stub só-6600). Os stubs de `tools/qa/packet-coverage.mjs`
+  (32, 50, 89, 167, 188, 205, 214, 224) foram resolvidos na tarefa **41-stubs-rates** (ver abaixo) —
+  `packet-coverage.mjs` agora reporta `stub: 0`.
+- [x] **41-stubs-rates** (2026-10-26) — os 8 códigos (9 linhas) `stub` de `tools/qa/packet-coverage.mjs`
+  reauditados 1 a 1 contra `vendor/DDTank41`: 7 (32 COLLECTINFO, 50 FIGHT_NPC, 89 QUESTION_REPLY,
+  167 CHURCH_MOVIE_OVER, 205 USE_CHANGE_COLOR_SHELL, 214 USER_RELOAD_GIFT, 224 CID_CHECK ×2) confirmados
+  mortos nos dois lados (sem `[PacketHandler(...)]` no C# original) — reclassificados de `"stub"` pro
+  `"implemented"` padrão no registro (o noop já existente é fiel, não pendência). O 8º,
+  **188 USE_CONSORTIA_REWORK_NAME**, tinha handler real nunca portado (`UseConsortiaReworkNameHandler.cs`,
+  uma varredura anterior leu errado) — portado de verdade (`db/consortia.ts renameConsortia` mirror de
+  `SP_Users_RenameConsortia` + `handlers/bolsa/trocar-apelido-guilda.ts`). Também ligou `dropRate`/
+  `offerRate` do admin (`templates.rates`, só `expRate`/`goldRate` valiam desde `41-admin-config`):
+  `dropRate` escala contagem de drop de PvE (`fight/ddt.ts startPve`); `offerRate` =
+  `RateMgr.GetRate(eRateType.Offer_Rate)` no lugar do `1` fixo em `guerra-gvg.ts consortiaGameOver`.
+  Testes: `test/stubs-rates.test.ts`, `test/rates.test.ts` (estendido). Ver `docs/MIGRATION-GAP.md`.
 - [x] **41-instancias** (2026-10-20) — desbloqueio de dificuldade de masmorra por nível (`Pve_Info.LevelLimits`,
   já existia mas só na entrada da sala) **+ dificuldade anterior vencida** (novo, `app."PveInstanceClear"`,
   migração `0024`), aplicado de verdade no `GAME_START` (`handlers/salas/iniciar-partida.ts`
@@ -1013,7 +1026,9 @@ Como rodar um 2º canal hoje (sem `ch-processo`/`ch-bus`): [GAME-SERVER.md §Can
 - [ ] **admin-ux-2** — escolher colunas, visões salvas, filtro por coluna, header fixo (a tentativa quebrou o
   clique na linha), `/events` lendo `?edit=`, testes de componente no admin.
 - [x] **admin-config** (2026-10-18) — `expRate`/`goldRate` agora valem de verdade (`templates.rates`,
-  multiplica o x2 do evento, recarrega ao salvar). `dropRate`/`offerRate` ainda não ligados (aviso no admin).
+  multiplica o x2 do evento, recarrega ao salvar). `dropRate`/`offerRate` ligados em **41-stubs-rates**
+  (2026-10-26, ver sua entrada acima) — o aviso "ainda não ligados" que ficava em
+  `apps/admin/src/pages/ServerConfig.tsx:27-28` é de outro agente/diretório, não removido aqui.
 
 ## 5. Bots PvP (4.1)
 - [x] **41-bot-pvp** (2026-10-20) — 2 bugs do dono: (1) bot da fila Match (fallback de `rooms/room-mgr.ts`

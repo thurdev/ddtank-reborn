@@ -404,10 +404,10 @@
     "notes": "CADDY_GET_BADLUCK implementado: ranking top 20 por Sys_Users_Extra.TotalCaddyOpen (WorldMgr.CaddyRank). Testado por código, não clicado."
   },
   "50:sendBeginFightNpc": {
-    "notes": "Morto no original dos dois lados: GameSocketOut.as define sendBeginFightNpc() (PackageOut(FIGHT_NPC=50)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e o servidor não registra [PacketHandler(50,...)] em Game.Server/Fighting.Server (o 'FIGHT_NPC=88' de Game.Logic/Protocol/eFightPackageType.cs é um protocolo interno Center<->Fighting diferente, não o pacote de cliente). Status 'missing' aqui é fidelidade, não lacuna."
+    "notes": "Morto no original dos dois lados: GameSocketOut.as define sendBeginFightNpc() (PackageOut(FIGHT_NPC=50)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e o servidor não registra [PacketHandler(50,...)] em Game.Server/Fighting.Server (o 'FIGHT_NPC=88' de Game.Logic/Protocol/eFightPackageType.cs é um protocolo interno Center<->Fighting diferente, não o pacote de cliente). Noop fiel ao original (41-stubs-rates; packet-coverage.mjs reportava 'stub', registro agora 'implemented')."
   },
   "167:sendChurchMovieOver": {
-    "notes": "Morto no original dos dois lados: GameSocketOut.as define sendChurchMovieOver() (PackageOut(CHURCH_MOVIE_OVER=167)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e nenhum [PacketHandler(167,...)] existe em Game.Server. Status 'missing' aqui é fidelidade, não lacuna."
+    "notes": "Morto no original dos dois lados: GameSocketOut.as define sendChurchMovieOver() (PackageOut(CHURCH_MOVIE_OVER=167)) mas nenhum arquivo do cliente chama essa função (grep em vendor/DDTank41/Source Flash/src), e nenhum [PacketHandler(167,...)] existe em Game.Server. Noop fiel ao original (41-stubs-rates; packet-coverage.mjs reportava 'stub', registro agora 'implemented')."
   },
   "85:sendMateTime": {
     "notes": "MATE_ONLINE_TIME implementado (MateTimeHandler.cs, apps/game/src/handlers/marriage.ts): int userId -> responde com o LastDate daquele jogador (online: valor em memória; offline: linha de Sys_Users_Detail; desconhecido: agora). Usado pela capela pra mostrar 'visto por último' do cônjuge offline. Testado em apps/game/test/marriage-farm-auction.test.ts (online, offline via DB, userId inexistente), não clicado no cliente real."
@@ -463,10 +463,10 @@
     "notes": "Troca exige receita completa, evento vigente, bolsa destrancada, slots únicos e prêmio válido antes do consumo. Testado via pacote e banco em apps/game/test/economy-validation.test.ts. Mantém partial: receita 4.1 sem tiers; não verificado no cliente."
   },
   "32:sendCollectInfoValidate": {
-    "notes": "Chamado pelo cliente (quest/InfoCollectView.as:200) mas sem [PacketHandler(32,...)] em Game.Server — o formulário de 'coleta de informação' (CPF/telefone etc. de alguma campanha) nunca foi implementado no servidor original; o cliente envia e nada responde. Status 'missing' aqui é fidelidade, não lacuna."
+    "notes": "Chamado pelo cliente (quest/InfoCollectView.as:200) mas sem [PacketHandler(32,...)] em Game.Server — o formulário de 'coleta de informação' (CPF/telefone etc. de alguma campanha) nunca foi implementado no servidor original; o cliente envia e nada responde. Noop fiel ao original (41-stubs-rates; packet-coverage.mjs reportava 'stub', registro agora 'implemented')."
   },
   "89:sendQuestionReply": {
-    "notes": "Chamado pelo cliente (ddt/manager/QuestionInfoMannager.as:85) mas sem [PacketHandler(89,...)] em Game.Server — resposta a uma pergunta (survey/quiz de evento) nunca implementada no original. Status 'missing' aqui é fidelidade, não lacuna."
+    "notes": "Chamado pelo cliente (ddt/manager/QuestionInfoMannager.as:85) mas sem [PacketHandler(89,...)] em Game.Server — resposta a uma pergunta (survey/quiz de evento) nunca implementada no original. Noop fiel ao original (41-stubs-rates; packet-coverage.mjs reportava 'stub', registro agora 'implemented')."
   },
   "84:sendChickActivationQuery": {
     "status": "ok",
@@ -720,17 +720,24 @@
     "notes": "UseReworkName implementado em items.ts; coberto por apps/game/test/shop-prop-misc.test.ts. Removida nota obsoleta de ausência no C#."
   },
   "188:sendUseConsortiaReworkName": {
-    "status": "stub",
-    "notes": "USE_CONSORTIA_REWORK_NAME: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(188,...)] registrado."
+    "notes": "Correção (41-stubs-rates): a varredura anterior estava errada — UseConsortiaReworkNameHandler.cs (vendor/DDTank41/Game.Server/Packets/Client/UseConsortiaReworkNameHandler.cs:11) é um [PacketHandler] real, nunca estava morto. Portado: db/consortia.ts renameConsortia (mirror de SP_Users_RenameConsortia) + handlers/bolsa/trocar-apelido-guilda.ts. Testes em test/stubs-rates.test.ts."
   },
   "205:sendUseChangeColorShell": {
-    "status": "stub",
-    "notes": "USE_CHANGE_COLOR_SHELL: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(205,...)] registrado."
+    "notes": "USE_CHANGE_COLOR_SHELL: mesma varredura de 66:sendUseProp — nenhum [PacketHandler(205,...)] registrado (confirmado de novo em 41-stubs-rates; 188 USE_CONSORTIA_REWORK_NAME saiu desta lista por ter handler real, ver sua própria entrada). Noop fiel ao original (packet-coverage.mjs reportava 'stub', registro agora 'implemented')."
   },
   "222:sendEquipRetrieve": {
     "notes": "EquipRecycleItem implementado em items.ts; coberto por apps/game/test/shop-prop-misc.test.ts. Removida nota obsoleta de ausência no C#."
   },
   "265:sendNewTitleCard": {
     "notes": "NewTitleCard parcialmente implementado em items.ts (tabela de títulos/configuração ainda requer validação). O registro efetivo determina o status."
+  },
+  "214:sendReloadGift": {
+    "notes": "GameSocketOut.sendReloadGift (sem corpo), disparado pelo cliente quando 117 MAIL_RESPONSE chega com type==4 (email/manager/MailManager.as:617), mas confirmado morto no original: não existe nenhum [PacketHandler(214,...)] em Game.Server — o servidor original nunca respondia. Noop fiel ao original (41-stubs-rates; packet-coverage.mjs reportava 'stub', registro agora 'implemented')."
+  },
+  "224:sendCIDCheck": {
+    "notes": "Sistema anti-vício chinês (\"AAS\"), nunca ligado nesta build VN. AASInfoSetHandle.cs (vendor/DDTank41/Game.Server/Packets/Client/AASInfoSetHandle.cs:11) não tem [PacketHandler(...)] — confirmado morto, nunca registrado no dispatcher original. Resposta real (SendAASState) só mandada a partir de AntiAddictionMgr/login, nunca em reação a este pacote. Noop fiel ao original (41-stubs-rates; packet-coverage.mjs reportava 'stub', registro agora 'implemented')."
+  },
+  "224:sendCIDInfo": {
+    "notes": "Mesmo caso de sendCIDCheck acima (ddt/view/enthrall/ValidateFrame.as, corpo bool+2 strings) — AASInfoSetHandle.cs sem [PacketHandler], nunca lido porque não há lógica do lado original. Noop fiel ao original (41-stubs-rates; packet-coverage.mjs reportava 'stub', registro agora 'implemented')."
   }
 }

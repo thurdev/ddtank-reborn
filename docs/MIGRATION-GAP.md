@@ -1,8 +1,8 @@
 # Gap C# → TS + protocolo de verificação (fonte: `docs/qa-matrix.json`)
 
 Panorama 2026-10-26 (pós feature/41-partial-a + feature/41-partial-b + feature/41-partial-c +
-feature/41-partial-d) — 361 itens (cliente 4.1; 6600 em stand-by, ver AGENTS.md): servidor `ok` 345 ·
-`partial` 3 · `stub` 4 · `missing` 0 · `wontfix` 9.
+feature/41-partial-d + feature/41-stubs-rates) — 361 itens (cliente 4.1; 6600 em stand-by, ver AGENTS.md):
+servidor `ok` 354 · `partial` 3 · `stub` 4 · `missing` 0 · `wontfix` 0.
 Verificado em jogo: `yes` 56 · resto `no`. **Nada conta como pronto sem `verified:yes` + evidência.**
 
 `feature/41-partial-a` fechou **41-labirinto-combate** (131 LABYRINTH, 8 subs) e **41-guilda-skill-combate**
@@ -25,9 +25,28 @@ das Termas, etc.) sem a matriz ser atualizada. Esta rodada (feature/41-qa-sync) 
 `!= ok` um a um contra `apps/game/src/handlers/**` + `HANDLERS.md` + `vendor/DDTank41` e sincronizou
 `server` (sem tocar `verified`, que só muda com teste em jogo de verdade). Os 9 códigos `stub` do
 `tools/qa/packet-coverage.mjs` (32 COLLECTINFO, 50 FIGHT_NPC, 89 QUESTION_REPLY, 167 CHURCH_MOVIE_OVER,
-188 USE_CONSORTIA_REWORK_NAME, 205 USE_CHANGE_COLOR_SHELL, 214 USER_RELOAD_GIFT, 224 CID_CHECK ×2) foram
-confirmados mortos/anti-vício/sem gateway de SMS nos dois lados (vendor C# + AS3) e marcados `wontfix` na
-matriz, com a citação do arquivo/linha no próprio `notes`.
+188 USE_CONSORTIA_REWORK_NAME, 205 USE_CHANGE_COLOR_SHELL, 214 USER_RELOAD_GIFT, 224 CID_CHECK ×2) tinham
+sido marcados `wontfix` na matriz, mas a varredura desta rodada estava parcialmente errada.
+
+`feature/41-stubs-rates` (2026-10-26) reauditou os 8 códigos (9 linhas) um a um contra `vendor/DDTank41`:
+7 (32, 50, 89, 167, 205, 214, 224) são de fato pacotes mortos nos dois lados (confirmado de novo, citação
+`file:line` em cada `notes`) — noop fiel é o comportamento correto, então saíram de `wontfix` e foram
+reclassificados `ok` (status do registro trocado de `"stub"` pra o default `"implemented"`, mesma
+convenção já usada por 206 CHANGE_COLOR_OVER_DUE/213 USE_LOG). O 8º, **188 USE_CONSORTIA_REWORK_NAME**,
+era na verdade um handler real nunca portado — a varredura anterior (`41-qa-sync`) leu errado: existe sim
+um `[PacketHandler((byte)ePackageType.USE_CONSORTIA_REWORK_NAME,...)]` em `UseConsortiaReworkNameHandler.cs`
+(`vendor/DDTank41/Game.Server/Packets/Client/UseConsortiaReworkNameHandler.cs:11`). Portado agora:
+`apps/game/src/db/consortia.ts renameConsortia` (mirror de `SP_Users_RenameConsortia`) +
+`apps/game/src/handlers/bolsa/trocar-apelido-guilda.ts`. `tools/qa/packet-coverage.mjs` agora reporta
+`stub: 0` (era 9). Testes: `apps/game/test/stubs-rates.test.ts`.
+
+Mesma tarefa também ligou os multiplicadores `dropRate`/`offerRate` do painel admin
+("Configuração do servidor" › Taxas), que só eram cosméticos desde `41-admin-config` (só `expRate`/
+`goldRate` valiam): `dropRate` escala a contagem de itens de drop de PvE (`apps/game/src/fight/ddt.ts
+startPve`, ao lado do multiplicador por instância `PveBalance.reward`); `offerRate` é
+`RateMgr.GetRate(eRateType.Offer_Rate)` (`Game.Server/Managers/ConsortiaMgr.cs:81`), agora lido em
+`apps/game/src/handlers/sociedade/guerra-gvg.ts consortiaGameOver` no lugar do `1` fixo. Ver
+`apps/game/src/db/templates.ts` (campo `rates`) e `apps/game/test/rates.test.ts`.
 
 ## Mapa origem C# → destino TS
 
