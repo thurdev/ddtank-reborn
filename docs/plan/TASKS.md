@@ -108,6 +108,11 @@ Ordem (2026-10-26): stubs/rates do servidor → .ashx/Road.Service → site-play
 - [ ] **41-qa-tudo** — testar TODAS as features no jogo de verdade (matriz QA `verified:yes` + evidência),
   área por área, abrindo fix pra cada falha.
 
+- [ ] **sec-ashx-key** — endpoints .ashx só-leitura que recebem `userID`/`selfid` + `key` mas não validam a `key`
+  (igual ao C# original): `GiftRecieveLog.ashx`, `giftsendlog.ashx`, `FarmGetUserFieldInfos.ashx`, `dailyloglist`…
+  Qualquer um lê o histórico de presentes/lista de amigos de outro jogador. Validar a `key` contra a sessão
+  (`app."LoginSessions"`, ver `@ddt/auth`) sem quebrar o cliente 4.1 (conferir como o AS3 monta a `key`).
+
 ## 1. Migração 6600 (STAND-BY desde 2026-10-20)
 
 ### M1 — cliente 6600 até o lobby
