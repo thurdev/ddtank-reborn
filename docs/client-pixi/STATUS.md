@@ -209,8 +209,28 @@ funciona sem erro no console; detalhes visuais anotados.
   fim com o resource completo, só não fechei um KO roteirizado). PvE até a
   vitória também não testado (só a derrota, já confirmada). Sociedade/guerra
   de sociedade (ver abaixo — não existe tela no 4.1), chefe mundial,
-  minigames, loteria, mascote, cartas, totem continuam sem teste de UI (não
-  deu tempo nesta sessão depois da varredura do hall).
+  minigames, mascote, cartas, totem continuam sem teste de UI (não deu tempo
+  nesta sessão depois da investigação de HP/vitória).
+- **"Loteria" (ícone `lottery_mc` do hall) é código morto no próprio AS3
+  original, não bug de porte**: `HallStateView.setLotteryIcon()` (visibilidade +
+  `addEventListener(MouseEvent.CLICK, ...)` do ícone) nunca é chamado em lugar
+  nenhum — nem no `vendor/DDTank41/Source Flash/src/hall/HallStateView.as:1512`
+  original, nem no gerado. Cliquei no ícone (visível, hit-test ok) e nada abre;
+  é o esperado, o 4.1 nunca ligou esse botão (`LotteryContorller`/
+  `CardLotteryContorller` ficam inacessíveis por essa via). Não mexi — fiel ao
+  original. Se existir outro caminho de entrada pra loteria (`StateType.LOTTERY_HALL`/`LOTTERY_CARD`),
+  não achei nesta sessão.
+- **Chefe mundial**: ícone (`HallStateView.setWorldBossIcon()`, instanciado
+  dinamicamente como `assets.hallIcon.worldBossEntrance_<id>`, não tem `name`
+  fixo pra achar com `ddtDebug.find()`) não apareceu na varredura por classe
+  feita nesta sessão (`ddtDebug.stage` procurando `worldBossEntrance` no
+  `$fqn`) apesar do evento "worldboss #1"/"#2" estar ativo no log do
+  `apps/game` no momento do teste — não investigado a fundo (pode ser que
+  `setWorldBossIcon()` só rode depois de algum pacote específico que esse
+  teste não chegou a receber). Não testado.
+- **Totem, pets/mascote (além da aba "Thú cưng" da Bolsa, já OK), minigames**:
+  não achei o ponto de entrada pelo hall nesta sessão (não é um dos 12 ícones
+  de prédio nem `lottery_mc`/ícone de evento já mapeados) — não testado.
 - Não existe tela de "guerra de sociedade" (GvG) no cliente 4.1: não há nenhuma
   classe `*War*`/`*GVG*` em `src/game` — é recurso só do servidor/versões
   posteriores (handler `apps/game/src/handlers/sociedade/guerra-gvg.ts`). Nada
