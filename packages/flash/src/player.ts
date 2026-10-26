@@ -281,6 +281,7 @@ export async function startPlayer(opts: PlayerOptions): Promise<Stage> {
     under: () => hitTarget(stage, Player.mouseX, Player.mouseY),
     hit: (x: number, y: number) => hitTarget(stage, x, y),
     outline: (on) => { outline = on; outlineBox.style.display = on ? "block" : "none"; },
+    logicFrames: () => Player.logicFrames,
   });
   if (DEBUG) {
     canvas.addEventListener("pointermove", () => {

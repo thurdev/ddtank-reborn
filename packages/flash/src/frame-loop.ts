@@ -18,6 +18,7 @@
  */
 import { Event } from "./events/Event";
 import { broadcastTargets } from "./events/EventDispatcher";
+import { Player } from "./display/DisplayObject";
 import { playingClips, runPendingFrameScripts } from "./display/MovieClip";
 import { safe } from "./player-safe";
 
@@ -26,6 +27,7 @@ export function broadcastEvent(type: string): void {
 }
 
 export function runLogicFrame(onRender: () => void): void {
+  Player.logicFrames++;
   broadcastEvent(Event.ENTER_FRAME);
   for (const mc of [...playingClips]) safe(() => mc.$advance(), "timeline");
   broadcastEvent(Event.FRAME_CONSTRUCTED);

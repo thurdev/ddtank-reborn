@@ -425,5 +425,11 @@ export function transformRect(r: Rectangle, m: Matrix): Rectangle {
 }
 
 /** estado global do "player" que o display precisa (posição do mouse) */
-export const Player = { mouseX: 0, mouseY: 0, /** frames desenhados (debug: ddtDebug.stage + Player.frames) */ frames: 0 };
+export const Player = {
+  mouseX: 0, mouseY: 0,
+  /** frames desenhados (requestAnimationFrame, 60+ fps; debug: ddtDebug.stage + Player.frames) */
+  frames: 0,
+  /** frames de LÓGICA (timeline/ENTER_FRAME, stage.frameRate; usado pra medir se o jogo roda na taxa certa) */
+  logicFrames: 0,
+};
 

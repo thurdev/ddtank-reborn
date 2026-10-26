@@ -173,6 +173,10 @@ interface DebugTools {
   outline(on: boolean): void;
   source(obj: unknown): SourceInfo;
   stage?: unknown;
+  /** frames de lógica (timeline/ENTER_FRAME) já executados desde o boot — pra medir fps de lógica de fora (ver scripts/check-anim-timing.mjs) */
+  logicFrames?: number;
+  /** stage.frameRate configurado (25 no DDTank) */
+  frameRate?: number;
 }
 
 let outlineHook: ((on: boolean) => void) | undefined;
@@ -181,11 +185,17 @@ let hitHook: ((x: number, y: number) => unknown) | undefined;
 let stageRef: any;
 
 /** o Stage se registra aqui pra `ddtDebug` funcionar */
-export function debugAttachStage(stage: any, hooks: { under: () => unknown; hit: (x: number, y: number) => unknown; outline: (on: boolean) => void }): void {
+let logicFramesHook: (() => number) | undefined;
+
+export function debugAttachStage(
+  stage: any,
+  hooks: { under: () => unknown; hit: (x: number, y: number) => unknown; outline: (on: boolean) => void; logicFrames?: () => number },
+): void {
   stageRef = stage;
   underHook = hooks.under;
   hitHook = hooks.hit;
   outlineHook = hooks.outline;
+  logicFramesHook = hooks.logicFrames;
 }
 
 if (DEBUG && typeof globalThis !== "undefined") {
@@ -217,6 +227,8 @@ if (DEBUG && typeof globalThis !== "undefined") {
     outline: (on: boolean) => outlineHook?.(on),
     source: (obj: unknown) => sourceOf(obj),
     get stage() { return stageRef; },
+    get logicFrames() { return logicFramesHook?.(); },
+    get frameRate() { return stageRef?.frameRate; },
   };
   (globalThis as any).ddtDebug = tools;
   console.log("%c[debug] modo debug ligado — digite ddtDebug no console pra ver as ferramentas", "color:#ffb300;font-weight:bold");
