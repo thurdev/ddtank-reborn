@@ -4,3 +4,4 @@ node_modules/
 .export-ui.log
 .export-resource.log
 .tmp-hit/
+.verify-out/
