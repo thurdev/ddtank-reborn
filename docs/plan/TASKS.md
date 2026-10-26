@@ -83,6 +83,15 @@ Ordem: QA/sync → bot PvP → instâncias → hot-update → testar TUDO no jog
   código novo — só reauditoria + correção de status: `84 ACTIVITY_PACKAGE` (3 linhas) `partial` → `ok`.
   Docs: `apps/game/HANDLERS.md` (linha nova pro código 84, não existia nenhuma), `docs/MIGRATION-GAP.md`,
   `docs/qa-matrix.json`/`docs/QA-MATRIX.md`, `tools/qa/overrides.json`.
+- [x] **41-boss-mundial-sala-qa-sync** (2026-10-26) — `102 WORLDBOSS_CMD`: `41-boss-mundial-revisao` só
+  reauditou `REQUEST_REVIVE=37`/`BUFF_BUY=38`/`STAUTS=36`/ranking/HP compartilhado; as outras 4 linhas
+  (`ENTER_WORLDBOSSROOM=32`, `ADDPLAYERS=34`, `LEAVE_ROOM=33`, `MOVE=35`) continuavam `partial` só por
+  herdar o status do código 102 como um todo. Reauditadas contra `vendor/DDTank41/Game.Server/WorldBoss/
+  Handle/{EnterRoom,AddPlayer,LeaveRoom,Move}.cs`: sem desvio real, batem 1:1 com `apps/game/src/handlers/
+  eventos/boss-mundial.ts`. Sem código novo — só correção de status: essas 4 linhas `partial` → `ok`.
+  `BUFF_BUY=38`/`STAUTS=36` continuam `partial` de propósito (decisão já tomada em `41-boss-mundial-revisao`,
+  não revisitada). Docs: `docs/MIGRATION-GAP.md`, `docs/qa-matrix.json`/`docs/QA-MATRIX.md`,
+  `tools/qa/overrides.json`.
 - [ ] **41-qa-tudo** — testar TODAS as features no jogo de verdade (matriz QA `verified:yes` + evidência),
   área por área, abrindo fix pra cada falha.
 - [ ] **pixi-estudo** — estudo de viabilidade do cliente novo (PixiJS, 60fps+) — ver `docs/plan/PIXI.md`.

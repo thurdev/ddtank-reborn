@@ -166,18 +166,21 @@
     "notes": "Lista de campeões vazia (sem chaveamento de elite)."
   },
   "102:enterWorldBossRoom": {
+    "status": "ok",
     "verified": "yes",
-    "notes": "Boss mundial agendado (12:00/20:00 UTC, admin \"Iniciar agora\"): 102/0 OPEN com horários reais, ícone Thần thú no hall, sala com HP e ranking; fim = prêmio por posição (params.rankAwards, 1x por janela) + 102/1 OVER.",
+    "notes": "Boss mundial agendado (12:00/20:00 UTC, admin \"Iniciar agora\"): 102/0 OPEN com horários reais, ícone Thần thú no hall, sala com HP e ranking; fim = prêmio por posição (params.rankAwards, 1x por janela) + 102/1 OVER. 41-boss-mundial-sala-qa-sync (2026-10-26): reauditado contra vendor/DDTank41/Game.Server/WorldBoss/Handle/*.cs — sem desvio real (status \"partial\" era herdado do código 102 como um todo, que continua partial por causa de BUFF_BUY=38/STAUTS=36, mantidos assim de propósito em 41-boss-mundial-revisao; esta linha específica bate 1:1 com o original).",
     "evidence": "research/e2e/events/e14-dacsac.png, e15-worldboss-room.png, e16-worldboss-scene.png"
   },
   "102:sendAddPlayer": {
+    "status": "ok",
     "verified": "yes",
-    "notes": "Entra na sala do boss (102/3 para todos + ranking).",
+    "notes": "Entra na sala do boss (102/3 para todos + ranking). AddPlayer.cs:13-26: seta Player.X/Y, remove da sala atual, adiciona na WorldBossRoom — espelhado (apps/game/src/handlers/eventos/boss-mundial.ts case 34). 41-boss-mundial-sala-qa-sync (2026-10-26): reauditado contra vendor/DDTank41/Game.Server/WorldBoss/Handle/*.cs — sem desvio real (status \"partial\" era herdado do código 102 como um todo, que continua partial por causa de BUFF_BUY=38/STAUTS=36, mantidos assim de propósito em 41-boss-mundial-revisao; esta linha específica bate 1:1 com o original).",
     "evidence": "research/e2e/events/e16-worldboss-scene.png"
   },
   "102:sendWorldBossRoomMove": {
+    "status": "ok",
     "verified": "yes",
-    "notes": "Movimento repassado a todos na sala (102/6).",
+    "notes": "Movimento repassado a todos na sala (102/6). Move.cs:11-29: ecoa pro remetente + broadcast pra sala, atualiza Player.X/Y — espelhado (case 35). 41-boss-mundial-sala-qa-sync (2026-10-26): reauditado contra vendor/DDTank41/Game.Server/WorldBoss/Handle/*.cs — sem desvio real (status \"partial\" era herdado do código 102 como um todo, que continua partial por causa de BUFF_BUY=38/STAUTS=36, mantidos assim de propósito em 41-boss-mundial-revisao; esta linha específica bate 1:1 com o original).",
     "evidence": "research/e2e/events/e17-worldboss-move.png"
   },
   "102:sendWorldBossRoomStauts": {
@@ -194,7 +197,9 @@
     "notes": "Reviver 1000 / relutar 1200 Xu; não exige mais estar na lista (estado 3 removia)."
   },
   "102:sendLeaveBossRoom": {
-    "notes": "Sai da sala (102/4)."
+    "status": "ok",
+    "verified": "no",
+    "notes": "Sai da sala (102/4). LeaveRoom.cs:11-16: RoomMgr.WorldBossRoom.RemovePlayer + ClearFightBuffOneMatch (sem efeito aqui — nenhum buff de boss mundial existe ainda, BUFF_BUY=38 recusa sem cobrar/conceder) — espelhado (case 33). 41-boss-mundial-sala-qa-sync (2026-10-26): reauditado contra vendor/DDTank41/Game.Server/WorldBoss/Handle/*.cs — sem desvio real (status \"partial\" era herdado do código 102 como um todo, que continua partial por causa de BUFF_BUY=38/STAUTS=36, mantidos assim de propósito em 41-boss-mundial-revisao; esta linha específica bate 1:1 com o original)."
   },
   "187:sendHotSpringEnter": {
     "verified": "yes",

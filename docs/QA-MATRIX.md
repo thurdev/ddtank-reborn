@@ -15,7 +15,7 @@
 |---|---|---|---|---|---|---|---|
 | Amigos | 12 | 12 | 0 | 0 | 0 | 0 | 0 |
 | Bolsa/Inventário | 27 | 21 | 4 | 2 | 0 | 0 | 8 |
-| Boss mundial/Minigames | 7 | 0 | 6 | 1 | 0 | 0 | 4 |
+| Boss mundial/Minigames | 7 | 4 | 2 | 1 | 0 | 0 | 4 |
 | Cartas | 8 | 5 | 2 | 1 | 0 | 0 | 2 |
 | Casamento | 24 | 10 | 13 | 1 | 0 | 0 | 4 |
 | Combate (GAME_CMD) | 39 | 32 | 1 | 6 | 0 | 0 | 4 |
@@ -40,7 +40,7 @@
 | Spa/Fonte termal | 14 | 13 | 0 | 1 | 0 | 0 | 5 |
 | Totem/Honra | 2 | 2 | 0 | 0 | 0 | 0 | 0 |
 | VIP | 1 | 1 | 0 | 0 | 0 | 0 | 1 |
-| **Total** | 361 | 258 | 60 | 40 | 3 | 0 | 56 |
+| **Total** | 361 | 262 | 56 | 40 | 3 | 0 | 56 |
 
 ## Amigos
 
@@ -95,12 +95,12 @@
 
 | Função (botão) | Arquivo(s) do cliente | Código | Sub | Servidor | Cliente verificado | Notas |
 |---|---|---|---|---|---|---|
-| `enterWorldBossRoom` | — | 102 WORLDBOSS_CMD | ENTER_WORLDBOSSROOM=32 | partial | yes | Boss mundial agendado (12:00/20:00 UTC, admin "Iniciar agora"): 102/0 OPEN com horários reais, ícone Thần thú no hall, sala com HP e ranking; fim = prêmio por posição (params.rankAwards, 1x por janela) + 102/1 OVER. — evidência: research/e2e/events/e14-dacsac.png, e15-worldboss-room.png, e16-worldboss-scene.png |
+| `enterWorldBossRoom` | — | 102 WORLDBOSS_CMD | ENTER_WORLDBOSSROOM=32 | ok | yes | Boss mundial agendado (12:00/20:00 UTC, admin "Iniciar agora"): 102/0 OPEN com horários reais, ícone Thần thú no hall, sala com HP e ranking; fim = prêmio por posição (params.rankAwards, 1x por janela) + 102/1 OVER. 41-boss-mundial-sala-qa-sync (2026-10-26): reauditado contra vendor/DDTank41/Game.Server/WorldBoss/Handle/*.cs — sem desvio real (status "partial" era herdado do código 102 como um todo, que continua partial por causa de BUFF_BUY=38/STAUTS=36, mantidos assim de propósito em 41-boss-mundial-revisao; esta linha específica bate 1:1 com o original). — evidência: research/e2e/events/e14-dacsac.png, e15-worldboss-room.png, e16-worldboss-scene.png |
 | `requestRevive` | `worldboss/view/WorldBossResurrectView.as` | 102 WORLDBOSS_CMD | REQUEST_REVIVE=37 | partial | no | Reviver 1000 / relutar 1200 Xu; não exige mais estar na lista (estado 3 removia). |
-| `sendAddPlayer` | `worldboss/view/WorldBossRoomView.as` | 102 WORLDBOSS_CMD | ADDPLAYERS=34 | partial | yes | Entra na sala do boss (102/3 para todos + ranking). — evidência: research/e2e/events/e16-worldboss-scene.png |
+| `sendAddPlayer` | `worldboss/view/WorldBossRoomView.as` | 102 WORLDBOSS_CMD | ADDPLAYERS=34 | ok | yes | Entra na sala do boss (102/3 para todos + ranking). AddPlayer.cs:13-26: seta Player.X/Y, remove da sala atual, adiciona na WorldBossRoom — espelhado (apps/game/src/handlers/eventos/boss-mundial.ts case 34). 41-boss-mundial-sala-qa-sync (2026-10-26): reauditado contra vendor/DDTank41/Game.Server/WorldBoss/Handle/*.cs — sem desvio real (status "partial" era herdado do código 102 como um todo, que continua partial por causa de BUFF_BUY=38/STAUTS=36, mantidos assim de propósito em 41-boss-mundial-revisao; esta linha específica bate 1:1 com o original). — evidência: research/e2e/events/e16-worldboss-scene.png |
 | `sendBuyWorldBossBuff` | `worldboss/WorldBossManager.as`<br>`worldboss/view/BuffCartItem.as` | 102 WORLDBOSS_CMD | BUFF_BUY=38 | partial | yes | 30 Xu cobrados uma vez (o original cobrava duas). — evidência: research/e2e/events/e20-buff.png |
-| `sendLeaveBossRoom` | `worldboss/view/RoomMenuView.as` | 102 WORLDBOSS_CMD | LEAVE_ROOM=33 | partial | no | Sai da sala (102/4). |
-| `sendWorldBossRoomMove` | `worldboss/view/WorldBossScneneMap.as` | 102 WORLDBOSS_CMD | MOVE=35 | partial | yes | Movimento repassado a todos na sala (102/6). — evidência: research/e2e/events/e17-worldboss-move.png |
+| `sendLeaveBossRoom` | `worldboss/view/RoomMenuView.as` | 102 WORLDBOSS_CMD | LEAVE_ROOM=33 | ok | no | Sai da sala (102/4). LeaveRoom.cs:11-16: RoomMgr.WorldBossRoom.RemovePlayer + ClearFightBuffOneMatch (sem efeito aqui — nenhum buff de boss mundial existe ainda, BUFF_BUY=38 recusa sem cobrar/conceder) — espelhado (case 33). 41-boss-mundial-sala-qa-sync (2026-10-26): reauditado contra vendor/DDTank41/Game.Server/WorldBoss/Handle/*.cs — sem desvio real (status "partial" era herdado do código 102 como um todo, que continua partial por causa de BUFF_BUY=38/STAUTS=36, mantidos assim de propósito em 41-boss-mundial-revisao; esta linha específica bate 1:1 com o original). |
+| `sendWorldBossRoomMove` | `worldboss/view/WorldBossScneneMap.as` | 102 WORLDBOSS_CMD | MOVE=35 | ok | yes | Movimento repassado a todos na sala (102/6). Move.cs:11-29: ecoa pro remetente + broadcast pra sala, atualiza Player.X/Y — espelhado (case 35). 41-boss-mundial-sala-qa-sync (2026-10-26): reauditado contra vendor/DDTank41/Game.Server/WorldBoss/Handle/*.cs — sem desvio real (status "partial" era herdado do código 102 como um todo, que continua partial por causa de BUFF_BUY=38/STAUTS=36, mantidos assim de propósito em 41-boss-mundial-revisao; esta linha específica bate 1:1 com o original). — evidência: research/e2e/events/e17-worldboss-move.png |
 | `createPackageOut` | `littleGame/LittleGameManager.as` | 166 LITTLEGAME_COMMAND |  | stub | no | Real no original, não lacuna de fidelidade — subsistema inteiro não portado ainda (orçamento): LITTLEGAME_COMMAND (código 166) é só um relay fino (LittleGameHandler.cs, 13 linhas: client.Player.LittleGame?.ProcessData(...)) para um minigame completo da fonte termal em vendor/DDTank41/Game.Server/LittleGame/* (22 arquivos: LittleGameWorldMgr, LittleGameLogicProcessor, handlers de EnterWorld/LeaveWorld/Move/Click/CancelClick/PosSync/ReportScore — um jogo de posição/clique em tempo real dentro da sala de spa, Source Flash/src/littleGame/LittleGameManager.as no cliente). Nenhuma parte foi portada; nenhuma tabela/estado equivalente existe em apps/game. Tamanho comparável ao chick activation (84) — fora do orçamento desta sessão. |
 
 ## Cartas

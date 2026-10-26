@@ -98,6 +98,13 @@ principal).
   nota antiga da matriz dizia) até o motor de luta ter camada de buff pago (task `m4-catchbeast-buff`) —
   cobrar 2× replicaria um bug de duplo-débito do próprio original (`BuyBuff.cs:19-26`: `MoneyDirect` já
   deduz, e chama `RemoveMoney` de novo por cima) que nunca replicamos.
+  **41-boss-mundial-sala-qa-sync** (`feature/41-partial-d`, 2026-10-26): as outras 4 linhas de `102
+  WORLDBOSS_CMD` que `41-boss-mundial-revisao` não tinha revisado (`ENTER_WORLDBOSSROOM=32`,
+  `ADDPLAYERS=34`, `LEAVE_ROOM=33`, `MOVE=35` — ficaram `partial` só por herdar o status do código 102
+  como um todo) foram reauditadas contra `vendor/DDTank41/Game.Server/WorldBoss/Handle/{EnterRoom,
+  AddPlayer,LeaveRoom,Move}.cs`: nenhum desvio real, batem 1:1 com `apps/game/src/handlers/eventos/
+  boss-mundial.ts`. Matriz corrigida pra `ok` nessas 4 linhas; `BUFF_BUY=38`/`STAUTS=36` continuam `partial`
+  de propósito (desvios documentados acima, decisão da tarefa anterior, não revisitados aqui).
 - ~~**41-loja-estoque-global** — 168 GOODS_COUNT~~ **concluído** (`feature/41-partial-b`, 2026-10-20):
   estoque diário global por `Shop.ID` rastreado de verdade (`handlers/loja/estoque-diario.ts`, reset por
   chave), enforçado em 44 BUY_GOODS (ShopID 20) só depois do carrinho passar a checagem de dinheiro. Testes:
