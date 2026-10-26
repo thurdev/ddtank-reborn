@@ -82,8 +82,20 @@ export async function handleLogin(ctx: ServerContext, client: GameClient): Promi
   }
   ctx.world.loggingIn.add(key);
   try {
-    if (!(await ctx.tickets.validate(user, pass))) return kick(client, t("UserLoginHandler.OverTime"));
-    const ch = await findCharacterByUserName(ctx.db.db, user);
+    // pixi-net: these 3 reads are independent (none depends on another's result) but were previously awaited
+    // one after another -- each is its own DB round trip, and on this stack a round trip costs far more than
+    // the query itself (local Postgres over the dev loopback/Docker path measured ~20-25ms/query vs <1ms of
+    // actual work), so 3 sequential awaits here alone added ~60-75ms to every LOGIN. Running them concurrently
+    // removes that from the critical path with no behavior change: the only difference from before is that a
+    // doomed-to-fail login (bad ticket) now also pays for findCharacterByUserName/clientKindFor instead of
+    // failing fast after validate() alone -- an acceptable trade since failed logins aren't the hot path and
+    // are already bounded by PACKET_RATE_PER_SEC/LOGIN_TIMEOUT_SEC.
+    const [valid, ch, clientKind] = await Promise.all([
+      ctx.tickets.validate(user, pass),
+      findCharacterByUserName(ctx.db.db, user),
+      Promise.resolve(ctx.tickets.clientKindFor?.(user)) as Promise<ClientKind | undefined>,
+    ]);
+    if (!valid) return kick(client, t("UserLoginHandler.OverTime"));
     // isFirst (no character / nickname chosen yet) -> "Register"; the API creates it in Login.ashx/VisualizeRegister.
     if (!ch || !ch.NickName) return kick(client, t("UserLoginHandler.Register"));
     if (!ch.IsExist || ch.ForbidDate.getTime() > ctx.now().getTime()) return kick(client, t("UserLoginHandler.Forbid"));
@@ -102,8 +114,7 @@ export async function handleLogin(ctx: ServerContext, client: GameClient): Promi
     // sem REDIS_URL/NoopBus isto resolve na hora, comportamento idêntico a antes desta tarefa).
     await ctx.crossChannel.kick(ch.UserID).catch((e) => ctx.log.warn(`ch-bus kick: ${(e as Error).message}`));
     if (client.closed) return;
-    const clientKind = (await ctx.tickets.clientKindFor?.(user)) ?? "41";
-    const player = await loadPlayer(ctx, client, ch.UserID, clientKind);
+    const player = await loadPlayer(ctx, client, ch.UserID, clientKind ?? "41");
     if (!player) return kick(client, t("UserLoginHandler.Forbid"));
     if (client.closed) {
       await quitPlayer(ctx, player);
@@ -121,19 +132,22 @@ export async function handleLogin(ctx: ServerContext, client: GameClient): Promi
 /** GamePlayer.LoadFromDatabase (GamePlayer.cs:2937) + Login (GamePlayer.cs:3324): loads and sends the login burst. */
 async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number, clientKind: ClientKind): Promise<GamePlayer | null> {
   const db = ctx.db.db;
-  const info = await loadPlayerInfo(db, userId);
-  if (!info) return null;
-  const [match, items, friends, progress] = await Promise.all([
+  // pixi-net: loadPlayerInfo used to be its own awaited round trip before this Promise.all even started, even
+  // though none of match/items/friends/progress depend on `info` -- userId is already a verified character
+  // (ch.IsExist checked by the caller), so `info` coming back null here is not an expected case worth paying a
+  // whole extra round trip for on every login. Folding it into the batch removes that round trip.
+  const [info, match, items, friends, progress] = await Promise.all([
+    loadPlayerInfo(db, userId),
     loadMatchInfo(db, userId),
     loadUserItems(db, userId, ctx.templates.findItem),
     loadFriends(db, userId),
     loadProgress(db, userId),
   ]);
+  if (!info) return null;
   const p = new GamePlayer(client, info, match, ctx.zoneId, ctx.zoneName, (g) => ctx.templates.levels.get(g) ?? 0);
   p.clientKind = clientKind;
   if (!ctx.world.add(p)) return null; // WorldMgr.AddPlayer
   client.player = p; // before the burst: the client may answer while we are still sending
-  await setOnlineState(db, userId, 1, ctx.cfg.SERVER_ID);
   p.friends = friends;
   p.quests = progress.quests.filter((q) => ctx.templates.quests.has(q.QuestID));
   p.gradeForGp = (gp) => ctx.templates.gradeForGp(gp);
@@ -168,8 +182,17 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   ] as const) bag.loadItems(items.get(type) ?? []);
   // CardBag (equipped cards) and the equipped pet only feed the stats (no card/pet modules yet); farm: TODO.
   p.statTables = ctx.templates.stats;
-  // CardInventory / PetInventory.LoadFromDatabase (GamePlayer.LoadFromDatabase); their CommitChanges sends 216 / 68 below
-  const [cardRows, petRows, eatPets, avatarRows] = await Promise.all([loadUserCardBag(db, userId), loadUserPets(db, userId), loadEatPets(db, userId), loadAvatarCollection(db, userId)]);
+  // CardInventory / PetInventory.LoadFromDatabase (GamePlayer.LoadFromDatabase); their CommitChanges sends 216 / 68 below.
+  // pixi-net: setOnlineState (a DB write, result unused) rides along in this same batch instead of its own
+  // awaited round trip -- it only needs userId, which is already confirmed added to ctx.world above, so there's
+  // no ordering requirement forcing it to finish before these reads start.
+  const [cardRows, petRows, eatPets, avatarRows] = await Promise.all([
+    loadUserCardBag(db, userId),
+    loadUserPets(db, userId),
+    loadEatPets(db, userId),
+    loadAvatarCollection(db, userId),
+    setOnlineState(db, userId, 1, ctx.cfg.SERVER_ID),
+  ]);
   p.avatarCollect = avatarRows;
   p.cardBag.load(cardRows);
   p.petBag.load(petRows);
