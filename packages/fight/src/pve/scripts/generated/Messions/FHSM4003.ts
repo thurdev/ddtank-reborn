@@ -43,7 +43,7 @@ export class FHSM4003 extends AMissionControl {
             this.Game.AddLoadingFile(2, "image/game/thing/BossBornBgAsset.swf", "game.asset.living.boguoLeaderAsset");
             this.Game.AddLoadingFile(2, "image/map/1075/objects/1075Object.swf", "game.crazytank.assetmap.Board001");
             this.Game.SetMap(1126);
-            this.Game.IsBossWar = "最终BOSS";
+            this.Game.IsBossWar = "Chefe Final";
         }
   OnPrepareStartGame() {
             super.OnPrepareStartGame();
@@ -59,7 +59,7 @@ export class FHSM4003 extends AMissionControl {
             this.cattleBoss = this.Game.CreateBoss(this.bossID, 1000, 450, -1, 0);
             this.cattleBoss.FallFrom(1000, 500, "fall", 0, 2, 1000);
             this.cattleBoss.SetRelateDemagemRect(-35, -130, 70, 130);
-            this.cattleBoss.Say("我就是老牛！你们就是嫩草！", 0, 3000);
+            this.cattleBoss.Say("Eu sou o Touro Velho! Vocês são apenas capim tenro!", 0, 3000);
             this.cattleBoss.ChangeMaxBeatDis = 1500;
             this.cattleBoss.AddDelay(16);
             this.m_kingMoive.PlayMovie("in", 8000, 0);

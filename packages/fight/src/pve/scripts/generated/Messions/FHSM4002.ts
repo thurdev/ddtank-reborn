@@ -42,7 +42,7 @@ export class FHSM4002 extends AMissionControl {
             this.Game.AddLoadingFile(2, "image/game/thing/BossBornBgAsset.swf", "game.asset.living.boguoLeaderAsset");
             this.Game.AddLoadingFile(2, "image/map/1075/objects/1075Object.swf", "game.crazytank.assetmap.Board001");
             this.Game.SetMap(1126);
-            this.Game.IsBossWar = "沙漠双雄";
+            this.Game.IsBossWar = "Dupla do Deserto";
         }
   OnPrepareStartGame() {
             super.OnPrepareStartGame();
@@ -59,7 +59,7 @@ export class FHSM4002 extends AMissionControl {
             this.hawkBoss = this.Game.CreateWingBoss(this.hawkBossID, 800, 300, -1, 0);
             this.hawkBoss.SetRelateDemagemRect(-30, -75, 60, 70);
             this.hawkBoss.Degree = 1;
-            this.hawkBoss.Say("沙漠神鹰就是我了,要签名的赶快过来~", 0, 3000);
+            this.hawkBoss.Say("Eu sou a Águia do Deserto! Quem quiser autógrafo, vem rápido~", 0, 3000);
             this.hawkBoss.AddDelay(16);
 
             this.Game.AddAction(new FocusAction(1000, 400, 0, 7000, 1000));
@@ -67,7 +67,7 @@ export class FHSM4002 extends AMissionControl {
             this.wolfBoss.FallFrom(1000, 450, "fall", 0, 2, 1000);
             this.wolfBoss.SetRelateDemagemRect(-116, -111, 157, 119);
             this.wolfBoss.Degree = 2;
-            this.wolfBoss.Say("沙漠血狼就是我了,要签名的赶快过来~", 0, 9000);
+            this.wolfBoss.Say("Eu sou o Lobo de Sangue do Deserto! Quem quiser autógrafo, vem rápido~", 0, 9000);
             this.wolfBoss.AddDelay(16);
             this.m_kingMoive.PlayMovie("in", 15000, 0);
             this.m_kingFront.PlayMovie("in", 15000, 0);

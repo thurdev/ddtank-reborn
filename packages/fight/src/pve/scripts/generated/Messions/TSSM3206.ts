@@ -49,7 +49,7 @@ export class TSSM3206 extends AMissionControl {
             this.Game.LoadResources(resources);
             this.Game.LoadNpcGameOverResources(gameOverResources);
             this.Game.SetMap(1126);
-            this.Game.IsBossWar = "原始人部落长";
+            this.Game.IsBossWar = "Chefe da Tribo Primitiva";
         }
   OnPrepareStartGame() {
             super.OnPrepareStartGame();

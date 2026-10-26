@@ -5,41 +5,41 @@ import { registerScript, ABrain, __arr, __int, __list } from "../../runtime.js";
 
 export class ThirteenHardThirdBoss extends ABrain {
   static AllAttackChat = __arr([
-             "看我的绝技！",
-          
-             "这招酷吧，<br/>想学不？",
-          
-             "消失吧！！！<br/>卑微的灰尘！",
+             "Vejam minha técnica especial!",
 
-             "你们会为此付出代价的！ "
+             "Essa jogada foi irada, <br/>quer aprender?",
+
+             "Desapareçam!!! <br/>Poeira insignificante!",
+
+             "Vocês vão pagar por isso! "
         ]);
   static ShootChat = __arr([
-             "你是在给我挠痒痒吗？",
-               
-             "我可不会像刚才那个废物一样被你打败！",
-             
-             "哎哟，你打的我好疼啊，<br/>哈哈哈哈！",
-               
-             "啧啧啧，就这样的攻击力！",
-               
-             "看到我是你们的荣幸！"          
+             "Isso é só uma cocegazinha?",
+
+             "Eu não vou ser derrotado como aquele inútil de agora!",
+
+             "Ai, isso doeu de verdade, <br/>hahahaha!",
+
+             "Tsc, tsc, tsc, só isso de ataque?",
+
+             "Ver-me é uma honra para vocês!"
         ]);
   static CallChat = __arr([
-            "来啊，<br/>让他们尝尝炸弹的厉害！"                          
+            "Venham, <br/>deixem eles provarem o poder das bombas!"
         ]);
   static AngryChat = __arr([
-            "是你们逼我使出绝招的！"                          
+            "Vocês que me obrigaram a usar meu golpe especial!"
         ]);
   static KillAttackChat = __arr([
-            "你来找死吗？"                          
+            "Você veio procurar a morte?"
         ]);
   static SealChat = __arr([
-            "异次元放逐！"                          
+            "Exílio dimensional!"
         ]);
   static KillPlayerChat = __arr([
-            "灭亡是你唯一的归宿！",                  
- 
-            "太不堪一击了！"
+            "A destruição é o único destino de vocês!",
+
+            "Vocês são fracos demais para resistir!"
         ]);
   attackingTurn = 0;
   orchinIndex = 1;
