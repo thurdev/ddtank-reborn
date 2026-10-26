@@ -663,13 +663,14 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
         if (!key.startsWith("cf_") || raw === undefined || raw === "") continue;
         const range = /^cf_(.+)_(min|max)$/.exec(key);
         if (range) {
-          const col = c[range[1]!];
-          if (!col) continue;
+          const col = Object.hasOwn(c, range[1]!) ? c[range[1]!] : undefined;
+          if (!col || !Number.isFinite(Number(raw))) continue;
           conds.push(range[2] === "min" ? gte(col, Number(raw)) : lte(col, Number(raw)));
           continue;
         }
-        const col = c[key.slice(3)];
+        const col = Object.hasOwn(c, key.slice(3)) ? c[key.slice(3)] : undefined;
         if (!col) continue;
+        if (col.dataType === "number" && !Number.isFinite(Number(raw))) continue;
         if (col.dataType === "boolean") conds.push(eq(col, raw === "1" || raw === "true"));
         else if (col.dataType === "number") conds.push(eq(col, Number(raw)));
         else conds.push(colSemAcento(col, raw));
