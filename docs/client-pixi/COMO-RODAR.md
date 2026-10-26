@@ -4,6 +4,12 @@
 
 - Servidores do projeto rodando: `apps/api` (porta 8080) e `apps/game`
   (TCP 9200 + WebSocket 9300 `/ws`). Ver `docs/GAME-SERVER.md` / `pnpm dev:all`.
+  **Se subir `apps/api`/`apps/game` à mão (`pnpm --filter @ddt/api dev` etc.,
+  não `pnpm dev:all`) sem `DATABASE_URL` no ambiente, cada um abre seu próprio
+  PGlite embutido isolado em vez do Postgres — login funciona (cada um grava
+  na própria base) mas o socket do jogo nunca bate a chave, e o cliente cai
+  pra tela de login com "sua sessão expirou". Exporte `DATABASE_URL=postgres://postgres:postgres@127.0.0.1:5432/ddtank`
+  (mesma URL que `pnpm --filter @ddt/db db:pg` sobe) antes dos dois.**
 - Arte exportada em `apps/client/public/assets` (não vai pro git — gere com o
   `tools/swf-export`, ver [ASSETS.md](ASSETS.md)).
 - Código do jogo gerado em `apps/client/src/game` (até o congelamento):
