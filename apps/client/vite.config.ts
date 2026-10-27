@@ -1,5 +1,6 @@
-import { resolve } from "node:path";
-import { defineConfig } from "vite";
+import { existsSync, readFileSync, statSync } from "node:fs";
+import { extname, join, resolve } from "node:path";
+import { defineConfig, type Plugin } from "vite";
 
 /**
  * Cliente PixiJS. Em dev, `/Request` e `/resource` vão pro apps/api (porta
@@ -7,7 +8,55 @@ import { defineConfig } from "vite";
  */
 const api = process.env.DDT_API ?? "http://127.0.0.1:8080";
 
+/**
+ * perf-cliente: serve `/avatar.html` + `/avatar-chunks/*` straight from `dist-avatar/` (a real Rollup
+ * bundle, built+watched separately by `vite.avatar.config.ts` — run `pnpm --filter @ddt/client dev:avatar`
+ * alongside the normal dev server) instead of letting Vite's usual per-module dev pipeline handle them.
+ *
+ * Why: `avatar.html` boots `src/avatar.ts`, which does `import "./game/all"` — same ~2600-module static
+ * import `main.ts` needs (the AS3 class registry has to see every class before boot). Under the NORMAL dev
+ * server that's ~2800 individual native-ESM requests; `server.warmup` below makes sure each one is already
+ * *transformed* (no first-touch esbuild cost), but it can't collapse the *request count* — measured
+ * 2.6-3.7s wall time for JUST that round-trip volume even with a fully warm HTTP cache (see
+ * docs/client-pixi/STATUS.md "perf-cliente"), on every single carousel load (`apps/web`'s Play page). A
+ * real bundle collapses that to ~1 big JS request (+ a couple of PixiJS renderer-backend chunks it
+ * dynamically imports at runtime) — same code, same behavior, just not re-fetched module-by-module.
+ *
+ * Falls back to the normal (slower) per-module path whenever `dist-avatar/` doesn't have the file yet
+ * (fresh checkout, `dev:avatar` not running, or mid-rebuild) — never a hard dependency, never breaks
+ * `avatar.html` if the watch build isn't up.
+ */
+function serveAvatarBundle(): Plugin {
+  const distDir = resolve(__dirname, "dist-avatar");
+  const mime: Record<string, string> = {
+    ".html": "text/html; charset=utf-8",
+    ".js": "text/javascript",
+    ".css": "text/css",
+    ".map": "application/json",
+  };
+  return {
+    name: "ddt-serve-avatar-bundle",
+    configureServer(server) {
+      // Registered directly in the hook body (not the post-internal-middlewares return function) so this
+      // runs BEFORE Vite's own html/transform middleware would otherwise try to serve `/avatar.html` from
+      // source and re-walk its import graph.
+      server.middlewares.use((req, res, next) => {
+        const url = (req.url ?? "").split("?")[0]!;
+        if (url !== "/avatar.html" && !url.startsWith("/avatar-chunks/")) return next();
+        const file = join(distDir, url === "/avatar.html" ? "avatar.html" : url.slice(1));
+        if (!existsSync(file) || statSync(file).isDirectory()) return next();
+        res.setHeader("Content-Type", mime[extname(file)] ?? "application/octet-stream");
+        // dev: the watch build can replace this file at any time (source edit) — never let the browser
+        // cache it past a reload.
+        res.setHeader("Cache-Control", "no-cache");
+        res.end(readFileSync(file));
+      });
+    },
+  };
+}
+
 export default defineConfig({
+  plugins: [serveAvatarBundle()],
   server: {
     port: 5180,
     // dezenas de milhares de PNG exportados: não vigia (o exportador reescreve tudo e travava o dev server)
