@@ -113,6 +113,60 @@ function placeOp(t: XNode): Op {
   return op;
 }
 
+/** tipos de preenchimento "bitmap fill" (clipped/repeating, smoothed/non-smoothed) */
+const BITMAP_FILL_TYPES = new Set([0x40, 0x41, 0x42, 0x43]);
+
+/**
+ * Forma == só um retângulo preenchido por UM bitmap cobrindo o contorno inteiro
+ * (padrão comum de autoria: arte colada como "shape" no Flash, sem vetor de
+ * verdade)? Se sim, devolve o id do bitmap bruto pra usar no lugar da forma
+ * rasterizada pelo FFDec.
+ *
+ * Por quê: o rasterizador de forma do FFDec (`-export shape`) às vezes produz
+ * uma franja de cor incoerente nos pixels semi-transparentes da borda (visto
+ * em `hall.swf`, formas 199/208 — RGB "ruído" tipo [119,255,255,30] junto de
+ * [52,7,255,39] em pixels vizinhos de alfa parecido) que NÃO aparece no bitmap
+ * bruto exportado (`-export image`) nem é determinístico (mesmo SWF, mesmo
+ * comando, roda limpo isoladamente mas às vezes sai corrompido dentro do
+ * pipeline completo — ver `docs/client-pixi/STATUS.md`, tarefa "hall-hover").
+ * Pra esse padrão (bitmap cobrindo o contorno 1:1, sem outro fill/stroke),
+ * usar o bitmap bruto é estritamente mais fiel (é o dado original do SWF) e
+ * imune a esse artefato do rasterizador — não precisamos entender a causa
+ * exata do FFDec pra evitar o caminho que a produz.
+ */
+function bitmapRectShapeImg(t: XNode, lib: LibraryT): string | undefined {
+  const shapes = child(t, "shapes");
+  if (!shapes) return undefined;
+  const fillArr = child(shapes, "fillStyles");
+  const fillList = items(fillArr && child(fillArr, "fillStyles"));
+  if (fillList.length !== 1) return undefined;
+  const lineArr = child(shapes, "lineStyles");
+  const lineList = items(lineArr && child(lineArr, "lineStyles"));
+  if (lineList.length !== 0) return undefined;
+  const fill = fillList[0]!;
+  if (!BITMAP_FILL_TYPES.has(num(fill, "fillStyleType"))) return undefined;
+  // só um retângulo simples: moveto + até 4 retas + fim (sem curva, sem outro moveto)
+  const records = items(child(shapes, "shapeRecords"));
+  if (records.length > 6) return undefined;
+  for (const r of records) {
+    const ty = type(r);
+    if (ty !== "StyleChangeRecord" && ty !== "StraightEdgeRecord" && ty !== "EndShapeRecord") return undefined;
+  }
+  const bitmapId = num(fill, "bitmapId");
+  const bmp = lib.chars[bitmapId];
+  if (!bmp || bmp.k !== "bitmap" || !bmp.img) return undefined;
+  const m = child(fill, "bitmapMatrix");
+  if (!m || bool(m, "hasRotate")) return undefined;
+  const scaleX = num(m, "scaleX", 1), scaleY = num(m, "scaleY", 1);
+  const tx = num(m, "translateX"), ty2 = num(m, "translateY");
+  const b = child(t, "shapeBounds");
+  if (!b) return undefined;
+  const eps = 20; // 1px de tolerância (em twips)
+  const okX = Math.abs(num(b, "Xmin") - tx) <= eps && Math.abs(num(b, "Xmax") - (tx + bmp.w * scaleX)) <= eps;
+  const okY = Math.abs(num(b, "Ymin") - ty2) <= eps && Math.abs(num(b, "Ymax") - (ty2 + bmp.h * scaleY)) <= eps;
+  return okX && okY ? bmp.img : undefined;
+}
+
 let nestedDefine: ((t: XNode) => void) | null = null;
 
 /** lê uma lista de tags de timeline (DefineSprite ou principal) */
@@ -185,6 +239,9 @@ function editText(t: XNode): EditTextT {
 export interface ImageIndex {
   shapes: Map<number, string>;
   images: Map<number, string>;
+  /** tamanho real (px) do bitmap exportado em `images` — FFDec não traz bitmapWidth/
+   * bitmapHeight no swf2xml pra DefineBitsJPEG* (só pra DefineBitsLossless*). */
+  imageSizes: Map<number, [number, number]>;
   texts: Map<number, string>;
   morphs: Map<number, string>;
   sounds: Map<number, string>;
@@ -210,7 +267,7 @@ export function buildLibrary(xml: string, swfRel: string, imgs: ImageIndex, warn
     switch (ty) {
       case "DefineShapeTag": case "DefineShape2Tag": case "DefineShape3Tag": case "DefineShape4Tag": {
         const id = num(t, "shapeId");
-        const img = imgs.shapes.get(id);
+        const img = bitmapRectShapeImg(t, lib) ?? imgs.shapes.get(id);
         lib.chars[id] = { k: "shape", img: img ?? "", r: rect(child(t, "shapeBounds")) };
         if (!img) warn(`forma ${id} sem PNG exportado`);
         break;
@@ -223,7 +280,8 @@ export function buildLibrary(xml: string, swfRel: string, imgs: ImageIndex, warn
       case "DefineBitsTag": case "DefineBitsJPEG2Tag": case "DefineBitsJPEG3Tag": case "DefineBitsJPEG4Tag":
       case "DefineBitsLosslessTag": case "DefineBitsLossless2Tag": {
         const id = num(t, "characterID", num(t, "characterId"));
-        const w = num(t, "bitmapWidth"), h = num(t, "bitmapHeight");
+        const [realW, realH] = imgs.imageSizes.get(id) ?? [0, 0];
+        const w = realW || num(t, "bitmapWidth"), h = realH || num(t, "bitmapHeight");
         lib.chars[id] = { k: "bitmap", img: imgs.images.get(id) ?? "", w, h };
         if (!imgs.images.get(id)) warn(`bitmap ${id} sem imagem exportada`);
         break;

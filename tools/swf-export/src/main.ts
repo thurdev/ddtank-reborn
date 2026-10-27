@@ -149,9 +149,20 @@ async function exportOne(src: Source, force: boolean, warnings: string[]): Promi
     }
   }
   const prefix = (d: string, m: Map<number, string>) => new Map([...m].map(([k, v]) => [k, `${d}/${v}`] as const));
+  const imagesDir = indexDir(join(tmp, "images"));
+  // DefineBitsJPEG* não traz bitmapWidth/bitmapHeight no swf2xml do FFDec (só DefineBitsLossless*
+  // traz): lê o tamanho real do PNG/JPEG/GIF exportado pra todo bitmap, não só os lossless.
+  const imageSizes = new Map<number, [number, number]>();
+  for (const [id, name] of imagesDir) {
+    try {
+      const meta = await sharp(join(tmp, "images", name)).metadata();
+      if (meta.width && meta.height) imageSizes.set(id, [meta.width, meta.height]);
+    } catch { /* formato que o sharp não lê (raro); fica sem tamanho conhecido */ }
+  }
   const imgs: ImageIndex = {
     shapes: prefix("shapes", indexDir(join(tmp, "shapes"))),
-    images: prefix("images", indexDir(join(tmp, "images"))),
+    images: prefix("images", imagesDir),
+    imageSizes,
     sounds: prefix("sounds", indexDir(join(tmp, "sounds"))),
     binary: prefix("binaryData", indexDir(join(tmp, "binaryData"))),
     texts,
