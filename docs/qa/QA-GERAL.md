@@ -122,9 +122,33 @@ fora do hall puro. Não deu tempo nesta rodada de mapear essa regra com precisã
 preferir, quando disponível, o clique direto no ícone da hotbar (coordenadas por `tipData`, não por pixel
 fixo — ver `qa-harness.local.mjs` `returnToHall`) em vez do atalho de teclado.
 
+## Sociedade (Guilda)
+
+| Feature | Status | Evidência | Nota |
+|---|---|---|---|
+| Abrir painel (prédio "Sociedade" no hall) | ✅ ok | `guild2-01-opened.png` | "Clube da Sociedade": busca ("Busca Soc."), lista "Lista Soc." com colunas Nome/Líder/Número/Nível/Méritos Soc — mostra a guilda REAL `Reborn` (líder `Thur`, nível 10) já existente no banco compartilhado do dono, confirmando que a listagem lê dado de verdade, não mock. Painel "Declaração" (anúncio), abas "Convites"/"Aplicações", botões "Aplicar"/"Busca aleatória". 100% PT-BR. |
+| Criar sociedade (fluxo completo) | ⏳ pendente | — | Não alcançado nesta rodada — a tela encontrada foi a listagem/busca; o botão/fluxo específico de "criar" (geralmente exige nome + custo em ouro, conta de teste já tem 100k ouro e nível 20 via admin API pra isso) fica pra próxima sessão. |
+
+## Achado de harness: clique "seguro" em (705,124) não é 100% seguro
+
+O ponto usado pra fechar o popup "NEWGUN" (`(705,124)`, ver notas de navegação acima) fica perto o
+suficiente da área de clique REAL do prédio "Forja" (maior que a arte visível) que, clicado ~16x por sessão
+(como o `reachCleanHall` faz), abre a Forja por acidente com bastante frequência — reproduzido em 3 contas
+novas independentes (`qaGeral2`, `qaGeral3`, `qaGeral4`), sempre caindo no painel "Ferreiro". Não corrigido
+nesta rodada (a Forja tem seu próprio X vermelho de fechar, não o "Voltar" da `MainToolBar` — usado como
+contorno pontual nos scripts, não uma correção geral do ponto de clique). Quem continuar deveria trocar esse
+ponto "seguro" por um canto realmente vazio (ex. bem no topo, `y<10`) ou, melhor, achar o botão de fechar da
+NEWGUN dinamicamente.
+
+## `cd apps/game && npx vitest run --maxWorkers=1` (rodado 1x ao final, pedido pela tarefa)
+
+**602 testes, 86 arquivos — todos passando** (nenhuma mudança de código nesta rodada, só documentação/notas
+em `docs/qa-matrix.json`, então era esperado continuar verde). Levou ~22 min (contenção normal — 4 agentes
+dividindo a mesma máquina, `maxWorkers=1` de propósito).
+
 ## Áreas não alcançadas nesta rodada
 
-Sociedade/Guilda, Igreja (Casamento), Fazenda, Leilão, Academia, Hall da Fama, Termas, Eventos/Calendário
-(além do gap de `weeklyinfo.xml` já documentado), Missões, Salas PvP (criar/entrar/batalha completa contra
-bot), configurações/rename — não verificadas nesta rodada por tempo. Ver relatório final da tarefa (resposta
-do agente) pra avaliação honesta do que falta e por quê.
+Igreja (Casamento), Fazenda, Leilão, Academia, Hall da Fama, Termas, Eventos/Calendário (além do gap de
+`weeklyinfo.xml` já documentado), Missões, Salas PvP (criar/entrar/batalha completa contra bot),
+configurações/rename, criação de sociedade — não verificadas nesta rodada por tempo. Ver relatório final da
+tarefa (resposta do agente) pra avaliação honesta do que falta e por quê.
