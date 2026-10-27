@@ -52,7 +52,9 @@ export const RESOURCES: Record<string, ResourceDef> = {
   "guild-tasks": { table: player.Consortia_Task_Info, pk: ["ID"], noCreate: true },
   "guild-levels": { table: player.Consortia_Level, pk: ["Level"] },
   // content
-  items: { table: game.Shop_Goods, pk: ["TemplateID"] },
+  // translatable here only drives the PATCH split (admin.ts splitTranslatable/writeTranslations) — the
+  // GET/list overlay for items goes through withItemOverlay (icon/inShop too), not withTranslationOverlay.
+  items: { table: game.Shop_Goods, pk: ["TemplateID"], translatable: { table: "Shop_Goods", cols: ["Name", "Description", "Remark"] } },
   shop: { table: game.Shop, pk: ["ID"] },
   "shop-show": { table: game.ShopGoodsShowList, pk: ["TempID"] },
   "item-box": { table: game.Shop_Goods_Box, pk: ["ID", "TemplateId"] },

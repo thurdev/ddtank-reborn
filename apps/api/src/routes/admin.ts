@@ -87,7 +87,11 @@ async function withItemOverlay(ctx: AppCtx, linhas: Row[]): Promise<Row[]> {
     : new Set<number>();
   return linhas.map((r) => {
     const tid = String(r.TemplateID);
+    // site-admin-redesign: "Original (VN)" reference for the admin UI, same contract as
+    // `lib/i18n-admin.ts`'s `<field>__original` for the other translatable resources — items just has its
+    // own overlay function (icon/inShop live here too) instead of going through `withTranslationOverlay`.
     const o = { ...applyTranslations(r, "TemplateID", overlay) } as Row;
+    for (const f of ["Name", "Description", "Remark"]) o[`${f}__original`] = r[f];
     (o as Row).iconUrl = `/api/admin/item-icons/${tid}.png`;
     (o as Row).inShop = emLoja.has(Number(r.TemplateID));
     return o;
