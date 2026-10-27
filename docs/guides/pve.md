@@ -57,6 +57,44 @@ rode o sweep de novo depois — ele deve sair da lista de quebrados.
 Um script de FASE ausente (não a linha `Mission_Info`) é um problema diferente e já tem fallback: "fase sem
 script → termina quando não houver NPC vivo" (seção 1 acima) — não trava, só não roda a lógica customizada.
 
+## 1.2 Carta de recompensa vira sem item (cadeia certa, mas a carta sai vazia)
+
+Tarefa `pve-cartas` (relato do dono, 2026-10-27): mesma masmorra da seção 1.1 (Bugo Castle / Gulu Kingdom,
+`Pve_Info` ID 1, Fácil) — agora que a fase 1073 (o Baron) é alcançada e as cartas animam certo (fix da
+`pve-cadeia`), a carta virada no fim **não tem item**. Fluxo de carta, rastreado 1:1: `PVEGame.TakeCard`
+(`Game.Logic/PVEGame.cs:2180-2251`) resolve o item via `DropInventory.CopyDrop(missionId, 1)`
+(`Game.Logic/DropInventory.cs:113-126`) → `DropMgr.FindCondiction(eDropType.Copy, missionId, "1")`
+(`Bussiness/Managers/DropMgr.cs:22-34`, `eDropType.Copy = 5`) — uma linha de `game."Drop_Condiction"` com
+`CondictionType = 5` cujo `Para1` (lista com vírgulas em volta de cada id, ex. `",1072,1073,"`) contém o id
+da missão. `packages/fight/src/pve/game.ts` (`takeCard()`) e `apps/game/src/db/templates.ts`
+(`pveDrop()`/`findDropCondition()`) portam isso 1:1 — não é bug de código.
+
+É lacuna de dado, mesma classe da seção 1.1: `game."Drop_Condiction"` `DropID` 50006 (pool de cartas do Gulu
+Kingdom Fácil) tinha `Para1 = ",1071,1072,"` — lista a missão 1071 (nem faz parte da cadeia
+`SetupMissions("1072,1073")` desta masmorra) e 1072, mas nunca 1073 (o Baron) — confirmado ausente até no
+dump bruto do banco doador (`vendor/_dbexport/Project_Game34/data/Drop_Condiction.json`), não um bug de
+import. Cada dificuldade-irmã lista TODAS as suas missões numa única linha: Normal (`DropID` 50007) =
+`",1171,1172,1173,"`, Difícil (50008) = `",1271,1272,1273,1274,"`, Terror (50009) =
+`",1371,1372,1373,1374,1375,"` — só a de Fácil (50006) estava faltando a última. Corrigido estendendo o
+`Para1` de 50006 pra `",1071,1072,1073,"` (`packages/db/drizzle/0028_pve_cartas_gulu_baron_card.sql`,
+idempotente, mesmo padrão de `0027_pve_cadeia_gulu_baron.sql`) + o seed gz
+(`packages/db/seed/game/Drop_Condiction.json.gz`); o pool de itens (`Drop_Item` do mesmo `DropID` 50006, 33
+entradas) não precisou mudar, só a lista de missões da condição.
+
+**Para diagnosticar outro caso assim:** `packages/fight/test/pve-cards-sweep.test.ts` varre toda missão com
+`Mission_Info.TakeCard > 0` usando os dados reais de `Drop_Condiction`/`Drop_Item` (não o stub constante
+`drops: { copyDrop: () => [{ templateId: 11020, count: 1 }] }` que outros testes de PvE usam pra outras
+asserções — um stub nunca reproduz uma lacuna de linha de drop) e reporta (via `console.log`, não falha o
+teste, exceto o guard de regressão da 1073) toda missão cujo pool de cartas resolve vazio. Na varredura de
+2026-10-27 (165 missões com `TakeCard > 0`), além da 1073 (corrigida), ficaram **30 sem fonte de carta**:
+`101–105`/`111–115`/`121–125` (telas de calibração "Đo màn hình/Góc/Siêu cao/Cao thấp" — possivelmente nunca
+tiveram carta mesmo no original, não confirmado), `600`/`700`/`800`/`900` (primeira fase de Vịnh Cariga /
+Lâu đài Dracula / Rừng rậm Gamazon / Hoang mạc Xatara), `1085–1089` (cadeia do tutorial/missão principal —
+*Tranh đoạt báu vật*, testada em `pve.test.ts` com o stub, por isso ninguém notou a carta vazia aí também),
+`3001`/`4001`/`4002`/`4003`/`12016`/`15002`. Pendente pro dono revisar e decidir se cada uma merece uma linha
+de `Drop_Condiction` nova (ou entrar na lista de uma dificuldade-irmã, como no caso da 1073) via admin
+(**Conteúdo → Drops**) quando quiser; rode o sweep de novo depois — a missão corrigida deve sair da lista.
+
 ## 2. Adicionar uma masmorra (Pve_Info)
 
 1. Admin → **Masmorras PvE** → *Novo*. Campos principais:
