@@ -357,6 +357,10 @@ export interface PlayerSpec {
    * Every item today (4.1 and 6600) has these at `0` — see `formulas.ts` `DamageTarget` for the formula. */
   magicAttack?: number;
   magicDefence?: number;
+  /** `Sys_Users_Detail.masterID` (`packages/db/src/schema/player.ts`, academy mentor/apprentice system,
+   *  `apps/game/src/handlers/academia/*`). 0 = no master. Read by PvE scripts that pair up a mentor dungeon's
+   *  two players (`PlayerDetail.PlayerCharacter.masterID`, e.g. GZS801/XDS901's `loadPlayers()`). */
+  masterId?: number;
   /** GamePlayer.GetBaseAttack() (+DameAddPlus) */
   baseAttack: number;
   /** GamePlayer.GetBaseDefence() (+GuardAddPlus) */

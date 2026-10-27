@@ -235,7 +235,7 @@ const P = Player.prototype;
 def(P, "PlayerDetail", function () {
   const s = this.spec;
   return {
-    PlayerCharacter: { ID: s.userId, NickName: s.nickname, Grade: this.grade, Attack: s.attack, Defence: s.defence, Agility: s.agility, Luck: s.lucky, Sex: true, ConsortiaID: 0 },
+    PlayerCharacter: { ID: s.userId, NickName: s.nickname, Grade: this.grade, Attack: s.attack, Defence: s.defence, Agility: s.agility, Luck: s.lucky, Sex: true, ConsortiaID: 0, masterID: s.masterId ?? 0 },
     SendMessage: () => {}, AddGP: () => 0, AddGold: () => {}, AddMoney: () => {}, IsViewer: false, ZoneId: 1, ZoneName: "",
     GetBaseAttack: () => s.baseAttack, GetBaseDefence: () => s.baseDefence, MainWeapon: { TemplateID: s.weapon.templateId },
   };

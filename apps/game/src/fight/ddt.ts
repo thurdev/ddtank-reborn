@@ -257,6 +257,11 @@ function specOf(m: LobbyLike, team: number, assets: FightAssets, petSkill?: DdtF
   return {
     userId: m.id, nickname: c.NickName ?? `p${m.id}`, team, grade: c.Grade, attack: c.Attack, defence: c.Defence, agility: c.Agility, lucky: c.Luck,
     baseAttack: Math.max(1, baseAttack), baseDefence, hp: Math.max(1, c.hp),
+    // Academy mentor dungeons (GZS801/XDS901/DTS701 -- Rừng rậm Gamazon/Hoang mạc Xatara/Lâu đài Daucula's
+    // opening mission) read PlayerDetail.PlayerCharacter.masterID to tell the apprentice from the master
+    // (task pve-batalha item 2); without it both players fall through to the same branch and the mission's
+    // own BoltMove() on the never-assigned apprentice/master crashes OnPrepareNewGame.
+    masterId: c.masterID ?? 0,
     guildBuffs: { attack: gb.attack, defence: gb.defence, agility: gb.agility, lucky: gb.lucky, maxBloodPercent: gb.maxBloodPercent, critical: gb.critical, damage: gb.damage, energy: gb.energy },
     // m3-figurino: GamePlayer.recalcStats already summed the equipped items (game/stats.ts); bots have no bags -> 0.
     magicAttack: m.magicAttack ?? 0, magicDefence: m.magicDefence ?? 0,

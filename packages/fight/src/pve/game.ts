@@ -105,6 +105,10 @@ export class PveGame extends BaseGame {
   TotalNpcExperience = 0;
   TotalNpcGrade = 0;
   IsWin = false;
+  /** Not read by the engine (see `checkStateNow`'s Playing/PrepareGameOver cases) -- `vendor/DDTank4.1`'s
+   *  PVEGame.cs has no such field; kept settable only so a handful of generated mission scripts (e.g.
+   *  TVH12001/TVN12001/TVT12001/TVH12003/TVN12003/TVT12003, transpiled against a later non-4.1 donor
+   *  source) that assign `Game.CanEndGame = true` keep compiling without touching generated/. */
   CanEndGame = false;
   CanEnterGate = false;
   CanShowBigBox = false;
@@ -239,17 +243,22 @@ export class PveGame extends BaseGame {
       case GameState.Playing:
         if ((this.currentLiving && this.currentLiving.isAttacking) || this.currentActionCount > 1) break;
         if (this.canGameOver()) {
-          if (this.currentActionCount <= 1) {
-            if (this.isCanPrepareGameOver()) this.prepareGameOver();
-            else this.gameOver();
-          }
+          // CheckPVEGameStateAction.cs:60-73 (vendor/DDTank4.1): PrepareGameOver only exists for the
+          // Labyrinth gate cutscene (IsLabyrinth() && CanEnterGate -> GameOverMovie()); every other room
+          // type goes straight to GameOver() once CurrentActionCount settles. The previous port invented a
+          // map-id allowlist (1166/1207/1209/1216) + a `CanEndGame` latch found only in a later/non-4.1
+          // donor source (ddt3.8's TVH12001.cs etc., not vendor/DDTank4.1) that no in-scope mission script
+          // on those exact 4.1 maps ever sets -- Warriors Arena's king chamber (map 1216, Pve 13 every
+          // difficulty) and Gulu Olympics' Normal boss stage (map 1166, Pve 6 Normal) parked in
+          // PrepareGameOver forever as a result (docs/qa/PVE-QA.md Pve 6/13).
+          if (this.isLabyrinth() && this.CanEnterGate) { this.gameOverMovie(); break; }
+          if (this.currentActionCount <= 1) this.gameOver();
         } else if (this.gameStateModify === GameState.Waiting) this.waitingGameState();
         else this.nextTurnPve();
         break;
       case GameState.Waiting: this.waitingGameState(); break;
       case GameState.PrepareGameOver:
-        if (this.CanEndGame) this.gameOver();
-        else this.prepareGameOver();
+        if (this.currentActionCount <= 1) this.gameOver();
         break;
       case GameState.GameOver:
         if (!this.hasNextSession()) this.gameOverAllSession();
@@ -451,16 +460,33 @@ export class PveGame extends BaseGame {
     this.state = GameState.PrepareGameOver;
     this.runScript("mission.OnPrepareGameOver", () => this.missionAI.OnPrepareGameOver());
   }
-  private isCanPrepareGameOver(): boolean {
-    const id = this.map.info.id;
-    return id === 1166 || id === 1207 || id === 1209 || id === 1216;
+  /** PVEGame.IsLabyrinth (PVEGame.cs:1076) */
+  private isLabyrinth(): boolean { return this.roomType === eRoomType.Labyrinth; }
+  /** PVEGame.GameOverMovie (PVEGame.cs:1178-1250, abridged): Labyrinth-only gate cutscene, not reachable by
+   *  any type 4/6/7 player dungeon in scope here (only `CanEnterGate` ever flips true, and only Labyrinth
+   *  mission scripts touch it) -- kept structurally faithful (state -> GameOver, OnGameOverMovie hook) so a
+   *  future Labyrinth task can fill in the distinct packet-112 send without re-deriving this call site. */
+  private gameOverMovie(): void {
+    if ((this.state as number) !== GameState.Playing) return;
+    this.clearWaitTimer();
+    this.clearDiedPve();
+    this.runScript("mission.OnGameOverMovie", () => this.missionAI.OnGameOverMovie());
+    this.gameOver();
   }
 
-  /** PVEGame.CanGameOver (PVEGame.cs:432) */
+  /** PVEGame.CanGameOver (PVEGame.cs:264-288): the missing `TurnIndex > TotalTurn - 1` branch let a mission
+   *  whose own CanGameOver() can never return true (e.g. WAS13004/WAN13104/WAH13204/WAT13304, Warriors
+   *  Arena's phase 4 -- `kill == Game.MissionInfo.TotalCount` with TotalCount=-1 in the donor DB dump itself,
+   *  vendor/_dbexport/Project_Game34/data/Mission_Info.json, so donor-faithful -- never ends) run forever
+   *  instead of timing out at the turn limit like the original engine (docs/qa/PVE-QA.md Pve 13 phase 4). */
   override canGameOver(): boolean {
     const fp = this.fightPlayers;
     if (fp.length === 0) return true;
-    if (fp.every((p) => !p.isLiving)) {
+    if (this.turnIndex > this.TotalTurn - 1) {
+      this.IsWin = false;
+      return true;
+    }
+    if (this.GetDiedPlayerCount() === fp.length) {
       this.IsWin = false;
       return true;
     }
@@ -575,7 +601,17 @@ export class PveGame extends BaseGame {
   }
 
   override enemiesOf(_bot: Living): Living[] {
-    return [...this.livings, ...this.turnQueue].filter((l) => l.isLiving && !(l instanceof Player) && l.config.CanTakeDamage && !l.config.IsHelper);
+    // `IsHelper` used to blanket-exclude these from the bot's target list. It's a reborn-only concept (no
+    // donor citation -- bots don't exist in vendor/DDTank4.1; the real client lets a player aim/shoot
+    // anything regardless of IsHelper, and the engine's only other read of it, `FindNearestHelper` (this
+    // file), is a script helper-lookup API, not a targeting restriction), and several missions deliberately
+    // summon the actual
+    // kill objective with IsHelper=true (e.g. BLTTT1123/BLTTK1123/BLTTAH1123's "Đậu thần" bean-god boss,
+    // Pve 3 Bộ lạc Tà thần; the analogous pattern in Pve 4/5/6's *1142/1166/OB*6*01 chains) -- excluding it
+    // left the bot with zero valid targets, an infinite stall indistinguishable from a real bug until
+    // traced (docs/qa/PVE-QA.md). `CanTakeDamage` alone still correctly excludes purely cosmetic props
+    // (e.g. TVH12001's ChickenHelp decoy, created with CanTakeDamage=false).
+    return [...this.livings, ...this.turnQueue].filter((l) => l.isLiving && !(l instanceof Player) && l.config.CanTakeDamage);
   }
   override bodiesFor(bot: Living): Living[] {
     return [...this.livings, ...this.turnQueue].filter((l) => l.isLiving && l !== bot);
@@ -1412,6 +1448,15 @@ export class PveGame extends BaseGame {
       if (v < d) { d = v; best = l; }
     }
     return best;
+  }
+  /** BaseGame.FindSingleSimpleBossID (not in vendor/DDTank4.1's BaseGame.cs, but the Academy mentor-dungeon
+   *  scripts that call it -- GZS801/XDS901, `Rừng rậm Gamazon`/`Hoang mạc Xatara` -- clearly need it; a later
+   *  donor source has the real body: vendor/_qa-feature-sources/ddt3.8/Game.Logic/BaseGame.cs:3263-3273,
+   *  first SimpleBoss in the turn queue whose NPC_Info.ID matches). Previously missing entirely, so any
+   *  CanGameOver() calling it threw and the mission never resolved (docs/qa/PVE-QA.md §1.3). */
+  FindSingleSimpleBossID(id: number): SimpleBoss | null {
+    for (const t of this.turnQueue) if (t instanceof SimpleBoss && t.npcInfo.ID === id) return t;
+    return null;
   }
   /** BaseGame.FindlivingbyDir (BaseGame.cs:949) */
   FindlivingbyDir(npc: Living): number {

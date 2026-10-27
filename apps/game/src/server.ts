@@ -247,7 +247,17 @@ export class GameServer {
               drop: (kind, id, user) => templates.pveDrop(kind, id, user),
               translate: (key, args) => lang.t(key, ...args),
               // Task 41-instancias: admin-config NPC HP/damage/defence/reward multipliers per dungeon+difficulty.
-              balance: (pveId, hardLevel) => templates.pveBalance(pveId, hardLevel),
+              balance: (pveId, hardLevel) => {
+                const b = templates.pveBalance(pveId, hardLevel);
+                // DEV_PVE_NPC_HP_MULT (dev-only, unset in prod): same idea as bots/view.ts's DEV_BOT_HP, but
+                // for PvE NPC blood -- reuses the existing admin PveBalance multiplier (`app."PveBalance"`,
+                // task 41-instancias) instead of a DB row, so it only ever affects THIS process (never the
+                // owner's server, never a real player) and needs no schema/migration. Lets a dev instance
+                // reach a PvE win/boss-card screen in a couple of shots instead of a full real fight (task
+                // pve-batalha item 4, REAL-CLIENT screenshot verification).
+                const devHp = process.env.NODE_ENV !== "production" && process.env.DEV_PVE_NPC_HP_MULT ? Number(process.env.DEV_PVE_NPC_HP_MULT) : undefined;
+                return devHp && Number.isFinite(devHp) && devHp > 0 ? { ...b, hp: devHp } : b;
+              },
             },
             botProfile: (b) => ({ difficulty: (b as VirtualPlayer & { difficulty?: number }).difficulty ?? 50 }),
           }));
