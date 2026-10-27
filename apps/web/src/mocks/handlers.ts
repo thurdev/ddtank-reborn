@@ -37,9 +37,9 @@ const charSlots = new Map<string, CharacterSlot[]>([
         colors: ",,,,,,,,,",
         skin: "",
         equip: [
-          { place: 6, categoryId: 7, strengthenLevel: 9, isGold: false, iconRel: "image/arm/mockarm/1/icon.png" },
-          { place: 2, categoryId: 3, strengthenLevel: 0, isGold: false, iconRel: "image/equip/m/hair/mockhair/icon_1.png" },
-          { place: 4, categoryId: 5, strengthenLevel: 0, isGold: false, iconRel: "image/equip/m/cloth/mockcloth/icon_1.png" },
+          { place: 6, categoryId: 7, strengthenLevel: 9, isGold: false, iconRel: "image/arm/mockarm/1/icon.png", templateId: 70001, pic: "mockarm", needSex: 1, property1: 0, property8: 0, level: 1 },
+          { place: 2, categoryId: 3, strengthenLevel: 0, isGold: false, iconRel: "image/equip/m/hair/mockhair/icon_1.png", templateId: 20001, pic: "mockhair", needSex: 1, property1: 0, property8: 0, level: 1 },
+          { place: 4, categoryId: 5, strengthenLevel: 0, isGold: false, iconRel: "image/equip/m/cloth/mockcloth/icon_1.png", templateId: 40001, pic: "mockcloth", needSex: 1, property1: 2, property8: 0, level: 1 },
         ],
       },
     ],
@@ -69,7 +69,11 @@ export const handlers = [
         swfUrl: "/client/Loading.swf",
         flashvars: { user: mockUser, key: "mock-session-key", config: "/client/config.xml" },
         socketProxy: [{ host: "127.0.0.1", port: 9200, proxyUrl: "ws://localhost:8080/ws/game" }],
-        resourceUrl: "/resource/",
+        // task multi-char: real local-dev defaults (not mocked) so the character carousel's AvatarFrame
+        // can actually boot apps/client's avatar.html against a real running apps/api in VITE_USE_MOCKS
+        // dev sessions — same ports apps/api/src/config.ts defaults to in development.
+        resourceUrl: "http://localhost:8080/resource/",
+        pixiUrl: "http://localhost:5180/",
       },
     };
     return HttpResponse.json(body);

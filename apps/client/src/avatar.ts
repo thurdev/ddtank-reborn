@@ -7,20 +7,22 @@
  *
  * Query params (built from the same shape `GET /api/me/characters` returns — see
  * apps/api/src/routes/auth.ts `characterCard`): `nickname`, `sex` ("1"/"0"), `grade`, `style`, `colors`,
- * `skin`, `typeVip`, `vipLevel`, `consortiaName`, `dutyName` (shown as "title"), `nimbus`. Optional `api`
- * (origin of apps/api; required when this page is served from a different origin than the API — the full
- * client's `main.ts` has the same `?api=` convention). `reducedMotion=1` stops the idle MovieClip
- * animations (wing flap / strengthen aura) for `prefers-reduced-motion`.
+ * `skin`, `typeVip`, `vipLevel`, `consortiaName`, `dutyName` (shown as "title"), `nimbus`, `weaponId`,
+ * `equip` (JSON array of `[templateId,categoryId,needSex,property1,level]` tuples — see
+ * `buildItemManager` below for why). Optional `api` (origin of apps/api; required when this page is served
+ * from a different origin than the API — the full client's `main.ts` has the same `?api=` convention).
+ * `reducedMotion=1` stops the idle MovieClip animations (wing flap / strengthen aura) for
+ * `prefers-reduced-motion`.
  *
  * Posts `{ type: "ddt-avatar-ready" }` to `window.parent` once the character's own asset loading finished
- * (`ShowCharacter.completed`) or after an 8s safety timeout (a single missing/placeholder equip icon must
+ * (`ShowCharacter.completed`) or after a safety timeout (a single missing/placeholder equip icon must
  * never hang the carousel forever — `BaseCharacterLoader`/`ShowCharacterLoader` already tolerate individual
  * load failures the same way the full client does).
  */
 import { $as, $class, $toXML } from "@ddt/flash/as3";
 import { XML } from "@ddt/flash/as3";
 import { MovieClip } from "@ddt/flash/display/MovieClip";
-import { Event } from "@ddt/flash/events/Event";
+import { Point } from "@ddt/flash/geom/Point";
 import { LoaderInfo } from "@ddt/flash/display/LoaderInfo";
 import { startPlayer } from "@ddt/flash/player";
 import { setResponseFilter, setUrlRewriter } from "@ddt/flash/net/http";
@@ -31,11 +33,11 @@ import "./game/all";
 import { Dictionary } from "@ddt/flash/utils/Dictionary";
 import { ConfigParaser } from "./game/ddt/data/ConfigParaser";
 import { LanguageMgr } from "./game/ddt/manager/LanguageMgr";
+import { ItemManager } from "./game/ddt/manager/ItemManager";
+import { ItemTemplateInfo } from "./game/ddt/data/goods/ItemTemplateInfo";
 import { PlayerInfo } from "./game/ddt/data/player/PlayerInfo";
 import { CharactoryFactory } from "./game/ddt/view/character/CharactoryFactory";
 import { ShowCharacter } from "./game/ddt/view/character/ShowCharacter";
-import { StartupResourceLoader } from "./game/ddt/loader/StartupResourceLoader";
-import { QueueLoader } from "./game/com/pickgliss/loader/QueueLoader";
 
 /** `PlayerInfo.parseStyle`/`parseColos` (apps/client/src/game/ddt/data/player/PlayerInfo.ts) index straight
  *  into the comma-split array up to position 17 (`EquipType.CategeryIdToPlace(EquipType.BADGE)` → `[17]`)
@@ -57,19 +59,63 @@ const API = (q.get("api") ?? `${location.protocol}//${location.hostname}:8080`).
 const W = 320;
 const H = 440;
 
-/** Runs `StartupResourceLoader`'s item/category loaders (the only two pieces of reference data
- *  `BaseCharacterLoader`/`ShowCharacterLoader` read via `ItemManager.Instance.getTemplateById` while
- *  building each equip layer — without them `ItemManager`'s template dictionary is empty and
- *  `PlayerInfo.getSuitsType()` throws) without the other ~40 loaders the full queue runs (quests, pets,
- *  farm, VIP settings, ...) that this preview never touches. */
-function loadItemTemplates(): Promise<void> {
-  return new Promise((resolve) => {
-    const queue = new QueueLoader();
-    queue.addEventListener(Event.COMPLETE, () => resolve());
-    queue.addLoader(StartupResourceLoader.Instance.creatItemTempleteLoader());
-    queue.addLoader(StartupResourceLoader.Instance.creatGoodCategoryLoader());
-    queue.start();
-  });
+/**
+ * `ItemManager.Instance.getTemplateById` is consulted by `BaseCharacterLoader`/`ShowCharacterLoader` for
+ * every equipped slot while building each layer, and by `PlayerInfo.getSuitsType`/`getHairType`. The full
+ * client populates it via `StartupResourceLoader.creatItemTempleteLoader()`
+ * (`TemplateAllList.xml`, ~7650 items) — fetched AND parsed through `ItemTempleteAnalyzer`, which
+ * deliberately throttles itself to 40 items per 30ms `Timer` tick (so the original Flash player's frame
+ * rate doesn't drop while the rest of the game's startup runs in the background). That throttle alone is
+ * ~5.7s of dead time for a page that only ever needs the handful of items ONE character has equipped.
+ *
+ * Builds the SAME kind of dictionary (`TemplateID -> ItemTemplateInfo`) directly from the `equip` query
+ * param instead — `apps/api/src/routes/auth.ts` `equippedIcons` already returns
+ * `templateId`/`pic`/`categoryId`/`needSex`/`property1`/`property8`/`level` per equipped item for exactly
+ * this (confirmed by grepping every `ItemTemplateInfo` field `BaseLayer`/`ShowLayer`/`BaseWingLayer`/
+ * `PlayerInfo` actually read — `Property8`, a per-layer bitmap index string `BaseLayer.initLoaders` walks
+ * character by character, is needed by EVERY layer, not just special cases). Everything else on
+ * `ItemTemplateInfo` stays at its default.
+ *
+ * `PlayerInfo.parseStyle` also looks up a handful of well-known DEFAULT template ids on its own — e.g.
+ * `replaceTID(_loc1_[8], "15001")` (the default wing) whenever the wing slot is empty, same for a default
+ * suit/chatBall/per-slot fallback — regardless of whether this character actually has one equipped, so a
+ * minimal dictionary built only from the equipped items isn't quite enough. A real `DictionaryData` would
+ * throw on a miss (`.Pic` of `undefined`, the actual bug this plain-object fallback fixes); this one hands
+ * back an empty-but-safe template instead — `ItemManager.getTemplateById`/`DictionaryData.get` are
+ * duck-typed call sites, so a plain object with a compatible `.get()` works without needing to patch the
+ * generated `ItemManager`/`DictionaryData` classes themselves.
+ */
+function buildItemManager(equipJson: string | null): void {
+  const map = new Map<number, ItemTemplateInfo>();
+  let rows: [number, number, number, number, number, string, number][] = [];
+  try {
+    rows = equipJson ? JSON.parse(equipJson) : [];
+  } catch {
+    rows = [];
+  }
+  for (const [templateId, categoryId, needSex, property1, level, pic, property8] of rows) {
+    const info = new ItemTemplateInfo();
+    info.TemplateID = templateId;
+    info.CategoryID = categoryId;
+    info.NeedSex = needSex;
+    info.Property1 = String(property1);
+    info.Property8 = String(property8 ?? "");
+    info.Level = level;
+    info.Pic = pic ?? "";
+    map.set(templateId, info);
+  }
+  const empty = new ItemTemplateInfo();
+  empty.TemplateID = 0;
+  empty.CategoryID = 0;
+  empty.Pic = "";
+  empty.Property1 = "0";
+  empty.Property8 = "";
+  empty.Level = 1;
+  empty.NeedSex = 0;
+  const list = { get: (id: number) => map.get(id) ?? empty };
+  // Duck-typed: ItemManager.setupGoodsTemplates only ever reads `param1.list` (see its real signature,
+  // `(param1: ItemTempleteAnalyzer)`) — a real analyzer instance isn't needed, just that one property.
+  ItemManager.Instance.setupGoodsTemplates({ list } as unknown as Parameters<typeof ItemManager.prototype.setupGoodsTemplates>[0]);
 }
 
 function postReady(): void {
@@ -82,35 +128,39 @@ function postReady(): void {
 
 async function boot(): Promise<void> {
   const container = document.getElementById("avatar")!;
-  const stage = await startPlayer({ container, width: W, height: H, frameRate: 25, backgroundAlpha: 0 });
-
   const user = q.get("nickname") || "preview";
+
+  setAssetBase(`${import.meta.env.BASE_URL}assets/`);
+  registerVirtualSwf("flash/2");
+  setUrlRewriter((url) => (/^[a-z]+:\/\//i.test(url) ? url : `${API}/flash/${url.replace(/^\/+/, "")}`));
+  setResponseFilter((url, bytes) => (/\/md5\.xml/i.test(url) ? new TextEncoder().encode("<Result/>") : bytes));
+
+  // The 3 independent network/init steps (PixiJS stage, asset index, config.xml) run concurrently instead
+  // of one after another — none of them depends on another's result.
+  const [stage, , configXml] = await Promise.all([
+    startPlayer({ container, width: W, height: H, frameRate: 25, backgroundAlpha: 0 }),
+    loadAssetIndex(),
+    fetch(`${API}/flash/config.xml`).then((r) => r.text()),
+  ]);
+
   const info = new LoaderInfo(null);
   info.$url = `${API}/flash/Loading.swf`;
   info.$loaderURL = info.$url;
   info.$parameters = { user, key: "", config: `${API}/flash/config.xml`, rid: "", site: "", enterCode: "" };
   stage.$loaderInfo = info;
 
-  setAssetBase(`${import.meta.env.BASE_URL}assets/`);
-  await loadAssetIndex();
-  registerVirtualSwf("flash/2");
-  setUrlRewriter((url) => (/^[a-z]+:\/\//i.test(url) ? url : `${API}/flash/${url.replace(/^\/+/, "")}`));
-  setResponseFilter((url, bytes) => (/\/md5\.xml/i.test(url) ? new TextEncoder().encode("<Result/>") : bytes));
-
   // Same `ConfigParaser.paras(xml, loaderInfo, user)` the real `DDT.lunch()` calls after reading
   // config.xml — sets up `PathManager` (SITE/REQUEST_PATH/FLASHSITE), which every equip/show asset path
-  // below is resolved against (`PathManager.solveGoodsPath`/`solveRequestPath`).
-  // config.xml is `<root><config>...</config></root>` — ConfigParaser.paras expects the <config> node
-  // itself (same as the real client's config loader hands it), not the <root> wrapper.
-  const configXml = await (await fetch(`${API}/flash/config.xml`)).text();
+  // below is resolved against (`PathManager.solveGoodsPath`/`solveRequestPath`). config.xml is
+  // `<root><config>...</config></root>` — ConfigParaser.paras expects the <config> node itself (same as
+  // the real client's config loader hands it), not the <root> wrapper.
   ConfigParaser.paras($toXML(new XML(configXml).child("config")), stage.$loaderInfo, user);
-  // LanguageMgr normally loads a full translation XML via StartupResourceLoader's own queue
-  // (creatLanguageLoader, skipped here — this preview never shows any UI text/error message); an empty
-  // dictionary is enough so `LanguageMgr.GetTranslation` (called unconditionally by every `BaseLoader` to
-  // build its `loadErrorMessage`, not just on an actual error) doesn't throw on a null dictionary.
+  // LanguageMgr normally loads a full translation XML via StartupResourceLoader's own queue (skipped here
+  // — this preview never shows any UI text/error message); an empty dictionary is enough so
+  // `LanguageMgr.GetTranslation` (called unconditionally by every `BaseLoader` to build its
+  // `loadErrorMessage`, not just on an actual error) doesn't throw on a null dictionary.
   LanguageMgr._dic ??= new Dictionary();
-
-  await loadItemTemplates();
+  buildItemManager(q.get("equip"));
 
   // `ShowCharacter`'s constructor creates a "loading" background placeholder from the core UI SWF pack
   // (`ComponentFactory.Instance.creat("asset.core.character.FigureBgAsset")`, `ui/vietnam/swf/core/`) —
@@ -129,6 +179,12 @@ async function boot(): Promise<void> {
   const character = $as(CharactoryFactory.createCharacter(info2, CharactoryFactory.SHOW), ShowCharacter);
   character.x = (W - ShowCharacter.BIG_WIDTH) / 2;
   character.y = H - ShowCharacter.BIG_HEIGHT - 40; // headroom for wings/aura rings above the body itself
+  // `callBack01`/`callBack02` (ShowCharacter.ts) place the strengthen/gilded aura rings at a FIXED
+  // "_lightPos + (47,65)" / "_lightPos + (45,126)" offset from the character's own (0,0) — calibrated by
+  // the original game for however its caller's `setShowLight` positions it, never just the bare (0,0)
+  // default (every real screen that shows the light explicitly repositions it for its own layout). Nudges
+  // it to sit roughly centered behind this 250×342 body instead of hugging its top-left corner.
+  character.setShowLight(true, new Point(50, 70));
   stage.addChild(character);
 
   if (q.get("reducedMotion") === "1") character.stopAnimation();
@@ -144,8 +200,18 @@ async function boot(): Promise<void> {
   info2.Grade = Number(q.get("grade") ?? 1);
   info2.Nimbus = Number(q.get("nimbus") ?? 0);
   info2.Skin = q.get("skin") && q.get("skin") !== "undefined" ? q.get("skin")! : "";
+  const styleField = padFields(q.get("style"));
   info2.Colors = padFields(q.get("colors"));
-  info2.Style = padFields(q.get("style"));
+  info2.Style = styleField;
+  // `ShowCharacterLoader.drawCharacter` only composites the weapon layer into the final bitmap when
+  // `info.WeaponID` is a real id (`!= 0 && != -1`) — Style[6] ("<id>|<pic>", the ARM/weapon slot, see
+  // `apps/game/src/game/stats.ts` `styleFromEquip`'s header) carries the id but nothing ever copied it
+  // into `WeaponID` for this preview, so the weapon layer was built and then silently dropped. Reads
+  // `styleField` (the plain string we just assigned), NOT `info2.Style` — that getter returns
+  // `_modifyStyle`, which `parseStyle()` only computes once `commitChanges()` flushes this batch, so
+  // reading it here (still inside `beginChanges()`) would see last run's value (null, the first time).
+  const weaponId = Number(styleField.split(",")[6]?.split("|")[0] ?? 0);
+  if (Number.isFinite(weaponId)) info2.WeaponID = weaponId;
   info2.commitChanges();
 
   dlog("info", `avatar: nickname=${info2.NickName || "(vazio)"} style=${info2.Style}`);
@@ -154,7 +220,7 @@ async function boot(): Promise<void> {
   const waitLoaded = () =>
     new Promise<void>((resolve) => {
       const tick = () => {
-        if (character.completed || Date.now() - start > 8000) resolve();
+        if (character.completed || Date.now() - start > 6000) resolve();
         else requestAnimationFrame(tick);
       };
       tick();

@@ -23,7 +23,9 @@ function mockChannels(channels: Channel[]) {
 async function confirmCharacter() {
   const confirm = await screen.findByRole("button", { name: "Entrar com este personagem" });
   fireEvent.click(confirm);
-  await waitFor(() => expect(screen.queryByText("Escolha seu personagem")).not.toBeInTheDocument());
+  // Default RTL waitFor timeout (1000ms) can be tight when this file shares a vitest worker with other
+  // Play*.test.tsx files (`isolate: false`, more queued async work) — same assertion, more headroom.
+  await waitFor(() => expect(screen.queryByText("Escolha seu personagem")).not.toBeInTheDocument(), { timeout: 5000 });
 }
 
 /** Pixi path (no Ruffle script loading needed in jsdom) so `GameFrame` just renders an iframe we can inspect. */

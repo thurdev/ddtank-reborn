@@ -118,6 +118,14 @@ export interface EquippedIcon {
   isGold: boolean;
   /** Relative to `resourceUrl` (e.g. "image/equip/m/cloth/123/icon_1.png"). */
   iconRel: string;
+  /** `apps/client/src/avatar.ts` uses these to build a minimal `ItemManager` template dictionary for just
+   *  this character's equipped items, instead of the full (throttled, ~5.7s) item-template load. */
+  templateId: number;
+  pic: string;
+  needSex: number;
+  property1: number;
+  property8: number;
+  level: number;
 }
 
 /** A character that finished the client's own nickname/sex "Novato" flow. */
