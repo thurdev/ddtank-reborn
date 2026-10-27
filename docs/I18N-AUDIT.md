@@ -197,6 +197,14 @@ e teste `packages/fight/test/pve-i18n.test.ts` que roda o mesmo script em CI. Re
   (chinês, dungeon "Redemoinho do Tempo") citado na rodada 1 não foi localizado nas varreduras estáticas atuais
   — reconferir visualmente no próximo tour (pode já ter sido corrigido num remaster posterior, ou estar num
   asset ainda não catalogado).
+
+**Atualização 2026-10-27 (`pixi-load`)**: conferência direta dos PNGs exportados mostra que
+`72_...DungeonListBG.jpg`, `44_...map_PVE.png`, `58_...hardLevel_PVE.png`, `20_...pre_PVE.png`,
+`63_...dungeonChoose.boss.png` e `387_...dungeonExploration.png` desta lista **já foram traduzidos**
+num remaster posterior (`remaster/approved.json` tem job aprovado pra cada um) — esta lista está
+desatualizada pra eles. **Só `21_asset.DungeonList.boss.png` ("Đánh Boss") e
+`73_asset.DungeonList.dungeon.png` ("Phó bản") continuam pendentes** (sem job em `approved.json`) —
+ver `docs/client-pixi/STATUS.md` sessão 2026-10-27.
 - Verificação: `node tools/qa/pve-i18n-scan.mjs` → 0 achados; teste `packages/fight/test/pve-i18n.test.ts`
   roda o mesmo script. `tsc --noEmit` limpo em `@ddt/db`, `@ddt/api`, `@ddt/game`, `@ddt/fight`. Testes:
   `@ddt/fight` 202/202, `@ddt/api` 117/117, `@ddt/db` 8/8, e os testes PvE de `@ddt/game`
