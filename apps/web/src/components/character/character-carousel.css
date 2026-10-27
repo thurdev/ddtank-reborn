@@ -35,6 +35,39 @@
   perspective: 1200px;
 }
 
+/* task multi-char (round 2): one real PixiJS stage draws every character + nameplate + the "create"
+   silhouette — the game's own choicefigure (character-select) backdrop art sits behind it (coordinator ask:
+   "use real exported game art as the backdrop"), framed instead of floating on the bare page background. */
+.character-carousel-stage--pixi {
+  height: 32rem;
+  max-width: 56rem;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background-color: #060a16;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 20px 60px color-mix(in srgb, black 55%, transparent), inset 0 0 0 1px color-mix(in srgb, var(--line, #30364a) 60%, transparent);
+}
+
+.avatar-stage__iframe {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color-scheme: normal;
+  pointer-events: none;
+}
+
+/* In pixi mode the `.character-card`s render no visual content (see CharacterCarousel.tsx) — only the
+   click/keyboard/ARIA hit target survives, stacked above the iframe (which is itself pointer-events: none)
+   so clicking "where a character looks like it is" still focuses/confirms that card. */
+.character-carousel-stage--pixi .character-card {
+  z-index: 2;
+}
+
 .character-card {
   position: absolute;
   top: 0;

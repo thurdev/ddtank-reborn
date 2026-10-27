@@ -20,7 +20,7 @@ const AURA_TIER_COLOR: Record<number, number> = {
 
 /**
  * task multi-char: FALLBACK render for the focused carousel card, used only when the server has no PixiJS
- * client configured (`GameConfig.pixiUrl` empty — see `CharacterCarousel`/`AvatarFrame`, which renders the
+ * client configured (`GameConfig.pixiUrl` empty — see `CharacterCarousel`/`AvatarStage`, which renders the
  * REAL `ShowCharacter` via `apps/client/avatar.html` whenever one is). Equipped-item icons layered as
  * sprites (z-order by `categoryId`, same order `apps/api/src/lib/item-icon.ts` `TYPES` walks through
  * head→glass→hair→eff→cloth→face→arm→...→wing), a soft aura glow sized off the strengthen/gilded tier

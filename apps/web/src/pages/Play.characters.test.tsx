@@ -47,12 +47,16 @@ describe("PlayPage character carousel", () => {
     await renderAt("/play");
 
     expect(await screen.findByText("Escolha seu personagem")).toBeInTheDocument();
+    // Nickname and the "create" card's label still reach the DOM as `sr-only` text (role=option hit boxes
+    // carry no other visible content once a real AvatarStage iframe is drawing everyone — see
+    // CharacterCarousel.tsx) — canCreate: true -> a trailing "create" card is offered.
     expect(screen.getByText("Canhoneiro")).toBeInTheDocument();
-    expect(screen.getByText((_, el) => el?.textContent?.replace(/\s+/g, " ").trim() === "VIP 2")).toBeInTheDocument();
-    expect(screen.getByText("Nv. 34")).toBeInTheDocument();
-    expect(screen.getByText("Artilharia BR")).toBeInTheDocument();
-    // canCreate: true -> a trailing "create" card is offered
     expect(screen.getByText("Novo personagem")).toBeInTheDocument();
+    // VIP/level/guild are drawn INSIDE the Pixi nameplate now (coordinator ask, round 2), not as DOM text —
+    // assert them off the single AvatarStage iframe's `chars` payload instead.
+    const iframe = document.querySelector(".avatar-stage__iframe") as HTMLIFrameElement;
+    const chars = JSON.parse(new URL(iframe.src).searchParams.get("chars") ?? "[]");
+    expect(chars[0]).toMatchObject({ nickname: "Canhoneiro", grade: "34", vipLevel: "2", consortiaName: "Artilharia BR" });
   });
 
   test("a fresh account (single not-yet-created slot) skips the carousel entirely", async () => {
@@ -95,7 +99,7 @@ describe("PlayPage character carousel", () => {
     expect(posts).toBe(0);
   });
 
-  test("renders the real character (AvatarFrame iframe) when the server has a PixiJS client configured", async () => {
+  test("renders the real character (single AvatarStage iframe, every card) when the server has a PixiJS client configured", async () => {
     mockCharacters({ characters: [CREATED], maxCharacters: 3, canCreate: true });
     server.use(
       http.get("/api/public/config", () => {
@@ -117,14 +121,22 @@ describe("PlayPage character carousel", () => {
     await renderAt("/play");
 
     await screen.findByText("Canhoneiro");
-    const iframe = document.querySelector(".avatar-frame__iframe") as HTMLIFrameElement;
+    // task multi-char (round 2): ONE stage for the whole carousel (not one iframe per card) — the roster
+    // (both cards: the real character + the trailing "create" slot) travels in `chars`, not per-card query
+    // params; which one is centered is pure `postMessage`, never part of the iframe `src`.
+    const iframe = document.querySelector(".avatar-stage__iframe") as HTMLIFrameElement;
     expect(iframe).toBeTruthy();
+    expect(document.querySelectorAll(".avatar-stage__iframe")).toHaveLength(1);
     const src = new URL(iframe.src);
     expect(src.origin + src.pathname).toBe("http://localhost:5180/avatar.html");
-    expect(src.searchParams.get("nickname")).toBe("Canhoneiro");
-    expect(src.searchParams.get("style")).toBe(CREATED.style);
-    expect(src.searchParams.get("sex")).toBe("1");
     expect(src.searchParams.get("api")).toBe("http://localhost:8080");
+    const chars = JSON.parse(src.searchParams.get("chars") ?? "[]");
+    expect(chars).toHaveLength(2); // the one real character + the trailing "create" slot
+    expect(chars[0].kind).toBe("character");
+    expect(chars[0].nickname).toBe("Canhoneiro");
+    expect(chars[0].style).toBe(CREATED.style);
+    expect(chars[0].sex).toBe("1");
+    expect(chars[1].kind).toBe("create");
     // falls back to the icon-stack renderer, never both at once
     expect(document.querySelector(".character-stage")).toBeNull();
   });
