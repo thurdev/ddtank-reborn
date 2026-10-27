@@ -170,10 +170,13 @@ export async function publicRoutes(f: FastifyInstance, ctx: AppCtx) {
   f.get("/api/public/config", async (req) => {
     const c = authOf(ctx, req);
     const acc = c ? await findAccount(ctx.h, c.name) : undefined;
+    // task multi-char: ?slot= escolhe qual personagem da conta o ticket abre (default 1); a página Jogar só
+    // manda um slot depois que o carrossel de personagens resolveu qual foi escolhido.
+    const query = req.query as { client?: string; slot?: string };
     return {
       serverName: ctx.cfg.SERVER_NAME,
       launcherUrl: ctx.cfg.LAUNCHER_DOWNLOAD_URL || null,
-      game: await playConfig(ctx, acc && !acc.IsBanned ? acc : null, req.ip, (req.query as { client?: string }).client),
+      game: await playConfig(ctx, acc && !acc.IsBanned ? acc : null, req.ip, query.client, query.slot ? Number(query.slot) : undefined),
     };
   });
 

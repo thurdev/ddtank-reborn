@@ -181,6 +181,10 @@ export function serverConfigDefaults(ctx: AppCtx): Row {
     maintenance: false,
     maintenanceMessage: "",
     motd: "",
+    /** task multi-char: max characters (slots) an account may create, enforced server-side in
+     *  apps/api/src/routes/auth.ts `charLimit` (never just a client-side UI check) — never sold, see
+     *  AGENTS.md "No pay-to-win". Admin-editable range [1, 10]. */
+    maxCharactersPerAccount: 3,
     /** Elevation angles (degrees) for the Play page's "Âng. N: Distância | Força" reference tables, computed by
      *  GET /api/public/aim-tables (`@ddt/fight` `computeAimTable`, same physics as the server). */
     aimAngles: ["20", "30", "50", "65"],
