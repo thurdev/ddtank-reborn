@@ -53,6 +53,50 @@ admin (que já usa a arte exportada verdadeira) comparado com os PNGs reais isol
 cliente jogável renderizando aquela janela específica — ver `docs/plan/redesign-shots/<janela>/` e o relatório
 final pra o que está (não) verificado dessa forma.
 
+## 0.2 Rodada 3 — zoom-to-fit + auditoria com Playwright próprio (1440/390)
+
+Dono verificou Missões pessoalmente (aprovado), mergeou pro `main` com um fix de segurança próprio em
+`/client-assets` (path traversal check), e pediu pra esta sessão: mergear `main` de volta, consertar o bug de
+fit do preview de Missões, auditar os 4 editores restantes com screenshots, e começar a fase 3 (site) — tudo
+verificado com **Playwright próprio** (`chromium.launch()`, `browser.newContext()` isolado — nunca a ferramenta
+MCP, que controla o navegador real do dono via CDP) em 1440px e 390px.
+
+**Bug 1 (zoom fixo 85%, cortava a janela)**: `apps/admin/src/pages/Quests.tsx` tinha `useZoom(initial=0.85)` —
+zoom fixo, sem relação com a largura real do painel. Corrigido com um hook compartilhado,
+`apps/admin/src/lib/useZoomToFit.tsx` (`ResizeObserver` no painel scrollável, ajusta `zoom` pra caber a largura
+real do conteúdo — 560px pro preview de missão — a cada resize, até o admin usar +/- manualmente; um botão
+"ajustar" volta a auto-ajustar). Só o editor de Missões tinha esse problema: Instâncias/Itens/Eventos/NPCs
+renderizam o preview em layout fluido (`flex-wrap`/`minmax(0,1fr)`, sem largura fixa em px), então não têm
+conteúdo "mais largo que o painel" pra começar — confirmado via screenshot nos 4, nenhum precisou de zoom.
+
+**Bug 2 (achado só testando em 390px, não reportado pelo dono)**: mesmo depois do fix do zoom, a 390px a
+PÁGINA INTEIRA ficava mais larga que o viewport (confirmado via `document.documentElement.scrollWidth` =
+610 em vez de 390). Causa: `QuestPreview` é um item de grid (`QuestEditor`'s `lg:grid-cols-[minmax(0,1fr)_380px]`)
+— o `minmax(0, …)` só existe no breakpoint `lg`; abaixo dele o grid implícito de 1 coluna deixa cada item no
+`min-width: auto` padrão do CSS Grid, então o conteúdo fixo de 560px da preview esticava a COLUNA do grid (e a
+página toda), em vez de deixar `useZoomToFit` encolher o próprio preview. `useZoomToFit` só funciona se o
+painel puder MESMO ficar mais estreito que o conteúdo — senão ele "ajusta" pra ~100% porque mede a si mesmo já
+esticado. Corrigido com `min-w-0` na raiz do `QuestPreview` (não depende de breakpoint). Verificado:
+`document.documentElement.scrollWidth` = viewport width exato em 1440 e 390 depois do fix.
+
+**Achado não-bug**: nos previews de Itens/NPCs os rótulos de atributo (`GoodsTipItemHert`/`GoodsLevel`/
+`asset.core.tip.hp`, bitmaps reais de ~11-18px de altura) pareciam "quebrados"/ilegíveis nos screenshots de
+página inteira (que o viewer mostra reduzidos) — na verdade é arte real legítima (confirmado lendo os PNGs em
+tamanho nativo e via screenshot com `deviceScaleFactor: 4`): texto branco com contorno preto + uma linha-guia
+clareando até o valor (ex. "Dano_______10"), exatamente o padrão de tooltip do jogo original. Não mexi.
+
+**Fix cosmético fora do escopo dos 5 editores, mas no mesmo painel "Visual"**: `ItemIconGenerator.tsx` (gerador
+de ícone por IA, Recraft — feature separada, não um dos 5 editores) tinha um placeholder de 4 linhas num
+`<textarea rows={2}>`, cortando o texto. `rows={2}` → `rows={4}`.
+
+Screenshots desta rodada em `docs/plan/redesign-shots/<janela>/` (sufixo `-1440`/`-390`; `*-closeup*`/`*-4x*` =
+crops em alta resolução pra inspecionar bitmaps pequenos; ver relatório final da sessão pra lista completa).
+
+Observação registrada, não corrigida (fora do pedido desta rodada): o SHELL do admin (sidebar/nav) não é
+responsivo — não testei se isso é meu ou pré-existente, e os 390px pedidos pelo dono foram só pros 5 editores,
+não pro admin inteiro; o requisito de 390px da fase 3 (site) é explicitamente só pro site `apps/web`, não pro
+admin interno.
+
 ## 0. Direção de design (já existente, estendida — não é um redesign do zero)
 
 O design system "night sky artillery" (`packages/ui/src/styles.css`) já está certo pro pedido do dono e

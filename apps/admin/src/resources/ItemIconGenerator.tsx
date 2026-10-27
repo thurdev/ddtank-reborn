@@ -71,7 +71,7 @@ export function ItemIconGenerator({ templateId, iconUrlAtual }: { templateId: nu
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             placeholder="Prompt personalizado (opcional) — em branco usa nome/categoria/descrição do item"
-            rows={2}
+            rows={4}
             disabled={busy}
           />
           {rascunho && <p className="mt-1 line-clamp-2 font-mono text-xs text-muted" title={rascunho.prompt}>{rascunho.prompt}</p>}

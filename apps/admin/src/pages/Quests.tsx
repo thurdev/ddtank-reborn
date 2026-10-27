@@ -42,11 +42,12 @@ import {
   TabsTrigger,
   cn,
 } from "@ddtank/ui";
-import { Minus, MapPin, Plus, Save, ScrollText, Search } from "lucide-react";
+import { MapPin, Save, ScrollText, Search } from "lucide-react";
 import { useI18n, useText } from "@/i18n";
 import { getQuery, listQuery, useResourceMutations } from "@/crud/api";
 import { FieldInput } from "@/crud/FieldInput";
 import { FlashImg, useFlashLibrary, resolveFlashAsset } from "@/lib/flashAssets";
+import { useZoomToFit } from "@/lib/useZoomToFit";
 import { ResourcePage } from "@/crud/ResourcePage";
 import { buildSchema, fieldInForm, fromFormValues, toFormValues } from "@/crud/schema";
 import type { FieldDef, Row } from "@/crud/types";
@@ -146,28 +147,6 @@ function GoodsChip({ row, onFocus, active }: { row: Row; onFocus: () => void; ac
   );
 }
 
-/** Zoom controls (the owner asked for "1:1 scale (with zoom)", not a shrink-to-fit card): the preview below
- *  renders at the window's real content width (560px, from `QuestRewardCell`'s 2×186px grid +
- *  `QuestInfoPanelView`'s left margin) and `zoom` (CSS `zoom`, reflows layout — unlike `transform: scale`,
- *  which would leave stale empty space) scales it for the admin's screen. */
-function useZoom(initial = 0.85) {
-  const [zoom, setZoom] = useState(initial);
-  return {
-    zoom,
-    controls: (
-      <div className="flex items-center justify-end gap-1">
-        <Button type="button" size="icon" variant="secondary" aria-label="Diminuir zoom" onClick={() => setZoom((z) => Math.max(0.4, +(z - 0.1).toFixed(2)))}>
-          <Minus className="size-4" />
-        </Button>
-        <span className="w-12 text-center font-mono text-xs text-muted">{Math.round(zoom * 100)}%</span>
-        <Button type="button" size="icon" variant="secondary" aria-label="Aumentar zoom" onClick={() => setZoom((z) => Math.min(1.5, +(z + 0.1).toFixed(2)))}>
-          <Plus className="size-4" />
-        </Button>
-      </div>
-    ),
-  };
-}
-
 /** One quest-chain map thumbnail: reuses `/api/admin/map-icons/:id.png` (same art the dungeon card will use). */
 function MapThumb({ mapId, active, onClick }: { mapId: number; active: boolean; onClick: () => void }) {
   const [name, setName] = useState("");
@@ -224,12 +203,14 @@ function SectionLabel({ asset, focused, onFocus, focusField }: { asset: string; 
 
 /** The game window itself — real exported art (quest module) laid out per `QuestInfoPanelView.as`/
  *  `QuestRewardView.as`'s structure: title bar, level/repeat/map badges, description, objective, required/
- *  optional conditions, currency rewards, item reward cells. See `useZoom`'s comment for the 560px content
- *  width this renders at. */
+ *  optional conditions, currency rewards, item reward cells. See `useZoomToFit`'s comment for why the pane
+ *  defaults to fitting this 560px content width instead of a fixed percentage. */
 function QuestPreview({ quest, conditions, goods, focused, onFocus, onOpenConditions, onOpenRewards }: QuestPreviewProps) {
   const { t } = useI18n();
   const { data: lib } = useFlashLibrary(QUEST_MODULE);
-  const { zoom, controls } = useZoom();
+  // 560px = the window's real content width (QuestRewardCell's 2×186px grid + ROW_X=18 left margin,
+  // QuestRewardView.as/QuestRewardCell.as) — not an arbitrary card width.
+  const { zoom, controls, containerRef } = useZoomToFit(560);
   const titleBg = resolveFlashAsset(lib, QUEST_MODULE, "asset.core.quest.titleBG");
   const leather = resolveFlashAsset(lib, QUEST_MODULE, "asset.core.quest.leftBGStyle1");
   const necessary = conditions.filter((c) => !c.isOpitional);
@@ -238,11 +219,14 @@ function QuestPreview({ quest, conditions, goods, focused, onFocus, onOpenCondit
   const activeCurrency = CURRENCY_REWARD_ART.filter((c) => n(quest[c.field]) > 0);
 
   return (
-    <div className="flex flex-col gap-2">
+    // `min-w-0`: this is a CSS Grid item (`QuestEditor`'s `lg:grid-cols-[minmax(0,1fr)_380px]`); the
+    // `minmax(0, 1fr)` only overrides the item's default min-width at the `lg` breakpoint — below it the
+    // implicit single-column grid leaves each item at its default `min-width: auto`, so the 560px-wide
+    // preview content (see below) would stretch this whole column (and the page) wider than the viewport
+    // instead of letting `useZoomToFit` shrink it. `min-w-0` here makes the fit work at every width.
+    <div className="flex min-w-0 flex-col gap-2">
       {controls}
-      <div className="overflow-auto rounded-2xl border border-line bg-night-deep/60 p-4">
-        {/* 560px = the window's real content width (QuestRewardCell's 2×186px grid + ROW_X=18 left margin,
-         *  QuestRewardView.as/QuestRewardCell.as) — not an arbitrary card width. */}
+      <div ref={containerRef} className="overflow-auto rounded-2xl border border-line bg-night-deep/60 p-4">
         <div style={{ zoom, width: 560 }} className="mx-auto select-none">
           <div
             className="relative rounded-lg border-[3px] p-4"
