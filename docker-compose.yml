@@ -69,6 +69,13 @@ services:
     build:
       context: .
       dockerfile: docker/caddy/Dockerfile
+      # apps/client (docker/caddy/Dockerfile client-build stage) needs this baked in at build time —
+      # it's a `vite build` env var, not something a running container can pick up (docs/deploy/README.md
+      # "assets no CDN"). Blank = the built client has no working art yet (fine for a build that's only
+      # testing the pipeline before the transpiler freeze; not for a real go-live, see CLIENT_ADDRESS
+      # below).
+      args:
+        VITE_ASSETS_BASE_URL: ${VITE_ASSETS_BASE_URL:-}
     restart: unless-stopped
     env_file: .env
     depends_on: [api, game]
@@ -76,6 +83,7 @@ services:
       - "80:80"
       - "443:443"
       - "8081:8081"   # admin, IP-only/no-domain mode (ignored once ADMIN_ADDRESS is a real hostname on 443)
+      - "8082:8082"   # client (apps/client), IP-only/no-domain mode (ignored once CLIENT_ADDRESS is a real hostname on 443)
     volumes:
       - caddy_data:/data
       - caddy_config:/config

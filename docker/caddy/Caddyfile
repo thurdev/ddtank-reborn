@@ -33,3 +33,20 @@
 	try_files {path} /index.html
 	file_server
 }
+
+# PixiJS game client (apps/client), on its own hostname or port — apps/api/.env's PIXI_CLIENT_URL must
+# point here (apps/web's Play page embeds it in an iframe, GameFrame.tsx). Its own block (not folded
+# into the main site like /resource* etc. above) because it needs NO "/api* -> api:8080" proxy of its
+# own: the client talks to the API via the `api` flashvar the iframe URL already carries (an absolute
+# URL to wherever apps/api is reachable — same SITE_ADDRESS host, different path — so it works from a
+# different origin without CORS trouble on static files). CLIENT_ADDRESS examples: client.example.com
+# (auto HTTPS) | :8082 (plain HTTP, IP-only deploy). Does NOT serve /assets/* — the exported art (several
+# GB) ships on a CDN instead (VITE_ASSETS_BASE_URL baked in at build time, scripts/assets-r2-sync.mjs,
+# docs/deploy/README.md "assets no CDN"), never through this container.
+{$CLIENT_ADDRESS::8082} {
+	encode zstd gzip
+
+	root * /srv/client
+	try_files {path} /index.html
+	file_server
+}

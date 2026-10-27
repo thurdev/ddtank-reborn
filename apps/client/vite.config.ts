@@ -32,6 +32,14 @@ export default defineConfig({
     target: "es2022",
     chunkSizeWarningLimit: 20000,
     sourcemap: true,
+    // `public/assets` (this app's exported art: PNG + library.json + MP3, several GB, see
+    // docs/client-pixi/ASSETS.md) must NOT be physically copied into `dist` on every build — it inflated
+    // build time to 9+ minutes and the artifact size for no benefit (docs/client-pixi/STATUS.md "achado
+    // colateral do build"). `copyPublicDir: false` (Vite >=5.1) keeps `public/` served as-is by the DEV
+    // server (unaffected — only `vite build`'s copy step is skipped), so local dev is unchanged. A
+    // production build instead points at a CDN via VITE_ASSETS_BASE_URL (see .env.example, src/
+    // assets-base.ts, scripts/assets-r2-sync.mjs, docs/deploy/README.md) — `dist` alone is a few MB.
+    copyPublicDir: false,
     // task multi-char: `avatar.html` (apps/web's character carousel, `${pixiClientUrl}avatar.html?...`) is
     // a second, independent entry — lightweight boot (no socket/login/hall), one `ShowCharacter`. Without
     // this, `vite build` only emits `index.html`.

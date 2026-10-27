@@ -464,7 +464,12 @@ mexem em `session/login.ts`).
   toda a árvore de assets exportados (`public/assets`, uma junction) pra dentro de `dist/assets`
   (dezenas de milhares de arquivos) — infla o tempo de build (9min19s nesta sessão) e o tamanho do
   artefato; não mexi nisso (fora do escopo de "carregamento lento" no dev server, que é o que o dono
-  testa — ver `COMO-RODAR.md` que já assume os assets sendo servidos à parte).
+  testa — ver `COMO-RODAR.md` que já assume os assets sendo servidos à parte). **Corrigido na task
+  "lancamento"**: `apps/client/vite.config.ts` ganhou `build.copyPublicDir: false` — `vite build` não
+  copia mais `public/assets` pra `dist` (dev continua igual, só o passo de build mudou). Produção carrega
+  a arte de uma CDN em vez disso (`VITE_ASSETS_BASE_URL`, `src/assets-base.ts`,
+  `scripts/assets-r2-sync.mjs`, `docs/deploy/README.md` §4.2) — sem isso configurado, um build de `dist`
+  sozinho (sem Vite dev server por trás) não tem onde buscar `/assets/`.
 - **"Carregando o cliente… 79%" era 100% cosmético — removido**: `apps/web/src/components/GameFrame.tsx`
   tinha um `setInterval` que só fingia avançar a porcentagem (`p += (0.95-p)*0.06` a cada 200ms) sem
   NENHUMA relação com o carregamento real — por isso parecia "travar" perto de 90%+ (a curva
