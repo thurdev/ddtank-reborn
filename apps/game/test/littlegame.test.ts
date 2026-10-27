@@ -17,7 +17,7 @@ describe("little game (166 LITTLEGAME_COMMAND — Đại chiến Hút Gà)", () 
     low.c.out(166, (o) => o.writeByte(2));
     const msg = await low.c.code(3);
     expect(msg.pkt.readInt()).toBe(0);
-    expect(msg.pkt.readString()).toContain("level 20");
+    expect(msg.pkt.readString()).toContain("nível 20");
     const m = littleGameMgr(server.ctx);
     expect(m.inGame(low.player())).toBe(false);
   });

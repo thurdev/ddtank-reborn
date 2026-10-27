@@ -197,6 +197,13 @@
       "when": 1792540000000,
       "tag": "0027_pve_cadeia_gulu_baron",
       "breakpoints": true
+    },
+    {
+      "idx": 28,
+      "version": "7",
+      "when": 1792545000000,
+      "tag": "0028_pve_cartas_gulu_baron_card",
+      "breakpoints": true
     }
   ]
 }

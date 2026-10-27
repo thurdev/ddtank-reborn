@@ -169,6 +169,13 @@ Ordem (2026-10-26): stubs/rates do servidor → .ashx/Road.Service → site-play
   Qualquer um lê o histórico de presentes/lista de amigos de outro jogador. Validar a `key` contra a sessão
   (`app."LoginSessions"`, ver `@ddt/auth`) sem quebrar o cliente 4.1 (conferir como o AS3 monta a `key`).
 
+- [ ] **swf-frame-scripts-sem-classe** — `tools/swf-export` só extrai frame scripts de símbolos com classe de
+  linkage própria; símbolos sem linkage (ex. `BossBgAsset`, mapa do Barão) têm `stop()` em classe automática
+  (`*_fla.*`) que é descartada. Hoje contornado por patch em `SimpleObject.creatMovie` (pixi-load). Fazer o
+  exportador ler as classes `_fla` também e reexportar.
+- [ ] **pve-dados-faltando** — preencher via admin (ou migração) as lacunas listadas em `docs/guides/pve.md`
+  §1.1 (missões 1176, 1276-1277, 1376-1378 do Castelo do Bugou) e §1.2 (30 missões com cartas sem prêmio).
+
 ## 1. Migração 6600 (STAND-BY desde 2026-10-20)
 
 ### M1 — cliente 6600 até o lobby
