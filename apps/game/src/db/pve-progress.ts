@@ -18,12 +18,31 @@ export async function loadClearedDifficulties(ctx: ServerContext, userId: number
 /**
  * Login: reaplica no `PvePermission` do personagem as vitórias já gravadas em `PveInstanceClear` (vitórias de
  * antes do fix do SetPvePermission só existiam aqui, e o cliente só olha o `PvePermission`). Idempotente.
+ *
+ * Task `pve-qa` (owner report 2026-10-27, item 5, "algumas masmorras simplesmente travadas"): também GARANTE
+ * a base de 50 caracteres ANTES de aplicar as vitórias, em vez de confiar só no padEnd lazy de dentro de
+ * `setPvePermission` (`game/player.ts`). Duas falhas se combinavam: (1) `setPvePermission` só persiste o
+ * padEnd se a checagem de "sobe só um nível a partir do exato anterior" passar — se os `PveInstanceClear`
+ * rows não baterem com essa sequência estrita (conta antiga, edição manual, migração), a função retorna
+ * `false` ANTES de escrever, então o padEnd nunca persiste; (2) sem nenhuma linha em `PveInstanceClear` (ex.:
+ * masmorra nunca vencida NESTE sistema de progresso), o `for` nem roda uma vez. Nos dois casos
+ * `info.PvePermission` fica do tamanho que já estava no banco — se for mais curto que `Pve_Info.ID` de
+ * alguma masmorra, `PVEMapPermissionManager.getPermission` (cliente, `substr(mapId-1,1)` vira `""`)
+ * trata posição ausente como TRAVADA, inclusive Fácil — diferente do `GamePlayer.LoadFromDatabase` original
+ * (`GamePlayer.cs:3002`), que sempre inicializa `m_pvepermissions` com `InitPvePermission()` (50x '1') ANTES
+ * de aplicar qualquer coisa, nunca deixando uma string curta chegar ao jogador. Normalizar aqui, sempre, é
+ * esse mesmo "init on load", só que no ponto onde já temos `info` à mão.
  */
-export async function syncPvePermission(ctx: ServerContext, p: { id: number; setPvePermission(id: number, lv: number, notify?: boolean): boolean }): Promise<boolean> {
+export async function syncPvePermission(ctx: ServerContext, p: { id: number; info: { PvePermission?: string | null }; setPvePermission(id: number, lv: number, notify?: boolean): boolean }): Promise<boolean> {
+  let changed = false;
+  const current = p.info.PvePermission ?? "";
+  if (current.length < 50) {
+    p.info.PvePermission = current.padEnd(50, "1");
+    changed = true;
+  }
   const rows = await ctx.db.db.select({ PveId: app.PveInstanceClear.PveId, HardLevel: app.PveInstanceClear.HardLevel })
     .from(app.PveInstanceClear).where(eq(app.PveInstanceClear.UserID, p.id));
   rows.sort((a, b) => a.HardLevel - b.HardLevel);
-  let changed = false;
   for (const r of rows) changed = p.setPvePermission(r.PveId, Math.min(r.HardLevel + 1, 3), false) || changed;
   return changed;
 }

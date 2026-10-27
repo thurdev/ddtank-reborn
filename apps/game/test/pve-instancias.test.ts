@@ -10,6 +10,7 @@ import { RoomType } from "../src/rooms/room.js";
 import { recordPveClear, loadClearedDifficulties } from "../src/db/pve-progress.js";
 import { dungeonDifficultyLadder, isDungeonUnlocked, type PveInfoLike } from "../src/game/pve-unlock.js";
 import { scalePveNpc, scalePveDrop } from "../src/fight/ddt.js";
+import { lastFloorForBoss } from "../src/handlers/salas/configurar-sala.js";
 import { FakeClient, loggedIn, startServer } from "./helpers.js";
 import type { NpcInfo } from "@ddt/fight";
 
@@ -186,5 +187,53 @@ describe("41-instancias: server-authoritative dungeon unlock at GAME_START (94/7
     refusal.pkt.offset = 20; refusal.pkt.readInt();
     expect(refusal.pkt.readString()).toContain("nível");
     host.c.close();
+  });
+
+  // Task `pve-qa` item 5 (owner report 2026-10-27: "algumas masmorras simplesmente travadas" mesmo com
+  // PvePermission já tendo algo como "3111..." e o personagem nível 60). Ver `db/pve-progress.ts`
+  // `syncPvePermission`: sem nenhuma vitória gravada em `PveInstanceClear` o loop de upgrades não roda nenhuma
+  // vez, e por isso nunca mais confie só nesse loop pra garantir os 50 caracteres -- login tem que normalizar
+  // sempre, senão `PVEMapPermissionManager.getPermission` (cliente, substr além do fim da string = "") trata
+  // QUALQUER masmorra de índice alto como travada, Fácil inclusive.
+  it("login sempre garante PvePermission com 50 caracteres, mesmo sem nenhuma vitória registrada (nunca trava Fácil por string curta)", async () => {
+    const host = await loggedIn(server, { grade: 60 });
+    const perm = host.player().info.PvePermission ?? "";
+    expect(perm.length).toBe(50);
+    // dungeon de índice alto (ex. Pve_Info 13 "Đấu Trường Dũng Sĩ", posição 12) tem que ler "1" (Fácil
+    // liberado), nunca "" (string curta demais) -- client-side rule mirrored from PVEMapPermissionManager.as.
+    expect(perm.substr(12, 1)).toBe("1");
+    host.c.close();
+  });
+
+  // Task `pve-qa` item 3 (owner report 2026-10-27: "pular pro chefe não funciona" -- o checkbox
+  // isOpenBoss/"_bossBtn" da DungeonChooseMapView.as). `RoomSetupChangeAction.GetLastFloor` (C#) usa
+  // `Pve_Info.LastFloor` pra pular `room.currentFloor` direto pro último andar; a sala/engine já honram
+  // `currentFloor` (`rooms/room-mgr.ts` launchPve, `packages/fight/src/pve/game.ts` SessionId = currentFloor-1)
+  // -- só faltava computar esse valor a partir do checkbox em `configurar-sala.ts`.
+  it("isOpenBoss=true pula room.currentFloor pro último andar da dificuldade (Pve_Info.LastFloor)", async () => {
+    const host = await loggedIn(server, { grade: 20 });
+    roomCmd(host.c, 0, (p) => { p.writeByte(RoomType.Dungeon); p.writeByte(2); p.writeUTF("masmorra-boss"); p.writeUTF(""); });
+    await host.c.code(94, 0);
+    const mark = host.c.mark();
+    // Pve_Info 2 "Huyệt Ma Kiến" LastFloor = "2,2" (Fácil e Normal ambos terminam no andar 2).
+    roomCmd(host.c, 2, (p) => { p.writeInt(DUNGEON_ID); p.writeByte(RoomType.Dungeon); p.writeBoolean(true); p.writeUTF(""); p.writeUTF("masmorra-boss"); p.writeByte(0); p.writeByte(0); p.writeInt(2); p.writeBoolean(false); });
+    await host.c.code(94, 2, mark);
+    expect(host.player().currentRoom!.currentFloor).toBe(2);
+    expect(host.player().currentRoom!.isOpenBoss).toBe(true);
+    host.c.close();
+  });
+});
+
+describe("lastFloorForBoss (RoomSetupChangeAction.GetLastFloor port, configurar-sala.ts)", () => {
+  it("picks the hardLevel-indexed slot from Pve_Info.LastFloor", () => {
+    expect(lastFloorForBoss({ LastFloor: "2,3,4,5" }, 0)).toBe(2);
+    expect(lastFloorForBoss({ LastFloor: "2,3,4,5" }, 1)).toBe(3);
+    expect(lastFloorForBoss({ LastFloor: "2,3,4,5" }, 3)).toBe(5);
+  });
+  it("undefined when the dungeon has no LastFloor, is missing, or the slot isn't a positive number", () => {
+    expect(lastFloorForBoss(undefined, 0)).toBeUndefined();
+    expect(lastFloorForBoss({ LastFloor: null }, 0)).toBeUndefined();
+    expect(lastFloorForBoss({ LastFloor: "2,3" }, 2)).toBeUndefined(); // out of range
+    expect(lastFloorForBoss({ LastFloor: "0,3" }, 0)).toBeUndefined(); // 0 is not a valid floor
   });
 });

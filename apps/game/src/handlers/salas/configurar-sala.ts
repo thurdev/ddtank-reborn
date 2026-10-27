@@ -35,6 +35,27 @@ import { currentLabyrinthFloor } from "../eventos/labirinto.js";
  * `hardLevel`/`permission` de sempre, `eHardLevel.Nightmare=5`, ver `packages/fight/src/pve/game.ts`), só um
  * campo morto no protocolo deles. Lemos e descartamos pra bater com o original campo a campo.
  */
+/**
+ * RoomSetupChangeAction.GetLastFloor (vendor/DDTank41/Game.Server/Rooms/RoomSetupChangeAction.cs:52-65): the
+ * "pular pro chefe"/isOpenBoss checkbox (`room/view/chooseMap/DungeonChooseMapView.as` `_bossBtn` →
+ * `DungeonChooseMapFrame.as:93/209` `doOpenBossRoom` → `GameInSocketOut.sendGameRoomSetUp(..., true, ...)`)
+ * jumps the dungeon straight to its last mission via `game."Pve_Info".LastFloor` — a CSV with one 1-based
+ * floor number per difficulty (`hardLevel` index), e.g. Pve_Info 1 (Gulu Kingdom) `LastFloor="2,3,4,5"`: Easy's
+ * last floor is session 2 (the Baron, `Mission_Info` 1073), Normal's is session 3 (1176, task `pve-qa` item
+ * 1's fix), etc. `PveGame`'s own `SessionId = currentFloor - 1` (`packages/fight/src/pve/game.ts`) then
+ * starts the fight right there. Task `pve-qa` (owner report 2026-10-27, item 3, "pular pro chefe não
+ * funciona"): this computation existed nowhere in the port — `isOpenBoss` reached `room.isOpenBoss`
+ * (broadcast for the UI badge) but `room.currentFloor` was never set from it, so `launchPve`
+ * (`rooms/room-mgr.ts`, already forwards `currentFloor: room.currentFloor` to `startPve`) always started at
+ * floor 1 regardless of the checkbox.
+ */
+export function lastFloorForBoss(info: { LastFloor?: string | null } | undefined, hardLevel: number): number | undefined {
+  if (!info?.LastFloor) return undefined;
+  const parts = info.LastFloor.split(",");
+  const n = Number(parts[hardLevel]);
+  return Number.isFinite(n) && n > 0 ? n : undefined;
+}
+
 export async function configurarSala(ctx: ServerContext, p: GamePlayer, pkt: GSPacket): Promise<void> {
   const room = p.currentRoom;
   if (!room || room.host !== p || room.IsPlaying) return;
@@ -52,6 +73,8 @@ export async function configurarSala(ctx: ServerContext, p: GamePlayer, pkt: GSP
   if (mapId === 0 && roomType === RoomType.Labyrinth) {
     mapId = 401;
     currentFloor = await currentLabyrinthFloor(ctx, p);
+  } else if (isOpenBoss && roomType === RoomType.Dungeon) {
+    currentFloor = lastFloorForBoss(ctx.templates.pveInfos.get(mapId), hardLevel);
   }
   ctx.rooms.setupChange(room, { mapId, roomType, password, name, timeMode, hardLevel, levelLimits, isCrosszone, isOpenBoss, currentFloor });
 }
