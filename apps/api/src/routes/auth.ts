@@ -192,11 +192,16 @@ export async function authRoutes(f: FastifyInstance, ctx: AppCtx) {
     await ensureFirstSlot(ctx.h, acc.ID, acc.UserName);
     const slots = await listAccountCharacterSlots(ctx.h, acc.ID);
     const names = slots.map((s) => s.gameUserName);
+    // sql`= ANY(${names})` array binding isn't portable across both drivers this project supports
+    // (postgres.js vs PGlite) — an IN list built with sql.join is.
     const chars = names.length
       ? await q(
           ctx.h,
           sql`SELECT "UserID","NickName","Grade","Gold","Money","Sex","ConsortiaName" FROM app."V_Sys_Users_Detail"
-              WHERE lower("UserName") = ANY(${names}) AND "NickName" <> '' ORDER BY "UserID"`,
+              WHERE lower("UserName") IN (${sql.join(
+                names.map((n) => sql`${n}`),
+                sql`, `,
+              )}) AND "NickName" <> '' ORDER BY "UserID"`,
         )
       : [];
     return {

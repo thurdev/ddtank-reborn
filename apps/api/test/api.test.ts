@@ -128,6 +128,15 @@ describe("auth + Login.ashx flow", () => {
     expect(nick.body).toContain('value="false"');
   });
 
+  // task multi-char: /api/account/me now joins app."AccountCharacters" (ANY(...) over every reserved
+  // slot's gameUserName) instead of matching the account's own UserName directly — confirms that still
+  // finds "alice"'s just-created character.
+  it("/api/account/me lists the account's character via app.AccountCharacters", async () => {
+    const r = await app.inject({ url: "/api/account/me", headers: { authorization: `Bearer ${token}` } });
+    expect(r.statusCode).toBe(200);
+    expect(r.json().characters).toEqual([expect.objectContaining({ nickname: "Alice1", sex: "m" })]);
+  });
+
   it("ServerList advertises GAME_PORT - 69", async () => {
     const r = await app.inject({ url: "/request/serverlist.ashx?rnd=0.5" });
     expect(r.body).toContain('IP="127.0.0.1" Port="9131"');
