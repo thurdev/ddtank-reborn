@@ -13,15 +13,24 @@ do zero até o jogo acessível por um domínio (ou só pelo IP). Veja também:
 ```
 Cloudflare DNS (grátis) ──► Oracle A1 VM (2 OCPU / 12 GB, arm64, Ubuntu 24.04)
                               docker compose:
-                                caddy     :80/:443  (+ :8081 admin, modo IP-only)  HTTPS automático
+                                caddy     :80/:443  (+ :8081 admin, :8082 cliente, modo IP-only)  HTTPS automático
+                                           serve apps/web + apps/admin + apps/client (build-time)
                                 api       interno :8080   (api/, request/, flash/, resource/, uploads/)
                                 game      :9200 TCP, :843 policy, :9300 WS (só via Caddy /ws)
-                                postgres  interno :5432  (ou troque por Neon — ver §6)
+                                postgres  interno :5432  (ou troque por Neon — ver §7)
+Cloudflare R2 (grátis até 10GB) ──► arte do cliente PixiJS (apps/client/public/assets, vários GB) —
+                                     fora do VM e fora da imagem Docker, ver §4
 ```
 
 Todos os arquivos já existem no repo: `docker-compose.yml`, `apps/api/Dockerfile`, `apps/game/Dockerfile`,
-`docker/caddy/`, `docker/assets/`, `scripts/gen-secrets.mjs`, `scripts/deploy/*.sh`. Você só precisa
-criar a VM, apontar DNS, subir os arquivos e rodar os comandos abaixo.
+`docker/caddy/` (também builda e serve apps/web + apps/admin + apps/client), `docker/assets/`,
+`scripts/gen-secrets.mjs`, `scripts/assets-r2-sync.mjs`, `scripts/deploy/*.sh`. Você só precisa criar a
+VM, apontar DNS, subir os arquivos e rodar os comandos abaixo.
+
+**Checklist de go-live** (cada item é uma seção abaixo): VM criada (§1) → VM preparada (§2) → assets do
+servidor (vendor/, §3) → **cliente PixiJS congelado + arte no CDN (§4, bloqueante — pule só se for testar
+sem o cliente novo)** → segredos + domínio/IP (§5) → DNS (§6) → banco (§7) → `docker compose up` (§8) →
+backups (§9) → monitoramento (§10). CI do repo (branch protection, review IA): §14.
 
 ## 1. Criar a conta e a VM na Oracle Cloud (Always Free)
 
@@ -53,6 +62,7 @@ para a 22):
 | 9200 | TCP do jogo (cliente Flash projector) |
 | 843 | policy file do Flash |
 | 8081 | admin, só se for usar IP sem domínio (pule se `ADMIN_ADDRESS` for um domínio na 443) |
+| 8082 | cliente PixiJS (§4), só se for usar IP sem domínio (pule se `CLIENT_ADDRESS` for um domínio na 443) |
 
 Isso é **além** do firewall do Ubuntu (`ufw`) — `scripts/deploy/oracle-setup.sh` configura o `ufw`, mas
 a Security List tem que ser aberta aqui manualmente, senão nada chega na VM mesmo com `ufw` liberado.
@@ -85,7 +95,63 @@ rsync -avz --progress "vendor/DDTank41/Source Flash/FlashSV1/" ubuntu@<ip-da-vm>
 bash scripts/deploy/assets.sh     # roda fix-maps.ts + gen-craters.ts dentro de um container descartável
 ```
 
-## 4. Gerar segredos e configurar domínio/IP
+## 4. Cliente PixiJS: congelar o código + publicar a arte no CDN
+
+Duas coisas bloqueiam um build de produção do `apps/client` (o jogo em TypeScript/PixiJS, sem Flash) que
+hoje NÃO existem no repo (gitignored, gerados por ferramenta a partir de `vendor/`): o código do jogo
+(`apps/client/src/game`, ~2600 arquivos) e a arte exportada (`apps/client/public/assets`, vários GB).
+Faça isso **antes** do primeiro `docker compose build` (ou rode um build sem o cliente antes — ver §8).
+
+### 4.1 Congelar o transpilador (uma vez, no seu PC — não na VM)
+
+```bash
+node tools/as3-to-ts/freeze.mjs
+git add apps/client/.gitignore apps/client/src/game
+git commit -m "feat(client): congela o código gerado do cliente (apps/client/src/game)"
+git push
+```
+
+Isso roda o transpilador AS3→TS uma última vez e versiona o resultado — depois disso
+`apps/client/src/game` é código-fonte normal (edita direto, não é mais gerado) e os Dockerfiles passam a
+conseguir buildar `apps/client` de verdade. Detalhes: `docs/client-pixi/TRANSPILADOR.md#congelamento`.
+**Faça isso só quando o jogo estiver estável** — depois do freeze, editar o AS3 em `vendor/` não tem mais
+efeito nenhum.
+
+### 4.2 Publicar a arte exportada num CDN (Cloudflare R2)
+
+`apps/client/public/assets` (PNG + `library.json` por SWF exportado, MP3 — ver `docs/client-pixi/
+ASSETS.md`) não vai pra imagem Docker (`vite.config.ts` tem `build.copyPublicDir:false` de propósito —
+são vários GB, inflaria toda imagem/deploy) nem pro VM. Em vez disso, sobe pra um bucket R2 e o cliente
+built carrega de lá:
+
+1. Cloudflare dashboard > R2 > **Create bucket** (ex. `ddtank-assets`), público (habilite "public access"
+   ou mapeie um domínio seu pro bucket — dá a URL que vai em `R2_PUBLIC_URL`).
+2. R2 > **Manage API Tokens** > crie um token com permissão só nesse bucket. Anote Account ID, Access
+   Key ID, Secret Access Key.
+3. No seu `.env` (raiz do repo, não vai pra VM): preencha `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`,
+   `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, `R2_PUBLIC_URL` (seção "Client art on a CDN" do
+   `.env.example`).
+4. Teste sem gastar nada antes de subir de verdade:
+   ```bash
+   pnpm run assets:sync:dry        # só mostra o que seria enviado, sem rede nenhuma
+   ```
+5. Suba pra valer (primeira vez é lento — vários GB; reruns só enviam o que mudou):
+   ```bash
+   pnpm run assets:sync
+   ```
+   No final ele imprime a linha pra colar em `apps/client/.env`:
+   ```
+   VITE_ASSETS_BASE_URL=https://<seu-domínio-ou-r2.dev>/
+   ```
+6. Copie esse `VITE_ASSETS_BASE_URL` pro `.env` da raiz também (`docker-compose.yml`'s `caddy.build.args`
+   lê ele de lá e repassa pro `vite build` do cliente, em `docker/caddy/Dockerfile`).
+
+Reexportou a arte de novo (`tools/swf-export`) ou trocou um PNG à mão (`docs/client-pixi/ASSETS.md`
+"Trocar uma imagem")? Rode `pnpm run assets:sync` de novo e, se quiser os bytes NOVOS visíveis já (os
+objetos sobem como `Cache-Control: immutable` — ver o cabeçalho de `scripts/assets-r2-sync.mjs` pra por
+quê), purgue o cache do Cloudflare pro domínio do bucket (dashboard > Caching > Purge Cache).
+
+## 5. Gerar segredos e configurar domínio/IP
 
 Na VM, dentro de `~/ddtank`:
 
@@ -101,27 +167,37 @@ imprime no final: ele lista exatamente o que ainda falta editar manualmente.
 
 Edite à mão (o que depende do seu domínio/IP, o script não pode adivinhar):
 
-- **Com domínio** (ex. `example.com`, já apontado no Cloudflare — ver §5):
-  - `.env`: `SITE_ADDRESS=example.com`, `ADMIN_ADDRESS=admin.example.com`, `ACME_EMAIL=seu@email.com`
-  - `apps/api/.env`: `PUBLIC_URL=https://example.com`, `SITE_URL=https://example.com`
+- **Com domínio** (ex. `example.com`, já apontado no Cloudflare — ver §6):
+  - `.env`: `SITE_ADDRESS=example.com`, `ADMIN_ADDRESS=admin.example.com`,
+    `CLIENT_ADDRESS=client.example.com`, `ACME_EMAIL=seu@email.com`
+  - `apps/api/.env`: `PUBLIC_URL=https://example.com`, `SITE_URL=https://example.com`,
+    `PIXI_CLIENT_URL=https://client.example.com/`
   - `apps/game/.env`: `PUBLIC_HOST=example.com`, `WS_PUBLIC_URL=wss://example.com/ws`,
     `WS_ALLOWED_ORIGINS=https://example.com`
 - **Só com IP** (sem domínio):
-  - `.env`: deixe `SITE_ADDRESS` e `ADMIN_ADDRESS` em branco (Caddy usa `:80`/`:8081` sem HTTPS automático)
-  - `apps/api/.env`: `PUBLIC_URL=http://<ip-da-vm>`, `SITE_URL=http://<ip-da-vm>`
+  - `.env`: deixe `SITE_ADDRESS`, `ADMIN_ADDRESS` e `CLIENT_ADDRESS` em branco (Caddy usa
+    `:80`/`:8081`/`:8082` sem HTTPS automático)
+  - `apps/api/.env`: `PUBLIC_URL=http://<ip-da-vm>`, `SITE_URL=http://<ip-da-vm>`,
+    `PIXI_CLIENT_URL=http://<ip-da-vm>:8082/`
   - `apps/game/.env`: `PUBLIC_HOST=<ip-da-vm>`, `WS_PUBLIC_URL=ws://<ip-da-vm>/ws`,
     `WS_ALLOWED_ORIGINS=http://<ip-da-vm>`
+
+Se o cliente PixiJS ainda não foi congelado (§4.1) ou não quer usá-lo ainda, deixe `PIXI_CLIENT_URL` em
+branco — a página Jogar volta pro cliente Flash original via Ruffle (apps/client-harness), que já
+funciona sem nenhum passo extra.
 
 `GAME_PORT`/`POLICY_PORT` não precisam mudar (9200/843) a não ser que você esteja atrás de um túnel que
 reatribui portas (playit.gg — ver `docs/deploy/tailscale.md`).
 
-## 5. DNS (Cloudflare, se for usar domínio)
+## 6. DNS (Cloudflare, se for usar domínio)
 
 1. Adicione o domínio ao Cloudflare (grátis) e troque os nameservers no registrador.
 2. Crie os registros A (ou AAAA) apontando para o IP da VM:
    - `example.com` → IP da VM, **proxied (nuvem laranja)**. O WebSocket (`/ws`) passa por HTTP(S)
      normal, e o Cloudflare proxia WebSocket de graça no plano free.
    - `admin.example.com` → mesmo IP, proxied também, se usar domínio para o admin.
+   - `client.example.com` → mesmo IP, proxied também, se for usar o cliente PixiJS (§4) com domínio
+     próprio em vez de `:8082` direto no IP.
    - Um hostname **separado só para o socket TCP puro do jogo**, se quiser esconder o IP real — ex.
      `game.example.com` → IP da VM, **DNS-only (nuvem cinza)**. O Cloudflare **não** proxia TCP
      arbitrário no free; um hostname proxied aqui simplesmente não vai funcionar para a porta 9200.
@@ -129,7 +205,7 @@ reatribui portas (playit.gg — ver `docs/deploy/tailscale.md`).
      `PUBLIC_HOST` com esse hostname DNS-only, ou com o IP mesmo).
 3. Aguarde a propagação (minutos, geralmente) e confirme com `dig example.com`.
 
-## 6. Banco de dados: Postgres local (padrão) ou Neon
+## 7. Banco de dados: Postgres local (padrão) ou Neon
 
 O `docker-compose.yml` já sobe um `postgres:17` local (volume `pg_data`, UTF8, `timezone=UTC`) — é o
 caminho recomendado por `research/03-hosting.md` §2 para evitar os limites de CU-hora do Neon free.
@@ -143,7 +219,7 @@ Para usar o Neon em vez disso (ex.: se quiser backups geridos e branching):
 5. Migrações (`db:migrate`) devem rodar contra a URL **direta** (sem `-pooler`), não a pooled —
    PgBouncer em modo transaction não suporta `PREPARE`/`LISTEN` que o `drizzle-kit` pode usar.
 
-## 7. Subir a stack
+## 8. Subir a stack
 
 ```bash
 docker compose build
@@ -152,11 +228,19 @@ docker compose ps
 docker compose logs -f api game caddy
 ```
 
-Teste: `curl -I http://<ip-ou-domínio>/api/public/launcher` deve responder 200. O jogo em si (Ruffle)
-abre em `https://example.com/` (ou `http://<ip>/`), o admin em `https://admin.example.com/` (ou
-`http://<ip>:8081/`).
+`docker compose build` builda `apps/client` (via `docker/caddy/Dockerfile`) com o `VITE_ASSETS_BASE_URL`
+do `.env` da raiz (§4.2) — se você ainda não congelou o cliente (§4.1), esse build **falha** (não existe
+`apps/client/src/game` pra buildar). Pra subir só api+game+web+admin+postgres sem o cliente novo por
+enquanto: `docker compose build api game caddy` falha igual (caddy builda os três juntos) — nesse caso
+comente o stage/COPY do cliente em `docker/caddy/Dockerfile` até congelar, ou deixe `PIXI_CLIENT_URL`
+vazio (§5) e não rode `docker compose build caddy` até lá (o site cai pro Ruffle automaticamente).
 
-## 8. Backups
+Teste: `curl -I http://<ip-ou-domínio>/api/public/launcher` deve responder 200. O site abre em
+`https://example.com/` (ou `http://<ip>/`), o admin em `https://admin.example.com/` (ou
+`http://<ip>:8081/`), e — se `PIXI_CLIENT_URL` estiver configurado (§5) — o cliente PixiJS em
+`https://client.example.com/` (ou `http://<ip>:8082/`) direto, fora da página Jogar.
+
+## 9. Backups
 
 ```bash
 # instala um cron diário (03:00) que faz pg_dump para ~/ddtank-backups, com rotação de 14 dias
@@ -173,7 +257,7 @@ rclone sync ~/ddtank-backups r2:ddtank-backups
 
 Restaurar: `gunzip -c 20261003.sql.gz | docker compose exec -T postgres psql -U <user> <db>`.
 
-## 9. Monitoramento e logs
+## 10. Monitoramento e logs
 
 ```bash
 docker compose ps                        # status de cada serviço, healthcheck do postgres
@@ -188,31 +272,56 @@ O Oracle A1 é **reclamado** se CPU/rede/memória ficarem abaixo de 20% por 7 di
 `docker stats` de vez em quando, e considere converter a conta para "Pay As You Go" (ainda grátis dentro
 dos limites) se isso acontecer, que é a correção mais citada.
 
-## 10. Mudar IP, portas ou rates sem reimplantar tudo
+## 11. Mudar IP, portas ou rates sem reimplantar tudo
 
 - **Rates de XP/ouro/drop**: `apps/game/.env` → `RATE_EXP`, `RATE_GOLD`, `RATE_OFFER`, `RATE_DROP`.
   Também editável **em tempo real pelo admin** (sem reiniciar o container) — painel admin > Servidor >
   Configurações, que chama `apps/api/src/routes/admin.ts` (`applyServerConfig`), repassado por HTTP
   interno ao `apps/game` (canal admin, porta `ADMIN_PORT`/`GAME_INTERNAL_URL`).
-- **IP ou domínio novo**: edite `PUBLIC_URL`/`SITE_URL` em `apps/api/.env`, `PUBLIC_HOST`/`WS_PUBLIC_URL`
-  em `apps/game/.env`, e `SITE_ADDRESS`/`ADMIN_ADDRESS` em `.env` — depois `docker compose up -d --no-deps
-  api game caddy` (não precisa recriar o Postgres).
+- **IP ou domínio novo**: edite `PUBLIC_URL`/`SITE_URL`/`PIXI_CLIENT_URL` em `apps/api/.env`,
+  `PUBLIC_HOST`/`WS_PUBLIC_URL` em `apps/game/.env`, e `SITE_ADDRESS`/`ADMIN_ADDRESS`/`CLIENT_ADDRESS` em
+  `.env` — depois `docker compose up -d --no-deps api game caddy` (não precisa recriar o Postgres; note
+  que isso NÃO rebuilda o cliente — se também mudou `VITE_ASSETS_BASE_URL`, precisa de `docker compose
+  build caddy` antes, porque esse valor é gravado dentro do bundle em tempo de build, não lido do
+  ambiente em tempo de execução).
 - **Portas**: `GAME_PORT`/`POLICY_PORT`/`WS_PORT` em `apps/game/.env` + a seção `ports:` do
   `game`/`caddy` em `docker-compose.yml` (e a Security List da Oracle, se mudar a porta pública).
+- **Arte do cliente trocada/reexportada**: `pnpm run assets:sync` (§4.2) de novo — não precisa rebuildar
+  nem reiniciar nada, os PNGs são servidos pelo R2 direto, fora do deploy da VM.
 - Depois de qualquer mudança: `bash scripts/deploy/update.sh` faz `git pull` + rebuild + migração +
   restart em um comando.
 
-## 11. Vários canais (Canal 1, 2, 3…)
+## 12. Vários canais (Canal 1, 2, 3…)
 
 Passo a passo completo e o que ainda não funciona entre canais: `docs/GAME-SERVER.md` "Canais". Resumo: criar
 o canal no admin, gerar o `docker-compose.channels.yml` com `scripts/channels-compose.mjs` (reaproveita o
 container `api` já de pé, sem imagem nova), `docker compose -f docker-compose.yml -f
 docker-compose.channels.yml up -d --build`. O `docker-compose.yml` base (canal único) não muda.
 
-## 12. Fallback se a Oracle A1 não cooperar
+## 13. Fallback se a Oracle A1 não cooperar
 
 Capacidade indisponível na sua região, ou a instância foi reclamada por ociosidade: o mesmo
 `docker-compose.yml` sobe sem alteração num Hetzner CX23 (~€5,49/mês) ou qualquer VM Ubuntu x86_64 — veja
 `research/03-hosting.md` §1 e §5. Só troque `vendor/` e `.env`/`apps/*/.env` para o novo host e rode
 `scripts/deploy/oracle-setup.sh` mesmo assim (funciona em qualquer Ubuntu, não só Oracle, a parte de
 `iptables`/Security List da Oracle é só a seção com esse nome explícito).
+
+## 14. CI (GitHub) — passos manuais que o agente não pode fazer
+
+`.github/workflows/pr-check.yml` já roda `pnpm typecheck` + `pnpm test` em todo PR pra `develop`/`main`
+(exclui o typecheck de `apps/client` até o congelamento do transpilador — §4.1). Estes passos só o
+**dono do repositório** consegue fazer (settings do GitHub, fora do alcance de um agente):
+
+1. **Branch protection** (`docs/BRANCH-FLOW.md`): Settings > Branches > Add rule, para `main` e
+   `develop` — "Require a pull request before merging", "Require status checks to pass" marcando o job
+   `build` (de `pr-check.yml`) como obrigatório, "Require branches to be up to date", sem
+   "Allow force pushes". **NÃO** marque `ai-review` (abaixo) como obrigatório.
+2. **Ligar a review IA do PR** (opcional, roadmap de `docs/BRANCH-FLOW.md`): Settings > Secrets and
+   variables > Actions > **New repository secret** → nome `AI_REVIEW_TOKEN`, valor = uma API key da
+   Anthropic ([console.anthropic.com](https://console.anthropic.com)) com acesso a algum modelo Claude.
+   Depois disso o job `ai-review` já existente em `pr-check.yml` liga sozinho no próximo PR — sem secret,
+   ele continua existindo mas aparece como **skipped** (nunca falha, nunca trava merge), por isso não é
+   marcado obrigatório no passo 1.
+3. **Custo**: o job `ai-review` chama a API da Anthropic uma vez por PR (modelo `claude-opus-5`,
+   `.github/scripts/ai-review.mjs`) — cobra da conta cujo secret foi usado. Pra desligar sem apagar o
+   secret: comente o job `ai-review` em `pr-check.yml`, ou remova o secret.
