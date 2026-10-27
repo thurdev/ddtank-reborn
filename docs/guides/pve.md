@@ -57,6 +57,22 @@ rode o sweep de novo depois — ele deve sair da lista de quebrados.
 Um script de FASE ausente (não a linha `Mission_Info`) é um problema diferente e já tem fallback: "fase sem
 script → termina quando não houver NPC vivo" (seção 1 acima) — não trava, só não roda a lógica customizada.
 
+**Atualização (tarefa `pve-qa`, 2026-10-27):** as 3 cadeias que ficaram pendentes acima (Normal falta
+1176, Difícil falta 1276/1277, Terror falta 1376/1378 — a "sala do rei" de Bugo Castle: dois "Gà" em
+sequência e depois Matthias/Bóng ma Matthias, mapa 1076/1084, rastreado via `CreateBoss` nos scripts
+gerados × `game."NPC_Info"`) foram corrigidas por `packages/db/drizzle/0030_pve_gulu_king_chamber.sql`
+(+ `0031_pve_gulu_king_chamber_cards.sql` para as cartas, mesmo padrão de `0028`). Textos de `Success`
+reaproveitados literalmente de uma linha-irmã que já nomeia o mesmo chefe (não inventados). Depois do fix o
+sweep (`pve-sweep.test.ts`) reporta **0 cadeias quebradas** em todas as 102 combinações (dungeon,
+dificuldade) do catálogo — o problema era mesmo só esta masmorra. Também corrigido em código (não só dado):
+`PveGame.prepareNewSession` (`packages/fight/src/pve/game.ts`), quando a sessão seguinte não tem
+`Mission_Info`, agora recua pra última sessão concluída e reentra em `GameOver` (emite
+`GAME_ALL_MISSION_OVER` normalmente) em vez de saltar direto pra `ALLSessionStopped` sem nunca mandar esse
+pacote — era esse salto silencioso que prendia o cliente numa tela preta em vez de mostrar a tela de
+fim/cartas. `pve-cards-sweep.test.ts` ainda reporta 31 missões sem fonte de carta (lista cresceu de 30 pra
+31 só porque a 1377 passou a existir como linha — ela nunca é alcançada por nenhum `SetupMissions`, então
+não tem `Drop_Condiction` de propósito); as outras continuam pendentes pro dono revisar como antes.
+
 ## 1.2 Carta de recompensa vira sem item (cadeia certa, mas a carta sai vazia)
 
 Tarefa `pve-cartas` (relato do dono, 2026-10-27): mesma masmorra da seção 1.1 (Bugo Castle / Gulu Kingdom,

@@ -211,6 +211,20 @@
       "when": 1793067899650,
       "tag": "0029_multi-char-account-characters",
       "breakpoints": true
+    },
+    {
+      "idx": 30,
+      "version": "7",
+      "when": 1793200000000,
+      "tag": "0030_pve_gulu_king_chamber",
+      "breakpoints": true
+    },
+    {
+      "idx": 31,
+      "version": "7",
+      "when": 1793200100000,
+      "tag": "0031_pve_gulu_king_chamber_cards",
+      "breakpoints": true
     }
   ]
 }
