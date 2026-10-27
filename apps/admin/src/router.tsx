@@ -10,6 +10,7 @@ import { ServerConfigPage } from "@/pages/ServerConfig";
 import { EventsPage } from "@/pages/Events";
 import { QuestsPage } from "@/pages/Quests";
 import { DungeonsPage } from "@/pages/Dungeons";
+import { ItemsPage } from "@/pages/Items";
 import { AssetsPage } from "@/pages/Assets";
 import { MailPage } from "@/pages/Mail";
 import { DonationsPage } from "@/pages/Donations";
@@ -71,6 +72,8 @@ const eventsRoute = createRoute({
 const questsRoute = createRoute({ getParentRoute: () => authedRoute, path: "/quests", component: QuestsPage });
 /** Same static-route trick for `dungeons` (Instâncias, editor #2) — see `pages/Dungeons.tsx`. */
 const dungeonsRoute = createRoute({ getParentRoute: () => authedRoute, path: "/dungeons", component: DungeonsPage });
+/** Same static-route trick for `items` (Itens/Loja, editor #4) — see `pages/Items.tsx`. */
+const itemsRoute = createRoute({ getParentRoute: () => authedRoute, path: "/items", component: ItemsPage });
 const assetsRoute = createRoute({ getParentRoute: () => authedRoute, path: "/assets", component: AssetsPage });
 const mailRoute = createRoute({ getParentRoute: () => authedRoute, path: "/mail", component: MailPage });
 const donationsRoute = createRoute({ getParentRoute: () => authedRoute, path: "/donations", component: DonationsPage });
@@ -96,7 +99,7 @@ const resourceRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([
   loginRoute,
-  authedRoute.addChildren([dashboardRoute, configRoute, eventsRoute, questsRoute, dungeonsRoute, assetsRoute, mailRoute, donationsRoute, resourceRoute]),
+  authedRoute.addChildren([dashboardRoute, configRoute, eventsRoute, questsRoute, dungeonsRoute, itemsRoute, assetsRoute, mailRoute, donationsRoute, resourceRoute]),
 ]);
 
 /** `history` is only ever overridden in tests (memory history instead of the real browser URL). */

@@ -118,7 +118,14 @@ padrão de referência para as próximas. #2-#5 ficam para sessões seguintes (v
       nenhum clicava pra trocar) — documentado no teste novo pra quem for reusar o padrão nos próximos
       editores. Testes: `apps/admin/src/pages/Events.test.tsx` (+1, total 3). Suite completa (admin 16) e
       typecheck limpos.
-- [ ] Fase 2d — editor visual de Itens/Loja (`/items`).
+- [x] Fase 2d — editor visual de Itens/Loja (`/items`). `apps/admin/src/pages/Items.tsx`, rota estática.
+      Preview estilo dica de item (ícone grande, nome, badges qualidade/categoria/nível, atributos ATK/DEF/
+      AGI/SOR, descrição) + seção "Na loja" com ofertas reais de `game."Shop"` filtradas por
+      `cf_TemplateID` (campo numérico mesmo sendo `item-picker` no FieldDef — resolução é pela coluna
+      Drizzle, não pelo tipo do campo). Painel lateral reaproveita `ItemIconGenerator` (gerador de ícone
+      por IA, antes só no diálogo genérico) + todos os campos de `items.fields` (seções Geral/Atributos/
+      Regras já existentes). Abas Visual/Tabela/Loja. Testes: `apps/admin/src/pages/Items.test.tsx` (3).
+      Suite completa (admin 19) e typecheck limpos.
 - [ ] Fase 2e — editor visual de NPCs/Bosses (`/npcs`).
 - [ ] Fase 3 — site: Home (hero/features/ranking/news), Jogar (polimento sem regressão), Apoiar/
       Transparência (link Buy Me a Coffee), Conta, responsivo, SEO.
