@@ -90,7 +90,23 @@ padrão de referência para as próximas. #2-#5 ficam para sessões seguintes (v
       Visual por padrão sem missão escolhida; clicar hotspot do título foca o campo e editar atualiza o
       preview ao vivo; trocar de missão troca o preview). `pnpm --filter admin exec vitest run` (12 passam)
       e `pnpm --filter admin exec tsc --noEmit` limpos.
-- [ ] Fase 2b — editor visual de Instâncias (`/dungeons`).
+- [x] Fase 2b — editor visual de Instâncias (`/dungeons`). `apps/admin/src/pages/Dungeons.tsx`: mesmo
+      padrão do editor de Missões (preview `GamePanel` ao vivo + painel lateral + clique-pra-focar), uma
+      `DifficultyLane` por dificuldade configurada (`SimpleGameScript`...`TerrorGameScript`). Diferencial:
+      a cadeia de fases (`Game.SetupMissions(...)`) só existe em código, não em dado — `GET
+      /api/admin/dungeons/:id/diagnostics` (`apps/api/src/lib/pve-diagnostics.ts`) reconstrói o `PveGame`
+      real de cada dificuldade (igual `packages/fight/test/pve-sweep.test.ts`) e devolve a cadeia resolvida
+      + avisos quando uma sessão referenciada não tem `Mission_Info` (`docs/guides/pve.md` §1.1, tarefa
+      `pve-cadeia`) — a masmorra Gulu Kingdom (Pve 1) mostra isso de verdade: Fácil completo, Normal/
+      Difícil/Herói com sessão faltando (gap documentado, não corrigido ainda). Prêmios de fase via
+      `Drop_Condiction`/`Drop_Item` (recursos novos: `apps/admin/src/resources/drops.ts`, não existiam no
+      painel — PK errado corrigido em `admin-resources.ts`, `DropId`→`DropID`). Ícones de item reais via
+      `/api/admin/item-icons`; arte da masmorra via `/resource/image/map/<Pic>/icon.png` (rota pública
+      existente, 404 cai num placeholder 1×1, nunca quebra visualmente). Mock (`VITE_USE_MOCKS=true`)
+      ganhou `GET /api/admin/dungeons/:id/diagnostics` espelhando o fallback "sem script" do motor real
+      (não pode rodar o script de verdade no mock). Testes: `apps/admin/src/pages/Dungeons.test.tsx` (3),
+      `apps/api/test/api.test.ts` "dungeon diagnostics" + "drop-conditions CRUD" (regressão do PK). Suites
+      completas (admin 15, api 119) e typechecks limpos.
 - [ ] Fase 2c — editor visual de Eventos (`/events`).
 - [ ] Fase 2d — editor visual de Itens/Loja (`/items`).
 - [ ] Fase 2e — editor visual de NPCs/Bosses (`/npcs`).

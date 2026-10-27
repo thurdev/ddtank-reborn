@@ -261,6 +261,55 @@ export const handlers = [
     return HttpResponse.json({ items, total: rows.length, page, pageSize });
   }),
 
+  /**
+   * site-admin-redesign (editor #2, Instâncias): mock de `GET /api/admin/dungeons/:id/diagnostics` — a versão
+   * real (`apps/api/src/lib/pve-diagnostics.ts`) reconstrói o motor de luta pra saber a cadeia de fases
+   * resolvida pelo `*GameScript`, código que não existe aqui (`@ddt/fight` não entra no mock do painel).
+   * Em vez de devolver vazio, espelha o MESMO fallback que o motor usa quando não há script
+   * (`packages/fight/src/pve/game.ts` `fallbackMissionIds`: `ID*100+1..9` que existir em `Mission_Info`) —
+   * plausível pro editor mostrar algo no modo mock/dev, mas nunca reporta sessão/script faltando (esse aviso
+   * específico exige o motor real).
+   */
+  http.get("/api/admin/dungeons/:id/diagnostics", ({ request, params }) => {
+    if (!authed(request)) return unauthorized();
+    const pveId = Number(params.id);
+    const dungeon = tables.get("dungeons")?.find((r) => Number(r.ID) === pveId);
+    if (!dungeon) return HttpResponse.json({ items: [] });
+    const missionRows = tables.get("missions") ?? [];
+    const dropConditionRows = tables.get("drop-conditions") ?? [];
+    const chain = Array.from({ length: 9 }, (_, i) => missionRows.find((r) => Number(r.Id) === pveId * 100 + i + 1)).filter((r): r is Row => !!r);
+    const cardDropFor = (missionId: number): number | null => {
+      const hit = dropConditionRows.find((r) => Number(r.CondictionType) === 5 && String(r.Para1 ?? "").includes(`,${missionId},`));
+      return hit ? Number(hit.DropID) : null;
+    };
+    const items = (
+      [
+        ["SimpleGameScript", 0],
+        ["NormalGameScript", 1],
+        ["HardGameScript", 2],
+        ["TerrorGameScript", 3],
+      ] as const
+    )
+      .filter(([field]) => !!dungeon[field])
+      .map(([field, hardLevel]) => ({
+        hardLevel,
+        field,
+        script: String(dungeon[field]),
+        totalMissionCount: chain.length,
+        resolvedCount: chain.length,
+        missingSessionKeys: [] as number[],
+        missingMissionScripts: [] as { missionId: number; script: string }[],
+        missions: chain.map((mi, idx) => ({
+          session: idx + 1,
+          id: Number(mi.Id),
+          name: String(mi.Name ?? ""),
+          title: (mi.Title as string | undefined) ?? null,
+          cardDropId: cardDropFor(Number(mi.Id)),
+        })),
+      }));
+    return HttpResponse.json({ items });
+  }),
+
   http.get("/api/admin/:resource/:id", ({ request, params }) => {
     if (!authed(request)) return unauthorized();
     const def = resourceByName.get(String(params.resource));
