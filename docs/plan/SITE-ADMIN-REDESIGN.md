@@ -11,6 +11,12 @@ de edição; clicar num elemento do preview foca o campo correspondente no paine
 preview ao vivo. Campos invisíveis no jogo (ids, rates, scripts, condições) só existem no painel lateral.
 Tabelas continuam existindo para trabalho em massa — toggle Tabela ↔ Visual por recurso.
 
+**Divisão de escopo (coordenador, durante a fase 2):** o agente `multi-char` passou a ser dono do fluxo
+Jogar/Play do site (carrossel de seleção de personagem antes do seletor de canal) + APIs de personagem.
+Na fase 3 (site) **não tocar** em `apps/web/src/pages/Play.tsx`, `play.css`, `GameFrame.tsx` nem no seletor
+de canal — se precisar de ajuste visual ali, só via tokens compartilhados em `packages/ui`. Home, Apoiar/
+Transparência, páginas de conta e os editores do admin continuam sendo deste agente.
+
 ## 0. Direção de design (já existente, estendida — não é um redesign do zero)
 
 O design system "night sky artillery" (`packages/ui/src/styles.css`) já está certo pro pedido do dono e

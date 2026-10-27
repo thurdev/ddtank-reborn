@@ -679,7 +679,12 @@ describe("admin CRUD", () => {
     const r = await app.inject({ url: "/api/admin/dungeons/1/diagnostics", headers: auth });
     expect(r.statusCode).toBe(200);
     const byField = new Map(r.json().items.map((d: { field: string; missingSessionKeys: number[] }) => [d.field, d]));
-    expect((byField.get("SimpleGameScript") as { missingSessionKeys: number[] }).missingSessionKeys).toEqual([]);
+    const easy = byField.get("SimpleGameScript") as { missingSessionKeys: number[]; missions: { session: number; id: number; cardDropId: number | null }[] };
+    expect(easy.missingSessionKeys).toEqual([]);
+    // GuluKingdomSimpleGame calls Game.SetupMissions("1072,1073") (0027_pve_cadeia_gulu_baron.sql) — the
+    // resolved chain, in order, is part of what the Instâncias preview renders as a strip of cards.
+    expect(easy.missions.map((m) => ({ session: m.session, id: m.id }))).toEqual([{ session: 1, id: 1072 }, { session: 2, id: 1073 }]);
+    for (const m of easy.missions) expect(typeof m.cardDropId === "number" || m.cardDropId === null).toBe(true);
     const normal = byField.get("NormalGameScript") as { totalMissionCount: number; resolvedCount: number; missingSessionKeys: number[] };
     expect(normal.missingSessionKeys.length).toBeGreaterThan(0);
     expect(normal.resolvedCount).toBeLessThan(normal.totalMissionCount);

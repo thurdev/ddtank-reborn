@@ -53,6 +53,18 @@ export interface MissingMissionScript {
   script: string;
 }
 
+/** One resolved session in the chain, in order. `cardDropId` is the matching `Drop_Condiction.DropID`
+ *  (`CondictionType` 5 "Copy", `Para1` containing `,<id>,` — `docs/guides/pve.md` §3) when this mission has a
+ *  card pool, so the UI can fetch its `Drop_Item` rows (`GET /api/admin/drop-items?cf_DropId=<id>`) without
+ *  this endpoint needing to embed the whole pool (3000+ `Drop_Item` rows total, most sessions have none). */
+export interface ChainMission {
+  session: number;
+  id: number;
+  name: string;
+  title: string | null;
+  cardDropId: number | null;
+}
+
 export interface DungeonDifficultyDiagnostics {
   hardLevel: number;
   /** Which `Pve_Info` column held this difficulty's script (`SimpleGameScript`...). */
@@ -66,6 +78,8 @@ export interface DungeonDifficultyDiagnostics {
   /** Resolved missions whose own `Script` has no registered class (a different, already-documented gap:
    *  the mission exists but its phase logic doesn't — it still ends on "no NPC left standing", never stuck). */
   missingMissionScripts: MissingMissionScript[];
+  /** Every resolved session, in order — the mission chain the preview draws as a strip of cards. */
+  missions: ChainMission[];
   /** Set only if constructing the game itself threw — would be a real bug, not a data gap (see file banner). */
   error?: string;
 }
@@ -73,12 +87,21 @@ export interface DungeonDifficultyDiagnostics {
 /** Diagnoses every difficulty this dungeon has a script for. `pveId` must exist in `game."Pve_Info"`. */
 export async function diagnosePve(ctx: AppCtx, pveId: number): Promise<DungeonDifficultyDiagnostics[]> {
   assets ??= loadPackedAssets();
-  const [infoRow, missionRows, npcRows] = await Promise.all([
+  const [infoRow, missionRows, npcRows, dropConditionRows] = await Promise.all([
     q1<Row>(ctx.h, sql`SELECT * FROM game."Pve_Info" WHERE "ID" = ${pveId}`),
     all(ctx.h, "game", "Mission_Info"),
     all(ctx.h, "game", "NPC_Info"),
+    all(ctx.h, "game", "Drop_Condiction"),
   ]);
   if (!infoRow) return [];
+
+  /** `Drop_Condiction.Para1` is a loose ",1,2,3,"-style CSV string (`DropInventory.CopyDrop`, `Para2 = ",1,"`
+   *  gating is a per-NPC-count detail this diagnostic doesn't need) — `,<id>,` is the same substring match the
+   *  donor server uses, not a guess. */
+  const cardDropFor = (missionId: number): number | null => {
+    const hit = (dropConditionRows as Row[]).find((r) => Number(r.CondictionType) === 5 && String(r.Para1 ?? "").includes(`,${missionId},`));
+    return hit ? Number(hit.DropID) : null;
+  };
 
   const info: PveInfo = {
     ID: Number(infoRow.ID),
@@ -118,9 +141,12 @@ export async function diagnosePve(ctx: AppCtx, pveId: number): Promise<DungeonDi
       const missingMissionScripts: MissingMissionScript[] = [...game.Misssions.values()]
         .filter((mi) => !scriptInfo(mi.Script ?? ""))
         .map((mi) => ({ missionId: mi.Id, script: mi.Script ?? "" }));
-      out.push({ hardLevel, field, script, totalMissionCount: game.TotalMissionCount, resolvedCount: game.Misssions.size, missingSessionKeys, missingMissionScripts });
+      const chainMissions: ChainMission[] = [...game.Misssions.entries()]
+        .sort((a, b) => a[0] - b[0])
+        .map(([session, mi]) => ({ session, id: mi.Id, name: mi.Name, title: mi.Title ?? null, cardDropId: cardDropFor(mi.Id) }));
+      out.push({ hardLevel, field, script, totalMissionCount: game.TotalMissionCount, resolvedCount: game.Misssions.size, missingSessionKeys, missingMissionScripts, missions: chainMissions });
     } catch (e) {
-      out.push({ hardLevel, field, script, totalMissionCount: 0, resolvedCount: 0, missingSessionKeys: [], missingMissionScripts: [], error: (e as Error).message });
+      out.push({ hardLevel, field, script, totalMissionCount: 0, resolvedCount: 0, missingSessionKeys: [], missingMissionScripts: [], missions: [], error: (e as Error).message });
     }
   }
   return out;
