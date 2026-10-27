@@ -6,6 +6,7 @@
   "description": "Cliente DDTank 4.1 em TypeScript + PixiJS (sem Flash). Código do jogo em src/game (gerado do AS3 original, agora editável), runtime do Flash em @ddt/flash.",
   "scripts": {
     "dev": "vite",
+    "dev:avatar": "vite build -c vite.avatar.config.ts --watch",
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.json"

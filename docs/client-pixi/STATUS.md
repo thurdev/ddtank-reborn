@@ -592,3 +592,165 @@ mouse nos prédios do hall)
   só confirma que nada quebrou); `tools/swf-export`: `npm test` → 5/5 ok; `npx tsc --noEmit --strict`
   (opções do `tsconfig.base.json`+`packages/flash/tsconfig.json`, já que `tools/swf-export` não tem
   `tsconfig.json` próprio) nos arquivos tocados → limpo.
+
+## Achados da sessão perf-cliente (carrossel de personagem + "lag" percebido em jogo)
+
+Duas queixas do dono: (1) o carrossel de seleção de personagem (`apps/web`, antes de entrar
+no jogo) demora demais pra mostrar os personagens; (2) "lag" dentro do jogo, mesmo com o
+servidor respondendo em <5ms (medido na task `pixi-net`) — ou seja, o atraso percebido é do
+cliente.
+
+### 1. Carrossel de personagem — causa raiz e fix
+
+**Causa raiz medida**: `apps/client/avatar.html` (a página que a `AvatarStage.tsx` do site abre
+num iframe) faz `import "./game/all"` — o MESMO import estático de ~2600 módulos que
+`main.ts` precisa (registro global de classes AS3, ver achado da sessão `pixi-load` em
+2026-10-27 acima). Sob o dev server normal do Vite isso é servido como ~2800 requisições HTTP
+individuais (uma por módulo TS) — medido com Playwright próprio (`chromium.launch()`,
+contexto novo, `CDP Network.clearBrowserCache` pro caso "frio"): **baseline antes do fix — frio:
+3,70s (2806 requisições, 51MB); morno (mesmo navegador, cache HTTP já populado): 2,75s
+(ainda 2806 requisições — a maioria vira `304`/revalidação, não elimina o round-trip)**. O
+`server.warmup` que a sessão `pixi-load` já tinha adicionado (pré-transforma `main.ts`/
+`game/all.ts` quando o dev server sobe) ajuda a transformação ficar pronta, mas **não reduz a
+contagem de requisições** — e é exatamente essa contagem (não bytes) que dominava o tempo,
+já que o navegador limita conexões paralelas por origem.
+
+**Fix** (`apps/client/vite.avatar.config.ts`, novo + `apps/client/vite.config.ts`): um config de
+build SEPARADO só pra `avatar.html`, rodado em `--watch` (`pnpm --filter @ddt/client dev:avatar`,
+novo script) como um processo adicional ao lado do dev server normal — produz um bundle Rollup
+de verdade (`dist-avatar/`, `assetsDir: "avatar-chunks"` pra não colidir com `/assets/` dos PNGs
+exportados; `copyPublicDir: false` pra não copiar a junction de assets, o que é o que fazia um
+`vite build` normal levar 9+ minutos). O dev server principal ganhou um plugin pequeno
+(`serveAvatarBundle`) que serve `/avatar.html` + `/avatar-chunks/*` direto de `dist-avatar/`
+quando existem, SEM passar pelo pipeline por-módulo do Vite — cai pro caminho antigo (mais lento,
+mas funcional) se o build-watch não tiver rodado ainda (checkout novo). Zero mudança pro cliente
+principal (`main.html`) — o dev HMR de `apps/client` continua igual.
+
+**Medido depois do fix** (mesma máquina, mesmo horário, 3 execuções): **frio: 0,8-1,2s (11
+requisições); morno: 0,3-0,8s (11 requisições)**. Bate os dois alvos do dono (<3s frio, <1,5s
+morno) com margem. A contagem de requisições caiu de 2806 pra 11 (1 bundle JS de ~8MB + alguns
+chunks de backend WebGL/WebGPU do próprio Pixi, carregados sob demanda).
+
+**Outras peças do pedido do dono**:
+- **Preload/prefetch assim que a página Jogar carrega**: `apps/web/src/pages/Play.tsx` ganhou
+  `usePrefetchAvatarClient` — injeta `<link rel="preconnect">` + `<link rel="prefetch">` pra
+  `${pixiUrl}avatar.html` assim que a config do servidor resolve (bem antes do carrossel
+  realmente montar o iframe, que ainda espera `myCharacters` carregar) — o navegador já começa a
+  baixar/cachear o bundle JS em paralelo com o resto do boot da página.
+- **Mostrar nameplate + silhueta instantaneamente**: `AvatarStage.tsx` ganhou um estado `ready`
+  (fica `false` até o `postMessage({type:"ddt-avatar-ready"})` do iframe chegar) — enquanto isso,
+  desenha um "esqueleto" CSS por slot (silhueta + nameplate com nick/nível reais, já disponíveis
+  no `cards` prop) no mesmo lugar aproximado onde o personagem real vai aparecer, com
+  pulse/fade; o iframe cross-fada por cima quando fica pronto. É a volta, pro layout de UM
+  iframe só (round 2), da ideia `.avatar-frame__silhouette` que existia no round 1 (um iframe por
+  card) e tinha ficado órfã no CSS (classes mortas, removidas agora). Texto do esqueleto via
+  `::before`/`attr(data-text)` (CSS puro, não nó de texto real) pra não duplicar o nome acessível
+  que o `sr-only` da `CharacterCarousel` já expõe — evita quebrar `screen.getByText` nos testes
+  existentes.
+- **Paralelizar XML/config**: já era paralelo (`Promise.all([startPlayer, loadAssetIndex,
+  fetch(config.xml)])` em `avatar.ts`) — confirmado, nada a mudar.
+- **Cache de bibliotecas de equipamento**: já existia dos dois lados — `SwfLibrary.ts` já
+  dedupa carregamentos concorrentes/repetidos da mesma SWF num `Map<string, Promise<SwfLibrary>>`
+  (`cache`, por isso os 3 personagens de teste com o mesmo item equipado não refazem a
+  requisição); `apps/api/src/routes/static.ts` já manda `Cache-Control: public, max-age=300` +
+  `ETag` pra `/flash/*`/`/resource/*`. Confirmado, nada a mudar.
+
+**Não mexido**: posição do brilho/luz (`enlargeShowLight`/`SHOW_LIGHT_*` em `avatar.ts`) — pedido
+explícito do dono (commit `88053baa`).
+
+**Testes**: `pnpm --filter web exec vitest run` → 22/22 ok (inclui o novo esqueleto);
+`pnpm --filter @ddt/flash exec vitest run --maxWorkers=1` → 16/16 ok (shim não mudou nesta
+parte); `pnpm --filter web typecheck` → limpo.
+
+**Commits**: `perf(client): perf-cliente - bundle dedicado pra avatar.html em vez do grafo
+inteiro do jogo por-módulo`; `perf(web): perf-cliente - prefetch do avatar.html + esqueleto
+instantâneo de nameplate/silhueta no carrossel`.
+
+### 2. "Lag" em jogo — perfil real (hall → sala PvP → batalha)
+
+Perfilado com Playwright headless próprio (`chromium.launch({headless:true})`, SwiftShader —
+sem GPU real nesta VM) contra o próprio cliente (porta 5183) + os servidores `api`/`game`
+compartilhados (8080/9200/9300), conta de teste dedicada (`perfcliente1`). Usei a
+instrumentação já existente do jogo (`?fps=1` → `window.ddtStats`, `Stats.render`/`Stats.logic`
+em `packages/flash/src/stats.ts`) em vez de reinventar medição de frame, mais
+`PerformanceObserver({entryTypes:["longtask"]})` nativo do navegador pra achar tarefas >50ms, e
+correlacionei os timestamps desses long tasks com o `Network` do CDP pra ver o que estava
+carregando bem na hora de cada stall.
+
+**Achado**: tarefas de main-thread de **2,2-2,9 segundos** aparecem repetidamente durante uma
+sessão de jogo real — não só no boot, também no meio do jogo (hall → criar sala → esperar bot →
+batalha) — cada vez que uma biblioteca SWF exportada (personagem, bala, explosão, efeito de UI)
+é usada por nome PELA PRIMEIRA VEZ nessa sessão. Confirmado por correlação direta: os stalls
+batem no tempo exato em que `library.json` + dezenas de PNGs de `bomb/bullet/bullet121`,
+`bomb/blastout/blastout121`, `game/living/living001` (personagem do bot) ou
+`ui/vietnam/swf/firsttainer` (efeitos de sangue/UI de batalha) terminam de chegar pela rede.
+`Stats.render`/`Stats.logic` (a instrumentação do próprio jogo) ficam baixos (<15ms) durante
+esses stalls — ou seja, o tempo NÃO está dentro do loop de desenho instrumentado
+(`packages/flash/src/player.ts`'s `loop()`), está em outro lugar: o próprio `renderer.render()`
+do PixiJS fazendo upload de GPU pra todas as texturas novas daquela biblioteca de uma vez só
+(confirmado por contagem: `living001` tem 98 caracteres, `bullet121` tem 40 imagens — poucos
+pra ser custo de JSON/registro de classes, mas na faixa certa pra um custo fixo por textura sob
+SwiftShader somado dar ~2,3s).
+
+Testei também um período de 20s **sem nenhum input** (depois do bot entrar, sem atirar): os
+mesmos stalls grandes só aparecem durante a janela inicial de carregamento de bibliotecas (até
+~t17s), nunca depois — ou seja, NÃO é um custo recorrente por frame/por turno, é especificamente
+"primeira vez que esta SWF é usada nesta sessão" (pode acontecer de novo mais tarde se um
+personagem/bot/arma ainda não visto aparecer).
+
+**Fix aplicado** (`packages/flash/src/swf/SwfLibrary.ts` + `packages/flash/src/player.ts`):
+`SwfLibrary.$preload()` agora constrói as `Texture` de toda imagem recém-carregada (barato — só
+embrulha a `<img>` já decodificada) e `await`a `renderer.prepare.upload(texturas)` — o sistema
+`PrepareSystem`/`PrepareUpload` que o próprio `pixi.js` já registra por padrão, feito
+exatamente pra isso: sobe umas poucas texturas por vez (`PrepareBase.uploadsPerFrame`, padrão 4)
+ao longo de vários frames (cada um um `setTimeout(0)` separado, cede o main thread entre eles) em
+vez de um `render()` só fazendo upload de todas de uma vez sem ceder nada no meio.
+`player.ts` ganhou `currentRenderer()` (mesmo padrão de `currentStage()`) pra `SwfLibrary.ts`
+achar o renderer ativo sem acoplamento direto. **Primeira tentativa (sem `await`, só disparar e
+esquecer) não fez diferença medível** — a causa: o personagem/efeito quase sempre é colocado no
+palco e desenhado no frame SEGUINTE ao `$load()` resolver, sem folga real pra uma fila de fundo
+adiantar algo; só ao `await`ar o upload dentro do próprio `$preload()` (atrasando ligeiramente a
+resolução de `SwfLibrary.load()`) o custo passa a ser pago no loop que já cede o main thread do
+`PrepareSystem`, não no `render()` sem ceder nada.
+
+**Medido**: parcialmente eficaz — `firsttainer` (efeitos de UI) caiu de um bloco de ~2,86s pra
+dois blocos de ~0,11s/0,07s; `choicefigure` também melhorou. `living001` (personagem, que carrega
+várias sub-bibliotecas vinculadas — corpo, equipamento, arma, asas, cada uma enfileirando na
+MESMA fila global do Pixi) continuou mostrando um bloco grande (~2,7s) numa das execuções — o
+tempo total de CPU gasto não caiu visivelmente (mesmo trabalho de upload de GPU, só redistribuído
+no tempo), consistente com isso ser principalmente um ajuste de AGENDAMENTO (quando o custo é
+pago), não uma redução do custo absoluto — que em hardware real (GPU de verdade, não SwiftShader
+em software) deve ser desproporcionalmente menor por textura, tornando este mesmo fix
+proporcionalmente mais eficaz no desktop real do que nesta VM headless conseguiu provar.
+Documentando honesto: **não é uma vitória limpa e completa**, é uma mudança segura (nunca muda O
+QUE é desenhado, só QUANDO o upload de GPU acontece) que mediu melhora real em alguns casos e
+inconclusiva em outros, dentro do orçamento desta sessão.
+
+**Não corrigido / não investigado a fundo** (fica pra uma sessão futura):
+- Composição de personagem com várias sub-bibliotecas vinculadas (corpo+equipamento+arma+asas)
+  pode precisar de um lote conjunto (`prepare.upload` com a lista combinada de todas as
+  sub-bibliotecas de uma vez, não uma chamada por biblioteca) pra render corretamente — não
+  confirmado se isso resolveria o caso `living001` restante.
+- `PrepareBase.uploadsPerFrame` (padrão 4, campo estático do `pixi.js`) é um botão de ajuste
+  direto (menor = stalls individuais mais curtos mas carregamento total mais lento; maior = o
+  oposto) — não toquei por falta de forma confiável de validar o valor certo neste ambiente
+  ruidoso (máquina compartilhada por 4 agentes, SwiftShader); candidato pra uma sessão com
+  medição em hardware real.
+- GC/alocação, filtros/`cacheAsBitmap`, e o passeio de árvore completo em
+  `packages/flash/src/interp.ts` (`snapshot`/`applyInterp`/`restoreInterp` visitam TODO objeto de
+  exibição a cada frame de lógica E a cada frame de desenho) foram revisados por leitura de
+  código — parecem arquiteturalmente razoáveis (o avanço de timeline já é incremental por frame,
+  não reconstrói tudo) e não apareceram como custo dominante nas amostras (`Stats.render`/
+  `Stats.logic` ficam em 1 dígito de ms fora dos stalls de carregamento) — não encontrei evidência
+  de que sejam o próximo maior offender, mas não constitui uma auditoria exaustiva.
+- Pacotes não ficam esperando o próximo tick de lógica (confirmado de novo nesta sessão, mesmo
+  achado da task `pixi-net`): `pointerdown`/`pointerup`/`keydown` despacham sincronamente em
+  `player.ts`, sem `setTimeout`/fila por frame.
+
+**Testes**: `pnpm --filter @ddt/flash exec vitest run --maxWorkers=1` → 16/16 ok (inclui
+`packages/flash/src/swf/SwfLibrary.test.ts`, novo — verifica que `$preload` entrega as texturas
+certas pro `renderer.prepare.upload` mockado, e que não quebra quando não há renderer ainda);
+`pnpm --filter @ddt/flash typecheck` → limpo.
+
+**Commit**: `fix(flash): perf-cliente - upload de textura em lote via PrepareSystem do pixi.js
+em vez de tudo de uma vez no primeiro render`.

@@ -22,6 +22,29 @@ const SHOW_6600_TOGGLE = false;
 
 type BadgeTone = "sun" | "coral" | "mint" | "sky" | "grape" | "neutral";
 
+/** perf-cliente: injects (and dedupes/cleans up) `<link rel="preconnect">` + `<link rel="prefetch">` for
+ *  `${pixiUrl}avatar.html` the first time a `pixiUrl` shows up — see the call site in `PlayPage` for why. */
+function usePrefetchAvatarClient(pixiUrl: string | undefined): void {
+  useEffect(() => {
+    if (!pixiUrl) return;
+    const base = pixiUrl.endsWith("/") ? pixiUrl : `${pixiUrl}/`;
+    let origin: string;
+    try {
+      origin = new URL(base).origin;
+    } catch {
+      return;
+    }
+    const links = [
+      Object.assign(document.createElement("link"), { rel: "preconnect", href: origin }),
+      Object.assign(document.createElement("link"), { rel: "prefetch", href: `${base}avatar.html`, as: "document" }),
+    ];
+    for (const l of links) document.head.appendChild(l);
+    return () => {
+      for (const l of links) l.remove();
+    };
+  }, [pixiUrl]);
+}
+
 /** Estado de `ChannelInfo.state` (`ddt/data/ServerInfo.as`): 1 manutenção, 2 aberto, 4 quase cheio, 5 cheio. */
 function channelStateInfo(state: number, t: (k: TKey) => string): { label: string; tone: BadgeTone; blocked: boolean } {
   switch (state) {
@@ -196,6 +219,14 @@ export function PlayPage() {
   const effectiveSlot = slot ?? 1;
 
   const { data, error, isLoading, refetch } = useQuery({ ...configQueryFor(effectiveSlot), staleTime: 0 });
+  // perf-cliente: as soon as the server config tells us where the PixiJS client lives, start fetching
+  // `avatar.html` (+ its JS bundle, see apps/client/vite.avatar.config.ts) in the background — well before
+  // `CharacterCarousel` actually mounts an iframe pointed at it (gated on `myChars` too, see below). By the
+  // time the carousel needs it, the document + its one big JS chunk are already in the HTTP cache instead
+  // of a cold fetch. Query-string differs from the real iframe `src` (no `chars`/`focus` here — we don't
+  // have the roster yet) but that's fine: the JS bundle's URL doesn't depend on it, only the HTML document
+  // does, and prefetching the document still warms DNS/TCP/TLS to that origin either way.
+  usePrefetchAvatarClient(data?.game.pixiUrl);
   const channels = useQuery(channelsQuery);
   const [channel, setChannel] = useState<Channel | null>(null);
   const scale = useStageScale(viewportEl);

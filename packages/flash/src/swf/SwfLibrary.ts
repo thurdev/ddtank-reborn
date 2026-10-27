@@ -10,6 +10,7 @@
 import { ImageSource, Texture } from "pixi.js";
 import { $registerDynamic, $tryCls } from "../as3";
 import { dlog } from "../debug";
+import { currentRenderer } from "../player";
 import { Rectangle } from "../geom/Rectangle";
 import type { CharT, LibraryT } from "./library-types";
 import { withSymbol, type SymbolBinding } from "./symbol";
@@ -169,6 +170,52 @@ export class SwfLibrary {
       }
     }
     await Promise.all(jobs);
+    await this.$prepareTextures();
+  }
+
+  /**
+   * perf-cliente: measured with real battle play (headless Playwright + CDP long-task/network
+   * correlation) that the FIRST time a never-before-used library's images finish loading, the GPU
+   * texture upload for all of them lands on whichever `render()` call happens to need them first — for a
+   * library with several dozen shapes (a character or a bullet/explosion effect — measured
+   * `game/living/living001`: 98 chars; `bomb/bullet/bullet121`: 40 images) that single frame's upload
+   * cost showed up as multi-second main-thread stalls (2.2-2.9s observed), landing well outside the
+   * game's own `Stats.render` instrumentation (`packages/flash/src/stats.ts`) because it's PixiJS's
+   * `renderer.render()` internals doing the actual GPU work, not our code — one giant frame, not several
+   * small ones, because `render()` uploads however many never-seen textures it hits in one synchronous
+   * pass with no yielding in between (each one is cheap on its own; it's the COUNT in one frame that's the
+   * problem, confirmed: ~2.3s for ~40 never-before-uploaded textures on this dev machine's headless/
+   * SwiftShare software GL is in the right ballpark for a fixed per-texture overhead, not image size).
+   *
+   * First attempt — handing textures to PixiJS's own `renderer.prepare` (`PrepareSystem`/
+   * `PrepareUpload`, auto-registered by the default `pixi.js` import, meant for exactly this: upload a
+   * few at a time across frames instead of however many one `render()` call needs) WITHOUT awaiting it —
+   * made no measurable difference. Root cause: the character/effect this library is for is almost always
+   * placed on stage and drawn on the very NEXT frame right after `SwfLibrary.load()` resolves (no real
+   * idle gap for a background queue to use) — a fire-and-forget `prepare.upload()` call had started
+   * nothing yet by the time `render()` ran anyway.
+   *
+   * Fix that actually moves it: AWAIT `renderer.prepare.upload()` as part of `$preload()` — `$load()`
+   * (and so `SwfLibrary.load()`'s promise) now resolves slightly later, but the same total upload cost
+   * gets paid in `PrepareBase`'s own incrementally-yielding loop (`PrepareBase.uploadsPerFrame` = 4 per
+   * tick, each tick a separate `setTimeout(0)`) instead of in one single non-yielding `render()` pass —
+   * turns one ~2.3s freeze into several much smaller ones the rest of the page (input, our own rAF loop)
+   * can interleave with, for the exact same CPU/GPU work. `renderer.render()` still uploads anything this
+   * loop hasn't gotten to for some other reason (safety net, same as before this fix) — this never changes
+   * what gets drawn, only when the GPU upload cost is paid.
+   */
+  private async $prepareTextures(): Promise<void> {
+    const renderer = currentRenderer();
+    if (!renderer?.prepare) return;
+    const textures: Texture[] = [];
+    for (const id of this.imgs.keys()) {
+      const c = this.data.chars[id];
+      if (c?.k === "shape" || c?.k === "morph" || c?.k === "text" || c?.k === "bitmap") {
+        const t = this.texture(id);
+        if (t) textures.push(t);
+      }
+    }
+    if (textures.length) await renderer.prepare.upload(textures).catch(() => {});
   }
 
   url(file: string): string {
