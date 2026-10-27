@@ -642,6 +642,30 @@ describe("admin CRUD", () => {
     expect((await app.inject({ url: "/api/admin/server-list/95", headers: auth })).statusCode).toBe(404);
   });
 
+  // site-admin-redesign: "drop-conditions" had no admin resource yet, only the API whitelist entry — and that
+  // entry had the wrong PK casing ("DropId" instead of the real column "DropID", packages/db/src/schema/game.ts
+  // Drop_Condiction), which pkWhere would have resolved to no column at all, 404ing every single-row
+  // GET/PATCH/DELETE. Regression guard for both: the resource now exists (the Instâncias editor's card-pool
+  // preview uses it) and its PK resolves.
+  it("drop-conditions CRUD: composite-free PK (\"DropID\") resolves correctly", async () => {
+    const auth = { authorization: `Bearer ${adminToken}` };
+    const c = await app.inject({
+      method: "POST",
+      url: "/api/admin/drop-conditions",
+      headers: auth,
+      payload: { DropID: 999999, CondictionType: 5, Name: "Cartas de teste", Para1: ",1073,", Para2: ",1," },
+    });
+    expect(c.statusCode).toBe(201);
+    const g = await app.inject({ url: "/api/admin/drop-conditions/999999", headers: auth });
+    expect(g.statusCode).toBe(200);
+    expect(g.json()).toMatchObject({ DropID: 999999, Name: "Cartas de teste" });
+    const u = await app.inject({ method: "PATCH", url: "/api/admin/drop-conditions/999999", headers: auth, payload: { Name: "Renomeado" } });
+    expect(u.statusCode).toBe(200);
+    expect(u.json().Name).toBe("Renomeado");
+    expect((await app.inject({ method: "DELETE", url: "/api/admin/drop-conditions/999999", headers: auth })).statusCode).toBe(204);
+    expect((await app.inject({ url: "/api/admin/drop-conditions/999999", headers: auth })).statusCode).toBe(404);
+  });
+
   // site-admin-redesign (editor #2, Instâncias): GET /api/admin/dungeons/:id/diagnostics — mission-chain
   // gaps per difficulty (docs/guides/pve.md §1.1, task pve-cadeia). Pve 1 ("Lâu đài Gà"/Gulu Kingdom) is the
   // documented example: Easy was fixed (migration 0027), Normal/Difícil/Terror are documented-but-not-fixed
