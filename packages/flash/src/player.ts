@@ -71,6 +71,14 @@ export function currentStage(): Stage | null {
   return stageRef;
 }
 
+// perf-cliente: lets `swf/SwfLibrary.ts` hand newly-decoded images to PixiJS's own `renderer.prepare`
+// system as soon as they load (see that file's `$preload`) instead of only when first drawn — see the
+// comment there for the measured stall this avoids.
+let rendererRef: Application["renderer"] | null = null;
+export function currentRenderer(): Application["renderer"] | null {
+  return rendererRef;
+}
+
 export async function startPlayer(opts: PlayerOptions): Promise<Stage> {
   const W = opts.width ?? 1000, H = opts.height ?? 600;
   const app = new Application();
@@ -97,6 +105,7 @@ export async function startPlayer(opts: PlayerOptions): Promise<Stage> {
 
   const stage = new Stage(W, H);
   stageRef = stage;
+  rendererRef = app.renderer;
   stage.$frameRate = opts.frameRate ?? 25;
   stage.$fullscreenHost = host;
   app.stage.addChild(stage.$node);
