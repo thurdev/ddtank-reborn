@@ -9,5 +9,6 @@ export * from "./components/switch";
 export * from "./components/tabs";
 export * from "./components/power-gauge";
 export * from "./components/misc";
+export * from "./components/game-preview";
 export * from "./i18n";
 export * from "./api";
