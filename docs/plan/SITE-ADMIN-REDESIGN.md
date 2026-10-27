@@ -226,8 +226,20 @@ padrão de referência para as próximas. #2-#5 ficam para sessões seguintes (v
       em vez de inventar um caminho incerto (nota explícita no preview, `npcs.artNote`). Abas Visual/
       Tabela/Drops. Testes: `apps/admin/src/pages/Npcs.test.tsx` (2). Suite completa (admin 21) e
       typecheck limpos.
+  - [x] **Rebuild rodada 2** (dono rejeitou, ver §0.1): reaproveita o módulo `coreiconandtip` que o editor
+        de Itens já usa — `asset.core.tip.hp` ("Vida") e `GoodsTipItemHert` ("Dano") como rótulos reais de
+        Vida/Ataque (vocabulário de dica de item funciona igual pra ficha de NPC). `Name` ganhou "Original
+        (VN)". Arte do NPC em si (`.swf`) continua sem prévia — razão inalterada (§2 acima). Testes:
+        `Npcs.test.tsx` (2/2). Suite completa (admin 21, `--maxWorkers=1`) e typecheck limpos. PNG real em
+        `docs/plan/redesign-shots/npc/real-asset-vida-label.png`; sem screenshot antes/depois do admin nesta
+        rodada (memória da máquina, mesma ressalva das fases 2d/2c).
 
-      **Fase 2 completa** (5/5 editores visuais: Missões, Instâncias, Eventos, Itens/Loja, NPCs/Bosses).
+      **Fase 2 completa** (5/5 editores visuais rebuildados com arte real + overlay pt-BR onde existe dado
+      do vendor: Missões, Instâncias, Eventos — sem overlay, não é dado do vendor —, Itens/Loja, NPCs/Bosses).
+      Capturas ao vivo do admin (antes/depois) feitas pra Missões e Instâncias; Eventos/Itens/NPCs têm os
+      PNGs reais usados como prova, mas sem o screenshot do admin em si — ver nota de memória da máquina em
+      cada entrada acima antes de reportar qualquer uma delas como "comparada lado a lado" no sentido pleno
+      que o dono pediu.
 - [~] Fase 3 — site (Jogar **fora de escopo**, dono agora é `multi-char` — ver nota de divisão de escopo
       no topo). Feito nesta rodada:
   - [x] **Home — screenshot real**: `public/art/screenshot-char-select.webp` (seção nova "É o jogo de

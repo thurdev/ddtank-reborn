@@ -29,9 +29,6 @@ import {
   Card,
   EmptyState,
   Field,
-  GamePanel,
-  GamePanelBody,
-  GamePanelHeader,
   Hotspot,
   Input,
   PageHeader,
@@ -42,16 +39,36 @@ import {
   TabsTrigger,
   cn,
 } from "@ddtank/ui";
-import { Heart, Save, Search, Skull, Sword, Zap } from "lucide-react";
+import { Save, Search, Skull, Sword, Zap } from "lucide-react";
 import { useI18n, useText } from "@/i18n";
 import { getQuery, listQuery, useResourceMutations } from "@/crud/api";
 import { FieldInput } from "@/crud/FieldInput";
+import { FlashImg } from "@/lib/flashAssets";
 import { ResourcePage } from "@/crud/ResourcePage";
 import { buildSchema, fieldInForm, fromFormValues, toFormValues } from "@/crud/schema";
 import type { FieldDef, Row } from "@/crud/types";
 import { getItemCached, type ItemResumo } from "@/resources/items";
 import { dropItems } from "@/resources/drops";
 import { npcs } from "@/resources/content";
+
+/** Combat-sheet labels (generic item/goods tooltip module, reused here: a monster's stat block uses the
+ * same "Vida"/"Nível"/"Dano" vocabulary as an item tooltip) — `asset.core.tip.hp` ("Vida"),
+ * `asset.core.tip.GoodsLevel` ("Nível. Lv."), `asset.core.tip.GoodsTipItemHert` ("Dano"), all visually
+ * verified pt-BR (same module `Items.tsx` uses — see that file's banner). No real art module was found
+ * specifically for the in-room NPC nameplate/HP bar, so this reuses the tooltip vocabulary instead of
+ * guessing at an asset that doesn't exist. */
+const TIP_MODULE = "coreiconandtip";
+
+/** "Original (VN)" reference — same contract as `Quests.tsx`'s `OriginalTextNote`. */
+function OriginalTextNote({ data, field }: { data: Row; field: string }) {
+  const original = data[`${field}__original`];
+  if (typeof original !== "string" || !original.trim() || original === data[field]) return null;
+  return (
+    <p className="mt-1 line-clamp-2 rounded-lg bg-night-deep/50 px-2 py-1 text-xs text-muted" title={original}>
+      <span className="font-semibold text-muted/80">Original (VN):</span> {original}
+    </p>
+  );
+}
 
 type NpcRow = Row & { ID: number; Name?: string };
 
@@ -161,75 +178,72 @@ function NpcEditor({ npcId, onOpenDrops }: { npcId: number; onOpenDrops: () => v
 
   return (
     <form onSubmit={submit} className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_380px]">
-      <GamePanel>
-        <GamePanelHeader
-          icon={isBoss ? Skull : Sword}
-          title={
-            <Hotspot active={focused === "Name"} onClick={() => focus("Name")}>
-              {String(live.Name || "—")}
-            </Hotspot>
-          }
-        />
-        <GamePanelBody>
-          <div className="flex flex-wrap gap-2">
-            <Hotspot active={focused === "Level"} onClick={() => focus("Level")}>
-              <Badge tone="sky">{t("npcs.level", { n: String(live.Level ?? 1) })}</Badge>
-            </Hotspot>
-            <Hotspot active={focused === "Blood"} onClick={() => focus("Blood")}>
-              <Badge tone="coral">
-                <Heart className="size-3" aria-hidden /> {String(live.Blood ?? 0)}
-              </Badge>
-            </Hotspot>
-            <Hotspot active={focused === "Attack"} onClick={() => focus("Attack")}>
-              <Badge tone="sun">
-                <Sword className="size-3" aria-hidden /> {String(live.Attack ?? 0)}
-              </Badge>
-            </Hotspot>
-            <Hotspot active={focused === "Experience"} onClick={() => focus("Experience")}>
-              <Badge tone="mint">
-                <Zap className="size-3" aria-hidden /> {String(live.Experience ?? 0)}
-              </Badge>
-            </Hotspot>
-          </div>
-
-          <Hotspot active={focused === "ResourcesPath"} onClick={() => focus("ResourcesPath")} className="flex items-center gap-3 p-2">
-            <span className="grid size-16 shrink-0 place-items-center rounded-xl border-2 border-dashed border-line bg-night-deep/50 text-muted">
-              {isBoss ? <Skull className="size-8" aria-hidden /> : <Sword className="size-8" aria-hidden />}
-            </span>
-            <div className="text-xs text-muted">
-              <p className="font-mono">{String(live.ModelID || "—")}</p>
-              <p className="font-mono">{String(live.ResourcesPath || "—")}</p>
-              <p className="mt-1">{t("npcs.artNote")}</p>
-            </div>
+      <div
+        className="relative rounded-xl border-[3px] p-4"
+        style={{ borderColor: "#8a6a3a", backgroundColor: "#2b1a0e", boxShadow: "0 18px 40px -18px rgb(0 0 0 / 0.85)" }}
+      >
+        <h3 className="mb-3 flex items-center gap-2">
+          {isBoss ? <Skull className="size-4 shrink-0 text-coral" aria-hidden /> : <Sword className="size-4 shrink-0 text-sun" aria-hidden />}
+          <Hotspot active={focused === "Name"} onClick={() => focus("Name")} className="title-plate text-base text-[#ffe564]" style={{ textShadow: "0 2px 0 #000" }}>
+            {String(live.Name || "—")}
           </Hotspot>
+        </h3>
+        <div className="flex flex-wrap gap-3">
+          <Hotspot active={focused === "Level"} onClick={() => focus("Level")}>
+            <Badge tone="sky">{t("npcs.level", { n: String(live.Level ?? 1) })}</Badge>
+          </Hotspot>
+          <Hotspot active={focused === "Blood"} onClick={() => focus("Blood")} className="inline-flex items-center gap-1.5 p-0.5">
+            <FlashImg module={TIP_MODULE} className="asset.core.tip.hp" alt="Vida" />
+            <span className="font-mono text-sm text-[#ffde00]">{String(live.Blood ?? 0)}</span>
+          </Hotspot>
+          <Hotspot active={focused === "Attack"} onClick={() => focus("Attack")} className="inline-flex items-center gap-1.5 p-0.5">
+            <FlashImg module={TIP_MODULE} className="asset.core.tip.GoodsTipItemHert" alt="Dano" />
+            <span className="font-mono text-sm text-[#ffde00]">{String(live.Attack ?? 0)}</span>
+          </Hotspot>
+          <Hotspot active={focused === "Experience"} onClick={() => focus("Experience")}>
+            <Badge tone="mint">
+              <Zap className="size-3" aria-hidden /> {String(live.Experience ?? 0)}
+            </Badge>
+          </Hotspot>
+        </div>
 
-          {!!live.Script && (
-            <Hotspot active={focused === "Script"} onClick={() => focus("Script")} className="block w-fit p-1">
-              <span className="font-mono text-xs text-sky">{String(live.Script)}</span>
-            </Hotspot>
-          )}
-
-          <div className="rounded-xl border border-line/70 bg-night-deep/30 p-3">
-            <div className="mb-2 flex items-center justify-between">
-              <Hotspot active={focused === "DropId"} onClick={() => focus("DropId")}>
-                <p className="text-[11px] font-semibold uppercase tracking-wide text-muted">{t("npcs.drops")}</p>
-              </Hotspot>
-              <Button type="button" size="sm" variant="ghost" onClick={onOpenDrops}>
-                {t("npcs.editDrops")}
-              </Button>
-            </div>
-            {dropRows.length === 0 ? (
-              <p className="text-xs text-muted">{t("npcs.dropsEmpty")}</p>
-            ) : (
-              <div className="flex flex-wrap gap-1.5">
-                {dropRows.map((r) => (
-                  <DropIcon key={String(r.Id)} templateId={Number(r.ItemId)} />
-                ))}
-              </div>
-            )}
+        <Hotspot active={focused === "ResourcesPath"} onClick={() => focus("ResourcesPath")} className="mt-3 flex items-center gap-3 rounded-lg bg-night-deep/40 p-2">
+          <span className="grid size-16 shrink-0 place-items-center rounded-xl border-2 border-dashed border-line bg-night-deep/50 text-muted">
+            {isBoss ? <Skull className="size-8" aria-hidden /> : <Sword className="size-8" aria-hidden />}
+          </span>
+          <div className="text-xs text-muted">
+            <p className="font-mono">{String(live.ModelID || "—")}</p>
+            <p className="font-mono">{String(live.ResourcesPath || "—")}</p>
+            <p className="mt-1">{t("npcs.artNote")}</p>
           </div>
-        </GamePanelBody>
-      </GamePanel>
+        </Hotspot>
+
+        {!!live.Script && (
+          <Hotspot active={focused === "Script"} onClick={() => focus("Script")} className="mt-2 block w-fit p-1">
+            <span className="font-mono text-xs text-sky">{String(live.Script)}</span>
+          </Hotspot>
+        )}
+
+        <div className="mt-3 rounded-xl border border-line/70 bg-night-deep/30 p-3">
+          <div className="mb-2 flex items-center justify-between">
+            <Hotspot active={focused === "DropId"} onClick={() => focus("DropId")}>
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-muted">{t("npcs.drops")}</p>
+            </Hotspot>
+            <Button type="button" size="sm" variant="ghost" onClick={onOpenDrops}>
+              {t("npcs.editDrops")}
+            </Button>
+          </div>
+          {dropRows.length === 0 ? (
+            <p className="text-xs text-muted">{t("npcs.dropsEmpty")}</p>
+          ) : (
+            <div className="flex flex-wrap gap-1.5">
+              {dropRows.map((r) => (
+                <DropIcon key={String(r.Id)} templateId={Number(r.ItemId)} />
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
       <Card className="flex max-h-[75vh] flex-col overflow-hidden p-0">
         <div className="flex items-center justify-between gap-2 border-b border-line p-4">
           <h3 className="title-plate text-lg">{t("npcs.editPanel")}</h3>
@@ -259,6 +273,7 @@ function NpcEditor({ npcId, onOpenDrops }: { npcId: number; onOpenDrops: () => v
                         )}
                       />
                     </Field>
+                    <OriginalTextNote data={data} field={f.name} />
                   </div>
                 ))}
               </div>
