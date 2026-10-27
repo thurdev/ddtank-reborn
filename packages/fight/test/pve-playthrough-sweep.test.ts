@@ -22,12 +22,16 @@ import { describe, expect, it } from "vitest";
 import { BotRunner, type FightEvent, GameState, PveGame, type PlayerSpec, eRoomType, eGameType } from "../src/index.js";
 import "../src/pve/scripts/index.js";
 import { loadPackedAssets } from "../src/node.js";
-import { data, pves } from "./pve-data.js";
+import { data, pves, realDrops } from "./pve-data.js";
 
 const assets = loadPackedAssets();
+// Deliberately overpowered -- this sweep verifies FUNCTIONALITY (every stage transitions, no script
+// crashes, cards/unlock fire), not combat balance. Normal/Hard/Terror NPCs scale up meaningfully; the
+// original "strong" stats still lost (timed out) to several Normal-difficulty bosses, which only proved
+// the bots were underpowered, not that anything was broken.
 const strong = (userId: number): PlayerSpec => ({
-  userId, nickname: `p${userId}`, team: 1, grade: 60, attack: 3000, defence: 2000, agility: 1000, lucky: 800,
-  baseAttack: 4000, baseDefence: 2000, hp: 80_000, weapon: { templateId: 7001, property8: 5 }, isBot: true,
+  userId, nickname: `p${userId}`, team: 1, grade: 60, attack: 30_000, defence: 20_000, agility: 5_000, lucky: 5_000,
+  baseAttack: 40_000, baseDefence: 20_000, hp: 2_000_000, weapon: { templateId: 7001, property8: 5 }, isBot: true,
 });
 
 type GameScriptField = "SimpleGameScript" | "NormalGameScript" | "HardGameScript" | "TerrorGameScript" | "EpicGameScript" | "NightmareGameScript";
@@ -63,7 +67,7 @@ function playthrough(info: ReturnType<typeof pves.get> & object, hardLevel: numb
   try {
     game = new PveGame({
       id: 1, roomType, gameType: roomType === eRoomType.Dungeon ? eGameType.Dungeon : eGameType.Freshman, timeType: 3,
-      assets, players, seed: 7, pveInfo: info, hardLevel, data,
+      assets, players, seed: 7, pveInfo: info, hardLevel, data, drops: realDrops,
     });
     bots = new BotRunner(game, new Map(players.map((p) => [p.userId, { difficulty: 100 }])), 5);
   } catch (e) {
