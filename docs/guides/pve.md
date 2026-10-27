@@ -130,7 +130,14 @@ tinham sido realmente jogados antes):
    `LoadNpcGameOverResources`. O getter devolvia um `string[]` puro (sem `.Add`). Trocado pra `CsList<string>`
    (`packages/fight/src/pve/cs.ts`, já usada noutros lugares) — como `CsList extends Array`, todo uso
    existente (`.push`, `.length = 0`, `[...spread]`) continua igual, só ganhou `.Add`.
-3. **`GT1173`/`GK1273` (o chefe "Gà Thường S3"/"Gà Khó S3", a luta dos dois reis "Gà" no mapa 1076) com o
+3. **4 masmorras Type 6 (`CBS601`/`DTS701`/`GZS801`/`XDS901` — Vịnh Cariga, Lâu đài Daucula, Rừng rậm
+   Gamazon, Hoang mạc Xatara, missões de abertura, `Pve_Info` 11/10/8/9) travavam no `OnPrepareNewSession`**
+   com `<campo> is not defined`: a chamada de preload da bomba (`Game.AddLoadingFile(1, $"bombs/{m_ball}
+   .swf", ...)` no C#) saiu do transpiler como identificador solto dentro do template literal
+   (`` `bombs/${m_ball}.swf` ``) em vez de `this.m_ball` — mesmo campo usado certinho (`this.m_ball`) mais
+   adiante no MESMO arquivo. Corrigido em `packages/fight/src/pve/scripts/manual/
+   bomb-loading-file-interpolation.ts` (reescreve o método inteiro usando `this.<campo>`).
+4. **`GT1173`/`GK1273` (o chefe "Gà Thường S3"/"Gà Khó S3", a luta dos dois reis "Gà" no mapa 1076) com o
    construtor faltando**: `OnStartGame` chama `Game.CreateBoss(this.int_1, ...)` mas `int_1`/`int_4`/`int_5`/
    `int_6` nunca eram atribuídos (ficavam `0`) → "NPC_Info 0 not found" e tudo que vem depois
    (`CanGameOver`/`OnGameOver`) quebra lendo `.IsLiving` de `null`. A versão comprometida de
@@ -160,6 +167,18 @@ seção 1.1, nem regressões de algo que esta tarefa corrigiu — investigar dep
 - Terror do Gulu Kingdom (Pve 1, hardLevel 3) com os bots "fortes" do sweep só completa 2 das 5 fases
   (`isWin=false`) — pode ser só equilíbrio bot-vs-chefe no Terror (a dificuldade mais alta, NPCs mais fortes
   propositalmente) e não um bug; não investigado a fundo.
+- `Pve_Info` 12 (Vòng xoáy thời gian) e 13 (Đấu Trường Dũng Sĩ), Fácil: nunca chegam em `PVE_STOPPED` no
+  tempo do sweep (0/4 e 2/4 fases) — são masmorras de nível 30 (`LevelLimits`), fase final provavelmente
+  genuinamente mais dura pros bots "fortes" padrão do sweep; não investigado a fundo (pode ser só
+  `maxMs`/stats dos bots insuficientes pra esse nível, não necessariamente bug).
+- Depois do fix da interpolação do item 3 acima, `GZS801`/`XDS901` (Rừng rậm Gamazon, Hoang mạc Xatara)
+  revelam MAIS dois problemas na sequência (a correção só desbloqueou a fase, não terminou de consertá-la):
+  `this.apprenticePlayer`/`this.masterPlayer` ainda `null` quando `OnPrepareNewGame` chama `.BoltMove(...)`
+  neles (missão de "mestre e aprendiz" com papéis especiais — a atribuição de quem é quem provavelmente
+  depende de alguma condição de sala/squad que o sweep não reproduz) e `Game.FindSingleSimpleBossID` —
+  método que `PveGame` nunca implementou (gap de framework de verdade, não dado) — não existe. `DTS701`
+  (Lâu đài Daucula) só bateu no primeiro (`BoltMove`). Nenhum dos três corrigido nesta rodada — próxima
+  tarefa de PvE deveria começar por aqui (lista completa fica no `console.log` do sweep).
 - A lista completa de outras masmorras/dificuldades que a varredura reporta (fora do Pve 1) está no
   `console.log` do teste — rode `pve-playthrough-sweep.test.ts` pra ver o estado atual.
 
