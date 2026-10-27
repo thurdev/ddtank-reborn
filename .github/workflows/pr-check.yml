@@ -19,19 +19,45 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      # apps/client is EXCLUDED here (root "typecheck" script, package.json): its typecheck needs
+      # apps/client/src/game, generated from vendor/ (not in CI, gitignored) by tools/as3-to-ts — until
+      # the transpiler freeze lands (tools/as3-to-ts/freeze.mjs, docs/client-pixi/TRANSPILADOR.md
+      # #congelamento), there is nothing there for tsc to check. Once frozen, drop the exclusion (make
+      # "typecheck" plain "pnpm -r typecheck" again) and this job covers it like any other package.
       - run: pnpm typecheck
+      # "pnpm -r test" already runs per package (root package.json) — apps/client has no "test" script
+      # yet, so it's silently skipped here the same way it is locally; nothing client-specific to add.
       - run: pnpm test
 
-  # Modelo revisor: aponta riscos, nunca aprova sozinho.
-  # Configura secret AI_REVIEW_TOKEN quando for ligar (roadmap).
+  # Roadmap item from docs/BRANCH-FLOW.md "Review IA do PR": manda o diff pra um modelo com o prompt
+  # "acha breaking change, cheat/exploit, vazamento de segredo, N+1, migração sem rollback" e posta como
+  # comentário (NÃO aprova — ver .github/scripts/ai-review.mjs). Liga sozinho quando o secret
+  # AI_REVIEW_TOKEN existir; sem ele, este job é SKIPPED (não falha), então:
+  #   - NÃO marque "ai-review" como required check em Settings > Branches > protection rules — um
+  #     required check que fica eternamente "skipped" sem o secret trava todo PR pra sempre.
+  #   - Pra ligar: Settings > Secrets and variables > Actions > New repository secret > nome
+  #     AI_REVIEW_TOKEN, valor = uma API key da Anthropic (console.anthropic.com) com acesso a algum
+  #     modelo Claude. Nenhuma outra config é necessária — o job já existe, só está esperando o secret.
   ai-review:
     runs-on: ubuntu-latest
     needs: build
+    if: ${{ github.event_name == 'pull_request' && secrets.AI_REVIEW_TOKEN != '' }}
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Diff stat (sempre roda, sem segredo)
-        run: git diff --stat origin/${{ github.base_ref }}...HEAD
-      - name: Placeholder review IA
-        run: echo "AI review pendente de secret AI_REVIEW_TOKEN (ver docs/BRANCH-FLOW.md)"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Gera o diff do PR
+        run: git diff --unified=2 "origin/${{ github.base_ref }}...HEAD" -- . ':(exclude)pnpm-lock.yaml' > /tmp/pr.diff
+      - name: Chama a API da Anthropic e posta comentário
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.AI_REVIEW_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          DIFF_FILE: /tmp/pr.diff
+        run: node .github/scripts/ai-review.mjs
