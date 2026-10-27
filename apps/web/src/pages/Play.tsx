@@ -49,7 +49,8 @@ function ChannelPicker({ onSelect }: { onSelect: (channel: Channel) => void }) {
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center gap-6 bg-night-deep bg-starfield p-6 text-center animate-drift">
       <div className="flex flex-col items-center gap-2">
-        <Radio className="size-8 text-sun" aria-hidden />
+        <img src="/play/logo.webp" alt="DDTank Reborn" className="h-16 w-auto object-contain sm:h-20" />
+        <Radio className="mt-2 size-6 text-sun" aria-hidden />
         <p className="title-plate text-3xl text-ink sm:text-4xl">{t("play.channel.title")}</p>
         <p className="max-w-md text-sm text-muted">{t("play.channel.lead")}</p>
       </div>
@@ -237,6 +238,9 @@ export function PlayPage() {
             className="fixed inset-0 z-50 flex flex-col bg-night-deep"
           >
             <div className="relative z-10 flex h-10 shrink-0 items-center gap-1 overflow-x-auto border-b border-line/60 bg-night px-2 sm:gap-2">
+              <Link to="/" className="mr-1 hidden shrink-0 items-center sm:flex" aria-label={t("play.back")}>
+                <img src="/play/logo.webp" alt="" className="h-6 w-auto object-contain" />
+              </Link>
               <Button variant="ghost" size="sm" className="shrink-0" asChild>
                 <Link to="/">
                   <ArrowLeft /> <span className="hidden sm:inline">{t("play.back")}</span>
