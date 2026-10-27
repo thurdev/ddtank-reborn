@@ -3,7 +3,7 @@ import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { http, HttpResponse } from "msw";
 import { renderAt } from "@/test/render";
 import { server } from "@/test/setup";
-import { api, type Channel, type CharacterSlot, type MyCharacters, type PublicConfig } from "@/lib/api";
+import { api, type Channel, type CreatedCharacterSlot, type MyCharacters, type PublicConfig } from "@/lib/api";
 
 /** task multi-char: the character carousel the Play page shows before the channel picker. */
 
@@ -15,7 +15,7 @@ function mockCharacters(body: MyCharacters) {
   server.use(http.get("/api/me/characters", () => HttpResponse.json(body)));
 }
 
-const CREATED: CharacterSlot = {
+const CREATED: CreatedCharacterSlot = {
   slot: 1,
   gameUserName: "jogador",
   created: true,
@@ -30,7 +30,7 @@ const CREATED: CharacterSlot = {
   style: ",,3135|hair35,,5139|cloth39,6119|face18,1109|head8,,,",
   colors: ",,,,,,,,,",
   skin: "",
-  equip: [{ place: 6, categoryId: 7, strengthenLevel: 9, isGold: false, iconRel: "image/arm/mockarm/1/icon.png", templateId: 70001, needSex: 1, property1: 0, level: 1 }],
+  equip: [{ place: 6, categoryId: 7, strengthenLevel: 9, isGold: false, iconRel: "image/arm/mockarm/1/icon.png", templateId: 70001, pic: "mockarm", needSex: 1, property1: 0, property8: 0, level: 1 }],
 };
 
 describe("PlayPage character carousel", () => {
@@ -130,7 +130,7 @@ describe("PlayPage character carousel", () => {
   });
 
   test("the limit is reached: no 'create' card is offered", async () => {
-    const chars: CharacterSlot[] = [1, 2, 3].map((slot) => ({ ...CREATED, slot, gameUserName: slot === 1 ? "jogador" : `jogador~${slot}`, nickname: `Char${slot}` }));
+    const chars: CreatedCharacterSlot[] = [1, 2, 3].map((slot) => ({ ...CREATED, slot, gameUserName: slot === 1 ? "jogador" : `jogador~${slot}`, nickname: `Char${slot}` }));
     mockCharacters({ characters: chars, maxCharacters: 3, canCreate: false });
     await renderAt("/play");
 

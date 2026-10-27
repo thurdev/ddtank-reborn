@@ -119,6 +119,11 @@
   height: 100%;
   width: 100%;
   border: 0;
+  /* Browsers default <iframe> to an opaque (often white) background in the UA stylesheet regardless of
+     what the framed document's own <body> sets — avatar.html's canvas is otherwise correctly transparent
+     (confirmed standalone), this is what was painting a white box behind the character in the carousel. */
+  background: transparent;
+  color-scheme: normal;
   pointer-events: none;
   transition: opacity 250ms ease;
 }

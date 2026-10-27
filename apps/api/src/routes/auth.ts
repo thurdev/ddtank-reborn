@@ -250,24 +250,52 @@ export async function authRoutes(f: FastifyInstance, ctx: AppCtx) {
    *  a faithful port of `PathManager.solveGoodsPath`/`EquipType`). `place` lets the web carousel sort the
    *  layers (hair/face/cloth/weapon/wings...) without the API needing to know client-side z-order.
    *
-   *  `templateId`/`needSex`/`property1`/`level` (task multi-char, load-time fix): the real-client renderer
-   *  (`apps/client/src/avatar.ts`) needs these to build a MINIMAL `ItemManager` template dictionary for
-   *  just this character's own equipped items, instead of the full `StartupResourceLoader
-   *  .creatItemTempleteLoader()` fetch — that one loads and throttle-parses ALL ~7650 item templates
-   *  (`ItemTempleteAnalyzer.__partexceute`: 40 items per 30ms `Timer` tick, by design, to not stall the
-   *  original Flash player's frame rate while the rest of the game's startup runs in the background) —
-   *  ~5.7s of dead time alone for a page that only ever needs the handful of items one character has on.
+   *  `templateId`/`pic`/`needSex`/`property1`/`property8`/`level` (task multi-char, load-time fix): the
+   *  real-client renderer (`apps/client/src/avatar.ts`) needs these to build a MINIMAL `ItemManager`
+   *  template dictionary for just this character's own equipped items, instead of the full
+   *  `StartupResourceLoader.creatItemTempleteLoader()` fetch — that one loads and throttle-parses ALL
+   *  ~7650 item templates (`ItemTempleteAnalyzer.__partexceute`: 40 items per 30ms `Timer` tick, by
+   *  design, to not stall the original Flash player's frame rate while the rest of the game's startup
+   *  runs in the background) — ~5.7s of dead time alone for a page that only ever needs the handful of
+   *  items one character has on. `Property8` (a per-layer bitmap index string, e.g. "01" = draw layers 0
+   *  and 1 — `BaseLayer.initLoaders` iterates it character by character) is read by EVERY equip layer, not
+   *  just special cases, confirmed by grepping every `ItemTemplateInfo` field `BaseLayer`/`ShowLayer`/
+   *  `BaseWingLayer` actually access.
    */
-  async function equippedIcons(
-    userId: number,
-  ): Promise<{ place: number; categoryId: number; strengthenLevel: number; isGold: boolean; iconRel: string; templateId: number; needSex: number; property1: number; level: number }[]> {
+  async function equippedIcons(userId: number): Promise<
+    {
+      place: number;
+      categoryId: number;
+      strengthenLevel: number;
+      isGold: boolean;
+      iconRel: string;
+      templateId: number;
+      pic: string;
+      needSex: number;
+      property1: number;
+      property8: number;
+      level: number;
+    }[]
+  > {
     const rows = await q(
       ctx.h,
-      sql`SELECT g."Place", g."StrengthenLevel", g."IsJudge", g."TemplateID", s."CategoryID", s."Pic", s."NeedSex", s."Property1", s."Level"
+      sql`SELECT g."Place", g."StrengthenLevel", g."IsJudge", g."TemplateID", s."CategoryID", s."Pic", s."NeedSex", s."Property1", s."Property8", s."Level"
           FROM player."Sys_Users_Goods" g JOIN game."Shop_Goods" s ON s."TemplateID" = g."TemplateID"
           WHERE g."UserID" = ${userId} AND g."BagType" = 0 AND g."IsExist" = true`,
     );
-    const out: { place: number; categoryId: number; strengthenLevel: number; isGold: boolean; iconRel: string; templateId: number; needSex: number; property1: number; level: number }[] = [];
+    const out: {
+      place: number;
+      categoryId: number;
+      strengthenLevel: number;
+      isGold: boolean;
+      iconRel: string;
+      templateId: number;
+      pic: string;
+      needSex: number;
+      property1: number;
+      property8: number;
+      level: number;
+    }[] = [];
     for (const r of rows) {
       const categoryId = Number(r.CategoryID);
       const rel = itemIconRel(categoryId, String(r.Pic ?? ""), Number(r.NeedSex ?? 0))[0];
@@ -279,6 +307,8 @@ export async function authRoutes(f: FastifyInstance, ctx: AppCtx) {
           isGold: !!r.IsJudge,
           iconRel: rel,
           templateId: Number(r.TemplateID),
+          pic: String(r.Pic ?? ""),
+          property8: Number(r.Property8 ?? 0),
           needSex: Number(r.NeedSex ?? 0),
           property1: Number(r.Property1 ?? 0),
           level: Number(r.Level ?? 0),

@@ -89,7 +89,7 @@ function buildAvatarUrl(pixiClientUrl: string, resourceUrl: string, character: C
     // task multi-char (load-time fix): lets avatar.ts build a MINIMAL ItemManager template dictionary
     // from just this character's own equipped items instead of fetching+parsing the full ~7650-item
     // catalog (see avatar.ts `buildItemManager`'s header for why that was the ~8s of dead time).
-    equip: JSON.stringify(character.equip.map((it) => [it.templateId, it.categoryId, it.needSex, it.property1, it.level])),
+    equip: JSON.stringify(character.equip.map((it) => [it.templateId, it.categoryId, it.needSex, it.property1, it.level, it.pic, it.property8])),
     api: apiOrigin,
   });
   if (reducedMotion) qs.set("reducedMotion", "1");

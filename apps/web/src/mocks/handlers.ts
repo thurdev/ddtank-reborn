@@ -37,9 +37,9 @@ const charSlots = new Map<string, CharacterSlot[]>([
         colors: ",,,,,,,,,",
         skin: "",
         equip: [
-          { place: 6, categoryId: 7, strengthenLevel: 9, isGold: false, iconRel: "image/arm/mockarm/1/icon.png", templateId: 70001, needSex: 1, property1: 0, level: 1 },
-          { place: 2, categoryId: 3, strengthenLevel: 0, isGold: false, iconRel: "image/equip/m/hair/mockhair/icon_1.png", templateId: 20001, needSex: 1, property1: 0, level: 1 },
-          { place: 4, categoryId: 5, strengthenLevel: 0, isGold: false, iconRel: "image/equip/m/cloth/mockcloth/icon_1.png", templateId: 40001, needSex: 1, property1: 2, level: 1 },
+          { place: 6, categoryId: 7, strengthenLevel: 9, isGold: false, iconRel: "image/arm/mockarm/1/icon.png", templateId: 70001, pic: "mockarm", needSex: 1, property1: 0, property8: 0, level: 1 },
+          { place: 2, categoryId: 3, strengthenLevel: 0, isGold: false, iconRel: "image/equip/m/hair/mockhair/icon_1.png", templateId: 20001, pic: "mockhair", needSex: 1, property1: 0, property8: 0, level: 1 },
+          { place: 4, categoryId: 5, strengthenLevel: 0, isGold: false, iconRel: "image/equip/m/cloth/mockcloth/icon_1.png", templateId: 40001, pic: "mockcloth", needSex: 1, property1: 2, property8: 0, level: 1 },
         ],
       },
     ],

@@ -31,7 +31,6 @@ import { setAssetBase } from "@ddt/flash/swf/paths";
 import { dlog } from "@ddt/flash/debug";
 import "./game/all";
 import { Dictionary } from "@ddt/flash/utils/Dictionary";
-import { DictionaryData } from "./game/road7th/data/DictionaryData";
 import { ConfigParaser } from "./game/ddt/data/ConfigParaser";
 import { LanguageMgr } from "./game/ddt/manager/LanguageMgr";
 import { ItemManager } from "./game/ddt/manager/ItemManager";
@@ -69,32 +68,54 @@ const H = 440;
  * rate doesn't drop while the rest of the game's startup runs in the background). That throttle alone is
  * ~5.7s of dead time for a page that only ever needs the handful of items ONE character has equipped.
  *
- * Builds the SAME kind of dictionary (`DictionaryData` of `TemplateID -> ItemTemplateInfo`) directly from
- * the `equip` query param instead — `apps/api/src/routes/auth.ts` `equippedIcons` already returns
- * `templateId`/`categoryId`/`needSex`/`property1`/`level` per equipped item for exactly this. Only the
- * fields the character-rendering path actually reads (confirmed by reading `ShowLayer`/`BaseWingLayer`/
- * `PlayerInfo`) are filled in; everything else on `ItemTemplateInfo` stays at its default.
+ * Builds the SAME kind of dictionary (`TemplateID -> ItemTemplateInfo`) directly from the `equip` query
+ * param instead — `apps/api/src/routes/auth.ts` `equippedIcons` already returns
+ * `templateId`/`pic`/`categoryId`/`needSex`/`property1`/`property8`/`level` per equipped item for exactly
+ * this (confirmed by grepping every `ItemTemplateInfo` field `BaseLayer`/`ShowLayer`/`BaseWingLayer`/
+ * `PlayerInfo` actually read — `Property8`, a per-layer bitmap index string `BaseLayer.initLoaders` walks
+ * character by character, is needed by EVERY layer, not just special cases). Everything else on
+ * `ItemTemplateInfo` stays at its default.
+ *
+ * `PlayerInfo.parseStyle` also looks up a handful of well-known DEFAULT template ids on its own — e.g.
+ * `replaceTID(_loc1_[8], "15001")` (the default wing) whenever the wing slot is empty, same for a default
+ * suit/chatBall/per-slot fallback — regardless of whether this character actually has one equipped, so a
+ * minimal dictionary built only from the equipped items isn't quite enough. A real `DictionaryData` would
+ * throw on a miss (`.Pic` of `undefined`, the actual bug this plain-object fallback fixes); this one hands
+ * back an empty-but-safe template instead — `ItemManager.getTemplateById`/`DictionaryData.get` are
+ * duck-typed call sites, so a plain object with a compatible `.get()` works without needing to patch the
+ * generated `ItemManager`/`DictionaryData` classes themselves.
  */
 function buildItemManager(equipJson: string | null): void {
-  const dict = new DictionaryData();
-  let rows: [number, number, number, number, number][] = [];
+  const map = new Map<number, ItemTemplateInfo>();
+  let rows: [number, number, number, number, number, string, number][] = [];
   try {
     rows = equipJson ? JSON.parse(equipJson) : [];
   } catch {
     rows = [];
   }
-  for (const [templateId, categoryId, needSex, property1, level] of rows) {
+  for (const [templateId, categoryId, needSex, property1, level, pic, property8] of rows) {
     const info = new ItemTemplateInfo();
     info.TemplateID = templateId;
     info.CategoryID = categoryId;
     info.NeedSex = needSex;
     info.Property1 = String(property1);
+    info.Property8 = String(property8 ?? "");
     info.Level = level;
-    dict.add(templateId, info);
+    info.Pic = pic ?? "";
+    map.set(templateId, info);
   }
+  const empty = new ItemTemplateInfo();
+  empty.TemplateID = 0;
+  empty.CategoryID = 0;
+  empty.Pic = "";
+  empty.Property1 = "0";
+  empty.Property8 = "";
+  empty.Level = 1;
+  empty.NeedSex = 0;
+  const list = { get: (id: number) => map.get(id) ?? empty };
   // Duck-typed: ItemManager.setupGoodsTemplates only ever reads `param1.list` (see its real signature,
   // `(param1: ItemTempleteAnalyzer)`) — a real analyzer instance isn't needed, just that one property.
-  ItemManager.Instance.setupGoodsTemplates({ list: dict } as unknown as Parameters<typeof ItemManager.prototype.setupGoodsTemplates>[0]);
+  ItemManager.Instance.setupGoodsTemplates({ list } as unknown as Parameters<typeof ItemManager.prototype.setupGoodsTemplates>[0]);
 }
 
 function postReady(): void {
@@ -179,13 +200,17 @@ async function boot(): Promise<void> {
   info2.Grade = Number(q.get("grade") ?? 1);
   info2.Nimbus = Number(q.get("nimbus") ?? 0);
   info2.Skin = q.get("skin") && q.get("skin") !== "undefined" ? q.get("skin")! : "";
+  const styleField = padFields(q.get("style"));
   info2.Colors = padFields(q.get("colors"));
-  info2.Style = padFields(q.get("style"));
+  info2.Style = styleField;
   // `ShowCharacterLoader.drawCharacter` only composites the weapon layer into the final bitmap when
   // `info.WeaponID` is a real id (`!= 0 && != -1`) — Style[6] ("<id>|<pic>", the ARM/weapon slot, see
   // `apps/game/src/game/stats.ts` `styleFromEquip`'s header) carries the id but nothing ever copied it
-  // into `WeaponID` for this preview, so the weapon layer was built and then silently dropped.
-  const weaponId = Number(info2.Style.split(",")[6]?.split("|")[0] ?? 0);
+  // into `WeaponID` for this preview, so the weapon layer was built and then silently dropped. Reads
+  // `styleField` (the plain string we just assigned), NOT `info2.Style` — that getter returns
+  // `_modifyStyle`, which `parseStyle()` only computes once `commitChanges()` flushes this batch, so
+  // reading it here (still inside `beginChanges()`) would see last run's value (null, the first time).
+  const weaponId = Number(styleField.split(",")[6]?.split("|")[0] ?? 0);
   if (Number.isFinite(weaponId)) info2.WeaponID = weaponId;
   info2.commitChanges();
 
