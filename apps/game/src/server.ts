@@ -269,6 +269,10 @@ export class GameServer {
         for (const m of room.getPlayers()) {
           if (m.isBot) continue;
           void recordPveClear(this.ctx, m.id, pveId, hardLevel).catch((e) => log.warn(`pve clear: ${(e as Error).message}`));
+          // PVEGame.cs:2131-2136: SetPvePermission(m_info.ID, getNextHardLevel(m_hardLevel)) — o que o cliente lê
+          // pra liberar o botão da próxima dificuldade (getNextHardLevel :1192: Terror fica Terror).
+          const gp = m as unknown as { setPvePermission?: (id: number, lv: number) => boolean };
+          gp.setPvePermission?.(pveId, Math.min(hardLevel + 1, 3));
         }
       },
     });
