@@ -18,19 +18,53 @@
  * - `AwardsPanel`: `activeId`=filtro/criação, `q`=query `eventAwards`, `m.create`=POST prêmio.
  * - `CodesPanel`: `activeId`=filtro/criação, `dialog`=aberto, `m.create`=POST código.
  * - `EventsPage`: abas; cada aba `ResourcePage embedded` = CRUD real do resource.
+ *
+ * site-admin-redesign (editor #3): aba "Visual" nova (`EventPicker`/`EventEditor`/`EventPreview`), mesmo
+ * padrão de preview `GamePanel` ao vivo + painel lateral + clique-pra-focar de `pages/Quests.tsx`/
+ * `pages/Dungeons.tsx` — réplica do painel de evento (`activeEvents/view/ActiveMainFrame.as`/
+ * `ActiveSubContent.as`: título, período, descrição/conteúdo, prêmios). Puramente aditiva — nenhuma aba
+ * existente mudou de posição/comportamento (os dois testes de `?edit=` continuam valendo).
  */
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearch } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { Controller, useForm, useWatch, type Resolver } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { Button, Card, Dialog, DialogContent, Input, PageHeader, Switch, Tabs, TabsContent, TabsList, TabsTrigger, cn } from "@ddtank/ui";
-import { ChevronLeft, ChevronRight, Pencil, Plus } from "lucide-react";
-import { listQuery, useResourceMutations } from "@/crud/api";
+import {
+  ApiError,
+  Button,
+  Card,
+  Dialog,
+  DialogContent,
+  EmptyState,
+  Field,
+  GamePanel,
+  GamePanelBody,
+  GamePanelHeader,
+  Hotspot,
+  Input,
+  PageHeader,
+  RewardChip,
+  Skeleton,
+  Switch,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  cn,
+} from "@ddtank/ui";
+import { CalendarDays, ChevronLeft, ChevronRight, Pencil, Plus, Save, Search } from "lucide-react";
+import { getQuery, listQuery, useResourceMutations } from "@/crud/api";
+import { FieldInput } from "@/crud/FieldInput";
 import { ResourcePage } from "@/crud/ResourcePage";
 import { SchemaForm } from "@/crud/SchemaForm";
+import { buildSchema, fieldInForm, fromFormValues, toFormValues } from "@/crud/schema";
+import type { FieldDef, Row } from "@/crud/types";
+import { getItemCached, type ItemResumo } from "@/resources/items";
 import { events } from "@/resources/content";
 import { dailyAward, eventAwards, eventCodes, scheduledEvents, timeBoxes } from "@/resources/event-systems";
-import { useI18n } from "@/i18n";
+import { useI18n, useText } from "@/i18n";
 
 /** Row of game."Active". */
 interface EventRow {
@@ -337,6 +371,197 @@ function CodesPanel() {
   );
 }
 
+type EventFullRow = Row & { ActiveID: number; Title?: string };
+
+/** Real item art for a reward row (`event-awards`), same cache the item-picker/cells use. */
+function AwardChip({ row }: { row: Row }) {
+  const [item, setItem] = useState<ItemResumo | null>(null);
+  const templateId = Number(row.ItemID);
+  useEffect(() => {
+    let vivo = true;
+    void getItemCached(templateId).then((r) => vivo && setItem(r));
+    return () => {
+      vivo = false;
+    };
+  }, [templateId]);
+  return <RewardChip iconUrl={item?.iconUrl} tone="sun" label={`×${row.Count ?? 1}`} title={item?.Name ?? `#${templateId}`} />;
+}
+
+function EventPicker({ selectedId, onSelect }: { selectedId: number | null; onSelect: (id: number) => void }) {
+  const { t } = useI18n();
+  const [q, setQ] = useState("");
+  const { data, isLoading } = useQuery(listQuery(events, { page: 1, pageSize: 50, q: q || undefined, sort: "-StartDate" }));
+  const rows = (data?.items ?? []) as EventFullRow[];
+  return (
+    <Card className="flex max-h-[75vh] flex-col overflow-hidden p-0">
+      <div className="border-b border-line p-3">
+        <div className="relative">
+          <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted" aria-hidden />
+          <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("events.pickerPlaceholder")} aria-label={t("events.pickerPlaceholder")} className="pl-9" />
+        </div>
+      </div>
+      {/* `aria-label` (distinct from the page title "Eventos"): disambiguates this list from the Calendário
+       *  tab's own event lists (chip grid + "Eventos do mês" sidebar), which Radix keeps in the DOM (hidden
+       *  via CSS only, not unmounted) while this Visual tab is active — `getByText` ignores CSS visibility,
+       *  so a test clicking a title needs to scope to this list by role+name, not plain text, to avoid
+       *  matching the Calendário tab's copy of the same title. */}
+      <ul aria-label={t("events.title")} className="flex-1 overflow-y-auto p-2">
+        {!isLoading && rows.length === 0 && <li className="p-3 text-sm text-muted">{t("events.pickerEmpty")}</li>}
+        {rows.map((r) => (
+          <li key={r.ActiveID}>
+            <button
+              type="button"
+              onClick={() => onSelect(r.ActiveID)}
+              className={cn(
+                "flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm transition-colors hover:bg-panel-2",
+                selectedId === r.ActiveID && "bg-sun/15 font-semibold text-sun",
+              )}
+            >
+              <CalendarDays className="size-4 shrink-0" aria-hidden />
+              <span className="min-w-0 flex-1 truncate">{r.Title || `#${r.ActiveID}`}</span>
+              <span className="font-mono text-xs text-muted">#{r.ActiveID}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </Card>
+  );
+}
+
+/** Game panel: replicates `activeEvents/view/ActiveMainFrame.as`/`ActiveSubContent.as` (title, active
+ *  period, description/content, rewards) as a live preview fed by the side panel's `useWatch`. */
+function EventEditor({ activeId }: { activeId: number }) {
+  const { t } = useI18n();
+  const text = useText();
+  const { data, isLoading } = useQuery(getQuery(events, activeId));
+  const { data: awardsData } = useQuery(listQuery(eventAwards, { page: 1, pageSize: 50, sort: "ID", extra: { cf_ActiveID: String(activeId) } }));
+  const { update } = useResourceMutations(events);
+
+  const fields = useMemo(() => events.fields.filter((f) => fieldInForm(f, "edit")), []);
+  const schema = useMemo(() => buildSchema(events.fields, "edit", t, text), [t, text]);
+  const defaultValues = useMemo(() => toFormValues(events.fields, data, "edit"), [data]);
+  const { control, handleSubmit, formState } = useForm<Row>({
+    resolver: zodResolver(schema) as unknown as Resolver<Row>,
+    defaultValues,
+    values: defaultValues,
+    resetOptions: { keepDirtyValues: false },
+  });
+  const live = useWatch({ control });
+
+  const [focused, setFocused] = useState<string | null>(null);
+  const fieldRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const focus = (name: string) => {
+    setFocused(name);
+    const el = fieldRefs.current[name];
+    el?.scrollIntoView({ block: "center", behavior: "smooth" });
+    (el?.querySelector("input, textarea, select, button") as HTMLElement | undefined)?.focus();
+  };
+
+  if (isLoading || !data) return <Skeleton className="h-96 lg:col-span-2" />;
+
+  const submit = handleSubmit(async (values) => {
+    try {
+      await update.mutateAsync({ id: activeId, body: fromFormValues(events.fields, values, "edit") });
+      toast.success(t("crud.saved"));
+    } catch (e) {
+      toast.error(e instanceof ApiError ? e.message : t("common.error"));
+    }
+  });
+
+  const sections: { title?: string; fields: FieldDef[] }[] = [];
+  for (const f of fields) {
+    const title = f.section ? text(f.section) : undefined;
+    let s = sections.find((x) => x.title === title);
+    if (!s) sections.push((s = { title, fields: [] }));
+    s.fields.push(f);
+  }
+
+  const period = live.StartDate && live.EndDate ? `${String(live.StartDate).slice(0, 10)} – ${String(live.EndDate).slice(0, 10)}` : "";
+  const awards = awardsData?.items ?? [];
+
+  return (
+    <form onSubmit={submit} className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_380px]">
+      <GamePanel>
+        <GamePanelHeader
+          icon={CalendarDays}
+          title={
+            <Hotspot active={focused === "Title"} onClick={() => focus("Title")}>
+              {String(live.Title || "—")}
+            </Hotspot>
+          }
+        />
+        <GamePanelBody>
+          {!!period && (
+            <Hotspot active={focused === "StartDate" || focused === "EndDate"} onClick={() => focus("StartDate")} className="inline-block p-1">
+              <span className="rounded-full bg-sky/15 px-2.5 py-0.5 text-xs font-semibold text-sky">{period}</span>
+            </Hotspot>
+          )}
+          {!!live.Description && (
+            <Hotspot active={focused === "Description"} onClick={() => focus("Description")} className="block w-full p-2">
+              <p className="text-sm text-ink">{String(live.Description)}</p>
+            </Hotspot>
+          )}
+          {!!live.Content && (
+            <Hotspot active={focused === "Content"} onClick={() => focus("Content")} className="block w-full p-2">
+              <p className="whitespace-pre-line text-sm text-muted">{String(live.Content)}</p>
+            </Hotspot>
+          )}
+          <div className="rounded-xl border border-line/70 bg-night-deep/30 p-3">
+            <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-muted">{t("events.rewards")}</p>
+            <div className="flex flex-wrap gap-2">
+              {awards.map((a) => (
+                <AwardChip key={String(a.ID)} row={a} />
+              ))}
+              {!!live.AwardContent && (
+                <Hotspot active={focused === "AwardContent"} onClick={() => focus("AwardContent")} className="block w-full p-1">
+                  <p className="text-sm text-muted">{String(live.AwardContent)}</p>
+                </Hotspot>
+              )}
+              {awards.length === 0 && !live.AwardContent && <p className="text-xs text-muted">{t("events.rewardsEmpty")}</p>}
+            </div>
+          </div>
+        </GamePanelBody>
+      </GamePanel>
+      <Card className="flex max-h-[75vh] flex-col overflow-hidden p-0">
+        <div className="flex items-center justify-between gap-2 border-b border-line p-4">
+          <h3 className="title-plate text-lg">{t("events.editPanel")}</h3>
+          <Button type="submit" size="sm" disabled={formState.isSubmitting || !formState.isDirty}>
+            <Save className="size-4" /> {t("crud.save")}
+          </Button>
+        </div>
+        <div className="flex-1 space-y-5 overflow-y-auto p-4">
+          {sections.map((s, i) => (
+            <fieldset key={s.title ?? i} className={cn(s.title && "rounded-2xl border border-line p-3 pt-1")}>
+              {s.title && <legend className="px-1 font-display text-sun">{s.title}</legend>}
+              <div className="flex flex-col gap-3">
+                {s.fields.map((f) => (
+                  <div
+                    key={f.name}
+                    ref={(el) => {
+                      fieldRefs.current[f.name] = el;
+                    }}
+                    className={cn("rounded-xl p-1.5 transition-colors duration-150 ease-out", focused === f.name && "bg-sun/10 ring-1 ring-sun")}
+                  >
+                    <Field label={text(f.label)} htmlFor={`eve-${f.name}`} hint={text(f.hint)}>
+                      <Controller
+                        control={control}
+                        name={f.name}
+                        render={({ field }) => (
+                          <FieldInput field={f} id={`eve-${f.name}`} mode="edit" value={field.value} onChange={field.onChange} onBlur={field.onBlur} />
+                        )}
+                      />
+                    </Field>
+                  </div>
+                ))}
+              </div>
+            </fieldset>
+          ))}
+        </div>
+      </Card>
+    </form>
+  );
+}
+
 export function EventsPage() {
   const { t } = useI18n();
   // `?edit=<ActiveID>` (from a `ref` cell on another resource pointing at `events`, or a bookmarked link):
@@ -346,11 +571,13 @@ export function EventsPage() {
   // route's exact TanStack Router id.
   const { edit } = useSearch({ strict: false }) as { edit?: string };
   const [tab, setTab] = useState(edit ? "table" : "calendar");
+  const [eventId, setEventId] = useState<number | null>(null);
   return (
     <div>
       <PageHeader title={t("events.title")} description={t("events.lead")} />
       <Tabs value={tab} onValueChange={setTab}>
         <TabsList>
+          <TabsTrigger value="visual">{t("events.visual")}</TabsTrigger>
           <TabsTrigger value="calendar">{t("events.calendar")}</TabsTrigger>
           <TabsTrigger value="table">{t("events.table")}</TabsTrigger>
           <TabsTrigger value="scheduled">Agendados</TabsTrigger>
@@ -359,6 +586,12 @@ export function EventsPage() {
           <TabsTrigger value="daily">Presença</TabsTrigger>
           <TabsTrigger value="boxes">Caixas</TabsTrigger>
         </TabsList>
+        <TabsContent value="visual">
+          <div className="grid gap-4 lg:grid-cols-[260px_minmax(0,1fr)]">
+            <EventPicker selectedId={eventId} onSelect={setEventId} />
+            {eventId === null ? <EmptyState title={t("events.none")} /> : <EventEditor activeId={eventId} />}
+          </div>
+        </TabsContent>
         <TabsContent value="calendar">
           <Calendar />
         </TabsContent>

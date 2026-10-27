@@ -107,7 +107,17 @@ padrão de referência para as próximas. #2-#5 ficam para sessões seguintes (v
       (não pode rodar o script de verdade no mock). Testes: `apps/admin/src/pages/Dungeons.test.tsx` (3),
       `apps/api/test/api.test.ts` "dungeon diagnostics" + "drop-conditions CRUD" (regressão do PK). Suites
       completas (admin 15, api 119) e typechecks limpos.
-- [ ] Fase 2c — editor visual de Eventos (`/events`).
+- [x] Fase 2c — editor visual de Eventos (`/events`). Aditivo: nova aba "Visual" em `pages/Events.tsx`
+      (que já existia com Calendário/Tabela/Agendados/Prêmios/Códigos/Presença/Caixas) — mesmo padrão de
+      preview `GamePanel` ao vivo + painel lateral + clique-pra-focar, réplica de
+      `activeEvents/view/ActiveMainFrame.as`/`ActiveSubContent.as` (título, período, descrição/conteúdo,
+      prêmios). Prêmios reais via `event-awards` (ícone de item real) + `AwardContent` (texto livre, campo
+      já existente). Nenhuma aba/comportamento existente mudou (testes de `?edit=` continuam intactos).
+      Achado ao escrever o teste: `@radix-ui/react-tabs` troca de aba no `mousedown`, não no `click` —
+      `fireEvent.click` sozinho nunca ativa uma aba no jsdom (os testes anteriores só liam a aba inicial,
+      nenhum clicava pra trocar) — documentado no teste novo pra quem for reusar o padrão nos próximos
+      editores. Testes: `apps/admin/src/pages/Events.test.tsx` (+1, total 3). Suite completa (admin 16) e
+      typecheck limpos.
 - [ ] Fase 2d — editor visual de Itens/Loja (`/items`).
 - [ ] Fase 2e — editor visual de NPCs/Bosses (`/npcs`).
 - [ ] Fase 3 — site: Home (hero/features/ranking/news), Jogar (polimento sem regressão), Apoiar/

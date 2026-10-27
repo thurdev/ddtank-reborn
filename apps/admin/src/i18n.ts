@@ -141,9 +141,16 @@ const ptBR = {
 
   "events.title": "Eventos",
   "events.lead": "Calendário de eventos e bônus. Ative ou desative sem apagar.",
+  "events.visual": "Visual",
   "events.calendar": "Calendário",
   "events.table": "Tabela",
   "events.today": "Hoje",
+  "events.pickerPlaceholder": "Buscar evento…",
+  "events.pickerEmpty": "Nenhum evento encontrado.",
+  "events.none": "Escolha um evento na lista à esquerda.",
+  "events.editPanel": "Editar campos",
+  "events.rewards": "Prêmios",
+  "events.rewardsEmpty": "Sem prêmios cadastrados.",
 
   "quests.title": "Missões",
   "quests.lead": "Editor visual: veja a missão como no jogo e edite no painel ao lado.",
@@ -353,9 +360,16 @@ const en: Partial<Record<Key, string>> = {
 
   "events.title": "Events",
   "events.lead": "Event and bonus calendar. Toggle without deleting.",
+  "events.visual": "Visual",
   "events.calendar": "Calendar",
   "events.table": "Table",
   "events.today": "Today",
+  "events.pickerPlaceholder": "Search event…",
+  "events.pickerEmpty": "No event found.",
+  "events.none": "Pick an event from the list on the left.",
+  "events.editPanel": "Edit fields",
+  "events.rewards": "Rewards",
+  "events.rewardsEmpty": "No rewards set.",
 
   "quests.title": "Quests",
   "quests.lead": "Visual editor: see the quest like in-game and edit it from the side panel.",
