@@ -11,6 +11,7 @@ import { EventsPage } from "@/pages/Events";
 import { QuestsPage } from "@/pages/Quests";
 import { DungeonsPage } from "@/pages/Dungeons";
 import { ItemsPage } from "@/pages/Items";
+import { NpcsPage } from "@/pages/Npcs";
 import { AssetsPage } from "@/pages/Assets";
 import { MailPage } from "@/pages/Mail";
 import { DonationsPage } from "@/pages/Donations";
@@ -74,6 +75,8 @@ const questsRoute = createRoute({ getParentRoute: () => authedRoute, path: "/que
 const dungeonsRoute = createRoute({ getParentRoute: () => authedRoute, path: "/dungeons", component: DungeonsPage });
 /** Same static-route trick for `items` (Itens/Loja, editor #4) — see `pages/Items.tsx`. */
 const itemsRoute = createRoute({ getParentRoute: () => authedRoute, path: "/items", component: ItemsPage });
+/** Same static-route trick for `npcs` (NPCs/Bosses, editor #5) — see `pages/Npcs.tsx`. */
+const npcsRoute = createRoute({ getParentRoute: () => authedRoute, path: "/npcs", component: NpcsPage });
 const assetsRoute = createRoute({ getParentRoute: () => authedRoute, path: "/assets", component: AssetsPage });
 const mailRoute = createRoute({ getParentRoute: () => authedRoute, path: "/mail", component: MailPage });
 const donationsRoute = createRoute({ getParentRoute: () => authedRoute, path: "/donations", component: DonationsPage });
@@ -99,7 +102,7 @@ const resourceRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([
   loginRoute,
-  authedRoute.addChildren([dashboardRoute, configRoute, eventsRoute, questsRoute, dungeonsRoute, itemsRoute, assetsRoute, mailRoute, donationsRoute, resourceRoute]),
+  authedRoute.addChildren([dashboardRoute, configRoute, eventsRoute, questsRoute, dungeonsRoute, itemsRoute, npcsRoute, assetsRoute, mailRoute, donationsRoute, resourceRoute]),
 ]);
 
 /** `history` is only ever overridden in tests (memory history instead of the real browser URL). */

@@ -126,7 +126,15 @@ padrão de referência para as próximas. #2-#5 ficam para sessões seguintes (v
       por IA, antes só no diálogo genérico) + todos os campos de `items.fields` (seções Geral/Atributos/
       Regras já existentes). Abas Visual/Tabela/Loja. Testes: `apps/admin/src/pages/Items.test.tsx` (3).
       Suite completa (admin 19) e typecheck limpos.
-- [ ] Fase 2e — editor visual de NPCs/Bosses (`/npcs`).
+- [x] Fase 2e — editor visual de NPCs/Bosses (`/npcs`). `apps/admin/src/pages/Npcs.tsx`, rota estática.
+      Preview: ficha de combate (nível, vida, ataque, EXP) + pool de drop real (`DropId` do NPC É o
+      `Drop_Condiction.DropID`, mais direto que o de Missões). Arte do NPC (`.swf`) sem prévia — não existe
+      rota de export de frame pra PNG (diferente de item/mapa); mostra `ModelID`/`ResourcesPath` como texto
+      em vez de inventar um caminho incerto (nota explícita no preview, `npcs.artNote`). Abas Visual/
+      Tabela/Drops. Testes: `apps/admin/src/pages/Npcs.test.tsx` (2). Suite completa (admin 21) e
+      typecheck limpos.
+
+      **Fase 2 completa** (5/5 editores visuais: Missões, Instâncias, Eventos, Itens/Loja, NPCs/Bosses).
 - [ ] Fase 3 — site: Home (hero/features/ranking/news), Jogar (polimento sem regressão), Apoiar/
       Transparência (link Buy Me a Coffee), Conta, responsivo, SEO.
 
