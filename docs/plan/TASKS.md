@@ -1099,6 +1099,21 @@ Como rodar um 2º canal hoje (sem `ch-processo`/`ch-bus`): [GAME-SERVER.md §Can
   continua funcionando). Botão de launcher reaproveita `launcherUrl` já exposto (sem link falso quando não
   configurado). Testes: `apps/web/src/pages/Play.test.tsx` (6) + `apps/api/test/api.test.ts` (1 novo, 78 no
   total) verdes; `pnpm --filter web typecheck`/`pnpm --filter @ddt/api typecheck` limpos.
+- [x] **multi-char** (2026-10-27) — contas podem ter até `maxCharactersPerAccount` (admin, padrão 3)
+  personagens. Dados: `app."AccountCharacters"` (migração `0029_multi-char-account-characters.sql`) mapeia
+  conta→slot→`gameUserName`; slot 1 continua sendo literalmente `Accounts.UserName` (backfill idempotente),
+  slot N>1 é `"<conta>~N"` (`~` nunca aparece num nome de conta válido). `apps/game` e o fluxo
+  `Login.ashx`/`VisualizeRegister.ashx` não mudaram nada — só olham username. API:
+  `GET/POST /api/me/characters`, `playConfig`/`/api/public/config`/`/api/play/config` ganharam `?slot=`.
+  Web: carrossel old-school antes do seletor de canal (`CharacterCarousel`/`CharacterStage`, PixiJS
+  importado só no efeito do card focado — ícones de equipamento em camadas, aura por `Nimbus`, nameplate
+  VIP/nick/guilda); conta nova (1 slot, nunca criado) pula o carrossel direto pro seletor de canal. Admin:
+  campo "Máx. de personagens por conta". Doc: `docs/features/multi-personagem.md` (gap de fidelidade do
+  renderer documentado — não reusa `ShowCharacter` real, que só existe na branch `feature/pixi-ligar` ainda
+  não mesclada). Testes: `packages/db/test/account-characters.test.ts` (5), `apps/api/test/api.test.ts`
+  (+6, 122 no total), `apps/game/test/multi-char-login.test.ts` (2), `apps/web/src/pages/Play.characters.
+  test.tsx` (6) + `Play.test.tsx` ajustado (6) — todos verdes; typecheck limpo em `@ddt/db`/`@ddt/api`/
+  `@ddt/game`/`web`/`admin`.
 - [x] **admin-ux** (2026-10-18) — campo `ref`/`ref-multi` no CRUD (nome/ícone no lugar do id, picker com
   busca, clique abre o registro; lookup em lote `GET /api/admin/<res>?ids=`), Ctrl+K (recursos, recentes,
   busca jogador/item/guilda), seleção + edição/exclusão em massa. Bug corrigido: `keepPreviousData` vazava

@@ -70,4 +70,7 @@ documentado para fechar quando `apps/client` (ShowCharacter real) chegar em `mai
 
 ## Migrações para o dono aplicar (`db:migrate`)
 
-- `00XX_*.sql` — `app."AccountCharacters"` (ver nome exato no commit da Fase 1)
+- `packages/db/drizzle/0029_multi-char-account-characters.sql` — cria `app."AccountCharacters"`
+  (accountId, slot, gameUserName, createdAt; índices únicos em (accountId, slot) e em gameUserName) e
+  faz o backfill idempotente do slot 1 de toda conta já existente (`lower("UserName")`). Rode
+  `pnpm --filter @ddt/db exec drizzle-kit migrate` ou o `db:migrate` normal do projeto.
