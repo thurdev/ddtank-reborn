@@ -1,5 +1,5 @@
 import { http, HttpResponse, delay } from "msw";
-import type { AuthResponse, Channel, Me, NewsItem, PublicConfig, RankingRow, RankingType, ServerStatus, User } from "@/lib/api";
+import type { AuthResponse, Channel, CharacterSlot, Me, MyCharacters, NewsItem, PublicConfig, RankingRow, RankingType, ServerStatus, User } from "@/lib/api";
 
 // Dev-only fake API (VITE_USE_MOCKS=true). Shapes mirror the contract in src/lib/api.ts.
 
@@ -13,20 +13,60 @@ const userFromAuth = (req: Request): User | null => {
   return users.get(name)?.user ?? null;
 };
 
+// task multi-char: per-username slot list, same shape GET/POST /api/me/characters return in production.
+// "jogador" starts with one finished character (slot 1) so the existing login mock keeps working; any other
+// mock user starts with a reserved-but-not-created slot 1, same as a brand new account.
+const MAX_MOCK_CHARACTERS = 3;
+const charSlots = new Map<string, CharacterSlot[]>([
+  [
+    "jogador",
+    [
+      {
+        slot: 1,
+        gameUserName: "jogador",
+        created: true,
+        id: 10,
+        nickname: "Canhoneiro",
+        level: 34,
+        sex: "m",
+        guild: "Artilharia BR",
+        title: null,
+        vip: { type: 1, level: 2 },
+        nimbus: 203,
+        equip: [
+          { place: 6, categoryId: 7, strengthenLevel: 9, isGold: false, iconRel: "image/arm/mockarm/1/icon.png" },
+          { place: 2, categoryId: 3, strengthenLevel: 0, isGold: false, iconRel: "image/equip/m/hair/mockhair/icon_1.png" },
+          { place: 4, categoryId: 5, strengthenLevel: 0, isGold: false, iconRel: "image/equip/m/cloth/mockcloth/icon_1.png" },
+        ],
+      },
+    ],
+  ],
+]);
+function slotsFor(u: User): CharacterSlot[] {
+  if (!charSlots.has(u.username)) charSlots.set(u.username, [{ slot: 1, gameUserName: u.username, created: false }]);
+  return charSlots.get(u.username)!;
+}
+
 const NICKS = ["Canhoneiro", "VentoNorte", "Bombardino", "LuaDeFogo", "TiroCerto", "Zeca_Bala", "Pólvora", "ArcoÍris", "Trovão", "Mira9000"];
 const GUILDS = ["Artilharia BR", "Os Pombos", null, "Ventania", "Clube do Ângulo"];
 
 export const handlers = [
   http.get("/api/public/config", ({ request }) => {
     const u = userFromAuth(request);
+    // task multi-char: ?slot= picks which character's gameUserName goes into flashvars.user, same as
+    // apps/api/src/routes/auth.ts playConfig — slot 1 (default) keeps the account's own username.
+    const slot = Number(new URL(request.url).searchParams.get("slot") ?? "1");
+    const picked = u && slotsFor(u).find((s) => s.slot === slot);
+    const mockUser = picked ? picked.gameUserName : u?.username ?? "";
     const body: PublicConfig = {
       serverName: "DDTank Reborn · S1",
       launcherUrl: "/downloads/DDTankLauncher-Setup.exe",
       game: {
         rufflePath: "/ruffle/ruffle.js",
         swfUrl: "/client/Loading.swf",
-        flashvars: { user: u?.username ?? "", key: "mock-session-key", config: "/client/config.xml" },
+        flashvars: { user: mockUser, key: "mock-session-key", config: "/client/config.xml" },
         socketProxy: [{ host: "127.0.0.1", port: 9200, proxyUrl: "ws://localhost:8080/ws/game" }],
+        resourceUrl: "/resource/",
       },
     };
     return HttpResponse.json(body);
@@ -130,6 +170,25 @@ export const handlers = [
           : [],
     };
     return HttpResponse.json(body);
+  }),
+
+  http.get("/api/me/characters", ({ request }) => {
+    const u = userFromAuth(request);
+    if (!u) return HttpResponse.json({ message: "Não autenticado" }, { status: 401 });
+    const slots = slotsFor(u);
+    const body: MyCharacters = { characters: slots, maxCharacters: MAX_MOCK_CHARACTERS, canCreate: slots.length < MAX_MOCK_CHARACTERS };
+    return HttpResponse.json(body);
+  }),
+
+  http.post("/api/me/characters", ({ request }) => {
+    const u = userFromAuth(request);
+    if (!u) return HttpResponse.json({ message: "Não autenticado" }, { status: 401 });
+    const slots = slotsFor(u);
+    if (slots.length >= MAX_MOCK_CHARACTERS) return HttpResponse.json({ message: "Limite de personagens atingido." }, { status: 409 });
+    const slot = slots.length + 1;
+    const created: CharacterSlot = { slot, gameUserName: `${u.username}~${slot}`, created: false };
+    slots.push(created);
+    return HttpResponse.json(created, { status: 201 });
   }),
 
   http.post("/api/account/password", async ({ request }) => {

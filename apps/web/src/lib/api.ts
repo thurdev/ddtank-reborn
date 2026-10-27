@@ -24,6 +24,9 @@ export interface GameConfig {
   base?: string;
   /** Cliente PixiJS (sem Flash). Quando vem, o GameFrame abre ele num iframe em vez do Ruffle. */
   pixiUrl?: string;
+  /** Base URL of the original resource pack (icons etc., `apps/api/src/routes/static.ts` `/resource/*`) —
+   *  task multi-char: the character carousel resolves each `EquippedIcon.iconRel` against this. */
+  resourceUrl: string;
 }
 
 export interface PublicConfig {
@@ -102,6 +105,64 @@ export interface AuthResponse {
   user: User;
 }
 
+// ---- task multi-char: character carousel (GET/POST /api/me/characters) ----
+
+/** One equipped item's icon, resolved server-side (`apps/api/src/lib/item-icon.ts` `itemIconRel`, the same
+ *  path logic the admin item preview uses — a faithful port of `PathManager.solveGoodsPath`). `place` is
+ *  the EquipBag slot (see `apps/game/src/game/stats.ts` `styleFromEquip`'s header for the slot order);
+ *  the carousel renderer uses it only to pick a z-order, not to know what the slot "means". */
+export interface EquippedIcon {
+  place: number;
+  categoryId: number;
+  strengthenLevel: number;
+  isGold: boolean;
+  /** Relative to `resourceUrl` (e.g. "image/equip/m/cloth/123/icon_1.png"). */
+  iconRel: string;
+}
+
+/** A character that finished the client's own nickname/sex "Novato" flow. */
+export interface CreatedCharacterSlot {
+  slot: number;
+  gameUserName: string;
+  created: true;
+  id: number;
+  nickname: string;
+  level: number;
+  sex: "m" | "f";
+  guild: string | null;
+  /** Guild duty name (e.g. "Chairman") — the closest thing to a "title" this server has wired up today;
+   *  shown next to the nickname like the room lobby's nameplate. */
+  title: string | null;
+  vip: { type: number; level: number };
+  /** `GetUserNimbus`: strengthen/gilded aura tier (hundreds = armor, units = weapon), 0 = no aura. */
+  nimbus: number;
+  equip: EquippedIcon[];
+}
+/** A reserved slot whose Sys_Users_Detail row doesn't exist yet or has no nickname — the client's "Novato"
+ *  flow hasn't run for it. The carousel shows this as "continue creating" rather than a filled character. */
+export interface PendingCharacterSlot {
+  slot: number;
+  gameUserName: string;
+  created: false;
+}
+export type CharacterSlot = CreatedCharacterSlot | PendingCharacterSlot;
+
+export interface MyCharacters {
+  characters: CharacterSlot[];
+  maxCharacters: number;
+  canCreate: boolean;
+}
+
+export const myCharactersQuery = queryOptions({
+  queryKey: ["me", "characters"],
+  queryFn: () => api.get<MyCharacters>("/api/me/characters"),
+  enabled: !!api.getToken(),
+});
+
+export function createCharacterSlot() {
+  return api.post<{ slot: number; gameUserName: string; created: false }>("/api/me/characters", {});
+}
+
 export interface AimTableRow {
   angle: number;
   /** force needed for distances[i]; null when unreachable */
@@ -118,11 +179,23 @@ export interface AimTableResult {
 /** ?client=6600 na URL da página abre o cliente DDT-6600 (migração M1); sem nada, o 4.1. */
 const clientParam = typeof window === "undefined" ? null : new URLSearchParams(window.location.search).get("client");
 
-export const configQuery = queryOptions({
-  queryKey: ["public", "config", clientParam],
-  queryFn: () => api.get<PublicConfig>(clientParam ? `/api/public/config?client=${encodeURIComponent(clientParam)}` : "/api/public/config"),
-  staleTime: 5 * 60_000,
-});
+/** task multi-char: `slot` picks which of the account's characters the issued ticket opens
+ *  (`flashvars.user`). Omitted = slot 1 (the account's original/only character), same as before this
+ *  task — anonymous visitors and the pre-carousel demo config are unaffected. */
+function configQueryFor(slot?: number) {
+  const qs = new URLSearchParams();
+  if (clientParam) qs.set("client", clientParam);
+  if (slot) qs.set("slot", String(slot));
+  const search = qs.toString();
+  return queryOptions({
+    queryKey: ["public", "config", clientParam, slot ?? null],
+    queryFn: () => api.get<PublicConfig>(`/api/public/config${search ? `?${search}` : ""}`),
+    staleTime: 5 * 60_000,
+  });
+}
+export { configQueryFor };
+
+export const configQuery = configQueryFor();
 
 export const channelsQuery = queryOptions({
   queryKey: ["public", "channels"],

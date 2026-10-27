@@ -17,6 +17,15 @@ function mockChannels(channels: Channel[]) {
   server.use(http.get("/api/public/channels", () => HttpResponse.json(channels)));
 }
 
+/** task multi-char: "jogador" (the seeded mock user) has one finished character, so the carousel always
+ *  shows before the channel picker — confirm it once so the rest of these channel-picker tests see the
+ *  exact same flow they did before this task. */
+async function confirmCharacter() {
+  const confirm = await screen.findByRole("button", { name: "Entrar com este personagem" });
+  fireEvent.click(confirm);
+  await waitFor(() => expect(screen.queryByText("Escolha seu personagem")).not.toBeInTheDocument());
+}
+
 /** Pixi path (no Ruffle script loading needed in jsdom) so `GameFrame` just renders an iframe we can inspect. */
 function mockPixiConfig() {
   server.use(
@@ -30,6 +39,7 @@ function mockPixiConfig() {
           flashvars: { user: "jogador", key: "mock-session-key", config: "http://localhost:8080/client/config.xml" },
           socketProxy: [],
           pixiUrl: "http://localhost:5180/",
+          resourceUrl: "/resource/",
         },
       };
       return HttpResponse.json(body);
@@ -48,6 +58,7 @@ describe("PlayPage channel picker", () => {
   test("lists channels from the API with online count and PvP/full state", async () => {
     mockChannels(CHANNELS);
     await renderAt("/play");
+    await confirmCharacter();
 
     expect(await screen.findByText("Canal 1")).toBeInTheDocument();
     expect(screen.getByText("Canal PvP")).toBeInTheDocument();
@@ -60,6 +71,7 @@ describe("PlayPage channel picker", () => {
   test("a full channel can't be selected (disabled)", async () => {
     mockChannels(CHANNELS);
     await renderAt("/play");
+    await confirmCharacter();
 
     await screen.findByText("Canal cheio");
     const full = screen.getByRole("button", { name: /Canal cheio/ });
@@ -70,6 +82,7 @@ describe("PlayPage channel picker", () => {
     mockChannels(CHANNELS);
     mockPixiConfig();
     await renderAt("/play");
+    await confirmCharacter();
 
     const pvpChannel = await screen.findByRole("button", { name: /Canal PvP/ });
     fireEvent.click(pvpChannel);
@@ -89,6 +102,7 @@ describe("PlayPage channel picker", () => {
     mockChannels(CHANNELS);
     mockPixiConfig();
     await renderAt("/play");
+    await confirmCharacter();
 
     fireEvent.click(await screen.findByRole("button", { name: /Canal 1/ }));
     await waitFor(() => expect(document.querySelector("iframe")).not.toBeNull());
@@ -101,6 +115,7 @@ describe("PlayPage channel picker", () => {
     mockChannels([]);
     mockPixiConfig();
     await renderAt("/play");
+    await confirmCharacter();
 
     await waitFor(() => expect(document.querySelector("iframe")).not.toBeNull());
     expect(screen.queryByText("Escolha um canal")).not.toBeInTheDocument();
@@ -110,6 +125,7 @@ describe("PlayPage channel picker", () => {
     mockChannels(CHANNELS);
     mockPixiConfig();
     await renderAt("/play");
+    await confirmCharacter();
 
     fireEvent.click(await screen.findByRole("button", { name: /Canal 1/ }));
     await waitFor(() => expect(document.querySelector("iframe")).not.toBeNull());
