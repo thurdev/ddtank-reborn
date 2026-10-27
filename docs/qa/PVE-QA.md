@@ -82,3 +82,7 @@ cd packages/fight && npx vitest run test/pve-playthrough-sweep.test.ts --maxWork
 Procure linhas `pve playthrough sweep: Pve <id> (<nome>) hardLevel <n>: <motivos>` no output — ausência de
 linha pra um combo = passou em tudo. `hardLevel`: 0 Fácil, 1 Normal, 2 Difícil, 3 Terror, 4 Épico, 5
 Pesadelo (ladder completo em `packages/fight/src/pve/game.ts`).
+
+## Como rodar a varredura
+
+`PVE_SWEEP=1 pnpm --filter @ddt/fight exec vitest run test/pve-playthrough-sweep.test.ts` — fora da suíte normal porque o bot é aleatório e algumas masmorras às vezes não fecham no orçamento de tempo (Pve 6 e 7 em algumas dificuldades oscilam entre passar e falhar).
