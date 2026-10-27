@@ -10390,5 +10390,25 @@
   "fit": "cover",
   "auto": true,
   "review": "local"
+ },
+ {
+  "category": "02-lobby-hall",
+  "file": "roomlist__21_asset.DungeonList.boss.png",
+  "swf": "roomlist.swf",
+  "sourceFile": "21_asset.DungeonList.boss.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local",
+  "note": "tarefa pve-batalha: \"Đánh Boss\" -> \"Desafiar Chefe\". tools/remaster/badge-text.mjs (fundo solido) rodado só na metade texto da placa (crop x:0-101,y:32-62, flatten com o bg real d8ccb4 antes do erase -- o ícone ocupa a metade direita e seria apagado por engano se badge-text.mjs rodasse na imagem inteira, já que a cor do ícone também difere do fundo além do texto)."
+ },
+ {
+  "category": "02-lobby-hall",
+  "file": "roomlist__73_asset.DungeonList.dungeon.png",
+  "swf": "roomlist.swf",
+  "sourceFile": "73_asset.DungeonList.dungeon.png",
+  "fit": "cover",
+  "auto": true,
+  "review": "local",
+  "note": "tarefa pve-batalha: \"Phó bản\" -> \"Masmorra\". tools/remaster/badge-text.mjs (fundo solido) rodado só na metade texto da placa (crop x:58-138,y:0-63, mesmo motivo da 21_...boss.png -- ícone (leme) na metade esquerda)."
  }
 ]
