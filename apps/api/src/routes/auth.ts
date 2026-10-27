@@ -271,7 +271,7 @@ export async function authRoutes(f: FastifyInstance, ctx: AppCtx) {
   async function characterCard(slotRow: AccountCharacterRow) {
     const row = await q1(
       ctx.h,
-      sql`SELECT "UserID","NickName","Sex","Grade","Nimbus","ConsortiaName","DutyName","typeVIP","VIPLevel"
+      sql`SELECT "UserID","NickName","Sex","Grade","Nimbus","ConsortiaName","DutyName","typeVIP","VIPLevel","Style","Colors","Skin"
           FROM app."V_Sys_Users_Detail" WHERE lower("UserName") = lower(${slotRow.gameUserName}) LIMIT 1`,
     );
     if (!row || !row.NickName) return { slot: slotRow.slot, gameUserName: slotRow.gameUserName, created: false as const };
@@ -290,6 +290,14 @@ export async function authRoutes(f: FastifyInstance, ctx: AppCtx) {
       title: (row.DutyName as string) || null,
       vip: { type: Number(row.typeVIP ?? 0), level: Number(row.VIPLevel ?? 0) },
       nimbus: Number(row.Nimbus ?? 0),
+      // task multi-char (correção do coordenador): o renderer real do carrossel (apps/client avatar.ts,
+      // ShowCharacter/BaseCharacterLoader) consome Style/Colors/Skin DIRETAMENTE — exatamente a mesma
+      // string que apps/game/src/game/stats.ts styleFromEquip grava e que o pacote 67 PUBLIC_PLAYER/18
+      // SCENE_ADD_PLAYER manda pro cliente de verdade. `equip` abaixo (ícones avulsos) fica só pro
+      // fallback (sem PIXI_CLIENT_URL configurado).
+      style: (row.Style as string) || ",,,,,,,,",
+      colors: (row.Colors as string) || ",,,,,,,,",
+      skin: (row.Skin as string) || "",
       equip: await equippedIcons(Number(row.UserID)),
     };
   }

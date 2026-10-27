@@ -219,6 +219,12 @@ describe("task multi-char: GET/POST /api/me/characters + per-character ticket", 
     expect(Array.isArray(slot2.equip)).toBe(true);
     expect(slot2.equip.length).toBeGreaterThan(0);
     expect(slot2.equip[0]).toHaveProperty("iconRel");
+    // task multi-char (correção do coordenador): style/colors/skin crus — o que o renderer real
+    // (apps/client avatar.ts, ShowCharacter) consome diretamente, igual ao pacote 67/18 do jogo.
+    expect(typeof slot2.style).toBe("string");
+    expect(slot2.style.split(",").length).toBeGreaterThanOrEqual(9);
+    expect(typeof slot2.colors).toBe("string");
+    expect(typeof slot2.skin).toBe("string");
   });
 
   it("admin can lower maxCharactersPerAccount; it's enforced server-side even against a fresh account", async () => {
