@@ -11,6 +11,30 @@
   </head>
   <body>
     <div id="game"></div>
+    <script>
+      // Honest loading signal for the site's outer iframe wrapper (apps/web GameFrame.tsx): the module script
+      // below (`main.ts`) does `import "./game/all"` — a static import of ~2600 TS modules — so NOTHING in
+      // main.ts can run (not even a postMessage) until the whole graph is fetched; that's most of the wait on
+      // a cold cache/dev server. This plain non-module script runs immediately (before that import even starts)
+      // and reports REAL counts via the Resource Timing API, instead of the parent faking a percentage with a
+      // timer (see GameFrame.tsx history: "Fake-but-honest progress sweep" — removed, this replaces it).
+      (function () {
+        try {
+          var sent = 0, done = 0, t0 = Date.now();
+          function post() {
+            try { window.parent.postMessage({ type: "ddt-client-progress", loaded: done, pending: Math.max(0, sent - done), ms: Date.now() - t0 }, "*"); } catch (e) {}
+          }
+          var po = new PerformanceObserver(function (list) {
+            var entries = list.getEntries();
+            sent += entries.length; done += entries.length; // resource entries only show up once settled
+            post();
+          });
+          po.observe({ type: "resource", buffered: true });
+          var iv = setInterval(post, 400);
+          window.addEventListener("load", function () { clearInterval(iv); post(); }, { once: true });
+        } catch (e) {}
+      })();
+    </script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

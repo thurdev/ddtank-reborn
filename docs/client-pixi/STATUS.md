@@ -440,3 +440,89 @@ mexem em `session/login.ts`).
   dívida técnica.
 - `GET /flash/weekly/weeklyinfo.xml` sempre 404 (visto em toda sessão de
   smoke) — não investigado a fundo; não impediu nenhum fluxo testado.
+
+## Achados da sessão 2026-10-27 (`pixi-load`: carregamento lento, flicker preto no Barão, nomes de dificuldade)
+
+- **Causa raiz do carregamento lento confirmada e medida**: `apps/client/src/main.ts` faz
+  `import "./game/all"` — um import ESTÁTICO de ~2600 módulos TS (o jogo inteiro: o registro global
+  de classes AS3 exige que todas existam antes do boot, igual `ApplicationDomain` do Flash). Em dev
+  (Vite), isso vira ~2800 requisições HTTP individuais (cada `.ts` é transformado por esbuild na hora)
+  ANTES de `main.ts` poder rodar uma linha sequer — inclusive antes de `Loading`/`config.xml`/qualquer
+  coisa do jogo em si começar. Medido com Playwright (navegador novo, cache vazio, `apps/client/public/
+  assets` já exportado): **a frio, sem nada: ~31,5 s, 2812 requisições, 48,3 MB** até o boot começar
+  (nem chegou a mostrar a tela de Loading ainda). Com o MESMO navegador recarregando (cache HTTP do
+  Chrome já quente): ~3,5–4,1 s — ou seja, quase todo o custo é RETRANSFORMAÇÃO pelo Vite a cada
+  visita nova, não bytes de rede. **Fix**: `apps/client/vite.config.ts` ganhou `server.warmup` pedindo
+  pro Vite pré-transformar `src/main.ts`/`src/game/all.ts` assim que o dev server sobe, em vez de no
+  primeiro load de um jogador real — tira o custo de transformação do caminho crítico da primeira
+  visita. **Medido depois do fix: ~4,7 s a frio** (praticamente igual ao "morno"), ~85% mais rápido,
+  mesma contagem de requisições/bytes (não reduz quantidade de requisições — isso exigiria
+  bundlar/code-splitting real, ver abaixo). Build de produção (`vite build`) já bundla/minifica tudo
+  isso num único `index.js` de 7,98 MB (1,67 MB gzip) + alguns chunks do Pixi — ordens de grandeza
+  menos requisições; fica como melhoria futura trocar o dev server por um preview/build real caso o
+  carregamento em dev ainda incomode. **Achado colateral do build**: `vite build` copia fisicamente
+  toda a árvore de assets exportados (`public/assets`, uma junction) pra dentro de `dist/assets`
+  (dezenas de milhares de arquivos) — infla o tempo de build (9min19s nesta sessão) e o tamanho do
+  artefato; não mexi nisso (fora do escopo de "carregamento lento" no dev server, que é o que o dono
+  testa — ver `COMO-RODAR.md` que já assume os assets sendo servidos à parte).
+- **"Carregando o cliente… 79%" era 100% cosmético — removido**: `apps/web/src/components/GameFrame.tsx`
+  tinha um `setInterval` que só fingia avançar a porcentagem (`p += (0.95-p)*0.06` a cada 200ms) sem
+  NENHUMA relação com o carregamento real — por isso parecia "travar" perto de 90%+ (a curva
+  assintótica fica cada vez mais lenta) mesmo quando o carregamento real (dominado pelos ~2600 módulos
+  acima) ainda não tinha nem começado a rodar. Troquei por um sinal REAL: `apps/client/index.html` ganhou
+  um `<script>` não-module (roda ANTES do import pesado, já que nada dentro de `main.ts` executa
+  enquanto esse import não resolve) que usa a `PerformanceObserver`/Resource Timing API do navegador pra
+  contar requisições concluídas de verdade e manda isso por `postMessage` (`ddt-client-progress`) pro
+  pai. `GameFrame.tsx` agora usa essa contagem real (curva de retornos decrescentes SOBRE um número que
+  só sobe quando algo realmente termina de carregar — se travar de verdade, a barra para de verdade, em
+  vez de continuar subindo sozinha) e mostra "N arquivos carregados" em vez de uma porcentagem inventada;
+  mantive o sweep falso só no caminho Ruffle/SWF (que genuinamente não expõe progresso de bytes do filme
+  raiz — limitação documentada da API do Ruffle). Adicionei um aviso "isso está demorando mais que o
+  normal" depois de 20s sem a página carregar (`slow` state) — não trava nada, só avisa.
+- **Flicker preto no mapa do Barão (Bugo Castle / Gulu Kingdom estágio 2, missão/mapa 1073) — causa
+  raiz achada e corrigida**: `packages/fight/src/pve/scripts/generated/Messions/GK1073.ts`
+  (`OnStartGame`) cria uma camada de decoração via `Createlayer(...,"game.asset.living.BossBgAsset",...)`
+  e toca `PlayMovie("in"/"out", ...)` nela — igual ao C# doador (`PhysicalObj.PlayMovie` → protocolo
+  original `SendPhysicalObjPlayAction`, pacote 91 código 66, já existente no 4.1 real). No cliente, isso
+  cai em `game/objects/SimpleObject.ts::playAction()`, que só faz `this.m_movie.gotoAndPlay(label)` — SEM
+  nenhuma lógica de "tocar uma vez e parar": no Flash original, quem para a timeline é uma ação de frame
+  GRAVADA NO SWF (DoAction por frame, sem classe própria). O exportador (`tools/swf-export/src/
+  swf-classes.ts`) só decompila frame scripts de símbolos com classe/linkage própria (comentário no
+  próprio arquivo: "Classes com código") — um `MovieClip` cru como `BossBgAsset` (`library.json`:
+  `"base":"flash.display.MovieClip"`, sem classe) nunca teve esse `stop()` capturado. Resultado: a
+  timeline (4 frames, conteúdo só no frame 3 — um retângulo gigante, escala ~127x89, `colorTransform`
+  alpha ~0,8, cobrindo a tela inteira) chega no fim e volta pro frame 1 sozinha (comportamento padrão
+  genuíno do Flash — confirmado em `packages/flash/src/frame-loop.ts`), repetindo esse flash a cada
+  ~160ms durante todo o 1º turno da luta (só é removida no turno 2, `OnBeginNewTurn`). **Fix**: patch do
+  transpilador `tools/as3-to-ts/patches/game/objects/SimpleObject.ts.json` (ver docs/client-pixi/
+  TRANSPILADOR.md#patches) adiciona um listener de `ENTER_FRAME` em `SimpleObject.creatMovie()` que
+  chama `.stop()` assim que o clipe chega no último frame — como o ciclo de vida desses objetos é 100%
+  controlado pelo servidor (delay/duration do `PlayMovie` + `RemovePhysicalObj` explícito), nunca há
+  dependência real de loop nativo, então isso é seguro e não mexe no exportador (que está em plena
+  reexportação) nem no shim genérico de `MovieClip` (outras animações que legitimamente loopam usam
+  outro caminho). **Verificado**: script ad-hoc via Playwright que instancia o `SimpleObject` real com o
+  símbolo real `game.asset.living.BossBgAsset` dentro do cliente rodando e amostra `currentFrame`/
+  `isPlaying` por ~2,4s — confirma que para no frame 4/4 e nunca mais volta pro 1 (antes do fix isso
+  looparia pra sempre). Não joguei a luta completa até a sala do Barão (reproduzir manualmente: Expedição
+  → Gulu Kingdom → Fácil → vencer missão 1 → entra na missão/mapa 1073).
+- **Nomes de dificuldade/modo da dungeon — a maioria já estava traduzida, achei 2 imagens que faltavam**:
+  conferi direto os PNGs exportados (não o scan OCR antigo, que está desatualizado) em
+  `apps/client/public/assets/flash/ui/vietnam/swf/roomlist/images/`: `59_...hardLevel_04.png`="Avançado",
+  `63_...hardLevel_01.png`="Fácil", `61_...hardLevel_02.png`="Normal", `60_...hardLevel_03.png`="Difícil",
+  `64_...hardLevel_0.png`="? Sem escolha", `66_...hardLevel.png`="Dificuldade" (dropdown),
+  `58_...DungeonList.hardLevel_PVE.png`="Dificuldade" — todos já em PT-BR (o achado de 2026-10-07 no
+  `docs/I18N-AUDIT.md` listando `hardLevel_PVE` como pendente está desatualizado, foi corrigido depois).
+  **Duas imagens do mesmo SWF (`roomlist.swf`) continuam em vietnamita** — são os botões de MODO da tela
+  de seleção de instância (ao lado da dificuldade), não geradas por este task (lista pro remaster, não
+  gerei imagem):
+  - `apps/client/public/assets/flash/ui/vietnam/swf/roomlist/images/21_asset.DungeonList.boss.png`
+    (símbolo `asset.DungeonList.boss`) — texto atual "Đánh Boss" (devia virar algo como "Lutar com o
+    Boss"/"Fase do Boss").
+  - `apps/client/public/assets/flash/ui/vietnam/swf/roomlist/images/73_asset.DungeonList.dungeon.png`
+    (símbolo `asset.DungeonList.dungeon`) — texto atual "Phó bản" (devia virar "Masmorra"/"Instância").
+  Confirmado também no scan estático (`research/i18n/img-vn-full.tsv:327-328`). Nenhum job de remaster
+  (`remaster/approved.json`) existe ainda pra esses dois — ao contrário dos `hardLevel_*` (que já têm
+  prompt/output aprovados), estes nunca entraram na fila.
+- Verificação desta sessão: `pnpm --filter @ddt/flash exec vitest run --maxWorkers=2` → 14/14 ok;
+  `pnpm --filter web exec vitest run` → 11/11 ok; `tsc --noEmit` de `@ddt/client` → 119 erros (igual à
+  baseline da sessão 2026-10-26, nenhum novo); `tsc --noEmit` de `web` → limpo.
