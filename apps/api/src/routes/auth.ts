@@ -248,19 +248,42 @@ export async function authRoutes(f: FastifyInstance, ctx: AppCtx) {
   /** Icons of everything equipped (EquipBag, `BagType = 0`) for `userId`, resolved with the same
    *  `itemIconRel` path logic already used by the admin item-icon preview (`apps/api/src/lib/item-icon.ts`,
    *  a faithful port of `PathManager.solveGoodsPath`/`EquipType`). `place` lets the web carousel sort the
-   *  layers (hair/face/cloth/weapon/wings...) without the API needing to know client-side z-order. */
-  async function equippedIcons(userId: number): Promise<{ place: number; categoryId: number; strengthenLevel: number; isGold: boolean; iconRel: string }[]> {
+   *  layers (hair/face/cloth/weapon/wings...) without the API needing to know client-side z-order.
+   *
+   *  `templateId`/`needSex`/`property1`/`level` (task multi-char, load-time fix): the real-client renderer
+   *  (`apps/client/src/avatar.ts`) needs these to build a MINIMAL `ItemManager` template dictionary for
+   *  just this character's own equipped items, instead of the full `StartupResourceLoader
+   *  .creatItemTempleteLoader()` fetch — that one loads and throttle-parses ALL ~7650 item templates
+   *  (`ItemTempleteAnalyzer.__partexceute`: 40 items per 30ms `Timer` tick, by design, to not stall the
+   *  original Flash player's frame rate while the rest of the game's startup runs in the background) —
+   *  ~5.7s of dead time alone for a page that only ever needs the handful of items one character has on.
+   */
+  async function equippedIcons(
+    userId: number,
+  ): Promise<{ place: number; categoryId: number; strengthenLevel: number; isGold: boolean; iconRel: string; templateId: number; needSex: number; property1: number; level: number }[]> {
     const rows = await q(
       ctx.h,
-      sql`SELECT g."Place", g."StrengthenLevel", g."IsJudge", s."CategoryID", s."Pic", s."NeedSex"
+      sql`SELECT g."Place", g."StrengthenLevel", g."IsJudge", g."TemplateID", s."CategoryID", s."Pic", s."NeedSex", s."Property1", s."Level"
           FROM player."Sys_Users_Goods" g JOIN game."Shop_Goods" s ON s."TemplateID" = g."TemplateID"
           WHERE g."UserID" = ${userId} AND g."BagType" = 0 AND g."IsExist" = true`,
     );
-    const out: { place: number; categoryId: number; strengthenLevel: number; isGold: boolean; iconRel: string }[] = [];
+    const out: { place: number; categoryId: number; strengthenLevel: number; isGold: boolean; iconRel: string; templateId: number; needSex: number; property1: number; level: number }[] = [];
     for (const r of rows) {
       const categoryId = Number(r.CategoryID);
       const rel = itemIconRel(categoryId, String(r.Pic ?? ""), Number(r.NeedSex ?? 0))[0];
-      if (rel) out.push({ place: Number(r.Place), categoryId, strengthenLevel: Number(r.StrengthenLevel ?? 0), isGold: !!r.IsJudge, iconRel: rel });
+      if (rel) {
+        out.push({
+          place: Number(r.Place),
+          categoryId,
+          strengthenLevel: Number(r.StrengthenLevel ?? 0),
+          isGold: !!r.IsJudge,
+          iconRel: rel,
+          templateId: Number(r.TemplateID),
+          needSex: Number(r.NeedSex ?? 0),
+          property1: Number(r.Property1 ?? 0),
+          level: Number(r.Level ?? 0),
+        });
+      }
     }
     return out;
   }

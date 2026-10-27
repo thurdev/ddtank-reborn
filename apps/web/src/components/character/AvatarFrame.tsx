@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Spinner } from "@ddtank/ui";
 import type { CreatedCharacterSlot } from "@/lib/api";
 
 /**
@@ -44,11 +43,14 @@ export function AvatarFrame({
 
   return (
     <div className="avatar-frame">
-      {!ready && (
-        <div className="avatar-frame__loading" aria-hidden>
-          <Spinner className="size-6" />
-        </div>
-      )}
+      {/* Shown immediately (no dependency on the iframe booting) — a generic silhouette so the card never
+       *  looks "empty" while avatar.html loads; fades out once the real render posts ready. */}
+      <div className={`avatar-frame__silhouette${ready ? " avatar-frame__silhouette--hidden" : ""}`} aria-hidden>
+        <svg viewBox="0 0 100 140" width="110" height="154" fill="currentColor" opacity="0.18">
+          <circle cx="50" cy="32" r="22" />
+          <path d="M50 58c-24 0-40 16-40 42v30h80v-30c0-26-16-42-40-42z" />
+        </svg>
+      </div>
       <iframe
         ref={frameRef}
         src={src}
@@ -84,6 +86,10 @@ function buildAvatarUrl(pixiClientUrl: string, resourceUrl: string, character: C
     consortiaName: character.guild ?? "",
     dutyName: character.title ?? "",
     nimbus: String(character.nimbus),
+    // task multi-char (load-time fix): lets avatar.ts build a MINIMAL ItemManager template dictionary
+    // from just this character's own equipped items instead of fetching+parsing the full ~7650-item
+    // catalog (see avatar.ts `buildItemManager`'s header for why that was the ~8s of dead time).
+    equip: JSON.stringify(character.equip.map((it) => [it.templateId, it.categoryId, it.needSex, it.property1, it.level])),
     api: apiOrigin,
   });
   if (reducedMotion) qs.set("reducedMotion", "1");

@@ -219,6 +219,9 @@ describe("task multi-char: GET/POST /api/me/characters + per-character ticket", 
     expect(Array.isArray(slot2.equip)).toBe(true);
     expect(slot2.equip.length).toBeGreaterThan(0);
     expect(slot2.equip[0]).toHaveProperty("iconRel");
+    // task multi-char (load-time fix): templateId/needSex/property1/level, so the client can build a
+    // minimal ItemManager dictionary itself instead of fetching+parsing all ~7650 item templates.
+    expect(slot2.equip[0]).toMatchObject({ templateId: expect.any(Number), needSex: expect.any(Number), property1: expect.any(Number), level: expect.any(Number) });
     // task multi-char (correção do coordenador): style/colors/skin crus — o que o renderer real
     // (apps/client avatar.ts, ShowCharacter) consome diretamente, igual ao pacote 67/18 do jogo.
     expect(typeof slot2.style).toBe("string");

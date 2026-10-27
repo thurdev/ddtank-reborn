@@ -30,7 +30,7 @@ const CREATED: CharacterSlot = {
   style: ",,3135|hair35,,5139|cloth39,6119|face18,1109|head8,,,",
   colors: ",,,,,,,,,",
   skin: "",
-  equip: [{ place: 6, categoryId: 7, strengthenLevel: 9, isGold: false, iconRel: "image/arm/mockarm/1/icon.png" }],
+  equip: [{ place: 6, categoryId: 7, strengthenLevel: 9, isGold: false, iconRel: "image/arm/mockarm/1/icon.png", templateId: 70001, needSex: 1, property1: 0, level: 1 }],
 };
 
 describe("PlayPage character carousel", () => {
