@@ -8,7 +8,7 @@ import type { AppCtx } from "../context.js";
 import { CiTree, EMPTY_SWF, mimeOf, placeholder } from "../lib/resources.js";
 import { crc32, inflateSync } from "node:zlib";
 import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
+import { dirname, isAbsolute, join, relative, resolve } from "node:path";
 import { aliasBombSwf } from "../lib/bomb-alias.js";
 
 export const CROSSDOMAIN = `<?xml version="1.0"?>
@@ -207,9 +207,12 @@ export async function staticRoutes(f: FastifyInstance, ctx: AppCtx) {
     handler: (req, reply) => {
       const rel = relOf(req, /^\/client-assets\//i);
       // reject traversal/absolute escapes; `path.join` already collapses "..", this is a defense-in-depth check
-      if (!ctx.cfg.CLIENT_ASSETS_DIR || rel.includes("\0") || /(^|\/)\.\.(\/|$)/.test(rel)) return reply.code(404).send("not found");
-      const file = join(ctx.cfg.CLIENT_ASSETS_DIR, rel);
-      if (!file.startsWith(ctx.cfg.CLIENT_ASSETS_DIR) || !existsSync(file) || !statSync(file).isFile()) return reply.code(404).send("not found");
+      if (!ctx.cfg.CLIENT_ASSETS_DIR || rel.includes("\0") || /(^|[\\/])\.\.([\\/]|$)/.test(rel)) return reply.code(404).send("not found");
+      const root = resolve(ctx.cfg.CLIENT_ASSETS_DIR);
+      const file = resolve(root, rel);
+      // dentro da pasta de verdade (não só prefixo do nome: "assets" vs "assets2"), incluindo "..\" do Windows
+      const inside = relative(root, file);
+      if (!inside || inside.startsWith("..") || isAbsolute(inside) || !existsSync(file) || !statSync(file).isFile()) return reply.code(404).send("not found");
       return sendFile(req, reply, file);
     },
   });
