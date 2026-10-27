@@ -104,9 +104,13 @@ jogo caiu NAQUELE instante, não é um erro específico do painel social). Inves
 inteira do dono foi reiniciada em algum momento no meio do trabalho (não por mim — nunca executei comando de
 restart; 4 agentes compartilham esta máquina e o dono também pode ter reiniciado manualmente). Uma 2ª
 tentativa logo depois (`apps/game` já confirmado estável de novo) não reproduziu o erro. **Não registrado
-como bug da feature Amigos/Social** — mais provável ser o cliente simplesmente reagindo corretamente a uma
-queda de conexão real durante um restart de infra. Fica como nota pra quem revisar: se esse "Lembrete"
-aparecer de novo SEM um restart de stack no meio, aí sim investigar a fundo.
+como bug da feature Amigos/Social** — causa raiz confirmada: `apps/game` do dono roda via `tsx watch
+src/index.ts` (visto na lista de processos), que reinicia o processo sozinho a cada edição de arquivo em
+`apps/game/src` — e há 3 outros agentes editando esse mesmo diretório nesta tarefa (`pve-batalha` entre
+eles, dono da área de batalha). Cada reinício derruba toda conexão WS ao vivo, inclusive a minha sessão de
+teste — reproduzido 2x nesta rodada, sempre com o PID do processo do jogo mudando entre antes/depois. O
+cliente reage exatamente como devia (mostra o aviso, não trava). Fica como nota pra quem revisar: é
+esperado nesse ambiente compartilhado, não precisa investigar como bug de feature.
 
 ## Navegação: dificuldade geral de voltar ao hall a partir de um painel aberto via teclado
 
