@@ -1,12 +1,17 @@
 /**
  * Ponto de entrada do transpilador.
  *
- *   pnpm --filter @ddt/as3-to-ts build-client [--only <prefixo>]
+ *   pnpm --filter @ddt/as3-to-ts build-client [--only <prefixo>] [--force]
  *
  * Lê `vendor/DDTank41/Source Flash/src/**.as` + a API do Flash
  * (`tools/as3-to-ts/playerglobal`), gera `apps/client/src/game/**.ts` e
  * `apps/client/src/game/all.ts` (carrega todos os módulos na ordem certa).
  * Relatório de avisos em `apps/client/src/game/TRANSPILE-REPORT.md`.
+ *
+ * Congelamento: depois de `node tools/as3-to-ts/freeze.mjs`, `apps/client/src/game/.frozen` existe e
+ * o jogo passa a ser editado direto (TS é o código-fonte, não mais gerado) — ver
+ * docs/client-pixi/TRANSPILADOR.md#congelamento. Este arquivo recusa rodar por cima de um congelamento
+ * (apagaria edições manuais) a não ser que `--force` seja passado explicitamente.
  */
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, posix } from "node:path";
@@ -21,12 +26,29 @@ const PG_ROOT = join(HERE, "../playerglobal");
 const OUT_ROOT = join(HERE, "../../../apps/client/src/game");
 /** AS3 descompilado dos SWFs de boot/registro/tutorial (ver extra-src/README.md) */
 const EXTRA_ROOT = join(HERE, "../extra-src");
+/** Presença = congelado (tools/as3-to-ts/freeze.mjs escreveu). Ver comentário de topo do arquivo. */
+const FROZEN_MARKER = join(OUT_ROOT, ".frozen");
 
 function rel(root: string, p: string): string {
   return p.slice(root.length).replace(/^[\\/]/, "").replace(/\\/g, "/");
 }
 
 function main(): void {
+  if (existsSync(FROZEN_MARKER) && !process.argv.includes("--force")) {
+    console.error(
+      [
+        `ERRO: ${OUT_ROOT} está CONGELADO (${FROZEN_MARKER} existe).`,
+        "Depois do congelamento, apps/client/src/game é o código-fonte de verdade e é editado direto —",
+        "rodar o transpilador por cima apagaria qualquer edição manual feita desde o congelamento.",
+        "Ver docs/client-pixi/TRANSPILADOR.md#congelamento.",
+        "",
+        "Se isto é mesmo intencional (ex.: corrigiu um bug no PRÓPRIO transpilador e quer re-gerar e",
+        "re-congelar), rode de novo com --force. Isso SOBRESCREVE qualquer edição manual feita no TS",
+        "gerado desde o último congelamento — confira no git antes.",
+      ].join("\n"),
+    );
+    process.exit(1);
+  }
   const t0 = Date.now();
   const project = new Project();
   for (const f of listAs(PG_ROOT)) project.addFile(rel(PG_ROOT, f), readFileSync(f, "utf8"), true);

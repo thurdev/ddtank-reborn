@@ -53,9 +53,24 @@ cache de SWF no SharedObject, e o log de pacotes do modo debug.
 
 ## Congelamento (fim da conversão)
 
-Quando o jogo estiver estável:
+Quando o jogo estiver estável, um comando faz os passos 1-2 de uma vez:
 
-1. Rodar o transpilador uma última vez (com os patches).
-2. Versionar `apps/client/src/game` (tirar do `.gitignore`).
-3. Apagar `tools/as3-to-ts/extra-src`, `patches/` e deixar o transpilador só
-   como histórico. Daí em diante **edite o TS direto** — é o código-fonte.
+```bash
+node tools/as3-to-ts/freeze.mjs
+```
+
+Isso roda o transpilador uma última vez (com os patches atuais), escreve
+`apps/client/src/game/.frozen` e tira `src/game/` do `apps/client/.gitignore`.
+A partir daí, `tools/as3-to-ts/src/main.ts` (o `build-client` normal, inclusive
+`pnpm --filter @ddt/as3-to-ts run build-client`) **se recusa a rodar** por cima
+do congelamento — evitaria apagar edição manual feita depois — a não ser que
+`--force` seja passado explicitamente (sobrescreve tudo; confira no git antes).
+
+Falta só (de propósito — o script não commita):
+
+1. `git add apps/client/.gitignore apps/client/src/game && git commit`.
+2. Editar o TS direto daí em diante — é o código-fonte, como qualquer outro.
+3. Quando o time confirmar que não precisa mais rodar o transpilador, apagar
+   `tools/as3-to-ts/extra-src` e `patches/` num commit separado.
+
+Ver `docs/deploy/README.md` §4.1 pelo mesmo passo no contexto de ir pra produção.
