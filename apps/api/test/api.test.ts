@@ -788,7 +788,7 @@ describe("admin CRUD", () => {
   // gaps (different script prefix, no safe sibling to reconstruct text from) — this asserts both states so
   // the test breaks (in the GOOD direction) the day someone closes one of the open gaps, per the doc's own
   // "rode o sweep de novo depois" instruction.
-  it("dungeon diagnostics: Pve 1 Easy chain is complete, Normal still has the documented gap", async () => {
+  it("dungeon diagnostics: Pve 1 Easy and Normal chains are complete (gap closed by 0030_pve_gulu_king_chamber)", async () => {
     const auth = { authorization: `Bearer ${adminToken}` };
     expect((await app.inject({ url: "/api/admin/dungeons/1/diagnostics" })).statusCode).toBe(401); // admin-only
 
@@ -802,8 +802,8 @@ describe("admin CRUD", () => {
     expect(easy.missions.map((m) => ({ session: m.session, id: m.id }))).toEqual([{ session: 1, id: 1072 }, { session: 2, id: 1073 }]);
     for (const m of easy.missions) expect(typeof m.cardDropId === "number" || m.cardDropId === null).toBe(true);
     const normal = byField.get("NormalGameScript") as { totalMissionCount: number; resolvedCount: number; missingSessionKeys: number[] };
-    expect(normal.missingSessionKeys.length).toBeGreaterThan(0);
-    expect(normal.resolvedCount).toBeLessThan(normal.totalMissionCount);
+    expect(normal.missingSessionKeys).toEqual([]);
+    expect(normal.resolvedCount).toBe(normal.totalMissionCount);
 
     expect((await app.inject({ url: "/api/admin/dungeons/999999/diagnostics", headers: auth })).json()).toEqual({ items: [] });
   });
