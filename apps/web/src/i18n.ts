@@ -51,6 +51,7 @@ const ptBR = {
   "home.gallery.body": "Toda imagem abaixo foi capturada rodando o servidor Reborn de verdade — nada é arte conceitual.",
   "home.gallery.prev": "Imagem anterior",
   "home.gallery.next": "Próxima imagem",
+  "home.gallery.hall": "O hall da cidade — Sala de Jogos, Loja, Forja, Igreja, Sociedade e Expedição a um clique.",
   "home.gallery.charSelect": "Tela de criação de personagem — escolha classe e visual antes de entrar.",
 
   "home.howTo.title": "Como jogar",
@@ -294,6 +295,7 @@ const en: Partial<Record<Key, string>> = {
   "home.gallery.body": "Every image below was captured while actually running the Reborn server — nothing is concept art.",
   "home.gallery.prev": "Previous image",
   "home.gallery.next": "Next image",
+  "home.gallery.hall": "The town hall — Game Room, Shop, Forge, Church, Guild and Expedition one click away.",
   "home.gallery.charSelect": "Character-creation screen — pick a class and look before entering.",
 
   "home.howTo.title": "How to play",

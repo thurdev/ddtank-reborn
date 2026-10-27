@@ -173,6 +173,7 @@ export function HomePage() {
   useSeo({ title: "DDTank Reborn", description: t("home.lead"), image: "/play/bg-1280.webp" });
 
   const gallery: GalleryImage[] = [
+    { src: "/art/gallery/hall.webp", caption: t("home.gallery.hall") },
     { src: "/art/screenshot-char-select.webp", caption: t("home.gallery.charSelect") },
   ];
 
