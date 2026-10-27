@@ -39,14 +39,20 @@
    silhouette — the game's own choicefigure (character-select) backdrop art sits behind it (coordinator ask:
    "use real exported game art as the backdrop"), framed instead of floating on the bare page background. */
 .character-carousel-stage--pixi {
-  height: 32rem;
-  max-width: 56rem;
+  height: 34rem;
+  max-width: 53rem;
   overflow: hidden;
   border-radius: 1.5rem;
   background-color: #060a16;
   background-size: cover;
   background-position: center;
   box-shadow: 0 20px 60px color-mix(in srgb, black 55%, transparent), inset 0 0 0 1px color-mix(in srgb, var(--line, #30364a) 60%, transparent);
+}
+
+@media (max-width: 480px) {
+  .character-carousel-stage--pixi {
+    height: 22rem;
+  }
 }
 
 .avatar-stage__iframe {

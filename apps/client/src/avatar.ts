@@ -24,6 +24,7 @@ import { Sprite } from "@ddt/flash/display/Sprite";
 import { Shape } from "@ddt/flash/display/Shape";
 import { Point } from "@ddt/flash/geom/Point";
 import { LoaderInfo } from "@ddt/flash/display/LoaderInfo";
+import { Event } from "@ddt/flash/events/Event";
 import { TextField } from "@ddt/flash/text/TextField";
 import { TextFormat } from "@ddt/flash/text/TextFormat";
 import { TextFieldAutoSize } from "@ddt/flash/text/TextFieldAutoSize";
@@ -89,11 +90,11 @@ let focusIndex = Math.min(Math.max(0, Number(q.get("focus") ?? 0)), Math.max(0, 
 // Canvas big enough for the focused character at ~2.3x its old on-screen size plus wing/aura headroom and
 // an in-stage nameplate below, with room either side for 2 dimmed cards per direction on the ellipse.
 const W = 1150;
-const H = 640;
-const FOCUS_SCALE = 1.3; // ShowCharacter.BIG_HEIGHT (342) * 1.3 ≈ 444px tall focused — ~2.3x the old ~190px
-const SIDE_SCALE_FACTOR = 0.6; // "side characters ~60%" of the focused one
-const STEP = (32 * Math.PI) / 180; // angle between neighboring carousel slots on the ellipse
-const GROUND_FRAC = 0.78; // feet anchor, as a fraction of H, for the focused (offset 0) slot
+const H = 740;
+const FOCUS_SCALE = 1.5; // ShowCharacter.BIG_HEIGHT (342) * 1.5 = 513px tall focused — ~2.4x the old ~215px
+const SIDE_SCALE_FACTOR = 0.6; // "side characters ~60%" of the focused one — applied PER STEP of distance
+const STEP = (34 * Math.PI) / 180; // angle between neighboring carousel slots on the ellipse
+const GROUND_FRAC = 0.74; // feet anchor, as a fraction of H, for the focused (offset 0) slot
 const TWEEN_MS = 420;
 
 const FONT = "'Lilita One', 'Rubik', sans-serif";
@@ -106,14 +107,13 @@ const COLOR = { plate: 0x0a0c14, ink: 0xf5f0e3, muted: 0x9aa2b8, sun: 0xffcb47, 
 function layoutFor(offset: number) {
   const angle = offset * STEP;
   const nx = Math.sin(angle);
-  const recede = 1 - Math.cos(angle); // 0 at focus, grows toward the sides
+  const absOffset = Math.min(Math.abs(offset), 2); // clamp: offset 2 is already as small/dim as it gets
   const hidden = Math.abs(offset) > 2.001;
-  const scale = FOCUS_SCALE * Math.max(SIDE_SCALE_FACTOR * 0.8, 1 - recede * (1 - SIDE_SCALE_FACTOR) * 1.35);
   return {
     xFrac: 0.5 + nx * 0.4,
-    yFrac: GROUND_FRAC - recede * 0.05,
-    scale,
-    alpha: hidden ? 0 : Math.max(0.16, 1 - Math.min(Math.abs(offset), 3) * 0.32),
+    yFrac: GROUND_FRAC - absOffset * 0.045, // recedes slightly "into" the stage, like a turntable
+    scale: FOCUS_SCALE * Math.pow(SIDE_SCALE_FACTOR, absOffset), // offset 1 = 60%, offset 2 = 36%
+    alpha: hidden ? 0 : Math.max(0.22, 1 - absOffset * 0.42), // offset 1 = 58%, offset 2 = 22% (clamped)
   };
 }
 
@@ -290,13 +290,23 @@ let tweenRunning = false;
 function easeOutCubic(t: number): number {
   return 1 - Math.pow(1 - t, 3);
 }
+/**
+ * Drives the tween off the STAGE's own `ENTER_FRAME` (the engine's 25fps logic tick — `frame-loop.ts`),
+ * not a free-running `requestAnimationFrame` loop. `packages/flash/src/player.ts`'s render loop snapshots
+ * every DisplayObject's transform once per logic tick and smoothly BLENDS toward the next one for 60fps
+ * rendering (`snapshot`/`applyInterp` in `packages/flash/src/interp.ts`) — moving `container.x/y/scaleX/
+ * alpha` from an independent, more-frequent rAF loop fights that system (it keeps re-snapshotting a moving
+ * target) and was rendering duplicate/smeared nameplate text mid-tween. One update per ENTER_FRAME lets the
+ * built-in interpolation do the actual 60fps smoothing, same as everything else in the game.
+ */
 function startTweenLoop(): void {
-  if (tweenRunning || REDUCED_MOTION) return;
+  if (tweenRunning || REDUCED_MOTION || !currentStageRef) return;
   tweenRunning = true;
+  const stage = currentStageRef;
   const start = performance.now();
   const from = slots.map((s) => ({ ...s.current }));
-  const tick = (now: number) => {
-    const t = Math.min(1, (now - start) / TWEEN_MS);
+  const tick = () => {
+    const t = Math.min(1, (performance.now() - start) / TWEEN_MS);
     const e = easeOutCubic(t);
     for (let i = 0; i < slots.length; i++) {
       const s = slots[i]!;
@@ -309,10 +319,12 @@ function startTweenLoop(): void {
       };
       applySlot(s);
     }
-    if (t < 1) requestAnimationFrame(tick);
-    else tweenRunning = false;
+    if (t >= 1) {
+      stage.removeEventListener(Event.ENTER_FRAME, tick);
+      tweenRunning = false;
+    }
   };
-  requestAnimationFrame(tick);
+  stage.addEventListener(Event.ENTER_FRAME, tick);
 }
 
 window.addEventListener("message", (e: MessageEvent) => {
