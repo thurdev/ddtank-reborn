@@ -51,6 +51,11 @@ export function GamePanelBody({ className, ...props }: ComponentProps<"div">) {
  * Clickable region inside a game preview. `active` (the field it maps to is focused in the side panel) gets a
  * persistent ring; otherwise only a gated hover affordance — never an ungated `:hover` animation (see `animate`
  * skill: motion only on deliberate interaction, not ambient). Renders as a `<button>` so it's keyboard-reachable.
+ *
+ * Only pass `label` when the content isn't already self-describing (e.g. an icon + bare number, with no
+ * item name in the text) — when the hotspot wraps real visible text (a title, a badge, a name), omit it:
+ * an `aria-label` here would override that text as the accessible name for both the button AND, per the
+ * accname spec, for any ancestor (e.g. a `<h3>`) whose name is computed from this button's content.
  */
 export function Hotspot({
   active,
@@ -58,7 +63,7 @@ export function Hotspot({
   children,
   label,
   ...props
-}: ComponentProps<"button"> & { active?: boolean; label: string }) {
+}: ComponentProps<"button"> & { active?: boolean; label?: string }) {
   return (
     <button
       type="button"

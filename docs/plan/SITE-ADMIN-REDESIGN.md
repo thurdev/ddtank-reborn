@@ -71,8 +71,19 @@ padrão de referência para as próximas. #2-#5 ficam para sessões seguintes (v
 
 - [x] Fase 0 — leitura (`AGENTS.md`, READMEs web/admin, `docs/features/admin.md`, `TASKS.md` §4,
       `docs/client-pixi/ASSETS.md`, `packages/ui`) + este plano.
-- [ ] Fase 1 — componentes novos em `packages/ui`: `GamePanel`, `RewardChip`, `Hotspot`.
-- [ ] Fase 2a — editor visual de Missões (`/quests`), com testes.
+- [x] Fase 1 — componentes novos em `packages/ui`: `GamePanel`, `RewardChip`, `Hotspot`.
+- [x] Fase 2a — editor visual de Missões (`/quests`), com testes. `apps/admin/src/pages/Quests.tsx`
+      (rota estática em `router.tsx`, vence a rota genérica `$resource` — mesmo truque de `/events`):
+      Tabs Visual/Tabela/Condições/Prêmios; Visual = `QuestPicker` (busca + lista) + `QuestEditor`
+      (preview `GamePanel` ao vivo via `useWatch` + painel lateral com todos os campos de `quests.fields`,
+      reaproveitando os helpers de `crud/schema.ts` que `SchemaForm` já usa — sem duplicar validação/conversão).
+      Clicar um `Hotspot` do preview rola+foca o campo via `fieldRefs`; editar atualiza o preview antes de
+      salvar (sem round-trip). Ícones de item real via `/api/admin/item-icons/:id.png` (cache existente);
+      recompensas em moeda (exp/ouro/cupom/honra/medalha/buff) usam glifo `lucide-react` com tom do design
+      system (sem asset SWF mapeado — ver §5). Testes: `apps/admin/src/pages/Quests.test.tsx` (3 casos: aba
+      Visual por padrão sem missão escolhida; clicar hotspot do título foca o campo e editar atualiza o
+      preview ao vivo; trocar de missão troca o preview). `pnpm --filter admin exec vitest run` (12 passam)
+      e `pnpm --filter admin exec tsc --noEmit` limpos.
 - [ ] Fase 2b — editor visual de Instâncias (`/dungeons`).
 - [ ] Fase 2c — editor visual de Eventos (`/events`).
 - [ ] Fase 2d — editor visual de Itens/Loja (`/items`).
