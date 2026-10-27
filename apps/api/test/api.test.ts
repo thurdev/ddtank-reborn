@@ -760,6 +760,19 @@ describe("static + public", () => {
     expect(m.json()[0].path).toContain("cloth");
   });
 
+  // site-admin-redesign: admin game-window previews read the client's exported UI art through this route
+  // (not a hardcoded client dev-server port). Resolved on demand (no eager CiTree index — see static.ts's
+  // comment on this route for why: ~153k files under apps/client/public/assets).
+  it("/client-assets/ serves the PixiJS client's exported UI art read-only, rejects traversal", async () => {
+    const lib = await app.inject({ url: "/client-assets/flash/ui/vietnam/swf/quest/library.json" });
+    expect(lib.statusCode).toBe(200);
+    expect(lib.headers["content-type"]).toContain("json");
+    const parsed = JSON.parse(lib.body);
+    expect(parsed.chars).toBeTruthy();
+    expect((await app.inject({ url: "/client-assets/../../../package.json" })).statusCode).toBe(404);
+    expect((await app.inject({ url: "/client-assets/flash/ui/vietnam/swf/quest/does-not-exist.png" })).statusCode).toBe(404);
+  });
+
   it("dailyloglist.ashx answers value=true (else the client's startup queue never loads the mail list)", async () => {
     const r = await app.inject({ url: "/request/dailyloglist.ashx?selfid=1&key=x" });
     const x = inflate(r.rawPayload);

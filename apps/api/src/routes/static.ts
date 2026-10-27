@@ -188,6 +188,32 @@ export async function staticRoutes(f: FastifyInstance, ctx: AppCtx) {
     },
   });
 
+  /**
+   * site-admin-redesign: read-only passthrough to the PixiJS client's exported UI art
+   * (`apps/client/public/assets/flash/ui/vietnam/swf/<module>/{library.json,images/,shapes/,texts/}`) — the
+   * admin's game-window previews fetch `library.json` + PNGs from here instead of guessing a client
+   * dev-server port, and it works the same in prod. Simple 404 on miss (no placeholder fallback like
+   * `/resource/*`): a missing preview asset should be visibly wrong, not silently swapped for a blank pixel.
+   *
+   * Deliberately NOT a `CiTree` (unlike every other tree in this file): that eagerly walks + indexes the
+   * WHOLE directory at boot/reindex, and this one has ~153k files (`tools/swf-export`'s full output) — a
+   * ~35s synchronous walk, re-triggered on every `tsx watch` reload. Resolved on demand instead (one
+   * `existsSync` per request, exact case — the export tool already writes consistently-lowercased paths, see
+   * `docs/client-pixi/ASSETS.md`), same cost model as any other file read.
+   */
+  f.route({
+    method: ["GET", "HEAD"],
+    url: "/client-assets/*",
+    handler: (req, reply) => {
+      const rel = relOf(req, /^\/client-assets\//i);
+      // reject traversal/absolute escapes; `path.join` already collapses "..", this is a defense-in-depth check
+      if (!ctx.cfg.CLIENT_ASSETS_DIR || rel.includes("\0") || /(^|\/)\.\.(\/|$)/.test(rel)) return reply.code(404).send("not found");
+      const file = join(ctx.cfg.CLIENT_ASSETS_DIR, rel);
+      if (!file.startsWith(ctx.cfg.CLIENT_ASSETS_DIR) || !existsSync(file) || !statSync(file).isFile()) return reply.code(404).send("not found");
+      return sendFile(req, reply, file);
+    },
+  });
+
   f.route({
     method: ["GET", "HEAD"],
     url: "/ruffle/*",
