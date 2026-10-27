@@ -42,9 +42,10 @@ export function LoginPage() {
         <TrajectoryArc className="absolute -top-16 left-0 w-full text-sun/30" />
         <Card className="relative p-7">
           <div className="flex items-start justify-between gap-2">
-            <h1 className="title-plate text-3xl">
-              DDTank <span className="text-sun">Admin</span>
-            </h1>
+            <div>
+              <img src="/logo.webp" alt="DDTank Reborn" className="h-12 w-auto object-contain" />
+              <p className="mt-1 title-plate text-sm text-muted">Admin</p>
+            </div>
             <LocaleToggle locale={locale} onChange={setLocale} />
           </div>
           <p className="mt-1 text-sm text-muted">{t("login.lead")}</p>

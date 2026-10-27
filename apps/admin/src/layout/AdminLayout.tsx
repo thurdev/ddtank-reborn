@@ -48,18 +48,14 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   );
 }
 
+/** Logo real do projeto (copiado de `apps/web/public/play/logo.webp` — apps separados, cada um com seu
+ *  próprio `public/`), não mais um ícone genérico + texto (rodada 4, mesmo achado do site: "generic icon +
+ *  text" não parece o jogo). "Admin" ao lado em texto pequeno, pra não competir com o logo. */
 function Brand() {
   return (
     <Link to="/" className="flex items-center gap-2 px-5 py-4">
-      <svg viewBox="0 0 64 64" className="size-8" aria-hidden>
-        <rect width="64" height="64" rx="16" className="fill-panel-2" />
-        <path d="M8 52 Q 32 4 56 44" className="stroke-sun" strokeWidth="4" strokeLinecap="round" strokeDasharray="1 8" fill="none" />
-        <circle cx="54" cy="46" r="7" className="fill-coral" />
-        <rect x="6" y="46" width="16" height="10" rx="3" className="fill-mint" />
-      </svg>
-      <span className="title-plate text-xl">
-        DDTank <span className="text-sun">Admin</span>
-      </span>
+      <img src="/logo.webp" alt="DDTank Reborn" className="h-9 w-auto object-contain" />
+      <span className="title-plate text-sm text-muted">Admin</span>
     </Link>
   );
 }
