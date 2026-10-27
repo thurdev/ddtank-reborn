@@ -122,7 +122,11 @@ describe.skipIf(!process.env.PVE_SWEEP)("pve-qa: headless bot playthrough sweep 
           // eslint-disable-next-line no-console
           console.log(`pve playthrough sweep: Pve ${r.pveId} (${r.name}) hardLevel ${r.hardLevel}: ${r.reasons.join(" | ")}`);
         }
-      }, 20_000);
+        // pve-batalha: 20s was tight enough wall-clock budget (not sim-time -- `maxMs` is a separate,
+        // already-generous 2_400_000ms sim budget) that a handful of slow-but-FINISHING combos (Pve 3/6/7
+        // Normal-Terror: lots of NPCs/turns before the bots resolve the fight either way) tripped vitest's
+        // own per-test timeout and failed hard instead of soft-reporting like every other combo here.
+      }, 90_000);
     }
   }
 
