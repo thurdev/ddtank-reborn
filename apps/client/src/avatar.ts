@@ -96,6 +96,9 @@ const SIDE_SCALE_FACTOR = 0.6; // "side characters ~60%" of the focused one — 
 const STEP = (34 * Math.PI) / 180; // angle between neighboring carousel slots on the ellipse
 const GROUND_FRAC = 0.74; // feet anchor, as a fraction of H, for the focused (offset 0) slot
 const TWEEN_MS = 420;
+const SHOW_LIGHT_SCALE = 1.6;
+const SHOW_LIGHT_FOOT_OFFSET_X = -30;
+const SHOW_LIGHT_FOOT_OFFSET_Y = 100;
 
 const FONT = "'Lilita One', 'Rubik', sans-serif";
 const COLOR = { plate: 0x0a0c14, ink: 0xf5f0e3, muted: 0x9aa2b8, sun: 0xffcb47, sunDeep: 0x3a2400 };
@@ -249,6 +252,38 @@ function buildCreateSlot(label: string): Sprite {
   return container;
 }
 
+function enlargeShowLight(character: ShowCharacter): boolean {
+  const container = character.getChildAt(0);
+  if (!(container instanceof Sprite)) return false;
+
+  let foundLight = false;
+  const scaledLights =
+    (character as ShowCharacter & { $scaledLights?: WeakSet<MovieClip> }).$scaledLights ??
+    new WeakSet<MovieClip>();
+  (character as ShowCharacter & { $scaledLights?: WeakSet<MovieClip> }).$scaledLights = scaledLights;
+  for (let i = 0; i < container.numChildren; i++) {
+    const child = container.getChildAt(i);
+    if (!(child instanceof MovieClip)) continue;
+    const className = ((child.constructor as { name?: string }).name ?? "").toLowerCase();
+    if (!className.includes("lightasset")) continue;
+    foundLight = true;
+    if (scaledLights.has(child)) continue;
+    scaledLights.add(child);
+    child.scaleX = SHOW_LIGHT_SCALE;
+    child.scaleY = SHOW_LIGHT_SCALE;
+    if (className.includes("sinple") || className.includes("simple") || i > 0) {
+      // Foot light helmet/cloth upgrade effect
+      child.x += SHOW_LIGHT_FOOT_OFFSET_X;
+      child.y += SHOW_LIGHT_FOOT_OFFSET_Y;
+    } else {
+      // Weapon upgrade effect manual positioning
+      child.x += -20;
+      child.y += 30;
+    }
+  }
+  return foundLight;
+}
+
 interface Slot {
   container: Sprite;
   character: ShowCharacter | null;
@@ -382,8 +417,19 @@ async function boot(): Promise<void> {
     const character = $as(CharactoryFactory.createCharacter(info2, CharactoryFactory.SHOW), ShowCharacter);
     character.x = -ShowCharacter.BIG_WIDTH / 2;
     character.y = -ShowCharacter.BIG_HEIGHT;
-    character.setShowLight(true, new Point(ShowCharacter.BIG_WIDTH / 2, 70));
-    slotContainer.addChild(character);
+    // ShowCharacter applies its own +47/+65 and +45/+126 offsets. The wrapper mirrors
+    // the character, so this anchor compensates for that mirror and keeps the aura centered.
+    character.setShowLight(true, new Point(82, 42));
+
+
+
+    const flipWrapper = new Sprite();
+    flipWrapper.scaleX = -1; 
+    flipWrapper.addChild(character);
+
+    slotContainer.addChild(flipWrapper);
+
+
 
     const nameplate = buildNameplate({
       nickname: entry.nickname,
@@ -399,6 +445,14 @@ async function boot(): Promise<void> {
     slots.push({ container: slotContainer, character, current: { xFrac: 0.5, yFrac: GROUND_FRAC, scale: 0, alpha: 0 }, target: { xFrac: 0.5, yFrac: GROUND_FRAC, scale: 0, alpha: 0 } });
 
     if (REDUCED_MOTION) character.stopAnimation();
+    const lightPollStarted = performance.now();
+    const lightPoll = () => {
+      enlargeShowLight(character);
+      if (performance.now() - lightPollStarted > 6000) {
+        stage.removeEventListener(Event.ENTER_FRAME, lightPoll);
+      }
+    };
+    stage.addEventListener(Event.ENTER_FRAME, lightPoll);
 
     info2.beginChanges();
     info2.ID = i + 1;
