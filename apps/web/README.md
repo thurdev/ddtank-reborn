@@ -63,15 +63,17 @@ O botão "Baixar launcher" na barra da página Jogar reaproveita o mesmo `launch
 /api/public/config`) que a Home já usa — some sozinho se `LAUNCHER_DOWNLOAD_URL` não estiver configurado
 no `apps/api`, sem link falso.
 
-## Arte pendente
+## Arte
 
-O redesign (`feature/site-design`) reaproveitou arte existente em vez de gerar peças novas (fora do
-escopo do agente de design): o hero da Home usa `public/play/bg-2560.{webp,avif}` (cena noturna já
-usada na página Jogar) e `public/play/logo.webp` (logo "DD Reborn"). Nada quebra sem arte nova — os
-slots abaixo são só para quando o dono gerar peças dedicadas (Higgsfield/Recraft, ver `docs/ROADMAP.md`):
+- `public/art/og-cover.jpg` (1200×630, site-admin-redesign) — card de compartilhamento padrão
+  (`src/lib/seo.ts` `DEFAULT_IMAGE`), screenshot real da tela de criação de personagem do servidor dev
+  (Playwright contra `:5173`/`:5180`, conta de teste descartável — nunca a do dono). Antes caía no
+  `logo.webp` (PNG com fundo transparente, ruim pra redes sociais).
+- `public/art/screenshot-char-select.webp` (site-admin-redesign) — mesma captura, usada na seção "É o
+  jogo de verdade" da Home (`src/pages/Home.tsx` `RealScreenshot`, entre Features e Notícias).
 
-- `public/art/hero-bg.webp` (+ `.avif`, ~2560×1200) — ilustração dedicada do hero da Home, hoje reusando
-  o fundo da página Jogar. Trocar a referência em `src/pages/Home.tsx` (`HeroArt`) quando existir.
-- `public/art/og-cover.jpg` (1200×630) — card de compartilhamento dedicado (hoje o `og:image` cai no
-  `logo.webp`, que é um PNG com fundo transparente, não ideal pra redes sociais). Trocar o `image`
-  default em `src/lib/seo.ts`.
+O hero da Home ainda reusa `public/play/bg-2560.{webp,avif}` (cena noturna já usada na página Jogar) —
+nada quebra sem arte nova, mas uma ilustração dedicada do hero continua pendente:
+
+- `public/art/hero-bg.webp` (+ `.avif`, ~2560×1200) — ilustração dedicada do hero da Home. Trocar a
+  referência em `src/pages/Home.tsx` (`HeroArt`) quando existir (Higgsfield/Recraft, ver `docs/ROADMAP.md`).

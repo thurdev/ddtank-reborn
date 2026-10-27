@@ -12,6 +12,7 @@ const RegisterPage = lazyRouteComponent(() => import("@/pages/Auth"), "RegisterP
 const RankingPage = lazyRouteComponent(() => import("@/pages/Ranking"), "RankingPage");
 const AccountPage = lazyRouteComponent(() => import("@/pages/Account"), "AccountPage");
 const ApoiarPage = lazyRouteComponent(() => import("@/pages/Apoiar"), "ApoiarPage");
+const ApoiarPixPage = lazyRouteComponent(() => import("@/pages/Apoiar"), "ApoiarPixPage");
 const TransparenciaPage = lazyRouteComponent(() => import("@/pages/Transparencia"), "TransparenciaPage");
 const PlayPage = lazyRouteComponent(() => import("@/pages/Play"), "PlayPage");
 
@@ -40,6 +41,9 @@ const loginRoute = createRoute({
 const registerRoute = createRoute({ getParentRoute: () => siteRoute, path: "/register", component: RegisterPage });
 const rankingRoute = createRoute({ getParentRoute: () => siteRoute, path: "/ranking", component: RankingPage });
 const apoiarRoute = createRoute({ getParentRoute: () => siteRoute, path: "/apoiar", component: ApoiarPage });
+/** site-admin-redesign: self-host Pix tool, moved out of the main "Apoiar" flow — see `pages/Apoiar.tsx`
+ *  `ApoiarPixPage`'s doc comment. */
+const apoiarPixRoute = createRoute({ getParentRoute: () => siteRoute, path: "/apoiar/pix", component: ApoiarPixPage });
 const transparenciaRoute = createRoute({ getParentRoute: () => siteRoute, path: "/transparencia", component: TransparenciaPage });
 const accountRoute = createRoute({
   getParentRoute: () => siteRoute,
@@ -52,7 +56,7 @@ const accountRoute = createRoute({
 const playRoute = createRoute({ getParentRoute: () => rootRoute, path: "/play", beforeLoad: requireAuth, component: PlayPage });
 
 const routeTree = rootRoute.addChildren([
-  siteRoute.addChildren([homeRoute, loginRoute, registerRoute, rankingRoute, apoiarRoute, transparenciaRoute, accountRoute]),
+  siteRoute.addChildren([homeRoute, loginRoute, registerRoute, rankingRoute, apoiarRoute, apoiarPixRoute, transparenciaRoute, accountRoute]),
   playRoute,
 ]);
 

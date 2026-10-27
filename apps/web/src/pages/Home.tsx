@@ -159,6 +159,36 @@ function HeroArt() {
   );
 }
 
+/**
+ * Real game screenshot (site-admin-redesign): `public/art/screenshot-char-select.webp` is a genuine capture
+ * of the dev server's character-creation screen (Playwright, throwaway test account — never the owner's),
+ * not key art. The whole point of the section is "this is the real game", so the frame stays a plain screen
+ * bezel, no extra chrome drawn over it.
+ */
+function RealScreenshot() {
+  const { t } = useI18n();
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-14">
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="show"
+        viewport={viewportOnce}
+        className="grid items-center gap-10 lg:grid-cols-[1fr_1.3fr]"
+      >
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-mint">{t("home.screenshot.eyebrow")}</p>
+          <h2 className="title-plate mt-3 text-3xl text-ink">{t("home.screenshot.title")}</h2>
+          <p className="mt-4 max-w-md text-muted">{t("home.screenshot.body")}</p>
+        </div>
+        <div className="overflow-hidden rounded-2xl border border-line bg-night-deep shadow-panel">
+          <img src="/art/screenshot-char-select.webp" alt="" loading="lazy" className="w-full object-cover" />
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
 export function HomePage() {
   const { t } = useI18n();
   const { data: config } = useQuery(configQuery);
@@ -213,6 +243,8 @@ export function HomePage() {
         <h2 className="title-plate mb-6 text-3xl">{t("home.features.title")}</h2>
         <FeatureGrid />
       </section>
+
+      <RealScreenshot />
 
       <section className="mx-auto max-w-6xl px-4 py-14">
         <h2 className="title-plate mb-6 text-3xl">{t("home.news")}</h2>

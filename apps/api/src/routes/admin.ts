@@ -10,6 +10,7 @@ import type { AppCtx } from "../context.js";
 import { q } from "../lib/db.js";
 import { buildIconPrompt, generateIconPng, iconSizeFor, recraftApiKey, resizePng } from "../lib/icon-style.js";
 import { itemIconRel } from "../lib/item-icon.js";
+import { diagnosePve } from "../lib/pve-diagnostics.js";
 import { wallNow } from "../lib/flash-xml.js";
 import { safeKey } from "../lib/storage.js";
 import { RESOURCES, type ResourceDef } from "./admin-resources.js";
@@ -829,6 +830,18 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
     } catch {
       return reply.code(404).send({ message: "Não encontrado" });
     }
+  });
+
+  /**
+   * Instâncias visual editor (site-admin-redesign, editor #2): mission-chain diagnostics for one dungeon —
+   * see `lib/pve-diagnostics.ts`'s file banner and `docs/guides/pve.md` §1.1 (task `pve-cadeia`) for why
+   * this exists. Admin-only (constructs a real fight-engine game per difficulty — cheap, ~ms, but still a
+   * real computation, not a static lookup, so it goes behind `guard` like any other admin-only read).
+   */
+  f.get<{ Params: { id: string } }>("/api/admin/dungeons/:id/diagnostics", { preHandler: guard }, async (req, reply) => {
+    const id = Number(req.params.id);
+    if (!Number.isFinite(id)) return reply.code(400).send({ message: "id inválido" });
+    return { items: await diagnosePve(ctx, id) };
   });
 
   f.get<{ Params: { resource: string; id: string } }>("/api/admin/:resource/:id", { preHandler: guard }, async (req, reply) => {

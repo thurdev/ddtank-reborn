@@ -31,6 +31,11 @@ const ptBR = {
   "home.features.channels.title": "Vários canais",
   "home.features.channels.body": "Canais configuráveis pelo admin, cada um com seu próprio hall e salas, sem lotar a fila.",
 
+  "home.screenshot.eyebrow": "Direto do servidor",
+  "home.screenshot.title": "É o jogo de verdade, não uma maquete",
+  "home.screenshot.body":
+    "Tela de criação de personagem do servidor Reborn, capturada ao vivo — mesma arte remasterizada, mesmas tabelas de ângulo que você vai usar em combate.",
+
   "status.title": "Servidor",
   "status.online": "Online",
   "status.offline": "Offline",
@@ -144,6 +149,17 @@ const ptBR = {
   "apoiar.noP2wBadge": "Sem vantagem no jogo",
   "apoiar.noP2wBody": "doar não dá item, cupom, VIP nem qualquer vantagem dentro do jogo. No máximo, um selo cosmético no seu perfil do site, se você quiser mostrar.",
   "apoiar.nonProfitBody": "O valor vai só pra manter o servidor e o desenvolvimento no ar: hospedagem, domínio e tempo de quem trabalha no projeto.",
+
+  "apoiar.bmcTitle": "Buy Me a Coffee",
+  "apoiar.bmcBody": "É assim que o DDTank Reborn oficial recebe apoio — um cafezinho por mês já ajuda a pagar hospedagem e domínio.",
+  "apoiar.bmcCta": "Apoiar no Buy Me a Coffee",
+  "apoiar.selfHostBody": "Hospeda o próprio servidor a partir deste código-fonte? Tem uma ferramenta de doação via Pix pronta pra configurar — não é o canal oficial deste servidor.",
+  "apoiar.selfHostLink": "Ver ferramenta de Pix →",
+
+  "apoiar.pix.title": "Doação via Pix (self-host)",
+  "apoiar.pix.lead": "Ferramenta pronta pra quem roda o próprio servidor DDTank a partir deste código-fonte configurar sua própria chave Pix de doação.",
+  "apoiar.pix.selfHostNote": "Esta tela gera um QR Code Pix pra ESTE servidor, configurado no painel admin — não é o canal oficial do projeto DDTank Reborn. Pra apoiar o servidor oficial, use o Buy Me a Coffee na página Apoiar.",
+
   "apoiar.goalOf": "Meta do mês: {goal}",
   "apoiar.formTitle": "Fazer uma doação via Pix",
   "apoiar.amount": "Valor",
@@ -217,6 +233,12 @@ const en: Partial<Record<Key, string>> = {
   "home.features.openSource.body": "Server, site and admin panel published on GitHub — run your own server or contribute.",
   "home.features.channels.title": "Multiple channels",
   "home.features.channels.body": "Channels configurable from the admin panel, each with its own hall and rooms, so queues never get crowded.",
+
+  "home.screenshot.eyebrow": "Straight from the server",
+  "home.screenshot.title": "It's the real game, not a mockup",
+  "home.screenshot.body":
+    "The Reborn server's character-creation screen, captured live — same remastered art, same aim tables you'll use in combat.",
+
   "status.title": "Server",
   "status.online": "Online",
   "status.offline": "Offline",
@@ -312,6 +334,17 @@ const en: Partial<Record<Key, string>> = {
   "apoiar.noP2wBadge": "No in-game advantage",
   "apoiar.noP2wBody": "donating never gives items, coupons, VIP or any in-game advantage. At most, a cosmetic badge on your site profile, if you choose to show it.",
   "apoiar.nonProfitBody": "The money only covers keeping the server and development running: hosting, domain and the time people put into the project.",
+
+  "apoiar.bmcTitle": "Buy Me a Coffee",
+  "apoiar.bmcBody": "This is how the official DDTank Reborn gets support — a monthly coffee already helps pay for hosting and the domain.",
+  "apoiar.bmcCta": "Support on Buy Me a Coffee",
+  "apoiar.selfHostBody": "Running your own server from this source code? There's a ready-made Pix donation tool to set up — not this server's official channel.",
+  "apoiar.selfHostLink": "See the Pix tool →",
+
+  "apoiar.pix.title": "Pix donation (self-host)",
+  "apoiar.pix.lead": "Ready-made tool for anyone running their own DDTank server from this source code to set up their own Pix donation key.",
+  "apoiar.pix.selfHostNote": "This screen generates a Pix QR code for THIS server, configured in the admin panel — not the official DDTank Reborn project's channel. To support the official server, use Buy Me a Coffee on the Apoiar page.",
+
   "apoiar.goalOf": "Monthly goal: {goal}",
   "apoiar.formTitle": "Make a Pix donation",
   "apoiar.amount": "Amount",

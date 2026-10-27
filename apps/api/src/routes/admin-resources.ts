@@ -69,7 +69,10 @@ export const RESOURCES: Record<string, ResourceDef> = {
   maps: { table: game.Game_Map, pk: ["ID"] },
   balls: { table: game.Ball, pk: ["ID"] },
   "drop-items": { table: game.Drop_Item, pk: ["Id"] },
-  "drop-conditions": { table: game.Drop_Condiction, pk: ["DropId"] },
+  // Fix (site-admin-redesign): the real column is "DropID" (capital ID, see packages/db/src/schema/game.ts
+  // Drop_Condiction) — the wrong casing here was unnoticed because no admin resource used "drop-conditions"
+  // yet (pkWhere would resolve to an undefined column and every single-row GET/PATCH/DELETE 404'd silently).
+  "drop-conditions": { table: game.Drop_Condiction, pk: ["DropID"] },
   achievements: { table: game.Achievement, pk: ["ID"] },
   edicts: { table: game.Edictum_List, pk: ["ID"] },
   "game-config": { table: game.Server_Config, pk: ["ID"] },
