@@ -163,7 +163,14 @@ seção 1.1, nem regressões de algo que esta tarefa corrigiu — investigar dep
   — precisa investigar a máquina de estados do PveGame pra essa classe de missão "cutscene + retry", não o
   script em si.
 - `NTM1083.ts` tem o mesmo tipo de prefixo não resolvido (`Bussiness.Managers.ItemMgr.FindItemTemplate`),
-  mesma causa do item 3 acima, mas é outra missão (não faz parte da cadeia do Pve 1) — não corrigido ainda.
+  mesma causa do `HardKingFirst.AllAttack` corrigido no item 4 acima, mas é outra missão (não faz parte da
+  cadeia do Pve 1) — não corrigido ainda.
+- `GT1173`/`GK1273.OnShooted` (depois do fix do construtor no item 4) tem a mesma classe de null-deref do
+  `CHM1277` acima: `simpleBoss_1.Say(...)` pode rodar antes de `simpleBoss_1` existir, numa corrida de
+  tempo rara entre o jogador atirar e `CanGameOver` criar o segundo rei — **confirmado idêntico ao
+  original** (mesma decompilação mais completa usada pro fix do item 4, linha por linha). Só apareceu
+  depois que os bots do sweep ficaram fortes o bastante pra atirar rápido o suficiente de bater nessa
+  janela; não é um bug introduzido pelo fix do item 4.
 - Terror do Gulu Kingdom (Pve 1, hardLevel 3) com os bots "fortes" do sweep só completa 2 das 5 fases
   (`isWin=false`) — pode ser só equilíbrio bot-vs-chefe no Terror (a dificuldade mais alta, NPCs mais fortes
   propositalmente) e não um bug; não investigado a fundo.
