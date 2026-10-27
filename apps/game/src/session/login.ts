@@ -13,6 +13,7 @@ import { loadAvatarCollection } from "../db/avatar-collection.js";
 import { getSession, validateGameLogin } from "@ddt/auth";
 import type { ClientKind } from "../game/player-info.js";
 import { consortiaOnLogin } from "../handlers/sociedade/index.js";
+import { syncPvePermission } from "../db/pve-progress.js";
 import { activityOpen } from "../handlers/eventos/agendador.js";
 import { sendNoviceActivityOpen } from "../handlers/eventos/novato.js";
 import { bumpNoviceActivity, NoviceActiveType } from "../game/novice-activity.js";
@@ -221,6 +222,8 @@ async function loadPlayer(ctx: ServerContext, client: GameClient, userId: number
   // QUEST_ADD (176) for the quests it can accept once its quest data is initialised.
   p.questInv.sendAll();
   // achievement records (228, snapshot types merged in), daily counters, world boss / league / elite state
+  // vitórias de masmorra já gravadas → PvePermission (o que o cliente usa pra liberar a dificuldade)
+  if (await syncPvePermission(ctx, p).catch((e) => { ctx.log.warn(`pve permission sync: ${e}`); return false; })) p.updateProperties();
   await eventsOnLogin(ctx, p).catch((e) => ctx.log.warn(`events login: ${e}`));
   if (p.achievements.length) p.send(Out.achievementData(p.id, p.achievements));
 

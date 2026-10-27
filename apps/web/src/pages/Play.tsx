@@ -5,7 +5,8 @@ import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { Badge, Button, cn, Spinner, StatusDot, Switch } from "@ddtank/ui";
 import { ArrowLeft, Download, Maximize, Radio } from "lucide-react";
 import { GameFrame } from "@/components/GameFrame";
-import { aimTablesQuery, channelsQuery, configQuery, type Channel } from "@/lib/api";
+import { CharacterCarousel } from "@/components/character/CharacterCarousel";
+import { aimTablesQuery, api, channelsQuery, configQueryFor, myCharactersQuery, type Channel } from "@/lib/api";
 import { AimTableCard } from "@/components/AimTablePanel";
 import { useI18n, type TKey } from "@/i18n";
 import { useSeo } from "@/lib/seo";
@@ -181,7 +182,19 @@ export function PlayPage() {
   const { t } = useI18n();
   const fullscreenRef = useRef<HTMLDivElement>(null);
   const [viewportEl, setViewportEl] = useState<HTMLDivElement | null>(null);
-  const { data, error, isLoading, refetch } = useQuery({ ...configQuery, staleTime: 0 });
+
+  // task multi-char: logged-in players pick a character (old-school carousel) before the channel picker.
+  // Anonymous visitors (the public demo config) skip it entirely — same flow as before this task.
+  const authed = !!api.getToken();
+  const [slot, setSlot] = useState<number | null>(null);
+  const myChars = useQuery({ ...myCharactersQuery, enabled: authed });
+  // "Fresh account with zero characters -> skip to create" (only slot 1, not created yet): go straight
+  // into the game with that slot instead of showing a carousel with a single "in progress" card.
+  const soleFreshSlot = myChars.data?.characters.length === 1 && myChars.data.characters[0]!.created === false;
+  const needsCharacterPick = authed && slot == null && !soleFreshSlot;
+  const effectiveSlot = slot ?? 1;
+
+  const { data, error, isLoading, refetch } = useQuery({ ...configQueryFor(effectiveSlot), staleTime: 0 });
   const channels = useQuery(channelsQuery);
   const [channel, setChannel] = useState<Channel | null>(null);
   const scale = useStageScale(viewportEl);
@@ -202,12 +215,16 @@ export function PlayPage() {
   // Nenhum canal cadastrado (banco novo, sem seed): pula o seletor, igual ao fallback de canal único do
   // servidor (`channelSocketProxies`). `channels.data` só vem `undefined` enquanto carrega/falha.
   const skipPicker = channels.data?.length === 0;
-  const needsPicker = !channel && !skipPicker;
+  const needsPicker = !needsCharacterPick && !channel && !skipPicker;
 
   return (
     <MotionConfig reducedMotion="user">
       <AnimatePresence mode="wait">
-        {needsPicker ? (
+        {needsCharacterPick ? (
+          <motion.div key="characters" exit={{ opacity: 0 }} className="fixed inset-0 z-50">
+            <CharacterCarousel resourceUrl={data?.game.resourceUrl ?? "/resource/"} pixiClientUrl={data?.game.pixiUrl} onConfirm={setSlot} />
+          </motion.div>
+        ) : needsPicker ? (
           <motion.div key="picker" exit={{ opacity: 0 }} className="fixed inset-0 z-50">
             <ChannelPicker onSelect={setChannel} />
           </motion.div>

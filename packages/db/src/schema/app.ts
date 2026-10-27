@@ -1,7 +1,7 @@
 // Hand-written (not generated). New tables for DDTank Reborn that have no equivalent in the original SQL Server DBs.
 // Owner: apps/api (written by the API/admin, read by apps/game). See apps/api/README.md "Login tickets".
 import { sql } from "drizzle-orm";
-import { bigint, boolean, doublePrecision, index, integer, jsonb, pgSchema, primaryKey, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { bigint, boolean, doublePrecision, index, integer, jsonb, pgSchema, primaryKey, text, timestamp, uniqueIndex, varchar } from "drizzle-orm/pg-core";
 
 /** Postgres schema for the new stack's own tables. */
 export const appSchema = pgSchema("app");
@@ -43,6 +43,38 @@ export const LoginSessions = appSchema.table(
     Client: varchar("Client", { length: 8 }).notNull().default("41"),
   },
   (t) => [primaryKey({ name: "LoginSessions_pkey", columns: [t.UserName] })],
+);
+
+/**
+ * app."AccountCharacters" — task `multi-char`: maps one `member."Accounts"` row to up to
+ * `maxCharactersPerAccount` (server-config, apps/api `serverConfigDefaults`) `player."Sys_Users_Detail"`
+ * characters, keeping the original 1-username-1-character login untouched (`apps/game`
+ * `findCharacterByUserName`, `apps/api/src/request/players.ts` `activePlayer`/`registerPlayer`).
+ *
+ * `gameUserName` is the ACTUAL `Sys_Users_Detail.UserName` used for that slot: slot 1 is
+ * `lower(Accounts.UserName)` (backfilled by the migration, same value the original single-character
+ * flow always used), slot N>1 is `lower(Accounts.UserName) + "~" + N` — `~` can never appear in an
+ * account name (`NAME_RE` in apps/api/src/routes/auth.ts: `^[A-Za-z0-9_.]{3,32}$`), so it can't collide
+ * with a real account-derived name. Creating a slot only inserts this row; the `Sys_Users_Detail` row
+ * itself is created lazily by `activePlayer` the first time that `gameUserName`'s ticket logs in —
+ * exactly like a brand-new account today — so the client's own nickname/sex "Novato" flow is unchanged.
+ */
+export const AccountCharacters = appSchema.table(
+  "AccountCharacters",
+  {
+    id: integer("id").generatedByDefaultAsIdentity().primaryKey(),
+    accountId: integer("accountId").notNull(),
+    /** 1-based; 1 is always the account's original character. */
+    slot: integer("slot").notNull(),
+    /** `player."Sys_Users_Detail"."UserName"` for this slot (lowercase). */
+    gameUserName: varchar("gameUserName", { length: 200 }).notNull(),
+    createdAt: ts("createdAt").notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("UX_AccountCharacters_account_slot").on(t.accountId, t.slot),
+    uniqueIndex("UX_AccountCharacters_gameUserName").on(t.gameUserName),
+    index("IX_AccountCharacters_accountId").on(t.accountId),
+  ],
 );
 
 /** app."Settings" — key/value store (server-config page, launcher manifest overrides, ...). */

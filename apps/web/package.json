@@ -17,6 +17,7 @@
     "@tanstack/react-router": "^1.170.40",
     "framer-motion": "^14.3.0",
     "lucide-react": "^1.49.0",
+    "pixi.js": "^8.22.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-hook-form": "^7.89.0",

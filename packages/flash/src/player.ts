@@ -49,6 +49,9 @@ export interface PlayerOptions {
   height?: number;
   frameRate?: number;
   background?: number;
+  /** task multi-char (apps/client avatar.ts): 0 = canvas transparente (character preview embutido
+   *  numa página sem o fundo preto do stage). Padrão 1 (opaco), igual sempre foi. */
+  backgroundAlpha?: number;
 }
 
 let stageRef: Stage | null = null;
@@ -60,7 +63,7 @@ export async function startPlayer(opts: PlayerOptions): Promise<Stage> {
   const W = opts.width ?? 1000, H = opts.height ?? 600;
   const app = new Application();
   await app.init({
-    width: W, height: H, background: opts.background ?? 0x000000, antialias: true,
+    width: W, height: H, background: opts.background ?? 0x000000, backgroundAlpha: opts.backgroundAlpha ?? 1, antialias: true,
     resolution: Math.min(2, globalThis.devicePixelRatio || 1), autoDensity: true, preference: "webgl",
     // deixa prints/captura de tela funcionarem (custo pequeno)
     preserveDrawingBuffer: true,

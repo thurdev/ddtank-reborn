@@ -29,6 +29,9 @@ export const serverConfigFields: FieldDef[] = [
   { name: "maxPlayers", label: "Limite de jogadores online", type: "number", min: 1, default: 1000, section: "Taxas" },
   // Jogo
   { name: "aimAngles", label: "Ângulos das tabelas de mira", type: "tags", default: ["20", "30", "50", "65"], hint: "Página Jogar: ângulos (graus) mostrados nos painéis de ângulo/força — GET /api/public/aim-tables", section: "Jogo" },
+  // task multi-char: enforced server-side (apps/api/src/routes/auth.ts charLimit), never just this UI —
+  // extra character slots must never be sold (AGENTS.md "No pay-to-win").
+  { name: "maxCharactersPerAccount", label: "Máx. de personagens por conta", type: "number", min: 1, max: 10, required: true, default: 3, hint: "Quantos personagens cada conta pode criar (carrossel da página Jogar). Nunca deve ser vendido/pago.", section: "Jogo" },
   // Operação
   { name: "maintenance", label: "Modo manutenção", type: "boolean", hint: "Bloqueia novos logins de não-admins", section: "Operação" },
   { name: "maintenanceMessage", label: "Mensagem de manutenção", type: "text", section: "Operação" },

@@ -15,6 +15,19 @@ export async function loadClearedDifficulties(ctx: ServerContext, userId: number
   return new Set(rows.map((r) => r.HardLevel));
 }
 
+/**
+ * Login: reaplica no `PvePermission` do personagem as vitórias já gravadas em `PveInstanceClear` (vitórias de
+ * antes do fix do SetPvePermission só existiam aqui, e o cliente só olha o `PvePermission`). Idempotente.
+ */
+export async function syncPvePermission(ctx: ServerContext, p: { id: number; setPvePermission(id: number, lv: number, notify?: boolean): boolean }): Promise<boolean> {
+  const rows = await ctx.db.db.select({ PveId: app.PveInstanceClear.PveId, HardLevel: app.PveInstanceClear.HardLevel })
+    .from(app.PveInstanceClear).where(eq(app.PveInstanceClear.UserID, p.id));
+  rows.sort((a, b) => a.HardLevel - b.HardLevel);
+  let changed = false;
+  for (const r of rows) changed = p.setPvePermission(r.PveId, Math.min(r.HardLevel + 1, 3), false) || changed;
+  return changed;
+}
+
 /** GamePlayer-side effect of finishing a Dungeon run with a win: upsert the clear row (ClearCount++). */
 export async function recordPveClear(ctx: ServerContext, userId: number, pveId: number, hardLevel: number): Promise<void> {
   const now = ctx.now();

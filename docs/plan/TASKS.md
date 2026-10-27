@@ -1099,6 +1099,27 @@ Como rodar um 2º canal hoje (sem `ch-processo`/`ch-bus`): [GAME-SERVER.md §Can
   continua funcionando). Botão de launcher reaproveita `launcherUrl` já exposto (sem link falso quando não
   configurado). Testes: `apps/web/src/pages/Play.test.tsx` (6) + `apps/api/test/api.test.ts` (1 novo, 78 no
   total) verdes; `pnpm --filter web typecheck`/`pnpm --filter @ddt/api typecheck` limpos.
+- [x] **multi-char** (2026-10-27) — contas podem ter até `maxCharactersPerAccount` (admin, padrão 3)
+  personagens. Dados: `app."AccountCharacters"` (migração `0029_multi-char-account-characters.sql`) mapeia
+  conta→slot→`gameUserName`; slot 1 continua sendo literalmente `Accounts.UserName` (backfill idempotente),
+  slot N>1 é `"<conta>~N"` (`~` nunca aparece num nome de conta válido). `apps/game` e o fluxo
+  `Login.ashx`/`VisualizeRegister.ashx` não mudaram nada — só olham username. API:
+  `GET/POST /api/me/characters`, `playConfig`/`/api/public/config`/`/api/play/config` ganharam `?slot=`.
+  Web: carrossel old-school antes do seletor de canal (`CharacterCarousel`); card focado mostra o
+  `ShowCharacter` REAL via `AvatarFrame` (iframe de `apps/client`'s nova entrada leve `avatar.html`/
+  `src/avatar.ts` — sobe só `@ddt/flash`+`ConfigParaser`+2 loaders de item, sem socket/login/hall;
+  `apps/client/src/game` é saída GERADA presente em todo checkout, `npx tsx tools/as3-to-ts/src/main.ts`
+  regenera — correção de uma suposição errada minha de que só existia numa branch não mesclada), com
+  fallback `CharacterStage` (ícones em PixiJS) quando `PIXI_CLIENT_URL` não está configurado; conta nova
+  (1 slot, nunca criado) pula o carrossel direto pro seletor de canal. Admin: campo "Máx. de personagens
+  por conta". 2 bugs reais achados/corrigidos verificando ao vivo (Playwright headless, conta de teste
+  própria + leitura do próprio personagem do dono): `ConfigParaser.paras` precisa do nó `<config>`, não
+  `<root>`; `ShowCharacter` carregava um placeholder cosmético do pacote de UI completo (stub via `$class`
+  resolve sem puxar hall/chat/toolbar/etc.). Doc: `docs/features/multi-personagem.md`. Testes:
+  `packages/db/test/account-characters.test.ts` (5), `apps/api/test/api.test.ts` (+6, 123 no total),
+  `apps/game/test/multi-char-login.test.ts` (2), `apps/web/src/pages/Play.characters.test.tsx` (7) +
+  `Play.test.tsx` ajustado (6) — todos verdes; typecheck limpo em `@ddt/db`/`@ddt/api`/`@ddt/game`/
+  `@ddt/client` (baseline 119 pré-existente, nenhum erro novo)/`@ddt/flash`/`web`/`admin`.
 - [x] **admin-ux** (2026-10-18) — campo `ref`/`ref-multi` no CRUD (nome/ícone no lugar do id, picker com
   busca, clique abre o registro; lookup em lote `GET /api/admin/<res>?ids=`), Ctrl+K (recursos, recentes,
   busca jogador/item/guilda), seleção + edição/exclusão em massa. Bug corrigido: `keepPreviousData` vazava

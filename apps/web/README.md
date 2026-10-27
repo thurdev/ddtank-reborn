@@ -22,7 +22,23 @@ pnpm --filter web build    # tsc + build
 pnpm --filter web test     # vitest run
 ```
 
-## Jogar (`src/pages/Play.tsx`): seletor de canal
+## Jogar (`src/pages/Play.tsx`): carrossel de personagem + seletor de canal
+
+Task `multi-char`: um jogador autenticado vê primeiro um **carrossel de personagens**
+(`GET /api/me/characters` → `CharacterCarousel`, `src/components/character/`) — cada
+conta pode ter até `maxCharactersPerAccount` (admin) personagens. O card focado mostra
+o personagem REAL: `AvatarFrame` embute um iframe de `apps/client`'s `avatar.html` (uma
+segunda entrada leve do cliente PixiJS — `ShowCharacter` de verdade, sem socket/login/
+hall), construído a partir de `${pixiClientUrl}avatar.html?style=...&colors=...` (os
+mesmos campos que `GET /api/me/characters` devolve); sem `PIXI_CLIENT_URL` configurado,
+cai pro fallback `CharacterStage` (ícones de equipamento em camadas PixiJS + aura de
+reforço/douração + balanço de idle leve). Os cards ao lado usam um `<img>` estático bem
+mais barato (`CharacterThumb`) — só existe UM iframe/canvas vivo por vez. Teclado (setas
++ Enter/Espaço), mouse e swipe escolhem; confirmar chama `onConfirm(slot)`, que refaz
+`GET /api/public/config?slot=N` (`configQueryFor`) pra pegar um ticket daquele
+personagem antes de mostrar o seletor de canal de sempre. Uma conta zerada (só o slot 1
+pendente, nunca criado) pula o carrossel direto pro seletor de canal — ver
+`docs/features/multi-personagem.md` pro fluxo completo.
 
 Antes de abrir o cliente, a página busca `GET /api/public/channels` (mesma fonte/filtro do
 `ServerList.ashx`, ver `apps/api/src/routes/public.ts` `channelList`/`ChannelInfo`: canais com `Enabled`

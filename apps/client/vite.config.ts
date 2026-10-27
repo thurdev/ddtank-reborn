@@ -1,3 +1,4 @@
+import { resolve } from "node:path";
 import { defineConfig } from "vite";
 
 /**
@@ -31,6 +32,10 @@ export default defineConfig({
     target: "es2022",
     chunkSizeWarningLimit: 20000,
     sourcemap: true,
+    // task multi-char: `avatar.html` (apps/web's character carousel, `${pixiClientUrl}avatar.html?...`) is
+    // a second, independent entry — lightweight boot (no socket/login/hall), one `ShowCharacter`. Without
+    // this, `vite build` only emits `index.html`.
+    rollupOptions: { input: { main: resolve(__dirname, "index.html"), avatar: resolve(__dirname, "avatar.html") } },
   },
   esbuild: {
     // código do jogo usa `declare` em campos e decorators não; mantém nomes de classe (debug e getQualifiedClassName)

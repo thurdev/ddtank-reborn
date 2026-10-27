@@ -1,11 +1,24 @@
 /** Site + launcher auth (member."Accounts", scrypt) and the play config (flashvars incl. the one-time web key). */
 import { issueWebKey } from "@ddt/auth";
-import { app as appTables, checkLogin, findAccount, hashPassword, verifyPassword, Accounts } from "@ddt/db";
+import {
+  app as appTables,
+  checkLogin,
+  createNextCharacterSlot,
+  ensureFirstSlot,
+  findAccount,
+  getAccountCharacterSlot,
+  hashPassword,
+  listAccountCharacterSlots,
+  verifyPassword,
+  Accounts,
+  type AccountCharacterRow,
+} from "@ddt/db";
 import { eq, sql } from "drizzle-orm";
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 import type { AppCtx } from "../context.js";
-import { q } from "../lib/db.js";
+import { q, q1 } from "../lib/db.js";
+import { itemIconRel } from "../lib/item-icon.js";
 import { signJwt, verifyJwt, type Claims } from "../lib/jwt.js";
 
 /**
@@ -80,8 +93,15 @@ export const userOf = (req: FastifyRequest) => (req as FastifyRequest & { user: 
 
 const publicUser = (acc: { ID: number; UserName: string; Email: string | null }, role: string) => ({ id: acc.ID, username: acc.UserName, email: acc.Email ?? "", role });
 
-/** Everything the page / launcher needs to start the Flash client for `userName` (issues a fresh one-time key). */
-export async function playConfig(ctx: AppCtx, acc: { ID: number; UserName: string } | null, ip?: string, client?: string) {
+/**
+ * Everything the page / launcher needs to start the Flash client for `userName` (issues a fresh one-time
+ * key). task multi-char: `slot` (1-based, default 1 = the account's original character) picks WHICH of the
+ * account's characters the ticket opens — `flashvars.user` becomes that slot's `gameUserName` (e.g.
+ * "name" or "name~2") instead of always the account's own UserName, everything else about the ticket
+ * chain (`@ddt/auth` issueWebKey/consumeWebKey, apps/game `findCharacterByUserName`) is unchanged because
+ * it never knew about "account" to begin with — it only ever saw a username.
+ */
+export async function playConfig(ctx: AppCtx, acc: { ID: number; UserName: string } | null, ip?: string, client?: string, slot?: number) {
   const c = ctx.cfg;
   const base = c.PUBLIC_URL;
   // ?client=6600: cliente DDT-6600 em paralelo (migração M1); padrão continua o 4.1
@@ -89,8 +109,14 @@ export async function playConfig(ctx: AppCtx, acc: { ID: number; UserName: strin
   let flashvars: Record<string, string> = { user: "", key: "", config: `${base}/${fl}/config.xml` };
   let expiresAt: string | undefined;
   if (acc) {
-    const t = await issueWebKey(ctx.h, acc.UserName, { accountId: acc.ID, ttlMinutes: c.LOGIN_KEY_TTL_MIN, ip });
-    flashvars = { user: acc.UserName.toLowerCase(), key: t.key, config: `${base}/${fl}/config.xml` };
+    // Garante o slot 1 (conta pode ter sido criada antes da migração 0029 ser aplicada, ou — caso normal —
+    // acabou de se registrar agora: a migração só faz backfill das contas que já existiam na hora dela).
+    await ensureFirstSlot(ctx.h, acc.ID, acc.UserName);
+    const wantedSlot = slot && slot > 0 ? Math.trunc(slot) : 1;
+    const slotRow = wantedSlot === 1 ? undefined : await getAccountCharacterSlot(ctx.h, acc.ID, wantedSlot);
+    const gameUserName = slotRow?.gameUserName ?? acc.UserName.toLowerCase();
+    const t = await issueWebKey(ctx.h, gameUserName, { accountId: acc.ID, ttlMinutes: c.LOGIN_KEY_TTL_MIN, ip });
+    flashvars = { user: gameUserName, key: t.key, config: `${base}/${fl}/config.xml` };
     expiresAt = t.expiresAt.toISOString();
   }
   const proxy = await channelSocketProxies(ctx);
@@ -160,10 +186,24 @@ export async function authRoutes(f: FastifyInstance, ctx: AppCtx) {
   f.get("/api/account/me", { preHandler: requireUser(ctx) }, async (req, reply) => {
     const acc = await findAccount(ctx.h, userOf(req).name);
     if (!acc) return reply.code(401).send({ message: "Não autenticado" });
-    const chars = await q(
-      ctx.h,
-      sql`SELECT "UserID","NickName","Grade","Gold","Money","Sex","ConsortiaName" FROM app."V_Sys_Users_Detail" WHERE lower("UserName") = lower(${acc.UserName}) AND "NickName" <> '' ORDER BY "UserID"`,
-    );
+    // task multi-char: lista TODOS os personagens da conta (antes só o único que compartilhava o
+    // UserName da conta) — qualquer slot ainda não criado (sem NickName) não aparece aqui, só no
+    // carrossel de /api/me/characters, que mostra o slot "em criação" também.
+    await ensureFirstSlot(ctx.h, acc.ID, acc.UserName);
+    const slots = await listAccountCharacterSlots(ctx.h, acc.ID);
+    const names = slots.map((s) => s.gameUserName);
+    // sql`= ANY(${names})` array binding isn't portable across both drivers this project supports
+    // (postgres.js vs PGlite) — an IN list built with sql.join is.
+    const chars = names.length
+      ? await q(
+          ctx.h,
+          sql`SELECT "UserID","NickName","Grade","Gold","Money","Sex","ConsortiaName" FROM app."V_Sys_Users_Detail"
+              WHERE lower("UserName") IN (${sql.join(
+                names.map((n) => sql`${n}`),
+                sql`, `,
+              )}) AND "NickName" <> '' ORDER BY "UserID"`,
+        )
+      : [];
     return {
       user: publicUser(acc, await roleOf(ctx, acc)),
       characters: chars.map((c) => ({
@@ -187,12 +227,104 @@ export async function authRoutes(f: FastifyInstance, ctx: AppCtx) {
     return reply.code(204).send();
   });
 
-  /** Fresh play config for the logged-in user (new one-time key each call). */
+  /** Fresh play config for the logged-in user (new one-time key each call). `slot` picks which character
+   *  (task multi-char) — the web Play page's character carousel calls this again once a slot is chosen. */
   f.get("/api/play/config", { preHandler: requireUser(ctx) }, async (req, reply) => {
     const acc = await findAccount(ctx.h, userOf(req).name);
     if (!acc || acc.IsBanned) return reply.code(401).send({ message: "Não autenticado" });
-    return playConfig(ctx, acc, req.ip, (req.query as { client?: string }).client);
+    const query = req.query as { client?: string; slot?: string };
+    return playConfig(ctx, acc, req.ip, query.client, query.slot ? Number(query.slot) : undefined);
   });
+
+  // ---- task multi-char: GET/POST /api/me/characters ----
+
+  async function charLimit(): Promise<number> {
+    const [s] = await ctx.h.db.select().from(appTables.Settings).where(eq(appTables.Settings.key, "server-config")).limit(1);
+    const v = (s?.value ?? {}) as Record<string, unknown>;
+    const n = Number(v.maxCharactersPerAccount ?? 3);
+    return Number.isFinite(n) ? Math.min(10, Math.max(1, Math.trunc(n))) : 3;
+  }
+
+  /** Icons of everything equipped (EquipBag, `BagType = 0`) for `userId`, resolved with the same
+   *  `itemIconRel` path logic already used by the admin item-icon preview (`apps/api/src/lib/item-icon.ts`,
+   *  a faithful port of `PathManager.solveGoodsPath`/`EquipType`). `place` lets the web carousel sort the
+   *  layers (hair/face/cloth/weapon/wings...) without the API needing to know client-side z-order. */
+  async function equippedIcons(userId: number): Promise<{ place: number; categoryId: number; strengthenLevel: number; isGold: boolean; iconRel: string }[]> {
+    const rows = await q(
+      ctx.h,
+      sql`SELECT g."Place", g."StrengthenLevel", g."IsJudge", s."CategoryID", s."Pic", s."NeedSex"
+          FROM player."Sys_Users_Goods" g JOIN game."Shop_Goods" s ON s."TemplateID" = g."TemplateID"
+          WHERE g."UserID" = ${userId} AND g."BagType" = 0 AND g."IsExist" = true`,
+    );
+    const out: { place: number; categoryId: number; strengthenLevel: number; isGold: boolean; iconRel: string }[] = [];
+    for (const r of rows) {
+      const categoryId = Number(r.CategoryID);
+      const rel = itemIconRel(categoryId, String(r.Pic ?? ""), Number(r.NeedSex ?? 0))[0];
+      if (rel) out.push({ place: Number(r.Place), categoryId, strengthenLevel: Number(r.StrengthenLevel ?? 0), isGold: !!r.IsJudge, iconRel: rel });
+    }
+    return out;
+  }
+
+  /** One carousel card. `created: false` (no NickName yet) means the slot is reserved but the client's own
+   *  "Novato" nickname/sex flow hasn't run for it — the web carousel offers "continue creating" instead of
+   *  a filled character. */
+  async function characterCard(slotRow: AccountCharacterRow) {
+    const row = await q1(
+      ctx.h,
+      sql`SELECT "UserID","NickName","Sex","Grade","Nimbus","ConsortiaName","DutyName","typeVIP","VIPLevel","Style","Colors","Skin"
+          FROM app."V_Sys_Users_Detail" WHERE lower("UserName") = lower(${slotRow.gameUserName}) LIMIT 1`,
+    );
+    if (!row || !row.NickName) return { slot: slotRow.slot, gameUserName: slotRow.gameUserName, created: false as const };
+    return {
+      slot: slotRow.slot,
+      gameUserName: slotRow.gameUserName,
+      created: true as const,
+      id: Number(row.UserID),
+      nickname: String(row.NickName),
+      level: Number(row.Grade ?? 0),
+      sex: row.Sex ? "m" : "f",
+      guild: (row.ConsortiaName as string) || null,
+      // DutyName (cargo na sociedade, ex. "Chairman"): mesmo texto que a plaquinha de nome do lobby mostra
+      // junto do nick (RoomCharacter) — é o "título" mais próximo que o jogo tem implementado hoje
+      // (Sys_User_Rank/NewTitleID existe no schema mas está com 0 linhas, sem feature ligada ainda).
+      title: (row.DutyName as string) || null,
+      vip: { type: Number(row.typeVIP ?? 0), level: Number(row.VIPLevel ?? 0) },
+      nimbus: Number(row.Nimbus ?? 0),
+      // task multi-char (correção do coordenador): o renderer real do carrossel (apps/client avatar.ts,
+      // ShowCharacter/BaseCharacterLoader) consome Style/Colors/Skin DIRETAMENTE — exatamente a mesma
+      // string que apps/game/src/game/stats.ts styleFromEquip grava e que o pacote 67 PUBLIC_PLAYER/18
+      // SCENE_ADD_PLAYER manda pro cliente de verdade. `equip` abaixo (ícones avulsos) fica só pro
+      // fallback (sem PIXI_CLIENT_URL configurado).
+      style: (row.Style as string) || ",,,,,,,,",
+      colors: (row.Colors as string) || ",,,,,,,,",
+      skin: (row.Skin as string) || "",
+      equip: await equippedIcons(Number(row.UserID)),
+    };
+  }
+
+  f.get("/api/me/characters", { preHandler: requireUser(ctx) }, async (req, reply) => {
+    const acc = await findAccount(ctx.h, userOf(req).name);
+    if (!acc) return reply.code(401).send({ message: "Não autenticado" });
+    if (acc.IsBanned) return reply.code(403).send({ message: acc.BanReason ? `Conta banida: ${acc.BanReason}` : "Conta banida" });
+    await ensureFirstSlot(ctx.h, acc.ID, acc.UserName);
+    const slots = await listAccountCharacterSlots(ctx.h, acc.ID);
+    const max = await charLimit();
+    return { characters: await Promise.all(slots.map(characterCard)), maxCharacters: max, canCreate: slots.length < max };
+  });
+
+  f.post(
+    "/api/me/characters",
+    { preHandler: requireUser(ctx), config: { rateLimit: { max: 10, timeWindow: "1 minute" } } },
+    async (req, reply) => {
+      const acc = await findAccount(ctx.h, userOf(req).name);
+      if (!acc) return reply.code(401).send({ message: "Não autenticado" });
+      if (acc.IsBanned) return reply.code(403).send({ message: acc.BanReason ? `Conta banida: ${acc.BanReason}` : "Conta banida" });
+      const max = await charLimit();
+      const result = await createNextCharacterSlot(ctx.h, acc.ID, acc.UserName, max);
+      if (!result.ok) return reply.code(409).send({ message: `Limite de ${max} personagens por conta atingido.` });
+      return reply.code(201).send({ slot: result.row.slot, gameUserName: result.row.gameUserName, created: false });
+    },
+  );
 }
 
 export async function maintenance(ctx: AppCtx): Promise<{ on: boolean; message: string }> {

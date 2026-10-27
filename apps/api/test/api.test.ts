@@ -129,6 +129,15 @@ describe("auth + Login.ashx flow", () => {
     expect(nick.body).toContain('value="false"');
   });
 
+  // task multi-char: /api/account/me now joins app."AccountCharacters" (ANY(...) over every reserved
+  // slot's gameUserName) instead of matching the account's own UserName directly — confirms that still
+  // finds "alice"'s just-created character.
+  it("/api/account/me lists the account's character via app.AccountCharacters", async () => {
+    const r = await app.inject({ url: "/api/account/me", headers: { authorization: `Bearer ${token}` } });
+    expect(r.statusCode).toBe(200);
+    expect(r.json().characters).toEqual([expect.objectContaining({ nickname: "Alice1", sex: "m" })]);
+  });
+
   it("ServerList advertises GAME_PORT - 69", async () => {
     const r = await app.inject({ url: "/request/serverlist.ashx?rnd=0.5" });
     expect(r.body).toContain('IP="127.0.0.1" Port="9131"');
@@ -153,6 +162,82 @@ describe("auth + Login.ashx flow", () => {
       expect(r6600.body).not.toContain('ID="91"');
     } finally {
       await h.db.execute(sql`DELETE FROM player."Server_List" WHERE "ID" IN (90, 91)`);
+    }
+  });
+});
+
+describe("task multi-char: GET/POST /api/me/characters + per-character ticket", () => {
+  let token = "";
+
+  it("registers a fresh account: /api/me/characters shows slot 1 reserved but not created yet", async () => {
+    const r = await app.inject({ method: "POST", url: "/api/auth/register", payload: { username: "bob", email: "", password: "secret1" } });
+    expect(r.statusCode).toBe(201);
+    token = r.json().token;
+    const list = await app.inject({ url: "/api/me/characters", headers: { authorization: `Bearer ${token}` } });
+    expect(list.statusCode).toBe(200);
+    const b = list.json();
+    expect(b.maxCharacters).toBe(3); // server-config default
+    expect(b.canCreate).toBe(true);
+    expect(b.characters).toEqual([{ slot: 1, gameUserName: "bob", created: false }]);
+  });
+
+  it("POST creates slot 2 ('bob~2'), then slot 3, then refuses past the default limit of 3", async () => {
+    const auth = { authorization: `Bearer ${token}` };
+    const s2 = await app.inject({ method: "POST", url: "/api/me/characters", headers: auth });
+    expect(s2.statusCode).toBe(201);
+    expect(s2.json()).toMatchObject({ slot: 2, gameUserName: "bob~2" });
+    const s3 = await app.inject({ method: "POST", url: "/api/me/characters", headers: auth });
+    expect(s3.statusCode).toBe(201);
+    expect(s3.json()).toMatchObject({ slot: 3, gameUserName: "bob~3" });
+    const s4 = await app.inject({ method: "POST", url: "/api/me/characters", headers: auth });
+    expect(s4.statusCode).toBe(409);
+    const list = await app.inject({ url: "/api/me/characters", headers: auth });
+    expect(list.json().characters.map((c: { slot: number }) => c.slot)).toEqual([1, 2, 3]);
+    expect(list.json().canCreate).toBe(false);
+  });
+
+  it("/api/play/config?slot=2 issues a ticket for 'bob~2', not the account's own name", async () => {
+    const auth = { authorization: `Bearer ${token}` };
+    const cfg2 = await app.inject({ url: "/api/play/config?slot=2", headers: auth });
+    expect(cfg2.json().flashvars.user).toBe("bob~2");
+    const cfg1 = await app.inject({ url: "/api/play/config", headers: auth }); // default slot = 1
+    expect(cfg1.json().flashvars.user).toBe("bob");
+  });
+
+  it("the full Login.ashx + VisualizeRegister flow works unmodified for a '~2' gameUserName", async () => {
+    const auth = { authorization: `Bearer ${token}` };
+    const cfg2 = await app.inject({ url: "/api/play/config?slot=2", headers: auth });
+    const webKey2 = cfg2.json().flashvars.key;
+    const login = await app.inject({ url: `/request/login.ashx?p=${encodeURIComponent(loginBlob("bob~2", webKey2, "temppwd2"))}&site=` });
+    expect(login.body).toMatch(/^<Result value="true"/);
+    expect(await validateGameLogin(h, "bob~2", "temppwd2")).not.toBeNull();
+    const reg = await app.inject({ url: `/request/VisualizeRegister.ashx?Name=bob~2&Pass=temppwd2&NickName=BobTwo&Sex=true` });
+    expect(reg.body).toContain('value="true"');
+    const list = await app.inject({ url: "/api/me/characters", headers: auth });
+    const slot2 = list.json().characters.find((c: { slot: number }) => c.slot === 2);
+    expect(slot2).toMatchObject({ slot: 2, gameUserName: "bob~2", created: true, nickname: "BobTwo", sex: "m" });
+    // registerPlayer equips a default arm/hair/face/cloth from BOY_VISUALIZE_ITEM -> at least one icon resolves.
+    expect(Array.isArray(slot2.equip)).toBe(true);
+    expect(slot2.equip.length).toBeGreaterThan(0);
+    expect(slot2.equip[0]).toHaveProperty("iconRel");
+    // task multi-char (correção do coordenador): style/colors/skin crus — o que o renderer real
+    // (apps/client avatar.ts, ShowCharacter) consome diretamente, igual ao pacote 67/18 do jogo.
+    expect(typeof slot2.style).toBe("string");
+    expect(slot2.style.split(",").length).toBeGreaterThanOrEqual(9);
+    expect(typeof slot2.colors).toBe("string");
+    expect(typeof slot2.skin).toBe("string");
+  });
+
+  it("admin can lower maxCharactersPerAccount; it's enforced server-side even against a fresh account", async () => {
+    const put = await app.inject({ method: "PUT", url: "/api/admin/server-config", headers: { authorization: `Bearer ${adminToken}` }, payload: { maxCharactersPerAccount: 1 } });
+    expect(put.statusCode).toBe(200);
+    try {
+      const r = await app.inject({ method: "POST", url: "/api/auth/register", payload: { username: "carol", email: "", password: "secret1" } });
+      const carolToken = r.json().token;
+      const post = await app.inject({ method: "POST", url: "/api/me/characters", headers: { authorization: `Bearer ${carolToken}` } });
+      expect(post.statusCode).toBe(409);
+    } finally {
+      await app.inject({ method: "PUT", url: "/api/admin/server-config", headers: { authorization: `Bearer ${adminToken}` }, payload: { maxCharactersPerAccount: 3 } });
     }
   });
 });

@@ -416,6 +416,23 @@ export class GamePlayer implements RoomMember {
   }
   addGold(v: number): void { if (v > 0) { this.info.Gold = Math.min(I32_MAX, this.info.Gold + v); this.updateProperties(); } }
   removeGold(v: number): void { if (v > 0) { this.info.Gold -= v; this.updateProperties(); } }
+  /**
+   * GamePlayer.SetPvePermission (GamePlayer.cs:5009-5019, permissionChars :356-362, InitPvePermission :2825):
+   * `PvePermission` keeps one char per dungeon (index = copyId - 1): "1" easy, "3" +normal, "7" +hard, "F" all —
+   * read by the client in `PVEMapPermissionManager.getPermission` to unlock the difficulty buttons. Only steps
+   * up one level from exactly the previous one, like the original. `hardLevel` = the level being unlocked.
+   */
+  setPvePermission(copyId: number, hardLevel: number, notify = true): boolean {
+    const chars = ["1", "3", "7", "F"];
+    if (hardLevel < 0 || hardLevel > 3) return false; // eHardLevel.Epic e afins não entram (original: != Epic)
+    const perm = (this.info.PvePermission || "").padEnd(50, "1").split("");
+    if (copyId <= 0 || copyId > perm.length) return false;
+    if (perm[copyId - 1]!.toUpperCase() !== chars[hardLevel - 1 < 0 ? hardLevel : hardLevel - 1]) return false;
+    perm[copyId - 1] = chars[hardLevel]!;
+    this.info.PvePermission = perm.join("");
+    if (notify) this.updateProperties();
+    return true;
+  }
   /** GamePlayer.AddLeagueMoney (GamePlayer.cs:2873): RingStation's "distintivo" reward currency (67 UPDATE_PLAYER_INFO). */
   addLeagueMoney(v: number): void { if (v > 0) { this.info.LeagueMoney = Math.min(I32_MAX, this.info.LeagueMoney + v); this.updateProperties(); } }
   addGiftToken(v: number): void { if (v > 0) { this.info.GiftToken = Math.min(I32_MAX, this.info.GiftToken + v); this.updateProperties(); } }

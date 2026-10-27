@@ -85,6 +85,18 @@ const ptBR = {
   "play.client.betaBadge": "beta",
   "play.client.betaHint": "Versão nova do cliente, ainda em migração — pode ter telas incompletas.",
 
+  "play.characters.title": "Escolha seu personagem",
+  "play.characters.lead": "Use as setas, arraste ou clique para girar o carrossel — depois confirme pra entrar no jogo.",
+  "play.characters.prev": "Personagem anterior",
+  "play.characters.next": "Próximo personagem",
+  "play.characters.confirm": "Entrar com este personagem",
+  "play.characters.continue": "Continuar criação",
+  "play.characters.create": "Novo personagem",
+  "play.characters.creating": "Criando…",
+  "play.characters.pending": "Criação pendente",
+  "play.characters.error": "Não foi possível carregar seus personagens.",
+  "play.characters.level": "Nv. {level}",
+
   "play.channel.title": "Escolha um canal",
   "play.channel.lead": "Canais abertos agora. Depois de entrar, também dá pra trocar de canal pelo menu dentro do jogo.",
   "play.channel.online": "{online}/{capacity} online",

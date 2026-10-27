@@ -6,6 +6,12 @@ A tela de login (usuário/senha), o anti-cheat de velocidade, a **senha da bolsa
 desafio anti-bot por texto (**código de verificação**). "Configurações" (vídeo/som)
 também entra aqui porque é o mesmo pacote de sessão.
 
+> Desde a task `multi-char`, 1 conta pode ter **vários** personagens (seletor
+> old-school na página Jogar antes do canal) — `member."Accounts".UserName` ainda é
+> literalmente o `UserName` do personagem (slot 1); slots extras usam
+> `"<conta>~N"`. `handleLogin`/`findCharacterByUserName` abaixo não mudaram nada:
+> veja [multi-personagem.md](./multi-personagem.md) pro porquê.
+
 ## 2. Onde fica no código
 | Cliente (AS3) | Pacote | Servidor TS | C# original | Tabelas |
 |---|---|---|---|---|

@@ -18,6 +18,7 @@
 |---|---|
 | Lobby (tela principal, sala de espera) | [lobby.md](./lobby.md) |
 | Login / conta (entrar, senha da bolsa, código anti-bot, configurações) | [login-conta.md](./login-conta.md) |
+| Múltiplos personagens por conta (carrossel de seleção, limite admin) | [multi-personagem.md](./multi-personagem.md) |
 | Bolsa e personagem (inventário, equipar, atributos, títulos) | [bolsa-personagem.md](./bolsa-personagem.md) |
 | Amigos / chat privado / convidar amigos | [amigos.md](./amigos.md) |
 | Correio | [correio.md](./correio.md) |
