@@ -51,7 +51,7 @@
      the art — a plain `background-size: cover` has no slack to pan like this since it exactly matches this
      container's height already. */
   background-size: auto 135%;
-  background-position: top center;
+  background-position: left top; /* a placa do título começa na borda esquerda da arte: ancorar à esquerda mostra ela inteira */
   box-shadow: 0 20px 60px color-mix(in srgb, black 55%, transparent), inset 0 0 0 1px color-mix(in srgb, var(--line, #30364a) 60%, transparent);
 }
 
