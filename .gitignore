@@ -19,6 +19,8 @@ remaster/_6600/*/outputs/
 # intermediários do remaster/IA (grandes, regeneráveis) e capturas de outros servidores
 remaster/_hd/
 .tmp_*/
+.tmp_*
+**/.tmp/
 research/ddclassico/
 research/i18n/model-test/
 tools/remaster/*.traineddata
