@@ -642,6 +642,27 @@ describe("admin CRUD", () => {
     expect((await app.inject({ url: "/api/admin/server-list/95", headers: auth })).statusCode).toBe(404);
   });
 
+  // site-admin-redesign (editor #2, Instâncias): GET /api/admin/dungeons/:id/diagnostics — mission-chain
+  // gaps per difficulty (docs/guides/pve.md §1.1, task pve-cadeia). Pve 1 ("Lâu đài Gà"/Gulu Kingdom) is the
+  // documented example: Easy was fixed (migration 0027), Normal/Difícil/Terror are documented-but-not-fixed
+  // gaps (different script prefix, no safe sibling to reconstruct text from) — this asserts both states so
+  // the test breaks (in the GOOD direction) the day someone closes one of the open gaps, per the doc's own
+  // "rode o sweep de novo depois" instruction.
+  it("dungeon diagnostics: Pve 1 Easy chain is complete, Normal still has the documented gap", async () => {
+    const auth = { authorization: `Bearer ${adminToken}` };
+    expect((await app.inject({ url: "/api/admin/dungeons/1/diagnostics" })).statusCode).toBe(401); // admin-only
+
+    const r = await app.inject({ url: "/api/admin/dungeons/1/diagnostics", headers: auth });
+    expect(r.statusCode).toBe(200);
+    const byField = new Map(r.json().items.map((d: { field: string; missingSessionKeys: number[] }) => [d.field, d]));
+    expect((byField.get("SimpleGameScript") as { missingSessionKeys: number[] }).missingSessionKeys).toEqual([]);
+    const normal = byField.get("NormalGameScript") as { totalMissionCount: number; resolvedCount: number; missingSessionKeys: number[] };
+    expect(normal.missingSessionKeys.length).toBeGreaterThan(0);
+    expect(normal.resolvedCount).toBeLessThan(normal.totalMissionCount);
+
+    expect((await app.inject({ url: "/api/admin/dungeons/999999/diagnostics", headers: auth })).json()).toEqual({ items: [] });
+  });
+
   // 41-hot-update: POST /api/admin/hot-update ("Aplicar agora" do ServerConfig.tsx) — admin-only, delega pro
   // canal interno do apps/game (GAME_INTERNAL_URL vazio neste teste, igual /broadcast: sem servidor de jogo de
   // verdade escutando, a rota responde 503 em vez de travar; o round-trip real com pacotes de refresh é
