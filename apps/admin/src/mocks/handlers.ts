@@ -31,6 +31,7 @@ let serverConfig: Row = {
   dropRate: 1.5,
   offerRate: 1,
   maxPlayers: 1000,
+  maxCharactersPerAccount: 3,
   maintenance: false,
   maintenanceMessage: "",
   motd: "Fim de semana com EXP em dobro!",
