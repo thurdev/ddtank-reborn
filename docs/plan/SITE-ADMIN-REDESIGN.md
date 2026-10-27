@@ -17,6 +17,42 @@ Na fase 3 (site) **não tocar** em `apps/web/src/pages/Play.tsx`, `play.css`, `G
 de canal — se precisar de ajuste visual ali, só via tokens compartilhados em `packages/ui`. Home, Apoiar/
 Transparência, páginas de conta e os editores do admin continuam sendo deste agente.
 
+## 0.1 Correção de rumo (dono rejeitou a fase 2 — "não parece o jogo")
+
+O dono testou os editores visuais da fase 2 (via Playwright) e rejeitou: "a tela parecia um card genérico
+escuro com texto vietnamita — não era o que foi pedido". Dois problemas reais, confirmados:
+
+1. **Idioma**: os recursos liam a coluna `game.*` crua (vietnamita/chinês do vendor), nunca o overlay pt-BR
+   que `apps/api/src/templates/defs.ts` já aplica pro cliente ver. Corrigido: `apps/api/src/lib/i18n-admin.ts`
+   + `ResourceDef.translatable` (quests/dungeons/missions/npcs) — GET/lista devolve o texto COM overlay +
+   `<campo>__original` (cru, referência); PATCH grava em `app."Translations"`, nunca na coluna crua.
+2. **Arte**: os previews eram `GamePanel` estilizado (CSS do design system), não a arte real do jogo. Corrigido
+   (editor de Missões primeiro, ver §3): preview monta com PNGs reais exportados
+   (`apps/client/public/assets/flash/ui/vietnam/swf/<módulo>/`, servidos por
+   `/client-assets/*` — `apps/api/src/routes/static.ts`) nas posições/proporções da classe AS3 original.
+
+**Avaliação de `@ddt/flash` headless** (o dono pediu pra avaliar primeiro — ver prompt): o CHECKOUT PRINCIPAL
+tem `apps/client/src/game/quest/{TaskMainFrame,QuestInfoPanelView,QuestRewardView,...}.ts` já transpilados
+(as3-to-ts), mas **este worktree não tem `apps/client/src/game`** (gitignorado/gerado por outro agente,
+"pixi-port" — `docs/plan/MEMORY` "Pixi generated files"). Montar essas classes de verdade dentro do admin
+exigiria: (a) o admin depender de `apps/client`'s gerado (não existe neste worktree), (b) um canvas PixiJS
+embutido no React do admin, (c) stubar ~6 singletons do motor (ComponentFactory, LanguageMgr, SoundManager,
+PlayerManager, ItemManager, StateManager/TaskManager) que as views esperam prontos. Escopo de dias, não desta
+sessão — optei pela réplica com arte real + coordenadas do AS3 (abaixo), que já resolve os dois problemas
+reais apontados. Registrado aqui pra quem retomar considerar o caminho `@ddt/flash` mais tarde.
+
+**Capturas ao vivo do cliente real**: consegui UMA captura limpa (tela de criação de personagem, via
+`:5173` → Jogar → conta de teste `screenshot_bot`, já usada na Home — ver fase 3). Tentei avançar até o Hall
+pra abrir a janela de missão de verdade, mas depois de criar o personagem o navegador (sessão Playwright
+compartilhada — cookies de `higgsfield.ai`/`google.com` confirmam que é o navegador real do dono, não um
+Chromium isolado) foi redirecionado pro topo pra `localhost:5181/avatar.html?nickname=Thur&...` — um serviço
+de preview de avatar, não a janela de missão — de forma determinística nas duas tentativas. Não investiguei
+mais fundo (client em desenvolvimento ativo por outro agente, risco de interferir) nem insisti com mais
+cliques no navegador compartilhado. Por isso as capturas "antes/depois" de cada janela usam o PREVIEW real do
+admin (que já usa a arte exportada verdadeira) comparado com os PNGs reais isolados, não um screenshot do
+cliente jogável renderizando aquela janela específica — ver `docs/plan/redesign-shots/<janela>/` e o relatório
+final pra o que está (não) verificado dessa forma.
+
 ## 0. Direção de design (já existente, estendida — não é um redesign do zero)
 
 O design system "night sky artillery" (`packages/ui/src/styles.css`) já está certo pro pedido do dono e
@@ -90,6 +126,22 @@ padrão de referência para as próximas. #2-#5 ficam para sessões seguintes (v
       Visual por padrão sem missão escolhida; clicar hotspot do título foca o campo e editar atualiza o
       preview ao vivo; trocar de missão troca o preview). `pnpm --filter admin exec vitest run` (12 passam)
       e `pnpm --filter admin exec tsc --noEmit` limpos.
+  - [x] **Rebuild rodada 2** (dono rejeitou, ver §0.1): preview reconstruído com arte real
+        (`apps/admin/src/lib/flashAssets.tsx` `FlashImg`/`useFlashLibrary`, módulo `quest` —
+        `titleBG`/`QuestInfoCondTitle`/`necessary`/`notNecessary`/`RewardText.OptionalTitle`/`RewardText.
+        Type1-8`/`QuestRewardCellBG`/`leftBGStyle1`, todos verificados visualmente como já localizados
+        pt-BR — ex. "Objetivo da tarefa:", "Recompensa:") no lugar do `GamePanel` CSS genérico; zoom (40–
+        150%, `useZoom`, CSS `zoom` não `transform`) a 560px de largura real (grade 2×186px de
+        `QuestRewardCell.as`); painel lateral ganhou "Original (VN)" (`OriginalTextNote`) sob
+        Título/Detalhe/Objetivo quando o overlay pt-BR existe e difere do cru. Verificado ao vivo: instância
+        isolada do admin+api (porta 5199/8099, banco pglite descartável, `admin/admin`) — screenshot antes
+        (missão #4 "Cường hóa vũ khí Lv5", cru) e depois (editei Título/Detalhe/Objetivo pelo painel, salvei,
+        preview + lista + "Original (VN)" atualizaram corretamente) em
+        `docs/plan/redesign-shots/quest/{admin-before-raw-vn,admin-after-ptbr}.png` (gitignorado) +
+        `real-asset-*.png` (PNGs reais isolados, prova de que são arte exportada de verdade). **Não
+        verificado**: comparação lado a lado com a janela de missão rodando no cliente PixiJS de verdade —
+        não consegui chegar lá com segurança nesta sessão (ver §0.1). Testes mantidos verdes (`Quests.test.tsx`
+        3/3, ajustados pra nova estrutura DOM — título agora é `<h3>` fora do `Hotspot`, dentro como antes).
 - [x] Fase 2b — editor visual de Instâncias (`/dungeons`). `apps/admin/src/pages/Dungeons.tsx`: mesmo
       padrão do editor de Missões (preview `GamePanel` ao vivo + painel lateral + clique-pra-focar), uma
       `DifficultyLane` por dificuldade configurada (`SimpleGameScript`...`TerrorGameScript`). Diferencial:

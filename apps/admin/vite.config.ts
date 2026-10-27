@@ -16,6 +16,10 @@ export default defineConfig(({ mode }) => {
       strictPort: true,
       proxy: {
         "/api": { target: apiTarget, changeOrigin: true },
+        // site-admin-redesign: game-window previews read the client's real exported UI art through the API's
+        // read-only passthrough (apps/api/src/routes/static.ts "/client-assets/*"), not a hardcoded client
+        // dev-server port.
+        "/client-assets": { target: apiTarget, changeOrigin: true },
       },
     },
     preview: { port: 5174 },
