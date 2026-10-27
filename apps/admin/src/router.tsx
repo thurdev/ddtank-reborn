@@ -8,6 +8,7 @@ import { LoginPage } from "@/pages/Login";
 import { DashboardPage } from "@/pages/Dashboard";
 import { ServerConfigPage } from "@/pages/ServerConfig";
 import { EventsPage } from "@/pages/Events";
+import { QuestsPage } from "@/pages/Quests";
 import { AssetsPage } from "@/pages/Assets";
 import { MailPage } from "@/pages/Mail";
 import { DonationsPage } from "@/pages/Donations";
@@ -60,6 +61,13 @@ const eventsRoute = createRoute({
   validateSearch: (s: Record<string, unknown>): { edit?: string } => (typeof s.edit === "string" ? { edit: s.edit } : {}),
   component: EventsPage,
 });
+/**
+ * Static route (wins over the generic `$resource` catch-all below, same trick as `/events`): `quests` is a
+ * visual editor (site-admin-redesign), not a plain `ResourcePage` — see `pages/Quests.tsx`. The `quests`
+ * `ResourceDef` is still registered (nav entry, `ref` targets from `quest-conditions`/`quest-goods` keep
+ * resolving by name) and its "Tabela" tab is the same generic `ResourcePage` as before.
+ */
+const questsRoute = createRoute({ getParentRoute: () => authedRoute, path: "/quests", component: QuestsPage });
 const assetsRoute = createRoute({ getParentRoute: () => authedRoute, path: "/assets", component: AssetsPage });
 const mailRoute = createRoute({ getParentRoute: () => authedRoute, path: "/mail", component: MailPage });
 const donationsRoute = createRoute({ getParentRoute: () => authedRoute, path: "/donations", component: DonationsPage });
@@ -85,7 +93,7 @@ const resourceRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([
   loginRoute,
-  authedRoute.addChildren([dashboardRoute, configRoute, eventsRoute, assetsRoute, mailRoute, donationsRoute, resourceRoute]),
+  authedRoute.addChildren([dashboardRoute, configRoute, eventsRoute, questsRoute, assetsRoute, mailRoute, donationsRoute, resourceRoute]),
 ]);
 
 /** `history` is only ever overridden in tests (memory history instead of the real browser URL). */

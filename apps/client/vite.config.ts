@@ -11,6 +11,14 @@ export default defineConfig({
     port: 5180,
     // dezenas de milhares de PNG exportados: não vigia (o exportador reescreve tudo e travava o dev server)
     watch: { ignored: ["**/public/assets/**"] },
+    // `main.ts` faz `import "./game/all"` — import estático de ~2600 módulos TS (todo o jogo: o registro
+    // global de classes AS3 exige que estejam todos presentes antes do boot, igual ApplicationDomain do
+    // Flash). Sem isto, o PRIMEIRO acesso de cada sessão paga a transformação esbuild de cada um desses
+    // módulos (medido: ~31s a frio vs. ~3-4s com o cache de transformação já quente — ver docs/client-pixi/
+    // STATUS.md). `server.warmup` manda o Vite pré-transformar esse grafo inteiro assim que o dev server
+    // sobe, em vez de no primeiro load de um jogador — não reduz o nº de requisições do navegador, mas tira
+    // o custo de transformação do caminho crítico da primeira visita.
+    warmup: { clientFiles: ["./src/main.ts", "./src/game/all.ts"] },
     proxy: {
       "/request": { target: api, changeOrigin: true },
       "/Request": { target: api, changeOrigin: true },
