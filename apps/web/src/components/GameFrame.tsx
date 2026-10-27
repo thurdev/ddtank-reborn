@@ -82,6 +82,8 @@ export function GameFrame({ rufflePath, swfUrl, flashvars, socketProxy, base, pi
   const [error, setError] = useState<string | null>(null);
   const [attempt, setAttempt] = useState(0);
   const [progress, setProgress] = useState(0.08);
+  const [loadedCount, setLoadedCount] = useState(0);
+  const [slow, setSlow] = useState(false);
 
   // Stable key so a new object with the same values doesn't remount the player.
   const configKey = JSON.stringify({ rufflePath, swfUrl, flashvars, socketProxy, base, pixiUrl, channelWsUrl });
@@ -108,13 +110,26 @@ export function GameFrame({ rufflePath, swfUrl, flashvars, socketProxy, base, pi
       frame.style.cssText = "width:100%;height:100%;border:0;display:block";
       frame.addEventListener("load", () => {
         if (cancelled) return;
+        setProgress(1);
         setPhase("ready");
         onReady?.();
       });
-      // o cliente avisa queda/kick por postMessage quando a página é de outra origem (ver ExternalInterface)
+      // o cliente avisa queda/kick por postMessage quando a página é de outra origem (ver ExternalInterface);
+      // `ddt-client-progress` é o sinal REAL de carregamento (apps/client/index.html, Resource Timing API) —
+      // substitui o timer falso que só fingia avançar (ver git log desta linha).
       const onMessage = (e: MessageEvent) => {
-        const d = e.data as { type?: string; name?: string; args?: unknown[] } | null;
-        if (e.source !== frame.contentWindow || d?.type !== "ddt-external" || d.name !== "game_interruption") return;
+        const d = e.data as { type?: string; name?: string; args?: unknown[]; loaded?: number; pending?: number } | null;
+        if (e.source !== frame.contentWindow || !d) return;
+        if (d.type === "ddt-client-progress") {
+          const loaded = Math.max(0, Number(d.loaded) || 0);
+          setLoadedCount(loaded);
+          // curva de retornos decrescentes sobre uma contagem REAL de requisições concluídas (não um
+          // relógio): só anda quando o cliente de fato termina de buscar algo, então um travamento real
+          // agora PARECE travado em vez de seguir subindo sozinho até ~92% como antes.
+          setProgress((p) => Math.max(p, Math.min(0.97, 1 - 1 / (1 + loaded / 350))));
+          return;
+        }
+        if (d.type !== "ddt-external" || d.name !== "game_interruption") return;
         setError(String(d.args?.[1] ?? ""));
         setPhase("kicked");
         frame.remove();
@@ -128,8 +143,10 @@ export function GameFrame({ rufflePath, swfUrl, flashvars, socketProxy, base, pi
       };
       host.appendChild(frame);
       setPhase("swf");
+      const slowTimer = window.setTimeout(() => !cancelled && setSlow(true), 20_000);
       return () => {
         cancelled = true;
+        window.clearTimeout(slowTimer);
         window.removeEventListener("message", onMessage);
         frame.remove();
         delete window.game_interruption;
@@ -214,12 +231,21 @@ export function GameFrame({ rufflePath, swfUrl, flashvars, socketProxy, base, pi
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [configKey, attempt]);
 
-  // Fake-but-honest progress sweep while loading (Ruffle exposes no byte progress for the root movie).
+  // Reset the real counters on every (re)load attempt.
   useEffect(() => {
-    if (phase === "ready" || phase === "error") return;
+    setLoadedCount(0);
+    setSlow(false);
+    setProgress(0.08);
+  }, [configKey, attempt]);
+
+  // Ruffle path only: it exposes no byte progress for the root SWF, so there is no real signal to show —
+  // a slow cosmetic sweep is the least-bad option here. The PixiJS iframe path (above) gets real progress
+  // from `ddt-client-progress` postMessage instead (apps/client/index.html), so it's excluded.
+  useEffect(() => {
+    if (pixiUrl || phase === "ready" || phase === "error") return;
     const id = window.setInterval(() => setProgress((p) => Math.min(0.92, p + (0.95 - p) * 0.06)), 200);
     return () => window.clearInterval(id);
-  }, [phase]);
+  }, [phase, pixiUrl]);
 
   return (
     <div className={cn("relative h-full w-full overflow-hidden bg-night-deep border-radius-[8px]", className)}>
@@ -246,8 +272,9 @@ export function GameFrame({ rufflePath, swfUrl, flashvars, socketProxy, base, pi
                 value={progress}
                 size="lg"
                 label={phase === "ruffle" ? t("play.loadingRuffle") : t("play.loading")}
-                readout={`${Math.round(progress * 100)}%`}
+                readout={pixiUrl && loadedCount > 0 ? t("play.loadingFiles", { count: loadedCount }) : `${Math.round(progress * 100)}%`}
               />
+              {slow && <p className="text-xs text-muted">{t("play.loadingSlow")}</p>}
             </div>
           )}
         </div>
