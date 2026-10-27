@@ -23,6 +23,17 @@ export interface ResourceDef {
   noDelete?: boolean;
   /** Columns never returned (hashes). */
   hidden?: string[];
+  /**
+   * pt-BR text overlay (site-admin-redesign, "no raw Vietnamese in the admin" fix): `table` is the
+   * `app."Translations"` table name for this resource's rows (matches `packages/db/scripts/export-texts.ts`
+   * `TARGETS` and `apps/api/src/templates/defs.ts` `TRANSLATED_PK` — same mechanism the game client's own
+   * XML already uses, just not previously wired into the admin's generic CRUD). `cols` are the `game`-schema
+   * text columns that carry pt-BR overlay rows. GET/list substitutes the overlay text in place (what the
+   * player actually sees) and adds a read-only `<col>__original` sibling with the raw vendor value; PATCH
+   * writes overlay columns to `app."Translations"` instead of the raw `game.*` column, which stays the
+   * untouched source-language reference (see `apps/api/src/lib/i18n-admin.ts`).
+   */
+  translatable?: { table: string; cols: string[] };
 }
 
 export const RESOURCES: Record<string, ResourceDef> = {
@@ -41,11 +52,13 @@ export const RESOURCES: Record<string, ResourceDef> = {
   "guild-tasks": { table: player.Consortia_Task_Info, pk: ["ID"], noCreate: true },
   "guild-levels": { table: player.Consortia_Level, pk: ["Level"] },
   // content
-  items: { table: game.Shop_Goods, pk: ["TemplateID"] },
+  // translatable here only drives the PATCH split (admin.ts splitTranslatable/writeTranslations) — the
+  // GET/list overlay for items goes through withItemOverlay (icon/inShop too), not withTranslationOverlay.
+  items: { table: game.Shop_Goods, pk: ["TemplateID"], translatable: { table: "Shop_Goods", cols: ["Name", "Description", "Remark"] } },
   shop: { table: game.Shop, pk: ["ID"] },
   "shop-show": { table: game.ShopGoodsShowList, pk: ["TempID"] },
   "item-box": { table: game.Shop_Goods_Box, pk: ["ID", "TemplateId"] },
-  quests: { table: game.Quest, pk: ["ID"] },
+  quests: { table: game.Quest, pk: ["ID"], translatable: { table: "Quest", cols: ["Title", "Detail", "Objective"] } },
   "quest-conditions": { table: game.Quest_Condiction, pk: ["QuestID", "CondictionID"] },
   "quest-goods": { table: game.Quest_Goods, pk: ["QuestID", "RewardItemID"] },
   events: { table: game.Active, pk: ["ActiveID"] },
@@ -59,9 +72,9 @@ export const RESOURCES: Record<string, ResourceDef> = {
   "event-reward-goods": { table: game.Event_Reward_Goods, pk: ["ActivityType", "SubActivityType", "TemplateId"] },
   "activity-items": { table: game.Activity_System_Item, pk: ["ID"] },
   "daily-award": { table: game.Daily_Award, pk: ["ID"] },
-  dungeons: { table: game.Pve_Info, pk: ["ID"] },
-  missions: { table: game.Mission_Info, pk: ["Id"] },
-  npcs: { table: game.NPC_Info, pk: ["ID"] },
+  dungeons: { table: game.Pve_Info, pk: ["ID"], translatable: { table: "Pve_Info", cols: ["Name", "Description"] } },
+  missions: { table: game.Mission_Info, pk: ["Id"], translatable: { table: "Mission_Info", cols: ["Name", "Title", "Description", "Success", "Failure"] } },
+  npcs: { table: game.NPC_Info, pk: ["ID"], translatable: { table: "NPC_Info", cols: ["Name"] } },
   // task 41-instancias: balanceamento de masmorra (NPC HP/dano/defesa + recompensa) por (dungeon, dificuldade);
   // progresso de desbloqueio (quem já zerou qual dificuldade) só pra suporte/depuração, nunca criado pelo admin.
   "pve-balance": { table: app.PveBalance, pk: ["PveId", "HardLevel"] },

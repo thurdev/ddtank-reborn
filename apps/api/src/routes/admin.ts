@@ -10,6 +10,7 @@ import type { AppCtx } from "../context.js";
 import { q } from "../lib/db.js";
 import { buildIconPrompt, generateIconPng, iconSizeFor, recraftApiKey, resizePng } from "../lib/icon-style.js";
 import { itemIconRel } from "../lib/item-icon.js";
+import { splitTranslatable, withTranslationOverlay, writeTranslations } from "../lib/i18n-admin.js";
 import { diagnosePve } from "../lib/pve-diagnostics.js";
 import { wallNow } from "../lib/flash-xml.js";
 import { safeKey } from "../lib/storage.js";
@@ -86,11 +87,23 @@ async function withItemOverlay(ctx: AppCtx, linhas: Row[]): Promise<Row[]> {
     : new Set<number>();
   return linhas.map((r) => {
     const tid = String(r.TemplateID);
+    // site-admin-redesign: "Original (VN)" reference for the admin UI, same contract as
+    // `lib/i18n-admin.ts`'s `<field>__original` for the other translatable resources — items just has its
+    // own overlay function (icon/inShop live here too) instead of going through `withTranslationOverlay`.
     const o = { ...applyTranslations(r, "TemplateID", overlay) } as Row;
+    for (const f of ["Name", "Description", "Remark"]) o[`${f}__original`] = r[f];
     (o as Row).iconUrl = `/api/admin/item-icons/${tid}.png`;
     (o as Row).inShop = emLoja.has(Number(r.TemplateID));
     return o;
   });
+}
+
+/** `withItemOverlay` (items, special-cased: icon/inShop too) or the generic `translatable` overlay
+ *  (site-admin-redesign) — whichever applies to `def`, else `items` untouched. One call site for list/get/patch. */
+async function withOverlays(ctx: AppCtx, def: ResourceDef, resource: string, items: Row[]): Promise<Row[]> {
+  if (resource === "items") return withItemOverlay(ctx, items);
+  if (def.translatable) return withTranslationOverlay(ctx, def, def.pk[0]!, items);
+  return items;
 }
 
 /**
@@ -629,7 +642,7 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
         if (!idVals.length) return { items: [], total: 0, page: 1, pageSize: 0 };
         const rows = (await ctx.h.db.select().from(def.table).where(inArray(pkCol, idVals)).limit(500)) as Row[];
         const items = rows.map((r) => strip(def, r));
-        const withOverlay = req.params.resource === "items" ? await withItemOverlay(ctx, items) : items;
+        const withOverlay = await withOverlays(ctx, def, req.params.resource, items);
         return { items: withOverlay, total: withOverlay.length, page: 1, pageSize: withOverlay.length };
       }
       const page = Math.max(1, Number(req.query.page) || 1);
@@ -706,7 +719,7 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
       const [tot] = await ctx.h.db.select({ n: count() }).from(def.table).where(where);
       const rows = await ctx.h.db.select().from(def.table).where(where).orderBy(...order).limit(pageSize).offset((page - 1) * pageSize);
       const items = (rows as Row[]).map((r) => strip(def, r));
-      return { items: req.params.resource === "items" ? await withItemOverlay(ctx, items) : items, total: Number(tot?.n ?? 0), page, pageSize };
+      return { items: await withOverlays(ctx, def, req.params.resource, items), total: Number(tot?.n ?? 0), page, pageSize };
     },
   );
 
@@ -851,7 +864,7 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
     const [row] = await ctx.h.db.select().from(def.table).where(w).limit(1);
     if (!row) return reply.code(404).send({ message: "Não encontrado" });
     const item = strip(def, row as Row);
-    return req.params.resource === "items" ? (await withItemOverlay(ctx, [item]))[0] : item;
+    return (await withOverlays(ctx, def, req.params.resource, [item]))[0];
   });
 
   const afterWrite = async (req: FastifyRequest, def: ResourceDef, what: string, data?: unknown) => {
@@ -933,13 +946,24 @@ export async function adminRoutes(f: FastifyInstance, ctx: AppCtx) {
     const w = def && pkWhere(def, req.params.id);
     if (!def || !w) return reply.code(404).send({ message: "Não encontrado" });
     if (def.readOnly) return reply.code(405).send({ message: "Somente leitura" });
-    const values = pick(def, req.body as Row, { allowPk: false });
-    if (!Object.keys(values).length) return reply.code(400).send({ message: "Nada para atualizar" });
+    // site-admin-redesign: translatable text fields (quests.Title, dungeons.Name, ...) never touch the raw
+    // `game.*` column — they're pulled out here and upserted into `app."Translations"` below instead, so the
+    // raw column stays the untouched vendor/donor source text (`<field>__original` in the GET response).
+    const { translatable, rest } = splitTranslatable(def, { ...(req.body as Row) });
+    const values = pick(def, rest, { allowPk: false });
+    if (!Object.keys(values).length && !Object.keys(translatable).length) return reply.code(400).send({ message: "Nada para atualizar" });
     try {
-      const rows = (await ctx.h.db.update(def.table).set(values as never).where(w).returning()) as Row[];
-      if (!rows.length) return reply.code(404).send({ message: "Não encontrado" });
-      await afterWrite(req, def, `update ${req.params.id}`, values);
-      return strip(def, rows[0]!);
+      let rows: Row[];
+      if (Object.keys(values).length) {
+        rows = (await ctx.h.db.update(def.table).set(values as never).where(w).returning()) as Row[];
+        if (!rows.length) return reply.code(404).send({ message: "Não encontrado" });
+      } else {
+        rows = (await ctx.h.db.select().from(def.table).where(w).limit(1)) as Row[];
+        if (!rows.length) return reply.code(404).send({ message: "Não encontrado" });
+      }
+      if (Object.keys(translatable).length) await writeTranslations(ctx, def, req.params.id, translatable, rows[0]!);
+      await afterWrite(req, def, `update ${req.params.id}`, { ...values, ...translatable });
+      return (await withOverlays(ctx, def, req.params.resource, [strip(def, rows[0]!)]))[0];
     } catch (e) {
       return reply.code(400).send({ message: (e as Error).message.split("\n")[0] });
     }

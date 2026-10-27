@@ -35,3 +35,6 @@ tools/remaster/_lang/
 # logs de conversa com IA (pessoais)
 research/qa/*-requests.md
 docs/AI-HANDOFF.md
+
+# site-admin-redesign: capturas de antes/depois (admin vs jogo real) pra revisao do dono, nao versionadas
+docs/plan/redesign-shots/

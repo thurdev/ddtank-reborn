@@ -8,7 +8,7 @@ import type { AppCtx } from "../context.js";
 import { CiTree, EMPTY_SWF, mimeOf, placeholder } from "../lib/resources.js";
 import { crc32, inflateSync } from "node:zlib";
 import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
+import { dirname, isAbsolute, join, relative, resolve } from "node:path";
 import { aliasBombSwf } from "../lib/bomb-alias.js";
 
 export const CROSSDOMAIN = `<?xml version="1.0"?>
@@ -185,6 +185,35 @@ export async function staticRoutes(f: FastifyInstance, ctx: AppCtx) {
       const ph = placeholder(rel);
       if (!ph) return reply.code(404).send("not found");
       return reply.type(ph.type).header("X-Placeholder", "1").header("Access-Control-Allow-Origin", "*").send(ph.body);
+    },
+  });
+
+  /**
+   * site-admin-redesign: read-only passthrough to the PixiJS client's exported UI art
+   * (`apps/client/public/assets/flash/ui/vietnam/swf/<module>/{library.json,images/,shapes/,texts/}`) — the
+   * admin's game-window previews fetch `library.json` + PNGs from here instead of guessing a client
+   * dev-server port, and it works the same in prod. Simple 404 on miss (no placeholder fallback like
+   * `/resource/*`): a missing preview asset should be visibly wrong, not silently swapped for a blank pixel.
+   *
+   * Deliberately NOT a `CiTree` (unlike every other tree in this file): that eagerly walks + indexes the
+   * WHOLE directory at boot/reindex, and this one has ~153k files (`tools/swf-export`'s full output) — a
+   * ~35s synchronous walk, re-triggered on every `tsx watch` reload. Resolved on demand instead (one
+   * `existsSync` per request, exact case — the export tool already writes consistently-lowercased paths, see
+   * `docs/client-pixi/ASSETS.md`), same cost model as any other file read.
+   */
+  f.route({
+    method: ["GET", "HEAD"],
+    url: "/client-assets/*",
+    handler: (req, reply) => {
+      const rel = relOf(req, /^\/client-assets\//i);
+      // reject traversal/absolute escapes; `path.join` already collapses "..", this is a defense-in-depth check
+      if (!ctx.cfg.CLIENT_ASSETS_DIR || rel.includes("\0") || /(^|[\\/])\.\.([\\/]|$)/.test(rel)) return reply.code(404).send("not found");
+      const root = resolve(ctx.cfg.CLIENT_ASSETS_DIR);
+      const file = resolve(root, rel);
+      // dentro da pasta de verdade (não só prefixo do nome: "assets" vs "assets2"), incluindo "..\" do Windows
+      const inside = relative(root, file);
+      if (!inside || inside.startsWith("..") || isAbsolute(inside) || !existsSync(file) || !statSync(file).isFile()) return reply.code(404).send("not found");
+      return sendFile(req, reply, file);
     },
   });
 

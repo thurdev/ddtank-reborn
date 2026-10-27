@@ -28,9 +28,6 @@ import {
   Card,
   EmptyState,
   Field,
-  GamePanel,
-  GamePanelBody,
-  GamePanelHeader,
   Hotspot,
   Input,
   PageHeader,
@@ -45,12 +42,32 @@ import { Save, Search, ShoppingBag, Sword } from "lucide-react";
 import { useI18n, useText } from "@/i18n";
 import { getQuery, listQuery, useResourceMutations } from "@/crud/api";
 import { FieldInput } from "@/crud/FieldInput";
+import { FlashImg } from "@/lib/flashAssets";
 import { ResourcePage } from "@/crud/ResourcePage";
 import { buildSchema, fieldInForm, fromFormValues, toFormValues } from "@/crud/schema";
 import type { FieldDef, Row, Tone } from "@/crud/types";
 import { ITEM_CATEGORIES, QUALITY, items } from "@/resources/items";
 import { ItemIconGenerator } from "@/resources/ItemIconGenerator";
 import { shop } from "@/resources/content";
+
+/** Item tooltip art (`vendor/DDTank41/Source Flash/src/shop/view/ShopItemCell.as` + the generic goods
+ * tooltip, `coreiconandtip` module) — only the stat LABELS are real art here (`GoodsLevel` "Nível. Lv.",
+ * `GoodsTipItemHert` "Dano", `GoodsTipItemDefence` "Armadura", `GoodsTipItemArmAngle` "Ângulo"), all
+ * visually verified pt-BR; no full tooltip frame bitmap was found at a usable size, so the panel chrome
+ * stays the same textured-parchment treatment as the quest/dungeon windows for visual consistency. */
+const TIP_MODULE = "coreiconandtip";
+
+/** "Original (VN)" reference — same contract as `Quests.tsx`'s `OriginalTextNote` (not shared yet, see that
+ *  file's comment on this). */
+function OriginalTextNote({ data, field }: { data: Row; field: string }) {
+  const original = data[`${field}__original`];
+  if (typeof original !== "string" || !original.trim() || original === data[field]) return null;
+  return (
+    <p className="mt-1 line-clamp-2 rounded-lg bg-night-deep/50 px-2 py-1 text-xs text-muted" title={original}>
+      <span className="font-semibold text-muted/80">Original (VN):</span> {original}
+    </p>
+  );
+}
 
 type ItemRow = Row & { TemplateID: number; Name?: string };
 
@@ -140,7 +157,6 @@ function ItemEditor({ templateId, onOpenShop }: { templateId: number; onOpenShop
     el?.scrollIntoView({ block: "center", behavior: "smooth" });
     (el?.querySelector("input, textarea, select, button") as HTMLElement | undefined)?.focus();
   };
-
   if (isLoading || !data) return <Skeleton className="h-96 lg:col-span-2" />;
 
   const submit = handleSubmit(async (values) => {
@@ -162,85 +178,87 @@ function ItemEditor({ templateId, onOpenShop }: { templateId: number; onOpenShop
 
   const quality = QUALITY.find((o) => String(o.value) === String(live.Quality));
   const category = ITEM_CATEGORIES.find((o) => String(o.value) === String(live.CategoryID));
-  const stats: { key: string; label: string; value: unknown }[] = [
-    { key: "Attack", label: "ATK", value: live.Attack },
-    { key: "Defence", label: "DEF", value: live.Defence },
-    { key: "Agility", label: "AGI", value: live.Agility },
-    { key: "Luck", label: "SOR", value: live.Luck },
+  // Real label art (`GoodsTipItemHert`/`GoodsTipItemDefence`/`GoodsTipItemArmAngle`, see file banner) for the
+  // 3 that have a verified pt-BR bitmap; Luck has none exported at a usable size, stays a plain badge.
+  const stats: { key: string; asset?: string; label: string; value: unknown }[] = [
+    { key: "Attack", asset: "asset.core.tip.GoodsTipItemHert", label: "Dano", value: live.Attack },
+    { key: "Defence", asset: "asset.core.tip.GoodsTipItemDefence", label: "Armadura", value: live.Defence },
+    { key: "Agility", asset: "asset.core.tip.GoodsTipItemArmAngle", label: "Ângulo", value: live.Agility },
+    { key: "Luck", label: "Sorte", value: live.Luck },
   ].filter((s) => Number(s.value) > 0);
   const shopRows = shopData?.items ?? [];
 
   return (
     <form onSubmit={submit} className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_380px]">
-      <GamePanel>
-        <GamePanelHeader
-          icon={Sword}
-          title={
-            <Hotspot active={focused === "Name"} onClick={() => focus("Name")}>
-              {String(live.Name || "—")}
+      <div
+        className="relative rounded-xl border-[3px] p-4"
+        style={{ borderColor: "#8a6a3a", backgroundColor: "#2b1a0e", backgroundRepeat: "repeat", boxShadow: "0 18px 40px -18px rgb(0 0 0 / 0.85)" }}
+      >
+        <h3 className="mb-3 flex items-center gap-2">
+          <Sword className="size-4 shrink-0 text-sun" aria-hidden />
+          <Hotspot active={focused === "Name"} onClick={() => focus("Name")} className="title-plate text-base text-[#ffe564]" style={{ textShadow: "0 2px 0 #000" }}>
+            {String(live.Name || "—")}
+          </Hotspot>
+        </h3>
+        <div className="flex flex-wrap items-center gap-3">
+          <Hotspot active={focused === "TemplateID"} onClick={() => focus("TemplateID")} className="p-1">
+            <img
+              src={`/api/admin/item-icons/${templateId}.png`}
+              alt=""
+              loading="lazy"
+              className="size-20 rounded-xl border-2 border-line bg-night-deep object-contain"
+            />
+          </Hotspot>
+          <div className="flex flex-col gap-1.5">
+            <Hotspot active={focused === "Quality"} onClick={() => focus("Quality")}>
+              <Badge tone={(quality?.tone as Tone) ?? "neutral"}>{text(quality?.label) || `Qualidade ${live.Quality}`}</Badge>
             </Hotspot>
-          }
-        />
-        <GamePanelBody>
-          <div className="flex flex-wrap items-center gap-3">
-            <Hotspot active={focused === "TemplateID"} onClick={() => focus("TemplateID")} className="p-1">
-              <img
-                src={`/api/admin/item-icons/${templateId}.png`}
-                alt=""
-                loading="lazy"
-                className="size-20 rounded-xl border-2 border-line bg-night-deep object-contain"
-              />
+            <Hotspot active={focused === "CategoryID"} onClick={() => focus("CategoryID")} className="inline-flex items-center gap-1.5 p-0.5">
+              <FlashImg module={TIP_MODULE} className="asset.core.tip.GoodsType" alt="Tipo" />
+              <Badge tone="sky">{text(category?.label) || `Categoria ${live.CategoryID}`}</Badge>
             </Hotspot>
-            <div className="flex flex-col gap-1.5">
-              <Hotspot active={focused === "Quality"} onClick={() => focus("Quality")}>
-                <Badge tone={(quality?.tone as Tone) ?? "neutral"}>{text(quality?.label) || `Qualidade ${live.Quality}`}</Badge>
-              </Hotspot>
-              <Hotspot active={focused === "CategoryID"} onClick={() => focus("CategoryID")}>
-                <Badge tone="sky">{text(category?.label) || `Categoria ${live.CategoryID}`}</Badge>
-              </Hotspot>
-              <Hotspot active={focused === "NeedLevel"} onClick={() => focus("NeedLevel")}>
-                <Badge tone="neutral">{t("items.levelMin", { n: String(live.NeedLevel ?? 1) })}</Badge>
-              </Hotspot>
-            </div>
+            <Hotspot active={focused === "NeedLevel"} onClick={() => focus("NeedLevel")} className="inline-flex items-center gap-1.5 p-0.5">
+              <FlashImg module={TIP_MODULE} className="asset.core.tip.GoodsLevel" alt="Nível" />
+              <span className="font-mono text-sm text-ink">{String(live.NeedLevel ?? 1)}</span>
+            </Hotspot>
           </div>
+        </div>
 
-          {stats.length > 0 && (
+        {stats.length > 0 && (
+          <div className="mt-3 flex flex-col gap-1.5">
+            {stats.map((s) => (
+              <Hotspot key={s.key} active={focused === s.key} onClick={() => focus(s.key)} className="inline-flex w-fit items-center gap-2 p-0.5">
+                {s.asset ? <FlashImg module={TIP_MODULE} className={s.asset} alt={s.label} /> : <span className="text-xs text-muted">{s.label}</span>}
+                <span className="font-mono text-sm text-[#ffde00]">+{String(s.value)}</span>
+              </Hotspot>
+            ))}
+          </div>
+        )}
+
+        {!!live.Description && (
+          <Hotspot active={focused === "Description"} onClick={() => focus("Description")} className="mt-3 block w-full rounded-lg bg-night-deep/40 p-2">
+            <p className="text-sm text-[#eeeeee]">{String(live.Description)}</p>
+          </Hotspot>
+        )}
+
+        <div className="mt-3 rounded-xl border border-line/70 bg-night-deep/30 p-3">
+          <div className="mb-2 flex items-center justify-between">
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-muted">{t("items.inShop")}</p>
+            <Button type="button" size="sm" variant="ghost" onClick={onOpenShop}>
+              {t("items.openShop")}
+            </Button>
+          </div>
+          {shopRows.length === 0 ? (
+            <p className="text-xs text-muted">{t("items.notInShop")}</p>
+          ) : (
             <div className="flex flex-wrap gap-2">
-              {stats.map((s) => (
-                <Hotspot key={s.key} active={focused === s.key} onClick={() => focus(s.key)}>
-                  <Badge tone="coral">
-                    {s.label} {String(s.value)}
-                  </Badge>
-                </Hotspot>
+              {shopRows.map((r) => (
+                <ShopOffer key={String(r.ID)} row={r} onOpen={onOpenShop} />
               ))}
             </div>
           )}
-
-          {!!live.Description && (
-            <Hotspot active={focused === "Description"} onClick={() => focus("Description")} className="block w-full p-2">
-              <p className="text-sm text-ink">{String(live.Description)}</p>
-            </Hotspot>
-          )}
-
-          <div className="rounded-xl border border-line/70 bg-night-deep/30 p-3">
-            <div className="mb-2 flex items-center justify-between">
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-muted">{t("items.inShop")}</p>
-              <Button type="button" size="sm" variant="ghost" onClick={onOpenShop}>
-                {t("items.openShop")}
-              </Button>
-            </div>
-            {shopRows.length === 0 ? (
-              <p className="text-xs text-muted">{t("items.notInShop")}</p>
-            ) : (
-              <div className="flex flex-wrap gap-2">
-                {shopRows.map((r) => (
-                  <ShopOffer key={String(r.ID)} row={r} onOpen={onOpenShop} />
-                ))}
-              </div>
-            )}
-          </div>
-        </GamePanelBody>
-      </GamePanel>
+        </div>
+      </div>
       <Card className="flex max-h-[75vh] flex-col overflow-hidden p-0">
         <div className="flex items-center justify-between gap-2 border-b border-line p-4">
           <h3 className="title-plate text-lg">{t("items.editPanel")}</h3>
@@ -271,6 +289,7 @@ function ItemEditor({ templateId, onOpenShop }: { templateId: number; onOpenShop
                         )}
                       />
                     </Field>
+                    <OriginalTextNote data={data} field={f.name} />
                   </div>
                 ))}
               </div>

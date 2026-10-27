@@ -17,6 +17,42 @@ Na fase 3 (site) **não tocar** em `apps/web/src/pages/Play.tsx`, `play.css`, `G
 de canal — se precisar de ajuste visual ali, só via tokens compartilhados em `packages/ui`. Home, Apoiar/
 Transparência, páginas de conta e os editores do admin continuam sendo deste agente.
 
+## 0.1 Correção de rumo (dono rejeitou a fase 2 — "não parece o jogo")
+
+O dono testou os editores visuais da fase 2 (via Playwright) e rejeitou: "a tela parecia um card genérico
+escuro com texto vietnamita — não era o que foi pedido". Dois problemas reais, confirmados:
+
+1. **Idioma**: os recursos liam a coluna `game.*` crua (vietnamita/chinês do vendor), nunca o overlay pt-BR
+   que `apps/api/src/templates/defs.ts` já aplica pro cliente ver. Corrigido: `apps/api/src/lib/i18n-admin.ts`
+   + `ResourceDef.translatable` (quests/dungeons/missions/npcs) — GET/lista devolve o texto COM overlay +
+   `<campo>__original` (cru, referência); PATCH grava em `app."Translations"`, nunca na coluna crua.
+2. **Arte**: os previews eram `GamePanel` estilizado (CSS do design system), não a arte real do jogo. Corrigido
+   (editor de Missões primeiro, ver §3): preview monta com PNGs reais exportados
+   (`apps/client/public/assets/flash/ui/vietnam/swf/<módulo>/`, servidos por
+   `/client-assets/*` — `apps/api/src/routes/static.ts`) nas posições/proporções da classe AS3 original.
+
+**Avaliação de `@ddt/flash` headless** (o dono pediu pra avaliar primeiro — ver prompt): o CHECKOUT PRINCIPAL
+tem `apps/client/src/game/quest/{TaskMainFrame,QuestInfoPanelView,QuestRewardView,...}.ts` já transpilados
+(as3-to-ts), mas **este worktree não tem `apps/client/src/game`** (gitignorado/gerado por outro agente,
+"pixi-port" — `docs/plan/MEMORY` "Pixi generated files"). Montar essas classes de verdade dentro do admin
+exigiria: (a) o admin depender de `apps/client`'s gerado (não existe neste worktree), (b) um canvas PixiJS
+embutido no React do admin, (c) stubar ~6 singletons do motor (ComponentFactory, LanguageMgr, SoundManager,
+PlayerManager, ItemManager, StateManager/TaskManager) que as views esperam prontos. Escopo de dias, não desta
+sessão — optei pela réplica com arte real + coordenadas do AS3 (abaixo), que já resolve os dois problemas
+reais apontados. Registrado aqui pra quem retomar considerar o caminho `@ddt/flash` mais tarde.
+
+**Capturas ao vivo do cliente real**: consegui UMA captura limpa (tela de criação de personagem, via
+`:5173` → Jogar → conta de teste `screenshot_bot`, já usada na Home — ver fase 3). Tentei avançar até o Hall
+pra abrir a janela de missão de verdade, mas depois de criar o personagem o navegador (sessão Playwright
+compartilhada — cookies de `higgsfield.ai`/`google.com` confirmam que é o navegador real do dono, não um
+Chromium isolado) foi redirecionado pro topo pra `localhost:5181/avatar.html?nickname=Thur&...` — um serviço
+de preview de avatar, não a janela de missão — de forma determinística nas duas tentativas. Não investiguei
+mais fundo (client em desenvolvimento ativo por outro agente, risco de interferir) nem insisti com mais
+cliques no navegador compartilhado. Por isso as capturas "antes/depois" de cada janela usam o PREVIEW real do
+admin (que já usa a arte exportada verdadeira) comparado com os PNGs reais isolados, não um screenshot do
+cliente jogável renderizando aquela janela específica — ver `docs/plan/redesign-shots/<janela>/` e o relatório
+final pra o que está (não) verificado dessa forma.
+
 ## 0. Direção de design (já existente, estendida — não é um redesign do zero)
 
 O design system "night sky artillery" (`packages/ui/src/styles.css`) já está certo pro pedido do dono e
@@ -90,6 +126,22 @@ padrão de referência para as próximas. #2-#5 ficam para sessões seguintes (v
       Visual por padrão sem missão escolhida; clicar hotspot do título foca o campo e editar atualiza o
       preview ao vivo; trocar de missão troca o preview). `pnpm --filter admin exec vitest run` (12 passam)
       e `pnpm --filter admin exec tsc --noEmit` limpos.
+  - [x] **Rebuild rodada 2** (dono rejeitou, ver §0.1): preview reconstruído com arte real
+        (`apps/admin/src/lib/flashAssets.tsx` `FlashImg`/`useFlashLibrary`, módulo `quest` —
+        `titleBG`/`QuestInfoCondTitle`/`necessary`/`notNecessary`/`RewardText.OptionalTitle`/`RewardText.
+        Type1-8`/`QuestRewardCellBG`/`leftBGStyle1`, todos verificados visualmente como já localizados
+        pt-BR — ex. "Objetivo da tarefa:", "Recompensa:") no lugar do `GamePanel` CSS genérico; zoom (40–
+        150%, `useZoom`, CSS `zoom` não `transform`) a 560px de largura real (grade 2×186px de
+        `QuestRewardCell.as`); painel lateral ganhou "Original (VN)" (`OriginalTextNote`) sob
+        Título/Detalhe/Objetivo quando o overlay pt-BR existe e difere do cru. Verificado ao vivo: instância
+        isolada do admin+api (porta 5199/8099, banco pglite descartável, `admin/admin`) — screenshot antes
+        (missão #4 "Cường hóa vũ khí Lv5", cru) e depois (editei Título/Detalhe/Objetivo pelo painel, salvei,
+        preview + lista + "Original (VN)" atualizaram corretamente) em
+        `docs/plan/redesign-shots/quest/{admin-before-raw-vn,admin-after-ptbr}.png` (gitignorado) +
+        `real-asset-*.png` (PNGs reais isolados, prova de que são arte exportada de verdade). **Não
+        verificado**: comparação lado a lado com a janela de missão rodando no cliente PixiJS de verdade —
+        não consegui chegar lá com segurança nesta sessão (ver §0.1). Testes mantidos verdes (`Quests.test.tsx`
+        3/3, ajustados pra nova estrutura DOM — título agora é `<h3>` fora do `Hotspot`, dentro como antes).
 - [x] Fase 2b — editor visual de Instâncias (`/dungeons`). `apps/admin/src/pages/Dungeons.tsx`: mesmo
       padrão do editor de Missões (preview `GamePanel` ao vivo + painel lateral + clique-pra-focar), uma
       `DifficultyLane` por dificuldade configurada (`SimpleGameScript`...`TerrorGameScript`). Diferencial:
@@ -107,6 +159,21 @@ padrão de referência para as próximas. #2-#5 ficam para sessões seguintes (v
       (não pode rodar o script de verdade no mock). Testes: `apps/admin/src/pages/Dungeons.test.tsx` (3),
       `apps/api/test/api.test.ts` "dungeon diagnostics" + "drop-conditions CRUD" (regressão do PK). Suites
       completas (admin 15, api 119) e typechecks limpos.
+  - [x] **Rebuild rodada 2** (dono rejeitou, ver §0.1): módulo `roomlist`
+        (`roomList/pveRoomList/DungeonListItemView.as`) — `DungeonListBG` ("Cais de expedição", moldura com
+        vinhas) como fundo da janela, `hardLevel_PVE` ("Dificuldade", verificado pt-BR) como rótulo real da
+        badge de dificuldade, `pveSel_01` como fundo das faixas. `asset.DungeonList.boss` ficou de fora —
+        inspecionei e ainda está em vietnamita cru ("Đánh Boss") nesta exportação, então o indicador de boss
+        continua ícone+texto do admin em vez de arte real incorreta. `Nome`/`Descrição` ganharam "Original
+        (VN)" (reaproveita o mesmo padrão de `Quests.tsx`, ainda não extraído pra componente compartilhado).
+        Verificado ao vivo (mesma instância isolada porta 5199/8099, banco pglite reaproveitado da rodada do
+        editor de Missões): `docs/plan/redesign-shots/dungeon/{admin-before-raw-vn,admin-after-ptbr}.png`
+        (editei "Rừng rậm Gamazon" → "Floresta Gamazon" pelo painel, preview + lista + "Original (VN)"
+        atualizaram) + `real-asset-*` (PNGs isolados). Mesma ressalva: sem comparação com o cliente PixiJS
+        rodando de verdade (§0.1). Servidores QA parados logo depois da captura (memória da máquina limitada
+        nesta sessão — rodar só uma instância por vez, parar ao terminar). Testes mantidos verdes
+        (`Dungeons.test.tsx` 3/3; corrigido um bug de ordem de hooks que o rebuild introduziu — `useFlashLibrary`
+        precisa rodar antes do `if (isLoading) return` do `DungeonEditor`, não depois).
 - [x] Fase 2c — editor visual de Eventos (`/events`). Aditivo: nova aba "Visual" em `pages/Events.tsx`
       (que já existia com Calendário/Tabela/Agendados/Prêmios/Códigos/Presença/Caixas) — mesmo padrão de
       preview `GamePanel` ao vivo + painel lateral + clique-pra-focar, réplica de
@@ -118,6 +185,17 @@ padrão de referência para as próximas. #2-#5 ficam para sessões seguintes (v
       nenhum clicava pra trocar) — documentado no teste novo pra quem for reusar o padrão nos próximos
       editores. Testes: `apps/admin/src/pages/Events.test.tsx` (+1, total 3). Suite completa (admin 16) e
       typecheck limpos.
+  - [x] **Rebuild rodada 2** (dono rejeitou, ver §0.1): módulo `activeevents` — `bgPanel` (moldura
+        pergaminho/faixa vermelha do card, 353×362, real) como fundo da janela, `iconContent` ("Conteúdo:",
+        verificado pt-BR) e `iconGive` ("Recompensas:", verificado pt-BR) como rótulos reais das seções.
+        **Achado importante**: `game."Active"` (eventos) não está em `packages/db/scripts/export-texts.ts`
+        `TARGETS` — eventos são conteúdo criado pelo próprio admin pra este servidor, não texto do vendor
+        traduzido, então não existe "Original (VN)" pra mostrar aqui (nada pra traduzir; só a fase 2d/2b/2a/
+        2e, que são dado do vendor, precisavam do overlay). Testes: `Events.test.tsx` (3/3, sem mudança —
+        rebuild só trocou a arte do preview, não a estrutura clicável). Suite completa do admin (21,
+        `--maxWorkers=1`) e typecheck limpos. Mesma ressalva de captura: `docs/plan/redesign-shots/event/
+        real-asset-*.png` (PNGs isolados), sem screenshot antes/depois do admin nesta rodada (memória da
+        máquina).
 - [x] Fase 2d — editor visual de Itens/Loja (`/items`). `apps/admin/src/pages/Items.tsx`, rota estática.
       Preview estilo dica de item (ícone grande, nome, badges qualidade/categoria/nível, atributos ATK/DEF/
       AGI/SOR, descrição) + seção "Na loja" com ofertas reais de `game."Shop"` filtradas por
@@ -126,6 +204,21 @@ padrão de referência para as próximas. #2-#5 ficam para sessões seguintes (v
       por IA, antes só no diálogo genérico) + todos os campos de `items.fields` (seções Geral/Atributos/
       Regras já existentes). Abas Visual/Tabela/Loja. Testes: `apps/admin/src/pages/Items.test.tsx` (3).
       Suite completa (admin 19) e typecheck limpos.
+  - [x] **Rebuild rodada 2** (dono rejeitou, ver §0.1): módulo `coreiconandtip` (dica de item genérica +
+        `shop/view/ShopItemCell.as`) — rótulos reais `GoodsLevel` ("Nível. Lv.", verificado pt-BR),
+        `GoodsType` ("Tipo"), `GoodsTipItemHert` ("Dano"), `GoodsTipItemDefence` ("Armadura"),
+        `GoodsTipItemArmAngle` ("Ângulo") ao lado dos valores de atributo — Sorte não tem bitmap exportado
+        num tamanho utilizável, continua texto puro. Não achei o frame completo da dica em tamanho usável
+        (`GoodsTipBg` é 71×56, parece um slot/canto, não o fundo inteiro); o painel manteve o mesmo
+        tratamento de pergaminho dos editores de Missões/Instâncias por consistência visual, sem inventar
+        um asset que não existe. `items` (resource `Shop_Goods`) ganhou o mesmo tratamento de overlay pt-BR
+        que quests/dungeons/missions/npcs — `withItemOverlay` (API) agora também devolve `<campo>__original`
+        e o PATCH roteia Name/Description/Remark pra `app."Translations"` em vez da coluna crua (commit
+        separado, backend). Testes: `Items.test.tsx` (3/3). Suite completa do admin (21, `--maxWorkers=1`)
+        e do apps/api (121) e typechecks limpos. **Sem captura ao vivo desta rodada** (memória da máquina
+        limitada nesta sessão — não liguei outra instância QA só pra isso; os PNGs reais usados estão em
+        `docs/plan/redesign-shots/item/real-asset-*.png`, mas não há comparação antes/depois do admin como
+        nas duas primeiras janelas).
 - [x] Fase 2e — editor visual de NPCs/Bosses (`/npcs`). `apps/admin/src/pages/Npcs.tsx`, rota estática.
       Preview: ficha de combate (nível, vida, ataque, EXP) + pool de drop real (`DropId` do NPC É o
       `Drop_Condiction.DropID`, mais direto que o de Missões). Arte do NPC (`.swf`) sem prévia — não existe
@@ -133,8 +226,20 @@ padrão de referência para as próximas. #2-#5 ficam para sessões seguintes (v
       em vez de inventar um caminho incerto (nota explícita no preview, `npcs.artNote`). Abas Visual/
       Tabela/Drops. Testes: `apps/admin/src/pages/Npcs.test.tsx` (2). Suite completa (admin 21) e
       typecheck limpos.
+  - [x] **Rebuild rodada 2** (dono rejeitou, ver §0.1): reaproveita o módulo `coreiconandtip` que o editor
+        de Itens já usa — `asset.core.tip.hp` ("Vida") e `GoodsTipItemHert` ("Dano") como rótulos reais de
+        Vida/Ataque (vocabulário de dica de item funciona igual pra ficha de NPC). `Name` ganhou "Original
+        (VN)". Arte do NPC em si (`.swf`) continua sem prévia — razão inalterada (§2 acima). Testes:
+        `Npcs.test.tsx` (2/2). Suite completa (admin 21, `--maxWorkers=1`) e typecheck limpos. PNG real em
+        `docs/plan/redesign-shots/npc/real-asset-vida-label.png`; sem screenshot antes/depois do admin nesta
+        rodada (memória da máquina, mesma ressalva das fases 2d/2c).
 
-      **Fase 2 completa** (5/5 editores visuais: Missões, Instâncias, Eventos, Itens/Loja, NPCs/Bosses).
+      **Fase 2 completa** (5/5 editores visuais rebuildados com arte real + overlay pt-BR onde existe dado
+      do vendor: Missões, Instâncias, Eventos — sem overlay, não é dado do vendor —, Itens/Loja, NPCs/Bosses).
+      Capturas ao vivo do admin (antes/depois) feitas pra Missões e Instâncias; Eventos/Itens/NPCs têm os
+      PNGs reais usados como prova, mas sem o screenshot do admin em si — ver nota de memória da máquina em
+      cada entrada acima antes de reportar qualquer uma delas como "comparada lado a lado" no sentido pleno
+      que o dono pediu.
 - [~] Fase 3 — site (Jogar **fora de escopo**, dono agora é `multi-char` — ver nota de divisão de escopo
       no topo). Feito nesta rodada:
   - [x] **Home — screenshot real**: `public/art/screenshot-char-select.webp` (seção nova "É o jogo de

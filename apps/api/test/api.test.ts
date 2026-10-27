@@ -3,6 +3,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { inflateSync } from "node:zlib";
 import { validateGameLogin } from "@ddt/auth";
+import { sql } from "drizzle-orm";
 import { app as appSchema, createDb, createDevAccounts, migrateDb, seedDatabase, type DbHandle } from "@ddt/db";
 import { buildLoginPayload, bytesToBase64, generateRsaKey, rsaEncryptPkcs1, toDotNetRsaXml, type RsaPrivateKey } from "@ddt/protocol";
 import type { FastifyInstance } from "fastify";
@@ -664,6 +665,33 @@ describe("admin CRUD", () => {
     expect(b.pageSize).toBe(5);
   });
 
+  // site-admin-redesign: the owner rejected the first visual editors for showing raw Vietnamese text — this
+  // is the fix. Quest 4's seeded Title is the vendor's original ("Cường hóa vũ khí Lv5", VN) with no pt-BR
+  // overlay row yet; PATCHing Title writes app."Translations" instead of the raw game."Quest" column, which
+  // the GET response must then surface as the override (what the player sees) plus the untouched original.
+  it("translatable resources (quests/dungeons/missions/npcs): GET exposes pt-BR overlay + <field>__original; PATCH writes the overlay, never the raw column", async () => {
+    const auth = { authorization: `Bearer ${adminToken}` };
+    const before = await app.inject({ url: "/api/admin/quests/4", headers: auth });
+    expect(before.statusCode).toBe(200);
+    const originalTitle = before.json().Title as string;
+    expect(originalTitle).toBe("Cường hóa vũ khí Lv5"); // vendor source text, no overlay yet
+    expect(before.json().Title__original).toBe(originalTitle); // no overlay = original mirrors raw
+
+    const patch = await app.inject({ method: "PATCH", url: "/api/admin/quests/4", headers: auth, payload: { Title: "Fortalecer Arma Nv5", NeedMinLevel: 2 } });
+    expect(patch.statusCode).toBe(200);
+    expect(patch.json().Title).toBe("Fortalecer Arma Nv5"); // overlay, returned immediately
+    expect(patch.json().Title__original).toBe(originalTitle); // raw untouched
+    expect(patch.json().NeedMinLevel).toBe(2); // non-translatable field still writes the raw column normally
+
+    const after = await app.inject({ url: "/api/admin/quests/4", headers: auth });
+    expect(after.json().Title).toBe("Fortalecer Arma Nv5");
+    expect(after.json().Title__original).toBe(originalTitle);
+
+    // the raw game."Quest" row itself was never touched by the PATCH to Title (only NeedMinLevel, a real column)
+    const raw = await q1<{ Title: string }>(h, sql`SELECT "Title" FROM game."Quest" WHERE "ID" = 4`);
+    expect(raw?.Title).toBe(originalTitle);
+  });
+
   // admin-ux "ref" field (apps/admin/src/crud/refs.ts): ONE request resolves every row a table page needs for a
   // given target resource (never N+1). `?ids=` bypasses pagination/search/sort and returns exactly those rows.
   it("?ids= batched lookup: returns exactly the matching rows, ignores pagination, rejects composite-PK resources", async () => {
@@ -818,6 +846,19 @@ describe("static + public", () => {
     expect(miss.headers["content-type"]).toContain("image/png");
     const m = await app.inject({ url: "/api/admin/assets/misses", headers: { authorization: `Bearer ${adminToken}` } });
     expect(m.json()[0].path).toContain("cloth");
+  });
+
+  // site-admin-redesign: admin game-window previews read the client's exported UI art through this route
+  // (not a hardcoded client dev-server port). Resolved on demand (no eager CiTree index — see static.ts's
+  // comment on this route for why: ~153k files under apps/client/public/assets).
+  it("/client-assets/ serves the PixiJS client's exported UI art read-only, rejects traversal", async () => {
+    const lib = await app.inject({ url: "/client-assets/flash/ui/vietnam/swf/quest/library.json" });
+    expect(lib.statusCode).toBe(200);
+    expect(lib.headers["content-type"]).toContain("json");
+    const parsed = JSON.parse(lib.body);
+    expect(parsed.chars).toBeTruthy();
+    expect((await app.inject({ url: "/client-assets/../../../package.json" })).statusCode).toBe(404);
+    expect((await app.inject({ url: "/client-assets/flash/ui/vietnam/swf/quest/does-not-exist.png" })).statusCode).toBe(404);
   });
 
   it("dailyloglist.ashx answers value=true (else the client's startup queue never loads the mail list)", async () => {

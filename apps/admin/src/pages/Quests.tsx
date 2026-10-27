@@ -32,13 +32,9 @@ import {
   Card,
   EmptyState,
   Field,
-  GamePanel,
-  GamePanelBody,
-  GamePanelHeader,
   Hotspot,
   Input,
   PageHeader,
-  RewardChip,
   Skeleton,
   Tabs,
   TabsContent,
@@ -46,16 +42,34 @@ import {
   TabsTrigger,
   cn,
 } from "@ddtank/ui";
-import { Award, Circle, Coins, Flame, MapPin, Save, ScrollText, Search, ShieldCheck, Ticket, Zap } from "lucide-react";
+import { Minus, MapPin, Plus, Save, ScrollText, Search } from "lucide-react";
 import { useI18n, useText } from "@/i18n";
 import { getQuery, listQuery, useResourceMutations } from "@/crud/api";
 import { FieldInput } from "@/crud/FieldInput";
+import { FlashImg, useFlashLibrary, resolveFlashAsset } from "@/lib/flashAssets";
 import { ResourcePage } from "@/crud/ResourcePage";
 import { buildSchema, fieldInForm, fromFormValues, toFormValues } from "@/crud/schema";
 import type { FieldDef, Row } from "@/crud/types";
 import { getItemCached, type ItemResumo } from "@/resources/items";
 import { getRefCached } from "@/crud/refs";
 import { questConditions, questGoods, quests } from "@/resources/content";
+
+/** The quest window's exported art module (`apps/client/public/assets/flash/ui/vietnam/swf/quest/`) — see
+ * `vendor/DDTank41/Source Flash/src/quest/QuestInfoPanelView.as`/`QuestRewardView.as` for the component this
+ * mirrors, and `FlashImg`'s doc comment for how the art is served. Every PNG referenced below was visually
+ * verified to already carry pt-BR text (e.g. "Objetivo da tarefa:", "Recompensa:", "Prêmios a escolher:") —
+ * it's the same export the live client uses, not the vendor Vietnamese/Chinese original. */
+const QUEST_MODULE = "quest";
+/** AS3 class -> currency reward icon, in `QuestRewardView.as` `addReward`'s switch order (exp/gold/coin/
+ * rich/honor/gift/medal/rank) — `rich` and `rank` have no field in `quests.fields` yet, skipped; `medal` is
+ * skipped here on purpose too, matching `addReward`'s own early return for it (never shown in-game either). */
+const CURRENCY_REWARD_ART: { field: string; asset: string; title: string }[] = [
+  { field: "RewardGP", asset: "asset.core.quest.RewardText.Type1", title: "Experiência" },
+  { field: "RewardGold", asset: "asset.core.quest.RewardText.Type2", title: "Ouro" },
+  { field: "RewardMoney", asset: "asset.core.quest.RewardText.Type3", title: "Cupons" },
+  { field: "RewardOffer", asset: "asset.core.quest.RewardText.Type5", title: "Mérito" },
+  { field: "RewardGiftToken", asset: "asset.core.quest.RewardText.Type6", title: "Medalhas" },
+];
 
 type QuestRow = Row & { ID: number; Title?: string };
 
@@ -101,8 +115,12 @@ function QuestPicker({ selectedId, onSelect }: { selectedId: number | null; onSe
   );
 }
 
-/** One real item reward in the preview: icon via the existing `/api/admin/item-icons/:id.png` cache. */
+/** One real item reward cell: `QuestRewardCellBG` (the actual in-game reward-slot art, 158×55 — icon well on
+ *  the left, wood nameplate on the right) with a real item icon (`/api/admin/item-icons/:id.png`) and name
+ *  overlaid, matching `QuestRewardCell.as`'s layout. */
 function GoodsChip({ row, onFocus, active }: { row: Row; onFocus: () => void; active: boolean }) {
+  const { data: lib } = useFlashLibrary(QUEST_MODULE);
+  const cellBg = resolveFlashAsset(lib, QUEST_MODULE, "asset.core.quest.QuestRewardCellBG");
   const [item, setItem] = useState<ItemResumo | null>(null);
   const templateId = Number(row.RewardItemID);
   useEffect(() => {
@@ -113,15 +131,41 @@ function GoodsChip({ row, onFocus, active }: { row: Row; onFocus: () => void; ac
     };
   }, [templateId]);
   return (
-    <Hotspot label={`Editar prêmio ${item?.Name ?? `#${templateId}`}`} active={active} onClick={onFocus}>
-      <RewardChip
-        iconUrl={item?.iconUrl}
-        tone={row.IsSelect ? "grape" : "sun"}
-        label={`×${row.RewardItemCount ?? 1}`}
-        title={item?.Name ?? `#${templateId}`}
-      />
+    <Hotspot
+      label={`Editar prêmio ${item?.Name ?? `#${templateId}`}`}
+      active={active}
+      onClick={onFocus}
+      className="relative block shrink-0 overflow-hidden bg-cover bg-center p-0"
+      style={{ width: 158, height: 55, backgroundImage: cellBg ? `url(${cellBg.url})` : undefined }}
+    >
+      {item?.iconUrl && <img src={item.iconUrl} alt="" className="absolute left-[6px] top-[6px] size-10 object-contain" />}
+      <span className="absolute left-[52px] right-2 top-2 truncate text-left text-[11px] font-semibold text-[#ffff99]">{item?.Name ?? `#${templateId}`}</span>
+      <span className="absolute bottom-1.5 left-[52px] font-mono text-[10px] text-white">{`×${row.RewardItemCount ?? 1}`}</span>
+      {!!row.IsSelect && <span className="absolute right-1 top-1 rounded-sm bg-grape/80 px-1 text-[9px] font-bold text-white">opcional</span>}
     </Hotspot>
   );
+}
+
+/** Zoom controls (the owner asked for "1:1 scale (with zoom)", not a shrink-to-fit card): the preview below
+ *  renders at the window's real content width (560px, from `QuestRewardCell`'s 2×186px grid +
+ *  `QuestInfoPanelView`'s left margin) and `zoom` (CSS `zoom`, reflows layout — unlike `transform: scale`,
+ *  which would leave stale empty space) scales it for the admin's screen. */
+function useZoom(initial = 0.85) {
+  const [zoom, setZoom] = useState(initial);
+  return {
+    zoom,
+    controls: (
+      <div className="flex items-center justify-end gap-1">
+        <Button type="button" size="icon" variant="secondary" aria-label="Diminuir zoom" onClick={() => setZoom((z) => Math.max(0.4, +(z - 0.1).toFixed(2)))}>
+          <Minus className="size-4" />
+        </Button>
+        <span className="w-12 text-center font-mono text-xs text-muted">{Math.round(zoom * 100)}%</span>
+        <Button type="button" size="icon" variant="secondary" aria-label="Aumentar zoom" onClick={() => setZoom((z) => Math.min(1.5, +(z + 0.1).toFixed(2)))}>
+          <Plus className="size-4" />
+        </Button>
+      </div>
+    ),
+  };
 }
 
 /** One quest-chain map thumbnail: reuses `/api/admin/map-icons/:id.png` (same art the dungeon card will use). */
@@ -162,124 +206,179 @@ interface QuestPreviewProps {
   onOpenRewards: () => void;
 }
 
-/** The game window itself: `GamePanel` dressed like `QuestInfoPanelView`/`QuestRewardView` (see file banner). */
+/** A real section-label bitmap (e.g. "Objetivo da tarefa:", "Recompensa:") as a `Hotspot` header — the label
+ *  art itself isn't editable (it's not game data), so focus lands on `focusField` when one's given. */
+function SectionLabel({ asset, focused, onFocus, focusField }: { asset: string; focused: string | null; onFocus: (n: string) => void; focusField?: string }) {
+  const { data: lib } = useFlashLibrary(QUEST_MODULE);
+  const art = resolveFlashAsset(lib, QUEST_MODULE, asset);
+  if (!art) return null;
+  const img = <img src={art.url} alt="" className="h-auto" />;
+  return focusField ? (
+    <Hotspot active={focused === focusField} onClick={() => onFocus(focusField)} className="mb-1.5 inline-block p-0.5">
+      {img}
+    </Hotspot>
+  ) : (
+    <div className="mb-1.5">{img}</div>
+  );
+}
+
+/** The game window itself — real exported art (quest module) laid out per `QuestInfoPanelView.as`/
+ *  `QuestRewardView.as`'s structure: title bar, level/repeat/map badges, description, objective, required/
+ *  optional conditions, currency rewards, item reward cells. See `useZoom`'s comment for the 560px content
+ *  width this renders at. */
 function QuestPreview({ quest, conditions, goods, focused, onFocus, onOpenConditions, onOpenRewards }: QuestPreviewProps) {
   const { t } = useI18n();
+  const { data: lib } = useFlashLibrary(QUEST_MODULE);
+  const { zoom, controls } = useZoom();
+  const titleBg = resolveFlashAsset(lib, QUEST_MODULE, "asset.core.quest.titleBG");
+  const leather = resolveFlashAsset(lib, QUEST_MODULE, "asset.core.quest.leftBGStyle1");
   const necessary = conditions.filter((c) => !c.isOpitional);
   const optional = conditions.filter((c) => c.isOpitional);
-
-  const currencyRewards: { key: string; icon: typeof Zap; tone: "mint" | "sun" | "sky" | "grape" | "coral"; label: string; title: string }[] = [];
   const n = (v: unknown) => Number(v) || 0;
-  if (n(quest.RewardGP) > 0) currencyRewards.push({ key: "RewardGP", icon: Zap, tone: "mint", label: `+${quest.RewardGP}`, title: "Experiência" });
-  if (n(quest.RewardGold) > 0) currencyRewards.push({ key: "RewardGold", icon: Coins, tone: "sun", label: `+${quest.RewardGold}`, title: "Ouro" });
-  if (n(quest.RewardMoney) > 0) currencyRewards.push({ key: "RewardMoney", icon: Ticket, tone: "sky", label: `+${quest.RewardMoney}`, title: "Cupons" });
-  if (n(quest.RewardOffer) > 0) currencyRewards.push({ key: "RewardOffer", icon: ShieldCheck, tone: "grape", label: `+${quest.RewardOffer}`, title: "Mérito" });
-  if (n(quest.RewardGiftToken) > 0) currencyRewards.push({ key: "RewardGiftToken", icon: Award, tone: "coral", label: `+${quest.RewardGiftToken}`, title: "Medalhas" });
-  if (n(quest.RewardBuffID) > 0) currencyRewards.push({ key: "RewardBuffID", icon: Flame, tone: "coral", label: `${quest.RewardBuffDate ?? 0}h`, title: "Buff" });
+  const activeCurrency = CURRENCY_REWARD_ART.filter((c) => n(quest[c.field]) > 0);
 
   return (
-    <GamePanel>
-      <GamePanelHeader
-        icon={ScrollText}
-        title={
-          // No explicit `label`: the hotspot's visible text IS the quest title, so it should also be this
-          // <h3>'s accessible name — an override here would make the heading announce "edit title" instead.
-          <Hotspot active={focused === "Title"} onClick={() => onFocus("Title")}>
-            {String(quest.Title || "—")}
-          </Hotspot>
-        }
-      />
-      <GamePanelBody>
-        <div className="flex flex-wrap gap-2">
-          <Hotspot active={focused === "NeedMinLevel" || focused === "NeedMaxLevel"} onClick={() => onFocus("NeedMinLevel")}>
-            <Badge tone="sky">{t("quests.levelRange", { min: String(quest.NeedMinLevel ?? 1), max: String(quest.NeedMaxLevel ?? 100) })}</Badge>
-          </Hotspot>
-          {!!quest.CanRepeat && (
-            <Hotspot active={focused === "CanRepeat"} onClick={() => onFocus("CanRepeat")}>
-              <Badge tone="mint">{t("quests.repeatable")}</Badge>
-            </Hotspot>
-          )}
-          {n(quest.MapID) > 0 && <MapThumb mapId={n(quest.MapID)} active={focused === "MapID"} onClick={() => onFocus("MapID")} />}
-        </div>
+    <div className="flex flex-col gap-2">
+      {controls}
+      <div className="overflow-auto rounded-2xl border border-line bg-night-deep/60 p-4">
+        {/* 560px = the window's real content width (QuestRewardCell's 2×186px grid + ROW_X=18 left margin,
+         *  QuestRewardView.as/QuestRewardCell.as) — not an arbitrary card width. */}
+        <div style={{ zoom, width: 560 }} className="mx-auto select-none">
+          <div
+            className="relative rounded-lg border-[3px] p-4"
+            style={{
+              borderColor: "#8a6a3a",
+              backgroundColor: "#2b1a0e",
+              backgroundImage: leather ? `url(${leather.url})` : undefined,
+              backgroundRepeat: "repeat",
+              boxShadow: "0 18px 40px -18px rgb(0 0 0 / 0.85), inset 0 0 0 1px rgb(0 0 0 / 0.4)",
+            }}
+          >
+            <h3 className="relative mb-3 flex items-center justify-center" style={{ height: 35 }}>
+              {titleBg && <img src={titleBg.url} alt="" className="absolute inset-0 h-full w-full" style={{ objectFit: "fill" }} />}
+              <Hotspot
+                active={focused === "Title"}
+                onClick={() => onFocus("Title")}
+                className="title-plate relative z-10 px-2 text-base text-[#ffe564]"
+                style={{ textShadow: "0 2px 0 #000" }}
+              >
+                {String(quest.Title || "—")}
+              </Hotspot>
+            </h3>
 
-        <Hotspot active={focused === "Detail"} onClick={() => onFocus("Detail")} className="block w-full p-2">
-          <p className="text-sm text-ink">{String(quest.Detail || "—")}</p>
-        </Hotspot>
-
-        {!!quest.Objective && (
-          <Hotspot active={focused === "Objective"} onClick={() => onFocus("Objective")} className="block w-full p-2">
-            <p className="font-display text-sm text-sun">{String(quest.Objective)}</p>
-          </Hotspot>
-        )}
-
-        <div className="rounded-xl border border-line/70 bg-night-deep/30 p-3">
-          <div className="mb-2 flex items-center justify-between">
-            <h4 className="title-plate text-sm text-ink">{t("quests.conditions")}</h4>
-            <Button type="button" size="sm" variant="ghost" onClick={onOpenConditions}>
-              {t("quests.editConditions")}
-            </Button>
-          </div>
-          {conditions.length === 0 ? (
-            <p className="text-xs text-muted">{t("quests.conditionsEmpty")}</p>
-          ) : (
-            <div className="flex flex-col gap-2">
-              {necessary.length > 0 && (
-                <div>
-                  <p className="mb-1 text-[11px] font-semibold uppercase tracking-wide text-muted">{t("quests.necessary")}</p>
-                  {necessary.map((c) => (
-                    <ConditionRow key={String(c.CondictionID)} row={c} />
-                  ))}
-                </div>
+            <div className="mb-3 flex flex-wrap gap-2">
+              <Hotspot active={focused === "NeedMinLevel" || focused === "NeedMaxLevel"} onClick={() => onFocus("NeedMinLevel")}>
+                <Badge tone="sky">{t("quests.levelRange", { min: String(quest.NeedMinLevel ?? 1), max: String(quest.NeedMaxLevel ?? 100) })}</Badge>
+              </Hotspot>
+              {!!quest.CanRepeat && (
+                <Hotspot active={focused === "CanRepeat"} onClick={() => onFocus("CanRepeat")}>
+                  <Badge tone="mint">{t("quests.repeatable")}</Badge>
+                </Hotspot>
               )}
-              {optional.length > 0 && (
-                <div>
-                  <p className="mb-1 text-[11px] font-semibold uppercase tracking-wide text-muted">{t("quests.optional")}</p>
-                  {optional.map((c) => (
-                    <ConditionRow key={String(c.CondictionID)} row={c} />
-                  ))}
-                </div>
+              {n(quest.MapID) > 0 && <MapThumb mapId={n(quest.MapID)} active={focused === "MapID"} onClick={() => onFocus("MapID")} />}
+            </div>
+
+            <SectionLabel asset="asset.core.quest.QuestInfoDescTitle" focused={focused} onFocus={onFocus} focusField="Detail" />
+            <Hotspot active={focused === "Detail"} onClick={() => onFocus("Detail")} className="mb-3 block w-full p-1.5">
+              <p className="text-sm leading-relaxed text-[#eeeeee]">{String(quest.Detail || "—")}</p>
+            </Hotspot>
+
+            {!!quest.Objective && (
+              <Hotspot active={focused === "Objective"} onClick={() => onFocus("Objective")} className="mb-3 block w-full p-1.5">
+                <p className="font-display text-sm text-[#ffde00]">{String(quest.Objective)}</p>
+              </Hotspot>
+            )}
+
+            <div className="mb-3">
+              {conditions.length === 0 ? (
+                <>
+                  <SectionLabel asset="asset.core.quest.necessary" focused={focused} onFocus={onFocus} />
+                  <p className="text-xs text-[#cbb892]">{t("quests.conditionsEmpty")}</p>
+                  <Button type="button" size="sm" variant="ghost" className="mt-1" onClick={onOpenConditions}>
+                    {t("quests.editConditions")}
+                  </Button>
+                </>
+              ) : (
+                <>
+                  {necessary.length > 0 && (
+                    <div className="mb-2">
+                      <SectionLabel asset="asset.core.quest.necessary" focused={focused} onFocus={onFocus} />
+                      {necessary.map((c) => (
+                        <ConditionRow key={String(c.CondictionID)} row={c} onClick={onOpenConditions} />
+                      ))}
+                    </div>
+                  )}
+                  {optional.length > 0 && (
+                    <div>
+                      <SectionLabel asset="asset.core.quest.notNecessary" focused={focused} onFocus={onFocus} />
+                      {optional.map((c) => (
+                        <ConditionRow key={String(c.CondictionID)} row={c} onClick={onOpenConditions} />
+                      ))}
+                    </div>
+                  )}
+                </>
               )}
             </div>
-          )}
-        </div>
 
-        <div className="rounded-xl border border-line/70 bg-night-deep/30 p-3">
-          <div className="mb-2 flex items-center justify-between">
-            <h4 className="title-plate text-sm text-ink">{t("quests.rewards")}</h4>
-            <Button type="button" size="sm" variant="ghost" onClick={onOpenRewards}>
-              {t("quests.editRewards")}
-            </Button>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {currencyRewards.map((r) => (
-              <Hotspot key={r.key} label={`Editar recompensa ${r.title}`} active={focused === r.key} onClick={() => onFocus(r.key)}>
-                <RewardChip icon={r.icon} tone={r.tone} label={r.label} title={r.title} />
-              </Hotspot>
-            ))}
-            {goods.map((g) => (
-              <GoodsChip key={`${g.QuestID}-${g.RewardItemID}`} row={g} active={false} onFocus={onOpenRewards} />
-            ))}
-            {currencyRewards.length === 0 && goods.length === 0 && <p className="text-xs text-muted">{t("quests.rewardsEmpty")}</p>}
+            <div>
+              <SectionLabel asset="asset.core.quest.RewardText.OptionalTitle" focused={focused} onFocus={onFocus} />
+              <div className="mb-2 flex flex-wrap items-center gap-3">
+                {activeCurrency.map((c) => (
+                  <Hotspot key={c.field} label={`Editar recompensa ${c.title}`} active={focused === c.field} onClick={() => onFocus(c.field)} className="inline-flex items-center gap-1 p-1">
+                    <FlashImg module={QUEST_MODULE} className={c.asset} alt={c.title} />
+                    <span className="font-mono text-xs text-[#ffde00]">+{String(quest[c.field])}</span>
+                  </Hotspot>
+                ))}
+              </div>
+              {goods.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {goods.map((g) => (
+                    <GoodsChip key={`${g.QuestID}-${g.RewardItemID}`} row={g} active={false} onFocus={onOpenRewards} />
+                  ))}
+                </div>
+              )}
+              {activeCurrency.length === 0 && goods.length === 0 && <p className="text-xs text-[#cbb892]">{t("quests.rewardsEmpty")}</p>}
+              <Button type="button" size="sm" variant="ghost" className="mt-2" onClick={onOpenRewards}>
+                {t("quests.editRewards")}
+              </Button>
+            </div>
           </div>
         </div>
-      </GamePanelBody>
-    </GamePanel>
+      </div>
+    </div>
   );
 }
 
 /** Per-player progress (status/isComplete in `QuestConditionView.as`) isn't admin data — this is the
- *  condition's definition, always shown as pending (`Circle`), not a specific player's state. */
-function ConditionRow({ row }: { row: Row }) {
+ *  condition's definition, always shown as pending, not a specific player's state. Clicking jumps to the
+ *  "Condições" tab (conditions are edited there, not in the side panel — see file banner). */
+function ConditionRow({ row, onClick }: { row: Row; onClick: () => void }) {
   return (
-    <div className="flex items-center gap-2 py-1 text-sm text-ink">
-      <Circle className="size-4 shrink-0 text-muted" aria-hidden />
-      <span className="min-w-0 flex-1 truncate">{String(row.CondictionTitle || "—")}</span>
-    </div>
+    <Hotspot onClick={onClick} className="mb-0.5 flex w-full items-center gap-2 px-1.5 py-1 text-left text-sm">
+      <span className="size-1.5 shrink-0 rounded-full bg-[#ffde00]" aria-hidden />
+      <span className="min-w-0 flex-1 truncate text-[#ffde00]">{String(row.CondictionTitle || "—")}</span>
+    </Hotspot>
   );
 }
 
 /** Side panel: every editable `quests` field, grouped by `section` — same grouping `SchemaForm` uses — each
  *  wrapped so `focus(name)` (triggered by a preview `Hotspot`) can scroll to it and highlight it. */
+/**
+ * "Original (VN)" reference (site-admin-redesign, owner's fix #1): `<field>__original` comes from the admin
+ * API's translation overlay (`apps/api/src/lib/i18n-admin.ts`) — always the raw vendor `game."Quest"` value,
+ * read-only, never what's saved. Shown only when it differs from the current (pt-BR overlay or still-raw)
+ * value, so an already-translated field doesn't repeat itself.
+ */
+function OriginalTextNote({ data, field }: { data: Row; field: string }) {
+  const original = data[`${field}__original`];
+  if (typeof original !== "string" || !original.trim() || original === data[field]) return null;
+  return (
+    <p className="mt-1 line-clamp-2 rounded-lg bg-night-deep/50 px-2 py-1 text-xs text-muted" title={original}>
+      <span className="font-semibold text-muted/80">Original (VN):</span> {original}
+    </p>
+  );
+}
+
 function QuestEditor({ questId, onOpenConditions, onOpenRewards }: { questId: number; onOpenConditions: () => void; onOpenRewards: () => void }) {
   const { t } = useI18n();
   const text = useText();
@@ -367,6 +466,7 @@ function QuestEditor({ questId, onOpenConditions, onOpenRewards }: { questId: nu
                         )}
                       />
                     </Field>
+                    <OriginalTextNote data={data} field={f.name} />
                   </div>
                 ))}
               </div>

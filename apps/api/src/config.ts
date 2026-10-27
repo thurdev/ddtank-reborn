@@ -61,6 +61,14 @@ const schema = z.object({
   REQUEST_SNAPSHOT_DIR: z.string().default(resolve(APP_ROOT, "assets", "request")),
   /** Ruffle self-hosted build (ruffle.js + wasm). Served at /ruffle/. */
   RUFFLE_DIR: z.string().default(resolve(REPO_ROOT, "apps", "client-harness", "public", "ruffle")),
+  /**
+   * PixiJS client's exported UI art tree (site-admin-redesign): `flash/ui/vietnam/swf/<module>/library.json`
+   * + PNGs, `tools/swf-export`'s output, docs/client-pixi/ASSETS.md. Served read-only at `/client-assets/`
+   * so the admin's game-window previews can use the SAME art the client does, from a stable backend URL
+   * (not a hardcoded client dev-server port). `apps/client/public/assets` is a junction to generated art —
+   * never written here, same as every other static tree in this file.
+   */
+  CLIENT_ASSETS_DIR: z.string().default(resolve(REPO_ROOT, "apps", "client", "public", "assets")),
   RUFFLE_URL: z.string().default(""),
   /** Cliente PixiJS (apps/client), ex.: http://localhost:5180/. Definido = o site abre ele num iframe em vez do Ruffle (só cliente 4.1). Em dev o padrão é http://localhost:5180/; "off" desliga. */
   PIXI_CLIENT_URL: z.string().default(""),
@@ -125,7 +133,7 @@ export type Config = z.infer<typeof schema> & { rsaKeyText: string; rsaKeySource
 export function loadConfig(env: Record<string, string | undefined> = process.env, overrides: Partial<Config> = {}): Config {
   const parsed = schema.parse({ ...env, ...overrides });
   const c = { ...parsed, ...overrides } as Config;
-  for (const k of ["FLASH_DIR", "FLASH6600_DIR", "CONFIG6600_FILE", "REQUEST6600_SNAPSHOT_DIR", "RESOURCE_DIR", "REQUEST_SNAPSHOT_DIR", "RUFFLE_DIR", "UPLOAD_DIR"] as const) {
+  for (const k of ["FLASH_DIR", "FLASH6600_DIR", "CONFIG6600_FILE", "REQUEST6600_SNAPSHOT_DIR", "RESOURCE_DIR", "REQUEST_SNAPSHOT_DIR", "RUFFLE_DIR", "UPLOAD_DIR", "CLIENT_ASSETS_DIR"] as const) {
     const v = c[k];
     if (v && !isAbsolute(v)) c[k] = resolve(APP_ROOT, v);
   }
