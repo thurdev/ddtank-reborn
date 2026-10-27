@@ -1,13 +1,19 @@
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { ApiError, Badge, Button, Card, CardContent, CardHeader, CardTitle, EmptyState, Field, Input, PageHeader, Skeleton, Switch, Textarea, cn } from "@ddtank/ui";
-import { Check, Copy, Heart } from "lucide-react";
+import { Check, Coffee, Copy, Heart, Server } from "lucide-react";
 import { createDonation, donationStatusQuery, donationSummaryQuery, type DonationCharge } from "@/lib/api";
 import { useI18n } from "@/i18n";
 import { useSeo } from "@/lib/seo";
 import { fadeUp, stagger } from "@/lib/motion";
+
+/** Official donation link for the DDTank Reborn project (site-admin-redesign) — Buy Me a Coffee, not Pix:
+ *  Pix below is a self-host tool (anyone running their own fork can wire their own key), not this project's
+ *  donation channel, so it moved to its own route (`/apoiar/pix`, `ApoiarPixPage`) instead of being deleted. */
+export const BUY_ME_A_COFFEE_URL = "https://buymeacoffee.com/3vdopcs";
 
 const PRESETS_CENTS = [1000, 2000, 5000, 10000];
 const centsToBRL = (c: number) => (c / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -165,15 +171,79 @@ function DonateForm({ minCents, maxCents, onCreated }: { minCents: number; maxCe
   );
 }
 
+/**
+ * site-admin-redesign: the official "Apoiar" page. Buy Me a Coffee (`BUY_ME_A_COFFEE_URL`) is the project's
+ * actual donation channel — a Pix flow lived here before, but Pix needs a per-server receiving key, so it
+ * only makes sense for someone hosting their own fork, not as "the" way to support this official server.
+ * That flow is kept, relabeled and moved to `/apoiar/pix` (`ApoiarPixPage` below), linked from here.
+ */
 export function ApoiarPage() {
   const { t } = useI18n();
-  const [charge, setCharge] = useState<DonationCharge | null>(null);
-  const { data: summary, isLoading } = useQuery(donationSummaryQuery);
   useSeo({ title: t("apoiar.title"), description: t("apoiar.lead") });
 
   return (
-    <motion.div variants={stagger(0, 0.08)} initial="hidden" animate="show" className="mx-auto max-w-3xl px-4 py-12">
+    <motion.div variants={stagger(0, 0.08)} initial="hidden" animate="show" className="mx-auto max-w-2xl px-4 py-12">
       <PageHeader title={t("apoiar.title")} description={t("apoiar.lead")} />
+
+      <motion.div variants={fadeUp}>
+        <Card className="mb-6 border-mint/40 bg-mint/5">
+          <CardContent className="flex flex-col gap-2 p-5 text-sm text-muted">
+            <p>
+              <Badge tone="mint" className="mr-2">
+                {t("apoiar.noP2wBadge")}
+              </Badge>
+              {t("apoiar.noP2wBody")}
+            </p>
+            <p>{t("apoiar.nonProfitBody")}</p>
+          </CardContent>
+        </Card>
+      </motion.div>
+
+      <motion.div variants={fadeUp}>
+        <Card className="mb-6 overflow-hidden border-sun/40">
+          <CardContent className="flex flex-col items-center gap-4 p-8 text-center">
+            <span className="grid size-16 place-items-center rounded-2xl bg-sun/15 text-sun">
+              <Coffee className="size-8" aria-hidden />
+            </span>
+            <div>
+              <h2 className="title-plate text-2xl text-ink">{t("apoiar.bmcTitle")}</h2>
+              <p className="mx-auto mt-2 max-w-sm text-muted">{t("apoiar.bmcBody")}</p>
+            </div>
+            <Button size="xl" asChild>
+              <a href={BUY_ME_A_COFFEE_URL} target="_blank" rel="noopener noreferrer">
+                <Coffee /> {t("apoiar.bmcCta")}
+              </a>
+            </Button>
+          </CardContent>
+        </Card>
+      </motion.div>
+
+      <motion.div variants={fadeUp} className="mb-6 flex items-center gap-3 rounded-2xl border border-line bg-panel p-5 text-sm">
+        <Server className="size-6 shrink-0 text-sky" aria-hidden />
+        <p className="flex-1 text-muted">{t("apoiar.selfHostBody")}</p>
+        <Link to="/apoiar/pix" className="shrink-0 font-semibold text-sky underline-offset-4 hover:underline">
+          {t("apoiar.selfHostLink")}
+        </Link>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+export function ApoiarPixPage() {
+  const { t } = useI18n();
+  const [charge, setCharge] = useState<DonationCharge | null>(null);
+  const { data: summary, isLoading } = useQuery(donationSummaryQuery);
+  useSeo({ title: t("apoiar.pix.title"), description: t("apoiar.pix.lead") });
+
+  return (
+    <motion.div variants={stagger(0, 0.08)} initial="hidden" animate="show" className="mx-auto max-w-3xl px-4 py-12">
+      <PageHeader title={t("apoiar.pix.title")} description={t("apoiar.pix.lead")} />
+
+      <motion.div variants={fadeUp}>
+        <Card className="mb-6 border-sky/40 bg-sky/5">
+          <CardContent className="p-5 text-sm text-muted">{t("apoiar.pix.selfHostNote")}</CardContent>
+        </Card>
+      </motion.div>
 
       <motion.div variants={fadeUp}>
         <Card className="mb-6 border-mint/40 bg-mint/5">

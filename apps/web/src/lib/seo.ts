@@ -3,12 +3,14 @@ import { useEffect } from "react";
 export interface SeoOptions {
   title: string;
   description?: string;
-  /** Absolute or root-relative path to the social preview image. Defaults to the DDTank Reborn logo. */
+  /** Absolute or root-relative path to the social preview image. Defaults to a real screenshot of the
+   *  character-creation screen (`public/art/og-cover.jpg`, site-admin-redesign — captured via Playwright
+   *  against the dev client with a throwaway test account, see `README.md` "Arte"). */
   image?: string;
 }
 
 const SITE_NAME = "DDTank Reborn";
-const DEFAULT_IMAGE = "/play/logo.webp";
+const DEFAULT_IMAGE = "/art/og-cover.jpg";
 
 function setMeta(attr: "name" | "property", key: string, content: string) {
   let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${key}"]`);

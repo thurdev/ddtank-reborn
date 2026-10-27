@@ -135,14 +135,39 @@ padrão de referência para as próximas. #2-#5 ficam para sessões seguintes (v
       typecheck limpos.
 
       **Fase 2 completa** (5/5 editores visuais: Missões, Instâncias, Eventos, Itens/Loja, NPCs/Bosses).
-- [ ] Fase 3 — site: Home (hero/features/ranking/news), Jogar (polimento sem regressão), Apoiar/
-      Transparência (link Buy Me a Coffee), Conta, responsivo, SEO.
+- [~] Fase 3 — site (Jogar **fora de escopo**, dono agora é `multi-char` — ver nota de divisão de escopo
+      no topo). Feito nesta rodada:
+  - [x] **Home — screenshot real**: `public/art/screenshot-char-select.webp` (seção nova "É o jogo de
+        verdade", entre Features e Notícias, `RealScreenshot` em `src/pages/Home.tsx`) + `public/art/
+        og-cover.jpg` (card de compartilhamento padrão, `src/lib/seo.ts` `DEFAULT_IMAGE` — antes caía no
+        `logo.webp`). Ambos a MESMA captura real (Playwright contra `:5173`/`:5180` com uma conta de
+        teste descartável `screenshot_bot`, criada via `/api/auth/register` — nunca a do dono; sessão do
+        navegador encerrada depois). Nenhum Higgsfield usado (arte real bastou pra esta peça).
+  - [x] **Apoiar — Buy Me a Coffee**: `/apoiar` virou a página oficial de doação
+        (`https://buymeacoffee.com/3vdopcs`, CTA principal) — o fluxo de Pix que existia ali não é o canal
+        oficial (precisa de uma chave Pix por servidor, só faz sentido pra quem hospeda o próprio fork),
+        então foi **realocado**, não apagado: `/apoiar/pix` (`ApoiarPixPage`), com aviso explícito de que é
+        ferramenta self-host. `/apoiar` linka pra lá pra quem precisar.
+    - ⚠️ Nota pro dono: `Transparência` (`/transparencia`) ainda soma só doações via Pix
+      (`donationSummaryQuery`) — doações pelo Buy Me a Coffee **não aparecem lá automaticamente** (BMC é uma
+      plataforma externa, sem integração/webhook nesta tarefa). Se quiser os dois num só total, precisa de
+      uma integração futura (fora do escopo desta rodada).
+  - [ ] Home: hero dedicado (`public/art/hero-bg.webp`, ainda reaproveitando o fundo da página Jogar —
+        pendente, ver `apps/web/README.md` "Arte"), pódio no ranking (já existia da `site-design`, não
+        revisado nesta rodada).
+  - [ ] Conta, responsivo (revisão dedicada), SEO (além do `og-cover` — títulos/descrições por página já
+        existiam da `site-design`, não revisados nesta rodada).
+  - Testes: `apps/web/src/pages/Apoiar.test.tsx` (3, novo). Suite completa do web (14) e typecheck
+    limpos.
 
 ## 5. Arte
 
-Sem geração nova nesta sessão. Ícones de item reaproveitam `/api/admin/item-icons/:id.png` (já existe,
+- `apps/web/public/art/og-cover.jpg` e `screenshot-char-select.webp` — real, Playwright (ver fase 3 acima).
+
+Fora isso, nenhuma geração nova nesta sessão. Ícones de item reaproveitam `/api/admin/item-icons/:id.png` (já existe,
 gerado por IA e cacheado — ver `docs/features/admin.md` §2). Moedas/recompensas não-item (exp, ouro, cupom,
 honra) usam ícone `lucide-react` + tom do design system (não existe asset SWF mapeado 1:1 pra isso sem
 exportar `quest.swf` de novo, fora do escopo read-only do vendor). Thumbnail de mapa reaproveita
-`/api/admin/map-icons/:id.png` (já existe). Se/quando o dono gerar key-art nova pro site (`hero-bg.webp`,
-`og-cover.jpg`), entra na fase 3 — não gerado nesta sessão (ver "O que falta").
+`/api/admin/map-icons/:id.png` (já existe). `og-cover.jpg` já tem uma versão real (acima); `hero-bg.webp`
+dedicado continua pendente — key-art gerada (Higgsfield) fica pra uma rodada futura se o dono preferir arte
+original à captura real.
