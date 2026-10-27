@@ -297,8 +297,15 @@ export class PveGame extends BaseGame {
     this.WantTryAgain = 0;
     const mi = this.Misssions.get(this.SessionId);
     if (!mi) {
-      this.log(`pve ${this.id}: no mission for session ${this.SessionId}`);
-      this.state = GameState.ALLSessionStopped;
+      // A data gap (Mission_Info row missing for a SetupMissions id) must never strand the client on a
+      // black screen waiting for a stage that will never load. Roll back to the last session that actually
+      // completed and re-enter GameOver so the normal hasNextSession()/gameOverAllSession() path runs: it
+      // emits GAME_ALL_MISSION_OVER (win/lose screen + cards) exactly as if this had legitimately been the
+      // last mission in the chain, instead of jumping to ALLSessionStopped directly (which skips that
+      // emission entirely -- the bug behind task pve-qa item 1, "Bugo Castle: start -> black screen").
+      this.log(`pve ${this.id}: no mission for session ${this.SessionId} -> ending dungeon cleanly instead of stalling`);
+      this.SessionId--;
+      this.state = GameState.GameOver;
       return;
     }
     this.missionInfo = mi;
