@@ -46,7 +46,10 @@ describe("PlayPage character carousel", () => {
     mockCharacters({ characters: [CREATED], maxCharacters: 3, canCreate: true });
     await renderAt("/play");
 
-    expect(await screen.findByText("Escolha seu personagem")).toBeInTheDocument();
+    // task multi-char (round 2): the big page heading is dropped in pixi mode — the choicefigure backdrop
+    // already has its own baked title plate, showing both read as two stacked titles. The listbox itself
+    // still carries the name for accessibility.
+    expect(await screen.findByRole("listbox", { name: "Escolha seu personagem" })).toBeInTheDocument();
     // Nickname and the "create" card's label still reach the DOM as `sr-only` text (role=option hit boxes
     // carry no other visible content once a real AvatarStage iframe is drawing everyone — see
     // CharacterCarousel.tsx) — canCreate: true -> a trailing "create" card is offered.
@@ -64,7 +67,7 @@ describe("PlayPage character carousel", () => {
     await renderAt("/play");
 
     await screen.findByText("Canal 1"); // went straight to the channel picker
-    expect(screen.queryByText("Escolha seu personagem")).not.toBeInTheDocument();
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
   });
 
   test("arrow keys move focus between cards; clicking the focused card's confirm button enters that character", async () => {
@@ -82,7 +85,7 @@ describe("PlayPage character carousel", () => {
     const confirm = screen.getByRole("button", { name: "Entrar com este personagem" });
     fireEvent.click(confirm);
 
-    await waitFor(() => expect(screen.queryByText("Escolha seu personagem")).not.toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByRole("listbox")).not.toBeInTheDocument());
     await screen.findByText("Canal 1");
   });
 
@@ -95,7 +98,7 @@ describe("PlayPage character carousel", () => {
     await screen.findByText("Canhoneiro");
     fireEvent.click(screen.getByRole("option", { name: /./, selected: false }));
     // still on the carousel, nothing created yet
-    expect(screen.getByText("Escolha seu personagem")).toBeInTheDocument();
+    expect(screen.getByRole("listbox")).toBeInTheDocument();
     expect(posts).toBe(0);
   });
 
@@ -176,7 +179,7 @@ describe("PlayPage character carousel", () => {
     fireEvent.click(await screen.findByRole("button", { name: "Próximo personagem" }));
     fireEvent.click(await screen.findByRole("button", { name: "Novo personagem" }));
 
-    await waitFor(() => expect(screen.queryByText("Escolha seu personagem")).not.toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByRole("listbox")).not.toBeInTheDocument());
     fireEvent.click(await screen.findByRole("button", { name: /Canal 1/ }));
 
     await waitFor(() => expect(document.querySelector("iframe")).not.toBeNull());

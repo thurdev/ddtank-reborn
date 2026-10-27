@@ -23,9 +23,11 @@ function mockChannels(channels: Channel[]) {
 async function confirmCharacter() {
   const confirm = await screen.findByRole("button", { name: "Entrar com este personagem" });
   fireEvent.click(confirm);
-  // Default RTL waitFor timeout (1000ms) can be tight when this file shares a vitest worker with other
-  // Play*.test.tsx files (`isolate: false`, more queued async work) — same assertion, more headroom.
-  await waitFor(() => expect(screen.queryByText("Escolha seu personagem")).not.toBeInTheDocument(), { timeout: 5000 });
+  // `role="listbox"` (not the "Escolha seu personagem" heading text — round 2 drops that in pixi mode, see
+  // CharacterCarousel.tsx) is what both the pixi and fallback carousel render, so this reliably detects the
+  // carousel unmounting either way. Default RTL waitFor timeout (1000ms) can be tight when this file shares
+  // a vitest worker with other Play*.test.tsx files (`isolate: false`, more queued async work) — more headroom.
+  await waitFor(() => expect(screen.queryByRole("listbox")).not.toBeInTheDocument(), { timeout: 5000 });
 }
 
 /** Pixi path (no Ruffle script loading needed in jsdom) so `GameFrame` just renders an iframe we can inspect. */

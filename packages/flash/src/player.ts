@@ -52,6 +52,18 @@ export interface PlayerOptions {
   /** task multi-char (apps/client avatar.ts): 0 = canvas transparente (character preview embutido
    *  numa página sem o fundo preto do stage). Padrão 1 (opaco), igual sempre foi. */
   backgroundAlpha?: number;
+  /** task multi-char (round 2, coordinator-found root cause): PixiJS's back buffer — needed for the
+   *  advanced blend modes battle light effects use (overlay/hard-light/...), see the `pixi.js/advanced-blend-modes`
+   *  import below — presents itself onto the real canvas with a BLENDED (not cleared) draw
+   *  (`GlBackBufferSystem._presentBackBuffer`: `renderTarget.bind({..., clear: false})`, then a full-screen
+   *  triangle draw with normal alpha blending). With an OPAQUE canvas (the default, `backgroundAlpha: 1`)
+   *  that draw is alpha=1 everywhere so it still fully overwrites every pixel — equivalent to a clear. With
+   *  a TRANSPARENT canvas (`backgroundAlpha: 0`, only `avatar.ts` uses this) the back buffer has transparent
+   *  regions wherever nothing was drawn that frame, so the composite only blends there — it never actually
+   *  erases a moving object's PREVIOUS position, leaving permanent smear trails behind anything that moves.
+   *  Default true (unchanged for the full game client); `avatar.ts` passes false — its character preview(s)
+   *  don't need those specific blend modes, just `setShowLight`'s aura (plain ADD, natively supported). */
+  useBackBuffer?: boolean;
 }
 
 let stageRef: Stage | null = null;
@@ -67,8 +79,10 @@ export async function startPlayer(opts: PlayerOptions): Promise<Stage> {
     resolution: Math.min(2, globalThis.devicePixelRatio || 1), autoDensity: true, preference: "webgl",
     // deixa prints/captura de tela funcionarem (custo pequeno)
     preserveDrawingBuffer: true,
-    // blend modes avançados (overlay, hard-light...) leem o que já foi desenhado
-    useBackBuffer: true,
+    // blend modes avançados (overlay, hard-light...) leem o que já foi desenhado — exceto quando o próprio
+    // opt-out (`PlayerOptions.useBackBuffer`, ver seu comentário) troca por false: canvas transparente com
+    // objetos em movimento (apps/client avatar.ts) não pode usar isso, deixa rastro.
+    useBackBuffer: opts.useBackBuffer ?? true,
   });
   const host = opts.container;
   if (getComputedStyle(host).position === "static") host.style.position = "relative";

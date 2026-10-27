@@ -127,7 +127,10 @@ export function CharacterCarousel({
       }}
     >
       <div className="flex flex-col items-center gap-2">
-        <p className="title-plate text-3xl text-ink sm:text-4xl">{t("play.characters.title")}</p>
+        {/* task multi-char (round 2, coordinator ask): the choicefigure backdrop below already carries its
+         *  own "Escolha o seu personagem" title plate baked in — showing this heading too read as two
+         *  titles stacked. The `listbox`'s own `aria-label` below still names the carousel either way. */}
+        {!pixiClientUrl && <p className="title-plate text-3xl text-ink sm:text-4xl">{t("play.characters.title")}</p>}
         <p className="max-w-md text-center text-sm text-muted">{t("play.characters.lead")}</p>
       </div>
 

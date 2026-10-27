@@ -344,7 +344,10 @@ async function boot(): Promise<void> {
   setResponseFilter((url, bytes) => (/\/md5\.xml/i.test(url) ? new TextEncoder().encode("<Result/>") : bytes));
 
   const [stage, , configXml] = await Promise.all([
-    startPlayer({ container, width: W, height: H, frameRate: 25, backgroundAlpha: 0 }),
+    // useBackBuffer:false — see PlayerOptions' doc comment (packages/flash/src/player.ts): with a
+    // transparent canvas AND multiple moving characters, the back buffer's own composite step never clears
+    // the real canvas, leaving permanent smear trails behind every moving slot.
+    startPlayer({ container, width: W, height: H, frameRate: 25, backgroundAlpha: 0, useBackBuffer: false }),
     loadAssetIndex(),
     fetch(`${API}/flash/config.xml`).then((r) => r.text()),
   ]);
