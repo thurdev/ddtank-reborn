@@ -97,6 +97,72 @@ idempotente, mesmo padrão de `0027_pve_cadeia_gulu_baron.sql`) + o seed gz
 (`packages/db/seed/game/Drop_Condiction.json.gz`); o pool de itens (`Drop_Item` do mesmo `DropID` 50006, 33
 entradas) não precisou mudar, só a lista de missões da condição.
 
+## 1.3 Varredura jogada de verdade (bot ganha cada fase) — `pve-playthrough-sweep.test.ts`
+
+Tarefa `pve-qa` item 2 (relato do dono, 2026-10-27: "muitas outras masmorras têm fases quebradas — ache
+todas"). `pve-sweep.test.ts`/`pve-cards-sweep.test.ts` (acima) só CONSTROEM a cadeia e os dados de carta,
+nunca jogam de verdade. `packages/fight/test/pve-playthrough-sweep.test.ts` é o runner "fim a fim": para
+cada `Pve_Info` Type 4/6/7 (masmorra/laboratório/Pesadelo — os tipos que o dono pede) × cada dificuldade com
+`*GameScript`, cria um `PveGame` real com `BotRunner` reais (dificuldade 100, sem cheat de instant-kill — só
+status fortes o bastante pra resolver rápido, mesmo padrão que `pve.test.ts` já usa) e joga até o fim,
+checando `GAME_CREATE`, uma `GAME_MISSION_OVER` por fase, `PVE_STOPPED` com `isWin`, `GAME_ALL_MISSION_OVER`
+(tela de vitória) e `PVE_AWARD` (carta com item de verdade, usando `Drop_Condiction`/`Drop_Item` reais de
+`pve-data.ts`, não o stub). Mesma filosofia das outras duas varreduras: reporta tudo via `console.log`, só
+falha de verdade num regressão de bug já corrigido NESTA tarefa.
+
+Essa varredura, jogando a cadeia de verdade pela primeira vez, achou e corrigiu 3 bugs reais (nenhum deles
+era sobre a linha `Mission_Info` da seção 1.1 — esses eram bugs de CÓDIGO, em scripts/runtime que nunca
+tinham sido realmente jogados antes):
+
+1. **`super.Game`/`super.Body` sempre `undefined`** (`packages/fight/src/pve/script.ts`,
+   `APVEGameControl`/`AMissionControl`/`ABrain`): ~56 scripts gerados usam `base.Game`/`base.Body` (acesso a
+   campo da classe base em C#) → `super.Game`/`super.Body` no TS transpilado. Um campo de classe TS comum é
+   propriedade PRÓPRIA da instância, nunca do protótipo — `super.X` (SuperPropertyReference) busca no
+   protótipo, não em `this`, então sempre voltava `undefined` não importa o que `missionAI.Game = this`
+   (`game.ts`) tivesse setado, quebrando toda missão/IA que chamasse `super.Game.*`/`super.Body.*` logo no
+   primeiro uso (ex. `GT1172`/`GT1173`/`GK1272`/`GK1273`/`GAH1372`/`GAH1373`/`GAH1375`.`OnPrepareNewSession`).
+   Corrigido tornando `Game`/`Body` acessores (get/set) nas 3 classes base — um acessor mora no protótipo,
+   então `super.Game` passa a chamar o getter certo, vinculado a `this`. Correção de framework, nenhum
+   arquivo gerado precisou mudar.
+2. **`Game.GameOverResources.Add` não é função** (`packages/fight/src/pve/game.ts`): alguns scripts (ex.
+   `GAH1373`, a missão "colete as chaves mágicas" do Terror) chamam `.Add(...)` direto no getter
+   `Game.GameOverResources` (`List<string>.Add` em C#) em vez de passar um array pra
+   `LoadNpcGameOverResources`. O getter devolvia um `string[]` puro (sem `.Add`). Trocado pra `CsList<string>`
+   (`packages/fight/src/pve/cs.ts`, já usada noutros lugares) — como `CsList extends Array`, todo uso
+   existente (`.push`, `.length = 0`, `[...spread]`) continua igual, só ganhou `.Add`.
+3. **`GT1173`/`GK1273` (o chefe "Gà Thường S3"/"Gà Khó S3", a luta dos dois reis "Gà" no mapa 1076) com o
+   construtor faltando**: `OnStartGame` chama `Game.CreateBoss(this.int_1, ...)` mas `int_1`/`int_4`/`int_5`/
+   `int_6` nunca eram atribuídos (ficavam `0`) → "NPC_Info 0 not found" e tudo que vem depois
+   (`CanGameOver`/`OnGameOver`) quebra lendo `.IsLiving` de `null`. A versão comprometida de
+   `generated/Messions/{GT1173,GK1273}.ts` só tem o inicializador de campo estático (`static GT1173()
+   { string_0 = ...; }`), sem o construtor de instância — confirmado comparando com uma decompilação mais
+   completa da mesma classe fora de `vendor/DDTank4.1` (que esta tarefa trata como somente-leitura), que TEM
+   `public GT1173() { int_1 = 1105; int_4 = 1105; int_5 = 1106; int_6 = 1110; }` /
+   `public GK1273() { int_1 = 1205; int_4 = 1205; int_5 = 1206; int_6 = 1210; }` — os MESMOS ids de NPC da
+   luta-irmã `CNM1176`/`CHM1276` (`game."NPC_Info"` 1105/1106/1110 e 1205/1206/1210, ambos "Gà"/"Gà lâu la",
+   batendo com a dedução da migração `0030_pve_gulu_king_chamber.sql`). Corrigido com um hand-fix em
+   `packages/fight/src/pve/scripts/manual/gulu-kingdom-king-missing-ctor.ts` (subclasse que seta os 4 campos
+   no construtor) — mesmo arquivo também corrige `HardKingFirst.AllAttack` (`Bussiness.LanguageMgr.
+   GetTranslation(...)`, prefixo de namespace do C# que o transpiler deixou sem resolver; o mesmo arquivo já
+   usa `LanguageMgr` puro em outro método, então é só trocar pra isso).
+
+**Ainda em aberto, reportado pela varredura mas NÃO corrigido nesta rodada** (não são bugs de dado tipo
+seção 1.1, nem regressões de algo que esta tarefa corrigiu — investigar depois):
+- `CHM1277.OnPrepareNewGame` (o chefe Matthias do Difícil) lê `m_kingMoive.PlayMovie(...)` sem checar null —
+  **confirmado idêntico ao original** (`vendor/DDTank4.1/Source Server/Game.Server.Scripts/AI/Messions/
+  CHM1277.cs:131`, mesma falta de guarda lá). Não é bug de script: é uma questão de ORDEM de chamadas do
+  motor (o bot-harness do sweep aparentemente consegue chamar `OnPrepareNewGame` sem `OnStartGame` ter
+  rodado antes pra essa missão específica, que tem uma cutscene condicional a `WantTryAgain`/`IsPassDrama`)
+  — precisa investigar a máquina de estados do PveGame pra essa classe de missão "cutscene + retry", não o
+  script em si.
+- `NTM1083.ts` tem o mesmo tipo de prefixo não resolvido (`Bussiness.Managers.ItemMgr.FindItemTemplate`),
+  mesma causa do item 3 acima, mas é outra missão (não faz parte da cadeia do Pve 1) — não corrigido ainda.
+- Terror do Gulu Kingdom (Pve 1, hardLevel 3) com os bots "fortes" do sweep só completa 2 das 5 fases
+  (`isWin=false`) — pode ser só equilíbrio bot-vs-chefe no Terror (a dificuldade mais alta, NPCs mais fortes
+  propositalmente) e não um bug; não investigado a fundo.
+- A lista completa de outras masmorras/dificuldades que a varredura reporta (fora do Pve 1) está no
+  `console.log` do teste — rode `pve-playthrough-sweep.test.ts` pra ver o estado atual.
+
 **Para diagnosticar outro caso assim:** `packages/fight/test/pve-cards-sweep.test.ts` varre toda missão com
 `Mission_Info.TakeCard > 0` usando os dados reais de `Drop_Condiction`/`Drop_Item` (não o stub constante
 `drops: { copyDrop: () => [{ templateId: 11020, count: 1 }] }` que outros testes de PvE usam pra outras

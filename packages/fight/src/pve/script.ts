@@ -18,7 +18,20 @@ export interface Ref<T> {
 
 /** Game.Logic/AI/APVEGameControl.cs */
 export class APVEGameControl {
-  Game!: PveGame;
+  /**
+   * Backed by an accessor, not a plain class field: task `pve-qa` item 2 found ~56 transpiled donor scripts
+   * (packages/fight/src/pve/scripts/generated) that read `base.Game`/`base.Body` (C# field access through
+   * the base class) -> `super.Game`/`super.Body` here. A plain TS class field is an OWN instance property,
+   * never a prototype property, so `super.Game` (a SuperPropertyReference, which looks up the PROTOTYPE
+   * chain, not `this`'s own properties) always resolved to `undefined` regardless of what
+   * `missionAI.Game = this`/`brain.Game = this` (game.ts) had actually set — crashing every such script's
+   * first `super.Game.*`/`super.Body.*` call (e.g. GT1172/GT1173/GK1272/GK1273/GAH1372/GAH1373/GAH1375's
+   * `OnPrepareNewSession`, found by `pve-playthrough-sweep.test.ts` actually playing Pve 1 Normal/Hard/
+   * Terror). An accessor lives on the PROTOTYPE, so `super.Game` correctly invokes it bound to `this`.
+   */
+  private _Game!: PveGame;
+  get Game(): PveGame { return this._Game; }
+  set Game(v: PveGame) { this._Game = v; }
   OnCreated(): void {}
   OnPrepated(): void {}
   OnGameOverAllSession(): void {}
@@ -30,7 +43,10 @@ export class APVEGameControl {
 
 /** Game.Logic/AI/AMissionControl.cs */
 export class AMissionControl {
-  Game!: PveGame;
+  /** Accessor-backed -- see APVEGameControl.Game's comment (task `pve-qa` item 2, `super.Game` fix). */
+  private _Game!: PveGame;
+  get Game(): PveGame { return this._Game; }
+  set Game(v: PveGame) { this._Game = v; }
   OnPrepareNewSession(): void {}
   OnPrepareStartGame(): void {}
   OnPrepareNewGame(): void {}
@@ -71,8 +87,13 @@ export class AMissionControl {
 
 /** Game.Logic/AI/ABrain.cs */
 export class ABrain {
-  Game!: PveGame;
-  Body!: any;
+  /** Accessor-backed -- see APVEGameControl.Game's comment (task `pve-qa` item 2, `super.Game`/`super.Body` fix). */
+  private _Game!: PveGame;
+  get Game(): PveGame { return this._Game; }
+  set Game(v: PveGame) { this._Game = v; }
+  private _Body: any;
+  get Body(): any { return this._Body; }
+  set Body(v: any) { this._Body = v; }
   get m_body(): any {
     return this.Body;
   }

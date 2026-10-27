@@ -73,7 +73,14 @@ export class PveGame extends BaseGame {
   readonly turnQueue: TurnedLiving[] = [];
   readonly physObjs = new Set<PhysicalObj>();
   readonly loadingFiles: { type: number; path: string; className: string }[] = [];
-  readonly gameOverResources: string[] = [];
+  /**
+   * `CsList`, not a plain array: task `pve-qa` item 2 found donor scripts (e.g. GAH1373.ts, the Terror
+   * "collect the magic keys" mission) that call `Game.GameOverResources.Add(...)` directly (C#
+   * `List<string>.Add`), not just `LoadNpcGameOverResources(arr)` — a plain `string[]` has no `.Add`, so
+   * every such script crashed in `OnStartGame`. `CsList extends Array`, so every existing `.push`/
+   * `.length = 0`/spread-copy use below keeps working unchanged.
+   */
+  readonly gameOverResources = new CsList<string>();
   readonly Misssions = new Map<number, MissionInfo>();
   readonly pp = new Map<Player, PlayerPve>();
   readonly missingScripts: { kind: string; name: string }[] = [];

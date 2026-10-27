@@ -42,6 +42,7 @@ import "./worldboss.js";
 import "./ancient-castle.js";
 import "./coupleboss15002.js";
 import "./catchbeast.js";
+import "./gulu-kingdom-king-missing-ctor.js";
 
 export const MANUAL_SCRIPTS = [
   "TVS12004", "GCGCT1161", "GCGCK1161", "ACDragon", "AC1243", "WorldAcientDragon",
