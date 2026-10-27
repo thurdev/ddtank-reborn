@@ -33,6 +33,9 @@ const charSlots = new Map<string, CharacterSlot[]>([
         title: null,
         vip: { type: 1, level: 2 },
         nimbus: 203,
+        style: ",,3135|hair35,,5139|cloth39,6119|face18,1109|head8,,,",
+        colors: ",,,,,,,,,",
+        skin: "",
         equip: [
           { place: 6, categoryId: 7, strengthenLevel: 9, isGold: false, iconRel: "image/arm/mockarm/1/icon.png" },
           { place: 2, categoryId: 3, strengthenLevel: 0, isGold: false, iconRel: "image/equip/m/hair/mockhair/icon_1.png" },

@@ -222,7 +222,7 @@ export function PlayPage() {
       <AnimatePresence mode="wait">
         {needsCharacterPick ? (
           <motion.div key="characters" exit={{ opacity: 0 }} className="fixed inset-0 z-50">
-            <CharacterCarousel resourceUrl={data?.game.resourceUrl ?? "/resource/"} onConfirm={setSlot} />
+            <CharacterCarousel resourceUrl={data?.game.resourceUrl ?? "/resource/"} pixiClientUrl={data?.game.pixiUrl} onConfirm={setSlot} />
           </motion.div>
         ) : needsPicker ? (
           <motion.div key="picker" exit={{ opacity: 0 }} className="fixed inset-0 z-50">

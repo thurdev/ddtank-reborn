@@ -27,6 +27,9 @@ const CREATED: CharacterSlot = {
   title: null,
   vip: { type: 1, level: 2 },
   nimbus: 203,
+  style: ",,3135|hair35,,5139|cloth39,6119|face18,1109|head8,,,",
+  colors: ",,,,,,,,,",
+  skin: "",
   equip: [{ place: 6, categoryId: 7, strengthenLevel: 9, isGold: false, iconRel: "image/arm/mockarm/1/icon.png" }],
 };
 
@@ -90,6 +93,40 @@ describe("PlayPage character carousel", () => {
     // still on the carousel, nothing created yet
     expect(screen.getByText("Escolha seu personagem")).toBeInTheDocument();
     expect(posts).toBe(0);
+  });
+
+  test("renders the real character (AvatarFrame iframe) when the server has a PixiJS client configured", async () => {
+    mockCharacters({ characters: [CREATED], maxCharacters: 3, canCreate: true });
+    server.use(
+      http.get("/api/public/config", () => {
+        const body: PublicConfig = {
+          serverName: "DDTank Reborn · S1",
+          launcherUrl: null,
+          game: {
+            rufflePath: "/ruffle/ruffle.js",
+            swfUrl: "/client/Loading.swf",
+            flashvars: { user: "jogador", key: "k", config: "http://localhost:8080/client/config.xml" },
+            socketProxy: [],
+            pixiUrl: "http://localhost:5180/",
+            resourceUrl: "http://localhost:8080/resource/",
+          },
+        };
+        return HttpResponse.json(body);
+      }),
+    );
+    await renderAt("/play");
+
+    await screen.findByText("Canhoneiro");
+    const iframe = document.querySelector(".avatar-frame__iframe") as HTMLIFrameElement;
+    expect(iframe).toBeTruthy();
+    const src = new URL(iframe.src);
+    expect(src.origin + src.pathname).toBe("http://localhost:5180/avatar.html");
+    expect(src.searchParams.get("nickname")).toBe("Canhoneiro");
+    expect(src.searchParams.get("style")).toBe(CREATED.style);
+    expect(src.searchParams.get("sex")).toBe("1");
+    expect(src.searchParams.get("api")).toBe("http://localhost:8080");
+    // falls back to the icon-stack renderer, never both at once
+    expect(document.querySelector(".character-stage")).toBeNull();
   });
 
   test("the limit is reached: no 'create' card is offered", async () => {

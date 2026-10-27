@@ -136,6 +136,11 @@ export interface CreatedCharacterSlot {
   vip: { type: number; level: number };
   /** `GetUserNimbus`: strengthen/gilded aura tier (hundreds = armor, units = weapon), 0 = no aura. */
   nimbus: number;
+  /** Raw `Style`/`Colors`/`Skin` strings (`V_Sys_Users_Detail`) — what the real client's character classes
+   *  (`ShowCharacter`/`BaseCharacterLoader`, `apps/client/src/avatar.ts`) consume directly. */
+  style: string;
+  colors: string;
+  skin: string;
   equip: EquippedIcon[];
 }
 /** A reserved slot whose Sys_Users_Detail row doesn't exist yet or has no nickname — the client's "Novato"

@@ -91,6 +91,28 @@
   display: block;
 }
 
+.avatar-frame {
+  position: relative;
+  height: 280px;
+  width: 260px;
+}
+
+.avatar-frame__iframe {
+  height: 100%;
+  width: 100%;
+  border: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+
+.avatar-frame__loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .character-thumb {
   position: relative;
   height: 220px;

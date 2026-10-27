@@ -4,6 +4,7 @@ import { Badge, Button, Spinner, cn } from "@ddtank/ui";
 import { ChevronLeft, ChevronRight, Plus, Sparkles } from "lucide-react";
 import { createCharacterSlot, myCharactersQuery, type CharacterSlot } from "@/lib/api";
 import { useI18n } from "@/i18n";
+import { AvatarFrame } from "./AvatarFrame";
 import { CharacterStage } from "./CharacterStage";
 import { CharacterThumb } from "./CharacterThumb";
 import "./character-carousel.css";
@@ -25,14 +26,26 @@ function usePrefersReducedMotion(): boolean {
 /**
  * task multi-char: old-school character-select carousel, shown before the channel picker. Up to
  * `maxCharactersPerAccount` character cards + a trailing "create" card (hidden once the account is at the
- * limit). The focused (centered) card gets the real PixiJS render (`CharacterStage`); the rest are flat
- * `CharacterThumb`s — see that file's header for the CPU reasoning. Keyboard (←/→ to browse, Enter/Space to
- * confirm), mouse (click a side card to focus it, click the focused one or the confirm button to enter),
- * and touch (swipe) all drive the same `focus`/`confirm` pair. `onConfirm` is called with the chosen
- * character's `slot` once the player confirms — the Play page then fetches a ticket for that slot and
- * shows the channel picker.
+ * limit). The focused (centered) card gets the REAL in-game character render: `AvatarFrame` (an iframe of
+ * `apps/client`'s lightweight `avatar.html` entry — `ShowCharacter`, same class the bag/equip preview and
+ * room lobby use) when the server has a PixiJS client configured (`pixiClientUrl`), falling back to
+ * `CharacterStage` (a lighter icon-stack render) otherwise. The rest of the cards are flat
+ * `CharacterThumb`s — only ONE live render (iframe or canvas) exists at a time, see those files' headers
+ * for the CPU reasoning. Keyboard (←/→ to browse, Enter/Space to confirm), mouse (click a side card to
+ * focus it, click the focused one or the confirm button to enter), and touch (swipe) all drive the same
+ * `focus`/`confirm` pair. `onConfirm` is called with the chosen character's `slot` once the player
+ * confirms — the Play page then fetches a ticket for that slot and shows the channel picker.
  */
-export function CharacterCarousel({ resourceUrl, onConfirm }: { resourceUrl: string; onConfirm: (slot: number) => void }) {
+export function CharacterCarousel({
+  resourceUrl,
+  pixiClientUrl,
+  onConfirm,
+}: {
+  resourceUrl: string;
+  /** `GameConfig.pixiUrl` — undefined/empty when the server only has the Ruffle/Flash client configured. */
+  pixiClientUrl?: string;
+  onConfirm: (slot: number) => void;
+}) {
   const { t } = useI18n();
   const qc = useQueryClient();
   const { data, isLoading, error, refetch } = useQuery(myCharactersQuery);
@@ -148,7 +161,13 @@ export function CharacterCarousel({ resourceUrl, onConfirm }: { resourceUrl: str
                     <span>{t("play.characters.create")}</span>
                   </div>
                 ) : (
-                  <CharacterCardContent character={card.character} resourceUrl={resourceUrl} focused={isFocused} reducedMotion={reducedMotion} />
+                  <CharacterCardContent
+                    character={card.character}
+                    resourceUrl={resourceUrl}
+                    pixiClientUrl={pixiClientUrl}
+                    focused={isFocused}
+                    reducedMotion={reducedMotion}
+                  />
                 )}
               </div>
             );
@@ -184,11 +203,13 @@ export function CharacterCarousel({ resourceUrl, onConfirm }: { resourceUrl: str
 function CharacterCardContent({
   character,
   resourceUrl,
+  pixiClientUrl,
   focused,
   reducedMotion,
 }: {
   character: CharacterSlot;
   resourceUrl: string;
+  pixiClientUrl?: string;
   focused: boolean;
   reducedMotion: boolean;
 }) {
@@ -206,7 +227,11 @@ function CharacterCardContent({
   return (
     <div className="character-card__inner">
       {focused ? (
-        <CharacterStage character={character} resourceUrl={resourceUrl} reducedMotion={reducedMotion} />
+        pixiClientUrl ? (
+          <AvatarFrame character={character} pixiClientUrl={pixiClientUrl} resourceUrl={resourceUrl} reducedMotion={reducedMotion} />
+        ) : (
+          <CharacterStage character={character} resourceUrl={resourceUrl} reducedMotion={reducedMotion} />
+        )
       ) : (
         <CharacterThumb character={character} resourceUrl={resourceUrl} />
       )}

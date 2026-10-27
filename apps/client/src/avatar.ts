@@ -37,6 +37,18 @@ import { ShowCharacter } from "./game/ddt/view/character/ShowCharacter";
 import { StartupResourceLoader } from "./game/ddt/loader/StartupResourceLoader";
 import { QueueLoader } from "./game/com/pickgliss/loader/QueueLoader";
 
+/** `PlayerInfo.parseStyle`/`parseColos` (apps/client/src/game/ddt/data/player/PlayerInfo.ts) index straight
+ *  into the comma-split array up to position 17 (`EquipType.CategeryIdToPlace(EquipType.BADGE)` → `[17]`)
+ *  without ever checking the array is that long — a short/missing value throws instead of just rendering
+ *  an empty slot. Query params are free text from the URL (and ultimately a network response), so this
+ *  guards the same way the original game's own data always happens to be long enough for. */
+function padFields(raw: string | null, min = 18): string {
+  const s = raw && raw !== "undefined" && raw !== "null" ? raw : "";
+  const fields = s.split(",");
+  while (fields.length < min) fields.push("");
+  return fields.join(",");
+}
+
 const q = new URLSearchParams(location.search);
 const API = (q.get("api") ?? `${location.protocol}//${location.hostname}:8080`).replace(/\/$/, "");
 // ShowCharacter.BIG_WIDTH/BIG_HEIGHT (250x342) is just the body's own bounding box — wings, strengthen
@@ -131,9 +143,9 @@ async function boot(): Promise<void> {
   info2.DutyName = q.get("dutyName") ?? "";
   info2.Grade = Number(q.get("grade") ?? 1);
   info2.Nimbus = Number(q.get("nimbus") ?? 0);
-  info2.Skin = q.get("skin") ?? "";
-  info2.Colors = q.get("colors") || ",,,,,,,,";
-  info2.Style = q.get("style") || ",,,,,,,,";
+  info2.Skin = q.get("skin") && q.get("skin") !== "undefined" ? q.get("skin")! : "";
+  info2.Colors = padFields(q.get("colors"));
+  info2.Style = padFields(q.get("style"));
   info2.commitChanges();
 
   dlog("info", `avatar: nickname=${info2.NickName || "(vazio)"} style=${info2.Style}`);
