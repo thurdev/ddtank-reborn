@@ -9,11 +9,15 @@ import { createDonation, donationStatusQuery, donationSummaryQuery, type Donatio
 import { useI18n } from "@/i18n";
 import { useSeo } from "@/lib/seo";
 import { fadeUp, stagger } from "@/lib/motion";
+import { BUY_ME_A_COFFEE_URL } from "@/lib/links";
+// Re-exportado por compat com `Apoiar.test.tsx` (`import { BUY_ME_A_COFFEE_URL } from "./Apoiar"`).
+export { BUY_ME_A_COFFEE_URL };
 
 /** Official donation link for the DDTank Reborn project (site-admin-redesign) — Buy Me a Coffee, not Pix:
  *  Pix below is a self-host tool (anyone running their own fork can wire their own key), not this project's
- *  donation channel, so it moved to its own route (`/apoiar/pix`, `ApoiarPixPage`) instead of being deleted. */
-export const BUY_ME_A_COFFEE_URL = "https://buymeacoffee.com/3vdopcs";
+ *  donation channel, so it moved to its own route (`/apoiar/pix`, `ApoiarPixPage`) instead of being deleted.
+ *  (`BUY_ME_A_COFFEE_URL` itself now lives in `@/lib/links` — reused by the Home page's open-source section
+ *  and the footer, rodada 4.) */
 
 const PRESETS_CENTS = [1000, 2000, 5000, 10000];
 const centsToBRL = (c: number) => (c / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });

@@ -354,3 +354,44 @@ exportar `quest.swf` de novo, fora do escopo read-only do vendor). Thumbnail de 
 `/api/admin/map-icons/:id.png` (já existe). `og-cover.jpg` já tem uma versão real (acima); `hero-bg.webp`
 dedicado continua pendente — key-art gerada (Higgsfield) fica pra uma rodada futura se o dono preferir arte
 original à captura real.
+
+## 0.4 Rodada 4 — marca real + conteúdo concreto (Home "genérica demais")
+
+Dono: Home ficou "limpa mas genérica" (card landing page, não site de jogo premium). Pediu marca real,
+hero com key art + trailer, galeria de capturas reais, features com arte do jogo, "como jogar", seção
+open-source/créditos, footer — e, no meio da rodada, ampliou o escopo: dono do carrossel/Play (`multi-char`
+terminou), rebrand do admin. O item B (posição do glow do personagem) foi cancelado no meio — o dono
+corrigiu sozinho (`88053baa`, `apps/client/src/avatar.ts`/`CharacterCarousel.tsx`) — só dei `git merge main`,
+não toquei nessas linhas.
+
+- **A — Home** (`apps/web/src/pages/Home.tsx`, reescrita): logo real (`public/play/logo.webp`) no hero cheio
+  de tela, CTA "Jogar agora" + "Assistir trailer"; card de status encolhido (não domina mais a hero);
+  seção de trailer (`YouTubeFacade.tsx` — fachada estática/thumbnail real, só monta `<iframe>` de
+  `youtube-nocookie.com` no clique, nunca autoplay da página); galeria (`Gallery.tsx`, carrossel+lightbox,
+  data-driven) — só com a 1 captura já verificada real (`screenshot-char-select.webp`); 6 features com ícone
+  real de item (`/api/admin/item-icons/:id.png`, rota pública já existente) em vez de `lucide-react` — IDs
+  escolhidos e checados visualmente um a um (descartei um item cross-over "Capitão América" que apareceu
+  numa busca — risco de IP de terceiro num site de marketing); "Como jogar" em 3 passos; seção open-source
+  (GitHub, Buy Me a Coffee, linha de créditos do README). `lib/links.ts` novo — centraliza GITHUB_URL/
+  BUY_ME_A_COFFEE_URL/TRAILER_YOUTUBE_ID (footer carrega em toda página, não podia importar o chunk lazy de
+  `pages/Apoiar.tsx` só por uma constante).
+  - **Não feito** (consciente, por limite de créditos): a "galeria de capturas reais" pedida tinha 6 cenas
+    (hall, PvP, masmorra+boss, loja, bag/personagem, seletor) — só a 1 já existente entrou. Tentei uma vez
+    (conta de teste registrada via API, token seedado no `localStorage`, Playwright próprio) chegar no jogo
+    de verdade pelo fluxo completo (`/play` → seletor de canal → stage) pra pegar mais: cheguei no stage
+    (prova que o fluxo funciona, screenshots abaixo), mas o viewport do jogo ainda carregava (preto/
+    carregando) no momento da captura — não insisti além de uma tentativa. `Gallery.tsx` já é
+    data-driven (aceita N imagens sem mudança de código), então dá pra completar numa rodada futura só
+    adicionando entradas, sem reescrever nada.
+- **C — Play** (`apps/web/src/pages/Play.tsx`): logo real no `ChannelPicker` e na toolbar do stage (ambos
+  chrome puro). **Não toquei** em `play-stage`/`play-frame-hole`/`FOCUS`/`STAGE_W`/`STAGE_H`/
+  `useStageScale`/`GameFrame` — verifiquei com screenshot que o frame/tabelas/régua continuam exatamente
+  alinhados em 1440 e 390 depois da mudança.
+- **D — Admin** (`apps/admin/src/layout/AdminLayout.tsx`, `pages/Login.tsx`, `index.html`, `i18n.ts`): mesmo
+  logo real (copiado pra `apps/admin/public/logo.webp` — apps Vite separados, cada um com seu `public/`
+  próprio) no sidebar e no card de login, título "DDTank Reborn Admin".
+
+Verificado em todos os 4 itens com Playwright próprio (`chromium.launch()`, contexto novo, nunca MCP) em
+1440 e 390; `vitest --maxWorkers=1` (web 22/22, admin 21/21) depois de cada commit. Screenshots:
+`docs/plan/redesign-shots/site/home-v2-*.png`, `play-anon-*.png`, `play-stage-*.png`,
+`docs/plan/redesign-shots/admin-brand/*.png`.

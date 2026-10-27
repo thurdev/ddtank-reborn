@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { createI18n } from "@ddtank/ui";
 
 const ptBR = {
-  "app.name": "DDTank Admin",
+  "app.name": "DDTank Reborn Admin",
   "nav.group.overview": "Visão geral",
   "nav.group.server": "Servidor",
   "nav.group.players": "Jogadores",
