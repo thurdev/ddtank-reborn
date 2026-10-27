@@ -35,9 +35,6 @@ import {
   Card,
   EmptyState,
   Field,
-  GamePanel,
-  GamePanelBody,
-  GamePanelHeader,
   Hotspot,
   Input,
   PageHeader,
@@ -53,12 +50,31 @@ import { api } from "@/lib/api";
 import { useI18n, useText } from "@/i18n";
 import { getQuery, listQuery, useResourceMutations } from "@/crud/api";
 import { FieldInput } from "@/crud/FieldInput";
+import { FlashImg, resolveFlashAsset, useFlashLibrary } from "@/lib/flashAssets";
 import { ResourcePage } from "@/crud/ResourcePage";
 import { buildSchema, fieldInForm, fromFormValues, toFormValues } from "@/crud/schema";
 import type { FieldDef, Row } from "@/crud/types";
 import { getItemCached, type ItemResumo } from "@/resources/items";
 import { dropConditions, dropItems } from "@/resources/drops";
 import { dungeons, missions, npcs } from "@/resources/content";
+
+/** Dungeon list/selection art (`vendor/DDTank41/Source Flash/src/roomList/pveRoomList/DungeonListItemView.as`,
+ * `roomlist` module). Only `DungeonListBG` ("Cais de expedição" frame) and `hardLevel_PVE` ("Dificuldade"
+ * label) are used — visually verified as already pt-BR. `asset.DungeonList.boss` ("Đánh Boss") is still raw
+ * Vietnamese in this export, so the boss indicator below stays a plain icon + admin i18n text instead. */
+const ROOMLIST_MODULE = "roomlist";
+
+/** Same "Original (VN)" reference as `Quests.tsx`'s `OriginalTextNote` — kept local (not shared yet) since
+ * only two editors need it so far; worth promoting to `packages/ui` once a third does. */
+function OriginalTextNote({ data, field }: { data: Row; field: string }) {
+  const original = data[`${field}__original`];
+  if (typeof original !== "string" || !original.trim() || original === data[field]) return null;
+  return (
+    <p className="mt-1 line-clamp-2 rounded-lg bg-night-deep/50 px-2 py-1 text-xs text-muted" title={original}>
+      <span className="font-semibold text-muted/80">Original (VN):</span> {original}
+    </p>
+  );
+}
 
 type DungeonRow = Row & { ID: number; Name?: string };
 
@@ -192,10 +208,18 @@ function DifficultyLane({ dungeon, diffField, diag, diagLoading, focused, onFocu
     .map((s) => Number(s.trim()))
     .filter((n) => Number.isFinite(n) && n > 0);
 
+  const { data: lib } = useFlashLibrary(ROOMLIST_MODULE);
+  const hardLevelArt = resolveFlashAsset(lib, ROOMLIST_MODULE, "asset.DungeonList.hardLevel_PVE");
+  const selStrip = resolveFlashAsset(lib, ROOMLIST_MODULE, "asset.DungeonList.pveSel_01");
+
   return (
-    <div className="rounded-xl border border-line/70 bg-night-deep/30 p-3">
+    <div
+      className="relative overflow-hidden rounded-xl border border-line/70 bg-night-deep/30 p-3"
+      style={selStrip ? { backgroundImage: `url(${selStrip.url})`, backgroundSize: "100% 100%" } : undefined}
+    >
       <div className="mb-2 flex flex-wrap items-center gap-2">
-        <Hotspot active={focused === diffField.field} onClick={() => onFocus(diffField.field)}>
+        <Hotspot active={focused === diffField.field} onClick={() => onFocus(diffField.field)} className="inline-flex items-center gap-1.5 p-0.5">
+          {hardLevelArt ? <FlashImg module={ROOMLIST_MODULE} className="asset.DungeonList.hardLevel_PVE" alt="Dificuldade" /> : <span className="text-xs text-muted">Dificuldade</span>}
           <Badge tone={diffField.tone} className="capitalize">
             {diffField.labelKey}
           </Badge>
@@ -306,6 +330,8 @@ function DungeonEditor({ dungeonId, onOpenMissions }: { dungeonId: number; onOpe
     el?.scrollIntoView({ block: "center", behavior: "smooth" });
     (el?.querySelector("input, textarea, select, button") as HTMLElement | undefined)?.focus();
   };
+  // Must run on every render (Rules of Hooks) — before the `isLoading` early return below, not after.
+  const { data: lib } = useFlashLibrary(ROOMLIST_MODULE);
 
   if (isLoading || !data) return <Skeleton className="h-96 lg:col-span-2" />;
 
@@ -328,19 +354,26 @@ function DungeonEditor({ dungeonId, onOpenMissions }: { dungeonId: number; onOpe
 
   const pic = String(live.Pic ?? "").trim();
   const hasDifficulty = DIFFICULTIES.some((d) => String(live[d.field] ?? ""));
+  const frame = resolveFlashAsset(lib, ROOMLIST_MODULE, "asset.DungeonList.DungeonListBG");
 
   return (
     <form onSubmit={submit} className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_380px]">
-      <GamePanel>
-        <GamePanelHeader
-          icon={Castle}
-          title={
-            <Hotspot active={focused === "Name"} onClick={() => focus("Name")}>
-              {String(live.Name || "—")}
-            </Hotspot>
-          }
-        />
-        <GamePanelBody>
+      <div
+        className="relative overflow-hidden rounded-xl border-2 p-5 pt-14"
+        style={{
+          borderColor: "#8a6a3a",
+          backgroundColor: "#2b2f20",
+          backgroundImage: frame ? `url(${frame.url})` : undefined,
+          backgroundSize: "100% 100%",
+          minHeight: 420,
+        }}
+      >
+        <h3 className="absolute left-14 top-2 flex items-center gap-1.5">
+          <Hotspot active={focused === "Name"} onClick={() => focus("Name")} className="title-plate text-base text-[#ffe564]" style={{ textShadow: "0 2px 0 #000" }}>
+            {String(live.Name || "—")}
+          </Hotspot>
+        </h3>
+        <div className="flex flex-col gap-3">
           <div className="flex flex-wrap items-center gap-3">
             {pic && (
               <Hotspot active={focused === "Pic"} onClick={() => focus("Pic")} className="p-1">
@@ -358,7 +391,7 @@ function DungeonEditor({ dungeonId, onOpenMissions }: { dungeonId: number; onOpe
           </div>
 
           {!!live.Description && (
-            <Hotspot active={focused === "Description"} onClick={() => focus("Description")} className="block w-full p-2">
+            <Hotspot active={focused === "Description"} onClick={() => focus("Description")} className="block w-full rounded-lg bg-night-deep/40 p-2">
               <p className="text-sm text-ink">{String(live.Description)}</p>
             </Hotspot>
           )}
@@ -381,8 +414,8 @@ function DungeonEditor({ dungeonId, onOpenMissions }: { dungeonId: number; onOpe
               <p className="text-sm text-muted">{t("dungeons.noDifficulties")}</p>
             )}
           </div>
-        </GamePanelBody>
-      </GamePanel>
+        </div>
+      </div>
       <Card className="flex max-h-[75vh] flex-col overflow-hidden p-0">
         <div className="flex items-center justify-between gap-2 border-b border-line p-4">
           <h3 className="title-plate text-lg">{t("dungeons.editPanel")}</h3>
@@ -412,6 +445,7 @@ function DungeonEditor({ dungeonId, onOpenMissions }: { dungeonId: number; onOpe
                         )}
                       />
                     </Field>
+                    <OriginalTextNote data={data} field={f.name} />
                   </div>
                 ))}
               </div>

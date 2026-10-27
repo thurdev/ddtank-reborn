@@ -159,6 +159,21 @@ padrão de referência para as próximas. #2-#5 ficam para sessões seguintes (v
       (não pode rodar o script de verdade no mock). Testes: `apps/admin/src/pages/Dungeons.test.tsx` (3),
       `apps/api/test/api.test.ts` "dungeon diagnostics" + "drop-conditions CRUD" (regressão do PK). Suites
       completas (admin 15, api 119) e typechecks limpos.
+  - [x] **Rebuild rodada 2** (dono rejeitou, ver §0.1): módulo `roomlist`
+        (`roomList/pveRoomList/DungeonListItemView.as`) — `DungeonListBG` ("Cais de expedição", moldura com
+        vinhas) como fundo da janela, `hardLevel_PVE` ("Dificuldade", verificado pt-BR) como rótulo real da
+        badge de dificuldade, `pveSel_01` como fundo das faixas. `asset.DungeonList.boss` ficou de fora —
+        inspecionei e ainda está em vietnamita cru ("Đánh Boss") nesta exportação, então o indicador de boss
+        continua ícone+texto do admin em vez de arte real incorreta. `Nome`/`Descrição` ganharam "Original
+        (VN)" (reaproveita o mesmo padrão de `Quests.tsx`, ainda não extraído pra componente compartilhado).
+        Verificado ao vivo (mesma instância isolada porta 5199/8099, banco pglite reaproveitado da rodada do
+        editor de Missões): `docs/plan/redesign-shots/dungeon/{admin-before-raw-vn,admin-after-ptbr}.png`
+        (editei "Rừng rậm Gamazon" → "Floresta Gamazon" pelo painel, preview + lista + "Original (VN)"
+        atualizaram) + `real-asset-*` (PNGs isolados). Mesma ressalva: sem comparação com o cliente PixiJS
+        rodando de verdade (§0.1). Servidores QA parados logo depois da captura (memória da máquina limitada
+        nesta sessão — rodar só uma instância por vez, parar ao terminar). Testes mantidos verdes
+        (`Dungeons.test.tsx` 3/3; corrigido um bug de ordem de hooks que o rebuild introduziu — `useFlashLibrary`
+        precisa rodar antes do `if (isLoading) return` do `DungeonEditor`, não depois).
 - [x] Fase 2c — editor visual de Eventos (`/events`). Aditivo: nova aba "Visual" em `pages/Events.tsx`
       (que já existia com Calendário/Tabela/Agendados/Prêmios/Códigos/Presença/Caixas) — mesmo padrão de
       preview `GamePanel` ao vivo + painel lateral + clique-pra-focar, réplica de
