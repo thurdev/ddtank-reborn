@@ -4,4 +4,15 @@ export { seedDatabase, readManifest, type SeedManifest, type SeedOptions } from 
 export { hashPassword, verifyPassword } from "./password.js";
 export { loadTranslations, applyTranslations, type TranslationOverlay } from "./translations.js";
 export { upsertAccount, findAccount, checkLogin, createDevAccounts } from "./accounts.js";
+export {
+  SLOT_SEPARATOR,
+  deriveGameUserName,
+  listAccountCharacterSlots,
+  getAccountCharacterSlot,
+  getAccountCharacterByGameUserName,
+  ensureFirstSlot,
+  createNextCharacterSlot,
+  type AccountCharacterRow,
+  type CreateSlotResult,
+} from "./characters.js";
 export * from "./schema/index.js";
