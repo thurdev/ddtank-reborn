@@ -18,6 +18,7 @@ import { setSocketResolver } from "@ddt/flash/net/Socket";
 import { setResponseFilter, setUrlRewriter } from "@ddt/flash/net/http";
 import { loadAssetIndex, registerVirtualSwf } from "@ddt/flash/swf/index-of-assets";
 import { setAssetBase } from "@ddt/flash/swf/paths";
+import { ASSETS_BASE } from "./assets-base";
 import { SwfLibrary } from "@ddt/flash/swf/SwfLibrary";
 import { withSymbol } from "@ddt/flash/swf/symbol";
 import { dlog } from "@ddt/flash/debug";
@@ -45,8 +46,8 @@ async function boot(): Promise<void> {
   };
   stage.$loaderInfo = info;
 
-  // assets exportados (PNG + library.json) moram no próprio cliente
-  setAssetBase(`${import.meta.env.BASE_URL}assets/`);
+  // assets exportados (PNG + library.json): próprio cliente em dev, CDN configurável em prod (assets-base.ts)
+  setAssetBase(ASSETS_BASE);
   await loadAssetIndex();
   // núcleo do jogo (2.png no Flash) = src/game, já carregado
   registerVirtualSwf("flash/2");
@@ -54,7 +55,7 @@ async function boot(): Promise<void> {
   setUrlRewriter((url) => {
     // música de fundo: sound/<id>.flv virou assets/resource/sound/<id>.mp3 (tools/swf-export/src/sounds.ts)
     const snd = /\/resource\/sound\/([^/?#]+)\.(flv|mp3)/i.exec(url);
-    if (snd) return `${import.meta.env.BASE_URL}assets/resource/sound/${snd[1]!.toLowerCase()}.mp3`;
+    if (snd) return `${ASSETS_BASE}resource/sound/${snd[1]!.toLowerCase()}.mp3`;
     return /^[a-z]+:\/\//i.test(url) ? url : `${API}/flash/${url.replace(/^\/+/, "")}`;
   });
   // md5.xml listava o md5 dos SWFs (cabeçalho "road7"). Sem SWF não há o que conferir:

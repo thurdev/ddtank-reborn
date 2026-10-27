@@ -38,3 +38,7 @@ docs/AI-HANDOFF.md
 
 # site-admin-redesign: capturas de antes/depois (admin vs jogo real) pra revisao do dono, nao versionadas
 docs/plan/redesign-shots/
+
+# lancamento: manifesto local do scripts/assets-r2-sync.mjs (hash por arquivo da árvore de assets, só
+# pra sync incremental nesta máquina — não é segredo, mas não tem por que versionar)
+scripts/.assets-manifest.json

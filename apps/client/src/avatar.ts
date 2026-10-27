@@ -33,6 +33,7 @@ import { setResponseFilter, setUrlRewriter } from "@ddt/flash/net/http";
 import { loadAssetIndex, registerVirtualSwf } from "@ddt/flash/swf/index-of-assets";
 import { setAssetBase } from "@ddt/flash/swf/paths";
 import { dlog } from "@ddt/flash/debug";
+import { ASSETS_BASE } from "./assets-base";
 import "./game/all";
 import { Dictionary } from "@ddt/flash/utils/Dictionary";
 import { ConfigParaser } from "./game/ddt/data/ConfigParaser";
@@ -373,7 +374,7 @@ async function boot(): Promise<void> {
   const container = document.getElementById("avatar")!;
   const user = "preview";
 
-  setAssetBase(`${import.meta.env.BASE_URL}assets/`);
+  setAssetBase(ASSETS_BASE);
   registerVirtualSwf("flash/2");
   setUrlRewriter((url) => (/^[a-z]+:\/\//i.test(url) ? url : `${API}/flash/${url.replace(/^\/+/, "")}`));
   setResponseFilter((url, bytes) => (/\/md5\.xml/i.test(url) ? new TextEncoder().encode("<Result/>") : bytes));
