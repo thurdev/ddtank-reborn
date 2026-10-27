@@ -13,7 +13,7 @@ import "./character-carousel.css";
  *  backdrop art (title plate baked in, PT-BR "Escolha o seu personagem", light rays + glass podium),
  *  exported by `tools/swf-export` straight from the game's own assets. Reused as-is for the carousel's
  *  stage background (coordinator ask: "use real exported game art as the backdrop"). */
-const CHOICEFIGURE_BACKDROP = "assets/flash/ui/vietnam/swf/choicefigure/images/4_asset.choicefigure.rightBackground.jpg";
+const CHOICEFIGURE_BACKDROP = ""; //"assets/flash/ui/vietnam/swf/choicefigure/images/4_asset.choicefigure.rightBackground.jpg";
 
 type Card = { kind: "character"; character: CharacterSlot } | { kind: "create" };
 
