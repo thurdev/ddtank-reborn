@@ -144,6 +144,12 @@ const ptBR = {
   "a11y.skipToContent": "Pular para o conteúdo",
   "footer.note": "Projeto de fã sem fins lucrativos. DDTank é marca de seus respectivos donos.",
 
+  "notFound.eyebrow": "Erro 404",
+  "notFound.title": "Essa sala não existe no mapa",
+  "notFound.body": "O link que você seguiu está quebrado ou a página mudou de lugar. Volte pro início ou confira o ranking.",
+  "notFound.home": "Voltar ao início",
+  "notFound.ranking": "Ver ranking",
+
   "apoiar.title": "Apoiar o servidor",
   "apoiar.lead": "O DDTank Reborn é mantido só por doação voluntária, sem fins lucrativos — e sem pay-to-win.",
   "apoiar.noP2wBadge": "Sem vantagem no jogo",
@@ -328,6 +334,12 @@ const en: Partial<Record<Key, string>> = {
   "a11y.skipToContent": "Skip to content",
   "common.loading": "Loading…",
   "footer.note": "Non-profit fan project. DDTank is a trademark of its respective owners.",
+
+  "notFound.eyebrow": "Error 404",
+  "notFound.title": "That room isn't on the map",
+  "notFound.body": "The link you followed is broken or the page moved. Head back home or check the ranking.",
+  "notFound.home": "Back to home",
+  "notFound.ranking": "See ranking",
 
   "apoiar.title": "Support the server",
   "apoiar.lead": "DDTank Reborn runs only on voluntary donations, non-profit — and never pay-to-win.",

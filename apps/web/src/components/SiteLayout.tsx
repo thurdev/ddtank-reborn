@@ -75,7 +75,10 @@ export function SiteLayout() {
                   <Link to="/login">{t("nav.login")}</Link>
                 </Button>
               )}
-              <Button variant="secondary" size="sm" asChild>
+              {/* Oculto no mobile: já está no nav de pills logo abaixo (`md:hidden`) — sem isso, os botões
+               *  deste cluster ("Idioma" + "Entrar"/"Sair" + "Apoiar" + "Jogar") não cabem em 390px e
+               *  estouram a largura da página (achado na rodada 3, `docs/plan/SITE-ADMIN-REDESIGN.md`). */}
+              <Button variant="secondary" size="sm" asChild className="hidden md:inline-flex">
                 <Link to="/apoiar">
                   <Heart /> {t("nav.support")}
                 </Link>

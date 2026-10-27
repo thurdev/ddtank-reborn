@@ -97,6 +97,40 @@ responsivo — não testei se isso é meu ou pré-existente, e os 390px pedidos 
 não pro admin inteiro; o requisito de 390px da fase 3 (site) é explicitamente só pro site `apps/web`, não pro
 admin interno.
 
+## 0.3 Fase 3 (site) — polimento pra "qualidade de lançamento"
+
+Ao retomar, a maior parte da fase 3 já estava pronta de uma rodada anterior desta mesma tarefa (não capturada
+no resumo pós-compactação, mas presente no código): Home com hero (key art real reaproveitada de `/play/bg-*`,
+`home.lead` sem stats inventados), motion de entrada (`fadeUp`/`stagger`, `MotionConfig reducedMotion="user"`),
+status do servidor AO VIVO (não estático), screenshot real do char-select (`public/art/screenshot-char-select.webp`,
+comentário no código confirma: captura genuína via Playwright de conta de teste, não key art gerada), grid de
+features, notícias (com empty-state honesto, "Nenhuma notícia publicada ainda" em vez de inventar uma).
+Apoiar/Transparência/Ranking/Conta/Login/Registro: todos já usavam dado real (`useQuery`), nenhum stat/
+depoimento inventado encontrado (busquei por "testemunho"/"depoimento"/"review"/"★" — nada). Então o trabalho
+desta rodada foi auditoria + lacunas, não reescrever:
+
+1. **404 criada do zero** (não existia nenhuma): `apps/web/src/pages/NotFound.tsx` + rota splat
+   (`path: "$"`) como filha de `siteRoute` em `router.tsx` — assim o 404 mantém nav/footer do site, não um
+   fallback pelado. Também `defaultNotFoundComponent` no router (rede de segurança fora de `siteRoute`, hoje
+   sem uso real — só existe `/play` lá fora). Chaves `notFound.*` em `i18n.ts` (pt-BR + en). Teste
+   `NotFound.test.tsx` (padrão `renderAt`, igual aos outros `*.test.tsx` da pasta).
+2. **Bug de responsividade real, achado só testando em 390px** (o dono não tinha reportado): o cluster de
+   ações do header (`SiteLayout.tsx`, `ml-auto flex items-center gap-2` — idioma + Entrar/Sair + Apoiar +
+   Jogar) não cabia em 390px e estourava a largura da PÁGINA INTEIRA (confirmado em toda rota do site,
+   `document.documentElement.scrollWidth` = 490 em vez de 390). Corrigido ocultando o botão "Apoiar" desse
+   cluster no mobile (`hidden md:inline-flex`) — ele já existe no nav de pills abaixo (`md:hidden`), então não
+   perde funcionalidade, só duplicação. Confirmado: todas as rotas testadas (`/`, `/apoiar`, `/transparencia`,
+   `/ranking`, `/login`, `/register`, 404) voltam a `scrollWidth` exato ao viewport em 1440 e 390.
+3. Bug menor achado no mesmo teste: `NotFoundPage`'s `TrajectoryArc` decorativo (140% de largura) sem
+   `overflow-hidden` no pai também estourava a página em 390px — `overflow-hidden` adicionado no container.
+
+Verificado com Playwright próprio (`chromium.launch()`, contexto novo) contra um `vite --port 5198` só meu
+(porta livre, parado ao final), apontando pra API do dono em :8080 — nunca a ferramenta MCP. Screenshots em
+`docs/plan/redesign-shots/site/` (`<página>-1440.png`/`-390.png`).
+
+Não alterado (fora do pedido, risco de pisar no agente `multi-char`): `Play.tsx`, `GameFrame`, seletor de
+canal, carrossel de personagem.
+
 ## 0. Direção de design (já existente, estendida — não é um redesign do zero)
 
 O design system "night sky artillery" (`packages/ui/src/styles.css`) já está certo pro pedido do dono e

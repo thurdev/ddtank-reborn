@@ -15,6 +15,7 @@ const ApoiarPage = lazyRouteComponent(() => import("@/pages/Apoiar"), "ApoiarPag
 const ApoiarPixPage = lazyRouteComponent(() => import("@/pages/Apoiar"), "ApoiarPixPage");
 const TransparenciaPage = lazyRouteComponent(() => import("@/pages/Transparencia"), "TransparenciaPage");
 const PlayPage = lazyRouteComponent(() => import("@/pages/Play"), "PlayPage");
+const NotFoundPage = lazyRouteComponent(() => import("@/pages/NotFound"), "NotFoundPage");
 
 interface RouterContext {
   queryClient: QueryClient;
@@ -55,8 +56,23 @@ const accountRoute = createRoute({
 // Play lives outside the site chrome: full-screen.
 const playRoute = createRoute({ getParentRoute: () => rootRoute, path: "/play", beforeLoad: requireAuth, component: PlayPage });
 
+/** Fase 3: catch-all pra qualquer rota desconhecida DENTRO do `siteRoute` (`path: "$"` = splat do TanStack
+ *  Router), não um `defaultNotFoundComponent` solto na raiz — assim o 404 continua com `SiteLayout` (nav +
+ *  footer), igual a qualquer outra página do site. */
+const notFoundRoute = createRoute({ getParentRoute: () => siteRoute, path: "$", component: NotFoundPage });
+
 const routeTree = rootRoute.addChildren([
-  siteRoute.addChildren([homeRoute, loginRoute, registerRoute, rankingRoute, apoiarRoute, apoiarPixRoute, transparenciaRoute, accountRoute]),
+  siteRoute.addChildren([
+    homeRoute,
+    loginRoute,
+    registerRoute,
+    rankingRoute,
+    apoiarRoute,
+    apoiarPixRoute,
+    transparenciaRoute,
+    accountRoute,
+    notFoundRoute,
+  ]),
   playRoute,
 ]);
 
@@ -67,6 +83,9 @@ export function createAppRouter(queryClient: QueryClient, opts?: { history?: Rou
     context: { queryClient },
     defaultPreload: "intent",
     scrollRestoration: true,
+    // Fallback for anything outside `siteRoute` too (there's nothing there today — `/play` is a single
+    // explicit route — but this keeps a styled 404 the default even if that changes).
+    defaultNotFoundComponent: NotFoundPage,
     ...(opts?.history ? { history: opts.history } : {}),
   });
 }
