@@ -36,5 +36,9 @@ tools/remaster/_lang/
 research/qa/*-requests.md
 docs/AI-HANDOFF.md
 
+# qa-geral: evidencia (screenshots) do QA manual no cliente real — não versionar
+docs/qa/evidence/
+*.local.mjs
+
 # site-admin-redesign: capturas de antes/depois (admin vs jogo real) pra revisao do dono, nao versionadas
 docs/plan/redesign-shots/

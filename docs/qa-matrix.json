@@ -3365,8 +3365,8 @@
   "sub": "",
   "server": "ok",
   "verified": "yes",
-  "notes": "Xu (money) e Lễ kim (giftToken) debitados e saldo atualiza na loja (corrigido pacote 38 sem petScore). Ouro/medalha/itens exigidos pelo mesmo caminho (GetItemPrice). Loja da guilda (ShopID 11-15): nível da loja + contribuição ≥ Consortia_Equip_Control verificados (compra ok). Varredura básico pt.1 (2026-10-02, só testes automatizados contra packets reais, não clicado no Ruffle): tiers A/B/C, duração (ValidDate dias) vs quantidade (Count) por BuyType, carrinho multi-linha sem falha parcial — `test/handlers.test.ts` \"shop\". Achado não corrigido: presente pra amigo (221 USER_SEND_GIFTS) não está registrado em handler nenhum.",
-  "evidence": "research/e2e/qa/c6-shop-balance.png, research/e2e/guild/g43-shop-buy.png"
+  "notes": "Xu (money) e Lễ kim (giftToken) debitados e saldo atualiza na loja (corrigido pacote 38 sem petScore). Ouro/medalha/itens exigidos pelo mesmo caminho (GetItemPrice). Loja da guilda (ShopID 11-15): nível da loja + contribuição ≥ Consortia_Equip_Control verificados (compra ok). Varredura básico pt.1 (2026-10-02, só testes automatizados contra packets reais, não clicado no Ruffle): tiers A/B/C, duração (ValidDate dias) vs quantidade (Count) por BuyType, carrinho multi-linha sem falha parcial — `test/handlers.test.ts` \"shop\". Achado não corrigido: presente pra amigo (221 USER_SEND_GIFTS) não está registrado em handler nenhum. qa-geral (2026-10-27): confirmado também no cliente REAL (PixiJS, Playwright headless) — compra completa de \"Megafone Grande\" (30 Cupons) na Loja, Cupons debitados corretamente (5000->4970), modal de confirmação com seletor de quantidade/tier e resumo de pagamento, card do item realçado após compra. Evidência: docs/qa/QA-GERAL.md.",
+  "evidence": "research/e2e/qa/c6-shop-balance.png, research/e2e/guild/g43-shop-buy.png, docs/qa/evidence/buy-02-after-confirm.png (local, gitignored)"
  },
  {
   "key": "46:sendBuyGiftBag",
