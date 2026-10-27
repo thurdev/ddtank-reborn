@@ -15,6 +15,7 @@ const ptBR = {
   "home.lead":
     "Ajuste o ângulo, calcule a força e acerte o adversário do outro lado do mapa. Salas PvP, masmorras em grupo e guildas, direto no navegador.",
   "home.play": "Jogar agora",
+  "home.watchTrailer": "Assistir trailer",
   "home.download": "Baixar launcher",
   "home.downloadHint": "Windows · roda o cliente original sem navegador",
   "home.news": "Notícias",
@@ -30,11 +31,44 @@ const ptBR = {
   "home.features.openSource.body": "Servidor, site e painel admin publicados no GitHub — qualquer um pode rodar o próprio servidor ou contribuir.",
   "home.features.channels.title": "Vários canais",
   "home.features.channels.body": "Canais configuráveis pelo admin, cada um com seu próprio hall e salas, sem lotar a fila.",
+  "home.features.multiChar.title": "Multi-personagem (até 3)",
+  "home.features.multiChar.body": "Crie até 3 personagens na mesma conta e troque entre eles sem precisar de outro login.",
+  "home.features.dungeons.title": "Masmorras e chefes",
+  "home.features.dungeons.body": "Instâncias PvE em grupo, cadeia de fases e chefes com drop próprio — do tutorial ao fim de jogo.",
 
   "home.screenshot.eyebrow": "Direto do servidor",
   "home.screenshot.title": "É o jogo de verdade, não uma maquete",
   "home.screenshot.body":
     "Tela de criação de personagem do servidor Reborn, capturada ao vivo — mesma arte remasterizada, mesmas tabelas de ângulo que você vai usar em combate.",
+
+  "home.trailer.eyebrow": "Veja em ação",
+  "home.trailer.title": "O DDTank que você lembra, rodando de novo",
+  "home.trailer.body": "Um minuto de gameplay real do servidor Reborn — mira, PvP e masmorra, sem edição.",
+  "home.trailer.play": "Assistir no YouTube",
+
+  "home.gallery.eyebrow": "Capturas reais",
+  "home.gallery.title": "Direto do servidor, sem photoshop",
+  "home.gallery.body": "Toda imagem abaixo foi capturada rodando o servidor Reborn de verdade — nada é arte conceitual.",
+  "home.gallery.prev": "Imagem anterior",
+  "home.gallery.next": "Próxima imagem",
+  "home.gallery.charSelect": "Tela de criação de personagem — escolha classe e visual antes de entrar.",
+
+  "home.howTo.title": "Como jogar",
+  "home.howTo.step1.title": "Crie sua conta",
+  "home.howTo.step1.body": "Cadastro rápido, só usuário, e-mail e senha — sem cartão, sem instalar nada.",
+  "home.howTo.step2.title": "Escolha personagem e canal",
+  "home.howTo.step2.body": "Crie até 3 personagens e entre em qualquer canal aberto — sem fila lotada.",
+  "home.howTo.step3.title": "Jogue no navegador",
+  "home.howTo.step3.body": "O cliente roda direto no navegador, sem Flash nem plugin — ou baixe o launcher pra desktop.",
+
+  "home.openSource.title": "Código aberto, feito pela comunidade",
+  "home.openSource.body":
+    "Servidor, site e painel admin inteiros no GitHub, sob licença aberta. Suba o seu próprio servidor, leia o código ou contribua — nada aqui é fechado.",
+  "home.openSource.githubCta": "Ver no GitHub",
+  "home.openSource.supportCta": "Apoiar o projeto",
+  "home.openSource.creditsTitle": "Créditos",
+  "home.openSource.creditsBody":
+    "Projeto só existe graças ao trabalho de pnkl1999, SkelletonX, yutikeyux, dk-khoado, barrydevp, tohru48 e do emulador Ruffle — lista completa e licenças no README.",
 
   "status.title": "Servidor",
   "status.online": "Online",
@@ -225,6 +259,7 @@ const en: Partial<Record<Key, string>> = {
   "home.lead":
     "Set the angle, judge the power and hit your rival across the map. PvP rooms, party dungeons and guilds, right in the browser.",
   "home.play": "Play now",
+  "home.watchTrailer": "Watch trailer",
   "home.download": "Download launcher",
   "home.downloadHint": "Windows · runs the original client without a browser",
   "home.news": "News",
@@ -239,11 +274,44 @@ const en: Partial<Record<Key, string>> = {
   "home.features.openSource.body": "Server, site and admin panel published on GitHub — run your own server or contribute.",
   "home.features.channels.title": "Multiple channels",
   "home.features.channels.body": "Channels configurable from the admin panel, each with its own hall and rooms, so queues never get crowded.",
+  "home.features.multiChar.title": "Multi-character (up to 3)",
+  "home.features.multiChar.body": "Create up to 3 characters on one account and switch between them without logging in again.",
+  "home.features.dungeons.title": "Dungeons and bosses",
+  "home.features.dungeons.body": "Party PvE instances, stage chains and bosses with their own drops — from the tutorial to end game.",
 
   "home.screenshot.eyebrow": "Straight from the server",
   "home.screenshot.title": "It's the real game, not a mockup",
   "home.screenshot.body":
     "The Reborn server's character-creation screen, captured live — same remastered art, same aim tables you'll use in combat.",
+
+  "home.trailer.eyebrow": "See it in action",
+  "home.trailer.title": "The DDTank you remember, running again",
+  "home.trailer.body": "One minute of real gameplay on the Reborn server — aiming, PvP and a dungeon run, no edits.",
+  "home.trailer.play": "Watch on YouTube",
+
+  "home.gallery.eyebrow": "Real captures",
+  "home.gallery.title": "Straight from the server, no photoshop",
+  "home.gallery.body": "Every image below was captured while actually running the Reborn server — nothing is concept art.",
+  "home.gallery.prev": "Previous image",
+  "home.gallery.next": "Next image",
+  "home.gallery.charSelect": "Character-creation screen — pick a class and look before entering.",
+
+  "home.howTo.title": "How to play",
+  "home.howTo.step1.title": "Create your account",
+  "home.howTo.step1.body": "Quick sign-up — username, email and password, no card, nothing to install.",
+  "home.howTo.step2.title": "Pick a character and channel",
+  "home.howTo.step2.body": "Create up to 3 characters and join any open channel — no crowded queues.",
+  "home.howTo.step3.title": "Play in your browser",
+  "home.howTo.step3.body": "The client runs right in the browser, no Flash or plugin — or download the desktop launcher.",
+
+  "home.openSource.title": "Open source, built by the community",
+  "home.openSource.body":
+    "Server, site and admin panel, entirely on GitHub under an open license. Run your own server, read the code or contribute — nothing here is closed.",
+  "home.openSource.githubCta": "View on GitHub",
+  "home.openSource.supportCta": "Support the project",
+  "home.openSource.creditsTitle": "Credits",
+  "home.openSource.creditsBody":
+    "This project only exists thanks to the work of pnkl1999, SkelletonX, yutikeyux, dk-khoado, barrydevp, tohru48 and the Ruffle emulator — full list and licenses in the README.",
 
   "status.title": "Server",
   "status.online": "Online",

@@ -5,17 +5,16 @@ import { Button, LocaleToggle } from "@ddtank/ui";
 import { Heart, Play } from "lucide-react";
 import { api, meQuery } from "@/lib/api";
 import { useI18n } from "@/i18n";
+import { GITHUB_URL } from "@/lib/links";
+import { GithubMark } from "@/components/GithubMark";
 
-export function Logo() {
+/** Logo real do projeto (`public/play/logo.webp` — mesma arte usada no `play.css`/launcher), não mais um
+ *  ícone genérico + texto (achado da rodada 4: "generic icon + DDTank text" era parte do "parece landing
+ *  page genérica"). `size` controla a altura; a largura segue a proporção real do arquivo. */
+export function Logo({ size = "size-10" }: { size?: string }) {
   return (
-    <Link to="/" className="group flex items-center gap-2" aria-label="DDTank">
-      <svg viewBox="0 0 64 64" className="size-9" aria-hidden>
-        <rect width="64" height="64" rx="16" className="fill-panel-2" />
-        <path d="M8 52 Q 32 4 56 44" className="stroke-sun" strokeWidth="4" strokeLinecap="round" strokeDasharray="1 8" fill="none" />
-        <circle cx="54" cy="46" r="7" className="fill-coral transition-transform group-hover:-translate-y-1" />
-        <rect x="6" y="46" width="16" height="10" rx="3" className="fill-mint" />
-      </svg>
-      <span className="title-plate text-2xl text-ink">DDTank</span>
+    <Link to="/" className="group flex items-center" aria-label="DDTank Reborn">
+      <img src="/play/logo.webp" alt="DDTank Reborn" className={`${size} w-auto object-contain transition-transform group-hover:scale-105`} />
     </Link>
   );
 }
@@ -120,11 +119,27 @@ export function SiteLayout() {
             </motion.div>
           </AnimatePresence>
         </main>
-        <footer className="border-t border-line/60 py-8 text-center text-xs text-muted">
-          <p>{t("footer.note")}</p>
-          <Link to="/transparencia" className="mt-1 inline-block underline hover:text-ink">
-            {t("footer.transparency")}
-          </Link>
+        <footer className="border-t border-line/60 bg-night-deep/40">
+          <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-10 sm:flex-row sm:items-start sm:justify-between">
+            <div className="flex flex-col items-center gap-3 sm:items-start">
+              <Logo size="size-9" />
+              <p className="max-w-xs text-center text-xs text-muted sm:text-left">{t("footer.note")}</p>
+            </div>
+            <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted sm:justify-end">
+              <Link to="/ranking" className="hover:text-ink">
+                {t("nav.ranking")}
+              </Link>
+              <Link to="/apoiar" className="hover:text-ink">
+                {t("nav.support")}
+              </Link>
+              <Link to="/transparencia" className="hover:text-ink">
+                {t("footer.transparency")}
+              </Link>
+              <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-ink">
+                <GithubMark className="size-4" aria-hidden /> GitHub
+              </a>
+            </nav>
+          </div>
         </footer>
       </div>
     </MotionConfig>
