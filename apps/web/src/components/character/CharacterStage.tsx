@@ -19,12 +19,13 @@ const AURA_TIER_COLOR: Record<number, number> = {
 };
 
 /**
- * task multi-char: the focused carousel card's real PixiJS render — equipped-item icons layered as
+ * task multi-char: FALLBACK render for the focused carousel card, used only when the server has no PixiJS
+ * client configured (`GameConfig.pixiUrl` empty — see `CharacterCarousel`/`AvatarFrame`, which renders the
+ * REAL `ShowCharacter` via `apps/client/avatar.html` whenever one is). Equipped-item icons layered as
  * sprites (z-order by `categoryId`, same order `apps/api/src/lib/item-icon.ts` `TYPES` walks through
  * head→glass→hair→eff→cloth→face→arm→...→wing), a soft aura glow sized off the strengthen/gilded tier
  * (`Nimbus`), and a gentle idle bob/sway so the centered character doesn't look frozen — same spirit as
- * `ShowCharacter`'s idle "stand" loop, without needing that class's full SWF-frame runtime (see
- * docs/plan/MULTI-CHAR.md "Fidelidade do renderer" for why that's a documented gap, not a shortcut).
+ * `ShowCharacter`'s idle "stand" loop, without needing that class's full SWF-frame runtime.
  * Side/background cards use the much cheaper `CharacterThumb` (plain `<img>` layers, no WebGL context) —
  * only ONE of these mounts at a time (the focused card), which is what keeps this CPU-cheap with up to
  * `maxCharactersPerAccount` cards in the carousel.

@@ -1105,15 +1105,21 @@ Como rodar um 2º canal hoje (sem `ch-processo`/`ch-bus`): [GAME-SERVER.md §Can
   slot N>1 é `"<conta>~N"` (`~` nunca aparece num nome de conta válido). `apps/game` e o fluxo
   `Login.ashx`/`VisualizeRegister.ashx` não mudaram nada — só olham username. API:
   `GET/POST /api/me/characters`, `playConfig`/`/api/public/config`/`/api/play/config` ganharam `?slot=`.
-  Web: carrossel old-school antes do seletor de canal (`CharacterCarousel`/`CharacterStage`, PixiJS
-  importado só no efeito do card focado — ícones de equipamento em camadas, aura por `Nimbus`, nameplate
-  VIP/nick/guilda); conta nova (1 slot, nunca criado) pula o carrossel direto pro seletor de canal. Admin:
-  campo "Máx. de personagens por conta". Doc: `docs/features/multi-personagem.md` (gap de fidelidade do
-  renderer documentado — não reusa `ShowCharacter` real, que só existe na branch `feature/pixi-ligar` ainda
-  não mesclada). Testes: `packages/db/test/account-characters.test.ts` (5), `apps/api/test/api.test.ts`
-  (+6, 122 no total), `apps/game/test/multi-char-login.test.ts` (2), `apps/web/src/pages/Play.characters.
-  test.tsx` (6) + `Play.test.tsx` ajustado (6) — todos verdes; typecheck limpo em `@ddt/db`/`@ddt/api`/
-  `@ddt/game`/`web`/`admin`.
+  Web: carrossel old-school antes do seletor de canal (`CharacterCarousel`); card focado mostra o
+  `ShowCharacter` REAL via `AvatarFrame` (iframe de `apps/client`'s nova entrada leve `avatar.html`/
+  `src/avatar.ts` — sobe só `@ddt/flash`+`ConfigParaser`+2 loaders de item, sem socket/login/hall;
+  `apps/client/src/game` é saída GERADA presente em todo checkout, `npx tsx tools/as3-to-ts/src/main.ts`
+  regenera — correção de uma suposição errada minha de que só existia numa branch não mesclada), com
+  fallback `CharacterStage` (ícones em PixiJS) quando `PIXI_CLIENT_URL` não está configurado; conta nova
+  (1 slot, nunca criado) pula o carrossel direto pro seletor de canal. Admin: campo "Máx. de personagens
+  por conta". 2 bugs reais achados/corrigidos verificando ao vivo (Playwright headless, conta de teste
+  própria + leitura do próprio personagem do dono): `ConfigParaser.paras` precisa do nó `<config>`, não
+  `<root>`; `ShowCharacter` carregava um placeholder cosmético do pacote de UI completo (stub via `$class`
+  resolve sem puxar hall/chat/toolbar/etc.). Doc: `docs/features/multi-personagem.md`. Testes:
+  `packages/db/test/account-characters.test.ts` (5), `apps/api/test/api.test.ts` (+6, 123 no total),
+  `apps/game/test/multi-char-login.test.ts` (2), `apps/web/src/pages/Play.characters.test.tsx` (7) +
+  `Play.test.tsx` ajustado (6) — todos verdes; typecheck limpo em `@ddt/db`/`@ddt/api`/`@ddt/game`/
+  `@ddt/client` (baseline 119 pré-existente, nenhum erro novo)/`@ddt/flash`/`web`/`admin`.
 - [x] **admin-ux** (2026-10-18) — campo `ref`/`ref-multi` no CRUD (nome/ícone no lugar do id, picker com
   busca, clique abre o registro; lookup em lote `GET /api/admin/<res>?ids=`), Ctrl+K (recursos, recentes,
   busca jogador/item/guilda), seleção + edição/exclusão em massa. Bug corrigido: `keepPreviousData` vazava

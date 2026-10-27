@@ -39,25 +39,36 @@ zerada.
 - [x] Fase 6 — admin: campo `maxCharactersPerAccount` na página Server Config
 - [x] Fase 7 — testes (db/api/web/game), docs, TASKS.md
 
-## Fidelidade do renderer (gap documentado)
+## Renderer: correção do coordenador (resolvido)
 
-O pedido preferia reusar `ShowCharacter`/`RoomCharacter`/`BaseCharacter` (cliente transpilado,
-`apps/client/src/game/ddt/view/character/*`). Esses arquivos **não existem nesta worktree**: são
-saída gerada do transpilador AS3→TS (gitignored, ver memória "Pixi generated files") e só existem na
-branch em andamento `feature/pixi-ligar` (ainda não mergeada em `main`, que é de onde este worktree
-partiu). Reusar essas classes exigiria depender de uma branch não mesclada e de todo o runtime
-`@ddt/flash` + `ComponentFactory` (carregamento de `.swf` convertido, animação por frame,
-`CharacterLoaderFactory`) — fora do escopo de uma task isolada em `apps/web`.
+Primeira tentativa: achei que reusar `ShowCharacter`/`RoomCharacter` era inviável porque
+`apps/client/src/game/ddt/view/character/*` "não existia nesta worktree". **Errado** — esse código é
+saída GERADA do transpilador AS3→TS, gitignored em TODO checkout (não só nesta worktree), e
+`npx tsx tools/as3-to-ts/src/main.ts` regenera em ~10-20s. O coordenador corrigiu isso. O cliente
+PixiJS também já é servido separado (dev `http://localhost:5180`, prod `PIXI_CLIENT_URL`) —
+exatamente o mecanismo que `AvatarFrame` usa.
 
-Caminho escolhido: renderer leve próprio (`apps/web/src/components/character`), usando os MESMOS
-assets do pacote de recursos original (`/resource/image/equip/...`), resolvidos pelas MESMAS funções
-já existentes e testadas em produção (`apps/api/src/lib/item-icon.ts` `itemIconRel`, usada hoje pelo
-admin pra preview de ícone de item). A API devolve, por personagem, a lista de itens equipados
-(categoria/pic/sexo/nível de reforço) e o componente web empilha os ícones (base/corpo, cabelo,
-rosto, roupa, arma, asas) em camadas CSS/PixiJS, com idle bob leve, moldura/placar de nome
-(VIP/título/guild) e aura dourada quando `StrengthenLevel` é alto — igual ao estilo da plaquinha de
-nome do lobby, mas SEM a animação de frame-a-frame real do corpo (ela é só "stand" estático). Gap
-documentado para fechar quando `apps/client` (ShowCharacter real) chegar em `main`.
+Caminho final: segunda entrada leve do `apps/client` — `avatar.html` + `src/avatar.ts` — que sobe só o
+necessário (stage `@ddt/flash`, `ConfigParaser.paras` pro `PathManager`, os 2 loaders de referência de
+item que `ItemManager`/`BaseCharacterLoader` precisam, nada de socket/login/hall) e cria um
+`ShowCharacter` de verdade via `CharactoryFactory.createCharacter(info, SHOW)` a partir de query params
+(os mesmos campos que `GET /api/me/characters` já devolve: `style`/`colors`/`skin`/sexo/VIP/guilda/
+título/aura). `apps/web`'s `CharacterCarousel` embute isso num iframe (`AvatarFrame.tsx`) pro card
+focado, com `CharacterStage` (pilha de ícones) como fallback só quando `PIXI_CLIENT_URL` não está
+configurado. Verificado ao vivo contra o stack rodando (conta de teste própria + leitura do próprio
+personagem do dono, só leitura) via Playwright headless — personagem real renderizado com
+equipamento/asas/aura, screenshot conferido.
+
+Dois bugs reais achados e corrigidos nessa verificação: `ConfigParaser.paras` precisa do nó `<config>`
+(não `<root>`) do config.xml, e `ShowCharacter` carrega um placeholder cosmético do pacote de UI
+completo que esta entrada leve pula de propósito (`asset.core.character.FigureBgAsset`, registrado
+como um stub inofensivo via `$class`).
+
+**Gap residual, pequeno e documentado**: `avatar.ts` só carrega os loaders de item/categoria
+(`StartupResourceLoader.creatItemTempleteLoader`/`creatGoodCategoryLoader`), não os de conjunto/traje
+(`creatSuitTempleteLoader`/`creatEquipSuitTempleteLoader`) — um personagem com bônus visual de
+"conjunto completo" pode não mostrar esse efeito extra na prévia (o equipamento em si renderiza certo).
+Fechar se algum dia isso importar pra seleção de personagem.
 
 ## Comandos de verificação
 

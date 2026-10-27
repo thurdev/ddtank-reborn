@@ -26,8 +26,10 @@ cliente e o servidor de jogo não sabem que "contas com vários personagens" exi
 | API | mesmo arquivo, `GET/POST /api/me/characters` | lista os slots (com dados de render) / reserva o próximo |
 | API | [`apps/api/src/routes/admin.ts`](../../apps/api/src/routes/admin.ts) `serverConfigDefaults` | `maxCharactersPerAccount` (default 3, [1,10]) |
 | Web | [`apps/web/src/components/character/CharacterCarousel.tsx`](../../apps/web/src/components/character/CharacterCarousel.tsx) | carrossel (teclado/mouse/touch) |
-| Web | [`apps/web/src/components/character/CharacterStage.tsx`](../../apps/web/src/components/character/CharacterStage.tsx) | render PixiJS do personagem focado (ícones de equipamento + aura) |
+| Web | [`apps/web/src/components/character/AvatarFrame.tsx`](../../apps/web/src/components/character/AvatarFrame.tsx) | iframe do personagem real (`avatar.html`) pro card focado |
+| Web | [`apps/web/src/components/character/CharacterStage.tsx`](../../apps/web/src/components/character/CharacterStage.tsx) | fallback: ícones de equipamento + aura, sem `PIXI_CLIENT_URL` |
 | Web | [`apps/web/src/pages/Play.tsx`](../../apps/web/src/pages/Play.tsx) | liga o carrossel antes do seletor de canal |
+| Client | [`apps/client/avatar.html`](../../apps/client/avatar.html) + [`src/avatar.ts`](../../apps/client/src/avatar.ts) | render real (`ShowCharacter`) sem socket/login/hall |
 | Admin | [`apps/admin/src/pages/ServerConfig.tsx`](../../apps/admin/src/pages/ServerConfig.tsx) | campo "Máx. de personagens por conta" |
 | Game | `apps/game` | **nenhuma mudança** — ver §3 |
 
@@ -63,16 +65,29 @@ cliente e o servidor de jogo não sabem que "contas com vários personagens" exi
    carrossel direto pro seletor de canal — mesmo comportamento de antes desta
    feature.
 
-## 4. Fidelidade do renderer (gap conhecido)
+## 4. Renderer: o personagem real
 
-O ideal seria reusar `ShowCharacter`/`RoomCharacter`/`BaseCharacter` (cliente
-transpilado, `apps/client/src/game/ddt/view/character/`), mas esse código é saída
-gerada do transpilador AS3→TS (gitignored) e só existe na branch em andamento
-`feature/pixi-ligar`, ainda não mesclada em `main` — de onde esta feature partiu.
-Em vez disso, `CharacterStage` monta os mesmos ícones de equipamento (resolvidos por
-`itemIconRel`) em camadas PixiJS, com uma aura simples e um balanço de "idle" leve.
-Isto é fiel o bastante pra uma tela de seleção, mas **não é** a animação quadro-a-quadro
-real do personagem. Fechar esse gap quando o cliente PixiJS chegar em `main`.
+O carrossel mostra o `ShowCharacter` DE VERDADE (mesma classe das telas de equipar/mala
+e base do `RoomCharacter` do lobby) — não um ícone empilhado. `apps/client` ganhou uma
+segunda entrada leve, `avatar.html` + `src/avatar.ts`: sobe só o `@ddt/flash` +
+`ConfigParaser`/`PathManager` + os loaders de referência de item (sem socket/login/
+hall/UI completa), monta um `PlayerInfo` a partir dos mesmos campos que
+`GET /api/me/characters` devolve (`style`/`colors`/`skin`/sexo/VIP/guilda/título/
+`nimbus`) e cria o personagem via `CharactoryFactory.createCharacter(info,
+CharactoryFactory.SHOW)`. `apps/web`'s `CharacterCarousel` embute isso num iframe
+transparente (`AvatarFrame.tsx`) pro card focado; os cards ao lado usam
+`CharacterThumb` (ícones estáticos, bem mais barato). Sem `PIXI_CLIENT_URL`
+configurado, cai pro fallback `CharacterStage` (pilha de ícones em PixiJS, sem o corpo
+real).
+
+`apps/client/src/game` é saída GERADA do transpilador AS3→TS, gitignored em todo
+checkout (não numa branch específica) — `npx tsx tools/as3-to-ts/src/main.ts`
+regenera em segundos.
+
+Gap residual pequeno: `avatar.ts` só carrega os loaders de item/categoria, não os de
+conjunto/traje — o bônus visual de "conjunto completo" pode não aparecer na prévia (o
+equipamento normal renderiza certo). Ver `docs/plan/MULTI-CHAR.md` "Renderer: correção
+do coordenador" pro histórico completo.
 
 ## 5. Quero mudar…
 
@@ -95,7 +110,12 @@ real do personagem. Fechar esse gap quando o cliente PixiJS chegar em `main`.
   o handler de `1 LOGIN` não precisam de nenhuma mudança pra um `gameUserName` `~N`.
 - `apps/web/src/pages/Play.characters.test.tsx` — carrossel: seleção por teclado,
   "continuar criação", limite atingido esconde o slot "+", criar personagem leva
-  direto ao seletor de canal com o ticket certo.
+  direto ao seletor de canal com o ticket certo, `AvatarFrame` usado quando
+  `pixiUrl` está configurado (src do iframe, fallback nunca os dois juntos).
+- Verificação manual (Playwright headless, 2026-10-27): `avatar.html` renderizando o
+  personagem real do dono ("Thur", só leitura) contra o stack rodando — equipamento,
+  asas, aura, zero erro de console; caso extremo (`style`/`colors` ausentes) também
+  testado, sem travar (`padFields` em `avatar.ts`).
 - Status (2026-10-27): **OK** ponta a ponta (criação de slot, ticket, login/registro
-  do personagem novo, limite ao vivo pelo admin); fidelidade visual do carrossel é
-  **parcial** — ver §4.
+  do personagem novo, limite ao vivo pelo admin, render real do personagem no
+  carrossel). Gap residual pequeno: ver §4 (bônus visual de conjunto).
