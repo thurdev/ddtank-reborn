@@ -174,6 +174,7 @@ export function HomePage() {
 
   const gallery: GalleryImage[] = [
     { src: "/art/gallery/hall.webp", caption: t("home.gallery.hall") },
+    { src: "/art/gallery/shop.webp", caption: t("home.gallery.shop") },
     { src: "/art/screenshot-char-select.webp", caption: t("home.gallery.charSelect") },
   ];
 

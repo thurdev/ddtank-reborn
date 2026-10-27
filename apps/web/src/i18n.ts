@@ -52,6 +52,7 @@ const ptBR = {
   "home.gallery.prev": "Imagem anterior",
   "home.gallery.next": "Próxima imagem",
   "home.gallery.hall": "O hall da cidade — Sala de Jogos, Loja, Forja, Igreja, Sociedade e Expedição a um clique.",
+  "home.gallery.shop": "A loja (Shopping) rodando de verdade — pedras, amuletos e itens com preço em cupons.",
   "home.gallery.charSelect": "Tela de criação de personagem — escolha classe e visual antes de entrar.",
 
   "home.howTo.title": "Como jogar",
@@ -296,6 +297,7 @@ const en: Partial<Record<Key, string>> = {
   "home.gallery.prev": "Previous image",
   "home.gallery.next": "Next image",
   "home.gallery.hall": "The town hall — Game Room, Shop, Forge, Church, Guild and Expedition one click away.",
+  "home.gallery.shop": "The shop running for real — stones, charms and items priced in coupons.",
   "home.gallery.charSelect": "Character-creation screen — pick a class and look before entering.",
 
   "home.howTo.title": "How to play",
