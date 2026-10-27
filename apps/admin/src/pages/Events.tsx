@@ -39,9 +39,6 @@ import {
   DialogContent,
   EmptyState,
   Field,
-  GamePanel,
-  GamePanelBody,
-  GamePanelHeader,
   Hotspot,
   Input,
   PageHeader,
@@ -55,6 +52,15 @@ import {
   cn,
 } from "@ddtank/ui";
 import { CalendarDays, ChevronLeft, ChevronRight, Pencil, Plus, Save, Search } from "lucide-react";
+import { FlashImg, resolveFlashAsset, useFlashLibrary } from "@/lib/flashAssets";
+
+/** Event panel art (`vendor/DDTank41/Source Flash/src/activeEvents/view/ActiveMainFrame.as`/
+ * `ActiveSubContent.as`, `activeevents` module): `bgPanel` (card frame) + the real section labels
+ * `iconContent` ("Conteúdo:") / `iconGive` ("Recompensas:"), all visually verified pt-BR. Unlike
+ * quests/dungeons/items/npcs, `game."Active"` (events) isn't in `packages/db/scripts/export-texts.ts`
+ * `TARGETS` at all — events are admin-authored content for this server, not vendor-translated text, so
+ * there's no "Original (VN)" reference to show here (nothing to translate). */
+const EVENT_MODULE = "activeevents";
 import { getQuery, listQuery, useResourceMutations } from "@/crud/api";
 import { FieldInput } from "@/crud/FieldInput";
 import { ResourcePage } from "@/crud/ResourcePage";
@@ -456,6 +462,8 @@ function EventEditor({ activeId }: { activeId: number }) {
     el?.scrollIntoView({ block: "center", behavior: "smooth" });
     (el?.querySelector("input, textarea, select, button") as HTMLElement | undefined)?.focus();
   };
+  // Must run every render (Rules of Hooks) — before the `isLoading` early return below, not after.
+  const { data: lib } = useFlashLibrary(EVENT_MODULE);
 
   if (isLoading || !data) return <Skeleton className="h-96 lg:col-span-2" />;
 
@@ -478,50 +486,55 @@ function EventEditor({ activeId }: { activeId: number }) {
 
   const period = live.StartDate && live.EndDate ? `${String(live.StartDate).slice(0, 10)} – ${String(live.EndDate).slice(0, 10)}` : "";
   const awards = awardsData?.items ?? [];
+  const bg = resolveFlashAsset(lib, EVENT_MODULE, "asset.activeEvents.bgPanel");
 
   return (
     <form onSubmit={submit} className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_380px]">
-      <GamePanel>
-        <GamePanelHeader
-          icon={CalendarDays}
-          title={
-            <Hotspot active={focused === "Title"} onClick={() => focus("Title")}>
-              {String(live.Title || "—")}
-            </Hotspot>
-          }
-        />
-        <GamePanelBody>
+      <div
+        className="relative overflow-hidden rounded-xl border-2 border-[#8a6a3a]"
+        style={{ backgroundImage: bg ? `url(${bg.url})` : undefined, backgroundSize: "100% 100%", backgroundColor: "#e7dcc3", minHeight: 420 }}
+      >
+        <h3 className="flex h-14 items-center px-4">
+          <CalendarDays className="mr-2 size-4 shrink-0 text-[#ffe9c2]" aria-hidden />
+          <Hotspot active={focused === "Title"} onClick={() => focus("Title")} className="title-plate text-base text-[#ffe9c2]" style={{ textShadow: "0 1px 0 #3a0a0a" }}>
+            {String(live.Title || "—")}
+          </Hotspot>
+        </h3>
+        <div className="flex flex-col gap-3 p-4">
           {!!period && (
-            <Hotspot active={focused === "StartDate" || focused === "EndDate"} onClick={() => focus("StartDate")} className="inline-block p-1">
+            <Hotspot active={focused === "StartDate" || focused === "EndDate"} onClick={() => focus("StartDate")} className="inline-block w-fit p-1">
               <span className="rounded-full bg-sky/15 px-2.5 py-0.5 text-xs font-semibold text-sky">{period}</span>
             </Hotspot>
           )}
-          {!!live.Description && (
-            <Hotspot active={focused === "Description"} onClick={() => focus("Description")} className="block w-full p-2">
-              <p className="text-sm text-ink">{String(live.Description)}</p>
-            </Hotspot>
-          )}
-          {!!live.Content && (
-            <Hotspot active={focused === "Content"} onClick={() => focus("Content")} className="block w-full p-2">
-              <p className="whitespace-pre-line text-sm text-muted">{String(live.Content)}</p>
-            </Hotspot>
-          )}
-          <div className="rounded-xl border border-line/70 bg-night-deep/30 p-3">
-            <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-muted">{t("events.rewards")}</p>
-            <div className="flex flex-wrap gap-2">
+          <div>
+            <FlashImg module={EVENT_MODULE} className="asset.activeEvents.iconContent" alt="Conteúdo:" />
+            {!!live.Description && (
+              <Hotspot active={focused === "Description"} onClick={() => focus("Description")} className="mt-1 block w-full rounded-lg bg-white/40 p-2">
+                <p className="text-sm text-[#4a2e12]">{String(live.Description)}</p>
+              </Hotspot>
+            )}
+            {!!live.Content && (
+              <Hotspot active={focused === "Content"} onClick={() => focus("Content")} className="mt-1 block w-full rounded-lg bg-white/40 p-2">
+                <p className="whitespace-pre-line text-sm text-[#4a2e12]/80">{String(live.Content)}</p>
+              </Hotspot>
+            )}
+          </div>
+          <div className="rounded-xl bg-white/30 p-3">
+            <FlashImg module={EVENT_MODULE} className="asset.activeEvents.iconGive" alt="Recompensas:" />
+            <div className="mt-2 flex flex-wrap gap-2">
               {awards.map((a) => (
                 <AwardChip key={String(a.ID)} row={a} />
               ))}
               {!!live.AwardContent && (
                 <Hotspot active={focused === "AwardContent"} onClick={() => focus("AwardContent")} className="block w-full p-1">
-                  <p className="text-sm text-muted">{String(live.AwardContent)}</p>
+                  <p className="text-sm text-[#4a2e12]/80">{String(live.AwardContent)}</p>
                 </Hotspot>
               )}
-              {awards.length === 0 && !live.AwardContent && <p className="text-xs text-muted">{t("events.rewardsEmpty")}</p>}
+              {awards.length === 0 && !live.AwardContent && <p className="text-xs text-[#4a2e12]/60">{t("events.rewardsEmpty")}</p>}
             </div>
           </div>
-        </GamePanelBody>
-      </GamePanel>
+        </div>
+      </div>
       <Card className="flex max-h-[75vh] flex-col overflow-hidden p-0">
         <div className="flex items-center justify-between gap-2 border-b border-line p-4">
           <h3 className="title-plate text-lg">{t("events.editPanel")}</h3>

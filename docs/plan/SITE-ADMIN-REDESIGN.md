@@ -185,6 +185,17 @@ padrão de referência para as próximas. #2-#5 ficam para sessões seguintes (v
       nenhum clicava pra trocar) — documentado no teste novo pra quem for reusar o padrão nos próximos
       editores. Testes: `apps/admin/src/pages/Events.test.tsx` (+1, total 3). Suite completa (admin 16) e
       typecheck limpos.
+  - [x] **Rebuild rodada 2** (dono rejeitou, ver §0.1): módulo `activeevents` — `bgPanel` (moldura
+        pergaminho/faixa vermelha do card, 353×362, real) como fundo da janela, `iconContent` ("Conteúdo:",
+        verificado pt-BR) e `iconGive` ("Recompensas:", verificado pt-BR) como rótulos reais das seções.
+        **Achado importante**: `game."Active"` (eventos) não está em `packages/db/scripts/export-texts.ts`
+        `TARGETS` — eventos são conteúdo criado pelo próprio admin pra este servidor, não texto do vendor
+        traduzido, então não existe "Original (VN)" pra mostrar aqui (nada pra traduzir; só a fase 2d/2b/2a/
+        2e, que são dado do vendor, precisavam do overlay). Testes: `Events.test.tsx` (3/3, sem mudança —
+        rebuild só trocou a arte do preview, não a estrutura clicável). Suite completa do admin (21,
+        `--maxWorkers=1`) e typecheck limpos. Mesma ressalva de captura: `docs/plan/redesign-shots/event/
+        real-asset-*.png` (PNGs isolados), sem screenshot antes/depois do admin nesta rodada (memória da
+        máquina).
 - [x] Fase 2d — editor visual de Itens/Loja (`/items`). `apps/admin/src/pages/Items.tsx`, rota estática.
       Preview estilo dica de item (ícone grande, nome, badges qualidade/categoria/nível, atributos ATK/DEF/
       AGI/SOR, descrição) + seção "Na loja" com ofertas reais de `game."Shop"` filtradas por
