@@ -193,6 +193,21 @@ padrão de referência para as próximas. #2-#5 ficam para sessões seguintes (v
       por IA, antes só no diálogo genérico) + todos os campos de `items.fields` (seções Geral/Atributos/
       Regras já existentes). Abas Visual/Tabela/Loja. Testes: `apps/admin/src/pages/Items.test.tsx` (3).
       Suite completa (admin 19) e typecheck limpos.
+  - [x] **Rebuild rodada 2** (dono rejeitou, ver §0.1): módulo `coreiconandtip` (dica de item genérica +
+        `shop/view/ShopItemCell.as`) — rótulos reais `GoodsLevel` ("Nível. Lv.", verificado pt-BR),
+        `GoodsType` ("Tipo"), `GoodsTipItemHert` ("Dano"), `GoodsTipItemDefence` ("Armadura"),
+        `GoodsTipItemArmAngle` ("Ângulo") ao lado dos valores de atributo — Sorte não tem bitmap exportado
+        num tamanho utilizável, continua texto puro. Não achei o frame completo da dica em tamanho usável
+        (`GoodsTipBg` é 71×56, parece um slot/canto, não o fundo inteiro); o painel manteve o mesmo
+        tratamento de pergaminho dos editores de Missões/Instâncias por consistência visual, sem inventar
+        um asset que não existe. `items` (resource `Shop_Goods`) ganhou o mesmo tratamento de overlay pt-BR
+        que quests/dungeons/missions/npcs — `withItemOverlay` (API) agora também devolve `<campo>__original`
+        e o PATCH roteia Name/Description/Remark pra `app."Translations"` em vez da coluna crua (commit
+        separado, backend). Testes: `Items.test.tsx` (3/3). Suite completa do admin (21, `--maxWorkers=1`)
+        e do apps/api (121) e typechecks limpos. **Sem captura ao vivo desta rodada** (memória da máquina
+        limitada nesta sessão — não liguei outra instância QA só pra isso; os PNGs reais usados estão em
+        `docs/plan/redesign-shots/item/real-asset-*.png`, mas não há comparação antes/depois do admin como
+        nas duas primeiras janelas).
 - [x] Fase 2e — editor visual de NPCs/Bosses (`/npcs`). `apps/admin/src/pages/Npcs.tsx`, rota estática.
       Preview: ficha de combate (nível, vida, ataque, EXP) + pool de drop real (`DropId` do NPC É o
       `Drop_Condiction.DropID`, mais direto que o de Missões). Arte do NPC (`.swf`) sem prévia — não existe
