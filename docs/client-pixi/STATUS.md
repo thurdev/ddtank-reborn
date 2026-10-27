@@ -4,7 +4,7 @@ Testado com o roteiro automático (`apps/client/scripts/smoke.mjs`, ver
 [COMO-RODAR.md](COMO-RODAR.md)) numa conta de teste nível 30. "OK" = abre e
 funciona sem erro no console; detalhes visuais anotados.
 
-Última atualização: 2026-10-26.
+Última atualização: 2026-10-27.
 
 ## Fluxo principal
 
@@ -526,3 +526,64 @@ mexem em `session/login.ts`).
 - Verificação desta sessão: `pnpm --filter @ddt/flash exec vitest run --maxWorkers=2` → 14/14 ok;
   `pnpm --filter web exec vitest run` → 11/11 ok; `tsc --noEmit` de `@ddt/client` → 119 erros (igual à
   baseline da sessão 2026-10-26, nenhum novo); `tsc --noEmit` de `web` → limpo.
+
+## Achados da sessão 2026-10-27 (tarefa "hall-hover": franja de cor e "troca de imagem" ao passar o
+mouse nos prédios do hall)
+
+- **Causa raiz (confirmada por tag do SWF + comparação bitmap bruto × forma rasterizada)**: em
+  `hall.swf`, `HallStateView.__btnOver/__btnOut` faz `_hallMainView.gotoAndStop(N)` — cada frame (1 a 12,
+  um por prédio) troca o caractere na profundidade 3 (um "highlight": duplicata relida/com brilho do
+  prédio, fundida com margem de glow já no próprio bitmap). Dump de `hall.swf` com
+  `java -jar vendor/_tools/ffdec/ffdec-cli.jar -swf2xml` confirma: **nenhum** desses `PlaceObject2Tag`
+  tem `colorTransform`/filtro/blendMode (`placeFlagHasColorTransform="false"`, sem
+  `placeFlagHasFilterList` — aliás são `PlaceObject2`, que nem suporta filtro) — isso é esperado, não é o
+  bug; a sensação de "brilho" vem inteiramente do alfa já embutido no bitmap. Cada um desses 12
+  caracteres (`DefineShapeTag` 17, 199, 204, 208, 213, 217, 221, 225, 230, 234, 238, 242) é só um
+  retângulo (`StyleChangeRecord`+4×`StraightEdgeRecord`+`EndShapeRecord`) preenchido por **um único
+  bitmap fill não suavizado** (`fillStyleType="67"`) cobrindo o contorno inteiro 1:1 — o padrão clássico
+  de "colar bitmap como forma" no Flash. O bug: `tools/swf-export` rasterizava essa forma com
+  `ffdec -export shape` (que passa pelo renderizador de vetor do FFDec) e esse passo **às vezes** (não
+  sempre — comando idêntico, mesmo SWF, ora sai limpo ora sai corrompido; não achei a causa exata dentro
+  do FFDec, só o sintoma) produz uma franja de cor incoerente nos pixels semi-transparentes da borda
+  (RGB tipo `[119,255,255,30]` do lado de `[52,7,255,39]`, sem relação com a arte original — visível como
+  a "borda azul aleatória" que o dono reportou em Loja/Sala de Jogos/Academia). Comparado lado a lado
+  (`ffdec -export image`, que exporta o bitmap embutido sem passar pelo rasterizador de forma): o mesmo
+  bitmap sai sempre limpo. **"Forja" (prédio = `store_mc`, personagem 225/224) nunca teve a franja** (sua
+  forma rasterizava limpo mesmo nas execuções corrompidas) — mas o relato do dono ("a imagem muda pra
+  outra foto") bate com o mesmo mecanismo: é a mesma técnica de "troca pra uma versão mais clara/com
+  brilho do mesmo prédio" usada nos outros 11, só que sem o ruído de cor chamando atenção, então o efeito
+  pretendido (um resplendor dourado suave sobre o MESMO prédio, confirmado comparando o recorte da arte
+  de fundo padrão — `shapes/13.png`/`images/12.jpg`, 1000x600, um único JPEG da cena inteira — com o
+  bitmap do highlight: é visivelmente a mesma casa, mesma pose, só mais clara/quente) ficava difícil de
+  reconhecer como "brilho" e mais fácil de ler como "trocou de figura".
+- **Fix (`tools/swf-export/src/library.ts`, `tools/swf-export/src/main.ts`)**: quando uma `DefineShape*`
+  é só um retângulo com um único fill de bitmap cobrindo o contorno inteiro (sem stroke, sem outro fill,
+  bounds batendo com o bitmap dentro de 1px — `bitmapRectShapeImg()`), o exportador agora usa o bitmap
+  bruto (`-export image`) como `img` do caractere em vez da forma rasterizada (`-export shape`) — evita o
+  passo do FFDec que (às vezes) introduz a franja, pro padrão de autoria mais comum em UI do Flash (não
+  só nesse SWF). Efeito colateral corrigido junto: `DefineBitsJPEG*` não traz `bitmapWidth`/
+  `bitmapHeight` no `swf2xml` do FFDec (só `DefineBitsLossless*` traz) — o código antigo deixava esses
+  bitmaps com `w:0,h:0`; agora `main.ts` lê o tamanho real de todo bitmap exportado via `sharp` (campo
+  novo `ImageIndex.imageSizes`), usado tanto pro `w/h` do caractere quanto pra validar o "cobre o
+  contorno inteiro" do fix acima. Não mexe no shim (`packages/flash`): o caractere continua `k:"shape"`,
+  só muda o PNG referenciado — zero mudança de comportamento de posicionamento/hit-test.
+- **Verificado fim a fim**: reexportei só `hall`/`hall_old`
+  (`cd tools/swf-export && SWF_EXPORT_OUT=.verify-out npx tsx src/main.ts --only swf/hall --force`,
+  pasta ignorada pelo git) e comparei os 12 prédios antes/depois — print lado a lado (Ruffle fica pra uma
+  sessão com o harness completo de login; aqui usei o próprio cliente PixiJS, antes/depois do fix, com
+  Playwright headless próprio numa conta de teste já existente, hover de verdade via `ddtDebug.find()` +
+  `getBounds()` pra achar o centro de cada `*_mc`): Loja, Sala de Jogos, Academia e Forja (que antes só
+  não mostrava franja por "sorte" de execução) ficaram visualmente idênticos a Igreja/Sociedade/Amizades
+  (que já eram citados como corretos) — um resplendor dourado limpo, sem franja, sem duplicata "chapada".
+  Sem regressão nos outros 8 prédios. **Reexportar na pasta real** (fora do escopo deste agente —
+  confirmar com o dono antes): `cd tools/swf-export && npx tsx src/main.ts --only ui --force` (reexporta
+  todo o set `ui`, ~2min; pra só o hall: `--only swf/hall`). `apps/client/public/assets` é junction
+  read-only — nenhuma escrita foi feita lá nesta sessão.
+- **Teste novo**: `tools/swf-export/src/library.test.ts` (`node --import tsx --test src/*.test.ts` ou
+  `npm test` de `tools/swf-export`) — 5 casos focados em `bitmapRectShapeImg()` com XML sintético no
+  formato do `ffdec -swf2xml` (retângulo+bitmap cobrindo tudo → usa bitmap bruto; bounds não batendo/
+  mais de um fill/com stroke/sem imagem exportada → mantém a forma rasterizada, sem quebrar).
+- Verificação: `pnpm --filter @ddt/flash exec vitest run --maxWorkers=1` → 14/14 ok (shim não mudou,
+  só confirma que nada quebrou); `tools/swf-export`: `npm test` → 5/5 ok; `npx tsc --noEmit --strict`
+  (opções do `tsconfig.base.json`+`packages/flash/tsconfig.json`, já que `tools/swf-export` não tem
+  `tsconfig.json` próprio) nos arquivos tocados → limpo.
