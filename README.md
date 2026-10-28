@@ -94,9 +94,10 @@ Site em `http://localhost:5173`, admin em `http://localhost:5174`. O código do 
 conversores e não vão pro git — passo a passo em [`docs/client-pixi/COMO-RODAR.md`](./docs/client-pixi/COMO-RODAR.md). Detalhes por app em
 `apps/*/README.md` e índice geral em [`docs/README.md`](./docs/README.md).
 
-**Quer mexer no jogo?** → [`docs/guia-dev`](./docs/guia-dev/README.md) — guia prático
+**Quer mexer no jogo? → [Guia do Desenvolvedor](./docs/guia-dev/README.md)** — guia prático
 (trocar ícone, criar item, instância PvE, pacote, evento, debug...) com um tutorial guiado
-pra achar e corrigir um bug real.
+pra achar e corrigir um bug real. Também publicado como site navegável
+(`pnpm --filter docs dev`, ver [`docs/guia-dev/README.md`](./docs/guia-dev/README.md#site-de-documentação-vitepress)).
 
 ```bash
 pnpm typecheck   # checagem TS do monorepo
