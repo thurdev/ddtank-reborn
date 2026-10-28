@@ -94,6 +94,10 @@ Site em `http://localhost:5173`, admin em `http://localhost:5174`. O código do 
 conversores e não vão pro git — passo a passo em [`docs/client-pixi/COMO-RODAR.md`](./docs/client-pixi/COMO-RODAR.md). Detalhes por app em
 `apps/*/README.md` e índice geral em [`docs/README.md`](./docs/README.md).
 
+**Quer mexer no jogo?** → [`docs/guia-dev`](./docs/guia-dev/README.md) — guia prático
+(trocar ícone, criar item, instância PvE, pacote, evento, debug...) com um tutorial guiado
+pra achar e corrigir um bug real.
+
 ```bash
 pnpm typecheck   # checagem TS do monorepo
 pnpm test        # vitest

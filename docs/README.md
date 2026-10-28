@@ -4,6 +4,10 @@
 > Regras de trabalho: [CONTRIBUTING.md](../CONTRIBUTING.md) + [BRANCH-FLOW.md](./BRANCH-FLOW.md).
 > Contexto IA: [AGENTS.md](../AGENTS.md).
 
+> **Quer mexer no jogo (trocar ícone, criar item, mexer em instância PvE, adicionar tela,
+> pacote, evento...)?** → [**Guia do Dev**](./guia-dev/README.md) — guia prático estilo
+> Spigot, com receita por tarefa e um tutorial guiado pra achar e corrigir um bug real.
+
 ## Trabalhar no repo
 | Preciso… | Lê |
 |---|---|
