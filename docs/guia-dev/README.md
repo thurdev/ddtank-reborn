@@ -66,6 +66,12 @@ pnpm --filter docs build     # gera apps/docs/.vitepress/dist
 pnpm --filter docs preview   # serve o build de produção localmente
 ```
 
+**`pnpm --filter docs dev` tem um problema conhecido (upstream, não nosso, não resolvido
+nesta tarefa)**: sob pnpm, o `vitepress-plugin-mermaid` quebra a renderização no servidor
+de dev (ver comentário no topo de `apps/docs/.vitepress/config.ts` com o link do issue e o
+que já foi tentado). `build` + `preview` funcionam perfeitamente (é o que vai pro GitHub
+Pages) — use esses dois pra conferir visualmente enquanto edita; é rápido (~25s de build).
+
 ### Publicar no GitHub Pages
 
 O workflow `.github/workflows/docs.yml` já builda e publica a cada push em `main` que toque

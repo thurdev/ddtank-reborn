@@ -2,6 +2,21 @@ import { createRequire } from "node:module";
 import { defineConfig } from "vitepress";
 import { withMermaid } from "vitepress-plugin-mermaid";
 
+// LIMITAÇÃO CONHECIDA, upstream, não resolvida (github.com/emersonbottero/vitepress-plugin-mermaid/
+// issues/47): sob pnpm estrito, deps aninhadas do mermaid (dayjs, depois cytoscape, depois d3-array —
+// uma cadeia de CJS sem "exports"/"type":"module" limpo) não ganham o interop ESM que o optimizeDeps do
+// Vite normalmente dá via pre-bundle ("does not provide an export named 'default'") — isso quebra
+// `pnpm --filter docs dev` (Vite dev server) no SITE INTEIRO, não só na página do diagrama, porque o
+// componente Mermaid é registrado globalmente pelo tema. Tentado e descartado: alinhar a versão do
+// mermaid ao peerDependency do plugin (10||11, não resolveu sozinho), aliasar dayjs/cytoscape pra suas
+// builds ESM (resolve esses dois, mas só revela o próximo elo da cadeia — d3-array também tem versão
+// legada sem ESM limpo nas deps do mermaid). **`pnpm --filter docs build` + `pnpm --filter docs preview`
+// funcionam perfeitamente** (confirmado com screenshot real — é o que roda em CI/GitHub Pages, via
+// Rollup, que faz o interop CJS→ESM certo) — use build+preview pra conferir visualmente enquanto edita;
+// `dev` continua subindo (hot-reload de Markdown funciona pro HMR em si), mas a página renderizada
+// quebra até alguém corrigir isso upstream ou a receita for migrada pra mermaid renderizado em build-time
+// (SVG estático, sem mermaid.js no cliente) — não resolvido nesta tarefa.
+
 // srcDir (docs/guia-dev) fica FORA de apps/docs — a resolução padrão de "vue"/"vue/server-renderer" do
 // VitePress sobe a partir do arquivo .md sendo processado e nunca alcança apps/docs/node_modules (não é
 // ancestral de docs/guia-dev). O VitePress já resolve isso por conta própria no build do CLIENTE (alias
