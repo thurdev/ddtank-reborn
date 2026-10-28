@@ -1,0 +1,211 @@
+/*
+ * DDTank Reborn — paleta "night sky artillery" (igual apps/web, packages/ui/src/styles.css).
+ * navy = night/night-deep/panel · gold = sun · neon = sky/mint/grape (acentos).
+ */
+
+:root {
+  --ddt-night: #0f1530;
+  --ddt-night-deep: #0a0e22;
+  --ddt-panel: #19214a;
+  --ddt-panel-2: #222c5e;
+  --ddt-line: #303c78;
+  --ddt-ink: #eef0ff;
+  --ddt-muted: #98a1d6;
+
+  --ddt-sun: #ffc531;
+  --ddt-sun-deep: #d99a00;
+  --ddt-coral: #ff5d6c;
+  --ddt-mint: #33e0b0;
+  --ddt-sky: #4fb3ff;
+  --ddt-sky-deep: #1f7fd0;
+  --ddt-grape: #a77bff;
+
+  --ddt-font-display: "Lilita One", "Rubik", system-ui, sans-serif;
+  --ddt-shadow-toy: 0 4px 0 0 rgb(0 0 0 / 0.35);
+  --ddt-shadow-toy-sm: 0 2px 0 0 rgb(0 0 0 / 0.35);
+
+  --vp-font-family-base: "Rubik", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/*
+ * Tokens compartilhados entre claro/escuro (marca, sombra "toy" — nunca mudam com o tema).
+ * O site original (packages/ui/src/styles.css) é "color-scheme: dark" fixo, sem variante clara — por
+ * isso o modo claro aqui é só um "dusk" mais aberto da MESMA paleta (nunca branco puro), pra não quebrar
+ * a identidade visual, mas o toggle claro/escuro do VitePress continua funcionando de verdade (dá pra ver
+ * a diferença — não são os mesmos valores nos dois).
+ */
+:root {
+  --vp-c-brand-1: var(--ddt-sun);
+  --vp-c-brand-2: var(--ddt-sun-deep);
+  --vp-c-brand-3: var(--ddt-sun-deep);
+  --vp-c-brand-soft: rgb(255 197 49 / 0.16);
+
+  --vp-c-default-1: var(--ddt-sky);
+  --vp-c-default-soft: rgb(79 179 255 / 0.16);
+
+  --vp-c-tip-1: var(--ddt-sky);
+  --vp-c-tip-soft: rgb(79 179 255 / 0.16);
+  --vp-c-note-1: var(--ddt-grape);
+  --vp-c-note-soft: rgb(167 123 255 / 0.16);
+  --vp-c-warning-1: var(--ddt-sun);
+  --vp-c-warning-soft: rgb(255 197 49 / 0.16);
+  --vp-c-danger-1: var(--ddt-coral);
+  --vp-c-danger-soft: rgb(255 93 108 / 0.16);
+  --vp-c-success-1: var(--ddt-mint);
+  --vp-c-success-soft: rgb(51 224 176 / 0.16);
+
+  --vp-button-brand-bg: var(--ddt-sun);
+  --vp-button-brand-text: var(--ddt-night-deep);
+  --vp-button-brand-hover-bg: #ffd35e;
+  --vp-button-brand-hover-text: var(--ddt-night-deep);
+  --vp-button-brand-active-bg: var(--ddt-sun-deep);
+
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, var(--ddt-sun) 30%, var(--ddt-coral));
+
+  /* Claro ("dusk"): painéis mais abertos, mesma família de azul — nunca branco puro. */
+  --vp-c-bg: #2a3368;
+  --vp-c-bg-alt: #232c5e;
+  --vp-c-bg-elv: #333d78;
+  --vp-c-bg-soft: #333d78;
+
+  --vp-c-text-1: var(--ddt-ink);
+  --vp-c-text-2: #c7cdf2;
+  --vp-c-text-3: #98a1d6;
+
+  --vp-c-border: #4a5590;
+  --vp-c-divider: #4a5590;
+  --vp-c-gutter: #4a5590;
+
+  --vp-button-alt-bg: #333d78;
+  --vp-button-alt-text: var(--ddt-ink);
+  --vp-button-alt-hover-bg: #3d4888;
+  --vp-button-alt-border: #4a5590;
+
+  --vp-nav-bg-color: rgb(42 51 104 / 0.9);
+  --vp-sidebar-bg-color: #2a3368;
+  --vp-code-block-bg: #202a5c;
+  --vp-code-copy-code-bg: #333d78;
+  --vp-code-copy-code-hover-bg: #3d4888;
+}
+
+/* Escuro ("dark-first", o tema de verdade do site — night sky artillery). */
+.dark {
+  --vp-c-bg: var(--ddt-night);
+  --vp-c-bg-alt: var(--ddt-night-deep);
+  --vp-c-bg-elv: var(--ddt-panel);
+  --vp-c-bg-soft: var(--ddt-panel);
+
+  --vp-c-text-1: var(--ddt-ink);
+  --vp-c-text-2: var(--ddt-muted);
+  --vp-c-text-3: #6d77ad;
+
+  --vp-c-border: var(--ddt-line);
+  --vp-c-divider: var(--ddt-line);
+  --vp-c-gutter: var(--ddt-line);
+
+  --vp-button-alt-bg: var(--ddt-panel-2);
+  --vp-button-alt-text: var(--ddt-ink);
+  --vp-button-alt-hover-bg: var(--ddt-panel);
+  --vp-button-alt-border: var(--ddt-line);
+
+  --vp-nav-bg-color: rgb(15 21 48 / 0.9);
+  --vp-sidebar-bg-color: var(--ddt-night);
+  --vp-code-block-bg: var(--ddt-night-deep);
+  --vp-code-copy-code-bg: var(--ddt-panel-2);
+  --vp-code-copy-code-hover-bg: var(--ddt-panel);
+}
+
+html,
+body {
+  background-color: var(--vp-c-bg);
+}
+
+/* Links no corpo do texto: acento neon (sky), não o amarelo (reservado pra brand/CTA). */
+.vp-doc a {
+  color: var(--ddt-sky);
+  text-decoration-color: rgb(79 179 255 / 0.4);
+}
+.vp-doc a:hover {
+  color: var(--ddt-sun);
+}
+
+/* Título/hero em Lilita One, estilo "placa de jogo". */
+.VPHero .name,
+.VPHero .text,
+h1,
+h2 {
+  font-family: var(--ddt-font-display);
+  letter-spacing: 0.01em;
+}
+
+/* Botões "toy": sombra sólida deslocada, igual aos botões do site. */
+.VPButton {
+  border-radius: 999px !important;
+  font-weight: 700;
+  box-shadow: var(--ddt-shadow-toy-sm);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+.VPButton:active {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+.VPButton.brand {
+  box-shadow: var(--ddt-shadow-toy);
+}
+.VPButton.brand:hover {
+  transform: translateY(-1px);
+}
+
+/* Feature cards da home: painel "night", borda neon no hover. */
+.VPFeature {
+  border-radius: var(--radius, 1rem) !important;
+  background-color: var(--vp-c-bg-elv) !important;
+  border: 1px solid var(--vp-c-border) !important;
+  transition: border-color 150ms ease, transform 150ms ease;
+}
+.VPFeatures .VPFeature:hover {
+  border-color: var(--ddt-sky) !important;
+  transform: translateY(-2px);
+}
+.VPFeature .icon {
+  background-color: var(--vp-c-bg-soft) !important;
+  border-radius: 14px;
+}
+
+/* Custom containers (::: tip/warning/danger) com a mesma paleta. */
+.custom-block.tip {
+  border-color: var(--ddt-sky);
+}
+.custom-block.warning {
+  border-color: var(--ddt-sun);
+}
+.custom-block.danger {
+  border-color: var(--ddt-coral);
+}
+
+/* <details> (dica/resposta do tutorial) com um visual de painel, igual o resto do site. */
+.vp-doc details {
+  background-color: var(--vp-c-bg-elv);
+  border: 1px solid var(--vp-c-border);
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+  margin: 1rem 0;
+}
+.vp-doc details summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--ddt-sun);
+}
+
+/* Sidebar ativo: amarelo (brand), não azul genérico. */
+.VPSidebarItem.is-active > .item .text {
+  color: var(--ddt-sun) !important;
+  font-weight: 600;
+}
+
+/* Logo redondo no topo, combinando com o favicon do site. */
+.VPNavBarTitle .logo,
+.VPSidebarNav .logo {
+  border-radius: 50%;
+}

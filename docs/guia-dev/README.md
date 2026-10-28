@@ -17,7 +17,7 @@ porta de entrada; quando precisar de detalhe fundo, ele linka pra lá.
    caminho de um clique até o banco e de volta, com um exemplo real (comprar na loja).
 3. **[03-api-referencia.md](./03-api-referencia.md)** — referência das APIs mais usadas do
    servidor (`GamePlayer`, salas, motor de luta, script de PvE, templates, pacotes, i18n).
-4. **[04-receitas/](./04-receitas/)** — um arquivo por tarefa comum, cada um testado de
+4. **[04-receitas/](./04-receitas/como-achar-qualquer-coisa.md)** — um arquivo por tarefa comum, cada um testado de
    verdade antes de escrever (veja o cabeçalho de cada arquivo pra saber como testar/saber
    que deu certo):
    - [como-achar-qualquer-coisa.md](./04-receitas/como-achar-qualquer-coisa.md) — comece por
@@ -52,3 +52,28 @@ porta de entrada; quando precisar de detalhe fundo, ele linka pra lá.
 Não repete o que já está em `docs/features/*.md` (que cobre cada sistema em detalhe) nem em
 `docs/client-pixi/*.md` (arquitetura funda do cliente). Este guia referencia os dois o tempo
 todo — leia-os quando a receita apontar.
+
+## Site de documentação (VitePress)
+
+Este mesmo conteúdo (`docs/guia-dev/**`) também é publicado como um site navegável —
+busca, sidebar, tema escuro com a paleta do jogo, diagramas Mermaid renderizados — pelo
+pacote `apps/docs` (VitePress). O Markdown aqui continua sendo a fonte: o site só lê, nunca
+duplica.
+
+```bash
+pnpm --filter docs dev       # http://localhost:5188/ddtank-reborn/ (hot reload)
+pnpm --filter docs build     # gera apps/docs/.vitepress/dist
+pnpm --filter docs preview   # serve o build de produção localmente
+```
+
+### Publicar no GitHub Pages
+
+O workflow `.github/workflows/docs.yml` já builda e publica a cada push em `main` que toque
+`docs/guia-dev/**` ou `apps/docs/**` — falta só **ligar o Pages uma vez** (o workflow não
+mexe em configuração do repositório sozinho):
+
+1. GitHub → **Settings** → **Pages**.
+2. Em **Source**, escolha **GitHub Actions** (não "Deploy from a branch").
+3. Pronto — o próximo push em `main` com mudança em `docs/guia-dev/**`/`apps/docs/**` (ou
+   rodar o workflow manualmente em **Actions → docs → Run workflow**) publica em
+   `https://<usuário>.github.io/ddtank-reborn/`.
